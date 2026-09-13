@@ -1,26 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import {
-  ExternalLink,
-  FileText,
-  RotateCcw,
-  Loader2,
-  AlertCircle,
-  Linkedin,
-  ClipboardPaste,
-  ArrowRight,
-} from 'lucide-react'
 import { toast } from 'react-toastify'
 import { createCVFromLinkedIn } from '@/lib/linkedin/linkedin-to-cv-converter'
 import { createClient } from '@/lib/supabase/client'
 import PaywallCard from '@/components/paywall/PaywallCard'
-import LinkedInProfileMockup, {
-  type ProfileMockupData,
-} from '../LinkedInProfileMockup'
-import SuccessStamp from '@/components/auth/SuccessStamp'
+import Confirmation from '@/components/shell/Confirmation'
+import FlowError from '@/components/shell/FlowError'
+import LinkedInProfileMockup, { type ProfileMockupData } from '../LinkedInProfileMockup'
 import type { OptimizationResults } from './Step3Results'
 import type { LinkedInSections } from './Step2Profile'
 
@@ -32,23 +20,15 @@ interface Props {
 }
 
 const HOW_TO_STEPS = [
-  {
-    icon: ExternalLink,
-    title: 'Öppna LinkedIn',
-    desc: 'Gå till din profil',
-  },
-  {
-    icon: ClipboardPaste,
-    title: 'Klistra in',
-    desc: 'En sektion i taget',
-  },
-  {
-    icon: ArrowRight,
-    title: 'Spara',
-    desc: 'LinkedIn uppdaterar dig',
-  },
+  { title: 'Öppna LinkedIn', desc: 'Gå till din profil.' },
+  { title: 'Klistra in', desc: 'En sektion i taget.' },
+  { title: 'Spara', desc: 'LinkedIn uppdaterar profilen direkt.' },
 ]
 
+/**
+ * Steg 4: bekräftelsen. Titeln säger vad som är klart, och de två vägarna
+ * vidare är öppna LinkedIn eller spara texten som CV hos oss.
+ */
 export default function Step4Done({
   originalSections,
   results,
@@ -64,10 +44,8 @@ export default function Step4Done({
     fullName,
     headline: results.sections.headline?.optimized || originalSections.headline,
     about: results.sections.about?.optimized || originalSections.about,
-    experience:
-      results.sections.experience?.optimized || originalSections.experience,
-    education:
-      results.sections.education?.optimized || originalSections.education,
+    experience: results.sections.experience?.optimized || originalSections.experience,
+    education: results.sections.education?.optimized || originalSections.education,
     skills: results.sections.skills?.optimized || originalSections.skills,
   }
 
@@ -105,7 +83,7 @@ export default function Step4Done({
         user.user_metadata?.full_name
       )
 
-      toast.success('CV sparat! Omdirigerar...', {
+      toast.success('CV sparat', {
         position: 'bottom-center',
         autoClose: 2000,
         hideProgressBar: true,
@@ -116,8 +94,7 @@ export default function Step4Done({
         router.push(`/dashboard/cv-mallar?cv=${cvId}`)
       }, 2000)
     } catch (err) {
-      const msg =
-        err instanceof Error ? err.message : 'Kunde inte spara som CV'
+      const msg = err instanceof Error ? err.message : 'Kunde inte spara som CV'
       const isQuota =
         err instanceof Error &&
         (err as Error & { quotaExceeded?: boolean }).quotaExceeded === true
@@ -133,164 +110,63 @@ export default function Step4Done({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-12 items-start">
-      {/* Vänster: text + CTAs */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="mb-6">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            Steg 4 av 4
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
-            Du är redo
-          </h1>
-          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
-            Din profil är optimerad. Välj hur du vill ta nästa steg.
-          </p>
-        </div>
+    <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+      <div className="space-y-4">
+        <Confirmation
+          title="Din LinkedIn-profil är optimerad"
+          description="Kopiera in texten på LinkedIn, eller spara den som ett CV hos oss."
+          action={
+            <button
+              type="button"
+              onClick={handleOpenLinkedIn}
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+            >
+              Öppna LinkedIn
+            </button>
+          }
+          secondaryAction={
+            <button
+              type="button"
+              onClick={handleSaveAsCV}
+              disabled={isSavingCV}
+              className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:opacity-40"
+            >
+              {isSavingCV ? 'Sparar' : 'Spara som CV i Jobbcoach'}
+            </button>
+          }
+        />
 
-        {/* CTA: Öppna LinkedIn */}
-        <button
-          type="button"
-          onClick={handleOpenLinkedIn}
-          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-xl bg-orange-600 text-white font-bold transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] mb-3"
-        >
-          <span className="flex items-center gap-3 min-w-0">
-            <span className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-              <Linkedin className="w-5 h-5 text-white" strokeWidth={2.2} />
-            </span>
-            <span className="text-left min-w-0">
-              <span className="block text-base font-semibold">
-                Öppna LinkedIn
-              </span>
-              <span className="block text-xs font-medium text-white/85">
-                Klistra in den optimerade texten direkt
-              </span>
-            </span>
-          </span>
-          <ExternalLink className="w-5 h-5 flex-shrink-0" strokeWidth={2.4} />
-        </button>
+        {saveError && quotaExceeded && <PaywallCard variant="cv-antal" />}
 
-        {/* CTA: Spara som CV */}
-        <button
-          type="button"
-          onClick={handleSaveAsCV}
-          disabled={isSavingCV}
-          className="w-full inline-flex items-center justify-between gap-3 px-5 py-4 rounded-xl bg-white border-2 border-orange-200 hover:border-orange-300 hover:bg-orange-50/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-3"
-        >
-          <span className="flex items-center gap-3 min-w-0">
-            <span className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-              {isSavingCV ? (
-                <Loader2
-                  className="w-5 h-5 text-orange-600 animate-spin"
-                  strokeWidth={2.4}
-                />
-              ) : (
-                <FileText className="w-5 h-5 text-neutral-700" strokeWidth={2.2} />
-              )}
-            </span>
-            <span className="text-left min-w-0">
-              <span className="block text-base font-semibold text-neutral-900">
-                {isSavingCV ? 'Sparar...' : 'Spara som CV i Jobbcoach.ai'}
-              </span>
-              <span className="block text-xs font-medium text-neutral-500">
-                Använd optimerad text till ditt CV
-              </span>
-            </span>
-          </span>
-          <ArrowRight
-            className="w-5 h-5 text-neutral-400 flex-shrink-0"
-            strokeWidth={2.4}
-          />
-        </button>
+        {saveError && !quotaExceeded && <FlowError message={saveError} />}
 
-        {saveError && quotaExceeded && (
-          <div className="mb-3">
-            <PaywallCard variant="cv-antal" />
-          </div>
-        )}
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <h3 className="text-sm font-medium text-ink-3">Så uppdaterar du på LinkedIn</h3>
+          <ol className="mt-2 divide-y divide-kant">
+            {HOW_TO_STEPS.map((s, i) => (
+              <li key={s.title} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+                <span className="w-5 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}.</span>
+                <span className="min-w-0">
+                  <span className="block text-kort text-ink-1">{s.title}</span>
+                  <span className="block text-meta text-ink-3">{s.desc}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-        {saveError && !quotaExceeded && (
-          <div
-            className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 flex items-start gap-2"
-            role="alert"
-          >
-            <AlertCircle
-              className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5"
-              strokeWidth={2.2}
-            />
-            <p className="text-xs text-red-800">{saveError}</p>
-          </div>
-        )}
-
-        {/* Tertiary: Optimera ny profil */}
         <button
           type="button"
           onClick={onStartOver}
-          className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-bold text-neutral-600 hover:text-orange-700 transition-colors min-h-[44px]"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
         >
-          <RotateCcw className="w-3.5 h-3.5" strokeWidth={2.4} />
           Optimera en till profil
         </button>
+      </div>
 
-        {/* Så uppdaterar du på LinkedIn */}
-        <div className="mt-8 rounded-xl border border-orange-100 bg-orange-50/40 p-5">
-          <div className="flex items-center gap-2 mb-3">
-            <span
-              className="w-1 h-3 rounded-sm bg-orange-600"
-              aria-hidden="true"
-            />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Så uppdaterar du på LinkedIn
-            </span>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            {HOW_TO_STEPS.map((s, i) => {
-              const Icon = s.icon
-              return (
-                <div
-                  key={s.title}
-                  className="flex flex-col items-center text-center gap-1.5"
-                >
-                  <div className="w-9 h-9 flex items-center justify-center">
-                    <Icon
-                      className="w-5 h-5 text-neutral-700"
-                      strokeWidth={2.4}
-                    />
-                  </div>
-                  <p className="text-xs font-bold text-neutral-900 leading-tight">
-                    {i + 1}. {s.title}
-                  </p>
-                  <p className="text-xs text-neutral-500 leading-tight">
-                    {s.desc}
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Tack-rad */}
-        <p className="mt-6 text-center text-xs text-neutral-500">
-          Tack för att du använder Jobbcoach.ai
-        </p>
-      </motion.div>
-
-      {/* Höger: final-mockup med stämpel */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="relative lg:sticky lg:top-32"
-      >
-        <div className="absolute -top-4 -right-2 z-20 sm:-right-4">
-          <SuccessStamp text="Optimerad" rotation={-8} />
-        </div>
-        <LinkedInProfileMockup data={finalData} variant="optimized" />
-      </motion.div>
+      <div className="lg:sticky lg:top-4">
+        <LinkedInProfileMockup data={finalData} variant="optimized" badge="Din nya profil" />
+      </div>
     </div>
   )
 }

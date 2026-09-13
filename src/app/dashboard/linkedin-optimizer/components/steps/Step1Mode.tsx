@@ -1,17 +1,16 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  ArrowRight,
-  Target,
-  Compass,
-  Lock,
-  FileText,
-  Edit3,
-  Upload,
-} from 'lucide-react'
 import Link from 'next/link'
-import LinkedInProfileMockup from '../LinkedInProfileMockup'
+import ChoiceCard from '@/components/shell/ChoiceCard'
+import Segment from '@/components/shell/Segment'
+import MarginPlate from '@/components/shell/MarginPlate'
+import { IlluPlattaPresentation } from '@/components/illustrations/TradenScener'
+import {
+  IkonCv,
+  IkonLank,
+  IkonMatchning,
+  IkonSynlig,
+} from '@/components/illustrations/Ikoner'
 import CvSelectorList from '../CvSelectorList'
 
 export type OptimizationMode = 'stand_out' | 'target_role'
@@ -32,59 +31,12 @@ interface Props {
   onLanguageChange: (lang: Language) => void
   onSourceModeChange: (mode: SourceMode) => void
   onCvSelect: (cvId: string) => void
-  onNext: () => void
 }
 
-const SOURCE_OPTIONS = [
-  {
-    id: 'cv' as const,
-    icon: FileText,
-    title: 'Skapa från mitt CV',
-    desc: 'Vi använder ditt sparade CV och skapar en LinkedIn-profil som matchar. Du kan redigera fritt innan vi optimerar.',
-    bullets: [
-      'Snabbast, autoifyllt på sekunden',
-      'Inga uppfunna fakta',
-      'Du redigerar innan optimering',
-    ],
-  },
-  {
-    id: 'manual' as const,
-    icon: Edit3,
-    title: 'Förbättra befintlig LinkedIn',
-    desc: 'Klistra in dina nuvarande LinkedIn-sektioner. Vi förbättrar formuleringar och struktur utan att hitta på något.',
-    bullets: [
-      'Behåll din röst',
-      'Före/efter-jämförelse',
-      'Optimerar för ATS och rekryterare',
-    ],
-  },
-]
-
-const MODES = [
-  {
-    id: 'stand_out' as const,
-    icon: Compass,
-    title: 'Stå ut i mängden',
-    desc: 'Vi optimerar din profil för att fånga rekryterares blick generellt, bredd, tydlighet och slagkraft.',
-    bullets: [
-      'Säljer din unika styrka',
-      'Funkar för flera roller',
-      'Tar bort buzzwords',
-    ],
-  },
-  {
-    id: 'target_role' as const,
-    icon: Target,
-    title: 'Sikta på en specifik roll',
-    desc: 'Vi anpassar varje sektion mot rollen du har i sikte, nyckelord, ton och prioriteringar.',
-    bullets: [
-      'Skräddarsyr för rollen',
-      'Optimerar nyckelord',
-      'Ökar matchningsgrad',
-    ],
-  },
-]
-
+/**
+ * Steg 1: varifrån texten kommer och vad optimeringen siktar mot. Ett steg,
+ * en fråga i taget. Fortsätt ligger i FlowShell-foten, inte här.
+ */
 export default function Step1Mode({
   mode,
   targetRole,
@@ -98,331 +50,140 @@ export default function Step1Mode({
   onLanguageChange,
   onSourceModeChange,
   onCvSelect,
-  onNext,
 }: Props) {
   const trimmedRole = targetRole.trim()
-  const cvOk = sourceMode !== 'cv' || !!selectedCvId
-  const canProceed =
-    cvOk &&
-    (mode === 'stand_out' || (mode === 'target_role' && trimmedRole.length >= 3))
+  const roleTooShort = trimmedRole.length > 0 && trimmedRole.length < 3
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-start">
-      {/* Vänster: val */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="mb-6">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            Steg 1 av 4
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
-            Hur vill du börja?
-          </h1>
-          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
-            Välj utgångspunkt, vi anpassar resten av flödet efter ditt val.
-          </p>
-        </div>
+    <div className="space-y-6">
+      <div>
+        <p className="text-steg uppercase text-ink-3">Steg 1 av 4</p>
+        <h2 className="text-fraga text-ink-1">Hur vill du börja?</h2>
+        <p className="mt-2 text-sm text-ink-2">
+          Valet styr vad vi fyller fälten med i nästa steg.
+        </p>
+      </div>
 
-        {/* Source-kort */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-5">
-          {SOURCE_OPTIONS.map((s) => {
-            const isActive = sourceMode === s.id
-            const Icon = s.icon
-            const isDisabled = s.id === 'cv' && !hasCvs
-            return (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => !isDisabled && onSourceModeChange(s.id)}
-                disabled={isDisabled}
-                className={`relative text-left p-4 sm:p-5 rounded-xl border-2 transition-all min-h-[180px] ${
-                  isDisabled
-                    ? 'border-neutral-200 bg-neutral-50/60 opacity-60 cursor-not-allowed'
-                    : isActive
-                    ? 'border-orange-300 bg-orange-50/60'
-                    : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
-                }`}
-              >
-                <div className="flex items-center gap-2.5 mb-3">
-                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
-                    <Icon
-                      className={`w-5 h-5 ${
-                        isActive ? 'text-orange-600' : 'text-neutral-500'
-                      }`}
-                      strokeWidth={2.2}
-                    />
-                  </div>
-                  {isActive && !isDisabled && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white bg-orange-600">
-                      Vald
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-base font-semibold text-neutral-900 leading-snug mb-1">
-                  {s.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-3">
-                  {s.desc}
-                </p>
-                <ul className="space-y-1">
-                  {s.bullets.map((b) => (
-                    <li
-                      key={b}
-                      className="text-xs text-neutral-700 flex items-start gap-1.5"
-                    >
-                      <span
-                        className="mt-1 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
-                        aria-hidden="true"
-                      />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                {isDisabled && (
-                  <p className="mt-3 text-xs font-semibold text-neutral-500">
-                    Du har inget CV uppladdat ännu.
-                  </p>
-                )}
-              </button>
-            )
-          })}
-        </div>
-
-        {/* CV-väljare när source = cv */}
-        <AnimatePresence>
-          {sourceMode === 'cv' && hasCvs && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mb-6"
-            >
-              <div className="rounded-xl border border-orange-100 bg-orange-50/30 p-4 sm:p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <span
-                    className="w-1 h-3 rounded-sm bg-orange-600"
-                    aria-hidden="true"
-                  />
-                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-                    Välj CV att utgå ifrån
-                  </span>
-                </div>
-                <CvSelectorList
-                  selectedCvId={selectedCvId}
-                  onSelect={onCvSelect}
-                  lockedCvIds={lockedCvIds}
-                />
-              </div>
-            </motion.div>
-          )}
-
-          {sourceMode === 'cv' && !hasCvs && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden mb-6"
-            >
-              <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-4 sm:p-5 flex items-start gap-3">
-                <Upload
-                  className="w-5 h-5 text-orange-700 flex-shrink-0 mt-0.5"
-                  strokeWidth={2.2}
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-neutral-900 mb-1">
-                    Du har inget CV uppladdat ännu
-                  </p>
-                  <p className="text-xs text-neutral-600 leading-relaxed mb-2">
-                    Ladda upp ditt CV först så fyller vi i LinkedIn-fälten åt dig.
-                  </p>
-                  <Link
-                    href="/dashboard/profil/cv"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors"
-                  >
-                    Ladda upp CV
-                    <ArrowRight className="w-3 h-3" strokeWidth={2.4} />
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Optimeringsmål */}
-        <div className="mb-5">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
-            Optimeringsmål
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            {MODES.map((m) => {
-              const isActive = mode === m.id
-              const Icon = m.icon
-              return (
-                <button
-                  key={m.id}
-                  type="button"
-                  onClick={() => onModeChange(m.id)}
-                  className={`relative text-left p-4 sm:p-5 rounded-xl border-2 transition-all min-h-[180px] ${
-                    isActive
-                      ? 'border-orange-300 bg-orange-50/60'
-                      : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <div className="w-9 h-9 flex items-center justify-center flex-shrink-0">
-                      <Icon
-                        className={`w-5 h-5 ${
-                          isActive ? 'text-orange-600' : 'text-neutral-500'
-                        }`}
-                        strokeWidth={2.2}
-                      />
-                    </div>
-                    {isActive && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white bg-orange-600">
-                        Vald
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-base font-semibold text-neutral-900 leading-snug mb-1">
-                    {m.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-3">
-                    {m.desc}
-                  </p>
-                  <ul className="space-y-1">
-                    {m.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="text-xs text-neutral-700 flex items-start gap-1.5"
-                      >
-                        <span
-                          className="mt-1 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
-                          aria-hidden="true"
-                        />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Target role-input */}
-        {mode === 'target_role' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            transition={{ duration: 0.3 }}
-            className="mb-6 overflow-hidden"
-          >
-            <label
-              htmlFor="targetRole"
-              className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
-            >
-              Vilken roll siktar du på?
-            </label>
-            <input
-              id="targetRole"
-              type="text"
-              value={targetRole}
-
-              enterKeyHint="done"
-
-              inputMode="text"
-
-              autoComplete="organization-title"
-              onChange={(e) => onTargetRoleChange(e.target.value)}
-              placeholder="t.ex. Senior Product Manager"
-              className="block w-full min-h-[44px] px-4 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"
-            />
-            {trimmedRole.length > 0 && trimmedRole.length < 3 && (
-              <p className="mt-1.5 text-xs text-orange-700">
-                Skriv minst 3 tecken så vi kan optimera mot rätt roll.
-              </p>
-            )}
-          </motion.div>
-        )}
-
-        {/* Språkväljare */}
-        <div className="mb-6">
-          <div className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-2">
-            Språk
-          </div>
-          <div className="inline-flex bg-neutral-100 rounded-xl p-1">
-            {(['sv', 'en'] as const).map((lang) => (
-              <button
-                key={lang}
-                type="button"
-                onClick={() => onLanguageChange(lang)}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                  language === lang
-                    ? 'bg-white text-neutral-900 shadow-sm'
-                    : 'text-neutral-500 hover:text-neutral-700'
-                }`}
-              >
-                {lang === 'sv' ? 'Svenska' : 'English'}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Nästa-knapp */}
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-        >
-          <span>Fortsätt till profil</span>
-          <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
-        </button>
-
-        {sourceMode === 'cv' && hasCvs && !selectedCvId && (
-          <p className="mt-2 text-xs text-neutral-500">
-            Välj ett CV ovan för att fortsätta.
-          </p>
-        )}
-      </motion.div>
-
-      {/* Höger: skeleton-mockup */}
-      <motion.div
-        initial={{ opacity: 0, x: 16 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="hidden lg:block lg:sticky lg:top-32"
-      >
-        <div className="mb-3 flex items-center gap-2">
-          <Lock className="w-3.5 h-3.5 text-neutral-400" strokeWidth={2.2} />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
-            Förhandsvisning · skapas i nästa steg
-          </span>
-        </div>
-        <LinkedInProfileMockup
-          data={{}}
-          variant="skeleton"
-          showGlow={false}
-          className="opacity-90"
+      <div className="space-y-2" role="radiogroup" aria-label="Utgångspunkt">
+        <ChoiceCard
+          selected={sourceMode === 'cv'}
+          onSelect={() => onSourceModeChange('cv')}
+          disabled={!hasCvs}
+          variant="featured"
+          eyebrow="Rekommenderas"
+          leading={
+            <MarginPlate>
+              <IlluPlattaPresentation size={48} />
+            </MarginPlate>
+          }
+          title="Utgå från mitt CV"
+          description="Vi fyller LinkedIn-fälten med det som redan står i ditt CV. Du redigerar fritt innan vi optimerar."
+          meta={hasCvs ? undefined : 'Du har inget CV uppladdat ännu'}
         />
-      </motion.div>
+        <ChoiceCard
+          selected={sourceMode === 'manual'}
+          onSelect={() => onSourceModeChange('manual')}
+          variant="plain"
+          leading={<IkonLank className="text-ink-2" />}
+          title="Klistra in min nuvarande LinkedIn"
+          description="Vi skärper formuleringar och struktur utan att hitta på något du inte skrivit."
+        />
+      </div>
 
-      {/* Mobil-hint istället för mockup */}
-      <div className="lg:hidden -mt-2 mb-2">
-        <div className="rounded-xl border border-orange-100 bg-orange-50/40 px-4 py-3 flex items-center gap-3">
-          <span className="text-2xl" aria-hidden="true">
-            👀
-          </span>
-          <p className="text-xs text-neutral-700 leading-snug">
-            Du kommer se din LinkedIn-profil byggas upp <strong>live</strong>{' '}
-            medan du fyller i nästa steg.
-          </p>
+      {sourceMode === 'cv' && hasCvs && (
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <h3 className="mb-2 text-sm font-medium text-ink-3">
+            Välj CV att utgå ifrån
+          </h3>
+          <CvSelectorList
+            selectedCvId={selectedCvId}
+            onSelect={onCvSelect}
+            lockedCvIds={lockedCvIds}
+          />
+        </section>
+      )}
+
+      {sourceMode === 'cv' && !hasCvs && (
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <div className="flex items-start gap-3">
+            <IkonCv className="mt-0.5 shrink-0 text-ink-2" />
+            <div className="min-w-0">
+              <p className="text-kort text-ink-1">Du har inget CV ännu</p>
+              <p className="mt-1 text-meta text-ink-3">
+                Ladda upp ditt CV först så fyller vi i LinkedIn-fälten åt dig.
+              </p>
+              <Link
+                href="/dashboard/profil/cv"
+                className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+              >
+                Ladda upp CV
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <div>
+        <h3 className="mb-2 text-sm font-medium text-ink-3">Vad ska vi optimera mot?</h3>
+        <div className="space-y-2" role="radiogroup" aria-label="Optimeringsmål">
+          <ChoiceCard
+            selected={mode === 'stand_out'}
+            onSelect={() => onModeChange('stand_out')}
+            variant="plain"
+            leading={<IkonSynlig className="text-ink-2" />}
+            title="Stå ut i mängden"
+            description="Bredd och slagkraft. Vi säljer din unika styrka och rensar bort buzzwords."
+          />
+          <ChoiceCard
+            selected={mode === 'target_role'}
+            onSelect={() => onModeChange('target_role')}
+            variant="plain"
+            leading={<IkonMatchning className="text-ink-2" />}
+            title="Sikta på en specifik roll"
+            description="Vi anpassar nyckelord, ton och prioriteringar mot rollen du har i sikte."
+          />
         </div>
+      </div>
+
+      {mode === 'target_role' && (
+        <label className="block">
+          <span className="mb-1 block text-sm font-medium text-ink-2">
+            Vilken roll siktar du på?
+          </span>
+          <input
+            id="targetRole"
+            type="text"
+            value={targetRole}
+            enterKeyHint="done"
+            inputMode="text"
+            autoComplete="organization-title"
+            onChange={(e) => onTargetRoleChange(e.target.value)}
+            placeholder="Senior Product Manager"
+            className={`h-11 w-full rounded-lg border bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 ${
+              roleTooShort ? 'border-fel' : 'border-kant'
+            }`}
+          />
+          <span
+            className={`mt-1 block text-meta ${roleTooShort ? 'text-fel' : 'text-ink-3'}`}
+          >
+            {roleTooShort
+              ? 'Skriv minst tre tecken så vi kan optimera mot rätt roll.'
+              : 'Används bara för att välja nyckelord och ton.'}
+          </span>
+        </label>
+      )}
+
+      <div>
+        <h3 className="mb-2 text-sm font-medium text-ink-3">Språk</h3>
+        <Segment
+          value={language}
+          onChange={onLanguageChange}
+          label="Språk för den optimerade profilen"
+          options={[
+            { value: 'sv', label: 'Svenska' },
+            { value: 'en', label: 'English' },
+          ]}
+        />
       </div>
     </div>
   )

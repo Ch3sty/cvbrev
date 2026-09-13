@@ -1,13 +1,6 @@
 'use client';
 
-import { Check, X } from 'lucide-react';
-import {
-  AVATAR_BG,
-  AVATAR_FG,
-  HUB_GRADIENT,
-  initialFor,
-  type CandidateInterest,
-} from './hubTypes';
+import { initialFor, type CandidateInterest } from './hubTypes';
 
 function relativeTime(iso: string): string {
   const t = Date.parse(iso);
@@ -28,21 +21,25 @@ function relativeTime(iso: string): string {
 }
 
 /**
- * En rad i konversationslistan. Formen växlar med status:
- * pending → accept/avböj direkt i raden, accepted → snippet + oläst,
- * declined → dämpad med "Avböjd"-pill.
+ * En rad i konversationslistan (Tråden, "Hubbar och listor").
+ *
+ * Rad = 32 px cirkel i insunken med initial, namn, senaste raden, tid till
+ * höger. Olästa markeras med en punkt i ink-1 och vikt 500, aldrig orange.
+ * Vald rad = bg-insunken. Status skrivs som text: väntar i varning, avböjd i
+ * ink-3. Inga piller, inga knappar i raden: acceptera/avböj bor i
+ * PendingRequestPanel så att vyn har en primär handling.
  */
 export default function ConversationListItem({
   interest,
   selected,
   busy,
   onSelect,
-  onRespond,
 }: {
   interest: CandidateInterest;
   selected: boolean;
   busy: boolean;
   onSelect: () => void;
+  /** Behålls i kontraktet, men raden visar inga knappar längre. */
   onRespond?: (action: 'accept' | 'decline') => void;
 }) {
   const { status } = interest;
@@ -56,102 +53,51 @@ export default function ConversationListItem({
     <button
       type="button"
       onClick={onSelect}
-      className={`relative w-full text-left px-3.5 py-3 transition-colors ${
-        isDeclined ? 'opacity-55' : ''
-      } ${
-        selected
-          ? 'bg-orange-50/70'
-          : isPending
-            ? 'bg-orange-50/40 hover:bg-orange-50/60'
-            : 'hover:bg-slate-50'
-      }`}
-      style={
-        isPending
-          ? { boxShadow: 'inset 3px 0 0 0 #F97316' }
-          : undefined
-      }
+      aria-current={selected ? 'true' : undefined}
+      aria-busy={busy || undefined}
+      className={`flex w-full min-h-14 items-center gap-3 px-4 py-3 text-left transition-colors ${
+        selected ? 'bg-insunken' : 'hover:bg-insunken'
+      } ${isDeclined ? 'text-ink-3' : ''}`}
     >
-      <div className="flex items-start gap-3">
-        <span
-          className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-[15px] font-bold"
-          style={{ background: AVATAR_BG, color: AVATAR_FG }}
-          aria-hidden="true"
-        >
-          {initialFor(interest.companyName)}
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-insunken text-meta font-medium text-ink-2"
+        aria-hidden="true"
+      >
+        {initialFor(interest.companyName)}
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="flex items-center gap-2">
+          {unread && (
+            <span className="h-2 w-2 shrink-0 rounded-full bg-ink-1" aria-hidden="true" />
+          )}
+          <span
+            className={`truncate text-sm font-medium ${isDeclined ? 'text-ink-3' : 'text-ink-1'}`}
+          >
+            {interest.companyName}
+          </span>
+          <span className="ml-auto shrink-0 text-meta text-ink-3">
+            {relativeTime(interest.respondedAt ?? interest.createdAt)}
+          </span>
         </span>
 
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            {isPending && (
-              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-orange-500" aria-hidden="true" />
-            )}
-            <span
-              className={`text-[13.5px] text-slate-900 truncate ${
-                unread ? 'font-extrabold' : 'font-bold'
-              }`}
-            >
-              {interest.companyName}
-            </span>
-            <span className="ml-auto flex-shrink-0 text-[11px] text-slate-400">
-              {relativeTime(interest.respondedAt ?? interest.createdAt)}
-            </span>
-          </div>
-
+        <span className="mt-0.5 flex items-center gap-2">
           {isDeclined ? (
-            <span className="inline-flex mt-1 items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-[11px] font-bold">
-              Avböjd
-            </span>
+            <span className="text-meta text-ink-3">Avböjd</span>
+          ) : isPending ? (
+            <span className="text-meta text-varning">Väntar på ditt svar</span>
           ) : (
-            <div className="flex items-center gap-2 mt-0.5">
-              <p
-                className={`text-[12.5px] truncate flex-1 ${
-                  unread ? 'text-slate-800 font-semibold' : 'text-slate-500'
-                }`}
-              >
-                {snippet}
-              </p>
-              {unread && (
-                <span
-                  className="flex-shrink-0 inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-white text-[11px] font-bold"
-                  style={{ background: HUB_GRADIENT }}
-                >
-                  {interest.unreadCount}
-                </span>
-              )}
-            </div>
+            <span
+              className={`truncate text-meta ${unread ? 'font-medium text-ink-1' : 'text-ink-3'}`}
+            >
+              {snippet}
+            </span>
           )}
-
-          {isPending && onRespond && (
-            <div className="flex items-center gap-2 mt-2.5">
-              <button
-                type="button"
-                disabled={busy}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRespond('accept');
-                }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[12px] font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
-                style={{ background: HUB_GRADIENT }}
-              >
-                <Check className="w-3.5 h-3.5" aria-hidden="true" />
-                Acceptera
-              </button>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRespond('decline');
-                }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 text-[12px] font-bold hover:bg-slate-50 transition-colors disabled:opacity-50"
-              >
-                <X className="w-3.5 h-3.5" aria-hidden="true" />
-                Avböj
-              </button>
-            </div>
+          {unread && (
+            <span className="sr-only">{interest.unreadCount} olästa</span>
           )}
-        </div>
-      </div>
+        </span>
+      </span>
     </button>
   );
 }

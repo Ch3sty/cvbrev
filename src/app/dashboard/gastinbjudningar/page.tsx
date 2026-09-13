@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import HeroSection from '@/components/guest-invitations/HeroSection';
 import QuickInviteForm from '@/components/guest-invitations/QuickInviteForm';
 import BenefitsShowcase from '@/components/guest-invitations/BenefitsShowcase';
@@ -99,8 +98,8 @@ export default function GastinbjudningarPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
+      <div className="mx-auto w-full max-w-7xl p-3 sm:p-4 md:p-6">
+        <LoadingSkeleton variant="card" count={2} label="Hämtar dina inbjudningar" />
       </div>
     );
   }
@@ -131,11 +130,7 @@ export default function GastinbjudningarPage() {
       <SimplifiedJourney />
 
       {/* Detailed Invitation Tracking */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
+      <div>
         <GuestInvitationCard
           allowance={{
             base_allowance: rewardStatus?.guestInvitations?.total || 5,
@@ -172,7 +167,7 @@ export default function GastinbjudningarPage() {
             }
           }}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }

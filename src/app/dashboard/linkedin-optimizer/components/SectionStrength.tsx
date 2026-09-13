@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { useMemo } from 'react'
 
 interface Props {
@@ -48,7 +47,7 @@ function calculateStrength(
   } else if (len <= optimalMax) {
     lengthScore = 60 + ((len - optimalMin) / (optimalMax - optimalMin)) * 30
   } else {
-    // För lång → sänker
+    // För lång, sänker
     const overflow = (len - optimalMax) / optimalMax
     lengthScore = Math.max(70, 90 - overflow * 30)
   }
@@ -91,18 +90,16 @@ function calculateStrength(
   return { score: finalScore, reason, color }
 }
 
-const COLOR_BAR = {
-  red: 'bg-red-600',
-  orange: 'bg-orange-600',
-  yellow: 'bg-amber-500',
-  green: 'bg-emerald-600',
-}
-
+/**
+ * Styrkan är en 2 px linje i ink-1 och en rad text. Tonen sitter i texten,
+ * aldrig i linjen: fel under 30, varning under 55, ink däröver, positiv när
+ * sektionen är stark.
+ */
 const COLOR_TEXT = {
-  red: 'text-red-700',
-  orange: 'text-orange-700',
-  yellow: 'text-amber-700',
-  green: 'text-emerald-700',
+  red: 'text-fel',
+  orange: 'text-varning',
+  yellow: 'text-ink-2',
+  green: 'text-positiv',
 }
 
 export default function SectionStrength({
@@ -117,24 +114,24 @@ export default function SectionStrength({
   )
 
   return (
-    <div className="space-y-1.5">
-      <div className="h-1.5 rounded-full bg-neutral-100 overflow-hidden">
-        <motion.div
-          animate={{ width: `${score}%` }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className={`h-full rounded-full ${COLOR_BAR[color]}`}
+    <div className="space-y-2">
+      <div
+        className="h-0.5 w-full bg-kant"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={score}
+        aria-label="Sektionens styrka"
+      >
+        <div
+          className="h-full bg-ink-1 transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
+          style={{ width: `${score}%` }}
         />
       </div>
       {!compact && (
         <div className="flex items-center justify-between">
-          <span
-            className={`text-xs font-bold ${COLOR_TEXT[color]} leading-none`}
-          >
-            {reason}
-          </span>
-          <span className="text-xs font-bold text-neutral-400 tabular-nums leading-none">
-            {score}%
-          </span>
+          <span className={`text-meta font-medium ${COLOR_TEXT[color]}`}>{reason}</span>
+          <span className="text-meta tabular-nums text-ink-3">{score}%</span>
         </div>
       )}
     </div>

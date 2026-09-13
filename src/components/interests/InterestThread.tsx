@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Send } from 'lucide-react';
 
 interface ThreadMessage {
   id: string;
@@ -81,29 +80,28 @@ export default function InterestThread({ interestId }: { interestId: string }) {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-      <div className="max-h-64 overflow-y-auto px-3 py-3 space-y-2 bg-slate-50/40">
+    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+      <div className="max-h-64 space-y-2 overflow-y-auto px-3 py-3">
         {messages === null ? (
-          <p className="text-[12.5px] text-slate-400 text-center py-4">Laddar meddelanden...</p>
+          <p className="py-4 text-center text-meta text-ink-3">Hämtar meddelanden</p>
         ) : messages.length === 0 ? (
-          <p className="text-[12.5px] text-slate-400 text-center py-4">
-            Inga meddelanden ännu. Skriv det första.
+          <p className="py-4 text-center text-meta text-ink-3">
+            Inga meddelanden än. Skriv det första.
           </p>
         ) : (
           messages.map((m) => (
             <div key={m.id} className={`flex ${m.mine ? 'justify-end' : 'justify-start'}`}>
               <div className="max-w-[80%]">
                 <div
-                  className={`rounded-2xl px-3 py-2 text-[13px] leading-relaxed ${
+                  className={`whitespace-pre-wrap break-words rounded-xl px-3 py-2 text-sm leading-[22px] ${
                     m.mine
-                      ? 'text-white rounded-br-sm'
-                      : 'bg-white border border-slate-200 text-slate-700 rounded-bl-sm'
+                      ? 'bg-ink-1 text-white'
+                      : 'border border-kant bg-insunken text-ink-2'
                   }`}
-                  style={m.mine ? { background: 'linear-gradient(135deg, #F97316, #DC2626)' } : undefined}
                 >
                   {m.body}
                 </div>
-                <p className={`text-[10.5px] text-slate-400 mt-0.5 ${m.mine ? 'text-right' : ''}`}>
+                <p className={`mt-0.5 text-meta text-ink-3 ${m.mine ? 'text-right' : ''}`}>
                   {timeLabel(m.createdAt)}
                 </p>
               </div>
@@ -114,12 +112,12 @@ export default function InterestThread({ interestId }: { interestId: string }) {
       </div>
 
       {error && (
-        <p className="px-3 pt-2 text-[12px] text-red-600" role="alert">
+        <p className="px-3 pt-2 text-meta text-fel" role="alert">
           {error}
         </p>
       )}
 
-      <div className="flex items-end gap-2 p-2.5 border-t border-slate-100">
+      <div className="flex items-end gap-2 border-t border-kant p-2.5">
         <textarea
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
@@ -130,17 +128,16 @@ export default function InterestThread({ interestId }: { interestId: string }) {
             }
           }}
           rows={1}
-          placeholder="Skriv ett meddelande..."
-          className="flex-1 resize-none rounded-xl border border-slate-200 px-3 py-2 text-[13px] text-slate-700 focus:outline-none focus:border-orange-300 max-h-24"
+          enterKeyHint="send"
+          placeholder="Skriv ett meddelande"
+          className="max-h-24 min-h-11 flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
         <button
           type="button"
           onClick={send}
           disabled={sending || !draft.trim()}
-          className="flex-shrink-0 min-h-[40px] px-3.5 rounded-xl text-white text-[13px] font-bold inline-flex items-center gap-1.5 disabled:opacity-40 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
         >
-          <Send className="w-3.5 h-3.5" aria-hidden="true" />
           Skicka
         </button>
       </div>

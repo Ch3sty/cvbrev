@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Wrench, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface SkillCloudProps {
   skills: string[];
@@ -11,9 +9,8 @@ interface SkillCloudProps {
 }
 
 /**
- * Kompetens-cloud med gradient-djup pa pillerna. De forsta N visas direkt,
- * resten dyker upp via "Visa alla". Pillerna far en orange tinge som tonar
- * fran starkare till svagare for att skapa visuellt djup.
+ * Kompetenserna ur CV:t som text i kant-ramade rutor. De första N visas
+ * direkt, resten efter "Visa alla". Ingen orange, inga piller, ingen rörelse.
  */
 export default function SkillCloud({ skills, initialCount = 8 }: SkillCloudProps) {
   const [showAll, setShowAll] = useState(false);
@@ -22,82 +19,31 @@ export default function SkillCloud({ skills, initialCount = 8 }: SkillCloudProps
 
   return (
     <section>
-      <header className="flex items-center justify-between gap-2 mb-3">
-        <div className="flex items-center gap-2">
-          <Wrench className="w-3.5 h-3.5 text-neutral-500" strokeWidth={2.25} />
-          <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-            Kompetenser
-          </span>
-          <span className="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-xs font-bold tabular-nums">
-            {skills.length}
-          </span>
-        </div>
+      <header className="mb-3 flex items-center gap-2">
+        <span className="text-sm font-medium text-ink-3">Kompetenser</span>
+        <span className="text-meta tabular-nums text-ink-3">{skills.length}</span>
       </header>
 
-      <div className="flex flex-wrap gap-1.5">
-        {visible.map((skill, i) => {
-          // Gradient-djup: forsta 5 starkare orange, sen avtagande till slate
-          const intensity = computeIntensity(i, skills.length);
-          return (
-            <motion.span
-              key={`${skill}-${i}`}
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: Math.min(i * 0.02, 0.3), duration: 0.2 }}
-              className="px-2.5 py-1 rounded-full text-xs font-medium border"
-              style={{
-                background: intensity.bg,
-                color: intensity.text,
-                borderColor: intensity.border,
-              }}
-            >
-              {skill}
-            </motion.span>
-          );
-        })}
-      </div>
+      <ul className="flex flex-wrap gap-2">
+        {visible.map((skill, i) => (
+          <li
+            key={`${skill}-${i}`}
+            className="rounded-lg border border-kant px-3 py-1.5 text-sm text-ink-1"
+          >
+            {skill}
+          </li>
+        ))}
+      </ul>
 
       {hasMore && (
         <button
+          type="button"
           onClick={() => setShowAll((v) => !v)}
-          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+          className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
         >
-          {showAll ? (
-            <>
-              <ChevronUp className="w-3.5 h-3.5" />
-              Visa färre
-            </>
-          ) : (
-            <>
-              <ChevronDown className="w-3.5 h-3.5" />
-              Visa alla {skills.length}
-            </>
-          )}
+          {showAll ? 'Visa färre' : `Visa alla ${skills.length}`}
         </button>
       )}
     </section>
   );
-}
-
-function computeIntensity(index: number, _total: number) {
-  // De forsta 5: stark orange. 5-10: medel. resten: neutral slate.
-  if (index < 5) {
-    return {
-      bg: 'rgba(249, 115, 22, 0.12)', // orange-500 @ 12%
-      text: '#C2410C', // orange-700
-      border: 'rgba(249, 115, 22, 0.3)',
-    };
-  }
-  if (index < 10) {
-    return {
-      bg: 'rgba(249, 115, 22, 0.06)',
-      text: '#9A3412', // orange-800 men dimmer
-      border: 'rgba(249, 115, 22, 0.18)',
-    };
-  }
-  return {
-    bg: '#F1F5F9', // neutral-100
-    text: '#475569', // neutral-600
-    border: '#E2E8F0', // neutral-200
-  };
 }

@@ -1,27 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import {
-  X,
-  ArrowLeft,
-  Building2,
-  MapPin,
-  Briefcase,
-  Calendar,
-  Clock,
-  AlertCircle,
-  GraduationCap,
-  Car,
-  Search,
-  Phone,
-  ExternalLink,
-  FileText,
-  BookmarkCheck,
-  Check,
-  Loader2,
-} from 'lucide-react';
+import Sheet from '@/components/shell/Sheet';
 import { coverLetterPrefill } from '@/store/cover-letter-store';
 
 interface JobDetailModalProps {
@@ -31,11 +12,9 @@ interface JobDetailModalProps {
 }
 
 /**
- * Detalj-modal for ett enskilt jobb.
- * - Mobil: full-screen med tillbaka-pil
- * - Desktop: centrerad modal med backdrop
- * - Sticky bottom-bar med "Skapa brev" + "Ansok hos X"
- * - Orange/rod accent som matchar dashboarden
+ * Hela annonsen i ett ark: bottenark på mobil, dialog på desktop. Panelen
+ * bär rubriken och fakta i meta, kraven ligger som listor och handlingarna
+ * i arkets fot med en ink-knapp för ansökan.
  */
 export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalProps) {
   const router = useRouter();
@@ -44,7 +23,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
     job?.application_details?.url || job?.application_url || job?.webpage_url;
   const isViaAF = job?.application_details?.via_af === true;
   const applyButtonText = isViaAF
-    ? 'Ansök via AF'
+    ? 'Ansök via Arbetsförmedlingen'
     : `Ansök hos ${job?.employer?.name || 'företaget'}`;
 
   const handleCreateLetter = () => {
@@ -90,342 +69,196 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
     }
   };
 
+  const meta = job
+    ? [
+        job.workplace_address
+          ? [
+              job.workplace_address.municipality,
+              job.workplace_address.region,
+              job.workplace_address.country,
+            ]
+              .filter(Boolean)
+              .join(', ')
+          : null,
+        job.employment_type?.label ?? null,
+        job.publication_date
+          ? `Publicerad ${new Date(job.publication_date).toLocaleDateString('sv-SE')}`
+          : null,
+        job.application_deadline
+          ? `Sista dag ${new Date(job.application_deadline).toLocaleDateString('sv-SE')}`
+          : null,
+      ].filter(Boolean)
+    : [];
+
+  const krav = job
+    ? [
+        job.experience_required ? 'Erfarenhet krävs' : null,
+        job.driving_license_required ||
+        (job.driving_license && job.driving_license.length > 0)
+          ? job.driving_license?.length
+            ? `Körkort: ${job.driving_license.map((l: any) => l.label).join(', ')}`
+            : 'Körkort krävs'
+          : null,
+        job.access_to_own_car ? 'Tillgång till egen bil krävs' : null,
+      ].filter(Boolean)
+    : [];
+
   return (
-    <AnimatePresence>
-      {job && (
-      <motion.div
-        key="modal-backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] sm:flex sm:items-center sm:justify-center sm:p-4"
-      >
-        <motion.div
-          initial={{ y: '100%', opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: '100%', opacity: 0 }}
-          transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-          onClick={(e) => e.stopPropagation()}
-          className="bg-white w-full h-full sm:h-auto sm:max-w-3xl sm:max-h-[90vh] sm:rounded-xl overflow-hidden flex flex-col"
-        >
-          {/* Header, sticky pa toppen */}
-          <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-neutral-200 bg-white">
-            <button
-              onClick={onClose}
-              className="flex items-center gap-2 text-neutral-700 hover:text-neutral-900 -ml-2 px-2 py-2 rounded-lg hover:bg-neutral-100 transition-colors touch-manipulation min-h-[44px]"
-              aria-label="Stäng jobbdetaljer"
+    <Sheet
+      open={!!job}
+      onClose={onClose}
+      title={job?.headline ?? 'Tjänsten'}
+      description={job?.employer?.name ?? undefined}
+      size="lg"
+      footer={
+        <div className="space-y-3">
+          {applicationUrl && (
+            <a
+              href={applicationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-center text-sm font-semibold text-white hover:bg-ink-hover"
             >
-              <ArrowLeft className="w-5 h-5 sm:hidden" />
-              <span className="text-sm font-medium sm:hidden">Tillbaka</span>
-              <X className="w-5 h-5 hidden sm:block" />
-            </button>
-
-            {job.relevance !== undefined && (
-              <div
-                className={`px-3 py-1.5 rounded-full text-sm font-semibold ${
-                  job.relevance >= 70
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : job.relevance >= 40
-                    ? 'bg-amber-100 text-amber-700'
-                    : 'bg-neutral-100 text-neutral-600'
-                }`}
-                title="Hur väl jobbet matchar ditt CV"
-              >
-                {job.relevance}% matchar ditt CV
-              </div>
-            )}
-          </div>
-
-          {/* Scrollable content */}
-          <div
-            className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6"
-            style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
-          >
-            {/* Logo + titel + foretag */}
-            <div className="flex items-start gap-3 sm:gap-4 mb-5">
-              {job.logo_url ? (
-                <img
-                  src={job.logo_url}
-                  alt={job.employer?.name || 'Företag'}
-                  className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover bg-neutral-100"
-                />
-              ) : (
-                <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-orange-600 flex items-center justify-center text-white font-bold text-xl sm:text-2xl">
-                  {(job.employer?.name || 'U')
-                    .split(' ')
-                    .map((w: string) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 leading-tight mb-2 break-words">
-                  {job.headline}
-                </h2>
-                <div className="flex items-center gap-2 text-neutral-700">
-                  <Building2 className="w-4 h-4 shrink-0" />
-                  <span className="font-semibold break-words">{job.employer?.name}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Meta-info */}
-            <div className="space-y-2 mb-6 text-sm">
-              {job.workplace_address && (
-                <div className="flex items-center gap-2 text-neutral-600">
-                  <MapPin className="w-4 h-4 shrink-0" />
-                  <span className="break-words">
-                    {[
-                      job.workplace_address.municipality,
-                      job.workplace_address.region,
-                      job.workplace_address.country,
-                    ]
-                      .filter(Boolean)
-                      .join(', ')}
-                  </span>
-                </div>
-              )}
-              {job.employment_type && (
-                <div className="flex items-center gap-2 text-neutral-600">
-                  <Briefcase className="w-4 h-4 shrink-0" />
-                  <span>{job.employment_type.label}</span>
-                </div>
-              )}
-              {job.publication_date && (
-                <div className="flex items-center gap-2 text-neutral-600">
-                  <Calendar className="w-4 h-4 shrink-0" />
-                  <span>
-                    Publicerad {new Date(job.publication_date).toLocaleDateString('sv-SE')}
-                  </span>
-                </div>
-              )}
-              {job.application_deadline && (
-                <div className="flex items-center gap-2 text-neutral-600">
-                  <Clock className="w-4 h-4 shrink-0" />
-                  <span>
-                    Sista ansökningsdag{' '}
-                    {new Date(job.application_deadline).toLocaleDateString('sv-SE')}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Viktiga krav */}
-            {(job.experience_required ||
-              job.driving_license_required ||
-              (job.driving_license && job.driving_license.length > 0) ||
-              job.access_to_own_car) && (
-              <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                <div className="flex items-center gap-2 mb-3">
-                  <AlertCircle className="w-5 h-5 text-amber-600" />
-                  <h3 className="text-base font-bold text-amber-900">Viktiga krav</h3>
-                </div>
-                <div className="space-y-2 text-sm text-amber-800">
-                  {job.experience_required && (
-                    <div className="flex items-center gap-2">
-                      <GraduationCap className="w-4 h-4 shrink-0" />
-                      <span className="font-medium">Erfarenhet krävs</span>
-                    </div>
-                  )}
-                  {(job.driving_license_required ||
-                    (job.driving_license && job.driving_license.length > 0)) && (
-                    <div className="flex items-start gap-2">
-                      <Car className="w-4 h-4 shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-medium mb-1">Körkort krävs</p>
-                        {job.driving_license && job.driving_license.length > 0 && (
-                          <div className="flex flex-wrap gap-1">
-                            {job.driving_license.map((license: any, i: number) => (
-                              <span
-                                key={i}
-                                className="px-2 py-0.5 bg-amber-100 border border-amber-300 text-amber-700 rounded text-xs font-medium"
-                              >
-                                {license.label}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  {job.access_to_own_car && (
-                    <div className="flex items-center gap-2">
-                      <Car className="w-4 h-4 shrink-0" />
-                      <span className="font-medium">Tillgång till egen bil krävs</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Strukturerad beskrivning */}
-            <div className="space-y-6">
-              {job.description?.needs && (
-                <Section icon={Search} title="Vi söker">
-                  <div
-                    className="text-neutral-700 prose max-w-none prose-sm"
-                    dangerouslySetInnerHTML={{ __html: job.description.needs }}
-                  />
-                </Section>
-              )}
-
-              {job.description?.company_information && (
-                <Section icon={Building2} title="Om företaget">
-                  <div
-                    className="text-neutral-700 prose max-w-none prose-sm"
-                    dangerouslySetInnerHTML={{ __html: job.description.company_information }}
-                  />
-                </Section>
-              )}
-
-              {job.description?.text && (
-                <Section icon={Briefcase} title="Arbetsuppgifter">
-                  <div
-                    className="text-neutral-700 prose max-w-none prose-sm whitespace-pre-wrap"
-                    dangerouslySetInnerHTML={{
-                      __html: job.description.text_formatted || job.description.text,
-                    }}
-                  />
-                </Section>
-              )}
-
-              {/* Krav (måste) + Meriterande */}
-              <RequirementsBlock job={job} />
-
-              {/* Villkor / Conditions */}
-              {job.description?.conditions && (
-                <Section title="Vi erbjuder">
-                  <div
-                    className="text-neutral-700 prose max-w-none prose-sm"
-                    dangerouslySetInnerHTML={{ __html: job.description.conditions }}
-                  />
-                </Section>
-              )}
-
-              {/* Salary & Benefits */}
-              {(job.salary_description || job.access) && (
-                <div className="p-4 bg-blue-50 rounded-xl">
-                  <h3 className="text-base font-bold text-neutral-900 mb-2">Villkor</h3>
-                  {job.salary_description && (
-                    <p className="text-sm text-neutral-700 mb-1">
-                      <strong>Lön:</strong> {job.salary_description}
-                    </p>
-                  )}
-                  {job.access && (
-                    <p className="text-sm text-neutral-700">
-                      <strong>Tillträde:</strong> {job.access}
-                    </p>
-                  )}
-                </div>
-              )}
-
-              {/* Kontaktperson */}
-              {job.application_contacts &&
-                (job.application_contacts.name ||
-                  job.application_contacts.email ||
-                  job.application_contacts.telephone) && (
-                  <div className="p-4 bg-orange-50 border border-orange-200 rounded-xl">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Phone className="w-5 h-5 text-orange-600" />
-                      <h3 className="text-base font-bold text-orange-900">Kontaktperson</h3>
-                    </div>
-                    <div className="space-y-1.5 text-sm">
-                      {job.application_contacts.name && (
-                        <p className="text-neutral-800">
-                          <strong>Namn:</strong> {job.application_contacts.name}
-                        </p>
-                      )}
-                      {job.application_contacts.description && (
-                        <p className="text-neutral-700">{job.application_contacts.description}</p>
-                      )}
-                      {job.application_contacts.email && (
-                        <p className="text-neutral-800">
-                          <strong>E-post:</strong>{' '}
-                          <a
-                            href={`mailto:${job.application_contacts.email}`}
-                            className="text-orange-600 hover:underline break-all"
-                          >
-                            {job.application_contacts.email}
-                          </a>
-                        </p>
-                      )}
-                      {job.application_contacts.telephone && (
-                        <p className="text-neutral-800">
-                          <strong>Telefon:</strong>{' '}
-                          <a
-                            href={`tel:${job.application_contacts.telephone}`}
-                            className="text-orange-600 hover:underline"
-                          >
-                            {job.application_contacts.telephone}
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                )}
-            </div>
-
-            {/* Padding så sticky bottom-bar inte täcker innehållet */}
-            <div className="h-4" />
-          </div>
-
-          {/* Sticky bottom-bar med Skapa personligt brev + Ansok.
-              Pa mobil maste vi lyfta baren over MobileBottomNav (~80px hojd
-              + safe-area). Pa desktop ar nav-baren gomd (lg:hidden) sa
-              standard-padding racker. */}
-          {/* "Markera som sökt" finns alltid, så baren renderas ovillkorligt. */}
-          {(
-            <div
-              className="flex-shrink-0 flex flex-col sm:flex-row gap-2 sm:gap-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-t border-neutral-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-[1] mb-[calc(var(--bottom-nav-h)+32px)] lg:mb-0"
-            >
-              {cvId && (
-                <button
-                  onClick={handleCreateLetter}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-orange-200 text-orange-700 bg-white rounded-xl text-sm font-semibold hover:bg-orange-50 hover:border-orange-300 transition-colors touch-manipulation min-h-[48px]"
-                >
-                  <FileText className="w-4 h-4 shrink-0" />
-                  <span>Skapa personligt brev</span>
-                </button>
-              )}
+              {applyButtonText}
+            </a>
+          )}
+          <div className="flex flex-wrap items-center gap-4">
+            {cvId && (
               <button
-                onClick={handleMarkApplied}
-                disabled={markState !== 'idle'}
-                className="relative flex-1 flex items-center justify-center gap-1.5 px-3 py-3 border-2 border-neutral-200 text-neutral-700 bg-white rounded-xl text-sm font-semibold hover:bg-neutral-50 hover:border-neutral-300 transition-colors touch-manipulation min-h-[48px] disabled:cursor-default"
-                title="Logga jobbet i Sökta tjänster"
+                type="button"
+                onClick={handleCreateLetter}
+                className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
               >
-                {markState === 'saving' ? (
-                  <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
-                ) : markState === 'done' ? (
-                  <Check className="w-4 h-4 shrink-0 text-emerald-600" />
-                ) : (
-                  <BookmarkCheck className="w-4 h-4 shrink-0 text-orange-600" />
-                )}
-                <span>{markState === 'done' ? 'Loggad som sökt' : 'Markera som sökt'}</span>
-                {markState === 'idle' && (
-                  <span className="absolute -top-2 -right-2 px-1.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-orange-600">
-                    Nyhet
-                  </span>
-                )}
+                Skapa personligt brev
               </button>
-              {applicationUrl && (
-                <a
-                  href={applicationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-[2] flex items-center justify-center gap-1.5 px-3 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-sm font-semibold transition-all touch-manipulation min-h-[48px] text-center break-words"
-                >
-                  <span className="break-words">{applyButtonText}</span>
-                  <ExternalLink className="w-4 h-4 shrink-0" />
-                </a>
-              )}
+            )}
+            <button
+              type="button"
+              onClick={handleMarkApplied}
+              disabled={markState !== 'idle'}
+              className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:no-underline disabled:opacity-60"
+            >
+              {markState === 'done'
+                ? 'Loggad som sökt'
+                : markState === 'saving'
+                ? 'Sparar'
+                : 'Markera som sökt'}
+            </button>
+          </div>
+        </div>
+      }
+    >
+      {job && (
+        <div className="space-y-5">
+          {job.relevance !== undefined && (
+            <div>
+              <p className="text-tal tabular-nums text-ink-1">{job.relevance}</p>
+              <p className="text-meta text-ink-3">procent match mot ditt CV</p>
             </div>
           )}
-        </motion.div>
-      </motion.div>
+
+          {meta.length > 0 && <p className="text-meta text-ink-3">{meta.join(' · ')}</p>}
+
+          {krav.length > 0 && (
+            <section className="rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+              <h3 className="text-sm font-medium text-ink-1">Viktiga krav</h3>
+              <ul className="mt-1.5 space-y-1">
+                {krav.map((k) => (
+                  <li key={k as string} className="text-meta text-ink-2">
+                    {k}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {job.description?.needs && (
+            <Section title="Vi söker">
+              <div
+                className="prose prose-sm max-w-none text-ink-2"
+                dangerouslySetInnerHTML={{ __html: job.description.needs }}
+              />
+            </Section>
+          )}
+
+          {job.description?.company_information && (
+            <Section title="Om företaget">
+              <div
+                className="prose prose-sm max-w-none text-ink-2"
+                dangerouslySetInnerHTML={{ __html: job.description.company_information }}
+              />
+            </Section>
+          )}
+
+          {job.description?.text && (
+            <Section title="Arbetsuppgifter">
+              <div
+                className="prose prose-sm max-w-none whitespace-pre-wrap text-ink-2"
+                dangerouslySetInnerHTML={{
+                  __html: job.description.text_formatted || job.description.text,
+                }}
+              />
+            </Section>
+          )}
+
+          <RequirementsBlock job={job} />
+
+          {job.description?.conditions && (
+            <Section title="Vi erbjuder">
+              <div
+                className="prose prose-sm max-w-none text-ink-2"
+                dangerouslySetInnerHTML={{ __html: job.description.conditions }}
+              />
+            </Section>
+          )}
+
+          {(job.salary_description || job.access) && (
+            <Section title="Villkor">
+              {job.salary_description && (
+                <p className="text-sm text-ink-2">Lön: {job.salary_description}</p>
+              )}
+              {job.access && <p className="text-sm text-ink-2">Tillträde: {job.access}</p>}
+            </Section>
+          )}
+
+          {job.application_contacts &&
+            (job.application_contacts.name ||
+              job.application_contacts.email ||
+              job.application_contacts.telephone) && (
+              <Section title="Kontaktperson">
+                <div className="space-y-1 text-sm text-ink-2">
+                  {job.application_contacts.name && <p>{job.application_contacts.name}</p>}
+                  {job.application_contacts.description && (
+                    <p className="text-meta text-ink-3">
+                      {job.application_contacts.description}
+                    </p>
+                  )}
+                  {job.application_contacts.email && (
+                    <p>
+                      <a
+                        href={`mailto:${job.application_contacts.email}`}
+                        className="break-all text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                      >
+                        {job.application_contacts.email}
+                      </a>
+                    </p>
+                  )}
+                  {job.application_contacts.telephone && (
+                    <p>
+                      <a
+                        href={`tel:${job.application_contacts.telephone}`}
+                        className="text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                      >
+                        {job.application_contacts.telephone}
+                      </a>
+                    </p>
+                  )}
+                </div>
+              </Section>
+            )}
+        </div>
       )}
-    </AnimatePresence>
+    </Sheet>
   );
 }
 
@@ -535,23 +368,12 @@ function buildJobDescription(job: any): string {
   return parts.join('\n\n').trim();
 }
 
-function Section({
-  icon: Icon,
-  title,
-  children,
-}: {
-  icon?: typeof Search;
-  title: string;
-  children: React.ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div>
-      <h3 className="text-base font-bold text-neutral-900 mb-2 flex items-center gap-2">
-        {Icon && <Icon className="w-5 h-5 text-orange-600" />}
-        {title}
-      </h3>
+    <section>
+      <h3 className="mb-1.5 text-kort text-ink-1">{title}</h3>
       {children}
-    </div>
+    </section>
   );
 }
 
@@ -576,36 +398,20 @@ function RequirementsBlock({ job }: { job: any }) {
 
   return (
     <div
-      className={`gap-6 p-4 sm:p-5 bg-neutral-50 rounded-xl border border-neutral-200 ${
+      className={`gap-5 rounded-lg border border-kant bg-insunken p-3 shadow-insunken ${
         hasMustHave && hasNiceToHave ? 'grid sm:grid-cols-2' : ''
       }`}
     >
-      {hasMustHave && <ReqColumn data={job.must_have} title="Krav (måste)" tone="red" />}
-      {hasNiceToHave && (
-        <ReqColumn data={job.nice_to_have} title="Meriterande" tone="green" />
-      )}
+      {hasMustHave && <ReqColumn data={job.must_have} title="Krav" />}
+      {hasNiceToHave && <ReqColumn data={job.nice_to_have} title="Meriterande" />}
     </div>
   );
 }
 
-function ReqColumn({
-  data,
-  title,
-  tone,
-}: {
-  data: any;
-  title: string;
-  tone: 'red' | 'green';
-}) {
-  const titleClass = tone === 'red' ? 'text-red-700' : 'text-emerald-700';
-  const pillClass =
-    tone === 'red'
-      ? 'bg-red-50 border-red-200 text-red-700'
-      : 'bg-emerald-50 border-emerald-200 text-emerald-700';
-
+function ReqColumn({ data, title }: { data: any; title: string }) {
   return (
     <div>
-      <h3 className={`text-base font-bold mb-3 ${titleClass}`}>{title}</h3>
+      <h4 className="mb-2 text-sm font-medium text-ink-1">{title}</h4>
       <div className="space-y-3">
         {data.skills && data.skills.length > 0 && (
           <ReqGroup label="Kompetenser">
@@ -613,7 +419,7 @@ function ReqColumn({
               {data.skills.map((skill: any, i: number) => (
                 <span
                   key={i}
-                  className={`px-2 py-1 border rounded text-xs font-medium ${pillClass}`}
+                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2 py-0.5 text-meta text-ink-2"
                 >
                   {skill.label}
                 </span>
@@ -625,7 +431,10 @@ function ReqColumn({
           <ReqGroup label="Språk">
             <div className="flex flex-wrap gap-1.5">
               {data.languages.map((lang: any, i: number) => (
-                <span key={i} className={`px-2 py-1 border rounded text-xs ${pillClass}`}>
+                <span
+                  key={i}
+                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2 py-0.5 text-meta text-ink-2"
+                >
                   {lang.label}
                 </span>
               ))}
@@ -634,27 +443,27 @@ function ReqColumn({
         )}
         {data.work_experiences && data.work_experiences.length > 0 && (
           <ReqGroup label="Arbetserfarenhet">
-            <ul className="text-sm text-neutral-600 space-y-1">
+            <ul className="space-y-1 text-meta text-ink-2">
               {data.work_experiences.map((exp: any, i: number) => (
-                <li key={i}>• {exp.label}</li>
+                <li key={i}>{exp.label}</li>
               ))}
             </ul>
           </ReqGroup>
         )}
         {data.education && data.education.length > 0 && (
           <ReqGroup label="Utbildning">
-            <ul className="text-sm text-neutral-600 space-y-1">
+            <ul className="space-y-1 text-meta text-ink-2">
               {data.education.map((edu: any, i: number) => (
-                <li key={i}>• {edu.label}</li>
+                <li key={i}>{edu.label}</li>
               ))}
             </ul>
           </ReqGroup>
         )}
         {data.education_level && data.education_level.length > 0 && (
           <ReqGroup label="Utbildningsnivå">
-            <ul className="text-sm text-neutral-600 space-y-1">
+            <ul className="space-y-1 text-meta text-ink-2">
               {data.education_level.map((level: any, i: number) => (
-                <li key={i}>• {level.label}</li>
+                <li key={i}>{level.label}</li>
               ))}
             </ul>
           </ReqGroup>
@@ -667,9 +476,7 @@ function ReqColumn({
 function ReqGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-xs font-semibold text-neutral-700 mb-1.5 uppercase tracking-wider">
-        {label}
-      </p>
+      <p className="mb-1 text-meta text-ink-3">{label}</p>
       {children}
     </div>
   );

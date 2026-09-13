@@ -2,11 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useCVStore } from '@/store/cv-store'
-import LinkedInLayout from './LinkedInLayout'
 import Step1Mode, {
   type Language,
   type OptimizationMode,
@@ -29,7 +27,9 @@ const Step3Results = dynamic(() => import('./steps/Step3Results'), {
 const Step4Done = dynamic(() => import('./steps/Step4Done'), {
   loading: () => <div className="min-h-[480px]" aria-hidden="true" />,
 })
-const AnalysisOverlay = dynamic(() => import('./AnalysisOverlay'), { ssr: false })
+const AnalysisOverlay = dynamic(() => import('./AnalysisOverlay'), {
+  loading: () => <div className="min-h-[240px]" aria-hidden="true" />,
+})
 import { cvToLinkedIn } from '../lib/cvToLinkedIn'
 import FlowShell from '@/components/shell/FlowShell'
 import FlowError from '@/components/shell/FlowError'
@@ -362,13 +362,6 @@ export default function LinkedInOptimizer({
     setSourceMode(cvs.length > 0 ? 'cv' : 'manual')
   }
 
-  const handleStepClick = (step: number) => {
-    // Tillåt att gå tillbaka till tidigare steg
-    if (step <= currentStep || completedSteps.includes(step)) {
-      setCurrentStep(step)
-    }
-  }
-
   /* Återkomstvalet tar hela ytan: ett vägval, inte en banner. */
   if (pendingDraft) {
     return (
@@ -390,14 +383,61 @@ export default function LinkedInOptimizer({
     )
   }
 
+  /** Vad foten gör på varje steg. Fortsätt ligger alltid i FlowShell-foten. */
+  const footer: {
+    primaryLabel?: string
+    onPrimary?: () => void
+    primaryDisabled?: boolean
+    primaryBlockedReason?: string
+  } = (() => {
+    if (isAnalyzing) return {}
+    if (currentStep === 0) {
+      const trimmedRole = targetRole.trim()
+      const cvOk = sourceMode !== 'cv' || !!selectedCvId
+      const roleOk = mode === 'stand_out' || trimmedRole.length >= 3
+      return {
+        primaryLabel: 'Fortsätt',
+        onPrimary: handleStep1Next,
+        primaryDisabled: !(cvOk && roleOk),
+        primaryBlockedReason: !cvOk
+          ? 'Välj ett CV först'
+          : !roleOk
+          ? 'Skriv minst tre tecken för rollen'
+          : undefined,
+      }
+    }
+    if (currentStep === 1) {
+      const canSubmit =
+        sections.about.trim().length > 0 && sections.experience.trim().length > 0
+      return {
+        primaryLabel: 'Optimera profilen',
+        onPrimary: () => void handleStartAnalysis(),
+        primaryDisabled: !canSubmit,
+        primaryBlockedReason: canSubmit
+          ? undefined
+          : 'Fyll i Om mig och Erfarenhet först',
+      }
+    }
+    if (currentStep === 2) {
+      return { primaryLabel: 'Fortsätt', onPrimary: handleStep3Next }
+    }
+    return {}
+  })()
+
   return (
-    <LinkedInLayout
-      currentStep={currentStep}
-      completedSteps={completedSteps}
-      onStepClick={handleStepClick}
-    >
-      {error && (
-        <div className="mb-4">
+    <FlowShell
+      title="LinkedIn-profil"
+      step={currentStep + 1}
+      totalSteps={LINKEDIN_TOTAL_STEPS}
+      onBack={
+        currentStep > 0 && !isAnalyzing
+          ? () => setCurrentStep(currentStep - 1)
+          : undefined
+      }
+      onExit={() => router.push('/dashboard')}
+      exitLabel="Tillbaka till översikten"
+      banner={
+        error ? (
           <FlowError
             message={error}
             onRetry={
@@ -409,17 +449,14 @@ export default function LinkedInOptimizer({
                 : undefined
             }
           />
-        </div>
-      )}
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentStep}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.25 }}
-        >
+        ) : undefined
+      }
+      {...footer}
+    >
+      {isAnalyzing ? (
+        <AnalysisOverlay onCancel={cancelAnalysis} />
+      ) : (
+        <>
           {currentStep === 0 && (
             <Step1Mode
               mode={mode}
@@ -434,7 +471,6 @@ export default function LinkedInOptimizer({
               onLanguageChange={setLanguage}
               onSourceModeChange={handleSourceModeChange}
               onCvSelect={handleCvSelect}
-              onNext={handleStep1Next}
             />
           )}
 
@@ -442,9 +478,6 @@ export default function LinkedInOptimizer({
             <Step2Profile
               sections={sections}
               onSectionChange={handleSectionChange}
-              onBack={() => setCurrentStep(0)}
-              onSubmit={handleStartAnalysis}
-              error={error}
               sourceMode={sourceMode}
               cvFileName={selectedCv?.file_name}
             />
@@ -456,8 +489,6 @@ export default function LinkedInOptimizer({
               results={results}
               fullName={fullName}
               language={language}
-              onBack={() => setCurrentStep(1)}
-              onNext={handleStep3Next}
             />
           )}
 
@@ -469,13 +500,8 @@ export default function LinkedInOptimizer({
               onStartOver={handleStartOver}
             />
           )}
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Analys-overlay */}
-      <AnimatePresence>
-        {isAnalyzing && <AnalysisOverlay onCancel={cancelAnalysis} />}
-      </AnimatePresence>
-    </LinkedInLayout>
+        </>
+      )}
+    </FlowShell>
   )
 }

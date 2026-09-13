@@ -1,6 +1,6 @@
 'use client'
 
-import { Check, X, Plus, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useMemo } from 'react'
 
 interface SkillSuggestion {
@@ -59,145 +59,100 @@ function parseSkills(raw: string): SkillsAnalysis {
   return { strong_skills: [], weak_skills: [], suggested_skills: [] }
 }
 
+function GroupLabel({ label, count }: { label: string; count: number }) {
+  return (
+    <div className="flex items-center justify-between">
+      <p className="text-sm font-medium text-ink-3">{label}</p>
+      <span className="text-meta tabular-nums text-ink-3">{count}</span>
+    </div>
+  )
+}
+
+/**
+ * Kompetensgenomgången: tre grupper (behåll, byt ut, lägg till) med
+ * kant-ramade rader. Tonen sitter i texten, aldrig i ytan.
+ */
 export default function SkillsMakeover({ rawJson }: Props) {
   const data = useMemo(() => parseSkills(rawJson), [rawJson])
 
-  const hasAny =
-    (data.strong_skills && data.strong_skills.length > 0) ||
-    (data.weak_skills && data.weak_skills.length > 0) ||
-    (data.suggested_skills && data.suggested_skills.length > 0)
+  const strong = data.strong_skills ?? []
+  const weak = data.weak_skills ?? []
+  const suggested = data.suggested_skills ?? []
+
+  const hasAny = strong.length > 0 || weak.length > 0 || suggested.length > 0
 
   if (!hasAny) {
     return (
-      <p className="text-sm text-neutral-500 italic">
-        Vi kunde inte tolka skills-svaret. Kopiera direkt från resultaten istället.
+      <p className="text-sm leading-[22px] text-ink-2">
+        Vi kunde inte tolka kompetenssvaret. Kopiera direkt från resultaten i stället.
       </p>
     )
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div className="space-y-4">
       {/* Behåll */}
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-3.5">
-        <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-            <Check className="w-5 h-5 text-emerald-600" strokeWidth={2.8} />
-          </div>
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
-            Behåll
-          </span>
-          <span className="ml-auto text-xs font-bold text-emerald-700 tabular-nums">
-            {data.strong_skills?.length ?? 0}
-          </span>
-        </div>
-        {data.strong_skills && data.strong_skills.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5">
-            {data.strong_skills.map((skill) => (
-              <span
+      <div>
+        <GroupLabel label="Behåll" count={strong.length} />
+        {strong.length > 0 ? (
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {strong.map((skill) => (
+              <li
                 key={skill}
-                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white border border-emerald-200 text-emerald-800"
+                className="inline-flex min-h-8 items-center rounded-lg border border-kant bg-panel px-2 text-sm text-ink-1"
               >
                 {skill}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <p className="text-xs text-neutral-500 italic">Inga starka skills hittade.</p>
+          <p className="mt-2 text-meta text-ink-3">Inga starka kompetenser hittade.</p>
         )}
       </div>
 
       {/* Byt ut */}
-      <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-3.5">
-        <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-            <X className="w-5 h-5 text-neutral-700" strokeWidth={2.8} />
-          </div>
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-            Byt ut
-          </span>
-          <span className="ml-auto text-xs font-bold text-orange-700 tabular-nums">
-            {data.weak_skills?.length ?? 0}
-          </span>
-        </div>
-        {data.weak_skills && data.weak_skills.length > 0 ? (
-          <div className="space-y-2">
-            {data.weak_skills.map((s) => (
-              <div
-                key={s.skill}
-                className="rounded-lg bg-white border border-orange-100 px-2.5 py-2"
-              >
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-xs font-bold text-orange-900 line-through opacity-70">
-                    {s.skill}
-                  </span>
+      <div>
+        <GroupLabel label="Byt ut" count={weak.length} />
+        {weak.length > 0 ? (
+          <ul className="mt-2 space-y-2">
+            {weak.map((s) => (
+              <li key={s.skill} className="rounded-lg border border-kant bg-panel px-3 py-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm text-ink-3 line-through">{s.skill}</span>
                   {s.replace_with && (
                     <>
                       <ArrowRight
-                        className="w-3 h-3 text-orange-600"
-                        strokeWidth={2.6}
+                        className="h-5 w-5 text-ink-3"
+                        strokeWidth={1.75}
+                        aria-hidden="true"
                       />
-                      <span className="text-xs font-bold text-orange-800">
-                        {s.replace_with}
-                      </span>
+                      <span className="text-sm font-medium text-ink-1">{s.replace_with}</span>
                     </>
                   )}
                 </div>
-                {s.reason && (
-                  <p className="text-xs text-neutral-500 leading-snug mt-1">
-                    {s.reason}
-                  </p>
-                )}
-              </div>
+                {s.reason && <p className="mt-1 text-meta text-ink-3">{s.reason}</p>}
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <p className="text-xs text-neutral-500 italic">
-            Inga svaga skills hittade. Bra jobbat!
-          </p>
+          <p className="mt-2 text-meta text-positiv">Inga svaga kompetenser hittade.</p>
         )}
       </div>
 
       {/* Lägg till */}
-      <div className="rounded-xl border border-orange-200 bg-orange-50/40 p-3.5">
-        <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-            <Plus className="w-5 h-5 text-neutral-700" strokeWidth={2.8} />
-          </div>
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-            Lägg till
-          </span>
-          <span className="ml-auto text-xs font-bold text-orange-700 tabular-nums">
-            {data.suggested_skills?.length ?? 0}
-          </span>
-        </div>
-        {data.suggested_skills && data.suggested_skills.length > 0 ? (
-          <div className="space-y-2">
-            {data.suggested_skills.map((s) => (
-              <div
-                key={s.skill}
-                className="rounded-lg bg-white border border-orange-100 px-2.5 py-2"
-              >
-                <div className="flex items-center gap-1.5">
-                  <Plus
-                    className="w-3 h-3 text-orange-600 flex-shrink-0"
-                    strokeWidth={2.8}
-                  />
-                  <span className="text-xs font-bold text-neutral-900">
-                    {s.skill}
-                  </span>
-                </div>
-                {s.reason && (
-                  <p className="text-xs text-neutral-500 leading-snug mt-1 ml-4">
-                    {s.reason}
-                  </p>
-                )}
-              </div>
+      <div>
+        <GroupLabel label="Lägg till" count={suggested.length} />
+        {suggested.length > 0 ? (
+          <ul className="mt-2 space-y-2">
+            {suggested.map((s) => (
+              <li key={s.skill} className="rounded-lg border border-kant bg-panel px-3 py-2">
+                <p className="text-sm font-medium text-ink-1">{s.skill}</p>
+                {s.reason && <p className="mt-1 text-meta text-ink-3">{s.reason}</p>}
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <p className="text-xs text-neutral-500 italic">
-            Inga ytterligare förslag.
-          </p>
+          <p className="mt-2 text-meta text-ink-3">Inga ytterligare förslag.</p>
         )}
       </div>
     </div>

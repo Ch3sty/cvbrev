@@ -6,6 +6,7 @@ import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import FlowError from '@/components/shell/FlowError';
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 
 import JobbcoachenLayout from './components/JobbcoachenLayout';
@@ -231,7 +232,7 @@ export default function JobbcoachenPage() {
             suggestionChips={isWelcomeView && !quotaLock ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
           />
           {!quotaLock && remainingToday !== null && (
-            <p className="pb-2 text-center text-xs text-neutral-500">
+            <p className="pb-2 text-center text-meta text-ink-3">
               {remainingToday} {remainingToday === 1 ? 'meddelande' : 'meddelanden'} kvar idag
             </p>
           )}
@@ -239,7 +240,7 @@ export default function JobbcoachenPage() {
       }
     >
       {isWelcomeView ? (
-        <div className="flex-1 flex flex-col justify-start pt-[8%] sm:pt-[10%]">
+        <div className="flex flex-1 flex-col justify-start pt-2 sm:pt-4">
           <WelcomeMessage
             cvCount={cvCount}
             letterCount={letterCount}
@@ -268,11 +269,7 @@ export default function JobbcoachenPage() {
               messages[messages.length - 1]?.role === 'user' && (
                 <TypingIndicator />
               )}
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
-                {error}
-              </div>
-            )}
+            {error && <FlowError message={error} title="Meddelandet gick inte fram" />}
             <div ref={messagesEndRef} />
           </div>
         </div>

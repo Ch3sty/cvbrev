@@ -1,13 +1,14 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import ConversationListItem from './ConversationListItem';
 import type { CandidateInterest } from './hubTypes';
 
 /**
- * Vänsterpanelen: sökfält + grupperade konversationer. Ordning:
- * väntande (orange), aktiva, avböjda (hopfällda default).
+ * Listan: sökfält och grupperade konversationer i EN panel med divide-y
+ * (Tråden, "Hubbar och listor"). Ordning: väntande, aktiva, avböjda
+ * (hopfällda som standard). Sektionsetiketter i 14/500 ink-3.
  */
 export default function ConversationList({
   interests,
@@ -36,27 +37,25 @@ export default function ConversationList({
   const declined = filtered.filter((i) => i.status === 'declined');
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-100">
-        <div className="relative">
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
-            aria-hidden="true"
-          />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Sök företag"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/60 pl-9 pr-3 py-2 text-[13px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-orange-300 focus:bg-white"
-          />
-        </div>
+    <div className="flex h-full flex-col">
+      <div className="border-b border-kant p-3">
+        <label htmlFor="meddelanden-sok" className="sr-only">
+          Sök företag
+        </label>
+        <input
+          id="meddelanden-sok"
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Sök företag"
+          className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
+        />
       </div>
 
       <div className="flex-1 overflow-y-auto">
         {filtered.length === 0 && (
-          <p className="px-4 py-8 text-center text-[13px] text-slate-400">
-            {query.trim() ? 'Inga träffar.' : 'Inga meddelanden ännu.'}
+          <p className="px-4 py-8 text-center text-meta text-ink-3">
+            {query.trim() ? 'Inga träffar.' : 'Inga meddelanden än.'}
           </p>
         )}
 
@@ -76,7 +75,7 @@ export default function ConversationList({
         )}
 
         {active.length > 0 && (
-          <Group label="Aktiva konversationer">
+          <Group label="Samtal">
             {active.map((i) => (
               <ConversationListItem
                 key={i.id}
@@ -90,28 +89,34 @@ export default function ConversationList({
         )}
 
         {declined.length > 0 && (
-          <div className="pt-1">
+          <div className="pt-2">
             <button
               type="button"
               onClick={() => setDeclinedOpen((v) => !v)}
-              className="flex items-center gap-1.5 w-full px-4 py-2 text-[11px] font-bold uppercase tracking-wide text-slate-400 hover:text-slate-600 transition-colors"
+              aria-expanded={declinedOpen}
+              className="flex min-h-11 w-full items-center gap-1.5 px-4 text-sm font-medium text-ink-3 transition-colors hover:text-ink-1"
             >
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform ${declinedOpen ? '' : '-rotate-90'}`}
+                size={20}
+                strokeWidth={1.75}
+                className={`transition-transform ${declinedOpen ? '' : '-rotate-90'}`}
                 aria-hidden="true"
               />
               Avböjda ({declined.length})
             </button>
-            {declinedOpen &&
-              declined.map((i) => (
-                <ConversationListItem
-                  key={i.id}
-                  interest={i}
-                  selected={i.id === selectedId}
-                  busy={false}
-                  onSelect={() => onSelect(i.id)}
-                />
-              ))}
+            {declinedOpen && (
+              <div className="divide-y divide-kant border-t border-kant">
+                {declined.map((i) => (
+                  <ConversationListItem
+                    key={i.id}
+                    interest={i}
+                    selected={i.id === selectedId}
+                    busy={false}
+                    onSelect={() => onSelect(i.id)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -121,11 +126,9 @@ export default function ConversationList({
 
 function Group({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="pt-1">
-      <p className="px-4 py-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">
-        {label}
-      </p>
-      <div className="divide-y divide-slate-50">{children}</div>
+    <div className="pt-2">
+      <p className="px-4 py-2 text-sm font-medium text-ink-3">{label}</p>
+      <div className="divide-y divide-kant border-t border-kant">{children}</div>
     </div>
   );
 }

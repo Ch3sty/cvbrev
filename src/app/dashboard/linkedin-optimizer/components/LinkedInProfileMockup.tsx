@@ -1,8 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { motion } from 'framer-motion'
-import { MapPin, Users, Briefcase, GraduationCap } from 'lucide-react'
 
 export type MockupVariant = 'skeleton' | 'live' | 'optimized'
 export type MockupSection = 'headline' | 'about' | 'experience' | 'education' | 'skills'
@@ -21,14 +19,12 @@ export interface ProfileMockupData {
 interface Props {
   data: ProfileMockupData
   variant?: MockupVariant
-  /** Visas som etikett ovanpå mockupen (t.ex. "Före" / "Efter") */
+  /** Visas som etikett ovanför mockupen (t.ex. "Före" / "Efter") */
   badge?: string
   /** Om satt: gör sektioner klickbara */
   onSectionClick?: (section: MockupSection) => void
-  /** Markera en sektion som "aktiv" (highlight border) */
+  /** Markera en sektion som aktiv (kant i ink-1) */
   activeSection?: MockupSection
-  /** Använd glow bakom mockupen (default: true på desktop) */
-  showGlow?: boolean
   className?: string
 }
 
@@ -78,7 +74,7 @@ function stripMarkdown(text: string): string {
     .replace(/^[\s]*[-*+]\s+/gm, '')
     // Numrerade listor: 1.  2.  etc
     .replace(/^[\s]*\d+\.\s+/gm, '')
-    // Markdown-länkar [text](url) → text
+    // Markdown-länkar [text](url) blir text
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     // Blockquote >
     .replace(/^>\s+/gm, '')
@@ -183,6 +179,10 @@ function parseSkills(raw?: unknown): string[] {
     .slice(0, 8)
 }
 
+/**
+ * En sektion i mockupen. Klickbar när onSectionClick finns. Den aktiva
+ * sektionen får vänsterkant i ink-1 och panelbakgrund: val, inte tråd.
+ */
 function SectionWrapper({
   section,
   children,
@@ -201,21 +201,18 @@ function SectionWrapper({
     <Component
       onClick={isClickable ? () => onSectionClick(section) : undefined}
       type={isClickable ? 'button' : undefined}
-      className={`group relative w-full text-left transition-all ${
-        isClickable
-          ? 'cursor-pointer hover:bg-orange-50/50 rounded-lg -mx-2 px-2 py-1.5'
-          : ''
-      } ${isActive ? 'bg-orange-50/70 rounded-lg -mx-2 px-2 py-1.5' : ''}`}
+      aria-pressed={isClickable ? isActive : undefined}
+      className={`-mx-2 w-[calc(100%+16px)] rounded-lg border-l-2 px-2 py-1.5 text-left transition-[border-color,background-color] duration-[120ms] ${
+        isClickable ? 'cursor-pointer hover:bg-panel' : ''
+      } ${isActive ? 'border-ink-1 bg-panel' : 'border-transparent'}`}
     >
-      {isActive && (
-        <span
-          className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-orange-600"
-          aria-hidden="true"
-        />
-      )}
       {children}
     </Component>
   )
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return <p className="mb-2 text-meta font-medium text-ink-3">{children}</p>
 }
 
 export default function LinkedInProfileMockup({
@@ -224,11 +221,9 @@ export default function LinkedInProfileMockup({
   badge,
   onSectionClick,
   activeSection,
-  showGlow = true,
   className = '',
 }: Props) {
   const isSkeleton = variant === 'skeleton'
-  const isOptimized = variant === 'optimized'
 
   const initials = useMemo(() => getInitials(data.fullName), [data.fullName])
   const experiences = useMemo(() => parseExperience(data.experience), [data.experience])
@@ -250,111 +245,47 @@ export default function LinkedInProfileMockup({
   const hasAbout = !!aboutStr
 
   return (
-    <div className={`relative w-full ${className}`}>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
+    <div className={`w-full ${className}`}>
+      {badge && <p className="mb-2 text-sm font-medium text-ink-3">{badge}</p>}
+
+      <div
+        className={`overflow-hidden rounded-xl border border-kant bg-insunken ${
+          isSkeleton ? 'opacity-80' : ''
+        }`}
       >
-        {/* Badge ovanpå (Före/Efter) */}
-        {badge && (
-          <div className="absolute top-3 right-3 z-10">
-            <span
-              className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-[0.16em] text-white ${
-                isOptimized ? 'bg-emerald-600' : 'bg-neutral-900/85'
-              }`}
-            >
-              {badge}
-            </span>
-          </div>
-        )}
-
-        {/* Banner */}
-        <div
-          className={`h-20 sm:h-24 relative overflow-hidden ${
-            isSkeleton ? 'bg-orange-200' : 'bg-orange-600'
-          }`}
-        >
-          {!isSkeleton && (
-            <svg
-              className="absolute inset-0 w-full h-full opacity-25"
-              aria-hidden="true"
-            >
-              <pattern
-                id={`li-mockup-lines-${variant}-${badge ?? 'plain'}`}
-                x="0"
-                y="0"
-                width="32"
-                height="32"
-                patternUnits="userSpaceOnUse"
-                patternTransform="rotate(35)"
-              >
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="32"
-                  stroke="white"
-                  strokeWidth="1"
-                />
-              </pattern>
-              <rect
-                width="100%"
-                height="100%"
-                fill={`url(#li-mockup-lines-${variant}-${badge ?? 'plain'})`}
-              />
-            </svg>
-          )}
-        </div>
-
-        {/* Avatar */}
-        <div className="relative px-5 sm:px-6">
-          <div className="absolute -top-9 left-5 sm:left-6 w-[68px] h-[68px] rounded-full bg-white border-4 border-white flex items-center justify-center overflow-hidden shadow-sm">
-            <span
-              className={`absolute inset-1 rounded-full flex items-center justify-center ${
-                hasName ? 'bg-orange-100' : 'bg-neutral-100'
-              }`}
-            >
-              <span
-                className={`font-semibold text-lg ${
-                  hasName ? 'text-orange-700' : 'text-neutral-300'
-                }`}
-              >
-                {initials}
-              </span>
-            </span>
-          </div>
-        </div>
+        {/* Huvud: en tunn ink-linje i stället för LinkedIn-banderollen */}
+        <div className="h-0.5 w-full bg-ink-1" aria-hidden="true" />
 
         {/* Namn-block */}
-        <div className="px-5 sm:px-6 pt-12 pb-4">
-          <p
-            className={`text-base font-semibold leading-tight ${
-              hasName ? 'text-neutral-900' : 'text-neutral-300'
+        <div className="flex items-center gap-3 px-4 pb-4 pt-4">
+          <span
+            className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-kant bg-panel text-base font-semibold ${
+              hasName ? 'text-ink-1' : 'text-ink-3'
             }`}
+            aria-hidden="true"
           >
-            {displayName}
-          </p>
-          <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500">
-            <MapPin className="w-3 h-3" strokeWidth={2.2} />
-            <span className="truncate">{displayLocation}</span>
-            <span className="text-neutral-300">·</span>
-            <Users className="w-3 h-3" strokeWidth={2.2} />
-            <span>500+ kontakter</span>
+            {initials}
+          </span>
+          <div className="min-w-0">
+            <p className={`truncate text-kort ${hasName ? 'text-ink-1' : 'text-ink-3'}`}>
+              {displayName}
+            </p>
+            <p className="truncate text-meta text-ink-3">
+              {displayLocation} · 500+ kontakter
+            </p>
           </div>
         </div>
 
         {/* Headline */}
-        <div className="px-5 sm:px-6 pb-4">
+        <div className="px-4 pb-4">
           <SectionWrapper
             section="headline"
             onSectionClick={onSectionClick}
             activeSection={activeSection}
           >
             <p
-              className={`text-sm font-bold leading-snug ${
-                hasHeadline ? 'text-neutral-900' : 'text-neutral-300 italic'
+              className={`text-sm font-medium leading-5 ${
+                hasHeadline ? 'text-ink-1' : 'text-ink-3'
               }`}
             >
               {displayHeadline}
@@ -363,21 +294,16 @@ export default function LinkedInProfileMockup({
         </div>
 
         {/* About */}
-        <div className="px-5 sm:px-6 pb-4">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-1 h-3 rounded-sm bg-orange-600" aria-hidden="true" />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Om mig
-            </span>
-          </div>
+        <div className="border-t border-kant px-4 pb-4 pt-4">
+          <SectionLabel>Om mig</SectionLabel>
           <SectionWrapper
             section="about"
             onSectionClick={onSectionClick}
             activeSection={activeSection}
           >
             <p
-              className={`text-xs leading-relaxed line-clamp-4 whitespace-pre-line ${
-                hasAbout ? 'text-neutral-700' : 'text-neutral-300 italic'
+              className={`line-clamp-4 whitespace-pre-line text-meta ${
+                hasAbout ? 'text-ink-2' : 'text-ink-3'
               }`}
             >
               {displayAbout}
@@ -386,13 +312,8 @@ export default function LinkedInProfileMockup({
         </div>
 
         {/* Erfarenhet */}
-        <div className="px-5 sm:px-6 pb-4 border-t border-orange-50 pt-4">
-          <div className="flex items-center gap-2 mb-3">
-            <Briefcase className="w-3.5 h-3.5 text-orange-700" strokeWidth={2.2} />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Erfarenhet
-            </span>
-          </div>
+        <div className="border-t border-kant px-4 pb-4 pt-4">
+          <SectionLabel>Erfarenhet</SectionLabel>
           <SectionWrapper
             section="experience"
             onSectionClick={onSectionClick}
@@ -402,26 +323,17 @@ export default function LinkedInProfileMockup({
               <div className="space-y-3">
                 {experiences.map((exp, i) => (
                   <div key={i} className="flex gap-3">
-                    <div
-                      className={`flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white ${
-                        i % 2 === 0 ? 'bg-orange-600' : 'bg-red-600'
-                      }`}
+                    <span
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-meta font-medium text-ink-2"
+                      aria-hidden="true"
                     >
                       {(exp.meta || exp.title).slice(0, 2).toUpperCase()}
-                    </div>
+                    </span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-bold text-neutral-900 truncate">
-                        {exp.title}
-                      </p>
-                      {exp.meta && (
-                        <p className="text-xs text-neutral-500 truncate">
-                          {exp.meta}
-                        </p>
-                      )}
+                      <p className="truncate text-meta font-medium text-ink-1">{exp.title}</p>
+                      {exp.meta && <p className="truncate text-meta text-ink-3">{exp.meta}</p>}
                       {exp.body && (
-                        <p className="text-xs text-neutral-600 leading-snug line-clamp-2 mt-0.5">
-                          {exp.body}
-                        </p>
+                        <p className="mt-0.5 line-clamp-2 text-meta text-ink-2">{exp.body}</p>
                       )}
                     </div>
                   </div>
@@ -430,33 +342,23 @@ export default function LinkedInProfileMockup({
             ) : (
               <div className="space-y-2">
                 {[1, 2].map((i) => (
-                  <div key={i} className="flex gap-3 opacity-50">
-                    <div className="flex-shrink-0 w-9 h-9 rounded-md bg-neutral-100" />
-                    <div className="flex-1 space-y-1.5 pt-1">
-                      <div className="h-2 w-2/3 rounded-full bg-neutral-100" />
-                      <div className="h-1.5 w-1/2 rounded-full bg-neutral-100" />
+                  <div key={i} className="flex gap-3" aria-hidden="true">
+                    <div className="h-8 w-8 shrink-0 rounded-lg border border-kant bg-panel" />
+                    <div className="flex-1 space-y-2 pt-1">
+                      <div className="h-2 w-2/3 rounded bg-kant" />
+                      <div className="h-2 w-1/2 rounded bg-kant" />
                     </div>
                   </div>
                 ))}
-                <p className="text-xs text-neutral-300 italic mt-1.5">
-                  Din erfarenhet dyker upp här
-                </p>
+                <p className="mt-1.5 text-meta text-ink-3">Din erfarenhet dyker upp här</p>
               </div>
             )}
           </SectionWrapper>
         </div>
 
         {/* Utbildning */}
-        <div className="px-5 sm:px-6 pb-4 border-t border-orange-50 pt-4">
-          <div className="flex items-center gap-2 mb-3">
-            <GraduationCap
-              className="w-3.5 h-3.5 text-orange-700"
-              strokeWidth={2.2}
-            />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Utbildning
-            </span>
-          </div>
+        <div className="border-t border-kant px-4 pb-4 pt-4">
+          <SectionLabel>Utbildning</SectionLabel>
           <SectionWrapper
             section="education"
             onSectionClick={onSectionClick}
@@ -466,19 +368,13 @@ export default function LinkedInProfileMockup({
               <div className="space-y-2">
                 {educations.map((edu, i) => (
                   <div key={i}>
-                    <p className="text-xs font-bold text-neutral-900 leading-snug">
-                      {edu.school}
-                    </p>
-                    {edu.meta && (
-                      <p className="text-xs text-neutral-500 leading-snug">
-                        {edu.meta}
-                      </p>
-                    )}
+                    <p className="text-meta font-medium text-ink-1">{edu.school}</p>
+                    {edu.meta && <p className="text-meta text-ink-3">{edu.meta}</p>}
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-neutral-300 italic">
+              <p className="text-meta text-ink-3">
                 Lägg till din utbildning för en starkare profil
               </p>
             )}
@@ -486,42 +382,34 @@ export default function LinkedInProfileMockup({
         </div>
 
         {/* Kompetenser */}
-        <div className="px-5 sm:px-6 pb-5 border-t border-orange-50 pt-4">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-1 h-3 rounded-sm bg-orange-600" aria-hidden="true" />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Kompetenser
-            </span>
-          </div>
+        <div className="border-t border-kant px-4 pb-4 pt-4">
+          <SectionLabel>Kompetenser</SectionLabel>
           <SectionWrapper
             section="skills"
             onSectionClick={onSectionClick}
             activeSection={activeSection}
           >
             {skills.length > 0 ? (
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {skills.map((skill, i) => (
                   <span
                     key={`${skill}-${i}`}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white border border-orange-200 text-neutral-700"
+                    className="inline-flex min-h-7 items-center rounded-lg border border-kant bg-panel px-2 text-meta text-ink-2"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2" aria-hidden="true">
                 {[1, 2, 3].map((i) => (
-                  <span
-                    key={i}
-                    className="inline-flex h-6 w-16 rounded-full bg-neutral-100 opacity-50"
-                  />
+                  <span key={i} className="inline-flex h-7 w-16 rounded-lg border border-kant bg-panel" />
                 ))}
               </div>
             )}
           </SectionWrapper>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

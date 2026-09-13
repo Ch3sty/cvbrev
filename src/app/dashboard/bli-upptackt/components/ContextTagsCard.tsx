@@ -33,8 +33,8 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
       sub="Taggarna är dina egna ord om var du trivs, byggda på ditt personlighetstest. Rekryterare ser dem som din självpresentation."
       delay={0.22}
       headerExtra={
-        <span className="text-xs text-neutral-500">
-          <b className="text-neutral-900">{selected.length}</b> av {MAX_TAGS} valda
+        <span className="text-meta text-ink-3">
+          <span className="tabular-nums text-ink-1">{selected.length}</span> av {MAX_TAGS} valda
         </span>
       }
     >
@@ -50,21 +50,19 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
               aria-checked={isSelected}
               onClick={() => toggle(tag)}
               disabled={isDisabled}
-              className={`inline-flex items-center gap-1.5 min-h-[40px] px-3.5 rounded-full text-[13px] font-semibold border-[1.5px] transition-colors touch-manipulation ${
-                isSelected
-                  ? 'border-indigo-400 bg-indigo-50 text-indigo-900'
-                  : isDisabled
-                    ? 'border-neutral-100 bg-neutral-50 text-neutral-300 cursor-not-allowed'
-                    : 'border-neutral-200 bg-white text-neutral-600 hover:border-indigo-300 hover:text-indigo-800'
+              className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-panel px-3.5 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+                isSelected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >
-              {isSelected && <Check className="w-3.5 h-3.5 text-indigo-600" strokeWidth={3} />}
+              {isSelected && (
+                <Check className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+              )}
               {tag}
             </button>
           );
         })}
       </div>
-      <p className="text-xs text-neutral-400 leading-relaxed mt-3">
+      <p className="mt-3 text-meta text-ink-3">
         Förslagen bygger på din profil, du väljer själv vilka som får stå för
         dig. Rekryterare kan aldrig filtrera på taggarna, de läser dem som din
         egen beskrivning.

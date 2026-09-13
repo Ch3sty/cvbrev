@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, EyeOff } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { CONTEXT_TAG_MICROCOPY } from '@/lib/recruiter/workStyle';
 import SectionCard, { type CollapseProps } from './SectionCard';
 import WorkStyleReportView from './WorkStyleReportView';
@@ -67,33 +66,32 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
       delay={0.2}
       {...collapse}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         {FAMILY_ORDER.map((key) => {
           const result = summary?.results?.[key];
           if (result?.done) {
             return (
               <ResultTile key={key} label={FAMILY_LABELS[key]}>
-                <div className="text-[15px] font-bold text-orange-900">
+                <p className="text-kort text-ink-1">
                   {result.percentile !== null
                     ? `Topp ${Math.max(1, 100 - result.percentile)} %`
-                    : `${result.bestScore}% rätt`}
-                </div>
-                <div className="text-xs text-neutral-500 mt-0.5">
+                    : `${result.bestScore} % rätt`}
+                </p>
+                <p className="mt-0.5 text-meta text-ink-3">
                   {result.level ? LEVEL_LABELS[result.level] : ''}
                   {result.completedAt ? ` · verifierad ${formatDate(result.completedAt)}` : ''}
-                </div>
+                </p>
               </ResultTile>
             );
           }
           return (
             <ResultTile key={key} label={FAMILY_LABELS[key]} todo>
-              <div className="text-[15px] font-bold text-neutral-400">Inte gjort</div>
+              <p className="text-kort text-ink-3">Inte gjort</p>
               <Link
                 href="/dashboard/tester"
-                className="inline-flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
+                className="mt-1.5 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
               >
                 Gör dagens test
-                <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
               </Link>
             </ResultTile>
           );
@@ -102,33 +100,27 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
         {/* Personlighet: avancerad-testare får arketypens titel, grundtestare styrkeorden */}
         {personality?.done ? (
           <ResultTile label="Personlighet">
-            <div className="text-[15px] font-bold text-indigo-800 leading-snug">
+            <p className="text-kort leading-snug text-ink-1">
               {personality.workStyle
                 ? personality.workStyle.archetype.title
                 : personality.strengths.join(' · ')}
-            </div>
-            {showPersonality ? (
-              <div className="text-xs text-neutral-500 mt-0.5">
-                {personality.workStyle
-                  ? 'Arbetsstil + styrkor delas med ditt samtycke'
-                  : 'Dina två främsta styrkor visas'}
-              </div>
-            ) : (
-              <div className="inline-flex items-center gap-1 text-xs text-neutral-400 mt-0.5">
-                <EyeOff className="w-3 h-3" strokeWidth={2.5} />
-                Döljs på profilen
-              </div>
-            )}
+            </p>
+            <p className="mt-0.5 text-meta text-ink-3">
+              {showPersonality
+                ? personality.workStyle
+                  ? 'Arbetsstil och styrkor delas med ditt samtycke'
+                  : 'Dina två främsta styrkor visas'
+                : 'Döljs på profilen'}
+            </p>
           </ResultTile>
         ) : (
           <ResultTile label="Personlighet" todo>
-            <div className="text-[15px] font-bold text-neutral-400">Inte gjort</div>
+            <p className="text-kort text-ink-3">Inte gjort</p>
             <Link
               href="/dashboard/tester"
-              className="inline-flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-700 mt-1.5 min-h-[24px]"
+              className="mt-1.5 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
             >
               Gör dagens test
-              <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
             </Link>
           </ResultTile>
         )}
@@ -136,92 +128,79 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
 
       {/* Delningsnivåerna: bara för avancerad-testare med kvalificerad rapport */}
       {personality?.done && canShareFullReport && (
-        <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50/40 p-4">
-          <div className="mb-3">
-            <h3 className="text-[13.5px] font-bold text-indigo-950">
-              Din arbetsstilsrapport
-            </h3>
-            <p className="text-xs text-indigo-900/75 leading-relaxed mt-1">
-              Det här är du, i klartext. Testet ringar in hur du faktiskt jobbar,
-              samarbetar och vad som får dig att växla upp, så du slipper hitta
-              orden själv. En rekryterare fattar direkt vad du går för, ingen
-              gissningslek. Och du bestämmer fortfarande exakt vad som syns, det
-              som är privat stannar privat.
-            </p>
-          </div>
+        <div className="mt-4 rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+          <h3 className="text-kort text-ink-1">Din arbetsstilsrapport</h3>
+          <p className="mt-1 text-sm leading-[22px] text-ink-2">
+            Det här är du, i klartext. Testet ringar in hur du faktiskt jobbar,
+            samarbetar och vad som får dig att växla upp, så du slipper hitta
+            orden själv. En rekryterare fattar direkt vad du går för. Och du
+            bestämmer fortfarande exakt vad som syns.
+          </p>
 
-          <ToggleRow
-            checked={showPersonality}
-            onToggle={togglePersonalityShare}
-            label="Visa styrkor och arbetsstil"
-            sub="Nivå 1: dina främsta styrkor, arketyp och några punkter om din arbetsstil."
-          />
-          <ToggleRow
-            checked={profile.show_full_workstyle && showPersonality}
-            onToggle={toggleFullWorkstyle}
-            disabled={!showPersonality}
-            label="Visa fullständig arbetsstilsrapport"
-            sub={
-              showPersonality
-                ? 'Nivå 2: hur du arbetar, samarbetar och drivs, med spektrum i ord (aldrig siffror).'
-                : 'Kräver att personlighetsstyrkor visas'
-            }
-          />
+          <div className="mt-3 divide-y divide-kant">
+            <ToggleRow
+              checked={showPersonality}
+              onToggle={togglePersonalityShare}
+              label="Visa styrkor och arbetsstil"
+              sub="Nivå 1: dina främsta styrkor, arketyp och några punkter om din arbetsstil."
+            />
+            <ToggleRow
+              checked={profile.show_full_workstyle && showPersonality}
+              onToggle={toggleFullWorkstyle}
+              disabled={!showPersonality}
+              label="Visa fullständig arbetsstilsrapport"
+              sub={
+                showPersonality
+                  ? 'Nivå 2: hur du arbetar, samarbetar och drivs, med spektrum i ord (aldrig siffror).'
+                  : 'Kräver att personlighetsstyrkor visas'
+              }
+            />
+          </div>
 
           {/* Exakt förhandsvisning: rekryterarens vy, samma rapportobjekt */}
           {profile.show_full_workstyle && showPersonality && workStyleReport && (
-            <div className="mt-3 pt-3 border-t border-indigo-100">
+            <div className="mt-3 border-t border-kant pt-3">
               <button
                 type="button"
                 onClick={() => setPreviewOpen((v) => !v)}
                 aria-expanded={previewOpen}
-                className="w-full flex items-center justify-between gap-3 min-h-[44px] text-left touch-manipulation"
+                className="flex min-h-11 w-full items-center justify-between gap-3 text-left"
               >
-                <span className="text-[13px] font-bold text-indigo-800">
+                <span className="text-sm font-medium text-ink-1">
                   Så ser rapporten ut för rekryterare
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-indigo-500 flex-shrink-0 transition-transform ${
+                  className={`h-5 w-5 shrink-0 text-ink-3 transition-transform duration-[120ms] ${
                     previewOpen ? 'rotate-180' : ''
                   }`}
-                  strokeWidth={2.5}
+                  strokeWidth={1.75}
+                  aria-hidden="true"
                 />
               </button>
-              <AnimatePresence initial={false}>
-                {previewOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pt-3">
-                      <p className="text-xs text-indigo-900/70 leading-relaxed mb-3">
-                        Det här är exakt rapporten rekryteraren ser, byggd ur
-                        samma härledning. Inget mer, inget annat.
-                      </p>
-                      <div className="rounded-xl border border-neutral-200 bg-white p-4">
-                        <WorkStyleReportView
-                          report={workStyleReport}
-                          contextTags={profile.context_tags}
-                          contextTagMicrocopy={CONTEXT_TAG_MICROCOPY}
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {previewOpen && (
+                <div className="pt-3">
+                  <p className="mb-3 text-meta text-ink-3">
+                    Det här är exakt rapporten rekryteraren ser, byggd ur samma
+                    härledning. Inget mer, inget annat.
+                  </p>
+                  <div className="rounded-lg border border-kant bg-panel p-4">
+                    <WorkStyleReportView
+                      report={workStyleReport}
+                      contextTags={profile.context_tags}
+                      contextTagMicrocopy={CONTEXT_TAG_MICROCOPY}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
           {/* Enda vägen in till hela arbetsstilssidan sedan sidebar-posten togs bort */}
           <Link
             href="/dashboard/arbetsstil"
-            className="mt-4 w-full inline-flex items-center justify-center gap-1.5 min-h-[46px] rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 transition-colors touch-manipulation"
+            className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
           >
             Öppna din arbetsstil
-            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </Link>
         </div>
       )}
@@ -231,24 +210,15 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
       {personality?.done && !personality.hasAdvancedTest && (
         <Link
           href="/dashboard/arbetsstil"
-          className="mt-3 block rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5 transition-colors hover:bg-indigo-50"
+          className="mt-3 block rounded-lg border border-kant bg-insunken p-4 shadow-insunken hover:bg-panel"
         >
-          <div className="flex items-start justify-between gap-3">
-            <p className="text-xs text-indigo-900/85 leading-relaxed min-w-0">
-              120 frågor senare vet du lite mer om dig själv, hur du fungerar
-              bäst, vad som ger dig energi och hur du samarbetar med andra. Att
-              dela den bilden med en rekryterare betyder att du inte behöver
-              klämma in hela dig i ett CV, de ser vem du är innan ni ens pratats
-              vid. Du väljer själv vad som visas, och det som är just ditt får
-              vara kvar hos dig.
-            </p>
-            <ArrowRight
-              className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5"
-              strokeWidth={2.5}
-              aria-hidden="true"
-            />
-          </div>
-          <span className="inline-flex items-center gap-1 text-xs font-bold text-indigo-700 mt-2">
+          <p className="text-sm leading-[22px] text-ink-2">
+            120 frågor senare vet du lite mer om dig själv: hur du fungerar bäst,
+            vad som ger dig energi och hur du samarbetar. Delar du den bilden med
+            en rekryterare behöver du inte klämma in hela dig i ett CV. Du väljer
+            själv vad som visas, resten stannar hos dig.
+          </p>
+          <span className="mt-2 inline-flex text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
             Se din arbetsstil och lås upp hela rapporten
           </span>
         </Link>
@@ -257,7 +227,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
   );
 }
 
-/* Delningsreglage: switch + etikett, hela raden klickbar. */
+/* Delningsreglage: växel plus etikett, hela raden klickbar. */
 function ToggleRow({
   checked,
   onToggle,
@@ -278,23 +248,23 @@ function ToggleRow({
       aria-checked={checked}
       onClick={onToggle}
       disabled={disabled}
-      className={`w-full flex items-start justify-between gap-3 text-left rounded-xl px-2 py-2 -mx-2 transition-colors touch-manipulation ${
-        disabled ? 'cursor-not-allowed opacity-60' : 'hover:bg-indigo-100/40'
+      className={`flex min-h-11 w-full items-start justify-between gap-3 py-3 text-left ${
+        disabled ? 'cursor-not-allowed opacity-60' : ''
       }`}
     >
       <span className="min-w-0">
-        <span className="block text-[13px] font-semibold text-neutral-800">{label}</span>
-        <span className="block text-xs text-neutral-500 leading-relaxed mt-0.5">{sub}</span>
+        <span className="block text-sm font-medium text-ink-1">{label}</span>
+        <span className="mt-0.5 block text-meta text-ink-3">{sub}</span>
       </span>
       <span
-        className={`flex-shrink-0 mt-0.5 w-10 h-6 rounded-full p-0.5 transition-colors ${
-          checked ? 'bg-indigo-600' : 'bg-neutral-200'
+        className={`mt-0.5 h-6 w-11 shrink-0 rounded-full border transition-colors duration-[120ms] ${
+          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-insunken'
         }`}
         aria-hidden="true"
       >
         <span
-          className={`block w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
-            checked ? 'translate-x-4' : ''
+          className={`relative block h-4 w-4 translate-y-0.5 rounded-full border border-kant bg-panel transition-transform duration-[120ms] ${
+            checked ? 'translate-x-[22px]' : 'translate-x-0.5'
           }`}
         />
       </span>
@@ -313,13 +283,11 @@ function ResultTile({
 }) {
   return (
     <div
-      className={`rounded-xl p-3.5 border ${
-        todo ? 'border-dashed border-orange-200 bg-orange-50/30' : 'border-orange-100 bg-white'
+      className={`rounded-lg border p-3.5 ${
+        todo ? 'border-dashed border-kant-stark bg-insunken' : 'border-kant bg-panel'
       }`}
     >
-      <div className="text-xs font-bold uppercase tracking-[0.1em] text-neutral-400 mb-1">
-        {label}
-      </div>
+      <p className="mb-1 text-steg uppercase text-ink-3">{label}</p>
       {children}
     </div>
   );

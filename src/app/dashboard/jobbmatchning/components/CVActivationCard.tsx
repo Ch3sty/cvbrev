@@ -1,7 +1,6 @@
 'use client';
 
-import { CheckCircle2, Lock, FileText, Search, Calendar } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { IkonCv } from '@/components/illustrations/Ikoner';
 import CvHeroStrip from './CvHeroStrip';
 import RoleMatchCard from './RoleMatchCard';
 import SkillCloud from './SkillCloud';
@@ -47,14 +46,9 @@ interface CVActivationCardProps {
 }
 
 /**
- * Orkestrator-komponent for det aktiva (eller aktivera-bara) CV-kortet.
- * Komponerar fyra distinkta visuella moduler:
- *   1. CvHeroStrip   - gradient hero med stat-cells (rolesCount/skills/edu)
- *   2. RoleMatchCard - horisontell grid av yrkesroller med ConfidenceMeter
- *   3. SkillCloud    - kompetenser med gradient-djup
- *   4. EducationTimeline - vertikal tidslinje med ar-prickar
- *
- * Inaktivt state: kompakt rad med fil-info och Aktivera-knapp.
+ * Det aktiva CV:t, eller raden för att aktivera ett. Aktivt läge staplar
+ * fyra paneler: sammanfattningen, yrkesrollerna, kompetenserna och
+ * utbildningen. Inaktivt läge är en rad med en ink-knapp.
  */
 export default function CVActivationCard({
   cv,
@@ -64,71 +58,35 @@ export default function CVActivationCard({
   onSearchJobs,
   isActivating,
 }: CVActivationCardProps) {
-  // Inaktivt state - kompakt rad
+  // Inaktivt: en rad med filen och en ink-knapp
   if (!isActive) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl border border-neutral-200 hover:border-orange-300 transition-all p-4 sm:p-5"
-      >
-        <div className="flex items-start gap-3 mb-4">
-          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-neutral-100 text-neutral-500 flex items-center justify-center">
-            <FileText className="w-5 h-5" strokeWidth={2.25} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <h3 className="text-sm sm:text-base font-semibold text-neutral-900 truncate">
-                  {cv.file_name}
-                </h3>
-                <p className="text-xs text-neutral-500 mt-0.5 flex items-center gap-1.5">
-                  <Calendar className="w-3 h-3" />
-                  Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
-                </p>
-              </div>
-              <span className="flex-shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-500 text-xs font-medium">
-                <Lock className="w-3 h-3" />
-                Inaktivt
-              </span>
-            </div>
+      <section className="rounded-xl border border-kant bg-panel p-4">
+        <div className="flex items-start gap-3">
+          <IkonCv className="mt-0.5 shrink-0 text-ink-2" />
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-kort text-ink-1">{cv.file_name}</h3>
+            <p className="mt-0.5 text-meta text-ink-3">
+              Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')} · inaktivt
+            </p>
           </div>
         </div>
 
         <button
+          type="button"
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
-          className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold transition-all flex items-center justify-center gap-2 relative overflow-hidden disabled:cursor-wait"
+          className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
         >
-          {isActivating ? (
-            <>
-              <motion.div
-                className="absolute inset-0 bg-white/20"
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <PulsingDots />
-              <span className="relative z-10">Aktiverar CV...</span>
-            </>
-          ) : (
-            <>
-              <CheckCircle2 className="w-4 h-4" strokeWidth={2.5} />
-              Aktivera för jobbmatchning
-            </>
-          )}
+          {isActivating ? 'Aktiverar' : 'Aktivera för jobbmatchning'}
         </button>
-      </motion.div>
+      </section>
     );
   }
 
   // Aktivt state - full upplevelse med alla moduler
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-4 sm:space-y-5"
-    >
+    <div className="space-y-4 sm:space-y-5">
       {/* 1. Gradient hero */}
       <CvHeroStrip
         fileName={cv.file_name}
@@ -142,17 +100,13 @@ export default function CVActivationCard({
 
       {/* 2. Yrkesroller - horisontell grid */}
       {activeData && activeData.extracted_occupations.length > 0 && (
-        <section className="bg-white rounded-xl border border-neutral-200 p-5">
-          <header className="flex items-center justify-between gap-2 mb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-                Yrkesroller som matchar
-              </span>
-              <span className="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-600 text-xs font-bold tabular-nums">
-                {activeData.extracted_occupations.length}
-              </span>
-            </div>
-          </header>
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 className="text-sm font-medium text-ink-3">Yrkesroller som matchar</h2>
+            <span className="text-meta tabular-nums text-ink-3">
+              {activeData.extracted_occupations.length}
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {activeData.extracted_occupations.map((occ, i) => (
@@ -176,14 +130,14 @@ export default function CVActivationCard({
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5">
             {/* Kompetenser - bredare kolumn */}
             {activeData.extracted_skills.length > 0 && (
-              <div className="lg:col-span-3 bg-white rounded-xl border border-neutral-200 p-5">
+              <div className="rounded-xl border border-kant bg-panel p-4 lg:col-span-3">
                 <SkillCloud skills={activeData.extracted_skills} />
               </div>
             )}
 
             {/* Utbildnings-tidslinje - smalare kolumn */}
             {activeData.extracted_educations.length > 0 && (
-              <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-200 p-5">
+              <div className="rounded-xl border border-kant bg-panel p-4 lg:col-span-2">
                 <EducationTimeline educations={activeData.extracted_educations} />
               </div>
             )}
@@ -194,36 +148,20 @@ export default function CVActivationCard({
           öppnar redan sökvyn automatiskt; denna är för redan aktiva CV:n) */}
       {onSearchJobs && (
         <button
+          type="button"
           onClick={onSearchJobs}
-          className="w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 hover:border-orange-300 touch-manipulation min-h-[44px]"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
         >
-          <Search className="w-4 h-4 flex-shrink-0" strokeWidth={2.25} />
           Visa matchande jobb
         </button>
       )}
 
       {/* Analyserad-datum */}
       {activeData && (
-        <p className="text-xs text-neutral-500 flex items-center gap-1.5 justify-center">
-          <Calendar className="w-3 h-3" />
+        <p className="text-center text-meta text-ink-3">
           Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
         </p>
       )}
-    </motion.div>
-  );
-}
-
-function PulsingDots() {
-  return (
-    <div className="flex gap-1">
-      {[0, 0.2, 0.4].map((delay, i) => (
-        <motion.div
-          key={i}
-          className="w-2 h-2 bg-white rounded-full"
-          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-          transition={{ duration: 1, repeat: Infinity, delay }}
-        />
-      ))}
     </div>
   );
 }

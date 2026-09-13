@@ -1,19 +1,6 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  ArrowRight,
-  ArrowLeft,
-  Type,
-  User,
-  Briefcase,
-  GraduationCap,
-  Wrench,
-  Files,
-  Check,
-  type LucideIcon,
-} from 'lucide-react'
 import { toast } from 'react-toastify'
 import LinkedInProfileMockup, {
   type ProfileMockupData,
@@ -49,30 +36,25 @@ interface Props {
   results: OptimizationResults
   fullName?: string
   language?: 'sv' | 'en'
-  onBack: () => void
-  onNext: () => void
 }
 
-const SECTION_META: Array<{
-  key: MockupSection
-  title: string
-  icon: LucideIcon
-  optional?: boolean
-}> = [
-  { key: 'headline', title: 'Rubrik', icon: Type },
-  { key: 'about', title: 'Om mig', icon: User },
-  { key: 'experience', title: 'Erfarenhet', icon: Briefcase },
-  { key: 'education', title: 'Utbildning', icon: GraduationCap, optional: true },
-  { key: 'skills', title: 'Kompetenser', icon: Wrench, optional: true },
+const SECTION_META: Array<{ key: MockupSection; title: string }> = [
+  { key: 'headline', title: 'Rubrik' },
+  { key: 'about', title: 'Om mig' },
+  { key: 'experience', title: 'Erfarenhet' },
+  { key: 'education', title: 'Utbildning' },
+  { key: 'skills', title: 'Kompetenser' },
 ]
 
+/**
+ * Steg 3: poängen, före och efter sida vid sida, och den valda sektionens
+ * detaljer. Klicket i mockupen väljer sektion. Fortsätt ligger i foten.
+ */
 export default function Step3Results({
   originalSections,
   results,
   fullName,
   language = 'sv',
-  onBack,
-  onNext,
 }: Props) {
   const [activeSection, setActiveSection] = useState<MockupSection>('about')
   const [compareSide, setCompareSide] = useState<CompareSide>('after')
@@ -91,39 +73,35 @@ export default function Step3Results({
     fullName,
     headline: results.sections.headline?.optimized || originalSections.headline,
     about: results.sections.about?.optimized || originalSections.about,
-    experience:
-      results.sections.experience?.optimized || originalSections.experience,
-    education:
-      results.sections.education?.optimized || originalSections.education,
+    experience: results.sections.experience?.optimized || originalSections.experience,
+    education: results.sections.education?.optimized || originalSections.education,
     skills: results.sections.skills?.optimized || originalSections.skills,
   }
 
-  const availableSections = useMemo(() => {
-    return SECTION_META.filter((s) => {
-      const r = results.sections[s.key as keyof typeof results.sections]
-      return !!r
-    })
-  }, [results.sections])
+  const availableSections = useMemo(
+    () =>
+      SECTION_META.filter(
+        (s) => !!results.sections[s.key as keyof typeof results.sections]
+      ),
+    [results.sections]
+  )
 
   const handleCopyAll = async () => {
     try {
       let text = ''
       availableSections.forEach((s) => {
         const r = results.sections[s.key as keyof typeof results.sections]
-        if (r) {
-          text += `=== ${s.title.toUpperCase()} ===\n\n`
-          // Skills returneras som JSON-objekt, formatera till läsbar text
-          if (s.key === 'skills') {
-            text += formatSkillsForCopy(r.optimized, language) + '\n\n'
-          } else {
-            text += r.optimized + '\n\n'
-          }
-        }
+        if (!r) return
+        text += `=== ${s.title.toUpperCase()} ===\n\n`
+        // Skills returneras som JSON-objekt, formatera till läsbar text
+        text +=
+          (s.key === 'skills' ? formatSkillsForCopy(r.optimized, language) : r.optimized) +
+          '\n\n'
       })
       await navigator.clipboard.writeText(text)
       setCopiedAll(true)
       setTimeout(() => setCopiedAll(false), 2500)
-      toast.success('Alla sektioner kopierade!', {
+      toast.success('Alla sektioner kopierade', {
         position: 'bottom-center',
         autoClose: 2000,
         hideProgressBar: true,
@@ -134,89 +112,50 @@ export default function Step3Results({
     }
   }
 
-  const activeMeta =
-    SECTION_META.find((s) => s.key === activeSection) ?? SECTION_META[0]!
+  const activeMeta = SECTION_META.find((s) => s.key === activeSection) ?? SECTION_META[0]!
   const activeResult = results.sections[
     activeSection as keyof typeof results.sections
   ] as SectionResult | undefined
 
   return (
-    <div>
-      {/* Hero med score */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="text-center mb-6"
-      >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 mb-3">
-          <Check className="w-3.5 h-3.5 text-emerald-700" strokeWidth={2.6} />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
-            Klart
-          </span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight mb-1.5">
-          Din profil är mycket starkare
-        </h1>
-        <p className="text-sm sm:text-base text-neutral-600 mb-6 leading-relaxed">
-          Klicka på en sektion i mockupen för att se exakt vad vi ändrade.
+    <div className="space-y-6">
+      <div>
+        <p className="text-steg uppercase text-ink-3">Steg 3 av 4</p>
+        <h2 className="text-fraga text-ink-1">Din profil är starkare</h2>
+        <p className="mt-2 text-sm text-ink-2">
+          Välj en sektion nedan eller i profilen för att se exakt vad vi ändrade.
         </p>
-        <ScoreHero
-          scoreBefore={results.overall_score_before}
-          scoreAfter={results.overall_score_after}
-        />
-      </motion.div>
-
-      {/* Kopiera allt */}
-      <div className="flex justify-center mb-6">
-        <button
-          type="button"
-          onClick={handleCopyAll}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-orange-600 text-white font-bold text-sm transition-all hover:bg-orange-700 hover:scale-[1.02] active:scale-[0.99]"
-        >
-          {copiedAll ? (
-            <>
-              <Check className="w-4 h-4" strokeWidth={2.6} />
-              Alla sektioner kopierade
-            </>
-          ) : (
-            <>
-              <Files className="w-4 h-4" strokeWidth={2.4} />
-              Kopiera alla sektioner
-            </>
-          )}
-        </button>
       </div>
 
-      {/* Mobil: compare toggle */}
-      <div className="md:hidden flex justify-center mb-4">
+      <ScoreHero
+        scoreBefore={results.overall_score_before}
+        scoreAfter={results.overall_score_after}
+      />
+
+      <button
+        type="button"
+        onClick={handleCopyAll}
+        className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
+      >
+        {copiedAll ? 'Alla sektioner kopierade' : 'Kopiera alla sektioner'}
+      </button>
+
+      {/* Mobil: en profil i taget */}
+      <div className="md:hidden">
         <CompareToggle value={compareSide} onChange={setCompareSide} />
       </div>
 
-      {/* Mockups */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        {/* Före */}
-        <div
-          className={`${
-            compareSide === 'before' ? 'block' : 'hidden md:block'
-          }`}
-        >
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className={compareSide === 'before' ? 'block' : 'hidden md:block'}>
           <LinkedInProfileMockup
             data={beforeData}
             variant="live"
             badge="Före"
-            showGlow={false}
             onSectionClick={setActiveSection}
             activeSection={activeSection}
           />
         </div>
-
-        {/* Efter */}
-        <div
-          className={`${
-            compareSide === 'after' ? 'block' : 'hidden md:block'
-          }`}
-        >
+        <div className={compareSide === 'after' ? 'block' : 'hidden md:block'}>
           <LinkedInProfileMockup
             data={afterData}
             variant="optimized"
@@ -227,72 +166,40 @@ export default function Step3Results({
         </div>
       </div>
 
-      {/* Sektionsnavigation */}
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div
+        className="flex flex-wrap gap-2"
+        role="radiogroup"
+        aria-label="Välj sektion att granska"
+      >
         {availableSections.map((s) => {
-          const Icon = s.icon
           const active = activeSection === s.key
           return (
             <button
               key={s.key}
               type="button"
+              role="radio"
+              aria-checked={active}
               onClick={() => setActiveSection(s.key)}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold transition-all min-h-[44px] ${
-                active
-                  ? 'bg-orange-600 text-white'
-                  : 'text-neutral-600 bg-white border border-neutral-200 hover:border-orange-200 hover:bg-orange-50/40'
+              className={`inline-flex h-11 items-center rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                active ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >
-              <Icon className="w-3.5 h-3.5" strokeWidth={2.4} />
               {s.title}
             </button>
           )
         })}
       </div>
 
-      {/* Section detail */}
-      <AnimatePresence mode="wait">
-        {activeResult && (
-          <motion.div
-            key={activeSection}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25 }}
-          >
-            <SectionDetail
-              sectionKey={activeSection}
-              title={activeMeta.title}
-              icon={activeMeta.icon}
-              optimizedText={activeResult.optimized}
-              scoreBefore={activeResult.score_before}
-              scoreAfter={activeResult.score_after}
-              improvements={activeResult.improvements}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Navigation */}
-      <div className="mt-8 flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 sm:items-center sm:justify-between">
-        <button
-          type="button"
-          onClick={onBack}
-          className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-neutral-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" strokeWidth={2.4} />
-          Tillbaka
-        </button>
-
-        <button
-          type="button"
-          onClick={onNext}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99]"
-        >
-          <span>Fortsätt till export</span>
-          <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
-        </button>
-      </div>
+      {activeResult && (
+        <SectionDetail
+          sectionKey={activeSection}
+          title={activeMeta.title}
+          optimizedText={activeResult.optimized}
+          scoreBefore={activeResult.score_before}
+          scoreAfter={activeResult.score_after}
+          improvements={activeResult.improvements}
+        />
+      )}
     </div>
   )
 }

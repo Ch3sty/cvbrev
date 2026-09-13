@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { SlidersHorizontal, X, MapPin, Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
+import Sheet from '@/components/shell/Sheet';
 import { groupJobsByRegion, type RegionGroup } from '../data/job-filtering';
 
 /**
@@ -68,10 +68,8 @@ interface JobFilterPanelProps {
 }
 
 /**
- * Filterpanel för jobbsök. Mobile-first:
- *   - mobil: en "Filter"-knapp som öppnar en bottom-drawer
- *   - desktop (lg+): alltid synlig som vänster-sidebar
- * All design i appens orange-DNA.
+ * Filterpanel för jobbsök. På mobil en knapp som öppnar ett ark, på desktop
+ * en panel i vänsterspalten. Val markeras med kant i ink, aldrig med fyllning.
  */
 export default function JobFilterPanel({ filters, onChange, userLocation, jobs = [] }: JobFilterPanelProps) {
   const [open, setOpen] = useState(false);
@@ -113,21 +111,21 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
         />
       </div>
 
-      <Segment
+      <FilterSegment
         title="Omfattning"
         options={WORKTIME}
         value={filters.worktimeExtent}
         onSelect={(v) => set({ worktimeExtent: v as string })}
       />
 
-      <Segment
+      <FilterSegment
         title="Publicerat"
         options={PUBLISHED}
         value={filters.publishedAfterMinutes}
         onSelect={(v) => set({ publishedAfterMinutes: v as number })}
       />
 
-      <Segment
+      <FilterSegment
         title="Sortering"
         options={SORT}
         value={filters.sort}
@@ -137,12 +135,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
       {/* Ortsfilter: region → kommun, antal ur faktisk jobbdata */}
       {regionGroups.length > 0 && (
         <div>
-          <div className="flex items-center gap-1.5 mb-2.5">
-            <MapPin className="w-3.5 h-3.5 text-orange-500" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-              Var jobben finns
-            </span>
-          </div>
+          <span className="mb-2 block text-sm font-medium text-ink-3">Var jobben finns</span>
           <div className="space-y-1.5">
             {regionGroups.map((region) => {
               const isExpanded = expandedRegion === region.code;
@@ -150,23 +143,22 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                 filters.municipality.includes(m.code)
               ).length;
               return (
-                <div key={region.code} className="rounded-lg border border-neutral-200 overflow-hidden">
+                <div key={region.code} className="overflow-hidden rounded-lg border border-kant">
                   <button
                     type="button"
                     onClick={() => setExpandedRegion(isExpanded ? null : region.code)}
-                    className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-left hover:bg-orange-50/50 transition-colors touch-manipulation min-h-[44px]"
+                    className="flex min-h-11 w-full items-center justify-between gap-2 px-3 text-left hover:bg-insunken"
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      <span className="text-sm font-medium text-neutral-800 truncate">{region.name}</span>
-                      <span className="flex-shrink-0 text-xs text-neutral-500 tabular-nums">({region.count})</span>
-                      {selectedInRegion > 0 && (
-                        <span className="flex-shrink-0 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-orange-600 text-white text-xs font-bold">
-                          {selectedInRegion}
-                        </span>
-                      )}
+                      <span className="truncate text-sm font-medium text-ink-1">{region.name}</span>
+                      <span className="shrink-0 text-meta tabular-nums text-ink-3">
+                        {region.count}
+                        {selectedInRegion > 0 && ` · ${selectedInRegion} valda`}
+                      </span>
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 flex-shrink-0 text-neutral-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                      className={`h-5 w-5 shrink-0 text-ink-3 transition-transform duration-[120ms] ${isExpanded ? 'rotate-180' : ''}`}
+                      strokeWidth={1.75}
                     />
                   </button>
                   {isExpanded && (
@@ -178,17 +170,16 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                             key={m.code}
                             type="button"
                             onClick={() => toggleMuni(m.code)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all touch-manipulation min-h-[44px] border ${
-                              selected
-                                ? 'bg-orange-600 text-white border-transparent'
-                                : 'bg-white text-neutral-700 border-neutral-200 hover:border-orange-300 hover:bg-orange-50/50'
+                            aria-pressed={selected}
+                            className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                              selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
                             }`}
                           >
-                            {selected && <Check className="w-3.5 h-3.5" strokeWidth={2.5} />}
+                            {selected && (
+                              <Check className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                            )}
                             {m.name}
-                            <span className={`text-xs tabular-nums ${selected ? 'text-white/80' : 'text-neutral-400'}`}>
-                              {m.count}
-                            </span>
+                            <span className="text-meta tabular-nums text-ink-3">{m.count}</span>
                           </button>
                         );
                       })}
@@ -205,7 +196,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
         <button
           type="button"
           onClick={reset}
-          className="text-sm font-medium text-neutral-500 hover:text-orange-600 transition-colors touch-manipulation"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
         >
           Rensa alla filter ({activeCount})
         </button>
@@ -215,78 +206,36 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
 
   return (
     <>
-      {/* MOBIL: knapp som öppnar drawer (dölj på lg+) */}
+      {/* Mobil: knappen som öppnar arket */}
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="lg:hidden inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-neutral-200 hover:border-orange-300 text-sm font-semibold text-neutral-700 transition-all touch-manipulation min-h-[44px]"
+        className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken lg:hidden"
       >
-        <SlidersHorizontal className="w-4 h-4 text-orange-500" />
         Filter
         {activeCount > 0 && (
-          <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-orange-600 text-white text-xs font-bold">
-            {activeCount}
-          </span>
+          <span className="ml-2 text-meta tabular-nums text-ink-3">{activeCount}</span>
         )}
       </button>
 
-      {/* DESKTOP: alltid synlig sidebar */}
-      <aside className="hidden lg:block w-full">
-        <div className="bg-white rounded-xl border border-neutral-200 p-5 sticky top-6">
-          <div className="flex items-center gap-2 mb-5">
-            <SlidersHorizontal className="w-4 h-4 text-orange-500" />
-            <h3 className="text-sm font-bold text-neutral-900">Filter</h3>
-          </div>
+      {/* Desktop: panelen i vänsterspalten */}
+      <aside className="hidden w-full lg:block">
+        <div className="sticky top-4 rounded-xl border border-kant bg-panel p-4">
+          <h2 className="mb-4 text-sm font-medium text-ink-3">Filter</h2>
           {body}
         </div>
       </aside>
 
-      {/* MOBIL: bottom-drawer */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-              className="lg:hidden fixed inset-0 bg-neutral-900/40 backdrop-blur-sm z-40"
-            />
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="lg:hidden fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-xl max-h-[85vh] overflow-y-auto"
-            >
-              <div className="sticky top-0 bg-white flex items-center justify-between px-5 py-4 border-b border-neutral-100">
-                <div className="flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-orange-500" />
-                  <h3 className="text-base font-bold text-neutral-900">Filter</h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 touch-manipulation"
-                  aria-label="Stäng filter"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="px-5 py-5 pb-8">{body}</div>
-              <div className="sticky bottom-0 bg-white px-5 py-4 border-t border-neutral-100">
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold touch-manipulation min-h-[48px]"
-                >
-                  Visa resultat
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <Sheet open={open} onClose={() => setOpen(false)} title="Filter" size="lg">
+        {body}
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+        >
+          Visa resultat
+        </button>
+      </Sheet>
     </>
   );
 }
@@ -306,19 +255,21 @@ function ToggleRow({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="w-full flex items-center justify-between gap-3 text-left touch-manipulation min-h-[44px]"
+      role="switch"
+      aria-checked={checked}
+      className="flex min-h-11 w-full items-center justify-between gap-3 text-left"
     >
       <span className="min-w-0">
-        <span className="block text-sm font-medium text-neutral-800">{label}</span>
-        <span className="block text-xs text-neutral-500 mt-0.5">{hint}</span>
+        <span className="block text-sm font-medium text-ink-1">{label}</span>
+        <span className="mt-0.5 block text-meta text-ink-3">{hint}</span>
       </span>
       <span
-        className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors ${
-          checked ? 'bg-orange-600' : 'bg-neutral-200'
+        className={`relative h-6 w-11 shrink-0 rounded-full border transition-colors duration-[120ms] ${
+          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-insunken'
         }`}
       >
         <span
-          className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+          className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full border border-kant bg-panel transition-transform duration-[120ms] ${
             checked ? 'translate-x-5' : 'translate-x-0'
           }`}
         />
@@ -327,7 +278,7 @@ function ToggleRow({
   );
 }
 
-function Segment<T extends string | number>({
+function FilterSegment<T extends string | number>({
   title,
   options,
   value,
@@ -340,10 +291,8 @@ function Segment<T extends string | number>({
 }) {
   return (
     <div>
-      <span className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-2">
-        {title}
-      </span>
-      <div className="flex flex-wrap gap-2">
+      <span className="mb-2 block text-sm font-medium text-ink-3">{title}</span>
+      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={title}>
         {options.map((opt) => {
           const active = opt.value === value;
           return (
@@ -351,10 +300,10 @@ function Segment<T extends string | number>({
               key={String(opt.value)}
               type="button"
               onClick={() => onSelect(opt.value)}
-              className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all touch-manipulation min-h-[44px] border ${
-                active
-                  ? 'bg-orange-600 text-white border-transparent'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-orange-300 hover:bg-orange-50/50'
+              role="radio"
+              aria-checked={active}
+              className={`inline-flex min-h-11 items-center rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                active ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >
               {opt.label}

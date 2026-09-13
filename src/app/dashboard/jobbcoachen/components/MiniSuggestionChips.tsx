@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 const SUGGESTIONS = [
   'Hur skriver jag ett bra CV?',
   'Vad är marknadslön i mitt yrke?',
@@ -14,25 +12,18 @@ interface MiniSuggestionChipsProps {
 
 export default function MiniSuggestionChips({ onPick }: MiniSuggestionChipsProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="flex flex-wrap items-center gap-2 -mx-1 px-1 pb-1"
-    >
-      <span className="self-center text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400 mr-1">
-        Förslag
-      </span>
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="mr-1 self-center text-sm font-medium text-ink-3">Förslag</span>
       {SUGGESTIONS.map((s) => (
         <button
           key={s}
           type="button"
           onClick={() => onPick(s)}
-          className="px-3 py-1.5 rounded-full bg-white border border-neutral-200 hover:border-orange-300 hover:bg-orange-50/40 text-xs font-medium text-neutral-700 transition-colors min-h-[44px]"
+          className="inline-flex min-h-11 items-center rounded-lg border border-kant bg-panel px-3 text-sm text-ink-1 transition-colors hover:border-kant-stark"
         >
           {s}
         </button>
       ))}
-    </motion.div>
+    </div>
   );
 }

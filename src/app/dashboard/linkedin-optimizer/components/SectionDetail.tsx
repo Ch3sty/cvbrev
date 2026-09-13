@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Check, Copy, TrendingUp, type LucideIcon } from 'lucide-react'
+import { Check } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import SkillsMakeover from './SkillsMakeover'
@@ -10,17 +9,20 @@ import SkillsMakeover from './SkillsMakeover'
 interface Props {
   sectionKey: string
   title: string
-  icon: LucideIcon
   optimizedText: string
   scoreBefore: number
   scoreAfter: number
   improvements: string[]
 }
 
+/**
+ * En sektions resultat: panel med sektionsetikett, kortrubrik, poäng före
+ * och efter i meta, 2 px mätare i ink-1, den optimerade texten och listan
+ * över vad vi ändrade.
+ */
 export default function SectionDetail({
   sectionKey,
   title,
-  icon: Icon,
   optimizedText,
   scoreBefore,
   scoreAfter,
@@ -40,108 +42,81 @@ export default function SectionDetail({
   }
 
   const isSkills = sectionKey === 'skills'
+  const clampedAfter = Math.max(0, Math.min(100, scoreAfter))
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-white rounded-xl border border-orange-100 overflow-hidden"
-    >
-      {/* Header */}
-      <div className="px-5 sm:px-6 py-4 border-b border-orange-50 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-            <Icon className="w-5 h-5 text-neutral-700" strokeWidth={2.4} />
-          </div>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-neutral-900 leading-tight">
-              {title}
-            </p>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="text-xs text-neutral-400 font-bold tabular-nums">
-                {scoreBefore}
-              </span>
-              <TrendingUp
-                className="w-2.5 h-2.5 text-emerald-600"
-                strokeWidth={3}
-              />
-              <span className="text-xs text-neutral-900 font-semibold tabular-nums">
-                {scoreAfter}
-              </span>
-              <span
-                className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200"
-              >
-                +{delta}
-              </span>
-            </div>
-          </div>
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5" aria-label={title}>
+      <p className="text-sm font-medium text-ink-3">Optimerad sektion</p>
+
+      <div className="mt-1 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="text-kort text-ink-1">{title}</h3>
+          <p className="mt-0.5 text-meta tabular-nums text-ink-3">
+            {scoreBefore} till {scoreAfter}
+            <span className={`ml-2 ${delta >= 0 ? 'text-positiv' : 'text-varning'}`}>
+              {delta >= 0 ? '+' : ''}
+              {delta}
+            </span>
+          </p>
         </div>
 
         {!isSkills && (
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-orange-700 hover:bg-orange-50 transition-colors"
+            className="inline-flex min-h-11 shrink-0 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5" strokeWidth={2.6} />
-                Kopierat
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5" strokeWidth={2.4} />
-                Kopiera
-              </>
-            )}
+            {copied ? 'Kopierat' : 'Kopiera'}
           </button>
         )}
       </div>
 
-      {/* Score-bar */}
-      <div className="px-5 sm:px-6 pt-4">
-        <div className="h-1.5 rounded-full bg-neutral-100 overflow-hidden">
-          <motion.div
-            initial={{ width: `${scoreBefore}%` }}
-            animate={{ width: `${scoreAfter}%` }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-            className="h-full rounded-full bg-orange-600"
-          />
-        </div>
+      <div
+        className="mt-3 h-0.5 w-full bg-kant"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={clampedAfter}
+        aria-label={`${title}, poäng ${scoreAfter} av 100`}
+      >
+        <div
+          className="h-full bg-ink-1 transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
+          style={{ width: `${clampedAfter}%` }}
+        />
       </div>
 
-      {/* Innehåll */}
-      <div className="px-5 sm:px-6 py-4">
+      <div className="mt-4">
         {isSkills ? (
           <SkillsMakeover rawJson={optimizedText} />
         ) : (
-          <div className="prose prose-sm max-w-none prose-slate">
+          <div className="max-w-none">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
                 p: ({ children }) => (
-                  <p className="text-sm text-neutral-700 leading-relaxed mb-3 last:mb-0">
-                    {children}
-                  </p>
+                  <p className="mb-3 text-sm leading-[22px] text-ink-2 last:mb-0">{children}</p>
                 ),
                 strong: ({ children }) => (
-                  <strong className="font-bold text-neutral-900">
-                    {children}
-                  </strong>
+                  <strong className="font-semibold text-ink-1">{children}</strong>
                 ),
-                ul: ({ children }) => (
-                  <ul className="space-y-1.5 my-3">{children}</ul>
+                h1: ({ children }) => (
+                  <p className="mb-2 text-sm font-medium text-ink-1">{children}</p>
                 ),
+                h2: ({ children }) => (
+                  <p className="mb-2 text-sm font-medium text-ink-1">{children}</p>
+                ),
+                h3: ({ children }) => (
+                  <p className="mb-2 text-sm font-medium text-ink-1">{children}</p>
+                ),
+                ul: ({ children }) => <ul className="my-3 space-y-1.5">{children}</ul>,
+                ol: ({ children }) => <ol className="my-3 space-y-1.5">{children}</ol>,
                 li: ({ children }) => (
                   <li className="flex items-start gap-2">
                     <span
-                      className="mt-1.5 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
+                      className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-ink-3"
                       aria-hidden="true"
                     />
-                    <span className="text-sm text-neutral-700 leading-relaxed">
-                      {children}
-                    </span>
+                    <span className="text-sm leading-[22px] text-ink-2">{children}</span>
                   </li>
                 ),
               }}
@@ -152,36 +127,23 @@ export default function SectionDetail({
         )}
       </div>
 
-      {/* Improvements */}
       {improvements && improvements.length > 0 && (
-        <div className="px-5 sm:px-6 pb-5">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span
-              className="w-1 h-3 rounded-sm bg-orange-600"
-              aria-hidden="true"
-            />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Vad vi ändrade
-            </span>
-          </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="mt-4 border-t border-kant pt-4">
+          <p className="text-sm font-medium text-ink-3">Vad vi ändrade</p>
+          <ul className="mt-2 space-y-2">
             {improvements.map((improvement, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2 px-3 py-2 rounded-lg bg-orange-50/40 border border-orange-100"
-              >
+              <li key={i} className="flex items-start gap-2">
                 <Check
-                  className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5"
-                  strokeWidth={2.6}
+                  className="mt-0.5 h-5 w-5 shrink-0 text-positiv"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
                 />
-                <span className="text-xs text-neutral-700 leading-snug">
-                  {improvement}
-                </span>
+                <span className="text-sm leading-[22px] text-ink-2">{improvement}</span>
               </li>
             ))}
           </ul>
         </div>
       )}
-    </motion.div>
+    </section>
   )
 }

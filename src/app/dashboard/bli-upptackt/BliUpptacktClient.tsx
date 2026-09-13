@@ -200,14 +200,12 @@ export default function BliUpptacktClient({
   if (!profile.consent_given_at) {
     return (
       <div className="mx-auto py-4 sm:py-6 max-w-3xl">
-        <section className="bg-white rounded-xl border border-neutral-200 p-6 sm:p-8 text-center">
-          <span className="inline-block text-neutral-900" aria-hidden="true">
+        <section className="rounded-xl border border-kant bg-panel p-6 text-center sm:p-8">
+          <span className="inline-block text-ink-1" aria-hidden="true">
             <IlluBliUpptackt size={96} />
           </span>
-          <h1 className="text-2xl font-semibold text-neutral-900 tracking-tight mt-4">
-            Låt jobben hitta dig
-          </h1>
-          <p className="text-sm text-neutral-600 leading-relaxed mt-2 max-w-prose mx-auto">
+          <h1 className="mt-4 text-h1 text-ink-1">Låt jobben hitta dig</h1>
+          <p className="mx-auto mt-2 max-w-prose text-sm leading-[22px] text-ink-2">
             Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen.
             Du är anonym tills du själv godkänner en kontakt, och du stänger av
             synligheten när du vill.
@@ -216,11 +214,11 @@ export default function BliUpptacktClient({
             type="button"
             onClick={handleMasterToggle}
             disabled={saving}
-            className="mt-6 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto disabled:opacity-60"
+            className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40 sm:w-auto"
           >
             Kom igång
           </button>
-          <p className="text-xs text-neutral-500 mt-3">
+          <p className="mt-3 text-meta text-ink-3">
             Nästa steg är att läsa igenom vad som delas. Inget syns förrän du
             godkänt det.
           </p>
@@ -361,8 +359,8 @@ export default function BliUpptacktClient({
 function ZoneLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 px-0.5 pt-1">
-      <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500">{children}</h2>
-      <span className="flex-1 h-px bg-neutral-200" aria-hidden="true" />
+      <h2 className="text-sm font-medium text-ink-3">{children}</h2>
+      <span className="h-px flex-1 bg-kant" aria-hidden="true" />
     </div>
   );
 }

@@ -1,19 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  ArrowRight,
-  ArrowLeft,
-  Type,
-  User,
-  Briefcase,
-  GraduationCap,
-  Wrench,
-  ChevronDown,
-  AlertCircle,
-  FileText,
-} from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import LinkedInProfileMockup, { type ProfileMockupData } from '../LinkedInProfileMockup'
 import SectionInput from '../SectionInput'
 import PasteHelper from '../PasteHelper'
@@ -30,9 +18,6 @@ export interface LinkedInSections {
 interface Props {
   sections: LinkedInSections
   onSectionChange: (key: keyof LinkedInSections, value: string) => void
-  onBack: () => void
-  onSubmit: () => void
-  error: string | null
   sourceMode?: SourceMode
   cvFileName?: string
 }
@@ -41,8 +26,7 @@ const SECTION_CONFIG = [
   {
     key: 'headline' as const,
     title: 'Rubrik',
-    icon: Type,
-    placeholder: 'Exempel: "Senior Projektledare | CI/CD-expert | Bygger team som levererar"',
+    placeholder: 'Senior Projektledare | CI/CD-expert | Bygger team som levererar',
     rows: 2,
     required: false,
     hint: 'Visas under ditt namn på LinkedIn. Lämna tomt så skriver vi en åt dig.',
@@ -52,30 +36,30 @@ const SECTION_CONFIG = [
   {
     key: 'about' as const,
     title: 'Om mig',
-    icon: User,
-    placeholder: 'Berätta vem du är, vad du gör och vad du brinner för. Klistra in din nuvarande About-sektion från LinkedIn.',
+    placeholder:
+      'Berätta vem du är, vad du gör och vad du brinner för. Klistra in din nuvarande Om mig-sektion från LinkedIn.',
     rows: 6,
     required: true,
-    hint: 'Optimalt: 250-350 ord. Inkludera vad du gör, för vem och med vilket resultat.',
+    hint: 'Optimalt 250 till 350 ord. Skriv vad du gör, för vem och med vilket resultat.',
     optimalMin: 200,
     optimalMax: 1500,
   },
   {
     key: 'experience' as const,
     title: 'Erfarenhet',
-    icon: Briefcase,
-    placeholder: 'Klistra in alla roller från LinkedIn. Inkludera företag, titlar, datum och beskrivningar.',
+    placeholder:
+      'Klistra in alla roller från LinkedIn. Ta med företag, titlar, datum och beskrivningar.',
     rows: 10,
     required: true,
-    hint: 'Skilj mellan roller med en tom rad. Vi tar hand om struktureringen.',
+    hint: 'Skilj roller åt med en tom rad. Vi tar hand om struktureringen.',
     optimalMin: 300,
     optimalMax: 4000,
   },
   {
     key: 'education' as const,
     title: 'Utbildning',
-    icon: GraduationCap,
-    placeholder: 'Skolor, program, år. T.ex.\n\nKungliga Tekniska Högskolan\nCivilingenjör Datateknik · 2014-2019',
+    placeholder:
+      'Skolor, program, år. Till exempel:\n\nKungliga Tekniska Högskolan\nCivilingenjör Datateknik · 2014-2019',
     rows: 4,
     required: false,
     hint: 'Hjälper oss matcha din profil mot rätt nivå och bransch.',
@@ -85,22 +69,23 @@ const SECTION_CONFIG = [
   {
     key: 'skills' as const,
     title: 'Kompetenser',
-    icon: Wrench,
-    placeholder: 'JavaScript, React, Node.js, AWS, Kubernetes, Agile, ...',
+    placeholder: 'JavaScript, React, Node.js, AWS, Kubernetes, Agile',
     rows: 3,
     required: false,
-    hint: 'Komma-separerat. Vi optimerar listan baserat på din profil.',
+    hint: 'Komma-separerat. Vi optimerar listan utifrån resten av profilen.',
     optimalMin: 20,
     optimalMax: 600,
   },
 ]
 
+/**
+ * Steg 2: texten vi ska optimera. Fälten till vänster, profilen som byggs
+ * upp till höger på desktop och bakom ett dragspel på mobil. Starta
+ * optimeringen ligger i FlowShell-foten.
+ */
 export default function Step2Profile({
   sections,
   onSectionChange,
-  onBack,
-  onSubmit,
-  error,
   sourceMode = 'manual',
   cvFileName,
 }: Props) {
@@ -116,123 +101,73 @@ export default function Step2Profile({
     skills: sections.skills,
   }
 
-  const aboutOk = sections.about.trim().length > 0
-  const experienceOk = sections.experience.trim().length > 0
-  const canSubmit = aboutOk && experienceOk
-
-  const completed = SECTION_CONFIG.filter(
-    (s) => sections[s.key].trim().length > 0
-  ).length
+  const completed = SECTION_CONFIG.filter((s) => sections[s.key].trim().length > 0).length
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-start">
-      {/* Vänster: input */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="mb-5">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            Steg 2 av 4
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 leading-[1.05] tracking-tight">
+    <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-10">
+      <div className="space-y-5">
+        <div>
+          <p className="text-steg uppercase text-ink-3">Steg 2 av 4</p>
+          <h2 className="text-fraga text-ink-1">
             {isFromCv ? 'Granska och redigera' : 'Klistra in din nuvarande profil'}
-          </h1>
-          <p className="mt-2 text-sm sm:text-base text-neutral-600 leading-relaxed">
+          </h2>
+          <p className="mt-2 text-sm text-ink-2">
             {isFromCv
-              ? 'Vi har förslag baserat på ditt CV. Redigera fritt, det du ser här är vad vi optimerar.'
-              : 'Kopiera direkt från LinkedIn. Du ser din profil byggas upp till höger medan du fyller i.'}
+              ? 'Förslagen kommer från ditt CV. Det du ser här är exakt det vi optimerar.'
+              : 'Kopiera direkt från LinkedIn. Profilen byggs upp medan du fyller i.'}
           </p>
         </div>
 
-        {/* CV-banner */}
         {isFromCv && (
-          <div className="mb-5 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5 flex items-start gap-3">
-            <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-              <FileText
-                className="w-5 h-5 text-neutral-700"
-                strokeWidth={2.4}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-neutral-900 leading-tight">
-                Förslag baserat på ditt CV
-                {cvFileName && (
-                  <span className="font-medium text-neutral-600">
-                    {' · '}
-                    {cvFileName}
-                  </span>
-                )}
-              </p>
-              <p className="text-xs text-neutral-600 leading-snug mt-0.5">
-                Redigera fritt, det du ser här är det som skickas till AI:n.
-                Vi hittar inte på något utöver det du har i fälten.
-              </p>
-            </div>
-          </div>
+          <section className="rounded-xl border border-kant bg-panel p-4">
+            <p className="text-kort text-ink-1">
+              Förslag från ditt CV
+              {cvFileName && <span className="font-normal text-ink-3">{' · '}{cvFileName}</span>}
+            </p>
+            <p className="mt-1 text-meta text-ink-3">
+              Redigera fritt. Vi lägger inte till något utöver det som står i fälten.
+            </p>
+          </section>
         )}
 
-        {/* Mobil: dragspel för att se mockupen */}
-        <div className="lg:hidden mb-4">
+        {/* Mobil: förhandsvisningen bakom ett dragspel */}
+        <div className="lg:hidden">
           <button
             type="button"
             onClick={() => setPreviewOpen(!previewOpen)}
-            className="w-full px-4 py-3 rounded-xl border border-orange-200 bg-orange-50/40 flex items-center justify-between gap-3 hover:bg-orange-50/60 transition-colors"
+            className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-4 text-left hover:bg-insunken"
             aria-expanded={previewOpen}
           >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <span
-                className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
-                aria-hidden="true"
-              />
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-                {previewOpen ? 'Dölj förhandsvisning' : 'Visa förhandsvisning'}
-              </span>
-              <span className="text-xs font-bold text-neutral-500">
+            <span className="text-sm font-medium text-ink-1">
+              {previewOpen ? 'Dölj förhandsvisning' : 'Visa förhandsvisning'}
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="text-meta tabular-nums text-ink-3">
                 {completed}/{SECTION_CONFIG.length}
               </span>
-            </div>
-            <ChevronDown
-              className={`w-4 h-4 text-orange-700 transition-transform ${
-                previewOpen ? 'rotate-180' : ''
-              }`}
-              strokeWidth={2.4}
-            />
+              <ChevronDown
+                className={`h-5 w-5 shrink-0 text-ink-3 transition-transform duration-[120ms] ${
+                  previewOpen ? 'rotate-180' : ''
+                }`}
+                strokeWidth={1.75}
+              />
+            </span>
           </button>
-          <AnimatePresence>
-            {previewOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden mt-3"
-              >
-                <LinkedInProfileMockup
-                  data={previewData}
-                  variant="live"
-                  showGlow={false}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {previewOpen && (
+            <div className="mt-3">
+              <LinkedInProfileMockup data={previewData} variant="live" />
+            </div>
+          )}
         </div>
 
-        {!isFromCv && (
-          <div className="mb-5">
-            <PasteHelper />
-          </div>
-        )}
+        {!isFromCv && <PasteHelper />}
 
-        {/* Inputs, alla synliga, scroll igenom */}
         <div className="space-y-5">
           {SECTION_CONFIG.map((cfg) => (
             <SectionInput
               key={cfg.key}
               id={cfg.key}
               label={cfg.title}
-              icon={cfg.icon}
               placeholder={cfg.placeholder}
               rows={cfg.rows}
               required={cfg.required}
@@ -244,71 +179,13 @@ export default function Step2Profile({
             />
           ))}
         </div>
+      </div>
 
-        {/* Validation-meddelanden */}
-        {!canSubmit && (
-          <div className="mt-5 rounded-xl border border-orange-200 bg-orange-50/60 p-3.5 flex items-start gap-2.5">
-            <AlertCircle
-              className="w-4 h-4 text-orange-700 flex-shrink-0 mt-0.5"
-              strokeWidth={2.4}
-            />
-            <div className="text-xs text-neutral-700 leading-relaxed">
-              <strong className="text-orange-700">"Om mig" och "Erfarenhet"</strong>{' '}
-              behövs för att vi ska kunna optimera din profil. Resten är
-              valfritt men ger bättre resultat.
-            </div>
-          </div>
-        )}
-
-        {error && (
-          <div
-            className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3.5 flex items-start gap-2.5"
-            role="alert"
-          >
-            <AlertCircle
-              className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
-              strokeWidth={2.2}
-            />
-            <p className="text-sm text-red-800">{error}</p>
-          </div>
-        )}
-
-        {/* Navigation */}
-        <div className="mt-6 flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 sm:items-center sm:justify-between">
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl text-neutral-600 hover:text-orange-700 hover:bg-orange-50/60 font-semibold text-sm transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" strokeWidth={2.4} />
-            Tillbaka
-          </button>
-
-          <button
-            type="button"
-            onClick={onSubmit}
-            disabled={!canSubmit}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-orange-600 text-white font-bold text-base transition-all hover:bg-orange-700 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          >
-            <span>Starta optimering</span>
-            <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
-          </button>
-        </div>
-      </motion.div>
-
-      {/* Höger: live mockup (sticky desktop) */}
-      <div className="hidden lg:block lg:sticky lg:top-32">
-        <div className="mb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span
-              className="w-1 h-3 rounded-sm bg-orange-600"
-              aria-hidden="true"
-            />
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-              Live · uppdateras medan du skriver
-            </span>
-          </div>
-          <span className="text-xs font-bold text-neutral-500">
+      {/* Desktop: profilen byggs upp medan man skriver */}
+      <div className="hidden lg:sticky lg:top-4 lg:block">
+        <div className="mb-2 flex items-center justify-between">
+          <h3 className="text-sm font-medium text-ink-3">Uppdateras medan du skriver</h3>
+          <span className="text-meta tabular-nums text-ink-3">
             {completed}/{SECTION_CONFIG.length} sektioner
           </span>
         </div>

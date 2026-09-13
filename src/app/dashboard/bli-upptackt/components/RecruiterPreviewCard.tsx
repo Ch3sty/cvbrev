@@ -99,39 +99,35 @@ export default function RecruiterPreviewCard({
       delay={0.3}
       headerExtra={
         !isOn ? (
-          <span className="text-xs font-bold tracking-wide rounded-full px-2.5 py-1 bg-neutral-100 text-neutral-500">
-            Ej synlig
-          </span>
+          <span className="text-meta text-ink-3">Ej synlig</span>
         ) : undefined
       }
     >
       <div
-        className={`w-full rounded-xl border border-orange-100 bg-white p-4 sm:p-5 ${
+        className={`w-full rounded-lg border border-kant bg-insunken p-4 shadow-insunken sm:p-5 ${
           !isOn ? 'opacity-70' : ''
         }`}
       >
         {/* Huvud */}
-        <div className="flex items-center gap-3 mb-3">
-          <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center text-white text-lg font-bold flex-shrink-0 bg-orange-600"
+        <div className="mb-3 flex items-center gap-3">
+          <span
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-base font-semibold text-ink-2"
             aria-hidden="true"
           >
             {avatarInitial}
-          </div>
+          </span>
           <div className="min-w-0">
-            <div className="text-[15px] font-bold text-neutral-900 leading-tight truncate">
-              {displayName}
-            </div>
-            <div className="text-xs text-neutral-500 truncate">
+            <p className="truncate text-kort text-ink-1">{displayName}</p>
+            <p className="truncate text-meta text-ink-3">
               {[region, isOpen ? 'Öppen profil' : 'Anonym'].filter(Boolean).join(' · ')}
-            </div>
+            </p>
           </div>
         </div>
 
         {/* Senioritet: samma rad som rekryterarnas träffkort */}
         {seniorityRow.length > 0 && (
-          <p className="text-xs text-neutral-600 leading-relaxed -mt-1 mb-2.5">
-            <span className="font-bold text-neutral-900">{seniorityRow[0]}</span>
+          <p className="-mt-1 mb-2.5 text-meta text-ink-2">
+            <span className="font-medium text-ink-1">{seniorityRow[0]}</span>
             {seniorityRow.slice(1).map((fact) => (
               <span key={fact}>
                 {' · '}
@@ -143,21 +139,19 @@ export default function RecruiterPreviewCard({
 
         {/* Pitch: kandidatens egna ord */}
         {(profile.pitch ?? '').trim().length > 0 && (
-          <p className="mb-2.5 text-xs italic text-neutral-600 leading-relaxed line-clamp-2">
-            &rdquo;{profile.pitch!.trim()}&rdquo;
+          <p className="mb-2.5 line-clamp-2 text-meta leading-snug text-ink-2">
+            {profile.pitch!.trim()}
           </p>
         )}
 
         {/* Söker mig till: kandidatens egna kontexttaggar, självpresentation */}
         {profile.context_tags.length > 0 && (
           <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
-            <span className="text-xs font-bold uppercase tracking-[0.1em] text-neutral-400">
-              Söker mig till
-            </span>
+            <span className="text-steg uppercase text-ink-3">Söker mig till</span>
             {profile.context_tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-semibold rounded-full px-2.5 py-0.5 border border-indigo-300 text-indigo-700 bg-white"
+                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-0.5 text-meta text-ink-2"
               >
                 {tag}
               </span>
@@ -171,18 +165,16 @@ export default function RecruiterPreviewCard({
             {testBadges.map((badge) => (
               <span
                 key={badge.key}
-                className="inline-flex items-center gap-1.5 text-xs font-bold rounded-full px-2.5 py-1 bg-orange-50 border border-orange-200 text-orange-900"
+                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta font-medium text-ink-1"
               >
-                <span className="w-1.5 h-1.5 rounded-sm bg-orange-500 rotate-45" aria-hidden="true" />
                 {badge.label}
               </span>
             ))}
             {personalityChips.map((chip) => (
               <span
                 key={chip}
-                className="inline-flex items-center gap-1.5 text-xs font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
+                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
                 {chip}
               </span>
             ))}
@@ -191,10 +183,8 @@ export default function RecruiterPreviewCard({
 
         {/* Arbetsstil: exakt det rekryteraren ser, arketyp + två spektra + trivs-rad */}
         {workStyle && (
-          <div className="mb-2.5 rounded-xl border border-indigo-100 bg-indigo-50/60 px-3 py-2.5">
-            <p className="text-xs font-bold text-indigo-900">
-              {workStyle.archetype.title}
-            </p>
+          <div className="mb-2.5 rounded-lg border border-kant bg-panel px-3 py-2.5">
+            <p className="text-sm font-medium text-ink-1">{workStyle.archetype.title}</p>
             {cardWorkStyle ? (
               <div className="mt-2">
                 <CardWorkStyleStrip data={cardWorkStyle} thrivesForm="candidate" />
@@ -204,10 +194,10 @@ export default function RecruiterPreviewCard({
                 {workStyle.statements.slice(0, 2).map((statement) => (
                   <li
                     key={statement}
-                    className="flex items-start gap-1.5 text-xs text-indigo-900/70 leading-snug"
+                    className="flex items-start gap-1.5 text-meta leading-snug text-ink-2"
                   >
                     <span
-                      className="w-1 h-1 rounded-full bg-indigo-400 flex-shrink-0 mt-[5px]"
+                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-3"
                       aria-hidden="true"
                     />
                     {statement}
@@ -223,34 +213,34 @@ export default function RecruiterPreviewCard({
           {skillChips.map((skill) => (
             <span
               key={skill}
-              className="text-xs font-semibold rounded-full px-2.5 py-1 bg-neutral-50 border border-neutral-200 text-neutral-600"
+              className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
             >
               {skill}
             </span>
           ))}
           {!role && (
-            <span className="text-xs text-neutral-400">
+            <span className="text-meta text-ink-3">
               Din yrkesroll saknas ännu. Analysera ditt CV så hämtar vi roll och
               kompetenser automatiskt.
             </span>
           )}
           {role && testBadges.length === 0 && personalityChips.length === 0 && skillChips.length === 0 && (
-            <span className="text-xs text-neutral-400">
+            <span className="text-meta text-ink-3">
               Gör tester så fylls kortet på med verifierade resultat.
             </span>
           )}
         </div>
 
         {/* Fot: villkoren får radbrytas fritt, knappen ligger alltid längst ned till höger */}
-        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2 pt-3 border-t border-orange-50">
-          <span className="text-xs text-neutral-500 leading-relaxed min-w-0 flex-1 basis-52">
+        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2 border-t border-kant pt-3">
+          <span className="min-w-0 flex-1 basis-52 text-meta text-ink-3">
             {footParts.length > 0 ? footParts.join(' · ') : 'Inga villkor angivna ännu'}
           </span>
           <button
             type="button"
             disabled
-            title="Förhandsvisning"
-            className="flex-shrink-0 min-h-[44px] px-3.5 rounded-lg text-xs font-bold text-white bg-orange-600 opacity-60 cursor-not-allowed"
+            title="Så ser knappen ut för rekryteraren"
+            className="inline-flex h-11 shrink-0 cursor-not-allowed items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white opacity-40"
           >
             Visa intresse
           </button>

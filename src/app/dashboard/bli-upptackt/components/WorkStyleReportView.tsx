@@ -1,6 +1,5 @@
 'use client';
 
-import { Lock } from 'lucide-react';
 import type { WorkStyleReport } from '@/lib/recruiter/workStyle';
 import WorkStyleSpectrum from './WorkStyleSpectrum';
 
@@ -30,41 +29,33 @@ export default function WorkStyleReportView({
   return (
     <div className="space-y-5">
       {/* Rapporthuvud: arketyp + styrkedeklaration */}
-      <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
-        <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-500 mb-1">
-          Arbetsstilsrapport
-        </p>
-        <h3 className="text-[16px] font-bold text-indigo-950 leading-snug">
-          {report.archetype.title}
-        </h3>
-        <p className="text-[13px] text-indigo-900/80 leading-relaxed mt-1">
+      <div className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+        <p className="mb-1 text-steg uppercase text-ink-3">Arbetsstilsrapport</p>
+        <h3 className="text-kort leading-snug text-ink-1">{report.archetype.title}</h3>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
           {report.archetype.description}
         </p>
 
         {contextTags.length > 0 && (
           <div className="mt-3">
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-indigo-500 mb-1.5">
-              Söker sig till
-            </p>
+            <p className="mb-1.5 text-steg uppercase text-ink-3">Söker sig till</p>
             <div className="flex flex-wrap gap-1.5">
               {contextTags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-semibold rounded-full px-2.5 py-1 border border-indigo-300 text-indigo-800 bg-white"
+                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
                 >
                   {tag}
                 </span>
               ))}
             </div>
             {contextTagMicrocopy && (
-              <p className="text-xs text-indigo-900/60 leading-relaxed mt-1.5">
-                {contextTagMicrocopy}
-              </p>
+              <p className="mt-1.5 text-meta text-ink-3">{contextTagMicrocopy}</p>
             )}
           </div>
         )}
 
-        <p className="text-xs text-indigo-900/70 leading-relaxed mt-3 pt-3 border-t border-indigo-100">
+        <p className="mt-3 border-t border-kant pt-3 text-meta text-ink-3">
           {report.disclaimer}
         </p>
       </div>
@@ -77,9 +68,7 @@ export default function WorkStyleReportView({
           ))}
         </div>
         {report.work.summary && (
-          <p className="text-[13px] text-neutral-700 leading-relaxed mt-3">
-            {report.work.summary}
-          </p>
+          <p className="mt-3 text-sm leading-[22px] text-ink-2">{report.work.summary}</p>
         )}
       </ReportSection>
 
@@ -101,15 +90,11 @@ export default function WorkStyleReportView({
       <ReportSection title="Så leds och drivs hen">
         {report.drive.spectrum && <WorkStyleSpectrum spectrum={report.drive.spectrum} />}
         {report.drive.summary && (
-          <p className="text-[13px] text-neutral-700 leading-relaxed mt-3">
-            {report.drive.summary}
-          </p>
+          <p className="mt-3 text-sm leading-[22px] text-ink-2">{report.drive.summary}</p>
         )}
         {report.drive.motivatedBy.length > 0 && (
           <div className="mt-3">
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-400 mb-1.5">
-              Motiveras av
-            </p>
+            <p className="mb-1.5 text-steg uppercase text-ink-3">Motiveras av</p>
             <ul className="space-y-1.5">
               {report.drive.motivatedBy.map((item) => (
                 <BulletItem key={item}>{item}</BulletItem>
@@ -126,15 +111,15 @@ export default function WorkStyleReportView({
             {report.thrives.map((card) => (
               <div
                 key={card.thrivesWhen}
-                className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-3"
+                className="rounded-lg border border-kant bg-panel p-3"
               >
-                <p className="text-xs text-neutral-800 leading-relaxed">
-                  <span className="font-bold text-indigo-800">Trivs när</span>{' '}
+                <p className="text-meta leading-snug text-ink-2">
+                  <span className="font-medium text-ink-1">Trivs när</span>{' '}
                   {card.thrivesWhen}
                 </p>
                 {card.challengedWhen && (
-                  <p className="text-xs text-neutral-600 leading-relaxed mt-1.5">
-                    <span className="font-bold text-neutral-500">Utmanas när</span>{' '}
+                  <p className="mt-1.5 text-meta leading-snug text-ink-3">
+                    <span className="font-medium">Utmanas när</span>{' '}
                     {card.challengedWhen}
                   </p>
                 )}
@@ -160,16 +145,14 @@ export default function WorkStyleReportView({
         {report.onboarding && report.onboarding.length > 0 ? (
           <ol className="space-y-1.5">
             {report.onboarding.map((step, i) => (
-              <li key={step} className="flex items-start gap-2 text-[13px] text-neutral-700 leading-relaxed">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold flex items-center justify-center mt-px">
-                  {i + 1}
-                </span>
+              <li key={step} className="flex items-start gap-2 text-sm leading-[22px] text-ink-2">
+                <span className="w-5 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}.</span>
                 {step}
               </li>
             ))}
           </ol>
         ) : (
-          <p className="text-xs text-neutral-400">
+          <p className="text-meta text-ink-3">
             Inga onboardingpunkter genererade för profilen.
           </p>
         )}
@@ -180,16 +163,10 @@ export default function WorkStyleReportView({
         {report.interviewGuide && report.interviewGuide.length > 0 ? (
           <div className="space-y-2.5">
             {report.interviewGuide.map((q) => (
-              <div key={q.question} className="rounded-xl border border-neutral-200 bg-white p-3">
-                <p className="text-xs font-bold uppercase tracking-[0.1em] text-indigo-500 mb-1">
-                  {q.basedOn}
-                </p>
-                <p className="text-[13px] font-semibold text-neutral-800 leading-relaxed">
-                  {q.question}
-                </p>
-                <p className="text-xs font-bold uppercase tracking-[0.1em] text-neutral-400 mt-2 mb-1">
-                  Lyssna efter
-                </p>
+              <div key={q.question} className="rounded-lg border border-kant bg-panel p-3">
+                <p className="mb-1 text-steg uppercase text-ink-3">{q.basedOn}</p>
+                <p className="text-sm font-medium leading-[22px] text-ink-1">{q.question}</p>
+                <p className="mb-1 mt-2 text-steg uppercase text-ink-3">Lyssna efter</p>
                 <ul className="space-y-1">
                   {q.listenFor.map((item) => (
                     <BulletItem key={item}>{item}</BulletItem>
@@ -199,9 +176,7 @@ export default function WorkStyleReportView({
             ))}
           </div>
         ) : (
-          <p className="text-xs text-neutral-400">
-            Ingen intervjuguide genererad för profilen.
-          </p>
+          <p className="text-meta text-ink-3">Ingen intervjuguide genererad för profilen.</p>
         )}
       </ReportSection>
     </div>
@@ -219,11 +194,10 @@ function ReportSection({
 }) {
   return (
     <section>
-      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-2">
-        <h4 className="text-[13.5px] font-bold text-neutral-900">{title}</h4>
+      <div className="mb-2 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        <h4 className="text-kort text-ink-1">{title}</h4>
         {locked && (
-          <span className="inline-flex items-center gap-1 text-xs font-bold rounded-full px-2 py-0.5 bg-amber-50 border border-amber-200 text-amber-800">
-            <Lock className="w-3 h-3" strokeWidth={2.5} />
+          <span className="text-meta text-ink-3">
             Låses upp när du tackar ja till kontakt
           </span>
         )}
@@ -235,9 +209,9 @@ function ReportSection({
 
 function BulletItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-2 text-[13px] text-neutral-700 leading-relaxed">
+    <li className="flex items-start gap-2 text-sm leading-[22px] text-ink-2">
       <span
-        className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 mt-[7px]"
+        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink-3"
         aria-hidden="true"
       />
       {children}

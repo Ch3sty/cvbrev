@@ -26,15 +26,15 @@ export default function WorkStyleSpectrum({ spectrum }: { spectrum: SpectrumView
     <div className="py-1">
       <div className="flex items-baseline justify-between gap-4 mb-1.5">
         <span
-          className={`text-xs leading-snug ${
-            isLeft ? 'font-bold text-indigo-900' : 'text-neutral-500'
+          className={`text-meta leading-snug ${
+            isLeft ? 'font-medium text-ink-1' : 'text-ink-3'
           }`}
         >
           {spectrum.leftLabel}
         </span>
         <span
-          className={`text-xs leading-snug text-right ${
-            isRight ? 'font-bold text-indigo-900' : 'text-neutral-500'
+          className={`text-right text-meta leading-snug ${
+            isRight ? 'font-medium text-ink-1' : 'text-ink-3'
           }`}
         >
           {spectrum.rightLabel}
@@ -43,21 +43,17 @@ export default function WorkStyleSpectrum({ spectrum }: { spectrum: SpectrumView
 
       {/* Linjen med punkten. Padding i sidled så punkten aldrig kapas. */}
       <div className="relative h-3.5 px-1.5" aria-hidden="true">
-        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1 rounded-full bg-indigo-100" />
-        <div className="relative h-full mx-1.5">
+        <div className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-kant" />
+        <div className="relative mx-1.5 h-full">
           <span
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white"
-            style={{
-              left: BAND_POSITION[spectrum.band],
-              background: '#4F46E5',
-              boxShadow: '0 2px 6px -1px rgba(79, 70, 229, 0.5)',
-            }}
+            className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-panel bg-ink-1"
+            style={{ left: BAND_POSITION[spectrum.band] }}
           />
         </div>
       </div>
 
       {isMid && (
-        <p className="text-center text-xs text-neutral-400 mt-1">Flexibel mellan lägena</p>
+        <p className="mt-1 text-center text-meta text-ink-3">Flexibel mellan lägena</p>
       )}
     </div>
   );

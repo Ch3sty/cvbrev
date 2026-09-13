@@ -2,11 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Inbox as InboxIcon, MessageSquare } from 'lucide-react';
+import PageHeader from '@/components/shell/PageHeader';
+import EmptyState from '@/components/shell/EmptyState';
+import StatusRow from '@/components/shell/StatusRow';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 import ConversationList from './ConversationList';
 import ConversationThread from './ConversationThread';
 import PendingRequestPanel from './PendingRequestPanel';
-import { HUB_GRADIENT, type CandidateInterest } from './hubTypes';
+import { type CandidateInterest } from './hubTypes';
 
 /**
  * Vilken tråd som ska vara vald från början: ?interest= om den finns i
@@ -155,9 +159,7 @@ export default function MessageHub({
 
   // ---- Laddning / tomt läge ------------------------------------------------
   if (interests === null) {
-    return (
-      <div className="h-[640px] rounded-3xl bg-white/60 border border-slate-100 animate-pulse" aria-hidden="true" />
-    );
+    return <LoadingSkeleton variant="list" count={4} label="Hämtar dina meddelanden" />;
   }
 
   if (interests.length === 0) {
@@ -167,35 +169,31 @@ export default function MessageHub({
       'Ni chattar direkt här',
     ];
     return (
-      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center">
-        <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center">
-          <InboxIcon className="w-7 h-7 text-indigo-600" aria-hidden="true" />
-        </div>
-        {/* Tomma läget är hela sidan, så rubriken är sidans h1. Som h2 blev
-            /dashboard/meddelanden en sida helt utan h1 för alla som ännu inte
-            fått ett meddelande, alltså de allra flesta. */}
-        <h1 className="text-[17px] font-bold text-slate-900 mb-2">Inga meddelanden än</h1>
-        <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-sm mx-auto mb-6">
-          Här landar dina samtal med rekryterare som visat intresse. Så här
-          kommer de igång:
-        </p>
-        <ol className="max-w-xs mx-auto flex flex-col gap-2.5 text-left mb-7">
-          {STEPS.map((step, i) => (
-            <li key={step} className="flex items-center gap-3 text-[13px] text-slate-600">
-              <span className="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 font-bold text-[12px] flex items-center justify-center flex-shrink-0">
-                {i + 1}
-              </span>
-              {step}
-            </li>
-          ))}
-        </ol>
-        <Link
-          href="/dashboard/bli-upptackt"
-          className="inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90"
-          style={{ background: HUB_GRADIENT }}
-        >
-          Gå till Bli upptäckt
-        </Link>
+      <div className="space-y-4">
+        {/* Tomma läget är hela sidan, så rubriken är sidans h1. */}
+        <PageHeader
+          title="Inga meddelanden än"
+          description="Här landar dina samtal med rekryterare som visat intresse."
+        />
+
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <h2 className="text-sm font-medium text-ink-3">Så kommer de igång</h2>
+          <ol className="mt-2 divide-y divide-kant border-t border-kant">
+            {STEPS.map((step, i) => (
+              <li key={step} className="flex items-center gap-3 py-3">
+                <span className="w-5 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}.</span>
+                <span className="text-sm text-ink-2">{step}</span>
+              </li>
+            ))}
+          </ol>
+
+          <Link
+            href="/dashboard/bli-upptackt"
+            className="mt-4 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          >
+            Gå till Bli upptäckt
+          </Link>
+        </section>
       </div>
     );
   }
@@ -212,46 +210,36 @@ export default function MessageHub({
       />
     )
   ) : (
-    <div className="flex flex-col items-center justify-center h-full text-center p-8">
-      <span
-        className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-3"
-        aria-hidden="true"
-      >
-        <MessageSquare className="w-6 h-6 text-slate-300" />
-      </span>
-      <p className="text-[13.5px] text-slate-400">Välj en konversation till vänster.</p>
+    <div className="flex h-full items-center justify-center p-8">
+      <EmptyState
+        bare
+        illustration={IlluTomMapp}
+        title="Ingen konversation vald"
+        description="Välj en konversation i listan till vänster."
+      />
     </div>
   );
 
   return (
-    <div className="space-y-3">
-      <div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">Meddelanden</h1>
-        <p className="text-[13.5px] text-slate-500 mt-1 leading-relaxed max-w-xl">
-          Rekryterare som vill komma i kontakt, och era konversationer. När du
-          accepterar delas ditt namn och din e-post, och chatten öppnas.
-        </p>
-      </div>
+    <div className="space-y-4">
+      <PageHeader
+        title="Meddelanden"
+        description="Rekryterare som vill nå dig, och era konversationer. Accepterar du delas ditt namn och din e-post, och chatten öppnas."
+      />
 
       {(error || respondError) && (
-        <p
-          className="text-[13px] text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3"
-          role="alert"
-        >
+        <StatusRow tone="warm" showDot label="Problem med meddelandena">
           {respondError ?? 'Vi kunde inte hämta dina meddelanden. Ladda om sidan.'}
-        </p>
+        </StatusRow>
       )}
 
-      <div
-        className="rounded-3xl border border-slate-200 bg-white overflow-hidden h-[640px]"
-        style={{ boxShadow: '0 4px 20px -12px rgba(2, 6, 23, 0.16)' }}
-      >
+      <div className="h-[640px] overflow-hidden rounded-xl border border-kant bg-panel">
         <div className="flex h-full">
           {/* Vänster: lista. Mobil döljs när en tråd är öppen. */}
           <div
             className={`${
               mobileView === 'thread' ? 'hidden' : 'flex'
-            } lg:flex flex-col w-full lg:w-[348px] lg:flex-shrink-0 lg:border-r border-slate-100`}
+            } w-full flex-col border-kant lg:flex lg:w-[348px] lg:shrink-0 lg:border-r`}
           >
             <ConversationList
               interests={interests}
@@ -262,11 +250,11 @@ export default function MessageHub({
             />
           </div>
 
-          {/* Höger: tråd/pending. Mobil visas bara när en tråd är öppen. */}
+          {/* Höger: tråd eller pending. Mobil visas bara när en tråd är öppen. */}
           <div
             className={`${
               mobileView === 'thread' ? 'flex' : 'hidden'
-            } lg:flex flex-col flex-1 min-w-0`}
+            } min-w-0 flex-1 flex-col lg:flex`}
           >
             {rightPanel}
           </div>

@@ -26,13 +26,6 @@ export interface CandidateInterest {
   unreadCount: number;
 }
 
-/** Primär CTA-gradient (designregeln: orange → röd → mörkrosa). */
-export const HUB_GRADIENT = 'linear-gradient(135deg, #F97316, #DC2626)';
-
-/** Indigo-tintad avatarfärg för personlighet/företagsinitialer. */
-export const AVATAR_BG = '#EEF0FF';
-export const AVATAR_FG = '#4338CA';
-
 /** Företagets initial för avatarer. */
 export function initialFor(name: string | null | undefined): string {
   const trimmed = (name ?? '').trim();

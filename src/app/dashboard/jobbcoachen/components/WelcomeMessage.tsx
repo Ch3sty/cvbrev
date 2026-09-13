@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowRight, Shield } from 'lucide-react';
-import { JobbcoachenChatOrb, DocumentShareIcon } from './illustrations/JobbcoachenIcons';
+import { ArrowRight } from 'lucide-react';
+import { IkonBrev, IkonCv } from '@/components/illustrations/Ikoner';
+import ChatTrustStrip from './ChatTrustStrip';
 
 interface WelcomeMessageProps {
   cvCount: number;
@@ -19,97 +19,54 @@ export default function WelcomeMessage({
   const hasDocuments = total > 0;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="flex items-start gap-3 sm:gap-4"
-    >
-      {/* Assistent-avatar */}
-      <div className="flex-shrink-0">
-        <JobbcoachenChatOrb className="w-12 h-12 sm:w-14 sm:h-14" />
+    <div className="space-y-4 sm:space-y-6">
+      {/* Vyns enda rubrik. */}
+      <div>
+        <h1 className="text-h1 text-ink-1">Jobbcoachen</h1>
+        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
+          Fråga om lön, intervjuer, arbetsrätt eller ditt CV. Vi svarar med källor du kan kolla själv.
+        </p>
       </div>
 
-      {/* Chat-bubbla */}
-      <div className="flex-1 min-w-0 max-w-2xl">
-        {/* Vyns enda rubrik. Låg tidigare som en anonym div, så
-            /dashboard/jobbcoachen saknade h1 helt. Utseendet är oförändrat. */}
-        <h1 className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1.5">
-          Jobbcoachen
-        </h1>
+      <ChatTrustStrip />
 
-        <div
-          className="relative bg-white rounded-xl rounded-tl-md border border-orange-200/60 p-4 sm:p-5 space-y-3"
-          >
-          <p className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
-            Hej! Vad kan jag hjälpa dig med idag?
-          </p>
+      {/* Dokumentdelning */}
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <div className="flex items-start gap-3">
+          <span className="mt-px inline-flex shrink-0 items-center gap-1 text-ink-2" aria-hidden="true">
+            <IkonCv size={24} />
+            <IkonBrev size={24} />
+          </span>
 
-          <p className="text-sm text-neutral-700 leading-relaxed">
-            Jag svarar på frågor om svensk arbetsmarknad, lön, intervjuer,
-            arbetsrätt, CV-tips. Alltid med källor du kan kolla själv.
-          </p>
+          <div className="min-w-0 flex-1">
+            <p className="text-kort text-ink-1">Dela ditt CV eller brev</p>
+            <p className="mt-0.5 text-sm leading-[22px] text-ink-2">
+              {hasDocuments ? (
+                <>
+                  Dela CV och personliga brev, så blir svaren kopplade till just ditt yrkesliv.
+                  Just nu har du {total} dokument att dela.
+                </>
+              ) : (
+                <>
+                  Dela CV och personliga brev, så blir svaren kopplade till just ditt yrkesliv.
+                  Skapa något först, så kan vi prata om det.
+                </>
+              )}
+            </p>
 
-          {/* Trust-strip */}
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
-            <Shield className="w-3 h-3" strokeWidth={2.5} />
-            Verifierade källor från Arbetsförmedlingen, SCB & fackförbund
-          </div>
-
-          {/* Inbäddad dokumentdelning-CTA */}
-          <div className="mt-1 rounded-xl border border-orange-200/70 bg-white p-3 sm:p-4">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 hidden sm:block">
-                <DocumentShareIcon className="w-14 h-14" />
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-800 leading-relaxed">
-                  {hasDocuments ? (
-                    <>
-                      <span className="font-semibold text-neutral-900">
-                        Visste du att
-                      </span>{' '}
-                      du kan dela CV och personliga brev med mig för att få
-                      svar kopplade till just ditt yrkesliv?{' '}
-                      <span className="font-semibold text-neutral-900">
-                        Just nu har du{' '}
-                        <span className="text-orange-700">
-                          {total} {total === 1 ? 'dokument' : 'dokument'}
-                        </span>{' '}
-                        du kan dela.
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="font-semibold text-neutral-900">
-                        Visste du att
-                      </span>{' '}
-                      du kan dela CV och personliga brev med mig för att få
-                      svar kopplade till just ditt yrkesliv? Skapa något först,
-                      så kan vi prata om det.
-                    </>
-                  )}
-                </p>
-
-                {hasDocuments && (
-                  <button
-                    type="button"
-                    onClick={onOpenSelector}
-                    className="group mt-3 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-600 text-white text-sm font-bold hover:bg-orange-700 transition-all min-h-[44px]"
-                  >
-                    Välj dokument att dela
-                    <ArrowRight
-                      className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-                      strokeWidth={2.5}
-                    />
-                  </button>
-                )}
-              </div>
-            </div>
+            {hasDocuments && (
+              <button
+                type="button"
+                onClick={onOpenSelector}
+                className="mt-3 inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark"
+              >
+                Välj dokument att dela
+                <ArrowRight size={20} strokeWidth={1.75} className="text-ink-3" />
+              </button>
+            )}
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

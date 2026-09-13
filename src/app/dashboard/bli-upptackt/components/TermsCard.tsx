@@ -126,10 +126,8 @@ export default function TermsCard({ profile, onPatch, collapse }: TermsCardProps
 
 function TermRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[130px_1fr] gap-2 sm:gap-3 items-start">
-      <div className="text-xs font-bold uppercase tracking-[0.08em] text-neutral-400 sm:pt-3">
-        {label}
-      </div>
+    <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-[130px_1fr] sm:gap-3">
+      <div className="text-sm font-medium text-ink-3 sm:pt-3">{label}</div>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -151,13 +149,9 @@ function Chip({
       type="button"
       aria-pressed={selected}
       onClick={onClick}
-      className={`min-h-[44px] rounded-full border-[1.5px] font-semibold transition-all touch-manipulation ${
-        small ? 'px-3.5 text-xs' : 'px-4 text-[13px]'
-      } ${
-        selected
-          ? 'border-orange-500 bg-orange-50 text-orange-900'
-          : 'border-neutral-200 bg-white text-neutral-600 hover:border-orange-300'
-      }`}
+      className={`inline-flex min-h-11 items-center rounded-md border bg-panel text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+        small ? 'px-3' : 'px-3.5'
+      } ${selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'}`}
     >
       {label}
     </button>
@@ -203,9 +197,9 @@ function SalaryInputs({
           autoComplete="off"
           onBlur={save}
           aria-label="Lägsta månadslön"
-          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-neutral-200 px-3.5 text-base font-semibold text-neutral-700 placeholder:font-normal placeholder:text-neutral-400 focus:border-orange-400 focus:outline-none transition-colors"
+          className="h-11 w-36 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
-        <span className="text-neutral-400 text-sm" aria-hidden="true">
+        <span className="text-sm text-ink-3" aria-hidden="true">
           till
         </span>
         <input
@@ -219,10 +213,10 @@ function SalaryInputs({
           autoComplete="off"
           onBlur={save}
           aria-label="Högsta månadslön"
-          className="w-36 min-h-[44px] rounded-xl border-[1.5px] border-neutral-200 px-3.5 text-base font-semibold text-neutral-700 placeholder:font-normal placeholder:text-neutral-400 focus:border-orange-400 focus:outline-none transition-colors"
+          className="h-11 w-36 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
       </div>
-      <p className="text-xs text-neutral-400 mt-2">
+      <p className="mt-2 text-meta text-ink-3">
         Visas aldrig på profilen, används bara för att filtrera bort fel förfrågningar.
       </p>
     </div>

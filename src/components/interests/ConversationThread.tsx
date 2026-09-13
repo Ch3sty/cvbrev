@@ -1,24 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  ArrowLeft,
-  Building2,
-  Check,
-  CheckCheck,
-  Globe,
-  Mail,
-  MoreHorizontal,
-  Phone,
-  Send,
-} from 'lucide-react';
-import {
-  AVATAR_BG,
-  AVATAR_FG,
-  HUB_GRADIENT,
-  initialFor,
-  type CandidateInterest,
-} from './hubTypes';
+import { ChevronLeft } from 'lucide-react';
+import EmptyState from '@/components/shell/EmptyState';
+import { IlluTomMapp } from '@/components/illustrations/TradenScener';
+import { initialFor, type CandidateInterest } from './hubTypes';
 
 interface ThreadMessage {
   id: string;
@@ -87,7 +73,6 @@ export default function ConversationThread({
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
@@ -158,51 +143,46 @@ export default function ConversationThread({
     : null;
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+    <div className="flex h-full flex-col bg-panel">
+      {/* Vem samtalet gäller, plus vägarna att nå dem */}
+      <div className="flex items-center gap-3 border-b border-kant px-4 py-3">
         {onBack && (
           <button
             type="button"
             onClick={onBack}
-            className="lg:hidden flex-shrink-0 w-8 h-8 -ml-1 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors"
-            aria-label="Tillbaka"
+            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1 lg:hidden"
+            aria-label="Tillbaka till listan"
           >
-            <ArrowLeft className="w-4.5 h-4.5" aria-hidden="true" />
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
           </button>
         )}
         <span
-          className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-[15px] font-bold"
-          style={{ background: AVATAR_BG, color: AVATAR_FG }}
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-kant bg-insunken text-sm font-semibold text-ink-2"
           aria-hidden="true"
         >
           {initialFor(interest.companyName)}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[14px] font-bold text-slate-900 truncate leading-tight">
-            {interest.companyName}
-          </p>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-0.5">
+          <p className="truncate text-kort text-ink-1">{interest.companyName}</p>
+          <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
             {contact?.contactName && (
-              <span className="text-[12px] text-slate-500 truncate">
+              <span className="truncate text-meta text-ink-3">
                 {[contact.contactName, contact.contactRole].filter(Boolean).join(' · ')}
               </span>
             )}
             {contact?.email && (
               <a
                 href={`mailto:${contact.email}`}
-                className="inline-flex items-center gap-1 text-[12px] font-semibold text-orange-700 hover:text-orange-800"
+                className="text-meta font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
               >
-                <Mail className="w-3.5 h-3.5" aria-hidden="true" />
                 Mejla
               </a>
             )}
             {contact?.phone && (
               <a
                 href={`tel:${contact.phone}`}
-                className="inline-flex items-center gap-1 text-[12px] font-semibold text-slate-600 hover:text-slate-800"
+                className="text-meta font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
               >
-                <Phone className="w-3.5 h-3.5" aria-hidden="true" />
                 Ring
               </a>
             )}
@@ -211,53 +191,26 @@ export default function ConversationThread({
                 href={websiteHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[12px] font-semibold text-slate-600 hover:text-slate-800"
+                className="text-meta font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
               >
-                <Globe className="w-3.5 h-3.5" aria-hidden="true" />
-                Webb
+                Webbplats
               </a>
             )}
           </div>
         </div>
-        <div className="relative flex-shrink-0">
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 transition-colors"
-            aria-label="Fler val"
-          >
-            <MoreHorizontal className="w-4.5 h-4.5" aria-hidden="true" />
-          </button>
-          {menuOpen && (
-            <div
-              className="absolute right-0 top-9 z-10 w-44 rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
-              onMouseLeave={() => setMenuOpen(false)}
-            >
-              <p className="px-3 py-2 text-[12px] text-slate-400">Inga fler val ännu.</p>
-            </div>
-          )}
-        </div>
       </div>
 
-      {/* Body */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 bg-slate-50/40">
+      {/* Samtalet */}
+      <div className="flex-1 overflow-y-auto px-4 py-4">
         {messages === null ? (
-          <p className="text-[13px] text-slate-400 text-center py-6">Laddar meddelanden...</p>
+          <p className="py-6 text-center text-meta text-ink-3">Hämtar meddelanden</p>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-6">
-            <span
-              className="w-14 h-14 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center mb-4"
-              aria-hidden="true"
-            >
-              <Building2 className="w-7 h-7 text-orange-600" />
-            </span>
-            <p className="text-[15px] font-bold text-slate-900">
-              Ni är nu i kontakt med {interest.companyName}
-            </p>
-            <p className="text-[13px] text-slate-500 leading-relaxed mt-1.5 max-w-xs">
-              {label} vill gärna höra mer om dig. Säg hej och berätta vad du söker.
-            </p>
-          </div>
+          <EmptyState
+            bare
+            illustration={IlluTomMapp}
+            title={`Ni är i kontakt med ${interest.companyName}`}
+            description={`${label} vill höra mer om dig. Säg hej och berätta vad du söker.`}
+          />
         ) : (
           <div className="space-y-1">
             {messages.map((m, idx) => {
@@ -274,63 +227,53 @@ export default function ConversationThread({
               return (
                 <div key={m.id}>
                   {showDay && (
-                    <div className="flex justify-center my-3">
-                      <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-[11px] font-semibold text-slate-500">
+                    <div className="my-3 flex justify-center">
+                      <span className="rounded-md border border-kant bg-panel px-3 py-1 text-meta text-ink-3">
                         {dayLabel(m.createdAt)}
                       </span>
                     </div>
                   )}
 
                   {!m.mine && startsSequence && (
-                    <p className="text-[10.5px] font-bold uppercase tracking-wide text-slate-400 ml-9 mb-0.5 mt-2">
-                      {label}
-                    </p>
+                    <p className="mb-0.5 ml-9 mt-2 text-meta text-ink-3">{label}</p>
                   )}
 
-                  <div className={`flex items-end gap-2 ${m.mine ? 'justify-end' : 'justify-start'}`}>
+                  <div
+                    className={`flex items-end gap-2 ${m.mine ? 'justify-end' : 'justify-start'}`}
+                  >
                     {!m.mine && (
                       <span
-                        className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold"
-                        style={{
-                          background: startsSequence ? AVATAR_BG : 'transparent',
-                          color: AVATAR_FG,
-                        }}
+                        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-meta font-medium ${
+                          startsSequence
+                            ? 'border border-kant bg-insunken text-ink-2'
+                            : 'text-transparent'
+                        }`}
                         aria-hidden="true"
                       >
                         {startsSequence ? initialFor(interest.companyName) : ''}
                       </span>
                     )}
-                    <div className={`max-w-[74%] ${m.mine ? 'items-end' : ''}`}>
+                    <div className="max-w-[74%]">
                       <div
-                        className={`px-3.5 py-2 text-[13px] leading-relaxed whitespace-pre-wrap break-words ${
+                        className={`whitespace-pre-wrap break-words rounded-xl px-3.5 py-2 text-sm leading-[22px] ${
                           m.mine
-                            ? 'text-white rounded-2xl rounded-br-sm'
-                            : 'bg-white border border-slate-200 text-slate-700 rounded-2xl rounded-bl-sm'
+                            ? 'bg-ink-1 text-white'
+                            : 'border border-kant bg-insunken text-ink-2'
                         }`}
-                        style={m.mine ? { background: HUB_GRADIENT } : undefined}
                       >
                         {m.body}
                       </div>
                       <div
-                        className={`flex items-center gap-1 mt-0.5 ${
-                          m.mine ? 'justify-end' : ''
-                        }`}
+                        className={`mt-0.5 flex items-center gap-1.5 ${m.mine ? 'justify-end' : ''}`}
                       >
-                        <span className="text-[10.5px] text-slate-400">
-                          {timeOfDay(m.createdAt)}
-                        </span>
-                        {showStatus &&
-                          (isRead ? (
-                            <span className="inline-flex items-center gap-0.5 text-[10.5px] font-semibold text-orange-600">
-                              <CheckCheck className="w-3 h-3" aria-hidden="true" />
-                              Läst
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-0.5 text-[10.5px] text-slate-400">
-                              <Check className="w-3 h-3" aria-hidden="true" />
-                              Skickat
-                            </span>
-                          ))}
+                        <span className="text-meta text-ink-3">{timeOfDay(m.createdAt)}</span>
+                        {showStatus && (
+                          <span
+                            className={`text-meta ${isRead ? 'text-positiv' : 'text-ink-3'}`}
+                          >
+                            {isRead ? 'Läst' : 'Skickat'}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -343,13 +286,13 @@ export default function ConversationThread({
       </div>
 
       {error && (
-        <p className="px-4 pt-2 text-[12px] text-red-600" role="alert">
+        <p className="px-4 pt-2 text-meta text-fel" role="alert">
           {error}
         </p>
       )}
 
-      {/* Skrivfält */}
-      <div className="flex items-end gap-2 p-3 border-t border-slate-100 bg-white">
+      {/* Skrivfältet */}
+      <div className="flex items-end gap-2 border-t border-kant p-3">
         <textarea
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
@@ -360,17 +303,16 @@ export default function ConversationThread({
             }
           }}
           rows={1}
-          placeholder="Skriv ett meddelande..."
-          className="flex-1 resize-none rounded-xl border border-slate-200 px-3.5 py-2.5 text-[13px] text-slate-700 focus:outline-none focus:border-orange-300 max-h-28"
+          enterKeyHint="send"
+          placeholder="Skriv ett meddelande"
+          className="max-h-28 min-h-11 flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
         <button
           type="button"
           onClick={send}
           disabled={sending || !draft.trim()}
-          className="flex-shrink-0 min-h-[42px] px-4 rounded-xl text-white text-[13px] font-bold inline-flex items-center gap-1.5 disabled:opacity-40 transition-opacity hover:opacity-90"
-          style={{ background: HUB_GRADIENT }}
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
         >
-          <Send className="w-3.5 h-3.5" aria-hidden="true" />
           Skicka
         </button>
       </div>

@@ -28,13 +28,15 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
       {...collapse}
       headerExtra={
         !isOn ? (
-          <span className="text-xs font-bold tracking-wide rounded-full px-2.5 py-1 bg-neutral-100 text-neutral-500">
-            Ej synlig
-          </span>
+          <span className="text-meta text-ink-3">Ej synlig</span>
         ) : undefined
       }
     >
-      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-2.5 ${!isOn ? 'opacity-60' : ''}`}>
+      <div
+        className={`grid grid-cols-1 gap-2.5 sm:grid-cols-2 ${!isOn ? 'opacity-60' : ''}`}
+        role="radiogroup"
+        aria-label="Synlighetsläge"
+      >
         <ModeOption
           selected={activeMode === 'anonymous'}
           disabled={!isOn}
@@ -52,7 +54,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
         />
       </div>
       {!isOn && (
-        <p className="text-xs text-neutral-400 mt-2.5">
+        <p className="mt-2.5 text-meta text-ink-3">
           Slå på synligheten uppe till höger för att välja läge.
         </p>
       )}
@@ -82,21 +84,15 @@ function ModeOption({
       aria-checked={selected}
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-xl border-[1.5px] p-4 min-h-[72px] text-left transition-all touch-manipulation ${
-        selected
-          ? 'border-orange-500 bg-orange-50/60'
-          : 'border-neutral-200 bg-white hover:border-orange-300'
-      } ${disabled ? 'cursor-not-allowed' : ''}`}
+      className={`min-h-[72px] rounded-xl border bg-panel p-4 text-left transition-[border-color,background-color] duration-[160ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed ${
+        selected ? 'border-ink-1 shadow-val' : 'border-kant'
+      }`}
     >
-      <span className="flex items-center gap-2 flex-wrap">
-        <span className="text-sm font-bold text-neutral-900">{title}</span>
-        {recommended && (
-          <span className="text-xs font-bold tracking-wide rounded-full px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200">
-            Rekommenderas
-          </span>
-        )}
-      </span>
-      <span className="block text-xs text-neutral-500 mt-1 leading-relaxed">{description}</span>
+      {recommended && (
+        <span className="mb-1 block text-steg uppercase text-accent-ink">Rekommenderas</span>
+      )}
+      <span className="block text-kort text-ink-1">{title}</span>
+      <span className="mt-1 block text-meta text-ink-3">{description}</span>
     </button>
   );
 }

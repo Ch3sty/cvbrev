@@ -1,98 +1,53 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ExternalLink, MousePointerClick, Copy, ClipboardPaste } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 const STEPS = [
-  {
-    icon: ExternalLink,
-    title: 'Öppna LinkedIn',
-    desc: 'Gå till din profilsida',
-  },
-  {
-    icon: MousePointerClick,
-    title: 'Hitta sektionen',
-    desc: 'Markera all text',
-  },
-  {
-    icon: Copy,
-    title: 'Kopiera',
-    desc: 'Ctrl/⌘ + C',
-  },
-  {
-    icon: ClipboardPaste,
-    title: 'Klistra in här',
-    desc: 'Ctrl/⌘ + V',
-  },
+  { title: 'Öppna LinkedIn', desc: 'Gå till din profilsida.' },
+  { title: 'Hitta sektionen', desc: 'Markera all text i den.' },
+  { title: 'Kopiera', desc: 'Ctrl eller Cmd + C.' },
+  { title: 'Klistra in här', desc: 'Ctrl eller Cmd + V i rätt fält.' },
 ]
 
+/**
+ * Hjälpen för att kopiera från LinkedIn: en panel med ett huvud som fälls
+ * ut till fyra numrerade rader. Ingen orange, ingen rörelse.
+ */
 export default function PasteHelper() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="rounded-xl border border-orange-100 bg-orange-50/40 overflow-hidden">
+    <div className="rounded-xl border border-kant bg-panel">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-orange-50/60 transition-colors"
+        className="flex min-h-11 w-full items-center justify-between gap-3 px-4 text-left hover:bg-insunken"
         aria-expanded={open}
+        aria-controls="paste-helper-steps"
       >
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span
-            className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
-            aria-hidden="true"
-          />
-          <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-            Så kopierar du från LinkedIn
-          </span>
-        </div>
+        <span className="text-sm font-medium text-ink-1">Så kopierar du från LinkedIn</span>
         <ChevronDown
-          className={`w-4 h-4 text-orange-700 transition-transform flex-shrink-0 ${
+          className={`h-5 w-5 shrink-0 text-ink-3 transition-transform duration-[120ms] ${
             open ? 'rotate-180' : ''
           }`}
-          strokeWidth={2.4}
+          strokeWidth={1.75}
         />
       </button>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {STEPS.map((step, i) => {
-                  const Icon = step.icon
-                  return (
-                    <div
-                      key={step.title}
-                      className="flex flex-col items-center text-center gap-1.5 p-2"
-                    >
-                      <div className="w-10 h-10 flex items-center justify-center">
-                        <Icon
-                          className="w-5 h-5 text-neutral-700"
-                          strokeWidth={2.2}
-                        />
-                      </div>
-                      <p className="text-xs font-bold text-neutral-900 leading-tight">
-                        {i + 1}. {step.title}
-                      </p>
-                      <p className="text-xs text-neutral-500 leading-tight">
-                        {step.desc}
-                      </p>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <ol id="paste-helper-steps" className="divide-y divide-kant border-t border-kant">
+          {STEPS.map((step, i) => (
+            <li key={step.title} className="flex min-h-11 items-center gap-3 px-4 py-2">
+              <span className="w-5 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}.</span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-medium text-ink-1">{step.title}</span>
+                <span className="block text-meta text-ink-3">{step.desc}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   )
 }

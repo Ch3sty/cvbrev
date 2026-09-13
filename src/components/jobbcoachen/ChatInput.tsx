@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, FileText, X } from 'lucide-react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -138,173 +136,90 @@ export default function ChatInput({
     }
   };
 
+  const totalDocs = cvCount + letterCount;
+  const canSend = !disabled && (message.trim().length > 0 || selectedDocs.length > 0);
+
   return (
     <>
-      <div className="px-3 sm:px-6 pt-5 pb-3 sm:pb-4">
-        <div className="w-full">
-          {/* Optional suggestion chips (rendered by parent on welcome view) */}
-          {suggestionChips && (
-            <div className="mb-3">
-              {suggestionChips}
-            </div>
-          )}
+      <div className="px-3 pb-3 pt-4 sm:px-6 sm:pb-4">
+        {suggestionChips && <div className="mb-3">{suggestionChips}</div>}
 
-          {/* Selected documents preview */}
-          <AnimatePresence>
-            {selectedDocs.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mb-3 flex flex-wrap gap-2"
+        {selectedDocs.length > 0 && (
+          <ul className="mb-3 flex flex-wrap gap-2">
+            {selectedDocs.map((doc) => (
+              <li
+                key={`${doc.type}-${doc.id}`}
+                className="flex items-center gap-2 rounded-lg border border-kant bg-panel px-3 py-2"
               >
-                {selectedDocs.map((doc) => (
-                  <motion.div
-                    key={`${doc.type}-${doc.id}`}
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    className="flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-xl px-3 py-2 text-sm"
-                  >
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white flex-shrink-0" style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}>
-                      <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 truncate max-w-[200px]">
-                        {doc.file_name}
-                      </p>
-                      <p className="text-[11px] text-orange-700">
-                        {doc.type === 'cv' ? 'CV' : 'Personligt brev'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleRemoveDoc(doc.id, doc.type)}
-                      className="p-1 hover:bg-orange-100 rounded-md transition-colors"
-                      aria-label="Ta bort dokument"
-                    >
-                      <X className="w-4 h-4 text-orange-700" />
-                    </button>
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Input area */}
-          <div className="relative group">
-            <div className="relative flex items-end gap-2 sm:gap-3">
-              {/* Document selector button */}
-              <motion.div className="relative flex-shrink-0">
-                <motion.button
-                  onClick={() => setShowDocSelector(true)}
-                  disabled={disabled}
-                  whileHover={{ scale: disabled ? 1 : 1.05 }}
-                  whileTap={{ scale: disabled ? 1 : 0.95 }}
-                  className="relative p-3 bg-white border-2 border-orange-300 rounded-xl hover:bg-orange-50 hover:border-orange-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
-                  aria-label="Dela CV eller personligt brev"
-                  title={
-                    (cvCount + letterCount) > 0
-                      ? `Dela ${cvCount + letterCount} sparade dokument för feedback`
-                      : 'Dela CV eller personligt brev'
-                  }
+                <span className="min-w-0">
+                  <span className="block max-w-[200px] truncate text-sm font-medium text-ink-1">
+                    {doc.file_name}
+                  </span>
+                  <span className="block text-meta text-ink-3">
+                    {doc.type === 'cv' ? 'CV' : 'Personligt brev'}
+                  </span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveDoc(doc.id, doc.type)}
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-medium text-ink-2 hover:bg-insunken hover:text-ink-1"
+                  aria-label={`Ta bort ${doc.file_name}`}
                 >
-                  <FileText className="w-5 h-5 text-orange-600 group-hover:text-orange-700 transition-colors" strokeWidth={2.25} />
+                  Ta bort
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
-                  {/* Pulse badge */}
-                  {(cvCount + letterCount) > 0 && (
-                    <>
-                      <motion.span
-                        className="absolute -top-1.5 -right-1.5 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
-                        style={{ background: 'linear-gradient(135deg, #F97316, #DC2626)' }}
-                        animate={{ scale: [1, 1.15, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      >
-                        {cvCount + letterCount}
-                      </motion.span>
-                      <motion.span
-                        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border-2 border-orange-500"
-                        animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
-                      />
-                    </>
-                  )}
-                </motion.button>
-              </motion.div>
+        <div className="flex items-end gap-2 sm:gap-3">
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            placeholder={placeholder}
+            rows={1}
+            enterKeyHint="send"
+            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
+            style={{ maxHeight: '120px' }}
+          />
 
-              <div className="flex-1 relative">
-                {(cvCount + letterCount) > 0 && selectedDocs.length === 0 && (
-                  <div className="absolute -top-6 left-0 right-0 flex items-center justify-center">
-                    <p className="text-[10px] text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200 font-semibold">
-                      <FileText className="w-2.5 h-2.5 inline mr-1" />
-                      Just nu kan du dela {cvCount + letterCount} av dina dokument med oss
-                    </p>
-                  </div>
-                )}
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!canSend}
+            className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          >
+            Skicka
+          </button>
+        </div>
 
-                <textarea
-                  ref={textareaRef}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  disabled={disabled}
-                  placeholder={placeholder}
-                  rows={1}
-                  className="w-full px-4 py-3 pr-12 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-200/40 focus:border-orange-400 transition-all resize-none disabled:bg-slate-100 disabled:cursor-not-allowed text-slate-900 placeholder-slate-400"
-                  style={{
-                    fontSize: '16px',
-                    minHeight: '48px',
-                    maxHeight: '120px'
-                  }}
-                />
-                {message.length > 0 && (
-                  <div className="hidden sm:block absolute bottom-2 right-2 text-xs text-slate-400 tabular-nums">
-                    {message.length}
-                  </div>
-                )}
-              </div>
-
-              {/* Send button */}
-              <motion.button
-                onClick={handleSubmit}
-                disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
-                whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.05 }}
-                whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.95 }}
-                className="relative px-5 py-3 text-white rounded-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation flex-shrink-0"
-                style={{
-                  background:
-                    disabled || (!message.trim() && selectedDocs.length === 0)
-                      ? '#94A3B8'
-                      : 'linear-gradient(135deg, #F97316, #DC2626)',
-                  boxShadow:
-                    disabled || (!message.trim() && selectedDocs.length === 0)
-                      ? 'none'
-                      : '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                <Send className="w-5 h-5" strokeWidth={2.25} />
-                <span className="hidden sm:inline ml-2">Skicka</span>
-              </motion.button>
-            </div>
-          </div>
-
-          {/* Keyboard hint - desktop only */}
-          <p className="hidden sm:block text-xs text-slate-500 mt-2 text-center">
-            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-700 font-mono text-xs">Enter</kbd> skickar,
-            <kbd className="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-700 font-mono text-xs ml-1">Shift+Enter</kbd> ny rad
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <button
+            type="button"
+            onClick={() => setShowDocSelector(true)}
+            disabled={disabled}
+            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:no-underline disabled:opacity-40"
+          >
+            {totalDocs > 0
+              ? `Dela ett av dina ${totalDocs} dokument`
+              : 'Dela CV eller personligt brev'}
+          </button>
+          <p className="hidden text-meta text-ink-3 sm:block">
+            Enter skickar, Shift och Enter ger ny rad
           </p>
         </div>
       </div>
 
-      {/* Document Selector Modal */}
-      <AnimatePresence>
-        {showDocSelector && (
-          <DocumentSelector
-            onSelect={handleDocumentSelect}
-            onClose={() => setShowDocSelector(false)}
-            selectedDocs={selectedDocs}
-          />
-        )}
-      </AnimatePresence>
+      {showDocSelector && (
+        <DocumentSelector
+          onSelect={handleDocumentSelect}
+          onClose={() => setShowDocSelector(false)}
+          selectedDocs={selectedDocs}
+        />
+      )}
     </>
   );
 }

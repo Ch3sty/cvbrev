@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Lock } from 'lucide-react';
 
 /**
  * Låst förhandsvisning av arbetsstilsrapporten för grundtestare
@@ -26,17 +25,17 @@ export default function LockedWorkStylePreview() {
         {LOCKED_SECTIONS.map((section) => (
           <div
             key={section.title}
-            className="relative rounded-xl border border-indigo-100 bg-indigo-50/30 p-3.5 overflow-hidden"
+            className="relative overflow-hidden rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken"
           >
-            <div className="flex items-center justify-between gap-2 mb-2.5">
-              <h4 className="text-[13px] font-bold text-indigo-950">{section.title}</h4>
-              <Lock className="w-3.5 h-3.5 text-indigo-300 flex-shrink-0" strokeWidth={2.5} />
+            <div className="mb-2.5 flex items-center justify-between gap-2">
+              <h4 className="text-sm font-medium text-ink-1">{section.title}</h4>
+              <span className="shrink-0 text-meta text-ink-3">Låst</span>
             </div>
-            <div className="space-y-1.5 blur-[3px] select-none" aria-hidden="true">
+            <div className="select-none space-y-1.5 blur-[3px]" aria-hidden="true">
               {section.lines.map((width, i) => (
                 <div
                   key={i}
-                  className="h-2.5 rounded-full bg-indigo-200/70"
+                  className="h-2.5 rounded-full bg-kant"
                   style={{ width: `${width}%` }}
                 />
               ))}
@@ -45,18 +44,17 @@ export default function LockedWorkStylePreview() {
         ))}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-indigo-100 bg-indigo-50/50 px-4 py-3.5">
-        <p className="text-[13px] text-indigo-950/80 leading-relaxed min-w-0 flex-1 basis-64">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-kant bg-panel px-4 py-3.5">
+        <p className="min-w-0 flex-1 basis-64 text-sm leading-[22px] text-ink-2">
           Det fördjupade testet låser upp hela din arbetsstilsrapport: hur du
           arbetar, samarbetar och drivs, din privata energibudget och
           intervjuträning på riktiga frågor.
         </p>
         <Link
           href="/dashboard/tester/personlighet-avancerad"
-          className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 flex-shrink-0 transition-colors touch-manipulation"
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
         >
-          Gör det fördjupade testet (120 frågor)
-          <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+          Gör det fördjupade testet, 120 frågor
         </Link>
       </div>
     </div>

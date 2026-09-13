@@ -1,12 +1,10 @@
 'use client'
 
-import { type LucideIcon } from 'lucide-react'
 import SectionStrength from './SectionStrength'
 
 interface Props {
   id: string
   label: string
-  icon: LucideIcon
   placeholder: string
   rows: number
   required?: boolean
@@ -18,10 +16,13 @@ interface Props {
   showStrength?: boolean
 }
 
+/**
+ * Ett sektionsfält: etikett i ink-1, valfri-markering och teckenräknare i
+ * ink-3, hjälptext 13 px, insunken textarea med fokusring i accent.
+ */
 export default function SectionInput({
   id,
   label,
-  icon: Icon,
   placeholder,
   rows,
   required = false,
@@ -34,31 +35,15 @@ export default function SectionInput({
 }: Props) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
-            <Icon className="w-4 h-4 text-neutral-700" strokeWidth={2.4} />
-          </div>
-          <label
-            htmlFor={id}
-            className="text-sm font-semibold text-neutral-900"
-          >
-            {label}
-            {!required && (
-              <span className="ml-1.5 text-xs font-bold text-neutral-400 normal-case">
-                (valfritt)
-              </span>
-            )}
-          </label>
-        </div>
-        <span className="text-xs font-bold text-neutral-400 tabular-nums">
-          {value.length}
-        </span>
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <label htmlFor={id} className="text-sm font-medium text-ink-1">
+          {label}
+          {!required && <span className="ml-1.5 text-meta text-ink-3">(valfritt)</span>}
+        </label>
+        <span className="text-meta tabular-nums text-ink-3">{value.length}</span>
       </div>
 
-      {hint && (
-        <p className="text-xs text-neutral-500 leading-snug mb-2">{hint}</p>
-      )}
+      {hint && <p className="mb-2 text-meta text-ink-3">{hint}</p>}
 
       <textarea
         id={id}
@@ -69,16 +54,12 @@ export default function SectionInput({
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
         placeholder={placeholder}
-        className="block w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 resize-y"
+        className="block w-full resize-y rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
       />
 
       {showStrength && value.trim().length > 0 && (
         <div className="mt-2">
-          <SectionStrength
-            text={value}
-            optimalMin={optimalMin}
-            optimalMax={optimalMax}
-          />
+          <SectionStrength text={value} optimalMin={optimalMin} optimalMax={optimalMax} />
         </div>
       )}
     </div>

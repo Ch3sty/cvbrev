@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Lock, FileText, Upload } from 'lucide-react';
 import SectionCard, { type CollapseProps } from './SectionCard';
 import type { CvOption } from './types';
 
@@ -35,9 +34,8 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
       {cvs.length === 0 ? (
         <Link
           href="/dashboard/profil/cv"
-          className="flex items-center gap-3 rounded-xl border border-dashed border-orange-200 bg-orange-50/40 p-4 min-h-[56px] text-sm font-semibold text-orange-800 hover:bg-orange-50 transition-colors touch-manipulation"
+          className="flex min-h-[56px] items-center gap-3 rounded-lg border border-dashed border-kant-stark bg-insunken p-4 text-sm font-medium text-ink-1 shadow-insunken hover:bg-panel"
         >
-          <Upload className="w-4 h-4 text-orange-600 flex-shrink-0" strokeWidth={2.5} />
           Du har inget CV ännu. Ladda upp ett för att komma igång.
         </Link>
       ) : (
@@ -52,41 +50,27 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
                 aria-checked={selected}
                 disabled={cv.isLocked}
                 onClick={() => onSelect(cv.id)}
-                className={`flex items-center gap-3 rounded-xl border-[1.5px] p-3.5 min-h-[56px] text-left transition-all touch-manipulation ${
-                  selected
-                    ? 'border-orange-500 bg-orange-50/60'
-                    : cv.isLocked
-                      ? 'border-neutral-200 bg-neutral-50 opacity-60 cursor-not-allowed'
-                      : 'border-neutral-200 bg-white hover:border-orange-300'
+                className={`flex min-h-[56px] items-center gap-3 rounded-lg border bg-panel p-3.5 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+                  selected ? 'border-ink-1 shadow-val' : 'border-kant'
                 }`}
               >
-                {/* Radio-prick */}
                 <span
-                  className={`flex-shrink-0 w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                    selected ? 'border-orange-600' : 'border-neutral-300'
+                  className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
+                    selected ? 'border-ink-1' : 'border-kant-stark'
                   }`}
                   aria-hidden="true"
                 >
-                  {selected && <span className="w-2 h-2 rounded-full bg-orange-600" />}
+                  {selected && <span className="h-2 w-2 rounded-full bg-ink-1" />}
                 </span>
 
-                <span className="flex-1 min-w-0">
-                  <span className="block text-sm font-bold text-neutral-900 truncate">
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-kort text-ink-1">
                     {cv.file_name || 'Namnlöst CV'}
                   </span>
-                  <span className="block text-xs text-neutral-500 mt-0.5">
+                  <span className="mt-0.5 block text-meta text-ink-3">
                     {cv.isLocked ? 'Låst på gratisplanen' : `Uppdaterat ${formatUpdated(cv)}`}
                   </span>
                 </span>
-
-                {cv.isLocked ? (
-                  <Lock className="w-4 h-4 text-neutral-400 flex-shrink-0" strokeWidth={2.5} />
-                ) : (
-                  <FileText
-                    className={`w-4 h-4 flex-shrink-0 ${selected ? 'text-orange-600' : 'text-neutral-300'}`}
-                    strokeWidth={2.5}
-                  />
-                )}
               </button>
             );
           })}

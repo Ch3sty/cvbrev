@@ -1,121 +1,11 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Clock, Plus, Lock } from 'lucide-react'
 import { useCVStore } from '@/store/cv-store'
-
 import { formatCVDate } from '@/lib/utils/date-formatter'
-
-/**
- * Custom SVG-ikon för CV i LinkedIn-flödet, orange/röd-DNA, matchar
- * resten av plattformens illustrationer.
- */
-function CvDocIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient
-          id="cv-doc-warm"
-          x1="0"
-          y1="0"
-          x2="32"
-          y2="32"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" stopColor="#F97316" />
-          <stop offset="1" stopColor="#DC2626" />
-        </linearGradient>
-        <linearGradient
-          id="cv-doc-soft"
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="32"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" stopColor="#FFEDD5" />
-          <stop offset="1" stopColor="#FED7AA" />
-        </linearGradient>
-      </defs>
-      {/* Bakgrund-blob */}
-      <rect
-        x="2"
-        y="2"
-        width="28"
-        height="28"
-        rx="6"
-        fill="url(#cv-doc-soft)"
-        opacity="0.7"
-      />
-      {/* Pappersark med vikt hörn */}
-      <path
-        d="M 9 6 L 19 6 L 24 11 L 24 25 Q 24 26 23 26 L 9 26 Q 8 26 8 25 L 8 7 Q 8 6 9 6 Z"
-        fill="white"
-        stroke="#FB923C"
-        strokeWidth="1.2"
-      />
-      {/* Topplist orange */}
-      <rect x="8" y="6" width="16" height="2.5" rx="1" fill="url(#cv-doc-warm)" />
-      {/* Vikt hörn (fold) */}
-      <path
-        d="M 19 6 L 24 11 L 19 11 Z"
-        fill="#FED7AA"
-      />
-      <path
-        d="M 19 6 L 24 11 L 19 11 Z"
-        fill="none"
-        stroke="#FB923C"
-        strokeWidth="1"
-      />
-      {/* Avatar-cirkel */}
-      <circle cx="12" cy="14" r="2" fill="#FED7AA" />
-      {/* Textrader */}
-      <line
-        x1="15"
-        y1="13"
-        x2="22"
-        y2="13"
-        stroke="#94A3B8"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
-      <line
-        x1="15"
-        y1="15.5"
-        x2="20"
-        y2="15.5"
-        stroke="#CBD5E1"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <line
-        x1="11"
-        y1="19"
-        x2="22"
-        y2="19"
-        stroke="#CBD5E1"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <line
-        x1="11"
-        y1="21.5"
-        x2="20"
-        y2="21.5"
-        stroke="#CBD5E1"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
-}
+import ChoiceCard from '@/components/shell/ChoiceCard'
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
+import { IkonCv } from '@/components/illustrations/Ikoner'
 
 interface Props {
   selectedCvId: string | null
@@ -129,6 +19,11 @@ interface Props {
   lockedCvIds: Set<string>
 }
 
+/**
+ * CV-listan i steg 1: en rad per CV som ChoiceCard plain, naken ikon 24 i
+ * ink-2, filnamn och datum. Valet markeras med kant ink-1 och bock, aldrig
+ * med orange. Låsta CV är spärrade och säger varför i metaraden.
+ */
 export default function CvSelectorList({
   selectedCvId,
   onSelect,
@@ -137,16 +32,7 @@ export default function CvSelectorList({
   const { cvs, isLoading } = useCVStore()
 
   if (isLoading) {
-    return (
-      <div className="space-y-2">
-        {[1, 2].map((i) => (
-          <div
-            key={i}
-            className="h-[68px] rounded-xl bg-orange-50/40 border border-orange-100 animate-pulse"
-          />
-        ))}
-      </div>
-    )
+    return <LoadingSkeleton variant="list" count={2} label="Laddar dina CV" />
   }
 
   if (cvs.length === 0) {
@@ -154,106 +40,37 @@ export default function CvSelectorList({
   }
 
   return (
-    <div className="space-y-2">
-      {cvs.map((cv, i) => {
+    <div className="space-y-2" role="radiogroup" aria-label="Välj CV att utgå ifrån">
+      {cvs.map((cv) => {
         const isSelected = selectedCvId === cv.id
         const locked = lockedCvIds.has(cv.id)
         const ageLabel = formatCVDate(cv.created_at)
 
         return (
-          <motion.button
+          <ChoiceCard
             key={cv.id}
-            type="button"
-            onClick={() => {
+            variant="plain"
+            selected={isSelected && !locked}
+            onSelect={() => {
               if (!locked) onSelect(cv.id)
             }}
             disabled={locked}
-            title={
+            title={cv.file_name}
+            meta={
               locked
-                ? 'CV:t är låst, uppgradera till Premium för att kunna välja det'
-                : undefined
+                ? 'Låst. Uppgradera till Premium för att kunna välja det.'
+                : ageLabel
             }
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: locked ? 0.6 : 1, y: 0 }}
-            transition={{ duration: 0.25, delay: i * 0.04 }}
-            whileHover={locked ? undefined : { y: -1 }}
-            whileTap={locked ? undefined : { scale: 0.99 }}
-            className={`group relative w-full text-left rounded-xl transition-all overflow-hidden disabled:cursor-not-allowed ${
-              locked
-                ? 'bg-neutral-50 border border-neutral-200'
-                : isSelected
-                  ? 'bg-white border-2 border-orange-300'
-                  : 'bg-white border border-neutral-200 hover:border-orange-200'
-            }`}
-          >
-            {/* Orange topplist när vald */}
-            {isSelected && !locked && (
-              <div
-                className="absolute top-0 inset-x-0 h-0.5 bg-orange-600"
-                aria-hidden="true"
-              />
-            )}
-
-            <div className="flex items-center gap-3 px-3.5 py-3">
-              {/* Custom SVG-ikon */}
-              <div className="flex-shrink-0">
-                <CvDocIcon className="w-10 h-10" />
-              </div>
-
-              {/* Innehåll */}
-              <div className="flex-1 min-w-0">
-                <p
-                  className={`text-sm font-bold truncate ${
-                    locked
-                      ? 'text-neutral-500'
-                      : isSelected
-                        ? 'text-neutral-900'
-                        : 'text-neutral-800'
-                  }`}
-                >
-                  {cv.file_name}
-                </p>
-                <div className="flex items-center gap-1 text-xs text-neutral-500 mt-0.5">
-                  <Clock className="w-3 h-3" strokeWidth={2.2} />
-                  <span>{ageLabel}</span>
-                </div>
-              </div>
-
-              {/* Lås-pill när låst */}
-              {locked && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.14em] flex-shrink-0 bg-orange-100 border border-orange-200 text-orange-700">
-                  <Lock className="w-2.5 h-2.5" strokeWidth={2.5} />
-                  Låst
-                </span>
-              )}
-
-              {/* Vald-indikator */}
-              {isSelected && !locked && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-[0.16em] text-white flex-shrink-0 bg-orange-600">
-                  Vald
-                </span>
-              )}
-            </div>
-          </motion.button>
+            leading={<IkonCv size={24} />}
+          />
         )
       })}
 
-      {/* Ladda upp nytt CV-länk */}
       <Link
         href="/dashboard/profil/cv"
-        className="group flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-dashed border-orange-200 bg-orange-50/30 hover:bg-orange-50/60 hover:border-orange-300 transition-colors"
+        className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
       >
-        <div
-          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-white border border-orange-200 group-hover:border-orange-300 transition-colors"
-        >
-          <Plus
-            className="w-4 h-4 text-orange-700"
-            strokeWidth={2.4}
-          />
-        </div>
-        <span className="text-xs font-bold text-orange-700 group-hover:text-orange-800 transition-colors">
-          Ladda upp ett nytt CV
-        </span>
+        Ladda upp ett nytt CV
       </Link>
     </div>
   )

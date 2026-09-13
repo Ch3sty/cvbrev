@@ -2,8 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Battery, Ear, Lock } from 'lucide-react';
 
 import SectionCard from '../bli-upptackt/components/SectionCard';
 import LockedWorkStylePreview from '../bli-upptackt/components/LockedWorkStylePreview';
@@ -36,57 +34,52 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
     <div className="mx-auto py-4 sm:py-6 max-w-3xl">
       <div className="space-y-5 sm:space-y-6">
         {/* Hero */}
-        <motion.header
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="relative overflow-hidden rounded-xl p-5 sm:p-7 bg-white border border-neutral-200"
-        >
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600 mb-1">
-            Din arbetsstil
-          </p>
+        <header className="rounded-xl border border-kant bg-panel p-5 sm:p-7">
+          <p className="mb-1 text-steg uppercase text-ink-3">Din arbetsstil</p>
           {ownReport ? (
             <>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight text-neutral-900">
+              <h1 className="text-h1 text-ink-1">
                 {ownReport.archetype.title}
               </h1>
-              <p className="text-[13.5px] text-neutral-600 leading-relaxed mt-2 max-w-xl">
+              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
                 {ownReport.archetype.description}
               </p>
             </>
           ) : (
             <>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight leading-tight text-neutral-900">
+              <h1 className="text-h1 text-ink-1">
                 Din rapport i ord, byggd på dig
               </h1>
-              <p className="text-[13.5px] text-neutral-600 leading-relaxed mt-2 max-w-xl">
+              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
                 Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i
                 siffror, och den privata delen är bara din.
               </p>
             </>
           )}
-          <p className="text-xs text-neutral-500 leading-relaxed mt-3">
+          <p className="mt-3 text-meta text-ink-3">
             Det här är din egen rapport i du-form. Vad rekryterare får se styr
             du själv under{' '}
-            <Link href="/dashboard/bli-upptackt" className="font-bold underline underline-offset-2 text-indigo-600 hover:text-indigo-700">
+            <Link
+              href="/dashboard/bli-upptackt"
+              className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+            >
               Bli upptäckt
             </Link>
             .
           </p>
-        </motion.header>
+        </header>
 
         {!done && (
           <SectionCard title="Gör personlighetstestet först" delay={0.1}>
-            <p className="text-[13px] text-neutral-600 leading-relaxed mb-3">
+            <p className="mb-3 text-sm leading-[22px] text-ink-2">
               Din arbetsstilsrapport byggs på ditt personlighetstest. Börja med
               dagens test, det tar bara några minuter.
             </p>
             <Link
               href="/dashboard/tester"
-              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-xl text-[13px] font-bold text-white bg-orange-600 hover:bg-orange-700 transition-colors touch-manipulation"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
             >
               Gör dagens test
-              <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
           </SectionCard>
         )}
@@ -105,27 +98,25 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
         {/* Avancerad-testare med jämn profil: kompakt fallback */}
         {done && !ownReport && hasAdvancedTest && (
           <SectionCard title="Din arbetsstil i kompakt form" delay={0.1}>
-            <p className="text-[13px] text-neutral-600 leading-relaxed mb-3">
+            <p className="mb-3 text-sm leading-[22px] text-ink-2">
               Din profil är jämn över mätvärdena, då blir fullrapporten mer
               gissning än beskrivning. Vi visar den kompakta arbetsstilen i
               stället, den är ärligare.
             </p>
             {workStyle && (
-              <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
-                <p className="text-[14px] font-bold text-indigo-950">
-                  {workStyle.archetype.title}
-                </p>
-                <p className="text-[13px] text-indigo-900/80 leading-relaxed mt-1">
+              <div className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+                <p className="text-kort text-ink-1">{workStyle.archetype.title}</p>
+                <p className="mt-1 text-sm leading-[22px] text-ink-2">
                   {workStyle.archetype.description}
                 </p>
                 <ul className="mt-2.5 space-y-1.5">
                   {workStyle.statements.map((statement) => (
                     <li
                       key={statement}
-                      className="flex items-start gap-2 text-[13px] text-neutral-700 leading-relaxed"
+                      className="flex items-start gap-2 text-sm leading-[22px] text-ink-2"
                     >
                       <span
-                        className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 mt-[7px]"
+                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink-3"
                         aria-hidden="true"
                       />
                       {statement}
@@ -177,7 +168,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
               )}
               {ownReport.drive.motivatedBy.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-400 mb-1.5">
+                  <p className="mb-1.5 text-steg uppercase text-ink-3">
                     Du motiveras av
                   </p>
                   <ul className="space-y-1.5">
@@ -195,15 +186,15 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                   {ownReport.thrives.map((card) => (
                     <div
                       key={card.thrivesWhen}
-                      className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-3.5"
+                      className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken"
                     >
-                      <p className="text-[13px] text-neutral-800 leading-relaxed">
-                        <span className="font-bold text-indigo-800">Du trivs när</span>{' '}
+                      <p className="text-sm leading-[22px] text-ink-2">
+                        <span className="font-medium text-ink-1">Du trivs när</span>{' '}
                         {card.thrivesWhen}
                       </p>
                       {card.challengedWhen && (
-                        <p className="text-[13px] text-neutral-600 leading-relaxed mt-1.5">
-                          <span className="font-bold text-neutral-500">Du utmanas när</span>{' '}
+                        <p className="mt-1.5 text-sm leading-[22px] text-ink-3">
+                          <span className="font-medium">Du utmanas när</span>{' '}
                           {card.challengedWhen}
                         </p>
                       )}
@@ -229,19 +220,15 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 title="Din energibudget"
                 delay={0.28}
                 headerExtra={
-                  <span className="inline-flex items-center gap-1 text-xs font-bold rounded-full px-2.5 py-1 bg-indigo-600 text-white">
-                    <Lock className="w-3 h-3" strokeWidth={2.5} />
-                    Bara för dig, delas aldrig
-                  </span>
+                  <span className="text-meta text-ink-3">Bara för dig, delas aldrig</span>
                 }
               >
                 <ul className="space-y-2.5">
                   {ownReport.energyBudget.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 rounded-xl border border-indigo-100 bg-indigo-50/40 p-3 text-[13px] text-indigo-950/90 leading-relaxed"
+                      className="rounded-lg border border-kant bg-insunken p-3 text-sm leading-[22px] text-ink-2 shadow-insunken"
                     >
-                      <Battery className="w-4 h-4 text-indigo-500 flex-shrink-0 mt-0.5" strokeWidth={2.25} />
                       {item}
                     </li>
                   ))}
@@ -256,10 +243,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 sub="Det här är exakt frågorna en rekryterare får som intervjuguide för din profil. Öva med STAR-mallen så äger du samtalet innan det börjar."
                 delay={0.32}
                 headerExtra={
-                  <span className="inline-flex items-center gap-1 text-xs font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700">
-                    <Ear className="w-3 h-3" strokeWidth={2.5} />
-                    Med facit
-                  </span>
+                  <span className="text-meta text-ink-3">Med facit</span>
                 }
               >
                 <InterviewPractice questions={ownReport.interviewPrep} />
@@ -274,11 +258,8 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
 
 function Bullet({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-2 text-[13.5px] text-neutral-700 leading-relaxed">
-      <span
-        className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0 mt-[7px]"
-        aria-hidden="true"
-      />
+    <li className="flex items-start gap-2 text-sm leading-[22px] text-ink-2">
+      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink-3" aria-hidden="true" />
       {children}
     </li>
   );
