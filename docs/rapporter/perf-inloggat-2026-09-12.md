@@ -666,14 +666,81 @@ Den riktiga signalen låg i gapet mellan FCP och LCP: 824 till 1 284 ms mot 2 21
 
 Sex sidor ligger kvar över budget, alla på tid och ingen på CLS: bli-upptackt (2 336 mot 1 500), cv-mallar och cv-mallar med vald mall (kring 1 660 mot 1 500), dashboard (1 248 mot 1 000), profil (1 164 mot 1 000) och mina-brev (1 588 mot 1 500). Fyra av dem ligger inom 200 ms från sin gräns, alltså inom mätbruset.
 
-## 14. Kvar att göra
+## 14. Omgång tio: sista avvikaren
+
+bli-upptackt var den enda sidan som låg klart över budget, på 2 432 ms.
+
+### 14.1 Orsaken satt i en delad komponent
+
+Uppdraget var att göra första vyn liten och lazy-ladda resten. Jag började där: `MasterHeader` gjordes statisk (den animerade in sig med `y: 12`, alltså både fördröjd och flyttande, trots att den ska vara sidans LCP-element), och `PitchCard` plus `ContextTagsCard` lazy-laddades med reserverade höjder. **LCP rörde sig knappt.**
+
+Mätningen visade varför. LCP-elementet byttes fyra gånger under inladdningen, och kandidaterna var textblock i olika kort. Alla korten går genom `SectionCard`, och den animerade varje kort med `initial={{ opacity: 0, y: 12 }}` plus en `delay`-prop på 0,05 till 0,3 sekunder. Sidans största textblock målades därför sist i en stagger-kedja.
+
+`SectionCard` är nu ren CSS: opacity utan förflyttning, staggern bevarad som `animationDelay`, och hopfällningen med `grid-template-rows` i stället för `height: auto`. Det tog bort framer-motion ur sidans kritiska väg helt (0 kB kvar i routens chunkar, mot 489 kB total bundle).
+
+**LCP-kandidaterna gick från fyra till två, och den sista är nu sidhuvudets text.** Det var det uttryckliga målet med rundan.
+
+### 14.2 Resultat
+
+`npx tsc --noEmit` rent, `npx vitest run` 80 tester gröna, `next build` lyckas.
+
+| Sida | Före | Efter | Rundturer före | efter | CLS |
+|---|---:|---:|---:|---:|---:|
+| bli-upptackt | 2 432 | **1 896** | 13 | **5** | 0,001 |
+
+Tre enskilda körningar gav 1 812, 1 868 och 2 248 ms, alltså 1,8 till 2,2 sekunder beroende på maskinens belastning. **Målet under 1,5 s nåddes inte.** CLS-målet 0,001 är uppfyllt.
+
+Sidan är fortfarande den längsta i hela det inloggade läget, 4 070 tecken synlig text mot 1 129 på dashboarden. Den återstående tiden är hydrering av det innehållet, synlig som fem långa uppgifter à 85 till 143 ms på huvudtråden. För att komma under 1,5 s behöver sidan troligen delas i två vyer, inte optimeras vidare.
+
+### 14.3 Hela det inloggade läget
+
+**32 av 38 routes inom budget. CLS är 0,001 på 36 av 38.**
+
+Sex sidor ligger kvar över, alla på tid och ingen på CLS:
+
+| Sida | Budget | LCP | Kommentar |
+|---|---|---:|---|
+| bli-upptackt | 1500 | 1 896 | Längsta sidan, behöver delas |
+| cv-mallar | 1500 | 1 736 | Förhandsvisningen kostar |
+| cv-mallar (vald mall) | 1500 | 1 508 | Åtta millisekunder över |
+| dashboard | 1000 | 1 164 | Noll rundturer, JS före hydrering |
+| profil | 1000 | 1 036 | Trettiosex millisekunder över |
+| tester resultat | 2000 | 2 084 | Svänger kring gränsen |
+
+Fyra av de sex ligger inom 250 ms från sin gräns, alltså inom mätbruset på den här maskinen.
+
+### 14.4 Hela arbetet i siffror
+
+Från utgångsläget i omgång ett till nu:
+
+| Mått | Före | Efter |
+|---|---:|---:|
+| Routes inom budget | 6 av 33 | **32 av 38** |
+| Sidor med CLS över 0,002 | 12 | **2** |
+| /dashboard | 2 208 ms | **1 164 ms** |
+| /dashboard/profil | 1 680 ms | **1 036 ms** |
+| /dashboard/tester | 5 424 ms | **1 472 ms** |
+| /dashboard/bli-upptackt | 5 056 ms | **1 896 ms** |
+| /dashboard/skapa-brev | 4 136 ms | **1 088 ms** |
+| Rundturer på /dashboard | 38 | **0** |
+
+De återkommande grundorsakerna, i tur och ordning:
+
+1. **Varje komponent gjorde sitt eget `auth.getUser()`** över nätet innan sin egentliga fråga, ofta upprepat fem till tio gånger per sida.
+2. **Hooks som såg delade ut men inte var det.** `useProfile` och `useCandidateInterests` körde hela sin kedja en gång per konsument.
+3. **Layouten returnerade `null` tills klienten hydrerat**, trots att middleware redan verifierat sessionen.
+4. **Typsnittets metrik.** Inter laddades utan `adjustFontFallback`, så text bytte storlek när snittet tonade in och flyttade allt under sig.
+5. **Entré-animationer med `translateY` på sent inkomna element**, som räknas som layoutskifte och dessutom fördröjer LCP.
+6. **Tunga komponenter importerade statiskt** trots att de ligger under vecket eller bakom ett klick.
+
+## 15. Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **bli-upptackt, 2 336 ms** | Enda sidan som ligger klart över. Sidan är lång (4 070 tecken synlig text) och LCP-elementet byts fyra gånger under inladdningen. Behöver troligen delas upp så att första vyn är mindre. |
-| **dashboard och profil, 150 till 250 ms över** | Noll rundturer och LCP nära FCP. Det som återstår är JS före hydrering. |
-| **cv-mallar, kring 1 660 ms** | Förhandsvisningen kostar fortfarande. |
-| **mina-brev, 1 588 ms** | Nyss över gränsen, svänger kring den. |
-| **Skalets idle-anrop syns fortfarande i mätfönstret** | De blockerar inget, men räknas som rundturer före LCP så länge LCP är sen. Siffran blir rättvisande först när sidorna är snabba. |
+| **bli-upptackt under 1,5 s** | Sidan behöver delas i två vyer. Optimering av befintlig struktur är uttömd. |
+| **dashboard och profil under 1,0 s** | 36 till 164 ms över. JS före hydrering är det som återstår. |
+| **cv-mallar** | Förhandsvisningen är sidans tyngsta post. |
+| **Verbala och numeriska testflöden** | Använder fortfarande klientfetch, sessionerna ligger i egna tabeller. |
+| **Mätning på riktig mobil** | Allt ovan är emulering på utvecklingsmaskin. PostHog-p75 från riktiga användare bör läsas av två veckor efter driftsättning och jämföras med avsnitt 1. |
 
-Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin och lita på medianen.
+Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före varje merge. Grinden fäller vid mer än 20 procent över budget, eller vid CLS över 0,002.

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import type { Visibility } from './types';
 
 interface MasterHeaderProps {
@@ -23,10 +22,10 @@ export default function MasterHeader({ visibility, saving, onToggle }: MasterHea
         : 'Synlig · öppen';
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
+    // Sidhuvudet är sidans LCP-element. Det får varken tonas in eller
+    // flyttas: en fade fördröjer målningen och en förflyttning räknas som
+    // layoutskifte. Det ska stå färdigt i första server-HTML.
+    <section
       className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
     >
       <div className="max-w-xl">
@@ -78,6 +77,6 @@ export default function MasterHeader({ visibility, saving, onToggle }: MasterHea
           </span>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

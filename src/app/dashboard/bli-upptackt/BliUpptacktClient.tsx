@@ -7,8 +7,6 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import MasterHeader from './components/MasterHeader';
 import CvPickerCard from './components/CvPickerCard';
 import VisibilityModeCard from './components/VisibilityModeCard';
-import PitchCard from './components/PitchCard';
-import ContextTagsCard from './components/ContextTagsCard';
 import SectionCard from './components/SectionCard';
 import PendingInterestAlert from './components/PendingInterestAlert';
 import MessagesShortcut from './components/MessagesShortcut';
@@ -27,6 +25,14 @@ import type { BliUpptacktData } from './getPageData';
  * laddas separat i stället för att ligga i sidans första paket.
  */
 const ConsentModal = dynamic(() => import('./components/ConsentModal'));
+
+// Ligger under vecket i vänsterkolumnen, efter CV-val och synlighetsläge.
+const PitchCard = dynamic(() => import('./components/PitchCard'), {
+  loading: () => <div className="min-h-[180px]" aria-hidden="true" />,
+});
+const ContextTagsCard = dynamic(() => import('./components/ContextTagsCard'), {
+  loading: () => <div className="min-h-[140px]" aria-hidden="true" />,
+});
 
 /**
  * De fyra tyngsta korten ligger längst ned i sidan och syns aldrig utan att

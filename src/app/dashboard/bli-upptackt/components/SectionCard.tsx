@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+
 import { Check, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import type { ReactNode } from 'react';
 
@@ -60,12 +60,10 @@ export default function SectionCard({
   const showSummary = isCollapsed && !!summary;
 
   return (
-    <motion.section
+    <section
       id={id}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay, ease: 'easeOut' }}
-      className={`relative rounded-xl overflow-hidden scroll-mt-24 ${
+      style={{ animationDelay: `${delay}s` }}
+      className={`relative rounded-xl overflow-hidden scroll-mt-24 motion-safe:animate-[fadeInPlace_400ms_ease-out_both] ${
         subtle
           ? 'bg-white/70 border border-neutral-200 p-3.5 sm:p-4'
           : 'bg-white border border-orange-100 p-4 sm:p-6'
@@ -117,23 +115,18 @@ export default function SectionCard({
       </div>
 
       {collapsible ? (
-        <AnimatePresence initial={false}>
-          {!isCollapsed && (
-            <motion.div
-              key="content"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="overflow-hidden"
-            >
-              <div className="mt-4">{children}</div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div
+          className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
+            isCollapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="mt-4">{children}</div>
+          </div>
+        </div>
       ) : (
         <div className="mt-4">{children}</div>
       )}
-    </motion.section>
+    </section>
   );
 }
