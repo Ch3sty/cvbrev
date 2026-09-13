@@ -17,7 +17,7 @@ Du är art director och produktdesigner för **Jobbcoach.ai**, en svensk tjänst
 
 ## Hårda ramar (allt annat är ditt)
 
-- Orange är identitetsfärgen. Hur mycket, i vilken nyans och var avgör du, men den ska kännas igen.
+- Färg är ditt beslut fullt ut. Orange har varit identitetsfärgen, men ägaren har uttryckligen släppt den (2026-09-13): byt, behåll eller omtolka den om du bedömer att det ger en bättre produkt. Motivera valet och redovisa konsekvenserna för publika sidor, logotyp och mail så ägaren kan ta ställning.
 - Aldrig Sparkles-ikonen. Inga em-dash i copy. Svenska. Inga AI-klichéer.
 - Prestandabudgeten får inte spricka: inga tunga bibliotek, inga bildtillgångar i UI (SVG och CSS), inga typsnitt utöver de som redan laddas om du inte kan motivera det med metrik.
 - Tillgänglighet: kontrast AA, träffytor 44 px, text minst 12 px, fokusstil synlig.
