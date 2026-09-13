@@ -1,15 +1,15 @@
 'use client';
 
 import SidebarLink from './SidebarLink';
-import { UpptacktIcon } from './illustrations/MenuIcons';
+import { IkonSynlig } from '@/components/illustrations/Ikoner';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
 
 /**
  * Bli upptäckt-posten i sidomenyn, med en dynamisk undertext som skapar
- * kopplingen till meddelanden (som numera bor i headern, inte som egen post):
+ * kopplingen till meddelanden (som bor i headern, inte som egen post):
  *   - synlighet av → "Gör dig tillgänglig för rekryterare"
- *   - väntande intresse → "N rekryterare väntar på svar" (rött)
- *   - synlig utan ärende → NY-badge, ingen undertext
+ *   - väntande intresse → "N rekryterare väntar på svar" (fel-ton)
+ *   - synlig utan ärende → "Ny" i metadata, ingen undertext
  * Delar datakälla (useCandidateInterests) med header-ikonen så siffrorna
  * aldrig hamnar i otakt.
  */
@@ -27,7 +27,7 @@ export default function BliUpptacktSidebarLink({
   if (loaded) {
     if (pending > 0) {
       sublabel = (
-        <span className="text-red-600 font-bold">
+        <span className="font-medium text-fel">
           {pending === 1 ? '1 rekryterare väntar på svar' : `${pending} rekryterare väntar på svar`}
         </span>
       );
@@ -41,16 +41,10 @@ export default function BliUpptacktSidebarLink({
     <SidebarLink
       href="/dashboard/bli-upptackt"
       label="Bli upptäckt"
-      icon={UpptacktIcon}
+      icon={IkonSynlig}
       highlight={loaded && pending > 0}
       sublabel={sublabel}
-      badge={
-        showNy ? (
-          <span className="text-xs font-bold uppercase tracking-[0.08em] text-white px-1.5 py-0.5 rounded-full bg-orange-600">
-            Ny
-          </span>
-        ) : undefined
-      }
+      badge={showNy ? <span className="text-meta text-ink-3">Ny</span> : undefined}
       isMobile={isMobile}
       onClick={onClose}
     />

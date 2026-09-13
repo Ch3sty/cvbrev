@@ -2,10 +2,10 @@
 
 /**
  * PageHeader: sidhuvudet i sidmallen
- * (docs/plan-inloggat-omdesign.md, avsnitt 3).
+ * (docs/designsystem.md, "Sidmall").
  *
  * Alla dashboardsidor börjar med den här. Inga egna hjältar, ingen gradient,
- * ingen illustration i sidhuvudet. Exakt ett h1 per sida.
+ * ingen illustration i sidhuvudet. Exakt ett h1 per sida, 28/32 i ink-1.
  *
  * Den primära handlingen ligger till höger på desktop och full bredd överst
  * på mobil, eftersom en knapp under en tvåradig ingress hamnar under vecket
@@ -40,13 +40,9 @@ export default function PageHeader({
     <header className={className}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 flex-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-neutral-900">
-            {title}
-          </h1>
+          <h1 className="text-h1 text-ink-1">{title}</h1>
           {description ? (
-            <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-              {description}
-            </p>
+            <p className="mt-1.5 text-sm leading-[22px] text-ink-2">{description}</p>
           ) : null}
         </div>
 

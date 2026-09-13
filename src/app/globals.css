@@ -7,14 +7,49 @@
   --foreground-rgb: 17, 24, 39; /* gray-900 */
   --background-rgb: 255, 255, 255; /* white */
 
-  /* Illustrationssystemets färgroller (docs/plan-konvertering.md, spår E).
-     Konturer tar currentColor; dessa är fyllningar. */
-  --illu-fill: #FFFFFF;
-  --illu-accent: #F97316;
-  --illu-soft: #FFEDD5;
-  --illu-muted: #A3A3A3;
+  /* ============================================================
+     TRÅDEN, designsystem v2 (docs/designsystem.md, docs/design/koncept-2026-09-13.md)
+
+     Papper på ett bord och en orange linje som visar var du är. Tre toner
+     som skiljer sig minst 1,2:1 per steg: mark (bordet), panel (papperet),
+     insunken (fältet i papperet). Handlingen är ink, orange är bara linje
+     (--accent) och bläck (--accent-ink), aldrig en yta. Exponeras i
+     tailwind.config som bg-mark, text-ink-2, border-kant och så vidare.
+     Hex skrivs aldrig i komponenter.
+     ============================================================ */
+  --mark: #EDE8DF;
+  --panel: #FFFFFF;
+  --insunken: #ECE6DC;
+  --insunken-topp: #D6CDBF;
+  --kant: #DBD2C4;
+  --kant-stark: #C4B9A8;
+  --ink-1: #1C1917;
+  --ink-2: #57534E;
+  --ink-3: #6B645E;
+  --ink-hover: #2C2724;
+  --accent: #D9480F;
+  --accent-ink: #9A3412;
+  --accent-mjuk: #FBE7D3;
+  --positiv: #047857;
+  --positiv-mjuk: #D9F2E6;
+  --varning: #A14A05;
+  --varning-mjuk: #FBEBD0;
+  --fel: #B91C1C;
+  --fel-mjuk: #FBE3E3;
+  --fel-kant: #F2C4C4;
+  --fel-morker: #7F1D1D;
+
+  /* Illustrationssystemets färgroller. Konturer tar currentColor; dessa är
+     fyllningar. Pekar på Trådens tokens: fyllning är panel, mjuk yta är
+     marginalplattans ton, accenten är linjen. */
+  --illu-fill: var(--panel);
+  --illu-accent: var(--accent);
+  --illu-soft: var(--accent-mjuk);
+  --illu-muted: var(--kant-stark);
   /* Knockout ovanpå accentytan (bock, pil). Aldrig hårdkodat vitt i SVG. */
   --illu-on-accent: #FFFFFF;
+  /* Ikonernas accentform. Tom utanför marginalplattan, där sätts --ia. */
+  --ia: none;
 
   /* Bottennavets höjd, en enda sanning (plan-inloggat-omdesign, våg 1 punkt 8).
      Tidigare gissade sex olika filer 64, 70, 76, 88, 96 px och 5.5rem var för
@@ -499,9 +534,8 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [role="button"]:focus-visible {
-  /* Orange accent, aldrig rosa. Fokusringen syntes tidigare i rosa på varje
-     tangentbordsfokus och motsade därmed accentfärgen. */
-  outline: 2px solid rgba(249, 115, 22, 0.7);
+  /* Fokusringen är tråden: accentlinjen, aldrig rosa, aldrig en yta. */
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -643,4 +677,175 @@ html {
 @keyframes cvDetailIn {
   from { grid-template-rows: 0fr; opacity: 0; }
   to   { grid-template-rows: 1fr; opacity: 1; }
+}
+
+/* ============================================================
+   TRÅDEN: linjen som betyder position (docs/designsystem.md, "Tråden").
+
+   En orange linje, en betydelse: här är du. Aktiv menyrad, aktiv sektion,
+   aktivt steg, laddning och bekräftelse. Val markeras aldrig med tråden
+   utan med kant ink-1 plus bock. Allt här är ren CSS, ingen JS.
+   ============================================================ */
+
+/* Aktiv sektion på en lång sida: 3 px längs sektionshuvudet, 16 px indrag.
+   Läggs på panelen; huvudet får klassen thread-head-block. */
+.thread-head {
+  border-color: var(--kant-stark);
+}
+.thread-head > .thread-head-block {
+  position: relative;
+}
+.thread-head > .thread-head-block::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Aktiv rad i sidomenyn: 3 px längs radens vänsterkant, 8 px utanför raden
+   så linjen ligger i panelens kant, inte inne i raden. */
+.thread-row {
+  position: relative;
+}
+.thread-row::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Laddning: skelettet står stilla, bara tråden rör sig längs panelens
+   överkant. 2 px, 40 procent bredd, 1200 ms. */
+.loading-thread {
+  position: relative;
+  overflow: hidden;
+}
+.loading-thread::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: 40%;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: threadRun 1200ms ease-in-out infinite;
+}
+@keyframes threadRun {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(250%); }
+}
+
+/* Lång väntan: tre textrader som fylls i tur och ordning från vänster. */
+.writing-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.writing-lines > span {
+  display: block;
+  height: 12px;
+  background: var(--insunken);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.writing-lines > span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--kant-stark);
+  transform-origin: left;
+  animation: lineFill 1800ms ease-out infinite;
+}
+.writing-lines > span:nth-child(2)::after { animation-delay: 600ms; }
+.writing-lines > span:nth-child(3) { width: 70%; }
+.writing-lines > span:nth-child(3)::after { animation-delay: 1200ms; }
+@keyframes lineFill {
+  0%   { transform: scaleX(0); }
+  22%  { transform: scaleX(1); }
+  90%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* Bekräftelse: panelen glider upp 8 px, linjen når 100 procent och blir
+   kvar som panelens 3 px överkant, bocken ritas i 480 ms, rubriken glider
+   upp från 560 ms. Det enda tillfället då tempot skiljer sig. */
+.confirm-panel {
+  position: relative;
+  overflow: hidden;
+  animation: threadRise 240ms ease-out both;
+}
+.confirm-panel::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  height: 3px;
+  width: 66%;
+  background: var(--accent);
+  border-radius: 12px 0 0 0;
+  animation: threadToFull 200ms ease-out 240ms forwards;
+}
+@keyframes threadToFull {
+  to { width: calc(100% + 2px); border-radius: 12px 12px 0 0; }
+}
+.confirm-draw {
+  stroke-dasharray: 64;
+  stroke-dashoffset: 64;
+  animation: threadDraw 480ms ease-out 440ms forwards;
+}
+@keyframes threadDraw {
+  to { stroke-dashoffset: 0; }
+}
+.confirm-rise {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: threadRise 200ms ease-out 560ms forwards;
+}
+.confirm-rise-2 {
+  animation-delay: 640ms;
+}
+@keyframes threadRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Sheet: upp från botten på mobil, tonar in på desktop. 240 ms. */
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to   { transform: none; }
+}
+
+/* Sidentré och statusrad: y 8 till 0 respektive -4 till 0, 200 ms. */
+@keyframes threadEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes threadDrop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-thread::after,
+  .writing-lines > span::after,
+  .confirm-panel,
+  .confirm-panel::before,
+  .confirm-draw,
+  .confirm-rise {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .confirm-draw { stroke-dashoffset: 0; }
+  .confirm-rise { opacity: 1; transform: none; }
+  .confirm-panel::before { width: calc(100% + 2px); border-radius: 12px 12px 0 0; }
 }

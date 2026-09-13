@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { scheduleIdle } from '@/lib/scheduleIdle';
 import Link from 'next/link';
-import { Bell, Check } from 'lucide-react';
+import { IkonKlocka } from '@/components/illustrations/Ikoner';
 import { IlluTomNotiser } from '@/components/illustrations/EmptyStateIllustrations';
 
 interface NotificationItem {
@@ -119,33 +119,32 @@ export default function NotificationBell() {
     <div className="relative" ref={ref}>
       <button
         type="button"
-        className="relative touch-manipulation h-11 w-11 flex items-center justify-center rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+        className="relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
         onClick={() => setOpen((v) => !v)}
         aria-label={unread > 0 ? `Notiser, ${unread} olästa` : 'Notiser'}
       >
-        <Bell className="w-5 h-5" strokeWidth={2} />
+        <IkonKlocka size={22} />
         {/* Diskret prick i stället för sifferbadge: antalet olästa är inte
             en siffra användaren agerar på, bara ett tecken på att något nytt
-            finns. Enighetsprotokollet, headern. */}
+            finns. Pricken är ink, inte orange: orange betyder position. */}
         {unread > 0 && (
           <span
             aria-hidden="true"
-            className="absolute top-2 right-2 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+            className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ink-1 ring-2 ring-panel"
           />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-[320px] max-w-[calc(100vw-24px)] bg-white rounded-xl border border-orange-100 shadow-[0_16px_40px_-16px_rgba(2,6,23,0.3)] z-50 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-neutral-100">
-            <span className="text-[13px] font-bold text-neutral-900">Notiser</span>
+        <div className="absolute right-0 z-50 mt-2 w-[320px] max-w-[calc(100vw-24px)] overflow-hidden rounded-xl border border-kant bg-panel shadow-svav motion-safe:animate-thread-drop">
+          <div className="flex min-h-[44px] items-center justify-between border-b border-kant px-4">
+            <span className="text-sm font-medium text-ink-1">Notiser</span>
             {unread > 0 && (
               <button
                 type="button"
                 onClick={markAll}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-orange-700 hover:text-orange-800"
+                className="text-meta font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
               >
-                <Check className="w-3 h-3" strokeWidth={3} />
                 Markera alla lästa
               </button>
             )}
@@ -154,14 +153,13 @@ export default function NotificationBell() {
           <div className="max-h-[360px] overflow-y-auto">
             {items.length === 0 ? (
               // Tomt tillstånd som lovar något konkret i stället för att
-              // konstatera en tomhet. Klockan är alltid synlig (enighets-
-              // protokollet), så det här är vyn de flesta konton möter tills
-              // första uppföljningen faller ut.
-              <div className="px-4 py-8 text-center">
-                <span className="inline-block text-neutral-900" aria-hidden="true">
+              // konstatera en tomhet. Klockan är alltid synlig, så det här är
+              // vyn de flesta konton möter tills första uppföljningen faller ut.
+              <div className="px-4 py-6 text-center">
+                <span className="inline-block text-ink-1" aria-hidden="true">
                   <IlluTomNotiser size={96} />
                 </span>
-                <p className="text-sm text-neutral-600 leading-relaxed mt-3">
+                <p className="mt-2 text-sm leading-[22px] text-ink-2">
                   Här får du veta när en ansökan behöver följas upp och när en
                   rekryterare tittat på din profil.
                 </p>
@@ -170,29 +168,22 @@ export default function NotificationBell() {
               items.map((n) => {
                 const inner = (
                   <div
-                    className={`flex items-start gap-2.5 px-4 py-3 transition-colors hover:bg-orange-50/40 ${
-                      n.read ? '' : 'bg-orange-50/30'
+                    className={`flex items-start gap-2.5 border-b border-kant px-4 py-3 transition-colors hover:bg-insunken/60 ${
+                      n.read ? '' : 'bg-insunken/40'
                     }`}
                   >
-                    {!n.read && (
-                      <span
-                        className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: '#EA580C' }}
-                        aria-hidden="true"
-                      />
-                    )}
-                    <div className={`min-w-0 flex-1 ${n.read ? 'pl-4' : ''}`}>
+                    <span
+                      className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full ${n.read ? 'bg-transparent' : 'bg-ink-1'}`}
+                      aria-hidden="true"
+                    />
+                    <div className="min-w-0 flex-1">
                       {n.title && (
-                        <p className="text-xs font-bold text-neutral-900 leading-snug">
-                          {n.title}
-                        </p>
+                        <p className="text-sm font-medium leading-5 text-ink-1">{n.title}</p>
                       )}
                       {n.message && (
-                        <p className="text-xs text-neutral-500 leading-snug mt-0.5">
-                          {n.message}
-                        </p>
+                        <p className="mt-0.5 text-meta text-ink-2">{n.message}</p>
                       )}
-                      <p className="text-xs text-neutral-400 mt-1">{relativeTime(n.createdAt)}</p>
+                      <p className="mt-1 text-meta text-ink-3">{relativeTime(n.createdAt)}</p>
                     </div>
                   </div>
                 );

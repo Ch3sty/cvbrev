@@ -1,7 +1,15 @@
 'use client';
 
+/**
+ * Sidomenyn (docs/designsystem.md, "Informationsarkitektur").
+ *
+ * 256 px panel på mark, tre grupper: Översikt/Ansökningar/CV/Brev utan
+ * rubrik, Verktyg, Konto. Hjälp längst ner. Aktiv rad får tråden. Antal till
+ * höger i metadata. Premium-raden i gratisläge får kant, inte orange ram.
+ * Ikonerna är de tolv motiven ur Ikoner.tsx, nakna i 20 px.
+ */
+
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { scheduleIdle } from '@/lib/scheduleIdle';
@@ -13,19 +21,20 @@ import SidebarLink from './sidebar/SidebarLink';
 import BliUpptacktSidebarLink from './sidebar/BliUpptacktSidebarLink';
 import SidebarFooter from './sidebar/SidebarFooter';
 import {
-  OversiktIcon,
-  CvIcon,
-  BrevIcon,
-  SoktaTjansterIcon,
-  MallIcon,
-  ForbattraIcon,
-  JobbmatchningIcon,
-  JobbcoachenIcon,
-  LinkedinIcon,
-  TesterIcon,
-  ProfilIcon,
-  KronaIcon,
-} from './sidebar/illustrations/MenuIcons';
+  IkonHem,
+  IkonAnsokningar,
+  IkonCv,
+  IkonBrev,
+  IkonSkapa,
+  IkonAnalys,
+  IkonMatchning,
+  IkonMallar,
+  IkonBalanserad,
+  IkonLank,
+  IkonEntusiastisk,
+  IkonKrona,
+  IkonProfil,
+} from '@/components/illustrations/Ikoner';
 
 interface DashboardSidebarProps {
   onClose?: () => void;
@@ -44,9 +53,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   } | null;
 
   // Kort status bredvid Premium-raden: "5 dagar kvar" / "Aktiv" / "Gratis".
-  // Ramen tänds bara när Premium betyder något: gratis, eller snart slut.
-  // Härledningen är ordagrant densamma som förut, bara datakällan är flyttad,
-  // och den speglar headern så statusen aldrig säger emot sig själv.
+  // Kanten tänds bara när Premium betyder något: gratis, eller snart slut.
+  // Härledningen speglar headern så statusen aldrig säger emot sig själv.
   let premiumLabel: string | null = null;
   let premiumNeedsAttention = false;
   if (profile) {
@@ -89,18 +97,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [applicationCount, setApplicationCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
 
-
   useEffect(() => {
     if (!userId) return;
     const uid: string = userId;
 
-    // Kanaler skapas async (efter att userId hamtats) men maste stadas i en
-    // synkront korande cleanup. Hall dem i en array + en cancelled-flagga.
+    // Kanaler skapas async (efter att userId hämtats) men måste städas i en
+    // synkront körande cleanup. Håll dem i en array plus en cancelled-flagga.
     const channels: ReturnType<typeof supabase.channel>[] = [];
     let cancelled = false;
 
-    // userId kommer från AuthContext, som redan har hämtat användaren. Det egna
-    // auth.getUser() här var en extra rundtur för ett värde vi redan hade.
     const loadAdminAndCounts = async () => {
       try {
         const { data: adminData } = await supabase
@@ -113,13 +118,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         await refreshCounts(uid);
 
-        // Om komponenten unmountats medan vi laddade: hoppa over realtime.
         if (cancelled) return;
 
-        // Realtime: lyssna pa cv_texts + letters sa countarna uppdateras direkt
-        // efter att anvandaren laddar upp CV / sparar brev (utan ctrl+shift+r).
-        // Filtrerat pa den inloggade anvandaren, annars triggas refreshCounts
-        // av ALLA anvandares andringar (onodiga queries + integritetslackage).
+        // Realtime: lyssna på cv_texts, letters och job_applications så
+        // antalen uppdateras direkt. Filtrerat på den inloggade användaren.
         channels.push(
           supabase
             .channel('sidebar_cv_texts_changes')
@@ -172,12 +174,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       setApplicationCount(applicationCountResult ?? 0);
     };
 
-    // Adminflaggan, de tre raknarna och realtidskanalerna ror sidomenyns
-    // siffror. Pa mobil ligger menyn bakom hamburgaren och pa desktop under
-    // vikningen, sa ingenting av det behovs for forsta malningen. Fore den
-    // har andringen var det fyra fragor plus tre websockets i den kritiska
-    // vagen pa varje inloggad sidladdning.
-    const avbrytIdle = scheduleIdle(() => loadAdminAndCounts(), 3000);
+    // Adminflaggan, de tre räknarna och realtidskanalerna rör sidomenyns
+    // siffror. Ingenting av det behövs för första målningen, så det körs
+    // först när tråden är ledig.
+    scheduleIdle(() => loadAdminAndCounts(), 3000);
 
     return () => {
       cancelled = true;
@@ -189,34 +189,31 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
   return (
     <div
-      className={`bg-white h-full ${
-        isMobile ? 'w-full' : 'w-72'
-      } border-r border-orange-100 flex flex-col relative z-10`}
+      className={`relative z-10 flex h-full flex-col border-r border-kant bg-panel ${
+        isMobile ? 'w-full' : 'w-64'
+      }`}
     >
-      {/* Logo */}
       <SidebarLogo isMobile={isMobile} onClose={onClose} />
 
-      {/* Navigation */}
       <nav
-        className="flex-1 px-2 py-4 space-y-5 overflow-y-auto"
+        className="flex-1 overflow-y-auto px-3 pb-4"
         style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
+        aria-label="Sidomeny"
       >
-        {/* MITT JOBBSÖK: det som används dagligen, utan rubrik.
-            Ansökningar ligger först efter Översikt eftersom de är den nya
-            kärnan: det är det enda som förändras utan att användaren gör
-            något, och därmed den enda naturliga dagliga rytmen vi har. */}
+        {/* Det dagliga, utan rubrik. Ansökningar först efter Översikt: det
+            är det enda som förändras utan att användaren gör något. */}
         <SidebarSection>
           <SidebarLink
             href="/dashboard"
             label="Översikt"
-            icon={OversiktIcon}
+            icon={IkonHem}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/sokta-tjanster"
             label="Ansökningar"
-            icon={SoktaTjansterIcon}
+            icon={IkonAnsokningar}
             count={applicationCount}
             isMobile={isMobile}
             onClick={onClose}
@@ -224,17 +221,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           <SidebarLink
             href="/dashboard/profil/cv"
             label="CV"
-            icon={CvIcon}
+            icon={IkonCv}
             count={cvCount}
             sublabel={hasNoCv ? 'Ladda upp ditt första CV' : undefined}
-            highlight={hasNoCv}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/mina-brev"
             label="Brev"
-            icon={BrevIcon}
+            icon={IkonBrev}
             count={letterCount}
             sublabel={hasNoCv ? 'Ladda upp CV först' : undefined}
             isMobile={isMobile}
@@ -242,72 +238,69 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
         </SidebarSection>
 
-        {/* VERKTYG: värdefullt men inte dagligt. Ordningen följer planen:
-            de två som leder till en färdig handling först. */}
+        {/* Verktyg: värdefullt men inte dagligt. De två som leder till en
+            färdig handling först. */}
         <SidebarSection eyebrow="Verktyg">
           <SidebarLink
             href="/dashboard/skapa-brev"
             label="Skriv brev"
-            icon={BrevIcon}
+            icon={IkonSkapa}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/cv-analys"
             label="Analysera CV"
-            icon={ForbattraIcon}
+            icon={IkonAnalys}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/jobbmatchning"
             label="Jobbmatchning"
-            icon={JobbmatchningIcon}
+            icon={IkonMatchning}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/cv-mallar"
             label="CV-mallar"
-            icon={MallIcon}
+            icon={IkonMallar}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/tester"
             label="Rekryteringstester"
-            icon={TesterIcon}
+            icon={IkonBalanserad}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/linkedin-optimizer"
             label="LinkedIn"
-            icon={LinkedinIcon}
+            icon={IkonLank}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
-            icon={JobbcoachenIcon}
+            icon={IkonEntusiastisk}
             isMobile={isMobile}
             onClick={onClose}
           />
           <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
         </SidebarSection>
 
-        {/* KONTO: Premium först, sedan profilen */}
+        {/* Konto: Premium först, sedan profilen. Premium-raden får kant när
+            kontot är gratis eller nära slutet. Aldrig fylld orange yta. */}
         <SidebarSection eyebrow="Konto">
-          {/* Premium-raden är en rad som alla andra. Den får en tunn
-              orange ram bara när kontot är gratis eller nära slutet, så
-              att den syns när den betyder något. Aldrig fylld orange yta:
-              den primära handlingen ligger i innehållet, inte i menyn. */}
           <SidebarLink
             href="/dashboard/profil/prenumeration"
             label="Premium"
-            icon={KronaIcon}
-            sublabel={premiumLabel ?? undefined}
+            icon={IkonKrona}
+            badge={premiumLabel ? <span className="text-meta text-ink-3">{premiumLabel}</span> : undefined}
             highlight={premiumNeedsAttention}
             isMobile={isMobile}
             onClick={onClose}
@@ -315,14 +308,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           <SidebarLink
             href="/dashboard/profil"
             label="Profil"
-            icon={ProfilIcon}
+            icon={IkonProfil}
             isMobile={isMobile}
             onClick={onClose}
           />
         </SidebarSection>
       </nav>
 
-      {/* Footer */}
       <SidebarFooter
         isAdmin={isAdmin}
         isMobile={isMobile}

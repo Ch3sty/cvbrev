@@ -1,5 +1,15 @@
 'use client';
 
+/**
+ * En rad i sidomenyn (docs/designsystem.md, "Informationsarkitektur").
+ *
+ * Aktiv rad: bg-insunken plus tråden, 3 px längs panelens vänsterkant
+ * (.thread-row i globals.css). Ikonen är naken, 20 px, i ink-2; aktiv i
+ * ink-1. Antal står till höger i metadata, ink-3, aldrig i en badge.
+ * Ingen orange utöver tråden: Premium-raden får kant när den behöver
+ * uppmärksamhet, inte en fylld yta.
+ */
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ReactNode, ComponentType } from 'react';
@@ -7,10 +17,11 @@ import type { ReactNode, ComponentType } from 'react';
 interface SidebarLinkProps {
   href: string;
   label: string;
-  icon: ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string; size?: number }>;
   count?: number | null;
   badge?: ReactNode;
   sublabel?: ReactNode;
+  /** Raden ska synas: kant runt raden. Aldrig fyllning. */
   highlight?: boolean;
   isMobile?: boolean;
   onClick?: () => void;
@@ -28,7 +39,10 @@ export default function SidebarLink({
   onClick,
 }: SidebarLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === href || pathname.startsWith(href + '/');
+  const isActive =
+    href === '/dashboard'
+      ? pathname === '/dashboard'
+      : pathname === href || pathname.startsWith(href + '/');
 
   const handleClick = () => {
     if (isMobile && onClick) onClick();
@@ -40,60 +54,29 @@ export default function SidebarLink({
         href={href}
         prefetch={true}
         onClick={handleClick}
-        className={`group relative flex items-center gap-3 rounded-xl px-2.5 py-2 transition-all duration-200 touch-manipulation ${
-          isMobile ? 'min-h-[56px]' : 'min-h-[44px]'
+        aria-current={isActive ? 'page' : undefined}
+        className={`group flex items-center gap-2.5 rounded-lg px-3 text-sm font-medium transition-colors duration-[120ms] touch-manipulation ${
+          isMobile ? 'min-h-[48px]' : 'min-h-[40px]'
         } ${
           isActive
-            ? 'bg-orange-50'
-            : highlight
-              ? 'bg-orange-50/60 ring-1 ring-orange-300'
-              : 'hover:bg-orange-50/60'
-        }`}
+            ? 'thread-row bg-insunken text-ink-1'
+            : 'text-ink-2 hover:bg-insunken/60 hover:text-ink-1'
+        } ${highlight && !isActive ? 'border border-kant-stark' : ''}`}
       >
-        {/* Vänster strip när active */}
-        {isActive && (
-          <span
-            aria-hidden="true"
-            className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-orange-600"
-          />
-        )}
+        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-ink-1' : 'text-ink-2'}`} size={20} />
 
-        {/* Ikon-bubbla */}
-        <div
-          className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition duration-200 ease-out motion-safe:group-hover:scale-[1.06] motion-safe:group-active:scale-100 ${
-            isActive ? 'text-orange-700 bg-orange-100' : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
-          }`}
-        >
-          <Icon className="w-[18px] h-[18px]" />
-        </div>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="truncate leading-5">{label}</span>
+          {sublabel ? (
+            <span className="truncate text-xs font-normal leading-4 text-ink-3">{sublabel}</span>
+          ) : null}
+        </span>
 
-        {/* Label + sublabel */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between gap-2">
-            <span
-              className={`text-sm font-semibold leading-tight truncate ${
-                isActive ? 'text-orange-900' : highlight ? 'text-orange-700' : 'text-neutral-700'
-              }`}
-            >
-              {label}
-            </span>
-            {typeof count === 'number' && count > 0 && (
-              <span
-                className={`flex-shrink-0 text-xs font-bold px-2 py-0.5 rounded-full ${
-                  isActive
-                    ? 'bg-orange-200/70 text-orange-900'
-                    : 'bg-orange-100 text-orange-800'
-                }`}
-              >
-                {count}
-              </span>
-            )}
-            {badge && !count && <span className="flex-shrink-0">{badge}</span>}
-          </div>
-          {sublabel && (
-            <div className="text-xs text-neutral-500 mt-0.5 truncate">{sublabel}</div>
-          )}
-        </div>
+        {typeof count === 'number' && count > 0 ? (
+          <span className="shrink-0 text-meta tabular-nums text-ink-3">{count}</span>
+        ) : badge ? (
+          <span className="shrink-0">{badge}</span>
+        ) : null}
       </Link>
     </li>
   );

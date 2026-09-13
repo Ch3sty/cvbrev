@@ -1,12 +1,10 @@
 'use client'
 
 /**
- * Profilmeny i headern (docs/plan-inloggat-saljflode.md, punkt 9).
+ * Profilmeny i toppraden (docs/plan-inloggat-omdesign.md, avsnitt 3).
  *
- * Samlar kontoåtgärderna på ett ställe i stället för att sprida dem över
- * header, sidebar och mobilnav. Premium-status står som en rad, men menyn är
- * medvetet INTE byggd som en säljyta: tre parallella ytor för samma
- * erbjudande lär användaren att filtrera bort dem (avvikelse i planen).
+ * Samlar kontoåtgärderna på ett ställe. Premium-status står som en rad, men
+ * menyn är medvetet inte byggd som en säljyta.
  *
  * Dropdown är ett svävande element, så skugga är tillåten här.
  */
@@ -23,12 +21,7 @@ interface ProfileMenuProps {
   premiumLabel: string | null
 }
 
-export default function ProfileMenu({
-  name,
-  email,
-  avatarUrl,
-  premiumLabel,
-}: ProfileMenuProps) {
+export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: ProfileMenuProps) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
 
@@ -70,10 +63,10 @@ export default function ProfileMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Konto och inställningar"
-        className="flex items-center gap-2 h-11 pl-1 pr-2 rounded-lg hover:bg-neutral-100 transition-colors"
+        className="flex h-11 items-center gap-2 rounded-lg pl-1.5 pr-2 transition-colors hover:bg-insunken"
       >
         <Avatar avatarUrl={avatarUrl} initial={initial} />
-        <span className="hidden lg:block max-w-[140px] truncate text-sm font-medium text-neutral-900">
+        <span className="hidden max-w-[140px] truncate text-sm font-medium text-ink-1 lg:block">
           {name}
         </span>
       </button>
@@ -82,19 +75,17 @@ export default function ProfileMenu({
         <div
           role="menu"
           aria-label="Konto"
-          className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-neutral-200 bg-white shadow-lg overflow-hidden z-50"
+          className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-xl border border-kant bg-panel shadow-svav motion-safe:animate-thread-drop"
         >
-          <div className="px-4 py-3 border-b border-neutral-200">
-            <p className="text-sm font-medium text-neutral-900 truncate">{name}</p>
-            <p className="text-xs text-neutral-500 truncate">{email}</p>
+          <div className="border-b border-kant px-4 py-3">
+            <p className="truncate text-sm font-medium text-ink-1">{name}</p>
+            <p className="truncate text-meta text-ink-3">{email}</p>
           </div>
 
           {premiumLabel && (
-            <div className="px-4 py-2 border-b border-neutral-200 flex items-center justify-between gap-3">
-              <span className="text-sm text-neutral-600">Premium</span>
-              <span className="text-sm font-medium text-neutral-900 truncate">
-                {premiumLabel}
-              </span>
+            <div className="flex items-center justify-between gap-3 border-b border-kant px-4 py-2">
+              <span className="text-sm text-ink-2">Premium</span>
+              <span className="truncate text-sm font-medium text-ink-1">{premiumLabel}</span>
             </div>
           )}
 
@@ -109,7 +100,7 @@ export default function ProfileMenu({
               type="button"
               role="menuitem"
               onClick={logout}
-              className="w-full text-left min-h-[44px] px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
+              className="min-h-[44px] w-full px-4 py-2 text-left text-sm text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
             >
               Logga ut
             </button>
@@ -134,7 +125,7 @@ function MenuLink({
       href={href}
       role="menuitem"
       onClick={onNavigate}
-      className="flex items-center min-h-[44px] px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
+      className="flex min-h-[44px] items-center px-4 py-2 text-sm text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
     >
       {children}
     </Link>
@@ -147,14 +138,14 @@ function Avatar({ avatarUrl, initial }: { avatarUrl: string | null; initial: str
       <img
         src={avatarUrl}
         alt=""
-        className="w-8 h-8 rounded-full object-cover border border-neutral-200"
+        className="h-8 w-8 rounded-full border border-kant object-cover"
       />
     )
   }
   return (
     <span
       aria-hidden="true"
-      className="w-8 h-8 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-xs font-medium text-neutral-700"
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-kant bg-insunken text-xs font-semibold text-ink-2"
     >
       {initial}
     </span>

@@ -8,15 +8,16 @@
  * provet låg i dashboardskalet, så dashboardens header, e-postbannern och
  * cookie-bannern åt höjd medan klockan gick. På 375 px klipptes
  * svarsalternativen i nederkant, och bottennavet låg dessutom över den
- * primära knappen. Samma fel som brevflödet hade, i en vy där användaren
- * inte kan backa och tänka om: tiden mäts.
+ * primära knappen. I en vy där tiden mäts kan användaren inte backa och tänka om.
  *
  * Skalet är ett fast lager över hela viewporten (till höger om sidomenyn på
- * desktop) som flex-kolumn:
+ * desktop) som flex-kolumn. Marken är mark, topprad och fot är panel, tråden
+ * är den 2 px framstegslinjen under mätraden.
  *
  *   +------------------------------+
- *   |  00:42   FRÅGA 3/15    [ X ] |  topbar, testets egen mätning
- *   |  =========------------       |  progress
+ *   |  Logiktest, grund       [ X ]|  topprad
+ *   |  00:42   Fråga 3 / 15    5   |  testets egen mätrad
+ *   |  =========------------       |  tråden
  *   +------------------------------+
  *   |  matris, svarsalternativ     |  enda scrollytan
  *   +------------------------------+
@@ -40,11 +41,10 @@ export interface TestFlowShellProps {
   title: string
   /**
    * Testets egen mätrad: klocka, fråga X av Y, besvarade. Varje testtyp
-   * mäter olika saker (nedräkning i proven, uppräkning i övningstesten),
-   * så skalet dikterar inte innehållet, bara platsen.
+   * mäter olika saker, så skalet dikterar inte innehållet, bara platsen.
    */
   meter?: ReactNode
-  /** 0 till 100. Ritas som en tunn rad under toppraden. */
+  /** 0 till 100. Ritas som tråden under toppraden. */
   progressPercent?: number
 
   /** Lämnar provet. Visas som kryss till höger i toppraden. */
@@ -106,10 +106,10 @@ export default function TestFlowShell({
   }, [footer])
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white lg:left-72">
-      <header className="flex-shrink-0 border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex h-12 w-full max-w-3xl items-center gap-2 px-2">
-          <h1 className="min-w-0 flex-1 truncate pl-2 text-sm font-semibold text-neutral-900">
+    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+      <header className="flex-shrink-0 border-b border-kant bg-panel">
+        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-2 px-2">
+          <h1 className="min-w-0 flex-1 truncate pl-2 text-base font-semibold tracking-[-0.01em] text-ink-1">
             {title}
           </h1>
 
@@ -118,23 +118,21 @@ export default function TestFlowShell({
               type="button"
               onClick={onExit}
               aria-label={exitLabel}
-              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100"
+              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5" strokeWidth={1.75} />
             </button>
           ) : (
             <span className="h-11 w-11 flex-shrink-0" aria-hidden="true" />
           )}
         </div>
 
-        {meter ? (
-          <div className="mx-auto w-full max-w-3xl px-4 pb-2">{meter}</div>
-        ) : null}
+        {meter ? <div className="mx-auto w-full max-w-3xl px-4 pb-2">{meter}</div> : null}
 
         {typeof progressPercent === 'number' ? (
-          <div className="h-0.5 w-full bg-neutral-100">
+          <div className="h-0.5 w-full bg-kant" aria-hidden="true">
             <div
-              className="h-full origin-left bg-orange-600 transition-transform duration-300 ease-out motion-reduce:transition-none"
+              className="h-full origin-left bg-accent transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
               style={{ transform: `scaleX(${Math.max(0, Math.min(100, progressPercent)) / 100})` }}
             />
           </div>
@@ -149,7 +147,7 @@ export default function TestFlowShell({
       {footer ? (
         <footer
           ref={footerRef}
-          className="flex-shrink-0 border-t border-neutral-200 bg-white"
+          className="flex-shrink-0 border-t border-kant bg-panel"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="mx-auto w-full max-w-3xl px-4 py-3">{footer}</div>

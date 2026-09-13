@@ -11,25 +11,25 @@ interface SidebarLogoProps {
 
 export default function SidebarLogo({ isMobile, onClose }: SidebarLogoProps) {
   return (
-    <div className="px-4 py-4 flex items-center justify-between border-b border-orange-100 bg-white/80 backdrop-blur-sm">
+    <div className="flex items-center justify-between px-4 pb-3 pt-3">
       <Link
         href="/dashboard"
         onClick={() => isMobile && onClose?.()}
         className="flex items-center"
         aria-label="Jobbcoach.ai dashboard"
       >
-        <Logo variant="compact" height={32} />
+        <Logo variant="compact" height={28} />
       </Link>
 
-      {isMobile && onClose && (
+      {isMobile && onClose ? (
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-xl bg-orange-50 hover:bg-orange-100 flex items-center justify-center text-orange-700 transition-colors"
+          className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
           aria-label="Stäng meny"
         >
-          <X className="w-5 h-5" strokeWidth={2.5} />
+          <X className="h-5 w-5" strokeWidth={1.75} />
         </button>
-      )}
+      ) : null}
     </div>
   );
 }

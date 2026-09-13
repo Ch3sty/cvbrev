@@ -1,26 +1,15 @@
 import { SkeletonPage, SkeletonHero, SkeletonBlock } from '@/components/dashboard/skeletons/PageSkeleton'
 
 // Visas omedelbart vid navigering till dashboard, innan sidans JS laddats.
-// Speglar den faktiska layouten: hero/nudge, sex snabbåtgärdskort i
-// 3-kolumnsgrid, statusrad, streak + status, aktivitet.
+// Speglar tillstånd C: statusrad, jobbsöksöversikt, nästa handling, pågår nu.
+// Skelettet står stilla, tråden löper längs den första panelens överkant.
 export default function DashboardLoading() {
   return (
     <SkeletonPage>
+      <SkeletonBlock height={44} rounded="rounded-lg" />
       <SkeletonHero />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-        <SkeletonBlock height={160} rounded="rounded-xl" />
-      </div>
-      <SkeletonBlock height={64} rounded="rounded-xl" />
-      <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-4">
-        <SkeletonBlock height={128} rounded="rounded-xl" />
-        <SkeletonBlock height={128} rounded="rounded-xl" />
-      </div>
-      <SkeletonBlock height={240} rounded="rounded-xl" />
+      <SkeletonBlock height={128} />
+      <SkeletonBlock height={180} />
     </SkeletonPage>
   )
 }

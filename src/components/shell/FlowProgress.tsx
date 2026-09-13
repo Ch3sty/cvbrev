@@ -1,19 +1,15 @@
 'use client'
 
 /**
- * Väntläget under ett AI-anrop (docs/plan-inloggat-omdesign.md, avsnitt 6).
+ * Väntläget under ett AI-anrop (docs/designsystem.md, "Lång väntan").
  *
- * Bygger på mönstret från cv-analysens AnalysisProgressStep: en etappvis text
- * som säger vad som händer just nu, procent och en tidsuppskattning. Två
- * saker är nya och gäller alla flöden.
+ * Rubriken säger vad som görs just nu, tre rader fylls i tur och ordning
+ * från vänster, meta säger hur länge. Framstegslinjen är tråden i 2 px
+ * längs panelens överkant. Etapperna är text, inte dekoration: de gör
+ * väntan begriplig i stället för att bara vara lång.
  *
- *  1. Avbryt. Ett AI-anrop ska alltid gå att avbryta, och ett avbrutet anrop
- *     återställer till föregående steg med datan kvar. Utan det sitter den
- *     som tryckte fel fast i trettio sekunders väntan.
- *  2. Orange accent i stället för den röd-rosa gradienten.
- *
- * Etapperna är text, inte dekoration: de gör väntan begriplig i stället för
- * att bara vara lång.
+ * Avbryt finns alltid när anropet går att avbryta, och ett avbrutet anrop
+ * återställer till föregående steg med datan kvar.
  */
 
 import { useEffect, useState } from 'react'
@@ -65,45 +61,44 @@ export default function FlowProgress({
     <section
       aria-live="polite"
       aria-busy="true"
-      className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6"
+      className="relative overflow-hidden rounded-xl border border-kant bg-panel p-4 sm:p-5"
     >
-      <h2 className="text-base font-semibold text-neutral-900">{stage?.text}</h2>
-      {stage?.body ? (
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-          {stage.body}
-        </p>
-      ) : null}
-
+      {/* Tråden längs överkanten: här är vi i arbetet. */}
       <div
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(pct)}
-        className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-neutral-100"
+        aria-label={stage?.text}
+        className="absolute inset-x-0 top-0 h-0.5 bg-kant"
       >
         <div
-          className="h-full rounded-full bg-orange-600 transition-[width] duration-500 ease-out motion-reduce:transition-none"
+          className="h-full bg-accent transition-[width] duration-500 ease-out motion-reduce:transition-none"
           style={{ width: `${pct}%` }}
         />
       </div>
 
-      <div className="mt-2 flex items-center justify-between text-xs">
-        <span className="font-medium tabular-nums text-neutral-700">
-          {Math.round(pct)}%
-        </span>
-        <span className="text-neutral-500">
-          {estimatedTimeRemaining > 0
-            ? `Cirka ${estimatedTimeRemaining} sekunder kvar`
-            : 'Klart strax'}
-        </span>
+      <h2 className="text-sm font-medium text-ink-1">{stage?.text}</h2>
+
+      <div className="writing-lines mt-3" aria-hidden="true">
+        <span />
+        <span />
+        <span />
       </div>
 
+      <p className="mt-3 text-meta text-ink-3">
+        {stage?.body ? `${stage.body} ` : ''}
+        {estimatedTimeRemaining > 0
+          ? `Cirka ${estimatedTimeRemaining} sekunder kvar.`
+          : 'Klart strax.'}
+      </p>
+
       {onCancel ? (
-        <div className="mt-4">
+        <div className="mt-2">
           <button
             type="button"
             onClick={onCancel}
-            className="inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
             {cancelLabel}
           </button>

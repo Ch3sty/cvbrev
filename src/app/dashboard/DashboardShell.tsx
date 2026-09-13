@@ -4,11 +4,16 @@
  * Klientdelen av dashboard-layouten.
  *
  * Allt interaktivt bor här: mobilmenyns state, lösenordsprompten,
- * sidbytesanimationen, sidomenyn, headern och bottennavet. Det som INTE bor
+ * sidbytesintoningen, sidomenyn, headern och bottennavet. Det som INTE bor
  * här är beslutet om något får renderas. Layouten (en server component) har
  * redan verifierat sessionen mot Supabase, så user kommer in som prop och
  * första HTML från servern innehåller riktigt innehåll i stället för ett tomt
  * skal. Det får alltså inte finnas något return null som väntar på hydrering.
+ *
+ * Tråden (docs/designsystem.md): marken är mark, sidomeny och topprad är
+ * panel, innehållet står i en kolumn på max 960 px med 32 px marginal på
+ * desktop. Sidbytet är en ren intoning (fadeInPlace): en förflyttning räknas
+ * som layoutskifte när innehållet kommer in sent.
  */
 
 import { Suspense, useEffect, useState } from 'react';
@@ -77,17 +82,27 @@ export default function DashboardShell({
     }
   }, [user]);
 
+  // Mobilmenyn stängs med Escape, som alla andra lager.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isMobileMenuOpen]);
+
   return (
     <DashboardDataProvider initialSummary={initialSummary}>
       <OnboardingProvider>
-      {/* Navigation Progress Bar - visas vid sidbyten */}
+      {/* Tråden längs skärmens överkant vid sidbyten. */}
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-mark">
         <div className="flex h-screen flex-col lg:flex-row">
-        {/* Dashboard Sidebar - Desktop (alltid synlig) */}
+        {/* Sidomeny, desktop (alltid synlig) */}
         <div className="hidden lg:block lg:relative lg:z-20">
           <DashboardSidebar
             onClose={() => setIsMobileMenuOpen(false)}
@@ -95,10 +110,16 @@ export default function DashboardShell({
           />
         </div>
 
-        {/* Dashboard Sidebar - Mobile (full-screen overlay) */}
+        {/* Sidomeny, mobil (helskärmslager) */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden bg-orange-50/30 backdrop-blur-md motion-safe:animate-[fadeIn_200ms_ease-out]">
-            <div className="h-full motion-safe:animate-[sidebarIn_250ms_ease-out]">
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <button
+              type="button"
+              aria-label="Stäng meny"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-ink-1/40 motion-safe:animate-[fadeInPlace_200ms_ease-out]"
+            />
+            <div className="relative h-full w-[min(100%,320px)] motion-safe:animate-[sidebarIn_240ms_ease-out]">
               <DashboardSidebar
                 onClose={() => setIsMobileMenuOpen(false)}
                 isMobile={true}
@@ -107,9 +128,9 @@ export default function DashboardShell({
           </div>
         )}
 
-        {/* Main Content */}
+        {/* Innehåll */}
         <div className="flex-1 flex flex-col overflow-hidden relative z-10">
-          {/* Dashboard Header - med hamburger på mobil.
+          {/* Toppraden, med meny på mobil.
               z-40 så notisdrawern lägger sig ovanför verifieringsbannern. */}
           <div className="relative z-40">
             <DashboardHeader
@@ -118,13 +139,11 @@ export default function DashboardShell({
             />
           </div>
 
-          {/* Email Verification Banner */}
           <EmailVerificationBanner />
 
-          {/* Set Password Prompt for trial users */}
           {showPasswordPrompt && user && (
-            <div className="px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6">
-              <div className="max-w-7xl mx-auto">
+            <div className="px-4 pt-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-[960px]">
                 <SetPasswordPrompt
                   userId={user.id}
                   onDismiss={() => setShowPasswordPrompt(false)}
@@ -134,14 +153,12 @@ export default function DashboardShell({
             </div>
           )}
 
-          {/* Main Content Area - responsiv padding */}
           {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
               --bottom-nav-h. Ingen pb-klass här: två sanningar om samma
               avstånd var precis det som gjorde att något alltid låg fel. */}
-          <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 dashboard-main-content relative bg-white">
-            <div className="max-w-7xl mx-auto relative">
-              {/* Page Transition Animation */}
-              <div key={pathname} className="motion-safe:animate-[fadeIn_150ms_ease-out]">
+          <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:px-8 lg:py-6 dashboard-main-content relative bg-mark">
+            <div className="mx-auto max-w-[960px] relative">
+              <div key={pathname} className="motion-safe:animate-[fadeInPlace_150ms_ease-out]">
                 {children}
               </div>
             </div>
@@ -149,7 +166,7 @@ export default function DashboardShell({
         </div>
       </div>
 
-      {/* Mobil bottennavigation - bara på mobil (lg:hidden inuti komponenten) */}
+      {/* Mobil bottennavigation (lg:hidden inuti komponenten) */}
       <MobileBottomNavWrapper />
       </div>
       </OnboardingProvider>

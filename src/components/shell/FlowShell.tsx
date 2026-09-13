@@ -2,27 +2,26 @@
 
 /**
  * FlowShell: gemensamt skal för alla flerstegsflöden
- * (docs/plan-inloggat-omdesign.md, avsnitt 6).
+ * (docs/designsystem.md, "Komponenter"; docs/plan-inloggat-omdesign.md, avsnitt 6).
  *
  * Ett flöde är ett läge, inte en sida. Därför tar skalet hela skärmen, döljer
- * bottennavet och lägger sin egen fot där navet annars hade legat.
+ * bottennavet och lägger sin egen fot där navet annars hade legat. Marken är
+ * mark, toppraden och foten är panel, och tråden är den 2 px framstegslinjen
+ * under toppraden: här är du i flödet.
  *
  * Tangentbordet är mobilflödets verkliga fiende. På iOS lägger sig det
  * virtuella tangentbordet ÖVER fixed-positionerade element, så en fixed fot
  * hamnar bakom tangentbordet i exakt de steg som har inmatning. Skalet är
  * därför ett fast lager över hela viewporten (till höger om sidomenyn på
- * desktop) som flex-kolumn där mitten scrollar och foten är sticky. Fast
- * position krävs: som barn till dashboardens scrollande main hamnade foten
- * annars under vecket och bottennavet, och användaren såg ingen Fortsätt-knapp.
- * aldrig fixed. Det ger en enda fast bottenzon och inga kapslade scrollar.
+ * desktop) som flex-kolumn där mitten scrollar och foten är sticky.
  *
  *   +------------------------------+
- *   | <  Personligt brev     2/5   |  sticky topp, 48 px
- *   |  ============------------    |  tunn progressrad
+ *   | <  Personligt brev     2/5   |  topprad, 56 px, panel
+ *   |  ============------------    |  tråden, 2 px
  *   +------------------------------+
- *   |  Ett steg, en fråga          |  enda scrollytan
+ *   |  Ett steg, en fråga          |  enda scrollytan, mark
  *   +------------------------------+
- *   |  [ Fortsätt            ]     |  sticky fot, h-11
+ *   |  [ Fortsätt            ]     |  sticky fot, ink-knapp
  *   +------------------------------+
  */
 
@@ -32,10 +31,10 @@ import { ChevronLeft } from 'lucide-react'
 export interface FlowShellProps {
   /** Flödets namn i toppraden, till exempel "Personligt brev". */
   title: string
-  /** Ettbaserat steg och totalen, styr räknaren och progressraden. */
+  /** Ettbaserat steg och totalen, styr räknaren och framstegslinjen. */
   step: number
   totalSteps: number
-  /** Tillbaka. Utelämnas på första steget, då visas stängkryss i stället. */
+  /** Tillbaka. Utelämnas på första steget, då visas lämna-knappen i stället. */
   onBack?: () => void
   /** Lämnar flödet helt. Visas som chevron när onBack saknas. */
   onExit?: () => void
@@ -121,53 +120,47 @@ export default function FlowShell({
     }
   }, [showFooter, primaryBlockedReason, footerSecondary])
 
+  const backButton = onBack ?? onExit
+  const backLabel = onBack ? 'Föregående steg' : exitLabel
+
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white lg:left-72">
-      {/* Topp: tillbaka, titel, räknare, progress. */}
-      <header className="flex-shrink-0 border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex h-12 w-full max-w-3xl items-center gap-2 px-2">
-          {onBack ? (
+    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+      {/* Topp: tillbaka, titel, räknare, tråden. */}
+      <header className="flex-shrink-0 border-b border-kant bg-panel">
+        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
+          {backButton ? (
             <button
               type="button"
-              onClick={onBack}
-              aria-label="Föregående steg"
-              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100"
+              onClick={backButton}
+              aria-label={backLabel}
+              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
             >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-          ) : onExit ? (
-            <button
-              type="button"
-              onClick={onExit}
-              aria-label={exitLabel}
-              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100"
-            >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-6 w-6" strokeWidth={1.75} />
             </button>
           ) : (
             <span className="h-11 w-11 flex-shrink-0" aria-hidden="true" />
           )}
 
-          <h1 className="min-w-0 flex-1 truncate text-sm font-semibold text-neutral-900">
+          <h1 className="min-w-0 flex-1 truncate text-base font-semibold tracking-[-0.01em] text-ink-1">
             {title}
           </h1>
 
-          <span className="flex-shrink-0 pr-2 text-sm tabular-nums text-neutral-500">
-            {Math.min(step, totalSteps)}/{totalSteps}
+          <span className="flex-shrink-0 pr-2 text-sm tabular-nums text-ink-3">
+            {Math.min(step, totalSteps)} / {totalSteps}
           </span>
         </div>
 
-        {/* Progressraden är ett rent UI-element, ingen illustration. */}
+        {/* Tråden: aktivt steg i flödet. */}
         <div
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={totalSteps}
           aria-valuenow={Math.min(step, totalSteps)}
           aria-label={`Steg ${Math.min(step, totalSteps)} av ${totalSteps}`}
-          className="h-0.5 w-full bg-neutral-100"
+          className="h-0.5 w-full bg-kant"
         >
           <div
-            className="h-full bg-orange-600 transition-[width] duration-200 ease-out motion-reduce:transition-none"
+            className="h-full bg-accent transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -186,12 +179,12 @@ export default function FlowShell({
       {showFooter ? (
         <footer
           ref={footerRef}
-          className="flex-shrink-0 border-t border-neutral-200 bg-white"
+          className="flex-shrink-0 border-t border-kant bg-panel"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="mx-auto w-full max-w-3xl px-4 py-3">
             {primaryBlockedReason && primaryDisabled && !primaryBusy ? (
-              <p className="mb-2 text-sm text-neutral-600" aria-live="polite">
+              <p className="mb-2 text-sm text-ink-2" aria-live="polite">
                 {primaryBlockedReason}
               </p>
             ) : null}
@@ -200,14 +193,12 @@ export default function FlowShell({
               type="button"
               onClick={onPrimary}
               disabled={primaryDisabled || primaryBusy}
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
             >
               {primaryBusy ? busyLabel : primaryLabel}
             </button>
 
-            {footerSecondary ? (
-              <div className="mt-2">{footerSecondary}</div>
-            ) : null}
+            {footerSecondary ? <div className="mt-2">{footerSecondary}</div> : null}
           </div>
         </footer>
       ) : null}

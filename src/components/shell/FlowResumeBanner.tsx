@@ -37,28 +37,26 @@ export default function FlowResumeBanner({
     <>
       <section
         aria-label="Påbörjat utkast"
-        className="rounded-xl border border-neutral-200 bg-white p-4"
+        className="rounded-xl border border-kant-stark bg-panel p-4"
       >
-        <h2 className="text-base font-semibold text-neutral-900">
-          Du har ett påbörjat utkast
-        </h2>
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+        <h2 className="text-kort text-ink-1">Du har ett påbörjat utkast</h2>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
           Du kom till steg {Math.min(step, totalSteps)} av {totalSteps},{' '}
           {describeAge(savedAt)}. Vill du fortsätta där du slutade?
         </p>
 
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
           <button
             type="button"
             onClick={onResume}
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
           >
             Fortsätt
           </button>
           <button
             type="button"
             onClick={() => setConfirming(true)}
-            className="inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+            className="inline-flex h-11 items-center justify-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 transition-colors hover:text-ink-1"
           >
             Börja om
           </button>

@@ -2,23 +2,25 @@
 
 /**
  * StatusRow: status är en rad, innehåll är ett kort
- * (docs/designsystem.md, docs/plan-inloggat-omdesign.md avsnitt 3).
+ * (docs/designsystem.md, "Komponenter").
  *
- * En rad, aldrig ett kort. Används för kvoter, premiumstatus, uppföljningar
- * och andra lägen som ska läsas i förbifarten.
+ * Alltid panel, ingen fyllning. Tonen byter punkt och text, inte ytan:
+ *   neutral   punkt i ink-3, text i ink-1
+ *   warm      accentpunkt, text i accent-ink (orange som bläck, räknas)
+ *   positive  punkt i positiv
  *
- * Tonen byter en gång, inte gradvis: neutral tills något faktiskt kräver
- * uppmärksamhet, då warm. Ingen färgskala, ingen progressbar.
+ * Handlingen till höger är alltid en textlänk eller ikonknapp, aldrig en
+ * fylld knapp. Raden glider in 4 px uppifrån.
  */
 
 import type { ReactNode } from 'react'
 
 export type StatusTone = 'neutral' | 'warm' | 'positive'
 
-const TONE: Record<StatusTone, { frame: string; dot: string }> = {
-  neutral: { frame: 'bg-white border-neutral-200 text-neutral-900', dot: 'bg-neutral-400' },
-  warm: { frame: 'bg-orange-50 border-orange-200 text-orange-900', dot: 'bg-orange-600' },
-  positive: { frame: 'bg-white border-neutral-200 text-neutral-900', dot: 'bg-emerald-600' },
+const TONE: Record<StatusTone, { text: string; dot: string }> = {
+  neutral: { text: 'text-ink-1', dot: 'bg-ink-3' },
+  warm: { text: 'text-accent-ink', dot: 'bg-accent' },
+  positive: { text: 'text-ink-1', dot: 'bg-positiv' },
 }
 
 export interface StatusRowProps {
@@ -46,7 +48,7 @@ export default function StatusRow({
 
   return (
     <div
-      className={`flex min-h-11 items-center justify-between gap-3 rounded-lg border px-3 ${t.frame} ${className ?? ''}`}
+      className={`flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 ${t.text} ${className ?? ''}`}
       aria-label={label}
     >
       <span className="flex min-w-0 items-center gap-2">

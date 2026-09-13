@@ -1,16 +1,22 @@
 'use client'
 
 /**
- * Illustrationssystemets primitiver (docs/plan-konvertering.md, spår E).
+ * Illustrationssystemets primitiver (docs/designsystem.md, "Marginalplattan
+ * och illustrationer").
  *
  * Regler:
  * - Konturer i currentColor. Fyllningar via CSS-variablerna --illu-fill,
- *   --illu-accent och --illu-soft (definierade i globals.css).
- * - Linjetjocklek per viewBox: 24 → 1.5, 48 → 2, 96 → 3, 240 → 6.
+ *   --illu-accent, --illu-soft och --illu-muted, som i globals.css pekar på
+ *   Trådens tokens (panel, accent, accent-mjuk, kant-stark).
+ * - Linjetjocklek per viewBox: 24 → 1.75, 48 → 2, 96 → 3, 240 → 6.
  * - Hörnradie 8 procent av viewBox.
- * - Max en gradient per illustration, bara på accentelementet, aldrig som
- *   bakgrundscirkel och aldrig på en kontur.
- * - Unika gradient-id via useId(), aldrig hårdkodade strängar.
+ * - En accentform per illustration, fylld och liten, högst en tiondel av
+ *   motivet. Aldrig som bakgrundscirkel, aldrig på en kontur.
+ * - Unika id via useIlluId(), aldrig hårdkodade strängar.
+ *
+ * Scen-regler för 96 och 240: en scen berättar ett ögonblick, högst tre
+ * element (bärande, rörligt, accent), det rörliga lutar 4 till 8 grader,
+ * aldrig ovanpå text.
  */
 
 import { useId } from 'react'
@@ -23,12 +29,12 @@ export interface IlluProps {
 }
 
 export const ILLU = {
-  stroke: { 24: 1.5, 48: 2, 96: 3, 240: 6 } as const,
+  stroke: { 24: 1.75, 48: 2, 96: 3, 240: 6 } as const,
   radius: { 24: 2, 48: 4, 96: 8, 240: 20 } as const,
   fill: 'var(--illu-fill, #FFFFFF)',
-  accent: 'var(--illu-accent, #F97316)',
-  soft: 'var(--illu-soft, #FFEDD5)',
-  muted: 'var(--illu-muted, #A3A3A3)',
+  accent: 'var(--illu-accent, #D9480F)',
+  soft: 'var(--illu-soft, #FBE7D3)',
+  muted: 'var(--illu-muted, #C4B9A8)',
   /** Knockout ovanpå accentytan. Används i stället för hårdkodat vitt. */
   onAccent: 'var(--illu-on-accent, #FFFFFF)',
 } as const
@@ -68,7 +74,12 @@ export function IlluSvg({ box, size, className, title, children }: SvgProps) {
   )
 }
 
-/** Accentgradient, max en per illustration. Använd bara på accentelementet. */
+/**
+ * Accentfyllning. Behåller namnet och API:t från v1 så att befintliga
+ * illustrationer fortsätter fungera, men i Tråden är accenten platt: orange
+ * är en linje eller ett bläck, aldrig en gradient. Båda stoppen pekar på
+ * --illu-accent, så `fill="url(#id)"` ger samma ton som ILLU.accent.
+ */
 export function IlluAccentGradient({ id, vertical = false }: { id: string; vertical?: boolean }) {
   return (
     <defs>
@@ -79,8 +90,8 @@ export function IlluAccentGradient({ id, vertical = false }: { id: string; verti
         x2={vertical ? '0' : '1'}
         y2={vertical ? '1' : '1'}
       >
-        <stop offset="0" stopColor="#FB923C" />
-        <stop offset="1" stopColor="#EA580C" />
+        <stop offset="0" stopColor={ILLU.accent} />
+        <stop offset="1" stopColor={ILLU.accent} />
       </linearGradient>
     </defs>
   )

@@ -6,9 +6,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 /**
  * NavigationProgress - Subtil progress bar som visas vid navigation
  *
- * Design specs:
- * - 2px hög
- * - Pink-to-purple gradient (matchar jobbcoach.ai varumärke)
+ * Tråden (docs/designsystem.md): 2 px accentlinje längs skärmens överkant.
  * - Visas ENDAST vid navigation som tar >200ms
  * - Animerar från 0% → 90% (långsamt), sedan 90% → 100% (instant vid complete)
  */
@@ -130,19 +128,17 @@ export default function NavigationProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-[9999] h-[2px] bg-transparent pointer-events-none"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-0.5 bg-transparent"
       role="progressbar"
       aria-valuenow={progress}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label="Navigerar..."
+      aria-label="Navigerar"
     >
+      {/* Tråden: samma linje som visar var du är, här på väg någonstans. */}
       <div
-        className="h-full bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 transition-all duration-200 ease-out"
-        style={{
-          width: `${progress}%`,
-          boxShadow: '0 0 10px rgba(219, 39, 119, 0.5), 0 0 5px rgba(219, 39, 119, 0.3)',
-        }}
+        className="h-full bg-accent transition-[width] duration-200 ease-out"
+        style={{ width: `${progress}%` }}
       />
     </div>
   );

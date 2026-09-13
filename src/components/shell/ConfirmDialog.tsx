@@ -8,9 +8,9 @@
  * webbläsarfel och är olika på varje plattform. Den här bygger på Sheet, så
  * scroll-lås, Escape, safe area och fokushantering följer med gratis.
  *
- * Bekräftelseknappen är enda primära handlingen. Avbryt är alltid en
+ * Bekräftelseknappen är enda primära handlingen, i ink. Avbryt är alltid en
  * textlänk, aldrig en andra knapp, utom i destruktivt läge där avbryt är
- * det trygga valet och därför får knappform.
+ * det trygga valet och därför får knappform, och bekräftelsen blir fel-röd.
  */
 
 import { useState } from 'react'
@@ -54,8 +54,8 @@ export default function ConfirmDialog({
   }
 
   const confirmClass = destructive
-    ? 'bg-red-600 text-white hover:bg-red-700'
-    : 'bg-orange-600 text-white hover:bg-orange-700'
+    ? 'bg-fel text-white hover:bg-fel-morker'
+    : 'bg-ink-1 text-white hover:bg-ink-hover'
 
   return (
     <Sheet
@@ -65,15 +65,15 @@ export default function ConfirmDialog({
       description={description}
       size="md"
       footer={
-        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end sm:gap-4">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-4">
           <button
             type="button"
             onClick={onCancel}
             disabled={busy}
             className={
               destructive
-                ? 'inline-flex h-11 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 disabled:opacity-60'
-                : 'inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline disabled:opacity-60'
+                ? 'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-60'
+                : 'inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 transition-colors hover:text-ink-1 disabled:opacity-60'
             }
           >
             {cancelLabel}

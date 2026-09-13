@@ -2,32 +2,31 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, MessageSquare, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
 import { useUiFlag } from '@/hooks/useUiFlag';
+import { IkonMeddelanden, IkonSynlig } from '@/components/illustrations/Ikoner';
 
 /**
- * Rekryteringens ingång i dashboardheadern. Anpassar sig efter läget så den
- * lyfter funktionen utan att bli en tom pill:
- *   - INTE synlig: en inbjudande knapp ("Bli hittad av rekryterare") som leder
- *     till Bli upptäckt. Ingen meddelande-ikon, det finns inget att chatta om.
- *   - SYNLIG: en ren statusmarkör + meddelande-ikon (indigo, skild från
- *     notisklockans orange). Sköter BARA konversationer, klockan sköter
- *     händelser.
- *   - VÄNTAR: röd pulsande status + badge när ett svar väntar.
+ * Rekryteringens ingång i toppraden. Anpassar sig efter läget:
+ *   - INTE synlig: en lugn textlänk med naken ikon som leder till Bli
+ *     upptäckt. Ingen meddelande-ikon, det finns inget att chatta om.
+ *   - SYNLIG: statusmarkör (positiv) plus meddelande-ikon. Sköter bara
+ *     konversationer, klockan sköter händelser.
+ *   - VÄNTAR: statusmarkör i fel-ton och prick när ett svar väntar.
  * Första gången man blir synlig visas en engångspopover som förklarar ikonen.
+ * Ingen orange: toppraden är neutral, orange betyder position.
  */
 export default function MessagesHeaderButton() {
   const { pending, unread, isVisible, loaded } = useCandidateInterests();
   const [popoverSeen, markPopoverSeen] = useUiFlag('header_messages_popover');
   const [popoverClosed, setPopoverClosed] = useState(false);
 
-  // Båda grenarna nedan renderar en 44 px hög knapp i headerns flexrad. Att
+  // Båda grenarna nedan renderar en 44 px hög yta i headerns flexrad. Att
   // returnera null tills data landat gjorde att raden växte när knappen kom,
-  // vilket mättes som ett layoutskifte på varje dashboard-sida. Ytan
-  // reserveras i stället, med samma mått som den smalaste grenen.
+  // vilket mättes som ett layoutskifte. Ytan reserveras i stället.
   if (!loaded) {
-    return <div aria-hidden="true" className="hidden sm:block w-[168px] h-11" />;
+    return <div aria-hidden="true" className="hidden h-11 w-11 sm:block" />;
   }
 
   // --- INTE synlig: inbjudan att göra sig synlig -----------------------------
@@ -35,24 +34,11 @@ export default function MessagesHeaderButton() {
     return (
       <Link
         href="/dashboard/bli-upptackt"
-        className="group hidden sm:inline-flex items-center gap-2.5 rounded-xl border border-orange-100 bg-white pl-1.5 pr-3.5 py-1.5 min-h-[44px] transition-all hover:-translate-y-0.5 hover:border-orange-200"
+        className="hidden h-11 items-center gap-2 rounded-lg px-2 text-sm font-medium text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1 sm:inline-flex"
         title="Bli hittad av rekryterare"
       >
-        <span
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-white flex-shrink-0"
-          style={{ background: '#EA580C' }}
-          aria-hidden="true"
-        >
-          <Search className="w-4 h-4" strokeWidth={2.5} />
-        </span>
-        <span className="text-left leading-tight">
-          <span className="block text-xs font-semibold text-neutral-900">
-            Bli hittad av rekryterare
-          </span>
-          <span className="block text-xs font-bold text-orange-600">
-            Låt jobben komma till dig
-          </span>
-        </span>
+        <IkonSynlig size={22} className="shrink-0" />
+        <span className="hidden md:inline">Bli hittad av rekryterare</span>
       </Link>
     );
   }
@@ -63,28 +49,20 @@ export default function MessagesHeaderButton() {
   const showPopover = !popoverSeen && !popoverClosed;
 
   return (
-    <div className="relative flex items-center gap-2 sm:gap-2.5">
-      {/* Statusmarkör, ren och diskret. Dold på mycket smala skärmar. */}
+    <div className="relative flex items-center gap-1">
+      {/* Statusmarkör, dold på smala skärmar. */}
       <span
-        className={`hidden md:inline-flex items-center gap-2 ${
-          waiting ? 'text-red-700' : 'text-neutral-500'
-        }`}
+        className={`hidden items-center gap-2 pr-1 md:inline-flex ${waiting ? 'text-fel' : 'text-ink-3'}`}
       >
         <span
-          className={`w-[7px] h-[7px] rounded-full ${waiting ? 'bg-red-500' : 'bg-emerald-500'}`}
-          style={{
-            boxShadow: waiting ? '0 0 0 3px #FEE2E2' : '0 0 0 3px #D1FAE5',
-          }}
+          className={`h-2 w-2 rounded-full ${waiting ? 'bg-fel' : 'bg-positiv'}`}
           aria-hidden="true"
         />
-        <span className="text-xs font-bold whitespace-nowrap">
-          {waiting
-            ? `${pending} rekryterare väntar`
-            : 'Synlig för rekryterare'}
+        <span className="whitespace-nowrap text-meta font-medium">
+          {waiting ? `${pending} rekryterare väntar` : 'Synlig för rekryterare'}
         </span>
       </span>
 
-      {/* Meddelande-ikon (länk till hubben) */}
       <Link
         href="/dashboard/meddelanden"
         aria-label={
@@ -93,32 +71,24 @@ export default function MessagesHeaderButton() {
             : 'Meddelanden från rekryterare'
         }
         title="Meddelanden från rekryterare"
-        className="relative touch-manipulation h-11 w-11 flex items-center justify-center rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+        className="relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
       >
-        <MessageSquare className="w-5 h-5" strokeWidth={2} />
-        {/* Samma diskreta prick som klockan. Den blå rutan gjorde ikonen till
-            en egen färgyta i en header som ska vara neutral, och siffran var
-            ett antal man ändå inte agerar på. */}
+        <IkonMeddelanden size={22} />
         {badge > 0 && (
           <span
             aria-hidden="true"
-            className="absolute top-2 right-2 w-2 h-2 rounded-full bg-orange-600 ring-2 ring-white"
+            className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ink-1 ring-2 ring-panel"
           />
         )}
       </Link>
 
-      {/* Engångspopover första gången man blivit synlig */}
+      {/* Engångspopover första gången man blivit synlig. Svävar, får skugga. */}
       {showPopover && (
         <div
-          className="absolute top-[52px] right-0 z-50 w-[264px] bg-white rounded-xl border border-indigo-100 p-4"
+          className="absolute right-0 top-[52px] z-50 w-[264px] rounded-xl border border-kant bg-panel p-4 shadow-svav"
           role="dialog"
           aria-label="Om meddelanden"
         >
-          <span
-            className="absolute -top-[7px] right-[14px] w-3 h-3 bg-white border-l border-t border-indigo-100"
-            style={{ transform: 'rotate(45deg)' }}
-            aria-hidden="true"
-          />
           <button
             type="button"
             onClick={() => {
@@ -126,36 +96,31 @@ export default function MessagesHeaderButton() {
               markPopoverSeen();
             }}
             aria-label="Stäng"
-            className="absolute top-2.5 right-2.5 text-neutral-300 hover:text-neutral-500"
+            className="absolute right-1 top-1 inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-3 hover:bg-insunken hover:text-ink-1"
           >
-            <X className="w-3.5 h-3.5" strokeWidth={2.5} />
+            <X className="h-4 w-4" strokeWidth={1.75} />
           </button>
-          <div className="text-xs font-bold uppercase tracking-[0.12em] text-indigo-600 mb-1">
-            Nyhet
-          </div>
-          <p className="text-[14px] font-bold text-neutral-900 leading-snug">
-            Här dyker rekryterare upp
-          </p>
-          <p className="text-xs text-neutral-500 leading-relaxed mt-1.5">
+          <p className="text-steg uppercase text-ink-3">Nyhet</p>
+          <p className="mt-1 text-sm font-semibold leading-5 text-ink-1">Här dyker rekryterare upp</p>
+          <p className="mt-1 text-meta text-ink-2">
             Du är nu synlig. När en rekryterare vill komma i kontakt hamnar
             meddelandet här.
           </p>
-          <div className="flex items-center justify-between mt-3">
+          <div className="mt-2 flex items-center justify-between gap-3">
             <button
               type="button"
               onClick={() => {
                 setPopoverClosed(true);
                 markPopoverSeen();
               }}
-              className="text-xs text-neutral-400 hover:text-neutral-600 min-h-[44px] flex items-center"
+              className="flex min-h-[44px] items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
               Uppfattat
             </button>
             <Link
               href="/dashboard/meddelanden"
               onClick={markPopoverSeen}
-              className="text-xs font-bold text-white rounded-lg px-3.5 min-h-[44px] flex items-center"
-              style={{ background: '#4F46E5' }}
+              className="inline-flex h-11 items-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white hover:bg-ink-hover"
             >
               Visa mig
             </Link>

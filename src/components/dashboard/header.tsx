@@ -1,12 +1,11 @@
 'use client';
 
 /**
- * Dashboardens header (docs/plan-inloggat-saljflode.md, punkt 9).
+ * Toppraden (docs/designsystem.md, "Informationsarkitektur").
  *
- * Bantad enligt planen: datumraden och streak-pillen är borta. Streaken hör
- * hemma i dashboardens statusrad där siffran har sammanhang, inte i headern
- * som en färgad dekoration. Profilblocket är numera en meny, så kontoåtgärder
- * har en samlad plats och dubbletten mot sidebar och mobilnav försvinner.
+ * Hälsning till vänster, meddelanden, notisklocka och profilmeny till höger.
+ * Klockan flyttar sig aldrig. Panel på mark, hårlinje under. Ingen
+ * streak-pill, inget datum.
  */
 
 import { Menu } from 'lucide-react';
@@ -28,9 +27,8 @@ function isMissingName(value: string | null | undefined): boolean {
 }
 
 export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
-  // Tidigare gjorde headern en egen profilhämtning här: ett auth-anrop och en
-  // select mot profiles. Exakt samma fält ligger i den delade summaryn, så
-  // raden kostar numera inget eget nätverksanrop.
+  // Profilfälten ligger i den delade summaryn, så raden kostar inget eget
+  // nätverksanrop.
   const { summary } = useDashboardData();
   const data = (summary?.profile ?? null) as {
     full_name?: string | null;
@@ -41,9 +39,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
     subscription_id?: string | null;
   } | null;
 
-  // Samma härledning som sidebaren, så statusen aldrig säger emot sig själv.
-  // Innan summaryn landat är etiketten null, precis som det tomma
-  // starttillståndet var förut. Ingen ny layoutförskjutning.
+  // Samma härledning som sidomenyn, så statusen aldrig säger emot sig själv.
   let premiumLabel: string | null = null;
   if (data) {
     const hasPremiumUntil =
@@ -105,26 +101,26 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
   return (
     <header
       data-dashboard-header
-      className="bg-white border-b border-neutral-200 px-4 sm:px-6 py-3 sticky top-0 lg:relative z-30 lg:z-10"
+      className="sticky top-0 z-30 border-b border-kant bg-panel px-2 sm:px-4 lg:relative lg:z-10 lg:px-6"
     >
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex h-14 items-center gap-1">
         {onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="lg:hidden h-11 w-11 -ml-2 flex items-center justify-center rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors flex-shrink-0"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken lg:hidden"
             aria-label="Öppna meny"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="h-6 w-6" strokeWidth={1.75} />
           </button>
         )}
 
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-neutral-900 truncate">
+        <div className="min-w-0 flex-1 px-2 lg:px-0">
+          <p className="truncate text-base font-semibold tracking-[-0.01em] text-ink-1">
             {getGreeting()}, {getFirstName()}
           </p>
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center gap-1">
           <MessagesHeaderButton />
           <NotificationBell />
           <ProfileMenu

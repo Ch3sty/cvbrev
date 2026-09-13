@@ -2,9 +2,10 @@
 
 /**
  * Sheet: bottenark på mobil, centrerad dialog på desktop
- * (docs/plan-inloggat-omdesign.md, avsnitt 6).
+ * (docs/designsystem.md, "Komponenter").
  *
- * Ett svävande element, så skugga är tillåten här.
+ * Ett svävande element, så skugga är tillåten här. Upp från botten på mobil,
+ * tonar in på desktop, 240 ms, ren CSS.
  *
  * Regler som byggs in i stället för att upprepas per anropsplats:
  * - Body-scroll låses medan arket är öppet, och scrollpositionen behålls.
@@ -30,6 +31,8 @@ export interface SheetProps {
   footer?: React.ReactNode
   /** Maxbredd på desktop. */
   size?: 'md' | 'lg'
+  /** Utan huvud och utan padding i kroppen, för listor som fyller arket. */
+  bare?: boolean
   className?: string
 }
 
@@ -46,6 +49,7 @@ export default function Sheet({
   children,
   footer,
   size = 'md',
+  bare,
   className,
 }: SheetProps) {
   const panelRef = useRef<HTMLDivElement | null>(null)
@@ -133,7 +137,7 @@ export default function Sheet({
         type="button"
         aria-label="Stäng"
         onClick={onClose}
-        className="absolute inset-0 bg-neutral-900/40"
+        className="absolute inset-0 bg-ink-1/40 motion-safe:animate-[fadeInPlace_200ms_ease-out]"
       />
 
       <div
@@ -144,7 +148,7 @@ export default function Sheet({
         aria-label={labelledBy ? undefined : 'Dialog'}
         tabIndex={-1}
         style={dragY ? { transform: `translateY(${dragY}px)` } : undefined}
-        className={`relative flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-xl border border-neutral-200 bg-white shadow-lg outline-none sm:rounded-xl ${SIZE[size]} ${className ?? ''}`}
+        className={`relative flex max-h-[90dvh] w-full flex-col overflow-hidden rounded-t-xl border border-kant bg-panel shadow-svav outline-none motion-safe:animate-[sheetUp_240ms_ease-out] sm:rounded-xl sm:motion-safe:animate-[fadeInPlace_240ms_ease-out] ${SIZE[size]} ${className ?? ''}`}
       >
         {/* Draghandtag, bara mobil. Bär svepgesten. */}
         <div
@@ -153,44 +157,36 @@ export default function Sheet({
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          <span
-            className="mx-auto block h-1 w-10 rounded-full bg-neutral-300"
-            aria-hidden="true"
-          />
+          <span className="mx-auto block h-1 w-10 rounded-full bg-kant-stark" aria-hidden="true" />
         </div>
 
         {title || description ? (
-          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-neutral-200 px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-kant px-4 py-3 sm:px-6 sm:py-4">
             <div className="min-w-0">
               {title ? (
-                <h2
-                  id="sheet-title"
-                  className="text-base font-semibold tracking-tight text-neutral-900"
-                >
+                <h2 id="sheet-title" className="text-kort text-ink-1">
                   {title}
                 </h2>
               ) : null}
               {description ? (
-                <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-                  {description}
-                </p>
+                <p className="mt-1 text-sm leading-[22px] text-ink-2">{description}</p>
               ) : null}
             </div>
             <CloseButton onClose={onClose} />
           </div>
-        ) : (
+        ) : bare ? null : (
           <div className="absolute right-2 top-2 z-10 sm:right-4 sm:top-4">
             <CloseButton onClose={onClose} />
           </div>
         )}
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6">
+        <div className={`min-h-0 flex-1 overflow-y-auto ${bare ? '' : 'px-4 py-4 sm:px-6'}`}>
           {children}
         </div>
 
         {footer ? (
           <div
-            className="shrink-0 border-t border-neutral-200 px-4 py-3 sm:px-6"
+            className="shrink-0 border-t border-kant px-4 py-3 sm:px-6"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
             {footer}
@@ -215,7 +211,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="Stäng"
-      className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+      className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
     >
       <svg
         viewBox="0 0 24 24"
@@ -223,7 +219,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
         height="20"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.75"
         strokeLinecap="round"
         aria-hidden="true"
       >
