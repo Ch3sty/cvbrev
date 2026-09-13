@@ -8,7 +8,6 @@
  * ska aldrig kunna ta ner en sida.
  */
 
-import posthog from 'posthog-js'
 import type { CtaCluster } from '@/lib/cta/clusters'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
@@ -63,11 +62,24 @@ export interface AnalyticsEvents {
 
 export type AnalyticsEventName = keyof AnalyticsEvents
 
-function posthogReady(): boolean {
-  if (typeof window === 'undefined') return false
+/**
+ * posthog-js lägger sig på window när init har kört. Vi läser den därifrån i
+ * stället för att importera modulen: en statisk import drar in hela
+ * biblioteket (379 kB) i den delade runtimen, och då hämtas det på varje
+ * publik sidladdning även om ingen händelse någonsin skickas.
+ */
+type PosthogKlient = {
+  __loaded?: boolean
+  capture: (event: string, properties?: Record<string, unknown>) => void
+  identify: (id: string, properties?: Record<string, unknown>) => void
+}
+
+function posthogKlient(): PosthogKlient | null {
+  if (typeof window === 'undefined') return null
+  const p = (window as unknown as { posthog?: PosthogKlient }).posthog
   // __loaded sätts av posthog-js när init hunnit klart. Saknas den är
   // skriptet blockerat eller ännu inte igång.
-  return Boolean((posthog as unknown as { __loaded?: boolean }).__loaded)
+  return p?.__loaded ? p : null
 }
 
 /**
@@ -77,9 +89,10 @@ export function capture<E extends AnalyticsEventName>(
   event: E,
   properties?: AnalyticsEvents[E]
 ): void {
-  if (!posthogReady()) return
+  const ph = posthogKlient()
+  if (!ph) return
   try {
-    posthog.capture(event, properties as Record<string, unknown> | undefined)
+    ph.capture(event, properties as Record<string, unknown> | undefined)
   } catch {
     // Mätning får aldrig kasta vidare.
   }
@@ -90,9 +103,10 @@ export function capture<E extends AnalyticsEventName>(
  * direkt efter lyckad registrering eller inloggning.
  */
 export function identifyUser(userId: string, properties?: Record<string, unknown>): void {
-  if (!posthogReady()) return
+  const ph = posthogKlient()
+  if (!ph) return
   try {
-    posthog.identify(userId, properties)
+    ph.identify(userId, properties)
   } catch {
     // Se ovan.
   }

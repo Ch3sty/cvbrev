@@ -12,7 +12,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "perf:inloggat": "tsx scripts/perf-inloggat.ts"
+    "perf:inloggat": "tsx scripts/perf-inloggat.ts",
+    "perf:publikt": "tsx scripts/perf-publikt.ts"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.0",

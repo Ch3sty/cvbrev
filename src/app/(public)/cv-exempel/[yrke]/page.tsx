@@ -2,7 +2,10 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import CVExempelPage from './CVExempelPage'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
-import { getTemplateGenerator } from '@/lib/cv/templates'
+// Direktimport i stället för barreln '@/lib/cv/templates'. Barreln importerar
+// alla 43 mallgeneratorer statiskt, så sidan drog in en chunk på 1 302 kB för
+// att rendera en enda mall. Sidan använder bara norrsken.
+import { norrskenTemplate } from '@/lib/cv/templates/norrsken/generator'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
@@ -23320,7 +23323,7 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
   let initialHTML = ''
   try {
     const cvMetadata = convertToCVMetadata(data.exempelCV)
-    const templateGenerator = getTemplateGenerator('norrsken')
+    const templateGenerator = norrskenTemplate
 
     if (templateGenerator) {
       initialHTML = templateGenerator.generate(cvMetadata, {})
