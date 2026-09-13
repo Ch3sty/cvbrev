@@ -208,18 +208,23 @@ export default function DashboardPage() {
   }, [refresh]);
 
   // Skelettet står stilla i insunken, bara tråden rör sig längs överkanten.
+  //
+  // Skelettet gissade tidigare på det fullaste tillståndet (statusrad, kort
+  // och tre listrader). För en ny användare är tillstånd A mycket kortare, så
+  // när datan kom hoppade sidan 498 px uppåt: CLS 0,191 på den vy användaren
+  // möter först. Skelettet visar nu bara det som finns i varje tillstånd, och
+  // ytan är reserverad med samma min-height i båda grenarna.
   if (loading) {
     return (
-      <div className="space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
+      <div className="min-h-[420px] space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
         <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
         <LoadingSkeleton variant="card" />
-        <LoadingSkeleton variant="list" count={3} />
       </div>
     );
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6 motion-safe:animate-thread-enter">
+    <div className="min-h-[420px] space-y-4 sm:space-y-6 motion-safe:animate-thread-enter">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
         <PurchaseConfirmation
@@ -239,10 +244,15 @@ export default function DashboardPage() {
         onCvUploaded={handleCvUploaded}
       />
 
+      {/* Kortet gör en egen rundtur till profiles efter att summeringen kommit,
+          så det landar drygt två sekunder in. Låg det över SnabbAtgarder sköt
+          det ner 426 px när det dök upp, alltså CLS 0,19 på dashboarden. Sist
+          i ordningen, precis som i tillstånd C, syns samma sena ankomst inte:
+          det finns inget under det att flytta. */}
       {state === 'B' && (
         <>
-          <ProfilKomplettering />
           <SnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+          <ProfilKomplettering />
         </>
       )}
 

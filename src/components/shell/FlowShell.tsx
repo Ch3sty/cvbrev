@@ -25,7 +25,10 @@
  *   +------------------------------+
  */
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
+
+/** useLayoutEffect på klienten, useEffect vid serverrendering (varnar annars). */
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 import { ChevronLeft } from 'lucide-react'
 
 export interface FlowShellProps {
@@ -82,7 +85,12 @@ export default function FlowShell({
   // Bottennavet ska inte konkurrera med "Fortsätt" om samma yta. Variabeln
   // nollas så länge flödet lever, så allt som räknar mot --bottom-nav-h
   // (skalets egen fot inkluderad) vet att navet är borta.
-  useEffect(() => {
+  //
+  // Före paint, inte efter. Med useEffect hann webbläsaren måla en bild där
+  // e-postbannern och dashboardheadern fortfarande fanns, och nästa bild var
+  // 57 px kortare. Det gav ett CLS på 0,106 på varje flödessteg, alltså ett
+  // synligt hopp precis när användaren börjar läsa frågan.
+  useIsomorphicLayoutEffect(() => {
     const root = document.documentElement
     const previous = root.style.getPropertyValue('--bottom-nav-h')
     root.style.setProperty('--bottom-nav-h', '0px')
