@@ -1,16 +1,20 @@
-import { SkeletonPage, SkeletonHero, SkeletonBlock } from '@/components/dashboard/skeletons/PageSkeleton'
+import { SkeletonIntro } from '@/components/dashboard/skeletons/PageSkeleton'
 
 /**
- * Skelettet medan serverkomponenten läser CV-listan och kvotläget. Höjderna
- * speglar introts herokort plus de tre stegkorten under, alltså samma yta som
- * den färdiga sidan, så bytet inte flyttar något.
+ * Skelettet medan serverkomponenten läser CV-listan och kvotläget. Sidan öppnar
+ * i CVAnalysisIntro, så skelettet speglar dess fyra delar: sidhuvud, kvotrad,
+ * handlingskortet med plattan och panelen "Så fungerar analysen". Wrappern är
+ * introts egen (max-w-3xl, space-y-6, p-4), så bytet inte flyttar något.
  */
 export default function CvAnalysLoading() {
   return (
-    <SkeletonPage>
-      <SkeletonHero />
-      <SkeletonBlock height={220} rounded="rounded-xl" />
-      <SkeletonBlock height={160} rounded="rounded-xl" />
-    </SkeletonPage>
+    <div
+      className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6"
+      role="status"
+      aria-busy="true"
+      aria-label="Laddar sida"
+    >
+      <SkeletonIntro />
+    </div>
   )
 }

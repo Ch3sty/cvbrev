@@ -85,12 +85,12 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
 
   if (success) {
     return (
-      <div className="bg-white border-2 border-green-200 rounded-xl p-4 mb-6">
+      <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
         <div className="flex items-center gap-3">
-          <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+          <CheckCircle className="h-6 w-6 flex-shrink-0 text-positiv" strokeWidth={1.75} />
           <div className="flex-1">
-            <p className="font-semibold text-green-900">Lösenord uppdaterat!</p>
-            <p className="text-sm text-green-700">Du kan nu logga in med ditt nya lösenord.</p>
+            <p className="text-kort text-ink-1">Lösenordet är uppdaterat</p>
+            <p className="text-meta text-ink-3">Du kan nu logga in med ditt nya lösenord.</p>
           </div>
         </div>
       </div>
@@ -98,20 +98,20 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
   }
 
   return (
-    <div className="bg-white border-2 border-pink-200 rounded-xl p-4 mb-6">
+    <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
       <div className="flex items-start gap-3">
-        <Lock className="w-6 h-6 text-pink-600 mt-1 flex-shrink-0" />
+        <Lock className="mt-1 h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} />
         <div className="flex-1">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <h3 className="font-bold text-gray-900">Säkra ditt konto</h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <h3 className="text-kort text-ink-1">Säkra ditt konto</h3>
+              <p className="mt-1 text-meta text-ink-3">
                 Skapa ett lösenord för att kunna logga in igen i framtiden
               </p>
             </div>
             <button
               onClick={handleDismiss}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-ink-3 transition-colors hover:text-ink-1"
               aria-label="Stäng"
             >
               <X className="w-5 h-5" />
@@ -121,20 +121,20 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
           {!isExpanded ? (
             <button
               onClick={() => setIsExpanded(true)}
-              className="mt-3 bg-orange-600 text-white font-semibold py-2 px-4 min-h-[44px] rounded-lg hover:bg-orange-700 transition-all text-sm"
+              className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
             >
               Skapa lösenord nu
             </button>
           ) : (
             <form onSubmit={handleSetPassword} className="mt-4 space-y-3">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-800 text-sm p-3 rounded-lg">
+                <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3 text-sm text-fel">
                   {error}
                 </div>
               )}
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="password" className="mb-1 block text-sm font-medium text-ink-2">
                   Nytt lösenord
                 </label>
                 <div className="relative">
@@ -143,7 +143,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    className="h-11 w-full rounded-lg border border-kant bg-insunken pl-3 pr-11 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                     placeholder="Minst 8 tecken"
                     required
                     minLength={8}
@@ -151,7 +151,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink-1"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -159,7 +159,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="confirmPassword" className="mb-1 block text-sm font-medium text-ink-2">
                   Bekräfta lösenord
                 </label>
                 <input
@@ -167,7 +167,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                   placeholder="Upprepa lösenordet"
                   required
                   minLength={8}
@@ -178,21 +178,21 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 bg-orange-600 text-white font-semibold py-2 px-4 min-h-[44px] rounded-lg hover:bg-orange-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex h-11 flex-1 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
                 >
                   {isLoading ? 'Sparar...' : 'Spara lösenord'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsExpanded(false)}
-                  className="px-4 py-2 min-h-[44px] text-gray-600 hover:text-gray-800 font-medium"
+                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
                 >
                   Avbryt
                 </button>
               </div>
 
-              <p className="text-xs text-gray-500 mt-2">
-                💡 Tips: Använd en kombination av bokstäver, siffror och specialtecken för ett starkt lösenord
+              <p className="mt-2 text-meta text-ink-3">
+                Ett starkt lösenord blandar bokstäver, siffror och specialtecken.
               </p>
             </form>
           )}

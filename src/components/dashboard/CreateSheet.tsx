@@ -5,8 +5,8 @@
  *
  * Bottenark, aldrig centrerad modal: navets Skapa-slot sitter i nederkanten
  * och handlingen ska stanna där tummen redan är. Bygger på shell/Sheet, så
- * svep nedåt, tryck utanför, Escape, scroll-lås och fokus följer med, och
- * ingen framer-motion behövs.
+ * svep nedåt, tryck utanför, Escape, scroll-lås och fokus följer med. All
+ * rörelse är CSS, inget animeringsbibliotek behövs.
  *
  * Raderna är alltid samma tre och pekar alltid på samma mål, så ingen rad
  * byter betydelse mellan besök. Bara ordningen ändras: har användaren minst en

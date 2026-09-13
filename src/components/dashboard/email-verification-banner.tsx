@@ -112,25 +112,25 @@ export default function EmailVerificationBanner() {
     // slideUp är borttagen: den animerade in bannerns höjd och räknades som
     // ett layoutskifte i sig. Ytan är redan reserverad, bannern ska bara finnas.
     <div
-      className={`relative z-20 bg-white border-b border-neutral-200 ${BANNER_MIN_HEIGHT_CLASS}`}
+      className={`relative z-20 border-b border-kant bg-panel ${BANNER_MIN_HEIGHT_CLASS}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
-            <span className="shrink-0 text-neutral-900" aria-hidden="true">
+            <span className="shrink-0 text-ink-1" aria-hidden="true">
               <IlluEmailBekrafta size={36} />
             </span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-neutral-900">
+              <p className="text-sm text-ink-1">
                 <span className="font-semibold">Bekräfta din e-post.</span>{' '}
-                <span className="text-neutral-600">
+                <span className="text-ink-2">
                   Vi sparar dina dokument permanent när adressen är bekräftad.
                 </span>
               </p>
               {resendMessage && (
                 <p
-                  className={`text-sm mt-1 ${
-                    resendMessage.startsWith('Mejlet') ? 'text-neutral-700' : 'text-red-700'
+                  className={`mt-1 text-sm ${
+                    resendMessage.startsWith('Mejlet') ? 'text-ink-2' : 'text-fel'
                   }`}
                 >
                   {resendMessage}
@@ -143,17 +143,17 @@ export default function EmailVerificationBanner() {
             <button
               onClick={handleResendEmail}
               disabled={isResending}
-              className="inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
             >
               {isResending ? 'Skickar…' : 'Skicka mejlet igen'}
             </button>
 
             <button
               onClick={dismiss}
-              className="p-2 rounded-lg hover:bg-neutral-100 transition-colors flex-shrink-0"
+              className="flex-shrink-0 rounded-lg p-2 transition-colors hover:bg-insunken"
               aria-label="Stäng"
             >
-              <X className="w-4 h-4 text-neutral-500" strokeWidth={2} />
+              <X className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
             </button>
           </div>
         </div>

@@ -13,7 +13,7 @@
  *
  * role="radio" och aria-checked, så gruppen fungerar som en radiogrupp när
  * föräldern sätter role="radiogroup". Rörelsen är CSS: kant 160 ms, hover
- * 120 ms, tryck 80 ms. Ingen framer-motion.
+ * 120 ms, tryck 80 ms. Inget animeringsbibliotek.
  */
 
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
