@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { CreditCard, ArrowRight } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import CancelFlowModal from './CancelFlowModal';
 
@@ -28,64 +26,47 @@ export default function ManageSubscriptionCard() {
     : null;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 }}
-      className="relative bg-white rounded-xl border border-orange-100 overflow-hidden"
-    >
-      <div className="p-5 sm:p-6">
-        <div className="flex items-start gap-3 sm:gap-4 mb-4">
-          <div className="flex-shrink-0 w-11 h-11 flex items-center justify-center">
-            <CreditCard className="w-6 h-6 text-orange-600" strokeWidth={2.25} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
-              Hantera prenumeration
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-0.5">
-              Uppdatera kort, ladda ner kvitton, eller avsluta, allt på ett ställe.
-            </p>
-          </div>
-        </div>
+    <section className="rounded-xl border border-kant bg-panel p-4">
+      <h2 className="text-kort text-ink-1">Hantera prenumeration</h2>
+      <p className="mt-1 text-sm text-ink-2">
+        Uppdatera kort, ladda ner kvitton eller avsluta, allt på ett ställe.
+      </p>
 
-        <div className="space-y-2.5 mb-5 text-sm">
-          <Row label="Plan" value="Premium Månad" />
-          <Row label="Pris" value="149 kr/mån" />
-          <Row label="Status" value={statusLabel} />
-          {renewalLabel && <Row label="Nästa betalning" value={renewalLabel} />}
-        </div>
+      <dl className="mt-4 divide-y divide-kant border-y border-kant">
+        <Row label="Plan" value="Premium Månad" />
+        <Row label="Pris" value="149 kr/mån" />
+        <Row label="Status" value={statusLabel} />
+        {renewalLabel && <Row label="Nästa betalning" value={renewalLabel} />}
+      </dl>
 
-        <a
-          href="/api/stripe/create-portal-session"
-          className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl font-bold text-sm text-white bg-orange-600 hover:bg-orange-700 transition-all hover:-translate-y-0.5 touch-manipulation min-h-[48px]"
+      <a
+        href="/api/stripe/create-portal-session"
+        className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover sm:w-auto"
+      >
+        Öppna Stripe-portalen
+      </a>
+
+      {/* Avsluta, öppnar uppsägningsflödet (D6) i stället för portalen direkt */}
+      <div className="mt-3">
+        <button
+          type="button"
+          onClick={() => setCancelOpen(true)}
+          className="inline-flex h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1 hover:decoration-ink-1"
         >
-          Öppna Stripe-portalen
-          <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-        </a>
-
-        {/* Avsluta, öppnar uppsägningsflödet (D6) i stället för portalen direkt */}
-        <div className="mt-3 pt-3 border-t border-orange-100/80 text-center">
-          <button
-            type="button"
-            onClick={() => setCancelOpen(true)}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors min-h-[44px]"
-          >
-            Avsluta prenumerationen
-          </button>
-        </div>
+          Avsluta prenumerationen
+        </button>
       </div>
 
       <CancelFlowModal open={cancelOpen} onClose={() => setCancelOpen(false)} />
-    </motion.section>
+    </section>
   );
 }
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 py-1">
-      <span className="text-neutral-600">{label}</span>
-      <span className="font-semibold text-neutral-900">{value}</span>
+    <div className="flex items-center justify-between gap-3 py-3 text-sm">
+      <dt className="text-ink-2">{label}</dt>
+      <dd className="font-medium text-ink-1">{value}</dd>
     </div>
   );
 }

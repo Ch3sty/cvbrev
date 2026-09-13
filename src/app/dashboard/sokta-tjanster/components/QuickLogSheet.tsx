@@ -110,13 +110,13 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
   };
 
   const inputClass =
-    'w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all';
+    'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
   return (
     <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera ansökan' : 'Logga ansökan'}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="ql-title" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+          <label htmlFor="ql-title" className="mb-1 block text-sm font-medium text-ink-2">
             Tjänst
           </label>
           <input
@@ -139,7 +139,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         </div>
 
         <div>
-          <label htmlFor="ql-company" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+          <label htmlFor="ql-company" className="mb-1 block text-sm font-medium text-ink-2">
             Arbetsgivare
           </label>
           <input
@@ -161,7 +161,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         </div>
 
         <div>
-          <label htmlFor="ql-date" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+          <label htmlFor="ql-date" className="mb-1 block text-sm font-medium text-ink-2">
             Datum sökt
           </label>
           <input
@@ -177,17 +177,17 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         </div>
 
         <div>
-          <div className="text-[13px] font-semibold text-neutral-700 mb-1.5">Hur sökte du?</div>
+          <div className="mb-1 block text-sm font-medium text-ink-2">Hur sökte du?</div>
           <div className="flex flex-wrap gap-2">
             {CHANNELS.map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => setChannel(value)}
-                className={`px-3.5 py-2.5 rounded-xl text-[13px] font-semibold border transition-all min-h-[44px] ${
+                className={`min-h-11 rounded-lg border px-3 text-sm font-medium transition-[border-color,background-color] ${
                   channel === value
-                    ? 'bg-orange-50 border-orange-400 text-orange-700'
-                    : 'bg-white border-neutral-200 text-neutral-600 hover:border-neutral-300'
+                    ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
+                    : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
                 }`}
               >
                 {CHANNEL_META[value].label}
@@ -198,7 +198,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
 
         {cvs.length > 0 && (
           <div>
-            <label htmlFor="ql-cv" className="mb-1.5 block text-[13px] font-semibold text-neutral-700">
+            <label htmlFor="ql-cv" className="mb-1 block text-sm font-medium text-ink-2">
               Vilket CV skickade du?
             </label>
             <select
@@ -215,7 +215,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
               ))}
             </select>
             {cvs.length > 1 && (
-              <p className="mt-1.5 text-xs text-neutral-500">
+              <p className="mt-1 block text-meta text-ink-3">
                 Vi räknar ut vilket av dina CV som ger flest svar.
               </p>
             )}
@@ -225,12 +225,12 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         <button
           type="button"
           onClick={() => setShowDetails((v) => !v)}
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-neutral-700 transition-colors"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
         >
           {showDetails ? (
-            <ChevronUp className="w-4 h-4" strokeWidth={2.5} />
+            <ChevronUp className="w-4 h-4" strokeWidth={1.75} />
           ) : (
-            <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+            <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
           )}
           Fler detaljer (valfritt)
         </button>
@@ -238,7 +238,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         {showDetails && (
           <div className="space-y-4">
             <div>
-              <label htmlFor="ql-location" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+              <label htmlFor="ql-location" className="mb-1 block text-sm font-medium text-ink-2">
                 Ort
               </label>
               <input
@@ -258,7 +258,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
               />
             </div>
             <div>
-              <label htmlFor="ql-url" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+              <label htmlFor="ql-url" className="mb-1 block text-sm font-medium text-ink-2">
                 Länk till annonsen
               </label>
               <input
@@ -278,7 +278,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
               />
             </div>
             <div>
-              <label htmlFor="ql-notes" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+              <label htmlFor="ql-notes" className="mb-1 block text-sm font-medium text-ink-2">
                 Anteckning
               </label>
               <textarea
@@ -301,7 +301,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         )}
 
         {error && (
-          <div className="text-[13px] text-red-600 bg-red-50 border border-red-100 rounded-xl px-3.5 py-2.5">
+          <div className="rounded-lg border border-fel-kant bg-fel-mjuk px-3 py-2 text-meta text-fel">
             {error}
           </div>
         )}
@@ -309,7 +309,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         <button
           type="submit"
           disabled={isSaving || !jobTitle.trim() || !company.trim()}
-          className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-[15px] font-bold transition-all min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
         >
           {isSaving ? 'Sparar…' : isEdit ? 'Spara ändringar' : 'Logga ansökan'}
         </button>

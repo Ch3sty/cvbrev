@@ -1,12 +1,14 @@
+/**
+ * Bjud in en vän. Sidhuvud, kvoten som statusrad, formuläret i en panel,
+ * fördelarna som lista, tidigare inbjudningar som lista i en panel.
+ */
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Users, Gift, Copy, Share2, Mail, MessageSquare, CheckCircle2, Clock, Trophy } from 'lucide-react';
+import { Copy, Share2 } from 'lucide-react';
+import PageHeader from '@/components/shell/PageHeader';
+import StatusRow from '@/components/shell/StatusRow';
+import { IkonKrona, IkonProfil, IkonMeddelanden } from '@/components/illustrations/Ikoner';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 interface InvitationData {
@@ -22,6 +24,12 @@ interface InvitationData {
     full_name: string;
   };
 }
+
+const STATUS_LABEL: Record<InvitationData['status'], { text: string; tone: string }> = {
+  accepted: { text: 'Accepterad', tone: 'text-positiv' },
+  pending: { text: 'Väntar', tone: 'text-ink-3' },
+  expired: { text: 'Utgången', tone: 'text-varning' },
+};
 
 export default function InviteFriendsPage() {
   const [email, setEmail] = useState('');
@@ -128,7 +136,7 @@ export default function InviteFriendsPage() {
 
   const shareOnSocial = (platform: 'linkedin' | 'twitter', code: string) => {
     const link = `${window.location.origin}/invite/${code}`;
-    const text = 'Prova Jobbcoach.ai Premium kostnadsfritt i 7 dagar! 🚀';
+    const text = 'Prova Jobbcoach.ai Premium kostnadsfritt i 7 dagar!';
 
     if (platform === 'linkedin') {
       window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(link)}`);
@@ -137,208 +145,132 @@ export default function InviteFriendsPage() {
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'accepted':
-        return <Badge className="bg-green-100 text-green-800">Accepterad</Badge>;
-      case 'pending':
-        return <Badge className="bg-yellow-100 text-yellow-800">Väntar</Badge>;
-      case 'expired':
-        return <Badge className="bg-red-100 text-red-800">Utgången</Badge>;
-      default:
-        return <Badge>Okänd</Badge>;
-    }
-  };
+  const noneLeft = remainingInvitations !== null && remainingInvitations <= 0;
 
   return (
-    <div className="container mx-auto py-6 px-4 max-w-4xl">
-      {/* Success Message */}
-      {showSuccess && (
-        <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg flex items-center gap-3">
-          <CheckCircle2 className="w-5 h-5 text-green-600" />
-          <span className="text-green-800 font-medium">Inbjudan skickad! Din vän får 7 dagars kostnadsfri Premium.</span>
-        </div>
-      )}
+    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
+      <PageHeader
+        title="Bjud in en vän"
+        description="Din vän får sju dagars Premium. Blir hen betalande kund får ni båda sju dagar till."
+      />
 
-      {/* Main Header */}
-      <div className="mb-8 text-center">
-        <Gift className="w-10 h-10 text-orange-500 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold text-white mb-2">Bjud in en vän</h1>
-        <p className="text-gray-400 text-lg">
-          Din vän får 7 dagars kostnadsfri Premium. När de blir betalande kund får båda 7 dagars extra Premium + 500 XP!
+      {showSuccess ? (
+        <StatusRow tone="positive" showDot label="Inbjudan skickad">
+          Inbjudan skickad. Din vän får sju dagars Premium.
+        </StatusRow>
+      ) : remainingInvitations !== null ? (
+        <StatusRow tone={noneLeft ? 'warm' : 'neutral'} showDot>
+          {remainingInvitations === 999
+            ? 'Obegränsat antal inbjudningar'
+            : `${remainingInvitations} ${remainingInvitations === 1 ? 'inbjudan' : 'inbjudningar'} kvar den här månaden`}
+          {!isPremium ? ' · Premium ger tre i månaden' : ''}
+        </StatusRow>
+      ) : null}
+
+      <section aria-label="Skicka inbjudan" className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <h2 className="text-kort text-ink-1">Skicka inbjudan</h2>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
+          Skriv in din väns e-postadress så skickar vi inbjudan.
         </p>
-      </div>
+        <form onSubmit={handleSendInvitation} className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <label htmlFor="invite-email" className="sr-only">
+            E-postadress
+          </label>
+          <input
+            id="invite-email"
+            type="email"
+            placeholder="van@exempel.se"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="h-11 w-full flex-1 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          <button
+            type="submit"
+            disabled={isLoading || !email.trim() || noneLeft}
+            className="inline-flex h-11 w-full shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          >
+            {isLoading ? 'Skickar' : noneLeft ? 'Inga inbjudningar kvar' : 'Skicka inbjudan'}
+          </button>
+        </form>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Send Invitation */}
-        <Card className="bg-navy-800 border-navy-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Mail className="w-5 h-5 text-pink-500" />
-              Skicka inbjudan
-            </CardTitle>
-            <CardDescription className="text-gray-400">
-              Bjud in en vän via e-post för att ge dem 7 dagars kostnadsfri Premium
-              {remainingInvitations !== null && (
-                <div className="mt-2 flex items-center gap-2">
-                  <Badge
-                    variant={remainingInvitations > 0 ? "success" : "warning"}
-                    className={remainingInvitations > 0 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}
-                  >
-                    {remainingInvitations === 999 ? "Obegränsat" : `${remainingInvitations} kvar denna månad`}
-                  </Badge>
-                  {!isPremium && (
-                    <span className="text-xs text-yellow-400">Uppgradera till Premium för 3 inbjudningar/månad</span>
-                  )}
-                </div>
-              )}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSendInvitation} className="space-y-4">
-              <div>
-                <Input
-                  type="email"
-                  placeholder="vän@exempel.se"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-navy-700 border-navy-600 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
-              <Button
-                type="submit"
-                disabled={isLoading || !email.trim() || (remainingInvitations !== null && remainingInvitations <= 0)}
-                className="w-full bg-orange-600 hover:bg-orange-700 disabled:opacity-50"
-              >
-                {isLoading ? (
-                  <>
-                    <Clock className="w-4 h-4 mr-2 animate-spin" />
-                    Skickar...
-                  </>
-                ) : remainingInvitations !== null && remainingInvitations <= 0 ? (
-                  <>
-                    <Gift className="w-4 h-4 mr-2" />
-                    Inga inbjudningar kvar
-                  </>
-                ) : (
-                  <>
-                    <Gift className="w-4 h-4 mr-2" />
-                    Skicka inbjudan
-                  </>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Benefits */}
-        <Card className="bg-navy-800 border-navy-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-yellow-500" />
-              Fördelar med att bjuda in
-            </CardTitle>
-            <CardDescription className="text-gray-400">
-              Belöningar för dig och din vän
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-start gap-3">
-              <Gift className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-white">7 dagars kostnadsfri Premium</h4>
-                <p className="text-sm text-gray-400">Din vän får full tillgång till alla Premium-funktioner helt kostnadsfritt</p>
-              </div>
+      <section aria-label="Det här får ni">
+        <h2 className="mb-2 text-sm font-medium text-ink-3">Det här får ni</h2>
+        <div className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+          <div className="flex items-start gap-3 p-4">
+            <span className="mt-0.5 shrink-0 text-ink-2" aria-hidden="true">
+              <IkonKrona size={24} />
+            </span>
+            <div>
+              <p className="text-sm font-medium text-ink-1">Sju dagars Premium till din vän</p>
+              <p className="mt-0.5 text-meta text-ink-3">Full tillgång till allt, utan kostnad.</p>
             </div>
-
-            <div className="flex items-start gap-3">
-              <Users className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-white">7 dagars extra Premium för båda</h4>
-                <p className="text-sm text-gray-400">När din vän blir betalande kund får både du och din vän 7 dagars Premium</p>
-              </div>
+          </div>
+          <div className="flex items-start gap-3 p-4">
+            <span className="mt-0.5 shrink-0 text-ink-2" aria-hidden="true">
+              <IkonProfil size={24} />
+            </span>
+            <div>
+              <p className="text-sm font-medium text-ink-1">Sju dagar till, för er båda</p>
+              <p className="mt-0.5 text-meta text-ink-3">
+                När din vän blir betalande kund förlängs både din och hens Premium.
+              </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="flex items-start gap-3">
-              <Trophy className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-white">500 XP-belöning</h4>
-                <p className="text-sm text-gray-400">Få 500 XP direkt när din vän blir betalande Premium-medlem</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {invitations.length > 0 ? (
+        <section aria-label="Dina inbjudningar">
+          <h2 className="mb-2 text-sm font-medium text-ink-3">Dina inbjudningar</h2>
+          <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+            {invitations.map((invitation) => {
+              const status = STATUS_LABEL[invitation.status] ?? { text: 'Okänd', tone: 'text-ink-3' };
+              return (
+                <li key={invitation.id} className="flex items-center gap-3 p-4">
+                  <span className="shrink-0 text-ink-2" aria-hidden="true">
+                    <IkonMeddelanden size={24} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-ink-1">
+                      {invitation.status === 'accepted' && invitation.guest
+                        ? invitation.guest.full_name || invitation.guest.email
+                        : invitation.email}
+                    </p>
+                    <p className="text-meta text-ink-3">
+                      {invitation.status === 'accepted' ? 'Accepterad' : 'Skickad'}{' '}
+                      {new Date(invitation.created_at).toLocaleDateString('sv-SE')}
+                      <span className={`ml-2 font-medium ${status.tone}`}>{status.text}</span>
+                    </p>
+                  </div>
 
-      {/* Previous Invitations */}
-      {invitations.length > 0 && (
-        <Card className="mt-8 bg-navy-800 border-navy-700">
-          <CardHeader>
-            <CardTitle className="text-white">Dina inbjudningar</CardTitle>
-            <CardDescription className="text-gray-400">
-              Översikt över tidigare skickade inbjudningar
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {invitations.map((invitation) => (
-                <div key={invitation.id} className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-700/50">
-                  <div className="flex items-center gap-3">
-                    {invitation.status === 'accepted' ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-400" />
-                    ) : (
-                      <Mail className="w-5 h-5 text-pink-400" />
-                    )}
-                    <div>
-                      <p className="font-medium text-white">
-                        {invitation.status === 'accepted' && invitation.guest ? (
-                          <>
-                            {invitation.guest.full_name || 'Anonym användare'}
-                            <span className="text-sm text-gray-400 ml-2">({invitation.guest.email})</span>
-                          </>
-                        ) : (
-                          invitation.email
-                        )}
-                      </p>
-                      <p className="text-sm text-gray-400">
-                        {invitation.status === 'accepted'
-                          ? `Accepterad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`
-                          : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
-                      </p>
+                  {invitation.status === 'pending' ? (
+                    <div className="flex shrink-0 items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => copyInviteLink(invitation.invitation_code)}
+                        aria-label="Kopiera inbjudningslänk"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-insunken hover:text-ink-1"
+                      >
+                        <Copy className="h-5 w-5" strokeWidth={1.75} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => shareOnSocial('linkedin', invitation.invitation_code)}
+                        aria-label="Dela på LinkedIn"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-insunken hover:text-ink-1"
+                      >
+                        <Share2 className="h-5 w-5" strokeWidth={1.75} />
+                      </button>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    {getStatusBadge(invitation.status)}
-
-                    {invitation.status === 'pending' && (
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => copyInviteLink(invitation.invitation_code)}
-                          className="border-navy-600 text-gray-300 hover:bg-navy-700"
-                        >
-                          <Copy className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => shareOnSocial('linkedin', invitation.invitation_code)}
-                          className="border-navy-600 text-gray-300 hover:bg-navy-700"
-                        >
-                          <Share2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }

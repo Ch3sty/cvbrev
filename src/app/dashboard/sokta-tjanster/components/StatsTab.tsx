@@ -1,11 +1,10 @@
 'use client';
 
 // Statistikfliken: KPI-grid, aktivitet över tid och trattvy.
-// Sober stil (vita kort, tabular-nums) eftersom siffrorna kan komma att
+// Sober stil (paneler, tabular-nums) eftersom siffrorna kan komma att
 // visas för en handläggare. Ghost-läge under 3 loggade ansökningar.
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import {
   BarChart,
   Bar,
@@ -17,6 +16,7 @@ import {
 } from 'recharts';
 import type { ApplicationStats, JobApplication } from '@/lib/applications/status';
 import CvComparisonCard from './CvComparisonCard';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 
 interface StatsTabProps {
   totalCount: number;
@@ -38,18 +38,18 @@ function pct(numerator: number, denominator: number): string {
  */
 function KpiCard({ value, label }: { value: string; label: string }) {
   return (
-    <div className="min-h-[6rem] rounded-xl border border-neutral-200 bg-white p-4">
-      <div className="text-2xl font-semibold leading-8 tabular-nums text-neutral-900">{value}</div>
-      <div className="mt-1 text-sm leading-5 text-neutral-600">{label}</div>
+    <div className="min-h-[6rem] rounded-xl border border-kant bg-panel p-4">
+      <div className="text-tal tabular-nums text-ink-1">{value}</div>
+      <div className="mt-1 text-meta text-ink-3">{label}</div>
     </div>
   );
 }
 
 function SectionBox({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
+    <div className="rounded-xl border border-kant bg-panel p-4">
       <div className="flex items-center justify-between gap-3 mb-4">
-        <h3 className="text-base font-semibold tracking-tight text-neutral-900">{title}</h3>
+        <h3 className="text-kort text-ink-1">{title}</h3>
         {action}
       </div>
       {children}
@@ -75,10 +75,10 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
       <div className="space-y-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-white p-4" />
+            <div key={i} className="h-24 rounded-xl border border-kant bg-insunken" />
           ))}
         </div>
-        <div className="h-56 animate-pulse rounded-xl border border-neutral-200 bg-white p-6" />
+        <LoadingSkeleton variant="card" label="Läser in statistiken" />
       </div>
     );
   }
@@ -94,12 +94,7 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
   });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="space-y-4"
-    >
+    <div className="space-y-4">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <KpiCard value={String(stats.totalApplications)} label="Sökta totalt" />
         <KpiCard value={pct(stats.respondedCount, stats.totalApplications)} label="Svarsfrekvens" />
@@ -110,14 +105,14 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
       <SectionBox
         title="Aktivitet över tid"
         action={
-          <div className="flex items-center gap-0.5 bg-neutral-100 rounded-lg p-0.5">
+          <div className="flex items-center gap-0.5 rounded-lg border border-kant bg-insunken p-0.5 shadow-insunken">
             {(['week', 'month'] as Granularity[]).map((g) => (
               <button
                 key={g}
                 type="button"
                 onClick={() => setGranularity(g)}
                 className={`px-3 py-1.5 min-h-[44px] rounded-md text-xs font-medium transition-colors ${
-                  granularity === g ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500'
+                  granularity === g ? 'bg-panel text-ink-1' : 'text-ink-3'
                 }`}
               >
                 {g === 'week' ? 'Vecka' : 'Månad'}
@@ -127,38 +122,37 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
         }
       >
         {activityData.length === 0 ? (
-          <div className="flex h-48 items-center justify-center text-sm text-neutral-500">
+          <div className="flex h-48 items-center justify-center text-sm text-ink-3">
             Ingen aktivitet att visa ännu.
           </div>
         ) : (
           <div className="h-52">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={activityData} margin={{ top: 8, right: 4, bottom: 0, left: -22 }}>
-                <CartesianGrid vertical={false} stroke="#E2E8F0" strokeDasharray="0" />
+                <CartesianGrid vertical={false} stroke="#DBD2C4" strokeDasharray="0" />
                 <XAxis
                   dataKey="label"
-                  tick={{ fontSize: 11, fill: '#64748B' }}
-                  axisLine={{ stroke: '#E2E8F0' }}
+                  tick={{ fontSize: 11, fill: '#6B645E' }}
+                  axisLine={{ stroke: '#DBD2C4' }}
                   tickLine={false}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fontSize: 11, fill: '#64748B' }}
+                  tick={{ fontSize: 11, fill: '#6B645E' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip
-                  cursor={{ fill: 'rgba(234, 88, 12, 0.06)' }}
+                  cursor={{ fill: 'rgba(28, 25, 23, 0.06)' }}
                   formatter={(value: number) => [`${value} ansökningar`, '']}
                   separator=""
                   contentStyle={{
-                    borderRadius: 12,
-                    border: '1px solid #E2E8F0',
+                    borderRadius: 8,
+                    border: '1px solid #DBD2C4',
                     fontSize: 12,
-                    boxShadow: '0 4px 16px -8px rgba(15, 23, 42, 0.15)',
                   }}
                 />
-                <Bar dataKey="applications" fill="#EA580C" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                <Bar dataKey="applications" fill="#57534E" radius={[4, 4, 0, 0]} maxBarSize={28} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -168,6 +162,6 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
       {/* Svar per CV. Den enda insikten i produkten som kräver vår egen
           historik, och därför den ingen konkurrent kan kopiera. */}
       <CvComparisonCard applications={applications} isLoading={isLoading} />
-    </motion.div>
+    </div>
   );
 }

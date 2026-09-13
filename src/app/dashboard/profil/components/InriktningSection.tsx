@@ -3,24 +3,38 @@
 /**
  * Sektion 2: "Så hjälper vi dig" (profil-spec, avsnitt 2).
  *
- * Målroll och bransch driver bara Jobbcoachens systemprompt. De låg tidigare
- * som neutrala profilfält bland kontaktuppgifterna, vilket fick dem att se ut
- * som något som skrivs in i ansökan. Sektionen säger därför rakt ut att de
- * inte hamnar i brev eller CV.
+ * Målroll och bransch driver bara Jobbcoachens systemprompt. Sektionen säger
+ * därför rakt ut att de inte hamnar i brev eller CV.
  *
- * Här bor också den förvalda tonen. Avsteg från specen, som föreslog att
- * preferred_tonality skulle tas bort: i stället är den nu kopplad på riktigt,
- * brevflödet initierar sin tonalitet från den. Den hör hemma här och inte i
- * sektion 1, eftersom den styr hur vi skriver åt dig, inte vilka uppgifter
- * som står i brevhuvudet.
+ * Här bor också den förvalda tonen, som ChoiceCard med nakna ikoner ur
+ * Ikoner.tsx. Val markeras med kant ink-1 och bock, aldrig med tråden.
+ * Smart val kräver Premium: kortet öppnar premiumluckan i stället för att
+ * välja.
  */
 
-import { Lock } from 'lucide-react'
 import { ProfileCard, ProfileTextField, FieldStatusLine } from './ProfileField'
 import { TONALITIES, type TonalityValue } from './tonalities'
 import type { FieldSaveState } from './useFieldSave'
 import type { PremiumFeature } from './PremiumGateModal'
-import { SectionInriktningIcon } from './illustrations/SectionIcons'
+import ChoiceCard from '@/components/shell/ChoiceCard'
+import {
+  IkonProfessionell,
+  IkonKreativ,
+  IkonSjalvsaker,
+  IkonBalanserad,
+  IkonEntusiastisk,
+  IkonKrona,
+  type IkonProps,
+} from '@/components/illustrations/Ikoner'
+
+const TONE_ICON: Record<TonalityValue, (props: IkonProps) => React.JSX.Element> = {
+  professional: IkonProfessionell,
+  creative: IkonKreativ,
+  enthusiastic: IkonEntusiastisk,
+  confident: IkonSjalvsaker,
+  balanced: IkonBalanserad,
+  auto: IkonKrona,
+}
 
 export interface InriktningSectionProps {
   goalRole: string
@@ -56,11 +70,10 @@ export default function InriktningSection({
       id="inriktning"
       title="Så hjälper vi dig"
       description="Styr hur Jobbcoachen svarar dig och vilken ton vi börjar med i nya brev. Inget av det här hamnar i dina brev eller ditt CV."
-      icon={SectionInriktningIcon}
     >
       <ProfileTextField
         label="Målroll"
-        description="Jobbcoachen utgår från den här rollen när du frågar om lön, intervjuer och nästa steg. Utan den svarar den mer allmänt."
+        description="Jobbcoachen utgår från den här rollen när du frågar om lön, intervjuer och nästa steg."
         value={goalRole}
         onChange={onGoalRoleChange}
         onBlur={() => onSaveField('goal_role')}
@@ -87,31 +100,25 @@ export default function InriktningSection({
       />
 
       <div>
-        <p className="block text-sm font-medium text-neutral-900">
+        <p className="flex items-baseline gap-2 text-sm font-medium text-ink-1">
           Förvald ton
-          <span className="ml-1 font-normal text-neutral-500">(valfritt)</span>
+          <span className="text-meta font-normal text-ink-3">Valfritt</span>
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-          Förvald ton när du skapar ett nytt brev. Du kan alltid byta i själva
-          brevet.
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
+          Tonen vi börjar med när du skapar ett nytt brev. Du kan alltid byta i själva brevet.
         </p>
 
-        <div
-          role="radiogroup"
-          aria-label="Förvald ton"
-          className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2"
-        >
+        <div role="radiogroup" aria-label="Förvald ton" className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
           {TONALITIES.map((tone) => {
             const isSelected = preferredTonality === tone.value
             const isLocked = Boolean(tone.premium) && isFree
+            const Icon = TONE_ICON[tone.value]
 
             return (
-              <button
+              <ChoiceCard
                 key={tone.value}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                onClick={() => {
+                selected={isSelected}
+                onSelect={() => {
                   if (isLocked) {
                     onPremiumGate('smart-tone')
                     return
@@ -119,26 +126,11 @@ export default function InriktningSection({
                   onTonalityChange(tone.value)
                   onSaveField('preferred_tonality')
                 }}
-                className={`flex min-h-[44px] flex-col items-start rounded-lg border px-4 py-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
-                  isSelected
-                    ? 'border-orange-600 bg-orange-50'
-                    : 'border-neutral-200 bg-white hover:border-neutral-400'
-                }`}
-              >
-                <span className="flex items-center gap-1.5 text-sm font-medium text-neutral-900">
-                  {tone.label}
-                  {isLocked && (
-                    <Lock
-                      className="h-3.5 w-3.5 text-neutral-500"
-                      strokeWidth={2}
-                      aria-label="Ingår i Premium"
-                    />
-                  )}
-                </span>
-                <span className="mt-0.5 text-sm leading-relaxed text-neutral-600">
-                  {tone.shortDescription}
-                </span>
-              </button>
+                title={tone.label}
+                description={tone.shortDescription}
+                meta={isLocked ? 'Ingår i Premium' : undefined}
+                leading={<Icon size={24} />}
+              />
             )
           })}
         </div>

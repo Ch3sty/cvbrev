@@ -25,41 +25,39 @@ export default function ApplicationCard({ application, onOpen }: ApplicationCard
     <button
       type="button"
       onClick={() => onOpen(application.id)}
-      className="w-full text-left bg-white rounded-xl border border-orange-200/50 px-4 py-3.5 sm:px-5 sm:py-4 hover:border-orange-300 transition-all group"
+      className="w-full rounded-xl border border-kant bg-panel px-4 py-3 text-left transition-[border-color] hover:border-kant-stark"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <div className="text-[15px] font-bold text-neutral-900 leading-snug truncate group-hover:text-orange-700 transition-colors">
-            {application.job_title}
-          </div>
-          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px] text-neutral-600">
-            <span className="inline-flex items-center gap-1 min-w-0">
-              <Building2 className="w-3.5 h-3.5 text-neutral-400 flex-shrink-0" strokeWidth={2.25} />
+          <div className="truncate text-kort text-ink-1">{application.job_title}</div>
+          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-meta text-ink-3">
+            <span className="inline-flex min-w-0 items-center gap-1">
+              <Building2 className="h-3.5 w-3.5 shrink-0 text-ink-3" strokeWidth={1.75} />
               <span className="truncate">{application.company}</span>
             </span>
             {application.location && (
-              <span className="inline-flex items-center gap-1 text-neutral-500">
-                <MapPin className="w-3.5 h-3.5 text-neutral-400" strokeWidth={2.25} />
+              <span className="inline-flex items-center gap-1">
+                <MapPin className="h-3.5 w-3.5 text-ink-3" strokeWidth={1.75} />
                 {application.location}
               </span>
             )}
           </div>
         </div>
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <StatusPill status={application.current_status} />
         </div>
       </div>
 
       <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-        <div className="flex items-center gap-x-2 text-xs text-neutral-500">
+        <div className="flex items-center gap-x-2 text-meta text-ink-3">
           <span>Sökt {formatDateShort(application.applied_at)}</span>
-          <span className="text-neutral-300">·</span>
+          <span aria-hidden="true">·</span>
           <span>{CHANNEL_META[application.application_channel]?.short ?? 'Annons'}</span>
           {application.letter_id && (
             <>
-              <span className="text-neutral-300">·</span>
-              <span className="inline-flex items-center gap-1 text-orange-600 font-medium">
-                <FileText className="w-3 h-3" strokeWidth={2.5} />
+              <span aria-hidden="true">·</span>
+              <span className="inline-flex items-center gap-1">
+                <FileText className="h-3 w-3" strokeWidth={1.75} />
                 Brev
               </span>
             </>
@@ -69,7 +67,7 @@ export default function ApplicationCard({ application, onOpen }: ApplicationCard
       </div>
 
       {showNudge && silentDays !== null && (
-        <div className="mt-2 text-xs text-neutral-500 bg-neutral-50 border border-neutral-200/70 rounded-lg px-2.5 py-1.5">
+        <div className="mt-2 rounded-lg border border-kant bg-insunken px-2.5 py-1.5 text-meta text-ink-2 shadow-insunken">
           Inget hört på {silentDays} dagar. Öppna för att uppdatera status.
         </div>
       )}

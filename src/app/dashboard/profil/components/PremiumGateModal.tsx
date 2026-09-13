@@ -1,11 +1,16 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
-import { X, Check, ArrowRight, Camera, Linkedin } from 'lucide-react';
+/**
+ * Premiumluckan: öppnas när någon klickar ett låst fält. Bygger på
+ * shell/Sheet (scroll-lås, Escape, safe area, fokus). Marginalplattan bär
+ * vyns enda illustration, handlingen är en ink-knapp och det sekundära en
+ * textlänk. Ingen framer-motion, ingen gradient.
+ */
+
 import Link from 'next/link';
-import { PremiumCrownIcon, LockedFieldIcon } from './illustrations/ProfileIcons';
-import { SmartAutoToneIcon } from './illustrations/TonalityIcons';
+import Sheet from '@/components/shell/Sheet';
+import MarginPlate from '@/components/shell/MarginPlate';
+import { IlluPlattaPremium, IlluPlattaSmartTon } from '@/components/illustrations/TradenScener';
 
 export type PremiumFeature = 'photo' | 'linkedin' | 'smart-tone';
 
@@ -14,14 +19,10 @@ interface PremiumGateModalProps {
   onClose: () => void;
 }
 
-const FEATURE_CONTENT: Record<
-  PremiumFeature,
-  { title: string; subtitle: string; bullets: string[] }
-> = {
+const FEATURE_CONTENT: Record<PremiumFeature, { title: string; subtitle: string; bullets: string[] }> = {
   photo: {
     title: 'Lägg till profilbild',
-    subtitle:
-      'Få ditt CV att stå ut visuellt med ett professionellt foto direkt på mallen.',
+    subtitle: 'Få ditt CV att stå ut visuellt med ett professionellt foto direkt på mallen.',
     bullets: [
       'Synlig på premium CV-mallar',
       'Ger ett mer personligt intryck',
@@ -30,8 +31,7 @@ const FEATURE_CONTENT: Record<
   },
   linkedin: {
     title: 'Visa LinkedIn-profil på CV:n',
-    subtitle:
-      'Knyt din digitala närvaro till CV:t och förbättra ATS-poängen.',
+    subtitle: 'Knyt din digitala närvaro till CV:t och förbättra ATS-poängen.',
     bullets: [
       'Förbättrar ATS-optimering på ditt CV',
       'Rekryterare kan snabbt verifiera din profil',
@@ -40,10 +40,9 @@ const FEATURE_CONTENT: Record<
   },
   'smart-tone': {
     title: 'Lås upp Smart val',
-    subtitle:
-      'Vi väljer den ton som passar varje annons bäst, automatiskt för varje brev.',
+    subtitle: 'Vi väljer den ton som passar varje annons bäst, automatiskt för varje brev.',
     bullets: [
-      'AI analyserar tonen i varje annons',
+      'Vi läser tonen i varje annons',
       'Du slipper välja manuellt för varje brev',
       'Högre träffsäkerhet i dina ansökningar',
     ],
@@ -51,176 +50,67 @@ const FEATURE_CONTENT: Record<
 };
 
 export default function PremiumGateModal({ feature, onClose }: PremiumGateModalProps) {
-  // Escape-tangent stänger
-  useEffect(() => {
-    if (!feature) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [feature, onClose]);
-
-  // Lås body-scroll när modal är öppen
-  useEffect(() => {
-    if (feature) {
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = '';
-      };
-    }
-  }, [feature]);
+  const content = feature ? FEATURE_CONTENT[feature] : null;
+  const Illu = feature === 'smart-tone' ? IlluPlattaSmartTon : IlluPlattaPremium;
 
   return (
-    <AnimatePresence>
-      {feature && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-900/50 backdrop-blur-sm p-0 sm:p-4"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 40, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-md bg-white rounded-t-xl sm:rounded-xl overflow-hidden"
-            style={{
-              boxShadow: '0 24px 64px -16px rgba(15, 23, 42, 0.35)',
-            }}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="premium-gate-title"
+    <Sheet
+      open={feature !== null}
+      onClose={onClose}
+      title={content?.title ?? 'Premium'}
+      footer={
+        <div className="flex flex-col items-center gap-1">
+          <Link
+            href="/dashboard/profil/prenumeration"
+            onClick={onClose}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
           >
-            {/* Top-band */}
-            <div
-              className="h-[3px]"
-              style={{
-                background:
-                  '#EA580C',
-              }}
-            />
-
-            {/* Stäng-knapp */}
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Stäng"
-              className="absolute top-3 right-3 z-10 w-11 h-11 rounded-full bg-white/80 hover:bg-orange-50 flex items-center justify-center text-neutral-500 hover:text-orange-700 transition-colors"
-            >
-              <X className="w-4 h-4" strokeWidth={2.5} />
-            </button>
-
-            {/* Hero */}
-            <div
-              className="relative px-5 sm:px-7 pt-6 pb-5"
-              style={{
-                background:
-                  '#FFFFFF',
-              }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <FeatureIcon feature={feature} />
-                <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white"
-                  style={{
-                    background: '#F59E0B',
-                    boxShadow: '0 3px 10px -2px rgba(245, 158, 11, 0.5)',
-                  }}
-                >
-                  <PremiumCrownIcon className="w-3.5 h-3.5" />
-                  Premium
-                </span>
-              </div>
-
-              <h3
-                id="premium-gate-title"
-                className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight leading-tight"
-              >
-                {FEATURE_CONTENT[feature].title}
-              </h3>
-              <p className="text-sm text-neutral-700 mt-2 leading-relaxed">
-                {FEATURE_CONTENT[feature].subtitle}
-              </p>
-            </div>
-
-            {/* Bullets */}
-            <div className="px-5 sm:px-7 py-5 space-y-2.5">
-              {FEATURE_CONTENT[feature].bullets.map((bullet, i) => (
-                <div key={i} className="flex items-start gap-2.5">
-                  <div
-                    className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white mt-0.5"
-                    style={{
-                      background:
-                        '#059669',
-                    }}
+            Se vad Premium kostar
+          </Link>
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+          >
+            Kanske senare
+          </button>
+        </div>
+      }
+    >
+      {content ? (
+        <div className="flex items-start gap-3">
+          <MarginPlate>
+            <Illu size={48} />
+          </MarginPlate>
+          <div className="min-w-0 flex-1">
+            <p className="text-steg uppercase text-accent-ink">Ingår i Premium</p>
+            <p className="mt-1 text-sm leading-[22px] text-ink-2">{content.subtitle}</p>
+            <ul className="mt-3 space-y-1.5">
+              {content.bullets.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-2 text-sm leading-[22px] text-ink-2">
+                  <svg
+                    viewBox="0 0 20 20"
+                    width="16"
+                    height="16"
+                    className="mt-[3px] shrink-0 text-positiv"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
                   >
-                    <Check className="w-3 h-3" strokeWidth={3} />
-                  </div>
-                  <span className="text-sm text-neutral-700 leading-relaxed">
-                    {bullet}
-                  </span>
-                </div>
+                    <path d="M4 10.5l4 4 8-9" />
+                  </svg>
+                  {bullet}
+                </li>
               ))}
-            </div>
-
-            {/* CTA */}
-            <div
-              className="px-5 sm:px-7 py-5 border-t"
-              style={{
-                background: 'rgba(255, 247, 237, 0.5)',
-                borderColor: 'rgba(249, 115, 22, 0.15)',
-                paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom, 0px))',
-              }}
-            >
-              <Link
-                href="/dashboard/profil/prenumeration"
-                onClick={onClose}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white font-bold text-base min-h-[52px]"
-                style={{
-                  background: '#EA580C',
-                  boxShadow: '0 12px 28px -8px rgba(220, 38, 38, 0.45)',
-                }}
-              >
-                Se vad Premium kostar
-                <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-              </Link>
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-full mt-2 inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-neutral-600 hover:text-orange-700 transition-colors"
-              >
-                Kanske senare
-              </button>
-            </div>
-          </motion.div>
-        </motion.div>
+            </ul>
+          </div>
+        </div>
+      ) : (
+        <span className="sr-only">Premium</span>
       )}
-    </AnimatePresence>
+    </Sheet>
   );
 }
-
-function FeatureIcon({ feature }: { feature: PremiumFeature }) {
-  if (feature === 'photo') {
-    return (
-      <div className="w-12 h-12 flex items-center justify-center">
-        <Camera className="w-7 h-7 text-orange-600" strokeWidth={2.25} />
-      </div>
-    );
-  }
-  if (feature === 'linkedin') {
-    return (
-      <div className="w-12 h-12 flex items-center justify-center">
-        <Linkedin className="w-7 h-7 text-orange-600" strokeWidth={2.25} />
-      </div>
-    );
-  }
-  // smart-tone, använd den fina SVG-illustrationen
-  return <SmartAutoToneIcon className="w-14 h-14" />;
-}
-
-/* Använd LockedFieldIcon någonstans för att inte få "unused"-varning */
-void LockedFieldIcon;

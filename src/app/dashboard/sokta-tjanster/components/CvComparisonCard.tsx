@@ -65,11 +65,11 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
   }
 
   return (
-    <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-      <h3 className="text-base font-semibold tracking-tight text-neutral-900">
+    <section className="rounded-xl border border-kant bg-panel p-4">
+      <h3 className="text-kort text-ink-1">
         Svar per CV
       </h3>
-      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
+      <p className="mt-1 text-sm text-ink-2">
         Så många av ansökningarna med varje CV som fått svar. Använd det som
         fungerar bäst på de jobb du vill ha mest.
       </p>
@@ -78,27 +78,27 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
         {comparison.rows.map((row, i) => (
           <li key={row.cvId}>
             <div className="flex items-baseline justify-between gap-3">
-              <span className="min-w-0 truncate text-sm font-medium text-neutral-900">
+              <span className="min-w-0 truncate text-sm font-medium text-ink-1">
                 {row.name}
               </span>
-              <span className="shrink-0 text-sm font-semibold tabular-nums text-neutral-900">
+              <span className="shrink-0 text-sm font-medium tabular-nums text-ink-1">
                 {row.replyRate} %
               </span>
             </div>
 
-            {/* Stapeln är jämförelsen. Bara den bästa raden får accentfärg,
+            {/* Stapeln är jämförelsen. Bara den bästa raden får full ink,
                 så ögat hittar svaret utan att vi skriver ut det. */}
             <div
-              className="mt-1.5 h-2 overflow-hidden rounded-full bg-neutral-100"
+              className="mt-1.5 h-2 overflow-hidden rounded-full bg-insunken shadow-insunken"
               role="presentation"
             >
               <div
-                className={`h-full rounded-full ${i === 0 ? 'bg-orange-600' : 'bg-neutral-300'}`}
+                className={`h-full rounded-full ${i === 0 ? 'bg-ink-1' : 'bg-kant-stark'}`}
                 style={{ width: `${Math.max(row.replyRate, 2)}%` }}
               />
             </div>
 
-            <p className="mt-1 text-xs text-neutral-500 tabular-nums">
+            <p className="mt-1 text-meta tabular-nums text-ink-3">
               {row.replies} svar på {row.applications}{' '}
               {row.applications === 1 ? 'ansökan' : 'ansökningar'}
             </p>
@@ -107,7 +107,7 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
       </ul>
 
       {comparison.unknownCvCount > 0 ? (
-        <p className="mt-4 border-t border-neutral-200 pt-3 text-xs text-neutral-500">
+        <p className="mt-4 border-t border-kant pt-3 text-meta text-ink-3">
           {comparison.unknownCvCount === 1
             ? '1 ansökan saknar valt CV och räknas inte här.'
             : `${comparison.unknownCvCount} ansökningar saknar valt CV och räknas inte här.`}{' '}

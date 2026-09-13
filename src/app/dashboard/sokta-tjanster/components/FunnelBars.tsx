@@ -1,5 +1,5 @@
 // Horisontell trattvy: Sökta -> Svar -> Intervju -> Erbjudande.
-// Sequentiell orange ramp (ljus -> mörk), direktetiketter med antal och
+// Sequentiell ink-ramp (ljus -> mörk), direktetiketter med antal och
 // procent av föregående steg. Ren HTML, fungerar i både klient- och
 // serverkomponenter samt i print.
 
@@ -11,7 +11,8 @@ interface FunnelBarsProps {
   ghost?: boolean;
 }
 
-const STEP_COLORS = ['#FED7AA', '#FDBA74', '#FB923C', '#EA580C'];
+// Trattens steg blir mörkare, inte färgade: djup via toner, aldrig orange yta.
+const STEP_TONE = ['bg-kant-stark', 'bg-ink-3', 'bg-ink-2', 'bg-ink-1'];
 
 export default function FunnelBars({ stats, ghost = false }: FunnelBarsProps) {
   const steps = ghost
@@ -38,21 +39,21 @@ export default function FunnelBars({ stats, ghost = false }: FunnelBarsProps) {
         const pctOfPrev = prev && prev > 0 ? Math.round((step.value / prev) * 100) : null;
         return (
           <div key={step.label} className="flex items-center gap-3">
-            <div className="w-20 sm:w-24 flex-shrink-0 text-xs font-semibold text-neutral-600 text-right">
+            <div className="w-20 shrink-0 text-right text-meta text-ink-3 sm:w-24">
               {step.label}
             </div>
             <div className="flex-1 flex items-center gap-2 min-w-0">
-              <div className="flex-1 h-6 bg-neutral-100/70 rounded-md overflow-hidden">
+              <div className="h-6 flex-1 overflow-hidden rounded-md bg-insunken shadow-insunken">
                 {step.value > 0 && (
                   <div
-                    className="h-full rounded-md transition-all duration-500"
-                    style={{ width: `${widthPct}%`, backgroundColor: STEP_COLORS[i] }}
+                    className={`h-full rounded-md ${STEP_TONE[i]}`}
+                    style={{ width: `${widthPct}%` }}
                   />
                 )}
               </div>
-              <div className="flex-shrink-0 text-xs text-neutral-700 tabular-nums whitespace-nowrap w-16">
-                <span className="font-bold">{step.value}</span>
-                {pctOfPrev !== null && <span className="text-neutral-400"> ({pctOfPrev}%)</span>}
+              <div className="w-16 shrink-0 whitespace-nowrap text-meta tabular-nums text-ink-2">
+                <span className="font-medium">{step.value}</span>
+                {pctOfPrev !== null && <span className="text-ink-3"> ({pctOfPrev}%)</span>}
               </div>
             </div>
           </div>

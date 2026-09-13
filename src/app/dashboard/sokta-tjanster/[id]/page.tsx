@@ -8,7 +8,6 @@ import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
   ArrowLeft,
   Building2,
@@ -30,6 +29,7 @@ import {
   type JobApplicationEvent,
 } from '@/lib/applications/status';
 import { StatusPill, formatDateLong, formatDateShort, daysSince } from '../components/StatusBits';
+import PageHeader from '@/components/shell/PageHeader';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
@@ -58,6 +58,20 @@ function useDeferredUnmount(open: boolean, exitMs = 300): boolean {
 
   return mounted;
 }
+
+/**
+ * Tidslinjens prickar. STATUS_META.dotClass bär den gamla färgskalan och
+ * används av delade ytor utanför inloggat läge, så den ligger kvar orörd.
+ * Här mappas händelsetypen till tokens i stället: ink genomgående, positiv
+ * för erbjudande och accepterat.
+ */
+const DOT_TONE: Partial<Record<ApplicationEventType, string>> = {
+  offer_received: 'bg-positiv',
+  accepted: 'bg-positiv',
+  rejected: 'bg-kant-stark',
+  declined: 'bg-kant-stark',
+  no_response: 'bg-kant-stark',
+};
 
 interface ApplicationDetail extends JobApplication {
   events: JobApplicationEvent[];
@@ -194,68 +208,76 @@ export default function ApplicationDetailPage() {
       <div className="max-w-3xl mx-auto pb-16 space-y-4 sm:space-y-5">
         <Link
           href="/dashboard/sokta-tjanster"
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-neutral-700 transition-colors"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
         >
-          <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+          <ArrowLeft className="w-4 h-4" strokeWidth={1.75} />
           Sökta tjänster
         </Link>
 
-        {/* Huvudkort */}
-        <motion.section
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="rounded-xl border border-neutral-200 bg-white p-5 sm:p-6"
-        >
+        {/* Sidans enda h1 ligger i sidhuvudet, inte inuti ett kort. */}
+        <PageHeader
+          title={detail.job_title}
+          description={
+            detail.location ? `${detail.company}, ${detail.location}` : detail.company
+          }
+          action={
+            <button
+              type="button"
+              onClick={() => setShowEdit(true)}
+              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+            >
+              <Pencil className="h-4 w-4" strokeWidth={1.75} />
+              Redigera
+            </button>
+          }
+        />
+
+        {/* Fakta om ansökan */}
+        <section className="rounded-xl border border-kant bg-panel p-4">
           <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <h1 className="text-xl sm:text-2xl font-bold text-neutral-900 leading-tight">
-                {detail.job_title}
-              </h1>
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-neutral-600">
-                <span className="inline-flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
-                  {detail.company}
+            <div className="min-w-0 text-meta text-ink-2">
+              <span className="inline-flex items-center gap-1.5">
+                <Building2 className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+                {detail.company}
+              </span>
+              {detail.location && (
+                <span className="ml-3 inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+                  {detail.location}
                 </span>
-                {detail.location && (
-                  <span className="inline-flex items-center gap-1.5 text-neutral-500">
-                    <MapPin className="w-4 h-4 text-neutral-400" strokeWidth={2.25} />
-                    {detail.location}
-                  </span>
-                )}
-              </div>
+              )}
             </div>
             <StatusPill status={detail.current_status} />
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] text-neutral-600 border-t border-neutral-100 pt-4">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-kant pt-4 text-meta text-ink-2">
             <span>
-              Sökt <span className="font-semibold text-neutral-900">{formatDateLong(detail.applied_at)}</span>
+              Sökt <span className="font-medium text-ink-1">{formatDateLong(detail.applied_at)}</span>
             </span>
-            <span className="text-neutral-300">·</span>
+            <span aria-hidden="true">·</span>
             <span>{CHANNEL_META[detail.application_channel]?.label}</span>
             {detail.letter && (
               <>
-                <span className="text-neutral-300">·</span>
+                <span aria-hidden="true">·</span>
                 <Link
                   href={`/dashboard/mina-brev/${detail.letter.id}`}
-                  className="inline-flex items-center gap-1 text-orange-700 hover:text-orange-800 font-semibold"
+                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
                 >
-                  <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  <FileText className="h-3.5 w-3.5" strokeWidth={1.75} />
                   {detail.letter.title || 'Kopplat brev'}
                 </Link>
               </>
             )}
             {detail.job_ad_url && (
               <>
-                <span className="text-neutral-300">·</span>
+                <span aria-hidden="true">·</span>
                 <a
                   href={detail.job_ad_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-orange-700 hover:text-orange-800 font-semibold"
+                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
                 >
-                  <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} />
                   Till annonsen
                 </a>
               </>
@@ -263,39 +285,26 @@ export default function ApplicationDetailPage() {
           </div>
 
           {detail.notes && (
-            <div className="mt-3 text-[13.5px] text-neutral-600 bg-neutral-50 border border-neutral-200/70 rounded-xl px-3.5 py-2.5 whitespace-pre-wrap">
+            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
               {detail.notes}
             </div>
           )}
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setShowEdit(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-neutral-200 bg-white text-[13px] font-semibold text-neutral-700 hover:border-neutral-300 transition-all min-h-[44px]"
-            >
-              <Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />
-              Redigera
-            </button>
+          <div className="mt-4">
             <button
               type="button"
               onClick={() => setConfirmDeleteApplication(true)}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken"
             >
-              <Trash2 className="h-4 w-4" strokeWidth={2} />
+              <Trash2 className="h-4 w-4" strokeWidth={1.75} />
               Ta bort
             </button>
           </div>
-        </motion.section>
+        </section>
 
         {/* Tidslinje */}
-        <motion.section
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05, ease: 'easeOut' }}
-          className="rounded-xl border border-neutral-200 bg-white p-5 sm:p-6"
-        >
-          <h2 className="text-base font-bold text-neutral-900 mb-4">Händelser</h2>
+        <section className="rounded-xl border border-kant bg-panel p-4">
+          <h2 className="mb-4 text-kort text-ink-1">Händelser</h2>
 
           <ol className="relative space-y-0">
             {sortedEvents.map((event, index) => {
@@ -308,18 +317,22 @@ export default function ApplicationDetailPage() {
               return (
                 <li key={event.id} className="relative flex gap-3.5 group">
                   <div className="flex flex-col items-center">
-                    <span className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${meta.dotClass}`} />
-                    {!isLast && <span className="w-px flex-1 bg-neutral-200 my-1" />}
+                    <span
+                      className={`mt-1 h-3 w-3 shrink-0 rounded-full ${
+                        DOT_TONE[event.event_type] ?? 'bg-ink-2'
+                      }`}
+                    />
+                    {!isLast && <span className="my-1 w-px flex-1 bg-kant" />}
                   </div>
                   <div className={`min-w-0 flex-1 ${isLast ? '' : 'pb-5'}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="text-[14px] font-semibold text-neutral-900 leading-snug">{label}</div>
-                        <div className="text-xs text-neutral-500 mt-0.5">
+                        <div className="text-sm font-medium leading-snug text-ink-1">{label}</div>
+                        <div className="mt-0.5 text-meta text-ink-3">
                           {formatDateShort(event.occurred_at)}
                         </div>
                         {event.note && (
-                          <div className="mt-1.5 text-[13px] text-neutral-600 bg-neutral-50 border border-neutral-200/70 rounded-lg px-3 py-2 whitespace-pre-wrap">
+                          <div className="mt-1.5 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
                             {event.note}
                           </div>
                         )}
@@ -332,9 +345,9 @@ export default function ApplicationDetailPage() {
                         onClick={() => setEventToDelete(event.id)}
                         disabled={deletingEventId === event.id}
                         aria-label={`Ta bort händelsen ${label}`}
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 disabled:opacity-60"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-insunken hover:text-ink-1 disabled:opacity-60"
                       >
-                        <X className="h-4 w-4" strokeWidth={2} />
+                        <X className="h-4 w-4" strokeWidth={1.75} />
                       </button>
                     </div>
                   </div>
@@ -346,16 +359,16 @@ export default function ApplicationDetailPage() {
             {showNudge && silentDays !== null && (
               <li className="relative flex gap-3.5">
                 <div className="flex flex-col items-center">
-                  <span className="mt-1 w-3 h-3 rounded-full border-2 border-neutral-300 bg-white flex-shrink-0" />
+                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-kant-stark bg-panel" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[13.5px] text-neutral-500">
+                  <div className="text-sm text-ink-3">
                     Inget hört på {silentDays} dagar. Vill du uppdatera status?
                   </div>
                   <button
                     type="button"
                     onClick={() => setShowAddEvent(true)}
-                    className="mt-1.5 text-[13px] font-semibold text-orange-700 hover:text-orange-800"
+                    className="mt-1.5 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
                   >
                     Uppdatera
                   </button>
@@ -367,12 +380,12 @@ export default function ApplicationDetailPage() {
           <button
             type="button"
             onClick={() => setShowAddEvent(true)}
-            className="mt-5 w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border-2 border-dashed border-orange-200 text-orange-700 text-[14px] font-bold hover:bg-orange-50/60 hover:border-orange-300 transition-all min-h-[48px]"
+            className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
           >
-            <Plus className="w-4 h-4" strokeWidth={2.5} />
+            <Plus className="w-4 h-4" strokeWidth={1.75} />
             Lägg till händelse
           </button>
-        </motion.section>
+        </section>
       </div>
 
       {addEventMounted && (

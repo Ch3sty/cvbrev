@@ -28,11 +28,26 @@ export function daysSince(iso: string | null | undefined, now: Date = new Date()
   return Math.floor((now.getTime() - then) / (1000 * 60 * 60 * 24));
 }
 
+/**
+ * Pillens ton. STATUS_META.pillClass bär den gamla färgskalan (blått,
+ * indigo, emerald) och används av delade ytor utanför inloggat läge, så den
+ * ligger kvar orörd. Här mappas status i stället till tokens: alla neutrala
+ * lägen bär ink, ett avslut bär fel och ett erbjudande bär positiv.
+ */
+const PILL_TONE: Partial<Record<ApplicationEventType, string>> = {
+  offer_received: 'border-kant bg-panel text-positiv',
+  accepted: 'border-kant bg-panel text-positiv',
+  rejected: 'border-kant bg-panel text-ink-3',
+  declined: 'border-kant bg-panel text-ink-3',
+  no_response: 'border-kant bg-panel text-ink-3',
+};
+
 export function StatusPill({ status }: { status: ApplicationEventType | null }) {
   const meta = STATUS_META[status ?? 'applied'];
+  const tone = (status && PILL_TONE[status]) ?? 'border-kant bg-panel text-ink-2';
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${meta.pillClass}`}
+      className={`inline-flex items-center whitespace-nowrap rounded-md border px-2 py-0.5 text-meta font-medium ${tone}`}
     >
       {status === null ? 'Sökt' : meta.label}
     </span>
@@ -49,10 +64,10 @@ export function ProgressDots({ status }: { status: ApplicationEventType | null }
       {PROGRESS_LABELS.map((label, i) => (
         <div key={label} className="flex items-center">
           {i > 0 && (
-            <div className={`h-0.5 w-4 sm:w-6 ${i <= step ? 'bg-orange-400' : 'bg-neutral-200'}`} />
+            <div className={`h-0.5 w-4 sm:w-6 ${i <= step ? 'bg-ink-2' : 'bg-kant-stark'}`} />
           )}
           <div
-            className={`w-2 h-2 rounded-full ${i <= step ? 'bg-orange-500' : 'bg-neutral-200'}`}
+            className={`w-2 h-2 rounded-full ${i <= step ? 'bg-ink-1' : 'bg-kant-stark'}`}
             title={label}
           />
         </div>

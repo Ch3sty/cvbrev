@@ -21,20 +21,19 @@ import { nextAfReportDeadline } from '@/lib/applications/afReport';
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { logUserActivity } from '@/lib/activity-logger';
 
-// Trial och nedgradering (spår A)
-import TrialStatusRow from '@/components/dashboard/TrialStatusRow';
+// Tråden (docs/design/koncept-2026-09-13.md): sektionerna bor i (oversikt).
+import TrialStatusRow from './(oversikt)/TrialStatusRow';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
-import PurchaseConfirmation from '@/components/dashboard/PurchaseConfirmation';
-import QuotaNudgeRow from '@/components/dashboard/QuotaNudgeRow';
-import ProfilKomplettering from '@/components/dashboard/ProfilKomplettering';
-// Tillstånden
-import DashboardHero, { deriveDashboardState } from '@/components/dashboard/DashboardHero';
-// Status och handlingsytor
-import DashboardSnabbAtgarder from '@/components/dashboard/DashboardSnabbAtgarder';
-import JobbsokOversikt from '@/components/dashboard/JobbsokOversikt';
-import PagarNu from '@/components/dashboard/PagarNu';
-import NastaHandling from '@/components/dashboard/NastaHandling';
-import DashboardSenasteAktivitet from '@/components/dashboard/DashboardSenasteAktivitet';
+import PurchaseConfirmation from './(oversikt)/PurchaseConfirmation';
+import QuotaNudgeRow from './(oversikt)/QuotaNudgeRow';
+import ProfilKomplettering from './(oversikt)/ProfilKomplettering';
+import DashboardHero, { deriveDashboardState } from './(oversikt)/DashboardHero';
+import SnabbAtgarder from './(oversikt)/SnabbAtgarder';
+import JobbsokOversikt from './(oversikt)/JobbsokOversikt';
+import PagarNu from './(oversikt)/PagarNu';
+import NastaHandling from './(oversikt)/NastaHandling';
+import SenasteAktivitet from './(oversikt)/SenasteAktivitet';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 
 interface DashboardStats {
@@ -208,20 +207,19 @@ export default function DashboardPage() {
     void refresh();
   }, [refresh]);
 
-  // Sektionsskeleton i stället för blockerande spinner: layouten står still
-  // och fylls i, ingen "tom skärm tills långsammaste anropet är klart".
+  // Skelettet står stilla i insunken, bara tråden rör sig längs överkanten.
   if (loading) {
     return (
-      <div className="space-y-6 animate-pulse" aria-busy="true" aria-label="Laddar dashboard">
-        <div className="rounded-lg bg-neutral-100 h-10" />
-        <div className="rounded-xl bg-white border border-neutral-200 h-64" />
-        <div className="rounded-xl bg-white border border-neutral-200 h-32" />
+      <div className="space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
+        <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
+        <LoadingSkeleton variant="card" />
+        <LoadingSkeleton variant="list" count={3} />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 motion-safe:animate-[slideUp_200ms_ease-out]">
+    <div className="space-y-4 sm:space-y-6 motion-safe:animate-thread-enter">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
         <PurchaseConfirmation
@@ -244,7 +242,7 @@ export default function DashboardPage() {
       {state === 'B' && (
         <>
           <ProfilKomplettering />
-          <DashboardSnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
+          <SnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
         </>
       )}
 
@@ -256,28 +254,40 @@ export default function DashboardPage() {
               användaren möter oftast. Dold visuellt, inte för hjälpmedel. */}
           <h1 className="sr-only">Översikt över ditt jobbsök</h1>
 
-          {/* 1. Jobbsöket: fyra beskrivande antal och vyns enda orange knapp. */}
-          <JobbsokOversikt summary={appSummary} />
+          {/* Två kolumner från lg (koncept, avsnitt 10): listorna får
+              läsbredd till vänster, den enda handlingen och kvotraden står i
+              höger synfält. På mobil följer allt i en kolumn i DOM-ordning.
+              Varje komponent renderas exakt en gång: inga dubbla anrop. */}
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+            {/* 1. Jobbsöket: fyra beskrivande antal och vyns enda primära knapp. */}
+            <div className="lg:col-start-1 lg:row-start-1">
+              <JobbsokOversikt summary={appSummary} />
+            </div>
 
-          {/* 2. En rankad handling: uppföljning, AF-fönstret eller en oprövad
-                 funktion. Aldrig fler än en åt gången. */}
-          <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
+            <aside className="space-y-4 sm:space-y-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+              {/* 2. En rankad handling: uppföljning, AF-fönstret eller en
+                     oprövad funktion. Aldrig fler än en åt gången. */}
+              <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
 
-          {/* 3. De tre mest tidskänsliga ansökningarna. */}
-          <PagarNu
-            items={appSummary.pipeline}
-            total={appSummary.total}
-            letterCount={totalLetters}
-          />
+              {/* 4. Kvoterna som en rad. Premium får null. */}
+              <QuotaNudgeRow isPremium={isPremium} />
+            </aside>
 
-          {/* 4. Kvoterna som en rad. Premium får null. */}
-          <QuotaNudgeRow isPremium={isPremium} />
+            <div className="space-y-4 sm:space-y-6 lg:col-start-1 lg:row-start-2">
+              {/* 3. De tre mest tidskänsliga ansökningarna. */}
+              <PagarNu
+                items={appSummary.pipeline}
+                total={appSummary.total}
+                letterCount={totalLetters}
+              />
 
-          {/* 5. Senaste aktivitet. Döljer sig själv vid noll rader. */}
-          <DashboardSenasteAktivitet />
+              {/* 5. Senaste aktivitet. Döljer sig själv vid noll rader. */}
+              <SenasteAktivitet />
 
-          {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
-          <ProfilKomplettering />
+              {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
+              <ProfilKomplettering />
+            </div>
+          </div>
         </>
       )}
     </div>

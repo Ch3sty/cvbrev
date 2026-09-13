@@ -13,7 +13,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { XCircle } from 'lucide-react';
+import { X } from 'lucide-react';
 
 import UsageStats from './components/UsageStats';
 import ManageSubscriptionCard from './components/ManageSubscriptionCard';
@@ -116,20 +116,20 @@ export default function PrenumerationClient({
 
       {/* Felmeddelande */}
       {errorMessage && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+        <div className="rounded-xl border border-fel-kant bg-fel-mjuk p-4">
           <div className="flex items-start gap-3">
-            <p className="flex-1 text-sm text-red-800">
+            <p className="flex-1 text-sm text-fel">
               {errorMessage}
-              <span className="mt-1 block text-red-700">
+              <span className="mt-1 block text-ink-2">
                 Kontakta support@jobbcoach.ai om problemet kvarstår.
               </span>
             </p>
             <button
               onClick={() => setErrorMessage(null)}
               aria-label="Stäng meddelande"
-              className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-red-400 transition-colors hover:bg-red-100 hover:text-red-700"
+              className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:text-ink-1"
             >
-              <XCircle className="h-4 w-4" aria-hidden="true" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>

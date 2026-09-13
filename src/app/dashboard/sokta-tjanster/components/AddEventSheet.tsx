@@ -92,16 +92,13 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
                 key={type}
                 type="button"
                 onClick={() => setSelected(type)}
-                className={`flex items-center gap-2.5 px-3 py-3 rounded-xl border text-left text-[13px] font-semibold transition-all min-h-[52px] ${
+                className={`flex min-h-[52px] items-center gap-2.5 rounded-lg border px-3 py-3 text-left text-sm font-medium transition-[border-color,background-color] ${
                   isActive
-                    ? 'bg-orange-50 border-orange-400 text-orange-700'
-                    : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-300'
+                    ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
+                    : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
                 }`}
               >
-                <Icon
-                  className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-orange-600' : 'text-neutral-500'}`}
-                  strokeWidth={2.25}
-                />
+                <Icon className="h-5 w-5 shrink-0 text-ink-2" strokeWidth={1.75} />
                 {chipLabel(type)}
               </button>
             );
@@ -109,7 +106,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
         </div>
 
         <div>
-          <label htmlFor="ev-date" className="block text-[13px] font-semibold text-neutral-700 mb-1.5">
+          <label htmlFor="ev-date" className="mb-1 block text-sm font-medium text-ink-2">
             Datum
           </label>
           <input
@@ -120,19 +117,19 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
             onChange={(e) => setOccurredAt(e.target.value)}
 
             enterKeyHint="next"
-            className="w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all"
+            className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
           />
         </div>
 
         <button
           type="button"
           onClick={() => setShowNote((v) => !v)}
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-neutral-700 transition-colors"
+          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
         >
           {showNote ? (
-            <ChevronUp className="w-4 h-4" strokeWidth={2.5} />
+            <ChevronUp className="w-4 h-4" strokeWidth={1.75} />
           ) : (
-            <ChevronDown className="w-4 h-4" strokeWidth={2.5} />
+            <ChevronDown className="w-4 h-4" strokeWidth={1.75} />
           )}
           Anteckning (valfritt)
         </button>
@@ -150,12 +147,12 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
             placeholder="T.ex. vem du träffade eller vad som sades..."
             maxLength={2000}
             rows={3}
-            className="w-full px-3.5 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200/40 transition-all resize-none"
+            className="w-full resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
           />
         )}
 
         {error && (
-          <div className="text-[13px] text-red-600 bg-red-50 border border-red-100 rounded-xl px-3.5 py-2.5">
+          <div className="rounded-lg border border-fel-kant bg-fel-mjuk px-3 py-2 text-meta text-fel">
             {error}
           </div>
         )}
@@ -164,9 +161,9 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
           type="button"
           onClick={handleSubmit}
           disabled={!selected || isSaving}
-          className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white text-[15px] font-bold transition-all min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
         >
-          {isSaving ? 'Sparar…' : 'Spara händelse'}
+          {isSaving ? 'Sparar' : 'Spara händelse'}
         </button>
       </div>
     </SheetShell>

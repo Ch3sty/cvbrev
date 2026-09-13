@@ -10,7 +10,6 @@
 
 import { useEffect, useState } from 'react';
 import { FileText, X } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 /**
  * Snooze i 30 dagar, aldrig för alltid (planens avsnitt 5). Den som avfärdar
@@ -112,7 +111,7 @@ export default function BackfillBanner({
         type="button"
         onClick={handleImport}
         disabled={isImporting}
-        className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:opacity-60 sm:w-auto"
+        className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40 sm:w-auto"
       >
         {isImporting ? 'Lägger in' : label}
       </button>
@@ -120,23 +119,18 @@ export default function BackfillBanner({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-4 sm:flex-row sm:items-center"
-    >
+    <div className="flex flex-col gap-3 rounded-xl border border-kant bg-panel p-4 sm:flex-row sm:items-center">
       <div className="flex min-w-0 flex-1 items-start gap-3">
-        <span className="shrink-0 text-neutral-500" aria-hidden="true">
-          <FileText className="h-5 w-5" strokeWidth={2} />
+        <span className="shrink-0 text-ink-2" aria-hidden="true">
+          <FileText className="h-5 w-5" strokeWidth={1.75} />
         </span>
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-neutral-900">
+          <p className="text-kort text-ink-1">
             {candidates.length === 1
               ? 'Ett av dina brev är inte loggat som ansökan'
               : `${candidates.length} av dina brev är inte loggade som ansökningar`}
           </p>
-          <p className="mt-0.5 text-sm text-neutral-600">
+          <p className="mt-0.5 text-sm text-ink-2">
             Lägg in dem så är din historik komplett från start.
           </p>
         </div>
@@ -147,7 +141,7 @@ export default function BackfillBanner({
           type="button"
           onClick={handleImport}
           disabled={isImporting}
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:opacity-60"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
         >
           {isImporting ? 'Lägger in' : 'Lägg in alla'}
         </button>
@@ -155,11 +149,11 @@ export default function BackfillBanner({
           type="button"
           onClick={handleDismiss}
           aria-label="Dölj i 30 dagar"
-          className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+          className="flex h-11 w-11 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
         >
-          <X className="h-4 w-4" strokeWidth={2} />
+          <X className="h-4 w-4" strokeWidth={1.75} />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }

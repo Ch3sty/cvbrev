@@ -30,6 +30,7 @@ import {
 import PageHeader from '@/components/shell/PageHeader';
 import StatusRow from '@/components/shell/StatusRow';
 import EmptyState from '@/components/shell/EmptyState';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import {
   IlluIngaAnsokningar,
   IlluImporteraBrev,
@@ -48,17 +49,13 @@ export type { BackfillCandidate };
  * paketet landar, utan kortet byter bara innehåll.
  */
 const StatsTabPlaceholder = () => (
-  <div className="space-y-4" role="status" aria-busy="true" aria-live="polite">
-    <span className="sr-only">Läser in statistiken</span>
+  <div className="space-y-4">
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <div
-          key={i}
-          className="h-24 animate-pulse rounded-xl border border-neutral-200 bg-white p-4"
-        />
+        <div key={i} className="h-24 rounded-xl border border-kant bg-insunken" />
       ))}
     </div>
-    <div className="h-56 animate-pulse rounded-xl border border-neutral-200 bg-white p-6" />
+    <LoadingSkeleton variant="card" label="Läser in statistiken" />
   </div>
 );
 
@@ -72,30 +69,18 @@ const StatsTab = dynamic(() => import('./components/StatsTab'), {
  * bara när fliken är vald. Samma behandling som statistiken.
  *
  * Platshållaren följer ShareTab:s översta mått: statusraden på 44 px,
- * månadsväljaren på 44 px och rapportkortet. Kortet får ShareTab:s egen
- * orangebrutna ram, så ramen ligger still medan innehållet byts.
+ * månadsväljaren på 44 px och rapportkortet, så ramen ligger still medan
+ * innehållet byts. Skelettet står stilla, bara tråden rör sig.
  */
 const ShareTabPlaceholder = () => (
-  <div className="space-y-4" role="status" aria-busy="true" aria-live="polite">
-    <span className="sr-only">Läser in rapporten</span>
-    <div className="h-11 animate-pulse rounded-lg border border-neutral-200 bg-white" />
+  <div className="space-y-4">
+    <LoadingSkeleton variant="statusRow" label="Läser in rapporten" />
     <div className="flex items-center justify-center gap-2">
-      <div className="h-11 w-11 animate-pulse rounded-xl border border-neutral-200 bg-white" />
-      <div className="h-11 min-w-[160px] animate-pulse rounded-lg bg-neutral-100" />
-      <div className="h-11 w-11 animate-pulse rounded-xl border border-neutral-200 bg-white" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
+      <div className="h-11 min-w-[160px] rounded-lg bg-insunken" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
     </div>
-    <div className="rounded-xl border border-orange-200/50 bg-white p-5 sm:p-8">
-      <div className="mb-5 animate-pulse border-b border-neutral-200 pb-4">
-        <div className="h-3 w-40 rounded bg-neutral-100" />
-        <div className="mt-2 h-6 w-1/2 rounded bg-neutral-100" />
-        <div className="mt-2 h-3 w-2/3 rounded bg-neutral-100" />
-      </div>
-      <div className="animate-pulse space-y-3">
-        <div className="h-4 w-1/3 rounded bg-neutral-100" />
-        <div className="h-3 w-2/3 rounded bg-neutral-100" />
-        <div className="h-3 w-1/2 rounded bg-neutral-100" />
-      </div>
-    </div>
+    <LoadingSkeleton variant="card" label="Läser in rapporten" />
   </div>
 );
 
@@ -327,7 +312,7 @@ export default function SoktaTjansterClient({
     <button
       type="button"
       onClick={() => setShowQuickLog(true)}
-      className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
     >
       Logga ansökan
     </button>
@@ -341,7 +326,7 @@ export default function SoktaTjansterClient({
         action={totalCount > 0 ? logButton : undefined}
       >
         <div
-          className="flex items-center gap-1 rounded-lg border border-neutral-200 bg-white p-1"
+          className="flex items-center gap-1 rounded-lg border border-kant bg-panel p-1"
           role="tablist"
         >
           {TABS.map((tab) => (
@@ -353,8 +338,8 @@ export default function SoktaTjansterClient({
               onClick={() => setActiveTab(tab.id)}
               className={`min-h-11 flex-1 rounded-lg px-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
-                  ? 'bg-neutral-100 text-neutral-900'
-                  : 'text-neutral-600 hover:text-neutral-900'
+                  ? 'bg-insunken text-ink-1 shadow-insunken'
+                  : 'text-ink-2 hover:text-ink-1'
               }`}
             >
               {tab.label}
@@ -384,7 +369,7 @@ export default function SoktaTjansterClient({
             <>
               <div className="relative">
                 <Search
-                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400"
+                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-3"
                   strokeWidth={2}
                 />
                 <input
@@ -396,7 +381,7 @@ export default function SoktaTjansterClient({
                   onChange={(e) => setSearchTerm(e.target.value)}
                   autoComplete="off"
                   aria-label="Sök bland dina ansökningar"
-                  className="h-11 w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-4 text-base text-neutral-900 placeholder-neutral-500 transition-colors focus:border-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-50"
+                  className="h-11 w-full rounded-lg border border-kant bg-panel pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 />
               </div>
 
@@ -409,8 +394,8 @@ export default function SoktaTjansterClient({
                     aria-pressed={filter === f.id}
                     className={`min-h-11 shrink-0 rounded-lg border px-3 text-sm font-medium transition-colors ${
                       filter === f.id
-                        ? 'border-orange-600 bg-orange-50 text-orange-900'
-                        : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-400'
+                        ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
+                        : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
                     }`}
                   >
                     {f.label}
@@ -437,7 +422,7 @@ export default function SoktaTjansterClient({
                     setFilter('alla');
                     setSearchTerm('');
                   }}
-                  className="inline-flex h-11 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400"
+                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-2 transition-colors hover:border-kant-stark"
                 >
                   Rensa filter
                 </button>
@@ -447,9 +432,9 @@ export default function SoktaTjansterClient({
             <div className="space-y-6">
               {groups.map((group) => (
                 <section key={group.key}>
-                  <h2 className="mb-2 text-sm font-semibold text-neutral-600">
+                  <h2 className="mb-2 text-sm font-medium text-ink-3">
                     {group.heading}
-                    <span className="ml-2 font-normal tabular-nums text-neutral-500">
+                    <span className="ml-2 font-normal tabular-nums text-ink-3">
                       {group.items.length}
                     </span>
                   </h2>
@@ -517,7 +502,7 @@ function EmptyApplications({
           <button
             type="button"
             onClick={onLog}
-            className="text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+            className="text-sm font-medium text-ink-2 underline-offset-4 transition-colors hover:text-ink-1 hover:underline"
           >
             Logga en ansökan manuellt
           </button>
@@ -535,7 +520,7 @@ function EmptyApplications({
         <button
           type="button"
           onClick={onLog}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 sm:w-auto"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
         >
           Logga din första ansökan
         </button>

@@ -5,7 +5,6 @@
 // delningslänk utan inloggning samt Sankey-diagram på större skärmar.
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import {
   ChevronLeft,
   ChevronRight,
@@ -21,6 +20,7 @@ import type { ApplicationStats, JobApplication } from '@/lib/applications/status
 import SankeyChart from './SankeyChart';
 import { formatDateShort } from './StatusBits';
 import StatusRow from '@/components/shell/StatusRow';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import { afReportStatusText, nextAfReportDeadline } from '@/lib/applications/afReport';
 
@@ -231,9 +231,9 @@ export default function ShareTab({ applications }: ShareTabProps) {
 
   const sectionTable = (title: string, rows: { date: string; text: string }[]) => (
     <div>
-      <div className="mb-1.5 text-sm font-semibold text-neutral-900">{title}</div>
+      <div className="mb-1.5 text-sm font-medium text-ink-1">{title}</div>
       {rows.length === 0 ? (
-        <div className="text-sm text-neutral-500">Inget att rapportera den här månaden.</div>
+        <div className="text-sm text-ink-3">Inget att rapportera den här månaden.</div>
       ) : (
         /* Egen overflow-x-auto: en lång tjänstetitel får aldrig ge
            horisontell scroll på hela sidan. */
@@ -241,11 +241,11 @@ export default function ShareTab({ applications }: ShareTabProps) {
           <table className="w-full min-w-[20rem] text-sm">
             <tbody>
               {rows.map((row, i) => (
-                <tr key={i} className="border-b border-neutral-200 last:border-0">
-                  <td className="w-20 whitespace-nowrap py-2 pr-3 align-top text-neutral-500 tabular-nums">
+                <tr key={i} className="border-b border-kant last:border-0">
+                  <td className="w-20 whitespace-nowrap py-2 pr-3 align-top text-ink-3 tabular-nums">
                     {row.date}
                   </td>
-                  <td className="py-2 text-neutral-700">{row.text}</td>
+                  <td className="py-2 text-ink-2">{row.text}</td>
                 </tr>
               ))}
             </tbody>
@@ -256,12 +256,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="space-y-4"
-    >
+    <div className="space-y-4">
       {/* Påminnelse med datum och dagar kvar. Tonen byter en gång, vid sju
           dagar, aldrig gradvis. Raden visas oavsett premium: att veta när
           rapporten ska in är inte något vi tar betalt för. */}
@@ -274,7 +269,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
             <button
               type="button"
               onClick={() => setMonth(deadline.reportMonth)}
-              className="text-sm font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
+              className="text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
             >
               Visa den
             </button>
@@ -290,11 +285,11 @@ export default function ShareTab({ applications }: ShareTabProps) {
           type="button"
           onClick={() => setMonth((m) => shiftMonth(m, -1))}
           aria-label="Föregående månad"
-          className="w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark"
         >
-          <ChevronLeft className="w-[18px] h-[18px]" strokeWidth={2.5} />
+          <ChevronLeft className="w-[18px] h-[18px]" strokeWidth={1.75} />
         </button>
-        <div className="min-w-[160px] text-center text-[15px] font-bold text-neutral-900">
+        <div className="min-w-[160px] text-center text-kort text-ink-1">
           {monthLabel(month)}
         </div>
         <button
@@ -302,39 +297,35 @@ export default function ShareTab({ applications }: ShareTabProps) {
           onClick={() => setMonth((m) => shiftMonth(m, 1))}
           disabled={month >= currentMonth}
           aria-label="Nästa månad"
-          className="w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all disabled:opacity-40"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark disabled:opacity-40"
         >
-          <ChevronRight className="w-[18px] h-[18px]" strokeWidth={2.5} />
+          <ChevronRight className="w-[18px] h-[18px]" strokeWidth={1.75} />
         </button>
       </div>
 
       {/* Rapporten (det som skrivs ut) */}
-      <div className="tracker-report bg-white rounded-xl border border-orange-200/50 p-5 sm:p-8">
-        <div className="border-b border-neutral-200 pb-4 mb-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500">
+      <div className="tracker-report rounded-xl border border-kant bg-panel p-4 sm:p-6">
+        <div className="mb-5 border-b border-kant pb-4">
+          <div className="text-steg uppercase text-ink-3">
             Aktivitetsöversikt
           </div>
           <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-lg sm:text-xl font-bold text-neutral-900">
+            <h2 className="text-kort text-ink-1">
               {profile?.full_name || 'Min jobbsökning'}
             </h2>
-            <div className="text-[14px] font-semibold text-neutral-600">{monthLabel(month)}</div>
+            <div className="text-meta text-ink-3">{monthLabel(month)}</div>
           </div>
           {report && (
-            <div className="mt-2 text-[13px] text-neutral-600">
-              <span className="font-bold text-neutral-900">{report.totals.applications}</span> sökta jobb
+            <div className="mt-2 text-meta text-ink-2">
+              <span className="font-medium text-ink-1">{report.totals.applications}</span> sökta jobb
               {' · '}
-              <span className="font-bold text-neutral-900">{report.totals.interviews}</span> intervjuer denna period
+              <span className="font-medium text-ink-1">{report.totals.interviews}</span> intervjuer denna period
             </div>
           )}
         </div>
 
         {!report ? (
-          <div className="space-y-3 animate-pulse">
-            <div className="h-4 bg-neutral-100 rounded w-1/3" />
-            <div className="h-3 bg-neutral-100 rounded w-2/3" />
-            <div className="h-3 bg-neutral-100 rounded w-1/2" />
-          </div>
+          <LoadingSkeleton variant="text" count={3} label="Läser in rapporten" />
         ) : locked ? (
           /* Loggningen är gratis för alltid, uttaget av den sammanställda
              rapporten ingår i Premium. Servern har redan utelämnat raderna,
@@ -365,8 +356,8 @@ export default function ShareTab({ applications }: ShareTabProps) {
             )}
 
             {stats && stats.totalApplications > 0 && (
-              <div className="border-t border-neutral-200 pt-4">
-                <div className="mb-2 text-sm font-semibold text-neutral-900">
+              <div className="border-t border-kant pt-4">
+                <div className="mb-2 text-sm font-medium text-ink-1">
                   Hela din sökning i siffror
                 </div>
                 <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -378,7 +369,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
               </div>
             )}
 
-            <div className="border-t border-neutral-200 pt-3 text-xs text-neutral-500">
+            <div className="border-t border-kant pt-3 text-meta text-ink-3">
               Genererad via jobbcoach.ai · {new Intl.DateTimeFormat('sv-SE', { dateStyle: 'long' }).format(new Date())}
             </div>
           </div>
@@ -392,21 +383,21 @@ export default function ShareTab({ applications }: ShareTabProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
           >
-            <Printer className="h-4 w-4" strokeWidth={2} />
+            <Printer className="h-4 w-4" strokeWidth={1.75} />
             Skriv ut eller spara som PDF
           </button>
           <button
             type="button"
             onClick={handleCopySummary}
             disabled={!report}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 disabled:opacity-50"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:opacity-50"
           >
             {copied ? (
-              <Check className="h-4 w-4 text-emerald-700" strokeWidth={2} />
+              <Check className="h-4 w-4 text-positiv" strokeWidth={1.75} />
             ) : (
-              <ClipboardCopy className="h-4 w-4" strokeWidth={2} />
+              <ClipboardCopy className="h-4 w-4" strokeWidth={1.75} />
             )}
             {copied ? 'Kopierad' : 'Kopiera som text till AF-rapporten'}
           </button>
@@ -414,9 +405,9 @@ export default function ShareTab({ applications }: ShareTabProps) {
       )}
 
       {/* Delningslänk */}
-      <div className="bg-white rounded-xl border border-orange-200/50 p-4 sm:p-6">
-        <h3 className="text-[14.5px] font-bold text-neutral-900">Dela med en länk</h3>
-        <p className="text-[13px] text-neutral-500 mt-1">
+      <div className="rounded-xl border border-kant bg-panel p-4">
+        <h3 className="text-kort text-ink-1">Dela med en länk</h3>
+        <p className="mt-1 text-sm text-ink-2">
           Den som får länken ser din statistik utan att logga in. Länken gäller i 30 dagar och du
           kan återkalla den när du vill.
         </p>
@@ -424,7 +415,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
         {shareUrl ? (
           <div className="mt-3 space-y-2.5">
             <div className="flex items-center gap-2">
-              <div className="flex-1 min-w-0 px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-600 truncate font-mono">
+              <div className="min-w-0 flex-1 truncate rounded-lg border border-kant bg-insunken px-3 py-2 font-mono text-meta text-ink-2 shadow-insunken">
                 {shareUrl}
               </div>
               <button
@@ -433,28 +424,28 @@ export default function ShareTab({ applications }: ShareTabProps) {
                   navigator.clipboard.writeText(shareUrl).then(() => success('Länken är kopierad.', 2500));
                 }}
                 aria-label="Kopiera länken"
-                className="flex-shrink-0 w-11 h-11 rounded-xl border border-neutral-200 bg-white flex items-center justify-center text-neutral-500 hover:border-neutral-300 transition-all"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark"
               >
-                <ClipboardCopy className="w-4 h-4" strokeWidth={2.25} />
+                <ClipboardCopy className="w-4 h-4" strokeWidth={1.75} />
               </button>
             </div>
             <button
               type="button"
               onClick={handleRevoke}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-neutral-500 hover:text-red-600 transition-colors"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-fel"
             >
-              <Trash2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <Trash2 className="w-3.5 h-3.5" strokeWidth={1.75} />
               Återkalla länken
             </button>
           </div>
         ) : (
           <div className="mt-3 space-y-3">
-            <label className="flex items-center gap-2.5 text-[13px] text-neutral-700 cursor-pointer">
+            <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm text-ink-2">
               <input
                 type="checkbox"
                 checked={shareCompanies}
                 onChange={(e) => setShareCompanies(e.target.checked)}
-                className="w-4 h-4 rounded border-neutral-300 text-orange-600 focus:ring-orange-400"
+                className="h-4 w-4 rounded border-kant-stark text-ink-1 focus:ring-ink-1"
               />
               Visa lista med företag och tjänster (annars bara siffror)
             </label>
@@ -462,10 +453,10 @@ export default function ShareTab({ applications }: ShareTabProps) {
               type="button"
               onClick={handleCreateShareLink}
               disabled={isSharing}
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-white text-[13.5px] font-bold transition-all min-h-[48px] disabled:opacity-60 bg-orange-600 hover:bg-orange-700"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
             >
-              <Link2 className="w-4 h-4" strokeWidth={2.25} />
-              {isSharing ? 'Skapar…' : 'Skapa delningslänk'}
+              <Link2 className="w-4 h-4" strokeWidth={1.75} />
+              {isSharing ? 'Skapar' : 'Skapa delningslänk'}
             </button>
           </div>
         )}
@@ -473,16 +464,16 @@ export default function ShareTab({ applications }: ShareTabProps) {
 
       {/* Sankey: bara på större skärmar, mobilen har trattvyn */}
       {stats && stats.totalApplications > 0 && (
-        <div className="hidden md:block bg-white rounded-xl border border-orange-200/50 p-6">
-          <h3 className="text-[14.5px] font-bold text-neutral-900 mb-1">Flödesdiagram över din sökning</h3>
-          <p className="text-[13px] text-neutral-500 mb-4">
+        <div className="hidden rounded-xl border border-kant bg-panel p-4 md:block">
+          <h3 className="mb-1 text-kort text-ink-1">Flödesdiagram över din sökning</h3>
+          <p className="mb-4 text-sm text-ink-2">
             Varje flöde är proportionellt mot antalet ansökningar. Följer med på utskriften av
             statistiken.
           </p>
           <SankeyChart stats={stats} />
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -490,8 +481,8 @@ export default function ShareTab({ applications }: ShareTabProps) {
 function ReportTotal({ label, value }: { label: string; value: number }) {
   return (
     <div>
-      <dd className="text-lg font-semibold leading-tight tabular-nums text-neutral-900">{value}</dd>
-      <dt className="mt-0.5 text-sm text-neutral-600">{label}</dt>
+      <dd className="text-tal tabular-nums text-ink-1">{value}</dd>
+      <dt className="mt-0.5 text-meta text-ink-3">{label}</dt>
     </div>
   );
 }

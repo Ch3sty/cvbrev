@@ -1,37 +1,32 @@
 'use client'
 
 /**
- * Sektion 1: "Så presenteras du" (profil-spec, avsnitt 2).
+ * Sektion 1: "Så presenteras du" (docs/design/koncept-2026-09-13.md, ram 2).
  *
- * Går rakt in i varje brev och CV, därför överst. Fältordningen följer hur
- * informationen möter rekryteraren: namn, e-post, telefon, ort, foto,
- * LinkedIn. Togglarna ligger direkt under sitt fält.
+ * Vyns aktiva sektion: tråden längs huvudet och vyns enda marginalplatta.
+ * Fältordningen följer hur informationen möter rekryteraren: namn, e-post,
+ * telefon, ort, foto, LinkedIn. Togglarna ligger direkt under sitt fält.
+ * Brevhuvud-miniatyren ligger sist, i ett insunket fält.
  *
  * Varje fält sparar sig självt på blur. Ingen SaveBar.
  */
 
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import {
-  ProfileCard,
-  ProfileTextField,
-  ProfileToggle,
-  FieldStatusLine,
-} from './ProfileField'
+import { ProfileCard, ProfileTextField, ProfileToggle, FieldStatusLine, INPUT_CLASS } from './ProfileField'
 import ProfilePhotoPlaceholder from './illustrations/ProfilePhotoPlaceholder'
 import BrevhuvudPreview from './illustrations/BrevhuvudPreview'
-import { SectionPresentationIcon } from './illustrations/SectionIcons'
+import MarginPlate from '@/components/shell/MarginPlate'
+import { IlluPlattaPresentation } from '@/components/illustrations/TradenScener'
 import type { FieldSaveState } from './useFieldSave'
 
 /**
- * Fotouppladdningen ligger långt ner i kortet, under namn, e-post, telefon och
- * ort, alltså utanför första vyn på en telefon. Den bär hela filvalet med
- * beskärning och felhantering, så den laddas när den scrollas fram i stället
- * för i sidans första paket. Höjden reserveras så raderna under står stilla.
+ * Fotouppladdningen ligger långt ner i kortet, utanför första vyn på en
+ * telefon. Den laddas när den scrollas fram i stället för i sidans första
+ * paket. Höjden reserveras så raderna under står stilla.
  */
 const InlineProfilePhotoUpload = dynamic(
-  () =>
-    import('./InlineProfilePhotoUpload').then((m) => m.InlineProfilePhotoUpload),
+  () => import('./InlineProfilePhotoUpload').then((m) => m.InlineProfilePhotoUpload),
   { loading: () => <div className="min-h-[96px]" aria-hidden="true" /> }
 )
 
@@ -74,30 +69,36 @@ export default function PresentationSection(props: PresentationSectionProps) {
   return (
     <ProfileCard
       id="presentation"
+      active
       title="Så presenteras du"
-      description="De här uppgifterna sparas separat från dina dokument och skickas aldrig till någon AI. Vi lägger in dem i brev och CV efteråt, med vår egen kod."
-      icon={SectionPresentationIcon}
+      description="Namn, telefon och ort läggs in i brev och CV efteråt, med vår egen kod. De skickas aldrig till någon AI."
+      plate={
+        <MarginPlate>
+          <IlluPlattaPresentation size={48} />
+        </MarginPlate>
+      }
       aside={
-        <figure className="rounded-lg border border-neutral-200 bg-neutral-50 p-3">
-          <BrevhuvudPreview
-            fullName={props.fullName}
-            phone={props.phone}
-            location={props.location}
-            hasPhoto={Boolean(props.profilePhotoUrl)}
-            showPhone={props.includePhoneInLetters}
-            showLocation={props.includeLocationInLetters}
-            className="h-auto w-full text-neutral-800"
-          />
-          <figcaption className="mt-2 text-xs text-neutral-500">
-            Så här börjar dina brev och ditt CV. Miniatyren fylls i medan du
-            skriver.
+        <figure className="rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+          <div className="rounded-md border border-kant bg-panel p-3">
+            <BrevhuvudPreview
+              fullName={props.fullName}
+              phone={props.phone}
+              location={props.location}
+              hasPhoto={Boolean(props.profilePhotoUrl)}
+              showPhone={props.includePhoneInLetters}
+              showLocation={props.includeLocationInLetters}
+              className="h-auto w-full text-ink-1"
+            />
+          </div>
+          <figcaption className="mt-2 text-meta text-ink-3">
+            Så börjar dina brev och ditt CV. Fylls i medan du skriver.
           </figcaption>
         </figure>
       }
     >
       <ProfileTextField
         label="Namn"
-        description="Står överst i dina personliga brev och i ditt CV. Utan namn har rekryteraren inget att sätta på ansökan."
+        description="Står överst i dina personliga brev och i ditt CV."
         value={props.fullName}
         onChange={props.onFullNameChange}
         onBlur={() => props.onSaveField('full_name')}
@@ -111,15 +112,11 @@ export default function PresentationSection(props: PresentationSectionProps) {
       />
 
       <div>
-        <label
-          htmlFor="profil-epost"
-          className="block text-sm font-medium text-neutral-900"
-        >
+        <label htmlFor="profil-epost" className="block text-sm font-medium text-ink-1">
           E-post
         </label>
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-          Din inloggning och den adress rekryteraren svarar på. Ändras under
-          Konto.
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
+          Din inloggning och den adress rekryteraren svarar på. Ändras under Konto.
         </p>
         <input
           id="profil-epost"
@@ -127,14 +124,14 @@ export default function PresentationSection(props: PresentationSectionProps) {
           value={props.email}
           disabled
           autoComplete="email"
-          className="mt-2 block h-11 w-full cursor-not-allowed rounded-lg border border-neutral-200 bg-neutral-50 px-4 text-base text-neutral-600"
+          className={INPUT_CLASS}
         />
       </div>
 
       <div>
         <ProfileTextField
           label="Telefon"
-          description="Hamnar i brevhuvudet och i CV:t. Utan telefon kan rekryteraren inte ringa dig."
+          description="Hamnar i brevhuvudet och i CV:t, så rekryteraren kan ringa dig."
           value={props.phone}
           onChange={props.onPhoneChange}
           onBlur={() => props.onSaveField('phone')}
@@ -187,13 +184,13 @@ export default function PresentationSection(props: PresentationSectionProps) {
       </div>
 
       <div>
-        <p className="block text-sm font-medium text-neutral-900">
+        <p className="flex items-baseline gap-2 text-sm font-medium text-ink-1">
           Profilbild
-          <span className="ml-1 font-normal text-neutral-500">(valfritt)</span>
+          <span className="text-meta font-normal text-ink-3">Valfritt</span>
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-          Används i de CV-mallar som har plats för foto. Foto är frivilligt i
-          Sverige och påverkar inte ATS-läsningen.
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
+          Används i de CV-mallar som har plats för foto. Foto är frivilligt i Sverige och påverkar
+          inte ATS-läsningen.
         </p>
 
         <div className="mt-2 flex items-start gap-4">
@@ -204,13 +201,11 @@ export default function PresentationSection(props: PresentationSectionProps) {
                 alt=""
                 width={72}
                 height={72}
-                className="h-[72px] w-[72px] rounded-lg border border-neutral-200 object-cover"
+                className="h-[72px] w-[72px] rounded-lg border border-kant object-cover"
               />
             ) : (
-              /* Streckad ram och illustration i stället för en tom ruta: en
-                 platshållare ska se ut som en plats, inte som ett fel. */
-              <div className="flex h-[72px] w-[72px] items-center justify-center rounded-lg border border-dashed border-neutral-300 bg-neutral-50">
-                <ProfilePhotoPlaceholder className="h-10 w-10 text-neutral-400" />
+              <div className="flex h-[72px] w-[72px] items-center justify-center rounded-lg border border-dashed border-kant-stark bg-insunken">
+                <ProfilePhotoPlaceholder className="h-10 w-10 text-ink-3" />
               </div>
             )}
           </div>
@@ -234,11 +229,7 @@ export default function PresentationSection(props: PresentationSectionProps) {
 
         <FieldStatusLine
           state={photoState}
-          hint={
-            props.photoFromGoogle && props.profilePhotoUrl
-              ? 'Hämtad från ditt Google-konto'
-              : undefined
-          }
+          hint={props.photoFromGoogle && props.profilePhotoUrl ? 'Hämtad från ditt Google-konto' : undefined}
         />
       </div>
 

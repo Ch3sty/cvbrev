@@ -3,8 +3,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
 
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
@@ -312,7 +310,7 @@ export default function MinaCvClient({
           !limitReached ? (
             <a
               href="#upload-zone"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
             >
               Ladda upp CV
             </a>
@@ -339,7 +337,7 @@ export default function MinaCvClient({
             action={
               <a
                 href="#upload-zone"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
                 Ladda upp CV
               </a>
@@ -378,9 +376,7 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <h2 className="mb-4 text-lg font-semibold tracking-tight text-neutral-900">
-              Dina CV
-            </h2>
+            <h2 className="mb-2 text-sm font-medium text-ink-3">Dina CV</h2>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {cvs.map((cv, i) => {
@@ -463,20 +459,15 @@ function UploadCard({
   subdued?: boolean;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-5"
-    >
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="text-base font-semibold tracking-tight text-neutral-900">
+        <h2 className="text-kort text-ink-1">
           {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV'}
         </h2>
-        <span className="text-sm text-neutral-500">Tar 30 sekunder</span>
+        <span className="text-meta text-ink-3">Tar 30 sekunder</span>
       </div>
       {children}
-    </motion.div>
+    </section>
   );
 }
 
@@ -487,16 +478,13 @@ function TrustChips() {
     'Krypterat och privat',
   ];
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-1 text-sm text-neutral-500">
+    <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-1 text-meta text-ink-3">
       {items.map((label) => (
-        <span key={label} className="inline-flex items-center gap-1.5">
-          <CheckCircle2
-            className="w-3.5 h-3.5 text-emerald-500"
-            strokeWidth={2.5}
-          />
+        <li key={label} className="inline-flex items-center gap-1.5">
+          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink-3" />
           {label}
-        </span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

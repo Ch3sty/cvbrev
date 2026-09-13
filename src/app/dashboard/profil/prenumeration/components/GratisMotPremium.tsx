@@ -14,8 +14,8 @@ function Cell({ value, strong }: { value: string; strong?: boolean }) {
   const isNo = value.toLowerCase() === 'nej'
   return (
     <td
-      className={`py-2 px-3 text-sm align-top ${
-        isNo ? 'text-neutral-400' : strong ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+      className={`px-3 py-2 align-top text-sm ${
+        isNo ? 'text-ink-3' : strong ? 'font-medium text-ink-1' : 'text-ink-2'
       }`}
     >
       {value}
@@ -25,40 +25,31 @@ function Cell({ value, strong }: { value: string; strong?: boolean }) {
 
 export default function GratisMotPremium() {
   return (
-    <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-6">
-      <h2 className="text-lg font-semibold text-neutral-900 tracking-tight">
-        Gratis mot Premium
-      </h2>
-      <p className="text-sm text-neutral-600 mt-1">{COMPARISON_INTRO}</p>
+    <section className="rounded-xl border border-kant bg-panel p-4">
+      <h2 className="text-kort text-ink-1">Gratis mot Premium</h2>
+      <p className="mt-1 text-sm text-ink-2">{COMPARISON_INTRO}</p>
 
       <div className="mt-4 overflow-x-auto">
         <table className="w-full min-w-[420px] border-collapse">
           <thead>
-            <tr className="border-b border-neutral-200">
-              <th className="py-2 px-3 text-left text-sm font-semibold text-neutral-900 w-1/2">
+            <tr className="border-b border-kant">
+              <th className="w-1/2 px-3 py-2 text-left text-sm font-medium text-ink-1">
                 Funktion
               </th>
-              <th className="py-2 px-3 text-left text-sm font-semibold text-neutral-600">
-                Gratis
-              </th>
-              <th className="py-2 px-3 text-left text-sm font-semibold text-orange-700">
-                Premium
-              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium text-ink-2">Gratis</th>
+              <th className="px-3 py-2 text-left text-sm font-medium text-ink-1">Premium</th>
             </tr>
           </thead>
           {COMPARISON.map((group) => (
             <tbody key={group.title}>
               <tr>
-                <td
-                  colSpan={3}
-                  className="pt-4 pb-1 px-3 text-xs font-semibold uppercase tracking-wide text-neutral-500"
-                >
+                <td colSpan={3} className="px-3 pb-1 pt-4 text-steg uppercase text-ink-3">
                   {group.title}
                 </td>
               </tr>
               {group.rows.map((row) => (
-                <tr key={row.label} className="border-b border-neutral-100 last:border-0">
-                  <td className="py-2 px-3 text-sm text-neutral-700">{row.label}</td>
+                <tr key={row.label} className="border-b border-kant last:border-0">
+                  <td className="px-3 py-2 text-sm text-ink-2">{row.label}</td>
                   <Cell value={row.free} />
                   <Cell value={row.premium} strong />
                 </tr>

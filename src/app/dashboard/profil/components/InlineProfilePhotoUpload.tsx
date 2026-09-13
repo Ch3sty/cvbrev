@@ -1,8 +1,12 @@
 'use client';
 
+/**
+ * Fotouppladdning inline i profilen. Två knappar i Trådens form: en
+ * sekundär "Ladda upp" eller "Byt bild" och en textlänk "Ta bort".
+ * Släppytan blir kant-stark vid drag. Samma API-anrop som förut.
+ */
+
 import { useState, useRef } from 'react';
-import { Upload, Trash2, User } from 'lucide-react';
-import Image from 'next/image';
 
 interface InlineProfilePhotoUploadProps {
   currentPhotoUrl?: string;
@@ -35,7 +39,7 @@ export function InlineProfilePhotoUpload({
     }
     if (file.size > maxSizeBytes) {
       const maxSizeMB = Math.round(maxSizeBytes / (1024 * 1024));
-      return `Bilden är för stor. Max ${maxSizeMB}MB tillåts`;
+      return `Bilden är för stor. Max ${maxSizeMB} MB tillåts`;
     }
     return null;
   };
@@ -116,72 +120,32 @@ export function InlineProfilePhotoUpload({
           setIsDragging(true);
         }}
         onDragLeave={() => setIsDragging(false)}
-        className="flex items-center gap-3 rounded-xl bg-white px-3 py-2.5 transition-all"
-        style={{
-          border: isDragging
-            ? '2px dashed #F97316'
-            : '1px solid rgba(249, 115, 22, 0.25)',
-        }}
+        className={`flex flex-wrap items-center gap-2 rounded-lg border border-dashed p-3 transition-colors duration-[120ms] ${
+          isDragging ? 'border-kant-stark bg-insunken' : 'border-kant bg-panel'
+        }`}
       >
-        {/* Förhandsvisning */}
-        <div
-          className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0"
-          style={{
-            border: isDragging
-              ? '2px solid #F97316'
-              : '1px solid rgba(249, 115, 22, 0.25)',
-          }}
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => fileInputRef.current?.click()}
+          className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {currentPhotoUrl && !busy ? (
-            <Image
-              src={currentPhotoUrl}
-              alt="Profilbild"
-              fill
-              sizes="48px"
-              className="object-cover"
-            />
-          ) : (
-            <div
-              className="w-full h-full flex items-center justify-center"
-              style={{
-                background: '#FFFFFF',
-              }}
-            >
-              <User className="w-5 h-5 text-orange-400" strokeWidth={2} />
-            </div>
-          )}
-        </div>
+          {busy ? 'Laddar upp' : currentPhotoUrl ? 'Byt bild' : 'Ladda upp'}
+        </button>
 
-        {/* Knappar */}
-        <div className="flex flex-wrap items-center gap-2 flex-1 min-w-0">
+        {currentPhotoUrl && (
           <button
             type="button"
             disabled={busy}
-            onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center justify-center gap-1.5 h-11 px-3 rounded-lg text-white font-semibold text-xs transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{
-              background: '#EA580C',
-            }}
+            onClick={handleRemovePhoto}
+            className="inline-flex min-h-11 items-center px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1 disabled:opacity-60"
           >
-            <Upload className="w-3 h-3" strokeWidth={2.5} />
-            {busy ? 'Laddar upp…' : currentPhotoUrl ? 'Byt bild' : 'Ladda upp'}
+            Ta bort
           </button>
-
-          {currentPhotoUrl && (
-            <button
-              type="button"
-              disabled={busy}
-              onClick={handleRemovePhoto}
-              className="inline-flex items-center justify-center gap-1 h-11 px-3 rounded-lg text-neutral-500 hover:text-neutral-700 hover:bg-neutral-50 font-medium text-xs transition-all disabled:opacity-50"
-            >
-              <Trash2 className="w-3 h-3" strokeWidth={2.25} />
-              Ta bort
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
-      <p className="text-xs text-neutral-500 mt-2 leading-relaxed">
+      <p className="mt-2 text-meta text-ink-3">
         Du väljer själv när du skapar varje CV om bilden ska vara med. JPG, PNG eller WebP, max 2 MB.
       </p>
 

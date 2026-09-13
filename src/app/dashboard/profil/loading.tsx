@@ -1,12 +1,14 @@
-import { SkeletonPage, SkeletonHero, SkeletonBlock } from '@/components/dashboard/skeletons/PageSkeleton'
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 
-// Profilsidan: hero + sektionskort med formulärfält.
+// Profilsidan: sidhuvud, statusrad och två sektionskort. Skelettet står
+// stilla i insunken, bara tråden rör sig.
 export default function ProfilLoading() {
   return (
-    <SkeletonPage>
-      <SkeletonHero />
-      <SkeletonBlock height={420} />
-      <SkeletonBlock height={220} />
-    </SkeletonPage>
+    <div className="space-y-4 sm:space-y-6" aria-label="Laddar profilen">
+      <LoadingSkeleton variant="text" count={2} label="Laddar profilen" />
+      <LoadingSkeleton variant="statusRow" />
+      <LoadingSkeleton variant="card" />
+      <LoadingSkeleton variant="card" />
+    </div>
   )
 }

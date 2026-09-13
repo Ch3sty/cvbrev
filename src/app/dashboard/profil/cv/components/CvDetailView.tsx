@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
   GraduationCap,
@@ -9,7 +8,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  AlertCircle,
   Loader2,
   ChevronRight,
 } from 'lucide-react';
@@ -87,17 +85,10 @@ export default function CvDetailView({
     contact && (contact.email || contact.phone || contact.address);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="relative space-y-5 sm:space-y-6"
-    >
-      <DotPatternBg />
-
+    <div className="space-y-5 sm:space-y-6">
       {profile && (
         <Section title="Profil" icon={UserIcon}>
-          <p className="text-sm sm:text-[15px] text-neutral-700 leading-relaxed">
+          <p className="text-sm leading-relaxed text-ink-2">
             {profile}
           </p>
         </Section>
@@ -136,18 +127,12 @@ export default function CvDetailView({
       )}
 
       {!hasRoles && !hasEducation && !hasSkills && !profile && !hasContact && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4 flex items-start gap-3">
-          <AlertCircle
-            className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"
-            strokeWidth={2.25}
-          />
-          <p className="text-sm text-amber-900 leading-snug">
-            Vi kunde inte tolka detta CV strukturerat. Kontrollera att råtexten
-            ser rimlig ut, eller ladda upp en ny version.
-          </p>
-        </div>
+        <p className="rounded-xl border border-kant bg-panel p-4 text-sm leading-snug text-ink-2">
+          Vi kunde inte tolka detta CV strukturerat. Kontrollera att råtexten
+          ser rimlig ut, eller ladda upp en ny version.
+        </p>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -183,49 +168,30 @@ function UnstructuredPrompt({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="rounded-xl border border-orange-200/60 bg-orange-50/30 p-5 sm:p-6 text-center"
-    >
-      <p className="text-sm text-neutral-700 leading-relaxed mb-4">
-        Vi har inte tolkat det här CV:t än. Klicka för att strukturera det så
-        kan vi visa det snyggt.
+    <div className="rounded-xl border border-kant bg-panel p-4 text-center sm:p-5">
+      <p className="mb-4 text-sm leading-relaxed text-ink-2">
+        Vi har inte tolkat det här CV:t än. Strukturera det så visar vi
+        erfarenhet, utbildning och kompetenser var för sig.
       </p>
       <button
         onClick={handleStructure}
         disabled={loading}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white font-semibold text-sm transition-all touch-manipulation min-h-[44px] disabled:opacity-60"
-        style={{
-          background: '#EA580C',
-        }}
+        className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
       >
         {loading ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            Strukturerar...
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Strukturerar
           </>
         ) : (
           <>
             Strukturera nu
-            <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+            <ChevronRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
           </>
         )}
       </button>
-      <AnimatePresence>
-        {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-3 text-xs text-red-700"
-          >
-            {error}
-          </motion.p>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      {error && <p className="mt-3 text-meta text-fel">{error}</p>}
+    </div>
   );
 }
 
@@ -240,13 +206,9 @@ function Section({
 }) {
   return (
     <section>
-      <div className="flex items-center gap-2 mb-2.5">
-        {Icon && (
-          <Icon className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-        )}
-        <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600">
-          {title}
-        </h4>
+      <div className="mb-2.5 flex items-center gap-2">
+        {Icon && <Icon className="h-4 w-4 text-ink-3" strokeWidth={1.75} aria-hidden="true" />}
+        <h4 className="text-steg uppercase text-ink-3">{title}</h4>
       </div>
       {children}
     </section>
@@ -260,33 +222,26 @@ function RoleItem({ role }: { role: ParsedRole }) {
   );
 
   return (
-    <li className="relative pl-5 border-l-2 border-orange-200">
+    <li className="relative border-l border-kant pl-5">
       <span
-        className="absolute -left-[7px] top-1 w-3 h-3 rounded-full"
-        style={{
-          background: '#EA580C',
-        }}
+        className="absolute -left-[3px] top-1.5 h-1.5 w-1.5 rounded-full bg-ink-3"
         aria-hidden="true"
       />
-      <h5 className="text-sm sm:text-base font-semibold text-neutral-900 leading-tight">
-        {role.title}
-      </h5>
-      <div className="text-xs sm:text-sm text-neutral-600 mt-0.5 flex flex-wrap items-center gap-x-1.5">
+      <h5 className="text-kort leading-tight text-ink-1">{role.title}</h5>
+      <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-meta text-ink-3">
         <span className="font-medium">{role.company}</span>
-        <span className="text-neutral-300">·</span>
+        <span aria-hidden="true">·</span>
         <span className="tabular-nums">{role.period}</span>
       </div>
       {description && (
-        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2">
-          {description}
-        </p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-2">{description}</p>
       )}
       {responsibilities.length > 0 && (
-        <ul className="flex flex-wrap gap-1.5 mt-2.5">
+        <ul className="mt-2.5 flex flex-wrap gap-1.5">
           {responsibilities.map((r, i) => (
             <li
               key={i}
-              className="px-2 py-0.5 rounded-full bg-neutral-50 border border-neutral-200 text-neutral-600 text-xs"
+              className="rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta text-ink-2"
             >
               {r}
             </li>
@@ -299,30 +254,25 @@ function RoleItem({ role }: { role: ParsedRole }) {
 
 function EducationItem({ education }: { education: ParsedEducation }) {
   return (
-    <li className="rounded-xl border border-neutral-200 bg-white p-3 flex items-start gap-3">
-      <div
-        className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-white"
-        style={{
-          background: '#EA580C',
-        }}
-      >
-        <GraduationCap className="w-4 h-4" strokeWidth={2.25} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-neutral-900 leading-tight">
-          {education.degree}
-        </p>
-        <p className="text-xs sm:text-sm text-neutral-600 mt-0.5">
+    <li className="flex items-start gap-3 rounded-xl border border-kant bg-panel p-3">
+      <GraduationCap
+        className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-3"
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="text-kort leading-tight text-ink-1">{education.degree}</p>
+        <p className="mt-0.5 text-meta text-ink-3">
           {education.institution}
           {education.period ? (
             <>
-              <span className="text-neutral-300 mx-1.5">·</span>
+              <span aria-hidden="true" className="mx-1.5">·</span>
               <span className="tabular-nums">{education.period}</span>
             </>
           ) : null}
         </p>
         {education.description && (
-          <p className="text-xs text-neutral-500 leading-snug mt-1">
+          <p className="mt-1 text-meta leading-snug text-ink-3">
             {education.description}
           </p>
         )}
@@ -342,23 +292,16 @@ function SkillCloud({ skills }: { skills: (string | { category?: string; skills?
     .map((s) => s.trim());
 
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {cleaned.map((skill, i) => {
-        const isHighlighted = i < 5;
-        return (
-          <span
-            key={`${skill}-${i}`}
-            className={`px-2.5 py-1 rounded-full text-xs font-medium border ${
-              isHighlighted
-                ? 'bg-orange-100 border-orange-200 text-orange-700'
-                : 'bg-neutral-100 border-neutral-200 text-neutral-600'
-            }`}
-          >
-            {skill}
-          </span>
-        );
-      })}
-    </div>
+    <ul className="flex flex-wrap gap-1.5">
+      {cleaned.map((skill, i) => (
+        <li
+          key={`${skill}-${i}`}
+          className="rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2"
+        >
+          {skill}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -383,12 +326,16 @@ function ContactRow({
   return (
     <ul className="flex flex-wrap gap-x-5 gap-y-2">
       {items.map(({ Icon, value, href }, i) => (
-        <li key={i} className="inline-flex items-center gap-2 text-sm text-neutral-700">
-          <Icon className="w-3.5 h-3.5 text-neutral-400 flex-shrink-0" strokeWidth={2.25} />
+        <li key={i} className="inline-flex items-center gap-2 text-sm text-ink-2">
+          <Icon
+            className="h-4 w-4 flex-shrink-0 text-ink-3"
+            strokeWidth={1.75}
+            aria-hidden="true"
+          />
           {href ? (
             <a
               href={href}
-              className="hover:text-orange-700 transition-colors break-all"
+              className="break-all underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
             >
               {value}
             </a>
@@ -398,26 +345,5 @@ function ContactRow({
         </li>
       ))}
     </ul>
-  );
-}
-
-function DotPatternBg() {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full opacity-40 pointer-events-none -z-0"
-      aria-hidden="true"
-    >
-      <pattern
-        id="cv-detail-dots"
-        x="0"
-        y="0"
-        width="32"
-        height="32"
-        patternUnits="userSpaceOnUse"
-      >
-        <circle cx="16" cy="16" r="1" fill="#FB923C" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#cv-detail-dots)" opacity="0.08" />
-    </svg>
   );
 }

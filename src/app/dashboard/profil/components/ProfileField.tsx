@@ -1,38 +1,27 @@
 'use client'
 
 /**
- * Fältprimitiver för profilsidan (profil-spec, avsnitt 2, 4 och 5).
+ * Fältprimitiver för profilsidan i Tråden (docs/designsystem.md, "Fält").
  *
- * Ordningen i varje fält är etikett, förklaring, inmatning. Förklaringen står
- * alltså före fältet, så den läses innan man fyller i och inte efteråt.
+ * Ordningen i varje fält är etikett, förklaring, inmatning. Fälten är
+ * insunkna i papperet: insunken med 1 px inre överkant, fokus lyfter fältet
+ * till panel med kant-stark och en fokusring i accent. Toggles i ink-1.
  *
  * Status visas per fält som en kort rad under inmatningen, aldrig som en
- * global bar. Vid fel behåller fältet sitt värde och raden säger vad som gick
- * fel.
+ * global bar. Sparat i positiv, fel i fel.
  */
 
-import { useId, type ComponentType, type ReactNode } from 'react'
+import { useId, type ReactNode } from 'react'
 import type { FieldSaveState } from './useFieldSave'
+
+export const INPUT_CLASS =
+  'mt-2 block h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:text-ink-3 aria-[invalid=true]:border-fel-kant aria-[invalid=true]:bg-panel'
 
 /* ------------------------------------------------------------------ etikett */
 
-/**
- * Liten etikett i stället för "(obligatoriskt)" inom parentes. En parentes
- * efter rubriken läses som en del av etiketten; en egen liten ruta läses som
- * en egenskap hos fältet, vilket är vad det är.
- */
+/** Liten etikett i metadata i stället för "(obligatoriskt)" inom parentes. */
 export function FieldTag({ required }: { required?: boolean }) {
-  const tone = required
-    ? 'bg-orange-50 text-orange-700'
-    : 'bg-neutral-100 text-neutral-600'
-
-  return (
-    <span
-      className={`inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium ${tone}`}
-    >
-      {required ? 'Krävs' : 'Valfritt'}
-    </span>
-  )
+  return <span className="text-meta font-normal text-ink-3">{required ? 'Krävs' : 'Valfritt'}</span>
 }
 
 /* ---------------------------------------------------------------- statusrad */
@@ -47,27 +36,27 @@ export function FieldStatusLine({
 }) {
   if (state.status === 'error') {
     return (
-      <p className="mt-1.5 text-sm text-red-700" role="alert">
+      <p className="mt-1.5 text-meta text-fel" role="alert">
         {state.message}
       </p>
     )
   }
   if (state.status === 'saving') {
     return (
-      <p className="mt-1.5 text-sm text-neutral-500" aria-live="polite">
+      <p className="mt-1.5 text-meta text-ink-3" aria-live="polite">
         Sparar
       </p>
     )
   }
   if (state.status === 'saved') {
     return (
-      <p className="mt-1.5 text-sm text-emerald-700" aria-live="polite">
+      <p className="mt-1.5 text-meta text-positiv" aria-live="polite">
         Sparat
       </p>
     )
   }
   if (hint) {
-    return <p className="mt-1.5 text-sm text-neutral-500">{hint}</p>
+    return <p className="mt-1.5 text-meta text-ink-3">{hint}</p>
   }
   return null
 }
@@ -118,17 +107,12 @@ export function ProfileTextField({
 
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="flex items-center gap-2 text-sm font-medium text-neutral-900"
-      >
+      <label htmlFor={id} className="flex items-baseline gap-2 text-sm font-medium text-ink-1">
         {label}
         <FieldTag required={required} />
       </label>
 
-      <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-        {description}
-      </p>
+      <p className="mt-1 text-sm leading-[22px] text-ink-2">{description}</p>
 
       <input
         id={id}
@@ -144,7 +128,7 @@ export function ProfileTextField({
         autoCapitalize={autoCapitalize}
         maxLength={maxLength}
         aria-invalid={state.status === 'error' || undefined}
-        className="mt-2 block h-11 w-full rounded-lg border border-neutral-200 bg-white px-4 text-base text-neutral-900 placeholder:text-neutral-400 transition-colors focus:border-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-50 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-600"
+        className={INPUT_CLASS}
       />
 
       <FieldStatusLine state={state} hint={hint} />
@@ -163,54 +147,66 @@ interface ToggleProps {
   disabled?: boolean
 }
 
-/**
- * Växeln ligger direkt under sitt fält, aldrig i en egen grupp: utan sin
- * referent vet man inte vad "Ta med i brev" syftar på. Hela raden är 44 px
- * hög även om själva växeln är 24.
- */
-export function ProfileToggle({
-  label,
-  description,
-  checked,
-  onChange,
-  state,
-  disabled,
-}: ToggleProps) {
+/** Växeln i ink-1, direkt under sitt fält. Hela raden är 44 px hög. */
+export function ProfileToggle({ label, description, checked, onChange, state, disabled }: ToggleProps) {
   const labelId = useId()
 
   return (
-    <div className="mt-3 rounded-lg border border-neutral-200 p-3">
-      <div className="flex min-h-[44px] items-center justify-between gap-4">
+    <div className="mt-3 rounded-lg border border-kant p-3">
+      <div className="flex min-h-11 items-center justify-between gap-4">
         <div className="min-w-0">
-          <p id={labelId} className="text-sm font-medium text-neutral-900">
+          <p id={labelId} className="text-sm font-medium text-ink-1">
             {label}
           </p>
-          <p className="mt-0.5 text-sm leading-relaxed text-neutral-600">
-            {description}
-          </p>
+          <p className="mt-0.5 text-meta text-ink-3">{description}</p>
         </div>
 
-        <button
-          type="button"
-          role="switch"
-          aria-checked={checked}
-          aria-labelledby={labelId}
+        <ToggleSwitch
+          checked={checked}
           disabled={disabled || state.status === 'saving'}
-          onClick={() => onChange(!checked)}
-          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:opacity-60 ${
-            checked ? 'bg-orange-600' : 'bg-neutral-300'
-          }`}
-        >
-          <span
-            className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
-              checked ? 'translate-x-6' : 'translate-x-1'
-            }`}
-          />
-        </button>
+          labelledBy={labelId}
+          onChange={onChange}
+        />
       </div>
 
       <FieldStatusLine state={state} />
     </div>
+  )
+}
+
+/** Själva växeln: ink-1 när på, kant-stark när av. 160 ms. */
+export function ToggleSwitch({
+  checked,
+  onChange,
+  disabled,
+  labelledBy,
+  label,
+}: {
+  checked: boolean
+  onChange: (next: boolean) => void
+  disabled?: boolean
+  labelledBy?: string
+  label?: string
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-labelledby={labelledBy}
+      aria-label={label}
+      disabled={disabled}
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-[160ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-60 ${
+        checked ? 'bg-ink-1' : 'bg-kant-stark'
+      }`}
+    >
+      <span
+        className={`inline-block h-4 w-4 rounded-full bg-panel transition-transform duration-[160ms] ${
+          checked ? 'translate-x-6' : 'translate-x-1'
+        }`}
+      />
+    </button>
   )
 }
 
@@ -220,7 +216,8 @@ export function ProfileCard({
   id,
   title,
   description,
-  icon: Icon,
+  plate,
+  active,
   aside,
   children,
 }: {
@@ -228,32 +225,31 @@ export function ProfileCard({
   title: string
   /** En rad som säger var datan används. */
   description: string
-  /** 48 px sektionsikon ur primitives-systemet. */
-  icon?: ComponentType<{ className?: string }>
-  /** Valfritt innehåll under rubriken, till exempel en levande miniatyr. */
+  /** Marginalplattan. En per vy, bara på den aktiva sektionen. */
+  plate?: ReactNode
+  /** Aktiv sektion: tråden längs sektionshuvudet. */
+  active?: boolean
+  /** Valfritt innehåll under huvudet, till exempel en levande miniatyr. */
   aside?: ReactNode
   children: ReactNode
 }) {
   return (
     <section
       id={id}
-      className="scroll-mt-24 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6"
+      className={`scroll-mt-24 rounded-xl border border-kant bg-panel ${active ? 'thread-head' : ''}`}
     >
-      <div className="flex items-start gap-3">
-        {Icon ? (
-          <Icon className="h-10 w-10 shrink-0 text-neutral-700 sm:h-12 sm:w-12" />
-        ) : null}
+      <div className={`flex items-start gap-3 p-4 sm:p-5 ${active ? 'thread-head-block' : ''}`}>
+        {plate}
         <div className="min-w-0 flex-1">
-          <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>
-          <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-            {description}
-          </p>
+          <h2 className="text-kort text-ink-1">{title}</h2>
+          <p className="mt-1 text-sm leading-[22px] text-ink-2">{description}</p>
         </div>
       </div>
 
-      {aside ? <div className="mt-4">{aside}</div> : null}
-
-      <div className="mt-5 space-y-5">{children}</div>
+      <div className="space-y-5 border-t border-kant p-4 sm:p-5">
+        {children}
+        {aside ? <div>{aside}</div> : null}
+      </div>
     </section>
   )
 }

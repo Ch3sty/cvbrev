@@ -9,11 +9,14 @@
  *
  * Flödet får aldrig hindra någon från att säga upp: "Avsluta ändå" finns
  * synlig i varje steg.
+ *
+ * Ramen är Sheet, så scroll-lås, Escape, safe area och fokus följer med.
+ * Ingen egen modal, ingen framer-motion.
  */
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Loader2, Check } from 'lucide-react';
+import Sheet from '@/components/shell/Sheet';
+import ChoiceCard from '@/components/shell/ChoiceCard';
 import {
   IlluCancelFickJobb,
   IlluCancelForDyrt,
@@ -36,6 +39,9 @@ const REASONS: Array<{
 ];
 
 const PORTAL_URL = '/api/stripe/create-portal-session';
+
+const PRIMARY =
+  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40';
 
 interface Props {
   open: boolean;
@@ -125,119 +131,82 @@ export default function CancelFlowModal({ open, onClose }: Props) {
     window.location.href = PORTAL_URL;
   };
 
-  if (!open) return null;
+  const title = offerDone ? 'Klart' : step === 1 ? 'Innan du avslutar' : 'Ett förslag';
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-900/40 p-0 sm:p-4"
-        onClick={close}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          transition={{ duration: 0.2 }}
-          className="w-full sm:max-w-md bg-white rounded-t-xl sm:rounded-xl border border-neutral-200 shadow-lg overflow-hidden"
-          onClick={(event) => event.stopPropagation()}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Avsluta prenumerationen"
-        >
-          <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
-            <h2 className="text-base font-semibold text-neutral-900">
-              {offerDone ? 'Klart' : step === 1 ? 'Innan du avslutar' : 'Ett förslag'}
-            </h2>
-            <button
-              onClick={close}
-              className="w-11 h-11 -mr-3 flex items-center justify-center text-neutral-400 hover:text-neutral-700"
-              aria-label="Stäng"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+    <Sheet
+      open={open}
+      onClose={close}
+      title={title}
+      size="md"
+      footer={
+        offerDone ? (
+          <button type="button" onClick={close} className={PRIMARY}>
+            Stäng
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={goToPortal}
+            className="inline-flex h-11 w-full items-center justify-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1 hover:decoration-ink-1"
+          >
+            Avsluta ändå
+          </button>
+        )
+      }
+    >
+      {offerDone ? (
+        <OfferConfirmation offer={offerDone} />
+      ) : step === 1 ? (
+        <>
+          <p className="mb-4 text-sm text-ink-2">
+            Vad fick dig att vilja avsluta? Svaret hjälper oss att bli bättre.
+          </p>
 
-          <div className="px-6 py-5">
-            {offerDone ? (
-              <OfferConfirmation offer={offerDone} onClose={close} />
-            ) : step === 1 ? (
-              <>
-                <p className="text-sm text-neutral-600 mb-4">
-                  Vad fick dig att vilja avsluta? Svaret hjälper oss att bli bättre.
-                </p>
-                <div className="space-y-2">
-                  {REASONS.map(({ key, label, Icon }) => (
-                    <button
-                      key={key}
-                      onClick={() => setReason(key)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border text-left text-sm transition-colors min-h-[44px] ${
-                        reason === key
-                          ? 'border-orange-300 bg-orange-50 text-neutral-900'
-                          : 'border-neutral-200 text-neutral-700 hover:border-neutral-300'
-                      }`}
-                    >
-                      <Icon size={24} className="flex-shrink-0 text-neutral-500" />
-                      <span className="font-medium">{label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                {reason === 'saknar_funktion' && (
-                  <div className="mt-3">
-                    <textarea
-                      value={freeText}
-                      onChange={(event) => setFreeText(event.target.value.slice(0, 300))}
-
-                      enterKeyHint="enter"
-
-                      inputMode="text"
-
-                      autoComplete="off"
-                      rows={3}
-                      maxLength={300}
-                      placeholder="Vad saknade du?"
-                      className="w-full px-3 py-2 text-base rounded-lg border border-neutral-200 focus:outline-none focus:border-orange-400 resize-none"
-                    />
-                    <p className="text-xs text-neutral-400 mt-1 tabular-nums">
-                      {freeText.length} / 300
-                    </p>
-                  </div>
-                )}
-
-                <button
-                  onClick={submitReason}
-                  disabled={!reason || saving}
-                  className="mt-5 w-full h-11 rounded-lg bg-orange-600 text-white text-sm font-semibold disabled:opacity-40 inline-flex items-center justify-center gap-2"
-                >
-                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                  Fortsätt
-                </button>
-              </>
-            ) : (
-              <OfferStep
-                reason={reason}
-                loading={offerLoading}
-                error={error}
-                onAccept={acceptOffer}
+          <div className="space-y-2" role="radiogroup" aria-label="Anledning">
+            {REASONS.map(({ key, label, Icon }) => (
+              <ChoiceCard
+                key={key}
+                selected={reason === key}
+                onSelect={() => setReason(key)}
+                title={label}
+                leading={<Icon size={24} />}
               />
-            )}
-
-            {!offerDone && (
-              <button
-                onClick={goToPortal}
-                className="mt-3 w-full h-11 text-sm font-medium text-neutral-500 hover:text-neutral-800 transition-colors"
-              >
-                Avsluta ändå
-              </button>
-            )}
+            ))}
           </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+
+          {reason === 'saknar_funktion' && (
+            <label className="mt-3 block">
+              <span className="mb-1 block text-sm font-medium text-ink-2">Vad saknade du?</span>
+              <textarea
+                value={freeText}
+                onChange={(event) => setFreeText(event.target.value.slice(0, 300))}
+                enterKeyHint="enter"
+                inputMode="text"
+                autoComplete="off"
+                rows={3}
+                maxLength={300}
+                className="w-full resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+              />
+              <span className="mt-1 block text-meta tabular-nums text-ink-3">
+                {freeText.length} av 300
+              </span>
+            </label>
+          )}
+
+          <button
+            type="button"
+            onClick={submitReason}
+            disabled={!reason || saving}
+            className={`mt-5 ${PRIMARY}`}
+          >
+            {saving ? 'Sparar' : 'Fortsätt'}
+          </button>
+        </>
+      ) : (
+        <OfferStep reason={reason} loading={offerLoading} error={error} onAccept={acceptOffer} />
+      )}
+    </Sheet>
   );
 }
 
@@ -255,24 +224,24 @@ function OfferStep({
   if (reason === 'fick_jobb') {
     return (
       <div>
-        <div className="flex items-start gap-3 mb-3">
-          <IlluPaus size={48} className="flex-shrink-0 text-neutral-600" />
+        <div className="mb-3 flex items-start gap-3">
+          <IlluPaus size={48} className="shrink-0 text-ink-2" />
           <div>
-            <h3 className="text-base font-semibold text-neutral-900">Grattis till jobbet</h3>
-            <p className="text-sm text-neutral-600 mt-1">
-              Vi pausar i tre månader så finns allt kvar om du behöver oss igen. Inget dras
-              under tiden.
+            <h3 className="text-kort text-ink-1">Grattis till jobbet</h3>
+            <p className="mt-1 text-sm text-ink-2">
+              Vi pausar i tre månader så finns allt kvar om du behöver oss igen. Inget dras under
+              tiden.
             </p>
           </div>
         </div>
-        {error && <p className="text-sm text-red-700 mb-2">{error}</p>}
+        {error && <p className="mb-2 text-sm text-fel">{error}</p>}
         <button
+          type="button"
           onClick={() => onAccept('pause')}
           disabled={loading}
-          className="w-full h-11 rounded-lg bg-orange-600 text-white text-sm font-semibold disabled:opacity-40 inline-flex items-center justify-center gap-2"
+          className={PRIMARY}
         >
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-          Pausa i tre månader
+          {loading ? 'Aktiverar' : 'Pausa i tre månader'}
         </button>
       </div>
     );
@@ -281,19 +250,19 @@ function OfferStep({
   if (reason === 'for_dyrt') {
     return (
       <div>
-        <h3 className="text-base font-semibold text-neutral-900">Om det var priset</h3>
-        <p className="text-sm text-neutral-600 mt-1 mb-3">
-          Vi kan möta dig halvvägs: 49 kr i månaden i två månader, sedan ordinarie 149 kr.
-          Du kan avsluta när du vill.
+        <h3 className="text-kort text-ink-1">Om det var priset</h3>
+        <p className="mb-3 mt-1 text-sm text-ink-2">
+          Vi kan möta dig halvvägs: 49 kr i månaden i två månader, sedan ordinarie 149 kr. Du kan
+          avsluta när du vill.
         </p>
-        {error && <p className="text-sm text-red-700 mb-2">{error}</p>}
+        {error && <p className="mb-2 text-sm text-fel">{error}</p>}
         <button
+          type="button"
           onClick={() => onAccept('discount')}
           disabled={loading}
-          className="w-full h-11 rounded-lg bg-orange-600 text-white text-sm font-semibold disabled:opacity-40 inline-flex items-center justify-center gap-2"
+          className={PRIMARY}
         >
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-          Fortsätt för 49 kr i månaden
+          {loading ? 'Aktiverar' : 'Fortsätt för 49 kr i månaden'}
         </button>
       </div>
     );
@@ -302,15 +271,12 @@ function OfferStep({
   if (reason === 'anvander_inte') {
     return (
       <div>
-        <h3 className="text-base font-semibold text-neutral-900">Kanske missade du det bästa</h3>
-        <p className="text-sm text-neutral-600 mt-1 mb-3">
-          De flesta som fastnar har inte kört CV-analysen. Den tar två minuter och visar vad
-          en rekryterare ser.
+        <h3 className="text-kort text-ink-1">Kanske missade du det bästa</h3>
+        <p className="mb-3 mt-1 text-sm text-ink-2">
+          De flesta som fastnar har inte kört CV-analysen. Den tar två minuter och visar vad en
+          rekryterare ser.
         </p>
-        <a
-          href="/dashboard/cv-analys"
-          className="w-full h-11 rounded-lg bg-orange-600 text-white text-sm font-semibold inline-flex items-center justify-center"
-        >
+        <a href="/dashboard/cv-analys" className={PRIMARY}>
           Kör analysen först
         </a>
       </div>
@@ -319,36 +285,25 @@ function OfferStep({
 
   return (
     <div>
-      <h3 className="text-base font-semibold text-neutral-900">Tack, det tar vi med oss</h3>
-      <p className="text-sm text-neutral-600 mt-1">
+      <h3 className="text-kort text-ink-1">Tack, det tar vi med oss</h3>
+      <p className="mt-1 text-sm text-ink-2">
         Vi läser allt som skrivs här och det styr vad vi bygger härnäst.
       </p>
     </div>
   );
 }
 
-function OfferConfirmation({ offer, onClose }: { offer: string; onClose: () => void }) {
+function OfferConfirmation({ offer }: { offer: string }) {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-2">
-        <span className="w-6 h-6 rounded-full bg-orange-50 border border-orange-200 inline-flex items-center justify-center">
-          <Check className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-        </span>
-        <h3 className="text-base font-semibold text-neutral-900">
-          {offer === 'pause' ? 'Prenumerationen är pausad' : 'Rabatten är aktiverad'}
-        </h3>
-      </div>
-      <p className="text-sm text-neutral-600 mb-4">
+      <h3 className="text-kort text-ink-1">
+        {offer === 'pause' ? 'Prenumerationen är pausad' : 'Rabatten är aktiverad'}
+      </h3>
+      <p className="mt-1 text-sm text-ink-2">
         {offer === 'pause'
           ? 'Vi hör av oss innan den startar igen om tre månader. Allt du skapat ligger kvar.'
           : 'De två kommande månaderna kostar 49 kr. Sedan gäller ordinarie pris igen.'}
       </p>
-      <button
-        onClick={onClose}
-        className="w-full h-11 rounded-lg border border-neutral-200 text-sm font-semibold text-neutral-800"
-      >
-        Stäng
-      </button>
     </div>
   );
 }

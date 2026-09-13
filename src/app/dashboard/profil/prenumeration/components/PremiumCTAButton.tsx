@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 // Lazy singleton: loadStripe() korr forst nar komponenten renderas, inte vid
 // modul-import, annars hamtas js.stripe.com pa sidor som bara prefetchar denna.
@@ -19,22 +19,19 @@ interface PremiumCTAButtonProps {
   priceId: string;
   apiEndpoint?: string;
   buttonText?: string;
-  variant?: 'primary' | 'inverse';
   className?: string;
 }
 
 /**
- * CTA-knapp för premium-uppgradering. Använder Stripe Embedded Checkout
- * men med vår egen orange/röd-DNA istället för pink/purple.
+ * CTA-knapp för premium-uppgradering, byggd på Stripe Embedded Checkout.
  *
- * - variant="primary", orange/röd-gradient, för vita kort och allmänna ytor
- * - variant="inverse", vit knapp med röd text, för användning på röd hero
+ * Knappen är vyns primära handling och därför ink, aldrig orange: orange är
+ * bläck i tråden, aldrig en fylld yta. Checkout-vyn ligger i en panel.
  */
 export function PremiumCTAButton({
   priceId,
   apiEndpoint = '/api/stripe/create-upgrade-session',
   buttonText = 'Uppgradera till Premium',
-  variant = 'primary',
   className = '',
 }: PremiumCTAButtonProps) {
   const [loading, setLoading] = useState(false);
@@ -81,18 +78,19 @@ export function PremiumCTAButton({
     return (
       <div className="w-full">
         <button
+          type="button"
           onClick={() => {
             setShowCheckout(false);
             setClientSecret(null);
             setLoading(false);
           }}
-          className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors min-h-[44px]"
+          className="mb-4 inline-flex h-11 items-center gap-2 text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
         >
-          <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+          <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
           Tillbaka
         </button>
 
-        <div className="bg-white rounded-xl border border-orange-200/50 overflow-hidden p-4 sm:p-6">
+        <div className="overflow-hidden rounded-xl border border-kant bg-panel p-4">
           <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret }}>
             <EmbeddedCheckout />
           </EmbeddedCheckoutProvider>
@@ -101,83 +99,30 @@ export function PremiumCTAButton({
     );
   }
 
-  const primaryStyles =
-    'bg-orange-600 hover:bg-orange-700 text-white hover:-translate-y-0.5 active:translate-y-0';
-  const inverseStyles =
-    'bg-white text-orange-700 hover:bg-orange-50 hover:-translate-y-0.5 active:translate-y-0';
-
   return (
     <div className="w-full">
       <button
+        type="button"
         onClick={handleUpgrade}
         disabled={loading}
-        className={`
-          inline-flex items-center justify-center gap-2 w-full px-6 py-3.5
-          rounded-xl font-bold text-sm sm:text-base
-          transition-all duration-200 ease-out
-          disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0
-          touch-manipulation min-h-[52px]
-          ${variant === 'primary' ? primaryStyles : inverseStyles}
-          ${className}
-        `}
+        className={`inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40 sm:w-auto ${className}`}
       >
-        {loading ? (
-          <>
-            <Spinner variant={variant} />
-            Bearbetar...
-          </>
-        ) : (
-          <>
-            {buttonText}
-            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-          </>
-        )}
+        {loading ? 'Bearbetar' : buttonText}
       </button>
 
       {error && (
-        <div className="mt-3 p-3 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2">
-          <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="text-sm text-red-700 leading-snug">{error}</p>
-            {manageUrl && (
-              <a
-                href={manageUrl}
-                className="inline-flex items-center gap-1.5 mt-2 text-sm font-bold text-red-800 underline hover:text-red-900"
-              >
-                Öppna prenumerationsportalen
-                <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-              </a>
-            )}
-          </div>
+        <div className="mt-3 rounded-lg border border-fel-kant bg-fel-mjuk p-3">
+          <p className="text-sm text-fel">{error}</p>
+          {manageUrl && (
+            <a
+              href={manageUrl}
+              className="mt-2 inline-block text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+            >
+              Öppna prenumerationsportalen
+            </a>
+          )}
         </div>
       )}
     </div>
-  );
-}
-
-function Spinner({ variant }: { variant: 'primary' | 'inverse' }) {
-  const color = variant === 'primary' ? 'text-white' : 'text-orange-700';
-  return (
-    <svg
-      className={`animate-spin h-5 w-5 ${color}`}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      />
-    </svg>
   );
 }
