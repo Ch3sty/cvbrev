@@ -26,7 +26,7 @@
  *   +------------------------------+
  */
 
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { ChevronLeft } from 'lucide-react'
 
 export interface FlowShellProps {
@@ -98,6 +98,29 @@ export default function FlowShell({
   const pct = Math.round((Math.min(step, totalSteps) / totalSteps) * 100)
   const showFooter = Boolean(primaryLabel && onPrimary)
 
+  // Fotens verkliga höjd publiceras som --flow-footer-h. Cookie-bannern
+  // (z-999, fixed i botten) lägger sig annars över Fortsätt-knappen i varje
+  // ny session, och en gissad konstant slutar stämma så fort foten får en
+  // blockeringsrad eller en sekundär handling.
+  const footerRef = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    const root = document.documentElement
+    const el = footerRef.current
+    if (!el) {
+      root.style.setProperty('--flow-footer-h', '0px')
+      return
+    }
+    const mat = () =>
+      root.style.setProperty('--flow-footer-h', `${Math.round(el.getBoundingClientRect().height)}px`)
+    mat()
+    const ro = new ResizeObserver(mat)
+    ro.observe(el)
+    return () => {
+      ro.disconnect()
+      root.style.removeProperty('--flow-footer-h')
+    }
+  }, [showFooter, primaryBlockedReason, footerSecondary])
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white lg:left-72">
       {/* Topp: tillbaka, titel, räknare, progress. */}
@@ -162,6 +185,7 @@ export default function FlowShell({
           skjuter upp den i stället för att lägga sig över den. */}
       {showFooter ? (
         <footer
+          ref={footerRef}
           className="flex-shrink-0 border-t border-neutral-200 bg-white"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >

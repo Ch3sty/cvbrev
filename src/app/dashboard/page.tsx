@@ -250,6 +250,12 @@ export default function DashboardPage() {
 
       {state === 'C' && (
         <>
+          {/* Tillstånd C har medvetet ingen hero: statusraden är vyns
+              startpunkt. Men sidan måste ändå ha en h1, annars är hela
+              dashboarden rubriklös för skärmläsare, och det är den sida
+              användaren möter oftast. Dold visuellt, inte för hjälpmedel. */}
+          <h1 className="sr-only">Översikt över ditt jobbsök</h1>
+
           {/* 1. Jobbsöket: fyra beskrivande antal och vyns enda orange knapp. */}
           <JobbsokOversikt summary={appSummary} />
 

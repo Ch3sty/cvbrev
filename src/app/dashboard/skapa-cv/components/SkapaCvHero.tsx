@@ -18,9 +18,12 @@ export default function SkapaCvHero() {
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1">
           Skapa CV
         </div>
-        <h1 className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight leading-tight">
+        {/* Rubriknivån ligger hos FlowShell, som redan sätter flödets h1
+            ("Bygg ditt CV") i toppraden. Två h1 på samma sida gör att
+            skärmläsare får två motstridiga svar på vad sidan handlar om. */}
+        <p className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight leading-tight">
           Bygg ditt CV steg för steg
-        </h1>
+        </p>
         <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
           Vi hjälper dig fylla i rätt information på rätt plats. Din
           förhandsvisning uppdateras live medan du skriver.

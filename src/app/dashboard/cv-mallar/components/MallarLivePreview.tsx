@@ -379,9 +379,17 @@ function ScaledPreview({ html }: { html: string }) {
           flexShrink: 0,
         }}
       >
+        {/* Mallens HTML är ett helt CV-dokument och har därför en egen h1 med
+            personens namn. Helt rätt i en PDF, men här ligger dokumentet inuti
+            en sida som redan har sin rubrik, så sidan fick två h1 och
+            rubrikträdet sa emot sig själv. Förhandsvisningen är en bild av
+            resultatet, inte läsbar struktur: role="img" kapslar in den och
+            håller mallens rubriker utanför sidans disposition. */}
         <div
           ref={contentRef}
           className="bg-white"
+          role="img"
+          aria-label="Förhandsvisning av ditt CV i vald mall"
           style={{
             width: `${A4_WIDTH_PX}px`,
             transform: scale < 1 ? `scale(${scale})` : undefined,

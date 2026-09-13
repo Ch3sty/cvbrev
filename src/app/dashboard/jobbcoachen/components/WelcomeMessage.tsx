@@ -32,9 +32,11 @@ export default function WelcomeMessage({
 
       {/* Chat-bubbla */}
       <div className="flex-1 min-w-0 max-w-2xl">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1.5">
+        {/* Vyns enda rubrik. Låg tidigare som en anonym div, så
+            /dashboard/jobbcoachen saknade h1 helt. Utseendet är oförändrat. */}
+        <h1 className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-1.5">
           Jobbcoachen
-        </div>
+        </h1>
 
         <div
           className="relative bg-white rounded-xl rounded-tl-md border border-orange-200/60 p-4 sm:p-5 space-y-3"

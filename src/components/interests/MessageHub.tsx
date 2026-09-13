@@ -171,7 +171,10 @@ export default function MessageHub({
         <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center">
           <InboxIcon className="w-7 h-7 text-indigo-600" aria-hidden="true" />
         </div>
-        <h2 className="text-[17px] font-bold text-slate-900 mb-2">Inga meddelanden än</h2>
+        {/* Tomma läget är hela sidan, så rubriken är sidans h1. Som h2 blev
+            /dashboard/meddelanden en sida helt utan h1 för alla som ännu inte
+            fått ett meddelande, alltså de allra flesta. */}
+        <h1 className="text-[17px] font-bold text-slate-900 mb-2">Inga meddelanden än</h1>
         <p className="text-[13.5px] text-slate-500 leading-relaxed max-w-sm mx-auto mb-6">
           Här landar dina samtal med rekryterare som visat intresse. Så här
           kommer de igång:

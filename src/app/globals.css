@@ -33,6 +33,23 @@
   }
 }
 
+/* Under ett flerstegsflöde äger FlowShell hela skärmen och har en egen fot
+   med primärknappen. Bottennavet nollades tidigare bara som variabel, medan
+   själva navet låg kvar fixed på z-40 och täckte nedersta 57 px. Där ligger
+   exakt Fortsätt-knappen, så användaren kunde välja CV men inte gå vidare.
+   Elementet måste alltså bort, inte bara dess höjd. */
+html[data-flow-active='true'] nav[aria-label='Huvudnavigation'] {
+  display: none !important;
+}
+
+/* Samma sak för cookie-bannern. Den ligger på z-999 längst ner och lägger sig
+   över flödesfoten i varje ny session, alltså precis den situation en
+   förstagångsanvändare möter. Under ett flöde flyttas den upp ovanför foten
+   i stället för att döljas: samtycket måste fortfarande gå att lämna. */
+html[data-flow-active='true'] .cookie-banner-container {
+  bottom: var(--flow-footer-h, 76px) !important;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
