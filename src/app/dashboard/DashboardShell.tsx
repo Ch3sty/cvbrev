@@ -149,12 +149,20 @@ export default function DashboardShell({
         <div className="flex-1 flex flex-col overflow-hidden relative z-10">
           {/* Toppraden, med meny på mobil.
               z-40 så notisdrawern lägger sig ovanför verifieringsbannern. */}
-          <div className="relative z-40">
-            <DashboardHeader
-              user={user}
-              onMenuClick={() => setIsMobileMenuOpen(true)}
-            />
-          </div>
+          {/* Headern hör inte till ett flöde. globals.css döljer den redan via
+              data-flow-active, men det attributet sätts först när FlowShell
+              hydrerat. skapa-brev har dessutom en loading.tsx som ritar ett
+              helskärmsskelett innan dess, så headerns 57 px hann målas och
+              försvinna igen: CLS 0,083 innan användaren gjort något. Vi vet
+              redan av pathname att det är ett flöde, så vi hoppar över den. */}
+          {!isFlowRoute && (
+            <div className="relative z-40">
+              <DashboardHeader
+                user={user}
+                onMenuClick={() => setIsMobileMenuOpen(true)}
+              />
+            </div>
+          )}
 
           {!isFlowRoute && <EmailVerificationBanner />}
 

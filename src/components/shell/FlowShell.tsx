@@ -109,8 +109,10 @@ export default function FlowShell({
   // (z-999, fixed i botten) lägger sig annars över Fortsätt-knappen i varje
   // ny session, och en gissad konstant slutar stämma så fort foten får en
   // blockeringsrad eller en sekundär handling.
+  // Även den här före paint. Mätte vi efter, hann cookie-bannern ställa sig
+  // på fallback-höjden 76 px och flytta sig när den riktiga höjden kom.
   const footerRef = useRef<HTMLElement | null>(null)
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = document.documentElement
     const el = footerRef.current
     if (!el) {
