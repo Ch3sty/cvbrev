@@ -8,9 +8,11 @@
  * högt och trycker bort själva frågan. Därför visas som mest två rader, och
  * resten scrollar i en egen container med egen höjd. På desktop finns plats
  * för allt, så där växer rutnätet fritt.
+ *
+ * Aktuell fråga markeras med kant i ink (valt), besvarade med bock i positiv.
+ * Ingen orange yta.
  */
 
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
 
@@ -39,16 +41,13 @@ export function QuestionNavigation({
     totalQuestions > MOBILE_COLUMNS * MOBILE_MAX_ROWS;
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="rounded-xl border border-neutral-200 bg-white p-4"
+    <nav
+      className="rounded-xl border border-kant bg-panel p-4"
       aria-label="Navigera mellan frågor"
     >
       <div className="mb-3 flex items-center justify-between gap-3">
-        <p className="text-xs font-medium text-neutral-600">Frågor</p>
-        <p className="text-xs tabular-nums text-neutral-500">
+        <p className="text-sm font-medium text-ink-3">Frågor</p>
+        <p className="text-meta tabular-nums text-ink-3">
           {answeredQuestions.size} av {totalQuestions} besvarade
         </p>
       </div>
@@ -72,12 +71,12 @@ export function QuestionNavigation({
                   type="button"
                   onClick={() => onNavigate(i)}
                   className={cn(
-                    'flex h-11 w-full items-center justify-center rounded-lg border text-sm font-medium tabular-nums transition-colors sm:h-10',
+                    'flex h-11 w-full items-center justify-center rounded-lg border bg-panel text-sm tabular-nums transition-colors active:bg-insunken sm:h-10',
                     isCurrent
-                      ? 'border-orange-600 bg-orange-50 text-orange-900'
+                      ? 'border-ink-1 font-medium text-ink-1 shadow-val'
                       : isAnswered
-                        ? 'border-neutral-200 bg-neutral-50 text-neutral-700'
-                        : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'
+                        ? 'border-kant text-positiv hover:border-kant-stark'
+                        : 'border-kant text-ink-2 hover:border-kant-stark'
                   )}
                   aria-label={`Gå till fråga ${i + 1}${isAnswered ? ', besvarad' : ''}${
                     isCurrent ? ', aktuell' : ''
@@ -85,7 +84,7 @@ export function QuestionNavigation({
                   aria-current={isCurrent ? 'step' : undefined}
                 >
                   {isAnswered && !isCurrent ? (
-                    <Check className="h-4 w-4 text-emerald-700" aria-hidden="true" />
+                    <Check className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                   ) : (
                     <span>{i + 1}</span>
                   )}
@@ -97,10 +96,10 @@ export function QuestionNavigation({
       </div>
 
       {needsScroll ? (
-        <p className="mt-2 text-xs text-neutral-500 sm:hidden">
+        <p className="mt-2 text-meta text-ink-3 sm:hidden">
           Scrolla i rutan för fler frågor.
         </p>
       ) : null}
-    </motion.nav>
+    </nav>
   );
 }

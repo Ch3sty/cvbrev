@@ -8,13 +8,17 @@
  * pekar vidare till nästa steg i jobbsökandet.
  *
  * Bryggan får aldrig blockera resultatet. Saknas sessionsToday visas variant 1.
+ *
+ * Bryggan är resultatvyns framhävda element och bär därför vyns enda
+ * marginalplatta. Handlingen är en kant-knapp: vyns primära ink-knapp
+ * ("Gör om testet") sitter redan i sidhuvudet.
  */
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import PaywallCard from '@/components/paywall/PaywallCard'
-import { IlluTestTillCv } from '@/components/illustrations/TestIllustrations'
+import MarginPlate from '@/components/shell/MarginPlate'
+import { IlluPlattaAnsokan, IlluPlattaCvPoang } from '@/components/illustrations/TradenScener'
 import { logUserActivity } from '@/lib/activity-logger'
 
 export interface TestResultBridgeProps {
@@ -73,7 +77,7 @@ export default function TestResultBridge({
 
   const trialLine =
     isPremium && trialEndsAt ? (
-      <p className="text-sm text-neutral-600 mt-3">
+      <p className="mt-3 text-meta text-ink-3">
         Alla testnivåer är upplåsta till {formatDate(trialEndsAt)}.
       </p>
     ) : null
@@ -109,29 +113,26 @@ export default function TestResultBridge({
     },
   }[variant]
 
+  const Illu = variant === '3' ? IlluPlattaAnsokan : IlluPlattaCvPoang
+
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5"
+    <section
+      className="rounded-xl border border-kant bg-panel p-4 sm:p-5"
       aria-label={copy.title}
     >
-      <div className="flex items-start gap-4">
-        <span className="hidden sm:block shrink-0 text-neutral-900" aria-hidden="true">
-          <IlluTestTillCv size={96} />
-        </span>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-base font-semibold text-neutral-900 tracking-tight">
-            {copy.title}
-          </h3>
-          <p className="text-sm text-neutral-600 mt-1 leading-relaxed">{copy.body}</p>
+      <div className="flex items-start gap-3">
+        <MarginPlate>
+          <Illu size={48} />
+        </MarginPlate>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-kort text-ink-1">{copy.title}</h3>
+          <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
 
-          <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
             <Link
               href={copy.primaryHref}
               onClick={() => trackClick(copy.primaryHref)}
-              className="inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto"
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 hover:border-kant-stark sm:w-auto"
             >
               {copy.primaryLabel}
             </Link>
@@ -139,7 +140,7 @@ export default function TestResultBridge({
               <Link
                 href={copy.secondary.href}
                 onClick={() => trackClick(copy.secondary!.href)}
-                className="text-sm font-medium text-neutral-600 hover:text-neutral-900 underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
               >
                 {copy.secondary.label}
               </Link>
@@ -149,7 +150,7 @@ export default function TestResultBridge({
           {trialLine}
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }
 

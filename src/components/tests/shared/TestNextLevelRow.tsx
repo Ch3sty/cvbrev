@@ -28,7 +28,7 @@ export default function TestNextLevelRow({ percentage, next }: Props) {
       action={
         <Link
           href={testPaths.hub(next.slug)}
-          className="text-sm font-medium text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
         >
           Till {levelName}
         </Link>

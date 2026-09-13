@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import NumericalTable from './NumericalTable';
 import NumericalChart from './NumericalChart';
 import {
@@ -32,33 +31,30 @@ const TYPE_LABEL: Record<QuestionType, string> = {
   conversion: 'Konvertering',
 };
 
+/**
+ * Underlaget till frågan: typ och ämne som metarad, rubrik i text-kort,
+ * kontexttext i en panel, sedan tabell eller graf.
+ */
 export default function PassageDisplay({ passage }: PassageDisplayProps) {
   const Icon = TYPE_ICON[passage.type];
   const typeLabel = TYPE_LABEL[passage.type];
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-      className="space-y-4 sm:space-y-5"
-    >
-      {/* Type pill + title */}
+    <section className="space-y-3">
       <div className="flex items-center gap-3">
-        <Icon className="w-5 h-5 text-neutral-700 flex-shrink-0" />
-        <div className="flex-1 min-w-0">
-          <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
-            {typeLabel} · {passage.topic}
-          </div>
-          <h2 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-            {passage.title}
-          </h2>
+        <Icon className="h-6 w-6 flex-shrink-0 text-ink-2" />
+        <div className="min-w-0 flex-1">
+          <p className="text-meta text-ink-3">
+            {typeLabel}
+            <span aria-hidden="true"> · </span>
+            {passage.topic}
+          </p>
+          <h2 className="text-kort text-ink-1">{passage.title}</h2>
         </div>
       </div>
 
-      {/* Context text */}
       {passage.contextText && (
-        <div className="text-sm sm:text-base text-neutral-700 leading-relaxed bg-orange-50/40 border border-orange-100 rounded-xl p-4 sm:p-5">
+        <div className="rounded-xl border border-kant bg-panel p-4 text-sm leading-[22px] text-ink-2 sm:p-5">
           {passage.contextText.split('\n\n').map((para, i) => (
             <p key={i} className={i > 0 ? 'mt-3' : ''}>
               {para.trim()}
@@ -67,11 +63,9 @@ export default function PassageDisplay({ passage }: PassageDisplayProps) {
         </div>
       )}
 
-      {/* Data table */}
       {passage.dataTable && <NumericalTable data={passage.dataTable} />}
 
-      {/* Chart */}
       {passage.chartData && <NumericalChart config={passage.chartData} />}
-    </motion.section>
+    </section>
   );
 }

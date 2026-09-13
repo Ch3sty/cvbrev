@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 
 export interface PieSlice {
   label: string;
@@ -79,11 +78,11 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
   return (
     <figure className="w-full">
       {title && (
-        <figcaption className="text-sm font-bold text-neutral-900 mb-2 text-center">
+        <figcaption className="mb-2 text-center text-kort text-ink-1">
           {title}
         </figcaption>
       )}
-      <div className="relative w-full overflow-hidden rounded-xl border border-orange-100 bg-orange-50/30 p-3 sm:p-4">
+      <div className="relative w-full overflow-hidden rounded-xl border border-kant bg-panel p-3 sm:p-4">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
@@ -91,20 +90,17 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
         >
           {/* Segments */}
           {segments.map((seg, i) => (
-            <motion.path
+            <path
               key={i}
               d={seg.path}
               fill={seg.color}
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
               style={{ transformOrigin: `${cx}px ${cy}px` }}
             />
           ))}
 
           {/* Procent-labels inuti segment */}
           {segments.map((seg, i) => (
-            <motion.text
+            <text
               key={`label-${i}`}
               x={seg.labelX}
               y={seg.labelY + 4}
@@ -112,13 +108,10 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
               fontWeight="800"
               fill="white"
               textAnchor="middle"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
               style={{ pointerEvents: 'none' }}
             >
               {seg.percentage}%
-            </motion.text>
+            </text>
           ))}
 
           {/* Center-label */}

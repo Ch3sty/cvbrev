@@ -1,98 +1,72 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
 import type { Statement, UserAnswer } from '@/lib/verbalTestV1/types.v1';
 
 interface StatementListProps {
   statements: Statement[];
-  userAnswers: (UserAnswer)[];
+  userAnswers: UserAnswer[];
   onSelectAnswer: (statementIndex: number, answer: 'true' | 'false' | 'cannot_say') => void;
   isSaving: boolean;
 }
 
-const answerOptions: { value: 'true' | 'false' | 'cannot_say'; label: string; color: string }[] = [
-  { value: 'true', label: 'Sant', color: 'bg-emerald-600' },
-  { value: 'false', label: 'Falskt', color: 'bg-rose-600' },
-  { value: 'cannot_say', label: 'Kan inte avgöra', color: 'bg-neutral-600' }
+const answerOptions: { value: 'true' | 'false' | 'cannot_say'; label: string }[] = [
+  { value: 'true', label: 'Sant' },
+  { value: 'false', label: 'Falskt' },
+  { value: 'cannot_say', label: 'Kan ej avgöras' },
 ];
 
+/**
+ * Påståendena till en passage. Varje påstående är en panel med tre lika breda
+ * svarsknappar: valt får kant i ink och vikt 500. Rätt och fel visas aldrig
+ * här, bara vad som är valt.
+ */
 export function StatementList({
   statements,
   userAnswers,
   onSelectAnswer,
-  isSaving
+  isSaving,
 }: StatementListProps) {
   return (
-    <div className="space-y-6">
-      <AnimatePresence mode="wait">
-        {statements.map((statement, index) => {
-          const userAnswer = userAnswers[index];
-          const isAnswered = userAnswer !== null;
+    <div className="space-y-3">
+      {statements.map((statement, index) => {
+        const userAnswer = userAnswers[index];
 
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-xl border-2 border-neutral-200 p-5"
-            >
-              {/* Statement Text */}
-              <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
-                  {index + 1}
-                </div>
-                <p className="flex-1 text-sm font-medium text-neutral-800 leading-relaxed pt-1">
-                  {statement.text}
-                </p>
-                {isAnswered && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="flex-shrink-0"
+        return (
+          <div key={index} className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+            <div className="mb-3 flex items-start gap-3">
+              <span
+                className="w-5 flex-shrink-0 pt-0.5 text-meta tabular-nums text-ink-3"
+                aria-hidden="true"
+              >
+                {index + 1}.
+              </span>
+              <p className="flex-1 text-sm leading-[22px] text-ink-1 sm:text-base">
+                {statement.text}
+              </p>
+            </div>
+
+            <div role="radiogroup" aria-label={`Påstående ${index + 1}`} className="flex gap-2">
+              {answerOptions.map((option) => {
+                const isSelected = userAnswer === option.value;
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={isSelected}
+                    onClick={() => onSelectAnswer(index, option.value)}
+                    disabled={isSaving}
+                    className={`h-11 flex-1 touch-manipulation rounded-lg border bg-panel px-2 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+                      isSelected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
+                    }`}
                   >
-                    <Check className="w-5 h-5 text-green-600" />
-                  </motion.div>
-                )}
-              </div>
-
-              {/* Answer Options */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {answerOptions.map((option) => {
-                  const isSelected = userAnswer === option.value;
-
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => onSelectAnswer(index, option.value)}
-                      disabled={isSaving}
-                      className={`
-                        relative px-4 py-3 rounded-lg font-semibold text-sm
-                        transition-all duration-200
-                        ${
-                          isSelected
-                            ? `${option.color} text-white scale-105`
-                            : 'bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border-2 border-neutral-200 hover:border-neutral-300'
-                        }
-                        disabled:opacity-50 disabled:cursor-not-allowed
-                      `}
-                    >
-                      {option.label}
-                      {isSelected && (
-                        <motion.div
-                          layoutId={`selected-${index}`}
-                          className="absolute inset-0 bg-white/20 rounded-lg"
-                          initial={false}
-                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

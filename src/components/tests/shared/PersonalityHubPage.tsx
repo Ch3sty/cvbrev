@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import PageHeader from '@/components/shell/PageHeader'
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
@@ -98,10 +99,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
   if (profileLoading) {
     return (
       <div className="mx-auto max-w-3xl py-6">
-        <div className="space-y-6">
-          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-neutral-100" />
-          <div className="h-40 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
-        </div>
+        <LoadingSkeleton variant="card" label="Testet laddas" />
       </div>
     )
   }
@@ -116,7 +114,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
             isLocked ? (
               <Link
                 href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
                 Lås upp med Premium
               </Link>
@@ -125,7 +123,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
                 type="button"
                 onClick={handleStart}
                 disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700 disabled:opacity-60"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
               >
                 {isStarting
                   ? 'Startar testet'
@@ -138,29 +136,29 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
         >
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <TestLevelBadge kind="personlighet" level={config.level} />
-            <span className="text-xs tabular-nums text-neutral-500">
+            <span className="text-xs tabular-nums text-ink-3">
               {config.totalQuestions} påståenden
             </span>
-            <span className="text-xs tabular-nums text-neutral-500">
+            <span className="text-xs tabular-nums text-ink-3">
               ca {config.minutes} min
             </span>
           </div>
         </PageHeader>
 
         {startError ? (
-          <p className="text-sm text-red-700" role="alert">
+          <p className="text-sm text-fel" role="alert">
             {startError}
           </p>
         ) : null}
 
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-          <h2 className="text-base font-semibold text-neutral-900">
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+          <h2 className="text-kort text-ink-1">
             Så läser du din profil
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+          <p className="mt-2 text-sm leading-relaxed text-ink-2">
             {config.levelBlurb}
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-neutral-600">
+          <p className="mt-4 text-sm leading-relaxed text-ink-2">
             Det finns inga rätt svar och ingen poäng. Du får en profil på fem
             dimensioner och en beskrivning av hur en rekryterare brukar läsa den.
           </p>
@@ -169,11 +167,11 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
         {isLocked ? (
           <>
             <PaywallCard variant="test-tak" isPremium={isPremium} />
-            <p className="text-sm text-neutral-600">
+            <p className="text-sm text-ink-2">
               Du kan börja med{' '}
               <Link
                 href={testPaths.hub('personlighet-grund')}
-                className="font-medium text-neutral-900 underline underline-offset-4"
+                className="font-medium text-ink-1 underline underline-offset-4"
               >
                 grundtestet
               </Link>{' '}

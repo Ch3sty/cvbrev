@@ -1,7 +1,9 @@
 'use client';
 
-import { Clock } from 'lucide-react';
-import { motion } from 'framer-motion';
+/**
+ * Framstegskort för det numeriska testet: fråga X av Y, förfluten tid och
+ * tråden som linje. Skelettet står stilla, bara linjen rör sig.
+ */
 
 interface TestProgressProps {
   currentQuestion: number;
@@ -20,26 +22,22 @@ export default function TestProgress({
   const timeLabel = `${mins}:${secs.toString().padStart(2, '0')}`;
 
   return (
-    <div
-      className="bg-white rounded-xl border border-orange-200/60 p-3 sm:p-4"
-    >
-      <div className="flex items-center justify-between gap-3 mb-2">
-        <div className="text-xs sm:text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-          Fråga {currentQuestion} / {totalQuestions}
-        </div>
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-700 tabular-nums">
-          <Clock className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-          {timeLabel}
-        </div>
+    <section className="rounded-xl border border-kant bg-panel p-3 sm:p-4">
+      <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+        <p className="tabular-nums text-ink-3">
+          <span className="text-meta">Fråga </span>
+          <span className="font-medium text-ink-1">{currentQuestion}</span>
+          <span> / {totalQuestions}</span>
+        </p>
+        <span className="font-medium tabular-nums text-ink-1">{timeLabel}</span>
       </div>
-      <div className="h-2 rounded-full bg-orange-100 overflow-hidden">
-        <motion.div
-          className="h-full rounded-full bg-orange-600"
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+
+      <div className="h-0.5 w-full bg-kant" aria-hidden="true">
+        <div
+          className="h-full origin-left bg-accent transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
+          style={{ transform: `scaleX(${percentage / 100})` }}
         />
       </div>
-    </div>
+    </section>
   );
 }

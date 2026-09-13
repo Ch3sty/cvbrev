@@ -1,8 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Check, X, HelpCircle } from 'lucide-react';
-
 type AnswerValue = 'true' | 'false' | 'cannot_say';
 
 interface Statement {
@@ -16,6 +13,17 @@ interface StatementListProps {
   disabled?: boolean;
 }
 
+const OPTIONS: { value: AnswerValue; label: string }[] = [
+  { value: 'true', label: 'Sant' },
+  { value: 'false', label: 'Falskt' },
+  { value: 'cannot_say', label: 'Kan ej avgöras' },
+];
+
+/**
+ * Påståendena till en passage. Varje påstående är en panel med tre lika
+ * breda svarsknappar (Segment-mönstret): valt = kant i ink och vikt 500.
+ * Rätt och fel visas aldrig här, bara vad som är valt.
+ */
 export default function StatementList({
   statements,
   answers,
@@ -23,19 +31,10 @@ export default function StatementList({
   disabled = false,
 }: StatementListProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 }}
-      className="space-y-3 sm:space-y-4"
-    >
-      <div className="text-center px-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
-          Bedöm påståendena
-        </div>
-        <p className="text-xs sm:text-sm text-neutral-600">
-          Endast utifrån texten ovan, inte din egen kunskap.
-        </p>
+    <div className="space-y-3">
+      <div>
+        <p className="text-sm font-medium text-ink-3">Bedöm påståendena</p>
+        <p className="text-meta text-ink-3">Endast utifrån texten ovan, inte din egen kunskap.</p>
       </div>
 
       {statements.map((statement, i) => (
@@ -48,7 +47,7 @@ export default function StatementList({
           disabled={disabled}
         />
       ))}
-    </motion.div>
+    </div>
   );
 }
 
@@ -65,123 +64,35 @@ function StatementCard({
   onAnswer: (v: AnswerValue) => void;
   disabled?: boolean;
 }) {
-  const isAnswered = answer !== null;
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
-      className="bg-white rounded-xl border border-orange-100 overflow-hidden"
-    >
-      <div className="p-4 sm:p-5">
-        {/* Statement-text med nummer */}
-        <div className="flex items-start gap-3 mb-3">
-          <div
-            className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold tabular-nums ${
-              isAnswered ? 'bg-orange-600' : 'bg-neutral-300'
-            }`}
-          >
-            {index + 1}
-          </div>
-          <p className="flex-1 text-sm sm:text-base text-neutral-800 leading-relaxed">
-            {text}
-          </p>
-        </div>
-
-        {/* 3 svarsalternativ */}
-        <div className="grid grid-cols-3 gap-2">
-          <AnswerButton
-            value="true"
-            selected={answer === 'true'}
-            disabled={disabled}
-            onClick={() => onAnswer('true')}
-          />
-          <AnswerButton
-            value="false"
-            selected={answer === 'false'}
-            disabled={disabled}
-            onClick={() => onAnswer('false')}
-          />
-          <AnswerButton
-            value="cannot_say"
-            selected={answer === 'cannot_say'}
-            disabled={disabled}
-            onClick={() => onAnswer('cannot_say')}
-          />
-        </div>
+    <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="mb-3 flex items-start gap-3">
+        <span className="w-5 flex-shrink-0 pt-0.5 text-meta tabular-nums text-ink-3" aria-hidden="true">
+          {index + 1}.
+        </span>
+        <p className="flex-1 text-sm leading-[22px] text-ink-1 sm:text-base">{text}</p>
       </div>
-    </motion.div>
-  );
-}
 
-function AnswerButton({
-  value,
-  selected,
-  disabled,
-  onClick,
-}: {
-  value: AnswerValue;
-  selected: boolean;
-  disabled?: boolean;
-  onClick: () => void;
-}) {
-  const config = {
-    true: {
-      label: 'Sant',
-      icon: Check,
-      strokeWidth: 3,
-      activeBg: 'bg-emerald-600',
-      activeRing: 'ring-emerald-400',
-      hoverBorder: 'hover:border-emerald-400',
-      hoverText: 'hover:text-emerald-700',
-    },
-    false: {
-      label: 'Falskt',
-      icon: X,
-      strokeWidth: 3,
-      activeBg: 'bg-rose-600',
-      activeRing: 'ring-red-400',
-      hoverBorder: 'hover:border-red-400',
-      hoverText: 'hover:text-red-700',
-    },
-    cannot_say: {
-      label: 'Kan ej avgöras',
-      icon: HelpCircle,
-      strokeWidth: 2.5,
-      activeBg: 'bg-neutral-500',
-      activeRing: 'ring-neutral-400',
-      hoverBorder: 'hover:border-neutral-400',
-      hoverText: 'hover:text-neutral-700',
-    },
-  }[value];
-
-  const Icon = config.icon;
-
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={`
-        relative inline-flex flex-col items-center justify-center gap-1
-        py-2.5 px-2 rounded-xl border-2 transition-all touch-manipulation
-        min-h-[64px] sm:min-h-[68px]
-        ${
-          selected
-            ? `text-white border-transparent ring-2 ${config.activeBg} ${config.activeRing}`
-            : `bg-white text-neutral-700 border-orange-100 ${config.hoverBorder} ${config.hoverText} hover:-translate-y-0.5`
-        }
-        ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
-      `}
-      aria-pressed={selected}
-    >
-      <Icon
-        className="w-4 h-4 sm:w-5 sm:h-5"
-        strokeWidth={config.strokeWidth}
-      />
-      <span className="text-xs sm:text-xs font-bold leading-tight text-center">
-        {config.label}
-      </span>
-    </button>
+      <div role="radiogroup" aria-label={`Påstående ${index + 1}`} className="flex gap-2">
+        {OPTIONS.map((option) => {
+          const selected = answer === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              disabled={disabled}
+              onClick={() => onAnswer(option.value)}
+              className={`h-11 flex-1 touch-manipulation rounded-lg border bg-panel px-2 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+                selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
+              }`}
+            >
+              {option.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }

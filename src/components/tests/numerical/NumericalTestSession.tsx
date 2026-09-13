@@ -17,13 +17,15 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Flag, AlertCircle, AlertTriangle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import type { Passage } from '@/lib/numericalTest/types';
 
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
@@ -431,11 +433,8 @@ export function NumericalTestSession({
   // svara innan tidigare svar hoppats förbi.
   if (isHydrating || !currentPassage || !currentQuestion) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-orange-200 border-t-orange-600 mx-auto mb-4" />
-          <p className="text-neutral-600">Laddar test...</p>
-        </div>
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Testet laddas" />
       </div>
     );
   }
@@ -461,19 +460,16 @@ export function NumericalTestSession({
         <button
           onClick={handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting || isNavigating}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          className="inline-flex h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             'Sparar svar…'
           ) : isLastQuestion ? (
-            <>
-              Lämna in
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
-            </>
+            'Lämna in'
           ) : (
             <>
               Nästa fråga
-              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+              <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
             </>
           )}
         </button>
@@ -481,15 +477,11 @@ export function NumericalTestSession({
     >
       <div className="space-y-4 sm:space-y-5">
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`passage-${currentPassage.id}`}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-4 sm:space-y-5"
-          >
+        {/* Passagen tonar in på plats i CSS, den flyttar aldrig något. */}
+        <div
+          key={`passage-${currentPassage.id}`}
+          className="space-y-4 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none sm:space-y-5"
+        >
             <PassageDisplay passage={currentPassage} />
 
             <QuestionDisplay
@@ -501,84 +493,29 @@ export function NumericalTestSession({
               onSelect={setSelectedAnswer}
               disabled={isSubmitting || isNavigating || currentIsLocked}
             />
-          </motion.div>
-        </AnimatePresence>
+        </div>
 
         {/* Diskret varning när något svar inte gått att spara trots omförsök */}
         {failedCount > 0 && (
-          <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-            <AlertTriangle
-              className="w-4 h-4 text-amber-600 flex-shrink-0"
-              strokeWidth={2.25}
-            />
-            <p className="text-sm text-amber-800">
-              Ett svar kunde inte sparas. Vi försöker igen automatiskt.
-            </p>
-          </div>
+          <UnsavedAnswerBanner />
         )}
       </div>
 
       {/* Finish Confirmation Modal */}
-      <AnimatePresence>
-        {showFinishConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
-            onClick={() => setShowFinishConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 8 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
-            >
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-                      Avsluta testet?
-                    </h3>
-                    <p className="text-sm text-neutral-600 mt-1">
-                      Du har besvarat <span className="font-bold text-neutral-900">{answeredIds.size}</span> av{' '}
-                      <span className="font-bold text-neutral-900">{totalQuestions}</span> frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
-                    </p>
-                  </div>
-                </div>
-
-                {finishError && (
-                  <div className="flex items-start gap-2 mb-4 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-                    <AlertTriangle
-                      className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-                      strokeWidth={2.25}
-                    />
-                    <p className="text-sm text-amber-800">{finishError}</p>
-                  </div>
-                )}
-
-                <div className="flex gap-2 sm:gap-3 mt-5">
-                  <button
-                    onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-                  >
-                    Tillbaka
-                  </button>
-                  <button
-                    onClick={handleFinishTest}
-                    disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Bekräftelse innan testet rättas. */}
+      <ConfirmDialog
+        open={showFinishConfirm}
+        onCancel={() => setShowFinishConfirm(false)}
+        onConfirm={handleFinishTest}
+        title="Avsluta testet?"
+        description={
+          finishError
+            ? finishError
+            : `Du har besvarat ${answeredIds.size} av ${totalQuestions} frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.`
+        }
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        cancelLabel="Tillbaka"
+      />
     </TestFlowShell>
   );
 }

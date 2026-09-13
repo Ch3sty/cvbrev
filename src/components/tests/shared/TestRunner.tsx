@@ -38,7 +38,7 @@ import type { RunData } from '@/app/dashboard/tester/[slug]/getRunData'
 
 const TestLoading = () => (
   <div className="flex min-h-[50dvh] items-center justify-center">
-    <p className="text-sm text-neutral-600">Laddar testet</p>
+    <p className="text-sm text-ink-2">Testet laddas</p>
   </div>
 )
 

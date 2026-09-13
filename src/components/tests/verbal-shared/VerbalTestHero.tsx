@@ -1,8 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { BookOpen, Clock, Target, Layers } from 'lucide-react';
-import { VerbalHeroIllustration } from './illustrations/VerbalIcons';
+/**
+ * Sidhuvudet på det verbala testets hubbsida. Vyns enda h1, steg-etikett över
+ * rubriken och det som gäller som en rad metadata under. Ingen bakgrundsbild,
+ * ingen färgad bricka.
+ */
 
 interface VerbalTestHeroProps {
   variant: 'v1' | 'v2';
@@ -19,89 +21,30 @@ export default function VerbalTestHero({
 }: VerbalTestHeroProps) {
   const eyebrowLabel = variant === 'v1' ? 'Verbalt resonemang' : 'Verbalt resonemang, avancerad';
   const title =
-    variant === 'v1'
-      ? 'Förstå texten utan att gissa'
-      : 'Avancerad textanalys på elit-nivå';
+    variant === 'v1' ? 'Förstå texten utan att gissa' : 'Avancerad textanalys på elitnivå';
   const subtitle =
     variant === 'v1'
       ? 'Klassiskt rekryteringstest. Läs en passage och avgör om varje påstående är sant, falskt eller om det inte går att avgöra utifrån texten.'
       : 'Komplexa textstycken inom samhälle, vetenskap och kultur. Subtila slutledningar och nyanserade påståenden, tränade för Mensa-nivå.';
   const difficultyLabel = variant === 'v1' ? 'Grundnivå' : 'Avancerad';
 
+  const facts = [`${totalStatements} påståenden`, 'cirka 25 minuter', difficultyLabel];
+
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-xl bg-white border border-neutral-200 text-neutral-900"
-    >
-      <VerbalHeroIllustration className="absolute -right-10 -top-6 sm:-right-12 sm:-top-8 opacity-15 pointer-events-none hidden sm:block" />
+    <header className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <p className="mb-1.5 text-steg uppercase text-ink-3">{eyebrowLabel}</p>
+      <h1 className="text-h1 text-ink-1">{title}</h1>
+      <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">{subtitle}</p>
 
-      <div className="relative p-6 sm:p-8 md:p-10 lg:p-12">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 mb-4">
-            <BookOpen className="w-3.5 h-3.5" strokeWidth={2.5} />
-            {eyebrowLabel}
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-3">
-            {title}
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed mb-6 max-w-xl">
-            {subtitle}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 border-t border-neutral-200">
-            <Stat icon={<Target className="w-3.5 h-3.5" strokeWidth={2.5} />} label={`${totalStatements} påståenden`} />
-            <Divider />
-            <Stat icon={<Clock className="w-3.5 h-3.5" strokeWidth={2.5} />} label="ca 25 min" />
-            <Divider />
-            <Stat icon={<Layers className="w-3.5 h-3.5" strokeWidth={2.5} />} label={difficultyLabel} />
-            {bestScore !== undefined && bestScore > 0 && (
-              <>
-                <Divider />
-                <Stat
-                  icon={<Trophy />}
-                  label={`Bästa: ${bestScore}/${totalStatements} (${bestPercentage}%)`}
-                  highlight
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
-function Stat({
-  icon,
-  label,
-  highlight,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  highlight?: boolean;
-}) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${
-        highlight ? 'font-bold text-orange-700' : 'font-medium text-neutral-600'
-      }`}
-    >
-      <span className={highlight ? 'text-amber-500' : 'text-neutral-500'}>{icon}</span>
-      {label}
-    </span>
-  );
-}
-
-function Divider() {
-  return <span className="w-px h-3 bg-neutral-200 hidden sm:inline-block" />;
-}
-
-function Trophy() {
-  return (
-    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2 L14.5 8.5 L21.5 9 L16 13.5 L18 20.5 L12 16.5 L6 20.5 L8 13.5 L2.5 9 L9.5 8.5 Z" />
-    </svg>
+      <p className="mt-4 border-t border-kant pt-4 text-meta text-ink-3">
+        {facts.join(' · ')}
+        {bestScore !== undefined && bestScore > 0 ? (
+          <span className="text-positiv">
+            {' · '}
+            Bäst {bestScore} av {totalStatements} ({bestPercentage} procent)
+          </span>
+        ) : null}
+      </p>
+    </header>
   );
 }

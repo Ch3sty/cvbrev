@@ -94,11 +94,11 @@ export default function MatrixQuestionReview({
 
   if (isLegacy) {
     return (
-      <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-        <h2 className="text-base font-semibold text-neutral-900">
+      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <h2 className="text-kort text-ink-1">
           Genomgången saknas för det här försöket
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-2 text-sm leading-[22px] text-ink-2">
           Resultatet kommer från en tidigare version av frågebanken. Poängen
           står kvar, men vi kan inte visa vilka frågor du fick. Gör om testet så
           får du full återkoppling.
@@ -122,20 +122,18 @@ export default function MatrixQuestionReview({
   return (
     <>
       {categories.length > 0 ? (
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-          <h2 className="text-base font-semibold text-neutral-900">
-            Så gick det per mönstertyp
-          </h2>
-          <ul className="mt-4 divide-y divide-neutral-200">
+        <section aria-label="Så gick det per mönstertyp">
+          <h2 className="mb-2 text-sm font-medium text-ink-3">Så gick det per mönstertyp</h2>
+          <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
             {categories.map(([cat, s]) => (
               <li
                 key={cat}
-                className="flex min-h-11 items-center justify-between gap-3 py-2"
+                className="flex min-h-11 items-center justify-between gap-3 px-4 py-2"
               >
-                <span className="text-sm text-neutral-900">{cat}</span>
+                <span className="text-sm text-ink-1">{cat}</span>
                 <span
                   className={`text-sm font-medium tabular-nums ${
-                    s.correct === s.total ? 'text-emerald-700' : 'text-neutral-600'
+                    s.correct === s.total ? 'text-positiv' : 'text-ink-3'
                   }`}
                 >
                   {s.correct} av {s.total}
@@ -146,11 +144,9 @@ export default function MatrixQuestionReview({
         </section>
       ) : null}
 
-      <section className="rounded-xl border border-neutral-200 bg-white">
-        <h2 className="border-b border-neutral-200 px-4 py-3 text-base font-semibold text-neutral-900 sm:px-6">
-          Fråga för fråga
-        </h2>
-        <ul className="divide-y divide-neutral-200">
+      <section aria-label="Fråga för fråga">
+        <h2 className="mb-2 text-sm font-medium text-ink-3">Fråga för fråga</h2>
+        <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
           {questions.map((q, i) => {
             const answer = answers.find((a) => a.q_id === q.id)
             const isOpen = openIndex === i
@@ -161,43 +157,44 @@ export default function MatrixQuestionReview({
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex min-h-11 w-full items-center gap-3 px-4 py-3 text-left hover:bg-neutral-50 sm:px-6"
+                  className="flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left hover:bg-insunken"
                 >
-                  <span className="w-6 shrink-0 text-sm tabular-nums text-neutral-500">
+                  <span className="w-6 shrink-0 text-meta tabular-nums text-ink-3">
                     {i + 1}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium text-neutral-900">
+                    <span className="block truncate text-sm font-medium text-ink-1">
                       {q.title.replace(/^FRÅGA\s+\d+\s*[-]\s*/i, '')}
                     </span>
-                    <span className="mt-1 block text-xs tabular-nums text-neutral-500">
+                    <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
                       {answer
                         ? `${formatShort(answer.time_spent)} · svårighet ${q.difficulty} av 3`
                         : 'Inte besvarad'}
                     </span>
                   </span>
                   <span
-                    className={`shrink-0 text-xs font-medium ${
+                    className={`shrink-0 text-meta font-medium ${
                       !answer
-                        ? 'text-neutral-500'
+                        ? 'text-ink-3'
                         : answer.correct
-                          ? 'text-emerald-700'
-                          : 'text-red-700'
+                          ? 'text-positiv'
+                          : 'text-fel'
                     }`}
                   >
                     {!answer ? 'Hoppad' : answer.correct ? 'Rätt' : 'Fel'}
                   </span>
                   <ChevronDown
                     aria-hidden="true"
-                    className={`h-4 w-4 shrink-0 text-neutral-400 transition-transform ${
+                    strokeWidth={1.75}
+                    className={`h-5 w-5 shrink-0 text-ink-3 transition-transform ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
 
                 {isOpen ? (
-                  <div className="space-y-4 px-4 pb-6 sm:px-6">
-                    <p className="rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-sm leading-relaxed text-neutral-700">
+                  <div className="space-y-4 px-4 pb-6">
+                    <p className="rounded-lg border border-kant bg-insunken p-3 text-sm leading-[22px] text-ink-2">
                       {q.rule}
                     </p>
                     <div className="grid grid-cols-2 gap-3">
@@ -234,13 +231,11 @@ function ReviewCell({
   wrong?: boolean
 }) {
   return (
-    <div className="rounded-lg border border-neutral-200 p-3">
-      <p
-        className={`text-xs font-medium ${wrong ? 'text-red-700' : 'text-emerald-700'}`}
-      >
+    <div className="rounded-lg border border-kant bg-insunken p-3">
+      <p className={`text-meta font-medium ${wrong ? 'text-fel' : 'text-positiv'}`}>
         {label}
       </p>
-      <div className="mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-neutral-200 bg-white p-2">
+      <div className="mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
         <svg
           viewBox="0 0 100 100"
           className="h-full w-full"

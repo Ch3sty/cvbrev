@@ -15,13 +15,15 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
 import { AnswerOptionsV7 } from '@/components/tests/logicV7/AnswerOptionsV7';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
+import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import { useTestHintMode } from '@/hooks/use-test-hint-mode';
 import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
@@ -436,12 +438,8 @@ export function MatrixTestSession({
   // svara innan tidigare svar förifyllts.
   if (isHydrating) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <motion.div
-          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        />
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Testet laddas" />
       </div>
     );
   }
@@ -468,9 +466,9 @@ export function MatrixTestSession({
             onClick={handlePrev}
             disabled={currentQuestion === 0 || isNavigating}
             aria-label="Föregående fråga"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            className="inline-flex h-11 w-11 flex-shrink-0 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
           </button>
 
           {currentQuestion === questions.length - 1 ? (
@@ -479,19 +477,18 @@ export function MatrixTestSession({
                 setFinishError(null);
                 setShowFinishConfirm(true);
               }}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
             >
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
               Lämna in
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={isNavigating}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
             >
               Nästa
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+              <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
             </button>
           )}
         </div>
@@ -499,20 +496,13 @@ export function MatrixTestSession({
     >
         <div className="space-y-5 sm:space-y-6">
           {/*
-            Frågan tonar in på plats. Förut sköts den in med x: 12 → 0, och
-            eftersom rutnätet och svarsalternativen är sidans största element
-            räknades varje sådan inskjutning som ett layoutskifte. Det var en
-            av två källor till CLS 0,111 här. Ren opacity flyttar ingenting.
+            Frågan tonar in på plats, med ren opacity i CSS. Förut sköts den in
+            med ett rörelsebibliotek och x: 12 → 0, och eftersom rutnätet och
+            svarsalternativen är sidans största element räknades varje sådan
+            inskjutning som ett layoutskifte. Det var en av två källor till
+            CLS 0,111 här. Ren opacity flyttar ingenting.
           */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestion}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-5"
-            >
+          <div key={currentQuestion} className="space-y-5 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none">
               {/* Frågetitel + regel (visas bara i ledtråds-läge) */}
               <QuestionHeader
                 index={currentQuestion}
@@ -544,18 +534,10 @@ export function MatrixTestSession({
                   className="mb-3 min-h-[44px]"
                 >
                   {failedCount > 0 && (
-                    <div className="flex items-center gap-2 max-w-md sm:max-w-lg mx-auto h-[44px] px-3.5 rounded-xl border border-amber-200 bg-amber-50 [animation:fadeInPlace_0.2s_ease-out]">
-                      <AlertTriangle
-                        className="w-4 h-4 text-amber-600 flex-shrink-0"
-                        strokeWidth={2.25}
-                      />
-                      <p className="text-sm text-amber-800">
-                        Ett svar kunde inte sparas. Vi försöker igen automatiskt.
-                      </p>
-                    </div>
+                    <UnsavedAnswerBanner className="mx-auto max-w-md sm:max-w-lg" />
                   )}
                 </div>
-                <p className="text-center text-xs sm:text-sm font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-3">
+                <p className="mb-3 text-center text-steg uppercase text-ink-3">
                   Välj rätt svar
                 </p>
                 <AnswerOptionsV7
@@ -565,8 +547,7 @@ export function MatrixTestSession({
                   disabled={isSaving || isNavigating}
                 />
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </div>
 
           {/* Question Navigation (alltid synlig) */}
           <QuestionNavigation
@@ -577,67 +558,20 @@ export function MatrixTestSession({
           />
         </div>
 
-      {/* Finish Confirmation Modal */}
-      <AnimatePresence>
-        {showFinishConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
-            onClick={() => setShowFinishConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 8 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
-            >
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-                      Avsluta testet?
-                    </h3>
-                    <p className="text-sm text-neutral-600 mt-1">
-                      Du har besvarat <span className="font-bold text-neutral-900">{answeredQuestions.size}</span> av{' '}
-                      <span className="font-bold text-neutral-900">{questions.length}</span> frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.
-                    </p>
-                  </div>
-                </div>
-
-                {finishError && (
-                  <div className="flex items-start gap-2 mb-4 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-                    <AlertTriangle
-                      className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-                      strokeWidth={2.25}
-                    />
-                    <p className="text-sm text-amber-800">{finishError}</p>
-                  </div>
-                )}
-
-                <div className="flex gap-2 sm:gap-3 mt-5">
-                  <button
-                    onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-                  >
-                    Tillbaka
-                  </button>
-                  <button
-                    onClick={handleFinishTest}
-                    disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Bekräftelse innan provet rättas. */}
+      <ConfirmDialog
+        open={showFinishConfirm}
+        onCancel={() => setShowFinishConfirm(false)}
+        onConfirm={handleFinishTest}
+        title="Avsluta testet?"
+        description={
+          finishError
+            ? finishError
+            : `Du har besvarat ${answeredQuestions.size} av ${questions.length} frågor. När du avslutar rättas testet och du får din återkoppling direkt. Svaren kan inte ändras efteråt.`
+        }
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        cancelLabel="Tillbaka"
+      />
     </TestFlowShell>
   );
 }
@@ -668,9 +602,7 @@ function QuestionHeader({
 
   return (
     <div className="text-center">
-      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-        Fråga {index + 1}
-      </div>
+      <p className="mb-1.5 text-steg uppercase text-ink-3">Fråga {index + 1}</p>
 
       {/* Titel + svårighet + regel visas bara i ledtråds-läge. I skarpt läge ser
           testtagaren bara "Fråga N" + rutnätet, som ett riktigt rekryteringstest. */}
@@ -680,40 +612,32 @@ function QuestionHeader({
         <div className="h-[18px] mb-1" aria-hidden="true" />
       ) : showHint ? (
         <>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
-            {cleanTitle}
-          </h2>
+          <h2 className="mb-3 text-fraga text-ink-1">{cleanTitle}</h2>
 
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="text-xs uppercase tracking-wider font-semibold text-neutral-500">
-              Svårighet
-            </span>
+          <div className="mb-3 inline-flex items-center gap-2">
+            <span className="text-steg uppercase text-ink-3">Svårighet</span>
             <div className="flex items-center gap-1">
               {levels.map((level) => (
                 <div
                   key={level}
-                  className={`w-2 h-2 rounded-full ${level <= difficulty ? 'bg-orange-600' : 'bg-neutral-200'}`}
+                  className={`h-2 w-2 rounded-full ${level <= difficulty ? 'bg-ink-1' : 'bg-kant-stark'}`}
                 />
               ))}
             </div>
           </div>
 
-          <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-4 sm:p-5 max-w-xl mx-auto">
-            <p className="text-sm sm:text-base text-neutral-700 leading-relaxed text-left">
-              {rule}
-            </p>
+          <div className="mx-auto max-w-xl rounded-xl border border-kant bg-panel p-4 sm:p-5">
+            <p className="text-left text-sm leading-relaxed text-ink-2 sm:text-base">{rule}</p>
           </div>
         </>
       ) : (
-        <div className="inline-flex items-center gap-2 mb-1">
-          <span className="text-xs uppercase tracking-wider font-semibold text-neutral-400">
-            Svårighet
-          </span>
+        <div className="mb-1 inline-flex items-center gap-2">
+          <span className="text-steg uppercase text-ink-3">Svårighet</span>
           <div className="flex items-center gap-1">
             {levels.map((level) => (
               <div
                 key={level}
-                className={`w-1.5 h-1.5 rounded-full ${level <= difficulty ? 'bg-orange-600' : 'bg-neutral-200'}`}
+                className={`h-1.5 w-1.5 rounded-full ${level <= difficulty ? 'bg-ink-1' : 'bg-kant-stark'}`}
               />
             ))}
           </div>
@@ -730,15 +654,15 @@ function HintToggle({ showHint, onToggle }: { showHint: boolean; onToggle: () =>
         type="button"
         onClick={onToggle}
         aria-pressed={showHint}
-        className="inline-flex items-center gap-2 px-3 py-1.5 min-h-[44px] rounded-full text-xs font-semibold border border-neutral-200 bg-white text-neutral-600 hover:border-orange-300 hover:text-orange-700 transition-colors touch-manipulation"
+        className="inline-flex min-h-11 touch-manipulation items-center gap-2 rounded-md border border-kant bg-panel px-3 py-1.5 text-sm font-medium text-ink-2 transition-colors hover:border-kant-stark hover:text-ink-1"
       >
         <span
           className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${
-            showHint ? 'bg-orange-500' : 'bg-neutral-300'
+            showHint ? 'bg-ink-1' : 'bg-kant-stark'
           }`}
         >
           <span
-            className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+            className={`inline-block h-3 w-3 transform rounded-full bg-panel transition-transform ${
               showHint ? 'translate-x-3.5' : 'translate-x-0.5'
             }`}
           />

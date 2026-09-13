@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { IlluPercentil } from '@/components/illustrations/TestIllustrations';
 
 interface PercentileCardProps {
   sessionId: string;
@@ -47,24 +46,29 @@ export default function PercentileCard({ sessionId, data }: PercentileCardProps)
 
   if (percentile === null || sampleSize < MIN_SAMPLE_SIZE) return null;
 
+  const width = Math.max(0, Math.min(100, percentile));
+
   return (
-    // Kortet tonar in på plats. Förut kom det in med y: 8 → 0 efter att
+    // Kortet tonar in på plats. Förut kom det in med y 8 till 0 efter att
     // percentilen hämtats, mitt i resultatsidan, och sköt ner allt under sig.
     // Ren opacity flyttar ingenting.
-    <section className="bg-white rounded-xl border border-neutral-200 p-4 sm:p-5 [animation:fadeInPlace_0.35s_ease-out]">
-      <div className="flex items-center gap-3">
-        <span className="shrink-0 text-neutral-900" aria-hidden="true">
-          <IlluPercentil size={48} />
-        </span>
-        <div>
-          <p className="text-sm font-semibold text-neutral-900">
-            Bättre än <span className="tabular-nums">{percentile}</span> % av alla resultat
-          </p>
-          <p className="text-sm text-neutral-600 mt-0.5">
-            Jämfört med {sampleSize.toLocaleString('sv-SE')} slutförda test på samma nivå
-          </p>
-        </div>
+    <section
+      className="rounded-xl border border-kant bg-panel p-4 sm:p-5 [animation:fadeInPlace_0.35s_ease-out]"
+      aria-label={`Bättre än ${percentile} procent av alla resultat`}
+    >
+      <div className="flex items-baseline gap-2">
+        <span className="text-tal tabular-nums text-ink-1">{percentile}</span>
+        <span className="text-meta text-ink-3">procent</span>
       </div>
+      <p className="mt-1 text-sm font-medium text-ink-1">
+        Bättre än <span className="tabular-nums">{percentile}</span> % av alla resultat
+      </p>
+      <div className="mt-3 h-0.5 w-full bg-kant" aria-hidden="true">
+        <div className="h-full bg-ink-1" style={{ width: `${width}%` }} />
+      </div>
+      <p className="mt-2 text-meta text-ink-3">
+        Jämfört med {sampleSize.toLocaleString('sv-SE')} slutförda test på samma nivå
+      </p>
     </section>
   );
 }

@@ -1,7 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { CheckCircle2, TrendingUp, Clock } from 'lucide-react';
+/**
+ * Statistiken på hubben: en panel med tre stora tal och etiketter i meta.
+ * Ingen ikonrad, inga färgade ikoner. Talen bär informationen.
+ */
 
 interface TestStatsCardProps {
   completedTestCount: number;
@@ -17,55 +19,31 @@ export default function TestStatsCard({
   totalTimeSeconds,
 }: TestStatsCardProps) {
   const totalMinutes = Math.round(totalTimeSeconds / 60);
-  const timeLabel =
+  const timeValue =
     totalMinutes >= 60
       ? `${Math.floor(totalMinutes / 60)}t ${totalMinutes % 60}m`
-      : `${totalMinutes} min`;
+      : `${totalMinutes}`;
+  const timeLabel = totalMinutes >= 60 ? 'Total tid' : 'Minuter totalt';
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.05 }}
-      className="relative bg-white rounded-xl border border-orange-100 p-4 sm:p-5 overflow-hidden"
+    <section
+      className="rounded-xl border border-kant bg-panel p-4 sm:p-5"
+      aria-label="Din statistik"
     >
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-orange-100">
-        <Stat
-          icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />}
-          label="Slutförda"
-          value={`${completedTestCount} / ${totalTestCount}`}
-        />
-        <Stat
-          icon={<TrendingUp className="w-4 h-4 text-orange-600" strokeWidth={2.5} />}
-          label="Bästa snitt"
-          value={`${averageBestPercentage}%`}
-        />
-        <Stat
-          icon={<Clock className="w-4 h-4 text-blue-600" strokeWidth={2.5} />}
-          label="Total tid"
-          value={timeLabel}
-        />
+      <div className="grid grid-cols-3 gap-4">
+        <Stat value={`${completedTestCount} / ${totalTestCount}`} label="Test slutförda" />
+        <Stat value={`${averageBestPercentage} %`} label="Bästa snitt" />
+        <Stat value={timeValue} label={timeLabel} />
       </div>
-    </motion.section>
+    </section>
   );
 }
 
-function Stat({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
+function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="flex flex-col items-center justify-center px-2 sm:px-3 text-center">
-      <div className="flex items-center gap-1.5 mb-1 text-xs uppercase tracking-wider font-semibold text-neutral-500">
-        {icon}
-        {label}
-      </div>
-      <div className="text-sm sm:text-lg font-bold text-neutral-900 tabular-nums">{value}</div>
+    <div className="min-w-0">
+      <p className="truncate text-tal tabular-nums text-ink-1">{value}</p>
+      <p className="mt-1 text-meta text-ink-3">{label}</p>
     </div>
   );
 }

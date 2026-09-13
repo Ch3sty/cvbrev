@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import type { V5Cell } from '@/lib/logicTestV5/types.v5';
 import { SvgCellV5 } from '@/lib/logicTestV5/renderers.v5';
 
@@ -8,62 +7,49 @@ interface QuestionGridProps {
   grid: (V5Cell | null)[][];
 }
 
+/**
+ * Matrisen i logiktestet: en panel med nio celler. Den tomma cellen är
+ * insunken med streckad kant och ett frågetecken i ink-3, ingen orange yta.
+ */
 export function QuestionGrid({ grid }: QuestionGridProps) {
   return (
-    <div className="bg-white rounded-xl border border-orange-200/60 p-3 sm:p-5 max-w-md mx-auto">
+    <div className="mx-auto max-w-md rounded-xl border border-kant bg-panel p-3 sm:p-5">
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {grid.flat().map((cell, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.04, duration: 0.25 }}
-            className="relative"
-          >
+          <div key={i}>
+            {/* Fylld och tom cell delar samma wrapper-struktur så de får
+                alltid identisk höjd. */}
             {cell ? (
-              <div className="aspect-square rounded-xl bg-white border border-orange-100 flex items-center justify-center overflow-hidden">
+              <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-kant bg-panel">
                 <svg
                   viewBox="0 0 100 100"
-                  className="w-full h-full p-1.5 sm:p-2"
+                  className="h-full w-full p-1.5 sm:p-2"
                   shapeRendering="geometricPrecision"
                 >
                   <SvgCellV5 cell={cell} />
                 </svg>
               </div>
             ) : (
-              <EmptyCell />
+              <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-kant-stark bg-insunken">
+                <svg viewBox="0 0 100 100" className="h-full w-full p-1.5 sm:p-2" aria-hidden="true">
+                  <text
+                    x="50"
+                    y="52"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="52"
+                    fontWeight="500"
+                    fill="var(--ink-3)"
+                    style={{ userSelect: 'none' }}
+                  >
+                    ?
+                  </text>
+                </svg>
+              </div>
             )}
-          </motion.div>
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function EmptyCell() {
-  return (
-    <div
-      className="aspect-square rounded-xl bg-orange-50 flex items-center justify-center relative overflow-hidden"
-      style={{
-        border: '2px dashed rgba(249, 115, 22, 0.45)',
-      }}
-    >
-      <motion.div
-        className="absolute inset-1 rounded-lg"
-        style={{ border: '2px solid rgba(249, 115, 22, 0.5)' }}
-        animate={{
-          opacity: [0.4, 0.85, 0.4],
-          scale: [0.96, 1.0, 0.96],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <span className="text-3xl sm:text-4xl md:text-5xl font-semibold select-none relative z-10 text-orange-600">
-        ?
-      </span>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import AnswerOptions from './AnswerOptions';
 import type { Question } from '@/lib/numericalTest/types';
 
@@ -14,12 +13,11 @@ interface QuestionDisplayProps {
 }
 
 const DIFFICULTY_LABELS = ['Lätt', 'Medel', 'Svår'];
-const DIFFICULTY_COLORS = [
-  'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'bg-amber-50 text-amber-700 border-amber-200',
-  'bg-rose-50 text-rose-700 border-rose-200',
-];
 
+/**
+ * Frågan i det numeriska testet: metarad, frågetext i text-fraga och
+ * svarsalternativen som valbara rader. Nivån visas som text, inte som piller.
+ */
 export default function QuestionDisplay({
   question,
   questionNumber,
@@ -31,41 +29,21 @@ export default function QuestionDisplay({
   const difficultyIdx = Math.min(2, Math.max(0, question.difficulty - 1));
 
   return (
-    <motion.section
-      key={question.id}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden"
-    >
-      <div className="p-5 sm:p-6 md:p-7">
-        {/* Header */}
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-              Fråga {questionNumber} av {totalQuestions}
-            </span>
-          </div>
-          <span
-            className={`text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${DIFFICULTY_COLORS[difficultyIdx]}`}
-          >
-            {DIFFICULTY_LABELS[difficultyIdx]}
-          </span>
-        </div>
+    <section key={question.id} className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <p className="text-meta tabular-nums text-ink-3">
+        Fråga {questionNumber} av {totalQuestions}
+        <span aria-hidden="true"> · </span>
+        {DIFFICULTY_LABELS[difficultyIdx]}
+      </p>
 
-        {/* Question text */}
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-neutral-900 leading-relaxed mb-5 sm:mb-6">
-          {question.questionText}
-        </h3>
+      <h2 className="mb-4 mt-1 text-fraga text-ink-1">{question.questionText}</h2>
 
-        {/* Answer options */}
-        <AnswerOptions
-          options={question.options}
-          selectedId={selectedId}
-          onSelect={onSelect}
-          disabled={disabled}
-        />
-      </div>
-    </motion.section>
+      <AnswerOptions
+        options={question.options}
+        selectedId={selectedId}
+        onSelect={onSelect}
+        disabled={disabled}
+      />
+    </section>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { V7Cell } from '@/lib/logicTestV7/types.v7';
 import { SvgCellV7 } from '@/lib/logicTestV7/renderers.v7';
@@ -12,6 +11,10 @@ interface AnswerOptionsProps {
   disabled?: boolean;
 }
 
+/**
+ * Svarsalternativen i matristestet: valbara kort. Valt kort får kant i ink
+ * och en fylld bock uppe till vänster. Tråden markerar aldrig val.
+ */
 export function AnswerOptions({
   options,
   selectedIndex,
@@ -19,52 +22,51 @@ export function AnswerOptions({
   disabled = false,
 }: AnswerOptionsProps) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-md sm:max-w-lg mx-auto">
+    <div className="mx-auto grid max-w-md grid-cols-2 gap-3 sm:max-w-lg sm:grid-cols-3 sm:gap-4">
       {options.map((option, i) => {
         const letter = String.fromCharCode(65 + i);
         const isSelected = selectedIndex === i;
 
         return (
-          <motion.button
+          <button
             key={i}
+            type="button"
             onClick={() => !disabled && onSelect(i)}
             disabled={disabled}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + i * 0.04, duration: 0.25 }}
-            whileHover={!disabled ? { y: -2 } : {}}
-            whileTap={!disabled ? { scale: 0.98 } : {}}
             className={cn(
-              'relative aspect-square rounded-xl bg-white transition-all touch-manipulation min-h-[80px]',
+              'relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-panel transition-[border-color,background-color] duration-[120ms] active:bg-insunken',
               disabled && 'cursor-not-allowed opacity-60',
-              isSelected
-                ? 'border-2 border-orange-600'
-                : 'border border-orange-100 hover:border-orange-300'
+              isSelected ? 'border-ink-1 shadow-val' : 'border-kant hover:border-kant-stark'
             )}
             aria-label={`Svarsalternativ ${letter}`}
             aria-pressed={isSelected}
           >
-            <div
+            <span
               className={cn(
-                'absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs z-10 transition-colors',
-                isSelected
-                  ? 'bg-orange-600 text-white'
-                  : 'bg-white text-neutral-600 border border-orange-200'
+                'absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium',
+                isSelected ? 'bg-ink-1 text-white' : 'border border-kant bg-panel text-ink-3'
               )}
+              aria-hidden="true"
             >
-              {letter}
-            </div>
+              {isSelected ? (
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12.5l4.5 4.5L19 7.5" />
+                </svg>
+              ) : (
+                letter
+              )}
+            </span>
 
-            <div className="w-full h-full p-3 sm:p-3.5 flex items-center justify-center">
+            <div className="flex h-full w-full items-center justify-center p-3 sm:p-3.5">
               <svg
                 viewBox="0 0 100 100"
-                className="w-full h-full"
+                className="h-full w-full"
                 shapeRendering="geometricPrecision"
               >
                 <SvgCellV7 cell={option} />
               </svg>
             </div>
-          </motion.button>
+          </button>
         );
       })}
     </div>

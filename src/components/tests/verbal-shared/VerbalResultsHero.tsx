@@ -1,7 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Trophy, TrendingUp } from 'lucide-react';
+/**
+ * Poängen i det verbala testet. En panel, siffrorna bär vikten, samma mall som
+ * TestResultsShell. Ingen medalj, ingen fylld procentbricka.
+ */
 
 interface VerbalResultsHeroProps {
   score: number;
@@ -20,38 +22,24 @@ export default function VerbalResultsHero({
   timeSpent,
   variant,
 }: VerbalResultsHeroProps) {
-  const isExcellent = percentage >= 80;
   const versionLabel = variant === 'v2' ? 'Resultat, avancerad' : 'Resultat';
+  const mins = Math.floor(timeSpent / 60);
+  const secs = timeSpent % 60;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-xl bg-white border border-neutral-200 text-neutral-900"
-    >
-      <div className="relative p-6 sm:p-8 md:p-10 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 mb-4">
-          {isExcellent ? <Trophy className="w-3.5 h-3.5" strokeWidth={2.5} /> : <TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />}
-          {versionLabel}
-        </div>
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5" aria-label="Din poäng">
+      <p className="mb-2 text-steg uppercase text-ink-3">{versionLabel}</p>
 
-        <div className="flex items-baseline justify-center gap-3 mb-2 flex-wrap">
-          <span className="text-5xl sm:text-6xl md:text-7xl font-semibold tabular-nums leading-none">
-            {score}
-          </span>
-          <span className="text-2xl sm:text-3xl font-bold text-neutral-500">
-            / {totalStatements}
-          </span>
-          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-base sm:text-lg font-bold tabular-nums bg-orange-600 text-white ml-1">
-            {percentage}%
-          </span>
-        </div>
-
-        <p className="text-sm sm:text-base text-neutral-600">
-          Slutfört på {Math.floor(timeSpent / 60)} min {timeSpent % 60} sek · {completedDate}
-        </p>
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <span className="text-tal tabular-nums text-ink-1">{score}</span>
+        <span className="text-meta text-ink-3">av {totalStatements}</span>
+        <span className="ml-2 text-tal tabular-nums text-ink-1">{percentage}</span>
+        <span className="text-meta text-ink-3">procent</span>
       </div>
-    </motion.section>
+
+      <p className="mt-4 border-t border-kant pt-4 text-meta tabular-nums text-ink-3">
+        Slutfört på {mins} min {secs} sek · {completedDate}
+      </p>
+    </section>
   );
 }

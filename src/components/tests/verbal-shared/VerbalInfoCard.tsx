@@ -1,152 +1,71 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Target, Clock, BookOpen, CheckCircle2 } from 'lucide-react';
+/**
+ * Vad det verbala testet är, innan man startar. En panel med löptext, en lista
+ * med det som gäller, och en lista som förklarar de tre svarsalternativen.
+ * Inga färgade pillrar, ingen ikon per rad.
+ */
 
 interface VerbalInfoCardProps {
   variant: 'v1' | 'v2';
 }
 
+const ANSWERS = [
+  { label: 'Sant', text: 'Påståendet följer logiskt av texten.' },
+  { label: 'Falskt', text: 'Påståendet motsäger texten.' },
+  { label: 'Kan ej avgöras', text: 'Texten ger inte tillräckligt underlag.' },
+];
+
 export default function VerbalInfoCard({ variant }: VerbalInfoCardProps) {
   const isV2 = variant === 'v2';
 
-  const features = [
+  const facts = [
+    { title: '12 passager', sub: 'fyra påståenden var' },
+    { title: '48 påståenden', sub: 'tre svarsalternativ' },
+    { title: 'Cirka 25 minuter', sub: 'tidsgräns' },
     {
-      icon: BookOpen,
-      title: '12 passager',
-      sub: '4 påståenden var',
-    },
-    {
-      icon: Target,
-      title: '48 påståenden',
-      sub: '3 svarsalternativ',
-    },
-    {
-      icon: Clock,
-      title: 'Ca 25 min',
-      sub: 'Tidsgräns',
-    },
-    {
-      icon: CheckCircle2,
       title: isV2 ? 'Avancerad' : 'Grundnivå',
-      sub: isV2 ? 'Mensa-nivå' : 'Rekryteringsnivå',
+      sub: isV2 ? 'Mensa-nivå' : 'rekryteringsnivå',
     },
   ];
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.1, ease: 'easeOut' }}
-      className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden"
-    >
-      <div className="p-5 sm:p-7 md:p-8">
-        <div className="mb-5">
-          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-            Om testet
-          </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
-            {isV2 ? 'Avancerad textanalys' : 'Klassiskt rekryteringsformat'}
-          </h2>
-          <p className="text-sm sm:text-base text-neutral-600 mt-2 leading-relaxed">
-            {isV2
-              ? 'Texterna är längre, påståendena mer subtila och slutsatserna kräver att du läser noggrant. Inom samhälle, vetenskap och kultur, perfekt för chefspositioner och kvalificerade roller.'
-              : 'Du läser en passage, sedan avgör du om fyra påståenden är sanna, falska eller om det inte går att avgöra utifrån texten. Samma format som SHL och Saville använder.'}
-          </p>
-        </div>
+    <section className="space-y-4">
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <p className="mb-1.5 text-steg uppercase text-ink-3">Om testet</p>
+        <h2 className="text-fraga text-ink-1">
+          {isV2 ? 'Avancerad textanalys' : 'Klassiskt rekryteringsformat'}
+        </h2>
+        <p className="mt-2 text-sm leading-[22px] text-ink-2">
+          {isV2
+            ? 'Texterna är längre, påståendena mer subtila och slutsatserna kräver att du läser noggrant. Inom samhälle, vetenskap och kultur, tänkt för chefspositioner och kvalificerade roller.'
+            : 'Du läser en passage, sedan avgör du om fyra påståenden är sanna, falska eller om det inte går att avgöra utifrån texten. Samma format som SHL och Saville använder.'}
+        </p>
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-5">
-          {features.map((feature, index) => (
-            <FeaturePill key={feature.title} feature={feature} index={index} />
+      <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+        {facts.map((fact) => (
+          <li
+            key={fact.title}
+            className="flex min-h-11 items-center justify-between gap-3 px-4 py-2"
+          >
+            <span className="text-sm text-ink-1">{fact.title}</span>
+            <span className="text-meta text-ink-3">{fact.sub}</span>
+          </li>
+        ))}
+      </ul>
+
+      <section aria-label="Tre svarsalternativ">
+        <h3 className="mb-2 text-sm font-medium text-ink-3">Tre svarsalternativ</h3>
+        <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+          {ANSWERS.map((answer) => (
+            <li key={answer.label} className="px-4 py-3">
+              <p className="text-sm font-medium text-ink-1">{answer.label}</p>
+              <p className="mt-0.5 text-meta text-ink-3">{answer.text}</p>
+            </li>
           ))}
-        </div>
-
-        {/* Svarsalternativ-förklaring */}
-        <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-4">
-          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2.5">
-            Tre svarsalternativ
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            <AnswerExplain
-              type="true"
-              label="Sant"
-              text="Påståendet följer logiskt av texten."
-            />
-            <AnswerExplain
-              type="false"
-              label="Falskt"
-              text="Påståendet motsäger texten."
-            />
-            <AnswerExplain
-              type="cannot"
-              label="Kan ej avgöras"
-              text="Texten ger inte tillräcklig info."
-            />
-          </div>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
-function FeaturePill({
-  feature,
-  index,
-}: {
-  feature: { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; title: string; sub: string };
-  index: number;
-}) {
-  const Icon = feature.icon;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.15 + index * 0.05 }}
-      className="p-3 sm:p-4 rounded-xl bg-orange-50/60 border border-orange-100/80"
-    >
-      <Icon className="w-5 h-5 text-neutral-700 mb-2.5" strokeWidth={2.25} />
-      <div className="text-sm font-bold text-neutral-900 leading-tight">{feature.title}</div>
-      <div className="text-xs sm:text-xs text-neutral-600 mt-0.5">{feature.sub}</div>
-    </motion.div>
-  );
-}
-
-function AnswerExplain({
-  type,
-  label,
-  text,
-}: {
-  type: 'true' | 'false' | 'cannot';
-  label: string;
-  text: string;
-}) {
-  const styles = {
-    true: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', iconBg: 'bg-emerald-500' },
-    false: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', iconBg: 'bg-red-500' },
-    cannot: { bg: 'bg-neutral-50', border: 'border-neutral-200', text: 'text-neutral-700', iconBg: 'bg-neutral-500' },
-  }[type];
-
-  return (
-    <div className={`flex items-start gap-2 p-2.5 rounded-xl border ${styles.bg} ${styles.border}`}>
-      <div className={`flex-shrink-0 w-5 h-5 rounded-full ${styles.iconBg} flex items-center justify-center`}>
-        {type === 'true' && (
-          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        )}
-        {type === 'false' && (
-          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        )}
-        {type === 'cannot' && (
-          <span className="text-white text-xs font-semibold">?</span>
-        )}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className={`text-xs font-bold ${styles.text}`}>{label}</div>
-        <div className="text-xs text-neutral-600 leading-tight mt-0.5">{text}</div>
-      </div>
-    </div>
+        </ul>
+      </section>
+    </section>
   );
 }

@@ -158,7 +158,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
             isLocked ? (
               <Link
                 href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
                 Lås upp med Premium
               </Link>
@@ -167,7 +167,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
                 type="button"
                 onClick={handleStart}
                 disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700 disabled:opacity-60"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
               >
                 {isStarting
                   ? 'Startar testet'
@@ -180,14 +180,14 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         >
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <TestLevelBadge kind={config.kind} level={config.level} />
-            <span className="text-xs tabular-nums text-neutral-500">
+            <span className="text-xs tabular-nums text-ink-3">
               {config.totalQuestions} frågor
             </span>
-            <span className="text-xs tabular-nums text-neutral-500">
+            <span className="text-xs tabular-nums text-ink-3">
               ca {config.minutes} min
             </span>
             {!isPremium && !profileLoading ? (
-              <span className="text-xs text-neutral-500">En omgång per dag</span>
+              <span className="text-xs text-ink-3">En omgång per dag</span>
             ) : null}
           </div>
         </PageHeader>
@@ -203,7 +203,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
             action={
               <Link
                 href="/dashboard/tester"
-                className="text-sm font-medium text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline"
+                className="text-sm font-medium text-ink-2 underline-offset-4 hover:text-ink-1 hover:underline"
               >
                 Alla tester
               </Link>
@@ -216,28 +216,28 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         ) : null}
 
         {startError ? (
-          <p className="text-sm text-red-700" role="alert">
+          <p className="text-sm text-fel" role="alert">
             {startError}
           </p>
         ) : null}
 
         {/* Vad nivån kräver. Egen text per test, hämtad ur konfigurationen. */}
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-          <h2 className="text-base font-semibold text-neutral-900">
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+          <h2 className="text-kort text-ink-1">
             {levelName === 'Prov' ? 'Så fungerar provet' : `${levelName}nivån i ${kindName.toLowerCase()}`}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+          <p className="mt-2 text-sm leading-relaxed text-ink-2">
             {config.levelBlurb}
           </p>
-          <ul className="mt-4 space-y-2 text-sm text-neutral-600">
+          <ul className="mt-4 space-y-2 text-sm text-ink-2">
             <li className="flex gap-2">
-              <span aria-hidden="true" className="text-neutral-400">
+              <span aria-hidden="true" className="text-ink-3">
                 &middot;
               </span>
               Du kan pausa. Svaren sparas medan du gör testet.
             </li>
             <li className="flex gap-2">
-              <span aria-hidden="true" className="text-neutral-400">
+              <span aria-hidden="true" className="text-ink-3">
                 &middot;
               </span>
               {config.level === 'prov'

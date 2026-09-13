@@ -1,8 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+/**
+ * Senaste Big Five-profilen på personlighetstestets startsida: en panel med
+ * fem dimensioner som 2 px linjer i ink och en textlänk till hela analysen.
+ */
+
 import Link from 'next/link';
-import { ArrowRight, History } from 'lucide-react';
 import { DIMENSION_META } from '@/lib/personalityTest/insights';
 import type { BigFiveScores } from '@/lib/personalityTest/types';
 
@@ -22,58 +25,43 @@ export default function ProfileSummaryCard({
   attempts,
 }: ProfileSummaryCardProps) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-xl border border-orange-100 overflow-hidden"
-    >
-      <div className="p-5 sm:p-6">
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
-              Din senaste profil
-            </div>
-            <h3 className="text-lg sm:text-xl font-bold text-neutral-900">
-              Big Five-resultat
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-500 mt-0.5 inline-flex items-center gap-1.5">
-              <History className="w-3.5 h-3.5" strokeWidth={2.5} />
-              {new Date(lastCompletedAt).toLocaleDateString('sv-SE')} · {attempts}{' '}
-              {attempts === 1 ? 'försök' : 'försök'}
-            </p>
-          </div>
-        </div>
+    <section className="space-y-2" aria-labelledby="senaste-profil">
+      <h2 id="senaste-profil" className="text-sm font-medium text-ink-3">
+        Din senaste profil
+      </h2>
 
-        <div className="space-y-3 mb-4">
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <p className="text-meta tabular-nums text-ink-3">
+          {new Date(lastCompletedAt).toLocaleDateString('sv-SE')} · {attempts} försök
+        </p>
+
+        <ul className="mt-4 space-y-3">
           {ORDER.map((dim) => {
             const meta = DIMENSION_META[dim];
             const score = scores[dim];
             return (
-              <div key={dim}>
-                <div className="flex items-center justify-between text-xs sm:text-sm mb-1">
-                  <span className="font-semibold text-neutral-700">{meta.name}</span>
-                  <span className="font-bold text-neutral-900 tabular-nums">{score}</span>
+              <li key={dim}>
+                <div className="mb-1 flex items-center justify-between text-sm">
+                  <span className="text-ink-2">{meta.name}</span>
+                  <span className="font-medium tabular-nums text-ink-1">{score}</span>
                 </div>
-                <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-orange-600 transition-all"
-                    style={{ width: `${score}%` }}
-                  />
+                <div className="h-0.5 w-full bg-kant" aria-hidden="true">
+                  <div className="h-full bg-ink-1" style={{ width: `${score}%` }} />
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
 
-        <Link
-          href={resultsHref}
-          className="inline-flex items-center justify-between gap-2 w-full px-4 py-3 rounded-xl border border-orange-200 bg-orange-50/50 hover:bg-orange-50 text-orange-700 font-semibold text-sm transition-colors min-h-[48px]"
-        >
-          <span>Se hela analysen</span>
-          <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-        </Link>
+        <div className="mt-4 border-t border-kant pt-3">
+          <Link
+            href={resultsHref}
+            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+          >
+            Se hela analysen
+          </Link>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

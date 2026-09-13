@@ -1,8 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { History, Crown, Clock } from 'lucide-react';
-import { VerbalCardThumbnail, VerbalEmptyIllustration } from './illustrations/VerbalIcons';
+/**
+ * Tidigare resultat i det verbala testet. Sektionsetikett och en panel med
+ * rader, samma mall som TestPreviousResults. Bästa försöket markeras med ordet
+ * "Bäst" i positiv ton, aldrig med en krona eller en färgad yta.
+ */
+
+import EmptyState from '@/components/shell/EmptyState';
+import { IlluPercentil } from '@/components/illustrations/TestIllustrations';
 
 interface SessionResult {
   id: string;
@@ -17,142 +22,61 @@ interface VerbalPreviousResultsProps {
   totalStatements: number;
 }
 
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
+}
+
+function formatDuration(seconds: number | null): string {
+  if (!seconds) return '';
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins} min ${secs} sek`;
+}
+
 export default function VerbalPreviousResults({
   sessions,
   bestScore,
   totalStatements,
 }: VerbalPreviousResultsProps) {
   if (sessions.length === 0) {
-    return <EmptyState />;
+    return (
+      <EmptyState
+        illustration={IlluPercentil}
+        title="Inga resultat än"
+        description="Kör testet en gång, så visar vi utvecklingen här och jämför mot alla andra som gjort det."
+      />
+    );
   }
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.2, ease: 'easeOut' }}
-      className="relative bg-white rounded-xl border border-orange-200/60 overflow-hidden"
-    >
-      <div className="p-5 sm:p-6 md:p-7">
-        <div className="flex items-center gap-3 mb-4 sm:mb-5">
-          <History className="w-5 h-5 text-neutral-700 flex-shrink-0" strokeWidth={2.5} />
-          <div>
-            <h3 className="text-base sm:text-lg font-bold text-neutral-900 leading-tight">
-              Tidigare resultat
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-600">
-              Dina senaste {Math.min(sessions.length, 5)} försök
-            </p>
-          </div>
-        </div>
+    <section className="space-y-2" aria-labelledby="verbala-resultat">
+      <h2 id="verbala-resultat" className="text-sm font-medium text-ink-3">
+        Dina resultat
+      </h2>
+      <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+        {sessions.slice(0, 5).map((session) => {
+          const score = session.score ?? 0;
+          const pct = Math.min(100, Math.round((score / totalStatements) * 100));
+          const isBest = bestScore > 0 && score === bestScore;
+          const duration = formatDuration(session.time_spent);
 
-        <div className="space-y-2">
-          {sessions.slice(0, 5).map((session, index) => (
-            <ResultRow
-              key={session.id}
-              session={session}
-              isBest={bestScore > 0 && session.score === bestScore}
-              totalStatements={totalStatements}
-              index={index}
-            />
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
-function ResultRow({
-  session,
-  isBest,
-  totalStatements,
-  index,
-}: {
-  session: SessionResult;
-  isBest: boolean;
-  totalStatements: number;
-  index: number;
-}) {
-  const score = session.score ?? 0;
-  const percentage = Math.min(100, Math.round((score / totalStatements) * 100));
-  const timeSpent = session.time_spent ?? 0;
-  const mins = Math.floor(timeSpent / 60);
-  const secs = timeSpent % 60;
-  const timeLabel = `${mins}:${secs.toString().padStart(2, '0')}`;
-
-  const getPercentColor = () => {
-    if (percentage >= 80) return 'bg-emerald-100 text-emerald-700 border-emerald-200';
-    if (percentage >= 60) return 'bg-orange-100 text-orange-700 border-orange-200';
-    return 'bg-neutral-100 text-neutral-600 border-neutral-200';
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, delay: 0.25 + index * 0.05 }}
-      className={`relative flex items-center gap-3 p-3 sm:p-4 rounded-xl border transition-colors ${
-        isBest
-          ? 'bg-amber-50 border-amber-200'
-          : 'bg-orange-50/40 border-orange-100/80 hover:bg-orange-50/70'
-      }`}
-    >
-      {isBest && (
-        <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
-          <Crown className="w-3.5 h-3.5 text-white" strokeWidth={2.5} fill="white" />
-        </div>
-      )}
-
-      <div className="flex-shrink-0">
-        <VerbalCardThumbnail className="w-10 h-10 sm:w-11 sm:h-11" seed={index + score} />
-      </div>
-
-      <div className="flex-1 min-w-0">
-        <div className="flex items-baseline gap-2 mb-0.5">
-          <span className="text-base sm:text-lg font-bold text-neutral-900 tabular-nums">
-            {score} / {totalStatements}
-          </span>
-          <span
-            className={`text-xs font-bold px-2 py-0.5 rounded-full border ${getPercentColor()} tabular-nums`}
-          >
-            {percentage}%
-          </span>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-neutral-500">
-          <span>
-            {new Date(session.completed_at).toLocaleDateString('sv-SE', {
-              day: 'numeric',
-              month: 'short',
-            })}
-          </span>
-          <span className="text-neutral-300">·</span>
-          <span className="inline-flex items-center gap-1">
-            <Clock className="w-3 h-3" strokeWidth={2.5} />
-            {timeLabel}
-          </span>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.2 }}
-      className="bg-white rounded-xl border border-orange-200/60 p-6 sm:p-8 text-center"
-    >
-      <div className="flex justify-center mb-3">
-        <VerbalEmptyIllustration className="w-24 h-24 sm:w-28 sm:h-28" />
-      </div>
-      <h3 className="text-base sm:text-lg font-bold text-neutral-900 mb-1">
-        Inga resultat än
-      </h3>
-      <p className="text-xs sm:text-sm text-neutral-600 max-w-sm mx-auto">
-        Dina avklarade test samlas här. Starta första testet ovan så ser du dina poäng utvecklas.
-      </p>
-    </motion.section>
+          return (
+            <li key={session.id} className="flex min-h-14 items-center gap-3 px-4 py-3">
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-medium tabular-nums text-ink-1">
+                  {score} av {totalStatements}
+                  <span className="ml-2 font-normal text-ink-2">{pct} procent</span>
+                  {isBest ? <span className="ml-2 font-normal text-positiv">Bäst</span> : null}
+                </span>
+                <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
+                  {formatDate(session.completed_at)}
+                  {duration ? ` · ${duration}` : ''}
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

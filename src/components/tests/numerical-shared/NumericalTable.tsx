@@ -12,20 +12,20 @@ interface NumericalTableProps {
 }
 
 /**
- * Premium-stylad tabell-komponent med orange/röd-DNA.
+ * Datatabellen i de numeriska passagerna.
  *
- * Används för att visa data-tabeller i passages (försäljnings-data,
- * lönsamhets-data etc).
+ * En panel med en riktig tabell inuti. Raderna skiljs med kant, aldrig med
+ * varannan färgad rad, och en summarad markeras med en starkare överkant och
+ * halvfet text i ink-1. Tabellen scrollar i sin egen ruta så sidan aldrig
+ * scrollar i sidled.
  */
 export default function NumericalTable({ data }: NumericalTableProps) {
   return (
-    <div
-      className="relative overflow-hidden rounded-xl border border-orange-200/60 bg-white"
-    >
+    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
       <div className="overflow-x-auto p-3 sm:p-4">
         <table className="w-full border-collapse text-sm">
           {data.caption && (
-            <caption className="text-left text-sm font-bold text-neutral-900 mb-3 caption-top">
+            <caption className="caption-top mb-3 text-left text-kort text-ink-1">
               {data.caption}
             </caption>
           )}
@@ -35,10 +35,8 @@ export default function NumericalTable({ data }: NumericalTableProps) {
                 <th
                   key={i}
                   scope="col"
-                  className={`px-3 sm:px-4 py-2.5 text-xs sm:text-xs font-bold uppercase tracking-wider border-b-2 border-orange-200 ${
-                    i === 0
-                      ? 'text-left text-neutral-700'
-                      : 'text-right text-orange-700'
+                  className={`border-b border-kant-stark px-3 py-2.5 text-steg uppercase text-ink-3 sm:px-4 ${
+                    i === 0 ? 'text-left' : 'text-right'
                   }`}
                 >
                   {header}
@@ -46,31 +44,20 @@ export default function NumericalTable({ data }: NumericalTableProps) {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-kant">
             {data.rows.map((row, ri) => {
               const isLast = ri === data.rows.length - 1;
               const isHighlighted = data.highlightLastRow && isLast;
               return (
-                <tr
-                  key={ri}
-                  className={`${
-                    isHighlighted
-                      ? 'bg-orange-50/80 font-bold border-t-2 border-orange-200'
-                      : ri % 2 === 1
-                      ? 'bg-orange-50/30'
-                      : ''
-                  }`}
-                >
+                <tr key={ri} className={isHighlighted ? 'border-t border-kant-stark' : ''}>
                   {row.map((cell, ci) => (
                     <td
                       key={ci}
-                      className={`px-3 sm:px-4 py-2.5 ${
+                      className={`px-3 py-2.5 sm:px-4 ${
                         ci === 0
-                          ? 'text-left text-neutral-900 font-semibold'
-                          : 'text-right tabular-nums text-neutral-700'
-                      } ${
-                        isHighlighted ? 'text-orange-900' : ''
-                      }`}
+                          ? 'text-left text-ink-1'
+                          : 'text-right tabular-nums text-ink-2'
+                      } ${isHighlighted ? 'font-medium text-ink-1' : ''}`}
                     >
                       {cell}
                     </td>

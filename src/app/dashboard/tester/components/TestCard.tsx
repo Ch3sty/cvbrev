@@ -1,19 +1,23 @@
 'use client';
 
 /**
- * Kortet för ett enskilt test på hubben.
+ * Raden för ett enskilt test på hubben (docs/design/designsystem-v2-utkast.md,
+ * "Hubbar och listor").
  *
- * Våg 1 punkt 6: kortet öppnar ALLTID testet. Tidigare skickade ett
+ * Hubben är en lista i en panel, inte ett rutnät av kort. Varje test är en
+ * rad: naken ikon 24 i ink-2, titel, meta och bästa resultatet som tal till
+ * höger. Rekommendationen "Börja här" är en stegetikett i accent-ink och står
+ * på högst en rad per vy.
+ *
+ * Våg 1 punkt 6: raden öppnar ALLTID testet. Tidigare skickade ett
  * premiumlåst kort användaren till prenumerationssidan innan hon ens sett
  * testet, alltså spärren före värdet. Nu öppnas testets sida, och betalväggen
  * kommer där kvoten faktiskt tar slut, räknad serverside i quotaService.
  */
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import TestLevelBadge from '@/components/tests/shared/TestLevelBadge';
-import Sparkline from './Sparkline';
 import { testPaths, type TestKind, type TestLevel } from '../testConfig';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 
@@ -43,6 +47,10 @@ const KIND_FOR_CATEGORY: Record<TestCategoryLabel, TestKind> = {
   Personlighet: 'personlighet',
 };
 
+/** Radens gemensamma form. Delas med personlighets- och provraden. */
+export const HUB_ROW =
+  'flex min-h-14 items-center gap-3 px-4 py-3 transition-colors duration-[120ms] hover:bg-insunken';
+
 interface TestCardProps {
   slug: TestSlug;
   variant: TestCardVariant;
@@ -51,7 +59,7 @@ interface TestCardProps {
   levelLabel: TestLevelLabel;
   questionCount: number;
   timeLabel: string;
-  /** Premium krävs. Spärren sitter serverside, kortet öppnar ändå testet. */
+  /** Premium krävs. Spärren sitter serverside, raden öppnar ändå testet. */
   isPremiumLocked: boolean;
   isUserPremium: boolean;
   stats: PerTestStats;
@@ -73,78 +81,54 @@ export default function TestCard({
   stats,
   isBestOverall,
   isRecommended,
-  index = 0,
 }: TestCardProps) {
   const hasProgress = stats.attempts > 0;
   const showBest = isBestOverall && hasProgress;
   const needsPremium = isPremiumLocked && !isUserPremium;
-  const trend = stats.history.map((h) => h.percentage);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: Math.min(index * 0.03, 0.2), ease: 'easeOut' }}
-    >
+    <li>
       {/* Alltid testets egen sida. Aldrig prenumerationssidan. */}
-      <Link
-        href={testPaths.hub(slug)}
-        className="group flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 sm:p-5"
-      >
-        <div className="flex items-start justify-between gap-3">
-          <TestLevelBadge
-            kind={KIND_FOR_CATEGORY[categoryLabel]}
-            level={LEVEL_KEY[levelLabel]}
-          />
-          {needsPremium ? (
-            <span className="shrink-0 text-xs font-medium text-neutral-500">
-              Premium
-            </span>
-          ) : showBest ? (
-            <span className="shrink-0 text-xs font-medium text-emerald-700">
-              Ditt bästa
-            </span>
-          ) : hasProgress ? (
-            <span className="shrink-0 text-xs font-medium text-neutral-500">Klar</span>
-          ) : isRecommended ? (
-            <span className="shrink-0 text-xs font-medium text-orange-700">
-              Börja här
-            </span>
-          ) : null}
-        </div>
+      <Link href={testPaths.hub(slug)} className={HUB_ROW}>
+        <TestLevelBadge
+          kind={KIND_FOR_CATEGORY[categoryLabel]}
+          level={LEVEL_KEY[levelLabel]}
+          iconOnly
+        />
 
-        <h3 className="mt-3 text-base font-semibold text-neutral-900">{title}</h3>
-        <p className="mt-1 text-xs tabular-nums text-neutral-500">
-          {questionCount} frågor · ca {timeLabel} min
-          {!isUserPremium ? ' · en omgång per dag' : ''}
-        </p>
+        <span className="min-w-0 flex-1">
+          <span className="flex flex-wrap items-baseline gap-x-2">
+            <span className="text-sm font-medium text-ink-1">
+              {title}, {levelLabel.toLowerCase()}
+            </span>
+            {isRecommended && !hasProgress ? (
+              <span className="text-steg uppercase text-accent-ink">Börja här</span>
+            ) : null}
+          </span>
+          <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
+            {questionCount} frågor · ca {timeLabel} min
+            {needsPremium ? ' · Premium' : ''}
+            {showBest ? ' · Ditt bästa test' : ''}
+          </span>
+        </span>
 
         {hasProgress ? (
-          <div className="mt-4 flex items-center gap-3 border-t border-neutral-200 pt-3">
-            <span className="text-lg font-semibold tabular-nums text-neutral-900">
+          <span className="shrink-0 text-right">
+            <span className="block text-base font-medium tabular-nums text-ink-1">
               {stats.bestPercentage} %
             </span>
-            <span className="text-xs tabular-nums text-neutral-500">
-              {stats.bestScore} av {questionCount} bäst
+            <span className="block text-meta tabular-nums text-ink-3">
+              {stats.bestScore} av {questionCount}
             </span>
-            {trend.length > 1 ? (
-              <span className="ml-auto min-w-0 flex-1">
-                <Sparkline values={trend} height={20} />
-              </span>
-            ) : null}
-          </div>
-        ) : (
-          <div className="flex-1" />
-        )}
+          </span>
+        ) : null}
 
-        <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-neutral-900">
-          {hasProgress ? 'Gör om testet' : 'Starta testet'}
-          <ArrowRight
-            aria-hidden="true"
-            className="h-4 w-4 text-neutral-400 transition-transform group-hover:translate-x-0.5"
-          />
-        </span>
+        <ChevronRight
+          aria-hidden="true"
+          className="h-5 w-5 shrink-0 text-ink-3"
+          strokeWidth={1.75}
+        />
       </Link>
-    </motion.div>
+    </li>
   );
 }

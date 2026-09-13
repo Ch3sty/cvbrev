@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
@@ -273,12 +274,8 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
   // svara innan tidigare svar förifyllts och klockan ankrats i started_at.
   if (!currentPassage || !sessionId || isHydrating) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <motion.div
-          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        />
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Provet laddas" />
       </div>
     );
   }
@@ -311,9 +308,9 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
             onClick={handlePrev}
             disabled={currentPassageIndex === 0}
             aria-label="Föregående passage"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            className="inline-flex h-11 w-11 flex-shrink-0 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
           </button>
 
           {isLastPassage ? (
@@ -322,40 +319,35 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
                 setFinishError(null);
                 setShowFinishConfirm(true);
               }}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
             >
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
               Lämna in
             </button>
           ) : (
             <button
               onClick={handleNext}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
             >
               Nästa
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+              <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
             </button>
           )}
         </div>
       }
     >
         <div className="space-y-5 sm:space-y-6">
-          <div className="rounded-xl px-4 py-2.5 text-center text-white text-xs sm:text-sm font-semibold bg-orange-600">
+          <div className="rounded-lg border border-kant bg-insunken px-4 py-2.5 text-center text-meta text-ink-2 shadow-insunken">
             Prov · passager från alla nivåer · ingen hjälp tillgänglig
           </div>
 
           {/* Diskret varning när något svar inte gått att spara trots omförsök */}
           {failedCount > 0 && <UnsavedAnswerBanner />}
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentPassageIndex}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-5 sm:space-y-6"
-            >
+          {/* Frågan tonar in på plats i CSS, den flyttar aldrig något. */}
+          <div
+            key={currentPassageIndex}
+            className="space-y-5 sm:space-y-6 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none"
+          >
               <PassageDisplay
                 title={currentPassage.title}
                 topic={currentPassage.topic}
@@ -369,8 +361,7 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
                 onAnswer={handleSelectAnswer}
                 disabled={isSaving}
               />
-            </motion.div>
-          </AnimatePresence>
+          </div>
 
           <PassageNavigation
             totalPassages={questions.length}
@@ -381,66 +372,20 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
           />
         </div>
 
-      <AnimatePresence>
-        {showFinishConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
-            onClick={() => setShowFinishConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 8 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
-            >
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-                      Avsluta provet?
-                    </h3>
-                    <p className="text-sm text-neutral-600 mt-1">
-                      Du har besvarat <span className="font-bold text-neutral-900">{answeredCount}</span> av{' '}
-                      <span className="font-bold text-neutral-900">{totalStatements}</span> påståenden.
-                    </p>
-                  </div>
-                </div>
-
-                {finishError && (
-                  <div className="flex items-start gap-2 mb-4 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-                    <AlertTriangle
-                      className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-                      strokeWidth={2.25}
-                    />
-                    <p className="text-sm text-amber-800">{finishError}</p>
-                  </div>
-                )}
-
-                <div className="flex gap-2 sm:gap-3 mt-5">
-                  <button
-                    onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-                  >
-                    Tillbaka
-                  </button>
-                  <button
-                    onClick={() => void handleFinishTest()}
-                    disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Bekräftelse innan provet lämnas in. */}
+      <ConfirmDialog
+        open={showFinishConfirm}
+        onCancel={() => setShowFinishConfirm(false)}
+        onConfirm={handleFinishTest}
+        title="Avsluta provet?"
+        description={
+          finishError
+            ? finishError
+            : `Du har besvarat ${answeredCount} av ${totalStatements} påståenden. Du kan inte gå tillbaka efter avslut.`
+        }
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        cancelLabel="Tillbaka"
+      />
     </TestFlowShell>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 
 export interface LinePoint {
   x: string | number;
@@ -68,11 +67,11 @@ export default function LineChart({
   return (
     <figure className="w-full">
       {title && (
-        <figcaption className="text-sm font-bold text-neutral-900 mb-2 text-center">
+        <figcaption className="mb-2 text-center text-kort text-ink-1">
           {title}
         </figcaption>
       )}
-      <div className="relative w-full overflow-hidden rounded-xl border border-orange-100 bg-orange-50/30 p-3 sm:p-4">
+      <div className="relative w-full overflow-hidden rounded-xl border border-kant bg-panel p-3 sm:p-4">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
@@ -163,38 +162,29 @@ export default function LineChart({
           )}
 
           {/* Område under linjen */}
-          <motion.path
+          <path
             d={areaPath}
             fill="url(#line-area-fill)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
           />
 
           {/* Linje */}
-          <motion.path
+          <path
             d={linePath}
             fill="none"
             stroke="url(#line-stroke)"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
           />
 
           {/* Punkter på linjen */}
           {points.map((p, i) => (
-            <motion.g
+            <g
               key={`pt-${i}`}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.5 + i * 0.04 }}
             >
               <circle cx={p.x} cy={p.y} r="5" fill="white" stroke="#DC2626" strokeWidth="2.5" />
               <circle cx={p.x} cy={p.y} r="2" fill="#DC2626" />
-            </motion.g>
+            </g>
           ))}
         </svg>
       </div>

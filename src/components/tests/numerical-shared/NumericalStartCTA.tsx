@@ -1,7 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Play, ArrowRight, Calculator, Save } from 'lucide-react';
+/**
+ * Startknappen för det numeriska testet. En primärknapp i ink, med det som
+ * gäller under den som metadata. Väntläget säger vad som händer, ingen
+ * spinner utanför knappen.
+ */
 
 interface NumericalStartCTAProps {
   onStart: () => void;
@@ -9,64 +12,35 @@ interface NumericalStartCTAProps {
   variant: 'v1' | 'v2' | 'expert';
 }
 
-export default function NumericalStartCTA({ onStart, isLoading, variant }: NumericalStartCTAProps) {
+export default function NumericalStartCTA({
+  onStart,
+  isLoading,
+  variant,
+}: NumericalStartCTAProps) {
   const buttonText = isLoading
-    ? 'Startar testet...'
+    ? 'Startar testet'
     : variant === 'v2'
-    ? 'Starta avancerad'
-    : variant === 'expert'
-    ? 'Starta expert'
-    : 'Starta testet';
+      ? 'Starta avancerad'
+      : variant === 'expert'
+        ? 'Starta expert'
+        : 'Starta testet';
 
-  const timeLabel = variant === 'v1' ? '25 min' : '35 min';
+  const timeLabel = variant === 'v1' ? '25 minuters' : '35 minuters';
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.15, ease: 'easeOut' }}
-      className="text-center"
-    >
+    <section className="text-center">
       <button
+        type="button"
         onClick={onStart}
         disabled={isLoading}
-        className="inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl
-                   font-bold text-base sm:text-lg text-white min-h-[60px] bg-orange-600 hover:bg-orange-700
-                   transition-colors
-                   disabled:opacity-60 disabled:cursor-not-allowed
-                   touch-manipulation"
+        className="inline-flex h-11 w-full touch-manipulation items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {isLoading ? (
-          <>
-            <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            {buttonText}
-          </>
-        ) : (
-          <>
-            <Play className="w-5 h-5" strokeWidth={2.5} />
-            {buttonText}
-            <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
-          </>
-        )}
+        {buttonText}
       </button>
 
-      <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs sm:text-sm text-neutral-600">
-        <span className="inline-flex items-center gap-1.5">
-          <Calculator className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-          {timeLabel} tidsgräns
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Save className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-          Resultatet sparas automatiskt
-        </span>
-      </div>
-    </motion.section>
+      <p className="mt-3 text-meta text-ink-3">
+        {timeLabel} tidsgräns · resultatet sparas automatiskt
+      </p>
+    </section>
   );
 }

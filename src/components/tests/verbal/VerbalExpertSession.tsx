@@ -8,14 +8,15 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, ArrowRight, Flag, Scale } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import { selectPassagesForSession } from '@/lib/verbalTestExpert/selectPassages';
 import type { Passage } from '@/lib/numericalTest/types';
 
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { formatClock } from '@/hooks/use-elapsed-clock';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 
@@ -309,11 +310,8 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
   // svara innan positionen i testet återställts.
   if (isHydrating || !currentPassage || !currentQuestion) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-orange-200 border-t-orange-600 mx-auto mb-4" />
-          <p className="text-neutral-600">Laddar test...</p>
-        </div>
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Testet laddas" />
       </div>
     );
   }
@@ -335,19 +333,16 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
         <button
           onClick={handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          className="inline-flex h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             'Avslutar…'
           ) : isLastQuestion ? (
-            <>
-              Lämna in
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
-            </>
+            'Lämna in'
           ) : (
             <>
               Nästa fråga
-              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+              <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
             </>
           )}
         </button>
@@ -355,29 +350,20 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
     >
       <div className="space-y-4 sm:space-y-5">
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`passage-${currentPassage.id}`}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-4 sm:space-y-5"
-          >
+        {/* Argumentet tonar in på plats i CSS, det flyttar aldrig något. */}
+        <div
+          key={`passage-${currentPassage.id}`}
+          className="space-y-4 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none sm:space-y-5"
+        >
             {/* Argument */}
             <section className="space-y-3">
-              <div className="flex items-center gap-3">
-                <Scale className="w-5 h-5 text-neutral-700 flex-shrink-0" strokeWidth={2.25} />
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
-                    Argument · {currentPassage.topic}
-                  </div>
-                  <h2 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-                    {currentPassage.title}
-                  </h2>
-                </div>
+              <div>
+                <p className="mb-0.5 text-steg uppercase text-ink-3">
+                  Argument · {currentPassage.topic}
+                </p>
+                <h2 className="text-fraga text-ink-1">{currentPassage.title}</h2>
               </div>
-              <div className="text-sm sm:text-base text-neutral-700 leading-relaxed bg-orange-50/40 border border-orange-100 rounded-xl p-4 sm:p-5">
+              <div className="rounded-xl border border-kant bg-panel p-4 text-sm leading-[22px] text-ink-2 sm:p-5 sm:text-base">
                 {currentPassage.contextText.split('\n\n').map((para, i) => (
                   <p key={i} className={i > 0 ? 'mt-3' : ''}>
                     {para.trim()}
@@ -395,28 +381,16 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
               onSelect={setSelectedAnswer}
               disabled={isSubmitting}
             />
-          </motion.div>
-        </AnimatePresence>
+        </div>
 
         {/* Diskret varning när något svar inte gått att spara trots omförsök */}
         {failedCount > 0 && (
-          <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-            <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" strokeWidth={2.25} />
-            <p className="text-sm text-amber-800">
-              Ett svar kunde inte sparas. Vi försöker igen automatiskt.
-            </p>
-          </div>
+          <UnsavedAnswerBanner />
         )}
 
         {/* Fel vid slutförande visas i stället för att testet avslutas tyst */}
         {finishError && (
-          <div className="flex items-start gap-2 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-            <AlertTriangle
-              className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-              strokeWidth={2.25}
-            />
-            <p className="text-sm text-amber-800">{finishError}</p>
-          </div>
+          <UnsavedAnswerBanner message={finishError} />
         )}
       </div>
     </TestFlowShell>

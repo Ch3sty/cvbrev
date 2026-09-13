@@ -11,6 +11,11 @@
  *
  * Resultatet är fortfarande testets eget: rubriken bär testets namn och nivå,
  * och nästa nivå kommer ur testConfig.
+ *
+ * Sidmallen (docs/design/designsystem-v2-utkast.md): PageHeader med vyns enda
+ * primärknapp, poängpanelen med stora tal i text-tal, percentilen som panel
+ * med en 2 px mätare, bryggan som panel, nästa nivå som rad, genomgången i
+ * paneler och sist en sekundär kant-knapp.
  */
 
 import type { ReactNode } from 'react'
@@ -84,8 +89,8 @@ export default function TestResultsShell({
     : ''
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
-      <div className="space-y-6">
+    <div className="mx-auto max-w-3xl py-6 animate-thread-enter">
+      <div className="space-y-4 sm:space-y-6">
         <PageHeader
           title={`${config.title}: ditt resultat`}
           description={
@@ -96,7 +101,7 @@ export default function TestResultsShell({
           action={
             <Link
               href={testPaths.hub(config.slug)}
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700"
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
             >
               Gör om testet
             </Link>
@@ -105,34 +110,28 @@ export default function TestResultsShell({
           <TestLevelBadge kind={config.kind} level={config.level} />
         </PageHeader>
 
-        {/* Poängen. Ett kort, inga gradienter, siffrorna bär vikten. */}
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-4xl font-semibold tabular-nums leading-none text-neutral-900">
-              {score}
-            </span>
-            <span className="text-lg tabular-nums text-neutral-600">av {total}</span>
-            <span className="text-lg font-semibold tabular-nums text-orange-700">
-              {percentage} procent
-            </span>
+        {/* Poängen. En panel, siffrorna bär vikten. */}
+        <section
+          className="rounded-xl border border-kant bg-panel p-4 sm:p-5"
+          aria-label="Din poäng"
+        >
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span className="text-tal tabular-nums text-ink-1">{score}</span>
+            <span className="text-meta text-ink-3">av {total}</span>
+            <span className="ml-2 text-tal tabular-nums text-ink-1">{percentage}</span>
+            <span className="text-meta text-ink-3">procent</span>
           </div>
 
-          <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-neutral-200 pt-4 sm:grid-cols-3">
+          <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-kant pt-4">
             <div>
-              <dt className="text-xs text-neutral-500">Rätt svar</dt>
-              <dd className="mt-1 text-sm font-medium tabular-nums text-neutral-900">
-                {score} av {total}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-xs text-neutral-500">Tid</dt>
-              <dd className="mt-1 text-sm font-medium tabular-nums text-neutral-900">
+              <dt className="text-meta text-ink-3">Tid</dt>
+              <dd className="mt-1 text-sm font-medium tabular-nums text-ink-1">
                 {formatDuration(timeSpent)}
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-neutral-500">Per fråga</dt>
-              <dd className="mt-1 text-sm font-medium tabular-nums text-neutral-900">
+              <dt className="text-meta text-ink-3">Per fråga</dt>
+              <dd className="mt-1 text-sm font-medium tabular-nums text-ink-1">
                 {avgPerQuestion} sek
               </dd>
             </div>
@@ -182,14 +181,8 @@ export default function TestResultsShell({
 
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
-            href={testPaths.hub(config.slug)}
-            className="inline-flex h-11 flex-1 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 hover:border-neutral-300"
-          >
-            Gör om testet
-          </Link>
-          <Link
             href="/dashboard/tester"
-            className="inline-flex h-11 flex-1 items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 hover:border-neutral-300"
+            className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 hover:border-kant-stark sm:w-auto"
           >
             Alla tester
           </Link>

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 
 export interface BarSeries {
   label: string;
@@ -52,11 +51,11 @@ export default function BarChart({
   return (
     <figure className="w-full">
       {title && (
-        <figcaption className="text-sm font-bold text-neutral-900 mb-2 text-center">
+        <figcaption className="mb-2 text-center text-kort text-ink-1">
           {title}
         </figcaption>
       )}
-      <div className="relative w-full overflow-hidden rounded-xl border border-orange-100 bg-orange-50/30 p-3 sm:p-4">
+      <div className="relative w-full overflow-hidden rounded-xl border border-kant bg-panel p-3 sm:p-4">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
@@ -131,21 +130,10 @@ export default function BarChart({
 
             return (
               <g key={i}>
-                <motion.rect
-                  initial={{ height: 0, y: padding.top + chartHeight }}
-                  animate={{ height: barHeight, y }}
-                  transition={{ duration: 0.6, delay: i * 0.08, ease: 'easeOut' }}
-                  x={x}
-                  width={barWidth}
-                  rx="4"
-                  fill={fill}
-                />
+                <rect x={x} y={y} width={barWidth} height={barHeight} rx="4" fill={fill} />
                 {/* Värde ovanför stapeln */}
                 {showValues && (
-                  <motion.text
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.6 + i * 0.08 }}
+                  <text
                     x={x + barWidth / 2}
                     y={y - 8}
                     fontSize="13"
@@ -155,7 +143,7 @@ export default function BarChart({
                   >
                     {d.value}
                     {unit}
-                  </motion.text>
+                  </text>
                 )}
                 {/* Label under */}
                 <text

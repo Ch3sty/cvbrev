@@ -1,7 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Clock, CheckCircle2, AlertTriangle } from 'lucide-react';
+/**
+ * Äldre topprad för det verbala testet. Provskalet (TestFlowShell +
+ * TestMeterRow) äger numera klocka och räknare, den här raden finns kvar som
+ * en fristående variant. Samma toner: ink på panel, varning och fel bara på
+ * klockan, tråden som framstegslinje.
+ */
 
 interface VerbalTestHeaderProps {
   currentPassage: number;
@@ -22,86 +26,46 @@ export default function VerbalTestHeader({
   const seconds = timeRemaining % 60;
   const timeLabel = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-  // Färgkoda timer baserat på tid kvar
-  const isLowTime = timeRemaining < 5 * 60; // sista 5 min
-  const isCriticalTime = timeRemaining < 60; // sista minuten
+  // Tonen byter en gång: ink tills tiden håller på att ta slut, sedan varning
+  // och fel den sista minuten.
+  const isLowTime = timeRemaining < 5 * 60;
+  const isCriticalTime = timeRemaining < 60;
+  const timeTone = isCriticalTime ? 'text-fel' : isLowTime ? 'text-varning' : 'text-ink-1';
 
   const progressPercent = (answeredCount / totalStatements) * 100;
 
   return (
-    <div className="bg-white/95 backdrop-blur-md border-b border-orange-100 sticky top-0 z-30">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3">
-        <div className="flex items-center justify-between gap-3 mb-2.5">
-          {/* Timer */}
-          <motion.div
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border ${
-              isCriticalTime
-                ? 'bg-red-50 border-red-200 animate-pulse'
-                : isLowTime
-                ? 'bg-amber-50 border-amber-200'
-                : 'bg-orange-50 border-orange-200/60'
-            }`}
+    <div className="sticky top-0 z-30 border-b border-kant bg-panel">
+      <div className="mx-auto max-w-3xl px-4 py-3 sm:px-6">
+        <div className="mb-2.5 flex items-center justify-between gap-3 text-sm">
+          <span
+            className={`min-w-[52px] font-medium tabular-nums ${timeTone}`}
+            aria-live={isCriticalTime ? 'assertive' : 'off'}
           >
-            {isCriticalTime ? (
-              <AlertTriangle className="w-3.5 h-3.5 text-red-600" strokeWidth={2.5} />
-            ) : (
-              <Clock
-                className={`w-3.5 h-3.5 ${
-                  isLowTime ? 'text-amber-600' : 'text-orange-600'
-                }`}
-                strokeWidth={2.5}
-              />
-            )}
-            <span
-              className={`text-xs sm:text-sm font-mono font-bold tabular-nums ${
-                isCriticalTime
-                  ? 'text-red-700'
-                  : isLowTime
-                  ? 'text-amber-700'
-                  : 'text-orange-700'
-              }`}
-            >
-              {timeLabel}
-            </span>
-          </motion.div>
+            {timeLabel}
+          </span>
 
-          {/* Passage-räknare */}
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
-            <p className="text-xs uppercase tracking-wider text-neutral-500 font-semibold leading-none mb-0.5">
-              Passage
-            </p>
-            <p className="text-base sm:text-lg font-bold text-neutral-900 tabular-nums leading-none">
-              {currentPassage + 1}
-              <span className="text-neutral-400 font-medium"> / {totalPassages}</span>
-            </p>
-          </motion.div>
+          <p className="tabular-nums text-ink-3">
+            <span className="text-meta">Passage </span>
+            <span className="font-medium text-ink-1">{currentPassage + 1}</span>
+            <span> / {totalPassages}</span>
+          </p>
 
-          {/* Besvarade påståenden */}
-          <motion.div
-            initial={{ opacity: 0, x: 8 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 rounded-full border border-emerald-200/60"
-          >
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" strokeWidth={2.5} />
-            <span className="text-xs sm:text-sm font-bold text-emerald-700 tabular-nums">
-              {answeredCount}
-              <span className="hidden sm:inline"> / {totalStatements}</span>
-            </span>
-          </motion.div>
+          <span className="min-w-[52px] text-right font-medium tabular-nums text-positiv">
+            {answeredCount}
+            <span className="hidden sm:inline"> / {totalStatements}</span>
+          </span>
         </div>
 
-        <div className="h-1 bg-neutral-100 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="h-full rounded-full bg-orange-600"
+        {/*
+          Spåret har alltid sin fulla bredd, så det reserverar sin plats från
+          första målningen. Fyllningen skalas med transform i stället för att
+          animera bredd: en width-animation räknas om i layouten varje bildruta.
+        */}
+        <div className="h-0.5 w-full bg-kant" aria-hidden="true">
+          <div
+            className="h-full origin-left bg-accent transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
+            style={{ transform: `scaleX(${Math.max(0, Math.min(100, progressPercent)) / 100})` }}
           />
         </div>
       </div>

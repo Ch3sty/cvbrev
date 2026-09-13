@@ -1,18 +1,13 @@
 'use client';
 
+/**
+ * Genomgången i det verbala testet: passage för passage, påstående för
+ * påstående. Listor i paneler, utfall som text i ton (positiv/fel), aldrig
+ * färgade kort. Ingen rörelse utöver att en rad viks ut.
+ */
+
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Clock,
-  CheckCircle2,
-  XCircle,
-  RotateCcw,
-  Home,
-  ChevronDown,
-  ChevronUp,
-  TrendingUp,
-  HelpCircle,
-} from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { splitIntoParagraphs } from './splitParagraphs';
 
@@ -85,31 +80,14 @@ export default function VerbalResultsBody({
 
   return (
     <>
-      {/* Stats-rad */}
-      <motion.section
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.05 }}
-        className="bg-white rounded-xl border border-orange-100 p-4 sm:p-5"
-      >
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-orange-100">
-          <Stat
-            icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />}
-            label="Korrekta"
-            value={`${score} / ${totalStatements}`}
-          />
-          <Stat
-            icon={<Clock className="w-4 h-4 text-orange-600" strokeWidth={2.5} />}
-            label="Tid"
-            value={formatTime(timeSpent)}
-          />
-          <Stat
-            icon={<TrendingUp className="w-4 h-4 text-blue-600" strokeWidth={2.5} />}
-            label="Per påstående"
-            value={`${avgPerStatement}s`}
-          />
+      {/* Resultatet i siffror. */}
+      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <div className="grid grid-cols-3 gap-2 divide-x divide-kant sm:gap-4">
+          <Stat label="Korrekta" value={`${score} / ${totalStatements}`} />
+          <Stat label="Tid" value={formatTime(timeSpent)} />
+          <Stat label="Per påstående" value={`${avgPerStatement} s`} />
         </div>
-      </motion.section>
+      </section>
 
       {/* T.ex. jämförelse mot andra testtagare */}
       {afterStatsSlot}
@@ -120,48 +98,31 @@ export default function VerbalResultsBody({
       {/* T.ex. progressionspuff mot nästa nivå */}
       {beforeActionsSlot}
 
-      {/* Action buttons */}
-      <motion.section
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
-        className="flex flex-col sm:flex-row gap-3"
-      >
+      <section className="flex flex-col gap-3 sm:flex-row">
         <button
+          type="button"
           onClick={() => router.push(restartPath)}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[52px] touch-manipulation"
+          className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
         >
-          <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
           Gör om testet
         </button>
         <button
+          type="button"
           onClick={() => router.push('/dashboard/tester')}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[52px] touch-manipulation"
+          className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
         >
-          <Home className="w-4 h-4" strokeWidth={2.5} />
           Tillbaka till tester
         </button>
-      </motion.section>
+      </section>
     </>
   );
 }
 
-function Stat({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col items-center justify-center px-2 sm:px-3 text-center">
-      <div className="flex items-center gap-1.5 mb-1 text-xs uppercase tracking-wider font-semibold text-neutral-500">
-        {icon}
-        {label}
-      </div>
-      <div className="text-sm sm:text-base font-bold text-neutral-900 tabular-nums">{value}</div>
+    <div className="flex flex-col items-center justify-center px-2 text-center sm:px-3">
+      <div className="text-sm font-medium tabular-nums text-ink-1">{value}</div>
+      <div className="mt-0.5 text-meta text-ink-3">{label}</div>
     </div>
   );
 }
@@ -185,113 +146,86 @@ function PassageReview({
   });
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.15 }}
-    >
-      <div className="mb-3 sm:mb-4">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
-          Genomgång
-        </div>
-        <h2 className="text-lg sm:text-xl font-bold text-neutral-900">Passage för passage</h2>
-      </div>
+    <section aria-label="Passage för passage">
+      <h2 className="mb-2 text-sm font-medium text-ink-3">Passage för passage</h2>
 
-      <div
-        className="bg-white rounded-xl border border-orange-100 overflow-hidden divide-y divide-orange-100"
-      >
+      <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {passages.map((p, i) => {
           const stats = correctPerPassage[i];
           const isOpen = openIndex === i;
-          const isAllCorrect = stats.correct === stats.total;
-          const cleanTitle = p.title.replace(/^PASSAGE\s+\d+\s*[--]\s*/i, '');
+          const isAllCorrect = stats.correct === stats.total && stats.answered === stats.total;
+          const cleanTitle = p.title.replace(/^PASSAGE\s+\d+\s*[-]\s*/i, '');
 
           return (
-            <div key={p.id}>
+            <li key={p.id}>
               <button
+                type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="w-full flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-3.5 text-left hover:bg-orange-50/40 transition-colors min-h-[60px]"
+                className="flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left hover:bg-insunken"
                 aria-expanded={isOpen}
               >
-                <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-orange-600 text-white text-sm font-bold tabular-nums">
-                  {i + 1}
-                </div>
+                <span className="w-6 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}</span>
 
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-neutral-900 truncate">
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-medium text-ink-1">
                     {cleanTitle}
-                  </p>
-                  <p className="text-xs text-neutral-500 mt-0.5">
-                    <span className="tabular-nums">{stats.correct}/{stats.total}</span> rätt · {p.topic}
-                  </p>
-                </div>
+                  </span>
+                  <span className="mt-0.5 block text-meta text-ink-3">{p.topic}</span>
+                </span>
 
-                <div className="flex-shrink-0 flex items-center gap-2">
-                  {isAllCorrect && stats.answered === stats.total ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" strokeWidth={2.5} />
-                  ) : stats.correct === 0 && stats.answered > 0 ? (
-                    <XCircle className="w-5 h-5 text-red-500" strokeWidth={2.5} />
-                  ) : (
-                    <span className="inline-flex items-center justify-center w-7 h-5 text-xs font-bold rounded-full bg-orange-100 text-orange-700 tabular-nums">
-                      {stats.correct}/{stats.total}
-                    </span>
-                  )}
-                  {isOpen ? (
-                    <ChevronUp className="w-4 h-4 text-neutral-400" strokeWidth={2.5} />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-neutral-400" strokeWidth={2.5} />
-                  )}
-                </div>
+                <span
+                  className={`shrink-0 text-meta font-medium tabular-nums ${
+                    isAllCorrect ? 'text-positiv' : 'text-ink-3'
+                  }`}
+                >
+                  {stats.correct} av {stats.total}
+                </span>
+
+                <ChevronDown
+                  aria-hidden="true"
+                  strokeWidth={1.75}
+                  className={`h-5 w-5 shrink-0 text-ink-3 transition-transform ${
+                    isOpen ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
 
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-4 sm:px-5 pb-5 pt-1 space-y-3">
-                      {/* Passage-text, naturliga stycken */}
-                      <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-3 sm:p-4">
-                        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-neutral-700 leading-relaxed">
-                          {splitIntoParagraphs(p.text).map((paragraph, pi) => (
-                            <p key={pi}>{paragraph}</p>
-                          ))}
-                        </div>
-                      </div>
+              {isOpen ? (
+                <div className="space-y-3 px-4 pb-6 pt-1">
+                  {/* Passage-text, naturliga stycken */}
+                  <div className="space-y-2 rounded-lg border border-kant bg-insunken p-3 text-sm leading-[22px] text-ink-2 sm:space-y-3">
+                    {splitIntoParagraphs(p.text).map((paragraph, pi) => (
+                      <p key={pi}>{paragraph}</p>
+                    ))}
+                  </div>
 
-                      {/* Statements */}
-                      <div className="space-y-2">
-                        {p.statements.map((st, sIdx) => {
-                          const userAnswer = answers.find(
-                            (a) => a.passageId === p.id && a.statementIndex === sIdx
-                          );
-                          return (
-                            <StatementResult
-                              key={sIdx}
-                              index={sIdx}
-                              text={st.text}
-                              correctAnswer={st.correctAnswer}
-                              explanation={st.explanation}
-                              isProv={isProv}
-                              userAnswer={userAnswer?.answer ?? null}
-                              isCorrect={userAnswer?.isCorrect ?? false}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                  {/* Påståendena */}
+                  <div className="space-y-2">
+                    {p.statements.map((st, sIdx) => {
+                      const userAnswer = answers.find(
+                        (a) => a.passageId === p.id && a.statementIndex === sIdx
+                      );
+                      return (
+                        <StatementResult
+                          key={sIdx}
+                          index={sIdx}
+                          text={st.text}
+                          correctAnswer={st.correctAnswer}
+                          explanation={st.explanation}
+                          isProv={isProv}
+                          userAnswer={userAnswer?.answer ?? null}
+                          isCorrect={userAnswer?.isCorrect ?? false}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </li>
           );
         })}
-      </div>
-    </motion.section>
+      </ul>
+    </section>
   );
 }
 
@@ -321,106 +255,56 @@ function StatementResult({
     return 'Inget svar';
   };
 
-  const colorFor = (v: 'true' | 'false' | 'cannot_say' | null) => {
-    if (v === 'true') return 'bg-emerald-100 text-emerald-700 border-emerald-200';
-    if (v === 'false') return 'bg-red-100 text-red-700 border-red-200';
-    if (v === 'cannot_say') return 'bg-neutral-100 text-neutral-700 border-neutral-200';
-    return 'bg-neutral-100 text-neutral-500 border-neutral-200';
-  };
-
-  const iconFor = (v: 'true' | 'false' | 'cannot_say' | null) => {
-    if (v === 'true') return <CheckCircle2 className="w-3 h-3" strokeWidth={2.5} />;
-    if (v === 'false') return <XCircle className="w-3 h-3" strokeWidth={2.5} />;
-    if (v === 'cannot_say') return <HelpCircle className="w-3 h-3" strokeWidth={2.5} />;
-    return null;
-  };
-
   return (
-    <div
-      className={`rounded-xl border p-3 ${
-        isCorrect
-          ? 'bg-emerald-50/40 border-emerald-200/60'
-          : wasAnswered
-          ? 'bg-red-50/30 border-red-200/60'
-          : 'bg-neutral-50 border-neutral-200/60'
-      }`}
-    >
+    <div className="rounded-lg border border-kant bg-panel p-3">
       <div className="flex items-start gap-2.5">
-        <div className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center bg-white border border-orange-100 text-xs font-bold text-neutral-700 tabular-nums">
-          {index + 1}
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs sm:text-sm text-neutral-800 leading-snug mb-2">{text}</p>
-          <div className="flex flex-wrap items-center gap-1.5 text-xs">
-            <span
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border font-bold ${colorFor(userAnswer)}`}
-            >
-              {iconFor(userAnswer)}
-              Ditt svar: {labelFor(userAnswer)}
-            </span>
-            {!isCorrect && (
-              <span
-                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border font-bold ${colorFor(correctAnswer)}`}
-              >
-                {iconFor(correctAnswer)}
-                Rätt: {labelFor(correctAnswer)}
-              </span>
-            )}
-          </div>
+        <span className="w-5 shrink-0 pt-0.5 text-meta tabular-nums text-ink-3">{index + 1}</span>
 
-          {explanation && isProv && (
-            <div className="mt-2">
-              <span
-                title="Ej tillgänglig under prov"
-                aria-disabled="true"
-                className="inline-flex items-center gap-1 text-xs font-bold text-neutral-400 cursor-not-allowed select-none"
+        <div className="min-w-0 flex-1">
+          <p className="mb-2 text-sm leading-[22px] text-ink-1">{text}</p>
+
+          <dl className="flex flex-wrap items-center gap-x-4 gap-y-1 text-meta">
+            <div className="flex items-center gap-1">
+              <dt className="text-ink-3">Ditt svar</dt>
+              <dd
+                className={`font-medium ${
+                  isCorrect ? 'text-positiv' : wasAnswered ? 'text-fel' : 'text-ink-3'
+                }`}
               >
-                Förklaring – ej tillgänglig under prov
-              </span>
+                {labelFor(userAnswer)}
+              </dd>
             </div>
-          )}
+            {!isCorrect ? (
+              <div className="flex items-center gap-1">
+                <dt className="text-ink-3">Rätt</dt>
+                <dd className="font-medium text-ink-1">{labelFor(correctAnswer)}</dd>
+              </div>
+            ) : null}
+          </dl>
 
-          {explanation && !isProv && (
+          {explanation && isProv ? (
+            <p className="mt-2 text-meta text-ink-3">
+              Förklaringen är inte tillgänglig under prov.
+            </p>
+          ) : null}
+
+          {explanation && !isProv ? (
             <div className="mt-2">
               <button
                 type="button"
                 onClick={() => setShowExplanation((v) => !v)}
-                className="inline-flex items-center gap-1 text-xs font-bold text-orange-700 hover:text-orange-800 transition-colors touch-manipulation"
+                className="inline-flex items-center gap-1 text-meta font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 transition-colors hover:decoration-ink-1"
                 aria-expanded={showExplanation}
               >
                 {showExplanation ? 'Dölj förklaring' : 'Visa förklaring'}
-                {showExplanation ? (
-                  <ChevronUp className="w-3 h-3" strokeWidth={2.5} />
-                ) : (
-                  <ChevronDown className="w-3 h-3" strokeWidth={2.5} />
-                )}
               </button>
-              <AnimatePresence initial={false}>
-                {showExplanation && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <p className="mt-1.5 text-xs sm:text-xs text-neutral-700 leading-relaxed bg-orange-50/50 border border-orange-100 rounded-lg px-2.5 py-2">
-                      {explanation}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {showExplanation ? (
+                <p className="mt-1.5 rounded-lg border border-kant bg-insunken px-2.5 py-2 text-meta leading-[18px] text-ink-2">
+                  {explanation}
+                </p>
+              ) : null}
             </div>
-          )}
-        </div>
-        <div className="flex-shrink-0">
-          {isCorrect ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
-          ) : wasAnswered ? (
-            <XCircle className="w-4 h-4 text-red-500" strokeWidth={2.5} />
-          ) : (
-            <span className="inline-block w-4 h-4 rounded-full border-2 border-neutral-300" />
-          )}
+          ) : null}
         </div>
       </div>
     </div>

@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle, Lock } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
 import { AnswerOptionsV7 } from '@/components/tests/logicV7/AnswerOptionsV7';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
@@ -231,12 +232,8 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
   // svara innan tidigare svar förifyllts.
   if (!sessionId || isHydrating) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <motion.div
-          className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        />
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Provet laddas" />
       </div>
     );
   }
@@ -264,9 +261,9 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
             onClick={handlePrev}
             disabled={currentQuestion === 0 || isNavigating}
             aria-label="Föregående fråga"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            className="inline-flex h-11 w-11 flex-shrink-0 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+            <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
           </button>
 
           {currentQuestion === questions.length - 1 ? (
@@ -275,19 +272,18 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
                 setFinishError(null);
                 setShowFinishConfirm(true);
               }}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
             >
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
               Lämna in
             </button>
           ) : (
             <button
               onClick={handleNext}
               disabled={isNavigating}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
             >
               Nästa
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+              <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
             </button>
           )}
         </div>
@@ -295,33 +291,27 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
     >
         <div className="space-y-5 sm:space-y-6">
           {/* Prov-banner */}
-          <div className="rounded-xl px-4 py-2.5 text-center text-white text-xs sm:text-sm font-semibold bg-orange-600">
+          <div className="rounded-lg border border-kant bg-insunken px-4 py-2.5 text-center text-meta text-ink-2 shadow-insunken">
             Prov · frågor från alla nivåer · ingen hjälp tillgänglig
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestion}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-5"
-            >
+          {/* Frågan tonar in på plats i CSS, den flyttar aldrig något. */}
+          <div
+            key={currentQuestion}
+            className="space-y-5 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none"
+          >
               {/* Skarpt prov-läge: bara "Fråga N" + svårighet, ingen titel/regel. */}
               <div className="text-center">
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
+                <p className="mb-1.5 text-steg uppercase text-ink-3">
                   Fråga {currentQuestion + 1}
-                </div>
+                </p>
                 <div className="inline-flex items-center gap-2">
-                  <span className="text-xs uppercase tracking-wider font-semibold text-neutral-400">
-                    Svårighet
-                  </span>
+                  <span className="text-steg uppercase text-ink-3">Svårighet</span>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3].map((level) => (
                       <div
                         key={level}
-                        className={`w-1.5 h-1.5 rounded-full ${level <= question.difficulty ? 'bg-orange-600' : 'bg-neutral-200'}`}
+                        className={`h-1.5 w-1.5 rounded-full ${level <= question.difficulty ? 'bg-ink-1' : 'bg-kant-stark'}`}
                       />
                     ))}
                   </div>
@@ -338,7 +328,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
                 {failedCount > 0 && (
                   <UnsavedAnswerBanner className="max-w-md sm:max-w-lg mx-auto mb-3" />
                 )}
-                <p className="text-center text-xs sm:text-sm font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-3">
+                <p className="mb-3 text-center text-steg uppercase text-ink-3">
                   Välj rätt svar
                 </p>
                 <AnswerOptionsV7
@@ -348,8 +338,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
                   disabled={isSaving || isNavigating}
                 />
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </div>
 
           <QuestionNavigation
             totalQuestions={questions.length}
@@ -359,68 +348,20 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
           />
         </div>
 
-      <AnimatePresence>
-        {showFinishConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
-            onClick={() => setShowFinishConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 8 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-xl border border-neutral-200 shadow-lg max-w-md w-full overflow-hidden"
-            >
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0" strokeWidth={2.25} />
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 leading-tight">
-                      Avsluta provet?
-                    </h3>
-                    <p className="text-sm text-neutral-600 mt-1">
-                      Du har besvarat{' '}
-                      <span className="font-bold text-neutral-900">{answeredQuestions.size}</span> av{' '}
-                      <span className="font-bold text-neutral-900">{questions.length}</span> frågor. Du
-                      kan inte gå tillbaka efter avslut.
-                    </p>
-                  </div>
-                </div>
-
-                {finishError && (
-                  <div className="flex items-start gap-2 mb-4 px-3.5 py-2.5 rounded-xl border border-amber-200 bg-amber-50">
-                    <AlertTriangle
-                      className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"
-                      strokeWidth={2.25}
-                    />
-                    <p className="text-sm text-amber-800">{finishError}</p>
-                  </div>
-                )}
-
-                <div className="flex gap-2 sm:gap-3 mt-5">
-                  <button
-                    onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-                  >
-                    Tillbaka
-                  </button>
-                  <button
-                    onClick={handleFinishTest}
-                    disabled={isFinishing}
-                    className="flex-1 px-4 py-3 rounded-xl text-white bg-orange-600 hover:bg-orange-700 font-bold text-sm transition-colors min-h-[48px] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Bekräftelse innan provet lämnas in. */}
+      <ConfirmDialog
+        open={showFinishConfirm}
+        onCancel={() => setShowFinishConfirm(false)}
+        onConfirm={handleFinishTest}
+        title="Avsluta provet?"
+        description={
+          finishError
+            ? finishError
+            : `Du har besvarat ${answeredQuestions.size} av ${questions.length} frågor. Du kan inte gå tillbaka efter avslut.`
+        }
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        cancelLabel="Tillbaka"
+      />
     </TestFlowShell>
   );
 }
@@ -428,15 +369,8 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
 /** Förklarings-toggle, inaktiverad i prov-läge. Visar att hjälpen finns men inte under prov. */
 function DisabledHintToggle() {
   return (
-    <div className="flex justify-center">
-      <span
-        title="Ej tillgänglig under prov"
-        aria-disabled="true"
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 bg-neutral-50 text-neutral-400 cursor-not-allowed select-none"
-      >
-        <Lock className="w-3 h-3" strokeWidth={2.5} />
-        Förklarande text – ej tillgänglig under prov
-      </span>
-    </div>
+    <p className="text-center text-meta text-ink-3">
+      Förklarande text är inte tillgänglig under prov.
+    </p>
   );
 }

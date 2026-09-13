@@ -1,6 +1,11 @@
 'use client';
 
-import { Clock, CheckCircle2 } from 'lucide-react';
+/**
+ * Äldre topprad för logiktestet. Provskalet (TestFlowShell + TestMeterRow)
+ * äger numera klocka och räknare, den här raden finns kvar som en fristående
+ * variant med samma toner.
+ */
+
 import { useEffect, useState } from 'react';
 
 interface TestHeaderProps {
@@ -36,37 +41,21 @@ export function TestHeader({
   const progressPercent = (answeredCount / totalQuestions) * 100;
 
   return (
-    <div className="bg-white/95 backdrop-blur-md border-b border-orange-100 sticky top-0 z-30">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3">
-        {/* Top row */}
-        <div className="flex items-center justify-between gap-3 mb-2.5">
-          {/* Timer */}
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-orange-50 rounded-full border border-orange-200/60 [animation:fadeInPlace_0.3s_ease-out]">
-            <Clock className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-            <span className="text-xs sm:text-sm font-mono font-bold text-orange-700 tabular-nums">
-              {elapsedTime}
-            </span>
-          </div>
+    <div className="sticky top-0 z-30 border-b border-kant bg-panel">
+      <div className="mx-auto max-w-3xl px-4 py-3 sm:px-6">
+        <div className="mb-2.5 flex items-center justify-between gap-3 text-sm">
+          <span className="min-w-[52px] font-medium tabular-nums text-ink-1">{elapsedTime}</span>
 
-          {/* Question number (center) */}
-          <div className="text-center [animation:fadeInPlace_0.3s_ease-out]">
-            <p className="text-xs uppercase tracking-wider text-neutral-500 font-semibold leading-none mb-0.5">
-              Fråga
-            </p>
-            <p className="text-base sm:text-lg font-bold text-neutral-900 tabular-nums leading-none">
-              {currentQuestion + 1}
-              <span className="text-neutral-400 font-medium"> / {totalQuestions}</span>
-            </p>
-          </div>
+          <p className="tabular-nums text-ink-3">
+            <span className="text-meta">Fråga </span>
+            <span className="font-medium text-ink-1">{currentQuestion + 1}</span>
+            <span> / {totalQuestions}</span>
+          </p>
 
-          {/* Answered count */}
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 rounded-full border border-emerald-200/60 [animation:fadeInPlace_0.3s_ease-out]">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" strokeWidth={2.5} />
-            <span className="text-xs sm:text-sm font-bold text-emerald-700 tabular-nums">
-              {answeredCount}
-              <span className="hidden sm:inline"> / {totalQuestions}</span>
-            </span>
-          </div>
+          <span className="min-w-[52px] text-right font-medium tabular-nums text-positiv">
+            {answeredCount}
+            <span className="hidden sm:inline"> / {totalQuestions}</span>
+          </span>
         </div>
 
         {/*
@@ -75,10 +64,10 @@ export function TestHeader({
           transform i stället för att animera `width`: en width-animation
           räknas om i layouten varje bildruta, en transform gör det inte.
         */}
-        <div className="h-1 bg-neutral-100 rounded-full overflow-hidden">
+        <div className="h-0.5 w-full bg-kant" aria-hidden="true">
           <div
-            className="h-full w-full origin-left rounded-full bg-orange-600 transition-transform duration-300 ease-out"
-            style={{ transform: `scaleX(${progressPercent / 100})` }}
+            className="h-full origin-left bg-accent transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
+            style={{ transform: `scaleX(${Math.max(0, Math.min(100, progressPercent)) / 100})` }}
           />
         </div>
       </div>

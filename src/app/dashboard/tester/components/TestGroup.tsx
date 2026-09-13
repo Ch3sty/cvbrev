@@ -1,24 +1,21 @@
 'use client';
 
-import { motion } from 'framer-motion';
+/**
+ * En testgrupp på hubben: sektionsetikett, en mening om vad typen mäter och
+ * EN panel med testen som rader. Provet ligger sist i samma panel.
+ */
+
 import TestCard from './TestCard';
 import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
 import ProvCard from './ProvCard';
-import {
-  IlluMatris,
-  IlluVerbal,
-  IlluNumerisk,
-  IlluPersonlighet,
-} from '@/components/illustrations/TestIllustrations';
-import type { IlluProps } from '@/components/illustrations/primitives';
-import type { TestGroup as TestGroupType, TestGroupKey } from './testCatalog';
+import type { TestGroup as TestGroupType } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import type { PersonalityTestStats } from '@/hooks/use-personality-test-stats';
 
 interface Props {
   group: TestGroupType;
-  /** Löpande index för stagger-animation över alla grupper. */
+  /** Löpande index över alla grupper. Behålls för anropskompatibilitet. */
   startIndex: number;
   isPremium: boolean;
   perTest: Record<TestSlug, PerTestStats>;
@@ -28,17 +25,6 @@ interface Props {
   provBestPercent?: number | null;
   recommendSlug?: TestSlug;
 }
-
-/** En illustration per testtyp, 48 px bredvid gruppens rubrik. */
-const GROUP_ILLUSTRATION: Record<
-  TestGroupKey,
-  (props: IlluProps) => React.ReactElement
-> = {
-  logik: IlluMatris,
-  verbal: IlluVerbal,
-  numerisk: IlluNumerisk,
-  personlighet: IlluPersonlighet,
-};
 
 export default function TestGroup({
   group,
@@ -50,37 +36,19 @@ export default function TestGroup({
   provBestPercent = null,
   recommendSlug,
 }: Props) {
-  const Illustration = GROUP_ILLUSTRATION[group.key];
   const isPersonality = group.key === 'personlighet';
-  // Träningskorten + ev. resultatkort. Provet ligger som balk under gridet, så
-  // raden består av 2-3 kort → 3-kol på lg ger jämn rytm utan att provet stör.
-  const cardCount = group.cognitive.length + group.personality.length + (isPersonality ? 1 : 0);
-  const useThreeCols = cardCount >= 3;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="space-y-4"
-    >
-      {/* Sektionsrubrik: testtypens ikon, namn och en mening om vad den mäter. */}
-      <div className="flex items-start gap-3">
-        <span aria-hidden="true" className="shrink-0 text-neutral-900">
-          <Illustration size={48} />
-        </span>
-        <div className="min-w-0 flex-1">
-          <h2 className="text-lg font-semibold text-neutral-900">{group.heading}</h2>
-          <p className="mt-1 text-sm leading-relaxed text-neutral-600">{group.blurb}</p>
-          <p className="mt-1 text-xs text-neutral-500">{group.searchHint}</p>
-        </div>
+    <section className="space-y-2" aria-labelledby={`testgrupp-${group.key}`}>
+      <div>
+        <h2 id={`testgrupp-${group.key}`} className="text-sm font-medium text-ink-3">
+          {group.heading}
+        </h2>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">{group.blurb}</p>
+        <p className="mt-0.5 text-meta text-ink-3">{group.searchHint}</p>
       </div>
 
-      <div
-        className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${
-          useThreeCols ? 'lg:grid-cols-3' : ''
-        }`}
-      >
+      <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {group.cognitive.map((test, i) => (
           <TestCard
             key={test.slug}
@@ -118,26 +86,24 @@ export default function TestGroup({
             index={startIndex + group.cognitive.length + i}
           />
         ))}
-        {/* Tredje kort på personlighetsraden: användarens faktiska resultat. */}
-        {isPersonality && (
+        {/* Sista raden i personlighetspanelen: användarens faktiska profil. */}
+        {isPersonality ? (
           <PersonalityResultCard
             personality={personality}
             index={startIndex + group.personality.length}
           />
-        )}
-      </div>
+        ) : null}
 
-      {/* Standout prov-balk under träningskorten: "träna ovan, pröva här". */}
-      {group.prov && (
-        <div>
+        {/* Provet sist i samma panel: "träna ovan, pröva här". */}
+        {group.prov ? (
           <ProvCard
             href={group.prov.href}
             totalQuestions={group.prov.totalQuestions}
             minutes={group.prov.minutes}
             bestPercent={provBestPercent}
           />
-        </div>
-      )}
-    </motion.section>
+        ) : null}
+      </ul>
+    </section>
   );
 }

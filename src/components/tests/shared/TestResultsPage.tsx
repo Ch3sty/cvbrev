@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
+import PageHeader from '@/components/shell/PageHeader'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
 
@@ -30,7 +31,7 @@ import MatrixQuestionReview from './reviews/MatrixQuestionReview'
   den hoppar när den landar.
 */
 const ReviewFallback = () => (
-  <div className="h-64 rounded-xl border border-neutral-200 bg-neutral-50" />
+  <div className="h-64 rounded-xl border border-kant bg-panel" aria-hidden="true" />
 )
 
 const NumericalReview = dynamic(() => import('./reviews/NumericalReview'), {
@@ -137,10 +138,15 @@ export default function TestResultsPage({
   if (state === 'loading') {
     return (
       <div className="mx-auto max-w-3xl py-6">
-        <div className="space-y-6">
-          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-neutral-100" />
-          <div className="h-40 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
-          <div className="h-64 animate-pulse rounded-xl border border-neutral-200 bg-neutral-50" />
+        <div
+          className="space-y-4 sm:space-y-6"
+          role="status"
+          aria-busy="true"
+          aria-label="Laddar resultat"
+        >
+          <div className="h-8 w-2/3 rounded-lg bg-insunken" aria-hidden="true" />
+          <div className="loading-thread h-40 rounded-xl border border-kant bg-panel" aria-hidden="true" />
+          <div className="h-64 rounded-xl border border-kant bg-panel" aria-hidden="true" />
         </div>
       </div>
     )
@@ -149,19 +155,18 @@ export default function TestResultsPage({
   if (state === 'missing' || !session) {
     return (
       <div className="mx-auto max-w-3xl py-6">
-        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900">
-          Resultatet gick inte att hämta
-        </h1>
-        <p className="mt-1 text-sm leading-relaxed text-neutral-600">
-          Sessionen finns inte kvar, eller så hör den till ett annat konto. Kör
-          testet igen så sparas ett nytt resultat.
-        </p>
-        <Link
-          href={`/dashboard/tester/${config.slug}`}
-          className="mt-6 inline-flex h-11 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-medium text-white hover:bg-orange-700"
-        >
-          Till {config.title.toLowerCase()}
-        </Link>
+        <PageHeader
+          title="Resultatet gick inte att hämta"
+          description="Sessionen finns inte kvar, eller så hör den till ett annat konto. Kör testet igen så sparas ett nytt resultat."
+          action={
+            <Link
+              href={`/dashboard/tester/${config.slug}`}
+              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+            >
+              Till {config.title.toLowerCase()}
+            </Link>
+          }
+        />
       </div>
     )
   }

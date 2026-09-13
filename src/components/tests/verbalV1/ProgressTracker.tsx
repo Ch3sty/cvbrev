@@ -1,48 +1,39 @@
-import { motion } from 'framer-motion';
-import { CheckCircle2, Circle } from 'lucide-react';
+/**
+ * Framstegskort i det verbala testet: hur många påståenden som är besvarade.
+ * En panel, ett tal och tråden som linje. Ingen färgad ram, ingen rörelse i
+ * skelettet.
+ */
 
 interface ProgressTrackerProps {
   totalQuestions: number;
   answeredQuestions: number;
 }
 
-export function ProgressTracker({
-  totalQuestions,
-  answeredQuestions
-}: ProgressTrackerProps) {
+export function ProgressTracker({ totalQuestions, answeredQuestions }: ProgressTrackerProps) {
   const percentage = Math.round((answeredQuestions / totalQuestions) * 100);
+  const isDone = answeredQuestions === totalQuestions;
 
   return (
-    <div className="bg-white rounded-xl border-2 border-green-200 p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          {answeredQuestions === totalQuestions ? (
-            <CheckCircle2 className="w-5 h-5 text-green-600" />
-          ) : (
-            <Circle className="w-5 h-5 text-neutral-400" />
-          )}
-          <span className="text-sm font-semibold text-neutral-700">
-            Framsteg
-          </span>
-        </div>
-        <span className="text-lg font-bold text-green-600">
-          {answeredQuestions}/{totalQuestions}
+    <section className="rounded-xl border border-kant bg-panel p-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <span className="text-sm text-ink-2">Framsteg</span>
+        <span
+          className={`text-sm font-medium tabular-nums ${isDone ? 'text-positiv' : 'text-ink-1'}`}
+        >
+          {answeredQuestions} av {totalQuestions}
         </span>
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full h-3 bg-neutral-200 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full bg-emerald-600 rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+      <div className="h-0.5 w-full bg-kant" aria-hidden="true">
+        <div
+          className="h-full origin-left bg-accent transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
+          style={{ transform: `scaleX(${percentage / 100})` }}
         />
       </div>
 
-      <p className="text-xs text-neutral-500 mt-2 text-center">
-        {percentage}% besvarade
+      <p className="mt-2 text-center text-meta tabular-nums text-ink-3">
+        {percentage} % besvarade
       </p>
-    </div>
+    </section>
   );
 }

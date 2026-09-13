@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Flag } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import { selectProvPassagesForSession } from '@/lib/numericalTestProv/selectProv';
 import type { Passage } from '@/lib/numericalTest/types';
 
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
@@ -221,11 +221,8 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
 
   if (!currentPassage || !currentQuestion || isHydrating) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-orange-200 border-t-orange-600 mx-auto mb-4" />
-          <p className="text-neutral-600">Laddar prov...</p>
-        </div>
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Provet laddas" />
       </div>
     );
   }
@@ -247,39 +244,32 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
         <button
           onClick={handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          className="inline-flex h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isSubmitting ? (
             'Sparar svar…'
           ) : isLastQuestion ? (
-            <>
-              Lämna in
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
-            </>
+            'Lämna in'
           ) : (
             <>
               Nästa fråga
-              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+              <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
             </>
           )}
         </button>
       }
     >
       <div className="space-y-4 sm:space-y-5">
-        <div className="rounded-xl px-4 py-2.5 text-center text-white text-xs sm:text-sm font-semibold bg-orange-600">
+        <div className="rounded-lg border border-kant bg-insunken px-4 py-2.5 text-center text-meta text-ink-2 shadow-insunken">
           Prov · frågor från alla nivåer · ingen hjälp tillgänglig
         </div>
 
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`passage-${currentPassage.id}`}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-4 sm:space-y-5"
-          >
+        {/* Passagen tonar in på plats i CSS, den flyttar aldrig något. */}
+        <div
+          key={`passage-${currentPassage.id}`}
+          className="space-y-4 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none sm:space-y-5"
+        >
             <PassageDisplay passage={currentPassage} />
             <QuestionDisplay
               key={currentQuestion.id}
@@ -290,8 +280,7 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
               onSelect={setSelectedAnswer}
               disabled={isSubmitting}
             />
-          </motion.div>
-        </AnimatePresence>
+        </div>
 
         {/* Diskret varning när något svar inte gått att spara trots omförsök */}
         {failedCount > 0 && <UnsavedAnswerBanner />}

@@ -5,13 +5,12 @@
  *
  * All data kommer färdig som props från page.tsx, som läste den på servern.
  * Den enda staten här är vilken flik som är vald, och den är rent lokal.
- * Inga fetchanrop, ingen laddningsvy: första HTML innehåller redan korten med
- * användarens riktiga resultat.
+ * Inga fetchanrop, ingen laddningsvy: första HTML innehåller redan raderna
+ * med användarens riktiga resultat.
  */
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
 import PageHeader from '@/components/shell/PageHeader';
 import StatusRow from '@/components/shell/StatusRow';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
@@ -50,8 +49,8 @@ export default function TesterHubClient({ data }: { data: TesterHubData }) {
   const personalityStats = { ...personality, isLoading: false };
 
   return (
-    <div className="mx-auto max-w-6xl py-6">
-      <div className="space-y-6">
+    <div className="mx-auto max-w-3xl py-6">
+      <div className="space-y-4 sm:space-y-6">
         <PageHeader
           title="Rekryteringstester"
           description="Träna på de moment rekryterare faktiskt använder: logik, verbalt resonemang, siffror och personlighet."
@@ -63,21 +62,15 @@ export default function TesterHubClient({ data }: { data: TesterHubData }) {
           />
         </PageHeader>
 
-        {/* Gratisrytmen sägs en gång, som rad, inte i varje kort. */}
+        {/* Gratisrytmen sägs en gång, som rad, inte på varje rad. */}
         {!isPremium ? (
-          <StatusRow tone="neutral">
+          <StatusRow tone="neutral" showDot>
             Du gör varje test en gång per dag på gratisnivån.
           </StatusRow>
         ) : null}
 
         {tab === 'tester' ? (
-          <motion.div
-            key="tester"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="space-y-6"
-          >
+          <div key="tester" className="animate-thread-enter space-y-4 sm:space-y-6">
             {hasAnyData ? (
               <TestStatsCard
                 completedTestCount={aggregate.completedTestCount}
@@ -114,7 +107,7 @@ export default function TesterHubClient({ data }: { data: TesterHubData }) {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         ) : (
           <DevelopmentView perTest={perTest} />
         )}
