@@ -46,6 +46,13 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   const router = useRouter()
   const { subscriptionTier, loading: profileLoading } = useProfile()
   const [sessions, setSessions] = useState<TestSessionRow[]>([])
+  /**
+   * Tidigare resultat hämtas efter första målningen. Raden "Ditt bästa" står
+   * ovanför nivåtexten, så när den dök upp knuffades allt under den 68 px
+   * nedåt (44 px rad plus 24 px radavstånd). Det mätte 0,0219 i CLS.
+   * Vi håller reda på om hämtningen är klar och reserverar ytan tills dess.
+   */
+  const [sessionsLoading, setSessionsLoading] = useState(true)
   const [isStarting, setIsStarting] = useState(false)
   const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null)
   const [startError, setStartError] = useState<string | null>(null)
@@ -54,7 +61,10 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   const isLocked = config.requiresPremium && !isPremium && !profileLoading
 
   useEffect(() => {
-    if (isLocked) return
+    if (isLocked) {
+      setSessionsLoading(false)
+      return
+    }
     let cancelled = false
     const url = config.sessionQuery
       ? `${config.api}/session?${config.sessionQuery}`
@@ -63,7 +73,8 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
     fetch(url)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (cancelled || !data || !Array.isArray(data.sessions)) return
+        if (cancelled) return
+        if (!data || !Array.isArray(data.sessions)) return
         const completed = (data.sessions as TestSessionRow[])
           .filter((s) => s.completed_at)
           .sort(
@@ -74,6 +85,9 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
       })
       .catch(() => {
         /* Tidigare resultat är ett tillägg. Fel här får inte blockera start. */
+      })
+      .finally(() => {
+        if (!cancelled) setSessionsLoading(false)
       })
     return () => {
       cancelled = true
@@ -178,7 +192,11 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
           </div>
         </PageHeader>
 
-        {bestPercentage > 0 && !quotaLock ? (
+        {sessionsLoading && !quotaLock ? (
+          // Platshållare i exakt radens mått medan tidigare resultat hämtas.
+          // Utan den knuffas nivåtexten nedåt när raden dyker upp.
+          <div className="min-h-11" aria-hidden="true" />
+        ) : bestPercentage > 0 && !quotaLock ? (
           <StatusRow
             tone="positive"
             showDot

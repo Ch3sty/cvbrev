@@ -8,7 +8,17 @@ import ClientLayout from './client-layout'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 
-const inter = Inter({ subsets: ['latin'] })
+// display: 'swap' ritar text direkt med reservsnittet i stället för att hålla
+// den osynlig, och adjustFontFallback låter Next räkna fram ett reservsnitt
+// vars metrik matchar Inter. Utan den matchningen är reservsnittet bredare,
+// text radbryter annorlunda och block byter höjd när Inter tonar in. Det var
+// grundorsaken bakom flera av de layoutskiften vi jagat sida för sida, bland
+// annat hero-chipsen på cv-mallar (0,050) och rubrikerna i skapa-cv steg 7.
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  adjustFontFallback: true,
+})
 
 const GTM_ID = 'GTM-5KLW66PJ';
 

@@ -14,6 +14,7 @@ import {
 import DownloadButton from '@/components/letters/download-button';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
 
 export default function ViewLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -30,11 +31,16 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   const id = resolvedParams.id;
 
   const initialLoadRef = useRef(false);
+  /** Sant först när en hämtning har startats och avslutats. Styr när felvyn
+      får visas, så den inte blinkar förbi före första hämtningen. */
+  const [harForsokt, setHarForsokt] = useState(false);
 
   useEffect(() => {
     if (id && !initialLoadRef.current && !currentLetter) {
       initialLoadRef.current = true;
-      getLetter(id);
+      Promise.resolve(getLetter(id)).finally(() => setHarForsokt(true));
+    } else if (currentLetter) {
+      setHarForsokt(true);
     }
   }, [id, currentLetter, getLetter]);
 
@@ -65,7 +71,9 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     content.includes('<div') || content.includes('<style');
 
   const formatContent = (content: string) => {
-    if (isTemplateHTML(content)) return content;
+    // Mallens egna style-block måste scopas, annars sätter dess `body`-regel
+    // padding på dashboardens body och knuffar hela skalet 24 px i sidled.
+    if (isTemplateHTML(content)) return scopeLetterHtml(content);
     return content
       .split('\n')
       .map((line) => {
@@ -92,7 +100,12 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     />
   );
 
-  if (isLoading && !currentLetter) {
+  /* isLoading startar som false och currentLetter som null, så villkoret för
+     felvyn var sant redan på första renderingen: felkortet blinkade förbi
+     innan hämtningen ens hunnit börja, och byttes sedan mot skelettet. Det
+     kostade 0,0055 i CLS. Felvyn får bara visas när ett försök faktiskt är
+     gjort och avslutat. */
+  if (!harForsokt || (isLoading && !currentLetter)) {
     return (
       <>
         {PageBackground}
@@ -315,7 +328,10 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           >
             {isTemplateHTML(currentLetter.content || '') ? (
               <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
-                <div dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }} />
+                <div
+                  className={BREV_SCOPE}
+                  dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+                />
               </div>
             ) : (
               <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">

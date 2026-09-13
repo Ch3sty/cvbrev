@@ -367,10 +367,13 @@ export default function Step7Review({
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        {/* Låsta radhöjder av samma skäl som rubrikerna nedan: utan dem
+            bestämmer typsnittets metrik höjden, och intoningen av Inter
+            krymper rubrikblocket så att allt under flyttar sig uppåt. */}
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-8 md:leading-9">
           Granska ditt CV
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 leading-6">
           Välj en mall och se hur ditt CV ser ut innan du laddar ner.
         </p>
       </div>
@@ -382,7 +385,11 @@ export default function Step7Review({
 
       {/* Template Selection - Horizontal Carousel */}
       <div className="space-y-3">
-        <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+        {/* leading-6 är inte kosmetik. Utan låst radhöjd bestäms rubrikens
+            höjd av typsnittets metrik, och när Inter byts in mot reservsnittet
+            krymper raden från 24 till 21,6 px. Allt under flyttade sig då 5 px
+            efter första målningen, vilket mätte 0,0055 i CLS. */}
+        <h2 className="font-semibold text-gray-900 flex items-center gap-2 leading-6">
           <Eye className="w-4 h-4" />
           Välj CV-mall
         </h2>
@@ -510,7 +517,7 @@ export default function Step7Review({
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Left: Sections Overview (narrower) */}
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+          <h2 className="font-semibold text-gray-900 flex items-center gap-2 leading-6">
             <Pencil className="w-4 h-4" />
             Innehåll
           </h2>
@@ -538,13 +545,15 @@ export default function Step7Review({
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-gray-900">
+                      {/* Låsta radhöjder: raderna är enradiga och ska ha
+                          samma höjd före och efter att typsnittet tonat in. */}
+                      <p className="text-sm font-medium text-gray-900 leading-5">
                         {section.title}
                         {section.count !== null && section.count > 0 && (
                           <span className="text-gray-500 font-normal"> ({section.count})</span>
                         )}
                       </p>
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="text-xs text-gray-500 truncate leading-4">
                         {section.summary}
                       </p>
                     </div>
@@ -569,7 +578,7 @@ export default function Step7Review({
 
         {/* Right: Live Preview (wider) */}
         <div className="lg:col-span-3 space-y-3">
-          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+          <h2 className="font-semibold text-gray-900 flex items-center gap-2 leading-6">
             <Eye className="w-4 h-4" />
             Förhandsvisning
           </h2>

@@ -12,7 +12,10 @@ const FEATURES = [
 export default function CvMallarHero() {
   return (
     <section className="space-y-4 motion-safe:animate-[fadeInPlace_300ms_ease-out_both]">
-      <div className="flex items-start gap-4 sm:gap-5">
+      {/* Låst höjd: brödtexten under rubriken radbryter till fyra rader med
+          reservsnittet och tre med Inter, så blocket krympte från 130 till
+          107 px när typsnittet tonade in och sköt upp allt under. */}
+      <div className="flex items-start gap-4 sm:gap-5 min-h-[130px] sm:min-h-0">
         <div className="flex-shrink-0 mt-1">
           <CvDesignSwapIcon className="w-16 h-16 sm:w-20 sm:h-20" />
         </div>
@@ -30,7 +33,11 @@ export default function CvMallarHero() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      {/* Låst höjd och låst radhöjd. Chipsen är bredare med reservtypsnittet
+          än med Inter, så de radbröt till två rader vid första målningen och
+          föll ihop till en när Inter tonade in. Hela heron krympte då från
+          206 till 149 px och sköt upp allt under, vilket mätte 0,050 i CLS. */}
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide h-[26px] leading-[18px]">
         {FEATURES.map((feature) => (
           <span
             key={feature}

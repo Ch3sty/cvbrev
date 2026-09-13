@@ -366,13 +366,16 @@ function ScaledPreview({ html }: { html: string }) {
           ratt utrymme. transform paverkar inte layout-storlek, dafor reservation. */}
       <div
         style={{
-          width: `${A4_WIDTH_PX * scale}px`,
-          // 'auto' reserverade ingenting: containern var hopfälld tills
-          // förhandsvisningen hade hämtats och mätts, och växte sedan till
-          // full sidhöjd. Det sköt ner allt under och mätte 0,050 i CLS.
-          // En A4-sida har känd proportion, så vi reserverar den direkt och
-          // byter till uppmätt höjd när den finns.
-          height: `${contentHeight > 0 ? scaledHeight : A4_HEIGHT_PX * scale}px`,
+          // Bredden följer föräldern, höjden följer A4-proportionen via CSS.
+          // Tidigare räknades båda ur en JS-mätning av containern, som
+          // startade på desktop-bredd och korrigerades efter första
+          // renderingen. Det var samma gissning som MallToolbar gjorde, och
+          // den ritade om hela kolumnen på mobil. aspect-ratio reserverar
+          // ytan redan i server-HTML, utan att någon behöver mäta.
+          width: '100%',
+          maxWidth: `${A4_WIDTH_PX}px`,
+          aspectRatio: `${A4_WIDTH_PX} / ${A4_HEIGHT_PX}`,
+          height: contentHeight > 0 ? `${scaledHeight}px` : undefined,
           flexShrink: 0,
         }}
       >

@@ -14,6 +14,7 @@ import {
 import DownloadButton from '@/components/letters/download-button';
 import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 
 export default function EditLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -38,11 +39,15 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
   const [zoom, setZoom] = useState(1.0);
   const previewRef = useRef<HTMLDivElement>(null);
   const initialLoadRef = useRef(false);
+  /** isLoading startar som false och currentLetter som null, så felvyn var
+      sann redan på första renderingen och blinkade förbi innan hämtningen
+      hann börja. Felvyn får vänta tills ett försök faktiskt är avslutat. */
+  const [harForsokt, setHarForsokt] = useState(false);
 
   useEffect(() => {
     if (id && !initialLoadRef.current) {
       initialLoadRef.current = true;
-      getLetter(id);
+      Promise.resolve(getLetter(id)).finally(() => setHarForsokt(true));
     }
   }, [id, getLetter]);
 
@@ -153,7 +158,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
     />
   );
 
-  if (isLoading) {
+  if (!harForsokt || isLoading) {
     return (
       <>
         {PageBackground}
@@ -473,7 +478,12 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             >
               {isTemplateHTML(formData.content) ? (
                 <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
-                  <div dangerouslySetInnerHTML={{ __html: formData.content }} />
+                  {/* Scopat: mallens egen `body`-regel får inte sätta padding
+                      på dashboardens body och knuffa hela skalet i sidled. */}
+                  <div
+                    className={BREV_SCOPE}
+                    dangerouslySetInnerHTML={{ __html: scopeLetterHtml(formData.content) }}
+                  />
                 </div>
               ) : (
                 <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">

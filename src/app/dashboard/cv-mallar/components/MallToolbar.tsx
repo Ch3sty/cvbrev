@@ -74,7 +74,6 @@ export default function MallToolbar({
   isPremium,
 }: MallToolbarProps) {
   const [isFontOpen, setIsFontOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const fontDropdownRef = useRef<HTMLDivElement>(null);
 
   // Menyn maste ligga kvar i DOM:en medan ut-animationen kor. `leaving` valjer
@@ -100,16 +99,13 @@ export default function MallToolbar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFontOpen]);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   // Click-outside handler for desktop dropdown
   useEffect(() => {
-    if (!isFontOpen || isMobile) return;
+    if (!isFontOpen) return;
+    // Under md-brytpunkten ligger menyn i ett ark med egen scrim som stänger.
+    // matchMedia läses vid klick, inte vid render, så den styr aldrig vad
+    // servern ritar i första HTML.
+    if (window.matchMedia("(max-width: 767px)").matches) return;
     const handleClickOutside = (event: MouseEvent) => {
       if (fontDropdownRef.current && !fontDropdownRef.current.contains(event.target as Node)) {
         setIsFontOpen(false);
@@ -117,7 +113,7 @@ export default function MallToolbar({
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isFontOpen, isMobile]);
+  }, [isFontOpen]);
 
   const currentFont = FONTS.find(f => f.id === selectedFont) || FONTS[0];
   const fontGroups = getFontsGroupedByCategory();
@@ -126,7 +122,7 @@ export default function MallToolbar({
 
   return (
     <div
-      className="flex items-center gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 rounded-xl bg-white border border-orange-100"
+      className="flex items-center gap-2 sm:gap-3 flex-wrap p-3 sm:p-4 rounded-xl bg-white border border-orange-100 min-h-[72px] sm:min-h-[76px]"
       >
       {fontMounted && <style dangerouslySetInnerHTML={{ __html: FONT_MENU_CSS }} />}
       {/* Typsnitt-dropdown */}
@@ -145,9 +141,9 @@ export default function MallToolbar({
         </button>
 
         {/* Desktop dropdown */}
-        {!isMobile && fontMounted && (
+        {fontMounted && (
           <div
-            className={`absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-xl border border-orange-100 z-50 ${
+            className={`hidden md:block absolute top-full left-0 mt-2 w-64 max-h-[420px] overflow-y-auto bg-white rounded-xl border border-orange-100 z-50 ${
               fontLeaving ? 'font-menu-leave' : 'font-menu-enter'
             }`}
           >
@@ -195,16 +191,16 @@ export default function MallToolbar({
       )}
 
       {/* Mobile bottom sheet for font */}
-      {fontMounted && isMobile && (
+      {fontMounted && (
           <>
             <div
               onClick={() => setIsFontOpen(false)}
-              className={`fixed inset-0 bg-black/40 z-50 ${
+              className={`md:hidden fixed inset-0 bg-black/40 z-50 ${
                 fontLeaving ? 'font-scrim-leave' : 'font-scrim-enter'
               }`}
             />
             <div
-              className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] overflow-y-auto ${
+              className={`md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] overflow-y-auto ${
                 fontLeaving ? 'font-sheet-leave' : 'font-sheet-enter'
               }`}
             >

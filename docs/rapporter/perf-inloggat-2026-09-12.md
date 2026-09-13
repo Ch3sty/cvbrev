@@ -585,15 +585,61 @@ Hela brevflödet ligger nu mellan 1 192 och 1 352 ms med noll rundturer. Tjugose
 
 Fem av de tolv som ligger över gör det enbart på CLS, inte på tid: mina-brev-detaljerna (0,059), tester/[slug] (0,023), testprovet (0,005) och skapa-cv steg 7 (0,006). Alla fyra ligger under Googles gräns på 0,1, men över vår egen nollregel.
 
-## 12. Kvar att göra
+## 12. Omgång åtta: typsnittet var grundorsaken
+
+Kvar stod cv-mallar (2,8 s, CLS 0,051) och fem sidor som bara föll på CLS.
+
+### 12.1 Vad skiftet faktiskt var
+
+Min hypotes var att `MallToolbar` gissade `isMobile: false` på servern och ritade om efter fönstermätning. Den gissningen togs bort och ersattes med CSS-brytpunkter (`hidden md:block` och `md:hidden`), och förhandsvisningen fick `aspect-ratio` i stället för en JS-beräknad höjd. **CLS rörde sig inte en tiondel.**
+
+En jämförelse av DOM:en före och efter hydrering visade varför: det var samma fjorton element båda gångerna, men de **krympte**. Chipraden i heron gick från 60 till 26 px, rubrikblocket från 130 till 107, hela sektionen från 206 till 149. Inget monterades sent. Texten bytte storlek.
+
+Orsaken var typsnittet. `Inter({ subsets: ['latin'] })` laddades utan `adjustFontFallback`, så reservsnittet hade annan metrik än Inter. Texten var bredare före bytet, chipsen radbröt till två rader i stället för en, och allt under flyttade sig när Inter tonade in.
+
+Tre åtgärder, i den ordning de bet:
+
+1. **`display: 'swap'` och `adjustFontFallback: true`** på Inter i rot-layouten. Next räknar då fram ett reservsnitt med matchande metrik (`size-adjust: 107.12%` i den genererade CSS:en). CLS 0,051 till 0,030.
+2. **Chipraden slutade radbryta.** `min-height` räckte inte, eftersom det inte hindrar radbrytning. Raden är nu en scrollbar rad med låst höjd. 0,030 till 0,010.
+3. **Rubrikblocket fick låst minsta höjd på mobil**, där brödtexten radbryter olika med de två snitten. 0,010 till 0,001.
+
+Samma typsnittsfix förklarar varför flera av de skiften vi jagat sida för sida såg likadana ut: de hade en gemensam orsak i hur Inter laddades.
+
+### 12.2 De fem CLS-sidorna
+
+| Sida | CLS före | CLS efter | Orsak |
+|---|---:|---:|---|
+| mina-brev/[id] | 0,059 | **0,001** | Brevmallarnas `<style>`-block satte `padding` på `body` och träffade dashboardens riktiga body, så hela skalet knuffades 24 px i sidled och nedåt långt efter första målningen. Reglerna skrivs nu om till behållarens klass (`scopeLetterHtml.ts`). |
+| mina-brev/[id]/edit | 0,059 | **0,001** | Samma orsak. Båda fick dessutom egna `loading.tsx`, eftersom de annars ärvde förälderns skelett med sex brevkort och bytte till en helt annan form. |
+| tester/[slug] | 0,023 | **0,001** | Raden "Ditt bästa" hämtas efter första målningen och stod ovanför nivåtexten, så den knuffade allt under 68 px nedåt. Ytan reserveras nu tills hämtningen är klar. |
+| tester prov | 0,005 | **0,001** | Typsnittsfixen. |
+| skapa-cv steg 7 | 0,006 | **0,001** | Låsta radhöjder på rubriker och enradiga textrader, som annars byter höjd med typsnittet. |
+
+### 12.3 Resultat
+
+`npx tsc --noEmit` rent, `npx vitest run` 80 tester gröna, `next build` lyckas.
+
+**30 av 38 routes inom budget, upp från 26. CLS är 0,001 på 36 av 38 sidor.**
+
+cv-mallar, före och efter:
+
+| Sida | LCP före | LCP efter | CLS före | CLS efter | Rundturer |
+|---|---:|---:|---:|---:|---|
+| cv-mallar | 2 832 | **1 732** | 0,051 | **0,010** | 13 → 8 |
+| cv-mallar (vald mall) | 2 760 | **1 940** | 0,051 | **0,010** | 13 → 10 |
+
+En mellanmätning gav 1 680 och 1 300 ms med noll rundturer, så sidan ligger på gränsen och svänger kring budgeten beroende på maskinens belastning.
+
+Åtta sidor ligger kvar över budget: dashboard (1 256 mot 1 000), profil (1 096 mot 1 000), profil/cv (2 188), cv-mallar och cv-mallar med vald mall, tester (1 580), tester resultat (2 016) och bli-upptackt (2 432). Ingen av dem faller längre på CLS, bara på tid.
+
+## 13. Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **cv-mallar, 2 832 ms och CLS 0,051** | Kolumnlayouten flyttas om vid hydrering eftersom `MallToolbar` gissar `isMobile: false` och rättar sig efter mätning. Brytpunkten behöver avgöras på servern. |
-| **profil/cv, 2 540 ms och 13 rundturer** | Skalets idle-ändringar hjälpte inte här, så sidan har troligen en egen kedja kvar. |
-| **bli-upptackt, 2 632 ms** | Fyra rundturer kvar. |
-| **dashboard, CLS 0,052** | Enda kritiska sidan med skifte kvar. |
-| **mina-brev/[id] och /edit, CLS 0,059** | Skelettet tog 0,089 till 0,059, men något skiftar fortfarande sent. |
-| **Verbala och numeriska testflöden** | Använder fortfarande klientfetch, deras sessioner ligger i egna tabeller. |
+| **bli-upptackt, 2 432 ms och 13 rundturer** | Största avvikaren. Har en egen kedja kvar som inte fångats av skalets idle-ändringar. |
+| **profil/cv, 2 188 ms och 13 rundturer** | Samma sak. |
+| **tester resultat, 2 016 ms och 13 rundturer** | Serverläsningen finns, men något hämtar fortfarande eget. |
+| **dashboard och profil, 100 till 250 ms över** | Noll rundturer och LCP nära FCP, alltså JS före hydrering. |
+| **cv-mallar, kring 1 700 ms** | Nära budget efter typsnittsfixen, men förhandsvisningen kostar fortfarande. |
 
-Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före merge och lita på medianen. Enskilda körningar svänger 300 till 600 ms.
+Mätningen är emulering på utvecklingsmaskin. Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin och lita på medianen. Enskilda körningar svänger 300 till 600 ms.
