@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { X } from 'lucide-react';
-import Logo from '@/components/Logo';
 
 interface SidebarLogoProps {
   isMobile?: boolean;
@@ -18,7 +17,11 @@ export default function SidebarLogo({ isMobile, onClose }: SidebarLogoProps) {
         className="flex items-center"
         aria-label="Jobbcoach.ai dashboard"
       >
-        <Logo variant="compact" height={28} />
+        {/* Bara ordmärket: ingen orange ruta, ingen tvåfärgad ändelse.
+            Märket ska inte tävla med sidans accent. */}
+        <span className="text-[18px] font-semibold leading-6 tracking-[-0.02em] text-ink-1">
+          Jobbcoach.ai
+        </span>
       </Link>
 
       {isMobile && onClose ? (

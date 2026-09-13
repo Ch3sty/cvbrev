@@ -58,8 +58,8 @@ export default function CVAnalysisIntro({
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
       <PageHeader
-        title="Vi optimerar ditt CV"
-        description="30 ansökningar och 0 svar känns bekant. Vi hittar exakt vad som håller dig tillbaka och visar hur du fixar det."
+        title="Analysera ditt CV"
+        description="Vi läser CV:t och visar vad en rekryterare ser. Tar 30 sekunder."
       />
 
       {visaKvot && (

@@ -12,18 +12,16 @@
 import { useEffect, useState } from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { X } from 'lucide-react';
-import { IlluEmailBekrafta } from '@/components/illustrations/AuthIllustrations';
 
 const DISMISS_KEY = 'jc_email_banner_dismissed_at';
 const DISMISS_HOURS = 24;
-/* Bannerns höjd skiljer sig mellan mobil och desktop: innehållet ligger i
-   flex-col under sm-brytpunkten, så knappen hamnar på egen rad och bannern
-   blir 121 px i stället för 61. Platshållaren reserverade tidigare 61 px
-   överallt, och de 60 pixlarna som fattades på mobil var precis det skifte
-   som mätte 0,056 i CLS. Höjden sätts därför med samma brytpunkt som
-   layouten, inte med ett fast tal. */
-const BANNER_HEIGHT_CLASS = 'h-[121px] sm:h-[61px]';
-const BANNER_MIN_HEIGHT_CLASS = 'min-h-[121px] sm:min-h-[61px]';
+/* Bannern är en rad, inte en platta: samma form som StatusRow, 44 px hög.
+   Höjden är därmed densamma på mobil och desktop, så platshållaren behöver
+   bara ett mått. Ytan måste ändå reserveras innan svaret landat, annars
+   knuffas sidan ner när bannern dyker upp, och det var skiftet som mätte
+   0,056 i CLS. */
+const BANNER_HEIGHT_CLASS = 'h-11';
+const BANNER_MIN_HEIGHT_CLASS = 'min-h-11';
 
 export default function EmailVerificationBanner() {
   const { profile, isEmailVerified, loading } = useProfile();
@@ -114,49 +112,30 @@ export default function EmailVerificationBanner() {
     <div
       className={`relative z-20 border-b border-kant bg-panel ${BANNER_MIN_HEIGHT_CLASS}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-          <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
-            <span className="shrink-0 text-ink-1" aria-hidden="true">
-              <IlluEmailBekrafta size={36} />
-            </span>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm text-ink-1">
-                <span className="font-semibold">Bekräfta din e-post.</span>{' '}
-                <span className="text-ink-2">
-                  Vi sparar dina dokument permanent när adressen är bekräftad.
-                </span>
-              </p>
-              {resendMessage && (
-                <p
-                  className={`mt-1 text-sm ${
-                    resendMessage.startsWith('Mejlet') ? 'text-ink-2' : 'text-fel'
-                  }`}
-                >
-                  {resendMessage}
-                </p>
-              )}
-            </div>
-          </div>
+      <div className="mx-auto flex min-h-11 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+        <p
+          className={`min-w-0 flex-1 truncate text-sm ${
+            resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-fel' : 'text-ink-1'
+          }`}
+        >
+          {resendMessage ?? 'Bekräfta din e-post för att spara dokument permanent.'}
+        </p>
 
-          <div className="flex items-center gap-2 flex-shrink-0 sm:ml-4">
-            <button
-              onClick={handleResendEmail}
-              disabled={isResending}
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
-            >
-              {isResending ? 'Skickar…' : 'Skicka mejlet igen'}
-            </button>
+        <button
+          onClick={handleResendEmail}
+          disabled={isResending}
+          className="shrink-0 text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:opacity-40"
+        >
+          {isResending ? 'Skickar' : 'Skicka igen'}
+        </button>
 
-            <button
-              onClick={dismiss}
-              className="flex-shrink-0 rounded-lg p-2 transition-colors hover:bg-insunken"
-              aria-label="Stäng"
-            >
-              <X className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={dismiss}
+          className="-mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-insunken"
+          aria-label="Stäng"
+        >
+          <X className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+        </button>
       </div>
     </div>
   );

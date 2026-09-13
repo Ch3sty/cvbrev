@@ -70,7 +70,9 @@ export default function Step1Mode({
           onSelect={() => onSourceModeChange('cv')}
           disabled={!hasCvs}
           variant="featured"
-          eyebrow="Rekommenderas"
+          /* Orange får aldrig sitta på något som inte går att välja: utan CV
+             är kortet utgråat, och då faller etiketten bort helt. */
+          eyebrow={hasCvs ? 'Rekommenderas' : undefined}
           leading={
             <MarginPlate>
               <IlluPlattaPresentation size={48} />
