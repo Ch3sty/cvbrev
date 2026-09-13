@@ -10,7 +10,10 @@
  * Tangentbordet är mobilflödets verkliga fiende. På iOS lägger sig det
  * virtuella tangentbordet ÖVER fixed-positionerade element, så en fixed fot
  * hamnar bakom tangentbordet i exakt de steg som har inmatning. Skalet är
- * därför en flex-kolumn i 100dvh där mitten scrollar och foten är sticky,
+ * därför ett fast lager över hela viewporten (till höger om sidomenyn på
+ * desktop) som flex-kolumn där mitten scrollar och foten är sticky. Fast
+ * position krävs: som barn till dashboardens scrollande main hamnade foten
+ * annars under vecket och bottennavet, och användaren såg ingen Fortsätt-knapp.
  * aldrig fixed. Det ger en enda fast bottenzon och inga kapslade scrollar.
  *
  *   +------------------------------+
@@ -96,7 +99,7 @@ export default function FlowShell({
   const showFooter = Boolean(primaryLabel && onPrimary)
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-white">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white lg:left-72">
       {/* Topp: tillbaka, titel, räknare, progress. */}
       <header className="flex-shrink-0 border-b border-neutral-200 bg-white">
         <div className="mx-auto flex h-12 w-full max-w-3xl items-center gap-2 px-2">
