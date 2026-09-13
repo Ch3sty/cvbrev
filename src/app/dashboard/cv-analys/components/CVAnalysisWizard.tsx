@@ -1,20 +1,19 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useNotification } from '@/context/notificationcontext';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 
 import AnalysisFlowLayout from './AnalysisFlowLayout';
-import AnalysisFlowHero from './AnalysisFlowHero';
 import { ANALYSIS_STEPS } from './steps.config';
 import AnalysisFlowStepHeader from './AnalysisFlowStepHeader';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import FlowShell from '@/components/shell/FlowShell';
 import FlowProgress from '@/components/shell/FlowProgress';
 import FlowError from '@/components/shell/FlowError';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 
 // Lazy-loaded steps
@@ -78,14 +77,7 @@ const ANALYSIS_STAGES = [
   { threshold: 90, text: 'Slutför analysen', body: 'Vi sätter ihop allt till en komplett rapport.' },
 ];
 
-const StepSkeleton = () => (
-  <div className="animate-pulse space-y-4">
-    <div className="h-8 bg-neutral-200/70 rounded-xl w-3/4" />
-    <div className="h-4 bg-neutral-200/60 rounded w-full" />
-    <div className="h-4 bg-neutral-200/60 rounded w-5/6" />
-    <div className="h-64 bg-neutral-200/50 rounded-xl" />
-  </div>
-);
+const StepSkeleton = () => <LoadingSkeleton variant="card" label="Laddar steget" />;
 
 export default function CVAnalysisWizard({
   cvs,
@@ -1238,32 +1230,19 @@ export default function CVAnalysisWizard({
             </div>
           )}
 
-          {/* Hero visas bara på Steg 0 */}
-          {currentStep === 0 && <AnalysisFlowHero />}
-
-          {/* Step-header per steg */}
+          {/* Step-header per steg. Ingen egen hero på steg 0: FlowShell har
+              redan flödets titel i toppraden. */}
           {showStepHeaderForFinishing && meta && (
             <AnalysisFlowStepHeader
               stepNumber={currentStep + 1}
+              totalSteps={ANALYSIS_STEPS.length}
               title={meta.title}
               description={meta.description}
               isDone={completedSteps.includes(currentStep)}
-              isActive
             />
           )}
 
-          {/* Step-innehåll med transition */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep + (showSaveProgress ? '-saving' : '')}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
-            </motion.div>
-          </AnimatePresence>
+          <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
       </AnalysisFlowLayout>
     </FlowShell>
   );

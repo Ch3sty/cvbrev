@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Edit3, X, Eye, EyeOff, User, Check } from 'lucide-react';
 import { RoundCheckbox, HighlightedText } from './ImprovementCard';
 
@@ -15,6 +14,13 @@ interface ProfileImprovementCardProps {
   onEdit?: (newText: string) => void;
 }
 
+const LANK =
+  'inline-flex items-center gap-1 rounded-lg px-2 py-1 text-meta font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1';
+
+/**
+ * Förslaget på ny personbeskrivning. Samma form som ImprovementCard:
+ * valet i ink, förslaget i en insunken yta, inga färgade ytor bakom text.
+ */
 export default function ProfileImprovementCard({
   currentText,
   improvedText,
@@ -36,37 +42,34 @@ export default function ProfileImprovementCard({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25 }}
-      className={`relative rounded-xl bg-white overflow-hidden transition-all ${
-        selected ? 'border-2 border-emerald-500' : 'border-2 border-orange-200/60'
+    <div
+      className={`overflow-hidden rounded-xl bg-panel transition-colors ${
+        selected ? 'border border-ink-1' : 'border border-kant'
       }`}
     >
-      <div className="p-4 sm:p-5 pt-5">
-        <div className="flex items-start gap-3 mb-4">
+      <div className="p-4 sm:p-5">
+        <div className="mb-4 flex items-start gap-3">
           <RoundCheckbox
             checked={selected}
             onChange={onToggle}
             ariaLabel={selected ? 'Avmarkera personbeskrivning' : 'Välj personbeskrivning'}
           />
 
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <div className="flex-shrink-0 w-7 h-7 flex items-center justify-center">
-                <User className="w-4 h-4 text-neutral-700" strokeWidth={2.25} />
-              </div>
-              <h4 className="font-bold text-neutral-900 text-sm sm:text-base">
-                Personbeskrivning
-              </h4>
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <User
+                className="h-5 w-5 flex-shrink-0 text-ink-2"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+              <h4 className="text-kort text-ink-1">Personbeskrivning</h4>
               {atsImpact > 0 && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-emerald-600">
+                <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
                   +{atsImpact} ATS
                 </span>
               )}
             </div>
-            <p className="text-xs text-neutral-600 mt-1.5">
+            <p className="mt-1.5 text-meta text-ink-3">
               Vi har formulerat din inledning för starkare första intryck.
             </p>
           </div>
@@ -74,83 +77,65 @@ export default function ProfileImprovementCard({
 
         {/* Flödes-vy */}
         {!isEditing ? (
-          <div
-            className="rounded-xl p-3.5 sm:p-4 border-2 bg-white"
-            style={{
-              borderColor: 'rgba(16, 185, 129, 0.25)',
-            }}
-          >
-            <div className="flex items-center justify-between mb-2.5 gap-2">
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
+          <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
+            <div className="mb-2.5 flex items-center justify-between gap-2">
+              <span className="text-steg uppercase text-ink-3">
                 {showOriginal ? 'Nuvarande text' : 'Vårt förslag'}
               </span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
                   onClick={() => setShowOriginal((v) => !v)}
-                  className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors"
+                  className={LANK}
                   aria-pressed={showOriginal}
                 >
                   {showOriginal ? (
                     <>
-                      <EyeOff className="w-3 h-3" strokeWidth={2.5} />
+                      <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                       Visa förslag
                     </>
                   ) : (
                     <>
-                      <Eye className="w-3 h-3" strokeWidth={2.5} />
+                      <Eye className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                       Visa nuvarande
                     </>
                   )}
                 </button>
                 {onEdit && !showOriginal && (
-                  <button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors"
-                  >
-                    <Edit3 className="w-3 h-3" strokeWidth={2.5} />
+                  <button type="button" onClick={() => setIsEditing(true)} className={LANK}>
+                    <Edit3 className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                     Redigera
                   </button>
                 )}
               </div>
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={showOriginal ? 'original' : 'suggested'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {showOriginal ? (
-                  <p className="text-sm text-neutral-600 italic leading-relaxed whitespace-pre-wrap">
-                    {currentText || 'Ingen tidigare text.'}
-                  </p>
-                ) : improvedText ? (
-                  <HighlightedText text={editedText} keywords={[]} detectNumbers />
-                ) : (
-                  <p className="text-sm text-neutral-600 italic leading-relaxed">
-                    Din personbeskrivning är redan optimerad.
-                  </p>
-                )}
-              </motion.div>
-            </AnimatePresence>
+            {showOriginal ? (
+              <p className="whitespace-pre-wrap text-sm italic leading-relaxed text-ink-3">
+                {currentText || 'Ingen tidigare text.'}
+              </p>
+            ) : improvedText ? (
+              <HighlightedText text={editedText} keywords={[]} detectNumbers />
+            ) : (
+              <p className="text-sm italic leading-relaxed text-ink-3">
+                Din personbeskrivning är redan optimerad.
+              </p>
+            )}
 
             {/* Changes-meta */}
             {!showOriginal && safeChanges.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-emerald-200/60">
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
-                  Vad vi har ändrat
-                </span>
+              <div className="mt-3 border-t border-kant pt-3">
+                <p className="mb-1.5 text-steg uppercase text-ink-3">Vad vi har ändrat</p>
                 <ul className="space-y-1">
                   {safeChanges.map((change, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-xs text-neutral-700 leading-relaxed"
+                      className="flex items-start gap-2 text-meta leading-relaxed text-ink-2"
                     >
-                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-orange-600" />
+                      <span
+                        aria-hidden="true"
+                        className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-3"
+                      />
                       <span>{change}</span>
                     </li>
                   ))}
@@ -161,46 +146,43 @@ export default function ProfileImprovementCard({
         ) : (
           <div className="space-y-2.5">
             <label className="block">
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
+              <span className="mb-1.5 block text-sm font-medium text-ink-2">
                 Redigera förslaget
               </span>
               <textarea
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="w-full min-h-[140px] p-3 text-base bg-white border-2 border-orange-200 rounded-xl text-neutral-900 focus:outline-none focus:border-orange-500 resize-y"
+                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 rows={6}
-
                 enterKeyHint="enter"
-
                 inputMode="text"
-
                 autoComplete="off"
               />
             </label>
-            <div className="flex gap-2 justify-end">
+            <div className="flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setEditedText(improvedText);
                   setIsEditing(false);
                 }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
+                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
               >
-                <X className="w-3 h-3" />
+                <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Avbryt
               </button>
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition-colors min-h-[44px]"
+                className="inline-flex h-11 items-center gap-1 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                <Check className="w-3 h-3" strokeWidth={3} />
+                <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Spara
               </button>
             </div>
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

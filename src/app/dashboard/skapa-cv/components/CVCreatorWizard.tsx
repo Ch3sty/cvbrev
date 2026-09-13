@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bug, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
@@ -16,17 +15,17 @@ import type {
   CVCertification,
 } from '@/lib/cv/cv-metadata';
 
-// Nya layout-komponenter
 import SkapaCvLayout from './SkapaCvLayout';
 import { SKAPA_CV_STEPS } from './steps.config';
-import SkapaCvHero from './SkapaCvHero';
 import SkapaCvPreview, { type PreviewSection } from './SkapaCvPreview';
+import type { ReviewPrimary } from './steps/Step7Review';
 
-// Auto-save hook
 import { useAutoSave } from '../hooks/useAutoSave';
 import FlowShell from '@/components/shell/FlowShell';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
+import { IkonBugg } from '@/components/illustrations/Ikoner';
 
 // Lazy load steps for performance
 const Step1Kontakt = lazy(() => import('./steps/Step1Kontakt'));
@@ -114,11 +113,12 @@ const TEST_CV_DATA: CVDraft = {
   certifications: [],
 };
 
+/** Stegets skelett: samma form som ett steg, stillastående, tråden rör sig. */
 const StepSkeleton = () => (
-  <div className="animate-pulse space-y-4">
-    <div className="h-6 bg-orange-100/50 rounded w-1/3"></div>
-    <div className="h-8 bg-orange-100/40 rounded w-3/4"></div>
-    <div className="h-48 bg-orange-100/30 rounded-xl"></div>
+  <div className="space-y-4">
+    <div aria-hidden="true" className="h-3 w-24 rounded bg-insunken" />
+    <div aria-hidden="true" className="h-7 w-3/4 rounded bg-insunken" />
+    <LoadingSkeleton variant="card" label="Laddar steget" />
   </div>
 );
 
@@ -181,9 +181,11 @@ export default function CVCreatorWizard({
   // Saving state
   const [isSaving, setIsSaving] = useState(false);
 
-  // Adminflaggan kommer server-läst. Tidigare gjordes den här på klienten med
-  // getUser() följt av en fråga mot admin_users, alltså två rundturer efter
-  // hydrering för att avgöra om en testknapp skulle synas.
+  /* Granskningens primärknapp bor i skalets fot. Steget registrerar text,
+     handling och spärr; skalet ritar. */
+  const [reviewPrimary, setReviewPrimary] = useState<ReviewPrimary | null>(null);
+
+  // Adminflaggan kommer server-läst.
   const isAdmin = initialIsAdmin;
 
   // Mobile preview drawer
@@ -215,9 +217,8 @@ export default function CVCreatorWizard({
   }, [profile]);
 
   /* Utkastet återställdes tidigare tyst, mitt i att profil-prefillen skrev
-     i samma fält. Användaren fick alltså en blandning av två källor utan
-     att veta om det. Nu är det ett val: Fortsätt eller Börja om, där
-     Börja om kräver bekräftelse eftersom det raderar. */
+     i samma fält. Nu är det ett val: Fortsätt eller Börja om, där Börja om
+     kräver bekräftelse eftersom det raderar. */
   const [pendingCvDraft, setPendingCvDraft] = useState<CVDraft | null>(null);
   const [draftSavedAt, setDraftSavedAt] = useState<number | null>(null);
   const draftChecked = React.useRef(false);
@@ -251,10 +252,6 @@ export default function CVCreatorWizard({
 
   const updateCVData = useCallback((updates: Partial<CVDraft>) => {
     setCVData((prev) => ({ ...prev, ...updates }));
-  }, []);
-
-  const restoreDraft = useCallback((draft: CVDraft) => {
-    setCVData(draft);
   }, []);
 
   // Validation per step
@@ -310,12 +307,11 @@ export default function CVCreatorWizard({
       }
       setCurrentStep((prev) => prev + 1);
       saveDraft();
-      // Scroll to top på mobil när man byter steg
       if (typeof window !== 'undefined') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  }, [currentStep, canProceedFromStep, completedSteps, saveDraft]);
+  }, [currentStep, canProceedFromStep, completedSteps, saveDraft, setCurrentStep]);
 
   const goToPreviousStep = useCallback(() => {
     if (currentStep > 0) {
@@ -324,16 +320,7 @@ export default function CVCreatorWizard({
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  }, [currentStep]);
-
-  const goToStep = useCallback(
-    (step: number) => {
-      if (step <= currentStep || completedSteps.includes(step)) {
-        setCurrentStep(step);
-      }
-    },
-    [currentStep, completedSteps]
-  );
+  }, [currentStep, setCurrentStep]);
 
   // Build CVMetadata for export/save
   const buildCVMetadata = useCallback((): CVMetadata => {
@@ -517,7 +504,6 @@ export default function CVCreatorWizard({
     ]
   );
 
-  // Render step content
   const renderStepContent = () => {
     const commonProps = { cvData, updateCVData };
 
@@ -543,6 +529,7 @@ export default function CVCreatorWizard({
             onComplete={handleComplete}
             isSaving={isSaving}
             buildCVMetadata={buildCVMetadata}
+            registerPrimary={setReviewPrimary}
           />
         );
       default:
@@ -578,10 +565,27 @@ export default function CVCreatorWizard({
   const nextBlockedReason = !canProceedFromStep(currentStep)
     ? currentStep === 0
       ? 'Fyll i namn, e-post och telefon för att gå vidare.'
-      : currentStep === 6
-        ? 'Lägg till minst en erfarenhet eller utbildning.'
-        : undefined
+      : undefined
     : undefined;
+
+  const primaryLabel = isReviewStep
+    ? reviewPrimary?.label
+    : currentStep === 5
+      ? 'Granska CV'
+      : 'Fortsätt';
+  const onPrimary = isReviewStep ? reviewPrimary?.onClick : goToNextStep;
+  const primaryDisabled = isReviewStep
+    ? reviewPrimary?.disabled ?? true
+    : !canProceedFromStep(currentStep);
+  const primaryBlockedReason = isReviewStep ? reviewPrimary?.blockedReason : nextBlockedReason;
+
+  const stepContent = (
+    <Suspense fallback={<StepSkeleton />}>
+      <div key={currentStep} className="motion-safe:animate-[threadEnter_200ms_ease-out_both]">
+        {renderStepContent()}
+      </div>
+    </Suspense>
+  );
 
   return (
     <FlowShell
@@ -591,134 +595,75 @@ export default function CVCreatorWizard({
       onBack={currentStep > 0 ? goToPreviousStep : undefined}
       onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
       exitLabel="Tillbaka till översikten"
-      primaryLabel={
-        isReviewStep ? undefined : currentStep === 5 ? 'Granska CV' : 'Nästa steg'
-      }
-      onPrimary={isReviewStep ? undefined : goToNextStep}
-      primaryDisabled={!canProceedFromStep(currentStep)}
-      primaryBlockedReason={nextBlockedReason}
+      primaryLabel={primaryLabel}
+      onPrimary={onPrimary}
+      primaryDisabled={primaryDisabled}
+      primaryBlockedReason={primaryBlockedReason}
+      primaryBusy={isReviewStep && isSaving}
+      busyLabel="Sparar"
       footerSecondary={
         isAdmin ? (
           <button
             type="button"
             onClick={fillTestData}
-            className="inline-flex h-11 items-center gap-2 px-2 text-sm font-medium text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline"
+            className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
-            <Bug className="h-4 w-4" strokeWidth={2} />
+            <IkonBugg size={20} />
             Fyll i testdata
           </button>
         ) : undefined
       }
     >
       <SkapaCvLayout withPreview={showPreview}>
-          {/* Hero, bara på Steg 0 */}
-          {currentStep === 0 && <SkapaCvHero />}
-
-          {/* Layout: Step + Preview (på desktop, om showPreview) */}
-          {showPreview ? (
-            <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-8 lg:gap-12 items-start">
-              {/* Vänster: input */}
-              <div className="min-w-0 space-y-5">
-                {/* Mobil: drawer för preview */}
-                <div className="lg:hidden">
-                  <button
-                    type="button"
-                    onClick={() => setMobilePreviewOpen(!mobilePreviewOpen)}
-                    className="w-full px-4 py-3 rounded-xl border border-orange-200 bg-orange-50/40 flex items-center justify-between gap-3 hover:bg-orange-50/60 transition-colors"
-                    aria-expanded={mobilePreviewOpen}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span
-                        className="w-1 h-3 rounded-sm flex-shrink-0 bg-orange-600"
-                        aria-hidden="true"
-                      />
-                      <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-                        {mobilePreviewOpen
-                          ? 'Dölj förhandsvisning'
-                          : 'Visa förhandsvisning'}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-4 h-4 text-orange-700 transition-transform ${
-                        mobilePreviewOpen ? 'rotate-180' : ''
-                      }`}
-                      strokeWidth={2.4}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {mobilePreviewOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden mt-3"
-                      >
-                        <SkapaCvPreview
-                          data={cvData}
-                          activeSection={previewSectionForStep(currentStep)}
-                          showGlow={false}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Step content */}
-                <AnimatePresence mode="wait">
-                  {/* Ren intoning. y: 12 flyttade in stegkortet underifrån
-                      varje gång det byttes, och eftersom kortet kommer in sent
-                      räknade webbläsaren rörelsen som ett layoutskifte. */}
-                  <motion.div
-                    key={currentStep}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Suspense fallback={<StepSkeleton />}>
-                      {renderStepContent()}
-                    </Suspense>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Höger: live preview (sticky) */}
-              <div className="hidden lg:block lg:sticky lg:top-32">
-                <div className="mb-3 flex items-center gap-2">
-                  <span
-                    className="w-1 h-3 rounded-sm bg-orange-600"
-                    aria-hidden="true"
-                  />
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-                    Live · uppdateras medan du skriver
+        {showPreview ? (
+          <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[1.05fr_1fr] lg:gap-8">
+            {/* Vänster: input */}
+            <div className="min-w-0 space-y-4">
+              {/* Mobil: förhandsvisningen fälls ut under en rad. */}
+              <div className="lg:hidden">
+                <button
+                  type="button"
+                  onClick={() => setMobilePreviewOpen(!mobilePreviewOpen)}
+                  className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 text-left transition-colors hover:border-kant-stark"
+                  aria-expanded={mobilePreviewOpen}
+                >
+                  <span className="text-sm font-medium text-ink-1">
+                    {mobilePreviewOpen ? 'Dölj förhandsvisning' : 'Visa förhandsvisning'}
                   </span>
-                </div>
-                <SkapaCvPreview
-                  data={cvData}
-                  activeSection={previewSectionForStep(currentStep)}
-                />
+                  <ChevronDown
+                    className={`h-5 w-5 text-ink-3 transition-transform ${
+                      mobilePreviewOpen ? 'rotate-180' : ''
+                    }`}
+                    strokeWidth={1.75}
+                  />
+                </button>
+                {mobilePreviewOpen && (
+                  <div className="mt-3">
+                    <SkapaCvPreview
+                      data={cvData}
+                      activeSection={previewSectionForStep(currentStep)}
+                    />
+                  </div>
+                )}
               </div>
-            </div>
-          ) : (
-            // Granska-steget, full bredd, ingen sidor-preview (Step7 har egen)
-            <AnimatePresence mode="wait">
-              {/* Samma sak för granskningssteget, som är det tyngsta av dem
-                  och därför det som syns mest om det flyttar när det landar. */}
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                <Suspense fallback={<StepSkeleton />}>
-                  {renderStepContent()}
-                </Suspense>
-              </motion.div>
-            </AnimatePresence>
-          )}
 
+              {stepContent}
+            </div>
+
+            {/* Höger: förhandsvisning, sticky på desktop */}
+            <div className="hidden lg:sticky lg:top-4 lg:block">
+              <p className="mb-2 text-sm font-medium text-ink-3">
+                Förhandsvisning, uppdateras medan du skriver
+              </p>
+              <SkapaCvPreview
+                data={cvData}
+                activeSection={previewSectionForStep(currentStep)}
+              />
+            </div>
+          </div>
+        ) : (
+          stepContent
+        )}
       </SkapaCvLayout>
     </FlowShell>
   );

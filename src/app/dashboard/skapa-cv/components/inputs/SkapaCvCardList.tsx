@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Trash2 } from 'lucide-react'
 
 interface CardItem {
@@ -27,11 +26,12 @@ interface Props {
 }
 
 /**
- * Lista av kort som kan läggas till och tas bort. Används för
- * Erfarenhet, Utbildning, Kompetenser-grupper, Språk etc.
+ * Lista av kort som kan läggas till och tas bort. Används för Erfarenhet,
+ * Utbildning, Kompetenser-grupper, Språk etc.
  *
- * Varje kort kan vara expanderat (med formulärinnehåll) eller
- * kollapsat (bara rubriken).
+ * Varje kort är en panel. Det expanderade kortet får stark kant, precis som
+ * ett framhävt kort i sidmallen. Ingen rörelse vid tillägg och borttagning:
+ * CSS-transition på kanten räcker.
  */
 export default function SkapaCvCardList({
   items,
@@ -45,93 +45,63 @@ export default function SkapaCvCardList({
 }: Props) {
   return (
     <div className="space-y-3">
-      {/* Lista med kort */}
-      <AnimatePresence initial={false}>
-        {items.map((item) => {
-          const isExpanded = expandedId === item.id
-          return (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="overflow-hidden"
-            >
-              <div
-                className={`rounded-xl border bg-white transition-all ${
-                  isExpanded
-                    ? 'border-orange-300'
-                    : 'border-neutral-200 hover:border-orange-200'
-                }`}
+      {items.map((item) => {
+        const isExpanded = expandedId === item.id
+        return (
+          <div
+            key={item.id}
+            className={`rounded-xl border bg-panel transition-[border-color] duration-[120ms] ${
+              isExpanded ? 'border-kant-stark' : 'border-kant hover:border-kant-stark'
+            }`}
+          >
+            <div className="flex items-center gap-2 py-1 pl-4 pr-1">
+              <button
+                type="button"
+                onClick={() => onToggleExpand?.(item.id)}
+                aria-expanded={isExpanded}
+                className="min-h-11 min-w-0 flex-1 py-1 text-left"
               >
-                {/* Header */}
-                <div className="flex items-center gap-3 px-4 py-3">
-                  <button
-                    type="button"
-                    onClick={() => onToggleExpand?.(item.id)}
-                    className="flex-1 min-w-0 text-left"
-                  >
-                    <p
-                      className={`text-sm font-bold truncate ${
-                        item.title ? 'text-neutral-900' : 'text-neutral-400'
-                      }`}
-                    >
-                      {item.title || 'Ny post'}
-                    </p>
-                    {item.subtitle && (
-                      <p className="text-xs text-neutral-500 truncate mt-0.5">
-                        {item.subtitle}
-                      </p>
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => onRemove(item.id)}
-                    className="flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center text-neutral-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                    aria-label="Ta bort"
-                  >
-                    <Trash2 className="w-4 h-4" strokeWidth={2.2} />
-                  </button>
-                </div>
+                <p
+                  className={`truncate text-sm font-semibold ${
+                    item.title ? 'text-ink-1' : 'text-ink-3'
+                  }`}
+                >
+                  {item.title || 'Ny post'}
+                </p>
+                {item.subtitle && (
+                  <p className="mt-0.5 truncate text-meta text-ink-3">{item.subtitle}</p>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => onRemove(item.id)}
+                className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-fel-mjuk hover:text-fel"
+                aria-label={`Ta bort ${item.title || 'posten'}`}
+              >
+                <Trash2 className="h-5 w-5" strokeWidth={1.75} />
+              </button>
+            </div>
 
-                {/* Expanderbart innehåll */}
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: 'easeOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 pt-1 border-t border-orange-50">
-                        {item.content}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          )
-        })}
-      </AnimatePresence>
+            {isExpanded && (
+              <div className="border-t border-kant px-4 pb-4 pt-1">{item.content}</div>
+            )}
+          </div>
+        )
+      })}
 
-      {/* Tom-state */}
       {items.length === 0 && (
-        <div className="rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-6 text-center">
-          <p className="text-sm font-bold text-neutral-900 mb-1">{emptyTitle}</p>
-          <p className="text-xs text-neutral-600">{emptyDescription}</p>
+        <div className="rounded-lg bg-insunken px-4 py-5 text-center shadow-insunken">
+          <p className="text-sm font-medium text-ink-1">{emptyTitle}</p>
+          <p className="mt-0.5 text-meta text-ink-3">{emptyDescription}</p>
         </div>
       )}
 
-      {/* Add-knapp */}
       <button
         type="button"
         onClick={onAdd}
-        className="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/40 text-orange-700 font-bold text-sm hover:border-orange-300 hover:bg-orange-50/60 transition-colors min-h-[48px]"
+        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-dashed border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
       >
-        <Plus className="w-4 h-4" strokeWidth={2.4} />
+        <Plus className="h-5 w-5" strokeWidth={1.75} />
         {addLabel}
       </button>
     </div>

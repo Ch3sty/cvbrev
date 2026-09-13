@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+
 import { useMemo } from 'react';
 
 interface CVThumbnailIllustrationProps {
@@ -48,7 +48,7 @@ export default function CVThumbnailIllustration({
       <svg
         viewBox="0 0 200 260"
         fill="none"
-        className="w-full h-full drop-shadow-xl"
+        className="h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
@@ -60,19 +60,19 @@ export default function CVThumbnailIllustration({
           height="256"
           rx="8"
           fill="#FFFFFF"
-          stroke="rgba(249, 115, 22, 0.2)"
+          stroke="#E5E5E5"
           strokeWidth="1"
         />
 
         {/* Profil-cirkel */}
-        <circle cx="170" cy="28" r="11" fill="#FED7AA" />
+        <circle cx="170" cy="28" r="11" fill="#F5F5F5" />
 
         {/* Namn + titel */}
         <rect x="14" y="20" width="80" height="6" rx="1.5" fill="#1E293B" />
         <rect x="14" y="29" width="60" height="3" rx="1" fill="#94A3B8" />
 
         {/* SAMMANFATTNING-rubrik */}
-        <rect x="14" y={PROFILE_Y - 4} width="44" height="3.5" rx="1.5" fill="#EA580C" />
+        <rect x="14" y={PROFILE_Y - 4} width="44" height="3.5" rx="1.5" fill="#171717" />
 
         {/* SAMMANFATTNING-rader (4 stycken, deterministiska längder) */}
         {[0, 1, 2, 3].map((i) => (
@@ -88,7 +88,7 @@ export default function CVThumbnailIllustration({
         ))}
 
         {/* ERFARENHETER-rubrik */}
-        <rect x="14" y="68" width="50" height="3.5" rx="1.5" fill="#EA580C" />
+        <rect x="14" y="68" width="50" height="3.5" rx="1.5" fill="#171717" />
 
         {/* ERFARENHETER - 3 roller */}
         {[0, 1, 2].map((roleIdx) => {
@@ -116,7 +116,7 @@ export default function CVThumbnailIllustration({
         })}
 
         {/* FÄRDIGHETER-rubrik */}
-        <rect x="14" y={SKILLS_Y - 4} width="44" height="3.5" rx="1.5" fill="#EA580C" />
+        <rect x="14" y={SKILLS_Y - 4} width="44" height="3.5" rx="1.5" fill="#171717" />
 
         {/* Skill-chips */}
         {[0, 1, 2, 3, 4].map((i) => {
@@ -131,15 +131,15 @@ export default function CVThumbnailIllustration({
               width={w}
               height="6"
               rx="3"
-              fill={i % 2 === 0 ? '#FED7AA' : '#FEE2E2'}
-              stroke={i % 2 === 0 ? '#FB923C' : '#FCA5A5'}
+              fill="#F5F5F5"
+              stroke="#E5E5E5"
               strokeWidth="0.6"
             />
           );
         })}
 
         {/* UTBILDNING-rubrik */}
-        <rect x="14" y={SKILLS_Y + 32} width="44" height="3.5" rx="1.5" fill="#EA580C" />
+        <rect x="14" y={SKILLS_Y + 32} width="44" height="3.5" rx="1.5" fill="#171717" />
         <rect x="14" y={SKILLS_Y + 38} width="100" height="2.5" rx="1" fill="#1E293B" />
         <rect x="14" y={SKILLS_Y + 43} width="80" height="2" rx="1" fill="#CBD5E1" />
       </svg>
@@ -199,19 +199,7 @@ function EditDot({
       className="absolute focus:outline-none"
       style={{ left, top, transform: 'translate(-50%, -50%)' }}
     >
-      <span className="relative inline-block">
-        <motion.span
-          className="absolute inset-0 rounded-full bg-orange-600"
-          animate={{ scale: [1, 1.8, 1], opacity: [0.55, 0, 0.55] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
-        />
-        <span
-          className="relative block w-3 h-3 rounded-full bg-orange-600"
-          style={{
-            boxShadow: '0 4px 10px -2px rgba(220, 38, 38, 0.55)',
-          }}
-        />
-      </span>
+      <span className="block h-3 w-3 rounded-full border-2 border-panel bg-ink-1" />
     </button>
   );
 }

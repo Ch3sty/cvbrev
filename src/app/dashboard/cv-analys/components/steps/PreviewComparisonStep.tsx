@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ChevronDown, ChevronUp, FileText } from 'lucide-react';
 import ReviewHeader from '../review/ReviewHeader';
 import ChangeLogList, { type ChangeLogData } from '../review/ChangeLogList';
@@ -57,9 +57,9 @@ export default function PreviewComparisonStep({
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       // Markera kortet med ett tillfälligt pulse
-      el.classList.add('ring-2', 'ring-orange-400');
+      el.classList.add('ring-2', 'ring-ink-1');
       setTimeout(() => {
-        el.classList.remove('ring-2', 'ring-orange-400');
+        el.classList.remove('ring-2', 'ring-ink-1');
       }, 1600);
     }
   };
@@ -80,47 +80,40 @@ export default function PreviewComparisonStep({
       {changeLog ? (
         <ChangeLogList data={changeLog} />
       ) : (
-        <div className="rounded-xl p-5 text-sm text-neutral-700 bg-white border border-orange-200">
+        <div className="rounded-xl border border-kant bg-panel p-5 text-sm text-ink-2">
           Vi kunde inte bygga en strukturerad ändringslogg för den här analysen. Använd
           fullt CV-läge nedan för att granska.
         </div>
       )}
 
       {/* Toggle - visa fullt CV-text */}
-      <div className="rounded-xl bg-white border border-orange-200/50 overflow-hidden">
+      <div className="overflow-hidden rounded-xl border border-kant bg-panel">
         <button
           type="button"
           onClick={() => setShowFullText((v) => !v)}
-          className="w-full px-4 sm:px-5 py-3 flex items-center justify-between gap-3 text-left hover:bg-orange-50/30 transition-colors min-h-[52px]"
+          className="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-insunken sm:px-5"
           aria-expanded={showFullText}
         >
           <div className="flex items-center gap-2.5 min-w-0">
-            <FileText className="w-4 h-4 text-neutral-700 flex-shrink-0" strokeWidth={2.25} />
+            <FileText className="h-5 w-5 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
             <div className="min-w-0">
-              <div className="text-sm font-semibold text-neutral-900">
+              <div className="text-kort text-ink-1">
                 Visa hela CV-texten
               </div>
-              <div className="text-xs text-neutral-500">
+              <div className="text-meta text-ink-3">
                 Jämför sida vid sida om du vill
               </div>
             </div>
           </div>
           {showFullText ? (
-            <ChevronUp className="w-4 h-4 text-neutral-400 flex-shrink-0" strokeWidth={2.25} />
+            <ChevronUp className="h-4 w-4 flex-shrink-0 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
           ) : (
-            <ChevronDown className="w-4 h-4 text-neutral-400 flex-shrink-0" strokeWidth={2.25} />
+            <ChevronDown className="h-4 w-4 flex-shrink-0 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
           )}
         </button>
 
-        <AnimatePresence initial={false}>
-          {showFullText && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="overflow-hidden"
-            >
+        {showFullText && (
+            <div className="overflow-hidden">
               {/* På mobil visas en version i taget via växlaren: två
                   kolumner bredvid varandra på 375 px ger cirka 170 px per
                   spalt, vilket inte går att läsa. Från lg visas båda. */}
@@ -129,7 +122,7 @@ export default function PreviewComparisonStep({
                   <div
                     role="tablist"
                     aria-label="Jämför före och efter"
-                    className="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1"
+                    className="inline-flex rounded-lg border border-kant bg-insunken p-1"
                   >
                     {(['before', 'after'] as const).map((side) => (
                       <button
@@ -140,8 +133,8 @@ export default function PreviewComparisonStep({
                         onClick={() => setCompareSide(side)}
                         className={`inline-flex h-11 min-w-[110px] items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors ${
                           compareSide === side
-                            ? 'bg-orange-600 text-white'
-                            : 'text-neutral-600 hover:text-neutral-900'
+                            ? 'bg-panel text-ink-1'
+                            : 'text-ink-3 hover:text-ink-1'
                         }`}
                       >
                         {side === 'before' ? 'Nuvarande' : 'Förbättrad'}
@@ -154,66 +147,39 @@ export default function PreviewComparisonStep({
                   <div
                     className={compareSide === 'before' ? 'block' : 'hidden lg:block'}
                   >
-                    <FullCVPanel title="Nuvarande" text={originalCV} accent="slate" />
+                    <FullCVPanel title="Nuvarande" text={originalCV} />
                   </div>
                   <div
                     className={compareSide === 'after' ? 'block' : 'hidden lg:block'}
                   >
-                    <FullCVPanel title="Förbättrad" text={improvedCV} accent="orange" />
+                    <FullCVPanel title="Förbättrad" text={improvedCV} />
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </div>
 
       {/* Info-bottom */}
-      <div className="rounded-xl px-4 py-3 text-sm text-center bg-white border border-orange-200">
-        <p className="text-neutral-700">
-          Vill du justera något? Gå{' '}
-          <span className="font-semibold text-orange-700">tillbaka</span>. Allt ser bra
-          ut? Klicka <span className="font-semibold text-orange-700">Nästa</span> för
-          att välja mall och spara.
-        </p>
-      </div>
+      <p className="rounded-xl border border-kant bg-panel px-4 py-3 text-center text-sm text-ink-2">
+        Vill du justera något? Gå tillbaka. Ser allt bra ut? Gå vidare för att
+        välja mall och spara.
+      </p>
     </div>
   );
 }
 
-function FullCVPanel({
-  title,
-  text,
-  accent,
-}: {
-  title: string;
-  text: string;
-  accent: 'slate' | 'orange';
-}) {
-  const isOrange = accent === 'orange';
+function FullCVPanel({ title, text }: { title: string; text: string }) {
   return (
-    <div
-      className="rounded-xl bg-white overflow-hidden"
-      style={{
-        border: isOrange
-          ? '1px solid rgba(249, 115, 22, 0.3)'
-          : '1px solid #E2E8F0',
-      }}
-    >
-      <div
-        className="px-3 py-2 text-xs font-bold uppercase tracking-[0.16em]"
-        style={{
-          background: isOrange ? 'rgba(255, 247, 237, 0.6)' : '#F8FAFC',
-          color: isOrange ? '#9A3412' : '#475569',
-        }}
-      >
+    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+      <div className="border-b border-kant px-3 py-2 text-steg uppercase text-ink-3">
         {title}
       </div>
       {/* Ingen egen maxhöjd och ingen egen scroll: flödesskalet äger scrollen,
           och en scroll inuti en scroll gör att fingret ibland flyttar fel yta.
           Texten är 14 px i stället för 12. */}
       <div className="px-3 py-3">
-        <div className="space-y-2 text-sm leading-relaxed text-neutral-700">
+        <div className="space-y-2 text-sm leading-relaxed text-ink-2">
           {text.split(/\n\n+/).map((paragraph, i) => (
             <p key={i} className="whitespace-pre-wrap">
               {paragraph}

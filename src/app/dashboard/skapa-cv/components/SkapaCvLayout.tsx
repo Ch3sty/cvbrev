@@ -9,15 +9,14 @@ interface Props {
 }
 
 /**
- * Wrapper för skapa-cv-flödet. Två varianter:
- * - Standard (max-w-3xl): för Steg 0 (intro), Steg 7 (granska)
- * - Med preview (max-w-6xl): för Steg 1-6 där live-preview visas till
- *   höger på desktop
+ * Wrapper för skapa-cv-flödet. FlowShell äger mark, topprad och fot; det
+ * här är bara kolumnen. Två bredder: standard för granskningen, bredare när
+ * förhandsvisningen ligger i en egen kolumn till höger på desktop.
  */
 export default function SkapaCvLayout({ children, withPreview = false }: Props) {
   return (
     <div
-      className={`mx-auto py-2 sm:py-6 pb-32 sm:pb-20 space-y-6 sm:space-y-8 ${
+      className={`mx-auto space-y-4 pb-4 sm:space-y-6 ${
         withPreview ? 'max-w-6xl' : 'max-w-3xl'
       }`}
     >

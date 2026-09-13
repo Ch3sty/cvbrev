@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import type { CVDraft } from '../CVCreatorWizard'
 import type { CVLanguage } from '@/lib/cv/cv-metadata'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
@@ -102,12 +101,7 @@ export default function Step6Sprak({ cvData, updateCVData }: Props) {
   })
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-4">
       <SkapaCvStepHeader
         stepNumber={6}
         title="Vilka språk talar du?"
@@ -115,9 +109,7 @@ export default function Step6Sprak({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div
-        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
-      >
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
         <SkapaCvCardList
           items={items}
           emptyTitle="Inga språk tillagda"
@@ -131,6 +123,6 @@ export default function Step6Sprak({ cvData, updateCVData }: Props) {
           }
         />
       </div>
-    </motion.section>
+    </section>
   )
 }

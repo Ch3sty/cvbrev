@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from 'lucide-react';
 
 interface Improvements {
@@ -59,17 +58,14 @@ export default function ImprovementCard({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25 }}
-      className={`relative rounded-xl bg-white overflow-hidden transition-all ${
-        selected ? 'border-2 border-emerald-500' : 'border-2 border-orange-200/60'
+    <div
+      className={`overflow-hidden rounded-xl bg-panel transition-colors ${
+        selected ? 'border border-ink-1' : 'border border-kant'
       }`}
     >
-      <div className="p-4 sm:p-5 pt-5">
+      <div className="p-4 sm:p-5">
         {/* Header */}
-        <div className="flex items-start gap-3 mb-4">
+        <div className="mb-4 flex items-start gap-3">
           <RoundCheckbox
             checked={selected}
             onChange={onToggle}
@@ -77,34 +73,41 @@ export default function ImprovementCard({
           />
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-start gap-2 flex-wrap">
-              <div className="flex-shrink-0 w-7 h-7 flex items-center justify-center">
-                <Briefcase className="w-4 h-4 text-neutral-700" strokeWidth={2.25} />
-              </div>
+            <div className="flex items-start gap-2">
+              <Briefcase
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-2"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
               <div className="min-w-0 flex-1">
-                <h4 className="font-bold text-neutral-900 text-sm sm:text-base leading-tight">
-                  {title}
-                </h4>
-                {period && <p className="text-xs text-neutral-500 mt-0.5">{period}</p>}
+                <h4 className="text-kort leading-tight text-ink-1">{title}</h4>
+                {period && <p className="mt-0.5 text-meta text-ink-3">{period}</p>}
               </div>
             </div>
 
             {/* Tags-rad */}
             <div className="mt-2.5 flex flex-wrap gap-1.5">
               {typeof atsImpact === 'number' && atsImpact > 0 && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-emerald-600">
-                  +{atsImpact} ATS
-                </span>
+                <Tag label={`+${atsImpact} ATS`} />
               )}
-              <PriorityBadge priority={priority} />
+              <Tag label={PRIORITY_LABELS[priority] || 'Mellan'} />
               {safeKeywords.length > 0 && (
-                <Tag icon={<Key className="w-2.5 h-2.5" />} label={`${safeKeywords.length} nyckelord`} />
+                <Tag
+                  icon={<Key className="h-3 w-3" strokeWidth={1.75} />}
+                  label={`${safeKeywords.length} nyckelord`}
+                />
               )}
               {improvements && !improvements.hasQuantification && (
-                <Tag icon={<BarChart3 className="w-2.5 h-2.5" />} label="Behöver siffror" />
+                <Tag
+                  icon={<BarChart3 className="h-3 w-3" strokeWidth={1.75} />}
+                  label="Behöver siffror"
+                />
               )}
               {safeGrammar.length > 0 && (
-                <Tag icon={<Type className="w-2.5 h-2.5" />} label={`${safeGrammar.length} språkfel`} />
+                <Tag
+                  icon={<Type className="h-3 w-3" strokeWidth={1.75} />}
+                  label={`${safeGrammar.length} språkfel`}
+                />
               )}
             </div>
           </div>
@@ -112,15 +115,10 @@ export default function ImprovementCard({
 
         {/* Flödes-vy */}
         {!isEditing ? (
-          <div
-            className="rounded-xl p-3.5 sm:p-4 border-2 bg-white"
-            style={{
-              borderColor: 'rgba(16, 185, 129, 0.25)',
-            }}
-          >
+          <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
             {/* Mode-toggle */}
-            <div className="flex items-center justify-between mb-2.5 gap-2">
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
+            <div className="mb-2.5 flex items-center justify-between gap-2">
+              <span className="text-steg uppercase text-ink-3">
                 {showOriginal ? 'Nuvarande text' : 'Vårt förslag'}
               </span>
 
@@ -128,17 +126,17 @@ export default function ImprovementCard({
                 <button
                   type="button"
                   onClick={() => setShowOriginal((v) => !v)}
-                  className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors"
+                  className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-meta font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
                   aria-pressed={showOriginal}
                 >
                   {showOriginal ? (
                     <>
-                      <EyeOff className="w-3 h-3" strokeWidth={2.5} />
+                      <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                       Visa förslag
                     </>
                   ) : (
                     <>
-                      <Eye className="w-3 h-3" strokeWidth={2.5} />
+                      <Eye className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                       Visa nuvarande
                     </>
                   )}
@@ -147,52 +145,36 @@ export default function ImprovementCard({
                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors"
+                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-meta font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
                   >
-                    <Edit3 className="w-3 h-3" strokeWidth={2.5} />
+                    <Edit3 className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                     Redigera
                   </button>
                 )}
               </div>
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={showOriginal ? 'original' : 'suggested'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {showOriginal ? (
-                  <p className="text-sm text-neutral-600 italic leading-relaxed whitespace-pre-wrap">
-                    {currentText || 'Ingen tidigare text.'}
-                  </p>
-                ) : (
-                  <HighlightedText
-                    text={editedText}
-                    keywords={safeKeywords}
-                    detectNumbers={!improvements?.hasQuantification}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
+            {showOriginal ? (
+              <p className="whitespace-pre-wrap text-sm italic leading-relaxed text-ink-3">
+                {currentText || 'Ingen tidigare text.'}
+              </p>
+            ) : (
+              <HighlightedText
+                text={editedText}
+                keywords={safeKeywords}
+                detectNumbers={!improvements?.hasQuantification}
+              />
+            )}
 
             {/* Footer-meta */}
             {!showOriginal &&
               (safeKeywords.length > 0 || !improvements?.hasQuantification) && (
-                <div className="mt-3 pt-3 border-t border-emerald-200/60 flex items-center gap-3 flex-wrap text-xs">
+                <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-kant pt-3 text-meta text-ink-3">
                   {safeKeywords.length > 0 && (
-                    <span className="inline-flex items-center gap-1 text-orange-700 font-semibold">
-                      <span className="inline-block w-2 h-2 rounded-full bg-orange-600" />
-                      {safeKeywords.length} nyckelord tillagda
-                    </span>
+                    <span>{safeKeywords.length} nyckelord tillagda</span>
                   )}
                   {!improvements?.hasQuantification && (
-                    <span className="inline-flex items-center gap-1 text-emerald-800 font-semibold">
-                      <span className="inline-block w-2 h-2 rounded-full bg-emerald-600" />
-                      Kvantifiering föreslagen
-                    </span>
+                    <span>Kvantifiering föreslagen</span>
                   )}
                 </div>
               )}
@@ -200,13 +182,13 @@ export default function ImprovementCard({
         ) : (
           <div className="space-y-2.5">
             <label className="block">
-              <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-1.5 block">
+              <span className="mb-1.5 block text-sm font-medium text-ink-2">
                 Redigera förslaget
               </span>
               <textarea
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="w-full min-h-[140px] p-3 text-base bg-white border-2 border-orange-200 rounded-xl text-neutral-900 focus:outline-none focus:border-orange-500 resize-y"
+                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 rows={6}
 
                 enterKeyHint="enter"
@@ -223,68 +205,31 @@ export default function ImprovementCard({
                   setEditedText(suggestedText);
                   setIsEditing(false);
                 }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
+                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
               >
-                <X className="w-3 h-3" />
+                <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Avbryt
               </button>
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition-colors min-h-[44px]"
+                className="inline-flex h-11 items-center gap-1 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                <Check className="w-3 h-3" strokeWidth={3} />
+                <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Spara
               </button>
             </div>
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-function PriorityBadge({ priority }: { priority: ImprovementCardProps['priority'] }) {
-  const styles =
-    priority === 'critical' || priority === 'high'
-      ? {
-          background: 'rgba(249, 115, 22, 0.12)',
-          border: '1px solid rgba(249, 115, 22, 0.4)',
-          color: '#9A3412',
-        }
-      : priority === 'medium'
-      ? {
-          background: 'rgba(251, 146, 60, 0.1)',
-          border: '1px solid rgba(251, 146, 60, 0.35)',
-          color: '#9A3412',
-        }
-      : {
-          background: 'rgba(148, 163, 184, 0.1)',
-          border: '1px solid rgba(148, 163, 184, 0.3)',
-          color: '#475569',
-        };
-
+function Tag({ icon, label }: { icon?: React.ReactNode; label: string }) {
   return (
-    <span
-      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
-      style={styles}
-    >
-      {PRIORITY_LABELS[priority] || 'Mellan'}
-    </span>
-  );
-}
-
-function Tag({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <span
-      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold"
-      style={{
-        background: 'rgba(249, 115, 22, 0.06)',
-        border: '1px solid rgba(249, 115, 22, 0.22)',
-        color: '#9A3412',
-      }}
-    >
-      {icon}
+    <span className="inline-flex items-center gap-1 rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+      {icon ? <span aria-hidden="true">{icon}</span> : null}
       {label}
     </span>
   );
@@ -308,20 +253,15 @@ export function RoundCheckbox({
       role="checkbox"
       aria-checked={checked}
       aria-label={ariaLabel}
-      className={`flex-shrink-0 mt-0.5 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
+      className={`mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ink-1 ${
         checked
-          ? 'border-transparent'
-          : 'border-orange-300 bg-white hover:border-orange-500'
+          ? 'border-ink-1 bg-ink-1'
+          : 'border-kant-stark bg-panel hover:border-ink-1'
       }`}
-      style={
-        checked
-          ? {
-              background: '#EA580C',
-            }
-          : undefined
-      }
     >
-      {checked && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
+      {checked && (
+        <Check className="h-3.5 w-3.5 text-white" strokeWidth={2} aria-hidden="true" />
+      )}
     </button>
   );
 }
@@ -337,7 +277,7 @@ export function HighlightedText({
 }) {
   if (keywords.length === 0 && (!detectNumbers || !text.match(/\d/))) {
     return (
-      <p className="text-sm text-neutral-900 font-medium leading-relaxed whitespace-pre-wrap">
+      <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-1">
         {text}
       </p>
     );
@@ -391,12 +331,7 @@ export function HighlightedText({
     parts.push(
       <span
         key={`hl-${i}`}
-        className="px-1 rounded font-bold"
-        style={
-          h.type === 'keyword'
-            ? { background: 'rgba(249, 115, 22, 0.18)', color: '#9A3412' }
-            : { background: 'rgba(16, 185, 129, 0.18)', color: '#047857' }
-        }
+        className="rounded px-1 font-semibold text-ink-1 underline decoration-kant-stark decoration-2 underline-offset-2"
       >
         {text.substring(h.start, h.end)}
       </span>
@@ -408,7 +343,7 @@ export function HighlightedText({
   }
 
   return (
-    <p className="text-sm text-neutral-900 font-medium leading-relaxed whitespace-pre-wrap">
+    <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-1">
       {parts}
     </p>
   );

@@ -2,6 +2,7 @@
 
 import { forwardRef, SelectHTMLAttributes } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { FIELD, FIELD_OK, FIELD_ERR, LABEL } from './SkapaCvInput'
 
 interface Option {
   value: string
@@ -18,41 +19,21 @@ interface Props extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children'
 }
 
 const SkapaCvSelect = forwardRef<HTMLSelectElement, Props>(function SkapaCvSelect(
-  {
-    label,
-    options,
-    hint,
-    error,
-    optional,
-    placeholder,
-    className = '',
-    id,
-    ...rest
-  },
+  { label, options, hint, error, optional, placeholder, className = '', id, ...rest },
   ref
 ) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
-      >
+      <label htmlFor={id} className={LABEL}>
         {label}
-        {optional && (
-          <span className="ml-1.5 text-neutral-400 normal-case font-medium tracking-normal">
-            (valfritt)
-          </span>
-        )}
+        {optional && <span className="ml-1.5 font-normal text-ink-3">(valfritt)</span>}
       </label>
       <div className="relative">
         <select
           ref={ref}
           id={id}
-          className={`block w-full min-h-[44px] pl-4 pr-10 py-3 bg-white border rounded-xl text-base text-neutral-900 transition-all appearance-none cursor-pointer hover:border-orange-200 focus:outline-none focus:ring-2 disabled:bg-neutral-50 disabled:cursor-not-allowed ${
-            error
-              ? 'border-red-300 focus:border-red-400 focus:ring-red-100'
-              : 'border-neutral-200 focus:border-orange-300 focus:ring-orange-100'
-          } ${className}`}
+          aria-invalid={error ? true : undefined}
+          className={`${FIELD} cursor-pointer appearance-none pr-10 ${error ? FIELD_ERR : FIELD_OK} ${className}`}
           {...rest}
         >
           {placeholder && (
@@ -67,16 +48,12 @@ const SkapaCvSelect = forwardRef<HTMLSelectElement, Props>(function SkapaCvSelec
           ))}
         </select>
         <ChevronDown
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none"
-          strokeWidth={2.4}
+          className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-3"
+          strokeWidth={1.75}
         />
       </div>
-      {error && (
-        <p className="mt-1.5 text-xs font-semibold text-red-600">{error}</p>
-      )}
-      {!error && hint && (
-        <p className="mt-1.5 text-xs text-neutral-500">{hint}</p>
-      )}
+      {error && <p className="mt-1.5 text-meta text-fel">{error}</p>}
+      {!error && hint && <p className="mt-1.5 text-meta text-ink-3">{hint}</p>}
     </div>
   )
 })

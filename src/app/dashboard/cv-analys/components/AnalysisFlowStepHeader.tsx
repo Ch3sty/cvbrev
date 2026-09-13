@@ -1,73 +1,40 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
-
 interface AnalysisFlowStepHeaderProps {
   stepNumber: number;
+  totalSteps?: number;
   title: string;
   description: string;
   isDone: boolean;
-  isActive?: boolean;
   rightSlot?: React.ReactNode;
 }
 
+/**
+ * Rubriken för ett steg i CV-analysen.
+ *
+ * Bort: den fyllda sifferbubblan med pulserande ring i orange, den gröna
+ * klarmarkeringen och rubriken i 24 px fet. Kvar: stegetiketten i versaler
+ * och frågan i 22 px, samma form som i de andra flödena.
+ */
 export default function AnalysisFlowStepHeader({
   stepNumber,
+  totalSteps = 7,
   title,
   description,
   isDone,
-  isActive = false,
   rightSlot,
 }: AnalysisFlowStepHeaderProps) {
   return (
-    <div className="flex items-start gap-4 mb-5">
-      <div className="relative flex-shrink-0">
-        {isActive && !isDone && (
-          <motion.div
-            className="absolute inset-0 rounded-full bg-orange-600"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
-          />
-        )}
-        <div
-          className="relative w-11 h-11 rounded-full flex items-center justify-center font-bold text-base"
-          style={
-            isDone
-              ? {
-                  background: '#059669',
-                  color: 'white',
-                }
-              : isActive
-              ? {
-                  background: '#EA580C',
-                  color: 'white',
-                }
-              : {
-                  background: '#F1F5F9',
-                  color: '#94A3B8',
-                }
-          }
-        >
-          {isDone ? <Check className="w-5 h-5" strokeWidth={3} /> : stepNumber}
-        </div>
+    <header className="mb-5 flex items-start justify-between gap-3">
+      <div className="min-w-0">
+        <p className="text-steg uppercase text-ink-3">
+          Steg {stepNumber} av {totalSteps}
+          {isDone ? ' · Klart' : ''}
+        </p>
+        <h2 className="mt-1.5 text-fraga text-ink-1">{title}</h2>
+        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">{description}</p>
       </div>
-
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mb-0.5">
-              Steg {stepNumber}
-              {isDone && <span className="ml-2 text-emerald-600">· Klart</span>}
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
-              {title}
-            </h2>
-            <p className="text-sm text-neutral-600 mt-1">{description}</p>
-          </div>
-          {rightSlot && <div className="flex-shrink-0">{rightSlot}</div>}
-        </div>
-      </div>
-    </div>
+      {rightSlot && <div className="flex-shrink-0">{rightSlot}</div>}
+    </header>
   );
 }

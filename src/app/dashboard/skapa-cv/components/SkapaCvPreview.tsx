@@ -1,7 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Linkedin } from 'lucide-react'
 import type { CVDraft } from './CVCreatorWizard'
 
 export type PreviewSection =
@@ -14,15 +12,14 @@ export type PreviewSection =
 
 interface Props {
   data: CVDraft
-  /** Vilken sektion som är "aktiv" (highlightad), baserat på currentStep */
+  /** Vilken sektion som är aktiv, baserat på currentStep. Får tråden. */
   activeSection?: PreviewSection
-  /** Visa glow bakom papperet (default: true) */
+  /** Behålls för bakåtkompatibilitet, ingen glow finns längre. */
   showGlow?: boolean
   className?: string
 }
 
 const PLACEHOLDER_NAME = 'Ditt namn'
-const PLACEHOLDER_TITLE = 'Din titel kommer synas här'
 const PLACEHOLDER_SUMMARY =
   'En kort sammanfattning om dig själv som hjälper rekryteraren förstå vem du är.'
 
@@ -33,6 +30,10 @@ function getInitials(name?: string): string {
   return (parts[0]!.charAt(0) + parts[parts.length - 1]!.charAt(0)).toUpperCase()
 }
 
+/**
+ * Sektionen som hör till det aktiva steget får tråden: 3 px längs
+ * vänsterkanten. Det betyder position, här är du, inte val.
+ */
 function SectionWrapper({
   isActive,
   children,
@@ -41,14 +42,10 @@ function SectionWrapper({
   children: React.ReactNode
 }) {
   return (
-    <div
-      className={`relative transition-all rounded-lg ${
-        isActive ? 'bg-orange-50/60 -mx-2 px-2 py-1.5' : ''
-      }`}
-    >
+    <div className="relative">
       {isActive && (
         <span
-          className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-orange-600"
+          className="absolute -left-4 top-0 bottom-0 w-[3px] rounded-r bg-accent sm:-left-5"
           aria-hidden="true"
         />
       )}
@@ -58,25 +55,13 @@ function SectionWrapper({
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2 mb-2">
-      <span
-        className="w-1 h-3 rounded-sm bg-orange-600"
-        aria-hidden="true"
-      />
-      <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700">
-        {children}
-      </span>
-    </div>
-  )
+  return <p className="mb-2 text-sm font-medium text-ink-3">{children}</p>
 }
 
-export default function SkapaCvPreview({
-  data,
-  activeSection,
-  showGlow = true,
-  className = '',
-}: Props) {
+const CHIP =
+  'inline-flex items-center rounded-lg border border-kant bg-insunken px-2 py-0.5 text-meta text-ink-2'
+
+export default function SkapaCvPreview({ data, activeSection, className = '' }: Props) {
   const fullName = data.personalInfo.fullName?.trim() || ''
   const email = data.personalInfo.email?.trim() || ''
   const phone = data.personalInfo.phone?.trim() || ''
@@ -87,7 +72,6 @@ export default function SkapaCvPreview({
   const hasName = !!fullName
   const initials = getInitials(fullName)
 
-  // Filter rensade poster
   const experiences = data.experience.filter(
     (e) => (e.position?.trim() || e.company?.trim() || '').length > 0
   )
@@ -101,81 +85,51 @@ export default function SkapaCvPreview({
 
   return (
     <div className={`relative w-full ${className}`}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="relative bg-white rounded-xl lg:rounded-xl border border-orange-100 overflow-hidden"
+      <div
+        className="overflow-hidden rounded-xl border border-kant bg-panel"
+        role="img"
+        aria-label="Förhandsvisning av ditt CV"
       >
-        <div className="px-5 sm:px-6 py-5 sm:py-6">
-          {/* HEADER: Avatar + namn + kontakt */}
+        <div className="px-4 py-4 sm:px-5 sm:py-5">
+          {/* Namn och kontakt */}
           <SectionWrapper isActive={activeSection === 'kontakt'}>
-            <div className="flex items-start gap-4 mb-3">
-              {/* Avatar */}
+            <div className="mb-3 flex items-start gap-3">
               <div
-                className={`flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-semibold text-lg ${
-                  hasName ? 'bg-orange-600' : 'bg-neutral-100'
+                className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg text-base font-semibold ${
+                  hasName ? 'bg-insunken text-ink-1' : 'bg-insunken text-ink-3'
                 }`}
               >
-                <span className={hasName ? 'text-white' : 'text-neutral-300'}>
-                  {initials}
-                </span>
+                {initials}
               </div>
-
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0 flex-1">
                 <p
-                  className={`text-lg font-semibold leading-tight tracking-tight ${
-                    hasName ? 'text-neutral-900' : 'text-neutral-300'
-                  }`}
+                  className={`text-kort ${hasName ? 'text-ink-1' : 'text-ink-3'}`}
                 >
                   {fullName || PLACEHOLDER_NAME}
                 </p>
                 {data.personalInfo.title?.trim() ? (
-                  <p className="text-sm font-semibold text-neutral-700 leading-snug mt-0.5">
-                    {data.personalInfo.title}
-                  </p>
+                  <p className="mt-0.5 text-sm text-ink-2">{data.personalInfo.title}</p>
                 ) : null}
               </div>
             </div>
 
-            {/* Kontaktrad */}
             {(email || phone || address || linkedIn) && (
-              <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-neutral-600 mb-1">
-                {email && (
-                  <span className="inline-flex items-center gap-1">
-                    <Mail className="w-3 h-3" strokeWidth={2.2} />
-                    <span className="truncate max-w-[160px]">{email}</span>
-                  </span>
-                )}
-                {phone && (
-                  <span className="inline-flex items-center gap-1">
-                    <Phone className="w-3 h-3" strokeWidth={2.2} />
-                    <span>{phone}</span>
-                  </span>
-                )}
-                {address && (
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="w-3 h-3" strokeWidth={2.2} />
-                    <span>{address}</span>
-                  </span>
-                )}
-                {linkedIn && (
-                  <span className="inline-flex items-center gap-1">
-                    <Linkedin className="w-3 h-3" strokeWidth={2.2} />
-                    <span className="truncate max-w-[140px]">{linkedIn}</span>
-                  </span>
-                )}
-              </div>
+              <p className="flex flex-wrap gap-x-3 gap-y-1 text-meta text-ink-3">
+                {email && <span className="max-w-[180px] truncate">{email}</span>}
+                {phone && <span>{phone}</span>}
+                {address && <span>{address}</span>}
+                {linkedIn && <span className="max-w-[160px] truncate">{linkedIn}</span>}
+              </p>
             )}
           </SectionWrapper>
 
-          {/* OM DIG / SUMMARY */}
-          <div className="mt-5 pt-5 border-t border-orange-50">
-            <SectionLabel>{PLACEHOLDER_TITLE.includes('Om dig') ? 'Om dig' : 'Om mig'}</SectionLabel>
+          {/* Om dig */}
+          <div className="mt-4 border-t border-kant pt-4">
             <SectionWrapper isActive={activeSection === 'om-dig'}>
+              <SectionLabel>Om mig</SectionLabel>
               <p
-                className={`text-xs leading-relaxed line-clamp-5 whitespace-pre-line ${
-                  summary ? 'text-neutral-700' : 'text-neutral-300 italic'
+                className={`line-clamp-5 whitespace-pre-line text-meta ${
+                  summary ? 'text-ink-2' : 'italic text-ink-3'
                 }`}
               >
                 {summary || PLACEHOLDER_SUMMARY}
@@ -183,36 +137,32 @@ export default function SkapaCvPreview({
             </SectionWrapper>
           </div>
 
-          {/* ERFARENHET */}
-          <div className="mt-5 pt-5 border-t border-orange-50">
-            <SectionLabel>Erfarenhet</SectionLabel>
+          {/* Erfarenhet */}
+          <div className="mt-4 border-t border-kant pt-4">
             <SectionWrapper isActive={activeSection === 'erfarenhet'}>
+              <SectionLabel>Erfarenhet</SectionLabel>
               {experiences.length > 0 ? (
                 <div className="space-y-3">
                   {experiences.slice(0, 4).map((exp, i) => {
                     const period = [exp.startDate, exp.endDate || 'Nu']
                       .filter(Boolean)
-                      .join(' – ')
+                      .join(' till ')
                     return (
                       <div key={i} className="flex gap-3">
-                        <div
-                          className="flex-shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-xs font-semibold text-white bg-orange-600"
-                        >
-                          {(exp.company ?? exp.position ?? 'XX')
-                            .slice(0, 2)
-                            .toUpperCase()}
+                        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-insunken text-meta font-medium text-ink-2">
+                          {(exp.company ?? exp.position ?? 'XX').slice(0, 2).toUpperCase()}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-neutral-900 truncate">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-semibold text-ink-1">
                             {exp.position || 'Roll'}
                           </p>
-                          <p className="text-xs text-neutral-500 truncate">
+                          <p className="truncate text-meta text-ink-3">
                             {[exp.company, period].filter(Boolean).join(' · ')}
                           </p>
                           {exp.description &&
                             exp.description.length > 0 &&
                             exp.description[0] && (
-                              <p className="text-xs text-neutral-600 leading-snug line-clamp-2 mt-0.5">
+                              <p className="mt-0.5 line-clamp-2 text-meta text-ink-2">
                                 {exp.description[0]}
                               </p>
                             )}
@@ -222,36 +172,32 @@ export default function SkapaCvPreview({
                   })}
                 </div>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-2" aria-hidden="true">
                   {[1, 2].map((i) => (
-                    <div key={i} className="flex gap-3 opacity-50">
-                      <div className="flex-shrink-0 w-9 h-9 rounded-md bg-neutral-100" />
+                    <div key={i} className="flex gap-3">
+                      <div className="h-9 w-9 flex-shrink-0 rounded-lg bg-insunken" />
                       <div className="flex-1 space-y-1.5 pt-1">
-                        <div className="h-2 w-2/3 rounded-full bg-neutral-100" />
-                        <div className="h-1.5 w-1/2 rounded-full bg-neutral-100" />
+                        <div className="h-2.5 w-2/3 rounded bg-insunken" />
+                        <div className="h-2 w-1/2 rounded bg-insunken" />
                       </div>
                     </div>
                   ))}
-                  <p className="text-xs text-neutral-300 italic mt-1.5">
-                    Din erfarenhet visas här
-                  </p>
+                  <p className="text-meta italic text-ink-3">Din erfarenhet visas här</p>
                 </div>
               )}
             </SectionWrapper>
           </div>
 
-          {/* UTBILDNING */}
-          <div className="mt-5 pt-5 border-t border-orange-50">
-            <SectionLabel>Utbildning</SectionLabel>
+          {/* Utbildning */}
+          <div className="mt-4 border-t border-kant pt-4">
             <SectionWrapper isActive={activeSection === 'utbildning'}>
+              <SectionLabel>Utbildning</SectionLabel>
               {educations.length > 0 ? (
                 <div className="space-y-2">
                   {educations.slice(0, 3).map((edu, i) => (
                     <div key={i}>
-                      <p className="text-xs font-bold text-neutral-900 leading-snug">
-                        {edu.degree || 'Examen'}
-                      </p>
-                      <p className="text-xs text-neutral-500 leading-snug">
+                      <p className="text-sm font-semibold text-ink-1">{edu.degree || 'Examen'}</p>
+                      <p className="text-meta text-ink-3">
                         {[edu.institution, edu.graduationYear ?? edu.endDate]
                           .filter(Boolean)
                           .join(' · ')}
@@ -260,32 +206,25 @@ export default function SkapaCvPreview({
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-neutral-300 italic">
-                  Din utbildning visas här
-                </p>
+                <p className="text-meta italic text-ink-3">Din utbildning visas här</p>
               )}
             </SectionWrapper>
           </div>
 
-          {/* KOMPETENSER */}
-          <div className="mt-5 pt-5 border-t border-orange-50">
-            <SectionLabel>Kompetenser</SectionLabel>
+          {/* Kompetenser */}
+          <div className="mt-4 border-t border-kant pt-4">
             <SectionWrapper isActive={activeSection === 'kompetenser'}>
+              <SectionLabel>Kompetenser</SectionLabel>
               {skills.length > 0 ? (
                 <div className="space-y-2">
                   {skills.slice(0, 4).map((skill, i) => (
                     <div key={i}>
                       {skill.category && (
-                        <p className="text-xs font-bold text-neutral-700 mb-1">
-                          {skill.category}
-                        </p>
+                        <p className="mb-1 text-meta font-medium text-ink-2">{skill.category}</p>
                       )}
                       <div className="flex flex-wrap gap-1.5">
                         {(skill.skills ?? []).slice(0, 8).map((s, j) => (
-                          <span
-                            key={`${i}-${j}`}
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-white border border-orange-200 text-neutral-700"
-                          >
+                          <span key={`${i}-${j}`} className={CHIP}>
                             {s}
                           </span>
                         ))}
@@ -294,44 +233,35 @@ export default function SkapaCvPreview({
                   ))}
                 </div>
               ) : (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5" aria-hidden="true">
                   {[1, 2, 3].map((i) => (
-                    <span
-                      key={i}
-                      className="inline-flex h-6 w-16 rounded-full bg-neutral-100 opacity-50"
-                    />
+                    <span key={i} className="inline-flex h-6 w-16 rounded-lg bg-insunken" />
                   ))}
                 </div>
               )}
             </SectionWrapper>
           </div>
 
-          {/* SPRÅK */}
-          <div className="mt-5 pt-5 border-t border-orange-50">
-            <SectionLabel>Språk</SectionLabel>
+          {/* Språk */}
+          <div className="mt-4 border-t border-kant pt-4">
             <SectionWrapper isActive={activeSection === 'sprak'}>
+              <SectionLabel>Språk</SectionLabel>
               {languages.length > 0 ? (
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                   {languages.map((lang, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-neutral-900">
-                        {lang.language}
-                      </span>
-                      <span className="text-xs text-neutral-500">
-                        {lang.proficiency}
-                      </span>
-                    </div>
+                    <p key={i} className="text-meta">
+                      <span className="font-medium text-ink-1">{lang.language}</span>{' '}
+                      <span className="text-ink-3">{lang.proficiency}</span>
+                    </p>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-neutral-300 italic">
-                  Dina språk visas här
-                </p>
+                <p className="text-meta italic text-ink-3">Dina språk visas här</p>
               )}
             </SectionWrapper>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

@@ -23,35 +23,33 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
   const strengths = template.metadata?.strengths ?? [];
 
   return (
-    <div
-      className="rounded-xl bg-white border border-orange-100 p-5 sm:p-6"
-      >
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
       {/* Topp-rad: ATS + foto + LinkedIn-badges */}
-      <div className="flex items-center gap-2 flex-wrap mb-5 pb-5 border-b border-orange-100/70">
+      <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-kant pb-4">
         {isAtsSafe ? (
-          <Badge variant="success" icon={<ShieldCheck className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge tone="positiv" icon={<ShieldCheck className="h-4 w-4" strokeWidth={1.75} />}>
             ATS-säker
           </Badge>
         ) : (
-          <Badge variant="warning" icon={<AlertCircle className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge tone="varning" icon={<AlertCircle className="h-4 w-4" strokeWidth={1.75} />}>
             Mindre ATS-vänlig
           </Badge>
         )}
 
         {supportsPhoto && (
-          <Badge variant="neutral" icon={<ImageIcon className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge tone="neutral" icon={<ImageIcon className="h-4 w-4" strokeWidth={1.75} />}>
             Stöd för foto
           </Badge>
         )}
 
         {supportsLinkedIn && (
-          <Badge variant="neutral" icon={<Linkedin className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge tone="neutral" icon={<Linkedin className="h-4 w-4" strokeWidth={1.75} />}>
             LinkedIn-badge
           </Badge>
         )}
 
         {template.tier === 'premium' && (
-          <Badge variant="premium" icon={<Crown className="w-3.5 h-3.5" strokeWidth={2.5} />}>
+          <Badge tone="neutral" icon={<Crown className="h-4 w-4" strokeWidth={1.75} />}>
             Premium
           </Badge>
         )}
@@ -60,40 +58,33 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
       {/* Passar fOr */}
       {suitableFor.length > 0 && (
         <div className="mb-5">
-          <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-2.5">
-            Passar för
-          </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <h3 className="mb-2.5 text-steg uppercase text-ink-3">Passar för</h3>
+          <ul className="flex flex-wrap gap-1.5">
             {suitableFor.map(item => (
-              <span
+              <li
                 key={item}
-                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-neutral-700 bg-orange-50 border border-orange-100"
+                className="inline-flex items-center rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2"
               >
                 {item}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
 
       {/* Varfor mallen ar bra */}
       {strengths.length > 0 && (
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-orange-700 mb-2.5">
-            Varför den fungerar
-          </h3>
+          <h3 className="mb-2.5 text-steg uppercase text-ink-3">Varför den fungerar</h3>
           <ul className="space-y-2">
             {strengths.map((strength, idx) => (
               <li
                 key={idx}
-                className="flex items-start gap-2 text-sm text-neutral-700 leading-relaxed"
+                className="flex items-start gap-2 text-sm leading-relaxed text-ink-2"
               >
                 <span
                   aria-hidden="true"
-                  className="flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full"
-                  style={{
-                    background: '#EA580C',
-                  }}
+                  className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-3"
                 />
                 <span>{strength}</span>
               </li>
@@ -101,7 +92,7 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
           </ul>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 
@@ -112,34 +103,23 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
 function Badge({
   children,
   icon,
-  variant,
+  tone,
 }: {
   children: React.ReactNode;
   icon: React.ReactNode;
-  variant: 'success' | 'warning' | 'neutral' | 'premium';
+  tone: 'positiv' | 'varning' | 'neutral';
 }) {
-  const styles = {
-    success: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    warning: 'bg-amber-50 text-amber-800 border-amber-200',
-    neutral: 'bg-neutral-50 text-neutral-700 border-neutral-200',
-    premium:
-      'text-white border-transparent',
-  };
-
-  const isPremiumStyle = variant === 'premium';
+  const ikon = {
+    positiv: 'text-positiv',
+    varning: 'text-varning',
+    neutral: 'text-ink-3',
+  }[tone];
 
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wide border ${styles[variant]}`}
-      style={
-        isPremiumStyle
-          ? {
-              background: '#EA580C',
-            }
-          : undefined
-      }
-    >
-      <span className={isPremiumStyle ? 'text-white' : ''}>{icon}</span>
+    <span className="inline-flex items-center gap-1.5 rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2">
+      <span className={ikon} aria-hidden="true">
+        {icon}
+      </span>
       {children}
     </span>
   );

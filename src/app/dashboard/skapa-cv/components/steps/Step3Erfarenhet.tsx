@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import type { CVDraft } from '../CVCreatorWizard'
 import type { CVExperience } from '@/lib/cv/cv-metadata'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
-import SkapaCvInput from '../inputs/SkapaCvInput'
+import SkapaCvInput, { LABEL } from "../inputs/SkapaCvInput"
+import { TEXTAREA } from "../inputs/SkapaCvTextarea"
 import SkapaCvCardList from '../inputs/SkapaCvCardList'
 
 interface Props {
@@ -124,9 +124,7 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
 
           {/* Beskrivning som bullet-points */}
           <div>
-            <label
-              className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5"
-            >
+            <label htmlFor={`${id}-description`} className={LABEL}>
               Beskriv vad du gjorde (en punkt per rad)
             </label>
             <textarea
@@ -139,13 +137,14 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
                 )
               }
               rows={5}
+              id={`${id}-description`}
               enterKeyHint="enter"
               inputMode="text"
               autoComplete="off"
               placeholder={`Ledde ett team på 12 personer i utvecklingen av ny e-handelsplattform\nÖkade leveranshastigheten med 40% genom Scrum-implementering\nAnsvarade för budget på 15 MSEK`}
-              className="block w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl text-base text-neutral-900 placeholder-neutral-400 leading-relaxed transition-all hover:border-orange-200 focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 resize-y"
+              className={`${TEXTAREA} border-kant focus:border-kant-stark`}
             />
-            <p className="mt-1.5 text-xs text-neutral-500">
+            <p className="mt-1.5 text-meta text-ink-3">
               En punkt per rad. Börja gärna med ett aktivt verb och inkludera
               siffror där det går.
             </p>
@@ -156,12 +155,7 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
   })
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-4">
       <SkapaCvStepHeader
         stepNumber={3}
         title="Vilken erfarenhet har du?"
@@ -169,9 +163,7 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div
-        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
-      >
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
         <SkapaCvCardList
           items={items}
           emptyTitle="Ingen erfarenhet tillagd"
@@ -183,6 +175,6 @@ export default function Step3Erfarenhet({ cvData, updateCVData }: Props) {
           onToggleExpand={(id) => setExpandedId(expandedId === id ? null : id)}
         />
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import type { CVDraft } from '../CVCreatorWizard'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
 import SkapaCvInput from '../inputs/SkapaCvInput'
@@ -21,21 +20,14 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
   }
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-4">
       <SkapaCvStepHeader
         stepNumber={1}
         title="Vilka är dina kontaktuppgifter?"
         description="Det här syns högst upp på ditt CV. Ge rekryteraren ett enkelt sätt att höra av sig."
       />
 
-      <div
-        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7 space-y-4"
-      >
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5 space-y-4">
         <SkapaCvInput
           id="fullName"
           label="Fullständigt namn"
@@ -112,6 +104,6 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
           hint="Visas direkt under ditt namn på CV:t."
         />
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -47,12 +47,9 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
   if (!hasAnything) {
     return (
       <div
-        className="rounded-xl p-6 text-center bg-white"
-        style={{
-          border: '1px dashed rgba(249, 115, 22, 0.3)',
-        }}
+        className="rounded-xl border border-dashed border-kant-stark bg-insunken p-6 text-center shadow-insunken"
       >
-        <p className="text-sm text-neutral-700">
+        <p className="text-sm text-ink-2">
           Du har inte valt några förbättringar att tillämpa. Gå tillbaka till
           föregående steg om du vill lägga till några.
         </p>

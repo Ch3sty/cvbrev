@@ -1,8 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
-import { HeroAnalysisIcon } from './illustrations/AnalysisIcons';
+import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
+
+import PageHeader from '@/components/shell/PageHeader';
+import StatusRow from '@/components/shell/StatusRow';
+import MarginPlate from '@/components/shell/MarginPlate';
+import { IlluPlattaCvPoang } from '@/components/illustrations/TradenScener';
 
 interface CVAnalysisIntroProps {
   onStartAnalysis: () => void;
@@ -10,165 +13,120 @@ interface CVAnalysisIntroProps {
   isPremium?: boolean;
 }
 
+const FORDELAR = [
+  {
+    icon: Target,
+    title: 'ATS-optimering',
+    description:
+      'Vi analyserar om ditt CV passerar de automatiska urvalssystem som de flesta arbetsgivare använder.',
+  },
+  {
+    icon: FileSearch,
+    title: 'Detaljerad feedback',
+    description: 'Konkreta förslag på förbättringar för varje sektion av ditt CV.',
+  },
+  {
+    icon: Zap,
+    title: 'Snabbt resultat',
+    description: 'Fullständig analys på under en minut. Inga onödiga väntetider.',
+  },
+];
+
+const INNEHALL = [
+  'Poäng för hur ATS-vänligt ditt CV är',
+  'Analys av dina kompetenser och nyckelord',
+  'Granskning av personlig beskrivning',
+  'Konkreta förbättringar för varje sektion',
+  'Jämförelse av före och efter',
+  'Möjlighet att exportera till PDF',
+];
+
+/**
+ * Startvyn för CV-analysen.
+ *
+ * Bort: herokortet i 40 px fet med orange halvmening, de tre gradientkorten,
+ * de gröna bockarna och den andra primärknappen längst ner. Kvar: sidhuvudet,
+ * kvotraden, en panel som säger vad analysen gör och en enda primärknapp.
+ */
 export default function CVAnalysisIntro({
   onStartAnalysis,
   remainingAnalyses,
   isPremium = false,
 }: CVAnalysisIntroProps) {
+  const visaKvot = remainingAnalyses !== null && remainingAnalyses !== undefined;
+
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      {/* Hero-kort: stort, sammanhållet, ingen vit rektangel-känsla */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative overflow-hidden rounded-xl p-6 sm:p-10 bg-white border border-neutral-200"
-      >
-        <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-7">
-          <div className="flex-shrink-0">
-            <HeroAnalysisIcon className="w-20 h-20 sm:w-24 sm:h-24" />
-          </div>
-          <div className="text-center sm:text-left min-w-0 flex-1">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
-              Djupgående CV-analys
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
-              Sluta gissa{' '}
-              <span className="text-orange-600">
-                vad som är fel
-              </span>
-            </h1>
-            <p className="text-base sm:text-lg text-neutral-700 leading-relaxed mb-6">
-              30 ansökningar och 0 svar känns bekant. Vi hittar exakt vad som håller dig
-              tillbaka och visar hur du fixar det.
+    <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
+      <PageHeader
+        title="Vi optimerar ditt CV"
+        description="30 ansökningar och 0 svar känns bekant. Vi hittar exakt vad som håller dig tillbaka och visar hur du fixar det."
+      />
+
+      {visaKvot && (
+        <StatusRow label="Analyser kvar">
+          {isPremium
+            ? 'Premium. Analysera så ofta du vill.'
+            : `${remainingAnalyses} ${
+                remainingAnalyses === 1 ? 'analys' : 'analyser'
+              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
+        </StatusRow>
+      )}
+
+      {/* Enda plattan i vyn, på det kort som bär handlingen. */}
+      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <div className="flex items-start gap-4">
+          <MarginPlate>
+            <IlluPlattaCvPoang size={48} />
+          </MarginPlate>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-kort text-ink-1">En komplett bild av ditt CV</h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
+              Vi går igenom struktur, nyckelord och formuleringar, och visar vad
+              som håller dig tillbaka.
             </p>
-
-            <button
-              type="button"
-              onClick={onStartAnalysis}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-white font-bold text-base min-h-[56px] bg-orange-600 hover:bg-orange-700 transition-colors"
-            >
-              Analysera mitt CV nu
-              <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
-            </button>
-
-            {remainingAnalyses !== null && remainingAnalyses !== undefined && (
-              <p className="mt-3 text-sm text-neutral-700">
-                {isPremium ? (
-                  <span className="font-semibold text-orange-700">
-                    Obegränsade analyser med Premium
-                  </span>
-                ) : (
-                  <>
-                    Du har{' '}
-                    <span className="font-bold text-orange-700">
-                      {remainingAnalyses}
-                    </span>{' '}
-                    {remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar. Som
-                    gratisanvändare får du en ny var tredje dygn.
-                  </>
-                )}
-              </p>
-            )}
           </div>
         </div>
-      </motion.div>
 
-      {/* Benefits - flytande korten över bakgrunden */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="grid sm:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8"
-      >
-        {[
-          {
-            icon: Target,
-            title: 'ATS-optimering',
-            description:
-              'Vi analyserar om ditt CV passerar de automatiska urvalssystem som de flesta arbetsgivare använder.',
-          },
-          {
-            icon: FileSearch,
-            title: 'Detaljerad feedback',
-            description:
-              'Konkreta förslag på förbättringar för varje sektion av ditt CV.',
-          },
-          {
-            icon: Zap,
-            title: 'Snabbt resultat',
-            description: 'Fullständig analys på under en minut. Inga onödiga väntetider.',
-          },
-        ].map((benefit, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.06 }}
-            className="rounded-xl p-5 bg-white border border-orange-200/60"
-          >
-            <div className="w-11 h-11 flex items-center justify-center mb-3">
-              <benefit.icon className="w-5 h-5 text-neutral-700" strokeWidth={2.25} />
-            </div>
-            <h3 className="text-base font-bold text-neutral-900 mb-1.5">
-              {benefit.title}
-            </h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
-              {benefit.description}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Det här får du */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="rounded-xl p-6 sm:p-8 mt-6 sm:mt-8 bg-white border border-neutral-200"
-      >
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
-          Det här får du
-        </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight mb-5">
-          En komplett bild av ditt CV
-        </h2>
-
-        <div className="grid sm:grid-cols-2 gap-3">
-          {[
-            'Poäng för hur ATS-vänligt ditt CV är',
-            'Analys av dina kompetenser och nyckelord',
-            'Granskning av personlig beskrivning',
-            'Konkreta förbättringar för varje sektion',
-            'Jämförelse av före och efter',
-            'Möjlighet att exportera till PDF',
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 + index * 0.04 }}
-              className="flex items-start gap-2.5"
-            >
-              <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white mt-0.5 bg-emerald-600">
-                <CheckCircle className="w-3 h-3" strokeWidth={3} fill="white" />
-              </div>
-              <span className="text-sm text-neutral-700">{item}</span>
-            </motion.div>
+        <ul className="mt-4 divide-y divide-kant border-t border-kant">
+          {INNEHALL.map((item) => (
+            <li key={item} className="py-2.5 text-sm text-ink-2">
+              {item}
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-7 text-center sm:text-left">
-          <button
-            type="button"
-            onClick={onStartAnalysis}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold text-sm min-h-[48px] bg-orange-600 hover:bg-orange-700 transition-colors"
-          >
-            Kom igång
-            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-          </button>
-        </div>
-      </motion.div>
+        <button
+          type="button"
+          onClick={onStartAnalysis}
+          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+        >
+          Analysera mitt CV
+          <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+        </button>
+      </section>
+
+      <section className="rounded-xl border border-kant bg-panel">
+        <h2 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">
+          Så fungerar analysen
+        </h2>
+        <ul className="divide-y divide-kant">
+          {FORDELAR.map((fordel) => (
+            <li key={fordel.title} className="flex items-start gap-3 px-4 py-3">
+              <fordel.icon
+                className="mt-0.5 h-6 w-6 flex-shrink-0 text-ink-2"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+              <div className="min-w-0">
+                <p className="text-kort text-ink-1">{fordel.title}</p>
+                <p className="mt-0.5 text-meta leading-relaxed text-ink-3">
+                  {fordel.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

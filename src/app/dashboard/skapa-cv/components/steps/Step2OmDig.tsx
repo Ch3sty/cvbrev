@@ -1,7 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Lightbulb } from 'lucide-react'
 import type { CVDraft } from '../CVCreatorWizard'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
 import SkapaCvTextarea from '../inputs/SkapaCvTextarea'
@@ -23,12 +21,7 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
   const wordCount = value.trim() ? value.trim().split(/\s+/).length : 0
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-4">
       <SkapaCvStepHeader
         stepNumber={2}
         title="Berätta kort om dig själv"
@@ -36,9 +29,7 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div
-        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7 space-y-4"
-      >
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5 space-y-4">
         <SkapaCvTextarea
           id="summary"
           label="Om dig"
@@ -51,29 +42,21 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
           optional
         />
 
-        <div className="text-xs text-neutral-500">
+        <div className="text-meta text-ink-3">
           Cirka {wordCount} ord. Optimal längd: 60-120 ord.
         </div>
 
-        {/* Tips-kort */}
-        <div className="rounded-xl border border-orange-100 bg-orange-50/40 p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Lightbulb
-              className="w-4 h-4 text-orange-700"
-              strokeWidth={2.4}
-            />
-            <span className="text-xs font-bold uppercase tracking-[0.14em] text-orange-700">
-              Tips: Inkludera
-            </span>
-          </div>
-          <ul className="space-y-1">
+        {/* Tips: insunket i papperet, ingen platta, ingen ikon. */}
+        <div className="rounded-lg bg-insunken p-4 shadow-insunken">
+          <p className="text-sm font-medium text-ink-3">Ta med</p>
+          <ul className="mt-1.5 space-y-1">
             {TIPS.map((tip) => (
               <li
                 key={tip}
-                className="text-xs text-neutral-700 flex items-start gap-2"
+                className="flex items-start gap-2 text-sm leading-[22px] text-ink-2"
               >
                 <span
-                  className="mt-1.5 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0"
+                  className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full bg-ink-3"
                   aria-hidden="true"
                 />
                 {tip}
@@ -82,6 +65,6 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
           </ul>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

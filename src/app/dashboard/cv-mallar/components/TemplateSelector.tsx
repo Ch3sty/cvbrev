@@ -73,25 +73,17 @@ export default function TemplateSelector({
   return (
     <div ref={containerRef} className="relative">
       {/* Topp-knapp + galleri-toggle */}
-      <div
-        className="flex items-stretch gap-2 p-2 rounded-xl bg-orange-50/40 border border-orange-200"
-        >
-        {/* Aktiv-pip (vänster kant) */}
-        <span
-          aria-hidden
-          className="absolute left-0 top-3 bottom-3 w-1 rounded-r-full"
-          style={{ background: '#EA580C' }}
-        />
-
+      <div className="flex items-stretch gap-2 rounded-xl border border-kant bg-panel p-2">
         {/* Vänster: vald mall, klick = dropdown */}
         <button
+          type="button"
           onClick={() => setView(v => (v === 'dropdown' ? 'closed' : 'dropdown'))}
-          className="flex-1 flex items-center gap-3 p-1.5 rounded-xl hover:bg-white/60 transition-colors text-left min-w-0"
+          className="flex min-w-0 flex-1 items-center gap-3 rounded-lg p-1.5 text-left transition-colors hover:bg-insunken"
           aria-expanded={view === 'dropdown'}
           aria-label="Byt mall"
         >
-          {/* Thumbnail */}
-          <span className="relative flex-shrink-0 w-10 h-14 rounded-lg overflow-hidden bg-white border border-orange-100">
+          {/* Thumbnail: papperet får vara vitt */}
+          <span className="relative h-14 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-kant bg-white">
             {current && (
               <Image
                 src={current.imagePath}
@@ -102,83 +94,76 @@ export default function TemplateSelector({
               />
             )}
             {isLocked && (
-              <span className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
-                <Lock className="w-3 h-3 text-white" strokeWidth={2.5} />
+              <span className="absolute inset-0 flex items-center justify-center bg-ink-1/60">
+                <Lock className="h-3 w-3 text-white" strokeWidth={1.75} aria-hidden="true" />
               </span>
             )}
           </span>
 
           {/* Info */}
-          <span className="flex-1 min-w-0">
-            <span className="block text-xs font-bold uppercase tracking-[0.14em] text-orange-700 mb-0.5">
-              Aktiv mall
-            </span>
-            <span className="flex items-center gap-1.5 mb-0.5">
-              <span className="text-sm font-bold text-neutral-900 truncate">
-                {current?.name || 'Välj mall...'}
+          <span className="min-w-0 flex-1">
+            <span className="block text-steg uppercase text-ink-3">Aktiv mall</span>
+            <span className="mt-0.5 flex items-center gap-1.5">
+              <span className="truncate text-kort text-ink-1">
+                {current?.name || 'Välj mall'}
               </span>
               {current?.tier === 'premium' && (
                 <Crown
-                  className={`w-3 h-3 flex-shrink-0 ${isLocked ? 'text-amber-500' : 'text-orange-600'}`}
-                  strokeWidth={2.5}
-                  fill={isLocked ? 'rgb(251 191 36)' : 'rgb(234 88 12)'}
+                  className="h-3.5 w-3.5 flex-shrink-0 text-ink-3"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
                 />
               )}
             </span>
-            <span className="flex items-center gap-1.5 flex-wrap">
+            <span className="flex flex-wrap items-center gap-1.5 text-meta text-ink-3">
               {isAtsSafe && (
-                <span className="inline-flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-                  <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
-                  ATS
+                <span className="inline-flex items-center gap-1">
+                  <ShieldCheck
+                    className="h-3.5 w-3.5 text-positiv"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  ATS-säker
                 </span>
               )}
-              <span className="text-xs uppercase tracking-wide text-neutral-500 font-semibold">
+              <span>
                 {current?.category === 'modern' && 'Modern'}
                 {current?.category === 'traditional' && 'Traditionell'}
                 {current?.category === 'creative' && 'Kreativ'}
               </span>
-              {current?.tier === 'free' && (
-                <span className="text-xs uppercase tracking-wide text-emerald-700 font-semibold">
-                  · Gratis
-                </span>
-              )}
+              {current?.tier === 'free' && <span>· Gratis</span>}
             </span>
           </span>
 
           <ChevronDown
-            className={`flex-shrink-0 w-5 h-5 text-neutral-500 transition-transform ${
+            className={`h-5 w-5 flex-shrink-0 text-ink-3 transition-transform ${
               view === 'dropdown' ? 'rotate-180' : ''
             }`}
-            strokeWidth={2.5}
+            strokeWidth={1.75}
+            aria-hidden="true"
           />
         </button>
 
         {/* Galleri-toggle */}
         <button
+          type="button"
           onClick={() => setView(v => (v === 'gallery' ? 'closed' : 'gallery'))}
-          className={`flex-shrink-0 flex items-center gap-1.5 px-3 sm:px-4 rounded-xl border font-semibold text-xs uppercase tracking-wide transition-all min-h-[44px] ${
+          className={`inline-flex min-h-[44px] flex-shrink-0 items-center gap-1.5 rounded-lg border border-kant-stark px-3 text-sm font-medium transition-colors sm:px-4 ${
             view === 'gallery'
-              ? 'text-white border-transparent'
-              : 'bg-white border-orange-100 text-neutral-700 hover:border-orange-200'
+              ? 'bg-insunken text-ink-1'
+              : 'bg-panel text-ink-1 hover:bg-insunken'
           }`}
-          style={
-            view === 'gallery'
-              ? {
-                  background: '#EA580C',
-                }
-              : undefined
-          }
           aria-pressed={view === 'gallery'}
           aria-label={view === 'gallery' ? 'Stäng galleri' : 'Visa galleri'}
         >
           {view === 'gallery' ? (
             <>
-              <List className="w-4 h-4" strokeWidth={2.5} />
+              <List className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
               <span className="hidden sm:inline">Lista</span>
             </>
           ) : (
             <>
-              <LayoutGrid className="w-4 h-4" strokeWidth={2.5} />
+              <LayoutGrid className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
               <span className="hidden sm:inline">Galleri</span>
             </>
           )}
@@ -188,9 +173,9 @@ export default function TemplateSelector({
       {/* Dropdown-lista */}
       {view === 'dropdown' && (
         <div
-          className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-orange-100 z-30 max-h-[440px] overflow-y-auto motion-safe:animate-[dropdownIn_150ms_ease-out_both]"
+          className="absolute left-0 right-0 top-full z-30 mt-2 rounded-xl border border-kant bg-panel max-h-[440px] overflow-y-auto motion-safe:animate-[dropdownIn_150ms_ease-out_both]"
         >
-            <div className="sticky top-0 bg-white border-b border-orange-100 px-3 pt-3 pb-2 z-10">
+            <div className="sticky top-0 z-10 border-b border-kant bg-panel px-3 pb-2 pt-3">
               <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
                 {TEMPLATE_CATEGORIES.map(cat => (
                   <CategoryPill
@@ -225,10 +210,10 @@ export default function TemplateSelector({
       {view === 'gallery' && (
         <div className="grid grid-rows-[0fr] opacity-0 motion-safe:animate-[galleryIn_250ms_ease-out_forwards] motion-reduce:grid-rows-[1fr] motion-reduce:opacity-100">
           <div className="overflow-hidden">
-            <div className="mt-3 p-4 rounded-xl bg-white border border-orange-100"
+            <div className="mt-3 rounded-xl border border-kant bg-panel p-4"
               >
               {/* Kategori-pillar */}
-              <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-3 mb-3 border-b border-orange-100/70">
+              <div className="flex gap-1.5 overflow-x-auto scrollbar-hide mb-3 border-b border-kant pb-3">
                 {TEMPLATE_CATEGORIES.map(cat => (
                   <CategoryPill
                     key={cat.value}
@@ -295,19 +280,17 @@ function GalleryCard({
   return (
     <li>
       <button
+        type="button"
         onClick={onSelect}
-        className={`group w-full text-left p-2 rounded-xl border transition-all ${
+        aria-pressed={isSelected}
+        className={`w-full rounded-xl border p-2 text-left transition-colors ${
           isSelected
-            ? 'border-orange-300 bg-orange-50/50'
-            : 'border-neutral-200 bg-white hover:border-orange-200'
+            ? 'border-ink-1 bg-panel'
+            : 'border-kant bg-panel hover:border-kant-stark'
         }`}
-        style={
-          isSelected
-            ? { }
-            : undefined
-        }
       >
-        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 mb-2">
+        {/* Papperet får vara vitt */}
+        <div className="relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">
           <Image
             src={template.imagePath}
             alt={template.name}
@@ -316,30 +299,45 @@ function GalleryCard({
             sizes="(min-width: 1024px) 200px, (min-width: 640px) 220px, 160px"
           />
           {isLocked && (
-            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
+            <div className="absolute inset-0 flex items-center justify-center bg-ink-1/60">
+              <Lock className="h-5 w-5 text-white" strokeWidth={1.75} aria-hidden="true" />
             </div>
           )}
           {isSelected && (
-            <div className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center"
-              style={{ background: '#EA580C' }}
-            >
-              <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <div className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink-1">
+              <svg
+                className="h-3.5 w-3.5 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
           )}
         </div>
         <div className="px-1">
-          <div className="flex items-center gap-1 mb-0.5">
-            <span className="font-bold text-sm text-neutral-900 truncate flex-1">{template.name}</span>
+          <div className="mb-0.5 flex items-center gap-1">
+            <span className="flex-1 truncate text-kort text-ink-1">{template.name}</span>
             {template.tier === 'premium' && (
-              <Crown className="w-3 h-3 text-orange-600 flex-shrink-0" strokeWidth={2.5} fill="rgb(234 88 12)" />
+              <Crown
+                className="h-3.5 w-3.5 flex-shrink-0 text-ink-3"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
             )}
           </div>
           {isAtsSafe && (
-            <div className="flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-              <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
+            <div className="flex items-center gap-1 text-meta text-ink-3">
+              <ShieldCheck
+                className="h-3.5 w-3.5 text-positiv"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
               ATS-säker
             </div>
           )}

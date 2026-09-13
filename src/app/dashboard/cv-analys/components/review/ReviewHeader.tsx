@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Pencil, TrendingUp, Key } from 'lucide-react';
 import CVThumbnailIllustration from './CVThumbnailIllustration';
 
 interface ReviewHeaderProps {
@@ -17,6 +15,12 @@ interface ReviewHeaderProps {
   onDotClick?: (sectionId: string) => void;
 }
 
+/**
+ * Toppen av granskningssteget: miniatyren av CV:t och vad som ändrats.
+ *
+ * Bort: orange kant, versalerad etikett i orange, rubriken i 24 px fet och
+ * de tre glasrutorna med orange text. Siffrorna står som stora tal.
+ */
 export default function ReviewHeader({
   changeCount,
   atsImprovement,
@@ -26,96 +30,48 @@ export default function ReviewHeader({
   onDotClick,
 }: ReviewHeaderProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="relative overflow-hidden rounded-xl bg-white"
-      style={{
-        border: '1px solid rgba(249, 115, 22, 0.2)',
-      }}
-    >
-      <div className="relative p-5 sm:p-6">
-        <div className="grid grid-cols-1 sm:grid-cols-[180px,1fr] gap-5 sm:gap-6 items-center">
-          {/* CV-thumbnail */}
-          <div className="flex justify-center sm:justify-start">
-            <div className="w-[160px] sm:w-[180px]">
-              <CVThumbnailIllustration
-                seed={thumbnailSeed}
-                editedSections={editedSections}
-                onDotClick={onDotClick}
-              />
-            </div>
+    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="grid grid-cols-1 items-center gap-5 sm:grid-cols-[180px,1fr] sm:gap-6">
+        {/* CV-thumbnail */}
+        <div className="flex justify-center sm:justify-start">
+          <div className="w-[160px] sm:w-[180px]">
+            <CVThumbnailIllustration
+              seed={thumbnailSeed}
+              editedSections={editedSections}
+              onDotClick={onDotClick}
+            />
           </div>
+        </div>
 
-          {/* Stats + text */}
-          <div className="text-center sm:text-left">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1.5">
-              Granska din nya version
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight leading-tight mb-2">
-              {changeCount > 0
-                ? `Vi har gjort ${changeCount} ${changeCount === 1 ? 'ändring' : 'ändringar'} åt dig`
-                : 'Inga ändringar valda'}
-            </h2>
-            <p className="text-sm text-neutral-700 leading-relaxed mb-4">
-              Klicka på en sektion nedan eller på en orange prick i ditt CV för att se exakt
-              vad vi har ändrat.
-            </p>
+        {/* Stats + text */}
+        <div className="text-center sm:text-left">
+          <h2 className="text-kort text-ink-1">
+            {changeCount > 0
+              ? `Vi har gjort ${changeCount} ${changeCount === 1 ? 'ändring' : 'ändringar'} åt dig`
+              : 'Inga ändringar valda'}
+          </h2>
+          <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
+            Klicka på en sektion nedan eller på en markering i miniatyren för
+            att se exakt vad vi har ändrat.
+          </p>
 
-            {/* Stats-rad */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
-              <Stat
-                icon={<Pencil className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                value={changeCount}
-                label={changeCount === 1 ? 'ändring' : 'ändringar'}
-              />
-              <Stat
-                icon={<TrendingUp className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                value={`+${atsImprovement}`}
-                label="ATS-poäng"
-              />
-              <Stat
-                icon={<Key className="w-3.5 h-3.5" strokeWidth={2.5} />}
-                value={keywordsAdded}
-                label="nyckelord"
-              />
-            </div>
+          {/* Stats-rad */}
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <Stat value={changeCount} label={changeCount === 1 ? 'ändring' : 'ändringar'} />
+            <Stat value={`+${atsImprovement}`} label="ATS-poäng" />
+            <Stat value={keywordsAdded} label="nyckelord" />
           </div>
         </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
 
-function Stat({
-  icon,
-  value,
-  label,
-}: {
-  icon: React.ReactNode;
-  value: number | string;
-  label: string;
-}) {
+function Stat({ value, label }: { value: number | string; label: string }) {
   return (
-    <div
-      className="rounded-xl px-2.5 py-2 flex flex-col items-center sm:items-start gap-0.5"
-      style={{
-        background: 'rgba(255, 255, 255, 0.7)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(249, 115, 22, 0.18)',
-      }}
-    >
-      <span
-        className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.16em]"
-        style={{ color: '#9A3412' }}
-      >
-        {icon}
-        {label}
-      </span>
-      <span className="text-lg sm:text-xl font-bold text-neutral-900 tabular-nums">
-        {value}
-      </span>
+    <div>
+      <div className="text-tal tabular-nums text-ink-1">{value}</div>
+      <div className="text-meta text-ink-3">{label}</div>
     </div>
   );
 }

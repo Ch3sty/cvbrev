@@ -1,7 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
-
 interface Props {
   stepNumber: number
   title: string
@@ -10,8 +8,8 @@ interface Props {
 }
 
 /**
- * Header för varje steg i skapa-cv-flödet. Konsekvent struktur:
- * Eyebrow med "Steg X av 7", titel, valfri beskrivning, valfri "Valfritt"-pill.
+ * Rubriken för varje steg. Stegetikett i versaler, frågan i 22 px, en rad
+ * under. Inget annat: tråden i toppraden visar redan var vi är.
  */
 export default function SkapaCvStepHeader({
   stepNumber,
@@ -20,30 +18,14 @@ export default function SkapaCvStepHeader({
   isOptional = false,
 }: Props) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="mb-1"
-    >
-      <div className="flex items-center gap-2 mb-1.5">
-        <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-          Steg {stepNumber} av 7
-        </div>
-        {isOptional && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-neutral-100 text-neutral-600">
-            Valfritt
-          </span>
-        )}
-      </div>
-      <h2 className="text-xl sm:text-2xl font-semibold text-neutral-900 leading-tight tracking-tight">
-        {title}
-      </h2>
-      {description && (
-        <p className="text-sm sm:text-base text-neutral-600 mt-1.5 leading-relaxed">
-          {description}
-        </p>
-      )}
-    </motion.div>
+    <header>
+      <p className="text-steg uppercase text-ink-3">
+        Steg {stepNumber} av 7{isOptional ? ' · Valfritt' : ''}
+      </p>
+      <h2 className="mt-1.5 text-fraga text-ink-1">{title}</h2>
+      {description ? (
+        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">{description}</p>
+      ) : null}
+    </header>
   )
 }

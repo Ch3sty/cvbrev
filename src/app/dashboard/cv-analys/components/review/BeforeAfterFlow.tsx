@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
 import { HighlightedText } from '../select/ImprovementCard';
 
@@ -13,8 +12,8 @@ interface BeforeAfterFlowProps {
 }
 
 /**
- * Flödes-vy för Granska-steget.
- * Visar förslag som primär, "Visa nuvarande" som fade-toggle.
+ * Före och efter i granskningssteget. Förslaget är förstahandsvyn,
+ * "Visa nuvarande" byter. Insunken yta i en panel, ingen grön kant.
  */
 export default function BeforeAfterFlow({
   currentText,
@@ -25,57 +24,42 @@ export default function BeforeAfterFlow({
   const [showOriginal, setShowOriginal] = useState(false);
 
   return (
-    <div
-      className="rounded-xl p-3.5 sm:p-4 border-2 bg-white"
-      style={{
-        borderColor: 'rgba(16, 185, 129, 0.25)',
-      }}
-    >
-      <div className="flex items-center justify-between mb-2.5 gap-2">
-        <span className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
+    <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
+      <div className="mb-2.5 flex items-center justify-between gap-2">
+        <span className="text-steg uppercase text-ink-3">
           {showOriginal ? 'Nuvarande text' : 'Förbättrad version'}
         </span>
         <button
           type="button"
           onClick={() => setShowOriginal((v) => !v)}
-          className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-orange-700 hover:bg-orange-50 transition-colors"
+          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-meta font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
           aria-pressed={showOriginal}
         >
           {showOriginal ? (
             <>
-              <EyeOff className="w-3 h-3" strokeWidth={2.5} />
+              <EyeOff className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
               Visa förbättrad
             </>
           ) : (
             <>
-              <Eye className="w-3 h-3" strokeWidth={2.5} />
+              <Eye className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
               Visa nuvarande
             </>
           )}
         </button>
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={showOriginal ? 'original' : 'improved'}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {showOriginal ? (
-            <p className="text-sm text-neutral-600 italic leading-relaxed whitespace-pre-wrap">
-              {currentText || 'Ingen tidigare text.'}
-            </p>
-          ) : (
-            <HighlightedText
-              text={improvedText}
-              keywords={keywords}
-              detectNumbers={detectNumbers}
-            />
-          )}
-        </motion.div>
-      </AnimatePresence>
+      {showOriginal ? (
+        <p className="whitespace-pre-wrap text-sm italic leading-relaxed text-ink-3">
+          {currentText || 'Ingen tidigare text.'}
+        </p>
+      ) : (
+        <HighlightedText
+          text={improvedText}
+          keywords={keywords}
+          detectNumbers={detectNumbers}
+        />
+      )}
     </div>
   );
 }

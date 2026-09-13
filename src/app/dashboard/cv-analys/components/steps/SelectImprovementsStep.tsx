@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+
 import CategorySegments, { type SelectCategory } from '../select/CategorySegments';
 import CategoryHero from '../select/CategoryHero';
 import PotentialBar from '../select/PotentialBar';
@@ -234,7 +234,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
   );
 
   return (
-    <div className="space-y-5 pb-32 sm:pb-0">
+    <div className="space-y-5">
       {/* Sticky segment-bar */}
       <CategorySegments
         categories={segmentDefs}
@@ -253,15 +253,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       )}
 
       {/* Aktiv kategori */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.25 }}
-          className="space-y-4"
-        >
+      <div className="space-y-4">
           {/* Profil */}
           {active === 'profile' && profileSummary && (
             <>
@@ -359,8 +351,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
               <AutoApplyPanel improvements={safeData.general} />
             </>
           )}
-        </motion.div>
-      </AnimatePresence>
+      </div>
 
       {/* A9: de fynd gratisnivån inte ser. Texten finns inte på klienten. */}
       {gated && gated.lockedFindings.length > 0 && (
@@ -372,7 +363,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
       )}
 
       {totalSelected === 0 && (
-        <p className="text-center text-sm text-neutral-600 pt-2">
+        <p className="pt-2 text-center text-sm text-ink-3">
           Välj minst en förbättring för att fortsätta
         </p>
       )}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import TemplateSelector from '../TemplateSelector';
 import TemplateInlineOptions from '../save/TemplateInlineOptions';
 import SaveActionSegments, { type SaveChoice } from '../save/SaveActionSegments';
@@ -51,36 +51,27 @@ export default function SaveAndTemplateStep({
     saveChoice === 'save' || saveChoice === 'save-and-download';
 
   if (loading) {
-    return (
-      <div className="text-center py-12">
-        <div className="inline-block w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-neutral-600 mt-3 text-sm">Laddar...</p>
-      </div>
-    );
+    return <LoadingSkeleton variant="card" label="Laddar mallar" />;
   }
 
   return (
     <div className="space-y-5">
       {/* MALL ÖVERST - huvudfokus */}
-      <div className="rounded-xl bg-white overflow-hidden p-4 sm:p-5 border border-orange-200">
+      <section className="overflow-hidden rounded-xl border border-kant bg-panel p-4 sm:p-5">
         <TemplateSelector
           selectedTemplateId={selectedTemplate}
           onSelectTemplate={onTemplateChange}
           subscriptionTier={subscriptionTier as 'free' | 'premium'}
         />
 
-        {/* Inline-options under carousellen */}
+        {/* Inline-options under mallrutnätet */}
         {selectedTemplateData && (
-          <div className="mt-4 pt-4 border-t border-orange-200/40">
-            <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
-              <div className="min-w-0">
-                <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-                  Vald mall
-                </div>
-                <div className="text-base font-bold text-neutral-900 truncate">
-                  {selectedTemplateData.name}
-                </div>
-              </div>
+          <div className="mt-4 border-t border-kant pt-4">
+            <div className="mb-2 min-w-0">
+              <p className="text-steg uppercase text-ink-3">Vald mall</p>
+              <p className="truncate text-kort text-ink-1">
+                {selectedTemplateData.name}
+              </p>
             </div>
             <TemplateInlineOptions
               template={selectedTemplateData}
@@ -88,7 +79,7 @@ export default function SaveAndTemplateStep({
             />
           </div>
         )}
-      </div>
+      </section>
 
       {/* Quota-warning om biblioteket fullt och man behöver det */}
       {!canSave && showFilenameInput && (
@@ -112,23 +103,13 @@ export default function SaveAndTemplateStep({
       />
 
       {/* Filnamn (om relevant) */}
-      <AnimatePresence>
-        {showFilenameInput && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden"
-          >
-            <CvFilenameInput
-              value={customName}
-              onChange={onNameChange}
-              suggestions={nameSuggestions}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showFilenameInput && (
+        <CvFilenameInput
+          value={customName}
+          onChange={onNameChange}
+          suggestions={nameSuggestions}
+        />
+      )}
     </div>
   );
 }

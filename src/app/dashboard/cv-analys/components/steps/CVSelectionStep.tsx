@@ -1,9 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FileText, Calendar, Check, ArrowRight, Upload, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { Upload, Lock } from 'lucide-react';
 import { formatCVDate } from '@/lib/utils/date-formatter';
+
+import ChoiceCard from '@/components/shell/ChoiceCard';
+import EmptyState from '@/components/shell/EmptyState';
+import { IlluTomMapp } from '@/components/illustrations/TradenScener';
+import { IkonCv } from '@/components/illustrations/Ikoner';
 
 interface CVSelectionStepProps {
   cvs: any[];
@@ -20,8 +24,10 @@ interface CVSelectionStepProps {
 
 /**
  * Steg 0: Välj vilket CV som ska analyseras.
- * Använder samma CV-picker-DNA som skapa-brev (orange/röd topp-linje,
- * emerald done-state, dokument-mönster i bakgrunden).
+ *
+ * Bort: kort med två kanter, grön bock som roterade in, dokumentmönster i
+ * bakgrunden och en fot som bytte färg mellan orange och grönt. Valet ritas
+ * nu av ChoiceCard, alltså kant i ink och en fylld bock.
  */
 export default function CVSelectionStep({
   cvs,
@@ -31,204 +37,65 @@ export default function CVSelectionStep({
 }: CVSelectionStepProps) {
   if (!cvs || cvs.length === 0) {
     return (
-      <div className="rounded-xl border-2 border-dashed border-orange-200 bg-orange-50/30 p-8 text-center">
-        <p className="text-sm font-semibold text-neutral-900 mb-1">
-          Inga CV:n hittades
-        </p>
-        <p className="text-sm text-neutral-600 mb-4">
-          Du behöver minst ett CV för att kunna göra en analys.
-        </p>
-        <Link
-          href="/dashboard/profil/cv"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-600 text-white font-semibold text-sm hover:bg-orange-700 min-h-[44px]"
-        >
-          <Upload className="w-4 h-4" />
-          Ladda upp CV
-        </Link>
-      </div>
+      <EmptyState
+        illustration={IlluTomMapp}
+        title="Inga CV hittades"
+        description="Du behöver minst ett CV för att kunna göra en analys."
+        action={
+          <Link
+            href="/dashboard/profil/cv"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          >
+            Ladda upp CV
+          </Link>
+        }
+      />
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
+      <div className="space-y-3">
         {cvs.map((cv) => {
           const locked = lockedCvIds.has(cv.id);
           return (
-            <CvPickerCard
+            <ChoiceCard
               key={cv.id}
-              cv={cv}
-              isSelected={selectedCV === cv.id}
-              isLocked={locked}
+              variant="plain"
+              selected={selectedCV === cv.id}
               onSelect={() => {
                 if (!locked) onSelectCV(cv.id);
               }}
+              leading={
+                locked ? (
+                  <Lock className="h-6 w-6 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
+                ) : (
+                  <IkonCv />
+                )
+              }
+              title={cv.file_name}
+              meta={formatCVDate(cv.created_at)}
+              description={
+                locked
+                  ? 'Låst tills du uppgraderar till Premium.'
+                  : undefined
+              }
             />
           );
         })}
       </div>
 
       {/* Subtil länk till uppladdning */}
-      <Link href="/dashboard/profil/cv" className="block group">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-neutral-200 bg-white hover:border-orange-300 transition-colors">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0">
-              <Upload className="w-4 h-4 text-orange-600" strokeWidth={2.25} />
-            </div>
-            <div className="min-w-0">
-              <div className="text-sm font-semibold text-neutral-900">
-                Ladda upp ett nytt CV
-              </div>
-              <div className="text-xs text-neutral-500">
-                Tar dig till Mina CV:n
-              </div>
-            </div>
-          </div>
-          <ArrowRight
-            className="w-4 h-4 text-neutral-400 group-hover:text-orange-600 group-hover:translate-x-0.5 transition-all flex-shrink-0"
-            strokeWidth={2.5}
-          />
-        </div>
+      <Link
+        href="/dashboard/profil/cv"
+        className="flex items-center gap-3 rounded-xl border border-kant bg-panel px-4 py-3 transition-colors hover:border-kant-stark"
+      >
+        <Upload className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
+        <span className="min-w-0">
+          <span className="block text-kort text-ink-1">Ladda upp ett nytt CV</span>
+          <span className="block text-meta text-ink-3">Tar dig till Mina CV</span>
+        </span>
       </Link>
     </div>
-  );
-}
-
-function CvPickerCard({
-  cv,
-  isSelected,
-  isLocked,
-  onSelect,
-}: {
-  cv: { id: string; file_name: string; created_at: string };
-  isSelected: boolean;
-  isLocked: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <motion.button
-      type="button"
-      onClick={onSelect}
-      disabled={isLocked}
-      title={
-        isLocked
-          ? 'CV:t är låst, uppgradera till Premium för att kunna analysera det'
-          : undefined
-      }
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: isLocked ? 0.6 : 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-      whileHover={isLocked ? undefined : { y: -3 }}
-      whileTap={isLocked ? undefined : { scale: 0.98 }}
-      className={`group relative w-full text-left rounded-xl border-2 transition-all overflow-hidden focus:outline-none ${
-        isLocked
-          ? 'bg-neutral-50 border-neutral-200 cursor-not-allowed'
-          : isSelected
-            ? 'bg-white border-emerald-500'
-            : 'bg-white border-neutral-200 hover:border-orange-300'
-      }`}
-      aria-pressed={isSelected}
-    >
-      {/* Lås-pill i övre högra hörnet när låst */}
-      {isLocked && (
-        <div className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-orange-100 border border-orange-200">
-          <Lock className="w-3 h-3 text-orange-700" strokeWidth={2.5} />
-          <span className="text-xs font-bold uppercase tracking-[0.14em] text-orange-700">
-            Låst
-          </span>
-        </div>
-      )}
-
-      {isSelected && (
-        <motion.div
-          initial={{ scale: 0, rotate: -90 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          className="absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center z-10 bg-emerald-600"
-        >
-          <Check className="w-4 h-4 text-white" strokeWidth={3} />
-        </motion.div>
-      )}
-
-      <div className="relative p-5 pt-6 overflow-hidden">
-        <DocumentPatternBg active={isSelected} />
-
-        <div className="relative flex items-start gap-3">
-          <FileText
-            className={`w-5 h-5 flex-shrink-0 ${isSelected ? 'text-emerald-600' : 'text-neutral-700'}`}
-            strokeWidth={2.25}
-          />
-          <div className="flex-1 min-w-0 pr-7">
-            <h3 className="text-base font-bold text-neutral-900 truncate">
-              {cv.file_name}
-            </h3>
-            <p className="text-xs text-neutral-500 mt-0.5 flex items-center gap-1.5">
-              <Calendar className="w-3 h-3" />
-              {formatCVDate(cv.created_at)}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className={`px-5 py-3 border-t flex items-center justify-between text-sm font-semibold transition-colors ${
-          isLocked
-            ? 'bg-neutral-100/80 border-neutral-200'
-            : isSelected
-              ? 'bg-emerald-50/60 border-emerald-100'
-              : 'bg-orange-50/40 border-neutral-100'
-        }`}
-      >
-        {isLocked ? (
-          <>
-            <span className="text-neutral-500 flex items-center gap-1.5">
-              <Lock className="w-4 h-4" strokeWidth={2.5} />
-              Premium-låst
-            </span>
-            <span className="text-xs font-bold text-orange-700 uppercase tracking-wider">
-              Uppgradera
-            </span>
-          </>
-        ) : isSelected ? (
-          <>
-            <span className="text-emerald-700 flex items-center gap-1.5">
-              <Check className="w-4 h-4" strokeWidth={3} />
-              Valt CV
-            </span>
-            <span className="text-xs font-medium text-emerald-600 uppercase tracking-wider">
-              Aktivt
-            </span>
-          </>
-        ) : (
-          <>
-            <span className="text-orange-700">Analysera detta CV</span>
-            <ArrowRight
-              className="w-4 h-4 text-orange-600 transition-transform duration-200 group-hover:translate-x-0.5"
-              strokeWidth={2.5}
-            />
-          </>
-        )}
-      </div>
-    </motion.button>
-  );
-}
-
-function DocumentPatternBg({ active }: { active: boolean }) {
-  const stroke = active ? '#10B981' : '#DC2626';
-  return (
-    <svg
-      className="absolute -right-4 -bottom-4 opacity-[0.07] pointer-events-none"
-      width="120"
-      height="120"
-      viewBox="0 0 120 120"
-      fill="none"
-      aria-hidden="true"
-    >
-      <rect x="20" y="15" width="80" height="100" rx="8" stroke={stroke} strokeWidth="2" />
-      <line x1="32" y1="35" x2="80" y2="35" stroke={stroke} strokeWidth="2" />
-      <line x1="32" y1="50" x2="72" y2="50" stroke={stroke} strokeWidth="2" />
-      <line x1="32" y1="70" x2="80" y2="70" stroke={stroke} strokeWidth="2" />
-      <line x1="32" y1="85" x2="64" y2="85" stroke={stroke} strokeWidth="2" />
-    </svg>
   );
 }

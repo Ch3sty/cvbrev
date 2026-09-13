@@ -2,14 +2,10 @@
 
 import { ReactNode } from 'react';
 
-interface AnalysisFlowLayoutProps {
-  children: ReactNode;
-}
-
-export default function AnalysisFlowLayout({ children }: AnalysisFlowLayoutProps) {
-  return (
-    <div className="max-w-3xl mx-auto py-2 sm:py-6 pb-32 sm:pb-20 space-y-6 sm:space-y-8">
-      {children}
-    </div>
-  );
+/**
+ * Kolumnen i CV-analysens flöde. FlowShell äger mark, topprad och fot;
+ * det här är bara bredden och luften.
+ */
+export default function AnalysisFlowLayout({ children }: { children: ReactNode }) {
+  return <div className="mx-auto max-w-3xl space-y-4 pb-4 sm:space-y-6">{children}</div>;
 }

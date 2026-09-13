@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
 import { useNotification } from '@/context/notificationcontext';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 
@@ -146,12 +145,7 @@ export default function CvMallarClient({
       <CvMallarHero />
 
       {/* Steg 1: Valj CV */}
-      <motion.section
-        data-flow-section="cv"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
+      <section data-flow-section="cv">
         <StepHeader
           number={1}
           title="Välj vilket CV du vill använda"
@@ -162,15 +156,10 @@ export default function CvMallarClient({
           selectedCV={selectedCvId}
           onCVSelect={setSelectedCvId}
         />
-      </motion.section>
+      </section>
 
       {/* Live-preview-vy med mall-lista, toolbar, info, CTA */}
-      <motion.section
-        data-flow-section="template"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.05 }}
-      >
+      <section data-flow-section="template">
         <MallarLivePreview
           selectedCV={selectedCV}
           isPremium={isPremium}
@@ -178,7 +167,7 @@ export default function CvMallarClient({
           onGenerate={handleGenerateCV}
           onUpgrade={handleUpgradeClick}
         />
-      </motion.section>
+      </section>
 
       {/* Generation overlay */}
       {isGenerating && (

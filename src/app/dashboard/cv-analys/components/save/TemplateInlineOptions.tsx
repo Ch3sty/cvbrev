@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Camera, Linkedin, AlertCircle, Check } from 'lucide-react';
+import { Camera, Linkedin, Check } from 'lucide-react';
 import Link from 'next/link';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
@@ -55,16 +54,9 @@ export default function TemplateInlineOptions({
     (supportsLinkedIn && !userProfile.hasLinkedIn);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25 }}
-      className="space-y-2"
-    >
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">
-          Anpassa
-        </span>
+    <div className="space-y-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-steg uppercase text-ink-3">Anpassa</span>
 
         {supportsPhoto && (
           <OptionChip
@@ -90,13 +82,12 @@ export default function TemplateInlineOptions({
       {hasMissingData && (
         <Link
           href="/dashboard/profil"
-          className="inline-flex items-center gap-1.5 text-xs text-rose-700 hover:text-rose-900 font-semibold"
+          className="inline-flex items-center text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
         >
-          <AlertCircle className="w-3.5 h-3.5" strokeWidth={2.25} />
-          <span>Lägg till saknad info i profilen</span>
+          Lägg till saknad info i profilen
         </Link>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -121,36 +112,21 @@ function OptionChip({
       onClick={onToggle}
       disabled={!available}
       aria-pressed={isActive}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all min-h-[44px] disabled:cursor-not-allowed"
-      style={
+      className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-md border px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed ${
         isActive
-          ? {
-              background: '#059669',
-              border: '1px solid transparent',
-              color: 'white',
-            }
+          ? 'border-ink-1 bg-panel text-ink-1'
           : !available
-          ? {
-              background: 'rgba(148, 163, 184, 0.1)',
-              border: '1px dashed rgba(148, 163, 184, 0.4)',
-              color: '#64748B',
-            }
-          : {
-              background: 'white',
-              border: '1px solid rgba(249, 115, 22, 0.35)',
-              color: '#9A3412',
-            }
-      }
+            ? 'border-dashed border-kant-stark bg-insunken text-ink-3'
+            : 'border-kant-stark bg-panel text-ink-1 hover:bg-insunken'
+      }`}
     >
       {isActive ? (
-        <Check className="w-3 h-3" strokeWidth={3} />
+        <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
       ) : (
-        <Icon className="w-3 h-3" strokeWidth={2.25} />
+        <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
       )}
       <span>{label}</span>
-      {!available && (
-        <span className="ml-1 text-xs opacity-70">(saknas)</span>
-      )}
+      {!available && <span className="ml-1 text-meta">(saknas)</span>}
     </button>
   );
 }

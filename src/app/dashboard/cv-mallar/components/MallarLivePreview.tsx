@@ -1,13 +1,18 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { FileText, Crown, ArrowRight, Eye } from 'lucide-react';
+import { Crown, ArrowRight, Eye } from 'lucide-react';
 
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import {
   DEFAULT_FONT_ID,
   getFontById,
 } from '@/lib/cv/preview-utils';
+
+import EmptyState from '@/components/shell/EmptyState';
+import FlowError from '@/components/shell/FlowError';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 
 import TemplateSelector from './TemplateSelector';
 import MallToolbar from './MallToolbar';
@@ -170,18 +175,8 @@ export default function MallarLivePreview({
   const canGenerate = !!selectedCV && !!selectedTemplate && !isGenerating && !isLockedPremium;
 
   return (
-    <div className="relative">
-      {/* Topp-glow */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[300px] -z-10 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.06) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="flex flex-col gap-7 min-w-0">
+    <div>
+      <div className="flex min-w-0 flex-col gap-6">
         {/* Steg 2: Vala mall */}
         <section>
           <StepHeader
@@ -264,38 +259,27 @@ function PreviewContainer({
   hasCV: boolean;
 }) {
   return (
-    <div
-      className="rounded-xl bg-white border border-orange-100 overflow-hidden"
-      >
+    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
       {/* Topp-rad: Live-preview-rubrik */}
-      <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-orange-100/70 bg-orange-50/40">
+      <div className="flex items-center justify-between gap-3 border-b border-kant px-4 py-3">
         <div className="flex items-center gap-2">
-          <span
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-white"
-            style={{
-              background: '#EA580C',
-            }}
-          >
-            <Eye className="w-3.5 h-3.5" strokeWidth={2.5} />
-          </span>
+          <Eye className="h-5 w-5 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-              Live förhandsvisning
-            </div>
+            <p className="text-steg uppercase text-ink-3">Förhandsvisning</p>
             {templateName && (
-              <div className="text-sm font-bold text-neutral-900 leading-tight">
-                {templateName}
-              </div>
+              <p className="text-kort leading-tight text-ink-1">{templateName}</p>
             )}
           </div>
         </div>
         {isLoading && (
-          <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          <span className="text-meta text-ink-3" role="status">
+            Uppdaterar
+          </span>
         )}
       </div>
 
       {/* Preview-area: skala A4-bredden till tillgangligt utrymme pa mobil */}
-      <div className="relative bg-neutral-100 max-h-[850px] overflow-y-auto overflow-x-hidden">
+      <div className="relative max-h-[850px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken">
         {!hasCV && <PreviewEmptyState />}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
@@ -404,32 +388,36 @@ function ScaledPreview({ html }: { html: string }) {
 
 function PreviewEmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
-      <div className="w-14 h-14 rounded-xl flex items-center justify-center text-orange-700 bg-orange-50 mb-4">
-        <FileText className="w-7 h-7" strokeWidth={2} />
-      </div>
-      <h3 className="text-base font-bold text-neutral-900 mb-1">Välj ett CV först</h3>
-      <p className="text-sm text-neutral-600 max-w-sm">
-        När du valt ett CV ovanför ser du hur det ser ut i den valda mallen direkt här.
-      </p>
+    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+      <EmptyState
+        bare
+        illustration={IlluTomMapp}
+        title="Välj ett CV först"
+        description="När du valt ett CV ovanför ser du hur det ser ut i den valda mallen direkt här."
+      />
     </div>
   );
 }
 
 function PreviewLoading() {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
-      <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4" />
-      <p className="text-sm text-neutral-600">Förbereder förhandsvisning...</p>
+    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+      <LoadingSkeleton
+        variant="writing"
+        label="Förhandsvisningen ritas"
+        meta="Brukar ta någon sekund"
+      />
     </div>
   );
 }
 
 function PreviewError({ message }: { message: string }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center px-6 py-20 min-h-[70vh] sm:min-h-[560px]">
-      <p className="text-sm text-neutral-600 mb-2">{message}</p>
-      <p className="text-xs text-neutral-500">Försök välja en annan mall eller ladda om sidan.</p>
+    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+      <FlowError
+        title="Förhandsvisningen kom inte fram"
+        message={`${message} Försök välja en annan mall eller ladda om sidan.`}
+      />
     </div>
   );
 }
@@ -456,39 +444,35 @@ function GenerateButton({
   if (isLockedPremium) {
     return (
       <button
+        type="button"
         onClick={onUpgrade}
-        className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold text-base min-h-[56px] transition-all hover: active:scale-[0.99]"
-        style={{
-          background: '#EA580C',
-        }}
+        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
       >
-        <Crown className="w-5 h-5" strokeWidth={2.5} />
-        Lås upp Premium för {templateName || 'denna mall'}
+        <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+        Lås upp Premium för {templateName || 'den här mallen'}
       </button>
     );
   }
 
   return (
     <button
+      type="button"
       onClick={onGenerate}
       disabled={!canGenerate}
-      className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold text-base min-h-[56px] transition-all ${
-        canGenerate ? 'hover: active:scale-[0.99]' : 'opacity-50 cursor-not-allowed'
-      }`}
-      style={{
-        background: '#EA580C',
-      }}
+      className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
     >
       {isGenerating ? (
         <>
-          <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          Skapar PDF...
+          <span
+            aria-hidden="true"
+            className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+          />
+          Skapar PDF
         </>
       ) : (
         <>
-          <FileText className="w-5 h-5" strokeWidth={2.5} />
           Skapa CV-PDF
-          <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+          <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         </>
       )}
     </button>

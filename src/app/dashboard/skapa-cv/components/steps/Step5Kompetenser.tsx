@@ -1,12 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import type { CVDraft } from '../CVCreatorWizard'
 import type { CVSkill } from '@/lib/cv/cv-metadata'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
-import SkapaCvInput from '../inputs/SkapaCvInput'
+import SkapaCvInput, { LABEL } from "../inputs/SkapaCvInput"
 import SkapaCvCardList from '../inputs/SkapaCvCardList'
 
 interface Props {
@@ -43,20 +42,20 @@ function ChipsInput({ values, onChange }: ChipsInputProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-1.5 px-3 py-2.5 bg-white border border-neutral-200 rounded-xl min-h-[44px] focus-within:border-orange-300 focus-within:ring-2 focus-within:ring-orange-100 transition-all">
+      <div className="flex min-h-11 flex-wrap items-center gap-1.5 rounded-lg border border-kant bg-insunken px-3 py-1.5 shadow-insunken transition-colors focus-within:border-kant-stark focus-within:bg-panel focus-within:ring-2 focus-within:ring-accent">
         {values.map((skill, i) => (
           <span
             key={`${skill}-${i}`}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-orange-50 border border-orange-200 text-orange-800"
+            className="inline-flex items-center gap-1 rounded-lg border border-kant bg-panel py-1 pl-2.5 pr-1.5 text-meta font-medium text-ink-1"
           >
             {skill}
             <button
               type="button"
               onClick={() => removeAt(i)}
-              className="text-orange-600 hover:text-orange-800 transition-colors"
+              className="inline-flex h-5 w-5 items-center justify-center rounded text-ink-3 transition-colors hover:text-ink-1"
               aria-label={`Ta bort ${skill}`}
             >
-              <X className="w-3 h-3" strokeWidth={2.6} />
+              <X className="h-3.5 w-3.5" strokeWidth={1.75} />
             </button>
           </span>
         ))}
@@ -81,10 +80,10 @@ function ChipsInput({ values, onChange }: ChipsInputProps) {
           inputMode="text"
           autoComplete="off"
           placeholder={values.length === 0 ? 'Skriv en kompetens och tryck Enter' : 'Lägg till...'}
-          className="flex-1 min-w-[120px] bg-transparent text-base text-neutral-900 placeholder-neutral-400 focus:outline-none"
+          className="min-w-[120px] flex-1 bg-transparent py-1 text-base text-ink-1 placeholder:text-ink-3 focus:outline-none"
         />
       </div>
-      <p className="mt-1.5 text-xs text-neutral-500">
+      <p className="mt-1.5 text-meta text-ink-3">
         Tryck Enter eller komma för att lägga till. Backspace för att ta bort sista.
       </p>
     </div>
@@ -156,9 +155,9 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
             hint="Hjälper rekryteraren snabbt skanna dina styrkor."
           />
           <div>
-            <label className="block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 mb-1.5">
+            <p className={LABEL}>
               Kompetenser
-            </label>
+            </p>
             <ChipsInput
               values={skill.skills ?? []}
               onChange={(next) => updateSkillGroup(id, 'skills', next)}
@@ -170,12 +169,7 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
   })
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="space-y-5"
-    >
+    <section className="space-y-4">
       <SkapaCvStepHeader
         stepNumber={5}
         title="Vilka är dina kompetenser?"
@@ -183,9 +177,7 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div
-        className="rounded-xl bg-white border border-orange-100 p-5 sm:p-7"
-      >
+      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
         <SkapaCvCardList
           items={items}
           emptyTitle="Inga kompetenser tillagda"
@@ -199,6 +191,6 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
           }
         />
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle } from 'lucide-react';
+
+import Sheet from '@/components/shell/Sheet';
+import FlowProgress, { type FlowStage } from '@/components/shell/FlowProgress';
+import FlowError from '@/components/shell/FlowError';
 
 interface CvGenerationOverlayProps {
   isOpen: boolean;
@@ -11,10 +13,16 @@ interface CvGenerationOverlayProps {
   onClose?: () => void;
 }
 
+const STAGES: FlowStage[] = [
+  { threshold: 0, text: 'Läser ditt CV', body: 'Vi plockar isär innehållet i rubriker, roller och kompetenser.' },
+  { threshold: 35, text: 'Formaterar i mallen', body: 'Texten sätts i mallens typografi och marginaler.' },
+  { threshold: 70, text: 'Gör PDF:en', body: 'Sista steget innan filen laddas ner till din enhet.' },
+];
+
 /**
- * Minimal generation-modal som visas under PDF-skapande.
- * Centrerad rounded-xl-card med pulserande dokument-illustration,
- * progress-bar (visuell, animeras 0->90% under 5s, 90->100% nar isOpen=false).
+ * Väntan medan PDF:en skapas. Ett ark, inte en egen modal, och framstegen
+ * ritas av FlowProgress. Bort: den pulserande dokumentillustrationen med
+ * skannlinje, orange progressbar och det fyllda felkortet.
  */
 export default function CvGenerationOverlay({
   isOpen,
@@ -49,130 +57,23 @@ export default function CvGenerationOverlay({
   }, [isOpen]);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={isError && onClose ? onClose : undefined}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="bg-white rounded-xl border border-orange-200/50 p-6 sm:p-8 max-w-md w-full shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-          >
-            {isError ? (
-              <ErrorContent message={errorMessage} onClose={onClose} />
-            ) : (
-              <ProgressContent progress={progress} />
-            )}
-          </motion.div>
-        </motion.div>
+    <Sheet
+      open={isOpen}
+      // Under genereringen finns inget att avbryta till, så arket stängs bara
+      // när något gått fel. Samma regel som förut, fast utan egen scrim.
+      onClose={isError && onClose ? onClose : () => {}}
+      title={isError ? 'Något gick fel' : 'Skapar din CV-PDF'}
+      description={isError ? undefined : 'Tar 5 till 10 sekunder.'}
+    >
+      {isError ? (
+        <FlowError
+          message={errorMessage || 'Vi kunde inte skapa din PDF. Försök igen.'}
+          onRetry={onClose}
+          retryLabel="Stäng"
+        />
+      ) : (
+        <FlowProgress progress={progress} stages={STAGES} />
       )}
-    </AnimatePresence>
-  );
-}
-
-function ProgressContent({ progress }: { progress: number }) {
-  return (
-    <div className="flex flex-col items-center text-center">
-      <DocumentIllustration />
-
-      <div className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-600 mt-5 mb-1.5">
-        Skapar din CV-PDF
-      </div>
-      <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight mb-1">
-        Vi formaterar ditt innehåll
-      </h3>
-      <p className="text-sm text-neutral-600 mb-5">
-        Tar 5–10 sekunder.
-      </p>
-
-      <div className="w-full">
-        <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden">
-          <motion.div
-            animate={{ width: `${Math.round(progress)}%` }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="h-full rounded-full"
-            style={{ background: '#EA580C' }}
-          />
-        </div>
-        <div className="mt-2 text-xs font-semibold text-orange-700 tabular-nums text-right">
-          {Math.round(progress)}%
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ErrorContent({
-  message,
-  onClose,
-}: {
-  message?: string;
-  onClose?: () => void;
-}) {
-  return (
-    <div className="flex flex-col items-center text-center">
-      <div className="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center text-red-600 mb-4">
-        <AlertCircle className="w-7 h-7" strokeWidth={2.25} />
-      </div>
-      <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight mb-1">
-        Något gick fel
-      </h3>
-      <p className="text-sm text-neutral-600 mb-5">
-        {message || 'Vi kunde inte skapa din PDF. Försök igen.'}
-      </p>
-      <button
-        type="button"
-        onClick={onClose}
-        className="w-full px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold min-h-[44px]"
-      >
-        OK
-      </button>
-    </div>
-  );
-}
-
-/**
- * Pulserande dokument med scan-linje.
- */
-function DocumentIllustration() {
-  return (
-    <div className="relative w-[110px] h-[140px]">
-      {/* Dokument */}
-      <div className="relative bg-white rounded-xl border border-neutral-200 overflow-hidden w-full h-full">
-
-        <div
-          className="h-1.5 w-full"
-          style={{
-            background: '#EA580C',
-          }}
-        />
-        <div className="px-3 pt-3 pb-2 flex flex-col gap-1.5">
-          <div className="h-2 w-3/4 rounded-full bg-neutral-300" />
-          <div className="h-1.5 w-1/2 rounded-full bg-neutral-200" />
-        </div>
-        <div className="px-3 mt-1 flex flex-col gap-1">
-          {['w-full', 'w-5/6', 'w-full', 'w-2/3', 'w-5/6', 'w-3/4'].map((w, i) => (
-            <div key={i} className={`h-1 ${w} rounded-full bg-neutral-100`} />
-          ))}
-        </div>
-
-        {/* Skann-linje */}
-        <motion.div
-          className="absolute left-0 right-0 h-[2px] bg-orange-500/70 pointer-events-none"
-          animate={{ top: ['12%', '88%', '12%'] }}
-          transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
-    </div>
+    </Sheet>
   );
 }

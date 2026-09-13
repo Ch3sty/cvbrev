@@ -2,11 +2,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { AlertTriangle, Trash2, Crown } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { motion, AnimatePresence } from 'framer-motion';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 
 interface CV {
   id: string;
@@ -91,98 +89,72 @@ export default function CVQuotaManager({
   if (cvCount < maxCvs) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-    >
-      <Card className="bg-amber-50 border-2 border-amber-300 p-6">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="flex items-center justify-center flex-shrink-0">
-            <AlertTriangle className="w-5 h-5 text-amber-600" />
-          </div>
-          <div className="flex-1">
-            <h4 className="font-semibold text-amber-900 mb-1">
-              CV-gräns nådd ({cvCount}/{maxCvs})
-            </h4>
-            <p className="text-sm text-amber-800 mb-3">
-              {subscriptionTier === 'free' ? (
-                <>
-                  Du har nått din gräns på {maxCvs} sparade CV:n. Radera ett befintligt CV för att spara det nya,
-                  eller uppgradera till Premium för 50 CV:n.
-                </>
-              ) : (
-                <>
-                  Du har nått din gräns på {maxCvs} sparade CV:n. Radera ett befintligt CV för att spara det nya.
-                </>
-              )}
-            </p>
+    <div>
+      <h4 className="text-kort text-ink-1">
+        CV-gräns nådd, {cvCount} av {maxCvs}
+      </h4>
+      <p className="mt-1 text-sm leading-relaxed text-ink-2">
+        {subscriptionTier === 'free'
+          ? `Du har nått din gräns på ${maxCvs} sparade CV. Radera ett befintligt CV för att spara det nya, eller uppgradera till Premium för 50 CV.`
+          : `Du har nått din gräns på ${maxCvs} sparade CV. Radera ett befintligt CV för att spara det nya.`}
+      </p>
 
-            {subscriptionTier === 'free' && (
-              <Button
-                size="sm"
-                className="bg-orange-600 hover:bg-orange-700 text-white mb-4"
-                onClick={() => window.location.href = '/profile?tab=subscription'}
-              >
-                <Crown className="w-4 h-4 mr-2" />
-                Uppgradera till Premium
-              </Button>
-            )}
-          </div>
-        </div>
+      {subscriptionTier === 'free' && (
+        <a
+          href="/dashboard/profil/prenumeration"
+          className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+        >
+          Uppgradera till Premium
+        </a>
+      )}
 
-        {/* CV List */}
-        {loading ? (
-          <div className="text-center py-4 text-amber-700">Laddar dina CV:n...</div>
-        ) : (
-          <div className="space-y-2">
-            <p className="text-sm font-medium text-amber-900 mb-3">
-              Välj ett CV att radera:
-            </p>
+      {/* CV List */}
+      {loading ? (
+        <LoadingSkeleton variant="list" count={3} label="Laddar dina CV" />
+      ) : (
+        <div className="mt-4 space-y-2">
+          <p className="text-sm font-medium text-ink-3">Välj ett CV att radera</p>
 
-            <div className="max-h-60 overflow-y-auto space-y-2">
-              <AnimatePresence>
-                {cvs.map((cv) => (
-                  <motion.label
-                    key={cv.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                      selectedCV === cv.id
-                        ? 'border-amber-600 bg-amber-100'
-                        : 'border-amber-200 bg-white hover:border-amber-400'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="cv-to-delete"
-                      value={cv.id}
-                      checked={selectedCV === cv.id}
-                      onChange={() => setSelectedCV(cv.id)}
-                      className="w-4 h-4 text-amber-600 focus:ring-amber-500"
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium text-gray-900">{cv.file_name}</div>
-                      <div className="text-xs text-gray-600">
-                        Skapad: {formatDate(cv.created_at)}
-                      </div>
+          <ul className="max-h-60 space-y-2 overflow-y-auto">
+            {cvs.map((cv) => (
+              <li key={cv.id}>
+                <label
+                  className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors ${
+                    selectedCV === cv.id
+                      ? 'border-ink-1 bg-panel'
+                      : 'border-kant bg-panel hover:border-kant-stark'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="cv-to-delete"
+                    value={cv.id}
+                    checked={selectedCV === cv.id}
+                    onChange={() => setSelectedCV(cv.id)}
+                    className="h-4 w-4 accent-ink-1"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-kort text-ink-1">{cv.file_name}</div>
+                    <div className="text-meta text-ink-3">
+                      Skapad {formatDate(cv.created_at)}
                     </div>
-                  </motion.label>
-                ))}
-              </AnimatePresence>
-            </div>
+                  </div>
+                </label>
+              </li>
+            ))}
+          </ul>
 
-            <Button
-              onClick={handleDelete}
-              disabled={!selectedCV || isDeleting}
-              className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white"
-            >
-              <Trash2 className="w-4 h-4 mr-2" />
-              {isDeleting ? 'Raderar...' : 'Radera valt CV'}
-            </Button>
-          </div>
-        )}
-      </Card>
-    </motion.div>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={!selectedCV || isDeleting}
+            className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:opacity-40"
+          >
+            <Trash2 className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            {isDeleting ? 'Raderar' : 'Radera valt CV'}
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

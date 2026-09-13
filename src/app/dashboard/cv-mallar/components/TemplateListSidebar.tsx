@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { Lock, ShieldCheck, Crown, ChevronRight } from 'lucide-react';
-import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
+import { type SimpleTemplate } from '@/lib/cv/simple-templates';
+
+/**
+ * Delarna som mallväljaren använder: kategoripillren och raden i listan.
+ *
+ * Den gamla sidopanelen och mobilkarusellen som låg här ersattes av
+ * TemplateSelector för länge sedan men blev kvar som död kod; de är borta
+ * nu. Kvar är bara det som faktiskt renderas.
+ */
 
 export type CategoryFilter = 'all' | 'modern' | 'traditional' | 'creative';
 
@@ -13,100 +20,6 @@ export const TEMPLATE_CATEGORIES: { value: CategoryFilter; label: string }[] = [
   { value: 'traditional', label: 'Traditionell' },
   { value: 'creative', label: 'Kreativ' },
 ];
-
-interface TemplateListSidebarProps {
-  selectedTemplate: string | null;
-  onTemplateSelect: (templateId: string) => void;
-  isPremium: boolean;
-  onUpgradeClick?: () => void;
-}
-
-/**
- * Kompakt vertikal mall-lista (desktop) eller horisontell carousel (mobile).
- *
- * Skiljer sig fran TemplateGalleryGrid genom att vara mycket kompaktare 
- * ~6-8 mallar ryms synliga utan scroll. Live-preview visar mallen i sin
- * helhet hoger om listan.
- */
-export default function TemplateListSidebar({
-  selectedTemplate,
-  onTemplateSelect,
-  isPremium,
-  onUpgradeClick,
-}: TemplateListSidebarProps) {
-  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
-
-  const filteredTemplates = useMemo(() => {
-    if (activeCategory === 'all') return SIMPLE_TEMPLATES;
-    return SIMPLE_TEMPLATES.filter(t => t.category === activeCategory);
-  }, [activeCategory]);
-
-  return (
-    <div className="flex flex-col h-full">
-      {/* Header med kategori-filter */}
-      <div className="flex-shrink-0 mb-4">
-        <h2 className="text-base font-semibold text-neutral-900 mb-3">
-          {filteredTemplates.length} mallar
-        </h2>
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
-          {TEMPLATE_CATEGORIES.map(cat => (
-            <CategoryPill
-              key={cat.value}
-              label={cat.label}
-              active={activeCategory === cat.value}
-              onClick={() => setActiveCategory(cat.value)}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Mall-lista, desktop vertikal, mobile horisontell carousel */}
-      <div className="flex-1 lg:overflow-y-auto lg:pb-4">
-        {/* Desktop: vertikal lista */}
-        <ul className="hidden lg:flex flex-col gap-2">
-          {filteredTemplates.map(template => (
-            <TemplateRow
-              key={template.id}
-              template={template}
-              isSelected={selectedTemplate === template.id}
-              isPremiumUser={isPremium}
-              onSelect={() => {
-                if (template.tier === 'premium' && !isPremium) {
-                  onUpgradeClick?.();
-                  return;
-                }
-                onTemplateSelect(template.id);
-              }}
-            />
-          ))}
-        </ul>
-
-        {/* Mobile: horisontell carousel */}
-        <ul className="lg:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4">
-          {filteredTemplates.map(template => (
-            <TemplateCardMobile
-              key={template.id}
-              template={template}
-              isSelected={selectedTemplate === template.id}
-              isPremiumUser={isPremium}
-              onSelect={() => {
-                if (template.tier === 'premium' && !isPremium) {
-                  onUpgradeClick?.();
-                  return;
-                }
-                onTemplateSelect(template.id);
-              }}
-            />
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  CategoryPill                                                              */
-/* -------------------------------------------------------------------------- */
 
 export function CategoryPill({
   label,
@@ -119,19 +32,14 @@ export function CategoryPill({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all min-h-[44px] ${
+      aria-pressed={active}
+      className={`inline-flex min-h-[44px] flex-shrink-0 items-center whitespace-nowrap rounded-md border px-3.5 text-sm font-medium transition-colors ${
         active
-          ? 'text-white'
-          : 'bg-white border border-orange-100 text-neutral-700 hover:border-orange-200'
+          ? 'border-ink-1 bg-ink-1 text-white'
+          : 'border-kant-stark bg-panel text-ink-1 hover:bg-insunken'
       }`}
-      style={
-        active
-          ? {
-              background: '#EA580C',
-            }
-          : undefined
-      }
     >
       {label}
     </button>
@@ -139,7 +47,7 @@ export function CategoryPill({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  TemplateRow (desktop)                                                     */
+/*  TemplateRow                                                               */
 /* -------------------------------------------------------------------------- */
 
 export function TemplateRow({
@@ -159,33 +67,17 @@ export function TemplateRow({
   return (
     <li>
       <button
+        type="button"
         onClick={onSelect}
-        className={`group w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 relative overflow-hidden ${
+        aria-pressed={isSelected}
+        className={`flex w-full items-center gap-3 overflow-hidden rounded-xl border p-3 text-left transition-colors ${
           isSelected
-            ? 'border-orange-300 bg-orange-50/50'
-            : 'border-neutral-200 bg-white hover:border-orange-200 hover:bg-orange-50/30'
+            ? 'border-ink-1 bg-panel'
+            : 'border-kant bg-panel hover:border-kant-stark'
         }`}
-        style={
-          isSelected
-            ? { }
-            : undefined
-        }
       >
-        {/* Vald-indikator. Tidigare en layoutId-delad stapel som gled mellan
-            raderna; CSS kan inte flytta ett element mellan tva foraldrar, sa
-            den tonas in pa den nya raden i stallet. Absolut positionerad, sa
-            layouten star still. */}
-        {isSelected && (
-          <div
-            className="absolute left-0 top-0 bottom-0 w-1 motion-safe:animate-[fadeIn_180ms_ease-out_both]"
-            style={{
-              background: '#EA580C',
-            }}
-          />
-        )}
-
-        {/* Thumbnail */}
-        <div className="flex-shrink-0 w-12 h-16 rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 relative">
+        {/* Thumbnail: papperet får vara vitt */}
+        <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-kant bg-white">
           <Image
             src={template.imagePath}
             alt={template.name}
@@ -194,121 +86,50 @@ export function TemplateRow({
             sizes="48px"
           />
           {isLocked && (
-            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
-              <Lock className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+            <div className="absolute inset-0 flex items-center justify-center bg-ink-1/60">
+              <Lock className="h-3.5 w-3.5 text-white" strokeWidth={1.75} aria-hidden="true" />
             </div>
           )}
         </div>
 
         {/* Info */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 mb-0.5">
-            <span className={`font-bold text-sm truncate ${isSelected ? 'text-neutral-900' : 'text-neutral-800'}`}>
-              {template.name}
-            </span>
+        <div className="min-w-0 flex-1">
+          <div className="mb-0.5 flex items-center gap-1.5">
+            <span className="truncate text-kort text-ink-1">{template.name}</span>
             {template.tier === 'premium' && (
               <Crown
-                className={`w-3 h-3 flex-shrink-0 ${isLocked ? 'text-amber-500' : 'text-orange-600'}`}
-                strokeWidth={2.5}
-                fill={isLocked ? 'rgb(251 191 36)' : 'rgb(234 88 12)'}
+                className="h-3.5 w-3.5 flex-shrink-0 text-ink-3"
+                strokeWidth={1.75}
+                aria-hidden="true"
               />
             )}
           </div>
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex flex-wrap items-center gap-1.5 text-meta text-ink-3">
             {isAtsSafe && (
-              <span className="inline-flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-                <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
-                ATS
+              <span className="inline-flex items-center gap-1">
+                <ShieldCheck
+                  className="h-3.5 w-3.5 text-positiv"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+                ATS-säker
               </span>
             )}
-            <span className="text-xs uppercase tracking-wide text-neutral-500 font-semibold">
+            <span>
               {template.category === 'modern' && 'Modern'}
               {template.category === 'traditional' && 'Traditionell'}
               {template.category === 'creative' && 'Kreativ'}
             </span>
-            {template.tier === 'free' && (
-              <span className="text-xs uppercase tracking-wide text-emerald-700 font-semibold">
-                · Gratis
-              </span>
-            )}
+            {template.tier === 'free' && <span>· Gratis</span>}
           </div>
         </div>
 
         {/* Pil */}
         <ChevronRight
-          className={`flex-shrink-0 w-4 h-4 transition-transform ${
-            isSelected ? 'text-orange-600 translate-x-0.5' : 'text-neutral-400 group-hover:text-orange-500'
-          }`}
-          strokeWidth={2.5}
+          className="h-4 w-4 flex-shrink-0 text-ink-3"
+          strokeWidth={1.75}
+          aria-hidden="true"
         />
-      </button>
-    </li>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  TemplateCardMobile (mobile carousel)                                       */
-/* -------------------------------------------------------------------------- */
-
-export function TemplateCardMobile({
-  template,
-  isSelected,
-  isPremiumUser,
-  onSelect,
-}: {
-  template: SimpleTemplate;
-  isSelected: boolean;
-  isPremiumUser: boolean;
-  onSelect: () => void;
-}) {
-  const isLocked = template.tier === 'premium' && !isPremiumUser;
-  const isAtsSafe = template.features?.atsSafe === true;
-
-  return (
-    <li className="flex-shrink-0 snap-start" style={{ width: '160px' }}>
-      <button
-        onClick={onSelect}
-        className={`w-full text-left p-2 rounded-xl border transition-all relative ${
-          isSelected
-            ? 'border-orange-300 bg-orange-50/50'
-            : 'border-neutral-200 bg-white'
-        }`}
-      >
-        <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-neutral-50 border border-neutral-200 mb-2">
-          <Image
-            src={template.imagePath}
-            alt={template.name}
-            fill
-            className="object-cover object-top"
-            sizes="160px"
-          />
-          {isLocked && (
-            <div className="absolute inset-0 bg-neutral-900/60 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-white" strokeWidth={2.5} />
-            </div>
-          )}
-          {isSelected && (
-            <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center">
-              <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-          )}
-        </div>
-        <div className="px-1">
-          <div className="flex items-center gap-1 mb-0.5">
-            <span className="font-bold text-sm text-neutral-900 truncate flex-1">{template.name}</span>
-            {template.tier === 'premium' && (
-              <Crown className="w-3 h-3 text-orange-600 flex-shrink-0" strokeWidth={2.5} fill="rgb(234 88 12)" />
-            )}
-          </div>
-          {isAtsSafe && (
-            <div className="flex items-center gap-0.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-              <ShieldCheck className="w-2.5 h-2.5" strokeWidth={3} />
-              ATS-säker
-            </div>
-          )}
-        </div>
       </button>
     </li>
   );
