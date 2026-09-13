@@ -23,6 +23,14 @@ import DashboardSidebar from '@/components/dashboard/Sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
+
+/** Rutter som körs i FlowShell och därför äger hela skärmen själva. */
+const FLOW_ROUTES = [
+  '/dashboard/skapa-brev',
+  '/dashboard/skapa-cv',
+  '/dashboard/cv-analys',
+  '/dashboard/linkedin-optimizer',
+];
 import dynamic from 'next/dynamic';
 
 // Visas bara för konton som saknar lösenord, alltså en minoritet, och först
@@ -67,6 +75,15 @@ export default function DashboardShell({
   initialSummary: DashboardSummary | null;
 }) {
   const pathname = usePathname();
+
+  // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
+  // topprad och fot. E-postbannern renderades ändå på servern och togs bort
+  // först när FlowShell hydrerat, drygt 1,5 sekunder in på en vanlig mobil.
+  // Sidan hoppade då 57 px uppåt mitt i frågan, alltså CLS 0,083 på varje
+  // flödessteg. Vi hoppar över den direkt i stället: pathname är känd redan
+  // vid första render, så det finns ingen bild där bannern syns.
+  const isFlowRoute = FLOW_ROUTES.some((r) => pathname?.startsWith(r));
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
@@ -139,7 +156,7 @@ export default function DashboardShell({
             />
           </div>
 
-          <EmailVerificationBanner />
+          {!isFlowRoute && <EmailVerificationBanner />}
 
           {showPasswordPrompt && user && (
             <div className="px-4 pt-4 sm:px-6 lg:px-8">
