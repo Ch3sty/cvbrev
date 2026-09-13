@@ -12,6 +12,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import ActivityTracker from '@/components/ActivityTracker';
 import PostHogIdentify from '@/components/PostHogProvider';
 import { usePathname } from 'next/navigation';
+import { scheduleIdle } from '@/lib/scheduleIdle';
 
 const COOKIE_NAME = "cvBrevCookieConsent";
 const GTM_ID = 'GTM-5KLW66PJ';
@@ -57,6 +58,26 @@ export default function ClientLayout({
   // Cookie-bannern renderas av ett tredjepartsbibliotek med inline-stilar, så
   // den kan inte få Tråden-tokens via props. Vi märker rotelementet i stället
   // och målar om bannern i globals.css när användaren står på en appyta.
+  /**
+   * Cookie-bannern monteras först när sidan är klar med sin första målning.
+   *
+   * Biblioteket ritar bannern med inline `bottom: 0` och blir sedan omplacerad
+   * av regeln för flödessidor (`html[data-flow-active]` lyfter den ovanför
+   * Fortsätt-foten). De två sakerna hände i olika bilder: bannern stod först
+   * längst ned och hoppade 169 px uppåt strax efteråt. Ett fixed element som
+   * flyttar sig räknas som layoutskifte, och det var hela skapa-cv steg 7:s
+   * CLS på 0,052.
+   *
+   * Väntar vi till efter första målningen står både `data-flow-active` och
+   * `--flow-footer-h` redan rätt, och bannern dyker upp på sin slutliga plats.
+   * Samtycket går fortfarande att lämna, bara en aning senare.
+   */
+  const [bannerRedo, setBannerRedo] = useState(false);
+  useEffect(() => {
+    const avbryt = scheduleIdle(() => setBannerRedo(true), 2500);
+    return avbryt;
+  }, []);
+
   // Bannern tas aldrig bort: samtycket måste gå att lämna även för den som
   // registrerar sig och aldrig återvänder till en publik sida.
   useEffect(() => {
@@ -137,6 +158,7 @@ export default function ClientLayout({
         {!isAppSurface && <Footer />}
 
         {/* === COOKIE BANNER === */}
+        {bannerRedo && (
         <CookieConsent
           location={OPTIONS.BOTTOM}
           buttonText="Acceptera"
@@ -310,6 +332,7 @@ export default function ClientLayout({
             </div>
           </div>
         </CookieConsent>
+        )}
           {/* === COOKIE BANNER SLUT === */}
           </NotificationProvider>
         </GlobalCountersProvider>

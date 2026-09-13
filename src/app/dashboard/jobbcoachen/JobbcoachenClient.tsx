@@ -43,8 +43,12 @@ export default function JobbcoachenClient({
   // vyns LCP-element sedan det flyttades upp i Tråden, väntade på hela den
   // kedjan och bytte dessutom text och knapp när den landade.
 
-  // Auto-scroll to bottom when new messages arrive
+  // Rulla ned när nya meddelanden kommer. Effekten körde förut även på
+  // välkomstvyn, där det inte finns något att rulla till: en mjuk rullning
+  // startade ändå strax efter första målningen och räknades som rörelse.
+  // Finns inga meddelanden finns inget att följa.
   useEffect(() => {
+    if (messages.length === 0) return;
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 

@@ -115,7 +115,12 @@ export default function TemplateSelector({
                 />
               )}
             </span>
-            <span className="flex flex-wrap items-center gap-1.5 text-meta text-ink-3">
+            {/* Raden får INTE radbryta. Med flex-wrap rymdes "ATS-säker
+                Modern · Gratis" på två rader med reservsnittet och på en
+                enda när Inter tonade in: kortet krympte 24 px och allt under
+                det flyttades 46 px uppåt, alltså sidans hela CLS på 0,05.
+                En rad med truncate kan bara ha en höjd. */}
+            <span className="flex items-center gap-1.5 overflow-hidden whitespace-nowrap text-meta text-ink-3">
               {isAtsSafe && (
                 <span className="inline-flex items-center gap-1">
                   <ShieldCheck
