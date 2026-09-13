@@ -89,7 +89,7 @@ export default function TestResultsShell({
     : ''
 
   return (
-    <div className="mx-auto max-w-3xl py-6 animate-thread-enter">
+    <div className="mx-auto max-w-3xl py-6">
       <div className="space-y-4 sm:space-y-6">
         <PageHeader
           title={`${config.title}: ditt resultat`}

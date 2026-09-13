@@ -70,7 +70,7 @@ export default function TesterHubClient({ data }: { data: TesterHubData }) {
         ) : null}
 
         {tab === 'tester' ? (
-          <div key="tester" className="animate-thread-enter space-y-4 sm:space-y-6">
+          <div key="tester" className="space-y-4 sm:space-y-6">
             {hasAnyData ? (
               <TestStatsCard
                 completedTestCount={aggregate.completedTestCount}

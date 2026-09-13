@@ -224,7 +224,13 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-[420px] space-y-4 sm:space-y-6 motion-safe:animate-thread-enter">
+    // Ingen entré-animation här. threadEnter börjar på opacity 0 med
+    // translateY(8px), och LCP kan inte registreras på ett element som är
+    // helt genomskinligt: mätningen sköts fram tills animationen hunnit en
+    // bit, och de åtta pixlarna räknas dessutom som rörelse. Sidbytet tonas
+    // redan in en gång i DashboardShell (fadeInPlace, bara opacity), så den
+    // här var dubbelt arbete på den sida som har hårdast budget.
+    <div className="min-h-[420px] space-y-4 sm:space-y-6">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
         <PurchaseConfirmation

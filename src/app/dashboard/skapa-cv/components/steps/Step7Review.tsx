@@ -481,13 +481,15 @@ export default function Step7Review({
               <span className="text-meta text-ink-3">A4</span>
             </div>
 
-            {/* Höjden reserveras, inte bara begränsas. Mallgeneratorn hämtas
-                först efter att steget ritats, så utan ett minsta mått hade
-                rutan varit hoptryckt en stund och sedan vuxit när HTML:en
-                landade. Samma mått i alla tre lägena. */}
+            {/* Höjden är FAST, inte ett spann. minHeight 240 mot maxHeight
+                70dvh betydde att rutan stod på 240 px medan förhandsvisningen
+                ritades och sedan växte till drygt 590 px när HTML:en landade:
+                ett hopp på ett par hundra pixlar långt efter första målningen,
+                alltså stegets CLS på 0,052. Alla tre lägena delar nu samma
+                låda, som aldrig byter storlek, och innehållet scrollar i den. */}
             <div
               className={`relative overflow-auto ${isGeneratingPreview ? 'loading-thread' : ''}`}
-              style={{ minHeight: 240, maxHeight: '70dvh' }}
+              style={{ height: '70dvh', maxHeight: 900 }}
               aria-busy={isGeneratingPreview}
             >
               {isGeneratingPreview ? (
@@ -502,7 +504,7 @@ export default function Step7Review({
                   />
                 </div>
               ) : (
-                <div className="flex min-h-[240px] items-center justify-center p-6 text-center text-sm text-ink-3">
+                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-ink-3">
                   Fyll i dina uppgifter så visas ditt CV här.
                 </div>
               )}

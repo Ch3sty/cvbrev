@@ -1,279 +1,54 @@
-'use client';
+/**
+ * Jobbcoachen är en server component.
+ *
+ * Chatten är klientens, men välkomstvyns dokumentkort hänger på hur många CV
+ * och brev användaren har. De räknades i en effekt som först gjorde
+ * auth.getUser() över nätet och sedan två count-frågor i tur och ordning.
+ * Sedan Tråden flyttade välkomstvyn upp från pt-[8%] är kortet vyns
+ * LCP-element, så hela den kedjan hamnade på den kritiska vägen.
+ *
+ * Nu läses sessionen här och de två räknarna körs parallellt, i samma omgång
+ * som sidan renderas. Frågorna är identiska med effektens, filtret på
+ * user_id och is_saved ligger kvar.
+ */
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createServerClient } from '@/lib/supabase/server';
+import JobbcoachenClient from './JobbcoachenClient';
 
-import { useState, useEffect, useRef } from 'react';
-import MessageBubble from '@/components/jobbcoachen/MessageBubble';
-import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
-import ChatInput from '@/components/jobbcoachen/ChatInput';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import PaywallCard from '@/components/paywall/PaywallCard';
-import FlowError from '@/components/shell/FlowError';
-import type { Message, MessageAttachment } from '@/types/jobbcoachen';
+export default async function JobbcoachenPage() {
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
 
-import JobbcoachenLayout from './components/JobbcoachenLayout';
-import WelcomeMessage from './components/WelcomeMessage';
-import ChatTrustStrip from './components/ChatTrustStrip';
-import MiniSuggestionChips from './components/MiniSuggestionChips';
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export default function JobbcoachenPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [cvCount, setCvCount] = useState(0);
-  const [letterCount, setLetterCount] = useState(0);
-  const [shouldOpenDocSelector, setShouldOpenDocSelector] = useState(0);
-  // Dagskvot: spärr när dagens meddelanden är slut + diskret räknare för fria konton
-  const [quotaLock, setQuotaLock] = useState<{ nextResetAt: string; message: string } | null>(null);
-  const [remainingToday, setRemainingToday] = useState<number | null>(null);
+  if (!user) redirect('/login');
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const supabase = getSupabaseClient();
+  let cvCount = 0;
+  let letterCount = 0;
 
-  // Load document counts
-  useEffect(() => {
-    const loadDocCounts = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+  try {
+    const [cvRes, letterRes] = await Promise.all([
+      supabase
+        .from('cv_texts')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id),
+      supabase
+        .from('letters')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('is_saved', true),
+    ]);
 
-        const { count: cvs } = await supabase
-          .from('cv_texts')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', user.id);
+    cvCount = cvRes.count ?? 0;
+    letterCount = letterRes.count ?? 0;
+  } catch (error) {
+    // Räknarna är text i ett kort, inte funktion. Går de fel öppnas chatten
+    // ändå, med formuleringen för noll dokument.
+    console.error('Fel vid server-räkning av dokument:', error);
+  }
 
-        const { count: letters } = await supabase
-          .from('letters')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', user.id)
-          .eq('is_saved', true);
-
-        setCvCount(cvs || 0);
-        setLetterCount(letters || 0);
-      } catch (error) {
-        console.error('Error loading document counts:', error);
-      }
-    };
-
-    loadDocCounts();
-  }, [supabase]);
-
-  // Auto-scroll to bottom when new messages arrive
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
-
-  // Load conversation ID from localStorage
-  useEffect(() => {
-    const savedConvId = localStorage.getItem('jobbcoachen_conversation_id');
-    if (savedConvId) {
-      setConversationId(savedConvId);
-    }
-  }, []);
-
-  const handleSendMessage = async (
-    messageText: string,
-    attachments?: MessageAttachment[]
-  ) => {
-    const userMessage: Message = {
-      role: 'user',
-      content: messageText,
-      ...(attachments && { attachments }),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        throw new Error('Du måste vara inloggad');
-      }
-
-      const response = await fetch('/api/jobbcoachen/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify({
-          message: messageText,
-          conversationId,
-          ...(attachments && { attachments }),
-        }),
-      });
-
-      if (response.status === 429) {
-        // Dagskvoten är slut: visa spärrvyn och plocka bort det optimistiska
-        // meddelandet (det sparades aldrig på servern).
-        const body = await response.json().catch(() => null);
-        setQuotaLock({
-          nextResetAt: body?.nextResetAt || new Date().toISOString(),
-          message:
-            body?.message ||
-            'Du har använt dagens tio meddelanden. Chatten öppnar igen i morgon.',
-        });
-        setRemainingToday(0);
-        setMessages((prev) => prev.slice(0, -1));
-        setIsLoading(false);
-        return;
-      }
-
-      if (!response.ok) {
-        throw new Error('Kunde inte skicka meddelande');
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      let assistantMessage = '';
-      let sources: any[] = [];
-
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const data = JSON.parse(line.substring(6));
-
-                if (data.type === 'conversation_id') {
-                  const newConvId = data.conversationId;
-                  setConversationId(newConvId);
-                  localStorage.setItem('jobbcoachen_conversation_id', newConvId);
-                } else if (data.type === 'quota') {
-                  // Diskret räknare för gratisanvändare; premium får ingen.
-                  setRemainingToday(
-                    data.isPremium ? null : (typeof data.remaining === 'number' ? data.remaining : null)
-                  );
-                } else if (data.type === 'sources') {
-                  sources = data.sources;
-                } else if (data.type === 'text') {
-                  assistantMessage += data.content;
-                  setMessages((prev) => {
-                    const lastMessage = prev[prev.length - 1];
-                    if (lastMessage && lastMessage.role === 'assistant') {
-                      return [
-                        ...prev.slice(0, -1),
-                        { ...lastMessage, content: assistantMessage },
-                      ];
-                    } else {
-                      return [
-                        ...prev,
-                        {
-                          role: 'assistant',
-                          content: assistantMessage,
-                          sources,
-                        },
-                      ];
-                    }
-                  });
-                } else if (data.type === 'done') {
-                  setMessages((prev) => {
-                    const lastMessage = prev[prev.length - 1];
-                    if (lastMessage && lastMessage.role === 'assistant') {
-                      return [
-                        ...prev.slice(0, -1),
-                        { ...lastMessage, sources },
-                      ];
-                    }
-                    return prev;
-                  });
-                } else if (data.type === 'error') {
-                  throw new Error(data.error);
-                }
-              } catch (parseError) {
-                console.error('Parse error:', parseError);
-              }
-            }
-          }
-        }
-      }
-
-      setIsLoading(false);
-    } catch (error: any) {
-      console.error('Send message error:', error);
-      setError(error.message || 'Ett fel uppstod');
-      setIsLoading(false);
-      setMessages((prev) => prev.slice(0, -1));
-    }
-  };
-
-  const isWelcomeView = messages.length === 0;
-
-  return (
-    <JobbcoachenLayout
-      inputArea={
-        <div>
-          {quotaLock && (
-            <div className="px-3 pt-3 sm:px-4">
-              <PaywallCard
-                variant="kvot"
-                quota={{ feature: 'chat_message', nextResetAt: quotaLock.nextResetAt }}
-              />
-            </div>
-          )}
-          <ChatInput
-            onSend={handleSendMessage}
-            disabled={isLoading || !!quotaLock}
-            placeholder={
-              quotaLock
-                ? 'Chatten öppnar igen efter midnatt'
-                : 'Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…'
-            }
-            conversationId={conversationId}
-            hasMessages={messages.length > 0}
-            externalOpenSignal={shouldOpenDocSelector}
-            suggestionChips={isWelcomeView && !quotaLock ? <MiniSuggestionChips onPick={handleSendMessage} /> : null}
-          />
-          {!quotaLock && remainingToday !== null && (
-            <p className="pb-2 text-center text-meta text-ink-3">
-              {remainingToday} {remainingToday === 1 ? 'meddelande' : 'meddelanden'} kvar idag
-            </p>
-          )}
-        </div>
-      }
-    >
-      {isWelcomeView ? (
-        <div className="flex flex-1 flex-col justify-start pt-2 sm:pt-4">
-          <WelcomeMessage
-            cvCount={cvCount}
-            letterCount={letterCount}
-            onOpenSelector={() => setShouldOpenDocSelector((v) => v + 1)}
-          />
-        </div>
-      ) : (
-        <div className="space-y-4">
-          <ChatTrustStrip />
-          <div className="space-y-2">
-            {messages.map((message, idx) => (
-              <MessageBubble
-                key={idx}
-                role={message.role}
-                content={message.content}
-                sources={message.sources}
-                attachments={message.attachments}
-                isStreaming={
-                  isLoading &&
-                  idx === messages.length - 1 &&
-                  message.role === 'assistant'
-                }
-              />
-            ))}
-            {isLoading &&
-              messages[messages.length - 1]?.role === 'user' && (
-                <TypingIndicator />
-              )}
-            {error && <FlowError message={error} title="Meddelandet gick inte fram" />}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
-      )}
-    </JobbcoachenLayout>
-  );
+  return <JobbcoachenClient initialCvCount={cvCount} initialLetterCount={letterCount} />;
 }

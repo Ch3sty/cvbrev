@@ -278,8 +278,15 @@ function PreviewContainer({
         )}
       </div>
 
-      {/* Preview-area: skala A4-bredden till tillgangligt utrymme pa mobil */}
-      <div className="relative max-h-[850px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken">
+      {/* Preview-area: skala A4-bredden till tillgangligt utrymme pa mobil.
+          Höjden är FAST, inte max-höjd. Laddvyn låg på min-h-[70vh], alltså
+          drygt 590 px på en Pixel 7, medan den färdiga förhandsvisningen
+          landar på A4-proportionen av skärmbredden, knappt 490 px. Rutan
+          krympte alltså ett hundratal pixlar i samma ögonblick som
+          förhandsvisningen kom, och allt under den flyttades: sidans hela
+          CLS på 0,06. Alla fyra tillstånd bor nu i samma låda, som aldrig
+          byter storlek, och innehållet scrollar inuti den. */}
+      <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken sm:h-[850px]">
         {!hasCV && <PreviewEmptyState />}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
@@ -388,7 +395,7 @@ function ScaledPreview({ html }: { html: string }) {
 
 function PreviewEmptyState() {
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+    <div className="flex h-full items-center justify-center px-6 py-20">
       <EmptyState
         bare
         illustration={IlluTomMapp}
@@ -401,7 +408,7 @@ function PreviewEmptyState() {
 
 function PreviewLoading() {
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+    <div className="flex h-full items-center justify-center px-6 py-20">
       <LoadingSkeleton
         variant="writing"
         label="Förhandsvisningen ritas"
@@ -413,7 +420,7 @@ function PreviewLoading() {
 
 function PreviewError({ message }: { message: string }) {
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-6 py-20 sm:min-h-[560px]">
+    <div className="flex h-full items-center justify-center px-6 py-20">
       <FlowError
         title="Förhandsvisningen kom inte fram"
         message={`${message} Försök välja en annan mall eller ladda om sidan.`}

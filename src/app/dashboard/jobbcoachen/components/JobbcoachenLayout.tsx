@@ -19,9 +19,14 @@ export default function JobbcoachenLayout({
        fälls in, så inmatningsfältet hamnade bakom browserchromet precis när
        tangentbordet var uppe. Bottennavets höjd kommer från --bottom-nav-h
        i stället för en gissad rem-siffra. Kvar att dra av: header 4rem plus
-       mainens vertikala padding 1.5rem. */
+       mainens vertikala padding 1.5rem.
+
+       Ingen animate-thread-enter här: den börjar på opacity 0, och LCP kan
+       inte registreras på ett helt genomskinligt element, så hela chatten
+       mätte flera hundra millisekunder senare än den faktiskt målades.
+       Sidbytet tonas redan in en gång i DashboardShell. */
     <div
-      className="flex flex-col overflow-hidden rounded-xl border border-kant bg-panel animate-thread-enter"
+      className="flex flex-col overflow-hidden rounded-xl border border-kant bg-panel"
       style={{
         height: 'calc(100dvh - 4rem - 1.5rem - var(--bottom-nav-h))',
       }}
