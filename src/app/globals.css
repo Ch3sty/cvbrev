@@ -42,6 +42,15 @@ html[data-flow-active='true'] nav[aria-label='Huvudnavigation'] {
   display: none !important;
 }
 
+/* Dashboardens header hör inte till ett flöde eller ett prov. Skalet målar
+   visserligen över den (z-50 mot z-30), så den syntes inte, men den låg kvar
+   i DOM:en överst på sidan: en rubrik skärmläsare fortfarande läste upp och
+   en yta som blev synlig så fort skalets bakgrund inte täckte hela bredden.
+   Under ett flöde finns bara flödets egen topprad. */
+html[data-flow-active='true'] [data-dashboard-header] {
+  display: none !important;
+}
+
 /* Samma sak för cookie-bannern. Den ligger på z-999 längst ner och lägger sig
    över flödesfoten i varje ny session, alltså precis den situation en
    förstagångsanvändare möter. Under ett flöde flyttas den upp ovanför foten

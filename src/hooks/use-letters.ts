@@ -175,10 +175,18 @@ export const useLetters = (options: UseLettersOptions = {}) => {
   const createLetter = useCallback(async (params: GenerateLetterParams) => {
     if (!isMountedRef.current) return null;
 
-    // Förhindra dubblettanrop om generering redan pågår
+    // Förhindra dubblettanrop om generering redan pågår.
+    //
+    // Att returnera null här var en tyst lögn: anroparen kunde inte skilja
+    // "en generering pågår redan" från "genereringen misslyckades". Klienten
+    // visade därför felbannern "Kunde inte generera brevet" på det andra
+    // klicket, medan det första anropet fortfarande höll på och strax
+    // därefter lyckades och sparade brevet. Felet kastas i stället med en
+    // egen kod, så UI:t kan tiga still i just det här fallet.
     if (generatingLetterRef.current || isGenerating) {
-      console.log('Förhindrar dubblett brevgenerering, en generering pågår redan');
-      return null;
+      const pagarRedan: any = new Error('En brevgenerering pågår redan');
+      pagarRedan.code = 'generation_in_progress';
+      throw pagarRedan;
     }
 
     // Markera att generering pågår

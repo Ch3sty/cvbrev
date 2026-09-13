@@ -7,7 +7,9 @@ import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle, Lock } fro
 import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
 import { AnswerOptionsV7 } from '@/components/tests/logicV7/AnswerOptionsV7';
 import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigation';
-import { TestHeader } from '@/components/tests/logicV4/TestHeader';
+import TestFlowShell from '@/components/tests/shared/TestFlowShell';
+import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { fetchProvSession } from '@/components/tests/prov/provSession';
@@ -32,6 +34,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [sessionStartedAt] = useState(new Date());
+  const elapsed = useElapsedClock(sessionStartedAt);
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHydrating, setIsHydrating] = useState(true);
@@ -239,15 +242,57 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
   }
 
   return (
-    <div className="min-h-screen">
-      <TestHeader
-        currentQuestion={currentQuestion}
-        totalQuestions={questions.length}
-        answeredCount={answeredQuestions.size}
-        startedAt={sessionStartedAt}
-      />
+    <TestFlowShell
+      title="Logikprov"
+      onExit={() => {
+        setFinishError(null);
+        setShowFinishConfirm(true);
+      }}
+      exitLabel="Avsluta provet"
+      progressPercent={(answeredQuestions.size / questions.length) * 100}
+      meter={
+        <TestMeterRow
+          time={elapsed}
+          current={currentQuestion + 1}
+          total={questions.length}
+          answered={answeredQuestions.size}
+        />
+      }
+      footer={
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={handlePrev}
+            disabled={currentQuestion === 0 || isNavigating}
+            aria-label="Föregående fråga"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          >
+            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+          </button>
 
-      <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
+          {currentQuestion === questions.length - 1 ? (
+            <button
+              onClick={() => {
+                setFinishError(null);
+                setShowFinishConfirm(true);
+              }}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+            >
+              <Flag className="h-4 w-4" strokeWidth={2.5} />
+              Lämna in
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              disabled={isNavigating}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            >
+              Nästa
+              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+            </button>
+          )}
+        </div>
+      }
+    >
         <div className="space-y-5 sm:space-y-6">
           {/* Prov-banner */}
           <div className="rounded-xl px-4 py-2.5 text-center text-white text-xs sm:text-sm font-semibold bg-orange-600">
@@ -306,37 +351,6 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
-            <button
-              onClick={handlePrev}
-              disabled={currentQuestion === 0 || isNavigating}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-neutral-200 bg-white text-neutral-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
-            >
-              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
-              Föregående
-            </button>
-
-            <button
-              onClick={() => {
-                setFinishError(null);
-                setShowFinishConfirm(true);
-              }}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation"
-            >
-              <Flag className="w-4 h-4" strokeWidth={2.5} />
-              Avsluta prov
-            </button>
-
-            <button
-              onClick={handleNext}
-              disabled={currentQuestion === questions.length - 1 || isNavigating}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-orange-600 hover:bg-orange-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
-            >
-              Nästa
-              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-            </button>
-          </div>
-
           <QuestionNavigation
             totalQuestions={questions.length}
             currentQuestion={currentQuestion}
@@ -344,7 +358,6 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
             onNavigate={handleNavigate}
           />
         </div>
-      </div>
 
       <AnimatePresence>
         {showFinishConfirm && (
@@ -408,7 +421,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </TestFlowShell>
   );
 }
 

@@ -20,7 +20,9 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle, AlertTriangle } from 'lucide-react';
 
-import VerbalTestHeader from '@/components/tests/verbal-shared/VerbalTestHeader';
+import TestFlowShell from '@/components/tests/shared/TestFlowShell';
+import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
 import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
@@ -74,8 +76,15 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const pendingKey = (passageId: string, statementIndex: number) =>
   `${passageId}::${statementIndex}`;
 
+/** Testets namn i provskalets topprad. Speglar title i testConfig. */
+const TITLE_BY_LEVEL: Record<VerbalTestLevel, string> = {
+  grund: 'Verbalt resonemang, grundnivå',
+  avancerad: 'Verbalt resonemang, avancerad nivå',
+};
+
 export function VerbalTestSession({
   sessionId,
+  level,
   selectPassages,
   answerEndpoint,
   completeEndpoint,
@@ -398,16 +407,59 @@ export function VerbalTestSession({
   const isLastPassage = currentPassageIndex === questions.length - 1;
 
   return (
-    <div className="min-h-screen">
-      <VerbalTestHeader
-        currentPassage={currentPassageIndex}
-        totalPassages={questions.length}
-        answeredCount={answeredCount}
-        totalStatements={totalStatements}
-        timeRemaining={timeRemaining}
-      />
+    <TestFlowShell
+      title={TITLE_BY_LEVEL[level]}
+      onExit={() => {
+        setFinishError(null);
+        setShowFinishConfirm(true);
+      }}
+      exitLabel="Avsluta testet"
+      progressPercent={(answeredCount / totalStatements) * 100}
+      meter={
+        <TestMeterRow
+          time={formatClock(timeRemaining)}
+          low={timeRemaining < 5 * 60}
+          critical={timeRemaining < 60}
+          counterLabel="Passage"
+          current={currentPassageIndex + 1}
+          total={questions.length}
+          answered={answeredCount}
+        />
+      }
+      footer={
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={handlePrev}
+            disabled={currentPassageIndex === 0}
+            aria-label="Föregående passage"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          >
+            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+          </button>
 
-      <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
+          {isLastPassage ? (
+            <button
+              onClick={() => {
+                setFinishError(null);
+                setShowFinishConfirm(true);
+              }}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+            >
+              <Flag className="h-4 w-4" strokeWidth={2.5} />
+              Lämna in
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+            >
+              Nästa
+              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+            </button>
+          )}
+        </div>
+      }
+    >
         <div className="space-y-5 sm:space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
@@ -448,37 +500,6 @@ export function VerbalTestSession({
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
-            <button
-              onClick={handlePrev}
-              disabled={currentPassageIndex === 0}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-neutral-200 bg-white text-neutral-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
-            >
-              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
-              Föregående
-            </button>
-
-            <button
-              onClick={() => {
-                setFinishError(null);
-                setShowFinishConfirm(true);
-              }}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation"
-            >
-              <Flag className="w-4 h-4" strokeWidth={2.5} />
-              Avsluta
-            </button>
-
-            <button
-              onClick={handleNext}
-              disabled={isLastPassage}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white bg-orange-600 hover:bg-orange-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
-            >
-              Nästa
-              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-            </button>
-          </div>
-
           <PassageNavigation
             totalPassages={questions.length}
             currentPassage={currentPassageIndex}
@@ -487,7 +508,6 @@ export function VerbalTestSession({
             onNavigate={handleNavigate}
           />
         </div>
-      </div>
 
       <AnimatePresence>
         {showFinishConfirm && (
@@ -554,6 +574,6 @@ export function VerbalTestSession({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </TestFlowShell>
   );
 }

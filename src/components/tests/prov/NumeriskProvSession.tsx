@@ -8,7 +8,9 @@ import { ArrowRight, Flag } from 'lucide-react';
 import { selectProvPassagesForSession } from '@/lib/numericalTestProv/selectProv';
 import type { Passage } from '@/lib/numericalTest/types';
 
-import TestProgress from '@/components/tests/numerical-shared/TestProgress';
+import TestFlowShell from '@/components/tests/shared/TestFlowShell';
+import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
@@ -229,17 +231,45 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
   }
 
   return (
-    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
+    <TestFlowShell
+      title="Numeriskt prov"
+      onExit={() => router.push('/dashboard/tester')}
+      exitLabel="Avsluta provet"
+      progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
+      meter={
+        <TestMeterRow
+          time={formatClock(elapsedSeconds)}
+          current={currentQuestionNumber}
+          total={totalQuestions}
+        />
+      }
+      footer={
+        <button
+          onClick={handleNextQuestion}
+          disabled={!selectedAnswer || isSubmitting}
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+        >
+          {isSubmitting ? (
+            'Sparar svar…'
+          ) : isLastQuestion ? (
+            <>
+              Lämna in
+              <Flag className="h-4 w-4" strokeWidth={2.5} />
+            </>
+          ) : (
+            <>
+              Nästa fråga
+              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+            </>
+          )}
+        </button>
+      }
+    >
       <div className="space-y-4 sm:space-y-5">
         <div className="rounded-xl px-4 py-2.5 text-center text-white text-xs sm:text-sm font-semibold bg-orange-600">
           Prov · frågor från alla nivåer · ingen hjälp tillgänglig
         </div>
 
-        <TestProgress
-          currentQuestion={currentQuestionNumber}
-          totalQuestions={totalQuestions}
-          elapsedSeconds={elapsedSeconds}
-        />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -268,27 +298,7 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
 
         {/* Fel vid slutförande visas i stället för att tyst sluka misslyckandet */}
         {finishError && <UnsavedAnswerBanner message={finishError} />}
-
-        <button
-          onClick={handleNextQuestion}
-          disabled={!selectedAnswer || isSubmitting}
-          className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-base sm:text-lg text-white min-h-[60px] bg-orange-600 hover:bg-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed touch-manipulation"
-        >
-          {isSubmitting ? (
-            'Sparar svar…'
-          ) : isLastQuestion ? (
-            <>
-              Slutför prov
-              <Flag className="w-5 h-5" strokeWidth={2.5} />
-            </>
-          ) : (
-            <>
-              Nästa fråga
-              <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
-            </>
-          )}
-        </button>
       </div>
-    </div>
+    </TestFlowShell>
   );
 }

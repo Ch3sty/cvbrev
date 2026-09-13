@@ -203,6 +203,15 @@ export default function CreateLetterClient({
 
   const [showPipeline, setShowPipeline] = useState(false);
 
+  // Sant medan genereringen pågår.
+  //
+  // Storens isGenerating sätts bara av spar-vägen. Förhandsvisningen
+  // (save: false) går direkt mot /api/letters/generate-preview och rörde
+  // aldrig flaggan, så primärknappen förblev klickbar i de tjugo sekunder
+  // genereringen tog. Pipeline-kortet låg dessutom under vecket på mobil,
+  // så det såg ut som att ingenting hände och användaren tryckte igen.
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Refs behålls för preview och pipeline. Sektionsscrollen är borta:
   // FlowShell visar ett steg i taget, så det finns inget att scrolla till.
   const pipelineRef = useRef<HTMLDivElement | null>(null);
@@ -368,8 +377,15 @@ export default function CreateLetterClient({
       return;
     }
 
+    // Andra klicket ska inte göra någonting alls. Tidigare gick det in i
+    // hookens dubblettvakt, fick null tillbaka och visade felbannern
+    // "Kunde inte generera brevet" fast första anropet var på väg att
+    // lyckas. Det var exakt vad användaren såg i produktion.
+    if (isSubmitting) return;
+
     setError(null);
     setShowPipeline(true);
+    setIsSubmitting(true);
 
     // B3: spara brevhuvudets kontaktuppgifter om användaren ändrat dem.
     // Fire-and-forget: en misslyckad profilsparning får aldrig stoppa brevet.
@@ -411,7 +427,10 @@ export default function CreateLetterClient({
         setLetterData(result);
         // Brevet finns, flödet är klart: utkastet behövs inte längre.
         clearDraft(LETTER_FLOW_NAME, LETTER_FLOW_VERSION);
-        goToStep(6);
+        // Inget goToStep(6) här. maxReachableStep räknas ur
+        // generatedLetter, som fortfarande är null i den här rendern, så
+        // taket är 5 och hoppet klampades tyst tillbaka till steg 5.
+        // Steget byts i stället i en effekt när state har landat.
 
         if (typeof result.remainingLetters === 'number') {
           setRemainingToday(result.remainingLetters);
@@ -421,6 +440,9 @@ export default function CreateLetterClient({
       }
     } catch (err: any) {
       console.error('Letter generation error:', err);
+      // En pågående generering är inget fel för användaren: det första
+      // anropet är på väg att lyckas. Säg ingenting.
+      if (err?.code === 'generation_in_progress') return;
       // Dagskvoten slut → visa spärrvyn i stället för generiskt fel
       if (err?.code === 'quota_exceeded' || err?.payload?.code === 'quota_exceeded') {
         setShowPipeline(false);
@@ -430,8 +452,23 @@ export default function CreateLetterClient({
         return;
       }
       setError('Ett fel uppstod vid genereringen');
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile, goToStep]);
+  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile, isSubmitting]);
+
+  // Steg 6 när brevet landat.
+  //
+  // Hoppet kan inte göras i handlern: maxReachableStep räknas ur
+  // generatedLetter, och i handlerns render är den fortfarande null, så
+  // taket är 5 och goToStep(6) klampades tillbaka till 5. Användaren blev
+  // kvar på steg 5 trots att brevet fanns. Här har state landat och taket
+  // är 6.
+  useEffect(() => {
+    if (step === 5 && generatedLetter && generatedLetter.trim().length > 0) {
+      goToStep(6);
+    }
+  }, [step, generatedLetter, goToStep]);
 
   // När brevet är klart: scrolla till preview + visa toast
   const didShowToast = useRef(false);
@@ -760,14 +797,14 @@ export default function CreateLetterClient({
       title="Personligt brev"
       step={step}
       totalSteps={LETTER_FLOW_TOTAL_STEPS}
-      onBack={step > 1 && !isGenerating ? back : undefined}
+      onBack={step > 1 && !isSubmitting && !isGenerating ? back : undefined}
       onExit={step === 1 ? () => router.push('/dashboard') : undefined}
       exitLabel="Tillbaka till översikten"
       primaryLabel={primary?.label}
       onPrimary={primary?.onClick}
       primaryDisabled={primary?.disabled}
       primaryBlockedReason={blockedReason}
-      primaryBusy={step === 5 && isGenerating}
+      primaryBusy={step === 5 && (isSubmitting || isGenerating)}
       busyLabel="Skriver brevet"
       banner={
         error ? (
@@ -848,7 +885,7 @@ export default function CreateLetterClient({
             tonality={tonality}
             language={language}
             canGenerate={canGenerate}
-            isGenerating={isGenerating}
+            isGenerating={isSubmitting || isGenerating}
             onGenerate={handleGenerateLetter}
             remainingLetters={remainingToday}
             phone={headerPhone}
@@ -857,11 +894,11 @@ export default function CreateLetterClient({
             onLocationChange={setHeaderLocation}
             hidePrimaryAction
           />
-          {(showPipeline || isGenerating) && (
+          {(showPipeline || isSubmitting || isGenerating) && (
             <div ref={pipelineRef} className="mt-4">
               <LetterPipelineLoader
-                isGenerating={isGenerating}
-                isDone={!!generatedLetter && !isGenerating}
+                isGenerating={isSubmitting || isGenerating}
+                isDone={!!generatedLetter && !isSubmitting && !isGenerating}
                 error={error}
               />
             </div>

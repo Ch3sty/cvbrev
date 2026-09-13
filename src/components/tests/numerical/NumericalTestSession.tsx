@@ -22,7 +22,9 @@ import { ArrowRight, Flag, AlertCircle, AlertTriangle } from 'lucide-react';
 
 import type { Passage } from '@/lib/numericalTest/types';
 
-import TestProgress from '@/components/tests/numerical-shared/TestProgress';
+import TestFlowShell from '@/components/tests/shared/TestFlowShell';
+import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 
@@ -74,6 +76,13 @@ function savedSelectedId(a: SavedAnswerLike): string | null {
   if (typeof a?.selected === 'string') return a.selected;
   return null;
 }
+
+/** Testets namn i provskalets topprad. Speglar title i testConfig. */
+const TITLE_BY_LEVEL: Record<'grund' | 'avancerad' | 'expert', string> = {
+  grund: 'Numeriskt test, grundnivå',
+  avancerad: 'Numeriskt test, avancerad nivå',
+  expert: 'Numeriskt test, expertnivå',
+};
 
 export function NumericalTestSession({
   sessionId,
@@ -436,13 +445,41 @@ export function NumericalTestSession({
   const currentIsLocked = answeredIds.has(currentQuestion.id);
 
   return (
-    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
-      <div className="space-y-4 sm:space-y-5">
-        <TestProgress
-          currentQuestion={currentQuestionNumber}
-          totalQuestions={totalQuestions}
-          elapsedSeconds={elapsedSeconds}
+    <TestFlowShell
+      title={TITLE_BY_LEVEL[level]}
+      onExit={() => router.push('/dashboard/tester')}
+      exitLabel="Lämna testet"
+      progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
+      meter={
+        <TestMeterRow
+          time={formatClock(elapsedSeconds)}
+          current={currentQuestionNumber}
+          total={totalQuestions}
         />
+      }
+      footer={
+        <button
+          onClick={handleNextQuestion}
+          disabled={!selectedAnswer || isSubmitting || isNavigating}
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+        >
+          {isSubmitting ? (
+            'Sparar svar…'
+          ) : isLastQuestion ? (
+            <>
+              Lämna in
+              <Flag className="h-4 w-4" strokeWidth={2.5} />
+            </>
+          ) : (
+            <>
+              Nästa fråga
+              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+            </>
+          )}
+        </button>
+      }
+    >
+      <div className="space-y-4 sm:space-y-5">
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -479,44 +516,6 @@ export function NumericalTestSession({
             </p>
           </div>
         )}
-
-        <button
-          onClick={handleNextQuestion}
-          disabled={!selectedAnswer || isSubmitting || isNavigating}
-          className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl
-                     font-bold text-base sm:text-lg text-white min-h-[60px] bg-orange-600 hover:bg-orange-700
-                     transition-colors
-                     disabled:opacity-40 disabled:cursor-not-allowed
-                     touch-manipulation"
-        >
-          {isSubmitting ? (
-            level === 'expert' ? (
-              'Sparar svar…'
-            ) : (
-              <>
-                <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-                Sparar svar…
-              </>
-            )
-          ) : isLastQuestion ? (
-            <>
-              Slutför test
-              <Flag className="w-5 h-5" strokeWidth={2.5} />
-            </>
-          ) : (
-            <>
-              Nästa fråga
-              <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
-            </>
-          )}
-        </button>
       </div>
 
       {/* Finish Confirmation Modal */}
@@ -580,6 +579,6 @@ export function NumericalTestSession({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </TestFlowShell>
   );
 }

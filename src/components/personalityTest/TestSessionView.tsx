@@ -6,12 +6,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
 
 import LikertScale from './LikertScale';
-import TestHeader from './TestHeader';
+import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import type {
   LikertValue,
   PersonalityItem,
   PersonalityTestType,
 } from '@/lib/personalityTest/types';
+
+/** Testets namn i provskalets topprad. Speglar title i testConfig. */
+const TITLE_BY_TYPE: Record<PersonalityTestType, string> = {
+  'personlighet-grund': 'Personlighetstest, grundnivå',
+  'personlighet-avancerad': 'Personlighetstest, avancerad nivå',
+};
 
 interface TestSessionViewProps {
   sessionId: string;
@@ -123,14 +129,55 @@ export default function TestSessionView({
   }, [currentIdx, handleSelect]);
 
   return (
-    <div className="min-h-screen">
-      <TestHeader
-        currentQuestion={currentIdx}
-        totalQuestions={items.length}
-        answeredCount={answeredCount}
-      />
+    <TestFlowShell
+      title={TITLE_BY_TYPE[testType]}
+      onExit={() => router.push('/dashboard/tester')}
+      exitLabel="Lämna testet"
+      progressPercent={(answeredCount / items.length) * 100}
+      meter={
+        <div className="flex items-center justify-between gap-3 text-xs sm:text-sm">
+          <span className="font-bold tabular-nums text-slate-900">
+            Fråga {currentIdx + 1}{' '}
+            <span className="font-normal text-slate-500">av {items.length}</span>
+          </span>
+          <span className="rounded-full border border-orange-100 bg-orange-50 px-2 py-0.5 font-semibold tabular-nums text-orange-700">
+            {answeredCount} svar
+          </span>
+        </div>
+      }
+      footer={
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={handlePrev}
+            disabled={currentIdx === 0}
+            aria-label="Föregående påstående"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+          >
+            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+          </button>
 
-      <div className="container mx-auto py-5 sm:py-6 px-3 sm:px-4 max-w-3xl">
+          {currentIdx === items.length - 1 ? (
+            <button
+              onClick={() => setShowFinishConfirm(true)}
+              disabled={!allAnswered}
+              title={allAnswered ? 'Slutför testet' : 'Svara på alla frågor för att slutföra'}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            >
+              <Flag className="h-4 w-4" strokeWidth={2.5} />
+              Lämna in
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+            >
+              Nästa
+              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+            </button>
+          )}
+        </div>
+      }
+    >
         <div className="space-y-5 sm:space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
@@ -164,40 +211,6 @@ export default function TestSessionView({
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 pt-2">
-            <button
-              onClick={handlePrev}
-              disabled={currentIdx === 0}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border border-slate-200 bg-white text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px] touch-manipulation"
-            >
-              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
-              Föregående
-            </button>
-
-            <button
-              onClick={() => setShowFinishConfirm(true)}
-              disabled={!allAnswered}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-sm border-2 border-orange-300 bg-white text-orange-700 hover:bg-orange-50 transition-colors min-h-[48px] touch-manipulation disabled:opacity-40 disabled:cursor-not-allowed"
-              title={allAnswered ? 'Slutför testet' : 'Svara på alla frågor för att slutföra'}
-            >
-              <Flag className="w-4 h-4" strokeWidth={2.5} />
-              Slutför
-            </button>
-
-            <button
-              onClick={handleNext}
-              disabled={currentIdx === items.length - 1}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 min-h-[48px] touch-manipulation"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-              }}
-            >
-              Nästa
-              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-            </button>
-          </div>
 
           {/* Visuell ruta som visar att man kan navigera */}
           <QuestionNavigationDots
@@ -207,7 +220,6 @@ export default function TestSessionView({
             onNavigate={setCurrentIdx}
           />
         </div>
-      </div>
 
       {/* Finish-modal */}
       <AnimatePresence>
@@ -284,7 +296,7 @@ export default function TestSessionView({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </TestFlowShell>
   );
 }
 
