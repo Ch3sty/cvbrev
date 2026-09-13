@@ -19,13 +19,11 @@ import QuickScoreReveal from '@/components/cv/QuickScoreReveal'
 import MarginPlate from '@/components/shell/MarginPlate'
 import { IlluArketLyfter, IlluPlattaCvPoang } from '@/components/illustrations/TradenScener'
 
-export type DashboardState = 'A' | 'B' | 'C'
-
-export function deriveDashboardState(cvCount: number, totalLetters: number): DashboardState {
-  if (cvCount === 0) return 'A'
-  if (totalLetters === 0) return 'B'
-  return 'C'
-}
+// Tillståndsfunktionen bor i dashboardState.ts, så sidan kan räkna ut
+// tillståndet utan att dra in den här modulen och dess uppladdningsvyer.
+export type { DashboardState } from './dashboardState'
+export { deriveDashboardState } from './dashboardState'
+import type { DashboardState } from './dashboardState'
 
 const BTN = 'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto'
 const LINK = 'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 transition-colors hover:text-ink-1'
