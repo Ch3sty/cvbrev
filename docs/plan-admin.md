@@ -626,3 +626,219 @@ Bara två saker, och båda kan vänta till efter bygget.
    click-tracking är på för domänen. Siffrorna tyder på att det fungerar
    (115 öppningar på kampanjen). Bekräfta att det är påslaget, annars
    slutar Mejl-sidan svara utan att något ser trasigt ut.
+## Våg 1 levererat
+
+Byggt 2026-09-14 på branchen `admin/ny`. Fem commits, ett steg var. Det här
+avsnittet är kontraktet: våg 2 och 3 importerar det som står här och ändrar
+aldrig filerna. Saknas en prop, lös det lokalt i sidan och skriv upp det i
+rapporten.
+
+### Vad som raderades
+
+Hela `src/components/admin/**` (23 filer), alla sidor under `src/app/admin/**`
+utom `layout.tsx` (16 filer), samt API-rutterna `statistics/**` (fem),
+`openai-usage`, `cleanup` och `email/campaign-gratisniva`. Ingenting utanför
+admin importerade något av det. E-postmallen
+`src/lib/email/lifecycle/templates/campaign-gratisniva.ts` ligger kvar och
+används fortfarande av lifecycle-registret: det var API-rutten som skulle bort,
+inte mallen.
+
+### Auth
+
+`src/lib/admin/requireSuperAdmin.ts`:
+
+```ts
+type SuperAdminResult =
+  | { ok: true; userId: string; email: string | null }
+  | { ok: false; response: NextResponse }
+
+requireSuperAdmin(): Promise<SuperAdminResult>   // för API-rutter
+getSuperAdminUserId(): Promise<string | null>    // för server components
+hasSuperAdminRole(userId: string): Promise<boolean>
+ADMIN_ROLE === 'super_admin'
+```
+
+Varje ny rutt under `src/app/api/admin/**` börjar med:
+
+```ts
+const auth = await requireSuperAdmin();
+if (!auth.ok) return auth.response;
+```
+
+Rollen läses med service role, så kontrollen fungerar även när `admin_users`
+är RLS-låst. 401 utan session, 403 utan rollen. Ingen rutt gör en egen
+`admin_users`-fråga, och de sju behållna rutterna gör det inte längre heller.
+Fem av dem kontrollerade tidigare bara att raden fanns, inte att rollen var
+`super_admin`.
+
+`src/app/admin/layout.tsx` är en server component med
+`export const dynamic = 'force-dynamic'` som redirectar till `/dashboard`.
+Skriv aldrig en behörighetskontroll i `useEffect` i en adminsida.
+
+### Tabeller
+
+`admin_daily_metrics`, primärnyckel `dag` (date). Kolumner: `mrr_ore`,
+`revenue_ore` (bigint), `new_paying`, `churned`, `active_subs`,
+`trialing_subs`, `failed_payments`, `new_accounts`, `active_users`,
+`gsc_clicks`, `gsc_impressions`, `emails_sent`, `emails_opened` (int),
+`gsc_ctr`, `gsc_position`, `ai_cost_sek` (numeric), `uppdaterad` (timestamptz).
+**Alla tal är nullbara med flit.** En dag utan GSC-svar har null, inte noll.
+Rita aldrig en null som en nolla i ett diagram: `AdminChart` har
+`connectNulls={false}` just därför.
+
+`admin_gsc_daily`, primärnyckel `(dag, dimension, nyckel)`. `dimension` är
+`page` eller `query`. Kolumner `clicks`, `impressions` (int), `ctr`,
+`position` (numeric).
+
+`admin_funnel_weekly`, primärnyckel `(vecka, kalla, steg)`. `vecka` är
+måndagen, `kalla` är `'alla'` tills `acquisition_source` går att lita på,
+`steg` är ett av `FUNNEL_STEG` i `collect.ts`.
+
+`admin_error_log`: `id`, `kalla` (route, edge, auth eller cron), `rutt`,
+`meddelande`, `antal`, `metadata` (jsonb), `created_at`.
+
+Alla fyra har RLS på och **noll policies**. De nås bara med service role,
+alltså `getSupabaseAdmin()`. En sida som försöker läsa dem med användarens
+klient får noll rader utan felmeddelande.
+
+### Vyn
+
+`admin_user_rows`, en rad per profil, 311 i dag. Ger `id`, `email`,
+`full_name`, `created_at`, `last_active`, `subscription_tier`,
+`subscription_status`, `premium_until`, `premium_source`,
+`acquisition_source`, `stripe_customer_id`, `first_cv_uploaded_at`,
+`first_letter_created_at`, `first_cv_analyzed_at`, plus räknarna
+`letter_count`, `cv_count`, `application_count`, `analysis_count` (int) och
+`last_activity_at` (timestamptz). Användarlistan blir en fråga, inte sex.
+
+Kom ihåg mätfelen: `first_cv_uploaded_at` och `first_letter_created_at` är
+satta på 2 av 311 konton och `acquisition_source` är null på samtliga. Visa
+talen, men sätt `datakvalitet` på kortet.
+
+### Säkerhetsrättningen
+
+`revoke` körd på `admin_user_rows` och på de sju befintliga admin-vyerna.
+Hålet var värre än inventeringen trodde: förutom att `authenticated` hade
+select på kandidatpoolen och retentionskohorterna hade både `anon` och
+`authenticated` insert, update, delete och truncate på `admin_activity_daily`
+och `admin_activity_by_function`. Verifierat med `set role authenticated` att
+alla tolv nu nekas. Läs dem bara med service role.
+
+### Läsvägen för våg 2 och 3
+
+`src/lib/admin/metrics.ts`:
+
+```ts
+hamtaDagligaMetrik(antalDagar = 30): Promise<DagligaMetrik[]>  // fallande, senaste först
+hamtaDag(dag: string): Promise<DagligaMetrik | null>
+fyllPaDag(dag?: string, tvinga?: boolean): Promise<PafyllResultat>
+ADMIN_METRICS_TAG = 'admin-metrics'
+ADMIN_CACHE_SEKUNDER = 900
+```
+
+De två första är `unstable_cache` med 15 minuters revalidate och taggen ovan.
+`fyllPaDag` har 15 minuters spärr per dag och rensar taggen efteråt; den är
+motorn bakom knappen "Hämta nu" och rutten `metrics/refresh`.
+
+**Ingen sida får prata direkt med Stripe, GSC eller PostHog i kritiska
+vägen.** En HogQL-fråga per sidladdning spränger PostHogs kvot, och ett
+Stripe-anrop gör LCP under 1,5 s omöjligt. Läs tabellen.
+
+`src/lib/admin/email.ts` har `EMAIL_EVENT` (`DELIVERED`, `OPENED`, `CLICKED`,
+`BOUNCED`, alla utan `email.`-prefix), `EMAIL_EVENT_TYPES` och
+`EMAIL_JOIN_KEY`. Importera dem, skriv aldrig strängen i en fråga.
+
+### Insamlingen
+
+`src/lib/admin/collect.ts` exporterar utöver `collectAdminMetrics`:
+`manadsbeloppOre`, `mrrOreFranSubscriptions`, `dagStr`, `veckansMandag`,
+`hogql`, `loggaAdminFel`, `FUNNEL_STEG`, samt delstegen `samlaStripe`,
+`samlaGsc`, `samlaFunnel`, `samlaSupabase`.
+
+```ts
+collectAdminMetrics(admin, dag?, { hoppaGsc?, hoppaPosthog? }): Promise<CollectResultat>
+loggaAdminFel(admin, kalla, meddelande, metadata?): Promise<void>
+```
+
+`loggaAdminFel` är det Drift-sidan ska läsa och det nya rutter ska skriva till
+när de fallerar.
+
+Kör inte insamlingen från en ny cron. Båda Vercel-crons är upptagna av
+`/api/cron/pricing-sync` och en tredje post i `vercel.json` deployar men körs
+aldrig. Inhakningen ligger i midnattsslotten och samlar in gårdagen.
+
+`scripts/admin-backfill.ts` fyller bakåt:
+`npx tsx scripts/admin-backfill.ts [dagar] [--hoppa-gsc] [--hoppa-posthog]`.
+
+Körd skarpt 2026-09-14: 90 av 90 dagar skrivna, noll misslyckade, noll rader i
+`admin_error_log`. 88 av 90 dagar har GSC-data; de två som saknas är de
+senaste, alltså fördröjningen. 8 800 rader i `admin_gsc_daily`, 98 i
+`admin_funnel_weekly`. MRR 596 kr, 3 aktiva och 1 trialing, vilket stämmer med
+provanropet i avsnitt 1.
+
+**En sak om MRR-serien:** Stripe har ingen historisk MRR, så varje backfylld
+dag fick dagens värde. De första nittio dagarna är därför en rak linje. Från
+och med nu är serien sann. Skriv det i gränssnittet om ni ritar den över hela
+fönstret.
+
+### Komponenter
+
+Alla i `src/components/admin/`. Ändra dem inte.
+
+**`AdminShell { children, toolbar? }`** (klientkomponent, används av layouten,
+inte av sidorna). Exporterar även `ADMIN_NAV` och
+`isActiveAdminRoute(pathname, href)`. Lägg till en sida genom att lägga den i
+`ADMIN_NAV`. `toolbar` är platsen för periodväljaren i toppraden.
+
+**`MetricCard { etikett, varde, delta?, deltaText?, jamforelse?, inverterad?, datakvalitet?, className? }`**
+(serverkomponent). `varde` är en ReactNode som redan är formaterad: kortet
+formaterar aldrig själv, eftersom en krona, en procent och ett antal skrivs
+olika. `delta` är ett tal; positivt ger `text-positiv`, negativt `text-fel`.
+`inverterad` vänder färgen för tal där högre är sämre (churn, misslyckade
+betalningar). `datakvalitet` är meta-raden för tal som bygger på `first_*_at`
+och `acquisition_source`.
+
+**`SectionCard { rubrik, action?, children, naken?, className? }`**
+(serverkomponent). Rubriken står ovanför panelen som etikett i 14/500 ink-3.
+`action` är en textlänk till höger. `naken` tar bort panelens padding, för
+listor med `divide-y` och för tabeller som sätter sin egen cellpadding.
+
+**`AdminChart { data, xNyckel, serier, hojd?, formateraX?, formateraY?, tomText?, className? }`**
+(klientkomponent, `'use client'` krävs i den som renderar den).
+
+```ts
+type AdminSerieRoll = 'primar' | 'sekundar' | 'framhavd' | 'positiv' | 'varning' | 'fel'
+interface AdminSerie { nyckel: string; namn: string; typ: 'linje' | 'stapel'; roll: AdminSerieRoll }
+```
+
+Recharts laddas lazy i ett stycke via `AdminChartInner`. Höjden står på
+behållaren, så ytan är reserverad innan biblioteket kommer in och CLS blir
+noll. Färgen kommer ur rollen, aldrig ur ordningen, och läses ur
+CSS-variabler. Högst en `framhavd` per diagram: den är orange och räknas mot
+taket på tre orange inslag per skärm, där tråden i sidomenyn redan tagit ett.
+
+Tom `data` ger `tomText` i rätt höjd, så sidan behöver ingen egen tomkontroll
+runt diagrammet.
+
+**`AdminChart tar medvetet inte två y-axlar.`** Avsnitt 4.3 beskriver klick
+och visningar med varsin axel. Två skalor i samma ruta låter linjerna korsa
+varandra på ställen som inte betyder något, och det är den vanligaste
+diagramfällan som finns. Rita två diagram under varandra, eller indexera båda
+mot samma bas. Samma sak gäller den inverterade positionslinjen: den blir ett
+eget diagram.
+
+Sidhuvudet är `PageHeader` från `src/components/shell/`, adminens enda h1.
+Bygg ingen egen. Laddning är `LoadingSkeleton`, tomt är `EmptyState`, fel är
+`FlowError`.
+
+### Verifiering
+
+`npx tsc --noEmit` rent. `npx vitest run` 188 tester i 17 filer, varav 27 nya
+för adminen (8 för `requireSuperAdmin`, 19 för `collect` med tyngdpunkt på
+MRR-normaliseringen). `npm run build` med
+`NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1` går igenom, `/admin` är
+dynamisk och exakt de sju behållna API-rutterna finns kvar. Grep-regeln i
+avsnitt 6 ger noll träffar i `src/app/admin` och `src/components/admin`, och
+det finns inga em-dash i någon adminfil.
+
+Kvar till våg 4: klicktest i riktig webbläsare, som kräver sidor att klicka på.
