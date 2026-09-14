@@ -111,7 +111,15 @@ export default async function MejlPage() {
             varde={antal(data.koTotalt.misslyckade)}
             inverterad
           />
-          <MetricCard etikett="Nästa körning" varde={tidpunkt(data.koTotalt.nasta)} />
+          {/* En tidpunkt ar inte ett stort tal: "14 sep. 07:00" i text-tal
+              bryter pa tva rader i kortets bredd. Vardet ar en ReactNode,
+              sa kortet far en mindre grad har utan att komponenten rors. */}
+          <MetricCard
+            etikett="Nästa körning"
+            varde={
+              <span className="text-h1">{tidpunkt(data.koTotalt.nasta)}</span>
+            }
+          />
         </div>
 
         {harFel ? (
