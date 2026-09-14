@@ -52,6 +52,12 @@ export const metadata: Metadata = {
   },
   other: {
     'fb:app_id': '1234567890',
+
+    /* appleWebApp.capable nedan ger numera bara den moderna
+       mobile-web-app-capable. Safari på iOS 16 och äldre läser fortfarande
+       den prefixade, och utan den öppnas appen med adressfält kvar. Båda
+       kostar ingenting, så båda står här. */
+    'apple-mobile-web-app-capable': 'yes',
   },
 
   /* Jobbcoach på hemskärmen (docs/plan-pwa.md, avsnitt 6).

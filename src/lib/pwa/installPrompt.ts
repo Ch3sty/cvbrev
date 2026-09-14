@@ -61,12 +61,32 @@ export interface Omstandigheter {
   redanKlar: boolean
   /** Millisekunder för första sessionen, null om den här är den första. */
   forstaSessionVid: number | null
+  /**
+   * Millisekunder då den här sidladdningen började.
+   *
+   * Stämpeln ovan sätts av PwaRegister vid mount, alltså under den här
+   * sidladdningen om enheten aldrig setts förut. Vi kan därför inte jämföra
+   * den mot nu: ett brev tar en minut att skriva, och då hade stämpeln
+   * sett gammal ut trots att den sattes för en minut sedan. Vi jämför mot
+   * sidladdningens början i stället, och då säger villkoret exakt det det
+   * ska säga: stämpeln finns sedan ett tidigare besök.
+   */
+  sidladdningVid: number
   /** Millisekunder för senaste avfärdandet, null om aldrig avfärdad. */
   avfardadVid: number | null
   /** Nu, i millisekunder. Skickas in så att testerna äger klockan. */
   nu: number
   /** Frågan visas redan. */
   visasRedan: boolean
+  /**
+   * Cookie-bannern står kvar obesvarad längst ned på skärmen.
+   *
+   * Den ligger på z-index 999 och täcker hela nederkanten, så vår rad hade
+   * hamnat under den och aldrig gått att trycka på. Två frågor på samma
+   * plats är dessutom en fråga för mycket: samtycket kommer först, vår
+   * fråga nästa gång.
+   */
+  cookiebannerUppe: boolean
 }
 
 /** Varför frågan inte får visas. null betyder att den får det. */
@@ -76,6 +96,7 @@ export type Hinder =
   | 'forsta_besoket'
   | 'nyligen_avfardad'
   | 'visas_redan'
+  | 'cookiebanner'
 
 /**
  * Regelmotorn. Returnerar hindret, eller null när frågan får visas.
@@ -88,19 +109,21 @@ export function hittaHinder(o: Omstandigheter): Hinder | null {
   if (o.redanKlar) return 'redan_klar'
   if (o.visasRedan) return 'visas_redan'
 
-  // Första besöket: vi har ingen tidigare session att luta oss mot. Sessionen
-  // stämplas första gången den här koden kör, så villkoret blir sant exakt en
-  // gång per enhet och sedan aldrig igen.
+  // Första besöket: vi har ingen tidigare session att luta oss mot.
   if (o.forstaSessionVid === null) return 'forsta_besoket'
 
-  // En session som började i samma sidvisning räknas inte som en tidigare
-  // session. Utan den här raden skulle stämpeln vi just satt godkänna frågan
-  // redan vid första besöket.
-  if (o.nu - o.forstaSessionVid < 1000) return 'forsta_besoket'
+  // En stämpel som sattes under den här sidladdningen är inte ett tidigare
+  // besök, den är det här besöket. Utan den här raden skulle stämpeln
+  // PwaRegister just satt godkänna frågan redan första gången.
+  if (o.forstaSessionVid >= o.sidladdningVid) return 'forsta_besoket'
 
   if (o.avfardadVid !== null && o.nu - o.avfardadVid < AVFARDAD_MS) {
     return 'nyligen_avfardad'
   }
+
+  // Sist, för att det är det mest tillfälliga hindret: samtycket besvaras
+  // en gång, och nästa trigger kommer förbi.
+  if (o.cookiebannerUppe) return 'cookiebanner'
 
   return null
 }
@@ -166,6 +189,31 @@ export function markeraSession(): void {
   }
 }
 
+/**
+ * När den här sidladdningen började, i samma tidsrymd som Date.now().
+ *
+ * performance.timeOrigin är exakt det, och till skillnad från en egen
+ * modulvariabel överlever den inte en klientnavigering som den inte borde
+ * överleva: Next byter sida utan att ladda om, och då ska det fortfarande
+ * räknas som samma sidladdning. Saknas API:t faller vi tillbaka på nu, och
+ * då blir utfallet det försiktiga: frågan visas inte.
+ */
+function sidladdningVid(): number {
+  const origin = performance?.timeOrigin
+  return typeof origin === 'number' && Number.isFinite(origin) ? origin : Date.now()
+}
+
+/**
+ * Står cookie-bannern kvar? Klassen sätts av react-cookie-consent i
+ * client-layout, och elementet tas bort ur DOM när samtycket lämnats.
+ */
+function cookiebannerUppe(): boolean {
+  const el = document.querySelector('.cookie-banner-container')
+  if (!el) return false
+  const r = el.getBoundingClientRect()
+  return r.width > 0 && r.height > 0
+}
+
 /** Läser ihop omständigheterna ur webbläsaren. */
 export function lasOmstandigheter(visasRedan: boolean): Omstandigheter {
   return {
@@ -174,7 +222,9 @@ export function lasOmstandigheter(visasRedan: boolean): Omstandigheter {
     forstaSessionVid: lasTid(LAGRINGSNYCKLAR.forstaSession),
     avfardadVid: lasTid(LAGRINGSNYCKLAR.avfardad),
     nu: Date.now(),
+    sidladdningVid: sidladdningVid(),
     visasRedan,
+    cookiebannerUppe: cookiebannerUppe(),
   }
 }
 

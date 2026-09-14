@@ -28,8 +28,10 @@ import {
   arStandalone,
   markeraInstallerad,
   markeraSession,
+  requestInstallPrompt,
   taEmotInstallPrompt,
   type BeforeInstallPromptEvent,
+  type InstallTrigger,
 } from '@/lib/pwa/installPrompt'
 import { scheduleIdle } from '@/lib/scheduleIdle'
 
@@ -67,6 +69,21 @@ export default function PwaRegister() {
     window.addEventListener('beforeinstallprompt', onBeforeInstall)
     window.addEventListener('appinstalled', onInstalled)
 
+    // Sömmen som klicktestet drar i (scripts/qa-pwa.ts). De fyra triggerna
+    // sitter längst in i fyra långa flöden: ett brev måste genereras och
+    // sparas, ett test måste köras klart, en matchning måste hämta riktiga
+    // annonser. Att köra alla fyra i ett webbläsartest skulle göra testet
+    // långsamt och beroende av edge-funktioner som kan ligga nere, och det
+    // som faktiskt ska testas är raden, inte flödena.
+    //
+    // Kroken är samma funktion de fyra stallena anropar, så testet går genom
+    // exakt samma regler. Den läser ingenting och ändrar ingenting som inte
+    // en knapptryckning i appen redan gör.
+    const w = window as typeof window & {
+      __pwaTrigga?: (trigger: InstallTrigger) => boolean
+    }
+    w.__pwaTrigga = requestInstallPrompt
+
     // Registreringen av service workern kostar en rundtur och en trådstund.
     // Inget av det behövs för att sidan ska bli användbar, så den väntar tills
     // webbläsaren är ledig.
@@ -94,6 +111,7 @@ export default function PwaRegister() {
       window.removeEventListener('appinstalled', onInstalled)
       window.removeEventListener('load', registrera)
       avbrytIdle?.()
+      delete w.__pwaTrigga
     }
   }, [])
 

@@ -1,0 +1,284 @@
+[
+  {
+    "namn": "forsta besoket: ingen rad",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "forsta besoket: sessionen stamplas anda",
+    "vantat": "stamplad",
+    "utfall": "stamplad",
+    "ok": true
+  },
+  {
+    "namn": "cookie-bannern uppe: ingen rad",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "efter samtycket: raden kommer fram",
+    "vantat": "synlig",
+    "utfall": "synlig",
+    "ok": true
+  },
+  {
+    "namn": "andra besoket, android: raden visas",
+    "vantat": "synlig",
+    "utfall": "synlig",
+    "ok": true
+  },
+  {
+    "namn": "andra besoket: requestInstallPrompt svarar true",
+    "vantat": "true",
+    "utfall": "true",
+    "ok": true
+  },
+  {
+    "namn": "avfardad: krysset gar att traffa",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "avfardad: raden forsvinner",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "avfardad: sparas i localStorage",
+    "vantat": "sparad",
+    "utfall": "sparad",
+    "ok": true
+  },
+  {
+    "namn": "avfardad for 5 dagar sedan: ingen rad",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "avfardad for 31 dagar sedan: raden ater",
+    "vantat": "synlig",
+    "utfall": "synlig",
+    "ok": true
+  },
+  {
+    "namn": "standalone: ingen rad",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "android: Lagg till oppnar systemdialogen",
+    "vantat": "oppnad",
+    "utfall": "oppnad",
+    "ok": true
+  },
+  {
+    "namn": "accepterad: raden forsvinner",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "accepterad: sparas som klar",
+    "vantat": "true",
+    "utfall": "true",
+    "ok": true
+  },
+  {
+    "namn": "accepterad: ny trigger ger ingen rad",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "ios: raden visas utan beforeinstallprompt",
+    "vantat": "synlig",
+    "utfall": "synlig",
+    "ok": true
+  },
+  {
+    "namn": "ios: Lagg till oppnar arket med tre steg",
+    "vantat": "oppet",
+    "utfall": "oppet",
+    "ok": true
+  },
+  {
+    "namn": "ios: arket ar en dialog",
+    "vantat": "dialog",
+    "utfall": "dialog",
+    "ok": true
+  },
+  {
+    "namn": "ios: Klart stanger allt",
+    "vantat": "dold",
+    "utfall": "dold",
+    "ok": true
+  },
+  {
+    "namn": "ios: Klart sparas som klar",
+    "vantat": "true",
+    "utfall": "true",
+    "ok": true
+  },
+  {
+    "namn": "manifestet lankas i head",
+    "vantat": "/manifest.webmanifest",
+    "utfall": "/manifest.webmanifest",
+    "ok": true
+  },
+  {
+    "namn": "manifest: name",
+    "vantat": "Jobbcoach",
+    "utfall": "Jobbcoach",
+    "ok": true
+  },
+  {
+    "namn": "manifest: short_name",
+    "vantat": "Jobbcoach",
+    "utfall": "Jobbcoach",
+    "ok": true
+  },
+  {
+    "namn": "manifest: display",
+    "vantat": "standalone",
+    "utfall": "standalone",
+    "ok": true
+  },
+  {
+    "namn": "manifest: start_url",
+    "vantat": "/dashboard?source=pwa",
+    "utfall": "/dashboard?source=pwa",
+    "ok": true
+  },
+  {
+    "namn": "manifest: id",
+    "vantat": "/dashboard",
+    "utfall": "/dashboard",
+    "ok": true
+  },
+  {
+    "namn": "manifest: lang",
+    "vantat": "sv",
+    "utfall": "sv",
+    "ok": true
+  },
+  {
+    "namn": "manifest: theme_color",
+    "vantat": "#EDE8DF",
+    "utfall": "#EDE8DF",
+    "ok": true
+  },
+  {
+    "namn": "manifest: background_color",
+    "vantat": "#EDE8DF",
+    "utfall": "#EDE8DF",
+    "ok": true
+  },
+  {
+    "namn": "manifest: antal ikoner",
+    "vantat": "3",
+    "utfall": "3",
+    "ok": true
+  },
+  {
+    "namn": "manifest: maskable finns",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "ikon /pwa/icon-192.png svarar 200",
+    "vantat": "200",
+    "utfall": "200",
+    "ok": true
+  },
+  {
+    "namn": "ikon /pwa/icon-512.png svarar 200",
+    "vantat": "200",
+    "utfall": "200",
+    "ok": true
+  },
+  {
+    "namn": "ikon /pwa/icon-maskable-512.png svarar 200",
+    "vantat": "200",
+    "utfall": "200",
+    "ok": true
+  },
+  {
+    "namn": "sw.js svarar 200",
+    "vantat": "200",
+    "utfall": "200",
+    "ok": true
+  },
+  {
+    "namn": "sw.js har en fetch-hanterare",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "sw.js anropar inte respondWith",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "sw.js har ingen cache-oppning",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "service workern registreras",
+    "vantat": "registrerad",
+    "utfall": "registrerad",
+    "ok": true
+  },
+  {
+    "namn": "apple-mobile-web-app-capable",
+    "vantat": "yes",
+    "utfall": "yes",
+    "ok": true
+  },
+  {
+    "namn": "mobile-web-app-capable",
+    "vantat": "yes",
+    "utfall": "yes",
+    "ok": true
+  },
+  {
+    "namn": "apple-mobile-web-app-title",
+    "vantat": "Jobbcoach",
+    "utfall": "Jobbcoach",
+    "ok": true
+  },
+  {
+    "namn": "apple status-bar-style",
+    "vantat": "default",
+    "utfall": "default",
+    "ok": true
+  },
+  {
+    "namn": "apple-touch-icon lankas",
+    "vantat": "ja",
+    "utfall": "ja",
+    "ok": true
+  },
+  {
+    "namn": "theme-color i head",
+    "vantat": "#EDE8DF",
+    "utfall": "#EDE8DF",
+    "ok": true
+  },
+  {
+    "namn": "raden orsakar inget layoutskifte",
+    "vantat": "0",
+    "utfall": "0",
+    "ok": true
+  }
+]
