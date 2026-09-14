@@ -724,6 +724,28 @@ select på kandidatpoolen och retentionskohorterna hade både `anon` och
 och `admin_activity_by_function`. Verifierat med `set role authenticated` att
 alla tolv nu nekas. Läs dem bara med service role.
 
+### is_admin() ur de sju vyerna (våg 4)
+
+Fem av de behållna vyerna hade `where is_admin()` i sin definition:
+`admin_activity_feed` (och därmed `admin_activity_daily` och
+`admin_activity_by_function` som ligger ovanpå den),
+`admin_candidate_interests`, `admin_candidate_pool`,
+`admin_retention_cohorts` och `admin_test_stats`. Adminen läser dem med
+service role, som inte har någon JWT, så villkoret var alltid falskt och alla
+sju gav noll rader utan felmeddelande. Innehålls kandidatpool var tom av den
+anledningen, och Funnel hade byggt om kohorträkningen i TypeScript för att
+komma runt det.
+
+Villkoret är borta. Skyddet ligger i grants, där det hör hemma: alla åtta
+`admin_*`-vyer har bara `select` till `service_role`, och `anon` och
+`authenticated` är revoke:ade. Verifierat med `has_table_privilege` över alla
+sexton kombinationer efter migrationen. Varje vy har `security_invoker = true`,
+så underliggande RLS utvärderas som den anropande rollen.
+
+Funnel läser `admin_retention_cohorts` igen. Den lokala räkningen hade en
+gräns på 50 000 aktivitetsrader som hade börjat ljuga tyst så snart
+`user_activities` växte förbi den.
+
 ### Läsvägen för våg 2 och 3
 
 `src/lib/admin/metrics.ts`:

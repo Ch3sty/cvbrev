@@ -423,75 +423,60 @@ async function hamtaFunktionsanvandning(admin: any): Promise<FunktionsRad[]> {
   }
 }
 
+/** Hur många månadsoffset kohorttabellen visar. Index 0 är kohortmånaden. */
+const KOHORT_OFFSET = 5;
+
+/** Hur många kohortmånader som visas, senaste först. */
+const KOHORT_MANADER = 6;
+
 /**
- * Retentionskohorter.
+ * Retentionskohorter ur vyn admin_retention_cohorts.
  *
- * Vyn admin_retention_cohorts har `where is_admin()` i sin definition. Med
- * service role finns ingen JWT, is_admin() blir false och vyn ger noll rader.
- * Kohorterna räknas därför här i stället, med samma logik som vyn. Se
- * rapportens avvikelselista.
+ * Vyn hade `where is_admin()` i sin definition, och service role har ingen
+ * JWT, så villkoret var alltid falskt och vyn gav noll rader utan att något
+ * såg trasigt ut. Den här funktionen räknade därför kohorterna själv, med en
+ * gräns på 50 000 aktivitetsrader som tyst hade börjat ljuga så snart tabellen
+ * växte förbi den. Våg 4 tog bort villkoret ur vyn, som ändå bara har grants
+ * till service_role, så räkningen ligger i databasen igen.
  */
 async function hamtaKohorter(admin: any): Promise<KohortRad[]> {
   try {
-    const fran = new Date();
-    fran.setUTCMonth(fran.getUTCMonth() - 6);
-    fran.setUTCDate(1);
+    const { data, error } = await admin
+      .from('admin_retention_cohorts')
+      .select('kohortmanad, kohortstorlek, manad_offset, aktiva')
+      .lte('manad_offset', KOHORT_OFFSET)
+      .order('kohortmanad', { ascending: false });
 
-    const [profilSvar, aktivitetSvar] = await Promise.all([
-      admin.from('profiles').select('id, created_at').gte('created_at', fran.toISOString()),
-      admin
-        .from('user_activities')
-        .select('user_id, created_at')
-        .gte('created_at', fran.toISOString())
-        .limit(50000),
-    ]);
+    if (error) {
+      console.error('[admin/funnel] admin_retention_cohorts:', error);
+      return [];
+    }
 
-    const profiler = (profilSvar?.data ?? []) as Array<{
-      id: string;
-      created_at: string;
-    }>;
-    if (!profiler.length) return [];
-
-    const manad = (iso: string) => iso.slice(0, 7);
-
-    const kohortAv = new Map<string, string>();
+    // Vyn ger en rad per (kohort, offset). Tabellen vill ha en rad per kohort
+    // med en serie, och serien måste ha hål ifyllda: en månad utan aktivitet
+    // saknas helt i vyn och ska stå som noll, inte som en lucka.
     const storlek = new Map<string, number>();
-    for (const p of profiler) {
-      const m = manad(p.created_at);
-      kohortAv.set(p.id, m);
-      storlek.set(m, (storlek.get(m) ?? 0) + 1);
-    }
+    const perKohort = new Map<string, Map<number, number>>();
 
-    // kohort -> offset -> unika användare
-    const aktiva = new Map<string, Map<number, Set<string>>>();
-    for (const a of (aktivitetSvar?.data ?? []) as Array<{
-      user_id: string | null;
-      created_at: string;
+    for (const r of (data ?? []) as Array<{
+      kohortmanad: string;
+      kohortstorlek: number;
+      manad_offset: number;
+      aktiva: number;
     }>) {
-      if (!a.user_id) continue;
-      const kohort = kohortAv.get(a.user_id);
-      if (!kohort) continue;
-
-      const [ky, km] = kohort.split('-').map(Number);
-      const [ay, am] = manad(a.created_at).split('-').map(Number);
-      const offset = (ay - ky) * 12 + (am - km);
-      if (offset < 0) continue;
-
-      if (!aktiva.has(kohort)) aktiva.set(kohort, new Map());
-      const perOffset = aktiva.get(kohort)!;
-      if (!perOffset.has(offset)) perOffset.set(offset, new Set());
-      perOffset.get(offset)!.add(a.user_id);
+      const kohort = String(r.kohortmanad).slice(0, 7);
+      storlek.set(kohort, Number(r.kohortstorlek) || 0);
+      if (!perKohort.has(kohort)) perKohort.set(kohort, new Map());
+      perKohort.get(kohort)!.set(Number(r.manad_offset), Number(r.aktiva) || 0);
     }
 
-    const maxOffset = 5;
     return Array.from(storlek.entries())
       .sort((a, b) => b[0].localeCompare(a[0]))
+      .slice(0, KOHORT_MANADER)
       .map(([kohort, n]) => {
-        const perOffset = aktiva.get(kohort);
+        const offsets = perKohort.get(kohort);
         const serie: number[] = [];
-        for (let i = 0; i <= maxOffset; i++) {
-          serie.push(perOffset?.get(i)?.size ?? 0);
-        }
+        for (let i = 0; i <= KOHORT_OFFSET; i++) serie.push(offsets?.get(i) ?? 0);
         return { kohort, storlek: n, aktiva: serie };
       });
   } catch (err) {
