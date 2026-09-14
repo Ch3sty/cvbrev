@@ -263,7 +263,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
       <StatusRow
         tone={deadline.isUrgent || deadline.isOverdue ? 'warm' : 'neutral'}
         showDot
-        label="Deadline för aktivitetsrapporten"
+        label="Sista inlämningsdag"
         action={
           month !== deadline.reportMonth ? (
             <button

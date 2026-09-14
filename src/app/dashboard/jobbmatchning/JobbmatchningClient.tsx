@@ -1152,20 +1152,27 @@ export default function JobbmatchningClient({
               <EmptyState
                 bare
                 illustration={IlluTomSokning}
-                title="Inga annonser passade den här gången"
-                description={
-                  countActiveFilters(filters) > 0
-                    ? 'Prova att rensa ett filter, eller vidga orterna under Så söker vi åt dig.'
-                    : 'Vidga orterna under Så söker vi åt dig, eller sök igen om en stund.'
-                }
+                title="Inget passade den här gången"
                 action={
-                  <button
-                    type="button"
-                    onClick={fetchJobs}
-                    className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
-                  >
-                    Sök igen
-                  </button>
+                  <div className="flex flex-col items-center gap-4">
+                    {/* Tomt tillstånd ska peka vidare, inte bara konstatera.
+                        Lönesteget visas bara när användaren faktiskt satt en
+                        lägsta lön, annars är rådet tomt. Filterraden kommer
+                        först när det finns ett filter att rensa. */}
+                    <ul className="mx-auto max-w-[280px] list-disc space-y-1 pl-5 text-left text-sm leading-[22px] text-ink-2">
+                      {countActiveFilters(filters) > 0 ? <li>Rensa ett filter</li> : null}
+                      <li>Vidga orterna under Så söker vi åt dig</li>
+                      {prefs.min_salary !== null ? <li>Sänk eller ta bort lägsta lön</li> : null}
+                      <li>Rätta det vi läste ut ur ditt CV</li>
+                    </ul>
+                    <button
+                      type="button"
+                      onClick={fetchJobs}
+                      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+                    >
+                      Sök igen
+                    </button>
+                  </div>
                 }
               />
             </div>
@@ -1227,6 +1234,13 @@ export default function JobbmatchningClient({
                   : ''}
               </button>
             </div>
+
+            {/* Matchgraden står i 40 px utan att förklaras någonstans.
+                Raden säger vad vi väger, utan att ange vikterna. */}
+            <p className="border-b border-kant px-4 py-2 text-meta text-ink-3">
+              Matchgraden väger kravprofilens kompetenser mot ditt CV, dina roller, orten och hur
+              färsk annonsen är.
+            </p>
 
             {distantCount > 0 && (
               <label className="flex min-h-11 cursor-pointer items-center gap-2 border-b border-kant px-4 py-2">

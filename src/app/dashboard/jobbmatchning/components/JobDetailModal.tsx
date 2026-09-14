@@ -177,7 +177,7 @@ export default function JobDetailModal({
           {typeof score === 'number' && (
             <div>
               <p className="text-tal tabular-nums text-ink-1">{score}</p>
-              <p className="text-meta text-ink-3">procent match mot ditt CV</p>
+              <p className="text-meta text-ink-3">procent matchgrad mot ditt CV</p>
               {(reasons.length > 0 || detailReasons.length > 0) && (
                 <ul className="mt-2 space-y-1">
                   {[...reasons, ...detailReasons].map((r) => (
@@ -187,6 +187,15 @@ export default function JobDetailModal({
                   ))}
                 </ul>
               )}
+
+              {/* Hela förklaringen står i detaljarket, där det finns plats.
+                  Vikterna anges inte, bara att kompetenserna väger tyngst. */}
+              <p className="mt-3 text-meta text-ink-3">
+                Matchgraden bygger på fyra saker: hur stor del av kravprofilens kompetenser du
+                täcker, om dina tidigare roller stämmer med tjänsten, om orten passar och hur färsk
+                annonsen är. Kompetenserna väger tyngst, så två annonser i samma yrke och stad kan
+                få olika grad.
+              </p>
             </div>
           )}
 

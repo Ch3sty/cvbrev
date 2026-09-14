@@ -57,7 +57,7 @@ const PUBLISHED = [
 const SORT = [
   { label: 'Relevans', value: '' },
   { label: 'Nyast', value: 'pubdate-desc' },
-  { label: 'Deadline', value: 'applydate-asc' },
+  { label: 'Sista ansökningsdag', value: 'applydate-asc' },
 ];
 
 interface JobFilterPanelProps {

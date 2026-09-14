@@ -83,7 +83,7 @@ export default function MatchRow({
 
           <div className="shrink-0 text-right">
             <div className="text-tal tabular-nums text-ink-1">{relevans}</div>
-            <div className="text-meta text-ink-3">% match</div>
+            <div className="text-meta text-ink-3">% matchgrad</div>
           </div>
         </div>
 

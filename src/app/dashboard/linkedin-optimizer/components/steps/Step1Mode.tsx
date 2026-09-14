@@ -134,7 +134,7 @@ export default function Step1Mode({
             variant="plain"
             leading={<IkonSynlig className="text-ink-2" />}
             title="Stå ut i mängden"
-            description="Bredd och slagkraft. Vi säljer din unika styrka och rensar bort buzzwords."
+            description="Bredd och skärpa. Vi lyfter det du kan bäst och rensar bort flosklerna."
           />
           <ChoiceCard
             selected={mode === 'target_role'}

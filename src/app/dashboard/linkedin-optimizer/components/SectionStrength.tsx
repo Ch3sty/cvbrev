@@ -77,7 +77,7 @@ function calculateStrength(
     reason = len < optimalMin ? 'För kort, fyll på mer' : 'Behöver mer substans'
     color = 'red'
   } else if (finalScore < 55) {
-    reason = buzzwordCount > 0 ? 'Vi hittade buzzwords' : 'På väg, fortsätt'
+    reason = buzzwordCount > 0 ? 'Vi hittade floskler' : 'På väg, fortsätt'
     color = 'orange'
   } else if (finalScore < 80) {
     reason = hasNumbers ? 'Bra struktur' : 'Lägg gärna till siffror'
