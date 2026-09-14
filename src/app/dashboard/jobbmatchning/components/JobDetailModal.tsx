@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sheet from '@/components/shell/Sheet';
 import { coverLetterPrefill } from '@/store/cover-letter-store';
+import { capture } from '@/lib/analytics/events';
 
 interface JobDetailModalProps {
   job: any | null;
@@ -28,6 +29,12 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
 
   const handleCreateLetter = () => {
     if (!cvId || !job) return;
+    // Samma händelse som i listan: brevet är målet, oavsett var knappen satt.
+    capture('match_letter_started', {
+      job_id: String(job.id ?? ''),
+      relevance:
+        typeof job.relevance === 'number' ? Math.round(job.relevance) : undefined,
+    });
     coverLetterPrefill.set({
       cvId,
       jobTitle: job.headline,
@@ -63,6 +70,7 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
       const json = await res.json();
       if (!res.ok || !json.success) throw new Error(json.error);
       setMarkState('done');
+      capture('match_applied', { job_id: String(job.id ?? '') });
     } catch (error) {
       console.error('Kunde inte markera som sökt:', error);
       setMarkState('idle');
