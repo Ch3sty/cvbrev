@@ -243,6 +243,45 @@ function byggTappare(rader: TrafikRad[]): TrafikRad[] {
     .slice(0, TOPP_ANTAL);
 }
 
+/**
+ * Hamtar alla rader ur admin_gsc_daily i fonstret, sidvis.
+ *
+ * PostgREST svarar med hogst tusen rader oavsett vad .limit() sager, och det
+ * sker tyst: svaret ser komplett ut. Fonstret innehaller cirka 5 800 rader,
+ * sa en enda fraga skulle lasa en dryg sjattedel och rita topplistor pa den
+ * utan att nagot antydde att resten fanns. Darfor pagineras det med .range()
+ * tills en sida kommer tillbaka kortare an sidstorleken.
+ */
+const SIDSTORLEK = 1000;
+
+async function hamtaGscRader(admin: any, fran: string): Promise<GscRad[]> {
+  const alla: GscRad[] = [];
+
+  // Taket ar en sakerhetsspärr, inte en forvantan. Utan det blir ett fel i
+  // pagineringen en oandlig loop i stallet for ett for litet svar.
+  for (let sida = 0; sida < 100; sida++) {
+    const fran_ = sida * SIDSTORLEK;
+    const { data, error } = await admin
+      .from('admin_gsc_daily')
+      .select('dag, dimension, nyckel, clicks, impressions, ctr, position')
+      .gte('dag', fran)
+      .order('dag', { ascending: true })
+      .order('nyckel', { ascending: true })
+      .range(fran_, fran_ + SIDSTORLEK - 1);
+
+    if (error) {
+      console.error('[admin/trafik] admin_gsc_daily sida', sida, error);
+      break;
+    }
+
+    const rader = (data ?? []) as GscRad[];
+    alla.push(...rader);
+    if (rader.length < SIDSTORLEK) break;
+  }
+
+  return alla;
+}
+
 async function las(dagar: number): Promise<TrafikData> {
   const admin = getSupabaseAdmin() as any;
 
@@ -251,23 +290,17 @@ async function las(dagar: number): Promise<TrafikData> {
   const fonster = Math.max(dagar, PERIOD_DAGAR * 2 + GSC_FORDROJNING_DAGAR + 1);
   const fran = dagarBakat(fonster);
 
-  const [metrikRes, gscRes] = await Promise.all([
+  const [metrikRes, gscRader] = await Promise.all([
     admin
       .from('admin_daily_metrics')
       .select('dag, gsc_clicks, gsc_impressions, gsc_ctr, gsc_position')
       .gte('dag', fran)
       .order('dag', { ascending: true }),
-    admin
-      .from('admin_gsc_daily')
-      .select('dag, dimension, nyckel, clicks, impressions, ctr, position')
-      .gte('dag', fran),
+    hamtaGscRader(admin, fran),
   ]);
 
   if (metrikRes.error) {
     console.error('[admin/trafik] admin_daily_metrics:', metrikRes.error);
-  }
-  if (gscRes.error) {
-    console.error('[admin/trafik] admin_gsc_daily:', gscRes.error);
   }
 
   const metrikRader = (metrikRes.data ?? []) as Array<{
@@ -326,7 +359,6 @@ async function las(dagar: number): Promise<TrafikData> {
     }
   }
 
-  const gscRader = (gscRes.data ?? []) as GscRad[];
   const sidorAlla = byggRader(gscRader, 'page', granser);
   const ordAlla = byggRader(gscRader, 'query', granser);
 
