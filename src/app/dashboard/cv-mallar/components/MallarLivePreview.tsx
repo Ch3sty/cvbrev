@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Crown, ArrowRight, Eye } from 'lucide-react';
 
-import { getTemplateById } from '@/lib/cv/simple-templates';
+import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
   DEFAULT_FONT_ID,
   getFontById,
@@ -182,7 +182,7 @@ export default function MallarLivePreview({
           <StepHeader
             number={2}
             title="Välj din mall"
-            description="Bläddra i listan eller öppna galleriet för att se alla 16 mallar."
+            description={`Bläddra i listan eller öppna galleriet för att se alla ${TEMPLATE_COUNT} mallar.`}
           />
           <TemplateSelector
             selectedTemplate={selectedTemplate}

@@ -6,6 +6,7 @@
 
 import { motion } from 'framer-motion'
 import { ShieldCheck, Crown } from 'lucide-react'
+import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 
 const FEATURES = [
   {
@@ -17,7 +18,7 @@ const FEATURES = [
     description: 'ATS-poäng och förbättringsförslag på varje version',
   },
   {
-    title: 'Alla 42 CV-mallar',
+    title: `Alla ${TEMPLATE_COUNT} CV-mallar`,
     description: 'Från klassisk till executive, välj efter bransch',
   },
   {

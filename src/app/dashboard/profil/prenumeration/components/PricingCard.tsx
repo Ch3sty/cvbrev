@@ -6,6 +6,7 @@
  */
 
 import { Check } from 'lucide-react';
+import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import { PremiumCTAButton } from './PremiumCTAButton';
 
 interface PricingCardProps {
@@ -17,7 +18,7 @@ interface PricingCardProps {
 const FEATURES = [
   'Obegränsade personliga brev',
   'Smart-anpassad ton för varje annons',
-  'Alla 8 CV-mallar',
+  `Alla ${TEMPLATE_COUNT} CV-mallar`,
   'Obegränsade CV-analyser',
   'Profilanalys och jobbmatchning',
   'Prioriterad support',

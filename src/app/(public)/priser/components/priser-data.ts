@@ -4,6 +4,8 @@
  * Driver gratisrad, jamforelsetabell, FAQ och vad-ingar-sektionen.
  */
 
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+
 export const PREMIUM_PRICE = 149
 export const PREMIUM_CURRENCY = 'SEK'
 export const PREMIUM_STRIPE_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00'
@@ -20,7 +22,7 @@ export const PRISER_HERO_INGRESS =
 // === Gratisnivån, en textrad under korten ===
 
 export const GRATIS_RAD =
-  'Du kan använda Jobbcoach gratis med ett brev om dagen, en CV-analys var tredje dag, alla tester och 12 CV-mallar. Nedladdning och full CV-analys ingår i Premium.'
+  `Du kan använda Jobbcoach gratis med ett brev om dagen, en CV-analys var tredje dag, alla tester och ${FREE_TEMPLATE_COUNT} CV-mallar. Nedladdning och full CV-analys ingår i Premium.`
 
 // === Pris-kort (behålls för vad-ingår-sektionen) ===
 
@@ -28,7 +30,7 @@ export const FREE_HIGHLIGHTS = [
   '1 personligt brev per dag',
   '1 CV-analys var tredje dag',
   '1 LinkedIn-optimering per vecka',
-  '12 gratis CV-mallar',
+  `${FREE_TEMPLATE_COUNT} gratis CV-mallar`,
   'Alla tester, en gång per dag och nivå',
   'Jobbcoachen: 10 meddelanden per dag',
   'Jobbmatchning: de 10 bästa träffarna',
@@ -36,7 +38,7 @@ export const FREE_HIGHLIGHTS = [
 
 export const PREMIUM_HIGHLIGHTS = [
   'Obegränsade brev och analyser',
-  'Alla 42 CV-mallar (30 exklusiva)',
+  `Alla ${TEMPLATE_COUNT} CV-mallar (${PREMIUM_TEMPLATE_COUNT} exklusiva)`,
   'Obegränsat testande',
   'Obegränsad jobbcoach-chatt',
   'Smart-anpassad ton (vi läser CV och annons)',
@@ -86,7 +88,7 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: 'Alla',
       },
       { label: 'Sparade CV-versioner', free: '2 CV', premium: 'Obegränsat' },
-      { label: 'CV-mallar', free: '12 mallar', premium: 'Alla 42 mallar' },
+      { label: 'CV-mallar', free: `${FREE_TEMPLATE_COUNT} mallar`, premium: `Alla ${TEMPLATE_COUNT} mallar` },
       { label: 'Export PDF + Word', free: 'Ett CV, sedan Premium', premium: 'Obegränsat' },
       {
         label: 'CV-byggare med live-förhandsvisning',
@@ -145,7 +147,7 @@ export const COMPARISON: ComparisonGroup[] = [
 export const PRISER_FAQ_ITEMS = [
   {
     q: 'Vad ingår i Premium?',
-    a: 'Allt vi har att erbjuda, oavsett vilket av de fyra alternativen du väljer. Obegränsade personliga brev och CV-analyser, alla 42 CV-mallar varav 30 exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och nedladdning i både Word och PDF. Skillnaden mellan alternativen är bara hur länge du har tillgången.',
+    a: `Allt vi har att erbjuda, oavsett vilket av de fyra alternativen du väljer. Obegränsade personliga brev och CV-analyser, alla ${TEMPLATE_COUNT} CV-mallar varav ${PREMIUM_TEMPLATE_COUNT} exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och nedladdning i både Word och PDF. Skillnaden mellan alternativen är bara hur länge du har tillgången.`,
   },
   {
     q: 'Vad är skillnaden mellan dagspass och prenumeration?',
@@ -198,7 +200,7 @@ export const VAD_INGAR: VadIngarItem[] = [
     iconKey: 'cv',
     title: 'CV-byggare',
     body:
-      'Steg-för-steg-flöde med live-förhandsvisning. 12 mallar gratis, alla 42 i Premium.',
+      `Steg-för-steg-flöde med live-förhandsvisning. ${FREE_TEMPLATE_COUNT} mallar gratis, alla ${TEMPLATE_COUNT} i Premium.`,
   },
   {
     iconKey: 'analys',
@@ -240,6 +242,6 @@ export const VAD_INGAR: VadIngarItem[] = [
     iconKey: 'mallar',
     title: 'Alla mallar',
     body:
-      '42 CV-mallar och sju brevmallar, från klassisk och minimalistisk till executive och kreativ. 30 av mallarna är exklusiva för Premium.',
+      `${TEMPLATE_COUNT} CV-mallar och sju brevmallar, från klassisk och minimalistisk till executive och kreativ. ${PREMIUM_TEMPLATE_COUNT} av mallarna är exklusiva för Premium.`,
   },
 ]

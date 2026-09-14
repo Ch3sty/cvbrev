@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Minus, Star } from 'lucide-react';
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 
 type Row = {
   label: string;
@@ -15,7 +16,7 @@ const ROWS: Row[] = [
   { label: 'Sparade brev', free: '2 aktiva', premium: 'Obegränsat' },
   { label: 'CV-analyser', free: '1/tredje dag', premium: 'Obegränsat' },
   { label: 'Uppladdade CV:n', free: '2', premium: '50' },
-  { label: 'CV-mallar', free: '12 av 42', premium: 'Alla 42' },
+  { label: 'CV-mallar', free: `${FREE_TEMPLATE_COUNT} av ${TEMPLATE_COUNT}`, premium: `Alla ${TEMPLATE_COUNT}` },
   { label: 'Tonaliteter', free: '5 manuella', premium: '6 (inkl Smart)' },
   {
     label: 'Smart-anpassad tonalitet',

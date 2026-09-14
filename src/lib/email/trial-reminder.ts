@@ -3,6 +3,8 @@
 // Email påminnelse för användare som hoppade av efter Steg 1
 // Skickas 24h efter signup om de inte slutfört betalning
 
+import { PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
+
 export function generateTrialReminderEmail(email: string, resumeUrl: string): string {
   return `
 <!DOCTYPE html>
@@ -67,7 +69,7 @@ export function generateTrialReminderEmail(email: string, resumeUrl: string): st
                     <ul style="margin: 0; padding-left: 20px; color: #047857; font-size: 15px; line-height: 1.8;">
                       <li><strong>Obegränsade CV:n</strong> med professionella mallar</li>
                       <li><strong>AI-genererade personliga brev</strong> för varje ansökan</li>
-                      <li><strong>12 premiummallar</strong> som sticker ut</li>
+                      <li><strong>${PREMIUM_TEMPLATE_COUNT} premiummallar</strong> som sticker ut</li>
                       <li><strong>ATS-optimering</strong> för bättre träffar</li>
                       <li><strong>XP-system</strong> med badges och achievements</li>
                       <li><strong>Prioriterad support</strong></li>

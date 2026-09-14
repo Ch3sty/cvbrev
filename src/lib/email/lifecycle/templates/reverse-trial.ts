@@ -4,6 +4,7 @@
 import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { withUtm } from '../schedule';
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
   hasActivity,
   isPayingNow,
@@ -22,7 +23,7 @@ export const rtDay0: LifecycleEmail = {
   shouldSend: async () => true,
   render: (ctx) => {
     const subject = 'Du har premium i fem dagar. Börja här.';
-    const preheader = 'Alla 42 mallar och obegränsad analys, från och med nu.';
+    const preheader = `Alla ${TEMPLATE_COUNT} mallar och obegränsad analys, från och med nu.`;
     return {
       subject,
       preheader,
@@ -43,7 +44,7 @@ export const rtDay0: LifecycleEmail = {
         note:
           '<p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:600;color:#9A3412;">Det här ingår de fem dagarna</p>' +
           list([
-            'Alla 42 CV-mallar',
+            `Alla ${TEMPLATE_COUNT} CV-mallar`,
             'Obegränsad CV-analys',
             'Obegränsat med personliga brev',
             'Nedladdning som PDF och Word',
@@ -159,7 +160,7 @@ export const rtDay4: LifecycleEmail = {
           ) +
           paragraph('Så här ändras det:'),
         note: list([
-          '42 mallar blir 12',
+          `${TEMPLATE_COUNT} mallar blir ${FREE_TEMPLATE_COUNT}`,
           'Obegränsad analys blir en per 72 timmar',
           'Obegränsade brev blir ett brev om dagen',
           'Nedladdning som PDF och Word kräver Premium',
@@ -195,7 +196,7 @@ export const rtDay6: LifecycleEmail = {
         note: list([
           'Ett brev om dagen',
           'En CV-analys var tredje dag',
-          '12 CV-mallar',
+          `${FREE_TEMPLATE_COUNT} CV-mallar`,
           'Alla rekryteringstester, ett per nivå och dag',
         ]),
         ctaLabel: 'Till min översikt',

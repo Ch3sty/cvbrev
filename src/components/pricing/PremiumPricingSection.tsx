@@ -7,6 +7,7 @@ import {
   CheckCircle, Lock, ArrowRight, Heart,
   Zap, FileSearch, Palette, BrainCircuit, Save, Target
 } from 'lucide-react';
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 
 const premiumFeatures = [
   {
@@ -23,7 +24,7 @@ const premiumFeatures = [
   },
   {
     icon: Palette,
-    title: "Alla 42 professionella mallar",
+    title: `Alla ${TEMPLATE_COUNT} professionella mallar`,
     description: "Från minimalistisk till executive-nivå. Välj den som passar din bransch.",
     gradient: "from-purple-500/20 to-pink-500/20"
   },
@@ -153,7 +154,7 @@ export default function PremiumPricingSection() {
                       '1 LinkedIn-optimering per vecka',
                       'Alla rekryteringstester på grundnivå',
                       '10 jobbmatchningar',
-                      '12 gratis CV-mallar'
+                      `${FREE_TEMPLATE_COUNT} gratis CV-mallar`
                     ].map((feature, idx) => (
                       <motion.div
                         key={idx}
@@ -181,7 +182,7 @@ export default function PremiumPricingSection() {
                         'Obegränsade CV-analyser (Premium)',
                         'Avancerade rekryteringstester (Premium)',
                         'Helt obegränsad jobbmatchning (Premium)',
-                        'Alla 30 premium CV-mallar (Premium)'
+                        `Alla ${PREMIUM_TEMPLATE_COUNT} premium CV-mallar (Premium)`
                       ].map((feature, idx) => (
                         <motion.div
                           key={idx}

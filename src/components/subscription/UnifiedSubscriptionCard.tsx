@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProfile } from '@/hooks/use-profile';
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
   Crown, CheckCircle, FileText, PenTool, Lightbulb, Lock,
   Infinity as InfinityIcon, Info, Search, Palette, Brain,
@@ -500,12 +501,12 @@ export function UnifiedSubscriptionCard() {
                   {isPremium ? (
                     <div className="flex items-center text-sm text-green-600 font-semibold">
                       <CheckCircle className="w-4 h-4 mr-1" />
-                      <span>42 mallar</span>
+                      <span>{TEMPLATE_COUNT} mallar</span>
                     </div>
                   ) : (
                     <div className="flex items-center text-sm text-gray-500">
                       <Lock className="w-4 h-4 mr-1" />
-                      <span>12 gratis, 30 premium</span>
+                      <span>{FREE_TEMPLATE_COUNT} gratis, {PREMIUM_TEMPLATE_COUNT} premium</span>
                     </div>
                   )}
                 </div>

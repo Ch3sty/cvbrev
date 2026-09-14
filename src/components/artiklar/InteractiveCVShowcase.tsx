@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
-import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { SIMPLE_TEMPLATES, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/templates'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
 import { FONTS } from '@/lib/cv/preview-utils'
@@ -574,7 +574,7 @@ export default function InteractiveCVShowcase() {
         <div className="text-sm text-cyan-900">
           <p className="font-semibold mb-1">Detta är en förhandsvisning</p>
           <p className="text-cyan-800">
-            När du skapar ditt CV får du tillgång till alla 8 mallar, 11 typsnitt och export till PDF/Word.
+            När du skapar ditt CV får du tillgång till alla {TEMPLATE_COUNT} mallar, 11 typsnitt och export till PDF/Word.
           </p>
         </div>
       </div>

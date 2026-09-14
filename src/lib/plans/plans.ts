@@ -4,6 +4,8 @@
  * ligger i src/lib/stripe/planPrices.ts.
  */
 
+import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+
 export type PlanKey = 'daypass' | 'week' | 'month' | 'quarter'
 
 export interface Plan {
@@ -37,7 +39,7 @@ export const PLANS: readonly Plan[] = [
     audience: 'En ansökan som ska in ikväll',
     body: '24 timmar med allt upplåst. För dig som ska skicka in en ansökan ikväll.',
     ctaLabel: 'Köp dagspass',
-    highlights: ['Ladda ner brev och CV', 'Alla 42 mallar', 'Full CV-analys', 'Ingen prenumeration'],
+    highlights: ['Ladda ner brev och CV', `Alla ${TEMPLATE_COUNT} mallar`, 'Full CV-analys', 'Ingen prenumeration'],
   },
   {
     key: 'week',
@@ -61,7 +63,7 @@ export const PLANS: readonly Plan[] = [
     badge: 'Mest vald',
     body: '149 kr i månaden. Ett jobb du missar kostar mer. Avsluta när du vill.',
     ctaLabel: 'Starta Premium',
-    highlights: ['Obegränsade brev och analyser', 'Alla 42 CV-mallar', 'Obegränsad jobbcoach-chatt', 'Avsluta med ett klick'],
+    highlights: ['Obegränsade brev och analyser', `Alla ${TEMPLATE_COUNT} CV-mallar`, 'Obegränsad jobbcoach-chatt', 'Avsluta med ett klick'],
   },
   {
     key: 'quarter',

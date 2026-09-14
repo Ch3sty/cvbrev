@@ -878,3 +878,17 @@ export function getTemplatesByCategory(category?: SimpleTemplate['category']): S
 export function getTemplateById(id: string): SimpleTemplate | undefined {
   return SIMPLE_TEMPLATES.find(template => template.id === id);
 }
+
+/**
+ * Antalet CV-mallar i registret. Anvands i all saljcopy som namner ett
+ * mallantal, sa att siffran aldrig kan glida isar fran listan ovan.
+ * Testet i src/lib/cv/__tests__/template-count.test.ts bevakar aven de
+ * filer som inte kan importera konstanten (statisk copy).
+ */
+export const TEMPLATE_COUNT = SIMPLE_TEMPLATES.length;
+
+/** Antalet mallar som ingar utan Premium. */
+export const FREE_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'free').length;
+
+/** Antalet mallar som kraver Premium. */
+export const PREMIUM_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'premium').length;

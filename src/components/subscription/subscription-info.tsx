@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { useProfile } from '@/hooks/use-profile';
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
   Crown,
   CheckCircle,
@@ -198,7 +199,7 @@ export default function SubscriptionInfo() {
           </div>
         </div>
 
-        {/* 7. Premium CV-mallar - 30st premium + 12 gratis */}
+        {/* 7. Premium CV-mallar - antal fran registret */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Palette className="w-4 h-4 mr-3 text-amber-600 flex-shrink-0" />
@@ -208,12 +209,12 @@ export default function SubscriptionInfo() {
             {subscriptionTier === 'premium' ? (
               <div className="flex items-center text-sm text-green-600 font-semibold">
                 <CheckCircle className="w-4 h-4 mr-1" />
-                <span>42 mallar tillgängliga</span>
+                <span>{TEMPLATE_COUNT} mallar tillgängliga</span>
               </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">
                 <Lock className="w-4 h-4 mr-1" />
-                <span>12 gratis, 30 premium</span>
+                <span>{FREE_TEMPLATE_COUNT} gratis, {PREMIUM_TEMPLATE_COUNT} premium</span>
               </div>
             )}
           </div>
