@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Jobbcoach">
+  <title>Jobbcoach</title>
+  <!--
+    Appikonen: arket som lyfter ur mappen. Samma hand som IlluArketLyfter i
+    src/components/illustrations/TradenScener.tsx, förenklad för liten
+    storlek. Tre beslut skiljer den från scenen:
+
+    1. Arkets linjer är borta. I 48 px blir de en gråtonad kloss.
+    2. Arket lutar 8 grader i stället för 6, så lutningen läser även litet.
+    3. Arket slutar 46 px ovanför mappens framkant. I scenen får arket sticka
+       ner bakom mappen; här smälter två stroke på 28 ihop till en svart yta
+       om de kommer närmare varandra än ungefär en strokebredd.
+
+    Benvit mark med 96 px hörnradie, bläck i ink-1, en accentfylld cirkel med
+    vit pil upp. Ingen text. Motivet spänner 104 till 420 i x och 76 till 420
+    i y, alltså cirka 70 procent av ytan.
+  -->
+  <rect width="512" height="512" rx="96" fill="#EDE8DF"/>
+
+  <g fill="#EDE8DF" stroke="#1C1917" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Mappens rygg: en sluten bana. En öppen bana fylls ändå längs
+         genvägen mellan ändpunkterna, och ryggen blir då en svart kloss. -->
+    <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+
+    <!-- Arket som lyfter. -->
+    <g transform="rotate(-8 266 176)">
+      <rect x="200" y="76" width="134" height="174" rx="22"/>
+    </g>
+
+    <!-- Mappens framsida, framför arket. -->
+    <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+  </g>
+
+  <!-- Accentformen: riktningen uppåt. Pilen går i 24 så att den läser som en
+       pil och inte som ett kors i 48 px. -->
+  <circle cx="380" cy="128" r="46" fill="#D9480F"/>
+  <path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PWA-grafik för godkännande</title>
+<style>
+  :root {
+    --mark: #EDE8DF;
+    --panel: #FFFFFF;
+    --insunken: #ECE6DC;
+    --insunken-topp: #D6CDBF;
+    --kant: #DBD2C4;
+    --kant-stark: #C4B9A8;
+    --ink-1: #1C1917;
+    --ink-2: #57534E;
+    --ink-3: #6B645E;
+    --accent: #D9480F;
+    --accent-ink: #9A3412;
+    --accent-mjuk: #FBE7D3;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--mark);
+    color: var(--ink-1);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  h1 { font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .ingress { color: var(--ink-2); margin: 0 0 32px; max-width: 60ch; }
+
+  h2 {
+    font-size: 14px; line-height: 20px; font-weight: 500;
+    color: var(--ink-3); margin: 0 0 8px;
+  }
+
+  section { margin-bottom: 32px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--kant);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .rad { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; }
+  .prov { text-align: center; }
+  .prov figcaption { margin-top: 8px; font-size: 13px; line-height: 18px; color: var(--ink-3); }
+
+  .anm { color: var(--ink-2); margin: 12px 0 0; max-width: 66ch; }
+  .anm:first-child { margin-top: 0; }
+
+  /* Ikonprov: ikonen ritas som SVG i angiven px-storlek. */
+  .ikon { display: block; }
+
+  /* Maskprov: vår maskable-ikon med Androids två masker ritade ovanpå.
+     Masken är en tunn linje, inte en fylld yta, så motivet syns igenom. */
+  .mask { position: relative; width: 192px; height: 192px; }
+  .mask .ikon { position: absolute; inset: 0; }
+  .mask .overlay { position: absolute; inset: 0; }
+
+  /* iOS-hörn: superellipsen approximeras med 22,5 procent radie. clip-path,
+     eftersom border-radius inte beskär en inbäddad SVG. */
+  .ios-hörn { display: block; clip-path: inset(0 round 22.5%); }
+
+  /* --------------------------------------------------- hemskärmar */
+
+  .hemskarm {
+    width: 260px;
+    border-radius: 24px;
+    padding: 20px 16px 24px;
+    border: 1px solid var(--kant-stark);
+    overflow: hidden;
+  }
+  .hemskarm.android { background: #1A1714; }
+  .hemskarm.ios { background: #2A2622; }
+
+  .ikonrad { display: flex; gap: 12px; justify-content: flex-start; }
+  .app { flex: 0 0 54px; width: 54px; text-align: center; }
+  .app .yta { width: 54px; height: 54px; display: block; }
+  .app .platshallare { background: #4A4340; }
+  /* clip-path, inte border-radius: en inbäddad SVG beskärs inte av radien. */
+  .app .android-form { border-radius: 27px; clip-path: circle(50% at 50% 50%); }
+  .app .ios-form { border-radius: 12px; clip-path: inset(0 round 12px); }
+  /* Etiketten får sticka ut i sidled över grannens kolumn, precis som på en
+     riktig hemskärm. flex: 0 0 54px på .app håller kolumnbredden. */
+  .app .etikett {
+    margin-top: 6px; font-size: 11px; line-height: 15px;
+    color: #EDE8DF; white-space: nowrap;
+  }
+
+  /* ------------------------------------------- installationsraden */
+
+  .telefon {
+    width: 375px;
+    border: 1px solid var(--kant-stark);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--mark);
+  }
+  .telefon-topp {
+    height: 44px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--kant);
+    display: flex; align-items: center; padding: 0 16px;
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .telefon-kropp { height: 180px; padding: 16px; }
+  .platta {
+    height: 100%;
+    border: 1px solid var(--kant);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  /* Raden: 44 px hög, panel med kant, exakt som e-postraden i skalet. */
+  .installrad {
+    min-height: 44px;
+    background: var(--panel);
+    border-top: 1px solid var(--kant);
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 4px 0 16px;
+  }
+  .installrad p { margin: 0; flex: 1 1 auto; min-width: 0; font-size: 14px; color: var(--ink-1);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lankknapp {
+    flex: 0 0 auto;
+    background: none; border: 0; padding: 0;
+    font: inherit; font-weight: 500; color: var(--ink-1);
+    text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: var(--kant-stark);
+    cursor: pointer;
+  }
+  .stangknapp {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 0; border-radius: 8px; color: var(--ink-3); cursor: pointer;
+  }
+
+  /* Bottennavet under raden, bara som sammanhang. */
+  .bottennav {
+    height: 56px; background: var(--panel); border-top: 1px solid var(--kant);
+    display: flex; align-items: center;
+  }
+  .bottennav div { flex: 1; text-align: center; font-size: 12px; line-height: 16px; color: var(--ink-3); }
+  .bottennav div:first-child { color: var(--ink-1); font-weight: 500; }
+
+  /* ------------------------------------------------------ iOS-ark */
+
+  .ark-scen {
+    width: 375px; height: 420px;
+    border: 1px solid var(--kant-stark); border-radius: 12px;
+    overflow: hidden; position: relative;
+    background: var(--mark);
+  }
+  .ark-slojra { position: absolute; inset: 0; background: rgba(28, 25, 23, 0.4); }
+  .ark {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: var(--panel);
+    border: 1px solid var(--kant);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 8px 24px rgba(28,25,23,.12), 0 1px 2px rgba(28,25,23,.08);
+  }
+  .handtag { width: 40px; height: 4px; border-radius: 999px; background: var(--kant-stark); margin: 8px auto 0; }
+  .ark-huvud {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    padding: 12px 16px; border-bottom: 1px solid var(--kant);
+  }
+  .ark-huvud h3 { margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .ark-huvud p { margin: 4px 0 0; font-size: 14px; line-height: 22px; color: var(--ink-2); }
+  .ark-kropp { padding: 16px; }
+
+  .steg { list-style: none; margin: 0; padding: 0; }
+  .steg li { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; }
+  .steg li + li { border-top: 1px solid var(--kant); }
+  .nummer {
+    flex: 0 0 auto; width: 24px; height: 24px; border-radius: 8px;
+    border: 1px solid var(--kant); background: var(--insunken);
+    box-shadow: inset 0 1px 0 var(--insunken-topp);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 500; color: var(--ink-2);
+  }
+  .steg .text { flex: 1 1 auto; min-width: 0; font-size: 14px; line-height: 22px; color: var(--ink-1); }
+  .steg .text .dela-inline { vertical-align: -5px; color: var(--ink-2); margin: 0 2px; }
+
+  .scenrad { display: flex; flex-wrap: wrap; gap: 24px; }
+
+  .fotnot { color: var(--ink-3); font-size: 13px; line-height: 18px; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<!-- Alla motiv ligger som symboler här och används med <use>. Ingenting
+     hämtas utifrån: filen ska gå att öppna direkt från disk. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+
+    <!-- Appikonen. Benvit mark med 96 px hörnradie, arket som lyfter ur
+         mappen i ink-1 med stroke 28, accentfylld cirkel med vit pil upp. -->
+    <symbol id="app-ikon" viewBox="0 0 512 512">
+      <rect width="512" height="512" rx="96" fill="#EDE8DF"/>
+      <g fill="#EDE8DF" stroke="#1C1917" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+        <g transform="rotate(-8 266 176)">
+          <rect x="200" y="76" width="134" height="174" rx="22"/>
+        </g>
+        <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+      </g>
+      <circle cx="380" cy="128" r="46" fill="#D9480F"/>
+      <path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Maskable. Bakgrunden fyller hela ytan utan hörnradie, motivet ligger
+         innanför den säkra cirkeln på 80 procent. -->
+    <symbol id="app-ikon-maskable" viewBox="0 0 512 512">
+      <rect width="512" height="512" fill="#EDE8DF"/>
+      <g transform="translate(256 256) scale(0.78) translate(-262 -248)">
+        <g fill="#EDE8DF" stroke="#1C1917" stroke-width="35.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+          <g transform="rotate(-8 266 176)">
+            <rect x="200" y="76" width="134" height="174" rx="22"/>
+          </g>
+          <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+        </g>
+        <circle cx="380" cy="128" r="46" fill="#D9480F"/>
+        <path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="30.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </symbol>
+
+    <!-- apple-touch-icon. Ingen hörnradie i källan, iOS rundar själv. -->
+    <symbol id="app-ikon-apple" viewBox="0 0 512 512">
+      <rect width="512" height="512" fill="#EDE8DF"/>
+      <g transform="translate(256 256) scale(0.92) translate(-262 -248)">
+        <g fill="#EDE8DF" stroke="#1C1917" stroke-width="30.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+          <g transform="rotate(-8 266 176)">
+            <rect x="200" y="76" width="134" height="174" rx="22"/>
+          </g>
+          <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+        </g>
+        <circle cx="380" cy="128" r="46" fill="#D9480F"/>
+        <path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="26.1" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </symbol>
+
+    <!-- Dela-ikonen för iOS-arket. 24 px, stroke 1,75, samma hand som
+         Ikoner.tsx: fyrkant med öppen topp och en pil upp genom öppningen. -->
+    <symbol id="ikon-dela" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 11H5.5A1.5 1.5 0 0 0 4 12.5v7A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5H16"/>
+        <path d="M12 15V3"/>
+        <path d="M8.5 6.5 12 3l3.5 3.5"/>
+      </g>
+    </symbol>
+
+    <!-- Plus i ruta: iOS "Lägg till på hemskärmen". -->
+    <symbol id="ikon-plusruta" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="4"/>
+        <path d="M12 8v8M8 12h8"/>
+      </g>
+    </symbol>
+
+    <!-- Kryss, stängknappen i raden. -->
+    <symbol id="ikon-kryss" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <h1>Jobbcoach på hemskärmen</h1>
+  <p class="ingress">
+    All grafik för installationen, i de storlekar den faktiskt möter användaren.
+    Motivet är arket som lyfter ur mappen, samma hand som i illustrationerna,
+    men förenklat: linjerna i arket är borta och lutningen är åtta grader i
+    stället för sex, så att formen håller ihop även i 48 px. Ingen text i
+    ikonen. Källorna är SVG i <code>public/pwa/</code>, PNG renderas därifrån.
+  </p>
+
+  <!-- 1. Ikonen i fyra storlekar -->
+  <section>
+    <h2>Appikonen: 512, 192, 96 och 48 px</h2>
+    <div class="panel">
+      <div class="rad">
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="192" height="192" aria-label="Appikonen i 512 px, visad i 192"><use href="#app-ikon"/></svg>
+          <figcaption>512 px<br>(visad i 192)</figcaption>
+        </figure>
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="192" height="192" aria-label="Appikonen i 192 px"><use href="#app-ikon"/></svg>
+          <figcaption>192 px</figcaption>
+        </figure>
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="96" height="96" aria-label="Appikonen i 96 px"><use href="#app-ikon"/></svg>
+          <figcaption>96 px</figcaption>
+        </figure>
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="48" height="48" aria-label="Appikonen i 48 px"><use href="#app-ikon"/></svg>
+          <figcaption>48 px</figcaption>
+        </figure>
+      </div>
+      <p class="anm">
+        48 px är det minsta som förekommer, i Androids appskåp och i listor.
+        Testet är att mappen och arket fortfarande är två former där, och att
+        pilen läser som en pil.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Maskable med Androids masker -->
+  <section>
+    <h2>Maskable med Androids masker</h2>
+    <div class="panel">
+      <div class="rad">
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="192" height="192" aria-label="Maskable-ikonen utan mask"><use href="#app-ikon-maskable"/></svg>
+          <figcaption>källan, utan mask</figcaption>
+        </figure>
+
+        <figure class="prov" style="margin:0">
+          <div class="mask">
+            <svg class="ikon" width="192" height="192" aria-label="Maskable-ikonen med cirkelmask"><use href="#app-ikon-maskable"/></svg>
+            <svg class="overlay" viewBox="0 0 192 192" aria-hidden="true">
+              <!-- Allt utanför cirkeln beskärs bort av Android. -->
+              <path d="M0 0h192v192H0z M96 96m-96 0a96 96 0 1 0 192 0a96 96 0 1 0-192 0"
+                    fill="var(--mark)" fill-rule="evenodd"/>
+              <circle cx="96" cy="96" r="96" fill="none" stroke="var(--kant-stark)" stroke-width="1"/>
+              <!-- Den säkra cirkeln, 80 procent. Motivet ska rymmas innanför. -->
+              <circle cx="96" cy="96" r="76.8" fill="none" stroke="var(--accent)"
+                      stroke-width="1" stroke-dasharray="4 4"/>
+            </svg>
+          </div>
+          <figcaption>cirkel, med säker zon</figcaption>
+        </figure>
+
+        <figure class="prov" style="margin:0">
+          <div class="mask">
+            <svg class="ikon" width="192" height="192" aria-label="Maskable-ikonen med squircle-mask"><use href="#app-ikon-maskable"/></svg>
+            <svg class="overlay" viewBox="0 0 192 192" aria-hidden="true">
+              <path d="M0 0h192v192H0z M96 0 C142 0 192 50 192 96 C192 142 142 192 96 192 C50 192 0 142 0 96 C0 50 50 0 96 0z"
+                    fill="var(--mark)" fill-rule="evenodd"/>
+              <path d="M96 0 C142 0 192 50 192 96 C192 142 142 192 96 192 C50 192 0 142 0 96 C0 50 50 0 96 0z"
+                    fill="none" stroke="var(--kant-stark)" stroke-width="1"/>
+            </svg>
+          </div>
+          <figcaption>squircle</figcaption>
+        </figure>
+      </div>
+      <p class="anm">
+        Den streckade orangea cirkeln är den säkra zonen på 80 procent, inte
+        något som syns för användaren. Bakgrunden fyller hela rutan, så Android
+        kan beskära hur den vill utan att det uppstår vita hörn.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. apple-touch-icon -->
+  <section>
+    <h2>apple-touch-icon, 180 px</h2>
+    <div class="panel">
+      <div class="rad">
+        <figure class="prov" style="margin:0">
+          <svg class="ikon" width="180" height="180" aria-label="apple-touch-icon utan hörnradie"><use href="#app-ikon-apple"/></svg>
+          <figcaption>källan, utan hörnradie</figcaption>
+        </figure>
+        <figure class="prov" style="margin:0">
+          <svg class="ikon ios-hörn" width="180" height="180" aria-label="apple-touch-icon med iOS hörnradie"><use href="#app-ikon-apple"/></svg>
+          <figcaption>så iOS ritar den</figcaption>
+        </figure>
+        <figure class="prov" style="margin:0">
+          <svg class="ikon ios-hörn" width="60" height="60" aria-label="apple-touch-icon i 60 px"><use href="#app-ikon-apple"/></svg>
+          <figcaption>60 px på hemskärmen</figcaption>
+        </figure>
+      </div>
+      <p class="anm">
+        iOS lägger ingen egen bakgrund och rundar hörnen själv, så källan har
+        benvit mark rakt ut i kanten. Motivet är något mindre indraget än i
+        Android-ikonen, eftersom superellipsen tar mer av hörnen.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Hemskärmarna -->
+  <section>
+    <h2>På hemskärmen</h2>
+    <div class="panel">
+      <div class="scenrad">
+
+        <figure class="prov" style="margin:0">
+          <div class="hemskarm android">
+            <div class="ikonrad">
+              <div class="app">
+                <svg class="yta android-form" viewBox="0 0 512 512" aria-label="Jobbcoach"><use href="#app-ikon-maskable"/></svg>
+                <div class="etikett">Jobbcoach</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare android-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare android-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare android-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Android, cirkelmask</figcaption>
+        </figure>
+
+        <figure class="prov" style="margin:0">
+          <div class="hemskarm ios">
+            <div class="ikonrad">
+              <div class="app">
+                <svg class="yta ios-form" viewBox="0 0 512 512" aria-label="Jobbcoach"><use href="#app-ikon-apple"/></svg>
+                <div class="etikett">Jobbcoach</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare ios-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare ios-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+              <div class="app">
+                <span class="yta platshallare ios-form"></span>
+                <div class="etikett">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <figcaption>iPhone</figcaption>
+        </figure>
+
+      </div>
+      <p class="anm">
+        Etiketten är <strong>Jobbcoach</strong> på båda, alltså manifestens
+        <code>short_name</code>. Grannarna är grå platshållare, bara för att
+        visa hur den benvita ikonen står sig bland andra appar på en mörk
+        bakgrund.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. Installationsraden -->
+  <section>
+    <h2>Installationsraden, 375 px</h2>
+    <div class="panel">
+      <div class="telefon">
+        <div class="telefon-topp">Mina brev</div>
+        <div class="telefon-kropp"><div class="platta"></div></div>
+        <div class="installrad">
+          <p>Lägg Jobbcoach på hemskärmen</p>
+          <button class="lankknapp" type="button">Lägg till</button>
+          <button class="stangknapp" type="button" aria-label="Stäng">
+            <svg width="20" height="20" aria-hidden="true"><use href="#ikon-kryss"/></svg>
+          </button>
+        </div>
+        <div class="bottennav">
+          <div>Hem</div><div>Ansökningar</div><div>Skapa</div><div>Profil</div>
+        </div>
+      </div>
+      <p class="anm">
+        Raden är 44 px hög, panel med kant, och sitter direkt ovanför
+        bottennavet. Samma form som e-postraden. Ingen orange yta, ingen
+        modal, ingenting som täcker det användaren just gjorde. Den visas
+        efter bekräftelsen, aldrig mitt i ett flöde, och bara för den som varit
+        här förut.
+      </p>
+    </div>
+  </section>
+
+  <!-- 6. iOS-arket -->
+  <section>
+    <h2>iOS-arket, 375 px</h2>
+    <div class="panel">
+      <div class="ark-scen">
+        <div class="ark-slojra"></div>
+        <div class="ark">
+          <div class="handtag"></div>
+          <div class="ark-huvud">
+            <div>
+              <h3>Lägg Jobbcoach på hemskärmen</h3>
+              <p>Tre steg i Safari. Ingen nedladdning.</p>
+            </div>
+            <button class="stangknapp" type="button" aria-label="Stäng">
+              <svg width="20" height="20" aria-hidden="true"><use href="#ikon-kryss"/></svg>
+            </button>
+          </div>
+          <div class="ark-kropp">
+            <ol class="steg">
+              <li>
+                <span class="nummer">1</span>
+                <span class="text">
+                  Tryck på
+                  <svg class="dela-inline" width="20" height="20" aria-label="dela"><use href="#ikon-dela"/></svg>
+                  längst ner i Safari.
+                </span>
+              </li>
+              <li>
+                <span class="nummer">2</span>
+                <span class="text">
+                  Välj
+                  <svg class="dela-inline" width="20" height="20" aria-hidden="true"><use href="#ikon-plusruta"/></svg>
+                  <strong>Lägg till på hemskärmen</strong>.
+                </span>
+              </li>
+              <li>
+                <span class="nummer">3</span>
+                <span class="text">Tryck <strong>Lägg till</strong>. Klart.</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <p class="anm">
+        iPhone har ingen fråga att svara på, så arket säger bara vad
+        användaren ska göra. Dela-ikonen är ritad i vårt eget ikonspråk, 24 px
+        och stroke 1,75, inte Apples egen symbol.
+      </p>
+    </div>
+  </section>
+
+  <p class="fotnot">
+    Tokens: mark #EDE8DF, panel #FFFFFF, kant #DBD2C4, ink-1 #1C1917,
+    ink-2 #57534E, ink-3 #6B645E, accent #D9480F. Orange förekommer en gång
+    per vy, som pilen i ikonen. Inga gradienter, inga skuggor utom under
+    arket, som svävar.
+  </p>
+
+</div>
+</body>
+</html>

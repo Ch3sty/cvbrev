@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Jobbcoach">
+  <title>Jobbcoach</title>
+  <!--
+    apple-touch-icon: iOS rundar hörnen själv och lägger ingen egen bakgrund,
+    så den här ritas utan hörnradie och med benvit mark rakt ut i kanterna.
+    Motivet är detsamma som i icon.svg, skalat 0,92 och centrerat, eftersom
+    iOS superellips beskär hörnen något djupare än en vanlig hörnradie.
+    Renderas i 180 px.
+  -->
+  <rect width="512" height="512" fill="#EDE8DF"/>
+
+  <g transform="translate(256 256) scale(0.92) translate(-262 -248)">
+    <g fill="#EDE8DF" stroke="#1C1917" stroke-width="30.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+      <g transform="rotate(-8 266 176)">
+        <rect x="200" y="76" width="134" height="174" rx="22"/>
+      </g>
+      <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+    </g>
+    <circle cx="380" cy="128" r="46" fill="#D9480F"/>
+    <path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="26.1" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
