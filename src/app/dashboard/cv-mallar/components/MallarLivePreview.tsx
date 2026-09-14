@@ -232,7 +232,6 @@ export default function MallarLivePreview({
               isLockedPremium={isLockedPremium}
               onGenerate={handleGenerate}
               onUpgrade={onUpgrade}
-              templateName={template?.name}
             />
           </div>
         </section>
@@ -439,14 +438,12 @@ function GenerateButton({
   isLockedPremium,
   onGenerate,
   onUpgrade,
-  templateName,
 }: {
   canGenerate: boolean;
   isGenerating: boolean;
   isLockedPremium: boolean;
   onGenerate: () => void;
   onUpgrade?: () => void;
-  templateName: string | undefined;
 }) {
   if (isLockedPremium) {
     return (
@@ -456,7 +453,7 @@ function GenerateButton({
         className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
       >
         <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        Lås upp Premium för {templateName || 'den här mallen'}
+        Använd mallen med Premium
       </button>
     );
   }

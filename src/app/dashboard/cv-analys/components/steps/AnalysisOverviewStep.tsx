@@ -78,7 +78,7 @@ export default function AnalysisOverviewStep({
       icon: Award,
       title: 'Kompetenser och färdigheter',
       count: skillsCount,
-      description: 'Vi hittar nyckelord som rekryterare och ATS letar efter.',
+      description: 'Nyckelord som rekryterare och urvalssystem letar efter.',
       detail: `Vi lägger till ${skillsCount} efterfrågade kompetenser som matchar din målroll.`,
       priority: skillsCount > 7 ? 'high' : 'medium',
     },
@@ -103,22 +103,23 @@ export default function AnalysisOverviewStep({
           <div className="mb-4 flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="text-kort text-ink-1">ATS-optimering</h3>
+                <h3 className="text-kort text-ink-1">Läsbarhetspoäng</h3>
                 <Tooltip>
-                  <TooltipTrigger aria-label="Vad är ATS?">
+                  <TooltipTrigger aria-label="Om läsbarhetspoängen">
                     <Info className="h-4 w-4 text-ink-3 hover:text-ink-2" aria-hidden="true" />
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     <p className="text-sm">
-                      ATS (Applicant Tracking System) är programvara som många
-                      företag använder för att filtrera CV automatiskt. Ett
-                      högre poäng ökar chansen att ditt CV når en rekryterare.
+                      De flesta arbetsgivare låter ett rekryteringssystem (ATS)
+                      läsa och sortera ansökningarna innan en människa gör det.
+                      Poängen går från 0 till 100 och mäter hur väl systemet
+                      tolkar ditt CV.
                     </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
               <p className="mt-0.5 text-meta text-ink-3">
-                Hur väl ditt CV passerar urvalssystem.
+                Hur väl rekryteringssystem tolkar ditt CV.
               </p>
             </div>
           </div>

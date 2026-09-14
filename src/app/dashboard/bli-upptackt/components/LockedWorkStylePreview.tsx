@@ -46,7 +46,7 @@ export default function LockedWorkStylePreview() {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-kant bg-panel px-4 py-3.5">
         <p className="min-w-0 flex-1 basis-64 text-sm leading-[22px] text-ink-2">
-          Det fördjupade testet låser upp hela din arbetsstilsrapport: hur du
+          Det fördjupade testet ger dig hela din arbetsstilsrapport: hur du
           arbetar, samarbetar och drivs, din privata energibudget och
           intervjuträning på riktiga frågor.
         </p>

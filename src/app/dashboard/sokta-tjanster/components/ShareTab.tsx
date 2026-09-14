@@ -327,7 +327,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
         {!report ? (
           <LoadingSkeleton variant="text" count={3} label="Läser in rapporten" />
         ) : locked ? (
-          /* Loggningen är gratis för alltid, uttaget av den sammanställda
+          /* Loggningen ingår i gratisnivån, uttaget av den sammanställda
              rapporten ingår i Premium. Servern har redan utelämnat raderna,
              så det finns ingen text att blurra bort här. */
           <PaywallCard variant="af-rapport" className="border-0 p-0" />

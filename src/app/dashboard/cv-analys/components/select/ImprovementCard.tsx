@@ -88,7 +88,7 @@ export default function ImprovementCard({
             {/* Tags-rad */}
             <div className="mt-2.5 flex flex-wrap gap-1.5">
               {typeof atsImpact === 'number' && atsImpact > 0 && (
-                <Tag label={`+${atsImpact} ATS`} />
+                <Tag label={`+${atsImpact} läsbarhet`} />
               )}
               <Tag label={PRIORITY_LABELS[priority] || 'Mellan'} />
               {safeKeywords.length > 0 && (

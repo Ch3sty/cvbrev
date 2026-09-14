@@ -111,12 +111,13 @@ export function getPaywallCopy(
       }
     }
     case 'af-rapport':
-      // Loggningen är och förblir gratis: den bygger användarens historik.
+      // Loggningen ingår i gratisnivån: den bygger användarens historik.
       // Det är uttaget av den färdigställda sammanställningen som kostar,
-      // enligt principen gratis att skapa, betalt att ta ut.
+      // enligt principen gratis att skapa, betalt att ta ut. Löftet skrivs
+      // mot gratisnivån, inte mot evigheten (beslut 2026-09-15).
       return {
         title: 'Din rapport är sammanställd',
-        body: 'Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina ansökningar är gratis för alltid. Att hämta ut den färdiga rapporten som text, utskrift eller fil ingår i Premium.',
+        body: 'Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina ansökningar ingår i gratisnivån. Att hämta ut den färdiga rapporten som text, utskrift eller fil ingår i Premium.',
         primary: 'Hämta rapporten',
         secondary: 'Se vad Premium kostar',
       }

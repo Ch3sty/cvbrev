@@ -66,7 +66,7 @@ function ConfirmationView({ wasDownloaded, wasSaved, onGoToATS, onCreateNew }: C
         description={description}
         action={
           <button type="button" onClick={onGoToATS} className={BUTTON_PRIMARY}>
-            Optimera för ATS-system
+            Analysera ditt CV
           </button>
         }
         secondaryAction={
@@ -76,8 +76,8 @@ function ConfirmationView({ wasDownloaded, wasSaved, onGoToATS, onCreateNew }: C
         }
       >
         <p className="mx-auto max-w-sm text-meta text-ink-3">
-          De flesta företag använder ATS-system som sorterar bort CV innan en människa läser
-          dem. Vi visar vad du ska fixa.
+          De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna
+          först. Vi visar vad du ska ändra.
         </p>
       </Confirmation>
 

@@ -65,7 +65,7 @@ export default function ProfileImprovementCard({
               <h4 className="text-kort text-ink-1">Personbeskrivning</h4>
               {atsImpact > 0 && (
                 <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
-                  +{atsImpact} ATS
+                  +{atsImpact} läsbarhet
                 </span>
               )}
             </div>

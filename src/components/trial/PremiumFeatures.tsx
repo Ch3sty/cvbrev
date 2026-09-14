@@ -15,7 +15,7 @@ const FEATURES = [
   },
   {
     title: 'Obegränsade CV-analyser',
-    description: 'ATS-poäng och förbättringsförslag på varje version',
+    description: 'Läsbarhetspoäng och förslag på varje version',
   },
   {
     title: `Alla ${TEMPLATE_COUNT} CV-mallar`,

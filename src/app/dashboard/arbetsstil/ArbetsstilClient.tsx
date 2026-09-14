@@ -88,7 +88,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
         {done && !ownReport && !hasAdvancedTest && (
           <SectionCard
             title="Din rapport är nästan klar"
-            sub="Det fördjupade testet (120 frågor) låser upp hela rapporten. Grundtestet gav dina styrkor, fördjupningen ger orden om hur du arbetar."
+            sub="Det fördjupade testet (120 frågor) ger dig hela rapporten. Grundtestet gav dina styrkor, fördjupningen ger orden om hur du arbetar."
             delay={0.1}
           >
             <LockedWorkStylePreview />

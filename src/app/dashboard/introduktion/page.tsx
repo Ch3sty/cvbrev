@@ -55,7 +55,7 @@ const features: Feature[] = [
     benefits: [
       'Styrkor och förbättringsområden i din presentation',
       'Kompetenser som kan formuleras tydligare',
-      'ATS-kompatibilitet för rekryteringssystem',
+      'Hur rekryteringssystem (ATS) läser ditt CV',
       'Exempel: "Ökade försäljningen med 35 procent" i stället för "Ansvarade för försäljning"',
     ],
     href: '/dashboard/cv-analys',
@@ -71,7 +71,7 @@ const features: Feature[] = [
       'Vi analyserar annonsen och hittar nyckelorden',
       'Lyfter fram din relevanta erfarenhet',
       'Sex stilar, från professionell till kreativ',
-      'ATS-optimerat så du kommer igenom första gallringen',
+      'Formulerat för rekryteringssystemens gallring',
     ],
     href: '/dashboard/skapa-brev',
     cta: 'Skapa brev',
@@ -111,9 +111,9 @@ const features: Feature[] = [
     icon: IkonMallar,
     title: 'Välj en professionell mall',
     description:
-      'Exportera ditt CV i över tio designer. Alla mallar är ATS-kompatibla och gjorda för både skärm och utskrift.',
+      'Exportera ditt CV i över tio designer, alla läsbara för rekryteringssystem, på skärm och i utskrift.',
     benefits: [
-      'ATS-kompatibla, passerar automatiska system',
+      'Läsbara för rekryteringssystem',
       'Branschanpassade, rätt stil för din sektor',
       'Premium-mallar: Platinum Executive, Nordic Professional, Creative Edge',
       'Olika mallar för olika typer av roller',

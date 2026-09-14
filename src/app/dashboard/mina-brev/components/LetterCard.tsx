@@ -108,7 +108,7 @@ export default function LetterCard({
             onClick={(e) => e.stopPropagation()}
             className="relative z-20 mt-1 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
-            Lås upp med Premium
+            Öppna brevet med Premium
           </Link>
         ) : null}
       </div>

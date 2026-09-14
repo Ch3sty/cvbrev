@@ -121,7 +121,7 @@ const CATEGORY_META: Record<
   profile: {
     title: 'Vi har omformulerat din inledning',
     description:
-      'Personbeskrivningen är det första rekryteraren läser. Vi har skärpt formuleringen för bättre ATS-poäng och starkare första intryck.',
+      'Personbeskrivningen är det första rekryteraren läser. Vi har skärpt den så att både rekryterare och rekryteringssystem läser den bättre.',
   },
   roles: {
     title: 'Vi har förbättrat dina rollbeskrivningar',

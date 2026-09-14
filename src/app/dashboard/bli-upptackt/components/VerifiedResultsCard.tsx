@@ -219,7 +219,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
             själv vad som visas, resten stannar hos dig.
           </p>
           <span className="mt-2 inline-flex text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
-            Se din arbetsstil och lås upp hela rapporten
+            Se din arbetsstil och gör fördjupningen
           </span>
         </Link>
       )}

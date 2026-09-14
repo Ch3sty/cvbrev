@@ -12,7 +12,7 @@ interface BaseProps {
   id: string;
   title: string;
   subtitle?: string;
-  /** Stat-tags till höger (t.ex. "+10 ATS", "+3 nyckelord") */
+  /** Stat-tags till höger (t.ex. "+10 läsbarhet", "+3 nyckelord") */
   tags?: Array<{ label: string; tone: 'emerald' | 'orange' }>;
 }
 

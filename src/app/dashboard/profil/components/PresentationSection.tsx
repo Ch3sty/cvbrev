@@ -189,8 +189,8 @@ export default function PresentationSection(props: PresentationSectionProps) {
           <span className="text-meta font-normal text-ink-3">Valfritt</span>
         </p>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
-          Används i de CV-mallar som har plats för foto. Foto är frivilligt i Sverige och påverkar
-          inte ATS-läsningen.
+          Används i de CV-mallar som har plats för foto. Frivilligt i Sverige, och
+          rekryteringssystem läser bara texten.
         </p>
 
         <div className="mt-2 flex items-start gap-4">

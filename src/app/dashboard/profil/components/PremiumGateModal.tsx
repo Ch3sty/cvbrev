@@ -31,9 +31,9 @@ const FEATURE_CONTENT: Record<PremiumFeature, { title: string; subtitle: string;
   },
   linkedin: {
     title: 'Visa LinkedIn-profil på CV:n',
-    subtitle: 'Knyt din digitala närvaro till CV:t och förbättra ATS-poängen.',
+    subtitle: 'Ge rekryteraren en direkt väg från CV:t till din profil.',
     bullets: [
-      'Förbättrar ATS-optimering på ditt CV',
+      'Visar mer om dig än CV:t rymmer',
       'Rekryterare kan snabbt verifiera din profil',
       'Visas snyggt på alla premium-mallar',
     ],

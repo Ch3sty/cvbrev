@@ -36,7 +36,7 @@ export default function PricingCard({ priceId, scrollAnchorId }: PricingCardProp
       <p className="text-steg uppercase text-accent-ink">Rekommenderas</p>
       <h2 className="mt-1 text-kort text-ink-1">Premium</h2>
       <p className="mt-1 text-sm text-ink-2">
-        Allt upplåst, för dig som menar allvar med jobbsökandet.
+        Alla gränser borta, för dig som söker på riktigt.
       </p>
 
       <div className="mt-4 flex items-baseline gap-2">

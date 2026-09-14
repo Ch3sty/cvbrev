@@ -81,7 +81,7 @@ const STEP_META: Record<
 const ANALYSIS_STAGES = [
   { threshold: 0, text: 'Läser ditt CV', body: 'Vi går igenom struktur, sektioner och innehåll.' },
   { threshold: 20, text: 'Identifierar nyckelord', body: 'Vi plockar ut de viktigaste begreppen från din erfarenhet.' },
-  { threshold: 45, text: 'Analyserar mot ATS-kriterier', body: 'Vi jämför mot mönster som rekryteringssystem letar efter.' },
+  { threshold: 45, text: 'Mäter läsbarheten', body: 'Vi jämför mot mönster som rekryteringssystem letar efter.' },
   { threshold: 70, text: 'Genererar förbättringar', body: 'Vi formulerar konkreta förslag för varje sektion.' },
   { threshold: 90, text: 'Slutför analysen', body: 'Vi sätter ihop allt till en komplett rapport.' },
 ];

@@ -67,7 +67,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
           title="Personbeskrivning"
           subtitle="Vi har omformulerat din inledning för starkare första intryck."
           tags={[
-            { label: `+${data.profile.atsImpact} ATS`, tone: 'emerald' },
+            { label: `+${data.profile.atsImpact} läsbarhet`, tone: 'emerald' },
             ...(data.profile.changes.length > 0
               ? [
                   {
@@ -88,7 +88,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
       {data.roles.map((role) => {
         const tags: Array<{ label: string; tone: 'emerald' | 'orange' }> = [];
         if (role.atsImpact > 0) {
-          tags.push({ label: `+${role.atsImpact} ATS`, tone: 'emerald' });
+          tags.push({ label: `+${role.atsImpact} läsbarhet`, tone: 'emerald' });
         }
         if (role.keywordsAdded > 0) {
           tags.push({
@@ -125,7 +125,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
           subtitle="Nya nyckelord som matchar din målroll och som rekryterare letar efter."
           tags={
             data.skills.atsImpact > 0
-              ? [{ label: `+${data.skills.atsImpact} ATS`, tone: 'emerald' }]
+              ? [{ label: `+${data.skills.atsImpact} läsbarhet`, tone: 'emerald' }]
               : []
           }
           skills={data.skills.items}

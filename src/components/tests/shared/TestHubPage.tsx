@@ -160,7 +160,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
                 href={PREMIUM_HREF}
                 className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                Lås upp med Premium
+                Gör testet med Premium
               </Link>
             ) : quotaLock ? undefined : (
               <button
