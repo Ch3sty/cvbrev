@@ -814,21 +814,32 @@ Fem sidor ligger kvar över, ingen av dem på mer än 21 procent:
 
 | Sida | Budget | LCP | CLS | Varför |
 |---|---|---:|---:|---|
-| dashboard | 1000 | 1 212 | 0,001 | Noll rundturer. Kvar är hydreringen av fem sektioner. |
-| profil | 1000 | 1 140 | 0,001 | Noll rundturer, 140 ms över, inom mätbruset. |
-| cv-mallar | 1500 | 1 152 | 0,010 | Under tidsbudget, faller bara på ett kvarvarande litet skifte. |
-| cv-mallar (vald mall) | 1500 | 1 248 | 0,010 | Samma. |
-| bli-upptackt | 1500 | 1 756 | 0,001 | Oförändrad. Behöver delas i två vyer. |
+| dashboard | 1000 | 1 212 / 1 076 | 0,001 | Noll rundturer. Kvar är hydreringen av fem sektioner. |
+| profil | 1000 | 1 140 / 1 204 | 0,001 | Noll rundturer. Orörd i den här omgången. |
+| cv-mallar | 1500 | 1 152 / 1 192 | 0,010 | Under tidsbudget, faller bara på ett kvarvarande litet skifte. |
+| cv-mallar (vald mall) | 1500 | 1 248 / 1 116 | 0,010 | Samma. |
+| bli-upptackt | 1500 | 1 756 / 1 768 | 0,001 | Oförändrad. Behöver delas i två vyer. |
+
+Två kolumner därför att hela sviten kördes två gånger på samma kod. **Båda körningarna gav 33 av 38**, och exakt samma fem sidor låg kvar över. Siffrorna för de fem svänger 60 till 130 ms mellan körningarna, vilket är den mätbrusnivå maskinen har.
 
 ### 16.5 Grindens status
 
-`npm run perf:inloggat` avslutas med **exit 1**. Den enda posten som fäller den är dashboarden på 1 212 ms mot 1 000, alltså **plus 21 procent mot en tolerans på 20**. En procentenhet, på en sida som gör noll rundturer och vars återstående tid är ren hydrering av fem sektioner. Det är inom svängningen mellan körningar på den här maskinen, men grinden räknar median och medianen landade över.
+`npm run perf:inloggat` avslutas med **exit 1** i båda körningarna, men på olika poster, och det säger något i sig:
+
+| Körning | Sidan som fällde grinden | Marginal |
+|---|---|---|
+| Första | dashboard, 1 212 mot 1 000 | plus 21 procent |
+| Andra | profil, 1 204 mot 1 000 | plus 20 procent |
+
+Ingen av dem är en sida den här omgången rörde, och i båda fallen handlar det om **en enda procentenhet över en tolerans på 20**. Dashboarden mätte 1 212 i första körningen och 1 076 i den andra, profil 1 140 respektive 1 204: de byter plats mellan körningarna. Båda gör noll rundturer, och den återstående tiden är ren hydrering.
+
+Grinden är alltså inte grön, men den faller inte längre på något som är trasigt. Den faller på att två kritiska sidor ligger 8 till 21 procent över en budget på en sekund, med en svängning mellan körningar som är minst lika stor som marginalen. Jämför utgångsläget för den här omgången: fyra sidor mellan 40 och 68 procent över.
 
 ### 16.6 Kvar att göra
 
 | Post | Vad som krävs |
 |---|---|
-| **dashboard under 1 000 ms** | 212 ms, allt hydrering. Färre klientkomponenter i tillstånd C, inte lazy-laddning av dem (se 16.3). |
+| **dashboard och profil under 1 000 ms** | 76 till 204 ms, allt hydrering. Färre klientkomponenter, inte lazy-laddning av dem (se 16.3). |
 | **cv-mallar CLS till noll** | 0,010 kvar efter att radbrytningen åtgärdats. Källan är inte identifierad. |
 | **bli-upptackt under 1 500 ms** | Oförändrat sedan omgång tio: sidan behöver delas i två vyer. |
-| **profil under 1 000 ms** | 140 ms, inom mätbruset. |
+| **Grindens tolerans** | Två sidor pendlar kring 20 procent på kritisk budget. Antingen når de under 1 000 ms, eller så behöver kritisk budget omprövas mot vad maskinen faktiskt kan mäta. |
