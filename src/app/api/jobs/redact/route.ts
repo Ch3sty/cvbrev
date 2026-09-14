@@ -32,6 +32,20 @@ export const FREE_TIER_JOB_LIMIT = 3;
 /** Max antal jobb vi tar emot i ett anrop, så en klient inte kan be om hur mycket som helst. */
 const MAX_JOBS = 600;
 
+/**
+ * Hur många suddade rader som ritas innan betalväggen.
+ *
+ * Runda 2: förut skickade servern en platshållare per dold träff, alla 390.
+ * Klienten ritade åtta av dem och betalväggen hamnade ändå långt ned. Nu
+ * skär servern listan: fem suddade rader efter de tre fulla, och sedan
+ * betalväggen. Fem räcker för att visa att listan fortsätter, och det är
+ * inte fler än att tummen når betalväggen utan att skrolla en gång till.
+ *
+ * Det verkliga antalet dolda skickas separat, så betalväggens rubrik
+ * fortfarande kan säga hur många träffar som ligger bakom den.
+ */
+export const REDACTED_PREVIEW_COUNT = 5;
+
 export interface RedactedJob {
   /** Platshållar-id, aldrig jobbets riktiga id. */
   placeholderId: string;
@@ -45,6 +59,11 @@ export interface JobRedactionResult {
   visibleIds: string[];
   /** Suddade platser, utan titel, arbetsgivare, ort eller beskrivning. */
   redacted: RedactedJob[];
+  /**
+   * Hur många träffar som är dolda totalt, inte bara de som ritas.
+   * Betalväggens rubrik räknar på det här talet.
+   */
+  hiddenCount: number;
 }
 
 interface IncomingJob {
@@ -67,7 +86,12 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
     const incoming: IncomingJob[] = Array.isArray(body?.jobs) ? body.jobs : [];
     if (incoming.length === 0) {
-      const empty: JobRedactionResult = { isPremium: false, visibleIds: [], redacted: [] };
+      const empty: JobRedactionResult = {
+        isPremium: false,
+        visibleIds: [],
+        redacted: [],
+        hiddenCount: 0,
+      };
       return NextResponse.json(empty);
     }
 
@@ -80,6 +104,7 @@ export async function POST(request: Request) {
         isPremium: true,
         visibleIds: jobs.map((j) => String(j.id ?? '')).filter(Boolean),
         redacted: [],
+        hiddenCount: 0,
       };
       return NextResponse.json(result);
     }
@@ -91,12 +116,25 @@ export async function POST(request: Request) {
 
     // De suddade får bara en position och sin matchningsprocent. Titel,
     // arbetsgivare, ort och beskrivning lämnar aldrig servern.
-    const redacted: RedactedJob[] = jobs.slice(FREE_TIER_JOB_LIMIT).map((job, i) => ({
-      placeholderId: `dold-${i}`,
-      relevance: typeof job.relevance === 'number' ? Math.round(job.relevance) : null,
-    }));
+    //
+    // Matchgraden som kommer in är klientens uträknade tal (match-score.ts),
+    // inte serverns råa relevans. Det är avsiktligt: suddade rader ska visa
+    // samma sjunkande skala som de fulla raderna ovanför, annars ser listan
+    // ut att sluta mäta vid betalväggen.
+    const dolda = jobs.slice(FREE_TIER_JOB_LIMIT);
+    const redacted: RedactedJob[] = dolda
+      .slice(0, REDACTED_PREVIEW_COUNT)
+      .map((job, i) => ({
+        placeholderId: `dold-${i}`,
+        relevance: typeof job.relevance === 'number' ? Math.round(job.relevance) : null,
+      }));
 
-    const result: JobRedactionResult = { isPremium: false, visibleIds, redacted };
+    const result: JobRedactionResult = {
+      isPremium: false,
+      visibleIds,
+      redacted,
+      hiddenCount: dolda.length,
+    };
     return NextResponse.json(result);
   } catch (error) {
     console.error('[jobs/redact] Error:', error);

@@ -61,7 +61,8 @@ import {
   rankGlobalJobs,
 } from './data/job-filtering';
 import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
-import { senasteLabel } from './data/match-reasons';
+import { senasteLabel, buildMatchReasons } from './data/match-reasons';
+import { rankMatches, readCountLabel, TOP_N } from './data/match-ranking';
 import type { ActiveCVData, JobbmatchningData } from './getJobbmatchningData';
 import { toJobPreferences, type JobPreferences } from '@/types/user.types';
 
@@ -76,11 +77,9 @@ const JobDetailModal = dynamic(() => import('./components/JobDetailModal'), {
 type AppliedState = 'idle' | 'saving' | 'done';
 
 /**
- * Hur många suddade rader som ritas under de fulla träffarna. Nog för att
- * visa att listan fortsätter, få nog för att betalväggen ska gå att nå med
- * tummen. Antalet dolda står i betalväggens rubrik.
+ * Hur många suddade rader som ritas skär servern numera
+ * (REDACTED_PREVIEW_COUNT i /api/jobs/redact). Klienten ritar det den får.
  */
-const REDACTED_PREVIEW = 8;
 
 export default function JobbmatchningClient({
   initialData,
@@ -252,19 +251,44 @@ export default function JobbmatchningClient({
     [baseJobs, prefs, filters, showDistantJobs]
   );
 
+  /* ------------------------------------------------------------ matchgraden */
+
+  /**
+   * Poängsättning och urval (runda 2). Serverns `relevance` platåade på 95
+   * för nästan varje annons i rätt yrke och rätt stad, eftersom den summerar
+   * trösklar i stället för att mäta andelar. Här räknas matchgraden om ur
+   * samma data (match-score.ts) och listan skärs vid topp 25.
+   *
+   * Preferensorterna skickas med: har användaren sagt Stockholm är det den
+   * jämförelsen ortsdelen ska göra, inte CV:ts ort.
+   */
+  const { ranked, aboveThreshold } = useMemo(
+    () => rankMatches(filteredJobs, activeCV, prefs.locations, TOP_N),
+    [filteredJobs, activeCV, prefs.locations]
+  );
+
+  /** Matchgraden per jobb-id, så raden slipper räkna om det listan redan vet. */
+  const scoreById = useMemo(() => {
+    const m = new Map<string, (typeof ranked)[number]['score']>();
+    for (const r of ranked) m.set(String(r.job.id), r.score);
+    return m;
+  }, [ranked]);
+
   /* ------------------------------------------------------------ suddningen */
 
   const [redaction, setRedaction] = useState<JobRedactionResult | null>(null);
 
   useEffect(() => {
-    if (filteredJobs.length === 0) {
+    if (ranked.length === 0) {
       setRedaction(null);
       return;
     }
     let cancelled = false;
-    const payload = filteredJobs.map((j: any) => ({
-      id: j.id,
-      relevance: j.relevance,
+    // Den uträknade matchgraden skickas in, inte serverns råa relevans: de
+    // suddade raderna ska visa samma sjunkande skala som raderna ovanför.
+    const payload = ranked.map((r) => ({
+      id: r.job.id,
+      relevance: r.score.score,
     }));
 
     fetch('/api/jobs/redact', {
@@ -283,7 +307,7 @@ export default function JobbmatchningClient({
     return () => {
       cancelled = true;
     };
-  }, [filteredJobs]);
+  }, [ranked]);
 
   /* ------------------------------------------------------------ hämtningar */
 
@@ -441,7 +465,10 @@ export default function JobbmatchningClient({
 
         if (funna.length > 0) {
           successWithMascotAndActivity(
-            `Vi hittade ${funna.length} jobb som passar dig.`,
+            // Antalet lästa annonser, inte antalet "som passar": det talet är
+            // hela poängen med runda 2. Notisen får inte säga 600 passar
+            // medan panelen under säger 25.
+            `Vi läste ${funna.length} annonser åt dig.`,
             'jobs-found',
             'jobs_searched',
             'sökte matchande jobb',
@@ -551,7 +578,12 @@ export default function JobbmatchningClient({
   };
 
   const openPrefs = () => {
-    setPrefsDraft(toJobPreferences(prefs));
+    const utkast = toJobPreferences(prefs);
+    // Har hon ingen ort vald men CV:t har en, ligger den förifylld i arket.
+    // Utkastet är inte profilen: sparas ingenting händer ingenting.
+    const ort = activeCV?.extracted_location;
+    if (utkast.locations.length === 0 && ort) utkast.locations = [ort];
+    setPrefsDraft(utkast);
     setPrefsOpen(true);
   };
 
@@ -639,18 +671,43 @@ export default function JobbmatchningClient({
 
   const visibleIds = redaction ? new Set(redaction.visibleIds) : null;
   const displayedJobs = redaction?.isPremium
-    ? filteredJobs
+    ? ranked
     : visibleIds
-      ? filteredJobs.filter((j: any) => visibleIds.has(String(j.id)))
+      ? ranked.filter((r) => visibleIds.has(String(r.job.id)))
       : // Innan serverns svar kommit visar vi inget: aldrig mer än vi får.
         [];
   const redactedJobs = redaction?.redacted ?? [];
+  const hiddenCount = redaction?.hiddenCount ?? 0;
   const distantCount = baseJobs.filter(
     (j) => j.distance && j.distance > 100
   ).length;
 
-  const senaste = senasteLabel(filteredJobs);
-  const chips = jobPreferenceChips(prefs);
+  const senaste = senasteLabel(ranked.map((r) => r.job));
+
+  /** Skälen för annonsen i arket, med detaljskälen som bara syns där. */
+  const selectedReasons = selectedJob
+    ? buildMatchReasons(
+        selectedJob,
+        activeCV,
+        prefs.locations,
+        scoreById.get(String(selectedJob.id))
+      )
+    : null;
+
+  /**
+   * Preferenschipsen. Har användaren inte valt någon ort men CV:t har en,
+   * visar vi CV:ts ort i stället för "Ingen ort vald". Panelen ska inte påstå
+   * att vi inte vet var hon bor när det står i CV:t vi just läst.
+   *
+   * Ingenting sparas automatiskt: chipset märks "Från ditt CV" tills hon
+   * själv sparar under Ändra. Att skriva till profilen åt någon som inte bett
+   * om det är att fatta beslut i hennes namn.
+   */
+  const cvOrt = activeCV?.extracted_location ?? null;
+  const ortFranCv = prefs.locations.length === 0 && cvOrt ? cvOrt : null;
+  const chips = ortFranCv
+    ? [`Från ditt CV: ${cvOrt}`, ...jobPreferenceChips(prefs).slice(1)]
+    : jobPreferenceChips(prefs);
 
   return (
     <div className="mx-auto w-full max-w-[720px] pb-16">
@@ -775,6 +832,13 @@ export default function JobbmatchningClient({
         <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
           <h2 className="text-kort text-ink-1">Annonser vi läst</h2>
 
+          {/* Panelen har två lägen: "vi har inte letat än" med scen och knapp,
+              och resultatraden efter sökningen. Höjden reserveras bara så
+              länge lägena kan byta plats under en och samma sidvisning, det
+              vill säga fram till att sökningen är klar. Att hålla kvar 136 px
+              efteråt vore att reservera höjd för ett läge som inte kan komma
+              tillbaka, och det syns som ett tomrum under resultatraden. */}
+          <div className={hasSearched && !isLoading ? '' : 'min-h-[136px]'}>
           {isLoading ? (
             <div className="mt-4">
               <LoadingSkeleton
@@ -786,16 +850,14 @@ export default function JobbmatchningClient({
                 <JobSearchLoader isSearching jobsFound={null} error={null} />
               </div>
             </div>
-          ) : hasSearched && filteredJobs.length > 0 ? (
+          ) : hasSearched && ranked.length > 0 ? (
+            /* "393 passar dig" var sant men värdelöst: det var antalet
+               annonser som klarade en tröskel, inte antalet som passade.
+               Nu står det vi faktiskt gjort. */
             <p className="mt-2 text-sm leading-[22px] text-ink-2">
-              <span className="tabular-nums text-ink-1">
-                {adsRead.toLocaleString('sv-SE')}
-              </span>{' '}
-              annonser lästa,{' '}
-              <span className="tabular-nums text-ink-1">
-                {filteredJobs.length}
-              </span>{' '}
-              passar dig
+              <span className="text-ink-1">
+                {readCountLabel(adsRead, aboveThreshold, ranked.length)}
+              </span>
               {senaste ? `, senaste ${senaste}` : ''}.
             </p>
           ) : hasSearched ? (
@@ -852,6 +914,7 @@ export default function JobbmatchningClient({
               </div>
             </div>
           )}
+          </div>
         </section>
 
         {error && !isLoading && (
@@ -859,12 +922,12 @@ export default function JobbmatchningClient({
         )}
 
         {/* 4. Träfflistan ---------------------------------------------------- */}
-        {!isLoading && hasSearched && filteredJobs.length > 0 && (
+        {!isLoading && hasSearched && ranked.length > 0 && (
           <section className="rounded-xl border border-kant bg-panel">
             <div className="flex items-center justify-between gap-4 border-b border-kant px-4 py-3">
               <p className="text-sm font-medium text-ink-3">
-                <span className="tabular-nums">{filteredJobs.length}</span>{' '}
-                träffar
+                <span className="tabular-nums">{ranked.length}</span> bästa
+                träffarna
               </p>
               <button
                 type="button"
@@ -892,28 +955,47 @@ export default function JobbmatchningClient({
               </label>
             )}
 
-            <div className="divide-y divide-kant">
-              {displayedJobs.map((job: any, i: number) => (
-                <MatchRow
-                  key={job.id}
-                  job={job}
-                  cv={activeCV}
-                  position={i + 1}
-                  onOpen={handleOpenJob}
-                  onWriteLetter={handleWriteLetter}
-                  onMarkApplied={handleMarkApplied}
-                  appliedState={appliedStates[String(job.id)] ?? 'idle'}
-                />
-              ))}
-            </div>
+            {/* Höjden är reserverad innan suddningssvaret kommit. Utan det
+                växer panelen från noll till tre rader när svaret landar, och
+                allt under hoppar. Skelettets radhöjd är densamma som en
+                riktig rads: CLS ska vara noll. */}
+            {displayedJobs.length === 0 && redactedJobs.length === 0 ? (
+              <div className="divide-y divide-kant" aria-hidden="true">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="min-h-[148px] px-4 py-4">
+                    <div className="h-4 w-2/3 rounded bg-insunken" />
+                    <div className="mt-2 h-3 w-1/2 rounded bg-insunken" />
+                    <div className="mt-3 h-3 w-1/3 rounded bg-insunken" />
+                    <div className="mt-4 h-11 w-28 rounded-lg bg-insunken" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="divide-y divide-kant">
+                {displayedJobs.map((r, i: number) => (
+                  <MatchRow
+                    key={r.job.id}
+                    job={r.job}
+                    cv={activeCV}
+                    score={scoreById.get(String(r.job.id)) ?? r.score}
+                    position={i + 1}
+                    onOpen={handleOpenJob}
+                    onWriteLetter={handleWriteLetter}
+                    onMarkApplied={handleMarkApplied}
+                    appliedState={appliedStates[String(r.job.id)] ?? 'idle'}
+                  />
+                ))}
+              </div>
+            )}
 
-            {/* Suddade rader visar att träffarna finns, men bara ett tiotal.
-                Med alla utskrivna hamnade betalväggen hundratals rader ned,
-                utom räckhåll på en telefon, och då säljer den ingenting.
-                Antalet står i betalväggens egen rubrik i stället. */}
+            {/* Fem suddade rader efter de tre fulla, sedan betalväggen.
+                Servern skär listan (REDACTED_PREVIEW_COUNT), så texten aldrig
+                lämnar den. Fler rader tryckte betalväggen utom räckhåll på en
+                telefon, och en betalvägg ingen når säljer ingenting.
+                Matchgraden på raderna är den verkliga och sjunker. */}
             {redactedJobs.length > 0 && (
               <div className="divide-y divide-kant border-t border-kant">
-                {redactedJobs.slice(0, REDACTED_PREVIEW).map((job) => (
+                {redactedJobs.map((job) => (
                   <RedactedJobCard key={job.placeholderId} job={job} />
                 ))}
               </div>
@@ -921,9 +1003,9 @@ export default function JobbmatchningClient({
           </section>
         )}
 
-        {/* Betalväggen under listan, aldrig i stället för den. */}
-        {!isLoading && redactedJobs.length > 0 && (
-          <PaywallCard variant="jobbtraffar" hiddenCount={redactedJobs.length} />
+        {/* Betalväggen direkt efter de fem suddade, inte efter alla. */}
+        {!isLoading && hiddenCount > 0 && (
+          <PaywallCard variant="jobbtraffar" hiddenCount={hiddenCount} />
         )}
       </div>
 
@@ -1087,6 +1169,9 @@ export default function JobbmatchningClient({
       <JobDetailModal
         job={selectedJob}
         cvId={activeCVId || undefined}
+        score={selectedReasons?.score.score ?? null}
+        reasons={selectedReasons?.reasons ?? []}
+        detailReasons={selectedReasons?.detailReasons ?? []}
         onClose={() => setSelectedJob(null)}
       />
     </div>
