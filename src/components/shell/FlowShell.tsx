@@ -29,7 +29,8 @@ import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 
 /** useLayoutEffect på klienten, useEffect vid serverrendering (varnar annars). */
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
-import { ChevronLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { ChevronLeft, X } from 'lucide-react'
 
 export interface FlowShellProps {
   /** Flödets namn i toppraden, till exempel "Personligt brev". */
@@ -39,7 +40,11 @@ export interface FlowShellProps {
   totalSteps: number
   /** Tillbaka. Utelämnas på första steget, då visas lämna-knappen i stället. */
   onBack?: () => void
-  /** Lämnar flödet helt. Visas som chevron när onBack saknas. */
+  /**
+   * Lämnar flödet helt. Körs av X längst till höger i toppraden, och av
+   * chevronen på första steget när onBack saknas. Saknas onExit går X till
+   * /dashboard: ett flöde får aldrig vara en återvändsgränd.
+   */
   onExit?: () => void
   /** Etikett för lämna-knappen när onBack saknas. */
   exitLabel?: string
@@ -82,6 +87,8 @@ export default function FlowShell({
   children,
   banner,
 }: FlowShellProps) {
+  const router = useRouter()
+
   // Bottennavet ska inte konkurrera med "Fortsätt" om samma yta. Variabeln
   // nollas så länge flödet lever, så allt som räknar mot --bottom-nav-h
   // (skalets egen fot inkluderad) vet att navet är borta.
@@ -133,6 +140,14 @@ export default function FlowShell({
   const backButton = onBack ?? onExit
   const backLabel = onBack ? 'Föregående steg' : exitLabel
 
+  // Flödet döljer både dashboardheadern och bottennavet. Utan den här knappen
+  // var enda vägen ut att backa steg för steg, och på sista steget fanns
+  // ingen väg alls. X står alltid längst till höger i toppraden.
+  const exit = () => {
+    if (onExit) onExit()
+    else router.push('/dashboard')
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
       {/* Topp: tillbaka, titel, räknare, tråden. */}
@@ -155,9 +170,18 @@ export default function FlowShell({
             {title}
           </h1>
 
-          <span className="flex-shrink-0 pr-2 text-sm tabular-nums text-ink-3">
+          <span className="flex-shrink-0 text-sm tabular-nums text-ink-3">
             {Math.min(step, totalSteps)} / {totalSteps}
           </span>
+
+          <button
+            type="button"
+            onClick={exit}
+            aria-label="Stäng"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+          >
+            <X className="h-6 w-6" strokeWidth={1.75} />
+          </button>
         </div>
 
         {/* Tråden: aktivt steg i flödet. */}

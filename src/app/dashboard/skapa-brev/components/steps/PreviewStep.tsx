@@ -27,6 +27,12 @@ interface PreviewStepProps {
   onEdit: (content: string) => void;
   onDownload: (format: 'pdf' | 'docx') => void;
   onSave?: () => void;
+  /**
+   * Visa "Spara brevet" i innehållet. Standard är false: i FlowShell ligger
+   * den i foten, inom räckhåll utan att scrolla. Kvotspärren renderar steget
+   * utanför skalet och sätter därför true.
+   */
+  showInlineSave?: boolean;
   /** Loggar brevet som en sökt tjänst; returnerar ansökans id (för ångra). */
   onMarkAsApplied?: () => Promise<string>;
   onUndoMarkAsApplied?: (applicationId: string) => Promise<void>;
@@ -51,6 +57,7 @@ export default function PreviewStep({
   onEdit,
   onDownload,
   onSave,
+  showInlineSave = false,
   onMarkAsApplied,
   onUndoMarkAsApplied,
   selectedFont,
@@ -271,9 +278,11 @@ export default function PreviewStep({
       ) : (
         <>
           <div className="space-y-2">
-            {/* Efter ett lyckat sparande pekar kvittot ovan mot Mina brev.
-                Att låta knappen stå kvar bjöd in till att spara två gånger. */}
-            {onSave && !showSaveSuccess ? (
+            {/* Spara brevet ligger i FlowShells fot, alltid inom räckhåll.
+                Kvar här bara när steget renderas utanför skalet (kvotspärren),
+                och aldrig efter att brevet sparats: då pekar kvittot ovan mot
+                Mina brev i stället. */}
+            {onSave && showInlineSave && !showSaveSuccess ? (
               <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
                 {isSaving ? 'Sparar' : 'Spara brevet'}
               </button>

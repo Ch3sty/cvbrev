@@ -32,6 +32,11 @@ import FlowError from '@/components/shell/FlowError';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import Confirmation from '@/components/shell/Confirmation';
+// Frågan ställs bara den gång brevet lämnas osparat. Ingen anledning att
+// ladda dialogen med flödet.
+const ConfirmDialog = dynamic(() => import('@/components/shell/ConfirmDialog'), {
+  ssr: false,
+});
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import {
   loadDraft,
@@ -210,6 +215,10 @@ export default function CreateLetterClient({
   const [error, setError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
+  // Sant först när servern bekräftat sparandet. Styr både foten på steg 6
+  // ("Spara brevet" → "Klar") och varningen när flödet lämnas med X.
+  const [isLetterSaved, setIsLetterSaved] = useState(false);
+  const [isSavingLetter, setIsSavingLetter] = useState(false);
   // A1: sant när nedladdningen svarat 402. Brevet visas fortfarande, men
   // betalväggen läggs under det.
   const [downloadGate, setDownloadGate] = useState(false);
@@ -573,6 +582,7 @@ export default function CreateLetterClient({
   const handleSaveLetter = async () => {
     if (!generatedLetter || !selectedCV) return;
     try {
+      setIsSavingLetter(true);
       setSaveError(null);
       const dataToSave = letterData
         ? {
@@ -598,6 +608,7 @@ export default function CreateLetterClient({
       }
 
       setHasDownloadedOrSaved(true);
+      setIsLetterSaved(true);
 
       // Listan är en bekvämlighet. Brevet ligger redan i databasen, så ett
       // fel här får inte se ut som ett misslyckat sparande.
@@ -606,9 +617,6 @@ export default function CreateLetterClient({
       } catch (listError) {
         console.warn('Brevet sparades men listan kunde inte uppdateras:', listError);
       }
-
-      await new Promise((resolve) => setTimeout(resolve, 200));
-      router.push('/dashboard/mina-brev');
     } catch (err: any) {
       console.error('Save error:', err);
       // "Failed to fetch" är webbläsarens ord för ett tappat mobilnät. Det
@@ -623,6 +631,8 @@ export default function CreateLetterClient({
       // Kastas vidare så att PreviewStep inte visar "Brevet är sparat"
       // ovanför felrutan. Ett misslyckat sparande är ett misslyckat sparande.
       throw new Error(errorMessage);
+    } finally {
+      setIsSavingLetter(false);
     }
   };
 
@@ -762,6 +772,7 @@ export default function CreateLetterClient({
             onEdit={handleEditLetter}
             onDownload={handleDownloadLetter}
             onSave={handleSaveLetter}
+            showInlineSave
             onMarkAsApplied={handleMarkAsApplied}
             onUndoMarkAsApplied={handleUndoMarkApplied}
             selectedFont={selectedFont}
@@ -810,10 +821,40 @@ export default function CreateLetterClient({
         onClick: handleGenerateLetter,
         disabled: !canGenerate,
       };
-    return null; // Steg 6 har sina egna handlingar i PreviewStep.
+    // Steg 6: den viktigaste handlingen hör hemma i foten, inom räckhåll
+    // utan att scrolla. Övriga val (redigera, kopiera, ladda ner, markera
+    // som sökt) står kvar som sekundära i innehållet.
+    if (step === 6 && generatedLetter) {
+      if (isLetterSaved) {
+        return {
+          label: 'Klar',
+          onClick: () => router.push('/dashboard/mina-brev'),
+          disabled: false,
+        };
+      }
+      return {
+        label: 'Spara brevet',
+        onClick: () => {
+          void handleSaveLetter().catch(() => {
+            // Felet visas redan som saveError i PreviewStep.
+          });
+        },
+        disabled: false,
+      };
+    }
+    return null;
   };
 
   const primary = primaryFor();
+
+  // X i toppraden. Är brevet skrivet men inte sparat frågar vi först.
+  const handleFlowExit = () => {
+    if (step === 6 && generatedLetter && !isLetterSaved) {
+      setShowExitWarning(true);
+      return;
+    }
+    router.push('/dashboard');
+  };
 
   // Återkomstvalet tar över hela steget: det är ett vägval, inte en banner
   // att scrolla förbi.
@@ -843,14 +884,16 @@ export default function CreateLetterClient({
       step={step}
       totalSteps={LETTER_FLOW_TOTAL_STEPS}
       onBack={step > 1 && !isSubmitting && !isGenerating ? back : undefined}
-      onExit={step === 1 ? () => router.push('/dashboard') : undefined}
+      onExit={handleFlowExit}
       exitLabel="Tillbaka till översikten"
       primaryLabel={primary?.label}
       onPrimary={primary?.onClick}
       primaryDisabled={primary?.disabled}
       primaryBlockedReason={blockedReason}
-      primaryBusy={step === 5 && (isSubmitting || isGenerating)}
-      busyLabel="Skriver brevet"
+      primaryBusy={
+        (step === 5 && (isSubmitting || isGenerating)) || (step === 6 && isSavingLetter)
+      }
+      busyLabel={step === 6 ? 'Sparar' : 'Skriver brevet'}
       banner={
         error ? (
           <FlowError
@@ -990,6 +1033,21 @@ export default function CreateLetterClient({
           )}
         </>
       )}
+
+      {showExitWarning ? (
+        <ConfirmDialog
+          open={showExitWarning}
+          onCancel={() => setShowExitWarning(false)}
+          onConfirm={() => {
+            setShowExitWarning(false);
+            router.push('/dashboard');
+          }}
+          title="Lämna utan att spara?"
+          description="Brevet är skrivet men inte sparat. Lämnar du nu finns det inte kvar under Mina brev."
+          confirmLabel="Lämna"
+          cancelLabel="Stanna"
+        />
+      ) : null}
     </FlowShell>
   );
 }
