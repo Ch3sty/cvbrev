@@ -60,7 +60,9 @@ export default function ClientLayout({
   // publika konsument-footern (artikelguider, "skapa CV" m.m.) — den hör hemma
   // på marknadsföringssidorna, inte inne i verktygen.
   const isAppSurface =
-    pathname?.startsWith('/dashboard') || pathname?.startsWith('/rekryterare');
+    pathname?.startsWith('/dashboard') ||
+    pathname?.startsWith('/rekryterare') ||
+    pathname?.startsWith('/admin');
 
   // Cookie-bannern renderas av ett tredjepartsbibliotek med inline-stilar, så
   // den kan inte få Tråden-tokens via props. Vi märker rotelementet i stället

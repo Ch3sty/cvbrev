@@ -200,9 +200,13 @@ export async function loggaAdminFel(
   metadata?: Record<string, unknown>
 ): Promise<void> {
   try {
+    // Rutten läses ur metadata när anroparen skickar den, så Drift-sidan
+    // kan gruppera fel per rutt.
+    const rutt =
+      typeof metadata?.rutt === 'string' ? (metadata.rutt as string).slice(0, 200) : null;
     await admin.from('admin_error_log').insert({
       kalla,
-      rutt: null,
+      rutt,
       meddelande: meddelande.slice(0, 1000),
       metadata: metadata ?? null,
     });
