@@ -47,8 +47,8 @@ export default function CreateSheet({ open, onClose, applicationCount, cvCount }
 
   const rowBrev: Row = {
     id: 'brev',
-    label: 'Nytt brev',
-    hint: hasCv ? 'Klistra in en annons, få ett brev' : 'Kräver ett CV, vi tar det först',
+    label: 'Nytt personligt brev',
+    hint: hasCv ? 'Klistra in annonsen, vi skriver utkastet' : 'Kräver ett CV, vi tar det först',
     href: hasCv ? '/dashboard/skapa-brev' : '/dashboard/profil/cv',
     Ikon: IkonBrev,
   }

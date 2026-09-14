@@ -272,6 +272,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-mallar"
             label="CV-mallar"
             icon={IkonMallar}
+            sublabel="Mallar som rekryteringssystem läser"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -287,6 +288,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/linkedin-optimizer"
             label="LinkedIn"
             icon={IkonLank}
+            sublabel="Profil som rekryterare hittar"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -294,6 +296,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
             icon={IkonEntusiastisk}
+            sublabel="Fråga om lön, intervju och avtal"
             isMobile={isMobile}
             onClick={onClose}
           />
