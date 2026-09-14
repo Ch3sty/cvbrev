@@ -11,7 +11,7 @@
 import { describe, it, expect } from 'vitest';
 import { scoreJob } from '../match-score';
 import { rankMatches, readCountLabel } from '../match-ranking';
-import { buildMatchReasons } from '../match-reasons';
+import { buildMatchReasons, relativDatum } from '../match-reasons';
 import type { ActiveCVData } from '../../getJobbmatchningData';
 
 const cv: ActiveCVData = {
@@ -338,12 +338,18 @@ describe('skälen', () => {
     expect(reasons.some((r) => /av 3 kompetenser i kravprofilen/.test(r))).toBe(true);
   });
 
-  it('håller ordningen roller, kompetenser, ort, färskhet', () => {
+  it('håller ordningen roller, kompetenser, ort', () => {
     const { reasons } = buildMatchReasons(annonser[0], cv, ['Stockholm']);
     expect(reasons[0]).toMatch(/roller/);
     expect(reasons[1]).toMatch(/kravprofilen/);
     expect(reasons[2]).toBe('Stockholm');
-    expect(reasons[3]).toMatch(/publicerad/);
+  });
+
+  it('lämnar färskheten åt metaraden och upprepar den inte i skälen', () => {
+    for (const job of annonser) {
+      const { reasons } = buildMatchReasons(job, cv, ['Stockholm']);
+      expect(reasons.some((r) => /publicerad/.test(r))).toBe(false);
+    }
   });
 
   it('lägger "inga uttalade krav" bara i detaljarket', () => {
@@ -370,5 +376,28 @@ describe('raden ovanför listan', () => {
 
   it('ljuger inte när ingenting passar', () => {
     expect(readCountLabel(600, 0, 25)).toBe('600 annonser lästa, inga starka träffar');
+  });
+});
+
+describe('färskheten i ord', () => {
+  const nu = new Date('2026-09-14T12:00:00Z').getTime();
+  const dagarSedan = (n: number) => new Date(nu - n * 86_400_000).toISOString();
+
+  it('säger i dag och i går för de färskaste annonserna', () => {
+    expect(relativDatum(dagarSedan(0), nu)).toBe('i dag');
+    expect(relativDatum(dagarSedan(1), nu)).toBe('i går');
+  });
+
+  it('räknar i dagar upp till 13 och i veckor därefter', () => {
+    expect(relativDatum(dagarSedan(5), nu)).toBe('för 5 dagar sedan');
+    expect(relativDatum(dagarSedan(13), nu)).toBe('för 13 dagar sedan');
+    expect(relativDatum(dagarSedan(14), nu)).toBe('för 2 veckor sedan');
+    expect(relativDatum(dagarSedan(49), nu)).toBe('för 7 veckor sedan');
+  });
+
+  it('skriver aldrig ut ett datum, ens för gamla annonser', () => {
+    expect(relativDatum(dagarSedan(61), nu)).toBe('för 2 månader sedan');
+    expect(relativDatum(dagarSedan(200), nu)).toBe('för 7 månader sedan');
+    expect(relativDatum(dagarSedan(400), nu)).not.toMatch(/d{4}-d{2}-d{2}/);
   });
 });

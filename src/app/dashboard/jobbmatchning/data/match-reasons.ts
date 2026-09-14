@@ -8,19 +8,18 @@
  * Stockholm", en annan bara "Stockholm", och en rad stod helt utan skäl.
  * Två saker ändrades. Skälen räknas nu ur samma uträkning som matchgraden
  * (match-score.ts) i stället för ur en egen parallell logik, så att talet och
- * texten aldrig kan säga emot varandra. Och det finns alltid minst två skäl:
- * ort och färskhet finns på varje annons, så en tom rad är alltid ett
- * beräkningsfel, aldrig ett faktum om annonsen.
+ * texten aldrig kan säga emot varandra. Och det finns alltid minst två skäl,
+ * så en tom rad är alltid ett beräkningsfel, aldrig ett faktum om annonsen.
  *
- * Ordningen är bestämd: roller, kompetenser, ort, färskhet. Det starkaste
- * argumentet först, det svagaste sist.
+ * Ordningen är bestämd: roller, kompetenser, ort. Det starkaste argumentet
+ * först, det svagaste sist. Färskheten står i metaraden, och bara där.
  */
 
 import { scoreJob, type MatchScore } from './match-score';
 import type { ActiveCVData } from '../getJobbmatchningData';
 
 export interface MatchReasons {
-  /** Minst två skäl, i ordningen roller, kompetenser, ort, färskhet. */
+  /** Minst två skäl, i ordningen roller, kompetenser, ort. */
   reasons: string[];
   /**
    * Skäl som bara hör hemma i detaljarket. "Inga uttalade krav i annonsen"
@@ -32,20 +31,42 @@ export interface MatchReasons {
 }
 
 /**
- * "publicerad i går" i stället för ett datum. Färskhet är det enda tidsvärde
- * som betyder något i en träfflista.
+ * Färskheten i ord, aldrig som datum. "publicerad 2026-07-15" tvingar läsaren
+ * att räkna i huvudet; "för två månader sedan" är själva upplysningen. Skalan
+ * grovnar med åldern: dagar upp till två veckor, sedan veckor, sedan månader.
+ *
+ * Ren funktion. Nuet går att skicka in, så den går att testa utan att röra klockan.
  */
-export function publishedLabel(iso: string | null | undefined): string | null {
+export function relativDatum(
+  iso: string | null | undefined,
+  nu: number = Date.now()
+): string | null {
   if (!iso) return null;
   const d = new Date(String(iso));
   if (Number.isNaN(d.getTime())) return null;
 
-  const dagar = Math.floor((Date.now() - d.getTime()) / 86_400_000);
-  if (dagar <= 0) return 'publicerad i dag';
-  if (dagar === 1) return 'publicerad i går';
-  if (dagar < 7) return `publicerad för ${dagar} dagar sedan`;
-  if (dagar < 14) return 'publicerad förra veckan';
-  return `publicerad ${d.toLocaleDateString('sv-SE')}`;
+  const dagar = Math.floor((nu - d.getTime()) / 86_400_000);
+  if (dagar <= 0) return 'i dag';
+  if (dagar === 1) return 'i går';
+  if (dagar <= 13) return `för ${dagar} dagar sedan`;
+
+  const veckor = Math.floor(dagar / 7);
+  if (veckor <= 7) return `för ${veckor} veckor sedan`;
+
+  const manader = Math.max(2, Math.round(dagar / 30.44));
+  return `för ${manader} månader sedan`;
+}
+
+/**
+ * Färskheten som den står i metaraden: "publicerad i går". Där och bara där,
+ * aldrig också i skälraden under.
+ */
+export function publishedLabel(
+  iso: string | null | undefined,
+  nu?: number
+): string | null {
+  const relativ = relativDatum(iso, nu);
+  return relativ ? `publicerad ${relativ}` : null;
 }
 
 /**
@@ -98,12 +119,10 @@ export function buildMatchReasons(
   if (score.isRemote) reasons.push('Distans');
   else if (score.locationLabel) reasons.push(score.locationLabel);
 
-  // 4. Färskhet. Alltid sist, alltid tillgänglig, och därmed garanten för
-  //    att ingen rad står tom.
-  const publicerad = publishedLabel(job.publication_date);
-  if (publicerad) reasons.push(publicerad);
+  // Färskheten hör hemma i metaraden ovanför och står där redan. Att upprepa
+  // den här gjorde raden längre utan att säga användaren något nytt.
 
-  // Har allt ovan ändå fallerat (annons utan ort och utan datum) säger vi det
+  // Har allt ovan ändå fallerat (annons utan ort och utan krav) säger vi det
   // som faktiskt gäller i stället för att lämna raden tom.
   if (reasons.length < 2) {
     if (score.locationLabel && !reasons.includes(score.locationLabel)) {
@@ -123,6 +142,5 @@ export function senasteLabel(jobs: Array<Record<string, any>>): string | null {
     .sort()
     .reverse();
   if (datum.length === 0) return null;
-  const label = publishedLabel(datum[0]);
-  return label ? label.replace('publicerad ', '') : null;
+  return relativDatum(datum[0]);
 }
