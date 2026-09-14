@@ -36,6 +36,11 @@ import { type PremiumFeature } from './components/PremiumGateModal';
 import { type TonalityValue } from './components/tonalities';
 import { useFieldSave } from './components/useFieldSave';
 import type { ProfilPageData } from './getProfilData';
+import {
+  toJobPreferences,
+  EMPTY_JOB_PREFERENCES,
+  type JobPreferences,
+} from '@/types/user.types';
 
 /**
  * Bara PageHeader, integritetsblocket och "Så presenteras du" ryms i första
@@ -77,6 +82,7 @@ interface ProfileFormState {
   location: string;
   goal_role: string;
   industry: string;
+  job_preferences: JobPreferences;
   include_phone_in_letters: boolean;
   include_location_in_letters: boolean;
 }
@@ -90,6 +96,7 @@ const EMPTY_FORM: ProfileFormState = {
   location: '',
   goal_role: '',
   industry: '',
+  job_preferences: EMPTY_JOB_PREFERENCES,
   include_phone_in_letters: true,
   include_location_in_letters: true,
 };
@@ -106,6 +113,7 @@ function toForm(profile: Record<string, any> | null): ProfileFormState {
     location: profile.location || '',
     goal_role: profile.goal_role || '',
     industry: profile.industry || '',
+    job_preferences: toJobPreferences(profile.job_preferences),
     include_phone_in_letters: profile.include_phone_in_letters ?? true,
     include_location_in_letters: profile.include_location_in_letters ?? true,
   };
@@ -310,10 +318,12 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
         goalRole={formData.goal_role}
         industry={formData.industry}
         preferredTonality={formData.preferred_tonality}
+        jobPreferences={formData.job_preferences}
         subscriptionTier={subscriptionTier}
         onGoalRoleChange={(v) => setField('goal_role', v)}
         onIndustryChange={(v) => setField('industry', v)}
         onTonalityChange={(v) => setField('preferred_tonality', v)}
+        onJobPreferencesChange={(v) => setField('job_preferences', v)}
         onSaveField={saveField}
         onPremiumGate={(feature) => setPremiumGate(feature)}
         stateFor={stateFor}

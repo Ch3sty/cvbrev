@@ -13,6 +13,8 @@
  */
 
 import { ProfileCard, ProfileTextField, FieldStatusLine } from './ProfileField'
+import JobPreferencesFields from '@/components/jobbmatchning/JobPreferencesFields'
+import type { JobPreferences } from '@/types/user.types'
 import { TONALITIES, type TonalityValue } from './tonalities'
 import type { FieldSaveState } from './useFieldSave'
 import type { PremiumFeature } from './PremiumGateModal'
@@ -40,11 +42,13 @@ export interface InriktningSectionProps {
   goalRole: string
   industry: string
   preferredTonality: TonalityValue
+  jobPreferences: JobPreferences
   subscriptionTier: 'free' | 'premium'
 
   onGoalRoleChange: (v: string) => void
   onIndustryChange: (v: string) => void
   onTonalityChange: (v: TonalityValue) => void
+  onJobPreferencesChange: (v: JobPreferences) => void
   onSaveField: (key: string) => void
   onPremiumGate: (feature: PremiumFeature) => void
 
@@ -55,10 +59,12 @@ export default function InriktningSection({
   goalRole,
   industry,
   preferredTonality,
+  jobPreferences,
   subscriptionTier,
   onGoalRoleChange,
   onIndustryChange,
   onTonalityChange,
+  onJobPreferencesChange,
   onSaveField,
   onPremiumGate,
   stateFor,
@@ -98,6 +104,25 @@ export default function InriktningSection({
         enterKeyHint="done"
         maxLength={120}
       />
+
+      {/* Jobbmatchningens preferenser. Samma fält visas i arket "Så söker vi
+          åt dig" på Dina matchningar, därför delad komponent. */}
+      <div>
+        <p className="text-sm font-medium text-ink-1">Så söker vi jobb åt dig</p>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">
+          Styr vad jobbmatchningen letar efter. Du kan ändra det här när som
+          helst, också direkt på sidan Dina matchningar.
+        </p>
+
+        <div className="mt-3">
+          <JobPreferencesFields
+            value={jobPreferences}
+            onChange={onJobPreferencesChange}
+            onCommit={() => onSaveField('job_preferences')}
+            statusSlot={<FieldStatusLine state={stateFor('job_preferences')} />}
+          />
+        </div>
+      </div>
 
       <div>
         <p className="flex items-baseline gap-2 text-sm font-medium text-ink-1">
