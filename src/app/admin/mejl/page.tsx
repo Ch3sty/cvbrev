@@ -13,9 +13,9 @@ import type { Metadata } from 'next';
 import PageHeader from '@/components/shell/PageHeader';
 import MetricCard from '@/components/admin/MetricCard';
 import SectionCard from '@/components/admin/SectionCard';
-import StatusRow from '@/components/shell/StatusRow';
 import { hamtaMejl, DIGEST_FONSTER_TIMMAR } from './data';
 import MejlTabell from './MejlTabell';
+import Kolarm from './Kolarm';
 import { MallDiagram, OppnandegradDiagram } from './MejlDiagram';
 import { antal, grad, mallNamn, procent, tidpunkt } from './format';
 
@@ -124,9 +124,7 @@ export default async function MejlPage() {
 
         {harFel ? (
           <div className="mt-4">
-            <StatusRow tone="warm" showDot>
-              {`${data.koTotalt.misslyckade} schemalagda mejl har försökt och inte gått iväg`}
-            </StatusRow>
+            <Kolarm antal={data.koTotalt.misslyckade} />
           </div>
         ) : null}
 
