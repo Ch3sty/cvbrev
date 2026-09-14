@@ -52,6 +52,16 @@ export interface ActiveCVData {
 export interface JobbmatchningData {
   cvs: JobbmatchningCv[];
   /**
+   * Gick läsningen av CV-listan fel?
+   *
+   * Utan det här fältet betydde en tom lista två helt olika saker: användaren
+   * har inte laddat upp något CV, eller vi kunde inte läsa. Sidan visade
+   * introduktionen "Ladda upp ditt första CV" i båda fallen, så ett konto med
+   * nio CV:n kunde få onboarding vid en hård omladdning om frågan råkade gå
+   * fel. Nu säger sidan att det gick fel, och erbjuder ett nytt försök.
+   */
+  loadFailed: boolean;
+  /**
    * Id på CV som är låsta av CV-kvoten. Free har två aktiva CV, premium
    * femtio, räknat med samma getActiveCvIds som useCvQuota använde. Regeln är
    * oförändrad, bara flyttad hit.
@@ -67,8 +77,13 @@ export interface JobbmatchningData {
   jobPreferences: JobPreferences;
 }
 
+/**
+ * Reservdata när hämtningen kastade. Den säger uttryckligen att läsningen gick
+ * fel, så sidan visar ett felmeddelande i stället för introduktionen.
+ */
 export const EMPTY_JOBBMATCHNING_DATA: JobbmatchningData = {
   cvs: [],
+  loadFailed: true,
   lockedCvIds: [],
   activeCV: null,
   jobPreferences: EMPTY_JOB_PREFERENCES,
@@ -132,6 +147,11 @@ export async function getJobbmatchningData(
 
   return {
     cvs,
+    // Bara CV-listan avgör det här. Går den fel vet vi inte om användaren har
+    // några CV:n, och då får sidan inte gissa att hon saknar dem. Att aktivt
+    // CV eller profilen inte gick att läsa är mindre allvarligt: sidan
+    // fungerar ändå, den vet bara mindre om sökningen.
+    loadFailed: !!cvRes.error,
     lockedCvIds: cvs.filter((cv) => !active.has(cv.id)).map((cv) => cv.id),
     activeCV: (activeRes.data ?? null) as ActiveCVData | null,
     jobPreferences: toJobPreferences(profileRow?.job_preferences),

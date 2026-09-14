@@ -28,6 +28,13 @@ import {
 } from './getJobbmatchningData';
 import JobbmatchningClient from './JobbmatchningClient';
 
+/**
+ * Sidan är personlig och får aldrig serveras ur en cache. Utan det här kan en
+ * renderad sida delas mellan besök, och då kan en användare se en annans
+ * CV-lista eller sitt eget tomma tillstånd långt efter att hon laddat upp.
+ */
+export const dynamic = 'force-dynamic';
+
 export default async function JobbmatchningPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
@@ -40,8 +47,10 @@ export default async function JobbmatchningPage() {
     redirect('/login');
   }
 
-  // Går läsningen fel ska sidan ändå gå att öppna. Den visar då samma vy som
-  // för den som inte laddat upp något CV, alltså introduktionen.
+  // Går läsningen fel ska sidan ändå gå att öppna, men den ska säga att det
+  // gick fel. Förut visade den introduktionen "Ladda upp ditt första CV", och
+  // ett konto med nio CV:n kunde alltså få onboarding av ett läsfel.
+  // EMPTY_JOBBMATCHNING_DATA bär loadFailed: true, så klienten visar FlowError.
   const data = await getJobbmatchningData(supabase, user.id).catch((error) => {
     console.error('Jobbmatchning: kunde inte hämta sidans data', error);
     return EMPTY_JOBBMATCHNING_DATA;

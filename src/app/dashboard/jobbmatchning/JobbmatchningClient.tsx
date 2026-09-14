@@ -684,6 +684,25 @@ export default function JobbmatchningClient({
 
   /* ------------------------------------------------------------------- vy */
 
+  // Kunde vi inte läsa CV-listan vet vi inte om användaren har några CV. Då
+  // ska sidan säga det, inte visa introduktionen. Ett konto med nio CV:n fick
+  // annars "Ladda upp ditt första CV" när läsningen råkade gå fel, och nästa
+  // omladdning visade CV:n igen.
+  if (initialData.loadFailed) {
+    return (
+      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
+        <PageHeader
+          title="Dina matchningar"
+          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
+        />
+        <FlowError
+          message="Vi kunde inte läsa dina CV just nu. Ladda om sidan, så försöker vi igen."
+          onRetry={() => router.refresh()}
+        />
+      </div>
+    );
+  }
+
   // Utan CV är sidan obegriplig. Grinden är fortsatt mjuk: introduktionen
   // förklarar vad funktionen är i stället för att skicka iväg användaren.
   if (cvs.length === 0) {
