@@ -264,7 +264,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/jobbmatchning"
             label="Jobbmatchning"
             icon={IkonMatchning}
-            sublabel="Lediga jobb som passar ditt CV"
+            sublabel="Lediga jobb som passar dig"
             isMobile={isMobile}
             onClick={onClose}
           />
