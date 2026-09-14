@@ -224,14 +224,39 @@ export default function JobPreferencesFields({
  * Preferenserna som en rad chips, till panelen "Så söker vi åt dig".
  * Lönen visas som satt eller ej satt, aldrig som belopp: sidan får se att
  * fältet är ifyllt, men beloppet står bara i själva fältet.
+ *
+ * Alla fyra inställningarna visas alltid, även de som inte är valda. Förut
+ * ritades distans bara när den var påslagen och omfattning bara när den var
+ * heltid eller deltid, så ett konto utan dem såg bara ort och lön och kunde
+ * tro att panelen inte kände till resten. Panelen ska svara på vad vi söker
+ * efter, och "nej" och "alla" är lika mycket svar som "ja" och "heltid".
+ *
+ * Ortsdelen kan bli flera chips. Den ligger först och `locationChipCount`
+ * säger hur många de blev, så en anropare kan byta ut just dem.
  */
 export function jobPreferenceChips(prefs: JobPreferences): string[] {
-  const chips: string[] = []
-  if (prefs.locations.length > 0) chips.push(...prefs.locations)
-  else chips.push('Ingen ort vald')
-  if (prefs.remote) chips.push('Distans ok')
-  if (prefs.extent === 'heltid') chips.push('Heltid')
-  if (prefs.extent === 'deltid') chips.push('Deltid')
-  chips.push(prefs.min_salary !== null ? 'Lön: satt' : 'Lön: ej satt')
-  return chips
+  const orter =
+    prefs.locations.length > 0 ? [...prefs.locations] : ['Ingen ort vald']
+
+  return [
+    ...orter,
+    `Distans: ${prefs.remote ? 'ja' : 'nej'}`,
+    `Omfattning: ${
+      prefs.extent === 'heltid'
+        ? 'heltid'
+        : prefs.extent === 'deltid'
+          ? 'deltid'
+          : 'alla'
+    }`,
+    `Lön: ${prefs.min_salary !== null ? 'satt' : 'ej satt'}`,
+  ]
+}
+
+/**
+ * Hur många av chipsen ovan som är ortschips. Anroparen som vill visa CV:ts
+ * ort i stället behöver veta det: annars klipper den fel när användaren valt
+ * flera orter.
+ */
+export function jobPreferenceLocationChipCount(prefs: JobPreferences): number {
+  return prefs.locations.length > 0 ? prefs.locations.length : 1
 }

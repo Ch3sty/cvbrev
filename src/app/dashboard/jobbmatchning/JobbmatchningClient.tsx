@@ -47,6 +47,7 @@ import ChoiceCard from '@/components/shell/ChoiceCard';
 import MarginPlate from '@/components/shell/MarginPlate';
 import JobPreferencesFields, {
   jobPreferenceChips,
+  jobPreferenceLocationChipCount,
 } from '@/components/jobbmatchning/JobPreferencesFields';
 import {
   IlluCvMotAnnonser,
@@ -61,7 +62,11 @@ import {
   rankGlobalJobs,
 } from './data/job-filtering';
 import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
-import { senasteLabel, buildMatchReasons } from './data/match-reasons';
+import {
+  senasteLabel,
+  senastSoktLabel,
+  buildMatchReasons,
+} from './data/match-reasons';
 import { rankMatches, readCountLabel, TOP_N } from './data/match-ranking';
 import type { ActiveCVData, JobbmatchningData } from './getJobbmatchningData';
 import { toJobPreferences, type JobPreferences } from '@/types/user.types';
@@ -91,10 +96,52 @@ type AppliedState = 'idle' | 'saving' | 'done';
  */
 const FREE_TIER_FALLBACK_LIMIT = 3;
 
+/**
+ * Hur länge en lokalt sparad sökning får återanvändas.
+ *
+ * Ett dygn. Annonser tas bort och tillkommer hela tiden, och en lista som är
+ * äldre än så är inte längre sann. Då är det bättre att be om en ny sökning
+ * än att visa gamla träffar som om de fanns kvar.
+ */
+const SAVED_SEARCH_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * Hur många annonser som sparas lokalt.
+ *
+ * Sökningen läser 600 annonser, men listan visar bara topp 25. Att spara alla
+ * 600 gav drygt 6 MB JSON, mest annonstext, och sessionStorage tar omkring 5:
+ * sparningen sprack tyst mot kvoten och sidan var lika tom efter omladdning
+ * som förut. Vi sparar det listan faktiskt visar, med lite marginal så
+ * filtren har något att arbeta med.
+ */
+const SAVED_SEARCH_MAX_JOBS = 60;
+
+/** Formen på det vi sparar i sessionStorage mellan omladdningar. */
+interface SavedSearch {
+  jobs: any[];
+  adsRead: number;
+  hasMore: boolean;
+  /** När sökningen kördes, i millisekunder. */
+  savedAt: number;
+  /** Vilket CV sökningen utgick från. Byter hon CV gäller den inte längre. */
+  cvId: string | null;
+}
+
+/**
+ * Nyckeln sparningen ligger under. Både användare och CV ingår: två konton i
+ * samma webbläsare ska aldrig se varandras träffar, och byter användaren CV
+ * är den gamla sökningen inte längre svaret på frågan hon ställer.
+ */
+function savedSearchKey(userId: string, cvId: string | null): string {
+  return `jobbmatchning:senaste:${userId}:${cvId ?? 'utan-cv'}`;
+}
+
 export default function JobbmatchningClient({
   initialData,
+  userId,
 }: {
   initialData: JobbmatchningData;
+  userId: string;
 }) {
   const router = useRouter();
   const supabase = createClient();
@@ -149,6 +196,15 @@ export default function JobbmatchningClient({
   const [globalNoExp, setGlobalNoExp] = useState<any[] | null>(null);
   const [loadingGlobal, setLoadingGlobal] = useState(false);
 
+  /**
+   * När den återställda sökningen kördes, om vi visar en sådan.
+   *
+   * Våg 2 sparar matchningar i databasen. Tills dess ligger senaste
+   * sökresultatet i sessionStorage, så en omladdning inte tömmer sidan på
+   * allt användaren just letat fram.
+   */
+  const [restoredAt, setRestoredAt] = useState<number | null>(null);
+
   const [activatingCVId, setActivatingCVId] = useState<string | null>(null);
   const [loadingJobs, setLoadingJobs] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -175,6 +231,82 @@ export default function JobbmatchningClient({
   }, []);
 
   const autoActivated = useRef(false);
+
+  /* ----------------------------------------------- senaste sökningen lokalt */
+
+  /**
+   * Återställ senaste sökningen vid mount.
+   *
+   * Förut var sidan tom efter varje omladdning: användaren sökte, läste
+   * halva listan, laddade om och fick börja från "Vi har inte letat än".
+   * Nu ligger resultatet kvar ett dygn, nycklat på användare och CV.
+   *
+   * Sparningen är bara en bekvämlighet. Den avgör aldrig vad som får visas:
+   * listan går genom /api/jobs/redact som vanligt när den ritas om, så en
+   * gratisanvändare kan inte få fler träffar genom att spara undan dem.
+   */
+  /**
+   * Spara undan sökningen. Tyst om lagringen är full eller avstängd: en
+   * sparning som inte går igenom får aldrig stoppa själva sökningen.
+   *
+   * Bara de högst rankade sparas, inte alla 600. En full sökning väger drygt
+   * 6 MB i JSON, mest annonstext, och sessionStorage tar omkring 5. Hela
+   * sparningen sprack alltså tyst mot kvoten. Listan visar ändå bara topp 25,
+   * så det är de som behöver överleva en omladdning. Går användaren tillbaka
+   * och söker igen läses hela poolen om över nätet.
+   */
+  const saveSearch = useCallback(
+    (nyaJobs: any[], lasta: number, mer: boolean) => {
+      if (!activeCVId || nyaJobs.length === 0) return;
+      try {
+        const payload: SavedSearch = {
+          jobs: nyaJobs.slice(0, SAVED_SEARCH_MAX_JOBS),
+          adsRead: lasta,
+          hasMore: mer,
+          savedAt: Date.now(),
+          cvId: activeCVId,
+        };
+        sessionStorage.setItem(
+          savedSearchKey(userId, activeCVId),
+          JSON.stringify(payload)
+        );
+      } catch {
+        /* full eller avstängd lagring: sökningen fungerar ändå */
+      }
+    },
+    [userId, activeCVId]
+  );
+
+  const restoreAttempted = useRef(false);
+  useEffect(() => {
+    if (restoreAttempted.current) return;
+    // Vänta tills vi vet vilket CV som är aktivt: nyckeln innehåller det.
+    if (!activeCVId) return;
+    restoreAttempted.current = true;
+
+    try {
+      const raw = sessionStorage.getItem(savedSearchKey(userId, activeCVId));
+      if (!raw) return;
+      const saved = JSON.parse(raw) as SavedSearch;
+      const alder = Date.now() - saved.savedAt;
+      if (
+        !Array.isArray(saved.jobs) ||
+        saved.jobs.length === 0 ||
+        alder > SAVED_SEARCH_MAX_AGE_MS
+      ) {
+        sessionStorage.removeItem(savedSearchKey(userId, activeCVId));
+        return;
+      }
+      setJobs(saved.jobs);
+      setAdsRead(saved.adsRead ?? saved.jobs.length);
+      // hasMore återställs inte: påfyllningen hämtar över nätet ändå, och en
+      // återställd lista ska inte börja ladda mer så fort sidan öppnas.
+      setHasSearched(true);
+      setRestoredAt(saved.savedAt);
+    } catch {
+      /* trasig eller otillgänglig sessionStorage: sidan fungerar utan den */
+    }
+  }, [userId, activeCVId]);
 
   /* ------------------------------------------------------ det vi läste ut */
 
@@ -283,6 +415,35 @@ export default function JobbmatchningClient({
     for (const r of ranked) m.set(String(r.job.id), r.score);
     return m;
   }, [ranked]);
+
+  /**
+   * Spara de rankade träffarna när sökningen är klar.
+   *
+   * Sparningen sitter här och inte i fetchJobs, eftersom det är de rankade
+   * träffarna som ska överleva en omladdning. Rankningen sker efter att jobben
+   * kommit, och påfyllningen till 600 annonser kan ändra topplistan, så vi
+   * sparar om varje gång den ändras.
+   *
+   * En återställd lista sparas inte om: den ligger redan där, och att skriva
+   * om den skulle flytta fram tidsstämpeln så "Senast sökt" aldrig åldrades.
+   */
+  useEffect(() => {
+    if (!hasSearched || loadingJobs || ranked.length === 0) return;
+    if (restoredAt !== null) return;
+    saveSearch(
+      ranked.map((r) => r.job),
+      adsRead,
+      hasMore
+    );
+  }, [
+    hasSearched,
+    loadingJobs,
+    ranked,
+    restoredAt,
+    adsRead,
+    hasMore,
+    saveSearch,
+  ]);
 
   /* ------------------------------------------------------------ suddningen */
 
@@ -487,6 +648,10 @@ export default function JobbmatchningClient({
           data.totalResults ??
           funna.length;
         setAdsRead(lasta);
+        // En färsk sökning ersätter den återställda, så panelen slutar säga
+        // "Senast sökt ...". Själva sparningen sköts av effekten nedan, när
+        // rankningen är gjord: det är de rankade träffarna som ska överleva.
+        setRestoredAt(null);
 
         capture('match_search_run', {
           ads_read: lasta,
@@ -757,6 +922,8 @@ export default function JobbmatchningClient({
   ).length;
 
   const senaste = senasteLabel(ranked.map((r) => r.job));
+  /** Sattes bara när listan kommer från sessionStorage, inte från en ny sökning. */
+  const senastSokt = senastSoktLabel(restoredAt);
 
   /** Skälen för annonsen i arket, med detaljskälen som bara syns där. */
   const selectedReasons = selectedJob
@@ -780,7 +947,15 @@ export default function JobbmatchningClient({
   const cvOrt = activeCV?.extracted_location ?? null;
   const ortFranCv = prefs.locations.length === 0 && cvOrt ? cvOrt : null;
   const chips = ortFranCv
-    ? [`Från ditt CV: ${cvOrt}`, ...jobPreferenceChips(prefs).slice(1)]
+    ? [
+        `Från ditt CV: ${cvOrt}`,
+        // Bara ortschipsen byts ut, resten står kvar. Antalet kommer från
+        // hjälparen i stället för en hårdkodad etta, så raden håller även
+        // när användaren valt flera orter.
+        ...jobPreferenceChips(prefs).slice(
+          jobPreferenceLocationChipCount(prefs)
+        ),
+      ]
     : jobPreferenceChips(prefs);
 
   return (
@@ -928,12 +1103,29 @@ export default function JobbmatchningClient({
             /* "393 passar dig" var sant men värdelöst: det var antalet
                annonser som klarade en tröskel, inte antalet som passade.
                Nu står det vi faktiskt gjort. */
-            <p className="mt-2 text-sm leading-[22px] text-ink-2">
-              <span className="text-ink-1">
-                {readCountLabel(adsRead, aboveThreshold, ranked.length)}
-              </span>
-              {senaste ? `, senaste ${senaste}` : ''}.
-            </p>
+            <>
+              <p className="mt-2 text-sm leading-[22px] text-ink-2">
+                <span className="text-ink-1">
+                  {readCountLabel(adsRead, aboveThreshold, ranked.length)}
+                </span>
+                {senaste ? `, senaste ${senaste}` : ''}.
+              </p>
+
+              {/* Visar vi en sparad sökning ska det stå. Annars ser en lista
+                  från i morse ut som om vi just letat. Länken söker om. */}
+              {senastSokt && (
+                <p className="mt-1 text-meta text-ink-3">
+                  Senast sökt {senastSokt}.{' '}
+                  <button
+                    type="button"
+                    onClick={fetchJobs}
+                    className="font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+                  >
+                    Sök igen
+                  </button>
+                </p>
+              )}
+            </>
           ) : hasSearched ? (
             <div className="mt-3">
               <EmptyState

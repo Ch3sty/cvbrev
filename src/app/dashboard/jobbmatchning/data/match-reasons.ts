@@ -58,6 +58,32 @@ export function relativDatum(
 }
 
 /**
+ * Hur länge sedan användaren sökte, i panelen "Annonser vi läst".
+ *
+ * relativDatum räknar i dagar, för en annons som är veckor gammal är det rätt
+ * skala. En sökning lever bara ett dygn, så här behövs minuter och timmar:
+ * "för 2 timmar sedan" säger något, "i dag" säger ingenting.
+ *
+ * Ren funktion. Nuet går att skicka in, så den går att testa utan att röra
+ * klockan.
+ */
+export function senastSoktLabel(
+  savedAt: number | null | undefined,
+  nu: number = Date.now()
+): string | null {
+  if (!savedAt || !Number.isFinite(savedAt)) return null;
+  const minuter = Math.floor((nu - savedAt) / 60_000);
+  if (minuter < 1) return 'nyss';
+  if (minuter === 1) return 'för en minut sedan';
+  if (minuter < 60) return `för ${minuter} minuter sedan`;
+
+  const timmar = Math.floor(minuter / 60);
+  if (timmar === 1) return 'för en timme sedan';
+  if (timmar < 24) return `för ${timmar} timmar sedan`;
+  return 'för mer än ett dygn sedan';
+}
+
+/**
  * Färskheten som den står i metaraden: "publicerad i går". Där och bara där,
  * aldrig också i skälraden under.
  */

@@ -56,5 +56,7 @@ export default async function JobbmatchningPage() {
     return EMPTY_JOBBMATCHNING_DATA;
   });
 
-  return <JobbmatchningClient initialData={data} />;
+  // userId går vidare så klienten kan nyckla den lokalt sparade sökningen på
+  // rätt konto. Två konton i samma webbläsare ska aldrig se varandras träffar.
+  return <JobbmatchningClient initialData={data} userId={user.id} />;
 }
