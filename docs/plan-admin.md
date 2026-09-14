@@ -724,6 +724,43 @@ select på kandidatpoolen och retentionskohorterna hade både `anon` och
 och `admin_activity_by_function`. Verifierat med `set role authenticated` att
 alla tolv nu nekas. Läs dem bara med service role.
 
+### PostHog-händelserna, utrett i våg 4
+
+Funnel-agenten fann noll rader för `paywall_shown`, `paywall_cta_clicked` och
+alla `match_*` de senaste 30 dagarna, och bara en `pwa_prompt_shown`. Slutsatsen
+löd att spårningen var trasig. Den var den inte.
+
+**Händelserna gick live samma dag som de granskades.** `match_*` kom i
+`7d8573d7` (2026-09-14 09:46), `pwa_prompt_shown` i `b154cdd8` (14:13) och
+betalväggsparet i `6e4e1c85` (16:47). Ett trettiodagarsfönster över kod som är
+timmar gammal ger noll rader oavsett hur väl den fungerar. `/dashboard/jobbmatchning`
+har dessutom noll sidvisningar i PostHog: ingen har varit där än.
+
+**Verifierat i produktion.** Ett QA-konto loggades in på
+`https://www.jobbcoach.ai/dashboard/jobbmatchning`. `match_page_viewed` kom
+in i PostHog inom en minut, med användarens id som `distinct_id`, följt av
+`$identify`, `$pageview` och `$web_vitals` på nästa sida. Klienten,
+kön i `src/lib/analytics/events.ts`, EU-värden `eu.i.posthog.com` och
+identifieringen fungerar alltså hela vägen.
+
+**Ingen samtyckesspärr finns.** `PostHogProvider` initierar utan villkor efter
+LCP. Det finns ingen cookie-gate i mätvägen, så den hypotesen är avskriven.
+
+**Fällan för framtida QA:** PostHog filtrerar bort klienter där
+`navigator.webdriver` är sant, alltså varje Puppeteer-session. Det syns inte
+som ett fel: `posthog.capture()` returnerar utan att kasta, men ingen POST
+lämnar sidan. Ett QA-skript som ska mäta händelser måste därför köra med
+`--disable-blink-features=AutomationControlled` och maskera flaggan:
+
+```ts
+await page.evaluateOnNewDocument(() => {
+  Object.defineProperty(navigator, 'webdriver', { get: () => undefined })
+})
+```
+
+Utan det ser en fungerande mätning ut som en trasig, vilket är precis det
+misstag den här utredningen började med.
+
 ### is_admin() ur de sju vyerna (våg 4)
 
 Fem av de behållna vyerna hade `where is_admin()` i sin definition:

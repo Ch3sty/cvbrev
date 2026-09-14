@@ -499,7 +499,11 @@ export const DATAKVALITET: DatakvalitetsNot[] = [
     text: 'profiles.acquisition_source är null på samtliga 311 konton, så uppdelningen per källa visar bara raden "alla". Tratten per källa går inte att lita på förrän attributionen skriver något.',
   },
   {
-    rubrik: 'Händelser före 2026-09-15',
-    text: 'Kön i analytics-klienten fanns inte tidigare, så händelser som avfyrades strax före en sidnavigering gick förlorade. Alla PostHog-steg är underräknade före 2026-09-15. Jämför inte veckor över den gränsen.',
+    rubrik: 'Händelser före 2026-09-14',
+    text: 'Kön i analytics-klienten fanns inte tidigare, så händelser som avfyrades strax före en sidnavigering gick förlorade. Alla PostHog-steg är underräknade före 2026-09-14. Jämför inte veckor över den gränsen.',
+  },
+  {
+    rubrik: 'Betalvägg, matchning och PWA saknar historik',
+    text: 'paywall_shown, paywall_cta_clicked, alla match_* och pwa_prompt_shown gick live 2026-09-14 och har därför nästan inga rader bakåt. Mätningen är verifierad i produktion: ett QA-konto på /dashboard/jobbmatchning gav match_page_viewed med rätt distinct_id inom en minut. Talen är låga för att funktionerna är nya, inte för att spårningen är trasig.',
   },
 ];

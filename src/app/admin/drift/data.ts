@@ -260,12 +260,15 @@ export const hamtaDriftData = unstable_cache(
       kvotSenast: kvotrader[0]?.created_at ?? null,
 
       // Betalväggsträffar mäts i PostHog, och en HogQL-fråga per sidladdning
-      // är förbjuden enligt planens avsnitt 8. paywall_shown hade dessutom
-      // noll rader i PostHog vid granskningen 2026-09-14, trots att
-      // händelsen finns i koden.
+      // är förbjuden enligt planens avsnitt 8.
+      //
+      // paywall_shown hade noll rader vid granskningen 2026-09-14, vilket såg
+      // ut som en trasig mätning. Det var det inte: händelsen gick live samma
+      // dag (commit 6e4e1c85), så det fanns ingen historik att hitta. Klienten
+      // är verifierad i produktion i våg 4, se noten nedan.
       betalvaggstraffar: null,
       betalvaggNot:
-        'paywall_shown ligger i PostHog och läses inte per sidladdning. Vid granskningen 2026-09-14 hade händelsen noll rader de senaste 30 dagarna, trots att capture-anropet finns i koden. Antingen visas betalväggen inte, eller så avfyras händelsen aldrig.',
+        'paywall_shown ligger i PostHog och läses inte per sidladdning. Händelsen gick live 2026-09-14 och har därför nästan ingen historik. Spårningen är verifierad i produktion: ett QA-konto gav match_page_viewed med rätt distinct_id inom en minut, så klienten, kön och EU-värden fungerar. Talet är lågt för att betalväggen är nyinstrumenterad, inte för att mätningen är trasig.',
 
       tokenRevoked: null,
       tokenRevokedNot:

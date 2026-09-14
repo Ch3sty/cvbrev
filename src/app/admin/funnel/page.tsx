@@ -159,7 +159,7 @@ export default async function AdminFunnelPage({
         <MetricCard
           etikett="Besök till betalt"
           varde={helaTratten === null ? 'saknas' : procent(helaTratten)}
-          datakvalitet="paywall_shown och subscription_paid har noll rader i PostHog."
+          datakvalitet="paywall_shown gick live 2026-09-14 och har nästan ingen historik. subscription_paid saknar rader."
         />
       </section>
 
