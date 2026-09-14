@@ -76,12 +76,12 @@ export default function LoginForm() {
       }
 
       if (signInData?.user) {
-        await logUserActivity(
+        // Inte await: loggningen får aldrig hålla kvar inloggningen.
+        void logUserActivity(
           signInData.user.id,
           'login',
           'User logged in via email/password'
-        )
-        console.log('Login activity logged for user:', signInData.user.id)
+        ).catch(() => {})
       } else {
         console.warn(
           'Login successful but user data not immediately available for logging.'

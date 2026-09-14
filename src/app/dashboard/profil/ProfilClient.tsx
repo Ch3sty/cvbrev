@@ -236,16 +236,21 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
 
   const handleDeleteAccount = async () => {
     if (profile) {
-      await logUserActivity(
-        profile.id,
-        'registered',
-        'Användaren raderade sitt konto',
-        {
-          email: profile.email,
-          subscription_tier: subscriptionTier,
-          timestamp: new Date().toISOString(),
-        }
-      );
+      // Högst tre sekunder: loggningen får inte hålla kvar raderingen om
+      // auth-låset hålls av en annan flik.
+      await Promise.race([
+        logUserActivity(
+          profile.id,
+          'registered',
+          'Användaren raderade sitt konto',
+          {
+            email: profile.email,
+            subscription_tier: subscriptionTier,
+            timestamp: new Date().toISOString(),
+          }
+        ).catch(() => {}),
+        new Promise<void>((resolve) => setTimeout(resolve, 3000)),
+      ]);
     }
 
     try {

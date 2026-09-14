@@ -124,12 +124,16 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
       if (data.userId) {
         const cvFileName =
           data.cvs.find((cv) => cv.id === selectedCV)?.file_name || 'Unknown CV';
-        await logUserActivity(
+        // Aldrig await här. Loggningen tar ett navigator.locks-lås på
+        // auth-sessionen, och håller en annan flik det låset blir promisen
+        // aldrig klar. Då startade pollningen aldrig och vakthunden slog
+        // efter 90 sekunder trots att jobbet var klart på servern.
+        void logUserActivity(
           data.userId,
           'cv_analysis_started',
           `Started CV analysis for: ${cvFileName}`,
           { cv_id: selectedCV, job_id: result.jobId }
-        );
+        ).catch(() => {});
       }
 
       return result.jobId;
