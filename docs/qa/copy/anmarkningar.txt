@@ -1,0 +1,5 @@
+sidomeny: saknar "Lediga jobb som passar ditt CV"
+hemskärm C mobil: klippt: "Följ dina ansökningar och se din statistik."
+brevflöde premium: saknar ingressen i steg 1
+brevflöde premium: kom inte till tonsteget (Hittade ingen knapp: QA CV)
+betalvägg nedladdning: nåddes inte (Hittade ingen knapp: ^Ladda ner med Premium$|^Se vad Premium kostar$)
