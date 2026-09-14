@@ -9,6 +9,15 @@ import { capture } from '@/lib/analytics/events';
 interface JobDetailModalProps {
   job: any | null;
   cvId?: string;
+  /** Matchgraden som listan räknat fram, så arket visar samma tal som raden. */
+  score?: number | null;
+  /**
+   * Skälen, plus de som bara hör hemma här. "Inga uttalade krav i annonsen"
+   * förklarar varför kompetensraden saknas i listan, men är inget argument
+   * för träffen och ska därför inte stå i listan.
+   */
+  reasons?: string[];
+  detailReasons?: string[];
   onClose: () => void;
 }
 
@@ -17,7 +26,14 @@ interface JobDetailModalProps {
  * bär rubriken och fakta i meta, kraven ligger som listor och handlingarna
  * i arkets fot med en ink-knapp för ansökan.
  */
-export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalProps) {
+export default function JobDetailModal({
+  job,
+  cvId,
+  score,
+  reasons = [],
+  detailReasons = [],
+  onClose,
+}: JobDetailModalProps) {
   const router = useRouter();
 
   const applicationUrl =
@@ -158,10 +174,19 @@ export default function JobDetailModal({ job, cvId, onClose }: JobDetailModalPro
     >
       {job && (
         <div className="space-y-5">
-          {job.relevance !== undefined && (
+          {typeof score === 'number' && (
             <div>
-              <p className="text-tal tabular-nums text-ink-1">{job.relevance}</p>
+              <p className="text-tal tabular-nums text-ink-1">{score}</p>
               <p className="text-meta text-ink-3">procent match mot ditt CV</p>
+              {(reasons.length > 0 || detailReasons.length > 0) && (
+                <ul className="mt-2 space-y-1">
+                  {[...reasons, ...detailReasons].map((r) => (
+                    <li key={r} className="text-meta text-ink-2">
+                      {r}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 

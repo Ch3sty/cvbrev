@@ -16,11 +16,18 @@
  */
 
 import { buildMatchReasons, publishedLabel } from '../data/match-reasons';
+import type { MatchScore } from '../data/match-score';
 import type { ActiveCVData } from '../getJobbmatchningData';
 
 export interface MatchRowProps {
   job: Record<string, any>;
   cv: ActiveCVData | null;
+  /**
+   * Matchgraden, redan uträknad av listan. Raden räknar inte om den: samma
+   * annons ska ge samma tal oavsett var det läses, och listan behöver ändå
+   * poängen för att kunna sortera.
+   */
+  score: MatchScore;
   position: number;
   onOpen: (job: Record<string, any>) => void;
   onWriteLetter: (job: Record<string, any>) => void;
@@ -32,21 +39,21 @@ export interface MatchRowProps {
 export default function MatchRow({
   job,
   cv,
+  score,
   position,
   onOpen,
   onWriteLetter,
   onMarkApplied,
   appliedState,
 }: MatchRowProps) {
-  const { reasons } = buildMatchReasons(job, cv);
+  const { reasons } = buildMatchReasons(job, cv, [], score);
   const publicerad = publishedLabel(job.publication_date);
   const ort =
     job.workplace_address?.municipality || job.workplace_address?.region || null;
   const annonsUrl =
     job.application_details?.url || job.application_url || job.webpage_url;
 
-  const relevans =
-    typeof job.relevance === 'number' ? Math.round(job.relevance) : null;
+  const relevans = score.score;
 
   const appliedLabel =
     appliedState === 'done'
@@ -74,17 +81,18 @@ export default function MatchRow({
             </p>
           </div>
 
-          {relevans !== null && (
-            <div className="shrink-0 text-right">
-              <div className="text-tal tabular-nums text-ink-1">{relevans}</div>
-              <div className="text-meta text-ink-3">% match</div>
-            </div>
-          )}
+          <div className="shrink-0 text-right">
+            <div className="text-tal tabular-nums text-ink-1">{relevans}</div>
+            <div className="text-meta text-ink-3">% match</div>
+          </div>
         </div>
 
-        {reasons.length > 0 && (
-          <p className="mt-2 text-meta text-ink-3">{reasons.join(' · ')}</p>
-        )}
+        {/* Skälen är alltid minst två, så raden har alltid den här höjden.
+            Den reserveras ändå: en annons med långa skäl radbryter till två
+            rader, och då ska raderna under inte hoppa. */}
+        <p className="mt-2 min-h-[18px] text-meta text-ink-3">
+          {reasons.join(' · ')}
+        </p>
       </button>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">

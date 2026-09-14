@@ -2,112 +2,33 @@
  * Skälen bakom en träff (docs/plan-jobbmatchning.md, avsnitt 2 punkt 2).
  *
  * "Varje träff förklarar sig." En procentsiffra ensam säger ingenting: den
- * är vår modells tal om användaren, inte användarens bild av jobbet. Två
- * till tre skäl i klartext säger varför, och det är också vad betalväggen
- * säljer.
+ * är vår modells tal om användaren, inte användarens bild av jobbet.
  *
- * Allt härleds ur det edge-funktionen match-jobs redan skickar. Ingen ny
- * fråga, ingen ny kolumn: vi räknar bara ihop det som står i svaret.
+ * Runda 2: skälen var för tunna. En träff visade "1 av dina roller ·
+ * Stockholm", en annan bara "Stockholm", och en rad stod helt utan skäl.
+ * Två saker ändrades. Skälen räknas nu ur samma uträkning som matchgraden
+ * (match-score.ts) i stället för ur en egen parallell logik, så att talet och
+ * texten aldrig kan säga emot varandra. Och det finns alltid minst två skäl:
+ * ort och färskhet finns på varje annons, så en tom rad är alltid ett
+ * beräkningsfel, aldrig ett faktum om annonsen.
+ *
+ * Ordningen är bestämd: roller, kompetenser, ort, färskhet. Det starkaste
+ * argumentet först, det svagaste sist.
  */
 
+import { scoreJob, type MatchScore } from './match-score';
 import type { ActiveCVData } from '../getJobbmatchningData';
 
-/** Normalisering så "React.js" och "react js" räknas som samma kompetens. */
-function norm(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[.\-_/]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-/** Kompetenserna annonsen faktiskt ber om, både krav och önskemål. */
-function jobSkills(job: Record<string, any>): string[] {
-  const from = (bucket: unknown): string[] =>
-    Array.isArray(bucket)
-      ? bucket
-          .map((s: any) => (typeof s === 'string' ? s : s?.label ?? s?.name ?? ''))
-          .filter((s: string) => s.trim() !== '')
-      : [];
-
-  const alla = [
-    ...from(job.must_have?.skills),
-    ...from(job.nice_to_have?.skills),
-    ...from(job.enrichedSkills),
-  ];
-
-  // Dedup på normaliserad form, men behåll annonsens egen stavning.
-  const sedda = new Set<string>();
-  return alla.filter((s) => {
-    const n = norm(s);
-    if (n === '' || sedda.has(n)) return false;
-    sedda.add(n);
-    return true;
-  });
-}
-
 export interface MatchReasons {
-  /** Två till tre korta skäl, redan formulerade för visning. */
+  /** Minst två skäl, i ordningen roller, kompetenser, ort, färskhet. */
   reasons: string[];
-  /** Hur många av CV:ts roller som ligger nära annonsens titel. */
-  roleHits: number;
-  /** Matchade kompetenser av annonsens totala. */
-  skillHits: number;
-  skillTotal: number;
-}
-
-/**
- * Räknar ut skälen för en träff. Håller sig till tre skäl: fler blir en
- * uppräkning i stället för en förklaring.
- */
-export function buildMatchReasons(
-  job: Record<string, any>,
-  cv: ActiveCVData | null
-): MatchReasons {
-  const rubrik = norm(String(job.headline ?? ''));
-
-  // En roll räknas som träff om dess namn eller något av taxonomins
-  // alternativa namn förekommer i annonsens rubrik.
-  const roller = cv?.extracted_occupations ?? [];
-  const roleHits = roller.filter((occ) => {
-    const kandidater = [occ.normalized, occ.original, ...(occ.alternative_labels ?? [])];
-    return kandidater.some((k) => {
-      const n = norm(String(k ?? ''));
-      return n.length > 2 && rubrik.includes(n);
-    });
-  }).length;
-
-  const cvSkills = new Set((cv?.extracted_skills ?? []).map(norm));
-  const annonsSkills = jobSkills(job);
-  const skillTotal = annonsSkills.length;
-  const skillHits = annonsSkills.filter((s) => cvSkills.has(norm(s))).length;
-
-  const ort =
-    job.workplace_address?.municipality ||
-    job.workplace_address?.region ||
-    null;
-
-  const reasons: string[] = [];
-
-  if (roleHits > 0) {
-    reasons.push(
-      roleHits === 1 ? '1 av dina roller' : `${roleHits} av dina roller`
-    );
-  }
-
-  if (skillTotal > 0 && skillHits > 0) {
-    reasons.push(`${skillHits} av ${skillTotal} kompetenser`);
-  }
-
-  if (ort) reasons.push(String(ort));
-
-  // Har varken roll eller kompetens gett utslag säger vi det som faktiskt
-  // fällde avgörandet i stället för att hitta på ett skäl.
-  if (reasons.length === 0 && typeof job.relevance === 'number') {
-    reasons.push('Liknar din bakgrund');
-  }
-
-  return { reasons: reasons.slice(0, 3), roleHits, skillHits, skillTotal };
+  /**
+   * Skäl som bara hör hemma i detaljarket. "Inga uttalade krav i annonsen"
+   * är en upplysning om annonsen, inte ett argument för träffen, och har
+   * inget i listan att göra.
+   */
+  detailReasons: string[];
+  score: MatchScore;
 }
 
 /**
@@ -116,7 +37,7 @@ export function buildMatchReasons(
  */
 export function publishedLabel(iso: string | null | undefined): string | null {
   if (!iso) return null;
-  const d = new Date(iso);
+  const d = new Date(String(iso));
   if (Number.isNaN(d.getTime())) return null;
 
   const dagar = Math.floor((Date.now() - d.getTime()) / 86_400_000);
@@ -125,6 +46,73 @@ export function publishedLabel(iso: string | null | undefined): string | null {
   if (dagar < 7) return `publicerad för ${dagar} dagar sedan`;
   if (dagar < 14) return 'publicerad förra veckan';
   return `publicerad ${d.toLocaleDateString('sv-SE')}`;
+}
+
+/**
+ * Skälen för en träff, tillsammans med matchgraden de bygger på.
+ *
+ * Anroparen kan skicka in en redan uträknad poäng. Listan räknar poängen en
+ * gång per annons när den sorterar, och raden ska inte räkna om samma sak.
+ */
+export function buildMatchReasons(
+  job: Record<string, any>,
+  cv: ActiveCVData | null,
+  onskadeOrter: string[] = [],
+  precomputed?: MatchScore
+): MatchReasons {
+  const score = precomputed ?? scoreJob(job, cv, onskadeOrter);
+
+  const reasons: string[] = [];
+  const detailReasons: string[] = [];
+
+  // 1. Roller. "2 av dina 3 roller" säger både hur mycket som träffade och
+  //    hur mycket det fanns att träffa. Ett tal utan nämnare säger inget.
+  if (score.roleHits > 0 && score.roleTotal > 0) {
+    reasons.push(
+      score.roleTotal === 1
+        ? 'Din roll matchar'
+        : `${score.roleHits} av dina ${score.roleTotal} roller`
+    );
+  }
+
+  // 2. Kompetenser. Har annonsen en utskriven kravprofil räknar vi mot den.
+  //    Har den inte det (och det har de allra flesta inte: tjugo av 600 i en
+  //    riktig sökning) räknar vi i stället hur många av CV:ts kompetenser som
+  //    nämns i annonstexten. Vi säger då också det, i stället för att påstå
+  //    att annonsen krävt något den aldrig skrivit ut.
+  if (score.hasStatedSkills && score.skillHits > 0) {
+    reasons.push(`${score.skillHits} av ${score.skillTotal} kompetenser i kravprofilen`);
+  } else if (!score.hasStatedSkills) {
+    if (score.skillHits > 0) {
+      reasons.push(
+        score.skillHits === 1
+          ? '1 av dina kompetenser nämns i annonsen'
+          : `${score.skillHits} av dina kompetenser nämns i annonsen`
+      );
+    }
+    detailReasons.push('Kompetenser: inga uttalade krav i annonsen');
+  }
+
+  // 3. Ort. Distans går före kommunnamnet: kan jobbet göras hemifrån är det
+  //    den upplysningen som betyder något, inte var kontoret råkar ligga.
+  if (score.isRemote) reasons.push('Distans');
+  else if (score.locationLabel) reasons.push(score.locationLabel);
+
+  // 4. Färskhet. Alltid sist, alltid tillgänglig, och därmed garanten för
+  //    att ingen rad står tom.
+  const publicerad = publishedLabel(job.publication_date);
+  if (publicerad) reasons.push(publicerad);
+
+  // Har allt ovan ändå fallerat (annons utan ort och utan datum) säger vi det
+  // som faktiskt gäller i stället för att lämna raden tom.
+  if (reasons.length < 2) {
+    if (score.locationLabel && !reasons.includes(score.locationLabel)) {
+      reasons.push(score.locationLabel);
+    }
+  }
+  if (reasons.length < 2) reasons.push('Liknar din bakgrund');
+
+  return { reasons: reasons.slice(0, 4), detailReasons, score };
 }
 
 /** Samma sak, men för raden "senaste publicerad i går" i panelen ovanför. */
