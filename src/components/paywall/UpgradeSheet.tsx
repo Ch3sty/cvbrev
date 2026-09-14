@@ -13,7 +13,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { usePathname } from 'next/navigation'
 import { PLANS, type PlanKey } from '@/lib/plans/plans'
+import { capture } from '@/lib/analytics/events'
+import type { PaywallVariant } from './paywall-copy'
 import type { PremiumLossItem } from '@/app/api/premium/usage-summary/route'
 import { IlluDagspass, IlluVecka, IlluManad, IlluKvartal } from '@/components/illustrations/PriserIllustrations'
 
@@ -25,6 +28,12 @@ interface UpgradeSheetProps {
   order?: PlanOrder
   /** Varifrån sheeten öppnades, loggas som metadata på checkout-sessionen */
   source?: string
+  /**
+   * Betalväggen som öppnade arket. Sätts av PaywallCard och avgör vilken
+   * variant paywall-händelserna hamnar på. Öppnas arket från prissidan eller
+   * statusraden hör det inte till någon betalvägg, och då mäts det inte här.
+   */
+  variant?: PaywallVariant
   /**
    * Visa "det här förlorar du" ovanför produkterna. Sätts av statusraden dag
    * 4 till 5 och vid engångsköp som håller på att ta slut. Raderna sorteras
@@ -40,10 +49,18 @@ const ICONS: Record<PlanKey, React.ComponentType<{ size?: number; className?: st
   quarter: IlluKvartal,
 }
 
-export default function UpgradeSheet({ open, onClose, order = 'daypass-first', source, showLossSummary }: UpgradeSheetProps) {
+export default function UpgradeSheet({ open, onClose, order = 'daypass-first', source, variant, showLossSummary }: UpgradeSheetProps) {
   const [loading, setLoading] = useState<PlanKey | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [losses, setLosses] = useState<PremiumLossItem[] | null>(null)
+  const pathname = usePathname()
+  const surface = pathname ?? ''
+
+  // Arket är i sig en betalvägg: en gång per öppning, inte per omritning.
+  useEffect(() => {
+    if (!open || !variant) return
+    capture('paywall_shown', { variant, surface })
+  }, [open, variant, surface])
 
   // Hämtas först när sheeten öppnas: ingen anledning att fråga i förväg.
   useEffect(() => {
@@ -82,6 +99,8 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
   const plans = ordered.map((k) => PLANS.find((p) => p.key === k)!)
 
   const start = async (plan: PlanKey) => {
+    // Först här finns ett produktval, så det är här plan kan följa med.
+    if (variant) capture('paywall_cta_clicked', { variant, surface, plan, cta: 'primary' })
     setLoading(plan)
     setError(null)
     try {
@@ -126,7 +145,10 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
             </p>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => {
+              if (variant) capture('paywall_cta_clicked', { variant, surface, cta: 'secondary' })
+              onClose()
+            }}
             className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1"
             aria-label="Stäng"
           >

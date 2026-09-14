@@ -10,6 +10,8 @@
 
 import type { CtaCluster } from '@/lib/cta/clusters'
 import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
+import type { PaywallVariant } from '@/components/paywall/paywall-copy'
+import type { PlanKey } from '@/lib/plans/plans'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
@@ -89,6 +91,25 @@ export interface AnalyticsEvents {
   pwa_prompt_dismissed: { trigger: InstallTrigger; platform: InstallPlatform }
   pwa_installed: Record<string, never>
   pwa_launch: Record<string, never>
+  /* ------------------------------------------------------- betalväggarna
+     docs/plan-copy-inloggat.md avsnitt 6. Talet vi vill åt är
+     paywall_cta_clicked delat med paywall_shown, uppdelat per variant: utan
+     det paret går betalväggscopyn inte att mäta, och betalväggarna är fyra
+     av sju konverteringspunkter. surface är sidan eller routen händelsen
+     inträffade på, plan sätts först när ett produktval faktiskt finns. */
+  paywall_shown: {
+    variant: PaywallVariant
+    /** Sidan eller routen kortet visades på. */
+    surface: string
+    plan?: PlanKey
+  }
+  paywall_cta_clicked: {
+    variant: PaywallVariant
+    surface: string
+    plan?: PlanKey
+    /** Ink-knappen eller textlänken under den. */
+    cta: 'primary' | 'secondary'
+  }
   pricing_viewed: ClusterContext & { trigger: PricingTrigger }
   trial_started: { source: string }
   subscription_paid: { plan: string; amount?: number }
@@ -117,18 +138,60 @@ function posthogKlient(): PosthogKlient | null {
 }
 
 /**
- * Skickar ett event. Tyst no-op när PostHog inte är laddad.
+ * Händelser som inträffade innan klienten hunnit initieras.
+ *
+ * PostHogIdentify startar init:en först efter LCP, med ett tak på fyra
+ * sekunder. Allt som mäts vid montering ligger alltså före klienten, och en
+ * tyst no-op skulle tappa just de händelserna. Kön är avsiktligt liten: den
+ * håller ett rimligt antal och släpper de äldsta om något skulle spamma.
+ */
+const KO_TAK = 50
+let ko: Array<[string, Record<string, unknown> | undefined]> = []
+let tomningSchemalagd = false
+
+function skicka(ph: PosthogKlient, event: string, properties?: Record<string, unknown>): void {
+  try {
+    ph.capture(event, properties)
+  } catch {
+    // Mätning får aldrig kasta vidare.
+  }
+}
+
+function tomKo(): void {
+  const ph = posthogKlient()
+  if (!ph) {
+    // Klienten är fortfarande inte uppe. Titta igen om en stund, så länge
+    // det finns något att skicka.
+    if (ko.length > 0) setTimeout(tomKo, 1000)
+    else tomningSchemalagd = false
+    return
+  }
+  tomningSchemalagd = false
+  const väntande = ko
+  ko = []
+  for (const [event, properties] of väntande) skicka(ph, event, properties)
+}
+
+/**
+ * Skickar ett event. Köas när PostHog ännu inte hunnit initieras och skickas
+ * då så snart klienten finns.
  */
 export function capture<E extends AnalyticsEventName>(
   event: E,
   properties?: AnalyticsEvents[E]
 ): void {
+  if (typeof window === 'undefined') return
+  const props = properties as Record<string, unknown> | undefined
   const ph = posthogKlient()
-  if (!ph) return
-  try {
-    ph.capture(event, properties as Record<string, unknown> | undefined)
-  } catch {
-    // Mätning får aldrig kasta vidare.
+  if (ph) {
+    skicka(ph, event, props)
+    return
+  }
+  ko.push([event, props])
+  if (ko.length > KO_TAK) ko.shift()
+  if (!tomningSchemalagd) {
+    tomningSchemalagd = true
+    setTimeout(tomKo, 1000)
   }
 }
 

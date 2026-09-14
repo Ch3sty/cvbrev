@@ -10,8 +10,10 @@
  * Returnerar null för premium. Copy ordagrant från paywall-copy.ts.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { capture } from '@/lib/analytics/events'
 import { getPaywallCopy, type PaywallVariant } from './paywall-copy'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
@@ -80,6 +82,20 @@ export default function PaywallCard({
   const [sheetOpen, setSheetOpen] = useState(false)
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [copied, setCopied] = useState(false)
+  const pathname = usePathname()
+  const surface = pathname ?? ''
+
+  // En gång per montering, aldrig per omritning. Refen överlever både
+  // omritningar och StrictMode:s dubbelkörning i utvecklingsläge.
+  const shownRef = useRef(false)
+  useEffect(() => {
+    if (isPremium || shownRef.current) return
+    shownRef.current = true
+    capture('paywall_shown', { variant, surface })
+  }, [isPremium, variant, surface])
+
+  const ctaClicked = (cta: 'primary' | 'secondary') =>
+    capture('paywall_cta_clicked', { variant, surface, cta })
 
   if (isPremium) return null
 
@@ -113,6 +129,7 @@ export default function PaywallCard({
             type="button"
             className={LINK}
             onClick={() => {
+              ctaClicked('secondary')
               onCopy?.()
               setCopied(true)
               setTimeout(() => setCopied(false), 2000)
@@ -123,7 +140,12 @@ export default function PaywallCard({
         )
       case 'kvot':
       case 'test-tak':
-        if (!quota) return <Link href={PREMIUM_HREF} className={LINK}>Se vad Premium kostar</Link>
+        if (!quota)
+          return (
+            <Link href={PREMIUM_HREF} className={LINK} onClick={() => ctaClicked('secondary')}>
+              Se vad Premium kostar
+            </Link>
+          )
         if (reminder === 'saved')
           return (
             <span className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-positiv">
@@ -132,13 +154,28 @@ export default function PaywallCard({
             </span>
           )
         return (
-          <button type="button" className={LINK} onClick={remind} disabled={reminder === 'saving'}>
+          <button
+            type="button"
+            className={LINK}
+            onClick={() => {
+              ctaClicked('secondary')
+              void remind()
+            }}
+            disabled={reminder === 'saving'}
+          >
             {reminder === 'saving' ? 'Sparar' : copy.secondary}
           </button>
         )
       case 'nedgraderad':
         return (
-          <button type="button" className={LINK} onClick={onDismiss}>
+          <button
+            type="button"
+            className={LINK}
+            onClick={() => {
+              ctaClicked('secondary')
+              onDismiss?.()
+            }}
+          >
             {copy.secondary}
           </button>
         )
@@ -150,11 +187,22 @@ export default function PaywallCard({
         // gammalt CV") vinner över den generiska länken till prissidan.
         if (onSecondary)
           return (
-            <button type="button" className={LINK} onClick={onSecondary}>
+            <button
+              type="button"
+              className={LINK}
+              onClick={() => {
+                ctaClicked('secondary')
+                onSecondary()
+              }}
+            >
               {copy.secondary}
             </button>
           )
-        return <Link href={PREMIUM_HREF} className={LINK}>{copy.secondary}</Link>
+        return (
+          <Link href={PREMIUM_HREF} className={LINK} onClick={() => ctaClicked('secondary')}>
+            {copy.secondary}
+          </Link>
+        )
     }
   })()
 
@@ -173,7 +221,10 @@ export default function PaywallCard({
           <div className="mt-4">
             <button
               type="button"
-              onClick={() => setSheetOpen(true)}
+              onClick={() => {
+                ctaClicked('primary')
+                setSheetOpen(true)
+              }}
               className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
             >
               {copy.primary}
@@ -185,7 +236,13 @@ export default function PaywallCard({
           ) : null}
         </div>
       </div>
-      <UpgradeSheet open={sheetOpen} onClose={() => setSheetOpen(false)} order={planOrder} source={`paywall:${variant}`} />
+      <UpgradeSheet
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        order={planOrder}
+        source={`paywall:${variant}`}
+        variant={variant}
+      />
     </section>
   )
 }
