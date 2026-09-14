@@ -14,6 +14,7 @@ import { onOnetimeExpired } from '@/lib/email/lifecycle/hooks';
 import { createFollowUpNotifications } from '@/lib/notifications/followUp';
 import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
 import { cleanupExpiredAnonSessions } from '@/lib/tests/anon-session';
+import { collectAdminMetrics, dagStr } from '@/lib/admin/collect';
 
 /**
  * Vercel Cron job endpoint
@@ -201,6 +202,29 @@ export async function GET(request: NextRequest) {
       }
     } else {
       results.pricingSync = { skipped: true, reason: 'Morning slot handles emails only' };
+    }
+
+    // ====================================
+    // 2b. ADMINMETRIK (midnattsslotten)
+    // ====================================
+    // docs/plan-admin.md avsnitt 5.5. Bada Vercel-crons ar upptagna av den
+    // har rutten och en tredje gar inte att lagga till pa nuvarande plan, sa
+    // insamlingen hakar in har. Varje delsteg har egen tidsgrans pa 10
+    // sekunder och fangar sitt eget fel, sa ett hangande Stripe-anrop tar
+    // inte ner ovriga jobb i den 60 sekunder langa cronen.
+    //
+    // Gardagens dag samlas in, inte dagens: vid midnatt har dygnet nyss
+    // borjat och alla tal hade varit noll.
+    if (!isMorningSlot) {
+      try {
+        const igar = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        results.adminMetrics = await collectAdminMetrics(supabaseAdmin, dagStr(igar));
+      } catch (error: any) {
+        console.error('[Adminmetrik] Insamling misslyckades:', error);
+        results.adminMetrics = { success: false, error: error.message };
+      }
+    } else {
+      results.adminMetrics = { skipped: true, reason: 'Midnattsslotten samlar in' };
     }
 
     // ====================================
