@@ -110,6 +110,7 @@ const PreviewStep = dynamic(() => import('./components/steps/PreviewStep'), {
 });
 import { type FontId } from './components/FontSelector';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
+import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
@@ -617,6 +618,12 @@ export default function CreateLetterClient({
       } catch (listError) {
         console.warn('Brevet sparades men listan kunde inte uppdateras:', listError);
       }
+
+      // Frågan om hemskärmen (docs/plan-pwa.md). Först nu, när brevet
+      // faktiskt ligger sparat, och aldrig när sparandet misslyckades: den
+      // som just fick ett felmeddelande ska inte få en fråga ovanpå det.
+      // Reglerna för om frågan får visas ligger i storen, inte här.
+      requestInstallPrompt('letter_saved');
     } catch (err: any) {
       console.error('Save error:', err);
       // "Failed to fetch" är webbläsarens ord för ett tappat mobilnät. Det

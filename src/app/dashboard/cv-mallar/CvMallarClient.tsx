@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useNotification } from '@/context/notificationcontext';
 import { getTemplateById } from '@/lib/cv/simple-templates';
+import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
@@ -133,6 +134,11 @@ export default function CvMallarClient({
         },
         5000
       );
+
+      // Frågan om hemskärmen (docs/plan-pwa.md). PDF:en ligger på enheten,
+      // så handlingen är avslutad och raden avbryter ingenting. Reglerna för
+      // om frågan får visas ligger i storen, inte här.
+      requestInstallPrompt('cv_template_downloaded');
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);
       setGenerationError(error?.message || 'Något gick fel. Försök igen.');

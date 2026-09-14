@@ -39,6 +39,14 @@ const SetPasswordPrompt = dynamic(
   () => import('@/components/dashboard/SetPasswordPrompt'),
   { ssr: false }
 );
+
+// Frågan om hemskärmen (docs/plan-pwa.md). Den ligger tyst tills ett av de
+// fyra triggerställena anropar requestInstallPrompt, så den ska inte kosta
+// något i skalets paket heller.
+const InstallPrompt = dynamic(
+  () => import('@/components/shell/InstallPrompt'),
+  { ssr: false }
+);
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {
@@ -211,6 +219,12 @@ export default function DashboardShell({
           </main>
         </div>
       </div>
+
+      {/* Frågan om hemskärmen, en rad direkt ovanför den fot som råkar
+          finnas. Den renderar null tills en trigger öppnat den. Den måste
+          ligga kvar även i ett flöde: brevet sparas i skapa-brev, som är ett
+          flöde, och det är efter just den bekräftelsen frågan ska komma. */}
+      <InstallPrompt />
 
       {/* Mobil bottennavigation (lg:hidden inuti komponenten) */}
       <MobileBottomNavWrapper />

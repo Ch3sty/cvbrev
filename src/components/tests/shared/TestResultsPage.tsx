@@ -22,6 +22,7 @@ import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
 import PageHeader from '@/components/shell/PageHeader'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
+import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 
 /*
   Genomgången per fråga ligger långt under första vyn: poängkortet,
@@ -134,6 +135,23 @@ export default function TestResultsPage({
       cancelled = true
     }
   }, [config.api, config.sessionQuery, config.slug, sessionId, fromServer])
+
+  /**
+   * Frågan om hemskärmen (docs/plan-pwa.md), efter ett slutfört logiktest.
+   *
+   * Bara matrislogiken, alltså config.kind === 'matris'. Verbala, numeriska
+   * och personlighetstesten har sina egna resultatsidor i samma skal, men
+   * planen pekar ut logiktestet och inget annat.
+   *
+   * Villkoret är att resultatet faktiskt står på skärmen: ett skelett eller
+   * ett "gick inte att hämta" är inte ett slutfört test. Alla nivåer räknas,
+   * inklusive provet. Reglerna för om frågan får visas ligger i storen.
+   */
+  useEffect(() => {
+    if (config.kind !== 'matris') return
+    if (state !== 'ready' || !session) return
+    requestInstallPrompt('logic_test_completed')
+  }, [config.kind, state, session])
 
   if (state === 'loading') {
     return (

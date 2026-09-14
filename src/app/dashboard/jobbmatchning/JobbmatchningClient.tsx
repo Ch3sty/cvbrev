@@ -55,6 +55,7 @@ import {
   IlluPlattaCvPoang,
 } from '@/components/illustrations/TradenScener';
 import { capture } from '@/lib/analytics/events';
+import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route';
 import {
   applyClientFilters,
@@ -229,6 +230,26 @@ export default function JobbmatchningClient({
     // Bara vid första render: sidan visas en gång per besök.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**
+   * Frågan om hemskärmen (docs/plan-pwa.md), efter den första matchningen.
+   *
+   * Den ligger i en effekt och inte i fetchJobs, eftersom planen säger att
+   * frågan ska komma när listan är visad. En effekt kör efter att React
+   * målat, alltså när träffarna faktiskt står på skärmen, medan ett anrop
+   * inne i fetchJobs hade lagt raden där innan användaren sett något.
+   *
+   * hasSearched skiljer en färsk sökning från en återställd: raden hör till
+   * handlingen, inte till att öppna sidan igen. Reglerna för om frågan får
+   * visas ligger i storen.
+   */
+  const installPromptAsked = useRef(false);
+  useEffect(() => {
+    if (installPromptAsked.current) return;
+    if (!hasSearched || loadingJobs || jobs.length === 0) return;
+    installPromptAsked.current = true;
+    requestInstallPrompt('first_match');
+  }, [hasSearched, loadingJobs, jobs.length]);
 
   const autoActivated = useRef(false);
 
