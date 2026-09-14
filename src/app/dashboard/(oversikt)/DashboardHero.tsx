@@ -91,7 +91,8 @@ export default function DashboardHero({ state, userId, firstName, onCvUploaded }
                 {firstName ? `Börja med ditt CV, ${firstName}` : 'Börja med ditt CV'}
               </h1>
               <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
-                Vi läser det och visar vad en rekryterare ser. Tar 30 sekunder.
+                Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV
+                likadant, på 30 sekunder.
               </p>
 
               <div className="mt-4">
@@ -104,6 +105,13 @@ export default function DashboardHero({ state, userId, firstName, onCvUploaded }
                   }}
                 />
               </div>
+
+              {/* Förtroenderaden står där filen lämnar användaren. Sann enligt
+                  src/lib/privacy/pii.ts, som maskar personuppgifter före varje
+                  AI-anrop. */}
+              <p className="mt-2 text-meta text-ink-3">
+                Namn, telefon och adress maskas innan texten går vidare till någon AI.
+              </p>
 
               <Link href="/dashboard/skapa-cv" className={`${LINK} mt-2`}>
                 Har du inget CV? Bygg ett här

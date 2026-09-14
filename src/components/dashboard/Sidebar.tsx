@@ -14,6 +14,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { scheduleIdle } from '@/lib/scheduleIdle';
 import { useAuth } from '@/contexts/AuthContext';
+import { PLAN_BY_KEY } from '@/lib/plans/plans';
 
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
@@ -83,7 +84,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       premiumLabel = 'Aktiv';
       premiumNeedsAttention = false;
     } else {
-      premiumLabel = 'Gratis';
+      // Badgen säger vad Premium kostar i stället för vad kontot saknar.
+      // Priset läses ur PLANS så att badgen följer med om dagspasset ändras.
+      premiumLabel = `Från ${PLAN_BY_KEY.daypass.amount} kr`;
       premiumNeedsAttention = true;
     }
   }
@@ -220,7 +223,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
           <SidebarLink
             href="/dashboard/profil/cv"
-            label="CV"
+            label="Mina CV"
             icon={IkonCv}
             count={cvCount}
             sublabel={hasNoCv ? 'Ladda upp ditt första CV' : undefined}
@@ -229,10 +232,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
           <SidebarLink
             href="/dashboard/mina-brev"
-            label="Brev"
+            label="Personliga brev"
             icon={IkonBrev}
             count={letterCount}
-            sublabel={hasNoCv ? 'Ladda upp CV först' : undefined}
+            sublabel={hasNoCv ? 'Ladda upp ett CV så börjar vi' : undefined}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -243,8 +246,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         <SidebarSection eyebrow="Verktyg">
           <SidebarLink
             href="/dashboard/skapa-brev"
-            label="Skriv brev"
+            label="Skriv nytt brev"
             icon={IkonSkapa}
+            sublabel="Klistra in annonsen, vi skriver"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -252,6 +256,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-analys"
             label="Analysera CV"
             icon={IkonAnalys}
+            sublabel="Så läser en rekryterare ditt CV"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -259,6 +264,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/jobbmatchning"
             label="Jobbmatchning"
             icon={IkonMatchning}
+            sublabel="Lediga jobb som passar ditt CV"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -273,6 +279,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/tester"
             label="Rekryteringstester"
             icon={IkonBalanserad}
+            sublabel="Träna på testerna innan urvalet"
             isMobile={isMobile}
             onClick={onClose}
           />
