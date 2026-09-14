@@ -16,14 +16,14 @@ interface CVAnalysisIntroProps {
 const FORDELAR = [
   {
     icon: Target,
-    title: 'ATS-optimering',
+    title: 'Läsbar i rekryteringssystem',
     description:
-      'Vi analyserar om ditt CV passerar de automatiska urvalssystem som de flesta arbetsgivare använder.',
+      'De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna först. Vi visar om ditt CV klarar det.',
   },
   {
     icon: FileSearch,
-    title: 'Detaljerad feedback',
-    description: 'Konkreta förslag på förbättringar för varje sektion av ditt CV.',
+    title: 'Genomgång per avsnitt',
+    description: 'Färdiga formuleringar för varje del av CV:t, från profiltext till kompetenser.',
   },
   {
     icon: Zap,
@@ -33,7 +33,7 @@ const FORDELAR = [
 ];
 
 const INNEHALL = [
-  'Poäng för hur ATS-vänligt ditt CV är',
+  'Poäng för hur väl rekryteringssystem läser ditt CV',
   'Analys av dina kompetenser och nyckelord',
   'Granskning av personlig beskrivning',
   'Konkreta förbättringar för varje sektion',
@@ -59,7 +59,7 @@ export default function CVAnalysisIntro({
     <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
       <PageHeader
         title="Analysera ditt CV"
-        description="Vi läser CV:t och visar vad en rekryterare ser. Tar 30 sekunder."
+        description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
       />
 
       {visaKvot && (

@@ -333,7 +333,7 @@ export default function MinaCvClient({
           <EmptyState
             illustration={IlluTomCv}
             title="Inget CV än"
-            description="Vi läser det och visar vad en rekryterare ser. Tar 30 sekunder."
+            description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
             action={
               <a
                 href="#upload-zone"

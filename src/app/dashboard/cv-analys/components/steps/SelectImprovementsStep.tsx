@@ -242,7 +242,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         ? [
             {
               id: 'skills' as SelectCategory,
-              label: 'Skills',
+              label: 'Kompetenser',
               selectedCount: selectedSkills.size,
               totalCount: safeData.skills.length,
             },

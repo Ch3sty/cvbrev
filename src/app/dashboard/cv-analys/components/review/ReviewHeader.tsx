@@ -58,9 +58,15 @@ export default function ReviewHeader({
           {/* Stats-rad */}
           <div className="mt-4 grid grid-cols-3 gap-3">
             <Stat value={changeCount} label={changeCount === 1 ? 'ändring' : 'ändringar'} />
-            <Stat value={`+${atsImprovement}`} label="ATS-poäng" />
+            <Stat value={`+${atsImprovement}`} label="läsbarhetspoäng" />
             <Stat value={keywordsAdded} label="nyckelord" />
           </div>
+
+          {/* Poängen behöver en norm för att betyda något. Skalan är den som
+              visas i UnifiedATSSection och CVSectionAnalysisOverview. */}
+          <p className="mt-2 text-meta text-ink-3">
+            Poängen går från 0 till 100 och mäter hur väl ett rekryteringssystem tolkar ditt CV.
+          </p>
         </div>
       </div>
     </section>
