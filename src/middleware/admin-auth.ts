@@ -20,16 +20,16 @@ export async function adminAuthMiddleware(request: NextRequest) {
     // Next.js 16: Använd request.cookies istället för cookies() från next/headers
     const supabase = createServerClient({
       cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value;
+        getAll() {
+          return request.cookies.getAll();
         },
-        set(name: string, value: string, options: any) {
-          request.cookies.set({ name, value, ...options });
-          supabaseResponse.cookies.set({ name, value, ...options });
-        },
-        remove(name: string, options: any) {
-          request.cookies.set({ name, value: '', ...options, maxAge: 0 });
-          supabaseResponse.cookies.set({ name, value: '', ...options, maxAge: 0 });
+        setAll(cookiesToSet: Array<{ name: string; value: string; options?: any }>) {
+          for (const { name, value } of cookiesToSet) {
+            request.cookies.set(name, value);
+          }
+          for (const { name, value, options } of cookiesToSet) {
+            supabaseResponse.cookies.set(name, value, options);
+          }
         },
       },
     });
@@ -81,16 +81,16 @@ export async function isSuperAdmin(request: NextRequest): Promise<boolean> {
 
   const supabase = createServerClient({
     cookies: {
-      get(name: string) {
-        return request.cookies.get(name)?.value;
+      getAll() {
+        return request.cookies.getAll();
       },
-      set(name: string, value: string, options: any) {
-        request.cookies.set({ name, value, ...options });
-        supabaseResponse.cookies.set({ name, value, ...options });
-      },
-      remove(name: string, options: any) {
-        request.cookies.set({ name, value: '', ...options, maxAge: 0 });
-        supabaseResponse.cookies.set({ name, value: '', ...options, maxAge: 0 });
+      setAll(cookiesToSet: Array<{ name: string; value: string; options?: any }>) {
+        for (const { name, value } of cookiesToSet) {
+          request.cookies.set(name, value);
+        }
+        for (const { name, value, options } of cookiesToSet) {
+          supabaseResponse.cookies.set(name, value, options);
+        }
       },
     },
   });

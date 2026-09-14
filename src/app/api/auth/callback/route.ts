@@ -1,9 +1,7 @@
 // app/auth/callback/route.ts
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
-// Importera den *ursprungliga* createServerClient från @supabase/ssr och CookieOptions
-import { createServerClient as createSupabaseServerClient, type CookieOptions } from '@supabase/ssr';
-import { type Database } from '@/types/database.types'; // Antag att du har denna typ
+import { createServerClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -15,41 +13,9 @@ export async function GET(request: NextRequest) {
     // Hämta cookie-lagret (med await som önskat)
     const cookieStore = await cookies();
 
-    // *** Skapa Supabase-klienten direkt här ***
-    // Detta är nödvändigt pga hur cookies() fungerar i Route Handlers
-    // och hur din nuvarande server.ts helper är designad.
-    const supabase = createSupabaseServerClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            // Använd den hämtade cookieStore
-            return cookieStore.get(name)?.value;
-          },
-          set(name: string, value: string, options: CookieOptions) {
-            // Försök att sätta cookie via cookieStore
-            try {
-              cookieStore.set({ name, value, ...options });
-            } catch (error) {
-              // Ignorera fel som kan uppstå i Server Components/Route Handlers
-              // eftersom `set` är avsett för Server Actions/Middleware
-              console.warn(`Callback Route: Failed to set cookie "${name}". This might be expected in a Route Handler. Error:`, error);
-            }
-          },
-          remove(name: string, options: CookieOptions) {
-            // Försök att ta bort cookie via cookieStore med den nya delete-metoden
-            try {
-              cookieStore.delete({ name, ...options }); // Använd delete
-            } catch (error) {
-              // Ignorera fel på samma sätt som för set
-              console.warn(`Callback Route: Failed to delete cookie "${name}". This might be expected in a Route Handler. Error:`, error);
-            }
-          },
-        },
-      }
-    );
-
+    // Samma klient som resten av appen: getAll/setAll, så sessionen skrivs
+    // tillbaka i ett svep i stället för cookie för cookie.
+    const supabase = createServerClient({ cookies: cookieStore });
     try {
         // Försök att byta OAuth-code mot en session
         const { error, data } = await supabase.auth.exchangeCodeForSession(code);

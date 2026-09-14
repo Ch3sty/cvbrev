@@ -7,8 +7,7 @@
 
 import { cookies } from 'next/headers'
 import { NextResponse, type NextRequest } from 'next/server'
-import { createServerClient as createSupabaseServerClient, type CookieOptions } from '@supabase/ssr'
-import { type Database } from '@/types/database.types'
+import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { logActivityServer } from '@/lib/activation-tracking'
 
@@ -32,30 +31,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/login?error=oauth_no_code`)
   }
 
+  // Samma klient som resten av appen: getAll/setAll, så sessionen från
+  // exchangeCodeForSession skrivs tillbaka i ett svep.
   const cookieStore = await cookies()
-  const supabase = createSupabaseServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get: (name: string) => cookieStore.get(name)?.value,
-        set: (name: string, value: string, options: CookieOptions) => {
-          try {
-            cookieStore.set({ name, value, ...options })
-          } catch {
-            /* förväntat i vissa route handler-lägen */
-          }
-        },
-        remove: (name: string, options: CookieOptions) => {
-          try {
-            cookieStore.delete({ name, ...options })
-          } catch {
-            /* förväntat i vissa route handler-lägen */
-          }
-        },
-      },
-    }
-  )
+  const supabase = createServerClient({ cookies: cookieStore })
 
   const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 

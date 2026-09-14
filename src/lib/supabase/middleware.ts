@@ -41,19 +41,24 @@ function isCandidateOnlyRoute(pathname: string): boolean {
 export async function updateSession(request: NextRequest) {
   const supabaseResponse = NextResponse.next({ request })
 
-  // Skapa en Supabase-klient med ett cookie‑lager baserat på request.cookies
+  // Proxyn är den ENDA platsen som förnyar sessionen per request. Skrivningar
+  // måste landa på både request (så Server Components i samma request läser
+  // den nya token) och response (så webbläsaren byter ut den gamla).
+  // getAll/setAll är @supabase/ssr:s rekommenderade API: hela cookie-
+  // uppsättningen skrivs atomärt, vilket är det som hindrar refresh token
+  // reuse (`token_revoked`).
   const supabase = createServerClient({
     cookies: {
-      get(name: string) {
-        return request.cookies.get(name)?.value
+      getAll() {
+        return request.cookies.getAll()
       },
-      set(name: string, value: string, options: any) {
-        request.cookies.set({ name, value, ...options })
-        supabaseResponse.cookies.set({ name, value, ...options })
-      },
-      remove(name: string, options: any) {
-        request.cookies.set({ name, value: '', ...options, maxAge: 0 })
-        supabaseResponse.cookies.set({ name, value: '', ...options, maxAge: 0 })
+      setAll(cookiesToSet: Array<{ name: string; value: string; options?: any }>) {
+        for (const { name, value } of cookiesToSet) {
+          request.cookies.set(name, value)
+        }
+        for (const { name, value, options } of cookiesToSet) {
+          supabaseResponse.cookies.set(name, value, options)
+        }
       },
     },
   })

@@ -14,7 +14,10 @@ export async function POST(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
       {
         cookies: {
-          get: (name: string) => cookieStore.get(name)?.value,
+          getAll: () => cookieStore.getAll(),
+          setAll: () => {
+            /* service role-klient: inga cookies att skriva tillbaka */
+          },
         },
       }
     );
