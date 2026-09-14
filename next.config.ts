@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Byggkatalogen går att flytta med NEXT_DIST_DIR. Utan den ligger bygget i
+  // .next, precis som förut, och Vercel rör aldrig variabeln. Den finns för
+  // att en QA-körning ska kunna bygga i .next-qa utan att slå sönder
+  // dev-servern som redan står och tittar på .next. Byggkataloger som matchar
+  // .next-* ligger i .gitignore.
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
+
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
 
