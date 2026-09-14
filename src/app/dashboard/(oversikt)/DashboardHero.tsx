@@ -127,7 +127,7 @@ export default function DashboardHero({ state, userId, firstName, onCvUploaded }
           Träna på tester
         </Link>
         <Link href="/dashboard/sokta-tjanster" className={LINK}>
-          Logga sökta tjänster
+          Följ dina ansökningar
         </Link>
       </div>
     </section>

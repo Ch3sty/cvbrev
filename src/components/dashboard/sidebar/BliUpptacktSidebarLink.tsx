@@ -22,7 +22,8 @@ export default function BliUpptacktSidebarLink({
 }) {
   const { pending, isVisible, loaded } = useCandidateInterests();
 
-  let sublabel: React.ReactNode = undefined;
+  // Raden förklarar alltid vad funktionen är; läget byter bara texten.
+  let sublabel: React.ReactNode = 'Rekryterare hittar dig, anonymt';
   let showNy = true;
   if (loaded) {
     if (pending > 0) {
@@ -32,8 +33,8 @@ export default function BliUpptacktSidebarLink({
         </span>
       );
       showNy = false;
-    } else if (!isVisible) {
-      sublabel = 'Gör dig tillgänglig för rekryterare';
+    } else if (isVisible) {
+      sublabel = 'Synlig, anonym tills du svarar';
     }
   }
 

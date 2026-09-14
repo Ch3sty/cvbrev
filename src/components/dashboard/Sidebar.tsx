@@ -218,6 +218,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Ansökningar"
             icon={IkonAnsokningar}
             count={applicationCount}
+            sublabel="Hur långt du kommer, och var det tar stopp"
             isMobile={isMobile}
             onClick={onClose}
           />

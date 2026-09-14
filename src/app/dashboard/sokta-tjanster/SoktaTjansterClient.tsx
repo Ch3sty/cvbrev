@@ -322,7 +322,7 @@ export default function SoktaTjansterClient({
     <div className="mx-auto max-w-5xl space-y-6 pb-16">
       <PageHeader
         title="Ansökningar"
-        description="Alla jobb du sökt, var de står och vad som väntar på svar."
+        description="Din statistik över jobbsöket: hur många du sökt, hur långt du kommer i processerna och var det tar stopp. Logga varje sökt jobb så ser du mönstret."
         action={totalCount > 0 ? logButton : undefined}
       >
         <div

@@ -61,8 +61,8 @@ export default function CreateSheet({ open, onClose, applicationCount, cvCount }
   }
   const rowAnsokan: Row = {
     id: 'ansokan',
-    label: 'Logga ansökan',
-    hint: 'Håll koll på svaren',
+    label: 'Logga sökt jobb',
+    hint: 'Se hur långt du kommer i processerna',
     href: '/dashboard/sokta-tjanster?logga=1',
     Ikon: IkonAnsokningar,
   }

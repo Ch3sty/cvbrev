@@ -47,8 +47,8 @@ const ACTIONS: SnabbAtgard[] = [
   {
     slug: 'sokta-tjanster',
     Icon: IkonAnsokningar,
-    title: 'Logga sökta tjänster',
-    body: 'Följ dina ansökningar och se din statistik.',
+    title: 'Följ dina ansökningar',
+    body: 'Hur många du sökt, hur långt du kommer och var det tar stopp.',
     href: '/dashboard/sokta-tjanster',
     requiresCV: false,
     isNew: true,
