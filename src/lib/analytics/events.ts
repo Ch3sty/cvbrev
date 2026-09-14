@@ -55,6 +55,29 @@ export interface AnalyticsEvents {
   }
   draft_claimed: { kind: 'letter' | 'cv' | 'test'; yrke_slug?: string }
   activation_first_doc: { kind: 'letter' | 'cv' }
+  /* ---------------------------------------------- jobbmatchningen, våg 1
+     docs/plan-jobbmatchning.md avsnitt 3. Målet är andelen träffar som
+     leder till brev, alltså match_letter_started delat med match_viewed. */
+  match_page_viewed: { has_cv: boolean; has_preferences: boolean }
+  match_preferences_saved: {
+    /** Var preferenserna ändrades. */
+    source: 'profil' | 'matchningar'
+    locations: number
+    remote: boolean
+    extent: 'heltid' | 'deltid' | ''
+    /** Bara om lönen är satt, aldrig beloppet. Lön lämnar inte vår sida. */
+    has_min_salary: boolean
+  }
+  match_search_run: {
+    /** Antal annonser vi läst igenom. */
+    ads_read: number
+    /** Antal som passade, alltså träffarna i listan. */
+    matches: number
+    custom_query: boolean
+  }
+  match_viewed: { job_id: string; relevance?: number; position?: number }
+  match_letter_started: { job_id: string; relevance?: number }
+  match_applied: { job_id: string }
   pricing_viewed: ClusterContext & { trigger: PricingTrigger }
   trial_started: { source: string }
   subscription_paid: { plan: string; amount?: number }

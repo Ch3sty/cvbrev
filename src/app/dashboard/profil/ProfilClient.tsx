@@ -29,6 +29,7 @@ import { useNotification } from '@/context/notificationcontext';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
 import PageHeader from '@/components/shell/PageHeader';
+import { capture } from '@/lib/analytics/events';
 
 import IntegritetsBlock from './components/IntegritetsBlock';
 import PresentationSection from './components/PresentationSection';
@@ -202,6 +203,20 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
             : undefined;
 
         void save(key, () => updateProfile({ [key]: value } as any), validate);
+
+        // Preferenserna mäts likadant oavsett var de ändrades, så att
+        // match_preferences_saved går att läsa som en siffra.
+        if (key === 'job_preferences') {
+          const p = current.job_preferences;
+          capture('match_preferences_saved', {
+            source: 'profil',
+            locations: p.locations.length,
+            remote: p.remote,
+            extent: p.extent,
+            // Bara att fältet är ifyllt. Beloppet lämnar aldrig vår sida.
+            has_min_salary: p.min_salary !== null,
+          });
+        }
 
         return current;
       });
