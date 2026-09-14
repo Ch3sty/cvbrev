@@ -75,9 +75,10 @@ function deltaText(v: number | null, formatera: (n: number) => string): string |
 /**
  * Bygger MetricCards jamforelseprops ur ett Tal.
  *
- * Kortet har bara plats for en jamforelse, och i gar ar den agaren tittar pa
- * forst. Veckojamforelsen star som datakvalitet-rad under, vilket ar samma
- * meta-format och darmed samma tyngd.
+ * I gar ar den agaren tittar pa forst, sa den ar kortets huvudjamforelse.
+ * Veckojamforelsen star pa andraJamforelse-raden under. Tidigare lanade den
+ * har funktionen datakvalitet-propen till det, vilket sa att talet var
+ * opalitligt nar det bara hade rort sig.
  */
 function jamforelser(
   t: Tal,
@@ -86,7 +87,7 @@ function jamforelser(
   delta?: number | null;
   deltaText?: string;
   jamforelse?: string;
-  datakvalitet?: string;
+  andraJamforelse?: string;
 } {
   const igar = deltaText(t.motIgar, formatera);
   const vecka = deltaText(t.motForraVeckan, formatera);
@@ -106,7 +107,7 @@ function jamforelser(
     delta: t.motIgar,
     deltaText: igar,
     jamforelse: igar ? 'mot i går' : undefined,
-    datakvalitet: vecka
+    andraJamforelse: vecka
       ? `${vecka === 'oförändrat' ? 'Oförändrat' : vecka} mot samma dag förra veckan`
       : undefined,
   };

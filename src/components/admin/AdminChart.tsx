@@ -65,6 +65,13 @@ export interface AdminChartProps {
   serier: AdminSerie[];
   /** Reserverad hojd i pixlar. Standard 240. */
   hojd?: number;
+  /**
+   * Y-axelns bredd i pixlar. Standard 56, vilket rymmer fyra siffror i tolv
+   * pixlars grad. Hoj den nar etiketterna bar en enhet ("600 kr") eller nar
+   * talen blir langre: en for smal axel klipper fran vanster, sa "600 kr"
+   * lases som "00 kr", vilket ar varre an ingen etikett alls.
+   */
+  yAxisWidth?: number;
   /** Formaterar x-etiketterna, till exempel ett datum till "14 sep". */
   formateraX?: (varde: string | number) => string;
   /** Formaterar y-etiketter och tooltip-varden, till exempel ore till kronor. */

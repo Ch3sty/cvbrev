@@ -40,6 +40,13 @@ export interface MetricCardProps {
    */
   inverterad?: boolean;
   /**
+   * En andra jamforelse, till exempel "Ner 3 mot samma dag forra veckan".
+   * Egen meta-rad under den forsta. Oversikt lanade tidigare
+   * datakvalitet-propen till det har, vilket blandade ihop "talet rorde sig"
+   * med "talet gar inte att lita pa". Nu ar det tva olika saker.
+   */
+  andraJamforelse?: string;
+  /**
    * Datakvalitetsnot. Visas som en egen meta-rad under jamforelsen. Anvands
    * for tal vars underliggande matning ar kand trasig.
    */
@@ -54,6 +61,7 @@ export default function MetricCard({
   deltaText,
   jamforelse,
   inverterad = false,
+  andraJamforelse,
   datakvalitet,
   className,
 }: MetricCardProps) {
@@ -96,6 +104,10 @@ export default function MetricCard({
           {text && jamforelse ? ' ' : ''}
           {jamforelse}
         </div>
+      ) : null}
+
+      {andraJamforelse ? (
+        <div className="mt-1 text-meta text-ink-3">{andraJamforelse}</div>
       ) : null}
 
       {datakvalitet ? (

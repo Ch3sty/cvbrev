@@ -45,24 +45,19 @@ export default function IntaktDiagram({
   enhet = 'ore',
   tomText,
 }: Props) {
-  // Y-etiketterna skrivs utan "kr" sa att de ryms i axelbredden.
+  // Kronorna star ater i y-etiketten. Tidigare foll de bort: AdminChartInner
+  // hade margin.left -16 som drog in axeln under plotytan och klippte "600 kr"
+  // till "00 kr". Vag 4 tog bort den marginalen och gav AdminChart en
+  // yAxisWidth, sa kortningen behovs inte langre.
   //
-  // AdminChartInner sitter pa YAxis width={56} med margin.left -16, alltsa
-  // omkring fyrtio pixlar text i tolv pixlars grad. QA-dumpen visade att
-  // redan "600 kr" ar for bred: forsta siffran foll bort och etiketten lastes
-  // som "00 kr", vilket ar varre an ingen etikett alls. Komponenten hor till
-  // vag 1, far inte andras, och har ingen prop for axelbredd, sa kortningen
-  // sker har.
-  //
-  // Enheten forsvinner inte, den flyttar: varje diagram star under en
-  // sektionsrubrik som sager vad som mats, och korten ovanfor ger samma tal i
-  // hela kronor. Over tusen kronor kortas till tusental, sa att axeln haller
-  // sig inom bredden aven nar MRR vaxer. Se rapporten.
+  // Over tusen kronor skrivs fortfarande i tusental. Det handlar inte om
+  // bredd utan om lasbarhet: "12 tkr" gar snabbare att lasa an "12 000 kr" pa
+  // en axel man skummar.
   const formateraY =
     enhet === 'ore'
       ? (v: number) => {
           const kr = Math.round(v / 100);
-          if (Math.abs(kr) < 1000) return kr.toLocaleString('sv-SE');
+          if (Math.abs(kr) < 1000) return `${kr.toLocaleString('sv-SE')} kr`;
           return `${(kr / 1000).toLocaleString('sv-SE', {
             maximumFractionDigits: 1,
           })} tkr`;
@@ -77,6 +72,8 @@ export default function IntaktDiagram({
       hojd={hojd}
       formateraX={kortDatum}
       formateraY={formateraY}
+      // Kronetiketter behover mer an standardbredden 56.
+      yAxisWidth={enhet === 'ore' ? 72 : 56}
       tomText={tomText}
     />
   );

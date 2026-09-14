@@ -40,13 +40,18 @@ function formateraDag(varde: string | number): string {
 }
 
 /**
- * Y-axeln, bara siffran.
+ * Y-axeln for MRR, i kronor.
  *
- * AdminChartInner ger axeln 56 px och drar in ritytan 16 px, sa etiketten har
- * cirka 40 px att sta pa. "600 kr" klipps till "00 kr" i den bredden. Enheten
- * star darfor i rubriken ovanfor diagrammet i stallet, dar den bara behover
- * skrivas en gang, och axeln far vara ren.
+ * Kronorna klipptes tidigare bort: AdminChartInner drog in ritytan 16 px med
+ * en negativ margin.left, sa "600 kr" lastes som "00 kr". Vag 4 tog bort den
+ * marginalen och lade yAxisWidth pa AdminChart, alltsa far enheten sta kvar
+ * dar den hor hemma.
  */
+function formateraKronor(varde: number): string {
+  return `${Math.round(varde).toLocaleString('sv-SE')} kr`;
+}
+
+/** Rena tal, utan enhet. Staplarna raknar personer. */
 function formateraTal(varde: number): string {
   return Math.round(varde).toLocaleString('sv-SE');
 }
@@ -74,7 +79,8 @@ export default function MrrDiagram({ serie }: MrrDiagramProps) {
         hojd={200}
         serier={[{ nyckel: 'mrr', namn: 'MRR', typ: 'linje', roll: 'primar' }]}
         formateraX={formateraDag}
-        formateraY={formateraTal}
+        formateraY={formateraKronor}
+        yAxisWidth={72}
         tomText="Ingen historik ännu."
       />
 

@@ -39,6 +39,7 @@ export default function AdminChartInner({
   serier,
   formateraX,
   formateraY,
+  yAxisWidth = 56,
 }: AdminChartProps) {
   // Forklaringen kravs sa snart det finns mer an en serie: identitet far
   // aldrig bara baras av farg.
@@ -46,7 +47,11 @@ export default function AdminChartInner({
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <ComposedChart data={data} margin={{ top: 8, right: 4, bottom: 0, left: -16 }}>
+      {/* Ingen negativ margin.left. Den drog in axeln under plotytan och
+          klippte etiketten fran vanster: "600 kr" lastes som "00 kr". Bredden
+          styrs av yAxisWidth i stallet, vilket ar en bredd och inte ett
+          hack. */}
+      <ComposedChart data={data} margin={{ top: 8, right: 4, bottom: 0, left: 0 }}>
         <CartesianGrid vertical={false} stroke="var(--kant)" />
 
         <XAxis
@@ -61,7 +66,7 @@ export default function AdminChartInner({
           tick={AXEL}
           tickLine={false}
           axisLine={false}
-          width={56}
+          width={yAxisWidth}
           tickFormatter={formateraY}
         />
 

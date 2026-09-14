@@ -790,21 +790,29 @@ inte av sidorna). Exporterar även `ADMIN_NAV` och
 `isActiveAdminRoute(pathname, href)`. Lägg till en sida genom att lägga den i
 `ADMIN_NAV`. `toolbar` är platsen för periodväljaren i toppraden.
 
-**`MetricCard { etikett, varde, delta?, deltaText?, jamforelse?, inverterad?, datakvalitet?, className? }`**
+**`MetricCard { etikett, varde, delta?, deltaText?, jamforelse?, inverterad?, andraJamforelse?, datakvalitet?, className? }`**
 (serverkomponent). `varde` är en ReactNode som redan är formaterad: kortet
 formaterar aldrig själv, eftersom en krona, en procent och ett antal skrivs
 olika. `delta` är ett tal; positivt ger `text-positiv`, negativt `text-fel`.
 `inverterad` vänder färgen för tal där högre är sämre (churn, misslyckade
-betalningar). `datakvalitet` är meta-raden för tal som bygger på `first_*_at`
-och `acquisition_source`.
+betalningar). `andraJamforelse` är en andra meta-rad för en andra jämförelse,
+till exempel förra veckan under i går. `datakvalitet` är meta-raden för tal som
+bygger på `first_*_at` och `acquisition_source`. De två ska inte blandas ihop:
+den ena säger att talet rört sig, den andra att talet inte går att lita på.
 
 **`SectionCard { rubrik, action?, children, naken?, className? }`**
 (serverkomponent). Rubriken står ovanför panelen som etikett i 14/500 ink-3.
 `action` är en textlänk till höger. `naken` tar bort panelens padding, för
 listor med `divide-y` och för tabeller som sätter sin egen cellpadding.
 
-**`AdminChart { data, xNyckel, serier, hojd?, formateraX?, formateraY?, tomText?, className? }`**
+**`AdminChart { data, xNyckel, serier, hojd?, yAxisWidth?, formateraX?, formateraY?, tomText?, className? }`**
 (klientkomponent, `'use client'` krävs i den som renderar den).
+
+`yAxisWidth` är y-axelns bredd i pixlar, standard 56. Höj den när etiketterna
+bär en enhet: `600 kr` i tolv pixlars grad behöver 72. Komponenten har ingen
+negativ `margin.left` längre. Den drog in axeln under plotytan och klippte
+etiketten från vänster, så `600 kr` lästes som `00 kr`, och två sidor hade
+byggt varsin lokal kortning runt det.
 
 ```ts
 type AdminSerieRoll = 'primar' | 'sekundar' | 'framhavd' | 'positiv' | 'varning' | 'fel'
