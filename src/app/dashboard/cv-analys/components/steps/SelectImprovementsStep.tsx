@@ -1,8 +1,14 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 
 import CategorySegments, { type SelectCategory } from '../select/CategorySegments';
+import {
+  categoryProgressText,
+  isLastCategory,
+  nextCategoryLabel,
+  type CategoryFlowStep,
+} from '../select/categoryFlow';
 import CategoryHero from '../select/CategoryHero';
 import PotentialBar from '../select/PotentialBar';
 import ProfileImprovementCard from '../select/ProfileImprovementCard';
@@ -49,6 +55,18 @@ interface SelectImprovementsStepProps {
   onCategoryVisited?: (id: SelectCategory) => void;
   /** Callback när listan av synliga kategorier ändras */
   onVisibleCategoriesChange?: (categories: SelectCategory[]) => void;
+  /**
+   * Aktiv kategori. Wizarden äger den så att foten kan stega igenom flikarna
+   * i stället för att stå spärrad tills alla är besökta.
+   */
+  activeCategory?: SelectCategory;
+  onActiveCategoryChange?: (id: SelectCategory) => void;
+  /** Kategorier användaren redan tittat på. Ritas som bock i fliken. */
+  visitedCategories?: Set<string>;
+  /** Kategorierna med antal förslag, så wizarden kan sätta fotens etikett. */
+  onCategoryStepsChange?: (steps: CategoryFlowStep[]) => void;
+  /** Går vidare till nästa kategori, eller till nästa steg om man står sist. */
+  onAdvance?: () => void;
 }
 
 function useSafeData(props: SelectImprovementsStepProps) {
@@ -118,7 +136,7 @@ const CATEGORY_META: Record<
   auto: {
     title: 'Allmänna förbättringar',
     description:
-      'Strukturella och formaterings-relaterade justeringar som lyfter helhetsintrycket.',
+      'Ändringar vi alltid gör: stavning, format och struktur. Strukturella och formaterings-relaterade justeringar som lyfter helhetsintrycket.',
   },
 };
 
@@ -143,6 +161,11 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     onProfileEdit,
     onCategoryVisited,
     onVisibleCategoriesChange,
+    activeCategory,
+    onActiveCategoryChange,
+    visitedCategories,
+    onCategoryStepsChange,
+    onAdvance,
   } = props;
 
   const safeData = useSafeData(props);
@@ -157,14 +180,26 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     return cats;
   }, [safeData]);
 
-  const [active, setActive] = useState<SelectCategory>(visibleCategories[0] || 'profile');
+  /* Wizarden äger normalt aktiv kategori (foten stegar igenom flikarna).
+     Den lokala staten är bara fallback när komponenten används utan styrning. */
+  const [localActive, setLocalActive] = useState<SelectCategory>(
+    visibleCategories[0] || 'profile'
+  );
+  const active = activeCategory ?? localActive;
+  const setActive = useCallback(
+    (id: SelectCategory) => {
+      setLocalActive(id);
+      onActiveCategoryChange?.(id);
+    },
+    [onActiveCategoryChange]
+  );
 
   // Säkerställ att aktiv kategori finns i synliga
   useEffect(() => {
     if (visibleCategories.length > 0 && !visibleCategories.includes(active)) {
       setActive(visibleCategories[0]);
     }
-  }, [visibleCategories, active]);
+  }, [visibleCategories, active, setActive]);
 
   // Notifiera parent när listan av synliga kategorier ändras
   useEffect(() => {
@@ -217,7 +252,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         ? [
             {
               id: 'auto' as SelectCategory,
-              label: 'Auto',
+              label: 'Automatiskt',
               selectedCount: safeData.general.length,
               totalCount: safeData.general.length,
               isAuto: true,
@@ -233,6 +268,24 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     ]
   );
 
+  /* Kategorierna med antal förslag. Wizarden bygger fotens etikett på den här
+     listan, så knappen alltid pekar mot nästa flik. */
+  const categorySteps = useMemo<CategoryFlowStep[]>(
+    () =>
+      segmentDefs.map((def) => ({
+        id: def.id,
+        count: def.totalCount,
+      })),
+    [segmentDefs]
+  );
+
+  useEffect(() => {
+    onCategoryStepsChange?.(categorySteps);
+  }, [categorySteps, onCategoryStepsChange]);
+
+  const advanceLabel = nextCategoryLabel(categorySteps, active);
+  const onLastCategory = isLastCategory(categorySteps, active);
+
   return (
     <div className="space-y-5">
       {/* Sticky segment-bar */}
@@ -240,6 +293,13 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         categories={segmentDefs}
         active={active}
         onChange={setActive}
+        visited={visitedCategories}
+        progressText={categoryProgressText(
+          categorySteps,
+          active,
+          totalSelected,
+          totalAvailable
+        )}
       />
 
       {/* Potential-bar */}
@@ -362,10 +422,18 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         />
       )}
 
-      {totalSelected === 0 && (
-        <p className="pt-2 text-center text-sm text-ink-3">
-          Välj minst en förbättring för att fortsätta
-        </p>
+      {/* Samma handling som i foten, men där ögat är efter en lång lista.
+          På sista kategorin räcker foten. */}
+      {!onLastCategory && onAdvance && (
+        <div className="pt-1">
+          <button
+            type="button"
+            onClick={onAdvance}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken sm:w-auto sm:min-w-[200px]"
+          >
+            {advanceLabel}
+          </button>
+        </div>
       )}
 
       {/* Använd selectedGeneral så TypeScript inte klagar */}

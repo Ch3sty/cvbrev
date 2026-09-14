@@ -11,6 +11,15 @@ import { ANALYSIS_STEPS } from './steps.config';
 import AnalysisFlowStepHeader from './AnalysisFlowStepHeader';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import FlowShell from '@/components/shell/FlowShell';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import type { SelectCategory } from './select/CategorySegments';
+import {
+  isLastCategory,
+  nextCategory,
+  nextCategoryLabel,
+  previousCategory,
+  type CategoryFlowStep,
+} from './select/categoryFlow';
 import FlowProgress from '@/components/shell/FlowProgress';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -148,9 +157,16 @@ export default function CVAnalysisWizard({
 
   const [userProfile, setUserProfile] = useState<{ full_name: string; email: string; phone: string; location: string } | null>(null);
 
-  // Steg 3: spårar vilka kategorier användaren har besökt och hur många som finns
+  /* Steg 3: kategorierna. Foten stegar igenom dem i stället för att stå
+     spärrad tills alla är besökta, så wizarden äger aktiv kategori. */
   const [visitedSelectCategories, setVisitedSelectCategories] = useState<Set<string>>(new Set());
   const [visibleSelectCategories, setVisibleSelectCategories] = useState<string[]>([]);
+  const [activeSelectCategory, setActiveSelectCategory] = useState<SelectCategory | null>(null);
+  const [selectCategorySteps, setSelectCategorySteps] = useState<CategoryFlowStep[]>([]);
+  /** Öppen när användaren trycker Fortsätt utan att ha valt något. */
+  const [confirmNoImprovements, setConfirmNoImprovements] = useState(false);
+  /** Stegets rubrik, så en kategoriväxling kan scrolla tillbaka till toppen. */
+  const stepTopRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     supabase
@@ -900,7 +916,71 @@ export default function CVAnalysisWizard({
     }
   };
 
+  /* Kategoriväxling på steg 3. Innehållet byts högst upp i steget, alltså
+     måste blicken dit också: den som just scrollat igenom tolv färdigheter
+     ska inte börja läsa nästa kategori från dess mitt. */
+  const scrollStepToTop = useCallback(() => {
+    const el = stepTopRef.current;
+    if (!el) return;
+    const reduce =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }, []);
+
+  const goToCategory = useCallback(
+    (id: SelectCategory) => {
+      setActiveSelectCategory(id);
+      setVisitedSelectCategories((prev) => {
+        if (prev.has(id)) return prev;
+        const next = new Set(prev);
+        next.add(id);
+        return next;
+      });
+      scrollStepToTop();
+    },
+    [scrollStepToTop]
+  );
+
+  const activeCategory =
+    activeSelectCategory ?? (selectCategorySteps[0]?.id as SelectCategory | undefined) ?? null;
+
+  const totalSelectedImprovements =
+    (selectedProfile ? 1 : 0) +
+    selectedRoles.size +
+    selectedSkills.size +
+    selectedGeneral.size;
+
+  /** Går vidare en kategori, eller lämnar steget när man står sist. */
+  const advanceSelectStep = useCallback(() => {
+    if (!activeCategory) {
+      void handleNext();
+      return;
+    }
+    const next = nextCategory(selectCategorySteps, activeCategory);
+    if (next) {
+      goToCategory(next);
+      return;
+    }
+    if (totalSelectedImprovements === 0) {
+      setConfirmNoImprovements(true);
+      return;
+    }
+    void handleNext();
+    // handleNext är stabil nog här: den läser färsk state via closure varje render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCategory, selectCategorySteps, goToCategory, totalSelectedImprovements]);
+
   const handlePrevious = () => {
+    /* På steg 3 backar pilen först genom kategorierna. Först på den första
+       fliken lämnar den steget. */
+    if (currentStep === 3 && activeCategory) {
+      const prev = previousCategory(selectCategorySteps, activeCategory);
+      if (prev) {
+        goToCategory(prev);
+        return;
+      }
+    }
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
@@ -915,17 +995,9 @@ export default function CVAnalysisWizard({
   const canNavigateNext = () => {
     if (currentStep === 0) return selectedCV !== null;
     if (currentStep === 1) return false;
-    if (currentStep === 3) {
-      const totalSelected =
-        (selectedProfile ? 1 : 0) +
-        selectedRoles.size +
-        selectedSkills.size +
-        selectedGeneral.size;
-      const allCategoriesVisited =
-        visibleSelectCategories.length > 0 &&
-        visibleSelectCategories.every((c) => visitedSelectCategories.has(c));
-      return totalSelected > 0 && allCategoriesVisited;
-    }
+    /* Steg 3 spärrar aldrig. Foten pekar mot nästa kategori, och regeln om
+       minst en förbättring möter användaren som en fråga på sista fliken. */
+    if (currentStep === 3) return true;
     if (currentStep === 5) {
       return saveChoice !== null && selectedTemplate !== null;
     }
@@ -1110,6 +1182,11 @@ export default function CVAnalysisWizard({
             onVisibleCategoriesChange={(cats) => {
               setVisibleSelectCategories(cats);
             }}
+            activeCategory={activeCategory ?? undefined}
+            onActiveCategoryChange={goToCategory}
+            visitedCategories={visitedSelectCategories}
+            onCategoryStepsChange={setSelectCategorySteps}
+            onAdvance={advanceSelectStep}
           />
         );
       }
@@ -1255,16 +1332,31 @@ export default function CVAnalysisWizard({
   const showStepHeader = currentStep !== 1 && currentStep !== 6;
   const showStepHeaderForFinishing = currentStep === 6 ? false : showStepHeader;
 
-  /* Vad som saknas just nu, så en spärrad knapp aldrig är tyst. */
+  /* Vad som saknas just nu, så en spärrad knapp aldrig är tyst. Steg 3 står
+     aldrig spärrat och har därför inget skäl. */
   const analysisBlockedReason = !canNavigateNext()
     ? currentStep === 0
       ? 'Välj ett CV för att gå vidare.'
-      : currentStep === 3
-        ? 'Välj minst en förbättring och titta igenom alla kategorier.'
-        : currentStep === 5
-          ? 'Välj vad som ska hända och vilken mall du vill ha.'
-          : undefined
+      : currentStep === 5
+        ? 'Välj vad som ska hända och vilken mall du vill ha.'
+        : undefined
     : undefined;
+
+  /* Steg 3: foten går igenom kategorierna. På flik 1 till 3 pekar den mot
+     nästa kategori, på den sista säger den Fortsätt. */
+  const selectStepLabel =
+    currentStep === 3 && activeCategory
+      ? nextCategoryLabel(selectCategorySteps, activeCategory)
+      : undefined;
+  const selectStepCounter =
+    currentStep === 3 && activeCategory && selectCategorySteps.length > 0
+      ? `Kategori ${
+          Math.max(
+            selectCategorySteps.findIndex((c) => c.id === activeCategory),
+            0
+          ) + 1
+        } av ${selectCategorySteps.length}`
+      : undefined;
 
   const hideFooter = currentStep === 1 || currentStep === 6 || showSaveProgress;
 
@@ -1277,9 +1369,20 @@ export default function CVAnalysisWizard({
       onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
       exitLabel="Tillbaka till översikten"
       primaryLabel={
-        hideFooter ? undefined : currentStep === 5 ? 'Spara mitt CV' : 'Nästa'
+        hideFooter
+          ? undefined
+          : currentStep === 5
+            ? 'Spara mitt CV'
+            : selectStepLabel ?? 'Nästa'
       }
-      onPrimary={hideFooter ? undefined : handleNext}
+      onPrimary={
+        hideFooter ? undefined : currentStep === 3 ? advanceSelectStep : handleNext
+      }
+      footerSecondary={
+        selectStepCounter ? (
+          <p className="text-meta tabular-nums text-ink-3">{selectStepCounter}</p>
+        ) : undefined
+      }
       primaryDisabled={!canNavigateNext() || isSaving}
       primaryBlockedReason={analysisBlockedReason}
       primaryBusy={isSaving}
@@ -1308,6 +1411,8 @@ export default function CVAnalysisWizard({
 
           {/* Step-header per steg. Ingen egen hero på steg 0: FlowShell har
               redan flödets titel i toppraden. */}
+          <div ref={stepTopRef} className="scroll-mt-4" />
+
           {showStepHeaderForFinishing && meta && (
             <AnalysisFlowStepHeader
               stepNumber={currentStep + 1}
@@ -1320,6 +1425,20 @@ export default function CVAnalysisWizard({
 
           <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
       </AnalysisFlowLayout>
+
+      {/* Tomt val på sista kategorin: en fråga, inte en spärrad knapp. */}
+      <ConfirmDialog
+        open={confirmNoImprovements}
+        onCancel={() => setConfirmNoImprovements(false)}
+        onConfirm={async () => {
+          setConfirmNoImprovements(false);
+          await handleNext();
+        }}
+        title="Inga förbättringar valda"
+        description="Ditt CV lämnas som det är. Vill du gå vidare ändå?"
+        confirmLabel="Gå vidare"
+        cancelLabel="Välj förbättringar"
+      />
     </FlowShell>
   );
 }
