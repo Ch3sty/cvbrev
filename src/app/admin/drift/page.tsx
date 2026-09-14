@@ -16,7 +16,7 @@
 import PageHeader from '@/components/shell/PageHeader';
 import SectionCard from '@/components/admin/SectionCard';
 import MetricCard from '@/components/admin/MetricCard';
-import StatusRow from '@/components/shell/StatusRow';
+import Larmrader from './Larmrader';
 import { hamtaDriftData, HANGANDE_MINUTER, type DriftData } from './data';
 
 export const dynamic = 'force-dynamic';
@@ -134,16 +134,7 @@ export default async function AdminDriftPage() {
       />
 
       <section className="space-y-2" aria-label="Driftläge">
-        {larm.map((l, i) => (
-          <StatusRow
-            key={l.text}
-            showDot
-            // Högst en warm per vy: bara det allvarligaste larmet tänds.
-            tone={i === 0 ? (l.allvarligt ? 'warm' : 'positive') : 'neutral'}
-          >
-            {l.text}
-          </StatusRow>
-        ))}
+        <Larmrader larm={larm} />
         <p className="px-3 text-meta text-ink-3">
           Hämtad {klockslag(d.hamtad)}. Cache fem minuter.
         </p>
