@@ -53,10 +53,32 @@ export const metadata: Metadata = {
   other: {
     'fb:app_id': '1234567890',
   },
+
+  /* Jobbcoach på hemskärmen (docs/plan-pwa.md, avsnitt 6).
+
+     manifest pekar på src/app/manifest.ts. appleWebApp är iOS motsvarighet:
+     Safari läser inte manifestet, utan de här taggarna. statusBarStyle
+     default låter statusraden ta appens theme_color, alltså benvitt, i
+     stället för att bli en svart list över en benvit sida.
+
+     Ikonlänkarna skrivs inte här. Next genererar dem redan ur filnamnen i
+     src/app (icon.png, apple-icon.png), och två uppsättningar link-taggar
+     för samma sak är precis det som gör att en telefon plockar fel bild.
+     apple-icon.png är därför utbytt mot den renderade 180-ikonen i stället
+     för att få en egen tagg vid sidan av. */
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    title: 'Jobbcoach',
+    statusBarStyle: 'default',
+  },
 }
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
+  /* Samma benvita ton som marken och som manifestens theme_color, så att
+     systemets fält runt appen matchar sidan i stället för att blinka vitt. */
+  themeColor: '#EDE8DF',
 }
 
 export default function RootLayout({

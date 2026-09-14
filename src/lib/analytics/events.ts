@@ -9,6 +9,7 @@
  */
 
 import type { CtaCluster } from '@/lib/cta/clusters'
+import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
@@ -78,6 +79,16 @@ export interface AnalyticsEvents {
   match_viewed: { job_id: string; relevance?: number; position?: number }
   match_letter_started: { job_id: string; relevance?: number }
   match_applied: { job_id: string }
+  /* ------------------------------------------ Jobbcoach på hemskärmen
+     docs/plan-pwa.md avsnitt 6. Talet vi är ute efter är pwa_installed
+     delat med pwa_prompt_shown, uppdelat per trigger: då ser vi vilket av
+     de fyra ögonblicken som faktiskt förtjänar frågan. pwa_launch mäter det
+     som är hela poängen, alltså att ikonen ger återkomster. */
+  pwa_prompt_shown: { trigger: InstallTrigger; platform: InstallPlatform }
+  pwa_prompt_accepted: { trigger: InstallTrigger; platform: InstallPlatform }
+  pwa_prompt_dismissed: { trigger: InstallTrigger; platform: InstallPlatform }
+  pwa_installed: Record<string, never>
+  pwa_launch: Record<string, never>
   pricing_viewed: ClusterContext & { trigger: PricingTrigger }
   trial_started: { source: string }
   subscription_paid: { plan: string; amount?: number }

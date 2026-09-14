@@ -13,6 +13,13 @@ import ActivityTracker from '@/components/ActivityTracker';
 import PostHogIdentify from '@/components/PostHogProvider';
 import { usePathname } from 'next/navigation';
 import { scheduleIdle } from '@/lib/scheduleIdle';
+import dynamic from 'next/dynamic';
+
+// Service workern och installationseventen (docs/plan-pwa.md). Renderar
+// ingenting, registrerar efter load på idle, och laddas bara på appytorna.
+const PwaRegister = dynamic(() => import('@/components/shell/PwaRegister'), {
+  ssr: false,
+});
 
 const COOKIE_NAME = "cvBrevCookieConsent";
 const GTM_ID = 'GTM-5KLW66PJ';
@@ -148,6 +155,7 @@ export default function ClientLayout({
       <AuthProvider initialUser={initialUser}>
         <PostHogIdentify />
         <ActivityTracker />
+        {isAppSurface && <PwaRegister />}
         <GlobalCountersProvider>
           <NotificationProvider>
             <main className="flex-grow">
