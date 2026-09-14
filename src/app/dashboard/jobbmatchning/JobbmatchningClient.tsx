@@ -55,7 +55,11 @@ import {
 } from '@/components/illustrations/TradenScener';
 import { capture } from '@/lib/analytics/events';
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route';
-import { applyClientFilters, rankGlobalJobs } from './data/job-filtering';
+import {
+  applyClientFilters,
+  applyPreferences,
+  rankGlobalJobs,
+} from './data/job-filtering';
 import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
 import { senasteLabel } from './data/match-reasons';
 import type { ActiveCVData, JobbmatchningData } from './getJobbmatchningData';
@@ -70,6 +74,13 @@ const JobDetailModal = dynamic(() => import('./components/JobDetailModal'), {
 });
 
 type AppliedState = 'idle' | 'saving' | 'done';
+
+/**
+ * Hur många suddade rader som ritas under de fulla träffarna. Nog för att
+ * visa att listan fortsätter, få nog för att betalväggen ska gå att nå med
+ * tummen. Antalet dolda står i betalväggens rubrik.
+ */
+const REDACTED_PREVIEW = 8;
 
 export default function JobbmatchningClient({
   initialData,
@@ -154,6 +165,8 @@ export default function JobbmatchningClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const autoActivated = useRef(false);
+
   /* ------------------------------------------------------ det vi läste ut */
 
   const roles = useMemo(
@@ -169,8 +182,10 @@ export default function JobbmatchningClient({
     [activeCV, droppedSkills]
   );
   const educations = activeCV?.extracted_educations ?? [];
+  const laserCv = activatingCVId !== null;
   const cvName =
-    cvs.find((cv) => cv.id === activeCVId)?.file_name ?? 'Inget CV valt';
+    cvs.find((cv) => cv.id === (activeCVId ?? activatingCVId))?.file_name ??
+    (laserCv ? 'Läser ditt CV' : 'Inget CV valt');
 
   /* -------------------------------------------------------- globala pooler */
 
@@ -225,9 +240,16 @@ export default function JobbmatchningClient({
       : jobs;
   const usingGlobalPool = filters.noExperience || filters.remote;
 
+  // Preferenserna först, filtren sedan. Panelen "Så söker vi åt dig" står
+  // ovanför listan, så listan får inte säga emot den.
   const filteredJobs = useMemo(
-    () => applyClientFilters(baseJobs, filters, showDistantJobs),
-    [baseJobs, filters, showDistantJobs]
+    () =>
+      applyClientFilters(
+        applyPreferences(baseJobs, prefs),
+        filters,
+        showDistantJobs
+      ),
+    [baseJobs, prefs, filters, showDistantJobs]
   );
 
   /* ------------------------------------------------------------ suddningen */
@@ -337,6 +359,29 @@ export default function JobbmatchningClient({
       setActivatingCVId(null);
     }
   };
+
+  /**
+   * Sidan lovar i sin egen ingress att vi läser CV:t. Då ska användaren inte
+   * behöva trycka på en aktiveringsknapp först.
+   *
+   * Har hon laddat upp ett CV men inget är inläst ännu läser vi det senaste
+   * automatiskt. Det var precis det som fällde vyn i klicktestet: CV:t fanns,
+   * panelen sa "Inget CV valt", och primärknappen stod låst utan att något
+   * förklarade varför. Har hon flera CV tar vi det senaste, och "Byt CV"
+   * finns kvar för den som vill något annat.
+   */
+  useEffect(() => {
+    if (autoActivated.current) return;
+    if (activeCV || cvs.length === 0) return;
+
+    const forsta = cvs.find((cv) => !lockedCvIds.has(cv.id));
+    if (!forsta) return;
+
+    autoActivated.current = true;
+    void handleActivateCV(forsta.id);
+    // Körs en gång, när sidan öppnas utan inläst CV.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCV, cvs, lockedCvIds]);
 
   const fetchJobs = async () => {
     if (!activeCVId && !activeCV) {
@@ -628,6 +673,9 @@ export default function JobbmatchningClient({
             </div>
           </div>
 
+          {/* Höjden är densamma vare sig CV:t läses eller är läst, så raderna
+              under står stilla när talen landar. CLS ska vara noll. */}
+          <div className="min-h-[104px]">
           {activeCV ? (
             <>
               <div className="mt-4 flex gap-6">
@@ -652,17 +700,26 @@ export default function JobbmatchningClient({
               </div>
 
               {activeCV.extracted_location && (
-                <p className="mt-3 text-meta text-ink-3">
+                <p className="mt-2 text-meta text-ink-3">
                   Ort i CV:t: {activeCV.extracted_location}
                 </p>
               )}
             </>
+          ) : laserCv ? (
+            <div className="mt-4">
+              <LoadingSkeleton
+                variant="writing"
+                label="Läser ditt CV"
+                meta="Vi plockar ut roller, kompetenser och utbildningar"
+              />
+            </div>
           ) : (
             <p className="mt-3 text-sm leading-[22px] text-ink-2">
               Välj vilket CV vi ska matcha mot, så läser vi ut roller och
               kompetenser ur det.
             </p>
           )}
+          </div>
 
           <div className="mt-4 flex flex-wrap gap-5">
             <button
@@ -764,23 +821,35 @@ export default function JobbmatchningClient({
               />
             </div>
           ) : (
-            <div className="mt-3">
-              <EmptyState
-                bare
-                illustration={IlluCvMotAnnonser}
-                title="Vi har inte letat än"
-                description="Tryck här så läser vi igenom Arbetsförmedlingens annonser och plockar ut dem som passar din bakgrund."
-                action={
-                  <button
-                    type="button"
-                    onClick={fetchJobs}
-                    disabled={!activeCV}
-                    className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
-                  >
-                    Hitta jobb som passar
-                  </button>
-                }
-              />
+            /* Tomt tillstånd, men inte som EmptyState: scenen står bredvid
+               texten i stället för ovanför den. Staplat tryckte
+               primärknappen 68 px under vikten på en Pixel 7 med
+               e-postbandet uppe, och sidans enda knapp ska nås utan
+               scroll. Bredvid varandra ryms både scenen och knappen. */
+            <div className="mt-3 flex items-center gap-4">
+              <span
+                className="shrink-0 text-ink-1"
+                aria-hidden="true"
+              >
+                <IlluCvMotAnnonser size={104} />
+              </span>
+
+              <div className="min-w-0">
+                <p className="text-kort text-ink-1">Vi har inte letat än</p>
+                <p className="mt-1 text-sm leading-[22px] text-ink-2">
+                  {laserCv
+                    ? 'Vi läser ditt CV först. Om en stund kan du söka.'
+                    : 'Tryck här så läser vi igenom Arbetsförmedlingens annonser.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={fetchJobs}
+                  disabled={!activeCV}
+                  className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                >
+                  {laserCv ? 'Läser ditt CV' : 'Hitta jobb som passar'}
+                </button>
+              </div>
             </div>
           )}
         </section>
@@ -838,9 +907,13 @@ export default function JobbmatchningClient({
               ))}
             </div>
 
+            {/* Suddade rader visar att träffarna finns, men bara ett tiotal.
+                Med alla utskrivna hamnade betalväggen hundratals rader ned,
+                utom räckhåll på en telefon, och då säljer den ingenting.
+                Antalet står i betalväggens egen rubrik i stället. */}
             {redactedJobs.length > 0 && (
               <div className="divide-y divide-kant border-t border-kant">
-                {redactedJobs.map((job) => (
+                {redactedJobs.slice(0, REDACTED_PREVIEW).map((job) => (
                   <RedactedJobCard key={job.placeholderId} job={job} />
                 ))}
               </div>

@@ -80,6 +80,91 @@ export function applyClientFilters(
   return result;
 }
 
+/**
+ * Preferenserna från "Så söker vi åt dig", pålagda på den hämtade listan.
+ *
+ * Edge-funktionen använder dem inte än (det ligger i planens våg 3), men
+ * sidan får inte säga emot sig själv: står det Stockholm i panelen ovanför
+ * kan listan under inte vara full av jobb i Göteborg. Tills matchningen
+ * kan läsa preferenserna själv gallrar vi här.
+ *
+ * Två avsiktliga eftergifter, båda till användarens fördel:
+ *   - Distans ok betyder att ett distansjobb slipper ortskravet, inte att
+ *     bara distansjobb visas.
+ *   - Lönen filtrerar bara annonser som faktiskt anger en lön. De allra
+ *     flesta gör inte det, och att gallra bort dem vore att dölja nästan
+ *     hela marknaden på grund av en uppgift arbetsgivaren utelämnat.
+ */
+export interface JobPreferenceFilter {
+  locations: string[];
+  remote: boolean;
+  extent: 'heltid' | 'deltid' | '';
+  min_salary: number | null;
+}
+
+function normOrt(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Ser annonsen ut att gå att göra på distans?
+ *
+ * Bara annonsens egen flagga och rubriken räknas. Att leta i brödtexten
+ * lät först rimligt men gav motsatt effekt: nästan varje annons nämner
+ * ordet distans någonstans ("möjlighet till distansarbete efter
+ * upplärning", "inga distansmöjligheter"), så ortsfiltret upphörde att
+ * gälla och listan fylldes av jobb i fel stad. Hellre missa några riktiga
+ * distansjobb än att bryta det användaren faktiskt bad om.
+ */
+function looksRemote(job: Job): boolean {
+  if (job.remote_work === true) return true;
+  const rubrik = String(job.headline ?? '').toLowerCase();
+  return /\bdistans\b|\bremote\b|hemifr[åa]n/.test(rubrik);
+}
+
+export function applyPreferences(jobs: Job[], prefs: JobPreferenceFilter): Job[] {
+  let result = jobs;
+
+  if (prefs.locations.length > 0) {
+    const onskade = prefs.locations.map(normOrt);
+    result = result.filter((j) => {
+      const addr = j.workplace_address || {};
+      const kandidater = [addr.municipality, addr.region]
+        .filter(Boolean)
+        .map((v: string) => normOrt(v));
+      const ortTraff = kandidater.some((k) =>
+        onskade.some((o) => k.includes(o) || o.includes(k))
+      );
+      // Distans ok lyfter ortskravet för de annonser som går på distans.
+      return ortTraff || (prefs.remote && looksRemote(j));
+    });
+  }
+
+  if (prefs.extent) {
+    const conceptId =
+      prefs.extent === 'heltid'
+        ? '6YE1_gAC_R2G' // Heltid
+        : '947z_JGS_Uk2'; // Deltid
+    result = result.filter((j) => {
+      const wht = j.working_hours_type;
+      // Saknar annonsen uppgift behåller vi den hellre än gallrar bort den.
+      if (!wht?.concept_id) return true;
+      return wht.concept_id === conceptId;
+    });
+  }
+
+  if (prefs.min_salary !== null) {
+    const min = prefs.min_salary;
+    result = result.filter((j) => {
+      const lon = Number(j.salary_min ?? j.salary?.min ?? NaN);
+      if (!Number.isFinite(lon) || lon <= 0) return true;
+      return lon >= min;
+    });
+  }
+
+  return result;
+}
+
 // ── Ortgruppering: region → kommun, med antal ur faktisk jobbdata ──────────
 export interface MunicipalityCount {
   code: string;   // municipality_code, t.ex. "0184"
