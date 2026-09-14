@@ -89,8 +89,14 @@ function TemplateCard({
 
       {/* Miniatyren. Klick här öppnar förhandsvisningen i stället för att
           välja mallen; därför stoppas händelsen. */}
+      {/* A4-proportionen i stället för en fast höjd. Miniatyren visar ett
+          brev, och ett brev har en form: med aspect-ratio vet webbläsaren
+          hur hög rutan blir innan iframen laddat, så raderna under står
+          stilla. En fast h-44 gav rätt höjd men fel form, och formen
+          ändrades när kortets bredd gjorde det. */}
       <div
-        className="relative h-44 w-full overflow-hidden rounded-lg border border-kant bg-insunken shadow-insunken"
+        className="relative w-full overflow-hidden rounded-lg border border-kant bg-insunken shadow-insunken"
+        style={{ aspectRatio: '210 / 297' }}
         onClick={(e) => {
           e.stopPropagation();
           onOpenPreview();
@@ -119,10 +125,15 @@ function TemplateCard({
         </span>
       </div>
 
+      {/* Texthöjden reserveras: beskrivningarna är olika långa, och utan
+          reservation blir korten olika höga. I karusellen betyder det att
+          panelen byter höjd vid varje svep. */}
       <span className="mt-3 block text-sm font-semibold leading-5 tracking-tight text-ink-1">
         {template.name}
       </span>
-      <span className="mt-0.5 block text-sm leading-[22px] text-ink-2">{template.description}</span>
+      <span className="mt-0.5 block min-h-[44px] text-sm leading-[22px] text-ink-2">
+        {template.description}
+      </span>
       <span className="mt-1 block text-meta text-ink-3">{meta}</span>
     </button>
   );

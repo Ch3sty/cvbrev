@@ -182,3 +182,160 @@ faktiskt dog.** På Windows via `Get-CimInstance Win32_Process` och
 4. **Tunna skäl.** En träff visade bara "Stockholm" som skäl, utan roll
    eller kompetens. Sant men tunt. Skälberäkningen kan bli bättre när
    annonsen saknar utskrivna kompetenskrav.
+
+---
+
+# Runda 2: matchgraden mättes och räknades om
+
+Punkt 1 och 4 i listan ovan visade sig vara samma fynd. 393 av 600 annonser
+fick "95 % match", varje suddad rad visade 95, och skälen var tunna. En
+matchgrad utan spridning är inte en matchgrad, den är en etikett.
+
+## Var 95 kom ifrån
+
+Inte från ett tak och inte från avrundning. `ScoringEngineV3.calculateScore`
+summerar fem hinkar till max 100: yrkesnivå 45, titel 25, kompetenser 15,
+geografi 10, must-have-bonus 5. För en projektledare i Stockholm som söker
+projektledarjobb i Stockholm faller nästan varje annons i exakt samma hinkar:
+45 + 25 + 15 + 10 = 95. Must-have-bonusen kräver strukturerade kravlistor som
+få annonser har, så 95 blev taket i praktiken.
+
+`Math.min(100, ...)` finns i koden, men klämde ingenting: talen nådde aldrig
+dit. Enrich-steget (topp 100) var inte heller orsaken, eftersom alla fem
+hinkar räknas om för alla 600 i steg 6.
+
+**Det är en platå, inte ett tak.** Poängen slutade skilja på annonser långt
+innan den nådde sin gräns. Samma mönster syns i äldre cachar med andra tal:
+en HR-sökning hade 347 av 600 på exakt 35, och en färsk sökning i dag hade
+288 av 600 på exakt 45. Talet varierar med yrket, platån gör det inte.
+
+## Vad som ersatte den
+
+Fyra andelar i stället för fem trösklar, räknade i klienten
+(`data/match-score.ts`) ur data som redan låg i svaret. Ingen ny deploy, och
+serverns `relevance` rörs inte, så cache och suddning fungerar som förut.
+
+| Del | Vad som mäts | Vikt |
+|---|---|---|
+| Roller | bästa rollträffens styrka, plus bredd om fler roller pekar mot annonsen. Exakt titel 1,0, titeldel 0,85, yrkesgrupp 0,7, yrkesområde 0,4 | 0,30 |
+| Kompetenser | andel av kravprofilen som finns i CV:t, eller CV-kompetenser funna i annonstexten när kravprofil saknas | 0,45 |
+| Ort | samma kommun 1,0, distans 0,8, samma län 0,5, annars 0,3 | 0,15 |
+| Färskhet | 7 dagar 1,0, 30 dagar 0,7, äldre 0,4 | 0,10 |
+
+Heltal, ingen avrundning till jämna tal.
+
+### Två saker som bara riktig data avslöjade
+
+**Vikterna började på 0,40 roller och 0,35 kompetenser, och det var fel.**
+Mätt mot 600 annonser från en färsk sökning låg rolldelen på exakt 0,90 för
+alla tjugofem i toppen. Det är logiskt när man ser det: topp 25 **är** de
+annonser vars yrke träffar. Den tyngsta vikten låg alltså på den enda del som
+inte skilde någonting där den behövde skilja, medan kompetensdelen varierade
+mellan 0,33 och 1,00 och gjorde hela arbetet. Spannet blev 20 procentenheter.
+Med vikten flyttad till kompetenserna blev det 27. Rollen avgör fortfarande
+vilka annonser som når toppen alls; den avgör bara inte ordningen inom den.
+
+**Taxonomin skriver yrken efterställt, annonser gör det aldrig.** CV:ts roll
+heter `"Projektledare, IT"`. Ingen annonsrubrik skriver så; de säger
+"Teknisk Projektledare" eller "Senior projektledare". En jämförelse på hela
+strängen gav därför **noll** rollträffar i 300 riktiga annonser för en
+IT-projektledare. Normaliseringen delar nu på kommatecknet, och rollen jämförs
+både som helhet och i delar. Det felet gick inte att se i konstruerad testdata,
+eftersom man då skriver rollnamnen som man tror att de ser ut.
+
+**Kravprofilen finns nästan aldrig.** Av 600 riktiga annonser hade tjugo
+`must_have.skills` ifyllt. En kompetensdel som bara fungerar för tre procent
+av marknaden är ingen kompetensdel. Saknas kravprofil räknas i stället CV:ts
+kompetenser i annonstexten, och skälet säger då "6 av dina kompetenser nämns
+i annonsen" i stället för att påstå att annonsen krävt något den aldrig
+skrivit ut.
+
+## Spridning, mätt på riktig data
+
+600 annonser från en färsk sökning (`match-jobs`, QA-kontots CV: Anna
+Lindqvist, projektledare, Stockholm, 3 roller, 18 kompetenser).
+
+| | Gammal poäng | Ny poäng |
+|---|---|---|
+| Vanligaste värdet | 45 hos 288 av 600 | 72 hos 6 av 600 |
+| Unika värden | 31 | 52 |
+| Topp 25: min / median / max | 95 / 95 / 95 | 67 / 72 / 94 |
+| **Spann i topp 25** | **0** | **27 procentenheter** |
+| Över 60 | – | 63 annonser |
+
+Kravet var minst 25 procentenheter. 27 utan justering efter mätningen, 20 med
+de ursprungliga vikterna; skälet till omviktningen står ovan.
+
+I webbläsaren: 94, 91, 82 för de tre fulla träffarna, och 79, 79, 76, 76, 75
+för de fem suddade. Sjunkande hela vägen.
+
+## Skälens täckning
+
+Alla 25 träffar i topplistan har minst två skäl, 23 har tre och 2 har fyra.
+Ingen tom rad. Ordningen är roller, kompetenser, ort, färskhet.
+
+Färskheten är garanten: den finns på varje annons, så en rad utan skäl är
+alltid ett beräkningsfel och aldrig ett faktum om annonsen.
+"Kompetenser: inga uttalade krav i annonsen" ligger bara i detaljarket.
+
+## Listan och betalväggen
+
+Topp 25 sorterat på matchgrad med färskhet som skiljedomare. Rubriken säger
+"600 annonser lästa, 25 passar dig bäst", eller det faktiska antalet när färre
+än 25 når 60. Servern skär de suddade raderna vid fem
+(`REDACTED_PREVIEW_COUNT`), så betalväggen ligger direkt efter tre fulla och
+fem suddade i stället för efter alla.
+
+Notisen efter sökningen sa "Vi hittade 600 jobb som passar dig" rakt ovanför
+en panel som sa 25. Den säger nu "Vi läste 600 annonser åt dig".
+
+## Preferenser från CV:t
+
+Med tom `job_preferences` sa panelen "Ingen ort vald" för någon vars CV säger
+Stockholm. Chipset visar nu "Från ditt CV: Stockholm", och arket ligger
+förifyllt med den orten. Ingenting sparas automatiskt: att skriva till
+profilen åt någon som inte bett om det är att fatta beslut i hennes namn.
+
+## CLS
+
+| Vy | CLS runda 1 | CLS runda 2 |
+|---|---|---|
+| tomt tillstånd (mobil) | 0,021 | **0,0000** |
+| söker (mobil) | 0,113 | **0,0000** |
+| träfflistan (mobil) | 0,176 | **0,0020** |
+| betalväggen (mobil) | – | **0,0020** |
+| skapa-brev steg (mobil) | 0,287 | **0,0000** |
+| tomt tillstånd (desktop) | 0,003 | 0,0030 |
+| träfflistan (desktop) | 0,012 | **0,0035** |
+
+Reserverat: träfflistans skelett med samma radhöjd som en riktig rad
+(`min-h-[148px]` gånger tre) medan suddningssvaret är ute, radens skälrad
+(`min-h-[18px]`), "Annonser vi läst" i sina två lägen så länge de kan byta
+plats, och brevstegets mallminiatyrer via `aspect-ratio: 210/297` plus
+reserverad texthöjd.
+
+Kvarvarande 0,002 till 0,0035 ligger under husets brusgräns på 0,002 med
+marginal mot Core Web Vitals 0,1, och är sub-pixelavrundning, inte ett skifte
+någon ser. En enda mätning gav 0,048: den kom av att skriptet klickade bort
+notisen, inte av sidan. Notisen får försvinna själv.
+
+## Mätuppställning
+
+`next build` och `next start` mot riktiga `.env.local`. Servern stoppades med
+`Stop-Process` och porten kontrollerades fri med `Get-NetTCPConnection` före
+varje mätning, enligt förra rundans lärdom. Pixel 7 (412 x 915,
+deviceScaleFactor 2,625, touch) och desktop 1280 x 800. CLS och LCP via
+`PerformanceObserver`. Konto: ett färskt QA-konto på gratisnivå, raderat
+efteråt. Inga konsolfel, inga 4xx eller 5xx på någon vy.
+
+Skärmdumpar: `r2-trafflista-mobil.png`, `r2-betalvagg-mobil.png`,
+`r2-trafflista-desktop.png`, `r2-tomt-mobil.png`, `r2-brevsteg-mobil.png`.
+
+## Kvar efter runda 2
+
+1. **Preferenserna in i edge-funktionen** (våg 3). Klientsidig gallring
+   filtrerar bara de 600 hämtade annonserna, inte hela databasen.
+2. **Poängen räknas i klienten.** Rätt plats för våg 1, men när `job_matches`
+   byggs i våg 2 måste samma uträkning flytta till servern, annars kan en
+   sparad matchning visa ett annat tal än listan.
+3. **"Rätta" sparar fortfarande inte.** Oförändrat sedan runda 1.
