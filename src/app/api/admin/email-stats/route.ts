@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
-import { cookies } from 'next/headers';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 
 // GET /api/admin/email-stats?days=30
 // Aggregerad statistik för e-postkampanjerna (kvotpåminnelser + trial-mail).
@@ -54,24 +53,8 @@ function rate(numerator: number, denominator: number): number {
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const supabase = createServerClient({ cookies: cookieStore });
-
-    // Check if user is admin
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('id')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const auth = await requireSuperAdmin();
+    if (!auth.ok) return auth.response;
 
     // Tidsperiod (7/30/90 dagar, default 30)
     const daysParam = Number(request.nextUrl.searchParams.get('days'));

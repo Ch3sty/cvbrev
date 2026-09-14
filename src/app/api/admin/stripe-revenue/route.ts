@@ -1,8 +1,8 @@
 // src/app/api/admin/stripe-revenue/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { createServerClient } from '@/lib/supabase/server';
 import Stripe from 'stripe';
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 // Initiera Stripe med secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -12,25 +12,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 // GET - Hämta Stripe revenue data
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const supabase = createServerClient({ cookies: cookieStore });
+    const auth = await requireSuperAdmin();
+    if (!auth.ok) return auth.response;
 
-    // Kontrollera autentisering och admin-behörighet
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Kontrollera admin-status
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    // Skrivningarna nedan gar mot RLS-lasta tabeller, darav service role.
+    // revenue_tracking och subscription_metrics saknas i database.types, darav any.
+    const supabase = getSupabaseAdmin() as unknown as { from: (t: string) => any };
 
     // Hämta query parameters
     const searchParams = request.nextUrl.searchParams;
@@ -284,25 +271,8 @@ export async function GET(request: NextRequest) {
 // POST - Synka Stripe-intäkter till databasen
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const supabase = createServerClient({ cookies: cookieStore });
-
-    // Kontrollera autentisering och admin-behörighet
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Kontrollera admin-status
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const auth = await requireSuperAdmin();
+    if (!auth.ok) return auth.response;
 
     // Hämta body
     const body = await request.json();

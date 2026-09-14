@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { cookies } from 'next/headers';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
@@ -22,25 +22,11 @@ interface RecruiterRow {
 }
 
 async function requireAdmin() {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return { user: null, response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+  const auth = await requireSuperAdmin();
+  if (!auth.ok) {
+    return { user: null, response: auth.response };
   }
-
-  const { data: adminUser } = await supabase
-    .from('admin_users')
-    .select('id')
-    .eq('id', user.id)
-    .single();
-
-  if (!adminUser) {
-    return { user: null, response: NextResponse.json({ error: 'Forbidden' }, { status: 403 }) };
-  }
-
-  return { user, response: null };
+  return { user: { id: auth.userId, email: auth.email }, response: null };
 }
 
 export async function GET() {

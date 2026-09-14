@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-sync';
 
 /**
@@ -11,25 +12,11 @@ import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-s
  */
 export async function POST(request: NextRequest) {
   try {
+    const auth = await requireSuperAdmin();
+    if (!auth.ok) return auth.response;
+
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
-
-    // Verify authentication
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Verify admin status
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
-    }
 
     // Clear pricing cache before sync
     clearPricingCache();
@@ -49,7 +36,7 @@ export async function POST(request: NextRequest) {
             models_updated: result.modelsUpdated,
             errors: result.errors,
             synced_at: result.lastSyncedAt,
-            triggered_by: user.id
+            triggered_by: auth.userId
           },
           status: 'resolved'
         });
@@ -88,25 +75,11 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
+    const auth = await requireSuperAdmin();
+    if (!auth.ok) return auth.response;
+
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
-
-    // Verify authentication
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Verify admin status
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!adminUser) {
-      return NextResponse.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
-    }
 
     // Get latest sync info from model_pricing table
     const { data: latestSync, error } = await supabase

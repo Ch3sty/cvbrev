@@ -9,7 +9,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { createServerClient } from '@/lib/supabase/server'
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 interface BulkRequest {
@@ -21,36 +21,10 @@ interface BulkRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user) {
-      return NextResponse.json({ error: 'Ej behörig' }, { status: 401 })
-    }
+    const auth = await requireSuperAdmin()
+    if (!auth.ok) return auth.response
 
     const adminClient = getSupabaseAdmin()
-
-    // Verifiera super_admin
-    const { data: adminData, error: adminError } = await adminClient
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single()
-
-    if (
-      adminError ||
-      !adminData ||
-      (adminData as { role: string }).role !== 'super_admin'
-    ) {
-      return NextResponse.json(
-        { error: 'Ej behörig - kräver super_admin' },
-        { status: 403 }
-      )
-    }
 
     const body: BulkRequest = await request.json()
     const { action, userIds, premiumDays } = body
@@ -70,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Skydda mot self-action
-    if (userIds.includes(user.id)) {
+    if (userIds.includes(auth.userId)) {
       return NextResponse.json(
         { error: 'Du kan inte inkludera ditt eget konto i bulk-operationen' },
         { status: 400 }

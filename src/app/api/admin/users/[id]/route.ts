@@ -8,7 +8,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { createServerClient } from '@/lib/supabase/server'
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 export async function DELETE(
@@ -22,39 +22,13 @@ export async function DELETE(
       return NextResponse.json({ error: 'User ID saknas' }, { status: 400 })
     }
 
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user) {
-      return NextResponse.json({ error: 'Ej behörig' }, { status: 401 })
-    }
+    const auth = await requireSuperAdmin()
+    if (!auth.ok) return auth.response
 
     const adminClient = getSupabaseAdmin()
 
-    // Verifiera super_admin
-    const { data: adminData, error: adminError } = await adminClient
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .single()
-
-    if (
-      adminError ||
-      !adminData ||
-      (adminData as { role: string }).role !== 'super_admin'
-    ) {
-      return NextResponse.json(
-        { error: 'Ej behörig - kräver super_admin' },
-        { status: 403 }
-      )
-    }
-
     // Skydda mot self-delete
-    if (targetUserId === user.id) {
+    if (targetUserId === auth.userId) {
       return NextResponse.json(
         { error: 'Du kan inte ta bort ditt eget konto härifrån' },
         { status: 400 }

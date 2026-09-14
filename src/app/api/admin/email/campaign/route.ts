@@ -14,7 +14,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Resend } from 'resend';
-import { createServerClient } from '@/lib/supabase/server';
+import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import {
   generateSoktaTjansterCampaignEmail,
@@ -38,26 +38,7 @@ interface RecipientRow {
   email: string;
 }
 
-async function requireAdmin(): Promise<
-  | { ok: true; userId: string; email: string | null }
-  | { ok: false; response: NextResponse }
-> {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return { ok: false, response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
-  }
-  const { data: adminUser } = await supabase
-    .from('admin_users')
-    .select('id')
-    .eq('id', user.id)
-    .single();
-  if (!adminUser) {
-    return { ok: false, response: NextResponse.json({ error: 'Forbidden' }, { status: 403 }) };
-  }
-  return { ok: true, userId: user.id, email: user.email ?? null };
-}
+const requireAdmin = requireSuperAdmin;
 
 /** Alla mottagare med e-post som inte avregistrerat sig. */
 async function fetchEligibleRecipients(admin: ReturnType<typeof getSupabaseAdmin>): Promise<RecipientRow[]> {
