@@ -196,7 +196,10 @@ export default function UpgradeSheet({ open, onClose, order = 'daypass-first', s
                         <span className="ml-1 text-meta font-normal text-ink-3">{plan.suffix}</span>
                       </span>
                     </span>
-                    <span className="mt-0.5 block text-meta text-ink-2">{plan.body}</span>
+                    {/* Prisstegen säger vem nivån passar. Den ersätter plan.body,
+                        som upprepade priset och samma målgrupp i längre form.
+                        Texten bor i PLANS så stegen aldrig glider isär. */}
+                    <span className="mt-0.5 block text-meta text-ink-2">{plan.audience}</span>
                     {plan.perMonth ? (
                       <span className="mt-0.5 block text-meta font-medium text-ink-3">{plan.perMonth}</span>
                     ) : null}

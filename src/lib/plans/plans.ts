@@ -16,6 +16,8 @@ export interface Plan {
   days?: number
   /** Etikett efter beloppet */
   suffix: string
+  /** Vem nivån passar. Prisstegen i UpgradeSheet, docs/design/copy-inloggat-strangar.md */
+  audience: string
   /** Jämförpris, visas under beloppet */
   perMonth?: string
   badge?: string
@@ -32,6 +34,7 @@ export const PLANS: readonly Plan[] = [
     kind: 'one_time',
     days: 1,
     suffix: 'engångs',
+    audience: 'En ansökan som ska in ikväll',
     body: '24 timmar med allt upplåst. För dig som ska skicka in en ansökan ikväll.',
     ctaLabel: 'Köp dagspass',
     highlights: ['Ladda ner brev och CV', 'Alla 42 mallar', 'Full CV-analys', 'Ingen prenumeration'],
@@ -43,6 +46,7 @@ export const PLANS: readonly Plan[] = [
     kind: 'one_time',
     days: 7,
     suffix: 'engångs',
+    audience: 'Flera ansökningar samma vecka',
     body: 'Sju dagar med allt. Ingen prenumeration, ingen uppsägning. För dig som söker flera jobb den här veckan.',
     ctaLabel: 'Köp veckan',
     highlights: ['Obegränsade brev i sju dagar', 'Ladda ner allt du skapar', 'Alla mallar och tester', 'Inget dras automatiskt'],
@@ -53,6 +57,7 @@ export const PLANS: readonly Plan[] = [
     amount: 149,
     kind: 'recurring',
     suffix: '/ månad',
+    audience: 'Aktivt sökande, avsluta när du vill',
     badge: 'Mest vald',
     body: '149 kr i månaden. Ett jobb du missar kostar mer. Avsluta när du vill.',
     ctaLabel: 'Starta Premium',
@@ -64,6 +69,7 @@ export const PLANS: readonly Plan[] = [
     amount: 299,
     kind: 'recurring',
     suffix: 'för 3 månader',
+    audience: 'Ett längre sök eller byte av bransch',
     perMonth: '99 kr per månad',
     badge: 'Bäst värde',
     body: '299 kr för tre månader, alltså 99 kr i månaden. För dig som vet att sökandet tar tid.',

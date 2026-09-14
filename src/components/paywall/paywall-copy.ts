@@ -52,15 +52,15 @@ export function getPaywallCopy(
     case 'nedladdning':
       return {
         title: 'Ditt brev är klart',
-        body: 'Du kan läsa och kopiera texten som den är. För att ladda ner som PDF eller Word behöver du Premium.',
-        primary: 'Lås upp nedladdning',
-        secondary: 'Kopiera texten istället',
+        body: 'Läs och kopiera det fritt. Vill du bifoga det som PDF eller Word, formaterat och klart att skicka, ingår det i Premium.',
+        primary: 'Ladda ner med Premium',
+        secondary: 'Kopiera texten i stället',
       }
     case 'cv-export':
       return {
         title: 'Din gratis nedladdning är använd',
-        body: 'Du har laddat ner ett CV. Fler nedladdningar, alla 42 mallar och obegränsade analyser ingår i Premium.',
-        primary: 'Lås upp nedladdning',
+        body: 'Du har laddat ner ett CV. Fler nedladdningar, alla mallar och obegränsade analyser ingår i Premium.',
+        primary: 'Ladda ner med Premium',
         secondary: 'Se vad Premium kostar',
       }
     case 'kvot': {
@@ -73,7 +73,7 @@ export function getPaywallCopy(
       const n = opts?.findingsTotal ?? 0
       return {
         title: n > 0 ? `Vi hittade ${n} saker att fixa i ditt CV` : 'Vi hittade fler saker att fixa i ditt CV',
-        body: 'Du ser poängen och de tre viktigaste. Resten, inklusive ATS-genomgången och formuleringsförslagen, ingår i Premium.',
+        body: 'Du ser poängen och de tre viktigaste fynden. Resten, med genomgången avsnitt för avsnitt och färdiga formuleringar, ingår i Premium.',
         primary: 'Se hela analysen',
         secondary: 'Vad ingår i Premium?',
       }
@@ -105,7 +105,7 @@ export function getPaywallCopy(
           n === 1
             ? 'Se varför du passar för alla 4'
             : `Se varför du passar för alla ${totalt}`,
-        body: 'Du ser de tre bästa träffarna med skälen utskrivna. Med Premium öppnas resten, med titel, arbetsgivare, ort och varför just du matchar.',
+        body: 'Du ser de tre bästa träffarna med skälen utskrivna. Med Premium öppnas resten, med titel, arbetsgivare, ort och varför just du passar.',
         primary: 'Se alla träffar',
         secondary: 'Se vad Premium kostar',
       }
@@ -122,8 +122,8 @@ export function getPaywallCopy(
       }
     case 'nedgraderad':
       return {
-        title: 'Din Premium-period är slut',
-        body: 'Du hade obegränsat i fem dagar. Nu gäller gratisnivån: ett brev om dagen, och nedladdning kräver Premium.',
+        title: 'Fem dagar med Premium är över',
+        body: 'Allt du skrev och analyserade finns kvar att läsa och kopiera. Nu gäller gratisnivån: ett brev om dagen, och nedladdning ingår i Premium.',
         primary: 'Se vad Premium kostar',
         secondary: 'Fortsätt gratis',
       }

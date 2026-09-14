@@ -110,7 +110,7 @@ export default function PrenumerationClient({
         description={
           isPremium
             ? 'Din plan, din användning och hur du hanterar den.'
-            : 'Välj hur länge du vill ha Premium. Alla alternativ ger samma funktioner.'
+            : 'Premium tar bort dagsgränserna: obegränsat med brev och analyser, och nedladdning som PDF och Word. Välj hur länge du behöver det.'
         }
       />
 
