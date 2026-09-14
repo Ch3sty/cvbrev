@@ -266,3 +266,131 @@ Totalt cirka fyra arbetsdagar från brief till driftsatt. Copyn kan skrivas para
 1. **Behåller vi "Premium" som produktnamn?** Planen utgår från ja. Alternativet är "Fullt läge" eller liknande, vilket kräver ändringar i Stripe-produktnamn, mail och publika prissidan. Rekommendation: behåll.
 2. **Får matchgraden förklaras med sina faktiska vikter** (kompetenser 0,45, roller 0,30, ort 0,15, färskhet 0,10)? Det är auktoritet gratis men gör algoritmen synlig för konkurrenter. Rekommendation: förklara i ord utan att ange vikterna.
 3. **Ska CV-analysens poäng byta skala eller bara förklaras?** Planen antar bara förklaras.
+
+---
+
+# Beslut 2026-09-15
+
+Ägaren gav saas-lead beslutsrätt i de tre frågor som lämnades öppna efter copyomgången
+(`docs/design/copy-inloggat-strangar.md`, `docs/qa/qa-copy-2026-09-15.md`). Slutlig copy
+för det som ändras skrivs av `svensk-ux-copywriter` enligt de sex tonprinciperna i
+strängfilen. Besluten nedan gäller tills ny data säger annat.
+
+## Beslut 1: "Lås upp" utgår ur hela inloggade läget
+
+**Beslut: ja, alla sex byts.** Tabell B2 stryker "unlock" och tonprincip 6 säger att en
+betalvägg ska säga vad du får, inte vad som är stängt. Argumentet för att göra undantag
+utanför omgång 1 till 3 var bara att ställena låg utanför briefen, inte att texten var
+bättre där. Att låta "Lås upp" stå kvar på sex ytor medan betalväggarna slutat använda det
+ger två röster i samma produkt, och den svagare av dem sitter på mallväljaren och
+testhubben, som är två av de synligaste låsta ytorna.
+
+Låsmetaforen har dessutom fel riktning i vår modell: gratisnivån är inte en avstängd
+produkt utan en mindre. "Gratis att skapa, betalt att ta ut" (`plan-konvertering.md`)
+läses fel om knappen säger att något är låst. Formuleringen ska alltid namnge handlingen
+plus Premium, som betalväggsknapparna redan gör ("Ladda ner med Premium").
+
+Ställena, med grep `grep -rn "Lås upp" src/`:
+
+| Fil och rad | Nuvarande | Riktning |
+|---|---|---|
+| `src/app/dashboard/cv-mallar/components/MallarLivePreview.tsx:459` | `Lås upp Premium för {templateName}` | namnge handlingen: använd mallen, med Premium |
+| `src/app/dashboard/mina-brev/components/LetterCard.tsx:111` | `Lås upp med Premium` | vad länken ger: läs och ladda ner brevet |
+| `src/app/dashboard/mina-brev/components/LetterCardCompact.tsx:81` | `Lås upp med Premium` | samma, kortare yta |
+| `src/components/tests/shared/TestHubPage.tsx:163` | `Lås upp med Premium` | namnge handlingen: gör testet med Premium |
+| `src/components/tests/shared/PersonalityHubPage.tsx:119` | `Lås upp med Premium` | samma |
+| `src/app/dashboard/bli-upptackt/components/VerifiedResultsCard.tsx:222` | `Se din arbetsstil och lås upp hela rapporten` | behåll "Se din arbetsstil", byt andra halvan |
+
+Utanför inloggat läge står "Lås upp premium" i `YrkesmallContent.tsx:231` och "Lås upp
+mitt brev" i `StartFlow.tsx:308`. Publik copy är en egen omgång och rörs inte nu, men de
+två raderna ärver samma regel när den omgången görs. `SavedDiscounts.tsx:254` och
+`recommendation-engine.ts:218` ligger i ytor som inte når användaren i dagens flöden och
+lämnas tills de gör det.
+
+## Beslut 2: rekryteringssystem är huvudordet, ATS står i parentes en gång per vy
+
+**Beslut: svensk term först, förkortningen kvar som parentes vid första förekomsten i en
+vy, aldrig ensam som huvudord, och aldrig som enhet på en siffra.**
+
+Två hänsyn drar åt olika håll. Begripligheten säger stryk förkortningen: en jobbsökare som
+möter "ATS-poäng 65" har ingen aning om vad som mäts eller mot vad. Trafiken säger behåll
+den: hela vårt publika kluster rankar på "ATS", ordet står i fyrtiotalet artiklar och
+exempelsidor, i titlar och metabeskrivningar, och de besökarna kommer in med ordet i
+huvudet. Tas det bort helt inloggat blir det en glipa mellan vad vi sålde på artikeln och
+vad produkten heter.
+
+Lösningen är den som CV-analysens intro redan använder efter förra omgången:
+`De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna först.`
+Den ger igenkänningen åt den som googlat och begripligheten åt alla andra. Regeln,
+bindande för inloggat läge:
+
+1. **Huvudord: rekryteringssystem.** I löptext går även "urvalssystem" och "automatisk
+   gallring" när meningen tjänar på variation. "ATS-system" är dubbelt och utgår överallt.
+2. **ATS får stå i parentes exakt en gång per vy**, efter det svenska ordet, och bara i en
+   mening som faktiskt förklarar vad systemet gör. Andra förekomsten i samma vy använder
+   bara det svenska ordet.
+3. **Aldrig som enhet eller prefix på en siffra.** "ATS-poäng", "+10 ATS", "ATS-score"
+   utgår. Poängen heter **läsbarhetspoäng** och har alltid en norm intill sig, som
+   `ReviewHeader.tsx:68` redan skriver: "Poängen går från 0 till 100 och mäter hur väl ett
+   rekryteringssystem tolkar ditt CV." Formen i plantexten, "65 av 100 i
+   rekryteringssystemets sållning", används inte: den påstår en sållningsgräns vi inte kan
+   belägga, och sanningskravet gäller. Vi säger vad poängen mäter, inte vad den avgör.
+4. **Undantag: `ATS-säker` som mallbadge står kvar.** Den är en teknisk klassificering av
+   filen, inte en förklaring till användaren, den sitter i en badge där en svensk
+   omskrivning inte ryms, och exakt samma ord står på de publika mallsidorna som skickar
+   trafiken hit. Byts den måste publikt och inloggat byta samtidigt, och det är en egen
+   omgång. Samma sak för teckensnittsgruppen `ATS-säkra klassiker`.
+5. **Publikt lämnas orört i den här omgången.** Artiklar och exempelsidor behåller "ATS"
+   som SEO-bärande ord. Sammanhanget håller ändå, eftersom inloggat introducerar det
+   svenska ordet med förkortningen i parentes: läsaren som kom via en ATS-artikel känner
+   igen ordet och lär sig den svenska termen i samma mening.
+
+Inventering, 28 användarsynliga strängar i 12 filer (grep i `src/app/dashboard`,
+`src/components/trial`, `src/components/paywall`; planens siffra 14 räknade bara
+CV-analysen). Ändras:
+
+| Fil och rad | Nuvarande | Åtgärd |
+|---|---|---|
+| `cv-analys/components/CVAnalysisIntro.tsx:21` | `ett rekryteringssystem (ATS)` | oförändrad, mönstret |
+| `cv-analys/components/CVAnalysisWizard.tsx:84` | `Analyserar mot ATS-kriterier` | svensk term |
+| `cv-analys/components/review/ChangeLogList.tsx:70,91,128` | `+{n} ATS` | `+{n} läsbarhet` |
+| `cv-analys/components/select/ImprovementCard.tsx:91` | `+{n} ATS` | `+{n} läsbarhet` |
+| `cv-analys/components/select/ProfileImprovementCard.tsx:68` | `+{n} ATS` | `+{n} läsbarhet` |
+| `cv-analys/components/steps/AnalysisOverviewStep.tsx:81` | `rekryterare och ATS letar efter` | svensk term |
+| `cv-analys/components/steps/AnalysisOverviewStep.tsx:106` | rubrik `ATS-optimering` | svensk rubrik |
+| `cv-analys/components/steps/AnalysisOverviewStep.tsx:108,113` | tooltip `Vad är ATS?` | vyns enda parentesförekomst, omskriven till svensk ordning |
+| `cv-analys/components/steps/SelectImprovementsStep.tsx:124` | `bättre ATS-poäng` | läsbarhet i rekryteringssystem |
+| `profil/components/PremiumGateModal.tsx:34,36` | `ATS-poängen`, `ATS-optimering` | svensk term |
+| `profil/components/PresentationSection.tsx:193` | `inte ATS-läsningen` | svensk term |
+| `skapa-cv/components/steps/Step7Review.tsx:69,79` | `Optimera för ATS-system` | svensk term, knappen namnger handlingen |
+| `introduktion/page.tsx:58,74,114,116` | fyra `ATS-`-rader | svensk term, en parentes i vyn |
+| `components/trial/PremiumFeatures.tsx:18` | `ATS-poäng och förbättringsförslag` | läsbarhetspoäng |
+| `cv-mallar/*` badge `ATS-säker`, `FontSelector.tsx:150` | | oförändrade, undantag 4 |
+| `og-preview/page.tsx:69` | `ATS-optimerat` | internt verktyg, oförändrad |
+
+## Beslut 3: löftet mildras till att loggningen ingår i gratisnivån
+
+**Beslut: "för alltid" utgår, men löftet står kvar i mildare form.** Nuvarande text i
+`src/components/paywall/paywall-copy.ts:119`: "Att logga dina ansökningar är gratis för
+alltid."
+
+Tre skäl att inte ta bort löftet helt. Ett, trackern beslutades uttryckligen som gratis
+för alla (`plan-sokta-tjanster.md`, beslut 2026-07-29) och den är vår retention-krok:
+`plan-inloggat-omdesign.md` säger att loggningen skapar inlåsningsvärdet och att
+betalväggen sitter på uttaget, inte på loggningen. Två, betalväggen står i exakt det
+ögonblick där användaren ska förstå var gränsen går, och tonprincip 6 kräver att vi säger
+vad som är gratis. Tre, tar vi bort meningen läses hela betalväggen som att loggningen
+själv kan bli betald, vilket är fel och skrämmer bort just det beteende vi vill ha.
+
+Skälet att mildra: "för alltid" är ett prissättningslöfte utan slutdatum som vi ger i en
+betalvägg, inte i villkoren. Vi kan inte binda gratisnivåns innehåll flera år framåt, och
+sanningskravet gäller framtidspåståenden lika hårt som faktapåståenden. Att loggningen
+ingår i gratisnivån säger samma sak om nuläget, är sant så länge det är sant, och binder
+oss till gratisnivån som helhet i stället för till evigheten.
+
+Åtgärd: `paywall-copy.ts`, varianten `af-rapport`, mening två skrivs om utan "för alltid".
+Kommentaren i `ShareTab.tsx:330` som motiverar betalväggens placering följer med.
+`ArticlesFinalCTA.tsx:134` ("Inget kreditkort krävs · Gratis för alltid") är publik copy
+och tas i den publika omgången, men ärver samma regel.
+
+Ingen prisändring, ingen ändring av vad som är gratis. Trackern förblir gratis för alla.
