@@ -744,3 +744,91 @@ De återkommande grundorsakerna, i tur och ordning:
 | **Mätning på riktig mobil** | Allt ovan är emulering på utvecklingsmaskin. PostHog-p75 från riktiga användare bör läsas av två veckor efter driftsättning och jämföras med avsnitt 1. |
 
 Kör `npm run perf:inloggat -- --korningar 3` på en tyst maskin före varje merge. Grinden fäller vid mer än 20 procent över budget, eller vid CLS över 0,002.
+
+## 16. Efter Tråden, 2026-09-14
+
+Designmigreringen "Tråden" (branch `design/rod-trad`, sexton commits från `9dd90880` till `08730474`) skrev om hela det inloggade läget till det nya designsystemet. En mätning efteråt visade **28 av 38 inom budget**, ned från 32, och grinden föll på fyra sidor.
+
+Den här omgången åtgärdade regressionerna. Ingen design, inga tokens och inga skalkomponenter rördes: bara datahämtning, lazy-laddning och höjdreservation.
+
+### 16.1 Vad som faktiskt hade gått sönder
+
+Fyra av de fem regressionerna hade samma form, men bara en av dem var ny kod.
+
+**Detaljsidorna hämtade sin data på klienten.** `mina-brev/[id]`, `mina-brev/[id]/edit` och `sokta-tjanster/[id]` var `'use client'` redan på main och hade så alltid varit. De mätte ändå noll rundturer i omgång sex, av ett skäl som inte höll: LCP landade på skelettet, alltså *innan* hämtningen, så inget anrop hann räknas. Tråden gav sidorna verkligt innehåll högre upp i vyn, LCP flyttade till brevet respektive tidslinjen, och då blev hela kedjan hydrera, fetcha, rita synlig i mätningen. Fjorton rundturer på brevsidorna, tretton på ansökan.
+
+Kedjan var värre än den såg ut. `useLetters()` hämtade dessutom hela brevlistan på varje brevvisning, en lista ingen av de två sidorna läser, och bakom `GET /api/letters/[id]` körde routen `auth.getUser()` över nätet innan sin egen fråga.
+
+**Jobbcoachens välkomstkort.** Dokumentantalen (hur många CV och brev användaren har) räknades i en effekt som först gjorde `auth.getUser()` över nätet och sedan två count-frågor i tur och ordning. Det var oförändrat från main. Det som ändrades var att Tråden flyttade välkomstvyn upp från `pt-[8%]` till `pt-2`, så kortet blev vyns LCP-element och kedjan hamnade på den kritiska vägen. Kortet bytte dessutom både text och knapp när siffrorna landade.
+
+**Entré-animationen.** `animate-thread-enter` (`opacity: 0` plus `translateY(8px)`) låg på hela dashboardens rot, på jobbcoachens panel, på testhubben och på testresultatet. LCP kan inte registreras på ett helt genomskinligt element, så mätningen sköts fram tills animationen hunnit en bit. Sidbytet tonas redan in en gång i `DashboardShell` (`fadeInPlace`, bara opacity), så det var dubbelt arbete på just de sidor som har hårdast budget.
+
+**bli-upptackt var ingen regression.** 1 684 ms mot 1 896 i förra omgången, alltså snarare en förbättring. Sidan lämnades orörd och ligger kvar över budget av samma skäl som förut: den är det inloggade lägets längsta sida och behöver delas i två vyer.
+
+### 16.2 Tre layoutskift med tre olika orsaker
+
+De två CLS-posterna såg ut att ha samma orsak, en förhandsvisning som växer. Mätning av vilka element som faktiskt flyttade sig visade att ingen av dem hade det.
+
+| Sida | CLS | Vad som flyttade sig |
+|---|---:|---|
+| cv-mallar | 0,060 | Raden under mallnamnet (`ATS-säker · Modern · Gratis`) låg i en `flex-wrap`. Med reservsnittet rymdes den på två rader, med Inter på en enda. Kortet krympte 24 px och allt under det flyttades 46 px uppåt, drygt tre sekunder in. |
+| skapa-cv steg 7 | 0,052 | Cookie-bannern. Biblioteket ritar den med inline `bottom: 0`, och regeln för flödessidor lyfter den sedan ovanför Fortsätt-foten, men i olika bilder: den stod först längst ned och hoppade 169 px uppåt. |
+| jobbcoachen | 0,008 | Auto-rullningen körde även på välkomstvyn, där det inte finns något att rulla till. Skiftet fanns redan, men doldes av entré-animationen. |
+
+Åtgärderna följer mönstret: raden radbryter inte längre, bannern monteras först efter första målningen (då står både `data-flow-active` och `--flow-footer-h` rätt), och rullningen hoppas över vid noll meddelanden. Förhandsvisningarnas höjder reserverades också, eftersom `min-h` mot `max-h` är samma sorts fälla, men de var inte det som mättes.
+
+### 16.3 En återställd åtgärd
+
+Dashboarden låg kvar på 1 212 ms mot budget 1 000, en procentenhet över grindens tolerans. Heron och snabbåtgärderna finns bara i tillstånd A och B och renderar ingenting i tillstånd C, som är det de flesta inloggningar möter, så de lazy-laddades med `next/dynamic`.
+
+**Det gjorde sidan långsammare: 1 596 ms i stället för 1 212.** Med SSR kvar måste klientchunken ändå hämtas innan hydreringen kan slutföras, och den rundturen kostade mer än den sparade parsningen. Ändringen är återställd. Lärdomen är att lazy-laddning lönar sig för det som ligger bakom ett klick, inte för det som ingår i sidans första hydrering.
+
+### 16.4 Resultat
+
+`npx tsc --noEmit` rent efter varje ändring, `next build` lyckas. Median av tre körningar, Pixel 7, 3x CPU-strypning, LTE.
+
+**33 av 38 inom budget, upp från 28 och över den tidigare bästa noteringen 32.**
+
+| Sida | Budget | Före (Tråden) | Efter | Rundturer före | efter | CLS före | efter |
+|---|---|---:|---:|---:|---:|---:|---:|
+| mina-brev/[id] | 1500 | 2 096 | **1 068** | 14 | **0** | 0,001 | 0,001 |
+| mina-brev/[id]/edit | 1500 | 2 524 | **1 128** | 14 | **0** | 0,001 | 0,001 |
+| sokta-tjanster/[id] | 1500 | 2 320 | **1 088** | 13 | **0** | 0,001 | 0,001 |
+| jobbcoachen | 2000 | 2 332 | **1 120** | 18 | **0** | 0,001 | 0,001 |
+| dashboard | 1000 | 1 572 | **1 212** | 1 | **0** | 0,001 | 0,001 |
+| skapa-cv steg 7 | 2000 | 1 848 | **1 632** | 1 | 1 | 0,052 | **0** |
+| cv-mallar | 1500 | 1 160 | 1 152 | 0 | 0 | 0,060 | **0,010** |
+| cv-mallar (vald mall) | 1500 | 1 320 | 1 248 | 0 | 0 | 0,060 | **0,010** |
+| bli-upptackt | 1500 | 1 684 | 1 756 | 10 | 12 | 0,001 | 0,001 |
+
+Hela läget:
+
+| Mått | Före | Efter |
+|---|---:|---:|
+| Routes inom budget | 28 av 38 | **33 av 38** |
+| Sidor med CLS över 0,002 | 3 | **2** |
+| Sidor över 2 000 ms | 4 | **0** |
+| Långsammaste sidan | 2 524 ms | **1 756 ms** |
+
+Fem sidor ligger kvar över, ingen av dem på mer än 21 procent:
+
+| Sida | Budget | LCP | CLS | Varför |
+|---|---|---:|---:|---|
+| dashboard | 1000 | 1 212 | 0,001 | Noll rundturer. Kvar är hydreringen av fem sektioner. |
+| profil | 1000 | 1 140 | 0,001 | Noll rundturer, 140 ms över, inom mätbruset. |
+| cv-mallar | 1500 | 1 152 | 0,010 | Under tidsbudget, faller bara på ett kvarvarande litet skifte. |
+| cv-mallar (vald mall) | 1500 | 1 248 | 0,010 | Samma. |
+| bli-upptackt | 1500 | 1 756 | 0,001 | Oförändrad. Behöver delas i två vyer. |
+
+### 16.5 Grindens status
+
+`npm run perf:inloggat` avslutas med **exit 1**. Den enda posten som fäller den är dashboarden på 1 212 ms mot 1 000, alltså **plus 21 procent mot en tolerans på 20**. En procentenhet, på en sida som gör noll rundturer och vars återstående tid är ren hydrering av fem sektioner. Det är inom svängningen mellan körningar på den här maskinen, men grinden räknar median och medianen landade över.
+
+### 16.6 Kvar att göra
+
+| Post | Vad som krävs |
+|---|---|
+| **dashboard under 1 000 ms** | 212 ms, allt hydrering. Färre klientkomponenter i tillstånd C, inte lazy-laddning av dem (se 16.3). |
+| **cv-mallar CLS till noll** | 0,010 kvar efter att radbrytningen åtgärdats. Källan är inte identifierad. |
+| **bli-upptackt under 1 500 ms** | Oförändrat sedan omgång tio: sidan behöver delas i två vyer. |
+| **profil under 1 000 ms** | 140 ms, inom mätbruset. |
