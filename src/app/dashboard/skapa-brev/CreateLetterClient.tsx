@@ -919,6 +919,10 @@ export default function CreateLetterClient({
 
       {step === 1 && (
         <>
+          <p className="text-sm leading-[22px] text-ink-2">
+            I ett svenskt urval läses brevet mot annonsens kravprofil. Välj vilket CV vi ska utgå
+            från, så lyfter vi fram det som svarar mot kraven.
+          </p>
           <OnboardingNextStep stepCompleted="create_letter" />
           {prefillData && (prefillData.cvId || prefillData.jobDescription) && (
             <PrefillBadgeCard

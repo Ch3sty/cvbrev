@@ -77,7 +77,7 @@ export default function JobDescriptionStep({
           enterKeyHint="enter"
           inputMode="text"
           autoComplete="off"
-          placeholder="Klistra in jobbannonsen här. Företag, roll och krav ger oss det vi behöver för ett vasst brev."
+          placeholder="Klistra in hela annonsen. Vi läser ut kravprofilen, skall-krav och meriterande, och skriver brevet mot den."
           className="min-h-[220px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base leading-6 text-ink-1 shadow-insunken transition-colors placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:min-h-[260px]"
         />
         <p className="mt-1 text-right text-meta tabular-nums text-ink-3">
@@ -87,7 +87,7 @@ export default function JobDescriptionStep({
 
       {detectedKeywords.length > 0 ? (
         <div>
-          <p className="text-sm font-medium text-ink-3">Nyckelord vi hittat</p>
+          <p className="text-sm font-medium text-ink-3">Krav vi läst ut ur annonsen</p>
           <ul className="mt-1.5 flex flex-wrap gap-1.5">
             {detectedKeywords.map((kw) => (
               <li

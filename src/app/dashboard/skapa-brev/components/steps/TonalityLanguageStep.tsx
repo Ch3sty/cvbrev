@@ -54,35 +54,35 @@ const STANDARD_TONES: {
   {
     id: 'professional',
     label: 'Professionell',
-    description: 'Formell och saklig.',
+    description: 'Saklig och formell. Går rakt på kraven.',
     icon: IkonProfessionell,
     recommendedFor: 'Traditionella branscher',
   },
   {
     id: 'enthusiastic',
     label: 'Entusiastisk',
-    description: 'Energisk och varm.',
+    description: 'Varm, energisk. Visar att du vill hit.',
     icon: IkonEntusiastisk,
     recommendedFor: 'Kreativa yrken, startups',
   },
   {
     id: 'creative',
     label: 'Kreativ',
-    description: 'Nytänkande och personlig.',
+    description: 'Personlig och oväntad. Vågar sticka ut.',
     icon: IkonKreativ,
     recommendedFor: 'Design, marknadsföring',
   },
   {
     id: 'confident',
     label: 'Självsäker',
-    description: 'Betonar dina resultat.',
+    description: 'Leder med dina resultat, i siffror.',
     icon: IkonSjalvsaker,
     recommendedFor: 'Chefsroller, sälj',
   },
   {
     id: 'balanced',
     label: 'Balanserad',
-    description: 'Professionell med personlighet.',
+    description: 'Saklig men varm. Passar de flesta.',
     icon: IkonBalanserad,
     recommendedFor: 'De flesta tjänster',
   },
@@ -120,8 +120,8 @@ export default function TonalityLanguageStep({
             if (isPremium) onTonalityChange('auto');
           }}
           eyebrow={isPremium ? 'Rekommenderas' : undefined}
-          title="Smart-anpassad"
-          description="Vi läser ditt CV, annonsen och företagets ton, och väljer den som ger högst chans till intervju."
+          title="Vi väljer ton åt dig"
+          description="Vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder."
           meta={isPremium ? 'Läser kraven · Branschens ton' : 'Ingår i Premium'}
           leading={
             <MarginPlate>
@@ -132,7 +132,7 @@ export default function TonalityLanguageStep({
 
         {!isPremium ? (
           <p className="text-meta text-ink-3">
-            Smart-anpassad ingår i Premium.{' '}
+            Automatiskt tonval ingår i Premium.{' '}
             <Link
               href={PREMIUM_HREF}
               className="font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"

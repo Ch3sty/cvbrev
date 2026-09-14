@@ -27,7 +27,7 @@ const TONE_LABELS: Record<string, string> = {
   creative: 'Kreativ',
   confident: 'Självsäker',
   balanced: 'Balanserad',
-  auto: 'Smart-anpassad',
+  auto: 'Vi väljer ton åt dig',
 };
 
 const TONE_ICONS: Record<string, (props: IkonProps) => React.JSX.Element> = {

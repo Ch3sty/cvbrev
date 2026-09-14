@@ -39,12 +39,12 @@ const FEATURE_CONTENT: Record<PremiumFeature, { title: string; subtitle: string;
     ],
   },
   'smart-tone': {
-    title: 'Lås upp Smart val',
-    subtitle: 'Vi väljer den ton som passar varje annons bäst, automatiskt för varje brev.',
+    title: 'Automatiskt tonval ingår i Premium',
+    subtitle: 'Vi läser annonsens språk och bransch och väljer tonen åt dig, brev för brev.',
     bullets: [
       'Vi läser tonen i varje annons',
       'Du slipper välja manuellt för varje brev',
-      'Högre träffsäkerhet i dina ansökningar',
+      'Samma ton som arbetsgivaren använder i annonsen',
     ],
   },
 };
