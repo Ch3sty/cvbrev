@@ -24,23 +24,11 @@ import { logUserActivity } from '@/lib/activity-logger';
 // Tråden (docs/design/koncept-2026-09-13.md): sektionerna bor i (oversikt).
 import TrialStatusRow from './(oversikt)/TrialStatusRow';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
+import PurchaseConfirmation from './(oversikt)/PurchaseConfirmation';
 import QuotaNudgeRow from './(oversikt)/QuotaNudgeRow';
 import ProfilKomplettering from './(oversikt)/ProfilKomplettering';
-import { deriveDashboardState } from './(oversikt)/dashboardState';
-import dynamic from 'next/dynamic';
-
-/**
- * Heron och snabbåtgärderna finns bara i tillstånd A och B. I tillstånd C,
- * som är det de allra flesta inloggningar möter, renderar de ingenting alls,
- * men koden laddades, tolkades och hydrerades ändå på varje sidladdning:
- * heron drar med sig InlineCVUpload och QuickScoreReveal, knappt 400 rader
- * som aldrig körs. Nu hämtas de först när tillståndet faktiskt kräver dem.
- * Kvittot efter köp laddas på samma villkor: det syns bara med
- * ?premium_activated=true i adressen.
- */
-const DashboardHero = dynamic(() => import('./(oversikt)/DashboardHero'));
-const SnabbAtgarder = dynamic(() => import('./(oversikt)/SnabbAtgarder'));
-const PurchaseConfirmation = dynamic(() => import('./(oversikt)/PurchaseConfirmation'));
+import DashboardHero, { deriveDashboardState } from './(oversikt)/DashboardHero';
+import SnabbAtgarder from './(oversikt)/SnabbAtgarder';
 import JobbsokOversikt from './(oversikt)/JobbsokOversikt';
 import PagarNu from './(oversikt)/PagarNu';
 import NastaHandling from './(oversikt)/NastaHandling';
