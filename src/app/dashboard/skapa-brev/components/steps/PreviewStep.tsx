@@ -109,13 +109,19 @@ export default function PreviewStep({
     setEditableText('');
   };
 
+  // "Brevet är sparat" visades förut så fort onSave returnerat, oavsett hur
+  // det gick, eftersom föräldern svalde sitt eget fel. Resultatet var två
+  // motsatta besked på samma skärm: felrutan och bekräftelsen. Nu sätts
+  // kvittot bara när onSave faktiskt resolvat.
   const handleSave = async () => {
     if (!onSave) return;
     setIsSaving(true);
     try {
       await onSave();
       setShowSaveSuccess(true);
-      setTimeout(() => setShowSaveSuccess(false), 5000);
+    } catch (error) {
+      console.error('Kunde inte spara brevet:', error);
+      setShowSaveSuccess(false);
     } finally {
       setIsSaving(false);
     }
@@ -265,7 +271,9 @@ export default function PreviewStep({
       ) : (
         <>
           <div className="space-y-2">
-            {onSave ? (
+            {/* Efter ett lyckat sparande pekar kvittot ovan mot Mina brev.
+                Att låta knappen stå kvar bjöd in till att spara två gånger. */}
+            {onSave && !showSaveSuccess ? (
               <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
                 {isSaving ? 'Sparar' : 'Spara brevet'}
               </button>

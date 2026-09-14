@@ -152,7 +152,13 @@ export async function POST(request: Request) {
                  (letterData.ai_metadata && letterData.ai_metadata.cost);
     const generationTimeMs = letterData.generation_time_ms;
 
-    // Försök hitta befintlig preview (is_saved = false) om preview_id finns
+    // Försök hitta befintlig rad om id skickas med.
+    //
+    // Filtret .eq('is_saved', false) låg här förut, och det gjorde anropet
+    // icke-idempotent: gick svaret förlorat på vägen tillbaka (mobilt nät) var
+    // raden redan sparad, så nästa försök hittade ingen preview och la in en
+    // dubblett i stället. Vi matchar på id + user_id och uppdaterar raden
+    // oavsett dess nuvarande is_saved.
     let existingPreview = null;
     if (letterData.id) {
       // Exakt matchning via ID (bästa metoden)
@@ -161,8 +167,7 @@ export async function POST(request: Request) {
         .select('*')
         .eq('id', letterData.id)
         .eq('user_id', user.id)
-        .eq('is_saved', false)
-        .single();
+        .maybeSingle();
 
       existingPreview = previewById;
     }

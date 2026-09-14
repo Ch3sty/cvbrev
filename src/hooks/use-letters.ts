@@ -263,36 +263,72 @@ export const useLetters = (options: UseLettersOptions = {}) => {
   const saveLetter = useCallback(async (letterData: any) => {
     if (!isMountedRef.current) return null;
 
-    try {
+    const body = JSON.stringify({
+      ...letterData,
+      id: letterData.id, // ✅ Skicka med preview ID för exakt matchning
+      is_saved: true
+    });
+
+    // Ett POST mot /api/letters är idempotent: brevets id skickas med och
+    // servern uppdaterar raden i stället för att skapa en ny. På mobilt nät
+    // dör en förfrågan då och då mitt i ("Failed to fetch"), och då är ett
+    // tyst nytt försök rätt svar i stället för ett rött fel till användaren.
+    const postOnce = async () => {
       const response = await fetch('/api/letters', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...letterData,
-          id: letterData.id, // ✅ Skicka med preview ID för exakt matchning
-          is_saved: true
-        }),
+        body,
       });
-      
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Kunde inte spara brevet');
+        const errorData = await response.json().catch(() => ({}));
+        const fel: any = new Error(errorData.error || 'Kunde inte spara brevet');
+        fel.status = response.status;
+        fel.payload = errorData;
+        throw fel;
       }
-      
-      const data = await response.json();
-      
-      // Uppdatera brevlistan om sparandet lyckades - tvinga refresh - men bara om inget borttagningsanrop pågår
-      if (!activeOperations.deleting) {
-        await memoizedFetchLetters(true, false);
+
+      return response.json();
+    };
+
+    let data;
+    try {
+      data = await postOnce();
+    } catch (error: any) {
+      // Bara nätverksfel får ett nytt försök. Ett svar från servern (403,
+      // 500) betyder att begäran kom fram och att omförsök inte hjälper.
+      const arNatverksfel = typeof error?.status !== 'number';
+      if (!arNatverksfel) {
+        console.error('Error saving letter:', error);
+        throw error;
       }
-      
-      return data.data;
-    } catch (error) {
-      console.error('Error saving letter:', error);
-      throw error; // Kasta vidare felet för att hantera i UI
+
+      console.warn('Sparandet nådde inte fram, försöker igen:', error);
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      try {
+        data = await postOnce();
+      } catch (retryError: any) {
+        console.error('Error saving letter:', retryError);
+        if (typeof retryError?.status !== 'number') {
+          retryError.code = 'network_error';
+        }
+        throw retryError;
+      }
     }
+
+    // Listan är en bekvämlighet, inte en del av sparandet. Misslyckas den
+    // efter ett lyckat POST är brevet ändå sparat, så felet loggas bara.
+    if (!activeOperations.deleting) {
+      try {
+        await memoizedFetchLetters(true, false);
+      } catch (listError) {
+        console.warn('Brevet sparades men listan kunde inte uppdateras:', listError);
+      }
+    }
+
+    return data.data;
   }, [memoizedFetchLetters]);
   
   // Funktion för att uppdatera ett brev - kan inte vara cachad eftersom den har sidoeffekter

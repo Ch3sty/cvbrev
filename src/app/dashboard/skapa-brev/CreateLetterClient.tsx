@@ -593,16 +593,36 @@ export default function CreateLetterClient({
 
       const savedLetter = await saveLetter(dataToSave);
 
-      if (savedLetter) {
-        setHasDownloadedOrSaved(true);
-        await refreshLetters();
-        await new Promise((resolve) => setTimeout(resolve, 200));
-        router.push('/dashboard/mina-brev');
+      if (!savedLetter) {
+        throw new Error('Brevet kunde inte sparas. Försök igen.');
       }
+
+      setHasDownloadedOrSaved(true);
+
+      // Listan är en bekvämlighet. Brevet ligger redan i databasen, så ett
+      // fel här får inte se ut som ett misslyckat sparande.
+      try {
+        await refreshLetters();
+      } catch (listError) {
+        console.warn('Brevet sparades men listan kunde inte uppdateras:', listError);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      router.push('/dashboard/mina-brev');
     } catch (err: any) {
       console.error('Save error:', err);
-      const errorMessage = err?.message || 'Kunde inte spara brevet. Försök igen.';
+      // "Failed to fetch" är webbläsarens ord för ett tappat mobilnät. Det
+      // säger användaren ingenting, så vi säger det på svenska i stället.
+      const arNatverksfel =
+        err?.code === 'network_error' ||
+        /failed to fetch|load failed|networkerror/i.test(String(err?.message || ''));
+      const errorMessage = arNatverksfel
+        ? 'Nätverket svarade inte. Kontrollera uppkopplingen och försök igen.'
+        : err?.message || 'Kunde inte spara brevet. Försök igen.';
       setSaveError(errorMessage);
+      // Kastas vidare så att PreviewStep inte visar "Brevet är sparat"
+      // ovanför felrutan. Ett misslyckat sparande är ett misslyckat sparande.
+      throw new Error(errorMessage);
     }
   };
 
