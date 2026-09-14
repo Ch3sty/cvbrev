@@ -95,10 +95,10 @@ export default async function StripePaneler() {
           </div>
         )}
         <p className="px-4 py-3 text-meta text-ink-3">
-          Steget avgörs av price id mot miljövariablerna, inte av prisets namn eller
-          intervall. Priset 299 kr har recurring.interval month i Stripe trots att
-          prisstegen säger kvartal, så en identifiering på intervall hade lagt
-          kvartalskunderna under Månad.
+          Steget avgörs av price id mot miljövariablerna i första hand, annars av
+          intervall gånger antal. Stripe beskriver kvartalet som month med
+          interval_count 3, så 299 kr hamnar under Kvartal och räknas som 99,67 kr
+          i MRR.
         </p>
       </SectionCard>
 
