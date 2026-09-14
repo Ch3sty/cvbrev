@@ -25,13 +25,14 @@ import PageHeader from '@/components/shell/PageHeader';
 import SectionCard from '@/components/admin/SectionCard';
 import MetricCard from '@/components/admin/MetricCard';
 import EmptyState from '@/components/shell/EmptyState';
-import Stripejamforelse, { tillRad } from './Stripejamforelse';
+import Stripejamforelse from './Stripejamforelse';
 import Prissynk from './Prissynk';
 import {
   RETENTIONKUPONG,
   hamtaAdminAnvandare,
   hamtaCronStatus,
   hamtaPlanForvantningar,
+  tillRad,
 } from './data';
 
 export const metadata: Metadata = { title: 'Inställningar' };

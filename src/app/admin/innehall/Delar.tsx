@@ -152,11 +152,19 @@ export function Paginering({ bas, flik, sok, sida, sidor, totalt }: PagineringPr
   );
 }
 
-/** Tabellramen. Breda tabeller far egen overflow-x, aldrig body-scroll. */
+/**
+ * Tabellramen. Breda tabeller far egen overflow-x, aldrig body-scroll.
+ *
+ * Tabellen far en minimibredd i pixlar och inte min-w-max. Skillnaden ar att
+ * min-w-max later en enda lang cell (ett URL-kodat filnamn pa tvahundra
+ * tecken) satta hela tabellens bredd, och da hamnar de sista kolumnerna
+ * utanfor synfaltet aven pa en bred skarm. Med en fast minimibredd far cellen
+ * bryta i stallet.
+ */
 export function Tabell({ children }: { children: ReactNode }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-max border-collapse text-sm">{children}</table>
+      <table className="w-full min-w-[640px] border-collapse text-sm">{children}</table>
     </div>
   );
 }
@@ -196,7 +204,9 @@ export function Td({
     <td
       className={[
         'px-4 py-3 align-top',
-        hoger ? 'text-right' : 'text-left',
+        // Tal och datum far aldrig brytas mitt itu: "14 sep" pa tva rader ar
+        // varre an en kolumn som tar nagra pixlar till.
+        hoger ? 'text-right whitespace-nowrap' : 'text-left',
         tal ? 'tabular-nums' : '',
         dampad ? 'text-ink-3' : 'text-ink-1',
       ].join(' ')}

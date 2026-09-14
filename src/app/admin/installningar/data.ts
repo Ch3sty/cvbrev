@@ -76,6 +76,43 @@ export function hamtaPlanForvantningar(): PlanForvantan[] {
   });
 }
 
+/**
+ * Forvantan i den form som gar over servergransen.
+ *
+ * Plan ar en readonly-struktur med highlights och copytext som
+ * klientkomponenten inte behover, och som skulle folja med i RSC-nyttolasten
+ * om hela objektet skickades. Raden bar bara det jamforelsen laser.
+ */
+export interface ForvantanRad {
+  nyckel: string;
+  namn: string;
+  envNamn: string;
+  prisId: string | null;
+  forvantatOreEtt: number;
+  forvantadTyp: 'one_time' | 'recurring';
+  forvantadePerioderIManader: number | null;
+}
+
+/**
+ * Omvandlingen ligger har och inte i komponentfilen.
+ *
+ * En funktion som exporteras ur en 'use client'-fil gar inte att anropa fran
+ * servern. Next kastar "Attempted to call tillRad() from the server but
+ * tillRad is on the client", sidan renderar tomt och svarar anda 200, sa felet
+ * syns varken i statuskoden eller i webblasaren.
+ */
+export function tillRad(f: PlanForvantan): ForvantanRad {
+  return {
+    nyckel: f.plan.key,
+    namn: f.plan.name,
+    envNamn: f.envNamn,
+    prisId: f.prisId,
+    forvantatOreEtt: f.forvantatOreEtt,
+    forvantadTyp: f.forvantadTyp,
+    forvantadePerioderIManader: f.forvantadePerioderIManader,
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Adminanvandare
 // ---------------------------------------------------------------------------

@@ -138,7 +138,17 @@ async function CvFlik({ sida, sok }: { sida: number; sok: string }) {
                 {lista.rader.map((r) => (
                   <tr key={r.id}>
                     <Td>{r.epost ?? 'Okänd'}</Td>
-                    <Td dampad>{r.filnamn ?? 'Utan filnamn'}</Td>
+                    <Td dampad>
+                      {/*
+                        Filnamn kommer fran anvandarens filsystem och kan vara
+                        hundratals tecken langt, ofta URL-kodat. Utan en bredd
+                        trycker en enda sadan rad de tva sista kolumnerna utanfor
+                        tabellens synfalt. Namnet bryts i stallet over tva rader.
+                      */}
+                      <span className="block max-w-[28rem] break-all">
+                        {r.filnamn ?? 'Utan filnamn'}
+                      </span>
+                    </Td>
                     <Td>
                       <span className="flex flex-wrap gap-1">
                         {r.extraheringMisslyckades ? (

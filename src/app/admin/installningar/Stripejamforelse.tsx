@@ -20,7 +20,7 @@
 import { useEffect, useState } from 'react';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import FlowError from '@/components/shell/FlowError';
-import type { PlanForvantan } from './data';
+import type { ForvantanRad } from './data';
 
 interface Prisrad {
   id: string;
@@ -50,28 +50,16 @@ interface Spegling {
   hamtad: string;
 }
 
-/** Forvantningarna serialiserade: Plan ar readonly och gar inte hela vagen. */
-export interface ForvantanRad {
-  nyckel: string;
-  namn: string;
-  envNamn: string;
-  prisId: string | null;
-  forvantatOreEtt: number;
-  forvantadTyp: 'one_time' | 'recurring';
-  forvantadePerioderIManader: number | null;
-}
-
-export function tillRad(f: PlanForvantan): ForvantanRad {
-  return {
-    nyckel: f.plan.key,
-    namn: f.plan.name,
-    envNamn: f.envNamn,
-    prisId: f.prisId,
-    forvantatOreEtt: f.forvantatOreEtt,
-    forvantadTyp: f.forvantadTyp,
-    forvantadePerioderIManader: f.forvantadePerioderIManader,
-  };
-}
+/*
+ * Forvantningarna kommer fardigt serialiserade fran data.ts.
+ *
+ * Bade typen ForvantanRad och omvandlingen tillRad bor dar, inte har. En
+ * funktion som exporteras ur en 'use client'-fil gar inte att anropa fran
+ * servern: Next kastar "Attempted to call tillRad() from the server but
+ * tillRad is on the client" och sidan renderar tomt, med status 200 och utan
+ * ett enda synligt fel i webblasaren. Den har kommentaren star kvar sa att
+ * ingen flyttar tillbaka den.
+ */
 
 function kronor(ore: number | null | undefined): string {
   if (typeof ore !== 'number') return 'saknas';
@@ -277,7 +265,10 @@ export default function Stripejamforelse({
         <p className="mt-2 text-meta text-ink-3">
           {avvikelser.length === 0
             ? 'Alla fyra stegen stämmer mot Stripe.'
-            : `${avvikelser.length} avvikelser. Rättningen görs i Stripe av ägaren: adminen skriver aldrig dit.`}
+            : `${avvikelser.length} avvikelser. Rättningen görs i Stripe av ägaren: adminen skriver aldrig dit.`}{' '}
+          Kvartalspriset läses som interval month med interval_count 3, vilket är hur
+          Stripe beskriver ett kvartal. Läser man bara interval ser det ut som ett
+          månadspris på 299 kr, och det är inte vad det är.
         </p>
       </div>
 
