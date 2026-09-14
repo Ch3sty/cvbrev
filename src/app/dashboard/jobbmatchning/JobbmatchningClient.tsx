@@ -81,6 +81,16 @@ type AppliedState = 'idle' | 'saving' | 'done';
  * (REDACTED_PREVIEW_COUNT i /api/jobs/redact). Klienten ritar det den får.
  */
 
+/**
+ * Gratisnivåns tak, samma tal som FREE_TIER_JOB_LIMIT i /api/jobs/redact.
+ *
+ * Det står skrivet här i stället för importerat: rutten drar in next/headers
+ * och hör inte hemma i klientpaketet. Servern är fortfarande den som bestämmer
+ * vad som får visas. Talet används bara som sista utväg när svaret uteblivit,
+ * och då som ett tak neråt, aldrig som en rättighet uppåt.
+ */
+const FREE_TIER_FALLBACK_LIMIT = 3;
+
 export default function JobbmatchningClient({
   initialData,
 }: {
@@ -277,10 +287,26 @@ export default function JobbmatchningClient({
   /* ------------------------------------------------------------ suddningen */
 
   const [redaction, setRedaction] = useState<JobRedactionResult | null>(null);
+  /**
+   * Har vi ställt frågan om suddning för den lista som nu ligger på skärmen?
+   *
+   * Förut var det enda svaret `redaction`, och `null` betydde två helt olika
+   * saker: "vi har inte frågat än" och "vi frågade, men fick inget svar".
+   * Listan ritade skelett i båda fallen, alltså även för alltid.
+   *
+   * Det slog bara mot premium, och bara ibland. Sökningen hämtar 50 jobb och
+   * fyller sedan på till 600 i en andra omgång (fetchMoreJobs nedan). Varje
+   * påfyllning ger ett nytt `ranked`, effekten kör om och städfunktionen
+   * kastar svaret på den förra frågan. Landade det sista svaret efter att
+   * listan ändrats en gång till blev `redaction` kvar som null, och den som
+   * betalat såg tre skelettrader under rubriken "25 bästa träffarna".
+   */
+  const [redactionAsked, setRedactionAsked] = useState(false);
 
   useEffect(() => {
     if (ranked.length === 0) {
       setRedaction(null);
+      setRedactionAsked(false);
       return;
     }
     let cancelled = false;
@@ -298,10 +324,15 @@ export default function JobbmatchningClient({
     })
       .then((res) => (res.ok ? res.json() : null))
       .then((data: JobRedactionResult | null) => {
-        if (!cancelled && data) setRedaction(data);
+        if (cancelled) return;
+        if (data) setRedaction(data);
+        // Frågan är ställd och besvarad. Även ett uteblivet svar räknas: då
+        // ska listan visa det gratisnivån får se, inte ett evigt skelett.
+        setRedactionAsked(true);
       })
       .catch(() => {
         /* utan svar visar vi inget suddat, aldrig mer än vi får */
+        if (!cancelled) setRedactionAsked(true);
       });
 
     return () => {
@@ -675,9 +706,33 @@ export default function JobbmatchningClient({
     : visibleIds
       ? ranked.filter((r) => visibleIds.has(String(r.job.id)))
       : // Innan serverns svar kommit visar vi inget: aldrig mer än vi får.
+        // Uteblir svaret helt faller vi tillbaka på gratistaket nedan, så
+        // listan aldrig blir stående tom.
         [];
   const redactedJobs = redaction?.redacted ?? [];
   const hiddenCount = redaction?.hiddenCount ?? 0;
+
+  /**
+   * Väntar vi fortfarande på besked om vad som får visas?
+   *
+   * Bara då ritas skelettet. Har frågan besvarats, eller uteblivit, visar vi
+   * den lista vi har. Ett skelett som ligger kvar när sökningen är klar är
+   * alltid fel: rubriken ovanför säger redan hur många träffar som finns.
+   */
+  const waitingForRedaction = ranked.length > 0 && !redactionAsked;
+
+  /**
+   * Sista utvägen om suddningssvaret aldrig kom. Utan besked vet vi inte om
+   * kontot har premium, och då är det enda ärliga att visa gratisnivåns tak.
+   * Det är aldrig mer än användaren har rätt till, och det är alltid mer än
+   * ingenting.
+   */
+  const fallbackJobs =
+    redactionAsked && !redaction
+      ? ranked.slice(0, FREE_TIER_FALLBACK_LIMIT)
+      : [];
+  const rowsToRender =
+    displayedJobs.length > 0 ? displayedJobs : fallbackJobs;
   const distantCount = baseJobs.filter(
     (j) => j.distance && j.distance > 100
   ).length;
@@ -959,7 +1014,7 @@ export default function JobbmatchningClient({
                 växer panelen från noll till tre rader när svaret landar, och
                 allt under hoppar. Skelettets radhöjd är densamma som en
                 riktig rads: CLS ska vara noll. */}
-            {displayedJobs.length === 0 && redactedJobs.length === 0 ? (
+            {waitingForRedaction ? (
               <div className="divide-y divide-kant" aria-hidden="true">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="min-h-[148px] px-4 py-4">
@@ -972,7 +1027,7 @@ export default function JobbmatchningClient({
               </div>
             ) : (
               <div className="divide-y divide-kant">
-                {displayedJobs.map((r, i: number) => (
+                {rowsToRender.map((r, i: number) => (
                   <MatchRow
                     key={r.job.id}
                     job={r.job}
