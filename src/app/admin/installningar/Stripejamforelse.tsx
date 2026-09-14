@@ -135,18 +135,33 @@ export default function Stripejamforelse({
     };
   }, [rakna]);
 
+  // Ytan reserveras i pixlar, inte i antal skelettrader.
+  //
+  // Ett skelett med fyra rader ar ungefar 320 px hogt, medan det laddade
+  // innehallet (tabell, avvikelsenot och kuponglista) ar over 600. Skillnaden
+  // matte upp till CLS 0,016 pa desktop, alltsa ett synligt skutt nar Stripe
+  // svarade. Med en minimihojd som motsvarar det laddade lagets normalfall
+  // star ytan still fran forsta malningen och CLS blir noll.
+  const RESERVERAD = 'min-h-[620px]';
+
   if (fel) {
     return (
-      <FlowError
-        title="Stripe svarade inte"
-        message={fel}
-        onRetry={() => setRakna((n) => n + 1)}
-      />
+      <div className={RESERVERAD}>
+        <FlowError
+          title="Stripe svarade inte"
+          message={fel}
+          onRetry={() => setRakna((n) => n + 1)}
+        />
+      </div>
     );
   }
 
   if (!spegling) {
-    return <LoadingSkeleton variant="list" count={forvantningar.length} label="Stripe hämtas" />;
+    return (
+      <div className={RESERVERAD}>
+        <LoadingSkeleton variant="list" count={forvantningar.length} label="Stripe hämtas" />
+      </div>
+    );
   }
 
   const perId = new Map(spegling.priser.map((p) => [p.id, p]));
@@ -205,7 +220,7 @@ export default function Stripejamforelse({
   const ovriga = spegling.kuponger.filter((k) => k.id !== retentionkupong);
 
   return (
-    <div className="space-y-6">
+    <div className={`space-y-6 ${RESERVERAD}`}>
       <div>
         <div className="mb-2 flex items-center justify-between gap-4">
           <h3 className="text-sm font-medium text-ink-3">Prisstegen mot Stripe</h3>

@@ -230,11 +230,25 @@ export interface AdminFel {
 export async function hamtaCronStatus(): Promise<CronStatus> {
   const admin = getSupabaseAdmin() as any;
 
-  const { data, error } = await admin
-    .from('admin_daily_metrics')
-    .select('dag, uppdaterad, mrr_ore, gsc_clicks, new_accounts, ai_cost_sek')
-    .order('dag', { ascending: false })
-    .limit(90);
+  // Bada fragorna gar samtidigt. De ar oberoende, och tva rundturer i foljd
+  // mot Supabase ar ungefar hundra millisekunder som sidan inte behover betala.
+  //
+  // Trettio dagar, inte nittio: bara de fjorton senaste anvands i taeckningen,
+  // och resten hamtades bara for att kunna svara "senast med data" ocksa nar en
+  // kalla varit tyst en lang stund. Trettio racker for det och ar en tredjedel
+  // av nyttolasten.
+  const [{ data, error }, { data: felData }] = await Promise.all([
+    admin
+      .from('admin_daily_metrics')
+      .select('dag, uppdaterad, mrr_ore, gsc_clicks, new_accounts, ai_cost_sek')
+      .order('dag', { ascending: false })
+      .limit(30),
+    admin
+      .from('admin_error_log')
+      .select('id, kalla, rutt, meddelande, antal, created_at')
+      .order('created_at', { ascending: false })
+      .limit(10),
+  ]);
 
   const rader = error
     ? []
@@ -301,12 +315,6 @@ export async function hamtaCronStatus(): Promise<CronStatus> {
       ton: ton(taeckning((r) => r.ai_cost_sek), 13),
     },
   ];
-
-  const { data: felData } = await admin
-    .from('admin_error_log')
-    .select('id, kalla, rutt, meddelande, antal, created_at')
-    .order('created_at', { ascending: false })
-    .limit(10);
 
   const fel: AdminFel[] = ((felData ?? []) as Array<Record<string, any>>).map((f) => ({
     id: f.id,
