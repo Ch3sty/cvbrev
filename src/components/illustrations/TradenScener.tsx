@@ -55,6 +55,44 @@ export function IlluArketLyfter({ size = 240, className, title }: IlluProps) {
   )
 }
 
+/**
+ * CV mot annonser. Hero i jobbmatchningens tomma tillstånd, innan första
+ * sökningen: ditt ark till vänster, annonserna till höger, och tråden som
+ * går från arket och möter den annons som passar.
+ *
+ * Bärande är CV-arket, rörligt är den mellersta annonsen som lutar 6 grader
+ * och möter tråden, accent är den fyllda punkten där linjen träffar. Ingen
+ * mark, ingen horisont, samma hand som IlluArketLyfter.
+ */
+export function IlluCvMotAnnonser({ size = 240, className, title }: IlluProps) {
+  return (
+    <IlluSvg box={240} size={size} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={SW240}>
+        {/* CV-arket, bärande */}
+        <rect x="18" y="44" width="84" height="152" rx="14" fill={ILLU.fill} />
+        <path d="M38 78h44M38 104h44M38 130h28" opacity="0.4" />
+
+        {/* Tre annonskort, det mellersta lutat och närmast */}
+        <rect x="150" y="30" width="72" height="48" rx="10" fill={ILLU.fill} opacity="0.5" />
+        <rect x="150" y="162" width="72" height="48" rx="10" fill={ILLU.fill} opacity="0.5" />
+        <g transform="rotate(-6 186 120)">
+          <rect x="146" y="94" width="80" height="52" rx="10" fill={ILLU.fill} />
+          <path d="M164 114h44M164 130h26" opacity="0.4" />
+        </g>
+      </g>
+
+      {/* Tråden: från arkets kant till den annons som passar */}
+      <path
+        d="M102 120h34"
+        stroke={ILLU.accent}
+        strokeWidth={SW240}
+        strokeLinecap="round"
+      />
+      <circle cx="140" cy="120" r="10" fill={ILLU.accent} />
+    </IlluSvg>
+  )
+}
+
 /* ============================================================ 96 */
 
 /**

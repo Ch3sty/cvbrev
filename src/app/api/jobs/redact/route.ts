@@ -18,8 +18,16 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 
-/** Hur många träffar gratisnivån ser i klartext. */
-export const FREE_TIER_JOB_LIMIT = 10;
+/**
+ * Hur många träffar gratisnivån ser i klartext.
+ *
+ * Sänkt från tio till tre i och med Dina matchningar
+ * (docs/plan-jobbmatchning.md, avsnitt 2 punkt 5). Träffen är inte längre ett
+ * kort i ett rutnät utan en rad med matchgrad och utskrivna skäl, och det är
+ * förklaringen som är varan. Tre fullständigt förklarade träffar visar vad
+ * Premium ger bättre än tio oförklarade.
+ */
+export const FREE_TIER_JOB_LIMIT = 3;
 
 /** Max antal jobb vi tar emot i ett anrop, så en klient inte kan be om hur mycket som helst. */
 const MAX_JOBS = 600;

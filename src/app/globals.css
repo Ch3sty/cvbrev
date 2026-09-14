@@ -769,6 +769,35 @@ html {
   border-radius: 0 2px 2px 0;
 }
 
+/* Kedjan på Dina matchningar: samma 3 px linje som .thread-row, men dragen
+   genom hela spalten så att panelerna läses som ett förlopp i stället för
+   som fem fristående kort. CV, det vi läste ut, det du vill ha, annonserna
+   vi läst, träffarna.
+
+   Linjen ritas en gång på behållaren, inte en gång per panel. Annars hade
+   varje panel räknats som ett eget orange inslag och vyn sprängt taket på
+   tre. Nu är kedjan ett inslag, precis som en aktiv menyrad är ett. */
+.thread-chain {
+  position: relative;
+}
+.thread-chain::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 24px;
+  bottom: 24px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+/* På smala skärmar finns ingen marginal att lägga linjen i, så kedjan
+   stannar utanför spalten bara när det får plats. */
+@media (max-width: 767px) {
+  .thread-chain::before {
+    display: none;
+  }
+}
+
 /* Laddning: skelettet står stilla, bara tråden rör sig längs panelens
    överkant. 2 px, 40 procent bredd, 1200 ms. */
 .loading-thread {

@@ -17,6 +17,11 @@
  * hämtar aldrig jobb och fattar inga beslut om vad som får visas.
  */
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
+import {
+  toJobPreferences,
+  EMPTY_JOB_PREFERENCES,
+  type JobPreferences,
+} from '@/types/user.types';
 
 export interface JobbmatchningCv {
   id: string;
@@ -54,12 +59,19 @@ export interface JobbmatchningData {
   lockedCvIds: string[];
   /** Det aktiverade CV:t, alltså underlaget matchningen utgår från. */
   activeCV: ActiveCVData | null;
+  /**
+   * Preferenserna från profilen: orter, distans, omfattning och lägsta lön.
+   * Läses här så att panelen "Så söker vi åt dig" står ifylld i första HTML,
+   * utan en egen rundtur efter hydrering.
+   */
+  jobPreferences: JobPreferences;
 }
 
 export const EMPTY_JOBBMATCHNING_DATA: JobbmatchningData = {
   cvs: [],
   lockedCvIds: [],
   activeCV: null,
+  jobPreferences: EMPTY_JOB_PREFERENCES,
 };
 
 /**
@@ -84,7 +96,7 @@ export async function getJobbmatchningData(
       .maybeSingle(),
     supabase
       .from('profiles')
-      .select('subscription_tier, premium_until')
+      .select('subscription_tier, premium_until, job_preferences')
       .eq('id', userId)
       .maybeSingle(),
   ]);
@@ -102,7 +114,11 @@ export async function getJobbmatchningData(
   const cvs = (cvRes.data ?? []) as JobbmatchningCv[];
 
   const profileRow = profileRes.data as
-    | { subscription_tier?: string | null; premium_until?: string | null }
+    | {
+        subscription_tier?: string | null;
+        premium_until?: string | null;
+        job_preferences?: unknown;
+      }
     | null;
   const untilOk =
     !profileRow?.premium_until ||
@@ -118,5 +134,6 @@ export async function getJobbmatchningData(
     cvs,
     lockedCvIds: cvs.filter((cv) => !active.has(cv.id)).map((cv) => cv.id),
     activeCV: (activeRes.data ?? null) as ActiveCVData | null,
+    jobPreferences: toJobPreferences(profileRow?.job_preferences),
   };
 }

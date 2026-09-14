@@ -1,139 +1,185 @@
 'use client';
 
 /**
- * Jobbmatchningens interaktiva del.
+ * Dina matchningar (docs/plan-jobbmatchning.md, våg 1).
  *
- * CV-listan, låsen och det aktiverade CV:t kommer färdiga som props från
- * page.tsx, som läste dem på servern. Ingen spinner vid mount, ingen
- * hämtningskedja: första HTML innehåller CV-korten.
+ * Sidan var en engångssökning: välj CV, tryck en knapp, få en lista. Inget
+ * visade vad som hände, ingenting knöt träffen till brevet, och preferenser
+ * fanns inte. Nu är sidan en kedja som läses uppifrån och ned:
  *
- * Själva matchningen är oförändrad. Jobben hämtas fortfarande av
- * edge-funktionen match-jobs när användaren söker, och vad gratisnivån får se
- * avgörs fortfarande av POST /api/jobs/redact på servern.
+ *   1. Ditt CV, det vi läste ut, med möjlighet att byta och rätta
+ *   2. Så söker vi åt dig, alltså preferenserna från profilen
+ *   3. Annonser vi läst, med antal och färskhet
+ *   4. Träffarna, var och en med matchgrad och två till tre skäl
+ *
+ * Panelerna binds ihop av tråden (.thread-chain) så att de läses som ett
+ * förlopp, inte som fem fristående kort.
+ *
+ * Matchningens motor är oförändrad. Jobben hämtas fortfarande av
+ * edge-funktionen match-jobs, och vad gratisnivån får se avgörs fortfarande
+ * av POST /api/jobs/redact på servern. Det som ändrats här är vad
+ * användaren ser och förstår, inte vad hon får se.
  */
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
 import { useNotification } from '@/context/notificationcontext';
 
-// Components
-import CVActivationCard from './components/CVActivationCard';
-import CvSelectorCard from './components/CvSelectorCard';
-import EmptyStatePrompt from './components/EmptyStatePrompt';
 import JobMatchingOnboarding from './components/JobMatchingOnboarding';
-import MatchingHowItWorks from './components/MatchingHowItWorks';
-import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
-import JobFilterPanel, { type JobFilters, DEFAULT_FILTERS, countActiveFilters } from './components/JobFilterPanel';
+import JobFilterPanel, {
+  type JobFilters,
+  DEFAULT_FILTERS,
+  countActiveFilters,
+} from './components/JobFilterPanel';
 import RedactedJobCard from './components/RedactedJobCard';
+import MatchRow from './components/MatchRow';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import PageHeader from '@/components/shell/PageHeader';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import { IlluTomSokning } from '@/components/illustrations/TradenScener';
+import Sheet from '@/components/shell/Sheet';
+import ChoiceCard from '@/components/shell/ChoiceCard';
+import MarginPlate from '@/components/shell/MarginPlate';
+import JobPreferencesFields, {
+  jobPreferenceChips,
+} from '@/components/jobbmatchning/JobPreferencesFields';
+import {
+  IlluCvMotAnnonser,
+  IlluTomSokning,
+  IlluPlattaCvPoang,
+} from '@/components/illustrations/TradenScener';
+import { capture } from '@/lib/analytics/events';
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route';
 import { applyClientFilters, rankGlobalJobs } from './data/job-filtering';
 import { SWEDISH_MUNICIPALITIES } from './data/swedish-municipalities';
+import { senasteLabel } from './data/match-reasons';
 import type { ActiveCVData, JobbmatchningData } from './getJobbmatchningData';
+import { toJobPreferences, type JobPreferences } from '@/types/user.types';
 
 /**
- * Jobbdetaljerna öppnas först när användaren klickar ett kort, och drar in
- * hela annonsvyn med matchningsförklaring och analysval. Modalen laddas därför
- * när den behövs i stället för i sidans första paket. Ingen höjd behöver
- * reserveras: den ligger över sidan och flyttar ingenting.
+ * Detaljarket öppnas först när användaren klickar en träff och drar in hela
+ * annonsvyn. Det laddas därför när det behövs, inte i sidans första paket.
  */
 const JobDetailModal = dynamic(() => import('./components/JobDetailModal'), {
   ssr: false,
 });
+
+type AppliedState = 'idle' | 'saving' | 'done';
 
 export default function JobbmatchningClient({
   initialData,
 }: {
   initialData: JobbmatchningData;
 }) {
+  const router = useRouter();
+  const supabase = createClient();
+  const { successWithMascotAndActivity } = useNotification();
+
   // Låsen räknades på servern med samma getActiveCvIds som useCvQuota använde.
   const lockedCvIds = useMemo(
     () => new Set(initialData.lockedCvIds),
     [initialData.lockedCvIds]
   );
-  const isCvLocked = (cvId: string) => lockedCvIds.has(cvId);
-  const { successWithMascotAndActivity } = useNotification();
-  // Premium avgörs inte längre i klienten: /api/jobs/redact bestämmer vad som
-  // får visas, så en manipulerad klientflagga kan inte låsa upp träffarna.
 
-  // Mjuk gate: utan CV visar vi <JobMatchingOnboarding /> istallet for att
-  // redirecta. Anvandaren ska forsta vad funktionen ar innan vi skickar dem
-  // till CV-uppladdningen. CV-rakning gors via cvs.length nedan.
+  /* ------------------------------------------------------------ tillstånd */
 
-  // State
-  const [cvs, setCvs] = useState(initialData.cvs);
+  const [cvs] = useState(initialData.cvs);
   const [activeCV, setActiveCV] = useState<ActiveCVData | null>(
     initialData.activeCV
   );
   const [activeCVId, setActiveCVId] = useState<string | null>(
     initialData.activeCV?.cv_id ?? null
   );
+
+  const [prefs, setPrefs] = useState<JobPreferences>(initialData.jobPreferences);
+  // Arket redigerar ett utkast, så ett avbrutet ark inte ändrar profilen.
+  const [prefsDraft, setPrefsDraft] = useState<JobPreferences>(
+    initialData.jobPreferences
+  );
+  const [prefsOpen, setPrefsOpen] = useState(false);
+  const [prefsSaving, setPrefsSaving] = useState(false);
+
+  const [cvSheetOpen, setCvSheetOpen] = useState(false);
+  const [fixSheetOpen, setFixSheetOpen] = useState(false);
+  const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+
+  // Rättningar av det vi läste ut. Vi har inget stöd för att skriva tillbaka
+  // till cv-raden (active_cv_for_matching är en vy över parse-resultatet), så
+  // borttagningarna gäller den här sökningen och sparas inte. Det står i
+  // arket, och är uppskrivet i rapporten.
+  const [droppedRoles, setDroppedRoles] = useState<string[]>([]);
+  const [droppedSkills, setDroppedSkills] = useState<string[]>([]);
+
   const [jobs, setJobs] = useState<any[]>([]);
-  const [customSearch, setCustomSearch] = useState('');
   const [selectedJob, setSelectedJob] = useState<any>(null);
-  const [showDistantJobs, setShowDistantJobs] = useState(false); // Filter för jobb >100km
-  const [showSearchView, setShowSearchView] = useState(false); // Visa sökning eller CV-val
-  const [hasMore, setHasMore] = useState(false); // Flag för progressive loading
-  const [loadingMore, setLoadingMore] = useState(false); // Loading state för bakgrundshämtning
-  const [filters, setFilters] = useState<JobFilters>(DEFAULT_FILTERS); // Filtertillstånd
-  const [totalResults, setTotalResults] = useState(0); // Totalt antal matchande jobb
-  // Globala pooler (remote / erfarenhet-fria) från global_job_cache. Hämtas lazy
-  // första gången respektive filter slås på och rankas mot CV:t klientsidigt.
+  const [showDistantJobs, setShowDistantJobs] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [filters, setFilters] = useState<JobFilters>(DEFAULT_FILTERS);
+  /** Antal annonser vi läst igenom, alltså före gallringen. */
+  const [adsRead, setAdsRead] = useState(0);
+
   const [globalRemote, setGlobalRemote] = useState<any[] | null>(null);
   const [globalNoExp, setGlobalNoExp] = useState<any[] | null>(null);
   const [loadingGlobal, setLoadingGlobal] = useState(false);
 
-  // Loading states. CV-listan är server-läst och finns redan, så den börjar
-  // aldrig i laddning. Flaggan finns kvar för omhämtningen efter en aktivering.
-  const [loadingCVs, setLoadingCVs] = useState(false);
   const [activatingCVId, setActivatingCVId] = useState<string | null>(null);
   const [loadingJobs, setLoadingJobs] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [appliedStates, setAppliedStates] = useState<Record<string, AppliedState>>(
+    {}
+  );
 
-  const supabase = createClient();
+  /* -------------------------------------------------------------- mätning */
 
-  // Constants for free tier limits
-  const FREE_TIER_JOB_LIMIT = 10;
-
-  // Filter som FORTFARANDE behöver servern. Omfattning, publicerat, sortering
-  // och ort görs numera klientsidigt (applyClientFilters) och skickas INTE hit.
-  // remote/noExperience ändrar genuint vilka jobb som finns och hämtas separat
-  // via den globala cachen (se hämtning av remote/erfarenhet-fria jobb).
-  const buildActiveFilters = (_f: JobFilters): Record<string, unknown> => {
-    // Inga server-side filter på CV-grundsökningen längre, den ska vara bred
-    // och stabilt cachebar. remote/noExperience hanteras via global cache.
-    return {};
-  };
-
-  // Ingen hämtning vid mount längre: servern har redan läst CV-listan och det
-  // aktiverade CV:t, och skickat dem som props. fetchActiveCV finns kvar nedan
-  // för omhämtningen direkt efter att användaren aktiverat ett CV.
-
-  // Progressive loading: Ladda resterande 250 jobb i bakgrunden efter top 50
+  const viewLogged = useRef(false);
   useEffect(() => {
-    if (hasMore && jobs.length === 50) {
-      fetchMoreJobs(50, 550); // offset, limit, hämtar resten upp till 600
-    }
-  }, [hasMore, jobs.length]);
+    if (viewLogged.current) return;
+    viewLogged.current = true;
+    capture('match_page_viewed', {
+      has_cv: cvs.length > 0,
+      has_preferences:
+        prefs.locations.length > 0 ||
+        prefs.remote ||
+        prefs.extent !== '' ||
+        prefs.min_salary !== null,
+    });
+    // Bara vid första render: sidan visas en gång per besök.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Filterändringar görs KLIENTSIDIGT på redan hämtade jobb (se applyClientFilters)
-  // i stället för att söka om mot servern. Det undviker onödiga anrop och skyddar
-  // gratisanvändarnas sökkvot. Endast initial CV-sökning + fritext träffar servern.
+  /* ------------------------------------------------------ det vi läste ut */
 
-  // CV-kontext för att ranka globala jobb (ort → koordinat + skills).
-  const cvContext = () => {
+  const roles = useMemo(
+    () =>
+      (activeCV?.extracted_occupations ?? []).filter(
+        (o) => !droppedRoles.includes(o.normalized)
+      ),
+    [activeCV, droppedRoles]
+  );
+  const skills = useMemo(
+    () =>
+      (activeCV?.extracted_skills ?? []).filter((s) => !droppedSkills.includes(s)),
+    [activeCV, droppedSkills]
+  );
+  const educations = activeCV?.extracted_educations ?? [];
+  const cvName =
+    cvs.find((cv) => cv.id === activeCVId)?.file_name ?? 'Inget CV valt';
+
+  /* -------------------------------------------------------- globala pooler */
+
+  const cvContext = useCallback(() => {
     const loc = activeCV?.extracted_location?.toLowerCase().trim();
     const muni = loc
       ? SWEDISH_MUNICIPALITIES.find(
-          (m) => m.name.toLowerCase() === loc || loc.includes(m.name.toLowerCase())
+          (m) =>
+            m.name.toLowerCase() === loc || loc.includes(m.name.toLowerCase())
         )
       : undefined;
     return {
@@ -141,57 +187,51 @@ export default function JobbmatchningClient({
       lat: muni?.lat ?? null,
       lon: muni?.lon ?? null,
     };
-  };
+  }, [activeCV]);
 
-  // Hämta en global pool ('remote' | 'no_experience') ur global_job_cache och
-  // ranka mot CV:t. Läses direkt via supabase-klienten (RLS tillåter SELECT för
-  // inloggade). Ingen server-omsökning, ingen påverkan på sökkvoten.
-  const loadGlobalPool = async (cacheKey: 'remote' | 'no_experience') => {
-    setLoadingGlobal(true);
-    try {
-      const { data, error } = await supabase
-        .from('global_job_cache')
-        .select('jobs')
-        .eq('cache_key', cacheKey)
-        .maybeSingle();
-      if (error || !data) return;
-      const ranked = rankGlobalJobs(data.jobs || [], cvContext());
-      if (cacheKey === 'remote') setGlobalRemote(ranked);
-      else setGlobalNoExp(ranked);
-    } catch (err) {
-      console.error(`Error loading global pool ${cacheKey}:`, err);
-    } finally {
-      setLoadingGlobal(false);
-    }
-  };
+  const loadGlobalPool = useCallback(
+    async (cacheKey: 'remote' | 'no_experience') => {
+      setLoadingGlobal(true);
+      try {
+        const { data, error: err } = await supabase
+          .from('global_job_cache')
+          .select('jobs')
+          .eq('cache_key', cacheKey)
+          .maybeSingle();
+        if (err || !data) return;
+        const ranked = rankGlobalJobs(data.jobs || [], cvContext());
+        if (cacheKey === 'remote') setGlobalRemote(ranked);
+        else setGlobalNoExp(ranked);
+      } catch (err) {
+        console.error(`Error loading global pool ${cacheKey}:`, err);
+      } finally {
+        setLoadingGlobal(false);
+      }
+    },
+    [supabase, cvContext]
+  );
 
-  // Hämta global pool lazy första gången respektive filter slås på.
   useEffect(() => {
     if (filters.remote && globalRemote === null) loadGlobalPool('remote');
-    if (filters.noExperience && globalNoExp === null) loadGlobalPool('no_experience');
+    if (filters.noExperience && globalNoExp === null)
+      loadGlobalPool('no_experience');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.remote, filters.noExperience]);
 
-  // Baslista som visas: noExperience (bredast) > remote > CV-jobb. remote/
-  // noExperience byter helt datakälla till respektive global pool.
   const baseJobs: any[] = filters.noExperience
-    ? (globalNoExp || [])
+    ? globalNoExp || []
     : filters.remote
-    ? (globalRemote || [])
-    : jobs;
+      ? globalRemote || []
+      : jobs;
   const usingGlobalPool = filters.noExperience || filters.remote;
 
-  // Den lista användaren faktiskt ser, lyft ur JSX så suddningen kan fråga
-  // servern om exakt den ordningen.
   const filteredJobs = useMemo(
     () => applyClientFilters(baseJobs, filters, showDistantJobs),
     [baseJobs, filters, showDistantJobs]
   );
 
-  // Våg 1 punkt 5: servern avgör vad gratisnivån får se. Vi skickar id och
-  // relevans i visningsordning och får tillbaka vilka som visas i klartext
-  // plus avidentifierade platshållare. Texten i de suddade lämnar aldrig
-  // servern, så en blur i CSS räcker inte och behövs inte.
+  /* ------------------------------------------------------------ suddningen */
+
   const [redaction, setRedaction] = useState<JobRedactionResult | null>(null);
 
   useEffect(() => {
@@ -200,7 +240,10 @@ export default function JobbmatchningClient({
       return;
     }
     let cancelled = false;
-    const payload = filteredJobs.map((j: any) => ({ id: j.id, relevance: j.relevance }));
+    const payload = filteredJobs.map((j: any) => ({
+      id: j.id,
+      relevance: j.relevance,
+    }));
 
     fetch('/api/jobs/redact', {
       method: 'POST',
@@ -220,22 +263,25 @@ export default function JobbmatchningClient({
     };
   }, [filteredJobs]);
 
+  /* ------------------------------------------------------------ hämtningar */
+
   const fetchActiveCV = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) return;
 
-      const { data, error } = await supabase
+      const { data, error: err } = await supabase
         .from('active_cv_for_matching')
         .select('*')
         .eq('user_id', session.user.id)
-        .maybeSingle(); // Använd maybeSingle() istället för single() för att undvika 406-fel
+        .maybeSingle();
 
-      if (error) {
-        console.error('Error fetching active CV:', error);
+      if (err) {
+        console.error('Error fetching active CV:', err);
         return;
       }
-
       if (data) {
         setActiveCV(data);
         setActiveCVId(data.cv_id);
@@ -250,7 +296,9 @@ export default function JobbmatchningClient({
     setError(null);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) throw new Error('Du måste vara inloggad');
 
       const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/parse-cv-for-matching`;
@@ -258,13 +306,10 @@ export default function JobbmatchningClient({
       const response = await fetch(functionUrl, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          cvId,
-          userId: session.user.id
-        })
+        body: JSON.stringify({ cvId, userId: session.user.id }),
       });
 
       if (!response.ok) {
@@ -273,64 +318,52 @@ export default function JobbmatchningClient({
       }
 
       const result = await response.json();
-
       if (result.success) {
-        // Update active CV state
+        // Ett nytt CV betyder ett nytt underlag: gamla träffar och gamla
+        // rättningar hör inte längre ihop med det som står i panelen.
+        setDroppedRoles([]);
+        setDroppedSkills([]);
+        setJobs([]);
+        setHasSearched(false);
         await fetchActiveCV();
-
-        // Aktivering öppnar sökvyn direkt (ersätter den tidigare stora CTA-knappen)
-        setShowSearchView(true);
-        fetchJobs();
+        setCvSheetOpen(false);
       }
     } catch (err) {
       console.error('Error activating CV:', err);
-      setError(err instanceof Error ? err.message : 'Ett fel uppstod vid CV-aktivering');
+      setError(
+        err instanceof Error ? err.message : 'Ett fel uppstod vid CV-aktivering'
+      );
     } finally {
       setActivatingCVId(null);
     }
   };
 
-  const fetchJobs = async (searchQuery?: string) => {
+  const fetchJobs = async () => {
     if (!activeCVId && !activeCV) {
-      setError('Inget aktivt CV. Aktivera ett CV först.');
+      setError('Välj ett CV först, så vet vi vad vi ska leta efter.');
       return;
     }
 
     setLoadingJobs(true);
+    setHasSearched(true);
     setError(null);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) throw new Error('Du måste vara inloggad');
 
       const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
 
-      const requestBody: any = {
-        userId: session.user.id
-      };
-
-      if (searchQuery) {
-        requestBody.customQuery = searchQuery;
-      }
-
-      // Server-side filter → JobSearch-API:t. Skicka bara aktiva värden så
-      // edge-funktionens filter_hash blir stabilt (tomt filter = standardcache).
-      const activeFilters = buildActiveFilters(filters);
-      if (Object.keys(activeFilters).length > 0) {
-        requestBody.filters = activeFilters;
-      }
-
-      // Klient-timeout: hindra att UI:t fastnar på "Förbereder vy / 100%" om
-      // edge-funktionen mot förmodan inte svarar. Servern är tidsbudgeterad till
-      // ~150s, så 160s klient-timeout ger den marginal att svara först.
       const response = await fetch(functionUrl, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
-        signal: AbortSignal.timeout(160000)
+        body: JSON.stringify({ userId: session.user.id }),
+        signal: AbortSignal.timeout(160000),
       });
 
       if (!response.ok) {
@@ -341,364 +374,641 @@ export default function JobbmatchningClient({
       const data = await response.json();
 
       if (data.success) {
-        setJobs(data.jobs || []);
-        setHasMore(data.hasMore || false); // Spara hasMore flag
-        setTotalResults(data.totalAvailable || data.totalResults || (data.jobs?.length ?? 0));
+        const funna = data.jobs || [];
+        setJobs(funna);
+        setHasMore(data.hasMore || false);
 
-        // Show notification when jobs are found
-        if (data.jobs && data.jobs.length > 0) {
+        // Hur många annonser vi faktiskt läst igenom. Edge-funktionen svarar
+        // med olika fält beroende på om svaret kom ur cachen eller inte, så
+        // vi tar det bredaste tal som finns och faller tillbaka på listan.
+        const lasta =
+          data.totalScanned ??
+          data.totalAvailable ??
+          data.totalResults ??
+          funna.length;
+        setAdsRead(lasta);
+
+        capture('match_search_run', {
+          ads_read: lasta,
+          matches: funna.length,
+          custom_query: false,
+        });
+
+        if (funna.length > 0) {
           successWithMascotAndActivity(
-            `Vi hittade ${data.jobs.length} matchande jobb. Utforska träffarna nedan.`,
+            `Vi hittade ${funna.length} jobb som passar dig.`,
             'jobs-found',
             'jobs_searched',
             'sökte matchande jobb',
-            {
-              jobs_count: data.jobs.length,
-              search_query: searchQuery || 'auto',
-              cv_id: activeCVId
-            },
+            { jobs_count: funna.length, search_query: 'auto', cv_id: activeCVId },
             4000
           );
         }
       }
     } catch (err) {
       console.error('Error fetching jobs:', err);
-      // Skilj timeout/abort från övriga fel för ett begripligt meddelande.
       if (err instanceof DOMException && err.name === 'TimeoutError') {
-        setError('Sökningen tog längre tid än väntat. Försök igen, andra försöket går oftast snabbt.');
+        setError(
+          'Sökningen tog längre tid än väntat. Försök igen, andra försöket går oftast snabbt.'
+        );
       } else {
-        setError(err instanceof Error ? err.message : 'Ett fel uppstod. Försök igen.');
+        setError(
+          err instanceof Error ? err.message : 'Ett fel uppstod. Försök igen.'
+        );
       }
     } finally {
       setLoadingJobs(false);
     }
   };
 
-  // Progressive loading: Hämta resterande jobb i bakgrunden
-  const fetchMoreJobs = async (offset: number, limit: number) => {
-    if (loadingMore) return; // Förhindra dubbel-hämtning
+  const fetchMoreJobs = useCallback(
+    async (offset: number, limit: number) => {
+      if (loadingMore) return;
+      setLoadingMore(true);
 
-    setLoadingMore(true);
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (!session) return;
 
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-
-      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
-
-      const response = await fetch(functionUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json'
-        },
-        // Skicka MED filtren så vi träffar samma cache-rad (filter_hash) som
-        // fetchJobs. Utan detta blev filter_hash '' → ofiltrerad standardcache
-        // → ofiltrerade jobb fylldes på efter de första 50.
-        body: JSON.stringify({
-          userId: session.user.id,
-          offset,
-          limit,
-          ...(Object.keys(buildActiveFilters(filters)).length > 0
-            ? { filters: buildActiveFilters(filters) }
-            : {})
-        })
-      });
-
-      if (!response.ok) return;
-
-      const data = await response.json();
-
-      if (data.success && data.jobs?.length > 0) {
-        // Dedup på id vid sammanslagning, skyddar mot dubbletter (t.ex. om en
-        // cache-race gör att samma jobb returneras igen). Dubblett-id:n bryter
-        // annars Reacts key-rendering så filtrering inte syns på korten.
-        setJobs(prev => {
-          const seen = new Set(prev.map(j => j.id));
-          const fresh = data.jobs.filter((j: any) => !seen.has(j.id));
-          return [...prev, ...fresh];
+        const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
+        const response = await fetch(functionUrl, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId: session.user.id, offset, limit }),
         });
-        setHasMore(data.hasMore || false);
+
+        if (!response.ok) return;
+        const data = await response.json();
+
+        if (data.success && data.jobs?.length > 0) {
+          setJobs((prev) => {
+            const seen = new Set(prev.map((j) => j.id));
+            const fresh = data.jobs.filter((j: any) => !seen.has(j.id));
+            return [...prev, ...fresh];
+          });
+          setHasMore(data.hasMore || false);
+        }
+      } catch (err) {
+        console.error('Error fetching more jobs:', err);
+      } finally {
+        setLoadingMore(false);
       }
+    },
+    [loadingMore, supabase]
+  );
+
+  useEffect(() => {
+    if (hasMore && jobs.length === 50) fetchMoreJobs(50, 550);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasMore, jobs.length]);
+
+  /* ------------------------------------------------------------ handlingar */
+
+  const savePreferences = async () => {
+    setPrefsSaving(true);
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) throw new Error('Du måste vara inloggad');
+
+      const { error: err } = await supabase
+        .from('profiles')
+        .update({
+          job_preferences: prefsDraft,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', session.user.id);
+
+      if (err) throw err;
+
+      setPrefs(prefsDraft);
+      setPrefsOpen(false);
+      capture('match_preferences_saved', {
+        source: 'matchningar',
+        locations: prefsDraft.locations.length,
+        remote: prefsDraft.remote,
+        extent: prefsDraft.extent,
+        // Bara att fältet är ifyllt. Beloppet lämnar aldrig vår sida.
+        has_min_salary: prefsDraft.min_salary !== null,
+      });
     } catch (err) {
-      console.error('Error fetching more jobs:', err);
+      console.error('Kunde inte spara preferenser:', err);
+      setError('Preferenserna sparades inte. Försök igen.');
     } finally {
-      setLoadingMore(false);
+      setPrefsSaving(false);
     }
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (customSearch.trim()) {
-      fetchJobs(customSearch);
-    } else {
-      fetchJobs();
+  const openPrefs = () => {
+    setPrefsDraft(toJobPreferences(prefs));
+    setPrefsOpen(true);
+  };
+
+  const handleOpenJob = (job: Record<string, any>) => {
+    setSelectedJob(job);
+    capture('match_viewed', {
+      job_id: String(job.id ?? ''),
+      relevance:
+        typeof job.relevance === 'number' ? Math.round(job.relevance) : undefined,
+    });
+  };
+
+  const handleWriteLetter = async (job: Record<string, any>) => {
+    capture('match_letter_started', {
+      job_id: String(job.id ?? ''),
+      relevance:
+        typeof job.relevance === 'number' ? Math.round(job.relevance) : undefined,
+    });
+
+    // Prefill-mekanismen är oförändrad: sessionStorage skrivs synkront här
+    // och läses synkront av skapa-brev vid första mount.
+    const { coverLetterPrefill } = await import('@/store/cover-letter-store');
+    const annonsUrl =
+      job.application_details?.url || job.application_url || job.webpage_url;
+
+    coverLetterPrefill.set({
+      cvId: activeCVId || '',
+      jobTitle: String(job.headline ?? ''),
+      company: job.employer?.name || '',
+      jobDescription: buildJobText(job),
+      jobAdUrl: annonsUrl || undefined,
+    });
+
+    router.push('/dashboard/skapa-brev');
+  };
+
+  const handleMarkApplied = async (job: Record<string, any>) => {
+    const id = String(job.id ?? '');
+    if (appliedStates[id] && appliedStates[id] !== 'idle') return;
+
+    setAppliedStates((prev) => ({ ...prev, [id]: 'saving' }));
+    try {
+      const annonsUrl =
+        job.application_details?.url || job.application_url || job.webpage_url;
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: job.headline || 'Okänd tjänst',
+          company: job.employer?.name || 'Okänd arbetsgivare',
+          location: job.workplace_address?.municipality || null,
+          application_channel: 'ad',
+          job_ad_url: annonsUrl || null,
+          cv_id: activeCVId || null,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error);
+
+      setAppliedStates((prev) => ({ ...prev, [id]: 'done' }));
+      capture('match_applied', { job_id: id });
+    } catch (err) {
+      console.error('Kunde inte markera som sökt:', err);
+      setAppliedStates((prev) => ({ ...prev, [id]: 'idle' }));
     }
   };
 
-  const handleSearchJobs = () => {
-    setShowSearchView(true);
-    fetchJobs();
-  };
+  /* ------------------------------------------------------------------- vy */
 
-  const handleBackToCVs = () => {
-    setShowSearchView(false);
-    setJobs([]);
-    setCustomSearch('');
-  };
+  // Utan CV är sidan obegriplig. Grinden är fortsatt mjuk: introduktionen
+  // förklarar vad funktionen är i stället för att skicka iväg användaren.
+  if (cvs.length === 0) {
+    return (
+      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
+        <PageHeader
+          title="Dina matchningar"
+          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
+        />
+        <JobMatchingOnboarding />
+      </div>
+    );
+  }
+
+  const isLoading = loadingJobs || (usingGlobalPool && loadingGlobal);
+
+  const visibleIds = redaction ? new Set(redaction.visibleIds) : null;
+  const displayedJobs = redaction?.isPremium
+    ? filteredJobs
+    : visibleIds
+      ? filteredJobs.filter((j: any) => visibleIds.has(String(j.id)))
+      : // Innan serverns svar kommit visar vi inget: aldrig mer än vi får.
+        [];
+  const redactedJobs = redaction?.redacted ?? [];
+  const distantCount = baseJobs.filter(
+    (j) => j.distance && j.distance > 100
+  ).length;
+
+  const senaste = senasteLabel(filteredJobs);
+  const chips = jobPreferenceChips(prefs);
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-6 pb-16">
+    <div className="mx-auto w-full max-w-[720px] pb-16">
       <PageHeader
-        title="Jobbmatchning"
-        description={
-          showSearchView
-            ? 'Jobb matchade mot ditt CV.'
-            : activeCV
-            ? 'Ditt CV är aktivt och redo att söka jobb.'
-            : 'Välj ett CV nedan för att börja.'
-        }
-        action={
-          showSearchView ? (
-            <button
-              type="button"
-              onClick={handleBackToCVs}
-              className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
-            >
-              Tillbaka till mina CV
-            </button>
-          ) : undefined
-        }
+        title="Dina matchningar"
+        description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
       />
 
-      <div>
-        {/* CV Activation Section (dölj när sökvyn visas) */}
-        {!showSearchView && (
-          <div>
-            {loadingCVs ? (
-              <LoadingSkeleton variant="card" count={2} label="Hämtar dina CV" />
-            ) : cvs.length === 0 ? (
-              <JobMatchingOnboarding />
-            ) : (
-              <>
-                <h2 className="mb-3 text-sm font-medium text-ink-3">Dina CV</h2>
-              <div className="space-y-4 sm:space-y-6">
-                {/* 3-stegs-instruktion + info-popover */}
-                <MatchingHowItWorks />
+      {/* Kedjan: panelerna hänger ihop med tråden och läses som ett förlopp. */}
+      <div className="thread-chain mt-4 space-y-4 sm:mt-6 sm:space-y-6">
+        {/* 1. Ditt CV ------------------------------------------------------ */}
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <MarginPlate>
+              <IlluPlattaCvPoang size={48} />
+            </MarginPlate>
+            <div className="min-w-0 flex-1">
+              <h2 className="text-kort text-ink-1">Ditt CV</h2>
+              <p className="mt-0.5 truncate text-meta text-ink-3">{cvName}</p>
+            </div>
+          </div>
 
-                {/* Aktivt CV-kort i full bredd */}
-                {activeCVId && cvs.find(cv => cv.id === activeCVId) && (
-                  <CVActivationCard
-                    key={activeCVId}
-                    cv={cvs.find(cv => cv.id === activeCVId)!}
-                    isActive={true}
-                    activeData={activeCV}
-                    onActivate={handleActivateCV}
-                    onSearchJobs={handleSearchJobs}
-                    isActivating={activatingCVId === activeCVId}
-                  />
-                )}
-
-                {/* Inget aktivt CV, illustrerat onboarding-prompt */}
-                {!activeCVId && <EmptyStatePrompt />}
-
-                {/* Inactive CV Cards Grid - Below */}
-                {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
-                  <div>
-                    <h3 className="mb-3 text-sm font-medium text-ink-3">
-                      {activeCVId ? 'Andra CV' : 'Välj ett CV att aktivera'}
-                    </h3>
-                    <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {cvs
-                        .filter(cv => cv.id !== activeCVId)
-                        .map((cv) => (
-                          <CvSelectorCard
-                            key={cv.id}
-                            cv={cv}
-                            onActivate={handleActivateCV}
-                            isActivating={activatingCVId === cv.id}
-                            isLocked={isCvLocked(cv.id)}
-                          />
-                        ))}
-                    </div>
+          {activeCV ? (
+            <>
+              <div className="mt-4 flex gap-6">
+                <div>
+                  <div className="text-tal tabular-nums text-ink-1">
+                    {roles.length}
                   </div>
-                )}
+                  <div className="text-meta text-ink-3">roller</div>
+                </div>
+                <div>
+                  <div className="text-tal tabular-nums text-ink-1">
+                    {skills.length}
+                  </div>
+                  <div className="text-meta text-ink-3">kompetenser</div>
+                </div>
+                <div>
+                  <div className="text-tal tabular-nums text-ink-1">
+                    {educations.length}
+                  </div>
+                  <div className="text-meta text-ink-3">utbildningar</div>
+                </div>
               </div>
-              </>
+
+              {activeCV.extracted_location && (
+                <p className="mt-3 text-meta text-ink-3">
+                  Ort i CV:t: {activeCV.extracted_location}
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="mt-3 text-sm leading-[22px] text-ink-2">
+              Välj vilket CV vi ska matcha mot, så läser vi ut roller och
+              kompetenser ur det.
+            </p>
+          )}
+
+          <div className="mt-4 flex flex-wrap gap-5">
+            <button
+              type="button"
+              onClick={() => setCvSheetOpen(true)}
+              className="text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+            >
+              {activeCV ? 'Byt CV' : 'Välj CV'}
+            </button>
+            {activeCV && (
+              <button
+                type="button"
+                onClick={() => setFixSheetOpen(true)}
+                className="text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+              >
+                Rätta
+              </button>
             )}
           </div>
+        </section>
+
+        {/* 2. Så söker vi åt dig -------------------------------------------- */}
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h2 className="text-kort text-ink-1">Så söker vi åt dig</h2>
+              <p className="mt-0.5 text-meta text-ink-3">
+                Det här styr vilka annonser vi tar med.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={openPrefs}
+              className="shrink-0 text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+            >
+              Ändra
+            </button>
+          </div>
+
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {chips.map((chip) => (
+              <li
+                key={chip}
+                className="rounded-md border border-kant bg-panel px-3 py-1.5 text-sm text-ink-1"
+              >
+                {chip}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 3. Annonser vi läst ---------------------------------------------- */}
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <h2 className="text-kort text-ink-1">Annonser vi läst</h2>
+
+          {isLoading ? (
+            <div className="mt-4">
+              <LoadingSkeleton
+                variant="writing"
+                label="Läser annonser"
+                meta="Brukar ta 20 sekunder"
+              />
+              <div className="mt-4">
+                <JobSearchLoader isSearching jobsFound={null} error={null} />
+              </div>
+            </div>
+          ) : hasSearched && filteredJobs.length > 0 ? (
+            <p className="mt-2 text-sm leading-[22px] text-ink-2">
+              <span className="tabular-nums text-ink-1">
+                {adsRead.toLocaleString('sv-SE')}
+              </span>{' '}
+              annonser lästa,{' '}
+              <span className="tabular-nums text-ink-1">
+                {filteredJobs.length}
+              </span>{' '}
+              passar dig
+              {senaste ? `, senaste ${senaste}` : ''}.
+            </p>
+          ) : hasSearched ? (
+            <div className="mt-3">
+              <EmptyState
+                bare
+                illustration={IlluTomSokning}
+                title="Inga annonser passade den här gången"
+                description={
+                  countActiveFilters(filters) > 0
+                    ? 'Prova att rensa ett filter, eller vidga orterna under Så söker vi åt dig.'
+                    : 'Vidga orterna under Så söker vi åt dig, eller sök igen om en stund.'
+                }
+                action={
+                  <button
+                    type="button"
+                    onClick={fetchJobs}
+                    className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+                  >
+                    Sök igen
+                  </button>
+                }
+              />
+            </div>
+          ) : (
+            <div className="mt-3">
+              <EmptyState
+                bare
+                illustration={IlluCvMotAnnonser}
+                title="Vi har inte letat än"
+                description="Tryck här så läser vi igenom Arbetsförmedlingens annonser och plockar ut dem som passar din bakgrund."
+                action={
+                  <button
+                    type="button"
+                    onClick={fetchJobs}
+                    disabled={!activeCV}
+                    className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                  >
+                    Hitta jobb som passar
+                  </button>
+                }
+              />
+            </div>
+          )}
+        </section>
+
+        {error && !isLoading && (
+          <FlowError message={error} onRetry={fetchJobs} />
         )}
 
-        {/* Job Search Section (visa endast när showSearchView är true) */}
-        {showSearchView && (
-          <div className="space-y-6">
-              {/* Tydlig sökruta, egen rubrik, stor, alltid synlig överst */}
-              <section className="rounded-xl border border-kant bg-panel p-4">
-                <form onSubmit={handleSearch}>
-                  <label htmlFor="job-search" className="block">
-                    <span className="mb-1 block text-sm font-medium text-ink-2">
-                      Sök fritt eller förfina matchningen
-                    </span>
-                    <input
-                      id="job-search"
-                      type="text"
-                      value={customSearch}
-                      onChange={(e) => setCustomSearch(e.target.value)}
-                      enterKeyHint="search"
-                      inputMode="search"
-                      autoComplete="off"
-                      placeholder="projektledare bygg"
-                      className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
-                    />
-                    <span className="mt-1 block text-meta text-ink-3">
-                      Lämna tomt så matchar vi mot ditt CV.
-                    </span>
-                  </label>
-                  <button
-                    type="submit"
-                    disabled={loadingJobs}
-                    className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
-                  >
-                    {loadingJobs ? 'Söker' : 'Sök'}
-                  </button>
-                </form>
-              </section>
+        {/* 4. Träfflistan ---------------------------------------------------- */}
+        {!isLoading && hasSearched && filteredJobs.length > 0 && (
+          <section className="rounded-xl border border-kant bg-panel">
+            <div className="flex items-center justify-between gap-4 border-b border-kant px-4 py-3">
+              <p className="text-sm font-medium text-ink-3">
+                <span className="tabular-nums">{filteredJobs.length}</span>{' '}
+                träffar
+              </p>
+              <button
+                type="button"
+                onClick={() => setFilterSheetOpen(true)}
+                className="text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+              >
+                Filter
+                {countActiveFilters(filters) > 0
+                  ? ` (${countActiveFilters(filters)})`
+                  : ''}
+              </button>
+            </div>
 
-              {/* Mobil: filter-knapp (öppnar drawer). Desktop: i sidebar nedan. */}
-              <div className="lg:hidden">
-                <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={baseJobs} />
-              </div>
-
-              {/* Error Message */}
-              {error && !loadingJobs && (
-                <FlowError
-                  message={error}
-                  onRetry={() => fetchJobs(customSearch.trim() || undefined)}
+            {distantCount > 0 && (
+              <label className="flex min-h-11 cursor-pointer items-center gap-2 border-b border-kant px-4 py-2">
+                <input
+                  type="checkbox"
+                  checked={showDistantJobs}
+                  onChange={(e) => setShowDistantJobs(e.target.checked)}
+                  className="h-4 w-4 rounded border-kant-stark accent-[var(--ink-1)]"
                 />
-              )}
+                <span className="text-meta text-ink-2">
+                  Visa {distantCount} jobb längre bort än 100 km
+                </span>
+              </label>
+            )}
 
-              {/* Tvåkolumns-layout: filter-sidebar (desktop) + resultat */}
-              <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5 sm:gap-6">
-                {/* Desktop-sidebar */}
-                <div className="hidden lg:block">
-                  <JobFilterPanel filters={filters} onChange={setFilters} userLocation={activeCV?.extracted_location} jobs={baseJobs} />
-                </div>
+            <div className="divide-y divide-kant">
+              {displayedJobs.map((job: any, i: number) => (
+                <MatchRow
+                  key={job.id}
+                  job={job}
+                  cv={activeCV}
+                  position={i + 1}
+                  onOpen={handleOpenJob}
+                  onWriteLetter={handleWriteLetter}
+                  onMarkApplied={handleMarkApplied}
+                  appliedState={appliedStates[String(job.id)] ?? 'idle'}
+                />
+              ))}
+            </div>
 
-                {/* Huvudkolumn: räknare + resultat. Klientsidig filtrering på
-                    redan hämtade jobb, ingen omsökning. remote/noExperience
-                    byter baslista till respektive global pool. */}
-                <div className="min-w-0 space-y-5">
-                  {(() => {
-                    const isLoading = loadingJobs || (usingGlobalPool && loadingGlobal);
-                    if (isLoading || baseJobs.length === 0) return null;
-                    const distantCount = baseJobs.filter(j => j.distance && j.distance > 100).length;
-
-                    // Serverns svar styr. Innan det kommit visar vi bara det
-                    // gratisnivån säkert får se, aldrig hela listan.
-                    const visibleIds = redaction
-                      ? new Set(redaction.visibleIds)
-                      : new Set(
-                          filteredJobs
-                            .slice(0, FREE_TIER_JOB_LIMIT)
-                            .map((j: any) => String(j.id))
-                        );
-                    const displayedJobs = redaction?.isPremium
-                      ? filteredJobs
-                      : filteredJobs.filter((j: any) => visibleIds.has(String(j.id)));
-                    const redactedJobs = redaction?.redacted ?? [];
-
-                    return (
-                      <>
-                        {/* Resultaträknare */}
-                        <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-kant bg-panel p-4 sm:flex-row sm:items-center">
-                          <p className="text-meta text-ink-3">
-                            <span className="tabular-nums text-ink-1">{filteredJobs.length}</span> matchande jobb
-                            {countActiveFilters(filters) > 0 && (
-                              <> · {countActiveFilters(filters)} filter aktiva</>
-                            )}
-                          </p>
-                          {distantCount > 0 && (
-                            <label className="flex min-h-11 cursor-pointer items-center gap-2">
-                              <input
-                                type="checkbox"
-                                checked={showDistantJobs}
-                                onChange={(e) => setShowDistantJobs(e.target.checked)}
-                                className="h-4 w-4 rounded border-kant-stark accent-[var(--ink-1)]"
-                              />
-                              <span className="text-meta text-ink-2">
-                                Visa {distantCount} jobb längre bort än 100 km
-                              </span>
-                            </label>
-                          )}
-                        </div>
-
-                        {filteredJobs.length === 0 ? (
-                          <EmptyState
-                            illustration={IlluTomSokning}
-                            title="Inga jobb matchar dina filter"
-                            description="Prova att rensa ett filter så breddas listan."
-                          />
-                        ) : (
-                        <>
-                          <JobResultsGrid
-                            jobs={displayedJobs}
-                            selectedAnalysis={null}
-                            onJobSelect={setSelectedJob}
-                            selectedAnalysisId={undefined}
-                            cvId={activeCVId || undefined}
-                          />
-
-                          {/* Resten av träffarna finns kvar i listan, men
-                              suddade. Servern har redan tagit bort texten. */}
-                          {redactedJobs.length > 0 && (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                              {redactedJobs.map((job) => (
-                                <RedactedJobCard key={job.placeholderId} job={job} />
-                              ))}
-                            </div>
-                          )}
-                        </>
-                        )}
-
-                        {/* Betalväggen ligger under listan, inte i stället för
-                            den. Värdet syns först, spärren sedan. */}
-                        {redactedJobs.length > 0 && (
-                          <PaywallCard
-                            variant="jobbtraffar"
-                            hiddenCount={redactedJobs.length}
-                            className="mt-2"
-                          />
-                        )}
-                      </>
-                    );
-                  })()}
-
-                  {/* No results message, baslistan tom och inget laddas */}
-                  {!loadingJobs && !(usingGlobalPool && loadingGlobal) && baseJobs.length === 0 && (
-                    <EmptyState
-                      illustration={IlluTomSokning}
-                      title="Inga jobb hittades"
-                      description={
-                        countActiveFilters(filters) > 0
-                          ? 'Prova att rensa ett filter så breddas listan.'
-                          : 'Prova att söka igen, eller med andra ord.'
-                      }
-                    />
-                  )}
-
-                  {/* Loading State, CV-sökning eller global pool */}
-                  {(loadingJobs || (usingGlobalPool && loadingGlobal)) && (
-                    <JobSearchLoader
-                      isSearching={true}
-                      jobsFound={null}
-                      error={error}
-                    />
-                  )}
-                </div>
+            {redactedJobs.length > 0 && (
+              <div className="divide-y divide-kant border-t border-kant">
+                {redactedJobs.map((job) => (
+                  <RedactedJobCard key={job.placeholderId} job={job} />
+                ))}
               </div>
-          </div>
+            )}
+          </section>
+        )}
+
+        {/* Betalväggen under listan, aldrig i stället för den. */}
+        {!isLoading && redactedJobs.length > 0 && (
+          <PaywallCard variant="jobbtraffar" hiddenCount={redactedJobs.length} />
         )}
       </div>
+
+      {/* ------------------------------------------------------------- ark */}
+
+      {/* Byt CV */}
+      <Sheet
+        open={cvSheetOpen}
+        onClose={() => setCvSheetOpen(false)}
+        title="Byt CV"
+        description="Matchningen utgår från det CV du väljer här."
+      >
+        <div role="radiogroup" aria-label="Välj CV" className="space-y-2">
+          {cvs.map((cv) => {
+            const locked = lockedCvIds.has(cv.id);
+            return (
+              <ChoiceCard
+                key={cv.id}
+                selected={cv.id === activeCVId}
+                onSelect={() => {
+                  if (locked || activatingCVId) return;
+                  if (cv.id === activeCVId) {
+                    setCvSheetOpen(false);
+                    return;
+                  }
+                  void handleActivateCV(cv.id);
+                }}
+                title={cv.file_name}
+                meta={
+                  locked
+                    ? 'Låst av CV-kvoten'
+                    : activatingCVId === cv.id
+                      ? 'Läser CV:t'
+                      : new Date(cv.created_at).toLocaleDateString('sv-SE')
+                }
+              />
+            );
+          })}
+        </div>
+      </Sheet>
+
+      {/* Rätta det vi läste ut */}
+      <Sheet
+        open={fixSheetOpen}
+        onClose={() => setFixSheetOpen(false)}
+        title="Rätta det vi läste ut"
+        description="Ta bort det som inte stämmer, så söker vi inte på det. Ändringarna gäller den här sökningen."
+      >
+        <div className="space-y-5">
+          <div>
+            <p className="text-sm font-medium text-ink-1">Roller</p>
+            {roles.length === 0 ? (
+              <p className="mt-1 text-meta text-ink-3">
+                Inga roller kvar. Byt CV om det blev fel.
+              </p>
+            ) : (
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {roles.map((role) => (
+                  <li key={role.normalized}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setDroppedRoles((prev) => [...prev, role.normalized])
+                      }
+                      aria-label={`Ta bort ${role.normalized}`}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-panel px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-insunken"
+                    >
+                      {role.normalized}
+                      <span aria-hidden="true" className="text-ink-3">
+                        ×
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-ink-1">Kompetenser</p>
+            {skills.length === 0 ? (
+              <p className="mt-1 text-meta text-ink-3">
+                Inga kompetenser kvar. Byt CV om det blev fel.
+              </p>
+            ) : (
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <li key={skill}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setDroppedSkills((prev) => [...prev, skill])
+                      }
+                      aria-label={`Ta bort ${skill}`}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-panel px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-insunken"
+                    >
+                      {skill}
+                      <span aria-hidden="true" className="text-ink-3">
+                        ×
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {(droppedRoles.length > 0 || droppedSkills.length > 0) && (
+            <button
+              type="button"
+              onClick={() => {
+                setDroppedRoles([]);
+                setDroppedSkills([]);
+              }}
+              className="text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
+            >
+              Ångra alla borttagningar
+            </button>
+          )}
+        </div>
+      </Sheet>
+
+      {/* Så söker vi åt dig */}
+      <Sheet
+        open={prefsOpen}
+        onClose={() => setPrefsOpen(false)}
+        title="Så söker vi åt dig"
+        description="Sparas på din profil och används i varje sökning."
+        size="lg"
+        footer={
+          <button
+            type="button"
+            onClick={savePreferences}
+            disabled={prefsSaving}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          >
+            {prefsSaving ? 'Sparar' : 'Spara'}
+          </button>
+        }
+      >
+        <JobPreferencesFields value={prefsDraft} onChange={setPrefsDraft} />
+      </Sheet>
+
+      {/* Filter */}
+      <Sheet
+        open={filterSheetOpen}
+        onClose={() => setFilterSheetOpen(false)}
+        title="Filter"
+        description="Gäller de träffar vi redan hämtat, ingen ny sökning."
+        size="lg"
+      >
+        <JobFilterPanel
+          filters={filters}
+          onChange={setFilters}
+          userLocation={activeCV?.extracted_location}
+          jobs={baseJobs}
+        />
+      </Sheet>
 
       {/* Hela annonsen i ett ark */}
       <JobDetailModal
@@ -708,4 +1018,24 @@ export default function JobbmatchningClient({
       />
     </div>
   );
+}
+
+/**
+ * Annonstexten som går med till brevflödet. Samma sammanställning som
+ * detaljarket gör, men lyft hit så att "Skriv brev" i listan ger brevet
+ * exakt samma underlag som "Skriv brev" inne i arket.
+ */
+function buildJobText(job: Record<string, any>): string {
+  const delar: string[] = [];
+  if (job.headline) delar.push(String(job.headline));
+  if (job.employer?.name) delar.push(`Arbetsgivare: ${job.employer.name}`);
+
+  const ort =
+    job.workplace_address?.municipality || job.workplace_address?.region;
+  if (ort) delar.push(`Ort: ${ort}`);
+
+  const text = job.description?.text ?? job.description?.text_formatted ?? '';
+  if (text) delar.push(String(text));
+
+  return delar.join('\n\n');
 }

@@ -95,13 +95,17 @@ export function getPaywallCopy(
     case 'jobbtraffar': {
       // Siffran är sann: den kommer från serverns egen räkning av vad som
       // suddats, inte från en påhittad "matchningar väntar".
+      // Argumentet är förklaringen, inte antalet. Gratisnivån ser de tre
+      // bästa med skälen utskrivna, och det är just skälen som saknas i
+      // resten av listan (docs/plan-jobbmatchning.md, avsnitt 2 punkt 5).
       const n = opts?.hiddenCount ?? 0
+      const totalt = n + 3
       return {
         title:
           n === 1
-            ? 'En träff till matchar ditt CV'
-            : `${n} träffar till matchar ditt CV`,
-        body: 'Du ser de tio bästa i klartext. Med Premium öppnas resten av listan, med titel, arbetsgivare och ort.',
+            ? 'Se varför du passar för alla 4'
+            : `Se varför du passar för alla ${totalt}`,
+        body: 'Du ser de tre bästa träffarna med skälen utskrivna. Med Premium öppnas resten, med titel, arbetsgivare, ort och varför just du matchar.',
         primary: 'Se alla träffar',
         secondary: 'Se vad Premium kostar',
       }
