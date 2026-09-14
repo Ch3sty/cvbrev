@@ -22,11 +22,16 @@ export async function markFirstMilestone(
   if (!userId) return
   try {
     const admin = getSupabaseAdmin()
-    await (admin as any)
+    const { error } = await (admin as any)
       .from('profiles')
       .update({ [column]: at.toISOString() })
       .eq('id', userId)
       .is(column, null)
+    // PostgREST kastar inte, den returnerar ett error-objekt. Utan den här
+    // loggen kunde en tyst milstolpe aldrig upptäckas.
+    if (error) {
+      console.warn(`[activation-tracking] ${column} kunde inte sättas:`, error.message)
+    }
   } catch (error) {
     console.warn(`[activation-tracking] ${column} kunde inte sättas:`, error)
   }
@@ -45,12 +50,15 @@ export async function logActivityServer(
   if (!userId) return
   try {
     const admin = getSupabaseAdmin()
-    await (admin as any).from('user_activities').insert({
+    const { error } = await (admin as any).from('user_activities').insert({
       user_id: userId,
       activity_type: activityType,
       description,
       metadata,
     })
+    if (error) {
+      console.warn(`[activation-tracking] aktivitet ${activityType} kunde inte loggas:`, error.message)
+    }
   } catch (error) {
     console.warn(`[activation-tracking] aktivitet ${activityType} kunde inte loggas:`, error)
   }

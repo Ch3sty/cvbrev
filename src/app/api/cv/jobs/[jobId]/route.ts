@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getJobStatus } from '@/lib/cv/background-jobs';
 import { markFirstMilestone, logActivityServer } from '@/lib/activation-tracking';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
@@ -77,29 +78,54 @@ export async function GET(
       if (jobUpdateError) {
         console.error('Failed to mark job as usage_counted:', jobUpdateError);
       }
+    }
 
-      // B7: analysen räknas som klar här, en gång per jobb tack vare
-      // usage_counted-flaggan ovan. Först vinner på first_cv_analyzed_at.
-      await markFirstMilestone(user.id, 'first_cv_analyzed_at');
-      await logActivityServer(
-        user.id,
-        'cv_analysis_completed',
-        'CV-analysen slutfördes',
-        { jobId }
-      );
+    // B7: aktiveringsmätningen. Denna gren låg tidigare inuti kvotgrenen ovan,
+    // men usage_counted sätts redan vid jobbskapande (createBackgroundJob), så
+    // den var död och first_cv_analyzed_at sattes aldrig. Egen flagga nu:
+    // completion_handled styr milstolpe, aktivitetslogg och onboarding,
+    // usage_counted styr fortfarande enbart kvoten.
+    if (job.status === 'completed' && !(job as any).completion_handled) {
+      // Service role krävs: RLS på cv_analysis_jobs har bara en UPDATE-policy
+      // TO service_role, så en skrivning via användarklienten träffar noll
+      // rader helt tyst. Det var därför usage_counted-uppdateringen ovan
+      // aldrig fastnade heller.
+      // Sätt låset FÖRST, med villkoret i WHERE. Bara en samtidig request
+      // vinner, så milstolpe och aktivitetsrad skrivs en gång per jobb.
+      const admin = getSupabaseAdmin();
+      const { data: claimedJob, error: claimError } = await (admin as any)
+        .from('cv_analysis_jobs')
+        .update({ completion_handled: true })
+        .eq('id', jobId)
+        .eq('completion_handled', false)
+        .select('id')
+        .maybeSingle();
 
-      // Onboarding: markera analyze_cv som klart NU nar jobbet faktiskt
-      // ar slutfort (inte vid jobbskapande som tidigare)
-      const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
-        user_id: user.id,
-        step_name: 'analyze_cv'
-      });
-      if (onboardingError) {
-        console.error('Failed to update onboarding progress (analyze_cv):', onboardingError.message);
+      if (claimError) {
+        console.error('Failed to claim job completion_handled:', claimError.message);
+      } else if (claimedJob) {
+        // Först vinner på first_cv_analyzed_at (coalesce i markFirstMilestone).
+        await markFirstMilestone(user.id, 'first_cv_analyzed_at');
+        await logActivityServer(
+          user.id,
+          'cv_analysis_completed',
+          'CV-analysen slutfördes',
+          { jobId }
+        );
+
+        // Onboarding: markera analyze_cv som klart NU nar jobbet faktiskt
+        // ar slutfort (inte vid jobbskapande som tidigare)
+        const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+          user_id: user.id,
+          step_name: 'analyze_cv'
+        });
+        if (onboardingError) {
+          console.error('Failed to update onboarding progress (analyze_cv):', onboardingError.message);
+        }
+
+        // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2
+        // punkt 21). Analysresultatet är återkopplingen, inte en poängsumma.
       }
-
-      // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2
-      // punkt 21). Analysresultatet är återkopplingen, inte en poängsumma.
     }
 
     // Om jobbet misslyckades, rulla tillbaka räknaren för gratisanvändare
@@ -107,7 +133,9 @@ export async function GET(
     if (job.status === 'failed' && (job as any).usage_counted) {
       // Atomär uppdatering: markera rollback INNAN vi dekrementerar räknaren
       // Om två requests kommer in samtidigt, lyckas bara en med denna WHERE-klausul
-      const { data: updatedJob, error: lockError } = await supabase
+      // Service role av samma RLS-skäl som ovan: användarklienten får inte
+      // uppdatera cv_analysis_jobs, så låset tog aldrig.
+      const { data: updatedJob, error: lockError } = await (getSupabaseAdmin() as any)
         .from('cv_analysis_jobs')
         .update({ usage_counted: false })
         .eq('id', jobId)
