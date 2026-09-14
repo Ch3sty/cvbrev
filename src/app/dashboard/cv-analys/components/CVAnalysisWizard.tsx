@@ -114,6 +114,8 @@ export default function CVAnalysisWizard({
   const [estimatedTimeRemaining, setEstimatedTimeRemaining] = useState(50);
   /** Fel i flödet, visas i vyn i stället för som alert. */
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  /** Egen rubrik på felet när vakthunden löste ut. Annars FlowErrors standard. */
+  const [analysisErrorTitle, setAnalysisErrorTitle] = useState<string | undefined>(undefined);
   /** Låter användaren avbryta ett pågående AI-anrop. */
   const analysisAbortRef = useRef<AbortController | null>(null);
 
@@ -298,16 +300,40 @@ export default function CVAnalysisWizard({
     return sections.join('\n\n');
   };
 
+  /**
+   * Startar analysen när steg 1 öppnas, en gång per besök på steget.
+   *
+   * Villkoret var tidigare `!isAnalyzing && !analysisResult`, och det var
+   * grundorsaken till att vyn kunde stå still för alltid. analysisResult
+   * nollställdes aldrig, så andra gången någon kom till steg 1 i samma session
+   * (gick tillbaka från resultatet för att analysera ett annat CV) var
+   * `!analysisResult` falskt. Effekten hoppade över startAnalysis, inget
+   * anrop gick iväg, inget intervall tickade, och skelettraderna låg kvar med
+   * förra rundans värden eller startvärdet 50 sekunder. Ingenting var på väg.
+   *
+   * Nu avgör ett ref om just det här besöket redan dragit igång en körning.
+   * Lämnar man steget nollställs det, så nästa besök alltid startar om på
+   * riktigt: ny körning, nollställd procent, nollställd nedräkning.
+   */
+  const analysisStartedForVisit = useRef(false);
   useEffect(() => {
-    if (currentStep === 1 && !isAnalyzing && !analysisResult && selectedCV) {
-      startAnalysis();
+    if (currentStep !== 1) {
+      analysisStartedForVisit.current = false;
+      return;
     }
+    if (analysisStartedForVisit.current || isAnalyzing || !selectedCV) return;
+    analysisStartedForVisit.current = true;
+    // Förra rundans resultat får inte ligga kvar och låtsas vara den här.
+    setAnalysisResult(null);
+    setCurrentAnalysisId(null);
+    startAnalysis();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentStep]);
+  }, [currentStep, selectedCV]);
 
   const startAnalysis = async () => {
     setIsAnalyzing(true);
     setAnalysisError(null);
+    setAnalysisErrorTitle(undefined);
     setProgress(0);
     setEstimatedTimeRemaining(50);
 
@@ -327,15 +353,48 @@ export default function CVAnalysisWizard({
       setEstimatedTimeRemaining(timeRemaining);
     }, 1000);
 
+    // Vakthund. Analysen tar 30 till 60 sekunder, och pollningen ger upp
+    // först efter två minuter. Svarar ingenting på 90 sekunder är något fel,
+    // och då ska användaren få veta det i stället för att titta på
+    // skelettrader som inte leder någonstans.
+    const WATCHDOG_MS = 90000;
+    let watchdogFired = false;
+    let watchdog: ReturnType<typeof setTimeout> | undefined;
+
+    // Vakthunden måste avsluta väntan, inte bara vifta med en flagga.
+    // onPollJob har ingen aning om vår AbortController: den sover två
+    // sekunder i taget och frågar igen. Svarar servern aldrig blir dess
+    // promise aldrig klar, och ett `await` på den kommer aldrig tillbaka.
+    // Därför kapplöpning: den som blir klar först vinner, och vakthunden
+    // vinner genom att kasta. Samma sak räddar avbryt-knappen, som förut
+    // inte heller kunde bryta en pollning som hängt sig. Fristen gäller hela
+    // analysen, inte 90 nya sekunder per delsteg.
+    const giveUp = new Promise<never>((_, reject) => {
+      watchdog = setTimeout(() => {
+        watchdogFired = true;
+        controller.abort();
+        reject(new Error('watchdog'));
+      }, WATCHDOG_MS);
+      controller.signal.addEventListener('abort', () => {
+        if (!watchdogFired) reject(new DOMException('Avbruten', 'AbortError'));
+      });
+    });
+    // Utan den här fångas ett obehandlat avslag innan racet hunnit läsa det.
+    giveUp.catch(() => {});
+
+    const withWatchdog = <T,>(work: Promise<T>): Promise<T> =>
+      Promise.race([work, giveUp]);
+
     try {
       if (!selectedCV) throw new Error('Inget CV valt');
 
-      const jobId = await onAnalysisStart(selectedCV);
+      const jobId = await withWatchdog(onAnalysisStart(selectedCV));
       if (controller.signal.aborted) throw new DOMException('Avbruten', 'AbortError');
-      const result = await onPollJob(jobId);
+      const result = await withWatchdog(onPollJob(jobId));
       if (controller.signal.aborted) throw new DOMException('Avbruten', 'AbortError');
 
       clearInterval(progressInterval);
+      clearTimeout(watchdog);
 
       setAnalysisResult(result);
       setCurrentAnalysisId(result.id);
@@ -354,6 +413,21 @@ export default function CVAnalysisWizard({
       setTimeout(() => handleNext(), 1500);
     } catch (error) {
       clearInterval(progressInterval);
+      clearTimeout(watchdog);
+
+      // Vakthunden löste ut: inget svar på 90 sekunder. Det är ett fel och
+      // ska sägas rakt ut, till skillnad från ett avbrott användaren själv
+      // valde. Samma FlowError som övriga fel, alltså med Försök igen.
+      if (watchdogFired) {
+        setProgress(0);
+        setEstimatedTimeRemaining(0);
+        setAnalysisErrorTitle('Analysen svarar inte');
+        setAnalysisError(
+          'Vi fick inget svar på 90 sekunder. Försök igen, så startar vi om den.'
+        );
+        setCurrentStep(0);
+        return;
+      }
 
       // Avbrutet av användaren: tillbaka till CV-valet med datan kvar,
       // inget felmeddelande. Hon vet redan varför det stannade.
@@ -1214,8 +1288,10 @@ export default function CVAnalysisWizard({
         analysisError ? (
           <FlowError
             message={analysisError}
+            title={analysisErrorTitle}
             onRetry={() => {
               setAnalysisError(null);
+              setAnalysisErrorTitle(undefined);
               setCurrentStep(1);
             }}
           />
