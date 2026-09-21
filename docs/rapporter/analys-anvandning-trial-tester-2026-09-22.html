@@ -1,0 +1,455 @@
+<title>Anvandning, trial och tester</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:11pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+code{font-family:"SF Mono",Consolas,monospace;font-size:8.6pt;background:#f4f5f7;padding:0 3px}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.bar{fill:var(--acc)}.bar.dim{fill:var(--dim);opacity:.3}.bar.mid{fill:var(--acc);opacity:.45}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim)}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+.ja{color:#17803d;font-weight:600}.delvis{color:var(--acc);font-weight:600}.nej{color:#b42318;font-weight:600}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style>
+<div class="wrap">
+
+<h1>Användning, trial och tester</h1>
+<p class="sub">Vad de 96 konton vi fått på nittio dagar faktiskt gör, vad femdagarstrialen gör med betalningsviljan, och hur våra tester står sig mot det jobbsökare möter i verkligheten.</p>
+<p class="meta">Rapport till ägaren, skriven 22 september 2026. Mätfönster: senaste 30 dagar (58 konton) och 90 dagar (96 konton), trialjämförelse 11 augusti till 21 september. Källor: Supabase produktdata läst per funktions egen sanningskälla, PostHog EU projekt 148688, koden i <code>src/components/tests</code> och <code>src/lib</code>. Exkluderade: adminkonton, ägaren, QA-konton. Bortfallet redovisas i avsnitt 5.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Konton, 90 dagar</div><div class="v">96</div><div class="d">58 av dem senaste 30 dagarna</div></div>
+<div class="kpi"><div class="k">Gjorde aldrig något</div><div class="v">17</div><div class="d">18 % av alla konton</div></div>
+<div class="kpi"><div class="k">Trialkonton</div><div class="v">21</div><div class="d">noll köp, noll kassabesök</div></div>
+<div class="kpi"><div class="k">Test plus mall</div><div class="v">0</div><div class="d">av 96 konton, ingen överlappning</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Vi driver två produkter för två folkgrupper som aldrig möts.</strong> Av 96 konton på nittio dagar har <strong>noll</strong> både gjort ett test och laddat ned en CV-mall. Över hela historiken, 327 konton, är det 3 av 76 testanvändare som någonsin rört en mall. Däremot överlappar mall och brev kraftigt (21 konton) och brev och analys ännu mer (23). Testfolket och CV-folket är inte samma marknad, och vi prissätter dem som om de vore det.</li>
+<li><strong>Trialen konsumeras på dag noll och sedan är det tyst.</strong> Av 21 trialkonton ligger all aktivitet utom en enda händelse på registreringsdagen. Dag 1 har en händelse, dag 2 till 5 har noll. Ett konto av 21 var aktivt efter dag 1, noll efter att trialen löpt ut. Vi ger bort fem dagar och de använder sex timmar.</li>
+<li><strong>Folk kommer tillbaka, men de skapar ingenting.</strong> Arton av 58 konton från senaste månaden har <code>last_active</code> efter dag 1, och de bläddrade 150 sidor. Men bara sex av dem producerade något alls och bara fyra gjorde det efter dag 1. Återbesöket finns, handlingen saknas. Det är ett annat problem än det vi trott, och ett lättare att åtgärda.</li>
+<li><strong>Testerna är vårt starkaste dragplåster och vår svagaste affär.</strong> Logiktestet är det enda som startar och avslutar sessioner i volym: 231 sessioner från 75 konton, 82 procent av allt testande. Samtidigt är 13 av 14 testvarianter gratis och den enda spärren är en dagskvot. Testfolket betalar aldrig för att de aldrig behöver.</li>
+<li><strong>De anonyma proven leder inte till konton.</strong> 32 prov från 22 unika IP-adresser sedan 14 september, 29 slutförda med poäng. Högst två registreringar ligger i tidsmässig närhet, noll inom en kvart. Provet fungerar som gratistjänst, inte som ingång.</li>
+</ol>
+
+<div class="box acc">
+<h4>Svaret på din hypotes</h4>
+<p>Din formulering var: <em>"vi ger bort allt med en trial, sedan har alla fått det de behövde"</em>. <strong>Halva hypotesen stämmer, men inte den halva du tror.</strong> Ingen hinner konsumera allt: 4 av 21 trialkonton laddade ned en mall, 6 körde ett test, och 5 av 21 gjorde ingenting alls under sina fem gratisdagar. Problemet är inte att trialen mättar dem, utan att den tar bort betalväggen under exakt de timmar de faktiskt är här, och när de kommer tillbaka finns de inte kvar för att se priset.</p>
+</div>
+
+<div class="box">
+<h4>Om siffrornas storlek</h4>
+<p>58 konton på trettio dagar och 21 trialkonton. Med de talen flyttar en enda person varje andel med tre till fem procentenheter. Allt som uttrycks i procent nedan är <strong>riktning, inte signifikans</strong>. Det som däremot är säkert oavsett urvalsstorlek är strukturen: noll överlappning mellan test och mall över 96 konton, noll köp på 21 trialkonton, noll aktivitet dag 2 till 5. Nollor med rimligt underlag är fakta. Procenttal är indicier.</p>
+</div>
+
+<h2><span class="num">2</span>Vad användarna gör</h2>
+
+<p class="lead">Per konto, mätt mot varje funktions egen sanningskälla. Ett konto räknas som aktivt i en funktion om det finns minst en rad i den tabellen. Återkomst mäts som en händelse senare än ett dygn efter registrering.</p>
+
+<h3>Första och sista funktionen</h3>
+
+<p>Två funktioner startar i princip allt: CV-uppladdning och logiktestet. Men de slutar helt olika. Logiktestet är både den vanligaste första och den vanligaste <em>sista</em> handlingen, 21 av 21 fall i senaste månaden. Den som börjar med ett test gör ett test och försvinner. CV-uppladdningen däremot leder vidare: 24 börjar där, bara 4 slutar där.</p>
+
+<table>
+<thead><tr><th>Funktion</th><th class="n">Första, 30 d</th><th class="n">Sista, 30 d</th><th class="n">Första, 31-90 d</th><th class="n">Sista, 31-90 d</th></tr></thead>
+<tbody>
+<tr><td>CV-uppladdning</td><td class="n">24</td><td class="n">4</td><td class="n">20</td><td class="n">2</td></tr>
+<tr><td>Logiktest</td><td class="n">21</td><td class="n">21</td><td class="n">10</td><td class="n">9</td></tr>
+<tr><td>CV-mall nedladdad</td><td class="n">2</td><td class="n">6</td><td class="n">0</td><td class="n">5</td></tr>
+<tr><td>Brev</td><td class="n">0</td><td class="n">7</td><td class="n">1</td><td class="n">6</td></tr>
+<tr><td>CV-analys</td><td class="n">0</td><td class="n">6</td><td class="n">0</td><td class="n">6</td></tr>
+<tr><td>Personlighetstest</td><td class="n">0</td><td class="n">2</td><td class="n">1</td><td class="n">1</td></tr>
+<tr><td>Jobbmatchning</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">2</td></tr>
+<tr><td>LinkedIn</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr class="sum"><td>Konton med minst en händelse</td><td class="n">47</td><td class="n">47</td><td class="n">32</td><td class="n">32</td></tr>
+</tbody>
+</table>
+
+<h3>Grupper, och vilka som kommer tillbaka</h3>
+
+<svg class="chart" viewBox="0 0 560 210" role="img" aria-label="Konton per grupp med andel som aterkom efter dag 1">
+<line class="grid" x1="150" y1="18" x2="150" y2="186"/>
+<line class="grid" x1="243" y1="18" x2="243" y2="186"/>
+<line class="grid" x1="336" y1="18" x2="336" y2="186"/>
+<line class="grid" x1="429" y1="18" x2="429" y2="186"/>
+<line class="grid" x1="522" y1="18" x2="522" y2="186"/>
+
+<text class="ax r" x="144" y="32">Bara tester</text>
+<rect class="bar" x="150" y="22" width="214" height="14"/>
+<rect class="bar dim" x="150" y="22" width="0" height="14"/>
+<text class="val" x="370" y="33">23</text>
+<rect class="bar mid" x="150" y="38" width="56" height="8"/>
+<text class="note" x="212" y="45">6 kom tillbaka efter dag 1, 2 efter dag 7</text>
+
+<text class="ax r" x="144" y="72">Analys</text>
+<rect class="bar" x="150" y="62" width="112" height="14"/>
+<text class="val" x="268" y="73">12</text>
+<rect class="bar mid" x="150" y="78" width="0" height="8"/>
+<text class="note" x="156" y="85">0 kom tillbaka</text>
+
+<text class="ax r" x="144" y="112">Inget alls</text>
+<rect class="bar" x="150" y="102" width="102" height="14"/>
+<text class="val" x="258" y="113">11</text>
+<rect class="bar mid" x="150" y="118" width="0" height="8"/>
+<text class="note" x="156" y="125">0 kom tillbaka, per definition</text>
+
+<text class="ax r" x="144" y="152">Brev</text>
+<rect class="bar" x="150" y="142" width="56" height="14"/>
+<text class="val" x="212" y="153">6</text>
+<rect class="bar mid" x="150" y="158" width="0" height="8"/>
+<text class="note" x="156" y="165">0 kom tillbaka</text>
+
+<text class="ax r" x="144" y="192">Bara mallar</text>
+<rect class="bar" x="150" y="182" width="28" height="14"/>
+<text class="val" x="184" y="193">3</text>
+
+<text class="ax c" x="150" y="206">0</text>
+<text class="ax c" x="243" y="206">10</text>
+<text class="ax c" x="336" y="206">20</text>
+<text class="ax c" x="429" y="206">30</text>
+<text class="ax dim r" x="540" y="206">konton, senaste 30 dagarna</text>
+</svg>
+<p class="figc">Grupper bland de 58 konton som registrerades senaste trettio dagarna. Den smala stapeln under varje grupp är antalet som återkom efter dag 1. Endast testgruppen har någon återkomst alls. Underlaget är litet nog att en enskild person syns tydligt i bilden.</p>
+
+<table>
+<thead><tr><th>Grupp</th><th class="n">Konton 30 d</th><th class="n">Åter d1</th><th class="n">Åter d7</th><th class="n">Konton 31-90 d</th><th class="n">Åter d1</th><th class="n">Åter d7</th></tr></thead>
+<tbody>
+<tr><td>Bara tester</td><td class="n">23</td><td class="n">6</td><td class="n">2</td><td class="n">11</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>Bara mallar</td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Test plus mall</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Brev, utan analys</td><td class="n">6</td><td class="n">0</td><td class="n">0</td><td class="n">4</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>Analys</td><td class="n">12</td><td class="n">0</td><td class="n">0</td><td class="n">11</td><td class="n">4</td><td class="n">2</td></tr>
+<tr><td>Övrigt, bara CV-uppladdning</td><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Gjorde aldrig något</td><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n">6</td><td class="n">0</td><td class="n">0</td></tr>
+<tr class="sum"><td>Summa</td><td class="n">58</td><td class="n">6</td><td class="n">2</td><td class="n">38</td><td class="n">6</td><td class="n">2</td></tr>
+</tbody>
+</table>
+
+<p><strong>Raden "test plus mall" är rapportens viktigaste nolla.</strong> Den är inte ett mätfel. Kontrollerad mot hela kontobasen om 327 konton: 76 har gjort ett test, 45 har laddat ned en mall, och överlappningen är 3. Mall och brev överlappar däremot i 21 konton och brev och analys i 23. Med andra ord hänger CV-sidan av produkten ihop till en resa, medan testsidan är en isolerad ö dit folk kommer, gör en sak och lämnar.</p>
+
+<h3>Återbesök utan handling</h3>
+
+<p>Här skiljer sig två mått åt på ett sätt som är värt att stanna vid. Räknat på artefakter, alltså rader i sanningskällorna, återkom 6 av 58 konton efter dag 1. Räknat på <code>profiles.last_active</code> återkom 18. Skillnaden är tolv personer som loggade in igen och inte gjorde något. <code>user_activities</code> bekräftar: 13 konton genererade 150 <code>page_viewed</code> efter dag 1, men bara 4 av dem ett <code>test_completed</code>.</p>
+
+<p>Det är en annan diagnos än "de kommer inte tillbaka". Nästan en tredjedel kommer tillbaka. De hittar bara ingen anledning att göra något när de är här. Dashboarden lyckas inte ställa nästa fråga.</p>
+
+<h3>Anonyma prov och konton som aldrig började</h3>
+
+<table>
+<thead><tr><th>Mätpunkt</th><th class="n">Antal</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Anonyma prov totalt</td><td class="n">32</td><td>Alla sedan 14 september, funktionen är åtta dagar gammal</td></tr>
+<tr><td>Unika IP-adresser</td><td class="n">22</td><td>Cirka 1,5 prov per besökare</td></tr>
+<tr><td>Slutförda med poäng</td><td class="n">29</td><td>91 procent slutför, femfrågorsformatet fungerar</td></tr>
+<tr><td>Registreringar inom 60 min efter ett prov</td><td class="n">2</td><td>Övre gräns, tidsmässig närhet är inte bevis på orsak</td></tr>
+<tr><td>Registreringar inom 15 min</td><td class="n">0</td><td>Ingen går direkt från prov till konto</td></tr>
+<tr class="sum"><td>Konton som aldrig gjorde något, 30 d</td><td class="n">11</td><td>19 procent av 58</td></tr>
+<tr class="sum"><td>Konton som aldrig gjorde något, 31-90 d</td><td class="n">6</td><td>16 procent av 38</td></tr>
+</tbody>
+</table>
+
+<p class="lead">Provet saknar <code>user_id</code> i <code>anon_test_sessions</code>, så kopplingen prov till konto går bara att skatta via tidsnärhet. Siffran 2 är ett tak, inte ett utfall. Vill vi mäta det på riktigt behöver token följa med in i registreringen.</p>
+
+<h2><span class="num">3</span>Hur trialen påverkar betalningsviljan</h2>
+
+<p class="lead">Reverse trial, fem dagar Premium utan kort, live 11 september 22:08, brett från 14 september. Betalväggsmätningen <code>paywall_shown</code> live 15 september 12:00. Trialen är elva dagar gammal och mätfönstret för konvertering är två veckor. Läs detta som ett första utfall, inte ett slutgiltigt.</p>
+
+<h3>Täckning</h3>
+
+<p>Trialen når nu alla. Från 15 september har <strong>21 av 21</strong> nya konton fått <code>signup_trial</code> eller <code>oauth_signup_trial</code>. Före 11 september fick ingen någon. Åtta trialperioder har löpt ut, tretton pågår.</p>
+
+<h3>Vad de gjorde, dag för dag</h3>
+
+<svg class="chart" viewBox="0 0 560 190" role="img" aria-label="Handelser under trialen per dag">
+<line class="grid" x1="60" y1="150" x2="540" y2="150"/>
+<line class="grid" x1="60" y1="110" x2="540" y2="110" stroke-dasharray="3 3"/>
+<line class="grid" x1="60" y1="70" x2="540" y2="70" stroke-dasharray="3 3"/>
+<line class="grid" x1="60" y1="30" x2="540" y2="30" stroke-dasharray="3 3"/>
+<text class="ax r" x="54" y="153">0</text>
+<text class="ax r" x="54" y="113">20</text>
+<text class="ax r" x="54" y="73">40</text>
+<text class="ax r" x="54" y="33">60</text>
+
+<rect class="bar" x="82" y="30" width="54" height="120"/>
+<text class="val c" x="109" y="25">60</text>
+<text class="ax c" x="109" y="164">Dag 0</text>
+<text class="note c" x="109" y="176">16 konton</text>
+
+<rect class="bar" x="162" y="148" width="54" height="2"/>
+<text class="val c" x="189" y="143">1</text>
+<text class="ax c" x="189" y="164">Dag 1</text>
+<text class="note c" x="189" y="176">1 konto</text>
+
+<rect class="bar dim" x="242" y="149" width="54" height="1"/>
+<text class="val c" x="269" y="143">0</text>
+<text class="ax c" x="269" y="164">Dag 2</text>
+
+<rect class="bar dim" x="322" y="149" width="54" height="1"/>
+<text class="val c" x="349" y="143">0</text>
+<text class="ax c" x="349" y="164">Dag 3</text>
+
+<rect class="bar dim" x="402" y="149" width="54" height="1"/>
+<text class="val c" x="429" y="143">0</text>
+<text class="ax c" x="429" y="164">Dag 4</text>
+
+<rect class="bar dim" x="482" y="149" width="54" height="1"/>
+<text class="val c" x="509" y="143">0</text>
+<text class="ax c" x="509" y="164">Dag 5</text>
+</svg>
+<p class="figc">Samtliga händelser från de 21 trialkontona, placerade på dygn räknat från registreringen. 60 av 61 händelser ligger på dag 0. Fem gratisdagar, och fyra av dem är helt tomma. Detta är hela populationen trialkonton, inte ett urval.</p>
+
+<h3>Vad de konsumerade, och vad de inte rörde</h3>
+
+<table>
+<thead><tr><th>Funktion</th><th class="n">Trialkonton som använde den</th><th class="n">Andel av 21</th><th class="n">Antal händelser</th><th>Konsumeras klart under trialen?</th></tr></thead>
+<tbody>
+<tr><td>Logiktest, alla nivåer</td><td class="n">6</td><td class="n">29 %</td><td class="n">22</td><td>Delvis. De som testar gör 2 till 6 sessioner direkt</td></tr>
+<tr><td>CV-analys</td><td class="n">5</td><td class="n">24 %</td><td class="n">12</td><td>Ja. Ett konto körde sex analyser på en dag</td></tr>
+<tr><td>CV-mall nedladdad</td><td class="n">4</td><td class="n">19 %</td><td class="n">10</td><td>Ja. Ett konto laddade ned fem mallar direkt</td></tr>
+<tr><td>Brev</td><td class="n">3</td><td class="n">14 %</td><td class="n">3</td><td>Nej. Ett brev per konto, ingen upprepning</td></tr>
+<tr><td>Jobbmatchning</td><td class="n">2</td><td class="n">10 %</td><td class="n">2</td><td>Nej, funktionen är för ung att bedöma</td></tr>
+<tr><td>Personlighetstest</td><td class="n">0</td><td class="n">0 %</td><td class="n">0</td><td>Nej, rörd av ingen</td></tr>
+<tr><td>LinkedIn-optimering</td><td class="n">0</td><td class="n">0 %</td><td class="n">0</td><td>Nej, rörd av ingen</td></tr>
+<tr><td>Loggad ansökan</td><td class="n">0</td><td class="n">0 %</td><td class="n">0</td><td>Nej, rörd av ingen</td></tr>
+<tr class="sum"><td>Gjorde ingenting alls</td><td class="n">5</td><td class="n">24 %</td><td class="n">0</td><td>Fick fem dagar Premium utan att öppna något</td></tr>
+</tbody>
+</table>
+
+<p><strong>Svaret på frågan vilka funktioner som konsumeras klart:</strong> mallar och analys konsumeras i klump av de få som hittar dem, båda med tydliga mättnadsmönster (fem mallar på ett dygn, sex analyser på ett dygn). Tester konsumeras i serie men aldrig färdigt, eftersom banken är för stor att tömma. Brev, matchning, personlighetstest, LinkedIn och ansökningar konsumeras inte alls. De två funktioner som faktiskt går att bränna ut under en trial är alltså precis de två du pekade ut: mallar och analys.</p>
+
+<h3>Efter att trialen löpt ut</h3>
+
+<table>
+<thead><tr><th>Mätpunkt</th><th class="n">Antal</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Trialkonton totalt</td><td class="n">21</td><td>8 utgångna, 13 pågående</td></tr>
+<tr><td>Gjorde något under trialen</td><td class="n">16</td><td>76 procent</td></tr>
+<tr><td>Aktiva efter dag 1</td><td class="n">1</td><td>Ett konto, ett logiktest</td></tr>
+<tr><td>Aktiva efter att trialen löpt ut</td><td class="n">0</td><td>Ingen enda artefakt skapad efter nedgradering</td></tr>
+<tr><td>Loggade in efter utgången</td><td class="n">1</td><td>Enligt <code>last_active</code>, utan att skapa något</td></tr>
+<tr><td>Mötte en betalvägg efteråt</td><td class="n">0</td><td><code>paywall_shown</code>: 3 gånger av 1 person, den 21 september</td></tr>
+<tr class="sum"><td>Betalade</td><td class="n">0</td><td><code>premium_grants</code> är tom. Noll. Ingen har betalat</td></tr>
+</tbody>
+</table>
+
+<p>Jag säger det rakt ut eftersom du bad om det: <strong>noll betalningar.</strong> <code>premium_grants</code> innehåller inga rader över huvud taget. De tre prenumerationer som står som <code>active</code> i <code>profiles</code> tecknades senast 1 juni, långt före trialen, och det finns ingen <code>pricing_viewed</code>, <code>trial_started</code> eller <code>subscription_paid</code> i PostHog de senaste trettio dagarna.</p>
+
+<h3>Avbrottsorsaker</h3>
+
+<p><code>cancel_intents</code> innehåller två rader. Båda från samma person, fem sekunder isär, båda med orsaken <code>for_dyrt</code>, inget fritextsvar, inget erbjudande visat och <code>completed_cancel</code> falskt i båda. Kontot skapades 9 september, alltså <em>före</em> trialen. Att raderna kom i par fem sekunder isär tyder på en dubbelklickning i flödet snarare än två beslut.</p>
+
+<p>Det går inte att dra en slutsats om avbrottsorsaker ur ett datapunkt. Men det enda vi har säger "för dyrt" från en person som aldrig såg en trial, och tabellen har inte fått en enda rad från ett trialkonto, av det enkla skälet att man inte säger upp något man inte betalar för.</p>
+
+<h3>Jämförelse: före och efter trialen</h3>
+
+<table>
+<thead><tr><th>Mätpunkt</th><th class="n">Före, 11 aug-10 sep</th><th class="n">Efter, från 11 sep</th><th>Riktning</th></tr></thead>
+<tbody>
+<tr><td>Konton i kohorten</td><td class="n">46</td><td class="n">24</td><td>Trettio dagar mot elva</td></tr>
+<tr><td>Gjorde något alls</td><td class="n">40 (87 %)</td><td class="n">19 (79 %)</td><td class="down">Något sämre</td></tr>
+<tr><td>Återkom efter dag 1, artefakt</td><td class="n">6 (13 %)</td><td class="n">1 (4 %)</td><td class="down">Sämre</td></tr>
+<tr><td>Återkom efter dag 1, inloggning</td><td class="n">14 (30 %)</td><td class="n">6 (25 %)</td><td>Ungefär lika</td></tr>
+<tr><td>Körde test</td><td class="n">23 (50 %)</td><td class="n">7 (29 %)</td><td class="down">Sämre</td></tr>
+<tr><td>Laddade ned mall</td><td class="n">3 (7 %)</td><td class="n">5 (21 %)</td><td class="up">Bättre</td></tr>
+<tr><td>Skrev brev</td><td class="n">7 (15 %)</td><td class="n">5 (21 %)</td><td class="up">Något bättre</td></tr>
+<tr><td>Körde CV-analys</td><td class="n">10 (22 %)</td><td class="n">6 (25 %)</td><td>Ungefär lika</td></tr>
+<tr class="sum"><td>Betalade</td><td class="n">0</td><td class="n">0</td><td>Oförändrat</td></tr>
+</tbody>
+</table>
+
+<p>Trialen har flyttat vad folk gör, inte hur mycket eller om de betalar. Mallnedladdning tredubblades som andel, vilket är väntat eftersom exporten tidigare låg bakom betalväggen. Testandet sjönk, sannolikt en effekt av kohortsammansättning snarare än av trialen. Återkomsten är oförändrad till något sämre. <strong>Betalningarna är noll i båda kohorterna, så trialen har varken skadat eller hjälpt intäkten. Den har tagit bort de tillfällen då någon hade kunnat se ett pris.</strong></p>
+
+<div class="box acc">
+<h4>Hypotesen prövad mot datan</h4>
+<p>Det stämmer inte att alla har fått det de behövde. 5 av 21 trialkonton öppnade aldrig någonting, 17 av 21 laddade aldrig ned en mall och 15 av 21 gjorde aldrig ett test. Det som däremot stämmer är att de som <em>hittar</em> mallarna eller analysen tömmer dem på ett dygn, och att trialen garanterar att ingen av dem möter ett pris medan de gör det.</p>
+</div>
+
+<h2><span class="num">4</span>Hur våra tester står sig</h2>
+
+<p class="lead">Läst i <code>src/app/dashboard/tester/testConfig.ts</code>, frågebankerna i <code>src/lib/logicTestV7</code>, <code>verbalTestV1/V2/Expert</code>, <code>numericalTest*</code> och <code>personalityTest</code>, samt valideringsskripten i <code>scripts/</code>.</p>
+
+<p>Vi har fjorton testvarianter live: matrislogik, verbalt och numeriskt i nivåerna grund, avancerad, expert och prov, plus personlighet i två nivåer. Matrisbanken har 84 frågor i tre nivåer med femton per session, verbalt 60 passager, numeriskt 36 passager. Urvalet är deterministiskt seedat på sessions-id. Kvalitetskontrollen på matriserna är ovanligt gedigen för en produkt av vår storlek: fyra fristående valideringsskript som underkänner parallellitet, identiska rader eller kolumner, endimensionell variation och felmarkerat facit, med rotationsnormalisering så att visuellt lika alternativ inte passerar som unika.</p>
+
+<table>
+<thead><tr><th>Vår testtyp</th><th>Motsvarighet på marknaden</th><th>Format-paritet</th><th>Det som saknas</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Matrislogik</strong><br><span class="sm">3x3-matris, 6 alternativ, 15 frågor, 84 i banken</span></td>
+<td>Matrigma-liknande matristest</td>
+<td class="delvis">Delvis</td>
+<td>Adaptiv svårighet, tidspress per test, extern normgrupp. Uppgiftsformatet i sig är rätt</td>
+</tr>
+<tr>
+<td><strong>Numeriskt</strong><br><span class="sm">Tabell eller diagram plus 4 frågor, 32 per session</span></td>
+<td>SHL-liknande numeriskt resonemang</td>
+<td class="delvis">Delvis</td>
+<td>Tidspress per fråga, som är själva kärnan i SHL-formatet. Vi har ingen klocka alls här</td>
+</tr>
+<tr>
+<td><strong>Verbalt</strong><br><span class="sm">Text plus påståenden, sant/falskt/vet ej</span></td>
+<td>SHL-liknande verbalt resonemang</td>
+<td class="ja">Ja</td>
+<td>Tidsgränsen finns bara i provläget (40 min). Träningsläget visar en klocka utan verkan</td>
+</tr>
+<tr>
+<td><strong>Personlighet</strong><br><span class="sm">Big Five, 50 eller 120 påståenden</span></td>
+<td>MAP-liknande personlighetstest</td>
+<td class="delvis">Delvis</td>
+<td>Normgrupp och yrkesprofil. Vi ger drag, arbetsgivaren får ett percentilvärde mot en normpopulation</td>
+</tr>
+<tr>
+<td><strong>Prov</strong><br><span class="sm">Blandade nivåer, 18 till 48 frågor</span></td>
+<td>Skarpt testtillfälle</td>
+<td class="delvis">Delvis</td>
+<td>Bara verbalprovet har hård tidsgräns med automatisk inlämning. Matris- och numeriskt prov har ingen</td>
+</tr>
+</tbody>
+</table>
+
+<h3>De fyra luckorna, i ordning efter vad de kostar oss</h3>
+
+<ul>
+<li><strong>Tidspress.</strong> Detta är den allvarligaste. Skarpa tester är tidspressade, och tidspressen är en stor del av det som gör dem svåra. Hos oss finns en hård gräns med automatisk inlämning i exakt en komponent, <code>VerbalProvSession.tsx</code> (40 minuter). <code>VerbalTestSession.tsx</code> visar en nedräkning på 25 minuter som inte gör något när den når noll. Matris- och numeriskttesten har en uppräknande klocka utan gräns. Vi tränar alltså på uppgifterna men inte på situationen.</li>
+<li><strong>Percentil mot normgrupp.</strong> Vi visar percentil, men den räknas mot vår egen användarbas. Det är en självrefererande siffra: den säger hur du ligger mot andra som råkat träna på jobbcoach.ai, inte mot sökande till en tjänst. Den är inte fel, men den betyder inte det en användare tror att den betyder.</li>
+<li><strong>Adaptiv svårighet.</strong> Finns inte. Alla urval är deterministiska shuffles som körs en gång vid sessionsstart och aldrig justeras efter svar. <code>difficulty</code>-fältet används bara för att bygga provmixen och för efterhandsredovisning.</li>
+<li><strong>Förklaring per fråga.</strong> Detta har vi faktiskt, och det är vår starkaste sida. Matrisfrågorna har ett <code>rule</code>-fält som renderas i genomgången, numeriskt och verbalt har <code>explanation</code> per fråga. Här är vi bättre än formatpariteten antyder.</li>
+</ul>
+
+<div class="box">
+<h4>Vad som krävs för att få säga "träna på samma format"</h4>
+<p>Två saker, och de är båda små. <strong>Ett:</strong> en hård tidsgräns med automatisk inlämning i alla provlägen, inte bara det verbala. Gränsen finns redan implementerad i <code>VerbalProvSession</code> och behöver kopieras till matris- och numeriskt prov. <strong>Två:</strong> att percentilen antingen får en ärlig etikett ("av dem som gjort testet här") eller ersätts med en poängskala utan percentilanspråk.</p>
+<p>Med de två på plats kan vi säga <em>"öva på samma uppgiftstyper under samma tidspress"</em> och det är sant, verifierbart i koden. Vi kan fortfarande inte säga "samma test som arbetsgivaren använder" eller ange en percentil mot sökande i allmänhet, och vi ska inte heller försöka. Formuleringen ska hålla i en granskning, inte i en annons.</p>
+</div>
+
+<h2><span class="num">5</span>Slutsats och tre vägar</h2>
+
+<p class="lead">Priset ändras aldrig utan ditt beslut. Nedan är tre vägar med effekt, risk och byggtid, följt av min rekommendation. Insatsen anges som S, M eller L.</p>
+
+<table>
+<thead><tr><th>Väg</th><th>Vad den gör</th><th>Förväntad effekt</th><th>Risk mot SEO-trafiken</th><th class="n">Bygg</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>A. Behåll trialen, undanta tester över nivå 1 och premiummallar</strong></td>
+<td>Femdagarstrialen kvar, men matris- och numerisk avancerad och expert samt premiummallarna ligger utanför. Betalväggen möter användaren på dag 0, mitt i den enda session vi faktiskt får</td>
+<td>Störst. Flyttar betalväggen till den timme då 60 av 61 händelser sker. Testfolket, vår största grupp, möter för första gången ett pris</td>
+<td>Låg. Publika smakprov och artiklar orörda. Grundnivån fortsatt gratis, så landningssidorna levererar vad de lovar</td>
+<td class="n"><span class="tag m">M</span></td>
+</tr>
+<tr>
+<td><strong>B. Ingen trial, priset syns från dag ett, dagspass 49 kr</strong></td>
+<td>Reverse trial bort. Prisstegen syns direkt, dagspasset marknadsförs mot "träna inför testet i morgon"</td>
+<td>Medel. Dagspasset passar testfolkets faktiska beteende exakt: de kommer en gång, gör flera sessioner, försvinner. Men vi tappar den goodwill trialen ger</td>
+<td>Medel. Risk att gratisvärdet på landningssidorna upplevs tunnare, vilket kan synas i studsfrekvens innan det syns i ranking</td>
+<td class="n"><span class="tag s">S</span></td>
+</tr>
+<tr>
+<td><strong>C. Små separata paket för tester och mallar vid sidan av Premium</strong></td>
+<td>Ett testpaket och ett mallpaket som egna produkter, Premium kvar ovanpå</td>
+<td>Medel till lång sikt. Följer den tydligaste strukturen i datan, att detta är två marknader. Men kräver två nya Stripe-produkter och en ny prissida</td>
+<td>Låg. Ingen förändring av gratisnivån</td>
+<td class="n"><span class="tag l">L</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="box acc">
+<h4>Min rekommendation: väg A nu, väg C när A har mätts i fyra veckor</h4>
+<p>Väg A är den enda som angriper det datan faktiskt visar. Problemet är inte att trialen är för generös, utan att den är tyst under precis de timmar användaren är här, och att den sedan löper ut för någon som redan har lämnat. Genom att undanta testnivåer över grund och premiummallarna möter varannan ny användare en betalvägg på dag 0, i stället för noll som i dag. Det kostar oss ingenting i goodwill eftersom grundnivån och smakproven är kvar.</p>
+<p>Väg B avfärdar jag <em>inte</em>, men den bör vänta. Dagspasset 49 kr är sannolikt rätt produkt för testfolket, och den insikten är den kommersiellt mest värdefulla i rapporten. Men att både ta bort trialen och införa ett nytt säljargument samtidigt gör utfallet omöjligt att tolka med vårt urval. Gör A först, mät i fyra veckor, inför sedan dagspasset som riktat erbjudande i själva testflödet.</p>
+<p>Väg C är rätt på sikt men fel nu. Den kräver mest byggtid av de tre och bygger på en marknadsuppdelning som visserligen är tydlig i datan men vilar på 96 konton. Bygg den när vi vet att någon över huvud taget betalar.</p>
+</div>
+
+<h2><span class="num">6</span>Datakvalitet</h2>
+
+<h3>Bortfall genom exkludering</h3>
+
+<p>Exkluderingen omfattar konton i <code>admin_users</code>, ägaren, och konton med e-post som börjar på <code>qa-</code> eller innehåller <code>@example.com</code>. I praktiken är detta <strong>ett enda konto</strong>: ägaren, som också är den enda raden i <code>admin_users</code>. Noll QA-konton finns i databasen, kontrollerat även mot <code>auth.users</code>. Alla 328 auth-användare har en profil.</p>
+
+<p>Men det ena kontot står för en mycket stor del av all aktivitet, vilket är skälet till att exkluderingen spelar roll:</p>
+
+<table>
+<thead><tr><th>Tabell</th><th class="n">Rader totalt</th><th class="n">Bortfall</th><th class="n">Andel</th><th class="n">Kvar</th></tr></thead>
+<tbody>
+<tr><td>user_activities</td><td class="n">11 151</td><td class="n">5 324</td><td class="n">47,7 %</td><td class="n">5 827</td></tr>
+<tr><td>linkedin_optimizations</td><td class="n">34</td><td class="n">28</td><td class="n">82,4 %</td><td class="n">6</td></tr>
+<tr><td>job_applications</td><td class="n">14</td><td class="n">13</td><td class="n">92,9 %</td><td class="n">1</td></tr>
+<tr><td>logic_test_v4_sessions</td><td class="n">394</td><td class="n">163</td><td class="n">41,4 %</td><td class="n">231</td></tr>
+<tr><td>letters</td><td class="n">246</td><td class="n">96</td><td class="n">39,0 %</td><td class="n">150</td></tr>
+<tr><td>formatted_cv_downloads</td><td class="n">147</td><td class="n">52</td><td class="n">35,4 %</td><td class="n">95</td></tr>
+<tr><td>personality_test_sessions</td><td class="n">21</td><td class="n">7</td><td class="n">33,3 %</td><td class="n">14</td></tr>
+<tr><td>job_matchings_cache</td><td class="n">30</td><td class="n">7</td><td class="n">23,3 %</td><td class="n">23</td></tr>
+<tr><td>cv_analysis_jobs</td><td class="n">106</td><td class="n">21</td><td class="n">19,8 %</td><td class="n">85</td></tr>
+<tr><td>ai_conversations</td><td class="n">15</td><td class="n">6</td><td class="n">40,0 %</td><td class="n">9</td></tr>
+<tr><td>cv_texts</td><td class="n">181</td><td class="n">10</td><td class="n">5,5 %</td><td class="n">171</td></tr>
+<tr><td>profiles</td><td class="n">328</td><td class="n">1</td><td class="n">0,3 %</td><td class="n">327</td></tr>
+<tr><td>anon_test_sessions</td><td class="n">32</td><td class="n">0</td><td class="n">0 %</td><td class="n">32</td></tr>
+<tr><td>cancel_intents</td><td class="n">2</td><td class="n">0</td><td class="n">0 %</td><td class="n">2</td></tr>
+<tr class="sum"><td>premium_grants</td><td class="n">0</td><td class="n">0</td><td class="n">-</td><td class="n">0</td></tr>
+</tbody>
+</table>
+
+<p><strong>Konsekvensen är viktig:</strong> <code>job_applications</code> och <code>linkedin_optimizations</code> är i praktiken tomma när ägaren räknas bort. Att de ser använda ut i adminen beror nästan uteslutande på din egen testning. Samma sak gäller en betydande del av <code>user_activities</code>, vilket är ännu ett skäl att läsa funktionsanvändning ur sanningskällorna och inte ur aktivitetsloggen.</p>
+
+<h3>Vad som är riktning och vad som är säkert</h3>
+
+<ul>
+<li><strong>Riktning, inte signifikans:</strong> alla procenttal i avsnitt 2 och 3, jämförelsen före och efter trialen, och samtliga återkomstandelar. Underlaget är 21 till 58 konton. En person flyttar tre till fem procentenheter.</li>
+<li><strong>Säkert oavsett urvalsstorlek:</strong> noll rader i <code>premium_grants</code>, noll överlappning mellan test och mall över 327 konton, noll aktivitet dag 2 till 5 i trialen, och samtliga konstateranden om koden i avsnitt 4. En tom tabell och en saknad tidsgräns är fakta.</li>
+<li><strong>Går inte att bedöma än:</strong> jobbmatchningen (live 14 september, sju dagar), PWA (sju dagar), och betalväggsmätningen (live 15 september, sex dagar). <code>paywall_shown</code> har tre händelser från en person och den personen är sannolikt du, den 21 september.</li>
+</ul>
+
+<h3>Kända mätfel som bör åtgärdas</h3>
+
+<ul>
+<li><strong><code>anon_test_sessions</code> saknar koppling till konto.</strong> Provets token följer inte med in i registreringen, så konvertering prov till konto går bara att skatta via tidsnärhet. <span class="tag s">S</span> att åtgärda och det skulle ge oss ett riktigt mått på vår tydligaste publika ingång.</li>
+<li><strong>Procenttalen på fyra testresultatsidor är fel.</strong> <code>verbal-resonemang</code>, <code>verbal-resonemang-v2</code>, <code>numeriskt-test</code> och <code>numeriskt-test-v2</code> räknar procent mot <code>totalQuestions</code> i <code>testConfig.ts</code> (48, 48, 24, 24) medan urvalsmodulerna levererar 60, 60, 32 och 32 frågor. Användaren ser alltså ett för högt procenttal. <span class="tag s">S</span></li>
+<li><strong>86 profiler saknar <code>last_active</code> helt.</strong> Äldre konton före kolumnen fanns. Påverkar inte de fönster som används här, men gör historiska retentionsjämförelser bakåt opålitliga.</li>
+<li><strong>Två <code>cancel_intents</code>-rader fem sekunder isär från samma person</strong> tyder på att avbrottsflödet kan skicka dubbelt. Värt att kontrollera innan tabellen börjar användas som beslutsunderlag. <span class="tag s">S</span></li>
+</ul>
+
+<footer>
+Rapport till ägaren, 22 september 2026. Alla siffror lästa direkt ur Supabase per funktions egen sanningskälla, med adminkonton, ägaren och QA-konton exkluderade i varje fråga. Varje nyckeltal har verifierats mot en andra, oberoende fråga innan det skrivits. Testsystemets egenskaper är lästa i koden, inte i dokumentationen, eftersom de två går isär på flera punkter. Prissättning är alltid ägarens beslut.
+</footer>
+
+</div>
