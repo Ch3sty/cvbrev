@@ -640,6 +640,25 @@ export async function samlaAnvandning(
 // ---------------------------------------------------------------------------
 
 /**
+ * Kolumnerna som faktiskt fick ett varde, utan dag.
+ *
+ * Skalet till att den finns: en upsert som uttryckligen skickar null skriver
+ * null, alltsa raderar den forra korningens riktiga siffror sa fort ett
+ * delsteg misslyckas. Och ger alla delsteg null blir resultatet en rad som
+ * ser nyast ut men inte bar nagot, vilket ar precis det som gjorde att
+ * Intakter och Oversikt visade streck pa MRR.
+ */
+export function radUtanNull(rad: Partial<DagligaMetrik>): Record<string, number> {
+  const ut: Record<string, number> = {};
+  for (const [nyckel, varde] of Object.entries(rad)) {
+    if (nyckel === 'dag') continue;
+    if (varde === null || varde === undefined) continue;
+    ut[nyckel] = varde as number;
+  }
+  return ut;
+}
+
+/**
  * Samlar in en dag och skriver den till admin_daily_metrics plus
  * admin_gsc_daily och admin_funnel_weekly.
  *
@@ -784,17 +803,35 @@ export async function collectAdminMetrics(
     await loggaAdminFel(admin, 'cron', `collect/supabase ${dag}: ${m}`);
   }
 
+  // Bara kolumnerna som faktiskt fick ett varde skrivs.
+  const attSkriva = radUtanNull(rad);
+
   let skrev = false;
-  try {
-    const { error } = await admin
-      .from('admin_daily_metrics')
-      .upsert({ ...rad, uppdaterad: new Date().toISOString() }, { onConflict: 'dag' });
-    if (error) throw new Error(error.message);
-    skrev = true;
-  } catch (err) {
-    const m = err instanceof Error ? err.message : String(err);
-    fel.push(`skrivning: ${m}`);
-    await loggaAdminFel(admin, 'cron', `collect/skrivning ${dag}: ${m}`);
+  if (Object.keys(attSkriva).length === 0) {
+    // Inget delsteg gav nagot. Da ror vi inte tabellen alls: en tom rad ar
+    // samre an ingen rad, for den blir sidornas "senaste dag med data".
+    fel.push('skrivning: inget delsteg gav varden, raden skrevs inte');
+    await loggaAdminFel(
+      admin,
+      'cron',
+      `collect/skrivning ${dag}: alla delsteg misslyckades eller hoppades, ingen rad skrevs`,
+      { delsteg }
+    );
+  } else {
+    try {
+      const { error } = await admin
+        .from('admin_daily_metrics')
+        .upsert(
+          { dag, ...attSkriva, uppdaterad: new Date().toISOString() },
+          { onConflict: 'dag' }
+        );
+      if (error) throw new Error(error.message);
+      skrev = true;
+    } catch (err) {
+      const m = err instanceof Error ? err.message : String(err);
+      fel.push(`skrivning: ${m}`);
+      await loggaAdminFel(admin, 'cron', `collect/skrivning ${dag}: ${m}`);
+    }
   }
 
   return { dag, skrev, delsteg, fel };

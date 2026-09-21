@@ -29,6 +29,7 @@ import {
   ADMIN_CACHE_SEKUNDER,
 } from '@/lib/admin/metrics';
 import { manadsbeloppOre, type DagligaMetrik } from '@/lib/admin/collect';
+import { senasteMedVarde, STRIPE_LEDARE } from '@/lib/admin/senasteMedData';
 import { mandagen, planstegFranPris, type PlanNyckel } from './format';
 
 // MRR_SANN_FRAN och byggVattenfall bor i format.ts: de ar rena funktioner utan
@@ -68,9 +69,18 @@ export interface TrialSiffror {
 
 export interface IntaktData {
   dagar: DagligaMetrik[];
+  /**
+   * Senaste dagen med Stripe-siffror, alltså senaste raden där mrr_ore inte
+   * är null. Inte senaste raden i tabellen: en rad kan finnas utan att bära
+   * något, till exempel när "Hämta nu" skrev i dag innan Stripe-delsteget
+   * hann klart, och då visade korten streck på MRR och ARR fast gårdagens
+   * siffror låg kvar.
+   */
   senaste: DagligaMetrik | null;
   igar: DagligaMetrik | null;
   forraVeckan: DagligaMetrik | null;
+  /** Sant när i dag har en rad som ännu inte bär Stripe-siffror. */
+  idagOfullstandig: boolean;
   churnVeckor: ChurnVecka[];
   /** Antal profiler som just nu bar en trialkalla i premium_source. */
   trialPagaende: number;
@@ -226,7 +236,10 @@ export async function hamtaIntaktData(antalDagar = 90): Promise<IntaktData> {
   // fungerat sa lange varje dag har en rad, men en enda saknad dag hade
   // forskjutit hela jamforelsen ett steg utan att nagot sag fel ut: kortet
   // hade sagt "mot i gar" och visat forrgar.
-  const senaste = dagar[0] ?? null;
+  // Senaste dagen med Stripe-siffror, inte senaste raden. Se IntaktData.
+  const senaste = senasteMedVarde(dagar, STRIPE_LEDARE);
+  const idagOfullstandig =
+    dagar.length > 0 && senaste !== null && dagar[0].dag !== senaste.dag;
   const pos = new Map(dagar.map((d) => [d.dag, d]));
   const forskjut = (fran: string, dygn: number): string => {
     const d = new Date(`${fran}T12:00:00Z`);
@@ -241,6 +254,7 @@ export async function hamtaIntaktData(antalDagar = 90): Promise<IntaktData> {
     senaste,
     igar,
     forraVeckan,
+    idagOfullstandig,
     churnVeckor,
     trialPagaende,
     premiumGrantsRader,

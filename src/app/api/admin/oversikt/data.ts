@@ -25,6 +25,12 @@ import {
   ADMIN_CACHE_SEKUNDER,
 } from '@/lib/admin/metrics';
 import { dagStr, type DagligaMetrik } from '@/lib/admin/collect';
+import {
+  senasteDagMedVarde,
+  STRIPE_LEDARE,
+  GSC_LEDARE,
+  SUPABASE_LEDARE,
+} from '@/lib/admin/senasteMedData';
 
 /** Talkolumnerna i admin_daily_metrics som Oversikt jamfor over tid. */
 export type MetrikNyckel = Exclude<keyof DagligaMetrik, 'dag'>;
@@ -69,6 +75,8 @@ export interface OversiktData {
   dag: string;
   /** Senaste dag med GSC-siffror, eller null om ingen av de 30 har det. */
   senasteGscDag: string | null;
+  /** Senaste dag med Stripe-siffror. Intäktskorten står på den dagen. */
+  senasteStripeDag: string | null;
 
   /** Fraga 1: tjanar vi mer pengar? */
   intakter: {
@@ -329,17 +337,41 @@ export async function hamtaOversikt(): Promise<OversiktData> {
   const index = new Map<string, DagligaMetrik>();
   for (const rad of rader) index.set(String(rad.dag), rad);
 
-  // Dagen vi visar ar senaste raden i tabellen, inte dagens datum: har cronen
-  // inte kommit igang an ar det garsdagen som ar sanningen, och att visa en
-  // tom "i dag" hade sett ut som ett ras.
-  const dag = rader.length ? String(rader[0].dag) : dagStr();
+  // Dagen vi visar ar senaste raden med data, inte senaste raden i tabellen
+  // och inte dagens datum.
+  //
+  // Skillnaden ar inte akademisk. "Hamta nu" kunde skriva en rad for i dag
+  // dar varje tal var null, darfor att delstegen inte hann klart, och da tog
+  // den raden over sidan och alla kort visade streck fast garsdagens siffror
+  // lag kvar. Sidans ram utgar darfor fran senaste raden som bar Supabase-
+  // talen, och varje kortgrupp valjer i sin tur den senaste dag dar just dess
+  // kalla svarade: Stripe-korten mrr_ore, GSC-korten gsc_clicks.
+  const ramDag =
+    senasteDagMedVarde(rader, SUPABASE_LEDARE) ??
+    senasteDagMedVarde(rader, STRIPE_LEDARE) ??
+    (rader.length ? String(rader[0].dag) : dagStr());
+  const dag = String(ramDag);
   const igar = dagBakat(dag, 1);
   const forraVeckan = dagBakat(dag, 7);
 
   const t = (nyckel: MetrikNyckel) => tal(index, dag, igar, forraVeckan, nyckel);
 
-  const senasteGscDag =
-    rader.find((r) => nummer(r.gsc_clicks) !== null)?.dag ?? null;
+  /**
+   * Ett Tal for en kolumn vars kalla kan ligga efter. Ankaret ar senaste dag
+   * dar ledarkolumnen har ett varde, sa en tom dagsrad langst upp inte gor
+   * hela kortet till ett streck.
+   */
+  const tMed = (ledare: string, nyckel: MetrikNyckel): Tal => {
+    const ankare = senasteDagMedVarde(rader, ledare);
+    if (!ankare) return { varde: null, motIgar: null, motForraVeckan: null };
+    return tal(index, ankare, dagBakat(ankare, 1), dagBakat(ankare, 7), nyckel);
+  };
+
+  const tStripe = (nyckel: MetrikNyckel) => tMed(STRIPE_LEDARE, nyckel);
+  const tGsc = (nyckel: MetrikNyckel) => tMed(GSC_LEDARE, nyckel);
+
+  const senasteGscDag = senasteDagMedVarde(rader, GSC_LEDARE);
+  const senasteStripeDag = senasteDagMedVarde(rader, STRIPE_LEDARE);
 
   const skickade7 = summa(rader, 'emails_sent', 7);
   const oppnade7 = summa(rader, 'emails_opened', 7);
@@ -356,21 +388,22 @@ export async function hamtaOversikt(): Promise<OversiktData> {
   return {
     dag,
     senasteGscDag: senasteGscDag ? String(senasteGscDag) : null,
+    senasteStripeDag: senasteStripeDag ? String(senasteStripeDag) : null,
 
     intakter: {
-      mrrOre: t('mrr_ore'),
-      nyaBetalande: t('new_paying'),
+      mrrOre: tStripe('mrr_ore'),
+      nyaBetalande: tStripe('new_paying'),
       nyaBetalande7: summa(rader, 'new_paying', 7),
-      aktivaPren: t('active_subs'),
-      trialPren: t('trialing_subs'),
-      misslyckade: t('failed_payments'),
+      aktivaPren: tStripe('active_subs'),
+      trialPren: tStripe('trialing_subs'),
+      misslyckade: tStripe('failed_payments'),
       churnade7: summa(rader, 'churned', 7),
     },
 
     trafik: {
-      gscKlick: t('gsc_clicks'),
-      gscVisningar: t('gsc_impressions'),
-      gscPosition: t('gsc_position'),
+      gscKlick: tGsc('gsc_clicks'),
+      gscVisningar: tGsc('gsc_impressions'),
+      gscPosition: tGsc('gsc_position'),
       nyaKonton: t('new_accounts'),
       nyaKonton7: summa(rader, 'new_accounts', 7),
     },

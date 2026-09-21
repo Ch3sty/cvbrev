@@ -40,8 +40,16 @@ const FONSTER_DAGAR = 90;
 
 export default async function IntakterPage() {
   const data = await hamtaIntaktData(FONSTER_DAGAR);
-  const { senaste, igar, forraVeckan, dagar, churnVeckor, trialPagaende, premiumGrantsRader } =
-    data;
+  const {
+    senaste,
+    igar,
+    forraVeckan,
+    dagar,
+    churnVeckor,
+    trialPagaende,
+    premiumGrantsRader,
+    idagOfullstandig,
+  } = data;
 
   const mrrOre = senaste?.mrr_ore ?? null;
   const arrOre = typeof mrrOre === 'number' ? mrrOre * 12 : null;
@@ -86,7 +94,11 @@ export default async function IntakterPage() {
           senaste
             ? // kortDatum ger "14 sep." med punkt i svensk kort manadsform, sa
               // meningen far ingen egen punkt efter sig.
-              `MRR, nya betalande, churn och plan-mix. Senaste dagen med data är ${kortDatum(senaste.dag)}`
+              // Står i dag som en rad utan Stripe-siffror skriver vi ut det,
+              // i stället för att låta korten visa streck utan förklaring.
+              `MRR, nya betalande, churn och plan-mix. Senaste dagen med data är ${kortDatum(senaste.dag)}${
+                idagOfullstandig ? '. I dag hittills samlas fortfarande in' : ''
+              }`
             : 'MRR, nya betalande, churn och plan-mix.'
         }
         action={<HamtaNu />}

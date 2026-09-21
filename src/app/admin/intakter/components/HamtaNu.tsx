@@ -3,7 +3,9 @@
 /**
  * Knappen "Hamta nu" i toppraden.
  *
- * Tvingar on-demand-pafyllning av dagens rad i admin_daily_metrics. Sparren
+ * Tvingar on-demand-pafyllning av gardagen och i dag hittills i
+ * admin_daily_metrics. I dag ar ett halvt dygn, gardagen ar det senaste hela
+ * dygnet, och korten star pa senaste dag med data. Sparren
  * ar 15 minuter och sitter i fyllPaDag() pa servern, inte har: en knapp som
  * sjalv hindrar sig kan alltid kringgas genom att ladda om sidan.
  *
@@ -37,7 +39,9 @@ export default function HamtaNu() {
       } else if (data.kordes === false) {
         setBesked(data.anledning ?? 'Spärrad');
       } else {
-        setBesked('Hämtad');
+        // Rutten fyller i går och i dag hittills. Beskedet säger vad som
+        // faktiskt hämtades, så ingen tror att kortet visar ett helt dygn.
+        setBesked('Hämtad: i går och i dag hittills');
         startaOvergang(() => router.refresh());
       }
     } catch {
