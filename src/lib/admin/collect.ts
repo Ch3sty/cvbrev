@@ -58,6 +58,10 @@ export interface CollectResultat {
   skrev: boolean;
   delsteg: Record<string, 'ok' | 'fel' | 'hoppat'>;
   fel: string[];
+  /** Millisekunder per delsteg plus totalt. Cronen far inte passera 60 s. */
+  tider?: Record<string, number>;
+  /** Dagar och veckor som aterfyllningen tog igen. */
+  aterfyllt?: { gscDagar: string[]; funnelVeckor: string[] };
 }
 
 // ---------------------------------------------------------------------------
@@ -639,6 +643,223 @@ export async function samlaAnvandning(
 // Sammanhallande
 // ---------------------------------------------------------------------------
 
+/** Toppsidorna och toppsokorden till admin_gsc_daily. Idempotent per dag. */
+async function skrivGscDimensioner(
+  admin: Admin,
+  dag: string,
+  g: GscDelresultat
+): Promise<void> {
+  const gscRader = [
+    ...g.toppsidor.map((r) => ({ ...r, dimension: 'page' })),
+    ...g.toppord.map((r) => ({ ...r, dimension: 'query' })),
+  ].map((r) => ({
+    dag,
+    dimension: r.dimension,
+    nyckel: r.nyckel,
+    clicks: r.clicks,
+    impressions: r.impressions,
+    ctr: r.ctr,
+    position: r.position,
+  }));
+
+  if (gscRader.length) {
+    await admin
+      .from('admin_gsc_daily')
+      .upsert(gscRader, { onConflict: 'dag,dimension,nyckel' });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Aterfyllning av luckor
+// ---------------------------------------------------------------------------
+
+/** Hogst sa manga GSC-dagar fylls igen per korning. */
+export const ATERFYLL_GSC_MAX = 5;
+
+/** Hogst sa manga trattveckor fylls igen per korning. */
+export const ATERFYLL_FUNNEL_MAX = 2;
+
+/**
+ * GSC-datan ligger efter. En dag yngre an sa ar inte en lucka, den har bara
+ * inte kommit fran Google an, och att fraga efter den bara branner tid.
+ */
+export const GSC_FORDROJNING_DAGAR = 3;
+
+/** Fonstret bakat som aterfyllningen letar luckor i. */
+export const ATERFYLL_FONSTER_DAGAR = 30;
+
+/** Fonstret bakat for trattveckorna. */
+export const ATERFYLL_FONSTER_VECKOR = 8;
+
+/** Ett datum flyttat ett antal dygn bakat, som YYYY-MM-DD. */
+export function dagBakat(dag: string, antal: number): string {
+  const d = new Date(`${dag}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - antal);
+  return d.toISOString().slice(0, 10);
+}
+
+/**
+ * Dagarna som saknar GSC och ar gamla nog att faktiskt finnas hos Google.
+ *
+ * Bakgrunden: admin_gsc_daily stod still pa 2026-09-12 och gsc_clicks var
+ * null 13 till 20 september, darfor att Vercel saknade GSC-nycklarna.
+ * Nattkorningen samlar bara gardagen, sa nycklarna kunde laggas tillbaka utan
+ * att en enda av de atta dagarna nagonsin fylldes.
+ *
+ * Aldst forst: luckan langst bak ar den som annars aldrig hinner tas igen.
+ */
+export function gscLuckor(
+  rader: Array<{ dag: string; gsc_clicks: number | null }>,
+  idag: string,
+  max = ATERFYLL_GSC_MAX
+): string[] {
+  const senast = dagBakat(idag, GSC_FORDROJNING_DAGAR);
+  const aldst = dagBakat(idag, ATERFYLL_FONSTER_DAGAR);
+  const harKlick = new Set(
+    rader.filter((r) => r.gsc_clicks !== null).map((r) => r.dag)
+  );
+
+  const luckor: string[] = [];
+  for (let dag = aldst; dag <= senast; dag = dagBakat(dag, -1)) {
+    if (!harKlick.has(dag)) luckor.push(dag);
+  }
+  return luckor.slice(0, max);
+}
+
+/**
+ * Veckorna i tratten som saknas helt. Innevarande vecka raknas inte som en
+ * lucka: den fylls anda av dagens insamling.
+ */
+export function funnelLuckor(
+  veckor: Array<{ vecka: string }>,
+  idag: string,
+  max = ATERFYLL_FUNNEL_MAX
+): string[] {
+  const finns = new Set(veckor.map((v) => v.vecka));
+  const denna = veckansMandag(idag);
+
+  const luckor: string[] = [];
+  for (let i = ATERFYLL_FONSTER_VECKOR; i >= 1; i--) {
+    const vecka = veckansMandag(dagBakat(denna, i * 7));
+    if (vecka === denna) continue;
+    if (!finns.has(vecka)) luckor.push(vecka);
+  }
+  return luckor.slice(0, max);
+}
+
+/**
+ * Tar igen GSC-luckor och trattveckor som aldrig samlats in.
+ *
+ * Kors efter dagens insamling, med kvarvarande tid som budget: cronen gor
+ * redan fyra andra jobb och far inte passera 60 sekunder, sa aterfyllningen
+ * ar det som ska falla bort nar tiden tar slut, inte dagens siffror. Den
+ * avbryter darfor mellan dagarna sa fort budgeten ar slut, och varje dag har
+ * kvar samma tidsgrans som ett vanligt delsteg.
+ *
+ * Saknas nyckeln hoppar den over steget helt i stallet for att logga ett fel
+ * per dag: det var precis avsaknaden av nycklar som skapade luckorna.
+ */
+export async function aterfyllLuckor(
+  admin: Admin,
+  idag: string,
+  budgetMs: number
+): Promise<{ gscDagar: string[]; funnelVeckor: string[]; fel: string[] }> {
+  const slut = Date.now() + budgetMs;
+  const gscDagar: string[] = [];
+  const funnelVeckor: string[] = [];
+  const fel: string[] = [];
+
+  const harGscNyckel = Boolean(
+    process.env.GSC_SERVICE_ACCOUNT_JSON && process.env.GSC_SITE_URL
+  );
+  const harPosthogNyckel = Boolean(
+    process.env.POSTHOG_PERSONAL_API_KEY && process.env.POSTHOG_PROJECT_ID
+  );
+
+  // GSC-luckor
+  if (harGscNyckel && Date.now() < slut) {
+    try {
+      const { data } = await admin
+        .from('admin_daily_metrics')
+        .select('dag, gsc_clicks')
+        .gte('dag', dagBakat(idag, ATERFYLL_FONSTER_DAGAR))
+        .lte('dag', idag);
+
+      const luckor = gscLuckor(
+        (data ?? []) as Array<{ dag: string; gsc_clicks: number | null }>,
+        idag
+      );
+
+      for (const dag of luckor) {
+        if (Date.now() >= slut) break;
+        try {
+          const g = await medTimeout(`GSC ${dag}`, samlaGsc(dag));
+          if (!g) break; // Nyckeln forsvann mitt i. Ingen mening att fortsatta.
+          if (g.dagsrad) {
+            await admin.from('admin_daily_metrics').upsert(
+              {
+                dag,
+                gsc_clicks: g.dagsrad.clicks,
+                gsc_impressions: g.dagsrad.impressions,
+                gsc_ctr: g.dagsrad.ctr,
+                gsc_position: g.dagsrad.position,
+                uppdaterad: new Date().toISOString(),
+              },
+              { onConflict: 'dag' }
+            );
+          }
+          await skrivGscDimensioner(admin, dag, g);
+          gscDagar.push(dag);
+        } catch (err) {
+          const m = err instanceof Error ? err.message : String(err);
+          fel.push(`aterfyll/gsc ${dag}: ${m}`);
+          await loggaAdminFel(admin, 'cron', `aterfyll/gsc ${dag}: ${m}`);
+        }
+      }
+    } catch (err) {
+      const m = err instanceof Error ? err.message : String(err);
+      fel.push(`aterfyll/gsc: ${m}`);
+      await loggaAdminFel(admin, 'cron', `aterfyll/gsc uppslag: ${m}`);
+    }
+  }
+
+  // Trattveckor
+  if (harPosthogNyckel && Date.now() < slut) {
+    try {
+      const { data } = await admin
+        .from('admin_funnel_weekly')
+        .select('vecka')
+        .gte('vecka', dagBakat(veckansMandag(idag), ATERFYLL_FONSTER_VECKOR * 7));
+
+      const luckor = funnelLuckor((data ?? []) as Array<{ vecka: string }>, idag);
+
+      for (const vecka of luckor) {
+        if (Date.now() >= slut) break;
+        try {
+          const f = await medTimeout(`PostHog ${vecka}`, samlaFunnel(vecka));
+          if (!f) break;
+          if (f.length) {
+            await admin
+              .from('admin_funnel_weekly')
+              .upsert(f, { onConflict: 'vecka,kalla,steg' });
+          }
+          funnelVeckor.push(vecka);
+        } catch (err) {
+          const m = err instanceof Error ? err.message : String(err);
+          fel.push(`aterfyll/funnel ${vecka}: ${m}`);
+          await loggaAdminFel(admin, 'cron', `aterfyll/funnel ${vecka}: ${m}`);
+        }
+      }
+    } catch (err) {
+      const m = err instanceof Error ? err.message : String(err);
+      fel.push(`aterfyll/funnel: ${m}`);
+      await loggaAdminFel(admin, 'cron', `aterfyll/funnel uppslag: ${m}`);
+    }
+  }
+
+  return { gscDagar, funnelVeckor, fel };
+}
+
 /**
  * Kolumnerna som faktiskt fick ett varde, utan dag.
  *
@@ -670,10 +891,29 @@ export function radUtanNull(rad: Partial<DagligaMetrik>): Record<string, number>
 export async function collectAdminMetrics(
   admin: Admin,
   dag: string = dagStr(),
-  val: { hoppaGsc?: boolean; hoppaPosthog?: boolean } = {}
+  val: {
+    hoppaGsc?: boolean;
+    hoppaPosthog?: boolean;
+    /** Sant i cronen: luckor tas igen efter dagens insamling. */
+    aterfyll?: boolean;
+    /** Tak for hela anropet i millisekunder. Cronen har 60 s totalt. */
+    budgetMs?: number;
+  } = {}
 ): Promise<CollectResultat> {
   const delsteg: CollectResultat['delsteg'] = {};
   const fel: string[] = [];
+
+  // Tiden mats per delsteg och loggas: cronen gor fyra andra jobb i samma 60
+  // sekunder, och utan matning vet ingen vilket steg som ater budgeten.
+  const start = Date.now();
+  const tider: Record<string, number> = {};
+  const ta = <T,>(namn: string, p: Promise<T>): Promise<T> => {
+    const t0 = Date.now();
+    return p.finally(() => {
+      tider[namn] = Date.now() - t0;
+    });
+  };
+  const budgetMs = val.budgetMs ?? 45_000;
 
   const rad: DagligaMetrik = {
     dag,
@@ -701,7 +941,7 @@ export async function collectAdminMetrics(
 
   // Stripe
   try {
-    const s = await medTimeout('Stripe', samlaStripe(dag));
+    const s = await ta('stripe', medTimeout('Stripe', samlaStripe(dag)));
     if (s) {
       Object.assign(rad, s);
       delsteg.stripe = 'ok';
@@ -720,7 +960,7 @@ export async function collectAdminMetrics(
     delsteg.gsc = 'hoppat';
   } else {
     try {
-      const g = await medTimeout('GSC', samlaGsc(dag));
+      const g = await ta('gsc', medTimeout('GSC', samlaGsc(dag)));
       if (g) {
         if (g.dagsrad) {
           rad.gsc_clicks = g.dagsrad.clicks;
@@ -731,24 +971,7 @@ export async function collectAdminMetrics(
         // En dag utan rader lamnas som null: GSC ligger ungefar tva dagar
         // efter, och en nolla dar hade last som ett ras.
 
-        const gscRader = [
-          ...g.toppsidor.map((r) => ({ ...r, dimension: 'page' })),
-          ...g.toppord.map((r) => ({ ...r, dimension: 'query' })),
-        ].map((r) => ({
-          dag,
-          dimension: r.dimension,
-          nyckel: r.nyckel,
-          clicks: r.clicks,
-          impressions: r.impressions,
-          ctr: r.ctr,
-          position: r.position,
-        }));
-
-        if (gscRader.length) {
-          await admin
-            .from('admin_gsc_daily')
-            .upsert(gscRader, { onConflict: 'dag,dimension,nyckel' });
-        }
+        await skrivGscDimensioner(admin, dag, g);
         delsteg.gsc = 'ok';
       } else {
         delsteg.gsc = 'hoppat';
@@ -766,7 +989,7 @@ export async function collectAdminMetrics(
     delsteg.posthog = 'hoppat';
   } else {
     try {
-      const f = await medTimeout('PostHog', samlaFunnel(dag));
+      const f = await ta('posthog', medTimeout('PostHog', samlaFunnel(dag)));
       if (f && f.length) {
         await admin
           .from('admin_funnel_weekly')
@@ -785,7 +1008,7 @@ export async function collectAdminMetrics(
 
   // Supabase
   try {
-    const s = await medTimeout('Supabase', samlaSupabase(admin, dag));
+    const s = await ta('supabase', medTimeout('Supabase', samlaSupabase(admin, dag)));
     rad.new_accounts = s.new_accounts;
     rad.active_users = s.active_users;
     rad.emails_sent = s.emails_sent;
@@ -834,5 +1057,33 @@ export async function collectAdminMetrics(
     }
   }
 
-  return { dag, skrev, delsteg, fel };
+  // Aterfyllningen sist och med kvarvarande budget: dagens siffror gar fore,
+  // och det som inte hinns med tas igen i nasta korning.
+  let aterfyllt: CollectResultat['aterfyllt'];
+  if (val.aterfyll) {
+    const kvar = budgetMs - (Date.now() - start);
+    if (kvar > 2_000) {
+      const t0 = Date.now();
+      const res = await aterfyllLuckor(admin, dag, kvar);
+      tider.aterfyll = Date.now() - t0;
+      aterfyllt = { gscDagar: res.gscDagar, funnelVeckor: res.funnelVeckor };
+      fel.push(...res.fel);
+      delsteg.aterfyll =
+        res.fel.length > 0
+          ? 'fel'
+          : res.gscDagar.length || res.funnelVeckor.length
+            ? 'ok'
+            : 'hoppat';
+    } else {
+      delsteg.aterfyll = 'hoppat';
+    }
+  }
+
+  tider.totalt = Date.now() - start;
+  console.log(
+    `[admin/collect] ${dag} klar pa ${tider.totalt} ms`,
+    JSON.stringify(tider)
+  );
+
+  return { dag, skrev, delsteg, fel, tider, aterfyllt };
 }

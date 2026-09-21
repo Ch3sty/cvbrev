@@ -218,7 +218,14 @@ export async function GET(request: NextRequest) {
     if (!isMorningSlot) {
       try {
         const igar = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-        results.adminMetrics = await collectAdminMetrics(supabaseAdmin, dagStr(igar));
+        // aterfyll: GSC-luckorna 13 till 20 september uppstod for att Vercel
+        // saknade nycklarna medan nattkorningen bara samlade gardagen. Nu tas
+        // upp till fem saknade GSC-dagar och tva trattveckor igen per korning,
+        // med kvarvarande tid som budget sa dagens siffror alltid gar fore.
+        results.adminMetrics = await collectAdminMetrics(supabaseAdmin, dagStr(igar), {
+          aterfyll: true,
+          budgetMs: 40_000,
+        });
       } catch (error: any) {
         console.error('[Adminmetrik] Insamling misslyckades:', error);
         results.adminMetrics = { success: false, error: error.message };
