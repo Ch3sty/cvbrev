@@ -16,6 +16,7 @@ import { usePathname } from 'next/navigation'
 import { capture } from '@/lib/analytics/events'
 import { getPaywallCopy, type PaywallVariant } from './paywall-copy'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
+import TrialRowConnected from './TrialRowConnected'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
 import MarginPlate from '@/components/shell/MarginPlate'
 import {
@@ -97,7 +98,10 @@ export default function PaywallCard({
   const ctaClicked = (cta: 'primary' | 'secondary') =>
     capture('paywall_cta_clicked', { variant, surface, cta })
 
-  if (isPremium) return null
+  // Premium ser ingen betalvägg. Går premium av en provperiod visas i stället
+  // raden med priset, på exakt den plats spärren annars hade legat. Den läser
+  // profilen själv, så det här kortet förblir en ren vy utan datakällor.
+  if (isPremium) return <TrialRowConnected className={className} />
 
   const copy = getPaywallCopy(variant, {
     findingsTotal,

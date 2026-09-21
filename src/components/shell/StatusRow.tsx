@@ -33,6 +33,12 @@ export interface StatusRowProps {
   action?: ReactNode
   /** Tillgängligt namn när raden läses av skärmläsare. */
   label?: string
+  /**
+   * Låt texten gå i två rader i stället för att kapas. Standard är kapning,
+   * som håller raden på en höjd. Sätts där slutet av meningen bär innebörden
+   * och inte får försvinna, t.ex. priset under provperioden.
+   */
+  wrap?: boolean
   className?: string
 }
 
@@ -42,20 +48,21 @@ export default function StatusRow({
   showDot,
   action,
   label,
+  wrap,
   className,
 }: StatusRowProps) {
   const t = TONE[tone]
 
   return (
     <div
-      className={`flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 ${t.text} ${className ?? ''}`}
+      className={`flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 ${wrap ? 'py-2' : ''} ${t.text} ${className ?? ''}`}
       aria-label={label}
     >
       <span className="flex min-w-0 items-center gap-2">
         {showDot ? (
           <span className={`h-2 w-2 shrink-0 rounded-full ${t.dot}`} aria-hidden="true" />
         ) : null}
-        <span className="truncate text-sm font-medium">{children}</span>
+        <span className={`text-sm font-medium ${wrap ? '' : 'truncate'}`}>{children}</span>
       </span>
 
       {action ? <span className="shrink-0">{action}</span> : null}

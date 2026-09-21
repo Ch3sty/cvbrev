@@ -112,6 +112,11 @@ export interface AnalyticsEvents {
   }
   pricing_viewed: ClusterContext & { trigger: PricingTrigger }
   trial_started: { source: string }
+  /* Priset under provperioden (docs/rapporter/analys-effekt-2026-09-21.md).
+     Med reverse trial renderar betalväggarna null, så 19 av 20 nya konton
+     hann aldrig se ett pris innan de försvann. Raden som ersätter dem mäts
+     här: surface är sidan eller routen, en gång per montering. */
+  trial_price_shown: { surface: string }
   subscription_paid: { plan: string; amount?: number }
 }
 
