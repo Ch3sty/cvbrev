@@ -77,6 +77,11 @@ export async function generateMetadata({
   };
 }
 
+// Sidan läser searchParams (tag, page) och blir därför dynamisk, men all
+// data kommer från MDX i repot. Med revalidate får varje kombination av
+// parametrar en egen CDN-post i stället för no-store och origin varje gång.
+export const revalidate = 86400;
+
 export default async function ArticlesIndexPage({
   searchParams,
 }: {

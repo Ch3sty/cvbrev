@@ -1,6 +1,9 @@
 // src/app/robots.ts
 import { MetadataRoute } from 'next';
 
+// Helt statisk text. Den ska aldrig kosta en ISR-läsning per anrop.
+export const revalidate = false;
+
 export default function robots(): MetadataRoute.Robots {
   // Din webbplats bas-URL
   const baseUrl = 'https://www.jobbcoach.ai'; // *** UPPDATERA VID BEHOV ***

@@ -112,6 +112,12 @@ export async function generateMetadata(
     };
 }
 
+// Artiklarna kommer från MDX i repot och ändras bara när vi deployar. Ett
+// dygn som revalidate gör att CDN:et får behålla dem i stället för att slå
+// mot origin per besök. Varje artikel väger 650-680 kB, så en missad
+// cache-träff kostade både en ISR-läsning och hela sidan i origin-trafik.
+export const revalidate = 86400;
+
 // --- STATIC PARAMS GENERERING ---
 export async function generateStaticParams() {
     console.log("Generating static params for articles...");

@@ -39,6 +39,29 @@ function setAttributionCookie(request: NextRequest, response: NextResponse): voi
   if (pathname.startsWith('/api/') || pathname.startsWith('/_next/')) return
   if (request.headers.get('sec-fetch-dest') === 'empty') return
 
+  // Bara HTML-dokument. Ett Set-Cookie gör svaret privat, så CDN:et slutar
+  // dela det mellan besökare: varje träff blev en ISR-läsning och en full
+  // origin-överföring i stället för en CDN-träff. Sitemap, robots.txt och
+  // OG-bilderna fick cookien tidigare helt i onödan, och en artikel på
+  // 670 kB betalades om från origin varje gång.
+  if (request.headers.get('sec-fetch-dest') !== 'document') return
+
+  // Attributionen är intressant först när någon kommer utifrån. En intern
+  // klickning bär redan cookien, och en direktträff utan referrer ger ingen
+  // källa att spara. Att hoppa över dem håller resten av sajten CDN-cachad.
+  const referrer = request.headers.get('referer')
+  const hasCampaign = ['utm_source', 'utm_medium', 'utm_campaign', 'gclid'].some((key) =>
+    request.nextUrl.searchParams.has(key),
+  )
+  if (!hasCampaign) {
+    if (!referrer) return
+    try {
+      if (new URL(referrer).host === request.nextUrl.host) return
+    } catch {
+      return
+    }
+  }
+
   const attribution = buildAttribution({
     pathname,
     searchParams: request.nextUrl.searchParams,
@@ -70,14 +93,22 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Kör på alla request-paths UTOM:
-     * - _next/static (byggda assets)
-     * - _next/image (bildoptimering)
-     * - favicon.ico
-     * - filer med bild-/typsnitts-/media-ändelser i public/
-     * API-routes inkluderas (de har egen auth där det behövs, och updateSession
-     * blockerar bara PROTECTED_ROUTES så API påverkas inte av redirect-logiken).
+     * Proxyn kostar en Edge-invokering per träff och gör en sessionsläsning
+     * mot Supabase. Den ska därför bara röra det som faktiskt behöver session
+     * eller attribution. Utöver byggda assets och mediefiler är nu undantagna:
+     *
+     * - sitemap.xml, robots.txt, manifest.webmanifest och llms.txt
+     *   Rena maskinfiler. De har ingen session och ska ligga kvar i CDN:et.
+     * - opengraph-image / twitter-image
+     *   Genereras en gång och cachas. Cookien gjorde dem ocacheade.
+     * - api/cron
+     *   Vercels schemaläggare autentiserar med egen hemlighet, inte session.
+     * - _next i sin helhet, inte bara static och image
+     *   RSC-hämtningar och prefetch gick tidigare genom proxyn.
+     *
+     * Övriga API-routes går kvar genom proxyn: de har egen auth där det
+     * behövs, och updateSession blockerar bara PROTECTED_ROUTES.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|otf|mp4|webm)$).*)',
+    '/((?!_next/|api/cron/|favicon\\.ico|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|llms\\.txt|.*opengraph-image|.*twitter-image|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|otf|mp4|webm|txt|xml|json|pdf|css|js|map)$).*)',
   ],
 }

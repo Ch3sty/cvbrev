@@ -5,6 +5,10 @@ import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data';
 import { getAllAuthorIds } from '@/lib/authors';
 
+// Sitemapen byggs av MDX-filer i repot och ändras bara vid deploy. Utan
+// revalidate räknade varje sökmotorträff som en ISR-läsning på 86 kB.
+export const revalidate = 86400;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
   const baseUrl = 'https://www.jobbcoach.ai';

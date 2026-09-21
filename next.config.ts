@@ -11,10 +11,25 @@ const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
 
+  // Källkartor stannar i utvecklingsbygget. Produktionsbygget hade 189 MB
+  // .map-filer av 263 MB i server/, alltså 72 procent av allt som deployas.
+  // De filerna läser ingen i produktion, men de räknas mot bade Deployment
+  // Storage och Functions Storage eftersom varje lambda drar med sin chunk.
+  // Turbopack slår på serverkartor som standard, så de måste stängas av
+  // explicit. Felsökning i produktion sker via Vercels loggar, inte via
+  // kartor som ligger bredvid koden.
+  productionBrowserSourceMaps: false,
+
   // Tree-shaka tunga barrel-paket sa bara anvanda exporter hamnar i bundlen.
   // Lucide importeras brett (manga ikoner per sida), framer-motion ar tungt.
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
+    // Se noten vid productionBrowserSourceMaps: serverkartorna stod för
+    // merparten av deploy-storleken utan att göra nytta i produktion.
+    // serverSourceMaps styr webpack-vägen, turbopackSourceMaps den vi kör.
+    // Båda behövs: bara den senare tar faktiskt bort filerna ur bygget.
+    serverSourceMaps: false,
+    turbopackSourceMaps: false,
   },
 
   // Turbopack konfiguration för att undvika workspace root varningar
