@@ -8,13 +8,13 @@
  * Skriver till stdout. saas-lead sparar sedan sin analys i docs/rapporter/.
  */
 
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import { google } from 'googleapis';
 import { hogql } from './posthog-query';
 
-config({ path: '.env.local' });
+laddaEnv();
 
 const DAYS = Number(process.argv[process.argv.indexOf('--dagar') + 1]) || 7;
 

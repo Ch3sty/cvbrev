@@ -2,10 +2,10 @@
 // Kör med: npx tsx scripts/resend-failed-webhooks.ts
 
 import Stripe from 'stripe'
-import * as dotenv from 'dotenv'
+import { laddaEnv } from './_env'
 import * as path from 'path'
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env.local') })
+laddaEnv()
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-02-24.acacia',

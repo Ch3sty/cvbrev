@@ -1,8 +1,8 @@
 /** Hamtar urvalet publika sidor for prestandamatningen. */
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import { google } from 'googleapis';
 import fs from 'node:fs';
-config({ path: '.env.local' });
+laddaEnv();
 
 async function main() {
   const credentials = JSON.parse(process.env.GSC_SERVICE_ACCOUNT_JSON!);

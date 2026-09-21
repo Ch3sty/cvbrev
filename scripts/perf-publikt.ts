@@ -13,11 +13,11 @@
  * CLS 0. Grinden fäller vid mer än 20 procent över budget eller CLS över
  * 0,002, samma tolerans som det inloggade läget.
  */
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import puppeteer, { type Browser } from 'puppeteer-core';
 import fs from 'node:fs';
 
-config({ path: '.env.local' });
+laddaEnv();
 
 const CHROME_KANDIDATER = [
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',

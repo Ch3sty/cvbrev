@@ -18,13 +18,13 @@
  * och sätter viewporthöjden till det i stället.
  */
 
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import { createClient } from '@supabase/supabase-js';
 import puppeteer, { type Browser, type Page } from 'puppeteer-core';
 import fs from 'node:fs';
 import path from 'node:path';
 
-config({ path: '.env.local' });
+laddaEnv();
 
 const CHROME_KANDIDATER = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',

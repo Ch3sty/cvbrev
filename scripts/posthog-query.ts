@@ -5,9 +5,9 @@
  * Läser POSTHOG_PERSONAL_API_KEY, POSTHOG_PROJECT_ID och POSTHOG_HOST ur .env.local.
  */
 
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 
-config({ path: '.env.local' });
+laddaEnv();
 
 export async function hogql(query: string): Promise<{ columns: string[]; results: unknown[][] }> {
   const key = process.env.POSTHOG_PERSONAL_API_KEY;

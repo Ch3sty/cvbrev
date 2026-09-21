@@ -6,11 +6,10 @@
  * de senaste 28 dagarnas topp 20 sidor (klick, visningar, CTR, position).
  */
 
-import 'dotenv/config';
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import { google } from 'googleapis';
 
-config({ path: '.env.local' });
+laddaEnv();
 
 async function main() {
   const raw = process.env.GSC_SERVICE_ACCOUNT_JSON;

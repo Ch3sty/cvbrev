@@ -1,8 +1,8 @@
 /** Hämtar GSC-data för analysrapporten. npx tsx scripts/analys-gsc.ts */
-import { config } from 'dotenv';
+import { laddaEnv } from './_env';
 import { google } from 'googleapis';
 import fs from 'node:fs';
-config({ path: '.env.local' });
+laddaEnv();
 
 const START = '2026-06-12';
 
