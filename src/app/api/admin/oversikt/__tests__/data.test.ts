@@ -4,6 +4,7 @@ import {
   delta,
   tal,
   summa,
+  veckotal,
   dagBakat,
   type MetrikNyckel,
 } from '../data';
@@ -35,6 +36,10 @@ function rad(dag: string, varden: Partial<DagligaMetrik> = {}): DagligaMetrik {
     emails_sent: null,
     emails_opened: null,
     ai_cost_sek: null,
+    cv_uploaded: null,
+    letters_created: null,
+    tests_completed: null,
+    templates_downloaded: null,
     ...varden,
   };
 }
@@ -154,5 +159,59 @@ describe('dagBakat', () => {
     // datumet.
     expect(dagBakat('2026-10-26', 1)).toBe('2026-10-25');
     expect(dagBakat('2026-10-25', 1)).toBe('2026-10-24');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Sjudagarssummorna i sektion 3
+// ---------------------------------------------------------------------------
+
+// De fyra användningstalen är sjudagarssummor med delta mot de sju dagarna
+// innan, inte dagsjämförelser: en dag med två brev och en med ett är inte ett
+// ras. Felet som kostar är att deltat räknas mot fel sju dagar, alltså att
+// hoppaOver missas, så att talet jämförs med sig självt och alltid står still.
+
+describe('veckotal', () => {
+  /** Fjorton dagar, senaste först, med ett värde per dag. */
+  function serie(varden: number[]): DagligaMetrik[] {
+    return varden.map((v, i) =>
+      rad(dagBakat('2026-09-21', i), { tests_completed: v })
+    );
+  }
+
+  it('summerar de senaste sju dagarna', () => {
+    const r = serie([1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0]);
+    expect(veckotal(r, 'tests_completed').varde).toBe(28);
+  });
+
+  it('jämför mot de sju dagarna innan, inte mot samma sju', () => {
+    // 7 senaste dagarna ger 7, de sju innan ger 14. Deltat ska vara minus
+    // sju, inte noll.
+    const r = serie([1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2]);
+    const t = veckotal(r, 'tests_completed');
+    expect(t.varde).toBe(7);
+    expect(t.delta).toBe(-7);
+  });
+
+  it('ger ett positivt delta när veckan växer', () => {
+    const r = serie([3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1]);
+    expect(veckotal(r, 'tests_completed').delta).toBe(14);
+  });
+
+  it('räknar en lucka som noll, inte som en jämförelse som faller bort', () => {
+    // Kolumnerna skrivs av samma delsteg som new_accounts, så en null betyder
+    // att dagen aldrig samlades in. I en summa är det noll.
+    const r = [
+      rad('2026-09-21', { tests_completed: 5 }),
+      rad('2026-09-20'),
+      rad('2026-09-19', { tests_completed: 5 }),
+    ];
+    expect(veckotal(r, 'tests_completed').varde).toBe(10);
+  });
+
+  it('ger noll och inget delta på en tom tabell', () => {
+    const t = veckotal([], 'tests_completed');
+    expect(t.varde).toBe(0);
+    expect(t.delta).toBe(0);
   });
 });

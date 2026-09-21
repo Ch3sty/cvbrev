@@ -4,6 +4,14 @@
  * Kor: npx tsx scripts/admin-backfill.ts [antal dagar] [--hoppa-gsc] [--hoppa-posthog]
  * Standard ar 90 dagar, alltsa planens avsnitt 5.5.
  *
+ * Med --bara-anvandning skrivs bara de fyra anvandningskolumnerna
+ * (cv_uploaded, letters_created, tests_completed, templates_downloaded), och
+ * ingenting annat rors. Det ar lagets enda satt att fylla nya kolumner bakat:
+ * en vanlig omkorning gor en full upsert, och ett --hoppa-gsc dar hade
+ * skrivit null over de 88 dagar som redan har GSC-siffror. Stripe, GSC och
+ * PostHog anropas inte alls i det laget, sa 90 dagar tar sekunder i stallet
+ * for tiotals minuter.
+ *
  * Engangsskript. Efter backfyllningen haller cronen tabellen aktuell genom
  * midnattsslotten i /api/cron/pricing-sync.
  *
@@ -18,23 +26,30 @@
  *    sa att ingen laser den som en platt forsaljning.
  */
 
-import { config } from 'dotenv';
-import path from 'path';
+import { laddaEnv } from './_env';
 
-config({ path: path.resolve(process.cwd(), '.env.local') });
+laddaEnv();
 
 async function main() {
   const args = process.argv.slice(2);
   const antalDagar = Number(args.find((a) => /^\d+$/.test(a)) ?? 90);
   const hoppaGsc = args.includes('--hoppa-gsc');
   const hoppaPosthog = args.includes('--hoppa-posthog');
+  const baraAnvandning = args.includes('--bara-anvandning');
 
   // Importeras forst efter att .env.local lasts in, annars saknas nycklarna
   // nar modulerna initieras.
   const { getSupabaseAdmin } = await import('../src/lib/supabase/admin');
-  const { collectAdminMetrics, dagStr } = await import('../src/lib/admin/collect');
+  const { collectAdminMetrics, samlaAnvandning, dagStr } = await import(
+    '../src/lib/admin/collect'
+  );
 
   const admin = getSupabaseAdmin() as any;
+
+  if (baraAnvandning) {
+    await backfyllAnvandning(admin, antalDagar, samlaAnvandning, dagStr);
+    return;
+  }
 
   console.log(
     `Backfyller ${antalDagar} dagar${hoppaGsc ? ', utan GSC' : ''}${
@@ -74,6 +89,61 @@ async function main() {
 
   console.log(`\n${ok} dagar skrivna, ${fel} misslyckade.`);
   console.log(`admin_daily_metrics har nu ${count ?? 0} rader.`);
+}
+
+/**
+ * Skriver bara de fyra anvandningskolumnerna, en dag i taget.
+ *
+ * Upsert pa dag, sa en dag som annu inte finns skapas och en som finns far
+ * sina ovriga kolumner ororda: PostgREST skriver bara de falt som skickas.
+ * Det ar hela poangen med det har laget. En full omkorning hade gatt mot
+ * Stripe nittio ganger och, med --hoppa-gsc, skrivit null over de 88 dagar
+ * som redan har GSC-siffror.
+ */
+async function backfyllAnvandning(
+  admin: any,
+  antalDagar: number,
+  samlaAnvandning: (admin: any, dag: string) => Promise<Record<string, number>>,
+  dagStr: (d?: Date) => string
+) {
+  console.log(
+    `Backfyller ${antalDagar} dagar, bara anvandningskolumnerna.\n`
+  );
+
+  let ok = 0;
+  let fel = 0;
+  const nu = Date.now();
+  const summor: Record<string, number> = {};
+
+  for (let i = antalDagar - 1; i >= 0; i--) {
+    const dag = dagStr(new Date(nu - i * 24 * 60 * 60 * 1000));
+
+    try {
+      const tal = await samlaAnvandning(admin, dag);
+      const { error } = await admin
+        .from('admin_daily_metrics')
+        .upsert({ dag, ...tal }, { onConflict: 'dag' });
+      if (error) throw new Error(error.message);
+
+      for (const [k, v] of Object.entries(tal)) {
+        summor[k] = (summor[k] ?? 0) + v;
+      }
+
+      const rad = Object.entries(tal)
+        .map(([k, v]) => `${k}:${v}`)
+        .join(' ');
+      // Bara dagar med nagot att visa, annars ar 90 rader nollor brus.
+      if (Object.values(tal).some((v) => v > 0)) console.log(`${dag}  ${rad}`);
+      ok++;
+    } catch (err) {
+      fel++;
+      console.error(`${dag}  FEL  ${err instanceof Error ? err.message : err}`);
+    }
+  }
+
+  console.log(`\n${ok} dagar skrivna, ${fel} misslyckade.`);
+  console.log('Summa over perioden:');
+  for (const [k, v] of Object.entries(summor)) console.log(`  ${k}: ${v}`);
 }
 
 main().catch((err) => {

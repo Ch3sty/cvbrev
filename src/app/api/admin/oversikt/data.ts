@@ -43,6 +43,19 @@ export interface Tal {
   motForraVeckan: number | null;
 }
 
+/**
+ * En sjudagarssumma med sin jamforelse mot de sju dagarna innan.
+ *
+ * Skilt fran Tal, som jamfor en enskild dag mot i gar och mot samma veckodag
+ * forra veckan. Anvandningstalen ar for sma per dag for att en dagsjamforelse
+ * ska saga nagot: en dag med tva brev och en med ett ar inte ett ras.
+ */
+export interface Veckotal {
+  varde: number;
+  /** varde minus samma summa for de sju dagarna dessforinnan. */
+  delta: number;
+}
+
 export interface SeriePunkt {
   dag: string;
   /** MRR i kronor, avrundat. Null nar dagen saknar matning. */
@@ -82,9 +95,17 @@ export interface OversiktData {
     aktiva: Tal;
     aktiva7: number;
     handelser7: number;
-    aktiveradeCv: number;
-    aktiveradeBrev: number;
     profiler: number;
+    /**
+     * De fyra anvandningstalen ur sanningskallorna, sjudagarssumma med delta
+     * mot veckan innan. De ersatter aktiveringstalen, som byggde pa
+     * first_cv_uploaded_at och first_letter_created_at och var satta pa tva
+     * konton av trehundra.
+     */
+    cvUppladdade7: Veckotal;
+    brevSkapade7: Veckotal;
+    testerSlutforda7: Veckotal;
+    mallarNedladdade7: Veckotal;
   };
 
   /** Fraga 4: fungerar mejlen? */
@@ -162,6 +183,21 @@ export function summa(
   return s;
 }
 
+/**
+ * Sjudagarssumman och dess delta mot veckan innan, ur en kolumn.
+ *
+ * Luckor raknas som noll i summan, vilket ar ratt har: de fyra
+ * anvandningskolumnerna skrivs av samma delsteg som new_accounts, sa en lucka
+ * betyder att dagen aldrig samlades in och inte att matningen fattas.
+ */
+export function veckotal(
+  rader: DagligaMetrik[],
+  nyckel: MetrikNyckel
+): Veckotal {
+  const nu = summa(rader, nyckel, 7);
+  return { varde: nu, delta: nu - summa(rader, nyckel, 7, 7) };
+}
+
 /** Flyttar ett YYYY-MM-DD ett antal dagar bakat. */
 export function dagBakat(dag: string, antal: number): string {
   const d = new Date(`${dag}T12:00:00Z`);
@@ -179,8 +215,6 @@ interface Sidoaggregat {
   senasteFel: { kalla: string; meddelande: string; nar: string } | null;
   handelser7: number;
   aktiva7: number;
-  aktiveradeCv: number;
-  aktiveradeBrev: number;
   profiler: number;
 }
 
@@ -204,8 +238,6 @@ const hamtaSidoaggregat = unstable_cache(
       senasteFel: null,
       handelser7: 0,
       aktiva7: 0,
-      aktiveradeCv: 0,
-      aktiveradeBrev: 0,
       profiler: 0,
     };
 
@@ -232,9 +264,13 @@ const hamtaSidoaggregat = unstable_cache(
             .select('user_id')
             .gte('created_at', vecka)
             .limit(20000),
+          // Bara antalet konton behovs. Tidigare hamtade den har fragan en
+          // rad per konto for att rakna aktiveringskolumnerna, som var satta
+          // pa tva konton av trehundra. Talen kommer nu ur sanningskallorna
+          // via admin_daily_metrics, sa det racker med en head-raekning.
           admin
             .from('admin_user_rows')
-            .select('first_cv_uploaded_at, first_letter_created_at'),
+            .select('id', { count: 'exact', head: true }),
         ]);
 
       const unika = new Set<string>();
@@ -243,11 +279,6 @@ const hamtaSidoaggregat = unstable_cache(
       }>) {
         if (rad.user_id) unika.add(rad.user_id);
       }
-
-      const profilRader = (radRes.data ?? []) as Array<{
-        first_cv_uploaded_at: string | null;
-        first_letter_created_at: string | null;
-      }>;
 
       const senaste = ((senasteRes.data ?? []) as Array<{
         kalla: string;
@@ -267,10 +298,7 @@ const hamtaSidoaggregat = unstable_cache(
           : null,
         handelser7: (aktivitetRes.data ?? []).length,
         aktiva7: unika.size,
-        aktiveradeCv: profilRader.filter((r) => r.first_cv_uploaded_at).length,
-        aktiveradeBrev: profilRader.filter((r) => r.first_letter_created_at)
-          .length,
-        profiler: profilRader.length,
+        profiler: radRes.count ?? 0,
       };
     } catch (fel) {
       console.error('[admin/oversikt] sidoaggregaten gick inte att lasa:', fel);
@@ -351,9 +379,11 @@ export async function hamtaOversikt(): Promise<OversiktData> {
       aktiva: t('active_users'),
       aktiva7: sido.aktiva7,
       handelser7: sido.handelser7,
-      aktiveradeCv: sido.aktiveradeCv,
-      aktiveradeBrev: sido.aktiveradeBrev,
       profiler: sido.profiler,
+      cvUppladdade7: veckotal(rader, 'cv_uploaded'),
+      brevSkapade7: veckotal(rader, 'letters_created'),
+      testerSlutforda7: veckotal(rader, 'tests_completed'),
+      mallarNedladdade7: veckotal(rader, 'templates_downloaded'),
     },
 
     mejl: {

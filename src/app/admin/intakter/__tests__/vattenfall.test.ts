@@ -42,6 +42,10 @@ function rad(
     emails_sent: null,
     emails_opened: null,
     ai_cost_sek: null,
+    cv_uploaded: null,
+    letters_created: null,
+    tests_completed: null,
+    templates_downloaded: null,
     ...extra,
   };
 }

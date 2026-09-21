@@ -43,6 +43,14 @@ export interface DagligaMetrik {
   emails_sent: number | null;
   emails_opened: number | null;
   ai_cost_sek: number | null;
+  /** Rader i cv_texts inom dygnet. Sanningskälla, inte user_activities. */
+  cv_uploaded: number | null;
+  /** Rader i letters inom dygnet. */
+  letters_created: number | null;
+  /** Slutförda test inom dygnet, alla tre testtabellerna summerade. */
+  tests_completed: number | null;
+  /** Rader i formatted_cv_downloads inom dygnet. */
+  templates_downloaded: number | null;
 }
 
 export interface CollectResultat {
@@ -469,6 +477,10 @@ export interface SupabaseDelresultat {
   emails_sent: number;
   emails_opened: number;
   ai_cost_sek: number | null;
+  cv_uploaded: number;
+  letters_created: number;
+  tests_completed: number;
+  templates_downloaded: number;
 }
 
 /**
@@ -542,7 +554,85 @@ export async function samlaSupabase(
     ai_cost_sek = null;
   }
 
-  return { new_accounts, active_users, emails_sent, emails_opened, ai_cost_sek };
+  const anvandning = await samlaAnvandning(admin, dag);
+
+  return {
+    new_accounts,
+    active_users,
+    emails_sent,
+    emails_opened,
+    ai_cost_sek,
+    ...anvandning,
+  };
+}
+
+/** De fyra anvandningstalen for ett dygn. */
+export interface AnvandningDelresultat {
+  cv_uploaded: number;
+  letters_created: number;
+  tests_completed: number;
+  templates_downloaded: number;
+}
+
+/**
+ * De fyra anvandningstalen, raknade pa sina egna tabeller.
+ *
+ * Aldrig pa user_activities: den tabellen skrivs fire-and-forget fran
+ * klienten och tappar rader nar sidan navigerar bort innan anropet hunnit
+ * fram, och test_completed skrevs bara nar resultatsidan faktiskt
+ * renderades. Darfor syntes varken tester eller mallnedladdningar i adminen.
+ *
+ * Egen funktion for att backfyllningen ska kunna skriva bara de har fyra
+ * kolumnerna utan att rora Stripe-, GSC- och mejlkolumnerna i samma rad.
+ * Alla fragor ar head-raekningar, alltsa inga radhamtningar.
+ */
+export async function samlaAnvandning(
+  admin: Admin,
+  dag: string
+): Promise<AnvandningDelresultat> {
+  const { start, slut } = dygnsgranser(dag);
+  const franIso = start.toISOString();
+  const tillIso = slut.toISOString();
+
+  const raknare = async (tabell: string, kolumn: string): Promise<number> => {
+    const { count } = await admin
+      .from(tabell)
+      .select('*', { count: 'exact', head: true })
+      .gte(kolumn, franIso)
+      .lt(kolumn, tillIso);
+    return count ?? 0;
+  };
+
+  // Slutforda test ar summan av tre tabeller. De tva inloggade raknas pa
+  // completed_at; de publika proven har inget completed_at, sa ett satt score
+  // ar slutforandet dar.
+  const [
+    cv_uploaded,
+    letters_created,
+    templates_downloaded,
+    logikSlut,
+    personlighetSlut,
+    anonSvar,
+  ] = await Promise.all([
+    raknare('cv_texts', 'created_at'),
+    raknare('letters', 'created_at'),
+    raknare('formatted_cv_downloads', 'downloaded_at'),
+    raknare('logic_test_v4_sessions', 'completed_at'),
+    raknare('personality_test_sessions', 'completed_at'),
+    admin
+      .from('anon_test_sessions')
+      .select('*', { count: 'exact', head: true })
+      .not('score', 'is', null)
+      .gte('created_at', franIso)
+      .lt('created_at', tillIso),
+  ]);
+
+  return {
+    cv_uploaded,
+    letters_created,
+    templates_downloaded,
+    tests_completed: logikSlut + personlighetSlut + (anonSvar.count ?? 0),
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -584,6 +674,10 @@ export async function collectAdminMetrics(
     emails_sent: null,
     emails_opened: null,
     ai_cost_sek: null,
+    cv_uploaded: null,
+    letters_created: null,
+    tests_completed: null,
+    templates_downloaded: null,
   };
 
   // Stripe
@@ -678,6 +772,10 @@ export async function collectAdminMetrics(
     rad.emails_sent = s.emails_sent;
     rad.emails_opened = s.emails_opened;
     rad.ai_cost_sek = s.ai_cost_sek;
+    rad.cv_uploaded = s.cv_uploaded;
+    rad.letters_created = s.letters_created;
+    rad.tests_completed = s.tests_completed;
+    rad.templates_downloaded = s.templates_downloaded;
     delsteg.supabase = 'ok';
   } catch (err) {
     delsteg.supabase = 'fel';

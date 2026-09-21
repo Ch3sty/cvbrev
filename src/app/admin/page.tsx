@@ -23,7 +23,11 @@ import PageHeader from '@/components/shell/PageHeader';
 import SectionCard from '@/components/admin/SectionCard';
 import MetricCard from '@/components/admin/MetricCard';
 import FlowError from '@/components/shell/FlowError';
-import { hamtaOversikt, type Tal } from '@/app/api/admin/oversikt/data';
+import {
+  hamtaOversikt,
+  type Tal,
+  type Veckotal,
+} from '@/app/api/admin/oversikt/data';
 import MrrDiagram from './MrrDiagram';
 
 // Behorigheten i layouten ar redan force-dynamic, men talen ska ocksa vara
@@ -113,6 +117,24 @@ function jamforelser(
   };
 }
 
+/**
+ * MetricCards jamforelseprops ur ett Veckotal.
+ *
+ * Sjudagarssummorna har bara en jamforelse, mot de sju dagarna innan, sa de
+ * behover inte tvaradersvarianten i jamforelser().
+ */
+function veckoJamforelse(t: Veckotal): {
+  delta?: number;
+  deltaText?: string;
+  jamforelse?: string;
+} {
+  return {
+    delta: t.delta,
+    deltaText: deltaText(t.delta, antal),
+    jamforelse: 'mot veckan innan',
+  };
+}
+
 function datumText(dag: string): string {
   const d = new Date(`${dag}T12:00:00Z`);
   if (Number.isNaN(d.getTime())) return dag;
@@ -160,9 +182,6 @@ export default async function AdminOversiktPage() {
       ? undefined
       : `Google Search Console ligger efter. Senaste dag med data: ${datumText(data.senasteGscDag)}.`
     : 'Google Search Console har ingen data i fönstret.';
-
-  const aktiveringsNot =
-    'Känt mätfel: aktiveringsmilstolpen sätts inte vid uppladdning, så talet är för lågt.';
 
   const mejlDelta = mejl.skickade7 - mejl.skickadeForra7;
 
@@ -290,6 +309,29 @@ export default async function AdminOversiktPage() {
       >
         <Tal4>
           <MetricCard
+            etikett="CV uppladdade, 7 dagar"
+            varde={antal(anvandning.cvUppladdade7.varde)}
+            {...veckoJamforelse(anvandning.cvUppladdade7)}
+          />
+          <MetricCard
+            etikett="Brev skapade, 7 dagar"
+            varde={antal(anvandning.brevSkapade7.varde)}
+            {...veckoJamforelse(anvandning.brevSkapade7)}
+          />
+          <MetricCard
+            etikett="Tester slutförda, 7 dagar"
+            varde={antal(anvandning.testerSlutforda7.varde)}
+            {...veckoJamforelse(anvandning.testerSlutforda7)}
+          />
+          <MetricCard
+            etikett="Mallar nedladdade, 7 dagar"
+            varde={antal(anvandning.mallarNedladdade7.varde)}
+            {...veckoJamforelse(anvandning.mallarNedladdade7)}
+          />
+        </Tal4>
+
+        <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <MetricCard
             etikett="Aktiva i dag"
             varde={antal(anvandning.aktiva.varde)}
             {...jamforelser(anvandning.aktiva, antal)}
@@ -303,28 +345,16 @@ export default async function AdminOversiktPage() {
             etikett="Händelser, 7 dagar"
             varde={antal(anvandning.handelser7)}
           />
-          <MetricCard
-            etikett="Har laddat upp CV"
-            varde={antal(anvandning.aktiveradeCv)}
-            datakvalitet={aktiveringsNot}
-          />
-        </Tal4>
-
-        <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <MetricCard
-            etikett="Har skrivit brev"
-            varde={antal(anvandning.aktiveradeBrev)}
-            datakvalitet={aktiveringsNot}
-          />
         </div>
 
         <p className="mt-4 text-meta text-ink-3">
-          Aktiveringstalen bygger på{' '}
-          <code className="tabular-nums">first_cv_uploaded_at</code> och{' '}
-          <code className="tabular-nums">first_letter_created_at</code>, som
-          sätts på 2 av {antal(anvandning.profiler)} konton trots betydligt fler
-          brev och CV i databasen. Talen står kvar för att fixen ska gå att se,
-          men de är inte sanna än. Användarlistan har de riktiga räknarna.
+          De fyra talen räknas på sina egna tabeller: cv_texts, letters, de tre
+          testtabellerna och formatted_cv_downloads. Tidigare stod här
+          aktiveringsmilstolpar ur <code className="tabular-nums">profiles</code>,
+          som var satta på två konton av {antal(anvandning.profiler)}, och
+          tester och mallnedladdningar syntes inte alls. Aktiva och händelser
+          kommer fortfarande ur user_activities och är därför lägre än de
+          borde vara. Funnel har uppdelningen per test och per mall.
         </p>
       </SectionCard>
 

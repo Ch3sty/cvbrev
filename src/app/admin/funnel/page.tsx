@@ -43,6 +43,19 @@ const procent = (a: number | null) => {
   return `${(a * 100).toFixed(a > 0 && a < 0.1 ? 1 : 0)} %`;
 };
 
+/**
+ * Ett delta med tecken.
+ *
+ * Noll skrivs som ett tankstreck och inte som "0", så att ögat hittar de rader
+ * där något faktiskt rört sig. Färgen är ink-2 rakt igenom: en funktion som
+ * används mindre en vecka är inte nödvändigtvis dåligt, och rött på var tredje
+ * rad gör tabellen oläsbar.
+ */
+function deltaText(n: number): string {
+  if (n === 0) return '–';
+  return `${n > 0 ? '+' : '−'}${Math.abs(n).toLocaleString('sv-SE')}`;
+}
+
 function veckoEtikett(vecka: string): string {
   const d = new Date(`${vecka}T12:00:00Z`);
   if (Number.isNaN(d.getTime())) return vecka;
@@ -221,39 +234,49 @@ export default async function AdminFunnelPage({
       </SectionCard>
 
       <SectionCard
-        rubrik="Funktionsanvändning, senaste 30 dagarna"
-        action={<span className="text-meta text-ink-3">user_activities</span>}
+        rubrik="Funktionsanvändning"
+        action={<span className="text-meta text-ink-3">egna tabeller</span>}
         naken
       >
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[560px] text-sm">
+          <table className="w-full min-w-[720px] text-sm">
             <thead>
               <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
                 <th className="px-4 py-3 font-medium">Funktion</th>
-                <th className="px-4 py-3 text-right font-medium">Händelser</th>
-                <th className="px-4 py-3 text-right font-medium">Personer</th>
+                <th className="px-4 py-3 text-right font-medium">7 dagar</th>
+                <th className="px-4 py-3 text-right font-medium">Mot veckan innan</th>
+                <th className="px-4 py-3 text-right font-medium">30 dagar</th>
+                <th className="px-4 py-3 text-right font-medium">Personer, 30 dagar</th>
                 <th className="px-4 py-3 text-right font-medium">Senast</th>
+                <th className="px-4 py-3 font-medium">Källa</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-kant">
-              {toppFunktioner.map((f) => (
-                <tr key={f.typ}>
-                  <td className="px-4 py-3 text-ink-1">{f.typ}</td>
+              {data.sannaFunktioner.map((f) => (
+                <tr key={f.nyckel}>
+                  <td className="px-4 py-3 text-ink-1">{f.etikett}</td>
                   <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                    {tal(f.antal)}
+                    {tal(f.antal7)}
                   </td>
                   <td className="px-4 py-3 text-right tabular-nums text-ink-2">
-                    {tal(f.personer)}
+                    {deltaText(f.delta7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(f.antal30)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(f.personer30)}
                   </td>
                   <td className="px-4 py-3 text-right text-meta text-ink-3">
                     {relativTid(f.senast)}
                   </td>
+                  <td className="px-4 py-3 text-meta text-ink-3">{f.kalla}</td>
                 </tr>
               ))}
-              {!toppFunktioner.length ? (
+              {!data.sannaFunktioner.length ? (
                 <tr>
-                  <td className="px-4 py-3 text-sm text-ink-2" colSpan={4}>
-                    Ingen aktivitet registrerad de senaste 30 dagarna.
+                  <td className="px-4 py-3 text-sm text-ink-2" colSpan={7}>
+                    Ingen av sanningskällorna svarade.
                   </td>
                 </tr>
               ) : null}
@@ -261,6 +284,162 @@ export default async function AdminFunnelPage({
           </table>
         </div>
       </SectionCard>
+
+      <SectionCard
+        rubrik="Tester per typ"
+        action={<span className="text-meta text-ink-3">testsessioner</span>}
+        naken
+      >
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] text-sm">
+            <thead>
+              <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
+                <th className="px-4 py-3 font-medium">Test</th>
+                <th className="px-4 py-3 text-right font-medium">Startade, 7 d</th>
+                <th className="px-4 py-3 text-right font-medium">Slutförda, 7 d</th>
+                <th className="px-4 py-3 text-right font-medium">Mot veckan innan</th>
+                <th className="px-4 py-3 text-right font-medium">Startade, 30 d</th>
+                <th className="px-4 py-3 text-right font-medium">Slutförda, 30 d</th>
+                <th className="px-4 py-3 text-right font-medium">Slutförandegrad</th>
+                <th className="px-4 py-3 text-right font-medium">Senast</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-kant">
+              {data.tester.map((t) => (
+                <tr key={t.nyckel}>
+                  <td className="px-4 py-3 text-ink-1">{t.etikett}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-1">
+                    {tal(t.startade7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-1">
+                    {tal(t.slutforda7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {deltaText(t.delta7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(t.startade30)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(t.slutforda30)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {t.slutforandegrad === null
+                      ? ''
+                      : `${Math.round(t.slutforandegrad * 100)} %`}
+                  </td>
+                  <td className="px-4 py-3 text-right text-meta text-ink-3">
+                    {relativTid(t.senast)}
+                  </td>
+                </tr>
+              ))}
+              {!data.tester.length ? (
+                <tr>
+                  <td className="px-4 py-3 text-sm text-ink-2" colSpan={8}>
+                    Inga testsessioner de senaste 30 dagarna.
+                  </td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </div>
+      </SectionCard>
+
+      <SectionCard
+        rubrik="Mallnedladdningar, topp fem"
+        action={
+          <span className="text-meta text-ink-3">formatted_cv_downloads</span>
+        }
+        naken
+      >
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-sm">
+            <thead>
+              <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
+                <th className="px-4 py-3 font-medium">Mall</th>
+                <th className="px-4 py-3 text-right font-medium">7 dagar</th>
+                <th className="px-4 py-3 text-right font-medium">Mot veckan innan</th>
+                <th className="px-4 py-3 text-right font-medium">30 dagar</th>
+                <th className="px-4 py-3 text-right font-medium">Personer, 30 dagar</th>
+                <th className="px-4 py-3 text-right font-medium">Senast</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-kant">
+              {data.mallar.map((m) => (
+                <tr key={m.templateId}>
+                  <td className="px-4 py-3 text-ink-1">{m.templateId}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-1">
+                    {tal(m.antal7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {deltaText(m.delta7)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(m.antal30)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {tal(m.personer30)}
+                  </td>
+                  <td className="px-4 py-3 text-right text-meta text-ink-3">
+                    {relativTid(m.senast)}
+                  </td>
+                </tr>
+              ))}
+              {!data.mallar.length ? (
+                <tr>
+                  <td className="px-4 py-3 text-sm text-ink-2" colSpan={6}>
+                    Inga mallnedladdningar de senaste 30 dagarna.
+                  </td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </div>
+      </SectionCard>
+
+      {toppFunktioner.length ? (
+        <SectionCard
+          rubrik="Händelser i koden, spårningskontroll"
+          action={<span className="text-meta text-ink-3">user_activities</span>}
+          naken
+        >
+          <p className="px-4 pt-4 text-sm text-ink-2">
+            Talen här är inte en mätning. user_activities skrivs
+            fire-and-forget från klienten och tappar rader vid navigering.
+            Listan står kvar för att visa vilka händelser som fyrar
+            överhuvudtaget, så att en händelse som aldrig når fram går att
+            skilja från en funktion som inte används.
+          </p>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full min-w-[560px] text-sm">
+              <thead>
+                <tr className="border-y border-kant text-left text-sm font-medium text-ink-3">
+                  <th className="px-4 py-3 font-medium">Händelse</th>
+                  <th className="px-4 py-3 text-right font-medium">Rader, 30 d</th>
+                  <th className="px-4 py-3 text-right font-medium">Personer</th>
+                  <th className="px-4 py-3 text-right font-medium">Senast</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-kant">
+                {toppFunktioner.map((f) => (
+                  <tr key={f.typ}>
+                    <td className="px-4 py-3 text-ink-1">{f.typ}</td>
+                    <td className="px-4 py-3 text-right tabular-nums text-ink-1">
+                      {tal(f.antal)}
+                    </td>
+                    <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                      {tal(f.personer)}
+                    </td>
+                    <td className="px-4 py-3 text-right text-meta text-ink-3">
+                      {relativTid(f.senast)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </SectionCard>
+      ) : null}
 
       <SectionCard
         rubrik="Används inte"
