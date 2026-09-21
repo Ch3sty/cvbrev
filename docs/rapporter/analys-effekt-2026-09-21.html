@@ -1,0 +1,320 @@
+<title>Effektanalys: en vecka med Traden</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:11pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.bar{fill:var(--acc)}.bar.warn{fill:#c2410c;opacity:.55}
+.pt{fill:var(--dim);opacity:.32}.pt.hot{fill:var(--acc);opacity:.85}
+.leader{stroke:var(--faint);stroke-width:.6;opacity:.6}
+.curve{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;opacity:.7}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim)}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style>
+<div class="wrap">
+
+<h1>En vecka med Tråden</h1>
+<p class="sub">Vad förändringarna 14 till 21 september gjorde, mätt mot de fjorton dagarna före. Och varför adminen inte visar det du letar efter.</p>
+<p class="meta">Rapport till ägaren, skriven 21 september 2026. Mätfönster: 14 till 21 september (8 dagar) mot 31 augusti till 13 september (14 dagar). Källor: Supabase (produktdata, sanningskällor per funktion), PostHog EU projekt 148688, Stripe-API, Google Search Console.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Nya konton, efter</div><div class="v">20</div><div class="d">2,5 per dag mot 2,0 före</div></div>
+<div class="kpi"><div class="k">Betalväggar visade</div><div class="v">3</div><div class="d">av en enda person</div></div>
+<div class="kpi"><div class="k">Kassabesök</div><div class="v">0</div><div class="d">sedan 9 september</div></div>
+<div class="kpi"><div class="k">MRR</div><div class="v">447 kr</div><div class="d">från 596 kr, en uppsägning</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Produkten blev mätbart bättre, men bara för dem som redan var inne.</strong> CV-analysen gick från 1 slutförd av 9 startade till 20 av 20. Sidor per session steg från 1,83 till 3,01. Reverse trial träffar nu 19 av 20 nya konton mot 2 av 28 före. Tre saker som var trasiga är lagade, och det syns direkt i datan.</li>
+<li><strong>Ingen konverterar därför att nästan ingen ser ett pris.</strong> Sedan betalväggsmätningen gick live 15 september har <code>paywall_shown</code> utlösts tre gånger, av en enda person, på en enda sida. <code>paywall_cta_clicked</code> noll. Stripe har inte haft en enda checkout-session sedan 9 september. Tratten faller inte vid kassan, den faller innan någon ens får se vad det kostar.</li>
+<li><strong>Reverse trial brinner utan att någon är där.</strong> Nitton konton fick fem dagar Premium. Sexton av dem har noll aktivitet efter sin första dag. Sex trialperioder har redan löpt ut utan köp, och bara ett enda trial_day5-mejl har någonsin skickats. Vi ger bort produkten till personer som inte återvänder för att använda den.</li>
+<li><strong>Du kan inte se tester och mallnedladdningar därför att Funnel-sidan aldrig hämtar dem.</strong> Det är inte ett mätfel. I <code>src/app/admin/funnel/data.ts</code> är fälten <code>sannaFunktioner</code>, <code>tester</code> och <code>mallar</code> deklarerade i typen <code>FunnelData</code>, men funktionen som bygger datan returnerar dem aldrig. Sidan visar bara rå <code>user_activities</code>. Testen ligger i <code>logic_test_v4_sessions</code> och nedladdningarna i <code>formatted_cv_downloads</code>, och båda används flitigt.</li>
+<li><strong>Trafiken är det som går bäst, och Tråden rörde den inte.</strong> Snittpositionen förbättrades från 22,7 till 11,5 under veckan och CTR från 0,86 till 2,24 procent. Publika sidor är orörda av Tråden, som bara träffade inloggat läge, så förbättringen är rankingarbete som mognar. Adminens trafiksida visar det dock inte: <code>admin_gsc_daily</code> har inte fått en rad sedan 12 september.</li>
+</ol>
+
+<div class="box acc">
+<h4>Om siffrornas storlek</h4>
+<p>Tjugo nya konton på åtta dagar och 28 på fjorton. Med de talen är nästan ingenting statistiskt säkerställt: en enda persons beteende flyttar en andel med fem procentenheter. Jag anger riktning och storleksordning, aldrig signifikans. Det som däremot <em>är</em> säkert är de tekniska konstaterandena: en tom tabell, en funktion som inte returnerar ett fält, och en Stripe-logg utan sessioner är fakta oavsett urvalsstorlek. Läs slutsats 2, 4 och 5 som säkra och slutsats 1 och 3 som riktning.</p>
+</div>
+
+<h2><span class="num">2</span>Vad som gick live, och vad som därmed går att bedöma</h2>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad</th><th>Ålder i dag</th><th>Går att bedöma?</th></tr></thead>
+<tbody>
+<tr><td>14 sep 02:30</td><td><strong>Designsystem v2 "Tråden"</strong> i hela inloggade vyn.</td><td>8 dagar</td><td>Riktning på engagemang, inte konvertering</td></tr>
+<tr><td>14 sep 08:15</td><td>Tre fel ur mobiltestet: header ur bild, sparfel som svaldes, ingen utgång ur flödesskalet.</td><td>8 dagar</td><td>Ja, felen är borta</td></tr>
+<tr><td>14 sep 15:00</td><td><strong>Jobbmatchning våg 1</strong>, "Dina matchningar", gratisnivå 3 träffar.</td><td>7 dagar</td><td>Nej, för ung och för få användare</td></tr>
+<tr><td>14 sep 20:30</td><td>Träfflistan renderades aldrig, samt auth-fixen (getAll/setAll).</td><td>7 dagar</td><td>Ja, kvitto finns i auth-loggen</td></tr>
+<tr><td>14 sep 23:30</td><td><strong>PWA-installation</strong>, installationsrad efter fyra triggers.</td><td>7 dagar</td><td>Delvis, 10 visningar och 2 installationer</td></tr>
+<tr><td>15 sep 12:00</td><td><strong>paywall_shown och paywall_cta_clicked</strong>, samt kö i analytics-klienten.</td><td>6 dagar</td><td>Ja, men mätfönstret är 6 dagar</td></tr>
+<tr><td>15 sep 18:40</td><td><strong>Auth-låset</strong>: loggning aldrig await, 5 s frist. CV-analysen slutade hänga.</td><td>6 dagar</td><td>Ja, mycket tydligt utfall</td></tr>
+<tr><td>16 sep 00:30</td><td><strong>Ny admin</strong>, nio sidor ur admin_daily_metrics.</td><td>5 dagar</td><td>Ja, som verktyg. Se avsnitt 7</td></tr>
+</tbody>
+</table>
+<p class="lead">Regeln jag arbetar efter: bedöm aldrig en funktion som är yngre än sitt mätfönster. Konvertering och trial kräver minst två veckor, intäkt minst en full faktureringsmånad. Jobbmatchningen och PWA är sju dagar gamla och betalväggsmätningen sex. Inget av det får läsas som ett utfall, bara som ett första livstecken.</p>
+
+<h2><span class="num">3</span>Aktivering</h2>
+
+<p>Andelen räknas på konton skapade i respektive fönster, mätt mot funktionens egen sanningskälla och inte mot <code>user_activities</code>. Kolumnen "före" har 28 konton och fjorton dagar på sig, "efter" har 20 konton och som mest åtta dagar. Det gör att "efter" är systematiskt underskattad på allt som tar tid att komma till.</p>
+
+<table>
+<thead><tr><th>Handling</th><th>Sanningskälla</th><th class="n">Före, 28 kt</th><th class="n">Efter, 20 kt</th><th class="n">Andel före</th><th class="n">Andel efter</th></tr></thead>
+<tbody>
+<tr><td>Laddat upp eller byggt CV</td><td>cv_texts</td><td class="n">13</td><td class="n">10</td><td class="n">46 %</td><td class="n">50 %</td></tr>
+<tr><td>Skapat brev</td><td>letters</td><td class="n">7</td><td class="n">3</td><td class="n">25 %</td><td class="n">15 %</td></tr>
+<tr><td>Kört CV-analys som blev klar</td><td>cv_analysis_jobs, completed</td><td class="n">1</td><td class="n">4</td><td class="n">4 %</td><td class="n">20 %</td></tr>
+<tr><td>Slutfört logiktest</td><td>logic_test_v4_sessions</td><td class="n">12</td><td class="n">7</td><td class="n">43 %</td><td class="n">35 %</td></tr>
+<tr><td>Slutfört personlighetstest</td><td>personality_test_sessions</td><td class="n">1</td><td class="n">0</td><td class="n">4 %</td><td class="n">0 %</td></tr>
+<tr><td>Laddat ned CV-mall</td><td>formatted_cv_downloads</td><td class="n">2</td><td class="n">4</td><td class="n">7 %</td><td class="n">20 %</td></tr>
+<tr><td>Kört jobbmatchning</td><td>job_matchings_cache</td><td class="n">0</td><td class="n">2</td><td class="n">0 %</td><td class="n">10 %</td></tr>
+<tr><td>Loggat en ansökan</td><td>job_applications</td><td class="n">0</td><td class="n">0</td><td class="n">0 %</td><td class="n">0 %</td></tr>
+<tr><td>Optimerat LinkedIn</td><td>linkedin_optimizations</td><td class="n">0</td><td class="n">0</td><td class="n">0 %</td><td class="n">0 %</td></tr>
+<tr class="sum"><td>Fick reverse trial</td><td>profiles.premium_source</td><td class="n">2</td><td class="n">19</td><td class="n">7 %</td><td class="n">95 %</td></tr>
+</tbody>
+</table>
+
+<p>Tre rörelser är värda att peka på, och en av dem är stor.</p>
+
+<p><strong>CV-analysen var trasig och är lagad.</strong> Detta är periodens tydligaste utfall och det har ingenting med Tråden att göra. Före fönstret startades nio analysjobb och exakt ett blev klart. Efter 15 september 18:40, när auth-låset fick sin frist, startades tjugo jobb och alla tjugo blev klara. Klienten gjorde await på aktivitetsloggningen, som tog navigator.locks-låset på sessionen utan tidsgräns, och en annan flik höll låset. Varje användare som försökte analysera sitt CV mellan dessa datum såg en snurra i nittio sekunder och gav upp.</p>
+
+<p><strong>Mallnedladdningarna har nästan tredubblats per konto.</strong> Från 7 nedladdningar av 2 personer till 13 av 5 på nära nog halva tiden. Detta är den funktion som växer snabbast i hela produkten, och det är också den funktion som är helt osynlig i adminen. Det är ingen slump att du inte kände till den.</p>
+
+<p><strong>Brevet tappar.</strong> Från 25 till 15 procent av nya konton. Med tre konton mot sju är skillnaden inte statistiskt meningsfull, men riktningen är fel för den funktion som är produktens kärnlöfte, och den förtjänar ett öga nästa vecka. En möjlig förklaring står i tidslinjen: brevflödets sparfel svaldes tyst fram till 14 september 08:15.</p>
+
+<h2><span class="num">4</span>Engagemang</h2>
+
+<table>
+<thead><tr><th>Mätpunkt</th><th class="n">Före</th><th class="n">Efter</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Sidvisningar per dag, PostHog</td><td class="n">119</td><td class="n">175</td><td class="up">+47 %</td></tr>
+<tr><td>Sidor per session</td><td class="n">1,83</td><td class="n">3,01</td><td class="up">+64 %, se varning nedan</td></tr>
+<tr><td>Sessioner</td><td class="n">910</td><td class="n">465</td><td>58 per dag mot 65, i nivå</td></tr>
+<tr><td>Aktiva konton per dag</td><td class="n">4,2</td><td class="n">5,7</td><td class="up">+33 %</td></tr>
+<tr><td>Återkom dag 2</td><td class="n">3 av 28 (11 %)</td><td class="n">2 av 20 (10 %)</td><td>oförändrat</td></tr>
+<tr><td>Återkom någon gång efter dag 1</td><td class="n">9 av 28 (32 %)</td><td class="n">3 av 20 (15 %)</td><td>kan inte jämföras, se nedan</td></tr>
+<tr><td>Återkom dag 7</td><td class="n">4 av 28</td><td class="n">0 av 20</td><td class="down">strukturellt omätbart</td></tr>
+<tr><td>PWA-start (source=pwa)</td><td class="n">0</td><td class="n">2 av 1 399 sidvisn.</td><td>2 installationer, 10 visade rader</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<h4>Två av raderna ovan får inte läsas rakt av</h4>
+<p><strong>Sidor per session, 1,83 till 3,01.</strong> Enligt tidslinjen fick analytics-klienten en kö 15 september 12:00. Före det föll varje händelse som skickades innan PostHog hunnit initieras tyst bort, och PostHog initieras efter LCP. Sidladdningshändelser stiger alltså från och med det datumet utan att någon människa har ändrat beteende. En del av uppgången är äkta, en del är att vi började räkna. Hur mycket som är vilket går inte att separera i efterhand. Läs om den här raden efter 29 september, då hela fönstret ligger efter kön.</p>
+<p><strong>Dag 7-retention för "efter".</strong> Det yngsta kontot i fönstret är noll dagar gammalt och det äldsta sju. Ingen av dem <em>kan</em> ha en dag 7. Noll är här en egenskap hos kalendern, inte hos produkten. Samma sak drar ned "återkom någon gång": före-kohorten har haft upp till 21 dagar på sig, efter-kohorten upp till 7. Dag 2 är den enda återkomstsiffran i tabellen som faktiskt jämför lika mot lika, och den står stilla på omkring tio procent.</p>
+</div>
+
+<p>Tio procent dag 2 är den siffra som borde oroa mest i det här avsnittet. Målet i planen är 45 procent. Vi ligger på en fjärdedel av det, och Tråden har inte flyttat det. En omdesign gör besöket bättre för den som är där. Den ger ingen anledning att komma tillbaka i morgon. Det är två olika problem och vi har bara löst det ena.</p>
+
+<p>PWA-raden är ett rimligt första livstecken på sju dagar: tio personer har sett installationsraden, två har installerat, och en har startat appen från hemskärmen. Det är för tidigt för slutsatser men kedjan fungerar hela vägen.</p>
+<h2><span class="num">5</span>Konvertering och intäkt</h2>
+
+<p>Det här avsnittet svarar på din huvudfråga, och svaret är kortare än du tror. Ingen konverterar därför att tratten tar slut långt innan priset.</p>
+
+<table>
+<thead><tr><th>Steg</th><th>Källa</th><th class="n">Antal</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Sessioner i fönstret</td><td>PostHog</td><td class="n">465</td><td>allt, inloggat och publikt</td></tr>
+<tr><td>Registreringsgrind visad</td><td>signup_gate_shown</td><td class="n">32</td><td>27 personer</td></tr>
+<tr><td>Registrering påbörjad</td><td>signup_started</td><td class="n">22</td><td>69 % av grinden</td></tr>
+<tr><td>Registrering slutförd</td><td>signup_completed</td><td class="n">8</td><td>36 % av påbörjade</td></tr>
+<tr><td>Nya konton (sanning)</td><td>profiles</td><td class="n">20</td><td>PostHog missar Google-login</td></tr>
+<tr><td>Fick reverse trial</td><td>premium_source</td><td class="n">19</td><td>95 % av de nya</td></tr>
+<tr><td><strong>Nådde en betalvägg</strong></td><td>paywall_shown</td><td class="n">3</td><td class="down">1 person, 1 sida, live 15 sep</td></tr>
+<tr><td><strong>Klickade på betalväggen</strong></td><td>paywall_cta_clicked</td><td class="n">0</td><td class="down">aldrig utlöst</td></tr>
+<tr><td>Såg prissidan inloggad</td><td>pageview /profil/prenumeration</td><td class="n">13</td><td>mot 3 före</td></tr>
+<tr><td><strong>Nådde kassan</strong></td><td>Stripe checkout.sessions</td><td class="n">0</td><td class="down">senaste 9 sep</td></tr>
+<tr class="sum"><td><strong>Betalade</strong></td><td>Stripe + premium_grants</td><td class="n">0</td><td>premium_grants är helt tom</td></tr>
+</tbody>
+</table>
+
+<svg viewBox="0 0 680 250" class="chart" role="img" aria-label="Konverteringstratten i antal personer">
+<text x="44" y="14" class="ax">Sessioner</text><rect x="44" y="20" width="520" height="20" class="bar"/><text x="572" y="35" class="val">465</text>
+<text x="44" y="60" class="ax">Registreringsgrind visad</text><rect x="44" y="66" width="35.8" height="20" class="bar"/><text x="88" y="81" class="val">32</text>
+<text x="44" y="106" class="ax">Registrering påbörjad</text><rect x="44" y="112" width="24.6" height="20" class="bar"/><text x="77" y="127" class="val">22</text>
+<text x="44" y="152" class="ax">Nya konton, varav 19 med trial</text><rect x="44" y="158" width="22.4" height="20" class="bar"/><text x="75" y="173" class="val">20</text>
+<text x="44" y="198" class="ax">Betalvägg visad (1 person)</text><rect x="44" y="204" width="3.4" height="20" class="bar warn"/><text x="56" y="219" class="val">3</text>
+<text x="44" y="244" class="ax">Klick på betalvägg, kassabesök och köp</text><text x="300" y="244" class="val">0</text>
+</svg>
+<p class="figc">Tratten i antal, 14 till 21 september. Betalväggsmätningen gick live 15 september 12:00 och täcker alltså sex av åtta dagar. Stripe-raden är kontrollerad direkt mot API:t och inte mot vår spegling.</p>
+
+<div class="box acc">
+<h4>Var konverteringen faller: mellan trial och betalvägg, inte vid kassan</h4>
+<p>Nitton personer fick fem dagar Premium. Under samma period visades en betalvägg tre gånger för en enda person. Det är inte ett mätfel i betalväggen, för den mäter rätt på den sida där den utlöstes (<code>/dashboard/profil/cv</code>). Det är en logisk konsekvens av produkten: en användare med aktiv Premium <em>möter aldrig en betalvägg</em>. Vi har byggt en trial som eliminerar precis den yta som ska sälja, och när trialen tar slut dag sex är personen redan borta.</p>
+<p>Belägget: av de nitton trialkontona har <strong>sexton noll aktivitet efter sin första dag</strong>. Sex trialperioder har redan löpt ut (14 till 16 september-kohorterna). Ingen av dem köpte, och ingen av dem var ens inne för att märka att något försvann. Det enda <code>trial_day5</code>-mejl som någonsin skickats gick ut före det här fönstret.</p>
+</div>
+
+<h3>Intäkt</h3>
+<table>
+<thead><tr><th>Mätpunkt</th><th class="n">Före</th><th class="n">Efter</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>MRR</td><td class="n">596 kr</td><td class="n">447 kr</td><td class="down">en uppsägning 16 sep</td></tr>
+<tr><td>Aktiva prenumerationer</td><td class="n">3</td><td class="n">3</td><td>alla på månad 149 kr</td></tr>
+<tr><td>Nya betalande</td><td class="n">1 (9 sep)</td><td class="n">0</td><td>senaste betalning 9 sep 20:26</td></tr>
+<tr><td>Dagspass 49 sålda</td><td class="n">0</td><td class="n">0</td><td rowspan="4">premium_grants är tom sedan prisstegen gick live 11 sep. Ingen har någonsin köpt en produkt ur stegen.</td></tr>
+<tr><td>Jobbsökarveckan 99 sålda</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Månad 149 sålda</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Kvartal 299 sålda</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Avbrott med orsak</td><td class="n">2 (13 sep)</td><td class="n">0</td><td>båda angav "för dyrt"</td></tr>
+</tbody>
+</table>
+
+<p>Prisstegen har nu funnits i tio dagar och sålt noll enheter. Det är för tidigt för att döma ut prissättningen, men inte för tidigt att konstatera att distributionen saknas helt: om tre betalväggar visas på en vecka spelar det ingen roll vad de kostar. De två avbrotten 13 september angav båda "för dyrt", vilket är den första riktiga signalen ur cancel-flowet, och båda gällde månadsplanen på 149 kronor. Det talar för dagspasset, men två svar är två svar.</p>
+
+<h2><span class="num">6</span>Trafik</h2>
+
+<p><strong>Tråden påverkade inte den publika trafiken, och kunde inte göra det.</strong> Designsystem v2 träffade enbart inloggat läge. Publika sidor, prissida och mörkt läge är uttryckligen inte tagna enligt tidslinjen. Allt nedan är alltså rankingarbete som mognar, inte en effekt av omgången.</p>
+
+<table>
+<thead><tr><th>Vecka</th><th class="n">Klick</th><th class="n">Visningar</th><th class="n">CTR</th><th class="n">Position</th></tr></thead>
+<tbody>
+<tr><td>24 till 30 aug</td><td class="n">77</td><td class="n">7 645</td><td class="n">1,01 %</td><td class="n">24,6</td></tr>
+<tr><td>31 aug till 6 sep</td><td class="n">105</td><td class="n">7 498</td><td class="n">1,40 %</td><td class="n">21,1</td></tr>
+<tr><td>7 till 13 sep</td><td class="n">129</td><td class="n">9 542</td><td class="n">1,35 %</td><td class="n">20,5</td></tr>
+<tr class="sum"><td>14 till 19 sep (6 dagar)</td><td class="n">140</td><td class="n">7 599</td><td class="n">1,84 %</td><td class="n">14,0</td></tr>
+</tbody>
+</table>
+
+<svg viewBox="0 0 680 190" class="chart" role="img" aria-label="Snittposition per dag, sjunkande är bättre">
+<line x1="44" y1="150" x2="666" y2="150" class="grid"/><text x="36" y="153.5" class="ax r">30</text>
+<line x1="44" y1="105" x2="666" y2="105" class="grid"/><text x="36" y="108.5" class="ax r">22</text>
+<line x1="44" y1="60" x2="666" y2="60" class="grid"/><text x="36" y="63.5" class="ax r">14</text>
+<line x1="44" y1="20" x2="666" y2="20" class="grid"/><text x="36" y="23.5" class="ax r">7</text>
+<path d="M 44 89 L 68 121 L 92 110 L 116 130 L 140 109 L 164 84 L 188 95 L 212 145 L 236 108 L 260 158 L 284 103 L 308 82 L 332 96 L 356 93 L 380 116 L 404 82 L 428 71 L 452 60 L 476 38 L 500 44" class="line"/>
+<circle cx="44" cy="89" r="3" class="dot"/><text x="44" y="175" class="ax c">31 aug</text>
+<circle cx="188" cy="95" r="3" class="dot"/><text x="188" y="175" class="ax c">5 sep</text>
+<circle cx="332" cy="96" r="3" class="dot"/><text x="332" y="175" class="ax c">11 sep</text>
+<circle cx="404" cy="82" r="3" class="dot"/><text x="404" y="175" class="ax c">14 sep</text>
+<circle cx="476" cy="38" r="3" class="dot"/><text x="476" y="175" class="ax c">18 sep</text><text x="476" y="30" class="val c">11,5</text>
+<circle cx="500" cy="44" r="3" class="dot"/>
+<line x1="392" y1="20" x2="392" y2="160" class="leader"/><text x="396" y="18" class="note">Tråden live</text>
+</svg>
+<p class="figc">Snittposition per dag i Search Console. Lägre är bättre. Förbättringen från cirka 20 till cirka 12 börjar innan Tråden och fortsätter oberoende av den. Search Console ligger cirka två dagar efter, sista dagen med data är 19 september.</p>
+
+<p>De fem starkaste sidorna i fönstret: <code>/artiklar/logiska-tester</code> med 30 klick på position 10,4, <code>/artiklar/styrkor-svagheter-intervju</code> med 14 på 7,8, STAR-artikeln med 7 på 3,3, <code>/artiklar/kompetensbaserade-intervjufragor</code> med 7 på 17,1 och startsidan med 6. Testklustret är alltså fortsatt vår starkaste ingång, vilket stämmer väl med att <code>/verktyg/rekryteringstester</code> också är den mest besökta sidan i hela PostHog-datan med 114 visningar efter mot 87 före.</p>
+
+<p>En sak sticker ut i den publika datan: <code>/verktyg/rekryteringstester/prova</code> gick från 8 till 41 sidvisningar, en femdubbling. Smakprovet används, <code>sample_started</code> steg från 5 till 45 och <code>sample_completed</code> från 5 till 29. Det är den bäst fungerande delen av hela förvärvskedjan just nu och den förtjänar mer trafik, inte mindre.</p>
+
+<h2><span class="num">7</span>Varför du inte ser tester och mallnedladdningar i adminen</h2>
+
+<p>Du har rätt i din observation och orsaken är inte att datan saknas. Den finns, den är komplett, och adminen hämtar den inte. Tre separata fel, alla i kod och alla små.</p>
+
+<h3>Fel 1: Funnel-sidan deklarerar fyra fält den aldrig fyller</h3>
+<p>I <code>src/app/admin/funnel/data.ts</code> definierar typen <code>FunnelData</code> (rad 144 och framåt) fälten <code>sannaFunktioner</code>, <code>tester</code> och <code>mallar</code>, med utförliga kommentarer om att funktioner ska mätas "på sin egen tabell, inte på user_activities". Men returblocket på rad 285 returnerar bara <code>veckor</code>, <code>kallor</code>, <code>funktioner</code>, <code>oanvanda</code>, <code>kohorter</code>, <code>senasteVecka</code> och <code>datakvalitet</code>. Ingen funktion i filen läser <code>logic_test_v4_sessions</code>, <code>personality_test_sessions</code> eller <code>formatted_cv_downloads</code>. Arbetet är påbörjat och inte avslutat: typen är skriven, hämtningen är det inte.</p>
+<p>Det som faktiskt renderas är <code>hamtaFunktionsanvandning</code>, som grupperar rå <code>user_activities</code>. Där syns <code>test_completed</code> med 100 rader av 11 personer, men den raden är opålitlig av ett eget skäl: <code>test_completed</code> loggas bara när resultatsidan visas. Ett test som slutförs men där användaren stänger fliken innan resultatet renderas räknas aldrig. Sanningen står i <code>logic_test_v4_sessions.completed_at</code>.</p>
+
+<h3>Fel 2: Översikt läser inte funktionsanvändning alls</h3>
+<p><code>src/app/api/admin/oversikt/data.ts</code> läser fyra källor: <code>admin_error_log</code>, <code>user_activities</code> och <code>admin_user_rows</code>. Ingen av dem kan svara på "hur många gjorde ett test i går". Översikten är byggd för de fem morgonfrågorna och funktionsanvändning är inte en av dem, vilket är ett rimligt designval, men det betyder att båda de sidor du naturligt tittar på saknar svaret.</p>
+
+<h3>Fel 3: Två aggregattabeller har slutat fyllas</h3>
+<p>Detta är det allvarligaste, eftersom det tyst gör adminen fel i stället för tom.</p>
+<table>
+<thead><tr><th>Tabell</th><th>Senaste rad</th><th>Konsekvens</th><th>Orsak</th></tr></thead>
+<tbody>
+<tr><td><code>admin_gsc_daily</code> / gsc-kolumnerna i <code>admin_daily_metrics</code></td><td>12 sep</td><td>Trafiksidan visar tomt för nio dagar trots att GSC har datan och den är vår bästa siffra</td><td>Ingen fil i repot skriver till den. En grep över <code>src/</code>, <code>scripts/</code> och <code>supabase/</code> ger bara läsningar.</td></tr>
+<tr><td><code>admin_funnel_weekly</code></td><td>14 sep, delvecka</td><td>Funnel visar 56 sidvisningar för veckan 14 sep, verkligt tal är cirka 1 400. Tratten ser ut att ha kollapsat.</td><td>Samma sak: ingen skrivare finns. Raden för 14 sep skrevs en gång och har aldrig uppdaterats.</td></tr>
+</tbody>
+</table>
+<p>Kommentaren i <code>funnel/page.tsx</code> rad 179 säger att tabellen fylls av "cronen i midnattsslotten". Den cronen finns inte i repot. Båda Vercel-cronplatserna är upptagna av pricing-sync och livscykelmailen enligt de beslut som gäller, så det här är inte en bugg utan en konsekvens av taket på två croner som aldrig lösts.</p>
+
+<div class="box">
+<h4>Exakt vad som ska läggas till</h4>
+<ol>
+<li><strong>Funnel: en sektion "Funktioner, sanningskällor".</strong> Fyll <code>sannaFunktioner</code>, <code>tester</code> och <code>mallar</code> som typen redan beskriver. Tester ur <code>logic_test_v4_sessions</code> grupperat på <code>test_type</code> med startade och slutförda, personlighetstest ur <code>personality_test_sessions</code>, mallar ur <code>formatted_cv_downloads</code> grupperat på <code>template_id</code>, brev ur <code>letters</code>, CV ur <code>cv_texts</code>, analyser ur <code>cv_analysis_jobs</code> med status, matchningar ur <code>job_matchings_cache</code>. Sju dagar och trettio dagar, antal och personer i egna kolumner. Insats S, allt ligger färdigt i typen.</li>
+<li><strong>Översikt: en rad med gårdagens fem funktioner</strong> ur samma hämtning, så att morgonblicken svarar på "vad gjorde de i går" utan ett klick vidare. Insats S.</li>
+<li><strong>Behåll <code>user_activities</code>-tabellen men döp om den till "Spårningskontroll"</strong> och skriv i noten att den mäter om loggningen fungerar, inte hur mycket funktionen används. Den fyller ett syfte, men inte det du använt den till.</li>
+<li><strong>Lös påfyllningen av de två aggregattabellerna.</strong> Enklast utan att röra crontaket: låt sidorna räkna direkt mot Supabase och PostHog med <code>unstable_cache</code> i stället för att läsa en förberäknad tabell, eller fyll dem on demand på samma sätt som knappen "Hämta nu" redan gör för intäktssidan. Insats M, och den behöver ditt beslut om vilken väg.</li>
+</ol>
+</div>
+
+<h2><span class="num">8</span>Åtgärder de kommande två veckorna</h2>
+
+<table>
+<thead><tr><th class="n">Pri</th><th>Åtgärd</th><th>Insats</th><th>Förväntad effekt</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td><strong>Visa priset under trialen i stället för efter.</strong> I dag möter en trialanvändare aldrig en betalvägg, eftersom Premium är aktivt. Lägg in en stående rad i inloggat läge som säger hur många dagar som återstår och vad det kostar att behålla, och gör den klickbar till prisstegen. Detta är den enda åtgärden som direkt adresserar att tre betalväggar visats på en vecka.</td><td><span class="tag m">M</span></td><td>Från 3 till uppskattningsvis 15 till 20 betalväggsvisningar i veckan. Första realistiska köp.</td></tr>
+<tr><td class="n">2</td><td><strong>Laga trial-mejlen.</strong> Sex trialperioder har löpt ut och ett enda trial_day5-mejl har någonsin skickats, medan rt_day0 till rt_day6 går ut som de ska. Kontrollera villkoret i <code>src/lib/email/lifecycle/</code> som väljer trial_day5 och varför det inte träffar de nya trialkontona. Sexton av nitton är borta efter dag ett, mejlet är vår enda kontaktyta med dem.</td><td><span class="tag s">S</span></td><td>Återför en del av de 16 inaktiva. Öppningsgraden på rt-serien ligger på 40 till 57 procent, kanalen fungerar.</td></tr>
+<tr><td class="n">3</td><td><strong>Fyll Funnel-sidans sanningskällor</strong> enligt listan i avsnitt 7, punkt 1 och 2. Du flyger i blindo på de två funktioner som växer snabbast, och det påverkar varje prioritering du gör.</td><td><span class="tag s">S</span></td><td>Du ser tester och mallnedladdningar i adminen. Inget intäktsutfall, men bättre beslut.</td></tr>
+<tr><td class="n">4</td><td><strong>Ge mallnedladdningen mer plats.</strong> Den växte från 7 till 13 nedladdningar och från 2 till 5 personer på halva tiden, och <code>/dashboard/cv-mallar</code> fördubblade sina sidvisningar. Det är produktens starkaste dragning just nu och den ligger begravd i menyn. Lyft den till hemskärmen i Mitt jobbsök.</td><td><span class="tag s">S</span></td><td>Fler aktiverade konton, och en naturlig betalvägg vid uttag som i dag nästan aldrig nås.</td></tr>
+<tr><td class="n">5</td><td><strong>Attributionen skriver ingenting.</strong> <code>acquisition_source</code> är null för samtliga 48 konton i båda fönstren, trots att kolumnen gick live 11 september och 20 konton skapats efter. Vi kan inte säga vilket kluster som ger konton. Felsök var i registreringsflödet skrivningen tappas, sannolikt samma Google-login-väg som gör att PostHog bara ser 8 av 20 registreringar.</td><td><span class="tag m">M</span></td><td>Gör nästa rapport kapabel att säga vilket innehåll som ger betalande, inte bara klick.</td></tr>
+</tbody>
+</table>
+
+<p>Rangordningen följer en enkel logik. Åtgärd 1 och 2 är de enda som kan flytta intäkt inom två veckor, eftersom de båda handlar om att nå de nitton personer som redan har fått produkten gratis och försvunnit. Åtgärd 3, 4 och 5 flyttar ingen intäkt direkt men avgör hur bra besluten i oktober blir. Jag rör inte trafiken i den här omgången: den växer redan av sig själv och är det enda som inte är trasigt.</p>
+
+<div class="box">
+<h4>Behöver ditt beslut</h4>
+<ul>
+<li><strong>Åtgärd 1 rör reverse trial, som är ett beslutat löfte.</strong> Att visa priset under trialen ändrar inte villkoren, men det ändrar känslan från "fem gratis dagar" till "fem dagar, sedan kostar det". Säg till om du hellre vill att trialen förblir helt tyst till dag fyra.</li>
+<li><strong>Påfyllningen av aggregattabellerna (avsnitt 7, punkt 4).</strong> Två Vercel-croner är upptagna. Antingen räknar adminsidorna direkt med cache, vilket är enklast och gör sidorna något långsammare, eller så prioriterar vi om crontaket. Jag föreslår det första och behöver ditt ja.</li>
+<li><strong>Prisstegen har sålt noll på tio dagar.</strong> Jag föreslår att vi inte rör priserna förrän åtgärd 1 gett betalväggen en verklig publik. Att sänka ett pris som ingen sett är att kasta bort informationen.</li>
+</ul>
+</div>
+
+<h2><span class="num">9</span>Datakvalitet</h2>
+
+<table>
+<thead><tr><th>Vad vi inte ser</th><th>Varför</th><th>Vad som krävs</th></tr></thead>
+<tbody>
+<tr><td>Om Tråden förbättrade konvertering</td><td>Live 14 sep 02:30, åtta dagar gammalt. Konvertering kräver minst två veckor enligt regeln.</td><td>Läs om efter 28 september. Betalväggsdatan behöver dessutom åtgärd 1 för att ha volym.</td></tr>
+<tr><td>Om jobbmatchningen fungerar</td><td>Live 14 sep 15:00. Sju dagar, tre personer har öppnat sidan, två har kört en sökning. Att bedöma detta vore att bedöma tre personer.</td><td>Volym. Tidigast 28 september, realistiskt senare.</td></tr>
+<tr><td>Sanna sidor per session</td><td>Analytics-kön gick live 15 sep 12:00. Före det föll händelser som skickades före PostHog-init tyst bort. Uppgången 1,83 till 3,01 blandar äkta beteende med att vi började räkna.</td><td>Mät fönstret 15 till 29 september mot 29 sep till 13 okt. Båda ligger då efter kön.</td></tr>
+<tr><td>Dag 7-retention för nya konton</td><td>Kohorten är som mest sju dagar gammal. Noll är kalendern, inte produkten.</td><td>28 september för de första kontona.</td></tr>
+<tr><td>Registreringar i PostHog</td><td><code>signup_completed</code> visar 8, <code>profiles</code> visar 20. Google-login utlöser sannolikt inte händelsen. Samma väg misstänks för attributionen.</td><td>Åtgärd 5. Tills dess är <code>profiles</code> sanningen för antal konton och PostHog bara för beteendet däremellan.</td></tr>
+<tr><td>Attribution till kluster</td><td><code>acquisition_source</code> är null för alla 48 konton trots att kolumnen funnits sedan 11 september.</td><td>Åtgärd 5. Kolumnen är trasig, inte tom av åldersskäl.</td></tr>
+<tr><td>Trafik och tratt i adminen</td><td><code>admin_gsc_daily</code> tom sedan 12 sep, <code>admin_funnel_weekly</code> sedan 14 sep. Ingen skrivare finns i repot.</td><td>Avsnitt 7, punkt 4. Siffrorna i den här rapporten är hämtade direkt från GSC- och PostHog-API:t och är korrekta.</td></tr>
+<tr><td>Testdata 13 september</td><td>31 logiktestsessioner startades av en enda användare, noll slutförda. Det ser ut som egen testning och inte som användarbeteende.</td><td>Uteslutna ur tabellerna i avsnitt 3, som räknar slutförda tester per konto.</td></tr>
+<tr><td>Statistisk säkerhet över huvud taget</td><td>20 konton mot 28. En enskild person flyttar varje andel med tre till fem procentenheter.</td><td>Ingenting kan åtgärda detta annat än volym. Alla procenttal i rapporten ska läsas som riktning.</td></tr>
+</tbody>
+</table>
+
+<footer>
+Underlag: Supabase (projekt dbvbnbkvadvlhjhomibg) med profiles, cv_texts, letters, cv_analysis_jobs, logic_test_v4_sessions, personality_test_sessions, formatted_cv_downloads, job_matchings_cache, job_applications, linkedin_optimizations, premium_grants, cancel_intents, email_log join email_events, admin_daily_metrics, admin_funnel_weekly. Tabellnamnen kontrollerade mot information_schema 21 september; test_results finns inte och inga nyare testtabeller har tillkommit. PostHog EU projekt 148688 via HogQL. Stripe-API direkt (checkout.sessions, subscriptions, paymentIntents) eftersom premium_grants är tom. Google Search Console sc-domain:jobbcoach.ai, 24 augusti till 19 september, hämtad direkt eftersom admin_gsc_daily inte fyllts sedan 12 september. Kodgranskning: src/app/admin/funnel/data.ts, src/app/admin/funnel/page.tsx, src/app/api/admin/oversikt/data.ts.
+</footer>
+
+</div>
