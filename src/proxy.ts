@@ -1,5 +1,20 @@
-// proxy.ts (i projektets rotmapp) - Next.js 16 kräver proxy.ts istället för middleware.ts
-import { NextRequest, NextResponse } from 'next/server'
+// src/proxy.ts
+// ==================
+// Appens ENDA proxy-ingång (Next 16 ersätter middleware med proxy).
+//
+// Tidigare låg proxy.ts i projektroten. Projektet har en src-katalog, och då
+// letar Next efter src/proxy.ts. Rotfilen plockades aldrig upp. Kvar som
+// ingång blev gamla src/middleware.ts, som bara körde updateSession. Två
+// saker föll alltså bort tyst i produktion:
+//
+//  1. jc_attr-cookien sattes aldrig, så profiles.acquisition_source blev null
+//     på varje konto sedan reverse trial gick live.
+//  2. /admin gick utan adminAuthMiddleware.
+//
+// Hela kedjan bor här nu. Både rotens proxy.ts och src/middleware.ts är borta,
+// så det finns exakt en ingång och inget som kan skugga den igen.
+
+import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 import { adminAuthMiddleware } from '@/middleware/admin-auth'
 import {
@@ -41,15 +56,12 @@ function setAttributionCookie(request: NextRequest, response: NextResponse): voi
   })
 }
 
-// Next.js 16: Funktionsnamnet måste vara "proxy" istället för "middleware"
 export async function proxy(request: NextRequest) {
-  // Kontrollera om detta är en admin-route
+  // Admin har egen auth och ingen attribution att spara.
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    // Använd admin auth middleware för admin-routes
-    return adminAuthMiddleware(request);
+    return adminAuthMiddleware(request)
   }
 
-  // För alla andra routes, använd den vanliga session middleware
   const response = await updateSession(request)
   setAttributionCookie(request, response)
   return response
@@ -58,12 +70,14 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Matcha alla förfrågningsvägar utom de som börjar med:
-     * - _next/static (statiska filer)
-     * - _next/image (bildoptimeringsfiler)
-     * - favicon.ico (favicon-filen)
-     * - bilder och andra statiska tillgångar
+     * Kör på alla request-paths UTOM:
+     * - _next/static (byggda assets)
+     * - _next/image (bildoptimering)
+     * - favicon.ico
+     * - filer med bild-/typsnitts-/media-ändelser i public/
+     * API-routes inkluderas (de har egen auth där det behövs, och updateSession
+     * blockerar bara PROTECTED_ROUTES så API påverkas inte av redirect-logiken).
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|otf|mp4|webm)$).*)',
   ],
 }
