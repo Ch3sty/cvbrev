@@ -19,7 +19,6 @@
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
 import type { PlanKey } from '@/lib/plans/plans';
-import type { UndantagetKonto } from '@/lib/admin/undantag';
 import { BETALANDE_STATUS, TRIAL_KALLOR } from './format';
 
 /** 50 per sida enligt planen. Aldrig konfigurerbart fran klienten. */
@@ -203,6 +202,9 @@ const lista = (v: readonly string[]) => `(${v.join(',')})`;
  *
  * Varje villkor ar ett enda or() med nastlade and(), sa att det inte
  * krockar med fritextens or().
+ *
+ * Samma villkor finns i databasfunktionen admin_user_grupper(), som raknar
+ * grupperna i en fraga (oversikt.ts). Andras de har ska de andras dar.
  */
 export function tillampaGrupp<Q extends FiltrerbarFraga<Q>>(q: Q, grupp: Grupp, nuIso: string): Q {
   if (grupp === 'undantagna') return q.not('undantag', 'is', null);
@@ -331,59 +333,6 @@ export async function hamtaAnvandare(
     total,
     sida: filter.sida,
     antalSidor: Math.max(1, Math.ceil(total / SIDSTORLEK)),
-  };
-}
-
-export interface Oversikt {
-  /** Antal per grupp. "alla" ar aldrig med undantagna. */
-  antal: Record<Grupp, number>;
-  /** De undantagna kontona, for sidhuvudets undantagText. */
-  undantagna: UndantagetKonto[];
-}
-
-/**
- * Antalet per grupp, for sidhuvudet och filtermenyn. Sex rakningar med
- * head, inga rader. Undantagna konton raknas bara i sin egen grupp.
- */
-export async function hamtaOversikt(nu: number = Date.now()): Promise<Oversikt> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const admin = getSupabaseAdmin() as any;
-  const nuIso = new Date(nu).toISOString();
-
-  const [raknade, undantagRes] = await Promise.all([
-    Promise.all(
-      GRUPPER.map(async (g) => {
-        const q = tillampaGrupp(
-          admin.from('admin_user_rows').select('id', { count: 'exact', head: true }),
-          g.nyckel,
-          nuIso
-        );
-        const { count, error } = await q;
-        if (error) throw new Error(`admin_user_rows ${g.nyckel}: ${error.message}`);
-        return [g.nyckel, count ?? 0] as const;
-      })
-    ),
-    admin
-      .from('admin_user_rows')
-      .select('id, email, stripe_customer_id, undantag')
-      .not('undantag', 'is', null),
-  ]);
-
-  return {
-    antal: Object.fromEntries(raknade) as Record<Grupp, number>,
-    undantagna: (
-      (undantagRes?.data ?? []) as Array<{
-        id: string;
-        email: string | null;
-        stripe_customer_id: string | null;
-        undantag: string;
-      }>
-    ).map((r) => ({
-      userId: r.id,
-      email: r.email,
-      stripeKund: r.stripe_customer_id,
-      skal: r.undantag === 'admin' ? ('admin' as const) : ('test' as const),
-    })),
   };
 }
 

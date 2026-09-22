@@ -3,15 +3,15 @@
 /**
  * Prisjamforelsen mellan PLANS och Stripe.
  *
- * Komponenten far forvantningarna fardiga fran servern och hamtar
- * speglingen efterat fran /api/admin/installningar/stripe. Det ar medvetet:
- * priserna ur PLANS ar sidans varde och maste sta pa skarmen direkt, medan
- * Stripe-anropet tar den tid det tar. Hade jamforelsen gjorts i
- * serverrenderingen hade hela sidan vantat pa Stripe, och LCP under 1,5
- * sekunder vore omojligt.
+ * Komponenten far bade forvantningarna och speglingen fran servern. Sidan
+ * laser speglingen ur en 15-minuterscache i en egen Suspense-grans, sa resten
+ * av sidan malas utan att vanta pa Stripe. Tidigare hamtade komponenten
+ * speglingen efter hydreringen, och da blev jamforelsens text sidans LCP
+ * forst efter tva rundturer och ett Stripe-anrop (1,5 till 1,6 s). "Las om"
+ * gar fortfarande mot /api/admin/installningar/stripe, ocachat.
  *
- * Ytan ar reserverad innan svaret kommer: skelettet har lika manga rader som
- * det finns produktsteg, sa listan byter innehall utan att flytta nagot.
+ * Ytan ar reserverad: Suspense-gransens skelett och varje tillstand har har
+ * samma minimihojd, sa listan byter innehall utan att flytta nagot.
  *
  * Adminen skriver aldrig till Stripe. Ett felkonfigurerat pris rapporteras
  * har och rattas av agaren i Stripes egen instrumentpanel.
@@ -104,15 +104,24 @@ interface Avvikelse {
 export default function Stripejamforelse({
   forvantningar,
   retentionkupong,
+  initial,
+  initialFel,
 }: {
   forvantningar: ForvantanRad[];
   retentionkupong: string;
+  /** Speglingen ur serverns 15-minuterscache. */
+  initial: Spegling | null;
+  /** Felet fran serverns lasning, om Stripe inte svarade. */
+  initialFel: string | null;
 }) {
-  const [spegling, setSpegling] = useState<Spegling | null>(null);
-  const [fel, setFel] = useState<string | null>(null);
+  const [spegling, setSpegling] = useState<Spegling | null>(initial);
+  const [fel, setFel] = useState<string | null>(initialFel);
   const [rakna, setRakna] = useState(0);
 
   useEffect(() => {
+    // Forsta renderingen har redan speglingen fran servern. Rutten anropas
+    // bara nar nagon trycker "Las om" eller "Forsok igen".
+    if (rakna === 0) return;
     let avbruten = false;
     setFel(null);
     setSpegling(null);
