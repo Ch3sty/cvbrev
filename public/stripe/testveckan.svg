@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="tvAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="tvAccentV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <radialGradient id="tvWashA" cx="0.06" cy="0.05" r="0.70">
+      <stop offset="0" stop-color="#FB923C" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FB923C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tvWashB" cx="0.95" cy="0.96" r="0.76">
+      <stop offset="0" stop-color="#EA580C" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#EA580C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tvWashC" cx="0.96" cy="0.06" r="0.52">
+      <stop offset="0" stop-color="#F97316" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1024" height="1024" fill="#FFFCF9"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#tvWashA)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#tvWashB)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#tvWashC)"/>
+
+  <g fill="none" stroke="#1B1915" stroke-linecap="round" stroke-linejoin="round">
+    <g opacity="0.07" stroke-width="10">
+      <circle cx="512" cy="462" r="392"/>
+      <circle cx="512" cy="462" r="302"/>
+    </g>
+    <g opacity="0.05" stroke-width="26">
+      <path d="M-40 246 L296 -90"/>
+      <path d="M764 1090 L1100 754"/>
+    </g>
+  </g>
+
+  <path d="M176 792 H848" stroke="#1B1915" stroke-opacity="0.16" stroke-width="9" stroke-linecap="round"/>
+
+  <ellipse cx="512" cy="792" rx="300" ry="30" fill="#1B1915" opacity="0.09"/>
+  <rect x="248" y="248" width="434" height="434" rx="30" fill="#1B1915" opacity="0.10"/>
+  <rect x="238" y="238" width="434" height="434" rx="30" fill="#FFFCF9" stroke="#1B1915" stroke-width="9"/>
+    <rect x="250" y="250" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <circle cx="315" cy="315" r="34" fill="none" stroke="#1B1915" stroke-width="9"/>
+    <rect x="390" y="250" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <rect x="423" y="283" width="64" height="64" rx="10" fill="none" stroke="#1B1915" stroke-width="9"/>
+    <rect x="530" y="250" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <path d="M595 279 L633 345 H557 Z" fill="none" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="250" y="390" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <rect x="283" y="423" width="64" height="64" rx="10" fill="none" stroke="#1B1915" stroke-width="9"/>
+    <rect x="390" y="390" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <path d="M455 419 L493 485 H417 Z" fill="none" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="530" y="390" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <circle cx="595" cy="455" r="34" fill="none" stroke="#1B1915" stroke-width="9"/>
+    <rect x="250" y="530" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <path d="M315 559 L353 625 H277 Z" fill="none" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="390" y="530" width="130" height="130" rx="18" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+    <circle cx="455" cy="595" r="34" fill="none" stroke="#1B1915" stroke-width="9"/>
+    <rect x="530" y="530" width="130" height="130" rx="18" fill="url(#tvAccent)"/>
+    <path d="M571 571 a24 24 0 1 1 38 20 c-9 7 -14 12 -14 26" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="595" cy="643" r="8" fill="#FFFFFF"/>
+  <circle cx="740" cy="300" r="96" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+  <path d="M740 300 m0 -96 a96 96 0 0 1 96 96" fill="none" stroke="url(#tvAccent)" stroke-width="20" stroke-linecap="round"/>
+  <g stroke="#1B1915" stroke-width="10" stroke-linecap="round">
+    <path d="M740 244 V300 L784 326"/>
+    <path d="M716 190 H764"/>
+  </g>
+</svg>

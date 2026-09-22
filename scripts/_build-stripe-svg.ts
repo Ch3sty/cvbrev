@@ -235,6 +235,97 @@ ${front}`
   return frame(p, m)
 }
 
+/* ---------- CV-veckan: CV-ark med poängring och fynd ---------- */
+function cvVeckan() {
+  const p = 'cv'
+  const m = `${shadow(300)}
+  <g transform="rotate(-6 420 560)">
+    <rect x="292" y="252" width="300" height="420" rx="22" fill="${INK}" opacity="0.10" transform="translate(10 10)"/>
+    <rect x="292" y="252" width="300" height="420" rx="22" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+    <g stroke="${INK}" stroke-width="10" stroke-linecap="round" stroke-opacity="0.28">
+      <path d="M340 322 H470"/>
+      <path d="M340 372 H544"/>
+      <path d="M340 422 H510"/>
+      <path d="M340 500 H544"/>
+      <path d="M340 550 H470"/>
+      <path d="M340 600 H526"/>
+    </g>
+    <rect x="336" y="408" width="182" height="28" rx="8" fill="#FB923C" opacity="0.35"/>
+    <rect x="336" y="586" width="150" height="28" rx="8" fill="#FB923C" opacity="0.35"/>
+  </g>
+  <circle cx="676" cy="330" r="118" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}"/>
+  <circle cx="676" cy="330" r="118" fill="none" stroke="url(#${p}Accent)" stroke-width="22" stroke-linecap="round" stroke-dasharray="555 740" transform="rotate(-90 676 330)"/>
+  <g stroke="${INK}" stroke-width="10" stroke-linecap="round">
+    <path d="M642 330 L666 354 L714 302"/>
+  </g>
+  <circle cx="640" cy="560" r="30" fill="url(#${p}Accent)"/>
+  <path d="M626 560 L636 570 L656 548" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="640" cy="660" r="30" fill="${INK}"/>
+  <path d="M626 660 H654" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none"/>`
+  return frame(p, m)
+}
+
+/* ---------- Testveckan: matrislogik med saknad ruta och klocka ---------- */
+function testVeckan() {
+  const p = 'tv'
+  const g0 = 250, cell = 130, gap = 10
+  const cells: string[] = []
+  const shapes = ['c', 's', 't', 's', 't', 'c', 't', 'c', '?']
+  for (let i = 0; i < 9; i++) {
+    const r = Math.floor(i / 3), c = i % 3
+    const x = g0 + c * (cell + gap), y = g0 + r * (cell + gap)
+    const cx = x + cell / 2, cy = y + cell / 2
+    if (shapes[i] === '?') {
+      cells.push(`    <rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="18" fill="url(#${p}Accent)"/>`)
+      cells.push(`    <path d="M${cx - 24} ${cy - 24} a24 24 0 1 1 38 20 c-9 7 -14 12 -14 26" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`)
+      cells.push(`    <circle cx="${cx}" cy="${cy + 48}" r="8" fill="#FFFFFF"/>`)
+      continue
+    }
+    cells.push(`    <rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="18" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}"/>`)
+    if (shapes[i] === 'c') cells.push(`    <circle cx="${cx}" cy="${cy}" r="34" fill="none" stroke="${INK}" stroke-width="${SW}"/>`)
+    if (shapes[i] === 's') cells.push(`    <rect x="${cx - 32}" y="${cy - 32}" width="64" height="64" rx="10" fill="none" stroke="${INK}" stroke-width="${SW}"/>`)
+    if (shapes[i] === 't') cells.push(`    <path d="M${cx} ${cy - 36} L${cx + 38} ${cy + 30} H${cx - 38} Z" fill="none" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>`)
+  }
+  const m = `${shadow(300)}
+  <rect x="${g0 - 12 + 10}" y="${g0 - 12 + 10}" width="${3 * cell + 2 * gap + 24}" height="${3 * cell + 2 * gap + 24}" rx="30" fill="${INK}" opacity="0.10"/>
+  <rect x="${g0 - 12}" y="${g0 - 12}" width="${3 * cell + 2 * gap + 24}" height="${3 * cell + 2 * gap + 24}" rx="30" fill="#FFFCF9" stroke="${INK}" stroke-width="${SW}"/>
+${cells.join('\n')}
+  <circle cx="740" cy="300" r="96" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}"/>
+  <path d="M740 300 m0 -96 a96 96 0 0 1 96 96" fill="none" stroke="url(#${p}Accent)" stroke-width="20" stroke-linecap="round"/>
+  <g stroke="${INK}" stroke-width="10" stroke-linecap="round">
+    <path d="M740 244 V300 L784 326"/>
+    <path d="M716 190 H764"/>
+  </g>`
+  return frame(p, m)
+}
+
+/* ---------- Allt-veckan: tre ark på tråden ---------- */
+function alltVeckan() {
+  const p = 'av'
+  const ark = (x: number, y: number, w: number, h: number, rot: number, lines: number[]) => `
+  <g transform="rotate(${rot} ${x + w / 2} ${y + h / 2})">
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="20" fill="${INK}" opacity="0.10" transform="translate(10 10)"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="20" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+    <g stroke="${INK}" stroke-width="10" stroke-linecap="round" stroke-opacity="0.28">
+      ${lines.map((l, i) => `<path d="M${x + 40} ${y + 60 + i * 48} H${x + 40 + l}"/>`).join('\n      ')}
+    </g>
+  </g>`
+  const m = `${shadow(330)}
+${ark(200, 300, 220, 320, -8, [120, 140, 100, 140])}
+${ark(600, 290, 220, 320, 8, [140, 100, 140, 120])}
+${ark(392, 240, 240, 380, 0, [160, 120, 160, 100, 160])}
+  <g transform="translate(392 240)">
+    <rect x="40" y="290" width="86" height="22" rx="11" fill="url(#${p}Accent)"/>
+  </g>
+  <path d="M176 792 H848" stroke="#F97316" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="310" cy="792" r="22" fill="${INK}"/>
+  <path d="M298 792 L307 801 L324 782" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="512" cy="792" r="26" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}"/>
+  <circle cx="512" cy="792" r="11" fill="url(#${p}Accent)"/>
+  <circle cx="710" cy="792" r="22" fill="#FFFFFF" stroke="${INK}" stroke-width="${SW}" stroke-opacity="0.4"/>`
+  return frame(p, m)
+}
+
 async function main() {
   const dir = path.join(process.cwd(), 'public', 'stripe')
   const files: [string, string][] = [
@@ -242,6 +333,9 @@ async function main() {
     ['premium-vecka.svg', vecka()],
     ['premium-manad.svg', manad()],
     ['premium-kvartal.svg', kvartal()],
+    ['cv-veckan.svg', cvVeckan()],
+    ['testveckan.svg', testVeckan()],
+    ['allt-veckan.svg', alltVeckan()],
   ]
   for (const [name, svg] of files) {
     await writeFile(path.join(dir, name), svg, 'utf8')

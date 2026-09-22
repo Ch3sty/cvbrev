@@ -27,6 +27,9 @@ const NAMES = [
   'premium-vecka',
   'premium-manad',
   'premium-kvartal',
+  'cv-veckan',
+  'testveckan',
+  'allt-veckan',
 ] as const
 
 async function render(name: string) {

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="avAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="avAccentV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <radialGradient id="avWashA" cx="0.06" cy="0.05" r="0.70">
+      <stop offset="0" stop-color="#FB923C" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FB923C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="avWashB" cx="0.95" cy="0.96" r="0.76">
+      <stop offset="0" stop-color="#EA580C" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#EA580C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="avWashC" cx="0.96" cy="0.06" r="0.52">
+      <stop offset="0" stop-color="#F97316" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1024" height="1024" fill="#FFFCF9"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#avWashA)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#avWashB)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#avWashC)"/>
+
+  <g fill="none" stroke="#1B1915" stroke-linecap="round" stroke-linejoin="round">
+    <g opacity="0.07" stroke-width="10">
+      <circle cx="512" cy="462" r="392"/>
+      <circle cx="512" cy="462" r="302"/>
+    </g>
+    <g opacity="0.05" stroke-width="26">
+      <path d="M-40 246 L296 -90"/>
+      <path d="M764 1090 L1100 754"/>
+    </g>
+  </g>
+
+  <path d="M176 792 H848" stroke="#1B1915" stroke-opacity="0.16" stroke-width="9" stroke-linecap="round"/>
+
+  <ellipse cx="512" cy="792" rx="330" ry="30" fill="#1B1915" opacity="0.09"/>
+
+  <g transform="rotate(-8 310 460)">
+    <rect x="200" y="300" width="220" height="320" rx="20" fill="#1B1915" opacity="0.10" transform="translate(10 10)"/>
+    <rect x="200" y="300" width="220" height="320" rx="20" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke="#1B1915" stroke-width="10" stroke-linecap="round" stroke-opacity="0.28">
+      <path d="M240 360 H360"/>
+      <path d="M240 408 H380"/>
+      <path d="M240 456 H340"/>
+      <path d="M240 504 H380"/>
+    </g>
+  </g>
+
+  <g transform="rotate(8 710 450)">
+    <rect x="600" y="290" width="220" height="320" rx="20" fill="#1B1915" opacity="0.10" transform="translate(10 10)"/>
+    <rect x="600" y="290" width="220" height="320" rx="20" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke="#1B1915" stroke-width="10" stroke-linecap="round" stroke-opacity="0.28">
+      <path d="M640 350 H780"/>
+      <path d="M640 398 H740"/>
+      <path d="M640 446 H780"/>
+      <path d="M640 494 H760"/>
+    </g>
+  </g>
+
+  <g transform="rotate(0 512 430)">
+    <rect x="392" y="240" width="240" height="380" rx="20" fill="#1B1915" opacity="0.10" transform="translate(10 10)"/>
+    <rect x="392" y="240" width="240" height="380" rx="20" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke="#1B1915" stroke-width="10" stroke-linecap="round" stroke-opacity="0.28">
+      <path d="M432 300 H592"/>
+      <path d="M432 348 H552"/>
+      <path d="M432 396 H592"/>
+      <path d="M432 444 H532"/>
+      <path d="M432 492 H592"/>
+    </g>
+  </g>
+  <g transform="translate(392 240)">
+    <rect x="40" y="290" width="86" height="22" rx="11" fill="url(#avAccent)"/>
+  </g>
+  <path d="M176 792 H848" stroke="#F97316" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="310" cy="792" r="22" fill="#1B1915"/>
+  <path d="M298 792 L307 801 L324 782" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="512" cy="792" r="26" fill="#FFFFFF" stroke="#1B1915" stroke-width="9"/>
+  <circle cx="512" cy="792" r="11" fill="url(#avAccent)"/>
+  <circle cx="710" cy="792" r="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-opacity="0.4"/>
+</svg>
