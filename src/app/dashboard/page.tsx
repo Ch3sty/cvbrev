@@ -8,10 +8,9 @@
  *   C  aktiv            → jobbsöksöversikt, nästa handling, pipeline,
  *                          kvotrad och senaste aktivitet (fem sektioner)
  *
- * SparRad och DowngradedNotice ligger överst i alla lägen. För den betalande
- * ligger VeckoTrad först i stället: under veckan är veckan nästa handling, så
- * NastaHandling visas inte samtidigt som en oavklarad dag finns
- * (docs/plan-paket-och-onboarding.md, flöde 3).
+ * DowngradedNotice ligger överst i alla lägen. Hjälpredan Kom igång ligger
+ * inte här utan i skalet: en rad ovanför bottennavigeringen och ett ark
+ * (docs/design/spec-onboarding-2026-09-22.html, sektion 2).
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -25,10 +24,6 @@ import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { logUserActivity } from '@/lib/activity-logger';
 
 // Tråden (docs/design/koncept-2026-09-13.md): sektionerna bor i (oversikt).
-import SparRad from '@/components/dashboard/SparRad';
-import DagpassRad from '@/components/dashboard/DagpassRad';
-import SparFragaIgen from '@/components/dashboard/SparFragaIgen';
-import VeckoTrad from '@/components/dashboard/VeckoTrad';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
 import PurchaseConfirmation from './(oversikt)/PurchaseConfirmation';
 import QuotaNudgeRow from './(oversikt)/QuotaNudgeRow';
@@ -41,7 +36,6 @@ import NastaHandling from './(oversikt)/NastaHandling';
 import SenasteAktivitet from './(oversikt)/SenasteAktivitet';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
-import type { PlanKey } from '@/lib/plans/plans';
 
 interface DashboardStats {
   totalLetters: number;
@@ -192,58 +186,6 @@ export default function DashboardPage() {
     return () => clearTimeout(t);
   }, [searchParams, loading, stats.subscriptionTier]);
 
-  // Veckoprogrammet (docs/plan-paket-och-onboarding.md, flöde 3). Tillståndet
-  // kommer serverrenderat ur /api/dashboard/summary, inte ur ett eget anrop:
-  // en veckopanel som hämtar sig själv efter mount ger CLS och bryter
-  // hemskärmens LCP-budget på 1,0 s.
-  const week = summary?.week;
-  const weekScope = week?.scope ?? null;
-  const weekTrackValt = week?.track ?? null;
-  // Spåret styr veckans innehåll. Har hon betalat utan att ha valt spår följer
-  // veckan det betalda scopet.
-  const veckoSpar = weekTrackValt ?? weekScope;
-  // 'allt' kör ett av spårens veckor. CV är utgångsläget, precis som ordningen
-  // på spårvalsskärmen.
-  const veckoUnderSpar = veckoSpar === 'tester' ? 'tester' : 'cv';
-  const veckoDag = Math.min(7, Math.max(1, week?.progressDay || 1));
-  // Allt-dagen kör inget veckoprogram (avsnitt 6). Dygnet är ett engångsköp
-  // på 24 timmar, och sju dagars program i en vy som varar ett dygn vore en
-  // lögn om vad hon köpt. Hon får en sluttidsrad i stället.
-  const endastDagpass = Boolean(week?.dayPassOnly);
-  // Panelen visas bara för den som betalar, och aldrig för ett dagpass.
-  // Gratisnivån får spårraden.
-  const visaVeckan = Boolean(weekScope && veckoSpar) && !endastDagpass;
-  // Under veckan är veckan nästa handling. Två konkurrerande "gör det här nu"
-  // är värre än noll, så NastaHandling står över medan en dag är oavklarad.
-  const dagOavklarad = visaVeckan && (week?.progressDay ?? 0) < 7;
-
-  const veckoPlan: PlanKey =
-    weekScope === 'cv' ? 'cv_week' : weekScope === 'tester' ? 'test_week' : 'all_week';
-
-  // Fyra tal till dag 7:s sammanställning. Räknar saker användaren gjort,
-  // aldrig poäng: brev, CV, mallar och avklarade dagar.
-  //
-  // Tredje talet stod tidigare på LinkedIn-räknaren därför att
-  // mallnedladdningarna inte fanns i summeringen, alltså ljög etiketten
-  // "mallar" (B3:s öppna beslut 10). Nu läser den formatted_cv_downloads.
-  const veckoTal: [number, number, number, number] = [
-    stats.totalLetters,
-    stats.cvCount ?? 0,
-    week?.templateDownloads ?? 0,
-    Math.max(0, veckoDag - 1),
-  ];
-
-  // Spårfrågan ställs om en gång, efter tre dagars aktivitet, om användaren
-  // hoppade över den. Flaggan är onboarding_track_asked_at i profiles, alltså
-  // i databasen och inte i localStorage: frågan ska inte komma om bara för att
-  // hon bytt telefon.
-  const fragaOmSpar =
-    !loading &&
-    !weekScope &&
-    weekTrackValt === null &&
-    Boolean(week?.trackAskedAt) &&
-    Date.now() - new Date(week!.trackAskedAt!).getTime() > 3 * 24 * 60 * 60 * 1000;
-
   const cvCount = stats.cvCount || 0;
   const totalLetters = stats.totalLetters || 0;
   const isPremium = stats.isPremium || false;
@@ -299,31 +241,7 @@ export default function DashboardPage() {
           onDismiss={() => setPurchasedPlan(null)}
         />
       )}
-      <SparRad track={weekTrackValt} scope={weekScope} />
-      {/* Allt-dagen: sluttidsrad i stället för veckopanelen. */}
-      {endastDagpass ? <DagpassRad endsAt={week?.dayPassEndsAt ?? null} /> : null}
       <DowngradedNotice />
-
-      {/* Veckan ligger som hemskärmens första element under rubriken, ovanför
-          allt annat. Bara för den som betalar: en gratisanvändare har ingen
-          vecka att gå igenom. */}
-      {visaVeckan && veckoSpar ? (
-        <VeckoTrad
-          track={veckoSpar}
-          weekTrack={veckoUnderSpar}
-          progressDay={veckoDag}
-          planKey={veckoPlan}
-          currentPeriodEnd={stats.currentPeriodEnd ?? null}
-          summaryTal={veckoTal}
-          onProgress={refresh}
-        />
-      ) : null}
-
-      {/* Hoppade hon över spårfrågan och har varit aktiv i tre dagar frågar vi
-          om, en gång. Aldrig mer än så. */}
-      {fragaOmSpar ? (
-        <SparFragaIgen />
-      ) : null}
 
       <DashboardHero
         state={state}
@@ -365,11 +283,7 @@ export default function DashboardPage() {
             <aside className="space-y-4 sm:space-y-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
               {/* 2. En rankad handling: uppföljning, AF-fönstret eller en
                      oprövad funktion. Aldrig fler än en åt gången. */}
-              {/* Under veckan är veckan nästa handling. Två konkurrerande
-                     "gör det här nu" är värre än noll. */}
-              {!dagOavklarad ? (
-                <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
-              ) : null}
+              <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
 
               {/* 4. Kvoterna som en rad. Premium får null. */}
               <QuotaNudgeRow isPremium={isPremium} />

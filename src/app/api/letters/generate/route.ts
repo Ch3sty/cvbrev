@@ -3,6 +3,7 @@
 // *** SÄKERHETSREFAKTOR: Anonymiserar CV-data innan OpenAI ***
 
 import { cookies } from 'next/headers';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 // Importera GenerateLetterResult typen och funktionerna
@@ -315,6 +316,8 @@ export async function POST(request: Request) {
          if (letterError) { throw new Error('Kunde inte spara brevet i databasen'); }
          if (letterData) {
              completedGenerations.set(requestKey, { timestamp: Date.now(), letterId: letterData.id, content: letterObject });
+             // Hjälpredan Kom igång: brevet är skrivet och sparat.
+             void markeraBricka(user.id, 'brev');
              // *** VALFRITT: Logga sparandet separat ***
              // logUserActivity(user.id, 'letter_saved', 'Sparade ett genererat personligt brev', { letter_id: letterData.id });
              return letterData; // Returnera DB-objektet

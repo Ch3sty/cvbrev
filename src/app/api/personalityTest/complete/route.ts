@@ -5,6 +5,7 @@ import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
 import { computeScores, isComplete } from '@/lib/personalityTest/scoring';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
+import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
 /** Den enda testnivån som ligger bakom Premium (se testCatalog.ts). */
 const PREMIUM_LOCKED_TEST = 'personlighet-avancerad';
@@ -71,6 +72,10 @@ export async function POST(request: Request) {
         facet_scores: profile.facetScores ?? null,
       })
       .eq('id', sessionId);
+
+    // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
+    // Tyst vid fel, får aldrig fälla svaret.
+    void markeraTestBricka(user.id, session.test_type);
 
     if (updateError) {
       console.error('Error completing session:', updateError);

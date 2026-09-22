@@ -26,6 +26,7 @@ export type Feature =
   | 'chat_unlimited'
   | 'job_matches_all'
   | 'bli_upptackt'
+  | 'linkedin'
 
 /**
  * Feature till de scope som ger den.
@@ -45,6 +46,8 @@ export const FEATURES: Record<Feature, readonly Scope[]> = {
   chat_unlimited: ['allt'],
   job_matches_all: ['allt'],
   bli_upptackt: ['allt'],
+  // LinkedIn-profilen följer CV-spåret (spec-onboarding sektion 3 och 5).
+  linkedin: ['cv', 'allt'],
 } as const
 
 /** Alla featurenamn, för tester och för att rita listor. */

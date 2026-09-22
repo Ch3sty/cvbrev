@@ -453,7 +453,7 @@ function GenerateButton({
         className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
       >
         <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        Använd mallen med Premium
+        Ladda ned med CV-veckan
       </button>
     );
   }

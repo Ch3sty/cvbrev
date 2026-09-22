@@ -65,8 +65,8 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
   // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
   // betalväggen; med fel spår ritar den FelSpar i stället.
-  const scope = summary?.week?.scope ?? null
-  const track = summary?.week?.track ?? null
+  const scope = summary?.paket?.scope ?? null
+  const track = summary?.paket?.track ?? null
   const requiredFeature = config.requiresFeature ?? null
   const hasFeature = scopeHasFeature(scope, requiredFeature ?? 'tests_above_base')
   const isLocked = requiredFeature !== null && !hasFeature && !profileLoading

@@ -39,6 +39,20 @@
   --fel-kant: #F2C4C4;
   --fel-morker: #7F1D1D;
 
+  /* Prissidan och köpvägen (docs/designsystem.md avsnitt 12, spec
+     2026-09-22). Två färgetiketter som skiljer spåren åt: blå för CV och
+     personliga brev, brun för rekryteringstester. Etiketten står i den
+     mörka tonen på den mjuka ytan, aldrig som text på mark. */
+  --cv: #1D4ED8;
+  --cv-mjuk: #DCE6FB;
+  --test: #7C2D12;
+  --test-mjuk: #F6E4D6;
+  /* Allt-kortet står i ink-1 med vit text. Tre toner till på den ytan:
+     dämpad text, hårlinje och etiketten Rekommenderas. */
+  --ink-1-mjuk: #CFC8BD;
+  --ink-1-kant: #3A3531;
+  --ink-1-accent: #FBB98A;
+
   /* Illustrationssystemets färgroller. Konturer tar currentColor; dessa är
      fyllningar. Pekar på Trådens tokens: fyllning är panel, mjuk yta är
      marginalplattans ton, accenten är linjen. */
@@ -520,6 +534,14 @@ html {
    --bottom-nav-h så höjden bara finns definierad på ett ställe. */
 .dashboard-main-content {
   padding-bottom: calc(var(--bottom-nav-h) + 1.5rem);
+}
+
+/* Hjälpredan Kom igång: den mörka raden ligger ovanför bottennavet på
+   hemskärmen (spec-onboarding 2026-09-22, sektion 2). Innehållet får
+   radens höjd plus avstånd som extra bottenpadding så sista kortet aldrig
+   hamnar bakom den. Attributet sätts av raden själv medan den syns. */
+html[data-komigang-rad] .dashboard-main-content {
+  padding-bottom: calc(var(--bottom-nav-h) + 1.5rem + 76px);
 }
 
 /* On desktop (lg+), restore normal padding */

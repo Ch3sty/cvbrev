@@ -2,7 +2,7 @@
 import '@/lib/supabase/storage-init';
 
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Schibsted_Grotesk } from 'next/font/google'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
 import { cookies } from 'next/headers'
@@ -17,6 +17,18 @@ import { createServerClient } from '@/lib/supabase/server'
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  adjustFontFallback: true,
+})
+
+// Schibsted Grotesk bär rubrikerna på prissidan och i köpvägen
+// (docs/designsystem.md avsnitt 12). Den exponeras bara som variabel, så
+// ingen text byter familj av sig själv: bara klassen font-display tar den,
+// och utan variabeln faller den tillbaka på Inter.
+const schibsted = Schibsted_Grotesk({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  display: 'swap',
+  variable: '--font-display',
   adjustFontFallback: true,
 })
 
@@ -93,7 +105,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="sv" className="h-full">
+    <html lang="sv" className={`h-full ${schibsted.variable}`}>
       <head>
         {/* Ensure dataLayer exists synchronously before GTM */}
         <script dangerouslySetInnerHTML={{

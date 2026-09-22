@@ -8,7 +8,6 @@ import JobMatchingShowcase from '@/components/landing/JobMatchingShowcase';
 import ProductShowcase from '@/components/landing/ProductShowcase';
 import TestsShowcase from '@/components/landing/TestsShowcase';
 import DetailedPricingSection from '@/components/landing/DetailedPricingSection';
-import TestimonialsRow from '@/components/landing/TestimonialsRow';
 import LandingFAQ from '@/components/landing/LandingFAQ';
 import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
@@ -27,7 +26,6 @@ export default function HomePage() {
         <ProductShowcase />
         <TestsShowcase />
         <DetailedPricingSection />
-        <TestimonialsRow />
         <LandingFAQ />
         <RichFinalCTA />
       </main>

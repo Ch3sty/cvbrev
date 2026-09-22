@@ -1,15 +1,20 @@
 'use client';
 
 /**
- * Prenumeration, tre tillstånd (docs/plan-paket-och-onboarding.md, Fas 2D).
+ * Prenumeration, tre tillstånd (docs/design/spec-prissida-2026-09-22.html,
+ * inloggade prissidan).
  *
- * Den publika sidan säljer paket, den här sidan säljer nästa steg från där
- * användaren står. Därför börjar varje tillstånd med hennes läge, och först
- * därefter kommer korten.
+ * Samma tre PaketKort som på den publika prissidan, men i användarens läge:
  *
- * Orange-räkning: ett i tillstånd gratis (förslagspanelens platta), ett i
- * tillstånd spår (uppgraderingspanelens platta), noll i tillstånd Allt. En
- * nöjd betalande sida ska vara lugn.
+ *   gratis  alla tre med knappar, knappen bär paketet till köpsteget
+ *   spår    det egna kortet visar "Du har det här paketet", det andra spåret
+ *           byter vid nästa förnyelse, Allt visar mellanskillnaden
+ *   Allt    spåren visar "Ingår i Allt", Allt-kortet bär längdbytet där
+ *           dagläget är inaktivt för en löpande kund, och Säg upp står i
+ *           hanteringslistan
+ *
+ * Orange-räkning: noll. Allt-kortets etikett Rekommenderas står i den
+ * ljusa accenttonen på ink-ytan, och räknas som kortets enda accent.
  *
  * Allt som avgör läget kommer som props från servern. Klienten sköter
  * felbannern, köpanropen och längdvalet.
@@ -21,32 +26,23 @@ import { ChevronRight, Slash, X } from 'lucide-react';
 
 import PageHeader from '@/components/shell/PageHeader';
 import StatusRow from '@/components/shell/StatusRow';
-import MarginPlate from '@/components/shell/MarginPlate';
-import Segment from '@/components/shell/Segment';
-import PaketKort from '@/components/pricing/PaketKort';
-import { IlluPlattaPremium } from '@/components/illustrations/TradenScener';
+import PaketKort, { type PaketKortProps } from '@/components/pricing/PaketKort';
 import { capture } from '@/lib/analytics/events';
-import {
-  PLAN_BY_KEY,
-  type PlanKey,
-  type PlanLength,
-} from '@/lib/plans/plans';
+import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans';
 import type { Scope } from '@/lib/access/features';
 import {
-  ALLT_LANGDER,
-  D_PRENUMERATION,
   FEATURE_ETIKETT,
-  PAKET_PUNKTER,
+  KONTO,
+  PAKET_IDS,
+  PAKET_PLAN,
   besparing,
-  bytLangdKnapp,
-  forslagKnapp,
-  forslagRubrik,
-  forslagSkal,
+  borjaKnapp,
   gangerText,
-  langdPrisRad,
   mellanskillnad,
+  paketForPlan,
+  planForLangd,
   statusRadText,
-  uppgraderingSkal,
+  type PaketId,
 } from '@/components/pricing/paket-copy';
 import { FREE_HIGHLIGHTS } from '@/app/(public)/priser/components/priser-data';
 import CancelFlowModal from './components/CancelFlowModal';
@@ -54,11 +50,8 @@ import type { Blockeringar } from './blockeringar';
 
 const PORTAL = '/api/stripe/create-portal-session';
 
-const PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
-
-const TEXTLANK =
-  'inline-flex h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
+const RAD =
+  'flex min-h-11 items-center justify-between gap-3 px-4 py-3 text-sm text-ink-1 hover:bg-insunken';
 
 export interface PrenumerationClientProps {
   tillstand: 'free' | 'track' | 'all';
@@ -85,8 +78,11 @@ export default function PrenumerationClient({
 }: PrenumerationClientProps) {
   const [fel, setFel] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [allaPaket, setAllaPaket] = useState(false);
   const [uppsagning, setUppsagning] = useState(false);
+  // Allt-kortets längd. För en Allt-kund börjar den på det hon har.
+  const [langd, setLangd] = useState<PlanLength>(
+    paket && PLAN_BY_KEY[paket].scope === 'allt' ? PLAN_BY_KEY[paket].length : 'vecka'
+  );
   const matt = useRef(false);
 
   const premiumUntil = premiumUntilIso ? new Date(premiumUntilIso) : null;
@@ -133,7 +129,7 @@ export default function PrenumerationClient({
     }
   }, []);
 
-  const kop = useCallback(async (plan: PlanKey) => {
+  const kop = useCallback((plan: PlanKey) => {
     capture('paywall_cta_clicked', {
       variant: 'onboarding_paket',
       surface: 'account',
@@ -141,8 +137,8 @@ export default function PrenumerationClient({
       cta: 'primary',
     });
 
-    // Ångerrättssamtycket (avsnitt 8) kryssas på köpskärmen, som bär både
-    // kryssrutan och knappen. Kontosidan öppnar därför inte kassan själv.
+    // Ångerrättssamtycket kryssas på köpsteget, som bär både kryssrutan och
+    // knappen. Kontosidan öppnar därför inte kassan själv.
     setBusy(true);
     window.location.href = `/dashboard/valj-spar?paket=${plan}`;
   }, []);
@@ -188,14 +184,90 @@ export default function PrenumerationClient({
 
   const statusText =
     tillstand === 'free'
-      ? D_PRENUMERATION.statusGratis
+      ? KONTO.statusGratis
       : paket
         ? statusRadText(paket, premiumUntil)
         : 'Premium aktivt';
 
+  const egetPaket: PaketId | null = paket ? paketForPlan(paket) : null;
+
+  /** Kortets props i användarens läge. */
+  function kortFor(id: PaketId): Partial<PaketKortProps> {
+    // Gratis: alla tre med knappar, precis som på prissidan.
+    if (tillstand === 'free' || !paket) {
+      return {
+        knapp: {
+          text: borjaKnapp(id),
+          onClick: () => kop(id === 'allt' ? planForLangd(langd) : PAKET_PLAN[id]),
+          disabled: busy,
+        },
+      };
+    }
+
+    // Spår: det egna kortet, det andra spåret, och Allt med mellanskillnaden.
+    if (tillstand === 'track') {
+      if (id === egetPaket) {
+        return { status: KONTO.dittPaket, fotnot: null };
+      }
+      if (id !== 'allt') {
+        return {
+          knapp: {
+            text: KONTO.bytSpar(PAKET_PLAN[id]),
+            onClick: () => byt(PAKET_PLAN[id]),
+            disabled: busy || !harStripePrenumeration,
+          },
+          fotnot: KONTO.byterVidFornyelse,
+        };
+      }
+      return {
+        visaLangd: false,
+        pris: {
+          belopp: `+${mellanskillnad(paket)} kr`,
+          sub: KONTO.mellanskillnadSub(paket),
+        },
+        knapp: {
+          text: KONTO.bytTillAllt,
+          onClick: () => byt('all_week'),
+          disabled: busy || !harStripePrenumeration,
+        },
+        fotnot: null,
+      };
+    }
+
+    // Allt: spåren ingår, Allt-kortet bär längdbytet.
+    if (id !== 'allt') {
+      return {
+        status: KONTO.ingarIAllt,
+        fotnot: null,
+        lank: harStripePrenumeration
+          ? {
+              text: `${KONTO.bytSpar(PAKET_PLAN[id])} vid nästa förnyelse`,
+              onClick: () => byt(PAKET_PLAN[id]),
+            }
+          : undefined,
+      };
+    }
+
+    if (!harStripePrenumeration) {
+      return { visaLangd: false, status: KONTO.dittPaket, fotnot: null };
+    }
+
+    const vald = planForLangd(langd);
+    const oforandrad = vald === paket;
+    return {
+      inaktivaLangder: ['dag'],
+      langdNot: langd === 'dag' ? KONTO.dagInaktiv : KONTO.byterVidFornyelse,
+      status: oforandrad ? KONTO.oforandrad : undefined,
+      knapp: oforandrad
+        ? null
+        : { text: KONTO.bytLangd(vald), onClick: () => byt(vald), disabled: busy },
+      fotnot: besparing(vald),
+    };
+  }
+
   return (
-    <div className="mx-auto max-w-3xl space-y-4 p-4 sm:space-y-6 sm:p-6">
-      <PageHeader title="Prenumeration" description={D_PRENUMERATION.ingress} />
+    <div className="mx-auto max-w-5xl space-y-4 p-4 sm:space-y-6 sm:p-6">
+      <PageHeader title="Prenumeration" description={KONTO.ingress} />
 
       {fel ? (
         <div className="rounded-xl border border-fel-kant bg-fel-mjuk p-4">
@@ -222,29 +294,11 @@ export default function PrenumerationClient({
         {statusText}
       </StatusRow>
 
-      {/* Vad hon har. Gratisnivån får sin egen panel längst ner i stället. */}
-      {tillstand !== 'free' && paket ? (
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
-          <h2 className="text-sm font-medium text-ink-3">
-            {tillstand === 'all' ? D_PRENUMERATION.alltIngar : D_PRENUMERATION.ingarRubrik}
-          </h2>
-          <ul className="mt-3 space-y-2">
-            {PAKET_PUNKTER[paket].map((punkt) => (
-              <li key={punkt} className="text-sm leading-[22px] text-ink-2">
-                {punkt}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {/* Blockeringslistan står före förslaget: inte "köp det här" utan
+      {/* Blockeringslistan står före korten: inte "köp det här" utan
           "det här tog stopp, och det här löser det". */}
       {tillstand !== 'all' && rader.length > 0 ? (
         <section>
-          <h2 className="text-sm font-medium text-ink-3">
-            {D_PRENUMERATION.stoppRubrik}
-          </h2>
+          <h2 className="text-sm font-medium text-ink-3">{KONTO.stoppRubrik}</h2>
           <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-panel">
             {rader.map((rad) => (
               <li
@@ -270,145 +324,48 @@ export default function PrenumerationClient({
         </section>
       ) : null}
 
-      {/* Tillstånd gratis: förslagspanelen. Vyns enda marginalplatta. */}
-      {tillstand === 'free' ? (
-        <>
-          <section className="rounded-xl border border-kant-stark bg-panel p-4 sm:p-5">
-            <div className="flex items-start gap-3">
-              <MarginPlate>
-                <IlluPlattaPremium size={48} />
-              </MarginPlate>
-              <div className="min-w-0">
-                <h2 className="text-kort text-ink-1">{forslagRubrik(foreslagetPaket)}</h2>
-                <p className="mt-1 text-sm leading-[22px] text-ink-2">
-                  {forslagSkal({
-                    plan: foreslagetPaket,
-                    antal: blockeringar.totalt,
-                    badaSparen: blockeringar.badaSparen,
-                    track,
-                  })}
-                </p>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => kop(foreslagetPaket)}
-              className={`${PRIMAR} mt-4`}
-            >
-              {forslagKnapp(foreslagetPaket)}
-            </button>
-
-            <div className="mt-1">
-              <button
-                type="button"
-                onClick={() => setAllaPaket((open) => !open)}
-                aria-expanded={allaPaket}
-                className={TEXTLANK}
-              >
-                {D_PRENUMERATION.seAllaPaket}
-              </button>
-            </div>
-          </section>
-
-          {allaPaket ? (
-            <section>
-              <h2 className="text-sm font-medium text-ink-3">
-                {D_PRENUMERATION.allaPaket}
-              </h2>
-              <div className="mt-2 grid gap-4 lg:grid-cols-3">
-                <PaketKort plan="cv_week" busy={busy} onSelect={kop} />
-                <PaketKort plan="test_week" busy={busy} onSelect={kop} />
-                <PaketKort
-                  plan="all_week"
-                  lengths
-                  busy={busy}
-                  onSelect={kop}
-                  onLengthChange={(plan) =>
-                    capture('plan_length_changed', { plan, surface: 'account' })
-                  }
-                />
-              </div>
-            </section>
-          ) : null}
-
-          <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
-            <h2 className="text-sm font-medium text-ink-3">
-              {D_PRENUMERATION.gratisRubrik}
-            </h2>
-            <ul className="mt-3 space-y-2">
-              {FREE_HIGHLIGHTS.map((rad) => (
-                <li key={rad} className="text-sm leading-[22px] text-ink-2">
-                  {rad}
-                </li>
-              ))}
-            </ul>
-          </section>
-        </>
-      ) : null}
-
-      {/* Tillstånd spår: uppgraderingspanelen, men bara när hon faktiskt
-          stoppats utanför sitt spår. Att sälja Allt till en nöjd spårkund
-          är att störa, och då står bara det hon har och hur hon hanterar det. */}
-      {tillstand === 'track' && rader.length > 0 && paket ? (
-        <section className="rounded-xl border border-kant-stark bg-panel p-4 sm:p-5">
-          <div className="flex items-start gap-3">
-            <MarginPlate>
-              <IlluPlattaPremium size={48} />
-            </MarginPlate>
-            <div className="min-w-0">
-              <h2 className="text-kort text-ink-1">{D_PRENUMERATION.bytTillAllt}</h2>
-              <p className="mt-1 text-sm leading-[22px] text-ink-2">
-                {uppgraderingSkal(blockeringar.totalt)}
-              </p>
-            </div>
-          </div>
-
-          {/* Mellanskillnaden, inte hela priset: 99 kr för någon som redan
-              betalar 79 läser som en dubbeldebitering. */}
-          <p className="mt-4 flex items-baseline justify-between gap-3 text-meta text-ink-3">
-            <span>Mellanskillnad</span>
-            <span className="tabular-nums">+{mellanskillnad(paket)} kr</span>
-          </p>
-          <p className="text-meta text-ink-3">Påbörjad vecka räknas av</p>
-
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => byt('all_week')}
-            className={`${PRIMAR} mt-4`}
-          >
-            {bytLangdKnapp('all_week')}
-          </button>
-        </section>
-      ) : null}
-
-      {/* Tillstånd Allt: längdvalet. Ingen platta, ingen accent. */}
-      {tillstand === 'all' && paket && harStripePrenumeration ? (
-        <LangdVal nuvarande={paket} busy={busy} onByt={byt} />
-      ) : null}
+      {/* De tre korten i användarens läge. */}
+      <section aria-labelledby="konto-paket">
+        <h2 id="konto-paket" className="text-sm font-medium text-ink-3">
+          {KONTO.paketRubrik}
+        </h2>
+        <div className="mt-2 grid gap-3 lg:grid-cols-[1fr_1fr_1.12fr] lg:items-stretch lg:gap-4">
+          {PAKET_IDS.map((id, i) => (
+            <PaketKort
+              key={id}
+              paket={id}
+              nummer={i + 1}
+              langd={id === 'allt' ? langd : undefined}
+              onLangd={(ny, plan) => {
+                setLangd(ny);
+                capture('plan_length_changed', { plan, surface: 'account' });
+              }}
+              {...kortFor(id)}
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Hanteringslistan. Säg upp är aldrig dold och aldrig destruktiv. */}
       {tillstand !== 'free' && harStripePrenumeration ? (
         <section>
-          <h2 className="text-sm font-medium text-ink-3">{D_PRENUMERATION.hantera}</h2>
+          <h2 className="text-sm font-medium text-ink-3">{KONTO.hantera}</h2>
           <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-panel">
             <li>
               <Link href={PORTAL} className={RAD}>
-                {D_PRENUMERATION.bytKort}
+                {KONTO.bytKort}
                 <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </li>
             <li>
               <Link href={PORTAL} className={RAD}>
-                {D_PRENUMERATION.kvitton}
+                {KONTO.kvitton}
                 <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </li>
             <li>
               <button type="button" onClick={sagUpp} className={`${RAD} w-full text-left`}>
-                {D_PRENUMERATION.sagUpp}
+                {KONTO.sagUpp}
                 <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
               </button>
             </li>
@@ -426,76 +383,20 @@ export default function PrenumerationClient({
         </p>
       ) : null}
 
+      {tillstand === 'free' ? (
+        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <h2 className="text-sm font-medium text-ink-3">{KONTO.gratisRubrik}</h2>
+          <ul className="mt-3 space-y-2">
+            {FREE_HIGHLIGHTS.map((rad) => (
+              <li key={rad} className="text-sm leading-[22px] text-ink-2">
+                {rad}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <CancelFlowModal open={uppsagning} onClose={() => setUppsagning(false)} />
     </div>
-  );
-}
-
-const RAD =
-  'flex min-h-11 items-center justify-between gap-3 px-4 py-3 text-sm text-ink-1 hover:bg-insunken';
-
-/**
- * Längdvalet på Allt.
- *
- * Dagläget är inaktivt för löpande kunder (dirigentens beslut efter
- * copyrunda 3). Ett byte nedåt till ett engångsköp vore en uppsägning plus
- * ett köp, inte ett längdbyte, och då är det ärligare att säga det rakt ut
- * än att förklara i finstilt.
- *
- * Primären är inaktiv tills en annan längd än den nuvarande är vald.
- */
-function LangdVal({
-  nuvarande,
-  busy,
-  onByt,
-}: {
-  nuvarande: PlanKey;
-  busy: boolean;
-  onByt: (plan: PlanKey) => void;
-}) {
-  const [langd, setLangd] = useState<PlanLength>(PLAN_BY_KEY[nuvarande].length);
-
-  const vald = ALLT_LANGDER.find((l) => l.length === langd)?.plan ?? nuvarande;
-  const oforandrad = vald === nuvarande;
-  const spar = besparing(vald);
-
-  return (
-    <section>
-      <h2 className="text-sm font-medium text-ink-3">{D_PRENUMERATION.bytLangd}</h2>
-
-      <div className="mt-2 rounded-xl border border-kant bg-panel p-4 sm:p-5">
-        <Segment
-          label="Längd"
-          value={langd}
-          onChange={(ny) => {
-            setLangd(ny);
-            const plan = ALLT_LANGDER.find((l) => l.length === ny)?.plan;
-            if (plan) capture('plan_length_changed', { plan, surface: 'account' });
-          }}
-          options={ALLT_LANGDER.map((l) => ({
-            value: l.length,
-            label: l.label,
-            disabled: l.length === 'dag',
-          }))}
-        />
-
-        <p className="mt-4 text-kort text-ink-1">{langdPrisRad(vald)}</p>
-        {spar ? <p className="mt-1 text-meta text-ink-3">{spar}</p> : null}
-        <p className="mt-1 text-meta text-ink-3">
-          {langd === 'dag'
-            ? D_PRENUMERATION.dagInaktiv
-            : D_PRENUMERATION.byterVidFornyelse}
-        </p>
-
-        <button
-          type="button"
-          disabled={busy || oforandrad}
-          onClick={() => onByt(vald)}
-          className={`${PRIMAR} mt-4`}
-        >
-          {bytLangdKnapp(vald)}
-        </button>
-      </div>
-    </section>
   );
 }

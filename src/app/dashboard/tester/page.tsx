@@ -23,7 +23,13 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getTesterHubData, emptyHubData, type TesterHubData } from './getHubData';
 import TesterHubClient from './TesterHubClient';
 import { getUserScope } from '@/lib/supabase/premiumAccess';
-import { scopeHasFeature } from '@/lib/access/features';
+import { scopeHasFeature, type Scope } from '@/lib/access/features';
+import { harPaket } from '@/lib/plans/harPaket';
+import type { PlanKey } from '@/lib/plans/plans';
+
+function lasTrack(v: unknown): Scope | null {
+  return v === 'cv' || v === 'tester' || v === 'allt' ? v : null;
+}
 
 export default async function TesterHubPage() {
   const cookieStore = await cookies();
@@ -38,6 +44,8 @@ export default async function TesterHubPage() {
   }
 
   let data: TesterHubData;
+  let track: Scope | null = null;
+  let planKey: PlanKey | null = null;
 
   try {
     // Scopet påverkar bara presentationen, inte vilka rader vi läser, så det
@@ -48,7 +56,13 @@ export default async function TesterHubPage() {
     // spår hon köpt: en CV-veckan-kund har inte testhistoriken, och en
     // Testveckan-kund har den (docs/plan-paket-och-onboarding.md, avsnitt 4
     // och 5).
-    const scope = await getUserScope(supabase, user.id);
+    const [scope, profileRes] = await Promise.all([
+      getUserScope(supabase, user.id),
+      supabase.from('profiles').select('onboarding_track, premium_until').eq('id', user.id).maybeSingle(),
+    ]);
+    const profil = (profileRes.data ?? null) as { onboarding_track?: string | null; premium_until?: string | null } | null;
+    track = lasTrack(profil?.onboarding_track);
+    planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null);
     const hasHistory = scopeHasFeature(scope, 'test_history');
 
     data = await getTesterHubData(supabase, user.id, scope !== null, hasHistory, scope);
@@ -59,5 +73,5 @@ export default async function TesterHubPage() {
     data = emptyHubData(false, false);
   }
 
-  return <TesterHubClient data={data} />;
+  return <TesterHubClient data={data} track={track} planKey={planKey} />;
 }

@@ -30,6 +30,8 @@ const FLOW_ROUTES = [
   '/dashboard/skapa-cv',
   '/dashboard/cv-analys',
   '/dashboard/linkedin-optimizer',
+  // Välkomstskärmen efter köpet äger också hela skärmen (sektion 1).
+  '/dashboard/vecka/start',
 ];
 import dynamic from 'next/dynamic';
 
@@ -48,7 +50,9 @@ const InstallPrompt = dynamic(
   { ssr: false }
 );
 import NavigationProgress from '@/components/ui/NavigationProgress';
-import VeckoMejlSparning from '@/components/dashboard/VeckoMejlSparning';
+import { KomIgangProvider } from '@/components/dashboard/KomIgangContext';
+import KomIgangRad from '@/components/dashboard/KomIgangRad';
+import KomIgangArk from '@/components/dashboard/KomIgangArk';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {
   DashboardDataProvider,
@@ -142,6 +146,7 @@ export default function DashboardShell({
   return (
     <DashboardDataProvider initialSummary={initialSummary}>
       <OnboardingProvider>
+      <KomIgangProvider>
       {/* Tråden längs skärmens överkant vid sidbyten. */}
       <Suspense fallback={null}>
         <NavigationProgress />
@@ -227,12 +232,17 @@ export default function DashboardShell({
           flöde, och det är efter just den bekräftelsen frågan ska komma. */}
       <InstallPrompt />
 
-      {/* Mäter dagar öppnade från veckomejlen. Renderar ingenting. */}
-      <VeckoMejlSparning />
+      {/* Hjälpredan Kom igång: den mörka raden ovanför bottennavigeringen på
+          hemskärmen, och arket som båda raderna (den här och sidomenyns)
+          öppnar. Raden ligger bara på hemskärmen (sektion 2), arket överallt
+          så välkomstskärmens Visa allt som ingår kan öppna det. */}
+      {pathname === '/dashboard' ? <KomIgangRad variant="flytande" /> : null}
+      <KomIgangArk />
 
       {/* Mobil bottennavigation (lg:hidden inuti komponenten) */}
       <MobileBottomNavWrapper />
       </div>
+      </KomIgangProvider>
       </OnboardingProvider>
     </DashboardDataProvider>
   );

@@ -75,8 +75,8 @@ export default function SaveAndTemplateStep({
       <TemplateSelector
         selectedTemplateId={selectedTemplate}
         onSelectTemplate={setSelectedTemplate}
-        scope={summary?.week?.scope ?? null}
-        track={summary?.week?.track ?? null}
+        scope={summary?.paket?.scope ?? null}
+        track={summary?.paket?.track ?? null}
       />
 
       {/* Save to Library Section - IMPROVED */}

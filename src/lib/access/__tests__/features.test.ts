@@ -11,8 +11,8 @@ import {
 const SCOPES: Scope[] = ['cv', 'tester', 'allt']
 
 describe('FEATURES', () => {
-  it('har de tio funktionerna ur avsnitt 5', () => {
-    expect(ALLA_FEATURES).toHaveLength(10)
+  it('har de tio funktionerna ur avsnitt 5 plus LinkedIn-profilen', () => {
+    expect(ALLA_FEATURES).toHaveLength(11)
   })
 
   it('ger Allt varje funktion', () => {
@@ -50,6 +50,7 @@ describe('scopeHasFeature', () => {
     expect(scopeHasFeature('cv', 'cv_export')).toBe(true)
     expect(scopeHasFeature('cv', 'cv_analysis_full')).toBe(true)
     expect(scopeHasFeature('cv', 'letter_download')).toBe(true)
+    expect(scopeHasFeature('cv', 'linkedin')).toBe(true)
   })
 
   it('nekar CV-spåret testen, chatten, matchningen och Bli upptäckt', () => {
@@ -67,6 +68,7 @@ describe('scopeHasFeature', () => {
     expect(scopeHasFeature('tester', 'test_history')).toBe(true)
     expect(scopeHasFeature('tester', 'cv_export')).toBe(false)
     expect(scopeHasFeature('tester', 'letter_download')).toBe(false)
+    expect(scopeHasFeature('tester', 'linkedin')).toBe(false)
   })
 
   it('stämmer med tabellen för varje par av scope och feature', () => {

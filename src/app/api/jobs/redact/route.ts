@@ -17,6 +17,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit';
 
 /**
  * Hur många träffar gratisnivån ser i klartext.
@@ -27,7 +28,7 @@ import { userHasAccess } from '@/lib/supabase/premiumAccess';
  * förklaringen som är varan. Tre fullständigt förklarade träffar visar vad
  * Premium ger bättre än tio oförklarade.
  */
-export const FREE_TIER_JOB_LIMIT = 3;
+export { FREE_TIER_JOB_LIMIT };
 
 /** Max antal jobb vi tar emot i ett anrop, så en klient inte kan be om hur mycket som helst. */
 const MAX_JOBS = 600;

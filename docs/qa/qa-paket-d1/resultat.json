@@ -1,0 +1,312 @@
+[
+  {
+    "namn": "desktop: H1 ur specen",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: tre löften",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: tre knappar Börja",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: \"Paket 1 av 3\" dold",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: värdemening desktop",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: fem raderna på Testveckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: längdval 49/99/149/299",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: tabellen med ord",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: fem funktionskort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: hjälpredan per paket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: förtroende med kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: FAQ fyra frågor",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: inga talstreck",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: H1 i Schibsted Grotesk",
+    "ok": true,
+    "not": "\"Schibsted Grotesk\", \"Schibsted Grotesk Fallback\", Inter, system-ui, sans-serif"
+  },
+  {
+    "namn": "desktop: Allt-kortet i ink-1",
+    "ok": true,
+    "not": "rgb(28, 25, 23)"
+  },
+  {
+    "namn": "utloggad: Börja CV-veckan går till /registrera?paket=cv_week",
+    "ok": true,
+    "not": "http://localhost:3108/registrera?paket=cv_week"
+  },
+  {
+    "namn": "mobil: numrerade paket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: kortare värdemening",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: bara tre rader på CV-kortet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: löftena dolda",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: ankarraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: ingen horisontell body-scroll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "gratis: inloggad",
+    "ok": true,
+    "not": "http://localhost:3108/dashboard"
+  },
+  {
+    "namn": "gratis: Börja CV-veckan går till valj-spar?paket=cv_week",
+    "ok": true,
+    "not": "http://localhost:3108/dashboard/valj-spar?paket=cv_week"
+  },
+  {
+    "namn": "1.1: frågan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1: tre kort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1: primär Fortsätt med CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1: sekundär Börja gratis i stället",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1: CV förvalt",
+    "ok": true,
+    "not": "true,false,false"
+  },
+  {
+    "namn": "1.1: Allt valt ger Fortsätt med Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: rubrik CV-veckan, från i kväll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: fyra rader",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: villkorsraderna",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: första steget CV",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: Vill du ha allt i stället",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: Till betalning, 79 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: knappen spärrad utan samtycke",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: knappen öppen efter samtycke",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: Allt-månaden ger rubrik Allt, från i kväll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2: Till betalning, 149 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 test: Fortsätt med Testveckan förvalt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 test: Testveckan, från i kväll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 test: Första steget matrislogik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto gratis: statusrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto gratis: tre Börja-knappar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "sidomeny: Profil och prenumeration",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "profilmeny: Köp eller byt paket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: statusrad CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: Du har det här paketet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: Allt med +20 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: Byt till Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: Byt till Testveckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto cv: Säg upp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "köpsteg löpande: dagläget spärrat",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "köpsteg löpande: förklaring till spärren",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: statusrad Allt-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: Ingår i Allt på spåren",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: Det här har du i dag",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: dagläget inaktivt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: månad ger Byt till Allt-månaden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: besparingen räknad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "konto allt: Säg upp",
+    "ok": true,
+    "not": ""
+  }
+]

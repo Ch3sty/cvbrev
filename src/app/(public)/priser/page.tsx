@@ -1,26 +1,27 @@
 /**
- * /priser (docs/plan-paket-och-onboarding.md, Fas 2D avsnitt 2).
+ * /priser (docs/design/spec-prissida-2026-09-22.html, sektion 1 och 2).
  *
- * Sex sektioner, och ordningen är argumentet: först vad man väljer mellan,
- * sedan vad det kostar, sedan vad gratis ger, sedan detaljerna, sedan
- * frågorna, sist förtroendet.
+ * Ordningen är argumentet: hero med löftena, tre paket, gratisraden,
+ * funktionerna en och en, hjälpredan per paket, förtroendekorten, tabellen
+ * rad för rad och frågorna.
  *
- * Serverrenderad rakt igenom. Spårväljaren och Allt-kortets längdval är det
- * enda som behöver JavaScript, och utan det visar Allt-kortet sitt veckoläge,
- * som är förvalt. Korten, tabellen, alla fem FAQ-svaren och förtroenderaden
- * står i HTML.
+ * Serverrenderad rakt igenom. Knapparna och Allt-kortets längdval är det
+ * enda som behöver JavaScript, och utan det visar Allt-kortet sitt
+ * veckoläge, som är förvalt. Korten, tabellen, alla fyra FAQ-svaren och
+ * förtroendekorten står i HTML.
  *
- * SEO: FAQPage och AggregateOffer, med samma priser som korten eftersom båda
- * läser PLANS.
+ * SEO: FAQPage och AggregateOffer, med samma priser som korten eftersom
+ * båda läser PLANS.
  */
 
-import Breadcrumb from '@/components/Breadcrumb'
 import PriserHero from './components/PriserHero'
 import PriserPaket from './components/PriserPaket'
 import PriserGratis from './components/PriserGratis'
+import PriserFunktioner from './components/PriserFunktioner'
+import PriserGuide from './components/PriserGuide'
+import PriserFortroende from './components/PriserFortroende'
 import PriserJamforelse from './components/PriserJamforelse'
 import PriserFAQ from './components/PriserFAQ'
-import PriserFortroende from './components/PriserFortroende'
 import PriserMatning from './components/PriserMatning'
 import { PRISER_FAQ_ITEMS, PREMIUM_CURRENCY } from './components/priser-data'
 import { PLANS } from '@/lib/plans/plans'
@@ -77,25 +78,15 @@ export default function PriserSida() {
       />
 
       <main className="min-h-screen bg-mark">
-        <div className="mx-auto max-w-[1040px] px-4 pb-12 pt-6 sm:px-6">
-          <Breadcrumb
-            items={[
-              { name: 'Hem', href: '/' },
-              { name: 'Priser', href: '/priser' },
-            ]}
-          />
-
-          <div className="mt-6 space-y-12">
-            <div>
-              <PriserHero />
-              <PriserPaket />
-            </div>
-
-            <PriserGratis />
-            <PriserJamforelse />
-            <PriserFAQ />
-            <PriserFortroende />
-          </div>
+        <div className="mx-auto max-w-[1200px] px-4 pb-12 pt-6 sm:px-6 lg:px-12 lg:pb-[72px] lg:pt-16">
+          <PriserHero />
+          <PriserPaket />
+          <PriserGratis />
+          <PriserFunktioner />
+          <PriserGuide />
+          <PriserFortroende />
+          <PriserJamforelse />
+          <PriserFAQ />
         </div>
       </main>
 

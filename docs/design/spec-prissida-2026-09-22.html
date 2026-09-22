@@ -1,0 +1,829 @@
+<title>Prissidan och köpvägen</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;--positiv:#047857;--positiv-mjuk:#D9F2E6;
+  --cv:#1D4ED8;--cv-mjuk:#DCE6FB;--test:#7C2D12;--test-mjuk:#F6E4D6;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:15px;line-height:23px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-family:var(--display);text-wrap:balance;letter-spacing:-0.025em}
+p{margin:0}
+svg{display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.note{max-width:1200px;margin:32px auto 0;padding:0 24px}
+.note h2{font-size:24px;line-height:30px;margin-bottom:8px}
+.note p{color:var(--ink-2);max-width:70ch}
+.eyebrow{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.sektion{margin-top:56px}
+.sektion > .eyebrow{margin-bottom:12px}
+.skarm{background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.skarm-topp{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--kant);background:var(--insunken);font-size:12px;color:var(--ink-3)}
+.skarm-topp i{width:10px;height:10px;border-radius:50%;background:var(--kant-stark);display:inline-block}
+.skarm-topp span{margin-left:8px}
+
+/* ======== PRISSIDAN ======== */
+.pris{background:var(--mark);padding:64px 48px 72px}
+.hero{display:grid;grid-template-columns:1fr 520px;gap:56px;align-items:center}
+.hero h1{font-size:60px;line-height:60px;font-weight:800;max-width:13ch}
+.hero .ingress{margin-top:22px;font-size:18px;line-height:29px;color:var(--ink-2);max-width:48ch}
+.hero .ingress b{color:var(--ink-1);font-weight:600}
+.bevis{margin-top:28px;display:flex;gap:32px;font-size:13px;color:var(--ink-3);line-height:18px}
+.bevis b{display:block;font-family:var(--display);font-size:28px;line-height:30px;color:var(--ink-1);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.heroscen{position:relative}
+.heroscen svg{width:100%;height:auto}
+
+/* Paket */
+.valjare{margin-top:72px;text-align:center}
+.valjare h2{font-size:40px;line-height:44px;font-weight:700}
+.valjare p{color:var(--ink-2);margin-top:10px;font-size:16px}
+.paket{margin-top:32px;display:grid;grid-template-columns:1fr 1fr 1.12fr;gap:20px;align-items:stretch}
+.kort{background:var(--panel);border:1px solid var(--kant);border-radius:16px;padding:0;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.kort .topp{padding:24px 28px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.kort .topp .tag{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:6px}
+.kort.cvk .topp .tag{background:var(--cv-mjuk);color:var(--cv)}
+.kort.tst .topp .tag{background:var(--test-mjuk);color:var(--test)}
+.kort .illu{padding:12px 28px 0;height:150px;display:flex;align-items:flex-end}
+.kort .illu svg{width:100%;height:auto;max-height:140px}
+.kort .kropp{padding:8px 28px 28px;display:flex;flex-direction:column;flex:1}
+.kort h3{font-size:30px;line-height:34px;font-weight:700}
+.kort .for{margin-top:8px;color:var(--ink-2);min-height:46px}
+.kort .varde{margin-top:10px;font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em}
+.kort .nr{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.kort.allt .nr{color:#CFC8BD}
+.prisrad{margin-top:18px;display:flex;align-items:baseline;gap:10px}
+.prisrad b{font-family:var(--display);font-size:48px;line-height:48px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.prisrad span{color:var(--ink-3);font-size:13px;line-height:17px}
+.far{margin-top:22px;padding-top:18px;border-top:1px solid var(--kant)}
+.far .eyebrow{margin-bottom:12px}
+.far ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.far li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:flex-start;line-height:20px;font-size:14px}
+.far li .ik{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:var(--insunken)}
+.far li .ik svg{width:16px;height:16px;fill:none;stroke:var(--ink-1);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.far li b{font-weight:600;display:block}
+.far li span{color:var(--ink-2);font-size:13px;line-height:18px}
+.kort .knapp{margin-top:auto;padding-top:22px}
+.knapp a{display:flex;height:52px;align-items:center;justify-content:center;border-radius:10px;background:var(--ink-1);color:#fff;font-weight:600;font-size:16px;text-decoration:none;gap:8px}
+.knapp a:hover{background:var(--ink-hover)}
+.knapp small{display:block;text-align:center;margin-top:10px;color:var(--ink-3);font-size:12px}
+.kort.allt{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+.kort.allt .topp .tag{background:#fff;color:var(--ink-1)}
+.kort.allt .topp .rek{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#FBB98A;padding:6px 0}
+.kort.allt .for,.kort.allt .prisrad span,.kort.allt .far .eyebrow,.kort.allt .knapp small,.kort.allt .far li span{color:#CFC8BD}
+.kort.allt .far{border-top-color:#3A3531}
+.kort.allt .far li .ik{background:#2C2724}
+.kort.allt .far li .ik svg{stroke:#fff}
+.kort.allt .knapp a{background:#fff;color:var(--ink-1)}
+.kort.allt .knapp a:hover{background:#F3EFE8}
+.langd{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #3A3531;border-radius:10px;overflow:hidden}
+.langd button{appearance:none;border:0;background:transparent;color:#CFC8BD;padding:10px 4px;font:inherit;font-size:12px;cursor:pointer;line-height:15px}
+.langd button b{display:block;color:#fff;font-weight:700;font-size:15px;font-family:var(--display)}
+.langd button.on{background:#fff;color:var(--ink-3)}
+.langd button.on b{color:var(--ink-1)}
+.gratis{margin-top:20px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:20px 28px;background:var(--panel);border:1px dashed var(--kant-stark);border-radius:16px;color:var(--ink-2)}
+.gratis b{color:var(--ink-1);font-weight:600}
+.gratis a{display:inline-flex;height:44px;align-items:center;padding:0 18px;border-radius:10px;border:1px solid var(--kant-stark);color:var(--ink-1);font-weight:600;text-decoration:none;white-space:nowrap}
+.gratis svg{width:56px;height:56px}
+
+/* Så fungerar det */
+.fung{margin-top:88px}
+.fung h2{font-size:40px;line-height:44px;font-weight:700;text-align:center}
+.fung > p{text-align:center;color:var(--ink-2);margin-top:10px;font-size:16px}
+.frad{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fkort{background:var(--panel);border:1px solid var(--kant);border-radius:16px;padding:28px;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
+.fkort.bred{grid-column:1/-1;grid-template-columns:260px 1fr}
+.fkort svg{width:100%;height:auto}
+.fkort h3{font-size:22px;line-height:28px;font-weight:700}
+.fkort .sub{color:var(--ink-3);font-size:13px;margin-top:2px}
+.fkort p.t{margin-top:12px;color:var(--ink-2)}
+.fkort ol{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
+.fkort ol li{display:flex;gap:10px;align-items:baseline;color:var(--ink-2)}
+.fkort ol li i{flex:none;font-style:normal;font-family:var(--display);font-weight:700;color:var(--ink-1);width:18px}
+.fkort .ingar{margin-top:14px;display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--kant-stark);color:var(--ink-2)}
+.pill.cv{background:var(--cv-mjuk);color:var(--cv);border-color:transparent}
+.pill.tst{background:var(--test-mjuk);color:var(--test);border-color:transparent}
+.pill.al{background:var(--ink-1);color:#fff;border-color:transparent}
+
+/* Veckan */
+.veckor{margin-top:88px}
+.veckor h2{font-size:40px;line-height:44px;font-weight:700;text-align:center}
+.veckor > p{color:var(--ink-2);margin-top:10px;text-align:center;font-size:16px;max-width:62ch;margin-left:auto;margin-right:auto}
+.tva{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.veck{background:var(--panel);border:1px solid var(--kant);border-radius:16px;padding:24px 28px}
+.veck .hd{display:flex;align-items:center;gap:12px}
+.veck .hd h3{font-size:22px;line-height:28px;font-weight:700}
+.veck .hd .tag{margin-left:auto}
+.veck ol{list-style:none;margin:20px 0 0;padding:0;position:relative}
+.veck ol:before{content:"";position:absolute;left:11px;top:12px;bottom:12px;width:2px;background:var(--kant)}
+.veck li{position:relative;padding:0 0 16px 40px;line-height:20px;font-size:14px}
+.veck li:last-child{padding-bottom:0}
+.veck li:before{content:attr(data-d);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--panel);border:2px solid var(--kant-stark);font-size:12px;line-height:20px;text-align:center;color:var(--ink-3);font-weight:600}
+.veck li.f:before{background:var(--ink-1);border-color:var(--ink-1);color:#fff}
+.veck li b{font-weight:600;display:block}
+.veck li span{color:var(--ink-2)}
+
+/* Förtroende + tabell + FAQ */
+.fortro{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fortro>div{padding:20px 24px;background:var(--panel);border:1px solid var(--kant);border-radius:16px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
+.fortro svg{width:40px;height:40px;fill:none;stroke:var(--ink-1);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fortro b{display:block;font-weight:600;margin-bottom:2px}
+.fortro span{color:var(--ink-2);font-size:14px}
+.jamf{margin-top:56px}
+.jamf h2{font-size:28px;line-height:34px;font-weight:700;margin-bottom:16px}
+.jamf .tb{background:var(--panel);border:1px solid var(--kant);border-radius:16px;overflow:hidden}
+.jamf table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.jamf th,.jamf td{padding:14px 22px;text-align:left;border-bottom:1px solid var(--kant);vertical-align:middle;font-size:14px;line-height:19px}
+.jamf td:first-child{font-weight:500}
+.jamf td .u{display:block;color:var(--ink-3);font-size:12px;font-weight:400}
+.jamf td.ja{font-weight:600}
+.jamf td.nej{color:var(--kant-stark)}
+.jamf th{font-weight:600;font-size:13px;background:var(--insunken)}
+.jamf th:not(:first-child),.jamf td:not(:first-child){text-align:center;width:17%}
+.jamf th.cvh{color:var(--cv)}.jamf th.tsh{color:var(--test)}.jamf th.alh{background:var(--ink-1);color:#fff}
+.jamf tr.grupp td{background:var(--mark);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:8px 22px}
+.jamf tr:last-child td{border-bottom:0}
+.jamf td.g{color:var(--ink-3)}
+.jamf td .ok{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--ink-1);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.5l2.2 2.2L11.5 6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");vertical-align:middle}
+.jamf td.tom{color:var(--kant-stark)}
+.faq{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.faq details{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px}
+.faq summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.faq summary:after{content:"+";color:var(--ink-3)}
+.faq p{margin-top:8px;color:var(--ink-2);font-size:14px}
+
+/* ======== MOBIL ======== */
+.rad3{display:grid;grid-template-columns:repeat(3,412px);gap:24px;overflow-x:auto;padding-bottom:8px}
+.tele{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;flex:none;font-size:14px;line-height:21px}
+.tele .topp{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.tele .topp b{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:17px}
+.tele .topp .steg{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.tele .topp .x{width:36px;height:36px;display:grid;place-items:center;color:var(--ink-2);font-size:20px}
+.fram{height:3px;background:var(--kant);position:relative}
+.fram i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:var(--w,50%)}
+.inne{padding:20px 16px 16px}
+.tele h2{font-size:26px;line-height:31px;font-weight:700}
+.tele .under{margin-top:6px;color:var(--ink-2)}
+.val{margin-top:18px;display:grid;gap:10px}
+.vkort{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;position:relative}
+.vkort .du{grid-column:1/-1;margin:2px 0 0;padding:10px 0 0;border-top:1px solid var(--kant);list-style:none;display:grid;gap:5px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.vkort .du li{display:flex;gap:8px}.vkort .du li:before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-1);margin-top:6px}
+.vkort .du li b{color:var(--ink-1);font-weight:600}
+.vkort.rek .du{border-top-color:#3A3531;color:#CFC8BD}.vkort.rek .du li:before{background:#fff}.vkort.rek .du li b{color:#fff}
+.vkort .prisl{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--ink-3);padding-top:8px}
+.vkort .prisl b{font-family:var(--display);font-size:20px;font-weight:700;color:var(--ink-1)}
+.vkort.rek .prisl{color:#CFC8BD}.vkort.rek .prisl b{color:#fff}
+.vkort .ik{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;background:var(--insunken)}
+.vkort .ik svg{width:44px;height:44px}
+.vkort b{display:block;font-size:16px;line-height:21px;font-weight:600}
+.vkort span{display:block;color:var(--ink-2);font-size:13px;line-height:18px;margin-top:2px}
+
+.vkort.vald{border-color:var(--ink-1);box-shadow:0 0 0 1.5px var(--ink-1)}
+.vkort.rek{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+.vkort.rek .ik{background:#2C2724}
+.vkort.rek span,.vkort.rek .pr{color:#CFC8BD}
+.vkort.rek .pr b{color:#fff}
+.vkort .tagg{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#FBB98A;display:block;margin-bottom:2px}
+.fot{padding:12px 16px 16px;background:var(--panel);border-top:1px solid var(--kant);display:grid;gap:8px}
+.fot .p{display:flex;height:50px;align-items:center;justify-content:center;border-radius:10px;background:var(--ink-1);color:#fff;font-weight:600;font-size:15px}
+.fot .s{display:flex;height:44px;align-items:center;justify-content:center;border-radius:10px;border:1px solid var(--kant-stark);background:var(--panel);color:var(--ink-1);font-weight:600}
+.fot .l{text-align:center;font-size:12px;color:var(--ink-3)}
+.kvitto{background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;padding:16px;margin-top:16px}
+.kvitto .rub{display:flex;justify-content:space-between;align-items:baseline}
+.kvitto .rub b{font-family:var(--display);font-size:20px;font-weight:700}
+.kvitto .rub span{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.kvitto .rub small{font-family:var(--body);font-size:12px;color:var(--ink-3);font-weight:400}
+.kvitto dl{margin:12px 0 0;display:grid;gap:6px;font-size:13px}
+.kvitto dl div{display:flex;justify-content:space-between;gap:12px}
+.kvitto dt{color:var(--ink-3)}.kvitto dd{margin:0;text-align:right;font-weight:500}
+.kvitto .idag2{margin-top:14px;padding:12px;border-radius:10px;background:var(--insunken);display:flex;gap:12px;align-items:center}
+.kvitto .idag2 svg{width:44px;height:44px;flex:none}
+.kvitto .idag2 b{display:block;font-size:14px;line-height:19px}
+.kvitto .idag2 span{font-size:12px;color:var(--ink-3)}
+.samtycke{margin-top:14px;display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:19px;color:var(--ink-2)}
+.samtycke i{flex:none;width:20px;height:20px;border-radius:5px;border:1.5px solid var(--kant-stark);background:var(--panel);margin-top:1px}
+/* Hemskärm */
+.hem .halsa{padding:20px 16px 8px}
+.hem .halsa h2{font-size:28px;line-height:32px}
+.hem .halsa p{color:var(--ink-2);margin-top:4px}
+.vpanel{margin:8px 16px 0;background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;padding:16px}
+.vpanel .rub{display:flex;justify-content:space-between;align-items:baseline}
+.vpanel .rub a{font-size:13px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.trad{display:grid;grid-template-columns:repeat(7,1fr);margin-top:14px;position:relative}
+.trad:before{content:"";position:absolute;left:14px;right:14px;top:9px;height:2px;background:var(--kant)}
+.trad:after{content:"";position:absolute;left:14px;top:9px;height:2px;background:var(--accent);width:var(--fram,43%)}
+.dag{position:relative;text-align:center;font-size:11px;line-height:14px;color:var(--ink-3);padding-top:26px}
+.dag:before{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;border:2px solid var(--kant-stark);background:var(--panel)}
+.dag.klar:before{background:var(--ink-1);border-color:var(--ink-1)}
+.dag.klar:after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%) rotate(45deg);width:4px;height:7px;border:solid #fff;border-width:0 2px 2px 0}
+.dag.nu:before{border-color:var(--ink-1);box-shadow:inset 0 0 0 3px var(--panel),inset 0 0 0 6px var(--accent)}
+.dag.nu{color:var(--ink-1);font-weight:600}
+.vpanel .sak{margin-top:14px;display:flex;gap:12px;align-items:flex-start}
+.vpanel .sak svg{width:56px;height:56px;flex:none}
+.vpanel .sak b{display:block;font-size:16px;line-height:22px;font-weight:600}
+.vpanel .sak p{color:var(--ink-2);margin-top:2px;font-size:13px;line-height:19px}
+.vpanel .sak small{display:block;color:var(--ink-3);font-size:12px;margin-top:4px}
+.vpanel .kn{margin-top:14px;display:flex;height:46px;align-items:center;justify-content:center;border-radius:10px;background:var(--ink-1);color:#fff;font-weight:600}
+.vpanel .hop{margin-top:10px;text-align:center;font-size:13px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.status{margin:12px 16px 0;display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-2)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.pagar{margin:16px 16px 0}
+.pagar .eyebrow{margin-bottom:8px}
+.pagar div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;color:var(--ink-2);font-size:13px}
+.pagar div b{color:var(--ink-1);font-weight:500}
+.tal4{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.tal4 b{font-family:var(--display);font-size:32px;line-height:34px;font-weight:700;display:block;letter-spacing:-.02em}
+.tal4 span{font-size:12px;color:var(--ink-3)}
+/* Beslut */
+.beslut{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.beslut div{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:20px 24px}
+.beslut h3{font-size:17px;line-height:22px;margin-bottom:6px}
+.beslut p{color:var(--ink-2);font-size:14px}
+@media (max-width:960px){.hero,.paket,.tva,.fortro,.beslut,.frad,.faq{grid-template-columns:1fr}.fkort,.fkort.bred{grid-template-columns:1fr}.hero h1{font-size:40px;line-height:42px}.pris{padding:32px 20px}}
+</style>
+
+<!-- ===== SVG-symboler, ritade enligt illustrationssystemets regler (kontur ink, en liten accentfyllning) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- CV med analysmarkeringar och poängring -->
+    <symbol id="i-cv" viewBox="0 0 240 200">
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="30" y="18" width="130" height="170" rx="12" fill="#fff"/>
+        <path d="M54 50h60M54 70h82M54 90h70M54 120h82M54 140h56M54 160h74"/>
+        <circle cx="180" cy="60" r="34" fill="#fff"/>
+      </g>
+      <path d="M180 26a34 34 0 1 1-24 10" fill="none" stroke="#D9480F" stroke-width="6" stroke-linecap="round"/>
+      <text x="180" y="67" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="24" fill="#1C1917">74</text>
+      <rect x="48" y="84" width="82" height="12" rx="3" fill="#FBE7D3"/>
+      <rect x="48" y="134" width="70" height="12" rx="3" fill="#FBE7D3"/>
+      <g transform="translate(150 118)"><circle cx="0" cy="0" r="12" fill="#D9480F"/><path d="M-4 0l3 3 6-6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g transform="translate(150 166)"><circle cx="0" cy="0" r="12" fill="#1C1917"/><path d="M-4 0h8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></g>
+    </symbol>
+    <!-- Matrislogik 3x3 med saknad ruta och timer -->
+    <symbol id="i-matris" viewBox="0 0 240 200">
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="26" y="26" width="150" height="150" rx="12" fill="#fff"/>
+        <path d="M76 26v150M126 26v150M26 76h150M26 126h150"/>
+        <circle cx="51" cy="51" r="12"/><rect x="89" y="39" width="24" height="24" rx="4"/><path d="M151 39l12 24h-24z"/>
+        <rect x="39" y="89" width="24" height="24" rx="4"/><path d="M101 89l12 24h-24z"/><circle cx="151" cy="101" r="12"/>
+        <path d="M51 139l12 24h-24z"/><circle cx="101" cy="151" r="12"/>
+      </g>
+      <rect x="132" y="132" width="38" height="38" rx="6" fill="#FBE7D3"/>
+      <text x="151" y="160" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="26" fill="#D9480F">?</text>
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><circle cx="204" cy="62" r="24" fill="#fff"/><path d="M204 46v16l10 6M198 34h12"/></g>
+      <path d="M204 38a24 24 0 0 1 24 24" fill="none" stroke="#D9480F" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+    <!-- Annons blir personligt brev -->
+    <symbol id="i-brev" viewBox="0 0 240 200">
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="16" y="40" width="84" height="110" rx="10" fill="#fff"/>
+        <path d="M30 62h56M30 78h40M30 94h56M30 110h48M30 126h30"/>
+        <path d="M112 95h26" stroke="#D9480F" stroke-width="5"/><path d="M132 87l8 8-8 8" stroke="#D9480F" stroke-width="5"/>
+        <rect x="150" y="22" width="74" height="150" rx="10" fill="#fff" transform="rotate(4 187 97)"/>
+      </g>
+      <g transform="rotate(4 187 97)" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round">
+        <path d="M164 44h44M164 60h46M164 76h34M164 100h46M164 116h46M164 132h28"/>
+      </g>
+      <g transform="rotate(4 187 97)"><rect x="162" y="148" width="26" height="8" rx="3" fill="#D9480F"/></g>
+      <text x="58" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6B645E" letter-spacing="1">ANNONSEN</text>
+      <text x="187" y="192" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6B645E" letter-spacing="1">DITT BREV</text>
+    </symbol>
+    <!-- Jobbträffar med skäl -->
+    <symbol id="i-match" viewBox="0 0 240 200">
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="20" y="22" width="200" height="44" rx="10" fill="#fff"/>
+        <rect x="20" y="78" width="200" height="44" rx="10" fill="#fff"/>
+        <rect x="20" y="134" width="200" height="44" rx="10" fill="#fff"/>
+        <path d="M40 44h70M40 100h86M40 156h60"/>
+      </g>
+      <rect x="150" y="34" width="56" height="20" rx="10" fill="#1C1917"/><text x="178" y="48" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#fff">92 %</text>
+      <rect x="150" y="90" width="56" height="20" rx="10" fill="#FBE7D3"/><text x="178" y="104" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#9A3412">88 %</text>
+      <rect x="150" y="146" width="56" height="20" rx="10" fill="#ECE6DC"/><text x="178" y="160" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#57534E">81 %</text>
+      <circle cx="120" cy="44" r="5" fill="#D9480F"/>
+    </symbol>
+    <!-- Jobbcoachen: två pratbubblor -->
+    <symbol id="i-coach" viewBox="0 0 240 200">
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 40a12 12 0 0 1 12-12h110a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H70l-24 22V96H36a12 12 0 0 1-12-12z" fill="#fff"/>
+        <path d="M46 52h72M46 70h50"/>
+        <path d="M216 110a12 12 0 0 0-12-12H94a12 12 0 0 0-12 12v44a12 12 0 0 0 12 12h80l24 22v-22h6a12 12 0 0 0 12-12z" fill="#1C1917"/>
+      </g>
+      <path d="M104 122h80M104 140h56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="196" cy="140" r="5" fill="#D9480F"/>
+    </symbol>
+    <!-- Allt: tre papper på tråden -->
+    <symbol id="i-allt" viewBox="0 0 240 200">
+      <path d="M20 150h200" stroke="#D9480F" stroke-width="4" stroke-linecap="round"/>
+      <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="28" y="34" width="72" height="96" rx="10" fill="#2C2724" transform="rotate(-5 64 82)"/>
+        <rect x="84" y="24" width="72" height="106" rx="10" fill="#2C2724"/>
+        <rect x="140" y="34" width="72" height="96" rx="10" fill="#2C2724" transform="rotate(5 176 82)"/>
+        <path d="M100 48h40M100 64h40M100 80h24" />
+        <path d="M45 56h36M45 72h24" transform="rotate(-5 64 82)"/>
+        <path d="M157 56h36M157 72h24" transform="rotate(5 176 82)"/>
+      </g>
+      <circle cx="64" cy="150" r="8" fill="#fff"/><circle cx="120" cy="150" r="8" fill="#fff"/><circle cx="176" cy="150" r="8" fill="#fff"/>
+      <circle cx="120" cy="150" r="4" fill="#D9480F"/>
+      <text x="120" y="184" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#CFC8BD" letter-spacing="1">CV · TESTER · JOBB</text>
+    </symbol>
+    <!-- Hero-scen: veckan på skrivbordet -->
+    <symbol id="i-hero" viewBox="0 0 520 400">
+      <rect x="0" y="0" width="520" height="400" rx="20" fill="#ECE6DC"/>
+      <path d="M40 330h440" stroke="#D9480F" stroke-width="5" stroke-linecap="round"/>
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="52" y="60" width="170" height="220" rx="14" fill="#fff" transform="rotate(-4 137 170)"/>
+        <rect x="230" y="40" width="200" height="250" rx="14" fill="#fff"/>
+        <rect x="330" y="150" width="150" height="150" rx="14" fill="#fff" transform="rotate(6 405 225)"/>
+      </g>
+      <g transform="rotate(-4 137 170)" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><path d="M76 96h100M76 118h120M76 140h90M76 176h120M76 198h80"/></g>
+      <g transform="rotate(-4 137 170)"><rect x="72" y="132" width="98" height="14" rx="3" fill="#FBE7D3"/></g>
+      <g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><path d="M256 76h120M256 100h150M256 124h100M256 160h150M256 184h110M256 208h150M256 232h70"/></g>
+      <g transform="translate(330 150) rotate(6 75 75)" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20v110M100 20v110M20 60h110M20 100h110"/>
+        <circle cx="35" cy="40" r="8"/><rect x="66" y="32" width="18" height="18" rx="3"/><path d="M115 30l9 20h-18z"/>
+        <rect x="26" y="70" width="18" height="18" rx="3"/><path d="M75 68l9 20h-18z"/><circle cx="115" cy="80" r="8"/>
+        <path d="M35 108l9 20h-18z"/><circle cx="75" cy="118" r="8"/>
+      </g>
+      <g transform="translate(330 150) rotate(6 75 75)"><rect x="102" y="104" width="26" height="26" rx="4" fill="#FBE7D3"/><text x="115" y="123" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="18" fill="#D9480F">?</text></g>
+      <g><circle cx="80" cy="330" r="12" fill="#1C1917"/><path d="M75 330l4 4 7-7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g><circle cx="150" cy="330" r="12" fill="#1C1917"/><path d="M145 330l4 4 7-7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g><circle cx="220" cy="330" r="12" fill="#1C1917"/><path d="M215 330l4 4 7-7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <circle cx="290" cy="330" r="14" fill="#fff" stroke="#1C1917" stroke-width="4"/><circle cx="290" cy="330" r="6" fill="#D9480F"/>
+      <circle cx="360" cy="330" r="12" fill="#fff" stroke="#C4B9A8" stroke-width="4"/><circle cx="420" cy="330" r="12" fill="#fff" stroke="#C4B9A8" stroke-width="4"/><circle cx="480" cy="330" r="12" fill="#fff" stroke="#C4B9A8" stroke-width="4"/>
+      <text x="80" y="366" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="#6B645E">Dag 1</text>
+      <text x="290" y="366" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1C1917">Dag 4</text>
+      <text x="480" y="366" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="#6B645E">Dag 7</text>
+      <rect x="250" y="252" width="90" height="26" rx="13" fill="#1C1917"/><text x="295" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="12" fill="#fff">Poäng 74</text>
+    </symbol>
+    <!-- Gratis: ett litet papper -->
+    <symbol id="i-gratis" viewBox="0 0 56 56">
+      <g fill="none" stroke="#1C1917" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="6" width="32" height="44" rx="5" fill="#fff"/><path d="M20 18h16M20 26h16M20 34h10"/></g>
+      <circle cx="40" cy="42" r="6" fill="#D9480F"/>
+    </symbol>
+    <!-- Förtroende-ikoner -->
+    <symbol id="i-lock" viewBox="0 0 40 40"><rect x="8" y="17" width="24" height="17" rx="4"/><path d="M13 17v-4a7 7 0 0 1 14 0v4"/><circle cx="20" cy="26" r="2" fill="#D9480F" stroke="none"/></symbol>
+    <symbol id="i-klick" viewBox="0 0 40 40"><path d="M11 8l18 9-8 3-3 8z"/><path d="M21 20l8 8"/></symbol>
+    <symbol id="i-kr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"/><text x="20" y="25" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="14" fill="#1C1917" stroke="none">kr</text></symbol>
+    <!-- Små ikoner i listorna -->
+    <symbol id="k-mall" viewBox="0 0 16 16"><rect x="2.5" y="2" width="11" height="12" rx="2"/><path d="M5 6h6M5 9h6M5 12h3"/></symbol>
+    <symbol id="k-analys" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14M5 7h4"/></symbol>
+    <symbol id="k-brev" viewBox="0 0 16 16"><rect x="2" y="4" width="12" height="9" rx="2"/><path d="M2 6l6 4 6-4"/></symbol>
+    <symbol id="k-linkedin" viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="3"/><path d="M3 14a5 5 0 0 1 10 0"/></symbol>
+    <symbol id="k-matris" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M6 2v12M10 2v12M2 6h12M2 10h12"/></symbol>
+    <symbol id="k-timer" viewBox="0 0 16 16"><circle cx="8" cy="9" r="5.5"/><path d="M8 6v3l2 1.5M6 2h4"/></symbol>
+    <symbol id="k-forkl" viewBox="0 0 16 16"><path d="M8 2a5 5 0 0 1 3 9v2H5v-2a5 5 0 0 1 3-9z"/><path d="M6.5 15h3"/></symbol>
+    <symbol id="k-kurva" viewBox="0 0 16 16"><path d="M2 13l4-5 3 3 5-7"/></symbol>
+    <symbol id="k-match" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="4" rx="1.5"/><rect x="2" y="9" width="12" height="4" rx="1.5"/></symbol>
+    <symbol id="k-chat" viewBox="0 0 16 16"><path d="M3 3h10a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H7l-3 3v-3H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="k-oga" viewBox="0 0 16 16"><path d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></symbol>
+  </defs>
+</svg>
+
+<div class="note">
+  <p class="eyebrow">Förslag 5 till godkännande · 22 september 2026</p>
+  <h2>Prissidan och köpvägen</h2>
+  <p>Fjärde rundan. Personlighetstestet lyfts som egen styrka, Allt säger uttryckligen "allt ur båda plus tre saker till" och vad de leder till, gratisnivån är utskriven så att en utomstående förstår den, veckoprogrammet är en vägvisare och inte ett lås (med profil och Bli upptäckt), kr-ikonen är lagad, och mobilens spårval och köpsteg visar exakt vad man köper. Skrolla, säg vad som ska ändras, sedan bygger Opus exakt detta.</p>
+</div>
+
+<!-- ============ 1. PRISSIDAN DESKTOP ============ -->
+<div class="sektion wrap">
+  <p class="eyebrow">1 · Prissidan, desktop 1280</p>
+  <div class="skarm">
+    <div class="skarm-topp"><i></i><i></i><i></i><span>jobbcoach.ai/priser</span></div>
+    <div class="pris">
+
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Priser</p>
+          <h1 style="margin-top:14px">En vecka som bär hela jobbsöket.</h1>
+          <p class="ingress">På sju dagar får du ett CV som rekryteringssystem släpper igenom och rekryterare minns, personliga brev som svarar på det annonsen faktiskt frågar efter, och testresultat du kan lita på när kallelsen kommer. <b>Det du bygger den här veckan använder du i varje ansökan framöver.</b> Välj spåret som matchar var du är, betala per vecka, säg upp när du vill.</p>
+          <div class="bevis">
+            <div><b>7 dagar</b>allt öppet från<br>första minuten</div>
+            <div><b>79 kr</b>i veckan, ingen<br>bindningstid</div>
+            <div><b>1 klick</b>för att säga upp,<br>i ditt konto</div>
+          </div>
+        </div>
+        <div class="heroscen"><svg viewBox="0 0 520 400" role="img" aria-label="Veckan på skrivbordet: ett CV med poäng, ett personligt brev och ett matristest på en tråd med sju dagar"><use href="#i-hero"/></svg></div>
+      </div>
+
+      <div class="valjare">
+        <h2>Tre paket. Välj det som matchar var du är.</h2>
+        <p>Ett för ansökan, ett för testet, ett för hela jobbsöket. Alla per vecka, alla utan bindningstid.</p>
+      </div>
+
+      <div class="paket">
+        <!-- CV-veckan -->
+        <div class="kort cvk">
+          <div class="topp"><span class="tag">CV och personliga brev</span></div>
+          <div class="illu"><svg viewBox="0 0 240 200" role="img" aria-label="CV med analysmarkeringar och poäng 74"><use href="#i-cv"/></svg></div>
+          <div class="kropp">
+            <h3>CV-veckan</h3>
+            <p class="varde">Få CV:t genom rekryteringssystemet och skriv personliga brev som svarar på annonsen.</p>
+            <p class="for">För dig som har annonser att svara på och vill att ansökan ska klara både maskinen och rekryterarens första blick.</p>
+            <div class="prisrad"><b>79 kr</b><span>i veckan<br>förnyas var sjunde dag</span></div>
+            <div class="far">
+              <p class="eyebrow">Så här fungerar det</p>
+              <ul>
+                <li><span class="ik"><svg><use href="#k-analys"/></svg></span><div><b>Vet exakt varför CV:t inte får svar</b><span>Hela analysen: poäng per område, varje fynd med åtgärd, nyckelorden rekryteringssystem (ATS) letar efter. Rätta, kör om, se poängen stiga.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-mall"/></svg></span><div><b>41 CV-mallar som rekryteringssystem läser</b><span>Ren struktur som maskinen tolkar rätt och som ser proffsig ut för människan. Byt mall med ett klick, ladda ned utan tak.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-brev"/></svg></span><div><b>Personliga brev som svarar på annonsen</b><span>Klistra in annonsen, välj ton, vi skriver utifrån ditt CV. Ladda ned som PDF, ett personligt brev per annons.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-linkedin"/></svg></span><div><b>Bli hittad på LinkedIn</b><span>Vi skriver om rubrik och sammanfattning så rekryterare som söker på dina kompetenser hittar dig.</span></div></li>
+              </ul>
+            </div>
+            <div class="knapp"><a href="#">Börja CV-veckan <span aria-hidden="true">→</span></a><small>Rekryteringstester över grundnivå ingår inte</small></div>
+          </div>
+        </div>
+
+        <!-- Testveckan -->
+        <div class="kort tst">
+          <div class="topp"><span class="tag">Rekryteringstester</span></div>
+          <div class="illu"><svg viewBox="0 0 240 200" role="img" aria-label="Matrislogik med saknad ruta och en klocka"><use href="#i-matris"/></svg></div>
+          <div class="kropp">
+            <h3>Testveckan</h3>
+            <p class="varde">Känn igen varje uppgift på testdagen. Och förstå vad personlighetstestet säger om dig.</p>
+            <p class="for">För dig som fått kallelse till urvalstest och vill gå in förberedd i stället för överraskad.</p>
+            <div class="prisrad"><b>79 kr</b><span>i veckan<br>förnyas var sjunde dag</span></div>
+            <div class="far">
+              <p class="eyebrow">Så här fungerar det</p>
+              <ul>
+                <li><span class="ik"><svg><use href="#k-matris"/></svg></span><div><b>Lär dig mönstren i matrislogik, verbalt och numeriskt</b><span>Tre nivåer per typ, från grund till expert. Samma uppgiftstyper som de stora urvalstesten.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-timer"/></svg></span><div><b>Testa dig mot klockan</b><span>Provläge med 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-forkl"/></svg></span><div><b>Förstå varje svar</b><span>Förklaringen efter varje fråga, inte bara facit. Det är så mönstret sätter sig.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-kurva"/></svg></span><div><b>Vet vad personlighetstestet säger om dig</b><span>Gör det innan rekryteraren gör det. Se hur profilen tolkas och förbered svaren på frågorna som följer.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-kurva"/></svg></span><div><b>Se att du blir bättre</b><span>Alla sessioner i en kurva per testtyp, så du vet när du är redo.</span></div></li>
+              </ul>
+            </div>
+            <div class="knapp"><a href="#">Börja Testveckan <span aria-hidden="true">→</span></a><small>CV-mallar och personliga brev ingår inte</small></div>
+          </div>
+        </div>
+
+        <!-- Allt -->
+        <div class="kort allt">
+          <div class="topp"><span class="tag">Båda spåren</span><span class="rek">Rekommenderas</span></div>
+          <div class="illu"><svg viewBox="0 0 240 200" role="img" aria-label="Tre papper på tråden: CV, tester och jobb"><use href="#i-allt"/></svg></div>
+          <div class="kropp">
+            <h3>Allt</h3>
+            <p class="varde">Allt i CV-veckan. Allt i Testveckan. Och tre saker till som ingen av dem har.</p>
+            <p class="for">För dig som söker brett just nu och vill att jobben ska hitta dig lika mycket som du hittar dem.</p>
+            <div class="prisrad"><b>99 kr</b><span>i veckan<br>eller 149 kr i månaden</span></div>
+            <div class="langd">
+              <button><b>49</b>en dag</button>
+              <button class="on"><b>99</b>vecka</button>
+              <button><b>149</b>månad</button>
+              <button><b>299</b>kvartal</button>
+            </div>
+            <div class="far">
+              <p class="eyebrow">Utöver allt i CV-veckan och Testveckan</p>
+              <ul>
+                <li><span class="ik"><svg><use href="#k-match"/></svg></span><div><b>Hitta jobb du annars hade missat</b><span>Vi matchar dina kompetenser, erfarenheter och utbildningar mot alla branscher, inte bara den titel du brukar söka på. Fler annonser att svara på, i branscher du inte tänkt på. 25 träffar med skälen utskrivna, när du vill och varje natt.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-chat"/></svg></span><div><b>Gå in i intervjun och löneförhandlingen förberedd</b><span>Jobbcoachen utan tak svarar på lön, intervjufrågor, avtal och avslag utifrån svensk arbetsmarknad och ditt eget CV. Du vet vad du ska säga innan du sitter där.</span></div></li>
+                <li><span class="ik"><svg><use href="#k-oga"/></svg></span><div><b>Låt rekryterare hitta dig</b><span>Bli upptäckt: din profil syns för rekryterare som söker din kompetens, anonym tills du själv svarar. Jobb du inte behövde söka.</span></div></li>
+              </ul>
+            </div>
+            <div class="knapp"><a href="#">Börja med allt <span aria-hidden="true">→</span></a><small>Byt till ett spår när som helst</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gratis">
+        <svg><use href="#i-gratis"/></svg>
+        <p><b>Vill du se först?</b> Utan att betala får du <b>3 CV-mallar</b> och en nedladdning, <b>en CV-analys</b> som visar din poäng och det tyngsta fyndet, <b>ett personligt brev</b> skrivet på en annons (att läsa, inte ladda ned), <b>tre matchade jobb</b>, <b>tio frågor</b> till jobbcoachen, och <b>grundnivån i alla fyra testtyperna</b>: hela testet med förklaring efter varje fråga, en gång per typ och dygn.</p>
+        <a href="#">Skapa konto gratis</a>
+      </div>
+
+      <!-- Så fungerar funktionerna -->
+      <div class="fung">
+        <h2>Vad du faktiskt får, funktion för funktion</h2>
+        <p>Inga floskler. Så här ser det ut när du använder det.</p>
+        <div class="frad">
+          <div class="fkort">
+            <svg viewBox="0 0 240 200" role="img" aria-label="CV-analysens rapport"><use href="#i-cv"/></svg>
+            <div>
+              <h3>CV-analysen</h3>
+              <p class="sub">Ingår i CV-veckan och Allt. Gratis: poängen och det tyngsta fyndet.</p>
+              <p class="t">De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du poäng 1 till 10 på tydlighet och struktur, innehåll, resultat och nyckelord, plus en lista med fynd där varje fynd har en åtgärd.</p>
+              <ol>
+                <li><i>1</i>Ladda upp, vi läser som en rekryterare gör på sex sekunder.</li>
+                <li><i>2</i>Poäng per område och de fynd som drar ned mest.</li>
+                <li><i>3</i>Nyckelorden rekryteringssystem (ATS) letar efter i din bransch.</li>
+                <li><i>4</i>Rätta, kör om, se poängen röra sig.</li>
+              </ol>
+              <div class="ingar"><span class="pill cv">CV-veckan</span><span class="pill al">Allt</span></div>
+            </div>
+          </div>
+          <div class="fkort">
+            <svg viewBox="0 0 240 200" role="img" aria-label="Annonsen blir ditt personliga brev"><use href="#i-brev"/></svg>
+            <div>
+              <h3>Personliga brev</h3>
+              <p class="sub">Ingår i CV-veckan och Allt. Gratis: ett personligt brev att läsa, nedladdning ingår inte.</p>
+              <p class="t">Ett personligt brev som faktiskt svarar på annonsen är det som skiljer din ansökan från de tjugo som skickade samma mall. Klistra in annonsen, så skriver vi brevet utifrån ditt CV och det annonsen frågar efter, i den ton du väljer. Redigera, ladda ned som PDF, skicka.</p>
+              <ol>
+                <li><i>1</i>Klistra in annonsen, eller välj ett matchat jobb.</li>
+                <li><i>2</i>Välj ton: saklig, personlig eller vi väljer åt dig.</li>
+                <li><i>3</i>Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.</li>
+                <li><i>4</i>Redigera, ladda ned som PDF, skicka.</li>
+              </ol>
+              <div class="ingar"><span class="pill cv">CV-veckan</span><span class="pill al">Allt</span></div>
+            </div>
+          </div>
+          <div class="fkort bred">
+            <svg viewBox="0 0 240 200" role="img" aria-label="Matrislogik under tidspress"><use href="#i-matris"/></svg>
+            <div>
+              <h3>Rekryteringstester</h3>
+              <p class="sub">Ingår i Testveckan och Allt. Gratis: grundnivån i varje typ, en gång per dygn.</p>
+              <p class="t">Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I provläget går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.</p>
+              <ol>
+                <li><i>1</i>Diagnostest på grundnivå visar var du står per typ.</li>
+                <li><i>2</i>Träna på avancerad och expertnivå i din svagaste typ, med förklaring på varje fråga.</li>
+                <li><i>3</i>Kör tidsatt prov när du är redo. Automatisk inlämning, resultat direkt.</li>
+                <li><i>4</i>Följ kurvan över veckan, session för session.</li>
+              </ol>
+              <div class="ingar"><span class="pill tst">Testveckan</span><span class="pill al">Allt</span></div>
+            </div>
+          </div>
+          <div class="fkort">
+            <svg viewBox="0 0 240 200" role="img" aria-label="Tre jobbträffar med matchningsgrad"><use href="#i-match"/></svg>
+            <div>
+              <h3>Matchade jobb</h3>
+              <p class="sub">Ingår i Allt. Gratis: tre träffar.</p>
+              <p class="t">Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken. Kör när du vill, och varje natt får du de 25 bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.</p>
+              <div class="ingar"><span class="pill al">Allt</span></div>
+            </div>
+          </div>
+          <div class="fkort">
+            <svg viewBox="0 0 240 200" role="img" aria-label="Jobbcoachen svarar"><use href="#i-coach"/></svg>
+            <div>
+              <h3>Jobbcoachen</h3>
+              <p class="sub">Ingår i Allt. Gratis: tio meddelanden.</p>
+              <p class="t">Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Svaren utgår från svensk arbetsmarknad och ditt eget CV, inte från en amerikansk mall.</p>
+              <div class="ingar"><span class="pill al">Allt</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="veckor">
+        <h2>Allt är öppet från första minuten. Så här guidar vi dig igenom det.</h2>
+        <p>Du gör vad du vill, när du vill, inom ditt paket. Veckoprogrammet är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion, och inte missar det som ger mest. Gör du hela programmet första kvällen är det lika bra. Dag 7 summerar vi, och först då frågar vi om du vill fortsätta.</p>
+        <div class="tva">
+          <div class="veck">
+            <div class="hd"><h3>CV-veckan</h3><span class="tag pill cv">CV och personliga brev</span></div>
+            <ol>
+              <li data-d="1" class="f"><b>CV in, profilen ifylld, hela analysen, ladda ned</b><span>Ansökan klar samma kväll.</span></li>
+              <li data-d="2"><b>Rätta de tre tyngsta fynden</b><span>Kör om, se poängen röra sig.</span></li>
+              <li data-d="3"><b>Personligt brev till annonsen du redan sökt</b><span>Svarar på kraven, laddas ned som PDF.</span></li>
+              <li data-d="4"><b>En andra mall för en annan typ av roll</b><span>Samma CV, annan form.</span></li>
+              <li data-d="5"><b>Läsbarhet i rekryteringssystem</b><span>Kontroll och åtgärd.</span></li>
+              <li data-d="6"><b>LinkedIn-profilen mot samma CV</b><span>Så rekryterare hittar dig.</span></li>
+              <li data-d="7"><b>Summan</b><span>Vad du skickat, vad som är kvar.</span></li>
+            </ol>
+          </div>
+          <div class="veck">
+            <div class="hd"><h3>Testveckan</h3><span class="tag pill tst">Rekryteringstester</span></div>
+            <ol>
+              <li data-d="1" class="f"><b>Diagnostest i alla fyra typer</b><span>Resultat per typ och plan för veckan.</span></li>
+              <li data-d="2"><b>Avancerad nivå i din svagaste typ</b><span>Förklaring på varje fråga.</span></li>
+              <li data-d="3"><b>Verbalt resonemang, tidsatt</b></li>
+              <li data-d="4"><b>Numeriskt, tidsatt</b></li>
+              <li data-d="5"><b>Personlighetstestet, och vad det säger om dig</b><span>Förbered svaren på frågorna som följer.</span></li>
+              <li data-d="6"><b>Fullt prov under skarp tidspress</b><span>Automatisk inlämning.</span></li>
+              <li data-d="7"><b>Utvecklingen över veckan</b><span>Alla sessioner i en kurva.</span></li>
+            </ol>
+          </div>
+        </div>
+      <div class="veck" style="margin-top:20px">
+          <div class="hd"><h3>Allt</h3><span class="tag pill al">Båda spåren plus tre saker till</span></div>
+          <p style="margin-top:10px;color:var(--ink-2);font-size:14px">Du väljer vilket spår du vill börja i, och programmet lägger till det som bara Allt har: dag 2 kör du din första jobbmatchning och ser jobben du inte hittat själv, dag 4 gör du profilen synlig för rekryterare i Bli upptäckt, dag 6 förbereder du intervjun med jobbcoachen. Resten av dagarna följer spåret du valde.</p>
+        </div>
+      </div>
+
+      <div class="fortro">
+        <div><svg><use href="#i-klick"/></svg><div><b>Säg upp med ett klick</b><span>I ditt konto, utan skäl. Veckan du betalat gäller ut.</span></div></div>
+        <div><svg><use href="#i-lock"/></svg><div><b>Kortbetalning via Stripe</b><span>Vi ser aldrig ditt kortnummer. Kvitto på mejl direkt.</span></div></div>
+        <div><svg><use href="#i-kr"/></svg><div><b>Priser i kronor, moms ingår</b><span>Det du ser är det som dras. Inga tillägg.</span></div></div>
+      </div>
+
+      <div class="jamf">
+        <h2>Vad som ingår, rad för rad</h2>
+        <div class="tb">
+          <table>
+            <thead><tr><th>Funktion</th><th>Gratis</th><th class="cvh">CV-veckan</th><th class="tsh">Testveckan</th><th class="alh">Allt</th></tr></thead>
+            <tbody>
+              <tr class="grupp"><td colspan="5">CV och personliga brev</td></tr>
+              <tr><td>CV-mallar<span class="u">som rekryteringssystem läser</span></td><td class="g">3 mallar</td><td class="ja">Alla 41</td><td class="g">3 mallar</td><td class="ja">Alla 41</td></tr>
+              <tr><td>CV-analys<span class="u">poäng, fynd, nyckelord</span></td><td class="g">Poäng och tyngsta fyndet<span class="u">en gång</span></td><td class="ja">Hela rapporten<span class="u">kör om utan tak</span></td><td class="g">Poäng och tyngsta fyndet<span class="u">en gång</span></td><td class="ja">Hela rapporten<span class="u">kör om utan tak</span></td></tr>
+              <tr><td>CV-nedladdning<span class="u">som PDF</span></td><td class="g">1 gång</td><td class="ja">Utan tak</td><td class="g">1 gång</td><td class="ja">Utan tak</td></tr>
+              <tr><td>Personliga brev<span class="u">skrivna på annonsen</span></td><td class="g">1, sedan 1 i veckan<span class="u">läsa, inte ladda ned</span></td><td class="ja">Utan tak<span class="u">nedladdning som PDF</span></td><td class="g">1, sedan 1 i veckan<span class="u">läsa, inte ladda ned</span></td><td class="ja">Utan tak<span class="u">nedladdning som PDF</span></td></tr>
+              <tr><td>LinkedIn-profilen<span class="u">rubrik och sammanfattning</span></td><td class="nej">Ingår inte</td><td class="ja">Ingår</td><td class="nej">Ingår inte</td><td class="ja">Ingår</td></tr>
+              <tr class="grupp"><td colspan="5">Rekryteringstester</td></tr>
+              <tr><td>Grundnivå<span class="u">matrislogik, verbalt, numeriskt, personlighet</span></td><td class="g">1 per typ och dygn</td><td class="g">1 per typ och dygn</td><td class="ja">Utan tak</td><td class="ja">Utan tak</td></tr>
+              <tr><td>Avancerad och expertnivå</td><td class="nej">Ingår inte</td><td class="nej">Ingår inte</td><td class="ja">Ingår</td><td class="ja">Ingår</td></tr>
+              <tr><td>Tidsatt provläge<span class="u">25 till 40 min, automatisk inlämning</span></td><td class="nej">Ingår inte</td><td class="nej">Ingår inte</td><td class="ja">Ingår</td><td class="ja">Ingår</td></tr>
+              <tr><td>Förklaring efter varje fråga</td><td class="g">Grundnivå</td><td class="g">Grundnivå</td><td class="ja">Alla nivåer</td><td class="ja">Alla nivåer</td></tr>
+              <tr><td>Din utveckling<span class="u">alla sessioner i en kurva</span></td><td class="g">Senaste sessionen</td><td class="g">Senaste sessionen</td><td class="ja">Hela historiken</td><td class="ja">Hela historiken</td></tr>
+              <tr class="grupp"><td colspan="5">Jobb och coachning</td></tr>
+              <tr><td>Matchade jobb<span class="u">kompetens mot alla branscher</span></td><td class="g">3 träffar</td><td class="g">3 träffar</td><td class="g">3 träffar</td><td class="ja">25 träffar<span class="u">med skälen utskrivna</span></td></tr>
+              <tr><td>Jobbcoachen<span class="u">lön, intervju, avtal</span></td><td class="g">10 meddelanden</td><td class="g">10 meddelanden</td><td class="g">10 meddelanden</td><td class="ja">Utan tak</td></tr>
+              <tr><td>Bli upptäckt<span class="u">rekryterare hittar dig, anonymt</span></td><td class="nej">Ingår inte</td><td class="nej">Ingår inte</td><td class="nej">Ingår inte</td><td class="ja">Ingår</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details open><summary>Varför säljer ni veckor och inte månader?</summary><p>För att det mesta du behöver bygger du på en vecka: CV:t, breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Allt-månaden billigare per vecka, och den finns där när du vill ha den.</p></details>
+        <details><summary>Vad händer när veckan är slut?</summary><p>Den förnyas var sjunde dag tills du säger upp, med samma pris. Dag 7 visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.</p></details>
+        <details><summary>Kan jag byta spår mitt i veckan?</summary><p>Ja. Från ett spår till Allt betalar du bara mellanskillnaden för dagarna som är kvar. Från Allt till ett spår byter du vid nästa förnyelse.</p></details>
+        <details><summary>Hur säger jag upp?</summary><p>I ditt konto, under Prenumeration, ett klick. Lika enkelt som att köpa. Veckan du redan betalat gäller ut.</p></details>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. MOBIL ============ -->
+<div class="sektion wrap">
+  <p class="eyebrow">2 · Prissidan mobil, spårvalet och köpsteget, Pixel 7 412 px</p>
+  <div class="rad3">
+
+    <div class="tele">
+      <div class="topp"><b>Jobbcoach</b><span style="font-size:13px;color:var(--ink-2)">Logga in</span></div>
+      <div class="inne">
+        <p class="eyebrow">Priser</p>
+        <h2 style="margin-top:8px;font-size:32px;line-height:35px;font-weight:800">En vecka som bär hela jobbsöket.</h2>
+        <p class="under">Ett CV som går igenom, personliga brev som svarar på annonsen, testresultat du litar på. Byggt på sju dagar, använt i varje ansökan sedan.</p>
+        <svg viewBox="0 0 520 400" style="width:100%;height:auto;margin-top:16px;border-radius:12px" role="img" aria-label="Veckan på skrivbordet"><use href="#i-hero"/></svg>
+        <p class="eyebrow" style="margin-top:20px;text-align:center">Tre paket, välj det som matchar var du är</p>
+        <div class="kort cvk" style="margin-top:12px">
+          <div class="topp" style="padding:18px 20px 0"><span class="nr">Paket 1 av 3</span><span class="tag">CV och personliga brev</span></div>
+          <div class="illu" style="padding:8px 20px 0;height:110px"><svg viewBox="0 0 240 200" style="max-height:100px"><use href="#i-cv"/></svg></div>
+          <div class="kropp" style="padding:6px 20px 20px">
+            <h3 style="font-size:26px;line-height:30px">CV-veckan</h3>
+            <p class="varde">För dig som vill få CV:t genom rekryteringssystemet och skriva personliga brev som svarar på annonsen.</p>
+            <div class="prisrad" style="margin-top:10px"><b style="font-size:40px;line-height:40px">79 kr</b><span>i veckan<br>säg upp när du vill</span></div>
+            <div class="far"><ul><li><span class="ik"><svg><use href="#k-analys"/></svg></span><div><b>Hela CV-analysen</b><span>Vet exakt varför CV:t inte får svar, och rätta det.</span></div></li><li><span class="ik"><svg><use href="#k-mall"/></svg></span><div><b>41 mallar som rekryteringssystem läser</b><span>Ladda ned utan tak.</span></div></li><li><span class="ik"><svg><use href="#k-brev"/></svg></span><div><b>Personliga brev på annonsen</b><span>Ett per annons, som PDF.</span></div></li></ul></div>
+            <div class="knapp"><a href="#">Börja CV-veckan →</a></div>
+          </div>
+        </div>
+        <div class="kort tst" style="margin-top:12px">
+          <div class="topp" style="padding:18px 20px 0"><span class="nr">Paket 2 av 3</span><span class="tag">Rekryteringstester</span></div>
+          <div class="illu" style="padding:8px 20px 0;height:110px"><svg viewBox="0 0 240 200" style="max-height:100px"><use href="#i-matris"/></svg></div>
+          <div class="kropp" style="padding:6px 20px 20px">
+            <h3 style="font-size:26px;line-height:30px">Testveckan</h3>
+            <p class="varde">För dig som ska göra urvalstest och vill lära dig mönstren, öva mot klockan och se att du blir bättre.</p>
+            <div class="prisrad" style="margin-top:10px"><b style="font-size:40px;line-height:40px">79 kr</b><span>i veckan<br>säg upp när du vill</span></div>
+            <div class="far"><ul><li><span class="ik"><svg><use href="#k-matris"/></svg></span><div><b>Fyra testtyper, tre nivåer</b><span>Matrislogik, verbalt, numeriskt, personlighet.</span></div></li><li><span class="ik"><svg><use href="#k-timer"/></svg></span><div><b>Tidsatt provläge</b><span>Samma tidspress som på riktigt.</span></div></li><li><span class="ik"><svg><use href="#k-forkl"/></svg></span><div><b>Förklaring på varje fråga</b><span>Och kurvan som visar när du är redo.</span></div></li></ul></div>
+            <div class="knapp"><a href="#">Börja Testveckan →</a></div>
+          </div>
+        </div>
+        <div class="kort allt" style="margin-top:12px">
+          <div class="topp" style="padding:18px 20px 0"><span class="nr">Paket 3 av 3</span><span class="rek">Rekommenderas</span></div>
+          <div class="illu" style="padding:8px 20px 0;height:110px"><svg viewBox="0 0 240 200" style="max-height:100px"><use href="#i-allt"/></svg></div>
+          <div class="kropp" style="padding:6px 20px 20px">
+            <h3 style="font-size:26px;line-height:30px">Allt</h3>
+            <p class="varde">Allt i CV-veckan. Allt i Testveckan. Och tre saker till som ingen av dem har.</p>
+            <p class="for" style="min-height:0">För dig som vill att jobben ska hitta dig lika mycket som du hittar dem.</p>
+            <div class="prisrad" style="margin-top:10px"><b style="font-size:40px;line-height:40px">99 kr</b><span>i veckan<br>eller 149 kr i månaden</span></div>
+            <div class="langd"><button><b>49</b>dag</button><button class="on"><b>99</b>vecka</button><button><b>149</b>månad</button><button><b>299</b>kvartal</button></div>
+            <div class="far"><p class="eyebrow">Utöver allt i CV-veckan och Testveckan</p><ul><li><span class="ik"><svg><use href="#k-match"/></svg></span><div><b>Hitta jobb du annars hade missat</b><span>Din kompetens matchad mot alla branscher, inte bara titeln du brukar söka på. 25 träffar med skälen utskrivna.</span></div></li><li><span class="ik"><svg><use href="#k-chat"/></svg></span><div><b>Gå in i intervjun förberedd</b><span>Jobbcoachen utan tak: lön, intervjufrågor, avtal, avslag.</span></div></li><li><span class="ik"><svg><use href="#k-oga"/></svg></span><div><b>Låt rekryterare hitta dig</b><span>Bli upptäckt, anonym tills du svarar. Jobb du inte behövde söka.</span></div></li></ul></div>
+            <div class="knapp"><a href="#">Börja med allt →</a></div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:14px;color:var(--ink-3);font-size:13px">Gratisnivån ↓ · Så fungerar det ↓ · Så ser veckan ut ↓</p>
+      </div>
+    </div>
+
+    <div class="tele">
+      <div class="topp"><span class="x">✕</span><span class="steg">Steg 1 av 2</span><span style="width:36px"></span></div>
+      <div class="fram"><i style="--w:50%"></i></div>
+      <div class="inne">
+        <h2>Vad ska du göra den här veckan?</h2>
+        <p class="under">Vi ordnar hemskärmen efter det. Går att byta sen.</p>
+        <div class="val">
+          <div class="vkort vald">
+            <div class="ik"><svg viewBox="0 0 240 200"><use href="#i-cv"/></svg></div>
+            <div><b>Få CV:t genom och skriv personliga brev</b><span>CV-veckan</span></div>
+            <ul class="du">
+              <li><div><b>Hela CV-analysen.</b> Poäng per område, varje fynd med åtgärd, nyckelorden rekryteringssystem letar efter. Kör om utan tak.</div></li>
+              <li><div><b>41 CV-mallar</b> som rekryteringssystem läser. Ladda ned utan tak.</div></li>
+              <li><div><b>Personliga brev</b> skrivna på annonsen, ett per annons, som PDF.</div></li>
+              <li><div><b>LinkedIn-profilen</b> omskriven så rekryterare hittar dig.</div></li>
+            </ul>
+            <div class="prisl"><span>Förnyas var sjunde dag, säg upp när du vill</span><b>79 kr / vecka</b></div>
+          </div>
+          <div class="vkort">
+            <div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div>
+            <div><b>Var förberedd på testdagen</b><span>Testveckan</span></div>
+            <ul class="du">
+              <li><div><b>Matrislogik, verbalt och numeriskt</b> i tre nivåer, med förklaring efter varje fråga.</div></li>
+              <li><div><b>Tidsatt provläge</b>, 25 till 40 minuter, automatisk inlämning.</div></li>
+              <li><div><b>Personlighetstestet</b> och vad det säger om dig, innan rekryteraren ser det.</div></li>
+              <li><div><b>Din utveckling</b> i en kurva per typ.</div></li>
+            </ul>
+            <div class="prisl"><span>Förnyas var sjunde dag, säg upp när du vill</span><b>79 kr / vecka</b></div>
+          </div>
+          <div class="vkort rek">
+            <div class="ik"><svg viewBox="0 0 240 200"><use href="#i-allt"/></svg></div>
+            <div><span class="tagg">Rekommenderas</span><b>Allt ur båda, plus jobb som hittar dig</b><span>Allt</span></div>
+            <ul class="du">
+              <li><div><b>Allt i CV-veckan och Testveckan.</b></div></li>
+              <li><div><b>Jobbmatchning:</b> 25 jobb per natt ur alla branscher, med skälen utskrivna. Jobb du annars missar.</div></li>
+              <li><div><b>Jobbcoachen utan tak:</b> lön, intervju, avtal. Förberedd innan du sitter där.</div></li>
+              <li><div><b>Bli upptäckt:</b> rekryterare hittar dig, anonymt tills du svarar.</div></li>
+            </ul>
+            <div class="prisl"><span>Vecka 99, eller dag 49, månad 149, kvartal 299</span><b>99 kr / vecka</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="fot">
+        <div class="p">Fortsätt med CV-veckan</div>
+        <div class="s">Börja gratis i stället</div>
+        <p class="l">Gratis: 3 mallar, en analys, ett personligt brev, testernas grundnivå</p>
+      </div>
+    </div>
+
+    <div class="tele">
+      <div class="topp"><span class="x">‹</span><span class="steg">Steg 2 av 2</span><span style="width:36px"></span></div>
+      <div class="fram"><i style="--w:100%"></i></div>
+      <div class="inne">
+        <h2>CV-veckan, från i kväll</h2>
+        <p class="under">Allt öppnas direkt efter betalningen.</p>
+        <div class="kvitto">
+          <div class="rub"><b>CV-veckan</b><span>79 kr <small>i veckan</small></span></div>
+          <p class="eyebrow" style="margin-top:12px">Det här får du från i kväll</p>
+          <ul class="du" style="list-style:none;margin:6px 0 0;padding:0;display:grid;gap:5px;font-size:13px;line-height:18px;color:var(--ink-2)">
+            <li style="display:flex;gap:8px"><span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-1);margin-top:6px"></span><span><b style="color:var(--ink-1)">Hela CV-analysen</b>, kör om utan tak</span></li>
+            <li style="display:flex;gap:8px"><span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-1);margin-top:6px"></span><span><b style="color:var(--ink-1)">41 CV-mallar</b>, ladda ned utan tak</span></li>
+            <li style="display:flex;gap:8px"><span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-1);margin-top:6px"></span><span><b style="color:var(--ink-1)">Personliga brev</b> på annonsen, som PDF</span></li>
+            <li style="display:flex;gap:8px"><span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-1);margin-top:6px"></span><span><b style="color:var(--ink-1)">LinkedIn-profilen</b> omskriven</span></li>
+          </ul>
+          <dl style="margin-top:14px;padding-top:12px;border-top:1px solid var(--kant)">
+            <div><dt>Förnyas</dt><dd>var sjunde dag, nästa 29 sep</dd></div>
+            <div><dt>Uppsägning</dt><dd>när som helst i ditt konto</dd></div>
+            <div><dt>Ångerrätt</dt><dd>gäller inte, du startar direkt</dd></div>
+          </dl>
+          <div class="idag2"><svg viewBox="0 0 240 200"><use href="#i-cv"/></svg><div><b>Vi börjar med dag 1: CV in, profilen, hela analysen</b><span>Tar en kvart. Sedan är allt ovan öppet, i vilken ordning du vill.</span></div></div>
+        </div>
+        <div class="kvitto" style="border-color:var(--kant);margin-top:12px;padding:12px 16px">
+          <p class="eyebrow">Vill du ha allt i stället?</p>
+          <div class="langd" style="border-color:var(--kant-stark);margin-top:8px"><button style="color:var(--ink-3)"><b style="color:var(--ink-1)">49</b>dag</button><button style="color:var(--ink-3)"><b style="color:var(--ink-1)">99</b>vecka</button><button style="color:var(--ink-3)"><b style="color:var(--ink-1)">149</b>månad</button><button style="color:var(--ink-3)"><b style="color:var(--ink-1)">299</b>kvartal</button></div>
+        </div>
+        <label class="samtycke"><i></i><span>Jag vill att innehållet startar direkt och förstår att ångerrätten därmed inte gäller. Prenumerationen förnyas med 79 kr var sjunde dag tills jag säger upp den.</span></label>
+      </div>
+      <div class="fot">
+        <div class="p">Till betalning, 79 kr</div>
+        <p class="l">Kortbetalning via Stripe. Kvitto på mejl.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ 3. HEMSKÄRMEN ============ -->
+<div class="sektion wrap">
+  <p class="eyebrow">3 · Hemskärmen med veckopanelen, dag 4 och dag 7</p>
+  <div class="rad3" style="grid-template-columns:repeat(2,412px)">
+    <div class="tele hem">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa"><h2>Hej Anna</h2><p>Dag 4 av CV-veckan. Tre dagar klara.</p></div>
+      <div class="vpanel">
+        <div class="rub"><p class="eyebrow">CV-veckan · dag 4 av 7</p><a href="#">Hela veckan</a></div>
+        <div class="trad" style="--fram:50%"><div class="dag klar">1</div><div class="dag klar">2</div><div class="dag klar">3</div><div class="dag nu">4</div><div class="dag">5</div><div class="dag">6</div><div class="dag">7</div></div>
+        <div class="sak"><svg viewBox="0 0 240 200"><use href="#i-cv"/></svg><div><b>En andra mall för en annan typ av roll</b><p>Samma CV, annan form. Bra när du söker både bredare och smalare.</p><small>Tar tio minuter</small></div></div>
+        <div class="kn">Välj mall</div>
+        <p class="hop">Hoppa till en annan dag</p>
+      </div>
+      <div class="status"><i></i>Nästa dragning 29 september, 79 kr. Säg upp i ditt konto.</div>
+      <div class="pagar"><p class="eyebrow">Pågår nu</p><div><b>Personligt brev, Systemutvecklare</b><span>Nedladdat</span></div><div><b>CV-analys, poäng 74</b><span>2 fynd kvar</span></div></div>
+    </div>
+    <div class="tele hem">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa"><h2>Hej Anna</h2><p>Dag 7. Så här gick veckan.</p></div>
+      <div class="vpanel">
+        <div class="rub"><p class="eyebrow">CV-veckan · dag 7 av 7</p></div>
+        <div class="trad" style="--fram:100%"><div class="dag klar">1</div><div class="dag klar">2</div><div class="dag klar">3</div><div class="dag klar">4</div><div class="dag klar">5</div><div class="dag klar">6</div><div class="dag nu">7</div></div>
+        <div class="tal4"><div><b>3</b><span>personliga brev</span></div><div><b>2</b><span>mallar</span></div><div><b>74</b><span>poäng</span></div><div><b>6</b><span>dagar</span></div></div>
+        <p style="margin-top:14px;color:var(--ink-2);font-size:13px;line-height:19px">Tre ansökningar ute. Kvar: LinkedIn-profilen från dag 6. Vecka 2 fortsätter där du är, med nya annonser att svara på.</p>
+        <div class="kn">Så här ser vecka 2 ut</div>
+        <p class="hop">Avsluta i stället</p>
+      </div>
+      <div class="status"><i></i>Förnyas i morgon, 79 kr. Säg upp i ditt konto.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 4. BESLUT ============ -->
+<div class="sektion wrap" style="padding-bottom:64px">
+  <p class="eyebrow">4 · Vad som ändrats sedan förslag 1</p>
+  <div class="beslut">
+    <div><h3>Paketen går att skilja åt</h3><p>Egen färgetikett (blå för CV, brun för tester, bläck för Allt), egen illustration överst på varje kort, egen fråga "för dig som" och egen lista. Ingen behöver läsa priset för att veta vilket kort som är vilket.</p></div>
+    <div><h3>Värdet före funktionen</h3><p>Varje rad börjar med vad det leder till ("Vet exakt varför CV:t inte får svar", "Hitta jobb du annars hade missat", "Bli hittad på LinkedIn") och förklarar sedan hur. Personliga brev, aldrig "brev". Rekryteringstester med de fyra typerna utskrivna. Jobbmatchningen fick sin egen berättelse: kompetens mot alla branscher, körs när du vill, hittar jobb du missar när du söker på din vanliga titel.</p></div>
+    <div><h3>Konkret hur det fungerar</h3><p>Ny sektion "Vad du faktiskt får" med fyra steg per funktion och en illustration som visar själva ögonblicket: annonsen som blir ett personligt brev, matrisen med den saknade rutan och klockan, träfflistan med matchningsgrad.</p></div>
+    <div><h3>Sju egna illustrationer</h3><p>Ritade i systemets stil: kontur i bläck, en liten orange fyllning, aldrig gradient. Hero-scenen visar veckan på skrivbordet. Samma symboler återkommer i spårvalet, köpsteget och veckopanelen, så köparen känner igen sig hela vägen.</p></div>
+    <div><h3>Mer tyngd i typografin</h3><p>Rubriker i Schibsted Grotesk 800, 60 px i heron. Priser i 48 px. Sektionsrubriker centrerade i 40 px. Sidan har nu en rytm: stor rubrik, tre kort, förklaring, veckan, förtroende, tabell, frågor.</p></div>
+    <div><h3>Ingen påhittad data</h3><p>Talen i heron är löften vi kan hålla (7 dagar, 79 kr, 1 klick), inte volymer vi inte har. Inga kundcitat, inga betyg, inga arbetsgivare. Namnet Anna och poängen 74 i hemskärmen är exempelinnehåll för skissen och byts mot användarens riktiga data.</p></div>
+  </div>
+</div>

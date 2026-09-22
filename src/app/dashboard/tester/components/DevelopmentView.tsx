@@ -5,6 +5,7 @@
  * Personlighetsresultatet bor på Tester-fliken, inte här.
  */
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomTester } from '@/components/illustrations/EmptyStateIllustrations';
@@ -31,6 +32,19 @@ export default function DevelopmentView({
   scope = null,
 }: Props) {
   const testedCognitive = ALL_COGNITIVE_TESTS.filter((t) => perTest[t.slug]?.attempts > 0);
+
+  // Hjälpredan Kom igång: brickan Din kurva kvitteras när fliken faktiskt
+  // visar en serie, alltså med historik och minst ett gjort test. En vy,
+  // ingen skrivning, så fliken anmäler sig själv. Tyst vid fel.
+  useEffect(() => {
+    if (!hasHistory || testedCognitive.length === 0) return;
+    void fetch('/api/onboarding/komigang', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'kurva' }),
+    }).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasHistory]);
 
   // Utvecklingsvyn handlar om kognitiva test där poäng kan följas över tid.
   if (testedCognitive.length === 0) {

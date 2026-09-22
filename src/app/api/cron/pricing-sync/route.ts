@@ -8,7 +8,7 @@ import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-s
 import { generateQuotaBackEmail } from '@/lib/email/quota-back';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
-import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests } from '@/lib/email/lifecycle/runner';
+import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests, scheduleKomIgangMejl } from '@/lib/email/lifecycle/runner';
 import { onOnetimeExpired } from '@/lib/email/lifecycle/hooks';
 import { createFollowUpNotifications } from '@/lib/notifications/followUp';
 import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
@@ -423,6 +423,16 @@ export async function GET(request: NextRequest) {
     // Runnern skickar förfallna mail ur email_schedule, win-back-sidojobbet
     // schemalägger nya, och utgångna publika utkast städas bort.
     if (isMorningSlot) {
+      // Hjälpredans mejl: ett om dagen om nästa bricka till den som betalar,
+      // och förnyas i morgon dagen före dragningen. Schemaläggs till nu och
+      // skickas i samma körning av runnern nedan.
+      try {
+        results.komIgangMejl = await scheduleKomIgangMejl(supabaseAdmin, now);
+      } catch (error: any) {
+        console.error('[Lifecycle] Kom igång-urvalet:', error);
+        results.komIgangMejl = { success: false, error: error.message };
+      }
+
       try {
         results.lifecycleEmails = await runLifecycleEmails(supabaseAdmin);
       } catch (error: any) {

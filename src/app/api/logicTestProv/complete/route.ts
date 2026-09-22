@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/selectProv.v7';
+import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: Request) {
   try {
@@ -58,6 +59,10 @@ export async function POST(request: Request) {
       .from('logic_test_v4_sessions')
       .update({ completed_at: new Date().toISOString(), score, time_spent: timeSpent })
       .eq('id', sessionId);
+
+    // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
+    // Tyst vid fel, får aldrig fälla svaret.
+    void markeraTestBricka(user.id, session.test_type);
 
     if (updateError) {
       console.error('Error completing prov session:', updateError);

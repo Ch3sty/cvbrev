@@ -4,6 +4,7 @@ import { embedQuery, generateStream, chatContents, GEMINI_MODELS } from '@/lib/g
 import { checkChatQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -151,6 +152,8 @@ export async function POST(req: NextRequest) {
 
       if (convError) throw convError;
       convId = conversation.id;
+      // Hjälpredan Kom igång: första frågan till coachen.
+      void markeraBricka(user.id, 'coach');
     }
 
     // Ladda senaste 20 meddelandena FÖRE vi sparar det nya user-meddelandet,

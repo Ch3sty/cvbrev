@@ -19,6 +19,9 @@ export type PaywallVariant =
   | 'jobbtraffar'
   | 'chatt'
   | 'historik'
+  // Menyns gråa val (spec-onboarding 2026-09-22, sektion 3 och 5).
+  | 'linkedin'
+  | 'bli-upptackt'
   // Kvarvarande varianter som inte hör till paketspärrarna.
   | 'kvot'
   | 'test-tak'
@@ -103,6 +106,8 @@ export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   chatt: 'chat_unlimited',
   historik: 'test_history',
   'test-tak': 'tests_above_base',
+  linkedin: 'linkedin',
+  'bli-upptackt': 'bli_upptackt',
 }
 
 /**
@@ -189,6 +194,24 @@ export function getPaywallCopy(
     }
 
     // PW7, alternativ A. Rubriken säger vad som hänt, bodyn vad som gäller.
+    // Menyns gråa val. Brödtexten säger vad funktionen gör och var den finns,
+    // en gång, utan att räkna upp resten av paketet.
+    case 'linkedin':
+      return {
+        title: 'LinkedIn-profilen ingår i CV-veckan',
+        body: 'Ny rubrik, ny om mig-text och kompetenserna överst, skrivna mot ditt CV så rekryterare hittar dig. Finns i CV-veckan och Allt.',
+        primary: 'Ta CV-veckan',
+        secondary: 'Inte nu',
+      }
+
+    case 'bli-upptackt':
+      return {
+        title: 'Bli upptäckt ingår i Allt',
+        body: 'Din profil visas för rekryterare utan namn tills du själv svarar, och du stänger av när du vill. Finns i Allt.',
+        primary: 'Ta Allt-veckan',
+        secondary: 'Inte nu',
+      }
+
     case 'chatt':
       return {
         title: 'Dina tio meddelanden är använda',

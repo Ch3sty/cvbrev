@@ -31,6 +31,7 @@ import { capture } from '@/lib/analytics/events'
 import {
   FEL_SPAR,
   felSparRad,
+  felSparRubrik,
   felSparText,
   mellanskillnad,
   type Track,
@@ -173,7 +174,7 @@ export default function FelSpar({
             <IlluPlattaNedladdning size={48} />
           </MarginPlate>
           <div className="min-w-0 flex-1">
-            <p className="text-kort text-ink-1">{FEL_SPAR.rubrik}</p>
+            <p className="text-kort text-ink-1">{felSparRubrik(feature)}</p>
             <p className="mt-1 text-sm leading-[22px] text-ink-2">{felSparText(scope)}</p>
           </div>
         </div>

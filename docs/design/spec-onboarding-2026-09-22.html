@@ -1,0 +1,475 @@
+<title>Onboardingen per paket</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--kant:#DBD2C4;--kant-stark:#C4B9A8;--ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;--positiv:#047857;--positiv-mjuk:#D9F2E6;--cv:#1D4ED8;--cv-mjuk:#DCE6FB;--test:#7C2D12;--test-mjuk:#F6E4D6;--display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:14px;line-height:21px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-family:var(--display);text-wrap:balance;letter-spacing:-.02em}p{margin:0}svg{display:block}
+.wrap{max-width:1360px;margin:0 auto;padding:0 24px}
+.note{max-width:1360px;margin:32px auto 0;padding:0 24px}
+.note h2{font-size:24px;line-height:30px;margin-bottom:8px}.note p{color:var(--ink-2);max-width:72ch;font-size:15px;line-height:23px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.sektion{margin-top:56px}.sektion>.eyebrow{margin-bottom:12px}
+.sektion>h2{font-size:22px;line-height:28px;margin-bottom:6px}.sektion>p.led{color:var(--ink-2);max-width:72ch;margin-bottom:16px}
+.rad{display:grid;grid-template-columns:repeat(3,412px);gap:24px;overflow-x:auto;padding-bottom:8px}
+.rad.tva{grid-template-columns:repeat(2,412px)}
+.tele{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;flex:none}
+.topp{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.topp b{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.topp .steg{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.topp .x{width:36px;height:36px;display:grid;place-items:center;color:var(--ink-2);font-size:20px}
+.inne{padding:20px 16px 16px}
+.tele h2{font-size:26px;line-height:31px;font-weight:700}
+.under{margin-top:6px;color:var(--ink-2)}
+.fot{padding:12px 16px 16px;background:var(--panel);border-top:1px solid var(--kant);display:grid;gap:8px}
+.p{display:flex;height:50px;align-items:center;justify-content:center;border-radius:10px;background:var(--ink-1);color:#fff;font-weight:600;font-size:15px}
+.s{display:flex;height:44px;align-items:center;justify-content:center;border-radius:10px;border:1px solid var(--kant-stark);background:var(--panel);color:var(--ink-1);font-weight:600}
+.l{text-align:center;font-size:12px;color:var(--ink-3)}
+.scen{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:16px;margin-top:16px}
+.scen svg{width:100%;height:auto}
+/* Kartan */
+.karta{margin:12px 16px 0;background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;padding:16px}
+.karta .hd{display:flex;justify-content:space-between;align-items:baseline}
+.karta .hd a{font-size:13px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.matare{margin-top:10px;height:6px;border-radius:3px;background:var(--insunken);position:relative;overflow:hidden}
+.matare i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:var(--w,33%);border-radius:3px}
+.matare-t{margin-top:6px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between}
+.brickor{margin-top:14px;display:grid;gap:8px}
+.bricka{display:grid;grid-template-columns:44px 1fr 24px;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--kant);border-radius:12px;background:var(--panel)}
+.bricka .ik{width:44px;height:44px;border-radius:9px;background:var(--insunken);display:grid;place-items:center}
+.bricka .ik svg{width:30px;height:30px}
+.bricka b{display:block;font-size:14px;line-height:19px;font-weight:600}
+.bricka span{display:block;font-size:12px;line-height:17px;color:var(--ink-3)}
+.bricka .st{width:24px;height:24px;border-radius:50%;border:2px solid var(--kant-stark);display:grid;place-items:center}
+.bricka.klar{background:var(--insunken);border-color:transparent}
+.bricka.klar .ik{background:var(--panel)}
+.bricka.klar .st{background:var(--ink-1);border-color:var(--ink-1)}
+.bricka.klar .st:after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);margin-top:-2px}
+.bricka.nasta{border-color:var(--ink-1);box-shadow:0 0 0 1.5px var(--ink-1)}
+.bricka.nasta .ik{background:var(--accent-mjuk)}
+.bricka.nasta .st{border-color:var(--ink-1)}
+.bricka.nasta .st:after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.bricka .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:2px}
+.bricka.extra{border-style:dashed}
+.bricka.las{border-style:dashed;background:transparent}.bricka.las .ik{background:var(--panel);opacity:.7}.bricka.las .st{border-style:dashed}.bricka.las .tag{color:var(--ink-3)}
+.grupp{margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.status{margin:12px 16px 0;display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-2)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.hem .halsa{padding:20px 16px 4px}.hem .halsa h2{font-size:28px;line-height:32px}.hem .halsa p{color:var(--ink-2);margin-top:4px}
+.pagar{margin:16px 16px 16px}.pagar .eyebrow{margin-bottom:8px}
+.pagar div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;color:var(--ink-2);font-size:13px}
+.pagar div b{color:var(--ink-1);font-weight:500}
+/* Ark */
+.ark{margin:0 8px 8px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:16px 16px 12px 12px;padding:14px 16px 16px}
+.ark .handtag{width:36px;height:4px;border-radius:2px;background:var(--kant-stark);margin:0 auto 12px}
+.ark h3{font-size:20px;line-height:26px;font-weight:700}
+.ark p{color:var(--ink-2);margin-top:6px;font-size:13px;line-height:19px}
+.ark ol{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:13px}
+.ark ol li{display:flex;gap:10px;color:var(--ink-2)}.ark ol li i{font-style:normal;font-family:var(--display);font-weight:700;color:var(--ink-1);width:16px;flex:none}
+.ark .p{margin-top:14px}
+/* Desktop karta */
+.desk{background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.desk-topp{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--kant);background:var(--insunken);font-size:12px;color:var(--ink-3)}
+.desk-topp i{width:10px;height:10px;border-radius:50%;background:var(--kant-stark);display:inline-block}.desk-topp span{margin-left:8px}
+.dyta{display:grid;grid-template-columns:240px 1fr;background:var(--mark)}
+.side{background:var(--panel);border-right:1px solid var(--kant);padding:20px 16px;font-size:13px;color:var(--ink-2)}
+.side b{display:block;font-family:var(--display);font-weight:800;font-size:17px;color:var(--ink-1);margin-bottom:16px}
+.side div{padding:8px 10px;border-radius:8px;margin-bottom:2px}.side div.on{background:var(--insunken);color:var(--ink-1);font-weight:500}
+.main{padding:32px 40px 40px}
+.main h2{font-size:32px;line-height:36px}
+.main .under{font-size:15px}
+.dkarta{margin-top:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.dkarta .bricka{grid-template-columns:52px 1fr 24px;padding:14px;border-radius:14px}
+.dkarta .bricka .ik{width:52px;height:52px}.dkarta .bricka .ik svg{width:36px;height:36px}
+.dkarta .bricka b{font-size:15px}.dkarta .bricka span{font-size:13px;line-height:18px}
+.dhd{margin-top:24px;display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:stretch}
+.dnasta{background:var(--panel);border:1px solid var(--ink-1);border-radius:14px;padding:20px;display:grid;grid-template-columns:96px 1fr;gap:20px;align-items:center}
+.dnasta svg{width:96px;height:96px}
+.dnasta h3{font-size:20px;line-height:26px}.dnasta p{color:var(--ink-2);margin-top:4px}
+.dnasta .p{margin-top:12px;height:44px;width:max-content;padding:0 20px}
+.dprog{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:20px}
+.dprog b{font-family:var(--display);font-size:36px;font-weight:700;display:block;letter-spacing:-.02em}
+.dprog span{color:var(--ink-3);font-size:13px}
+/* Beslut */
+.beslut{margin-top:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.beslut div{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:20px 24px}
+.beslut h3{font-size:16px;line-height:22px;margin-bottom:6px}.beslut p{color:var(--ink-2);font-size:14px}
+.mejl{margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.mejl div{background:var(--panel);border:1px solid var(--kant);border-radius:14px;padding:18px 20px;font-size:13px;color:var(--ink-2)}
+.mejl .amne{font-weight:600;color:var(--ink-1);font-size:14px;display:block;margin-bottom:4px}
+.mejl .pre{color:var(--ink-3);display:block;margin-bottom:8px}
+@media (max-width:900px){.dyta,.dkarta,.dhd,.beslut,.mejl{grid-template-columns:1fr}.side{display:none}}
+</style>
+<style>
+.stegl{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:13px;color:var(--ink-2)}
+.stegl li{display:flex;gap:10px}.stegl li i{font-style:normal;font-family:var(--display);font-weight:700;color:var(--ink-1);width:16px;flex:none}
+.komigang{position:absolute;left:12px;right:12px;bottom:64px;background:var(--ink-1);color:#fff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.komigang b{display:block;font-weight:600;font-size:14px}.komigang span{font-size:12px;color:#CFC8BD;display:block}
+.ring{width:36px;height:36px;border-radius:50%;border:2px solid #3A3531;display:grid;place-items:center;font-size:13px;font-weight:600;flex:none}
+.bnav{position:absolute;left:0;right:0;bottom:0;height:56px;background:var(--panel);border-top:1px solid var(--kant);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;text-align:center;font-size:11px;color:var(--ink-3)}
+.bnav .on{color:var(--ink-1);font-weight:600}
+.bricka.las{border-style:dashed;background:transparent;opacity:.75}.bricka.las .ik{background:var(--panel)}
+.bricka.las b{color:var(--ink-3)}
+.lås{width:24px;height:24px;border-radius:6px;background:var(--insunken);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B645E' stroke-width='2' stroke-linecap='round'%3E%3Crect x='6' y='11' width='12' height='9' rx='2'/%3E%3Cpath d='M9 11V8a3 3 0 0 1 6 0v3'/%3E%3C/svg%3E");background-size:16px;background-position:center;background-repeat:no-repeat}
+.meny div{display:grid;grid-template-columns:22px 1fr auto;align-items:center;column-gap:12px;padding:10px 8px;border-bottom:1px solid var(--kant);font-size:15px;color:var(--ink-1)}
+.meny div em{font-style:normal;grid-column:2;font-size:12px;line-height:16px;color:var(--ink-3);display:block}
+.meny div .mark{grid-column:3;grid-row:1/span 2;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-3)}
+.meny div .mark.full{background:var(--positiv-mjuk);color:var(--positiv)}
+.meny div .mark.las{background:transparent;border:1px dashed var(--kant-stark)}
+.meny .mik{grid-row:1/span 2}
+.menyhuvud{background:var(--ink-1);color:#fff;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.menyhuvud b{display:block;font-size:14px;font-weight:600}.menyhuvud span{font-size:12px;color:#CFC8BD}
+.menyhuvud a{font-size:12px;color:#fff;text-decoration:underline;text-underline-offset:3px}
+.meny div.gra{color:var(--kant-stark)}.meny div.gra .mik{background:var(--kant)}.meny div.gra em{color:var(--ink-3)}
+.mik{width:22px;height:22px;border-radius:6px;background:var(--insunken);flex:none}
+.mallar{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mallar div{position:relative;background:var(--panel);border:1px solid var(--kant);border-radius:10px;padding:8px;text-align:center;font-size:12px}
+.mallar div i{display:block;height:88px;border-radius:6px;background:repeating-linear-gradient(var(--insunken) 0 6px,transparent 6px 12px);margin-bottom:6px}
+.mallar div.g{opacity:.55}.mallar div.g span{position:absolute;top:8px;right:8px;font-size:12px}
+.side div em{font-style:normal;font-size:11px;line-height:14px;color:var(--ink-3);display:block}
+.side .komigang b{font-family:var(--body);font-size:13px;color:#fff;margin:0}
+.side div.gra{color:var(--kant-stark)}.side div.gra em{color:var(--ink-3)}
+.side div{line-height:18px}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-cv" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="18" width="130" height="170" rx="12" fill="#fff"/><path d="M54 50h60M54 70h82M54 90h70M54 120h82M54 140h56M54 160h74"/><circle cx="180" cy="60" r="34" fill="#fff"/></g><path d="M180 26a34 34 0 1 1-24 10" fill="none" stroke="#D9480F" stroke-width="6" stroke-linecap="round"/><text x="180" y="67" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="24" fill="#1C1917">74</text><rect x="48" y="84" width="82" height="12" rx="3" fill="#FBE7D3"/><g transform="translate(150 118)"><circle r="12" fill="#D9480F"/><path d="M-4 0l3 3 6-6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+<symbol id="i-upp" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M50 120v40a12 12 0 0 0 12 12h116a12 12 0 0 0 12-12v-40" /><rect x="80" y="28" width="80" height="104" rx="10" fill="#fff"/><path d="M100 60h40M100 78h40M100 96h24"/></g><g fill="none" stroke="#D9480F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M200 66v-40M184 42l16-16 16 16"/></g><circle cx="60" cy="150" r="6" fill="#D9480F"/></symbol>
+<symbol id="i-profil" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="30" width="180" height="140" rx="14" fill="#fff"/><circle cx="80" cy="90" r="22"/><path d="M48 150a32 32 0 0 1 64 0"/><path d="M124 70h60M124 92h60M124 114h36"/></g><rect x="124" y="132" width="44" height="14" rx="4" fill="#FBE7D3"/><circle cx="188" cy="139" r="6" fill="#D9480F"/></symbol>
+<symbol id="i-mall" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="30" width="80" height="120" rx="8" fill="#fff"/><rect x="80" y="50" width="80" height="120" rx="8" fill="#fff"/><rect x="136" y="30" width="80" height="120" rx="8" fill="#fff"/><path d="M152 56h48M152 72h32M152 100h48M152 116h48"/><path d="M96 76h48M96 92h30M96 120h48"/><path d="M40 56h48M40 72h30M40 100h48"/></g><rect x="152" y="132" width="24" height="8" rx="3" fill="#D9480F"/><path d="M176 20l8 8-8 8" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(30 6)"/></symbol>
+<symbol id="i-brev" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="40" width="84" height="110" rx="10" fill="#fff"/><path d="M30 62h56M30 78h40M30 94h56M30 110h48M30 126h30"/><path d="M112 95h26" stroke="#D9480F" stroke-width="5"/><path d="M132 87l8 8-8 8" stroke="#D9480F" stroke-width="5"/><rect x="150" y="22" width="74" height="150" rx="10" fill="#fff" transform="rotate(4 187 97)"/></g><g transform="rotate(4 187 97)" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><path d="M164 44h44M164 60h46M164 76h34M164 100h46M164 116h46M164 132h28"/></g><g transform="rotate(4 187 97)"><rect x="162" y="148" width="26" height="8" rx="3" fill="#D9480F"/></g></symbol>
+<symbol id="i-linkedin" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="180" height="120" rx="14" fill="#fff"/><path d="M30 80h180"/><circle cx="70" cy="60" r="10"/><path d="M96 60h60"/><path d="M52 108h136M52 128h96"/></g><circle cx="190" cy="60" r="8" fill="#D9480F"/><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><circle cx="196" cy="150" r="16" fill="#fff"/><path d="M208 162l14 14"/></g></symbol>
+<symbol id="i-matris" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="26" y="26" width="150" height="150" rx="12" fill="#fff"/><path d="M76 26v150M126 26v150M26 76h150M26 126h150"/><circle cx="51" cy="51" r="12"/><rect x="89" y="39" width="24" height="24" rx="4"/><path d="M151 39l12 24h-24z"/><rect x="39" y="89" width="24" height="24" rx="4"/><path d="M101 89l12 24h-24z"/><circle cx="151" cy="101" r="12"/><path d="M51 139l12 24h-24z"/><circle cx="101" cy="151" r="12"/></g><rect x="132" y="132" width="38" height="38" rx="6" fill="#FBE7D3"/><text x="151" y="160" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="26" fill="#D9480F">?</text><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><circle cx="204" cy="62" r="24" fill="#fff"/><path d="M204 46v16l10 6M198 34h12"/></g><path d="M204 38a24 24 0 0 1 24 24" fill="none" stroke="#D9480F" stroke-width="5" stroke-linecap="round"/></symbol>
+<symbol id="i-diag" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="30" width="80" height="60" rx="8" fill="#fff"/><rect x="130" y="30" width="80" height="60" rx="8" fill="#fff"/><rect x="30" y="110" width="80" height="60" rx="8" fill="#fff"/><rect x="130" y="110" width="80" height="60" rx="8" fill="#fff"/><path d="M46 46h20v20H46zM76 46h20v20H76z"/><path d="M146 50h48M146 62h32M146 74h40"/><path d="M46 140l12-8 12 12 18-16"/><path d="M146 126h48M146 140h48M146 154h26"/></g><text x="70" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#6B645E">NUMERISKT</text><text x="70" y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#6B645E">MATRIS</text><text x="170" y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#6B645E">VERBALT</text><text x="170" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#6B645E">PERSONLIGHET</text><circle cx="200" cy="40" r="8" fill="#D9480F"/></symbol>
+<symbol id="i-person" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="80" cy="100" r="50" fill="#fff"/><path d="M60 92h40M60 108h28"/><rect x="140" y="50" width="80" height="100" rx="10" fill="#fff"/><path d="M156 74h48M156 92h48M156 110h30"/></g><path d="M130 100h6" stroke="#D9480F" stroke-width="5" stroke-linecap="round"/><rect x="156" y="124" width="36" height="10" rx="3" fill="#FBE7D3"/><circle cx="204" cy="129" r="5" fill="#D9480F"/></symbol>
+<symbol id="i-kurva" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M30 170h180M30 170V30"/><path d="M50 140l40-20 30 10 40-40 40-20" stroke-width="5"/></g><circle cx="200" cy="70" r="8" fill="#D9480F"/><circle cx="50" cy="140" r="5" fill="#1C1917"/><circle cx="90" cy="120" r="5" fill="#1C1917"/><circle cx="120" cy="130" r="5" fill="#1C1917"/><circle cx="160" cy="90" r="5" fill="#1C1917"/></symbol>
+<symbol id="i-match" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="22" width="200" height="44" rx="10" fill="#fff"/><rect x="20" y="78" width="200" height="44" rx="10" fill="#fff"/><rect x="20" y="134" width="200" height="44" rx="10" fill="#fff"/><path d="M40 44h70M40 100h86M40 156h60"/></g><rect x="150" y="34" width="56" height="20" rx="10" fill="#1C1917"/><text x="178" y="48" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#fff">92 %</text><rect x="150" y="90" width="56" height="20" rx="10" fill="#FBE7D3"/><text x="178" y="104" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#9A3412">88 %</text><rect x="150" y="146" width="56" height="20" rx="10" fill="#ECE6DC"/><text x="178" y="160" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#57534E">81 %</text><circle cx="120" cy="44" r="5" fill="#D9480F"/></symbol>
+<symbol id="i-coach" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40a12 12 0 0 1 12-12h110a12 12 0 0 1 12 12v44a12 12 0 0 1-12 12H70l-24 22V96H36a12 12 0 0 1-12-12z" fill="#fff"/><path d="M46 52h72M46 70h50"/><path d="M216 110a12 12 0 0 0-12-12H94a12 12 0 0 0-12 12v44a12 12 0 0 0 12 12h80l24 22v-22h6a12 12 0 0 0 12-12z" fill="#1C1917"/></g><path d="M104 122h80M104 140h56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="196" cy="140" r="5" fill="#D9480F"/></symbol>
+<symbol id="i-oga" viewBox="0 0 240 200"><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="160" height="120" rx="14" fill="#fff"/><circle cx="90" cy="90" r="22"/><path d="M58 140a32 32 0 0 1 64 0"/><path d="M130 76h44M130 98h44"/></g><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M150 150s16-22 40-22 40 22 40 22-16 22-40 22-40-22-40-22z" fill="#fff"/></g><circle cx="190" cy="150" r="7" fill="#D9480F"/></symbol>
+<symbol id="i-valkommen-cv" viewBox="0 0 380 220"><rect width="380" height="220" rx="14" fill="#ECE6DC"/><path d="M30 180h320" stroke="#D9480F" stroke-width="4" stroke-linecap="round"/><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="60" y="40" width="110" height="140" rx="12" fill="#fff" transform="rotate(-4 115 110)"/><rect x="200" y="30" width="120" height="150" rx="12" fill="#fff"/><path d="M222 60h76M222 84h76M222 108h50M222 140h76"/></g><g transform="rotate(-4 115 110)" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"><path d="M80 70h70M80 92h70M80 114h40"/></g><g transform="rotate(-4 115 110)"><rect x="78" y="128" width="50" height="10" rx="3" fill="#FBE7D3"/></g><circle cx="115" cy="180" r="10" fill="#1C1917"/><circle cx="260" cy="180" r="12" fill="#fff" stroke="#1C1917" stroke-width="4"/><circle cx="260" cy="180" r="5" fill="#D9480F"/><g fill="none" stroke="#D9480F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M330 90V50M316 64l14-14 14 14"/></g></symbol>
+<symbol id="i-valkommen-test" viewBox="0 0 380 220"><rect width="380" height="220" rx="14" fill="#ECE6DC"/><path d="M30 180h320" stroke="#D9480F" stroke-width="4" stroke-linecap="round"/><g fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="70" y="40" width="120" height="120" rx="12" fill="#fff"/><path d="M110 40v120M150 40v120M70 80h120M70 120h120"/><circle cx="90" cy="60" r="8"/><rect x="122" y="52" width="16" height="16" rx="3"/><path d="M170 52l8 16h-16z"/><rect x="82" y="92" width="16" height="16" rx="3"/><path d="M130 92l8 16h-16z"/><circle cx="170" cy="100" r="8"/><path d="M90 132l8 16h-16z"/><circle cx="130" cy="140" r="8"/><circle cx="270" cy="90" r="40" fill="#fff"/><path d="M270 62v28l18 10M258 42h24"/></g><rect x="154" y="124" width="32" height="32" rx="5" fill="#FBE7D3"/><text x="170" y="148" text-anchor="middle" font-family="Schibsted Grotesk,Inter,sans-serif" font-weight="700" font-size="22" fill="#D9480F">?</text><path d="M270 50a40 40 0 0 1 40 40" fill="none" stroke="#D9480F" stroke-width="6" stroke-linecap="round"/><circle cx="130" cy="180" r="12" fill="#fff" stroke="#1C1917" stroke-width="4"/><circle cx="130" cy="180" r="5" fill="#D9480F"/></symbol>
+</defs></svg>
+
+<div class="note">
+  <p class="eyebrow">Förslag 5 till godkännande · 22 september 2026</p>
+  <h2>Onboardingen per paket</h2>
+  <p>Det inloggade läget är kvar som det är. Onboardingen är tre saker ovanpå: en <b>välkomstskärm</b> direkt efter köpet, en <b>hjälpreda "Kom igång"</b> som ligger i botten av hemskärmen tills allt i paketet är provat, och <b>gråade val</b> i varje funktionsvy och i menyn för det som inte ingår i paketet. Ordningen i hjälpredan följer logiken: profilen och CV:t först, för allt annat bygger på dem. Allt är öppet från första sekunden.</p>
+</div>
+
+<!-- ===== 1. EFTER KÖP ===== -->
+<div class="sektion wrap">
+  <p class="eyebrow">1 · Direkt efter köpet, Pixel 7</p>
+  <h2>Välkomstskärmen: bekräfta vad man har, föreslå första steget</h2>
+  <p class="led">En per paket. Primärknappen är första steget, sekundärknappen öppnar hjälpredan. Den som redan har ett CV får analysen som första steg i stället (skärm 3).</p>
+  <div class="rad">
+    <div class="tele">
+      <div class="topp"><span class="x">✕</span><span class="steg">CV-veckan</span><span style="width:36px"></span></div>
+      <div class="inne">
+        <svg viewBox="0 0 380 220" style="width:100%;height:auto" role="img" aria-label="Två CV och en uppladdningspil på tråden"><use href="#i-valkommen-cv"/></svg>
+        <h2 style="margin-top:16px">Du har CV-veckan. Allt är öppet nu.</h2>
+        <p class="under">Hela CV-analysen, 41 mallar, personliga brev och LinkedIn-profilen, i vilken ordning du vill. Vi föreslår att du börjar med CV:t, för allt annat bygger på det.</p>
+        <div class="karta" style="margin:16px 0 0;padding:12px 14px">
+          <p class="eyebrow">Så här går det till</p>
+          <ol class="stegl">
+            <li><i>1</i>Ladda upp CV:t, PDF eller Word. En minut.</li>
+            <li><i>2</i>Kör CV-analysen på det. Poäng, fynd, nyckelord.</li>
+            <li><i>3</i>Uppdatera CV:t efter fynden. Sedan mall, personligt brev och LinkedIn, när du vill.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="fot"><div class="p">Ladda upp CV:t</div><div class="s">Visa allt som ingår</div></div>
+    </div>
+    <div class="tele">
+      <div class="topp"><span class="x">✕</span><span class="steg">Testveckan</span><span style="width:36px"></span></div>
+      <div class="inne">
+        <svg viewBox="0 0 380 220" style="width:100%;height:auto" role="img" aria-label="Matrislogik och en klocka"><use href="#i-valkommen-test"/></svg>
+        <h2 style="margin-top:16px">Du har Testveckan. Alla nivåer är öppna.</h2>
+        <p class="under">Matrislogik, verbalt, numeriskt och personlighet, provläge mot klockan och förklaring på varje fråga. Vi föreslår att du börjar med grundnivån i matrislogik, den vanligaste typen i urvalstest.</p>
+        <div class="karta" style="margin:16px 0 0;padding:12px 14px">
+          <p class="eyebrow">Så här går det till</p>
+          <ol class="stegl">
+            <li><i>1</i>Matrislogik, grundnivå. Cirka 20 minuter, förklaring efter varje fråga.</li>
+            <li><i>2</i>Gå vidare till avancerad nivå, eller prova verbalt och numeriskt.</li>
+            <li><i>3</i>När du är varm: provläge mot klockan, och personlighetstestet med tolkning.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="fot"><div class="p">Börja med matrislogik</div><div class="s">Visa allt som ingår</div></div>
+    </div>
+    <div class="tele">
+      <div class="topp"><span class="x">✕</span><span class="steg">Allt</span><span style="width:36px"></span></div>
+      <div class="inne">
+        <svg viewBox="0 0 380 220" style="width:100%;height:auto" role="img" aria-label="Två CV och en uppladdningspil på tråden"><use href="#i-valkommen-cv"/></svg>
+        <h2 style="margin-top:16px">Du har Allt. Hela jobbsöket är öppet.</h2>
+        <p class="under">CV, personliga brev, alla tester, jobbmatchning, jobbcoachen och Bli upptäckt. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.</p>
+        <div class="karta" style="margin:16px 0 0;padding:12px 14px">
+          <p class="eyebrow">Så här går det till</p>
+          <ol class="stegl">
+            <li><i>1</i>Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.</li>
+            <li><i>2</i>Kör jobbmatchningen på det uppdaterade CV:t och se jobb du inte hittat själv.</li>
+            <li><i>3</i>Gör dig synlig för rekryterare, skriv brev från träffarna, träna tester, fråga coachen.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="fot"><div class="p">Ladda upp CV:t</div><div class="s">Visa allt som ingår</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. HJÄLPREDAN ===== -->
+<div class="sektion wrap">
+  <p class="eyebrow">2 · Hjälpredan "Kom igång" på hemskärmen</p>
+  <h2>En rad i botten, ett ark när man trycker</h2>
+  <p class="led">Hemskärmen Mitt jobbsök är oförändrad. Hjälpredan är en mörk rad ovanför bottennavigeringen som visar nästa föreslagna steg och hur många av paketets delar som är provade. Trycket öppnar ett ark med hela listan i logisk ordning: profilen och CV:t först, sedan det som bygger på dem. Klar bricka blir insjunken med bock. Varje bricka går att öppna direkt. När allt är provat försvinner raden.</p>
+  <div class="rad">
+    <div class="tele hem" style="position:relative">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa"><h2>Hej Anna</h2><p>Fyra dagar kvar av CV-veckan.</p></div>
+      <div class="pagar" style="margin-top:8px"><p class="eyebrow">Nästa handling</p><div style="display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center"><svg viewBox="0 0 240 200" style="width:44px;height:38px"><use href="#i-upp"/></svg><div><b style="display:block;color:var(--ink-1);font-weight:600">Uppdatera CV:t efter fynden</b><span>Två fynd väger tyngst. Tio minuter.</span></div></div></div>
+      <div class="pagar"><p class="eyebrow">Pågår nu</p><div><b>CV-analys, poäng 74</b><span>2 fynd kvar</span></div><div><b>Anna_CV.pdf</b><span>Uppladdat i går</span></div></div>
+      <div class="status"><i></i>Förnyas 29 september, 79 kr. Säg upp i ditt konto.</div>
+      <div style="height:190px"></div>
+      <div class="komigang"><div style="flex:1"><b>Kom igång med CV-veckan</b><span>3 av 8 provade. Nästa: uppdatera CV:t.</span></div><div class="ring">3/8</div></div>
+      <div class="bnav"><span class="on">Hem</span><span>CV</span><span>Brev</span><span>Tester</span><span>Mer</span></div>
+    </div>
+
+    <div class="tele hem" style="position:relative">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa" style="opacity:.3"><h2>Hej Anna</h2><p>Fyra dagar kvar av CV-veckan.</p></div>
+      <div class="ark">
+        <div class="handtag"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:18px">Kom igång med CV-veckan</h3><span style="font-size:12px;color:var(--ink-3)">3 av 8</span></div>
+        <div class="matare" style="margin-top:8px"><i style="--w:38%"></i></div>
+        <div class="brickor" style="margin-top:12px">
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-profil"/></svg></div><div><b>Profilen ifylld</b><span>Önskad roll, ort, tillgänglig från</span></div><div class="st"></div></div>
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-upp"/></svg></div><div><b>CV uppladdat</b><span>Anna_CV.pdf</span></div><div class="st"></div></div>
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-cv"/></svg></div><div><b>CV-analysen körd</b><span>Poäng 74, sju fynd</span></div><div class="st"></div></div>
+          <div class="bricka nasta"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-upp"/></svg></div><div><span class="tag">Föreslaget nästa</span><b>Uppdatera CV:t efter fynden</b><span>Rätta de två tyngsta, kör om</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-mall"/></svg></div><div><b>Välj mall och ladda ned</b><span>41 mallar som rekryteringssystem läser</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-brev"/></svg></div><div><b>Personligt brev på en annons</b><span>Klistra in annonsen, vi skriver</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-linkedin"/></svg></div><div><b>LinkedIn-profilen</b><span>Så rekryterare hittar dig</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Matrislogik, grundnivå</b><span>Ingår gratis, en gång per dygn</span></div><div class="st"></div></div>
+        </div>
+        <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--ink-3)">Dölj hjälpredan</p>
+      </div>
+    </div>
+
+    <div class="tele hem" style="position:relative">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa" style="opacity:.3"><h2>Hej Anna</h2><p>Sex dagar kvar av Testveckan.</p></div>
+      <div class="ark">
+        <div class="handtag"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="font-size:18px">Kom igång med Testveckan</h3><span style="font-size:12px;color:var(--ink-3)">2 av 8</span></div>
+        <div class="matare" style="margin-top:8px"><i style="--w:25%"></i></div>
+        <div class="brickor" style="margin-top:12px">
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-profil"/></svg></div><div><b>Profilen ifylld</b><span>Vilket test du kallats till, när</span></div><div class="st"></div></div>
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Matrislogik, grundnivå</b><span>14 av 20 rätt</span></div><div class="st"></div></div>
+          <div class="bricka nasta"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><span class="tag">Föreslaget nästa</span><b>Matrislogik, avancerad nivå</b><span>Svårare mönster, förklaring efter varje fråga</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Verbalt och numeriskt, grundnivå</b><span>Två typer till att känna igen</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Provläge mot klockan</b><span>25 till 40 min, automatisk inlämning</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-person"/></svg></div><div><b>Personlighetstestet, och vad det säger</b><span>Se hur rekryteraren tolkar dig</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-kurva"/></svg></div><div><b>Din kurva</b><span>Alla sessioner per typ</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-upp"/></svg></div><div><b>Ladda upp CV:t</b><span>Ingår gratis, poäng och tyngsta fyndet</span></div><div class="st"></div></div>
+        </div>
+        <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--ink-3)">Dölj hjälpredan</p>
+      </div>
+    </div>
+  </div>
+  <p class="led" style="margin-top:12px">Allt-paketets hjälpreda är CV-veckans lista, med jobbmatchningen direkt efter "Uppdatera CV:t", sedan Bli upptäckt och jobbcoachen, sedan testerna. Elva brickor. Gratisanvändaren har samma rad ("Kom igång, 2 av 5") med de fem sakerna hon kan göra utan att betala.</p>
+</div>
+
+<!-- ===== 3. GRÅADE VAL ===== -->
+<div class="sektion wrap">
+  <p class="eyebrow">3 · Det som inte ingår: grått och oklickbart, där det står</p>
+  <h2>Funktionsvyerna och menyn visar paketets gräns</h2>
+  <p class="led">Ingen etikett "bara i Allt" i hjälpredan. I stället ser användaren gränsen där hon står: på testsidan är nivåer som inte ingår gråa med ett lås och paketets namn, i menyn är val som inte ingår alls gråa. Trycker hon ändå öppnas betalväggen för rätt paket, med mellanskillnaden om hon redan har ett spår.</p>
+  <div class="rad">
+
+    <div class="tele">
+      <div class="topp"><b>Rekryteringstester</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="inne">
+        <p class="eyebrow">Du har CV-veckan</p>
+        <h2 style="font-size:22px;line-height:28px;margin-top:4px">Grundnivån ingår. Resten finns i Testveckan.</h2>
+        <p class="grupp" style="margin-top:16px">Matrislogik</p>
+        <div class="brickor" style="margin-top:8px">
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Grundnivå</b><span>20 frågor, förklaring efter varje. 1 kvar i dag.</span></div><div class="st"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Avancerad nivå</b><span>Testveckan 79 kr, eller Allt</span></div><div class="lås"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Expertnivå</b><span>Testveckan 79 kr, eller Allt</span></div><div class="lås"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Provläge mot klockan, 25 min</b><span>Testveckan 79 kr, eller Allt</span></div><div class="lås"></div></div>
+        </div>
+        <p class="grupp" style="margin-top:14px">Verbalt resonemang</p>
+        <div class="brickor" style="margin-top:8px">
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Grundnivå</b><span>1 kvar i dag</span></div><div class="st"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Avancerad, expert, provläge</b><span>Testveckan 79 kr, eller Allt</span></div><div class="lås"></div></div>
+        </div>
+        <p class="grupp" style="margin-top:14px">Personlighet</p>
+        <div class="brickor" style="margin-top:8px">
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-person"/></svg></div><div><b>Personlighetstestet, med tolkning</b><span>Testveckan 79 kr, eller Allt</span></div><div class="lås"></div></div>
+        </div>
+      </div>
+      <div class="fot"><div class="s" style="border-color:var(--ink-1)">Lägg till Testveckan, 79 kr</div><p class="l">Eller Allt för 20 kr till i veckan</p></div>
+    </div>
+
+    <div class="tele">
+      <div class="topp"><b>Meny</b><span class="x">✕</span></div>
+      <div class="inne" style="padding-top:8px">
+        <div class="menyhuvud"><div><b>Du har Testveckan</b><span>Förnyas 29 september, 79 kr</span></div><a href="#">Vad ingår?</a></div>
+        <div class="meny">
+          <div><span class="mik"></span>Mitt jobbsök</div>
+          <div><span class="mik"></span>Rekryteringstester<em>Alla typer, alla nivåer, provläge mot klockan</em></div>
+          <div><span class="mik"></span>Mina CV<em>Ladda upp. Analysen visar poäng och tyngsta fyndet.</em></div>
+          <div><span class="mik"></span>CV-mallar<em>3 mallar och en nedladdning ingår</em></div>
+          <div><span class="mik"></span>Personliga brev<em>Ett brev i veckan att läsa</em></div>
+          <div><span class="mik"></span>Matchade jobb<em>Tre träffar per natt</em></div>
+          <div><span class="mik"></span>Jobbcoachen<em>7 av 10 meddelanden kvar</em></div>
+          <div class="gra"><span class="mik"></span>LinkedIn-profilen<em>Ingår inte. Finns i CV-veckan och Allt.</em></div>
+          <div class="gra"><span class="mik"></span>Bli upptäckt<em>Ingår inte. Finns i Allt.</em></div>
+          <div><span class="mik"></span>Sökta tjänster<em>Alltid gratis</em></div>
+          <div><span class="mik"></span>Profil och prenumeration</div>
+        </div>
+        <div style="margin-top:14px;padding:12px 14px;border:1px dashed var(--kant-stark);border-radius:12px;font-size:13px;color:var(--ink-2)">Vill du ha CV-delen också? Allt kostar 20 kr till i veckan och öppnar allt grått.</div>
+      </div>
+    </div>
+
+    <div class="tele">
+      <div class="topp"><b>CV-mallar</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="inne">
+        <p class="eyebrow">Du har Testveckan</p>
+        <h2 style="font-size:22px;line-height:28px;margin-top:4px">3 mallar ingår. Alla 41 finns i CV-veckan.</h2>
+        <div class="mallar">
+          <div><i></i><b>Ren</b></div><div><i></i><b>Klassisk</b></div><div><i></i><b>Kompakt</b></div>
+          <div class="g"><i></i><b>Modern</b><span>🔒</span></div><div class="g"><i></i><b>Tvåspalt</b><span>🔒</span></div><div class="g"><i></i><b>Ledning</b><span>🔒</span></div>
+          <div class="g"><i></i><b>Teknik</b><span>🔒</span></div><div class="g"><i></i><b>Vård</b><span>🔒</span></div><div class="g"><i></i><b>Akademisk</b><span>🔒</span></div>
+        </div>
+        <p style="margin-top:10px;font-size:12px;color:var(--ink-3);text-align:center">Gråa mallar går att förhandsvisa i full storlek, inte ladda ned.</p>
+      </div>
+      <div class="fot"><div class="s" style="border-color:var(--ink-1)">Lägg till CV-veckan, 79 kr</div><p class="l">Eller Allt för 20 kr till i veckan</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. ARKET OCH DAG 7 ===== -->
+<div class="sektion wrap">
+  <p class="eyebrow">4 · Brickan öppnad, köparen som redan har ett CV, och veckans slut</p>
+  <div class="rad">
+    <div class="tele hem" style="position:relative">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa" style="opacity:.3"><h2>Hej Anna</h2><p>Fyra dagar kvar av CV-veckan.</p></div>
+      <div style="height:120px"></div>
+      <div class="ark">
+        <div class="handtag"></div>
+        <div style="display:flex;gap:14px;align-items:center"><svg viewBox="0 0 240 200" style="width:72px;height:60px"><use href="#i-brev"/></svg><h3>Personligt brev på en annons</h3></div>
+        <p>Ett brev som svarar på det annonsen faktiskt frågar efter, skrivet utifrån ditt CV. Det är skillnaden mot de tjugo som skickade samma mall.</p>
+        <ol><li><i>1</i>Klistra in annonsen, eller välj ett matchat jobb.</li><li><i>2</i>Välj ton, eller låt oss välja.</li><li><i>3</i>Läs, redigera, ladda ned som PDF. Fem minuter.</li></ol>
+        <div class="p">Skriv brevet</div>
+        <p style="text-align:center;margin-top:8px;font-size:12px;color:var(--ink-3)">Ingår i CV-veckan, utan tak</p>
+      </div>
+    </div>
+    <div class="tele">
+      <div class="topp"><span class="x">✕</span><span class="steg">CV-veckan</span><span style="width:36px"></span></div>
+      <div class="inne">
+        <svg viewBox="0 0 380 220" style="width:100%;height:auto"><use href="#i-valkommen-cv"/></svg>
+        <h2 style="margin-top:16px">Du har CV-veckan. Och ett CV redan.</h2>
+        <p class="under">Anna_CV.pdf ligger här sedan tidigare. Vi föreslår att du kör hela CV-analysen på det nu, så ser du alla fynd med åtgärd innan du uppdaterar och väljer mall.</p>
+        <div class="karta" style="margin:16px 0 0;padding:12px 14px"><div class="bricka" style="border:0;padding:0"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-cv"/></svg></div><div><b>Anna_CV.pdf</b><span>Uppladdat 14 september. Poäng 61 med gratisnivån.</span></div><div></div></div></div>
+      </div>
+      <div class="fot"><div class="p">Kör hela CV-analysen</div><div class="s">Ladda upp ett annat CV</div></div>
+    </div>
+    <div class="tele hem">
+      <div class="topp"><b>Mitt jobbsök</b><span style="font-size:13px;color:var(--ink-2)">Meny</span></div>
+      <div class="halsa"><h2>Hej Anna</h2><p>CV-veckan förnyas i morgon.</p></div>
+      <div class="karta">
+        <p class="eyebrow">Så här gick veckan</p>
+        <div class="tal4"><div><b>3</b><span>personliga brev</span></div><div><b>2</b><span>mallar</span></div><div><b>61→78</b><span>poäng</span></div><div><b>3</b><span>ansökningar</span></div></div>
+        <p style="margin-top:14px;color:var(--ink-2);font-size:13px;line-height:19px">Du har provat allt i CV-veckan. Vecka 2 fortsätter med samma verktyg: nya annonser, nya brev, analysen igen när du ändrat något. Eller så avslutar du nu, med ett klick.</p>
+        <div class="p" style="margin-top:14px">Fortsätt med vecka 2</div>
+        <p style="margin-top:10px;text-align:center;font-size:13px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)">Avsluta i stället</p>
+      </div>
+      <div class="status"><i></i>Förnyas i morgon, 79 kr. Säg upp i ditt konto.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. DESKTOP ===== -->
+<div class="sektion wrap">
+  <p class="eyebrow">5 · Desktop 1280: hjälpredan i sidomenyn, gråade val, och gratisanvändaren</p>
+  <h2>Samma tre saker på desktop</h2>
+  <p class="led">Hjälpredan ligger som "Kom igång, 2 av 8" längst ned i sidomenyn och öppnar en panel till höger. Varje menyval bär en rad som säger vad som ingår ("3 mallar, en nedladdning") eller att det inte ingår och i vilket paket det finns. Gratisanvändaren ser samma sak.</p>
+
+  <div class="desk">
+    <div class="desk-topp"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard · Testveckan</span></div>
+    <div class="dyta">
+      <div class="side"><b>Jobbcoach</b>
+        <div class="on">Mitt jobbsök</div><div>Rekryteringstester<em>Alla typer, alla nivåer, provläge</em></div><div>Mina CV<em>Poäng och tyngsta fyndet</em></div><div>CV-mallar<em>3 mallar, en nedladdning</em></div><div>Personliga brev<em>Ett brev i veckan att läsa</em></div><div>Matchade jobb<em>Tre träffar per natt</em></div><div>Jobbcoachen<em>7 av 10 meddelanden kvar</em></div><div class="gra">LinkedIn-profilen<em>Ingår inte. CV-veckan eller Allt.</em></div><div class="gra">Bli upptäckt<em>Ingår inte. Allt.</em></div><div>Sökta tjänster</div><div>Profil och prenumeration</div>
+        <div class="komigang" style="position:static;margin-top:24px;padding:10px 12px"><div style="flex:1"><b style="font-size:13px">Kom igång</b><span>2 av 8 provade</span></div><div class="ring" style="width:30px;height:30px;font-size:11px">2/8</div></div>
+      </div>
+      <div class="main">
+        <h2>Hej Anna</h2><p class="under">Testveckan, sex dagar kvar. Förnyas 29 september.</p>
+        <div class="dhd">
+          <div class="dnasta"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg><div><p class="eyebrow" style="color:var(--accent-ink)">Nästa handling</p><h3>Matrislogik, avancerad nivå</h3><p>Du fick 14 av 20 på grundnivån. Avancerad nivå har samma mönstertyper med fler steg, och förklaringen efter varje fråga visar var resonemanget brister.</p><div class="p">Starta avancerad nivå</div></div></div>
+          <div class="dprog"><p class="eyebrow">Pågår nu</p><div style="margin-top:8px;font-size:14px"><b style="font-size:14px;font-family:var(--body);font-weight:600;display:block">Matrislogik, grundnivå</b><span>14 av 20, i går</span></div><div style="margin-top:10px;font-size:14px"><b style="font-size:14px;font-family:var(--body);font-weight:600;display:block">Profilen</b><span>Kallad till test 3 oktober</span></div></div>
+        </div>
+        <p class="grupp" style="margin-top:28px">Kom igång med Testveckan, 2 av 8</p>
+        <div class="dkarta">
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-profil"/></svg></div><div><b>Profilen ifylld</b><span>Kallad till test 3 oktober</span></div><div class="st"></div></div>
+          <div class="bricka klar"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Matrislogik, grundnivå</b><span>14 av 20 rätt</span></div><div class="st"></div></div>
+          <div class="bricka nasta"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Matrislogik, avancerad nivå</b><span>Svårare mönster</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Verbalt och numeriskt, grundnivå</b><span>Två typer till att känna igen</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Provläge mot klockan</b><span>25 till 40 min, automatisk inlämning</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-person"/></svg></div><div><b>Personlighetstestet, och vad det säger</b><span>Se hur rekryteraren tolkar dig</span></div><div class="st"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="desk" style="margin-top:24px">
+    <div class="desk-topp"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/tester · Gratis</span></div>
+    <div class="dyta">
+      <div class="side"><b>Jobbcoach</b>
+        <div>Mitt jobbsök</div><div class="on">Rekryteringstester<em>Grundnivån, en gång per typ och dygn</em></div><div>Mina CV<em>Poäng och tyngsta fyndet</em></div><div>CV-mallar<em>3 mallar, en nedladdning</em></div><div>Personliga brev<em>Ett brev i veckan att läsa</em></div><div>Matchade jobb<em>Tre träffar per natt</em></div><div>Jobbcoachen<em>10 meddelanden</em></div><div class="gra">LinkedIn-profilen<em>Ingår inte. CV-veckan eller Allt.</em></div><div class="gra">Bli upptäckt<em>Ingår inte. Allt.</em></div><div>Sökta tjänster<em>Alltid gratis</em></div><div>Profil och prenumeration</div>
+        <div class="komigang" style="position:static;margin-top:24px;padding:10px 12px"><div style="flex:1"><b style="font-size:13px">Kom igång</b><span>2 av 5 provade</span></div><div class="ring" style="width:30px;height:30px;font-size:11px">2/5</div></div>
+      </div>
+      <div class="main">
+        <h2>Rekryteringstester</h2><p class="under">Grundnivån i alla fyra typer ingår gratis, en gång per typ och dygn. Nivåerna över, provläget och personlighetstestets tolkning finns i Testveckan, 79 kr i veckan.</p>
+        <p class="grupp" style="margin-top:28px">Matrislogik</p>
+        <div class="dkarta">
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Grundnivå</b><span>20 frågor, förklaring efter varje. 1 kvar i dag.</span></div><div class="st"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Avancerad nivå</b><span>Testveckan 79 kr</span></div><div class="lås"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-matris"/></svg></div><div><b>Expertnivå och provläge</b><span>Testveckan 79 kr</span></div><div class="lås"></div></div>
+        </div>
+        <p class="grupp" style="margin-top:20px">Verbalt resonemang</p>
+        <div class="dkarta">
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Grundnivå</b><span>1 kvar i dag</span></div><div class="st"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Avancerad nivå</b><span>Testveckan 79 kr</span></div><div class="lås"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Expertnivå och provläge</b><span>Testveckan 79 kr</span></div><div class="lås"></div></div>
+        </div>
+        <p class="grupp" style="margin-top:20px">Numeriskt och personlighet</p>
+        <div class="dkarta">
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-diag"/></svg></div><div><b>Numeriskt, grundnivå</b><span>1 kvar i dag</span></div><div class="st"></div></div>
+          <div class="bricka"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-person"/></svg></div><div><b>Personlighet, grundnivå</b><span>Resultatet utan tolkning</span></div><div class="st"></div></div>
+          <div class="bricka las"><div class="ik"><svg viewBox="0 0 240 200"><use href="#i-person"/></svg></div><div><b>Personlighetstestet med tolkning</b><span>Vad rekryteraren ser. Testveckan 79 kr</span></div><div class="lås"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. MEJL + BESLUT ===== -->
+<div class="sektion wrap" style="padding-bottom:64px">
+  <p class="eyebrow">6 · Mejlen, och besluten bakom</p>
+  <h2>Ett mejl om dagen, om det som är kvar</h2>
+  <p class="led">Mejlet handlar om nästa föreslagna bricka. Har användaren provat allt skickas inget förrän dagen före förnyelsen.</p>
+  <div class="mejl">
+    <div><span class="amne">Ditt CV fick 74. Här är de två fynden som drar ned mest.</span><span class="pre">Rätta dem, kör om, se poängen stiga. Tar tio minuter.</span>Hej Anna. Analysen hittade sju fynd i ditt CV. Två av dem väger tyngre än resten: resultaten saknar siffror, och nyckelorden för rollen du söker finns inte med. Båda går att rätta i kväll.<br><br><b style="color:var(--ink-1)">Öppna fynden →</b></div>
+    <div><span class="amne">Fyra dagar kvar, och fyra saker du inte provat än.</span><span class="pre">Mallen, det personliga brevet, LinkedIn och matrislogiken. Alla tar under tio minuter.</span>Hej Anna. Du har uppdaterat CV:t och poängen gick från 74 till 78. Kvar i CV-veckan: välj mall och ladda ned, personligt brev på en annons, LinkedIn-profilen. Vi föreslår mallen, så att CV:t du just förbättrat blir en PDF som rekryteringssystem läser.<br><br><b style="color:var(--ink-1)">Välj mall →</b></div>
+    <div><span class="amne">CV-veckan förnyas i morgon. Så här gick den.</span><span class="pre">Tre personliga brev, två mallar, poäng 61 till 78. Fortsätt eller avsluta, ett klick.</span>Hej Anna. I morgon dras 79 kr för vecka 2. Du har provat allt som ingår, och det du byggt finns kvar oavsett vad du väljer. Vill du inte fortsätta avslutar du här, utan skäl.<br><br><b style="color:var(--ink-1)">Se veckan →</b> · Avsluta</div>
+  </div>
+  <div class="beslut">
+    <div><h3>Inloggat läge oförändrat</h3><p>Onboardingen ersätter inget. Den är en välkomstskärm, en hjälpreda i botten och gråade val i vyerna. Hemskärmen, menyn och funktionssidorna är de som finns.</p></div>
+    <div><h3>Profilen först</h3><p>Önskad roll, ort, tillgänglig från och (i Testveckan) vilket test man kallats till är första brickan i alla paket, för uppgifterna används av analysen, matchningen, brevet och Bli upptäckt.</p></div>
+    <div><h3>Logiken i ordningen</h3><p>CV-veckan och Allt: profil, CV upp, CV-analys, uppdatera CV:t, sedan mall, personligt brev, LinkedIn, och i Allt jobbmatchning, Bli upptäckt, jobbcoachen, tester. Testveckan: profil, matrislogik grund, avancerad, andra typer, provläge, personlighet, kurva.</p></div>
+    <div><h3>Gränsen syns där den är</h3><p>Inga "bara i Allt"-etiketter i hjälpredan. Testsidan visar nivåer som inte ingår gråa med lås och paketnamn, mallsidan gråar mall 4 till 41. Menyn har ett huvud som säger vilket paket man har, och varje val bär en kort mening om vad som ingår ("3 mallar, en nedladdning"). Det som inte ingår är grått med "Ingår inte" och paketet det finns i. Trycket öppnar betalväggen för rätt paket med mellanskillnaden.</p></div>
+    <div><h3>Gratis ser samma sak</h3><p>Gratisanvändaren har hjälpredan "Kom igång, 2 av 5" med det hon kan göra, och samma gråa val i vyer och meny. Betalväggen är vyn själv, inte en popup.</p></div>
+    <div><h3>Dag 7 utan påtryckning</h3><p>Siffror som betyder något (poäng före och efter, brev, mallar, ansökningar) och två lika synliga val: fortsätt eller avsluta.</p></div>
+  </div>
+</div>

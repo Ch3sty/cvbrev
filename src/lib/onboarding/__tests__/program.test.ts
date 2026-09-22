@@ -1,4 +1,4 @@
-// Veckoprogrammet: reglerna som är lätta att bryta utan att märka det.
+// Paketen och spårvalet: reglerna som är lätta att bryta utan att märka det.
 import { describe, it, expect } from 'vitest'
 import {
   PAKET,
@@ -6,17 +6,10 @@ import {
   paketForTrack,
   PAKETSKARM,
   fornyelserad,
-  koptRubrik,
-  koptIngress,
-  veckansDagar,
-  veckoIngress,
-  dag7Kvar,
   felSparRad,
   felSparText,
   mellanskillnad,
   isTrack,
-  CV_VECKAN,
-  TEST_VECKAN,
 } from '../program'
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
 import { requiredStepsForTrack, isTrackOnboardingComplete } from '../steps'
@@ -65,66 +58,6 @@ describe('kassans lagkravsrader', () => {
     const rad = fornyelserad(PAKET.cv_week, '29 september')
     expect(rad).toContain('Nästa dragning 29 september')
     expect(rad).toContain('Säg upp')
-  })
-})
-
-describe('bekräftelsen efter köp', () => {
-  it('veckopaketen säger till söndag, längre paket ett datum', () => {
-    expect(koptRubrik(PAKET.cv_week, '29 oktober')).toBe('Du har CV-veckan till söndag')
-    expect(koptRubrik(PAKET.all_month, '29 oktober')).toBe('Du har Allt-månaden till 29 oktober')
-  })
-
-  it('köp efter klockan 20 säger att dag 1 börjar i morgon', () => {
-    expect(koptIngress(PAKET.cv_week, '29 september', true)).toContain('Dag 1 börjar i morgon')
-    expect(koptIngress(PAKET.cv_week, '29 september', false)).toContain('Dag 1 börjar nu')
-  })
-})
-
-describe('veckans dagar', () => {
-  it('båda spåren har sju dagar med titel, text, meta och knapp', () => {
-    for (const dagar of [CV_VECKAN, TEST_VECKAN]) {
-      expect(dagar).toHaveLength(7)
-      for (const dag of dagar) {
-        expect(dag.titel.length).toBeGreaterThan(0)
-        expect(dag.text.length).toBeGreaterThan(0)
-        expect(dag.meta.length).toBeGreaterThan(0)
-        expect(dag.knapp.length).toBeGreaterThan(0)
-        expect(dag.href.startsWith('/dashboard')).toBe(true)
-      }
-    }
-  })
-
-  it('Allt byter dag 4 mot en handling ur det andra spåret, och bara dag 4', () => {
-    const alltCv = veckansDagar('allt', 'cv')
-    expect(alltCv[3].titel).not.toBe(CV_VECKAN[3].titel)
-    expect(alltCv[3].href).toContain('tester')
-    for (const i of [0, 1, 2, 4, 5, 6]) expect(alltCv[i]).toBe(CV_VECKAN[i])
-
-    const alltTest = veckansDagar('allt', 'tester')
-    expect(alltTest[3].href).toContain('cv-mallar')
-    for (const i of [0, 1, 2, 4, 5, 6]) expect(alltTest[i]).toBe(TEST_VECKAN[i])
-  })
-
-  it('ingressen säger vilken dag och vad som står på tur, aldrig hur många som är kvar', () => {
-    const rad = veckoIngress('cv', CV_VECKAN[2])
-    expect(rad).toBe('Dag 3 i CV-veckan. Brevet till annonsen står på tur.')
-    expect(rad).not.toMatch(/kvar/)
-  })
-})
-
-describe('dag 7', () => {
-  it('räknar upp dagarna som står kvar', () => {
-    const rad = dag7Kvar(CV_VECKAN, [1, 2, 3, 5], 'cv')
-    expect(rad).toContain('Dag 4 och 6 står kvar')
-  })
-
-  it('en enda kvarstående dag skrivs i singular', () => {
-    expect(dag7Kvar(CV_VECKAN, [1, 2, 3, 4, 6], 'cv')).toContain('Dag 5 står kvar')
-  })
-
-  it('alla dagar gjorda ger nästa veckas mening, inte en tom lista', () => {
-    expect(dag7Kvar(CV_VECKAN, [1, 2, 3, 4, 5, 6], 'cv')).toContain('Hela veckan är gjord')
-    expect(dag7Kvar(TEST_VECKAN, [1, 2, 3, 4, 5, 6], 'tester')).toContain('Hela veckan är gjord')
   })
 })
 

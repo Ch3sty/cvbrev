@@ -154,14 +154,10 @@ export interface AnalyticsEvents {
     track?: 'cv' | 'tester' | 'allt' | null
     hours_since_purchase?: number
   }
-  week_day_opened: {
-    track: 'cv' | 'tester' | 'allt'
-    day: number
-    source: 'app' | 'email'
-  }
-  week_day_completed: { track: 'cv' | 'tester' | 'allt'; day: number }
-  week_summary_viewed: { track: 'cv' | 'tester' | 'allt'; days_completed: number }
-  renewal_upcoming_shown: { plan: PlanKey; days_left: number }
+  /* Hjälpredan Kom igång (spec-onboarding 2026-09-22): arket öppnat, och
+     ett grått val tryckt i meny eller vy. */
+  komigang_opened: { paket: 'cv' | 'tester' | 'allt' | null; provade: number; totalt: number }
+  gray_option_tapped: { feature: string; scope: string | null; surface: string }
   renewal_succeeded: { plan: PlanKey; cycle: number }
   upgrade_shown: { from_scope: string | null; to_scope: string; surface: string }
   feature_blocked: { feature: string; scope: string | null; surface: string }

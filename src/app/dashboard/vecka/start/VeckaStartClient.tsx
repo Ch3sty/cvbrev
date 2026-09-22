@@ -1,187 +1,155 @@
 'use client'
 
 /**
- * Skärm 2.1: de första tio sekunderna efter köpet
- * (docs/plan-paket-och-onboarding.md, Fas 2A flöde 2).
+ * Välkomstskärmen (docs/design/spec-onboarding-2026-09-22.html, sektion 1
+ * och sektion 4 mitten).
  *
- * Confirmation gör tempot: linjen landar, användaren läser rubriken och
- * "DAG 1 AV 7", och trycker. Efter det står skärmen stilla. Primärknappen går
- * rakt in i dag 1:s flöde, aldrig till översikten.
+ * Bekräfta vad man har, föreslå första steget. Rubrik, ingress, scenen,
+ * "Så här går det till" i tre steg, primärknappen är första steget och
+ * sekundärknappen öppnar hjälpredan "Kom igång". Har köparen redan ett CV
+ * blir analysen första steget och det liggande CV:t visas som en rad.
  *
- * Har CV-spåraren inget CV visas skärm 2.2 i stället för dag 1:s vanliga
- * ingång: uppladdningsytan, aldrig en tom analyssida.
+ * Skärmen är ett läge, inte en sida: den tar hela skärmen med en egen
+ * topprad (kryss och paketets namn) och en egen fot, precis som FlowShell,
+ * men utan stegräknare och framstegslinje, för det finns inga steg. Samma
+ * data-flow-active-attribut som FlowShell döljer dashboardens header och
+ * bottennav. Lokalt i sidan, eftersom FlowShell alltid ritar räknaren.
  */
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import Confirmation from '@/components/shell/Confirmation'
-import StatusRow from '@/components/shell/StatusRow'
-import { IlluPlattaAnsokan, IlluPlattaTest } from '@/components/illustrations/TradenScener'
-import { capture } from '@/lib/analytics/events'
-import {
-  KOPT,
-  PAKET,
-  TOMT,
-  koptRubrik,
-  koptIngress,
-  veckansDagar,
-  type Track,
-  type WeekTrack,
-} from '@/lib/onboarding/program'
-import { PLAN_BY_KEY, isPlanKey, type PlanKey } from '@/lib/plans/plans'
+import { X } from 'lucide-react'
+import type { Scope } from '@/lib/access/features'
+import { useKomIgang } from '@/components/dashboard/KomIgangContext'
+import { IlluValkommenCv, IlluValkommenTest } from '@/components/illustrations/OnboardingScener'
+import { IkonCv } from '@/components/illustrations/Ikoner'
+import { valkommen, valkommenMedCv, VALKOMMEN_STEG_ETIKETT } from '@/lib/onboarding/komigang'
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 const KNAPP_PRIMAR =
   'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto sm:min-w-[220px]'
-const LANK =
-  'text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
+const KNAPP_SEKUNDAR =
+  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken sm:w-auto sm:min-w-[220px]'
 
-/** Datum i svensk tid, "3 oktober". */
-function svensktDatum(d: Date): string {
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'long',
-    timeZone: 'Europe/Stockholm',
-  }).format(d)
+export interface ValkommenClientProps {
+  paket: Scope
+  cvNamn: string | null
+  cvUppladdat: string | null
+  poang: number | null
 }
 
-/** Timmen i svensk tid just nu. Köp efter 20 flyttar dag 1 till morgondagen. */
-function timmeStockholm(now: Date = new Date()): number {
-  const s = new Intl.DateTimeFormat('sv-SE', {
-    hour: '2-digit',
-    hour12: false,
-    timeZone: 'Europe/Stockholm',
-  }).format(now)
-  const n = Number.parseInt(s, 10)
-  return Number.isNaN(n) ? 12 : n
-}
-
-export interface VeckaStartClientProps {
-  track: Track
-  weekTrack: WeekTrack
-  planKey: string | null
-  harCv: boolean
-  harAllaGrundnivaer: boolean
-  currentPeriodEnd: string | null
-}
-
-export default function VeckaStartClient({
-  track,
-  weekTrack,
-  planKey,
-  harCv,
-  harAllaGrundnivaer,
-  currentPeriodEnd,
-}: VeckaStartClientProps) {
+export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang }: ValkommenClientProps) {
   const router = useRouter()
-  const [portalBusy, setPortalBusy] = useState(false)
+  const { oppna } = useKomIgang()
 
-  // Paketet ur returadressen, annars ur spåret. Kassan sätter alltid plan,
-  // men vyn får inte gå sönder om parametern tappas vid en omladdning.
-  const nyckel: PlanKey = isPlanKey(planKey)
-    ? planKey
-    : track === 'cv'
-      ? 'cv_week'
-      : track === 'tester'
-        ? 'test_week'
-        : 'all_week'
-  const plan = PLAN_BY_KEY[nyckel]
-  const paket = PAKET[nyckel]
-
-  const dagar = veckansDagar(track, weekTrack)
-  const dagEtt = dagar[0]
-
-  // Dag 1 är dagen för köpet i svensk tid, inte 24 timmar från köptidpunkten.
-  // Ett köp klockan 23.40 ska inte ge en dag 1 som är tjugo minuter lång.
-  const dagEttIMorgon = timmeStockholm() >= 20
-
-  const nasta = currentPeriodEnd
-    ? new Date(currentPeriodEnd)
-    : new Date(Date.now() + (plan.length === 'månad' ? 30 : plan.length === 'kvartal' ? 90 : 7) * 86400000)
-  const nastaDatum = svensktDatum(nasta)
-
-  // week_day_opened en gång per montering, aldrig per omritning.
-  const skjutet = useRef(false)
-  useEffect(() => {
-    if (skjutet.current) return
-    skjutet.current = true
-    capture('week_day_opened', { track, day: 1, source: 'app' })
-
-    // Veckan startas här: week_started_at sätts och dagsmejlen schemaläggs.
-    // Rutten är idempotent, så en omladdning av köpreturen gör ingenting.
-    void fetch('/api/onboarding/vecka', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'start' }),
-    }).catch(() => {
-      /* veckan syns ändå, och nästa besök försöker igen */
-    })
-  }, [track])
-
-  const oppnaPortal = async () => {
-    if (portalBusy) return
-    setPortalBusy(true)
-    try {
-      const res = await fetch('/api/stripe/create-portal-session', { method: 'POST' })
-      const json = await res.json().catch(() => ({}))
-      if (json?.url) window.open(json.url as string, '_blank', 'noopener')
-    } catch {
-      /* portalen är en bekvämlighet här, kvittot ligger redan i mailen */
-    } finally {
-      setPortalBusy(false)
+  // Samma grepp som FlowShell: skalet äger hela skärmen, header och
+  // bottennav döljs via attributet, och variabeln nollas så inget räknar
+  // mot ett nav som inte syns. Före paint, så inget hoppar.
+  useIsomorphicLayoutEffect(() => {
+    const root = document.documentElement
+    const previous = root.style.getPropertyValue('--bottom-nav-h')
+    root.style.setProperty('--bottom-nav-h', '0px')
+    root.setAttribute('data-flow-active', 'true')
+    return () => {
+      if (previous) root.style.setProperty('--bottom-nav-h', previous)
+      else root.style.removeProperty('--bottom-nav-h')
+      root.removeAttribute('data-flow-active')
     }
-  }
+  }, [])
 
-  // Dag 1 i CV-spåret kräver ett CV. Har köparen inget går knappen till
-  // uppladdningen, och raden under säger varför (skärm 2.2).
-  const behoverCv = weekTrack === 'cv' && !harCv
-  const primarHref = behoverCv ? '/dashboard/profil/cv' : dagEtt.href
-  const primarText = behoverCv ? TOMT.cvPrimar : KOPT.primar
+  const bas = valkommen(paket)
+  const medCv = (paket === 'cv' || paket === 'allt') && cvNamn ? valkommenMedCv(paket, cvNamn, cvUppladdat, poang) : null
+  const Scen = paket === 'tester' ? IlluValkommenTest : IlluValkommenCv
+  const scenTitel =
+    paket === 'tester' ? 'Matrislogik och en klocka' : 'Två CV och en uppladdningspil på tråden'
+
+  const rubrik = medCv?.rubrik ?? bas.rubrik
+  const ingress = medCv?.ingress ?? bas.ingress
+  const primar = medCv?.primar ?? bas.primar
+  const primarHref = medCv?.primarHref ?? bas.primarHref
 
   return (
-    <div className="mx-auto w-full max-w-xl space-y-4 py-2 sm:py-4">
-      {/* Dag 1-panelen ligger mellan ingressen och knappen, enligt skissen i
-          Fas 2A skärm 2.1: användaren ska läsa "DAG 1 AV 7" innan hon trycker.
-          Därför står både panelen och handlingarna i children, och
-          Confirmations egna action-props lämnas tomma. */}
-      <Confirmation
-        title={koptRubrik(paket, nastaDatum)}
-        description={koptIngress(paket, nastaDatum, dagEttIMorgon)}
-        illustration={weekTrack === 'tester' ? IlluPlattaTest : IlluPlattaAnsokan}
-      >
-        <section className="rounded-xl border border-kant bg-panel p-4 text-left">
-          <p className="text-steg uppercase text-ink-3">{KOPT.dagEtikett}</p>
-          <p className="mt-1 text-kort text-ink-1">{dagEtt.titel}</p>
-          <p className="mt-0.5 text-meta text-ink-3">{dagEtt.meta}</p>
-        </section>
-
-        <div className="mt-5 flex flex-col items-center gap-2">
-          <Link href={primarHref} className={KNAPP_PRIMAR} onClick={() => router.prefetch(primarHref)}>
-            {primarText}
-          </Link>
-          <Link href="/dashboard" className={LANK}>
-            {KOPT.helaVeckan}
-          </Link>
-          <button type="button" onClick={oppnaPortal} disabled={portalBusy} className={LANK}>
-            {KOPT.kvitto}
+    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+      <header className="flex-shrink-0 border-b border-kant bg-panel">
+        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
+          <button
+            type="button"
+            onClick={() => router.push('/dashboard')}
+            aria-label="Till hemskärmen"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+          >
+            <X className="h-6 w-6" strokeWidth={1.75} />
           </button>
+          <h1 className="min-w-0 flex-1 truncate font-display text-[17px] font-extrabold tracking-[-0.02em] text-ink-1">
+            {bas.topp}
+          </h1>
         </div>
-      </Confirmation>
+      </header>
 
-      {behoverCv ? (
-        <StatusRow tone="neutral" showDot wrap>
-          {TOMT.cvText}
-        </StatusRow>
-      ) : null}
+      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div className="mx-auto w-full max-w-3xl px-4 pb-4 pt-5">
+          <h2 className="font-display text-[26px] font-bold leading-[31px] tracking-[-0.02em] text-ink-1">
+            {rubrik}
+          </h2>
+          <p className="mt-1.5 text-sm leading-[22px] text-ink-2">{ingress}</p>
 
-      {/* Testspåraren som redan kört grundnivån i alla testtyper hoppar över
-          diagnosen. Raden säger varför, så vi aldrig ber någon göra om ett
-          test hon gjort samma vecka (skärm 2.2). */}
-      {weekTrack === 'tester' && harAllaGrundnivaer ? (
-        <StatusRow tone="neutral" showDot wrap>
-          {TOMT.testTidigare}
-        </StatusRow>
-      ) : null}
+          {medCv ? (
+            /* Det liggande CV:t som en rad: namnet, när det kom, poängen. */
+            <section
+              className="mt-4 flex items-center gap-3 rounded-xl border border-kant bg-panel p-4"
+              aria-label="Ditt CV"
+            >
+              <span aria-hidden="true" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-insunken text-ink-2">
+                <IkonCv size={24} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-kort text-ink-1">{cvNamn}</span>
+                {medCv.cvRad ? <span className="block text-meta text-ink-3">{medCv.cvRad}</span> : null}
+              </span>
+            </section>
+          ) : (
+            <div className="mt-4 rounded-xl border border-kant bg-panel p-4 text-ink-1">
+              <Scen className="h-auto w-full" title={scenTitel} />
+            </div>
+          )}
+
+          {medCv ? null : (
+            <section className="mt-4" aria-label={VALKOMMEN_STEG_ETIKETT}>
+              <p className="text-steg uppercase text-ink-3">{VALKOMMEN_STEG_ETIKETT}</p>
+              <ol className="mt-2 grid gap-1.5">
+                {bas.steg.map((steg, i) => (
+                  <li key={steg} className="flex gap-3 text-sm leading-[22px] text-ink-2">
+                    <span className="w-4 shrink-0 font-display font-bold text-ink-1">{i + 1}</span>
+                    <span>{steg}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+        </div>
+      </main>
+
+      <footer
+        className="flex-shrink-0 border-t border-kant bg-panel"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      >
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center">
+          <Link href={primarHref} className={KNAPP_PRIMAR} onClick={() => router.prefetch(primarHref)}>
+            {primar}
+          </Link>
+          {medCv ? (
+            <Link href="/dashboard/profil/cv" className={KNAPP_SEKUNDAR}>
+              {medCv.sekundar}
+            </Link>
+          ) : (
+            <button type="button" onClick={oppna} className={KNAPP_SEKUNDAR}>
+              {bas.sekundar}
+            </button>
+          )}
+        </div>
+      </footer>
     </div>
   )
 }

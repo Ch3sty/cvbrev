@@ -35,6 +35,7 @@ import {
   IlluPlattaPremium,
   IlluPlattaTest,
   IlluPlattaAnsokan,
+  IlluPlattaPresentation,
 } from '@/components/illustrations/TradenScener'
 import { IlluDagensBrev, IlluAnalysDelvis, IlluNedgraderad } from '@/components/illustrations/PaywallIllustrations'
 import { IlluDoldTraff } from '@/components/illustrations/JobbmatchningIllustrations'
@@ -100,6 +101,8 @@ const ILLU: Record<PaywallVariant, React.ComponentType<{ size?: number; classNam
   nedgraderad: IlluNedgraderad,
   'cv-antal': IlluPlattaCvPoang,
   'af-rapport': IlluPlattaAnsokan,
+  linkedin: IlluPlattaPresentation,
+  'bli-upptackt': IlluPlattaPremium,
 }
 
 const LINK =

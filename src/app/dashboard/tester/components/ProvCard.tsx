@@ -6,31 +6,52 @@
  * Provet är en egen upplevelse och får därför sin egen ikon och sin egen
  * formulering, men samma radform som testen. Ingen fylld yta: raden skiljs
  * från träningstesten med en starkare hårlinje ovanför.
+ *
+ * Provläget ingår i Testveckan och Allt. I andra paket är raden grå med
+ * lås och paketets namn (spec-onboarding 2026-09-22, sektion 3).
  */
 
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { IlluProv } from '@/components/illustrations/TestIllustrations';
-import { HUB_ROW } from './TestCard';
+import { HUB_ROW, HUB_ROW_LOCKED, LasIkon } from './TestCard';
 
 interface Props {
   /** Startsidan för provet, till exempel /dashboard/tester/matrislogik-prov. */
   href: string;
   totalQuestions: number;
   minutes: number;
-  /**
-   * Bästa provresultat i procent, eller null när provet aldrig gjorts.
-   *
-   * Raden fetchade förut sin egen session-endpoint vid mount, vilket blev tre
-   * extra anrop per sidladdning ovanpå hubbens nio, vart och ett med ett eget
-   * auth.getUser() före frågan. Siffran räknas nu på servern i getHubData.ts,
-   * ur samma rader och med samma formel som förut.
-   */
+  /** Bästa provresultat i procent, eller null när provet aldrig gjorts. */
   bestPercent: number | null;
+  /** Provläget ingår inte i paketet: etiketten säger var det finns. */
+  locked?: string | null;
+  onLocked?: () => void;
 }
 
-export default function ProvCard({ href, totalQuestions, minutes, bestPercent }: Props) {
+export default function ProvCard({ href, totalQuestions, minutes, bestPercent, locked, onLocked }: Props) {
   const pct = bestPercent;
+
+  if (locked) {
+    return (
+      <li className="border-t border-kant-stark">
+        <button
+          type="button"
+          onClick={onLocked}
+          aria-label={`Provläge mot klockan, ${minutes} min. Ingår inte. ${locked}`}
+          className={HUB_ROW_LOCKED}
+        >
+          <span aria-hidden="true" className="shrink-0 text-kant-stark">
+            <IlluProv size={24} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-medium text-ink-3">Provläge mot klockan, {minutes} min</span>
+            <span className="mt-0.5 block text-meta text-ink-3">{locked}</span>
+          </span>
+          <LasIkon />
+        </button>
+      </li>
+    );
+  }
 
   return (
     <li className="border-t border-kant-stark">

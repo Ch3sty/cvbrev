@@ -8,6 +8,7 @@ import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -107,6 +108,10 @@ export async function GET(
       } else if (claimedJob) {
         // Först vinner på first_cv_analyzed_at (coalesce i markFirstMilestone).
         await markFirstMilestone(user.id, 'first_cv_analyzed_at');
+        // Hjälpredan Kom igång: analysen är körd. Andra körningen räknas som
+        // uppdaterat CV i harledProvade, så bara första brickan skrivs här.
+        void markeraBricka(user.id, 'analys');
+        void markeraBricka(user.id, 'analys_gratis');
         await logActivityServer(
           user.id,
           'cv_analysis_completed',

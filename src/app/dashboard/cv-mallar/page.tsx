@@ -20,6 +20,10 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import CvMallarClient, { type InitialCv } from './CvMallarClient';
+import { getUserScope } from '@/lib/supabase/premiumAccess';
+import { scopeHasFeature, type Scope } from '@/lib/access/features';
+import { harPaket } from '@/lib/plans/harPaket';
+import type { PlanKey } from '@/lib/plans/plans';
 
 export default async function CVMallarPage({
   searchParams,
@@ -45,9 +49,12 @@ export default async function CVMallarPage({
 
   let cvRows: InitialCv[] = [];
   let isPremium = false;
+  let scope: Scope | null = null;
+  let track: Scope | null = null;
+  let planKey: PlanKey | null = null;
 
   try {
-    const [cvRes, profileRes] = await Promise.all([
+    const [cvRes, profileRes, scopeRes] = await Promise.all([
       supabase
         .from('cv_texts')
         .select('*')
@@ -55,9 +62,10 @@ export default async function CVMallarPage({
         .order('created_at', { ascending: false }),
       supabase
         .from('profiles')
-        .select('subscription_tier, premium_until')
+        .select('premium_until, onboarding_track')
         .eq('id', user.id)
         .maybeSingle(),
+      getUserScope(supabase, user.id),
     ]);
 
     if (cvRes.error) {
@@ -66,14 +74,14 @@ export default async function CVMallarPage({
 
     cvRows = (cvRes.data ?? []) as InitialCv[];
 
-    const profile = profileRes.data as
-      | { subscription_tier?: string | null; premium_until?: string | null }
-      | null;
-    // Samma validering som skapa-brev: 'premium' i tabellen räknas som
-    // premium, premium_until läses som säkerhetsnät mot en utgången rad.
-    const untilOk =
-      !profile?.premium_until || new Date(profile.premium_until).getTime() > Date.now();
-    isPremium = profile?.subscription_tier === 'premium' && untilOk;
+    // Efter paketomgången är frågan vilket spår hon köpt: alla mallar
+    // ingår i CV-veckan och Allt (cv_templates_all), aldrig i Testveckan.
+    const profile = profileRes.data as { premium_until?: string | null; onboarding_track?: string | null } | null;
+    scope = scopeRes;
+    isPremium = scopeHasFeature(scope, 'cv_templates_all');
+    const t = profile?.onboarding_track;
+    track = t === 'cv' || t === 'tester' || t === 'allt' ? t : null;
+    planKey = harPaket(scope, profile?.premium_until ? new Date(profile.premium_until) : null);
   } catch (error) {
     // Går hämtningen fel ska sidan ändå gå att öppna. Klienten hämtar om.
     console.error('Fel vid server-hämtning av CV-mallar:', error);
@@ -91,6 +99,9 @@ export default async function CVMallarPage({
       initialCvs={cvRows}
       initialIsPremium={isPremium}
       initialSelectedCvId={initialSelectedCvId}
+      scope={scope}
+      track={track}
+      planKey={planKey}
     />
   );
 }

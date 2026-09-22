@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { calculateScore } from '@/lib/numericalTest/validator';
+import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -57,6 +58,10 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', sessionId)
       .eq('user_id', user.id);
+
+    // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
+    // Tyst vid fel, får aldrig fälla svaret.
+    void markeraTestBricka(user.id, session.test_type);
 
     if (updateError) {
       console.error('Error completing session:', updateError);

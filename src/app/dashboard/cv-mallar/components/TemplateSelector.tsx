@@ -57,12 +57,10 @@ export default function TemplateSelector({
     return () => document.removeEventListener('mousedown', handler);
   }, [view]);
 
+  // Gråa mallar går att förhandsvisa i full storlek, inte ladda ned
+  // (spec-onboarding 2026-09-22, sektion 3). Valet släpps alltid igenom,
+  // spärren sitter på nedladdningen.
   const handleSelect = (templateId: string) => {
-    const tpl = getTemplateById(templateId);
-    if (tpl?.tier === 'premium' && !isPremium) {
-      onUpgradeClick?.();
-      return;
-    }
     onTemplateSelect(templateId);
     setView('closed');
   };
@@ -292,7 +290,7 @@ function GalleryCard({
           isSelected
             ? 'border-ink-1 bg-panel'
             : 'border-kant bg-panel hover:border-kant-stark'
-        }`}
+        } ${isLocked ? 'opacity-[.55]' : ''}`}
       >
         {/* Papperet får vara vitt */}
         <div className="relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">

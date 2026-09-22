@@ -70,22 +70,31 @@ export interface DashboardSummary {
     createdAt: string | null;
   };
   /**
-   * Veckoprogrammet (docs/plan-paket-och-onboarding.md, flöde 3). Valfri av
-   * samma skäl som onboarding ovan: ett äldre svar i sessionStorage-cachen
-   * kan sakna fältet.
+   * Paketet och dess gränser, för menyhuvudet och underraderna
+   * (docs/design/spec-onboarding-2026-09-22.html). Valfri av samma skäl som
+   * onboarding ovan: ett äldre svar i sessionStorage-cachen kan sakna fältet.
    */
-  week?: {
-    track: 'cv' | 'tester' | 'allt' | null;
+  paket?: {
     scope: 'cv' | 'tester' | 'allt' | null;
-    progressDay: number;
-    startedAt: string | null;
-    trackAskedAt: string | null;
-    /** Nedladdade mallar. Dag 7:s tredje tal, etiketten "mallar" (T58). */
-    templateDownloads?: number;
-    /** Allt-dagen: behörigheten kommer bara ur ett engångsköp. */
-    dayPassOnly?: boolean;
-    /** När dygnet tar slut (ISO). */
-    dayPassEndsAt?: string | null;
+    track: 'cv' | 'tester' | 'allt' | null;
+    planKey: 'cv_week' | 'test_week' | 'all_day' | 'all_week' | 'all_month' | 'all_quarter' | null;
+    fornyasAt: string | null;
+    dayPassOnly: boolean;
+    chatUsed: number;
+    chatLimit: number | null;
+    lettersUsed: number;
+    lettersLimit: number | null;
+  };
+  /** Hjälpredan "Kom igång": provade brickor och underlag för undertexterna. */
+  komIgang?: {
+    provade: string[];
+    fakta: {
+      cvNamn?: string | null;
+      poang?: number | null;
+      fynd?: number | null;
+      matrisRatt?: number | null;
+      matrisAv?: number | null;
+    };
   };
 }
 
