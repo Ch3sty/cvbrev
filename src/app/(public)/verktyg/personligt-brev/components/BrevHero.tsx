@@ -97,7 +97,7 @@ export default function BrevHero() {
             <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-xs text-slate-500">
               <span className="inline-flex items-center gap-1.5">
                 <PenLine className="w-3.5 h-3.5 text-orange-500" strokeWidth={2.5} />
-                2 brev gratis varje dag
+                Ditt första brev gratis
               </span>
               <span className="hidden sm:inline text-slate-300">·</span>
               <span>Ingen kortuppgift</span>

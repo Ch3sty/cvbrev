@@ -23,7 +23,7 @@ const IMPROVEMENTS = [
   {
     title: 'Lägg till mätbara resultat',
     description:
-      'Erfarenhetspunkter med siffror får 3x högre genomslag hos rekryterare.',
+      'Rekryteraren letar efter vad du uppnådde. Skriv ut resultatet i siffror.',
     impact: 12,
     tags: [
       { icon: Tag, label: '3 nyckelord saknas' },

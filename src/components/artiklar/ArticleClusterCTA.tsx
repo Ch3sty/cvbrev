@@ -15,6 +15,7 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import type { CtaCluster } from '@/lib/cta/clusters'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 import { capture, type CtaPosition } from '@/lib/analytics/events'
 import {
   IlluKlusterBrev,
@@ -37,35 +38,35 @@ const CLUSTER_COPY: Record<Exclude<CtaCluster, 'career'>, ClusterCopy> = {
   interview: {
     Icon: IlluKlusterIntervju,
     heading: 'Träna svaret innan du sitter i rummet',
-    body: 'Du kan bolla dina svar med vår jobbcoach och få följdfrågor som en riktig rekryterare hade ställt. Gratis, direkt i webbläsaren.',
+    body: 'Du kan bolla dina svar med vår jobbcoach och få följdfrågor som en riktig rekryterare hade ställt. Tio meddelanden gratis, direkt i webbläsaren.',
     ctaLabel: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
   },
   test: {
     Icon: IlluKlusterTest,
     heading: 'Gör testet innan arbetsgivaren gör det',
-    body: 'Öva på matrislogik, verbalt och numeriskt resonemang med facit och förklaringar. Ett test per dag är gratis.',
+    body: 'Öva på matrislogik, verbalt och numeriskt resonemang med facit och förklaringar. Grundnivån är gratis, en gång per dygn och testtyp.',
     ctaLabel: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
   },
   letter: {
     Icon: IlluKlusterBrev,
     heading: 'Skriv ditt brev på fem minuter',
-    body: 'Fyll i tjänsten du söker, så får du ett färdigt utkast du kan redigera. Fem dagar Premium ingår när du skapar konto.',
+    body: 'Fyll i tjänsten du söker, så får du ett färdigt utkast du kan redigera. Det första brevet är gratis när du skapar konto.',
     ctaLabel: 'Skapa mitt brev',
     href: '/skapa-brev/start',
   },
   cv: {
     Icon: IlluKlusterCv,
     heading: 'Bygg CV:t på en av våra mallar',
-    body: 'Tolv mallar gratis, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.',
+    body: `${FREE_TEMPLATE_COUNT} mallar gratis av ${TEMPLATE_COUNT}, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.`,
     ctaLabel: 'Välj en mall',
     href: '/verktyg/cv-mallar',
   },
   generic: {
     Icon: IlluKlusterGenerisk,
     heading: 'Bygg CV:t på en av våra mallar',
-    body: 'Tolv mallar gratis, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.',
+    body: `${FREE_TEMPLATE_COUNT} mallar gratis av ${TEMPLATE_COUNT}, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.`,
     ctaLabel: 'Välj en mall',
     href: '/verktyg/cv-mallar',
   },

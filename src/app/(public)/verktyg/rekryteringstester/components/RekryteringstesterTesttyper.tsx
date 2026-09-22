@@ -72,7 +72,7 @@ export default function RekryteringstesterTesttyper() {
               </span>
             </h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-              Grundnivån är alltid gratis, en gång per dag och test. Vill du köra obegränsat och trycka på med svårare frågor finns avancerad version i Premium.
+              Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad och expertnivå och öva i tidsatt provläge ingår det i Testveckan för 79 kr i veckan.
             </p>
           </motion.div>
 

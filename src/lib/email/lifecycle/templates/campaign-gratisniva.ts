@@ -37,21 +37,22 @@ export const gratisnivaAndras: LifecycleEmail = {
           heading('Vi ändrar gratisnivån') +
           paragraph(`${name ? `Hej ${name},` : 'Hej,'} du har ett konto hos oss, så du ska höra det här från oss först.`) +
           paragraph(
-            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: det är fortsatt gratis att skapa, men att ladda ner filen kräver Premium.`
+            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: du kan fortfarande prova varje verktyg, men uttaget, alltså den färdiga filen och djupet, ligger i paketen.`
           ) +
           paragraph('Det här ändras:'),
         note:
           list([
-            'Personliga brev: ett brev om dagen i stället för två',
-            'Nedladdning av brev som PDF och Word kräver Premium',
-            'CV-export: en gratis nedladdning per konto, sedan Premium',
-            'CV-analys: poängen och de tre viktigaste fynden är gratis, resten ingår i Premium',
+            'CV-mallar: tre fria mallar, resten förhandsvisas i full storlek',
+            'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
+            'Personliga brev: ett brev per konto, sedan ett i veckan. Nedladdningen ingår i CV-veckan',
+            'Rekryteringstester: grundnivån i varje testtyp, en gång per dygn',
+            'Jobbcoachen: tio meddelanden per konto',
           ]) +
           '<p style="margin:12px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#9A3412;">Allt du redan skapat ligger kvar och går att läsa och kopiera som vanligt.</p>',
         ctaLabel: 'Se vad som gäller',
         ctaUrl: '/priser',
         footNote:
-          'Söker du jobb intensivt just nu kostar Jobbsökarveckan 99 kr och ger sju dagar utan gränser. Den förnyas inte.',
+          'Söker du jobb intensivt just nu väljer du spåret du söker på: CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Du säger upp i ditt konto.',
       }),
     };
   },

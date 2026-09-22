@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'Karriärrådgivning på sekunder: AI-coach med svenska källor | Jobbcoach.ai',
+    'Jobbcoachen: karriärsvar med källor | Jobbcoach.ai',
   description:
-    'Få karriärråd baserat på Arbetsförmedlingen, SCB, fackförbund och svensk arbetsrätt. Fråga om lön, intervju, uppsägning eller karriärbyte. Helt gratis att börja, med källa till varje svar.',
+    'Fråga om lön, intervju, uppsägning eller karriärbyte. Svaren bygger på Arbetsförmedlingen, SCB och fackförbund, med källa till varje svar.',
   keywords: [
     'karriärrådgivning',
     'karriärcoach',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
     description:
-      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. 10 meddelanden gratis per dag, källa till varje svar.',
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Tio meddelanden gratis på ditt konto, källa till varje svar.',
     url: 'https://www.jobbcoach.ai/verktyg/jobbcoachen',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Karriärrådgivning på sekunder: AI-coach med svenska källor',
     description:
-      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. 10 meddelanden gratis per dag.',
+      'Få karriärråd baserat på Arbetsförmedlingen, SCB och fackförbund. Tio meddelanden gratis på ditt konto.',
   },
   robots: {
     index: true,

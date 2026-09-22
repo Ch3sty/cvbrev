@@ -191,7 +191,7 @@ export default function TesterSection() {
                           className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500"
                           aria-hidden="true"
                         />
-                        Avancerad · Premium
+                        Avancerad · Testveckan
                       </span>
                     </div>
                   </div>

@@ -143,7 +143,7 @@ export default function ArticleSidebar({
           </motion.div>
         )}
 
-        {/* Trial-CTA */}
+        {/* Paket-CTA */}
         <motion.div
           initial={{ opacity: 0, x: 12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -175,19 +175,19 @@ export default function ArticleSidebar({
           <div className="relative">
             <TrialCardIllustration className="w-full h-auto mb-3 max-w-[140px]" />
             <div className="text-[11px] font-bold uppercase tracking-[0.18em] mb-1 opacity-90 inline-flex items-center gap-1.5">
-              Premium
+              Paketen
             </div>
             <h3 className="text-lg font-black leading-tight mb-1.5">
-              Testa alla verktyg gratis i 7 dagar
+              Välj spåret du söker på
             </h3>
             <p className="text-xs opacity-95 mb-4 leading-relaxed">
-              Avsluta kostnadsfritt innan provperioden går ut. Inga bindningstider.
+              CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Ingen bindningstid.
             </p>
             <Link
-              href="/register"
+              href="/priser"
               className="block w-full text-center px-4 py-2.5 rounded-xl bg-white text-orange-700 font-bold text-sm hover:bg-orange-50 hover:scale-[1.02] transition-all touch-manipulation"
             >
-              Testa gratis nu
+              Se vad som ingår
             </Link>
           </div>
         </motion.div>

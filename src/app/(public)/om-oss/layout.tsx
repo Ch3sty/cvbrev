@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'Om Jobbcoach.ai: svenska jobbverktyg byggda för svensk arbetsmarknad | Jobbcoach.ai',
+    'Om oss: jobbverktyg för svensk arbetsmarknad | Jobbcoach.ai',
   description:
-    'Vi har byggt jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. GDPR-säker, ingen LinkedIn-inloggning. Möt teamet bakom plattformen.',
+    'Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Data i EU, och vi loggar aldrig in åt dig.',
   keywords: [
     'om jobbcoach.ai',
     'om oss jobbcoach',

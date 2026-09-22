@@ -282,7 +282,7 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
           ))}
         </div>
         <p className="sr-only">
-          Resten av brevet låses upp när du skapat ett konto.
+          Du ser resten av brevet när du skapat ett konto.
         </p>
       </article>
 
@@ -294,8 +294,8 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
               Ditt brev är klart
             </h2>
             <p className="text-sm leading-relaxed text-neutral-600 mb-4">
-              Skapa ett gratiskonto så låser vi upp hela brevet, sparar det åt dig och du
-              kan ladda ner det. Fem dagar Premium ingår.
+              Skapa ett gratiskonto så får du hela brevet, och vi sparar det åt dig.
+              Vill du ladda ner det som PDF eller Word ingår det i CV-veckan.
             </p>
             <Link
               href={registerHref}

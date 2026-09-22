@@ -10,21 +10,21 @@ const TEST_CATEGORIES = [
     title: 'Matrislogik',
     description:
       'Mönsterigenkänning och logiskt tänkande. Testet de flesta större bolag använder vid första gallringen.',
-    levels: ['Grund · Gratis', 'Avancerad · Premium'],
+    levels: ['Grund · Gratis', 'Avancerad · Testveckan'],
   },
   {
     icon: Type,
     title: 'Verbal förmåga',
     description:
       'Läsförståelse och slutledning från text. Tränar dig att svara snabbt och rätt på tid pressade frågor.',
-    levels: ['Grund · Gratis', 'Avancerad · Premium'],
+    levels: ['Grund · Gratis', 'Avancerad · Testveckan'],
   },
   {
     icon: Calculator,
     title: 'Numerisk förmåga',
     description:
       'Tabeller, diagram, räkneuppgifter. Vi simulerar exakt den typ av frågor som dyker upp i SHL- och Assessio-tester.',
-    levels: ['Grund · Gratis', 'Avancerad · Premium'],
+    levels: ['Grund · Gratis', 'Avancerad · Testveckan'],
   },
 ];
 
@@ -136,7 +136,7 @@ export default function TestsShowcase() {
             />
           </Link>
           <p className="text-xs text-slate-500">
-            Tre grund-tester ingår i gratiskontot · 15 frågor per pass
+            Grundnivån är gratis, en gång per dygn och testtyp · 15 frågor per pass
           </p>
         </motion.div>
       </div>

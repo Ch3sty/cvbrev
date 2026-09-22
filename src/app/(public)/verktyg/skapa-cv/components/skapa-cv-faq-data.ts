@@ -23,7 +23,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
-    a: 'Ja. Du kan skapa CV gratis och ladda ner som både PDF och Word utan att lämna kortuppgifter. Två CV-mallar är helt gratis, och de räcker långt för de flesta ansökningar. Premium ger dig tillgång till alla mallar och fler funktioner men är aldrig nödvändigt för att få ett bra CV.',
+    a: 'Ja. Du kan skapa ditt CV och ladda ner det en gång utan att lämna kortuppgifter. Tre CV-mallar är fria, och de räcker långt för de flesta ansökningar. Vill du ha alla mallar och ladda ner utan tak ingår det i CV-veckan för 79 kr i veckan.',
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',

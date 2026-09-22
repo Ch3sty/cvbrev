@@ -30,7 +30,7 @@ const STUDIES = [
     source: 'Dagens Nyheter',
     headline: 'Intervjuad av en robot',
     quote:
-      '"Intervjuad av en robot" — DN rapporterar om hur AI tar över allt fler steg i rekryteringsprocessen hos svenska företag.',
+      '"Intervjuad av en robot": DN rapporterar om hur AI tar över allt fler steg i rekryteringsprocessen hos svenska företag.',
     url: 'https://www.dn.se/sverige/intervjuad-av-en-robot-sa-tar-ai-over-inom-rekrytering/',
   },
 ];

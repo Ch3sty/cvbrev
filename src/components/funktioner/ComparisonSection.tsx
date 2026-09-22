@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Minus, Star } from 'lucide-react';
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
+import { PLAN_BY_KEY } from '@/lib/plans/plans';
 
 type Row = {
   label: string;
@@ -178,7 +179,7 @@ export default function ComparisonSection() {
                 className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500"
                 aria-hidden="true"
               />
-              Gratis vs Premium
+              Gratis vs Allt-veckan
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black text-slate-900 leading-[1.05] tracking-tight mb-5 max-w-3xl mx-auto">
@@ -242,9 +243,9 @@ export default function ComparisonSection() {
                     color: 'transparent',
                   }}
                 >
-                  149 kr
+                  {PLAN_BY_KEY.all_week.amount} kr
                 </span>
-                <span className="text-slate-600 font-medium">/ månad</span>
+                <span className="text-slate-600 font-medium">/ vecka</span>
               </div>
               <span
                 className="hidden sm:inline-block w-px h-4 bg-orange-200"
@@ -255,7 +256,7 @@ export default function ComparisonSection() {
                   className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"
                   aria-hidden="true"
                 />
-                7 dagar gratis trial
+                Säg upp i ditt konto
               </span>
               <span
                 className="hidden sm:inline-block w-px h-4 bg-orange-200"
@@ -316,10 +317,10 @@ export default function ComparisonSection() {
                 </div>
               </div>
               <span className="text-xs font-black uppercase tracking-[0.18em] opacity-95">
-                Premium
+                Allt-veckan
               </span>
               <p className="text-2xl font-black tabular-nums mt-0.5">
-                149 kr<span className="text-sm font-bold opacity-85"> /mån</span>
+                {PLAN_BY_KEY.all_week.amount} kr<span className="text-sm font-bold opacity-85"> /vecka</span>
               </p>
             </div>
 
@@ -395,10 +396,10 @@ export default function ComparisonSection() {
 
             <div className="relative p-6">
               <p className="text-xs font-black uppercase tracking-[0.18em] opacity-95 mb-1">
-                Premium
+                Allt-veckan
               </p>
               <p className="text-3xl font-black tabular-nums mb-5">
-                149 kr<span className="text-sm font-bold opacity-85"> /mån</span>
+                {PLAN_BY_KEY.all_week.amount} kr<span className="text-sm font-bold opacity-85"> /vecka</span>
               </p>
 
               <ul className="space-y-2.5">

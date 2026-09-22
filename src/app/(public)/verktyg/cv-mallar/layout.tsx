@@ -2,9 +2,9 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'CV-mallar: professionella designs för svenska arbetsgivare | Jobbcoach.ai',
+    'CV-mallar för svenska arbetsgivare | Jobbcoach.ai',
   description:
-    'Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra, anpassade för svenska arbetsgivare och redo att fylla i. Bygg ditt CV på minuter och ladda ner som PDF eller Word.',
+    'CV-mallar i modern, traditionell och kreativ stil, byggda för att läsas rätt av rekryteringssystem. Fyll i, och ladda ner som PDF eller Word.',
   keywords:
     'cv mall, cv mallar, cv mall gratis, professionell cv mall, ats cv mall, svensk cv mall, cv mall pdf, cv mall word, cv mall ungdom, modern cv mall',
   openGraph: {

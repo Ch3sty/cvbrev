@@ -39,7 +39,7 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
     a: 'Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Karriärguiden läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst.',
   },
   {
-    q: 'Vad händer efter mina 5 gratis frågor?',
-    a: 'När du nått din gratisgräns visas en uppgraderingsruta där du kan starta en gratis sjudagars provperiod på Premium. Hela din konversation sparas så du kan fortsätta exakt där du slutade. Vill du inte uppgradera kan du fortsätta använda andra gratis-funktioner som CV-byggaren och jobbmatchningen.',
+    q: 'Vad händer när mina tio meddelanden är slut?',
+    a: 'Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår jobbcoachen utan tak i Allt-veckan och Allt-månaden, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: tre CV-mallar, en CV-analys, ett personligt brev och grundnivån i testerna.',
   },
 ]

@@ -36,7 +36,7 @@ export default function OmOssKontakt() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-7 max-w-xl mx-auto lg:mx-0">
                 Skapa konto och börja gratis, eller kontakta oss direkt om
-                du undrar något. Vi svarar samma dag på vardagar.
+                du undrar något. Vi svarar inom ett dygn på vardagar.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">

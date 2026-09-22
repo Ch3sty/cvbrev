@@ -17,10 +17,10 @@ interface FeatureCopy {
 
 const FEATURE_COPY: Record<string, FeatureCopy> = {
   letter_generation: {
-    subject: 'Två nya personliga brev väntar på dig',
-    preheader: 'Din kvot har nollställts. Dags att skriva dagens ansökningar.',
-    heading: 'Två nya personliga brev väntar',
-    body: 'Du bad oss säga till när dina personliga brev var tillbaka. Nu är de det. Skriv dagens ansökningar medan annonserna är färska, det tar bara ett par minuter per brev.',
+    subject: 'Veckans personliga brev väntar på dig',
+    preheader: 'Du kan skriva ett nytt brev igen. Ta annonsen medan den är färsk.',
+    heading: 'Veckans personliga brev väntar',
+    body: 'Du bad oss säga till när du kunde skriva ett nytt brev. Nu kan du det. Ta en annons medan den är färsk, klistra in den, så läser vi kravprofilen och skriver brevet mot den.',
     cta: 'Skriv ditt personliga brev',
     path: '/dashboard/skapa-brev',
   },
@@ -34,9 +34,9 @@ const FEATURE_COPY: Record<string, FeatureCopy> = {
   },
   chat_message: {
     subject: 'Jobbcoachen är redo för nya frågor',
-    preheader: 'Dina tio dagliga meddelanden har nollställts.',
+    preheader: 'Du kan skriva till jobbcoachen igen.',
     heading: 'Jobbcoachen väntar på dig',
-    body: 'Dina dagliga meddelanden till jobbcoachen har nollställts. Ställ frågorna du inte hann med igår, om CV:t, intervjun eller nästa steg i karriären.',
+    body: 'Du kan ställa frågor till jobbcoachen igen. Ta det du inte hann med sist, om CV:t, intervjun eller nästa steg i karriären.',
     cta: 'Öppna chatten',
     path: '/dashboard/jobbcoachen',
   },
@@ -66,12 +66,14 @@ function copyFor(feature: string): FeatureCopy {
   return DEFAULT_COPY;
 }
 
-// "Också tillbaka idag": påminn om de andra dagskvoterna, utan att upprepa
-// den funktion mailet redan handlar om.
+// "Också tillbaka": påminn om det andra som öppnat igen, utan att upprepa den
+// funktion mailet redan handlar om. Bara testernas grundnivå återkommer varje
+// dygn; brev och jobbcoachen räknas per konto respektive per vecka, så de
+// står utan dagsord. Ändras gränserna i quotaService ändras raderna här.
 const DAILY_ITEMS: Array<{ key: string; label: string }> = [
-  { key: 'letter_generation', label: '2 personliga brev' },
-  { key: 'test', label: 'alla rekryteringstester, en per nivå' },
-  { key: 'chat_message', label: '10 meddelanden till jobbcoachen' },
+  { key: 'letter_generation', label: 'veckans personliga brev' },
+  { key: 'test', label: 'grundnivån i varje testtyp' },
+  { key: 'chat_message', label: 'dina meddelanden till jobbcoachen' },
 ];
 
 function otherDailyItems(feature: string): string[] {
@@ -148,14 +150,14 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
               </table>
             </td>
           </tr>
-          <!-- Också tillbaka idag -->
+          <!-- Också öppet nu -->
           <tr>
             <td style="padding:22px 32px 0 32px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF7ED;border:1px solid #FFEDD5;border-radius:12px;">
                 <tr>
                   <td style="padding:14px 18px;">
-                    <p style="margin:0 0 3px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#B45309;">Också tillbaka idag</p>
-                    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#78350F;">Din dagskvot gäller mer än så: ${othersText}.</p>
+                    <p style="margin:0 0 3px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#B45309;">Också öppet nu</p>
+                    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#78350F;">Gratisnivån ger dig mer än så: ${othersText}.</p>
                   </td>
                 </tr>
               </table>
@@ -164,7 +166,7 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
           <!-- Sekundär rad -->
           <tr>
             <td style="padding:16px 32px 30px 32px;">
-              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#94A3B8;">Vill du slippa vänta på kvoter? <a href="${base}/priser" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:none;">Premium ger dig obegränsad tillgång</a>, med 7 dagar gratis.</p>
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#94A3B8;">Vill du slippa vänta? <a href="${base}/priser" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:none;">Välj spåret du söker på</a>, från 79 kr i veckan. Du säger upp i ditt konto.</p>
             </td>
           </tr>
         </table>

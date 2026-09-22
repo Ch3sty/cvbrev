@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
 import CVAnalysMini from './CVAnalysMini'
 
-const TRUST = ['1 analys gratis var tredje dag', 'ATS-säkrad', 'Klar på 60 sekunder']
+const TRUST = ['1 analys gratis', 'ATS-säkrad', 'Klar på 60 sekunder']
 
 export default function CVAnalysHero() {
   return (

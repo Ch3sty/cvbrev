@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { CheckPriser } from '@/app/(public)/priser/components/illustrations/PriserIcons'
 import JobbmatchningLiveDemo from './JobbmatchningLiveDemo'
 
-const TRUST = ['10 jobb gratis', 'Daglig uppdatering', 'Hela Sverige']
+const TRUST = ['3 träffar gratis', 'Daglig uppdatering', 'Hela Sverige']
 
 export default function JobbmatchningHero() {
   return (

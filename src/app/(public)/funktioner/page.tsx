@@ -15,9 +15,9 @@ import FunktionerFAQ from '@/components/funktioner/FunktionerFAQ';
 import RichFinalCTA from '@/components/landing/RichFinalCTA';
 
 export const metadata: Metadata = {
-  title: 'Våra funktioner: alla verktyg du behöver för jobbsökningen | Jobbcoach.ai',
+  title: 'Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai',
   description:
-    'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar. Byggt för svenska arbetsmarknaden.',
+    'Åtta verktyg på en plattform: personligt brev, CV-analys, CV-mallar, jobbmatchning, jobbcoachen och rekryteringstester. Byggt för svensk arbetsmarknad.',
   alternates: {
     canonical: 'https://www.jobbcoach.ai/funktioner',
   },

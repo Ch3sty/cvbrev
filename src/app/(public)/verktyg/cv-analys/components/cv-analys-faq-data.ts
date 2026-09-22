@@ -27,11 +27,11 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur många analyser får jag göra gratis?',
-    a: 'En CV-analys var tredje dag är gratis utan att du behöver ange kortuppgifter. Behöver du fler analyser, till exempel för att jämföra olika versioner inför en specifik ansökan, ger Premium dig obegränsade analyser för 149 kr per månad.',
+    a: 'En analys per konto är gratis, utan att du lämnar kortuppgifter. Du ser läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet i klartext med åtgärd. Vill du se alla fynd och köra om analysen efter en rättning ingår det i CV-veckan för 79 kr i veckan.',
   },
   {
     q: 'Kan jag jämföra olika versioner av mitt CV?',
-    a: 'Ja. Premium-användare kan spara obegränsat antal CV-versioner och se ATS-poängen sida vid sida. Det är användbart när du testar olika rubriker, byter ordningsföljd eller skräddarsyr CV:t för en specifik bransch och vill veta vilken version som faktiskt presterar bäst.',
+    a: 'Ja. Med CV-veckan sparar du hur många CV-versioner du vill och ser poängen sida vid sida. Det är användbart när du testar olika rubriker, byter ordningsföljd eller skräddarsyr CV:t för en specifik bransch och vill veta vilken version som faktiskt presterar bäst.',
   },
   {
     q: 'Är mitt CV säkert hos er?',

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'LinkedIn-optimering: hamna i rekryterarnas sökresultat | Jobbcoach.ai',
+    'LinkedIn-optimering för rekryterarsök | Jobbcoach.ai',
   description:
-    'Optimera din LinkedIn-profil för rekryterar-sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka. Gratis att börja, vi loggar aldrig in på din LinkedIn.',
+    'Vi skriver om rubrik, om-mig och kompetenser så att rekryterare hittar dig. Du klistrar in din text och får den tillbaka. Vi loggar aldrig in åt dig.',
   keywords: [
     'linkedin-optimering',
     'optimera linkedin',

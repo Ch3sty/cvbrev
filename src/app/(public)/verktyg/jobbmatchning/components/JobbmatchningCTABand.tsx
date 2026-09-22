@@ -37,8 +37,8 @@ export default function JobbmatchningCTABand() {
                 automatiskt.
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Aktivera ditt CV och få tio matchande jobb gratis. Ingen
-                kortuppgift, ingen bindningstid.
+                Aktivera ditt CV och se dina tre bästa träffar med skälen
+                utskrivna. Ingen kortuppgift, ingen bindningstid.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
@@ -65,7 +65,7 @@ export default function JobbmatchningCTABand() {
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>10 jobb gratis</span>
+                <span>3 träffar gratis</span>
                 <span className="hidden sm:inline text-white/40">·</span>
                 <span>Ingen kortuppgift</span>
                 <span className="hidden sm:inline text-white/40">·</span>

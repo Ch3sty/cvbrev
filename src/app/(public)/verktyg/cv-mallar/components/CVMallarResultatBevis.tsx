@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Quote } from 'lucide-react'
+import { FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 
 const STATS = [
   {
@@ -11,7 +12,7 @@ const STATS = [
     sub: 'Inklusive ifyllande och nedladdning',
   },
   {
-    value: '2 mallar',
+    value: `${FREE_TEMPLATE_COUNT} mallar`,
     label: 'helt gratis',
     sub: 'Räcker långt för de flesta ansökningar',
   },
