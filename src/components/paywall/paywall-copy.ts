@@ -106,8 +106,7 @@ export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   chatt: 'chat_unlimited',
   historik: 'test_history',
   'test-tak': 'tests_above_base',
-  // LinkedIn har ingen egen feature i tabellen; den följer CV-spåret.
-  linkedin: 'cv_export',
+  linkedin: 'linkedin',
   'bli-upptackt': 'bli_upptackt',
 }
 

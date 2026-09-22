@@ -953,3 +953,64 @@ Byggt 2026-09-22 efter docs/design/spec-onboarding-2026-09-22.html (sektion 1 ti
 12. **`FelSpar` fick rubriken per feature** (`felSparRubrik` i `program.ts`). Kortet sade alltid "Du ville ladda ner den här mallen", också när det var en testnivå eller LinkedIn i taket från menyn. Texten (T80), mellanskillnaden och knappen är oförändrade. Förslag: godta; copyrollen får gärna skriva om de nya rubrikerna.
 
 13. **Sidomenyn på 256 px trunkerar** "Förnyas 29 september, 79 kr" bakom "Vad ingår?" och de längsta underraderna ("Alla typer, alla nivåer, provläge mot klockan"). Specens desktopram är 240 px och visar samma trunkering i sin text. Kom igång-raden i sidomenyn bär därför specens korta form ("Kom igång", "2 av 8 provade") och den flytande raden hela meningen. Förslag: behåll.
+
+---
+
+## saas-lead: avgjort, design
+
+Granskning av grenen `paket/design` (commits `dcde38c7`, `13b30357`, `b85029a6`) 2026-09-22 mot `docs/design/spec-prissida-2026-09-22.html` och `docs/design/spec-onboarding-2026-09-22.html`. Tolv skärmdumpar lästa sida vid sida med specarna (D1: 02, 05, 06, 09, 14, 24; D2: 01, 02, 03, 05, 07, 12). Regel: specen och ägarens uttalade krav vinner över agentens bekvämlighet, designsystemets spacing och radier får gälla. S-frågor som rör copy eller en knapptext är ändrade i samma omgång, tsc och vitest gröna efteråt. M-frågor står som "Efter släpp" med prioritet.
+
+### D1, beslut per fråga
+
+1. *Ingressen under "Allt är öppet från första minuten" och FAQ-svaret.* **Behåll omskrivningen.** Veckoprogrammet är borttaget i D2, så texten om dag 7 hade beskrivit något som inte finns. Sanningskravet vinner över specens ordalydelse.
+2. *Spacing och radier ur designsystemet.* **Behåll.** Systemets 4/8/12/16/24 och `rounded-xl` gäller före specens 18/22/28 och 16 px. Det är regeln för hela omgången.
+3. *"Ingår inte" i ink-3.* **Behåll.** AA-kontrast vinner över specens 2,0:1. Ordet gör jobbet.
+4. *Spårvalet förväljer CV-veckan, 1.1b nås inte.* **Behåll förvalet.** Specen visar första kortet valt och primären ska aldrig vara spärrad. Skärm 1.1b och `SPARVAL_GRATIS` står kvar som död kod. Efter släpp, prio 3: radera 1.1b och strängarna D1 till D11 när `paywall_shown` med `onboarding_paket` bekräftat att ingen når skärmen.
+5. *Lokala `SparKort` i stället för `ChoiceCard`.* **Behåll.** Flytt till skalet först när ett tredje ställe behöver kortet.
+6. *Kontosidan för Allt-kund visar spåren först.* **Behåll specens ordning.** Statusraden överst säger redan vad hon har. Efter släpp, prio 3, villkorat på supportfrågor: eget paket först.
+7. *Spårbyte i sidled via Stripe-portalen.* **Behåll.** Samma beslut som B1b 2: kunden ska se vad hon tappar. Knappen säger "Byt till", se D2 fråga 2.
+8. *"Profil och prenumeration" med pris som underrad plus raden "Profil" med `exact`.* **Behåll.** D2 har byggt om menyn enligt sin spec och båda raderna står kvar under "Konto" (D2 bild 12). Inget mer att göra.
+9. *Cookie-bannern över samtyckesrutan på Pixel 7.* **Efter släpp, prio 2.** B6 mätte att köpknappen är nåbar (bannern lyfts till `--flow-footer-h`), men rutan ligger i innehållet och kan skymmas tills bannern besvarats, vilket är ett tryck. Åtgärd: ge flödets innehåll en nedre marginal lika med bannerns höjd så länge den är synlig, eller visa bannern först efter flödet. Rör hela appen, inte bara köpsteget.
+10. *`font-bold` och `font-extrabold` i dashboardfiler.* **Ändrat.** Grep-kontrollen i `docs/designsystem.md` filtrerar nu bort rader med `font-display`, med texten om att vikten utan `font-display` fortfarande är ett fel.
+
+QA-avvikelse 4 och 5 i `docs/qa/qa-paket-d1/resultat.md` (FlowShell-toppraden i stället för specens "Steg 1 av 2", Lucide-pil i stället för tecknet): **behåll**, skalet är klart och ikoner tas ur systemet.
+
+### D2, beslut per fråga
+
+1. *Profilbrickans undertext "Önskad roll och ort".* **Behåll.** Fälten "tillgänglig från" och "kallad till test, när" finns inte i profilen, och en undertext får inte lova fält som inte finns. Efter släpp, prio 3: bygg de två fälten, då byter texten till specens.
+2. *"Lägg till Testveckan, 79 kr" på testsidan och "Lägg till CV-veckan" på mallsidan.* **Ändrat till "Byt till".** Kassan bär aldrig två paket samtidigt, och 79 plus 79 är mer än Allt för 99. `laggTillKnapp` i `src/lib/onboarding/paket-rader.ts` skriver "Byt till", kommentarerna i `TesterHubClient` och `CvMallarClient` följer med. Knappen "Eller Allt för 20 kr till i veckan" står orörd, den är rätt.
+3. *LinkedIn utan egen feature.* **Ändrat.** `linkedin: ['cv', 'allt']` i `src/lib/access/features.ts` (elva features, testet uppdaterat). Menyn, `paywall-copy` och `FEATURE_ETIKETT` använder featuren i stället för `cv_export`. `/api/linkedin/optimize` svarar 402 `premium_required` med föreslaget paket, samma mönster som brevnedladdningen. Sidan `/dashboard/linkedin-optimizer` läser scopet på servern och visar betalväggen `linkedin` i stället för wizarden, så adressen är stängd. **Kvar, efter släpp, prio 1:** wizarden anropar edge-funktionen `optimize-linkedin`, som fortfarande släpper igenom på `subscription_status = active` och ger gratisnivån en optimering i veckan. Med sidan gate:ad når ingen vanlig användare den vägen, men behörigheten ska portas dit (premium_scope, grants, admin, som `lasBehorighet`) eller så ska klienten gå via Next-rutten. Deploy av en edge-funktion är inte en S-ändring.
+4. *Raden på mobil bara på hemskärmen.* **Behåll.** Specens rubrik säger hemskärmen. Läs `komigang_opened` efter två veckor innan raden sprids.
+5. *"Brickan öppnad" inte byggd.* **Behåll.** Ett tryck rakt till handlingen är bättre än ett kort som förklarar den. Efter släpp, prio 3, villkorat på att brickor trycks men handlingen inte slutförs.
+6. *"Dölj hjälpredan" gömmer en dag.* **Behåll.** En dag är rätt: raden kommer tillbaka utan att tjata.
+7. *Mejlen bara till betalande, hoppar över köpdagen, "Förnyas i morgon" inom 36 timmar.* **Behåll.** Läs `email_log` efter en vecka: ett `komigang_`-mejl per betalande och dag, ett `paket_fornyas_` per förnyelse, noll till gratisnivån.
+8. *`SidebarLink` med `locked` och `onLocked`, etikett i ink-3.* **Godta.** Samma AA-skäl som D1 fråga 3.
+9. *Personlighetstestets rader.* **Behåll.** Katalogens namn på grundnivån, specens på den avancerade.
+10. *Egen topprad på välkomstskärmen.* **Behåll.** `FlowShell` får en variant utan räknare när ett tredje ställe behöver den.
+11. *`harledProvade` räknar andra analyskörningen.* **Behåll.** Omkörningen efter rättning är brickans poäng.
+12. *`FelSpar` med rubrik per feature.* **Godta.** Rubrikerna går till copywritern i den inloggade copyomgången efter släpp, prio 2.
+13. *Sidomenyn på 256 px trunkerar.* **Behåll.** Specen visar samma trunkering vid 240 px, och den fulla raden finns bakom menyhuvudets länk "Vad ingår?" och på prenumerationssidan.
+
+### Särskilda kontroller
+
+- **(a) LinkedIn.** Gjort, se D2 fråga 3.
+- **(b) Påhittade tal och citat.** Startsidan hade `TestimonialsRow` med "4.9 av 5 från våra användare", "Tusentals jobbsökare i Sverige har fått intervjuer och jobb" och tre påhittade citat (Emma, Marcus, Sofia). Komponenten är raderad och borttagen ur `src/app/(public)/page.tsx`. Fotens rubrik "Det här hjälpte tusentals andra" är nu "Guider för nästa steg i jobbsöket". Prissidan hade inga citat eller betyg. "Marcus" och "Klarna" i `cv-exempel` är exempelpersoner och arbetsgivare i CV-exemplen, inte kundcitat, och står kvar. "Betyg A+" i `LiveAIShowcase` är en illustration av analysens eget betyg, inte ett kundomdöme.
+- **(c) Kassans lagkrav.** Verifierat på D1 bild 09 och i `ValjSparClient`: pris i knappen "Till betalning, 79 kr", "Förnyas var sjunde dag, nästa 29 september", "Uppsägning när som helst i ditt konto", "Ångerrätt gäller inte, du startar direkt", kryssrutan med förnyelsebeloppet, knappen spärrad tills krysset är i, `consent` postas och tidsstämplas på servern (B6, `consent.test.ts` 7 gröna). Uppsägningen: "Säg upp" är synlig utan att något öppnas på prenumerationssidan och går till Stripe-portalen (D1 bild 20, 24).
+- **(d) Ägaren och adminen som `allt`.** `admin_users` har en rad, ägaren, `super_admin`. `lasBehorighet` kortsluter admin till `allt`, och profilen bär dessutom `subscription_tier = premium`, `premium_scope = allt`, så både behörigheten och hemskärmens summering (som räknar scope ur profilen, inte ur adminraden) läser `allt`. Efter släpp, prio 3: låt `getSummary` läsa adminraden i samma parallella omgång, annars ser en framtida admin utan profilscope gratisnivån i menyn.
+- **(e) Talstreck, Sparkles, engelska gränssnittsord.** Diffen `7062c6c8..HEAD` innehåller inga nya rader med talstreck, ingen Sparkles och inga engelska gränssnittsord i tsx. De befintliga talstrecken i API-rutternas kommentarer är äldre än omgången.
+
+### Bygge och tester
+
+`NEXT_DIST_DIR=.next-sl npx next build` rent, exit 0. `npx tsc --noEmit` rent. `npx vitest run`: 490 av 490 gröna i 38 filer. `tsconfig.json` återställd, `.next-sl` borttagen.
+
+## Gå live: paket och onboarding, design (för ägaren)
+
+**Nytt i det här släppet.** Prissidan enligt specen (hero, tre paket med Allt som ankare, längdvalet, gratisraden, funktionskorten, jämförelsetabellen, FAQ, Schibsted Grotesk för rubriker). Spårvalet och köpsteget i två steg med kvittot, förnyelseraden, uppsägningen, ångerrätten och samtyckesrutan på samma skärm som knappen. Kontosidan med byte av spår och längd. Välkomstskärmen efter köpet, hjälpredan Kom igång (raden på hemskärmen, arket med brickorna, sidomenyn på desktop), gråade val i testsidan, mallsidan och menyn med fel spår-kortet, mejlen `komigang_` och `paket_fornyas_`. Veckoprogrammet och dagsmejlen är borta. LinkedIn-profilen är nu en egen feature i CV-spåret och Allt. Startsidans påhittade citat och betyg är borttagna.
+
+**Tre punkter att titta på i morgon.**
+
+1. **Köp CV-veckan själv på mobilen, hela vägen.** Prissidan, "Börja CV-veckan", köpsteget med krysset, Stripe, välkomstskärmen, hemskärmen med raden "Kom igång med CV-veckan". Kontrollera sedan `profiles.angerratt_samtycke_at` på ditt konto och att `komigang_`-mejlet kommer dagen efter, inte samma dag.
+2. **Öppna testsidan som CV-kund och tryck på en grå nivå.** Fel spår-kortet ska säga "Mellanskillnad, 20 kr" och fotknappen "Byt till Testveckan, 79 kr". Tryck på den: Stripe-portalen ska öppnas, inte en ny kassa.
+3. **Kontrollera de tre veckopriserna i Vercel** (`STRIPE_PRICE_CV_WEEK`, `STRIPE_PRICE_TEST_WEEK`, `STRIPE_PRICE_ALL_WEEK`) innan du mergar. Saknas en rad svarar kassan 400 "Ogiltigt produktval" och prissidan visar paketet ändå.
+
+**Efter släpp, i prioritetsordning.** Prio 1: behörigheten i edge-funktionen `optimize-linkedin`. Prio 2: cookie-bannern över flödesinnehåll, copywritern över FelSpar-rubrikerna och den inloggade copyn, `dayPassOnly` mot admintilldelad premium. Prio 3: 1.1b-städning, profilens två nya fält, admin i `getSummary`, eget paket först på kontosidan vid supportfrågor.

@@ -7,7 +7,7 @@
  * 3): utanför CV-veckan och Allt är mall 4 till 41 gråa med lås, går att
  * förhandsvisa i full storlek men inte ladda ned, och trycket på
  * nedladdningen öppnar betalväggen för rätt paket med mellanskillnaden.
- * Testveckans kund får fotknapparna "Lägg till CV-veckan" och "Eller Allt
+ * Testveckans kund får fotknapparna "Byt till CV-veckan" och "Eller Allt
  * för 20 kr till i veckan". Talen kommer ur mallregistret och prislistan.
  */
 

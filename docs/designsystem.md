@@ -442,8 +442,10 @@ eftersom iOS lägger tangentbordet över fixed-element. Använd `100dvh`, aldrig
 Kör efter varje sida, förväntat: inga träffar i dina filer.
 
 ```bash
-grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/app/dashboard src/components/tests src/components/interests src/components/jobbcoachen src/components/kontakt --include=*.tsx
+grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/app/dashboard src/components/tests src/components/interests src/components/jobbcoachen src/components/kontakt --include=*.tsx | grep -v "font-display"
 ```
+
+Filtret `grep -v "font-display"` är avsnitt 12:s undantag: `font-bold` och `font-extrabold` får bara stå på samma rad som `font-display` (rubriker i Schibsted Grotesk i spårvalet, köpsteget och prissidan). En vikt utan `font-display` på raden är fortfarande ett fel.
 
 Två undantag får finnas, och varje förekomst skrivs upp i rapporten:
 `bg-white` i brevmallars och CV-mallars förhandsvisning (dokumentet är papper),

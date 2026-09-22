@@ -159,11 +159,9 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
       }
     }
     case 'linkedin':
-      // LinkedIn följer CV-spåret (sektion 3 och 5), fast tabellen saknar
-      // en egen feature. cv_export har exakt samma scope.
-      return scopeHasFeature(s, 'cv_export')
+      return scopeHasFeature(s, 'linkedin')
         ? { text: 'Profil som rekryterare hittar', ingar: true }
-        : { text: ingarInte('cv'), ingar: false, feature: 'cv_export', variant: 'linkedin' }
+        : { text: ingarInte('cv'), ingar: false, feature: 'linkedin', variant: 'linkedin' }
     case 'bli_upptackt':
       return scopeHasFeature(s, 'bli_upptackt')
         ? { text: 'Rekryterare hittar dig, anonymt', ingar: true }
@@ -195,9 +193,13 @@ export function graEtikettTest(scope: Scope | null): string {
   return scope ? `${pris}, eller Allt` : pris
 }
 
-/** Fotknapparna: "Lägg till Testveckan, 79 kr" och "Eller Allt för 20 kr till i veckan". */
+/**
+ * Fotknapparna: "Byt till Testveckan, 79 kr" och "Eller Allt för 20 kr till i veckan".
+ * "Byt", inte "Lägg till": spårbytet går via Stripe-portalen och ersätter
+ * prenumerationen. Kassan bär aldrig två paket samtidigt (saas-lead, D2 fråga 2).
+ */
 export function laggTillKnapp(plan: 'cv_week' | 'test_week'): string {
-  return `Lägg till ${PLAN_BY_KEY[plan].name}, ${PLAN_BY_KEY[plan].amount} kr`
+  return `Byt till ${PLAN_BY_KEY[plan].name}, ${PLAN_BY_KEY[plan].amount} kr`
 }
 export function ellerAlltKnapp(fran: PlanKey | null): string | null {
   const diff = mellanskillnadKr(fran)

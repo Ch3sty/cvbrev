@@ -20,6 +20,9 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getLinkedInData, EMPTY_LINKEDIN_DATA } from './getLinkedInData';
 import LinkedInOptimizerClient from './LinkedInOptimizerClient';
+import { getUserScope } from '@/lib/supabase/premiumAccess';
+import { scopeHasFeature } from '@/lib/access/features';
+import PaywallCard from '@/components/paywall/PaywallCard';
 
 export default async function LinkedInOptimizerPage() {
   const cookieStore = await cookies();
@@ -39,12 +42,25 @@ export default async function LinkedInOptimizerPage() {
   // Går läsningen fel ska wizarden ändå gå att använda. Utan CV-lista öppnar
   // den i manuellt läge, vilket är exakt läget för den som inte laddat upp
   // något CV.
-  const data = await getLinkedInData(supabase, user.id, metadataFullName).catch(
-    (error) => {
+  const [data, scope] = await Promise.all([
+    getLinkedInData(supabase, user.id, metadataFullName).catch((error) => {
       console.error('LinkedIn: kunde inte hämta sidans data', error);
       return { ...EMPTY_LINKEDIN_DATA, fullName: metadataFullName };
-    }
-  );
+    }),
+    getUserScope(supabase, user.id).catch(() => null),
+  ]);
+
+  // LinkedIn-profilen ligger i CV-spåret och i Allt. Menyn gråar valet, men
+  // adressen är nåbar, så sidan visar samma betalvägg som menyn i stället
+  // för wizarden. Rutten /api/linkedin/optimize svarar 402 på samma feature.
+  if (!scopeHasFeature(scope, 'linkedin')) {
+    return (
+      <div className="mx-auto w-full max-w-lg px-4 py-6 sm:py-10">
+        <h1 className="mb-4 text-xl font-semibold text-ink-1">LinkedIn-profilen</h1>
+        <PaywallCard variant="linkedin" feature="linkedin" scope={scope} />
+      </div>
+    );
+  }
 
   return <LinkedInOptimizerClient initialData={data} />;
 }

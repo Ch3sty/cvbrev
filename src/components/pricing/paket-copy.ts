@@ -784,6 +784,7 @@ export const FEATURE_ETIKETT: Record<Feature, string> = {
   chat_unlimited: 'Fler meddelanden i chatten',
   job_matches_all: 'Fler jobbträffar',
   bli_upptackt: 'Bli upptäckt',
+  linkedin: 'LinkedIn-profilen',
 }
 
 /** Antalsraden bredvid etiketten. Korrekt svensk förkortning. */

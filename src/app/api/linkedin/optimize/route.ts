@@ -6,6 +6,9 @@ import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync'
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker'
 import { logUserActivity } from '@/lib/activity-logger'
 import { markeraBricka } from '@/lib/onboarding/komigang-server'
+import { userHasAccess } from '@/lib/supabase/premiumAccess'
+import { suggestPlan, type Scope } from '@/lib/access/features'
+import { featureRequiredBody } from '@/lib/quota/quotaService'
 
 // Quota limits
 const WEEKLY_LINKEDIN_LIMIT_FREE = 1
@@ -890,6 +893,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: 'Du måste vara inloggad för att använda denna funktion' },
         { status: 401 }
+      )
+    }
+
+    // LinkedIn-profilen ligger i CV-spåret och i Allt (featuren linkedin i
+    // src/lib/access/features.ts). Gratisnivån och Testveckan får 402 med
+    // paketet betalväggen ska föreslå, precis som brevnedladdningen.
+    const harLinkedin = await userHasAccess(supabase, user.id, 'linkedin')
+    if (!harLinkedin) {
+      const { data: trackProfil } = await supabase
+        .from('profiles')
+        .select('onboarding_track')
+        .eq('id', user.id)
+        .maybeSingle()
+      const varde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track
+      const track: Scope | null =
+        varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null
+      return NextResponse.json(
+        featureRequiredBody('linkedin', suggestPlan('linkedin', track)),
+        { status: 402 }
       )
     }
 

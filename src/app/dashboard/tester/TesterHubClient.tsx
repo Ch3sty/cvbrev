@@ -10,7 +10,7 @@
  *
  * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
  * 3 och 5): nivåer som inte ingår är gråa med lås och paketets namn, huvudet
- * säger vad som ingår, och CV-veckans kund får fotknapparna "Lägg till
+ * säger vad som ingår, och CV-veckans kund får fotknapparna "Byt till
  * Testveckan" och "Eller Allt för 20 kr till i veckan".
  */
 

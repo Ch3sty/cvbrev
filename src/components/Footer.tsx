@@ -135,7 +135,7 @@ function PopularGuidesSection() {
             Populära guider
           </div>
           <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-[1.15]">
-            Det här hjälpte tusentals andra
+            Guider för nästa steg i jobbsöket
           </h3>
         </div>
         <Link
