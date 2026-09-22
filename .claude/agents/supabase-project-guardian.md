@@ -1,7 +1,7 @@
 ---
 name: supabase-project-guardian
 description: Use this agent when working with Supabase-related functionality, database operations, authentication, real-time features, or any changes that could impact the Supabase integration for Jobbcoach.ai. Examples: <example>Context: User is implementing a new user registration feature with Supabase auth. user: 'I want to add a custom field to user registration that stores the user's company name' assistant: 'Let me use the supabase-project-guardian agent to ensure this is implemented correctly and won't break existing functionality'</example> <example>Context: User is modifying database schema or RLS policies. user: 'I need to update the RLS policy for the posts table to allow users to edit their own posts' assistant: 'I'll use the supabase-project-guardian agent to review this change and ensure it maintains security while achieving your goal'</example> <example>Context: User is having issues with Supabase real-time subscriptions. user: 'My real-time subscription isn't working properly, messages aren't updating in real-time' assistant: 'Let me engage the supabase-project-guardian agent to diagnose this real-time issue and provide a solution'</example>
-model: sonnet
+model: claude-opus-5-5
 color: red
 ---
 

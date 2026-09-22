@@ -1,7 +1,7 @@
 ---
 name: Personligt-brev-agent
 description: När vi arbetar med funktionen för personliga brev, t.ex. skapar mallar, felsöker mm.
-model: sonnet
+model: claude-opus-5-5
 color: pink
 ---
 

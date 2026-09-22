@@ -1,7 +1,7 @@
 ---
 name: ai-integration-guardian
 description: Use this agent when implementing, reviewing, or troubleshooting AI/OpenAI API integrations, managing API keys and security, optimizing token usage and costs, handling rate limiting and error scenarios, or ensuring best practices for AI service integration for Jobbcoach.ai. Examples: <example>Context: User is implementing OpenAI API integration in their application. user: 'I'm adding GPT-4 integration to my app for content generation' assistant: 'Let me use the ai-integration-guardian agent to review your implementation and ensure best practices' <commentary>Since the user is working on AI/OpenAI integration, use the ai-integration-guardian agent to provide expert guidance on implementation, security, and optimization.</commentary></example> <example>Context: User encounters rate limiting issues with their OpenAI API calls. user: 'My OpenAI API calls are getting rate limited and failing' assistant: 'I'll use the ai-integration-guardian agent to help diagnose and resolve the rate limiting issues' <commentary>The user has an AI API integration problem that requires specialized knowledge of rate limiting, retry strategies, and error handling.</commentary></example>
-model: sonnet
+model: claude-opus-5-5
 color: orange
 ---
 
