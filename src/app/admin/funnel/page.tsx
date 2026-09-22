@@ -19,6 +19,7 @@ import type { AdminSerie } from '@/components/admin/AdminChart';
 import {
   hamtaFunnelData,
   STEG_ETIKETT,
+  PAKET_ETIKETT,
   type TrattRad,
   type VeckoTratt,
 } from './data';
@@ -92,61 +93,67 @@ export default async function AdminFunnelPage({
   const veckorForKalla = data.veckor.filter((v) => v.kalla === valdKalla);
   const senaste: VeckoTratt | undefined = veckorForKalla[0];
 
-  // Linjen per steg över tid. Fyra steg räcker: nio linjer i samma ruta är
-  // oläsbart, och de fyra som valts är de som faktiskt rör sig.
-  const linjeSteg = [
-    'pageview',
-    'signup_started',
-    'signup_completed',
-    'forsta_dokument',
-  ] as const;
+  // Linjen per steg över tid. Fyra steg räcker: sex linjer i samma ruta är
+  // oläsbart, och de fyra som valts är trattens hörn: in, registrerad,
+  // valde spår, betalt. Besöken ligger i egen ruta under: de är hundra
+  // gånger fler och hade tryckt ner de andra tre till nollinjen.
+  const linjeSteg = ['signup_completed', 'track_selected', 'subscription_paid'] as const;
 
   const serier: AdminSerie[] = [
-    { nyckel: 'pageview', namn: STEG_ETIKETT.pageview, typ: 'linje', roll: 'sekundar' },
-    {
-      nyckel: 'signup_started',
-      namn: STEG_ETIKETT.signup_started,
-      typ: 'linje',
-      roll: 'primar',
-    },
     {
       nyckel: 'signup_completed',
       namn: STEG_ETIKETT.signup_completed,
       typ: 'linje',
-      roll: 'framhavd',
+      roll: 'primar',
     },
     {
-      nyckel: 'forsta_dokument',
-      namn: STEG_ETIKETT.forsta_dokument,
+      nyckel: 'track_selected',
+      namn: STEG_ETIKETT.track_selected,
       typ: 'linje',
-      roll: 'positiv',
+      roll: 'sekundar',
+    },
+    {
+      nyckel: 'subscription_paid',
+      namn: STEG_ETIKETT.subscription_paid,
+      typ: 'linje',
+      roll: 'framhavd',
     },
   ];
 
-  const linjeData = [...veckorForKalla]
-    .sort((a, b) => a.vecka.localeCompare(b.vecka))
-    .map((v) => {
-      const rad: StegSerieRad = { vecka: v.vecka };
-      for (const s of linjeSteg) {
-        rad[s] = v.rader.find((r) => r.steg === s)?.antal ?? null;
-      }
-      return rad;
-    });
+  const sorterade = [...veckorForKalla].sort((a, b) => a.vecka.localeCompare(b.vecka));
+
+  const linjeData = sorterade.map((v) => {
+    const rad: StegSerieRad = { vecka: v.vecka };
+    for (const s of linjeSteg) {
+      rad[s] = v.rader.find((r) => r.steg === s)?.antal ?? null;
+    }
+    return rad;
+  });
+
+  const besokData = sorterade.map((v) => ({
+    vecka: v.vecka,
+    pageview: v.rader.find((r) => r.steg === 'pageview')?.antal ?? null,
+  })) as StegSerieRad[];
 
   // Topplistan för funktionsanvändning: de tjugo vanligaste enligt planen.
   const toppFunktioner = data.funktioner.slice(0, 20);
 
-  const forstaAntal = senaste?.rader[0]?.antal ?? null;
+  const forstaAntal = senaste?.rader.find((r) => r.antal !== null)?.antal ?? null;
   const betalt = senaste?.rader.find((r) => r.steg === 'subscription_paid')?.antal ?? null;
   const registrerade =
     senaste?.rader.find((r) => r.steg === 'signup_completed')?.antal ?? null;
-  const dokument =
-    senaste?.rader.find((r) => r.steg === 'forsta_dokument')?.antal ?? null;
+  const dokument = senaste?.forstaDokument ?? null;
 
   const helaTratten =
     forstaAntal && forstaAntal > 0 && betalt !== null
       ? betalt / forstaAntal
       : null;
+
+  // Samma vecka, ett kort per paket. Finns bara när cronen skrivit
+  // paketraderna, alltså från och med 2026-09-22.
+  const paketTrattar = senaste
+    ? data.veckor.filter((v) => v.vecka === senaste.vecka && v.kalla !== 'alla')
+    : [];
 
   return (
     <div className="space-y-8">
@@ -172,16 +179,14 @@ export default async function AdminFunnelPage({
         <MetricCard
           etikett="Besök till betalt"
           varde={helaTratten === null ? 'saknas' : procent(helaTratten)}
-          datakvalitet="paywall_shown gick live 2026-09-14 och har nästan ingen historik. subscription_paid saknar rader."
+          datakvalitet="Köpstegen track_selected, purchase_step_viewed och checkout_started är nya 2026-09-22. Veckor före det har bara besök, registrerade och betalt."
         />
       </section>
 
       <SectionCard
         rubrik={senaste ? veckoEtikett(senaste.vecka) : 'Tratten'}
         action={
-          <span className="text-meta text-ink-3">
-            {valdKalla === 'alla' ? 'alla källor' : valdKalla}
-          </span>
+          <span className="text-meta text-ink-3">{PAKET_ETIKETT[valdKalla] ?? valdKalla}</span>
         }
       >
         {senaste ? (
@@ -194,8 +199,33 @@ export default async function AdminFunnelPage({
         )}
       </SectionCard>
 
+      {paketTrattar.length ? (
+        <SectionCard rubrik="Samma vecka, per paket">
+          <p className="mb-4 text-sm leading-[22px] text-ink-2">
+            Från spårvalet och framåt. Besök och registreringar vet inte
+            vilket paket besökaren kommer att välja och står bara i totalen.
+          </p>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {paketTrattar.map((p) => (
+              <div key={p.kalla}>
+                <p className="mb-2 text-kort text-ink-1">{PAKET_ETIKETT[p.kalla] ?? p.kalla}</p>
+                <Trattstapel rader={p.rader.filter((r) => r.antal !== null)} />
+              </div>
+            ))}
+          </div>
+        </SectionCard>
+      ) : null}
+
       <SectionCard rubrik="Stegen över tid">
         <StegOverTid data={linjeData} serier={serier} />
+        <div className="mt-4 border-t border-kant pt-4">
+          <p className="mb-2 text-meta text-ink-3">Besök per vecka, egen skala</p>
+          <StegOverTid
+            data={besokData}
+            serier={[{ nyckel: 'pageview', namn: STEG_ETIKETT.pageview, typ: 'linje', roll: 'sekundar' }]}
+            hojd={140}
+          />
+        </div>
       </SectionCard>
 
       <SectionCard rubrik="Bortfall per steg" naken>
@@ -600,7 +630,7 @@ function Periodval({
 
       {kallor.length > 1 ? (
         <div className="flex items-center gap-1">
-          <span className="mr-1 text-meta text-ink-3">Källa</span>
+          <span className="mr-1 text-meta text-ink-3">Paket</span>
           {kallor.map((k) => (
             <Link
               key={k}
@@ -613,7 +643,7 @@ function Periodval({
                   : 'border-kant bg-panel text-ink-2 hover:bg-insunken',
               ].join(' ')}
             >
-              {k}
+              {k === 'alla' ? 'Alla' : (PAKET_ETIKETT[k] ?? k)}
             </Link>
           ))}
         </div>

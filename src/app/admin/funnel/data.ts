@@ -33,33 +33,31 @@ export const FUNNEL_CACHE_SEKUNDER = 15 * 60;
  */
 export const STEG_ETIKETT: Record<string, string> = {
   pageview: 'Besök',
-  signup_gate_shown: 'Registreringsspärr visad',
-  signup_started: 'Registrering påbörjad',
   signup_completed: 'Registrerad',
+  track_selected: 'Valde spår',
+  purchase_step_viewed: 'Såg köpsteget',
+  checkout_started: 'Gick till kassan',
+  subscription_paid: 'Betalt',
   forsta_dokument: 'Första CV eller brev',
   forsta_analys: 'Första CV-analys',
-  paywall_shown: 'Betalvägg visad',
-  paywall_cta_clicked: 'Klick på betalvägg',
-  subscription_paid: 'Betalt',
 };
 
-/** Ordningen i tratten. Supabase-stegen ligger mellan PostHog-stegen. */
-export const TRATT_ORDNING = [
-  'pageview',
-  'signup_gate_shown',
-  'signup_started',
-  'signup_completed',
-  'forsta_dokument',
-  'forsta_analys',
-  'paywall_shown',
-  'paywall_cta_clicked',
-  'subscription_paid',
-] as const;
+/**
+ * Ordningen i tratten (D3, docs/plan-paket-och-onboarding.md avsnitt 6):
+ * besök, registrerad, valde spår, såg köpsteget, gick till kassan, betalt.
+ * Alla sex kommer ur PostHog via cronen; de fyra sista finns även per paket.
+ */
+export const TRATT_ORDNING = FUNNEL_STEG;
 
 export type TrattSteg = (typeof TRATT_ORDNING)[number];
 
-/** Stegen som kommer ur PostHog, alltså de som cronen skriver. */
-const POSTHOG_STEG = new Set<string>(FUNNEL_STEG);
+/** Paketen tratten kan visas för. 'alla' är totalen. */
+export const PAKET_ETIKETT: Record<string, string> = {
+  alla: 'alla paket',
+  cv: 'CV-veckan',
+  tester: 'Testveckan',
+  allt: 'Allt',
+};
 
 export interface TrattRad {
   steg: TrattSteg;
@@ -75,8 +73,13 @@ export interface TrattRad {
 
 export interface VeckoTratt {
   vecka: string;
+  /** Paketet: 'alla', 'cv', 'tester' eller 'allt'. Kolumnen heter kalla i tabellen. */
   kalla: string;
   rader: TrattRad[];
+  /** Konton registrerade den veckan som har minst ett CV eller brev. Bara för 'alla'. */
+  forstaDokument: number | null;
+  /** Samma sak för CV-analyser. */
+  forstaAnalys: number | null;
 }
 
 export interface FunktionsRad {
@@ -275,19 +278,26 @@ export const hamtaFunnelData = unstable_cache(
     const veckoTrattar: VeckoTratt[] = [];
     for (const [nyckel, steg] of perNyckel) {
       const [vecka, kalla] = nyckel.split('|');
-      // Supabase-stegen finns bara för 'alla': acquisition_source är null på
-      // samtliga konton, så en uppdelning per källa hade varit påhittad.
-      const dok = kalla === 'alla' ? (dokSvar.get(vecka) ?? null) : null;
-      const analys = kalla === 'alla' ? (analysSvar.get(vecka) ?? null) : null;
-
+      // Gamla rader med steg som inte längre finns i tratten (t.ex.
+      // paywall_shown) ignoreras av byggRader. En vecka som bara har gamla
+      // steg hoppas över helt, annars står den som en rad av streck.
+      if (![...steg.keys()].some((s) => (TRATT_ORDNING as readonly string[]).includes(s))) continue;
+      // Supabase-talen finns bara för 'alla': ett konto vet inte vilket
+      // paket det kommer att välja när det laddar upp sitt första CV.
       veckoTrattar.push({
         vecka,
         kalla,
-        rader: byggRader(steg, dok, analys),
+        rader: byggRader(steg),
+        forstaDokument: kalla === 'alla' ? (dokSvar.get(vecka) ?? null) : null,
+        forstaAnalys: kalla === 'alla' ? (analysSvar.get(vecka) ?? null) : null,
       });
     }
 
-    veckoTrattar.sort((a, b) => b.vecka.localeCompare(a.vecka));
+    // Senaste veckan först, och inom veckan alla paket före de tre enskilda.
+    const paketOrdning = (k: string) => ['alla', 'cv', 'tester', 'allt'].indexOf(k);
+    veckoTrattar.sort(
+      (a, b) => b.vecka.localeCompare(a.vecka) || paketOrdning(a.kalla) - paketOrdning(b.kalla)
+    );
 
     const funktioner = aktivitetSvar;
     const anvanda = new Set(funktioner.map((f) => f.typ));
@@ -317,14 +327,8 @@ export const hamtaFunnelData = unstable_cache(
  * ska inte nollställa resten av tratten, och ett bortfall ska räknas mot
  * nästa steg som faktiskt har ett tal.
  */
-export function byggRader(
-  steg: Map<string, number>,
-  dok: number | null,
-  analys: number | null
-): TrattRad[] {
+export function byggRader(steg: Map<string, number>): TrattRad[] {
   const antalFor = (s: TrattSteg): number | null => {
-    if (s === 'forsta_dokument') return dok;
-    if (s === 'forsta_analys') return analys;
     const v = steg.get(s);
     return typeof v === 'number' ? v : null;
   };
@@ -335,7 +339,7 @@ export function byggRader(
     antal: antalFor(s),
     andel: null,
     bortfall: null,
-    kalla: POSTHOG_STEG.has(s) ? ('posthog' as const) : ('supabase' as const),
+    kalla: 'posthog' as const,
   }));
 
   // Andel räknas mot närmast föregående steg som faktiskt har ett tal, så att

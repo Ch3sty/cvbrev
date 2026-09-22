@@ -113,6 +113,19 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
           ) : null}
 
           <nav className="py-1">
+            {komIgang.visaRad && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false)
+                  komIgang.oppna('profilmeny')
+                }}
+                className="min-h-[44px] w-full px-4 py-2 text-left text-sm text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+              >
+                Kom igång
+              </button>
+            )}
             <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>
               Köp eller byt paket
             </MenuLink>

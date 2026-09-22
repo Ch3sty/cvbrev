@@ -1014,3 +1014,87 @@ QA-avvikelse 4 och 5 i `docs/qa/qa-paket-d1/resultat.md` (FlowShell-toppraden i 
 3. **Kontrollera de tre veckopriserna i Vercel** (`STRIPE_PRICE_CV_WEEK`, `STRIPE_PRICE_TEST_WEEK`, `STRIPE_PRICE_ALL_WEEK`) innan du mergar. Saknas en rad svarar kassan 400 "Ogiltigt produktval" och prissidan visar paketet ändå.
 
 **Efter släpp, i prioritetsordning.** Prio 1: behörigheten i edge-funktionen `optimize-linkedin`. Prio 2: cookie-bannern över flödesinnehåll, copywritern över FelSpar-rubrikerna och den inloggade copyn, `dayPassOnly` mot admintilldelad premium. Prio 3: 1.1b-städning, profilens två nya fält, admin i `getSummary`, eget paket först på kontosidan vid supportfrågor.
+
+## D3: mätningen av flödet, adminsidan Flöde och PostHog
+
+Gren `matning/flode`. Händelser i `src/lib/analytics/events.ts` och
+`src/lib/analytics/server.ts`, insamling i `src/lib/admin/collect.ts` till
+den nya tabellen `admin_flode_daily`, sidan `/admin/flode`, PostHog-dashboard
+i `docs/rapporter/posthog-dashboard-paket.md`, QA i `docs/qa/qa-flode-d3/`.
+
+## D3 frågor
+
+1. **Paletten är monokrom.** Paketen får tre inktoner ur designsystemet
+   (Allt `ink-1`, CV-veckan `ink-3`, Testveckan `kant-stark`), eftersom
+   adminspecen förbjuder hex och bara tillåter tokens, och orange får
+   användas högst en gång per diagram. Dataviz-validatorn godkänner
+   CVD-avståndet (ΔE 28) men flaggar att tonerna saknar kulör och att
+   `kant-stark` ligger under 3:1 mot panelen. Kompensationen är den
+   validatorn kräver: förklaring med text vid varje diagram, etiketter vid
+   stapelspetsen, och panelfärgade mellanrum. Förslag: behåll, och lägg till
+   två diagramtokens i `globals.css` om ägaren vill ha kulör.
+
+2. **Tratten på Flöde summerar unika personer per dag** över fönstret,
+   eftersom tabellen lagrar dagsrader. En besökare som återkommer räknas
+   igen i besöken, men betalt är en händelse per köp och påverkas inte.
+   Exakta unika per fönster finns i PostHog-tratten. Alternativet är tre
+   extra HogQL-frågor per natt (7, 30, 90 dagar). Förslag: behåll, noten
+   står under diagrammet.
+
+3. **`subscription_paid` skjuts inte längre vid förnyelser.** Webhooken
+   skickar `renewal_succeeded` vid `subscription_cycle` och
+   `subscription_paid` vid första fakturan, byte och engångsköp. Tratten
+   slutar i köpet och kurvan börjar efter det. Ingen intäktssiffra läser
+   `subscription_paid` (Intäkter går mot Stripe). Förslag: godta.
+
+4. **`profiles.paket_started_at` är ny** och skrivs av webhooken från och
+   med nu. Köpare före i dag har null, och deras brickor saknar ändå
+   tidsstämpel, så Kom igång-diagrammet börjar med första köpet efter
+   driftsättning. Förslag: godta; en backfyllning ur Stripe ger inget
+   eftersom kvitteringarna saknar tid.
+
+5. **Kom igång räknas ur Supabase**, inte ur PostHog:
+   `profiles.onboarding_steps` mot `paket_started_at` är sanningskällan,
+   händelserna `onboarding_step_completed` och `onboarding_completed` finns
+   för PostHog-dashboarden och för att kunna borra i personer. Förslag:
+   godta.
+
+6. **Ny tabell `admin_flode_daily`** (dag, händelse, dimension, antal,
+   personer) i stället för kolumner i `admin_daily_metrics`: fjorton
+   händelser gånger plan, spår, funktion och bricka hade blivit hundratals
+   kolumner. Markörraden `_samlad` gör att en tom dag inte tas som lucka.
+   Backfyllning: `npx tsx scripts/admin-backfill.ts 10 --bara-flode`.
+   Förslag: godta.
+
+7. **Funnel-sidans tratt bytte steg.** `signup_gate_shown`,
+   `signup_started`, `paywall_shown` och `paywall_cta_clicked` togs ur
+   tratten, liksom Supabase-stegen "Första CV eller brev" och "Första
+   CV-analys" (kortet "Skapade CV eller brev" står kvar). Äldre veckor
+   visar bara besök, registrerade och betalt. Källväljaren blev
+   paketväljare (kolumnen `kalla` bär `alla`, `cv`, `tester`, `allt`).
+   Förslag: godta.
+
+8. **Förnyelsekurvan räknas ur Stripe** (betalda fakturor per
+   prenumeration, veckopaketen, hundra dagar) med ett dygns frist efter
+   periodgränsen, i en Suspense-gräns efter första målningen.
+   `renewal_succeeded` visas bara som kontrolltal tills händelsen har
+   historik. Förslag: godta.
+
+9. **`komigang_opened` har ytan `profilmeny` i typen** men profilmenyn
+   öppnar inte arket i dag; bara raden och välkomstskärmen gör det.
+   Förslag: koppla när profilmenyn får en Kom igång-rad.
+
+10. **Kvitteringshändelserna skjuts bara vid explicit kvittering**
+    (`markeraBricka`), aldrig för brickor som `harledProvade` räknar ut ur
+    tabellerna. Ett konto som hade CV innan hjälpredan fanns får alltså
+    ingen `onboarding_step_completed` för `cv_upp`. `index` är brickans
+    plats i det köpta paketets lista. Förslag: godta.
+
+11. **Intäkt per paket utelämnar Allt-dagen**: den är ett engångsköp utan
+    månadsvärde. Kvartalet normaliseras som tre månader oavsett vad Stripe
+    säger om intervallet (Inställningar visar avvikelsen). Förslag: godta.
+
+12. **Trappan ritas som serverrenderade divar**, inte recharts, så den finns
+    i första målningen och LCP inte väntar på biblioteket. De fyra andra
+    diagrammen är recharts via AdminChart, som fick liggande staplar,
+    staplade ytor, färg per rad och etiketter. Förslag: godta.

@@ -118,13 +118,30 @@ export default function ValjSparClient({
     capture('pricing_viewed', { trigger: 'cta' })
   }, [])
 
-  // paywall_shown när köpsteget visas, en gång per besök på steget.
+  // paywall_shown och purchase_step_viewed när köpsteget visas, en gång per
+  // besök på steget. purchase_step_viewed är trattens fjärde steg och bär
+  // planen som stod på kvittot när steget öppnades.
   const visatPaket = useRef(false)
   useEffect(() => {
     if (steg !== 'paket' || visatPaket.current) return
     visatPaket.current = true
     capture('paywall_shown', { variant: 'onboarding_paket', surface: '/dashboard/valj-spar' })
-  }, [steg])
+    capture('purchase_step_viewed', { plan, surface: '/dashboard/valj-spar' })
+  }, [steg, plan])
+
+  // consent_checked första gången rutan kryssas i. Skiljer "läste och
+  // tvekade vid kryssrutan" från "tryckte Till betalning och kom inte fram".
+  const samtyckeMatt = useRef(false)
+  const bockaSamtycke = useCallback(
+    (checked: boolean) => {
+      setSamtycke(checked)
+      if (checked && !samtyckeMatt.current) {
+        samtyckeMatt.current = true
+        capture('consent_checked', { plan })
+      }
+    },
+    [plan]
+  )
 
   const sparaSpar = useCallback(
     async (valt: Track | null, intent: 'purchase' | 'free') => {
@@ -225,6 +242,9 @@ export default function ValjSparClient({
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok || !json?.url) throw new Error(json?.error || 'Kassan kunde inte öppnas')
+      // Omdirigeringen till Stripe är trattens femte steg. Skjuts precis
+      // före hoppet: efter det finns ingen sida kvar som kan skicka något.
+      capture('checkout_started', { plan, length: PLAN_BY_KEY[plan].length })
       window.location.href = json.url as string
     } catch (error: any) {
       setBusy(false)
@@ -397,7 +417,7 @@ export default function ValjSparClient({
           <input
             type="checkbox"
             checked={samtycke}
-            onChange={(e) => setSamtycke(e.target.checked)}
+            onChange={(e) => bockaSamtycke(e.target.checked)}
             // accent-color, inte text-*: webbläsaren ritar rutans fyllning
             // själv och den var annars systemblå.
             style={{ accentColor: 'var(--ink-1)' }}

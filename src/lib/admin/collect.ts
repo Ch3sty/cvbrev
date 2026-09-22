@@ -70,7 +70,7 @@ export interface CollectResultat {
   /** Millisekunder per delsteg plus totalt. Cronen far inte passera 60 s. */
   tider?: Record<string, number>;
   /** Dagar och veckor som aterfyllningen tog igen. */
-  aterfyllt?: { gscDagar: string[]; funnelVeckor: string[] };
+  aterfyllt?: { gscDagar: string[]; funnelVeckor: string[]; flodeDagar?: string[] };
 }
 
 // ---------------------------------------------------------------------------
@@ -571,26 +571,44 @@ export function veckansMandag(dag: string): string {
   return d.toISOString().slice(0, 10);
 }
 
-/** Trattens steg i ordning. Vag 2 laser dem ur admin_funnel_weekly. */
+/**
+ * Trattens steg i ordning (D3, docs/plan-paket-och-onboarding.md avsnitt 6).
+ * Vag 2 laser dem ur admin_funnel_weekly. De fyra sista bar ett paket:
+ * track_selected via track, de ovriga via plan.
+ */
 export const FUNNEL_STEG = [
   'pageview',
-  'signup_gate_shown',
-  'signup_started',
   'signup_completed',
-  'paywall_shown',
-  'paywall_cta_clicked',
+  'track_selected',
+  'purchase_step_viewed',
+  'checkout_started',
   'subscription_paid',
 ] as const;
 
 const POSTHOG_EVENT: Record<string, string> = {
   pageview: '$pageview',
-  signup_gate_shown: 'signup_gate_shown',
-  signup_started: 'signup_started',
   signup_completed: 'signup_completed',
-  paywall_shown: 'paywall_shown',
-  paywall_cta_clicked: 'paywall_cta_clicked',
+  track_selected: 'track_selected',
+  purchase_step_viewed: 'purchase_step_viewed',
+  checkout_started: 'checkout_started',
   subscription_paid: 'subscription_paid',
 };
+
+/** Paketen tratten delas upp pa. 'alla' ar totalen. */
+export const FUNNEL_PAKET = ['alla', 'cv', 'tester', 'allt'] as const;
+export type FunnelPaket = (typeof FUNNEL_PAKET)[number];
+
+/**
+ * HogQL-uttrycket som gor plan eller track till ett paket. Planerna heter
+ * cv_week, test_week och all_*; sparet heter cv, tester och allt. Allt annat
+ * blir tom strang och raknas bara i totalen.
+ */
+const HOGQL_PAKET = `multiIf(
+  toString(properties.plan) like 'cv_%', 'cv',
+  toString(properties.plan) like 'test_%', 'tester',
+  toString(properties.plan) like 'all_%', 'allt',
+  toString(properties.track) in ('cv', 'tester', 'allt'), toString(properties.track),
+  '')`;
 
 /** En HogQL-fraga. Samma form som scripts/posthog-query.ts. */
 export async function hogql(
@@ -627,28 +645,171 @@ export async function samlaFunnel(
   const namn = Object.values(POSTHOG_EVENT)
     .map((e) => `'${e}'`)
     .join(', ');
-
-  const svar = await hogql(
-    `select event, count(distinct person_id) as antal
-     from events
-     where timestamp >= toDateTime('${vecka} 00:00:00')
+  const fonster = `timestamp >= toDateTime('${vecka} 00:00:00')
        and timestamp < toDateTime('${vecka} 00:00:00') + interval 7 day
-       and event in (${namn})
-     group by event`
+       and event in (${namn})`;
+
+  // Totalen och uppdelningen per paket i samma anrop: union all ar en
+  // fraga mot kvoten, inte tva. Kolumnen kalla i admin_funnel_weekly bar
+  // paketet ('alla', 'cv', 'tester', 'allt').
+  const svar = await hogql(
+    `select event, '' as paket, count(distinct person_id) as antal
+     from events
+     where ${fonster}
+     group by event
+     union all
+     select event, ${HOGQL_PAKET} as paket, count(distinct person_id) as antal
+     from events
+     where ${fonster}
+     group by event, paket`
   );
   if (!svar) return null;
 
-  const perEvent = new Map<string, number>();
-  for (const rad of svar.results) {
-    perEvent.set(String(rad[0]), Number(rad[1]) || 0);
+  return byggFunnelRader(vecka, svar.results);
+}
+
+/**
+ * Trattrader ur HogQL-svaret. Exporterad for testet.
+ *
+ * Totalen ('alla') far alla steg. Ett paket far bara de steg som faktiskt
+ * bar ett paket: pageview och signup_completed vet inte vilket paket
+ * besokaren kommer att valja, och en nolla dar hade last som ett ras i
+ * paketets tratt.
+ */
+export function byggFunnelRader(
+  vecka: string,
+  rader: unknown[][]
+): Array<{ vecka: string; kalla: string; steg: string; antal: number }> {
+  const perNyckel = new Map<string, number>();
+  for (const rad of rader) {
+    const event = String(rad[0]);
+    const paket = String(rad[1] ?? '') || 'alla';
+    perNyckel.set(`${paket}|${event}`, Number(rad[2]) || 0);
   }
 
-  return FUNNEL_STEG.map((steg) => ({
-    vecka,
-    kalla: 'alla',
-    steg,
-    antal: perEvent.get(POSTHOG_EVENT[steg]) ?? 0,
-  }));
+  const ut: Array<{ vecka: string; kalla: string; steg: string; antal: number }> = [];
+  for (const paket of FUNNEL_PAKET) {
+    for (const steg of FUNNEL_STEG) {
+      if (paket !== 'alla' && (steg === 'pageview' || steg === 'signup_completed')) continue;
+      ut.push({
+        vecka,
+        kalla: paket,
+        steg,
+        antal: perNyckel.get(`${paket}|${POSTHOG_EVENT[steg]}`) ?? 0,
+      });
+    }
+  }
+  return ut;
+}
+
+// ---------------------------------------------------------------------------
+// Delsteg: PostHog, flodet per dag (admin_flode_daily)
+// ---------------------------------------------------------------------------
+
+/**
+ * Handelserna /admin/flode laser, med sin dimension. Dimensionen ar det
+ * sidan delar upp pa: planen for kopstegen, sparet for track_selected,
+ * funktionen for sparrarna, "paket|steg" for kvitteringarna och paketet for
+ * resten. Totalen skrivs alltid med tom dimension.
+ */
+export const FLODE_HANDELSER = [
+  '$pageview',
+  'signup_completed',
+  'track_selected',
+  'purchase_step_viewed',
+  'consent_checked',
+  'checkout_started',
+  'subscription_paid',
+  'welcome_viewed',
+  'komigang_opened',
+  'onboarding_step_completed',
+  'onboarding_completed',
+  'feature_blocked',
+  'gray_option_tapped',
+  'renewal_succeeded',
+] as const;
+
+/** Markorraden som sager att dagen ar insamlad, aven om inget hande. */
+export const FLODE_SAMLAD = '_samlad';
+
+const HOGQL_FLODE_DIM = `multiIf(
+  event in ('purchase_step_viewed', 'consent_checked', 'checkout_started', 'subscription_paid', 'renewal_succeeded'), toString(properties.plan),
+  event = 'track_selected', toString(properties.track),
+  event in ('feature_blocked', 'gray_option_tapped'), toString(properties.feature),
+  event = 'onboarding_step_completed', concat(toString(properties.paket), '|', toString(properties.step)),
+  event in ('onboarding_completed', 'welcome_viewed', 'komigang_opened'), toString(properties.paket),
+  '')`;
+
+export interface FlodeRad {
+  dag: string;
+  handelse: string;
+  dimension: string;
+  antal: number;
+  personer: number;
+}
+
+/**
+ * Flodet for ett dygn: antal och unika personer per handelse, bade som
+ * total (tom dimension) och per dimension. Ett HogQL-anrop per dag.
+ */
+export async function samlaFlode(dag: string): Promise<FlodeRad[] | null> {
+  const namn = FLODE_HANDELSER.map((e) => `'${e}'`).join(', ');
+  const fonster = `timestamp >= toDateTime('${dag} 00:00:00')
+       and timestamp < toDateTime('${dag} 00:00:00') + interval 1 day
+       and event in (${namn})`;
+
+  const svar = await hogql(
+    `select event, '' as dim, count() as antal, count(distinct person_id) as personer
+     from events
+     where ${fonster}
+     group by event
+     union all
+     select event, ${HOGQL_FLODE_DIM} as dim, count() as antal, count(distinct person_id) as personer
+     from events
+     where ${fonster}
+     group by event, dim`
+  );
+  if (!svar) return null;
+
+  return byggFlodeRader(dag, svar.results);
+}
+
+/**
+ * Rader ur HogQL-svaret plus markorraden. Exporterad for testet. En rad
+ * med tom dimension fran den andra delen av unionen ar samma sak som
+ * totalen och slas ihop med den, sa att primarnyckeln haller.
+ */
+export function byggFlodeRader(dag: string, rader: unknown[][]): FlodeRad[] {
+  const per = new Map<string, FlodeRad>();
+  for (const rad of rader) {
+    const handelse = String(rad[0]).slice(0, 100);
+    const dimension = String(rad[1] ?? '').slice(0, 200);
+    const antal = Number(rad[2]) || 0;
+    const personer = Number(rad[3]) || 0;
+    const nyckel = `${handelse}|${dimension}`;
+    const finns = per.get(nyckel);
+    if (finns) {
+      // Samma handelse utan dimension tva ganger: behall det storsta, det
+      // ar totalen.
+      finns.antal = Math.max(finns.antal, antal);
+      finns.personer = Math.max(finns.personer, personer);
+    } else {
+      per.set(nyckel, { dag, handelse, dimension, antal, personer });
+    }
+  }
+  per.set(`${FLODE_SAMLAD}|`, { dag, handelse: FLODE_SAMLAD, dimension: '', antal: 0, personer: 0 });
+  return [...per.values()];
+}
+
+/** Skriver dagens floderader. Dagen toms forst sa en omkorning inte lamnar spokrader. */
+async function skrivFlode(admin: Admin, dag: string, rader: FlodeRad[]): Promise<void> {
+  await admin.from('admin_flode_daily').delete().eq('dag', dag);
+  if (rader.length) {
+    const { error } = await admin
+      .from('admin_flode_daily')
+      .upsert(rader, { onConflict: 'dag,handelse,dimension' });
+    if (error) throw new Error(error.message);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -859,6 +1020,9 @@ export const ATERFYLL_GSC_MAX = 5;
 /** Hogst sa manga trattveckor fylls igen per korning. */
 export const ATERFYLL_FUNNEL_MAX = 2;
 
+/** Hogst sa manga flodesdagar fylls igen per korning. */
+export const ATERFYLL_FLODE_MAX = 5;
+
 /**
  * GSC-datan ligger efter. En dag yngre an sa ar inte en lucka, den har bara
  * inte kommit fran Google an, och att fraga efter den bara branner tid.
@@ -928,6 +1092,27 @@ export function funnelLuckor(
 }
 
 /**
+ * Dagarna i admin_flode_daily som saknas helt. Markorraden _samlad gor att
+ * en dag utan handelser inte ser ut som en lucka och fylls igen varje natt.
+ * Dagens dag raknas inte: den fylls av nasta insamling.
+ */
+export function flodeLuckor(
+  dagar: Array<{ dag: string }>,
+  idag: string,
+  max = ATERFYLL_FLODE_MAX
+): string[] {
+  const finns = new Set(dagar.map((d) => d.dag));
+  const aldst = dagBakat(idag, ATERFYLL_FONSTER_DAGAR);
+  const senast = dagBakat(idag, 1);
+
+  const luckor: string[] = [];
+  for (let dag = aldst; dag <= senast; dag = dagBakat(dag, -1)) {
+    if (!finns.has(dag)) luckor.push(dag);
+  }
+  return luckor.slice(0, max);
+}
+
+/**
  * Tar igen GSC-luckor och trattveckor som aldrig samlats in.
  *
  * Kors efter dagens insamling, med kvarvarande tid som budget: cronen gor
@@ -943,10 +1128,11 @@ export async function aterfyllLuckor(
   admin: Admin,
   idag: string,
   budgetMs: number
-): Promise<{ gscDagar: string[]; funnelVeckor: string[]; fel: string[] }> {
+): Promise<{ gscDagar: string[]; funnelVeckor: string[]; flodeDagar: string[]; fel: string[] }> {
   const slut = Date.now() + budgetMs;
   const gscDagar: string[] = [];
   const funnelVeckor: string[] = [];
+  const flodeDagar: string[] = [];
   const fel: string[] = [];
 
   const harGscNyckel = Boolean(
@@ -1037,7 +1223,38 @@ export async function aterfyllLuckor(
     }
   }
 
-  return { gscDagar, funnelVeckor, fel };
+  // Flodesdagar
+  if (harPosthogNyckel && Date.now() < slut) {
+    try {
+      const { data } = await admin
+        .from('admin_flode_daily')
+        .select('dag')
+        .eq('handelse', FLODE_SAMLAD)
+        .gte('dag', dagBakat(idag, ATERFYLL_FONSTER_DAGAR));
+
+      const luckor = flodeLuckor((data ?? []) as Array<{ dag: string }>, idag);
+
+      for (const dag of luckor) {
+        if (Date.now() >= slut) break;
+        try {
+          const f = await medTimeout(`PostHog flode ${dag}`, samlaFlode(dag));
+          if (!f) break;
+          await skrivFlode(admin, dag, f);
+          flodeDagar.push(dag);
+        } catch (err) {
+          const m = err instanceof Error ? err.message : String(err);
+          fel.push(`aterfyll/flode ${dag}: ${m}`);
+          await loggaAdminFel(admin, 'cron', `aterfyll/flode ${dag}: ${m}`);
+        }
+      }
+    } catch (err) {
+      const m = err instanceof Error ? err.message : String(err);
+      fel.push(`aterfyll/flode: ${m}`);
+      await loggaAdminFel(admin, 'cron', `aterfyll/flode uppslag: ${m}`);
+    }
+  }
+
+  return { gscDagar, funnelVeckor, flodeDagar, fel };
 }
 
 /**
@@ -1200,6 +1417,27 @@ export async function collectAdminMetrics(
     }
   }
 
+  // PostHog, flodet per dag. Eget delsteg med egen tidsgrans: ett fel har
+  // ska inte ta trattveckan med sig, och tvartom.
+  if (val.hoppaPosthog) {
+    delsteg.flode = 'hoppat';
+  } else {
+    try {
+      const f = await ta('flode', medTimeout('PostHog flode', samlaFlode(dag)));
+      if (f) {
+        await skrivFlode(admin, dag, f);
+        delsteg.flode = 'ok';
+      } else {
+        delsteg.flode = 'hoppat';
+      }
+    } catch (err) {
+      delsteg.flode = 'fel';
+      const m = err instanceof Error ? err.message : String(err);
+      fel.push(`flode: ${m}`);
+      await loggaAdminFel(admin, 'cron', `collect/flode ${dag}: ${m}`);
+    }
+  }
+
   // Supabase
   try {
     const s = await ta('supabase', medTimeout('Supabase', samlaSupabase(admin, dag)));
@@ -1263,12 +1501,16 @@ export async function collectAdminMetrics(
       const t0 = Date.now();
       const res = await aterfyllLuckor(admin, dag, kvar);
       tider.aterfyll = Date.now() - t0;
-      aterfyllt = { gscDagar: res.gscDagar, funnelVeckor: res.funnelVeckor };
+      aterfyllt = {
+        gscDagar: res.gscDagar,
+        funnelVeckor: res.funnelVeckor,
+        flodeDagar: res.flodeDagar,
+      };
       fel.push(...res.fel);
       delsteg.aterfyll =
         res.fel.length > 0
           ? 'fel'
-          : res.gscDagar.length || res.funnelVeckor.length
+          : res.gscDagar.length || res.funnelVeckor.length || res.flodeDagar.length
             ? 'ok'
             : 'hoppat';
     } else {

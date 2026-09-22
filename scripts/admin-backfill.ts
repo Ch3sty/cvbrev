@@ -4,6 +4,9 @@
  * Kor: npx tsx scripts/admin-backfill.ts [antal dagar] [--hoppa-gsc] [--hoppa-posthog]
  * Standard ar 90 dagar, alltsa planens avsnitt 5.5.
  *
+ * Med --bara-flode skrivs bara admin_flode_daily (kopflodet och
+ * onboardingen per dag ur PostHog), ingenting annat.
+ *
  * Med --bara-anvandning skrivs bara de fyra anvandningskolumnerna
  * (cv_uploaded, letters_created, tests_completed, templates_downloaded), och
  * ingenting annat rors. Det ar lagets enda satt att fylla nya kolumner bakat:
@@ -36,11 +39,12 @@ async function main() {
   const hoppaGsc = args.includes('--hoppa-gsc');
   const hoppaPosthog = args.includes('--hoppa-posthog');
   const baraAnvandning = args.includes('--bara-anvandning');
+  const baraFlode = args.includes('--bara-flode');
 
   // Importeras forst efter att .env.local lasts in, annars saknas nycklarna
   // nar modulerna initieras.
   const { getSupabaseAdmin } = await import('../src/lib/supabase/admin');
-  const { collectAdminMetrics, samlaAnvandning, dagStr } = await import(
+  const { collectAdminMetrics, samlaAnvandning, samlaFlode, dagStr } = await import(
     '../src/lib/admin/collect'
   );
 
@@ -48,6 +52,11 @@ async function main() {
 
   if (baraAnvandning) {
     await backfyllAnvandning(admin, antalDagar, samlaAnvandning, dagStr);
+    return;
+  }
+
+  if (baraFlode) {
+    await backfyllFlode(admin, antalDagar, samlaFlode, dagStr);
     return;
   }
 
@@ -144,6 +153,51 @@ async function backfyllAnvandning(
   console.log(`\n${ok} dagar skrivna, ${fel} misslyckade.`);
   console.log('Summa over perioden:');
   for (const [k, v] of Object.entries(summor)) console.log(`  ${k}: ${v}`);
+}
+
+/**
+ * Skriver bara admin_flode_daily, en dag i taget, ur PostHog.
+ *
+ * Med --bara-flode rors varken admin_daily_metrics, GSC eller Stripe: det ar
+ * ett HogQL-anrop per dag och ingenting annat. Anvands nar /admin/flode ska
+ * fa historik utan att en full omkorning skriver over andra kolumner.
+ * Handelserna ar nya 2026-09-22, sa dagar fore det ger bara pageview och
+ * signup_completed, vilket ar korrekt och inte en lucka.
+ */
+async function backfyllFlode(
+  admin: any,
+  antalDagar: number,
+  samlaFlode: (dag: string) => Promise<Array<Record<string, unknown>> | null>,
+  dagStr: (d?: Date) => string
+) {
+  console.log(`Backfyller ${antalDagar} dagar, bara admin_flode_daily.\n`);
+
+  let ok = 0;
+  let fel = 0;
+  const nu = Date.now();
+
+  for (let i = antalDagar - 1; i >= 0; i--) {
+    const dag = dagStr(new Date(nu - i * 24 * 60 * 60 * 1000));
+    try {
+      const rader = await samlaFlode(dag);
+      if (!rader) throw new Error('PostHog-nycklarna saknas');
+      await admin.from('admin_flode_daily').delete().eq('dag', dag);
+      const { error } = await admin
+        .from('admin_flode_daily')
+        .upsert(rader, { onConflict: 'dag,handelse,dimension' });
+      if (error) throw new Error(error.message);
+      const handelser = rader.filter((r) => r.dimension === '' && r.handelse !== '_samlad');
+      console.log(
+        `${dag}  ${handelser.map((r) => `${r.handelse}:${r.personer}`).join(' ') || 'inga handelser'}`
+      );
+      ok++;
+    } catch (err) {
+      fel++;
+      console.error(`${dag}  FEL  ${err instanceof Error ? err.message : err}`);
+    }
+  }
+
+  console.log(`\n${ok} dagar skrivna, ${fel} misslyckade.`);
 }
 
 main().catch((err) => {
