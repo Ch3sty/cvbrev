@@ -53,7 +53,7 @@ export default function LandingHero() {
               data-cta="hero-primary"
               className="group inline-flex h-11 w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 text-base font-semibold text-white hover:bg-orange-700 transition-colors touch-manipulation"
             >
-              Skapa konto och få 5 dagar Premium
+              Skapa konto gratis
               <ArrowRight
                 className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                 strokeWidth={2}

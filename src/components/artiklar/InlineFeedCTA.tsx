@@ -60,7 +60,7 @@ export default function InlineFeedCTA() {
         </h3>
 
         <p className="text-sm opacity-95 leading-relaxed mb-4 flex-1">
-          CV-mallar, AI-driven analys, personliga brev och jobbmatchning — allt på ett ställe.
+          CV-mallar, CV-analys, personliga brev och jobbmatchning. Allt på ett ställe.
         </p>
 
         <Link

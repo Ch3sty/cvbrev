@@ -22,8 +22,8 @@ const FAQ_ITEMS = [
     a: 'Ja. Vi följer GDPR och all data lagras i EU. Vi säljer aldrig din information vidare och du kan när som helst radera ditt konto med ett klick. Då försvinner allt, även våra kopior.',
   },
   {
-    q: 'Vad händer efter de 7 gratisdagarna med Premium?',
-    a: 'Inget oväntat. Du behöver inte ange kreditkort innan trial-perioden, så du blir inte debiterad automatiskt. Vill du fortsätta uppgraderar du med ett klick. Vill du inte fortsätta gör du absolut ingenting, så rullar ditt gratiskonto vidare.',
+    q: 'Vad kostar det, och vad får jag utan att betala?',
+    a: 'Gratisnivån kräver ingen kortuppgift: tre CV-mallar, en CV-analys, ett personligt brev och grundnivån i varje testtyp. Söker du på allvar väljer du spåret du söker på. CV-veckan och Testveckan kostar 79 kr i veckan, Allt-veckan 99 kr. Ingen bindningstid, och du säger upp i ditt konto.',
   },
 ];
 

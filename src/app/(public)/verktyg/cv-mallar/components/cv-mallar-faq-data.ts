@@ -24,7 +24,7 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad är skillnaden på gratis och premium-mallarna?',
-    a: 'Gratis-mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Premium-mallar har mer polerad design, fler features som fotosupport och LinkedIn-integration, samt två-kolumns-layout för CV:n med mer innehåll. Premium ingår i månadsabonnemanget.',
+    a: 'De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i CV-veckan för 79 kr i veckan.',
   },
   {
     q: 'Kan jag redigera CV:t senare?',

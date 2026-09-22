@@ -68,7 +68,7 @@ export default function ArticlesFinalCTA() {
             Hittade du inte vad du sökte?
           </h2>
           <p className="text-sm sm:text-base md:text-lg opacity-95">
-            Vi har verktygen som tar dig hela vägen — från CV till intervju.
+            Vi har verktygen som tar dig hela vägen, från CV till intervju.
           </p>
         </div>
 
@@ -131,7 +131,7 @@ export default function ArticlesFinalCTA() {
 
         {/* Trust */}
         <p className="text-center mt-4 text-xs sm:text-sm opacity-90">
-          Inget kreditkort krävs · Gratisnivån har ingen tidsgräns
+          Inget kreditkort krävs · Paket från 79 kr i veckan
         </p>
       </div>
     </motion.section>

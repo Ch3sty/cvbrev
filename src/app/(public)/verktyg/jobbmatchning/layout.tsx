@@ -2,9 +2,9 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'Hitta jobb online: matcha CV mot tusentals lediga tjänster | Jobbcoach.ai',
+    'Jobbmatchning: lediga jobb som passar ditt CV | Jobbcoach.ai',
   description:
-    'Hitta jobb som matchar ditt CV. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons. Helt gratis att börja.',
+    'Vi läser ditt CV och matchar det mot lediga tjänster från Arbetsförmedlingen, med skälet till varje träff utskrivet. Tre träffar gratis, ingen kortuppgift.',
   keywords:
     'söka jobb, hitta jobb, lediga jobb, jobb sverige, jobbportal, hitta jobb online, söka jobb online, jobb som passar mig, jobbmatchning, jobbmatchning ai',
   openGraph: {

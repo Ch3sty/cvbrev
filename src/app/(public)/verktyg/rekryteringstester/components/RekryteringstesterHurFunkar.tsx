@@ -16,7 +16,7 @@ const STEPS = [
     Icon: IconValj,
     title: 'Välj test',
     body:
-      'Plocka ett av de tre gratistesterna i din takt. Du kan också göra om ett test så ofta du vill, frågorna roteras.',
+      'Plocka ett av de tre gratistesterna i din takt. Grundnivån går att köra en gång per dygn och testtyp, och frågorna roteras varje gång.',
   },
   {
     num: 2,

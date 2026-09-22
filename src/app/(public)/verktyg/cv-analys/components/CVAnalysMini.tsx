@@ -115,8 +115,9 @@ export default function CVAnalysMini() {
             Vi hittade mer i ditt CV
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-            Skapa ett gratiskonto så får du hela genomgången: ATS-kontrollen, alla
-            förbättringsförslag och en poäng per kategori. Fem dagar Premium ingår.
+            Skapa ett gratiskonto så kör vi en full analys av hela CV:t. Du får
+            läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet
+            i klartext med åtgärd.
           </p>
           <Link
             href="/register"

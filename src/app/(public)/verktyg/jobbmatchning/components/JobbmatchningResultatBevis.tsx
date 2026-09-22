@@ -6,8 +6,8 @@ import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
   {
-    value: '10 jobb',
-    label: 'gratis varje sökning',
+    value: '3 träffar',
+    label: 'gratis med skälen',
     sub: 'Ingen kortuppgift, börja direkt',
   },
   {

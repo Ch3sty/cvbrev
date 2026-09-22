@@ -33,7 +33,7 @@ export default function CVAnalysSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '1 CV-analys gratis var tredje dag, ingen kortuppgift',
+      description: '1 CV-analys gratis per konto, ingen kortuppgift',
     },
     featureList:
       'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), before/after-text, konkreta förbättringsförslag, svenska och engelska CV',

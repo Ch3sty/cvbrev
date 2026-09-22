@@ -58,10 +58,10 @@ export const cancelImmediate: LifecycleEmail = {
           heading('Din prenumeration är avslutad') +
           paragraph(`${greet(ctx.profile.full_name)} det är klart. Inget mer dras.`) +
           paragraph(
-            'Dina brev, CV:n och testresultat ligger kvar och kontot fungerar på gratisnivån: ett brev om dagen och en CV-analys var tredje dag.'
+            'Dina brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: tre CV-mallar, ett personligt brev i veckan och grundnivån i varje testtyp.'
           ) +
           paragraph(
-            'Skulle du behöva oss igen under en intensiv period finns Jobbsökarveckan för 99 kr. Sju dagar, inget som förnyas.'
+            'Skulle du behöva oss igen under en intensiv period väljer du spåret du söker på. CV-veckan och Testveckan kostar 79 kr i veckan, Allt-veckan 99, och du säger upp i ditt konto.'
           ),
         ctaLabel: 'Till min översikt',
         ctaUrl: '/dashboard',

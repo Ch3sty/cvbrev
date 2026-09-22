@@ -22,9 +22,9 @@ const PRINCIPER = [
   },
   {
     Icon: IconUtanKort,
-    title: 'Gratis att börja',
+    title: 'Du betalar för veckorna du söker',
     body:
-      'Du testar våra verktyg utan att lämna kortuppgifter. Behöver du mer väljer du det spår du söker på: CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Ingen bindningstid, du säger upp i ditt konto.',
+      'Du provar varje verktyg utan att lämna kortuppgifter. Behöver du mer väljer du spåret du söker på och betalar en vecka i taget. Vi säljer inget år av något du behöver i tre veckor, och du säger upp i ditt konto utan att uppge skäl.',
   },
 ]
 

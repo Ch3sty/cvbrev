@@ -5,9 +5,21 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
-  { value: '3×', label: 'fler intervjuer', sub: 'jämfört med generiska brev' },
-  { value: '1', label: 'brev gratis', sub: 'sedan ett i veckan, utan kortuppgift' },
-  { value: 'PDF', label: 'och Word', sub: 'redo att skicka direkt' },
+  {
+    value: '1',
+    label: 'brev gratis',
+    sub: 'sedan ett i veckan, utan kortuppgift',
+  },
+  {
+    value: 'PDF',
+    label: 'och Word',
+    sub: 'nedladdningen ingår i CV-veckan',
+  },
+  {
+    value: '79 kr',
+    label: 'för hela veckan',
+    sub: 'CV-veckan, säg upp i ditt konto',
+  },
 ]
 
 export default function BrevResultatBevis() {
@@ -36,7 +48,7 @@ export default function BrevResultatBevis() {
             Resultat
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight">
-            När brevet matchar annonsen
+            När brevet svarar mot kraven
             <br className="hidden sm:block" />
             <span
               style={{
@@ -47,7 +59,7 @@ export default function BrevResultatBevis() {
                 backgroundClip: 'text',
               }}
             >
-              ringer rekryteraren oftare
+              har rekryteraren en anledning att ringa
             </span>
           </h2>
         </motion.div>

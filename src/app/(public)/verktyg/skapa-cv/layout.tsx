@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
+  title: 'Skapa CV gratis online | Jobbcoach.ai',
   description:
-    'Skapa ditt CV gratis med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska, anpassat för svenska arbetsgivare.',
+    'Bygg ditt CV i sju steg med direkt förhandsvisning och mallar som läses rätt av rekryteringssystem. Ladda ner som PDF eller Word, allt på svenska.',
   keywords: [
     'skapa cv',
     'skapa cv gratis',

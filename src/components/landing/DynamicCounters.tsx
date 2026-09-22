@@ -115,7 +115,7 @@ export default function DynamicCounters() {
               <div className="min-w-0">
                 <div className="flex items-baseline gap-0.5 leading-none">
                   <span className="text-base sm:text-xl font-black text-slate-900 tabular-nums">
-                    {item.value > 0 ? item.value.toLocaleString('sv-SE') : '—'}
+                    {item.value > 0 ? item.value.toLocaleString('sv-SE') : '–'}
                   </span>
                   {item.value > 0 && item.suffix && (
                     <span className="text-base sm:text-xl font-black text-slate-900">

@@ -115,7 +115,7 @@ export default function RichFinalCTA() {
                 data-cta="rich-final-primary"
                 className="group inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-white px-7 text-base font-semibold text-orange-700 hover:bg-orange-50 transition-colors touch-manipulation min-w-[260px] sm:min-w-0"
               >
-                Skapa konto och få 5 dagar Premium
+                Skapa konto gratis
                 <ArrowRight
                   className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                   strokeWidth={2}
