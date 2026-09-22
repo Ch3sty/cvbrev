@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 export async function PATCH(request: Request) {
   try {
@@ -46,6 +47,9 @@ export async function PATCH(request: Request) {
         { status: 500 }
       );
     }
+
+    // Hjälpredan Kom igång: CV:t är uppdaterat efter fynden.
+    void markeraBricka(user.id, 'uppdatera_cv');
 
     return NextResponse.json({ 
       success: true, 

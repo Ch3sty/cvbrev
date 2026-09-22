@@ -1,0 +1,347 @@
+[
+  {
+    "namn": "cv: inloggad",
+    "ok": true,
+    "not": "http://localhost:3109/dashboard"
+  },
+  {
+    "namn": "välkommen cv: topp CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen cv: rubrik Och ett CV redan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen cv: Anna_CV.pdf",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen cv: primär Kör hela CV-analysen",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen cv: sekundär Ladda upp ett annat CV",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen cv: bottennavet dolt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem cv: Kom igång med CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem cv: n av 8 provade",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem cv: Nästa:",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem cv: raden ligger ovanför bottennavet",
+    "ok": true,
+    "not": "{\"radBotten\":851,\"navTopp\":862}"
+  },
+  {
+    "namn": "hem cv: ingen veckopanel kvar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: rubrik och n av 8",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: åtta brickor i ordning",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: Föreslaget nästa",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: matrislogik Ingår gratis",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: Dölj hjälpredan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark cv: profil och CV klara",
+    "ok": true,
+    "not": "klara=2"
+  },
+  {
+    "namn": "tester cv: Du har CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: Grundnivån ingår. Resten finns i Testveckan.",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: gråa rader Testveckan 79 kr, eller Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: 1 kvar i dag",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: Lägg till Testveckan, 79 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: Eller Allt för 20 kr till i veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: inga Premium-etiketter",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester cv: grått val öppnar fel spår-kortet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Du har CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Förnyas <datum>, 79 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Vad ingår?",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Alla 41 mallar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Grundnivån, en gång per typ och dygn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Bli upptäckt Ingår inte. Finns i Allt.",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Tre träffar per natt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: meddelanden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "meny cv: Vill du ha testerna också?",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: rubrik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: Så här går det till",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: tre steg",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: primär Börja med matrislogik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: sekundär Visa allt som ingår",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen test: arket öppnas",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark test: åtta brickor",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: Du har Testveckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: 3 mallar ingår. Alla 41 finns i CV-veckan.",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: förhandsvisa-noten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: Lägg till CV-veckan, 79 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: Eller Allt för 20 kr till i veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mallar test: mall 4 till 41 med lås i galleriet",
+    "ok": true,
+    "not": "lås=38"
+  },
+  {
+    "namn": "desktop test: Du har Testveckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: Alla typer, alla nivåer, provläge mot klockan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: 3 mallar, en nedladdning",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: Ett brev i veckan att läsa",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: LinkedIn Ingår inte",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: Kom igång i sidomenyn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: Vill du ha CV-delen också?",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop test: grått LinkedIn öppnar fel spår",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "profilmeny test: huvudet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "välkommen allt: Och ett CV redan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "ark allt: elva brickor",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester allt: inget grått",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem gratis: Kom igång, n av 5",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: Du är på gratisnivån",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: ingressen",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: Testveckan 79 kr utan eller Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: Resultatet utan tolkning",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: Grundnivån, en gång per typ och dygn i menyn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: 10 meddelanden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: Kom igång n av 5",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop gratis: betalvägg för Testveckan",
+    "ok": true,
+    "not": ""
+  }
+]

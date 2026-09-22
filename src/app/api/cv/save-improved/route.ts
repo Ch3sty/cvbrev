@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -129,6 +130,9 @@ export async function POST(request: NextRequest) {
       .insert(insertData)
       .select()
       .single();
+
+    // Hjälpredan Kom igång: ett förbättrat CV sparat räknas som uppdaterat efter fynden.
+    void markeraBricka(user.id, 'uppdatera_cv');
 
     if (insertError) {
       console.error('Error inserting CV:', insertError);

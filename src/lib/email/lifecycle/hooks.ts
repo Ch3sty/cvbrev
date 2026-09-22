@@ -87,8 +87,8 @@ export async function sendLifecycleNow(
   }
 }
 
-/** Alla fjorton dagsmejl, båda spåren. cancelScheduled matchar exakt. */
-const VECKO_MEJLTYPER: string[] = [1, 2, 3, 4, 5, 6, 7].flatMap((n) => [`cv_day${n}`, `test_day${n}`]);
+/** Hjälpredans mejltyper, som prefix: komigang_<datum> och paket_fornyas_<datum>. */
+const KOMIGANG_PREFIX = ['komigang_', 'paket_fornyas_'];
 
 /**
  * Nytt konto skapat.
@@ -98,8 +98,8 @@ const VECKO_MEJLTYPER: string[] = [1, 2, 3, 4, 5, 6, 7].flatMap((n) => [`cv_day$
  * om, och ett välkomstmejl som lovar fem dagar Premium vore fel. Kvar står
  * winback, som gäller den som varit borta oavsett hur kontot började.
  *
- * Veckoserien schemaläggs först vid köp, i onWeekStarted, eftersom den är
- * paketets program och inte kontots.
+ * Hjälpredans mejl schemaläggs dag för dag av runnern, bara till den som
+ * betalar, eftersom de är paketets och inte kontots.
  */
 export async function onUserSignup(admin: AnySupabase, userId: string): Promise<void> {
   try {
@@ -113,42 +113,28 @@ export async function onUserSignup(admin: AnySupabase, userId: string): Promise<
 }
 
 /**
- * Veckan är köpt: schemalägg dagsmejlen (docs/plan-paket-och-onboarding.md,
- * Fas 2B avsnitt 7).
+ * Ett paket är köpt eller bytt (docs/design/spec-onboarding-2026-09-22.html,
+ * sektion 6).
  *
- * Mejlet för dag n går ut morgonen dag n, svensk tid, och dag 1:s mejl först
- * dagen efter köpet: köparen har just sett dag 1 i appen, så samma innehåll
- * i mailen samma kväll vore en upprepning. Hoppar användaren över en dag
- * skickas nästa dags mejl ändå, och mallens shouldSend ser till att ingen
- * påminns om något hon redan gjort.
- *
- * Anropas av webhooken när ett köp bekräftats. Spåret avgör vilken serie.
+ * Hjälpredans mejl schemaläggs inte här utan dag för dag av
+ * scheduleKomIgangMejl i runner.ts, som räknar om läget varje morgon. Det
+ * här hooket rensar bara det som ligger i kön från ett tidigare paket, så
+ * ett spårbyte inte skickar gårdagens förslag.
  */
-export async function onWeekStarted(
-  admin: AnySupabase,
-  userId: string,
-  track: 'cv' | 'tester' | 'allt'
-): Promise<void> {
-  const prefix = track === 'tester' ? 'test' : 'cv';
+export async function onPaketStarted(admin: AnySupabase, userId: string): Promise<void> {
   try {
-    // Byter användaren spår ska den gamla serien inte ligga kvar.
-    await cancelScheduled(admin, userId, VECKO_MEJLTYPER, 'week_restarted');
-    await scheduleMany(
-      admin,
-      userId,
-      [1, 2, 3, 4, 5, 6, 7].map((n) => ({ type: `${prefix}_day${n}`, days: n }))
-    );
+    await cancelScheduled(admin, userId, KOMIGANG_PREFIX, 'paket_restarted');
   } catch (error: any) {
-    console.error('[lifecycle] kunde inte schemalägga veckoserien:', error?.message);
+    console.error('[lifecycle] kunde inte rensa hjälpredans mejl:', error?.message);
   }
 }
 
-/** Veckan är slut eller uppsagd: stoppa dagsmejlen. */
-export async function onWeekEnded(admin: AnySupabase, userId: string): Promise<void> {
+/** Paketet är slut eller uppsagt: stoppa hjälpredans mejl. */
+export async function onPaketEnded(admin: AnySupabase, userId: string): Promise<void> {
   try {
-    await cancelScheduled(admin, userId, VECKO_MEJLTYPER, 'week_ended');
+    await cancelScheduled(admin, userId, KOMIGANG_PREFIX, 'paket_ended');
   } catch (error: any) {
-    console.error('[lifecycle] kunde inte avbryta veckoserien:', error?.message);
+    console.error('[lifecycle] kunde inte avbryta hjälpredans mejl:', error?.message);
   }
 }
 
@@ -156,8 +142,8 @@ export async function onWeekEnded(admin: AnySupabase, userId: string): Promise<v
 export async function onSubscriptionDeleted(admin: AnySupabase, userId: string): Promise<void> {
   try {
     await cancelScheduled(admin, userId, ['trial_'], 'subscription_deleted');
-    // Dagsmejlen ska inte fortsätta till någon som sagt upp.
-    await onWeekEnded(admin, userId);
+    // Hjälpredans mejl ska inte fortsätta till någon som sagt upp.
+    await onPaketEnded(admin, userId);
     await sendLifecycleNow(admin, userId, 'cancel_immediate');
     await scheduleEmail(admin, userId, 'cancel_followup', sendAfterStockholm(3));
   } catch (error: any) {

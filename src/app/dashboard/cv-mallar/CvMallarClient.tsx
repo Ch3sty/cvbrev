@@ -1,11 +1,26 @@
 'use client';
 
+/**
+ * CV-mallarnas klientdel.
+ *
+ * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
+ * 3): utanför CV-veckan och Allt är mall 4 till 41 gråa med lås, går att
+ * förhandsvisa i full storlek men inte ladda ned, och trycket på
+ * nedladdningen öppnar betalväggen för rätt paket med mellanskillnaden.
+ * Testveckans kund får fotknapparna "Lägg till CV-veckan" och "Eller Allt
+ * för 20 kr till i veckan". Talen kommer ur mallregistret och prislistan.
+ */
+
 import { useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useNotification } from '@/context/notificationcontext';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
+import StatusRow from '@/components/shell/StatusRow';
+import GraValSheet from '@/components/paywall/GraValSheet';
+import type { Scope } from '@/lib/access/features';
+import type { PlanKey } from '@/lib/plans/plans';
+import { ellerAlltKnapp, laggTillKnapp, mallHuvud } from '@/lib/onboarding/paket-rader';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
@@ -29,21 +44,28 @@ const CvGenerationOverlay = dynamic(
   { ssr: false }
 );
 
+const KNAPP_PRIMAR =
+  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
+const KNAPP_SEKUNDAR =
+  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40';
+
 export default function CvMallarClient({
   initialCvs,
   initialIsPremium,
   initialSelectedCvId,
+  scope = null,
+  track = null,
+  planKey = null,
 }: {
   initialCvs: InitialCv[];
   initialIsPremium: boolean;
   initialSelectedCvId: string | null;
+  scope?: Scope | null;
+  track?: Scope | null;
+  planKey?: PlanKey | null;
 }) {
-  const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
 
-  // Valet bor i sidan, inte i cv-storen. Servern har redan avgjort vilket CV
-  // som ska vara valt (från ?cv= eller det senaste), så första målningen har
-  // rätt CV utan en effekt som hinner byta höjd på väljaren efteråt.
   const [selectedCvId, setSelectedCvId] = useState<string | null>(initialSelectedCvId);
   const selectedCV = useMemo(
     () => initialCvs.find((cv) => cv.id === selectedCvId) ?? null,
@@ -52,11 +74,34 @@ export default function CvMallarClient({
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [sparrOppen, setSparrOppen] = useState(false);
+  const [busy, setBusy] = useState<PlanKey | null>(null);
 
   const isPremium = initialIsPremium;
+  const huvud = mallHuvud(scope);
+  const alltKnapp = ellerAlltKnapp(planKey);
 
-  const handleUpgradeClick = () => {
-    router.push('/dashboard/profil/prenumeration');
+  // Betalväggen för rätt paket, med mellanskillnaden om hon har ett spår.
+  const handleUpgradeClick = () => setSparrOppen(true);
+
+  const uppgradera = async (plan: PlanKey) => {
+    if (busy) return;
+    setBusy(plan);
+    try {
+      const res = await fetch('/api/stripe/create-upgrade-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planKey: plan, returnPath: '/dashboard/cv-mallar' }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (json?.url) {
+        window.location.href = json.url as string;
+        return;
+      }
+    } catch {
+      /* knappen blir tryckbar igen */
+    }
+    setBusy(null);
   };
 
   const handleGenerateCV = async (params: {
@@ -80,9 +125,6 @@ export default function CvMallarClient({
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
 
-      // Anvand features fran mall-registret for att avgora vilka toggles som
-      // ska skickas. Mallar utan stOd far inte options-falt sa generators
-      // anvander default-beteende.
       const supportsPhoto = template?.features?.supportsPhoto === true;
       const supportsLinkedIn = template?.features?.supportsLinkedIn === true;
 
@@ -95,7 +137,6 @@ export default function CvMallarClient({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           template: params.templateId,
-          // Skicka pre-parsed structured_data om finns (matchar preview exakt)
           structuredData: (selectedCV as any).structured_data || undefined,
           cvText: selectedCV.cv_text,
           format: 'pdf',
@@ -135,20 +176,28 @@ export default function CvMallarClient({
         5000
       );
 
-      // Frågan om hemskärmen (docs/plan-pwa.md). PDF:en ligger på enheten,
-      // så handlingen är avslutad och raden avbryter ingenting. Reglerna för
-      // om frågan får visas ligger i storen, inte här.
       requestInstallPrompt('cv_template_downloaded');
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);
       setGenerationError(error?.message || 'Något gick fel. Försök igen.');
-      // LAmnar isGenerating=true sa error-vyn syns; stangs av onClose
     }
   };
 
   return (
     <CvMallarLayout>
       <CvMallarHero />
+
+      {/* Paketets gräns: vad som ingår, var resten finns, och att gråa
+          mallar går att förhandsvisa. Bara utanför CV-veckan och Allt. */}
+      {huvud ? (
+        <section className="space-y-2" aria-label="Ditt paket">
+          <StatusRow tone="neutral" showDot>
+            {huvud.statusrad}
+          </StatusRow>
+          <p className="text-kort text-ink-1">{huvud.rubrik}</p>
+          <p className="text-meta text-ink-3">{huvud.not}</p>
+        </section>
+      ) : null}
 
       {/* Steg 1: Valj CV */}
       <section data-flow-section="cv">
@@ -164,7 +213,6 @@ export default function CvMallarClient({
         />
       </section>
 
-      {/* Live-preview-vy med mall-lista, toolbar, info, CTA */}
       <section data-flow-section="template">
         <MallarLivePreview
           selectedCV={selectedCV}
@@ -175,7 +223,43 @@ export default function CvMallarClient({
         />
       </section>
 
-      {/* Generation overlay */}
+      {/* Foten för Testveckans kund (sektion 3). */}
+      {scope === 'tester' ? (
+        <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
+          <button
+            type="button"
+            onClick={() => uppgradera('cv_week')}
+            disabled={busy !== null}
+            className={KNAPP_PRIMAR}
+          >
+            {busy === 'cv_week' ? 'Öppnar' : laggTillKnapp('cv_week')}
+          </button>
+          {alltKnapp ? (
+            <button
+              type="button"
+              onClick={() => uppgradera('all_week')}
+              disabled={busy !== null}
+              className={KNAPP_SEKUNDAR}
+            >
+              {busy === 'all_week' ? 'Öppnar' : alltKnapp}
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {sparrOppen ? (
+        <GraValSheet
+          open
+          onClose={() => setSparrOppen(false)}
+          feature="cv_templates_all"
+          variant="mall"
+          scope={scope}
+          track={track}
+          planKey={planKey}
+          surface="/dashboard/cv-mallar"
+        />
+      ) : null}
+
       {isGenerating && (
         <CvGenerationOverlay
           isOpen

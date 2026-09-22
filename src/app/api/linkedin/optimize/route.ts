@@ -5,6 +5,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync'
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker'
 import { logUserActivity } from '@/lib/activity-logger'
+import { markeraBricka } from '@/lib/onboarding/komigang-server'
 
 // Quota limits
 const WEEKLY_LINKEDIN_LIMIT_FREE = 1
@@ -1078,6 +1079,9 @@ export async function POST(req: NextRequest) {
       })
       .select()
       .single()
+
+    // Hjälpredan Kom igång: LinkedIn-profilen är körd.
+    void markeraBricka(user.id, 'linkedin')
 
     if (saveError) {
       console.error('Error saving optimization:', saveError)

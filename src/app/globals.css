@@ -536,6 +536,14 @@ html {
   padding-bottom: calc(var(--bottom-nav-h) + 1.5rem);
 }
 
+/* Hjälpredan Kom igång: den mörka raden ligger ovanför bottennavet på
+   hemskärmen (spec-onboarding 2026-09-22, sektion 2). Innehållet får
+   radens höjd plus avstånd som extra bottenpadding så sista kortet aldrig
+   hamnar bakom den. Attributet sätts av raden själv medan den syns. */
+html[data-komigang-rad] .dashboard-main-content {
+  padding-bottom: calc(var(--bottom-nav-h) + 1.5rem + 76px);
+}
+
 /* On desktop (lg+), restore normal padding */
 @media (min-width: 1024px) {
   .dashboard-main-content {

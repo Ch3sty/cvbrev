@@ -3,8 +3,10 @@
 /**
  * Profilmeny i toppraden (docs/plan-inloggat-omdesign.md, avsnitt 3).
  *
- * Samlar kontoåtgärderna på ett ställe. Premium-status står som en rad, men
- * menyn är medvetet inte byggd som en säljyta.
+ * Samlar kontoåtgärderna på ett ställe. Överst menyhuvudet ur
+ * spec-onboarding 2026-09-22 (sektion 3): vilket paket man har, när det
+ * förnyas och vad det kostar, med Vad ingår?. Menyn är medvetet inte byggd
+ * som en säljyta.
  *
  * Dropdown är ett svävande element, så skugga är tillåten här.
  */
@@ -12,6 +14,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
+import { menyHuvud } from '@/lib/onboarding/paket-rader'
 
 interface ProfileMenuProps {
   name: string
@@ -24,6 +28,8 @@ interface ProfileMenuProps {
 export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: ProfileMenuProps) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const { summary } = useDashboardData()
+  const huvud = summary?.paket ? menyHuvud(summary.paket) : null
 
   // Stäng vid klick utanför och vid Escape.
   useEffect(() => {
@@ -82,12 +88,27 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
             <p className="truncate text-meta text-ink-3">{email}</p>
           </div>
 
-          {premiumLabel && (
+          {huvud ? (
+            <div className="m-2 flex items-center justify-between gap-3 rounded-lg bg-ink-1 px-3 py-2 text-white">
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold leading-5">{huvud.rubrik}</span>
+                <span className="block truncate text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
+              </span>
+              <Link
+                href={huvud.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="shrink-0 text-xs font-medium text-white underline decoration-ink-1-kant underline-offset-[3px] hover:decoration-white"
+              >
+                {huvud.lank}
+              </Link>
+            </div>
+          ) : premiumLabel ? (
             <div className="flex items-center justify-between gap-3 border-b border-kant px-4 py-2">
-              <span className="text-sm text-ink-2">Premium</span>
+              <span className="text-sm text-ink-2">Paket</span>
               <span className="truncate text-sm font-medium text-ink-1">{premiumLabel}</span>
             </div>
-          )}
+          ) : null}
 
           <nav className="py-1">
             <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>

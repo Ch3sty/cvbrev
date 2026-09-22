@@ -10,7 +10,9 @@ import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import type { AnySupabase, LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
-import { resolveLifecycleEmail, WEEKLY_DIGEST_TYPE } from './registry';
+import { resolveLifecycleEmail, WEEKLY_DIGEST_TYPE, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE } from './registry';
+import { harPaket } from '@/lib/plans/harPaket';
+import { PLAN_BY_KEY } from '@/lib/plans/plans';
 import { scheduleEmail, sendAfterStockholm, isoWeekKey } from './schedule';
 
 /** Avsändaren som redan är verifierad för domänen i Resend. */
@@ -331,5 +333,72 @@ export async function scheduleWeeklyDigests(
   }
 
   console.log(`[weekly_digest] ${emailType}: schemalagt=${result.scheduled} hoppade=${result.skipped}`);
+  return result;
+}
+
+/**
+ * Hjälpredans mejl (docs/design/spec-onboarding-2026-09-22.html, sektion 6).
+ *
+ * Körs varje morgon och schemalägger till samma körning:
+ *
+ *   paket_fornyas_<datum>  när nästa dragning ligger inom 36 timmar
+ *   komigang_<datum>       annars, ett om dagen om nästa föreslagna bricka
+ *
+ * Bara till den som betalar (aktiv prenumeration med scope). Köpdagen
+ * hoppas över: köparen såg just välkomstskärmen, och samma förslag i
+ * mejlen samma kväll vore en upprepning. Mallens shouldSend räknar om
+ * läget vid sändning, så den som provat allt får inget förrän dagen före
+ * förnyelsen. Datumsuffixet gör unique-indexet till dubblettspärr per dag.
+ */
+export async function scheduleKomIgangMejl(
+  adminClient?: AnySupabase,
+  now: Date = new Date()
+): Promise<{ komigang: number; fornyas: number; skipped: number }> {
+  const admin = (adminClient ?? getSupabaseAdmin()) as AnySupabase;
+  const result = { komigang: 0, fornyas: 0, skipped: 0 };
+
+  const datum = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(now);
+
+  const { data: rows, error } = await (admin as any)
+    .from('profiles')
+    .select('id, email, premium_scope, premium_until, current_period_end, subscription_status, quota_emails_opt_out')
+    .in('subscription_status', ['active', 'trialing'])
+    .not('email', 'is', null)
+    .limit(1000);
+
+  if (error) {
+    console.error('[komigang] kunde inte läsa betalande profiler:', error.message);
+    return result;
+  }
+
+  for (const profile of rows ?? []) {
+    if (profile.quota_emails_opt_out === true) { result.skipped += 1; continue; }
+    const scope = profile.premium_scope === 'cv' || profile.premium_scope === 'tester' ? profile.premium_scope : 'allt';
+    const premiumUntil = profile.premium_until ? new Date(profile.premium_until) : null;
+    const planKey = harPaket(scope, premiumUntil, now);
+    const fornyas = profile.current_period_end ? new Date(profile.current_period_end) : premiumUntil;
+    const timmarKvar = fornyas ? (fornyas.getTime() - now.getTime()) / 3600000 : null;
+
+    if (timmarKvar !== null && timmarKvar > 0 && timmarKvar <= 36) {
+      // Perioden började en periodlängd före nästa dragning.
+      const langd = planKey ? PLAN_BY_KEY[planKey].length : 'vecka';
+      const dagar = langd === 'månad' ? 30 : langd === 'kvartal' ? 90 : 7;
+      const periodStart = fornyas ? new Date(fornyas.getTime() - dagar * 86400000).toISOString() : null;
+      await scheduleEmail(admin, profile.id, `${PAKET_FORNYAS_TYPE}_${datum}`, now, { scope, planKey, periodStart });
+      result.fornyas += 1;
+      continue;
+    }
+
+    // Köpdagen: veckopaketens period började för mindre än 20 timmar sedan.
+    if (planKey && PLAN_BY_KEY[planKey].length === 'vecka' && fornyas) {
+      const start = fornyas.getTime() - 7 * 86400000;
+      if (now.getTime() - start < 20 * 3600000) { result.skipped += 1; continue; }
+    }
+
+    await scheduleEmail(admin, profile.id, `${KOMIGANG_TYPE}_${datum}`, now, { scope, planKey });
+    result.komigang += 1;
+  }
+
+  console.log(`[komigang] schemalagt: komigang=${result.komigang} fornyas=${result.fornyas} skipped=${result.skipped}`);
   return result;
 }

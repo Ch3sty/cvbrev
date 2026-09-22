@@ -3,15 +3,17 @@
 /**
  * Raden för ett personlighetstest på hubben.
  *
- * Våg 1 punkt 6: raden öppnar alltid testets sida, aldrig prenumerationssidan.
- * Premiumkravet på avancerad nivå står som meta och avgörs serverside.
+ * Grundnivån öppnar alltid testets sida. Tolkningen (avancerad nivå) ingår
+ * i Testveckan och Allt; i andra paket är raden grå med lås och paketets
+ * namn, och trycket öppnar betalväggen (spec-onboarding 2026-09-22,
+ * sektion 3).
  */
 
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import TestLevelBadge from '@/components/tests/shared/TestLevelBadge';
 import { testPaths } from '../testConfig';
-import { HUB_ROW, type TestLevelLabel } from './TestCard';
+import { HUB_ROW, HUB_ROW_LOCKED, LasIkon, type TestLevelLabel } from './TestCard';
 
 export type PersonalityCardVariant = 'personality-grund' | 'personality-avancerad';
 
@@ -32,6 +34,11 @@ interface Props {
   isUserPremium: boolean;
   stats: PersonalityCardStats;
   index?: number;
+  /** Nivån ingår inte i paketet: etiketten säger var den finns. */
+  locked?: string | null;
+  onLocked?: () => void;
+  /** Underraden på grundnivån utanför Testveckan: "Resultatet utan tolkning". */
+  dagRad?: string | null;
 }
 
 export default function PersonalityTestCard({
@@ -40,29 +47,47 @@ export default function PersonalityTestCard({
   levelLabel,
   questionCount,
   timeLabel,
-  isPremiumLocked,
-  isUserPremium,
   stats,
+  locked,
+  onLocked,
+  dagRad,
 }: Props) {
-  const needsPremium = isPremiumLocked && !isUserPremium;
   const hasProfile = stats.hasProfile;
+  const level = levelLabel === 'Avancerad' ? 'avancerad' : 'grund';
+  const titel = level === 'avancerad' ? 'Personlighetstestet, med tolkning' : `${title}, ${levelLabel.toLowerCase()}`;
+
+  if (locked) {
+    return (
+      <li>
+        <button
+          type="button"
+          onClick={onLocked}
+          aria-label={`${titel}. Ingår inte. ${locked}`}
+          className={HUB_ROW_LOCKED}
+        >
+          <span className="text-kant-stark">
+            <TestLevelBadge kind="personlighet" level={level} iconOnly />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-medium text-ink-3">{titel}</span>
+            <span className="mt-0.5 block text-meta text-ink-3">{locked}</span>
+          </span>
+          <LasIkon />
+        </button>
+      </li>
+    );
+  }
 
   return (
     <li>
       <Link href={testPaths.hub(slug)} className={HUB_ROW}>
-        <TestLevelBadge
-          kind="personlighet"
-          level={levelLabel === 'Avancerad' ? 'avancerad' : 'grund'}
-          iconOnly
-        />
+        <TestLevelBadge kind="personlighet" level={level} iconOnly />
 
         <span className="min-w-0 flex-1">
-          <span className="block text-sm font-medium text-ink-1">
-            {title}, {levelLabel.toLowerCase()}
-          </span>
+          <span className="block text-sm font-medium text-ink-1">{titel}</span>
           <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
             {questionCount} påståenden · ca {timeLabel} min
-            {needsPremium ? ' · Premium' : ''}
+            {dagRad ? ` · ${dagRad}` : ''}
           </span>
         </span>
 

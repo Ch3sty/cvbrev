@@ -24,6 +24,18 @@ import {
   NO_RESPONSE_NUDGE_DAYS,
   type JobApplication,
 } from '@/lib/applications/status'
+import type { Scope } from '@/lib/access/features'
+import { scopeHasFeature } from '@/lib/access/features'
+import type { PlanKey } from '@/lib/plans/plans'
+import { harPaket } from '@/lib/plans/harPaket'
+import {
+  DAILY_LIMIT_LETTERS,
+  FREE_CHAT_MESSAGES_PER_ACCOUNT,
+  resolveWeeklyLetterCounter,
+} from '@/lib/quota/quotaService'
+import type { BrickaFakta, BrickaKey } from '@/lib/onboarding/komigang'
+import { harledProvade, sparadeNycklar } from '@/lib/onboarding/komigang-server'
+import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 
 export interface DashboardSummaryPipelineItem {
   id: string
@@ -65,41 +77,40 @@ export interface DashboardSummaryData {
     createdAt: string | null
   }
   /**
-   * Veckoprogrammets tillstånd (docs/plan-paket-och-onboarding.md, flöde 3).
+   * Paketet och dess gränser, för menyhuvudet och underraderna
+   * (docs/design/spec-onboarding-2026-09-22.html, sektion 3 och 5).
    *
-   * Ligger här och inte i ett eget klientanrop. Kravet är hårt: en veckopanel
-   * som hämtar sig själv efter mount ger CLS och bryter LCP-budgeten på
-   * hemskärmen (under 1,0 s), se feedback_prestandabudget_inloggat.
+   * Ligger här och inte i ett eget klientanrop: menyn och hjälpredan
+   * renderas i skalet på varje sida, och en rad som hämtar sig själv efter
+   * mount ger CLS och bryter LCP-budgeten på hemskärmen (under 1,0 s).
+   * Talen kommer ur samma källor som kvottjänsten, aldrig hårdkodade.
    */
-  week: {
-    /** Spåret användaren valde. Null = hoppade över frågan. */
-    track: 'cv' | 'tester' | 'allt' | null
-    /** Betalt spår. Null = gratisnivån, och då visas ingen veckopanel. */
-    scope: 'cv' | 'tester' | 'allt' | null
-    /** Dagen hon står på, 0 innan veckan börjat. Följer framsteg, inte kalendern. */
-    progressDay: number
-    startedAt: string | null
-    /** Har spårfrågan ställts, och i så fall när. */
-    trackAskedAt: string | null
-    /**
-     * Nedladdade mallar, hela kontots historik.
-     *
-     * Dag 7:s tredje tal har etiketten "mallar" (T58), och stod tidigare på
-     * LinkedIn-räknaren därför att mallnedladdningarna inte fanns i
-     * summeringen (B3:s öppna beslut 10). Raden kostar ingenting: samma
-     * count-fråga hämtades redan för onboardingsteget download_cv_template,
-     * den lästes bara inte ut.
-     */
-    templateDownloads: number
-    /**
-     * Allt-dagen: sant när behörigheten bara kommer ur ett engångsköp.
-     *
-     * Dygnet kör inget veckoprogram (avsnitt 6). Hemskärmen visar då en
-     * sluttidsrad i stället för veckopanelen, minsta möjliga vy.
-     */
+  paket: {
+    /** Betalt spår. Null = gratisnivån. */
+    scope: Scope | null
+    /** Spåret användaren valde i onboardingen. */
+    track: Scope | null
+    /** Paketnyckeln, härledd ur scope och sluttid. Null på gratisnivån. */
+    planKey: PlanKey | null
+    /** Nästa dragning (ISO), eller dygnets slut för Allt-dagen. */
+    fornyasAt: string | null
+    /** Allt-dagen: behörigheten kommer bara ur ett engångsköp. */
     dayPassOnly: boolean
-    /** När dygnet tar slut (ISO). Null när inget engångsköp är giltigt. */
-    dayPassEndsAt: string | null
+    /** Jobbcoachen: använda och tak på gratisnivån, null-tak = utan tak. */
+    chatUsed: number
+    chatLimit: number | null
+    /** Brev: använda i fönstret och tak, null-tak = utan tak. */
+    lettersUsed: number
+    lettersLimit: number | null
+  }
+  /**
+   * Hjälpredan "Kom igång" (sektion 2). Provade brickor räknas ur både
+   * profiles.onboarding_steps och tabellerna, så den som redan hade ett CV
+   * eller en testsession innan hjälpredan fanns inte börjar på noll.
+   */
+  komIgang: {
+    provade: BrickaKey[]
+    fakta: BrickaFakta
   }
 }
 
@@ -148,6 +159,12 @@ export async function getDashboardSummary(
     downloadRes,
     matchRes,
     grantsRes,
+    candidateRes,
+    convRes,
+    chatRes,
+    testRes,
+    personalityRes,
+    senasteAnalysRes,
   ] = await Promise.all([
     supabase
       .from('letters')
@@ -200,6 +217,33 @@ export async function getDashboardSummary(
       .select('scope, premium_until_after')
       .eq('user_id', userId)
       .gt('premium_until_after', new Date().toISOString()),
+    // Hjälpredan "Kom igång" och menyns underrader. Sex frågor till i samma
+    // parallella omgång, ingen efter mount (sektion 2 och 5).
+    supabase.from('candidate_profiles').select('visibility').eq('user_id', userId).maybeSingle(),
+    supabase.from('ai_conversations').select('id', { count: 'exact', head: true }).eq('user_id', userId),
+    supabase
+      .from('ai_messages')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .eq('role', 'user'),
+    supabase
+      .from('logic_test_v4_sessions')
+      .select('test_type, score')
+      .eq('user_id', userId)
+      .not('completed_at', 'is', null),
+    supabase
+      .from('personality_test_sessions')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .not('completed_at', 'is', null),
+    supabase
+      .from('cv_analysis_jobs')
+      .select('result->atsFriendliness->>score')
+      .eq('user_id', userId)
+      .eq('status', 'completed')
+      .order('completed_at', { ascending: false, nullsFirst: false })
+      .limit(1)
+      .maybeSingle(),
   ])
 
   const now = new Date()
@@ -317,16 +361,62 @@ export async function getDashboardSummary(
   const scope = harAllaDagen ? 'allt' : (profilScope ?? smalareGrant)
 
   // Allt-dagen: behörigheten kommer ur ett engångsköp och inte ur en
-  // prenumeration, alltså finns ingen vecka att gå igenom (avsnitt 6, och
-  // B3:s öppna beslut 12). Hemskärmen visar då en sluttidsrad i stället för
-  // veckopanelen. Villkoret är precis det: ett giltigt grant och ingen
-  // prenumeration bakom det.
+  // prenumeration. Menyhuvudet säger då när dygnet tar slut i stället för
+  // när paketet förnyas. Villkoret är precis det: ett giltigt grant och
+  // ingen prenumeration bakom det.
   const grantSlutar = grants
     .map((rad) => rad?.premium_until_after)
     .filter((v): v is string => typeof v === 'string' && v.length > 0)
     .sort()
     .pop() ?? null
   const endastDagpass = profilScope === null && grantSlutar !== null
+
+  // Paketet, för menyhuvudet "Du har CV-veckan, förnyas 29 september, 79 kr".
+  const premiumUntil = profileRow?.premium_until ? new Date(profileRow.premium_until as string) : null
+  const planKey = endastDagpass ? ('all_day' as PlanKey) : harPaket(scope, premiumUntil, now)
+  const fornyasAt = endastDagpass
+    ? grantSlutar
+    : ((profileRow?.current_period_end as string | undefined) ??
+      (profileRow?.premium_until as string | undefined) ??
+      null)
+
+  // Kvoterna som menyn skriver ut ("7 av 10 meddelanden kvar"). Samma
+  // källor och tak som src/lib/quota/getQuotaSummary.ts.
+  const { effectiveCount: lettersUsed } = resolveWeeklyLetterCounter(
+    Number(profileRow?.weekly_letter_count ?? 0) || 0,
+    (profileRow?.weekly_letter_first_used_at as string | null | undefined) ?? null
+  )
+  const chatUsed = chatRes.count ?? 0
+
+  // Hjälpredan: provade brickor ur kolumnen och tabellerna.
+  const testRader = (testRes.data ?? []) as Array<{ test_type: string | null; score: number | null }>
+  const provade = harledProvade({
+    sparade: sparadeNycklar(profileRow?.onboarding_steps),
+    goalRole: (profileRow?.goal_role as string | null | undefined) ?? null,
+    location: (profileRow?.location as string | null | undefined) ?? null,
+    cvCount: cvRows.length,
+    analysisCompleted: analysisRes.count ?? 0,
+    matchCount: matchRes.count ?? 0,
+    templateDownloads: downloadRes.count ?? 0,
+    letterCount: letters.length,
+    linkedinCount: linkedinRes.count ?? 0,
+    visibility: (candidateRes?.data?.visibility as string | null | undefined) ?? null,
+    conversationCount: convRes.count ?? 0,
+    testTypes: testRader.map((r) => r.test_type),
+    personalityCompleted: personalityRes.count ?? 0,
+  })
+
+  const matrisBasta = testRader
+    .filter((r) => (r.test_type ?? 'matrislogik') === 'matrislogik')
+    .reduce<number | null>((b, r) => (typeof r.score === 'number' && (b === null || r.score > b) ? r.score : b), null)
+  const poangRaw = (senasteAnalysRes?.data as Record<string, unknown> | null)?.score
+  const poang = poangRaw === null || poangRaw === undefined ? null : Number(poangRaw)
+  const fakta: BrickaFakta = {
+    cvNamn: activeName,
+    poang: poang !== null && Number.isFinite(poang) ? Math.round(poang) : null,
+    matrisRatt: matrisBasta,
+    matrisAv: getTestConfig('matrislogik-grund')?.totalQuestions ?? null,
+  }
 
   return {
     profile: profileRes.data ?? null,
@@ -353,17 +443,22 @@ export async function getDashboardSummary(
       rewardClaimed: Boolean(profileRow?.onboarding_reward_claimed),
       createdAt: (profileRow?.created_at as string | undefined) ?? null,
     },
-    week: {
-      track: giltigtScope(profileRow?.onboarding_track)
-        ? (profileRow!.onboarding_track as 'cv' | 'tester' | 'allt')
-        : null,
+    paket: {
       scope,
-      progressDay: Number(profileRow?.week_progress_day ?? 0) || 0,
-      startedAt: (profileRow?.week_started_at as string | undefined) ?? null,
-      trackAskedAt: (profileRow?.onboarding_track_asked_at as string | undefined) ?? null,
-      templateDownloads: downloadRes.count ?? 0,
+      track: giltigtScope(profileRow?.onboarding_track)
+        ? (profileRow!.onboarding_track as Scope)
+        : null,
+      planKey,
+      fornyasAt,
       dayPassOnly: endastDagpass,
-      dayPassEndsAt: grantSlutar,
+      chatUsed,
+      chatLimit: scopeHasFeature(scope, 'chat_unlimited') ? null : FREE_CHAT_MESSAGES_PER_ACCOUNT,
+      lettersUsed,
+      lettersLimit: scopeHasFeature(scope, 'letter_download') ? null : DAILY_LIMIT_LETTERS,
+    },
+    komIgang: {
+      provade,
+      fakta,
     },
   }
 }

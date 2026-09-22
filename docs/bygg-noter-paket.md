@@ -915,3 +915,41 @@ Byggt 2026-09-22 efter docs/design/spec-prissida-2026-09-22.html (sektion 1, 2 o
 9. **Cookie-bannern** lägger sig över samtyckesrutan i köpsteget på Pixel 7 tills besökaren svarat på den (skärmdump 10 i första körningen). Det är befintligt beteende i alla flöden, inte nytt. Förslag: låt cookie-bannern ta hänsyn till `--flow-footer-h` plus flödets innehåll, eller visa den inte inne i FlowShell.
 
 10. **`font-bold` och `font-extrabold`** förekommer nu i dashboardfiler (spårvalet, köpsteget), alltid tillsammans med `font-display`. Designsystemets grep-kontroll slår på dem. Förslag: skriv undantaget i kontrollen som `font-(bold|extrabold)` utan `font-display` på samma rad.
+
+## D2: välkomstskärmen, hjälpredan Kom igång och de gråade valen
+
+Byggt 2026-09-22 efter docs/design/spec-onboarding-2026-09-22.html (sektion 1 till 6). QA i docs/qa/qa-paket-d2/.
+
+**Principen.** Det inloggade läget är kvar. Onboardingen är tre saker ovanpå: välkomstskärmen efter köpet (`/dashboard/vecka/start`), hjälpredan Kom igång (raden ovanför bottennavet på hemskärmen, längst ned i sidomenyn på desktop, arket med brickorna) och gråade val i testsidan, mallsidan och menyn.
+
+**Borttaget.** Veckoprogrammet i sin helhet: `VeckoTrad`, `VeckoNoder`, `DagpassRad` (och testet), `VeckoMejlSparning`, `SparRad`, `SparFragaIgen`, `/api/onboarding/vecka`, dagarna, dag 7 och köpskärmens texter i `program.ts`, dagsmejlen `cv_day1..7` och `test_day1..7` samt `renewal_tomorrow` i `templates/vecka.ts`, `onWeekStarted`/`onWeekEnded` (ersatta av `onPaketStarted`/`onPaketEnded` som bara rensar kön), `week`-blocket i summeringen och `week_*`-händelserna i `events.ts`. Kolumnerna `week_progress_day`, `week_started_at` och `onboarding_track_asked_at` står kvar i databasen, orörda.
+
+**Nytt.** `profiles.onboarding_steps jsonb` plus funktionen `komigang_markera(uuid, text)` (migration `20260922150000_onboarding_steps_komigang.sql`, applicerad). `src/lib/onboarding/komigang.ts` (listorna, texterna, läget, välkomstskärmens copy), `komigang-server.ts` (kvitteringen och härledningen ur tabellerna), `paket-rader.ts` (menyhuvudet, underraderna, gråetiketterna, fotknapparna), `src/lib/plans/harPaket.ts` (flyttad ur kontosidan), `src/lib/jobmatching/freeLimit.ts` (talet tre, som rutten nu läser därifrån). Komponenter: `KomIgangContext`, `KomIgangRad`, `KomIgangArk`, `paywall/GraValSheet`, `illustrations/OnboardingScener.tsx`. Mejl: `templates/komigang.ts` med `komigang_<datum>` och `paket_fornyas_<datum>`, urvalet i `scheduleKomIgangMejl` i runnern, anropat i morgonslotten. Kvitteringen sitter i `cv/upload`, `cv/jobs/[jobId]`, `cv/update`, `cv/save-improved`, `cv/generate-formatted`, `letters/generate`, `linkedin/optimize`, `jobbcoachen/chat`, alla tolv `complete`-rutter för testerna, och `/api/onboarding/komigang` för Din kurva. Profilen, jobbmatchningen och Bli upptäckt härleds ur tabellerna (goal_role plus location, job_matchings_cache, candidate_profiles.visibility).
+
+## D2 frågor
+
+1. **Profilbrickans undertext** står som "Önskad roll och ort", inte specens "Önskad roll, ort, tillgänglig från" (CV) och "Vilket test du kallats till, när" (Test). Profilen har fälten `goal_role` och `location` men varken "tillgänglig från" eller "kallad till test", och en undertext som lovar fält som inte finns vore en lögn. Brickan räknas som klar när båda är ifyllda. Förslag: behåll den kortare texten tills fälten byggs, och skriv upp fälten som ett eget ärende.
+
+2. **"Lägg till Testveckan, 79 kr" på testsidan** (och "Lägg till CV-veckan" på mallsidan) går via `create-upgrade-session`, alltså Stripe-portalen för spårbyte (D1 fråga 7). Ordet "lägg till" antyder två prenumerationer samtidigt, vilket kassan inte stöder, och 79 plus 79 är mer än Allt för 99. Knappen står ordagrant som i specen. Förslag: byt etiketten till "Byt till Testveckan, 79 kr" om portalvägen blir kvar, annars bygg tillägget som en riktig produkt.
+
+3. **LinkedIn har ingen egen feature i tabellen.** Specen gråar LinkedIn för Testveckan och gratis, men `features.ts` gatar den inte och rutten släpper igenom gratisnivåns veckokvot. Menyn gråar valet ändå, med featuren `cv_export` (samma scope som CV-spåret) bakom betalväggen, och två nya varianter `linkedin` och `bli-upptackt` i `paywall-copy.ts`. Sidan `/dashboard/linkedin-optimizer` är fortfarande nåbar via adress. Förslag: lägg till `linkedin_optimizer: ['cv', 'allt']` i featuretabellen och gata rutten, i en egen omgång.
+
+4. **Raden på mobil ligger bara på hemskärmen** (specens rubrik: "Hjälpredan Kom igång på hemskärmen"); på desktop står den i sidomenyn på alla sidor. Arket finns överallt så välkomstskärmens "Visa allt som ingår" kan öppna det. Förslag: behåll, och visa raden på fler mobilsidor bara om mätningen `komigang_opened` visar att arket knappt öppnas.
+
+5. **Tryck på en bricka går rakt till handlingen**, som uppdraget säger. Specens sektion 4 vänster ("Brickan öppnad", ett kort med beskrivning, tre steg och "Skriv brevet") är inte byggd. Förslag: bygg det som ett andra steg i arket om användarna visar sig behöva förklaringen; annars är det ett extra tryck.
+
+6. **"Dölj hjälpredan"** gömmer raden till nästa dag (localStorage, svensk datumnyckel), inte för alltid. Specen säger inte hur länge. Förslag: en dag, så att raden kommer tillbaka men inte tjatar.
+
+7. **Mejlen går bara till den som betalar** (`subscription_status` active/trialing), aldrig till gratisnivån, och hoppar över köpdagen för veckopaketen (köparen såg just välkomstskärmen). "Förnyas i morgon" skickas när nästa dragning ligger inom 36 timmar, i stället för dagens bricka. Poäng före och efter i summeringen läses ur `cv_analysis_jobs.result->atsFriendliness->>score`. Förslag: behåll, och läs av `email_log` efter en vecka.
+
+8. **`SidebarLink` fick två props till**, `locked` och `onLocked`, för det gråa läget (skalet i `src/components/dashboard/**` ska annars inte ändras). Etiketten står i ink-3, inte specens kant-stark, av samma AA-skäl som D1 fråga 3. Förslag: godta.
+
+9. **Personlighetstestets rad** heter "Personlighetstestet, med tolkning" på avancerad nivå (specen) och behåller katalogens "Personlighetstest, grund" på grundnivån med underraden "Resultatet utan tolkning" utanför Testveckan. Provraden heter "Provläge mot klockan, 25 min" i grått läge och "Prov: mät var du står" när den ingår. Förslag: behåll.
+
+10. **Välkomstskärmen har en egen topprad** (kryss och paketets namn) i stället för `FlowShell`, som alltid ritar stegräknaren "1 / 1" och en full framstegslinje. Den sätter samma `data-flow-active`-attribut så header och bottennav döljs. Förslag: behåll; ge `FlowShell` en variant utan räknare om ett tredje ställe behöver det.
+
+11. **`harledProvade` räknar andra analyskörningen som "Uppdatera CV:t efter fynden"**, utöver kvitteringen i `cv/update` och `cv/save-improved`. Skälet är att en omkörning efter rättning är hela poängen med brickan. Förslag: behåll.
+
+12. **`FelSpar` fick rubriken per feature** (`felSparRubrik` i `program.ts`). Kortet sade alltid "Du ville ladda ner den här mallen", också när det var en testnivå eller LinkedIn i taket från menyn. Texten (T80), mellanskillnaden och knappen är oförändrade. Förslag: godta; copyrollen får gärna skriva om de nya rubrikerna.
+
+13. **Sidomenyn på 256 px trunkerar** "Förnyas 29 september, 79 kr" bakom "Vad ingår?" och de längsta underraderna ("Alla typer, alla nivåer, provläge mot klockan"). Specens desktopram är 240 px och visar samma trunkering i sin text. Kom igång-raden i sidomenyn bär därför specens korta form ("Kom igång", "2 av 8 provade") och den flytande raden hela meningen. Förslag: behåll.

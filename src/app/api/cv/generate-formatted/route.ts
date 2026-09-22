@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { shouldShowSection } from '@/lib/cv/cv-metadata';
@@ -2467,6 +2468,8 @@ export async function POST(request: NextRequest) {
           template_id: template,
           downloaded_at: new Date().toISOString()
         });
+        // Hjälpredan Kom igång: mallen är nedladdad.
+        void markeraBricka(user.id, 'mall');
 
         // Update onboarding progress
         const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {

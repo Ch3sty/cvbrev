@@ -1,12 +1,18 @@
 'use client';
 
 /**
- * Sidomenyn (docs/designsystem.md, "Informationsarkitektur").
+ * Sidomenyn (docs/designsystem.md, "Informationsarkitektur", och
+ * docs/design/spec-onboarding-2026-09-22.html, sektion 3 och 5).
  *
- * 256 px panel på mark, tre grupper: Översikt/Ansökningar/CV/Brev utan
- * rubrik, Verktyg, Konto. Hjälp längst ner. Aktiv rad får tråden. Antal till
- * höger i metadata. Premium-raden i gratisläge får kant, inte orange ram.
- * Ikonerna är de tolv motiven ur Ikoner.tsx, nakna i 20 px.
+ * 256 px panel på mark. Överst menyhuvudet i ink-1: vilket paket man har,
+ * när det förnyas och vad det kostar, med "Vad ingår?". Tre grupper:
+ * Översikt/Ansökningar/CV/Brev utan rubrik, Verktyg, Konto. Varje val bär
+ * en underrad som säger vad som ingår ("3 mallar, en nedladdning") eller att
+ * det inte ingår och i vilket paket det finns. Det som inte ingår är grått
+ * med lås, och trycket öppnar betalväggen för rätt paket med
+ * mellanskillnaden. Längst ned hjälpredan Kom igång, sedan Hjälp.
+ *
+ * Talen kommer ur summeringen (scope och kvoter), aldrig hårdkodade.
  */
 
 import { useState, useEffect } from 'react';
@@ -15,6 +21,11 @@ import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { scheduleIdle } from '@/lib/scheduleIdle';
 import { useAuth } from '@/contexts/AuthContext';
 import { PLAN_BY_KEY } from '@/lib/plans/plans';
+import { menyFot, menyHuvud, menyRad, type MenyVal, type PaketLage } from '@/lib/onboarding/paket-rader';
+import type { Feature } from '@/lib/access/features';
+import type { PaywallVariant } from '@/components/paywall/paywall-copy';
+import GraValSheet from '@/components/paywall/GraValSheet';
+import KomIgangRad from './KomIgangRad';
 
 import SidebarLogo from './sidebar/SidebarLogo';
 import SidebarSection from './sidebar/SidebarSection';
@@ -35,6 +46,7 @@ import {
   IkonEntusiastisk,
   IkonKrona,
   IkonProfil,
+  IkonSynlig,
 } from '@/components/illustrations/Ikoner';
 
 interface DashboardSidebarProps {
@@ -42,9 +54,22 @@ interface DashboardSidebarProps {
   isMobile?: boolean;
 }
 
+/** Gratisnivån innan summeringen hunnit fram: allt ingår-texter blir gratisnivåns. */
+const TOM_PAKET: PaketLage = {
+  scope: null,
+  track: null,
+  planKey: null,
+  fornyasAt: null,
+  dayPassOnly: false,
+  chatUsed: 0,
+  chatLimit: null,
+  lettersUsed: 0,
+  lettersLimit: null,
+};
+
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
-  // Profilen kommer ur den delade summaryn. Tidigare gjorde sidebaren ett eget
-  // auth.getUser() plus en select mot profiles för exakt samma fält.
+  // Profilen och paketet kommer ur den delade summeringen. Ingen egen
+  // rundtur: menyn renderas på varje sida och har hemskärmens LCP-budget.
   const { summary } = useDashboardData();
   const profile = (summary?.profile ?? null) as {
     premium_until?: string | null;
@@ -52,19 +77,19 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     subscription_status?: string | null;
     subscription_id?: string | null;
   } | null;
+  const paket: PaketLage = summary?.paket ?? TOM_PAKET;
+  const huvud = menyHuvud(paket);
+  const fot = menyFot(paket);
 
-  // Kort status bredvid Premium-raden: "5 dagar kvar" / "Aktiv" / "Gratis".
-  // Kanten tänds bara när Premium betyder något: gratis, eller snart slut.
-  // Härledningen speglar headern så statusen aldrig säger emot sig själv.
+  // Kort status bredvid raden Profil och prenumeration: "Aktiv" / "5 dagar
+  // kvar" / "Från 49 kr". Kanten tänds bara när paketet behöver
+  // uppmärksamhet: gratis, eller snart slut.
   let premiumLabel: string | null = null;
   let premiumNeedsAttention = false;
   if (profile) {
     const hasPremiumUntil =
       Boolean(profile.premium_until) && new Date(profile.premium_until as string) > new Date();
     const hasPremiumTier = profile.subscription_tier === 'premium';
-
-    // En levande Stripe-prenumeration förnyas, så den visar "Aktiv"
-    // i stället för en nedräkning.
     const liveSub =
       !!profile.subscription_id &&
       !String(profile.subscription_id).startsWith('sub_test') &&
@@ -72,7 +97,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
     if (liveSub) {
       premiumLabel = 'Aktiv';
-      premiumNeedsAttention = false;
     } else if (hasPremiumTier && hasPremiumUntil) {
       const daysLeft = Math.max(
         1,
@@ -82,14 +106,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       premiumNeedsAttention = daysLeft <= 2;
     } else if (hasPremiumTier) {
       premiumLabel = 'Aktiv';
-      premiumNeedsAttention = false;
     } else {
-      // Badgen säger vad ett paket kostar i stället för vad kontot saknar.
-      // Priset läses ur PLANS så att badgen följer med om priserna ändras.
-      //
-      // Talet är Allt-dagen, alltså det lägsta priset i hela stegen, och
-      // skrivs alltid som "från": spåret väljs före längden, så badgen kan
-      // inte veta vilket paket hon landar på (ägarens beslut 4).
+      // Priset läses ur PLANS. Allt-dagen är lägsta priset i stegen, och
+      // skrivs alltid som "från" (ägarens beslut 4).
       premiumLabel = `Från ${PLAN_BY_KEY.all_day.amount} kr`;
       premiumNeedsAttention = true;
     }
@@ -104,12 +123,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [applicationCount, setApplicationCount] = useState<number | null>(null);
   const supabase = getSupabaseClient();
 
+  // Ett grått val tryckt: betalväggen för rätt paket.
+  const [sparr, setSparr] = useState<{ feature: Feature; variant: PaywallVariant } | null>(null);
+
   useEffect(() => {
     if (!userId) return;
     const uid: string = userId;
 
-    // Kanaler skapas async (efter att userId hämtats) men måste städas i en
-    // synkront körande cleanup. Håll dem i en array plus en cancelled-flagga.
     const channels: ReturnType<typeof supabase.channel>[] = [];
     let cancelled = false;
 
@@ -127,8 +147,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
         if (cancelled) return;
 
-        // Realtime: lyssna på cv_texts, letters och job_applications så
-        // antalen uppdateras direkt. Filtrerat på den inloggade användaren.
         channels.push(
           supabase
             .channel('sidebar_cv_texts_changes')
@@ -181,9 +199,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       setApplicationCount(applicationCountResult ?? 0);
     };
 
-    // Adminflaggan, de tre räknarna och realtidskanalerna rör sidomenyns
-    // siffror. Ingenting av det behövs för första målningen, så det körs
-    // först när tråden är ledig.
+    // Ingenting av det här behövs för första målningen.
     scheduleIdle(() => loadAdminAndCounts(), 3000);
 
     return () => {
@@ -193,6 +209,20 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   }, [supabase, userId]);
 
   const hasNoCv = cvCount !== null && cvCount === 0;
+
+  /** Underraden för ett val, och det gråa läget om valet inte ingår. */
+  const rad = (val: MenyVal) => menyRad(val, paket);
+  const graProps = (val: MenyVal) => {
+    const r = rad(val);
+    if (r.ingar || !r.feature || !r.variant) return { sublabel: r.text };
+    const feature = r.feature;
+    const variant = r.variant;
+    return {
+      sublabel: r.text,
+      locked: true,
+      onLocked: () => setSparr({ feature, variant }),
+    };
+  };
 
   return (
     <div
@@ -207,22 +237,36 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
         aria-label="Sidomeny"
       >
-        {/* Det dagliga, utan rubrik. Ansökningar först efter Översikt: det
-            är det enda som förändras utan att användaren gör något. */}
+        {/* Menyhuvudet: paketet, förnyelsen, priset. Ink-1 med vit text,
+            samma yta som Kom igång-raden och Allt-kortet. */}
+        <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-ink-1 px-3 py-3 text-white">
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-semibold leading-5">{huvud.rubrik}</span>
+            <span className="block truncate text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
+          </span>
+          <a
+            href={huvud.href}
+            onClick={() => isMobile && onClose?.()}
+            className="shrink-0 text-xs font-medium text-white underline decoration-ink-1-kant underline-offset-[3px] hover:decoration-white"
+          >
+            {huvud.lank}
+          </a>
+        </div>
+
         <SidebarSection>
           <SidebarLink
             href="/dashboard"
-            label="Översikt"
+            label="Mitt jobbsök"
             icon={IkonHem}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/sokta-tjanster"
-            label="Ansökningar"
+            label="Sökta tjänster"
             icon={IkonAnsokningar}
             count={applicationCount}
-            sublabel="Hur långt du kommer, och var det tar stopp"
+            sublabel={rad('sokta').text}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -231,7 +275,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Mina CV"
             icon={IkonCv}
             count={cvCount}
-            sublabel={hasNoCv ? 'Ladda upp ditt första CV' : undefined}
+            sublabel={hasNoCv ? 'Ladda upp ditt första CV' : rad('cv').text}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -240,14 +284,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Personliga brev"
             icon={IkonBrev}
             count={letterCount}
-            sublabel={hasNoCv ? 'Ladda upp ett CV så börjar vi' : undefined}
+            sublabel={rad('brev').text}
             isMobile={isMobile}
             onClick={onClose}
           />
         </SidebarSection>
 
-        {/* Verktyg: värdefullt men inte dagligt. De två som leder till en
-            färdig handling först. */}
         <SidebarSection eyebrow="Verktyg">
           <SidebarLink
             href="/dashboard/skapa-brev"
@@ -261,15 +303,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-analys"
             label="Analysera CV"
             icon={IkonAnalys}
-            sublabel="Så läser en rekryterare ditt CV"
+            sublabel={rad('analys').text}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/jobbmatchning"
-            label="Jobbmatchning"
+            label="Matchade jobb"
             icon={IkonMatchning}
-            sublabel="Lediga jobb som passar dig"
+            sublabel={rad('matchning').text}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -277,7 +319,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-mallar"
             label="CV-mallar"
             icon={IkonMallar}
-            sublabel="Mallar som rekryteringssystem läser"
+            sublabel={rad('mallar').text}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -285,15 +327,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/tester"
             label="Rekryteringstester"
             icon={IkonBalanserad}
-            sublabel="Träna på testerna innan urvalet"
+            sublabel={rad('tester').text}
             isMobile={isMobile}
             onClick={onClose}
           />
           <SidebarLink
             href="/dashboard/linkedin-optimizer"
-            label="LinkedIn"
+            label="LinkedIn-profilen"
             icon={IkonLank}
-            sublabel="Profil som rekryterare hittar"
+            {...graProps('linkedin')}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -301,20 +343,24 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/jobbcoachen"
             label="Jobbcoachen"
             icon={IkonEntusiastisk}
-            sublabel="Fråga om lön, intervju och avtal"
+            sublabel={rad('coach').text}
             isMobile={isMobile}
             onClick={onClose}
           />
-          <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
+          {rad('bli_upptackt').ingar ? (
+            <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
+          ) : (
+            <SidebarLink
+              href="/dashboard/bli-upptackt"
+              label="Bli upptäckt"
+              icon={IkonSynlig}
+              {...graProps('bli_upptackt')}
+              isMobile={isMobile}
+              onClick={onClose}
+            />
+          )}
         </SidebarSection>
 
-        {/* Konto: paketet först, sedan profilen. Raden får kant när kontot
-            är gratis eller nära slutet. Aldrig fylld orange yta.
-
-            Etiketten är "Profil och prenumeration" (onboardingspecen
-            2026-09-22), inte "Premium": efter paketomgången finns ingen enda
-            premiumnivå utan tre spår, och raden är den synliga vägen till att
-            köpa eller byta paket. */}
         <SidebarSection eyebrow="Konto">
           <SidebarLink
             href="/dashboard/profil/prenumeration"
@@ -334,13 +380,34 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             onClick={onClose}
           />
         </SidebarSection>
+
+        {/* Spårkundens fotrad: vad Allt kostar till, och att det öppnar det gråa. */}
+        {fot ? <p className="px-3 pt-4 text-xs leading-4 text-ink-3">{fot}</p> : null}
       </nav>
+
+      {/* Hjälpredan Kom igång längst ned i sidomenyn (sektion 5). */}
+      <div className="px-3 pb-2 empty:hidden">
+        <KomIgangRad variant="sidomeny" />
+      </div>
 
       <SidebarFooter
         isAdmin={isAdmin}
         isMobile={isMobile}
         onLinkClick={onClose}
       />
+
+      {sparr ? (
+        <GraValSheet
+          open
+          onClose={() => setSparr(null)}
+          feature={sparr.feature}
+          variant={sparr.variant}
+          scope={paket.scope}
+          track={paket.track}
+          planKey={paket.planKey}
+          surface="sidomeny"
+        />
+      ) : null}
     </div>
   );
 }

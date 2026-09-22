@@ -8,6 +8,7 @@ import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
 import { backfillProfileContact } from '@/lib/profile/backfillContact';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
@@ -390,6 +391,8 @@ Alternativt: Ladda upp som .DOCX istället.`,
 
     // B7: första CV-uppladdningen. Coalesce via service role, tyst vid fel.
     await markFirstMilestone(user.id, 'first_cv_uploaded_at');
+    // Hjälpredan Kom igång: CV:t är uppe.
+    void markeraBricka(user.id, 'cv_upp');
 
     emitter.complete({
       ...cvData,
