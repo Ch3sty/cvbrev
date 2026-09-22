@@ -1164,3 +1164,9 @@ tidslinjeraden i `.claude/agents/saas-lead.md`. Viktigast: den nya
 insamlingen går i produktion först vid merge; tills dess skriver cronen
 nattens rad med den gamla koden (ägarens konto inräknat), och nästa
 omsamling efter merge rättar den.
+
+## Ägarens justeringar av visuell linje och artiklar (2026-09-23, bindande före bygge)
+- Showcasen i artiklar (InteractiveCVShowcase, InteractiveLetterShowcase, ArticleTemplateShowcase) behåller interaktiviteten: mallväljare, typsnittsval och bläddring stannar. Farten tas genom att första vyn serverrenderas statiskt och växlingskoden laddas lazy vid interaktion utan hela mallregistret. JS-budgeten mäts efteråt; håller den inte, är det budgeten som får ge vika, inte interaktiviteten.
+- Artikellistan behåller gallerilayouten med reklamkort inblandade bland artikelkorten, på desktop och mobil. Ingen radlista.
+- Reklamtexten "Gör provet innan rekryteraren gör det" utgår; copywritern skriver om den i slutgranskningen av de fjorton texterna.
+- Bygget startar först efter ägarens uttryckliga "kör".

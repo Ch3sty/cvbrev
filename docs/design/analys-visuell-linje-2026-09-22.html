@@ -1,0 +1,1017 @@
+<title>En linje för hela Jobbcoach</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;--fel:#B91C1C;
+  --cv:#1D4ED8;--cv-mjuk:#DCE6FB;--test:#7C2D12;--test-mjuk:#F6E4D6;
+  --pa-ink:#FFFFFF;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --mark:#1A1714;--panel:#232019;--insunken:#15120E;--insunken-topp:#0E0C09;--kant:#3A342C;--kant-stark:#554D42;
+    --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;--ink-hover:#E4DDD2;
+    --ink-1-mjuk:#6B645E;--ink-1-kant:#D6CDBF;--ink-1-accent:#9A3412;
+    --accent-ink:#F4A575;--accent-mjuk:rgba(217,72,15,.18);
+    --positiv:#5FD3A6;--positiv-mjuk:rgba(4,120,87,.22);--varning:#F0B36A;--varning-mjuk:rgba(161,74,5,.22);--fel:#F08A8A;
+    --cv:#9DB9F7;--cv-mjuk:rgba(29,78,216,.22);--test:#E5A98A;--test-mjuk:rgba(124,45,18,.28);
+    --pa-ink:#1A1714;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --mark:#1A1714;--panel:#232019;--insunken:#15120E;--insunken-topp:#0E0C09;--kant:#3A342C;--kant-stark:#554D42;
+  --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;--ink-hover:#E4DDD2;
+  --ink-1-mjuk:#6B645E;--ink-1-kant:#D6CDBF;--ink-1-accent:#9A3412;
+  --accent-ink:#F4A575;--accent-mjuk:rgba(217,72,15,.18);
+  --positiv:#5FD3A6;--positiv-mjuk:rgba(4,120,87,.22);--varning:#F0B36A;--varning-mjuk:rgba(161,74,5,.22);--fel:#F08A8A;
+  --cv:#9DB9F7;--cv-mjuk:rgba(29,78,216,.22);--test:#E5A98A;--test-mjuk:rgba(124,45,18,.28);
+  --pa-ink:#1A1714;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:15px;line-height:23px;-webkit-font-smoothing:antialiased;padding-inline:16px}
+h1,h2,h3,h4{margin:0;font-family:var(--display);text-wrap:balance;letter-spacing:-.025em;color:var(--ink-1)}
+p{margin:0}
+svg{display:block}
+a{color:var(--ink-1)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:40px 80px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.intro h1{font-size:clamp(34px,6vw,60px);line-height:1;font-weight:800;max-width:16ch;margin-top:8px}
+.intro .ingress{margin-top:20px;font-size:18px;line-height:29px;color:var(--ink-2);max-width:62ch}
+.intro .ingress b{color:var(--ink-1);font-weight:600}
+.citat{margin-top:24px;padding:20px 24px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;max-width:72ch;color:var(--ink-2);font-size:15px;line-height:24px}
+.citat b{color:var(--ink-1);font-weight:600}
+.meta{margin-top:16px;font-size:13px;line-height:18px;color:var(--ink-3)}
+
+.sek{margin-top:72px}
+.sek>.eyebrow{margin-bottom:10px}
+.sek>h2{font-size:clamp(28px,4vw,40px);line-height:1.1;font-weight:700;max-width:24ch}
+.sek>.ingress{margin-top:12px;color:var(--ink-2);max-width:70ch;font-size:16px;line-height:26px}
+h3.u{font-size:22px;line-height:28px;font-weight:700;margin-top:40px}
+h4.u{font-size:16px;line-height:22px;font-weight:700;margin-top:24px;font-family:var(--body);letter-spacing:-.01em}
+.prosa{max-width:70ch;color:var(--ink-2);margin-top:8px}
+.prosa b{color:var(--ink-1);font-weight:600}
+ul.lista{margin:12px 0 0;padding-left:20px;color:var(--ink-2);max-width:72ch}
+ul.lista li{margin-top:6px}
+ul.lista b{color:var(--ink-1);font-weight:600}
+
+/* skärmdumpar */
+.jamf{display:grid;gap:16px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.dump{background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden}
+.dump .rubb{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:10px 14px;border-bottom:1px solid var(--kant);font-size:13px;line-height:18px}
+.dump .rubb b{font-weight:600;color:var(--ink-1)}
+.dump .rubb span{color:var(--ink-3)}
+.dump .bild{background:var(--insunken);overflow:hidden;position:relative}
+.dump .bild img{width:100%;height:auto;display:block;object-fit:cover;object-position:top}
+.dump .bild.h520 img{height:520px}
+.dump .bild.h360 img{height:360px}
+.dump .bild.h700 img{height:700px}
+.dump .bild.mobil{display:flex;justify-content:center;padding:0}
+.dump .bild.mobil img{max-width:412px}
+.dump .txt{padding:12px 14px;font-size:13px;line-height:19px;color:var(--ink-2);border-top:1px solid var(--kant)}
+.dump .txt b{color:var(--ink-1);font-weight:600}
+
+/* tabell */
+.tabw{overflow-x:auto;margin-top:20px;border:1px solid var(--kant);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px;line-height:20px}
+th{background:var(--insunken);text-align:left;font-weight:600;color:var(--ink-3);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--kant)}
+td{padding:12px 14px;border-bottom:1px solid var(--kant);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink-1);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td .ok{color:var(--positiv);font-weight:500}
+.tag{display:inline-block;font-size:12px;line-height:16px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);white-space:nowrap}
+.tag.s{background:var(--positiv-mjuk);color:var(--positiv)}
+.tag.m{background:var(--varning-mjuk);color:var(--varning)}
+.tag.l{background:var(--test-mjuk);color:var(--test)}
+
+/* fem grepp */
+.grepp{display:grid;gap:16px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.grepp article{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:18px 20px}
+.grepp .nr{font-family:var(--display);font-size:28px;line-height:30px;font-weight:700;color:var(--ink-1)}
+.grepp h4{font-family:var(--display);font-size:18px;line-height:24px;font-weight:700;margin-top:8px}
+.grepp p{margin-top:8px;font-size:14px;line-height:21px;color:var(--ink-2)}
+.grepp p b{color:var(--ink-1);font-weight:600}
+
+/* regler */
+.regler{counter-reset:r;display:grid;gap:12px;margin-top:20px}
+.regel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:18px 20px 18px 64px;position:relative}
+.regel::before{counter-increment:r;content:counter(r);position:absolute;left:20px;top:16px;font-family:var(--display);font-weight:700;font-size:28px;line-height:30px;color:var(--ink-1)}
+.regel h4{font-family:var(--display);font-size:18px;line-height:24px;font-weight:700}
+.regel p{margin-top:6px;color:var(--ink-2);font-size:14px;line-height:21px;max-width:80ch}
+.regel p b{color:var(--ink-1);font-weight:600}
+.regel .var{margin-top:8px;font-size:12px;line-height:16px;color:var(--ink-3)}
+.regel .var code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--ink-2)}
+
+/* skisser */
+.skiss{margin-top:20px;display:grid;gap:24px;grid-template-columns:1fr}
+@media (min-width:1000px){.skiss.tva{grid-template-columns:412px 1fr;align-items:start}}
+.ram{background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.ram .topp{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--kant);background:var(--insunken);font-size:12px;color:var(--ink-3)}
+.ram .topp i{width:10px;height:10px;border-radius:50%;background:var(--kant-stark);display:inline-block}
+.ram .topp span{margin-left:6px}
+.tel{width:100%;max-width:412px;margin:0 auto}
+.tel .yta{background:var(--mark);font-size:14px;line-height:20px}
+.deskw{width:100%;overflow:hidden;min-width:0}
+.skiss>div{min-width:0}
+.desk{width:1120px;transform-origin:top left}
+.desk .yta{background:var(--mark);display:grid;grid-template-columns:232px 1fr;min-height:640px;font-size:14px;line-height:20px}
+.desk.pub .yta{display:block}
+
+/* komponenter i skisserna */
+.s-h1{font-family:var(--display);font-weight:800;letter-spacing:-.025em;color:var(--ink-1)}
+.s-h1.m{font-size:32px;line-height:35px}
+.s-h1.d{font-size:44px;line-height:46px}
+.s-h1.pub{font-size:60px;line-height:60px;max-width:13ch}
+.s-sub{color:var(--ink-2);font-size:14px;line-height:22px;margin-top:6px}
+.s-sub.ex{color:var(--ink-3)}
+.s-etikett{font-size:14px;line-height:20px;font-weight:500;color:var(--ink-3);display:flex;justify-content:space-between;align-items:baseline}
+.s-etikett a{font-size:14px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.s-panel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px}
+.s-ink{background:var(--ink-1);color:var(--pa-ink);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.s-ink .s-steg{color:var(--ink-1-accent)}
+.s-ink p{color:var(--ink-1-mjuk)}
+.s-ink h3{color:var(--pa-ink);font-family:var(--display);font-size:22px;line-height:27px;font-weight:700}
+.s-ink .knapp{background:var(--pa-ink);color:var(--ink-1)}
+.s-ink .lank{color:var(--ink-1-mjuk);text-decoration-color:var(--ink-1-kant)}
+.s-steg{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.knapp{display:inline-flex;height:44px;align-items:center;justify-content:center;padding:0 16px;border-radius:8px;background:var(--ink-1);color:var(--pa-ink);font-weight:500;font-size:14px;white-space:nowrap}
+.knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
+.knapp.full{width:100%}
+.lank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.tal{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink-1)}
+.tal.stor{font-size:48px;line-height:48px}
+.tal.mellan{font-size:28px;line-height:30px}
+.rad{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--kant)}
+.rad:first-child{border-top:0;padding-top:0}
+.rad .t{font-weight:600;color:var(--ink-1);font-size:15px;line-height:21px}
+.rad .u{color:var(--ink-3);font-size:13px;line-height:18px;margin-top:2px}
+.rad .h{margin-left:auto;white-space:nowrap;font-size:13px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark);padding-top:2px}
+.punkt{width:8px;height:8px;border-radius:50%;background:var(--ink-3);margin-top:7px;flex:none}
+.punkt.varm{background:var(--accent)}
+.punkt.pos{background:var(--positiv)}
+.statusrad{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--ink-1)}
+.statusrad .punkt{margin-top:0}
+.statusrad .h{margin-left:auto;font-size:13px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.stapel{display:flex;gap:3px;height:10px;margin-top:10px}
+.stapel i{flex:1;border-radius:2px;background:var(--kant-stark)}
+.stapel i.tyst{background:var(--kant-stark)}
+.stapel i.ny{background:var(--ink-3)}
+.stapel i.intervju{background:var(--positiv)}
+.stapel i.svar{background:var(--ink-1)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:13px;color:var(--ink-3)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--kant-stark)}
+.scen{color:var(--ink-1)}
+.scen svg{width:100%;height:auto}
+.s-ink .scen{color:var(--pa-ink)}
+.segment{display:flex;gap:4px;margin-top:8px}
+.segment span{flex:1;text-align:center;font-size:12px;line-height:16px;padding:6px 4px;border:1px solid var(--kant);border-radius:8px;color:var(--ink-2);background:var(--panel)}
+.segment span.klar{border-color:var(--ink-1);color:var(--ink-1);font-weight:500}
+.segment span.gra{color:var(--ink-3);background:var(--insunken)}
+
+/* sidomeny i skiss */
+.meny{background:var(--panel);border-right:1px solid var(--kant);padding:16px 12px;font-size:14px;line-height:20px}
+.meny .logo{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em;padding:0 8px 12px}
+.meny .paket{background:var(--ink-1);color:var(--pa-ink);border-radius:8px;padding:10px 12px;font-size:13px;line-height:17px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.meny .paket b{font-weight:600;display:block}
+.meny .paket span{color:var(--ink-1-mjuk)}
+.meny .paket a{color:var(--pa-ink);font-size:12px;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.meny .grupp{margin-top:18px}
+.meny .grupp .g{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:0 8px 6px}
+.meny .r{display:flex;align-items:center;gap:10px;padding:0 8px;height:40px;border-radius:8px;color:var(--ink-2);position:relative}
+.meny .r.k{color:var(--ink-1);font-weight:500;height:44px}
+.meny .r.k svg{color:var(--ink-1)}
+.meny .r svg{width:22px;height:22px;flex:none;color:var(--ink-3)}
+.meny .r .n{margin-left:auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.meny .r.aktiv{background:var(--insunken)}
+.meny .r.aktiv::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:2px}
+.meny .r .ny{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--accent-ink)}
+.meny .r.under{padding-left:40px;height:36px;font-size:14px}
+.meny .fot{margin-top:24px;border-top:1px solid var(--kant);padding-top:12px;color:var(--ink-3);font-size:13px}
+.meny .fot div{padding:6px 8px}
+.topprad{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--kant);font-size:14px}
+.topprad .hoger{display:flex;gap:16px;align-items:center;color:var(--ink-2);font-size:13px}
+.topprad .avatar{width:28px;height:28px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant)}
+.innehall{padding:24px 32px 40px}
+.kol2{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+.kol2b{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.bottennav{display:grid;grid-template-columns:repeat(4,1fr);background:var(--panel);border-top:1px solid var(--kant);padding:8px 0 12px;font-size:12px;color:var(--ink-3);text-align:center}
+.bottennav div{display:flex;flex-direction:column;align-items:center;gap:4px}
+.bottennav svg{width:22px;height:22px}
+.bottennav .aktiv{color:var(--ink-1);font-weight:500}
+.topp-m{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.topp-m .logo{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.ikon{width:22px;height:22px;color:var(--ink-2)}
+
+/* publika skisser */
+.p-header{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.p-header .logo{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em}
+.p-header .logo i{width:28px;height:28px;border-radius:7px;background:#F97316;display:inline-block;color:#fff;font-style:normal;font-weight:800;text-align:center;line-height:28px;font-size:16px}
+.p-header nav{display:flex;gap:4px;font-size:15px;color:var(--ink-2)}
+.p-header nav span{padding:8px 12px;border-radius:8px}
+.p-header nav span.aktiv{color:var(--ink-1);font-weight:500;background:var(--insunken)}
+.p-header .cta{display:flex;gap:8px;align-items:center}
+.p-header .cta .lank{margin-right:8px;text-decoration:none;color:var(--ink-2)}
+.p-header .knapp{height:40px}
+.mega{margin:8px 32px 0 auto;width:820px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:12px;box-shadow:0 8px 24px rgba(28,25,23,.12),0 1px 2px rgba(28,25,23,.08);display:grid;grid-template-columns:1fr 1fr 1fr 220px;gap:0;overflow:hidden}
+.mega .g{padding:20px 20px 16px;border-right:1px solid var(--kant)}
+.mega .g .s-steg{margin-bottom:8px}
+.mega .g .r{display:flex;gap:10px;align-items:center;height:40px;color:var(--ink-1);font-size:14px;font-weight:500}
+.mega .g .r svg{width:22px;height:22px;color:var(--ink-2)}
+.mega .sida{background:var(--insunken);padding:20px;display:flex;flex-direction:column;gap:10px}
+.mega .sida p{font-size:13px;line-height:19px;color:var(--ink-2)}
+.mega .sida b{font-family:var(--display);font-size:16px;line-height:20px;font-weight:700;color:var(--ink-1)}
+.mega .fotr{grid-column:1 / -1;border-top:1px solid var(--kant);padding:12px 20px;display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2)}
+.hero{display:grid;grid-template-columns:1fr 480px;gap:56px;align-items:center;padding:56px 48px 48px}
+.hero .ingress{margin-top:20px;font-size:18px;line-height:29px;color:var(--ink-2);max-width:46ch}
+.hero .ingress b{color:var(--ink-1);font-weight:600}
+.hero .cta{margin-top:24px;display:flex;gap:20px;align-items:center}
+.hero .bevis{margin-top:28px;display:flex;gap:32px;font-size:13px;color:var(--ink-3);line-height:18px}
+.hero .bevis b{display:block;font-family:var(--display);font-size:28px;line-height:30px;color:var(--ink-1);font-weight:700;font-variant-numeric:tabular-nums}
+.p-sek{padding:0 48px 48px}
+.p-sek .s-panel{padding:32px;display:grid;grid-template-columns:1fr 260px;gap:32px;align-items:center}
+.p-sek h2{font-size:36px;line-height:40px;font-weight:700}
+.p-sek .ingress{margin-top:10px;color:var(--ink-2);font-size:16px;line-height:26px;max-width:52ch}
+.p-ink{margin:0 48px 48px;background:var(--ink-1);color:var(--pa-ink);border-radius:12px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.p-ink h2{color:var(--pa-ink);font-size:36px;line-height:40px;font-weight:700}
+.p-ink .s-steg{color:var(--ink-1-accent)}
+.p-ink p{color:var(--ink-1-mjuk);margin-top:10px;font-size:15px;line-height:24px}
+.p-ink .medie{border-top:1px solid var(--ink-1-kant);padding:12px 0}
+.p-ink .medie:first-child{border-top:0;padding-top:0}
+.p-ink .medie b{display:block;color:var(--pa-ink);font-weight:600;font-size:15px}
+.p-ink .medie span{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-1-accent);font-weight:600}
+.p-footer{background:var(--mark);border-top:1px solid var(--kant);padding:40px 48px 24px}
+.p-footer .kols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.p-footer .kols .s-steg{margin-bottom:8px}
+.p-footer .kols .om{max-width:36ch;color:var(--ink-2)}
+.p-footer .kols div div{padding:3px 0}
+.p-footer .botten{margin-top:32px;padding-top:16px;border-top:1px solid var(--kant);display:flex;justify-content:space-between;font-size:13px;color:var(--ink-3)}
+.mobil-h{display:flex;justify-content:space-between;align-items:center;padding:0 16px;height:56px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.mobil-h .logo{font-family:var(--display);font-weight:800;font-size:18px;display:flex;align-items:center;gap:8px}
+.mobil-h .logo i{width:26px;height:26px;border-radius:6px;background:#F97316;display:inline-block;color:#fff;font-style:normal;font-weight:800;text-align:center;line-height:26px;font-size:15px}
+.mobil-h .knapp{height:36px;padding:0 12px;font-size:13px}
+.mobil-meny{background:var(--panel);padding:8px 16px 16px}
+.mobil-meny .r{display:flex;align-items:center;gap:12px;height:48px;border-bottom:1px solid var(--kant);font-size:16px;color:var(--ink-1);font-weight:500}
+.mobil-meny .r svg{width:22px;height:22px;color:var(--ink-2)}
+.mobil-meny .r.sek{font-weight:400;color:var(--ink-2);height:44px;padding-left:34px;font-size:15px}
+.mobil-meny .g{padding:16px 0 4px}
+
+/* insats */
+.ordn{margin-top:20px;display:grid;gap:12px}
+.steg{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px}
+.steg .n{font-family:var(--display);font-weight:700;font-size:28px;line-height:30px}
+.steg h4{font-family:var(--display);font-size:17px;line-height:22px;font-weight:700}
+.steg p{margin-top:4px;font-size:14px;line-height:21px;color:var(--ink-2)}
+.steg p b{color:var(--ink-1);font-weight:600}
+.steg .st{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.illus{display:grid;gap:12px;margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.illus article{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:14px 16px;font-size:14px;line-height:20px;color:var(--ink-2)}
+.illus b{display:block;color:var(--ink-1);font-weight:600;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.illus span{display:block;margin-top:4px}
+.illus .var{margin-top:6px;font-size:12px;color:var(--ink-3)}
+.slut{margin-top:64px;padding-top:24px;border-top:1px solid var(--kant);font-size:13px;line-height:19px;color:var(--ink-3);max-width:80ch}
+@media (max-width:640px){.hero,.p-ink,.p-sek .s-panel{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="intro">
+  <p class="eyebrow">Art director · analys och förslag · 22 september 2026</p>
+  <h1>En linje för hela Jobbcoach</h1>
+  <p class="ingress">Prissidan är den enda sidan som ser ut som en produkt någon har ritat. Inloggat läge har prissidans lugn men inte dess tyngd, och de publika sidorna har varken lugnet eller tyngden. <b>Det här dokumentet visar vad prissidan gör, formulerar det som tio regler, och ritar om hemskärmen, två funktionssidor, header, megameny, footer och startsidans hero i samma linje.</b> Opus 5.5 bygger efter godkännande, i den ordning som avsnitt 6 anger.</p>
+  <div class="citat">Ägaren, ordagrant: <b>"Det inloggade läget ser rätt B ut, givet att simpelt också är bra och tydligt. Men det finns en viss schizofreni om man jämför egentligen alla våra sidor med /priser och den inloggade vyn. Landningssidan har ganska mycket saker i en helt annan stil, likaså alla andra sidor, ser vibecodat och plottrigt ut. Prissidan möter allt bäst: lite wow, snygga implementeringar, stil, custom svgs som lyfter sidan. Den inloggade sidan är som prissidan men utan allt det bra."</b></div>
+  <p class="meta">Underlag: Tråden v2 (docs/designsystem.md), den godkända prisspecen, onboardingspecen, konceptet och kritiken från 13 september, planen för inloggat läge, samt skärmdumpar av 13 verkliga ytor på desktop 1280 och Pixel 7 tagna 22 september mot ett produktionsbygge. Ägarens egen skärmdump av hemskärmen är facit för tillstånd C. Alla tal i skisserna är ägarens riktiga tal ur den skärmdumpen; rader som inte kan härledas ur den är märkta "exempel".</p>
+</header>
+
+<!-- ============================================================ 1 DIAGNOSEN -->
+<section class="sek" id="diagnosen">
+  <p class="eyebrow">1 · Diagnosen</p>
+  <h2>Tre sidor, tre olika produkter</h2>
+  <p class="ingress">Samma tokens, samma typsnitt i grunden, ändå tre uttryck. Prissidan har hierarki, scener och rytm. Hemskärmen har tokens och lugn men ingen tyngd. Startsidan har gradienter, ikoncirklar och sju rubriknivåer i samma vikt.</p>
+
+  <div class="jamf">
+    <div class="dump">
+      <div class="rubb"><b>/priser</b><span>desktop 1280, byggd sida</span></div>
+      <div class="bild h520"><img src="analys-visuell-linje-2026-09-22/priser-desktop.png" alt="Prissidan på desktop: display-rubrik, scen till höger, tre paketkort varav Allt i bläck"></div>
+      <div class="txt"><b>Gör rätt.</b> Display-rubrik i 60, en scen som visar veckan på skrivbordet, Allt-kortet i bläck, värdemeningar före funktionslistor, växlande sektionsformer.</div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/dashboard</b><span>ägarens skärmdump, tillstånd C</span></div>
+      <div class="bild h520"><img src="analys-visuell-linje-2026-09-22/hemskarm-agaren-desktop.png" alt="Hemskärmen: fyra tal i rad, litet nästa handling-kort, två listor som ser ut som loggar, sidomeny med tretton val"></div>
+      <div class="txt"><b>Rätt tokens, ingen tyngd.</b> Ingen rubrik över 16 px i innehållet, fyra tal utan mening, två listor som läses som loggar, tretton menyval i samma vikt.</div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/</b><span>desktop 1280, startsidan</span></div>
+      <div class="bild h520"><img src="analys-visuell-linje-2026-09-22/start-desktop.png" alt="Startsidan: gradientknapp, gradienttext i rubriken, orange ikonrutor, glödande bakgrunder"></div>
+      <div class="txt"><b>Ett tredje system.</b> Gradient i rubrikord, knapp och bakgrund, Lucide-ikoner i orange rutor, font-black överallt, ingen scen, sju sektioner med samma form.</div>
+    </div>
+  </div>
+
+  <h3 class="u">Fem grepp som prissidan gör och de andra inte gör</h3>
+  <div class="grepp">
+    <article><div class="nr">1</div><h4>Typografisk hierarki med display-snitt</h4><p>Schibsted Grotesk 800 i 60 px på desktop, 32 på mobil, sedan 40 för sektioner, 30 för kortnamn, 18 för värdemeningen. <b>Hemskärmen toppar på Inter 16/600</b> ("Ditt jobbsök i september"), sidrubriken "God kväll, Christian" är en topprad i 16. Startsidan har font-black i 68 men i Inter, med gradientord, så tyngden blir buller i stället för hierarki.</p></article>
+    <article><div class="nr">2</div><h4>Illustrationer som visar produkten</h4><p>Åtta scener i 240×200 och en hero i 520×400 som visar CV:t med poäng, matrisen, brevet mot annonsen. <b>Hemskärmen har en 56-platta med ett kuvert.</b> Startsidan, Funktioner, verktygssidorna och Om oss har Lucide-ikoner i orange rundade rutor, tjugo till trettio per sida, alltså exakt det mönster Tråden förbjuder.</p></article>
+    <article><div class="nr">3</div><h4>Bläckyta för det viktigaste</h4><p>Allt-kortet är den enda fyllda ink-ytan, och därför läser ögat den först. <b>På hemskärmen är alla fyra paneler vita med samma kant och radie</b>, så Nästa handling (den viktigaste) väger lika mycket som "Senaste aktivitet" (den minst viktiga). Startsidan använder gradient i stället för bläck och får därmed ingen enda punkt som är tyngst.</p></article>
+    <article><div class="nr">4</div><h4>Värde före funktion i texten</h4><p>"En vecka som bär hela jobbsöket." "Vet exakt varför CV:t inte får svar." Rubriken säger vad du får, underraden vad sidan gör. <b>Hubbarna gör tvärtom:</b> "Rekryteringstester. Träna på de moment rekryterare faktiskt använder", "Byt design på ditt CV. Ditt innehåll, snyggare format." Funktion, sedan funktion igen.</p></article>
+    <article><div class="nr">5</div><h4>Rytm mellan sektioner</h4><p>Hero på mark, tre kort, en bred panel, en sektion med sex kort i två storlekar, tre guider, tre förtroenderader, en tabell. Ingen form upprepas två gånger i rad. <b>Hemskärmen är panel, panel, lista, lista</b> i samma bredd. Startsidan är sju centrerade sektioner med rubrik, ingress, kort, i samma takt, med en glöd bakom varje.</p></article>
+  </div>
+
+  <h3 class="u">Hemskärmen, brist för brist</h3>
+  <p class="prosa">Ur ägarens skärmdump, i den ordning ögat möter dem.</p>
+  <ul class="lista">
+    <li><b>Sex likadana vita ytor i följd.</b> Jobbsök-panelen, Nästa handling, Pågår nu (fem rader i en panel) och Senaste aktivitet (sex rader i en panel) har samma vita fyllning, samma kant, samma radie och samma inre marginal. Inget är tyngre än något annat, så inget leder blicken.</li>
+    <li><b>Statistik utan sammanhang.</b> 11, 10, 1, 3 står som fyra lösa tal med etiketter. Att 10 av 11 väntar svar och att 9 av dem varit tysta i över två veckor är det som betyder något, och det står i en annan panel.</li>
+    <li><b>Senaste aktivitet som loggrader.</b> "CV-analys: Senior Projektledare (Nuvarande) × 4", "Sparat CV: Förbättrat CV - 2026-09-14 × 2", "Matrislogik: 3 % rätt". Det är systemets händelselogg, inte något som talar till användaren, och alla sex rader säger "1 vecka sedan".</li>
+    <li><b>Pågår nu som lista utan innebörd.</b> Fem rader med "Tyst 54 dagar" utan att raden erbjuder något att göra, trots att panelen ovanför ber användaren följa upp just dem.</li>
+    <li><b>Sidomenyn med tretton val i samma vikt</b>, alla med en underrad i 12 px, plus paket-huvud, Kom igång-platta, Admin, Hjälp och Rapportera ett fel. Mitt jobbsök och Rapportera ett fel har samma ikonstorlek, samma textstorlek, samma höjd.</li>
+    <li><b>Ingen illustration.</b> Vyns enda bildyta är en 56-platta med ett kuvert, i tillstånd C. Prissidan ger en scen per kort.</li>
+    <li><b>Ingen rubrik med tyngd.</b> "God kväll, Christian" sitter i toppraden i 16/600. Innehållet börjar med en kortrubrik. Sidan saknar en h1 i ordets visuella mening.</li>
+    <li><b>Två gula meddelanderader ovanför allt</b> (bekräfta e-post, plus "Synlig för rekryterare" i toppraden) tar den första skärmhöjden innan innehållet börjar.</li>
+  </ul>
+
+  <h4 class="u">Det som är rätt i inloggat läge och inte får förloras</h4>
+  <ul class="lista">
+    <li><b>Lugnet.</b> Mark, panel och insunken utan skugga eller gradient. En primär knapp per vy, i bläck. Orange bara som tråd.</li>
+    <li><b>Tydligheten.</b> Nästa handling finns och är rätt (uppföljning först). Sökta tjänster är kärnan. Statusrader är rader, inte kort. Kom igång-raden ligger i sidomenyn, inte över innehållet.</li>
+    <li><b>Tråden.</b> Aktiv menyrad med 3 px, laddning som en linje, fokusring i accent. Det är systemets enda betydelsebärande linje och det ska förbli så.</li>
+    <li><b>Ikonerna.</b> Tolv egna motiv i 24 med asymmetri. De behöver inte ritas om, de behöver bara sluta stå bredvid en underrad som tar bort deras luft.</li>
+  </ul>
+
+  <h3 class="u">Alla ytor i samma tabell</h3>
+  <p class="prosa">Skärmdumparna är tagna 22 september mot produktionsbygget. Den femte kolumnen är det som ska behållas från ytan som den ser ut i dag.</p>
+  <div class="tabw"><table>
+    <thead><tr><th>Yta</th><th>Vad den gör i stället för prissidan</th><th>Konkret i skärmdumpen</th><th>Behåll</th></tr></thead>
+    <tbody>
+      <tr><td>Hemskärm</td><td>Fyra vita ytor i samma vikt, tal utan mening, listor som loggar</td><td>Se listan ovan</td><td><span class="ok">Lugnet, Nästa handling, statusrader</span></td></tr>
+      <tr><td>Sidomeny</td><td>Tretton val i samma vikt, alla med underrad; Verktyg är en lista på åtta</td><td>"Mitt jobbsök" och "Rapportera ett fel" har samma vikt. Underraderna klipps ("Hela analysen, alla fynd och ...")</td><td><span class="ok">Paket-huvudet i bläck, tråden, Kom igång-raden, egna ikoner</span></td></tr>
+      <tr><td>Rekryteringstester</td><td>Sexton nästan identiska rader i fyra likadana paneler</td><td>Varje kategori: etikett, tre meningar, fyra rader med "15 frågor · ca 20 min". Rekommendationskortet i mitten är rätt idé men vitt som allt annat</td><td><span class="ok">Rekommendationen, flikarna Tester/Din utveckling, nivåtexterna</span></td></tr>
+      <tr><td>CV-mallar</td><td>Tre steg i samma vikt och en tom förhandsvisning som är sidans största yta</td><td>Steg 1 av 3 är en streckad ruta, steg 3 en 800 px tom insunken yta. 41 mallar syns som en dropdown</td><td><span class="ok">Stegen som idé, aktiv mall som rad, "Varför den fungerar"</span></td></tr>
+      <tr><td>Header (publik)</td><td>Gradientknapp röd-orange, orange ikoncirkel på logotypen, aktiv flik i orange yta, sju länkar i font-bold</td><td>"Skapa konto" i tre färger med skugga, "Hem" i orange platta</td><td><span class="ok">Logotypen som form, sju val är rätt antal</span></td></tr>
+      <tr><td>Megameny</td><td>Tio val i två kolumner, alla med orange ikoncirkel och två rader text i 11 px; "Se alla funktioner" i orange</td><td>Ingen gruppering, orange kant, orange skugga, framer-motion</td><td><span class="ok">Att den finns och att "För rekryterare" ligger i foten</span></td></tr>
+      <tr><td>Footer</td><td>Orange glöd, prickmönster, vågdelare i gradient, åtta guider som kort med gradientprick, tre sociala knappar i orange</td><td>Fyra dekorlager före innehållet. "Byggt i Sverige" med flagga</td><td><span class="ok">Fyra kolumner, guiderna som idé, bottenraden</span></td></tr>
+      <tr><td>Startsida</td><td>Gradientord i h1, gradientknapp, dynamiska räknare i tre ikonrutor, sju sektioner i samma takt, sex verktyg i sex likadana kort runt en gradientcirkel</td><td>"inte" i gradient, "Allt på ett ställe" i röd cirkel, glöd bakom varje sektion</td><td><span class="ok">Budskapet (rekryteringssystemen sållar), mediebevisen, ordningen hero, matchning, media</span></td></tr>
+      <tr><td>Funktioner</td><td>Åtta ikonkort i två rader, sedan sex sektioner med samma form (rubrik med gradientord, lista med bockar, mockup i orange ram)</td><td>Åtta piller med orange ikoner under ingressen, sedan samma åtta som kort</td><td><span class="ok">En sektion per funktion med produktbild till höger</span></td></tr>
+      <tr><td>/verktyg/cv-analys</td><td>Fem sektioner med etikett-piller, fyra steg som fyra kort, sex kategorier som sex kort, fem regler som fem kort; gradientknappar</td><td>Ett uppladdningskort i heron i rätt riktning, men inramat i orange</td><td><span class="ok">Uppladdning direkt i heron, FAQ, stegen</span></td></tr>
+      <tr><td>/verktyg/rekryteringstester</td><td>Samma mall som cv-analys, samma brister</td><td>Ikonrutor, gradient, kortrader</td><td><span class="ok">Strukturen (vad, hur, resultat, frågor)</span></td></tr>
+      <tr><td>Artikelram</td><td>Rosa-orange hero med prickmönster, författarkort med tre piller, sidokolumn med gradientkort och orange ikonrutor</td><td>Tre olika kortstilar i sidokolumnen. Artikelbilden (gradient) ligger kvar enligt bildstandarden</td><td><span class="ok">Innehållsförteckning, författare, relaterade artiklar, artikelbilderna</span></td></tr>
+      <tr><td>Om oss</td><td>Tidslinje i orange, tre gånger tre kort, en gradientpanel i slutet; enda illustrationen är en linjegraf i orange cirkel</td><td>Fjorton ikonkort på en sida</td><td><span class="ok">Berättelsen cvbrev till Jobbcoach, tre löften, talen 332+ och 247+</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="jamf" style="margin-top:24px">
+    <div class="dump">
+      <div class="rubb"><b>Megamenyn i dag</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/megameny-desktop.png" alt="Megamenyn: tio val med orange ikoncirklar i två kolumner, gradientknapp uppe till höger"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>Footern i dag</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/footer-desktop.png" alt="Footern: orange glöd, prickmönster, åtta guidekort, vågdelare, fyra kolumner"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>Mobilmenyn i dag</b><span>Pixel 7</span></div>
+      <div class="bild h360 mobil"><img src="analys-visuell-linje-2026-09-22/megameny-pixel7.png" alt="Mobilmenyn: sju val med orange ikonrutor, sedan tio till under Vad vi erbjuder, gradientknapp i foten"></div>
+    </div>
+  </div>
+  <div class="jamf">
+    <div class="dump">
+      <div class="rubb"><b>/funktioner</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/funktioner-desktop.png" alt="Funktioner: åtta ikonkort och sektioner med gradientord"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/verktyg/cv-analys</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/verktyg-cv-analys-desktop.png" alt="Verktygssidan CV-analys: hero med orange kort, fyra stegkort, sex kategorikort"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/om-oss</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/om-oss-desktop.png" alt="Om oss: fjorton ikonkort, tidslinje i orange, gradientpanel"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>Artikelram</b><span>desktop</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/artikel-desktop.png" alt="Artikelsidan: rosa hero med prickmönster, sidokolumn med gradientkort"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/dashboard/tester</b><span>desktop, QA-konto med Allt</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/tester-desktop.png" alt="Testhubben: rekommendationskort i vitt, sexton likadana rader"></div>
+    </div>
+    <div class="dump">
+      <div class="rubb"><b>/dashboard/cv-mallar</b><span>desktop, QA-konto med Allt</span></div>
+      <div class="bild h360"><img src="analys-visuell-linje-2026-09-22/cv-mallar-desktop.png" alt="CV-mallar: tre steg i samma vikt och en tom förhandsvisning"></div>
+    </div>
+  </div>
+  <p class="meta">Fler dumpar i mappen docs/design/analys-visuell-linje-2026-09-22: alla tretton ytor på Pixel 7 och desktop, samt prisspecen som referens.</p>
+</section>
+
+<!-- ============================================================ 2 PRINCIPEN -->
+<section class="sek" id="principen">
+  <p class="eyebrow">2 · Principen</p>
+  <h2>Tio regler som utökar Tråden utan att bryta den</h2>
+  <p class="ingress">Tråden v2 svarar på "hur hänger ytorna ihop". Reglerna nedan svarar på "vad är tyngst på varje yta". De gäller inloggat och publikt lika, och de förutsätter allt som redan står i designsystemet: tokens, orange högst tre per skärm, en primär knapp, ingen skugga på det som står stilla.</p>
+
+  <div class="regler">
+    <div class="regel"><h4>Display-snittet bär varje sidrubrik</h4><p>Varje vy har exakt en h1 i Schibsted Grotesk 800: <b>32/35 på mobil, 44/46 på desktop i inloggat läge, 60/60 på publika sidor.</b> Sektionsrubriker på publika sidor är 40/44 i 700. Etiketter, brödtext, knappar och menyn förblir Inter. Ingen annan text tar display-snittet utom stora tal och värdemeningar (18/24, 600).</p><div class="var">Ändrar: §3 typskala, <code>text-h1</code> byter familj till <code>font-display</code>; §12 undantaget "bara prissidan" stryks.</div></div>
+    <div class="regel"><h4>En scen per vy, som visar produkten</h4><p>Varje vy med sidhuvud eller framhävt element får <b>en scen i 240×200 ur PriserScener-familjen</b> (eller en ny i samma språk). Scenen visar vad verktyget gör med användarens material: ett CV med poäng, en matris, ett brev som möter annonsen. Aldrig en ikon i ruta, aldrig två scener, aldrig ovanpå text. Tomt tillstånd behåller 96, marginalplattan 48 behålls bara i listrader och betalväggar.</p><div class="var">Ändrar: §7 "Tre storlekar" blir fyra: 24, 48, 240×200 (scen), 520×400 (hero). PriserScener flyttar från "prissidan" till systemnivå.</div></div>
+    <div class="regel"><h4>Bläckyta för nästa handling</h4><p><b>Exakt en fylld ink-1-yta per vy</b>, och den bär vyns viktigaste handling eller erbjudande: Nästa handling på hemskärmen, rekommendationen i en hubb, Allt-kortet på prissidan, mediebevisen på startsidan. Vit knapp på bläck, sekundärt som textlänk i ink-1-mjuk. Två bläckytor på samma skärm är ett fel, oavsett skärmstorlek.</p><div class="var">Ändrar: §6 ny komponent <code>InkPanel { eyebrow, title, text, action, secondary?, scene? }</code> med tonerna från §12 punkt 2. Nästa handling byter från upphöjd panel till InkPanel.</div></div>
+    <div class="regel"><h4>Aldrig fler än tre ytor i samma vikt i följd</h4><p>Tre paneler med samma fyllning, kant och radie får följa på varandra. <b>Den fjärde byter form:</b> en lista direkt på mark, en statusrad, en bläckyta, en scen, eller text utan ram. Det gäller kort i ett rutnät lika mycket som paneler i en kolumn.</p><div class="var">Ändrar: §4 nytt stycke "Följd", med räkneregeln. Grep-kontroll: fyra <code>rounded-xl border border-kant bg-panel</code> som syskon i följd är en träff.</div></div>
+    <div class="regel"><h4>Ett tal står aldrig ensamt</h4><p>Ett stort tal bär alltid en mening som säger vad det betyder: <b>"11 sökta i september. 10 väntar svar, 9 av dem tysta i över två veckor."</b> Fyra tal i rad med varsin etikett är förbjudet. Där en fördelning finns ritas den som en segmentrad under talet, med text som förklarar segmenten.</p><div class="var">Ändrar: §6 "Stort tal" får en obligatorisk mening; ny komponent <code>Fordelning</code> (segmentrad med legend).</div></div>
+    <div class="regel"><h4>Rader är innehåll, inte loggar</h4><p>En rad i en lista säger vad som hände i användarens ord, med subjekt och verb, och erbjuder nästa steg: <b>"Sökt för 54 dagar sedan, inget svar än. Följ upp."</b> Systemets etiketter ("CV-analys: … × 4", "Matrislogik: 3 % rätt") är förbjudna som radtext. Händelser grupperas per ärende eller per dag, aldrig per händelsetyp.</p><div class="var">Ändrar: §6 "Panel, lista och sektionsrubrik" får radregeln; §13 copy: "en rad har subjekt, verb och nästa steg".</div></div>
+    <div class="regel"><h4>Värde före funktion</h4><p>Sidrubriken säger vad användaren får, underraden vad sidan gör. <b>"Känn igen uppgiften innan provdagen"</b> över "Rekryteringstester", inte tvärtom. Det gäller hubbar, verktygssidor, megamenyns grupper och footerns kolumner.</p><div class="var">Ändrar: §13 copy, redan delvis där ("underraden säger vad sidan gör"); rubrikregeln läggs till. Kräver copywriteragenten per yta.</div></div>
+    <div class="regel"><h4>Navigation har vikt och grupper</h4><p>Sidomenyn har högst <b>fyra val i tung vikt</b> (Mitt jobbsök, Sökta tjänster, Mina CV, Personliga brev) med antal, sedan Verktyg i tre namngivna grupper (Skriv och förbättra, Hitta jobb, Träna) i lättare vikt, sedan Konto. Underrader försvinner ur menyn: vad som ingår står i sidhuvudet på respektive sida och i "Vad ingår?". Publik header: fem val i Inter 15/500, ett i aktiv insunken yta, en bläckknapp.</p><div class="var">Ändrar: plan-inloggat-omdesign §3 (sidebar), <code>paket-rader.ts</code> menyRad slutar producera underrader för menyn. Ny §9-punkt: högst fem val i samma vikt.</div></div>
+    <div class="regel"><h4>Rytm: växla yta, bredd och höjd</h4><p>Två sektioner i följd får inte ha samma form. <b>Mark, panel, bläck, mark.</b> Bred, tvåkolumn, smal. Publika sidor följer alltid: hero på mark med scen, en panel med produktbild, en bläckyta, sedan kort (högst tre), sedan lista, sedan FAQ på mark. Inga glödar, prickmönster, vågor eller bakgrundscirklar bakom någon sektion.</p><div class="var">Ändrar: §12 skrivs om från "tas senare" till "samma system", med sektionsföljden som mall. <code>--jc-gradient-*</code> tas bort ur globals.css.</div></div>
+    <div class="regel"><h4>Orange är fortfarande linje och bläck, överallt</h4><p>Räkneregeln (högst tre per skärm) gäller nu även publikt. <b>Ingen gradient någonstans</b>, inte i knappar, rubrikord, bakgrunder eller delare. Publika CTA:er är bläck. Logotypens #F97316 behålls som enda undantag. Färgetiketterna cv och test finns kvar där paketen nämns.</p><div class="var">Ändrar: §10 förbjudna mönster gäller <code>src/components/landing</code>, <code>src/components/Footer.tsx</code>, <code>src/app/(public)</code>. Grep-kommandot i §10 utökas med de katalogerna.</div></div>
+  </div>
+
+  <h4 class="u">Sammanfattning av vad som ändras i docs/designsystem.md</h4>
+  <ul class="lista">
+    <li><b>§3 Typskala:</b> <code>text-h1</code> blir display 32/35/800 mobil och 44/46/800 desktop; ny <code>text-h1-pub</code> 60/60/800; ny <code>text-h2-pub</code> 40/44/700; ny <code>text-varde</code> 18/24/600 display.</li>
+    <li><b>§4 Djup:</b> nytt stycke "Följd": högst tre ytor i samma vikt efter varandra.</li>
+    <li><b>§6 Komponenter:</b> <code>InkPanel</code>, <code>Fordelning</code>, <code>PageHeader</code> får <code>scene?</code> och ritar scenen i egen kolumn från lg. "Stort tal" kräver mening. Radregeln.</li>
+    <li><b>§7 Illustrationer:</b> fyra storlekar, PriserScener som systemfamilj, scenregeln "visar produkten med användarens material".</li>
+    <li><b>§9 Tillgänglighet:</b> högst fem navigationsval i samma vikt; grupper har rubrik.</li>
+    <li><b>§12 Publika sidor:</b> skrivs om till "samma system", med sektionsföljden. Gradient och navy/pink tas bort ur tailwind.config.js när sista publika ytan är gjord.</li>
+    <li><b>§13 Copy:</b> rubrik = värde, underrad = funktion; rad = subjekt, verb, nästa steg.</li>
+    <li><b>§14 Ändringslogg:</b> "v2.1, en linje, 2026-09-22".</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 3 HEMSKÄRMEN -->
+<section class="sek" id="hemskarmen">
+  <p class="eyebrow">3 · Hemskärmen omritad</p>
+  <h2>Samma data, en sida med tyngd</h2>
+  <p class="ingress">Talen är ägarens: 11 sökta, 10 väntar svar, 1 intervju, 3 svar, 9 tysta i över två veckor, ingen ansökan den här veckan. Aktiviteten är hans sex loggrader omskrivna till tre meningar. Raden under rubriken som säger vad som hänt sedan sist går inte att härleda ur skärmdumpen och är märkt exempel.</p>
+
+  <div class="skiss tva">
+    <!-- Pixel 7 -->
+    <div class="ram tel">
+      <div class="topp"><i></i><i></i><i></i><span>Pixel 7 · 412 px · /dashboard</span></div>
+      <div class="yta">
+        <div class="topp-m"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="logo">Jobbcoach.ai</span><span class="avatar" style="width:28px;height:28px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant)"></span></div>
+        <div style="padding:20px 16px 16px">
+          <p class="s-steg">Måndag 22 september</p>
+          <div class="s-h1 m" style="margin-top:6px">God kväll,<br>Christian.</div>
+          <p class="s-sub ex">Sedan i går: inget nytt svar. Intervjun med Din Vårdcentral ligger kvar som nästa steg. <em>(exempel på sammanhangsrad)</em></p>
+
+          <div class="s-ink" style="margin-top:20px">
+            <div class="scen" style="width:132px;margin:-4px 0 8px -4px">
+              <!-- scen: uppföljningen, ett brev lyfter ur högen -->
+              <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="96" width="150" height="72" rx="14"/><path d="M34 118h150M62 96V78M156 96V78"/><g transform="rotate(-6 128 70)"><rect x="70" y="30" width="116" height="80" rx="14" fill="var(--ink-hover)"/><path d="M70 44l58 40 58-40"/></g><circle cx="192" cy="40" r="12" fill="var(--accent)" stroke="none"/></svg>
+            </div>
+            <p class="s-steg">Nästa handling</p>
+            <h3 style="margin-top:4px">Följ upp 9 ansökningar</h3>
+            <p style="margin-top:6px;font-size:14px;line-height:21px">De har varit tysta i över två veckor. Ett kort mail brukar räcka, och vi skriver utkastet från din ansökan.</p>
+            <div style="display:flex;gap:16px;align-items:center;margin-top:16px"><span class="knapp">Följ upp</span><span class="lank">Senare</span></div>
+          </div>
+
+          <div class="s-panel" style="margin-top:16px">
+            <div style="display:flex;align-items:baseline;gap:10px"><span class="tal stor">11</span><span style="color:var(--ink-2)">sökta i september</span></div>
+            <div class="stapel"><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="ny"></i><i class="intervju"></i></div>
+            <div class="legend"><span><i style="background:var(--kant-stark)"></i>9 tysta över två veckor</span><span><i style="background:var(--ink-3)"></i>1 väntar svar</span><span><i style="background:var(--positiv)"></i>1 intervju</span></div>
+            <p style="margin-top:12px;font-size:14px;line-height:21px;color:var(--ink-2)">3 svar hittills. Du har inte sökt något jobb den här veckan än.</p>
+            <span class="knapp full" style="margin-top:14px">Logga ansökan</span>
+          </div>
+
+          <div class="s-etikett" style="margin-top:24px"><span>Pågår nu</span><a>Alla 11</a></div>
+          <div style="margin-top:8px">
+            <div class="rad"><i class="punkt pos"></i><div><div class="t">Din Vårdcentral i Stockholm · Sjuksköterska</div><div class="u">Intervju bokad <em style="color:var(--ink-3)">(exempel på status)</em></div></div></div>
+            <div class="rad"><i class="punkt"></i><div><div class="t">BAUHAUS · Butikssäljare</div><div class="u">Sökt för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+            <div class="rad"><i class="punkt"></i><div><div class="t">FOI · Civilingenjör signalbehandling</div><div class="u">Sökt för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+            <div class="rad"><i class="punkt"></i><div><div class="t">BILIA · Lagerarbetare, två ansökningar</div><div class="u">Sökta för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+          </div>
+
+          <div class="s-etikett" style="margin-top:24px"><span>Det här gjorde du förra veckan</span></div>
+          <div class="s-panel" style="margin-top:8px;padding:4px 16px">
+            <div class="rad" style="padding:12px 0"><div><div class="t">Du analyserade två CV:n sex gånger och sparade Förbättrat CV.</div><div class="u">Senior Projektledare fick fyra körningar. Poängen syns under Mina CV.</div></div></div>
+            <div class="rad"><div><div class="t">Du laddade ner CV:t i mallarna Magasin och Disk-plus.</div><div class="u">Tre nedladdningar, alla som PDF.</div></div></div>
+            <div class="rad"><div><div class="t">Du gjorde logiktestet på grundnivå, 3 procent rätt.</div><div class="u">Kör det igen med tid kvar, så ser du mönstren.</div></div><span class="h">Kör igen</span></div>
+          </div>
+        </div>
+        <div class="bottennav">
+          <div class="aktiv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 11l8-7 8 7v9H4z"/><path d="M14 20v-6h-4"/></svg>Hem</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 7h6l2 2h10v10H3z"/></svg>Ansökningar</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3h9l4 4v14H6z"/><path d="M15 17h4M17 15v4"/></svg>Skapa</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profil</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop -->
+    <div>
+      <div class="ram deskw" data-scale="1120">
+        <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · /dashboard</span></div>
+        <div class="desk"><div class="yta">
+          <aside class="meny">
+            <div class="logo">Jobbcoach.ai</div>
+            <div class="paket"><div><b>Du har Allt</b><span>Förnyas 30 april, 99 kr</span></div><a>Vad ingår?</a></div>
+            <div class="grupp">
+              <div class="r k aktiv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 11l8-7 8 7v9H4z"/><path d="M14 20v-6h-4"/></svg>Mitt jobbsök</div>
+              <div class="r k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 7h6l2 2h10v10H3z"/></svg>Sökta tjänster<span class="n">13</span></div>
+              <div class="r k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>Mina CV<span class="n">10</span></div>
+              <div class="r k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>Personliga brev<span class="n">12</span></div>
+            </div>
+            <div class="grupp"><div class="g">Skriv och förbättra</div>
+              <div class="r">Skriv nytt brev</div><div class="r">Analysera CV</div><div class="r">CV-mallar</div><div class="r">LinkedIn-profilen</div>
+            </div>
+            <div class="grupp"><div class="g">Hitta jobb</div>
+              <div class="r">Matchade jobb</div><div class="r">Bli upptäckt<span class="ny">NY</span></div>
+            </div>
+            <div class="grupp"><div class="g">Träna</div>
+              <div class="r">Rekryteringstester</div><div class="r">Jobbcoachen</div>
+            </div>
+            <div class="grupp"><div class="g">Konto</div>
+              <div class="r">Profil och prenumeration</div>
+            </div>
+            <div class="fot"><div>Kom igång · 9 av 11 provade</div><div>Hjälp och kontakt</div></div>
+          </aside>
+          <main>
+            <div class="topprad"><span style="color:var(--ink-3);font-size:13px">Måndag 22 september</span><div class="hoger"><span>Synlig för rekryterare</span><span class="avatar"></span><span>Christian Karlsson</span></div></div>
+            <div class="innehall">
+              <div class="kol2">
+                <div>
+                  <div class="s-h1 d">God kväll, Christian.</div>
+                  <p class="s-sub ex" style="max-width:52ch;margin-top:10px">Sedan i går: inget nytt svar. Intervjun med Din Vårdcentral ligger kvar som nästa steg. <em>(exempel)</em></p>
+                  <div class="s-panel" style="margin-top:24px">
+                    <div style="display:flex;align-items:baseline;gap:12px"><span class="tal stor">11</span><span style="color:var(--ink-2);font-size:15px">sökta i september</span><span style="margin-left:auto;color:var(--ink-3);font-size:13px">3 svar hittills</span></div>
+                    <div class="stapel" style="height:12px"><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="tyst"></i><i class="ny"></i><i class="intervju"></i></div>
+                    <div class="legend"><span><i style="background:var(--kant-stark)"></i>9 tysta över två veckor</span><span><i style="background:var(--ink-3)"></i>1 väntar svar</span><span><i style="background:var(--positiv)"></i>1 intervju</span></div>
+                    <div style="display:flex;align-items:center;gap:20px;margin-top:16px"><span class="knapp">Logga ansökan</span><span style="color:var(--ink-2);font-size:14px">Du har inte sökt något jobb den här veckan än.</span></div>
+                  </div>
+                </div>
+                <div class="s-ink" style="padding:24px">
+                  <div class="scen" style="width:200px;margin:-8px 0 4px -8px"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="96" width="150" height="72" rx="14"/><path d="M34 118h150M62 96V78M156 96V78"/><g transform="rotate(-6 128 70)"><rect x="70" y="30" width="116" height="80" rx="14" fill="var(--ink-hover)"/><path d="M70 44l58 40 58-40"/></g><circle cx="192" cy="40" r="12" fill="var(--accent)" stroke="none"/></svg></div>
+                  <p class="s-steg">Nästa handling</p>
+                  <h3 style="margin-top:4px">Följ upp 9 ansökningar</h3>
+                  <p style="margin-top:8px;font-size:14px;line-height:21px">De har varit tysta i över två veckor. Ett kort mail brukar räcka, och vi skriver utkastet från din ansökan.</p>
+                  <div style="display:flex;gap:16px;align-items:center;margin-top:18px"><span class="knapp">Följ upp</span><span class="lank">Senare</span></div>
+                </div>
+              </div>
+              <div class="kol2b" style="margin-top:32px">
+                <div>
+                  <div class="s-etikett"><span>Pågår nu</span><a>Alla 11</a></div>
+                  <div style="margin-top:8px">
+                    <div class="rad"><i class="punkt pos"></i><div><div class="t">Din Vårdcentral i Stockholm · Sjuksköterska</div><div class="u">Intervju bokad <em>(exempel på status)</em></div></div></div>
+                    <div class="rad"><i class="punkt"></i><div><div class="t">BAUHAUS · Butikssäljare</div><div class="u">Sökt för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+                    <div class="rad"><i class="punkt"></i><div><div class="t">FOI · Civilingenjör signalbehandling</div><div class="u">Sökt för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+                    <div class="rad"><i class="punkt"></i><div><div class="t">BILIA · Lagerarbetare, två ansökningar</div><div class="u">Sökta för 54 dagar sedan, inget svar än</div></div><span class="h">Följ upp</span></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="s-etikett"><span>Det här gjorde du förra veckan</span></div>
+                  <div class="s-panel" style="margin-top:8px;padding:4px 16px">
+                    <div class="rad" style="padding:12px 0"><div><div class="t">Du analyserade två CV:n sex gånger och sparade Förbättrat CV.</div><div class="u">Senior Projektledare fick fyra körningar. Poängen syns under Mina CV.</div></div></div>
+                    <div class="rad"><div><div class="t">Du laddade ner CV:t i mallarna Magasin och Disk-plus.</div><div class="u">Tre nedladdningar, alla som PDF.</div></div></div>
+                    <div class="rad"><div><div class="t">Du gjorde logiktestet på grundnivå, 3 procent rätt.</div><div class="u">Kör det igen med tid kvar, så ser du mönstren.</div></div><span class="h">Kör igen</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div></div>
+      </div>
+      <p class="meta">Så här läses den: rubrik med tyngd och en rad sammanhang, en bläckyta som är det enda tunga elementet, ett tal med fördelning i stället för fyra tal, Pågår nu som rader direkt på mark med nästa steg i varje rad, veckan som tre meningar i stället för sex loggrader. Sidomenyn: fyra tunga val med antal, åtta verktyg i tre grupper utan underrader, Kom igång och Hjälp i foten. Meddelanderaden om e-post flyttar till en statusrad under rubriken när den behövs, inte ovanför allt.</p>
+    </div>
+  </div>
+
+  <h4 class="u">Vad som bevaras från dagens hemskärm</h4>
+  <p class="prosa">Ordningen (Nästa handling, jobbsöket, Pågår nu, aktivitet) är densamma. Rankningen i useNextBestAction rör vi inte. Tillstånd A behåller IlluArketLyfter i 240 och tillstånd B behåller sin panel, men får display-h1 och scen i stället för platta. Trialraden och kvotraden är fortfarande StatusRow. Orange förekommer två gånger: tråden i menyn och accentpunkten i scenen. Ingen underrad i menyn betyder att "Vad ingår?" i paket-huvudet blir det ställe som säger vad som ingår, tillsammans med sidhuvudet på varje sida.</p>
+</section>
+
+<!-- ============================================================ 4 FUNKTIONSSIDOR -->
+<section class="sek" id="funktionssidor">
+  <p class="eyebrow">4 · Två funktionssidor omritade</p>
+  <h2>Linjen bär inne i produkten också</h2>
+  <p class="ingress">Rekryteringstester och CV-mallar är de två ytor där dagens uttryck är som mest "lista på lista". Båda får display-rubrik med värde före funktion, en scen ur PriserScener som redan finns, en bläckyta för rekommendationen, och kategorier som inte är fyra likadana paneler.</p>
+
+  <h3 class="u">Rekryteringstester, hubben</h3>
+  <div class="skiss tva">
+    <div class="ram tel">
+      <div class="topp"><i></i><i></i><i></i><span>Pixel 7 · /dashboard/tester</span></div>
+      <div class="yta">
+        <div class="topp-m"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="logo">Jobbcoach.ai</span><span style="width:28px;height:28px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant)"></span></div>
+        <div style="padding:20px 16px 24px">
+          <div class="scen" style="width:150px;margin:0 auto 8px">
+            <!-- IlluScenMatris, återanvänd -->
+            <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="44" height="44" rx="10"/><rect x="98" y="40" width="44" height="44" rx="10"/><rect x="156" y="40" width="44" height="44" rx="10"/><rect x="40" y="98" width="44" height="44" rx="10"/><rect x="98" y="98" width="44" height="44" rx="10"/><rect x="156" y="98" width="44" height="44" rx="10" stroke-dasharray="8 8"/><circle cx="62" cy="62" r="9"/><path d="M110 52l20 20M130 52l-20 20"/><path d="M168 52h20M178 52v20"/><path d="M52 120h20"/><rect x="110" y="110" width="20" height="20" rx="4" fill="var(--accent)" stroke="none"/></svg>
+          </div>
+          <p class="s-steg">Rekryteringstester</p>
+          <div class="s-h1 m" style="margin-top:6px">Känn igen uppgiften innan provdagen.</div>
+          <p class="s-sub">Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Allt.</p>
+
+          <div class="s-ink" style="margin-top:20px">
+            <p class="s-steg">Börja här</p>
+            <h3 style="margin-top:4px">Logiktestet på grundnivå</h3>
+            <p style="margin-top:6px;font-size:14px;line-height:21px">Den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning. 15 frågor, cirka 20 minuter.</p>
+            <span class="knapp full" style="margin-top:16px">Starta första testet</span>
+          </div>
+
+          <div class="segment" style="margin-top:20px"><span class="klar">Tester</span><span>Din utveckling</span></div>
+
+          <div class="s-panel" style="margin-top:16px">
+            <div class="s-steg">Logiktest</div>
+            <div style="font-weight:600;font-size:16px;margin-top:4px">Vilken figur kommer härnäst?</div>
+            <p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Det vanligaste momentet i ett rekryteringstest. Kallas även IQ-test eller matrigma.</p>
+            <div class="segment"><span class="klar">Grund · 20 min</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div>
+          </div>
+          <div class="s-panel" style="margin-top:12px">
+            <div class="s-steg">Verbalt test</div>
+            <div style="font-weight:600;font-size:16px;margin-top:4px">Stämmer påståendet med texten?</div>
+            <p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Mäter hur du tolkar skriven information. Nästan alla jobb kräver det.</p>
+            <div class="segment"><span>Grund · 25 min</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div>
+          </div>
+          <div class="s-panel" style="margin-top:12px">
+            <div class="s-steg">Numeriskt test</div>
+            <div style="font-weight:600;font-size:16px;margin-top:4px">Läs tabellen och räkna under tid.</div>
+            <p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Vanligt för tjänster med budget, analys eller försäljning.</p>
+            <div class="segment"><span>Grund · 25 min</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div>
+          </div>
+          <div style="margin-top:20px">
+            <div class="s-steg">Personlighetstest</div>
+            <div class="rad" style="margin-top:8px"><div><div class="t">Grundtestet, 50 påståenden, 10 min</div><div class="u">Du tävlar inte mot någon. Du får en profil som visar hur en rekryterare läser dig.</div></div></div>
+            <div class="rad"><div><div class="t">Med tolkning, 120 påståenden, 25 min</div><div class="u">Gör grundtestet först, så låser den upp.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ram deskw" data-scale="1120">
+        <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · /dashboard/tester</span></div>
+        <div class="desk"><div class="yta">
+          <aside class="meny">
+            <div class="logo">Jobbcoach.ai</div>
+            <div class="paket"><div><b>Du har Allt</b><span>Förnyas 30 april, 99 kr</span></div><a>Vad ingår?</a></div>
+            <div class="grupp"><div class="r k">Mitt jobbsök</div><div class="r k">Sökta tjänster<span class="n">13</span></div><div class="r k">Mina CV<span class="n">10</span></div><div class="r k">Personliga brev<span class="n">12</span></div></div>
+            <div class="grupp"><div class="g">Skriv och förbättra</div><div class="r">Skriv nytt brev</div><div class="r">Analysera CV</div><div class="r">CV-mallar</div><div class="r">LinkedIn-profilen</div></div>
+            <div class="grupp"><div class="g">Hitta jobb</div><div class="r">Matchade jobb</div><div class="r">Bli upptäckt<span class="ny">NY</span></div></div>
+            <div class="grupp"><div class="g">Träna</div><div class="r aktiv">Rekryteringstester</div><div class="r">Jobbcoachen</div></div>
+            <div class="grupp"><div class="g">Konto</div><div class="r">Profil och prenumeration</div></div>
+          </aside>
+          <main>
+            <div class="topprad"><span style="color:var(--ink-3);font-size:13px">Träna · Rekryteringstester</span><div class="hoger"><span class="avatar"></span><span>Christian Karlsson</span></div></div>
+            <div class="innehall">
+              <div class="kol2" style="grid-template-columns:1fr 300px;align-items:center">
+                <div>
+                  <p class="s-steg">Rekryteringstester</p>
+                  <div class="s-h1 d" style="margin-top:6px;max-width:16ch">Känn igen uppgiften innan provdagen.</div>
+                  <p class="s-sub" style="max-width:52ch;font-size:15px">Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Allt.</p>
+                </div>
+                <div class="scen"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="44" height="44" rx="10"/><rect x="98" y="40" width="44" height="44" rx="10"/><rect x="156" y="40" width="44" height="44" rx="10"/><rect x="40" y="98" width="44" height="44" rx="10"/><rect x="98" y="98" width="44" height="44" rx="10"/><rect x="156" y="98" width="44" height="44" rx="10" stroke-dasharray="8 8"/><circle cx="62" cy="62" r="9"/><path d="M110 52l20 20M130 52l-20 20"/><path d="M168 52h20M178 52v20"/><path d="M52 120h20"/><rect x="110" y="110" width="20" height="20" rx="4" fill="var(--accent)" stroke="none"/></svg></div>
+              </div>
+              <div class="kol2" style="margin-top:24px;grid-template-columns:1fr 360px">
+                <div>
+                  <div class="segment" style="max-width:320px"><span class="klar">Tester</span><span>Din utveckling</span></div>
+                  <div class="kol2b" style="margin-top:16px;gap:16px">
+                    <div class="s-panel"><div class="s-steg">Logiktest</div><div style="font-weight:600;font-size:16px;margin-top:4px">Vilken figur kommer härnäst?</div><p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Det vanligaste momentet. Kallas även IQ-test eller matrigma.</p><div class="segment"><span class="klar">Grund</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div></div>
+                    <div class="s-panel"><div class="s-steg">Verbalt test</div><div style="font-weight:600;font-size:16px;margin-top:4px">Stämmer påståendet med texten?</div><p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Mäter hur du tolkar skriven information.</p><div class="segment"><span>Grund</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div></div>
+                    <div class="s-panel"><div class="s-steg">Numeriskt test</div><div style="font-weight:600;font-size:16px;margin-top:4px">Läs tabellen och räkna under tid.</div><p style="color:var(--ink-2);font-size:13px;line-height:19px;margin-top:4px">Vanligt för tjänster med budget, analys eller försäljning.</p><div class="segment"><span>Grund</span><span>Avancerad</span><span>Expert</span><span>Prov</span></div></div>
+                    <div><div class="s-steg" style="padding-top:4px">Personlighetstest</div><div class="rad" style="margin-top:8px"><div><div class="t">Grundtestet, 10 min</div><div class="u">En profil som visar hur en rekryterare läser dig.</div></div></div><div class="rad"><div><div class="t">Med tolkning, 25 min</div><div class="u">Låses upp av grundtestet.</div></div></div></div>
+                  </div>
+                </div>
+                <div class="s-ink" style="align-self:start">
+                  <p class="s-steg">Börja här</p>
+                  <h3 style="margin-top:4px">Logiktestet på grundnivå</h3>
+                  <p style="margin-top:8px;font-size:14px;line-height:21px">Den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning. 15 frågor, cirka 20 minuter.</p>
+                  <span class="knapp" style="margin-top:16px">Starta första testet</span>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div></div>
+      </div>
+      <p class="meta">Fyra kategorier, men bara tre paneler i samma vikt: personlighetstestet står som rader direkt på mark, både för att regel 4 kräver det och för att det inte har nivåer. Nivåerna är ett segment per kategori i stället för fyra rader, och ett gjort test markeras i segmentet (ink-kant). Sexton rader blev tolv val på en skärmhöjd. Grå nivåer utanför paketet visas i insunken med lås, som i dag.</p>
+    </div>
+  </div>
+
+  <h3 class="u">CV-mallar</h3>
+  <div class="skiss tva">
+    <div class="ram tel">
+      <div class="topp"><i></i><i></i><i></i><span>Pixel 7 · /dashboard/cv-mallar</span></div>
+      <div class="yta">
+        <div class="topp-m"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="logo">Jobbcoach.ai</span><span style="width:28px;height:28px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant)"></span></div>
+        <div style="padding:20px 16px 24px">
+          <div class="scen" style="width:150px;margin:0 auto 8px">
+            <!-- ny scen: tre mallar i solfjäder -->
+            <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-10 120 110)"><rect x="60" y="40" width="100" height="130" rx="12" fill="var(--panel)"/></g><g transform="rotate(4 120 110)"><rect x="72" y="36" width="100" height="130" rx="12" fill="var(--panel)"/><path d="M92 62h60M92 80h40M92 98h60M92 116h60M92 134h36"/><rect x="92" y="150" width="24" height="6" rx="3" fill="var(--accent)" stroke="none"/></g></svg>
+          </div>
+          <p class="s-steg">CV-mallar</p>
+          <div class="s-h1 m" style="margin-top:6px">Samma innehåll, en mall rekryteraren läser.</div>
+          <p class="s-sub">Välj ett CV, välj en av 41 mallar, ladda ner som PDF. Alla klarar rekryteringssystemens läsning.</p>
+
+          <div class="statusrad" style="margin-top:16px"><i class="punkt"></i>Steg 1 av 3 · Vilket CV? <span class="h">Senior Projektledare</span></div>
+
+          <div class="s-etikett" style="margin-top:20px"><span>Steg 2 av 3 · Välj mall</span><a>Alla 41</a></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px">
+            <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--ink-1);border-radius:8px;padding:10px;box-shadow:inset 0 0 0 1px var(--ink-1)"><div style="height:6px;width:60%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div><div style="height:3px;width:70%;background:var(--kant-stark);border-radius:2px;margin-top:4px"></div><div style="height:3px;width:75%;background:var(--kant-stark);border-radius:2px;margin-top:4px"></div></div><div style="font-size:13px;margin-top:6px;font-weight:500">Norrsken</div></div>
+            <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="display:flex;gap:6px"><div style="width:30%;height:40px;background:var(--insunken);border-radius:2px"></div><div style="flex:1"><div style="height:6px;width:80%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:90%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div></div></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Aurora</div></div>
+            <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="height:6px;width:50%;background:var(--ink-1);border-radius:2px;margin:0 auto"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin:10px auto 0"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin:4px auto 0"></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Atlas</div></div>
+          </div>
+
+          <div class="s-etikett" style="margin-top:20px"><span>Steg 3 av 3 · Granska</span></div>
+          <div class="s-panel" style="margin-top:8px;padding:12px">
+            <div style="background:var(--panel);border:1px solid var(--kant);border-radius:4px;padding:20px 18px;min-height:220px">
+              <div style="font-family:var(--display);font-weight:700;font-size:16px">Christian Karlsson</div>
+              <div style="font-size:11px;color:var(--ink-3);margin-top:2px">Senior Projektledare · Stockholm</div>
+              <div style="height:1px;background:var(--kant);margin:12px 0"></div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)">Erfarenhet</div>
+              <div style="height:4px;width:85%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div><div style="height:4px;width:70%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div><div style="height:4px;width:78%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-top:14px">Utbildning</div>
+              <div style="height:4px;width:60%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:13px;color:var(--ink-2)"><span>Norrsken · Calibri</span><span class="lank">Byt typsnitt</span></div>
+          </div>
+          <span class="knapp full" style="margin-top:16px">Skapa CV-PDF</span>
+          <p style="font-size:13px;color:var(--ink-3);margin-top:10px;line-height:18px">Ren enspaltig layout som passar alla branscher. Inga kolumner eller textrutor, så rekryteringssystemet läser allt.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ram deskw" data-scale="1120">
+        <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · /dashboard/cv-mallar</span></div>
+        <div class="desk"><div class="yta">
+          <aside class="meny">
+            <div class="logo">Jobbcoach.ai</div>
+            <div class="paket"><div><b>Du har Allt</b><span>Förnyas 30 april, 99 kr</span></div><a>Vad ingår?</a></div>
+            <div class="grupp"><div class="r k">Mitt jobbsök</div><div class="r k">Sökta tjänster<span class="n">13</span></div><div class="r k">Mina CV<span class="n">10</span></div><div class="r k">Personliga brev<span class="n">12</span></div></div>
+            <div class="grupp"><div class="g">Skriv och förbättra</div><div class="r">Skriv nytt brev</div><div class="r">Analysera CV</div><div class="r aktiv">CV-mallar</div><div class="r">LinkedIn-profilen</div></div>
+            <div class="grupp"><div class="g">Hitta jobb</div><div class="r">Matchade jobb</div><div class="r">Bli upptäckt<span class="ny">NY</span></div></div>
+            <div class="grupp"><div class="g">Träna</div><div class="r">Rekryteringstester</div><div class="r">Jobbcoachen</div></div>
+            <div class="grupp"><div class="g">Konto</div><div class="r">Profil och prenumeration</div></div>
+          </aside>
+          <main>
+            <div class="topprad"><span style="color:var(--ink-3);font-size:13px">Skriv och förbättra · CV-mallar</span><div class="hoger"><span class="avatar"></span><span>Christian Karlsson</span></div></div>
+            <div class="innehall">
+              <div class="kol2" style="grid-template-columns:1fr 260px;align-items:center">
+                <div>
+                  <p class="s-steg">CV-mallar</p>
+                  <div class="s-h1 d" style="margin-top:6px;max-width:18ch">Samma innehåll, en mall rekryteraren läser.</div>
+                  <p class="s-sub" style="max-width:52ch;font-size:15px">Välj ett CV, välj en av 41 mallar, ladda ner som PDF. Alla klarar rekryteringssystemens läsning.</p>
+                </div>
+                <div class="scen"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-10 120 110)"><rect x="60" y="40" width="100" height="130" rx="12" fill="var(--panel)"/></g><g transform="rotate(4 120 110)"><rect x="72" y="36" width="100" height="130" rx="12" fill="var(--panel)"/><path d="M92 62h60M92 80h40M92 98h60M92 116h60M92 134h36"/><rect x="92" y="150" width="24" height="6" rx="3" fill="var(--accent)" stroke="none"/></g></svg></div>
+              </div>
+              <div class="kol2" style="margin-top:24px;grid-template-columns:380px 1fr">
+                <div>
+                  <div class="statusrad"><i class="punkt"></i>Steg 1 av 3 · CV <span class="h">Senior Projektledare</span></div>
+                  <div class="s-etikett" style="margin-top:20px"><span>Steg 2 av 3 · Välj mall</span><a>Alla 41</a></div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px">
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--ink-1);border-radius:8px;padding:10px;box-shadow:inset 0 0 0 1px var(--ink-1)"><div style="height:6px;width:60%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div><div style="height:3px;width:70%;background:var(--kant-stark);border-radius:2px;margin-top:4px"></div></div><div style="font-size:13px;margin-top:6px;font-weight:500">Norrsken</div></div>
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="display:flex;gap:6px"><div style="width:30%;height:40px;background:var(--insunken);border-radius:2px"></div><div style="flex:1"><div style="height:6px;width:80%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:90%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div></div></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Aurora</div></div>
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="height:6px;width:50%;background:var(--ink-1);border-radius:2px;margin:0 auto"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin:10px auto 0"></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Atlas</div></div>
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="height:6px;width:70%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:80%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Galleri</div></div>
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px"><div style="height:6px;width:55%;background:var(--ink-1);border-radius:2px"></div><div style="height:3px;width:85%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div></div><div style="font-size:13px;margin-top:6px;color:var(--ink-2)">Pedagog</div></div>
+                    <div style="text-align:center"><div style="aspect-ratio:3/4;background:var(--insunken);border:1px solid var(--kant);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-2)">+36</div><div style="font-size:13px;margin-top:6px;color:var(--ink-3)">Galleriet</div></div>
+                  </div>
+                  <p style="font-size:13px;color:var(--ink-3);margin-top:14px;line-height:18px">Norrsken: ren enspaltig layout som passar alla branscher. Inga kolumner eller textrutor, så rekryteringssystemet läser allt.</p>
+                </div>
+                <div>
+                  <div class="s-etikett"><span>Steg 3 av 3 · Granska och ladda ner</span><a>Byt typsnitt · Calibri</a></div>
+                  <div class="s-panel" style="margin-top:8px;padding:16px">
+                    <div style="background:var(--panel);border:1px solid var(--kant);border-radius:4px;padding:28px 26px;min-height:300px;max-width:420px;margin:0 auto">
+                      <div style="font-family:var(--display);font-weight:700;font-size:18px">Christian Karlsson</div>
+                      <div style="font-size:11px;color:var(--ink-3);margin-top:2px">Senior Projektledare · Stockholm</div>
+                      <div style="height:1px;background:var(--kant);margin:12px 0"></div>
+                      <div style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)">Erfarenhet</div>
+                      <div style="height:4px;width:85%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div><div style="height:4px;width:70%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div><div style="height:4px;width:78%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div><div style="height:4px;width:64%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div>
+                      <div style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-top:14px">Utbildning</div>
+                      <div style="height:4px;width:60%;background:var(--kant-stark);border-radius:2px;margin-top:8px"></div><div style="height:4px;width:52%;background:var(--kant-stark);border-radius:2px;margin-top:5px"></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:20px;align-items:center;margin-top:16px"><span class="knapp">Skapa CV-PDF</span><span style="font-size:13px;color:var(--ink-3)">Nedladdning utan tak i Allt</span></div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div></div>
+      </div>
+      <p class="meta">Stegen får olika vikt: steg 1 är en statusrad (det är redan gjort när man har ett CV), steg 2 är sidans innehåll med riktiga miniatyrer i stället för en dropdown, steg 3 är förhandsvisningen som papper på panel. Förhandsvisningen är aldrig tom: utan valt CV visas mallen med exempeltext. Mallnamnen är ur registret (Norrsken, Aurora, Atlas, Galleri, Pedagog); gråa mallar utanför paketet visas i insunken med lås som i dag. Ingen bläckyta här: den primära knappen är vyns enda tunga element, och sidan har redan en scen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 5 PUBLIKA YTOR -->
+<section class="sek" id="publikt">
+  <p class="eyebrow">5 · Publika ytor</p>
+  <h2>Header, megameny, footer och startsidans hero</h2>
+  <p class="ingress">Header och footer syns på varje sida en besökare når, så de bär mest sammanhang per timme byggtid. Analysen per yta står i tabellen i avsnitt 1. Här är skisserna. Copyn i heron är dagens, eftersom rubrikens budskap är rätt; copywriteragenten tar ingress och bevis i nästa steg.</p>
+
+  <h3 class="u">Header och megameny</h3>
+  <div class="ram deskw" data-scale="1120" style="margin-top:16px">
+    <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · header med "Vad vi erbjuder" öppen</span></div>
+    <div class="desk pub"><div class="yta" style="min-height:0;padding-bottom:24px">
+      <div class="p-header">
+        <div class="logo"><i>J</i>Jobbcoach.ai</div>
+        <nav><span>Funktioner</span><span>Priser</span><span class="aktiv">Vad vi erbjuder</span><span>Artiklar</span><span>Om oss</span></nav>
+        <div class="cta"><span class="lank">Logga in</span><span class="knapp">Skapa konto</span></div>
+      </div>
+      <div class="mega">
+        <div class="g"><div class="s-steg">Skriv och förbättra</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>Personligt brev</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3h9l4 4v14H6z"/><circle cx="11" cy="13" r="3"/><path d="M13 15l3 3"/></svg>CV-analys</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3h9l4 4v14H6z"/><path d="M15 17h4M17 15v4"/></svg>Skapa CV</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="4" width="10" height="14" rx="2"/><rect x="9" y="7" width="10" height="14" rx="2"/></svg>CV-mallar</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M10 14a4 4 0 010-6l2-2a4 4 0 016 6l-1 1"/><path d="M14 10a4 4 0 010 6l-2 2a4 4 0 01-6-6l1-1"/></svg>LinkedIn-profilen</div>
+        </div>
+        <div class="g"><div class="s-steg">Hitta jobb</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg>Jobbmatchning</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Bli upptäckt</div>
+        </div>
+        <div class="g"><div class="s-steg">Träna</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2" stroke-dasharray="3 3"/></svg>Rekryteringstester</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 5h16v11H9l-5 4z"/></svg>Jobbcoachen</div>
+          <div class="r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Räkna ut lön och skatt</div>
+        </div>
+        <div class="sida">
+          <div class="scen" style="width:120px"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-8 90 110)"><rect x="40" y="50" width="90" height="120" rx="12" fill="var(--panel)"/></g><rect x="80" y="40" width="90" height="120" rx="12" fill="var(--panel)"/><path d="M100 70h50M100 90h30M100 110h50"/><g transform="rotate(8 170 110)"><rect x="120" y="50" width="90" height="120" rx="12" fill="var(--panel)"/></g><circle cx="196" cy="48" r="11" fill="var(--accent)" stroke="none"/></svg></div>
+          <b>Allt i en vecka, 99 kr</b>
+          <p>CV, brev, tester, matchning och coach. Säg upp med ett klick.</p>
+          <span class="lank">Se paketen</span>
+        </div>
+        <div class="fotr"><span>Alla funktioner</span><span>För rekryterare</span></div>
+      </div>
+    </div></div>
+  </div>
+  <p class="meta">Fem val i Inter 15, aktivt val i insunken yta, bläckknapp. Megamenyn är en panel med tre namngivna grupper (samma som sidomenyn), nakna ikoner i 24 ur Ikoner.tsx utan rutor, och en sidokolumn i insunken med en scen och paketets värdemening. Inga beskrivningar per rad: gruppens namn är beskrivningen. Räkna ut-hubben får plats i Träna, eftersom den i dag saknas i navigationen helt.</p>
+
+  <div class="skiss" style="grid-template-columns:1fr;max-width:412px">
+    <div class="ram tel">
+      <div class="topp"><i></i><i></i><i></i><span>Pixel 7 · mobilmeny öppen</span></div>
+      <div class="yta">
+        <div class="mobil-h"><div class="logo"><i>J</i>Jobbcoach.ai</div><span class="knapp">Skapa konto</span></div>
+        <div class="mobil-meny">
+          <div class="r">Funktioner</div><div class="r">Priser</div><div class="r">Artiklar</div><div class="r">Om oss</div>
+          <div class="g s-steg">Skriv och förbättra</div>
+          <div class="r sek">Personligt brev</div><div class="r sek">CV-analys</div><div class="r sek">Skapa CV</div><div class="r sek">CV-mallar</div><div class="r sek">LinkedIn-profilen</div>
+          <div class="g s-steg">Hitta jobb</div>
+          <div class="r sek">Jobbmatchning</div><div class="r sek">Bli upptäckt</div>
+          <div class="g s-steg">Träna</div>
+          <div class="r sek">Rekryteringstester</div><div class="r sek">Jobbcoachen</div><div class="r sek">Räkna ut lön och skatt</div>
+          <div style="display:flex;gap:16px;align-items:center;padding-top:20px"><span class="lank">Logga in</span><span class="lank" style="color:var(--ink-2)">För rekryterare</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="meta">Mobilmenyn: fyra huvudval i 16/500, tre grupper med 44 px rader utan ikoner, "Skapa konto" i headern så att den inte behöver ligga sticky i menyns fot. Ingen blur, ingen orange kant, inga ikonrutor.</p>
+
+  <h3 class="u">Startsidans hero och de två första sektionerna</h3>
+  <div class="ram deskw" data-scale="1120" style="margin-top:16px">
+    <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · /</span></div>
+    <div class="desk pub"><div class="yta" style="min-height:0">
+      <div class="p-header">
+        <div class="logo"><i>J</i>Jobbcoach.ai</div>
+        <nav><span>Funktioner</span><span>Priser</span><span>Vad vi erbjuder</span><span>Artiklar</span><span>Om oss</span></nav>
+        <div class="cta"><span class="lank">Logga in</span><span class="knapp">Skapa konto</span></div>
+      </div>
+      <div class="hero">
+        <div>
+          <p class="s-steg">Bekräftat av SVT, SR, DN och Kollega</p>
+          <div class="s-h1 pub" style="margin-top:10px">Därför får du inte svar på dina ansökningar</div>
+          <p class="ingress">Allt fler rekryterare låter rekryteringssystem sålla kandidater automatiskt, ofta utan att du vet om det. <b>Är ditt CV inte optimerat når det aldrig en människa.</b> Vi ser till att du tar dig förbi.</p>
+          <div class="cta"><span class="knapp" style="height:52px;padding:0 24px;font-size:16px">Skapa konto gratis</span><span class="lank">Se hur det fungerar</span></div>
+          <div class="bevis"><div><b>332+</b>har skapat konto</div><div><b>1 brev</b>om dagen, gratis</div><div><b>60 sek</b>till första CV-poängen</div></div>
+        </div>
+        <div class="scen">
+          <!-- ny hero-scen 520x400: ansökan genom sållet -->
+          <svg viewBox="0 0 520 400" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <g transform="rotate(-6 150 170)"><rect x="80" y="70" width="150" height="200" rx="18" fill="var(--panel)"/><path d="M108 110h94M108 136h60M108 162h94M108 188h94M108 214h50"/></g>
+            <path d="M280 60v280" stroke-dasharray="10 12"/><path d="M330 60v280" stroke-dasharray="10 12"/>
+            <rect x="290" y="150" width="30" height="100" rx="8" fill="var(--panel)"/>
+            <g transform="rotate(4 420 200)"><rect x="360" y="110" width="120" height="160" rx="16" fill="var(--panel)"/><path d="M384 146h72M384 170h46M384 194h72M384 218h72"/></g>
+            <circle cx="470" cy="118" r="18" fill="var(--accent)" stroke="none"/><path d="M462 118l6 6 12-12" stroke="var(--pa-ink)" stroke-width="5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="p-sek">
+        <div class="s-panel">
+          <div>
+            <p class="s-steg">Så jobbar vi</p>
+            <h2 style="margin-top:8px">Vi matchar din erfarenhet mot tjänstens krav</h2>
+            <p class="ingress">Klistra in en jobbannons. Vi läser ditt CV, identifierar vad tjänsten kräver och väver in din egen erfarenhet i ett brev som faktiskt bevisar att du passar.</p>
+            <div style="display:flex;gap:20px;align-items:center;margin-top:20px"><span class="knapp sek">Skriv ett brev gratis</span><span style="font-size:13px;color:var(--ink-3)">Ett brev om dagen utan konto att betala</span></div>
+          </div>
+          <div class="scen">
+            <!-- IlluScenBrev, återanvänd -->
+            <svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="80" height="120" rx="12" fill="var(--panel)"/><path d="M48 66h44M48 86h30M48 106h44M48 126h44"/><g transform="rotate(6 170 100)"><rect x="130" y="40" width="80" height="120" rx="12" fill="var(--panel)"/><path d="M148 66h44M148 86h44M148 106h30"/></g><path d="M110 100h20" stroke="var(--accent)"/><rect x="146" y="120" width="20" height="6" rx="3" fill="var(--accent)" stroke="none"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="p-ink">
+        <div>
+          <p class="s-steg">Bekräftat av medierna</p>
+          <h2 style="margin-top:8px">Robotarna har redan läst ditt CV</h2>
+          <p>Sveriges största redaktioner har samma slutsats: rekryteringen har förändrats i grunden. Den första som läser din ansökan är inte en människa.</p>
+          <span class="lank" style="display:inline-block;margin-top:16px;color:var(--pa-ink);text-decoration-color:var(--ink-1-kant)">Så hjälper vi dig komma förbi</span>
+        </div>
+        <div>
+          <div class="medie"><span>Kollega</span><b>AI-rekrytering klassad som högriskverksamhet</b></div>
+          <div class="medie"><span>SVT Nyheter</span><b>Knepen som gör att du inte sorteras bort</b></div>
+          <div class="medie"><span>Sveriges Radio P1</span><b>Så tar du dig förbi robotarna</b></div>
+          <div class="medie"><span>Dagens Nyheter</span><b>Intervjuad av en robot</b></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <p class="meta">Heron är prissidans hero i ny scen: eyebrow, display-h1 i 60 utan gradientord, ingress med en fetad mening, bläckknapp plus textlänk, tre bevis i display-tal (332+ är ägarens tal från Om oss; "1 brev om dagen" och "60 sek" är produktens egna löften och kan bytas av copywriteragenten). Scenen visar ansökan som går genom sållet, 520×400, en accent. Sektion två är en panel med produktscen till höger. Sektion tre är sidans enda bläckyta, och mediebevisen är rader på bläck i stället för fyra kort med falska tidningsbilder. Efter den: tre verktygskort (inte sex), en lista, prisdelen som återanvänder PaketKort, FAQ på mark.</p>
+
+  <h3 class="u">Footer</h3>
+  <div class="ram deskw" data-scale="1120" style="margin-top:16px">
+    <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · footer</span></div>
+    <div class="desk pub"><div class="yta" style="min-height:0">
+      <div class="p-footer">
+        <div class="kols">
+          <div><div class="logo" style="font-family:var(--display);font-weight:800;font-size:19px;color:var(--ink-1)">Jobbcoach.ai</div><p class="om" style="margin-top:8px">CV, personligt brev, tester och matchning för svensk arbetsmarknad. Byggt i Sverige, med svenska källor.</p><div style="margin-top:16px;display:flex;gap:16px;font-size:14px"><span class="lank">Kontakt</span><span class="lank">Hjälpcenter</span><span class="lank">För rekryterare</span></div></div>
+          <div><div class="s-steg">Skriv och förbättra</div><div>Personligt brev</div><div>CV-analys</div><div>Skapa CV</div><div>CV-mallar</div><div>LinkedIn-profilen</div></div>
+          <div><div class="s-steg">Hitta och träna</div><div>Jobbmatchning</div><div>Bli upptäckt</div><div>Rekryteringstester</div><div>Jobbcoachen</div><div>Räkna ut lön och skatt</div></div>
+          <div><div class="s-steg">Läs</div><div>Artiklar</div><div>CV-exempel</div><div>Personligt brev-exempel</div><div>Insikter för rekryterare</div><div>Priser</div></div>
+        </div>
+        <div class="botten"><span>© 2026 Jobbcoach.ai · Integritetspolicy · Användarvillkor · Cookies</span><span>Byggt i Sverige</span></div>
+      </div>
+    </div></div>
+  </div>
+  <p class="meta">Footern står på mark med en hårlinje, fyra kolumner med samma tre grupper som menyn plus Läs, ingen glöd, inga prickar, ingen våg, inga guidekort. De åtta populära guiderna flyttar till artikelsidornas "Relaterade artiklar" där de gör nytta. Sociala länkar som text i första kolumnen om de ska vara kvar.</p>
+
+  <h4 class="u">Övriga publika ytor, i korthet</h4>
+  <ul class="lista">
+    <li><b>Funktioner:</b> hero som startsidan, sedan en sektion per funktion i växlande form (panel med scen till höger, bläck för Allt, rader för det som är gratis). Åtta ikonkort och åtta piller försvinner; megamenyn är redan den listan.</li>
+    <li><b>Verktygssidorna (/verktyg/*):</b> en gemensam mall: display-h1 med värde, scen ur PriserScener, den handling som går att göra direkt (ladda upp CV, klistra in annons) som panel i heron, "Så fungerar det" som tre rader med display-siffror (prissidans guide-mönster), "Vad vi kontrollerar" som en lista på mark i två kolumner, ett citat som panel, FAQ. Nio sidor, en mall.</li>
+    <li><b>Artikelram:</b> artikelhuvudet på mark utan rosa glöd och prickar: kategori som eyebrow, display-h1 i 44, författare som en rad med bild i 40. Sidokolumnen blir en panel med innehållsförteckning och en bläckyta med paketet, inget tredje kortformat. Artikelbilderna följer bildstandarden och rör vi inte.</li>
+    <li><b>Om oss:</b> berättelsen som en panel med tidslinje i ink (tråden får markera "nu"), tre löften som tre rader med display-siffror, talen 332+ och 247+ som display-tal med mening, fjorton ikonkort försvinner. En ny scen: skrivbordet från cvbrev till Jobbcoach.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 6 INSATS -->
+<section class="sek" id="insats">
+  <p class="eyebrow">6 · Insats och ordning</p>
+  <h2>Vad Opus 5.5 bygger, i vilken ordning</h2>
+  <p class="ingress">Ordningen ger mest sammanhang först: det som syns på varje sida byggs innan det som syns på en. S är under en halvdag, M en dag, L två till tre dagar. Varje steg verifieras i riktig webbläsare på Pixel 7 och desktop enligt QA-standarden innan nästa börjar.</p>
+
+  <div class="ordn">
+    <div class="steg"><div class="n">1</div><div><h4>Grunden: typskala, InkPanel, Fordelning, PageHeader med scen</h4><p><code>text-h1</code> till display i tailwind.config.js, nya klasser <code>text-h1-pub</code>, <code>text-h2-pub</code>, <code>text-varde</code>. <code>InkPanel</code> i src/components/shell med tonerna ur §12. <code>Fordelning</code> (segmentrad med legend). <code>PageHeader</code> får <code>scene</code>. Uppdatera docs/designsystem.md enligt avsnitt 2. <b>Återanvänds:</b> font-display från layout.tsx, ink-tonerna från PaketKort.</p></div><div class="st"><span class="tag s">S</span><span class="tag">Inloggat + publikt</span></div></div>
+    <div class="steg"><div class="n">2</div><div><h4>Header, megameny och mobilmeny</h4><p>LandingNavbar skrivs om utan framer-motion och gradient: fem val, aktiv i insunken, bläckknapp, megameny som panel med tre grupper och sidokolumn med <code>IlluScenAllt</code>. Mobilmenyn utan blur och ikonrutor. <b>Återanvänds:</b> Ikoner.tsx, IlluScenAllt, knappstilen.</p></div><div class="st"><span class="tag s">S</span><span class="tag">Publikt</span></div></div>
+    <div class="steg"><div class="n">3</div><div><h4>Footer</h4><p>Footer.tsx utan glöd, prickar, våg och guidekort. Fyra kolumner på mark. Guiderna flyttar till relaterade artiklar. <b>Återanvänds:</b> inget behövs.</p></div><div class="st"><span class="tag s">S</span><span class="tag">Publikt</span></div></div>
+    <div class="steg"><div class="n">4</div><div><h4>Sidomeny och mobilnav i inloggat läge</h4><p>Sidebar.tsx: fyra tunga val med antal, tre verktygsgrupper, underrader bort, Kom igång och Hjälp i foten. <code>menyRad</code> i paket-rader.ts slutar leverera underrad till menyn men behåller texterna för sidhuvuden och "Vad ingår?". Admin-länken bara för admin-konton, längst ned.</p></div><div class="st"><span class="tag s">S</span><span class="tag">Inloggat</span></div></div>
+    <div class="steg"><div class="n">5</div><div><h4>Hemskärmen</h4><p>DashboardHero får display-h1 och sammanhangsrad (kräver en liten summering: senaste svar, nästa intervju; om den saknas visas ingen rad). NastaHandling blir InkPanel med scen. JobbsokOversikt blir tal med Fordelning. PagarNu blir rader på mark med "Följ upp" per rad. SenasteAktivitet blir tre meningar per vecka, grupperade per typ av arbete (CV, nedladdning, test) med verb. E-postraden blir StatusRow under rubriken. <b>Ny illustration:</b> IlluScenUppfoljning.</p></div><div class="st"><span class="tag m">M</span><span class="tag">Inloggat</span></div></div>
+    <div class="steg"><div class="n">6</div><div><h4>Rekryteringstester, hubben</h4><p>TesterHubClient: sidhuvud med scen (IlluScenMatris), rekommendationen som InkPanel, tre kategorier som paneler med nivåsegment, personlighet som rader. Din utveckling oförändrad bakom fliken. Grå nivåer och betalväggar oförändrade.</p></div><div class="st"><span class="tag m">M</span><span class="tag">Inloggat</span></div></div>
+    <div class="steg"><div class="n">7</div><div><h4>CV-mallar</h4><p>CvMallarClient: sidhuvud med ny scen, steg 1 som StatusRow, steg 2 som miniatyrgrid (sex synliga plus galleri), steg 3 som papper på panel som aldrig är tomt. <b>Ny illustration:</b> IlluScenMallar. Miniatyrerna renderas ur mallregistret, inte som bilder.</p></div><div class="st"><span class="tag m">M</span><span class="tag">Inloggat</span></div></div>
+    <div class="steg"><div class="n">8</div><div><h4>Startsidan</h4><p>Hero, matchningssektion, mediebevis i bläck enligt skissen, sedan tre verktygskort, en lista, prisdelen med PaketKort, FAQ. LiveAIShowcase, ToolsConstellation, DynamicCounters och RichFinalCTA tas bort. <b>Ny illustration:</b> IlluScenSallet (hero 520×400). <b>Återanvänds:</b> PaketKort, PriserScener, PriserFAQ-mönstret. Copywriteragenten: ingress, bevis, sektionsrubriker.</p></div><div class="st"><span class="tag m">M</span><span class="tag">Publikt</span></div></div>
+    <div class="steg"><div class="n">9</div><div><h4>Verktygssidorna, en mall för nio</h4><p>En serverkomponent <code>VerktygsSida</code> med hero (h1, scen, direkt handling), tre steg, kontrollista, citat, FAQ. Nio sidor byter till mallen med sin copy. <b>Nya illustrationer:</b> IlluScenLinkedin, IlluScenCoach finns, IlluScenMatch finns, IlluScenCv finns, IlluScenBrev finns, IlluScenMatris finns, IlluScenUpptackt, IlluScenSkapaCv.</p></div><div class="st"><span class="tag l">L</span><span class="tag">Publikt</span></div></div>
+    <div class="steg"><div class="n">10</div><div><h4>Funktioner, artikelram, Om oss</h4><p>Funktioner på verktygsmallens delar. Artikelhuvud och sidokolumn enligt avsnitt 5. Om oss med tidslinje i panel och en ny scen. <b>Ny illustration:</b> IlluScenSkrivbordet (Om oss). Därefter tas <code>--jc-gradient-*</code>, navy och pink bort ur globals.css och tailwind.config.js, och grep-kontrollen i §10 utökas till de publika katalogerna.</p></div><div class="st"><span class="tag l">L</span><span class="tag">Publikt</span></div></div>
+  </div>
+
+  <h4 class="u">Nya illustrationer som behövs</h4>
+  <p class="prosa">Alla i PriserScener-språket: viewBox 240×200 (hero 520×400), stroke 6, konturer i currentColor, fyllning via --illu-fill, en accentyta högst en tiondel, ett rörligt element lutat 4 till 8 grader, inga bakgrundscirklar. Byggs som React-komponenter enligt primitives.tsx.</p>
+  <div class="illus">
+    <article><b>IlluScenUppfoljning</b><span>En hög ansökningar i en låda, ett brev lyfter ur högen lutat 6 grader, accentpunkt på brevet. Hemskärmens Nästa handling, uppföljning.</span><span class="var">240×200, fungerar på bläck (papper i ink-hover).</span></article>
+    <article><b>IlluScenMallar</b><span>Tre CV-ark i solfjäder, det främsta med textrader och ett accentstreck där rubriken sitter. CV-mallar, hubb och verktygssida.</span><span class="var">240×200.</span></article>
+    <article><b>IlluScenSallet</b><span>Ett CV går in i ett såll av tre streckade spalter och kommer ut på andra sidan med en accentbock. Startsidans hero.</span><span class="var">520×400, egen kolumn till höger på desktop, under texten på mobil.</span></article>
+    <article><b>IlluScenLinkedin</b><span>En profilsida med ett foto till vänster och en förstoringsglaslinje över rubrikraden; accent på det ord som hittas. Verktygssidan LinkedIn.</span><span class="var">240×200.</span></article>
+    <article><b>IlluScenUpptackt</b><span>Ett anonymt kort med maskade rader och ett öga som öppnas, accent i ögat. Bli upptäckt, publikt och inloggat tomt tillstånd.</span><span class="var">240×200. BliUpptacktIllustrations kan ersättas.</span></article>
+    <article><b>IlluScenSkapaCv</b><span>Ett tomt ark där tre rader skrivs in, en penna lutad 8 grader, accent på pennspetsen. Skapa CV, verktygssidan och tillstånd A om IlluArketLyfter ska bytas (rekommenderar inte).</span><span class="var">240×200.</span></article>
+    <article><b>IlluScenSkrivbordet</b><span>Ett skrivbord sett uppifrån: ett brev (cvbrev) till vänster, till höger CV, matris och brev samlade, accent på det senaste arket. Om oss.</span><span class="var">240×200 eller 520×400 om Om oss får en hero.</span></article>
+    <article><b>IlluScenIntervju</b><span>Två stolar mot varandra och ett ark mellan dem, accent på arket. Hemskärmen när nästa handling är en intervju, och Jobbcoachens tomma tillstånd.</span><span class="var">240×200. Behövs först när intervju-status finns i data.</span></article>
+  </div>
+
+  <h4 class="u">Vad som återanvänds ur prissidan utan ändring</h4>
+  <ul class="lista">
+    <li><b>PaketKort</b> och ink-tonerna (ink-1-mjuk, ink-1-kant, ink-1-accent) blir InkPanels grund. Startsidans prisdel använder PaketKort rakt av.</li>
+    <li><b>PriserScener:</b> IlluScenCv, IlluScenMatris, IlluScenBrev, IlluScenMatch, IlluScenCoach, IlluScenAllt, IlluScenHero, IlluScenGratis, förtroendeikonerna och RadIkon. Sju av nio verktygssidor har redan sin scen.</li>
+    <li><b>font-display</b> och skalan 60/40/30/18 med vikterna 800/700/700/600.</li>
+    <li><b>Guide-mönstret</b> (display-siffra, rubrik, en mening) för "Så fungerar det" på verktygssidorna, och <b>PriserFAQ</b> för alla FAQ.</li>
+    <li><b>Färgetiketterna</b> cv och test där paketen nämns, aldrig annars.</li>
+  </ul>
+
+  <h4 class="u">Samarbetspunkter</h4>
+  <ul class="lista">
+    <li><b>Copywriteragenten:</b> värderubriker för nio verktygssidor, hubbarna och megamenyns sidokolumn; sammanhangsraden på hemskärmen; aktivitetsmeningarna (mall per händelsetyp med verb); startsidans ingress och bevis.</li>
+    <li><b>SEO-agenten:</b> h1-byten på publika sidor får inte ändra ordvalet i titlar som rankar; heron behåller dagens h1-text. Verktygsmallen behåller HowTo-schema och FAQ-schema.</li>
+    <li><b>Ägaren:</b> godkänna de tio reglerna och de tre bläckytorna (hemskärm, hubb, startsida) innan steg 1. Besluta om sociala länkar i footern ska vara kvar.</li>
+  </ul>
+</section>
+
+<p class="slut">Analys och skisser: art director (Fable), 22 september 2026. Skärmdumpar tagna mot produktionsbygge på port 5213 med ett tillfälligt QA-konto (Allt) som raderades efteråt; kontrollerat i auth.users. Skisserna är HTML i Trådens tokens och inte pixelexakta specar: avstånd följer 4/8/12/16/24/32/48, radier 8 och 12, knappar 44. Inget i skisserna har byggts.</p>
+
+</div>
+
+<script>
+(function(){
+  function skala(){
+    document.querySelectorAll('.deskw[data-scale]').forEach(function(w){
+      var bredd = parseInt(w.getAttribute('data-scale'),10);
+      var d = w.querySelector('.desk');
+      if(!d) return;
+      var tillg = w.clientWidth;
+      var s = Math.min(1, tillg / bredd);
+      d.style.transform = 'scale(' + s + ')';
+      d.style.width = bredd + 'px';
+      var h = d.getBoundingClientRect().height / (parseFloat(d.dataset.s||1));
+      d.dataset.s = s;
+      w.style.height = (d.scrollHeight * s + (w.querySelector('.topp')?w.querySelector('.topp').offsetHeight:0)) + 'px';
+    });
+  }
+  window.addEventListener('resize', skala);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(skala); }
+  skala();
+  setTimeout(skala, 300);
+})();
+</script>

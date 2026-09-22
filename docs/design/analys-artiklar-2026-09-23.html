@@ -1,0 +1,616 @@
+<title>Artiklarna i samma linje</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;--fel:#B91C1C;--fel-mjuk:#FBE3E3;
+  --cv:#1D4ED8;--cv-mjuk:#DCE6FB;--test:#7C2D12;--test-mjuk:#F6E4D6;
+  --pa-ink:#FFFFFF;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --mark:#1A1714;--panel:#232019;--insunken:#15120E;--kant:#3A342C;--kant-stark:#554D42;
+    --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;--ink-hover:#E4DDD2;
+    --ink-1-mjuk:#6B645E;--ink-1-kant:#D6CDBF;--ink-1-accent:#9A3412;
+    --accent-ink:#F4A575;--accent-mjuk:rgba(217,72,15,.18);
+    --positiv:#5FD3A6;--positiv-mjuk:rgba(4,120,87,.22);--varning:#F0B36A;--varning-mjuk:rgba(161,74,5,.22);--fel:#F08A8A;--fel-mjuk:rgba(185,28,28,.22);
+    --cv:#9DB9F7;--cv-mjuk:rgba(29,78,216,.22);--test:#E5A98A;--test-mjuk:rgba(124,45,18,.28);
+    --pa-ink:#1A1714;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --mark:#1A1714;--panel:#232019;--insunken:#15120E;--kant:#3A342C;--kant-stark:#554D42;
+  --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;--ink-hover:#E4DDD2;
+  --ink-1-mjuk:#6B645E;--ink-1-kant:#D6CDBF;--ink-1-accent:#9A3412;
+  --accent-ink:#F4A575;--accent-mjuk:rgba(217,72,15,.18);
+  --positiv:#5FD3A6;--positiv-mjuk:rgba(4,120,87,.22);--varning:#F0B36A;--varning-mjuk:rgba(161,74,5,.22);--fel:#F08A8A;--fel-mjuk:rgba(185,28,28,.22);
+  --cv:#9DB9F7;--cv-mjuk:rgba(29,78,216,.22);--test:#E5A98A;--test-mjuk:rgba(124,45,18,.28);
+  --pa-ink:#1A1714;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:15px;line-height:23px;-webkit-font-smoothing:antialiased;padding-inline:16px}
+h1,h2,h3,h4{margin:0;font-family:var(--display);text-wrap:balance;letter-spacing:-.025em;color:var(--ink-1)}
+p{margin:0}
+svg{display:block}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;color:var(--ink-2)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:40px 80px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.intro h1{font-size:clamp(34px,6vw,60px);line-height:1;font-weight:800;max-width:16ch;margin-top:8px}
+.intro .ingress{margin-top:20px;font-size:18px;line-height:29px;color:var(--ink-2);max-width:62ch}
+.intro .ingress b{color:var(--ink-1);font-weight:600}
+.meta{margin-top:16px;font-size:13px;line-height:18px;color:var(--ink-3);max-width:90ch}
+.sek{margin-top:72px}
+.sek>.eyebrow{margin-bottom:10px}
+.sek>h2{font-size:clamp(28px,4vw,40px);line-height:1.1;font-weight:700;max-width:24ch}
+.sek>.ingress{margin-top:12px;color:var(--ink-2);max-width:70ch;font-size:16px;line-height:26px}
+h3.u{font-size:22px;line-height:28px;font-weight:700;margin-top:40px}
+h4.u{font-size:16px;line-height:22px;font-weight:700;margin-top:24px;font-family:var(--body);letter-spacing:-.01em}
+.prosa{max-width:70ch;color:var(--ink-2);margin-top:8px}
+.prosa b{color:var(--ink-1);font-weight:600}
+ul.lista{margin:12px 0 0;padding-left:20px;color:var(--ink-2);max-width:78ch}
+ul.lista li{margin-top:6px}
+ul.lista b{color:var(--ink-1);font-weight:600}
+
+.jamf{display:grid;gap:16px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.dump{background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden;min-width:0}
+.dump .rubb{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:10px 14px;border-bottom:1px solid var(--kant);font-size:13px;line-height:18px}
+.dump .rubb b{font-weight:600;color:var(--ink-1)}
+.dump .rubb span{color:var(--ink-3)}
+.dump .bild{background:var(--insunken);overflow:hidden}
+.dump .bild img{width:100%;height:auto;display:block;object-fit:cover;object-position:top}
+.dump .bild.h520 img{height:520px}
+.dump .bild.h360 img{height:360px}
+.dump .bild.h260 img{height:260px}
+.dump .bild.mobil{display:flex;justify-content:center}
+.dump .bild.mobil img{max-width:412px}
+.dump .txt{padding:12px 14px;font-size:13px;line-height:19px;color:var(--ink-2);border-top:1px solid var(--kant)}
+.dump .txt b{color:var(--ink-1);font-weight:600}
+
+.tabw{overflow-x:auto;margin-top:20px;border:1px solid var(--kant);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px;line-height:20px}
+th{background:var(--insunken);text-align:left;font-weight:600;color:var(--ink-3);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--kant)}
+td{padding:12px 14px;border-bottom:1px solid var(--kant);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink-1);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td .ok{color:var(--positiv);font-weight:500}
+td .dal{color:var(--fel);font-weight:500}
+.tag{display:inline-block;font-size:12px;line-height:16px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);white-space:nowrap}
+.tag.s{background:var(--positiv-mjuk);color:var(--positiv)}
+.tag.m{background:var(--varning-mjuk);color:var(--varning)}
+.tag.l{background:var(--test-mjuk);color:var(--test)}
+.tag.cv{background:var(--cv-mjuk);color:var(--cv)}
+.tag.test{background:var(--test-mjuk);color:var(--test)}
+.tag.allt{background:var(--ink-1);color:var(--pa-ink)}
+
+.stat{display:grid;gap:12px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.stat article{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 18px}
+.stat .n{font-family:var(--display);font-size:34px;line-height:36px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-1)}
+.stat .n small{font-size:14px;font-weight:500;color:var(--ink-3);margin-left:4px;font-family:var(--body)}
+.stat p{margin-top:6px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.stat p b{color:var(--ink-1);font-weight:600}
+
+.regler{counter-reset:r;display:grid;gap:12px;margin-top:20px}
+.regel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px 16px 60px;position:relative}
+.regel::before{counter-increment:r;content:counter(r);position:absolute;left:20px;top:14px;font-family:var(--display);font-weight:700;font-size:26px;line-height:30px;color:var(--ink-1)}
+.regel h4{font-family:var(--display);font-size:17px;line-height:23px;font-weight:700}
+.regel p{margin-top:6px;color:var(--ink-2);font-size:14px;line-height:21px;max-width:84ch}
+.regel p b{color:var(--ink-1);font-weight:600}
+
+/* skisser */
+.skiss{margin-top:20px;display:grid;gap:24px;grid-template-columns:1fr}
+@media (min-width:1000px){.skiss.tva{grid-template-columns:412px 1fr;align-items:start}}
+.skiss>div{min-width:0}
+.ram{background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.ram .topp{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--kant);background:var(--insunken);font-size:12px;color:var(--ink-3)}
+.ram .topp i{width:10px;height:10px;border-radius:50%;background:var(--kant-stark);display:inline-block}
+.ram .topp span{margin-left:6px}
+.tel{width:100%;max-width:412px;margin:0 auto}
+.tel .yta{background:var(--mark);font-size:14px;line-height:20px}
+.deskw{width:100%;overflow:hidden;min-width:0}
+.desk{width:1120px;transform-origin:top left}
+.desk .yta{background:var(--mark);font-size:14px;line-height:20px}
+
+.s-h1{font-family:var(--display);font-weight:800;letter-spacing:-.025em;color:var(--ink-1)}
+.s-h1.m{font-size:30px;line-height:33px}
+.s-h1.d{font-size:44px;line-height:46px}
+.s-h1.pub{font-size:56px;line-height:56px;max-width:16ch}
+.s-sub{color:var(--ink-2);font-size:14px;line-height:22px;margin-top:6px}
+.s-steg{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.s-etikett{font-size:14px;line-height:20px;font-weight:500;color:var(--ink-3);display:flex;justify-content:space-between;align-items:baseline}
+.s-etikett a{font-size:14px;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.s-panel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px}
+.s-ink{background:var(--ink-1);color:var(--pa-ink);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.s-ink .s-steg{color:var(--ink-1-accent)}
+.s-ink p{color:var(--ink-1-mjuk)}
+.s-ink h3,.s-ink .h3{color:var(--pa-ink);font-family:var(--display);font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em}
+.s-ink .knapp{background:var(--pa-ink);color:var(--ink-1)}
+.s-ink .lank{color:var(--ink-1-mjuk);text-decoration-color:var(--ink-1-kant)}
+.s-ink .pris{font-family:var(--display);font-weight:700;font-size:34px;line-height:36px;letter-spacing:-.02em;color:var(--pa-ink);font-variant-numeric:tabular-nums}
+.s-ink .pris small{font-size:13px;color:var(--ink-1-mjuk);font-family:var(--body);font-weight:400;letter-spacing:0;margin-left:6px}
+.knapp{display:inline-flex;height:44px;align-items:center;justify-content:center;padding:0 16px;border-radius:8px;background:var(--ink-1);color:var(--pa-ink);font-weight:500;font-size:14px;white-space:nowrap}
+.knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
+.knapp.full{width:100%}
+.lank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark)}
+.h3d{font-family:var(--display);font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1)}
+.rad{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--kant)}
+.rad:first-child{border-top:0;padding-top:0}
+.rad .t{font-weight:600;color:var(--ink-1);font-size:15px;line-height:21px}
+.rad .u{color:var(--ink-3);font-size:13px;line-height:18px;margin-top:2px}
+.prisrad{display:flex;align-items:baseline;gap:8px;margin-top:10px}
+.prisrad b{font-family:var(--display);font-size:30px;line-height:32px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink-1)}
+.prisrad span{font-size:13px;color:var(--ink-3)}
+.pill{display:inline-block;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px}
+.pill.cv{background:var(--cv-mjuk);color:var(--cv)}
+.pill.test{background:var(--test-mjuk);color:var(--test)}
+.pill.allt{background:var(--pa-ink);color:var(--ink-1)}
+.pill.gratis{background:var(--insunken);color:var(--ink-2)}
+.scen{color:var(--ink-1)}
+.scen svg{width:100%;height:auto}
+.s-ink .scen{color:var(--pa-ink)}
+
+.p-header{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.p-header .logo{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em}
+.p-header .logo i{width:28px;height:28px;border-radius:7px;background:#F97316;display:inline-block;color:#fff;font-style:normal;font-weight:800;text-align:center;line-height:28px;font-size:16px}
+.p-header nav{display:flex;gap:4px;font-size:15px;color:var(--ink-2)}
+.p-header nav span{padding:8px 12px;border-radius:8px}
+.p-header nav span.aktiv{color:var(--ink-1);font-weight:500;background:var(--insunken)}
+.p-header .cta{display:flex;gap:16px;align-items:center}
+.p-header .knapp{height:40px}
+.mobil-h{display:flex;justify-content:space-between;align-items:center;padding:0 16px;height:56px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.mobil-h .logo{font-family:var(--display);font-weight:800;font-size:18px;display:flex;align-items:center;gap:8px}
+.mobil-h .logo i{width:26px;height:26px;border-radius:6px;background:#F97316;display:inline-block;color:#fff;font-style:normal;font-weight:800;text-align:center;line-height:26px;font-size:15px}
+.mobil-h .knapp{height:36px;padding:0 12px;font-size:13px}
+.brod{font-size:12px;color:var(--ink-3)}
+.brod b{color:var(--ink-2);font-weight:500}
+
+/* artikellista skiss */
+.l-hero{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:center;padding:40px 48px 24px}
+.l-hero .ingress{margin-top:12px;color:var(--ink-2);font-size:16px;line-height:26px;max-width:52ch}
+.filter{display:flex;flex-wrap:wrap;gap:8px;padding:8px 48px 24px}
+.filter span{height:36px;display:inline-flex;align-items:center;padding:0 12px;border-radius:8px;border:1px solid var(--kant);background:var(--panel);font-size:13px;color:var(--ink-2)}
+.filter span.aktiv{border-color:var(--ink-1);color:var(--ink-1);font-weight:500;box-shadow:inset 0 0 0 1px var(--ink-1)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 48px 32px}
+.kort{background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.kort .bildyta{aspect-ratio:1200/630;background:var(--insunken);position:relative}
+.kort .bildyta span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink-3)}
+.kort .kropp{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.kort .kropp .t{font-family:var(--display);font-weight:700;font-size:17px;line-height:22px;letter-spacing:-.02em;color:var(--ink-1)}
+.kort .kropp .u{font-size:13px;line-height:19px;color:var(--ink-2)}
+.kort .kropp .m{font-size:12px;color:var(--ink-3);margin-top:auto;padding-top:6px}
+.kort.stor{grid-column:1 / -1;display:grid;grid-template-columns:1.2fr 1fr}
+.kort.stor .bildyta{aspect-ratio:auto;min-height:260px}
+.kort.stor .kropp{padding:24px;justify-content:center}
+.kort.stor .kropp .t{font-size:26px;line-height:30px}
+.kort.gratis{background:var(--insunken);border-color:var(--kant)}
+.kort.gratis .kropp{padding:20px}
+.kort.gratis .t{font-family:var(--display);font-weight:700;font-size:20px;line-height:25px;color:var(--ink-1)}
+.kort.gratis ul{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.pagin{display:flex;justify-content:center;gap:6px;padding:0 48px 32px;font-size:13px;color:var(--ink-2)}
+.pagin span{min-width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--kant);background:var(--panel)}
+.pagin span.aktiv{border-color:var(--ink-1);color:var(--ink-1);font-weight:500}
+.l-slut{margin:0 48px 40px}
+.l-slut .s-ink{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding:28px}
+.l-slut .s-ink>div:first-child{grid-column:1 / -1}
+.paketrad{border-top:1px solid var(--ink-1-kant);padding-top:14px}
+.paketrad .pill{margin-bottom:8px}
+.paketrad .n{font-family:var(--display);font-weight:700;font-size:20px;line-height:24px;color:var(--pa-ink)}
+.paketrad p{font-size:13px;line-height:19px;margin-top:4px}
+.paketrad .p{font-family:var(--display);font-weight:700;font-size:24px;line-height:26px;color:var(--pa-ink);margin-top:8px}
+.paketrad .p small{font-family:var(--body);font-weight:400;font-size:12px;color:var(--ink-1-mjuk);margin-left:4px}
+
+/* artikel skiss */
+.a-huvud{padding:32px 48px 24px;max-width:1120px}
+.a-huvud .brod{margin-bottom:10px}
+.a-huvud .s-h1.pub{font-size:44px;line-height:46px;max-width:24ch}
+.a-huvud .ingress{margin-top:12px;color:var(--ink-2);font-size:16px;line-height:26px;max-width:62ch}
+.a-forf{display:flex;gap:12px;align-items:center;margin-top:18px;font-size:13px;color:var(--ink-3)}
+.a-forf i{width:40px;height:40px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant);display:inline-block}
+.a-forf b{display:block;color:var(--ink-1);font-weight:600;font-size:14px}
+.a-kol{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;padding:0 48px 40px;align-items:start}
+.a-bild{aspect-ratio:1200/630;background:var(--insunken);border:1px solid var(--kant);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px;overflow:hidden}
+.a-bild img{width:100%;height:100%;object-fit:cover}
+.prose{margin-top:20px;font-size:16px;line-height:27px;color:var(--ink-2);max-width:68ch}
+.prose h2{font-size:26px;line-height:31px;font-weight:700;margin-top:28px;color:var(--ink-1)}
+.prose p{margin-top:12px}
+.prose .snabb{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px;margin-top:20px}
+.prose .snabb b{display:block;font-family:var(--display);font-size:18px;color:var(--ink-1);margin-bottom:6px}
+.side{position:sticky;top:16px;display:grid;gap:16px}
+.side .toc{font-size:14px;line-height:20px}
+.side .toc .s-steg{margin-bottom:8px}
+.side .toc div{padding:6px 0 6px 12px;color:var(--ink-2);border-left:2px solid var(--kant)}
+.side .toc div.aktiv{color:var(--ink-1);font-weight:500;border-left-color:var(--accent)}
+.side .rel .rad .t{font-size:14px;line-height:19px}
+.cta-inline{margin-top:24px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:20px;display:grid;grid-template-columns:1fr 120px;gap:20px;align-items:center}
+.cta-inline .h3d{font-size:20px;line-height:25px}
+.cta-inline p{margin-top:6px;font-size:14px;line-height:21px;color:var(--ink-2)}
+.cta-inline .k{display:flex;gap:16px;align-items:center;margin-top:14px}
+.cta-final{margin-top:36px}
+.cta-final .s-ink{display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:center;padding:28px}
+.cta-final .h3{font-size:26px;line-height:31px}
+.cta-final ul{margin:10px 0 0;padding-left:18px;font-size:14px;line-height:21px;color:var(--ink-1-mjuk)}
+.cta-final .k{display:flex;gap:16px;align-items:center;margin-top:18px}
+.exempel{margin-top:24px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px}
+.exempel .papper{background:var(--panel);border:1px solid var(--kant);border-radius:4px;padding:24px;max-width:440px;margin:12px auto 0}
+.exempel .papper .n{font-family:var(--display);font-weight:700;font-size:18px}
+.exempel .papper .k{font-size:11px;color:var(--ink-3)}
+.exempel .papper .r{height:4px;background:var(--kant-stark);border-radius:2px;margin-top:6px}
+.exempel .papper .s{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-top:14px}
+.exempel .fot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:13px;color:var(--ink-2);flex-wrap:wrap;gap:8px}
+.mallar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.mallar div{aspect-ratio:3/4;background:var(--panel);border:1px solid var(--kant);border-radius:8px;padding:10px}
+.mallar div i{display:block;height:5px;background:var(--ink-1);border-radius:2px;width:60%}
+.mallar div em{display:block;height:3px;background:var(--kant-stark);border-radius:2px;margin-top:6px}
+.mallar div span{display:block;font-size:12px;color:var(--ink-2);margin-top:8px;text-align:center}
+
+/* före/efter kort */
+.fe{display:grid;gap:16px;margin-top:20px;grid-template-columns:1fr}
+@media (min-width:900px){.fe{grid-template-columns:1fr 1fr}}
+.fe .dump .bild img{height:auto;max-height:420px;object-fit:contain;object-position:top left;background:var(--insunken)}
+.fe .efter{padding:16px;background:var(--mark)}
+.copy{margin-top:20px;display:grid;gap:12px}
+.copy article{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px;display:grid;grid-template-columns:140px 1fr;gap:16px}
+.copy article .k{font-size:13px;color:var(--ink-3)}
+.copy article .k .pill{margin-top:6px}
+.copy article b{display:block;font-family:var(--display);font-size:17px;line-height:22px;font-weight:700;color:var(--ink-1)}
+.copy article p{margin-top:4px;font-size:14px;line-height:21px;color:var(--ink-2)}
+.copy article .kn{margin-top:8px;font-size:13px;color:var(--ink-1)}
+.copy article .kn span{display:inline-block;background:var(--ink-1);color:var(--pa-ink);padding:4px 10px;border-radius:6px;font-weight:500;margin-right:10px}
+@media (max-width:640px){.copy article{grid-template-columns:1fr}}
+
+.ordn{margin-top:20px;display:grid;gap:12px}
+.steg{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px 20px}
+.steg .n{font-family:var(--display);font-weight:700;font-size:28px;line-height:30px}
+.steg h4{font-family:var(--display);font-size:17px;line-height:22px;font-weight:700}
+.steg p{margin-top:4px;font-size:14px;line-height:21px;color:var(--ink-2)}
+.steg p b{color:var(--ink-1);font-weight:600}
+.steg .st{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.slut{margin-top:64px;padding-top:24px;border-top:1px solid var(--kant);font-size:13px;line-height:19px;color:var(--ink-3);max-width:80ch}
+@media (max-width:640px){.l-hero,.a-kol,.cta-inline,.cta-final .s-ink,.l-slut .s-ink,.kort.stor{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="intro">
+  <p class="eyebrow">Art director · artiklarna · 23 september 2026</p>
+  <h1>Artiklarna i samma linje</h1>
+  <p class="ingress">Artiklarna är den yta flest besökare möter först, och den yta där reklamkorten fortfarande säljer med gradienter och ikonrutor. <b>Det här dokumentet visar artikellistan och en riktig artikel efter omritningen, alla sex reklamkort före och efter med nya erbjudanden per kluster, en SEO-spärrlista som gör att ingen rankande del rörs, och en prestandamätning med budget.</b> Skisserna följer de tio reglerna från analysen 22 september.</p>
+  <p class="meta">Underlag: skärmdumpar och mätning 23 september mot ett produktionsbygge på port 5213, tre körningar per sida, median. Artikeln är /artiklar/logiska-tester, den mest klickade artikeln i Search Console de senaste 28 dagarna (64 klick, 1 854 visningar, position 12,7). Testklustret, alltså det kluster som ska föreslå Testveckan. Alla priser och gratisgränser är ur paket-copy.ts och prislistan: CV-veckan 79 kr, Testveckan 79 kr, Allt 99 kr i veckan eller 149 i månaden.</p>
+</header>
+
+<!-- ============================================================ 1 NULÄGE -->
+<section class="sek" id="nulage">
+  <p class="eyebrow">1 · Nuläge</p>
+  <h2>Artiklarna säljer med ett tredje formspråk</h2>
+  <p class="ingress">Listan och artikeln har varsin uppsättning kort som varken liknar prissidan eller varandra: fyra kortstilar på en enda artikelsida, tre olika knappfärger, och ett interaktivt CV-verktyg mitt i brödtexten som drar med sig hela mallregistret till klienten.</p>
+  <div class="jamf">
+    <div class="dump"><div class="rubb"><b>/artiklar</b><span>desktop 1280</span></div><div class="bild h520"><img src="analys-artiklar-2026-09-23/lista-desktop.png" alt="Artikellistan i dag: gradienthero, orange filterpiller, kort med gradientbilder, gradientkort i flödet och gradientpanel i slutet"></div><div class="txt"><b>Fyra gradientytor</b> (hero-glöd, feed-CTA, slut-CTA, aktiv filterpill), font-black i tre storlekar, orange kanter på varje kort, framer-motion på varje kort.</div></div>
+    <div class="dump"><div class="rubb"><b>/artiklar/logiska-tester</b><span>desktop 1280</span></div><div class="bild h520"><img src="analys-artiklar-2026-09-23/artikel-desktop.png" alt="Artikeln i dag: rosa hero med prickmönster, författarkort med piller, gradientkort i sidokolumnen, kluster-CTA i vitt kort med orange knapp"></div><div class="txt"><b>Fyra kortstilar på en sida:</b> rosa huvud med prickar, vitt författarkort, gradientkort i sidokolumnen, vitt kluster-kort med orange knapp. Innehållsförteckningen har sin egen orange ram.</div></div>
+    <div class="dump"><div class="rubb"><b>/artiklar/logiska-tester</b><span>Pixel 7</span></div><div class="bild h520 mobil"><img src="analys-artiklar-2026-09-23/artikel-pixel7.png" alt="Artikeln på Pixel 7: långt huvud, författarkort, bild, inline-CTA, brödtext"></div><div class="txt"><b>Tre skärmhöjder innan brödtexten</b> på mobil: huvud, taggpiller, författarkort, artikelbild, inline-CTA. Sidokolumnen med paketkortet syns aldrig på mobil.</div></div>
+  </div>
+
+  <h3 class="u">Reklamkorten i dag</h3>
+  <p class="prosa">Sex komponenter, alla klientkomponenter med framer-motion, alla med egen stil. Ingen av dem föreslår ett paket utifrån vad artikeln handlar om, och ingen skiljer gratisnivån från paketen på samma sätt som prissidan gör.</p>
+  <div class="tabw"><table>
+    <thead><tr><th>Komponent</th><th>Var</th><th>Säljer i dag</th><th>Problem</th></tr></thead>
+    <tbody>
+      <tr><td>ArticleClusterCTA (inline)</td><td>Efter andra stycket, alla artiklar</td><td>Verktyget gratis: "Grundnivån är gratis, en gång per dygn och testtyp"</td><td>Rätt idé, men vitt kort med Lucide-ikon och orange knapp. Nämner aldrig paketet.</td></tr>
+      <tr><td>ClusterFinalCTA</td><td>Efter brödtexten</td><td>Samma copy som inline, i större format</td><td>Samma kort två gånger på en sida. Den som läst klart får ingen ny anledning.</td></tr>
+      <tr><td>ArticleSidebar (paketkortet)</td><td>Sidokolumn, desktop</td><td>"Välj spåret du söker på. CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99."</td><td>Gradient med prickmönster och TrialCardIllustration. Säger alla tre paket i stället för rätt. Sidokolumnen är klient med allPostsMeta som prop: 137 artiklar serialiseras i varje sidas HTML.</td></tr>
+      <tr><td>ArticleTemplateShowcase</td><td>Injiceras i CV-artiklar</td><td>"Mallar som ökar dina chanser att få jobbet", fyra påhittade mallar (Modern Minimal, Classic Professional, Nordic, Creative Edge)</td><td>Mallnamnen finns inte i registret. Badges "Populärast", "Heta just nu", "Trendigt" utan underlag.</td></tr>
+      <tr><td>InteractiveCVShowcase / InteractiveLetterShowcase</td><td>15 respektive 3 artiklar</td><td>Interaktiv förhandsvisning med mallväljare och typsnittsväljare, blå gradientfot "Kom igång gratis"</td><td>583 och 790 rader klientkod, importerar hela SIMPLE_TEMPLATES (41 mallar) och renderar via iframe. Två dropdowns i en artikel. Blå gradient, ett fjärde formspråk.</td></tr>
+      <tr><td>InlineFeedCTA</td><td>Position 6 i listan</td><td>"Allt du behöver för din jobbsökning. Starta gratis"</td><td>Gradientkort med prickmönster i ett rutnät av vita kort. Ingen koppling till valt filter.</td></tr>
+      <tr><td>ArticlesFinalCTA</td><td>Efter pagineringen</td><td>"Hittade du inte vad du sökte?" plus sex funktioner i ikonrutor, "Kompetensgap-analys" och "Karriärinsikter"</td><td>Två av sex funktioner finns inte i produkten. Gradient, sex ikonrutor, två knappar.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="jamf" style="margin-top:20px">
+    <div class="dump"><div class="rubb"><b>Kluster-CTA inline</b><span>logiska-tester</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-kluster-inline.png" alt="Inline kluster-CTA: vit ruta, ikon, orange knapp Gör ett övningstest" style="object-fit:contain;object-position:top left"></div></div>
+    <div class="dump"><div class="rubb"><b>Sidokolumnens paketkort</b><span>logiska-tester</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-sidokolumn.png" alt="Sidokolumn med gradientkort och populära verktyg" style="object-fit:cover;object-position:top"></div></div>
+    <div class="dump"><div class="rubb"><b>InteractiveCVShowcase</b><span>cv-mall-gratis-guide</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-cv-showcase.png" alt="Interaktiv CV-förhandsvisning med två dropdowns och blå gradientfot" style="object-fit:cover;object-position:top"></div></div>
+    <div class="dump"><div class="rubb"><b>ArticleTemplateShowcase</b><span>bra-cv-guide</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-template-showcase.png" alt="Fyra påhittade mallar med badges" style="object-fit:cover;object-position:bottom"></div></div>
+    <div class="dump"><div class="rubb"><b>InlineFeedCTA</b><span>/artiklar</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-feed-cta.png" alt="Gradientkort i artikelflödet" style="object-fit:contain;object-position:top left"></div></div>
+    <div class="dump"><div class="rubb"><b>ArticlesFinalCTA</b><span>/artiklar</span></div><div class="bild h260"><img src="analys-artiklar-2026-09-23/fore-final-cta.png" alt="Gradientpanel med sex ikonrutor och två knappar" style="object-fit:contain;object-position:top left"></div></div>
+  </div>
+</section>
+
+<!-- ============================================================ 2 PRESTANDA FÖRE -->
+<section class="sek" id="prestanda">
+  <p class="eyebrow">2 · Prestandamätning före</p>
+  <h2>670 kB-problemet kvarstår, och vi vet nu vad det består av</h2>
+  <p class="ingress">Mätt lokalt mot produktionsbygget, kall cache, median av tre. Pixel 7 med 3x CPU-strypning och LTE (70 ms latens), samma emulering som scripts/perf-publikt.ts. Desktop utan strypning.</p>
+  <div class="stat">
+    <article><div class="n">610<small>kB</small></div><p><b>HTML per artikel</b>, okomprimerat (167 kB över nätet). Rapporten från 21 september sa 670 kB; det stämmer fortfarande, skillnaden är artikelns längd.</p></article>
+    <article><div class="n">502<small>kB</small></div><p><b>av det är RSC-strömmen</b> (self.__next_f), alltså inline-data för klientkomponenterna. Markupen är 95 kB.</p></article>
+    <article><div class="n">142<small>kB</small></div><p><b>allPostsMeta</b>: 137 artiklars slug, titel, beskrivning, taggar och bild, serialiserade i varje artikel för att sidokolumnen är en klientkomponent.</p></article>
+    <article><div class="n">4<small>×</small></div><p><b>artikeltexten i RSC-strömmen.</b> Testfrasen "Petri Kajonius" finns sex gånger i HTML: två i markupen, fyra i strömmen (MDX-källan som prop, renderat träd, FAQ-data, headings).</p></article>
+    <article><div class="n">608<small>kB</small></div><p><b>JavaScript på desktop</b> i 40 filer (471 kB i 29 filer på Pixel 7). En artikel behöver i princip ingen klientkod.</p></article>
+    <article><div class="n">1 440<small>ms</small></div><p><b>LCP Pixel 7</b> på artikeln, 1 144 på listan. Under budgeten 1 500 men utan marginal. CLS 0 på alla fyra.</p></article>
+  </div>
+  <div class="tabw"><table>
+    <thead><tr><th>Sida · form</th><th>LCP</th><th>FCP</th><th>CLS</th><th>Requests</th><th>Totalt</th><th>JS</th><th>HTML (rå)</th><th>Inline RSC</th><th>Bilder</th><th>Typsnitt</th><th>DOM-noder</th></tr></thead>
+    <tbody>
+      <tr><td>/artiklar · desktop</td><td class="num">804 ms</td><td class="num">264</td><td class="num">0</td><td class="num">108</td><td class="num">1 020 kB</td><td class="num">593 kB / 38 filer</td><td class="num">34 (155) kB</td><td class="num">56 kB</td><td class="num">44 kB / 4</td><td class="num">94 kB</td><td class="num">931</td></tr>
+      <tr><td>/artiklar · Pixel 7</td><td class="num">1 144 ms</td><td class="num">576</td><td class="num">0</td><td class="num">64</td><td class="num">864 kB</td><td class="num">479 kB / 29</td><td class="num">34 (155) kB</td><td class="num">56 kB</td><td class="num">45 kB / 3</td><td class="num">94 kB</td><td class="num">922</td></tr>
+      <tr><td>logiska-tester · desktop</td><td class="num">716 ms</td><td class="num">152</td><td class="num">0</td><td class="num">106</td><td class="num">1 021 kB</td><td class="num">608 kB / 40</td><td class="num">167 (610) kB</td><td class="num">499 kB</td><td class="num">32 kB / 2</td><td class="num">94 kB</td><td class="num">845</td></tr>
+      <tr><td>logiska-tester · Pixel 7</td><td class="num">1 440 ms</td><td class="num">576</td><td class="num">0</td><td class="num">67</td><td class="num">835 kB</td><td class="num">471 kB / 29</td><td class="num">167 (610) kB</td><td class="num">499 kB</td><td class="num">23 kB / 2</td><td class="num">94 kB</td><td class="num">834</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta">Bilder är inte problemet: artikelbilden är 54 kB webp och levereras via next/image med sizes. De fyra typsnittsfilerna (94 kB) är Inter och Schibsted Grotesk från next/font och delas med alla sidor. Problemet är tre saker: klientkod som inte behövs (framer-motion i alla sju artikelkomponenter, hela mallregistret i showcasen), RSC-data som inte behövs (allPostsMeta och artikeltexten fyra gånger), och 63 inline-SVG:er i markupen varav de flesta är Lucide-ikoner i kort som försvinner.</p>
+
+  <h3 class="u">Budget efter, per sida</h3>
+  <div class="tabw"><table>
+    <thead><tr><th>Mått</th><th>Före (artikel, Pixel 7)</th><th>Budget efter</th><th>Hur</th></tr></thead>
+    <tbody>
+      <tr><td>HTML rå</td><td class="num">610 kB</td><td class="num"><b>under 150 kB</b></td><td>Sidokolumnen serverrenderad med bara de tre relaterade artiklarna; ArticleClientWrapper bort så MDX-källan inte skickas som prop; headings och FAQ bara i schema.</td></tr>
+      <tr><td>HTML över nätet</td><td class="num">167 kB</td><td class="num"><b>under 45 kB</b></td><td>Följer av raden ovan.</td></tr>
+      <tr><td>JavaScript</td><td class="num">471 kB / 29 filer</td><td class="num"><b>under 180 kB / 12 filer</b></td><td>Inga klientkomponenter i artikelramen. framer-motion bort ur artiklar/ (7 filer) och mdx/FAQItem, CVExample. Showcasen som statisk server-HTML. Kvar: Next-runtime, cookie-samtycke, PostHog (redan lazy), FAQ-uppfällning som details/summary utan JS.</td></tr>
+      <tr><td>Requests</td><td class="num">67</td><td class="num"><b>under 35</b></td><td>Följer av JS-raden. Inline-SVG i kort ersätts av en scen per sida.</td></tr>
+      <tr><td>LCP Pixel 7</td><td class="num">1 440 ms</td><td class="num"><b>under 1 000 ms</b></td><td>Mindre HTML att tolka före första målning, ingen hydrering av huvudet, artikelbilden får priority när den ligger ovanför vecket.</td></tr>
+      <tr><td>LCP desktop</td><td class="num">716 ms</td><td class="num"><b>under 500 ms</b></td><td>Samma.</td></tr>
+      <tr><td>CLS</td><td class="num">0</td><td class="num"><b>0</b></td><td>Bilder med width/height, inga whileInView-animationer som flyttar innehåll.</td></tr>
+      <tr><td>/artiklar HTML rå</td><td class="num">155 kB</td><td class="num"><b>under 90 kB</b></td><td>ArticleCard, ArticlesHero, StickyCategoryBar som serverkomponenter; kortdata bara de nio som visas.</td></tr>
+      <tr><td>/artiklar JS</td><td class="num">479 kB</td><td class="num"><b>under 180 kB</b></td><td>Inga klientkomponenter utom filterraden om den ska filtrera utan sidladdning (den ska inte: filtret är länkar med canonical, det är redan så).</td></tr>
+      <tr><td>Vercel-effekt</td><td class="num">13,5 GB / mån</td><td class="num"><b>under 4 GB</b></td><td>Med 20 000 artikelvisningar i månaden och 45 i stället för 167 kB över nätet. ISR-läsningarna minskar i samma grad (dygnscachen från 21 september ligger kvar).</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta">Mätningen görs om med samma skript efter bygget (scripts/perf-publikt.ts --filter artiklar, plus HTML-storlek med curl). Budgeten är hård: en sida som spricker på HTML eller JS byggs om innan den mergas.</p>
+</section>
+
+<!-- ============================================================ 3 SEO-SPÄRRLISTA -->
+<section class="sek" id="seo">
+  <p class="eyebrow">3 · SEO-spärrlista</p>
+  <h2>Det här rörs inte, och så kontrolleras det</h2>
+  <p class="ingress">Allt som Google läser är text, struktur, länkar och schema. Inget av det ligger i ramen, typografin eller reklamkorten. Listan nedan är uttömmande; det som inte står här får ändras. Kontrollen är ett skript som drar ut punkterna före och efter bygget och diffar.</p>
+  <div class="regler">
+    <div class="regel"><h4>h1, title, meta description, canonical</h4><p>Ordagrant oförändrade. Artikelns h1 är "Logiska tester vid rekrytering: så fungerar de och så övar du gratis", title "Logiska tester: guide, exempel och öva gratis 2026", description ur frontmatter. <b>Bara CSS-klassen på h1 byts</b> (display 44/46 desktop, 30/33 mobil). generateMetadata rörs inte.</p></div>
+    <div class="regel"><h4>Brödtexten och MDX-innehållet</h4><p>Inte ett tecken i content/artiklar/*.mdx ändras i den här omgången. Injektionen av BroadConversionBanner och CVTemplateShowcase efter andra stycket behålls som mekanism, bara komponenten bakom byts. Prose-stilen får nya tokens men samma element (p, ul, table, blockquote).</p></div>
+    <div class="regel"><h4>Rubrikstrukturen och ankarna</h4><p>h2 och h3 med samma text i samma ordning, med samma id (extractHeadingsFromContent). Innehållsförteckningen länkar till samma #id, och schema.hasPart pekar på dem. Reklamkortens rubriker är <b>inte</b> h2/h3 (de är p med display-stil) så att de inte hamnar i rubrikträdet, vilket de gör i dag i ArticlesFinalCTA (h2) och InteractiveCVShowcase (h2 "Profil").</p></div>
+    <div class="regel"><h4>Interna länkar</h4><p>Alla 82 interna länkar på artikeln behålls: brödtextens länkar, brödsmulorna, taggpillren till /artiklar?tag=, författarlänken, relaterade artiklar, "Visa alla artiklar", och verktygslänkarna i sidokolumnen. <b>Reklamkorten får inte tappa länkar till verktygssidorna</b> (/verktyg/rekryteringstester och så vidare), eftersom de är intern länkkraft till landningssidorna; de får ett paket i tillägg, inte i stället.</p></div>
+    <div class="regel"><h4>Schema</h4><p>BlogPosting med author Person, publisher, hasPart, speakable; FAQPage; BreadcrumbList; HowTo där howto-frontmatter finns. Oförändrade funktioner i page.tsx. dateModified fortsätter sättas vid bygge.</p></div>
+    <div class="regel"><h4>Bilder</h4><p>Artikelbilden (1200×630 enligt bildstandarden) behåller src, alt och og:image. Den ligger kvar som första bild i artikeln. Byt inte till en scen: bilden är indexerad i bildsök.</p></div>
+    <div class="regel"><h4>Listans indexering</h4><p>/artiklar?tag= behåller canonical med tag, sidnumreringen behåller ?page= och rel-länkar, CollectionPage-schemat behålls. Filtret förblir länkar (serverrenderat), inte klientfilter.</p></div>
+    <div class="regel"><h4>Författarrutan (E-E-A-T)</h4><p>Namn, titel, "Granskad av HR-experter", specialistområden och länken till författarsidan behålls som text. Bara formen byts: en rad med bild i 40 i stället för ett kort med piller.</p></div>
+    <div class="regel"><h4>Kontrollen</h4><p>Nytt skript <code>scripts/seo-diff-artiklar.ts</code>: hämtar 20 artiklar (topp 20 i GSC) före och efter, drar ut h1, title, description, canonical, alla h2/h3 med id, alla interna href, alla JSON-LD-block, img src och alt, och skriver en diff. <b>Noll skillnad är kravet</b> utom i klasser och i reklamkortens egen text. Körs i QA innan merge, och en vecka efter deploy jämförs GSC-position för de 20 sidorna.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ 4 EFTER: LISTAN -->
+<section class="sek" id="listan">
+  <p class="eyebrow">4 · Efter: /artiklar</p>
+  <h2>Ett bibliotek på mark, inte ett rutnät av annonser</h2>
+  <p class="ingress">Hero på mark med display-h1 och scen, filter som länkpiller i Inter, artiklarna som paneler med bilden överst, ett gratiskort i insunken där gradientkortet satt, och en bläckyta med de tre paketen som avslut. Titlar och beskrivningar är verkliga ur listan 23 september.</p>
+  <div class="ram deskw" data-scale="1120" style="margin-top:16px">
+    <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · /artiklar</span></div>
+    <div class="desk"><div class="yta">
+      <div class="p-header"><div class="logo"><i>J</i>Jobbcoach.ai</div><nav><span>Funktioner</span><span>Priser</span><span>Vad vi erbjuder</span><span class="aktiv">Artiklar</span><span>Om oss</span></nav><div class="cta"><span class="lank" style="text-decoration:none;color:var(--ink-2)">Logga in</span><span class="knapp">Skapa konto</span></div></div>
+      <div class="l-hero">
+        <div>
+          <p class="brod"><b>Hem</b> · Artiklar</p>
+          <p class="s-steg" style="margin-top:8px">Karriärbibliotek · 137 artiklar</p>
+          <div class="s-h1 pub" style="margin-top:8px">Artiklar som förbättrar din jobbsökning</div>
+          <p class="ingress">Lär dig skriva starkare ansökningar och CV:n som går igenom. Guider som granskas av HR-experter och uppdateras varje vecka.</p>
+        </div>
+        <div class="scen"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-8 90 110)"><rect x="40" y="50" width="90" height="120" rx="12" fill="var(--panel)"/></g><rect x="80" y="40" width="90" height="120" rx="12" fill="var(--panel)"/><path d="M100 70h50M100 90h30M100 110h50M100 130h50"/><g transform="rotate(8 170 110)"><rect x="120" y="50" width="90" height="120" rx="12" fill="var(--panel)"/></g><rect x="100" y="146" width="20" height="6" rx="3" fill="var(--accent)" stroke="none"/></svg></div>
+      </div>
+      <div class="filter"><span class="aktiv">Alla artiklar · 137</span><span>Personligt brev · 15</span><span>Skriva personligt brev · 12</span><span>CV-tips · 12</span><span>Jobbansökan · 12</span><span>Karriärtips · 11</span><span>Jobbsökning · 12</span><span>Jobbintervju · 9</span><span>Rekryteringstester</span><span>Fler ämnen</span></div>
+      <div class="grid3">
+        <div class="kort stor"><div class="bildyta"><span>Artikelbild 1200×630 (befintlig, next/image, priority)</span></div><div class="kropp"><span class="tag test" style="align-self:flex-start">Rekryteringstester</span><div class="t">Verifierade testresultat vs CV-påståenden: vad rekryteraren faktiskt kan lita på</div><div class="u">Ett CV är påståenden, ett verifierat testresultat är bevis. Varför skillnaden avgör allt fler rekryteringar, och hur du använder den till din fördel.</div><div class="m">23 juli 2026 · 7 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><div class="t">AI-jobbmatchning: så fungerar det när jobben hittar dig i stället</div><div class="u">Jobbmatchning med AI läser ditt CV och sorterar tusentals annonser efter hur väl de passar dig.</div><div class="m">22 juli 2026 · 8 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><span class="tag cv" style="align-self:flex-start">CV</span><div class="t">Arbetslivserfarenhet i CV:t: så beskriver du dina jobb så de säljer</div><div class="u">Arbetslivserfarenheten är CV:ts tyngsta sektion. Vi visar hur varje roll ska ställas upp.</div><div class="m">22 juli 2026 · 9 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><span class="tag cv" style="align-self:flex-start">CV</span><div class="t">ATS-vänligt CV: så fungerar rekryteringssystemen och så klarar du dem</div><div class="u">ATS läser ditt CV innan någon människa gör det. Vi förklarar hur svenska system som Teamtailor fungerar.</div><div class="m">22 juli 2026 · 9 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><div class="t">Bli hittad av rekryterare: så vänder du på hela jobbsökandet</div><div class="u">Rekryterare söker aktivt efter kandidater varje dag. Vi visar hur du blir sökbar.</div><div class="m">22 juli 2026 · 8 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><span class="tag cv" style="align-self:flex-start">CV</span><div class="t">CV-format: kronologiskt, funktionellt eller hybrid? Så väljer du rätt</div><div class="u">Omvänt kronologiskt är standarden i Sverige, men inte alltid rätt för dig.</div><div class="m">22 juli 2026 · 8 min</div></div></div>
+        <div class="kort gratis"><div class="kropp"><span class="pill gratis" style="align-self:flex-start">Utan att betala</span><div class="t" style="margin-top:8px">Vill du prova innan du läser vidare?</div><ul><li>3 CV-mallar och en nedladdning</li><li>En CV-analys med poäng och tyngsta fyndet</li><li>Ett personligt brev på en annons, att läsa</li><li>Testernas grundnivå, en gång per dygn</li></ul><div style="margin-top:14px;display:flex;gap:16px;align-items:center"><span class="knapp">Skapa konto gratis</span><span class="lank">Se paketen</span></div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><span class="tag cv" style="align-self:flex-start">CV</span><div class="t">Datorkunskaper i CV:t: så listar du dem så de betyder något</div><div class="u">Goda datorkunskaper säger ingenting. Vi visar hur du listar system och nivå konkret.</div><div class="m">22 juli 2026 · 7 min</div></div></div>
+        <div class="kort"><div class="bildyta"><span>Artikelbild</span></div><div class="kropp"><span class="tag cv" style="align-self:flex-start">CV</span><div class="t">Europass CV: vad det är, när det är rätt val och när du ska låta bli</div><div class="u">Europass är EU:s standardiserade CV-format, gratis och enkelt i hela Europa.</div><div class="m">22 juli 2026 · 8 min</div></div></div>
+      </div>
+      <div class="pagin"><span>‹</span><span class="aktiv">1</span><span>2</span><span>3</span><span>…</span><span>16</span><span>›</span></div>
+      <div class="l-slut"><div class="s-ink">
+        <div><p class="s-steg">Paketen</p><div class="h3" style="font-size:28px;line-height:32px;margin-top:6px">Läs klart, gör sedan.</div><p style="margin-top:8px;font-size:15px;line-height:23px;max-width:60ch">Tre paket, alla per vecka, ingen bindningstid. Välj det som matchar det du söker på just nu. Säg upp med ett klick.</p></div>
+        <div class="paketrad"><span class="pill cv">CV och personliga brev</span><div class="n">CV-veckan</div><p>Alla 41 mallar, hela CV-analysen, brev utan tak som PDF, LinkedIn-profilen.</p><div class="p">79 kr<small>i veckan</small></div></div>
+        <div class="paketrad"><span class="pill test">Rekryteringstester</span><div class="n">Testveckan</div><p>Alla nivåer i logik, verbalt och numeriskt, provläge mot klockan, personlighetstest med tolkning.</p><div class="p">79 kr<small>i veckan</small></div></div>
+        <div class="paketrad"><span class="pill allt">Rekommenderas</span><div class="n">Allt</div><p>Allt i båda, plus jobbmatchning varje natt, Jobbcoachen utan tak och Bli upptäckt.</p><div class="p">99 kr<small>i veckan, eller 149 i månaden</small></div><div style="margin-top:14px"><span class="knapp">Se paketen</span></div></div>
+      </div></div>
+    </div></div>
+  </div>
+  <p class="meta">Regel 4 (högst tre ytor i samma vikt i följd) löses av att var fjärde plats i rutnätet bryter: det stora kortet överst, gratiskortet i insunken på plats 7. Färgetiketterna cv och test står bara på artiklar i de klustren; övriga kort har ingen etikett. Bilderna är de befintliga artikelbilderna (bildstandarden rörs inte). Kortet är en serverkomponent utan hover-lyft; hover är en mörkare kant (kant-stark). Bläckytan i slutet är sidans enda, och den ersätter ArticlesFinalCTA:s sex funktioner med de tre paketen. På Pixel 7 staplas rutnätet i en kolumn och paketraden i tre rader med Allt först.</p>
+</section>
+
+<!-- ============================================================ 5 EFTER: ARTIKELN -->
+<section class="sek" id="artikeln">
+  <p class="eyebrow">5 · Efter: /artiklar/logiska-tester</p>
+  <h2>Samma text, samma länkar, en ram som är vår</h2>
+  <p class="ingress">Huvudet på mark utan rosa glöd: kategori som eyebrow, h1 i display, ingress (description), författare som en rad. Artikelbilden på sin plats. Innehållsförteckning och relaterade artiklar i en serverrenderad sidokolumn, paketkortet i den föreslår Testveckan eftersom artikeln ligger i testklustret. Inline-kortet säljer verktyget gratis, slutkortet säljer paketet.</p>
+  <div class="skiss tva">
+    <div class="ram tel">
+      <div class="topp"><i></i><i></i><i></i><span>Pixel 7 · artikeln</span></div>
+      <div class="yta">
+        <div class="mobil-h"><div class="logo"><i>J</i>Jobbcoach.ai</div><span class="knapp">Skapa konto</span></div>
+        <div style="padding:20px 16px 24px">
+          <p class="brod"><b>Hem</b> · Artiklar · Logiska tester</p>
+          <p class="s-steg" style="margin-top:10px">Logiska tester</p>
+          <div class="s-h1 m" style="margin-top:6px">Logiska tester vid rekrytering: så fungerar de och så övar du gratis</div>
+          <p class="s-sub" style="font-size:15px;line-height:23px">Allt om logiska tester vid rekrytering: testtyperna, leverantörerna du möter (Matrigma, Aon, Alva), vad forskningen säger och hur du övar gratis.</p>
+          <div class="a-forf"><i></i><div><b>Linda Eriksson</b>Chefsrekryterare · Granskad av HR-experter · 19 juli 2026 · 11 min</div></div>
+          <div class="a-bild" style="margin-top:16px"><img src="analys-artiklar-2026-09-23/artikelbild-logiska-tester.webp" alt="Artikelbilden Mönstret går att träna, befintlig"></div>
+          <div class="prose" style="font-size:15px;line-height:25px">
+            <p>Du söker ett jobb, tar dig igenom första gallringen, och så kommer mejlet: "Nästa steg är ett logiskt test." För många är det mer nervöst än själva intervjun. Ett test går inte att charma, och det känns som att din begåvning ska mätas på tjugo minuter.</p>
+            <div class="cta-inline" style="grid-template-columns:1fr;padding:16px">
+              <div><p class="s-steg">Verktyget</p><div class="h3d" style="margin-top:4px;font-size:19px;line-height:24px">Gör provet innan rekryteraren gör det</div><p>Matrislogik, verbalt och numeriskt med facit och förklaring. Grundnivån är gratis, en gång per dygn och testtyp.</p><div class="k"><span class="knapp">Gör ett övningstest</span></div><p style="font-size:13px;color:var(--ink-3);margin-top:10px">Alla nivåer och provläge mot klockan ingår i <span class="lank" style="font-size:13px">Testveckan, 79 kr</span>.</p></div>
+            </div>
+            <p>Lugn. Logiska tester går att förstå, och de går att förbereda sig inför. Den här guiden går igenom vad testen faktiskt mäter, varför arbetsgivare använder dem, vilka testtyper och leverantörer du möter i Sverige, vad forskningen säger om att öva, och hur du tränar gratis.</p>
+            <div class="snabb"><b>Snabbsvar: vad är logiska tester?</b>Logiska tester mäter din generella kognitiva förmåga: att se mönster, dra slutsatser och lösa nya problem. Vid rekrytering möter du oftast matristest som Matrigma...</div>
+            <h2 style="font-size:22px;line-height:27px">Vad är ett logiskt test?</h2>
+            <p>Ett logiskt test är ett standardiserat prov som mäter generell kognitiv förmåga, i forskningen kallad GMA...</p>
+            <p style="color:var(--ink-3);font-size:13px">… brödtexten fortsätter oförändrad, med tabellen, FAQ och HowTo …</p>
+          </div>
+          <div class="cta-final"><div class="s-ink" style="grid-template-columns:1fr;padding:20px">
+            <div><span class="pill test">Testveckan</span><div class="h3" style="margin-top:10px;font-size:22px;line-height:27px">Sju dagar. Alla nivåer. Klockan på.</div><ul><li>Logik, verbalt och numeriskt i grund, avancerad och expert</li><li>Provläge med 25 till 40 minuter och automatisk inlämning</li><li>Personlighetstest med tolkning</li><li>Din utveckling, test för test</li></ul><div class="pris" style="margin-top:14px">79 kr<small>i veckan, säg upp när du vill</small></div><div class="k" style="flex-direction:column;align-items:stretch"><span class="knapp full">Börja Testveckan</span><span class="lank" style="text-align:center">Eller Allt för 99 kr, med CV och brev</span></div></div>
+          </div></div>
+          <div class="s-etikett" style="margin-top:24px"><span>Läs vidare</span></div>
+          <div class="rel" style="margin-top:8px"><div class="rad"><div><div class="t">Numeriskt test: guide med exempel</div><div class="u">Rekryteringstester · 8 min</div></div></div><div class="rad"><div><div class="t">Rotationstest och spatial förmåga</div><div class="u">Rekryteringstester · 7 min</div></div></div><div class="rad"><div><div class="t">Verifierade testresultat vs CV-påståenden</div><div class="u">Rekryteringstester · 7 min</div></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ram deskw" data-scale="1120">
+        <div class="topp"><i></i><i></i><i></i><span>Desktop 1280 · artikeln</span></div>
+        <div class="desk"><div class="yta">
+          <div class="p-header"><div class="logo"><i>J</i>Jobbcoach.ai</div><nav><span>Funktioner</span><span>Priser</span><span>Vad vi erbjuder</span><span class="aktiv">Artiklar</span><span>Om oss</span></nav><div class="cta"><span class="lank" style="text-decoration:none;color:var(--ink-2)">Logga in</span><span class="knapp">Skapa konto</span></div></div>
+          <div class="a-huvud">
+            <p class="brod"><b>Hem</b> · Artiklar · Logiska tester vid rekrytering</p>
+            <p class="s-steg">Logiska tester</p>
+            <div class="s-h1 pub" style="margin-top:8px">Logiska tester vid rekrytering: så fungerar de och så övar du gratis</div>
+            <p class="ingress">Allt om logiska tester vid rekrytering: testtyperna, leverantörerna du möter (Matrigma, Aon, Alva), vad forskningen säger och hur du övar gratis.</p>
+            <div class="a-forf"><i></i><div><b>Linda Eriksson, chefsrekryterare och Employer Branding Expert</b>Granskad av HR-experter · Executive Search, kompetensbaserad rekrytering · 19 juli 2026 · 11 min läsning</div></div>
+          </div>
+          <div class="a-kol">
+            <div>
+              <div class="a-bild"><img src="analys-artiklar-2026-09-23/artikelbild-logiska-tester.webp" alt="Artikelbilden, befintlig 1200×630"></div>
+              <div class="prose">
+                <p>Du söker ett jobb, tar dig igenom första gallringen, och så kommer mejlet: "Nästa steg är ett logiskt test." För många är det mer nervöst än själva intervjun. Ett test går inte att charma, och det känns som att din begåvning ska mätas på tjugo minuter.</p>
+                <div class="cta-inline">
+                  <div><p class="s-steg">Verktyget</p><div class="h3d" style="margin-top:4px">Gör provet innan rekryteraren gör det</div><p>Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp.</p><div class="k"><span class="knapp">Gör ett övningstest</span><span style="font-size:13px;color:var(--ink-3)">Alla nivåer och provläge mot klockan ingår i <span class="lank" style="font-size:13px">Testveckan, 79 kr</span></span></div></div>
+                  <div class="scen"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="44" height="44" rx="10"/><rect x="98" y="40" width="44" height="44" rx="10"/><rect x="156" y="40" width="44" height="44" rx="10"/><rect x="40" y="98" width="44" height="44" rx="10"/><rect x="98" y="98" width="44" height="44" rx="10"/><rect x="156" y="98" width="44" height="44" rx="10" stroke-dasharray="8 8"/><circle cx="62" cy="62" r="9"/><path d="M110 52l20 20M130 52l-20 20"/><path d="M168 52h20M178 52v20"/><path d="M52 120h20"/><rect x="110" y="110" width="20" height="20" rx="4" fill="var(--accent)" stroke="none"/></svg></div>
+                </div>
+                <p>Lugn. Logiska tester går att förstå, och de går att förbereda sig inför. Den här guiden går igenom vad testen faktiskt mäter, varför arbetsgivare använder dem, vilka testtyper och leverantörer du möter i Sverige, vad forskningen säger om att öva, och hur du tränar gratis.</p>
+                <div class="snabb"><b>Snabbsvar: vad är logiska tester?</b>Logiska tester mäter din generella kognitiva förmåga: att se mönster, dra slutsatser och lösa nya problem. Vid rekrytering möter du oftast matristest som Matrigma, figurserier, sifferserier och deduktiva uppgifter, från leverantörer som Assessio, Aon, Alva Labs och SHL.</div>
+                <h2>Vad är ett logiskt test?</h2>
+                <p>Ett logiskt test är ett standardiserat prov som mäter generell kognitiv förmåga, i forskningen kallad GMA (general mental ability). Fackförbundet Akavia beskriver testen som att de "påminner om IQ-tester och bedömer kandidatens förmåga att se mönster och dra slutsatser utifrån symboler eller figurer".</p>
+                <p style="color:var(--ink-3);font-size:14px">… brödtexten fortsätter oförändrad: tolv h2, tabellen över leverantörer, FAQ som details/summary, HowTo …</p>
+              </div>
+              <div class="cta-final"><div class="s-ink">
+                <div><span class="pill test">Testveckan</span><div class="h3" style="margin-top:10px">Sju dagar. Alla nivåer. Klockan på.</div><ul><li>Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar</li><li>Provläge med 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren</li><li>Personlighetstest med tolkning</li><li>Din utveckling, test för test</li></ul><div class="pris" style="margin-top:14px">79 kr<small>i veckan, säg upp när du vill</small></div><div class="k"><span class="knapp">Börja Testveckan</span><span class="lank">Eller Allt för 99 kr, med CV och brev</span></div></div>
+                <div class="scen"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="40" width="44" height="44" rx="10"/><rect x="98" y="40" width="44" height="44" rx="10"/><rect x="156" y="40" width="44" height="44" rx="10"/><rect x="40" y="98" width="44" height="44" rx="10"/><rect x="98" y="98" width="44" height="44" rx="10"/><rect x="156" y="98" width="44" height="44" rx="10" stroke-dasharray="8 8"/><circle cx="62" cy="62" r="9"/><path d="M110 52l20 20M130 52l-20 20"/><path d="M168 52h20M178 52v20"/><path d="M52 120h20"/><rect x="110" y="110" width="20" height="20" rx="4" fill="var(--accent)" stroke="none"/><circle cx="196" cy="150" r="22" fill="var(--ink-hover)"/><path d="M196 136v14l9 6"/></svg></div>
+              </div></div>
+            </div>
+            <aside class="side">
+              <div class="s-panel toc"><p class="s-steg">Innehåll</p><div class="aktiv">Vad är ett logiskt test?</div><div>Därför använder arbetsgivare logiska tester</div><div>Typerna av logiska tester</div><div>Testleverantörerna du möter i Sverige</div><div>Så tolkas ditt resultat</div><div>Kan man öva sig till ett bättre resultat?</div><div>Så förbereder du dig</div><div>Öva gratis hos oss</div></div>
+              <div class="s-panel"><span class="pill test">Testveckan</span><div class="h3d" style="font-size:18px;line-height:23px;margin-top:10px">Träna med klockan på innan kallelsen kommer</div><p style="font-size:13px;line-height:19px;color:var(--ink-2);margin-top:6px">Alla nivåer, provläge, personlighetstest med tolkning.</p><div class="prisrad"><b>79 kr</b><span>i veckan, ingen bindningstid</span></div><div style="margin-top:12px"><span class="knapp full">Se vad som ingår</span></div><p style="font-size:12px;color:var(--ink-3);margin-top:10px">Grundnivån är gratis, en gång per dygn.</p></div>
+              <div class="rel"><p class="s-steg" style="margin-bottom:8px">Relaterade artiklar</p><div class="rad"><div><div class="t">Numeriskt test: guide med exempel</div><div class="u">8 min</div></div></div><div class="rad"><div><div class="t">Rotationstest och spatial förmåga</div><div class="u">7 min</div></div></div><div class="rad"><div><div class="t">Verifierade testresultat vs CV-påståenden</div><div class="u">7 min</div></div></div><div class="rad" style="border-top:0;padding-top:4px"><span class="lank">Visa alla artiklar</span></div></div>
+              <div><p class="s-steg" style="margin-bottom:8px">Verktyg</p><div class="rad" style="padding:8px 0"><span class="lank">Rekryteringstester</span></div><div class="rad" style="padding:8px 0"><span class="lank">CV-analys</span></div><div class="rad" style="padding:8px 0"><span class="lank">Personligt brev</span></div><div class="rad" style="padding:8px 0"><span class="lank">Jobbmatchning</span></div></div>
+            </aside>
+          </div>
+        </div></div>
+      </div>
+      <p class="meta">Sidokolumnen är serverrenderad och får bara tre relaterade artiklar som props, inte 137. Aktivt avsnitt i innehållsförteckningen markeras av tråden (3 px accent) via ett inline-skript på under 1 kB med IntersectionObserver, som är den enda klientkoden i ramen; utan skript står första avsnittet markerat. Taggpillren (interna länkar till filtervyer) flyttar till artikelns slut under "Ämnen" så att huvudet inte blir tre skärmhöjder på mobil, men de finns kvar i markupen. FAQ renderas som details/summary (öppna svar i HTML, alltså samma text för Google), vilket tar bort FAQItem som klientkomponent. Orange på sidan: tråden i innehållsförteckningen och accentytan i scenen, två träffar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 6 REKLAMKORTEN -->
+<section class="sek" id="reklamkort">
+  <p class="eyebrow">6 · Reklamkorten före och efter</p>
+  <h2>Ett kort per plats, ett paket per kluster</h2>
+  <p class="ingress">Tre platser på en artikel: efter andra stycket (verktyget, gratis först), i sidokolumnen (paketet, kort), efter texten (paketet, fullt). Två platser på listan: plats 7 i rutnätet (gratisnivån) och efter pagineringen (tre paket). Klustret väljer paketet: CV och brev ger CV-veckan, test ger Testveckan, intervju och lön ger Allt. Aldrig trial, aldrig "7 dagar gratis".</p>
+
+  <h3 class="u">Klusterregeln</h3>
+  <div class="tabw"><table>
+    <thead><tr><th>Kluster (clusters.ts)</th><th>Verktyget i inline-kortet</th><th>Paketet i sidokolumn och slutkort</th><th>Gratisnivån som nämns</th></tr></thead>
+    <tbody>
+      <tr><td>test</td><td>Rekryteringstester, /verktyg/rekryteringstester</td><td><span class="tag test">Testveckan 79 kr</span></td><td>Grundnivån en gång per dygn och testtyp</td></tr>
+      <tr><td>cv</td><td>CV-mallar eller CV-analys beroende på tagg (ats, analys → analys), /verktyg/cv-mallar eller /verktyg/cv-analys</td><td><span class="tag cv">CV-veckan 79 kr</span></td><td>3 mallar och en nedladdning; en analys med poäng och tyngsta fyndet</td></tr>
+      <tr><td>letter</td><td>Personligt brev, /skapa-brev/start</td><td><span class="tag cv">CV-veckan 79 kr</span></td><td>Ett brev på en annons, att läsa</td></tr>
+      <tr><td>interview</td><td>Jobbcoachen, /verktyg/jobbcoachen</td><td><span class="tag allt">Allt 99 kr</span></td><td>Tio frågor till coachen</td></tr>
+      <tr><td>career med lön, uppsägning, byta jobb</td><td>Räknarna (som i dag) plus Jobbcoachen</td><td><span class="tag allt">Allt 99 kr</span></td><td>Räknarna är alltid gratis; tio frågor</td></tr>
+      <tr><td>career övrigt (ångest, studera)</td><td>Bara länkraden, inget paket</td><td>Inget paketkort, sidokolumnen visar relaterade artiklar</td><td>Inget</td></tr>
+      <tr><td>generic</td><td>CV-mallar</td><td>Gratiskortet (som listan)</td><td>Hela gratisraden från prissidan</td></tr>
+    </tbody>
+  </table></div>
+  <p class="meta">Ändringen i kod: <code>getCtaVariantForTags</code> behålls; en ny funktion <code>paketForKluster(cluster, tags)</code> i clusters.ts returnerar 'cv' | 'test' | 'allt' | 'gratis' | null. career-klustret delas med en tagglista (lön, uppsägning, byta jobb, arbetsgivarintyg → allt). Kör scripts/audit-cta-clusters.ts efteråt.</p>
+
+  <h3 class="u">Texterna, kort för kort</h3>
+  <p class="prosa">Skrivna i copyrollen: vi-form, verbet först, gratis före pris, priset som tal, aldrig "obegränsat" (vi säger "utan tak"), aldrig "AI-driven". Knapptexten säger vad som händer. Allt nedan är förslag för copywriteragentens slutgranskning; produktfakta är kontrollerade mot paket-copy.ts.</p>
+  <div class="copy">
+    <article><div class="k">Inline, efter andra stycket<span class="pill test">test</span></div><div><b>Gör provet innan rekryteraren gör det</b><p>Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp.</p><div class="kn"><span>Gör ett övningstest</span>Alla nivåer och provläge mot klockan ingår i Testveckan, 79 kr.</div></div></article>
+    <article><div class="k">Inline<span class="pill cv">cv</span></div><div><b>Bygg CV:t på en mall som rekryteringssystem läser</b><p>Tre mallar och en nedladdning utan att betala, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.</p><div class="kn"><span>Välj en mall</span>Alla 41 mallar och hela CV-analysen ingår i CV-veckan, 79 kr.</div></div></article>
+    <article><div class="k">Inline<span class="pill cv">cv med tagg ats eller analys</span></div><div><b>Se varför CV:t fastnar innan du skickar det</b><p>Ladda upp, vi läser som en rekryterare gör på sex sekunder. Poängen och det tyngsta fyndet är gratis.</p><div class="kn"><span>Analysera mitt CV</span>Hela analysen med varje fynd och åtgärd ingår i CV-veckan, 79 kr.</div></div></article>
+    <article><div class="k">Inline<span class="pill cv">letter</span></div><div><b>Skriv brevet på annonsen, inte på mallen</b><p>Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett brev om dagen att läsa, gratis.</p><div class="kn"><span>Skriv mitt brev</span>Brev utan tak, som PDF, ingår i CV-veckan, 79 kr.</div></div></article>
+    <article><div class="k">Inline<span class="pill allt">interview</span></div><div><b>Träna svaret innan du sitter i rummet</b><p>Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. Tio frågor gratis, direkt i webbläsaren.</p><div class="kn"><span>Träna intervjufrågor</span>Coachen utan tak ingår i Allt, 99 kr i veckan.</div></div></article>
+    <article><div class="k">Inline<span class="pill allt">career: lön, uppsägning</span></div><div><b>Räkna på det själv, fråga sedan</b><p>Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som har läst ditt CV.</p><div class="kn"><span>Räkna ut lönen efter skatt</span>Räkna ut uppsägningstiden · Fråga coachen</div></div></article>
+    <article><div class="k">Sidokolumn, desktop<span class="pill test">test</span></div><div><b>Träna med klockan på innan kallelsen kommer</b><p>Alla nivåer, provläge, personlighetstest med tolkning. 79 kr i veckan, ingen bindningstid. Grundnivån är gratis, en gång per dygn.</p><div class="kn"><span>Se vad som ingår</span></div></div></article>
+    <article><div class="k">Sidokolumn<span class="pill cv">cv och letter</span></div><div><b>Sju dagar till ett CV som går igenom</b><p>Alla 41 mallar, hela analysen, brev utan tak. 79 kr i veckan, ingen bindningstid. Tre mallar och ett brev om dagen är gratis.</p><div class="kn"><span>Se vad som ingår</span></div></div></article>
+    <article><div class="k">Sidokolumn<span class="pill allt">interview och lön</span></div><div><b>Förberedd in i intervjun och löneförhandlingen</b><p>Jobbcoachen utan tak, CV, brev, tester och matchning. 99 kr i veckan eller 149 i månaden.</p><div class="kn"><span>Se vad som ingår</span></div></div></article>
+    <article><div class="k">Slutkort, bläck<span class="pill test">test</span></div><div><b>Sju dagar. Alla nivåer. Klockan på.</b><p>Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar. Provläge med 25 till 40 minuter och automatisk inlämning. Personlighetstest med tolkning. Din utveckling, test för test. 79 kr i veckan, säg upp när du vill.</p><div class="kn"><span>Börja Testveckan</span>Eller Allt för 99 kr, med CV och brev</div></div></article>
+    <article><div class="k">Slutkort, bläck<span class="pill cv">cv och letter</span></div><div><b>Sju dagar. Ett CV som går igenom. Brev som svarar på annonsen.</b><p>Hela CV-analysen med varje fynd och åtgärd. Alla 41 mallar, nedladdning utan tak. Personliga brev utan tak, som PDF. LinkedIn-profilen omskriven. 79 kr i veckan, säg upp när du vill.</p><div class="kn"><span>Börja CV-veckan</span>Eller Allt för 99 kr, med testerna</div></div></article>
+    <article><div class="k">Slutkort, bläck<span class="pill allt">interview och lön</span></div><div><b>Allt. Från första annonsen till löneförhandlingen.</b><p>Allt i CV-veckan, allt i Testveckan, och tre saker till: jobbmatchning varje natt med skälen utskrivna, Jobbcoachen utan tak, och Bli upptäckt av rekryterare. 99 kr i veckan eller 149 i månaden.</p><div class="kn"><span>Börja med Allt</span>Se alla tre paketen</div></div></article>
+    <article><div class="k">Gratiskortet, plats 7 i listan och generic</div><div><b>Vill du prova innan du läser vidare?</b><p>Utan att betala får du 3 CV-mallar och en nedladdning, en CV-analys som visar din poäng och det tyngsta fyndet, ett personligt brev på en annons (att läsa), tre matchade jobb, tio frågor till coachen och testernas grundnivå en gång per dygn.</p><div class="kn"><span>Skapa konto gratis</span>Se paketen</div></div></article>
+    <article><div class="k">Listans slutkort, bläck</div><div><b>Läs klart, gör sedan.</b><p>Tre paket, alla per vecka, ingen bindningstid. CV-veckan 79 kr: alla 41 mallar, hela CV-analysen, brev utan tak, LinkedIn. Testveckan 79 kr: alla nivåer, provläge, personlighetstest med tolkning. Allt 99 kr: båda, plus matchning varje natt, coachen utan tak och Bli upptäckt.</p><div class="kn"><span>Se paketen</span></div></div></article>
+  </div>
+
+  <h3 class="u">Showcasen: statisk i stället för klient</h3>
+  <div class="fe">
+    <div class="dump"><div class="rubb"><b>Före: InteractiveCVShowcase</b><span>583 rader klient, 41 mallar i bundeln</span></div><div class="bild"><img src="analys-artiklar-2026-09-23/fore-cv-showcase.png" alt="Interaktiv CV-förhandsvisning med dropdowns"></div></div>
+    <div class="dump"><div class="rubb"><b>Efter: CvExempel, serverkomponent</b><span>0 kB klient</span></div><div class="efter">
+      <div class="exempel" style="margin-top:0"><p class="s-steg">Så ser ett färdigt CV ut i mallen Norrsken</p>
+        <div class="papper"><div class="n">Erik Lindberg</div><div class="k">Projektledare inom IT · Stockholm · erik.lindberg@email.se</div><div class="r" style="width:90%;margin-top:14px"></div><div class="r" style="width:80%"></div><div class="r" style="width:86%"></div><div class="s">Arbetslivserfarenhet</div><div style="font-size:12px;font-weight:600;margin-top:6px;color:var(--ink-1)">Senior Projektledare, Nordea Bank, 2021 och framåt</div><div class="r" style="width:88%"></div><div class="r" style="width:76%"></div><div class="r" style="width:82%"></div><div class="s">Utbildning</div><div class="r" style="width:60%"></div></div>
+        <div class="fot"><span>Samma innehåll i alla 41 mallar. Tre är gratis.</span><span class="lank">Prova mallarna med ditt CV</span></div>
+      </div>
+      <p class="meta" style="margin-top:12px">Exemplet renderas på servern med samma mallmotor som PDF:en (generateSimpleCV med Norrsken), en gång vid bygge. Ingen mallväljare, inget typsnittsval, ingen iframe: den som vill byta gör det i verktyget, dit länken går. Brevvarianten på samma sätt med mallen Classic. Texten "Erik Lindberg" och "Maria Johansson" är befintlig exempeldata.</p>
+    </div></div>
+    <div class="dump"><div class="rubb"><b>Före: ArticleTemplateShowcase</b><span>fyra påhittade mallar</span></div><div class="bild"><img src="analys-artiklar-2026-09-23/fore-template-showcase.png" alt="Fyra påhittade mallar med badges"></div></div>
+    <div class="dump"><div class="rubb"><b>Efter: MallMiniatyrer, serverkomponent</b><span>riktiga mallar ur registret</span></div><div class="efter">
+      <div class="exempel" style="margin-top:0"><p class="s-steg">Fyra av 41 mallar</p>
+        <div class="mallar"><div><i></i><em style="width:80%"></em><em style="width:70%"></em><em style="width:76%"></em><span>Norrsken · gratis</span></div><div><i style="width:50%;margin:0 auto"></i><em style="width:80%;margin-left:10%"></em><em style="width:80%;margin-left:10%"></em><span>Aurora · gratis</span></div><div><i style="width:70%"></i><em style="width:60%"></em><em style="width:85%"></em><em style="width:70%"></em><span>Atlas · gratis</span></div><div><i style="width:55%"></i><em style="width:85%"></em><em style="width:65%"></em><span>Galleri · CV-veckan</span></div></div>
+        <div class="fot"><span>3 gratis, alla 41 i CV-veckan för 79 kr.</span><span class="lank">Se alla mallar</span></div>
+      </div>
+      <p class="meta" style="margin-top:12px">Miniatyrerna är riktiga mallar (Norrsken, Aurora, Atlas är gratisnivån, Galleri den första betalda) ritade ur mallregistrets layoutdata som SVG på servern, samma komponent som CV-mallar-hubben i inloggat läge ska använda. Inga badges: "Populärast" och "Trendigt" saknar underlag.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============================================================ 7 INSATS -->
+<section class="sek" id="insats">
+  <p class="eyebrow">7 · Insats och ordning</p>
+  <h2>Vad Opus 5.5 bygger</h2>
+  <p class="ingress">Ordningen sätter SEO-kontrollen och mätningen först så att varje senare steg kan verifieras mot dem. Steg 2 och 3 ger den största prestandavinsten och rör inte utseendet. Header och footer förutsätts från analysen 22 september (steg 2 och 3 där).</p>
+  <div class="ordn">
+    <div class="steg"><div class="n">1</div><div><h4>SEO-diff och mätning som grind</h4><p><code>scripts/seo-diff-artiklar.ts</code> enligt spärrlistan punkt 9, körd mot topp 20 i GSC före något annat, resultatet sparat i docs/qa/. Prestandamätningen ovan sparas som "före". Båda körs igen efter varje steg nedan.</p></div><div class="st"><span class="tag s">S</span></div></div>
+    <div class="steg"><div class="n">2</div><div><h4>Artikelramen serverrenderad</h4><p>ArticleClientWrapper tas bort; page.tsx renderar huvud, kolumner och sidokolumn som serverkomponenter. Sidokolumnen får tre relaterade artiklar (samma urval som i dag) i stället för allPostsMeta. Tillbaka-till-toppen och läsprogress (framer useScroll) tas bort. Aktivt avsnitt via inline-skript under 1 kB. <b>Väntad effekt: HTML från 610 till under 150 kB, JS minus 150 kB.</b></p></div><div class="st"><span class="tag m">M</span></div></div>
+    <div class="steg"><div class="n">3</div><div><h4>Showcasen statiska</h4><p>InteractiveCVShowcase och InteractiveLetterShowcase ersätts av CvExempel och BrevExempel (server, renderade en gång vid bygge med mallmotorn). ArticleTemplateShowcase ersätts av MallMiniatyrer ur registret. MDX-aliasen behålls så att de 18 artiklarna inte ändras. <b>JS minus cirka 200 kB på de sidorna.</b></p></div><div class="st"><span class="tag m">M</span></div></div>
+    <div class="steg"><div class="n">4</div><div><h4>Reklamkorten med klusterpaket</h4><p><code>paketForKluster</code> i clusters.ts. ArticleClusterCTA (inline) som panel med scen och gratis först; ClusterFinalCTA som InkPanel med paketet; sidokolumnens paketkort som panel med färgetikett och pris. Alla tre server, impressionsspårning (article_cta_shown) via samma inline-observer som innehållsförteckningen. Copy enligt avsnitt 6 efter copywriteragentens granskning.</p></div><div class="st"><span class="tag m">M</span></div></div>
+    <div class="steg"><div class="n">5</div><div><h4>Huvud, typografi, prose och FAQ</h4><p>Artikelhuvudet på mark med display-h1, ingress, författarrad. Prose-tokens (ink-2 brödtext 16/27, h2 display 26/31, tabeller i panel, blockquote med tråd). FAQContainer/FAQItem som details/summary utan klient. Taggpillren till artikelns slut. Bilder: artikelbilden med priority när den ligger ovanför vecket.</p></div><div class="st"><span class="tag m">M</span></div></div>
+    <div class="steg"><div class="n">6</div><div><h4>Listan</h4><p>ArticlesHero, StickyCategoryBar och ArticleCard som serverkomponenter utan framer-motion. Hero med scen (IlluScenBibliotek, ny), filter som länkpiller, stort kort överst, gratiskortet på plats 7 (ersätter InlineFeedCTA), InkPanel med tre paket i slutet (ersätter ArticlesFinalCTA). Tag-filter och paginering oförändrade i URL och canonical.</p></div><div class="st"><span class="tag m">M</span></div></div>
+    <div class="steg"><div class="n">7</div><div><h4>Verifiering</h4><p>SEO-diff noll skillnad på 20 sidor. Prestanda inom budget på /artiklar och tre artiklar (test, cv med showcase, career). Riktig webbläsartest Pixel 7 och desktop med skärmdump per steg. GSC-koll av de 20 sidornas position en och tre veckor efter deploy; faller någon mer än två positioner utan att konkurrenten flyttat, återställs den sidans ram och undersöks.</p></div><div class="st"><span class="tag s">S</span></div></div>
+  </div>
+  <h4 class="u">Nya illustrationer</h4>
+  <ul class="lista">
+    <li><b>IlluScenBibliotek</b> (240×200): tre ark i solfjäder med textrader på det främsta, accentstreck vid en rad. Listans hero.</li>
+    <li><b>IlluScenMatris med klocka</b>: variant av IlluScenMatris med en urtavla i nedre högra hörnet, för testklustrets slutkort (provläget). Övriga kluster använder IlluScenCv, IlluScenBrev, IlluScenCoach och IlluScenAllt som redan finns.</li>
+    <li><b>MallMiniatyrer</b>: ingen ny illustration, en komponent som ritar en mall ur registrets layoutdata i 3:4. Delas med CV-mallar-hubben.</li>
+  </ul>
+  <h4 class="u">Samarbetspunkter</h4>
+  <ul class="lista">
+    <li><b>Copywriteragenten:</b> slutgranska de fjorton texterna i avsnitt 6, särskilt slutkortens rubriker och career-varianten.</li>
+    <li><b>SEO-agenten:</b> äger seo-diff-skriptet och GSC-uppföljningen. Beslutar om taggpillren får flytta till artikelns slut (mitt förslag) eller ska stå kvar under huvudet.</li>
+    <li><b>Ägaren:</b> godkänna klusterregeln (career med lön till Allt) och att showcasen blir statiska utan mallväljare.</li>
+  </ul>
+</section>
+
+<p class="slut">Analys och skisser: art director (Fable), 23 september 2026. Mätningen är gjord lokalt mot produktionsbygge på port 5213 med scripts/perf-publikt.ts emulering (Pixel 7, 3x CPU, LTE), kall cache, median av tre; HTML-analysen med curl mot samma server. Miljön städad efteråt: server stoppad, .next-ad borttagen, tsconfig.json återställd, tillfälliga skript borttagna. Inget är byggt.</p>
+
+</div>
+
+<script>
+(function(){
+  function skala(){
+    document.querySelectorAll('.deskw[data-scale]').forEach(function(w){
+      var bredd=parseInt(w.getAttribute('data-scale'),10), d=w.querySelector('.desk'); if(!d) return;
+      var s=Math.min(1, w.clientWidth/bredd);
+      d.style.transform='scale('+s+')'; d.style.width=bredd+'px';
+      var t=w.querySelector('.topp'); w.style.height=(d.scrollHeight*s+(t?t.offsetHeight:0))+'px';
+    });
+  }
+  window.addEventListener('resize',skala);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(skala);}
+  skala(); setTimeout(skala,300);
+})();
+</script>
