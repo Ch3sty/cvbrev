@@ -5,7 +5,8 @@ import { createServerClient } from '@/lib/supabase/server';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database.types';
 import { createBackgroundJob } from '@/lib/cv/background-jobs';
-import { checkCvAnalysisQuota, quotaExceededBody, CV_ANALYSIS_WINDOW_HOURS } from '@/lib/quota/quotaService';
+import { checkCvAnalysisQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 // Vercel maxDuration configuration
@@ -137,22 +138,38 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'Ogiltig förfrågan.' }, { status: 400 });
         }
 
-        // --- 3. Quota Check (1 analys per rullande 72h, premium passerar) ---
+        // --- 3. Kvotkontroll: en analys per konto, CV-spåret och Allt
+        // passerar (docs/plan-paket-och-onboarding.md, ägarens beslut 2).
+        // Andra analysen möter betalväggen före start, inte efter.
         const quota = await checkCvAnalysisQuota(supabase, userId);
 
         if (!quota.allowed) {
             signalQuotaWall(userId, 'cv_analysis');
-            console.log(`API analyzeCv: User ${userId} (Free): Quota exceeded (${quota.used}/${quota.limit}).`);
+            console.log(`API analyzeCv: User ${userId} (gratis): kvoten slut (${quota.used}/${quota.limit}).`);
+
+            const { data: trackProfil } = await supabase
+                .from('profiles')
+                .select('onboarding_track')
+                .eq('id', userId)
+                .maybeSingle();
+            const trackVarde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track;
+            const track: Scope | null =
+                trackVarde === 'cv' || trackVarde === 'tester' || trackVarde === 'allt'
+                    ? trackVarde
+                    : null;
+
             return NextResponse.json({
                 ...quotaExceededBody(
                     'cv_analysis',
                     quota,
-                    'Du har använt din CV-analys. En ny blir tillgänglig var tredje dygn, eller uppgradera för obegränsat.'
+                    'Du har använt din analys. Att köra om den ingår i CV-veckan och i Allt.'
                 ),
+                feature: 'cv_analysis_full',
+                suggestedPlan: suggestPlan('cv_analysis_full', track),
                 // Bakåtkompatibla fält som klienten läser idag:
                 remainingAnalyses: 0,
                 currentCount: quota.used,
-            }, { status: 429 });
+            }, { status: 402 });
         }
 
         // --- 4. Fetch CV Text ---
@@ -192,11 +209,8 @@ export async function POST(request: NextRequest) {
                 isBackgroundJob: true,
                 estimatedTime: '30-60 sekunder',
                 remainingAnalyses: quota.isPremium ? null : Math.max(0, quota.limit - quota.used - 1),
-                // Fonstret oppnar igen 72h efter jobbet som nyss skapades
-                // (quota.nextResetAt fran pre-checken ar "nu" nar used=0).
-                nextResetDate: quota.isPremium
-                    ? quota.nextResetAt
-                    : new Date(Date.now() + CV_ANALYSIS_WINDOW_HOURS * 60 * 60 * 1000).toISOString(),
+                // Kvoten ar per konto: den oppnar inte igen av sig sjalv.
+                nextResetDate: quota.nextResetAt,
                 currentCount: quota.isPremium ? null : quota.used,
                 limit: quota.isPremium ? null : quota.limit
             },

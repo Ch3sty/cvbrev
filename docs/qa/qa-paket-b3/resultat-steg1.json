@@ -1,0 +1,122 @@
+[
+  {
+    "namn": "1.1 frågan syns (T1)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 tre valkort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 Rekommenderas på Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 Börja gratis i foten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 hoppa över (T12)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 primär spärrad innan val",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 Börja gratis tryckbar utan val",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1 orange högst tre",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "1.1 valt kort markeras",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 paketskärmen (T14)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 längdval på Allt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 samtyckesrad (T23)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 förnyelserad (T22)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 kvittorad (T26)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 köpknapp spärrad utan kryss",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 orange högst ett",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "1.2 köpknapp öppnas av krysset",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.2 längdbytet skriver om panelen",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1b gratisfrågan visas",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1b inga priser",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1b tre val inkl. vet inte än",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.1b orange högst ett",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "1.3 spårraden på hemskärmen (T28)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "1.3 länk till paketet (T29)",
+    "ok": true,
+    "not": ""
+  }
+]

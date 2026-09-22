@@ -10,12 +10,17 @@ import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays';
+import { PLAN_BY_KEY, isPlanKey, type PlanScope } from '@/lib/plans/plans';
+import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
+import { scopeFromSubscription } from '@/lib/stripe/subscriptionScope';
 import type { Database } from '@/types/database.types';
 import {
   onTrialStarted,
   onTrialWillEnd,
   onPaymentFailed,
   onSubscriptionDeleted,
+  onWeekStarted,
+  onWeekEnded,
 } from '@/lib/email/lifecycle/hooks';
 
 // Slår upp user_id från Stripe-kunden, för livscykelmailen (spår D5).
@@ -28,6 +33,86 @@ const userIdForCustomer = async (customerId: string): Promise<string | null> => 
         .maybeSingle();
     return data?.id ?? null;
 };
+
+/**
+ * Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
+ *
+ * Kryssrutan sattes i kassan och följde med som metadata på sessionen.
+ * Här skrivs den ned på kontot, för det är först nu köpet är ett köp.
+ * Tidsstämpeln kommer från kassan och inte från webhooken: samtycket lämnades
+ * när kunden kryssade, inte när Stripe råkade ringa oss.
+ *
+ * Skriver bara när kolumnen är tom. Ett andra köp ska inte flytta datumet på
+ * det första, och en omsänd webhook ska inte ändra någonting alls.
+ *
+ * Fire and forget-säker: fel loggas men fäller aldrig svaret till Stripe.
+ */
+const skrivSamtycke = async (
+    userId: string | null | undefined,
+    metadata: Record<string, string | undefined> | null | undefined
+): Promise<void> => {
+    const vid = metadata?.angerratt_samtycke_at;
+    if (!userId || !vid) return;
+    try {
+        const admin = getSupabaseAdmin() as any;
+        const { error } = await admin
+            .from('profiles')
+            .update({ angerratt_samtycke_at: vid })
+            .eq('id', userId)
+            .is('angerratt_samtycke_at', null);
+        if (error) {
+            console.error('[SAMTYCKE] Kunde inte skriva angerratt_samtycke_at:', error.message);
+        } else {
+            console.log(`[SAMTYCKE] ${userId}: ${vid}`);
+        }
+    } catch (error) {
+        console.error('[SAMTYCKE] Fel vid skrivning:', error);
+    }
+};
+
+/**
+ * Serverside-mätning av betalningen (docs/plan-paket-och-onboarding.md
+ * avsnitt 6). Klienten kommer tillbaka från Stripe utan att veta beloppet,
+ * så det här är den enda platsen där betalningen kan mätas säkert.
+ *
+ * Fire and forget. Ingen await i webhookflödet, och alltid en catch:
+ * PostHog får aldrig fälla ett svar till Stripe, för då kommer eventet om
+ * igen och vi bokför det två gånger.
+ */
+const capturePaidServerside = (params: {
+    userId: string;
+    plan: string;
+    scope: string;
+    amountSek?: number;
+}): void => {
+    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
+    if (!apiKey) return;
+
+    const host = process.env.POSTHOG_HOST ?? 'https://eu.posthog.com';
+    void fetch(`${host}/capture/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            api_key: apiKey,
+            event: 'subscription_paid',
+            distinct_id: params.userId,
+            properties: {
+                plan: params.plan,
+                scope: params.scope,
+                amount_sek: params.amountSek,
+            },
+        }),
+    }).catch((error) => {
+        console.warn('[POSTHOG] subscription_paid kunde inte skickas:', error?.message ?? error);
+    });
+};
+
+/** Behörigheten prenumerationen ger. Regeln bor i subscriptionScope.ts. */
+const scopeForSubscription = (subscription: Stripe.Subscription): PlanScope =>
+    scopeFromSubscription({
+        metadata: subscription.metadata ?? null,
+        priceId: subscription.items.data[0]?.price?.id ?? null,
+    });
 
 // Funktion för att uppdatera användarprofilen i Supabase (inklusive subscription_tier)
 const updateUserSubscription = async (customerId: string, subscription: Stripe.Subscription) => {
@@ -74,6 +159,14 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
         subscription_tier: newSubscriptionTier
     };
 
+    // premium_scope speglar prenumerationen, aldrig ett engångsköp
+    // (docs/plan-paket-och-onboarding.md avsnitt 5). Uppåt sätts den ur
+    // metadata med priset som reserv, nedåt nollas den tillsammans med
+    // tier och premium_until.
+    subscriptionData.premium_scope = isActiveOrTrialing
+        ? scopeForSubscription(subscription)
+        : null;
+
     // Rensa premium_until och premium_source oavsett riktning.
     //
     // Vid canceled/incomplete/unpaid: hindrar gamla onboarding/trial-premiums
@@ -105,7 +198,9 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
     }
 
      console.log(`Webhook: Successfully updated profile (incl. tier) for user ${userId}`);
-     return true; // Returnera success
+     // userId och scope går vidare till mätningen, som annars hade fått slå
+     // upp kunden en gång till.
+     return { userId: userId as string, scope: subscriptionData.premium_scope as PlanScope | null };
 };
 
 // Funktion för att hantera referral-konverteringar
@@ -330,12 +425,24 @@ export async function POST(request: Request) {
              if (customerId && relevantSubscriptionId) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
-                 await updateUserSubscription(customerId, fullSubscription);
+                 const uppdaterad = await updateUserSubscription(customerId, fullSubscription);
 
                  // Spår D: uppsägningsmail direkt + uppföljning om tre dagar.
                  if (event.type === 'customer.subscription.deleted') {
                      const userId = await userIdForCustomer(customerId);
                      if (userId) await onSubscriptionDeleted(getSupabaseAdmin() as any, userId);
+                 }
+
+                 // Nedgradering: scopet nollades nyss, alltså har kunden inget
+                 // paket kvar och dagsmejlen ska sluta (B3:s gränssnitt 2).
+                 // onSubscriptionDeleted sköter uppsägningen som händelse,
+                 // men det är den här raden som stoppar kön: utan den skickas
+                 // dag 4 till 7 till någon som inte längre betalar.
+                 //
+                 // Gäller även 'updated' utan radering, alltså när
+                 // prenumerationen går till past_due eller unpaid.
+                 if (uppdaterad?.userId && !uppdaterad.scope) {
+                     await onWeekEnded(getSupabaseAdmin() as any, uppdaterad.userId);
                  }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
@@ -352,7 +459,53 @@ export async function POST(request: Request) {
              if (customerId && relevantSubscriptionId) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
-                 await updateUserSubscription(customerId, fullSubscription); 
+                 const updated = await updateUserSubscription(customerId, fullSubscription);
+
+                 // Betalningen är genomförd först här, inte när abonnemanget
+                 // skapades, så det är den här grenen som mäter den.
+                 if (updated?.userId) {
+                     const planFromPrice = priceIdToPlanKey(
+                         fullSubscription.items.data[0]?.price?.id ?? null
+                     );
+                     const metaPlan = fullSubscription.metadata?.planKey ?? fullSubscription.metadata?.plan;
+                     const plan = isPlanKey(metaPlan) ? metaPlan : planFromPrice;
+                     const betaltOre = typeof eventData.amount_paid === 'number' ? eventData.amount_paid : null;
+                     capturePaidServerside({
+                         userId: updated.userId,
+                         plan: plan ?? 'okant',
+                         scope: updated.scope ?? 'allt',
+                         amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
+                     });
+
+                     // Veckoserien schemaläggs här och ingenstans annars.
+                     // Skälet är detsamma som för mätningen ovan: abonnemanget
+                     // kan skapas utan att pengarna dragits, och en kund som
+                     // aldrig betalade ska inte få sju dagsmejl (B3:s
+                     // gränssnitt 2).
+                     //
+                     // Bara den första fakturan startar programmet.
+                     // billing_reason är 'subscription_create' vid köpet och
+                     // 'subscription_cycle' vid varje förnyelse. Utan den
+                     // skillnaden hade vecka två lagt om programmet till dag 1
+                     // igen, alltså skickat samma sju mejl en gång till till
+                     // en kund som redan gått igenom dem.
+                     //
+                     // 'subscription_update' räknas med: det är fakturan vid
+                     // en uppgradering från ett spår till Allt, och då byter
+                     // kunden serie. onWeekStarted avbryter den gamla serien
+                     // innan den lägger den nya, så bytet blir rent.
+                     const forstaFakturan =
+                         eventData.billing_reason === 'subscription_create' ||
+                         eventData.billing_reason === 'subscription_update';
+
+                     if (updated.scope && forstaFakturan) {
+                         await onWeekStarted(
+                             getSupabaseAdmin() as any,
+                             updated.userId,
+                             updated.scope as 'cv' | 'tester' | 'allt'
+                         );
+                     }
+                 }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'invoice.payment_failed':
@@ -370,6 +523,18 @@ export async function POST(request: Request) {
         case 'checkout.session.completed':
              console.log(`Checkout session completed: ${eventData.id}. Mode: ${eventData.mode}`);
 
+             // Ångerrättssamtycket skrivs före grenarna nedan, så att det
+             // landar på kontot oavsett om köpet var engångs (A5) eller
+             // löpande. Await: det är en enda update och samtycket är ett
+             // lagkrav, inte mätning som får tappas.
+             {
+               const samtyckeUserId =
+                 eventData.metadata?.supabaseUUID ||
+                 eventData.metadata?.userId ||
+                 (customerId ? await userIdForCustomer(customerId) : null);
+               await skrivSamtycke(samtyckeUserId, eventData.metadata);
+             }
+
              // === SPÅR A (A5): engångsköp, dagspass och jobbsökarveckan ===
              // Måste ligga före de befintliga grenarna: engångsköp skapar
              // ingen prenumeration, så prenumerationslogiken nedan gäller inte.
@@ -381,15 +546,30 @@ export async function POST(request: Request) {
                if (onetimeUserId && Number.isFinite(onetimeDays) && onetimeDays > 0) {
                  try {
                    const admin = getSupabaseAdmin() as any;
+                   // Allt-dagen är det enda engångsköpet, och den ger alltid
+                   // 'allt'. Scope skrivs på premium_grants-raden, aldrig på
+                   // profiles.premium_scope.
                    const result = await grantPremiumDays(admin, {
                      userId: onetimeUserId,
                      days: onetimeDays,
                      stripeEventId: event.id,
                      source: `onetime_${onetimeDays}d`,
+                     scope: 'allt',
                    });
                    console.log(
                      `[ONETIME WEBHOOK] ${onetimeUserId}: ${onetimeDays} dagar, granted=${result.granted}${result.reason ? ` (${result.reason})` : ''}`
                    );
+
+                   if (result.granted) {
+                     const onetimePlan = eventData.metadata?.planKey ?? eventData.metadata?.plan;
+                     const belopp = typeof eventData.amount_total === 'number' ? eventData.amount_total / 100 : undefined;
+                     capturePaidServerside({
+                       userId: onetimeUserId,
+                       plan: isPlanKey(onetimePlan) ? onetimePlan : 'all_day',
+                       scope: 'allt',
+                       amountSek: belopp,
+                     });
+                   }
                  } catch (error) {
                    console.error('[ONETIME WEBHOOK] Kunde inte ge premium-dagar:', error);
                  }

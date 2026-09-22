@@ -1,57 +1,77 @@
 // src/components/cv/analysis/TemplateSelector.tsx
 'use client';
 
+/**
+ * Mallvalet (docs/plan-paket-och-onboarding.md avsnitt 4).
+ *
+ * Tre mallar ingår i gratisnivån. Resten förhandsvisas i full storlek, inte
+ * suddade: användaren ska se hela mallen som den blir, och först när hon
+ * väljer en låst mall möta betalväggen. Suddade förhandsvisningar säljer
+ * ingenting, de får mallen att se sämre ut än den är.
+ *
+ * Har hon ett betalt spår som inte täcker mallarna, alltså Testveckan, är
+ * det inte en spärr utan en uppgradering, och då ritar PaywallCard FelSpar.
+ */
+
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Crown, Lock } from 'lucide-react';
+import { Check, Lock } from 'lucide-react';
+import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
-import Image from 'next/image';
+import PaywallCard from '@/components/paywall/PaywallCard';
+import { GRATISRADER } from '@/components/paywall/paywall-copy';
+import { scopeHasFeature, type Scope } from '@/lib/access/features';
 
 interface TemplateSelectorProps {
   selectedTemplateId: string | null;
   onSelectTemplate: (templateId: string) => void;
-  subscriptionTier: 'free' | 'premium';
+  /** Paketet kontot har, eller null på gratisnivån. */
+  scope?: Scope | null;
+  /** Spåret som valts i onboardingen. Styr vilket paket som föreslås. */
+  track?: Scope | null;
 }
 
 export default function TemplateSelector({
   selectedTemplateId,
   onSelectTemplate,
-  subscriptionTier
+  scope = null,
+  track = null,
 }: TemplateSelectorProps) {
-  const isPremium = subscriptionTier === 'premium';
-
-  const availableTemplates = SIMPLE_TEMPLATES.filter(
-    template => isPremium || template.tier === 'free'
-  );
-
-  const lockedTemplates = SIMPLE_TEMPLATES.filter(
-    template => !isPremium && template.tier === 'premium'
-  );
+  const harAllaMallar = scopeHasFeature(scope, 'cv_templates_all');
+  const [lastMall, setLastMall] = useState<SimpleTemplate | null>(null);
 
   const handleTemplateClick = (template: SimpleTemplate) => {
-    if (template.tier === 'premium' && !isPremium) {
-      // Redirect to upgrade
-      window.location.href = '/profile?tab=subscription';
+    if (template.tier === 'premium' && !harAllaMallar) {
+      // Betalväggen kommer i vyn, inte som en omdirigering till en annan
+      // sida: hon ska kunna backa till sitt val utan att tappa flödet.
+      setLastMall(template);
       return;
     }
+    setLastMall(null);
     onSelectTemplate(template.id);
   };
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
-        <h4 className="font-semibold text-gray-900 mb-2">Välj CV-mall</h4>
+        <h4 className="mb-2 font-semibold text-gray-900">Välj CV-mall</h4>
         <p className="text-sm text-gray-600">
           Välj en professionell mall för ditt förbättrade CV
         </p>
+        {/* GR1. Raden säger vad som ingår, utan att be om något. */}
+        {!harAllaMallar ? (
+          <p className="mt-1 text-xs text-gray-500">{GRATISRADER.mallar}</p>
+        ) : null}
       </div>
 
-      {/* Available Templates */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {availableTemplates.map((template) => {
+      {/* Alla mallar i samma rutnät, alla i full storlek. Skillnaden mellan
+          fri och låst är ett hänglås och en etikett, aldrig en suddning. */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {SIMPLE_TEMPLATES.map((template) => {
           const isSelected = selectedTemplateId === template.id;
+          const last = template.tier === 'premium' && !harAllaMallar;
 
           return (
             <motion.div
@@ -61,14 +81,16 @@ export default function TemplateSelector({
             >
               <button
                 onClick={() => handleTemplateClick(template)}
+                aria-pressed={isSelected}
                 className={`w-full text-left transition-all ${
                   isSelected ? 'ring-2 ring-pink-600 ring-offset-2' : ''
                 }`}
               >
-                <Card className={`overflow-hidden ${
-                  isSelected ? 'border-2 border-pink-600' : 'border-gray-200'
-                }`}>
-                  {/* Template Preview */}
+                <Card
+                  className={`overflow-hidden ${
+                    isSelected ? 'border-2 border-pink-600' : 'border-gray-200'
+                  }`}
+                >
                   <div className="relative aspect-[3/4] bg-gray-100">
                     {template.imagePath ? (
                       <Image
@@ -78,37 +100,30 @@ export default function TemplateSelector({
                         className="object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        Preview
+                      <div className="flex h-full w-full items-center justify-center text-gray-400">
+                        Förhandsvisning
                       </div>
                     )}
 
-                    {/* Selected Indicator */}
                     {isSelected && (
-                      <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center">
-                        <Check className="w-5 h-5 text-white" />
+                      <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-pink-600">
+                        <Check className="h-5 w-5 text-white" />
                       </div>
                     )}
 
-                    {/* Premium Badge */}
-                    {template.tier === 'premium' && (
-                      <div className="absolute top-2 left-2">
-                        <Badge className="bg-amber-500 text-white border-0">
-                          <Crown className="w-3 h-3 mr-1" />
-                          Premium
+                    {last && (
+                      <div className="absolute left-2 top-2">
+                        <Badge className="border-0 bg-gray-900/80 text-white">
+                          <Lock className="mr-1 h-3 w-3" />
+                          CV-veckan
                         </Badge>
                       </div>
                     )}
                   </div>
 
-                  {/* Template Info */}
                   <div className="p-4">
-                    <h5 className="font-semibold text-gray-900 mb-1">
-                      {template.name}
-                    </h5>
-                    <p className="text-sm text-gray-600 line-clamp-2">
-                      {template.description}
-                    </p>
+                    <h5 className="mb-1 font-semibold text-gray-900">{template.name}</h5>
+                    <p className="line-clamp-2 text-sm text-gray-600">{template.description}</p>
                   </div>
                 </Card>
               </button>
@@ -117,79 +132,17 @@ export default function TemplateSelector({
         })}
       </div>
 
-      {/* Locked Templates (for free users) */}
-      {!isPremium && lockedTemplates.length > 0 && (
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Lock className="w-4 h-4 text-gray-400" />
-            <h5 className="font-semibold text-gray-700">Premium-mallar</h5>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {lockedTemplates.slice(0, 3).map((template) => (
-              <motion.div
-                key={template.id}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <button
-                  onClick={() => handleTemplateClick(template)}
-                  className="w-full text-left"
-                >
-                  <Card className="overflow-hidden border-gray-200 opacity-75 hover:opacity-100 transition-opacity">
-                    {/* Template Preview with overlay */}
-                    <div className="relative aspect-[3/4] bg-gray-100">
-                      {template.imagePath ? (
-                        <Image
-                          src={template.imagePath}
-                          alt={template.name}
-                          fill
-                          className="object-cover filter blur-sm"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400">
-                          Preview
-                        </div>
-                      )}
-
-                      {/* Lock Overlay */}
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-white/90 flex items-center justify-center">
-                            <Lock className="w-6 h-6 text-gray-700" />
-                          </div>
-                          <p className="text-white text-sm font-medium">
-                            Premium
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Template Info */}
-                    <div className="p-4">
-                      <h5 className="font-semibold text-gray-900 mb-1">
-                        {template.name}
-                      </h5>
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {template.description}
-                      </p>
-                    </div>
-                  </Card>
-                </button>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-4 text-center">
-            <button
-              onClick={() => window.location.href = '/profile?tab=subscription'}
-              className="text-sm text-pink-600 hover:text-pink-700 font-medium"
-            >
-              Lås upp alla mallar med Premium →
-            </button>
-          </div>
-        </div>
-      )}
+      {/* PW1. Kommer först när hon faktiskt tryckt på en låst mall, så
+          rubriken kan peka på just den mall hon ville ha. */}
+      {lastMall ? (
+        <PaywallCard
+          variant="mall"
+          feature="cv_templates_all"
+          scope={scope}
+          track={track}
+          onSecondary={() => setLastMall(null)}
+        />
+      ) : null}
     </div>
   );
 }

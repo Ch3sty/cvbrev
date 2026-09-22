@@ -69,6 +69,24 @@ export interface DashboardSummary {
     rewardClaimed: boolean;
     createdAt: string | null;
   };
+  /**
+   * Veckoprogrammet (docs/plan-paket-och-onboarding.md, flöde 3). Valfri av
+   * samma skäl som onboarding ovan: ett äldre svar i sessionStorage-cachen
+   * kan sakna fältet.
+   */
+  week?: {
+    track: 'cv' | 'tester' | 'allt' | null;
+    scope: 'cv' | 'tester' | 'allt' | null;
+    progressDay: number;
+    startedAt: string | null;
+    trackAskedAt: string | null;
+    /** Nedladdade mallar. Dag 7:s tredje tal, etiketten "mallar" (T58). */
+    templateDownloads?: number;
+    /** Allt-dagen: behörigheten kommer bara ur ett engångsköp. */
+    dayPassOnly?: boolean;
+    /** När dygnet tar slut (ISO). */
+    dayPassEndsAt?: string | null;
+  };
 }
 
 interface DashboardDataContextValue {

@@ -1,10 +1,64 @@
 // src/lib/onboarding/steps.ts
 // Ett enda obligatoriskt onboarding-steg (docs/plan-konvertering.md, B5).
 // Enda sanningskällan: OnboardingContext och claim-reward-routen läser härifrån.
+//
+// Med paketen (docs/plan-paket-och-onboarding.md, avsnitt 6) är "kommit igång"
+// definierat per spår, i tre steg. Den spårlösa listan nedan står kvar som
+// gratisnivåns definition och som fallback när spåret är okänt.
+
+import type { Track } from './program'
 
 export const REQUIRED_STEPS = ['upload_cv'] as const
 
 export type RequiredStep = (typeof REQUIRED_STEPS)[number]
+
+/**
+ * Stripes success_url landar här, aldrig på hemskärmen (Fas 2A flöde 2).
+ * B1 sätter success_url, B3 äger vyn. Konstanten är gränssnittet mellan dem.
+ */
+export const VECKA_START_PATH = '/dashboard/vecka/start'
+
+/**
+ * Spårvalet. Nytt konto landar här direkt efter registreringen, aldrig på
+ * hemskärmen först (Fas 2A flöde 1, "Placering, och skälet").
+ */
+export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
+
+/**
+ * "Kommit igång" per spår, avsnitt 6. Tre steg, alla tre krävs, mätt inom
+ * 24 timmar från köp (12 timmar för Allt-dagen).
+ */
+export const REQUIRED_STEPS_BY_TRACK: Record<Track, readonly string[]> = {
+  cv: ['upload_cv', 'analyze_cv', 'download_cv_template'],
+  tester: ['test_diagnosis', 'test_plan', 'test_day_one'],
+  // Allt: ett av spårens tre steg räcker, plus en handling ur det andra.
+  // Listan är CV-spårets, och korsningen mäts som download_cv_template eller
+  // test_diagnosis beroende på vilket spår användaren körde.
+  allt: ['upload_cv', 'analyze_cv', 'download_cv_template'],
+} as const
+
+/** Stegen för ett spår, med fallback till den spårlösa listan. */
+export function requiredStepsForTrack(track: Track | null | undefined): readonly string[] {
+  if (!track) return REQUIRED_STEPS
+  return REQUIRED_STEPS_BY_TRACK[track]
+}
+
+/** Hur många av spårets steg som är klara. */
+export function countTrackStepsCompleted(
+  track: Track | null | undefined,
+  completedSteps: readonly string[]
+): number {
+  return requiredStepsForTrack(track).filter((step) => completedSteps.includes(step)).length
+}
+
+/** Är spårets onboarding klar? */
+export function isTrackOnboardingComplete(
+  track: Track | null | undefined,
+  completedSteps: readonly string[]
+): boolean {
+  const steps = requiredStepsForTrack(track)
+  return steps.every((step) => completedSteps.includes(step))
+}
 
 /** Alla steg vi spårar, även de som inte krävs för belöningen. */
 export const TRACKED_STEPS = [

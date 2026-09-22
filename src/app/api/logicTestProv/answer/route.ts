@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { examDeadlinePassed } from '@/lib/tests/sessionGate';
 import questionBankV5 from '@/lib/logicTestV5/questionBank.v5.json';
 import questionBankGrund from '@/lib/logicTestV7/questionBankGrund.v7.json';
 import questionBankAvancerad from '@/lib/logicTestV7/questionBank.v7.json';
@@ -44,6 +45,12 @@ export async function POST(request: Request) {
     }
     if (session.completed_at) {
       return NextResponse.json({ error: 'Session already completed' }, { status: 400 });
+    }
+
+    // Provets tid har gått ut. Klientens klocka lämnar in provet, men en
+    // klient går att stänga av, så gränsen måste hålla även här.
+    if (examDeadlinePassed('matrislogik-prov', session.started_at)) {
+      return NextResponse.json({ error: 'exam_time_up' }, { status: 409 });
     }
 
     const question = allQuestions.find((q) => q.id === questionId);

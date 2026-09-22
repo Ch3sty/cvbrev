@@ -6,7 +6,7 @@ import { ArrowRight, Quote } from 'lucide-react'
 
 const STATS = [
   { value: '3×', label: 'fler intervjuer', sub: 'jämfört med generiska brev' },
-  { value: '2', label: 'brev gratis', sub: 'varje dag, utan kortuppgift' },
+  { value: '1', label: 'brev gratis', sub: 'sedan ett i veckan, utan kortuppgift' },
   { value: 'PDF', label: 'och Word', sub: 'redo att skicka direkt' },
 ]
 

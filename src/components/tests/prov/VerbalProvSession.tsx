@@ -15,10 +15,13 @@ import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigatio
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { fetchProvSession } from '@/components/tests/prov/provSession';
+import { getTestConfig } from '@/app/dashboard/tester/testConfig';
 import { selectProvPassagesForSession } from '@/lib/verbalTestProv/selectProv';
 import type { UserAnswer } from '@/lib/verbalTestV1/types.v1';
 
-const TOTAL_TIME = 40 * 60;
+// Tidsgränsen bor i testConfig, så copyn och koden aldrig glider isär
+// (docs/plan-paket-och-onboarding.md, Fas 2B noten till T47).
+const TOTAL_TIME = ((getTestConfig('verbal-resonemang-prov')?.examMinutes ?? 40) * 60);
 
 interface Props {
   /** Sessionen som körs. Routen har redan packat upp params. */

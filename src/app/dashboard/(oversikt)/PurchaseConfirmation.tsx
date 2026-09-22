@@ -51,7 +51,7 @@ export default function PurchaseConfirmation({
   if (!visible) return null
 
   const selected = isPlanKey(plan) ? PLAN_BY_KEY[plan] : null
-  const isRecurring = selected?.kind === 'recurring'
+  const isRecurring = selected?.mode === 'subscription'
 
   // Engångsköp tar slut vid premium_until, prenumerationer förnyas vid
   // current_period_end. Saknas datumet säger vi inget om det.

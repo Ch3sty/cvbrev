@@ -1,25 +1,31 @@
 // src/lib/quota/getQuotaSummary.ts
 //
-// Dygnskvoterna hämtade en gång, delade mellan två anropare: prenumerations-
+// Kvoterna hämtade en gång, delade mellan två anropare: prenumerations-
 // sidan som server component, och GET /api/quota/summary som dashboardens
 // kvotrad läser. Sidan kan därmed rendera siffrorna direkt i stället för att
 // fetcha vår egen HTTP-route efter hydrering, vilket var en hel extra
 // rundtur och dessutom sidans layoutförskjutning när skelettet byttes ut.
 //
-// Frågorna och limiterna är identiska med routens. Ändras de ena ska de andra
-// ändras också.
+// Efter paketomgången summeras raderna per scope, inte per flagga
+// (docs/plan-paket-och-onboarding.md avsnitt 5). En Testveckan-kund har inte
+// obegränsade brev, och en CV-veckan-kund har inte obegränsad chatt, så
+// varje rad frågar efter sin egen feature.
+//
+// Frågorna och limiterna är identiska med routens. Ändras de ena ska de
+// andra ändras också.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess'
+import { getUserScope } from '@/lib/supabase/premiumAccess'
+import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import {
   DAILY_LIMIT_LETTERS,
-  DAILY_LIMIT_CHAT_MESSAGES,
+  FREE_CHAT_MESSAGES_PER_ACCOUNT,
   DAILY_LIMIT_TEST_SESSIONS,
   CV_ANALYSIS_LIMIT,
-  CV_ANALYSIS_WINDOW_HOURS,
   startOfTodayStockholm,
   nextMidnightStockholm,
-  resolveDailyLetterCounter,
+  nextLetterResetAt,
+  resolveWeeklyLetterCounter,
 } from '@/lib/quota/quotaService'
 
 /**
@@ -33,10 +39,17 @@ export interface QuotaSummaryItem {
   used: number
   /** null betyder obegränsat. Ordet "obegränsat" får bara stå där det är sant. */
   limit: number | null
+  /** Featuren som öppnar raden. Driver vilket paket betalväggen föreslår. */
+  feature: Feature
+  /** Sann när kvoten inte återkommer av sig själv, alltså analys och chatt. */
+  perAccount?: boolean
 }
 
 export interface QuotaSummary {
+  /** Sann så snart något paket är aktivt. Behålls för befintliga vyer. */
   isPremium: boolean
+  /** Paketet som gäller just nu, eller null för gratisnivån. */
+  scope: Scope | null
   nextResetAt: string
   items: QuotaSummaryItem[]
 }
@@ -46,12 +59,13 @@ export async function getQuotaSummary(
   supabase: SupabaseClient<any, any, any>,
   userId: string
 ): Promise<QuotaSummary> {
-  const isPremium = await userHasPremiumAccess(supabase, userId)
+  const scope = await getUserScope(supabase, userId)
   const nextResetAt = nextMidnightStockholm().toISOString()
   const sinceToday = startOfTodayStockholm().toISOString()
 
-  // Premium har inga tak. Vi visar ändå vad som använts, men utan gräns.
-  const limitOf = (n: number) => (isPremium ? null : n)
+  /** Raden är utan tak bara om scopet faktiskt ger just den funktionen. */
+  const limitOf = (feature: Feature, n: number) =>
+    scopeHasFeature(scope, feature) ? null : n
 
   const [{ data: profile }, chatRes, analysisRes, testRes] = await Promise.all([
     supabase
@@ -59,18 +73,17 @@ export async function getQuotaSummary(
       .select('weekly_letter_count, weekly_letter_first_used_at')
       .eq('id', userId)
       .maybeSingle(),
+    // Chatt och analys räknas över hela kontots historik, inte per dygn.
     supabase
       .from('ai_messages')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
-      .eq('role', 'user')
-      .gte('created_at', sinceToday),
+      .eq('role', 'user'),
     supabase
       .from('cv_analysis_jobs')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
-      .eq('usage_counted', true)
-      .gte('created_at', new Date(Date.now() - CV_ANALYSIS_WINDOW_HOURS * 3600_000).toISOString()),
+      .eq('usage_counted', true),
     supabase
       .from('logic_test_v4_sessions')
       .select('id', { count: 'exact', head: true })
@@ -79,19 +92,54 @@ export async function getQuotaSummary(
       .gte('completed_at', sinceToday),
   ])
 
-  const { effectiveCount: lettersUsed } = resolveDailyLetterCounter(
-    (profile as { weekly_letter_count?: number } | null)?.weekly_letter_count ?? 0,
-    (profile as { weekly_letter_first_used_at?: string } | null)?.weekly_letter_first_used_at ?? null
+  const profilRad = profile as {
+    weekly_letter_count?: number
+    weekly_letter_first_used_at?: string
+  } | null
+
+  const { effectiveCount: lettersUsed } = resolveWeeklyLetterCounter(
+    profilRad?.weekly_letter_count ?? 0,
+    profilRad?.weekly_letter_first_used_at ?? null
   )
 
   return {
-    isPremium,
+    isPremium: scope !== null,
+    scope,
     nextResetAt,
     items: [
-      { key: 'letters', label: 'Brev', used: lettersUsed, limit: limitOf(DAILY_LIMIT_LETTERS) },
-      { key: 'analysis', label: 'Analys', used: analysisRes.count ?? 0, limit: limitOf(CV_ANALYSIS_LIMIT) },
-      { key: 'chat', label: 'Chatt', used: chatRes.count ?? 0, limit: limitOf(DAILY_LIMIT_CHAT_MESSAGES) },
-      { key: 'tests', label: 'Tester', used: testRes.count ?? 0, limit: limitOf(DAILY_LIMIT_TEST_SESSIONS) },
+      {
+        key: 'letters',
+        label: 'Brev',
+        used: lettersUsed,
+        limit: limitOf('letter_download', DAILY_LIMIT_LETTERS),
+        feature: 'letter_download',
+      },
+      {
+        key: 'analysis',
+        label: 'Analys',
+        used: analysisRes.count ?? 0,
+        limit: limitOf('cv_analysis_full', CV_ANALYSIS_LIMIT),
+        feature: 'cv_analysis_full',
+        perAccount: !scopeHasFeature(scope, 'cv_analysis_full'),
+      },
+      {
+        key: 'chat',
+        label: 'Chatt',
+        used: chatRes.count ?? 0,
+        limit: limitOf('chat_unlimited', FREE_CHAT_MESSAGES_PER_ACCOUNT),
+        feature: 'chat_unlimited',
+        perAccount: !scopeHasFeature(scope, 'chat_unlimited'),
+      },
+      {
+        key: 'tests',
+        label: 'Tester',
+        used: testRes.count ?? 0,
+        limit: limitOf('tests_above_base', DAILY_LIMIT_TEST_SESSIONS),
+        feature: 'tests_above_base',
+      },
     ],
   }
 }
+
+/** När brevraden öppnar igen. Exporteras så kvotraden slipper räkna själv. */
+export { nextLetterResetAt }

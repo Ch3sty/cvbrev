@@ -93,15 +93,16 @@ export default function JobbcoachenClient({
         }),
       });
 
-      if (response.status === 429) {
-        // Dagskvoten är slut: visa spärrvyn och plocka bort det optimistiska
-        // meddelandet (det sparades aldrig på servern).
+      if (response.status === 402 || response.status === 429) {
+        // Kvoten är slut: visa spärrvyn och plocka bort det optimistiska
+        // meddelandet (det sparades aldrig på servern). 402 är kontokvoten,
+        // 429 står kvar för äldre svar.
         const body = await response.json().catch(() => null);
         setQuotaLock({
           nextResetAt: body?.nextResetAt || new Date().toISOString(),
           message:
             body?.message ||
-            'Du har använt dagens tio meddelanden. Chatten öppnar igen i morgon.',
+            'Du har använt dina tio meddelanden.',
         });
         setRemainingToday(0);
         setMessages((prev) => prev.slice(0, -1));
@@ -202,10 +203,8 @@ export default function JobbcoachenClient({
         <div>
           {quotaLock && (
             <div className="px-3 pt-3 sm:px-4">
-              <PaywallCard
-                variant="kvot"
-                quota={{ feature: 'chat_message', nextResetAt: quotaLock.nextResetAt }}
-              />
+              {/* PW7. Kontokvot, alltså ingen påminnelse om imorgon. */}
+              <PaywallCard variant="chatt" feature="chat_unlimited" />
             </div>
           )}
           <ChatInput

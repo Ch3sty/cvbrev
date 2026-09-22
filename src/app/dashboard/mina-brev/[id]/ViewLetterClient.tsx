@@ -21,7 +21,6 @@ import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import TrialRowConnected from '@/components/paywall/TrialRowConnected';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
@@ -312,11 +311,6 @@ export default function ViewLetterClient({
           }}
         />
       )}
-
-      {/* Samma plats under provperioden: ingen spärr, men priset syns.
-          Utan den här raden möter ett trialkonto aldrig ett pris, eftersom
-          spärren ovan aldrig slår till medan Premium är aktivt. */}
-      {!downloadGate && <TrialRowConnected />}
 
       {(skapad || uppdaterad) && (
         <p className="text-meta text-ink-3">

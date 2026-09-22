@@ -1,0 +1,164 @@
+{
+  "resultat": [
+    {
+      "namn": "Pixel 7 skärm 1.1: cookie-bannern täcker inte primärknappen",
+      "ok": true,
+      "not": "{\"bannerFinns\":true,\"egen\":true,\"cookie\":false,\"toppTagg\":\"BUTTON\",\"toppKlass\":\"inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c\",\"knappRect\":{\"top\":763,\"height\":44}}"
+    },
+    {
+      "namn": "CV-veckan: skärm 1.2 med samtyckesrutan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "CV-veckan: köpknappen spärrad utan samtycke",
+      "ok": true,
+      "not": "disabled=true"
+    },
+    {
+      "namn": "CV-veckan: cookie-bannern täcker inte köpknappen",
+      "ok": true,
+      "not": "{\"egen\":true,\"cookie\":false,\"toppTagg\":\"BUTTON\",\"toppKlass\":\"inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c\",\"knappRect\":{\"top\":833,\"height\":44}}"
+    },
+    {
+      "namn": "CV-veckan: klicket navigerar till checkout.stripe.com",
+      "ok": true,
+      "not": "https://checkout.stripe.com/c/pay/cs_live_a1I4g1GrOdrvIgRzzj33bUiiCmM9bfzWd0WcwCVAZWwoKux1SmVm1qOmM2#fidnandhYHdWcXxpYCc"
+    },
+    {
+      "namn": "CV-veckan: sessionens metadata bär angerratt_samtycke_at",
+      "ok": true,
+      "not": "2026-09-22T08:46:08.220Z"
+    },
+    {
+      "namn": "CV-veckan: metadatatexten är kryssrutans exakta text",
+      "ok": true,
+      "not": "Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påb"
+    },
+    {
+      "namn": "CV-veckan: session",
+      "ok": true,
+      "not": "{\"id\":\"cs_live_a1I4g1GrOdrvIgRzzj33bUiiCmM9bfzWd0WcwCVAZWwoKux1SmVm1qOmM2\",\"mode\":\"subscription\",\"status\":\"open\",\"vid\":\"2026-09-22T08:46:08.220Z\",\"text\":\"Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påbörjats.\"}"
+    },
+    {
+      "namn": "Allt-dagen: skärm 1.2 med samtyckesrutan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "Allt-dagen: köpknappen spärrad utan samtycke",
+      "ok": true,
+      "not": "disabled=true"
+    },
+    {
+      "namn": "Allt-dagen: cookie-bannern täcker inte köpknappen",
+      "ok": true,
+      "not": "{\"egen\":true,\"cookie\":false,\"toppTagg\":\"BUTTON\",\"toppKlass\":\"inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c\",\"knappRect\":{\"top\":833,\"height\":44}}"
+    },
+    {
+      "namn": "Allt-dagen: klicket navigerar till checkout.stripe.com",
+      "ok": true,
+      "not": "https://checkout.stripe.com/c/pay/cs_live_a1FZu2QXRJTI3PnF76ttnJolrTtAMmPTh1OfQE04u6ACzRFCRzMVKRW1Gv#fidnandhYHdWcXxpYCc"
+    },
+    {
+      "namn": "Allt-dagen: sessionens metadata bär angerratt_samtycke_at",
+      "ok": true,
+      "not": "2026-09-22T08:46:19.990Z"
+    },
+    {
+      "namn": "Allt-dagen: metadatatexten är kryssrutans exakta text",
+      "ok": true,
+      "not": "Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påb"
+    },
+    {
+      "namn": "Allt-dagen: session",
+      "ok": true,
+      "not": "{\"id\":\"cs_live_a1FZu2QXRJTI3PnF76ttnJolrTtAMmPTh1OfQE04u6ACzRFCRzMVKRW1Gv\",\"mode\":\"payment\",\"status\":\"open\",\"vid\":\"2026-09-22T08:46:19.990Z\",\"text\":\"Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påbörjats.\"}"
+    },
+    {
+      "namn": "Allt-månaden: skärm 1.2 med samtyckesrutan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "Allt-månaden: köpknappen spärrad utan samtycke",
+      "ok": true,
+      "not": "disabled=true"
+    },
+    {
+      "namn": "Allt-månaden: cookie-bannern täcker inte köpknappen",
+      "ok": true,
+      "not": "{\"egen\":true,\"cookie\":false,\"toppTagg\":\"BUTTON\",\"toppKlass\":\"inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c\",\"knappRect\":{\"top\":833,\"height\":44}}"
+    },
+    {
+      "namn": "Allt-månaden: klicket navigerar till checkout.stripe.com",
+      "ok": true,
+      "not": "https://checkout.stripe.com/c/pay/cs_live_a1o7LfkeM8BoVp1ElQwI8UcGWso8l0I73WDNWIJ4SkthcTFkwi2eIdgaOn#fidnandhYHdWcXxpYCc"
+    },
+    {
+      "namn": "Allt-månaden: sessionens metadata bär angerratt_samtycke_at",
+      "ok": true,
+      "not": "2026-09-22T08:46:31.569Z"
+    },
+    {
+      "namn": "Allt-månaden: metadatatexten är kryssrutans exakta text",
+      "ok": true,
+      "not": "Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påb"
+    },
+    {
+      "namn": "Allt-månaden: session",
+      "ok": true,
+      "not": "{\"id\":\"cs_live_a1o7LfkeM8BoVp1ElQwI8UcGWso8l0I73WDNWIJ4SkthcTFkwi2eIdgaOn\",\"mode\":\"subscription\",\"status\":\"open\",\"vid\":\"2026-09-22T08:46:31.569Z\",\"text\":\"Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påbörjats.\"}"
+    }
+  ],
+  "cookieRuta": [
+    {
+      "skarm": "1.1",
+      "bannerFinns": true,
+      "egen": true,
+      "cookie": false,
+      "toppTagg": "BUTTON",
+      "toppKlass": "inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c",
+      "knappRect": {
+        "top": 763,
+        "height": 44
+      }
+    },
+    {
+      "skarm": "1.2",
+      "paket": "CV-veckan",
+      "egen": true,
+      "cookie": false,
+      "toppTagg": "BUTTON",
+      "toppKlass": "inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c",
+      "knappRect": {
+        "top": 833,
+        "height": 44
+      }
+    },
+    {
+      "skarm": "1.2",
+      "paket": "Allt-dagen",
+      "egen": true,
+      "cookie": false,
+      "toppTagg": "BUTTON",
+      "toppKlass": "inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c",
+      "knappRect": {
+        "top": 833,
+        "height": 44
+      }
+    },
+    {
+      "skarm": "1.2",
+      "paket": "Allt-månaden",
+      "egen": true,
+      "cookie": false,
+      "toppTagg": "BUTTON",
+      "toppKlass": "inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-c",
+      "knappRect": {
+        "top": 833,
+        "height": 44
+      }
+    }
+  ]
+}

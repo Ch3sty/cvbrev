@@ -216,7 +216,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för butik, kassa och kundnära service',
     imagePath: '/mallar/disk.svg',
     category: 'modern',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Butiksbiträde', 'Butikssäljare', 'Kassörska', 'Kundtjänst', 'Hotellvärd', 'Receptionist'],
@@ -234,7 +234,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för lager, logistik och transport',
     imagePath: '/mallar/logistik.svg',
     category: 'traditional',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Lagerarbetare', 'Truckförare', 'Logistiker', 'Lagerchef', 'Terminalarbetare'],
@@ -252,7 +252,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för industri, maskin och produktion',
     imagePath: '/mallar/verkstad.svg',
     category: 'traditional',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Ingenjör', 'Automationsingenjör', 'Konstruktör', 'Produktionsledare'],
@@ -270,7 +270,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för offentlig sektor och myndighetsutövning',
     imagePath: '/mallar/myndighet.svg',
     category: 'traditional',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Handläggare', 'LSS-handläggare', 'Socialsekreterare', 'Administratör', 'Kontorsassistent'],
@@ -288,7 +288,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för ekonomi, redovisning och finans',
     imagePath: '/mallar/konto.svg',
     category: 'modern',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Ekonomiassistent', 'Redovisningsekonom', 'Controller', 'Ekonom', 'HR-specialist'],
@@ -506,7 +506,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Gratis CV-mall för hantverkare och bygg med behörigheter och certifikat',
     imagePath: '/mallar/bygg.svg',
     category: 'traditional',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Snickare', 'Elektriker', 'VVS', 'Målare', 'Plåtslagare', 'Byggarbetare'],
@@ -751,7 +751,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Klassisk formell mall för juridik, bank och offentlig sektor',
     imagePath: '/mallar/tidlos-formell.svg',
     category: 'traditional',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Juridik', 'Bank', 'Försäkring', 'Offentlig sektor', 'Akademi'],
@@ -792,7 +792,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Modern utvecklarmall med kompetens-stack ovanför erfarenhet',
     imagePath: '/mallar/stack-developer.svg',
     category: 'modern',
-    tier: 'free',
+    tier: 'premium',
     features: { atsSafe: true, columns: 1 },
     metadata: {
       suitableFor: ['Utvecklare', 'DevOps', 'Data engineers', 'Tech leads'],
@@ -892,3 +892,20 @@ export const FREE_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'free
 
 /** Antalet mallar som kraver Premium. */
 export const PREMIUM_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'premium').length;
+
+/**
+ * De tre fria mallarna (docs/plan-paket-och-onboarding.md, avsnitt 4 och
+ * ägarens beslut 6, 2026-09-22). Elva fria mallar gjorde mallen till något
+ * man aldrig behövde betala för. Tre räcker för att se att det fungerar.
+ *
+ * Urvalet är gjort på faktiska nedladdningar i formatted_cv_downloads
+ * 2026-09-22: norrsken 29, student-startup 8, sidebar-icons 5. Konto låg
+ * också på 5 men hade sin senaste nedladdning i juni, alltså föll den.
+ * Ändras urvalet ska siffrorna tas om, inte gissas.
+ */
+export const FREE_TEMPLATE_IDS = ['norrsken', 'student-startup', 'sidebar-icons'] as const;
+
+/** Ingår mallen i gratisnivån? Enda frågan vyer och rutter ska ställa. */
+export function isTemplateFree(id: string): boolean {
+  return getTemplateById(id)?.tier === 'free';
+}

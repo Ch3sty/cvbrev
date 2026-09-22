@@ -64,6 +64,43 @@ export interface DashboardSummaryData {
     rewardClaimed: boolean
     createdAt: string | null
   }
+  /**
+   * Veckoprogrammets tillstånd (docs/plan-paket-och-onboarding.md, flöde 3).
+   *
+   * Ligger här och inte i ett eget klientanrop. Kravet är hårt: en veckopanel
+   * som hämtar sig själv efter mount ger CLS och bryter LCP-budgeten på
+   * hemskärmen (under 1,0 s), se feedback_prestandabudget_inloggat.
+   */
+  week: {
+    /** Spåret användaren valde. Null = hoppade över frågan. */
+    track: 'cv' | 'tester' | 'allt' | null
+    /** Betalt spår. Null = gratisnivån, och då visas ingen veckopanel. */
+    scope: 'cv' | 'tester' | 'allt' | null
+    /** Dagen hon står på, 0 innan veckan börjat. Följer framsteg, inte kalendern. */
+    progressDay: number
+    startedAt: string | null
+    /** Har spårfrågan ställts, och i så fall när. */
+    trackAskedAt: string | null
+    /**
+     * Nedladdade mallar, hela kontots historik.
+     *
+     * Dag 7:s tredje tal har etiketten "mallar" (T58), och stod tidigare på
+     * LinkedIn-räknaren därför att mallnedladdningarna inte fanns i
+     * summeringen (B3:s öppna beslut 10). Raden kostar ingenting: samma
+     * count-fråga hämtades redan för onboardingsteget download_cv_template,
+     * den lästes bara inte ut.
+     */
+    templateDownloads: number
+    /**
+     * Allt-dagen: sant när behörigheten bara kommer ur ett engångsköp.
+     *
+     * Dygnet kör inget veckoprogram (avsnitt 6). Hemskärmen visar då en
+     * sluttidsrad i stället för veckopanelen, minsta möjliga vy.
+     */
+    dayPassOnly: boolean
+    /** När dygnet tar slut (ISO). Null när inget engångsköp är giltigt. */
+    dayPassEndsAt: string | null
+  }
 }
 
 /** Speglar INTERVIEW_STATUSES i useApplicationsSummary.ts. */
@@ -110,6 +147,7 @@ export async function getDashboardSummary(
     linkedinRes,
     downloadRes,
     matchRes,
+    grantsRes,
   ] = await Promise.all([
     supabase
       .from('letters')
@@ -154,6 +192,14 @@ export async function getDashboardSummary(
       .from('job_matchings_cache')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId),
+    // Veckopanelen behöver det betalda scopet, och det får inte kosta en
+    // egen rundtur efter mount (flöde 3:s LCP-krav). Engångsköpen bär sitt
+    // scope i premium_grants, så raden läses i samma omgång som resten.
+    supabase
+      .from('premium_grants')
+      .select('scope, premium_until_after')
+      .eq('user_id', userId)
+      .gt('premium_until_after', new Date().toISOString()),
   ])
 
   const now = new Date()
@@ -247,6 +293,41 @@ export async function getDashboardSummary(
     .filter(([step, count]) => storedSteps.includes(step) || count > 0)
     .map(([step]) => step)
 
+  // Veckans tillstånd. Scopet räknas ur samma källor som premiumAccess
+  // (profiles plus giltiga grants), fast utan extra rundturer: profilraden
+  // är redan hämtad ovan och grants ligger i samma parallella omgång.
+  // Ändras reglerna i src/lib/supabase/premiumAccess.ts ska de ändras här.
+  const giltigtScope = (v: unknown): v is 'cv' | 'tester' | 'allt' =>
+    v === 'cv' || v === 'tester' || v === 'allt'
+
+  const harPremium =
+    (!!profileRow?.premium_until && new Date(profileRow.premium_until as string) > now) ||
+    profileRow?.subscription_tier === 'premium'
+  const profilScope = harPremium
+    ? giltigtScope(profileRow?.premium_scope)
+      ? (profileRow.premium_scope as 'cv' | 'tester' | 'allt')
+      : 'allt'
+    : null
+  const grants = (grantsRes.data ?? []) as Array<{
+    scope?: string | null
+    premium_until_after?: string | null
+  }>
+  const harAllaDagen = grants.some((rad) => (rad?.scope ?? 'allt') === 'allt')
+  const smalareGrant = grants.map((rad) => rad?.scope).find(giltigtScope) ?? null
+  const scope = harAllaDagen ? 'allt' : (profilScope ?? smalareGrant)
+
+  // Allt-dagen: behörigheten kommer ur ett engångsköp och inte ur en
+  // prenumeration, alltså finns ingen vecka att gå igenom (avsnitt 6, och
+  // B3:s öppna beslut 12). Hemskärmen visar då en sluttidsrad i stället för
+  // veckopanelen. Villkoret är precis det: ett giltigt grant och ingen
+  // prenumeration bakom det.
+  const grantSlutar = grants
+    .map((rad) => rad?.premium_until_after)
+    .filter((v): v is string => typeof v === 'string' && v.length > 0)
+    .sort()
+    .pop() ?? null
+  const endastDagpass = profilScope === null && grantSlutar !== null
+
   return {
     profile: profileRes.data ?? null,
     letters: {
@@ -271,6 +352,18 @@ export async function getDashboardSummary(
       completedSteps: validatedSteps,
       rewardClaimed: Boolean(profileRow?.onboarding_reward_claimed),
       createdAt: (profileRow?.created_at as string | undefined) ?? null,
+    },
+    week: {
+      track: giltigtScope(profileRow?.onboarding_track)
+        ? (profileRow!.onboarding_track as 'cv' | 'tester' | 'allt')
+        : null,
+      scope,
+      progressDay: Number(profileRow?.week_progress_day ?? 0) || 0,
+      startedAt: (profileRow?.week_started_at as string | undefined) ?? null,
+      trackAskedAt: (profileRow?.onboarding_track_asked_at as string | undefined) ?? null,
+      templateDownloads: downloadRes.count ?? 0,
+      dayPassOnly: endastDagpass,
+      dayPassEndsAt: grantSlutar,
     },
   }
 }

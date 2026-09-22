@@ -10,7 +10,7 @@ import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/l
 export const CV_MALLAR_FAQ = [
   {
     q: 'Är CV-mallarna gratis att ladda ner?',
-    a: `Ja, vi har ${FREE_TEMPLATE_COUNT} gratis CV-mallar av totalt ${TEMPLATE_COUNT}. De ${PREMIUM_TEMPLATE_COUNT} premium-mallarna får du med Premium-prenumerationen. Alla gratis-mallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. Premium-mallar har mer designfrihet (foto-stöd, gradient-paneler, specialiserade yrkesvarianter).`,
+    a: `Ja, ${FREE_TEMPLATE_COUNT} av våra ${TEMPLATE_COUNT} CV-mallar är gratis att ladda ner. De övriga ${PREMIUM_TEMPLATE_COUNT} ingår i CV-veckan och i Allt-veckan. Alla gratismallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. De mallar som ingår i paketen har mer designfrihet: stöd för foto, färgade paneler och specialiserade yrkesvarianter.`,
   },
   {
     q: 'Vilken CV-mall är bäst för svenska arbetsgivare 2026?',

@@ -26,37 +26,12 @@ function KassaInner() {
       router.replace('/priser')
       return
     }
-    let cancelled = false
-    ;(async () => {
-      try {
-        const res = await fetch('/api/stripe/create-plan-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan: planParam, source: 'kassa' }),
-        })
-        const data = await res.json().catch(() => ({}))
-        if (cancelled) return
-        if (res.status === 401) {
-          const back = `/kassa?plan=${planParam}`
-          router.replace(`/login?redirect=${encodeURIComponent(back)}`)
-          return
-        }
-        if (res.status === 409) {
-          // Har redan en aktiv prenumeration.
-          router.replace('/dashboard/profil/prenumeration')
-          return
-        }
-        if (!res.ok || !data?.url) {
-          throw new Error(data?.error || 'Kunde inte öppna kassan.')
-        }
-        window.location.href = data.url
-      } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : 'Kunde inte öppna kassan.')
-      }
-    })()
-    return () => {
-      cancelled = true
-    }
+    // Ångerrättssamtycket (avsnitt 8) kräver en kryssruta på samma skärm som
+    // köpknappen. Den här sidan har ingen skärm alls, den postar direkt vid
+    // montering, så den kan inte längre öppna kassan själv. Den bär i stället
+    // paketet till köpsteget, som har både rutan och knappen. Utloggade
+    // skickas dit via inloggningen av sidan själv.
+    router.replace(`/dashboard/valj-spar?paket=${planParam}`)
   }, [planParam, router, attempt])
 
   const plan = isPlanKey(planParam) ? PLAN_BY_KEY[planParam] : null

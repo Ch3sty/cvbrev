@@ -18,12 +18,12 @@ const FAQ_ITEMS = [
     a: 'Vi hämtar jobb från Arbetsförmedlingen och JobTech, två av Sveriges största datakällor för lediga tjänster. Nya annonser dyker upp i din matchnings-feed inom timmar efter att de publicerats. Du kan aktivera ett CV och få nya förslag varje vecka.',
   },
   {
-    q: 'Vad händer om jag avslutar Premium?',
-    a: 'Inget dramatiskt. Ditt konto rullar tillbaka till gratisnivån. Brev och CV:n du redan skapat finns kvar (du kan hantera 2 sparade brev och 2 CV:n på gratis), men nya skapanden begränsas till gratis-quotorna. Du kan när som helst aktivera Premium igen.',
+    q: 'Vad händer om jag säger upp mitt paket?',
+    a: 'Inget dramatiskt. Kontot går tillbaka till gratisnivån vid periodens slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser igen. Du kan börja om med ett paket när du vill.',
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: 'Skapa konto så får du fem dagar med full Premium direkt, utan kort. Efter de fem dagarna fortsätter kontot på gratisnivån med ett brev om dagen. Vill du ha tillbaka Premium väljer du mellan dagspass, vecka, månad och kvartal.',
+    a: 'Skapa konto, så är gratisnivån igång direkt. Du får tre CV-mallar, en export, en CV-analys med din läsbarhetspoäng och det tyngsta fyndet, ditt första brev och grundnivån i varje test. Vill du ha mer väljer du spår: CV-veckan, Testveckan eller Allt-veckan.',
   },
 ];
 

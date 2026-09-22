@@ -24,7 +24,7 @@ const PRINCIPER = [
     Icon: IconUtanKort,
     title: 'Gratis att börja',
     body:
-      'Du testar våra verktyg utan att lämna kortuppgifter. Behöver du mer (fler optimeringar, fler matchningar) finns Premium på 149 kr per månad med sju dagars gratis provperiod. Ingen bindningstid.',
+      'Du testar våra verktyg utan att lämna kortuppgifter. Behöver du mer väljer du det spår du söker på: CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Ingen bindningstid, du säger upp i ditt konto.',
   },
 ]
 

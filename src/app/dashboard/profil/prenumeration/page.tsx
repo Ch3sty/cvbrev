@@ -1,33 +1,60 @@
 /**
- * Prenumeration är en server component.
+ * Prenumeration: en vy, tre tillstånd
+ * (docs/plan-paket-och-onboarding.md, Fas 2D avsnitt 3).
  *
- * Förut var hela sidan 'use client' och visade ett skelett tills useProfile
- * hade satt loading till false i en effekt. Först därefter monterade
- * UsageStats, som fetchade /api/quota/summary och där inne körde
- * auth.getUser(), premiumkontrollen och fyra räkningar. Skelettet som byttes
- * mot riktigt innehåll var sidans layoutförskjutning.
+ * Gratis, spår och Allt. Skelettet är detsamma i alla tre: sidhuvud, en
+ * statusrad som säger läget, en panel som säger vad hon har, noll till en
+ * panel som föreslår nästa steg, och en hanteringslista. Skillnaden ligger i
+ * panelernas innehåll, inte i hur sidan är byggd.
  *
- * Nu läses sessionen, profilen och kvoterna här på servern i en parallell
- * omgång. Kvoterna kommer via den delade getQuotaSummary, inte genom att
- * fetcha vår egen HTTP-route.
- *
- * Köp- och uppsägningsflödet är orört. Hela avgörandet om vilket läge kontot
- * är i (betalande, admin, tidsbegränsad, gratis) räknas ut ur exakt samma
- * fält och med exakt samma regler som förut, bara på servern. Stripe-knappar,
- * portal och uppsägning ligger kvar i sina egna komponenter.
+ * Allt kommer serverrenderat, blockeringslistan likaså. Ingen panel hämtar
+ * sig själv efter mount, eftersom LCP-budgeten är 1,0 s och ett kort som
+ * byts ut efter hydrering är sidans layoutförskjutning.
  */
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+
 import { createServerClient } from '@/lib/supabase/server';
-import { getQuotaSummary, type QuotaSummary } from '@/lib/quota/getQuotaSummary';
+import { getUserScope } from '@/lib/supabase/premiumAccess';
+import { isPlanKey, type PlanKey } from '@/lib/plans/plans';
+import type { Scope } from '@/lib/access/features';
+import { lasBlockeringar, foreslaPaket, type Blockeringar } from './blockeringar';
 import PrenumerationClient from './PrenumerationClient';
 
 interface SubscriptionProfile {
   subscription_tier?: string | null;
   premium_until?: string | null;
   premium_source?: string | null;
+  premium_scope?: string | null;
   subscription_id?: string | null;
   subscription_status?: string | null;
+  onboarding_track?: string | null;
+}
+
+function lasTrack(varde: unknown): Scope | null {
+  return varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
+}
+
+/**
+ * Paketet den betalande kunden faktiskt har.
+ *
+ * Scopet säger spåret, inte längden. Längden ligger i prenumerationens
+ * prisid, och den läses av Stripe-vyn. Här räcker scopet plus längden ur
+ * premium_until: den som förnyas om mindre än tio dagar har en vecka, resten
+ * en månad eller ett kvartal. Saknas underlag faller vi tillbaka på veckan,
+ * som är det de flesta har.
+ */
+function harPaket(scope: Scope | null, premiumUntil: Date | null): PlanKey | null {
+  if (!scope) return null;
+  if (scope === 'cv') return 'cv_week';
+  if (scope === 'tester') return 'test_week';
+
+  if (!premiumUntil) return 'all_week';
+  const dagar = (premiumUntil.getTime() - Date.now()) / 86400000;
+  if (dagar <= 1.5) return 'all_day';
+  if (dagar <= 10) return 'all_week';
+  if (dagar <= 45) return 'all_month';
+  return 'all_quarter';
 }
 
 export default async function PrenumerationPage() {
@@ -43,17 +70,17 @@ export default async function PrenumerationPage() {
   }
 
   let profile: SubscriptionProfile | null = null;
-  let quota: QuotaSummary | null = null;
+  let scope: Scope | null = null;
 
-  const [profileRes, quotaRes] = await Promise.allSettled([
+  const [profileRes, scopeRes] = await Promise.allSettled([
     supabase
       .from('profiles')
       .select(
-        'subscription_tier, premium_until, premium_source, subscription_id, subscription_status'
+        'subscription_tier, premium_until, premium_source, premium_scope, subscription_id, subscription_status, onboarding_track'
       )
       .eq('id', user.id)
       .maybeSingle(),
-    getQuotaSummary(supabase, user.id),
+    getUserScope(supabase, user.id),
   ]);
 
   if (profileRes.status === 'fulfilled') {
@@ -62,58 +89,54 @@ export default async function PrenumerationPage() {
     console.error('Fel vid server-hämtning av prenumerationsprofilen:', profileRes.reason);
   }
 
-  if (quotaRes.status === 'fulfilled') {
-    quota = quotaRes.value;
+  if (scopeRes.status === 'fulfilled') {
+    scope = scopeRes.value;
   } else {
-    // Hellre ingen användningssektion än fel siffror, precis som förut.
-    console.error('Fel vid server-hämtning av kvoter:', quotaRes.reason);
+    console.error('Fel vid server-hämtning av scope:', scopeRes.reason);
   }
 
-  // Nedan är rad för rad samma regler som låg i klienten.
-  const premiumUntil = profile?.premium_until ?? null;
+  const premiumUntilIso = profile?.premium_until ?? null;
+  const premiumUntil = premiumUntilIso ? new Date(premiumUntilIso) : null;
+  const track = lasTrack(profile?.onboarding_track);
+
+  // Blockeringarna läses först när de faktiskt används. En Allt-kund har
+  // inget att blockeras av, och då är frågan bortkastad.
+  let blockeringar: Blockeringar = { rader: [], totalt: 0, badaSparen: false };
+  if (scope !== 'allt') {
+    blockeringar = await lasBlockeringar(
+      supabase,
+      user.id,
+      scope ? { utanforScope: scope } : undefined
+    );
+  }
+
+  const tillstand: 'free' | 'track' | 'all' =
+    scope === 'allt' ? 'all' : scope ? 'track' : 'free';
+
+  const paket = harPaket(scope, premiumUntil);
+
+  // Admin och tidsbegränsad premium är varianter av tillstånd Allt med en
+  // annan statusrad och utan längdval (Fas 2D). Ingen egen skiss behövs.
   const premiumSource = profile?.premium_source ?? null;
-
-  // resolveTier i useProfile: 'premium' i tabellen, och en premium_until som
-  // inte passerat.
-  const isPremium =
-    profile?.subscription_tier === 'premium' &&
-    (!premiumUntil || new Date(premiumUntil) > new Date());
-
-  const isTrialUser = ['signup_trial', 'oauth_signup_trial'].includes(premiumSource ?? '');
-  const isAdminGranted = premiumSource === 'admin';
-  const isOnboardingReward = premiumSource === 'onboarding_completion';
-  const isGuestInvitation = premiumSource === 'guest_invitation';
-
-  // Har användaren en riktig, betalande Stripe-prenumeration? Vi litar på
-  // Stripe-fälten, inte på premium_source: den som först fick gratispremie
-  // via onboarding och sedan tecknade abonnemang behåller sin gamla
-  // premium_source och måste ändå se vägen till uppsägning.
   const subscriptionId = profile?.subscription_id ?? null;
-  const hasStripeSubscription =
+  const harStripePrenumeration =
     Boolean(subscriptionId) &&
     !String(subscriptionId).startsWith('sub_test') &&
     ['active', 'trialing', 'past_due', 'unpaid'].includes(
       profile?.subscription_status ?? ''
     );
 
-  // En riktig Stripe-prenumeration slår alltid ut gratispremie-märkningen.
-  // Annars fastnar den som uppgraderat efter onboarding i "temporär premium"
-  // och ser varken portal eller uppsägning.
-  const isTemporaryPremium =
-    !hasStripeSubscription && (isTrialUser || isOnboardingReward || isGuestInvitation);
-  const isPaidPremium =
-    hasStripeSubscription || (isPremium && !isTemporaryPremium && !isAdminGranted);
-
   return (
     <PrenumerationClient
-      quota={quota}
-      isPremium={isPremium}
-      isPaidPremium={isPaidPremium}
-      isAdminGranted={isAdminGranted}
-      isTemporaryPremium={isTemporaryPremium}
-      hasStripeSubscription={hasStripeSubscription}
-      premiumUntil={premiumUntil}
+      tillstand={tillstand}
+      scope={scope}
+      track={track}
+      paket={paket && isPlanKey(paket) ? paket : null}
+      premiumUntil={premiumUntilIso}
       premiumSource={premiumSource}
+      harStripePrenumeration={harStripePrenumeration}
+      blockeringar={blockeringar}
+      foreslagetPaket={foreslaPaket(blockeringar, track)}
     />
   );
 }

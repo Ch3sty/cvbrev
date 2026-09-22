@@ -9,7 +9,13 @@
 //    kontot har en aktiv prenumeration (webhookens prenumerationsgren
 //    nollar annars premium_until nästa gång den kör).
 
+// 4. profiles.premium_scope rörs aldrig här. Den kolumnen speglar
+//    prenumerationen. Engångsköpet bär sitt scope på premium_grants-raden,
+//    så att nedtrappningen vet vad som ska gälla när dygnet gått ut
+//    (docs/plan-paket-och-onboarding.md avsnitt 5, noten om överlappande köp).
+
 import type { SupabaseClient } from '@supabase/supabase-js'
+import type { PlanScope } from '@/lib/plans/plans'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>
@@ -29,18 +35,26 @@ export async function grantPremiumDays(
     stripeEventId: string
     /** t.ex. 'onetime_1d' */
     source?: string
+    /** Behörigheten dagarna ger. Allt-dagen är alltid 'allt'. */
+    scope?: PlanScope
   }
 ): Promise<GrantPremiumDaysResult> {
   const { userId, days, stripeEventId } = params
   const source = params.source ?? `onetime_${days}d`
+  const scope: PlanScope = params.scope ?? 'allt'
 
-  // Idempotensspärren först: vinner insert-racet gör vi jobbet, annars inte.
-  const { error: insertError } = await admin.from('premium_grants').insert({
+  // Raden bär sitt eget scope. Typerna i database.types.ts kan släpa efter
+  // migrationen som lägger till kolumnen, så insert-nyttolasten typas lokalt.
+  const grantRow: Record<string, unknown> = {
     user_id: userId,
     stripe_event_id: stripeEventId,
     days,
     source,
-  })
+    scope,
+  }
+
+  // Idempotensspärren först: vinner insert-racet gör vi jobbet, annars inte.
+  const { error: insertError } = await admin.from('premium_grants').insert(grantRow)
 
   if (insertError) {
     // 23505 = unique violation, alltså ett event vi redan bokfört.

@@ -16,7 +16,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 
 /**
  * Hur många träffar gratisnivån ser i klartext.
@@ -96,9 +96,12 @@ export async function POST(request: Request) {
     }
 
     const jobs = incoming.slice(0, MAX_JOBS);
-    const isPremium = await userHasPremiumAccess(supabase, user.id);
+    // Jobbmatchningen ligger bara i Allt (avsnitt 3), alltså featuren
+    // job_matches_all. Ett spår räcker inte, och betalväggen föreslår därför
+    // Allt-veckan oavsett vilket spår användaren valt.
+    const isPremium = await userHasAccess(supabase, user.id, 'job_matches_all');
 
-    // Premium ser allt. Ingen suddning, ingen betalvägg.
+    // Allt ser allt. Ingen suddning, ingen betalvägg.
     if (isPremium) {
       const result: JobRedactionResult = {
         isPremium: true,

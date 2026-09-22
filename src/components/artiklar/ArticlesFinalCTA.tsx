@@ -131,7 +131,7 @@ export default function ArticlesFinalCTA() {
 
         {/* Trust */}
         <p className="text-center mt-4 text-xs sm:text-sm opacity-90">
-          Inget kreditkort krävs · Gratis för alltid
+          Inget kreditkort krävs · Gratisnivån har ingen tidsgräns
         </p>
       </div>
     </motion.section>

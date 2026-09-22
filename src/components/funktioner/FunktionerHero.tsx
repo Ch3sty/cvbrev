@@ -97,7 +97,7 @@ export default function FunktionerHero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5">
             <Link
-              href="/trial-signup"
+              href="/priser"
               data-cta="funktioner-hero-primary"
               className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base shadow-lg hover:scale-[1.02] active:scale-[0.99] transition-all touch-manipulation w-full sm:w-auto"
               style={{
@@ -106,7 +106,7 @@ export default function FunktionerHero() {
                 boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
               }}
             >
-              Prova Premium gratis i 7 dagar
+              Se paketen
               <ArrowRight
                 className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                 strokeWidth={2.5}

@@ -20,6 +20,8 @@ import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
+import { scopeHasFeature } from '@/lib/access/features'
 import PersonalityProfileCard from './PersonalityProfileCard'
 import { testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import TestLevelBadge from './TestLevelBadge'
@@ -37,12 +39,21 @@ interface Session {
 export default function PersonalityHubPage({ config }: { config: TestConfig }) {
   const router = useRouter()
   const { subscriptionTier, loading: profileLoading } = useProfile()
+  const { summary } = useDashboardData()
   const [sessions, setSessions] = useState<Session[]>([])
   const [isStarting, setIsStarting] = useState(false)
   const [startError, setStartError] = useState<string | null>(null)
 
   const isPremium = subscriptionTier === 'premium'
-  const isLocked = config.requiresPremium && !isPremium && !profileLoading
+
+  // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
+  // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
+  // betalväggen; med fel spår ritar den FelSpar i stället.
+  const scope = summary?.week?.scope ?? null
+  const track = summary?.week?.track ?? null
+  const requiredFeature = config.requiresFeature ?? null
+  const hasFeature = scopeHasFeature(scope, requiredFeature ?? 'tests_above_base')
+  const isLocked = requiredFeature !== null && !hasFeature && !profileLoading
 
   useEffect(() => {
     if (isLocked || profileLoading) return
@@ -116,7 +127,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
                 href={PREMIUM_HREF}
                 className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                Gör testet med Premium
+                Ta Testveckan
               </Link>
             ) : (
               <button
@@ -166,7 +177,12 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
 
         {isLocked ? (
           <>
-            <PaywallCard variant="test-tak" isPremium={isPremium} />
+            <PaywallCard
+            variant="testniva"
+            feature={requiredFeature ?? undefined}
+            scope={scope}
+            track={track}
+          />
             <p className="text-sm text-ink-2">
               Du kan börja med{' '}
               <Link

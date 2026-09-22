@@ -128,7 +128,7 @@ export default function MediaImpactSection() {
               </p>
 
               <Link
-                href="/trial-signup"
+                href="/priser"
                 data-cta="media-impact-primary"
                 className="group inline-flex items-center gap-2 text-orange-700 hover:text-orange-800 font-bold text-sm"
               >
@@ -256,12 +256,12 @@ export default function MediaImpactSection() {
             </div>
 
             <Link
-              href="/trial-signup"
+              href="/priser"
               data-cta="media-impact-stripe"
               className="group inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-orange-700 font-bold text-sm hover:bg-orange-50 hover:scale-[1.02] transition-all touch-manipulation flex-shrink-0 w-full sm:w-auto"
               style={{ boxShadow: '0 8px 20px -8px rgba(0,0,0,0.2)' }}
             >
-              Prova Premium gratis i 7 dagar
+              Se paketen
               <ArrowRight
                 className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
                 strokeWidth={2.5}

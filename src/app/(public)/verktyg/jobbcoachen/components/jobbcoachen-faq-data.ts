@@ -32,7 +32,7 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att använda Karriärguiden?',
-    a: 'Ja, du får 5 frågor gratis utan att lämna kortuppgifter. Vill du ställa fler frågor, spara dina samtal eller bifoga ditt CV uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+    a: 'Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter. Vill du ställa fler frågor, spara dina samtal eller bifoga ditt CV ingår jobbcoachen utan tak i Allt-veckan för 99 kr i veckan och i Allt-månaden för 149 kr.',
   },
   {
     q: 'Kan jag dela mitt CV med Karriärguiden?',

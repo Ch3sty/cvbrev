@@ -1,15 +1,25 @@
-// A9 (docs/plan-konvertering.md): gratisnivån ser poäng, sammanfattning och
-// de tre viktigaste fynden. Resten skickas aldrig till klienten, bara som
-// { id, category, severity, locked: true }.
+// Gratisnivån ser läsbarhetspoängen, sammanfattningen och det tyngsta fyndet
+// i klartext med åtgärd (docs/plan-paket-och-onboarding.md, ägarens beslut 2,
+// 2026-09-22). Övriga fynd skickas som rubrik utan åtgärdstext, alltså
+// { id, category, severity, title, locked: true }.
 //
-// Filtreringen är serverside och deterministisk. Att blurra riktig text med
-// CSS vore ingen spärr alls: den syns i DOM:en.
+// Filtreringen är serverside och deterministisk. Servern skickar aldrig full
+// text som klienten sedan döljer: att blurra riktig text med CSS vore ingen
+// spärr alls, den syns i DOM:en.
 
-/** Ett låst fynd. Ingen text, bara tillräckligt för att rita en suddad rad. */
+/**
+ * Ett låst fynd: rubriken, men aldrig åtgärden.
+ *
+ * Efter ägarens beslut 2 (2026-09-22) visas övriga fynd som rubriker utan
+ * åtgärdstext. Rubriken är en kort etikett som servern skriver, inte
+ * modellens formulerade förslag, så åtgärden lämnar aldrig servern.
+ */
 export interface LockedFinding {
   id: string
   category: string
   severity: 'high' | 'medium' | 'low'
+  /** Vad fyndet gäller, utan vad du ska göra åt det. */
+  title: string
   locked: true
 }
 
@@ -20,8 +30,46 @@ export interface GatedAnalysisMeta {
   lockedFindings: LockedFinding[]
 }
 
-/** Hur många fynd gratisnivån ser i klartext. */
-export const FREE_VISIBLE_FINDINGS = 3
+/**
+ * Rubriken till ett låst fynd.
+ *
+ * Bara det som redan står i CV:t eller i kategorin får synas: rolltiteln,
+ * kompetensen, kategorinamnet. Modellens formulerade åtgärd stannar på
+ * servern, och att korta ner den vore att skicka halva åtgärden.
+ */
+function lockedTitle(item: unknown, list: Candidate['list'], category: string): string {
+  const o = (item ?? {}) as Record<string, unknown>
+
+  if (list === 'roles') {
+    const roll = typeof o.roleTitle === 'string' ? o.roleTitle.trim() : ''
+    const bolag = typeof o.company === 'string' ? o.company.trim() : ''
+    if (roll && bolag) return `${roll}, ${bolag}`
+    if (roll) return roll
+    return 'En roll i ditt CV'
+  }
+
+  if (list === 'skills') {
+    const kompetens =
+      typeof o.skill === 'string'
+        ? o.skill.trim()
+        : typeof o.keyword === 'string'
+          ? o.keyword.trim()
+          : ''
+    return kompetens ? `Nyckelordet ${kompetens}` : 'Ett nyckelord som saknas'
+  }
+
+  return category
+}
+
+/**
+ * Hur många fynd gratisnivån ser i klartext, med åtgärd.
+ *
+ * Ett, sedan ägarens beslut 2 (2026-09-22). Tre fulla fynd låg för nära den
+ * färdiga rapporten: den som fått tre åtgärder har fått det hon kom för.
+ * Poängen och det tyngsta fyndet upplevs fortfarande på riktigt, och det är
+ * aktiveringsögonblicket vi inte rör.
+ */
+export const FREE_VISIBLE_FINDINGS = 1
 
 /**
  * atsImpact är den enda severity-liknande signalen analysen producerar.
@@ -144,12 +192,16 @@ export function gateAnalysisResult(
   const keepSkills = keep('skills')
   const keepGeneral = keep('general')
 
+  const kallaFor = (c: Candidate): unknown =>
+    c.list === 'roles' ? roles[c.index] : c.list === 'skills' ? skills[c.index] : general[c.index]
+
   const meta: GatedAnalysisMeta = {
     findingsTotal: candidates.length,
     lockedFindings: locked.map((c) => ({
       id: c.id,
       category: c.category,
       severity: c.severity,
+      title: lockedTitle(kallaFor(c), c.list, c.category),
       locked: true as const,
     })),
   }

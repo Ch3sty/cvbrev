@@ -31,6 +31,7 @@ import {
   veckonummer,
   churnorsak,
   byggVattenfall,
+  paketRader,
   MRR_SANN_FRAN,
 } from './format';
 
@@ -54,6 +55,7 @@ export default async function IntakterPage() {
   const mrrOre = senaste?.mrr_ore ?? null;
   const arrOre = typeof mrrOre === 'number' ? mrrOre * 12 : null;
   const mrrDelta = forandring(mrrOre, forraVeckan?.mrr_ore);
+  const perPaket = paketRader(senaste);
 
   // Veckosummorna tar de sju senaste raderna med data, inte de sju senaste
   // kalenderdygnen. Skillnaden syns bara om en dag saknar rad helt, och da ar
@@ -251,6 +253,54 @@ export default async function IntakterPage() {
           </p>
         </SectionCard>
       )}
+
+      {/*
+        Per paket (docs/plan-paket-och-onboarding.md avsnitt 5). Antalet
+        aktiva kommer ur de sex kolumnerna i admin_daily_metrics, alltsa ur
+        kritiska vagen och utan ett Stripe-anrop. MRR ar normaliserad till
+        manad: ett veckopaket pa 99 kr ar 429 kr i manaden, inte 99, och utan
+        omraekningen ser veckopaketen ut att tjana en femtedel av vad de gor.
+      */}
+      <SectionCard rubrik="Per paket" naken>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[420px] text-sm">
+            <thead>
+              <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
+                <th scope="col" className="px-4 py-3">
+                  Paket
+                </th>
+                <th scope="col" className="px-4 py-3 text-right">
+                  Aktiva
+                </th>
+                <th scope="col" className="px-4 py-3 text-right">
+                  MRR, normaliserad
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-kant">
+              {perPaket.map((p) => (
+                <tr key={p.nyckel}>
+                  <th scope="row" className="px-4 py-3 text-left font-normal text-ink-1">
+                    {p.namn}
+                  </th>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-1">
+                    {antal(p.aktiva)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-2">
+                    {p.nyckel === 'all_day' ? 'Engångs' : kronor(p.mrrOre)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="px-4 py-3 text-meta text-ink-3">
+          Veckopriserna är räknade till månad med faktorn 52/12, så raderna går att
+          jämföra rakt av. Allt-dagen är ett engångsköp och har ingen återkommande
+          intäkt: den syns i intäkten per dag i stället. Antalet aktiva kommer ur
+          Stripes price-id, utom Allt-dagen som räknas på giltiga premium_grants.
+        </p>
+      </SectionCard>
 
       <SectionCard rubrik="Churn per vecka, med orsak" naken>
         {churnVeckor.length === 0 ? (

@@ -10,7 +10,8 @@ import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import { useElapsedClock } from '@/hooks/use-elapsed-clock';
+import { useExamDeadline } from '@/hooks/use-exam-deadline';
+import { examLimitMs } from '@/app/dashboard/tester/testConfig';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { fetchProvSession } from '@/components/tests/prov/provSession';
@@ -34,8 +35,9 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
     Array(PROV_TOTAL_QUESTIONS).fill(null)
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [sessionStartedAt] = useState(new Date());
-  const elapsed = useElapsedClock(sessionStartedAt);
+  // Nedräkningen ankras i sessionens started_at, alltså servertid, så en
+  // omladdning aldrig ger mer provtid. Null tills rehydreringen svarat.
+  const [startedAt, setStartedAt] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHydrating, setIsHydrating] = useState(true);
@@ -58,8 +60,8 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
 
   // Vid mount hämtas sessionen så redan sparade svar förifylls efter en
   // omladdning, och avslutade sessioner skickas direkt till resultatsidan.
-  // Obs: matrislogik-provet har ingen hård tidsgräns, klockan i headern är
-  // bara en uppåträknare och rättningstiden räknas server-side per svar.
+  // started_at plockas upp här, eftersom provet nu har en hård tidsgräns och
+  // klockan måste räknas från serverns tid, inte från när fliken öppnades.
   useEffect(() => {
     if (!sessionId || questions.length === 0) return;
     let cancelled = false;
@@ -85,6 +87,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
           firstUnanswered === -1 ? Math.max(questions.length - 1, 0) : firstUnanswered
         );
       }
+      if (session?.started_at) setStartedAt(session.started_at);
       setIsHydrating(false);
       setQuestionStartTime(Date.now());
     };
@@ -161,6 +164,17 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
       setIsFinishing(false);
     }
   }, [sessionId, router, isFinishing, hasPending, flushPending]);
+
+  // Hård tidsgräns: när klockan når noll lämnas provet in automatiskt
+  // (docs/plan-paket-och-onboarding.md, ägarens beslut 12). Gränsen står i
+  // testConfig, och den skarpa bedömningen görs ändå serverside i complete.
+  const deadline = useExamDeadline(
+    isHydrating ? null : startedAt,
+    examLimitMs('matrislogik-prov'),
+    () => {
+      void handleFinishTest();
+    }
+  );
 
   const handleSelectAnswer = useCallback(
     (index: number) => {
@@ -249,7 +263,9 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
       progressPercent={(answeredQuestions.size / questions.length) * 100}
       meter={
         <TestMeterRow
-          time={elapsed}
+          time={deadline.label ?? '--:--'}
+          low={deadline.secondsLeft !== null && deadline.secondsLeft < 5 * 60}
+          critical={deadline.sista}
           current={currentQuestion + 1}
           total={questions.length}
           answered={answeredQuestions.size}

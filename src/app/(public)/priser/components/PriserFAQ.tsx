@@ -1,91 +1,52 @@
 'use client'
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+/**
+ * Prissidans FAQ (docs/plan-paket-och-onboarding.md, Fas 2D).
+ *
+ * details och summary, ingen egen accordion. Svaren står i HTML även när de
+ * är hopfällda, vilket är kravet för FAQPage-schemat och för besökaren utan
+ * JavaScript. Raderna är 48 px, avdelade med en hårlinje.
+ *
+ * pricing_faq_opened skjuts när en fråga öppnas, aldrig när den stängs.
+ */
+
 import { ChevronDown } from 'lucide-react'
+
+import { capture } from '@/lib/analytics/events'
+import { PR_SEKTIONER } from '@/components/pricing/paket-copy'
 import { PRISER_FAQ_ITEMS } from './priser-data'
 
 export default function PriserFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-
   return (
-    <section className="relative py-12 sm:py-16 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="mb-8"
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 mb-2">
-            Allt du undrar om priset
-          </h2>
-          <p className="text-sm sm:text-base text-neutral-600">
-            Hittar du inte svaret?{' '}
-            <a
-              href="mailto:support@jobbcoach.ai"
-              className="text-orange-700 hover:text-orange-800 font-medium underline underline-offset-4"
-            >
-              Hör av dig
-            </a>
-            .
-          </p>
-        </motion.div>
+    <section aria-labelledby="priser-faq">
+      <h2 id="priser-faq" className="text-sm font-medium text-ink-3">
+        {PR_SEKTIONER.faq}
+      </h2>
 
-        <div className="space-y-2">
-          {PRISER_FAQ_ITEMS.map((item, idx) => {
-            const isOpen = openIndex === idx
-            return (
-              <motion.div
-                key={item.q}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.2, ease: 'easeOut', delay: idx * 0.03 }}
-                className={`bg-white rounded-xl border overflow-hidden transition-colors ${
-                  isOpen ? 'border-neutral-300' : 'border-neutral-200'
-                }`}
-              >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full min-h-[56px] flex items-center justify-between gap-4 px-5 sm:px-6 py-4 text-left hover:bg-neutral-50 transition-colors touch-manipulation"
-                  aria-expanded={isOpen}
-                >
-                  <span className="text-sm sm:text-base font-medium text-neutral-900 leading-snug">
-                    {item.q}
-                  </span>
-                  <ChevronDown
-                    className={`flex-shrink-0 w-5 h-5 text-neutral-500 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                    strokeWidth={2.5}
-                  />
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: 'easeOut' }}
-                      className="overflow-hidden"
-                    >
-                      {/* Svaren är vår egen statiska copy, inte användardata.
-                          Ett par av dem innehåller en länk (t.ex. till
-                          /trial-signup), därför HTML i stället för text. */}
-                      <div
-                        className="px-5 sm:px-6 pb-5 text-sm text-neutral-600 leading-relaxed border-t border-neutral-200 pt-4 [&_a]:text-orange-700 [&_a]:font-semibold [&_a:hover]:text-orange-800 [&_a]:underline [&_a]:underline-offset-2"
-                        dangerouslySetInnerHTML={{ __html: item.a }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )
-          })}
-        </div>
+      <div className="mt-3 columns-1 gap-6 lg:columns-2">
+        {PRISER_FAQ_ITEMS.map((item) => (
+          <details
+            key={item.id}
+            className="mb-3 break-inside-avoid rounded-xl border border-kant bg-panel [&_svg]:open:rotate-180"
+            onToggle={(event) => {
+              if (event.currentTarget.open) {
+                capture('pricing_faq_opened', { question: item.id })
+              }
+            }}
+          >
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-ink-1 [&::-webkit-details-marker]:hidden">
+              {item.q}
+              <ChevronDown
+                className="h-5 w-5 shrink-0 text-ink-2 transition-transform"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </summary>
+            <p className="border-t border-kant px-4 py-3 text-sm leading-[22px] text-ink-2">
+              {item.a}
+            </p>
+          </details>
+        ))}
       </div>
     </section>
   )

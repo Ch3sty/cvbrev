@@ -2,13 +2,29 @@
 // ======================================================
 // Skapar Stripe embedded checkout session för uppgradering
 // För befintliga användare som vill uppgradera till Premium
+//
+// Sedan paketen infördes (docs/plan-paket-och-onboarding.md avsnitt 5) har
+// rutten två utgångar. Har kunden redan en levande prenumeration på ett spår
+// och begär Allt-veckan byter vi pris på den befintliga prenumerationen med
+// proration, och svarar { upgraded: true } utan att öppna någon kassa. I
+// övriga fall blir det en vanlig embedded checkout som förut.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { stripe } from '@/lib/stripe/server'
-import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription'
-import { getSubscriptionPriceAllowlist } from '@/lib/stripe/planPrices'
+import {
+  findLiveSubscription,
+  alreadySubscribedResponse,
+  blocksAsDuplicate,
+} from '@/lib/stripe/guard-existing-subscription'
+import {
+  getSubscriptionPriceAllowlist,
+  getStripePriceId,
+  priceIdToPlanKey,
+} from '@/lib/stripe/planPrices'
+import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { PAKETSKARM } from '@/lib/onboarding/program'
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,16 +41,36 @@ export async function POST(request: NextRequest) {
       }, { status: 401 })
     }
 
-    // Get price ID from request
-    const { priceId } = await request.json()
-
-    if (!priceId) {
-      return NextResponse.json({
-        error: 'Saknar price ID'
-      }, { status: 400 })
+    // Klienten skickar antingen planKey (nya vägen) eller priceId (den gamla
+    // prenumerationssidan). Båda landar i samma price-id och samma paket.
+    const body = await request.json().catch(() => ({}))
+    const { planKey, priceId: rawPriceId, consent } = body as {
+      planKey?: unknown
+      priceId?: unknown
+      consent?: unknown
     }
 
-    // A6: bara månad och kvartal får tecknas här. Klienten har aldrig fria
+    let priceId: string
+    if (isPlanKey(planKey)) {
+      if (PLAN_BY_KEY[planKey].mode !== 'subscription') {
+        return NextResponse.json({ error: 'Paketet är inget abonnemang' }, { status: 400 })
+      }
+      try {
+        priceId = getStripePriceId(planKey)
+      } catch (error) {
+        console.error('[CREATE UPGRADE SESSION]', error)
+        return NextResponse.json(
+          { error: 'Produkten är inte tillgänglig just nu. Försök igen senare.' },
+          { status: 503 }
+        )
+      }
+    } else if (typeof rawPriceId === 'string' && rawPriceId) {
+      priceId = rawPriceId
+    } else {
+      return NextResponse.json({ error: 'Saknar produktval' }, { status: 400 })
+    }
+
+    // Bara prenumerationspaketen får tecknas här. Klienten har aldrig fria
     // händer med price id.
     const allowedPriceIds = getSubscriptionPriceAllowlist()
     if (!allowedPriceIds.includes(priceId)) {
@@ -43,6 +79,9 @@ export async function POST(request: NextRequest) {
         error: 'Ogiltigt produktval'
       }, { status: 400 })
     }
+
+    const requestedPlanKey = isPlanKey(planKey) ? planKey : priceIdToPlanKey(priceId)
+    const requestedScope = requestedPlanKey ? PLAN_BY_KEY[requestedPlanKey].scope : null
 
     console.log(`[CREATE UPGRADE SESSION] Creating upgrade session for user: ${user.id}`)
 
@@ -94,10 +133,70 @@ export async function POST(request: NextRequest) {
     }
 
     // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
+    // Undantaget är uppgraderingen från ett spår till Allt, som byter pris på
+    // den prenumeration kunden redan har.
     const existing = await findLiveSubscription(customerId)
     if (existing) {
-      console.warn(`[CREATE UPGRADE SESSION] Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
+      const isUpgrade =
+        requestedScope !== null &&
+        (existing.scope === 'cv' || existing.scope === 'tester') &&
+        requestedScope === 'allt'
+
+      if (isUpgrade) {
+        // Byt pris på raden i stället för att teckna en ny prenumeration.
+        // always_invoice fakturerar mellanskillnaden direkt, så kunden får
+        // Allt samma sekund och inte vid nästa dragning.
+        const subscription = await stripe.subscriptions.retrieve(existing.id)
+        const itemId = subscription.items.data[0]?.id
+        if (!itemId) {
+          console.error(`[CREATE UPGRADE SESSION] ${existing.id} saknar rad att byta pris på.`)
+          return NextResponse.json({ error: 'Kunde inte byta paket. Försök igen.' }, { status: 500 })
+        }
+
+        await stripe.subscriptions.update(existing.id, {
+          items: [{ id: itemId, price: priceId }],
+          proration_behavior: 'always_invoice',
+          cancel_at_period_end: false,
+          metadata: {
+            userId: user.id,
+            supabaseUUID: user.id,
+            planKey: requestedPlanKey ?? '',
+            scope: requestedScope,
+            source: 'upgrade-track-to-all',
+          },
+        })
+
+        console.log(
+          `[CREATE UPGRADE SESSION] ${user.id}: ${existing.scope} till ${requestedScope} på ${existing.id}.`
+        )
+        return NextResponse.json({ upgraded: true, planKey: requestedPlanKey, scope: requestedScope })
+      }
+
+      if (blocksAsDuplicate(existing, requestedScope ?? 'allt')) {
+        console.warn(`[CREATE UPGRADE SESSION] Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
+        return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
+      }
+
+      // Kvar: nedgraderingar och byten mellan spår. De hanteras i portalen,
+      // inte här, så att kunden ser vad som händer med den period hon betalat.
       return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
+    }
+
+    // Härifrån och ned skapas en ny checkout, alltså ett nytt köp, och då
+    // gäller samma krav som i create-plan-session: ångerrättssamtycket måste
+    // vara dokumenterat (avsnitt 8). Prisbytet ovan är ingen ny kassa utan en
+    // ändring på en prenumeration kunden redan sagt ja till, så det kravet
+    // ligger efter den grenen och inte före.
+    if (consent !== true) {
+      return NextResponse.json(
+        { error: 'Du måste godkänna att tjänsten påbörjas direkt för att kunna köpa.' },
+        { status: 400 }
+      )
+    }
+
+    const samtyckeMetadata = {
+      angerratt_samtycke_at: new Date().toISOString(),
+      angerratt_samtycke_text: PAKETSKARM.samtycke,
     }
 
     // Base URL for return
@@ -118,17 +217,25 @@ export async function POST(request: NextRequest) {
       subscription_data: {
         metadata: {
           userId: user.id,
+          supabaseUUID: user.id,
           email: user.email || profile.email,
+          planKey: requestedPlanKey ?? '',
+          scope: requestedScope ?? '',
           upgradeFlow: 'existing-user-upgrade',
-          source: 'prenumeration-page'
+          source: 'prenumeration-page',
+          ...samtyckeMetadata
         }
       },
       return_url: `${baseUrl}/dashboard/profil/prenumeration?session_id={CHECKOUT_SESSION_ID}&upgraded=true`,
       metadata: {
         userId: user.id,
+        supabaseUUID: user.id,
         email: user.email || profile.email,
+        planKey: requestedPlanKey ?? '',
+        scope: requestedScope ?? '',
         upgradeFlow: 'existing-user-upgrade',
-        isNewUser: 'false'
+        isNewUser: 'false',
+        ...samtyckeMetadata
       }
     })
 

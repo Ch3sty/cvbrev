@@ -6,7 +6,6 @@ import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-sync';
 import { generateQuotaBackEmail } from '@/lib/email/quota-back';
-import { generateTrialReminderEmail } from '@/lib/email/trial-reminder';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
 import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests } from '@/lib/email/lifecycle/runner';
@@ -45,7 +44,7 @@ export async function GET(request: NextRequest) {
 
     // Två cron-slottar (Hobby-planen tillåter max 2 cron-jobb, båda pekar hit):
     // - 00:00 UTC: premium-expiration + pricing sync
-    // - 06:00 UTC (07/08 svensk tid): kvotpåminnelser + trial-påminnelser,
+    // - 06:00 UTC (07/08 svensk tid): kvotpåminnelser och övriga utskick,
     //   så mailen landar på morgonen och inte mitt i natten.
     const isMorningSlot = currentHour >= 4;
 
@@ -55,7 +54,6 @@ export async function GET(request: NextRequest) {
       premiumExpiration: null,
       pricingSync: null,
       quotaReminders: null,
-      trialReminders: null,
       savedSearchAlerts: null,
       lifecycleEmails: null,
       winbacks: null,
@@ -92,9 +90,12 @@ export async function GET(request: NextRequest) {
         console.log(`[Premium Expiration] Found ${expiredUsers.length} expired users`);
 
         const userIds = expiredUsers.map((u: any) => u.id);
+        // premium_scope nollas tillsammans med tier: behörigheten är ett spår
+        // nu, och ett spår som löpt ut får inte ligga kvar på profilen
+        // (docs/plan-paket-och-onboarding.md avsnitt 5).
         const { error: updateError } = await supabaseAdmin
           .from('profiles')
-          .update({ subscription_tier: 'free' })
+          .update({ subscription_tier: 'free', premium_scope: null })
           .in('id', userIds);
 
         if (updateError) {
@@ -311,73 +312,6 @@ export async function GET(request: NextRequest) {
       }
     } else {
       results.quotaReminders = { skipped: true, reason: 'Midnight slot' };
-    }
-
-    // ====================================
-    // 4. TRIAL-PÅMINNELSER (morgonslotten)
-    // ====================================
-    // Användare som skapade konto (Stripe-kund finns) men aldrig slutförde
-    // betalningen, 1-3 dygn gamla, max ett mail per användare.
-    if (isMorningSlot) {
-      try {
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        const dayMs = 24 * 60 * 60 * 1000;
-        const minAge = new Date(now.getTime() - 3 * dayMs).toISOString();
-        const maxAge = new Date(now.getTime() - 1 * dayMs).toISOString();
-
-        const { data: candidates, error: candError } = await supabaseAdmin
-          .from('profiles')
-          .select('id, email')
-          .eq('subscription_tier', 'free')
-          .not('stripe_customer_id', 'is', null)
-          .is('premium_until', null)
-          .is('trial_reminder_sent_at', null)
-          .eq('quota_emails_opt_out', false)
-          .gte('created_at', minAge)
-          .lte('created_at', maxAge)
-          .limit(100);
-
-        if (candError) throw candError;
-
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai';
-        let sent = 0;
-        for (const candidate of candidates ?? []) {
-          if (!candidate.email) continue;
-          const resumeUrl = `${baseUrl}/trial-signup?resume=${candidate.id}`;
-          const trialSubject = 'Du är nästan klar – slutför din registrering';
-          const { data: sendData, error: sendError } = await resend.emails.send({
-            from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
-            to: [candidate.email],
-            subject: trialSubject,
-            html: generateTrialReminderEmail(candidate.email, resumeUrl),
-            tags: [{ name: 'type', value: 'trial_reminder' }]
-          });
-          if (sendError) {
-            console.error('[Trial Reminders] Send failed for', candidate.id, sendError);
-            continue;
-          }
-          sent++;
-          await supabaseAdmin
-            .from('profiles')
-            .update({ trial_reminder_sent_at: now.toISOString() })
-            .eq('id', candidate.id);
-          await supabaseAdmin.from('email_log').insert({
-            resend_id: sendData?.id ?? null,
-            user_id: candidate.id,
-            email_type: 'trial_reminder',
-            recipient: candidate.email,
-            subject: trialSubject
-          });
-        }
-
-        console.log(`[Trial Reminders] sent=${sent} candidates=${candidates?.length ?? 0}`);
-        results.trialReminders = { success: true, sent, candidates: candidates?.length ?? 0 };
-      } catch (error: any) {
-        console.error('[Trial Reminders] Error:', error);
-        results.trialReminders = { success: false, error: error.message };
-      }
-    } else {
-      results.trialReminders = { skipped: true, reason: 'Midnight slot' };
     }
 
     // ====================================

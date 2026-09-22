@@ -11,7 +11,13 @@
  * uppstar forst i den har filen.
  */
 
-import type { DagligaMetrik } from '@/lib/admin/collect';
+import {
+  PAKET_KOLUMN,
+  PAKET_ORDNING,
+  type DagligaMetrik,
+  type PaketNyckel,
+} from '@/lib/admin/collect';
+import { PLANS } from '@/lib/plans/plans';
 
 /** Kronor ur ore, utan decimaler. 59 900 ore blir "599 kr". */
 export function kronor(ore: number | null | undefined): string {
@@ -249,4 +255,57 @@ export function byggVattenfall(dagar: DagligaMetrik[]): Vattenfall | null {
     franDag: tidigare.dag,
     tillDag: nu.dag,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Per paket
+// ---------------------------------------------------------------------------
+
+/**
+ * Aktiva och normaliserad MRR per paket (docs/plan-paket-och-onboarding.md
+ * avsnitt 5).
+ *
+ * Antalet aktiva kommer ur de sex kolumnerna i admin_daily_metrics, som
+ * collect.ts fyller pa Stripes price-id. MRR raknas har och inte i collect:
+ * priset bor redan i PLANS, och da behover tabellen bara bara talet som
+ * faktiskt varierar, alltsa antalet.
+ *
+ * Normaliseringen ar hela poangen med raden. Ett veckopris pa 99 kr ar
+ * 429 kr i manaden, inte 99, och utan omraekningen ser veckopaketen ut att
+ * tjana en femtedel av vad de tjanar. Allt-dagen ar ett engangskop och har
+ * darfor ingen MRR alls, precis som i mrrOreFranSubscriptions: den intakten
+ * syns i revenue_ore i stallet.
+ */
+export interface PaketRad {
+  nyckel: PaketNyckel;
+  namn: string;
+  aktiva: number | null;
+  /** Null for Allt-dagen: ett engangskop ar ingen aterkommande intakt. */
+  mrrOre: number | null;
+}
+
+/** Manader per period. 52 veckor pa 12 manader, samma faktor som collect. */
+function manaderPerPeriod(langd: string): number | null {
+  if (langd === 'vecka') return 12 / 52;
+  if (langd === 'månad') return 1;
+  if (langd === 'kvartal') return 3;
+  return null;
+}
+
+export function paketRader(senaste: DagligaMetrik | null): PaketRad[] {
+  const prisPerNyckel = new Map(PLANS.map((p) => [p.key, p]));
+
+  return PAKET_ORDNING.map(({ nyckel, namn }) => {
+    const aktiva = senaste ? ((senaste[PAKET_KOLUMN[nyckel]] as number | null) ?? null) : null;
+    const plan = prisPerNyckel.get(nyckel as (typeof PLANS)[number]['key']);
+
+    let mrrOre: number | null = null;
+    if (plan && typeof aktiva === 'number') {
+      const manader = manaderPerPeriod(plan.length);
+      mrrOre = manader === null ? null : Math.round((plan.amount * 100 * aktiva) / manader);
+    }
+
+    // Namnet ur PLANS ar sanningen, PAKET_ORDNING ar reserven.
+    return { nyckel, namn: plan?.name ?? namn, aktiva, mrrOre };
+  });
 }

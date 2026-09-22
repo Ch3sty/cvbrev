@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { examDeadlinePassed } from '@/lib/tests/sessionGate';
 
 // Lagrar råa svar (passageId + statementIndex). Rättning sker i complete-routen
 // mot den merged prov-banken.
@@ -28,6 +29,12 @@ export async function POST(request: NextRequest) {
 
     if (fetchError || !session) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+    }
+
+    // Provets tid har gått ut. Klientens klocka lämnar in provet, men en
+    // klient går att stänga av, så gränsen måste hålla även här.
+    if (examDeadlinePassed('verbal-resonemang-prov', session.started_at)) {
+      return NextResponse.json({ error: 'exam_time_up' }, { status: 409 });
     }
 
     const answers = Array.isArray(session.answers) ? session.answers : [];

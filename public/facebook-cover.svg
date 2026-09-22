@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" height="312">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Bakgrund -->
+  <rect width="820" height="312" fill="url(#bg)"/>
+
+  <!-- Dekorativa cirklar, alla inom bounds -->
+  <circle cx="680" cy="30" r="160" fill="rgba(255,255,255,0.07)"/>
+  <circle cx="760" cy="280" r="110" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="30" cy="240" r="120" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- Vänster: Logo + tagline -->
+  <text
+    x="64"
+    y="122"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="52"
+    font-weight="900"
+    fill="white"
+    letter-spacing="-1.5"
+  >Jobbcoach.ai</text>
+
+  <text
+    x="64"
+    y="162"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="22"
+    font-weight="400"
+    fill="rgba(255,255,255,0.85)"
+  >Din kompletta verktygslåda för jobbsökning</text>
+
+  <!-- Divider -->
+  <rect x="64" y="186" width="48" height="3" rx="2" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Verktyg-rad 1 -->
+  <text
+    x="64"
+    y="218"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="14"
+    font-weight="700"
+    fill="rgba(255,255,255,0.7)"
+    letter-spacing="0.8"
+  >CV-ANALYS  &#183;  PERSONLIGT BREV</text>
+
+  <!-- Verktyg-rad 2 -->
+  <text
+    x="64"
+    y="240"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="14"
+    font-weight="700"
+    fill="rgba(255,255,255,0.7)"
+    letter-spacing="0.8"
+  >JOBBMATCHNING  &#183;  REKRYTERINGSTESTER</text>
+
+  <!-- Höger: Kort med "J" -->
+  <rect x="574" y="48" width="200" height="216" rx="20" fill="url(#card-bg)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- J i kortet -->
+  <text
+    x="674"
+    y="198"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="160"
+    font-weight="900"
+    fill="white"
+    text-anchor="middle"
+    opacity="0.95"
+  >J</text>
+
+  <!-- jobbcoach.ai under J -->
+  <text
+    x="674"
+    y="236"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="13"
+    font-weight="700"
+    fill="rgba(255,255,255,0.6)"
+    text-anchor="middle"
+    letter-spacing="1"
+  >JOBBCOACH.AI</text>
+</svg>

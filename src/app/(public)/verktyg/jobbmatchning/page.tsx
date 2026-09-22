@@ -33,7 +33,7 @@ export default function JobbmatchningSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: '10 matchade jobb gratis per sökning, ingen kortuppgift',
+      description: '3 fulla träffar med skälen gratis, ingen kortuppgift',
     },
     featureList:
       'Tusentals lediga jobb från Arbetsförmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',

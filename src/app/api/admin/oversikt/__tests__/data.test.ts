@@ -40,6 +40,12 @@ function rad(dag: string, varden: Partial<DagligaMetrik> = {}): DagligaMetrik {
     letters_created: null,
     tests_completed: null,
     templates_downloaded: null,
+    active_cv_week: null,
+    active_test_week: null,
+    active_all_day: null,
+    active_all_week: null,
+    active_all_month: null,
+    active_all_quarter: null,
     ...varden,
   };
 }

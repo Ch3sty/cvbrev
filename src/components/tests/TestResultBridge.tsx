@@ -78,7 +78,7 @@ export default function TestResultBridge({
   const trialLine =
     isPremium && trialEndsAt ? (
       <p className="mt-3 text-meta text-ink-3">
-        Alla testnivåer är upplåsta till {formatDate(trialEndsAt)}.
+        Alla testnivåer ingår till {formatDate(trialEndsAt)}.
       </p>
     ) : null
 

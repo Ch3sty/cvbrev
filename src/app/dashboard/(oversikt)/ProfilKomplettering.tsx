@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useAuth } from '@/contexts/AuthContext'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
+import { isTrialSource } from '@/lib/premium/trial'
 
 const SNOOZE_KEY = 'jc_profil_komplettering_snoozed_at'
 const SNOOZE_DAYS = 7
@@ -25,7 +26,6 @@ const SNOOZE_DAYS = 7
  * DowngradedNotice, vi läser den bara.
  */
 const DOWNGRADED_KEY = 'jc_downgraded_notice_dismissed'
-const TRIAL_SOURCES = ['signup_trial', 'oauth_signup_trial']
 
 type FieldKey = 'full_name' | 'phone' | 'location'
 
@@ -114,7 +114,7 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
           noticeCouldShow =
             !noticeDismissed &&
             row.subscription_tier === 'free' &&
-            TRIAL_SOURCES.includes(source) &&
+            isTrialSource(source) &&
             daysSince >= 0 &&
             daysSince <= 14
         } catch {

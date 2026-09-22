@@ -1,20 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSupabaseMock, type TableResponse } from '@/lib/candidate/__tests__/supabaseMock';
+import type { Scope } from '@/lib/access/features';
 
-// Premiumkontrollen har egna regler (admin, premium_until, subscription_tier)
-// och testas där. Här styr vi den bara, för att låsa vad limit blir.
-let isPremium = false;
+// Behörigheten har egna regler (admin, premium_until, grants) och testas
+// där. Här styr vi bara scopet, för att låsa vad limit blir per rad.
+let scope: Scope | null = null;
 vi.mock('@/lib/supabase/premiumAccess', () => ({
-  userHasPremiumAccess: () => Promise.resolve(isPremium),
+  getUserScope: () => Promise.resolve(scope),
+  userHasPremiumAccess: () => Promise.resolve(scope !== null),
+  userHasAccess: () => Promise.resolve(scope !== null),
 }));
 
 import { getQuotaSummary } from '../getQuotaSummary';
 import {
   DAILY_LIMIT_LETTERS,
-  DAILY_LIMIT_CHAT_MESSAGES,
+  FREE_CHAT_MESSAGES_PER_ACCOUNT,
   DAILY_LIMIT_TEST_SESSIONS,
   CV_ANALYSIS_LIMIT,
-  startOfTodayStockholm,
+  LETTER_WINDOW_DAYS,
 } from '../quotaService';
 
 interface Counts {
@@ -41,41 +44,40 @@ function run(
 const byKey = (summary: Awaited<ReturnType<typeof getQuotaSummary>>) =>
   Object.fromEntries(summary.items.map((i) => [i.key, i]));
 
-/** En tidpunkt som ligger inom dagens fönster i svensk tid. */
-const todayStamp = () =>
-  new Date(startOfTodayStockholm().getTime() + 60_000).toISOString();
+/** En tidpunkt inom brevets rullande sjudagarsfönster. */
+const inomFonstret = () => new Date(Date.now() - 2 * 24 * 3600_000).toISOString();
+
+/** En tidpunkt före fönstret, alltså en räknare som logiskt är noll. */
+const foreFonstret = () =>
+  new Date(Date.now() - (LETTER_WINDOW_DAYS + 1) * 24 * 3600_000).toISOString();
 
 beforeEach(() => {
-  isPremium = false;
+  scope = null;
 });
 
-describe('getQuotaSummary: premium', () => {
+describe('getQuotaSummary: Allt', () => {
   it('ger limit null på alla fyra poster', async () => {
-    isPremium = true;
+    scope = 'allt';
 
     const summary = await run({
       weekly_letter_count: 3,
-      weekly_letter_first_used_at: todayStamp(),
+      weekly_letter_first_used_at: inomFonstret(),
     });
 
     expect(summary.isPremium).toBe(true);
+    expect(summary.scope).toBe('allt');
     expect(summary.items).toHaveLength(4);
-    expect(summary.items.map((i) => i.key)).toEqual([
-      'letters',
-      'analysis',
-      'chat',
-      'tests',
-    ]);
+    expect(summary.items.map((i) => i.key)).toEqual(['letters', 'analysis', 'chat', 'tests']);
     for (const item of summary.items) {
       expect(item.limit).toBeNull();
     }
   });
 
-  it('visar ändå faktisk förbrukning för premium', async () => {
-    isPremium = true;
+  it('visar ändå faktisk förbrukning', async () => {
+    scope = 'allt';
 
     const summary = await run(
-      { weekly_letter_count: 3, weekly_letter_first_used_at: todayStamp() },
+      { weekly_letter_count: 3, weekly_letter_first_used_at: inomFonstret() },
       { chat: 42, analysis: 2, tests: 5 }
     );
 
@@ -87,16 +89,54 @@ describe('getQuotaSummary: premium', () => {
   });
 });
 
+describe('getQuotaSummary: per spår', () => {
+  it('CV-veckan öppnar CV-raderna men lämnar chatt och tester kvar', async () => {
+    scope = 'cv';
+
+    const items = byKey(await run(null));
+    expect(items.letters.limit).toBeNull();
+    expect(items.analysis.limit).toBeNull();
+    // Chatten och testerna ligger i Allt respektive Testveckan.
+    expect(items.chat.limit).toBe(FREE_CHAT_MESSAGES_PER_ACCOUNT);
+    expect(items.tests.limit).toBe(DAILY_LIMIT_TEST_SESSIONS);
+  });
+
+  it('Testveckan öppnar testraden men lämnar brev och analys kvar', async () => {
+    scope = 'tester';
+
+    const items = byKey(await run(null));
+    expect(items.tests.limit).toBeNull();
+    expect(items.letters.limit).toBe(DAILY_LIMIT_LETTERS);
+    expect(items.analysis.limit).toBe(CV_ANALYSIS_LIMIT);
+    expect(items.chat.limit).toBe(FREE_CHAT_MESSAGES_PER_ACCOUNT);
+  });
+
+  it('varje rad bär featuren som öppnar den', async () => {
+    const items = byKey(await run(null));
+    expect(items.letters.feature).toBe('letter_download');
+    expect(items.analysis.feature).toBe('cv_analysis_full');
+    expect(items.chat.feature).toBe('chat_unlimited');
+    expect(items.tests.feature).toBe('tests_above_base');
+  });
+});
+
 describe('getQuotaSummary: gratis', () => {
   it('ger de faktiska taken ur quotaService', async () => {
     const summary = await run(null);
 
     const items = byKey(summary);
     expect(summary.isPremium).toBe(false);
+    expect(summary.scope).toBeNull();
     expect(items.letters.limit).toBe(DAILY_LIMIT_LETTERS);
     expect(items.analysis.limit).toBe(CV_ANALYSIS_LIMIT);
-    expect(items.chat.limit).toBe(DAILY_LIMIT_CHAT_MESSAGES);
+    expect(items.chat.limit).toBe(FREE_CHAT_MESSAGES_PER_ACCOUNT);
     expect(items.tests.limit).toBe(DAILY_LIMIT_TEST_SESSIONS);
+  });
+
+  it('analys och chatt är kontokvoter, alltså utan återkomst', async () => {
+    const items = byKey(await run(null));
+    expect(items.analysis.perAccount).toBe(true);
+    expect(items.chat.perAccount).toBe(true);
   });
 
   it('räknar förbrukning ur räkningarna, null blir noll', async () => {
@@ -111,40 +151,31 @@ describe('getQuotaSummary: gratis', () => {
   it('etiketterna är oförändrade', async () => {
     const summary = await run(null);
 
-    expect(summary.items.map((i) => i.label)).toEqual([
-      'Brev',
-      'Analys',
-      'Chatt',
-      'Tester',
-    ]);
+    expect(summary.items.map((i) => i.label)).toEqual(['Brev', 'Analys', 'Chatt', 'Tester']);
   });
 });
 
-describe('getQuotaSummary: resolveDailyLetterCounter respekteras', () => {
-  it('räknar brev som förbrukade när fönstret startade i dag', async () => {
+describe('getQuotaSummary: brevets veckofönster', () => {
+  it('räknar brevet som förbrukat inom de sju dygnen', async () => {
     const summary = await run({
       weekly_letter_count: 1,
-      weekly_letter_first_used_at: todayStamp(),
+      weekly_letter_first_used_at: inomFonstret(),
     });
 
     expect(byKey(summary).letters.used).toBe(1);
   });
 
-  it('nollställer brev när fönstret är från i går', async () => {
-    const yesterday = new Date(
-      startOfTodayStockholm().getTime() - 3600_000
-    ).toISOString();
-
+  it('nollställer brevet när fönstret löpt ut', async () => {
     const summary = await run({
       weekly_letter_count: 5,
-      weekly_letter_first_used_at: yesterday,
+      weekly_letter_first_used_at: foreFonstret(),
     });
 
-    // Räknaren i databasen är kvar, men logiskt är den 0 i dag.
+    // Räknaren i databasen är kvar, men logiskt är den 0 nu.
     expect(byKey(summary).letters.used).toBe(0);
   });
 
-  it('nollställer brev när fönsterstarten saknas', async () => {
+  it('nollställer brevet när fönsterstarten saknas', async () => {
     const summary = await run({
       weekly_letter_count: 4,
       weekly_letter_first_used_at: null,

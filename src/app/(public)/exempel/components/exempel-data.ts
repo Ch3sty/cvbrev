@@ -266,7 +266,7 @@ export const EXEMPEL_FAQ_ITEMS = [
   },
   {
     q: 'Är exemplen gratis att använda?',
-    a: 'Ja. Alla våra exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto för att se dem. Vill du sedan bygga ditt eget CV eller personliga brev med våra verktyg så registrerar du dig gratis och får ett brev om dagen och en CV-analys var tredje dag utan att betala något.',
+    a: 'Ja. Alla våra exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto för att se dem. Vill du sedan bygga ditt eget CV eller personliga brev med våra verktyg så registrerar du dig gratis och skriver ditt första brev och kör din CV-analys utan att betala något.',
   },
   {
     q: 'Hur väljer jag rätt exempel för mitt yrke?',

@@ -252,16 +252,16 @@ ScoreCard.displayName = 'ScoreCard';
  */
 const ScoresSection: React.FC<{
     scores?: BasicAnalysisResult['scores'] | PremiumAnalysisResult['scores'];
-    isPremium: boolean;
+    hasFullAnalysis: boolean;
     roleBasedImprovements?: RoleBasedImprovement[];
     atsData?: PremiumAnalysisResult['atsFriendliness'];
-}> = React.memo(({ scores, isPremium, roleBasedImprovements, atsData }) => {
+}> = React.memo(({ scores, hasFullAnalysis, roleBasedImprovements, atsData }) => {
     // Extract scores safely, provide fallbacks
     const clarityScore = scores?.clarityAndStructure;
-    const impactScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.impactAndResults : undefined;
+    const impactScore = hasFullAnalysis ? (scores as PremiumAnalysisResult['scores'])?.impactAndResults : undefined;
     const strongVerbScore = scores?.strongVerbs ?? impactScore;
-    const overallScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.overall : undefined;
-    const relevanceScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.relevance : undefined;
+    const overallScore = hasFullAnalysis ? (scores as PremiumAnalysisResult['scores'])?.overall : undefined;
+    const relevanceScore = hasFullAnalysis ? (scores as PremiumAnalysisResult['scores'])?.relevance : undefined;
 
     // Calculate potential improvement from role-based analysis
     const calculatePotentialImprovement = () => {
@@ -298,11 +298,11 @@ const ScoresSection: React.FC<{
                     </h4>
                     <div className="flex flex-wrap gap-4">
                         {/* Premium Scores */}
-                        {isPremium && overallScore && <ScoreCard title="Övergripande" score={overallScore} maxRating={10} icon={CheckCircle} />}
-                        {isPremium && relevanceScore && <ScoreCard title="Relevans" score={relevanceScore} maxRating={10} icon={Target} />}
+                        {hasFullAnalysis && overallScore && <ScoreCard title="Övergripande" score={overallScore} maxRating={10} icon={CheckCircle} />}
+                        {hasFullAnalysis && relevanceScore && <ScoreCard title="Relevans" score={relevanceScore} maxRating={10} icon={Target} />}
                         {/* Common/Adapted Scores */}
-                        {clarityScore && <ScoreCard title="Tydlighet & Struktur" score={clarityScore} maxRating={isPremium ? 10 : 5} icon={Type} />}
-                        {strongVerbScore && <ScoreCard title={isPremium ? "Impact & Resultat" : "Starka Verb"} score={strongVerbScore} maxRating={isPremium ? 10 : 5} icon={Zap} />}
+                        {clarityScore && <ScoreCard title="Tydlighet & Struktur" score={clarityScore} maxRating={hasFullAnalysis ? 10 : 5} icon={Type} />}
+                        {strongVerbScore && <ScoreCard title={hasFullAnalysis ? "Impact & Resultat" : "Starka Verb"} score={strongVerbScore} maxRating={hasFullAnalysis ? 10 : 5} icon={Zap} />}
                     </div>
                 </div>
 
@@ -497,20 +497,28 @@ const AutomaticImprovementsSection: React.FC<{ improvements: string[] }> = React
 AutomaticImprovementsSection.displayName = 'AutomaticImprovementsSection';
 
 /**
- * Renders a teaser prompting free users to upgrade to Premium.
+ * Gratisnivåns rad under analysen (docs/plan-paket-och-onboarding.md,
+ * avsnitt 4 och ägarens beslut 2).
+ *
+ * Kvitterar först vad hon redan fått, alltså poängen och det tyngsta fyndet,
+ * och säger därefter vad CV-veckan öppnar. Den får inte säga "Lås upp": vi
+ * säljer ett spår, inte ett hänglås, och knappen går till spårvalet med
+ * CV-veckan förvald i stället för till en allmän prenumerationssida.
  */
 const PremiumTeaserSection: React.FC = React.memo(() => (
     <section className={premiumTeaserClasses}>
         <Crown className="w-8 h-8 text-neutral-700 mx-auto mb-4" aria-hidden="true" />
-        <h3 className="text-xl font-semibold text-gray-900 mb-3">Lås upp djupare insikter med Premium!</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-3">Du har sett det tyngsta fyndet</h3>
         <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-            Få detaljerade exempel, ATS-analys, kvantifieringsförslag och mer avancerad poängsättning för att verkligen optimera ditt CV.
+            CV-veckan öppnar åtgärden bakom varje rubrik, hela ATS-genomgången och
+            kvantifieringsförslagen. Du kan också köra om analysen när du rättat och se
+            poängen röra sig.
         </p>
         <Link
-            href="/dashboard/profil/prenumeration"
+            href="/dashboard/valj-spar?paket=cv_week"
             className="inline-flex items-center h-11 px-6 text-sm font-medium text-white transition-all bg-orange-600 hover:bg-orange-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
-            Uppgradera till Premium
+            Ta CV-veckan
             <ChevronRight className="w-4 h-4 ml-2" />
         </Link>
     </section>
@@ -540,18 +548,23 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
     }
 
     // Determine if the results are from a premium analysis
-    const isPremium = data.analysisType === 'premium';
+    // Hela analysen eller gratisnivåns smakprov. Namnet säger vad frågan
+    // faktiskt gäller: ett konto kan ha ett betalt spår utan att ha
+    // CV-spåret (docs/plan-paket-och-onboarding.md avsnitt 3), så
+    // "isPremium" var inte längre sant nog. Servern har redan filtrerat i
+    // gateAnalysisResult, så fältet speglar det som faktiskt kom hit.
+    const hasFullAnalysis = data.analysisType === 'premium';
 
     // Safely access potentially missing fields with optional chaining and fallbacks
     const summary = data.summary ?? "Ingen sammanfattning tillgänglig.";
     const basicStrengths = (data as BasicAnalysisResult).identifiedStrengths;
-    const premiumStrengths = isPremium ? (data as PremiumAnalysisResult).detailedStrengths : undefined;
+    const premiumStrengths = hasFullAnalysis ? (data as PremiumAnalysisResult).detailedStrengths : undefined;
     const basicImprovements = (data as BasicAnalysisResult).improvementAreas;
-    const premiumImprovements = isPremium ? (data as PremiumAnalysisResult).detailedImprovements : undefined;
+    const premiumImprovements = hasFullAnalysis ? (data as PremiumAnalysisResult).detailedImprovements : undefined;
     const keywords = data.keywords;
     const scores = data.scores;
-    const atsData = isPremium ? (data as PremiumAnalysisResult).atsFriendliness : undefined;
-    const quantificationSuggestions = isPremium ? (data as PremiumAnalysisResult).quantificationSuggestions : undefined;
+    const atsData = hasFullAnalysis ? (data as PremiumAnalysisResult).atsFriendliness : undefined;
+    const quantificationSuggestions = hasFullAnalysis ? (data as PremiumAnalysisResult).quantificationSuggestions : undefined;
 
     // Convert analysis data to suggestions for improvement workflow
     // Filter out structural suggestions that will be handled automatically by templates
@@ -560,7 +573,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         let idCounter = 0;
 
         // Convert improvement areas to suggestions with full context
-        if (isPremium && premiumImprovements) {
+        if (hasFullAnalysis && premiumImprovements) {
             premiumImprovements.forEach(imp => {
                 // Skip structural suggestions - they will be shown in automatic improvements
                 if (!isStructuralSuggestion(imp)) {
@@ -621,7 +634,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
     const getAutomaticImprovements = (): string[] => {
         const automaticImprovements: string[] = [];
 
-        if (isPremium && premiumImprovements) {
+        if (hasFullAnalysis && premiumImprovements) {
             premiumImprovements.forEach(imp => {
                 if (isStructuralSuggestion(imp)) {
                     automaticImprovements.push(`${imp.area}: ${imp.suggestion}`);
@@ -705,8 +718,8 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
     }
 
     // Get role-based and general improvements from premium analysis
-    const roleBasedImprovements = isPremium ? (data as PremiumAnalysisResult).roleBasedImprovements : undefined;
-    const generalImprovements = isPremium ? (data as PremiumAnalysisResult).generalImprovements : undefined;
+    const roleBasedImprovements = hasFullAnalysis ? (data as PremiumAnalysisResult).roleBasedImprovements : undefined;
+    const generalImprovements = hasFullAnalysis ? (data as PremiumAnalysisResult).generalImprovements : undefined;
 
     return (
         <div className="space-y-6">
@@ -720,7 +733,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             )}
 
             {/* NEW: Section-Based Analysis Overview (Premium Only) */}
-            {isPremium && roleBasedImprovements && roleBasedImprovements.length > 0 && (
+            {hasFullAnalysis && roleBasedImprovements && roleBasedImprovements.length > 0 && (
                 <CVSectionAnalysisOverview
                     roleBasedImprovements={roleBasedImprovements}
                     generalImprovements={generalImprovements || []}
@@ -731,11 +744,11 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             )}
 
             {/* Fallback: Show old analysis format if no role-based improvements */}
-            {(!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
+            {(!hasFullAnalysis || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
                 <>
                     <AnalysisSection title="Identifierade Styrkor" icon={ThumbsUp}>
                         {/* Render premium list if available, otherwise basic list */}
-                        {isPremium && premiumStrengths ? (
+                        {hasFullAnalysis && premiumStrengths ? (
                             <PremiumStrengthsList strengths={premiumStrengths} />
                         ) : (
                             <BasicList items={basicStrengths} />
@@ -744,7 +757,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
 
                     <AnalysisSection title="Förbättringsområden" icon={Lightbulb}>
                         {/* Render premium list if available, otherwise basic list */}
-                         {isPremium && premiumImprovements ? (
+                         {hasFullAnalysis && premiumImprovements ? (
                             <PremiumImprovementsList improvements={premiumImprovements.filter(imp => !isStructuralSuggestion(imp))} />
                         ) : (
                             <BasicList items={basicImprovements?.filter(imp => !isStructuralSuggestion(imp))} />
@@ -759,20 +772,20 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             {/* --- Poäng & Bedömning (alltid synlig) --- */}
             <ScoresSection
                 scores={scores}
-                isPremium={isPremium}
+                hasFullAnalysis={hasFullAnalysis}
                 roleBasedImprovements={roleBasedImprovements}
                 atsData={atsData}
             />
 
             {/* --- Nyckelord (döljs för premium med role-based improvements) --- */}
-            {(!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
+            {(!hasFullAnalysis || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
                 <AnalysisSection title="Nyckelord" icon={Tags}>
                     <KeywordList keywords={keywords} />
                 </AnalysisSection>
             )}
 
             {/* --- Premium-Only Sections --- */}
-            {isPremium && (
+            {hasFullAnalysis && (
                 <>
                     {/* ATS-sektion borttagen - visas redan i Poäng & Bedömning */}
                     <QuantificationSection suggestions={quantificationSuggestions} />

@@ -1,0 +1,117 @@
+[
+  {
+    "namn": "2.1 rubriken säger vad och hur länge (T30)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "2.1 DAG 1 AV 7 syns",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "2.1 primär går in i dag 1 (T34 eller T42)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "2.1 kvittolänken finns (T36)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "2.1 aldrig Till översikten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "2.1 orange högst tre",
+    "ok": true,
+    "not": "räknade 0"
+  },
+  {
+    "namn": "2.2 köparen utan CV pekas mot uppladdning",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 veckopanelen visas för betalande",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 dagens sak och knapp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 hoppa-länk (T49)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 hela veckan-länk (T50)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 sju noder på en rad",
+    "ok": true,
+    "not": "räknade 7"
+  },
+  {
+    "namn": "3.1 aktuell nod har aria-current step",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 ingen horisontell scroll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.1 orange på hemskärmen högst tre",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "3.1 NastaHandling döljs under veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.4 arkets rubrik (T64)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.4 arkets text (T65)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.4 Escape stänger arket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.2 kvitteringsläget visar vad som blev gjort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.2 vidare till nästa dag (T53)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "3.2 klart för i dag (T54)",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop korten staplade, inte tre kolumner",
+    "ok": true,
+    "not": ""
+  }
+]

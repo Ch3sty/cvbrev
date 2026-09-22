@@ -11,10 +11,13 @@ type Row = {
   premium: string | boolean;
 };
 
+// Gratisnivån följer docs/plan-paket-och-onboarding.md avsnitt 4. Talen ska
+// stämma mot quotaService, inte mot vad sidan sa förra omgången: brev är ett
+// per konto och sedan ett i veckan, analysen en per konto, mallarna tre.
 const ROWS: Row[] = [
-  { label: 'Personliga brev', free: '2/dag', premium: 'Obegränsat' },
-  { label: 'Sparade brev', free: '2 aktiva', premium: 'Obegränsat' },
-  { label: 'CV-analyser', free: '1/tredje dag', premium: 'Obegränsat' },
+  { label: 'Personliga brev', free: '1, sedan 1/vecka', premium: 'Utan tak' },
+  { label: 'Sparade brev', free: '2 aktiva', premium: 'Utan tak' },
+  { label: 'CV-analys', free: '1 per konto', premium: 'Utan tak, med omkörning' },
   { label: 'Uppladdade CV:n', free: '2', premium: '50' },
   { label: 'CV-mallar', free: `${FREE_TEMPLATE_COUNT} av ${TEMPLATE_COUNT}`, premium: `Alla ${TEMPLATE_COUNT}` },
   { label: 'Tonaliteter', free: '5 manuella', premium: '6 (inkl Smart)' },
@@ -28,13 +31,14 @@ const ROWS: Row[] = [
     free: false,
     premium: true,
   },
-  { label: 'Jobbmatchning', free: '10 jobb', premium: 'Obegränsat' },
+  { label: 'Jobbmatchning', free: '3 fulla + 5 suddade', premium: 'Alla träffar' },
   {
     label: 'Rekryteringstester',
     free: 'Grundnivå, 1/dag',
-    premium: 'Obegränsat, inkl. avancerade',
+    premium: 'Alla nivåer och provläge',
   },
-  { label: 'LinkedIn-optimering', free: '1/vecka', premium: 'Obegränsat' },
+  { label: 'Testhistorik', free: 'Senaste resultatet', premium: 'Hela serien över tid' },
+  { label: 'LinkedIn-optimering', free: '1/vecka', premium: 'Utan tak' },
   {
     label: 'Professionell export (Word/PDF)',
     free: true,
@@ -451,8 +455,10 @@ export default function ComparisonSection() {
           transition={{ duration: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10"
         >
+          {/* Trialen är avvecklad (ägarens beslut 3). Primären säljer paketen
+              och skickar till prissidan, där spåret väljs före längden. */}
           <Link
-            href="/trial-signup"
+            href="/priser"
             data-cta="funktioner-comparison-primary"
             className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-base hover:scale-[1.02] active:scale-[0.99] transition-all touch-manipulation w-full sm:w-auto"
             style={{
@@ -461,7 +467,7 @@ export default function ComparisonSection() {
               boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.45)',
             }}
           >
-            Prova Premium gratis i 7 dagar
+            Se paketen
             <ArrowRight
               className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
               strokeWidth={2.5}

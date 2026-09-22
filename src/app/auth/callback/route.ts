@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { logActivityServer } from '@/lib/activation-tracking'
+import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 
 /** Bara relativa paths inom appen släpps igenom, aldrig protokoll-relativa. */
 function safeNext(raw: string | null): string {
@@ -127,7 +128,8 @@ export async function GET(request: NextRequest) {
   )
 
   if (isNewAccount) {
-    // Spår A äger post-signup: reverse trial plus livscykelmailen.
+    // post-signup sparar attributionen och startar livscykelmailen. Ingen
+    // trial: reverse trial är borta (ägarens beslut 3).
     // Fire and forget, men vi inväntar den här eftersom redirecten annars
     // kan hinna avbryta requesten i serverless-miljön.
     try {
@@ -145,5 +147,12 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(`${origin}${next}`)
+  // Nytt konto via Google landar på spårvalet, inte på hemskärmen. Samma skäl
+  // som i register-form: mätpunkt 1 är spårval till köp i samma session, och
+  // steget får inte konkurrera med sju andra element (Fas 2A flöde 1). Bad
+  // användaren uttryckligen om en annan sida, alltså ett riktigt next, går
+  // hon dit i stället: hon var mitt i något när kontot skapades.
+  const destination = isNewAccount && next === '/dashboard' ? TRACK_CHOICE_PATH : next
+
+  return NextResponse.redirect(`${origin}${destination}`)
 }

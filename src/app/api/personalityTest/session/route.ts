@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 
 type TestType = 'personlighet-grund' | 'personlighet-avancerad';
 
@@ -25,18 +26,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (testType === 'personlighet-avancerad') {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('subscription_tier')
-        .eq('id', user.id)
-        .single();
-      if (profile?.subscription_tier !== 'premium') {
-        return NextResponse.json(
-          { error: 'Premium subscription required' },
-          { status: 403 }
-        );
-      }
+    // Nivåspärren, serverside. Grundnivån är fri, den fördjupade kräver
+    // tests_above_base (docs/plan-paket-och-onboarding.md avsnitt 4).
+    const sparr = await checkTestSessionAccess(supabase, user.id, testType);
+    if (!sparr.allowed) {
+      return NextResponse.json(sparr.body, { status: 402 });
     }
 
     const { data: session, error: createError } = await supabase

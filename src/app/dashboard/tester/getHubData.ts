@@ -21,6 +21,7 @@
 import { getTestConfig } from './testConfig';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { BigFiveScores, PersonalityTestType } from '@/lib/personalityTest/types';
+import type { Scope } from '@/lib/access/features';
 
 /**
  * Slug i UI mot test_type i logic_test_v4_sessions.
@@ -98,6 +99,18 @@ export interface TesterHubData {
   /** Bästa provresultat i procent per provets session-endpoint. */
   provBestPercent: Record<string, number | null>;
   isPremium: boolean;
+  /**
+   * Sann när kontot har featuren test_history, alltså Testveckan eller Allt.
+   *
+   * Gratisnivån ser senaste sessionen, aldrig serien (avsnitt 4: "Senaste
+   * sessionen fri, historik premium"). Utvecklingen över tid är
+   * veckoprenumerationens själva argument, så trimningen sker här i
+   * serverhämtningen och inte i vyn: en historik som aldrig lämnar servern
+   * går inte att läsa ur nätverksfliken heller.
+   */
+  hasHistory: boolean;
+  /** Paketet kontot bär, null på gratisnivån. Driver betalväggens förslag. */
+  scope: Scope | null;
 }
 
 export const EMPTY_STATS: PerTestStats = {
@@ -211,7 +224,11 @@ function emptyPerTest(): Record<TestSlug, PerTestStats> {
   );
 }
 
-export function emptyHubData(isPremium = false): TesterHubData {
+export function emptyHubData(
+  isPremium = false,
+  hasHistory = false,
+  scope: Scope | null = null
+): TesterHubData {
   return {
     perTest: emptyPerTest(),
     aggregate: {
@@ -224,7 +241,21 @@ export function emptyHubData(isPremium = false): TesterHubData {
     personality: { grund: EMPTY_PERSONALITY, avancerad: EMPTY_PERSONALITY },
     provBestPercent: {},
     isPremium,
+    hasHistory,
+    scope,
   };
+}
+
+/**
+ * Trimmar serien till senaste sessionen för den som saknar test_history.
+ *
+ * Talen står kvar orörda: antal försök, bästa resultat och total tid är
+ * summeringar och inte historik, och de är dessutom argumentet för att köpa
+ * serien. Det som faller bort är raderna och kurvan, alltså utvecklingen.
+ */
+function utanHistorik(stats: PerTestStats): PerTestStats {
+  if (stats.history.length <= 1) return stats;
+  return { ...stats, history: stats.history.slice(-1) };
 }
 
 /**
@@ -239,7 +270,9 @@ export async function getTesterHubData(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: any,
   userId: string,
-  isPremium: boolean
+  isPremium: boolean,
+  hasHistory = false,
+  scope: Scope | null = null
 ): Promise<TesterHubData> {
   const provTypes = Object.values(PROV_TEST_TYPE_BY_ENDPOINT);
   const allCognitiveTypes = [...Object.values(COGNITIVE_TEST_TYPE), ...provTypes];
@@ -277,7 +310,7 @@ export async function getTesterHubData(
     else byType.set(row.test_type, [row]);
   }
 
-  const perTest = COGNITIVE_SLUGS.reduce(
+  const perTestFull = COGNITIVE_SLUGS.reduce(
     (acc, slug) => {
       acc[slug] = summarizeSessions(
         byType.get(COGNITIVE_TEST_TYPE[slug]) ?? [],
@@ -288,8 +321,16 @@ export async function getTesterHubData(
     {} as Record<TestSlug, PerTestStats>
   );
 
-  // Aggregaten, räknade precis som useAllTestStats gjorde.
-  const all = Object.values(perTest);
+  // Aggregaten räknas på hela serien, även för den som inte får se den:
+  // talen är summeringar, inte historik, och de är dessutom köpskälet.
+  const all = Object.values(perTestFull);
+
+  // Historiken trimmas först efter aggregaten, och bara för gratisnivån.
+  const perTest = hasHistory
+    ? perTestFull
+    : (Object.fromEntries(
+        Object.entries(perTestFull).map(([slug, stats]) => [slug, utanHistorik(stats)])
+      ) as Record<TestSlug, PerTestStats>);
   const totalCompleted = all.reduce((a, s) => a + s.attempts, 0);
   const completedTestCount = all.filter((s) => s.attempts > 0).length;
   const totalTimeSeconds = all.reduce((a, s) => a + s.totalTimeSeconds, 0);
@@ -343,5 +384,7 @@ export async function getTesterHubData(
     },
     provBestPercent,
     isPremium,
+    hasHistory,
+    scope,
   };
 }

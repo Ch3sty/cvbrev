@@ -228,7 +228,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                     background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
                   }}
                 >
-                  Lås upp premium
+                  Se hela mallen
                   <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
                 </Link>
               </div>

@@ -1,17 +1,29 @@
 /**
- * All copy för betalväggarna, ordagrant från docs/plan-konvertering.md (E2).
- * Inga em-dash. Gratisnivån är ett brev om dagen.
+ * All copy för betalväggarna, ordagrant ur docs/plan-paket-och-onboarding.md
+ * Fas 2B avsnitt 4 (PW1 till PW7) och de rekommenderade alternativen där.
+ *
+ * Regeln som gäller alla varianter: den primära knappen föreslår rätt spår,
+ * och Allt nämns en gång i brödtexten, aldrig fler. Inga talstreck.
  */
 
+import { suggestPlan, type Feature, type Scope } from '@/lib/access/features'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+
 export type PaywallVariant =
+  | 'mall'
+  | 'testniva'
+  | 'analys'
+  | 'analys-omkorning'
   | 'nedladdning'
   | 'cv-export'
+  | 'jobbtraffar'
+  | 'chatt'
+  | 'historik'
+  // Kvarvarande varianter som inte hör till paketspärrarna.
   | 'kvot'
-  | 'analys'
   | 'test-tak'
   | 'nedgraderad'
   | 'cv-antal'
-  | 'jobbtraffar'
   | 'af-rapport'
 
 export interface PaywallCopy {
@@ -21,112 +33,224 @@ export interface PaywallCopy {
   secondary: string
 }
 
+export interface PaywallCopyOpts {
+  /** Antal fynd totalt, variant analys. */
+  findingsTotal?: number
+  /** Antal suddade träffar, variant jobbtraffar. */
+  hiddenCount?: number
+  /** Kvotnyckel, variant kvot. */
+  quotaFeature?: string
+  /** Spåret användaren valt i onboardingen. Styr vad knappen föreslår. */
+  track?: Scope | null
+}
+
 /**
- * Kvotvarianten används av fler funktioner än brev. Rubrik och brödtext byts
- * per funktion så texten är sann, medan knappar och layout är gemensamma.
- * Nyckeln är samma sträng som kvotnyckeln i quota-propen.
+ * Gratisnivåns rader, GR1 till GR7 (Fas 2B avsnitt 8). Formeln är
+ * "{vad} ingår i gratisnivån", och den ska se likadan ut överallt där den
+ * går att hålla. Inga utropstecken, aldrig ordet "bara".
+ */
+export const GRATISRADER = {
+  /** GR1, mallgalleriet, över listan. */
+  mallar: `${FREE_TEMPLATE_COUNT} mallar ingår i gratisnivån`,
+  /** GR2, testhubben, per testtyp. */
+  tester: 'Grundnivån är fri, en gång per dygn',
+  /** GR3, CV-analysen, under poängen. */
+  analys: 'Poängen och det tyngsta fyndet ingår',
+  /** GR4, brevflödet. */
+  brev: 'Ett brev per konto, sedan ett i veckan',
+  /** GR5, CV-export. */
+  export: 'En nedladdning ingår i gratisnivån',
+  /** GR6, jobbcoachen. */
+  chatt: 'Tio meddelanden per konto ingår',
+  /** GR7, jobbmatchningen. */
+  jobbtraffar: 'De tre bästa träffarna ingår',
+} as const
+
+/**
+ * Kvotvarianten används av de funktioner som fortfarande har ett tidsfönster.
+ * Rubrik och brödtext byts per funktion så texten är sann, medan knappar och
+ * layout är gemensamma. Nyckeln är samma sträng som kvotnyckeln i quota.
  */
 export const KVOT_COPY_BY_FEATURE: Record<string, Pick<PaywallCopy, 'title' | 'body' | 'primary'>> = {
   letter_generation: {
-    title: 'Du har skrivit dagens brev',
-    body: 'Gratisnivån ger ett brev per dag. Med Premium skriver du så många du orkar.',
-    primary: 'Fortsätt skriva med Premium',
+    title: 'Ditt brev för veckan är skrivet',
+    body: 'Ett brev per konto ingår, sedan ett i veckan. CV-veckan ger brev utan tak, tillsammans med alla mallar och den fulla analysen.',
+    primary: 'Ta CV-veckan',
   },
   cv_analysis: {
-    title: 'Din CV-analys är använd',
-    body: 'Gratisnivån ger en analys var tredje dygn. Med Premium analyserar du så ofta du vill.',
-    primary: 'Analysera direkt med Premium',
+    title: 'Du har använt din analys',
+    body: 'Du har sett det tyngsta fyndet och din läsbarhetspoäng. CV-veckan öppnar åtgärden bakom varje rubrik och låter dig köra om analysen när du rättat.',
+    primary: 'Se alla åtgärder',
   },
   chat_message: {
-    title: 'Dagens meddelanden är slut',
-    body: 'Gratisnivån ger tio meddelanden per dag. Med Premium chattar du obegränsat.',
-    primary: 'Fortsätt chatta med Premium',
+    // PW7: gränsen är tio per konto, inte per dag. Rubriken fick därför inte
+    // stå kvar som "Dagens meddelanden är slut".
+    title: 'Dina tio meddelanden är använda',
+    body: 'Tio meddelanden ingår i gratisnivån. Allt-veckan ger chatten utan tak, tillsammans med båda spåren och jobbmatchningen.',
+    primary: 'Ta Allt-veckan',
   },
+}
+
+/** Featuren varje variant spärrar på. Driver vilket paket som föreslås. */
+export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
+  mall: 'cv_templates_all',
+  testniva: 'tests_above_base',
+  analys: 'cv_analysis_full',
+  'analys-omkorning': 'cv_analysis_full',
+  nedladdning: 'letter_download',
+  'cv-export': 'cv_export',
+  jobbtraffar: 'job_matches_all',
+  chatt: 'chat_unlimited',
+  historik: 'test_history',
+  'test-tak': 'tests_above_base',
+}
+
+/**
+ * Paketet knappen ska leda till. Feature vinner över variant, så en vy som
+ * vet exakt vad som spärrade kan säga det.
+ */
+export function planForPaywall(
+  variant: PaywallVariant,
+  opts?: { feature?: Feature; track?: Scope | null }
+): string | null {
+  const feature = opts?.feature ?? VARIANT_FEATURE[variant]
+  if (!feature) return null
+  return suggestPlan(feature, opts?.track ?? null)
 }
 
 export function getPaywallCopy(
   variant: PaywallVariant,
-  opts?: { findingsTotal?: number; quotaFeature?: string; hiddenCount?: number }
+  opts?: PaywallCopyOpts
 ): PaywallCopy {
   switch (variant) {
+    // PW1, alternativ A. Rubriken pekar på mallen användaren just tryckt på,
+    // och brödtexten börjar i värdet hon redan ser, alltså förhandsvisningen
+    // i full storlek.
+    case 'mall':
+      return {
+        title: 'Den här mallen ingår i CV-veckan',
+        body: `Du ser hela mallen som den blir. CV-veckan ger alla ${TEMPLATE_COUNT}, plus brevet och den fulla analysen. Testerna ligger i Allt-veckan.`,
+        primary: 'Ta CV-veckan',
+        secondary: `Välj bland de ${FREE_TEMPLATE_COUNT} fria`,
+      }
+
+    // PW2, alternativ A. Rubriken namnger nivån hon ville in på.
+    case 'testniva':
+      return {
+        title: 'Avancerad nivå ingår i Testveckan',
+        body: 'Testveckan ger alla 19 tester, alla nivåer, tidsatt provläge och förklaring till varje fråga. Vill du ha CV-spåret med finns Allt-veckan.',
+        primary: 'Ta Testveckan',
+        secondary: 'Kör grundnivån igen',
+      }
+
+    // PW3, alternativ B, omskriven efter ägarens beslut 2. Den kvitterar vad
+    // användaren redan fått innan den säger vad som kostar, och namnger
+    // omkörningen, som är det egentliga uttaget.
+    case 'analys':
+    case 'analys-omkorning':
+      return {
+        title: 'Åtgärderna ligger i CV-veckan',
+        body: 'Du har sett det tyngsta fyndet och din läsbarhetspoäng. CV-veckan öppnar åtgärden bakom varje rubrik och låter dig köra om analysen när du rättat.',
+        primary: 'Se alla åtgärder',
+        secondary: 'Jämför paketen',
+      }
+
+    // PW4, alternativ A. Rubriken säger att värdet är levererat innan
+    // spärren nämns.
     case 'nedladdning':
       return {
         title: 'Ditt brev är klart',
-        body: 'Läs och kopiera det fritt. Vill du bifoga det som PDF eller Word, formaterat och klart att skicka, ingår det i Premium.',
-        primary: 'Ladda ner med Premium',
+        body: 'Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i CV-veckan, med alla mallar och full analys. Allt-veckan ger testerna med.',
+        primary: 'Ta CV-veckan',
         secondary: 'Kopiera texten i stället',
       }
+
+    // PW5, alternativ B. Första meningen erkänner vad användaren gjort innan
+    // den säljer.
     case 'cv-export':
       return {
         title: 'Din gratis nedladdning är använd',
-        body: 'Du har laddat ner ett CV. Fler nedladdningar, alla mallar och obegränsade analyser ingår i Premium.',
-        primary: 'Ladda ner med Premium',
-        secondary: 'Se vad Premium kostar',
+        body: 'Du har laddat ner ett CV. Fler nedladdningar, alla mallar och full analys ingår i CV-veckan. Allt-veckan lägger till testerna.',
+        primary: 'Ta CV-veckan',
+        secondary: 'Se vad paketen kostar',
       }
+
+    // PW6, alternativ B. Jobbmatchningen finns bara i Allt, så här nämns
+    // Allt en gång och inget spår föreslås: inget spår löser spärren.
+    case 'jobbtraffar': {
+      const n = opts?.hiddenCount ?? 0
+      const totalt = n > 0 ? n + 3 : 25
+      return {
+        title: `Se varför du passar för alla ${totalt}`,
+        body: 'Du ser de tre bästa med skälen utskrivna. Allt öppnar resten, med titel, arbetsgivare, ort och varför just du passar.',
+        primary: 'Ta Allt-veckan',
+        secondary: 'Jämför paketen',
+      }
+    }
+
+    // PW7, alternativ A. Rubriken säger vad som hänt, bodyn vad som gäller.
+    case 'chatt':
+      return {
+        title: 'Dina tio meddelanden är använda',
+        body: 'Tio meddelanden ingår i gratisnivån. Allt-veckan ger chatten utan tak, tillsammans med båda spåren och jobbmatchningen.',
+        primary: 'Ta Allt-veckan',
+        secondary: 'Jämför paketen',
+      }
+
+    // Historiken: senaste sessionen är fri, serien är uttaget. Rubriken säger
+    // vad hon redan ser, inte vad hon saknar, och brödtexten säger varför
+    // serien är värd något (avsnitt 4).
+    case 'historik':
+      return {
+        title: 'Du ser ditt senaste resultat',
+        body: 'Testveckan sparar varje försök och ritar upp hur du rör dig över tid, test för test. Det är den kurvan som visar om övningen ger något.',
+        primary: 'Ta Testveckan',
+        secondary: 'Jämför paketen',
+      }
+
     case 'kvot': {
       const perFeature =
         (opts?.quotaFeature ? KVOT_COPY_BY_FEATURE[opts.quotaFeature] : undefined) ??
         KVOT_COPY_BY_FEATURE.letter_generation
-      return { ...perFeature, secondary: 'Påminn mig imorgon' }
+      return { ...perFeature, secondary: 'Påminn mig' }
     }
-    case 'analys': {
-      const n = opts?.findingsTotal ?? 0
-      return {
-        title: n > 0 ? `Vi hittade ${n} saker att fixa i ditt CV` : 'Vi hittade fler saker att fixa i ditt CV',
-        body: 'Du ser poängen och de tre viktigaste fynden. Resten, med genomgången avsnitt för avsnitt och färdiga formuleringar, ingår i Premium.',
-        primary: 'Se hela analysen',
-        secondary: 'Vad ingår i Premium?',
-      }
-    }
+
     case 'test-tak':
       return {
-        title: 'Tre omgångar idag, det räcker för att bli varm',
-        body: 'Med Premium tränar du obegränsat och får alla svårighetsnivåer.',
-        primary: 'Träna obegränsat',
+        title: 'Dagens omgång är gjord',
+        body: 'Grundnivån är fri en gång per dygn. Testveckan ger alla nivåer, provläget och obegränsat antal försök. Allt-veckan lägger till CV-spåret.',
+        primary: 'Ta Testveckan',
         secondary: 'Kom tillbaka imorgon',
       }
+
     case 'cv-antal':
       return {
         title: 'Du har två sparade CV',
-        body: 'Gratisnivån sparar två CV åt gången. Med Premium sparar du hur många du vill.',
-        primary: 'Spara fler med Premium',
+        body: 'Gratisnivån sparar två CV åt gången. CV-veckan sparar så många du vill, med alla mallar och full analys. Allt-veckan ger testerna med.',
+        primary: 'Ta CV-veckan',
         secondary: 'Ta bort ett gammalt CV',
       }
-    case 'jobbtraffar': {
-      // Siffran är sann: den kommer från serverns egen räkning av vad som
-      // suddats, inte från en påhittad "matchningar väntar".
-      // Argumentet är förklaringen, inte antalet. Gratisnivån ser de tre
-      // bästa med skälen utskrivna, och det är just skälen som saknas i
-      // resten av listan (docs/plan-jobbmatchning.md, avsnitt 2 punkt 5).
-      const n = opts?.hiddenCount ?? 0
-      const totalt = n + 3
-      return {
-        title:
-          n === 1
-            ? 'Se varför du passar för alla 4'
-            : `Se varför du passar för alla ${totalt}`,
-        body: 'Du ser de tre bästa träffarna med skälen utskrivna. Med Premium öppnas resten, med titel, arbetsgivare, ort och varför just du passar.',
-        primary: 'Se alla träffar',
-        secondary: 'Se vad Premium kostar',
-      }
-    }
+
     case 'af-rapport':
       // Loggningen ingår i gratisnivån: den bygger användarens historik.
       // Det är uttaget av den färdigställda sammanställningen som kostar,
-      // enligt principen gratis att skapa, betalt att ta ut. Löftet skrivs
-      // mot gratisnivån, inte mot evigheten (beslut 2026-09-15).
+      // enligt principen gratis att skapa, betalt att ta ut.
       return {
         title: 'Din rapport är sammanställd',
-        body: 'Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina ansökningar ingår i gratisnivån. Att hämta ut den färdiga rapporten som text, utskrift eller fil ingår i Premium.',
-        primary: 'Hämta rapporten',
-        secondary: 'Se vad Premium kostar',
+        body: 'Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina ansökningar ingår i gratisnivån. Att hämta ut den färdiga rapporten ingår i Allt-veckan.',
+        primary: 'Ta Allt-veckan',
+        secondary: 'Se vad paketen kostar',
       }
+
     case 'nedgraderad':
       return {
-        title: 'Fem dagar med Premium är över',
-        body: 'Allt du skrev och analyserade finns kvar att läsa och kopiera. Nu gäller gratisnivån: ett brev om dagen, och nedladdning ingår i Premium.',
-        primary: 'Se vad Premium kostar',
+        title: 'Din period är slut',
+        body: `Allt du skrev och analyserade finns kvar att läsa och kopiera. Nu gäller gratisnivån: ${FREE_TEMPLATE_COUNT} mallar av ${TEMPLATE_COUNT}, ett brev i veckan, och nedladdning ingår i CV-veckan.`,
+        primary: 'Se vad paketen kostar',
         secondary: 'Fortsätt gratis',
       }
   }
 }
+
+/** Används av testerna: antalet premiummallar ska aldrig stå fel i copyn. */
+export const PREMIUM_MALLAR = PREMIUM_TEMPLATE_COUNT

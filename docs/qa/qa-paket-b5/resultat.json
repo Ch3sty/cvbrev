@@ -1,0 +1,202 @@
+[
+  {
+    "namn": "(i) prissidan visar CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) prissidan visar Testveckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) prissidan visar Allt-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) priserna 79 och 99 står på sidan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) prissidan orange högst tre",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "(i) CV-veckan har en knapp",
+    "ok": true,
+    "not": "Ta CV-veckan"
+  },
+  {
+    "namn": "(i) registreringen öppnar med paket i länken",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) spårvalet öppnar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) tre valkort",
+    "ok": true,
+    "not": "hittade 3"
+  },
+  {
+    "namn": "(i) CV-kortet är förvalt ur ?paket",
+    "ok": true,
+    "not": "valt index 0"
+  },
+  {
+    "namn": "(i) spårvalet orange högst tre",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "(i) 1.2 visar CV-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) 1.2 har samtyckesrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) 1.2 köpknapp spärrad utan kryss",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) 1.2 köpknapp öppnas av krysset",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(i) 1.2 orange högst ett",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "(i) kassan svarar med en url",
+    "ok": true,
+    "not": "status 200"
+  },
+  {
+    "namn": "(ii) veckans startvy öppnar",
+    "ok": true,
+    "not": "521 tecken"
+  },
+  {
+    "namn": "hård reload /dashboard/vecka/start: ingen tom vy",
+    "ok": true,
+    "not": "521 tecken"
+  },
+  {
+    "namn": "(ii) veckopanelen står på hemskärmen",
+    "ok": true,
+    "not": "CV-VECKAN · DAG 1 AV 7"
+  },
+  {
+    "namn": "(ii) hemskärmen orange högst tre",
+    "ok": true,
+    "not": "räknade 1"
+  },
+  {
+    "namn": "(ii) dagen kvitteras och panelen går vidare",
+    "ok": true,
+    "not": "klickad"
+  },
+  {
+    "namn": "hård reload /dashboard efter kvittering: ingen tom vy",
+    "ok": true,
+    "not": "780 tecken"
+  },
+  {
+    "namn": "(iii) mall 4 ger 402 med feature och suggestedPlan",
+    "ok": true,
+    "not": "status 402 plan cv_week"
+  },
+  {
+    "namn": "(iii) mallens betalvägg föreslår CV-veckan",
+    "ok": true,
+    "not": "cv_week"
+  },
+  {
+    "namn": "(iii) testnivå 2 ger 402 med tests_above_base",
+    "ok": true,
+    "not": "status 402"
+  },
+  {
+    "namn": "(iii) testets betalvägg föreslår Testveckan",
+    "ok": true,
+    "not": "test_week"
+  },
+  {
+    "namn": "(iii) brevnedladdning ger 402 med letter_download",
+    "ok": true,
+    "not": "status 402"
+  },
+  {
+    "namn": "hård reload /dashboard/cv-mallar: ingen tom vy",
+    "ok": true,
+    "not": "1166 tecken"
+  },
+  {
+    "namn": "(iii) testhubben öppnar för gratiskonto",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hård reload /dashboard/tester: ingen tom vy",
+    "ok": true,
+    "not": "2264 tecken"
+  },
+  {
+    "namn": "(iv) fel spår visar mellanskillnaden 20 kr",
+    "ok": true,
+    "not": "+20 kr"
+  },
+  {
+    "namn": "(iv) fel spår nämner Allt-veckan",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(iv) testspåret spärras serverside på mallarna",
+    "ok": true,
+    "not": "status 402"
+  },
+  {
+    "namn": "hård reload /dashboard/cv-mallar som testspår: ingen tom vy",
+    "ok": true,
+    "not": "677 tecken"
+  },
+  {
+    "namn": "(vi) LCP hemskärm under 1,0 s",
+    "ok": true,
+    "not": "808 ms"
+  },
+  {
+    "namn": "(vi) LCP prissida under 1,5 s",
+    "ok": true,
+    "not": "396 ms"
+  },
+  {
+    "namn": "desktop prissidan scrollar aldrig i sidled",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "(v) prenumerationsvyn öppnar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hård reload /dashboard/profil/prenumeration: ingen tom vy",
+    "ok": true,
+    "not": "1001 tecken"
+  }
+]
