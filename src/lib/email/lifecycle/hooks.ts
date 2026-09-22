@@ -152,23 +152,6 @@ export async function onWeekEnded(admin: AnySupabase, userId: string): Promise<v
   }
 }
 
-/**
- * Kortkrävande trial startad (webhook subscription.created med status
- * trialing). Reverse trial-sekvensen är fel för de här: de har redan betalat
- * med kort och ska i stället få trial-mailen.
- */
-export async function onTrialStarted(admin: AnySupabase, userId: string): Promise<void> {
-  try {
-    await cancelScheduled(admin, userId, ['rt_'], 'trial_started');
-    await scheduleMany(admin, userId, [
-      { type: 'trial_day3', days: 3 },
-      { type: 'trial_day7', days: 7 },
-    ]);
-  } catch (error: any) {
-    console.error('[lifecycle] onTrialStarted misslyckades:', error?.message);
-  }
-}
-
 /** Prenumeration avslutad: bekräftelse direkt, erbjudande om tre dagar. */
 export async function onSubscriptionDeleted(admin: AnySupabase, userId: string): Promise<void> {
   try {
@@ -188,15 +171,6 @@ export async function onPaymentFailed(admin: AnySupabase, userId: string): Promi
     await sendLifecycleNow(admin, userId, 'payment_failed');
   } catch (error: any) {
     console.error('[lifecycle] onPaymentFailed misslyckades:', error?.message);
-  }
-}
-
-/** Provperioden tar snart slut (webhook trial_will_end). */
-export async function onTrialWillEnd(admin: AnySupabase, userId: string): Promise<void> {
-  try {
-    await sendLifecycleNow(admin, userId, 'trial_day5');
-  } catch (error: any) {
-    console.error('[lifecycle] onTrialWillEnd misslyckades:', error?.message);
   }
 }
 

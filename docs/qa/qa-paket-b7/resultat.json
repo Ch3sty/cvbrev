@@ -1,0 +1,52 @@
+[
+  {
+    "namn": "/invite/x pekar om till /priser",
+    "ok": true,
+    "not": "slutade på http://localhost:3107/priser, status 200, första hopp 308"
+  },
+  {
+    "namn": "/trial-signup pekar om till /priser",
+    "ok": true,
+    "not": "slutade på http://localhost:3107/priser, status 304, första hopp 308"
+  },
+  {
+    "namn": "/dashboard/gastinbjudningar pekar om till /priser",
+    "ok": true,
+    "not": "slutade på http://localhost:3107/priser, status 304, första hopp 308"
+  },
+  {
+    "namn": "/dashboard/invite-friends pekar om till /priser",
+    "ok": true,
+    "not": "slutade på http://localhost:3107/priser, status 304, första hopp 308"
+  },
+  {
+    "namn": "prissidan nämner inte inbjudningar eller provperiod",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "inloggad på hemskärmen",
+    "ok": true,
+    "not": "http://localhost:3107/dashboard"
+  },
+  {
+    "namn": "hemskärmen nämner inte inbjudningar eller provperiod",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hemskärmen länkar inte till invite/trial-signup",
+    "ok": true,
+    "not": "25 länkar"
+  },
+  {
+    "namn": "sidomenyn nämner inte inbjudningar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "sidomenyn länkar inte till invite/gastinbjudningar",
+    "ok": true,
+    "not": "14 länkar"
+  }
+]

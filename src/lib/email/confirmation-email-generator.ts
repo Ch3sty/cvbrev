@@ -5,12 +5,10 @@ export interface ConfirmationEmailData {
   userEmail: string;
   userName: string;
   confirmationUrl: string;
-  isInvitation?: boolean;
-  inviterName?: string;
 }
 
 export function generateConfirmationEmailHTML(data: ConfirmationEmailData): string {
-  const { userName, confirmationUrl, isInvitation, inviterName } = data;
+  const { userName, confirmationUrl } = data;
 
   return `
 <!DOCTYPE html>
@@ -75,19 +73,9 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       Hej ${userName}!
                     </h2>
 
-                    ${isInvitation && inviterName ? `
-                    <div style="background-color: #F8FAFC; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #E2E8F0;">
-                      <p style="color: #475569; font-size: 16px; margin: 0; line-height: 1.6;">
-                        <span style="font-weight: 600; color: #E9457A;">${inviterName}</span> har bjudit in dig att prova
-                        Jobbcoach.ai Premium gratis i 7 dagar!
-                      </p>
-                    </div>
-                    ` : ''}
 
                     <p style="color: #64748b; font-size: 17px; line-height: 1.6; margin: 0 0 35px 0;">
-                      ${isInvitation
-                        ? 'Klicka på knappen nedan för att bekräfta din e-postadress och aktivera din gratis Premium-period.'
-                        : 'Tack för att du registrerat dig! Klicka på knappen nedan för att bekräfta din e-postadress och komma igång.'}
+                      Tack för att du registrerat dig! Klicka på knappen nedan för att bekräfta din e-postadress och komma igång.
                     </p>
 
                     <!-- CTA Button -->
@@ -117,74 +105,6 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
               </table>
             </td>
           </tr>
-
-          ${isInvitation ? `
-          <!-- Premium Features for Invitation -->
-          <tr>
-            <td style="background-color: #F8FAFC; padding: 35px 40px; border-top: 1px solid #E2E8F0;" class="mobile-padding">
-              <h3 style="color: #131B32; font-size: 20px; margin: 0 0 20px 0; font-weight: 600; text-align: center;">
-                Vad ingår i din Premium-provperiod?
-              </h3>
-
-              <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                      <tr>
-                        <td style="width: 36px; vertical-align: top;">
-                          <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">✓</span>
-                          </div>
-                        </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Obegränsade AI-genererade personliga brev</strong> anpassade för varje jobb
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                      <tr>
-                        <td style="width: 36px; vertical-align: top;">
-                          <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">✓</span>
-                          </div>
-                        </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Professionella CV-mallar</strong> som får dig att sticka ut
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                      <tr>
-                        <td style="width: 36px; vertical-align: top;">
-                          <div style="width: 28px; height: 28px; background-color: #E9457A; border-radius: 8px; line-height: 28px; text-align: center;">
-                            <span style="color: white; font-size: 14px;">✓</span>
-                          </div>
-                        </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #475569; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Smart kompetensanalys</strong> som visar vad du behöver utveckla
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          ` : ''}
 
           <!-- Footer -->
           <tr>
@@ -224,38 +144,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
 
 // Generera en enklare textversion för e-postklienter som inte stödjer HTML
 export function generateConfirmationEmailText(data: ConfirmationEmailData): string {
-  const { userName, confirmationUrl, isInvitation, inviterName } = data;
-
-  if (isInvitation && inviterName) {
-    return `
-Välkommen till Jobbcoach.ai!
-
-Hej ${userName}!
-
-${inviterName} har bjudit in dig att prova Jobbcoach.ai Premium gratis i 7 dagar!
-
-För att aktivera ditt konto och din gratis Premium-period, bekräfta din e-postadress genom att klicka på länken nedan:
-
-${confirmationUrl}
-
-VAD INGÅR I DIN PREMIUM-PROVPERIOD?
-
-✓ Obegränsade AI-genererade personliga brev anpassade för varje jobb
-✓ Professionella CV-mallar som får dig att sticka ut
-✓ Smart kompetensanalys som visar vad du behöver utveckla
-✓ Personlig karriärvägledning med AI
-✓ Ingen bindningstid eller kreditkort krävs
-
-Länken är giltig i 24 timmar.
-
-Har du problem? Kontakta oss på support@jobbcoach.ai
-
----
-Jobbcoach.ai - Din partner för en framgångsrik karriär
-© 2024 Jobbcoach.ai
-jobbcoach.ai
-    `;
-  }
+  const { userName, confirmationUrl } = data;
 
   return `
 Välkommen till Jobbcoach.ai!

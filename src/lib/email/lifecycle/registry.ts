@@ -8,7 +8,7 @@
 
 import type { LifecycleEmail } from './types';
 import { winback14, winback30 } from './templates/winback';
-import { quotaWall, trialDay3, trialDay5, trialDay7, onetimeExpired } from './templates/conversion';
+import { quotaWall, onetimeExpired } from './templates/conversion';
 import { paymentFailed, cancelImmediate, cancelFollowup } from './templates/transactional';
 import { gratisnivaAndras, GRATISNIVA_EMAIL_TYPE } from './templates/campaign-gratisniva';
 import { weeklyDigest, WEEKLY_DIGEST_TYPE } from './templates/weekly-digest';
@@ -32,9 +32,6 @@ const ALL: LifecycleEmail[] = [
   // De kortkrävande trialmejlen står kvar: webhooken schemalägger dem
   // fortfarande för Stripes egna provperioder. Det är reverse trial som är
   // borta, inte varje form av provperiod.
-  trialDay3,
-  trialDay5,
-  trialDay7,
   onetimeExpired,
   paymentFailed,
   cancelImmediate,

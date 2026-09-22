@@ -50,7 +50,7 @@ function isRateLimited(userId: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, fullName, userId, isInvitation, inviterName, invitationCode } = body
+    const { email, fullName, userId } = body
 
     if (!email || !fullName || !userId) {
       return NextResponse.json({
@@ -80,8 +80,6 @@ export async function POST(request: NextRequest) {
         email: email,
         token: confirmationToken,
         expires_at: tokenExpiry.toISOString(),
-        is_invitation: isInvitation || false,
-        invitation_code: invitationCode || null,
         created_at: new Date().toISOString()
       }, {
         onConflict: 'user_id'
@@ -96,25 +94,19 @@ export async function POST(request: NextRequest) {
 
     // Generate confirmation URL
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://www.jobbcoach.ai'
-    const confirmationUrl = isInvitation && invitationCode
-      ? `${baseUrl}/api/auth/confirm-email?token=${confirmationToken}&invite=${invitationCode}`
-      : `${baseUrl}/api/auth/confirm-email?token=${confirmationToken}`
+    const confirmationUrl = `${baseUrl}/api/auth/confirm-email?token=${confirmationToken}`
 
     // Send email via Resend
     const emailData = {
       userEmail: email,
       userName: fullName,
-      confirmationUrl,
-      isInvitation,
-      inviterName
+      confirmationUrl
     }
 
     const { data, error: emailError } = await resend.emails.send({
       from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
       to: email,
-      subject: isInvitation
-        ? `${inviterName} har bjudit in dig till Jobbcoach.ai Premium!`
-        : 'Bekräfta din e-postadress - Jobbcoach.ai',
+      subject: 'Bekräfta din e-postadress - Jobbcoach.ai',
       html: generateConfirmationEmailHTML(emailData),
       text: generateConfirmationEmailText(emailData)
     })
