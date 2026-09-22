@@ -4,8 +4,11 @@
  * Raden "Kom igång" (docs/design/spec-onboarding-2026-09-22.html, sektion 2
  * och 5).
  *
- * En mörk rad i ink-1 som visar nästa föreslagna steg och hur många av
- * paketets delar som är provade. Trycket öppnar arket. Två placeringar:
+ * En rad på papper som visar nästa föreslagna steg och hur många av
+ * paketets delar som är provade. Den var i ink-1 tills den visuella linjen
+ * (regel 3: en bläckyta per vy): på hemskärmen bär Nästa handling bläcket,
+ * och sidomenyns paket-huvud är redan i ink, så raden står i panel med
+ * stark kant. Den flytande varianten svävar och får shadow-svav. Trycket öppnar arket. Två placeringar:
  *
  *   flytande   ovanför bottennavigeringen på mobil, 12 px från kanterna
  *   sidomeny   längst ned i sidomenyn på desktop
@@ -61,15 +64,17 @@ export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
       aria-label={`${rubrik}. ${rad}`}
       data-komigang-rad={variant}
       style={variant === 'flytande' ? { bottom: 'calc(var(--bottom-nav-h) + 8px)' } : undefined}
-      className={`flex items-center gap-3 rounded-xl bg-ink-1 px-4 py-3 text-left text-white shadow-svav transition-colors hover:bg-ink-hover ${placering} ${className ?? ''}`}
+      className={`flex items-center gap-3 rounded-xl border border-kant-stark bg-panel px-4 py-3 text-left text-ink-1 transition-colors hover:bg-insunken ${
+        variant === 'flytande' ? 'shadow-svav' : ''
+      } ${placering} ${className ?? ''}`}
     >
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-semibold leading-5">{rubrik}</span>
-        <span className="block truncate text-xs leading-4 text-ink-1-mjuk">{rad}</span>
+        <span className="block truncate text-xs leading-4 text-ink-3">{rad}</span>
       </span>
       <span
         aria-hidden="true"
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink-1-kant text-[13px] font-semibold tabular-nums"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink-1 text-[13px] font-semibold tabular-nums"
       >
         {lage.antalProvade}/{lage.antalTotalt}
       </span>

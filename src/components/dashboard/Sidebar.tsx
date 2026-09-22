@@ -5,12 +5,14 @@
  * docs/design/spec-onboarding-2026-09-22.html, sektion 3 och 5).
  *
  * 256 px panel på mark. Överst menyhuvudet i ink-1: vilket paket man har,
- * när det förnyas och vad det kostar, med "Vad ingår?". Tre grupper:
- * Översikt/Ansökningar/CV/Brev utan rubrik, Verktyg, Konto. Varje val bär
- * en underrad som säger vad som ingår ("3 mallar, en nedladdning") eller att
- * det inte ingår och i vilket paket det finns. Det som inte ingår är grått
- * med lås, och trycket öppnar betalväggen för rätt paket med
- * mellanskillnaden. Längst ned hjälpredan Kom igång, sedan Hjälp.
+ * när det förnyas och vad det kostar, med "Vad ingår?". Sedan fyra tunga
+ * val med antal (Mitt jobbsök, Sökta tjänster, Mina CV, Personliga brev),
+ * verktygen i tre namngivna grupper i lättare vikt (Skriv och förbättra,
+ * Hitta jobb, Träna) och Konto (regel 8 i
+ * docs/design/analys-visuell-linje-2026-09-22.html). Inga underrader: vad
+ * som ingår står i sidhuvudet på respektive sida och i "Vad ingår?". Det
+ * som inte ingår är grått med lås, och trycket öppnar betalväggen för rätt
+ * paket med mellanskillnaden. Längst ned hjälpredan Kom igång, sedan Hjälp.
  *
  * Talen kommer ur summeringen (scope och kvoter), aldrig hårdkodade.
  */
@@ -45,7 +47,6 @@ import {
   IkonLank,
   IkonEntusiastisk,
   IkonKrona,
-  IkonProfil,
   IkonSynlig,
 } from '@/components/illustrations/Ikoner';
 
@@ -208,13 +209,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     };
   }, [supabase, userId]);
 
-  const hasNoCv = cvCount !== null && cvCount === 0;
 
-  /** Underraden för ett val, och det gråa läget om valet inte ingår. */
+  /**
+   * Det gråa läget om valet inte ingår. menyRad levererar fortfarande
+   * texten ("Ingår i CV-veckan"), men den läses bara upp för skärmläsare
+   * på den låsta raden; menyn visar inga underrader.
+   */
   const rad = (val: MenyVal) => menyRad(val, paket);
   const graProps = (val: MenyVal) => {
     const r = rad(val);
-    if (r.ingar || !r.feature || !r.variant) return { sublabel: r.text };
+    if (r.ingar || !r.feature || !r.variant) return {};
     const feature = r.feature;
     const variant = r.variant;
     return {
@@ -258,6 +262,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard"
             label="Mitt jobbsök"
             icon={IkonHem}
+            tung
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -266,7 +271,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Sökta tjänster"
             icon={IkonAnsokningar}
             count={applicationCount}
-            sublabel={rad('sokta').text}
+            tung
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -275,7 +280,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Mina CV"
             icon={IkonCv}
             count={cvCount}
-            sublabel={hasNoCv ? 'Ladda upp ditt första CV' : rad('cv').text}
+            tung
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -284,18 +289,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Personliga brev"
             icon={IkonBrev}
             count={letterCount}
-            sublabel={rad('brev').text}
+            tung
             isMobile={isMobile}
             onClick={onClose}
           />
         </SidebarSection>
 
-        <SidebarSection eyebrow="Verktyg">
+        <SidebarSection eyebrow="Skriv och förbättra">
           <SidebarLink
             href="/dashboard/skapa-brev"
             label="Skriv nytt brev"
             icon={IkonSkapa}
-            sublabel="Klistra in annonsen, vi skriver"
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -303,15 +307,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-analys"
             label="Analysera CV"
             icon={IkonAnalys}
-            sublabel={rad('analys').text}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
-          <SidebarLink
-            href="/dashboard/jobbmatchning"
-            label="Matchade jobb"
-            icon={IkonMatchning}
-            sublabel={rad('matchning').text}
+            {...graProps('analys')}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -319,15 +315,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/cv-mallar"
             label="CV-mallar"
             icon={IkonMallar}
-            sublabel={rad('mallar').text}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
-          <SidebarLink
-            href="/dashboard/tester"
-            label="Rekryteringstester"
-            icon={IkonBalanserad}
-            sublabel={rad('tester').text}
+            {...graProps('mallar')}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -339,11 +327,14 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             isMobile={isMobile}
             onClick={onClose}
           />
+        </SidebarSection>
+
+        <SidebarSection eyebrow="Hitta jobb">
           <SidebarLink
-            href="/dashboard/jobbcoachen"
-            label="Jobbcoachen"
-            icon={IkonEntusiastisk}
-            sublabel={rad('coach').text}
+            href="/dashboard/jobbmatchning"
+            label="Matchade jobb"
+            icon={IkonMatchning}
+            {...graProps('matchning')}
             isMobile={isMobile}
             onClick={onClose}
           />
@@ -361,21 +352,34 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           )}
         </SidebarSection>
 
+        <SidebarSection eyebrow="Träna">
+          <SidebarLink
+            href="/dashboard/tester"
+            label="Rekryteringstester"
+            icon={IkonBalanserad}
+            {...graProps('tester')}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
+            href="/dashboard/jobbcoachen"
+            label="Jobbcoachen"
+            icon={IkonEntusiastisk}
+            {...graProps('coach')}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+        </SidebarSection>
+
         <SidebarSection eyebrow="Konto">
           <SidebarLink
             href="/dashboard/profil/prenumeration"
             label="Profil och prenumeration"
             icon={IkonKrona}
-            sublabel={premiumLabel ?? undefined}
+            badge={
+              premiumLabel ? <span className="text-meta text-ink-3">{premiumLabel}</span> : undefined
+            }
             highlight={premiumNeedsAttention}
-            isMobile={isMobile}
-            onClick={onClose}
-          />
-          <SidebarLink
-            href="/dashboard/profil"
-            label="Profil"
-            icon={IkonProfil}
-            exact
             isMobile={isMobile}
             onClick={onClose}
           />
