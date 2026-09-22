@@ -51,6 +51,15 @@ export interface DagligaMetrik {
   tests_completed: number | null;
   /** Rader i formatted_cv_downloads inom dygnet. */
   templates_downloaded: number | null;
+  /* Aktiva per paket (docs/plan-paket-och-onboarding.md avsnitt 5). Fem av
+     sex raknas pa Stripe-prenumerationernas price-id; Allt-dagen ar ett
+     engangskop och raknas pa giltiga premium_grants i stallet. */
+  active_cv_week: number | null;
+  active_test_week: number | null;
+  active_all_day: number | null;
+  active_all_week: number | null;
+  active_all_month: number | null;
+  active_all_quarter: number | null;
 }
 
 export interface CollectResultat {
@@ -148,6 +157,167 @@ export function mrrOreFranSubscriptions(
 }
 
 // ---------------------------------------------------------------------------
+// Aktiva och MRR per paket
+// ---------------------------------------------------------------------------
+
+/**
+ * De sex paketen (docs/plan-paket-och-onboarding.md, agarens beslut 1 och 4).
+ * Namnen star i bestamd form, enligt beslut 6.
+ */
+export type PaketNyckel =
+  | 'cv_week'
+  | 'test_week'
+  | 'all_day'
+  | 'all_week'
+  | 'all_month'
+  | 'all_quarter';
+
+/** Paketen i den ordning de ska staa i adminen, med lasbart namn. */
+export const PAKET_ORDNING: ReadonlyArray<{ nyckel: PaketNyckel; namn: string }> = [
+  { nyckel: 'cv_week', namn: 'CV-veckan' },
+  { nyckel: 'test_week', namn: 'Testveckan' },
+  { nyckel: 'all_day', namn: 'Allt-dagen' },
+  { nyckel: 'all_week', namn: 'Allt-veckan' },
+  { nyckel: 'all_month', namn: 'Allt-manaden' },
+  { nyckel: 'all_quarter', namn: 'Allt-kvartalet' },
+];
+
+/** Kolumnen i admin_daily_metrics som bar antalet aktiva per paket. */
+export const PAKET_KOLUMN: Record<PaketNyckel, keyof DagligaMetrik> = {
+  cv_week: 'active_cv_week',
+  test_week: 'active_test_week',
+  all_day: 'active_all_day',
+  all_week: 'active_all_week',
+  all_month: 'active_all_month',
+  all_quarter: 'active_all_quarter',
+};
+
+/**
+ * Paketnyckel till env-namnet dar dess Stripe-price-id bor.
+ *
+ * Allt-dagen star med, men den ar ett engangskop och dyker aldrig upp bland
+ * prenumerationerna. Den raknas pa premium_grants i stallet, se
+ * raknaAllaDagen. Manaden ligger kvar pa NEXT_PUBLIC_STRIPE_PRICE_ID, som ar
+ * det pris checkouten redan anvander.
+ */
+const PAKET_ENV: Record<PaketNyckel, string> = {
+  cv_week: 'STRIPE_PRICE_CV_WEEK',
+  test_week: 'STRIPE_PRICE_TEST_WEEK',
+  all_week: 'STRIPE_PRICE_ALL_WEEK',
+  all_day: 'STRIPE_PRICE_DAYPASS',
+  all_month: 'NEXT_PUBLIC_STRIPE_PRICE_ID',
+  all_quarter: 'STRIPE_PRICE_QUARTER',
+};
+
+/**
+ * Price-id till paket, last ur env vid anropet.
+ *
+ * Vi laser env varje gang i stallet for att bygga kartan en gang vid import:
+ * modulen laddas i en cron-runtime dar env satts fore anropet men inte
+ * nodvandigtvis fore importen, och en tom karta hade gett sex nollor utan att
+ * nagot sag fel ut.
+ */
+export function paketFranPrisId(prisId: string | null | undefined): PaketNyckel | null {
+  if (!prisId) return null;
+  for (const { nyckel } of PAKET_ORDNING) {
+    const varde = process.env[PAKET_ENV[nyckel]];
+    if (varde && varde === prisId) return nyckel;
+  }
+  return null;
+}
+
+export interface PaketSiffror {
+  aktiva: number;
+  /** MRR i ore, veckopriser normaliserade till manad med faktorn 52/12. */
+  mrrOre: number;
+}
+
+/** Ett tomt resultat per paket, sa att alla sex alltid har en rad. */
+export function tomPaketkarta(): Record<PaketNyckel, PaketSiffror> {
+  return {
+    cv_week: { aktiva: 0, mrrOre: 0 },
+    test_week: { aktiva: 0, mrrOre: 0 },
+    all_day: { aktiva: 0, mrrOre: 0 },
+    all_week: { aktiva: 0, mrrOre: 0 },
+    all_month: { aktiva: 0, mrrOre: 0 },
+    all_quarter: { aktiva: 0, mrrOre: 0 },
+  };
+}
+
+/**
+ * Aktiva och normaliserad MRR per paket ur prenumerationslistan.
+ *
+ * Bara active och trialing raknas, precis som i mrrOreFranSubscriptions: en
+ * uppsagd prenumeration som fortfarande loper ut ar inte aterkommande intakt.
+ * Normaliseringen gar via manadsbeloppOre, sa ett veckopris pa 99 kr blir
+ * 99 * 52/12 i manaden, inte 99. Utan den raknar sidan tre veckopaket som
+ * mindre an ett manadspaket fast de ar mer.
+ *
+ * En prenumeration vars price-id inte matchar nagot av env-namnen hoppas
+ * over: den hor till ett gammalt pris och far inte hamna pa fel paketrad.
+ */
+export function paketFranSubscriptions(
+  subs: Array<{
+    status: string;
+    items?: { data?: Array<{ quantity?: number | null; price?: Stripe.Price | null }> };
+  }>
+): Record<PaketNyckel, PaketSiffror> {
+  const karta = tomPaketkarta();
+
+  for (const sub of subs) {
+    if (sub.status !== 'active' && sub.status !== 'trialing') continue;
+
+    // En prenumeration raknas som en aktiv pa det paket dess forsta
+    // matchande rad pekar pa, aven om den skulle ha flera rader.
+    let raknad: PaketNyckel | null = null;
+
+    for (const item of sub.items?.data ?? []) {
+      const pris = item.price;
+      if (!pris) continue;
+      const paket = paketFranPrisId(pris.id);
+      if (!paket) continue;
+
+      karta[paket].mrrOre += manadsbeloppOre(
+        pris.unit_amount,
+        pris.recurring?.interval ?? null,
+        pris.recurring?.interval_count ?? null,
+        item.quantity ?? 1
+      );
+      if (!raknad) raknad = paket;
+    }
+
+    if (raknad) karta[raknad].aktiva += 1;
+  }
+
+  return karta;
+}
+
+/**
+ * Allt-dagen: giltiga engangsgrants med scope allt.
+ *
+ * Kallan ar premium_grants och inte Stripe, eftersom ett engangskop inte ar
+ * en prenumeration och darfor inte finns bland subscriptions. source som
+ * borjar pa onetime skiljer kopen fran admins "ge premium", som gar pa samma
+ * tabell men inte ar en intakt.
+ */
+export async function raknaAllaDagen(admin: Admin): Promise<number> {
+  const { data } = await admin
+    .from('premium_grants')
+    .select('user_id, source, scope, premium_until_after')
+    .eq('scope', 'allt')
+    .gt('premium_until_after', new Date().toISOString())
+    .limit(5000);
+
+  const koparen = new Set<string>();
+  for (const rad of (data ?? []) as Array<{ user_id?: string | null; source?: string | null }>) {
+    if (!rad?.user_id) continue;
+    if (!(rad.source ?? '').startsWith('onetime')) continue;
+    koparen.add(rad.user_id);
+  }
+  return koparen.size;
+}
+
+// ---------------------------------------------------------------------------
 // Sma hjalpare
 // ---------------------------------------------------------------------------
 
@@ -239,6 +409,8 @@ export interface StripeDelresultat {
   active_subs: number;
   trialing_subs: number;
   failed_payments: number;
+  /** Aktiva och normaliserad MRR per paket. Allt-dagen fylls av collect. */
+  paket: Record<PaketNyckel, PaketSiffror>;
 }
 
 /**
@@ -267,6 +439,13 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
   }
 
   const mrr_ore = mrrOreFranSubscriptions(
+    subs as unknown as Array<{
+      status: string;
+      items?: { data?: Array<{ quantity?: number | null; price?: Stripe.Price | null }> };
+    }>
+  );
+
+  const paket = paketFranSubscriptions(
     subs as unknown as Array<{
       status: string;
       items?: { data?: Array<{ quantity?: number | null; price?: Stripe.Price | null }> };
@@ -306,6 +485,7 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
     active_subs,
     trialing_subs,
     failed_payments,
+    paket,
   };
 }
 
@@ -937,13 +1117,27 @@ export async function collectAdminMetrics(
     letters_created: null,
     tests_completed: null,
     templates_downloaded: null,
+    active_cv_week: null,
+    active_test_week: null,
+    active_all_day: null,
+    active_all_week: null,
+    active_all_month: null,
+    active_all_quarter: null,
   };
 
   // Stripe
   try {
     const s = await ta('stripe', medTimeout('Stripe', samlaStripe(dag)));
     if (s) {
-      Object.assign(rad, s);
+      // paket ar ingen kolumn utan en karta, sa den plockas ut separat och
+      // skrivs till sina sex kolumner. Object.assign hade annars lagt ett
+      // objekt pa raden och upserten hade fallit pa en okand kolumn.
+      const { paket, ...kolumner } = s;
+      Object.assign(rad, kolumner);
+      for (const { nyckel } of PAKET_ORDNING) {
+        if (nyckel === 'all_day') continue;
+        (rad[PAKET_KOLUMN[nyckel]] as number | null) = paket[nyckel].aktiva;
+      }
       delsteg.stripe = 'ok';
     } else {
       delsteg.stripe = 'hoppat';
@@ -1018,6 +1212,9 @@ export async function collectAdminMetrics(
     rad.letters_created = s.letters_created;
     rad.tests_completed = s.tests_completed;
     rad.templates_downloaded = s.templates_downloaded;
+    // Allt-dagen ar ett engangskop och finns inte bland Stripes
+    // prenumerationer. Den raknas pa giltiga premium_grants i stallet.
+    rad.active_all_day = await raknaAllaDagen(admin);
     delsteg.supabase = 'ok';
   } catch (err) {
     delsteg.supabase = 'fel';

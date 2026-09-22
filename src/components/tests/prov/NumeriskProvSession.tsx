@@ -10,7 +10,8 @@ import type { Passage } from '@/lib/numericalTest/types';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import { formatClock } from '@/hooks/use-elapsed-clock';
+import { useExamDeadline } from '@/hooks/use-exam-deadline';
+import { examLimitMs } from '@/app/dashboard/tester/testConfig';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
@@ -34,8 +35,9 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
   const [isHydrating, setIsHydrating] = useState(true);
   const [finishError, setFinishError] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [testStartTime] = useState(Date.now());
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  // Nedräkningen ankras i sessionens started_at, alltså servertid, så en
+  // omladdning aldrig ger mer provtid. Null tills rehydreringen svarat.
+  const [startedAt, setStartedAt] = useState<string | null>(null);
 
   useEffect(() => {
     setPassages(selectProvPassagesForSession(sessionIdProp));
@@ -46,9 +48,8 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
   // Vid mount hämtas sessionen så att en omladdning återupptar provet där det
   // var: avslutade prov skickas till resultatsidan, annars hoppar vi till
   // första obesvarade frågan (flödet är enkelriktat, tidigare svar behöver
-  // inte fyllas i lokalt). Obs: numeriska provet har ingen hård tidsgräns -
-  // klockan är bara en uppåträknare och rättningstiden räknas server-side per
-  // svar, så den ankras inte i started_at.
+  // inte fyllas i lokalt). started_at plockas upp här, eftersom provet har en
+  // hård tidsgräns och klockan måste räknas från serverns tid.
   useEffect(() => {
     if (!sessionId || passages.length === 0) return;
     let cancelled = false;
@@ -93,6 +94,7 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
         setCurrentPassageIndex(passageIdx);
         setCurrentQuestionIndex(questionIdx);
       }
+      if (session?.started_at) setStartedAt(session.started_at);
       // Nätverksfel/404: fortsätt från början som tidigare, blockera aldrig provet.
       setIsHydrating(false);
       setQuestionStartTime(Date.now());
@@ -104,13 +106,6 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, passages]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - testStartTime) / 1000));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [testStartTime]);
 
   const currentPassage = passages[currentPassageIndex];
   const currentQuestion = currentPassage?.questions[currentQuestionIndex];
@@ -151,9 +146,11 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
     failedCount,
   } = useRobustAnswerSaving(postAnswer);
 
-  const handleCompleteTest = async () => {
+  const handleCompleteTest = useCallback(async () => {
     if (!sessionId) return;
     try {
+      // Vid automatisk inlämning kan svar ligga osparade. De ska med.
+      if (hasPending()) await flushPending(false);
       const response = await fetch('/api/numericalTestProv/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -167,7 +164,18 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
     } catch {
       setFinishError('Provet kunde inte avslutas. Kontrollera din uppkoppling och försök igen.');
     }
-  };
+  }, [sessionId, router, hasPending, flushPending]);
+
+  // Hård tidsgräns: när klockan når noll lämnas provet in automatiskt
+  // (docs/plan-paket-och-onboarding.md, ägarens beslut 12). Gränsen står i
+  // testConfig, så copyn och koden aldrig glider isär.
+  const deadline = useExamDeadline(
+    isHydrating ? null : startedAt,
+    examLimitMs('numeriskt-test-prov'),
+    () => {
+      void handleCompleteTest();
+    }
+  );
 
   const handleNextQuestion = async () => {
     if (!selectedAnswer || !sessionId || !currentPassage || !currentQuestion || isSubmitting) {
@@ -235,7 +243,9 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
       progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
       meter={
         <TestMeterRow
-          time={formatClock(elapsedSeconds)}
+          time={deadline.label ?? '--:--'}
+          low={deadline.secondsLeft !== null && deadline.secondsLeft < 5 * 60}
+          critical={deadline.sista}
           current={currentQuestionNumber}
           total={totalQuestions}
         />

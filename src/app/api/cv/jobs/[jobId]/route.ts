@@ -4,7 +4,8 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getJobStatus } from '@/lib/cv/background-jobs';
 import { markFirstMilestone, logActivityServer } from '@/lib/activation-tracking';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { suggestPlan, type Scope } from '@/lib/access/features';
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
@@ -167,15 +168,30 @@ export async function GET(
       }
     }
 
-    // A9: gratisnivån ser poäng, sammanfattning och de tre viktigaste fynden.
-    // Resten filtreras bort här, aldrig på klienten. Premium, admin och
-    // reverse trial passerar userHasPremiumAccess och får allt.
-    const hasPremium = await userHasPremiumAccess(supabase, user.id);
-    const gatedResult = gateAnalysisResult(job.result, hasPremium);
+    // Gratisnivån ser läsbarhetspoängen, antalet fynd och det tyngsta fyndet
+    // i klartext med åtgärd. Övriga fynd går ut som rubriker utan
+    // åtgärdstext, och filtreringen sker här, aldrig på klienten.
+    // CV-spåret, Allt och admin passerar och får allt.
+    const hasFullAnalysis = await userHasAccess(supabase, user.id, 'cv_analysis_full');
+    const gatedResult = gateAnalysisResult(job.result, hasFullAnalysis);
 
-    // Punkt 12: att faktiskt se hela analysen är premiumanvändning.
-    if (hasPremium && job.status === 'completed') {
+    // Full analys är betald användning och loggas som sådan.
+    if (hasFullAnalysis && job.status === 'completed') {
       logPremiumUsage(user.id, 'cv_analysis_full', { jobId });
+    }
+
+    // Paketet betalväggen ska föreslå, så klienten slipper en andra rundtur.
+    let suggestedPlan: string | null = null;
+    if (!hasFullAnalysis) {
+      const { data: trackProfil } = await supabase
+        .from('profiles')
+        .select('onboarding_track')
+        .eq('id', user.id)
+        .maybeSingle();
+      const varde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track;
+      const track: Scope | null =
+        varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
+      suggestedPlan = suggestPlan('cv_analysis_full', track);
     }
 
     // Returnera status
@@ -183,6 +199,8 @@ export async function GET(
       id: job.id,
       status: job.status,
       result: gatedResult,
+      hasFullAnalysis,
+      suggestedPlan,
       error: job.error,
       created_at: job.created_at,
       completed_at: job.completed_at

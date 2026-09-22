@@ -1,40 +1,78 @@
 // src/lib/quota/quotaService.ts
 // =============================================================================
-// Gemensam kvottjänst för gratisnivåns dagsrytm (se docs/plan-kvotmodell.md).
+// Gemensam kvottjänst för gratisnivån
+// (docs/plan-paket-och-onboarding.md, avsnitt 4, ägarens beslut 2026-09-22).
 //
 // Designprincip: räkna befintliga tabeller i stället för att hålla separata
-// räknare. Fönstren är självrensande (rullande eller "sedan midnatt svensk
+// räknare. Fönstren är självrensande (rullande, eller "sedan midnatt svensk
 // tid"), så inga reset-jobb behövs och ingen räknare kan hamna i osynk.
 //
 // Räknarkällor per funktion:
 // - Tester/prov:  logic_test_v4_sessions (slutförda sessioner per test_type)
 // - Chatt:        ai_messages (användarens egna meddelanden, role='user')
-// - CV-analys:    cv_analysis_jobs (usage_counted=true inom 72h-fönstret)
-// - Brev:         profiles-kolumnerna weekly_letter_* med dagsfönster
-//                 (generering skapar inte alltid en letters-rad, därför räknare)
+// - CV-analys:    cv_analysis_jobs (usage_counted=true, hela kontots historik)
+// - Brev:         profiles-kolumnerna weekly_letter_* plus letters-historiken
 //
-// Premium (inkl. manuell premium_until och admin) passerar alltid.
+// Gränserna efter paketomgången:
+//   Brev      1 per konto, därefter 1 per rullande sju dygn
+//   Chatt     10 per konto (inte per dygn)
+//   Analys    1 per konto (inte per 72 h)
+//   Tester    1 per test_type och dygn på grundnivån, oförändrat
+//
+// Behörigheten frågas per feature via userHasAccess. isPremium-parametrarna
+// är borta: en Testveckan-kund har inte obegränsade brev, och en CV-veckan-
+// kund har inte obegränsad chatt.
 // =============================================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import type { Feature } from '@/lib/access/features';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
 
+/* -------------------------------- Gränserna ------------------------------- */
+
+/** Brev: det första är fritt, sedan ett per rullande sju dygn. */
+export const FREE_LETTERS_PER_ACCOUNT = 1;
+export const LETTER_WINDOW_DAYS = 7;
+/**
+ * Behålls som namn för de rutter som räknar "kvar i fönstret". Gränsen är
+ * en per fönster, oavsett om fönstret är kontots första eller en vecka.
+ */
 export const DAILY_LIMIT_LETTERS = 1;
-export const DAILY_LIMIT_CHAT_MESSAGES = 10;
-export const DAILY_LIMIT_TEST_SESSIONS = 1; // per test_type (nivå räknas som egen typ)
-export const CV_ANALYSIS_WINDOW_HOURS = 72;
+
+/** Chatt: tio meddelanden per konto, inte per dygn. */
+export const FREE_CHAT_MESSAGES_PER_ACCOUNT = 10;
+/** Gammalt namn, samma tal. Behålls tills alla vyer läser det nya. */
+export const DAILY_LIMIT_CHAT_MESSAGES = FREE_CHAT_MESSAGES_PER_ACCOUNT;
+
+/** Tester: en slutförd session per test_type och dygn på grundnivån. */
+export const DAILY_LIMIT_TEST_SESSIONS = 1;
+
+/** CV-analys: en per konto. Omkörningen är uttaget (avsnitt 4). */
 export const CV_ANALYSIS_LIMIT = 1;
+/**
+ * Fönstret är borta: kvoten räknas över kontots hela historik. Konstanten
+ * står kvar därför att svaren i cv/analyze anger en återkomsttid, och den
+ * tiden är nu "aldrig utan paket".
+ */
+export const CV_ANALYSIS_WINDOW_HOURS = 0;
 
 export interface QuotaResult {
   allowed: boolean;
+  /** Sann när en betald behörighet gav funktionen. Namnet är historiskt. */
   isPremium: boolean;
   used: number;
   limit: number;
-  /** När kvoten öppnar igen (ISO). För premium: nu. */
+  /**
+   * När kvoten öppnar igen (ISO). För kontokvoter, alltså analys och chatt,
+   * öppnar den aldrig av sig själv, och då står nuvarande tid här: vyn ska
+   * visa en betalvägg, inte en klocka.
+   */
   nextResetAt: string;
+  /** Sätts när kvoten inte återkommer av sig själv. */
+  perAccount?: boolean;
 }
 
 /* ------------------------- Tidsfönster (svensk tid) ------------------------ */
@@ -65,7 +103,7 @@ export function nextMidnightStockholm(now: Date = new Date()): Date {
 
 /* ------------------------------- Kontroller ------------------------------- */
 
-function premiumResult(limit: number): QuotaResult {
+function accessResult(limit: number): QuotaResult {
   return {
     allowed: true,
     isPremium: true,
@@ -77,17 +115,18 @@ function premiumResult(limit: number): QuotaResult {
 
 /**
  * Dagskvot för test-/provsessioner: max 1 SLUTFÖRD session per test_type och
- * dag. Påbörjade men oavslutade sessioner bränner ingen kvot (samma semantik
- * som gamla prov-spärren). Alla kognitiva tester och prov lagras i
- * logic_test_v4_sessions med distinkta test_type-värden.
+ * dygn på grundnivån. Påbörjade men oavslutade sessioner bränner ingen kvot.
+ *
+ * Nivåspärren ligger inte här utan i testConfig och sessionsrutterna: allt
+ * över grundnivån kräver featuren tests_above_base och når aldrig kvoten.
  */
 export async function checkDailyTestQuota(
   supabase: AnySupabase,
   userId: string,
   testType: string
 ): Promise<QuotaResult> {
-  if (await userHasPremiumAccess(supabase, userId)) {
-    return premiumResult(DAILY_LIMIT_TEST_SESSIONS);
+  if (await userHasAccess(supabase, userId, 'tests_above_base')) {
+    return accessResult(DAILY_LIMIT_TEST_SESSIONS);
   }
 
   const since = startOfTodayStockholm().toISOString();
@@ -109,89 +148,148 @@ export async function checkDailyTestQuota(
   };
 }
 
-/** Dagskvot för jobbcoach-chatten: max N användarmeddelanden per dag. */
+/**
+ * Jobbcoachens chatt: tio meddelanden per konto, inte per dygn (avsnitt 4).
+ * Chatten är dyr per svar och konsumeras av få, och en dagskvot ger bort
+ * obegränsat värde över tid.
+ */
 export async function checkChatQuota(
   supabase: AnySupabase,
   userId: string
 ): Promise<QuotaResult> {
-  if (await userHasPremiumAccess(supabase, userId)) {
-    return premiumResult(DAILY_LIMIT_CHAT_MESSAGES);
+  if (await userHasAccess(supabase, userId, 'chat_unlimited')) {
+    return accessResult(FREE_CHAT_MESSAGES_PER_ACCOUNT);
   }
 
-  const since = startOfTodayStockholm().toISOString();
   const { count } = await supabase
     .from('ai_messages')
     .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
-    .eq('role', 'user')
-    .gte('created_at', since);
+    .eq('role', 'user');
 
   const used = count ?? 0;
   return {
-    allowed: used < DAILY_LIMIT_CHAT_MESSAGES,
+    allowed: used < FREE_CHAT_MESSAGES_PER_ACCOUNT,
     isPremium: false,
     used,
-    limit: DAILY_LIMIT_CHAT_MESSAGES,
-    nextResetAt: nextMidnightStockholm().toISOString(),
+    limit: FREE_CHAT_MESSAGES_PER_ACCOUNT,
+    // Kontokvot: den öppnar inte igen imorgon.
+    nextResetAt: new Date().toISOString(),
+    perAccount: true,
   };
 }
 
 /**
- * CV-analys: 1 per rullande 72 timmar. Räknar jobb som faktiskt räknats som
- * förbrukning (usage_counted=true, sätts vid completion och rullas tillbaka
- * vid failure av jobs-routen — den logiken bevaras orörd).
+ * CV-analys: en per konto (ägarens beslut 2). Räknar jobb som faktiskt
+ * räknats som förbrukning (usage_counted=true, sätts vid completion och
+ * rullas tillbaka vid failure av jobs-routen, den logiken är orörd).
+ *
+ * Omkörningen är uttaget: den som vill se poängen röra sig efter en rättning
+ * betalar för det, och det är precis vad CV-veckans dag 2 handlar om.
  */
 export async function checkCvAnalysisQuota(
   supabase: AnySupabase,
   userId: string
 ): Promise<QuotaResult> {
-  if (await userHasPremiumAccess(supabase, userId)) {
-    return premiumResult(CV_ANALYSIS_LIMIT);
+  if (await userHasAccess(supabase, userId, 'cv_analysis_full')) {
+    return accessResult(CV_ANALYSIS_LIMIT);
   }
 
-  const windowMs = CV_ANALYSIS_WINDOW_HOURS * 60 * 60 * 1000;
-  const since = new Date(Date.now() - windowMs).toISOString();
-  const { data } = await supabase
+  const { count } = await supabase
     .from('cv_analysis_jobs')
-    .select('created_at')
+    .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
-    .eq('usage_counted', true)
-    .gte('created_at', since)
-    .order('created_at', { ascending: true });
+    .eq('usage_counted', true);
 
-  const jobs = Array.isArray(data) ? data : [];
-  const used = jobs.length;
-  const nextResetAt =
-    used > 0 && jobs[0]?.created_at
-      ? new Date(new Date(jobs[0].created_at).getTime() + windowMs)
-      : new Date();
-
+  const used = count ?? 0;
   return {
     allowed: used < CV_ANALYSIS_LIMIT,
     isPremium: false,
     used,
     limit: CV_ANALYSIS_LIMIT,
-    nextResetAt: nextResetAt.toISOString(),
+    nextResetAt: new Date().toISOString(),
+    perAccount: true,
   };
 }
 
 /**
- * Brev-räknaren: dagsfönster ovanpå befintliga profiles-kolumner
- * (weekly_letter_count + weekly_letter_first_used_at). Om senaste
- * fönsterstarten ligger före dagens midnatt är räknaren logiskt 0 och
- * anroparen ska nollställa kolumnerna vid nästa förbrukning.
+ * Brevräknaren: ett brev per konto, därefter ett per rullande sju dygn
+ * (avsnitt 4). Brev konsumeras aldrig mer än ett per konto ens under trial,
+ * så dagskvoten skyddade ingenting och gjorde löftet dyrare än det behövde.
+ *
+ * Fönstret räknas ur de befintliga profiles-kolumnerna: räknaren är logiskt
+ * noll så snart fönsterstarten ligger mer än sju dygn bakåt, och anroparen
+ * nollställer kolumnerna vid nästa förbrukning.
  */
-export function resolveDailyLetterCounter(
+export function resolveWeeklyLetterCounter(
   count: number | null,
   firstUsedAt: string | Date | null,
   now: Date = new Date()
-): { effectiveCount: number; windowIsStale: boolean } {
-  const todayStart = startOfTodayStockholm(now);
+): { effectiveCount: number; windowIsStale: boolean; windowEndsAt: Date | null } {
   const first = firstUsedAt ? new Date(firstUsedAt) : null;
-  if (!first || first.getTime() < todayStart.getTime()) {
-    return { effectiveCount: 0, windowIsStale: true };
+  if (!first || Number.isNaN(first.getTime())) {
+    return { effectiveCount: 0, windowIsStale: true, windowEndsAt: null };
   }
-  return { effectiveCount: count ?? 0, windowIsStale: false };
+
+  const windowEndsAt = new Date(first.getTime() + LETTER_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+  if (windowEndsAt.getTime() <= now.getTime()) {
+    return { effectiveCount: 0, windowIsStale: true, windowEndsAt: null };
+  }
+  return { effectiveCount: count ?? 0, windowIsStale: false, windowEndsAt };
+}
+
+/**
+ * Gammalt namn, ny gräns. Rutterna anropar fortfarande det här, och de får
+ * numera veckofönstret i stället för dygnsfönstret.
+ */
+export const resolveDailyLetterCounter = resolveWeeklyLetterCounter;
+
+/**
+ * När brevkvoten öppnar igen. Ligger sju dygn efter fönstrets start, eller
+ * nu om det inte finns något levande fönster.
+ */
+export function nextLetterResetAt(
+  firstUsedAt: string | Date | null,
+  now: Date = new Date()
+): string {
+  const { windowEndsAt } = resolveWeeklyLetterCounter(0, firstUsedAt, now);
+  return (windowEndsAt ?? now).toISOString();
+}
+
+/**
+ * Brevkvoten i samma form som de andra. Används av kvotvyerna; rutterna
+ * räknar själva eftersom de ändå läser profilraden.
+ */
+export async function checkLetterQuota(
+  supabase: AnySupabase,
+  userId: string
+): Promise<QuotaResult> {
+  if (await userHasAccess(supabase, userId, 'letter_download')) {
+    return accessResult(DAILY_LIMIT_LETTERS);
+  }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('weekly_letter_count, weekly_letter_first_used_at')
+    .eq('id', userId)
+    .maybeSingle();
+
+  const rad = profile as
+    | { weekly_letter_count?: number | null; weekly_letter_first_used_at?: string | null }
+    | null;
+
+  const { effectiveCount } = resolveWeeklyLetterCounter(
+    rad?.weekly_letter_count ?? 0,
+    rad?.weekly_letter_first_used_at ?? null
+  );
+
+  return {
+    allowed: effectiveCount < DAILY_LIMIT_LETTERS,
+    isPremium: false,
+    used: effectiveCount,
+    limit: DAILY_LIMIT_LETTERS,
+    nextResetAt: nextLetterResetAt(rad?.weekly_letter_first_used_at ?? null),
+  };
 }
 
 /* ------------------------- Standardiserat 429-svar ------------------------- */
@@ -199,6 +297,9 @@ export function resolveDailyLetterCounter(
 /**
  * Enhetlig payload när en kvot är slut, så alla spärrvyer kan visa exakt
  * återkomsttid och "påminn mig"-knapp (POST /api/quota/remind).
+ *
+ * perAccount säger åt vyn att inte erbjuda en påminnelse: kvoten kommer inte
+ * tillbaka imorgon, och att lova det vore osant.
  */
 export function quotaExceededBody(
   feature: string,
@@ -215,6 +316,27 @@ export function quotaExceededBody(
     // Bakåtkompatibelt fältnamn som befintliga klienter redan läser:
     nextResetDate: result.nextResetAt,
     limitReached: true,
+    perAccount: result.perAccount === true,
     message,
+  };
+}
+
+/* ----------------------- 402 när en feature saknas ------------------------ */
+
+/**
+ * Enhetlig payload när spärren är en feature och inte en kvot. Klienten
+ * ritar betalväggen ur feature och suggestedPlan, så samma fyra fält räcker
+ * överallt: mallvalet, testnivån, analysen, brevnedladdningen.
+ */
+export function featureRequiredBody(
+  feature: Feature,
+  suggestedPlan: string,
+  extra?: Record<string, unknown>
+) {
+  return {
+    error: 'premium_required' as const,
+    feature,
+    suggestedPlan,
+    ...extra,
   };
 }

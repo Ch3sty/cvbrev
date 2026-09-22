@@ -9,7 +9,15 @@
  *
  * Slugarna är oförändrade, så alla befintliga URL:er fortsätter fungera.
  * Ändras en slug här måste en redirect läggas i next.config.ts.
+ *
+ * Efter paketomgången (docs/plan-paket-och-onboarding.md, avsnitt 4) bär
+ * varje rad sin feature i stället för en premiumflagga. Grundnivån per
+ * testtyp är fri, allt över den kräver tests_above_base, och provläget
+ * kräver test_exam_mode. Provläget har dessutom en hård tidsgräns i
+ * examMinutes, och när den går ut lämnas provet in automatiskt.
  */
+
+import type { Feature } from '@/lib/access/features'
 
 export type TestKind = 'matris' | 'verbal' | 'numerisk' | 'personlighet'
 export type TestLevel = 'grund' | 'avancerad' | 'expert' | 'prov'
@@ -63,8 +71,26 @@ export interface TestConfig {
    * bara på den som fallback, den skarpa spärren räknas i quotaService.
    */
   quotaFeature: string
-  /** Kräver premium för att ens starta. Gaten sitter serverside. */
-  requiresPremium: boolean
+  /**
+   * Funktionen som krävs för att starta. Utelämnad betyder fri, alltså
+   * grundnivån (docs/plan-paket-och-onboarding.md avsnitt 4). Gaten sitter
+   * serverside i sessionsrutten, aldrig bara i vyn.
+   *
+   * Allt över grundnivån kräver tests_above_base. Provläget kräver
+   * test_exam_mode, som är samma spår men en egen feature: provläget är
+   * själva produktlöftet "öva under samma tidspress".
+   */
+  requiresFeature?: Feature
+
+  /**
+   * Hård tidsgräns i minuter. Finns bara på provläget, och när tiden går ut
+   * lämnas provet in automatiskt. Skiljer sig från `minutes`, som är en
+   * ungefärlig tid och bara står som metadata.
+   *
+   * Tiderna är satta här, och copyn följer koden, aldrig tvärtom (Fas 2B,
+   * noten till T47).
+   */
+  examMinutes?: number
 
   /** Nästa nivå att puffa för på resultatsidan. Expert och prov saknar. */
   nextSlug?: string
@@ -84,7 +110,6 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 15,
     minutes: 20,
     quotaFeature: 'test:matrislogik',
-    requiresPremium: false,
     nextSlug: 'matrislogik-avancerad',
   },
   {
@@ -99,7 +124,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 15,
     minutes: 25,
     quotaFeature: 'test:matrislogik-avancerad',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
     nextSlug: 'matrislogik-expert',
   },
   {
@@ -116,7 +141,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 15,
     minutes: 30,
     quotaFeature: 'test:matrislogik-expert',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
   },
   {
     slug: 'matrislogik-prov',
@@ -129,8 +154,9 @@ export const TEST_CONFIGS: TestConfig[] = [
     api: '/api/logicTestProv',
     totalQuestions: 18,
     minutes: 25,
+    examMinutes: 25,
     quotaFeature: 'test:matrislogik-prov',
-    requiresPremium: false,
+    requiresFeature: 'test_exam_mode',
   },
 
   /* ---------------------------- Verbalt resonemang -------------------------- */
@@ -146,7 +172,6 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 48,
     minutes: 25,
     quotaFeature: 'test:verbal-resonemang',
-    requiresPremium: false,
     nextSlug: 'verbal-resonemang-v2',
   },
   {
@@ -161,7 +186,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 48,
     minutes: 30,
     quotaFeature: 'test:verbal-resonemang-v2',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
     nextSlug: 'verbal-resonemang-expert',
   },
   {
@@ -176,7 +201,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 32,
     minutes: 35,
     quotaFeature: 'test:verbal-resonemang-expert',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
   },
   {
     slug: 'verbal-resonemang-prov',
@@ -189,8 +214,9 @@ export const TEST_CONFIGS: TestConfig[] = [
     api: '/api/verbalTestProv',
     totalQuestions: 48,
     minutes: 40,
+    examMinutes: 40,
     quotaFeature: 'test:verbal-resonemang-prov',
-    requiresPremium: false,
+    requiresFeature: 'test_exam_mode',
   },
 
   /* ------------------------------ Numeriskt test ---------------------------- */
@@ -206,7 +232,6 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 24,
     minutes: 25,
     quotaFeature: 'test:numerical-reasoning',
-    requiresPremium: false,
     nextSlug: 'numeriskt-test-v2',
   },
   {
@@ -221,7 +246,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 24,
     minutes: 35,
     quotaFeature: 'test:numerical-reasoning-v2',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
     nextSlug: 'numeriskt-test-expert',
   },
   {
@@ -236,7 +261,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 32,
     minutes: 35,
     quotaFeature: 'test:numerical-reasoning-expert',
-    requiresPremium: false,
+    requiresFeature: 'tests_above_base',
   },
   {
     slug: 'numeriskt-test-prov',
@@ -249,8 +274,9 @@ export const TEST_CONFIGS: TestConfig[] = [
     api: '/api/numericalTestProv',
     totalQuestions: 36,
     minutes: 40,
+    examMinutes: 40,
     quotaFeature: 'test:numerical-reasoning-prov',
-    requiresPremium: false,
+    requiresFeature: 'test_exam_mode',
   },
 
   /* ----------------------------- Personlighetstest -------------------------- */
@@ -271,7 +297,6 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 50,
     minutes: 10,
     quotaFeature: 'test:personlighet-grund',
-    requiresPremium: false,
     nextSlug: 'personlighet-avancerad',
   },
   {
@@ -288,7 +313,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 120,
     minutes: 25,
     quotaFeature: 'test:personlighet-avancerad',
-    requiresPremium: true,
+    requiresFeature: 'tests_above_base',
   },
 ]
 
@@ -313,3 +338,28 @@ export const testPaths = {
   results: (slug: string, sessionId: string) =>
     `/dashboard/tester/${slug}/test/${sessionId}/results`,
 }
+
+/* --------------------------- Behörighet och tid --------------------------- */
+
+/** Featuren en slug kräver, eller null när nivån är fri. */
+export function featureForSlug(slug: string): Feature | null {
+  return getTestConfig(slug)?.requiresFeature ?? null
+}
+
+/** Tidsgränsen i millisekunder, eller null när provet är otidsatt. */
+export function examLimitMs(slug: string): number | null {
+  const minuter = getTestConfig(slug)?.examMinutes
+  return typeof minuter === 'number' ? minuter * 60_000 : null
+}
+
+/**
+ * Tidsgränserna, samlade så copyn kan läsa dem i stället för att gissa.
+ * Stämmer inte en siffra i en text mot den här listan ska texten ändras,
+ * aldrig koden (Fas 2B, noten till T47).
+ */
+export const EXAM_MINUTES: Readonly<Record<string, number>> = Object.fromEntries(
+  TEST_CONFIGS.filter((c) => typeof c.examMinutes === 'number').map((c) => [
+    c.slug,
+    c.examMinutes as number,
+  ])
+)

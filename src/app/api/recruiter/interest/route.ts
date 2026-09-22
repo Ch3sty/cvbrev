@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
       console.error('Recruiter interest: mailflödet misslyckades', emailError);
     }
 
-    // (d) In-app-notis, samma mönster som trial/auto-activate.
+    // (d) In-app-notis, samma mönster som övriga notisskrivningar.
     try {
       const { error: notifError } = await (admin as any)
         .from('notifications')

@@ -7,7 +7,9 @@ import { getTemplateGenerator } from '@/lib/cv/templates';
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { suggestPlan, type Scope } from '@/lib/access/features';
+import { featureRequiredBody } from '@/lib/quota/quotaService';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
@@ -2283,8 +2285,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Serverside-gating: premium-mallar får bara exporteras av konton med
-    // premium-åtkomst (manuell premium, Stripe-prenumeration eller admin).
+    // Spåret som betalväggen ska föreslå. Läses en gång och används av båda
+    // spärrarna nedan (docs/plan-paket-och-onboarding.md avsnitt 5).
+    let onboardingTrack: Scope | null = null;
+    if (authedUserId) {
+      const { data: trackProfil } = await supabase
+        .from('profiles')
+        .select('onboarding_track')
+        .eq('id', authedUserId)
+        .maybeSingle();
+      const varde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track;
+      onboardingTrack = varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
+    }
+
+    // Serverside-gating: premiummallar kräver featuren cv_templates_all.
+    // Tre mallar ingår i gratisnivån, resten förhandsvisas i full storlek
+    // men exporteras inte (avsnitt 4).
     if (selectedTemplate.tier === 'premium') {
       if (!authedUserId) {
         return NextResponse.json(
@@ -2292,21 +2308,26 @@ export async function POST(request: NextRequest) {
           { status: 401 }
         );
       }
-      const hasPremium = await userHasPremiumAccess(supabase, authedUserId);
-      if (!hasPremium) {
+      const harMallarna = await userHasAccess(supabase, authedUserId, 'cv_templates_all');
+      if (!harMallarna) {
         return NextResponse.json(
-          { error: 'Den här mallen ingår i Premium. Uppgradera för att exportera den.' },
-          { status: 403 }
+          featureRequiredBody(
+            'cv_templates_all',
+            suggestPlan('cv_templates_all', onboardingTrack),
+            { templateId: selectedTemplate.id }
+          ),
+          { status: 402 }
         );
       }
     }
 
-    // A2 (docs/plan-konvertering.md): en gratis nedladdning per konto.
-    // Premiumkontrollen går först, så admin och premium rör aldrig räknaren.
+    // En gratis nedladdning per konto (avsnitt 4, oförändrad gräns).
+    // Featurekontrollen går först, så admin och paketkunder rör aldrig
+    // räknaren.
     let shouldCountFreeExport = false;
     if (authedUserId) {
-      const hasPremiumAccess = await userHasPremiumAccess(supabase, authedUserId);
-      if (!hasPremiumAccess) {
+      const harExport = await userHasAccess(supabase, authedUserId, 'cv_export');
+      if (!harExport) {
         const { data: exportProfile } = await supabase
           .from('profiles')
           .select('free_cv_exports_used')
@@ -2316,7 +2337,7 @@ export async function POST(request: NextRequest) {
         const used = (exportProfile as { free_cv_exports_used?: number } | null)?.free_cv_exports_used ?? 0;
         if (used >= 1) {
           return NextResponse.json(
-            { error: 'premium_required', feature: 'cv_export' },
+            featureRequiredBody('cv_export', suggestPlan('cv_export', onboardingTrack)),
             { status: 402 }
           );
         }

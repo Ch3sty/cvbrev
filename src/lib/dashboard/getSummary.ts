@@ -64,6 +64,24 @@ export interface DashboardSummaryData {
     rewardClaimed: boolean
     createdAt: string | null
   }
+  /**
+   * Veckoprogrammets tillstånd (docs/plan-paket-och-onboarding.md, flöde 3).
+   *
+   * Ligger här och inte i ett eget klientanrop. Kravet är hårt: en veckopanel
+   * som hämtar sig själv efter mount ger CLS och bryter LCP-budgeten på
+   * hemskärmen (under 1,0 s), se feedback_prestandabudget_inloggat.
+   */
+  week: {
+    /** Spåret användaren valde. Null = hoppade över frågan. */
+    track: 'cv' | 'tester' | 'allt' | null
+    /** Betalt spår. Null = gratisnivån, och då visas ingen veckopanel. */
+    scope: 'cv' | 'tester' | 'allt' | null
+    /** Dagen hon står på, 0 innan veckan börjat. Följer framsteg, inte kalendern. */
+    progressDay: number
+    startedAt: string | null
+    /** Har spårfrågan ställts, och i så fall när. */
+    trackAskedAt: string | null
+  }
 }
 
 /** Speglar INTERVIEW_STATUSES i useApplicationsSummary.ts. */
@@ -110,6 +128,7 @@ export async function getDashboardSummary(
     linkedinRes,
     downloadRes,
     matchRes,
+    grantsRes,
   ] = await Promise.all([
     supabase
       .from('letters')
@@ -154,6 +173,14 @@ export async function getDashboardSummary(
       .from('job_matchings_cache')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId),
+    // Veckopanelen behöver det betalda scopet, och det får inte kosta en
+    // egen rundtur efter mount (flöde 3:s LCP-krav). Engångsköpen bär sitt
+    // scope i premium_grants, så raden läses i samma omgång som resten.
+    supabase
+      .from('premium_grants')
+      .select('scope, premium_until_after')
+      .eq('user_id', userId)
+      .gt('premium_until_after', new Date().toISOString()),
   ])
 
   const now = new Date()
@@ -247,6 +274,26 @@ export async function getDashboardSummary(
     .filter(([step, count]) => storedSteps.includes(step) || count > 0)
     .map(([step]) => step)
 
+  // Veckans tillstånd. Scopet räknas ur samma källor som premiumAccess
+  // (profiles plus giltiga grants), fast utan extra rundturer: profilraden
+  // är redan hämtad ovan och grants ligger i samma parallella omgång.
+  // Ändras reglerna i src/lib/supabase/premiumAccess.ts ska de ändras här.
+  const giltigtScope = (v: unknown): v is 'cv' | 'tester' | 'allt' =>
+    v === 'cv' || v === 'tester' || v === 'allt'
+
+  const harPremium =
+    (!!profileRow?.premium_until && new Date(profileRow.premium_until as string) > now) ||
+    profileRow?.subscription_tier === 'premium'
+  const profilScope = harPremium
+    ? giltigtScope(profileRow?.premium_scope)
+      ? (profileRow.premium_scope as 'cv' | 'tester' | 'allt')
+      : 'allt'
+    : null
+  const grants = (grantsRes.data ?? []) as Array<{ scope?: string | null }>
+  const harAllaDagen = grants.some((rad) => (rad?.scope ?? 'allt') === 'allt')
+  const smalareGrant = grants.map((rad) => rad?.scope).find(giltigtScope) ?? null
+  const scope = harAllaDagen ? 'allt' : (profilScope ?? smalareGrant)
+
   return {
     profile: profileRes.data ?? null,
     letters: {
@@ -271,6 +318,15 @@ export async function getDashboardSummary(
       completedSteps: validatedSteps,
       rewardClaimed: Boolean(profileRow?.onboarding_reward_claimed),
       createdAt: (profileRow?.created_at as string | undefined) ?? null,
+    },
+    week: {
+      track: giltigtScope(profileRow?.onboarding_track)
+        ? (profileRow!.onboarding_track as 'cv' | 'tester' | 'allt')
+        : null,
+      scope,
+      progressDay: Number(profileRow?.week_progress_day ?? 0) || 0,
+      startedAt: (profileRow?.week_started_at as string | undefined) ?? null,
+      trackAskedAt: (profileRow?.onboarding_track_asked_at as string | undefined) ?? null,
     },
   }
 }

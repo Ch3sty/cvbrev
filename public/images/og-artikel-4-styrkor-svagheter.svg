@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+    <linearGradient id="card-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.06)"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="1.2" fill="white" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <circle cx="1060" cy="70" r="300" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="1140" cy="600" r="180" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="30" cy="530" r="190" fill="rgba(255,255,255,0.04)"/>
+
+  <!-- Etikett -->
+  <rect x="80" y="72" width="180" height="36" rx="18" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <circle cx="102" cy="90" r="5" fill="#FCD34D"/>
+  <text x="116" y="95" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="white" letter-spacing="2">INTERVJUGUIDE</text>
+
+  <!-- Huvudrubrik -->
+  <text x="80" y="200" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="900" fill="white" letter-spacing="-2">Styrkor och svagheter</text>
+  <text x="80" y="286" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="900" fill="white" letter-spacing="-2">på intervjun</text>
+
+  <!-- Undertext -->
+  <text x="80" y="358" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.85)">Så svarar du rätt och imponerar på rekryteraren</text>
+
+  <!-- Divider -->
+  <rect x="80" y="400" width="56" height="3" rx="2" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Features -->
+  <text x="80" y="440" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)" letter-spacing="1.2">INTERVJUFÖRBEREDELSE  ·  REKRYTERINGSTESTER  ·  CV-ANALYS</text>
+
+  <!-- Höger: Två kort med styrka/svaghet -->
+  <rect x="820" y="90" width="300" height="140" rx="16" fill="url(#card-bg)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+  <circle cx="856" cy="136" r="18" fill="rgba(252,211,77,0.25)" stroke="rgba(252,211,77,0.5)" stroke-width="1.5"/>
+  <text x="856" y="142" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="900" fill="#FCD34D" text-anchor="middle">+</text>
+  <text x="886" y="122" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="white">Styrka</text>
+  <text x="886" y="142" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.7)">Konkret, kopplad till rollen</text>
+  <text x="886" y="160" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.7)">och med ett exempel</text>
+
+  <rect x="820" y="254" width="300" height="140" rx="16" fill="url(#card-bg)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+  <circle cx="856" cy="300" r="18" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <text x="856" y="306" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="900" fill="white" text-anchor="middle">↗</text>
+  <text x="886" y="286" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="white">Svaghet</text>
+  <text x="886" y="306" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.7)">Ärlig, ej central för rollen</text>
+  <text x="886" y="324" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.7)">och med en lösning</text>
+
+  <rect x="820" y="418" width="300" height="80" rx="16" fill="url(#card-bg)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <text x="970" y="466" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="1.5">PERFEKTIONIST ✗</text>
+
+  <!-- Jobbcoach-badge -->
+  <circle cx="80" cy="558" r="7" fill="#FCD34D"/>
+  <text x="98" y="564" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="white" opacity="0.95">jobbcoach.ai</text>
+</svg>

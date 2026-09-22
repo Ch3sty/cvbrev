@@ -1,0 +1,33 @@
+[priser pixel7] LCP 684 ms, CLS 0, orange 2, kort: CV-veckan | Testveckan | Allt-veckan | Villkor
+[priser pixel7] body-sidoscroll: true, klickytor under 44px: 33
+[priser pixel7] spårval Tester: markerad true, alla tre kort kvar true
+[priser pixel7] längdval Månad: 149 kr true, "i månaden" true, knapp "Ta Allt-månaden" true, ändrades true
+[priser pixel7] dagläget: "förnyas inte" true, 49 kr true
+[priser pixel7] tabellbehållare: {"scrollar":true,"overflow":"auto"}
+[priser pixel7] FAQ öppnas: true
+[priser desktop] LCP 484 ms, CLS 0, orange 2, kort: CV-veckan | Testveckan | Allt-veckan | Villkor
+[priser desktop] body-sidoscroll: false, klickytor under 44px: 41
+[priser desktop] spårval Tester: markerad true, alla tre kort kvar true
+[priser desktop] längdval Månad: 149 kr true, "i månaden" true, knapp "Ta Allt-månaden" true, ändrades true
+[priser desktop] dagläget: "förnyas inte" true, 49 kr true
+[priser desktop] tabellbehållare: {"scrollar":false,"overflow":"auto"}
+[priser desktop] FAQ öppnas: true
+[priser utan JS] tre kort true, Allt visar veckoläget true, fem FAQ 5, tabell true, förtroenderad true
+[prenumeration gratis pixel7] LCP 12008 ms, CLS 0, orange 1, plattor 1
+[prenumeration gratis pixel7] stopprader 2, "Säg upp" synlig false, statusrad "Du är på gratisnivån"
+[prenumeration gratis pixel7] "Se alla paket" öppnar kortraden: true
+[prenumeration gratis desktop] LCP 1716 ms, CLS 0.0034, orange 1, plattor 1
+[prenumeration gratis desktop] stopprader 2, "Säg upp" synlig false, statusrad "Du är på gratisnivån"
+[prenumeration gratis desktop] "Se alla paket" öppnar kortraden: true
+[prenumeration spar-cv pixel7] LCP 1552 ms, CLS 0, orange 1, plattor 1
+[prenumeration spar-cv pixel7] stopprader 1, "Säg upp" synlig true, statusrad "CV-veckan, förnyas 27 september"
+[prenumeration spar-cv desktop] LCP 1676 ms, CLS 0.0034, orange 1, plattor 1
+[prenumeration spar-cv desktop] stopprader 1, "Säg upp" synlig true, statusrad "CV-veckan, förnyas 27 september"
+[prenumeration allt pixel7] LCP 1176 ms, CLS 0, orange 0, plattor 0
+[prenumeration allt pixel7] stopprader 0, "Säg upp" synlig true, statusrad "Allt-veckan, förnyas 27 september"
+[prenumeration allt pixel7] dagläget inaktivt true, primär inaktiv vid oförändrad längd true
+[prenumeration allt pixel7] efter val Månad: knapp "Byt till Allt-månaden", inaktiv false, besparingsrad true
+[prenumeration allt desktop] LCP 832 ms, CLS 0.0034, orange 0, plattor 0
+[prenumeration allt desktop] stopprader 0, "Säg upp" synlig true, statusrad "Allt-veckan, förnyas 27 september"
+[prenumeration allt desktop] dagläget inaktivt true, primär inaktiv vid oförändrad längd true
+[prenumeration allt desktop] efter val Månad: knapp "Byt till Allt-månaden", inaktiv false, besparingsrad true

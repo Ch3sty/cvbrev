@@ -45,6 +45,8 @@ export interface Database {
           preferred_tonality: string | null
           updated_at: string | null
           subscription_tier: string | null
+          /** Paketet prenumerationen ger: 'cv' | 'tester' | 'allt'. Null ar gratis. */
+          premium_scope: string | null
           weekly_letter_count: number | null
           last_count_reset: string | null
           next_reset_date: string | null
@@ -79,6 +81,7 @@ export interface Database {
           preferred_tonality?: string | null
           updated_at?: string | null
           subscription_tier?: string | null
+          premium_scope?: string | null
           weekly_letter_count?: number | null
           last_count_reset?: string | null
           next_reset_date?: string | null
@@ -112,6 +115,7 @@ export interface Database {
           preferred_tonality?: string | null
           updated_at?: string | null
           subscription_tier?: string | null
+          premium_scope?: string | null
           weekly_letter_count?: number | null
           last_count_reset?: string | null
           next_reset_date?: string | null

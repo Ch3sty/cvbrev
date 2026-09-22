@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { examDeadlinePassed } from '@/lib/tests/sessionGate';
 import { validateAnswer } from '@/lib/numericalTestProv/validator.prov';
 import type { TestAnswer } from '@/lib/numericalTest/types';
 
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     const { data: session, error: fetchError } = await supabase
       .from('logic_test_v4_sessions')
-      .select('answers')
+      .select('answers, started_at')
       .eq('id', sessionId)
       .eq('user_id', user.id)
       .single();
@@ -29,6 +30,12 @@ export async function POST(request: NextRequest) {
     if (fetchError) {
       console.error('Error fetching numeric prov session:', fetchError);
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+    }
+
+    // Provets tid har gått ut. Klientens klocka lämnar in provet, men en
+    // klient går att stänga av, så gränsen måste hålla även här.
+    if (examDeadlinePassed('numeriskt-test-prov', session.started_at)) {
+      return NextResponse.json({ error: 'exam_time_up' }, { status: 409 });
     }
 
     const newAnswer: TestAnswer = {

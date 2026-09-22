@@ -85,8 +85,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       premiumNeedsAttention = false;
     } else {
       // Badgen säger vad Premium kostar i stället för vad kontot saknar.
-      // Priset läses ur PLANS så att badgen följer med om dagspasset ändras.
-      premiumLabel = `Från ${PLAN_BY_KEY.daypass.amount} kr`;
+      // Priset läses ur PLANS så att badgen följer med om Allt-dagen ändras.
+      premiumLabel = `Från ${PLAN_BY_KEY.all_day.amount} kr`;
       premiumNeedsAttention = true;
     }
   }

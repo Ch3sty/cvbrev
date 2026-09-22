@@ -1276,12 +1276,12 @@ Ersätter `PRISER_HERO_TITLE` och `PRISER_HERO_INGRESS` i `src/app/(public)/pris
 
 | Id | Plats | Alt A | Alt B |
 |---|---|---|---|
-| PR1 | H1 | `Välj spåret du söker på. Betala för veckan.` (43) | `En vecka i taget, för det du faktiskt använder.` (47) |
-| PR2 | Ingress | `De flesta söker jobb intensivt i några veckor. Vissa sitter med CV, mallar och brev. Andra har fått en kallelse till ett urvalstest. Välj ditt spår, betala för veckan, säg upp när du är klar.` (189) | `Vi säljer inte ett år av något du behöver i tre veckor. Välj CV-spåret eller testspåret, kör din vecka, och säg upp när ansökan är inne.` (135) |
+| PR1 | H1 | **Ersatt, se Fas 2E avsnitt 0.** Slutgiltig lydelse: `Välj spåret du söker på. Börja med en vecka.` (44) | Den gamla lydelsen "Betala för veckan" blir osann när Allt-kortet står på Dag eller Kvartal och ska inte föras in. |
+| PR2 | Ingress | `De flesta söker jobb intensivt i några veckor. Vissa sitter med CV, mallar och brev. Andra har fått en kallelse till ett urvalstest. Välj ditt spår, börja med en vecka, säg upp när du är klar.` (190) | `Vi säljer inte ett år av något du behöver i tre veckor. Välj CV-spåret eller testspåret, kör din vecka, och säg upp när ansökan är inne.` (135) |
 
-**Rekommendation: PR1 alternativ A och PR2 alternativ A.**
+**Rekommendation: PR1 enligt Fas 2E avsnitt 0, PR2 alternativ A.** PR2A är justerad med samma ord som H1: "börja med en vecka" i stället för "betala för veckan", så att ingressen håller även när Allt-kortet står på Dag eller Kvartal.
 
-PR1A gör två saker på en rad: den säger att det finns ett val att göra (spåret) och att priset är en vecka. PR1B är vackrare men säger inte att paketen skiljer sig åt, och det är precis den informationen sidan finns för. PR2A vinner därför att den beskriver de två folkgrupperna i konkreta ord, alltså låter användaren känna igen sig själv innan hon läser ett pris. PR2B är kortare men börjar i vad vi inte gör, och en prissida ska börja i vad användaren får.
+H1:ns första sats står kvar: den säger att det finns ett val att göra, och det är precis den informationen sidan finns för. Andra satsen är omskriven i Fas 2E avsnitt 0. PR2A vinner därför att den beskriver de två folkgrupperna i konkreta ord, alltså låter användaren känna igen sig själv innan hon läser ett pris. PR2B är kortare men börjar i vad vi inte gör, och en prissida ska börja i vad användaren får.
 
 **Not, ägarens beslut 4 (2026-09-22): fyra längder på Allt.** Prissidan visar tre kort, som här, men Allt-kortet får ett `Segment` med fyra lägen i stället för ett fast pris: Dag 49, Vecka 99, Månad 149, Kvartal 299, med Vecka förvalt. Kortets pris, punktlista och knapptext följer valt läge. Allt är alltså ett kort, inte fyra, och sidan räknar fortfarande tre val. Två följder för texten: P4 och P4a till P4c i tabellerna ovan gäller månadsläget och behöver motsvarigheter för dag- och kvartalsläget, och PR1A:s "Betala för veckan" blir osann om Allt-kortet står på Dag eller Kvartal när användaren läser rubriken. Rubriken behöver därför antingen stå kvar vid veckan som huvudlöfte och låta Segmentet vara undantaget, eller skrivas om. Jag rekommenderar det första: veckan är vad de flesta köper och vad hela argumentet vilar på, och en rubrik som ska rymma fyra längder säger till slut ingenting. Copyrollen skriver de sex nya strängarna (dag- och kvartalsläget: en rad plus tre punkter vardera) i samma omgång som Stripe-priserna döps.
 
@@ -2170,6 +2170,947 @@ Tillkommet med ägarens beslut 2026-09-22, båda kräver nya strängar som inte 
 
 ---
 
+## Fas 2D: prissidan och Börja gratis
+
+Skriven 2026-09-22 av UX-rollen efter ägarens två tillägg samma dag. Bygger på Fas 2A (flöden och skärmar), Fas 2B (strängarna P-, PR- och GR-serien) och ägarens beslut 1 till 6 överst i dokumentet. Fyra delar: spårvalsskärmen med Börja gratis som riktigt val, publika prissidan, inloggade prissidan, och mätningen.
+
+Ägarens ord var "en popup med olika användartyper när de loggat in, där de kan välja paket eller om de vill börja gratis". Det är exakt vad vi bygger. Skillnaden mot ordet popup är teknisk, inte innehållslig, och står i avsnittet nedan.
+
+Regler som förut: mobile first med Pixel 7 412 px som primär och 1280 som sekundär, en primär handling per skärm, högst tre accenter, ingen Sparkles, svenska facktermer, inga talstreck.
+
+---
+
+### 1. Skärm 1.1 justerad: Börja gratis som fullvärdigt val
+
+#### Varför ägarens popup byggs som ett helskärmssteg
+
+Kort, för att ägaren ska känna igen sin idé i det vi bygger.
+
+En modal på mobil är en panel ovanpå en sida användaren inte får röra. Tre saker går sönder med den formen: iOS lägger tangentbordet över fasta element så en knapp i modalens fot kan hamna under tangentbordet, bakgrundssidan scrollar med om overflow inte låses vilket ger den där klibbiga känslan, och en modal har alltid ett kryss uppe i hörnet som säger "det här är valfritt och kan stängas". Det sista är det dyraste. Frågan vi ställer är inte valfri, den är produktens första fråga.
+
+Ett helskärmssteg i `FlowShell` är samma sak för användaren: hon loggar in, hon får en fråga som fyller skärmen, hon svarar, hon kommer vidare. Skillnaden är att steget får full höjd, sticky fot som klarar tangentbordet, en riktig adress som går att länka till och komma tillbaka till, och att den går att mäta som en sida. Den känns som en popup och beter sig som en sida. Det är rätt kombination.
+
+Beslut: steget ligger på `/start`, öppnas direkt efter första inloggningen, och visas en gång. Har användaren svarat en gång ser hon det aldrig igen om hon inte själv byter spår under Profil.
+
+#### Formen på Börja gratis: sekundärknapp i foten, inte ett fjärde kort
+
+Två alternativ övervägdes.
+
+**Alternativ A, ett fjärde lägre kort.** "Börja gratis" som ett fjärde `ChoiceCard` under de tre. Avvisas. Ett fjärde kort i samma radiogrupp gör gratis till ett paket bland fyra, och då tävlar det på paketens villkor: pris, innehåll, punktlista. Det förlorar den tävlingen varje gång, och det ska det inte, för gratis är inte ett sämre paket utan ett annat sätt att börja. Dessutom spränger ett fjärde kort skärmen på 412 px, så den primära knappen hamnar under vecket.
+
+**Alternativ B, sekundär knapp i FlowShell-foten bredvid primären.** Väljs. Foten får två knappar: primär ink till vänster i läsordningen (Fortsätt med valt paket) och en sekundär med kant till höger (Börja gratis). Båda 44 px, båda alltid synliga, båda alltid tryckbara. Ingen är dold bakom en scroll, ingen är en textlänk i grått som läses som ett avslut.
+
+Det viktiga: **Börja gratis kräver inte att man valt ett kort först.** Den fungerar direkt vid inladdning. Väljer användaren ett kort och sedan Börja gratis sparas spåret ändå, och hon får gratisnivån i det spåret. Det är hela poängen med att spara `onboarding_track` oberoende av `premium_scope`.
+
+```
+┌──────────────────────────────────────────┐
+│ ✕                                        │  FlowShell topprad
+│▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│  framstegslinje 1/2
+├──────────────────────────────────────────┤
+│                                          │
+│  STEG 1 AV 2                             │
+│  [T1]                                    │  text-fraga
+│  [T2]                                    │  text-sm ink-2
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌────┐  [T3]   CV-veckan           │  │  ChoiceCard plain
+│  │ │ CV │  [T4]   P1A-raden           │  │  IkonCV 24 ink-2
+│  │ └────┘  [T5]   79 kr i veckan      │  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌────┐  [T6]   Testveckan          │  │  ChoiceCard plain
+│  │ │ ⧉  │  [T7]   P2A-raden           │  │  IkonAnalys 24 ink-2
+│  │ └────┘  [T8]   79 kr i veckan      │  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌──────┐  REKOMMENDERAS         ◉  │  │  ChoiceCard featured
+│  │ │ ▨▨▨  │  [T9]   Allt-veckan       │  │  MarginPlate + IlluPlattaPremium
+│  │ │ ▨▨▨  │  [T10]  P3A-raden         │  │
+│  │ └──────┘  [T11]  från 49 kr        │  │  "från", fyra längder finns
+│  └────────────────────────────────────┘  │
+│                                          │
+├──────────────────────────────────────────┤
+│ ╔═══════════════════╗ ┌────────────────┐ │  FlowShell fot, två knappar
+│ ║      [T13]        ║ │    [D1]        │ │  primär ink  |  sekundär kant
+│ ╚═══════════════════╝ └────────────────┘ │  vardera ca 48 % bredd, gap 12
+│  [D2]                                    │  text-meta ink-3, en rad under
+└──────────────────────────────────────────┘
+```
+
+| Element | Komponent | Not |
+|---|---|---|
+| Ram och fot | `FlowShell { step: 1, totalSteps: 2, primaryLabel, onPrimary, primaryDisabled, footerSecondary }` | `footerSecondary` finns redan i propsen och tar en ReactNode. Ingen ny prop behövs. |
+| Börja gratis | sekundär knapp: `h-11 rounded-lg border border-kant-stark bg-panel text-sm font-medium text-ink-1` | Aldrig textlänk, aldrig disabled |
+| [D2] | `text-meta text-ink-3`, en rad under fotknapparna | Säger vad gratis ger, så knappen inte är ett hopp i mörkret |
+| Metaraden på Allt-kortet | "från 49 kr" | Ägarens beslut 4: Allt har fyra längder. Kortet får inte säga 99 när Allt-dagen finns. Längden väljs på steg 2. |
+
+Orange-räkning: framstegslinjen (1), "REKOMMENDERAS" i accent-ink (2), marginalplattan (3). Exakt tre. Sekundärknappen är kant-stark och ink, alltså ingen accent.
+
+Fotens två knappar på 412 px: två knappar i 48 procent bredd vardera med 12 px mellanrum ger cirka 186 px per knapp, vilket rymmer både [T13] (max 20 tecken) och [D1] (max 16). Blir någon av texterna längre staplas de i stället, primär överst, och foten växer till 104 px. Det är tillåtet, men texterna ska skrivas så att det inte behövs.
+
+#### Skärm 1.1b: gratisanvändarens spårfråga
+
+Trycker användaren Börja gratis utan att ha valt kort ska hon ändå få frågan om riktning. Men den ska då ställas som vad hon vill göra, inte som vilket paket hon inte köpte. Skärmen byter därför fråga och tappar priserna helt.
+
+```
+┌──────────────────────────────────────────┐
+│ ←                                        │  FlowShell onBack
+│▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│  framstegslinjen full: sista steget
+├──────────────────────────────────────────┤
+│  SISTA STEGET                            │  text-steg ink-3
+│  [D3]                                    │  text-fraga: vad vill du göra
+│  [D4]                                    │  text-sm ink-2
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌────┐  [D5]                       │  │  ChoiceCard plain, CV
+│  │ │ CV │  [D6]                       │  │  ingen pris-meta
+│  │ └────┘                             │  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌────┐  [D7]                       │  │  ChoiceCard plain, tester
+│  │ │ ⧉  │  [D8]                       │  │
+│  │ └────┘                             │  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │
+│  │ ┌────┐  [D9]                       │  │  ChoiceCard plain, vet inte än
+│  │ │ ◇  │  [D10]                      │  │  IkonHem 24 ink-2
+│  │ └────┘                             │  │
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  ╔══════════════════════════════════╗    │
+│  ║            [D11]                 ║    │  primär: till hemskärmen
+│  ╚══════════════════════════════════╝    │
+└──────────────────────────────────────────┘
+```
+
+Tre val, inte två. "Vet inte än" finns för att den som verkligen inte vet ska kunna svara sant i stället för att gissa, och ett gissat spår är sämre data än inget spår. `onboarding_track` blir då `null` och hemskärmen står i sitt allmänna läge, precis som i Fas 2A.
+
+Ingen marginalplatta på den här skärmen, inget featured-kort, ingen "Rekommenderas". Vi säljer ingenting här. Orange-räkning: framstegslinjen (1). Ett av tre.
+
+#### Vad spåret gör för gratisanvändaren
+
+Tre konkreta saker, och de måste byggas i släpp 1 tillsammans med `onboarding_track`, annars är frågan tom:
+
+1. **Hemskärmens ordning.** CV-spåraren får CV-raderna överst i Pågår nu och CV-handlingen som Nästa handling. Testspåraren får testerna. Enligt Fas 2A skärm 1.3.
+2. **Betalväggarnas förslag.** PW1 till PW7 i Fas 2B föreslår ett paket i den primära knappen. Med spår känt föreslår de rätt paket direkt. Utan spår föreslår de Allt-veckan, vilket är sämre: det är dyrast och känns som en uppförsäljning.
+3. **Gratisnivåns första handling.** Den tomma hemskärmen för en ny gratisanvändare pekar på en sak, och vilken sak det är styrs av spåret: ladda upp ett CV, eller gör ett test.
+
+#### Händelser, del 1
+
+| När | Händelse | Egenskaper |
+|---|---|---|
+| Skärm 1.1 renderas | `pricing_viewed` | `surface: 'onboarding_track'`, `variant: 'tre_kort'` |
+| Kort valt och primär tryckt | `track_selected` | `track`, `surface: 'onboarding'`, `intent: 'purchase'` |
+| Börja gratis tryckt utan valt kort | ingen händelse än | Spåret är inte känt förrän 1.1b |
+| Börja gratis tryckt med valt kort | `track_selected` | `track`, `surface: 'onboarding'`, `intent: 'free'` |
+| Val på 1.1b och primär tryckt | `track_selected` | `track` eller `track: null`, `intent: 'free'` |
+| Steget avslutat på något sätt | `onboarding_step_completed` | `step: 'track_choice'`, `index: 0` |
+
+`intent` är ny egenskap och är hela poängen med mätningen: den skiljer den som valde spår för att köpa från den som valde spår för att börja gratis. Utan den kan vi inte räkna mätpunkt 1 i avsnitt 6 ärligt.
+
+#### Acceptanskriterier, del 1
+
+Pixel 7, 412 px, nytt konto, riktig webbläsare:
+
+1. Efter första inloggningen öppnas `/start`. Hemskärmen syns inte först.
+2. Båda fotknapparna syns utan scroll, samtidigt som minst två valkort.
+3. Börja gratis är tryckbar direkt vid inladdning, utan att något kort valts.
+4. Väljer man Allt-kortet och trycker primären kommer längdvalet (Segment med fyra lägen) på steg 2, enligt noten vid Fas 2A skärm 1.2.
+5. Trycker man Börja gratis utan valt kort kommer skärm 1.1b, och den visar inga priser.
+6. "Vet inte än" leder till hemskärmen i allmänt läge, utan spårrad.
+7. Väljer man CV på 1.1b står CV-raderna överst på hemskärmen vid nästa laddning.
+8. Steget visas inte igen vid andra inloggningen.
+9. Tangentbord: piltangent i radiogruppen, Tabb till primär, Tabb till sekundär. Fokusringen är orange och syns på båda.
+10. Räkna orange: tre på 1.1, ett på 1.1b.
+11. Med iOS-tangentbord uppe (gäller inte här men testas ändå på 1.1b) ligger foten kvar ovanför tangentbordet, inte under.
+
+Desktop 1280: centrerad kolumn max 560 px, korten staplade, fotens två knappar auto-breda och högerställda med primären sist i läsordningen.
+
+---
+
+### 2. Prissidan, publik
+
+Ersätter dagens `/priser` i `src/app/(public)/priser/`. Sex sektioner, i den här ordningen, och ordningen är argumentet: först vad man väljer mellan, sedan vad det kostar, sedan vad gratis ger, sedan detaljerna, sedan frågorna, sist förtroendet.
+
+Publika sidor får vara rikare än inloggat läge (designsystemets avsnitt 12), men rikedomen ska komma ur typografi, vitrymd och illustration, inte ur nya färger. Tokens är Tråden-tokens: `mark` som sidbakgrund, `panel` på korten, `ink-1` på knappar, accent bara som linje. Illustrationerna följer scenreglerna i designsystemets avsnitt 7: högst tre element, ett lutande, en liten fylld accentform.
+
+#### Vad besökaren ska förstå på fem sekunder
+
+Tre saker, i den ordningen, och sidan ritas så att just de tre syns först på 412 px:
+
+1. Det finns ett val att göra, och valet är spår.
+2. Man betalar per vecka.
+3. Gratis finns.
+
+Därför ligger `[D12]`, en enradig spårväljare, direkt under ingressen och ovanför korten. Den är ett `Segment` med tre lägen: CV, Tester, Allt. Den filtrerar inte bort korten, den scrollar till rätt kort och markerar det. Skälet: en besökare som klickar CV ska se sitt kort direkt, men de andra två ska inte försvinna, för då vet hon inte vad hon väljer bort.
+
+#### Skärm 2.1: publika prissidan, Pixel 7
+
+```
+┌──────────────────────────────────────────┐
+│  [PR1A]                                  │  h1, text-h1 (publik: 32/36)
+│  Välj spåret du söker på. Betala          │
+│  för veckan.                             │
+│                                          │
+│  [PR2A]                                  │  ingress, text-sm ink-2
+│                                          │
+│  ┌──────────┬──────────┬──────────┐      │  Segment, tre lägen
+│  │   CV     │  Tester  │   Allt   │      │  [D12a] [D12b] [D12c]
+│  └──────────┴──────────┴──────────┘      │  valt: border-ink-1 shadow-val
+├──────────────────────────────────────────┤
+│  [PR3B]  Välj ditt paket                 │  text-sm font-medium ink-3
+│                                          │
+│  ┌────────────────────────────────────┐  │  kort 1: CV-veckan
+│  │  ┌────┐                            │  │  panel border-kant p-5
+│  │  │ CV │   [N1] CV-veckan           │  │  IkonCV 24 ink-2
+│  │  └────┘                            │  │
+│  │  79 kr                             │  │  text-tal tabular-nums ink-1
+│  │  [D13]  i veckan, förnyas           │  │  text-meta ink-3
+│  │                                    │  │
+│  │  [P1A]                             │  │  text-sm ink-2, en rad
+│  │                                    │  │
+│  │  ✓ [P1a]  Alla 41 CV-mallar        │  │  Check 20 ink-2
+│  │  ✓ [P1b]  Full CV-analys...        │  │
+│  │  ✓ [P1c]  Personligt brev...       │  │
+│  │                                    │  │
+│  │  ╔══════════════════════════════╗  │  │
+│  │  ║          [D14]               ║  │  │  primär ink, full bredd
+│  │  ╚══════════════════════════════╝  │  │
+│  │                                    │  │
+│  │  [P5]  Testerna över grundnivå...  │  │  text-meta ink-3, ingår inte
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │  kort 2: Testveckan
+│  │  ... samma form, [N2] [P2A]        │  │  P2a till P2c, [P6] underst
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │  kort 3: Allt
+│  │  REKOMMENDERAS                     │  │  text-steg accent-ink
+│  │  ┌──────┐                          │  │  MarginPlate + IlluPlattaPremium
+│  │  │ ▨▨▨  │  [N3] Allt               │  │  sidans enda platta
+│  │  └──────┘                          │  │
+│  │  ┌─────┬─────┬─────┬─────┐         │  │  Segment, fyra längder
+│  │  │ Dag │Veck.│Mån. │Kvart│         │  │  Vecka förvald
+│  │  └─────┴─────┴─────┴─────┘         │  │
+│  │  99 kr                             │  │  text-tal, följer valt läge
+│  │  [D15]  i veckan, förnyas           │  │  följer valt läge
+│  │                                    │  │
+│  │  [P3A]                             │  │  rad, följer valt läge
+│  │  ✓ [P3a] ✓ [P3b] ✓ [P3c]           │  │  tre punkter, följer läget
+│  │                                    │  │
+│  │  ╔══════════════════════════════╗  │  │
+│  │  ║          [D16]               ║  │  │  primär, texten följer läget
+│  │  ╚══════════════════════════════╝  │  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ● [PR7A]                                │  uppsägningsrad
+├──────────────────────────────────────────┤
+│  [PR4A]  Vad du kan göra utan att betala │  text-sm font-medium ink-3
+│  ┌────────────────────────────────────┐  │
+│  │  ┌──────┐                          │  │  panel, insunken ton
+│  │  │ ▨▨   │  [GR-raden ur 2B]        │  │  ikon 24, ingen platta
+│  │  └──────┘                          │  │
+│  │  [D17]                             │  │  textlänk: skapa konto gratis
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [PR5A]  Vad som ingår i vilket paket    │
+│  [PR8]                                   │  ingress
+│  ┌────────────────────────────────────┐  │
+│  │ Funktion    │Gratis│ CV │Test│Allt │  │  tabell, overflow-x-auto
+│  │─────────────┼──────┼────┼────┼─────│  │  sticky första kolumn
+│  │ CV-mallar   │  3   │ 41 │ 3  │ 41  │  │  tal, inte bockar, där tal finns
+│  │ CV-analys   │  1   │  ∞ │ 1  │  ∞  │  │
+│  │ Läsbarhet   │  ·   │ ✓  │ ·  │ ✓   │  │  Check ink-2 / punkt ink-3
+│  │ ...         │      │    │    │     │  │
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [PR6A]  Frågor vi får om veckorna       │
+│  ▸ [PR9]  Varför säljer ni en vecka...   │  accordion, 48 px rader
+│  ▸ [PR10] Vad händer när veckan är slut? │  divide-y divide-kant
+│  ▸ [PR11] Kan jag byta spår?             │
+│  ▸ [PR12] Vad ingår utan att betala?     │
+│  ▸ [PR13] Hur säger jag upp?             │
+├──────────────────────────────────────────┤
+│  ┌────────────────────────────────────┐  │  förtroenderad, panel
+│  │  ⊙ [D18]   Uppsägning, ett klick    │  │  tre rader, ikon 24 ink-2
+│  │  ⊡ [D19]   Kortbetalning via Stripe │  │  IkonSkold, IkonKrona, IkonHem
+│  │  ⊞ [D20]   Priser i kronor, moms    │  │
+│  └────────────────────────────────────┘  │
+└──────────────────────────────────────────┘
+```
+
+| Sektion | Komponenter | Not |
+|---|---|---|
+| Hero | egen markup, `text-h1` i publik skala | Ingen gradient, ingen hero-illustration. Rubriken är sidans bild. |
+| Spårväljaren | `Segment { value, onChange, options, label }` ur shell | Scrollar till och markerar kortet, filtrerar aldrig bort |
+| Tre paketkort | panel `rounded-xl border-kant bg-panel p-5` | Ersätter `PlanCards` för den här sidan. Stort tal ur designsystemet för priset. |
+| Allt-kortets längdval | `Segment` med fyra lägen | Ägarens beslut 4. Valt läge i ink, räknas inte som accent. |
+| Gratisraden | panel med `bg-insunken` inuti | Ett steg ner i djup: gratis är lägre, inte mindre |
+| Jämförelsetabellen | `<table>` i `overflow-x-auto` | JSX-tabell, aldrig markdown. Första kolumnen sticky på mobil. |
+| FAQ | accordion, `divide-y divide-kant`, 48 px rader | `details`/`summary` räcker, ingen ny komponent, ingen JS |
+| Förtroenderaden | panel med tre rader, ikon 24 ink-2 | Lagkraven i avsnitt 8 i kortform |
+
+Orange-räkning på 412 px, mätt i första skärmhöjden: spårväljarens fokusring räknas bara när den har fokus, alltså noll i vila. "REKOMMENDERAS" i accent-ink (1) och marginalplattan på Allt-kortet (2) ligger under vecket och räknas i sin egen skärmhöjd. Ingen skärmhöjd på sidan kommer över två. Det är medvetet lågt: en prissida med tre accenter per skärm i sex sektioner blir orange, och då slutar accenten betyda något.
+
+**Ordningen på korten är CV, Tester, Allt, och Allt ligger sist.** Samma skäl som på spårvalsskärmen: uppköpet läses efter alternativen. Det bryter mot konventionen att sätta det dyraste i mitten, och det är avsiktligt. Vi säljer inte "mest", vi säljer "rätt".
+
+#### Skärm 2.2: publika prissidan, desktop 1280
+
+```
+┌────────────────────────────────────────────────────────────────────┐
+│                          [PR1A]                                    │  centrerad, max 720
+│                          [PR2A]                                    │
+│                   ┌──────┬────────┬──────┐                         │  Segment, centrerad
+│                   │  CV  │ Tester │ Allt │                         │
+│                   └──────┴────────┴──────┘                         │
+├────────────────────────────────────────────────────────────────────┤
+│  [PR3B] Välj ditt paket                                            │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │  tre kolumner
+│  │ [N1]         │  │ [N2]         │  │ REKOMMENDERAS│              │  gap 24
+│  │ 79 kr        │  │ 79 kr        │  │ ▨ [N3]       │              │  lika höjd via
+│  │ [P1A]        │  │ [P2A]        │  │ ┌──┬──┬──┬──┐│              │  grid, inte flex
+│  │ ✓ ✓ ✓        │  │ ✓ ✓ ✓        │  │ │D │V │M │K ││              │
+│  │ ╔══════════╗ │  │ ╔══════════╗ │  │ └──┴──┴──┴──┘│              │
+│  │ ║  [D14]   ║ │  │ ║  [D14]   ║ │  │ 99 kr        │              │
+│  │ ╚══════════╝ │  │ ╚══════════╝ │  │ ✓ ✓ ✓        │              │
+│  │ [P5]         │  │ [P6]         │  │ ╔══════════╗ │              │
+│  └──────────────┘  └──────────────┘  │ ║  [D16]   ║ │              │
+│                                      │ ╚══════════╝ │              │
+│                    ● [PR7A]          └──────────────┘              │
+├────────────────────────────────────────────────────────────────────┤
+│  [PR4A]                                                            │
+│  ┌──────────────────────────────┐  ┌────────────────────────────┐  │  två kolumner
+│  │  gratisnivåns innehåll       │  │   96-scen, IlluArketLyfter │  │  scen till höger
+│  └──────────────────────────────┘  └────────────────────────────┘  │  (designsystem 7.5)
+├────────────────────────────────────────────────────────────────────┤
+│  [PR5A] jämförelsetabell, full bredd max 1040, ingen scroll        │
+├────────────────────────────────────────────────────────────────────┤
+│  [PR6A] FAQ i två kolumner, tre frågor vänster, två höger          │
+├────────────────────────────────────────────────────────────────────┤
+│  förtroenderaden som tre kolumner                                  │
+└────────────────────────────────────────────────────────────────────┘
+```
+
+Det enda som skiljer desktop från mobil i substans: korten står i tre kolumner, gratisnivån får en illustration i egen kolumn till höger (designsystemets scenregel 5 säger att scenen står ovanför texten på mobil och i egen kolumn på desktop), och jämförelsetabellen slipper horisontell scroll. Allt annat är samma innehåll i samma ordning.
+
+Tre kolumner är tillåtet här men var det inte på spårvalsskärmen. Skillnaden: på prissidan har besökaren kommit för att jämföra priser, och en tabellartad uppställning hjälper. I onboardingen har användaren kommit för att komma igång, och då är en prislista fel fråga.
+
+#### Prissidan ska fungera utan JavaScript
+
+Den är publik och SEO-bärande. Korten, tabellen, FAQ och förtroenderaden är serverrenderad HTML. Spårväljaren och Allt-kortets längdval är det enda som behöver JS, och utan JS visar Allt-kortet sitt veckoläge, vilket är det förvalda. Ingen besökare ser en tom sida.
+
+FAQ byggs som `details`/`summary`, så de fem svaren står i HTML även när de är hopfällda. Det är nödvändigt för FAQPage-schemat, som ska följa med från dagens sida.
+
+#### Händelser, del 2
+
+| När | Händelse | Egenskaper |
+|---|---|---|
+| Sidan renderas | `pricing_viewed` | `surface: 'public'`, `logged_in: false`, `track: null` |
+| Spårväljaren används | `track_changed` | `from`, `to`, `surface: 'pricing_segment'` |
+| Allt-kortets längdval ändras | `plan_length_changed` | `from`, `to`, `surface: 'public'`. Ny händelse, behövs för att veta om de fyra längderna används eller om Allt-veckan bär allt. |
+| Knapp på ett kort | `paywall_cta_clicked` | `variant: 'pricing_card'`, `plan`, `surface: 'public'` |
+| Jämförelsetabellen syns till hälften | `pricing_comparison_viewed` | `surface: 'public'`. Ny. Mäter om tabellen läses eller om folk köper på korten. |
+| En FAQ-fråga öppnas | `pricing_faq_opened` | `question_id`. Ny. Säger vilken invändning som finns kvar. |
+
+De tre nya händelserna är billiga och svarar på tre frågor vi annars gissar: används längderna, läses tabellen, vilken fråga hindrar köpet. Vill man skära ner är `pricing_faq_opened` den som får gå först.
+
+#### Acceptanskriterier, del 2
+
+Pixel 7, 412 px, Chrome, som utloggad besökare:
+
+1. Rubrik, ingress och spårväljaren syns utan scroll. Första kortets pris syns i samma skärmhöjd eller precis under vecket.
+2. Tryck CV i spårväljaren: sidan scrollar till CV-kortet och kortet markeras. De två andra korten finns kvar.
+3. Allt-kortets längdval byter pris, rad, tre punkter och knapptext. Inget annat på sidan ändras.
+4. Allt-dagen visar ingen förnyelserad utan en sluttidsrad, enligt avsnitt 8.
+5. Jämförelsetabellen scrollar horisontellt i sin egen behållare. Sidans body scrollar aldrig i sidled.
+6. Alla knappar och FAQ-rader är minst 44 px höga.
+7. Med JavaScript avstängt: alla tre korten, tabellen, alla fem FAQ-svaren och förtroenderaden finns i HTML. Allt-kortet visar veckoläget.
+8. Räkna orange per skärmhöjd genom hela sidan: aldrig fler än två.
+9. Kontrast: priset i `text-tal ink-1` mot `bg-panel`, metaraden i ink-3 mot panel, båda över AA. Mät med webbläsarens verktyg, gissa inte.
+10. LCP under 2,0 s på simulerad 4G. Sidan är CDN-cachad ett dygn enligt `reference_vercel_env_saknas`.
+11. FAQPage- och AggregateOffer-schemat validerar, och priserna i schemat är samma som i korten.
+
+Desktop 1280: tre kolumner lika höga, tabellen utan scroll, FAQ i två kolumner.
+
+---
+
+### 3. Prissidan, inloggad
+
+En vy, tre tillstånd. Ligger på `/dashboard/profil/prenumeration` och ersätter dagens innehåll där. Vi bygger inte en inloggad `/priser`: två adresser för samma sak blir två sidor att hålla synkade, och den inloggade behöver sitt läge mer än hon behöver adressen.
+
+Skillnaden mot publika sidan i en mening: **den publika sidan säljer paket, den inloggade sidan säljer nästa steg från där användaren står.** Därför börjar varje tillstånd med användarens läge och först därefter kommer korten.
+
+#### Skärm 3.1: tillstånd gratis
+
+```
+┌──────────────────────────────────────────┐
+│  Prenumeration                           │  PageHeader h1
+│  [D21]                                   │  description
+├──────────────────────────────────────────┤
+│  ● [D22]  Du är på gratisnivån           │  StatusRow tone="neutral"
+├──────────────────────────────────────────┤
+│  [D23]  Det här har tagit stopp          │  text-sm font-medium ink-3
+│  ┌────────────────────────────────────┐  │  panel, lista divide-y
+│  │  ⊘  [D24]  Fler CV-mallar      3 ggr│  │  feature_blocked senaste 7 dygn
+│  │  ⊘  [D25]  Testnivå över grund 2 ggr│  │  ikon 24 ink-3, tal tabular-nums
+│  │  ⊘  [D26]  Brevnedladdning     1 gg │  │  max tre rader, mest frekvent först
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │  förslagspanel, kant-stark
+│  │  ┌──────┐                          │  │  MarginPlate, vyns enda
+│  │  │ ▨▨▨  │  [D27]  Vi föreslår      │  │  förslaget kommer ur spåret
+│  │  │ ▨▨▨  │         CV-veckan        │  │  plus blockeringarna ovan
+│  │  └──────┘  [D28]                   │  │  text-sm ink-2, skälet
+│  │                                    │  │
+│  │  ╔══════════════════════════════╗  │  │
+│  │  ║          [D29]               ║  │  │  primär: köp föreslaget paket
+│  │  ╚══════════════════════════════╝  │  │
+│  │                                    │  │
+│  │  [D30]                             │  │  textlänk: se alla paket
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  ▸ [D31]  Alla paket                     │  hopfälld, öppnas av [D30]
+│     tre kort som på publika sidan         │  samma markup, utan hero
+├──────────────────────────────────────────┤
+│  [D32]  Vad gratisnivån ger              │  panel, GR-strängarna ur 2B
+└──────────────────────────────────────────┘
+```
+
+Det bärande draget: **blockeringslistan står före förslaget.** Vi säger inte "köp det här", vi säger "det här tog stopp, och det här löser det". Raderna kommer ur `feature_blocked` de senaste sju dygnen, grupperade per feature, mest frekvent först, högst tre rader.
+
+Har användaren inga blockeringar alls, alltså en ny gratisanvändare som inte slagit i något, faller hela blockeringssektionen bort och förslagspanelen står ensam med spåret som enda grund. Den ska då säga varför den föreslår, i [D28], annars läser den som en gissning.
+
+Förslagslogiken, i ordning:
+
+1. Finns blockeringar i ett spår, föreslå det spåret. Två eller fler blockeringar som spänner båda spåren ger Allt-veckan.
+2. Finns inga blockeringar men ett spår i `onboarding_track`, föreslå det spåret.
+3. Finns varken eller, föreslå Allt-veckan och säg i [D28] att det är för att vi inte vet än.
+
+Orange-räkning: marginalplattan i förslagspanelen (1). Statusraden är neutral. Ett av tre.
+
+#### Skärm 3.2: tillstånd spår
+
+```
+┌──────────────────────────────────────────┐
+│  Prenumeration                           │  PageHeader
+├──────────────────────────────────────────┤
+│  ● [D33]  CV-veckan, förnyas 29 sept     │  StatusRow tone="neutral"
+├──────────────────────────────────────────┤
+│  ┌────────────────────────────────────┐  │  panel, det du har
+│  │  [D34]  Det här ingår              │  │  text-sm font-medium ink-3
+│  │  ✓ [P1a]  ✓ [P1b]  ✓ [P1c]         │  │  tre rader
+│  │  [P5]  Testerna över grundnivå...  │  │  text-meta ink-3
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [D35]  Det här har tagit stopp          │  bara om feature_blocked finns
+│  ┌────────────────────────────────────┐  │  utanför spåret senaste 7 dygn
+│  │  ⊘  [D36]  Testnivå över grund 4 ggr│  │
+│  └────────────────────────────────────┘  │
+│                                          │
+│  ┌────────────────────────────────────┐  │  uppgraderingspanel, kant-stark
+│  │  ┌──────┐                          │  │  MarginPlate, vyns enda
+│  │  │ ▨▨▨  │  [D37]  Byt till Allt    │  │
+│  │  │ ▨▨▨  │  [D38]                   │  │  text-sm ink-2
+│  │  └──────┘                          │  │
+│  │                                    │  │
+│  │  [T81]  Mellanskillnad    +20 kr   │  │  text-meta ink-3
+│  │  [T82]  Påbörjad vecka räknas av   │  │  text-meta ink-3
+│  │                                    │  │
+│  │  ╔══════════════════════════════╗  │  │
+│  │  ║          [T83]               ║  │  │  primär: uppgradera
+│  │  ╚══════════════════════════════╝  │  │
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [D39]  Hantera                          │
+│  ┌────────────────────────────────────┐  │  lista i panel
+│  │  [D40]  Byt betalkort           →  │  │  Stripe-portalen
+│  │  [D41]  Kvitton                 →  │  │
+│  │  [D42]  Säg upp                 →  │  │  aldrig dold, aldrig destruktiv färg
+│  └────────────────────────────────────┘  │
+└──────────────────────────────────────────┘
+```
+
+Mellanskillnaden, inte hela priset. Samma regel som i Fas 2A flöde 4, och av samma skäl: 99 kr för någon som redan betalar 79 läser som en dubbeldebitering.
+
+Har spåranvändaren inga blockeringar utanför sitt spår faller både [D35]-listan och uppgraderingspanelen bort. Då är hon nöjd i sitt paket, och att sälja Allt till henne är att störa. Kvar står bara vad hon har och hur hon hanterar det. Det är en bättre sida.
+
+Uppsägning ligger som en vanlig rad i hanteringslistan, i ink-1 som de andra, inte i rött och inte gömd bakom en accordion. Lagkravet i avsnitt 8 säger minst lika enkelt som köpet, och köpet var två tryck.
+
+Orange-räkning: marginalplattan (1). Ett av tre.
+
+#### Skärm 3.3: tillstånd Allt
+
+```
+┌──────────────────────────────────────────┐
+│  Prenumeration                           │  PageHeader
+├──────────────────────────────────────────┤
+│  ● [D43]  Allt-veckan, förnyas 29 sept   │  StatusRow tone="neutral"
+├──────────────────────────────────────────┤
+│  ┌────────────────────────────────────┐  │  panel: allt ingår
+│  │  [D44]  Allt ingår                 │  │
+│  │  ✓ [P3a]  ✓ [P3b]  ✓ [P3c]         │  │
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [D45]  Byt längd                        │  text-sm font-medium ink-3
+│  ┌────────────────────────────────────┐  │
+│  │  ┌─────┬─────┬─────┬─────┐         │  │  Segment, fyra längder
+│  │  │ Dag │Veck.│Mån. │Kvart│         │  │  nuvarande markerad
+│  │  └─────┴─────┴─────┴─────┘         │  │
+│  │                                    │  │
+│  │  [D46]  149 kr i månaden           │  │  text-kort ink-1
+│  │  [D47]  Sparar 47 kr mot fyra      │  │  text-meta ink-3, bara när sant
+│  │         veckor i rad               │  │
+│  │  [D48]  Byter vid nästa förnyelse  │  │  text-meta ink-3
+│  │                                    │  │
+│  │  ╔══════════════════════════════╗  │  │
+│  │  ║          [D49]               ║  │  │  primär, inaktiv tills annan
+│  │  ╚══════════════════════════════╝  │  │  längd än nuvarande är vald
+│  └────────────────────────────────────┘  │
+├──────────────────────────────────────────┤
+│  [D39]  Hantera                          │  samma lista som 3.2
+│  ┌────────────────────────────────────┐  │
+│  │  [D40] [D41] [D42]                 │  │
+│  └────────────────────────────────────┘  │
+└──────────────────────────────────────────┘
+```
+
+Ingen marginalplatta i det här tillståndet. Användaren har allt, det finns ingenting att framhäva, och en platta här skulle peka på ett byte hon inte bett om. Orange-räkning: noll. Det är rätt: en nöjd betalande sida ska vara lugn.
+
+[D47] visas bara när besparingen är sann och räknas i koden, aldrig som en fast sträng. Månaden mot fyra veckor: 149 mot 396, alltså 247 kr. Kvartalet mot tretton veckor: 299 mot 1287. Går prisen isär måste raden följa med, annars ljuger den.
+
+Sänkning av längd, alltså vecka till dag, hanteras som vanligt längdbyte vid nästa förnyelse. Vi hindrar det inte och vi frågar inte varför. En spärr där ger en uppsägning i stället.
+
+#### Vad som är gemensamt för de tre tillstånden
+
+En vy, tre tillstånd, och skelettet är samma: `PageHeader`, en `StatusRow` som säger läget, en panel som säger vad användaren har, noll till en panel som föreslår nästa steg, och en hanteringslista. Skillnaden ligger i vad de panelerna innehåller, inte i hur sidan är byggd. Det gör den billig att bygga och omöjlig att glida isär.
+
+Admin-beviljad premium och tidsbegränsad premium (dagens `AdminGrantedCard` och `TidsbegransadPremiumCard`) är varianter av tillstånd 3.3 med annan statusrad och utan längdval. De behöver inga nya skisser.
+
+#### Händelser, del 3
+
+| När | Händelse | Egenskaper |
+|---|---|---|
+| Sidan renderas | `pricing_viewed` | `surface: 'account'`, `logged_in: true`, `scope`, `track`, `state: 'free' \| 'track' \| 'all'` |
+| Blockeringslistan renderas med minst en rad | `upgrade_shown` | `from_scope`, `to_scope`, `surface: 'account_blocked_list'`, `blocked_count` |
+| Förslagspanelen renderas | `upgrade_shown` | `from_scope`, `to_scope`, `surface: 'account_suggestion'` |
+| Primär i förslags- eller uppgraderingspanelen | `paywall_cta_clicked` | `variant: 'account'`, `plan`, `cta: 'primary'` |
+| Längdvalet ändras | `plan_length_changed` | `from`, `to`, `surface: 'account'` |
+| Säg upp tryckt | `cancel_started` | `plan`, `days_into_period`. Ny, och nödvändig: utan den vet vi inte om uppsägningar sker dag 1 eller dag 6, och det avgör om priset eller produkten är problemet. |
+
+#### Acceptanskriterier, del 3
+
+Pixel 7, 412 px, tre inloggningar med tre olika konton:
+
+1. Gratiskonto med blockeringar: listan står före förslaget, högst tre rader, mest frekvent först.
+2. Gratiskonto utan blockeringar: listan är helt borta, ingen tom panel, inget skelett som ligger kvar.
+3. Gratiskonto med spår CV: förslaget är CV-veckan och [D28] säger varför.
+4. Spårkonto utan blockeringar utanför spåret: ingen uppgraderingspanel alls.
+5. Spårkonto med blockeringar utanför spåret: panelen visar mellanskillnaden, inte 99 kr.
+6. Allt-konto: längdvalet visar nuvarande längd markerad, och primären är inaktiv tills en annan väljs.
+7. [D47] visas bara när besparingen är sann, och talet stämmer mot priserna i `plans.ts`.
+8. Säg upp är synlig utan att öppna något, i ink-1, och tar användaren till Stripe-portalen.
+9. Räkna orange: ett i tillstånd gratis, ett i tillstånd spår, noll i tillstånd Allt.
+10. LCP under 1,0 s. Läget kommer serverrenderat, blockeringslistan likaså. Ingen panel får hämta sig själv efter mount.
+11. Alla tre tillstånden på desktop 1280: huvudkolumn, ingen sidopanel, korten i tre kolumner bara i det hopfällda "Alla paket".
+
+---
+
+### 4. Nya textytor
+
+D-serien, alltså det som tillkommer utöver P-, PR-, GR- och T-serierna som redan står i Fas 2B och 2C. Copyn skrivs av copywriter-rollen.
+
+| Id | Plats | Max | Avsikt |
+|---|---|---|---|
+| D1 | Spårvalet, sekundärknapp i foten | 16 | Börja gratis, som ett val och inte som ett avhopp |
+| D2 | Spårvalet, rad under fotknapparna | 70 | Vad gratisnivån ger, i en mening, så knappen inte är ett hopp i mörkret |
+| D3 | Gratisspårets fråga | 42 | Vad vill du göra, utan att nämna pris |
+| D4 | Gratisspårets underrad | 90 | Att svaret styr vad vi visar, inte vad det kostar |
+| D5 | Gratisspåret, CV-kortet titel | 24 | Handlingen, inte paketnamnet |
+| D6 | Gratisspåret, CV-kortet text | 70 | Vad hon kommer att göra först |
+| D7 | Gratisspåret, testkortet titel | 24 | Som D5 |
+| D8 | Gratisspåret, testkortet text | 70 | Som D6 |
+| D9 | Gratisspåret, vet inte än, titel | 24 | Ett ärligt svar, inte ett nederlag |
+| D10 | Gratisspåret, vet inte än, text | 70 | Att hon kan välja senare |
+| D11 | Gratisspåret, primärknapp | 22 | Till hemskärmen, med riktning |
+| D12a till D12c | Prissidan, spårväljarens tre lägen | 10 per läge | Ett ord per läge |
+| D13 | Prissidan, spårkortens intervallrad | 40 | Att det förnyas, med intervall utskrivet. Lagkrav. |
+| D14 | Prissidan, spårkortens knapp | 24 | Vad som händer vid tryck, per paket |
+| D15 | Prissidan, Allt-kortets intervallrad | 40 | Fyra varianter, en per längd. Dagen är en sluttidsrad, inte en förnyelserad. |
+| D16 | Prissidan, Allt-kortets knapp | 24 | Fyra varianter, en per längd |
+| D17 | Prissidan, gratisnivåns länk | 30 | Skapa konto gratis |
+| D18 till D20 | Prissidan, förtroenderadens tre rader | 40 per rad | Uppsägning, betalning, priser i kronor inklusive moms |
+| D21 | Prenumeration, sidhuvudets underrad | 70 | Vad sidan gör |
+| D22 | Prenumeration gratis, statusrad | 50 | Läget, utan att låta som en brist |
+| D23 | Prenumeration gratis, listrubrik | 34 | Det här har tagit stopp |
+| D24 till D26 | Blockeringsradernas etiketter | 34 per rad | En per feature. Tio features enligt avsnitt 5, alltså tio strängar. |
+| D27 | Förslagspanelens rubrik | 40 | Vi föreslår, plus paketnamnet |
+| D28 | Förslagspanelens skäl | 110 | Varför just det paketet, ur blockeringar eller spår. Tre varianter enligt förslagslogiken. |
+| D29 | Förslagspanelens knapp | 26 | |
+| D30 | Se alla paket, textlänk | 24 | |
+| D31 | Alla paket, hopfälld rubrik | 20 | |
+| D32 | Gratisnivåns panelrubrik | 34 | Vad gratisnivån ger |
+| D33 | Prenumeration spår, statusrad | 60 | Paket och nästa dragningsdatum |
+| D34 | Det här ingår, rubrik | 24 | |
+| D35 | Spårets blockeringslista, rubrik | 34 | Som D23 men utanför spåret |
+| D36 | Spårets blockeringsrader | 34 per rad | Delar strängar med D24 till D26 |
+| D37 | Uppgraderingspanelens rubrik | 34 | Byt till Allt |
+| D38 | Uppgraderingspanelens text | 110 | Vad Allt öppnar, ur hennes faktiska blockeringar |
+| D39 | Hantera, listrubrik | 16 | |
+| D40 till D42 | Hanteringsradernas etiketter | 24 per rad | Byt betalkort, kvitton, säg upp |
+| D43 | Prenumeration Allt, statusrad | 60 | Paket, längd och nästa dragningsdatum. Fyra varianter, en per längd. |
+| D44 | Allt ingår, rubrik | 20 | |
+| D45 | Byt längd, rubrik | 20 | |
+| D46 | Valt längdläge, prisrad | 40 | Fyra varianter |
+| D47 | Besparingsrad | 60 | Bara när sann. Två varianter, månad och kvartal. |
+| D48 | Byter vid nästa förnyelse | 40 | Att bytet inte sker nu |
+| D49 | Byt längd, primärknapp | 26 | |
+
+Räknat som strängar, alltså med varianter: 49 id ger cirka 95 strängar. De tyngsta posterna är D24 till D26 (tio features), D15, D16, D43 och D46 (fyra längder var) och D28 (tre varianter).
+
+Utöver D-serien behövs de sex strängar Fas 2B redan pekat ut i noten vid prissidan: en rad plus tre punkter för Allt-dagen och detsamma för Allt-kvartalet.
+
+---
+
+### 5. Insats och vad som saknas
+
+| Del | Insats | Vad som räcker | Vad som saknas |
+|---|---|---|---|
+| Skärm 1.1 med Börja gratis | **S** ovanpå Fas 2A:s M | `FlowShell` har redan `footerSecondary`. `ChoiceCard`, `Segment`, `MarginPlate` finns. | Skärm 1.1b är en ny stegvy men bygger på samma komponenter. Ingen ny komponent. Rutten `/start` och `onboarding_track` var redan med i Fas 2A. |
+| Publika prissidan | **L** | Tråden-tokens finns i `globals.css` och gäller redan publika sidor där de används. `Segment` ur shell fungerar på publik sida. Illustrationer finns i `TradenScener` och `Ikoner`. | **Paketkortet saknas som komponent.** Dagens `PlanCards` i `src/components/pricing/` är byggt för den gamla prisstegen och för fyra produkter, inte tre kort med ett inbyggt längdval. Nytt: `PaketKort { plan, lengths?, recommended?, notIncluded?, onSelect }` i `src/components/pricing/`, delad mellan publik och inloggad sida. Dessutom behöver jämförelsetabellen en `JamforelseTabell` som tål fyra kolumner och sticky första kolumn på mobil. Dagens `PriserJamforelse` är byggd för två. |
+| Inloggade prissidan | **M** | `PageHeader`, `StatusRow`, panel- och listmönstren, `Segment`, `MarginPlate`. Allt finns. `PaketKort` delas med publika sidan. | En serverfråga som summerar `feature_blocked` per feature de senaste sju dygnen. Den finns inte. Läggs i sidans egen serverkomponent, inte i `/api/dashboard/summary`, eftersom den bara behövs här. Dessutom förslagslogiken som en ren funktion i `src/lib/access/suggestPlan.ts`, testbar utan databas. |
+| Händelser | **S** | `capture` finns. | Fyra nya händelsenamn: `plan_length_changed`, `pricing_comparison_viewed`, `pricing_faq_opened`, `cancel_started`. Plus egenskapen `intent` på `track_selected`. |
+
+Summerat nytt i kod: två komponenter (`PaketKort`, `JamforelseTabell`), en ren funktion (`suggestPlan`), en serverfråga (blockeringar per feature), fyra händelsenamn och en ny egenskap. Ingenting i `src/components/shell` behöver ändras, och `Segment` bär både spårväljaren och längdvalet utan tillägg.
+
+**Total insats Fas 2D: L.** Den publika prissidan är merparten. Den ligger i släpp 1 enligt ägarens beslut 5, tillsammans med paketen och kassan, eftersom en kassa utan prissida inte går att sälja från. Den inloggade sidan kan gå i samma släpp men är inte blockerande för köp, så den får falla till släpp 2 om tiden tar slut. Börja gratis-justeringen av skärm 1.1 måste gå i släpp 1, eftersom spårvalet gör det.
+
+---
+
+
+## Fas 2E: text för prissidan
+
+Skriven 2026-09-22 av `svensk-ux-copywriter` mot Fas 2D:s D-serie, D1 till D49. Här ligger också de sex strängar Fas 2B pekade ut för Allt-dagen och Allt-kvartalet, samt ställningstagandet till prissidans H1.
+
+Samma regler som 2B och 2C: inga talstreck, aldrig "Lås upp", aldrig "gratis för alltid", vi och du som subjekt, svenska facktermer, auktoritär och lugn ton. Bestämd form på alla paketnamn enligt ägarens beslut 6. Längder i tecken inklusive mellanslag, mätta mot 2D:s maxvärden.
+
+---
+
+### 0. Prissidans H1, slutgiltigt
+
+Saas-lead har rätt i invändningen. "Betala för veckan" blir osann i samma sekund som Allt-kortets Segment står på Dag eller Kvartal, och en rubrik som motsägs av ett reglage tjugo pixlar längre ner är värre än en vag rubrik.
+
+Jag delar hans rekommendation men inte dess formulering. Veckan ska stå kvar som huvudlöfte, och längderna ska vara undantag. Men rubriken måste då säga veckan som **utgångspunkt** och inte som villkor, annars är den fortfarande falsk. Skillnaden ligger i ett ord.
+
+| Alternativ | Rubrik | Tecken | Problem |
+|---|---|---|---|
+| Nuvarande, PR1A | `Välj spåret du söker på. Betala för veckan.` | 43 | Blir osann vid Dag och Kvartal. Saas-leads invändning. |
+| Rättad | **`Välj spåret du söker på. Börja med en vecka.`** | 44 | Ingen. Veckan är start, inte tak. |
+| Alternativ | `Välj spåret du söker på. Betala per vecka.` | 42 | "Per vecka" läses som prisenhet och blir lika osann vid kvartal. |
+
+**Slutgiltig H1: `Välj spåret du söker på. Börja med en vecka.`** (44 tecken)
+
+Skälet i tre led. "Börja med en vecka" är sant oavsett vilket läge Segmentet står i, eftersom veckan är förvald och är vad de flesta köper. Den bär fortfarande hela argumentet mot årsabonnemang, vilket är sidans enda verkliga säljpoäng mot konkurrenterna. Och den öppnar för längderna i stället för att motsäga dem: "börja med" antyder att det finns mer, och det gör det. Första satsen står oförändrad, eftersom spårvalet är det sidan finns för.
+
+Ingressen PR2A från Fas 2B står kvar oförändrad. Den nämner ingen längd och blir därför inte osann.
+
+Konsekvens: PR1 i Fas 2B är ersatt av raden ovan. Den gamla lydelsen ska inte föras in någonstans.
+
+---
+
+### 1. Spårvalet med Börja gratis
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D1 | 16 | **`Börja gratis`** | 12 |
+| D1 alt | 16 | `Hoppa över` | 10 |
+| D2 | 70 | **`Gratisnivån ger tre mallar, en analys, ett brev och grundnivån i testerna.`** | 73, se not |
+| D2 alt | 70 | `Tre mallar, en CV-analys, ett brev och grundnivån i testerna ingår.` | 66 |
+
+**Rekommendation: D1 alternativ A, D2 alternativ B.** D1 "Börja gratis" är ägarens egen formulering och den enda som gör gratis till ett val i stället för ett avhopp, vilket är hela skälet till att knappen ligger i foten och inte som en grå länk. "Hoppa över" säger att man missar något.
+
+D2:s huvudalternativ är 73 tecken och faller utanför taket. Alternativet håller 66 och säger samma sak, med ingår-formeln från GR-serien i 2B. Det är därför alternativet som gäller, och raden lyder `Tre mallar, en CV-analys, ett brev och grundnivån i testerna ingår.`
+
+Not: raden måste stämma med gratisnivån i avsnitt 4 och med GR1 till GR7. Ändras CV-analysens gratisnivå, som Fas 3 noterar är hårdare än planen skrev, ska D2 följa med i samma commit.
+
+---
+
+### 2. Skärm 1.1b: gratisanvändarens spårfråga
+
+Inga priser på den här skärmen, enligt 2D. Ingen av strängarna får nämna ett belopp eller ett paketnamn.
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D3 | 42 | **`Vad vill du börja med?`** | 22 |
+| D3 alt | 42 | `Var ska vi börja?` | 17 |
+| D4 | 90 | **`Svaret styr vad vi lägger överst. Du kan ändra det när du vill i din profil.`** | 76 |
+| D4 alt | 90 | `Vi lägger det du väljer överst på startsidan. Ändra det när som helst.` | 69 |
+| D5 | 24 | **`Mitt CV`** | 7 |
+| D5 alt | 24 | `CV och ansökningar` | 18 |
+| D6 | 70 | **`Vi läser ditt CV och visar vad en rekryterare fastnar på.`** | 56 |
+| D6 alt | 70 | `Ladda upp CV:t, så börjar vi med en analys av det.` | 50 |
+| D7 | 24 | **`Rekryteringstester`** | 18 |
+| D7 alt | 24 | `Träna på tester` | 15 |
+| D8 | 70 | **`Grundnivån i matrislogik, verbalt och numeriskt, med förklaringar.`** | 66 |
+| D8 alt | 70 | `Börja med grundnivån i den testtyp du har framför dig.` | 53 |
+| D9 | 24 | **`Jag vet inte än`** | 15 |
+| D9 alt | 24 | `Visa mig allt` | 13 |
+| D10 | 70 | **`Titta runt först. Vi frågar igen när du hunnit se dig omkring.`** | 61 |
+| D10 alt | 70 | `Du kan välja när som helst i profilen.` | 38 |
+| D11 | 22 | **`Till startsidan`** | 15 |
+| D11 alt | 22 | `Sätt igång` | 10 |
+
+Not till D3: frågan är avsiktligt en annan än T1 ("Vad ska du få gjort den här veckan?"). Veckan finns inte för den som väljer gratis, och att fråga om en vecka hon inte köpt vore fel. "Vad vill du börja med" har ingen tidsram alls, vilket är riktigt här.
+
+Not till D5 och D7: titlarna är substantiv, inte handlingar som T3 och T6. Skälet: på köpskärmen är titeln ett löfte om vad veckan ger, här är den en etikett på ett område. "Få ansökan klar" vore ett löfte vi inte håller på gratisnivån.
+
+Not till D9: "Jag vet inte än" är samma formulering som T12 och ska vara det. Det är ett ärligt svar, och `onboarding_track` blir `null`, precis som 2D säger. "Visa mig allt" är sämre eftersom det antyder en produktrundtur vi inte bygger.
+
+---
+
+### 3. Publika prissidan
+
+#### Spårväljaren, D12
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D12a | 10 | `CV` | 2 |
+| D12b | 10 | `Tester` | 6 |
+| D12c | 10 | `Allt` | 4 |
+
+Ett ord per läge enligt 2D. "Tester" står i plural eftersom det är 19 stycken, och "Rekryteringstester" ryms inte på tio tecken.
+
+#### Spårkorten, D13 och D14
+
+| Id | Max | Paket | Sträng | Tecken |
+|---|---|---|---|---|
+| D13 | 40 | CV-veckan och Testveckan | **`i veckan, förnyas var sjunde dag`** | 32 |
+| D13 alt | 40 | Samma | `i veckan, dras var sjunde dag` | 29 |
+| D14 | 24 | CV-veckan | **`Ta CV-veckan`** | 12 |
+| D14 alt | 24 | CV-veckan | `Välj CV-veckan` | 14 |
+| D14 | 24 | Testveckan | `Ta Testveckan` | 13 |
+
+**Rekommendation: D13 alternativ A, D14 alternativ A.** "Förnyas" är lagkravets ord i avsnitt 8 och säger vad som händer med prenumerationen. "Dras" säger vad som händer med pengarna och hör hemma i kassan, där beloppet står. D14 "Ta" är samma verb som i betalväggarna PW1 till PW7 i Fas 2B, och knapptexten ska vara densamma överallt där samma paket köps.
+
+#### Allt-kortet, D15 och D16, fyra längder var
+
+| Id | Läge | Sträng | Tecken |
+|---|---|---|---|
+| D15 | Dag | `i 24 timmar, förnyas inte` | 25 |
+| D15 | Vecka | `i veckan, förnyas var sjunde dag` | 32 |
+| D15 | Månad | `i månaden, förnyas var trettionde dag` | 37 |
+| D15 | Kvartal | `i kvartalet, förnyas var tredje månad` | 37 |
+| D16 | Dag | `Ta Allt-dagen` | 13 |
+| D16 | Vecka | `Ta Allt-veckan` | 14 |
+| D16 | Månad | `Ta Allt-månaden` | 15 |
+| D16 | Kvartal | `Ta Allt-kvartalet` | 17 |
+
+Not till D15 i dagläget: "förnyas inte" är den viktigaste texten på hela kortet. Allt-dagen är ett engångsköp enligt avsnitt 8, och den som köper ett dygn och sedan ser en dragning har skäl att begära återbetalning. Raden får aldrig kortas bort för att den bryter mönstret mot de tre andra. Det är precis därför den finns.
+
+#### Gratisnivån och förtroenderaden
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D17 | 30 | **`Skapa konto gratis`** | 18 |
+| D17 alt | 30 | `Börja gratis, utan kort` | 24 |
+| D18 | 40 | `Säg upp när som helst, ett klick` | 32 |
+| D19 | 40 | `Kortbetalning via Stripe` | 24 |
+| D20 | 40 | `Priser i kronor, moms ingår` | 27 |
+
+**Rekommendation: D17 alternativ A.** Alternativet nämner kortet, och det är sant att gratisnivån inte kräver kort, men raden ligger under gratisnivåns panel där hela innehållet redan står. "Skapa konto gratis" säger vad knappen gör. Vill ägaren ha kortlöftet hör det hemma i D2 eller i förtroenderaden, inte här.
+
+Not till D19: Stripe nämns vid namn eftersom det är ett förtroendeargument och inte ett tekniskt påstående. Byter vi betalleverantör byts raden.
+
+Not till D20: "moms ingår" är kravet i avsnitt 8, alltså pris inklusive moms i kronor. Raden får inte skrivas om till "inga dolda avgifter", som är ett löfte om något annat.
+
+---
+
+### 4. Allt-dagen och Allt-kvartalet: de sex strängarna ur Fas 2B
+
+Kompletterar P4 och P4a till P4c, som gäller månadsläget. En rad (max 70) och tre punkter (max 45) per längd, i samma form som P-serien.
+
+| Id | Längd | Rad, max 70 | Tecken |
+|---|---|---|---|
+| P7 | Allt-dagen | **`Allt i ett dygn. Ett engångsköp, ingenting dras igen.`** | 52 |
+| P7 alt | Allt-dagen | `För dig som ska ha in en ansökan i kväll.` | 41 |
+| P8 | Allt-kvartalet | **`Tre månader, för ett sök som du vet tar tid.`** | 43 |
+| P8 alt | Allt-kvartalet | `Samma som Allt-månaden, tre gånger så länge och billigare.` | 57 |
+
+**Rekommendation: P7 alternativ A, P8 alternativ A.** P7A säger både innehåll och den enda sak som skiljer dagen från allt annat på sidan, nämligen att den inte förnyas. Det är inte finstilt, det är kortets viktigaste fakta och hör hemma i raden. P8A säger skälet att välja kvartal, precis som P4B gör för månaden, och undviker att räkna på besparingen i en rad där talet inte står.
+
+| Id | Längd | Punkt, max 45 | Tecken |
+|---|---|---|---|
+| P7a | Allt-dagen | `Allt i Allt-veckan, i 24 timmar` | 31 |
+| P7b | Allt-dagen | `Engångsköp, ingen prenumeration` | 31 |
+| P7c | Allt-dagen | `Dygnet räknas från köpet` | 24 |
+| P8a | Allt-kvartalet | `Allt i Allt-veckan, i tre månader` | 33 |
+| P8b | Allt-kvartalet | `Billigare än tretton veckor i rad` | 33 |
+| P8c | Allt-kvartalet | `Säg upp när som helst, ett klick` | 32 |
+
+Not till P7c: "räknas från köpet" är nödvändigt eftersom dygnet inte följer kalenderdygnet. Ett köp klockan 21 gäller till klockan 21 nästa dag, och det måste stå före köpet, inte bara i bekräftelsen.
+
+Not till P8b: tretton veckor mot 299 kr stämmer mot priserna i ägarens beslut 1 och 4. Ändras kvartalspriset måste punkten följa med, annars stryks jämförelsen och punkten blir `Längsta perioden vi säljer` (26).
+
+---
+
+### 5. Inloggade prissidan: tillstånd gratis
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D21 | 70 | **`Vad du har i dag, och vad som öppnar resten.`** | 44 |
+| D21 alt | 70 | `Ditt läge, dina paket och hur du hanterar dem.` | 46 |
+| D22 | 50 | **`Du är på gratisnivån`** | 20 |
+| D22 alt | 50 | `Gratisnivån, inget kort kopplat` | 31 |
+| D23 | 34 | **`Det här har tagit stopp`** | 23 |
+| D23 alt | 34 | `Här tog det stopp den här veckan` | 32 |
+
+**Rekommendation: D21 alternativ A, D22 alternativ A, D23 alternativ A.** D22A är 2D:s egen formulering och är rätt: den säger läget utan att låta som en brist, vilket alternativets "inget kort kopplat" gör. D23A är kortare och saknar tidsangivelse, vilket är bättre eftersom listan täcker sju dygn och "den här veckan" kan läsas som kalendervecka.
+
+#### Blockeringsetiketterna, D24 till D26, tio features
+
+En sträng per feature ur featuretabellen i avsnitt 5. Samma strängar används på tillstånd spår, alltså D36. Max 34 tecken. Formen är ett substantiv, aldrig en mening och aldrig en uppmaning: raden följs av ett antal och ska läsas som en post i en lista.
+
+| Feature | Etikett | Tecken |
+|---|---|---|
+| `cv_templates_all` | `Fler CV-mallar` | 14 |
+| `cv_export` | `Fler CV-nedladdningar` | 21 |
+| `cv_analysis_full` | `Hela CV-analysen` | 16 |
+| `letter_download` | `Brevnedladdning` | 15 |
+| `tests_above_base` | `Testnivå över grundnivån` | 24 |
+| `test_exam_mode` | `Tidsatt provläge` | 16 |
+| `test_history` | `Din testhistorik` | 16 |
+| `chat_unlimited` | `Fler meddelanden i chatten` | 26 |
+| `job_matches_all` | `Fler jobbträffar` | 16 |
+| `bli_upptackt` | `Bli upptäckt` | 12 |
+
+Not: etiketterna säger vad användaren ville göra, inte vad hon nekades. "Fler CV-mallar" och inte "CV-mallar låsta". Listan är redan en lista över stopp, och att upprepa det på varje rad är att gnugga in det.
+
+Not om antalsraden bredvid etiketten: formen är `{n} ggr` för n över 1 och `1 gg` för n lika med 1, enligt 2D:s skiss. Det är korrekt svensk förkortning och ska inte skrivas ut som "gånger", som spräcker raden.
+
+#### Förslagspanelen
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D27 | 40 | `Vi föreslår CV-veckan` / `Vi föreslår Testveckan` / `Vi föreslår Allt-veckan` | 21 / 22 / 23 |
+| D29 | 26 | **`Ta CV-veckan`** (följer föreslaget paket) | 12 |
+| D29 alt | 26 | `Se vad den kostar` | 17 |
+| D30 | 24 | **`Se alla paket`** | 13 |
+| D30 alt | 24 | `Jämför paketen` | 14 |
+| D31 | 20 | `Alla paket` | 10 |
+| D32 | 34 | **`Vad gratisnivån ger`** | 19 |
+| D32 alt | 34 | `Det här ingår utan att betala` | 29 |
+
+**Rekommendation: D29 alternativ A, D30 alternativ A, D32 alternativ A.** D29 ska vara samma knapptext som på prissidan och i betalväggarna, alltså "Ta {paket}". En knapp som säger "Se vad den kostar" när priset redan står i panelen ovanför är ett steg som inte finns.
+
+D28, förslagets skäl, tre varianter enligt förslagslogiken i 2D. Max 110.
+
+| Variant | Sträng | Tecken |
+|---|---|---|
+| 1, blockeringar i ett spår | `Du har slagit i taket på CV-sidan tre gånger den här veckan. CV-veckan öppnar allt du stoppades av.` | 99 |
+| 1b, blockeringar i båda spåren | `Du har stoppats både på CV-sidan och i testerna. Allt-veckan öppnar båda, så du slipper välja.` | 94 |
+| 2, inga blockeringar men spår känt | `Du sa att du vill jobba med ditt CV. CV-veckan ger mallarna, hela analysen och brevet.` | 85 |
+| 3, varken eller | `Vi vet inte vad du behöver än, så vi visar det som rymmer allt. Välj ett spår i stället om du vet.` | 98 |
+
+Not till variant 1: talet kommer ur blockeringslistan och måste vara samma tal som står där, annars säger panelen en sak och listan en annan. Är talet 1 blir formuleringen `Du har slagit i taket på CV-sidan en gång den här veckan.` Är talet över 9 skrivs det med siffra.
+
+Not till variant 3: raden erkänner öppet att förslaget är en gissning, och erbjuder spårvalet som ett bättre alternativ. Det är det enda ärliga sättet att föreslå det dyraste paketet till någon vi inte vet något om.
+
+---
+
+### 6. Inloggade prissidan: tillstånd spår
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D33 | 60 | `CV-veckan, förnyas {datum}` | 26 vid tvåsiffrigt datum |
+| D34 | 24 | **`Det här ingår`** | 13 |
+| D34 alt | 24 | `Det du har` | 10 |
+| D35 | 34 | **`Det här har tagit stopp`** | 23 |
+| D36 | 34 | Delar strängar med D24 till D26 ovan | |
+| D37 | 34 | **`Byt till Allt-veckan`** | 20 |
+| D37 alt | 34 | `Öppna det andra spåret också` | 28 |
+| D39 | 16 | `Hantera` | 7 |
+| D40 | 24 | `Byt betalkort` | 13 |
+| D41 | 24 | `Kvitton` | 7 |
+| D42 | 24 | `Säg upp` | 7 |
+
+**Rekommendation: D34 alternativ A, D37 alternativ A.** D37 ska namnge paketet, eftersom knappen under leder till en betalning och panelen måste säga vad man köper. "Öppna det andra spåret" beskriver resultatet men döljer att det kostar.
+
+D38, uppgraderingspanelens text, max 110. Skrivs ur användarens faktiska blockeringar.
+
+| Variant | Sträng | Tecken |
+|---|---|---|
+| Blockeringar finns | `Du har stoppats av testnivåerna fyra gånger. Allt-veckan öppnar dem, och du behåller allt du har i dag.` | 102 |
+| Blockeringar saknas, panelen visas ändå | `Allt-veckan lägger testerna ovanpå det du redan har: alla nivåer, tidsatt provläge och förklaringarna.` | 101 |
+
+Not: enligt 2D faller hela panelen bort när spåranvändaren saknar blockeringar utanför sitt spår, och det är rätt. Den andra varianten finns därför bara för det fall att ägaren senare väljer att visa panelen alltid. Jag rekommenderar att den inte används: att sälja Allt till en nöjd spårkund är att störa, precis som 2D skriver.
+
+Not till D42: "Säg upp" och inget annat. Inte "Avsluta prenumerationen", som är rätt på dag 7 där den står ensam, och inte "Hantera prenumerationen", som döljer vad raden gör. I en lista med tre rader där de andra är "Byt betalkort" och "Kvitton" är "Säg upp" den kortaste sanna formen.
+
+---
+
+### 7. Inloggade prissidan: tillstånd Allt
+
+| Id | Max | Längd | Sträng | Tecken |
+|---|---|---|---|---|
+| D43 | 60 | Dag | `Allt-dagen, gäller till {klockslag} i dag` | 38 |
+| D43 | 60 | Vecka | `Allt-veckan, förnyas {datum}` | 28 |
+| D43 | 60 | Månad | `Allt-månaden, förnyas {datum}` | 29 |
+| D43 | 60 | Kvartal | `Allt-kvartalet, förnyas {datum}` | 31 |
+| D44 | 20 | | `Allt ingår` | 10 |
+| D45 | 20 | | `Byt längd` | 9 |
+| D46 | 40 | Dag | `49 kr för ett dygn` | 18 |
+| D46 | 40 | Vecka | `99 kr i veckan` | 14 |
+| D46 | 40 | Månad | `149 kr i månaden` | 16 |
+| D46 | 40 | Kvartal | `299 kr i kvartalet` | 18 |
+| D47 | 60 | Månad | `Sparar {n} kr mot fyra veckor i rad` | 35 |
+| D47 | 60 | Kvartal | `Sparar {n} kr mot tretton veckor i rad` | 38 |
+| D48 | 40 | | **`Byter vid nästa förnyelse`** | 25 |
+| D48 alt | 40 | | `Gäller från nästa dragning` | 26 |
+| D49 | 26 | | **`Byt till Allt-månaden`** (följer valt läge) | 21 |
+| D49 alt | 26 | | `Byt längd` | 9 |
+
+**Rekommendation: D48 alternativ A, D49 alternativ A.** D48A säger att bytet inte sker nu, vilket 2D ber om, och "förnyelse" är samma ord som i D13, D15 och D33. D49 ska namnge målet: en knapp som säger "Byt längd" i en panel som heter "Byt längd" upprepar rubriken utan att säga vad man byter till.
+
+Not till D49 i dagläget: byter en löpande kund till Allt-dagen slutar prenumerationen och ersätts av ett engångsköp. Den knappen får därför inte lyda `Byt till Allt-dagen` utan att panelen säger vad som händer med prenumerationen. Föreslagen tilläggsrad, visas bara i dagläget:
+
+| Id | Max | Sträng | Tecken |
+|---|---|---|---|
+| D48b | 40 | `Prenumerationen avslutas då` | 27 |
+
+Den raden står inte i 2D:s tabell, men utan den är bytet till dag en uppsägning i förklädnad. Jag lägger den som en fråga till UX snarare än som ett fullbordat faktum: går bytet över huvud taget att göra i den riktningen, eller ska dagläget vara inaktivt för löpande kunder? Det senare är enklare och ärligare.
+
+Not till D47: talet räknas i koden och visas bara när det är positivt, enligt 2D. Med priserna 99, 149 och 299 blir det 247 kr för månaden och 988 kr för kvartalet. Strängen får aldrig skrivas med ett fast tal.
+
+Not till D46 i dagläget: "för ett dygn" och inte "i dygnet", eftersom det inte upprepas. De tre andra bär prepositionen "i" just för att de är löpande.
+
+---
+
+### Sammanräkning, Fas 2E
+
+| Grupp | Id | Strängar |
+|---|---|---|
+| Prissidans H1, omskriven | PR1 | 3 |
+| Spårvalet med Börja gratis | D1, D2 | 4 |
+| Skärm 1.1b | D3 till D11 | 18 |
+| Publika prissidan, väljare och kort | D12 till D16 | 16 |
+| Publika prissidan, gratis och förtroende | D17 till D20 | 5 |
+| Allt-dagen och Allt-kvartalet | P7, P8 med punkter | 10 |
+| Inloggad, tillstånd gratis | D21 till D32 | 27 |
+| Inloggad, tillstånd spår | D33 till D42 | 15 |
+| Inloggad, tillstånd Allt | D43 till D49, D48b | 21 |
+| **Totalt** | | **119** |
+
+Alternativen är inräknade. D-serien själv landar på 96 strängar, alltså i linje med 2D:s uppskattning på cirka 95. Tillkommer gör de sex Allt-dagen- och Allt-kvartalet-strängarna plus fyra varianter av dem, de tre H1-raderna, och D48b som jag lagt till.
+
+### Öppna punkter som kräver beslut före införandet
+
+1. **D48b och bytet nedåt till Allt-dagen.** Går ett byte från löpande till engångsköp att göra i Stripe, och ska det gå? Jag rekommenderar att dagläget görs inaktivt i längdvalet för löpande kunder, med raden `Allt-dagen kan inte väljas härifrån` (34) i stället. Då behövs varken D48b eller en förklaring av vad som händer med prenumerationen.
+2. **D2 mot CV-analysens gratisnivå.** Fas 3 noterar att gratisnivån för analysen är hårdare än planen skrev och att PW3 och GR3 ändras. D2 räknar upp gratisnivån i en mening och måste ändras i samma commit.
+3. **D28 variant 1, talet.** Panelen och listan måste räkna samma sak över samma sju dygn. Räknas listan per feature och panelen per spår blir talen olika, och då säger sidan emot sig själv på två rader.
+4. **D46 och D47 mot `plans.ts`.** Alla fyra beloppen och båda besparingarna ska läsas ur koden, aldrig skrivas som fasta strängar. Samma regel som mallantalet, där ett vakttest redan hindrar hårdkodade tal enligt Fas 3 punkt 5.
 # Fas 3: slutgranskning (Fable, 2026-09-22)
 
 Planen är läst i sin helhet mot rapporten, designsystemet och koden. Fem punkter, varav två ändrar planen.

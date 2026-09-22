@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="vkAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="vkAccentV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FB923C"/>
+      <stop offset="0.55" stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <radialGradient id="vkWashA" cx="0.06" cy="0.05" r="0.70">
+      <stop offset="0" stop-color="#FB923C" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FB923C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vkWashB" cx="0.95" cy="0.96" r="0.76">
+      <stop offset="0" stop-color="#EA580C" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#EA580C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vkWashC" cx="0.96" cy="0.06" r="0.52">
+      <stop offset="0" stop-color="#F97316" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1024" height="1024" fill="#FFFCF9"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#vkWashA)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#vkWashB)"/>
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#vkWashC)"/>
+
+  <g fill="none" stroke="#1B1915" stroke-linecap="round" stroke-linejoin="round">
+    <g opacity="0.07" stroke-width="10">
+      <circle cx="512" cy="462" r="392"/>
+      <circle cx="512" cy="462" r="302"/>
+    </g>
+    <g opacity="0.05" stroke-width="26">
+      <path d="M-40 246 L296 -90"/>
+      <path d="M764 1090 L1100 754"/>
+    </g>
+  </g>
+
+  <path d="M176 792 H848" stroke="#1B1915" stroke-opacity="0.16" stroke-width="9" stroke-linecap="round"/>
+
+  <ellipse cx="512" cy="792" rx="320" ry="30" fill="#1B1915" opacity="0.09"/>
+  <g>
+    <rect x="317" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="397" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="477" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="557" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="637" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="717" y="462" width="62" height="318" rx="22" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <rect x="797" y="408" width="62" height="372" rx="22" fill="url(#vkAccentV)"/>
+  </g>
+
+  <g transform="translate(-78 -14) rotate(-13 262 780)">
+    <rect x="176" y="516" width="172" height="264" rx="16" fill="#1B1915" opacity="0.10" transform="translate(9 9)"/>
+    <rect x="176" y="516" width="172" height="264" rx="16" fill="#FFFFFF" stroke="#1B1915" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke="#1B1915" stroke-width="9" stroke-linecap="round" stroke-opacity="0.28">
+      <path d="M210 562 H314"/>
+      <path d="M210 600 H314"/>
+      <path d="M210 638 H314"/>
+      <path d="M210 676 H272"/>
+    </g>
+    <rect x="210" y="708" width="60" height="14" rx="7" fill="url(#vkAccent)"/>
+  </g>
+</svg>

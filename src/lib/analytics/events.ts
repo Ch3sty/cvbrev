@@ -98,25 +98,83 @@ export interface AnalyticsEvents {
      av sju konverteringspunkter. surface är sidan eller routen händelsen
      inträffade på, plan sätts först när ett produktval faktiskt finns. */
   paywall_shown: {
-    variant: PaywallVariant
+    /**
+     * Betalväggarnas varianter, plus onboardingens två egna ytor. De senare
+     * renderas inte av PaywallCard och bor därför inte i paywall-copy.ts,
+     * men de ska mätas i samma par som resten (docs/plan-paket-och-onboarding.md).
+     */
+    variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
     /** Sidan eller routen kortet visades på. */
     surface: string
     plan?: PlanKey
+    /** Funktionen som spärrade. Kopplar betalväggen till feature_blocked. */
+    feature?: string
+    /** Paketet knappen föreslår, ur suggestPlan. */
+    suggestedPlan?: PlanKey
   }
   paywall_cta_clicked: {
-    variant: PaywallVariant
+    variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
     surface: string
     plan?: PlanKey
     /** Ink-knappen eller textlänken under den. */
     cta: 'primary' | 'secondary'
   }
-  pricing_viewed: ClusterContext & { trigger: PricingTrigger }
-  trial_started: { source: string }
-  /* Priset under provperioden (docs/rapporter/analys-effekt-2026-09-21.md).
-     Med reverse trial renderar betalväggarna null, så 19 av 20 nya konton
-     hann aldrig se ett pris innan de försvann. Raden som ersätter dem mäts
-     här: surface är sidan eller routen, en gång per montering. */
-  trial_price_shown: { surface: string }
+  /* Prissidan finns på två ytor: den publika /priser och den inloggade
+     prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
+     skiljer dem åt, state säger vilket av de tre inloggade tillstånden som
+     ritades. trigger står kvar för anroparna som bara har det. */
+  pricing_viewed: ClusterContext & {
+    trigger: PricingTrigger
+    surface?: 'public' | 'account'
+    logged_in?: boolean
+    scope?: string | null
+    track?: string | null
+    state?: 'free' | 'track' | 'all'
+  }
+  /* ------------------------------------------ paket och onboarding
+     docs/plan-paket-och-onboarding.md avsnitt 6. Tre mätpunkter: spårval
+     till köp, köp till kommit igång inom 24 h, och förnyelse vecka 1 till
+     vecka 2. feature_blocked är den viktigaste av alla: den mäter var fel
+     spår tar i taket, alltså var uppförsäljningen finns. Dubbelräkning
+     förstör den, så den skjuts en gång per montering. */
+  track_selected: {
+    track: 'cv' | 'tester' | 'allt' | null
+    surface: string
+    /** Skiljer den som valde spår för att köpa från den som valde gratis. */
+    intent?: 'purchase' | 'free'
+  }
+  track_changed: { from: string | null; to: string | null; surface: string }
+  onboarding_step_completed: {
+    track?: 'cv' | 'tester' | 'allt' | null
+    step: string
+    index: number
+    hours_since_purchase?: number
+  }
+  onboarding_completed: {
+    track?: 'cv' | 'tester' | 'allt' | null
+    hours_since_purchase?: number
+  }
+  week_day_opened: {
+    track: 'cv' | 'tester' | 'allt'
+    day: number
+    source: 'app' | 'email'
+  }
+  week_day_completed: { track: 'cv' | 'tester' | 'allt'; day: number }
+  week_summary_viewed: { track: 'cv' | 'tester' | 'allt'; days_completed: number }
+  renewal_upcoming_shown: { plan: PlanKey; days_left: number }
+  renewal_succeeded: { plan: PlanKey; cycle: number }
+  upgrade_shown: { from_scope: string | null; to_scope: string; surface: string }
+  feature_blocked: { feature: string; scope: string | null; surface: string }
+  /* Prissidan. Spåret väljs först, längden efteråt (ägarens beslut 4), så
+     plan_length_changed mäter det andra valet: byter någon längd alls, och
+     i så fall till vilken? Jämförelsen och frågorna mäts för att se om
+     prissidan behöver mer eller mindre text. */
+  plan_length_changed: { plan: PlanKey; surface: string }
+  pricing_comparison_viewed: Record<string, never>
+  pricing_faq_opened: { question: string }
+  /* Uppsägningen. Talet vi följer är cancel_started delat med aktiva, och
+     orsakerna ligger kvar i cancel_intents. */
+  cancel_started: { plan: PlanKey; surface: string }
   subscription_paid: { plan: string; amount?: number }
 }
 

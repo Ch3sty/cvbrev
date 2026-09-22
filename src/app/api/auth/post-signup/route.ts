@@ -1,32 +1,20 @@
 // src/app/api/auth/post-signup/route.ts
 // ======================================
-// Reverse trial: varje nytt konto får fem dygn full Premium utan kort
-// (A4 i docs/plan-konvertering.md). Anropas direkt efter lyckad signUp och
-// från Google-callbacken. Anropas ALDRIG från invite-flödet, gäster har
-// egen premium och idempotensspärren nedan skyddar dem ändå.
+// Efter registreringen: sparar var kontot kom ifrån och startar
+// livscykelmailen. Anropas direkt efter lyckad signUp och från
+// Google-callbacken. Anropas ALDRIG från invite-flödet.
+//
+// Rutten delade tidigare ut fem dygn Premium utan kort. Reverse trial är
+// borta (docs/plan-paket-och-onboarding.md, ägarens beslut 3): sextio av 61
+// trialhändelser skedde på dag noll, alltså tog trialen bort betalväggen
+// under exakt de timmar användaren var här. Nya konton börjar på gratisnivån.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { nextMidnightStockholm } from '@/lib/quota/quotaService'
 import { onUserSignup } from '@/lib/email/lifecycle/hooks'
 import type { Attribution } from '@/lib/analytics/attribution'
-
-const TRIAL_DAYS = 5
-/** Så långt efter midnatt trialen faktiskt tar slut, så mail dag 4 hinner före. */
-const TRIAL_GRACE_HOURS = 7
-
-/**
- * premium_until = nästa midnatt svensk tid efter (nu + 5 dygn), plus 7 timmar.
- * Det lägger utgången kl 07:00 morgonen efter dag fem, vilket ger både
- * dag 4-mailet och nedgraderingscronen rätt ordning.
- */
-function trialEndsAt(now: Date = new Date()): string {
-  const fiveDaysOut = new Date(now.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000)
-  const midnight = nextMidnightStockholm(fiveDaysOut)
-  return new Date(midnight.getTime() + TRIAL_GRACE_HOURS * 60 * 60 * 1000).toISOString()
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -77,7 +65,7 @@ export async function POST(request: NextRequest) {
 
     const { data: profile, error: profileError } = await admin
       .from('profiles')
-      .select('premium_source, premium_until, subscription_status, subscription_tier')
+      .select('id')
       .eq('id', userId)
       .single()
 
@@ -85,31 +73,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Profilen finns inte' }, { status: 404 })
     }
 
-    // Idempotens: avbryt om kontot redan fått premium från något håll.
-    const hasSource = Boolean(profile.premium_source)
-    const hasLiveSubscription = ['active', 'trialing'].includes(profile.subscription_status ?? '')
-    const hasFuturePremium =
-      Boolean(profile.premium_until) && new Date(profile.premium_until) > new Date()
-
-    if (hasSource || hasLiveSubscription || hasFuturePremium) {
-      return NextResponse.json({ granted: false, reason: 'already_premium' })
-    }
-
-    const update: Record<string, unknown> = {
-      subscription_tier: 'premium',
-      premium_until: trialEndsAt(),
-      premium_source: source === 'google' ? 'oauth_signup_trial' : 'signup_trial',
-      subscription_status: null,
-    }
-    // Klientdata: begränsa storleken så jsonb-kolumnen inte kan fyllas med skräp.
+    // Ingen premium delas ut här längre. Kvar är bara varifrån kontot kom,
+    // och den skrivs bara när klientdatan är rimlig till storleken, så att
+    // jsonb-kolumnen inte kan fyllas med skräp.
     if (acquisition && typeof acquisition === 'object' && JSON.stringify(acquisition).length <= 2000) {
-      update.acquisition_source = acquisition
-    }
-
-    const { error: updateError } = await admin.from('profiles').update(update).eq('id', userId)
-    if (updateError) {
-      console.error('[POST SIGNUP] Kunde inte sätta trial:', updateError.message)
-      return NextResponse.json({ error: 'Kunde inte aktivera Premium' }, { status: 500 })
+      const { error: updateError } = await admin
+        .from('profiles')
+        .update({ acquisition_source: acquisition })
+        .eq('id', userId)
+      if (updateError) {
+        // Attributionen är mätdata, inte ett krav för att kontot ska fungera.
+        console.error('[POST SIGNUP] Kunde inte spara acquisition_source:', updateError.message)
+      }
     }
 
     // Livscykelmailen ska aldrig kunna fälla registreringen.
@@ -119,7 +94,7 @@ export async function POST(request: NextRequest) {
       console.error('[POST SIGNUP] onUserSignup misslyckades:', hookError)
     }
 
-    return NextResponse.json({ granted: true, premiumUntil: update.premium_until })
+    return NextResponse.json({ ok: true })
   } catch (error) {
     console.error('[POST SIGNUP] Error:', error)
     return NextResponse.json({ error: 'Något gick fel' }, { status: 500 })

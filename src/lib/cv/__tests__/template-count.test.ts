@@ -6,6 +6,8 @@ import {
   TEMPLATE_COUNT,
   FREE_TEMPLATE_COUNT,
   PREMIUM_TEMPLATE_COUNT,
+  FREE_TEMPLATE_IDS,
+  isTemplateFree,
 } from '../simple-templates'
 
 const SRC = path.resolve(__dirname, '../../..')
@@ -25,11 +27,20 @@ describe('mallantalet i copy speglar registret', () => {
     expect(FREE_TEMPLATE_COUNT + PREMIUM_TEMPLATE_COUNT).toBe(TEMPLATE_COUNT)
   })
 
-  it('antalen ar de vi tror: 41 totalt, 11 gratis, 30 premium', () => {
+  it('antalen ar de vi tror: 41 totalt, 3 gratis, 38 premium', () => {
     // Failar nar registret andras, sa att copyn nedan gas igenom samtidigt.
+    // Tre fria ar agarens beslut 6 (docs/plan-paket-och-onboarding.md).
     expect(TEMPLATE_COUNT).toBe(41)
-    expect(FREE_TEMPLATE_COUNT).toBe(11)
-    expect(PREMIUM_TEMPLATE_COUNT).toBe(30)
+    expect(FREE_TEMPLATE_COUNT).toBe(3)
+    expect(PREMIUM_TEMPLATE_COUNT).toBe(38)
+  })
+
+  it('de tre fria mallarna ar de som listan pekar ut', () => {
+    const fria = SIMPLE_TEMPLATES.filter(t => t.tier === 'free').map(t => t.id)
+    expect(fria.sort()).toEqual([...FREE_TEMPLATE_IDS].sort())
+    for (const id of FREE_TEMPLATE_IDS) expect(isTemplateFree(id)).toBe(true)
+    expect(isTemplateFree('aurora')).toBe(false)
+    expect(isTemplateFree('finns-inte')).toBe(false)
   })
 
   it('ingen fil i src pastar ett foraldrat mallantal', () => {
@@ -37,7 +48,7 @@ describe('mallantalet i copy speglar registret', () => {
 
     const real = [TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT]
     // Siffror som en gang stod i copyn och som inte langre stammer.
-    const stale = [42, 16, 12, 8].filter(n => !real.includes(n))
+    const stale = [42, 16, 12, 11, 8].filter(n => !real.includes(n))
 
     const offenders: string[] = []
     for (const file of files) {

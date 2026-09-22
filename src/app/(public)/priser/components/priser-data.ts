@@ -1,61 +1,58 @@
 /**
- * Priser-data: server-safe konstanter for /priser-sidan.
- * Prisstegen bor i src/lib/plans/plans.ts och speglas av kortraden här.
- * Driver gratisrad, jamforelsetabell, FAQ och vad-ingar-sektionen.
+ * Priser-data: serversäkra konstanter för /priser.
+ *
+ * Prisstegen bor i src/lib/plans/plans.ts och kortens copy i
+ * src/components/pricing/paket-copy.ts. Här ligger bara det som är sidans
+ * eget: gratisnivån, jämförelsetabellen och frågorna.
+ *
+ * Omskriven för paketen (docs/plan-paket-och-onboarding.md, Fas 2B avsnitt 3
+ * och Fas 2E). Dagspass och jobbsökarveckan finns inte längre som egna
+ * produkter, och trial är borta enligt ägarens beslut 3.
  */
 
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import {
+  TEMPLATE_COUNT,
+  FREE_TEMPLATE_COUNT,
+} from '@/lib/cv/simple-templates'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
 
-export const PREMIUM_PRICE = 149
 export const PREMIUM_CURRENCY = 'SEK'
-export const PREMIUM_STRIPE_PRICE_ID = 'price_1SQSVlPWMWdjmTDjx1yo9m00'
-export const TRIAL_DAYS = 7
-/** Dagar full Premium varje nytt konto får vid registrering, utan kort. */
-export const SIGNUP_TRIAL_DAYS = 5
 
-// === Hero ===
+// === Gratisnivån ===
 
-export const PRISER_HERO_TITLE = 'Betala för veckan du söker. Inte för året.'
-export const PRISER_HERO_INGRESS =
-  'De flesta söker jobb intensivt i några veckor och slutar sedan. Därför säljer vi både korta pass och månadsplan. Välj det som matchar din situation.'
-
-// === Gratisnivån, en textrad under korten ===
-
-export const GRATIS_RAD =
-  `Du kan använda Jobbcoach gratis med ett brev om dagen, en CV-analys var tredje dag, alla tester och ${FREE_TEMPLATE_COUNT} CV-mallar. Nedladdning och full CV-analys ingår i Premium.`
-
-// === Pris-kort (behålls för vad-ingår-sektionen) ===
-
+/**
+ * GR-serien i listform, alltså vad gratisnivån faktiskt ger
+ * (Fas 2B avsnitt 8, med den hårdare CV-analysen ur ägarens beslut 2).
+ *
+ * Ändras en gräns i quotaService måste raderna ändras i samma omgång,
+ * annars säger sidan en sak och spärren en annan.
+ */
 export const FREE_HIGHLIGHTS = [
-  '1 personligt brev per dag',
-  '1 CV-analys var tredje dag',
-  '1 LinkedIn-optimering per vecka',
-  `${FREE_TEMPLATE_COUNT} gratis CV-mallar`,
-  'Alla tester, en gång per dag och nivå',
-  'Jobbcoachen: 10 meddelanden per dag',
-  'Jobbmatchning: de 10 bästa träffarna',
+  `${FREE_TEMPLATE_COUNT} CV-mallar`,
+  'En CV-analys med poängen, antalet fynd och det tyngsta fyndet',
+  'Ett personligt brev, sedan ett i veckan',
+  'En CV-nedladdning',
+  'Grundnivån i varje testtyp, en gång per dygn',
+  'Tio meddelanden med jobbcoachen',
+  'De tre bästa jobbträffarna',
 ] as const
 
-export const PREMIUM_HIGHLIGHTS = [
-  'Obegränsade brev och analyser',
-  `Alla ${TEMPLATE_COUNT} CV-mallar (${PREMIUM_TEMPLATE_COUNT} exklusiva)`,
-  'Obegränsat testande',
-  'Obegränsad jobbcoach-chatt',
-  'Smart-anpassad ton (vi läser CV och annons)',
-  'Helt obegränsad jobbmatchning',
-  'Spara allt du skapar utan tak',
-  'Professionell export i Word och PDF',
-] as const
+/** D2: gratisnivån i en mening. Följer den hårdare CV-analysen. */
+export const GRATIS_RAD =
+  'Tre mallar, en CV-analys, ett brev och grundnivån i testerna ingår.'
 
-// === Jamforelsetabell (full feature-matris) ===
+// === Jämförelsetabellen ===
 
+/** PR8. */
 export const COMPARISON_INTRO =
-  'Alla fyra alternativen ger samma funktioner. Skillnaden är hur länge.'
+  'Spårpaketen ger allt i sitt spår. Allt ger båda, plus jobbmatchning, jobbcoachen och Bli upptäckt.'
 
 export interface ComparisonRow {
   label: string
   free: string
-  premium: string
+  cv: string
+  test: string
+  allt: string
 }
 
 export interface ComparisonGroup {
@@ -63,185 +60,97 @@ export interface ComparisonGroup {
   rows: ComparisonRow[]
 }
 
+/** Bock och punkt skrivs som tecken och ritas av tabellen. */
+const JA = '✓'
+const NEJ = '·'
+
 export const COMPARISON: ComparisonGroup[] = [
   {
-    title: 'Personliga brev',
+    title: 'CV och ansökan',
     rows: [
-      { label: 'Brev per dag', free: '1 brev', premium: 'Obegränsat' },
-      { label: 'Sparade brev åt gången', free: '2 brev', premium: 'Obegränsat' },
-      { label: 'Brevmallar', free: '3 mallar', premium: 'Alla 7 mallar' },
       {
-        label: 'Tonaliteter',
-        free: '5 toner',
-        premium: '6 toner inkl. Smart-anpassad',
+        label: 'CV-mallar',
+        free: String(FREE_TEMPLATE_COUNT),
+        cv: String(TEMPLATE_COUNT),
+        test: String(FREE_TEMPLATE_COUNT),
+        allt: String(TEMPLATE_COUNT),
       },
-      { label: 'Ladda ner brev som PDF och Word', free: 'Nej', premium: 'Ja' },
+      { label: 'CV-analyser', free: '1', cv: 'Utan tak', test: '1', allt: 'Utan tak' },
+      { label: 'Alla fynd i analysen', free: NEJ, cv: JA, test: NEJ, allt: JA },
+      {
+        label: 'Läsbarhet i rekryteringssystem (ATS)',
+        free: NEJ,
+        cv: JA,
+        test: NEJ,
+        allt: JA,
+      },
+      { label: 'CV-nedladdning', free: '1', cv: 'Utan tak', test: '1', allt: 'Utan tak' },
+      { label: 'Personligt brev', free: '1 i veckan', cv: 'Utan tak', test: '1 i veckan', allt: 'Utan tak' },
+      { label: 'Brevnedladdning', free: NEJ, cv: JA, test: NEJ, allt: JA },
     ],
   },
   {
-    title: 'CV',
+    title: 'Rekryteringstester',
     rows: [
-      { label: 'CV-analys', free: '1 var tredje dag', premium: 'Obegränsat' },
-      {
-        label: 'CV-analys, alla förbättringsförslag',
-        free: 'De tre största',
-        premium: 'Alla',
-      },
-      { label: 'Sparade CV-versioner', free: '2 CV', premium: 'Obegränsat' },
-      { label: 'CV-mallar', free: `${FREE_TEMPLATE_COUNT} mallar`, premium: `Alla ${TEMPLATE_COUNT} mallar` },
-      { label: 'Export PDF + Word', free: 'Ett CV, sedan Premium', premium: 'Obegränsat' },
-      {
-        label: 'CV-byggare med live-förhandsvisning',
-        free: 'Ja',
-        premium: 'Ja',
-      },
+      { label: 'Grundnivån', free: '1 per dygn', cv: '1 per dygn', test: 'Utan tak', allt: 'Utan tak' },
+      { label: 'Nivåer över grundnivån', free: NEJ, cv: NEJ, test: JA, allt: JA },
+      { label: 'Tidsatt provläge', free: NEJ, cv: NEJ, test: JA, allt: JA },
+      { label: 'Testhistorik och utveckling', free: NEJ, cv: NEJ, test: JA, allt: JA },
+      { label: 'Förklaring per fråga', free: NEJ, cv: NEJ, test: JA, allt: JA },
     ],
   },
   {
-    title: 'LinkedIn',
+    title: 'Jobb och coachning',
     rows: [
-      {
-        label: 'LinkedIn-optimering',
-        free: '1 per vecka',
-        premium: 'Obegränsat',
-      },
-      {
-        label: 'CV-baserad autofyll',
-        free: 'Ja',
-        premium: 'Ja',
-      },
+      { label: 'Jobbträffar', free: '3', cv: '3', test: '3', allt: '25' },
+      { label: 'Skälen bakom varje träff', free: NEJ, cv: NEJ, test: NEJ, allt: JA },
+      { label: 'Jobbcoachen', free: '10 meddelanden', cv: '10 meddelanden', test: '10 meddelanden', allt: 'Utan tak' },
+      { label: 'Bli upptäckt av rekryterare', free: NEJ, cv: NEJ, test: NEJ, allt: JA },
     ],
   },
   {
-    title: 'Rekrytering & matchning',
+    title: 'Villkor',
     rows: [
       {
-        label: 'Rekryteringstester',
-        free: 'Alla tester, 1 gång per dag och nivå',
-        premium: 'Obegränsat testande',
+        label: 'Pris',
+        free: '0 kr',
+        cv: `${PLAN_BY_KEY.cv_week.amount} kr`,
+        test: `${PLAN_BY_KEY.test_week.amount} kr`,
+        allt: `${PLAN_BY_KEY.all_week.amount} kr`,
       },
-      {
-        label: 'Jobbmatchning',
-        free: 'De 10 bästa matchningarna',
-        premium: 'Helt obegränsad',
-      },
-      { label: 'Jobbcoachen', free: '10 meddelanden per dag', premium: 'Obegränsat' },
-    ],
-  },
-  {
-    title: 'Övrigt',
-    rows: [
-      { label: 'Svenska arbetsmarknaden', free: 'Ja', premium: 'Ja' },
-      { label: 'GDPR-säker, data i EU', free: 'Ja', premium: 'Ja' },
-      {
-        label: 'Fem dagar Premium vid registrering',
-        free: 'Ingår i alla nya konton',
-        premium: 'Ja',
-      },
+      { label: 'Bindningstid', free: NEJ, cv: NEJ, test: NEJ, allt: NEJ },
+      { label: 'Uppsägning i ditt konto', free: NEJ, cv: JA, test: JA, allt: JA },
+      { label: 'Data i EU, GDPR', free: JA, cv: JA, test: JA, allt: JA },
     ],
   },
 ]
 
-// === FAQ ===
+// === FAQ, PR9 till PR13 ===
 
 export const PRISER_FAQ_ITEMS = [
   {
-    q: 'Vad ingår i Premium?',
-    a: `Allt vi har att erbjuda, oavsett vilket av de fyra alternativen du väljer. Obegränsade personliga brev och CV-analyser, alla ${TEMPLATE_COUNT} CV-mallar varav ${PREMIUM_TEMPLATE_COUNT} exklusiva, alla sju brevmallar, Smart-anpassad ton, obegränsat testande, obegränsad jobbcoach-chatt, helt obegränsad jobbmatchning och nedladdning i både Word och PDF. Skillnaden mellan alternativen är bara hur länge du har tillgången.`,
+    id: 'varfor-vecka',
+    q: 'Varför säljer ni en vecka och inte en månad?',
+    a: 'De flesta söker jobb i korta intensiva perioder och slutar när de fått jobbet. En månad är då för mycket betalt för för lite användning. Veckan matchar hur ett sök faktiskt ser ut: du har en annons som ska besvaras, eller ett urvalstest på fredag. Behöver du längre tid finns Allt-månaden, som kostar mindre per vecka än fyra veckor i rad.',
   },
   {
-    q: 'Vad är skillnaden mellan dagspass och prenumeration?',
-    a: 'Dagspass och jobbsökarveckan är engångsköp. Du betalar en gång, får full tillgång i 24 timmar respektive sju dagar, och sedan går kontot tillbaka till gratisnivån av sig självt. Inget dras automatiskt. Månads- och kvartalsplanen förnyas tills du säger upp dem.',
+    id: 'nar-veckan-ar-slut',
+    q: 'Vad händer när veckan är slut?',
+    a: 'Veckan förnyas automatiskt med samma belopp, och du behåller ditt spår. Vill du inte fortsätta säger du upp i ditt konto, och då gäller veckan du betalat för till sista dagen innan kontot går tillbaka till gratisnivån. Allt du skapat finns kvar att läsa och kopiera, även på gratisnivån.',
   },
   {
-    q: 'Får jag testa Premium innan jag betalar?',
-    a: 'Ja. Alla nya konton får fem dagar med Premium direkt vid registreringen, utan kort. Efter fem dagar går kontot över till gratisnivån automatiskt. Vill du hellre prova med kort i sju dagar finns det <a href="/trial-signup">här</a>.',
+    id: 'byta-spar',
+    q: 'Kan jag byta spår?',
+    a: 'Ja. Säg upp det spår du har och köp det andra, så börjar en ny vecka. Vill du ha båda samtidigt byter du till Allt-veckan direkt, och då betalar du bara mellanskillnaden för de dagar som är kvar av veckan du redan köpt.',
   },
   {
-    q: 'Finns det bindningstid eller uppsägningstid?',
-    a: 'Nej. Engångsköpen tar slut av sig själva. Prenumerationerna säger du upp när som helst med ett klick i ditt konto. Premium löper då till slutet av perioden du redan betalat för, sedan rullar kontot tillbaka till gratisnivån.',
+    id: 'utan-att-betala',
+    q: 'Vad ingår utan att betala?',
+    a: 'Tre CV-mallar, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev, en CV-nedladdning och grundnivån i varje testtyp en gång per dygn. Det räcker för att se hur verktygen arbetar och för att skicka en ansökan. Söker du flera jobb i veckan, eller ska du göra ett urvalstest på riktigt, tar gratisnivån slut.',
   },
   {
-    q: 'Vad räcker gratisversionen till?',
-    a: 'Gratisnivån räcker för att testa verktygen och skicka en ansökan om dagen. Du kan bygga och spara CV, se din ATS-poäng och träna på testerna. Söker du flera jobb i veckan tar kvoterna slut, och då är Premium det som gör skillnad.',
+    id: 'saga-upp',
+    q: 'Hur säger jag upp?',
+    a: 'Under Profil och Prenumeration, ett klick, utan att uppge skäl och utan att kontakta oss. Uppsägningen gäller från nästa förnyelse, och veckan du redan betalat för gäller ut. Vi skickar ett mail dagen innan varje förnyelse från och med den tredje, så att ingen dragning kommer som en överraskning.',
   },
-  {
-    q: 'Vad händer om jag avslutar Premium?',
-    a: 'Inget dramatiskt. Brev och CV du redan skapat finns kvar. Du kan hantera två sparade brev och två CV på gratisnivå. Nya skapanden begränsas till gratis-kvoterna. Du kan när som helst aktivera Premium igen, eller köpa ett dagspass när du behöver ladda ner något.',
-  },
-  {
-    q: 'Är det säkert att lämna mina personliga uppgifter?',
-    a: 'Ja. Vi följer GDPR, all data lagras i EU och vi säljer aldrig din information vidare. Du kan radera ditt konto med ett klick. Då försvinner allt, även våra kopior. Vi använder inte ditt CV eller dina brev för att träna någon modell.',
-  },
-  {
-    q: 'Hur skiljer sig Jobbcoach.ai från ChatGPT?',
-    a: 'ChatGPT är ett generellt språkverktyg utan koll på svenska arbetsmarknaden, ATS-system eller hur rekryterare faktiskt sållar ansökningar. Vi är byggda för exakt det. Våra verktyg läser ditt CV, matchar mot annonsens krav och optimerar för de system som svenska arbetsgivare använder.',
-  },
-]
-
-// === Vad ingar i Premium (8 funktioner) ===
-
-export interface VadIngarItem {
-  iconKey:
-    | 'cv'
-    | 'analys'
-    | 'brev'
-    | 'linkedin'
-    | 'jobbmatch'
-    | 'tester'
-    | 'coach'
-    | 'mallar'
-  title: string
-  body: string
-}
-
-export const VAD_INGAR: VadIngarItem[] = [
-  {
-    iconKey: 'cv',
-    title: 'CV-byggare',
-    body:
-      `Steg-för-steg-flöde med live-förhandsvisning. ${FREE_TEMPLATE_COUNT} mallar gratis, alla ${TEMPLATE_COUNT} i Premium.`,
-  },
-  {
-    iconKey: 'analys',
-    title: 'CV-analys',
-    body:
-      'ATS-poäng, nyckelords-koll och konkreta förbättringsförslag på struktur och språk.',
-  },
-  {
-    iconKey: 'brev',
-    title: 'Personligt brev',
-    body:
-      'Vi läser annonsen och ditt CV och skriver brev som matchar. Sju mallar, sex toner.',
-  },
-  {
-    iconKey: 'linkedin',
-    title: 'LinkedIn-optimering',
-    body:
-      'Profil som matchar drömrollen, baserat på ditt CV. Hjälper rekryterare hitta dig.',
-  },
-  {
-    iconKey: 'jobbmatch',
-    title: 'Jobbmatchning',
-    body:
-      'Vi matchar dig mot annonser från Arbetsförmedlingen och JobTech med procentuell träffsäkerhet.',
-  },
-  {
-    iconKey: 'tester',
-    title: 'Rekryteringstester',
-    body:
-      'Tester som speglar de vanligaste på svenska arbetsmarknaden. Träna varje dag, obegränsat i Premium.',
-  },
-  {
-    iconKey: 'coach',
-    title: 'Jobbcoachen',
-    body:
-      'Vår karriärcoach svarar på frågor om CV, brev, intervju och förhandling. Obegränsad chatt i Premium.',
-  },
-  {
-    iconKey: 'mallar',
-    title: 'Alla mallar',
-    body:
-      `${TEMPLATE_COUNT} CV-mallar och sju brevmallar, från klassisk och minimalistisk till executive och kreativ. ${PREMIUM_TEMPLATE_COUNT} av mallarna är exklusiva för Premium.`,
-  },
-]
+] as const

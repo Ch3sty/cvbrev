@@ -21,6 +21,8 @@ import StatusRow from '@/components/shell/StatusRow'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
+import { scopeHasFeature } from '@/lib/access/features'
 import {
   KIND_LABEL,
   LEVEL_LABEL,
@@ -45,6 +47,7 @@ function nextMidnightISO(): string {
 export default function TestHubPage({ config }: { config: TestConfig }) {
   const router = useRouter()
   const { subscriptionTier, loading: profileLoading } = useProfile()
+  const { summary } = useDashboardData()
   const [sessions, setSessions] = useState<TestSessionRow[]>([])
   /**
    * Tidigare resultat hämtas efter första målningen. Raden "Ditt bästa" står
@@ -58,7 +61,15 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   const [startError, setStartError] = useState<string | null>(null)
 
   const isPremium = subscriptionTier === 'premium'
-  const isLocked = config.requiresPremium && !isPremium && !profileLoading
+
+  // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
+  // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
+  // betalväggen; med fel spår ritar den FelSpar i stället.
+  const scope = summary?.week?.scope ?? null
+  const track = summary?.week?.track ?? null
+  const requiredFeature = config.requiresFeature ?? null
+  const hasFeature = scopeHasFeature(scope, requiredFeature ?? 'tests_above_base')
+  const isLocked = requiredFeature !== null && !hasFeature && !profileLoading
 
   useEffect(() => {
     if (isLocked) {
@@ -160,7 +171,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
                 href={PREMIUM_HREF}
                 className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                Gör testet med Premium
+                Ta Testveckan
               </Link>
             ) : quotaLock ? undefined : (
               <button
@@ -251,13 +262,19 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         {quotaLock ? (
           <PaywallCard
             variant="test-tak"
-            isPremium={isPremium}
+            scope={scope}
+            track={track}
             quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
           />
         ) : null}
 
         {isLocked ? (
-          <PaywallCard variant="test-tak" isPremium={isPremium} />
+          <PaywallCard
+            variant="testniva"
+            feature={requiredFeature ?? undefined}
+            scope={scope}
+            track={track}
+          />
         ) : (
           <TestPreviousResults
             slug={config.slug}

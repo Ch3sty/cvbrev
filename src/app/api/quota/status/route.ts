@@ -3,24 +3,27 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import {
   DAILY_LIMIT_LETTERS,
-  DAILY_LIMIT_CHAT_MESSAGES,
+  FREE_CHAT_MESSAGES_PER_ACCOUNT,
   CV_ANALYSIS_LIMIT,
   checkChatQuota,
   checkCvAnalysisQuota,
-  resolveDailyLetterCounter,
+  resolveWeeklyLetterCounter,
+  nextLetterResetAt,
   startOfTodayStockholm,
   nextMidnightStockholm,
 } from '@/lib/quota/quotaService';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { getUserScope } from '@/lib/supabase/premiumAccess';
+import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features';
 
 /**
  * GET /api/quota/status
  *
- * Samlad kvotstatus för dashboardens kvotrad (docs/plan-inloggat-saljflode.md,
- * punkt 7). Återanvänder funktionerna i quotaService så att raden och
- * spärrarna aldrig kan visa olika siffror.
+ * Samlad kvotstatus för dashboardens kvotrad. Återanvänder funktionerna i
+ * quotaService så att raden och spärrarna aldrig kan visa olika siffror.
  *
- * Premium får isPremium: true och inga kvoter att rendera.
+ * Efter paketomgången svarar routen även med scope och onboarding_track
+ * (docs/plan-paket-och-onboarding.md avsnitt 5), så klienten kan rita rätt
+ * betalvägg och föreslå rätt paket utan en andra rundtur.
  */
 
 export const dynamic = 'force-dynamic';
@@ -35,6 +38,21 @@ export interface QuotaStatusItem {
   /** null = ingen fast denominator (tester räknas per testtyp). */
   limit: number | null;
   nextResetAt: string | null;
+  /** Featuren som öppnar raden. Null på rader utan paketkoppling. */
+  feature?: Feature;
+  /** Sann när kvoten inte återkommer av sig själv. */
+  perAccount?: boolean;
+}
+
+export interface QuotaStatusResponse {
+  isPremium: boolean;
+  scope: Scope | null;
+  onboardingTrack: Scope | null;
+  items: QuotaStatusItem[];
+}
+
+function lasTrack(varde: unknown): Scope | null {
+  return varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
 }
 
 export async function GET() {
@@ -51,9 +69,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (await userHasPremiumAccess(supabase, user.id)) {
-      return NextResponse.json({ isPremium: true, items: [] });
-    }
+    const scope = await getUserScope(supabase, user.id);
 
     const todayStart = startOfTodayStockholm().toISOString();
     const nextMidnight = nextMidnightStockholm().toISOString();
@@ -62,7 +78,7 @@ export async function GET() {
     const [profileRes, chat, analysis, testRes, savedLettersRes] = await Promise.all([
       supabase
         .from('profiles')
-        .select('weekly_letter_count, weekly_letter_first_used_at')
+        .select('weekly_letter_count, weekly_letter_first_used_at, onboarding_track')
         .eq('id', user.id)
         .single(),
       checkChatQuota(supabase, user.id),
@@ -80,52 +96,84 @@ export async function GET() {
         .eq('is_saved', true),
     ]);
 
-    const { effectiveCount: lettersToday } = resolveDailyLetterCounter(
-      profileRes.data?.weekly_letter_count ?? 0,
-      profileRes.data?.weekly_letter_first_used_at ?? null
+    const onboardingTrack = lasTrack(
+      (profileRes.data as { onboarding_track?: unknown } | null)?.onboarding_track
     );
+
+    // Har kontot allt som finns ritas ingen kvotrad alls, precis som förut.
+    // Ett spår har däremot kvar sina gränser i det andra spåret, så då måste
+    // raderna stå kvar och visa var taket går.
+    if (scope === 'allt') {
+      return NextResponse.json({
+        isPremium: true,
+        scope,
+        onboardingTrack,
+        items: [],
+      } satisfies QuotaStatusResponse);
+    }
+
+    const forstaBrevet = profileRes.data?.weekly_letter_first_used_at ?? null;
+    const { effectiveCount: lettersUsed } = resolveWeeklyLetterCounter(
+      profileRes.data?.weekly_letter_count ?? 0,
+      forstaBrevet
+    );
+
+    /** Har kontot featuren står raden utan tak i stället för att försvinna. */
+    const limitOf = (feature: Feature, n: number) =>
+      scopeHasFeature(scope, feature) ? null : n;
 
     const items: QuotaStatusItem[] = [
       {
         key: 'letters',
         label: 'Brev',
-        used: lettersToday,
-        limit: DAILY_LIMIT_LETTERS,
-        nextResetAt: nextMidnight,
+        used: lettersUsed,
+        limit: limitOf('letter_download', DAILY_LIMIT_LETTERS),
+        nextResetAt: nextLetterResetAt(forstaBrevet),
+        feature: 'letter_download',
       },
       {
         key: 'analysis',
         label: 'Analys',
         used: analysis.used,
-        limit: CV_ANALYSIS_LIMIT,
+        limit: limitOf('cv_analysis_full', CV_ANALYSIS_LIMIT),
         nextResetAt: analysis.nextResetAt,
+        feature: 'cv_analysis_full',
+        perAccount: analysis.perAccount === true,
       },
       {
         key: 'chat',
         label: 'Chatt',
         used: chat.used,
-        limit: DAILY_LIMIT_CHAT_MESSAGES,
+        limit: limitOf('chat_unlimited', FREE_CHAT_MESSAGES_PER_ACCOUNT),
         nextResetAt: chat.nextResetAt,
+        feature: 'chat_unlimited',
+        perAccount: chat.perAccount === true,
       },
       {
-        // Testkvoten är DAILY_LIMIT_TEST_SESSIONS per testtyp, inte totalt.
-        // Därför saknar raden denominator och visar bara hur många som körts.
+        // Testkvoten är en session per testtyp och dygn, inte totalt. Därför
+        // saknar raden denominator och visar bara hur många som körts.
         key: 'tests',
         label: 'Tester',
         used: testRes.count ?? 0,
         limit: null,
         nextResetAt: nextMidnight,
+        feature: 'tests_above_base',
       },
       {
         key: 'savedLetters',
         label: 'Sparade brev',
         used: savedLettersRes.count ?? 0,
-        limit: FREE_MAX_SAVED_LETTERS,
+        limit: scopeHasFeature(scope, 'letter_download') ? null : FREE_MAX_SAVED_LETTERS,
         nextResetAt: null,
       },
     ];
 
-    return NextResponse.json({ isPremium: false, items });
+    return NextResponse.json({
+      isPremium: scope !== null,
+      scope,
+      onboardingTrack,
+      items,
+    } satisfies QuotaStatusResponse);
   } catch (error) {
     console.error('quota/status error:', error);
     return NextResponse.json({ error: 'Failed to load quota status' }, { status: 500 });

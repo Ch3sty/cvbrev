@@ -1,17 +1,23 @@
 // src/app/api/stripe/create-plan-session/route.ts
 // ================================================
-// En checkout-rutt för hela prisstegen (A5/A6 i docs/plan-konvertering.md).
-// Klienten skickar en PlanKey, aldrig ett price id. Engångsköp blir
-// mode 'payment', prenumerationer mode 'subscription'. Svaret är
-// { url } till Stripes hostade checkout.
+// En checkout-rutt för alla sex paket (docs/plan-paket-och-onboarding.md
+// avsnitt 5). Klienten skickar en PlanKey, aldrig ett price id. Allt-dagen
+// blir mode 'payment', de fem övriga mode 'subscription'. Ingen trial:
+// reverse trial är borta enligt ägarens beslut 3. Svaret är { url } till
+// Stripes hostade checkout.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { stripe } from '@/lib/stripe/server'
-import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription'
+import {
+  findLiveSubscription,
+  alreadySubscribedResponse,
+  blocksAsDuplicate,
+} from '@/lib/stripe/guard-existing-subscription'
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
+import { VECKA_START_PATH } from '@/lib/onboarding/steps'
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,35 +74,56 @@ export async function POST(request: NextRequest) {
       await supabase.from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id)
     }
 
-    // Samma spärr som övriga checkout-rutter: teckna aldrig ett andra
-    // abonnemang åt någon som redan har ett levande. Engångsköp får passera,
-    // de skapar ingen prenumeration.
-    if (selected.kind === 'recurring') {
+    // Spärren blockerar bara dubbletter av samma scope. En spårkund som
+    // köper Allt är en uppgradering och går via create-upgrade-session.
+    // Engångsköp får alltid passera, de skapar ingen prenumeration.
+    if (selected.mode === 'subscription') {
       const existing = await findLiveSubscription(customerId)
-      if (existing) {
+      if (existing && blocksAsDuplicate(existing, selected.scope)) {
         return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
+      }
+      // Uppgradering från ett spår till Allt byter pris på den befintliga
+      // prenumerationen. En andra checkout skulle ge kunden två abonnemang.
+      if (existing) {
+        return NextResponse.json(
+          {
+            error: 'Du har redan ett paket. Byt paket i stället för att teckna ett till.',
+            upgradeAvailable: true,
+            upgradeUrl: '/api/stripe/create-upgrade-session',
+            currentScope: existing.scope,
+          },
+          { status: 409 }
+        )
       }
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
+    // scope och planKey följer med hela vägen till webhooken, som skriver
+    // premium_scope ur dem. Saknas de faller webhooken tillbaka på
+    // priceIdToPlanKey, vilket bara håller så länge env-raderna stämmer.
     const metadata: Record<string, string> = {
       supabaseUUID: user.id,
       userId: user.id,
       plan: selected.key,
-      grantDays: String(selected.days ?? 0),
-      productKind: selected.kind === 'one_time' ? 'onetime' : 'subscription',
+      planKey: selected.key,
+      scope: selected.scope,
+      grantDays: String(selected.grantDays ?? 0),
+      productKind: selected.mode === 'payment' ? 'onetime' : 'subscription',
       source: typeof source === 'string' ? source.slice(0, 80) : 'unknown',
     }
 
     const session = await stripe.checkout.sessions.create({
-      mode: selected.kind === 'one_time' ? 'payment' : 'subscription',
+      // Ingen trial_period: reverse trial är borta (ägarens beslut 3).
+      mode: selected.mode,
       customer: customerId,
       locale: 'sv',
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${baseUrl}/dashboard?premium_activated=true&plan=${selected.key}`,
+      // Köpreturen går till veckans start, inte till hemskärmen. Det är där
+      // det första steget i paketet ligger.
+      success_url: `${baseUrl}${VECKA_START_PATH}?premium_activated=true&plan=${selected.key}`,
       cancel_url: `${baseUrl}/priser`,
       metadata,
-      ...(selected.kind === 'one_time'
+      ...(selected.mode === 'payment'
         ? { payment_intent_data: { metadata } }
         : { subscription_data: { metadata } }),
     })

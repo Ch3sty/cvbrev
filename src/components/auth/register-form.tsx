@@ -5,8 +5,9 @@
  * Registrering (docs/plan-konvertering.md, B1, B2 och B3).
  *
  * Tre fält: namn, e-post, lösenord. Ingen verify-email-gren, användaren
- * landar direkt i appen. Efter lyckad signup startas reverse trial via
- * /api/auth/post-signup och eventuella utkast från publika flöden hämtas hem.
+ * landar direkt i appen. Efter lyckad signup sparar /api/auth/post-signup
+ * attributionen och startar livscykelmailen, och eventuella utkast från
+ * publika flöden hämtas hem. Ingen trial delas ut.
  */
 
 import { useState, useMemo, useEffect } from 'react'
@@ -25,6 +26,8 @@ import AtsScoreMeter from './AtsScoreMeter'
 import RegisterCvPreview from './RegisterCvPreview'
 import GoogleSignInButton, { AuthDivider } from './GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from './TurnstileWidget'
+import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
+import { isPlanKey } from '@/lib/plans/plans'
 
 const MIN_PASSWORD_LENGTH = 8
 
@@ -49,6 +52,15 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('redirect') || '/dashboard'
   const loginHref = redirectTo === '/dashboard' ? '/login' : `/login?redirect=${encodeURIComponent(redirectTo)}`
+
+  // Paketet ur länken. Prissidans knappar skickar hit '?paket=<planKey>' när
+  // besökaren saknar konto, så att hon landar på spårvalet med sitt paket
+  // förvalt i stället för att få samma fråga en gång till.
+  const paketParam = searchParams.get('paket')
+  const valtPaket = isPlanKey(paketParam) ? paketParam : null
+  const sparvalHref = valtPaket
+    ? `${TRACK_CHOICE_PATH}?paket=${valtPaket}`
+    : TRACK_CHOICE_PATH
   const supabase = createClient()
 
   // Tre fält, tre lika stora delar av poängen.
@@ -119,7 +131,8 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
 
       const userId = data.user.id
 
-      // Reverse trial och livscykelmail. Fire and forget: ett fel här får
+      // Attribution och livscykelmail. Ingen trial längre (ägarens beslut 3
+      // i docs/plan-paket-och-onboarding.md). Fire and forget: ett fel här får
       // aldrig hindra användaren från att komma in i appen.
       void fetch('/api/auth/post-signup', {
         method: 'POST',
@@ -163,7 +176,11 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
         console.error('[register] Kunde inte hämta hem utkast:', claimError)
       }
 
-      router.push(destination || redirectTo)
+      // Nytt konto landar på spårvalet, inte på hemskärmen: mätpunkt 1 är
+      // spårval till köp i samma session, och ett kort bland sju på
+      // hemskärmen dödar den mätningen (Fas 2A flöde 1). Ett hämtat utkast
+      // går före: hon var mitt i något när kontot skapades.
+      router.push(destination || (redirectTo === '/dashboard' ? sparvalHref : redirectTo))
       router.refresh()
     } catch (err: any) {
       let errorMessage: React.ReactNode = err?.message || 'Något gick fel vid registreringen.'
@@ -209,7 +226,13 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
         )}
 
         <div className="mb-5 space-y-4">
-          <GoogleSignInButton next={redirectTo} label="Fortsätt med Google" />
+          {/* Paketet följer med genom Google också: callbacken skickar nya
+              konton till 'next', så spårvalet med förvalt paket måste stå
+              där redan när knappen trycks. */}
+          <GoogleSignInButton
+            next={redirectTo === '/dashboard' && valtPaket ? sparvalHref : redirectTo}
+            label="Fortsätt med Google"
+          />
           <AuthDivider />
         </div>
 

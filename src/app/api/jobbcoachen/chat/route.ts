@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { embedQuery, generateStream, chatContents, GEMINI_MODELS } from '@/lib/gemini';
 import { checkChatQuota, quotaExceededBody } from '@/lib/quota/quotaService';
+import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -101,21 +102,36 @@ export async function POST(req: NextRequest) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    // Dagskvot: 10 användarmeddelanden per dag för gratisanvändare.
-    // Räknas mot ai_messages (role='user') sedan midnatt svensk tid — exakt
-    // de rader den här routen själv sparar nedan. Premium/admin passerar.
+    // Kontokvot: tio användarmeddelanden per konto på gratisnivån
+    // (docs/plan-paket-och-onboarding.md avsnitt 4). Räknas mot ai_messages
+    // (role='user') över hela historiken, alltså exakt de rader den här
+    // routen själv sparar nedan. Allt-paketen passerar.
+    //
+    // Gränsen öppnar inte igen imorgon, så svaret är 402 och inte 429:
+    // det är en betalvägg, inte en klocka.
     const quota = await checkChatQuota(supabase, user.id);
     if (!quota.allowed) {
       signalQuotaWall(user.id, 'chat_message');
+      const { data: trackProfil } = await supabase
+        .from('profiles')
+        .select('onboarding_track')
+        .eq('id', user.id)
+        .maybeSingle();
+      const varde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track;
+      const track: Scope | null =
+        varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
+
       return new Response(
-        JSON.stringify(
-          quotaExceededBody(
+        JSON.stringify({
+          ...quotaExceededBody(
             'chat_message',
             quota,
-            'Du har använt dagens tio meddelanden. Chatten öppnar igen i morgon, eller uppgradera för obegränsat.'
-          )
-        ),
-        { status: 429, headers: { 'Content-Type': 'application/json' } }
+            'Du har använt dina tio meddelanden. Chatten utan tak ingår i Allt-veckan.'
+          ),
+          feature: 'chat_unlimited',
+          suggestedPlan: suggestPlan('chat_unlimited', track),
+        }),
+        { status: 402, headers: { 'Content-Type': 'application/json' } }
       );
     }
 

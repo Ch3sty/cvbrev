@@ -29,10 +29,12 @@ import { PLANS, type Plan, type PlanKey } from '@/lib/plans/plans';
  * sidan som ska visa att priset saknas.
  */
 const ENV_PER_PLAN: Record<PlanKey, string> = {
-  daypass: 'STRIPE_PRICE_DAYPASS',
-  week: 'STRIPE_PRICE_WEEK',
-  month: 'NEXT_PUBLIC_STRIPE_PRICE_ID',
-  quarter: 'STRIPE_PRICE_QUARTER',
+  cv_week: 'STRIPE_PRICE_CV_WEEK',
+  test_week: 'STRIPE_PRICE_TEST_WEEK',
+  all_day: 'STRIPE_PRICE_DAYPASS',
+  all_week: 'STRIPE_PRICE_ALL_WEEK',
+  all_month: 'NEXT_PUBLIC_STRIPE_PRICE_ID',
+  all_quarter: 'STRIPE_PRICE_QUARTER',
 };
 
 /** Vad steget ska vara i Stripe, enligt PLANS. */
@@ -51,15 +53,16 @@ export interface PlanForvantan {
 }
 
 /**
- * Antal manader per debitering for de tva prenumerationsstegen.
+ * Antal manader per debitering, for de tva paket som debiteras i manader.
  *
- * PLANS beskriver steget i text ("for 3 manader"), inte i ett falt. Kvartal ar
- * tre manader, manad ar en. Engangskop har ingen period alls: de ger
- * premium_until plus days.
+ * Allt-manaden ar en manad, Allt-kvartalet tre. Veckopaketen debiteras i
+ * veckor och har darfor null har: jamforelsen hoppar over intervallkollen for
+ * dem i stallet for att rakna om veckor till manader. Allt-dagen ar ett
+ * engangskop och har ingen period alls.
  */
 const MANADER_PER_PLAN: Partial<Record<PlanKey, number>> = {
-  month: 1,
-  quarter: 3,
+  all_month: 1,
+  all_quarter: 3,
 };
 
 export function hamtaPlanForvantningar(): PlanForvantan[] {
@@ -70,7 +73,7 @@ export function hamtaPlanForvantningar(): PlanForvantan[] {
       envNamn,
       prisId: process.env[envNamn] ?? null,
       forvantatOreEtt: plan.amount * 100,
-      forvantadTyp: plan.kind,
+      forvantadTyp: plan.mode === 'payment' ? 'one_time' : 'recurring',
       forvantadePerioderIManader: MANADER_PER_PLAN[plan.key] ?? null,
     };
   });

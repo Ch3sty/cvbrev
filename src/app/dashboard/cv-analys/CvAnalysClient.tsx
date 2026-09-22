@@ -102,9 +102,10 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
       const result = await response.json();
 
       if (!response.ok) {
-        // Kvoten slut (1 analys per rullande 72h for gratisanvandare):
-        // visa spärrvyn med exakt återkomsttid i stället för ett alert.
-        if (response.status === 429 && result.limitReached) {
+        // Kvoten slut (en analys per konto på gratisnivån): visa spärrvyn i
+        // stället för ett alert. Servern svarar 402 sedan analysen blev en
+        // kontokvot, och 429 stod kvar medan det var ett tidsfönster.
+        if ((response.status === 402 || response.status === 429) && result.limitReached) {
           const resetAt = result.nextResetAt || result.nextResetDate;
           if (resetAt) setQuotaLockResetAt(resetAt);
           setRemainingAnalyses(0);
@@ -155,12 +156,11 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
   if (hasReachedLimit) {
     return (
       <div className="min-h-[calc(100dvh-200px)] flex items-center justify-center px-4 py-12">
+        {/* Analysen är en kontokvot, inte ett dygnsfönster: ingen
+            påminnelse imorgon, utan betalväggen för omkörningen. */}
         <PaywallCard
-          variant="kvot"
-          quota={{
-            feature: 'cv_analysis',
-            nextResetAt: quotaLockResetAt ?? new Date().toISOString(),
-          }}
+          variant="analys-omkorning"
+          feature="cv_analysis_full"
           className="max-w-md w-full"
         />
       </div>

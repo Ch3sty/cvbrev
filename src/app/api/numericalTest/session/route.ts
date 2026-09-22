@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 
@@ -25,6 +26,16 @@ export async function POST() {
 
     // Dagskvot: gratisanvändare gör varje testtyp en gång per dag, premium är
     // obegränsat. Spärren måste sitta serverside.
+    // Nivåspärren, serverside. Grundnivån är fri, allt över den kräver
+    // tests_above_base och provläget test_exam_mode
+    // (docs/plan-paket-och-onboarding.md avsnitt 4). Kortet i hubben stoppar
+    // bara ett klick, inte en direktnavigering till startsidan.
+    const sparr = await checkTestSessionAccess(supabase, user.id, TEST_TYPE);
+    if (!sparr.allowed) {
+      return NextResponse.json(sparr.body, { status: 402 });
+    }
+
+    // Dagskvot på grundnivån: en slutförd session per testtyp och dygn.
     const quota = await checkDailyTestQuota(supabase, user.id, TEST_TYPE);
     if (!quota.allowed) {
       signalQuotaWall(user.id, `test:${TEST_TYPE}`);

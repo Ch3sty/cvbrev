@@ -48,6 +48,7 @@ const InstallPrompt = dynamic(
   { ssr: false }
 );
 import NavigationProgress from '@/components/ui/NavigationProgress';
+import VeckoMejlSparning from '@/components/dashboard/VeckoMejlSparning';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import {
   DashboardDataProvider,
@@ -225,6 +226,9 @@ export default function DashboardShell({
           ligga kvar även i ett flöde: brevet sparas i skapa-brev, som är ett
           flöde, och det är efter just den bekräftelsen frågan ska komma. */}
       <InstallPrompt />
+
+      {/* Mäter dagar öppnade från veckomejlen. Renderar ingenting. */}
+      <VeckoMejlSparning />
 
       {/* Mobil bottennavigation (lg:hidden inuti komponenten) */}
       <MobileBottomNavWrapper />

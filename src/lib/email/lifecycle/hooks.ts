@@ -87,26 +87,68 @@ export async function sendLifecycleNow(
   }
 }
 
-/** Nytt konto skapat: skicka rt_day0 direkt och schemalägg resten. */
+/** Alla fjorton dagsmejl, båda spåren. cancelScheduled matchar exakt. */
+const VECKO_MEJLTYPER: string[] = [1, 2, 3, 4, 5, 6, 7].flatMap((n) => [`cv_day${n}`, `test_day${n}`]);
+
+/**
+ * Nytt konto skapat.
+ *
+ * Reverse trial-sekvensen rt_day0 till rt_day10 är borttagen (ägarens beslut
+ * 3 i docs/plan-paket-och-onboarding.md): det finns ingen trial att berätta
+ * om, och ett välkomstmejl som lovar fem dagar Premium vore fel. Kvar står
+ * winback, som gäller den som varit borta oavsett hur kontot började.
+ *
+ * Veckoserien schemaläggs först vid köp, i onWeekStarted, eftersom den är
+ * paketets program och inte kontots.
+ */
 export async function onUserSignup(admin: AnySupabase, userId: string): Promise<void> {
   try {
-    await sendLifecycleNow(admin, userId, 'rt_day0');
-  } catch (error: any) {
-    console.error('[lifecycle] rt_day0 misslyckades:', error?.message);
-  }
-
-  try {
     await scheduleMany(admin, userId, [
-      { type: 'rt_day1', days: 1 },
-      { type: 'rt_day3', days: 3 },
-      { type: 'rt_day4', days: 4 },
-      { type: 'rt_day6', days: 6 },
-      { type: 'rt_day10', days: 10 },
       { type: 'winback_14', days: 14 },
       { type: 'winback_30', days: 30 },
     ]);
   } catch (error: any) {
-    console.error('[lifecycle] kunde inte schemalägga rt-sekvensen:', error?.message);
+    console.error('[lifecycle] kunde inte schemalägga winback:', error?.message);
+  }
+}
+
+/**
+ * Veckan är köpt: schemalägg dagsmejlen (docs/plan-paket-och-onboarding.md,
+ * Fas 2B avsnitt 7).
+ *
+ * Mejlet för dag n går ut morgonen dag n, svensk tid, och dag 1:s mejl först
+ * dagen efter köpet: köparen har just sett dag 1 i appen, så samma innehåll
+ * i mailen samma kväll vore en upprepning. Hoppar användaren över en dag
+ * skickas nästa dags mejl ändå, och mallens shouldSend ser till att ingen
+ * påminns om något hon redan gjort.
+ *
+ * Anropas av webhooken när ett köp bekräftats. Spåret avgör vilken serie.
+ */
+export async function onWeekStarted(
+  admin: AnySupabase,
+  userId: string,
+  track: 'cv' | 'tester' | 'allt'
+): Promise<void> {
+  const prefix = track === 'tester' ? 'test' : 'cv';
+  try {
+    // Byter användaren spår ska den gamla serien inte ligga kvar.
+    await cancelScheduled(admin, userId, VECKO_MEJLTYPER, 'week_restarted');
+    await scheduleMany(
+      admin,
+      userId,
+      [1, 2, 3, 4, 5, 6, 7].map((n) => ({ type: `${prefix}_day${n}`, days: n }))
+    );
+  } catch (error: any) {
+    console.error('[lifecycle] kunde inte schemalägga veckoserien:', error?.message);
+  }
+}
+
+/** Veckan är slut eller uppsagd: stoppa dagsmejlen. */
+export async function onWeekEnded(admin: AnySupabase, userId: string): Promise<void> {
+  try {
+    await cancelScheduled(admin, userId, VECKO_MEJLTYPER, 'week_ended');
+  } catch (error: any) {
+    console.error('[lifecycle] kunde inte avbryta veckoserien:', error?.message);
   }
 }
 
@@ -131,6 +173,8 @@ export async function onTrialStarted(admin: AnySupabase, userId: string): Promis
 export async function onSubscriptionDeleted(admin: AnySupabase, userId: string): Promise<void> {
   try {
     await cancelScheduled(admin, userId, ['trial_'], 'subscription_deleted');
+    // Dagsmejlen ska inte fortsätta till någon som sagt upp.
+    await onWeekEnded(admin, userId);
     await sendLifecycleNow(admin, userId, 'cancel_immediate');
     await scheduleEmail(admin, userId, 'cancel_followup', sendAfterStockholm(3));
   } catch (error: any) {

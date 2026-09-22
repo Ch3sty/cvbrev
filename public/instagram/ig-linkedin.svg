@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+    <linearGradient id="strip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FB923C"/>
+      <stop offset="50%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="1.2" fill="white" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#dots)"/>
+  <circle cx="980" cy="120" r="260" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="100" cy="960" r="200" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- LinkedIn profil-kort, rakt och kompakt -->
+  <g transform="translate(540 270) translate(-190 -210)">
+    <rect x="4" y="8" width="380" height="440" rx="20" fill="rgba(0,0,0,0.20)"/>
+    <rect x="0" y="0" width="380" height="440" rx="20" fill="white"/>
+
+    <!-- Banner -->
+    <rect x="0" y="0" width="380" height="110" rx="20" fill="url(#strip)"/>
+    <rect x="0" y="90" width="380" height="20" fill="url(#strip)"/>
+
+    <!-- Avatar -->
+    <circle cx="70" cy="130" r="42" fill="white"/>
+    <circle cx="70" cy="130" r="35" fill="url(#strip)"/>
+    <circle cx="70" cy="120" r="11" fill="white" opacity="0.9"/>
+    <path d="M 52 144 Q 52 133 70 133 Q 88 133 88 144 L 88 152 L 52 152 Z" fill="white" opacity="0.9"/>
+
+    <!-- in-pill -->
+    <rect x="304" y="116" width="54" height="30" rx="7" fill="#0A66C2"/>
+    <text x="331" y="136" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="900" fill="white" text-anchor="middle">in</text>
+
+    <!-- Namn + Headline -->
+    <rect x="30" y="188" width="200" height="14" rx="4" fill="#1E293B"/>
+    <rect x="30" y="210" width="280" height="9" rx="3" fill="#475569"/>
+    <rect x="30" y="226" width="240" height="9" rx="3" fill="#475569"/>
+    <rect x="30" y="248" width="110" height="7" rx="3" fill="#FB923C"/>
+    <line x1="30" y1="272" x2="350" y2="272" stroke="#FED7AA" stroke-width="1.5"/>
+
+    <!-- Om mig -->
+    <rect x="30" y="290" width="70" height="9" rx="3" fill="#1E293B"/>
+    <rect x="30" y="308" width="320" height="6" rx="3" fill="#CBD5E1"/>
+    <rect x="30" y="322" width="300" height="6" rx="3" fill="#CBD5E1"/>
+    <rect x="30" y="336" width="260" height="6" rx="3" fill="#CBD5E1"/>
+    <line x1="30" y1="360" x2="350" y2="360" stroke="#FED7AA" stroke-width="1.5"/>
+
+    <!-- Skills -->
+    <rect x="30" y="378" width="55" height="9" rx="3" fill="#1E293B"/>
+    <rect x="30" y="396" width="80" height="24" rx="12" fill="#FFEDD5" stroke="#FED7AA"/>
+    <rect x="118" y="396" width="100" height="24" rx="12" fill="#FFEDD5" stroke="#FED7AA"/>
+    <rect x="226" y="396" width="80" height="24" rx="12" fill="#FFEDD5" stroke="#FED7AA"/>
+  </g>
+
+  <!-- Text-sektion -->
+  <rect x="100" y="660" width="282" height="38" rx="19" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <circle cx="122" cy="679" r="5" fill="#FCD34D"/>
+  <text x="137" y="684" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="white" letter-spacing="2">LINKEDIN-OPTIMERING</text>
+
+  <text x="100" y="766" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="900" fill="white" letter-spacing="-2">Hamna i rekry-</text>
+  <text x="100" y="856" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="900" fill="white" letter-spacing="-2">terarnas sök</text>
+
+  <text x="100" y="918" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.85)">Rubrik · Om mig · Erfarenhet · Kompetenser</text>
+
+  <circle cx="100" cy="988" r="7" fill="#FCD34D"/>
+  <text x="118" y="994" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600" fill="white" opacity="0.95">jobbcoach.ai</text>
+</svg>

@@ -1,17 +1,21 @@
 import { Metadata } from 'next'
 
+/**
+ * Metadata för /priser (reference_onpage_seo_standard: title högst 60 tecken,
+ * description mellan 110 och 158).
+ *
+ * Title: 56 tecken. Description: 151 tecken.
+ */
 export const metadata: Metadata = {
-  title:
-    'Priser: 149 kr per månad för obegränsad tillgång | Jobbcoach.ai',
+  title: 'Priser: välj spår och börja med en vecka | Jobbcoach.ai',
   description:
-    'Vi ger dig allt du behöver för en stark jobbansökan. 149 kr per månad, sju dagar gratis och ingen bindningstid. Avsluta när som helst.',
+    'Vi säljer veckan du söker på, inte året. CV-veckan och Testveckan kostar 79 kr i veckan, Allt 99 kr. Säg upp med ett klick, och gratisnivån finns kvar.',
   keywords:
-    'jobbcoach pris, jobbcoach premium, karriärcoach pris, premium jobbansökan, ATS-verktyg pris, personligt brev pris, CV-analys pris',
+    'jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, veckoprenumeration jobbsökning',
   openGraph: {
-    title:
-      'Premium för 149 kr per månad. Sju dagar gratis. | Jobbcoach.ai',
+    title: 'Välj spåret du söker på. Börja med en vecka.',
     description:
-      'Obegränsade brev, CV-analyser och alla mallar. Vi har samlat allt du behöver för att söka jobb i Sverige på ett ställe.',
+      'CV-veckan och Testveckan 79 kr i veckan, Allt 99 kr. Ingen bindningstid, uppsägning med ett klick, och gratisnivån ligger kvar.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/priser',
@@ -19,9 +23,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Premium för 149 kr per månad. Sju dagar gratis. | Jobbcoach.ai',
+    title: 'Välj spåret du söker på. Börja med en vecka.',
     description:
-      'Obegränsade brev och CV-analyser, alla mallar, Smart-anpassad ton. Sju dagar gratis trial, ingen bindningstid.',
+      'CV-veckan och Testveckan 79 kr i veckan, Allt 99 kr. Ingen bindningstid, uppsägning med ett klick.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/priser',

@@ -2,7 +2,9 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { suggestPlan, type Scope } from '@/lib/access/features';
+import { featureRequiredBody } from '@/lib/quota/quotaService';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
@@ -246,12 +248,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
-    // A1 (docs/plan-konvertering.md): filen kräver Premium. Visning och
+    // Filen kräver featuren letter_download, som ligger i CV-spåret och i
+    // Allt (docs/plan-paket-och-onboarding.md avsnitt 3). Visning och
     // kopiering av brevtexten är fortsatt gratis.
-    const hasPremium = await userHasPremiumAccess(supabase, user.id);
-    if (!hasPremium) {
+    const harNedladdning = await userHasAccess(supabase, user.id, 'letter_download');
+    if (!harNedladdning) {
+      const { data: trackProfil } = await supabase
+        .from('profiles')
+        .select('onboarding_track')
+        .eq('id', user.id)
+        .maybeSingle();
+      const varde = (trackProfil as { onboarding_track?: unknown } | null)?.onboarding_track;
+      const track: Scope | null =
+        varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
+
       return NextResponse.json(
-        { error: 'premium_required', feature: 'letter_download' },
+        featureRequiredBody('letter_download', suggestPlan('letter_download', track)),
         { status: 402 }
       );
     }

@@ -12,6 +12,8 @@
 // rymmer en enda rad, så en andra prenumeration är osynlig där.
 
 import { stripe } from '@/lib/stripe/server'
+import { PLAN_BY_KEY, type PlanKey, type PlanScope } from '@/lib/plans/plans'
+import { priceIdToPlanKey } from '@/lib/stripe/planPrices'
 
 // Statusar som innebär att kunden redan har ett åtagande vi inte får dubblera.
 // 'past_due' och 'unpaid' räknas med: prenumerationen lever och Stripe
@@ -22,6 +24,12 @@ export interface ExistingSubscription {
   id: string
   status: string
   cancelAtPeriodEnd: boolean
+  /** Price-id på den levande raden, så anroparen kan läsa ut scope. */
+  priceId: string | null
+  /** Paketet prenumerationen gäller, null när priset inte känns igen. */
+  planKey: PlanKey | null
+  /** Behörigheten prenumerationen ger i dag. */
+  scope: PlanScope | null
 }
 
 /**
@@ -48,10 +56,16 @@ export async function findLiveSubscription(
 
     if (!live) return null
 
+    const priceId = live.items.data[0]?.price?.id ?? null
+    const planKey = priceIdToPlanKey(priceId)
+
     return {
       id: live.id,
       status: live.status,
       cancelAtPeriodEnd: live.cancel_at_period_end,
+      priceId,
+      planKey,
+      scope: planKey ? PLAN_BY_KEY[planKey].scope : null,
     }
   } catch (error: any) {
     console.error(
@@ -78,4 +92,25 @@ export function alreadySubscribedResponse(existing: ExistingSubscription) {
     subscriptionStatus: existing.status,
     manageUrl: '/api/stripe/create-portal-session',
   }
+}
+
+/**
+ * Ska köpet blockeras som dubblett?
+ *
+ * Sedan paketen infördes (docs/plan-paket-och-onboarding.md avsnitt 5) är
+ * svaret ja bara när kunden köper samma behörighet en gång till. Går hon från
+ * ett spår till Allt är det en uppgradering, och den ska släppas fram: den
+ * hanteras av create-upgrade-session, som byter pris på den befintliga
+ * prenumerationen i stället för att teckna en ny.
+ *
+ * Känner vi inte igen priset blockerar vi. Ett okänt price-id betyder att
+ * env-raderna glidit isär från Stripe, och då är dubbletten den dyrare
+ * gissningen att ha fel om.
+ */
+export function blocksAsDuplicate(
+  existing: ExistingSubscription,
+  requestedScope: PlanScope
+): boolean {
+  if (!existing.scope) return true
+  return existing.scope === requestedScope
 }

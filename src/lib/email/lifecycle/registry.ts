@@ -1,30 +1,37 @@
 // src/lib/email/lifecycle/registry.ts
 // Alla livscykelmail på ett ställe. Runnern slår upp email_type här.
+//
+// Reverse trial-sekvensen rt_day0 till rt_day10 är borta (ägarens beslut 3 i
+// docs/plan-paket-och-onboarding.md). Inget reverse trial-mejl behålls. I stället
+// ligger veckoserien per spår, cv_day1 till cv_day7 och test_day1 till
+// test_day7, plus förnyelsepåminnelsen och uppsägningskvittot.
 
 import type { LifecycleEmail } from './types';
-import { rtDay0, rtDay1, rtDay3, rtDay4, rtDay6, rtDay10 } from './templates/reverse-trial';
 import { winback14, winback30 } from './templates/winback';
-import {
-  quotaWall,
-  trialDay3,
-  trialDay5,
-  trialDay7,
-  onetimeExpired,
-} from './templates/conversion';
+import { quotaWall, trialDay3, trialDay5, trialDay7, onetimeExpired } from './templates/conversion';
 import { paymentFailed, cancelImmediate, cancelFollowup } from './templates/transactional';
 import { gratisnivaAndras, GRATISNIVA_EMAIL_TYPE } from './templates/campaign-gratisniva';
 import { weeklyDigest, WEEKLY_DIGEST_TYPE } from './templates/weekly-digest';
+import {
+  CV_VECKA_MEJL,
+  TEST_VECKA_MEJL,
+  fornyelseImorgon,
+  uppsagtGallerUt,
+  kvittoMejl,
+} from './templates/vecka';
 
 const ALL: LifecycleEmail[] = [
-  rtDay0,
-  rtDay1,
-  rtDay3,
-  rtDay4,
-  rtDay6,
-  rtDay10,
+  ...CV_VECKA_MEJL,
+  ...TEST_VECKA_MEJL,
+  fornyelseImorgon,
+  uppsagtGallerUt,
+  kvittoMejl,
   winback14,
   winback30,
   quotaWall,
+  // De kortkrävande trialmejlen står kvar: webhooken schemalägger dem
+  // fortfarande för Stripes egna provperioder. Det är reverse trial som är
+  // borta, inte varje form av provperiod.
   trialDay3,
   trialDay5,
   trialDay7,

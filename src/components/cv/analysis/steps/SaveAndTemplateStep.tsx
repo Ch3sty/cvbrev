@@ -9,6 +9,7 @@ import CVQuotaManager from '../CVQuotaManager';
 import TemplateSelector from '../TemplateSelector';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 import { useCvQuota } from '@/hooks/useCvQuota';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 
 interface SaveAndTemplateStepProps {
   improvedCV: string;
@@ -22,6 +23,10 @@ export default function SaveAndTemplateStep({
   isSaving
 }: SaveAndTemplateStepProps) {
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
+  // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
+  // gång. Mallvalet behöver scope, inte en fri/premium-flagga: Testveckan
+  // ger inga mallar (docs/plan-paket-och-onboarding.md avsnitt 3).
+  const { summary } = useDashboardData();
   const [saveToLibrary, setSaveToLibrary] = useState(canSave);
   const [customName, setCustomName] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>('norrsken');
@@ -70,7 +75,8 @@ export default function SaveAndTemplateStep({
       <TemplateSelector
         selectedTemplateId={selectedTemplate}
         onSelectTemplate={setSelectedTemplate}
-        subscriptionTier={subscriptionTier}
+        scope={summary?.week?.scope ?? null}
+        track={summary?.week?.track ?? null}
       />
 
       {/* Save to Library Section - IMPROVED */}

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkProvAllowance, PROV_TEST_TYPES } from '@/lib/prov/allowance';
 
 const TEST_TYPE = PROV_TEST_TYPES.numerisk;
@@ -13,6 +14,15 @@ export async function POST() {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Nivåspärren, serverside. Grundnivån är fri, allt över den kräver
+    // tests_above_base och provläget test_exam_mode
+    // (docs/plan-paket-och-onboarding.md avsnitt 4). Kortet i hubben stoppar
+    // bara ett klick, inte en direktnavigering till startsidan.
+    const sparr = await checkTestSessionAccess(supabase, user.id, TEST_TYPE);
+    if (!sparr.allowed) {
+      return NextResponse.json(sparr.body, { status: 402 });
     }
 
     const allowance = await checkProvAllowance(supabase, user.id, TEST_TYPE);
