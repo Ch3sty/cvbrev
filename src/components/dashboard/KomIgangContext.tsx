@@ -10,7 +10,7 @@
  *
  * Läget räknas ur den delade summeringen: paketet och de provade brickorna
  * kommer serverrenderade i /api/dashboard/summary, ingen egen rundtur.
- * "Dölj hjälpredan" gömmer raden till nästa dag, i localStorage: det värsta
+ * "Dölj hjälpredan" fäller ihop raden till en liten knapp till nästa dag, i localStorage: det värsta
  * som händer om flaggan tappas är att raden syns igen, och det är rätt.
  */
 
@@ -25,6 +25,8 @@ interface KomIgangContextValue {
   fakta: BrickaFakta
   /** Sann när raden ska synas: läget finns, allt är inte provat, inte dold. */
   visaRad: boolean
+  /** Sann när användaren tryckt "Dölj" i dag: raden visas ihopfälld, aldrig borta. */
+  dold: boolean
   arkOppet: boolean
   oppna: () => void
   stang: () => void
@@ -37,6 +39,7 @@ const KomIgangContext = createContext<KomIgangContextValue>({
   visaRad: false,
   arkOppet: false,
   oppna: () => {},
+  dold: false,
   stang: () => {},
   dolj: () => {},
 })
@@ -89,7 +92,8 @@ export function KomIgangProvider({ children }: { children: ReactNode }) {
     () => ({
       lage,
       fakta,
-      visaRad: Boolean(lage && !lage.klar && !dold),
+      visaRad: Boolean(lage && !lage.klar),
+      dold,
       arkOppet,
       oppna,
       stang,

@@ -24,14 +24,14 @@ export interface KomIgangRadProps {
 }
 
 export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
-  const { lage, fakta, visaRad, oppna, arkOppet } = useKomIgang()
+  const { lage, fakta, visaRad, dold, oppna, arkOppet } = useKomIgang()
   const synlig = Boolean(lage && visaRad)
 
   // Den flytande raden tar plats ovanför navet. Innehållet får extra
   // bottenpadding via attributet (globals.css), så sista kortet på
   // hemskärmen aldrig hamnar bakom raden.
   useEffect(() => {
-    if (variant !== 'flytande' || !synlig) return
+    if (variant !== 'flytande' || !synlig || dold) return
     const root = document.documentElement
     root.setAttribute('data-komigang-rad', 'true')
     return () => root.removeAttribute('data-komigang-rad')

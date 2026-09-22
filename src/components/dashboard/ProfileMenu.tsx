@@ -16,6 +16,7 @@ import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { menyHuvud } from '@/lib/onboarding/paket-rader'
+import { useKomIgang } from './KomIgangContext'
 
 interface ProfileMenuProps {
   name: string
@@ -29,6 +30,7 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const { summary } = useDashboardData()
+  const komIgang = useKomIgang()
   const huvud = summary?.paket ? menyHuvud(summary.paket) : null
 
   // Stäng vid klick utanför och vid Escape.
