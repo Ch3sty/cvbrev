@@ -18,6 +18,7 @@ import {
   type PaketNyckel,
 } from '@/lib/admin/collect';
 import { PLANS } from '@/lib/plans/plans';
+import { MATSTART } from '@/lib/admin/tomt';
 
 /** Kronor ur ore, utan decimaler. 59 900 ore blir "599 kr". */
 export function kronor(ore: number | null | undefined): string {
@@ -199,14 +200,15 @@ export function planstegFranPris(
 // ---------------------------------------------------------------------------
 
 /**
- * Dagen da MRR-historiken blir sann.
+ * Dagen da MRR-historiken blir sann. Samma konstant som Oversikt
+ * (MATSTART.mrr i src/lib/admin/tomt.ts), sa sidorna aldrig sager olika.
  *
  * Backfyllningen 2026-09-14 gav varje dag dagens MRR, eftersom Stripe inte
  * har nagon historisk MRR att lasa. Serien ar darfor en rak linje bakat och
  * far inte lasas som att ingenting hant. Datumet star i gransnittet varje
  * gang MRR ritas over ett fonster som stracker sig fore det.
  */
-export const MRR_SANN_FRAN = '2026-09-15';
+export const MRR_SANN_FRAN: string = MATSTART.mrr;
 
 export interface Vattenfall {
   fran: number;

@@ -25,7 +25,21 @@ import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import { getSuperAdminUserId } from '@/lib/admin/requireSuperAdmin';
 import { lasKalla } from '../data';
-import { exaktTid, kortDatum, niva, sedan, tal, visningsnamn } from '../format';
+import {
+  behorighetText,
+  datumEllerOrsak,
+  exaktTid,
+  gallerTill,
+  kallaText,
+  kortDatum,
+  paketEtikett,
+  sedan,
+  statusText,
+  tal,
+  visningsnamn,
+} from '../format';
+import { MATSTART, datumKort, tidKort } from '@/lib/admin/tomt';
+import Kop, { KopSkelett } from './Kop';
 import Atgarder from './Atgarder';
 import {
   hamtaProfil,
@@ -211,29 +225,48 @@ export default async function AdminAnvandarePage({
   const nu = Date.now();
 
   const namn = visningsnamn(profil.full_name, profil.email);
-  const nivan = niva(profil);
+  // Paketet som om kontot inte vore undantaget, sa att adminen ser vad
+  // kontot faktiskt har. Undantaget star som en egen rad overst.
+  const paket = paketEtikett({ ...profil, undantag: null }, nu);
   const kalla = lasKalla(profil.acquisition_source);
+  const kallaVarde =
+    kalla ??
+    (profil.created_at && profil.created_at >= MATSTART.attribution
+      ? 'ingen registrerad'
+      : `okänt, före ${datumKort(MATSTART.attribution)}`);
 
   // Prenumerationsstatus ur Stripe-speglingen i profiles. Adminen pratar aldrig
   // med Stripe i kritiska vagen: speglingen ar det som ar snabbt nog.
-  const prenStatus = profil.subscription_status ?? 'ingen prenumeration';
   const harStripe = Boolean(profil.stripe_customer_id);
+  const lopande = paket.lopande;
 
-  const aktiveringsNot =
-    'Känt mätfel: milstolpen sätts inte vid uppladdning, så tomt betyder inte att det inte hänt.';
+  // Milstolparna gar att lita pa fran MATSTART.aktivering. Aldre konton utan
+  // varde ar okanda, inte "aldrig".
+  const foreAktivering =
+    !profil.created_at || profil.created_at < MATSTART.aktivering;
+  const milstolpe = (iso: string | null) =>
+    datumEllerOrsak(iso, profil.created_at, MATSTART.aktivering);
 
   return (
     <div className="space-y-4 sm:space-y-6">
       <PageHeader
         title={namn}
-        description={`${profil.email ?? 'utan e-post'} · ${nivan} · konto sedan ${kortDatum(profil.created_at)}`}
+        description={`${profil.email ?? 'utan e-post'} · ${paket.namn} · konto sedan ${kortDatum(profil.created_at)}`}
       />
 
       <p>
-        <Link href="/admin/anvandare" className={LANK}>
+        <Link href="/admin/anvandare" className={`${LANK} inline-flex min-h-11 items-center`}>
           Till listan
         </Link>
       </p>
+
+      {profil.undantag ? (
+        <p className="rounded-xl border border-kant bg-insunken px-4 py-3 text-sm font-medium text-ink-1">
+          {profil.undantag === 'admin'
+            ? 'Adminkonto, räknas inte i adminens tal.'
+            : 'Testkonto, räknas inte.'}
+        </p>
+      ) : null}
 
       {/* --------------------------------------------------- Rakningarna --- */}
       <SectionCard rubrik="Vad kontot har gjort">
@@ -255,9 +288,9 @@ export default async function AdminAnvandarePage({
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         <SectionCard rubrik="Profil" naken>
           <dl className="divide-y divide-kant">
-            <Uppgift etikett="E-post">{profil.email ?? '–'}</Uppgift>
-            <Uppgift etikett="Namn">{profil.full_name ?? '–'}</Uppgift>
-            <Uppgift etikett="Nivå">{nivan}</Uppgift>
+            <Uppgift etikett="E-post">{profil.email ?? 'ingen e-post'}</Uppgift>
+            <Uppgift etikett="Namn">{profil.full_name ?? 'inget namn'}</Uppgift>
+            <Uppgift etikett="Paket">{paket.namn}</Uppgift>
             <Uppgift etikett="Konto skapat">
               <span className="tabular-nums">
                 {kortDatum(profil.created_at)}
@@ -268,35 +301,40 @@ export default async function AdminAnvandarePage({
                 {sedan(profil.last_activity_at, nu)}
               </span>
             </Uppgift>
-            <Uppgift etikett="Anskaffningskälla">{kalla ?? '–'}</Uppgift>
+            <Uppgift etikett="Anskaffningskälla">{kallaVarde}</Uppgift>
           </dl>
-
-          {!kalla ? (
-            <p className="px-4 pb-3 text-meta text-ink-3">
-              Känt mätfel: anskaffningskälla sätts inte vid registrering.
-            </p>
-          ) : null}
         </SectionCard>
 
         <SectionCard rubrik="Prenumeration" naken>
           <dl className="divide-y divide-kant">
-            <Uppgift etikett="Status">{prenStatus}</Uppgift>
-            <Uppgift etikett="Nivå i profilen">
-              {profil.subscription_tier ?? '–'}
+            <Uppgift etikett="Paket">{paket.namn}</Uppgift>
+            <Uppgift etikett="Prenumeration i Stripe">
+              {statusText(profil.subscription_status)}
             </Uppgift>
-            <Uppgift etikett="Premiumkälla">
-              {profil.premium_source ?? '–'}
+            <Uppgift etikett="Behörighet">
+              {/* Engangskop och provperioder bar sin behorighet pa
+                  premium_grants, inte i profilen, och den ar alltid Allt. */}
+              {behorighetText(
+                paket.grupp === 'gratis' || paket.grupp === 'provperiod_slut'
+                  ? null
+                  : (profil.premium_scope ?? 'allt')
+              )}
             </Uppgift>
-            <Uppgift etikett="Premium till">
+            <Uppgift etikett="Tiden kommer från">
+              {kallaText(profil.premium_source)}
+            </Uppgift>
+            <Uppgift etikett="Gäller till">
               <span className="tabular-nums">
-                {profil.premium_until ? exaktTid(profil.premium_until) : '–'}
+                {lopande
+                  ? 'löpande, se Köp'
+                  : gallerTill(paket, profil)}
               </span>
             </Uppgift>
-            <Uppgift etikett="Perioden slutar">
+            <Uppgift etikett="Nästa dragning">
               <span className="tabular-nums">
-                {profil.current_period_end
-                  ? exaktTid(profil.current_period_end)
-                  : '–'}
+                {lopande && profil.current_period_end
+                  ? tidKort(profil.current_period_end)
+                  : 'ingen löpande prenumeration'}
               </span>
             </Uppgift>
             <Uppgift etikett="Stripe-kund">
@@ -310,12 +348,26 @@ export default async function AdminAnvandarePage({
                   {profil.stripe_customer_id}
                 </a>
               ) : (
-                '–'
+                'ingen'
               )}
             </Uppgift>
           </dl>
         </SectionCard>
       </div>
+
+      {/* ----------------------------------------------------------- Kop --- */}
+      <SectionCard rubrik="Köp" naken>
+        <Suspense fallback={<KopSkelett />}>
+          <Kop
+            kund={profil.stripe_customer_id}
+            userId={profil.id}
+            email={profil.email}
+            samtycke={profil.angerratt_samtycke_at}
+            etikett={paket}
+            premiumUntil={profil.premium_until}
+          />
+        </Suspense>
+      </SectionCard>
 
       {/* --------------------------------------------- Aktivering och kvot --- */}
       <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
@@ -323,27 +375,26 @@ export default async function AdminAnvandarePage({
           <dl className="divide-y divide-kant">
             <Uppgift etikett="Första CV">
               <span className="tabular-nums">
-                {profil.first_cv_uploaded_at
-                  ? kortDatum(profil.first_cv_uploaded_at)
-                  : '–'}
+                {milstolpe(profil.first_cv_uploaded_at)}
               </span>
             </Uppgift>
             <Uppgift etikett="Första brev">
               <span className="tabular-nums">
-                {profil.first_letter_created_at
-                  ? kortDatum(profil.first_letter_created_at)
-                  : '–'}
+                {milstolpe(profil.first_letter_created_at)}
               </span>
             </Uppgift>
             <Uppgift etikett="Första analys">
               <span className="tabular-nums">
-                {profil.first_cv_analyzed_at
-                  ? kortDatum(profil.first_cv_analyzed_at)
-                  : '–'}
+                {milstolpe(profil.first_cv_analyzed_at)}
               </span>
             </Uppgift>
           </dl>
-          <p className="px-4 pb-3 text-meta text-ink-3">{aktiveringsNot}</p>
+          {foreAktivering ? (
+            <p className="px-4 pb-3 text-meta text-ink-3">
+              Milstolparna mäts från {datumKort(MATSTART.aktivering)}. Kontot är
+              äldre, så ett tomt värde betyder okänt, inte att det aldrig hänt.
+            </p>
+          ) : null}
         </SectionCard>
 
         <SectionCard rubrik="Kvotläge i dag" naken>

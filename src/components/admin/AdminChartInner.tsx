@@ -27,6 +27,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ReferenceArea,
 } from 'recharts';
 import type { AdminChartProps, AdminSerieRoll } from './AdminChart';
 
@@ -38,7 +39,27 @@ const ROLL_VAR: Record<AdminSerieRoll, string> = {
   positiv: 'var(--positiv)',
   varning: 'var(--varning)',
   fel: 'var(--fel)',
+  cv: 'var(--diagram-cv)',
+  test: 'var(--diagram-test)',
+  allt: 'var(--ink-1)',
 };
+
+/** Forsta, mittersta och sista x-vardet: diagramregeln punkt 1. */
+function treTicks(data: Array<Record<string, unknown>>, xNyckel: string): Array<string | number> {
+  if (!data.length) return [];
+  const varden = data.map((r) => r[xNyckel] as string | number);
+  if (varden.length <= 3) return varden;
+  return [varden[0], varden[Math.floor((varden.length - 1) / 2)], varden[varden.length - 1]];
+}
+
+/** Index for seriens sista punkt med ett tal, eller -1. */
+function sistaIndex(data: Array<Record<string, unknown>>, nyckel: string): number {
+  for (let i = data.length - 1; i >= 0; i--) {
+    const v = data[i][nyckel];
+    if (typeof v === 'number' && Number.isFinite(v)) return i;
+  }
+  return -1;
+}
 
 const AXEL = { fill: 'var(--ink-3)', fontSize: 12 } as const;
 
@@ -60,14 +81,44 @@ export default function AdminChartInner({
   fargNyckel,
   etiketter = false,
   yDoman,
+  enhet,
+  matstart,
+  matstartText,
+  efterslap,
+  slutvarde = true,
 }: AdminChartProps) {
+  // Enheten pa y-axeln nar sidan inte formaterar sjalv (diagramregeln).
+  const fy: ((v: number) => string) | undefined =
+    formateraY ?? (enhet ? (v: number) => `${v.toLocaleString('sv-SE')} ${enhet}` : undefined);
+  const ticks = liggande ? undefined : treTicks(data, xNyckel);
+  const forstaX = data.length ? (data[0][xNyckel] as string) : undefined;
+  const sistaX = data.length ? (data[data.length - 1][xNyckel] as string) : undefined;
+  const foreMatstart = matstart
+    ? data.filter((r) => String(r[xNyckel]) < matstart).map((r) => r[xNyckel] as string)
+    : [];
+
+  /** Etikett vid seriens slutpunkt, bara pa sista punkten med ett tal. */
+  const slutEtikett = (nyckel: string) => {
+    const sista = sistaIndex(data, nyckel);
+    // eslint-disable-next-line react/display-name
+    return (p: any) => {
+      if (p?.index !== sista || typeof p?.value !== 'number') return null;
+      const x = Number(p.x ?? 0) + (Number(p.width ?? 0) || 0) / 2;
+      const y = Number(p.y ?? 0) - 8;
+      return (
+        <text x={x} y={y} textAnchor={sista === data.length - 1 ? 'end' : 'middle'} fill="var(--ink-1)" fontSize={12} fontWeight={500}>
+          {fy ? fy(p.value) : p.value.toLocaleString('sv-SE')}
+        </text>
+      );
+    };
+  };
   // Forklaringen kravs sa snart det finns mer an en serie: identitet far
   // aldrig bara baras av farg. Med fargNyckel bar raderna identiteten, och
   // sidan ritar da sin egen forklaring for paketen.
   const visaForklaring = serier.length > 1;
 
   const tooltipFormat = (v: number | string) =>
-    typeof v === 'number' && formateraY ? formateraY(v) : v;
+    typeof v === 'number' && fy ? fy(v) : v;
 
   const tooltipStil = {
     background: 'var(--panel)',
@@ -93,7 +144,7 @@ export default function AdminChartInner({
       <ComposedChart
         data={data}
         layout={liggande ? 'vertical' : 'horizontal'}
-        margin={{ top: 8, right: etiketter && liggande ? 48 : 4, bottom: 0, left: 0 }}
+        margin={{ top: slutvarde && !liggande ? 20 : 8, right: etiketter && liggande ? 48 : 8, bottom: 0, left: 0 }}
         barCategoryGap={liggande ? 6 : undefined}
       >
         <CartesianGrid vertical={liggande} horizontal={!liggande} stroke="var(--kant)" />
@@ -105,7 +156,7 @@ export default function AdminChartInner({
               tick={AXEL}
               tickLine={false}
               axisLine={false}
-              tickFormatter={formateraY}
+              tickFormatter={fy}
               domain={yDoman ?? [0, 'auto']}
               allowDecimals={false}
             />
@@ -128,19 +179,51 @@ export default function AdminChartInner({
               tickLine={false}
               axisLine={{ stroke: 'var(--kant)' }}
               tickFormatter={formateraX}
-              minTickGap={24}
+              ticks={ticks}
+              interval={0}
             />
             <YAxis
               tick={AXEL}
               tickLine={false}
               axisLine={false}
               width={yAxisWidth}
-              tickFormatter={formateraY}
+              tickFormatter={fy}
               domain={yDoman}
               allowDecimals={false}
             />
           </>
         )}
+
+        {/* Gra zon fore matstart: dagarna ar inte matta, alltsa inte noll. */}
+        {!liggande && foreMatstart.length && forstaX ? (
+          <ReferenceArea
+            x1={forstaX}
+            x2={foreMatstart[foreMatstart.length - 1]}
+            fill="var(--insunken)"
+            fillOpacity={1}
+            stroke="none"
+            ifOverflow="extendDomain"
+            label={{
+              value: matstartText ?? `mäts från ${formateraX && matstart ? formateraX(matstart) : matstart}`,
+              position: 'insideTopLeft',
+              fill: 'var(--ink-3)',
+              fontSize: 12,
+            }}
+          />
+        ) : null}
+
+        {/* Gra zon i slutet: kallan har inte levererat dagarna an. */}
+        {!liggande && efterslap && sistaX ? (
+          <ReferenceArea
+            x1={efterslap.fran}
+            x2={sistaX}
+            fill="var(--insunken)"
+            fillOpacity={1}
+            stroke="none"
+            ifOverflow="extendDomain"
+            label={{ value: efterslap.text, position: 'insideTopRight', fill: 'var(--ink-3)', fontSize: 12 }}
+          />
+        ) : null}
 
         <Tooltip
           cursor={
@@ -181,7 +264,9 @@ export default function AdminChartInner({
             activeDot={{ r: 4, strokeWidth: 2, stroke: 'var(--panel)' }}
             connectNulls={false}
             isAnimationActive={false}
-          />
+          >
+            {slutvarde ? <LabelList dataKey={s.nyckel} content={slutEtikett(s.nyckel)} /> : null}
+          </Area>
         ))}
 
         {/* Staplarna ritas fore linjerna sa att linjerna ligger ovanpa dem. */}
@@ -206,10 +291,12 @@ export default function AdminChartInner({
                 dataKey={s.nyckel}
                 position={liggande ? 'right' : 'top'}
                 formatter={(v: unknown) =>
-                  typeof v === 'number' ? (formateraY ? formateraY(v) : v.toLocaleString('sv-SE')) : ''
+                  typeof v === 'number' ? (fy ? fy(v) : v.toLocaleString('sv-SE')) : ''
                 }
                 style={{ fill: 'var(--ink-2)', fontSize: 12 }}
               />
+            ) : slutvarde && !liggande ? (
+              <LabelList dataKey={s.nyckel} content={slutEtikett(s.nyckel)} />
             ) : null}
           </Bar>
         ))}
@@ -227,7 +314,10 @@ export default function AdminChartInner({
             // En lucka i serien ar en lucka, inte en nolla: GSC-dagar utan
             // svar skrivs som null och linjen ska brytas dar.
             connectNulls={false}
-          />
+            isAnimationActive={false}
+          >
+            {slutvarde ? <LabelList dataKey={s.nyckel} content={slutEtikett(s.nyckel)} /> : null}
+          </Line>
         ))}
       </ComposedChart>
     </ResponsiveContainer>

@@ -47,6 +47,13 @@ module.exports = {
           kant: 'var(--fel-kant)',
           morker: 'var(--fel-morker)',
         },
+        // Spårfärgerna i adminens diagram (docs/designsystem.md avsnitt 12):
+        // bg-diagram-cv, bg-diagram-test. Allt ritas i ink-1.
+        diagram: {
+          cv: 'var(--diagram-cv)',
+          test: 'var(--diagram-test)',
+          allt: 'var(--ink-1)',
+        },
         // Äldre publika ytor (navy/pink) ligger kvar tills den publika omgången.
         navy: {
           700: '#1A2142',

@@ -1,86 +1,194 @@
 /**
- * Datalagret för Funnel (docs/plan-admin.md avsnitt 4.5).
+ * Datalagret för Tratt, vyerna Veckor och Användning (det som var Funnel,
+ * docs/plan-admin.md avsnitt 4.5, omgjort enligt spec-admin-tydlighet
+ * punkt 11).
  *
- * Ligger i sidans egen mapp och inte i src/lib/admin/, eftersom våg 1 äger
- * den mappen och våg 2 inte får röra den. API-rutten under
- * src/app/api/admin/funnel importerar härifrån, så frågorna är skrivna en
- * gång.
+ * API-rutten under src/app/api/admin/funnel importerar härifrån, så
+ * frågorna är skrivna en gång.
  *
- * Tre regler genom filen:
+ * Fyra regler genom filen:
  *
- * 1. Ingen fråga går mot PostHog. Tratten läses ur admin_funnel_weekly som
- *    cronen fyller. En HogQL-fråga per sidladdning spränger kvoten och gör
- *    LCP under 1,5 sekunder omöjlig.
- * 2. Allt läses med service role. admin_funnel_weekly har RLS på och noll
- *    policies, och admin_retention_cohorts är revoke:ad för authenticated.
- * 3. En källa som inte svarar ger null, aldrig noll. En nolla i tratten ser
- *    ut som ett ras när det egentligen är en lucka.
+ * 1. Ingen fråga går mot PostHog. Besökare och köpsteg läses ur
+ *    admin_funnel_weekly som cronen fyller.
+ * 2. Ett tal, en källa: nya konton ur profiles, köp ur
+ *    admin_daily_metrics.new_paying (Stripe, kundens första lyckade
+ *    debitering), besökare och köpsteg ur PostHog.
+ * 3. Undantagna konton räknas aldrig. admin_-vyerna utesluter dem redan;
+ *    varje fråga direkt mot en tabell gör det här med uteslut().
+ * 4. En källa som inte svarar ger null, aldrig noll.
+ *
+ * Vyerna laddar var sin funktion, så Veckor väntar aldrig på de elva
+ * tabellerna Användning läser.
  */
 
 import { unstable_cache } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { FUNNEL_STEG } from '@/lib/admin/collect';
+import { dagStr, veckansMandag } from '@/lib/admin/collect';
+import { ADMIN_METRICS_TAG } from '@/lib/admin/metrics';
+import { byggUndantag, uteslut, type Undantag } from '@/lib/admin/undantag';
+import { PAKETEN, svenskMidnattIso, type Paket } from './berakning';
 
 /** 15 minuter, samma som resten av adminen. */
 export const FUNNEL_CACHE_SEKUNDER = 15 * 60;
 
-/**
- * Stegens namn i gränssnittet, plus vad som faktiskt mäter dem.
- *
- * Planen beskriver tratten som registrering, CV, analys eller brev,
- * betalvägg, betalt. De två mittenstegen kommer ur Supabase och inte ur
- * PostHog, så de hämtas separat och vävs in i samma ordning.
- */
+/** Köpstegen som finns per vecka, i trattens ordning. */
+export const VECKO_STEG = ['track_selected', 'purchase_step_viewed', 'checkout_started'] as const;
+export type VeckoSteg = (typeof VECKO_STEG)[number];
+
 export const STEG_ETIKETT: Record<string, string> = {
-  pageview: 'Besök',
+  pageview: 'Besökare',
+  nya_konton: 'Nya konton',
   signup_completed: 'Registrerad',
   track_selected: 'Valde spår',
   purchase_step_viewed: 'Såg köpsteget',
   checkout_started: 'Gick till kassan',
   subscription_paid: 'Betalt',
-  forsta_dokument: 'Första CV eller brev',
-  forsta_analys: 'Första CV-analys',
+  kop: 'Köp',
 };
+
+export interface VeckoRad {
+  /** Måndagen, YYYY-MM-DD. */
+  vecka: string;
+  /** Unika besökare ur PostHog. Null när veckan inte är insamlad. */
+  besokare: number | null;
+  /** Nya konton ur profiles, undantagna bort. */
+  nyaKonton: number | null;
+  /** Nya betalande ur admin_daily_metrics. Null när ingen dag är insamlad. */
+  kop: number | null;
+  /** Köpstegen, alla paket. Null när steget saknas i tabellen. */
+  steg: Record<VeckoSteg, number | null>;
+  /** Köpstegen plus PostHogs subscription_paid per spår. */
+  perPaket: Record<Paket, Record<VeckoSteg | 'subscription_paid', number | null>>;
+}
+
+export interface VeckoData {
+  /** Senaste veckan först. */
+  veckor: VeckoRad[];
+}
 
 /**
- * Ordningen i tratten (D3, docs/plan-paket-och-onboarding.md avsnitt 6):
- * besök, registrerad, valde spår, såg köpsteget, gick till kassan, betalt.
- * Alla sex kommer ur PostHog via cronen; de fyra sista finns även per paket.
+ * Veckorna ur tre källor, sammanfogade per måndag. Ren funktion,
+ * exporterad för testet.
  */
-export const TRATT_ORDNING = FUNNEL_STEG;
+export function byggVeckor(
+  franVecka: string,
+  idag: string,
+  funnel: Array<{ vecka: string; kalla: string; steg: string; antal: number }>,
+  kontonSkapade: string[],
+  dagar: Array<{ dag: string; new_paying: number | null }>,
+  kontonOk = true
+): VeckoRad[] {
+  const veckor: string[] = [];
+  for (let v = veckansMandag(idag); v >= franVecka; ) {
+    veckor.push(v);
+    const d = new Date(`${v}T12:00:00Z`);
+    d.setUTCDate(d.getUTCDate() - 7);
+    v = d.toISOString().slice(0, 10);
+  }
 
-export type TrattSteg = (typeof TRATT_ORDNING)[number];
+  const tomPaket = () =>
+    Object.fromEntries(
+      PAKETEN.map((p) => [
+        p,
+        { track_selected: null, purchase_step_viewed: null, checkout_started: null, subscription_paid: null },
+      ])
+    ) as VeckoRad['perPaket'];
 
-/** Paketen tratten kan visas för. 'alla' är totalen. */
-export const PAKET_ETIKETT: Record<string, string> = {
-  alla: 'alla paket',
-  cv: 'CV-veckan',
-  tester: 'Testveckan',
-  allt: 'Allt',
-};
+  const per = new Map<string, VeckoRad>(
+    veckor.map((v) => [
+      v,
+      {
+        vecka: v,
+        besokare: null,
+        nyaKonton: kontonOk ? 0 : null,
+        kop: null,
+        steg: { track_selected: null, purchase_step_viewed: null, checkout_started: null },
+        perPaket: tomPaket(),
+      },
+    ])
+  );
 
-export interface TrattRad {
-  steg: TrattSteg;
-  etikett: string;
-  antal: number | null;
-  /** Andel av föregående steg, 0 till 1. Null på första steget. */
-  andel: number | null;
-  /** Antal som inte tog nästa steg. Null på sista steget. */
-  bortfall: number | null;
-  /** Var talet kommer ifrån, för noten under tabellen. */
-  kalla: 'posthog' | 'supabase';
+  for (const r of funnel) {
+    const rad = per.get(r.vecka);
+    if (!rad) continue;
+    if (r.kalla === 'alla') {
+      if (r.steg === 'pageview') rad.besokare = r.antal;
+      else if ((VECKO_STEG as readonly string[]).includes(r.steg)) rad.steg[r.steg as VeckoSteg] = r.antal;
+    } else if ((PAKETEN as readonly string[]).includes(r.kalla)) {
+      const p = rad.perPaket[r.kalla as Paket];
+      if (r.steg in p) p[r.steg as keyof typeof p] = r.antal;
+    }
+  }
+
+  if (kontonOk) {
+    for (const t of kontonSkapade) {
+      const rad = per.get(veckansMandag(dagStr(new Date(t))));
+      if (rad) rad.nyaKonton = (rad.nyaKonton ?? 0) + 1;
+    }
+  }
+
+  for (const d of dagar) {
+    if (d.new_paying === null || d.new_paying === undefined) continue;
+    const rad = per.get(veckansMandag(d.dag));
+    if (rad) rad.kop = (rad.kop ?? 0) + d.new_paying;
+  }
+
+  return veckor.map((v) => per.get(v)!);
 }
 
-export interface VeckoTratt {
-  vecka: string;
-  /** Paketet: 'alla', 'cv', 'tester' eller 'allt'. Kolumnen heter kalla i tabellen. */
-  kalla: string;
-  rader: TrattRad[];
-  /** Konton registrerade den veckan som har minst ett CV eller brev. Bara för 'alla'. */
-  forstaDokument: number | null;
-  /** Samma sak för CV-analyser. */
-  forstaAnalys: number | null;
-}
+/** Veckorna, senaste först, som vyn Veckor behöver. */
+export const hamtaVeckoData = unstable_cache(
+  async (antalVeckor: number, konton: Undantag['konton']): Promise<VeckoData> => {
+    const admin = getSupabaseAdmin() as any;
+    const u = byggUndantag(konton);
+    const veckor = Math.max(1, Math.min(antalVeckor, 26));
+    const idag = dagStr();
+    const franVecka = (() => {
+      const d = new Date(`${veckansMandag(idag)}T12:00:00Z`);
+      d.setUTCDate(d.getUTCDate() - (veckor - 1) * 7);
+      return d.toISOString().slice(0, 10);
+    })();
+
+    const [trattSvar, kontoSvar, dagSvar] = await Promise.all([
+      admin
+        .from('admin_funnel_weekly')
+        .select('vecka, kalla, steg, antal')
+        .gte('vecka', franVecka)
+        .limit(5000),
+      uteslut(
+        admin
+          .from('profiles')
+          .select('created_at')
+          .gte('created_at', svenskMidnattIso(franVecka))
+          .limit(20000),
+        'id',
+        u
+      ),
+      admin.from('admin_daily_metrics').select('dag, new_paying').gte('dag', franVecka).limit(400),
+    ]);
+
+    if (trattSvar?.error) console.error('[admin/tratt] admin_funnel_weekly:', trattSvar.error.message);
+    if (kontoSvar?.error) console.error('[admin/tratt] profiles per vecka:', kontoSvar.error.message);
+    if (dagSvar?.error) console.error('[admin/tratt] admin_daily_metrics:', dagSvar.error.message);
+
+    return {
+      veckor: byggVeckor(
+        franVecka,
+        idag,
+        (trattSvar?.data ?? []) as Array<{ vecka: string; kalla: string; steg: string; antal: number }>,
+        ((kontoSvar?.data ?? []) as Array<{ created_at: string }>).map((p) => p.created_at),
+        (dagSvar?.data ?? []) as Array<{ dag: string; new_paying: number | null }>,
+        !kontoSvar?.error
+      ),
+    };
+  },
+  ['admin-tratt-veckor'],
+  { revalidate: FUNNEL_CACHE_SEKUNDER, tags: ['admin-funnel', ADMIN_METRICS_TAG] }
+);
+
+// ---------------------------------------------------------------------------
+// Användning
+// ---------------------------------------------------------------------------
 
 export interface FunktionsRad {
   typ: string;
@@ -96,11 +204,8 @@ export interface FunktionsRad {
  * personer" är det ägaren vill veta, inte "4". Personerna står i egen kolumn.
  */
 export interface SannFunktionsRad {
-  /** Nyckel i koden, unik per rad. */
   nyckel: string;
-  /** Vad ägaren läser. */
   etikett: string;
-  /** Vilken tabell talet kommer ur, för noten under tabellen. */
   kalla: string;
   antal7: number;
   antal30: number;
@@ -122,7 +227,6 @@ export interface TestRad {
   slutforda30: number;
   /** slutförda30 delat med startade30, null när inget startats. */
   slutforandegrad: number | null;
-  /** Slutförda senaste sju dagarna mot samma sju dagar veckan innan. */
   delta7: number;
   senast: string | null;
 }
@@ -144,28 +248,21 @@ export interface KohortRad {
   aktiva: number[];
 }
 
-export interface FunnelData {
-  veckor: VeckoTratt[];
-  kallor: string[];
-  /** Funktionsanvändning ur sanningskällorna, en rad per funktion. */
+export interface DatakvalitetsNot {
+  rubrik: string;
+  text: string;
+}
+
+export interface AnvandningData {
   sannaFunktioner: SannFunktionsRad[];
-  /** Testen, uppdelade per test_type. */
   tester: TestRad[];
-  /** Mallnedladdningar, topp fem template_id. */
   mallar: MallRad[];
-  /** Rå user_activities, bara som spårningskontroll. Tom lista döljer sektionen. */
+  /** Rå user_activities, bara som spårningskontroll. */
   funktioner: FunktionsRad[];
   /** Händelser som finns i koden men saknar rader de senaste 30 dagarna. */
   oanvanda: string[];
   kohorter: KohortRad[];
-  /** Sista veckan i serien, för rubriken. */
-  senasteVecka: string | null;
   datakvalitet: DatakvalitetsNot[];
-}
-
-export interface DatakvalitetsNot {
-  rubrik: string;
-  text: string;
 }
 
 /**
@@ -208,241 +305,39 @@ const KANDA_FUNKTIONER = [
   'paywall_cta_clicked',
 ];
 
-/** Måndagen i veckan som datumet ligger i, som ISO-datum. */
-function mandag(d: Date): string {
-  const kopia = new Date(
-    Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 12)
-  );
-  const veckodag = (kopia.getUTCDay() + 6) % 7;
-  kopia.setUTCDate(kopia.getUTCDate() - veckodag);
-  return kopia.toISOString().slice(0, 10);
-}
-
-/**
- * Hämtar Funnel-sidans hela underlag.
- *
- * antalVeckor styr hur långt bakåt tratten och funktionsanvändningen går.
- * Funktionsanvändningen är alltid 30 dagar enligt planen, oavsett fönster:
- * det är den listan som svarar på "vilka funktioner används inte".
- */
-export const hamtaFunnelData = unstable_cache(
-  async (antalVeckor: number = 8): Promise<FunnelData> => {
+/** Användningen, 30 dagar, som vyn Användning behöver. */
+export const hamtaAnvandningData = unstable_cache(
+  async (konton: Undantag['konton']): Promise<AnvandningData> => {
     const admin = getSupabaseAdmin() as any;
-    const veckor = Math.max(1, Math.min(antalVeckor, 26));
+    const u = byggUndantag(konton);
 
-    const tidigast = new Date();
-    tidigast.setUTCDate(tidigast.getUTCDate() - veckor * 7);
-    const franVecka = mandag(tidigast);
-
-    const [
-      trattSvar,
-      dokSvar,
-      analysSvar,
-      aktivitetSvar,
-      kohortSvar,
-      sannaSvar,
-      testSvar,
-      mallSvar,
-    ] = await Promise.all([
-      admin
-        .from('admin_funnel_weekly')
-        .select('vecka, kalla, steg, antal')
-        .gte('vecka', franVecka)
-        .order('vecka', { ascending: false }),
-      hamtaForstaDokumentPerVecka(admin, franVecka),
-      hamtaForstaAnalysPerVecka(admin, franVecka),
-      hamtaFunktionsanvandning(admin),
+    const [funktioner, kohorter, sannaFunktioner, tester, mallar] = await Promise.all([
+      hamtaFunktionsanvandning(admin, u),
       hamtaKohorter(admin),
-      hamtaSannaFunktioner(admin),
-      hamtaTester(admin),
-      hamtaMallar(admin),
+      hamtaSannaFunktioner(admin, u),
+      hamtaTester(admin, u),
+      hamtaMallar(admin, u),
     ]);
 
-    const rader = (trattSvar?.data ?? []) as Array<{
-      vecka: string;
-      kalla: string;
-      steg: string;
-      antal: number;
-    }>;
-
-    // Gruppera per vecka och källa.
-    const perNyckel = new Map<string, Map<string, number>>();
-    const kallor = new Set<string>();
-    for (const r of rader) {
-      kallor.add(r.kalla);
-      const nyckel = `${r.vecka}|${r.kalla}`;
-      if (!perNyckel.has(nyckel)) perNyckel.set(nyckel, new Map());
-      perNyckel.get(nyckel)!.set(r.steg, r.antal);
-    }
-
-    const veckoTrattar: VeckoTratt[] = [];
-    for (const [nyckel, steg] of perNyckel) {
-      const [vecka, kalla] = nyckel.split('|');
-      // Gamla rader med steg som inte längre finns i tratten (t.ex.
-      // paywall_shown) ignoreras av byggRader. En vecka som bara har gamla
-      // steg hoppas över helt, annars står den som en rad av streck.
-      if (![...steg.keys()].some((s) => (TRATT_ORDNING as readonly string[]).includes(s))) continue;
-      // Supabase-talen finns bara för 'alla': ett konto vet inte vilket
-      // paket det kommer att välja när det laddar upp sitt första CV.
-      veckoTrattar.push({
-        vecka,
-        kalla,
-        rader: byggRader(steg),
-        forstaDokument: kalla === 'alla' ? (dokSvar.get(vecka) ?? null) : null,
-        forstaAnalys: kalla === 'alla' ? (analysSvar.get(vecka) ?? null) : null,
-      });
-    }
-
-    // Senaste veckan först, och inom veckan alla paket före de tre enskilda.
-    const paketOrdning = (k: string) => ['alla', 'cv', 'tester', 'allt'].indexOf(k);
-    veckoTrattar.sort(
-      (a, b) => b.vecka.localeCompare(a.vecka) || paketOrdning(a.kalla) - paketOrdning(b.kalla)
-    );
-
-    const funktioner = aktivitetSvar;
     const anvanda = new Set(funktioner.map((f) => f.typ));
     const oanvanda = KANDA_FUNKTIONER.filter((f) => !anvanda.has(f)).sort();
 
-    return {
-      veckor: veckoTrattar,
-      kallor: Array.from(kallor).sort(),
-      sannaFunktioner: sannaSvar,
-      tester: testSvar,
-      mallar: mallSvar,
-      funktioner,
-      oanvanda,
-      kohorter: kohortSvar,
-      senasteVecka: veckoTrattar[0]?.vecka ?? null,
-      datakvalitet: DATAKVALITET,
-    };
+    return { sannaFunktioner, tester, mallar, funktioner, oanvanda, kohorter, datakvalitet: DATAKVALITET };
   },
-  ['admin-funnel'],
-  { revalidate: FUNNEL_CACHE_SEKUNDER, tags: ['admin-funnel'] }
+  ['admin-tratt-anvandning'],
+  { revalidate: FUNNEL_CACHE_SEKUNDER, tags: ['admin-funnel', ADMIN_METRICS_TAG] }
 );
 
-/**
- * Bygger trattraderna med andel och bortfall mot föregående steg.
- *
- * Exporterad för testet: det är här tratten kan ljuga. Ett steg utan mätning
- * ska inte nollställa resten av tratten, och ett bortfall ska räknas mot
- * nästa steg som faktiskt har ett tal.
- */
-export function byggRader(steg: Map<string, number>): TrattRad[] {
-  const antalFor = (s: TrattSteg): number | null => {
-    const v = steg.get(s);
-    return typeof v === 'number' ? v : null;
-  };
-
-  const rader: TrattRad[] = TRATT_ORDNING.map((s) => ({
-    steg: s,
-    etikett: STEG_ETIKETT[s],
-    antal: antalFor(s),
-    andel: null,
-    bortfall: null,
-    kalla: 'posthog' as const,
-  }));
-
-  // Andel räknas mot närmast föregående steg som faktiskt har ett tal, så att
-  // ett null-steg inte nollställer resten av tratten.
-  let foregaende: number | null = null;
-  for (const rad of rader) {
-    if (rad.antal !== null && foregaende !== null && foregaende > 0) {
-      rad.andel = rad.antal / foregaende;
-    }
-    if (rad.antal !== null) foregaende = rad.antal;
-  }
-
-  for (let i = 0; i < rader.length - 1; i++) {
-    const nu = rader[i];
-    const nasta = rader.slice(i + 1).find((r) => r.antal !== null);
-    if (nu.antal !== null && nasta && nasta.antal !== null) {
-      nu.bortfall = Math.max(0, nu.antal - nasta.antal);
-    }
-  }
-
-  return rader;
-}
-
-/**
- * Antal konton per registreringsvecka som har minst ett CV eller brev.
- *
- * Mäts på letters och cv_texts direkt och inte på first_cv_uploaded_at, som
- * är satt på 2 av 311 konton. Se datakvalitetsnoten.
- */
-async function hamtaForstaDokumentPerVecka(
-  admin: any,
-  franVecka: string
-): Promise<Map<string, number>> {
-  const karta = new Map<string, number>();
-  try {
-    const { data } = await admin
-      .from('profiles')
-      .select('id, created_at')
-      .gte('created_at', franVecka);
-
-    const profiler = (data ?? []) as Array<{ id: string; created_at: string }>;
-    if (!profiler.length) return karta;
-
-    const ids = profiler.map((p) => p.id);
-    const [brev, cv] = await Promise.all([
-      admin.from('letters').select('user_id').in('user_id', ids),
-      admin.from('cv_texts').select('user_id').in('user_id', ids),
-    ]);
-
-    const harDokument = new Set<string>();
-    for (const r of (brev?.data ?? []) as Array<{ user_id: string }>) {
-      harDokument.add(r.user_id);
-    }
-    for (const r of (cv?.data ?? []) as Array<{ user_id: string }>) {
-      harDokument.add(r.user_id);
-    }
-
-    for (const p of profiler) {
-      if (!harDokument.has(p.id)) continue;
-      const v = mandag(new Date(p.created_at));
-      karta.set(v, (karta.get(v) ?? 0) + 1);
-    }
-  } catch (err) {
-    console.error('[admin/funnel] första dokument:', err);
-  }
-  return karta;
-}
-
-/** Samma sak för CV-analyser, mätt på cv_analysis_jobs. */
-async function hamtaForstaAnalysPerVecka(
-  admin: any,
-  franVecka: string
-): Promise<Map<string, number>> {
-  const karta = new Map<string, number>();
-  try {
-    const { data } = await admin
-      .from('profiles')
-      .select('id, created_at')
-      .gte('created_at', franVecka);
-
-    const profiler = (data ?? []) as Array<{ id: string; created_at: string }>;
-    if (!profiler.length) return karta;
-
-    const ids = profiler.map((p) => p.id);
-    const { data: jobb } = await admin
-      .from('cv_analysis_jobs')
-      .select('user_id')
-      .in('user_id', ids);
-
-    const harAnalys = new Set<string>();
-    for (const r of (jobb ?? []) as Array<{ user_id: string | null }>) {
-      if (r.user_id) harAnalys.add(r.user_id);
-    }
-
-    for (const p of profiler) {
-      if (!harAnalys.has(p.id)) continue;
-      const v = mandag(new Date(p.created_at));
-      karta.set(v, (karta.get(v) ?? 0) + 1);
-    }
-  } catch (err) {
-    console.error('[admin/funnel] första analys:', err);
-  }
-  return karta;
+/** Båda delarna, för API-rutten. Sidan läser dem var för sig. */
+export async function hamtaFunnelData(
+  antalVeckor: number,
+  konton: Undantag['konton']
+): Promise<VeckoData & AnvandningData> {
+  const [veckor, anvandning] = await Promise.all([
+    hamtaVeckoData(antalVeckor, konton),
+    hamtaAnvandningData(konton),
+  ]);
+  return { ...veckor, ...anvandning };
 }
 
 // ---------------------------------------------------------------------------
@@ -593,7 +488,8 @@ export function placera(
  */
 async function raknaKalla(
   admin: any,
-  spec: (typeof SANNA_KALLOR)[number]
+  spec: (typeof SANNA_KALLOR)[number],
+  u: Undantag
 ): Promise<SannFunktionsRad | null> {
   const fran37 = dagarBakat(37);
   const fran30 = dagarBakat(30);
@@ -609,10 +505,11 @@ async function raknaKalla(
 
     for (const [k, v] of Object.entries(spec.filter ?? {})) q = q.eq(k, v);
     if (spec.finns) q = q.not(spec.finns, 'is', null);
+    q = uteslut(q, 'user_id', u);
 
     const { data, error } = await q;
     if (error) {
-      console.error(`[admin/funnel] ${spec.tabell}:`, error.message);
+      console.error(`[admin/tratt] ${spec.tabell}:`, error.message);
       return null;
     }
 
@@ -658,15 +555,15 @@ async function raknaKalla(
       senast,
     };
   } catch (err) {
-    console.error(`[admin/funnel] ${spec.tabell}:`, err);
+    console.error(`[admin/tratt] ${spec.tabell}:`, err);
     return null;
   }
 }
 
 /** Alla sanningskällor parallellt. En källa som fallerar utelämnas. */
-async function hamtaSannaFunktioner(admin: any): Promise<SannFunktionsRad[]> {
+async function hamtaSannaFunktioner(admin: any, u: Undantag): Promise<SannFunktionsRad[]> {
   const svar = await Promise.all(
-    SANNA_KALLOR.map((spec) => raknaKalla(admin, spec))
+    SANNA_KALLOR.map((spec) => raknaKalla(admin, spec, u))
   );
   return svar
     .filter((r): r is SannFunktionsRad => r !== null)
@@ -682,7 +579,7 @@ async function hamtaSannaFunktioner(admin: any): Promise<SannFunktionsRad[]> {
  * score slutförande. De tre läggs i samma tabell eftersom ägarens fråga är
  * "gör folk testen", inte "vilken tabell ligger de i".
  */
-async function hamtaTester(admin: any): Promise<TestRad[]> {
+async function hamtaTester(admin: any, u: Undantag): Promise<TestRad[]> {
   const fran37 = dagarBakat(37);
   const fran30 = dagarBakat(30);
   const fran14 = dagarBakat(14);
@@ -738,16 +635,25 @@ async function hamtaTester(admin: any): Promise<TestRad[]> {
 
   try {
     const [logik, personlighet, anon] = await Promise.all([
-      admin
-        .from('logic_test_v4_sessions')
-        .select('test_type, started_at, completed_at')
-        .gte('started_at', fran37)
-        .limit(20000),
-      admin
-        .from('personality_test_sessions')
-        .select('test_type, started_at, completed_at')
-        .gte('started_at', fran37)
-        .limit(20000),
+      uteslut(
+        admin
+          .from('logic_test_v4_sessions')
+          .select('test_type, started_at, completed_at')
+          .gte('started_at', fran37)
+          .limit(20000),
+        'user_id',
+        u
+      ),
+      uteslut(
+        admin
+          .from('personality_test_sessions')
+          .select('test_type, started_at, completed_at')
+          .gte('started_at', fran37)
+          .limit(20000),
+        'user_id',
+        u
+      ),
+      // De publika proven har inget konto och kan inte undantas per konto.
       admin
         .from('anon_test_sessions')
         .select('created_at, score')
@@ -782,7 +688,7 @@ async function hamtaTester(admin: any): Promise<TestRad[]> {
       );
     }
   } catch (err) {
-    console.error('[admin/funnel] tester:', err);
+    console.error('[admin/tratt] tester:', err);
     return [];
   }
 
@@ -806,21 +712,25 @@ async function hamtaTester(admin: any): Promise<TestRad[]> {
 const MALL_TOPP = 5;
 
 /** Mallnedladdningar per template_id, topp fem. */
-async function hamtaMallar(admin: any): Promise<MallRad[]> {
+async function hamtaMallar(admin: any, u: Undantag): Promise<MallRad[]> {
   const fran37 = dagarBakat(37);
   const fran30 = dagarBakat(30);
   const fran14 = dagarBakat(14);
   const fran7 = dagarBakat(7);
 
   try {
-    const { data, error } = await admin
-      .from('formatted_cv_downloads')
-      .select('template_id, user_id, downloaded_at')
-      .gte('downloaded_at', fran37)
-      .limit(20000);
+    const { data, error } = await uteslut(
+      admin
+        .from('formatted_cv_downloads')
+        .select('template_id, user_id, downloaded_at')
+        .gte('downloaded_at', fran37)
+        .limit(20000),
+      'user_id',
+      u
+    );
 
     if (error) {
-      console.error('[admin/funnel] formatted_cv_downloads:', error.message);
+      console.error('[admin/tratt] formatted_cv_downloads:', error.message);
       return [];
     }
 
@@ -878,7 +788,7 @@ async function hamtaMallar(admin: any): Promise<MallRad[]> {
       .sort((a, b) => b.antal30 - a.antal30 || b.antal7 - a.antal7)
       .slice(0, MALL_TOPP);
   } catch (err) {
-    console.error('[admin/funnel] mallar:', err);
+    console.error('[admin/tratt] mallar:', err);
     return [];
   }
 }
@@ -890,16 +800,22 @@ async function hamtaMallar(admin: any): Promise<MallRad[]> {
  * fire-and-forget från klienten och tappar rader vid navigering. Sidan visar
  * den bara för att kunna säga vilka händelser i koden som aldrig fyrar.
  */
-async function hamtaFunktionsanvandning(admin: any): Promise<FunktionsRad[]> {
+async function hamtaFunktionsanvandning(admin: any, u: Undantag): Promise<FunktionsRad[]> {
   try {
     const fran = new Date();
     fran.setUTCDate(fran.getUTCDate() - 30);
 
-    const { data } = await admin
-      .from('user_activities')
-      .select('activity_type, user_id, created_at')
-      .gte('created_at', fran.toISOString())
-      .limit(50000);
+    // user_id kan vara null (utloggade händelser), så null släpps igenom.
+    const { data } = await uteslut(
+      admin
+        .from('user_activities')
+        .select('activity_type, user_id, created_at')
+        .gte('created_at', fran.toISOString())
+        .limit(50000),
+      'user_id',
+      u,
+      true
+    );
 
     const rader = (data ?? []) as Array<{
       activity_type: string;
@@ -935,7 +851,7 @@ async function hamtaFunktionsanvandning(admin: any): Promise<FunktionsRad[]> {
       }))
       .sort((a, b) => b.antal - a.antal);
   } catch (err) {
-    console.error('[admin/funnel] funktionsanvändning:', err);
+    console.error('[admin/tratt] funktionsanvändning:', err);
     return [];
   }
 }
@@ -965,7 +881,7 @@ async function hamtaKohorter(admin: any): Promise<KohortRad[]> {
       .order('kohortmanad', { ascending: false });
 
     if (error) {
-      console.error('[admin/funnel] admin_retention_cohorts:', error);
+      console.error('[admin/tratt] admin_retention_cohorts:', error);
       return [];
     }
 
@@ -997,34 +913,40 @@ async function hamtaKohorter(admin: any): Promise<KohortRad[]> {
         return { kohort, storlek: n, aktiva: serie };
       });
   } catch (err) {
-    console.error('[admin/funnel] kohorter:', err);
+    console.error('[admin/tratt] kohorter:', err);
     return [];
   }
 }
 
 /**
- * Datakvalitetsnoterna planen kräver. De står på sidan tills fixarna är live
- * plus två veckor, och de ska inte tas bort för att talen ser rimliga ut.
+ * Datakvalitet: förklaringarna om gamla mätfel samlas här och bara här
+ * (överlämningens regel 6), inte på Översikt. De ska inte tas bort för att
+ * talen ser rimliga ut, bara när den mätta perioden före felet har åldrats
+ * ur alla fönster.
  */
 export const DATAKVALITET: DatakvalitetsNot[] = [
   {
-    rubrik: 'Funktionsanvändningen kommer ur tabellerna, inte ur user_activities',
-    text: 'user_activities skrivs fire-and-forget från klienten, så en rad går förlorad när sidan navigerar bort innan anropet hunnit fram, och test_completed skrevs bara när resultatsidan faktiskt renderades. Därför syntes varken tester eller mallnedladdningar här. Talen räknas nu på logic_test_v4_sessions, personality_test_sessions, anon_test_sessions, formatted_cv_downloads, letters, cv_texts, cv_analysis_jobs, job_matchings_cache, linkedin_optimizations, ai_conversations och job_applications, alltså tabeller som servern skriver i samma steg som funktionen utför sitt jobb. Listan längre ner ur user_activities står kvar som spårningskontroll, inte som mätning.',
+    rubrik: 'Undantagna konton rensade ur historiken 22 sep',
+    text: 'Ditt adminkonto och testkontona (e-post som slutar på .test, innehåller jobbcoach-qa eller börjar med qa-) räknas aldrig. Från 22 sep filtreras de bort i insamlingen och i adminvyerna, och historiken samlades om utan dem. Tal i gamla rapporter och skärmdumpar före 22 sep kan därför vara något högre än samma dag här. De publika proven (anon_test_sessions) saknar konto och kan inte undantas per konto.',
   },
   {
-    rubrik: 'Aktiveringsmilstolpar',
-    text: 'first_cv_uploaded_at är satt på 2 av 311 konton och first_letter_created_at på 2, trots 242 brev och 171 CV-texter i databasen. Stegen "Första CV eller brev" och "Första CV-analys" räknas därför på letters, cv_texts och cv_analysis_jobs direkt, inte på aktiveringskolumnerna.',
+    rubrik: 'Aktiveringsmilstolparna går inte att lita på före 15 sep',
+    text: 'first_cv_uploaded_at och first_letter_created_at var satta på 2 av 311 konton, trots 242 brev och 171 CV-texter i databasen. Rättningen gick live 15 sep. Allt på den här sidan som gäller CV, brev och analyser räknas därför på letters, cv_texts och cv_analysis_jobs direkt, inte på aktiveringskolumnerna.',
   },
   {
-    rubrik: 'Anskaffningskälla',
-    text: 'profiles.acquisition_source är null på samtliga 311 konton, så uppdelningen per källa visar bara raden "alla". Tratten per källa går inte att lita på förrän attributionen skriver något.',
+    rubrik: 'user_activities tappar rader',
+    text: 'Tabellen skrivs fire-and-forget från klienten, så en rad går förlorad när sidan navigerar bort innan anropet hunnit fram, och test_completed skrevs bara när resultatsidan faktiskt renderades. Funktionsanvändningen och testerna räknas därför på tabellerna servern skriver i samma steg som funktionen gör sitt jobb. Listan ur user_activities står kvar som spårningskontroll, inte som mätning.',
   },
   {
-    rubrik: 'Händelser före 2026-09-14',
-    text: 'Kön i analytics-klienten fanns inte tidigare, så händelser som avfyrades strax före en sidnavigering gick förlorade. Alla PostHog-steg är underräknade före 2026-09-14. Jämför inte veckor över den gränsen.',
+    rubrik: 'Attributionen var trasig till 21 sep kl. 22.00',
+    text: 'profiles.acquisition_source var tom på alla konton fram till rättningen 21 sep kl. 22.00. Uppdelning per källa för konton skapade före det går inte att lita på, och en jämförelse över gränsen visar mest rättningen.',
   },
   {
-    rubrik: 'Betalvägg, matchning och PWA saknar historik',
-    text: 'paywall_shown, paywall_cta_clicked, alla match_* och pwa_prompt_shown gick live 2026-09-14 och har därför nästan inga rader bakåt. Mätningen är verifierad i produktion: ett QA-konto på /dashboard/jobbmatchning gav match_page_viewed med rätt distinct_id inom en minut. Talen är låga för att funktionerna är nya, inte för att spårningen är trasig.',
+    rubrik: 'PostHog-händelser underräknade före 14 sep',
+    text: 'Kön i analytics-klienten fanns inte tidigare, så händelser som avfyrades strax före en sidnavigering gick förlorade. Besökare och andra PostHog-steg är underräknade före 14 sep. Jämför inte veckor över den gränsen.',
+  },
+  {
+    rubrik: 'Köpvägens händelser har olika mätstarter',
+    text: 'signup_completed mäts från 11 sep kl. 22.08, track_selected från att paketen släpptes 22 sep kl. 10.51, och purchase_step_viewed, checkout_started och gråa val från 22 sep kl. 19.02. Veckor och dagar före en mätstart visas som "mäts från", inte som 0. Nya konton räknas alltid ur profiles och köp alltid ur Stripe, så de har ingen mätstart.',
   },
 ];

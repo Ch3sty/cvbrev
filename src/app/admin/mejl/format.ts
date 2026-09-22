@@ -73,6 +73,15 @@ const NAMN: Record<string, string> = {
   interest_message: 'Intresseanmälan',
   recruiter_interest: 'Rekryterarintresse',
   campaign_test: 'Kampanjtest',
+  // Kopmejlen (egen grupp pa sidan, spec-admin-tydlighet 2026-09-22).
+  receipt: 'Kvitto',
+  komigang: 'Kom igång',
+  paket_fornyas: 'Paketet förnyas',
+  canceled_until_sunday: 'Uppsägning, gäller perioden ut',
+  payment_failed: 'Betalningen misslyckades',
+  cancel_immediate: 'Uppsägning, direkt',
+  cancel_followup: 'Uppsägning, uppföljning',
+  onetime_expired: 'Allt-dagen slut',
 };
 
 export function mallNamn(nyckel: string): string {
@@ -81,6 +90,9 @@ export function mallNamn(nyckel: string): string {
     return `Kampanj: ${nyckel.slice('campaign:'.length)}`;
   }
   if (nyckel.startsWith('weekly_digest')) return 'Veckodigest';
+  // Hjalpredans mejl har datumsuffix: komigang_2026-09-25.
+  const dag = nyckel.match(/^(komigang|paket_fornyas)_(\d{4}-\d{2}-\d{2})$/);
+  if (dag) return `${NAMN[dag[1]]}, ${kortDatum(dag[2])}`;
   return nyckel;
 }
 

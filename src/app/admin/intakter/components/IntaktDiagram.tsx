@@ -13,6 +13,7 @@
  */
 
 import AdminChart, { type AdminSerie } from '@/components/admin/AdminChart';
+import { datumKort } from '@/lib/admin/tomt';
 
 export interface DiagramRad {
   dag: string;
@@ -26,16 +27,15 @@ interface Props {
   /** Formaterar y-varden. Ore till kronor, eller ett antal. */
   enhet?: 'ore' | 'antal';
   tomText?: string;
+  /** Forsta dagen som ar en matning. Dagarna fore blir en gra zon. */
+  matstart?: string;
+  matstartText?: string;
+  /** Meningen i stallet for diagrammet nar dagarna med data ar for fa. */
+  faPunkterText?: string;
 }
 
 function kortDatum(varde: string | number): string {
-  const d = new Date(`${String(varde)}T12:00:00Z`);
-  if (Number.isNaN(d.getTime())) return String(varde);
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'short',
-    timeZone: 'Europe/Stockholm',
-  }).format(d);
+  return datumKort(String(varde));
 }
 
 export default function IntaktDiagram({
@@ -44,6 +44,9 @@ export default function IntaktDiagram({
   hojd = 240,
   enhet = 'ore',
   tomText,
+  matstart,
+  matstartText,
+  faPunkterText,
 }: Props) {
   // Kronorna star ater i y-etiketten. Tidigare foll de bort: AdminChartInner
   // hade margin.left -16 som drog in axeln under plotytan och klippte "600 kr"
@@ -62,7 +65,7 @@ export default function IntaktDiagram({
             maximumFractionDigits: 1,
           })} tkr`;
         }
-      : (v: number) => v.toLocaleString('sv-SE');
+      : (v: number) => `${v.toLocaleString('sv-SE')} st`;
 
   return (
     <AdminChart
@@ -75,6 +78,9 @@ export default function IntaktDiagram({
       // Kronetiketter behover mer an standardbredden 56.
       yAxisWidth={enhet === 'ore' ? 72 : 56}
       tomText={tomText}
+      matstart={matstart}
+      matstartText={matstartText}
+      faPunkterText={faPunkterText}
     />
   );
 }

@@ -53,8 +53,9 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { label: 'Intäkter', href: '/admin/intakter' },
       { label: 'Trafik', href: '/admin/trafik' },
       { label: 'Användare', href: '/admin/anvandare' },
-      { label: 'Funnel', href: '/admin/funnel' },
-      { label: 'Flöde', href: '/admin/flode' },
+      // Funnel och Flöde blev en sida 2026-09-22 (spec-admin-tydlighet
+      // punkt 11). De gamla adresserna skickas vidare hit.
+      { label: 'Tratt', href: '/admin/tratt' },
       { label: 'Mejl', href: '/admin/mejl' },
       { label: 'Drift', href: '/admin/drift' },
     ],

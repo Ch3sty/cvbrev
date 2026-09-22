@@ -2,19 +2,14 @@ import { describe, it, expect } from 'vitest';
 import {
   byggBlockeringar,
   byggFornyelser,
-  byggIntakt,
   byggKomIgang,
-  byggTratt,
-  manadskronor,
   paketFranDimension,
+  sparFranPaket,
 } from '../berakning';
-import type { DagligaMetrik } from '@/lib/admin/collect';
 
-// Flödes fem diagram kan ljuga på var sitt sätt. Här testas räkningen
-// bakom dem: att paketens trattar inte börjar på noll besök, att
-// bortfallet räknas mot närmast föregående mätta steg, att en spärr
-// färgas efter paketet som säljs, att "inom 24 timmar" bara räknar
-// köpare som är ett dygn gamla, att MRR normaliseras per vecka och att
+// Köpvägens sektioner kan ljuga på var sitt sätt. Här testas räkningen
+// bakom dem: att en spärr färgas efter paketet som säljs (i spårfärgerna),
+// att "inom 24 timmar" bara räknar köpare som är ett dygn gamla och att
 // förnyelsekurvan inte drar ner kohorten med prenumerationer som inte
 // hunnit förnyas.
 
@@ -27,34 +22,11 @@ describe('paketFranDimension', () => {
     expect(paketFranDimension('okant')).toBeNull();
     expect(paketFranDimension('')).toBeNull();
   });
-});
 
-describe('byggTratt', () => {
-  it('ger totalen alla sex steg och paketen bara de fyra sista', () => {
-    const alla = byggTratt('alla', new Map([['pageview', 100], ['subscription_paid', 2]]));
-    expect(alla.steg.map((s) => s.antal)).toEqual([100, 0, 0, 0, 0, 2]);
-
-    const cv = byggTratt('cv', new Map([['track_selected', 10], ['subscription_paid', 2]]));
-    expect(cv.steg[0].antal).toBeNull();
-    expect(cv.steg[1].antal).toBeNull();
-    expect(cv.steg[2].antal).toBe(10);
-  });
-
-  it('räknar andelen mot föregående steg och bredden mot första', () => {
-    const t = byggTratt('allt', new Map([['track_selected', 20], ['purchase_step_viewed', 10], ['checkout_started', 5], ['subscription_paid', 4]]));
-    const steg = t.steg.filter((s) => s.antal !== null);
-    expect(steg[0].andel).toBeNull();
-    expect(steg[0].bredd).toBe(100);
-    expect(steg[1].andel).toBeCloseTo(0.5);
-    expect(steg[1].bredd).toBe(50);
-    expect(steg[3].andel).toBeCloseTo(0.8);
-    expect(t.helaVagen).toBeCloseTo(0.2);
-  });
-
-  it('ger ingen hela-vägen när första steget är noll', () => {
-    const t = byggTratt('cv', new Map());
-    expect(t.helaVagen).toBeNull();
-    expect(t.steg.every((s) => s.bredd === 0)).toBe(true);
+  it('lägger Stripe-paketen i sitt spår, Allt-dagen under Allt', () => {
+    expect(sparFranPaket('cv_week')).toBe('cv');
+    expect(sparFranPaket('all_day')).toBe('allt');
+    expect(sparFranPaket(null)).toBeNull();
   });
 });
 
@@ -70,9 +42,9 @@ describe('byggBlockeringar', () => {
     ];
     const ut = byggBlockeringar(rader, 'feature_blocked');
     expect(ut.map((r) => r.feature)).toEqual(['cv_export', 'test_exam_mode', 'chat_unlimited']);
-    expect(ut[0]).toMatchObject({ personer: 4, antal: 5, paket: 'cv', roll: 'mellan', namn: 'Ladda ned CV' });
-    expect(ut[1]).toMatchObject({ paket: 'tester', roll: 'sekundar' });
-    expect(ut[2]).toMatchObject({ paket: 'allt', roll: 'primar' });
+    expect(ut[0]).toMatchObject({ personer: 4, antal: 5, paket: 'cv', roll: 'cv', namn: 'Ladda ned CV' });
+    expect(ut[1]).toMatchObject({ paket: 'tester', roll: 'test' });
+    expect(ut[2]).toMatchObject({ paket: 'allt', roll: 'allt' });
   });
 
   it('visar en okänd funktion med sitt råa namn under Allt', () => {
@@ -132,29 +104,6 @@ describe('byggKomIgang', () => {
   });
 });
 
-describe('manadskronor och byggIntakt', () => {
-  it('normaliserar veckopris till månad och kvartal till en tredjedel', () => {
-    expect(manadskronor('cv_week')).toBeCloseTo((79 * 52) / 12, 0);
-    expect(manadskronor('all_month')).toBe(149);
-    expect(manadskronor('all_quarter')).toBeCloseTo(299 / 3, 0);
-    expect(manadskronor('all_day')).toBe(0);
-  });
-
-  it('bygger serien stigande med null där Stripe-siffror saknas', () => {
-    const dag = (d: string, extra: Partial<DagligaMetrik>): DagligaMetrik =>
-      ({ dag: d, ...extra }) as DagligaMetrik;
-    const ut = byggIntakt([
-      dag('2026-09-22', { active_cv_week: 2, active_test_week: 0, active_all_week: 1, active_all_month: 3, active_all_quarter: 0 }),
-      dag('2026-09-21', { active_cv_week: null, active_test_week: null, active_all_week: null, active_all_month: null, active_all_quarter: null }),
-    ]);
-    expect(ut.map((p) => p.dag)).toEqual(['2026-09-21', '2026-09-22']);
-    expect(ut[0]).toMatchObject({ cv: null, tester: null, allt: null });
-    expect(ut[1].cv).toBe(Math.round(2 * manadskronor('cv_week')));
-    expect(ut[1].tester).toBe(0);
-    expect(ut[1].allt).toBe(Math.round(manadskronor('all_week') + 3 * 149));
-  });
-});
-
 describe('byggFornyelser', () => {
   const VECKA = 7 * 86_400;
   const nu = 1_800_000_000;
@@ -178,5 +127,13 @@ describe('byggFornyelser', () => {
     expect(ut.veckor.map((v) => v.cv)).toEqual([100, 50, 50, 0]);
     expect(ut.veckaTva.cv).toBe(50);
     expect(ut.veckor[0].tester).toBeNull();
+    expect(ut.veckokopare).toBe(4);
+    expect(ut.forstaVeckokop).toBe(nu - 4 * VECKA - 2 * DYGN);
+  });
+
+  it('ger ingen första veckoköpare när det inte finns några', () => {
+    const ut = byggFornyelser([], nu);
+    expect(ut.veckokopare).toBe(0);
+    expect(ut.forstaVeckokop).toBeNull();
   });
 });

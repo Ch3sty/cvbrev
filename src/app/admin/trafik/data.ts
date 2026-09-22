@@ -21,6 +21,7 @@
 import { unstable_cache } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { ADMIN_CACHE_SEKUNDER, ADMIN_METRICS_TAG } from '@/lib/admin/metrics';
+import { jamforDagarMedData, type Jamforelse } from './berakning';
 
 /** GSC:s fordrojning i dagar. Anges i granssnittet, aldrig bara i koden. */
 export const GSC_FORDROJNING_DAGAR = 2;
@@ -28,8 +29,15 @@ export const GSC_FORDROJNING_DAGAR = 2;
 /** Hur manga rader toppsidor och toppord som visas. Planen sager 50. */
 export const TOPP_ANTAL = 50;
 
-/** Jamforelsefonstret: senaste 28 dagarna mot de 28 innan. */
+/** Tabellernas fonster: senaste 28 dagarna mot de 28 innan. */
 export const PERIOD_DAGAR = 28;
+
+/**
+ * Kortens jamforelse: de sju senaste dagarna MED DATA mot de sju dagarna med
+ * data fore dem (spec-admin-tydlighet sida 6). Kalenderdagar gav en senaste
+ * period med tre dagar som Google inte levererat, och den sag ut som ett ras.
+ */
+export const JAMFOR_DAGAR = 7;
 
 /** Tappregler ur planen: position samre an tre steg, eller klick ner 30 %. */
 export const TAPP_POSITION_STEG = 3;
@@ -67,6 +75,8 @@ export interface TrafikData {
   period: { klick: number; visningar: number; ctr: number | null; position: number | null };
   /** Samma summor for perioden innan, for delta. */
   foregaende: { klick: number; visningar: number; ctr: number | null; position: number | null };
+  /** Kortens jamforelse, lika manga dagar med data (JAMFOR_DAGAR). */
+  jamforelse: Jamforelse;
   toppsidor: TrafikRad[];
   toppord: TrafikRad[];
   tappare: TrafikRad[];
@@ -381,6 +391,7 @@ async function las(dagar: number): Promise<TrafikData> {
     toppord: ordAlla.slice(0, TOPP_ANTAL),
     tappare: byggTappare(sidorAlla),
     granser,
+    jamforelse: jamforDagarMedData(heladSerie, JAMFOR_DAGAR),
   };
 }
 
@@ -390,6 +401,8 @@ async function las(dagar: number): Promise<TrafikData> {
  */
 export const hamtaTrafik = unstable_cache(
   (dagar: number = 30) => las(dagar),
-  ['admin-trafik'],
+  // v2: jamforelse lades till 2026-09-22. En gammal cachepost utan den far
+  // inte lasas av den nya sidan.
+  ['admin-trafik-v2'],
   { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
 );

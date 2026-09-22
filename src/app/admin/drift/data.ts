@@ -10,6 +10,17 @@
 
 import { unstable_cache } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { hamtaUndantagCachad } from '@/lib/admin/metrics';
+import { uteslut } from '@/lib/admin/undantag';
+import { FLODE_SAMLAD, PAKET_ORDNING, paketFranPrisId } from '@/lib/admin/collect';
+import {
+  delstegStatus,
+  felFranUndantag,
+  senasteKop,
+  type DelstegStatus,
+  type KopKandidat,
+  type MetrikRad,
+} from './status';
 
 /** Fem minuter. Drift är undantaget från adminens 15-minuterscache. */
 export const DRIFT_CACHE_SEKUNDER = 5 * 60;
@@ -71,6 +82,21 @@ export interface DriftData {
   aiKostnadNot: string;
   mejlKo: MejlKoRad[];
   cron: CronStatus;
+  /** Felloggen i sin helhet, for "0 rader sedan den skapades". */
+  fellogg: {
+    /** Rader i admin_error_log (senaste tusen), undantagna konton borträknade. */
+    raderTotalt: number;
+    /** Senaste felet som raknas, oavsett alder. */
+    senaste: string | null;
+  };
+  /** Status per delsteg i senaste insamlingen. */
+  delsteg: DelstegStatus[];
+  /** Senaste kopet webhooken bokforde, ur premium_grants och profiles. */
+  senasteKop: KopKandidat | null;
+  /** Senaste kvottraffen nagonsin, for "0 sedan ..., senaste ...". */
+  kvotSenastNagonsin: string | null;
+  /** Fel senaste dygnet fran undantagna konton, som inte raknas. */
+  undantagnaFel: number;
   hamtad: string;
 }
 
@@ -83,6 +109,35 @@ export interface CronStatus {
   timmarSedan: number | null;
 }
 
+/** Paketnamnet ur profilens price_id, med scope som reserv. */
+function paketForProfil(priceId: string | null, scope: string | null): string {
+  const nyckel = paketFranPrisId(priceId);
+  if (nyckel) {
+    const namn = PAKET_ORDNING.find((p) => p.nyckel === nyckel)?.namn ?? nyckel;
+    return namn.replace('Allt-manaden', 'Allt-månaden');
+  }
+  if (scope === 'cv') return 'CV-veckan';
+  if (scope === 'tester') return 'Testveckan';
+  if (scope === 'allt') return 'ett Allt-paket';
+  return 'okänt paket';
+}
+
+/** Paketnamnet ur en grant: Allt-dagen ar onetime_1d. */
+function paketForGrant(source: string | null, days: number | null): string {
+  if (source === 'onetime_1d' || days === 1) return 'Allt-dagen';
+  return days ? `${days} dagar Premium` : 'okänt paket';
+}
+
+/** Dagens datum i svensk tid, YYYY-MM-DD. */
+function idagSverige(): string {
+  return new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Stockholm',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
+}
+
 function minuterSedan(iso: string): number {
   return Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
 }
@@ -93,10 +148,16 @@ function minuterSedan(iso: string): number {
  * Varje delfråga fångar sitt eget fel och ger ett tomt svar i stället för
  * att fälla sidan. En driftsida som själv går sönder när något går sönder är
  * värdelös precis när den behövs.
+ *
+ * Ägarens konton och testkonton räknas inte (spec-admin-tydlighet
+ * 2026-09-22): tabellerna med user_id filtreras med uteslut(), och
+ * admin_error_log, som saknar user_id, filtreras på metadata.user_id eller
+ * metadata.userId.
  */
 export const hamtaDriftData = unstable_cache(
   async (): Promise<DriftData> => {
     const admin = getSupabaseAdmin() as any;
+    const u = await hamtaUndantagCachad();
 
     const dygn = new Date(Date.now() - 24 * 3600_000).toISOString();
     const hangGrans = new Date(
@@ -111,61 +172,146 @@ export const hamtaDriftData = unstable_cache(
       kostnadSvar,
       mejlSvar,
       cronSvar,
+      felAllaSvar,
+      samladSvar,
+      grantSvar,
+      profilKopSvar,
+      kvotAllaSvar,
     ] = await Promise.all([
       sakert(() =>
         admin
           .from('admin_error_log')
-          .select('kalla, rutt, meddelande, antal, created_at')
+          .select('kalla, rutt, meddelande, antal, created_at, metadata')
           .gte('created_at', dygn)
           .order('created_at', { ascending: false })
           .limit(500)
       ),
       sakert(() =>
-        admin
-          .from('cv_analysis_jobs')
-          .select('id, created_at, updated_at, display_name')
-          .eq('status', 'processing')
-          .lt('created_at', hangGrans)
+        uteslut(
+          admin
+            .from('cv_analysis_jobs')
+            .select('id, created_at, updated_at, display_name')
+            .eq('status', 'processing')
+            .lt('created_at', hangGrans),
+          'user_id',
+          u,
+          true
+        )
           .order('created_at', { ascending: true })
           .limit(50)
       ),
       sakert(() =>
-        admin
-          .from('cv_analysis_jobs')
-          .select('id', { count: 'exact', head: true })
-          .eq('status', 'failed')
-          .gte('created_at', dygn)
+        uteslut(
+          admin
+            .from('cv_analysis_jobs')
+            .select('id', { count: 'exact', head: true })
+            .eq('status', 'failed')
+            .gte('created_at', dygn),
+          'user_id',
+          u,
+          true
+        )
       ),
       sakert(() =>
-        admin
-          .from('user_activities')
-          .select('created_at')
-          .eq('activity_type', 'quota_wall_hit')
-          .gte('created_at', dygn)
+        uteslut(
+          admin
+            .from('user_activities')
+            .select('created_at')
+            .eq('activity_type', 'quota_wall_hit')
+            .gte('created_at', dygn),
+          'user_id',
+          u,
+          true
+        )
           .order('created_at', { ascending: false })
           .limit(500)
       ),
       sakert(() =>
-        admin
-          .from('ai_usage_costs')
-          .select('feature_name, cost_sek, created_at')
-          .gte('created_at', dygn)
-          .limit(5000)
+        uteslut(
+          admin
+            .from('ai_usage_costs')
+            .select('feature_name, cost_sek, created_at')
+            .gte('created_at', dygn),
+          'user_id',
+          u,
+          true
+        ).limit(5000)
       ),
       sakert(() =>
-        admin
-          .from('email_schedule')
-          .select('id, email_type, attempts, last_error, send_after')
-          .gt('attempts', 0)
-          .is('sent_at', null)
+        uteslut(
+          admin
+            .from('email_schedule')
+            .select('id, email_type, attempts, last_error, send_after')
+            .gt('attempts', 0)
+            .is('sent_at', null),
+          'user_id',
+          u
+        )
           .order('send_after', { ascending: false })
           .limit(25)
       ),
+      // Tio rader rymmer GSC:s eftersläp med marginal.
       sakert(() =>
         admin
           .from('admin_daily_metrics')
-          .select('dag, uppdaterad')
+          .select('dag, uppdaterad, mrr_ore, gsc_clicks, new_accounts')
           .order('dag', { ascending: false })
+          .limit(10)
+      ),
+      // Felloggen i sin helhet, for "0 rader sedan den skapades". Tabellen
+      // ar liten, och metadata behovs for att rakna bort undantagna.
+      sakert(() =>
+        admin
+          .from('admin_error_log')
+          .select('created_at, metadata')
+          .order('created_at', { ascending: false })
+          .limit(1000)
+      ),
+      sakert(() =>
+        admin
+          .from('admin_flode_daily')
+          .select('dag')
+          .eq('handelse', FLODE_SAMLAD)
+          .order('dag', { ascending: false })
+          .limit(1)
+      ),
+      // Webhookens senaste bokforing, utan Stripe-anrop: Allt-dagen skriver
+      // en grant med stripe_event_id, prenumerationerna paket_started_at.
+      sakert(() =>
+        uteslut(
+          admin
+            .from('premium_grants')
+            .select('user_id, granted_at, source, days')
+            .not('stripe_event_id', 'is', null),
+          'user_id',
+          u
+        )
+          .order('granted_at', { ascending: false })
+          .limit(5)
+      ),
+      sakert(() =>
+        uteslut(
+          admin
+            .from('profiles')
+            .select('id, paket_started_at, price_id, premium_scope')
+            .not('paket_started_at', 'is', null),
+          'id',
+          u
+        )
+          .order('paket_started_at', { ascending: false })
+          .limit(5)
+      ),
+      sakert(() =>
+        uteslut(
+          admin
+            .from('user_activities')
+            .select('created_at')
+            .eq('activity_type', 'quota_wall_hit'),
+          'user_id',
+          u,
+          true
+        )
+          .order('created_at', { ascending: false })
           .limit(1)
       ),
     ]);
@@ -174,13 +320,20 @@ export const hamtaDriftData = unstable_cache(
     // loggaAdminFel skriver alltid rutt null, så cronens egna fel hamnar där.
     const perRutt = new Map<string, Felrad>();
     let felTotalt = 0;
+    let undantagnaFel = 0;
     for (const r of (felSvar?.data ?? []) as Array<{
       kalla: string;
       rutt: string | null;
       meddelande: string;
       antal: number | null;
       created_at: string;
+      metadata: unknown;
     }>) {
+      // Fel fran agarens egna sessioner raknas inte.
+      if (felFranUndantag(r.metadata, u)) {
+        undantagnaFel += r.antal ?? 1;
+        continue;
+      }
       const nyckel = r.rutt ?? `${r.kalla} (okänd rutt)`;
       const antal = r.antal ?? 1;
       felTotalt += antal;
@@ -246,10 +399,41 @@ export const hamtaDriftData = unstable_cache(
       }
     }
 
-    const cronRad = ((cronSvar?.data ?? []) as Array<{
-      dag: string;
-      uppdaterad: string;
-    }>)[0];
+    const metrikRader = (cronSvar?.data ?? []) as MetrikRad[];
+    const cronRad = metrikRader[0];
+
+    const felAlla = ((felAllaSvar?.data ?? []) as Array<{
+      created_at: string;
+      metadata: unknown;
+    }>).filter((r) => !felFranUndantag(r.metadata, u));
+
+    const samladDag =
+      ((samladSvar?.data ?? []) as Array<{ dag: string }>)[0]?.dag ?? null;
+
+    const kandidater: KopKandidat[] = [
+      ...((grantSvar?.data ?? []) as Array<{
+        user_id: string;
+        granted_at: string;
+        source: string | null;
+        days: number | null;
+      }>).map((g) => ({
+        userId: g.user_id,
+        tid: g.granted_at,
+        paket: paketForGrant(g.source, g.days),
+        kalla: 'grant' as const,
+      })),
+      ...((profilKopSvar?.data ?? []) as Array<{
+        id: string;
+        paket_started_at: string;
+        price_id: string | null;
+        premium_scope: string | null;
+      }>).map((p) => ({
+        userId: p.id,
+        tid: p.paket_started_at,
+        paket: paketForProfil(p.price_id, p.premium_scope),
+        kalla: 'profil' as const,
+      })),
+    ];
 
     return {
       fel: Array.from(perRutt.values()).sort((a, b) => b.antal - a.antal),
@@ -295,6 +479,16 @@ export const hamtaDriftData = unstable_cache(
         skickasEfter: m.send_after,
       })),
 
+      fellogg: {
+        raderTotalt: felAlla.length,
+        senaste: felAlla[0]?.created_at ?? null,
+      },
+      delsteg: delstegStatus(metrikRader, samladDag, idagSverige()),
+      senasteKop: senasteKop(kandidater),
+      kvotSenastNagonsin:
+        ((kvotAllaSvar?.data ?? []) as Array<{ created_at: string }>)[0]?.created_at ?? null,
+      undantagnaFel,
+
       cron: {
         senasteInsamling: cronRad?.uppdaterad ?? null,
         senasteDag: cronRad?.dag ?? null,
@@ -308,7 +502,8 @@ export const hamtaDriftData = unstable_cache(
       hamtad: new Date().toISOString(),
     };
   },
-  ['admin-drift'],
+  // v2: formen fick fellogg, delsteg, senasteKop och undantag 2026-09-22.
+  ['admin-drift-v2'],
   { revalidate: DRIFT_CACHE_SEKUNDER, tags: ['admin-drift'] }
 );
 

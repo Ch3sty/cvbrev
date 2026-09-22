@@ -15,10 +15,17 @@
  * Allt lases med service role. Vyn admin_candidate_pool har revoke pa anon
  * och authenticated sedan vag 1, sa en anvandarklient far noll rader utan
  * felmeddelande.
+ *
+ * Undantagna konton (agarens adminkonto och testkontona) raknas aldrig.
+ * Vyerna (admin_candidate_pool) utesluter dem redan; varje fraga som laser en
+ * tabell direkt lagger uteslut() pa user_id. Alla user_id-kolumner som lases
+ * har ar not null, sa ingen nullbar variant behovs.
  */
 
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { SIMPLE_TEMPLATES, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
+import { hamtaUndantagCachad } from '@/lib/admin/metrics';
+import { uteslut } from '@/lib/admin/undantag';
 
 /** Rader per sida i alla fyra flikarna. */
 export const SIDSTORLEK = 25;
@@ -61,9 +68,10 @@ function sedan(dagar: number): string {
 /** Kolumnen ar alltid created_at i de har tabellerna. */
 async function antalPerPeriod(tabell: string): Promise<Antal> {
   const admin = getSupabaseAdmin() as any;
+  const u = await hamtaUndantagCachad();
 
   const rakna = async (fran?: string): Promise<number> => {
-    let q = admin.from(tabell).select('id', { count: 'exact', head: true });
+    let q = uteslut(admin.from(tabell).select('id', { count: 'exact', head: true }), 'user_id', u);
     if (fran) q = q.gte('created_at', fran);
     const { count, error } = await q;
     if (error) {
@@ -141,6 +149,8 @@ export async function hamtaCv(sida: number, sok: string): Promise<Sida<CvRad>> {
   const admin = getSupabaseAdmin() as any;
   const fran = (sida - 1) * SIDSTORLEK;
 
+  const u = await hamtaUndantagCachad();
+
   let q = admin
     .from('cv_texts')
     .select('id, user_id, file_name, structured_data, text_extraction_failed, created_at', {
@@ -149,6 +159,7 @@ export async function hamtaCv(sida: number, sok: string): Promise<Sida<CvRad>> {
     .order('created_at', { ascending: false })
     .range(fran, fran + SIDSTORLEK - 1);
 
+  q = uteslut(q, 'user_id', u);
   if (sok) q = q.ilike('file_name', `%${sok}%`);
 
   const { data, count, error } = await q;
@@ -210,6 +221,8 @@ export async function hamtaBrev(sida: number, sok: string): Promise<Sida<BrevRad
   const admin = getSupabaseAdmin() as any;
   const fran = (sida - 1) * SIDSTORLEK;
 
+  const u = await hamtaUndantagCachad();
+
   let q = admin
     .from('letters')
     .select('id, user_id, company, job_title, tonality, language, is_saved, created_at', {
@@ -218,6 +231,7 @@ export async function hamtaBrev(sida: number, sok: string): Promise<Sida<BrevRad
     .order('created_at', { ascending: false })
     .range(fran, fran + SIDSTORLEK - 1);
 
+  q = uteslut(q, 'user_id', u);
   if (sok) q = q.or(`company.ilike.%${sok}%,job_title.ilike.%${sok}%`);
 
   const { data, count, error } = await q;
@@ -295,9 +309,15 @@ export interface MallOversikt {
 export async function hamtaMallar(): Promise<MallOversikt> {
   const admin = getSupabaseAdmin() as any;
 
+  const u = await hamtaUndantagCachad();
+
   const [ned, brev] = await Promise.all([
-    admin.from('formatted_cv_downloads').select('template_id'),
-    admin.from('letters').select('template_id').not('template_id', 'is', null),
+    uteslut(admin.from('formatted_cv_downloads').select('template_id'), 'user_id', u),
+    uteslut(
+      admin.from('letters').select('template_id').not('template_id', 'is', null),
+      'user_id',
+      u
+    ),
   ]);
 
   if (ned.error) console.error('[admin/innehall] formatted_cv_downloads:', ned.error);
@@ -454,12 +474,18 @@ export interface RekryterareOversikt {
 export async function hamtaRekryterare(): Promise<RekryterareOversikt> {
   const admin = getSupabaseAdmin() as any;
 
-  const { data, error } = await admin
-    .from('recruiter_profiles')
-    .select(
-      'user_id, company_name, org_number, contact_name, contact_role, contact_email, phone, website, recruiting_roles, status, approved_at, created_at'
-    )
-    .order('created_at', { ascending: false });
+  const u = await hamtaUndantagCachad();
+
+  const { data, error } = await uteslut(
+    admin
+      .from('recruiter_profiles')
+      .select(
+        'user_id, company_name, org_number, contact_name, contact_role, contact_email, phone, website, recruiting_roles, status, approved_at, created_at'
+      )
+      .order('created_at', { ascending: false }),
+    'user_id',
+    u
+  );
 
   if (error) {
     console.error('[admin/innehall] recruiter_profiles:', error);

@@ -19,7 +19,9 @@ import { useEffect, useState, useTransition } from 'react';
 import {
   filterFranSok,
   sokFranFilter,
+  GRUPPER,
   type AnvandarFilter,
+  type Grupp,
 } from './data';
 
 const FALT_KLASS =
@@ -33,9 +35,17 @@ export interface FilterProps {
   kallor: string[];
   /** Antal konton utan anskaffningskalla, for alternativet "Saknas". */
   utanKalla: number;
+  /**
+   * Kallfiltret visas forst nar minst en tiondel av kontona har en kalla,
+   * samma regel som kolumnen. Ett filter med ett enda meningsfullt val ar
+   * brus.
+   */
+  visaKalla: boolean;
+  /** Antal per grupp, efter etiketten i menyn. */
+  antal: Record<Grupp, number>;
 }
 
-export default function Filter({ kallor, utanKalla }: FilterProps) {
+export default function Filter({ kallor, utanKalla, visaKalla, antal }: FilterProps) {
   const router = useRouter();
   const sokparametrar = useSearchParams();
   const [vantar, startaOvergang] = useTransition();
@@ -77,7 +87,7 @@ export default function Filter({ kallor, utanKalla }: FilterProps) {
   }, [sok, aktivt.sok]);
 
   const harFilter =
-    aktivt.niva !== 'alla' ||
+    aktivt.grupp !== 'alla' ||
     aktivt.aktivitet !== 'alla' ||
     aktivt.harCv ||
     aktivt.harBrev ||
@@ -111,19 +121,18 @@ export default function Filter({ kallor, utanKalla }: FilterProps) {
 
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-ink-2">
-            Nivå
+            Visa
           </span>
           <select
-            value={aktivt.niva}
-            onChange={(e) =>
-              navigera({ niva: e.target.value as AnvandarFilter['niva'] })
-            }
+            value={aktivt.grupp}
+            onChange={(e) => navigera({ grupp: e.target.value as Grupp })}
             className={FALT_KLASS}
           >
-            <option value="alla">Alla nivåer</option>
-            <option value="gratis">Gratis</option>
-            <option value="trial">Trial</option>
-            <option value="premium">Premium</option>
+            {GRUPPER.map((g) => (
+              <option key={g.nyckel} value={g.nyckel}>
+                {g.etikett} ({antal[g.nyckel].toLocaleString('sv-SE')})
+              </option>
+            ))}
           </select>
         </label>
 
@@ -146,6 +155,7 @@ export default function Filter({ kallor, utanKalla }: FilterProps) {
           </select>
         </label>
 
+        {visaKalla ? (
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-ink-2">
             Anskaffningskälla
@@ -166,6 +176,7 @@ export default function Filter({ kallor, utanKalla }: FilterProps) {
             </option>
           </select>
         </label>
+        ) : null}
 
         <div className="flex flex-wrap items-end gap-6 sm:col-span-2 lg:col-span-3">
           <label className={KRYSS_KLASS}>

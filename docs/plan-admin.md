@@ -909,3 +909,82 @@ avsnitt 6 ger noll träffar i `src/app/admin` och `src/components/admin`, och
 det finns inga em-dash i någon adminfil.
 
 Kvar till våg 4: klicktest i riktig webbläsare, som kräver sidor att klicka på.
+
+## Principer från 2026-09-22: admin utan streck
+
+Godkänd spec: `docs/design/spec-admin-tydlighet-2026-09-22.html`. Ägaren i
+dag: "Det framgår ingenstans att någon köpt ett dagspass. Mycket av
+adminsidan är extremt otydligt och ser ut som mockupdata." och "mitt
+adminkonto ska undantas ur all data, allt från inlogg till körningar av
+funktioner och nedladdningar." Tre principer gäller från och med nu för
+varje sida, också nya.
+
+### Tomma tillstånd
+
+Ett streck betyder för läsaren "trasigt" och en nolla utan förklaring
+betyder "mockup". Varje ruta som saknar dagens tal säger vad talet är nu,
+sedan när det har gällt och vilket det senaste riktiga värdet var.
+
+1. Noll är ett tal: "0 köp sedan 22 sep kl. 19.02". Streck bara i en
+   tabellcell där kolumnen inte gäller raden, förklarat i kolumnrubriken.
+2. Senaste kända värde följer med en nolla.
+3. En källa som ligger efter säger det ("Google ligger 3 dagar efter").
+4. "Mäts från …" är ett eget tillstånd, en rad, inte ett tomt diagram.
+5. Ett tal, en källa: konton ur `profiles`, köp och intäkt ur Stripe
+   (`src/lib/admin/kop.ts`), besök och klick ur PostHog och GSC.
+6. Datumceller utan värde säger "aldrig" eller "okänt, före <datum>".
+
+Hjälparna ligger i `src/lib/admin/tomt.ts`, med `MATSTART` som enda
+sanning för när något började mätas (MRR 15 sep, paketen 22 sep 10.51,
+köpvägen 22 sep 19.02, attributionen 21 sep 22.00).
+
+### Diagramregeln
+
+Inbyggd i `AdminChart` (`src/components/admin/AdminChart.tsx`):
+
+1. Axlar alltid, y-axeln med enhet (`enhet` eller `formateraY`), x-axeln
+   med början, mitten och slutet.
+2. Senaste värdet utskrivet vid seriens slutpunkt.
+3. Färre än sju punkter med data blir en mening med värdena, inte ett
+   diagram (`minstaPunkter`).
+4. Dagar före mätstart (`matstart`) och dagar som källan inte levererat
+   (`efterslap`) ritas som grå zon, aldrig som noll.
+5. Paketen i spårfärgerna: CV-veckan `--diagram-cv`, Testveckan
+   `--diagram-test`, Allt `--ink-1` (designsystemet avsnitt 12). Orange
+   bara för ett enskilt värde.
+
+### Uteslutning av ägaren och testkonton
+
+En sanning: databasfunktionen `admin_undantagna_konton()`
+(`supabase/migrations/20260922220000_admin_undantagna_konton.sql`) och
+`src/lib/admin/undantag.ts`, som speglar mönstren och testas mot
+migrationen.
+
+| Vem | Regel |
+|---|---|
+| Admin | Varje rad i `admin_users` |
+| Test | E-post som slutar på `.test`, innehåller `jobbcoach-qa` eller börjar med `qa-` |
+
+gomer@gomer.se är en riktig kund (ägarens beslut 2026-09-22).
+
+Var uteslutningen sitter:
+
+| Yta | Hur |
+|---|---|
+| `admin_daily_metrics` | `collect.ts` läser undantagen först och skriver ingenting om de inte går att läsa. Konton, aktiva, CV, brev, tester, mallar, AI-kostnad, mejl (på `user_id`), Stripe (på undantagna kontons Stripe-kunder) och `active_all_day`. |
+| `admin_flode_daily`, `admin_funnel_weekly` | HogQL-villkoret `hogqlUteslutning()`: person via `distinct_id`, `is_internal` och e-postmönstret. |
+| Adminvyerna | `admin_activity_feed` (och daily, by_function), `admin_test_stats`, `admin_retention_cohorts`, `admin_candidate_pool`, `admin_candidate_interests` utesluter. `admin_user_rows` behåller alla konton med kolumnen `undantag`, så att Användare kan visa dem i filtret "Admin och test" men aldrig i totaler. |
+| Köpliggaren | Undantagna kontons köp syns märkta "internt" och räknas aldrig i intäkt. |
+| PostHog | `is_internal = true` sätts vid identify för testkonton och av `MarkeraIntern` i adminlayouten för superadmin. Projektet kör personegenskaper på händelsen, så dashboarden 968012 filtrerar via kohorten "Adminen: undantagna konton" (248676), som utvärderas mot personens nuvarande egenskaper och tar hela historiken. Skripten `scripts/posthog-markera-interna.ts` och `scripts/posthog-filtrera-interna.ts` är idempotenta. |
+
+Historiken i `admin_daily_metrics`, `admin_flode_daily` och
+`admin_funnel_weekly` samlades om för 90 dagar den 22 september med
+`scripts/admin-backfill.ts`, så att siffrorna före uteslutningen är rena.
+Den nya insamlingen går i produktion först när grenen `admin/tydlighet`
+mergas; cronen skriver med den gamla koden fram till dess.
+
+### Sidorna efter omgången
+
+Funnel och Flöde är en sida, **Tratt** (`/admin/tratt`, vyerna Köpvägen,
+Veckor och Användning). De gamla adresserna skickas vidare. Översikt börjar
+med "Sedan i går" och sektionen Pengar i kronor; Intäkter har sektionen Köp.

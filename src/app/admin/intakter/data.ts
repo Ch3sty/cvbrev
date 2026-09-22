@@ -25,11 +25,15 @@ import Stripe from 'stripe';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import {
   hamtaDagligaMetrik,
+  hamtaUndantagCachad,
   ADMIN_METRICS_TAG,
   ADMIN_CACHE_SEKUNDER,
 } from '@/lib/admin/metrics';
-import { manadsbeloppOre, type DagligaMetrik } from '@/lib/admin/collect';
+import { manadsbeloppOre, paketFranPrisId, type DagligaMetrik } from '@/lib/admin/collect';
 import { senasteMedVarde, STRIPE_LEDARE } from '@/lib/admin/senasteMedData';
+import { uteslut } from '@/lib/admin/undantag';
+import { paketNamn } from '@/lib/admin/kop';
+import { datumKort } from '@/lib/admin/tomt';
 import { mandagen, planstegFranPris, type PlanNyckel } from './format';
 
 // MRR_SANN_FRAN och byggVattenfall bor i format.ts: de ar rena funktioner utan
@@ -82,9 +86,16 @@ export interface IntaktData {
   /** Sant när i dag har en rad som ännu inte bär Stripe-siffror. */
   idagOfullstandig: boolean;
   churnVeckor: ChurnVecka[];
-  /** Antal profiler som just nu bar en trialkalla i premium_source. */
-  trialPagaende: number;
-  premiumGrantsRader: number;
+  /**
+   * Appens provperioder som fortfarande lever: trialkalla och premium_until
+   * efter nu, undantagna konton bort. Tidigare raknades alla med trialkalla,
+   * aven de vars provperiod gatt ut (21 i stallet for 9, 22 sep).
+   */
+  provperioder: { antal: number; sista: string | null };
+  /** Senaste giltighetstiden bland engangskop som fortfarande galler. */
+  engangsGiltigTill: string | null;
+  /** Ganger uppsagningsflodet i appen startats totalt (cancel_intents). */
+  uppsagningsflodetStartat: number;
 }
 
 /**
@@ -107,17 +118,21 @@ const hamtaChurnVeckor = unstable_cache(
     forsta.setUTCDate(forsta.getUTCDate() - antalVeckor * 7);
     const franDag = mandagen(forsta.toISOString().slice(0, 10));
 
+    const u = await hamtaUndantagCachad();
     const [metrik, intents] = await Promise.all([
       admin
         .from('admin_daily_metrics')
         .select('dag, churned')
         .gte('dag', franDag)
         .order('dag', { ascending: true }),
-      admin
-        .from('cancel_intents')
-        .select('reason, completed_cancel, created_at')
-        .gte('created_at', `${franDag}T00:00:00Z`)
-        .limit(5000),
+      uteslut(
+        admin
+          .from('cancel_intents')
+          .select('reason, completed_cancel, created_at')
+          .gte('created_at', `${franDag}T00:00:00Z`),
+        'user_id',
+        u
+      ).limit(5000),
     ]);
 
     const perVecka = new Map<string, ChurnVecka>();
@@ -165,57 +180,79 @@ const hamtaChurnVeckor = unstable_cache(
 
     return [...perVecka.values()].sort((a, b) => b.vecka.localeCompare(a.vecka));
   },
-  ['admin-intakter-churn'],
+  ['admin-intakter-churn-v2'],
+  { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
+);
+
+const TRIALKALLOR = ['signup_trial', 'oauth_signup_trial'];
+
+/**
+ * Appens provperioder som fortfarande lever.
+ *
+ * premium_until > now() ar hela rattelsen (spec punkt 3): en profil behaller
+ * sin trialkalla efter att provperioden gatt ut, och utan filtret raknades
+ * de utgangna med. Undantagna konton raknas inte.
+ *
+ * Trial till betalt gar fortfarande inte att lasa ur profiles: webhooken
+ * nollstaller premium_source vid betalning, sa kohorten raderar sig sjalv i
+ * samma ogonblick som den konverterar. Stripes kortkravande provperiod, som
+ * kortet "Trial till betalt" matte, saljs inte langre och visas inte.
+ */
+const hamtaProvperioder = unstable_cache(
+  async (): Promise<{ antal: number; sista: string | null }> => {
+    const admin = getSupabaseAdmin() as any;
+    const u = await hamtaUndantagCachad();
+    const { data } = await uteslut(
+      admin
+        .from('profiles')
+        .select('premium_until')
+        .in('premium_source', TRIALKALLOR)
+        .gt('premium_until', new Date().toISOString()),
+      'id',
+      u
+    ).limit(5000);
+    const tider = ((data ?? []) as Array<{ premium_until: string }>).map((r) => r.premium_until);
+    return {
+      antal: tider.length,
+      sista: tider.length ? tider.reduce((a, b) => (a > b ? a : b)) : null,
+    };
+  },
+  ['admin-intakter-provperioder'],
   { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
 );
 
 /**
- * Pagaende trials i appen.
- *
- * Bara namnaren, aldrig taljaren. Att lasa trial till betalt ur profiles gar
- * namligen inte, och det ar viktigt att veta varfor: nar en trialanvandare
- * borjar betala satter Stripe-webhooken
- * (src/app/api/stripe/webhooks/route.ts) premium_source till null, med
- * motiveringen att en betald prenumeration ersatter all gratispremie. Kohorten
- * raderar alltsa sig sjalv i samma ogonblick som den konverterar, och en
- * fraga pa premium_source in (signup_trial, oauth_signup_trial) kan darfor
- * bara nagonsin ge noll procent. Det ar inte ett lagt tal, det ar ett tal som
- * inte finns.
- *
- * Konverteringen laser vi i stallet ur Stripes egna prenumerationer, dar
- * trial_end ligger kvar aven efter att statusen gatt fran trialing till
- * active. Den berakningen bor i hamtaStripeSnapshot.
+ * Engangskop som fortfarande galler, och hur manga ganger
+ * uppsagningsflodet startats. Tva sma fragor, undantagna konton bort.
  */
-const hamtaTrialPagaende = unstable_cache(
-  async (): Promise<number> => {
+const hamtaSmatal = unstable_cache(
+  async (): Promise<{ engangsGiltigTill: string | null; uppsagningsflodetStartat: number }> => {
     const admin = getSupabaseAdmin() as any;
-    const { count } = await admin
-      .from('profiles')
-      .select('*', { count: 'exact', head: true })
-      .in('premium_source', ['signup_trial', 'oauth_signup_trial']);
-    return count ?? 0;
+    const u = await hamtaUndantagCachad();
+    const [grants, intents] = await Promise.all([
+      uteslut(
+        admin
+          .from('premium_grants')
+          .select('premium_until_after')
+          .gt('premium_until_after', new Date().toISOString()),
+        'user_id',
+        u
+      ).limit(1000),
+      uteslut(
+        admin.from('cancel_intents').select('id', { count: 'exact', head: true }),
+        'user_id',
+        u
+      ),
+    ]);
+    const tider = ((grants.data ?? []) as Array<{ premium_until_after: string }>).map(
+      (r) => r.premium_until_after
+    );
+    return {
+      engangsGiltigTill: tider.length ? tider.reduce((a, b) => (a > b ? a : b)) : null,
+      uppsagningsflodetStartat: intents.count ?? 0,
+    };
   },
-  ['admin-intakter-trial-pagaende'],
-  { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
-);
-
-/**
- * Kontrollrakning av premium_grants.
- *
- * Tabellen ar tom historiskt (planens avsnitt 8): antingen har ingen kopt ett
- * engangspaket sedan 2026-09-11, eller sa skriver inte webhooken. Stripe ar
- * primarkalla for nya betalande sa lange, och det har talet ar bara till for
- * att sidan ska kunna saga nar tabellen borjar fyllas.
- */
-const hamtaPremiumGrants = unstable_cache(
-  async (): Promise<number> => {
-    const admin = getSupabaseAdmin() as any;
-    const { count } = await admin
-      .from('premium_grants')
-      .select('*', { count: 'exact', head: true });
-    return count ?? 0;
-  },
-  ['admin-intakter-grants'],
+  ['admin-intakter-smatal'],
   { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
 );
 
@@ -223,11 +260,11 @@ const hamtaPremiumGrants = unstable_cache(
  * Allt sidan behover for forsta malningen. Inget externt API rors.
  */
 export async function hamtaIntaktData(antalDagar = 90): Promise<IntaktData> {
-  const [dagar, churnVeckor, trialPagaende, premiumGrantsRader] = await Promise.all([
+  const [dagar, churnVeckor, provperioder, smatal] = await Promise.all([
     hamtaDagligaMetrik(antalDagar),
     hamtaChurnVeckor(12),
-    hamtaTrialPagaende(),
-    hamtaPremiumGrants(),
+    hamtaProvperioder(),
+    hamtaSmatal(),
   ]);
 
   // hamtaDagligaMetrik ger fallande ordning, senaste forst.
@@ -256,8 +293,9 @@ export async function hamtaIntaktData(antalDagar = 90): Promise<IntaktData> {
     forraVeckan,
     idagOfullstandig,
     churnVeckor,
-    trialPagaende,
-    premiumGrantsRader,
+    provperioder,
+    engangsGiltigTill: smatal.engangsGiltigTill,
+    uppsagningsflodetStartat: smatal.uppsagningsflodetStartat,
   };
 }
 
@@ -290,8 +328,17 @@ export interface MisslyckadRad {
   skapad: string;
 }
 
+/** En uppsagd prenumeration, for raden Uppsagningar 30 dagar. */
+export interface UppsagdRad {
+  tid: string;
+  /** Till exempel "provperiod på Allt-månaden startad 9 sep, aldrig debiterad". */
+  vad: string;
+}
+
 export interface StripeSnapshot {
   planMix: PlanRad[];
+  /** Prenumerationer med canceled_at de senaste 30 dagarna, nyast forst. */
+  uppsagda: UppsagdRad[];
   kuponger: KupongRad[];
   misslyckade: MisslyckadRad[];
   obetaldaFakturorOre: number;
@@ -304,6 +351,7 @@ export interface StripeSnapshot {
 
 const TOM_SNAPSHOT: StripeSnapshot = {
   planMix: [],
+  uppsagda: [],
   kuponger: [],
   misslyckade: [],
   obetaldaFakturorOre: 0,
@@ -351,6 +399,10 @@ export const hamtaStripeSnapshot = unstable_cache(
       let trialPaborjade = 0;
       let trialBetalande = 0;
 
+      const u = await hamtaUndantagCachad();
+      const fran30 = Math.floor(Date.now() / 1000) - 30 * 24 * 3600;
+      const uppsagda: UppsagdRad[] = [];
+
       for await (const sub of stripe.subscriptions.list({
         status: 'all',
         limit: 100,
@@ -359,6 +411,21 @@ export const hamtaStripeSnapshot = unstable_cache(
         if (sub.trial_end) {
           trialPaborjade += 1;
           if (sub.status === 'active') trialBetalande += 1;
+        }
+
+        if (sub.canceled_at && sub.canceled_at >= fran30) {
+          const kund = typeof sub.customer === 'string' ? sub.customer : sub.customer?.id;
+          if (!(kund && u.stripeKunder.has(kund)) && !u.har(sub.metadata?.userId ?? null)) {
+            const namn = paketNamn(paketFranPrisId(sub.items?.data?.[0]?.price?.id ?? null));
+            const startad = datumKort(new Date(sub.start_date * 1000).toISOString());
+            const iProvperiod = Boolean(sub.trial_end && sub.canceled_at <= sub.trial_end);
+            uppsagda.push({
+              tid: new Date(sub.canceled_at * 1000).toISOString(),
+              vad: iProvperiod
+                ? `provperiod på ${namn} startad ${startad}, aldrig debiterad`
+                : `${namn}, startad ${startad}`,
+            });
+          }
         }
 
         if (sub.status !== 'active' && sub.status !== 'trialing') continue;
@@ -435,8 +502,11 @@ export const hamtaStripeSnapshot = unstable_cache(
         .map((n) => perPlan.get(n))
         .filter((r): r is PlanRad => Boolean(r));
 
+      uppsagda.sort((a, b) => b.tid.localeCompare(a.tid));
+
       return {
         planMix,
+        uppsagda,
         kuponger,
         misslyckade,
         obetaldaFakturorOre,
@@ -454,6 +524,6 @@ export const hamtaStripeSnapshot = unstable_cache(
       return { ...TOM_SNAPSHOT, fel: meddelande };
     }
   },
-  ['admin-intakter-stripe'],
+  ['admin-intakter-stripe-v2'],
   { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
 );

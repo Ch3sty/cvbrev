@@ -47,6 +47,12 @@
   --cv-mjuk: #DCE6FB;
   --test: #7C2D12;
   --test-mjuk: #F6E4D6;
+  /* Spårfärgerna i adminens diagram (avsnitt 12, spec-admin-tydlighet
+     2026-09-22). Samma kulör som etiketterna ovan men som egen roll: en
+     serie i ett diagram, aldrig text. Allt ritas i --ink-1. CVD-avstånd
+     ΔE 29,7, alla tre över 3:1 mot panelen. */
+  --diagram-cv: #1D4ED8;
+  --diagram-test: #7C2D12;
   /* Allt-kortet står i ink-1 med vit text. Tre toner till på den ytan:
      dämpad text, hårlinje och etiketten Rekommenderas. */
   --ink-1-mjuk: #CFC8BD;

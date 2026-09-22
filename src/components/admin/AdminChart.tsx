@@ -21,11 +21,21 @@
  * | Positivt utfall  | var(--positiv)    |
  * | Varning          | var(--varning)    |
  * | Fel              | var(--fel)        |
+ * | CV-veckan        | var(--diagram-cv) |
+ * | Testveckan       | var(--diagram-test)|
+ * | Allt             | var(--ink-1)      |
  * | Rutnat           | var(--kant)       |
  * | Axeltext         | var(--ink-3), 12  |
  *
  * Hogst en framhavd serie per diagram, annars sprangs taket pa tre orange
  * inslag per skarm.
+ *
+ * Diagramregeln (spec-admin-tydlighet 2026-09-22, docs/designsystem.md
+ * avsnitt 12): axlar med enhet (enhet eller formateraY), x-etiketter i
+ * borjan, mitten och slutet, senaste vardet utskrivet vid slutpunkten,
+ * farre an sju punkter med data blir en mening i stallet for ett diagram,
+ * och dagar fore matstart (matstart) eller som kallan inte levererat an
+ * (efterslap) blir en gra zon i stallet for nollor.
  *
  * Tre former utover linje och stapel, tillagda for /admin/flode:
  * liggande staplar (kategorin pa y-axeln, talet pa x), staplade ytor for
@@ -50,7 +60,11 @@ export type AdminSerieRoll =
   | 'framhavd'
   | 'positiv'
   | 'varning'
-  | 'fel';
+  | 'fel'
+  /* Sparfargerna (designsystem avsnitt 12): CV-veckan, Testveckan, Allt. */
+  | 'cv'
+  | 'test'
+  | 'allt';
 
 export interface AdminSerie {
   /** Nyckeln i dataraden. */
@@ -106,7 +120,92 @@ export interface AdminChartProps {
   yDoman?: [number, number];
   /** Visas i stallet for diagrammet nar data ar tom. */
   tomText?: ReactNode;
+  /**
+   * Enheten pa y-axeln: "kr", "st", "%". Skrivs efter varje etikett nar
+   * formateraY saknas. Diagramregeln kraver en enhet pa varje y-axel.
+   */
+  enhet?: string;
+  /**
+   * Farre punkter med data an sa blir inget diagram utan en mening med
+   * vardena (diagramregeln punkt 3). Standard 7. Galler inte liggande
+   * staplar, dar raderna ar kategorier och inte tid.
+   */
+  minstaPunkter?: number;
+  /** Meningen som star i stallet for diagrammet nar punkterna ar for fa. */
+  faPunkterText?: ReactNode;
+  /**
+   * Forsta x-vardet som ar en matning. Raderna fore ritas inte som noll
+   * utan som en gra zon markt "mats fran ...".
+   */
+  matstart?: string;
+  /** Etiketten i zonen fore matstart. Standard "mäts från <x>". */
+  matstartText?: string;
+  /**
+   * En zon i slutet dar kallan inte levererat an, till exempel GSC som
+   * ligger tva till tre dagar efter. fran ar forsta x-vardet i zonen.
+   */
+  efterslap?: { fran: string; text: string };
+  /** Skriver seriens senaste varde vid slutpunkten. Standard pa. */
+  slutvarde?: boolean;
   className?: string;
+}
+
+/** Sant nar raden bar minst ett tal i nagon av serierna. */
+function harData(rad: Record<string, unknown>, serier: AdminSerie[]): boolean {
+  return serier.some((s) => {
+    const v = rad[s.nyckel];
+    return typeof v === 'number' && Number.isFinite(v);
+  });
+}
+
+/**
+ * Raderna med allt fore matstart satt till null. Exporterad for testet.
+ */
+export function nollstallForeMatstart(
+  data: AdminChartProps['data'],
+  xNyckel: string,
+  serier: AdminSerie[],
+  matstart?: string
+): AdminChartProps['data'] {
+  if (!matstart) return data;
+  return data.map((rad) => {
+    if (String(rad[xNyckel]) >= matstart) return rad;
+    const ny = { ...rad };
+    for (const s of serier) ny[s.nyckel] = null;
+    return ny;
+  });
+}
+
+/** Antal rader med data. Exporterad for testet. */
+export function antalPunkter(data: AdminChartProps['data'], serier: AdminSerie[]): number {
+  return data.filter((r) => harData(r, serier)).length;
+}
+
+/**
+ * Meningen med vardena nar punkterna ar for fa: "21 sep: 447 kr. 22 sep:
+ * 447 kr." Med flera serier star seriens namn fore vardet.
+ */
+export function punkterSomText(
+  data: AdminChartProps['data'],
+  xNyckel: string,
+  serier: AdminSerie[],
+  formateraX?: (v: string | number) => string,
+  formateraY?: (v: number) => string,
+  enhet?: string
+): string {
+  const fy = (v: number) =>
+    formateraY ? formateraY(v) : `${v.toLocaleString('sv-SE')}${enhet ? ` ${enhet}` : ''}`;
+  const delar: string[] = [];
+  for (const rad of data) {
+    if (!harData(rad, serier)) continue;
+    const x = rad[xNyckel];
+    const xText = formateraX ? formateraX(x as string) : String(x);
+    const varden = serier
+      .filter((s) => typeof rad[s.nyckel] === 'number')
+      .map((s) => (serier.length > 1 ? `${s.namn} ${fy(rad[s.nyckel] as number)}` : fy(rad[s.nyckel] as number)));
+    delar.push(`${xText}: ${varden.join(', ')}`);
+  }
+  return delar.length ? `${delar.join('. ')}.` : '';
 }
 
 // Hela recharts-beroendet i en enda dynamic. Platshallaren har samma hojd som
@@ -122,9 +221,30 @@ export default function AdminChart({
   hojd = 240,
   tomText = 'Ingen data för perioden.',
   className,
+  minstaPunkter = 7,
+  faPunkterText,
   ...props
 }: AdminChartProps) {
-  if (!props.data.length) {
+  const data = nollstallForeMatstart(props.data, props.xNyckel, props.serier, props.matstart);
+  const punkter = antalPunkter(data, props.serier);
+
+  if (!props.liggande && punkter > 0 && punkter < minstaPunkter) {
+    // Diagramregeln punkt 3: en ensam stapel utan skala ar precis det som
+    // sag ut som en mockup. Vardena star i en mening i stallet.
+    const text =
+      faPunkterText ??
+      punkterSomText(data, props.xNyckel, props.serier, props.formateraX, props.formateraY, props.enhet);
+    return (
+      <div className={className}>
+        <p className="text-sm leading-[22px] text-ink-2">{text}</p>
+        <p className="mt-1 text-meta text-ink-3">
+          {`Diagrammet visas från ${minstaPunkter} dagar med data. ${punkter} ${punkter === 1 ? 'dag' : 'dagar'} hittills.`}
+        </p>
+      </div>
+    );
+  }
+
+  if (!data.length || punkter === 0) {
     return (
       <div
         className={['flex items-center justify-center', className ?? ''].join(' ')}
@@ -137,7 +257,7 @@ export default function AdminChart({
 
   return (
     <div className={className} style={{ height: hojd }}>
-      <AdminChartInner {...props} />
+      <AdminChartInner {...props} data={data} />
     </div>
   );
 }

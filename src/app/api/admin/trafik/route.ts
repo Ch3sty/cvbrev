@@ -13,7 +13,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { loggaAdminFel } from '@/lib/admin/collect';
-import { hamtaTrafik, GSC_FORDROJNING_DAGAR, PERIOD_DAGAR } from '@/app/admin/trafik/data';
+import { hamtaTrafik, GSC_FORDROJNING_DAGAR, JAMFOR_DAGAR, PERIOD_DAGAR } from '@/app/admin/trafik/data';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,6 +31,8 @@ export async function GET(request: NextRequest) {
       ...data,
       fordrojningDagar: GSC_FORDROJNING_DAGAR,
       periodDagar: PERIOD_DAGAR,
+      // Kortens jamforelse: lika manga dagar med data, inte kalenderdagar.
+      jamforDagar: JAMFOR_DAGAR,
     });
   } catch (fel) {
     const meddelande = fel instanceof Error ? fel.message : String(fel);

@@ -1,52 +1,74 @@
 /**
- * Anvandare, listan (docs/plan-admin.md avsnitt 4.4).
+ * Anvandare, listan (docs/plan-admin.md avsnitt 4.4, spec-admin-tydlighet
+ * 2026-09-22 punkt 9).
  *
- * Svarar pa fraga 3, "vad gor de?", pa individniva. Listan ar serverrenderad
- * och serverpaginerad ur vyn admin_user_rows: 50 rader per sida, filtrering
- * och sortering i databasen, aldrig hela tabellen och aldrig en Supabase-fraga
+ * Svarar pa fraga 3, "vad gor de?", pa individniva, och pa supportfragan
+ * "vad har den har kunden kopt". Listan ar serverrenderad och
+ * serverpaginerad ur vyn admin_user_rows: 50 rader per sida, filtrering och
+ * sortering i databasen, aldrig hela tabellen och aldrig en Supabase-fraga
  * fran klienten.
  *
+ * Paketet star i bestamd form (Allt-dagen, Allt-manaden), inte som nivan
+ * Premium: en dagspasskund, en arskund och adminkontot ska ga att skilja at.
+ * Undantagna konton syns bara i gruppen "Admin och test" och raknas aldrig i
+ * sidhuvudets tal.
+ *
  * Personuppgifterna, e-post och namn, star bara har for att bara super_admin
- * kommer forbi layouten. Ingen CV-text och ingen brevtext visas i listan: de
- * ar radens innehall, inte dess metadata, och en lista ar fel plats for ett
- * dokument nagon skrivit om sig sjalv.
+ * kommer forbi layouten. Ingen CV-text och ingen brevtext visas i listan.
  */
 
+import { Suspense } from 'react';
 import Link from 'next/link';
 import PageHeader from '@/components/shell/PageHeader';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
+import { MATSTART, tidKort } from '@/lib/admin/tomt';
+import { undantagText } from '@/lib/admin/undantag';
 import Filter from './Filter';
 import {
   filterFranSok,
   hamtaAnvandare,
   hamtaKallor,
+  hamtaOversikt,
   lasKalla,
   sokFranFilter,
+  visaKalla,
   SIDSTORLEK,
   type AnvandarFilter,
   type AnvandarRad,
   type Sortering,
 } from './data';
-import { kortDatum, niva, sedan, tal, visningsnamn } from './format';
+import {
+  gallerTill,
+  kortDatum,
+  paketEtikett,
+  sedan,
+  tal,
+  visningsnamn,
+  type PaketEtikett,
+} from './format';
+import { hamtaPrenumerationStart } from './stripe';
 
 export const dynamic = 'force-dynamic';
 
 const LANK =
   'text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1';
 
-/** Kolumnerna planen raknar upp, i den ordningen. */
-const KOLUMNER: Array<{
+interface Kolumn {
   etikett: string;
   sortering: Sortering | null;
   /** Tal hogerstalls, text vansterstalls. */
   tal?: boolean;
-}> = [
-  { etikett: 'E-post', sortering: 'email' },
-  { etikett: 'Namn', sortering: null },
-  { etikett: 'Nivå', sortering: null },
-  { etikett: 'Källa', sortering: null },
-  { etikett: 'Skapad', sortering: 'skapad' },
+  /** Bara nar kallkolumnen har data. */
+  kalla?: boolean;
+}
+
+const KOLUMNER: Kolumn[] = [
+  { etikett: 'Konto', sortering: 'email' },
+  { etikett: 'Paket', sortering: null },
+  { etikett: 'Gäller till', sortering: null },
+  { etikett: 'Källa', sortering: null, kalla: true },
+  { etikett: 'Skapat', sortering: 'skapad' },
   { etikett: 'Senast aktiv', sortering: 'senast_aktiv' },
   { etikett: 'Brev', sortering: 'brev', tal: true },
   { etikett: 'CV', sortering: 'cv', tal: true },
@@ -57,13 +79,7 @@ const KOLUMNER: Array<{
  * Rubrikcell. Sorterbara kolumner far en chevron i ink-2, aldrig farg:
  * designsystemet sager att sorteringsriktning markeras med form, inte ton.
  */
-function Rubrik({
-  kolumn,
-  filter,
-}: {
-  kolumn: (typeof KOLUMNER)[number];
-  filter: AnvandarFilter;
-}) {
+function Rubrik({ kolumn, filter }: { kolumn: Kolumn; filter: AnvandarFilter }) {
   const stall = kolumn.tal ? 'text-right' : 'text-left';
 
   if (!kolumn.sortering) {
@@ -96,7 +112,7 @@ function Rubrik({
       <Link
         href={href}
         scroll={false}
-        className={`inline-flex items-center gap-1 hover:text-ink-1 ${
+        className={`inline-flex min-h-11 items-center gap-1 hover:text-ink-1 ${
           aktiv ? 'text-ink-1' : ''
         }`}
       >
@@ -109,8 +125,34 @@ function Rubrik({
   );
 }
 
-function Rad({ rad, nu }: { rad: AnvandarRad; nu: number }) {
+/**
+ * "Löpande sedan 24 dec". Startdagen finns bara i Stripe, sa cellen hamtar
+ * den i en egen Suspense-grans och skriver "lopande" under tiden.
+ */
+async function LopandeSedan({
+  etikett,
+  rad,
+}: {
+  etikett: PaketEtikett;
+  rad: AnvandarRad;
+}) {
+  const starter = await hamtaPrenumerationStart();
+  const start = rad.stripe_customer_id ? starter[rad.stripe_customer_id] : null;
+  return <>{gallerTill(etikett, rad, start)}</>;
+}
+
+function Rad({
+  rad,
+  nu,
+  medKalla,
+}: {
+  rad: AnvandarRad;
+  nu: number;
+  medKalla: boolean;
+}) {
+  const etikett = paketEtikett(rad, nu);
   const kalla = lasKalla(rad.acquisition_source);
+  const namn = visningsnamn(rad.full_name, rad.email);
 
   return (
     <tr className="hover:bg-insunken">
@@ -121,17 +163,33 @@ function Rad({ rad, nu }: { rad: AnvandarRad; nu: number }) {
         >
           {rad.email ?? 'utan e-post'}
         </Link>
+        {rad.full_name ? (
+          <span className="mt-0.5 block text-meta text-ink-3">{namn}</span>
+        ) : null}
       </td>
-      <td className="px-4 py-3 text-ink-2">
-        {visningsnamn(rad.full_name, rad.email)}
+      <td className="px-4 py-3 text-ink-1">{etikett.namn}</td>
+      <td className="whitespace-nowrap px-4 py-3 tabular-nums text-ink-2">
+        {etikett.lopande ? (
+          <Suspense fallback={gallerTill(etikett, rad)}>
+            <LopandeSedan etikett={etikett} rad={rad} />
+          </Suspense>
+        ) : (
+          gallerTill(etikett, rad)
+        )}
       </td>
-      <td className="px-4 py-3 text-ink-2">{niva(rad)}</td>
-      <td className="px-4 py-3 text-ink-3">{kalla ?? '–'}</td>
-      <td className="px-4 py-3 tabular-nums text-ink-2">
+      {medKalla ? (
+        <td className="px-4 py-3 text-ink-3">
+          {kalla ??
+            (rad.created_at && rad.created_at < MATSTART.attribution
+              ? 'okänd'
+              : 'ingen')}
+        </td>
+      ) : null}
+      <td className="whitespace-nowrap px-4 py-3 tabular-nums text-ink-2">
         {kortDatum(rad.created_at)}
       </td>
       <td
-        className="px-4 py-3 text-ink-2"
+        className="whitespace-nowrap px-4 py-3 text-ink-2"
         title={rad.last_activity_at ?? undefined}
       >
         {sedan(rad.last_activity_at, nu)}
@@ -156,14 +214,17 @@ export default async function AdminAnvandarePage({
 }) {
   const sp = await searchParams;
   const filter = filterFranSok(sp);
+  const nu = Date.now();
 
   let lista: Awaited<ReturnType<typeof hamtaAnvandare>>;
   let kallor: Awaited<ReturnType<typeof hamtaKallor>>;
+  let oversikt: Awaited<ReturnType<typeof hamtaOversikt>>;
 
   try {
-    [lista, kallor] = await Promise.all([
-      hamtaAnvandare(filter),
+    [lista, kallor, oversikt] = await Promise.all([
+      hamtaAnvandare(filter, nu),
       hamtaKallor(),
+      hamtaOversikt(nu),
     ]);
   } catch (fel) {
     console.error('[admin/anvandare] sidan kunde inte renderas:', fel);
@@ -178,31 +239,46 @@ export default async function AdminAnvandarePage({
     );
   }
 
-  const nu = Date.now();
   const forsta = lista.total === 0 ? 0 : (lista.sida - 1) * SIDSTORLEK + 1;
   const sista = Math.min(lista.sida * SIDSTORLEK, lista.total);
 
   const harFritext = Boolean(filter.sok);
+  const medKalla = visaKalla(kallor.medKalla, kallor.total);
+  const kolumner = KOLUMNER.filter((k) => !k.kalla || medKalla);
+
+  // Sidhuvudet: "328 konton. 1 adminkonto undantagna." Totalen ar alltid
+  // utan undantagna, oavsett vilken grupp som visas.
+  const beskrivning = `${tal(oversikt.antal.alla)} konton. ${undantagText({
+    konton: oversikt.undantagna,
+  })}.`;
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <PageHeader
-        title="Användare"
-        description="Alla konton med aktivitetsräknare. Klicka på en e-post för tidslinjen."
+      <PageHeader title="Användare" description={beskrivning} />
+
+      <Filter
+        kallor={kallor.kallor}
+        utanKalla={kallor.utanKalla}
+        visaKalla={medKalla}
+        antal={oversikt.antal}
       />
 
-      <Filter kallor={kallor.kallor} utanKalla={kallor.utanKalla} />
-
       <section>
-        <div className="mb-2 flex items-center justify-between gap-4">
+        <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h2 className="text-sm font-medium text-ink-3">
             {lista.total > 0
               ? `${tal(forsta)} till ${tal(sista)} av ${tal(lista.total)}`
               : 'Inga träffar'}
           </h2>
-          {kallor.utanKalla === kallor.total && kallor.total > 0 ? (
+          {filter.grupp === 'undantagna' ? (
             <p className="text-meta text-ink-3">
-              Känt mätfel: anskaffningskälla saknas på samtliga konton.
+              Adminkonton och testkonton räknas inte i någon total på adminen.
+            </p>
+          ) : !medKalla ? (
+            <p className="text-meta text-ink-3">
+              Källa visas när minst en tiondel av kontona har den. I dag{' '}
+              {tal(kallor.medKalla)} av {tal(kallor.total)}, mäts från{' '}
+              {tidKort(MATSTART.attribution)}.
             </p>
           ) : null}
         </div>
@@ -223,17 +299,17 @@ export default async function AdminAnvandarePage({
           />
         ) : (
           <div className="overflow-x-auto rounded-xl border border-kant bg-panel">
-            <table className="w-full min-w-[900px] text-sm">
+            <table className="w-full min-w-[820px] text-sm">
               <thead className="border-b border-kant text-sm font-medium text-ink-3">
                 <tr>
-                  {KOLUMNER.map((k) => (
+                  {kolumner.map((k) => (
                     <Rubrik key={k.etikett} kolumn={k} filter={filter} />
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-kant">
                 {lista.rader.map((rad) => (
-                  <Rad key={rad.id} rad={rad} nu={nu} />
+                  <Rad key={rad.id} rad={rad} nu={nu} medKalla={medKalla} />
                 ))}
               </tbody>
             </table>
@@ -248,7 +324,7 @@ export default async function AdminAnvandarePage({
             {lista.sida > 1 ? (
               <Link
                 href={`/admin/anvandare${sokFranFilter({ ...filter, sida: lista.sida - 1 })}`}
-                className={LANK}
+                className={`${LANK} inline-flex min-h-11 items-center`}
               >
                 Föregående
               </Link>
@@ -263,7 +339,7 @@ export default async function AdminAnvandarePage({
             {lista.sida < lista.antalSidor ? (
               <Link
                 href={`/admin/anvandare${sokFranFilter({ ...filter, sida: lista.sida + 1 })}`}
-                className={LANK}
+                className={`${LANK} inline-flex min-h-11 items-center`}
               >
                 Nästa
               </Link>

@@ -52,6 +52,10 @@ function fejkAdmin() {
   const klient = {
     upserts,
     insert,
+    // Undantagen lases forst i collectAdminMetrics. Tom lista i attrappen.
+    rpc() {
+      return Promise.resolve({ data: [], error: null });
+    },
     from(tabell: string) {
       const kedja: Record<string, unknown> = {
         upsert(rader: unknown) {
@@ -75,6 +79,12 @@ function fejkAdmin() {
           return kedja;
         },
         not() {
+          return kedja;
+        },
+        or() {
+          return kedja;
+        },
+        in() {
           return kedja;
         },
         limit() {
