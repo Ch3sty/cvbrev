@@ -31,7 +31,7 @@ export const JOBBMATCHNING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att söka jobb online hos er?',
-    a: 'Ja. Du får 10 matchade jobb per sökning gratis utan att lämna kortuppgifter. Vill du se alla matchande jobb (upp till 300 per sökning) och göra obegränsade sökningar uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+    a: 'Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i Allt-veckan för 99 kr i veckan och i Allt-månaden för 149 kr.',
   },
   {
     q: 'Funkar jobbmatchning för alla yrken?',

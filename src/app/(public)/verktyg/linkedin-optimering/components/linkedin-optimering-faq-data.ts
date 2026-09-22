@@ -40,6 +40,6 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att optimera sin LinkedIn?',
-    a: 'Ja. Du får en gratis optimering i veckan utan att lämna kortuppgifter, och du ser hela resultatet direkt. Behöver du fler optimeringar (till exempel om du tränar flera versioner mot olika roller) uppgraderar du till Premium för 149 kr per månad. Du kan testa Premium gratis i sju dagar.',
+    a: 'Ja. Du får en gratis optimering i veckan utan att lämna kortuppgifter, och du ser hela resultatet direkt. Behöver du fler optimeringar (till exempel om du tränar flera versioner mot olika roller) ingår LinkedIn-optimeringen i Allt-veckan för 99 kr i veckan och i Allt-månaden för 149 kr.',
   },
 ]

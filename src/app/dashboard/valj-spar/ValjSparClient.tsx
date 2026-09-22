@@ -194,7 +194,9 @@ export default function ValjSparClient({
       const res = await fetch('/api/stripe/create-plan-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planKey: paket.key }),
+        // Rutten läser fältet `plan`, inte `planKey`. Skickas fel namn
+        // svarar den 400 "Okänt produktval" och köpet går aldrig igenom.
+        body: JSON.stringify({ plan: paket.key, source: 'onboarding_paket' }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok || !json?.url) throw new Error(json?.error || 'Kassan kunde inte öppnas')

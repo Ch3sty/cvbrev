@@ -391,3 +391,244 @@ till `onWeekStarted`, precis som webhooken gör. Skripten för det ligger som
    på knappt 400 ms. I produktion är sidan cachad ett dygn
    (`reference_vercel_env_saknas`), så talet som gäller är det varma, men
    första besökaren efter en deploy betalar den kalla kostnaden.
+
+---
+
+## saas-lead: avgjort
+
+Granskning av hela releasen 2026-09-22, gren `paket/ny`, commits `3ed58093` och
+`3fc4a360` ovanpå main. Varje öppet beslut i noterna ovan är avgjort här. Det
+som krävde kodändring och var S är gjort i samma omgång. Allt som är M eller
+större står som "Efter släpp" med prioritet, och ingenting av det blockerar
+släpp 1.
+
+### Blockeraren som hittades och åtgärdades
+
+**Kassan gick inte att handla i från skärm 1.2.** `ValjSparClient` postade
+`{ planKey }` till `/api/stripe/create-plan-session`, som läser fältet `plan`.
+Svaret blev 400 "Okänt produktval" på varje köp från onboardingens köpskärm,
+alltså releasens primära köpväg. Alla fem övriga anropsplatser postar `plan`.
+Klicktestet gick grönt därför att `qa-paket-b5.mjs` anropar rutten direkt med
+`plan: 'cv_week'` i stället för att klicka på knappen. Fixat: skärm 1.2 postar
+nu `{ plan, source: 'onboarding_paket' }`.
+
+Lärdomen för nästa QA-omgång: ett klicktest som kringgår knappen och anropar
+API:t själv testar API:t, inte flödet. Köpknappen ska klickas.
+
+### Beslut per öppen punkt
+
+**B1a**
+
+1. *Databastyperna regenererades inte.* **Behåll handhållen fil.** En riktig
+   generering på 170 kB byter form på `interface Database` och träffar varje
+   importör, och det är ett eget arbete utan koppling till paketen. Efter
+   släpp, prio 3: generera i en egen omgång med tsc som grind.
+2. *MRR per paket räknas i gränssnittet.* **Behåll.** Att ett prisbyte slår
+   igenom i historiken är rätt så länge priset aldrig ändrats. Vid första
+   verkliga prisändringen flyttas beräkningen till `collect`. Efter släpp,
+   prio 3, villkorad på en prisändring.
+3. *Allt-dagen räknas per användare.* **Behåll.** Distinkt `user_id` är rätt
+   tal för aktiva, två dagpass samma dygn är en person. Taket på 5000 rader ses
+   över när engångsköpen passerar hundra i månaden.
+4. *`trial_price_shown` och `trial_started` kvar i anropen.* **Avklarat av
+   B3 och B5.** Verifierat: tsc rent, 466 av 466 tester gröna.
+5. *`suggestPlan` föreslår alltid veckan.* **Behåll.** Spåret väljs först och
+   längden efteråt är ägarens beslut 4. Att sälja dygnet vid en spärr vore att
+   sälja den kortaste längden till den som nyss visat köpvilja, alltså vårt
+   sämsta utfall per kund.
+6. *`userHasAccess` gör tre frågor.* **Behåll.** Parallella i ett `Promise.all`,
+   en rundtur. Budgeten hålls: hemskärmen 808 ms.
+
+**B1b**
+
+1. *Fem priser i allowlistan, inte fyra.* **Behåll.** Allt-kvartalet måste gå
+   att sälja via uppgraderingsvägen. Att stänga kvartalet för nya kunder är
+   ägarens beslut och hör hemma i `PLANS`.
+2. *Uppgradering bara spår till Allt-veckan.* **Behåll.** Nedgradering och
+   spårbyte i sidled via portalen är rätt: kunden ska se vad hon tappar.
+3. *Eget price-id till Allt-veckan.* **Behåll.** Samma pris, annan produkt.
+4. *Success-url pekar på `VECKA_START_PATH`.* **Behåll.**
+5. *Allowlist på env ger 400 vid glömd env-rad.* **Behåll, men bevaka.** De tre
+   veckoraderna ska verifieras i Vercel före släpp, annars är veckopaketen
+   osäljbara utan att prissidan visar det. Ligger i gå-live-checklistan.
+6. *`priceIdToPlanKey` jämför mot env vid varje anrop.* **Behåll.** Ingen cache.
+7. *`premium_scope` skrivs bara av prenumerationsgrenen.* **Behåll.** Det är
+   planens överlappsregel, och `premiumAccess.ts` följer den rad för rad.
+8. *`subscription_paid` ur `invoice.payment_succeeded`.* **Behåll.** Rätt tal
+   att summera. Noten om att prorationsbeloppet inte är ett pris ska stå i
+   adminens intäktsvy. Efter släpp, prio 3.
+9. *`/api/trial/signup` och `/trial-signup` står kvar.* Se samlat beslut om
+   trialresterna nedan.
+10. *`TRIAL_PRICE_FROM` kvar.* **Avklarat av B5.** Filen är minimerad till
+    `isTrialSource`, som tre vyer behöver under avvecklingen.
+11. *Prissidans kortrad med sex kort.* **Avklarat.** B4 byggde om sidan med
+    spårval och längdval.
+12. *`installningar/data.ts` hoppar över intervallkollen för veckorna.*
+    **Behåll.** Hellre ingen kontroll än en felräknad. Efter släpp, prio 3:
+    låt fältet bära enhet i stället för månader.
+
+**B3**
+
+1. *Rutten heter `/dashboard/valj-spar`.* **Behåll.** Adressen är inte ett
+   säljargument.
+2. *1.1, 1.2 och 1.1b som steg på samma adress.* **Behåll.** Tillbaka ska gå
+   till föregående steg.
+3. *D1 till D11 skrivna i `program.ts`.* **Behåll.** Strängarna ligger på ett
+   ställe, märkta med sina D-id.
+4. *Börja gratis staplad under primären.* **Behåll.** Fas 2D tillåter det
+   uttryckligen och båda knapparna syns utan scroll.
+5. *`FelSpar` bär egen copy.* **Behåll.** Kortet är en uppgradering, inte en
+   spärr, och `PaywallCard` ska förbli en ren vy.
+6. *`PaywallCard` rördes på en rad.* **Behåll.**
+7. *Spårfrågan använder databas plus localStorage.* **Behåll.** Värsta utfallet
+   är att raden syns en gång till på en annan enhet.
+8. *`week_progress_day` flyttas bara framåt.* **Behåll.** Dagnumret följer
+   framsteg, inte kalendern, precis som avsnitt 6 säger.
+9. *Veckans scope räknas om i `getSummary`.* **Behåll, med villkor.** Två
+   kopior av samma regel är en framtida glidning. Villkoret: kommentaren som
+   pekar på `premiumAccess.ts` får aldrig tas bort, och ändras reglerna ändras
+   båda i samma commit. Efter släpp, prio 2: ett delat rent predikat som båda
+   importerar, utan extra rundturer.
+10. *Dag 7:s tredje tal.* **Avklarat av B5**, läser `formatted_cv_downloads`.
+11. *T40 säger 5 MB.* **Behåll.** Strängen följer koden.
+12. *Allt-dagen kör inget veckoprogram.* **Avklarat av B5** med `DagpassRad`.
+13. *Kvitteringen är en manuell knapp.* **Behåll till släpp 2.** Automatisk
+    kvittering kräver att varje dags målsida rapporterar tillbaka. Efter
+    släpp, prio 2, och den hör hemma i släpp 2 med veckoprogrammet.
+14. *`trial.ts` kan tas bort.* **Avklarat av B5.**
+
+**B5**
+
+1. *Verbalprovet har egen nedräkning.* **Behåll.** Beteendet är rätt och
+   serverspärren är gemensam. Efter släpp, prio 3: slå ihop mot
+   `use-exam-deadline`.
+2. *Aggregaten räknas på hela serien även gratis.* **Behåll.** Talen är
+   summeringar och köpskälet. Ingressen säger redan rakt ut att gratisnivån ser
+   sitt senaste försök och att hela serien ingår i Testveckan, så vi döljer
+   ingenting vi påstår något annat om.
+3. *`dayPassOnly` känner igen dagpasset på frånvaron av prenumeration.*
+   **Ändra, efter släpp, prio 2.** En admintilldelad vecka ser i dag ut som ett
+   dagpass på hemskärmen. Konsekvensen är liten men den är fel, och rätt
+   lösning är att `premium_grants.source` följer med in i summeringen. Rör bara
+   konton som admin gett premium, alltså i praktiken ägaren och QA.
+4. *`/api/trial/signup` och `/trial-signup` kvar.* Se nedan.
+5. *`qa-b3b-paket@jobbcoach.test` kvar i databasen.* **Ändra, före släpp.**
+   Ligger i gå-live-checklistan: kontot och dess sju schemalagda `cv_day`-mejl
+   raderas innan släpp 1 går live.
+6. *Prissidans kalla laddning 1596 ms.* **Behåll.** Publika sidor cacheas ett
+   dygn, det varma talet på knappt 400 ms är det som gäller i produktion.
+
+### Samlat beslut om trialresterna
+
+**Efter släpp, prio 1.** Tre saker lever fortfarande och delar ut gratis
+premium som ägarens beslut 3 tar bort:
+
+- `/trial-signup` med `/api/trial/signup` och `/api/stripe/create-trial-session`.
+  Inga länkar i gränssnittet pekar dit längre, men sidan är byggd, nåbar på
+  direktlänk och inte blockerad i `robots.ts`. Dessutom länkar
+  `/api/email/send-trial-reminder` dit.
+- `/api/guest/invite` och `/api/guest/accept` ger sju dagars premium till både
+  gäst och inbjudare. Enda vägarna in är `/dashboard/invite-friends` och
+  `/dashboard/gastinbjudningar`, som ingen meny länkar till. Rutten
+  `/invite/[code]` och `GuestWelcomeLanding` är däremot fullt levande, och
+  `confirm-email` redirectar dit.
+- `src/components/ui/navbar.tsx` är död kod med en knapp till invite-friends.
+
+Ingen av dem är nåbar för en vanlig användare, så de blockerar inte släppet.
+Men de är kvar som en öppen kran, och de ska stängas i en egen omgång: antingen
+raderas gästinbjudningarna helt, eller så byter de valuta från premiumdagar
+till något som inte ger bort ett paket. Det är ägarens val, och det kräver ett
+beslut om vi vill ha en värvningsmekanik alls.
+
+### Osanna löften som rättades i den här granskningen
+
+Ägarens sanningskrav: vi säger ingenting som koden inte backar. Tio publika och
+indexerade ytor lovade fortfarande gamla kvoter eller en trial som inte finns.
+Alla rättade:
+
+| Fil | Lovade | Säger nu |
+|---|---|---|
+| `priser/opengraph-image.tsx` | 7 dagars provperiod utan kortuppgifter | Spåret och veckan, från 79 kr. Detta var prissidans sociala förstavy |
+| `om-oss/components/OmOssPrinciper.tsx` | 149 kr i månaden med sju dagars provperiod | Spåren och veckopriserna |
+| `jobbcoachen-faq-data.ts` | 5 frågor gratis, plus trial | Tio meddelanden per konto, Allt-veckan |
+| `jobbmatchning-faq-data.ts` | 10 matchade jobb per sökning, plus trial | Tre fulla träffar, Allt-veckan |
+| `linkedin-optimering-faq-data.ts` | Trial | Allt-veckan och Allt-månaden |
+| `rekryteringstester-faq-data.ts` | Trial | Testveckan, med nivåerna och provläget |
+| `verktyg/jobbcoachen/page.tsx` | 10 meddelanden gratis per dag i schemat | Per konto |
+| `verktyg/jobbmatchning/page.tsx` | 10 matchade jobb per sökning i schemat | Tre fulla träffar |
+| `BrevResultatBevis.tsx` | 2 brev gratis varje dag | Ett brev, sedan ett i veckan |
+| `exempel-data.ts` | Ett brev om dagen och en analys var tredje dag | Första brevet och analysen |
+
+Copyn ovan är skriven som minsta möjliga sanningsrättelse, inte som slutcopy.
+Den ska passera copywritern i en egen omgång, tillsammans med resten av den
+publika texten som ärver paketens ord. Efter släpp, prio 2.
+
+### Kassans lagkrav, avsnitt 8: verifierat
+
+Skärm 1.2 i `ValjSparClient`, kontrollerad i koden och på bild 03 till 05 i
+`docs/qa/qa-paket-b3/`. Alla rader ligger på samma skärm som köpknappen:
+
+- Priset i kronor inklusive moms, i knappen och i kortets huvud: "Betala 99 kr".
+- Förnyelseraden med intervallet utskrivet: "Förnyas var sjunde dag tills du
+  säger upp".
+- Nästa dragningsdatum, konkret datum och inte ett antal dagar: "Nästa dragning
+  29 september".
+- Uppsägning: "Säg upp när som helst i ditt konto, utan skäl", och uppsägningen
+  sker i portalen från prenumerationssidan, alltså lika enkelt som köpet och
+  utan mail eller samtal. Verifierat i `docs/qa/qa-paket-b4/resultat.txt`: Säg
+  upp är synlig utan att något öppnas på båda spårkontona och på Allt.
+- Vad som ingår, fyra punkter, och för spårpaketen vad som inte ingår.
+- Ångerrättssamtycket som kryssruta: "Starta direkt. Jag förstår att ångerrätten
+  på fjorton dagar inte gäller när innehållet påbörjats", med hjälptexten som
+  säger vad som händer om man låter bli att kryssa. Köpknappen är spärrad tills
+  krysset är i, verifierat i klicktestet.
+- Kvittoraden: "Kvittot skickas till din e-post direkt efter betalningen".
+- Allt-dagen får sluttidsrad i stället för dragningsdatum, enligt avsnitt 8:s
+  sista stycke, och dagläget säger "förnyas inte" (B4:s körning).
+
+**En avvikelse, och den ska åtgärdas.** Avsnitt 8 kräver att samtycket
+dokumenteras med tidsstämpel, eftersom ångerrättsundantaget bara gäller om
+samtycket går att belägga. I dag lever krysset bara i klientens `useState` och
+följer inte med till `create-plan-session`. Vi har alltså samtycket i
+gränssnittet men inte i handlingarna. **Ändra, före släpp om det hinns med,
+annars omedelbart efter.** Minsta lösning: skicka med `consent: true` i kroppen,
+låt rutten lägga `angerratt_samtycke_at` i Stripe-metadata och skriva samma
+tidsstämpel på profilen i webhooken. Jag har inte byggt det här, eftersom det
+rör betalvägen och ska testas mot en riktig checkout, inte mot en 400.
+
+### Kvar att bevaka, inte åtgärda
+
+- **Prissidan på mobil scrollar i sidled** och har 33 träffytor under 44 px
+  (`docs/qa/qa-paket-b4/resultat.txt`). Desktop har 41 under 44 px men ingen
+  sidoscroll. Båda bryter mot designsystemets mobilregler. Ingen hindrar ett
+  köp, så de stoppar inte släppet. Efter släpp, prio 2, ihop med den publika
+  designomgången som ändå väntar.
+- **B5:s bild 12, felspar-mallar, visar ingen FelSpar.** Den är identisk med
+  bild 9 och visar mallsidans tomma tillstånd, eftersom QA-kontot saknade CV.
+  Spärren är belagd serverside (402 `cv_templates_all`) och i
+  `FelSpar.test.tsx`, så funktionen är verifierad, men den visuella kontrollen
+  av FelSpar i mallvyn är inte gjord. Bild 13 visar däremot FelSpar på
+  prenumerationssidan korrekt, med mellanskillnaden plus 20 kr.
+- **Cookiebanderollen ligger över fotens knappar** på varje mobilskärmdump i
+  B3 och B5. Primärknappen når inte fram förrän banderollen är besvarad. Felet
+  är äldre än den här releasen och träffar hela appen, men det träffar nu också
+  köpknappen på skärm 1.2. Efter släpp, prio 1.
+
+### Kontroller som gick igenom utan anmärkning
+
+- Ägarens konto läses som `allt`: `super_admin` i `admin_users`, och dessutom
+  `subscription_tier = premium` med `premium_scope = allt`. Admin kortsluts
+  före allt annat i `lasBehorighet`, så adminvyerna påverkas inte av paketen.
+- Migrationerna är applicerade i produktionsdatabasen: `profiles.premium_scope`,
+  `onboarding_track`, `onboarding_track_asked_at`, `week_progress_day`,
+  `weekly_letter_count`, `weekly_letter_first_used_at`, `free_cv_exports_used`,
+  `premium_grants.scope` (not null) och `source`, samt sex kolumner
+  `active_cv_week`, `active_test_week`, `active_all_day`, `active_all_week`,
+  `active_all_month`, `active_all_quarter` i `admin_daily_metrics`.
+- Reverse trial är av för nya konton. Nio kvarvarande trialkonton löper ut
+  27 september, alltså av sig själva, precis som ägarens beslut 3 säger.
+- Nedgraderingen i `pricing-sync` nollar `premium_scope` tillsammans med tier.
+- Alla sex paketnamn står i bestämd form i `PLANS`, med rätt scope och rätt
+  `mode` (Allt-dagen `payment`, övriga `subscription`).
+- `npx tsc --noEmit` rent. `npx vitest run`: 466 av 466 gröna i 37 filer, både
+  före och efter mina ändringar.
