@@ -463,6 +463,7 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
 
   // Debiteringar for dygnet, ocksa paginerat.
   let revenue_ore = 0;
+  let onetime_paying = 0; // engangskop (Allt-dagen) har ingen faktura och ingen prenumeration
   let failed_payments = 0;
   for await (const charge of stripe.charges.list({
     created: { gte: fran, lt: till },
@@ -471,6 +472,7 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
     const c = charge as Stripe.Charge;
     if (c.paid && c.status === 'succeeded') {
       revenue_ore += c.amount - (c.amount_refunded ?? 0);
+      if (!c.invoice) onetime_paying += 1;
     }
     if (c.status === 'failed' || c.failure_code) {
       failed_payments += 1;
@@ -480,7 +482,7 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
   return {
     mrr_ore,
     revenue_ore,
-    new_paying,
+    new_paying: new_paying + onetime_paying,
     churned,
     active_subs,
     trialing_subs,
