@@ -90,8 +90,7 @@ export interface Profile {
   weekly_linkedin_reset_at?: string;
   weekly_linkedin_first_used_at?: string;
 
-  // Premium gästinbjudningar
-  guest_invitations_remaining?: number;
+  // Premium
   premium_until?: string;
   premium_source?: string | null;
 

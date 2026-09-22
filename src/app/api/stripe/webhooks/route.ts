@@ -15,8 +15,6 @@ import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
 import { scopeFromSubscription } from '@/lib/stripe/subscriptionScope';
 import type { Database } from '@/types/database.types';
 import {
-  onTrialStarted,
-  onTrialWillEnd,
   onPaymentFailed,
   onSubscriptionDeleted,
   onWeekStarted,
@@ -203,152 +201,6 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
      return { userId: userId as string, scope: subscriptionData.premium_scope as PlanScope | null };
 };
 
-// Funktion för att hantera referral-konverteringar
-const handleReferralConversion = async (customerId: string) => {
-    const supabaseAdmin = getSupabaseAdmin() as any;
-    console.log(`Checking for referral conversion for customer ${customerId}`);
-
-    try {
-        // Find the user by Stripe customer ID
-        const { data: newCustomer, error: customerError } = await supabaseAdmin
-            .from('profiles')
-            .select('id, email')
-            .eq('stripe_customer_id', customerId)
-            .single();
-
-        if (customerError || !newCustomer) {
-            console.log('No user found for customer ID');
-            return;
-        }
-
-        // Check if this user accepted an invitation
-        const { data: invitation } = await supabaseAdmin
-            .from('guest_invitations')
-            .select('*')
-            .eq('guest_user_id', newCustomer.id)
-            .eq('status', 'accepted')
-            .is('converted_at', null)
-            .single();
-
-        if (!invitation) {
-            console.log('No pending referral found for this user');
-            return;
-        }
-
-        console.log(`Found referral: User ${newCustomer.id} was invited by ${invitation.inviter_id}`);
-
-        // Mark invitation as converted
-        await supabaseAdmin
-            .from('guest_invitations')
-            .update({
-                converted_at: new Date().toISOString(),
-                reward_granted: false // Will be set to true after granting rewards
-            })
-            .eq('id', invitation.id);
-
-        // XP togs bort i omdesignen (docs/plan-inloggat-omdesign.md, våg 2
-        // punkt 21). Premiumdagarna nedan är hela referral-belöningen.
-
-        // Grant 7 days premium to inviter by extending their Stripe trial
-        const { data: inviterProfile, error: inviterError } = await supabaseAdmin
-            .from('profiles')
-            .select('id, subscription_id, subscription_status, stripe_customer_id')
-            .eq('id', invitation.inviter_id)
-            .single();
-
-        if (!inviterError && inviterProfile) {
-            try {
-                // Check if inviter has an active Stripe subscription
-                if (inviterProfile.subscription_id) {
-                    console.log(`Processing referral reward for inviter ${invitation.inviter_id}, subscription ${inviterProfile.subscription_id}`);
-
-                    // Retrieve the current subscription from Stripe
-                    const subscription = await stripe.subscriptions.retrieve(inviterProfile.subscription_id);
-
-                    // Different handling for trial vs active paying customers
-                    if (subscription.status === 'trialing' && subscription.trial_end) {
-                        // User is on trial - extend trial period
-                        const currentTrialEnd = subscription.trial_end;
-                        const newTrialEnd = currentTrialEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
-
-                        await stripe.subscriptions.update(inviterProfile.subscription_id, {
-                            trial_end: newTrialEnd,
-                            proration_behavior: 'none'
-                        });
-
-                        console.log(`Extended trial from ${new Date(currentTrialEnd * 1000).toISOString()} to ${new Date(newTrialEnd * 1000).toISOString()}`);
-                    } else if (subscription.status === 'active') {
-                        // User is paying customer - extend their billing cycle by 7 days
-                        // This delays the next payment by 7 days (e.g., 10 days left → 17 days left)
-                        const currentPeriodEnd = subscription.current_period_end;
-                        const newPeriodEnd = currentPeriodEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
-
-                        await stripe.subscriptions.update(inviterProfile.subscription_id, {
-                            trial_end: newPeriodEnd,
-                            proration_behavior: 'none'
-                        });
-
-                        console.log(`Extended billing cycle from ${new Date(currentPeriodEnd * 1000).toISOString()} to ${new Date(newPeriodEnd * 1000).toISOString()} for paying customer ${invitation.inviter_id}`);
-                    } else {
-                        console.log(`Subscription status ${subscription.status} - no action taken`);
-                    }
-                } else if (inviterProfile.stripe_customer_id) {
-                    // Inviter has no active subscription but has a Stripe customer ID
-                    // Create a new trial subscription for them
-                    console.log(`Creating new trial subscription for inviter ${invitation.inviter_id}`);
-
-                    const priceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID;
-                    if (!priceId) {
-                        throw new Error('Missing STRIPE_PRICE_ID environment variable');
-                    }
-
-                    await stripe.subscriptions.create({
-                        customer: inviterProfile.stripe_customer_id,
-                        items: [{ price: priceId }],
-                        trial_period_days: 7,
-                        payment_behavior: 'default_incomplete',
-                        payment_settings: {
-                            save_default_payment_method: 'on_subscription'
-                        }
-                    });
-
-                    console.log(`Created new 7-day trial subscription for inviter ${invitation.inviter_id}`);
-                } else {
-                    // Fallback: No Stripe integration, use old premium_until method
-                    console.log(`Inviter has no Stripe subscription, using fallback premium_until method`);
-                    const inviterPremiumEndDate = new Date();
-                    inviterPremiumEndDate.setDate(inviterPremiumEndDate.getDate() + 7);
-
-                    await supabaseAdmin
-                        .from('profiles')
-                        .update({
-                            premium_until: inviterPremiumEndDate.toISOString(),
-                            premium_source: 'referral'
-                        })
-                        .eq('id', invitation.inviter_id);
-                }
-
-                // Mark reward as granted
-                await supabaseAdmin
-                    .from('guest_invitations')
-                    .update({ reward_granted: true })
-                    .eq('id', invitation.id);
-
-                console.log(`Granted 7 days premium to inviter ${invitation.inviter_id}`);
-
-            } catch (premiumError) {
-                console.error('Failed to grant premium to inviter:', premiumError);
-                // Still mark as converted even if premium grant fails
-            }
-        }
-
-        console.log(`Referral conversion completed for invitation ${invitation.id}`);
-
-    } catch (error) {
-        console.error('Error handling referral conversion:', error);
-    }
-};
-
 // Exportera ENDAST POST-metoden för att hantera inkommande webhooks
 export async function POST(request: Request) {
   console.log("Webhook POST request received.");
@@ -409,14 +261,6 @@ export async function POST(request: Request) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  await updateUserSubscription(customerId, fullSubscription);
 
-                 // Check if this is a referral conversion
-                 await handleReferralConversion(customerId);
-
-                 // Spår D: kortkrävande trial ersätter reverse trial-sekvensen.
-                 if (fullSubscription.status === 'trialing') {
-                     const userId = await userIdForCustomer(customerId);
-                     if (userId) await onTrialStarted(getSupabaseAdmin() as any, userId);
-                 }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'customer.subscription.updated':
@@ -444,14 +288,6 @@ export async function POST(request: Request) {
                  if (uppdaterad?.userId && !uppdaterad.scope) {
                      await onWeekEnded(getSupabaseAdmin() as any, uppdaterad.userId);
                  }
-             } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
-             break;
-        case 'customer.subscription.trial_will_end':
-             // Spår D: ärlig förvarning om debiteringen (trial_day5).
-             console.log(`Handling subscription event: ${event.type}`);
-             if (customerId) {
-                 const userId = await userIdForCustomer(customerId);
-                 if (userId) await onTrialWillEnd(getSupabaseAdmin() as any, userId);
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'invoice.payment_succeeded':
@@ -579,56 +415,7 @@ export async function POST(request: Request) {
                break;
              }
              // === SLUT SPÅR A ===
-
-             // Hantera ny Moz-stil signup flow
-             if (eventData.metadata?.signupFlow === 'moz-style' && eventData.metadata?.isNewUser === 'true') {
-               const userId = eventData.metadata.userId
-               const userEmail = eventData.metadata.email
-
-               if (userId && userEmail) {
-                 console.log(`[TRIAL WEBHOOK MOZ] Processing new signup for user: ${userId}`)
-
-                 try {
-                   const supabaseAdmin = getSupabaseAdmin() as any
-
-                   // Update user metadata to mark signup as complete
-                   await supabaseAdmin.auth.admin.updateUserById(userId, {
-                     user_metadata: {
-                       signup_incomplete: false,
-                       trial_started_at: new Date().toISOString()
-                     }
-                   })
-
-                   console.log(`[TRIAL WEBHOOK MOZ] User metadata updated for: ${userId}`)
-
-                   // Skicka välkomst-email (utan login-länk since user auto-logs in)
-                   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
-
-                   try {
-                     const emailResponse = await fetch(`${baseUrl}/api/email/send-trial-welcome-moz`, {
-                       method: 'POST',
-                       headers: { 'Content-Type': 'application/json' },
-                       body: JSON.stringify({
-                         email: userEmail,
-                         userId
-                       })
-                     })
-
-                     if (emailResponse.ok) {
-                       console.log(`[TRIAL WEBHOOK MOZ] Welcome email sent to: ${userEmail}`)
-                     } else {
-                       console.error('[TRIAL WEBHOOK MOZ] Failed to send welcome email:', await emailResponse.text())
-                     }
-                   } catch (emailError) {
-                     console.error('[TRIAL WEBHOOK MOZ] Error sending welcome email:', emailError)
-                   }
-                 } catch (error) {
-                   console.error('[TRIAL WEBHOOK MOZ] Error in moz-style trial handler:', error)
-                 }
-               }
-             }
-             // Hantera uppgraderingar från befintliga användare
-             else if (eventData.metadata?.upgradeFlow === 'existing-user-upgrade' && customerId && relevantSubscriptionId) {
+             if (eventData.metadata?.upgradeFlow === 'existing-user-upgrade' && customerId && relevantSubscriptionId) {
                console.log(`[UPGRADE WEBHOOK] Processing upgrade for customer: ${customerId}`)
 
                try {
@@ -638,8 +425,6 @@ export async function POST(request: Request) {
                  // Uppdatera subscription_tier baserat på Stripe status (active = premium)
                  await updateUserSubscription(customerId, fullSubscription);
 
-                 // Check if this is a referral conversion
-                 await handleReferralConversion(customerId);
 
                  console.log(`[UPGRADE WEBHOOK] Subscription updated successfully for customer: ${customerId}`)
                } catch (error) {

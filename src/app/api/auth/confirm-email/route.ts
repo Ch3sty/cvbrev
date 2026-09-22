@@ -18,7 +18,6 @@ export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url)
     const token = url.searchParams.get('token')
-    const inviteCode = url.searchParams.get('invite')
 
     if (!token) {
       return NextResponse.redirect(
@@ -98,18 +97,10 @@ export async function GET(request: NextRequest) {
       .delete()
       .eq('token', token)
 
-    // Redirect based on whether this was an invitation
-    if (confirmation.is_invitation && confirmation.invitation_code) {
-      // Redirect to invitation page with success message
-      return NextResponse.redirect(
-        new URL(`/invite/${confirmation.invitation_code}?confirmed=true`, request.url)
-      )
-    } else {
-      // Regular registration - redirect to login with success
-      return NextResponse.redirect(
-        new URL('/login?confirmed=true', request.url)
-      )
-    }
+    // Registrering klar, tillbaka till inloggningen.
+    return NextResponse.redirect(
+      new URL('/login?confirmed=true', request.url)
+    )
 
   } catch (error) {
     console.error('Unexpected error in confirm-email:', error)

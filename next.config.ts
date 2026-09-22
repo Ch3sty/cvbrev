@@ -118,6 +118,14 @@ const nextConfig: NextConfig = {
         destination: 'https://www.jobbcoach.ai/:path*',
         permanent: true,
       },
+      // Gästinbjudningarna och den kortkrävande provperioden är borttagna
+      // (ägarens beslut 2026-09-22). Adresserna levde i mejl och externa
+      // länkar, så de pekas om till prissidan i stället för att ge 404.
+      { source: '/invite/:code', destination: '/priser', permanent: true },
+      { source: '/trial-signup', destination: '/priser', permanent: true },
+      { source: '/trial-signup/:path*', destination: '/priser', permanent: true },
+      { source: '/dashboard/gastinbjudningar', destination: '/priser', permanent: true },
+      { source: '/dashboard/invite-friends', destination: '/priser', permanent: true },
       // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
       // Åtgärdar "Not found (404)" i Search Console.
       ...[

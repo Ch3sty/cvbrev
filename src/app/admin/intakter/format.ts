@@ -171,6 +171,10 @@ export function planstegFranPris(
     if (prisId === env('STRIPE_PRICE_DAYPASS')) return 'daypass';
     if (prisId === env('STRIPE_PRICE_WEEK')) return 'week';
     if (prisId === env('STRIPE_PRICE_QUARTER')) return 'quarter';
+    // STRIPE_TRIAL_PRICE_ID står kvar trots att den kortkrävande provperioden
+    // är borttagen (B7). Priset ligger kvar på gamla fakturor, och utan raden
+    // hamnar historisk intäkt under 'ovrigt' i stället för Månad. Den läses
+    // bara här, aldrig för att sälja något.
     if (
       prisId === env('NEXT_PUBLIC_STRIPE_PRICE_ID') ||
       prisId === env('STRIPE_PRICE_ID') ||

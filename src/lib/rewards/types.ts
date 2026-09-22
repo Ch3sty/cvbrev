@@ -6,7 +6,7 @@
 
 export type UserType = 'free' | 'temporary_premium' | 'trial_premium' | 'paid_premium';
 
-export type RewardType = 'trial' | 'premium_time' | 'discount' | 'guest_invitations';
+export type RewardType = 'trial' | 'premium_time' | 'discount';
 
 export interface UserClassification {
   type: UserType;
@@ -51,8 +51,7 @@ export interface PremiumReward {
     duration_days?: number;
     percentage?: number;
     discount_type?: string;
-    features?: string[];
-    bonus_invitations_per_month?: number;
+    features?: string[];
   };
   milestone_level?: number;
   trigger_value?: number; // Level milestone value

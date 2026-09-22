@@ -744,3 +744,142 @@ visar båda samtidigt.
 
 ## Dirigentens beslut efter B6
 - Alla köpvägar går via köpsteget /dashboard/valj-spar?paket= så samtycket alltid dokumenteras. Ett klick till är rätt pris för ett giltigt ångerrättsundantag.
+
+---
+
+## B7
+
+Gästinbjudningarna och den kortkrävande provperioden rensade. Byggt
+2026-09-22 på grenen `paket/rensning`, ägarens beslut samma dag. Saas-leads
+prio 1 bland trialresterna är därmed stängd: kranen är inte strypt, den är
+borta.
+
+### Vad som kontrollerades innan något revs
+
+Två frågor avgjorde hur mycket som kunde tas bort, och båda mättes i stället
+för att antas.
+
+**Stripe: noll prenumerationer med status `trialing`.** Ingen kund står i en
+provperiod just nu, alltså kunde skapandet *och* hanteringen av status gå i
+samma omgång. Hade det funnits en enda hade `updateUserSubscription` behållit
+sin `['active','trialing']`-rad och bara skapandet fallit. Raden står för
+övrigt kvar ändå: den kostar ingenting och gör webhooken rätt om ett gammalt
+abonnemang skulle vakna.
+
+**Databasen: en enda profil bär gästpremie, och den gick ut för snart ett
+år sedan.** `premium_source in ('guest_invitation','referral','guest','invite')`
+ger en rad, med `premium_until` 2025-09-30. Ingen levande användare förlorar
+premium på rensningen, och ingen rad är ändrad. Tabellerna
+(`guest_invitations` med flera) ligger kvar orörda med sin data, precis som
+uppdraget sa. Skillnaden är att ingenting i koden skriver till dem längre.
+
+### Trettio filer borta
+
+Gästsidan i sin helhet: `/dashboard/gastinbjudningar`, `/dashboard/invite-friends`,
+`/invite/[code]`, `/api/guest/*` (accept, allowance, invite), `/api/invitations`,
+`src/components/guest-invitations/*`, `GuestInvitationCard`, `GuestWelcomeLanding`,
+`GuestInvitationButton` och `invitation-email-generator`.
+
+Provperioden i sin helhet: `/trial-signup` med sin return-sida,
+`/api/trial/signup`, `/api/stripe/create-trial-session`,
+`/api/stripe/create-trial-upgrade-session`, `/api/email/send-trial-reminder`,
+`/api/email/send-trial-welcome-moz`, mallarna `trial-reminder` och
+`trial-welcome-moz` samt hela `src/components/trial/`.
+
+Två filer föll som följd och är värda att nämna för sig:
+
+- **`src/components/ui/navbar.tsx`** var redan död kod, utan en enda importör,
+  och bar knappen till invite-friends. Saas-leads not pekade ut den.
+- **`/api/auth/verify-login-token`** blev död i samma stund som trial-sidorna
+  försvann. Den hade exakt två anropare, `trial-signup/return` och
+  `PaymentProcessing`, och båda är raderade. Rutten loggade in en användare mot
+  en token i `login_tokens`, alltså en inloggningsväg förbi lösenordet.
+  Ingenting skriver längre till den tabellen. Att lämna kvar en sådan rutt utan
+  anropare hade varit en öppen dörr utan dörrhandtag, inte en ofarlig rest.
+
+### Webhooken: tre grenar ur, ingen status rörd
+
+- **`handleReferralConversion` är borta i sin helhet** (7 kB). Den var enda
+  stället som skrev till `guest_invitations` från betalflödet, och den
+  *skapade nya prenumerationer med `trial_period_days: 7`* åt inbjudaren.
+  Båda anropsplatserna, `customer.subscription.created` och
+  uppgraderingsgrenen, är rensade.
+- **Moz-grenen i `checkout.session.completed` är borta.** Den matade på
+  `metadata.signupFlow === 'moz-style'`, vilket bara `/api/trial/signup` satte.
+  Dess `else if` för uppgraderingar blev ett fristående `if` i samma ändring.
+- **`customer.subscription.trial_will_end` är borta**, och med den
+  `onTrialWillEnd` och mejlet `trial_day5`. Eventet kan inte längre inträffa:
+  ingenting skapar en prenumeration med provperiod.
+
+Med `onTrialStarted` borta blev `trial_day3` och `trial_day7` oschemalagda av
+allt, så de tre trial-mallarna togs ur `conversion.ts` och `registry.ts`
+tillsammans.
+
+### Redirects, 308
+
+Fem i `next.config.ts`, alla `permanent: true` (Next svarar 308):
+`/invite/:code`, `/trial-signup`, `/trial-signup/:path*`,
+`/dashboard/gastinbjudningar` och `/dashboard/invite-friends` → `/priser`.
+
+De två sista stod inte i uppdraget men hör hit: `/dashboard/invite-friends`
+låg i navbaren och i saas-leads not, och `/trial-signup/:path*` fångar
+return-sidan, som Stripe pekade tillbaka till efter en betalning. En kund med
+den adressen i sin mejlkorg ska se prissidan, inte en 404.
+
+### Öppna beslut
+
+1. **`src/lib/premium/trial.ts` står kvar, och det är rätt.** Uppdraget sa
+   "om ingen läsare kvar". Det finns tre: `ProfilKomplettering`,
+   `DowngradedNotice` och `TestResultBridgeContainer`. De känner igen *reverse
+   trial*, alltså `premium_source` `signup_trial`/`oauth_signup_trial`, som är
+   en annan sak än den kortkrävande trial som revs här. Filen är redan
+   minimerad av B5 till `TRIAL_SOURCES` och `isTrialSource`. Den kan raderas
+   när det sista reverse trial-kontot löpt ut, vilket enligt saas-leads
+   granskning sker 27 september.
+2. **`STRIPE_TRIAL_PRICE_ID` läses fortfarande på ett ställe**, i
+   `src/app/admin/intakter/format.ts`. Det är ingen försäljningsväg utan en
+   klassificering av historiska fakturor: priset ligger kvar på gamla rader,
+   och utan raden hamnar den intäkten under `ovrigt` i stället för Månad.
+   Kommentaren i koden säger det. Env-variabeln behöver alltså ligga kvar i
+   Vercel tills intäktshistoriken före september skrivs om, men inget nytt kan
+   säljas på den.
+3. **Inbjudningskolumnerna i `email_confirmations` skrivs inte längre.**
+   `send-confirmation` slutade sätta `is_invitation` och `invitation_code`, och
+   `confirm-email` slutade läsa dem och redirectar alltid till
+   `/login?confirmed=true`. Kolumnerna är kvar i tabellen, orörda, enligt
+   uppdragets regel om databasen. Bekräftelsemejlet tappade sin
+   inbjudningsvariant i både HTML och text, inklusive löftet om "Premium gratis
+   i 7 dagar".
+4. **`RewardType` tappade `'guest_invitations'`** och `PremiumReward` tappade
+   `bonus_invitations_per_month`. Belöningssystemet i övrigt är orört. Dess
+   `'trial'`-typ och `trial_end`-hantering i `activators.ts` handlar om att
+   förlänga en befintlig prenumeration i Stripe, inte om att dela ut en
+   provperiod, så den stannar.
+5. **Adminens mejlnamn behåller `trial_day5` och `rt_day*`.** `NAMN`-kartan i
+   `src/app/admin/mejl/format.ts` översätter rader som redan ligger i
+   `email_log`. Tas namnen bort blir historiken oläsbar utan att något blir
+   renare.
+
+### Klicktest
+
+`scripts/qa-paket-b7.mjs`, riktig Chrome mot `localhost:3107` (`.next-b7`),
+Pixel 7 för hemskärmen och desktop 1280 för sidomenyn. QA-kontot skapades och
+raderades i samma omgång med `scripts/qa-paket-b7-konton.mjs`.
+
+**10 av 10 gröna.** Alla fyra adresserna svarar 308 och landar på `/priser`,
+mätt på hoppets status och inte bara på slutadressen. Inloggad hemskärm och
+sidomeny innehåller varken ordet inbjudan, gäst eller provperiod, och ingen av
+deras 25 respektive 14 länkar pekar på en riven adress. Fyra bilder plus
+`resultat.json` i `docs/qa/qa-paket-b7/`.
+
+En anmärkning om testet självt, i saas-leads anda: första körningen
+rapporterade tre fel som inte var fel. Påståendet krävde status 200, men
+`/priser` svarade 304 när webbläsaren redan hämtat sidan i samma körning.
+Kontrollen är omskriven till att godta både 200 och 304 och i stället kräva
+att *första hoppet* är 308, vilket är det som faktiskt ska bevisas.
+
+### Kvalitet
+
+`npx tsc --noEmit` rent. `npx vitest run`: 473 av 473 gröna i 38 filer.
+`npx next build` rent, och inga av de rivna rutterna finns kvar i ruttlistan.
+`tsconfig.json` återställd, `.next-b7` borttagen.
