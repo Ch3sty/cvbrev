@@ -37,7 +37,13 @@ interface UpgradeSheetProps {
   open: boolean
   onClose: () => void
   order?: PlanOrder
-  /** Varifrån arket öppnades, loggas som metadata på checkout-sessionen */
+  /**
+   * Varifrån arket öppnades. Låg förut som metadata på checkout-sessionen.
+   * Sedan arket slutade öppna kassan själv (ångerrättssamtycket, avsnitt 8)
+   * sätts den metadatan av köpsteget i stället, och fältet står kvar för
+   * anropsplatsernas skull. Ska ursprunget tillbaka in i mätningen är det en
+   * parameter på /dashboard/valj-spar, inte en rad här.
+   */
   source?: string
   /**
    * Betalväggen som öppnade arket. Sätts av PaywallCard och avgör vilken
@@ -146,23 +152,10 @@ export default function UpgradeSheet({
     if (variant) capture('paywall_cta_clicked', { variant, surface, plan, cta: 'primary' })
     setLoading(plan)
     setError(null)
-    try {
-      const res = await fetch('/api/stripe/create-plan-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, source }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (res.status === 401) {
-        window.location.href = `/login?redirect=${encodeURIComponent(`/kassa?plan=${plan}`)}`
-        return
-      }
-      if (!res.ok || !data?.url) throw new Error(data?.error || 'Kunde inte starta betalningen.')
-      window.location.href = data.url
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Något gick fel. Försök igen.')
-      setLoading(null)
-    }
+    // Ångerrättssamtycket (avsnitt 8) ska kryssas på samma skärm som
+    // köpknappen. Arket har ingen sådan kryssruta, så det öppnar inte kassan
+    // själv utan bär paketet till köpsteget där rutan står bredvid knappen.
+    window.location.href = `/dashboard/valj-spar?paket=${plan}`
   }
 
   /** Ett val, alltså ett spår. Allt bär sitt längdval inuti kortet. */

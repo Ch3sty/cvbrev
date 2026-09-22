@@ -41,7 +41,6 @@ export default function PriserPaket() {
   const router = useRouter()
   const [spar, setSpar] = useState<SparVal | null>(null)
   const [busy, setBusy] = useState<PlanKey | null>(null)
-  const [fel, setFel] = useState<string | null>(null)
   const [inloggad, setInloggad] = useState(false)
   const forsta = useRef(true)
 
@@ -97,25 +96,14 @@ export default function PriserPaket() {
         return
       }
 
+      // Ångerrättssamtycket (avsnitt 8) måste lämnas på samma skärm som
+      // köpknappen, och den skärmen är köpsteget i /dashboard/valj-spar.
+      // Prissidan öppnar därför inte kassan själv längre: den bär paketet
+      // dit, där kryssrutan står bredvid knappen. Ett köp utan samtycke får
+      // inte gå igenom, och en kryssruta till på prissidan hade gjort
+      // samtycket till två texter att hålla i synk i stället för en.
       setBusy(plan)
-      setFel(null)
-      try {
-        const res = await fetch('/api/stripe/create-plan-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan, source: 'public_pricing' }),
-        })
-        const data = (await res.json()) as { url?: string; error?: string }
-        if (data.url) {
-          window.location.href = data.url
-          return
-        }
-        setFel(data.error ?? 'Det gick inte att öppna kassan. Försök igen.')
-      } catch {
-        setFel('Det gick inte att öppna kassan. Försök igen.')
-      } finally {
-        setBusy(null)
-      }
+      router.push(`/dashboard/valj-spar?paket=${plan}`)
     },
     [inloggad, router]
   )
@@ -162,12 +150,6 @@ export default function PriserPaket() {
           onLengthChange={langdBytt}
         />
       </div>
-
-      {fel ? (
-        <p role="alert" className="mt-4 text-sm text-fel">
-          {fel}
-        </p>
-      ) : null}
 
       <p className="mt-6 flex items-start gap-2 text-sm leading-[22px] text-ink-2">
         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink-3" aria-hidden="true" />

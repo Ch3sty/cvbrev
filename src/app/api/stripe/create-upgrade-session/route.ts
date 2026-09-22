@@ -24,6 +24,7 @@ import {
   priceIdToPlanKey,
 } from '@/lib/stripe/planPrices'
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { PAKETSKARM } from '@/lib/onboarding/program'
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,7 +44,11 @@ export async function POST(request: NextRequest) {
     // Klienten skickar antingen planKey (nya vägen) eller priceId (den gamla
     // prenumerationssidan). Båda landar i samma price-id och samma paket.
     const body = await request.json().catch(() => ({}))
-    const { planKey, priceId: rawPriceId } = body as { planKey?: unknown; priceId?: unknown }
+    const { planKey, priceId: rawPriceId, consent } = body as {
+      planKey?: unknown
+      priceId?: unknown
+      consent?: unknown
+    }
 
     let priceId: string
     if (isPlanKey(planKey)) {
@@ -177,6 +182,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
     }
 
+    // Härifrån och ned skapas en ny checkout, alltså ett nytt köp, och då
+    // gäller samma krav som i create-plan-session: ångerrättssamtycket måste
+    // vara dokumenterat (avsnitt 8). Prisbytet ovan är ingen ny kassa utan en
+    // ändring på en prenumeration kunden redan sagt ja till, så det kravet
+    // ligger efter den grenen och inte före.
+    if (consent !== true) {
+      return NextResponse.json(
+        { error: 'Du måste godkänna att tjänsten påbörjas direkt för att kunna köpa.' },
+        { status: 400 }
+      )
+    }
+
+    const samtyckeMetadata = {
+      angerratt_samtycke_at: new Date().toISOString(),
+      angerratt_samtycke_text: PAKETSKARM.samtycke,
+    }
+
     // Base URL for return
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
 
@@ -200,7 +222,8 @@ export async function POST(request: NextRequest) {
           planKey: requestedPlanKey ?? '',
           scope: requestedScope ?? '',
           upgradeFlow: 'existing-user-upgrade',
-          source: 'prenumeration-page'
+          source: 'prenumeration-page',
+          ...samtyckeMetadata
         }
       },
       return_url: `${baseUrl}/dashboard/profil/prenumeration?session_id={CHECKOUT_SESSION_ID}&upgraded=true`,
@@ -211,7 +234,8 @@ export async function POST(request: NextRequest) {
         planKey: requestedPlanKey ?? '',
         scope: requestedScope ?? '',
         upgradeFlow: 'existing-user-upgrade',
-        isNewUser: 'false'
+        isNewUser: 'false',
+        ...samtyckeMetadata
       }
     })
 

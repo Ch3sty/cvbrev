@@ -632,3 +632,115 @@ rör betalvägen och ska testas mot en riktig checkout, inte mot en 400.
   `mode` (Allt-dagen `payment`, övriga `subscription`).
 - `npx tsc --noEmit` rent. `npx vitest run`: 466 av 466 gröna i 37 filer, både
   före och efter mina ändringar.
+
+---
+
+## B6
+
+Ångerrättssamtycket, dokumenterat hela vägen från kryssruta till konto, och
+ett klicktest som faktiskt klickar. Byggt 2026-09-22.
+
+### Vad som byggdes
+
+**Migration.** `supabase/migrations/20260922103000_angerratt_samtycke.sql`,
+applicerad som `angerratt_samtycke`. En kolumn: `profiles.angerratt_samtycke_at
+timestamptz null`. Null betyder att kontot aldrig lämnat ett samtycke, alltså
+också varje konto som köpte före den här raden. Idempotent.
+
+**Kedjan.** Kryssrutan var klientstate och tog slut i webbläsaren. Nu:
+`ValjSparClient` postar `consent` i kroppen, `create-plan-session` svarar 400
+utan det och lägger `angerratt_samtycke_at` (ISO, servertid) och
+`angerratt_samtycke_text` i metadata på sessionen, på
+`subscription_data.metadata` och på `payment_intent_data.metadata`, och
+webhooken skriver tidsstämpeln till `profiles` på
+`checkout.session.completed`.
+
+**Texten hämtas ur `PAKETSKARM.samtycke`** i `src/lib/onboarding/program.ts`,
+alltså samma konstant som kryssrutan renderar. Filen är ren och har ingen
+`'use client'`, så rutten importerar den rakt av. Skrivs kryssrutan om följer
+metadatan med, och enhetstestet går rött om någon frikopplar dem.
+
+**Tidsstämpeln sätts på servern.** Ett fält i kroppen hade varit en tidpunkt
+klienten bestämmer, och ett samtyckesbevis kunden själv daterar är inget bevis.
+Testet har ett fall för just det.
+
+### Öppna beslut
+
+1. **Webhooken skriver bara när kolumnen är tom** (`.is(..., null)`). Ett andra
+   köp ska inte flytta datumet på det första, och en omsänd webhook ska inte
+   ändra någonting. Konsekvensen: kolumnen bär det *första* samtycket, inte det
+   senaste. Vill vi kunna visa samtycket per köp är det en egen tabell, inte en
+   kolumn, och texten ligger ändå kvar på varje Stripe-session. Efter släpp,
+   prio 3, villkorad på att en tvist faktiskt uppstår.
+
+2. **Skrivningen är `await`, inte fire and forget.** Den bryter mot husregeln
+   om att loggning aldrig ska await:as i flöden, men det här är inte loggning
+   utan ett lagkrav: tappas den finns inget undantag från ångerrätten. Det är
+   en enda update, och en catch ser till att Stripe ändå får sitt svar.
+
+3. **Fyra köpvägar slutade öppna kassan själva.** Lagkravet i avsnitt 8 är att
+   samtycket lämnas *på samma skärm som knappen*. Prissidan, betalväggsarket,
+   kontosidan och `/kassa` hade ingen kryssruta, och en 400 hade bara gjort
+   dem trasiga. De bär nu paketet till köpsteget i `/dashboard/valj-spar?paket=`,
+   som redan har både rutan och knappen. Alternativet var fyra kryssrutor till
+   att hålla i synk med lagtexten, alltså fyra ställen att glömma. Det här är
+   ett formbeslut inom uppdraget och bör bekräftas av dirigenten:
+   **prissidans köpknapp leder numera till köpsteget, inte till Stripe.**
+   Ett klick till för den som redan valt paket, men med samtycket på plats.
+
+4. **`create-upgrade-session` kräver samtycke bara på checkout-grenen.**
+   Prisbytet på en befintlig prenumeration (spår till Allt-veckan) är ingen ny
+   kassa utan en ändring på något kunden redan sagt ja till, så gaten ligger
+   efter den grenen. `FelSpar` går den vägen och är orörd.
+
+5. **`UpgradeSheet.source` används inte längre.** Arket öppnar ingen kassa, så
+   det finns ingen session att lägga ursprunget på. Fältet står kvar för
+   anropsplatserna. Ska ursprunget tillbaka in i mätningen är det en parameter
+   på `/dashboard/valj-spar`, och det är en egen rad.
+
+6. **`EmbeddedSubscribeButton` lämnades orörd.** Den har noll anropsplatser i
+   hela `src`. Att gate:a en död komponent är att låtsas att den lever. Den
+   bör raderas, men inte av mig i den här omgången.
+
+### Testerna
+
+`src/app/api/stripe/create-plan-session/__tests__/consent.test.ts` (7). Det
+som vaktas: 400 utan samtycke på både prenumeration och engångsköp, att bara
+`true` duger (inte `'true'` eller `1`), att metadatan hamnar på både sessionen
+och den rad som överlever den, att texten är identisk med konstanten, att
+klienten inte kan sätta tidpunkten, och att Stripe inte ens kontaktas innan
+samtycket är kontrollerat.
+
+`npx tsc --noEmit` rent. `npx vitest run` 473 av 473 i 38 filer.
+
+### Klicktest
+
+`scripts/qa-paket-b6.mjs`, Pixel 7, riktig Chrome mot ett produktionsbygge i
+`.next-b6` på 3106. **22 av 22 gröna.** Skärmdumpar och resultat i
+`docs/qa/qa-paket-b6/`.
+
+Knappen klickas, inget API anropas från testet. Per paket (CV-veckan,
+Allt-dagen, Allt-månaden): knappen är spärrad utan kryss, klicket navigerar
+webbläsaren till `checkout.stripe.com`, och sessionen bakom adressen läses
+tillbaka ur Stripe och bär både tidsstämpeln och kryssrutans exakta text.
+Ingenting betalades.
+
+`subscription_data.metadata` går inte att verifiera i webbläsartestet:
+prenumerationen skapas först vid betalning. Den delen ligger på enhetstestet,
+som läser anropets argument.
+
+### Cookie-bannern, saas-leads prio 1
+
+**Ingen ändring behövdes, och det är mätt och inte antaget.** I en ny session,
+med bannern synlig, frågade testet webbläsaren vad som ligger överst i
+köpknappens mittpunkt. Svaret var knappen själv på både skärm 1.1 och 1.2.
+
+Skyddet finns redan: `FlowShell` publicerar fotens verkliga höjd som
+`--flow-footer-h`, och `globals.css` lyfter bannern dit under ett flöde
+(`html[data-flow-active='true']`). Bannern står ovanför foten i stället för
+över den, och cookiesamtycket går fortfarande att lämna. Bilderna
+`cookie-1-skarm-1.1-med-banner.png` och `cookie-2-skarm-1.2-med-banner.png`
+visar båda samtidigt.
+
+## Dirigentens beslut efter B6
+- Alla köpvägar går via köpsteget /dashboard/valj-spar?paket= så samtycket alltid dokumenteras. Ett klick till är rätt pris för ett giltigt ångerrättsundantag.

@@ -141,25 +141,10 @@ export default function PrenumerationClient({
       cta: 'primary',
     });
 
+    // Ångerrättssamtycket (avsnitt 8) kryssas på köpskärmen, som bär både
+    // kryssrutan och knappen. Kontosidan öppnar därför inte kassan själv.
     setBusy(true);
-    setFel(null);
-    try {
-      const res = await fetch('/api/stripe/create-plan-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, source: 'account' }),
-      });
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-      setFel(data.error ?? 'Det gick inte att öppna kassan. Försök igen.');
-    } catch {
-      setFel('Det gick inte att öppna kassan. Försök igen.');
-    } finally {
-      setBusy(false);
-    }
+    window.location.href = `/dashboard/valj-spar?paket=${plan}`;
   }, []);
 
   /** Uppgradering och längdbyte byter pris på den befintliga prenumerationen. */

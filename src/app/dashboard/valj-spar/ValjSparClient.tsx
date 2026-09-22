@@ -196,7 +196,11 @@ export default function ValjSparClient({
         headers: { 'Content-Type': 'application/json' },
         // Rutten läser fältet `plan`, inte `planKey`. Skickas fel namn
         // svarar den 400 "Okänt produktval" och köpet går aldrig igenom.
-        body: JSON.stringify({ plan: paket.key, source: 'onboarding_paket' }),
+        // consent är ångerrättssamtycket (avsnitt 8). Rutten svarar 400 utan
+        // det, och kryssrutan spärrar redan knappen, så fältet är alltid
+        // true här. Det är inte en dubblering utan beviskedjan: klientens
+        // kryssruta blir ett fält i kroppen som blir metadata på sessionen.
+        body: JSON.stringify({ plan: paket.key, source: 'onboarding_paket', consent: samtycke }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok || !json?.url) throw new Error(json?.error || 'Kassan kunde inte öppnas')

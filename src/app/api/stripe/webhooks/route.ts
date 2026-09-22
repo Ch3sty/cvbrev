@@ -35,6 +35,42 @@ const userIdForCustomer = async (customerId: string): Promise<string | null> => 
 };
 
 /**
+ * Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
+ *
+ * Kryssrutan sattes i kassan och följde med som metadata på sessionen.
+ * Här skrivs den ned på kontot, för det är först nu köpet är ett köp.
+ * Tidsstämpeln kommer från kassan och inte från webhooken: samtycket lämnades
+ * när kunden kryssade, inte när Stripe råkade ringa oss.
+ *
+ * Skriver bara när kolumnen är tom. Ett andra köp ska inte flytta datumet på
+ * det första, och en omsänd webhook ska inte ändra någonting alls.
+ *
+ * Fire and forget-säker: fel loggas men fäller aldrig svaret till Stripe.
+ */
+const skrivSamtycke = async (
+    userId: string | null | undefined,
+    metadata: Record<string, string | undefined> | null | undefined
+): Promise<void> => {
+    const vid = metadata?.angerratt_samtycke_at;
+    if (!userId || !vid) return;
+    try {
+        const admin = getSupabaseAdmin() as any;
+        const { error } = await admin
+            .from('profiles')
+            .update({ angerratt_samtycke_at: vid })
+            .eq('id', userId)
+            .is('angerratt_samtycke_at', null);
+        if (error) {
+            console.error('[SAMTYCKE] Kunde inte skriva angerratt_samtycke_at:', error.message);
+        } else {
+            console.log(`[SAMTYCKE] ${userId}: ${vid}`);
+        }
+    } catch (error) {
+        console.error('[SAMTYCKE] Fel vid skrivning:', error);
+    }
+};
+
+/**
  * Serverside-mätning av betalningen (docs/plan-paket-och-onboarding.md
  * avsnitt 6). Klienten kommer tillbaka från Stripe utan att veta beloppet,
  * så det här är den enda platsen där betalningen kan mätas säkert.
@@ -486,6 +522,18 @@ export async function POST(request: Request) {
              break;
         case 'checkout.session.completed':
              console.log(`Checkout session completed: ${eventData.id}. Mode: ${eventData.mode}`);
+
+             // Ångerrättssamtycket skrivs före grenarna nedan, så att det
+             // landar på kontot oavsett om köpet var engångs (A5) eller
+             // löpande. Await: det är en enda update och samtycket är ett
+             // lagkrav, inte mätning som får tappas.
+             {
+               const samtyckeUserId =
+                 eventData.metadata?.supabaseUUID ||
+                 eventData.metadata?.userId ||
+                 (customerId ? await userIdForCustomer(customerId) : null);
+               await skrivSamtycke(samtyckeUserId, eventData.metadata);
+             }
 
              // === SPÅR A (A5): engångsköp, dagspass och jobbsökarveckan ===
              // Måste ligga före de befintliga grenarna: engångsköp skapar

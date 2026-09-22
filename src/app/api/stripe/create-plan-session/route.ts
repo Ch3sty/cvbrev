@@ -18,6 +18,7 @@ import {
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
+import { PAKETSKARM } from '@/lib/onboarding/program'
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,12 +31,28 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json().catch(() => ({}))
-    const { plan, source } = body as { plan?: unknown; source?: unknown }
+    const { plan, source, consent } = body as {
+      plan?: unknown
+      source?: unknown
+      consent?: unknown
+    }
 
     if (!isPlanKey(plan)) {
       return NextResponse.json({ error: 'Okänt produktval' }, { status: 400 })
     }
     const selected = PLAN_BY_KEY[plan]
+
+    // Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
+    // Undantaget från ångerrätten på fjorton dagar gäller bara om samtycket
+    // är dokumenterat, alltså får ett köp utan kryssruta inte gå igenom.
+    // Kravet gäller varje paket: Allt-dagen påbörjas lika direkt som de fem
+    // löpande, och avsnitt 8 säger uttryckligen att samtycket krävs likväl.
+    if (consent !== true) {
+      return NextResponse.json(
+        { error: 'Du måste godkänna att tjänsten påbörjas direkt för att kunna köpa.' },
+        { status: 400 }
+      )
+    }
 
     let priceId: string
     try {
@@ -110,6 +127,11 @@ export async function POST(request: NextRequest) {
       grantDays: String(selected.grantDays ?? 0),
       productKind: selected.mode === 'payment' ? 'onetime' : 'subscription',
       source: typeof source === 'string' ? source.slice(0, 80) : 'unknown',
+      // Beviset. Tidsstämpeln sätts på servern, aldrig av klienten, och
+      // texten hämtas ur samma konstant som kryssrutan renderar, så att
+      // metadata och det kunden faktiskt läste inte kan glida isär.
+      angerratt_samtycke_at: new Date().toISOString(),
+      angerratt_samtycke_text: PAKETSKARM.samtycke,
     }
 
     const session = await stripe.checkout.sessions.create({
