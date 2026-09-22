@@ -67,16 +67,16 @@ module.exports = {
           700: '#C2305B',
         },
       },
-      // Typskalan (docs/designsystem.md, "Typografi"). text-h1, text-fraga,
-      // text-tal, text-kort, text-meta, text-steg.
-      // Rubriker i Schibsted Grotesk, bara för display-klasser på prissidan
-      // och köpvägen (avsnitt 12). Variabeln sätts av next/font i layout.tsx
-      // och faller tillbaka på Inter.
+      // Typskalan (docs/designsystem.md avsnitt 3). text-fraga, text-tal,
+      // text-kort, text-meta, text-steg bor här. Display-klasserna text-h1,
+      // text-h1-pub, text-h2-pub och text-varde byter storlek vid lg och bär
+      // familjen, så de ligger som klasser i globals.css (v2.1, en linje).
+      // Variabeln --font-display sätts av next/font i layout.tsx och faller
+      // tillbaka på Inter.
       fontFamily: {
         display: ['var(--font-display)', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        h1: ['28px', { lineHeight: '32px', letterSpacing: '-0.02em', fontWeight: '600' }],
         fraga: ['22px', { lineHeight: '28px', letterSpacing: '-0.02em', fontWeight: '600' }],
         tal: ['40px', { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '500' }],
         kort: ['16px', { lineHeight: '22px', letterSpacing: '-0.01em', fontWeight: '600' }],

@@ -8,6 +8,12 @@
  *
  *   npm run perf:publikt -- --port 8300 --korningar 3
  *   npm run perf:publikt -- --port 8300 --filter artiklar
+ *   npm run perf:publikt -- --port 8300 --sidor /,/artiklar/logiska-tester --desktop
+ *
+ * --sidor mäter en fast lista i stället för GSC-urvalet, --desktop mäter i
+ * 1280 × 800 utan strypning. Utöver LCP skrivs JavaScript (över nätet och
+ * antal filer) och HTML rå (okomprimerad) ut, budgeten för den visuella
+ * linjen (docs/design/analys-artiklar-2026-09-23.html, avsnitt 2).
  *
  * Budget: startsidan under 1000 ms, artiklar och exempelsidor under 1500 ms,
  * CLS 0. Grinden fäller vid mer än 20 procent över budget eller CLS över
@@ -50,6 +56,9 @@ interface Matning {
   forfragningar: number;
   bytes: number;
   textLangd: number;
+  jsKb: number;
+  jsFiler: number;
+  htmlRaKb: number;
 }
 
 async function main() {
@@ -58,15 +67,19 @@ async function main() {
   const korningar = Number(arg('korningar', '3'));
   const filter = arg('filter');
   const jsonUt = arg('json');
+  const fastaSidor = arg('sidor');
+  const desktop = process.argv.includes('--desktop');
 
   const chrome = CHROME_KANDIDATER.find((p) => fs.existsSync(p));
   if (!chrome) throw new Error('Hittade ingen Chrome eller Edge.');
 
   const urvalFil = 'scripts/.publikt-urval.json';
-  if (!fs.existsSync(urvalFil)) {
+  if (!fastaSidor && !fs.existsSync(urvalFil)) {
     throw new Error(`${urvalFil} saknas. Kör först: npx tsx scripts/_gsc-publikt.ts`);
   }
-  const data = JSON.parse(fs.readFileSync(urvalFil, 'utf8'));
+  const data = fastaSidor
+    ? { urval: fastaSidor.split(',').map((p) => ({ path: p, clicks: 0, impressions: 0 })) }
+    : JSON.parse(fs.readFileSync(urvalFil, 'utf8'));
 
   // Ankarlänkar mäts som sin bassida, dubbletter bort.
   const sidor = [
@@ -96,22 +109,26 @@ async function main() {
   async function mat(url: string): Promise<Matning> {
     const page = await browser.newPage();
     try {
-      await page.emulate({
-        viewport: { width: 412, height: 915, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
-        userAgent:
-          'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
-      });
+      if (desktop) {
+        await page.setViewport({ width: 1280, height: 800 });
+      } else {
+        await page.emulate({
+          viewport: { width: 412, height: 915, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
+          userAgent:
+            'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
+        });
+      }
       const cdp = await page.createCDPSession();
       // Varje mätning ska spegla ett förstabesök. Utan detta återanvänder
       // Chrome cachade resurser mellan sidorna och rapporterar 0 kB.
-      await cdp.send('Emulation.setCPUThrottlingRate', { rate: 3 });
+      if (!desktop) await cdp.send('Emulation.setCPUThrottlingRate', { rate: 3 });
       await cdp.send('Network.enable');
       // Cachestyrningen MÅSTE ligga efter Network.enable. Anropas den före
       // ignoreras den tyst, och då mäter vi varm cache: samma artikel gav
       // 42 kB och 500 ms i en körning och 600 kB och 1900 ms i nästa.
       await cdp.send("Network.clearBrowserCache");
       await cdp.send("Network.setCacheDisabled", { cacheDisabled: true });
-      await cdp.send('Network.emulateNetworkConditions', {
+      if (!desktop) await cdp.send('Network.emulateNetworkConditions', {
         offline: false,
         latency: 70,
         downloadThroughput: (12 * 1024 * 1024) / 8,
@@ -137,7 +154,8 @@ async function main() {
       });
       await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
       await new Promise((r) => setTimeout(r, 1500));
-      return await page.evaluate(() => {
+      const htmlRaKb = Math.round((await (await fetch(url)).text()).length / 1024);
+      const m = await page.evaluate(() => {
         const w = window as unknown as Record<string, number>;
         const nav = performance.getEntriesByType('navigation')[0] as
           | PerformanceNavigationTiming
@@ -152,15 +170,27 @@ async function main() {
           forfragningar: resurser.length,
           bytes: Math.round(resurser.reduce((a, r) => a + (r.transferSize || 0), 0) / 1024),
           textLangd: document.body.innerText.length,
+          jsKb: Math.round(
+            resurser
+              .filter((r) => r.initiatorType === 'script' || /\.js(\?|$)/.test(r.name))
+              .reduce((a, r) => a + (r.transferSize || 0), 0) / 1024
+          ),
+          jsFiler: resurser.filter((r) => r.initiatorType === 'script' || /\.js(\?|$)/.test(r.name))
+            .length,
         };
       });
+      return { ...m, htmlRaKb };
     } finally {
       await page.close();
     }
   }
 
   console.log(`Server: ${bas}   Körningar: ${korningar}   Sidor: ${sidor.length}`);
-  console.log('Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens), utan inloggning\n');
+  console.log(
+    desktop
+      ? 'Emulering: desktop 1280, utan strypning, utan inloggning\n'
+      : 'Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens), utan inloggning\n'
+  );
 
   const resultat: Array<{ path: string; clicks: number; budget: number; m: Matning | null }> = [];
   for (const s of sidor) {
@@ -185,12 +215,16 @@ async function main() {
       forfragningar: median(korda.map((k) => k.forfragningar)),
       bytes: median(korda.map((k) => k.bytes)),
       textLangd: median(korda.map((k) => k.textLangd)),
+      jsKb: median(korda.map((k) => k.jsKb)),
+      jsFiler: median(korda.map((k) => k.jsFiler)),
+      htmlRaKb: median(korda.map((k) => k.htmlRaKb)),
     };
     resultat.push({ path: s.path, clicks: s.clicks, budget, m });
     const ok = m.lcp <= budget && m.cls <= CLS_BRUS;
     console.log(
       `${ok ? 'OK  ' : 'ÖVER'} ${s.path.padEnd(50)} LCP ${String(m.lcp).padStart(5)} (${budget})  ` +
-        `CLS ${String(m.cls).padStart(5)}  FCP ${String(m.fcp).padStart(4)}  ${String(m.bytes).padStart(4)} kB`
+        `CLS ${String(m.cls).padStart(5)}  FCP ${String(m.fcp).padStart(4)}  ${String(m.bytes).padStart(4)} kB  ` +
+        `JS ${m.jsKb} kB/${m.jsFiler}  HTML rå ${m.htmlRaKb} kB`
     );
   }
 

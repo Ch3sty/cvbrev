@@ -1,8 +1,10 @@
-# Designsystem: Tråden (v2)
+# Designsystem: Tråden (v2.1, en linje)
 
-> Gäller dashboard, flöden, betalväggar och auth. Publika sidor och prissidan
-> tas i en senare omgång (avsnitt 12). Artikelbilder 1200×630 följer
-> `reference_article_image_standard` och berörs inte.
+> Gäller hela Jobbcoach: dashboard, flöden, betalväggar, auth och de publika
+> sidorna (avsnitt 12). Artikelbilder 1200×630 följer
+> `reference_article_image_standard` och berörs inte. De tio reglerna för
+> en linje kommer ur `docs/design/analys-visuell-linje-2026-09-22.html`
+> avsnitt 2 och står inarbetade i avsnitt 3, 4, 6, 7, 9, 12 och 13.
 >
 > Motiv och beslut: `docs/design/koncept-2026-09-13.md`. Tokenvärdena bor i
 > `src/app/globals.css`, klassnamnen i `tailwind.config.js`.
@@ -77,13 +79,23 @@ Toggles, bockar och aktiv flik i navigationen är ink-1 och räknas inte.
 
 ## 3. Typskala
 
-Inter, vikterna 400, 500 och 600. Karaktären kommer ur kontrasten i skalan,
-inte ur familjen. Storlek, radavstånd, spårning och vikt ligger i
-`tailwind.config.js` under `fontSize`, så klassen bär hela stilen.
+Två familjer. Schibsted Grotesk (`font-display`) bär varje sidrubrik, stora
+tal och värdemeningar. Inter bär allt annat: etiketter, brödtext, knappar och
+menyn, i vikterna 400, 500 och 600. Klassen bär hela stilen: display-klasserna
+ligger i `globals.css` (de byter storlek vid `lg` och sätter familjen), övriga
+i `tailwind.config.js` under `fontSize`.
+
+**Regel 1: display-snittet bär varje sidrubrik.** Varje vy har exakt en h1
+i Schibsted Grotesk 800. Ingen annan text tar display-snittet utom stora tal
+och värdemeningar.
 
 | Roll | Klass | Storlek / radavstånd / vikt |
 |---|---|---|
-| Sidrubrik (h1) | `text-h1` | 28 / 32 / 600, -0.02em |
+| Sidrubrik (h1), inloggat | `text-h1` | display, 32 / 35 / 800 mobil, 44 / 46 / 800 från lg, -0.025em |
+| Sidrubrik (h1), publikt | `text-h1-pub` | display, 32 / 35 / 800 mobil, 60 / 60 / 800 från lg |
+| Sektionsrubrik, publikt | `text-h2-pub` | display, 28 / 32 / 700 mobil, 40 / 44 / 700 från lg |
+| Värdemening | `text-varde` | display, 18 / 24 / 600 |
+| Stort tal med mening | `text-tal-display` | display, 40 / 40 / 800 mobil, 48 / 48 från lg, tabulära siffror |
 | Flödesfråga | `text-fraga` | 22 / 28 / 600, -0.02em |
 | Stort tal | `text-tal tabular-nums` | 40 / 40 / 500, -0.02em |
 | Kortrubrik | `text-kort` | 16 / 22 / 600, -0.01em |
@@ -92,11 +104,11 @@ inte ur familjen. Storlek, radavstånd, spårning och vikt ligger i
 | Sektionsetikett | `text-sm font-medium text-ink-3` | 14 / 20 / 500 |
 | Brödtext | `text-sm leading-[22px] text-ink-2` | 14 / 22 / 400 |
 
-Sektionsrubriker ("Pågår nu", "Senaste aktivitet") är etiketter i ink-3, inte
-h2 i 18/600. Då blir kortrubriken 16/600 den tyngsta texten i innehållet och
-sidrubriken den enda som är större. Stora tal står i vikt 500 och får plats
-fyra i bredd på 375 px. `text-steg` i `text-accent-ink` används bara för
-"Rekommenderas". Tyngre vikt än 600 finns inte.
+Sektionsrubriker i inloggat läge ("Pågår nu", "Det här gjorde du förra
+veckan") är etiketter i ink-3, inte h2 i 18/600. Då blir kortrubriken 16/600
+den tyngsta texten i innehållet och sidrubriken den enda som är större.
+`text-steg` i `text-accent-ink` används bara för "Rekommenderas". Vikterna
+700 och 800 finns bara tillsammans med `font-display`.
 
 Minsta textstorlek är 12 px. `text-[10px]` och `text-[11px]` används inte.
 
@@ -126,8 +138,17 @@ Tre skuggtokens, inga andra:
 | `shadow-val` | `inset 0 0 0 1px var(--ink-1)` | Valt alternativ, tillsammans med `border-ink-1` |
 | `shadow-svav` | `0 8px 24px rgba(28,25,23,.12), 0 1px 2px rgba(28,25,23,.08)` | Bara element som svävar: sheet, dropdown, toast, sticky fot |
 
-`shadow-sm/md/lg/xl` och `drop-shadow-*` används inte. Inga gradienter i
-inloggat läge.
+`shadow-sm/md/lg/xl` och `drop-shadow-*` används inte. Inga gradienter,
+varken inloggat eller publikt.
+
+### Följd
+
+**Regel 4: aldrig fler än tre ytor i samma vikt i följd.** Tre paneler med
+samma fyllning, kant och radie får följa på varandra. Den fjärde byter form:
+en lista direkt på mark, en statusrad, en bläckyta, en scen eller text utan
+ram. Det gäller kort i ett rutnät lika mycket som paneler i en kolumn.
+Grep-kontroll: fyra `rounded-xl border border-kant bg-panel` som syskon i
+följd är en träff.
 
 ## 5. Tråden
 
@@ -153,9 +174,29 @@ och den är igenkännbar för att den är ensam.
 Allt i `src/components/shell/` om inget annat sägs. Bygg aldrig om dem per
 sida. Saknas en prop: lös det lokalt i sidan och skriv upp det.
 
-**`PageHeader { title, description?, action?, children?, className? }`**
-Sidans enda h1 (`text-h1`). Ingen egen rubrik under. `action` blir full bredd
-på mobil, auto från `sm`.
+**`PageHeader { title, description?, eyebrow?, action?, scene?, children?, className? }`**
+Sidans enda h1 (`text-h1`, display). Rubriken säger vad användaren får,
+`description` vad sidan gör. `scene` är en scen i 240 × 200 och ritas i egen
+kolumn till höger från `lg`; på mobil faller den bort så att vyns primära
+handling ligger inom första skärmhöjden. `action` blir full bredd på mobil,
+auto från `sm`.
+
+**`InkPanel { eyebrow?, title, titleAs?, text?, action?, secondary?, scene?, children? }`**
+Regel 3: exakt en fylld ink-1-yta per vy, och den bär vyns viktigaste
+handling eller erbjudande (Nästa handling på hemskärmen, rekommendationen i en
+hubb, mediebevisen på startsidan, paketet i en artikel). Tonerna är
+Allt-kortets: vit text, `text-ink-1-mjuk`, `border-ink-1-kant`,
+`text-ink-1-accent` för etiketten. Knappen är vit på bläck (`INK_KNAPP`), det
+sekundära en textlänk (`INK_LANK`). Scenen får papper i `ink-hover` genom att
+panelen pekar om `--illu-fill`. `titleAs="p"` där rubriken inte får hamna i
+rubrikträdet (reklamkort i artiklar). Två bläckytor på samma skärm är ett fel,
+oavsett skärmstorlek.
+
+**`Fordelning { total, unit, mening, segments, action? }`**
+Regel 5: ett tal står aldrig ensamt. Talet i `text-tal-display`, en mening som
+säger vad det betyder, en segmentrad och en legend som skriver ut varje
+segments tal och innebörd. Tonerna `ink`, `stark`, `mjuk`, `positiv` och
+`accent` (räknas mot taket på tre orange).
 
 **`StatusRow { children, tone?, showDot?, action?, label?, className? }`**
 Alltid en rad i panel med `border-kant`, aldrig ett kort, aldrig en fylld yta.
@@ -244,6 +285,12 @@ betalväggar, månad först på prissidan.
 Lista i panel: rader med `divide-y divide-kant`, varje rad `px-4 py-3`, titel
 `text-kort text-ink-1`, undertext `text-meta text-ink-3`.
 
+**Regel 6: rader är innehåll, inte loggar.** En rad säger vad som hände i
+användarens ord, med subjekt och verb, och erbjuder nästa steg: "Sökt för 54
+dagar sedan, inget svar än. Följ upp." Systemets etiketter ("CV-analys: … ×
+4", "Matrislogik: 3 % rätt") är förbjudna som radtext. Händelser grupperas per
+ärende eller per dag, aldrig per händelsetyp.
+
 ### Knappar
 
 Höjd 44 px (`h-11`), full bredd på mobil och auto från `sm`. Exakt en primär
@@ -272,11 +319,22 @@ i `text-positiv` med ordet "Sparat".
 
 ### Stort tal
 
+Ett stort tal bär alltid en mening som säger vad det betyder: "11 sökta i
+september. 10 väntar svar, 9 av dem tysta i över två veckor." Fyra tal i rad
+med varsin etikett är förbjudet. Finns en fördelning ritas den med
+`Fordelning`.
+
 ```tsx
-<div>
-  <div className="text-tal tabular-nums text-ink-1">11</div>
-  <div className="text-meta text-ink-3">sökta</div>
-</div>
+<Fordelning
+  total={11}
+  unit="sökta i september"
+  mening="3 svar hittills. Du har inte sökt något jobb den här veckan än."
+  segments={[
+    { label: 'tysta över två veckor', value: 9, tone: 'ink' },
+    { label: 'väntar svar', value: 1, tone: 'stark' },
+    { label: 'intervju', value: 1, tone: 'positiv' },
+  ]}
+/>
 ```
 
 ## 7. Illustrationer och ikoner
@@ -313,14 +371,33 @@ Lucide får finnas kvar för generiska handlingar: pil, kryss, chevron, meny,
 Check, Copy, Download, i 20 px och `strokeWidth 1.75`. Aldrig Sparkles.
 Aldrig emoji. Aldrig en ikon i en egen rundad ruta utöver marginalplattan.
 
-### Tre storlekar
+### Fyra storlekar
 
 | Storlek | Var | Komponent |
 |---|---|---|
-| 24, naken | Listrad, navigation, manuella val | `Ikoner.tsx` |
-| 48 på platta 56 | Vyns framhävda element | `IlluPlatta*` i `MarginPlate` |
+| 24, naken | Listrad, navigation, megamenyn, manuella val | `Ikoner.tsx` |
+| 48 på platta 56 | Listrader och betalväggar | `IlluPlatta*` i `MarginPlate` |
 | 96 | Tomt tillstånd, bekräftelse | `IlluTomMapp`, `IlluTomSokning`, `IlluBrevBekraftat` |
-| 240 | Hero, bara dashboardens tillstånd A | `IlluArketLyfter` |
+| 240 × 200 (scen) | Sidhuvud, bläckyta, framhävt element | `PriserScener.tsx` |
+| 520 × 400 (hero) | Publik hero | `IlluScenHero`, `IlluScenSallet` |
+
+**Regel 2: en scen per vy, som visar produkten.** Varje vy med sidhuvud
+eller framhävt element får en scen i 240 × 200 ur PriserScener-familjen
+(`src/components/illustrations/PriserScener.tsx`, som är systemets
+scenfamilj och inte bara prissidans). Scenen visar vad verktyget gör med
+användarens material: ett CV med poäng, en matris, ett brev som möter
+annonsen. Aldrig en ikon i ruta, aldrig två scener, aldrig ovanpå text.
+Tomt tillstånd behåller 96, marginalplattan 48 behålls bara i listrader och
+betalväggar. `IlluArketLyfter` står kvar i dashboardens tillstånd A.
+
+Scenerna i familjen: `IlluScenCv`, `IlluScenMatris`, `IlluScenBrev`,
+`IlluScenMatch`, `IlluScenCoach`, `IlluScenAllt`, `IlluScenUppfoljning`,
+`IlluScenMallar`, `IlluScenBibliotek`, `IlluScenLinkedin`,
+`IlluScenUpptackt`, `IlluScenSkapaCv`, `IlluScenSkrivbordet` i 240 × 200,
+`IlluScenHero` och `IlluScenSallet` i 520 × 400. Språket: konturer i
+`currentColor` (stroke 4 i 240, 5 i 520), papper i `--illu-fill`, en
+accentyta högst en tiondel av motivet, ett rörligt element lutat 4 till 8
+grader, inga bakgrundscirklar, aldrig hex, aldrig gradient.
 
 Plattmotiven i `src/components/illustrations/TradenScener.tsx`:
 `IlluPlattaUppfoljning`, `IlluPlattaPresentation`, `IlluPlattaSmartTon`,
@@ -377,6 +454,13 @@ sina sluttillstånd. Rörelse som startar vid inladdning ligger bakom
   `:focus-visible`. Aldrig borttagen, aldrig ersatt.
 - Minsta träffyta 44 px, och 48 px i navigation. `py-2` ger cirka 34 px och är
   för litet. Gäller även stängknappar, ikonknappar och filterpiller.
+- Regel 8: navigation har vikt och grupper. Högst fem navigationsval i samma
+  vikt. Sidomenyn har fyra tunga val med antal (Mitt jobbsök, Sökta tjänster,
+  Mina CV, Personliga brev), sedan verktygen i tre namngivna grupper (Skriv och
+  förbättra, Hitta jobb, Träna) i lättare vikt, sedan Konto. Varje grupp har en
+  rubrik. Inga underrader i menyn: vad som ingår står i sidhuvudet och i "Vad
+  ingår?". Publik header: fem val i Inter 15/500, det aktiva i insunken yta,
+  en bläckknapp.
 - Exakt ett `h1` per sida, alltid synligt, alltid `PageHeader`.
 - Laddning: `role="status" aria-busy aria-live="polite"`. Framsteg:
   `role="progressbar"` med `aria-valuenow`. Fel: `role="alert"`.
@@ -439,10 +523,13 @@ eftersom iOS lägger tangentbordet över fixed-element. Använd `100dvh`, aldrig
 | Lucide för navigation och tonaliteter | `Ikoner.tsx` |
 | em-dash i copy | bort, alltid |
 
-Kör efter varje sida, förväntat: inga träffar i dina filer.
+Kör efter varje sida, förväntat: inga träffar i dina filer. Sedan v2.1
+gäller listan även de publika ytorna som ritats om i linjen: headern,
+footern, startsidan, artikelramen och artikellistan, verktygssidorna,
+Funktioner och Om oss.
 
 ```bash
-grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/app/dashboard src/components/tests src/components/interests src/components/jobbcoachen src/components/kontakt --include=*.tsx | grep -v "font-display"
+grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|linear-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/app/dashboard src/components/tests src/components/interests src/components/jobbcoachen src/components/kontakt src/components/landing src/components/Footer.tsx src/components/artiklar src/components/verktyg "src/app/(public)/page.tsx" "src/app/(public)/artiklar" "src/app/(public)/verktyg" "src/app/(public)/funktioner" "src/app/(public)/om-oss" --include=*.tsx | grep -v "font-display"
 ```
 
 Filtret `grep -v "font-display"` är avsnitt 12:s undantag: `font-bold` och `font-extrabold` får bara stå på samma rad som `font-display` (rubriker i Schibsted Grotesk i spårvalet, köpsteget och prissidan). En vikt utan `font-display` på raden är fortfarande ett fel.
@@ -472,20 +559,48 @@ Primärknappen inverteras till ink-1 med mörk text. Illustrationerna behöver
 inget nytt: konturerna följer `currentColor` och fyllningen `--illu-fill`.
 Därför skrivs aldrig hex i en komponent.
 
-## 12. Publika sidor
+## 12. Publika sidor: samma system
 
-Tas i en senare omgång. Hero-gradienten och `--jc-gradient-*` ligger kvar på
-publika sidor tills dess, men aldrig i inloggat läge. Knappstilen följer efter
-till ink, så att publikt och inloggat blir ett system och inte två.
-Logotypens `#F97316` läses som samma familj som accenten och byts inte.
-Färgerna `navy` och `pink` i `tailwind.config.js` tillhör de publika ytorna
-och används aldrig i dashboarden.
+Publikt och inloggat är ett system. Samma tokens, samma knappar i bläck,
+samma scener, samma räkneregel för orange (högst tre per skärm). Ingen
+gradient någonstans, inte i knappar, rubrikord, bakgrunder eller delare.
+Logotypens `#F97316` är det enda undantaget och byts inte. Färgetiketterna
+`cv` och `test` står bara där paketen nämns. `--jc-gradient-*` är borttagna
+ur `globals.css` (2026-09-23). `navy` och `pink` ligger kvar i
+`tailwind.config.js` så länge äldre ytor utanför linjen använder dem
+(juridiska sidor, CV-analysens gamla steg); de används aldrig i något som
+ritats om.
+
+**Regel 9: rytm, växla yta, bredd och höjd.** Två sektioner i följd får inte
+ha samma form. Mark, panel, bläck, mark. Bred, tvåkolumn, smal. Publika sidor
+följer sektionsföljden:
+
+1. Hero på mark med scen (h1 i `text-h1-pub`, eyebrow, ingress med en fetad
+   mening, bläckknapp plus textlänk, bevis i display-tal).
+2. En panel med produktbild eller scen.
+3. En bläckyta (`InkPanel`), sidans enda.
+4. Kort, högst tre.
+5. En lista.
+6. FAQ på mark som `details` och `summary`.
+
+Inga glödar, prickmönster, vågor eller bakgrundscirklar bakom någon sektion.
+Ingen framer-motion. Serverkomponenter där inget behöver JavaScript.
+
+**Header och megameny.** Fem val i Inter 15/500, det aktiva i insunken yta,
+"Skapa konto" som bläckknapp. Megamenyn är en panel med tre namngivna
+grupper (Skriv och förbättra, Hitta jobb, Träna), nakna ikoner i 24 ur
+`Ikoner.tsx` utan rutor, och en sidokolumn i insunken med `IlluScenAllt` och
+paketets värdemening. Mobilmenyn: fyra huvudval, tre grupper med 44 px rader
+utan ikoner, ingen blur. **Footer** på mark med hårlinje, fyra kolumner med
+samma grupper som menyn plus Läs.
 
 ### Prissidan och köpvägen (godkänd spec 2026-09-22)
 
 `docs/design/spec-prissida-2026-09-22.html` utökar systemet på tre punkter.
-De gäller `/priser`, `/dashboard/valj-spar`, `/dashboard/profil/prenumeration`
-och komponenterna i `src/components/pricing/`. Ingen annan yta.
+De gällde först `/priser`, `/dashboard/valj-spar`,
+`/dashboard/profil/prenumeration` och `src/components/pricing/`. Sedan v2.1
+gäller punkt 1 (display-snittet) och punkt 2 (ink-tonerna, nu i `InkPanel`)
+hela systemet; punkt 3 (färgetiketterna) gäller där paketen nämns.
 
 **1. Rubriker i Schibsted Grotesk.** Laddas via `next/font/google` i
 `src/app/layout.tsx` som variabeln `--font-display`, med Inter som
@@ -567,7 +682,36 @@ var det finns. Felet säger vad som gick fel och hur man går vidare.
 Gratisnivån är alltid "ett brev om dagen". Sidhuvudets underrad säger vad
 sidan gör, inte vad den heter.
 
+**Regel 7: värde före funktion.** Rubriken säger vad användaren får,
+underraden vad sidan gör: "Känn igen uppgiften innan provdagen" över
+"Rekryteringstester", inte tvärtom. Gäller hubbar, verktygssidor, megamenyns
+grupper och footerns kolumner. Publika h1, title och description som rankar
+byts aldrig i en omritning; där gäller regeln eyebrow och ingress.
+
+**En rad har subjekt, verb och nästa steg** (regel 6). "Du gjorde logiktestet
+på grundnivå, 3 procent rätt. Kör det igen med tid kvar."
+
 ## 14. Ändringslogg
+
+**v2.1, en linje, 2026-09-22.** Godkänd analys
+`docs/design/analys-visuell-linje-2026-09-22.html` och artikelanalysen
+`docs/design/analys-artiklar-2026-09-23.html`, med ägarens justeringar
+2026-09-23. Vad som ändrades:
+
+- Tio regler: display-snittet bär varje sidrubrik, en scen per vy, en
+  bläckyta för nästa handling, högst tre ytor i samma vikt i följd, ett tal
+  står aldrig ensamt, rader är innehåll, värde före funktion, navigation har
+  vikt och grupper, rytm mellan sektioner, orange är linje och bläck
+  överallt.
+- `text-h1` blev display 32/35/800 mobil och 44/46/800 desktop. Nya
+  `text-h1-pub` (60/60), `text-h2-pub` (40/44), `text-varde` (18/24/600) och
+  `text-tal-display`.
+- Nya komponenter `InkPanel` och `Fordelning`. `PageHeader` fick `scene` och
+  `eyebrow`.
+- Illustrationerna fick fyra storlekar; PriserScener blev systemets
+  scenfamilj.
+- Avsnitt 12 skrevs om från "tas senare" till "samma system", med
+  sektionsföljden. `--jc-gradient-*` togs bort.
 
 **2026-09-22, admin utan streck.** Två tokens för adminens diagram,
 `--diagram-cv` (`#1D4ED8`) och `--diagram-test` (`#7C2D12`), med Allt i
