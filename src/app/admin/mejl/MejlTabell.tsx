@@ -5,10 +5,19 @@
  * som aldrig kom fram kan varken oppnas eller klickas, och att lata det dra
  * ner oppnandegraden blandar ihop tva olika problem. Leveransgraden ar den
  * som raknas mot skickade, och den ar sitt eget tal.
+ *
+ * Allt raknas per utskick (berakning.ts), sa en grad passerar aldrig 100 %.
+ * En grad utan bas skrivs inte alls i stallet for som streck.
  */
 
 import type { MejlRad } from './data';
 import { antal, grad, mallNamn, procent, tidpunkt } from './format';
+
+/** Graden i meta-text, eller ingenting nar basen ar noll. */
+function Grad({ andel }: { andel: number | null }) {
+  if (andel === null) return null;
+  return <span className="ml-2 text-meta text-ink-3">{procent(andel, 0)}</span>;
+}
 
 interface Props {
   rader: MejlRad[];
@@ -57,23 +66,17 @@ export default function MejlTabell({ rader, tomText, rubrik }: Props) {
 
                 <td className="px-4 py-3 text-right tabular-nums text-ink-2">
                   {antal(rad.levererade)}
-                  <span className="ml-2 text-meta text-ink-3">
-                    {procent(leveransgrad, 0)}
-                  </span>
+                  <Grad andel={leveransgrad} />
                 </td>
 
                 <td className="px-4 py-3 text-right tabular-nums text-ink-1">
                   {antal(rad.oppnade)}
-                  <span className="ml-2 text-meta text-ink-3">
-                    {procent(oppnandegrad, 0)}
-                  </span>
+                  <Grad andel={oppnandegrad} />
                 </td>
 
                 <td className="px-4 py-3 text-right tabular-nums text-ink-2">
                   {antal(rad.klick)}
-                  <span className="ml-2 text-meta text-ink-3">
-                    {procent(klickgrad, 0)}
-                  </span>
+                  <Grad andel={klickgrad} />
                 </td>
 
                 <td

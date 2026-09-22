@@ -18,6 +18,11 @@
  * tokenpriser fran LiteLLM till model_pricing, alltsa vad vi betalar for
  * generering, inte vad kunden betalar oss. Ett namn som latsas vara nagot
  * annat ar varre an ett trakigt namn, sa rubriken sager vad den gor.
+ *
+ * Rutan "Undantagna konton" (spec-admin-tydlighet 2026-09-22) visar vilka
+ * konton som aldrig raknas och regeln i klartext. Den ar skrivskyddad:
+ * regeln bor i admin_users och databasfunktionen admin_undantagna_konton(),
+ * och en andring gors dar.
  */
 
 import type { Metadata } from 'next';
@@ -27,6 +32,8 @@ import MetricCard from '@/components/admin/MetricCard';
 import EmptyState from '@/components/shell/EmptyState';
 import Stripejamforelse from './Stripejamforelse';
 import Prissynk from './Prissynk';
+import { hamtaUndantagCachad } from '@/lib/admin/metrics';
+import { undantagText } from '@/lib/admin/undantag';
 import {
   RETENTIONKUPONG,
   hamtaAdminAnvandare,
@@ -54,7 +61,11 @@ function datumtid(varde: string | null): string {
 
 export default async function InstallningarSida() {
   const forvantningar = hamtaPlanForvantningar();
-  const [adminer, cron] = await Promise.all([hamtaAdminAnvandare(), hamtaCronStatus()]);
+  const [adminer, cron, undantag] = await Promise.all([
+    hamtaAdminAnvandare(),
+    hamtaCronStatus(),
+    hamtaUndantagCachad(),
+  ]);
 
   const saknadeEnv = forvantningar.filter((f) => !f.prisId).length;
   const varnandeDelsteg = cron.delsteg.filter((d) => d.ton !== 'positiv').length;
@@ -207,6 +218,44 @@ export default async function InstallningarSida() {
             ))}
           </ul>
         )}
+      </SectionCard>
+
+      <SectionCard rubrik={`Undantagna konton (${undantag.konton.length})`} naken>
+        <p className="px-4 pt-4 text-sm leading-[22px] text-ink-2">
+          Alla i admin_users och e-post som slutar på .test, innehåller
+          jobbcoach-qa eller börjar med qa-. De räknas aldrig i adminens tal, i
+          insamlingen eller i PostHog-frågorna.
+        </p>
+        {undantag.konton.length === 0 ? (
+          <p className="px-4 py-4 text-sm text-ink-2">
+            0 konton undantagna just nu. Listan läses ur databasen och cachas i
+            femton minuter.
+          </p>
+        ) : (
+          <ul className="mt-3 divide-y divide-kant border-t border-kant">
+            {undantag.konton.map((k) => (
+              <li
+                key={k.userId}
+                className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <p className="break-all text-kort text-ink-1">{k.email ?? k.userId}</p>
+                  <p className="text-meta text-ink-3">
+                    {k.stripeKund ? `Stripe-kund ${k.stripeKund}` : 'Ingen Stripe-kund'}
+                  </p>
+                </div>
+                <p className="shrink-0 text-meta text-ink-2">
+                  {k.skal === 'admin' ? 'Admin' : 'Testkonto'}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="border-t border-kant px-4 py-3 text-meta text-ink-3">
+          {undantagText(undantag)}. Listan är skrivskyddad här. Ändringar görs i
+          tabellen admin_users eller i databasfunktionen
+          admin_undantagna_konton(), och syns i adminen inom femton minuter.
+        </p>
       </SectionCard>
 
       <SectionCard rubrik="Modellpriser från LiteLLM">

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
+import { arTestEpost } from '@/lib/admin/undantag'
 
 /**
  * Initierar PostHog och identifierar inloggade användare.
@@ -90,8 +91,13 @@ export default function PostHogIdentify() {
       if (avbruten || !posthog.__loaded) return
 
       if (user) {
+        // Testkonton markeras som interna redan vid identify, så att
+        // adminens HogQL-frågor och dashboarden kan filtrera bort dem
+        // (docs/design/spec-admin-tydlighet-2026-09-22.html, princip 6).
+        // Adminkonton markeras av MarkeraIntern i adminlayouten.
         posthog.identify(user.id, {
           email: user.email,
+          ...(arTestEpost(user.email) ? { is_internal: true } : {}),
         })
       } else {
         posthog.reset()

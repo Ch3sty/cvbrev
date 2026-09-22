@@ -13,7 +13,8 @@
 import { NextResponse } from 'next/server';
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { hamtaIntaktData, hamtaStripeSnapshot } from '@/app/admin/intakter/data';
-import { byggVattenfall, MRR_SANN_FRAN } from '@/app/admin/intakter/format';
+import { byggVattenfall } from '@/app/admin/intakter/format';
+import { MATSTART } from '@/lib/admin/tomt';
 import { loggaAdminFel } from '@/lib/admin/collect';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
@@ -51,12 +52,12 @@ export async function GET(request: Request) {
         .reverse(),
       mrr_per_dag_ore: data.dagar.map((d) => ({ dag: d.dag, ore: d.mrr_ore })).reverse(),
       churn_per_vecka: data.churnVeckor,
-      // Trial till betalt kraver Stripe: i profiles nollstaller webhooken
-      // premium_source vid betalning, sa kohorten raderar sig sjalv nar den
-      // konverterar. trialPagaende ar bara namnaren, alltsa hur manga som bar
-      // en trialkalla just nu.
-      trial_pagaende: data.trialPagaende,
-      trial_till_betalt: stripe?.trial ?? null,
+      // Appens provperioder som lever just nu (premium_until efter nu).
+      // Stripes kortkravande provperiod saljs inte langre och redovisas inte.
+      provperioder: data.provperioder,
+      engangs_giltig_till: data.engangsGiltigTill,
+      uppsagningsflodet_startat: data.uppsagningsflodetStartat,
+      uppsagda_30: stripe?.uppsagda ?? null,
       vattenfall: byggVattenfall(data.dagar),
       plan_mix: stripe?.planMix ?? null,
       kuponger: stripe?.kuponger ?? null,
@@ -65,9 +66,8 @@ export async function GET(request: Request) {
         ? { antal: stripe.obetaldaFakturor, ore: stripe.obetaldaFakturorOre }
         : null,
       datakvalitet: {
-        premium_grants_rader: data.premiumGrantsRader,
-        mrr_sann_fran: MRR_SANN_FRAN,
-        not: 'premium_grants är tom historiskt, Stripe är primärkälla för nya betalande. MRR-historik före mrr_sann_fran är backfylld med dagens värde och är platt.',
+        mrr_sann_fran: MATSTART.mrr,
+        not: 'MRR-historik före mrr_sann_fran är backfylld med ett och samma värde och är ingen mätning. Köp och intäkt per betalning finns i köpliggaren (src/lib/admin/kop.ts).',
       },
     });
   } catch (err) {

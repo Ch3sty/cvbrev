@@ -47,16 +47,22 @@ async function main() {
   const { collectAdminMetrics, samlaAnvandning, samlaFlode, dagStr } = await import(
     '../src/lib/admin/collect'
   );
+  const { hamtaUndantag, undantagText } = await import('../src/lib/admin/undantag');
 
   const admin = getSupabaseAdmin() as any;
 
+  // Undantagna konton (agarens adminkonto och testkonton) lases en gang och
+  // galler hela korningen, sa historiken blir ren pa samma satt som cronen.
+  const undantag = await hamtaUndantag(admin);
+  console.log(`${undantagText(undantag)}.`);
+
   if (baraAnvandning) {
-    await backfyllAnvandning(admin, antalDagar, samlaAnvandning, dagStr);
+    await backfyllAnvandning(admin, antalDagar, (a, d) => samlaAnvandning(a, d, undantag), dagStr);
     return;
   }
 
   if (baraFlode) {
-    await backfyllFlode(admin, antalDagar, samlaFlode, dagStr);
+    await backfyllFlode(admin, antalDagar, (d) => samlaFlode(d, undantag), dagStr);
     return;
   }
 
@@ -75,7 +81,7 @@ async function main() {
     const dag = dagStr(new Date(nu - i * 24 * 60 * 60 * 1000));
 
     try {
-      const res = await collectAdminMetrics(admin, dag, { hoppaGsc, hoppaPosthog });
+      const res = await collectAdminMetrics(admin, dag, { hoppaGsc, hoppaPosthog, undantag });
       const steg = Object.entries(res.delsteg)
         .map(([k, v]) => `${k}:${v}`)
         .join(' ');

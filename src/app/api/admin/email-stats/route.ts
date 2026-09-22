@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
+import { hamtaUndantagCachad } from '@/lib/admin/metrics';
+import { arUndantagetUtskick } from '@/app/admin/mejl/berakning';
 
 // GET /api/admin/email-stats?days=30
 // Aggregerad statistik för e-postkampanjerna (kvotpåminnelser + trial-mail).
@@ -100,7 +102,12 @@ export async function GET(request: NextRequest) {
     ]);
 
     const reminderRows: QuotaReminderRow[] = remindersRes.data ?? [];
-    const logs: EmailLogRow[] = logsRes.data ?? [];
+    // Utskick till undantagna konton (agarens adminkonto, testkonton och
+    // testadresser) raknas inte, samma regel som /admin/mejl.
+    const undantag = await hamtaUndantagCachad();
+    const logs: EmailLogRow[] = ((logsRes.data ?? []) as EmailLogRow[]).filter(
+      (log) => !arUndantagetUtskick({ user_id: log.user_id ?? null, recipient: log.recipient }, undantag)
+    );
     const events: EmailEventRow[] = eventsRes.data ?? [];
 
     // a. Påminnelser (opt-ins) per feature

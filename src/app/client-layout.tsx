@@ -168,7 +168,9 @@ export default function ClientLayout({
         {!isAppSurface && <Footer />}
 
         {/* === COOKIE BANNER === */}
-        {bannerRedo && (
+        {/* Aldrig under /admin: bannern täckte nedre kanten av adminsidorna
+            (docs/design/spec-admin-tydlighet-2026-09-22.html, punkt 5). */}
+        {bannerRedo && !pathname?.startsWith('/admin') && (
         <CookieConsent
           location={OPTIONS.BOTTOM}
           buttonText="Acceptera"

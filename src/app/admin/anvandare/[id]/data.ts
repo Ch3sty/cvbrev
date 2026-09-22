@@ -20,6 +20,9 @@ import { unstable_cache } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { hogql } from '@/lib/admin/collect';
 import { getQuotaSummary, type QuotaSummary } from '@/lib/quota/getQuotaSummary';
+import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
+import type { PlanKey } from '@/lib/plans/plans';
+import { kallaText } from '../format';
 
 /** Hur manga rader tidslinjen visar. Tillrackligt for att se ett monster. */
 export const TIDSLINJE_TAK = 120;
@@ -59,7 +62,14 @@ export interface Profilkort {
   current_period_end: string | null;
   premium_until: string | null;
   premium_source: string | null;
+  premium_scope: string | null;
   stripe_customer_id: string | null;
+  /** Paketet ur prenumerationens pris, for levande prenumerationer. */
+  planKey: PlanKey | null;
+  /** Senaste angerrattssamtycket i kassan. Skrivs fran 22 sep. */
+  angerratt_samtycke_at: string | null;
+  /** 'admin' eller 'test' for undantagna konton, annars null. */
+  undantag: 'admin' | 'test' | null;
   acquisition_source: unknown;
   first_cv_uploaded_at: string | null;
   first_letter_created_at: string | null;
@@ -244,7 +254,7 @@ export async function hamtaProfil(
     admin
       .from('profiles')
       .select(
-        'id, subscription_id, subscription_status, current_period_end, stripe_customer_id'
+        'id, subscription_id, subscription_status, current_period_end, stripe_customer_id, price_id, angerratt_samtycke_at'
       )
       .eq('id', userId)
       .maybeSingle(),
@@ -271,7 +281,12 @@ export async function hamtaProfil(
     current_period_end: (stripe.current_period_end as string | null) ?? null,
     premium_until: (vy.premium_until as string | null) ?? null,
     premium_source: (vy.premium_source as string | null) ?? null,
+    premium_scope: (vy.premium_scope as string | null) ?? null,
     stripe_customer_id: (vy.stripe_customer_id as string | null) ?? null,
+    planKey: priceIdToPlanKey((stripe.price_id as string | null) ?? null),
+    angerratt_samtycke_at: (stripe.angerratt_samtycke_at as string | null) ?? null,
+    undantag:
+      vy.undantag === 'admin' ? 'admin' : vy.undantag === 'test' ? 'test' : null,
     acquisition_source: vy.acquisition_source ?? null,
     first_cv_uploaded_at: (vy.first_cv_uploaded_at as string | null) ?? null,
     first_letter_created_at:
@@ -425,12 +440,16 @@ export async function hamtaTidslinje(userId: string): Promise<Tidslinje> {
     const t = tid(r.granted_at);
     if (!t) continue;
     const dagar = Number(r.days ?? 0);
+    const kallan = (r.source as string | null) ?? null;
+    const kopt = kallan?.startsWith('onetime_');
     handelser.push({
       id: `premium-${String(r.id)}`,
       kalla: 'premium',
       tid: t,
-      rubrik: `Premium ${dagar > 0 ? `${dagar} dagar` : 'tilldelat'}`,
-      detalj: (r.source as string | null) ?? null,
+      rubrik: kopt
+        ? `Köpte ${kallaText(kallan).replace(/^Engångsköp, /, '')}`
+        : `Premium ${dagar > 0 ? `${dagar} ${dagar === 1 ? 'dag' : 'dagar'}` : 'tilldelat'}`,
+      detalj: kallan ? kallaText(kallan) : null,
     });
   }
 

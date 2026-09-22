@@ -31,6 +31,20 @@ interface Props {
   visaPositionsdelta?: boolean;
 }
 
+/**
+ * Forandringen som text. Inga streck (spec-admin-tydlighet princip 1): en
+ * rad som inte fanns i foregaende period ar "ny", en rad som gick fran noll
+ * klick sager det.
+ */
+function forandringText(rad: TrafikRad): string {
+  if (rad.klickDelta !== null) return deltaProcent(rad.klickDelta);
+  if (rad.klickFore === null) return 'ny';
+  return rad.klick > 0 ? 'från 0' : '0 %';
+}
+
+/** Ingen visning ger varken CTR eller placering. Text, aldrig streck. */
+const INGEN_VISNING = 'ingen visning';
+
 /** Klickdelta: ner ar fel, upp ar positivt. Noll och okant ar ink-3. */
 function klickKlass(delta: number | null): string {
   if (delta === null) return 'text-ink-3';
@@ -99,7 +113,7 @@ export default function TrafikTabell({
               <td
                 className={`px-4 py-3 text-right tabular-nums ${klickKlass(rad.klickDelta)}`}
               >
-                {deltaProcent(rad.klickDelta)}
+                {forandringText(rad)}
               </td>
 
               <td className="px-4 py-3 text-right tabular-nums text-ink-2">
@@ -108,12 +122,16 @@ export default function TrafikTabell({
 
               <td className="px-4 py-3 text-right tabular-nums text-ink-2">
                 {visaPositionsdelta
-                  ? formateraPosition(rad.positionFore)
-                  : procent(rad.ctr)}
+                  ? rad.positionFore === null
+                    ? INGEN_VISNING
+                    : formateraPosition(rad.positionFore)
+                  : rad.ctr === null
+                    ? INGEN_VISNING
+                    : procent(rad.ctr)}
               </td>
 
               <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                {formateraPosition(rad.position)}
+                {rad.position === null ? INGEN_VISNING : formateraPosition(rad.position)}
                 {visaPositionsdelta && rad.positionDelta !== null ? (
                   <span
                     className={`ml-2 text-meta ${positionKlass(rad.positionDelta)}`}

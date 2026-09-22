@@ -3,72 +3,45 @@
 /**
  * Oversiktens enda diagram: 30 dagar MRR och nya betalande.
  *
- * Planen bad om MRR som linje med nya betalande som staplar bakom, i samma
- * ruta. Det gar inte att lasa har och vi gor det darfor inte. MRR ar 596
- * kronor och nya betalande ar noll eller ett; i samma skala blir staplarna en
- * osynlig rad pixlar langs nollinjen. AdminChart tar medvetet inte tva
- * y-axlar, och de tva alternativen planen erbjuder ar att indexera bada mot
- * samma bas eller att lagga staplarna som ett eget diagram under. Vi tar det
- * andra: en indexering hade dolt att MRR-serien ar platt, vilket ar precis det
- * ogat behover se.
+ * Tva diagram, samma x-axel, staplarna i en lagre ruta direkt under linjen.
+ * MRR ar hundratals kronor och nya betalande noll eller ett; i samma skala
+ * blir staplarna en osynlig rad pixlar, och AdminChart tar medvetet inte tva
+ * y-axlar.
  *
- * Tva diagram, samma x-axel, samma 30 dagar, staplarna i en lagre ruta direkt
- * under linjen. Ogat laser dem som ett par, och bada behaller sin egen skala.
+ * Stripe har ingen historisk MRR. Dagarna fore MATSTART.mrr ar backfyllda
+ * med ett och samma varde och ritas darfor inte, de blir en gra zon
+ * (diagramregeln, spec-admin-tydlighet 2026-09-22). Samma konstant som
+ * Intakter, sa sidorna aldrig sager olika datum om samma serie.
  *
- * Diagrammen ar orange-fria. Skalets trad har redan tagit ett av skarmens tre
- * tillatna orange inslag, och pa en skarm med fem sektioner finns ingen enskild
- * serie som fortjanar att vara den framhavda.
+ * Orange-fria: ingen enskild serie pa Oversikt fortjanar att vara den
+ * framhavda.
  */
 
 import AdminChart from '@/components/admin/AdminChart';
 import type { SeriePunkt } from '@/app/api/admin/oversikt/data';
+import { MATSTART, datumKort } from '@/lib/admin/tomt';
 
 export interface MrrDiagramProps {
   serie: SeriePunkt[];
 }
 
-/** 2026-09-14 blir "14 sep". Kort etikett, 30 stycken ska rymmas. */
 function formateraDag(varde: string | number): string {
-  const text = String(varde);
-  const d = new Date(`${text}T12:00:00Z`);
-  if (Number.isNaN(d.getTime())) return text;
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'short',
-    timeZone: 'UTC',
-  }).format(d);
+  return datumKort(String(varde));
 }
 
-/**
- * Y-axeln for MRR, i kronor.
- *
- * Kronorna klipptes tidigare bort: AdminChartInner drog in ritytan 16 px med
- * en negativ margin.left, sa "600 kr" lastes som "00 kr". Vag 4 tog bort den
- * marginalen och lade yAxisWidth pa AdminChart, alltsa far enheten sta kvar
- * dar den hor hemma.
- */
 function formateraKronor(varde: number): string {
   return `${Math.round(varde).toLocaleString('sv-SE')} kr`;
 }
 
-/** Rena tal, utan enhet. Staplarna raknar personer. */
-function formateraTal(varde: number): string {
-  return Math.round(varde).toLocaleString('sv-SE');
-}
-
 /**
- * Samma sak for staplarna, men med en extra regel: nar hela serien ar noll
- * eller ett satter Recharts brakdelsticks, och tva rader i rad sager da "1".
- * Vi skriver ut bara heltalen och lamnar de ovriga tomma.
+ * Staplarna raknar personer. Nar serien ar noll eller ett satter Recharts
+ * brakdelsticks; bara heltalen skrivs ut.
  */
 function formateraHeltal(varde: number): string {
-  return Number.isInteger(varde) ? formateraTal(varde) : '';
+  return Number.isInteger(varde) ? `${Math.round(varde).toLocaleString('sv-SE')} st` : '';
 }
 
 export default function MrrDiagram({ serie }: MrrDiagramProps) {
-  // AdminChart.data ar Record<string, string | number | null>[]. En namngiven
-  // interface har ingen indexsignatur och gar darfor inte att skicka rakt in.
-  // Vi breddar har i stallet for att rora vag 1-komponenten.
   const rader = serie.map((p) => ({ ...p }) as Record<string, string | number | null>);
 
   return (
@@ -81,27 +54,20 @@ export default function MrrDiagram({ serie }: MrrDiagramProps) {
         formateraX={formateraDag}
         formateraY={formateraKronor}
         yAxisWidth={72}
-        tomText="Ingen historik ännu."
+        matstart={MATSTART.mrr}
+        matstartText={`mäts från ${datumKort(MATSTART.mrr)}`}
+        tomText="Ingen MRR sedan mätstart."
       />
 
       <AdminChart
         data={rader}
         xNyckel="dag"
         hojd={120}
-        serier={[
-          {
-            nyckel: 'nyaBetalande',
-            namn: 'Nya betalande',
-            typ: 'stapel',
-            // Ink-1, inte sekundar: kant-stark ar en harlinjeton och en stapel
-            // i den tonen syns knappt mot panelen. Rutorna ar skilda och har
-            // var sin skala, sa samma farg i bada forvirrar inte.
-            roll: 'primar',
-          },
-        ]}
+        serier={[{ nyckel: 'nyaBetalande', namn: 'Nya betalande', typ: 'stapel', roll: 'primar' }]}
         formateraX={formateraDag}
         formateraY={formateraHeltal}
-        tomText="Inga nya betalande i perioden."
+        yAxisWidth={56}
+        tomText="0 nya betalande i perioden."
       />
     </div>
   );

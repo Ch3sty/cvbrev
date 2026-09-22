@@ -14,6 +14,7 @@ import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getSuperAdminUserId } from '@/lib/admin/requireSuperAdmin';
 import AdminShell from '@/components/admin/AdminShell';
+import MarkeraIntern from '@/components/admin/MarkeraIntern';
 
 export const metadata: Metadata = {
   title: 'Admin',
@@ -34,5 +35,10 @@ export default async function AdminLayout({
     redirect('/dashboard');
   }
 
-  return <AdminShell>{children}</AdminShell>;
+  return (
+    <>
+      <MarkeraIntern />
+      <AdminShell>{children}</AdminShell>
+    </>
+  );
 }

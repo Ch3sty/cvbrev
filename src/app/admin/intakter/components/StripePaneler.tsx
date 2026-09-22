@@ -1,232 +1,134 @@
 /**
- * Panelerna som bara Stripe kan svara pa: fordelning per produktsteg,
- * kuponganvandning och misslyckade betalningar i detalj.
+ * Det som bara Stripe kan svara på: uppsägningarna de senaste 30 dagarna,
+ * kupongerna och de misslyckade betalningarna.
  *
- * Ligger i en egen serverkomponent bakom en Suspense-grans i sidan, sa att
- * Stripe-anropet hamnar utanfor kritiska vagen. Sidan har redan malats nar
- * den har kors. Snapshotet ar cachat 15 minuter med adminens taggar, sa en
- * omladdning inom kvarten ar noll externa anrop, och "Hamta nu" rensar
- * taggen.
+ * Ligger bakom en Suspense-gräns i sidan, så Stripe-anropet hamnar utanför
+ * kritiska vägen. Snapshotet är cachat 15 minuter med adminens tagg.
  *
- * Avvikelse fran planens avsnitt 4.2, upskriven i rapporten: planmix och
- * kuponger finns inte i admin_daily_metrics, och collect.ts fran vag 1 far
- * inte andras. Den har vagen ar det narmaste planens anda som gar utan att
- * rora vag 1.
+ * Tomma sektioner (spec-admin-tydlighet, Intäkter) krymper till en rad var
+ * längst ned: "Retentionskupongen: 0 inlösta sedan den skapades." i stället
+ * för en tom tabell som ser ut som mockup. Fördelningen per produktsteg
+ * visas inte längre på sidan: Aktiva kunder per paket svarar på samma fråga
+ * ur admin_daily_metrics. Den finns kvar i /api/admin/intakter.
  */
 
 import SectionCard from '@/components/admin/SectionCard';
-import MetricCard from '@/components/admin/MetricCard';
 import { hamtaStripeSnapshot, RETENTIONSKUPONG } from '../data';
-import { kronor, antal, procent, PLANSTEG } from '../format';
+import { kronor, tal, tidKort, datumKort } from '@/lib/admin/tomt';
 
-function tid(iso: string): string {
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'Europe/Stockholm',
-  }).format(new Date(iso));
+interface Props {
+  /** Gånger uppsägningsflödet i appen startats totalt. Ur Supabase. */
+  flodetStartat: number;
+  /** Raden om MRR-vattenfallet när det inte går att rita än, annars null. */
+  vattenfallRad: string | null;
 }
 
-export default async function StripePaneler() {
+export default async function StripePaneler({ flodetStartat, vattenfallRad }: Props) {
   const snapshot = await hamtaStripeSnapshot();
+  const flodet = `Uppsägningsflödet i appen har startats ${tal(flodetStartat)} ${
+    flodetStartat === 1 ? 'gång' : 'gånger'
+  } totalt.`;
 
   if (!snapshot.tillganglig) {
     return (
-      <SectionCard rubrik="Fördelning, kuponger och misslyckade betalningar">
+      <SectionCard rubrik="Uppsägningar, kuponger och misslyckade betalningar">
         <p className="text-sm text-ink-2">
           {snapshot.fel
             ? `Stripe svarade inte: ${snapshot.fel}`
-            : 'STRIPE_SECRET_KEY saknas i miljön, så plan-mix och kuponger kan inte läsas.'}
+            : 'Stripe-nyckeln saknas på servern, så uppsägningar och kuponger kan inte läsas.'}{' '}
+          {flodet}
         </p>
       </SectionCard>
     );
   }
 
-  const totalMrr = snapshot.planMix.reduce((s, r) => s + r.mrrOre, 0);
   const retention = snapshot.kuponger.find((k) => k.id === RETENTIONSKUPONG);
+  const inlostaKuponger = snapshot.kuponger.filter((k) => k.inlosta > 0);
+
+  // Raderna längst ned: en per tom sektion.
+  const rader: string[] = [];
+  if (vattenfallRad) rader.push(vattenfallRad);
+  if (!inlostaKuponger.length) {
+    rader.push(
+      retention
+        ? 'Retentionskupongen: 0 inlösta sedan den skapades.'
+        : `Retentionskupongen ${RETENTIONSKUPONG} finns inte i Stripe, så erbjudandet i uppsägningsflödet kan inte lösas in.`
+    );
+  }
+  if (!snapshot.misslyckade.length) rader.push('Misslyckade betalningar: 0 på 30 dagar.');
+  rader.push(
+    snapshot.obetaldaFakturor
+      ? `Obetalda fakturor: ${tal(snapshot.obetaldaFakturor)}, ${kronor(snapshot.obetaldaFakturorOre)} utestående.`
+      : 'Obetalda fakturor: 0.'
+  );
+
+  const uppsagda = snapshot.uppsagda;
 
   return (
     <div className="space-y-8">
-      <SectionCard rubrik="Fördelning per produktsteg" naken>
-        {snapshot.planMix.length === 0 ? (
-          <p className="px-4 py-6 text-sm text-ink-2">
-            Ingen aktiv prenumeration att fördela.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[480px] text-sm">
-              <thead>
-                <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
-                  <th scope="col" className="px-4 py-3">
-                    Produktsteg
-                  </th>
-                  <th scope="col" className="px-4 py-3 text-right">
-                    Aktiva
-                  </th>
-                  <th scope="col" className="px-4 py-3 text-right">
-                    MRR
-                  </th>
-                  <th scope="col" className="px-4 py-3 text-right">
-                    Andel av MRR
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-kant">
-                {snapshot.planMix.map((rad) => (
-                  <tr key={rad.nyckel}>
-                    <th scope="row" className="px-4 py-3 text-left font-normal text-ink-1">
-                      {PLANSTEG[rad.nyckel] ?? rad.nyckel}
-                    </th>
-                    <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                      {antal(rad.aktiva)}
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                      {kronor(rad.mrrOre)}
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-ink-2">
-                      {totalMrr > 0 ? procent(rad.mrrOre / totalMrr) : '–'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-        <p className="px-4 py-3 text-meta text-ink-3">
-          Steget avgörs av price id mot miljövariablerna i första hand, annars av
-          intervall gånger antal. Stripe beskriver kvartalet som month med
-          interval_count 3, så 299 kr hamnar under Kvartal och räknas som 99,67 kr
-          i MRR.
+      <SectionCard rubrik="Uppsägningar, 30 dagar">
+        <p className="text-sm leading-[22px] text-ink-2">
+          {uppsagda.length
+            ? `${tal(uppsagda.length)}: ${uppsagda
+                .map((u) => `${datumKort(u.tid)}, ${u.vad}`)
+                .join('; ')}. `
+            : '0 uppsägningar på 30 dagar. '}
+          {flodet}
         </p>
       </SectionCard>
 
-      <SectionCard rubrik="Kuponganvändning" naken>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[520px] text-sm">
-            <thead>
-              <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
-                <th scope="col" className="px-4 py-3">
-                  Kupong
-                </th>
-                <th scope="col" className="px-4 py-3">
-                  Rabatt
-                </th>
-                <th scope="col" className="px-4 py-3 text-right">
-                  Inlösta
-                </th>
-                <th scope="col" className="px-4 py-3">
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-kant">
-              {snapshot.kuponger.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className="px-4 py-6 text-sm text-ink-2">
-                    Ingen kupong finns i Stripe.
-                  </td>
-                </tr>
-              ) : (
-                snapshot.kuponger.map((k) => (
-                  <tr key={k.id}>
-                    <th scope="row" className="px-4 py-3 text-left font-normal text-ink-1">
-                      {k.namn ?? k.id}
-                      {k.namn ? (
-                        <span className="ml-2 text-meta text-ink-3">{k.id}</span>
-                      ) : null}
-                    </th>
-                    <td className="px-4 py-3 tabular-nums text-ink-2">
-                      {k.procentAv !== null
-                        ? `${k.procentAv.toLocaleString('sv-SE')} %`
-                        : kronor(k.beloppOre)}
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                      {antal(k.inlosta)}
-                      {k.maxInlosta !== null ? (
-                        <span className="text-ink-3"> av {antal(k.maxInlosta)}</span>
-                      ) : null}
-                    </td>
-                    <td className="px-4 py-3 text-ink-2">
-                      {k.giltig ? 'Giltig' : 'Utgången'}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-        <p className="px-4 py-3 text-meta text-ink-3">
-          {retention
-            ? `Retentionskupongen ${RETENTIONSKUPONG} erbjuds i uppsägningsflödet och är inlöst ${antal(retention.inlosta)} gånger. Noll inlösen betyder antingen att erbjudandet inte visas eller att ingen tackar ja; churntabellen ovan visar hur många som startade flödet.`
-            : `Retentionskupongen ${RETENTIONSKUPONG} hittades inte i Stripe. Uppsägningsflödets erbjudande kan därför inte lösas in.`}
-        </p>
-      </SectionCard>
+      {inlostaKuponger.length ? (
+        <SectionCard rubrik="Kuponganvändning" naken>
+          <ul className="divide-y divide-kant">
+            {inlostaKuponger.map((k) => (
+              <li key={k.id} className="flex items-baseline justify-between gap-3 px-4 py-3">
+                <span className="min-w-0 text-sm text-ink-1">
+                  {k.namn ?? k.id}
+                  <span className="ml-2 text-meta text-ink-3">
+                    {k.procentAv !== null
+                      ? `${k.procentAv.toLocaleString('sv-SE')} %`
+                      : kronor(k.beloppOre)}
+                    {k.giltig ? '' : ', utgången'}
+                  </span>
+                </span>
+                <span className="shrink-0 text-sm tabular-nums text-ink-1">
+                  {tal(k.inlosta)} inlösta
+                  {k.maxInlosta !== null ? (
+                    <span className="text-ink-3"> av {tal(k.maxInlosta)}</span>
+                  ) : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+      ) : null}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <MetricCard
-          etikett="Trial till betalt"
-          varde={procent(snapshot.trial.andel)}
-          jamforelse={`${antal(snapshot.trial.betalande)} av ${antal(snapshot.trial.paborjade)} prenumerationer med trialperiod`}
-          datakvalitet="Räknat på Stripes trial_end, som ligger kvar efter konvertering. Reverse trial gick live 2026-09-11, så talet blir tillförlitligt först efter två hela veckor."
-        />
-        <MetricCard
-          etikett="Obetalda fakturor"
-          varde={antal(snapshot.obetaldaFakturor)}
-          inverterad
-          jamforelse="status open eller uncollectible"
-        />
-        <MetricCard
-          etikett="Utestående belopp"
-          varde={kronor(snapshot.obetaldaFakturorOre)}
-          inverterad
-          jamforelse="summa amount_due"
-        />
-      </div>
+      {snapshot.misslyckade.length ? (
+        <SectionCard rubrik="Misslyckade betalningar, senaste 30 dagarna" naken>
+          <ul className="divide-y divide-kant">
+            {snapshot.misslyckade.map((m) => (
+              <li key={m.id} className="px-4 py-3">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="min-w-0 truncate text-sm text-ink-1">
+                    {m.kund ?? 'kund utan e-post'}
+                  </span>
+                  <span className="shrink-0 text-sm tabular-nums text-ink-1">{kronor(m.belopp)}</span>
+                </div>
+                <div className="mt-1 text-meta text-ink-3">
+                  {tidKort(m.skapad)}
+                  {m.orsak ? `, ${m.orsak}` : ', ingen orsak från Stripe'}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+      ) : null}
 
-      <SectionCard rubrik="Misslyckade betalningar, senaste 30 dagarna" naken>
-        {snapshot.misslyckade.length === 0 ? (
-          <p className="px-4 py-6 text-sm text-ink-2">
-            Ingen misslyckad debitering i perioden.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[600px] text-sm">
-              <thead>
-                <tr className="border-b border-kant text-left text-sm font-medium text-ink-3">
-                  <th scope="col" className="px-4 py-3">
-                    Tidpunkt
-                  </th>
-                  <th scope="col" className="px-4 py-3">
-                    Kund
-                  </th>
-                  <th scope="col" className="px-4 py-3 text-right">
-                    Belopp
-                  </th>
-                  <th scope="col" className="px-4 py-3">
-                    Orsak
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-kant">
-                {snapshot.misslyckade.map((m) => (
-                  <tr key={m.id}>
-                    <td className="px-4 py-3 whitespace-nowrap tabular-nums text-ink-2">
-                      {tid(m.skapad)}
-                    </td>
-                    <td className="px-4 py-3 text-ink-1">{m.kund ?? '–'}</td>
-                    <td className="px-4 py-3 text-right tabular-nums text-ink-1">
-                      {kronor(m.belopp)}
-                    </td>
-                    <td className="px-4 py-3 text-ink-2">{m.orsak ?? '–'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </SectionCard>
+      <ul className="space-y-1 text-meta text-ink-3">
+        {rader.map((r) => (
+          <li key={r}>{r}</li>
+        ))}
+      </ul>
     </div>
   );
 }

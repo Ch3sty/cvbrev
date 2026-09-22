@@ -7,17 +7,26 @@
  * Fonstret ar 90 dagar. Kortare an sa och kampanjen i juli faller ur, vilket
  * gor att de enda siffrorna med volym forsvinner. Kon och studsarna galler
  * nu och bryr sig inte om fonstret.
+ *
+ * Spec-admin-tydlighet 2026-09-22, sida 7:
+ *   - Oppnandegraden raknas per utskick och passerar aldrig 100 %.
+ *   - Utskick till undantagna konton raknas inte.
+ *   - Tomma diagram och listor sager "0 sedan ..., senaste skickat ...".
+ *   - Kopmejlen ar en egen grupp, direkt under korten.
+ *   - Inga streck i kort.
  */
 
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import PageHeader from '@/components/shell/PageHeader';
 import MetricCard from '@/components/admin/MetricCard';
 import SectionCard from '@/components/admin/SectionCard';
+import { MATSTART, nollSedan, tidKort } from '@/lib/admin/tomt';
 import { hamtaMejl, DIGEST_FONSTER_TIMMAR } from './data';
 import MejlTabell from './MejlTabell';
 import Kolarm from './Kolarm';
 import { MallDiagram, OppnandegradDiagram } from './MejlDiagram';
-import { antal, grad, mallNamn, procent, tidpunkt } from './format';
+import { antal, grad, mallNamn, procent } from './format';
 
 export const metadata: Metadata = {
   title: 'Mejl',
@@ -32,13 +41,42 @@ const FONSTER_DAGAR = 90;
 /** Hur manga mallar som far plats i stapeldiagrammet innan det blir grot. */
 const DIAGRAM_MALLAR = 8;
 
+const LANK =
+  'text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1';
+
+/** "0 köpmejl sedan 22 sep kl. 10.51, senaste skickat 15 sep kl. 07.00." */
+function nollText(enhet: string, sedan: string, senast: string | null): string {
+  const efter = senast ? `senaste skickat ${tidKort(senast)}` : 'inget skickat än';
+  return `${nollSedan(enhet, sedan)}, ${efter}.`;
+}
+
+/** Den senare av tva tidpunkter, som ISO eller datum. */
+function senare(a: string, b: string): string {
+  const t = (s: string) => Date.parse(s.length === 10 ? `${s}T00:00:00Z` : s);
+  return t(a) >= t(b) ? a : b;
+}
+
+/** "14 sep kl. 07.00", eller en mening nar inget vantar. */
+function nastaText(iso: string | null): string {
+  return iso ? tidKort(iso) : 'inget väntar';
+}
+
 export default async function MejlPage() {
   const data = await hamtaMejl(FONSTER_DAGAR);
 
   const leveransgrad = grad(data.totalt.levererade, data.totalt.skickade);
   const oppnandegrad = grad(data.totalt.oppnade, data.totalt.levererade);
-  const klickgrad = grad(data.totalt.klick, data.totalt.levererade);
   const studsgrad = grad(data.totalt.studs, data.totalt.skickade);
+
+  const tomtAlla = nollText('utskick', data.fran, data.senast.alla);
+  const tomtLivscykel = nollText('livscykelmejl', data.fran, data.senast.livscykel);
+  // Kopmejl kan inte ha skickats fore paketen, sa sedan-datumet ar det
+  // senare av fonstrets start och paketens mätstart.
+  const tomtKop = nollText('köpmejl', senare(data.fran, MATSTART.paket), data.senast.kop);
+
+  // Andel som text, eller vad som saknas nar basen ar noll. Aldrig ett streck.
+  const andelAv = (andel: number | null, bas: string, decimaler = 0) =>
+    andel === null ? tomtAlla : `${procent(andel, decimaler)} av ${bas}`;
 
   // Stapeldiagrammet tar de storsta mallarna. Resten star i tabellen under,
   // dar de gar att lasa exakt i stallet for att gissas ur en stapelhojd.
@@ -61,11 +99,17 @@ export default async function MejlPage() {
   // felkallan pa sidan som inte gar att se i talen, sa den star som text.
   const webhookKonfigurerad = Boolean(process.env.RESEND_WEBHOOK_SECRET);
 
+  const undantag = `${data.undantagText}${
+    data.undantagnaUtskick
+      ? `, ${antal(data.undantagnaUtskick)} utskick till dem räknas inte`
+      : ''
+  }.`;
+
   return (
     <div className="space-y-6">
       <PageHeader
         title="Mejl"
-        description={`Utskick, leverans och öppningar de senaste ${FONSTER_DAGAR} dagarna. Kön gäller nu.`}
+        description={`Utskick, leverans och öppningar de senaste ${FONSTER_DAGAR} dagarna. Kön gäller nu. ${undantag}`}
       />
 
       {!webhookKonfigurerad ? (
@@ -83,25 +127,48 @@ export default async function MejlPage() {
         <MetricCard
           etikett="Skickade"
           varde={antal(data.totalt.skickade)}
-          jamforelse={`senaste ${FONSTER_DAGAR} dagarna`}
+          jamforelse={
+            data.totalt.skickade ? `senaste ${FONSTER_DAGAR} dagarna` : tomtAlla
+          }
         />
         <MetricCard
           etikett="Levererade"
           varde={antal(data.totalt.levererade)}
-          jamforelse={`${procent(leveransgrad, 0)} av skickade`}
+          jamforelse={andelAv(leveransgrad, 'skickade')}
         />
         <MetricCard
           etikett="Öppnade"
           varde={antal(data.totalt.oppnade)}
-          jamforelse={`${procent(oppnandegrad, 0)} av levererade`}
+          jamforelse={
+            oppnandegrad === null
+              ? tomtAlla
+              : `${procent(oppnandegrad, 0)} av levererade, räknat per utskick`
+          }
         />
         <MetricCard
           etikett="Studs"
           varde={antal(data.totalt.studs)}
           inverterad
-          jamforelse={`${procent(studsgrad, 1)} av skickade`}
+          jamforelse={andelAv(studsgrad, 'skickade', 1)}
         />
       </div>
+
+      <SectionCard
+        rubrik={`Köpmejl (${data.perKop.length})`}
+        action={
+          <Link href="/admin/intakter" className={LANK}>
+            Köpen på Intäkter
+          </Link>
+        }
+        naken
+      >
+        <MejlTabell rader={data.perKop} rubrik="Köpmejl" tomText={tomtKop} />
+        <p className="border-t border-kant px-4 py-3 text-meta text-ink-3">
+          Kvitto, Kom igång, Paketet förnyas och uppsägningskvittot. Kom igång
+          och Paketet förnyas har ett utskick per dag och köpare, de räknas
+          ihop här och står per dag i tabellen Per mall.
+        </p>
+      </SectionCard>
 
       <SectionCard rubrik="Kön i email_schedule">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -111,14 +178,12 @@ export default async function MejlPage() {
             varde={antal(data.koTotalt.misslyckade)}
             inverterad
           />
-          {/* En tidpunkt ar inte ett stort tal: "14 sep. 07:00" i text-tal
+          {/* En tidpunkt ar inte ett stort tal: "14 sep kl. 07.00" i text-tal
               bryter pa tva rader i kortets bredd. Vardet ar en ReactNode,
               sa kortet far en mindre grad har utan att komponenten rors. */}
           <MetricCard
             etikett="Nästa körning"
-            varde={
-              <span className="text-h1">{tidpunkt(data.koTotalt.nasta)}</span>
-            }
+            varde={<span className="text-h1">{nastaText(data.koTotalt.nasta)}</span>}
           />
         </div>
 
@@ -155,11 +220,11 @@ export default async function MejlPage() {
                       {antal(rad.misslyckade)}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-right tabular-nums text-ink-2">
-                      {tidpunkt(rad.nasta)}
+                      {nastaText(rad.nasta)}
                     </td>
                     <td className="max-w-[260px] py-3 pl-4 text-meta text-ink-3">
                       <span className="block truncate" title={rad.senasteFel ?? undefined}>
-                        {rad.senasteFel ?? '–'}
+                        {rad.senasteFel ?? 'inget fel'}
                       </span>
                     </td>
                   </tr>
@@ -173,32 +238,25 @@ export default async function MejlPage() {
       </SectionCard>
 
       <SectionCard rubrik="Levererat, öppnat och klickat per mall">
-        <MallDiagram rader={diagramMallar} />
+        <MallDiagram rader={diagramMallar} tomText={tomtAlla} />
         <p className="mt-3 text-meta text-ink-3">
           De {DIAGRAM_MALLAR} största mallarna. Talen står exakt i tabellen
-          under. Klickgraden räknas mot levererade, inte mot skickade: ett mejl
-          som aldrig kom fram kan varken öppnas eller klickas.
+          under. Öppnat och klickat räknas en gång per utskick och mot
+          levererade: ett mejl som aldrig kom fram kan varken öppnas eller
+          klickas, och ett öppnat mejl räknas alltid som levererat.
         </p>
       </SectionCard>
 
       <SectionCard rubrik="Öppnandegrad per vecka">
-        <OppnandegradDiagram rader={data.perVecka} />
+        <OppnandegradDiagram rader={data.perVecka} tomText={tomtAlla} />
       </SectionCard>
 
       <SectionCard rubrik={`Per mall (${data.perMall.length})`} naken>
-        <MejlTabell
-          rader={data.perMall}
-          rubrik="Mall"
-          tomText="Inga utskick i fönstret."
-        />
+        <MejlTabell rader={data.perMall} rubrik="Mall" tomText={tomtAlla} />
       </SectionCard>
 
       <SectionCard rubrik={`Per livscykelsteg (${data.perSteg.length})`} naken>
-        <MejlTabell
-          rader={data.perSteg}
-          rubrik="Steg"
-          tomText="Inga livscykelmejl i fönstret."
-        />
+        <MejlTabell rader={data.perSteg} rubrik="Steg" tomText={tomtLivscykel} />
       </SectionCard>
 
       <SectionCard rubrik="Veckodigestens effekt">
@@ -207,14 +265,18 @@ export default async function MejlPage() {
           <MetricCard
             etikett="Öppnade"
             varde={antal(data.digest.oppnade)}
-            jamforelse={`${procent(grad(data.digest.oppnade, data.digest.skickade), 0)} av skickade`}
+            jamforelse={
+              data.digest.skickade
+                ? `${procent(grad(data.digest.oppnade, data.digest.skickade), 0)} av skickade`
+                : `0 digest sedan ${tidKort(data.fran)}`
+            }
           />
           <MetricCard
             etikett="Tillbaka inom 48 h"
             varde={antal(data.digest.medSession)}
             jamforelse={
               data.digest.andel === null
-                ? undefined
+                ? 'ingen har öppnat än'
                 : `${procent(data.digest.andel, 0)} av öppnarna`
             }
           />
@@ -222,8 +284,8 @@ export default async function MejlPage() {
         <p className="mt-3 text-meta text-ink-3">
           En öppnare räknas som tillbaka när det finns aktivitet i
           user_activities inom {DIGEST_FONSTER_TIMMAR} timmar efter utskicket.
-          Digesten gick första gången 13 september 2026, så underlaget är ett
-          utskick och talen säger ännu ingenting om effekten.
+          Digesten gick första gången 13 september 2026, så underlaget är litet
+          och talen säger ännu lite om effekten.
         </p>
       </SectionCard>
 
@@ -257,7 +319,7 @@ export default async function MejlPage() {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-right tabular-nums text-ink-3">
-                      {tidpunkt(rad.senast)}
+                      {tidKort(rad.senast)}
                     </td>
                   </tr>
                 ))}
@@ -266,7 +328,7 @@ export default async function MejlPage() {
           </div>
         ) : (
           <p className="px-4 py-6 text-sm text-ink-2">
-            Inga studsande adresser i fönstret.
+            {`0 studsar sedan ${tidKort(data.fran)}.`}
           </p>
         )}
       </SectionCard>

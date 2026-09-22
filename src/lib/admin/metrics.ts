@@ -13,6 +13,7 @@
 import { unstable_cache, revalidateTag } from 'next/cache';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { collectAdminMetrics, dagStr, type DagligaMetrik } from './collect';
+import { hamtaUndantag, byggUndantag, type Undantag } from './undantag';
 
 /** Cachetagg for allt som kommer ur admin_daily_metrics. */
 export const ADMIN_METRICS_TAG = 'admin-metrics';
@@ -102,4 +103,31 @@ export async function fyllPaDag(
   revalidateTag(ADMIN_METRICS_TAG, 'max');
 
   return { dag, kordes: true, delsteg: res.delsteg };
+}
+
+/**
+ * Undantagna konton for sidorna, cachade 15 minuter med adminens tagg.
+ *
+ * Kontona (inte Undantag-objektet) cachas, eftersom unstable_cache bara kan
+ * spara serialiserbara varden. Kastar databasen returneras ett tomt
+ * undantag och felet loggas: en sida som inte gar att lasa ar samre an en
+ * sida som raknar ett konto for mycket, och insamlingen (som ar det som
+ * skriver talen) vagrar i stallet helt att skriva utan undantag.
+ */
+const hamtaUndantagKonton = unstable_cache(
+  async (): Promise<Undantag['konton']> => {
+    try {
+      const u = await hamtaUndantag(getSupabaseAdmin() as any);
+      return u.konton;
+    } catch (fel) {
+      console.error('[admin/metrics] undantagen gick inte att lasa:', fel);
+      return [];
+    }
+  },
+  ['admin-undantag'],
+  { revalidate: ADMIN_CACHE_SEKUNDER, tags: [ADMIN_METRICS_TAG] }
+);
+
+export async function hamtaUndantagCachad(): Promise<Undantag> {
+  return byggUndantag(await hamtaUndantagKonton());
 }

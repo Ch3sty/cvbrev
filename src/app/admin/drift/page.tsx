@@ -11,6 +11,12 @@
  *
  * Serverkomponent, fem minuters cache. Drift är den enda adminsidan där
  * färskhet går före cache.
+ *
+ * Spec-admin-tydlighet 2026-09-22, sida 8: "Inga fel" säger sedan när
+ * ("0 rader i felloggen sedan den skapades"), insamlingen visar status per
+ * delsteg, webhookens senaste bokförda köp står utskrivet så att "inga köp"
+ * går att skilja från "webhooken står", och ägarens egna sessioner räknas
+ * inte. Inga streck i kort.
  */
 
 import PageHeader from '@/components/shell/PageHeader';
@@ -18,6 +24,8 @@ import SectionCard from '@/components/admin/SectionCard';
 import MetricCard from '@/components/admin/MetricCard';
 import Larmrader from './Larmrader';
 import { hamtaDriftData, HANGANDE_MINUTER, type DriftData } from './data';
+import { kopText } from './status';
+import { MATSTART, tidKort } from '@/lib/admin/tomt';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,14 +38,22 @@ const kronor = (n: number) =>
     maximumFractionDigits: 2,
   })} kr`;
 
+/** "22 sep kl. 19.48" i svensk tid, oavsett serverns tidszon. */
 function klockslag(iso: string | null): string {
   if (!iso) return 'aldrig';
-  return new Date(iso).toLocaleString('sv-SE', {
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  return tidKort(iso);
+}
+
+/**
+ * Felloggens tomma tillstånd: noll med sedan när. Tabellen har aldrig haft
+ * en rad, eller så står det när den senaste kom.
+ */
+function felloggText(d: DriftData): string {
+  const insamling = `Senaste insamling ${klockslag(d.cron.senasteInsamling)}.`;
+  if (d.fellogg.raderTotalt === 0) {
+    return `0 rader i felloggen sedan den skapades. ${insamling}`;
+  }
+  return `0 fel senaste dygnet, senaste fel ${klockslag(d.fellogg.senaste)}. ${insamling}`;
 }
 
 /**
@@ -112,11 +128,16 @@ function byggLarm(d: DriftData): Larm[] {
     });
   }
 
-  if (!larm.length) {
+  const delstegFel = d.delsteg.filter((s) => !s.ok);
+  if (delstegFel.length > 0) {
     larm.push({
-      text: 'Inga öppna fel, inga hängande jobb, inget i mejlkön',
-      allvarligt: false,
+      text: `Insamlingen: ${delstegFel.map((s) => s.namn).join(', ')} har inte skrivit sitt tal`,
+      allvarligt: true,
     });
+  }
+
+  if (!larm.length) {
+    larm.push({ text: felloggText(d), allvarligt: false });
   }
 
   return larm;
@@ -136,7 +157,12 @@ export default async function AdminDriftPage() {
       <section className="space-y-2" aria-label="Driftläge">
         <Larmrader larm={larm} />
         <p className="px-3 text-meta text-ink-3">
-          Hämtad {klockslag(d.hamtad)}. Cache fem minuter.
+          Hämtad {klockslag(d.hamtad)}. Cache fem minuter. Adminkontot och
+          testkontona räknas inte
+          {d.undantagnaFel > 0
+            ? `, ${tal(d.undantagnaFel)} fel från deras sessioner är borträknade`
+            : ''}
+          .
         </p>
       </section>
 
@@ -157,7 +183,9 @@ export default async function AdminDriftPage() {
           etikett="Kvotträffar"
           varde={tal(d.kvottraffar)}
           jamforelse={
-            d.kvotSenast ? `senast ${sedan(d.kvotSenast)}` : 'inga senaste dygnet'
+            d.kvotSenast
+              ? `senast ${sedan(d.kvotSenast)}`
+              : `0 senaste dygnet, senaste ${klockslag(d.kvotSenastNagonsin)}`
           }
         />
         <MetricCard
@@ -205,9 +233,7 @@ export default async function AdminDriftPage() {
             </table>
           </div>
         ) : (
-          <p className="px-4 py-4 text-sm text-ink-2">
-            Inga fel skrivna senaste dygnet.
-          </p>
+          <p className="px-4 py-4 text-sm text-ink-2">{felloggText(d)}</p>
         )}
       </SectionCard>
 
@@ -242,7 +268,9 @@ export default async function AdminDriftPage() {
             ))}
           </ul>
         ) : (
-          <p className="px-4 py-4 text-sm text-ink-2">Inga hängande jobb.</p>
+          <p className="px-4 py-4 text-sm text-ink-2">
+            0 hängande jobb just nu.
+          </p>
         )}
       </SectionCard>
 
@@ -278,7 +306,7 @@ export default async function AdminDriftPage() {
           </div>
         ) : (
           <p className="px-4 py-4 text-sm text-ink-2">
-            Inga AI-anrop senaste dygnet.
+            0 AI-anrop senaste dygnet.
           </p>
         )}
         <p className="border-t border-kant px-4 py-3 text-meta text-ink-3">
@@ -305,24 +333,39 @@ export default async function AdminDriftPage() {
           </ul>
         ) : (
           <p className="px-4 py-4 text-sm text-ink-2">
-            Inga misslyckade mejl i kön.
+            0 misslyckade mejl i kön just nu.
           </p>
         )}
       </SectionCard>
 
       <SectionCard rubrik="Insamling och cron" naken>
         <ul className="divide-y divide-kant">
-          <li className="flex items-baseline justify-between gap-4 px-4 py-3">
+          <li className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3">
             <span className="text-sm text-ink-1">Senaste insamling</span>
             <span className="text-sm tabular-nums text-ink-2">
               {klockslag(d.cron.senasteInsamling)} ({sedan(d.cron.senasteInsamling)})
             </span>
           </li>
-          <li className="flex items-baseline justify-between gap-4 px-4 py-3">
-            <span className="text-sm text-ink-1">Senaste dag med rad</span>
-            <span className="text-sm tabular-nums text-ink-2">
-              {d.cron.senasteDag ?? 'ingen'}
-            </span>
+          {d.delsteg.map((s) => (
+            <li key={s.namn} className="px-4 py-3">
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="text-sm text-ink-1">{s.namn}</span>
+                <span
+                  className={`shrink-0 text-sm ${s.ok ? 'text-positiv' : 'text-varning'}`}
+                >
+                  {s.ok ? 'i tid' : 'saknas'}
+                </span>
+              </div>
+              <p className="mt-1 text-meta text-ink-3">{s.text}</p>
+            </li>
+          ))}
+          <li className="px-4 py-3">
+            <p className="text-sm text-ink-1">Stripe-webhooken</p>
+            <p className="mt-1 text-meta text-ink-3">
+              {kopText(d.senasteKop, MATSTART.paket)} Läst ur premium_grants
+              och profiles.paket_started_at, alltså vad webhooken skrev.
+              Förnyelser syns inte här.
+            </p>
           </li>
           <li className="px-4 py-3">
             <p className="text-sm text-ink-1">Schema</p>

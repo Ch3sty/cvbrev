@@ -1098,3 +1098,69 @@ i `docs/rapporter/posthog-dashboard-paket.md`, QA i `docs/qa/qa-flode-d3/`.
     i första målningen och LCP inte väntar på biblioteket. De fyra andra
     diagrammen är recharts via AdminChart, som fick liggande staplar,
     staplade ytor, färg per rad och etiketter. Förslag: godta.
+
+## Admin tydlighet: avgjort
+
+saas-lead, 2026-09-22. Specen `docs/design/spec-admin-tydlighet-2026-09-22.html`
+godkänd i sin helhet av ägaren, inklusive punkt 11 (Funnel och Flöde blir
+Tratt) och spårfärgerna. Ägarens tillägg: adminkontot undantas ur all data.
+Byggt på grenen `admin/tydlighet`, inte committat.
+
+1. **gomer@gomer.se är en riktig kund.** Ägarens besked. Köpet 22 sep 14.14
+   (Allt-dagen 49 kr, Klarna) räknas som ny betalande och intäkt. Inget
+   mönster fångar kontot.
+2. **Undantagsregeln är en databasfunktion, inte en tabell.**
+   `admin_undantagna_konton()` = alla i `admin_users` plus e-post `%.test`,
+   `%jobbcoach-qa%`, `qa-%`. "Konton du pekar ut" (specen, princip 6) görs
+   genom att lägga kontot i `admin_users` eller ändra funktionen; ingen egen
+   redigeringsyta byggdes, Inställningar visar listan skrivskyddad. Skäl: en
+   sanning, och en tabell till hade varit ett andra ställe att glömma.
+3. **`admin_user_rows` behåller alla konton** med kolumnen `undantag`, så att
+   Användare kan visa dem i filtret "Admin och test". Alla andra adminvyer
+   utesluter dem helt.
+4. **Insamlingen skriver ingenting om undantagen inte går att läsa.** En rad
+   med ägarens klick i är sämre än en lucka som återfyllningen tar igen.
+   Sidorna faller däremot tillbaka på ett tomt undantag och loggar, eftersom
+   en sida som inte går att läsa är sämre än ett konto för mycket.
+5. **Ny betalande = kundens första lyckade debitering i Stripe**, inte skapad
+   prenumeration. En provperiod för 0 kr är inte en betalande. En faktura med
+   `billing_reason = subscription_cycle` är alltid en förnyelse.
+6. **`emails_opened` räknas per utskick**: utskick samma dag som öppnats någon
+   gång. Öppnandegraden kan aldrig passera 100 procent. Kolumnens betydelse
+   ändrades, därför samlades hela historiken om.
+7. **`active_all_day` räknas mot dagen**: köpt före dygnets slut och giltigt
+   efter dygnets start. 21 sep är nu 0, 22 sep 1.
+8. **Historiken samlades om för 90 dagar**, inte bara från 11 sep, med
+   `scripts/admin-backfill.ts 90`. Ägaren bad om "all data"; 90 dagar är hela
+   tabellens fönster. MRR före 15 sep är fortfarande dagens värde (Stripe har
+   ingen historik) och ritas som grå zon.
+9. **PostHog via kohort, inte personfilter.** Projektet kör personegenskaper
+   på händelsen, så `is_internal` på personen träffar bara nya händelser.
+   Kohorten "Adminen: undantagna konton" (248676) utvärderas mot nuvarande
+   egenskaper och tar historiken; dashboarden 968012 filtrerar på den. Adminens
+   egna HogQL-frågor utesluter på `distinct_id` (hela historiken), plus
+   `is_internal` och e-postmönstret. Den befintliga kohorten "Internal / Test
+   users" (92324), som projektets testkontofilter pekar på, innehåller
+   `@hotmail.se` som villkor och fångar alltså riktiga kunder. Den rördes
+   inte; beslut för ägaren.
+10. **Köpliggaren läser Stripe, i Suspense, cachad 15 minuter.** Ingen ny
+    tabell. Undantagna kontons köp syns märkta "internt" och räknas inte.
+11. **QA-kontona raderade**: b4-qa-gratis, b4-qa-cv, b4-qa-allt (inklusive
+    35 rader i `user_activities` och 2 i `monthly_guest_allowances`).
+    qa-b6 och qa-b5 fanns bara kvar som Stripe-kunder: nio öppna kassor
+    stängdes och båda kunderna raderades. De hade inga debiteringar eller
+    prenumerationer; skriptet kontrollerade det före radering.
+12. **Tratt har tre vyer via `?vy=`** (Köpvägen, Veckor, Användning) i
+    stället för en lång sida, för LCP. `/admin/flode` och `/admin/funnel`
+    skickas vidare. Förklaringarna om gamla mätfel flyttade från Översikt
+    till Tratt, Användning, Datakvalitet.
+13. **Cookie-bannern visas inte under `/admin`.**
+14. **Tomma tillstånd och diagramregeln** ligger i `src/lib/admin/tomt.ts`
+    (med `MATSTART` som enda sanning för mätstarter) och i `AdminChart`.
+    Principerna står i `docs/plan-admin.md`.
+
+Kvar efter omgången: se "Öppna punkter" i saas-leads rapport och
+tidslinjeraden i `.claude/agents/saas-lead.md`. Viktigast: den nya
+insamlingen går i produktion först vid merge; tills dess skriver cronen
+nattens rad med den gamla koden (ägarens konto inräknat), och nästa
+omsamling efter merge rättar den.

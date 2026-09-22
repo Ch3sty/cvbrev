@@ -1,29 +1,25 @@
 'use client';
 
 /**
- * Klientgränsen för Flödes fyra recharts-diagram. Tar färdiga rader från
- * sidan och ritar dem, hämtar ingenting. Tratten ritas som rena divar i
- * sidan: en stapel vars bredd är andelen av första steget behöver ingen
- * axel, och serverrenderade divar finns i första målningen.
+ * Klientgränsen för Tratts diagram. Tar färdiga rader från vyerna och ritar
+ * dem, hämtar ingenting. Vyerna bestämmer om ett diagram alls ska visas
+ * (sju dagar med data, fem köpare); diagramregeln i AdminChart tar resten.
+ * Paketen ritas alltid i spårfärgerna: CV-veckan blå, Testveckan brun,
+ * Allt ink.
  */
 
 import AdminChart, { type AdminSerie } from '@/components/admin/AdminChart';
-import type { BlockeringRad, BrickaAndel, FornyelseVecka, IntaktPunkt, Paket } from './berakning';
+import type { BlockeringRad, BrickaAndel, FornyelseVecka, IntaktDag, Paket } from './berakning';
 
 const PAKET_SERIE: Record<Paket, AdminSerie> = {
-  cv: { nyckel: 'cv', namn: 'CV-veckan', typ: 'linje', roll: 'mellan' },
-  tester: { nyckel: 'tester', namn: 'Testveckan', typ: 'linje', roll: 'sekundar' },
-  allt: { nyckel: 'allt', namn: 'Allt', typ: 'linje', roll: 'primar' },
+  cv: { nyckel: 'cv', namn: 'CV-veckan', typ: 'linje', roll: 'cv' },
+  tester: { nyckel: 'tester', namn: 'Testveckan', typ: 'linje', roll: 'test' },
+  allt: { nyckel: 'allt', namn: 'Allt', typ: 'linje', roll: 'allt' },
 };
 
-const tal = (v: number) => Math.round(v).toLocaleString('sv-SE');
+const tal = (v: number) => `${Math.round(v).toLocaleString('sv-SE')} st`;
 const procent = (v: number) => `${Math.round(v)} %`;
 const kronor = (v: number) => `${Math.round(v).toLocaleString('sv-SE')} kr`;
-
-/** Rader där minst ett värde finns. En serie av bara null ritas som tom, inte som ett tomt rutnät. */
-function medVarden<T extends Record<string, unknown>>(rader: T[], nycklar: string[]): T[] {
-  return rader.some((r) => nycklar.some((k) => typeof r[k] === 'number')) ? rader : [];
-}
 
 /** 2026-09-14 blir "14 sep". */
 function kortDatum(varde: string | number): string {
@@ -34,11 +30,7 @@ function kortDatum(varde: string | number): string {
 
 /** Liggande staplar per funktion, färgade efter paketet som säljs. */
 export function BlockeringDiagram({ rader, tomText }: { rader: BlockeringRad[]; tomText: string }) {
-  const data = rader.slice(0, 11).map((r) => ({
-    namn: r.namn,
-    personer: r.personer,
-    roll: r.roll,
-  }));
+  const data = rader.slice(0, 11).map((r) => ({ namn: r.namn, personer: r.personer, roll: r.roll }));
   return (
     <AdminChart
       data={data}
@@ -63,7 +55,7 @@ export function KomIgangDiagram({ brickor }: { brickor: BrickaAndel[] }) {
       data={data}
       xNyckel="namn"
       liggande
-      yAxisWidth={190}
+      yAxisWidth={170}
       yDoman={[0, 100]}
       hojd={data.length * 44 + 40}
       serier={[
@@ -78,13 +70,13 @@ export function KomIgangDiagram({ brickor }: { brickor: BrickaAndel[] }) {
 
 /** Kohortkurva: andel som fortfarande betalade vecka 1 till 4, per paket. */
 export function FornyelseDiagram({ veckor }: { veckor: FornyelseVecka[] }) {
-  const data = medVarden(veckor.map((v) => ({ ...v })), ['cv', 'tester', 'allt']) as Array<Record<string, string | number | null>>;
   return (
     <AdminChart
-      data={data}
+      data={veckor.map((v) => ({ ...v }))}
       xNyckel="vecka"
       hojd={240}
       yDoman={[0, 100]}
+      minstaPunkter={1}
       serier={[PAKET_SERIE.allt, PAKET_SERIE.cv, PAKET_SERIE.tester]}
       formateraY={procent}
       tomText="Inga veckoprenumerationer ännu."
@@ -92,23 +84,46 @@ export function FornyelseDiagram({ veckor }: { veckor: FornyelseVecka[] }) {
   );
 }
 
-/** Staplad yta: normaliserad MRR per paket över tid. */
-export function IntaktDiagram({ punkter }: { punkter: IntaktPunkt[] }) {
-  const data = medVarden(punkter.map((p) => ({ ...p })), ['cv', 'tester', 'allt']) as Array<Record<string, string | number | null>>;
+/** Intäkt per dag och spår, staplad. */
+export function IntaktDiagram({ dagar }: { dagar: IntaktDag[] }) {
   return (
     <AdminChart
-      data={data}
+      data={dagar.map((d) => ({ ...d }))}
       xNyckel="dag"
       hojd={240}
       yAxisWidth={72}
       serier={[
-        { ...PAKET_SERIE.allt, typ: 'yta' },
-        { ...PAKET_SERIE.cv, typ: 'yta' },
-        { ...PAKET_SERIE.tester, typ: 'yta' },
+        { ...PAKET_SERIE.allt, typ: 'stapel', stackId: 'paket' },
+        { ...PAKET_SERIE.cv, typ: 'stapel', stackId: 'paket' },
+        { ...PAKET_SERIE.tester, typ: 'stapel', stackId: 'paket' },
       ]}
       formateraX={kortDatum}
       formateraY={kronor}
-      tomText="Ingen historik ännu."
+      slutvarde={false}
+      tomText="Inga köp i fönstret."
+    />
+  );
+}
+
+/** En serie per vecka, bara hela veckor. Vyn visar den från sju veckor. */
+export function VeckoDiagram({
+  data,
+  nyckel,
+  namn,
+}: {
+  data: Array<{ vecka: string; varde: number | null }>;
+  nyckel: string;
+  namn: string;
+}) {
+  return (
+    <AdminChart
+      data={data.map((d) => ({ vecka: d.vecka, [nyckel]: d.varde }))}
+      xNyckel="vecka"
+      hojd={200}
+      serier={[{ nyckel, namn, typ: 'linje', roll: 'primar' }]}
+      formateraX={kortDatum}
+      formateraY={tal}
+      tomText="Inga hela veckor i fönstret."
     />
   );
 }

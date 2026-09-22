@@ -17,6 +17,13 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
+import {
+  hamtaUndantag,
+  hogqlUteslutning,
+  tomtUndantag,
+  uteslut,
+  type Undantag,
+} from './undantag';
 
 /** Tidsgrans per delsteg. Fyra delsteg ska rymmas i cronens 60 sekunder. */
 const DELSTEG_TIMEOUT_MS = 10_000;
@@ -300,13 +307,26 @@ export function paketFranSubscriptions(
  * borjar pa onetime skiljer kopen fran admins "ge premium", som gar pa samma
  * tabell men inte ar en intakt.
  */
-export async function raknaAllaDagen(admin: Admin): Promise<number> {
-  const { data } = await admin
-    .from('premium_grants')
-    .select('user_id, source, scope, premium_until_after')
-    .eq('scope', 'allt')
-    .gt('premium_until_after', new Date().toISOString())
-    .limit(5000);
+export async function raknaAllaDagen(
+  admin: Admin,
+  dag: string = dagStr(),
+  u: Undantag = tomtUndantag()
+): Promise<number> {
+  // Mot dagen, inte mot nu (spec-admin-tydlighet punkt 3): ett kop som
+  // gjordes 22 sep 14.14 far inte synas som aktivt 21 sep bara for att dagen
+  // samlas om efterat. Aktiv under dagen = kopt fore dygnets slut och giltigt
+  // efter dygnets start.
+  const { start, slut } = dygnsgranser(dag);
+  const { data } = await uteslut(
+    admin
+      .from('premium_grants')
+      .select('user_id, source, scope, premium_until_after')
+      .eq('scope', 'allt')
+      .lt('granted_at', slut.toISOString())
+      .gt('premium_until_after', start.toISOString()),
+    'user_id',
+    u
+  ).limit(5000);
 
   const koparen = new Set<string>();
   for (const rad of (data ?? []) as Array<{ user_id?: string | null; source?: string | null }>) {
@@ -417,7 +437,16 @@ export interface StripeDelresultat {
  * Stripe, paginerat fran forsta raden kod. I dag ryms 29 prenumerationer och
  * 48 debiteringar i en sida, vilket doljer buggen tills volymen vaxer.
  */
-export async function samlaStripe(dag: string): Promise<StripeDelresultat | null> {
+/** Stripe-kundens id oavsett om faltet ar expanderat eller inte. */
+export function kundId(kund: string | { id: string } | null | undefined): string | null {
+  if (!kund) return null;
+  return typeof kund === 'string' ? kund : kund.id ?? null;
+}
+
+export async function samlaStripe(
+  dag: string,
+  u: Undantag = tomtUndantag()
+): Promise<StripeDelresultat | null> {
   const nyckel = process.env.STRIPE_SECRET_KEY;
   if (!nyckel) return null;
 
@@ -425,6 +454,13 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
   const { start, slut } = dygnsgranser(dag);
   const fran = Math.floor(start.getTime() / 1000);
   const till = Math.floor(slut.getTime() / 1000);
+
+  // Undantagna konton (agarens och testkontonas Stripe-kunder) raknas
+  // aldrig, varken i MRR, i intakt eller som ny betalande.
+  const internKund = (kund: string | { id: string } | null | undefined) => {
+    const id = kundId(kund);
+    return Boolean(id && u.stripeKunder.has(id));
+  };
 
   // Prenumerationer: alla statusar, sa bade MRR och churn gar att rakna.
   // for await pa en Stripe-lista sidbryter av sig sjalv med starting_after
@@ -435,6 +471,7 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
     limit: 100,
     expand: ['data.items.data.price'],
   })) {
+    if (internKund(sub.customer as string | { id: string } | null)) continue;
     subs.push(sub);
   }
 
@@ -458,37 +495,80 @@ export async function samlaStripe(dag: string): Promise<StripeDelresultat | null
   const inomDygnet = (ts: number | null | undefined) =>
     typeof ts === 'number' && ts >= fran && ts < till;
 
-  const new_paying = subs.filter((s) => inomDygnet(s.created)).length;
   const churned = subs.filter((s) => inomDygnet(s.canceled_at)).length;
 
   // Debiteringar for dygnet, ocksa paginerat.
   let revenue_ore = 0;
-  let onetime_paying = 0; // engangskop (Allt-dagen) har ingen faktura och ingen prenumeration
   let failed_payments = 0;
+  const lyckade: Stripe.Charge[] = [];
   for await (const charge of stripe.charges.list({
     created: { gte: fran, lt: till },
     limit: 100,
   })) {
     const c = charge as Stripe.Charge;
+    if (internKund(c.customer as string | { id: string } | null)) continue;
     if (c.paid && c.status === 'succeeded') {
       revenue_ore += c.amount - (c.amount_refunded ?? 0);
-      if (!c.invoice) onetime_paying += 1;
+      lyckade.push(c);
     }
     if (c.status === 'failed' || c.failure_code) {
       failed_payments += 1;
     }
   }
 
+  // Ny betalande = kundens forsta lyckade debitering (spec-admin-tydlighet
+  // punkt 3). Tidigare raknades skapade prenumerationer, sa en provperiod
+  // for 0 kr blev en ny betalande och ett engangskop utan prenumeration
+  // missades. Nu fragar vi Stripe per kund om det finns en tidigare lyckad
+  // debitering. Dagens volym ar nagra debiteringar per dygn, sa det ar
+  // nagra fa anrop.
+  const new_paying = await raknaNyaBetalande(stripe, lyckade);
+
   return {
     mrr_ore,
     revenue_ore,
-    new_paying: new_paying + onetime_paying,
+    new_paying,
     churned,
     active_subs,
     trialing_subs,
     failed_payments,
     paket,
   };
+}
+
+/**
+ * Antal kunder vars forsta lyckade debitering ligger bland de givna.
+ *
+ * En debitering utan kund (en gastbetalning) raknas som ny: vi har inget
+ * satt att se en tidigare betalning, och en sadan finns inte i dag.
+ */
+export async function raknaNyaBetalande(
+  stripe: Pick<Stripe, 'charges'>,
+  lyckade: Stripe.Charge[]
+): Promise<number> {
+  const forstaPerKund = new Map<string, number>();
+  let utanKund = 0;
+  for (const c of lyckade) {
+    const kund = kundId(c.customer as string | { id: string } | null);
+    if (!kund) {
+      utanKund += 1;
+      continue;
+    }
+    const finns = forstaPerKund.get(kund);
+    if (finns === undefined || c.created < finns) forstaPerKund.set(kund, c.created);
+  }
+
+  let nya = utanKund;
+  for (const [kund, forsta] of forstaPerKund) {
+    const tidigare = await stripe.charges.list({
+      customer: kund,
+      created: { lt: forsta },
+      limit: 20,
+    });
+    const harTidigare = tidigare.data.some((c) => c.paid && c.status === 'succeeded');
+    if (!harTidigare) nya += 1;
+  }
+  return nya;
 }
 
 // ---------------------------------------------------------------------------
@@ -641,7 +721,8 @@ export async function hogql(
  * steg hade varit sju ganger sa manga anrop utan att ge mer.
  */
 export async function samlaFunnel(
-  dag: string
+  dag: string,
+  u: Undantag = tomtUndantag()
 ): Promise<Array<{ vecka: string; kalla: string; steg: string; antal: number }> | null> {
   const vecka = veckansMandag(dag);
   const namn = Object.values(POSTHOG_EVENT)
@@ -649,7 +730,7 @@ export async function samlaFunnel(
     .join(', ');
   const fonster = `timestamp >= toDateTime('${vecka} 00:00:00')
        and timestamp < toDateTime('${vecka} 00:00:00') + interval 7 day
-       and event in (${namn})`;
+       and event in (${namn})${hogqlUteslutning(u)}`;
 
   // Totalen och uppdelningen per paket i samma anrop: union all ar en
   // fraga mot kvoten, inte tva. Kolumnen kalla i admin_funnel_weekly bar
@@ -754,11 +835,14 @@ export interface FlodeRad {
  * Flodet for ett dygn: antal och unika personer per handelse, bade som
  * total (tom dimension) och per dimension. Ett HogQL-anrop per dag.
  */
-export async function samlaFlode(dag: string): Promise<FlodeRad[] | null> {
+export async function samlaFlode(
+  dag: string,
+  u: Undantag = tomtUndantag()
+): Promise<FlodeRad[] | null> {
   const namn = FLODE_HANDELSER.map((e) => `'${e}'`).join(', ');
   const fonster = `timestamp >= toDateTime('${dag} 00:00:00')
        and timestamp < toDateTime('${dag} 00:00:00') + interval 1 day
-       and event in (${namn})`;
+       and event in (${namn})${hogqlUteslutning(u)}`;
 
   const svar = await hogql(
     `select event, '' as dim, count() as antal, count(distinct person_id) as personer
@@ -840,57 +924,85 @@ export interface SupabaseDelresultat {
  */
 export async function samlaSupabase(
   admin: Admin,
-  dag: string
+  dag: string,
+  u: Undantag = tomtUndantag()
 ): Promise<SupabaseDelresultat> {
   const { start, slut } = dygnsgranser(dag);
   const franIso = start.toISOString();
   const tillIso = slut.toISOString();
 
-  const raknare = async (
-    tabell: string,
-    kolumn: string
-  ): Promise<number> => {
-    const { count } = await admin
-      .from(tabell)
+  const { count: nyaKonton } = await uteslut(
+    admin
+      .from('profiles')
       .select('*', { count: 'exact', head: true })
-      .gte(kolumn, franIso)
-      .lt(kolumn, tillIso);
-    return count ?? 0;
-  };
+      .gte('created_at', franIso)
+      .lt('created_at', tillIso),
+    'id',
+    u
+  );
+  const new_accounts = nyaKonton ?? 0;
 
-  const new_accounts = await raknare('profiles', 'created_at');
-
-  // Unika anvandare med minst en aktivitet under dygnet.
-  const { data: aktiva } = await admin
-    .from('user_activities')
-    .select('user_id')
-    .gte('created_at', franIso)
-    .lt('created_at', tillIso)
-    .limit(50000);
+  // Unika anvandare med minst en aktivitet under dygnet, utan undantagna
+  // konton: agarens egna inloggningar och klick ar inte aktivitet.
+  const { data: aktiva } = await uteslut(
+    admin
+      .from('user_activities')
+      .select('user_id')
+      .gte('created_at', franIso)
+      .lt('created_at', tillIso),
+    'user_id',
+    u
+  ).limit(50000);
   const active_users = new Set(
     (aktiva ?? []).map((r: { user_id: string | null }) => r.user_id).filter(Boolean)
   ).size;
 
-  const emails_sent = await raknare('email_log', 'sent_at');
-
-  const { count: oppnade } = await admin
-    .from('email_events')
-    .select('*', { count: 'exact', head: true })
-    .eq('event_type', 'opened')
-    .gte('created_at', franIso)
-    .lt('created_at', tillIso);
-  const emails_opened = oppnade ?? 0;
+  // Mejl: utskicken for dygnet, och av dem hur manga som oppnats nagon gang.
+  // Oppnandet raknas per utskick och inte per handelsedag (spec punkt 6 om
+  // Mejl), annars kunde en dag visa fler oppnade an skickade.
+  const { data: utskick } = await uteslut(
+    admin
+      .from('email_log')
+      .select('resend_id')
+      .gte('sent_at', franIso)
+      .lt('sent_at', tillIso),
+    'user_id',
+    u,
+    true
+  ).limit(20000);
+  const utskickRader = (utskick ?? []) as Array<{ resend_id: string | null }>;
+  const emails_sent = utskickRader.length;
+  const resendIds = utskickRader
+    .map((r) => r.resend_id)
+    .filter((r): r is string => Boolean(r));
+  let emails_opened = 0;
+  for (let i = 0; i < resendIds.length; i += 200) {
+    const bit = resendIds.slice(i, i + 200);
+    const { data: oppnade } = await admin
+      .from('email_events')
+      .select('resend_id')
+      .eq('event_type', 'opened')
+      .in('resend_id', bit)
+      .limit(20000);
+    emails_opened += new Set(
+      ((oppnade ?? []) as Array<{ resend_id: string }>).map((r) => r.resend_id)
+    ).size;
+  }
 
   // AI-kostnaden ligger i ai_usage_costs. Saknas tabellen pa en miljo ska det
   // bli null, inte ett kastat fel som tar ner hela insamlingen.
   let ai_cost_sek: number | null = null;
   try {
-    const { data: kostnader } = await admin
-      .from('ai_usage_costs')
-      .select('cost_sek')
-      .gte('created_at', franIso)
-      .lt('created_at', tillIso)
-      .limit(20000);
+    const { data: kostnader } = await uteslut(
+      admin
+        .from('ai_usage_costs')
+        .select('cost_sek')
+        .gte('created_at', franIso)
+        .lt('created_at', tillIso),
+      'user_id',
+      u,
+      true
+    ).limit(20000);
     if (kostnader) {
       ai_cost_sek = kostnader.reduce(
         (s: number, r: { cost_sek: number | null }) => s + (Number(r.cost_sek) || 0),
@@ -901,7 +1013,7 @@ export async function samlaSupabase(
     ai_cost_sek = null;
   }
 
-  const anvandning = await samlaAnvandning(admin, dag);
+  const anvandning = await samlaAnvandning(admin, dag, u);
 
   return {
     new_accounts,
@@ -935,18 +1047,27 @@ export interface AnvandningDelresultat {
  */
 export async function samlaAnvandning(
   admin: Admin,
-  dag: string
+  dag: string,
+  u: Undantag = tomtUndantag()
 ): Promise<AnvandningDelresultat> {
   const { start, slut } = dygnsgranser(dag);
   const franIso = start.toISOString();
   const tillIso = slut.toISOString();
 
+  // Alla fem kontotabellerna har user_id. Agarens och testkontonas brev, CV,
+  // tester och nedladdningar raknas inte. De publika proven i
+  // anon_test_sessions har inget konto och kan inte kopplas till nagon.
   const raknare = async (tabell: string, kolumn: string): Promise<number> => {
-    const { count } = await admin
-      .from(tabell)
-      .select('*', { count: 'exact', head: true })
-      .gte(kolumn, franIso)
-      .lt(kolumn, tillIso);
+    const { count } = await uteslut(
+      admin
+        .from(tabell)
+        .select('*', { count: 'exact', head: true })
+        .gte(kolumn, franIso)
+        .lt(kolumn, tillIso),
+      'user_id',
+      u,
+      true
+    );
     return count ?? 0;
   };
 
@@ -1129,7 +1250,8 @@ export function flodeLuckor(
 export async function aterfyllLuckor(
   admin: Admin,
   idag: string,
-  budgetMs: number
+  budgetMs: number,
+  u: Undantag = tomtUndantag()
 ): Promise<{ gscDagar: string[]; funnelVeckor: string[]; flodeDagar: string[]; fel: string[] }> {
   const slut = Date.now() + budgetMs;
   const gscDagar: string[] = [];
@@ -1204,7 +1326,7 @@ export async function aterfyllLuckor(
       for (const vecka of luckor) {
         if (Date.now() >= slut) break;
         try {
-          const f = await medTimeout(`PostHog ${vecka}`, samlaFunnel(vecka));
+          const f = await medTimeout(`PostHog ${vecka}`, samlaFunnel(vecka, u));
           if (!f) break;
           if (f.length) {
             await admin
@@ -1239,7 +1361,7 @@ export async function aterfyllLuckor(
       for (const dag of luckor) {
         if (Date.now() >= slut) break;
         try {
-          const f = await medTimeout(`PostHog flode ${dag}`, samlaFlode(dag));
+          const f = await medTimeout(`PostHog flode ${dag}`, samlaFlode(dag, u));
           if (!f) break;
           await skrivFlode(admin, dag, f);
           flodeDagar.push(dag);
@@ -1297,6 +1419,8 @@ export async function collectAdminMetrics(
     aterfyll?: boolean;
     /** Tak for hela anropet i millisekunder. Cronen har 60 s totalt. */
     budgetMs?: number;
+    /** Aterfyllningsskriptet laser undantagen en gang och skickar in dem. */
+    undantag?: Undantag;
   } = {}
 ): Promise<CollectResultat> {
   const delsteg: CollectResultat['delsteg'] = {};
@@ -1313,6 +1437,17 @@ export async function collectAdminMetrics(
     });
   };
   const budgetMs = val.budgetMs ?? 45_000;
+
+  // Undantagen forst. Gar de inte att lasa skriver vi ingenting: en rad med
+  // agarens egna klick i ar samre an en lucka, som aterfyllningen tar igen.
+  let u: Undantag;
+  try {
+    u = val.undantag ?? (await medTimeout('Undantag', hamtaUndantag(admin)));
+  } catch (err) {
+    const m = err instanceof Error ? err.message : String(err);
+    await loggaAdminFel(admin, 'cron', `collect/undantag ${dag}: ${m}`);
+    return { dag, skrev: false, delsteg: { undantag: 'fel' }, fel: [`undantag: ${m}`], tider };
+  }
 
   const rad: DagligaMetrik = {
     dag,
@@ -1346,7 +1481,7 @@ export async function collectAdminMetrics(
 
   // Stripe
   try {
-    const s = await ta('stripe', medTimeout('Stripe', samlaStripe(dag)));
+    const s = await ta('stripe', medTimeout('Stripe', samlaStripe(dag, u)));
     if (s) {
       // paket ar ingen kolumn utan en karta, sa den plockas ut separat och
       // skrivs till sina sex kolumner. Object.assign hade annars lagt ett
@@ -1402,7 +1537,7 @@ export async function collectAdminMetrics(
     delsteg.posthog = 'hoppat';
   } else {
     try {
-      const f = await ta('posthog', medTimeout('PostHog', samlaFunnel(dag)));
+      const f = await ta('posthog', medTimeout('PostHog', samlaFunnel(dag, u)));
       if (f && f.length) {
         await admin
           .from('admin_funnel_weekly')
@@ -1425,7 +1560,7 @@ export async function collectAdminMetrics(
     delsteg.flode = 'hoppat';
   } else {
     try {
-      const f = await ta('flode', medTimeout('PostHog flode', samlaFlode(dag)));
+      const f = await ta('flode', medTimeout('PostHog flode', samlaFlode(dag, u)));
       if (f) {
         await skrivFlode(admin, dag, f);
         delsteg.flode = 'ok';
@@ -1442,7 +1577,7 @@ export async function collectAdminMetrics(
 
   // Supabase
   try {
-    const s = await ta('supabase', medTimeout('Supabase', samlaSupabase(admin, dag)));
+    const s = await ta('supabase', medTimeout('Supabase', samlaSupabase(admin, dag, u)));
     rad.new_accounts = s.new_accounts;
     rad.active_users = s.active_users;
     rad.emails_sent = s.emails_sent;
@@ -1454,7 +1589,7 @@ export async function collectAdminMetrics(
     rad.templates_downloaded = s.templates_downloaded;
     // Allt-dagen ar ett engangskop och finns inte bland Stripes
     // prenumerationer. Den raknas pa giltiga premium_grants i stallet.
-    rad.active_all_day = await raknaAllaDagen(admin);
+    rad.active_all_day = await raknaAllaDagen(admin, dag, u);
     delsteg.supabase = 'ok';
   } catch (err) {
     delsteg.supabase = 'fel';
@@ -1501,7 +1636,7 @@ export async function collectAdminMetrics(
     const kvar = budgetMs - (Date.now() - start);
     if (kvar > 2_000) {
       const t0 = Date.now();
-      const res = await aterfyllLuckor(admin, dag, kvar);
+      const res = await aterfyllLuckor(admin, dag, kvar, u);
       tider.aterfyll = Date.now() - t0;
       aterfyllt = {
         gscDagar: res.gscDagar,

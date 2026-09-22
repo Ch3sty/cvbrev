@@ -14,6 +14,10 @@
  * har ingen reverse-flagga via AdminChart, sa vardet negeras i datan och
  * etiketten vander tillbaka tecknet. Tooltipen visar alltsa 18,6 aven om
  * serien bar −18,6.
+ *
+ * Dagarna Google inte levererat an ritas som en gra zon markt "Google ligger
+ * efter" (AdminChart efterslap), aldrig som tom yta eller noll. Senaste
+ * punkten skrivs ut av AdminChart (slutvarde).
  */
 
 import AdminChart from '@/components/admin/AdminChart';
@@ -28,9 +32,16 @@ export interface DiagramRad {
 
 interface Props {
   serie: DiagramRad[];
+  /** Forsta dagen Google inte levererat, eller null nar allt ar levererat. */
+  efterslapFran?: string | null;
 }
 
-export function KlickDiagram({ serie }: Props) {
+/** Zonen i slutet. En text for alla tre diagrammen. */
+function zon(fran: string | null | undefined) {
+  return fran ? { fran, text: 'Google ligger efter' } : undefined;
+}
+
+export function KlickDiagram({ serie, efterslapFran }: Props) {
   const data = serie.map((r) => ({ dag: r.dag, klick: r.klick }));
 
   return (
@@ -40,13 +51,15 @@ export function KlickDiagram({ serie }: Props) {
       serier={[{ nyckel: 'klick', namn: 'Klick', typ: 'linje', roll: 'framhavd' }]}
       hojd={200}
       formateraX={kortDatum}
-      formateraY={(v) => antal(v)}
-      tomText="Ingen GSC-data i fönstret."
+      enhet="klick"
+      efterslap={zon(efterslapFran)}
+      yAxisWidth={64}
+      tomText="Google har inte levererat någon dag i fönstret än."
     />
   );
 }
 
-export function VisningsDiagram({ serie }: Props) {
+export function VisningsDiagram({ serie, efterslapFran }: Props) {
   const data = serie.map((r) => ({ dag: r.dag, visningar: r.visningar }));
 
   return (
@@ -58,13 +71,15 @@ export function VisningsDiagram({ serie }: Props) {
       ]}
       hojd={200}
       formateraX={kortDatum}
-      formateraY={(v) => antal(v)}
-      tomText="Ingen GSC-data i fönstret."
+      formateraY={(v) => `${antal(v)} st`}
+      efterslap={zon(efterslapFran)}
+      yAxisWidth={72}
+      tomText="Google har inte levererat någon dag i fönstret än."
     />
   );
 }
 
-export function PositionsDiagram({ serie }: Props) {
+export function PositionsDiagram({ serie, efterslapFran }: Props) {
   // Negerat, sa att en forbattring gar uppat i bilden. Etiketten vander
   // tillbaka, annars star det −18,6 pa axeln och det betyder ingenting.
   const data = serie.map((r) => ({
@@ -81,8 +96,10 @@ export function PositionsDiagram({ serie }: Props) {
       ]}
       hojd={200}
       formateraX={kortDatum}
-      formateraY={(v) => formateraPosition(Math.abs(v))}
-      tomText="Ingen GSC-data i fönstret."
+      formateraY={(v) => `plats ${formateraPosition(Math.abs(v))}`}
+      efterslap={zon(efterslapFran)}
+      yAxisWidth={80}
+      tomText="Google har inte levererat någon dag i fönstret än."
     />
   );
 }

@@ -233,19 +233,25 @@ export function Chip({ children, ton }: { children: ReactNode; ton?: 'neutral' |
   );
 }
 
-/** Datum i svensk kort form. Tidsstampeln ar meta, aldrig brodtext. */
-export function datum(varde: string | null | undefined): string {
-  if (!varde) return '–';
+/**
+ * Datum i svensk kort form. Tidsstampeln ar meta, aldrig brodtext.
+ *
+ * Inga streck (spec-admin-tydlighet 2026-09-22): ett datum som saknas ar
+ * "aldrig" som standard. Anroparen skickar "okant, fore <datum>" nar
+ * vardet saknas for att matningen borjade senare.
+ */
+export function datum(varde: string | null | undefined, saknas = 'aldrig'): string {
+  if (!varde) return saknas;
   const d = new Date(varde);
-  if (Number.isNaN(d.getTime())) return '–';
+  if (Number.isNaN(d.getTime())) return 'okänt datum';
   return d.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 /** Datum med klockslag, for rader dar timmen sager nagot. */
-export function datumtid(varde: string | null | undefined): string {
-  if (!varde) return '–';
+export function datumtid(varde: string | null | undefined, saknas = 'aldrig'): string {
+  if (!varde) return saknas;
   const d = new Date(varde);
-  if (Number.isNaN(d.getTime())) return '–';
+  if (Number.isNaN(d.getTime())) return 'okänt datum';
   return d.toLocaleString('sv-SE', {
     day: 'numeric',
     month: 'short',

@@ -4,13 +4,18 @@
  * Mejlsidans tva diagram.
  *
  * Staplarna per mall visar levererat, oppnat och klickat som tre serier.
- * Planen beskriver dem som segment i en stapel, men AdminChart staplar inte:
- * serierna star bredvid varandra. Det ar sakligt battre anda, eftersom de tre
- * talen ar delmangder av varandra och en staplad stapel da skulle summera
- * samma mejl tre ganger.
+ * Mallarna ar kategorier och inte tid, sa staplarna ligger ner: namnen far
+ * plats pa 412 pixlar och diagramregelns minsta antal punkter galler inte.
+ * Serierna star bredvid varandra i stallet for staplade, eftersom de tre
+ * talen ar delmangder av varandra och en staplad stapel skulle summera samma
+ * mejl tre ganger.
  *
  * Oppnandegraden over tid ar en egen linje i ett eget diagram, eftersom en
- * andel och ett antal inte kan dela y-axel.
+ * andel och ett antal inte kan dela y-axel. Den raknas per utskick och
+ * passerar aldrig 100 % (berakning.ts).
+ *
+ * tomText kommer fran sidan: "0 sedan 24 jun, senaste skickat ...", aldrig
+ * "Inga mejl i fonstret".
  */
 
 import AdminChart from '@/components/admin/AdminChart';
@@ -23,7 +28,7 @@ export interface MallStapel {
   klick: number;
 }
 
-export function MallDiagram({ rader }: { rader: MallStapel[] }) {
+export function MallDiagram({ rader, tomText }: { rader: MallStapel[]; tomText: string }) {
   return (
     <AdminChart
       data={rader.map((r) => ({
@@ -33,14 +38,16 @@ export function MallDiagram({ rader }: { rader: MallStapel[] }) {
         klick: r.klick,
       }))}
       xNyckel="mall"
+      liggande
       serier={[
         { nyckel: 'levererade', namn: 'Levererade', typ: 'stapel', roll: 'primar' },
         { nyckel: 'oppnade', namn: 'Öppnade', typ: 'stapel', roll: 'sekundar' },
         { nyckel: 'klick', namn: 'Klick', typ: 'stapel', roll: 'framhavd' },
       ]}
-      hojd={260}
-      formateraY={(v) => antal(v)}
-      tomText="Inga utskick i fönstret."
+      hojd={Math.max(200, rader.length * 44)}
+      yAxisWidth={128}
+      formateraY={(v) => `${antal(v)} st`}
+      tomText={tomText}
     />
   );
 }
@@ -50,7 +57,7 @@ export interface GradRad {
   oppnandegrad: number | null;
 }
 
-export function OppnandegradDiagram({ rader }: { rader: GradRad[] }) {
+export function OppnandegradDiagram({ rader, tomText }: { rader: GradRad[]; tomText: string }) {
   return (
     <AdminChart
       data={rader.map((r) => ({
@@ -63,9 +70,10 @@ export function OppnandegradDiagram({ rader }: { rader: GradRad[] }) {
         { nyckel: 'oppnandegrad', namn: 'Öppnandegrad', typ: 'linje', roll: 'primar' },
       ]}
       hojd={220}
+      yDoman={[0, 100]}
       formateraX={kortDatum}
       formateraY={(v) => procent(v / 100, 0)}
-      tomText="Inga levererade mejl i fönstret."
+      tomText={tomText}
     />
   );
 }

@@ -522,6 +522,36 @@ Etiketten står alltid som mörk text på sin mjuka yta (`.tag` och `.pill`),
 i tabellhuvudet som text på insunken. Aldrig som yta bakom annan text,
 aldrig som knapp. Allt har ingen färg utöver ink.
 
+### Spårfärgerna i adminens diagram (godkänd 2026-09-22)
+
+`docs/design/spec-admin-tydlighet-2026-09-22.html`, punkt 7. Paketen ritas
+med samma kulör som spåretiketterna, men som egna tokens så att en serie
+aldrig lånar en textroll.
+
+| Variabel | Värde | Tailwind | Roll i `AdminChart` |
+|---|---|---|---|
+| `--diagram-cv` | `#1D4ED8` | `bg-diagram-cv` | `cv`: CV-veckan |
+| `--diagram-test` | `#7C2D12` | `bg-diagram-test` | `test`: Testveckan |
+| `--ink-1` | `#1C1917` | `bg-diagram-allt` | `allt`: Allt-dagen, -veckan, -månaden, -kvartalet |
+
+Validerat: CVD-avstånd ΔE 29,7 mellan blå och brun, alla tre över 3:1 mot
+panelen. Ink saknar kulör, så varje paketserie har direktetikett vid sin
+slutpunkt och förklaringen står ovanför diagrammet. Orange används i
+adminens diagram bara för att markera ett enskilt värde (till exempel ett
+engångsköp), aldrig för ett paket.
+
+Diagramregeln i adminen, samma omgång:
+
+1. Axlar alltid. Y-axeln bär enheten (kr, st, %), x-axeln visar datum i
+   början, mitten och slutet. Rutnätet är hårlinjer i `--kant`.
+2. Senaste värdet står utskrivet vid seriens slutpunkt, så diagrammet går
+   att läsa utan hovring.
+3. Färre än sju punkter med data blir inget diagram utan en mening med
+   värdena.
+4. Dagar före mätstart ritas inte som noll. De får en grå zon i
+   `--insunken` märkt "mäts från …". Samma zon markerar dagar som en källa
+   ännu inte levererat (Google ligger två till tre dagar efter).
+
 Scenerna för de här ytorna ligger i
 `src/components/illustrations/PriserScener.tsx`: sju scener i 240 × 200,
 hero-scenen i 520 × 400, gratispapperet i 56, tre förtroendeikoner i 40 och
@@ -538,6 +568,10 @@ Gratisnivån är alltid "ett brev om dagen". Sidhuvudets underrad säger vad
 sidan gör, inte vad den heter.
 
 ## 14. Ändringslogg
+
+**2026-09-22, admin utan streck.** Två tokens för adminens diagram,
+`--diagram-cv` (`#1D4ED8`) och `--diagram-test` (`#7C2D12`), med Allt i
+`--ink-1`, och diagramregeln i avsnitt 12. Gäller bara `/admin`.
 
 **v2, Tråden, 2026-09-13.** Ersätter v1. Vad som ändrades:
 
