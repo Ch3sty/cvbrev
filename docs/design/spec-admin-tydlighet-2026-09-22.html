@@ -1,0 +1,680 @@
+<title>Admin utan streck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;
+  --kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;
+  --varning:#A14A05;--varning-mjuk:#FBEBD0;
+  --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;
+  --cv:#1D4ED8;--cv-mjuk:#DCE6FB;--test:#7C2D12;--test-mjuk:#F6E4D6;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --mark:#1A1714;--panel:#232019;--insunken:#15120E;--insunken-topp:#0E0C09;
+    --kant:#3A342C;--kant-stark:#554D42;
+    --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;
+    --accent-ink:#F4A575;--accent-mjuk:#3A2418;
+    --positiv:#34D399;--positiv-mjuk:#12301F;--varning:#FBBF6A;--varning-mjuk:#3A2A10;
+    --fel:#F87171;--fel-mjuk:#3A1A1A;--fel-kant:#5A2626;
+    --cv:#8AA8F5;--cv-mjuk:#1C2A4A;--test:#E0A080;--test-mjuk:#3A2418;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --mark:#1A1714;--panel:#232019;--insunken:#15120E;--insunken-topp:#0E0C09;
+  --kant:#3A342C;--kant-stark:#554D42;
+  --ink-1:#F3EEE6;--ink-2:#C9C1B6;--ink-3:#9A918A;
+  --accent-ink:#F4A575;--accent-mjuk:#3A2418;
+  --positiv:#34D399;--positiv-mjuk:#12301F;--varning:#FBBF6A;--varning-mjuk:#3A2A10;
+  --fel:#F87171;--fel-mjuk:#3A1A1A;--fel-kant:#5A2626;
+  --cv:#8AA8F5;--cv-mjuk:#1C2A4A;--test:#E0A080;--test-mjuk:#3A2418;
+}
+*{box-sizing:border-box}
+body{background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;color:var(--ink-1)}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:6px}
+h3{font-size:17px;font-weight:600;line-height:1.3}
+p{margin:0}
+.lead{color:var(--ink-2);max-width:68ch;margin-top:12px}
+.meta{font-size:13px;color:var(--ink-3)}
+.etikett{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+section{margin-top:56px}
+.sekt-huvud{display:flex;flex-direction:column;gap:4px;margin-bottom:18px;padding-left:14px;border-left:2px solid var(--accent)}
+.panel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:20px}
+.insunken{background:var(--insunken);border:1px solid var(--kant);border-radius:10px;box-shadow:inset 0 1px 0 var(--insunken-topp);padding:14px 16px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+ol.sammanfattning{margin:0;padding-left:26px;display:flex;flex-direction:column;gap:6px;max-width:80ch}
+ol.sammanfattning li{padding-left:4px}
+ol.sammanfattning li::marker{font-family:var(--display);font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+ul.fynd{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+ul.fynd li{color:var(--ink-2)}
+ul.fynd b{color:var(--ink-1);font-weight:600}
+code{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:.86em;background:var(--insunken);border:1px solid var(--kant);border-radius:5px;padding:0 4px}
+.num{font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:6px;padding:1px 7px;border:1px solid var(--kant);background:var(--insunken);color:var(--ink-2);white-space:nowrap}
+.tag.fore{background:var(--fel-mjuk);border-color:var(--fel-kant);color:var(--fel)}
+.tag.efter{background:var(--positiv-mjuk);border-color:transparent;color:var(--positiv)}
+.tag.exempel{background:var(--varning-mjuk);border-color:transparent;color:var(--varning)}
+.tag.cv{background:var(--cv-mjuk);color:var(--cv);border-color:transparent}
+.tag.test{background:var(--test-mjuk);color:var(--test);border-color:transparent}
+.tag.allt{background:var(--insunken);color:var(--ink-1)}
+
+/* Svaret på dagspassfrågan */
+.svar{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.svar .stort{font-family:var(--display);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+
+/* Skärmskisser */
+.par{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,470px),1fr));gap:16px;align-items:start}
+.skarm{border:1px solid var(--kant-stark);border-radius:12px;overflow:hidden;background:var(--mark)}
+.skarm-topp{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--kant);font-size:13px;color:var(--ink-3)}
+.skarm-kropp{padding:14px;display:flex;flex-direction:column;gap:10px}
+.m-panel{background:var(--panel);border:1px solid var(--kant);border-radius:10px;padding:12px}
+.m-rubrik{font-size:13px;font-weight:600;color:var(--ink-1);margin-bottom:8px}
+.m-tal{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.m-kort{background:var(--panel);border:1px solid var(--kant);border-radius:9px;padding:9px 10px;position:relative;min-width:0}
+.m-kort .e{font-size:12px;color:var(--ink-3);line-height:1.35}
+.m-kort .v{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums;margin-top:2px}
+.m-kort .j{font-size:12px;color:var(--ink-3);line-height:1.35;margin-top:2px}
+.m-kort.tom .v{color:var(--ink-3)}
+.pin{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--fel);color:#fff;font-size:12px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;vertical-align:1px}
+.m-kort .pin,.m-panel>.pin{position:absolute;top:-8px;right:-6px}
+.m-panel{position:relative}
+.m-tabell{width:100%;border-collapse:collapse;font-size:12.5px}
+.m-tabell th,.m-tabell td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--kant);vertical-align:top}
+.m-tabell th{font-weight:500;color:var(--ink-3);font-size:12px}
+.m-tabell td.r,.m-tabell th.r{text-align:right;font-variant-numeric:tabular-nums}
+.m-tabell tr:last-child td{border-bottom:0}
+.m-text{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.tomrad{font-size:13px;color:var(--ink-2);line-height:1.5}
+.tomrad b{color:var(--ink-1);font-weight:600}
+.flodebar{display:grid;grid-template-columns:110px 1fr 44px;align-items:center;gap:8px;font-size:12.5px}
+.flodebar .spar{height:10px;background:var(--insunken);border-radius:5px;overflow:hidden}
+.flodebar .fyll{height:100%;background:var(--ink-1);border-radius:5px}
+.scroll{overflow-x:auto}
+.handelse{display:grid;grid-template-columns:78px 1fr auto;gap:10px;padding:7px 0;border-bottom:1px solid var(--kant);font-size:13px;align-items:baseline}
+.handelse:last-child{border-bottom:0}
+.handelse .t{color:var(--ink-3);font-variant-numeric:tabular-nums}
+.handelse .b{font-variant-numeric:tabular-nums;font-weight:600}
+.punkt{display:inline-block;width:8px;height:8px;border-radius:4px;background:var(--accent);margin-right:6px;vertical-align:1px}
+
+/* Principtabell och prioritet */
+.regel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.regel .panel h3{margin-bottom:6px}
+table.prio{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+table.prio th,table.prio td{padding:10px 10px;border-bottom:1px solid var(--kant);text-align:left;vertical-align:top}
+table.prio th{font-size:12px;font-weight:600;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase}
+table.prio td.ins{font-family:var(--display);font-weight:700;font-size:16px}
+table.prio td:first-child{font-variant-numeric:tabular-nums;color:var(--ink-3)}
+
+/* Diagram */
+.diagram{width:100%;height:auto;display:block}
+.diagram text{font-family:var(--body);fill:var(--ink-3);font-size:11px}
+.diagram .axel{stroke:var(--kant-stark);stroke-width:1}
+.diagram .rutnat{stroke:var(--kant);stroke-width:1}
+.diagram .stark{fill:var(--ink-1);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-2);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sidnav{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.sidnav a{font-size:13px;color:var(--ink-2);text-decoration:none;border:1px solid var(--kant);background:var(--panel);border-radius:8px;padding:5px 10px;min-height:32px;display:inline-flex;align-items:center}
+.sidnav a:hover{border-color:var(--kant-stark);color:var(--ink-1)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fotnot{font-size:13px;color:var(--ink-3);max-width:80ch}
+@media (max-width:520px){.wrap{padding-inline:16px}.flodebar{grid-template-columns:86px 1fr 36px}.handelse{grid-template-columns:62px 1fr auto}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="etikett">Spec för ägarens godkännande · 22 september 2026 · saas-lead</p>
+  <h1 style="margin-top:10px">Adminen ska säga vad som hänt, inte visa streck</h1>
+  <p class="lead">Ägaren i dag: "Det framgår ingenstans att någon köpt ett dagspass. Mycket av adminsidan är extremt otydligt och ser ut som mockupdata." Det här är förslaget för alla tio sidor. Varje tal i skisserna är hämtat ur produktionsdatabasen och Stripe (live) i kväll, 22 september. Där produkten saknar data står det <span class="tag exempel">exempel</span>. Ingen kod är skriven.</p>
+  <nav class="sidnav" aria-label="Avsnitt">
+    <a href="#sammanfattning">Sammanfattning</a><a href="#dagspass">Dagspasset</a><a href="#princip">Tomma tillstånd</a><a href="#diagram">Diagram</a><a href="#oversikt">Översikt</a><a href="#intakter">Intäkter och Köp</a><a href="#flode">Flöde</a><a href="#funnel">Funnel</a><a href="#anvandare">Användare</a><a href="#trafik">Trafik</a><a href="#ovriga">Mejl, Drift, Innehåll, Inställningar</a><a href="#prio">Prioritering</a>
+  </nav>
+</header>
+
+<!-- ============================================================ -->
+<section id="sammanfattning">
+  <div class="sekt-huvud"><p class="etikett">Tio rader</p><h2>Sammanfattning</h2></div>
+  <div class="panel">
+  <ol class="sammanfattning">
+    <li>Ett dagspass är sålt: Allt-dagen, 49 kr, 22 september kl. 14.14, betalt med Klarna. Det är det enda nya köpet på 30 dagar.</li>
+    <li>Översikt visar det inte alls. Intäkter visar det som en stapel bland 90 dagar och en tabellrad "Allt-dagen 1". Ingenstans står vem, när eller vad.</li>
+    <li>Adminen saknar en köpliggare. Förslaget: sektionen Köp på Intäkter, en rad per betalning med datum, paket, belopp, ny eller förnyelse, engångs eller löpande.</li>
+    <li>Översikt får intäkt de senaste 30 dagarna uppdelad i löpande och engångs, plus "senaste köp". I dag: 496 kr, varav 447 kr förnyelser och 49 kr engångs.</li>
+    <li>"Nya betalande" räknar fel: prenumerationer som skapats, även en provperiod för 0 kr (9 sep), och raden för 22 sep säger 0 trots köpet.</li>
+    <li>Tre tal till är fel i dag: "Trials i appen" säger 21 (9 pågår), 12 konton med utgången trial står som "Trial", och Allt-dagen står som aktiv 21 sep, dagen före köpet.</li>
+    <li>Flöde blandar källor: trappan säger 9 registrerade på 30 dagar (PostHog), databasen har 61 nya konton. Därför ser trappan trasig ut.</li>
+    <li>Tomma tillstånd blir en regel: aldrig streck, alltid vad som finns och sedan när. Flöde har i dag 8 streck och 4 tomma diagram.</li>
+    <li>Diagram blir en regel: axlar med enhet, senaste värdet utskrivet, och under sju punkter ingen graf utan en mening med senaste kända värde.</li>
+    <li>Fem S-insatser (köpliggaren, intäktstalen, rättade tal, QA-konton bort, cookie-bannern bort i admin) tar bort det mesta av mockupkänslan, tre M-insatser resten.</li>
+  </ol>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="dagspass">
+  <div class="sekt-huvud"><p class="etikett">Ägarens fråga</p><h2>Har någon köpt ett dagspass, och syns det?</h2></div>
+  <div class="svar">
+    <div class="panel stack">
+      <p class="etikett">Köpet</p>
+      <p class="stort">49 kr</p>
+      <p><b>Allt-dagen</b>, engångsköp, 22 sep 2026 kl. 14.14 svensk tid. Betalt med Klarna, Stripe livemode, ingen återbetalning. Ångerrättssamtycket tidsstämplat 14.12. Premium till 23 sep kl. 14.14.</p>
+      <p class="meta">Konto <code>580ee411</code>, e-post gomer@…, skapat 27 jan 2026, 29 brev och 201 aktiviteter sedan dess. Enda raden i <code>premium_grants</code> (<code>onetime_1d</code>, scope allt). Ingen annan har köpt Allt-dagen eller dagspasset sedan 11 september: Stripe har fyra debiteringar på 30 dagar, tre är månadsförnyelser på 149 kr.</p>
+      <p class="meta"><b>Att bekräfta:</b> om kontot är ditt eget testkonto ska det in i listan över undantagna konton, och då är det noll riktiga köp.</p>
+    </div>
+    <div class="panel">
+      <p class="etikett" style="margin-bottom:8px">Var det syns i adminen i dag</p>
+      <table class="m-tabell">
+        <thead><tr><th>Sida</th><th>Vad som står</th><th>Syns?</th></tr></thead>
+        <tbody>
+          <tr><td>Översikt</td><td>MRR 447 kr, Nya betalande 0, Aktiva 3. Ingen intäkt, inget engångstal.</td><td><span class="tag fore">Nej</span></td></tr>
+          <tr><td>Intäkter, kort</td><td>"Nya betalande i dag 0" (raden skrevs 19.48, fixen kom 19.51). "Intäkt senaste sju dagarna 49 kr".</td><td><span class="tag fore">Fel</span></td></tr>
+          <tr><td>Intäkter, diagram</td><td>En stapel på 49 kr längst till höger av 90 dagar.</td><td><span class="tag">Knappt</span></td></tr>
+          <tr><td>Intäkter, Per paket</td><td>"Allt-dagen · 1 · Engångs". Också 1 på 21 sep, före köpet.</td><td><span class="tag">Delvis</span></td></tr>
+          <tr><td>Flöde</td><td>"Betalt 1", "Bäst: Allt 100 %". Intäkt per paket utesluter Allt-dagen. Kom igång: "inga köpare sedan mätningen började" (mätningen startade 19.02, köpet 14.14).</td><td><span class="tag">Motsägelsefullt</span></td></tr>
+          <tr><td>Funnel</td><td>Vecka 39, paket Allt: betalt 1.</td><td><span class="tag">Delvis</span></td></tr>
+          <tr><td>Användare</td><td>Nivå "Premium", samma som månadskunderna och ditt adminkonto. Detaljsidan: premiumkälla <code>onetime_1d</code>.</td><td><span class="tag fore">Nej</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="princip">
+  <div class="sekt-huvud"><p class="etikett">Ny princip</p><h2>Tomma tillstånd: aldrig streck, alltid vad som finns och sedan när</h2></div>
+  <p class="lead" style="margin-top:0;margin-bottom:16px">Ett streck betyder för läsaren "trasigt". En nolla utan förklaring betyder "mockup". Varje ruta som saknar dagens tal ska i stället säga tre saker: vad talet är nu, sedan när det har gällt, och vilket det senaste riktiga värdet var.</p>
+  <div class="regel">
+    <div class="panel"><h3>1. Noll är ett tal, inte ett streck</h3><p class="m-text">Har vi mätt och fått noll skriver vi 0 och sedan när. Streck används aldrig i ett kort, bara i en tabellcell där kolumnen inte gäller raden, och då med förklaring i kolumnrubriken.</p></div>
+    <div class="panel"><h3>2. Senaste kända värde följer med</h3><p class="m-text">"0 köp sedan mätningen började 22 sep kl. 19. Senaste köp: 22 sep kl. 14.14, Allt-dagen 49 kr, konto 580ee411." Läsaren ska aldrig behöva gå till Stripe för att förstå en nolla.</p></div>
+    <div class="panel"><h3>3. Källa som ligger efter säger det</h3><p class="m-text">"Google ligger 2 till 3 dagar efter. 15 klick 19 sep, senaste dag med data." Inte streck för 20 till 22 sep.</p></div>
+    <div class="panel"><h3>4. Mäts inte än är ett eget tillstånd</h3><p class="m-text">"Mäts från 22 sep kl. 19. Första avläsning när första veckoköparen är sju dagar gammal." En rad, inte ett tomt diagram på 240 px.</p></div>
+    <div class="panel"><h3>5. Ett tal, en källa</h3><p class="m-text">Registrerade räknas ur <code>profiles</code>, köp ur Stripe och <code>premium_grants</code>, besök och klick ur PostHog. Samma tal får aldrig ha två värden på två sidor.</p></div>
+    <div class="panel"><h3>6. Testkonton räknas aldrig</h3><p class="m-text">Ditt adminkonto, <code>*@jobbcoach-qa.test</code> och konton du pekar ut filtreras bort i insamlingen, och sidan säger "3 testkonton undantagna".</p></div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <p class="etikett" style="margin-bottom:10px">Samma ruta före och efter, med kvällens siffror</p>
+    <div class="grid3">
+      <div class="m-kort tom"><div class="e">Köpsteget till betalt</div><div class="v">–</div><div class="j">ingen har sett köpsteget i fönstret</div><span class="pin">före</span></div>
+      <div class="m-kort"><div class="e">Köpsteget till betalt</div><div class="v">Mäts från 22 sep 19.02</div><div class="j">1 köp före mätstart: Allt-dagen 49 kr, 22 sep 14.14. Första andel när minst fem sett köpsteget.</div></div>
+      <div class="m-kort"><div class="e">Förnyelse vecka 1 till 2</div><div class="v">0 veckoköpare</div><div class="j">Veckopaketen säljs sedan 22 sep 10.51. Första kohort kan läsas tidigast 29 sep.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="diagram">
+  <div class="sekt-huvud"><p class="etikett">Ny princip</p><h2>Diagram: skala, enhet och ett riktigt värde, annars text</h2></div>
+  <ul class="fynd" style="max-width:82ch;margin-bottom:16px">
+    <li><b>Axlar alltid.</b> Y-axel med enhet (kr, st, %), x-axel med datum i början, mitten och slutet. Rutnätet är hårlinjer i <code>--kant</code>.</li>
+    <li><b>Senaste värdet utskrivet</b> vid seriens slutpunkt, så att diagrammet går att läsa utan hovring.</li>
+    <li><b>Färre än sju punkter med data blir inget diagram</b> utan en mening med värdena. En staplad yta med två punkter i ett 30-dagarsfönster ser ut som en ensam stapel utan skala, vilket är exakt vad ägaren såg.</li>
+    <li><b>Dagar före mätstart ritas inte</b> som noll eller platt linje. De får en grå zon med texten "mäts från …".</li>
+    <li><b>Paketen får spårfärgerna</b> ur designsystemet: CV-veckan <span class="tag cv">blå</span>, Testveckan <span class="tag test">brun</span>, Allt <span class="tag allt">ink</span>. Validerat: CVD-avstånd ΔE 29,7, alla tre över 3:1 mot panelen. Ink saknar kulör, så varje serie har direktetikett. Det löser D3-fråga 1 utan nya tokens. Orange används bara för att markera ett enskilt värde, till exempel engångsköp.</li>
+  </ul>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>Flöde · Intäkt per paket</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <div class="m-tal" style="margin-bottom:10px">
+            <div class="m-kort"><div class="e">MRR, normaliserad</div><div class="v">447 kr</div><div class="j">22 september</div></div>
+            <div class="m-kort"><div class="e">CV-veckan</div><div class="v">0 kr</div><div class="j">i månaden</div></div>
+            <div class="m-kort"><div class="e">Allt</div><div class="v">447 kr</div><div class="j">i månaden</div></div>
+          </div>
+          <svg class="diagram" viewBox="0 0 440 150" role="img" aria-label="Före: staplad yta med data bara sista dagen">
+            <line class="rutnat" x1="10" x2="430" y1="20" y2="20"/><line class="rutnat" x1="10" x2="430" y1="55" y2="55"/><line class="rutnat" x1="10" x2="430" y1="90" y2="90"/><line class="rutnat" x1="10" x2="430" y1="125" y2="125"/>
+            <rect x="416" y="48" width="12" height="77" fill="var(--ink-2)"/>
+          </svg>
+          <p class="m-text">Kolumnerna per paket finns sedan 21 sep, så 2 av 30 dagar har data. Ytan ritas som en ensam stapel. Allt-dagen är utesluten.</p>
+        </div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>Intäkter · Intäkt per dag, 30 dagar</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <svg id="d-intakt" class="diagram" viewBox="0 0 440 190" role="img" aria-label="Efter: intäkt per dag i kronor, 24 augusti till 22 september, förnyelser och engångsköp"></svg>
+          <div class="legend"><span><i style="background:var(--ink-1)"></i>Förnyelse, löpande</span><span><i style="background:var(--accent)"></i>Engångsköp</span></div>
+          <p class="m-text" style="margin-top:6px">Stripe, debiteringar minus återbetalningar. 30 dagar: 496 kr, varav 447 kr förnyelser av Allt-månaden och 49 kr Allt-dagen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="oversikt">
+  <div class="sekt-huvud"><p class="etikett">Sida 1 av 10</p><h2>Översikt</h2><p class="meta">Fem sekunder-frågan: ser jag att något sålts i går? I dag nej.</p></div>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin · talen gäller 22 september</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <div class="m-rubrik">1. Tjänar vi mer pengar?</div>
+          <div class="m-tal">
+            <div class="m-kort"><div class="e">MRR</div><div class="v">447 kr</div><div class="j">oförändrat</div></div>
+            <div class="m-kort"><div class="e">Nya betalande</div><div class="v">0</div><div class="j">oförändrat</div><span class="pin">1</span></div>
+            <div class="m-kort"><div class="e">Aktiva prenumerationer</div><div class="v">3</div><div class="j">oförändrat</div></div>
+            <div class="m-kort"><div class="e">Misslyckade betalningar</div><div class="v">0</div><div class="j">oförändrat</div></div>
+            <div class="m-kort"><div class="e">Nya betalande, 7 dagar</div><div class="v">0</div></div>
+            <div class="m-kort"><div class="e">Uppsagda, 7 dagar</div><div class="v">0</div></div>
+            <div class="m-kort"><div class="e">I trial</div><div class="v">0</div><span class="pin">2</span></div>
+          </div>
+          <p class="m-text" style="margin-top:8px">MRR-diagram, 30 dagar: 596 kr till 11 sep, sedan 447 kr. <span class="pin">3</span></p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">2. Kommer folk in?</div>
+          <div class="m-tal">
+            <div class="m-kort"><div class="e">Klick från sök</div><div class="v">15</div><div class="j">19 sep</div></div>
+            <div class="m-kort"><div class="e">Nya konton</div><div class="v">4</div></div>
+            <div class="m-kort"><div class="e">Nya konton, 7 dagar</div><div class="v">17</div></div>
+          </div>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">3 till 5</div><p class="m-text">CV 10, brev 4, tester 46, mallar 11 (7 dagar). Mejl 87 skickade, 64 öppnade. Fel 0, AI-kostnad 0,17 kr. Plus tre stycken förklaringstext om gamla mätfel. <span class="pin">4</span></p></div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin · måndag 22 september</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <div class="m-rubrik">Sedan i går</div>
+          <div class="handelse"><span class="t">14.14</span><span><span class="punkt"></span>Köp: Allt-dagen, konto 580ee411, ny kund</span><span class="b">49 kr</span></div>
+          <div class="handelse"><span class="t">i dag</span><span>4 nya konton. 2 personer valde spår (1 CV, 1 Allt)</span><span class="b">4</span></div>
+          <div class="handelse"><span class="t">05.00</span><span>4 provperioder gick ut, ingen köpte</span><span class="b">0 kr</span></div>
+          <div class="handelse"><span class="t">i dag</span><span>Fel i loggen</span><span class="b">0</span></div>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">1. Pengar</div>
+          <div class="m-tal">
+            <div class="m-kort"><div class="e">Intäkt, 30 dagar</div><div class="v">496 kr</div><div class="j">447 löpande, 49 engångs</div></div>
+            <div class="m-kort"><div class="e">Engångsköp, 30 dagar</div><div class="v">1 st · 49 kr</div><div class="j">Allt-dagen 22 sep</div></div>
+            <div class="m-kort"><div class="e">MRR</div><div class="v">447 kr</div><div class="j">3 × Allt-månaden 149 kr</div></div>
+            <div class="m-kort"><div class="e">Nya betalande, 30 dagar</div><div class="v">1</div><div class="j">före det: 25 jun, Allt-månaden</div></div>
+          </div>
+          <p class="m-text" style="margin-top:8px">Senaste fem köpen står under, med länk till Köp på Intäkter.</p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">2. Folk</div>
+          <div class="m-tal">
+            <div class="m-kort"><div class="e">Nya konton, 7 dagar</div><div class="v">18</div><div class="j">61 på 30 dagar</div></div>
+            <div class="m-kort"><div class="e">Klick från sök</div><div class="v">157</div><div class="j">13 till 19 sep, veckan före 125. Google ligger 3 dagar efter.</div></div>
+            <div class="m-kort"><div class="e">Provperioder kvar</div><div class="v">9</div><div class="j">sista går ut 27 sep</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <ul class="fynd">
+      <li><span class="pin">1</span> <b>Nya betalande 0</b> fast Allt-dagen köptes 14.14. Raden för 22 sep skrevs 19.48, fixen för engångsköp (6b89d59d) kom 19.51. Talet räknar dessutom skapade prenumerationer, så en provperiod för 0 kr 9 sep räknades som ny betalande. Förslag: ny betalande = kontots första lyckade debitering, ur Stripe.</li>
+      <li><span class="pin">2</span> <b>"I trial 0"</b> är Stripes kortkrävande provperiod, som inte längre säljs. Appens provperioder (9 pågår) syns inte. Kortet byts mot "Provperioder kvar" så länge de nio lever, och tas bort 27 sep.</li>
+      <li><span class="pin">3</span> <b>MRR-linjen före 14 sep är ingen mätning.</b> Förklaringen står i text under. Förslag: rita inte de dagarna, grå zon med "mäts från 15 sep". Översikt säger dessutom 14 sep och Intäkter 15 sep (<code>MRR_SANN_FRAN</code>); en konstant för båda.</li>
+      <li><span class="pin">4</span> <b>Förklaringstext om gamla mätfel</b> (aktiveringsmilstolpar, user_activities) tar mer plats än talen. Flyttas till Funnel, Datakvalitet.</li>
+      <li><b>Saknas:</b> intäkt i kronor, engångsköp, senaste köp, och en rad för vad som hände sedan i går.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="intakter">
+  <div class="sekt-huvud"><p class="etikett">Sida 2 av 10</p><h2>Intäkter, med den nya sektionen Köp</h2><p class="meta">Fem sekunder-frågan: vem köpte vad och när? I dag finns svaret bara i Stripe.</p></div>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/intakter · senaste dag 22 sep</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-tal">
+          <div class="m-kort"><div class="e">MRR</div><div class="v">447 kr</div></div>
+          <div class="m-kort"><div class="e">ARR</div><div class="v">5 364 kr</div></div>
+          <div class="m-kort"><div class="e">Nya betalande i dag</div><div class="v">0</div><div class="j">premium_grants är tom … (stämmer inte, 1 rad)</div><span class="pin">1</span></div>
+          <div class="m-kort"><div class="e">Trials i appen just nu</div><div class="v">21</div><span class="pin">2</span></div>
+          <div class="m-kort"><div class="e">Trial till betalt</div><div class="v">0,0 %</div><div class="j">Stripe trial_end, reverse trial…</div><span class="pin">3</span></div>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">Intäkt per dag, 90 dagar</div><p class="m-text">Fyra smala staplar på 90 dagar, 49 kr längst till höger.</p></div>
+        <div class="m-panel"><div class="m-rubrik">Per paket</div>
+          <table class="m-tabell"><thead><tr><th>Paket</th><th class="r">Aktiva</th><th class="r">MRR</th></tr></thead>
+          <tbody><tr><td>CV-veckan</td><td class="r">0</td><td class="r">0 kr</td></tr><tr><td>Testveckan</td><td class="r">0</td><td class="r">0 kr</td></tr><tr><td>Allt-dagen</td><td class="r">1</td><td class="r">Engångs</td></tr><tr><td>Allt-veckan</td><td class="r">0</td><td class="r">0 kr</td></tr><tr><td>Allt-månaden</td><td class="r">3</td><td class="r">447 kr</td></tr><tr><td>Allt-kvartalet</td><td class="r">0</td><td class="r">0 kr</td></tr></tbody></table>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">MRR-vattenfall</div><p class="m-text">Kräver minst trettio dagars sann MRR-historik …</p></div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/intakter · 30 dagar till 22 sep</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-tal">
+          <div class="m-kort"><div class="e">Intäkt, 30 dagar</div><div class="v">496 kr</div><div class="j">24 aug till 22 sep</div></div>
+          <div class="m-kort"><div class="e">Löpande</div><div class="v">447 kr</div><div class="j">3 förnyelser</div></div>
+          <div class="m-kort"><div class="e">Engångs</div><div class="v">49 kr</div><div class="j">1 Allt-dagen</div></div>
+          <div class="m-kort"><div class="e">MRR</div><div class="v">447 kr</div><div class="j">sann sedan 15 sep</div></div>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">Köp, senaste 30 dagarna (4)</div>
+          <div class="scroll">
+          <table class="m-tabell" style="min-width:430px">
+            <thead><tr><th>Datum</th><th>Paket</th><th>Konto</th><th>Typ</th><th class="r">Belopp</th></tr></thead>
+            <tbody>
+              <tr><td class="num">22 sep 14.14</td><td>Allt-dagen</td><td>580ee411</td><td><span class="tag">Ny · engångs</span></td><td class="r"><b>49 kr</b></td></tr>
+              <tr><td class="num">9 sep 22.26</td><td>Allt-månaden</td><td>7c6775f9</td><td><span class="tag">Förnyelse · löpande</span></td><td class="r">149 kr</td></tr>
+              <tr><td class="num">2 sep 13.31</td><td>Allt-månaden</td><td>b8379040</td><td><span class="tag">Förnyelse · löpande</span></td><td class="r">149 kr</td></tr>
+              <tr><td class="num">31 aug 16.37</td><td>Allt-månaden</td><td>a6c6aad6</td><td><span class="tag">Förnyelse · löpande</span></td><td class="r">149 kr</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="m-text" style="margin-top:8px">Kontot länkar till Användare. Ångrade köp och återbetalningar står som egna rader med minus. Tre testkonton undantagna. Startade men inte betalda kassor: 2 i dag, båda QA.</p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">Aktiva kunder per paket</div>
+          <table class="m-tabell"><thead><tr><th>Paket</th><th class="r">Kunder</th><th class="r">Per månad</th><th>Gäller till</th></tr></thead>
+          <tbody><tr><td>Allt-månaden</td><td class="r">3</td><td class="r">447 kr</td><td>löpande</td></tr><tr><td>Allt-dagen</td><td class="r">1</td><td class="r">engångs 49 kr</td><td>23 sep 14.14</td></tr></tbody></table>
+          <p class="m-text" style="margin-top:6px">CV-veckan, Testveckan, Allt-veckan och Allt-kvartalet: 0 kunder, i salu sedan 22 sep 10.51.</p>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">Uppsägningar, 30 dagar</div><p class="tomrad"><b>1</b>: 13 sep, provperiod på Allt-månaden startad 9 sep, aldrig debiterad. Uppsägningsflödet i appen har startats 2 gånger totalt (<code>cancel_intents</code>).</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <ul class="fynd">
+      <li><span class="pin">1</span> <b>Nya betalande i dag 0</b> och datakvalitetsnoten "premium_grants är tom" är båda fel sedan 14.14. Noten ska bort, raden för 22 sep samlas om.</li>
+      <li><span class="pin">2</span> <b>Trials i appen 21</b> räknar alla konton med trialkälla, även de 12 vars provperiod gått ut. Rätt tal i kväll: 9. Filtrera på <code>premium_until &gt; now()</code>.</li>
+      <li><span class="pin">3</span> <b>Trial till betalt</b> mäter Stripes provperiod, som inte finns i sortimentet längre, och noten talar om reverse trial som är borttagen. Kortet tas bort.</li>
+      <li><b>Allt-dagen "1 aktiv" 21 sep</b>: kolumnen fylls med dagens giltiga köp även när en gammal dag samlas om. Ska räknas mot dagen, inte mot nu.</li>
+      <li><b>Tomma sektioner</b> (vattenfall, kuponger 0 inlösta, misslyckade 0) krymper till en rad var längst ned: "Retentionskupongen: 0 inlösta sedan den skapades."</li>
+      <li><b>Källa för Köp:</b> Stripe-debiteringar med <code>invoice</code> (löpande) eller utan (engångs), paketet ur checkout-metadata <code>planKey</code> eller pris-id, ny eller förnyelse ur <code>billing_reason</code>. Hämtas i samma Suspense-gräns som plan-mixen, utanför kritiska vägen.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="flode">
+  <div class="sekt-huvud"><p class="etikett">Sida 3 av 10</p><h2>Flöde</h2><p class="meta">Skärmdumpen ägaren menar. Sidan är byggd för en volym vi inte har än, och fyra av fem sektioner är tomma på dag 1.</p></div>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/flode · 30 dagar</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-tal">
+          <div class="m-kort tom"><div class="e">Köpsteget till betalt</div><div class="v">–</div><div class="j">ingen har sett köpsteget i fönstret</div><span class="pin">1</span></div>
+          <div class="m-kort"><div class="e">Betalt, hela fönstret</div><div class="v">1</div><div class="j">24 augusti till 22 september</div></div>
+          <div class="m-kort"><div class="e">Bäst från spårval till betalt</div><div class="v">Allt</div><div class="j">100 % av 1 som valde spåret</div></div>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">Alla paket</div>
+          <div class="flodebar"><span>Besök</span><span class="spar"><span class="fyll" style="display:block;width:100%"></span></span><span class="num">490</span></div>
+          <div class="flodebar"><span>Registrerad</span><span class="spar"><span class="fyll" style="display:block;width:2%"></span></span><span class="num">9</span></div>
+          <div class="flodebar"><span>Valde spår</span><span class="spar"><span class="fyll" style="display:block;width:1%"></span></span><span class="num">2</span></div>
+          <div class="flodebar"><span>Såg köpsteget</span><span class="spar"></span><span class="num">0</span></div>
+          <div class="flodebar"><span>Gick till kassan</span><span class="spar"></span><span class="num">0</span></div>
+          <div class="flodebar"><span>Betalt</span><span class="spar"><span class="fyll" style="display:block;width:1%"></span></span><span class="num">1</span></div>
+          <span class="pin">2</span>
+        </div>
+        <div class="m-tal">
+          <div class="m-kort tom"><div class="e">Vanligaste spärren</div><div class="v">–</div></div>
+          <div class="m-kort tom"><div class="e">Vanligaste gråa valet</div><div class="v">–</div></div>
+        </div>
+        <div class="m-tal">
+          <div class="m-kort tom"><div class="e">CV-veckan: allt provat</div><div class="v">–</div><div class="j">inga köpare sedan mätningen började</div></div>
+          <div class="m-kort tom"><div class="e">Testveckan: allt provat</div><div class="v">–</div></div>
+          <div class="m-kort tom"><div class="e">Allt: allt provat</div><div class="v">–</div><span class="pin">3</span></div>
+        </div>
+        <div class="m-panel"><p class="m-text" style="text-align:center;padding:24px 0">Inga veckoprenumerationer ännu.</p><span class="pin">4</span></div>
+        <div class="m-panel"><p class="m-text">Intäkt per paket: 447 kr, ensam stapel längst till höger.</p><span class="pin">5</span></div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/flode · sedan paketen, 22 sep 10.51</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <div class="m-rubrik">Köpvägen sedan paketen släpptes</div>
+          <div class="handelse"><span class="t">konton</span><span>Nya konton, ur databasen</span><span class="b">4</span></div>
+          <div class="handelse"><span class="t">spår</span><span>Personer som valde spår, ur PostHog: 1 CV, 1 Allt</span><span class="b">2</span></div>
+          <div class="handelse"><span class="t">köp</span><span><span class="punkt"></span>Köp ur Stripe: Allt-dagen 49 kr, 14.14</span><span class="b">1</span></div>
+          <p class="m-text" style="margin-top:8px">Raderna ritas inte som trappa förrän stegen är samma personer: det enda köpet kom från ett konto skapat i januari, inte från de fyra nya. Köpsteget och kassan mäts från 22 sep 19.02, efter köpet. Trappan kommer tillbaka när fem personer nått köpsteget.</p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">Var det tar stopp</div>
+          <p class="tomrad"><b>1 spärr i dag:</b> full CV-analys, 4 gånger av 1 person, paketet som säljs där är CV-veckan. Gråa val: 0 sedan 22 sep 19.02.</p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">Kom igång och förnyelser</div>
+          <p class="tomrad"><b>Inga köpare att följa än.</b> Kom igång mäts för köp efter 22 sep 19.02 (0 hittills). Förnyelser kan läsas när första veckoköparen är sju dagar gammal, tidigast 29 sep. Sektionerna visas som diagram från fem köpare.</p>
+        </div>
+        <div class="m-panel">
+          <div class="m-rubrik">Intäkt per paket, 30 dagar</div>
+          <table class="m-tabell"><thead><tr><th>Paket</th><th class="r">Köp</th><th class="r">Intäkt</th></tr></thead>
+          <tbody><tr><td><span class="tag allt">Allt-månaden</span></td><td class="r">3 förnyelser</td><td class="r">447 kr</td></tr><tr><td><span class="tag allt">Allt-dagen</span></td><td class="r">1 nytt</td><td class="r">49 kr</td></tr><tr><td><span class="tag cv">CV-veckan</span></td><td class="r">0</td><td class="r">0 kr</td></tr><tr><td><span class="tag test">Testveckan</span></td><td class="r">0</td><td class="r">0 kr</td></tr></tbody></table>
+          <p class="m-text" style="margin-top:6px">Tabell tills en serie har sju dagar. Diagrammet kommer tillbaka då, med spårfärgerna.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <ul class="fynd">
+      <li><span class="pin">1</span> <b>Streck i tre toppkort</b> på sidans viktigaste rad. "Köpsteget till betalt" kan inte räknas eftersom händelsen gick live efter det enda köpet.</li>
+      <li><span class="pin">2</span> <b>Trappan blandar källor och fönster.</b> Besök 490 är unika per dag summerade över 10 insamlade dagar av 30. Registrerad 9 är PostHogs <code>signup_completed</code>; databasen har 61 nya konton på samma 30 dagar och 18 den senaste veckan. Betalt 1 före "Såg köpsteget 0" gör att det ser ut som ett fel, vilket det i praktiken är.</li>
+      <li><span class="pin">3</span> <b>"Inga köpare sedan mätningen började"</b> står bredvid "Betalt 1" utan att säga att mätningen började 19.02 och köpet var 14.14.</li>
+      <li><span class="pin">4</span> <b>Ett tomt diagram på 240 px</b> för förnyelser, och två tomma för spärrar och gråa val.</li>
+      <li><span class="pin">5</span> <b>Intäkt per paket</b> utesluter Allt-dagen, som är det enda paket som sålts nytt. Ritas som ensam stapel eftersom kolumnerna finns sedan 21 sep.</li>
+      <li><b>Förslag på fönster:</b> standard "sedan paketen släpptes" i stället för 30 dagar, tills 30 dagar finns. 7 och 30 finns kvar som val.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="funnel">
+  <div class="sekt-huvud"><p class="etikett">Sida 4 av 10</p><h2>Funnel</h2><p class="meta">Andra tratten i adminen, med andra tal än Flöde.</p></div>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/funnel · vecka 39</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-tal">
+          <div class="m-kort"><div class="e">Besök senaste veckan</div><div class="v">115</div><span class="pin">1</span></div>
+          <div class="m-kort"><div class="e">Registrerade</div><div class="v">1</div><span class="pin">2</span></div>
+          <div class="m-kort"><div class="e">Betalt</div><div class="v">1</div></div>
+        </div>
+        <div class="m-panel"><p class="m-text">Äldre veckor: besök 330, 423, 402, 428. Registrerade 7, 1, 0, 0. Köpsteg och kassa 0 alla veckor.</p></div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/funnel · vecka 39, dag 2 av 7</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-tal">
+          <div class="m-kort"><div class="e">Besökare, veckan hittills</div><div class="v">115</div><div class="j">2 av 7 dagar. Hela v. 38: 330.</div></div>
+          <div class="m-kort"><div class="e">Nya konton, veckan hittills</div><div class="v">6</div><div class="j">ur databasen. V. 38: 18.</div></div>
+          <div class="m-kort"><div class="e">Köp</div><div class="v">1</div><div class="j">Allt-dagen 49 kr</div></div>
+        </div>
+        <div class="m-panel"><p class="m-text">Veckor före en händelses startdatum visas grått med "mäts från", inte som 0. Pågående vecka markeras som ofullständig.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <ul class="fynd">
+      <li><span class="pin">1</span> <b>"Senaste veckan" är en påbörjad vecka</b> (måndag och tisdag). Jämförd rakt mot hela veckor ser det ut som ett ras från 330 till 115.</li>
+      <li><span class="pin">2</span> <b>Registrerade 1</b> ur PostHog, mot 6 nya konton i databasen samma två dagar. Nollor för registreringar i augusti är "händelsen fanns inte", inte "ingen registrerade".</li>
+      <li><b>Beslut för ägaren:</b> Funnel och Flöde svarar på samma fråga med olika tal. Förslaget är att slå ihop dem till en sida "Tratt" (L) när köpvägen har två veckors data. Tills dess får båda samma källregel.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="anvandare">
+  <div class="sekt-huvud"><p class="etikett">Sida 5 av 10</p><h2>Användare och detaljsidan</h2><p class="meta">Dagspasskunden ser likadan ut som en årskund och som ditt adminkonto.</p></div>
+  <div class="par">
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/anvandare</span><span class="tag fore">före</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <table class="m-tabell"><thead><tr><th>E-post</th><th>Nivå</th><th>Källa</th></tr></thead>
+          <tbody>
+            <tr><td>gomer@…</td><td>Premium</td><td>–</td></tr>
+            <tr><td>christiankarlssson@…</td><td>Premium</td><td>–</td></tr>
+            <tr><td>b4-qa-allt@jobbcoach-qa.test</td><td>Premium</td><td>–</td></tr>
+            <tr><td>eemmalindberg@…</td><td>Trial</td><td>–</td></tr>
+          </tbody></table>
+          <span class="pin">1</span>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">Detalj, Prenumeration</div><p class="m-text">Status: ingen prenumeration · Nivå: premium · Premiumkälla: onetime_1d · Premium till: 23 sep 14:14</p><span class="pin">2</span></div>
+      </div>
+    </div>
+    <div class="skarm">
+      <div class="skarm-topp"><span>/admin/anvandare · filter Betalande</span><span class="tag efter">efter</span></div>
+      <div class="skarm-kropp">
+        <div class="m-panel">
+          <table class="m-tabell"><thead><tr><th>Konto</th><th>Paket</th><th>Gäller till</th><th class="r">Betalt totalt</th></tr></thead>
+          <tbody>
+            <tr><td>gomer@…</td><td>Allt-dagen</td><td>23 sep 14.14</td><td class="r">49 kr</td></tr>
+            <tr><td>khaled…@…</td><td>Allt-månaden</td><td>löpande sedan 24 dec</td><td class="r">Stripe</td></tr>
+            <tr><td>stefan…@…</td><td>Allt-månaden</td><td>löpande sedan 2 mar</td><td class="r">Stripe</td></tr>
+            <tr><td>iris…@…</td><td>Allt-månaden</td><td>löpande sedan 25 jun</td><td class="r">Stripe</td></tr>
+          </tbody></table>
+          <p class="m-text" style="margin-top:6px">Filter: Betalande, Provperiod pågår, Provperiod slut, Gratis, Admin, Testkonto. Ditt konto står som Admin och räknas inte.</p>
+        </div>
+        <div class="m-panel"><div class="m-rubrik">Detalj, Köp</div><p class="m-text">22 sep 14.14 · Allt-dagen · 49 kr · Klarna · ångerrättssamtycke 14.12 · gäller till 23 sep 14.14</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <ul class="fynd">
+      <li><span class="pin">1</span> <b>Nivån säger bara Premium, Trial eller Gratis.</b> Paket, adminkonto och testkonto går inte att skilja åt. 12 konton med utgången provperiod står som "Trial". Kolumnen Källa är streck på 331 av 332 konton eftersom attributionen var trasig till 21 sep; den döljs tills minst en tiondel av kontona har värde.</li>
+      <li><span class="pin">2</span> <b>Rå systemvärden</b> (<code>onetime_1d</code>, <code>premium</code>) i stället för paketnamn i bestämd form. Ingen köphistorik på kontot.</li>
+      <li><b>Testkonton kvar i produktion:</b> <code>b4-qa-cv@jobbcoach-qa.test</code> och <code>b4-qa-allt@jobbcoach-qa.test</code> med status active och scope, plus <code>qa-b6-…</code> med två öppna kassor. Bygg-noterna säger att QA-kontot är raderat; två av tre ligger kvar.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="trafik">
+  <div class="sekt-huvud"><p class="etikett">Sida 6 av 10</p><h2>Trafik</h2><p class="meta">Fungerar i stort. Problemet är de tre sista dagarna som ser ut som ett ras.</p></div>
+  <div class="par">
+    <div class="panel">
+      <p class="m-rubrik">Klick från sök per dag, 24 aug till 22 sep <span class="tag efter">efter</span></p>
+      <svg id="d-gsc" class="diagram" viewBox="0 0 440 190" role="img" aria-label="Klick från Google per dag, med zon där Google inte levererat data än"></svg>
+      <p class="m-text" style="margin-top:6px">451 klick 24 aug till 19 sep. Senaste dag med data 19 sep: 15 klick, snittposition 14,5. 20 till 22 sep är inte noll, Google har inte levererat dem.</p>
+    </div>
+    <div class="panel">
+      <ul class="fynd">
+        <li><b>Luckan i slutet</b> ritas i dag som tom yta eller streck. Efter: grå zon märkt "Google ligger efter", sista punkten utskriven.</li>
+        <li><b>Periodjämförelsen</b> ska jämföra lika många dagar med data (13 till 19 sep: 157 klick mot 125 veckan före, plus 26 procent), inte kalenderdagar där tre saknas.</li>
+        <li><b>Snittpositionens vända skala</b> behåller vi; förklaringstexten kortas till en rad.</li>
+        <li><b>Toppsidor och sidor som tappar</b> står kvar. Tomt tillstånd "Ingen sida har tappat mer än tre positioner" är redan rätt formulerat och blir mönstret för resten.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ovriga">
+  <div class="sekt-huvud"><p class="etikett">Sida 7 till 10</p><h2>Mejl, Drift, Innehåll, Inställningar</h2><p class="meta">Här är talen oftast rätt. Det som ser ut som mockup är enstaka rutor.</p></div>
+  <div class="grid2">
+    <div class="panel stack">
+      <h3>Mejl</h3>
+      <p class="m-text">7 dagar: 87 skickade, 64 öppnade, 74 procent. Men 21 sep: 13 skickade och 15 öppnade, alltså över 100 procent på dagsnivå.</p>
+      <ul class="fynd"><li><b>Öppnandegrad räknas per utskick</b>, inte per händelsedag, så den aldrig passerar 100 procent.</li><li><b>Tomma diagram</b> ("Inga livscykelmejl i fönstret") ersätts av "0 sedan …, senaste skickat …".</li><li>Ny rad: <b>köpmejl</b> (kvitto, <code>komigang_</code>, <code>paket_fornyas_</code>) som egen grupp, så att köparens mejl syns bredvid köpet.</li></ul>
+    </div>
+    <div class="panel stack">
+      <h3>Drift</h3>
+      <p class="m-text">0 fel i <code>admin_error_log</code> totalt, AI-kostnad 0,17 kr på 7 dagar, cronen skrev senast 22 sep 19.48.</p>
+      <ul class="fynd"><li><b>"Inga fel" säger inte sedan när.</b> Efter: "0 rader i felloggen sedan den skapades. Senaste insamling 22 sep 19.48", plus status per delsteg (Stripe, GSC, PostHog, Supabase).</li><li>Webhookens senaste lyckade händelse (köpet 14.14) visas, så att "inga köp" går att skilja från "webhooken står".</li></ul>
+    </div>
+    <div class="panel stack">
+      <h3>Innehåll</h3>
+      <p class="m-text">Listor och räknare ur egna tabeller. Datumceller med streck när värdet saknas.</p>
+      <ul class="fynd"><li>Streck i datumceller blir "aldrig" eller "okänt, före 12 sep" beroende på orsak.</li><li>Ingen förändring i övrigt; sidan är ett uppslagsverktyg, inte en morgonfråga.</li></ul>
+    </div>
+    <div class="panel stack">
+      <h3>Inställningar</h3>
+      <p class="m-text">Stripejämförelsen, prissynken och adminanvändarna fungerar.</p>
+      <ul class="fynd"><li>Ny ruta: <b>undantagna konton</b> (ditt, <code>*@jobbcoach-qa.test</code>, egna val) som styr vad insamlingen räknar bort.</li><li><b>Cookie-bannern</b> visas över adminen (syns i skärmdumpen, täcker nedre kanten på Flöde). Ska inte laddas under <code>/admin</code>.</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="prio">
+  <div class="sekt-huvud"><p class="etikett">Beslut</p><h2>Prioriterad lista</h2><p class="meta">S under en dag, M en till tre dagar, L mer. Allt byggs av opus-agenter efter den här specen när den är godkänd.</p></div>
+  <div class="panel scroll">
+    <table class="prio">
+      <thead><tr><th>#</th><th>Åtgärd</th><th>Insats</th><th>Effekt</th><th>Beror på</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><b>Köp på Intäkter</b>: en rad per betalning 30 dagar, datum, paket, konto med länk, ny eller förnyelse, engångs eller löpande, belopp; återbetalningar som minusrader. Fem senaste på Översikt.</td><td class="ins">S</td><td>Varje dagspass syns samma dag med vem och när. Svarar direkt på ägarens klagomål.</td><td>Stripe-läsningen finns redan i <code>samlaStripe</code></td></tr>
+        <tr><td>2</td><td><b>Intäkt och engångs som egna tal</b> på Översikt och Intäkter: intäkt 30 dagar, löpande, engångs, antal engångsköp, senaste köp.</td><td class="ins">S</td><td>Pengafrågan besvaras i kronor, inte bara i MRR.</td><td>1</td></tr>
+        <tr><td>3</td><td><b>Rätta fyra tal</b>: ny betalande = första lyckade debitering (inte skapad prenumeration), trials med <code>premium_until &gt; now()</code>, Allt-dagen aktiv mot dagen och inte mot nu, nivåetiketten för utgången provperiod. Samla om 11 till 22 sep.</td><td class="ins">S</td><td>Inga tal som motsäger Stripe. Tillit.</td><td>ingen</td></tr>
+        <tr><td>4</td><td><b>Testkonton ut</b>: radera de tre QA-kontona, lägg undantagslistan i insamlingen och i Användare, bekräfta om gomer@… är ditt.</td><td class="ins">S</td><td>Rena tal från och med nästa insamling.</td><td>ägarens svar om kontot</td></tr>
+        <tr><td>5</td><td><b>Cookie-bannern bort</b> under <code>/admin</code>.</td><td class="ins">S</td><td>Inget skymmer nedre kanten.</td><td>ingen</td></tr>
+        <tr><td>6</td><td><b>Tomma tillstånd enligt principen</b>: en gemensam hjälpare för "0 sedan …, senaste …", alla streck i kort bort på tio sidor, "mäts från" som eget tillstånd.</td><td class="ins">M</td><td>Mockupkänslan försvinner. Varje nolla förklarar sig själv.</td><td>1, 3</td></tr>
+        <tr><td>7</td><td><b>Diagramregeln i AdminChart</b>: axlar med enhet, slutvärde utskrivet, färre än sju punkter blir text eller tabell, grå zon före mätstart och för GSC-fördröjning, spårfärgerna för paketen.</td><td class="ins">M</td><td>Inga ensamma staplar utan skala. Löser D3-fråga 1 utan nya tokens.</td><td>ingen</td></tr>
+        <tr><td>8</td><td><b>Flöde om</b>: en källa per steg (konton ur databasen, köp ur Stripe), fönstret "sedan paketen släpptes", sektioner utan data som en rad, Allt-dagen med i intäkt per paket.</td><td class="ins">M</td><td>Trappan går att lita på från första köpet.</td><td>6, 7</td></tr>
+        <tr><td>9</td><td><b>Användare</b>: kolumn Paket och Gäller till, filter Betalande, Admin och Testkonto, sektionen Köp på detaljsidan, Källa-kolumnen dold tills den har data.</td><td class="ins">M</td><td>Supportfrågan "vad har den här kunden köpt" besvaras på ett ställe.</td><td>1, 4</td></tr>
+        <tr><td>10</td><td><b>"Sedan i går"</b> överst på Översikt: köp, uppsägningar, utgångna provperioder, nya konton, fel, i tidsordning.</td><td class="ins">M</td><td>Morgonfrågan besvaras på fem sekunder.</td><td>1, 3</td></tr>
+        <tr><td>11</td><td><b>Funnel och Flöde blir en sida, Tratt.</b></td><td class="ins">L</td><td>En tratt, ett tal per steg. Kräver två veckors köpvägsdata först, tidigast 6 okt.</td><td>8, ägarens beslut</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <p class="etikett" style="margin-bottom:8px">Behöver ägarens svar</p>
+    <ul class="fynd">
+      <li>Är gomer@… (skapat 27 jan, 29 brev) ditt testkonto? Om ja: noll riktiga köp sedan 11 sep, och kontot hamnar i undantagen.</li>
+      <li>Godkänner du spårfärgerna (blå, brun, ink) i adminens diagram i stället för tre inktoner?</li>
+      <li>Godkänner du att Funnel och Flöde slås ihop när datan räcker (punkt 11)?</li>
+    </ul>
+  </div>
+  <p class="fotnot" style="margin-top:20px">Underlag: <code>admin_daily_metrics</code> 24 aug till 22 sep, <code>admin_flode_daily</code>, <code>admin_funnel_weekly</code>, <code>premium_grants</code>, <code>profiles</code> (332 konton), Stripe live via <code>scripts/admin-kop-granskning.ts</code> (endast läsning), skärmdumpen <code>docs/qa/qa-flode-d3/flode-30-desktop.png</code> och koden under <code>src/app/admin</code> och <code>src/lib/admin</code> på main 2afdef9f. Paketen såldes från 22 sep 10.51, köpvägens händelser mäts från 22 sep 19.02.</p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+  function dagar(){var out=[];var d=new Date(Date.UTC(2026,7,24));for(var i=0;i<30;i++){out.push(new Date(d.getTime()+i*864e5));}return out;}
+  var M=['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+  function kort(d){return d.getUTCDate()+' '+M[d.getUTCMonth()];}
+  function iso(d){return d.toISOString().slice(0,10);}
+
+  // Intäkt per dag, kronor. Stripe live, 24 aug till 22 sep 2026.
+  var lopande={'2026-08-31':149,'2026-09-02':149,'2026-09-09':149};
+  var engangs={'2026-09-22':49};
+  (function(){
+    var svg=document.getElementById('d-intakt');if(!svg)return;
+    var L=44,R=430,T=24,B=160,max=160,ds=dagar(),bw=(R-L)/30;
+    function y(v){return B-(v/max)*(B-T);}
+    [0,50,100,150].forEach(function(v){svg.appendChild(el('line',{class:v?'rutnat':'axel',x1:L,x2:R,y1:y(v),y2:y(v)}));svg.appendChild(el('text',{x:L-6,y:y(v)+4,'text-anchor':'end'},v+(v===150?' kr':'')));});
+    ds.forEach(function(d,i){
+      var k=iso(d),x=L+i*bw+2,w=bw-4;
+      var v=lopande[k]||0,e=engangs[k]||0;
+      if(v){var r=el('rect',{x:x,y:y(v),width:w,height:B-y(v),rx:2,fill:'var(--ink-1)'});r.appendChild(el('title',{},kort(d)+': förnyelse Allt-månaden '+v+' kr'));svg.appendChild(r);svg.appendChild(el('text',{x:x+w/2,y:y(v)-5,'text-anchor':'middle'},v));}
+      if(e){var r2=el('rect',{x:x,y:y(e),width:w,height:B-y(e),rx:2,fill:'var(--accent)'});r2.appendChild(el('title',{},kort(d)+': Allt-dagen '+e+' kr, engångs'));svg.appendChild(r2);svg.appendChild(el('text',{x:x+w-1,y:y(e)-6,'text-anchor':'end',class:'stark'},'49 kr, Allt-dagen'));}
+    });
+    [0,14,29].forEach(function(i){svg.appendChild(el('text',{x:L+i*bw+bw/2,y:B+16,'text-anchor':i===0?'start':(i===29?'end':'middle')},kort(ds[i])));});
+  })();
+
+  // GSC-klick per dag ur admin_daily_metrics. null = Google har inte levererat.
+  var gsc=[14,13,9,9,9,8,15,21,22,16,14,15,4,13,26,22,26,18,12,8,17,19,32,27,26,21,15,null,null,null]; // 24 aug till 22 sep
+  (function(){
+    var svg=document.getElementById('d-gsc');if(!svg)return;
+    var L=40,R=430,T=24,B=160,max=40,ds=dagar(),st=(R-L)/29;
+    function x(i){return L+i*st;} function y(v){return B-(v/max)*(B-T);}
+    var zx=x(26.5);
+    svg.appendChild(el('rect',{x:zx,y:T-8,width:R-zx+6,height:B-T+8,fill:'var(--insunken)'}));
+    svg.appendChild(el('text',{x:R+2,y:T-11,'text-anchor':'end'},'Google ligger efter'));
+    [0,10,20,30,40].forEach(function(v){svg.appendChild(el('line',{class:v?'rutnat':'axel',x1:L,x2:R,y1:y(v),y2:y(v)}));svg.appendChild(el('text',{x:L-6,y:y(v)+4,'text-anchor':'end'},v));});
+    var dstr='';gsc.forEach(function(v,i){if(v==null)return;dstr+=(dstr?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1);});
+    svg.appendChild(el('path',{d:dstr,fill:'none',stroke:'var(--ink-1)','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    gsc.forEach(function(v,i){if(v==null)return;var c=el('circle',{cx:x(i),cy:y(v),r:i===26?4:6,fill:i===26?'var(--accent)':'transparent',stroke:i===26?'var(--panel)':'none','stroke-width':2});c.appendChild(el('title',{},kort(ds[i])+': '+v+' klick'));svg.appendChild(c);});
+    svg.appendChild(el('text',{x:x(26)-6,y:y(15)+18,'text-anchor':'end',class:'stark'},'15 klick, 19 sep'));
+    svg.appendChild(el('text',{x:x(22),y:y(32)-8,'text-anchor':'middle'},'32, 15 sep'));
+    [0,14,29].forEach(function(i){svg.appendChild(el('text',{x:x(i),y:B+16,'text-anchor':i===0?'start':(i===29?'end':'middle')},kort(ds[i])));});
+    svg.appendChild(el('text',{x:4,y:12},'klick'));
+  })();
+})();
+</script>
