@@ -16,7 +16,7 @@
  * bottennav. Lokalt i sidan, eftersom FlowShell alltid ritar räknaren.
  */
 
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { X } from 'lucide-react'
@@ -25,6 +25,7 @@ import { useKomIgang } from '@/components/dashboard/KomIgangContext'
 import { IlluValkommenCv, IlluValkommenTest } from '@/components/illustrations/OnboardingScener'
 import { IkonCv } from '@/components/illustrations/Ikoner'
 import { valkommen, valkommenMedCv, VALKOMMEN_STEG_ETIKETT } from '@/lib/onboarding/komigang'
+import { capture } from '@/lib/analytics/events'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
@@ -58,6 +59,15 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang }: V
       root.removeAttribute('data-flow-active')
     }
   }, [])
+
+  // welcome_viewed en gång per montering: skärmen är det första köparen ser
+  // efter Stripe, och has_cv säger vilken av de två varianterna som visades.
+  const matt = useRef(false)
+  useEffect(() => {
+    if (matt.current) return
+    matt.current = true
+    capture('welcome_viewed', { paket, has_cv: Boolean(cvNamn) })
+  }, [paket, cvNamn])
 
   const bas = valkommen(paket)
   const medCv = (paket === 'cv' || paket === 'allt') && cvNamn ? valkommenMedCv(paket, cvNamn, cvUppladdat, poang) : null
@@ -144,7 +154,7 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang }: V
               {medCv.sekundar}
             </Link>
           ) : (
-            <button type="button" onClick={oppna} className={KNAPP_SEKUNDAR}>
+            <button type="button" onClick={() => oppna('valkomst')} className={KNAPP_SEKUNDAR}>
               {bas.sekundar}
             </button>
           )}

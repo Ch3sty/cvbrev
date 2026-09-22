@@ -20,14 +20,64 @@
 // service-nyckeln.
 
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import type { BrickaKey } from './komigang'
+import { captureServer, timmarSedan } from '@/lib/analytics/server'
+import { listaFor, type BrickaKey, type Paket } from './komigang'
 
-/** Kvittera en bricka. Tyst vid fel: hjälpredan får aldrig fälla en rutt. */
+/** Sant för de tre paketen, falskt för null och skräp. */
+function arPaket(v: unknown): v is Exclude<Paket, null> {
+  return v === 'cv' || v === 'tester' || v === 'allt'
+}
+
+/**
+ * Kvittera en bricka. Tyst vid fel: hjälpredan får aldrig fälla en rutt.
+ *
+ * Mätningen sitter här och ingen annanstans (docs/plan-paket-och-onboarding.md
+ * avsnitt 6): onboarding_step_completed när brickan kvitteras första gången,
+ * och onboarding_completed när listan för paketet är fylld. Profilen läses
+ * före kvitteringen så att en bricka som redan var provad inte mäts igen,
+ * vilket är samma idempotens som komigang_markera har i databasen.
+ * hours_since_purchase räknas på paket_started_at, som webhooken skriver.
+ */
 export async function markeraBricka(userId: string, key: BrickaKey): Promise<void> {
   try {
     const admin = getSupabaseAdmin() as any
+
+    const { data: profil } = await admin
+      .from('profiles')
+      .select('onboarding_steps, premium_scope, paket_started_at')
+      .eq('id', userId)
+      .maybeSingle()
+
+    const redan = new Set(sparadeNycklar(profil?.onboarding_steps))
+    if (redan.has(key)) return
+
     const { error } = await admin.rpc('komigang_markera', { p_user: userId, p_key: key })
-    if (error) console.error(`[komigang] kunde inte markera ${key}:`, error.message)
+    if (error) {
+      console.error(`[komigang] kunde inte markera ${key}:`, error.message)
+      return
+    }
+
+    // Mätningen. Paketet är det köpta scopet, null på gratisnivån; listan
+    // per paket ger brickans index och avgör när allt är provat.
+    const paket: Paket = arPaket(profil?.premium_scope) ? profil.premium_scope : null
+    const lista = listaFor(paket)
+    const index = lista.indexOf(key)
+    const timmar = timmarSedan(profil?.paket_started_at ?? null)
+    const gemensamt = {
+      paket,
+      ...(timmar !== null ? { hours_since_purchase: timmar } : {}),
+    }
+
+    captureServer('onboarding_step_completed', userId, {
+      ...gemensamt,
+      step: key,
+      index: index >= 0 ? index : lista.length,
+    })
+
+    redan.add(key)
+    if (lista.every((k) => redan.has(k))) {
+      captureServer('onboarding_completed', userId, gemensamt)
+    }
   } catch (error: any) {
     console.error(`[komigang] markera ${key} kastade:`, error?.message)
   }

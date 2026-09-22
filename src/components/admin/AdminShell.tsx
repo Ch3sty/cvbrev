@@ -54,6 +54,7 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { label: 'Trafik', href: '/admin/trafik' },
       { label: 'Användare', href: '/admin/anvandare' },
       { label: 'Funnel', href: '/admin/funnel' },
+      { label: 'Flöde', href: '/admin/flode' },
       { label: 'Mejl', href: '/admin/mejl' },
       { label: 'Drift', href: '/admin/drift' },
     ],

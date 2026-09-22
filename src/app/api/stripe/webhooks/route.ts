@@ -10,8 +10,9 @@ import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays';
-import { PLAN_BY_KEY, isPlanKey, type PlanScope } from '@/lib/plans/plans';
+import { PLAN_BY_KEY, isPlanKey, type PlanKey, type PlanScope } from '@/lib/plans/plans';
 import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
+import { captureServer } from '@/lib/analytics/server';
 import { scopeFromSubscription } from '@/lib/stripe/subscriptionScope';
 import type { Database } from '@/types/database.types';
 import {
@@ -73,9 +74,10 @@ const skrivSamtycke = async (
  * avsnitt 6). Klienten kommer tillbaka från Stripe utan att veta beloppet,
  * så det här är den enda platsen där betalningen kan mätas säkert.
  *
- * Fire and forget. Ingen await i webhookflödet, och alltid en catch:
- * PostHog får aldrig fälla ett svar till Stripe, för då kommer eventet om
- * igen och vi bokför det två gånger.
+ * Går via captureServer i src/lib/analytics/server.ts, som är fire and
+ * forget: ingen await i webhookflödet, och alltid en catch. PostHog får
+ * aldrig fälla ett svar till Stripe, för då kommer eventet om igen och vi
+ * bokför det två gånger.
  */
 const capturePaidServerside = (params: {
     userId: string;
@@ -83,26 +85,47 @@ const capturePaidServerside = (params: {
     scope: string;
     amountSek?: number;
 }): void => {
-    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
-    if (!apiKey) return;
-
-    const host = process.env.POSTHOG_HOST ?? 'https://eu.posthog.com';
-    void fetch(`${host}/capture/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            api_key: apiKey,
-            event: 'subscription_paid',
-            distinct_id: params.userId,
-            properties: {
-                plan: params.plan,
-                scope: params.scope,
-                amount_sek: params.amountSek,
-            },
-        }),
-    }).catch((error) => {
-        console.warn('[POSTHOG] subscription_paid kunde inte skickas:', error?.message ?? error);
+    captureServer('subscription_paid', params.userId, {
+        plan: params.plan,
+        scope: params.scope,
+        amount_sek: params.amountSek,
     });
+};
+
+/**
+ * Förnyelsens ordningstal: 1 för första förnyelsen. Räknas på tiden mellan
+ * prenumerationens start och fakturan, delat med paketets längd, så att
+ * ingen extra lista över fakturor behöver hämtas i webhooken.
+ */
+const fornyelseCykel = (
+    subscriptionCreated: number | null | undefined,
+    invoiceCreated: number | null | undefined,
+    plan: string | null
+): number => {
+    if (typeof subscriptionCreated !== 'number' || typeof invoiceCreated !== 'number') return 1;
+    const langd = plan && isPlanKey(plan) ? PLAN_BY_KEY[plan].length : 'vecka';
+    const dagar = langd === 'dag' ? 1 : langd === 'månad' ? 30 : langd === 'kvartal' ? 90 : 7;
+    const cykel = Math.round((invoiceCreated - subscriptionCreated) / (dagar * 86_400));
+    return Math.max(1, cykel);
+};
+
+/**
+ * Skriver när paketet började. Underlag för hours_since_purchase i
+ * hjälpredans kvitteringar och för Kom igång-diagrammet i adminen. En
+ * enda update; misslyckas den ska webhooken ändå svara 200.
+ */
+const skrivPaketStart = async (userId: string | null | undefined, vid: Date = new Date()): Promise<void> => {
+    if (!userId) return;
+    try {
+        const admin = getSupabaseAdmin() as any;
+        const { error } = await admin
+            .from('profiles')
+            .update({ paket_started_at: vid.toISOString() })
+            .eq('id', userId);
+        if (error) console.error('[PAKET] Kunde inte skriva paket_started_at:', error.message);
+    } catch (error) {
+        console.error('[PAKET] paket_started_at kastade:', error);
+    }
 };
 
 /** Behörigheten prenumerationen ger. Regeln bor i subscriptionScope.ts. */
@@ -306,12 +329,6 @@ export async function POST(request: Request) {
                      const metaPlan = fullSubscription.metadata?.planKey ?? fullSubscription.metadata?.plan;
                      const plan = isPlanKey(metaPlan) ? metaPlan : planFromPrice;
                      const betaltOre = typeof eventData.amount_paid === 'number' ? eventData.amount_paid : null;
-                     capturePaidServerside({
-                         userId: updated.userId,
-                         plan: plan ?? 'okant',
-                         scope: updated.scope ?? 'allt',
-                         amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
-                     });
 
                      // Hjälpredans mejl schemaläggs dag för dag av runnern. Här rensas
                      // bara kön från ett tidigare paket, och bara vid den första
@@ -320,8 +337,29 @@ export async function POST(request: Request) {
                      const forstaFakturan =
                          eventData.billing_reason === 'subscription_create' ||
                          eventData.billing_reason === 'subscription_update';
+                     const fornyelse = eventData.billing_reason === 'subscription_cycle';
+
+                     // Köpet mäts som subscription_paid, förnyelsen som
+                     // renewal_succeeded med sitt ordningstal. Samma faktura ska
+                     // aldrig räknas som båda: tratten slutar i köpet, och
+                     // förnyelsekurvan börjar först efter det.
+                     if (fornyelse) {
+                         captureServer('renewal_succeeded', updated.userId, {
+                             plan: (plan ?? 'all_week') as PlanKey,
+                             cycle: fornyelseCykel(fullSubscription.created, eventData.created, plan),
+                             amount_sek: betaltOre !== null ? betaltOre / 100 : undefined,
+                         });
+                     } else {
+                         capturePaidServerside({
+                             userId: updated.userId,
+                             plan: plan ?? 'okant',
+                             scope: updated.scope ?? 'allt',
+                             amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
+                         });
+                     }
 
                      if (updated.scope && forstaFakturan) {
+                         await skrivPaketStart(updated.userId);
                          await onPaketStarted(getSupabaseAdmin() as any, updated.userId);
                      }
                  }
@@ -380,6 +418,7 @@ export async function POST(request: Request) {
                    );
 
                    if (result.granted) {
+                     await skrivPaketStart(onetimeUserId);
                      const onetimePlan = eventData.metadata?.planKey ?? eventData.metadata?.plan;
                      const belopp = typeof eventData.amount_total === 'number' ? eventData.amount_total / 100 : undefined;
                      capturePaidServerside({

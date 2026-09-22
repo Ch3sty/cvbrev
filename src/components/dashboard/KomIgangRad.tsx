@@ -55,7 +55,7 @@ export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
   return (
     <button
       type="button"
-      onClick={oppna}
+      onClick={() => oppna('rad')}
       aria-haspopup="dialog"
       aria-expanded={arkOppet}
       aria-label={`${rubrik}. ${rad}`}

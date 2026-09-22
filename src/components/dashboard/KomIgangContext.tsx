@@ -17,6 +17,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { komIgangLage, type BrickaFakta, type KomIgangLage, type Paket } from '@/lib/onboarding/komigang'
+import { capture, type KomIgangSurface } from '@/lib/analytics/events'
 
 const DOLD_NYCKEL = 'jc_komigang_dold'
 
@@ -28,7 +29,8 @@ interface KomIgangContextValue {
   /** Sann när användaren tryckt "Dölj" i dag: raden visas ihopfälld, aldrig borta. */
   dold: boolean
   arkOppet: boolean
-  oppna: () => void
+  /** Öppnar arket och skjuter komigang_opened med varifrån det öppnades. */
+  oppna: (surface?: KomIgangSurface) => void
   stang: () => void
   dolj: () => void
 }
@@ -76,7 +78,23 @@ export function KomIgangProvider({ children }: { children: ReactNode }) {
 
   const fakta = summary?.komIgang?.fakta ?? {}
 
-  const oppna = useCallback(() => setArkOppet(true), [])
+  // komigang_opened vid varje öppning, med läget som det såg ut då. Talet vi
+  // följer är öppningar per köpare och från vilken yta, så att D2 fråga 4
+  // (raden bara på hemskärmen i mobil) går att avgöra med data.
+  const oppna = useCallback(
+    (surface: KomIgangSurface = 'rad') => {
+      setArkOppet(true)
+      if (lage) {
+        capture('komigang_opened', {
+          paket: lage.paket,
+          provade: lage.antalProvade,
+          totalt: lage.antalTotalt,
+          surface,
+        })
+      }
+    },
+    [lage]
+  )
   const stang = useCallback(() => setArkOppet(false), [])
   const dolj = useCallback(() => {
     setArkOppet(false)

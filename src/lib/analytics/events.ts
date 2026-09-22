@@ -11,10 +11,13 @@
 import type { CtaCluster } from '@/lib/cta/clusters'
 import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
-import type { PlanKey } from '@/lib/plans/plans'
+import type { PlanKey, PlanLength } from '@/lib/plans/plans'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
+
+/** Varifrån hjälpredan Kom igång öppnades. */
+export type KomIgangSurface = 'rad' | 'profilmeny' | 'valkomst'
 
 /** Varför prissidan öppnades. */
 export type PricingTrigger = 'quota_lock' | 'nav' | 'cta' | 'paywall'
@@ -144,20 +147,43 @@ export interface AnalyticsEvents {
     intent?: 'purchase' | 'free'
   }
   track_changed: { from: string | null; to: string | null; surface: string }
+  /* Köpsteget (skärm 1.2 i ValjSparClient) och vägen till Stripe. Tratten i
+     adminen läser pageview, signup_completed, track_selected,
+     purchase_step_viewed, checkout_started och subscription_paid, med plan
+     som uppdelning där den finns. consent_checked ligger mellan de två sista
+     så att en bortfallen kryssruta går att skilja från en bortfallen kassa. */
+  purchase_step_viewed: { plan: PlanKey; surface: string }
+  consent_checked: { plan: PlanKey }
+  checkout_started: { plan: PlanKey; length: PlanLength }
+  /* Välkomstskärmen efter köpet, /dashboard/vecka/start. */
+  welcome_viewed: { paket: 'cv' | 'tester' | 'allt'; has_cv: boolean }
+  /* Kvitteringarna skjuts från servern (src/lib/analytics/server.ts) när
+     brickan faktiskt provas; klienten skjuter bara spårvalet med index 0.
+     paket är det köpta paketet, track finns kvar för spårvalet. */
   onboarding_step_completed: {
+    paket?: 'cv' | 'tester' | 'allt' | null
     track?: 'cv' | 'tester' | 'allt' | null
     step: string
     index: number
     hours_since_purchase?: number
   }
   onboarding_completed: {
+    paket?: 'cv' | 'tester' | 'allt' | null
     track?: 'cv' | 'tester' | 'allt' | null
     hours_since_purchase?: number
   }
   /* Hjälpredan Kom igång (spec-onboarding 2026-09-22): arket öppnat, och
-     ett grått val tryckt i meny eller vy. */
-  komigang_opened: { paket: 'cv' | 'tester' | 'allt' | null; provade: number; totalt: number }
+     ett grått val tryckt i meny eller vy. surface säger varifrån arket
+     öppnades: raden, profilmenyn eller välkomstskärmens "Visa allt som ingår". */
+  komigang_opened: {
+    paket: 'cv' | 'tester' | 'allt' | null
+    provade: number
+    totalt: number
+    surface: KomIgangSurface
+  }
   gray_option_tapped: { feature: string; scope: string | null; surface: string }
+  /* Skjuts från servern vid Stripes invoice.payment_succeeded med
+     billing_reason subscription_cycle. cycle är 1 för första förnyelsen. */
   renewal_succeeded: { plan: PlanKey; cycle: number }
   upgrade_shown: { from_scope: string | null; to_scope: string; surface: string }
   feature_blocked: { feature: string; scope: string | null; surface: string }

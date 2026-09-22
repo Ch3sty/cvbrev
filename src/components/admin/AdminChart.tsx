@@ -16,6 +16,7 @@
  * |------------------|-------------------|
  * | Primar serie     | var(--ink-1)      |
  * | Sekundar serie   | var(--kant-stark) |
+ * | Mellan serie     | var(--ink-3)      |
  * | Framhavd serie   | var(--accent)     |
  * | Positivt utfall  | var(--positiv)    |
  * | Varning          | var(--varning)    |
@@ -25,6 +26,11 @@
  *
  * Hogst en framhavd serie per diagram, annars sprangs taket pa tre orange
  * inslag per skarm.
+ *
+ * Tre former utover linje och stapel, tillagda for /admin/flode:
+ * liggande staplar (kategorin pa y-axeln, talet pa x), staplade ytor for
+ * en del-av-helhet over tid, och en farg per rad via fargNyckel, sa att
+ * en stapel kan fargas efter vilket paket den hor till.
  *
  * En sak komponenten medvetet inte kan: tva y-axlar. Planens avsnitt 4.3
  * beskriver klick och visningar med varsin axel, men tva skalor i samma ruta
@@ -40,6 +46,7 @@ import type { ReactNode } from 'react';
 export type AdminSerieRoll =
   | 'primar'
   | 'sekundar'
+  | 'mellan'
   | 'framhavd'
   | 'positiv'
   | 'varning'
@@ -50,16 +57,18 @@ export interface AdminSerie {
   nyckel: string;
   /** Serienamnet som star i forklaringen och i tooltipen. */
   namn: string;
-  /** Linje eller stapel. */
-  typ: 'linje' | 'stapel';
+  /** Linje, stapel eller yta. Ytor staplas alltid pa varandra. */
+  typ: 'linje' | 'stapel' | 'yta';
   /** Fargroll. Hogst en framhavd per diagram. */
   roll: AdminSerieRoll;
+  /** Staplar med samma stackId laggs pa varandra. */
+  stackId?: string;
 }
 
 export interface AdminChartProps {
   /** Raderna. Varje rad har xNyckel plus en nyckel per serie. */
   data: Array<Record<string, string | number | null>>;
-  /** Faltet pa x-axeln, till exempel "dag". */
+  /** Faltet pa x-axeln, till exempel "dag". Vid liggande: kategorin pa y. */
   xNyckel: string;
   /** En till fyra serier. Fler an sa ska delas i tva diagram. */
   serier: AdminSerie[];
@@ -69,13 +78,32 @@ export interface AdminChartProps {
    * Y-axelns bredd i pixlar. Standard 56, vilket rymmer fyra siffror i tolv
    * pixlars grad. Hoj den nar etiketterna bar en enhet ("600 kr") eller nar
    * talen blir langre: en for smal axel klipper fran vanster, sa "600 kr"
-   * lases som "00 kr", vilket ar varre an ingen etikett alls.
+   * lases som "00 kr", vilket ar varre an ingen etikett alls. Vid liggande
+   * ar det kategoriaxelns bredd, alltsa etiketternas.
    */
   yAxisWidth?: number;
   /** Formaterar x-etiketterna, till exempel ett datum till "14 sep". */
   formateraX?: (varde: string | number) => string;
   /** Formaterar y-etiketter och tooltip-varden, till exempel ore till kronor. */
   formateraY?: (varde: number) => string;
+  /**
+   * Liggande staplar: kategorin star pa y-axeln och talet pa x. Anvands
+   * nar kategorierna ar manga eller har langa namn. Bara staplar.
+   */
+  liggande?: boolean;
+  /**
+   * Faltet i raden som bar fargrollen for just den raden, till exempel
+   * "roll". Da fargas varje stapel efter sitt eget varde i stallet for
+   * seriens. Fargen foljer alltsa entiteten (paketet), aldrig rangordningen.
+   */
+  fargNyckel?: string;
+  /**
+   * Skriver vardet vid stapelns spets. Anvands sparsamt: pa liggande
+   * staplar med fa rader, dar axeln annars ar enda vagen till talet.
+   */
+  etiketter?: boolean;
+  /** Y-axelns domän vid procent: [0, 100]. Utelamnad: automatisk. */
+  yDoman?: [number, number];
   /** Visas i stallet for diagrammet nar data ar tom. */
   tomText?: ReactNode;
   className?: string;

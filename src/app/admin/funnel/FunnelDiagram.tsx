@@ -25,6 +25,8 @@ export interface StegSerieRad {
 export interface StegSerieProps {
   data: StegSerieRad[];
   serier: AdminSerie[];
+  /** Reserverad höjd. Standard 260; besöksrutan under är lägre. */
+  hojd?: number;
 }
 
 /** Ett datum som "14 sep". */
@@ -39,13 +41,13 @@ function kortDatum(varde: string | number): string {
 }
 
 /** Linje per steg över tid. */
-export function StegOverTid({ data, serier }: StegSerieProps) {
+export function StegOverTid({ data, serier, hojd = 260 }: StegSerieProps) {
   return (
     <AdminChart
       data={data}
       xNyckel="vecka"
       serier={serier}
-      hojd={260}
+      hojd={hojd}
       formateraX={kortDatum}
       formateraY={(v) => v.toLocaleString('sv-SE')}
       tomText="Ingen tratt registrerad för perioden."
