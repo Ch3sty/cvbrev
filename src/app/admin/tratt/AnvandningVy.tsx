@@ -196,7 +196,7 @@ export default async function AnvandningVy({ konton }: { konton: Undantag['konto
                   <td className={`${TD} text-right tabular-nums text-ink-1`}>{tal(k.storlek)}</td>
                   {k.aktiva.map((a, i) => (
                     <td key={i} className={`${TD} text-right tabular-nums text-ink-2 ${i > 2 ? BRED : ''}`}>
-                      {i > passerade ? '–' : k.storlek > 0 ? `${Math.round((a / k.storlek) * 100)} %` : '0 %'}
+                      {i > passerade ? <span className="text-ink-3" aria-label="Månaden har inte kommit än">ej än</span> : k.storlek > 0 ? `${Math.round((a / k.storlek) * 100)} %` : '0 %'}
                     </td>
                   ))}
                 </tr>
@@ -212,8 +212,8 @@ export default async function AnvandningVy({ konton }: { konton: Undantag['konto
           </tbody>
         </table>
         <p className="px-3 py-3 text-meta text-ink-3 sm:px-4">
-          Andel av kohorten som var aktiv månaden efter registreringen. – betyder att månaden inte
-          har kommit än. M3 till M5 syns på bredare skärm.
+          Andel av kohorten som var aktiv månaden efter registreringen. "Ej än" betyder att
+          månaden inte har kommit än. M3 till M5 syns på bredare skärm.
         </p>
       </SectionCard>
 
