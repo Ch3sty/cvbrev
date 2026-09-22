@@ -1,537 +1,304 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import Logo from '@/components/Logo';
-import {
-  Menu,
-  X,
-  ArrowRight,
-  ChevronDown,
-  PenLine,
-  FileSearch,
-  Compass,
-  MessageCircle,
-  Brain,
-  Linkedin,
-  Palette,
-  FilePlus,
-  Building2,
-  LayoutGrid,
-  Tag,
-  FileText,
-  Newspaper,
-  Eye,
-  User as UserIcon,
-} from 'lucide-react';
+/**
+ * Publika headern, megamenyn och mobilmenyn
+ * (docs/design/analys-visuell-linje-2026-09-22.html, avsnitt 5, regel 8).
+ *
+ * Fem val i Inter 15/500, det aktiva i insunken yta, "Skapa konto" som
+ * bläckknapp. Megamenyn är en panel med tre namngivna grupper (samma som
+ * sidomenyn i inloggat läge), nakna ikoner i 24 ur Ikoner.tsx och en
+ * sidokolumn i insunken med IlluScenAllt och paketets värdemening. Inga
+ * beskrivningar per rad: gruppens namn är beskrivningen.
+ *
+ * Mobilmenyn: fyra huvudval i 16/500, tre grupper med 44 px rader utan
+ * ikoner, "Skapa konto" i headern. Ingen blur, ingen gradient, ingen
+ * framer-motion: öppning och stängning är CSS.
+ *
+ * Megamenyns länkar står i HTML även när den är stängd (dold med hidden),
+ * så att de finns för sökmotorer och för den som navigerar utan JavaScript
+ * via footern.
+ */
 
-type NavLink = {
-  label: string;
-  href: string;
-};
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Menu, X, ChevronDown } from 'lucide-react'
 
-type ToolItem = {
-  label: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  description: string;
-};
+import Logo from '@/components/Logo'
+import { IlluScenAllt } from '@/components/illustrations/PriserScener'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import NavIkon from './NavIkon'
+import { GRUPPER, HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
 
-// OBS: håll listan kort — en länk till sprängde menyn till radbrytning.
-// B2B-länken "För rekryterare" ligger i Vad vi erbjuder-dropdownens fot,
-// mobilmenyn och footern i stället för på toppnivå.
-const PRIMARY_LINKS: NavLink[] = [
-  { label: 'Hem', href: '/' },
-  { label: 'Funktioner', href: '/funktioner' },
-  { label: 'Priser', href: '/priser' },
-  { label: 'Inspiration', href: '/exempel' },
-  { label: 'Artiklar', href: '/artiklar' },
-];
+const ALLT_VECKA = PLAN_BY_KEY.all_week.amount
 
-const TOOLS: ToolItem[] = [
-  {
-    label: 'Personligt brev',
-    href: '/verktyg/personligt-brev',
-    icon: PenLine,
-    description: 'Brev som matchar annonsen från ditt CV',
-  },
-  {
-    label: 'CV-analys',
-    href: '/verktyg/cv-analys',
-    icon: FileSearch,
-    description: 'Konkret feedback för att passera ATS',
-  },
-  {
-    label: 'CV-mallar',
-    href: '/verktyg/cv-mallar',
-    icon: Palette,
-    description: 'Professionella ATS-säkra mallar',
-  },
-  {
-    label: 'Skapa CV',
-    href: '/verktyg/skapa-cv',
-    icon: FilePlus,
-    description: 'Bygg ditt CV på minuter',
-  },
-  {
-    label: 'Jobbmatchning',
-    href: '/verktyg/jobbmatchning',
-    icon: Compass,
-    description: 'Lediga jobb som matchar ditt CV',
-  },
-  {
-    label: 'Jobbcoachen',
-    href: '/verktyg/jobbcoachen',
-    icon: MessageCircle,
-    description: 'Karriärchatt med riktiga svar',
-  },
-  {
-    label: 'Rekryteringstester',
-    href: '/verktyg/rekryteringstester',
-    icon: Brain,
-    description: 'Träna inför rekryteringstester',
-  },
-  {
-    label: 'LinkedIn-optimering',
-    href: '/verktyg/linkedin-optimering',
-    icon: Linkedin,
-    description: 'Profilen som rekryterare hittar',
-  },
-  {
-    label: 'Bli upptäckt',
-    href: '/verktyg/bli-upptackt',
-    icon: Eye,
-    description: 'Låt rekryterare hitta dig, anonymt',
-  },
-];
+/** IlluScenAllt är ritad för bläck. På insunken blir papperen vita och etiketten ink-3. */
+const SCEN_PA_PAPPER = {
+  '--ink-hover': 'var(--panel)',
+  '--ink-1-mjuk': 'var(--ink-3)',
+} as CSSProperties
 
-const PRIMARY_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
-  Hem: LayoutGrid,
-  Funktioner: LayoutGrid,
-  Priser: Tag,
-  'För rekryterare': Building2,
-  Inspiration: FileText,
-  Artiklar: Newspaper,
-  'Om oss': UserIcon,
-};
+const VAL =
+  'inline-flex h-10 items-center rounded-lg px-3 text-[15px] font-medium transition-colors duration-[120ms]'
+const VAL_AKTIV = 'bg-insunken text-ink-1'
+const VAL_VILA = 'text-ink-2 hover:bg-insunken/60 hover:text-ink-1'
 
 export default function LandingNavbar() {
-  const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [toolsOpen, setToolsOpen] = useState(false);
+  const pathname = usePathname() ?? '/'
+  const [menyOppen, setMenyOppen] = useState(false)
+  const [mobilOppen, setMobilOppen] = useState(false)
+  const stangTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const menyRef = useRef<HTMLDivElement>(null)
+  // Musen öppnar menyn innan klicket kommer. Ett klick strax efter en
+  // hovring ska inte stänga den igen.
+  const oppnadVid = useRef(0)
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 4);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const aktiv = useCallback(
+    (href: string) => pathname === href || pathname.startsWith(href + '/'),
+    [pathname]
+  )
+  const erbjuderAktiv = pathname.startsWith('/verktyg') || pathname.startsWith('/rakna-ut')
 
-  // Stäng mobilmenyn vid pathname-byte
+  // Stäng allt vid sidbyte.
   useEffect(() => {
-    setMobileOpen(false);
-    setToolsOpen(false);
-  }, [pathname]);
+    setMenyOppen(false)
+    setMobilOppen(false)
+  }, [pathname])
 
-  // Lås body-scroll när mobilmenyn är öppen
+  // Lås sidan bakom mobilmenyn.
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!mobilOppen) return
+    const forr = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mobileOpen]);
+      document.body.style.overflow = forr
+    }
+  }, [mobilOppen])
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname === href || pathname.startsWith(href + '/');
-  };
+  // Escape och klick utanför stänger megamenyn.
+  useEffect(() => {
+    if (!menyOppen) return
+    const tangent = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenyOppen(false)
+    }
+    const klick = (e: MouseEvent) => {
+      if (menyRef.current && !menyRef.current.contains(e.target as Node)) setMenyOppen(false)
+    }
+    document.addEventListener('keydown', tangent)
+    document.addEventListener('mousedown', klick)
+    return () => {
+      document.removeEventListener('keydown', tangent)
+      document.removeEventListener('mousedown', klick)
+    }
+  }, [menyOppen])
+
+  const oppna = () => {
+    if (stangTimer.current) clearTimeout(stangTimer.current)
+    setMenyOppen((v) => {
+      if (!v) oppnadVid.current = Date.now()
+      return true
+    })
+  }
+  const stangSnart = () => {
+    if (stangTimer.current) clearTimeout(stangTimer.current)
+    stangTimer.current = setTimeout(() => setMenyOppen(false), 120)
+  }
+
+  const valLank = (l: NavLank) => (
+    <Link
+      key={l.href}
+      href={l.href}
+      aria-current={aktiv(l.href) ? 'page' : undefined}
+      className={`${VAL} ${aktiv(l.href) ? VAL_AKTIV : VAL_VILA}`}
+    >
+      {l.label}
+    </Link>
+  )
 
   return (
-    <>
-      <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-xl border-b border-orange-100'
-            : 'bg-white/80 backdrop-blur-lg border-b border-transparent'
-        }`}
-        style={
-          scrolled
-            ? { boxShadow: '0 4px 20px -8px rgba(249, 115, 22, 0.12)' }
-            : undefined
-        }
+    <header data-site-chrome="header" className="sticky top-0 z-40 border-b border-kant bg-panel">
+      <div
+        ref={menyRef}
+        className="relative mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-12"
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo — samma stil som SidebarLogo */}
-            <Logo href="/" variant="compact" height={36} />
+        <Logo href="/" variant="compact" height={30} />
 
+        {/* Desktop: fem val. */}
+        <nav aria-label="Huvudmeny" className="hidden items-center gap-1 lg:flex">
+          {HEADER_FORE.map(valLank)}
 
-            {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {PRIMARY_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
-                    isActive(link.href)
-                      ? 'text-orange-700 bg-orange-50'
-                      : 'text-slate-700 hover:text-orange-700 hover:bg-orange-50/60'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+          <div onMouseEnter={oppna} onMouseLeave={stangSnart}>
+            <button
+              type="button"
+              aria-expanded={menyOppen}
+              aria-controls="megameny"
+              onClick={() =>
+                setMenyOppen((v) => (v && Date.now() - oppnadVid.current < 400 ? true : !v))
+              }
+              className={`${VAL} gap-1 ${menyOppen || erbjuderAktiv ? VAL_AKTIV : VAL_VILA}`}
+            >
+              Vad vi erbjuder
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-[120ms] ${menyOppen ? 'rotate-180' : ''}`}
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </button>
 
-              {/* Verktyg-dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setToolsOpen(true)}
-                onMouseLeave={() => setToolsOpen(false)}
-              >
-                <button
-                  onClick={() => setToolsOpen(!toolsOpen)}
-                  aria-expanded={toolsOpen}
-                  className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
-                    toolsOpen ||
-                    pathname.startsWith('/verktyg')
-                      ? 'text-orange-700 bg-orange-50'
-                      : 'text-slate-700 hover:text-orange-700 hover:bg-orange-50/60'
-                  }`}
-                >
-                  Vad vi erbjuder
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform ${
-                      toolsOpen ? 'rotate-180' : ''
-                    }`}
-                    strokeWidth={2.5}
-                  />
-                </button>
+          </div>
 
-                <AnimatePresence>
-                  {toolsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                      transition={{ duration: 0.18, ease: 'easeOut' }}
-                      className="absolute right-0 top-full mt-2 w-[480px] rounded-2xl bg-white border border-orange-100 overflow-hidden"
-                      style={{
-                        boxShadow:
-                          '0 24px 48px -16px rgba(249, 115, 22, 0.22)',
-                      }}
-                    >
-                      <div className="p-2 grid grid-cols-2 gap-1">
-                        {TOOLS.map((tool) => (
-                          <Link
-                            key={tool.href}
-                            href={tool.href}
-                            className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-orange-50/60 transition-colors"
-                          >
-                            <div
-                              className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-50 flex items-center justify-center text-orange-700 group-hover:bg-orange-100 transition-colors"
+          {HEADER_EFTER.map(valLank)}
+        </nav>
+
+            <div
+              id="megameny"
+              onMouseEnter={oppna}
+              onMouseLeave={stangSnart}
+              className={`absolute right-4 top-full z-50 w-[880px] max-w-[calc(100vw-32px)] pt-2 sm:right-6 lg:right-12 ${
+                menyOppen ? 'block animate-thread-drop' : 'hidden'
+              }`}
+            >
+              <div className="overflow-hidden rounded-xl border border-kant bg-panel shadow-svav">
+                <div className="grid grid-cols-[1.1fr_0.9fr_1.1fr_220px]">
+                  {GRUPPER.map((g) => (
+                    <div key={g.rubrik} className="border-r border-kant p-5">
+                      <p className="text-steg uppercase text-ink-3">{g.rubrik}</p>
+                      <ul className="mt-3 space-y-1">
+                        {g.lankar.map((l) => (
+                          <li key={l.href}>
+                            <Link
+                              href={l.href}
+                              className="-mx-2 flex min-h-11 items-center gap-3 rounded-lg px-2 text-[15px] font-medium text-ink-1 transition-colors duration-[120ms] hover:bg-insunken"
                             >
-                              <tool.icon
-                                className="w-[18px] h-[18px]"
-                                strokeWidth={2.2}
-                              />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="text-sm font-bold text-slate-900 leading-tight">
-                                {tool.label}
-                              </div>
-                              <div className="text-[11px] text-slate-500 leading-snug mt-0.5 line-clamp-2">
-                                {tool.description}
-                              </div>
-                            </div>
-                          </Link>
+                              {l.ikon ? <NavIkon namn={l.ikon} className="shrink-0 text-ink-2" /> : null}
+                              <span>{l.label}</span>
+                            </Link>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
+                    </div>
+                  ))}
 
-                      {/* Footer-CTA i dropdown: funktioner + B2B-länken */}
-                      <div className="border-t border-orange-100 p-3 bg-orange-50/40 flex items-center justify-between gap-3">
-                        <Link
-                          href="/funktioner"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-700 hover:text-orange-800"
-                        >
-                          Se alla funktioner
-                          <ArrowRight
-                            className="w-3 h-3"
-                            strokeWidth={2.5}
-                          />
-                        </Link>
-                        <Link
-                          href="/for-rekryterare"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-orange-700"
-                        >
-                          <Building2 className="w-3.5 h-3.5" strokeWidth={2.5} />
-                          För rekryterare
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  <div className="bg-insunken p-5">
+                    <div className="w-[120px] text-ink-1" style={SCEN_PA_PAPPER}>
+                      <IlluScenAllt className="h-auto w-full" />
+                    </div>
+                    <p className="mt-3 text-varde text-ink-1">Allt i en vecka, {ALLT_VECKA} kr</p>
+                    <p className="mt-2 text-sm leading-[22px] text-ink-2">
+                      CV, brev, tester, matchning och coach. Säg upp med ett klick.
+                    </p>
+                    <Link
+                      href="/priser"
+                      className="mt-3 inline-block text-sm font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                    >
+                      Se paketen
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between border-t border-kant px-5 py-3 text-sm">
+                  <Link href="/funktioner" className="text-ink-2 hover:text-ink-1">
+                    Alla funktioner
+                  </Link>
+                  <Link href="/for-rekryterare" className="text-ink-2 hover:text-ink-1">
+                    För rekryterare
+                  </Link>
+                </div>
               </div>
+            </div>
 
+        <div className="flex items-center gap-2">
+          <Link
+            href="/login"
+            className="hidden h-10 items-center rounded-lg px-3 text-[15px] font-medium text-ink-1 hover:bg-insunken/60 lg:inline-flex"
+          >
+            Logga in
+          </Link>
+          <Link
+            href="/register"
+            data-cta="navbar-signup"
+            className="inline-flex h-10 items-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          >
+            Skapa konto
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobilOppen((v) => !v)}
+            aria-expanded={mobilOppen}
+            aria-controls="mobilmeny"
+            aria-label={mobilOppen ? 'Stäng meny' : 'Öppna meny'}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-1 hover:bg-insunken lg:hidden"
+          >
+            {mobilOppen ? (
+              <X className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            ) : (
+              <Menu className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobilmenyn: en panel under headern, inget överlägg. */}
+      <nav
+        id="mobilmeny"
+        aria-label="Meny"
+        className={`fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain border-t border-kant bg-panel px-4 pb-[max(env(safe-area-inset-bottom),24px)] lg:hidden ${
+          mobilOppen ? 'block animate-thread-drop' : 'hidden'
+        }`}
+      >
+        <ul className="divide-y divide-kant border-b border-kant">
+          {[...HEADER_FORE, ...HEADER_EFTER].map((l) => (
+            <li key={l.href}>
               <Link
-                href="/om-oss"
-                className={`px-3 py-2 text-sm font-bold rounded-lg whitespace-nowrap transition-colors ${
-                  isActive('/om-oss')
-                    ? 'text-orange-700 bg-orange-50'
-                    : 'text-slate-700 hover:text-orange-700 hover:bg-orange-50/60'
+                href={l.href}
+                aria-current={aktiv(l.href) ? 'page' : undefined}
+                onClick={() => setMobilOppen(false)}
+                className={`flex min-h-12 items-center text-base font-medium ${
+                  aktiv(l.href) ? 'thread-row text-ink-1' : 'text-ink-1'
                 }`}
               >
-                Om oss
+                {l.label}
               </Link>
-            </nav>
+            </li>
+          ))}
+        </ul>
 
-            {/* Höger: auth-knappar (desktop) */}
-            <div className="hidden lg:flex items-center gap-2">
-              <Link
-                href="/login"
-                className="px-3 py-2 text-sm font-bold text-slate-700 hover:text-orange-700 whitespace-nowrap transition-colors"
-              >
-                Logga in
-              </Link>
-              <Link
-                href="/register"
-                data-cta="navbar-signup"
-                className="group inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-white font-bold text-sm whitespace-nowrap transition-all hover:scale-[1.02]"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                  boxShadow:
-                    '0 8px 18px -6px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                Skapa konto
-                <ArrowRight
-                  className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
-                  strokeWidth={2.5}
-                />
-              </Link>
-            </div>
-
-            {/* Mobile-knappar */}
-            <div className="flex lg:hidden items-center gap-2">
-              <Link
-                href="/register"
-                data-cta="navbar-mobile-signup"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-white font-bold text-xs transition-all"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                  boxShadow:
-                    '0 4px 12px -3px rgba(220, 38, 38, 0.4)',
-                }}
-              >
-                Skapa konto
-              </Link>
-              <button
-                onClick={() => setMobileOpen(true)}
-                className="w-10 h-10 rounded-xl bg-orange-50 hover:bg-orange-100 flex items-center justify-center text-orange-700 transition-colors"
-                aria-label="Öppna meny"
-              >
-                <Menu className="w-5 h-5" strokeWidth={2.5} />
-              </button>
-            </div>
+        {GRUPPER.map((g) => (
+          <div key={g.rubrik} className="pt-4">
+            <p className="text-steg uppercase text-ink-3">{g.rubrik}</p>
+            <ul className="mt-1 divide-y divide-kant">
+              {g.lankar.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    onClick={() => setMobilOppen(false)}
+                    className="flex min-h-11 items-center text-[15px] text-ink-2"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+        ))}
+
+        <div className="mt-6 flex items-center gap-6 border-t border-kant pt-4 text-sm font-medium">
+          <Link
+            href="/login"
+            onClick={() => setMobilOppen(false)}
+            className="inline-flex min-h-11 items-center text-ink-1 underline decoration-kant-stark underline-offset-4"
+          >
+            Logga in
+          </Link>
+          <Link
+            href="/for-rekryterare"
+            onClick={() => setMobilOppen(false)}
+            className="inline-flex min-h-11 items-center text-ink-2 underline decoration-kant-stark underline-offset-4"
+          >
+            För rekryterare
+          </Link>
         </div>
-      </header>
-
-      {/* Mobil drawer — full-screen, sidebar-stil */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-slate-900/40 backdrop-blur-sm lg:hidden"
-              onClick={() => setMobileOpen(false)}
-              aria-hidden="true"
-            />
-
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ duration: 0.28, ease: 'easeOut' }}
-              className="fixed top-0 right-0 bottom-0 z-[70] w-[88%] max-w-sm bg-gradient-to-b from-orange-50/40 via-white to-orange-50/30 border-l border-orange-100 lg:hidden flex flex-col"
-            >
-              {/* Header med logo + stäng */}
-              <div className="px-4 py-4 flex items-center justify-between border-b border-orange-100 bg-white/80 backdrop-blur-sm flex-shrink-0">
-                <Link
-                  href="/"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center"
-                  aria-label="Jobbcoach.ai start"
-                >
-                  <Logo variant="compact" height={32} />
-                </Link>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="w-10 h-10 rounded-xl bg-orange-50 hover:bg-orange-100 flex items-center justify-center text-orange-700 transition-colors"
-                  aria-label="Stäng meny"
-                >
-                  <X className="w-5 h-5" strokeWidth={2.5} />
-                </button>
-              </div>
-
-              {/* Navigation */}
-              <nav
-                className="flex-1 px-2 py-4 space-y-5 overflow-y-auto"
-                style={{
-                  WebkitOverflowScrolling: 'touch',
-                  overscrollBehavior: 'contain',
-                }}
-              >
-                {/* Huvudmeny */}
-                <ul className="space-y-1 px-1">
-                  {[
-                    ...PRIMARY_LINKS,
-                    { label: 'För rekryterare', href: '/for-rekryterare' },
-                    { label: 'Om oss', href: '/om-oss' },
-                  ].map((link) => {
-                    const Icon = PRIMARY_ICONS[link.label] ?? LayoutGrid;
-                    const active = isActive(link.href);
-                    return (
-                      <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          onClick={() => setMobileOpen(false)}
-                          className={`group relative flex items-center gap-3 rounded-xl px-2.5 py-2 min-h-[56px] transition-colors touch-manipulation ${
-                            active
-                              ? 'bg-gradient-to-r from-orange-50 to-rose-50/60'
-                              : 'hover:bg-orange-50/60'
-                          }`}
-                        >
-                          {active && (
-                            <span
-                              aria-hidden="true"
-                              className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full"
-                              style={{
-                                background:
-                                  'linear-gradient(180deg, #F97316 0%, #DC2626 100%)',
-                              }}
-                            />
-                          )}
-
-                          <span
-                            className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${
-                              active
-                                ? 'text-white'
-                                : 'text-orange-700 bg-orange-50 group-hover:bg-orange-100'
-                            }`}
-                            style={
-                              active
-                                ? {
-                                    background:
-                                      'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                                    boxShadow:
-                                      '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
-                                  }
-                                : undefined
-                            }
-                          >
-                            <Icon
-                              className="w-[18px] h-[18px]"
-                              strokeWidth={2.2}
-                            />
-                          </span>
-
-                          <span
-                            className={`text-sm font-bold ${
-                              active ? 'text-orange-900' : 'text-slate-700'
-                            }`}
-                          >
-                            {link.label}
-                          </span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {/* Verktyg-sektion med eyebrow */}
-                <div>
-                  <div className="px-3 mb-2 text-[11px] font-black uppercase tracking-[0.18em] text-orange-700">
-                    Vad vi erbjuder
-                  </div>
-                  <ul className="space-y-1 px-1">
-                    {TOOLS.map((tool) => (
-                      <li key={tool.href}>
-                        <Link
-                          href={tool.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="group flex items-center gap-3 rounded-xl px-2.5 py-2 min-h-[56px] hover:bg-orange-50/60 transition-colors touch-manipulation"
-                        >
-                          <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-50 group-hover:bg-orange-100 flex items-center justify-center text-orange-700 transition-colors">
-                            <tool.icon
-                              className="w-[18px] h-[18px]"
-                              strokeWidth={2.2}
-                            />
-                          </span>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm font-bold text-slate-700 leading-tight">
-                              {tool.label}
-                            </div>
-                            <div className="text-[11px] text-slate-500 leading-snug mt-0.5 truncate">
-                              {tool.description}
-                            </div>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </nav>
-
-              {/* Footer med CTA — som Sidebar */}
-              <div
-                className="border-t border-orange-100 px-3 pt-3 space-y-2 bg-white/60 backdrop-blur-sm flex-shrink-0"
-                style={{
-                  paddingBottom:
-                    'max(env(safe-area-inset-bottom, 0px) + 16px, 32px)',
-                }}
-              >
-                <Link
-                  href="/register"
-                  onClick={() => setMobileOpen(false)}
-                  data-cta="navbar-mobile-drawer-primary"
-                  className="relative overflow-hidden flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-white font-bold text-sm transition-all hover:scale-[1.01] group"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                    boxShadow:
-                      '0 8px 20px -6px rgba(220, 38, 38, 0.4)',
-                  }}
-                >
-                  Skapa konto
-                  <ArrowRight
-                    className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-                    strokeWidth={2.5}
-                  />
-                </Link>
-                <Link
-                  href="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 px-3 py-3 min-h-[48px] rounded-xl text-slate-700 hover:text-orange-700 hover:bg-orange-50/60 transition-colors text-sm font-bold"
-                >
-                  Logga in
-                </Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
-  );
+      </nav>
+    </header>
+  )
 }
