@@ -23,6 +23,8 @@ interface SidebarLinkProps {
   sublabel?: ReactNode;
   /** Raden ska synas: kant runt raden. Aldrig fyllning. */
   highlight?: boolean;
+  /** Aktiv bara på exakt adress, inte på undersidor. Profil har prenumerationen under sig. */
+  exact?: boolean;
   isMobile?: boolean;
   onClick?: () => void;
 }
@@ -35,13 +37,14 @@ export default function SidebarLink({
   badge,
   sublabel,
   highlight,
+  exact,
   isMobile,
   onClick,
 }: SidebarLinkProps) {
   const pathname = usePathname();
   const isActive =
-    href === '/dashboard'
-      ? pathname === '/dashboard'
+    href === '/dashboard' || exact
+      ? pathname === href
       : pathname === href || pathname.startsWith(href + '/');
 
   const handleClick = () => {

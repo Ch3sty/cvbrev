@@ -1,49 +1,59 @@
 'use client'
 
 /**
- * Spårvalet i FlowShell, tre skärmar på samma adress.
+ * Spårvalet och köpsteget (docs/design/spec-prissida-2026-09-22.html,
+ * sektion 2, mittersta och högra telefonen).
  *
- *   1.1   frågan, tre valkort, Börja gratis som riktig sekundärknapp
- *   1.2   paketet och villkoren, med längdval när spåret är Allt
- *   1.1b  gratisanvändarens spårfråga, utan priser
+ *   1.1   "Vad ska du göra den här veckan?", tre kort med illustration,
+ *         värderubrik, fyra "du får"-rader och prisrad. Primär "Fortsätt med
+ *         <paket>", sekundär "Börja gratis i stället".
+ *   1.2   "<Paket>, från i kväll": kvittot med fyra rader, villkorsraderna,
+ *         första steget, "Vill du ha allt i stället?" med längdvalet,
+ *         samtyckesrutan och "Till betalning, 79 kr".
+ *   1.1b  gratisanvändarens spårfråga, utan priser. Nås bara om inget spår
+ *         är valt, vilket förvalet gör ovanligt.
  *
- * Skärmarna är steg i ett flöde, inte tre sidor: tillbaka går till föregående
- * steg, inte ur appen, och framstegslinjen är trådens betydelse här också.
- *
- * Skisser, komponentkarta och acceptanskriterier: Fas 2A skärm 1.1 till 1.3,
- * Fas 2D del 1. Strängarna ligger i src/lib/onboarding/program.ts med sina
- * T-id, så copy och kod inte kan glida isär.
+ * Skärmarna är steg i ett flöde, inte tre sidor: tillbaka går till
+ * föregående steg, och framstegslinjen är tråden. All logik för samtycke,
+ * create-plan-session och händelser är kvar från förra versionen.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check } from 'lucide-react'
 import FlowShell from '@/components/shell/FlowShell'
 import ChoiceCard from '@/components/shell/ChoiceCard'
-import MarginPlate from '@/components/shell/MarginPlate'
-import Segment from '@/components/shell/Segment'
-import StatusRow from '@/components/shell/StatusRow'
 import FlowError from '@/components/shell/FlowError'
+import LangdVal from '@/components/pricing/LangdVal'
 import { IkonCv, IkonAnalys, IkonHem } from '@/components/illustrations/Ikoner'
-import { IlluPlattaPremium } from '@/components/illustrations/TradenScener'
-import { capture } from '@/lib/analytics/events'
 import {
+  IlluScenAllt,
+  IlluScenCv,
+  IlluScenMatris,
+} from '@/components/illustrations/PriserScener'
+import { capture } from '@/lib/analytics/events'
+import { SPARVAL_GRATIS, type PlanKeyPaket, type Track } from '@/lib/onboarding/program'
+import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
+import {
+  KOPSTEG,
+  KOPSTEG_FAR,
+  PAKET_PLAN,
   SPARVAL,
-  SPARVAL_GRATIS,
-  PAKETSKARM,
-  PAKET,
-  ALLT_LANGDER,
-  paketForTrack,
-  fornyelserad,
-  type PlanKeyPaket,
-  type Track,
-} from '@/lib/onboarding/program'
+  namnForPlan,
+  planForLangd,
+  type PaketId,
+} from '@/components/pricing/paket-copy'
 
 type Steg = 'val' | 'paket' | 'gratisval'
 
-/** Nästa dragning, svensk tid, i formen "3 oktober". */
-function nastaDragning(paket: { key: PlanKeyPaket }): string {
-  const dagar = paket.key === 'all_month' ? 30 : paket.key === 'all_quarter' ? 90 : 7
+const TRACK_FOR: Record<PaketId, Track> = { cv: 'cv', test: 'tester', allt: 'allt' }
+const PAKET_FOR: Record<Track, PaketId> = { cv: 'cv', tester: 'test', allt: 'allt' }
+
+const SCEN = { cv: IlluScenCv, test: IlluScenMatris, allt: IlluScenAllt } as const
+
+/** Nästa dragning, svensk tid, i formen "29 september". */
+function nastaDragning(plan: PlanKey): string {
+  const l = PLAN_BY_KEY[plan].length
+  const dagar = l === 'månad' ? 30 : l === 'kvartal' ? 90 : 7
   const d = new Date(Date.now() + dagar * 24 * 60 * 60 * 1000)
   return new Intl.DateTimeFormat('sv-SE', {
     day: 'numeric',
@@ -52,7 +62,7 @@ function nastaDragning(paket: { key: PlanKeyPaket }): string {
   }).format(d)
 }
 
-/** Sluttid för Allt-dagen: klockslag, inte datum (avsnitt 8). */
+/** Sluttid för Allt-dagen: klockslag, inte datum. */
 function dygnSlutar(): string {
   const d = new Date(Date.now() + 24 * 60 * 60 * 1000)
   return new Intl.DateTimeFormat('sv-SE', {
@@ -68,9 +78,8 @@ export interface ValjSparClientProps {
   /** Paketet ur ?paket, om länken bar med sig ett. Förväljer även längden. */
   initialPlanKey?: PlanKeyPaket | null
   /**
-   * Kontot har en löpande prenumeration. Dirigentens beslut D48b: dagläget är
-   * då inaktivt i längdvalet, eftersom bytet nedåt vore en uppsägning plus ett
-   * engångsköp och inte ett längdbyte.
+   * Kontot har en löpande prenumeration. Dagläget är då inaktivt i
+   * längdvalet (D48b): bytet nedåt vore en uppsägning plus ett engångsköp.
    */
   harLopandePrenumeration?: boolean
 }
@@ -82,20 +91,24 @@ export default function ValjSparClient({
 }: ValjSparClientProps) {
   const router = useRouter()
   const [steg, setSteg] = useState<Steg>('val')
-  const [track, setTrack] = useState<Track | null>(initialTrack)
+  // Första kortet är förvalt (specen visar CV-veckan vald), så primären är
+  // aldrig tyst spärrad. Ett tidigare spår eller ?paket vinner.
+  const [track, setTrack] = useState<Track | null>(initialTrack ?? 'cv')
+  const sparatTrack = useRef<Track | null>(null)
   const [gratisVal, setGratisVal] = useState<'cv' | 'tester' | 'ingen' | null>(null)
-  // Förvald längd ur ?paket. Ett spärrat dagläge (D48b) får aldrig bli det
-  // förvalda: då hade skärmen öppnat på ett val användaren inte kan köpa.
-  const [langd, setLangd] = useState<PlanKeyPaket>(() => {
-    if (!initialPlanKey || !initialPlanKey.startsWith('all_')) return 'all_week'
-    if (initialPlanKey === 'all_day' && harLopandePrenumeration) return 'all_week'
-    return initialPlanKey
+  const [langd, setLangd] = useState<PlanLength>(() => {
+    if (!initialPlanKey || !initialPlanKey.startsWith('all_')) return 'vecka'
+    const l = PLAN_BY_KEY[initialPlanKey].length
+    if (l === 'dag' && harLopandePrenumeration) return 'vecka'
+    return l
   })
   const [samtycke, setSamtycke] = useState(false)
   const [busy, setBusy] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
 
-  const paket = paketForTrack(track ?? 'cv', langd)
+  const paket: PaketId = PAKET_FOR[track ?? 'cv']
+  const plan: PlanKey = paket === 'allt' ? planForLangd(langd) : PAKET_PLAN[paket]
+  const engangs = PLAN_BY_KEY[plan].mode === 'payment'
 
   // pricing_viewed en gång per montering, aldrig per omritning.
   const sagt = useRef(false)
@@ -105,7 +118,7 @@ export default function ValjSparClient({
     capture('pricing_viewed', { trigger: 'cta' })
   }, [])
 
-  // paywall_shown när paketskärmen visas, en gång per besök på steget.
+  // paywall_shown när köpsteget visas, en gång per besök på steget.
   const visatPaket = useRef(false)
   useEffect(() => {
     if (steg !== 'paket' || visatPaket.current) return
@@ -130,6 +143,7 @@ export default function ValjSparClient({
           capture('track_changed', { from: innan, to: valt, surface: 'onboarding' })
         }
         capture('onboarding_step_completed', { track: valt, step: 'track_choice', index: 0 })
+        sparatTrack.current = valt
         return true
       } catch (error: any) {
         setFel(error?.message || 'Valet kunde inte sparas. Försök igen.')
@@ -139,7 +153,7 @@ export default function ValjSparClient({
     []
   )
 
-  /* -------------------------------------------------- 1.1: vidare till paketet */
+  /* -------------------------------------------------- 1.1: vidare till köpsteget */
 
   const vidareTillPaket = useCallback(async () => {
     if (!track || busy) return
@@ -154,8 +168,6 @@ export default function ValjSparClient({
 
   const borjaGratis = useCallback(async () => {
     if (busy) return
-    // Utan valt kort vet vi inte spåret än, och då ställer vi frågan utan
-    // priser i stället för att gissa (Fas 2D skärm 1.1b).
     if (!track) {
       setSteg('gratisval')
       return
@@ -188,19 +200,28 @@ export default function ValjSparClient({
     capture('paywall_cta_clicked', {
       variant: 'onboarding_paket',
       surface: '/dashboard/valj-spar',
+      plan,
       cta: 'primary',
     })
+    // Bytte hon till Allt i köpsteget ska spåret följa med, annars säger
+    // profilen CV och kvittot Allt.
+    if (track && sparatTrack.current !== track) {
+      const ok = await sparaSpar(track, 'purchase')
+      if (!ok) {
+        setBusy(false)
+        return
+      }
+    }
     try {
       const res = await fetch('/api/stripe/create-plan-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Rutten läser fältet `plan`, inte `planKey`. Skickas fel namn
-        // svarar den 400 "Okänt produktval" och köpet går aldrig igenom.
-        // consent är ångerrättssamtycket (avsnitt 8). Rutten svarar 400 utan
-        // det, och kryssrutan spärrar redan knappen, så fältet är alltid
-        // true här. Det är inte en dubblering utan beviskedjan: klientens
-        // kryssruta blir ett fält i kroppen som blir metadata på sessionen.
-        body: JSON.stringify({ plan: paket.key, source: 'onboarding_paket', consent: samtycke }),
+        // Rutten läser fältet `plan`, inte `planKey`. consent är
+        // ångerrättssamtycket: rutten svarar 400 utan det, och kryssrutan
+        // spärrar redan knappen, så fältet är alltid true här. Det är
+        // beviskedjan: kryssrutan blir ett fält i kroppen som blir metadata
+        // på sessionen.
+        body: JSON.stringify({ plan, source: 'onboarding_paket', consent: samtycke }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok || !json?.url) throw new Error(json?.error || 'Kassan kunde inte öppnas')
@@ -209,7 +230,7 @@ export default function ValjSparClient({
       setBusy(false)
       setFel(error?.message || 'Kassan kunde inte öppnas just nu. Försök igen.')
     }
-  }, [samtycke, busy, paket.key])
+  }, [samtycke, busy, plan, track, sparaSpar])
 
   const felBanner = fel ? (
     <FlowError message={fel} onRetry={() => setFel(null)} retryLabel="Försök igen" />
@@ -267,103 +288,123 @@ export default function ValjSparClient({
   /* ============================================================= skärm 1.2 */
 
   if (steg === 'paket') {
-    const datum = paket.engangs ? dygnSlutar() : nastaDragning(paket)
-    const visaLangd = track === 'allt'
+    const datum = engangs ? dygnSlutar() : nastaDragning(plan)
+    const forsta = KOPSTEG.forstaSteg[paket]
+    const ForstaScen = paket === 'test' ? IlluScenMatris : IlluScenCv
+    const inaktiva: PlanLength[] = harLopandePrenumeration ? ['dag'] : []
 
     return (
       <FlowShell
-        title="Paket"
+        title="Kom igång"
         step={2}
         totalSteps={2}
         onBack={() => setSteg('val')}
         onExit={() => router.push('/dashboard')}
-        primaryLabel={paket.knapp}
+        primaryLabel={KOPSTEG.primar(plan)}
         onPrimary={tillKassan}
         primaryDisabled={!samtycke}
-        primaryBlockedReason={PAKETSKARM.samtyckeSpärr}
+        primaryBlockedReason={KOPSTEG.samtyckeSparr}
         primaryBusy={busy}
         busyLabel="Öppnar kassan"
         banner={felBanner}
-        footerSecondary={<p className="text-meta text-ink-3">{PAKETSKARM.kvitto}</p>}
+        footerSecondary={<p className="text-center text-meta text-ink-3 sm:text-left">{KOPSTEG.fotnot}</p>}
       >
         <p className="text-steg uppercase text-ink-3">Steg 2 av 2</p>
-        <h2 className="mt-1 text-fraga text-ink-1">{PAKETSKARM.fraga}</h2>
+        <h2 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
+          {KOPSTEG.rubrik(plan)}
+        </h2>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">{KOPSTEG.under}</p>
 
-        {visaLangd ? (
-          <div className="mt-4">
-            <Segment
-              value={langd}
-              onChange={(v) => setLangd(v)}
-              label={PAKETSKARM.langdLabel}
-              options={ALLT_LANGDER.map((key) => ({
-                value: key,
-                label: PAKET[key].namn.replace('Allt-', ''),
-                // D48b: engångsdygnet går inte att välja ovanpå en löpande
-                // prenumeration. Läget står kvar men är spärrat, så att
-                // längdraden ser likadan ut för alla.
-                disabled: key === 'all_day' && harLopandePrenumeration,
-              }))}
-            />
-            {/* En spärrad knapp får aldrig vara tyst om varför. */}
-            {harLopandePrenumeration ? (
-              <p className="mt-2 text-meta text-ink-3">{PAKETSKARM.dagSpärrad}</p>
-            ) : null}
-          </div>
-        ) : null}
-
-        <section className="mt-4 rounded-xl border border-kant bg-panel">
-          <div className="flex items-baseline justify-between gap-3 p-4">
-            <div className="min-w-0">
-              <p className="text-kort text-ink-1">{paket.namn}</p>
-              <p className="mt-0.5 text-meta text-ink-3">{paket.intervall}</p>
-            </div>
-            <p className="shrink-0 text-kort tabular-nums text-ink-1">{paket.belopp} kr</p>
+        {/* Kvittot. */}
+        <section className="mt-4 rounded-xl border border-kant-stark bg-panel p-4" aria-label="Kvitto">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="font-display text-xl font-bold tracking-[-0.025em] text-ink-1">
+              {namnForPlan(plan)}
+            </p>
+            <p className="font-display text-[26px] font-bold tabular-nums tracking-[-0.025em] text-ink-1">
+              {PLAN_BY_KEY[plan].amount} kr{' '}
+              <span className="font-sans text-xs font-normal text-ink-3">
+                {KOPSTEG.prisEnhet(plan)}
+              </span>
+            </p>
           </div>
 
-          <ul className="divide-y divide-kant border-t border-kant">
-            {paket.ingar.map((rad) => (
-              <li key={rad} className="flex items-start gap-2 px-4 py-3">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-ink-2" strokeWidth={1.75} />
-                <span className="text-sm leading-[22px] text-ink-1">{rad}</span>
+          <p className="mt-3 text-steg uppercase text-ink-3">{KOPSTEG.farEtikett(plan)}</p>
+          <ul className="mt-2 grid gap-1 text-[13px] leading-[18px] text-ink-2">
+            {KOPSTEG_FAR[paket].map((rad) => (
+              <li key={rad.fet} className="flex gap-2">
+                <span
+                  className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-ink-1"
+                  aria-hidden="true"
+                />
+                <span>
+                  <b className="font-semibold text-ink-1">{rad.fet}</b>
+                  {rad.text}
+                </span>
               </li>
             ))}
           </ul>
 
-          {paket.ingarInte ? (
-            <p className="border-t border-kant px-4 py-3 text-meta text-ink-3">{paket.ingarInte}</p>
+          <dl className="mt-3 grid gap-1 border-t border-kant pt-3 text-[13px]">
+            <div className="flex justify-between gap-3">
+              <dt className="text-ink-3">{engangs ? KOPSTEG.villkor.galler : KOPSTEG.villkor.fornyas}</dt>
+              <dd className="text-right font-medium text-ink-1">{KOPSTEG.fornyasVarde(plan, datum)}</dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-ink-3">{KOPSTEG.villkor.uppsagning}</dt>
+              <dd className="text-right font-medium text-ink-1">
+                {engangs ? 'behövs inte, inget dras igen' : KOPSTEG.villkor.uppsagningVarde}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-ink-3">{KOPSTEG.villkor.angerratt}</dt>
+              <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.angerrattVarde}</dd>
+            </div>
+          </dl>
+
+          <div className="mt-3 flex items-center gap-3 rounded-lg bg-insunken p-3 text-ink-1">
+            <ForstaScen className="h-11 w-11 shrink-0" />
+            <div>
+              <p className="text-sm font-semibold leading-[19px] text-ink-1">{forsta.rubrik}</p>
+              <p className="text-xs text-ink-3">{forsta.text}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Allt i stället, eller längden på Allt. */}
+        <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3">
+          <p className="text-steg uppercase text-ink-3">
+            {paket === 'allt' ? KOPSTEG.alltLangd : KOPSTEG.alltIStallet}
+          </p>
+          <LangdVal
+            className="mt-2"
+            label={KOPSTEG.alltLangd}
+            yta="papper"
+            value={paket === 'allt' ? langd : null}
+            inaktiva={inaktiva}
+            onChange={(ny) => {
+              setLangd(ny)
+              if (track !== 'allt') setTrack('allt')
+              capture('plan_length_changed', { plan: planForLangd(ny), surface: '/dashboard/valj-spar' })
+            }}
+          />
+          {harLopandePrenumeration ? (
+            <p className="mt-2 text-meta text-ink-3">{KOPSTEG.dagSparrad}</p>
           ) : null}
         </section>
 
-        <div className="mt-4">
-          <StatusRow tone="neutral" showDot wrap>
-            {fornyelserad(paket, datum)}
-          </StatusRow>
-        </div>
-
-        <label className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+        <label className="mt-3 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
           <input
             type="checkbox"
             checked={samtycke}
             onChange={(e) => setSamtycke(e.target.checked)}
             // accent-color, inte text-*: webbläsaren ritar rutans fyllning
-            // själv och den var annars systemblå, vilket är den enda färg i
-            // vyn som inte kommer ur tokens.
+            // själv och den var annars systemblå.
             style={{ accentColor: 'var(--ink-1)' }}
-            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
+            className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
           />
-          <span>
-            <span className="block text-sm leading-[22px] text-ink-1">{PAKETSKARM.samtycke}</span>
-            <span className="mt-1 block text-meta text-ink-3">{PAKETSKARM.samtyckeHjalp}</span>
-          </span>
+          <span>{KOPSTEG.samtycke(plan)}</span>
         </label>
-
-        <button
-          type="button"
-          onClick={() => setSteg('val')}
-          className="mt-4 text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-        >
-          {PAKETSKARM.bytPaket}
-        </button>
       </FlowShell>
     )
   }
@@ -376,7 +417,7 @@ export default function ValjSparClient({
       step={1}
       totalSteps={2}
       onExit={() => router.push('/dashboard')}
-      primaryLabel={SPARVAL.primar}
+      primaryLabel={SPARVAL.primar(paket)}
       onPrimary={vidareTillPaket}
       primaryDisabled={!track}
       primaryBlockedReason="Välj ett av de tre korten först."
@@ -389,58 +430,115 @@ export default function ValjSparClient({
             type="button"
             onClick={borjaGratis}
             disabled={busy}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
           >
-            {SPARVAL.gratisKnapp}
+            {SPARVAL.sekundar}
           </button>
-          <p className="mt-2 text-meta text-ink-3">{SPARVAL.gratisNot}</p>
+          <p className="mt-2 text-center text-xs text-ink-3 sm:text-left">{SPARVAL.fotnot}</p>
         </div>
       }
     >
       <p className="text-steg uppercase text-ink-3">Steg 1 av 2</p>
-      <h2 className="mt-1 text-fraga text-ink-1">{SPARVAL.fraga}</h2>
-      <p className="mt-2 text-sm leading-[22px] text-ink-2">{SPARVAL.ingress}</p>
+      <h2 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
+        {SPARVAL.fraga}
+      </h2>
+      <p className="mt-1 text-sm leading-[22px] text-ink-2">{SPARVAL.under}</p>
 
-      <div role="radiogroup" aria-label={SPARVAL.fraga} className="mt-5 space-y-3">
-        <ChoiceCard
-          selected={track === 'cv'}
-          onSelect={() => setTrack('cv')}
-          title={SPARVAL.kort.cv.titel}
-          description={SPARVAL.kort.cv.text}
-          meta={SPARVAL.kort.cv.meta}
-          leading={<IkonCv />}
-        />
-        <ChoiceCard
-          selected={track === 'tester'}
-          onSelect={() => setTrack('tester')}
-          title={SPARVAL.kort.tester.titel}
-          description={SPARVAL.kort.tester.text}
-          meta={SPARVAL.kort.tester.meta}
-          leading={<IkonAnalys />}
-        />
-        <ChoiceCard
-          variant="featured"
-          eyebrow="Rekommenderas"
-          selected={track === 'allt'}
-          onSelect={() => setTrack('allt')}
-          title={SPARVAL.kort.allt.titel}
-          description={SPARVAL.kort.allt.text}
-          meta={SPARVAL.kort.allt.meta}
-          leading={
-            <MarginPlate>
-              <IlluPlattaPremium size={48} />
-            </MarginPlate>
-          }
-        />
+      <div role="radiogroup" aria-label={SPARVAL.fraga} className="mt-4 grid gap-3">
+        {SPARVAL.kort.map((kort) => (
+          <SparKort
+            key={kort.paket}
+            kort={kort}
+            selected={track === TRACK_FOR[kort.paket]}
+            onSelect={() => setTrack(TRACK_FOR[kort.paket])}
+          />
+        ))}
       </div>
-
-      <button
-        type="button"
-        onClick={() => setSteg('gratisval')}
-        className="mt-4 text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-      >
-        {SPARVAL.hoppaOver}
-      </button>
     </FlowShell>
+  )
+}
+
+/**
+ * Valkortet i spårvalet (.vkort i specen). Lokalt i sidan: ChoiceCard har
+ * varken illustration på insunken platta, "du får"-lista, prisrad eller
+ * ink-varianten för det rekommenderade kortet.
+ *
+ * Val markeras med kant i ink-1 och shadow-val på papper. Det mörka kortet
+ * får i stället en ring i ink-1 utanför marken, eftersom en ink-kant är
+ * osynlig på en ink-yta. role="radio" med aria-checked som ChoiceCard.
+ */
+function SparKort({
+  kort,
+  selected,
+  onSelect,
+}: {
+  kort: (typeof SPARVAL.kort)[number]
+  selected: boolean
+  onSelect: () => void
+}) {
+  const rek = kort.paket === 'allt'
+  const Scen = SCEN[kort.paket]
+  const damp = rek ? 'text-ink-1-mjuk' : 'text-ink-2'
+  const meta = rek ? 'text-ink-1-mjuk' : 'text-ink-3'
+  const valdKlass = selected
+    ? rek
+      ? 'border-ink-1 shadow-[0_0_0_2px_var(--mark),0_0_0_4px_var(--ink-1)]'
+      : 'border-ink-1 shadow-val'
+    : rek
+      ? 'border-ink-1'
+      : 'border-kant hover:border-kant-stark'
+
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      onClick={onSelect}
+      className={`grid w-full grid-cols-[56px_1fr] items-start gap-3 rounded-xl border p-4 text-left transition-[border-color,box-shadow] duration-[160ms] ease-out ${
+        rek ? 'bg-ink-1 text-white' : 'bg-panel text-ink-1'
+      } ${valdKlass}`}
+    >
+      <span
+        className={`grid h-14 w-14 place-items-center rounded-lg ${rek ? 'bg-ink-hover' : 'bg-insunken'}`}
+        aria-hidden="true"
+      >
+        <Scen className="h-11 w-11" />
+      </span>
+      <span className="min-w-0">
+        {rek ? (
+          <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-1-accent">
+            Rekommenderas
+          </span>
+        ) : null}
+        <span className="block text-base font-semibold leading-[21px]">{kort.rubrik}</span>
+        <span className={`mt-0.5 block text-[13px] leading-[18px] ${damp}`}>{kort.namn}</span>
+      </span>
+
+      <ul
+        className={`col-span-2 mt-0.5 grid gap-1 border-t pt-2 text-[13px] leading-[18px] ${damp} ${
+          rek ? 'border-ink-1-kant' : 'border-kant'
+        }`}
+      >
+        {kort.duFar.map((rad) => (
+          <li key={rad.fet} className="flex gap-2">
+            <span
+              className={`mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full ${rek ? 'bg-panel' : 'bg-ink-1'}`}
+              aria-hidden="true"
+            />
+            <span>
+              <b className={`font-semibold ${rek ? 'text-white' : 'text-ink-1'}`}>{rad.fet}</b>
+              {rad.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <span className={`col-span-2 flex items-baseline justify-between gap-3 pt-2 text-[13px] ${meta}`}>
+        <span>{kort.prisText}</span>
+        <b className={`shrink-0 font-display text-xl font-bold tabular-nums ${rek ? 'text-white' : 'text-ink-1'}`}>
+          {kort.pris}
+        </b>
+      </span>
+    </button>
   )
 }

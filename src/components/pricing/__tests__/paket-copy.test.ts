@@ -1,29 +1,41 @@
 /**
  * Vakttester för prissidans strängar.
  *
- * De flesta rör tal: besparingarna, mellanskillnaden och antalsraden. Alla
- * ska räknas ur PLANS och aldrig stå som fasta tal i en sträng (Fas 2E,
- * öppen punkt 4). Testerna finns för att ett prisbyte ska bryta här och inte
- * i produktion, där raden i stället hade ljugit tyst.
+ * De flesta rör tal: priserna, mallantalet, besparingarna och
+ * mellanskillnaden. Alla ska räknas ur PLANS och TEMPLATE_COUNT och aldrig
+ * stå som fasta tal i en sträng. Testerna finns för att ett prisbyte ska
+ * bryta här och inte i produktion, där raden i stället hade ljugit tyst.
  */
 
 import { describe, expect, it } from 'vitest'
 
 import { PLANS, PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
+import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 import { ALLA_FEATURES } from '@/lib/access/features'
 import {
   FEATURE_ETIKETT,
+  FUNKTIONER,
+  GUIDE,
+  HERO,
   INTERVALL_RAD,
+  KOPSTEG,
+  KOPSTEG_FAR,
+  PAKET_IDS,
+  PAKET_KORT,
   PAKET_PUNKTER,
   PAKET_RAD,
   PR_H1,
+  SPARVAL,
+  alltPrisSub,
   besparing,
+  borjaKnapp,
   bytLangdKnapp,
   forslagSkal,
   gangerText,
   knappText,
   langdPrisRad,
   mellanskillnad,
+  planForLangd,
   statusRadText,
 } from '../paket-copy'
 
@@ -43,11 +55,73 @@ describe('täckning', () => {
       expect(FEATURE_ETIKETT[feature], feature).toBeTruthy()
     }
   })
+
+  it('har tre kort med etikett, värdemening, lista och knapp', () => {
+    for (const id of PAKET_IDS) {
+      const kort = PAKET_KORT[id]
+      expect(kort.tag, id).toBeTruthy()
+      expect(kort.varde, id).toBeTruthy()
+      expect(kort.rader.length, id).toBeGreaterThanOrEqual(3)
+      expect(kort.rader.filter((r) => r.mobil).length, `${id} mobilrader`).toBe(3)
+      expect(borjaKnapp(id), id).toMatch(/^Börja /)
+    }
+  })
+
+  it('har fyra "du får"-rader per kort i spårvalet och köpsteget', () => {
+    for (const kort of SPARVAL.kort) {
+      expect(kort.duFar, kort.paket).toHaveLength(4)
+    }
+    for (const id of PAKET_IDS) {
+      expect(KOPSTEG_FAR[id], id).toHaveLength(4)
+    }
+  })
+
+  it('har fem funktionskort och en guidelista per paket', () => {
+    expect(FUNKTIONER.kort).toHaveLength(5)
+    for (const id of PAKET_IDS) {
+      expect(GUIDE.listor[id].steg.length, id).toBeGreaterThanOrEqual(8)
+    }
+  })
+})
+
+describe('talen räknas, de skrivs aldrig', () => {
+  it('mallantalet kommer ur TEMPLATE_COUNT', () => {
+    expect(PAKET_KORT.cv.rader[1].rubrik).toContain(String(TEMPLATE_COUNT))
+    expect(SPARVAL.kort[0].duFar[1].fet).toContain(String(TEMPLATE_COUNT))
+    expect(KOPSTEG_FAR.cv[1].fet).toContain(String(TEMPLATE_COUNT))
+  })
+
+  it('priserna i heron, spårvalet och köpsteget kommer ur PLANS', () => {
+    expect(HERO.bevis[1].tal).toBe(`${PLAN_BY_KEY.cv_week.amount} kr`)
+    expect(SPARVAL.kort[0].pris).toBe(`${PLAN_BY_KEY.cv_week.amount} kr / vecka`)
+    expect(SPARVAL.kort[2].prisText).toContain(String(PLAN_BY_KEY.all_quarter.amount))
+    expect(KOPSTEG.primar('cv_week')).toBe(`Till betalning, ${PLAN_BY_KEY.cv_week.amount} kr`)
+    expect(KOPSTEG.samtycke('cv_week')).toContain(`${PLAN_BY_KEY.cv_week.amount} kr`)
+    expect(alltPrisSub('all_week')).toContain(String(PLAN_BY_KEY.all_month.amount))
+  })
+
+  it('samtycket säger att innehållet startar direkt och att ångerrätten inte gäller', () => {
+    for (const key of ALLA_NYCKLAR) {
+      const text = KOPSTEG.samtycke(key)
+      expect(text, key).toContain('startar direkt')
+      expect(text, key).toContain('ångerrätten')
+    }
+    expect(KOPSTEG.samtycke('all_day')).toContain('engångsköp')
+    expect(KOPSTEG.samtycke('all_week')).toContain('förnyas')
+  })
+
+  it('längdvalet leder till rätt paket', () => {
+    expect(planForLangd('dag')).toBe('all_day')
+    expect(planForLangd('vecka')).toBe('all_week')
+    expect(planForLangd('månad')).toBe('all_month')
+    expect(planForLangd('kvartal')).toBe('all_quarter')
+  })
 })
 
 describe('Allt-dagen', () => {
   it('säger att den inte förnyas, och det är kortets viktigaste rad', () => {
     expect(INTERVALL_RAD.all_day).toContain('förnyas inte')
+    expect(alltPrisSub('all_day')).toContain('inget dras igen')
   })
 
   it('bär prepositionen "för" och inte "i", eftersom den inte upprepas', () => {
@@ -58,6 +132,12 @@ describe('Allt-dagen', () => {
     const slut = new Date('2026-09-22T21:40:00+02:00')
     expect(statusRadText('all_day', slut)).toContain('gäller till')
     expect(statusRadText('all_day', slut)).toContain('i dag')
+  })
+
+  it('får rubriken "från nu" i köpsteget, veckan "från i kväll"', () => {
+    expect(KOPSTEG.rubrik('all_day')).toBe('Allt, från nu')
+    expect(KOPSTEG.rubrik('cv_week')).toBe('CV-veckan, från i kväll')
+    expect(KOPSTEG.rubrik('all_week')).toBe('Allt, från i kväll')
   })
 })
 
@@ -100,14 +180,25 @@ describe('antalsraden', () => {
 })
 
 describe('knapptexterna', () => {
-  it('använder samma verb som betalväggarna och namnger paketet', () => {
+  it('betalväggarna använder samma verb och namnger paketet', () => {
     for (const key of ALLA_NYCKLAR) {
       expect(knappText(key as PlanKey)).toBe(`Ta ${PLAN_BY_KEY[key].name}`)
     }
   })
 
+  it('korten säger Börja, och Allt säger "med allt"', () => {
+    expect(borjaKnapp('cv')).toBe('Börja CV-veckan')
+    expect(borjaKnapp('test')).toBe('Börja Testveckan')
+    expect(borjaKnapp('allt')).toBe('Börja med allt')
+  })
+
   it('namnger målet i längdvalet, inte rubriken', () => {
     expect(bytLangdKnapp('all_month')).toBe('Byt till Allt-månaden')
+  })
+
+  it('spårvalets primär namnger paketet', () => {
+    expect(SPARVAL.primar('cv')).toBe('Fortsätt med CV-veckan')
+    expect(SPARVAL.primar('allt')).toBe('Fortsätt med Allt')
   })
 })
 
@@ -142,12 +233,33 @@ describe('förslagets skäl', () => {
 })
 
 describe('copyreglerna', () => {
-  const allaStrangar = [
+  const allaStrangar: string[] = [
     PR_H1,
+    HERO.ingress,
+    HERO.ingressFet,
+    HERO.ingressMobil,
+    GUIDE.ingress,
+    SPARVAL.fraga,
+    SPARVAL.under,
+    KOPSTEG.under,
     ...Object.values(PAKET_RAD),
     ...Object.values(INTERVALL_RAD),
     ...Object.values(FEATURE_ETIKETT),
     ...Object.values(PAKET_PUNKTER).flat(),
+    ...PAKET_IDS.flatMap((id) => {
+      const k = PAKET_KORT[id]
+      return [
+        k.varde,
+        k.vardeMobil,
+        k.fordig,
+        k.fotnot,
+        ...k.rader.flatMap((r) => [r.rubrik, r.text, r.textMobil ?? '']),
+      ]
+    }),
+    ...FUNKTIONER.kort.flatMap((k) => [k.sub, k.text, ...(k.steg ?? [])]),
+    ...PAKET_IDS.flatMap((id) => [...GUIDE.listor[id].steg]),
+    ...SPARVAL.kort.flatMap((k) => [k.rubrik, ...k.duFar.map((d) => d.fet + d.text)]),
+    ...ALLA_NYCKLAR.map((k) => KOPSTEG.samtycke(k)),
   ]
 
   it('innehåller inga talstreck', () => {
@@ -164,7 +276,15 @@ describe('copyreglerna', () => {
     }
   })
 
-  it('har H1 enligt Fas 2E avsnitt 0', () => {
-    expect(PR_H1).toBe('Välj spåret du söker på. Börja med en vecka.')
+  it('säger "personliga brev", aldrig bara "brev" som produktnamn i korten', () => {
+    for (const id of PAKET_IDS) {
+      for (const rad of PAKET_KORT[id].rader) {
+        expect(rad.rubrik, rad.rubrik).not.toMatch(/(?<!ersonlig[at] )\b[Bb]rev\b/)
+      }
+    }
+  })
+
+  it('har H1 enligt specen 2026-09-22', () => {
+    expect(PR_H1).toBe('En vecka som bär hela jobbsöket.')
   })
 })

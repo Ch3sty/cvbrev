@@ -91,7 +91,7 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
 
           <nav className="py-1">
             <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>
-              Prenumeration
+              Köp eller byt paket
             </MenuLink>
             <MenuLink href="/dashboard/profil" onNavigate={() => setOpen(false)}>
               Profil

@@ -4,16 +4,16 @@ import { Metadata } from 'next'
  * Metadata för /priser (reference_onpage_seo_standard: title högst 60 tecken,
  * description mellan 110 och 158).
  *
- * Title: 56 tecken. Description: 151 tecken.
+ * Title: 54 tecken. Description: 152 tecken.
  */
 export const metadata: Metadata = {
-  title: 'Priser: välj spår och börja med en vecka | Jobbcoach.ai',
+  title: 'Priser: en vecka som bär hela jobbsöket | Jobbcoach.ai',
   description:
-    'Vi säljer veckan du söker på, inte året. CV-veckan och Testveckan kostar 79 kr i veckan, Allt 99 kr. Säg upp med ett klick, och gratisnivån finns kvar.',
+    'CV-veckan och Testveckan 79 kr i veckan, Allt 99 kr. Allt öppet från första minuten, ingen bindningstid, säg upp med ett klick. Gratisnivån ligger kvar.',
   keywords:
     'jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, veckoprenumeration jobbsökning',
   openGraph: {
-    title: 'Välj spåret du söker på. Börja med en vecka.',
+    title: 'En vecka som bär hela jobbsöket.',
     description:
       'CV-veckan och Testveckan 79 kr i veckan, Allt 99 kr. Ingen bindningstid, uppsägning med ett klick, och gratisnivån ligger kvar.',
     type: 'website',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Välj spåret du söker på. Börja med en vecka.',
+    title: 'En vecka som bär hela jobbsöket.',
     description:
       'CV-veckan och Testveckan 79 kr i veckan, Allt 99 kr. Ingen bindningstid, uppsägning med ett klick.',
   },

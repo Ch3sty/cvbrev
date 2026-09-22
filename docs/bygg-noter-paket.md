@@ -883,3 +883,35 @@ att *första hoppet* är 308, vilket är det som faktiskt ska bevisas.
 `npx tsc --noEmit` rent. `npx vitest run`: 473 av 473 gröna i 38 filer.
 `npx next build` rent, och inga av de rivna rutterna finns kvar i ruttlistan.
 `tsconfig.json` återställd, `.next-b7` borttagen.
+
+---
+
+## D1: prissidan, spårvalet, köpsteget och kontosidan
+
+Byggt 2026-09-22 efter docs/design/spec-prissida-2026-09-22.html (sektion 1, 2 och 4). Sektion 3 utgick. QA i docs/qa/qa-paket-d1/.
+
+**Filer.** `src/app/(public)/priser/` (page, layout, priser-data, PriserHero, PriserPaket, PriserGratis, PriserFunktioner, PriserGuide, PriserFortroende, PriserJamforelse, PriserFAQ), `src/components/pricing/` (PaketKort, LangdVal, JamforelseTabell, paket-copy), `src/components/illustrations/PriserScener.tsx`, `src/app/dashboard/valj-spar/ValjSparClient.tsx`, `src/app/dashboard/profil/prenumeration/PrenumerationClient.tsx`, `src/components/dashboard/Sidebar.tsx`, `src/components/dashboard/sidebar/SidebarLink.tsx` (ny prop `exact`), `src/components/dashboard/ProfileMenu.tsx`, `src/components/landing/DetailedPricingSection.tsx`, `src/app/layout.tsx` (Schibsted Grotesk), `src/app/globals.css` och `tailwind.config.js` (tokens), `docs/designsystem.md` avsnitt 12.
+
+**Fallgrop värd att känna till.** `primitives.tsx` är en klientmodul. Importeras `ILLU` därifrån till en serverkomponent blir objektet en klientreferens och alla `fill={ILLU.accent}` försvinner tyst ur HTML:en. PriserScener har därför egna konstanter. TradenScener.tsx bär samma latenta fel om någon scen därifrån någon gång renderas på servern.
+
+## D1 frågor
+
+1. **Ingressen under "Allt är öppet från första minuten"** nämnde veckoprogrammet och "Dag 7 summerar vi". Eftersom veckoprogrammet ska bort skrev jag om till hjälpredan Kom igång och "dagen innan veckan förnyas visar vi vad du gjort", i linje med onboardingspecens sektion 4. Förslag: behåll min omskrivning. FAQ-svaret "Vad händer när veckan är slut?" fick samma justering ("Dagen innan" i stället för "Dag 7").
+
+2. **Spacing och radier** följer designsystemet (4/8/12/16/24-stegen, `rounded-xl` 12 px) i stället för specens 18/22/28 px och 16 px-radie, eftersom uppdraget bara godkände tre utökningar. Förslag: behåll systemets värden. Skillnaden syns knappt sida vid sida.
+
+3. **"Ingår inte" i tabellen** står i ink-3 (AA) i stället för specens kant-stark (2,0:1). Ordet skiljer cellen från gränscellerna ändå. Förslag: behåll ink-3.
+
+4. **Spårvalet förväljer CV-veckan** när varken profil eller ?paket säger något (specen visar första kortet valt). Primären är därmed aldrig spärrad, och skärm 1.1b (gratisanvändarens spårfråga utan priser) nås inte längre i praktiken. Koden står kvar. Förslag: låt förvalet stå och ta bort 1.1b i onboardingomgången om B3:s strängar inte behövs.
+
+5. **Valkorten i spårvalet är lokala** (`SparKort` i ValjSparClient), inte ChoiceCard: ChoiceCard saknar insunken illustrationsplatta, "du får"-lista, prisrad och ink-variant. Det valda mörka kortet markeras med en ring utanför marken i stället för ink-kant. Förslag: flytta till shell som `ChoiceCard variant="paket"` bara om ett tredje ställe behöver det.
+
+6. **Kontosidan för en Allt-kund** visar CV-veckan och Testveckan först ("Ingår i Allt") och det egna kortet sist, samma ordning som prissidan. På mobil blir det två kort att scrolla förbi innan längdbytet. Förslag: behåll ordningen för igenkänning, alternativt lägg det egna paketet först om supporten får frågor.
+
+7. **Spårbyte i sidled** (CV-veckan till Testveckan) går via `create-upgrade-session`, som svarar med Stripe-portalen (B1b beslut 2). Knappen säger "Byt till Testveckan" med fotnoten "Byter vid nästa förnyelse". Förslag: godta portalvägen tills volymen motiverar ett eget byte.
+
+8. **Sidomenyns rad "Profil och prenumeration"** fick priset ("Från 49 kr" / "Aktiv") som underrad i stället för badge, eftersom etiketten annars trunkerades vid 256 px. Raden "Profil" står kvar under och är aktiv bara på exakt adress (ny prop `exact`). Förslag: behåll båda raderna tills onboardingagenten gör om menyn enligt sin spec.
+
+9. **Cookie-bannern** lägger sig över samtyckesrutan i köpsteget på Pixel 7 tills besökaren svarat på den (skärmdump 10 i första körningen). Det är befintligt beteende i alla flöden, inte nytt. Förslag: låt cookie-bannern ta hänsyn till `--flow-footer-h` plus flödets innehåll, eller visa den inte inne i FlowShell.
+
+10. **`font-bold` och `font-extrabold`** förekommer nu i dashboardfiler (spårvalet, köpsteget), alltid tillsammans med `font-display`. Designsystemets grep-kontroll slår på dem. Förslag: skriv undantaget i kontrollen som `font-(bold|extrabold)` utan `font-display` på samma rad.

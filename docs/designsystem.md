@@ -479,6 +479,54 @@ Logotypens `#F97316` läses som samma familj som accenten och byts inte.
 Färgerna `navy` och `pink` i `tailwind.config.js` tillhör de publika ytorna
 och används aldrig i dashboarden.
 
+### Prissidan och köpvägen (godkänd spec 2026-09-22)
+
+`docs/design/spec-prissida-2026-09-22.html` utökar systemet på tre punkter.
+De gäller `/priser`, `/dashboard/valj-spar`, `/dashboard/profil/prenumeration`
+och komponenterna i `src/components/pricing/`. Ingen annan yta.
+
+**1. Rubriker i Schibsted Grotesk.** Laddas via `next/font/google` i
+`src/app/layout.tsx` som variabeln `--font-display`, med Inter som
+reserv. Bara klassen `font-display` tar den: H1 (`text-[60px]` desktop,
+`text-[32px]` mobil, vikt 800), sektionsrubriker (`text-[40px]`, 700),
+kortnamn (`text-[30px]`, 700), värdemeningar (`text-[18px]`, 600), belopp
+(`text-[48px]`, 700, `tabular-nums`) och flödesfrågan i köpvägen
+(`text-[26px]`, 700). Vikterna 700 och 800 finns alltså, men bara
+tillsammans med `font-display`. Brödtext, etiketter och knappar är Inter som
+förr.
+
+**2. Allt-kortet i ink-1 med vit text.** Det rekommenderade paketet är det
+enda kortet som får fylld ink-yta. Tre toner till på den ytan:
+
+| Variabel | Värde | Tailwind | Roll |
+|---|---|---|---|
+| `--ink-1-mjuk` | `#CFC8BD` | `text-ink-1-mjuk` | Dämpad text på ink, 11:1 |
+| `--ink-1-kant` | `#3A3531` | `border-ink-1-kant` | Hårlinje på ink |
+| `--ink-1-accent` | `#FBB98A` | `text-ink-1-accent` | Etiketten Rekommenderas på ink, 9:1 |
+
+Illustrationen på kortet tar `currentColor` (vitt) för konturer och
+`--ink-hover` för papperen, så samma symbol fungerar på papper och på ink.
+Längdvalet (`LangdVal`) inverteras: valt läge blir vitt med ink-text på ink,
+och ink-kant med `shadow-val` på papper.
+
+**3. Färgetiketter för spåren.**
+
+| Variabel | Värde | Tailwind | Roll |
+|---|---|---|---|
+| `--cv` / `--cv-mjuk` | `#1D4ED8` / `#DCE6FB` | `text-cv`, `bg-cv-mjuk` | CV och personliga brev, 6,3:1 på mjuk |
+| `--test` / `--test-mjuk` | `#7C2D12` / `#F6E4D6` | `text-test`, `bg-test-mjuk` | Rekryteringstester, 8,6:1 på mjuk |
+
+Etiketten står alltid som mörk text på sin mjuka yta (`.tag` och `.pill`),
+i tabellhuvudet som text på insunken. Aldrig som yta bakom annan text,
+aldrig som knapp. Allt har ingen färg utöver ink.
+
+Scenerna för de här ytorna ligger i
+`src/components/illustrations/PriserScener.tsx`: sju scener i 240 × 200,
+hero-scenen i 520 × 400, gratispapperet i 56, tre förtroendeikoner i 40 och
+radikonerna i 16 (`RadIkon`). Radikonen står på en 28-platta i insunken
+(`bg-ink-hover` på ink), vilket är det enda undantaget från regeln om ikon i
+egen ruta, eftersom listan "Så här fungerar det" är kortets kärna.
+
 ## 13. Copy
 
 Svenska. Inga em-dash. Inga AI-klichéer. Aktiv form. Flöden ställer frågor.

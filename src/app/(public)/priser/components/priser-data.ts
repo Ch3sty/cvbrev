@@ -1,58 +1,53 @@
 /**
- * Priser-data: serversäkra konstanter för /priser.
+ * Priser-data: serversäkra konstanter för /priser
+ * (docs/design/spec-prissida-2026-09-22.html).
  *
- * Prisstegen bor i src/lib/plans/plans.ts och kortens copy i
+ * Prisstegen bor i src/lib/plans/plans.ts och all copy i
  * src/components/pricing/paket-copy.ts. Här ligger bara det som är sidans
- * eget: gratisnivån, jämförelsetabellen och frågorna.
+ * eget: gratisnivån i listform, jämförelsetabellen och frågorna.
  *
- * Omskriven för paketen (docs/plan-paket-och-onboarding.md, Fas 2B avsnitt 3
- * och Fas 2E). Dagspass och jobbsökarveckan finns inte längre som egna
- * produkter, och trial är borta enligt ägarens beslut 3.
+ * Tabellen skriver ord i stället för prickar: "Alla 41", "Utan tak",
+ * "Ingår inte". Ändras en gräns i quotaService måste raderna ändras i samma
+ * omgång, annars säger sidan en sak och spärren en annan.
  */
 
-import {
-  TEMPLATE_COUNT,
-  FREE_TEMPLATE_COUNT,
-} from '@/lib/cv/simple-templates'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 
 export const PREMIUM_CURRENCY = 'SEK'
 
 // === Gratisnivån ===
 
-/**
- * GR-serien i listform, alltså vad gratisnivån faktiskt ger
- * (Fas 2B avsnitt 8, med den hårdare CV-analysen ur ägarens beslut 2).
- *
- * Ändras en gräns i quotaService måste raderna ändras i samma omgång,
- * annars säger sidan en sak och spärren en annan.
- */
+/** Gratisnivån i listform, för kontosidan. */
 export const FREE_HIGHLIGHTS = [
-  `${FREE_TEMPLATE_COUNT} CV-mallar`,
-  'En CV-analys med poängen, antalet fynd och det tyngsta fyndet',
-  'Ett personligt brev, sedan ett i veckan',
-  'En CV-nedladdning',
-  'Grundnivån i varje testtyp, en gång per dygn',
-  'Tio meddelanden med jobbcoachen',
-  'De tre bästa jobbträffarna',
+  `${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning`,
+  'En CV-analys med poängen och det tyngsta fyndet',
+  'Ett personligt brev att läsa, sedan ett i veckan',
+  'Tre matchade jobb',
+  'Tio frågor till jobbcoachen',
+  'Grundnivån i alla fyra testtyperna, en gång per typ och dygn',
 ] as const
 
-/** D2: gratisnivån i en mening. Följer den hårdare CV-analysen. */
-export const GRATIS_RAD =
-  'Tre mallar, en CV-analys, ett brev och grundnivån i testerna ingår.'
+/** Gratisnivån i en mening, för startsidan. */
+export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och grundnivån i testerna ingår utan att betala.`
 
 // === Jämförelsetabellen ===
 
-/** PR8. */
-export const COMPARISON_INTRO =
-  'Spårpaketen ger allt i sitt spår. Allt ger båda, plus jobbmatchning, jobbcoachen och Bli upptäckt.'
+/** ja: fet ink-1. g: gräns i ink-3. nej: "Ingår inte" i ink-3. */
+export type CellTon = 'ja' | 'g' | 'nej'
+
+export interface ComparisonCell {
+  text: string
+  sub?: string
+  ton: CellTon
+}
 
 export interface ComparisonRow {
   label: string
-  free: string
-  cv: string
-  test: string
-  allt: string
+  sub?: string
+  free: ComparisonCell
+  cv: ComparisonCell
+  test: ComparisonCell
+  allt: ComparisonCell
 }
 
 export interface ComparisonGroup {
@@ -60,97 +55,153 @@ export interface ComparisonGroup {
   rows: ComparisonRow[]
 }
 
-/** Bock och punkt skrivs som tecken och ritas av tabellen. */
-const JA = '✓'
-const NEJ = '·'
+const ja = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'ja' })
+const g = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'g' })
+const NEJ: ComparisonCell = { text: 'Ingår inte', ton: 'nej' }
 
 export const COMPARISON: ComparisonGroup[] = [
   {
-    title: 'CV och ansökan',
+    title: 'CV och personliga brev',
     rows: [
       {
         label: 'CV-mallar',
-        free: String(FREE_TEMPLATE_COUNT),
-        cv: String(TEMPLATE_COUNT),
-        test: String(FREE_TEMPLATE_COUNT),
-        allt: String(TEMPLATE_COUNT),
+        sub: 'som rekryteringssystem läser',
+        free: g(`${FREE_TEMPLATE_COUNT} mallar`),
+        cv: ja(`Alla ${TEMPLATE_COUNT}`),
+        test: g(`${FREE_TEMPLATE_COUNT} mallar`),
+        allt: ja(`Alla ${TEMPLATE_COUNT}`),
       },
-      { label: 'CV-analyser', free: '1', cv: 'Utan tak', test: '1', allt: 'Utan tak' },
-      { label: 'Alla fynd i analysen', free: NEJ, cv: JA, test: NEJ, allt: JA },
       {
-        label: 'Läsbarhet i rekryteringssystem (ATS)',
-        free: NEJ,
-        cv: JA,
-        test: NEJ,
-        allt: JA,
+        label: 'CV-analys',
+        sub: 'poäng, fynd, nyckelord',
+        free: g('Poäng och tyngsta fyndet', 'en gång'),
+        cv: ja('Hela rapporten', 'kör om utan tak'),
+        test: g('Poäng och tyngsta fyndet', 'en gång'),
+        allt: ja('Hela rapporten', 'kör om utan tak'),
       },
-      { label: 'CV-nedladdning', free: '1', cv: 'Utan tak', test: '1', allt: 'Utan tak' },
-      { label: 'Personligt brev', free: '1 i veckan', cv: 'Utan tak', test: '1 i veckan', allt: 'Utan tak' },
-      { label: 'Brevnedladdning', free: NEJ, cv: JA, test: NEJ, allt: JA },
+      {
+        label: 'CV-nedladdning',
+        sub: 'som PDF',
+        free: g('1 gång'),
+        cv: ja('Utan tak'),
+        test: g('1 gång'),
+        allt: ja('Utan tak'),
+      },
+      {
+        label: 'Personliga brev',
+        sub: 'skrivna på annonsen',
+        free: g('1, sedan 1 i veckan', 'läsa, inte ladda ned'),
+        cv: ja('Utan tak', 'nedladdning som PDF'),
+        test: g('1, sedan 1 i veckan', 'läsa, inte ladda ned'),
+        allt: ja('Utan tak', 'nedladdning som PDF'),
+      },
+      {
+        label: 'LinkedIn-profilen',
+        sub: 'rubrik och sammanfattning',
+        free: NEJ,
+        cv: ja('Ingår'),
+        test: NEJ,
+        allt: ja('Ingår'),
+      },
     ],
   },
   {
     title: 'Rekryteringstester',
     rows: [
-      { label: 'Grundnivån', free: '1 per dygn', cv: '1 per dygn', test: 'Utan tak', allt: 'Utan tak' },
-      { label: 'Nivåer över grundnivån', free: NEJ, cv: NEJ, test: JA, allt: JA },
-      { label: 'Tidsatt provläge', free: NEJ, cv: NEJ, test: JA, allt: JA },
-      { label: 'Testhistorik och utveckling', free: NEJ, cv: NEJ, test: JA, allt: JA },
-      { label: 'Förklaring per fråga', free: NEJ, cv: NEJ, test: JA, allt: JA },
+      {
+        label: 'Grundnivå',
+        sub: 'matrislogik, verbalt, numeriskt, personlighet',
+        free: g('1 per typ och dygn'),
+        cv: g('1 per typ och dygn'),
+        test: ja('Utan tak'),
+        allt: ja('Utan tak'),
+      },
+      {
+        label: 'Avancerad och expertnivå',
+        free: NEJ,
+        cv: NEJ,
+        test: ja('Ingår'),
+        allt: ja('Ingår'),
+      },
+      {
+        label: 'Tidsatt provläge',
+        sub: '25 till 40 min, automatisk inlämning',
+        free: NEJ,
+        cv: NEJ,
+        test: ja('Ingår'),
+        allt: ja('Ingår'),
+      },
+      {
+        label: 'Förklaring efter varje fråga',
+        free: g('Grundnivå'),
+        cv: g('Grundnivå'),
+        test: ja('Alla nivåer'),
+        allt: ja('Alla nivåer'),
+      },
+      {
+        label: 'Din utveckling',
+        sub: 'alla sessioner i en kurva',
+        free: g('Senaste sessionen'),
+        cv: g('Senaste sessionen'),
+        test: ja('Hela historiken'),
+        allt: ja('Hela historiken'),
+      },
     ],
   },
   {
     title: 'Jobb och coachning',
     rows: [
-      { label: 'Jobbträffar', free: '3', cv: '3', test: '3', allt: '25' },
-      { label: 'Skälen bakom varje träff', free: NEJ, cv: NEJ, test: NEJ, allt: JA },
-      { label: 'Jobbcoachen', free: '10 meddelanden', cv: '10 meddelanden', test: '10 meddelanden', allt: 'Utan tak' },
-      { label: 'Bli upptäckt av rekryterare', free: NEJ, cv: NEJ, test: NEJ, allt: JA },
-    ],
-  },
-  {
-    title: 'Villkor',
-    rows: [
       {
-        label: 'Pris',
-        free: '0 kr',
-        cv: `${PLAN_BY_KEY.cv_week.amount} kr`,
-        test: `${PLAN_BY_KEY.test_week.amount} kr`,
-        allt: `${PLAN_BY_KEY.all_week.amount} kr`,
+        label: 'Matchade jobb',
+        sub: 'kompetens mot alla branscher',
+        free: g('3 träffar'),
+        cv: g('3 träffar'),
+        test: g('3 träffar'),
+        allt: ja('25 träffar', 'med skälen utskrivna'),
       },
-      { label: 'Bindningstid', free: NEJ, cv: NEJ, test: NEJ, allt: NEJ },
-      { label: 'Uppsägning i ditt konto', free: NEJ, cv: JA, test: JA, allt: JA },
-      { label: 'Data i EU, GDPR', free: JA, cv: JA, test: JA, allt: JA },
+      {
+        label: 'Jobbcoachen',
+        sub: 'lön, intervju, avtal',
+        free: g('10 meddelanden'),
+        cv: g('10 meddelanden'),
+        test: g('10 meddelanden'),
+        allt: ja('Utan tak'),
+      },
+      {
+        label: 'Bli upptäckt',
+        sub: 'rekryterare hittar dig, anonymt',
+        free: NEJ,
+        cv: NEJ,
+        test: NEJ,
+        allt: ja('Ingår'),
+      },
     ],
   },
 ]
 
-// === FAQ, PR9 till PR13 ===
+export const JAMFORELSE_RUBRIK = 'Vad som ingår, rad för rad'
+
+// === FAQ ===
 
 export const PRISER_FAQ_ITEMS = [
   {
     id: 'varfor-vecka',
-    q: 'Varför säljer ni en vecka och inte en månad?',
-    a: 'De flesta söker jobb i korta intensiva perioder och slutar när de fått jobbet. En månad är då för mycket betalt för för lite användning. Veckan matchar hur ett sök faktiskt ser ut: du har en annons som ska besvaras, eller ett urvalstest på fredag. Behöver du längre tid finns Allt-månaden, som kostar mindre per vecka än fyra veckor i rad.',
+    q: 'Varför säljer ni veckor och inte månader?',
+    a: 'För att det mesta du behöver bygger du på en vecka: CV:t, breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Allt-månaden billigare per vecka, och den finns där när du vill ha den.',
   },
   {
     id: 'nar-veckan-ar-slut',
     q: 'Vad händer när veckan är slut?',
-    a: 'Veckan förnyas automatiskt med samma belopp, och du behåller ditt spår. Vill du inte fortsätta säger du upp i ditt konto, och då gäller veckan du betalat för till sista dagen innan kontot går tillbaka till gratisnivån. Allt du skapat finns kvar att läsa och kopiera, även på gratisnivån.',
+    a: 'Den förnyas var sjunde dag tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.',
   },
   {
     id: 'byta-spar',
-    q: 'Kan jag byta spår?',
-    a: 'Ja. Säg upp det spår du har och köp det andra, så börjar en ny vecka. Vill du ha båda samtidigt byter du till Allt-veckan direkt, och då betalar du bara mellanskillnaden för de dagar som är kvar av veckan du redan köpt.',
-  },
-  {
-    id: 'utan-att-betala',
-    q: 'Vad ingår utan att betala?',
-    a: 'Tre CV-mallar, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev, en CV-nedladdning och grundnivån i varje testtyp en gång per dygn. Det räcker för att se hur verktygen arbetar och för att skicka en ansökan. Söker du flera jobb i veckan, eller ska du göra ett urvalstest på riktigt, tar gratisnivån slut.',
+    q: 'Kan jag byta spår mitt i veckan?',
+    a: 'Ja. Från ett spår till Allt betalar du bara mellanskillnaden för dagarna som är kvar. Från Allt till ett spår byter du vid nästa förnyelse.',
   },
   {
     id: 'saga-upp',
     q: 'Hur säger jag upp?',
-    a: 'Under Profil och Prenumeration, ett klick, utan att uppge skäl och utan att kontakta oss. Uppsägningen gäller från nästa förnyelse, och veckan du redan betalat för gäller ut. Vi skickar ett mail dagen innan varje förnyelse från och med den tredje, så att ingen dragning kommer som en överraskning.',
+    a: 'I ditt konto, under Profil och prenumeration, ett klick. Lika enkelt som att köpa. Veckan du redan betalat gäller ut.',
   },
 ] as const

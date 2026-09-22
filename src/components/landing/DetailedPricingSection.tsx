@@ -5,23 +5,31 @@
  * PaketKort, samma rubrik och samma rad om gratisnivån, så att startsidan
  * och prissidan aldrig glider isär.
  *
- * Här finns ingen spårväljare. Startsidan ska visa att valet finns och vad
- * det kostar, sedan lämna över till prissidan där valet görs. Knapparna går
- * till registreringen med paketet i adressen, precis som på prissidan för
- * den utloggade.
+ * Knapparna går till registreringen med paketet i adressen, precis som på
+ * prissidan för den utloggade.
  */
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import PaketKort from '@/components/pricing/PaketKort';
-import { PR_H1, PR_INGRESS } from '@/components/pricing/paket-copy';
+import {
+  PAKET_IDS,
+  PAKET_PLAN,
+  PR_H1,
+  PR_INGRESS,
+  borjaKnapp,
+  planForLangd,
+  type PaketId,
+} from '@/components/pricing/paket-copy';
 import { capture } from '@/lib/analytics/events';
-import type { PlanKey } from '@/lib/plans/plans';
+import type { PlanKey, PlanLength } from '@/lib/plans/plans';
 import { GRATIS_RAD } from '@/app/(public)/priser/components/priser-data';
 
 export default function DetailedPricingSection() {
   const router = useRouter();
+  const [alltLangd, setAlltLangd] = useState<PlanLength>('vecka');
 
   function valj(plan: PlanKey) {
     capture('paywall_cta_clicked', {
@@ -33,18 +41,33 @@ export default function DetailedPricingSection() {
     router.push(`/registrera?paket=${plan}`);
   }
 
+  const planFor = (paket: PaketId): PlanKey =>
+    paket === 'allt' ? planForLangd(alltLangd) : PAKET_PLAN[paket];
+
   return (
     <section className="bg-mark py-14 sm:py-20">
-      <div className="mx-auto max-w-[1040px] px-4 sm:px-6">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <div className="mx-auto max-w-[720px] text-center">
-          <h2 className="text-h1 text-ink-1">{PR_H1}</h2>
+          <h2 className="font-display text-[32px] font-extrabold leading-[35px] tracking-[-0.025em] text-ink-1 [text-wrap:balance] lg:text-[40px] lg:leading-[44px]">
+            {PR_H1}
+          </h2>
           <p className="mt-3 text-sm leading-[22px] text-ink-2">{PR_INGRESS}</p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:gap-6 lg:grid-cols-3">
-          <PaketKort plan="cv_week" onSelect={valj} />
-          <PaketKort plan="test_week" onSelect={valj} />
-          <PaketKort plan="all_week" lengths recommended onSelect={valj} />
+        <div className="mt-8 grid gap-3 lg:grid-cols-[1fr_1fr_1.12fr] lg:gap-5">
+          {PAKET_IDS.map((paket, i) => (
+            <PaketKort
+              key={paket}
+              paket={paket}
+              nummer={i + 1}
+              langd={paket === 'allt' ? alltLangd : undefined}
+              onLangd={(langd, plan) => {
+                setAlltLangd(langd);
+                capture('plan_length_changed', { plan, surface: 'landing' });
+              }}
+              knapp={{ text: borjaKnapp(paket), onClick: () => valj(planFor(paket)) }}
+            />
+          ))}
         </div>
 
         <div className="mx-auto mt-8 max-w-[640px] text-center">

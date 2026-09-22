@@ -311,15 +311,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         {/* Konto: paketet först, sedan profilen. Raden får kant när kontot
             är gratis eller nära slutet. Aldrig fylld orange yta.
 
-            Etiketten är "Ditt paket", inte "Premium": efter paketomgången
-            finns ingen enda premiumnivå utan tre spår, och ordet Premium
-            säger inget om vilket hon har. */}
+            Etiketten är "Profil och prenumeration" (onboardingspecen
+            2026-09-22), inte "Premium": efter paketomgången finns ingen enda
+            premiumnivå utan tre spår, och raden är den synliga vägen till att
+            köpa eller byta paket. */}
         <SidebarSection eyebrow="Konto">
           <SidebarLink
             href="/dashboard/profil/prenumeration"
-            label="Ditt paket"
+            label="Profil och prenumeration"
             icon={IkonKrona}
-            badge={premiumLabel ? <span className="text-meta text-ink-3">{premiumLabel}</span> : undefined}
+            sublabel={premiumLabel ?? undefined}
             highlight={premiumNeedsAttention}
             isMobile={isMobile}
             onClick={onClose}
@@ -328,6 +329,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             href="/dashboard/profil"
             label="Profil"
             icon={IkonProfil}
+            exact
             isMobile={isMobile}
             onClick={onClose}
           />

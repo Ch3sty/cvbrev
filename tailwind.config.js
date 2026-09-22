@@ -62,6 +62,12 @@ module.exports = {
       },
       // Typskalan (docs/designsystem.md, "Typografi"). text-h1, text-fraga,
       // text-tal, text-kort, text-meta, text-steg.
+      // Rubriker i Schibsted Grotesk, bara för display-klasser på prissidan
+      // och köpvägen (avsnitt 12). Variabeln sätts av next/font i layout.tsx
+      // och faller tillbaka på Inter.
+      fontFamily: {
+        display: ['var(--font-display)', 'Inter', 'system-ui', 'sans-serif'],
+      },
       fontSize: {
         h1: ['28px', { lineHeight: '32px', letterSpacing: '-0.02em', fontWeight: '600' }],
         fraga: ['22px', { lineHeight: '28px', letterSpacing: '-0.02em', fontWeight: '600' }],

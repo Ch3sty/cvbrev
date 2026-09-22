@@ -1,23 +1,28 @@
 'use client'
 
 /**
- * Jämförelsetabellen (docs/plan-paket-och-onboarding.md, Fas 2D).
+ * Jämförelsetabellen (docs/design/spec-prissida-2026-09-22.html, .jamf).
  *
- * Fyra kolumner: gratis, CV, Test, Allt. JSX-tabell, aldrig markdown
- * (reference_table_markup). Tabellen scrollar i sin egen behållare, sidans
- * body scrollar aldrig i sidled, och första kolumnen ligger kvar på mobil.
+ * Fem kolumner: funktion, gratis, CV-veckan, Testveckan, Allt. JSX-tabell,
+ * aldrig markdown (reference_table_markup). Ord i stället för prickar:
+ * "Alla 41", "Hela rapporten", "Ingår inte". Tabellen scrollar i sin egen
+ * behållare, sidans body scrollar aldrig i sidled, och första kolumnen
+ * ligger kvar på mobil.
  *
- * Tal där tal finns, bock där det bara är på eller av. Skälet: "41" säger
- * mer än en bock, och en bock bredvid ett tal läses som två olika saker.
+ * Kolumnhuvudena bär spårens färgetiketter, Allt-kolumnen står i ink-1 med
+ * vit text, precis som kortet. Gruppraderna är sektionsetiketter på mark.
  *
  * pricing_comparison_viewed skjuts när halva tabellen är i bild, en gång.
  */
 
 import { useEffect, useRef } from 'react'
-import { Check } from 'lucide-react'
 
 import { capture } from '@/lib/analytics/events'
-import { COMPARISON, type ComparisonGroup } from '@/app/(public)/priser/components/priser-data'
+import {
+  COMPARISON,
+  type ComparisonCell,
+  type ComparisonGroup,
+} from '@/app/(public)/priser/components/priser-data'
 
 export interface JamforelseTabellProps {
   grupper?: ComparisonGroup[]
@@ -26,37 +31,20 @@ export interface JamforelseTabellProps {
   className?: string
 }
 
-/** Punkt i ink-3 betyder "ingår inte". Aldrig ett kryss, aldrig rött. */
-function Cell({ varde }: { varde: string }) {
-  if (varde === '✓') {
-    return (
-      <>
-        <Check
-          className="mx-auto h-5 w-5 text-ink-2"
-          strokeWidth={1.75}
-          aria-hidden="true"
-        />
-        <span className="sr-only">Ingår</span>
-      </>
-    )
-  }
-  if (varde === '·' || varde === '') {
-    return (
-      <>
-        <span className="text-ink-3" aria-hidden="true">
-          ·
-        </span>
-        <span className="sr-only">Ingår inte</span>
-      </>
-    )
-  }
-  return <span className="tabular-nums">{varde}</span>
+function Cell({ cell }: { cell: ComparisonCell }) {
+  const ton =
+    cell.ton === 'ja' ? 'font-semibold text-ink-1' : 'text-ink-3'
+  return (
+    <>
+      <span className={ton}>{cell.text}</span>
+      {cell.sub ? <span className="block text-xs text-ink-3">{cell.sub}</span> : null}
+    </>
+  )
 }
 
-const TH_KOL = 'px-3 py-2 text-center text-meta font-medium text-ink-3'
-const TD_KOL = 'px-3 py-3 text-center text-sm text-ink-2'
-const FORSTA =
-  'sticky left-0 z-10 bg-panel px-3 py-3 text-left text-sm text-ink-1'
+const TH = 'px-3 py-3 text-center text-[13px] font-semibold leading-[19px] sm:px-5'
+const TD = 'px-3 py-3 text-center text-sm leading-[19px] sm:px-5 sm:py-3.5'
+const FORSTA = 'sticky left-0 z-10 bg-panel px-3 py-3 text-left text-sm leading-[19px] sm:px-5'
 
 export default function JamforelseTabell({
   grupper = COMPARISON,
@@ -90,25 +78,25 @@ export default function JamforelseTabell({
   return (
     <div ref={ref} className={className}>
       <div className="overflow-x-auto rounded-xl border border-kant bg-panel">
-        <table className="w-full min-w-[540px] border-collapse">
+        <table className="w-full min-w-[760px] border-collapse tabular-nums">
           <caption className="sr-only">
             Vad som ingår i gratisnivån, CV-veckan, Testveckan och Allt
           </caption>
           <thead>
             <tr className="border-b border-kant">
-              <th scope="col" className={`${FORSTA} text-meta font-medium text-ink-3`}>
+              <th scope="col" className={`${FORSTA} bg-insunken text-[13px] font-semibold text-ink-1`}>
                 Funktion
               </th>
-              <th scope="col" className={TH_KOL}>
+              <th scope="col" className={`${TH} w-[17%] bg-insunken text-ink-1`}>
                 Gratis
               </th>
-              <th scope="col" className={TH_KOL}>
-                CV
+              <th scope="col" className={`${TH} w-[17%] bg-insunken text-cv`}>
+                CV-veckan
               </th>
-              <th scope="col" className={TH_KOL}>
-                Test
+              <th scope="col" className={`${TH} w-[17%] bg-insunken text-test`}>
+                Testveckan
               </th>
-              <th scope="col" className={TH_KOL}>
+              <th scope="col" className={`${TH} w-[17%] bg-ink-1 text-white`}>
                 Allt
               </th>
             </tr>
@@ -116,31 +104,34 @@ export default function JamforelseTabell({
 
           {grupper.map((grupp) => (
             <tbody key={grupp.title}>
-              <tr className="border-b border-kant bg-insunken">
+              <tr className="border-b border-kant">
                 <th
                   scope="colgroup"
                   colSpan={5}
-                  className="px-3 py-2 text-left text-sm font-medium text-ink-3"
+                  className="bg-mark px-3 py-2 text-left text-steg uppercase text-ink-3 sm:px-5"
                 >
                   {grupp.title}
                 </th>
               </tr>
               {grupp.rows.map((rad) => (
                 <tr key={rad.label} className="border-b border-kant last:border-0">
-                  <th scope="row" className={`${FORSTA} font-normal`}>
+                  <th scope="row" className={`${FORSTA} font-medium text-ink-1`}>
                     {rad.label}
+                    {rad.sub ? (
+                      <span className="block text-xs font-normal text-ink-3">{rad.sub}</span>
+                    ) : null}
                   </th>
-                  <td className={TD_KOL}>
-                    <Cell varde={rad.free} />
+                  <td className={TD}>
+                    <Cell cell={rad.free} />
                   </td>
-                  <td className={TD_KOL}>
-                    <Cell varde={rad.cv} />
+                  <td className={TD}>
+                    <Cell cell={rad.cv} />
                   </td>
-                  <td className={TD_KOL}>
-                    <Cell varde={rad.test} />
+                  <td className={TD}>
+                    <Cell cell={rad.test} />
                   </td>
-                  <td className={TD_KOL}>
-                    <Cell varde={rad.allt} />
+                  <td className={TD}>
+                    <Cell cell={rad.allt} />
                   </td>
                 </tr>
               ))}
