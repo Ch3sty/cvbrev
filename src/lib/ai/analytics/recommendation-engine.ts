@@ -212,10 +212,10 @@ export class UserRecommender {
       return {
         user_id: user.id,
         type: 'upgrade_prompt',
-        title: 'Uppgradera till Premium',
+        title: 'Välj ett spår',
         description: isHittingLimits
-          ? 'Du närmar dig dagsgränsen. Få obegränsade brev med Premium!'
-          : 'Lås upp alla funktioner och maximera dina jobbchanser',
+          ? 'Du närmar dig veckans gräns. CV-veckan ger brev utan tak.'
+          : 'CV-veckan samlar mallarna, brevet och den fulla analysen',
         priority: 'high',
         expected_impact: {
           user_value: 90,

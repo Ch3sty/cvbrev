@@ -26,6 +26,7 @@ import { logUserActivity } from '@/lib/activity-logger';
 
 // Tråden (docs/design/koncept-2026-09-13.md): sektionerna bor i (oversikt).
 import SparRad from '@/components/dashboard/SparRad';
+import DagpassRad from '@/components/dashboard/DagpassRad';
 import SparFragaIgen from '@/components/dashboard/SparFragaIgen';
 import VeckoTrad from '@/components/dashboard/VeckoTrad';
 import DowngradedNotice from '@/components/dashboard/DowngradedNotice';
@@ -205,8 +206,13 @@ export default function DashboardPage() {
   // på spårvalsskärmen.
   const veckoUnderSpar = veckoSpar === 'tester' ? 'tester' : 'cv';
   const veckoDag = Math.min(7, Math.max(1, week?.progressDay || 1));
-  // Panelen visas bara för den som betalar. Gratisnivån får spårraden.
-  const visaVeckan = Boolean(weekScope && veckoSpar);
+  // Allt-dagen kör inget veckoprogram (avsnitt 6). Dygnet är ett engångsköp
+  // på 24 timmar, och sju dagars program i en vy som varar ett dygn vore en
+  // lögn om vad hon köpt. Hon får en sluttidsrad i stället.
+  const endastDagpass = Boolean(week?.dayPassOnly);
+  // Panelen visas bara för den som betalar, och aldrig för ett dagpass.
+  // Gratisnivån får spårraden.
+  const visaVeckan = Boolean(weekScope && veckoSpar) && !endastDagpass;
   // Under veckan är veckan nästa handling. Två konkurrerande "gör det här nu"
   // är värre än noll, så NastaHandling står över medan en dag är oavklarad.
   const dagOavklarad = visaVeckan && (week?.progressDay ?? 0) < 7;
@@ -216,10 +222,14 @@ export default function DashboardPage() {
 
   // Fyra tal till dag 7:s sammanställning. Räknar saker användaren gjort,
   // aldrig poäng: brev, CV, mallar och avklarade dagar.
+  //
+  // Tredje talet stod tidigare på LinkedIn-räknaren därför att
+  // mallnedladdningarna inte fanns i summeringen, alltså ljög etiketten
+  // "mallar" (B3:s öppna beslut 10). Nu läser den formatted_cv_downloads.
   const veckoTal: [number, number, number, number] = [
     stats.totalLetters,
     stats.cvCount ?? 0,
-    stats.weeklyLinkedInCount ?? 0,
+    week?.templateDownloads ?? 0,
     Math.max(0, veckoDag - 1),
   ];
 
@@ -290,6 +300,8 @@ export default function DashboardPage() {
         />
       )}
       <SparRad track={weekTrackValt} scope={weekScope} />
+      {/* Allt-dagen: sluttidsrad i stället för veckopanelen. */}
+      {endastDagpass ? <DagpassRad endsAt={week?.dayPassEndsAt ?? null} /> : null}
       <DowngradedNotice />
 
       {/* Veckan ligger som hemskärmens första element under rubriken, ovanför

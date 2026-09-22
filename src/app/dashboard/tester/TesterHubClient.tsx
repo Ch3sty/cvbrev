@@ -33,7 +33,8 @@ const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
 export default function TesterHubClient({ data }: { data: TesterHubData }) {
   const [tab, setTab] = useState<TesterTab>('tester');
 
-  const { perTest, aggregate, personality, provBestPercent, isPremium } = data;
+  const { perTest, aggregate, personality, provBestPercent, isPremium, hasHistory, scope } =
+    data;
 
   const bestTest = Object.entries(perTest)
     .filter(([, s]) => s.attempts > 0)
@@ -109,7 +110,7 @@ export default function TesterHubClient({ data }: { data: TesterHubData }) {
             </div>
           </div>
         ) : (
-          <DevelopmentView perTest={perTest} />
+          <DevelopmentView perTest={perTest} hasHistory={hasHistory} scope={scope} />
         )}
       </div>
     </div>

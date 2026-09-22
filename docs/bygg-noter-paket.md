@@ -129,3 +129,265 @@ Skrivet 2026-09-22. Flöde 1 till 4 i Fas 2A, M-serien i Fas 2B, T1 till T87 i F
 ### Klicktest
 
 `scripts/qa-paket-b3.mjs`, Pixel 7 (412x915) och desktop 1280, riktig Chrome mot `localhost:3103`. Femton skärmdumpar i `docs/qa/qa-paket-b3/`, resultat i `resultat.json`. 23 av 23 kontroller gröna plus sex på dag 7 och två på skärm 2.1 efter omläggningen. Orange per skärm: 1.1 tre, 1.2 ett, 1.1b ett, 2.1 två, hemskärmen med veckopanelen tre, dag 7 tre.
+
+---
+
+## B2
+
+Gratisnivån: kvoter, testkonfiguration, mallar, betalväggar, funktionsrutter
+och CV-analysen. Byggt 2026-09-22, reviderat och kompletterat av B5 samma dag.
+
+B2 hann inte skriva noter eller klicktesta, så det här avsnittet är skrivet i
+efterhand av B5 efter en revision rad för rad mot avsnitt 4.
+
+### Vad som fanns
+
+Nästan allt, och byggt rätt. Revisionen gick igenom varje rad i
+gratisnivåtabellen och fann tretton av fjorton byggda:
+
+| Rad i avsnitt 4 | Läge | Var |
+|---|---|---|
+| 3 fria mallar | fanns | `simple-templates.ts`, exakt tre `tier: 'free'` (Norrsken, Sidopanel, Student). `FREE_TEMPLATE_COUNT` räknas ur listan, testas i `template-count.test.ts` |
+| Mallgate med 402 | fanns | `generate-formatted/route.ts` gate:ar `cv_templates_all` och `cv_export`, båda med `featureRequiredBody` |
+| CV-export 1 per konto | fanns | `free_cv_exports_used`, atomisk uppräkning med `.eq(..., 0)` |
+| Tester, bara grundnivå fri | fanns | `testConfig.requiresFeature` på nio nivåer, `sessionGate.ts` gate:ar serverside |
+| Sessionsrutterna gate:ade | fanns | Alla femton rutter anropar `checkTestSessionAccess` |
+| Provläge premium | fanns | `test_exam_mode` på de tre proven |
+| Hård tidsgräns | fanns | Se tabellen nedan |
+| Automatisk inlämning | fanns | Två av tre via `use-exam-deadline`, den tredje via egen nedräkning (se nedan) |
+| CV-analys 1 per konto | fanns | `CV_ANALYSIS_LIMIT = 1`, räknar `cv_analysis_jobs` |
+| Analysens gratissvar | fanns | `gateAnalysisResult.ts` skickar poäng, antal fynd och tyngsta fyndet; övriga som rubrik utan åtgärd, aldrig som full text klienten döljer |
+| Brev 1 per konto sedan 1 per vecka | fanns | `weekly_letter_count` plus `weekly_letter_first_used_at`, rullande sju dygn |
+| Chatt 10 per konto | fanns | `FREE_CHAT_MESSAGES_PER_ACCOUNT = 10`, ny betalväggstext ("Dina tio meddelanden är använda", inte "Dagens") |
+| `letters/download` | fanns | `letter_download` |
+| `jobs/redact` | fanns | `job_matches_all` |
+| `quota/status` | fanns | Svarar `scope` och `onboardingTrack` |
+| PaywallCard med suggestedPlan | fanns | Länkar till `/dashboard/valj-spar?paket=<planKey>` |
+| `feature_blocked` vid varje 402 | fanns | Skjuts en gång per montering i både `PaywallCard` och `FelSpar` |
+| FelSpar i mall- och testvyer | fanns | `TemplateSelector` och `TestHubPage` skickar båda `scope`, och `PaywallCard` väljer FelSpar automatiskt när scopet inte täcker featuren |
+| **Testhistorik premium** | **saknades** | Se nedan |
+
+### Vad B5 byggde
+
+**Testhistoriken var den enda raden som inte var byggd.** `test_history` fanns
+i featuretabellen men gate:ades ingenstans: testhubben visade hela serien,
+sparklinen och listan över alla försök till vem som helst, alltså precis det
+som enligt avsnitt 4 är veckoprenumerationens själva argument.
+
+Gaten sitter i `getHubData.ts`, alltså i serverhämtningen och inte i vyn. Skälet
+är att en historik som aldrig lämnar servern inte går att läsa ur
+nätverksfliken heller. `getTesterHubData` tar nu `hasHistory` och `scope`, och
+`utanHistorik()` trimmar serien till senaste försöket när featuren saknas.
+
+Talen ovanför serien står kvar orörda, och det är ett medvetet val: antal
+försök, bästa resultat och total tid är summeringar och inte historik, och de
+är dessutom köpskälet. Aggregaten räknas därför på hela serien innan
+trimningen.
+
+`src/app/dashboard/tester/page.tsx` läste fortfarande `subscription_tier` som
+en boolean. Den läser nu `getUserScope` och skickar in både scopet och
+`hasHistory`, så testhubben vet vilket spår kontot bär och inte bara om det
+betalar.
+
+Vyn fick en ny betalväggsvariant, `historik`, i `paywall-copy.ts`.
+Utvecklingsfliken säger nu "Du ser ditt senaste försök per test. Hela serien
+ingår i Testveckan" i stället för "Varje punkt är ett försök", och kortet under
+säger varför serien är värd något.
+
+Nytt test: `src/app/dashboard/tester/__tests__/getHubData.historik.test.ts`
+(4), som bland annat slår fast att aggregaten är identiska med och utan
+featuren, och att ingen serie någonsin läcker mer än en rad.
+
+### Tidsgränserna i provläget
+
+Gränserna står i `testConfig.examMinutes` och läses av både klient och server,
+så copy och kod aldrig glider isär.
+
+| Prov | Frågor | Tidsgräns |
+|---|---|---|
+| Matrislogik-provet | 18 | **25 minuter** |
+| Verbala provet | 48 | **40 minuter** |
+| Numeriska provet | 36 | **40 minuter** |
+
+Gränsen räknas från sessionens `started_at`, alltså serverns tid och inte från
+när fliken öppnades: annars räcker en omladdning för att få nya minuter.
+
+Inlämningen sker på två ställen med flit. Klienten lämnar in när klockan når
+noll, men en klient går att stänga av, så `examDeadlinePassed()` i
+`sessionGate.ts` räknar samma gräns serverside i alla tre svarsrutterna och
+svarar 409 `exam_time_up` på ett svar som kommer för sent. Utan den vore
+tidsgränsen en rekommendation och inte en gräns. Marginalen är tio sekunder, så
+ett svar som skickades precis före utgången inte faller på nätverkets latens.
+
+Matris- och numeriskprovet använder hooken `use-exam-deadline`.
+Verbalprovet har en egen nedräkning i `VerbalProvSession.tsx` som räknar ur
+samma `examMinutes` och auto-slutför på samma villkor, inklusive vid
+rehydrering av en session vars tid redan gått ut. Den är alltså inte en lucka,
+bara en annan implementation. Vill man ha en enda väg är det en refaktorering
+av verbalprovet, inte en bugg.
+
+---
+
+## B5
+
+Integration, revision av B2, och hela releasen färdigställd. Byggt 2026-09-22.
+
+Fyra agenter byggde parallellt och sessionen avbröts två gånger. Mitt uppdrag
+var att sluta luckorna mellan dem, inte att bygga något nytt i sig. Revisionen
+av B2 står i avsnittet ovan. Det här avsnittet är integrationen och städningen.
+
+### Integrationspunkterna
+
+**(a) Webhooken anropar veckohookarna.** B3 byggde `onWeekStarted` och
+`onWeekEnded` men ingen anropade dem, så dagsmejlen fanns och skickades aldrig.
+
+`onWeekStarted` sitter i `invoice.payment_succeeded`, i samma gren som
+`capturePaidServerside` och av samma skäl som B1b:s not 8: abonnemanget kan
+skapas utan att pengarna dragits, och en kund som aldrig betalade ska inte få
+sju dagsmejl.
+
+Bara den **första** fakturan startar programmet. `billing_reason` är
+`subscription_create` vid köpet och `subscription_cycle` vid varje förnyelse,
+och utan den skillnaden hade vecka två lagt om programmet till dag 1 igen,
+alltså skickat samma sju mejl en gång till till någon som redan gått igenom
+dem. `subscription_update` räknas med: det är fakturan vid en uppgradering
+från ett spår till Allt, och då byter kunden serie.
+
+`onWeekEnded` sitter i `customer.subscription.updated` och `deleted`, och
+anropas när scopet nyss nollades. `onSubscriptionDeleted` sköter uppsägningen
+som händelse, men det är den här raden som stoppar kön: utan den skickas dag 4
+till 7 till någon som inte längre betalar. Gäller även när prenumerationen går
+till `past_due` eller `unpaid` utan att raderas.
+
+Verifierat i databasen under klicktestet: ett CV-spårsköp gav `cv_day1` till
+`cv_day7` på sju på varandra följande dygn klockan 05:00, ett testspårsköp gav
+`test_day1` till `test_day7`.
+
+**(b) Paketet överlever registreringen.** Var redan byggt, och jag
+kontrollerade hela kedjan i stället för att bygga om den. Prissidan skickar
+utloggade till `/registrera?paket=<planKey>`. `register-form.tsx` läser
+parametern, validerar den med `isPlanKey` och skickar den vidare som `next`
+till Google-knappen. Callbackens `safeNext` behåller query-strängen, så
+`/dashboard/valj-spar?paket=cv_week` överlever Googles redirect utan att en
+cookie behövs. `ValjSparClient` förväljer både spår och längd ur parametern.
+
+Klicktestat: CV-kortet står förvalt (index 0) när spårvalet öppnas med
+`?paket=cv_week`.
+
+**(c) `src/lib/premium/trial.ts` minimerades.** Filen hade noll läsare: B1b:s
+not 10 och B3:s not 14 pekade på varandra, och när båda landat var det ingen
+kvar. Jag raderade den inte helt, för två vyer behöver fortfarande känna igen
+kvarvarande trialkonton under avvecklingen, och de bar varsin egen kopia av
+`TRIAL_SOURCES` i stället. Nu bor listan på ett ställe och `DowngradedNotice`,
+`ProfilKomplettering` och `TestResultBridgeContainer` importerar
+`isTrialSource` därifrån. `TRIAL_PRICE_FROM`, `daysLeft` och `daysLeftPhrase`
+är borta, de lästes bara av raderade komponenter.
+
+**(d) Dag 7:s tredje tal.** Etiketten säger "mallar" (T58) men talet stod på
+LinkedIn-räknaren, eftersom mallnedladdningarna inte fanns i summeringen. Talet
+läser nu `formatted_cv_downloads` via `week.templateDownloads`. Raden kostade
+ingenting: samma count-fråga hämtades redan för onboardingsteget
+`download_cv_template`, den lästes bara inte ut.
+
+**(e) Allt-dagen får en sluttidsrad.** Dygnet kör inget veckoprogram, men
+veckopanelen visades ändå eftersom scopet är `allt` (B3:s öppna beslut 12).
+Sju dagars program i en vy som varar ett dygn är en lögn om vad kunden köpt.
+
+`getSummary` räknar nu ut `dayPassOnly`, alltså att behörigheten bara kommer ur
+ett giltigt `premium_grants` och inte ur en prenumeration, plus
+`dayPassEndsAt`. Hemskärmen döljer veckopanelen i det läget och renderar
+`DagpassRad` i stället.
+
+Minsta möjliga med flit: en rad som säger när dygnet tar slut och ingenting
+mer. Ingen nedräkning som tickar, ingen säljknapp. Tiden räknas i svensk tid,
+som allt annat som rör dygn i appen. Fem tester i `DagpassRad.test.ts`.
+
+**(f) Rester i gränssnittstext.** Greppade efter de tio strängarna i uppdraget.
+Det mesta var redan rent. Det som fanns kvar:
+
+| Fil | Vad | Åtgärd |
+|---|---|---|
+| `FunktionerHero.tsx`, `MediaImpactSection.tsx` | "Prova Premium gratis i 7 dagar" mot `/trial-signup` | Blev "Se paketen" mot `/priser`. Detta var det allvarligaste fyndet: tre publika CTA:er lovade en gratisperiod som inte finns |
+| `ComparisonSection.tsx` | Samma CTA, plus gratiskolumn med gamla kvoter ("2/dag brev", "1/tredje dag analys") | CTA bytt, raderna följer nu avsnitt 4. Ny rad för testhistoriken |
+| `FunktionerFAQ.tsx` | "fem dagar med full Premium direkt, utan kort" | Omskriven till gratisnivån och spåren |
+| `cv-mallar-faq.ts` | "Premium-prenumerationen" | Namnger CV-veckan och Allt-veckan |
+| `CvAnalysisResults.tsx` | "Lås upp djupare insikter med Premium!" | Kvitterar vad hon fått, säljer CV-veckan, länkar till spårvalet med paketet förvalt |
+| `YrkesmallContent.tsx` | "Lås upp premium" | "Se hela mallen" |
+| `StartFlow.tsx` | "Lås upp mitt brev" | "Skapa konto och läs brevet" |
+| `ArticlesFinalCTA.tsx` | "Gratis för alltid" | "Gratisnivån har ingen tidsgräns". Det gamla löftet är inte sant efter den stramare nivån |
+| `recommendation-engine.ts` | "Lås upp alla funktioner" | Namnger CV-veckan |
+| `EnhancedFinalCTA.tsx` | Hela komponenten lovade sju dagar gratis | **Raderad**, noll importörer |
+| `subscription-info.tsx` | Gamla kvoter i en egen vy | **Raderad**, noll importörer. B4 byggde om vyn på `/dashboard/profil/prenumeration` |
+| `TestResultBridge.tsx` | "Alla testnivåer är upplåsta till" | "ingår till". Raden visas bara för kvarvarande trialkonton |
+
+**(g) Sidebar, CreateSheet, sökta tjänster.** `CreateSheet` var ren. I sökta
+tjänster betyder "trial" provjobb (`trial_work_completed`) och rör inte
+prenumerationer alls. `Sidebar` sa "Premium" om kontoraden, vilket efter
+paketomgången inte säger något om vilket av tre spår kunden har. Raden heter nu
+"Ditt paket". Prisbadgen står kvar som "Från 49 kr" ur `PLANS`, alltså
+Allt-dagen som lägsta pris i hela stegen, och alltid som "från" eftersom badgen
+inte kan veta vilket paket hon landar på.
+
+### Bygge och tester
+
+`npx tsc --noEmit` rent. `NEXT_DIST_DIR=.next-b5 npx next build` rent, exit 0.
+`npx vitest run`: **466 gröna i 37 filer**, upp från 457. Nio nya tester:
+`getHubData.historik.test.ts` (4) och `DagpassRad.test.ts` (5).
+`tsconfig.json` återställd med `git checkout --`.
+
+### Klicktestet
+
+`scripts/qa-paket-b5.mjs`, riktig Chrome mot `next start` på 3105 med
+`.next-b5`. Pixel 7 och desktop 1280. **40 av 40 kontroller gröna.** Tjugotvå
+skärmdumpar och `resultat.md` med bock per acceptanskriterium ur 2A och 2D
+ligger i `docs/qa/qa-paket-b5/`.
+
+LCP: hemskärmen **808 ms** (budget 1,0 s), prissidan **396 ms** (budget 1,5 s).
+
+Stripe-nyckeln i miljön är en **live-nyckel**, så inget köp fullföljdes. Flöde
+(i) stannar vid att kassans session skapats och att den svarar med en
+Stripe-url, och köpet simulerades därefter i databasen plus ett riktigt anrop
+till `onWeekStarted`, precis som webhooken gör. Skripten för det ligger som
+`qa-paket-b5-konton.mjs` och `qa-paket-b5-kop.mjs`. QA-kontona raderades.
+
+### Öppna beslut
+
+1. **Verbalprovet har en egen nedräkning i stället för `use-exam-deadline`.**
+   Den räknar ur samma `examMinutes` och auto-slutför på samma villkor, så
+   beteendet är rätt och serverspärren är gemensam. Men det är två vägar till
+   samma sak, och nästa gång någon ändrar tidsgränsens logik måste hen hitta
+   båda. Att slå ihop dem är en refaktorering av `VerbalProvSession`, inte en
+   bugg, och jag lät den ligga eftersom releasen inte hänger på den.
+
+2. **Aggregaten på testhubben räknas på hela serien även för gratisnivån.**
+   Alltså: hon ser "3 försök, bästa 100 %" men bara sitt senaste resultat i
+   listan. Jag menar att det är rätt, talen är summeringar och inte historik
+   och de är köpskälet. Men det går att läsa som att vi visar något vi samtidigt
+   säger att hon inte får se. Vill ägaren att även talen ska spegla det hon ser
+   är det en rad i `getHubData`, och då blir betalväggen svagare.
+
+3. **`dayPassOnly` känner igen Allt-dagen på frånvaron av en prenumeration.**
+   Villkoret är "giltigt grant, inget profilscope". Det är sant i dag eftersom
+   engångsköpet är det enda som skriver grants utan prenumeration, men admin
+   "ge premium" skriver också grants. En admin-tilldelad vecka ser alltså ut
+   som ett dagpass för hemskärmen. Konsekvensen är liten, hon får en
+   sluttidsrad i stället för en veckopanel, men den är fel. Rätt lösning är att
+   `premium_grants` bär sin `source` in i summeringen, och det är en kolumn
+   till i samma parallella omgång.
+
+4. **`/api/trial/signup` och `/trial-signup` står kvar.** Det är den
+   kortkrävande trial-vägen, inte reverse trial, och B1b:s not 9 lämnade den
+   utanför. Jag tog bort alla CTA:er som pekade dit, så sidan är nu oåtkomlig
+   från gränssnittet men fortfarande byggd och nåbar via direktlänk. Att stänga
+   den helt är ägarens beslut.
+
+5. **`qa-b3b-paket@jobbcoach.test` står kvar i databasen** med sju schemalagda
+   `cv_day`-mejl från B3:s klicktest. Det är inte mitt konto och jag har låtit
+   det ligga, men det bör raderas före släpp så att ingen QA-adress får riktiga
+   veckomejl.
+
+6. **Prissidans första kalla laddning mätte 1596 ms**, alltså över sin egen
+   budget på 1,5 sekunder, innan CDN-cachen var varm. Varma laddningar ligger
+   på knappt 400 ms. I produktion är sidan cachad ett dygn
+   (`reference_vercel_env_saknas`), så talet som gäller är det varma, men
+   första besökaren efter en deploy betalar den kalla kostnaden.

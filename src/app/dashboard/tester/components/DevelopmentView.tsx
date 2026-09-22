@@ -11,12 +11,25 @@ import { IlluTomTester } from '@/components/illustrations/EmptyStateIllustration
 import TestProgressCard from './TestProgressCard';
 import { ALL_COGNITIVE_TESTS } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
+import PaywallCard from '@/components/paywall/PaywallCard';
+import type { Scope } from '@/lib/access/features';
 
 interface Props {
   perTest: Record<TestSlug, PerTestStats>;
+  /**
+   * Sann när kontot har featuren test_history. Serverhämtningen har redan
+   * trimmat serien till senaste sessionen när den är falsk, så den här
+   * flaggan styr bara om vi säger varför (avsnitt 4).
+   */
+  hasHistory?: boolean;
+  scope?: Scope | null;
 }
 
-export default function DevelopmentView({ perTest }: Props) {
+export default function DevelopmentView({
+  perTest,
+  hasHistory = true,
+  scope = null,
+}: Props) {
   const testedCognitive = ALL_COGNITIVE_TESTS.filter((t) => perTest[t.slug]?.attempts > 0);
 
   // Utvecklingsvyn handlar om kognitiva test där poäng kan följas över tid.
@@ -47,9 +60,15 @@ export default function DevelopmentView({ perTest }: Props) {
           Din utveckling
         </h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
-          Varje punkt är ett försök. Linjen visar hur dina resultat rör sig över tid.
+          {hasHistory
+            ? 'Varje punkt är ett försök. Linjen visar hur dina resultat rör sig över tid.'
+            : 'Du ser ditt senaste försök per test. Hela serien ingår i Testveckan.'}
         </p>
       </div>
+
+      {hasHistory ? null : (
+        <PaywallCard variant="historik" feature="test_history" scope={scope} bare />
+      )}
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {testedCognitive.map((def, i) => (

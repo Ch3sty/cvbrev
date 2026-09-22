@@ -84,8 +84,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       premiumLabel = 'Aktiv';
       premiumNeedsAttention = false;
     } else {
-      // Badgen säger vad Premium kostar i stället för vad kontot saknar.
-      // Priset läses ur PLANS så att badgen följer med om Allt-dagen ändras.
+      // Badgen säger vad ett paket kostar i stället för vad kontot saknar.
+      // Priset läses ur PLANS så att badgen följer med om priserna ändras.
+      //
+      // Talet är Allt-dagen, alltså det lägsta priset i hela stegen, och
+      // skrivs alltid som "från": spåret väljs före längden, så badgen kan
+      // inte veta vilket paket hon landar på (ägarens beslut 4).
       premiumLabel = `Från ${PLAN_BY_KEY.all_day.amount} kr`;
       premiumNeedsAttention = true;
     }
@@ -304,12 +308,16 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           <BliUpptacktSidebarLink isMobile={isMobile} onClose={onClose} />
         </SidebarSection>
 
-        {/* Konto: Premium först, sedan profilen. Premium-raden får kant när
-            kontot är gratis eller nära slutet. Aldrig fylld orange yta. */}
+        {/* Konto: paketet först, sedan profilen. Raden får kant när kontot
+            är gratis eller nära slutet. Aldrig fylld orange yta.
+
+            Etiketten är "Ditt paket", inte "Premium": efter paketomgången
+            finns ingen enda premiumnivå utan tre spår, och ordet Premium
+            säger inget om vilket hon har. */}
         <SidebarSection eyebrow="Konto">
           <SidebarLink
             href="/dashboard/profil/prenumeration"
-            label="Premium"
+            label="Ditt paket"
             icon={IkonKrona}
             badge={premiumLabel ? <span className="text-meta text-ink-3">{premiumLabel}</span> : undefined}
             highlight={premiumNeedsAttention}

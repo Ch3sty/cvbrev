@@ -94,6 +94,7 @@ const ILLU: Record<PaywallVariant, React.ComponentType<{ size?: number; classNam
   'cv-export': IlluPlattaNedladdning,
   jobbtraffar: IlluDoldTraff,
   chatt: IlluPlattaPremium,
+  historik: IlluPlattaTest,
   kvot: IlluDagensBrev,
   'test-tak': IlluPlattaTest,
   nedgraderad: IlluNedgraderad,

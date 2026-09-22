@@ -12,8 +12,7 @@
 import { useEffect, useState } from 'react'
 import { useProfile } from '@/hooks/use-profile'
 import PaywallCard from '@/components/paywall/PaywallCard'
-
-const TRIAL_SOURCES = ['signup_trial', 'oauth_signup_trial']
+import { isTrialSource } from '@/lib/premium/trial'
 const STORAGE_KEY = 'jc_downgraded_notice_dismissed'
 const WINDOW_DAYS = 14
 
@@ -32,7 +31,7 @@ export default function DowngradedNotice({ className }: { className?: string }) 
 
   if (dismissed) return null
   if (subscriptionTier !== 'free') return null
-  if (!TRIAL_SOURCES.includes(premiumSource ?? '')) return null
+  if (!isTrialSource(premiumSource)) return null
   if (!premiumUntil) return null
 
   const now = new Date()

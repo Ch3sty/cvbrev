@@ -18,6 +18,7 @@ export type PaywallVariant =
   | 'cv-export'
   | 'jobbtraffar'
   | 'chatt'
+  | 'historik'
   // Kvarvarande varianter som inte hör till paketspärrarna.
   | 'kvot'
   | 'test-tak'
@@ -100,6 +101,7 @@ export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   'cv-export': 'cv_export',
   jobbtraffar: 'job_matches_all',
   chatt: 'chat_unlimited',
+  historik: 'test_history',
   'test-tak': 'tests_above_base',
 }
 
@@ -192,6 +194,17 @@ export function getPaywallCopy(
         title: 'Dina tio meddelanden är använda',
         body: 'Tio meddelanden ingår i gratisnivån. Allt-veckan ger chatten utan tak, tillsammans med båda spåren och jobbmatchningen.',
         primary: 'Ta Allt-veckan',
+        secondary: 'Jämför paketen',
+      }
+
+    // Historiken: senaste sessionen är fri, serien är uttaget. Rubriken säger
+    // vad hon redan ser, inte vad hon saknar, och brödtexten säger varför
+    // serien är värd något (avsnitt 4).
+    case 'historik':
+      return {
+        title: 'Du ser ditt senaste resultat',
+        body: 'Testveckan sparar varje försök och ritar upp hur du rör dig över tid, test för test. Det är den kurvan som visar om övningen ger något.',
+        primary: 'Ta Testveckan',
         secondary: 'Jämför paketen',
       }
 

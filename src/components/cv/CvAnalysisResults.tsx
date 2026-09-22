@@ -497,20 +497,28 @@ const AutomaticImprovementsSection: React.FC<{ improvements: string[] }> = React
 AutomaticImprovementsSection.displayName = 'AutomaticImprovementsSection';
 
 /**
- * Renders a teaser prompting free users to upgrade to Premium.
+ * Gratisnivåns rad under analysen (docs/plan-paket-och-onboarding.md,
+ * avsnitt 4 och ägarens beslut 2).
+ *
+ * Kvitterar först vad hon redan fått, alltså poängen och det tyngsta fyndet,
+ * och säger därefter vad CV-veckan öppnar. Den får inte säga "Lås upp": vi
+ * säljer ett spår, inte ett hänglås, och knappen går till spårvalet med
+ * CV-veckan förvald i stället för till en allmän prenumerationssida.
  */
 const PremiumTeaserSection: React.FC = React.memo(() => (
     <section className={premiumTeaserClasses}>
         <Crown className="w-8 h-8 text-neutral-700 mx-auto mb-4" aria-hidden="true" />
-        <h3 className="text-xl font-semibold text-gray-900 mb-3">Lås upp djupare insikter med Premium!</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-3">Du har sett det tyngsta fyndet</h3>
         <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-            Få detaljerade exempel, ATS-analys, kvantifieringsförslag och mer avancerad poängsättning för att verkligen optimera ditt CV.
+            CV-veckan öppnar åtgärden bakom varje rubrik, hela ATS-genomgången och
+            kvantifieringsförslagen. Du kan också köra om analysen när du rättat och se
+            poängen röra sig.
         </p>
         <Link
-            href="/dashboard/profil/prenumeration"
+            href="/dashboard/valj-spar?paket=cv_week"
             className="inline-flex items-center h-11 px-6 text-sm font-medium text-white transition-all bg-orange-600 hover:bg-orange-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
-            Uppgradera till Premium
+            Ta CV-veckan
             <ChevronRight className="w-4 h-4 ml-2" />
         </Link>
     </section>

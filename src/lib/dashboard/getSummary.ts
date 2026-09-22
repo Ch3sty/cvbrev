@@ -81,6 +81,25 @@ export interface DashboardSummaryData {
     startedAt: string | null
     /** Har spårfrågan ställts, och i så fall när. */
     trackAskedAt: string | null
+    /**
+     * Nedladdade mallar, hela kontots historik.
+     *
+     * Dag 7:s tredje tal har etiketten "mallar" (T58), och stod tidigare på
+     * LinkedIn-räknaren därför att mallnedladdningarna inte fanns i
+     * summeringen (B3:s öppna beslut 10). Raden kostar ingenting: samma
+     * count-fråga hämtades redan för onboardingsteget download_cv_template,
+     * den lästes bara inte ut.
+     */
+    templateDownloads: number
+    /**
+     * Allt-dagen: sant när behörigheten bara kommer ur ett engångsköp.
+     *
+     * Dygnet kör inget veckoprogram (avsnitt 6). Hemskärmen visar då en
+     * sluttidsrad i stället för veckopanelen, minsta möjliga vy.
+     */
+    dayPassOnly: boolean
+    /** När dygnet tar slut (ISO). Null när inget engångsköp är giltigt. */
+    dayPassEndsAt: string | null
   }
 }
 
@@ -289,10 +308,25 @@ export async function getDashboardSummary(
       ? (profileRow.premium_scope as 'cv' | 'tester' | 'allt')
       : 'allt'
     : null
-  const grants = (grantsRes.data ?? []) as Array<{ scope?: string | null }>
+  const grants = (grantsRes.data ?? []) as Array<{
+    scope?: string | null
+    premium_until_after?: string | null
+  }>
   const harAllaDagen = grants.some((rad) => (rad?.scope ?? 'allt') === 'allt')
   const smalareGrant = grants.map((rad) => rad?.scope).find(giltigtScope) ?? null
   const scope = harAllaDagen ? 'allt' : (profilScope ?? smalareGrant)
+
+  // Allt-dagen: behörigheten kommer ur ett engångsköp och inte ur en
+  // prenumeration, alltså finns ingen vecka att gå igenom (avsnitt 6, och
+  // B3:s öppna beslut 12). Hemskärmen visar då en sluttidsrad i stället för
+  // veckopanelen. Villkoret är precis det: ett giltigt grant och ingen
+  // prenumeration bakom det.
+  const grantSlutar = grants
+    .map((rad) => rad?.premium_until_after)
+    .filter((v): v is string => typeof v === 'string' && v.length > 0)
+    .sort()
+    .pop() ?? null
+  const endastDagpass = profilScope === null && grantSlutar !== null
 
   return {
     profile: profileRes.data ?? null,
@@ -327,6 +361,9 @@ export async function getDashboardSummary(
       progressDay: Number(profileRow?.week_progress_day ?? 0) || 0,
       startedAt: (profileRow?.week_started_at as string | undefined) ?? null,
       trackAskedAt: (profileRow?.onboarding_track_asked_at as string | undefined) ?? null,
+      templateDownloads: downloadRes.count ?? 0,
+      dayPassOnly: endastDagpass,
+      dayPassEndsAt: grantSlutar,
     },
   }
 }

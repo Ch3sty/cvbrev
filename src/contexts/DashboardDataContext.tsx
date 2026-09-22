@@ -80,6 +80,12 @@ export interface DashboardSummary {
     progressDay: number;
     startedAt: string | null;
     trackAskedAt: string | null;
+    /** Nedladdade mallar. Dag 7:s tredje tal, etiketten "mallar" (T58). */
+    templateDownloads?: number;
+    /** Allt-dagen: behörigheten kommer bara ur ett engångsköp. */
+    dayPassOnly?: boolean;
+    /** När dygnet tar slut (ISO). */
+    dayPassEndsAt?: string | null;
   };
 }
 

@@ -10,6 +10,7 @@
 import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import TestResultBridge from './TestResultBridge'
+import { isTrialSource } from '@/lib/premium/trial'
 
 interface TestResultBridgeContainerProps {
   testSlug: string
@@ -84,9 +85,9 @@ export default function TestResultBridgeContainer({
           (profile?.premium_until && new Date(profile.premium_until) > new Date())
         )
 
-        const isTrial =
-          profile?.premium_source === 'signup_trial' ||
-          profile?.premium_source === 'oauth_signup_trial'
+        // Bara kvarvarande trialkonton under avvecklingen. Inga nya delas ut
+        // (ägarens beslut 3), och listan bor i src/lib/premium/trial.ts.
+        const isTrial = isTrialSource(profile?.premium_source)
 
         let sessionsToday: number | undefined
         if (sessionsRes?.sessions && Array.isArray(sessionsRes.sessions)) {

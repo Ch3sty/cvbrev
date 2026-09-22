@@ -305,7 +305,7 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
               }
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-700"
             >
-              Lås upp mitt brev
+              Skapa konto och läs brevet
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <p className="mt-3 text-xs text-neutral-500">

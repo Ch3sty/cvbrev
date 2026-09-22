@@ -19,6 +19,8 @@ import {
   onTrialWillEnd,
   onPaymentFailed,
   onSubscriptionDeleted,
+  onWeekStarted,
+  onWeekEnded,
 } from '@/lib/email/lifecycle/hooks';
 
 // Slår upp user_id från Stripe-kunden, för livscykelmailen (spår D5).
@@ -387,12 +389,24 @@ export async function POST(request: Request) {
              if (customerId && relevantSubscriptionId) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
-                 await updateUserSubscription(customerId, fullSubscription);
+                 const uppdaterad = await updateUserSubscription(customerId, fullSubscription);
 
                  // Spår D: uppsägningsmail direkt + uppföljning om tre dagar.
                  if (event.type === 'customer.subscription.deleted') {
                      const userId = await userIdForCustomer(customerId);
                      if (userId) await onSubscriptionDeleted(getSupabaseAdmin() as any, userId);
+                 }
+
+                 // Nedgradering: scopet nollades nyss, alltså har kunden inget
+                 // paket kvar och dagsmejlen ska sluta (B3:s gränssnitt 2).
+                 // onSubscriptionDeleted sköter uppsägningen som händelse,
+                 // men det är den här raden som stoppar kön: utan den skickas
+                 // dag 4 till 7 till någon som inte längre betalar.
+                 //
+                 // Gäller även 'updated' utan radering, alltså när
+                 // prenumerationen går till past_due eller unpaid.
+                 if (uppdaterad?.userId && !uppdaterad.scope) {
+                     await onWeekEnded(getSupabaseAdmin() as any, uppdaterad.userId);
                  }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
@@ -426,6 +440,35 @@ export async function POST(request: Request) {
                          scope: updated.scope ?? 'allt',
                          amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
                      });
+
+                     // Veckoserien schemaläggs här och ingenstans annars.
+                     // Skälet är detsamma som för mätningen ovan: abonnemanget
+                     // kan skapas utan att pengarna dragits, och en kund som
+                     // aldrig betalade ska inte få sju dagsmejl (B3:s
+                     // gränssnitt 2).
+                     //
+                     // Bara den första fakturan startar programmet.
+                     // billing_reason är 'subscription_create' vid köpet och
+                     // 'subscription_cycle' vid varje förnyelse. Utan den
+                     // skillnaden hade vecka två lagt om programmet till dag 1
+                     // igen, alltså skickat samma sju mejl en gång till till
+                     // en kund som redan gått igenom dem.
+                     //
+                     // 'subscription_update' räknas med: det är fakturan vid
+                     // en uppgradering från ett spår till Allt, och då byter
+                     // kunden serie. onWeekStarted avbryter den gamla serien
+                     // innan den lägger den nya, så bytet blir rent.
+                     const forstaFakturan =
+                         eventData.billing_reason === 'subscription_create' ||
+                         eventData.billing_reason === 'subscription_update';
+
+                     if (updated.scope && forstaFakturan) {
+                         await onWeekStarted(
+                             getSupabaseAdmin() as any,
+                             updated.userId,
+                             updated.scope as 'cv' | 'tester' | 'allt'
+                         );
+                     }
                  }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
