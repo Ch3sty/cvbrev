@@ -10,8 +10,10 @@
  * fa en.
  *
  * Prisstegen ur PLANS renderas pa servern och star pa skarmen direkt.
- * Stripe-jamforelsen hamtas efterat av en klientkomponent, eftersom ett
- * Stripe-anrop i den kritiska vagen gor LCP under 1,5 sekunder omojligt.
+ * Stripe-jamforelsen ligger i en egen Suspense-grans med skelett och laser
+ * speglingen ur en 15-minuterscache med adminens tagg (stripe.ts). Forsta
+ * malningen vantar alltsa aldrig pa Stripe, och en kall cache kostar bara
+ * den gransen, inte sidan.
  *
  * Prissynken (/api/admin/pricing/sync) ar kvar och ligger langst ner. Den har
  * ingenting med Stripe att gora trots namnet: den synkar AI-modellernas
@@ -25,13 +27,16 @@
  * och en andring gors dar.
  */
 
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import PageHeader from '@/components/shell/PageHeader';
 import SectionCard from '@/components/admin/SectionCard';
 import MetricCard from '@/components/admin/MetricCard';
 import EmptyState from '@/components/shell/EmptyState';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import Stripejamforelse from './Stripejamforelse';
 import Prissynk from './Prissynk';
+import { hamtaStripeSpeglingCachad, type StripeSpegling } from './stripe';
 import { hamtaUndantagCachad } from '@/lib/admin/metrics';
 import { undantagText } from '@/lib/admin/undantag';
 import {
@@ -40,6 +45,7 @@ import {
   hamtaCronStatus,
   hamtaPlanForvantningar,
   tillRad,
+  type ForvantanRad,
 } from './data';
 
 export const metadata: Metadata = { title: 'Inställningar' };
@@ -57,6 +63,37 @@ function datumtid(varde: string | null): string {
     hour: '2-digit',
     minute: '2-digit',
   });
+}
+
+/**
+ * Stripe-speglingen, i en egen Suspense-grans.
+ *
+ * Laser ur 15-minuterscachen. Svarar Stripe inte far klientkomponenten felet
+ * och visar det med "Forsok igen", som gar mot den ocachade rutten.
+ */
+async function StripeSektion({
+  forvantningar,
+  retentionkupong,
+}: {
+  forvantningar: ForvantanRad[];
+  retentionkupong: string;
+}) {
+  let spegling: StripeSpegling | null = null;
+  let fel: string | null = null;
+  try {
+    spegling = await hamtaStripeSpeglingCachad();
+  } catch (e) {
+    fel = e instanceof Error ? e.message : 'Stripe svarade inte.';
+    console.error('[admin/installningar] stripe-speglingen:', fel);
+  }
+  return (
+    <Stripejamforelse
+      forvantningar={forvantningar}
+      retentionkupong={retentionkupong}
+      initial={spegling}
+      initialFel={fel}
+    />
+  );
 }
 
 export default async function InstallningarSida() {
@@ -104,10 +141,24 @@ export default async function InstallningarSida() {
       </div>
 
       <SectionCard rubrik="Priser och planer">
-        <Stripejamforelse
-          forvantningar={forvantningar.map(tillRad)}
-          retentionkupong={RETENTIONKUPONG}
-        />
+        {/* Samma minimihojd som Stripejamforelse, sa att inget flyttar sig
+            nar gransen fylls. */}
+        <Suspense
+          fallback={
+            <div className="min-h-[620px]">
+              <LoadingSkeleton
+                variant="list"
+                count={forvantningar.length}
+                label="Stripe hämtas"
+              />
+            </div>
+          }
+        >
+          <StripeSektion
+            forvantningar={forvantningar.map(tillRad)}
+            retentionkupong={RETENTIONKUPONG}
+          />
+        </Suspense>
       </SectionCard>
 
       <SectionCard

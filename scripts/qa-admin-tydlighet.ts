@@ -80,7 +80,7 @@ const VYER: Vy[] = [
   { namn: 'trafik', path: '/admin/trafik', titel: 'Trafik' },
   { namn: 'anvandare', path: '/admin/anvandare', titel: 'Användare' },
   { namn: 'anvandare-betalande', path: '/admin/anvandare?grupp=betalande', titel: 'Användare: Betalande' },
-  { namn: 'anvandare-admin-test', path: '/admin/anvandare?grupp=undantagen', titel: 'Användare: Admin och test' },
+  { namn: 'anvandare-admin-test', path: '/admin/anvandare?grupp=undantagna', titel: 'Användare: Admin och test' },
   { namn: 'anvandare-detalj', path: '/admin/anvandare/ID', titel: 'Användare/[id] (Allt-dagen)' },
   { namn: 'tratt-kopvag', path: '/admin/tratt', titel: 'Tratt: Köpvägen' },
   { namn: 'tratt-veckor', path: '/admin/tratt?vy=veckor', titel: 'Tratt: Veckor' },

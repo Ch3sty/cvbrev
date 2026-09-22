@@ -29,7 +29,6 @@ import {
   filterFranSok,
   hamtaAnvandare,
   hamtaKallor,
-  hamtaOversikt,
   lasKalla,
   sokFranFilter,
   visaKalla,
@@ -47,6 +46,7 @@ import {
   visningsnamn,
   type PaketEtikett,
 } from './format';
+import { hamtaOversikt } from './oversikt';
 import { hamtaPrenumerationStart } from './stripe';
 
 export const dynamic = 'force-dynamic';
@@ -112,6 +112,7 @@ function Rubrik({ kolumn, filter }: { kolumn: Kolumn; filter: AnvandarFilter }) 
       <Link
         href={href}
         scroll={false}
+        prefetch={false}
         className={`inline-flex min-h-11 items-center gap-1 hover:text-ink-1 ${
           aktiv ? 'text-ink-1' : ''
         }`}
@@ -157,8 +158,13 @@ function Rad({
   return (
     <tr className="hover:bg-insunken">
       <td className="px-4 py-3">
+        {/* Ingen prefetch: 50 rader i vyn gav 50 bakgrundsanrop per
+            sidvisning, vart och ett genom adminproxyns tva Supabase-fragor,
+            och nasta sidvisning fick koa bakom dem (LCP 2,5 s pa Betalande).
+            Samma skal for sorteringslankarna i rubriken. */}
         <Link
           href={`/admin/anvandare/${rad.id}`}
+          prefetch={false}
           className="text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
         >
           {rad.email ?? 'utan e-post'}
@@ -224,7 +230,7 @@ export default async function AdminAnvandarePage({
     [lista, kallor, oversikt] = await Promise.all([
       hamtaAnvandare(filter, nu),
       hamtaKallor(),
-      hamtaOversikt(nu),
+      hamtaOversikt(),
     ]);
   } catch (fel) {
     console.error('[admin/anvandare] sidan kunde inte renderas:', fel);
