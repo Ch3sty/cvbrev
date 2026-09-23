@@ -1,0 +1,312 @@
+[
+  {
+    "namn": "mobil artikel: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil artikel: inline-raden med period",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil artikel: slutkortets knapp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: nya H2",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: tre kort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: förklaringsrader",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: knapp med pris",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: FAQ utan spår",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: dagen visar Dagspasset",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil priser: knappen följer längden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil rekryteringstester: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil rekryteringstester: Träningspaketet tar bort taket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil rekryteringstester: fördjupade personlighetstestet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop artikel: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop artikel: inline-raden med period",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop artikel: slutkortets knapp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: nya H2",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: tre kort",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: förklaringsrader",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: knapp med pris",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: FAQ utan spår",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: dagen visar Dagspasset",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop priser: knappen följer längden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop rekryteringstester: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop rekryteringstester: Träningspaketet tar bort taket",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop rekryteringstester: fördjupade personlighetstestet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil: inloggad",
+    "ok": true,
+    "not": "http://localhost:5302/dashboard"
+  },
+  {
+    "namn": "mobil betalvägg: rubrik med pris",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil betalvägg: prisrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil betalvägg: knapp Skaffa",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil betalvägg: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny gratis: Tre paket, från 49 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny gratis: grå rad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny gratis: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil spårval: korten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil spårval: Hela paketets prisrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil spårval: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil spårval: primär med pris",
+    "ok": true,
+    "not": "Fortsätt med Träningspaketet, 79 kr i veckan"
+  },
+  {
+    "namn": "mobil köpsteg: kvittot",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil tester betalt: Du har Träningspaketet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny betalt: Du har Träningspaketet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny betalt: förnyas med belopp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "mobil meny betalt: fotrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: inloggad",
+    "ok": true,
+    "not": "http://localhost:5302/dashboard"
+  },
+  {
+    "namn": "desktop betalvägg: rubrik med pris",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop betalvägg: prisrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop betalvägg: knapp Skaffa",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop betalvägg: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny gratis: Tre paket, från 49 kr",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny gratis: grå rad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny gratis: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop spårval: korten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop spårval: Hela paketets prisrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop spårval: inga gamla namn",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop spårval: primär med pris",
+    "ok": true,
+    "not": "Fortsätt med Träningspaketet, 79 kr i veckan"
+  },
+  {
+    "namn": "desktop köpsteg: kvittot",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop tester betalt: Du har Träningspaketet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny betalt: Du har Träningspaketet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny betalt: förnyas med belopp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop meny betalt: fotrad",
+    "ok": true,
+    "not": ""
+  }
+]
