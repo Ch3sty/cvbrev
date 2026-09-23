@@ -3,6 +3,7 @@
  * avsnitt 5). h1, metadata och schemat (WebApplication, HowTo, FAQPage) är
  * oförändrade; bara ramen och sektionernas form är nya.
  */
+import Link from 'next/link'
 import VerktygsSida from '@/components/verktyg/VerktygsSida'
 import RekryteringstesterProvaKort from './components/RekryteringstesterProvaKort'
 import { REKRYTERINGSTESTER_FAQ_ITEMS } from './components/rekryteringstester-faq-data'
@@ -47,6 +48,38 @@ const INGAR = [
   { rubrik: 'Rapport efter varje pass', text: 'Resultat, tid och en genomgång fråga för fråga med rätt svar.' },
   { rubrik: `${TESTVECKAN.name} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${TESTVECKAN.amount} kr i veckan.` },
 ]
+
+// Förberedelserna och guidelänkarna flyttades hit från /artiklar/rekryteringstester-guide
+// när artikeln slogs ihop med verktygssidan (301, 2026-09-23).
+const FORBEREDELSE = [
+  { rubrik: 'Öva på rätt testtyp', text: 'Ska du göra ett matristest, öva på matriser och inte på siffror. Det du tränar bort är ovanan vid formatet, grundförmågan höjer du sällan dramatiskt. Vet du inte vilket test som väntar, fråga rekryteraren innan du börjar öva.' },
+  { rubrik: 'Träna under tidspress', text: 'Stressen är ofta en avsiktlig del av testet, för att likna verkliga arbetsförhållanden. Att öva i lugn och ro ger en falsk trygghet. Sätt en timer.' },
+  { rubrik: 'Välj tillfälle och miljö', text: 'Oftast har du några dagar på dig. Gör testet när du är som skarpast, sitt ostört och stäng av notiserna på mobil och dator.' },
+  { rubrik: 'Svara ärligt på personlighetsdelen', text: 'Personlighetstest har ofta en inbyggd indikator som flaggar inkonsekventa eller misstänkt perfekta svar. Testet mäter passning, inte kvalitet, och den som svarar sig in i fel roll vinner en arbetsplats där den trivs sämre.' },
+  { rubrik: 'Reda ut frågorna i förväg', text: 'Vilken testtyp gäller, hur lång tid har du, krävs dator och stabil uppkoppling, och får du återkoppling efteråt? Den som frågar kommer till testet förberedd, inte överrumplad.' },
+  { rubrik: 'Räkna med att det känns svårt', text: 'Ett bra test ska vara utmanande. Att du inte hinner med varenda fråga är ofta inbyggt i designen, inte ett tecken på att du misslyckats.' },
+]
+
+const GUIDELANK = 'text-ink-1 underline decoration-kant-stark underline-offset-4'
+
+const GUIDER = [
+  { rubrik: 'Logiska tester', text: 'Testtyperna, leverantörerna du möter i Sverige och vad forskningen säger om att öva.', href: '/artiklar/logiska-tester', lank: 'Läs guiden om logiska tester' },
+  { rubrik: 'Matrislogik', text: 'Regeltyperna bakom matriserna och lösta exempel steg för steg.', href: '/artiklar/matrislogik-test-guide', lank: 'Läs guiden om matrislogik' },
+  { rubrik: 'Numeriska test', text: 'Tabelläsning, procent och huvudräkning som håller under tidspress.', href: '/artiklar/numeriskt-test-guide', lank: 'Läs guiden om numeriska test' },
+  { rubrik: 'Verbala test', text: 'Sant, falskt eller går ej att avgöra, och fällan som fäller flest.', href: '/artiklar/verbalt-test-guide', lank: 'Läs guiden om verbala test' },
+  { rubrik: 'Rotationstest', text: 'Spatial förmåga, att vrida figurer i huvudet. Vanligt i tekniska roller och ingenjörsyrken.', href: '/artiklar/rotation-test-guide', lank: 'Läs guiden om rotationstest' },
+  { rubrik: 'Personlighetstest', text: 'Femfaktormodellen, vad dimensionerna betyder för olika roller och varför ärlighet lönar sig.', href: '/artiklar/personlighetstest-jobb-guide', lank: 'Läs guiden om personlighetstest' },
+].map((g) => ({
+  rubrik: g.rubrik,
+  text: (
+    <>
+      {g.text}{' '}
+      <Link href={g.href} className={GUIDELANK}>
+        {g.lank}
+      </Link>
+    </>
+  ),
+}))
 
 export default function RekryteringstesterSida() {
   // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
@@ -201,6 +234,20 @@ export default function RekryteringstesterSida() {
             eyebrow: 'Vad som ingår',
             rubrik: 'Träning som syns på resultatet',
             rader: INGAR,
+          },
+          {
+            id: 'forbered-dig',
+            eyebrow: 'Inför testdagen',
+            rubrik: 'Så förbereder du dig inför ett rekryteringstest',
+            ingress: 'Test har blivit standard. Enligt en TRR-undersökning bland tjänstemän som nyligen bytt jobb ökade andelen som fått göra test från 58 procent 2019 till 67 procent 2022, och tidningen Ingenjören rapporterar att två till tre timmars övning kan höja resultatet med upp till 20 procent. Så lägger du de timmarna rätt.',
+            rader: FORBEREDELSE,
+          },
+          {
+            id: 'guider',
+            eyebrow: 'Fördjupning',
+            rubrik: 'Guider per testtyp',
+            ingress: 'Vill du förstå ett test på djupet innan du övar har vi en guide till varje testtyp, med exempel och de vanligaste fällorna.',
+            rader: GUIDER,
           },
         ]}
         citat={{

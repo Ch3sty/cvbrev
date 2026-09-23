@@ -35,6 +35,14 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
     a: 'Nej. Det är fusk att se de exakta frågorna i det skarpa testet i förväg, men att träna på samma typ av frågor är helt accepterat och även förväntat. Tester som SHL och Cut-e mäter en stabil förmåga som påverkas av träning, ungefär som körkortsteorin. Den som tränat på formatet hinner bättre.',
   },
   {
+    q: 'Är rekryteringstester rättvisa?',
+    a: 'Väl utformade tester är mer objektiva än magkänsla, eftersom alla kandidater bedöms på samma sätt. Etablerade leverantörer som Aon (tidigare cut-e) och Assessio låter dessutom oberoende granskare som DNV och Buros certifiera sina tester. Testet är ändå ett komplement till intervjun, inte en ersättning. En seriös arbetsgivare väger samman test, intervju och erfarenhet.',
+  },
+  {
+    q: 'Vad betyder mitt resultat, och vilka rättigheter har jag?',
+    a: 'Begåvningstester ger oftast ett normerat värde, alltså hur du presterar jämfört med en jämförelsegrupp, medan personlighetstester ger en profil utan rätt eller fel. Du kan be om återkoppling, och resultaten är personuppgifter som hanteras enligt GDPR. Vissa arbetsgivare, som Saab och Sweco enligt tidningen Ingenjören, sparar testresultat i upp till två år, så du kan slippa göra om testet om du söker en ny tjänst hos dem. Fråga gärna hur länge resultatet sparas och hur det vägs in.',
+  },
+  {
     q: 'Hur lång tid tar varje test?',
     a: 'Våra grundtester tar runt 20 minuter och de avancerade versionerna runt 25 minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.',
   },

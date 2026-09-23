@@ -44,7 +44,7 @@ export const MEST_LASTA: readonly { title: string; href: string }[] = [
   { title: 'Hur ska ett CV se ut?', href: '/artiklar/hur-ska-ett-cv-se-ut' },
   { title: 'Skriva personligt brev, hela guiden', href: '/artiklar/skriva-personligt-brev-guide' },
   { title: 'Cover letter i Sverige', href: '/artiklar/cover-letter-sverige' },
-  { title: 'Så avslutar du ett personligt brev', href: '/artiklar/hur-avslutar-man-personligt-brev' },
+  { title: 'Så avslutar du ett personligt brev', href: '/artiklar/personligt-brev-avslutning-exempel' },
 ]
 
 /** Verktygslänkarna i sidokolumnen. Intern länkkraft till landningssidorna; rörs inte. */

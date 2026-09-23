@@ -46,12 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/verktyg`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/cv-mallar`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
@@ -131,6 +125,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 2. Verktyg-undersidor (konverteringstunga sidor)
   const verktygPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/verktyg/skapa-cv`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/verktyg/bli-upptackt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
     {
       url: `${baseUrl}/verktyg/cv-analys`,
       lastModified: new Date(),
@@ -335,7 +341,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projektledare',
     'elevassistent',
     'kundtjanst',
-    'stadare',
     'vardbitrade',
     'hemtjanst',
     'kock',

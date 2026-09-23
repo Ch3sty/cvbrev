@@ -326,7 +326,20 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/artiklar/personligt-brev-stadare-ny',
-        destination: '/personligt-brev-exempel/stadare',
+        destination: '/personligt-brev-exempel/lokalvardare',
+        permanent: true,
+      },
+      // Sammanslagningar 2026-09-23 (analys-seo-tillvaxt, åtgärd 3 och 6):
+      // översikten om rekryteringstester lever nu på verktygssidan, och
+      // metodartikeln om avslutningar är inbakad i exempelartikeln.
+      {
+        source: '/artiklar/rekryteringstester-guide',
+        destination: '/verktyg/rekryteringstester',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/hur-avslutar-man-personligt-brev',
+        destination: '/artiklar/personligt-brev-avslutning-exempel',
         permanent: true,
       },
       // Generella exempel-artiklar som redirectar till galleriet
