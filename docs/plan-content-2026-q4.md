@@ -136,3 +136,11 @@ Lyckas inte en sida vid andra avläsningen gör vi en av tre saker: ny titel om 
 - **Ett publikt personlighetstest som smakprov** på en ny /verktyg/personlighetstest. MAP-sidan och personlighetstest-guiden har efterfrågan, och testprovet visar att smakprov blir konton. Det är en produktändring och kräver design i artefakt.
 - **Sammanslagningen av exempelpar (M12, M13)** ändrar antalet yrken i galleriet och i publik copy om texten anger ett antal. Säg till om antalet används någonstans i marknadsföringen.
 - **Insikter för rekryterare** får inga nya sidor det här kvartalet. De gav tre klick på 14 dagar och inga konton, och rekryterarsidan väntar på volym enligt tidigare beslut. Ändras det beslutet, finns "lönekartläggning krav" (198 visningar, pos 62) och "kompetensbaserad rekrytering" (245, pos 95) att bygga på.
+
+## Ägarens beslut 2026-09-23
+
+- Yrkesspecifika intervjuartiklar: ja, två i december (undersköterska, sjuksköterska). "Kommer snart"-korten står kvar tills dess.
+- Publikt personlighetstest: vänta tills intervjuprovet visat siffror i oktober. Det finns ingen personlighetstestmotor i produkten i dag, provet på /verktyg/rekryteringstester/prova är logiktest.
+- Sammanslagningarna (M1 till M7 och exempelparen): uppskjutna tills resten av planen är klar. Veckoordningen kör nytt och omskrivningar (R-listan) i stället.
+- Rekryterarsidor: beslut väntar på ägarens svar.
+- IndexNow-nyckel och Bing Webmaster Tools är på plats 2026-09-23 (importerat från Search Console, sajtkarta uppladdad).
