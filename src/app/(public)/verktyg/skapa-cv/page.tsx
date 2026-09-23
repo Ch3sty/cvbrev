@@ -214,9 +214,9 @@ export default function SkapaCvSida() {
           roll: 'systemutvecklare, från veckor i Word till en kvart',
         }}
         slut={{
-          eyebrow: 'CV-veckan',
+          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan`,
           rubrik: 'Skapa ditt CV gratis på minuter.',
-          text: `Sju enkla steg, förhandsvisning och mallar som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, full CV-analys och nedladdning av allt du skriver ingår i CV-veckan, ${pris} kr i veckan.`,
+          text: `Sju enkla steg, förhandsvisning och mallar som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, full CV-analys och nedladdning av allt du skriver ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
           knapp: { text: 'Bygg mitt CV gratis', href: '/register' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

@@ -106,8 +106,8 @@ export const COPY = {
     budget:
       'Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt.',
     inloggad:
-      'Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med Testveckan övar du utan gräns.',
-    inloggadLank: 'Se Testveckan',
+      'Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med Träningspaketet, 79 kr i veckan, övar du utan gräns.',
+    inloggadLank: 'Se Träningspaketet, 79 kr i veckan',
   },
   /** Dashboardsidan /dashboard/intervju/[token] (spec avsnitt 5, beslut 1). */
   sida: {

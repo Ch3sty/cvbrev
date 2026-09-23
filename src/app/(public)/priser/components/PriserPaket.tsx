@@ -3,7 +3,7 @@
 /**
  * Tre paket (docs/design/spec-prissida-2026-09-22.html, .valjare och .paket).
  *
- * Desktop: rubrik och ingress centrerade, tre kort i rad där Allt är något
+ * Desktop: rubrik och ingress centrerade, tre kort i rad där Hela paketet är något
  * bredare. Mobil: en eyebrow, korten numrerade "Paket 1 av 3" under
  * varandra, och en ankarrad till gratisnivån, funktionerna och hjälpredan.
  *
@@ -89,7 +89,7 @@ export default function PriserPaket() {
               capture('plan_length_changed', { plan, surface: 'public' })
             }}
             knapp={{
-              text: borjaKnapp(paket),
+              text: borjaKnapp(paket, planFor(paket)),
               onClick: () => valj(planFor(paket)),
               disabled: busy !== null,
             }}

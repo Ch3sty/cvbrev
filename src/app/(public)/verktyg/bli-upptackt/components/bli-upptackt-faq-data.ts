@@ -4,6 +4,8 @@ export type FaqItem = { q: string; a: string }
 
 const ALLT_VECKA = PLAN_BY_KEY.all_week
 const ALLT_MANAD = PLAN_BY_KEY.all_month
+const CV_VECKA = PLAN_BY_KEY.cv_week
+const TEST_VECKA = PLAN_BY_KEY.test_week
 
 export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   {
@@ -24,7 +26,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar det att synas för rekryterare?',
-    a: `Synligheten ingår i Allt: ${ALLT_VECKA.name} för ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.name} för ${ALLT_MANAD.amount} kr i månaden, och du säger upp när du vill. Utan Allt kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med Allt får du dessutom jobbmatchning varje natt, Jobbcoachen utan tak och allt i CV-veckan och Testveckan.`,
+    a: `Synligheten ingår i ${ALLT_VECKA.name}, ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.amount} kr i månaden, och du säger upp när du vill. Utan ${ALLT_VECKA.name} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${ALLT_VECKA.name} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill och allt i ${CV_VECKA.name} och ${TEST_VECKA.name}.`,
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',

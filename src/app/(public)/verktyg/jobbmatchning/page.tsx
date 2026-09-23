@@ -175,7 +175,7 @@ export default function JobbmatchningSida() {
         slut={{
           eyebrow: 'Allt-paketet',
           rubrik: 'Hitta ditt nästa jobb automatiskt.',
-          text: `Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i Allt: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden, utan bindningstid.`,
+          text: `Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i ${PLAN_BY_KEY.all_week.name}: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden, utan bindningstid.`,
           knapp: { text: 'Hitta jobb gratis', href: '/register' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

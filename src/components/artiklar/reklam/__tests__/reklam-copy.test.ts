@@ -75,7 +75,7 @@ describe('reklamkortens texter', () => {
     }
   })
 
-  it('rätt paket per kluster: test till Testveckan, CV och brev till CV-veckan, intervju och lön till Allt', () => {
+  it('rätt paket per kluster: test till Träningspaketet, CV och brev till CV-paketet, intervju och lön till Hela paketet', () => {
     expect(SLUT.test.href).toContain('paket=test_week')
     expect(SLUT.cv.href).toContain('paket=cv_week')
     expect(SLUT.allt.href).toContain('paket=all_week')
@@ -85,12 +85,15 @@ describe('reklamkortens texter', () => {
     expect(INLINE.mallar.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
     expect(INLINE.analys.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
     expect(INLINE.brev.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
-    expect(INLINE.coach.paketrad).toMatch(/Allt/)
+    expect(INLINE.coach.paketrad).toContain(PLAN_BY_KEY.all_week.name)
+    // Perioden står i varje paketrad (R1), aldrig bara "79 kr".
+    for (const v of Object.values(INLINE)) expect(v.paketrad).toMatch(/kr i veckan/)
   })
 
   it('mallantalen kommer ur konstanterna', () => {
     expect(INLINE.mallar.paketrad).toContain(`Alla ${TEMPLATE_COUNT} mallar`)
-    expect(SIDO.cv.text).toContain(`${TEMPLATE_COUNT}`)
+    // Sidokortets text är förklaringsraden ur PLANS (R2).
+    expect(SIDO.cv.text).toBe(PLAN_BY_KEY.cv_week.beskrivning)
     expect(SLUT.cv.rader.join(' ')).toContain(`${TEMPLATE_COUNT}`)
     expect(FREE_TEMPLATE_COUNT).toBe(3)
     expect(INLINE.mallar.text.startsWith('Tre mallar')).toBe(true)

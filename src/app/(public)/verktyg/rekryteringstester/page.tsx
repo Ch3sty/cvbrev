@@ -11,7 +11,7 @@ import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMatris } from '@/components/illustrations/PriserScener'
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
 
-const TESTVECKAN = PLAN_BY_KEY.test_week
+const TRANINGSPAKETET = PLAN_BY_KEY.test_week
 
 const STEG = [
   { rubrik: 'Välj test', text: 'Plocka ett av de tre gratistesterna. Grundnivån går att köra en gång per dygn och testtyp, och frågorna byts ut varje gång.' },
@@ -46,7 +46,7 @@ const BIG_FIVE = [
 const INGAR = [
   { rubrik: 'Grundnivån är gratis', text: 'En gång per dygn och testtyp. Ingen kortuppgift, du börjar direkt.' },
   { rubrik: 'Rapport efter varje pass', text: 'Resultat, tid och en genomgång fråga för fråga med rätt svar.' },
-  { rubrik: `${TESTVECKAN.name} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${TESTVECKAN.amount} kr i veckan.` },
+  { rubrik: `${TRANINGSPAKETET.name} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${TRANINGSPAKETET.amount} kr i veckan.` },
 ]
 
 // Förberedelserna och guidelänkarna flyttades hit från /artiklar/rekryteringstester-guide
@@ -222,14 +222,14 @@ export default function RekryteringstesterSida() {
             id: 'testtyper',
             eyebrow: 'Kognitiva tester',
             rubrik: 'Tre testtyper, alla gratis att börja',
-            ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${TESTVECKAN.name} för ${TESTVECKAN.amount} kr i veckan.`,
+            ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${TRANINGSPAKETET.name} för ${TRANINGSPAKETET.amount} kr i veckan.`,
             rader: TESTTYPER,
             lank: { text: 'Starta gratis test', href: '/register' },
           },
           {
             eyebrow: 'Personlighetsprofil',
             rubrik: 'Ta reda på vad rekryteraren ser i dig',
-            ingress: `De flesta arbetsgivare utgår från Big Five när de mäter personlighet i rekrytering. Bygg din egen profil och se var du hamnar på de fem dimensionerna. Det finns inga rätta svar, och resultatet kan du använda inför intervjun. Gratis: 50 frågor, cirka 10 minuter. I ${TESTVECKAN.name}: 120 frågor och 30 delfaktorer, cirka 25 minuter.`,
+            ingress: `De flesta arbetsgivare utgår från Big Five när de mäter personlighet i rekrytering. Bygg din egen profil och se var du hamnar på de fem dimensionerna. Det finns inga rätta svar, och resultatet kan du använda inför intervjun. Gratis: 50 frågor, cirka 10 minuter. Med ${TRANINGSPAKETET.name} eller ${PLAN_BY_KEY.all_week.name}: det fördjupade testet, 120 påståenden och 30 delfaktorer, cirka 25 minuter.`,
             rader: BIG_FIVE,
             lank: { text: 'Testa din personlighet och se vad rekryteraren ser', href: '/register' },
           },
@@ -259,9 +259,9 @@ export default function RekryteringstesterSida() {
           roll: 'Junior Data Analyst på Klarna, klarade urvalstestet efter två veckor',
         }}
         slut={{
-          eyebrow: TESTVECKAN.name,
+          eyebrow: `${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan`,
           rubrik: 'Träna nu. Kom förberedd sen.',
-          text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${TESTVECKAN.name}, ${TESTVECKAN.amount} kr i veckan.`,
+          text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan.`,
           knapp: { text: 'Starta gratis test', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

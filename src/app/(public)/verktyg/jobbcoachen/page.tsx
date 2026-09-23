@@ -175,7 +175,7 @@ export default function JobbcoachenSida() {
         slut={{
           eyebrow: 'Allt-paketet',
           rubrik: 'Sluta googla. Fråga någon som vet.',
-          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Coachen utan tak, med ditt CV i samtalet, ingår i Allt: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden.`,
+          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill, med ditt CV i samtalet, ingår i ${PLAN_BY_KEY.all_week.name}: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden.`,
           knapp: { text: 'Fråga Karriärguiden gratis', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

@@ -118,7 +118,7 @@ describe('talen räknas, de skrivs aldrig', () => {
   })
 })
 
-describe('Allt-dagen', () => {
+describe('Dagspasset', () => {
   it('säger att den inte förnyas, och det är kortets viktigaste rad', () => {
     expect(INTERVALL_RAD.all_day).toContain('förnyas inte')
     expect(alltPrisSub('all_day')).toContain('inget dras igen')
@@ -135,9 +135,9 @@ describe('Allt-dagen', () => {
   })
 
   it('får rubriken "från nu" i köpsteget, veckan "från i kväll"', () => {
-    expect(KOPSTEG.rubrik('all_day')).toBe('Allt, från nu')
-    expect(KOPSTEG.rubrik('cv_week')).toBe('CV-veckan, från i kväll')
-    expect(KOPSTEG.rubrik('all_week')).toBe('Allt, från i kväll')
+    expect(KOPSTEG.rubrik('all_day')).toBe('Dagspasset, från nu')
+    expect(KOPSTEG.rubrik('cv_week')).toBe('CV-paketet, från i kväll')
+    expect(KOPSTEG.rubrik('all_week')).toBe('Hela paketet, från i kväll')
   })
 })
 
@@ -160,7 +160,7 @@ describe('besparingen räknas, den skrivs aldrig', () => {
 })
 
 describe('mellanskillnaden', () => {
-  it('är skillnaden mot Allt-veckan, inte hela priset', () => {
+  it('är skillnaden mot Hela paketet, inte hela priset', () => {
     const vantat = PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY.cv_week.amount
     expect(mellanskillnad('cv_week')).toBe(vantat)
     expect(mellanskillnad('test_week')).toBe(vantat)
@@ -180,25 +180,27 @@ describe('antalsraden', () => {
 })
 
 describe('knapptexterna', () => {
-  it('betalväggarna använder samma verb och namnger paketet', () => {
+  it('betalväggarna säger Skaffa, namnger paketet och bär pris och period', () => {
     for (const key of ALLA_NYCKLAR) {
-      expect(knappText(key as PlanKey)).toBe(`Ta ${PLAN_BY_KEY[key].name}`)
+      expect(knappText(key as PlanKey)).toMatch(new RegExp(`^Skaffa ${PLAN_BY_KEY[key].name}, ${PLAN_BY_KEY[key].amount} kr`))
     }
+    expect(knappText('cv_week')).toBe('Skaffa CV-paketet, 79 kr i veckan')
   })
 
-  it('korten säger Börja, och Allt säger "med allt"', () => {
-    expect(borjaKnapp('cv')).toBe('Börja CV-veckan')
-    expect(borjaKnapp('test')).toBe('Börja Testveckan')
-    expect(borjaKnapp('allt')).toBe('Börja med allt')
+  it('korten säger Börja med, namnet, pris och period', () => {
+    expect(borjaKnapp('cv')).toBe('Börja med CV-paketet, 79 kr i veckan')
+    expect(borjaKnapp('test')).toBe('Börja med Träningspaketet, 79 kr i veckan')
+    expect(borjaKnapp('allt')).toBe('Börja med Hela paketet, 99 kr i veckan')
+    expect(borjaKnapp('allt', 'all_month')).toBe('Börja med Hela paketet, 149 kr i månaden')
   })
 
   it('namnger målet i längdvalet, inte rubriken', () => {
-    expect(bytLangdKnapp('all_month')).toBe('Byt till Allt-månaden')
+    expect(bytLangdKnapp('all_month')).toBe('Byt till Hela paketet, 149 kr i månaden')
   })
 
   it('spårvalets primär namnger paketet', () => {
-    expect(SPARVAL.primar('cv')).toBe('Fortsätt med CV-veckan')
-    expect(SPARVAL.primar('allt')).toBe('Fortsätt med Allt')
+    expect(SPARVAL.primar('cv')).toBe('Fortsätt med CV-paketet, 79 kr i veckan')
+    expect(SPARVAL.primar('allt')).toBe('Fortsätt med Hela paketet, 99 kr i veckan')
   })
 })
 
@@ -206,7 +208,7 @@ describe('förslagets skäl', () => {
   it('räknar ur samma tal som listan och skriver ut små tal', () => {
     const text = forslagSkal({ plan: 'cv_week', antal: 3, badaSparen: false, track: null })
     expect(text).toContain('tre gånger')
-    expect(text).toContain('CV-veckan')
+    expect(text).toContain('CV-paketet')
   })
 
   it('böjer singular rätt', () => {
@@ -220,9 +222,9 @@ describe('förslagets skäl', () => {
     expect(text).toContain('12 gånger')
   })
 
-  it('föreslår Allt när blockeringarna spänner båda spåren', () => {
+  it('föreslår Hela paketet när blockeringarna spänner båda spåren', () => {
     const text = forslagSkal({ plan: 'all_week', antal: 4, badaSparen: true, track: null })
-    expect(text).toContain('Allt-veckan')
+    expect(text).toContain('Hela paketet')
     expect(text).toContain('båda')
   })
 

@@ -33,7 +33,7 @@ export default function CompleteApplicationPackage({
           Komplett ansökan
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-          Skapa hela paketet
+          Skapa hela ansökan
         </h2>
         <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl">
           Ett starkt {isCV ? 'CV' : 'personligt brev'} ökar dina chanser. Men

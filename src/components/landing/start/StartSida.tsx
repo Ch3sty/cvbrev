@@ -300,7 +300,7 @@ export const START_FAQ = [
   },
   {
     q: 'Vad kostar det, och vad får jag utan att betala?',
-    a: `Gratisnivån kräver inget kort: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och tyngsta fyndet, ett personligt brev på en annons, ${FREE_TIER_JOB_LIMIT} matchade jobb, ${FREE_CHAT_MESSAGES_PER_ACCOUNT} frågor till coachen och grundnivån i varje testtyp. Söker du på allvar väljer du spåret du söker på: CV-veckan och Testveckan kostar ${CV} respektive ${TEST} kr i veckan, Allt ${ALLT} kr i veckan eller ${ALLT_MANAD} kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.`,
+    a: `Gratisnivån kräver inget kort: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och tyngsta fyndet, ett personligt brev på en annons, ${FREE_TIER_JOB_LIMIT} matchade jobb, ${FREE_CHAT_MESSAGES_PER_ACCOUNT} frågor till Jobbcoachen och grundnivån i varje testtyp. Söker du på allvar väljer du paketet som passar: CV-paketet och Träningspaketet kostar ${CV} respektive ${TEST} kr i veckan, Hela paketet ${ALLT} kr i veckan eller ${ALLT_MANAD} kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.`,
   },
 ] as const
 

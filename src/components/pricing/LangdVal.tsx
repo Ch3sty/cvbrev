@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Längdvalet på Allt (docs/design/spec-prissida-2026-09-22.html, .langd).
+ * Längdvalet på Hela paketet (docs/design/spec-prissida-2026-09-22.html, .langd).
  *
  * Fyra lika breda rutor i en ram, beloppet överst i display-snitt och
  * längden under. Valt läge inverteras: på ink-ytan blir det vitt med ink-text,

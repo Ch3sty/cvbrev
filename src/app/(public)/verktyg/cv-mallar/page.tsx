@@ -42,8 +42,8 @@ const STEG = [
 const FUNKTIONER = [
   { rubrik: 'Byggda för rekryteringssystem', text: 'Alla mallar är gjorda för de rekryteringssystem svenska arbetsgivare sorterar med. Rena rubriker, vanlig text och ingen formatering som förvirrar systemet.' },
   { rubrik: 'PDF och Word', text: 'Ladda ner ditt CV i båda formaten. PDF för de flesta ansökningar, Word när annonsen ber om ett redigerbart format.' },
-  { rubrik: 'Profilbild där det passar', text: 'Vissa av mallarna i CV-veckan har plats för profilbild. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.' },
-  { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'I flera av mallarna i CV-veckan syns din LinkedIn-profil tydligt. Då kan rekryteraren enkelt kontrollera dina meriter.' },
+  { rubrik: 'Profilbild där det passar', text: 'Vissa av mallarna i CV-paketet har plats för profilbild. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.' },
+  { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'I flera av mallarna i CV-paketet syns din LinkedIn-profil tydligt. Då kan rekryteraren enkelt kontrollera dina meriter.' },
   { rubrik: 'Redigera när du vill', text: 'Allt sparas i ditt konto. Kom tillbaka, lägg till ett nytt jobb eller byt mall utan att börja om.' },
   { rubrik: 'Fungerar i mobilen', text: 'Hela CV-byggaren fungerar lika bra i telefonen som på datorn. Börja på bussen och fortsätt hemma vid skrivbordet.' },
 ]

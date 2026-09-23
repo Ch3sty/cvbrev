@@ -13,7 +13,7 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Hur många brev kan jag skapa gratis?',
-    a: 'Det första brevet är gratis, sedan skriver du ett nytt i veckan. Allt du skrivit ligger kvar att läsa och kopiera, även på gratisnivån. Vill du skriva utan tak och ladda ner breven som PDF och Word ingår det i CV-veckan för 79 kr i veckan.',
+    a: 'Det första brevet är gratis, sedan skriver du ett nytt i veckan. Allt du skrivit ligger kvar att läsa och kopiera, även på gratisnivån. Vill du skriva utan tak och ladda ner breven som PDF och Word ingår det i CV-paketet för 79 kr i veckan.',
   },
   {
     q: 'Kommer brevet att kännas som något vi alla skickat in?',
@@ -29,6 +29,6 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Fungerar brevet för alla branscher?',
-    a: 'Ja, från vården och offentlig sektor till tech och kreativa yrken. Tonalitetsvalen och de sju mallarna täcker spannet av svenska arbetsplatser. Med CV-veckan väljer vi dessutom tonen åt dig: vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder.',
+    a: 'Ja, från vården och offentlig sektor till tech och kreativa yrken. Tonalitetsvalen och de sju mallarna täcker spannet av svenska arbetsplatser. Med CV-paketet, 79 kr i veckan, väljer vi dessutom tonen åt dig: vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder.',
   },
 ]

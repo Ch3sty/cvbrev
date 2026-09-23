@@ -8,7 +8,7 @@
  *   2. Lönesidan: Lön efter skatt som upphöjd panel med ett räknat exempel,
  *      sedan tre kort.
  *   3. Sidans enda bläckyta: löneförhandlingens värde och jobbcoachen, som
- *      ingår i Allt.
+ *      ingår i Hela paketet.
  *   4. Rekryterarsidan: Vad kostar en anställd som rad på mark med ett
  *      räknat exempel, tre kort, och länken till insikterna för rekryterare
  *      (inget paket).
@@ -207,13 +207,13 @@ export default function Page() {
         {/* 3. Bläckytan */}
         <div className={SEKTION}>
           <InkPanel
-            eyebrow="Ingår i Allt"
+            eyebrow={`Ingår i Hela paketet, ${vecka.amount} kr i veckan`}
             title={`${kr(FORHANDLING_STANDARD.hojning)} mer i månaden är värt ${krTecken(forhandling.ar10)} på tio år`}
             text={
               <>
                 Löneförhandlingens värde räknar ut vad en höjning blir när varje revision läggs ovanpå den. Jobbcoachen
                 hjälper dig få den: marknadslön och argument ur SCB och fackens statistik, med källa till varje svar.
-                Obegränsad chatt ingår i Allt, {vecka.amount} kr i veckan eller {manad.amount} kr i månaden.
+                Jobbcoachen, så mycket du vill, ingår i Hela paketet, {vecka.amount} kr i veckan eller {manad.amount} kr i månaden.
               </>
             }
             action={

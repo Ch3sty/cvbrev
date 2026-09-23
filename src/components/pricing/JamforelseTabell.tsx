@@ -3,7 +3,7 @@
 /**
  * Jämförelsetabellen (docs/design/spec-prissida-2026-09-22.html, .jamf).
  *
- * Fem kolumner: funktion, gratis, CV-veckan, Testveckan, Allt. JSX-tabell,
+ * Fem kolumner: funktion, gratis, CV-paketet, Träningspaketet, Hela paketet. JSX-tabell,
  * aldrig markdown (reference_table_markup). Ord i stället för prickar:
  * "Alla 41", "Hela rapporten", "Ingår inte". Tabellen scrollar i sin egen
  * behållare, sidans body scrollar aldrig i sidled, och första kolumnen
@@ -80,7 +80,7 @@ export default function JamforelseTabell({
       <div className="overflow-x-auto rounded-xl border border-kant bg-panel">
         <table className="w-full min-w-[760px] border-collapse tabular-nums">
           <caption className="sr-only">
-            Vad som ingår i gratisnivån, CV-veckan, Testveckan och Allt
+            Vad som ingår i gratisnivån, CV-paketet, Träningspaketet och Hela paketet
           </caption>
           <thead>
             <tr className="border-b border-kant">
@@ -91,13 +91,13 @@ export default function JamforelseTabell({
                 Gratis
               </th>
               <th scope="col" className={`${TH} w-[17%] bg-insunken text-cv`}>
-                CV-veckan
+                CV-paketet
               </th>
               <th scope="col" className={`${TH} w-[17%] bg-insunken text-test`}>
-                Testveckan
+                Träningspaketet
               </th>
               <th scope="col" className={`${TH} w-[17%] bg-ink-1 text-white`}>
-                Allt
+                Hela paketet
               </th>
             </tr>
           </thead>

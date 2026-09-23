@@ -182,13 +182,13 @@ export default function PersonligtBrevSida() {
         kontroll={{
           eyebrow: 'Mallar',
           rubrik: `${MALLANTAL} mallar, en för varje bransch`,
-          ingress: `Alla mallar går att läsa för rekryteringssystemen svenska arbetsgivare använder. Byt mall utan att skriva om brevet. ${GRATISMALLAR} av dem är gratis och räcker långt för de flesta ansökningar, resten ingår i CV-veckan.`,
+          ingress: `Alla mallar går att läsa för rekryteringssystemen svenska arbetsgivare använder. Byt mall utan att skriva om brevet. ${GRATISMALLAR} av dem är gratis och räcker långt för de flesta ansökningar, resten ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
           rader: MALLAR.map((m) => ({
             rubrik: m.name,
             text: (
               <>
                 {MALLTEXT[m.id] ? `${MALLTEXT[m.id].text} Passar ${MALLTEXT[m.id].branscher.toLowerCase()}.` : m.description}{' '}
-                <span className="text-ink-3">{m.tier === 'free' ? 'Gratis.' : 'Ingår i CV-veckan.'}</span>
+                <span className="text-ink-3">{m.tier === 'free' ? 'Gratis.' : `Ingår i ${PLAN_BY_KEY.cv_week.name}.`}</span>
               </>
             ),
           })),
@@ -205,8 +205,8 @@ export default function PersonligtBrevSida() {
             rubrik: 'När brevet svarar mot kraven har rekryteraren en anledning att ringa',
             rader: [
               { rubrik: 'Ett brev gratis', text: 'Sedan skriver du ett nytt i veckan, utan kortuppgift.' },
-              { rubrik: 'PDF och Word', text: 'Nedladdningen ingår i CV-veckan.' },
-              { rubrik: `${pris} kr för hela veckan`, text: 'CV-veckan. Säg upp när du vill i ditt konto.' },
+              { rubrik: 'PDF och Word', text: `Nedladdningen ingår i ${PLAN_BY_KEY.cv_week.name}.` },
+              { rubrik: `${pris} kr för hela veckan`, text: `${PLAN_BY_KEY.cv_week.name}. Säg upp när du vill i ditt konto.` },
             ],
             lank: { text: 'Skriv ditt första brev gratis', href: '/register' },
           },
@@ -217,9 +217,9 @@ export default function PersonligtBrevSida() {
           roll: 'backend-utvecklare, från 14 avslag till intervju',
         }}
         slut={{
-          eyebrow: 'CV-veckan',
+          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan`,
           rubrik: 'Ditt nästa brev tar tre minuter, inte tre timmar.',
-          text: `Första brevet är gratis och kräver ingen kortuppgift, sedan skriver du ett nytt i veckan. Brev utan tak, alla mallar och nedladdning som PDF och Word ingår i CV-veckan, ${pris} kr i veckan.`,
+          text: `Första brevet är gratis och kräver ingen kortuppgift, sedan skriver du ett nytt i veckan. Personliga brev utan tak, alla mallar och nedladdning som PDF och Word ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
           knapp: { text: 'Skapa ditt brev gratis', href: '/register' },
         }}
         faq={{

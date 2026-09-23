@@ -187,7 +187,7 @@ export const PRISER_FAQ_ITEMS = [
   {
     id: 'varfor-vecka',
     q: 'Varför säljer ni veckor och inte månader?',
-    a: 'För att det mesta du behöver bygger du på en vecka: CV:t, breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Allt-månaden billigare per vecka, och den finns där när du vill ha den.',
+    a: 'För att det mesta du behöver bygger du på en vecka: CV:t, de personliga breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Hela paketet per månad billigare per vecka, 149 kr i månaden, och det finns där när du vill ha det.',
   },
   {
     id: 'nar-veckan-ar-slut',
@@ -196,8 +196,8 @@ export const PRISER_FAQ_ITEMS = [
   },
   {
     id: 'byta-spar',
-    q: 'Kan jag byta spår mitt i veckan?',
-    a: 'Ja. Från ett spår till Allt betalar du bara mellanskillnaden för dagarna som är kvar. Från Allt till ett spår byter du vid nästa förnyelse.',
+    q: 'Kan jag byta paket mitt i veckan?',
+    a: 'Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.',
   },
   {
     id: 'saga-upp',

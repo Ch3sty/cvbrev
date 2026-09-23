@@ -47,6 +47,6 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar LinkedIn-optimeringen?',
-    a: `Optimeringen ingår i ${CV_VECKA.name} för ${CV_VECKA.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: ${ALLT_VECKA.name} för ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.name} för ${ALLT_MANAD.amount} kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
+    a: `Optimeringen ingår i ${CV_VECKA.name} för ${CV_VECKA.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i ${ALLT_VECKA.name}, ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.amount} kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
   },
 ]

@@ -48,7 +48,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Ja. Grundnivån i varje testtyp är gratis, en gång per dag och testtyp, utan att du lämnar kortuppgifter. Vill du köra fler försök, gå vidare till avancerad och expertnivå, öva i tidsatt provläge eller följa din utveckling över tid ingår allt det i Testveckan för 79 kr i veckan.',
+    a: 'Ja. Grundnivån i varje testtyp är gratis, en gång per dag och testtyp, utan att du lämnar kortuppgifter. Vill du köra fler försök, gå vidare till avancerad och expertnivå, öva i tidsatt provläge eller följa din utveckling över tid ingår allt det i Träningspaketet för 79 kr i veckan. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

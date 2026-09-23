@@ -17,6 +17,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { ArtikelPaket, CtaCluster, InlineVerktyg } from '@/lib/cta/clusters'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
+import { paketNamn } from '@/lib/plans/plans'
 import {
   IlluScenAllt,
   IlluScenBrev,
@@ -332,7 +333,7 @@ export function ListaSlutKort() {
           {[LISTA_SLUT.paket[2], LISTA_SLUT.paket[0], LISTA_SLUT.paket[1]].map((p) => (
             <li
               key={p.namn}
-              className={`rounded-lg border border-ink-1-kant p-4 ${p.namn === 'Allt' ? 'lg:order-last' : ''}`}
+              className={`rounded-lg border border-ink-1-kant p-4 ${p.namn === paketNamn('all_week') ? 'lg:order-last' : ''}`}
             >
               <p className="text-steg uppercase text-ink-1-accent">{p.etikett}</p>
               <p className="mt-1 font-display text-[22px] font-bold leading-7 text-white">{p.namn}</p>

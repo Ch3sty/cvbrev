@@ -8,7 +8,7 @@
  *   2. Kalkylatorn: fälten i panel, resultatet som sidans enda bläckyta
  *      med talet i display, fördelningen, källan och Dela-knappen.
  *   3. "Så räknar vi" som text på mark, med källorna som lista bredvid.
- *   4. Nästa steg som upphöjd panel: jobbcoachen och Allt för lönesidorna,
+ *   4. Nästa steg som upphöjd panel: jobbcoachen och Hela paketet för lönesidorna,
  *      insikterna för rekryterare för rekryterarsidorna (inget paket).
  *   5. Frågorna som details och summary, direkt på mark.
  *   6. Läs mer som lista på mark.
@@ -73,19 +73,19 @@ function NastaSteg({ kategori }: { kategori: Kategori }) {
   const manad = PLAN_BY_KEY.all_month
   return (
     <section aria-label="Jobbcoachen" className="rounded-xl border border-kant-stark bg-panel p-4 sm:p-6">
-      <p className="text-steg uppercase text-ink-3">Ingår i Allt</p>
+      <p className="text-steg uppercase text-ink-3">Ingår i Hela paketet, {vecka.amount} kr i veckan</p>
       <h2 className="mt-2 text-varde text-ink-1">Ta siffrorna med in i lönesamtalet</h2>
       <p className="mt-2 max-w-[60ch] text-sm leading-[22px] text-ink-2 sm:text-base sm:leading-6">
         Jobbcoachen tar fram marknadslön och argument ur SCB och fackens statistik, med källa till varje svar, och
         hjälper dig lägga upp samtalet. {FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden är gratis på ditt konto.
-        Obegränsad chatt ingår i Allt, {vecka.amount} kr i veckan eller {manad.amount} kr i månaden.
+        Jobbcoachen, så mycket du vill, ingår i Hela paketet, {vecka.amount} kr i veckan eller {manad.amount} kr i månaden.
       </p>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
         <Link href="/verktyg/jobbcoachen" className={SEKUNDAR}>
           Fråga jobbcoachen
         </Link>
         <Link href="/priser" className={`${LANK} inline-flex min-h-11 items-center`}>
-          Se vad Allt innehåller
+          Se vad Hela paketet innehåller
         </Link>
       </div>
     </section>

@@ -54,7 +54,7 @@ const LOFTEN = [
   },
   {
     rubrik: 'Du betalar för veckorna du söker',
-    text: 'Du provar varje verktyg utan kortuppgifter. Behöver du mer väljer du spåret du söker på och betalar en vecka i taget, och säger upp i ditt konto utan att uppge skäl.',
+    text: 'Du provar varje verktyg utan kortuppgifter. Behöver du mer väljer du paketet som passar det du söker och betalar en vecka i taget, och säger upp i ditt konto utan att uppge skäl.',
   },
 ]
 

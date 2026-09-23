@@ -62,7 +62,7 @@ export default function MallVisning({ typ, mallar, typsnitt, fotrad, lank }: Mal
                   </option>
                 ))}
             </optgroup>
-            <optgroup label="I CV-veckan">
+            <optgroup label="I CV-paketet">
               {mallar
                 .filter((m) => m.tier === 'premium')
                 .map((m) => (

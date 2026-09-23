@@ -5,8 +5,8 @@
  * funktionerna en och en, hjälpredan per paket, förtroendekorten, tabellen
  * rad för rad och frågorna.
  *
- * Serverrenderad rakt igenom. Knapparna och Allt-kortets längdval är det
- * enda som behöver JavaScript, och utan det visar Allt-kortet sitt
+ * Serverrenderad rakt igenom. Knapparna och Hela paketets längdval är det
+ * enda som behöver JavaScript, och utan det visar Hela paketets kort sitt
  * veckoläge, som är förvalt. Korten, tabellen, alla fyra FAQ-svaren och
  * förtroendekorten står i HTML.
  *
@@ -24,7 +24,7 @@ import PriserJamforelse from './components/PriserJamforelse'
 import PriserFAQ from './components/PriserFAQ'
 import PriserMatning from './components/PriserMatning'
 import { PRISER_FAQ_ITEMS, PREMIUM_CURRENCY } from './components/priser-data'
-import { PLANS } from '@/lib/plans/plans'
+import { PLANS, paketMedLangd } from '@/lib/plans/plans'
 import { PAKET_RAD } from '@/components/pricing/paket-copy'
 
 // Samma dygn som resten av (public). Sidan har ingen besökarspecifik data:
@@ -46,7 +46,7 @@ export default function PriserSida() {
     availability: 'https://schema.org/InStock',
     offers: PLANS.map((plan) => ({
       '@type': 'Offer',
-      name: plan.name,
+      name: paketMedLangd(plan.key),
       description: PAKET_RAD[plan.key],
       price: plan.amount,
       priceCurrency: PREMIUM_CURRENCY,

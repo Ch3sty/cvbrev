@@ -299,7 +299,7 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
             </h2>
             <p className="text-sm leading-relaxed text-neutral-600 mb-4">
               Skapa ett gratiskonto så får du hela brevet, och vi sparar det åt dig.
-              Vill du ladda ner det som PDF eller Word ingår det i CV-veckan.
+              Vill du ladda ner det som PDF eller Word ingår det i CV-paketet, 79 kr i veckan.
             </p>
             <Link
               href={registerHref}

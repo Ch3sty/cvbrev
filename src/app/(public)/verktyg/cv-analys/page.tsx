@@ -169,9 +169,9 @@ export default function CVAnalysSida() {
           roll: 'marknadsförare, från 64 till 91 i poäng',
         }}
         slut={{
-          eyebrow: 'CV-veckan',
+          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan`,
           rubrik: 'Hela analysen, varje fynd med åtgärd.',
-          text: `Poängen och det tyngsta fyndet är gratis. Hela analysen, alla mallar och personliga brev utan tak ingår i CV-veckan, ${PLAN_BY_KEY.cv_week.amount} kr i veckan.`,
+          text: `Poängen och det tyngsta fyndet är gratis. Hela analysen, alla mallar och personliga brev utan tak ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan.`,
           knapp: { text: 'Analysera mitt CV gratis', href: '#mini-analys' },
           sekundar: { text: 'Se CV-exempel först', href: '/exempel' },
         }}

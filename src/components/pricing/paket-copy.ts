@@ -12,14 +12,21 @@
  * gränssnittsord.
  */
 
-import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
+import {
+  PLAN_BY_KEY,
+  paketMedPris,
+  paketNamn,
+  prisPeriod,
+  type PlanKey,
+  type PlanLength,
+} from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
 
 /* ------------------------------------------------------------ paketen */
 
-/** De tre korten. Allt bär fyra längder, spåren bara veckan. */
+/** De tre korten. Hela paketet bär fyra längder, de andra två bara veckan. */
 export type PaketId = 'cv' | 'test' | 'allt'
 
 export const PAKET_IDS: readonly PaketId[] = ['cv', 'test', 'allt']
@@ -44,6 +51,12 @@ const ALLT_MANAD = PLAN_BY_KEY.all_month.amount
 const ALLT_DAG = PLAN_BY_KEY.all_day.amount
 const ALLT_KVARTAL = PLAN_BY_KEY.all_quarter.amount
 
+/** Namnen ur PLANS, aldrig som fasta strängar (plans.ts). */
+const CV_NAMN = paketNamn('cv_week')
+const TRANING_NAMN = paketNamn('test_week')
+const HELA_NAMN = paketNamn('all_week')
+const DAG_NAMN = paketNamn('all_day')
+
 export interface PaketRad {
   ikon: RadIkonNamn
   rubrik: string
@@ -57,15 +70,17 @@ export interface PaketRad {
 }
 
 export interface PaketKortCopy {
-  /** Kortnamnet, bestämd form: CV-veckan, Testveckan, Allt. */
+  /** Kortnamnet ur PLANS: CV-paketet, Träningspaketet, Hela paketet. */
   namn: string
+  /** Förklaringsraden under namnet (R2), ur PLANS. */
+  beskrivning: string
   /** Färgetiketten överst. */
   tag: string
   /** Värdemeningen under namnet, i display-snitt. */
   varde: string
   /** Mobilens kortare värdemening. */
   vardeMobil: string
-  /** "För dig som". På spåren bara desktop, på Allt båda. */
+  /** "För dig som". På CV- och Träningspaketet bara desktop, på Hela paketet båda. */
   fordig: string
   fordigMobil?: string
   /** Raden efter beloppet, två rader. */
@@ -81,7 +96,8 @@ export interface PaketKortCopy {
 
 export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
   cv: {
-    namn: 'CV-veckan',
+    namn: CV_NAMN,
+    beskrivning: PLAN_BY_KEY.cv_week.beskrivning,
     tag: 'CV och personliga brev',
     varde:
       'Få CV:t genom rekryteringssystemet och skriv personliga brev som svarar på annonsen.',
@@ -123,11 +139,12 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
         text: 'Vi skriver om rubrik och sammanfattning så rekryterare som söker på dina kompetenser hittar dig.',
       },
     ],
-    knapp: 'Börja CV-veckan',
+    knapp: `Börja med ${paketMedPris('cv_week')}`,
     fotnot: 'Rekryteringstester över grundnivå ingår inte',
   },
   test: {
-    namn: 'Testveckan',
+    namn: TRANING_NAMN,
+    beskrivning: PLAN_BY_KEY.test_week.beskrivning,
     tag: 'Rekryteringstester',
     varde:
       'Känn igen varje uppgift på testdagen. Och förstå vad personlighetstestet säger om dig.',
@@ -166,7 +183,7 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
       {
         ikon: 'kurva',
         rubrik: 'Vet vad personlighetstestet säger om dig',
-        text: 'Gör det innan rekryteraren gör det. Se hur profilen tolkas och förbered svaren på frågorna som följer.',
+        text: 'Det fördjupade testet, 120 påståenden. Se hur profilen tolkas och förbered svaren på frågorna som följer. Grundtestet är gratis.',
       },
       {
         ikon: 'kurva',
@@ -174,20 +191,21 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
         text: 'Alla sessioner i en kurva per testtyp, så du vet när du är redo.',
       },
     ],
-    knapp: 'Börja Testveckan',
+    knapp: `Börja med ${paketMedPris('test_week')}`,
     fotnot: 'CV-mallar och personliga brev ingår inte',
   },
   allt: {
-    namn: 'Allt',
-    tag: 'Båda spåren',
-    varde: 'Allt i CV-veckan. Allt i Testveckan. Och tre saker till som ingen av dem har.',
-    vardeMobil: 'Allt i CV-veckan. Allt i Testveckan. Och tre saker till som ingen av dem har.',
+    namn: HELA_NAMN,
+    beskrivning: PLAN_BY_KEY.all_week.beskrivning,
+    tag: 'Allt ingår',
+    varde: `Jobbmatchning, Jobbcoachen och Bli upptäckt. Och allt i ${CV_NAMN} och ${TRANING_NAMN}.`,
+    vardeMobil: `Jobbmatchning, Jobbcoachen och Bli upptäckt. Och allt i ${CV_NAMN} och ${TRANING_NAMN}.`,
     fordig:
       'För dig som söker brett just nu och vill att jobben ska hitta dig lika mycket som du hittar dem.',
     fordigMobil: 'För dig som vill att jobben ska hitta dig lika mycket som du hittar dem.',
     prisSub: `i veckan\neller ${ALLT_MANAD} kr i månaden`,
     prisSubMobil: `i veckan\neller ${ALLT_MANAD} kr i månaden`,
-    listEtikett: 'Utöver allt i CV-veckan och Testveckan',
+    listEtikett: `Det här har bara ${HELA_NAMN}`,
     rader: [
       {
         ikon: 'match',
@@ -201,8 +219,8 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
         ikon: 'chat',
         rubrik: 'Gå in i intervjun och löneförhandlingen förberedd',
         rubrikMobil: 'Gå in i intervjun förberedd',
-        text: 'Jobbcoachen utan tak svarar på lön, intervjufrågor, avtal och avslag utifrån svensk arbetsmarknad och ditt eget CV. Du vet vad du ska säga innan du sitter där.',
-        textMobil: 'Jobbcoachen utan tak: lön, intervjufrågor, avtal, avslag.',
+        text: 'Jobbcoachen svarar på lön, intervjufrågor, avtal och avslag utifrån svensk arbetsmarknad och ditt eget CV, så mycket du vill. Du vet vad du ska säga innan du sitter där.',
+        textMobil: 'Jobbcoachen: lön, intervjufrågor, avtal, avslag.',
         mobil: true,
       },
       {
@@ -213,12 +231,12 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
         mobil: true,
       },
     ],
-    knapp: 'Börja med allt',
-    fotnot: 'Byt till ett spår när som helst',
+    knapp: `Börja med ${paketMedPris('all_week')}`,
+    fotnot: 'Byt till ett av de andra paketen när som helst',
   },
 }
 
-/** Allt-kortets fyra längder, i den ordning längdvalet visar dem. */
+/** Hela paketets fyra längder, i den ordning längdvalet visar dem. Dagen är Dagspasset. */
 export const ALLT_LANGDER: readonly {
   length: PlanLength
   plan: PlanKey
@@ -236,7 +254,7 @@ export function planForLangd(langd: PlanLength): PlanKey {
   return ALLT_LANGDER.find((l) => l.length === langd)?.plan ?? 'all_week'
 }
 
-/** Raden efter beloppet på Allt-kortet följer vald längd. */
+/** Raden efter beloppet på Hela paketets kort följer vald längd. */
 export function alltPrisSub(plan: PlanKey): string {
   switch (PLAN_BY_KEY[plan].length) {
     case 'dag':
@@ -246,12 +264,19 @@ export function alltPrisSub(plan: PlanKey): string {
     case 'månad':
       return 'i månaden\nförnyas var trettionde dag'
     case 'kvartal':
-      return 'i kvartalet\nförnyas var tredje månad'
+      return 'per kvartal\nförnyas var tredje månad'
   }
 }
 
-/** Knappen på ett kort: "Börja CV-veckan", "Börja med allt". */
-export function borjaKnapp(paket: PaketId): string {
+/** Raden under längdvalet när dagen är vald: Dagspasset har eget namn. */
+export const DAG_RAD = `En dag, ${DAG_NAMN}. ${PLAN_BY_KEY.all_day.amount} kr, förnyas inte.`
+
+/**
+ * Knappen på ett kort, med pris och period (R1): "Börja med CV-paketet, 79 kr
+ * i veckan". Hela paketets knapp följer vald längd.
+ */
+export function borjaKnapp(paket: PaketId, plan?: PlanKey): string {
+  if (paket === 'allt' && plan) return `Börja med ${paketMedPris(plan)}`
   return PAKET_KORT[paket].knapp
 }
 
@@ -264,7 +289,7 @@ export const HERO = {
   ingress:
     'På sju dagar får du ett CV som rekryteringssystem släpper igenom och rekryterare minns, personliga brev som svarar på det annonsen faktiskt frågar efter, och testresultat du kan lita på när kallelsen kommer.',
   ingressFet: 'Det du bygger den här veckan använder du i varje ansökan framöver.',
-  ingressSlut: 'Välj spåret som matchar var du är, betala per vecka, säg upp när du vill.',
+  ingressSlut: 'Välj paketet som matchar var du är, betala per vecka, säg upp när du vill.',
   ingressMobil:
     'Ett CV som går igenom, personliga brev som svarar på annonsen, testresultat du litar på. Byggt på sju dagar, använt i varje ansökan sedan.',
   bevis: [
@@ -277,8 +302,8 @@ export const HERO = {
 } as const
 
 export const VALJARE = {
-  h2: 'Tre paket. Välj det som matchar var du är.',
-  ingress: 'Ett för ansökan, ett för testet, ett för hela jobbsöket. Alla per vecka, alla utan bindningstid.',
+  h2: 'Tre paket. Ett för CV:t, ett för träningen, ett för hela jobbsöket.',
+  ingress: `Alla per vecka, alla utan bindningstid. ${HELA_NAMN} finns också per dag, månad och kvartal.`,
   eyebrowMobil: 'Tre paket, välj det som matchar var du är',
   /** Numreringen på mobil. */
   nummer: (n: number) => `Paket ${n} av ${PAKET_IDS.length}`,
@@ -338,7 +363,7 @@ export const FUNKTIONER = {
       scen: 'cv',
       scenAlt: 'CV-analysens rapport',
       rubrik: 'CV-analysen',
-      sub: 'Ingår i CV-veckan och Allt. Gratis: poängen och det tyngsta fyndet.',
+      sub: `Ingår i ${CV_NAMN} och ${HELA_NAMN}. Gratis: poängen och det tyngsta fyndet.`,
       text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du poäng 1 till 10 på tydlighet och struktur, innehåll, resultat och nyckelord, plus en lista med fynd där varje fynd har en åtgärd.',
       steg: [
         'Ladda upp, vi läser som en rekryterare gör på sex sekunder.',
@@ -353,7 +378,7 @@ export const FUNKTIONER = {
       scen: 'brev',
       scenAlt: 'Annonsen blir ditt personliga brev',
       rubrik: 'Personliga brev',
-      sub: 'Ingår i CV-veckan och Allt. Gratis: ett personligt brev att läsa, nedladdning ingår inte.',
+      sub: `Ingår i ${CV_NAMN} och ${HELA_NAMN}. Gratis: ett personligt brev att läsa, nedladdning ingår inte.`,
       text: 'Ett personligt brev som faktiskt svarar på annonsen är det som skiljer din ansökan från de tjugo som skickade samma mall. Klistra in annonsen, så skriver vi brevet utifrån ditt CV och det annonsen frågar efter, i den ton du väljer. Redigera, ladda ned som PDF, skicka.',
       steg: [
         'Klistra in annonsen, eller välj ett matchat jobb.',
@@ -368,7 +393,7 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: 'Ingår i Testveckan och Allt. Gratis: grundnivån i varje typ, en gång per dygn.',
+      sub: `Ingår i ${TRANING_NAMN} och ${HELA_NAMN}. Gratis: grundnivån i varje typ, en gång per dygn.`,
       text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I provläget går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
       steg: [
         'Diagnostest på grundnivå visar var du står per typ.',
@@ -384,7 +409,7 @@ export const FUNKTIONER = {
       scen: 'match',
       scenAlt: 'Tre jobbträffar med matchningsgrad',
       rubrik: 'Matchade jobb',
-      sub: 'Ingår i Allt. Gratis: tre träffar.',
+      sub: `Ingår i ${HELA_NAMN}. Gratis: tre träffar.`,
       text: 'Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken. Kör när du vill, och varje natt får du de 25 bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.',
       ingar: ['allt'],
     },
@@ -393,7 +418,7 @@ export const FUNKTIONER = {
       scen: 'coach',
       scenAlt: 'Jobbcoachen svarar',
       rubrik: 'Jobbcoachen',
-      sub: 'Ingår i Allt. Gratis: tio meddelanden.',
+      sub: `Ingår i ${HELA_NAMN}. Gratis: tio meddelanden.`,
       text: 'Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Svaren utgår från svensk arbetsmarknad och ditt eget CV, inte från en amerikansk mall.',
       ingar: ['allt'],
     },
@@ -495,14 +520,14 @@ export interface SparValKort {
 export const SPARVAL = {
   fraga: 'Vad ska du göra den här veckan?',
   under: 'Vi ordnar hemskärmen efter det. Går att byta sen.',
-  primar: (paket: PaketId) => `Fortsätt med ${PAKET_KORT[paket].namn}`,
+  primar: (paket: PaketId) => `Fortsätt med ${paketMedPris(PAKET_PLAN[paket])}`,
   sekundar: 'Börja gratis i stället',
   fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, testernas grundnivå`,
   kort: [
     {
       paket: 'cv',
       rubrik: 'Få CV:t genom och skriv personliga brev',
-      namn: 'CV-veckan',
+      namn: CV_NAMN,
       duFar: [
         {
           fet: 'Hela CV-analysen.',
@@ -518,14 +543,14 @@ export const SPARVAL = {
     {
       paket: 'test',
       rubrik: 'Var förberedd på testdagen',
-      namn: 'Testveckan',
+      namn: TRANING_NAMN,
       duFar: [
         {
           fet: 'Matrislogik, verbalt och numeriskt',
           text: ' i tre nivåer, med förklaring efter varje fråga.',
         },
         { fet: 'Tidsatt provläge', text: ', 25 till 40 minuter, automatisk inlämning.' },
-        { fet: 'Personlighetstestet', text: ' och vad det säger om dig, innan rekryteraren ser det.' },
+        { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden, innan rekryteraren ser profilen.' },
         { fet: 'Din utveckling', text: ' i en kurva per typ.' },
       ],
       prisText: 'Förnyas var sjunde dag, säg upp när du vill',
@@ -533,18 +558,18 @@ export const SPARVAL = {
     },
     {
       paket: 'allt',
-      rubrik: 'Allt ur båda, plus jobb som hittar dig',
-      namn: 'Allt',
+      rubrik: 'Allt ingår, plus jobb som hittar dig',
+      namn: HELA_NAMN,
       duFar: [
-        { fet: 'Allt i CV-veckan och Testveckan.', text: '' },
         {
           fet: 'Jobbmatchning:',
           text: ' 25 jobb per natt ur alla branscher, med skälen utskrivna. Jobb du annars missar.',
         },
-        { fet: 'Jobbcoachen utan tak:', text: ' lön, intervju, avtal. Förberedd innan du sitter där.' },
+        { fet: 'Jobbcoachen:', text: ' lön, intervju, avtal, så mycket du vill. Förberedd innan du sitter där.' },
         { fet: 'Bli upptäckt:', text: ' rekryterare hittar dig, anonymt tills du svarar.' },
+        { fet: `Allt i ${CV_NAMN} och ${TRANING_NAMN}.`, text: '' },
       ],
-      prisText: `Vecka ${ALLT_VECKA}, eller dag ${ALLT_DAG}, månad ${ALLT_MANAD}, kvartal ${ALLT_KVARTAL}`,
+      prisText: `${ALLT_VECKA} kr i veckan, eller ${DAG_NAMN} ${ALLT_DAG} kr, månad ${ALLT_MANAD}, kvartal ${ALLT_KVARTAL}`,
       pris: `${ALLT_VECKA} kr / vecka`,
     },
   ] satisfies readonly SparValKort[],
@@ -555,8 +580,8 @@ export const SPARVAL = {
 export const KOPSTEG = {
   rubrik: (plan: PlanKey) =>
     PLAN_BY_KEY[plan].length === 'dag'
-      ? `${namnForPlan(plan)}, från nu`
-      : `${namnForPlan(plan)}, från i kväll`,
+      ? `${paketNamn(plan)}, från nu`
+      : `${paketNamn(plan)}, från i kväll`,
   under: 'Allt öppnas direkt efter betalningen.',
   farEtikett: (plan: PlanKey) =>
     PLAN_BY_KEY[plan].length === 'dag' ? 'Det här får du från nu' : 'Det här får du från i kväll',
@@ -570,7 +595,7 @@ export const KOPSTEG = {
       case 'månad':
         return 'i månaden'
       case 'kvartal':
-        return 'i kvartalet'
+        return 'per kvartal'
     }
   },
   villkor: {
@@ -594,7 +619,7 @@ export const KOPSTEG = {
         return `var tredje månad, nästa ${datum}`
     }
   },
-  /** Första steget efter betalningen, ett per spår. */
+  /** Första steget efter betalningen, ett per paket. */
   forstaSteg: {
     cv: {
       rubrik: 'Första steget: ladda upp CV:t',
@@ -609,8 +634,8 @@ export const KOPSTEG = {
       text: 'Tar en kvart. Sedan är allt ovan öppet, i vilken ordning du vill.',
     },
   } satisfies Record<PaketId, { rubrik: string; text: string }>,
-  alltIStallet: 'Vill du ha allt i stället?',
-  alltLangd: 'Hur länge vill du ha Allt?',
+  alltIStallet: `Vill du ha ${HELA_NAMN} i stället?`,
+  alltLangd: `Hur länge vill du ha ${HELA_NAMN}?`,
   dagSparrad: 'Dagen är ett engångsköp och går inte att kombinera med din prenumeration.',
   samtycke: (plan: PlanKey) => {
     const p = PLAN_BY_KEY[plan]
@@ -644,20 +669,15 @@ export const KOPSTEG_FAR: Record<PaketId, readonly { fet: string; text: string }
   test: [
     { fet: 'Matrislogik, verbalt och numeriskt', text: ' i tre nivåer' },
     { fet: 'Tidsatt provläge', text: ', 25 till 40 minuter' },
-    { fet: 'Personlighetstestet', text: ' och vad det säger om dig' },
+    { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden' },
     { fet: 'Din utveckling', text: ' i en kurva per typ' },
   ],
   allt: [
-    { fet: 'Allt i CV-veckan och Testveckan', text: '' },
     { fet: 'Jobbmatchning', text: ', 25 jobb per natt med skälen utskrivna' },
-    { fet: 'Jobbcoachen utan tak', text: ': lön, intervju, avtal' },
+    { fet: 'Jobbcoachen', text: ': lön, intervju, avtal, så mycket du vill' },
     { fet: 'Bli upptäckt', text: ', anonymt tills du svarar' },
+    { fet: `Allt i ${CV_NAMN} och ${TRANING_NAMN}`, text: '' },
   ],
-}
-
-/** Namnet i köpsteget: spåren i bestämd form, Allt som "Allt". */
-export function namnForPlan(plan: PlanKey): string {
-  return plan === 'cv_week' || plan === 'test_week' ? PLAN_BY_KEY[plan].name : 'Allt'
 }
 
 /* -------------------------------------------------------- kontosidan */
@@ -667,15 +687,15 @@ export const KONTO = {
   statusGratis: 'Du är på gratisnivån',
   paketRubrik: 'Köp eller byt paket',
   dittPaket: 'Du har det här paketet',
-  ingarIAllt: 'Ingår i Allt',
-  bytTillAllt: 'Byt till Allt',
-  /** Prisraden på Allt-kortet för en spårkund. */
+  ingarIAllt: `Ingår i ${HELA_NAMN}`,
+  bytTillAllt: `Byt till ${paketMedPris('all_week')}`,
+  /** Prisraden på Hela paketets kort för en kund med CV- eller Träningspaketet. */
   mellanskillnadSub: (fran: PlanKey) =>
     `mer i veckan än i dag\nmellanskillnaden dras direkt, ${PLAN_BY_KEY.all_week.amount} kr från nästa vecka`,
-  bytSpar: (plan: PlanKey) => `Byt till ${PLAN_BY_KEY[plan].name}`,
+  bytSpar: (plan: PlanKey) => `Byt till ${paketMedPris(plan)}`,
   byterVidFornyelse: 'Byter vid nästa förnyelse',
-  dagInaktiv: 'Allt-dagen kan inte väljas härifrån',
-  bytLangd: (plan: PlanKey) => `Byt till ${PLAN_BY_KEY[plan].name}`,
+  dagInaktiv: `${DAG_NAMN} kan inte väljas härifrån`,
+  bytLangd: (plan: PlanKey) => `Byt till ${paketMedPris(plan)}`,
   oforandrad: 'Det här har du i dag',
   hantera: 'Hantera',
   bytKort: 'Byt betalkort',
@@ -691,10 +711,10 @@ export const KONTO = {
 export const PAKET_RAD: Record<PlanKey, string> = {
   cv_week: PAKET_KORT.cv.varde,
   test_week: PAKET_KORT.test.varde,
-  all_day: 'Allt i ett dygn. Ett engångsköp, ingenting dras igen.',
+  all_day: `${HELA_NAMN} i ett dygn. Ett engångsköp, ingenting dras igen.`,
   all_week: PAKET_KORT.allt.varde,
-  all_month: 'Allt i en månad, billigare än fyra veckor i rad.',
-  all_quarter: 'Allt i tre månader, för ett sök som du vet tar tid.',
+  all_month: `${HELA_NAMN} i en månad, billigare än fyra veckor i rad.`,
+  all_quarter: `${HELA_NAMN} i tre månader, för ett sök som du vet tar tid.`,
 }
 
 /** Tre punkter per paket, för kontosidans "Det här ingår". */
@@ -706,26 +726,26 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
   ],
   test_week: [
     'Fyra testtyper, grundnivå till expert',
-    'Tidsatt provläge med automatisk inlämning',
+    'Tidsatt provläge och fördjupade personlighetstestet',
     'Förklaring per fråga och din utveckling',
   ],
   all_day: [
-    'Allt i Allt-veckan, i 24 timmar',
+    `Allt i ${HELA_NAMN}, i 24 timmar`,
     'Engångsköp, ingen prenumeration',
     'Dygnet räknas från köpet',
   ],
   all_week: [
-    'Allt i CV-veckan och Testveckan',
     'Alla 25 jobbträffar med skälen utskrivna',
-    'Jobbcoachen utan tak och Bli upptäckt',
+    'Jobbcoachen och Bli upptäckt',
+    `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
   ],
   all_month: [
-    'Allt i Allt-veckan, i trettio dagar',
+    `Allt i ${HELA_NAMN}, i trettio dagar`,
     'Billigare än fyra veckor i rad',
     'Säg upp när som helst, ett klick',
   ],
   all_quarter: [
-    'Allt i Allt-veckan, i tre månader',
+    `Allt i ${HELA_NAMN}, i tre månader`,
     'Billigare än tretton veckor i rad',
     'Säg upp när som helst, ett klick',
   ],
@@ -741,9 +761,9 @@ export const INTERVALL_RAD: Record<PlanKey, string> = {
   all_quarter: 'i kvartalet, förnyas var tredje månad',
 }
 
-/** Knapptexten i betalväggarna. Samma verb som förr. */
+/** Knapptexten i betalväggarna: verbet Skaffa, namnet, pris och period (R1). */
 export function knappText(plan: PlanKey): string {
-  return `Ta ${PLAN_BY_KEY[plan].name}`
+  return `Skaffa ${paketMedPris(plan)}`
 }
 
 /** H1 på prissidan, samma rad återanvänds på startsidan. */
@@ -761,7 +781,7 @@ export const D_PRENUMERATION = {
   allaPaket: 'Alla paket',
   gratisRubrik: KONTO.gratisRubrik,
   ingarRubrik: 'Det här ingår',
-  bytTillAllt: 'Byt till Allt-veckan',
+  bytTillAllt: `Byt till ${paketMedPris('all_week')}`,
   hantera: KONTO.hantera,
   bytKort: KONTO.bytKort,
   kvitton: KONTO.kvitton,
@@ -794,7 +814,7 @@ export function gangerText(antal: number): string {
 }
 
 export function forslagRubrik(plan: PlanKey): string {
-  return `Vi föreslår ${PLAN_BY_KEY[plan].name}`
+  return `Vi föreslår ${paketMedPris(plan)}`
 }
 
 export function forslagKnapp(plan: PlanKey): string {
@@ -816,52 +836,46 @@ export function forslagSkal(input: {
   const { plan, antal, badaSparen, track } = input
 
   if (antal > 0 && badaSparen) {
-    return 'Du har stoppats både på CV-sidan och i testerna. Allt-veckan öppnar båda, så du slipper välja.'
+    return `Du har stoppats både på CV-sidan och i testerna. ${HELA_NAMN} öppnar båda, så du slipper välja.`
   }
 
   if (antal > 0) {
     const var_ = plan === 'test_week' ? 'i testerna' : 'på CV-sidan'
     const gang = antal === 1 ? 'en gång' : `${antalOrd(antal)} gånger`
-    return `Du har slagit i taket ${var_} ${gang} den här veckan. ${PLAN_BY_KEY[plan].name} öppnar allt du stoppades av.`
+    return `Du har slagit i taket ${var_} ${gang} den här veckan. ${paketNamn(plan)} öppnar allt du stoppades av.`
   }
 
   if (track === 'cv') {
-    return 'Du sa att du vill jobba med ditt CV. CV-veckan ger mallarna, hela analysen och brevet.'
+    return `Du sa att du vill jobba med ditt CV. ${CV_NAMN} ger mallarna, hela analysen och de personliga breven.`
   }
 
   if (track === 'tester') {
-    return 'Du sa att du vill träna på testerna. Testveckan ger alla nivåer, provläget och förklaringarna.'
+    return `Du sa att du vill träna på testerna. ${TRANING_NAMN} ger alla nivåer, provläget och förklaringarna.`
   }
 
-  return 'Vi vet inte vad du behöver än, så vi visar det som rymmer allt. Välj ett spår i stället om du vet.'
+  return 'Vi vet inte vad du behöver än, så vi visar det som rymmer allt. Välj ett av de andra paketen om du vet.'
 }
 
 export function uppgraderingSkal(antal: number): string {
   if (antal <= 0) {
-    return 'Allt lägger jobbmatchningen, jobbcoachen och Bli upptäckt ovanpå det du redan har, och öppnar det andra spåret.'
+    return `${HELA_NAMN} lägger jobbmatchningen, Jobbcoachen och Bli upptäckt ovanpå det du redan har, och öppnar det andra paketet.`
   }
   const gang = antal === 1 ? 'en gång' : `${antalOrd(antal)} gånger`
-  return `Du har stoppats utanför ditt spår ${gang}. Allt öppnar det, och du behåller allt du har i dag.`
+  return `Du har stoppats utanför ditt paket ${gang}. ${HELA_NAMN} öppnar det, och du behåller allt du har i dag.`
 }
 
-/** Mellanskillnaden mot Allt-veckan. Räknas ur PLANS, aldrig som fast tal. */
+/** Mellanskillnaden mot Hela paketet per vecka. Räknas ur PLANS, aldrig som fast tal. */
 export function mellanskillnad(fran: PlanKey, till: PlanKey = 'all_week'): number {
   return Math.max(0, PLAN_BY_KEY[till].amount - PLAN_BY_KEY[fran].amount)
 }
 
-/** Prisraden i längdvalet. Fyra varianter. */
+/**
+ * Prisraden i längdvalet. Dagen bär prepositionen "för", eftersom den inte
+ * upprepas; resten är prisPeriod ur plans.ts.
+ */
 export function langdPrisRad(plan: PlanKey): string {
   const p = PLAN_BY_KEY[plan]
-  switch (p.length) {
-    case 'dag':
-      return `${p.amount} kr för ett dygn`
-    case 'vecka':
-      return `${p.amount} kr i veckan`
-    case 'månad':
-      return `${p.amount} kr i månaden`
-    case 'kvartal':
-      return `${p.amount} kr i kvartalet`
-  }
+  return p.length === 'dag' ? `${p.amount} kr för ett dygn` : prisPeriod(plan)
 }
 
 /** Besparingsraden. Visas bara när den är sann, och talet räknas. */
@@ -878,9 +892,9 @@ export function besparing(plan: PlanKey): string | null {
   return null
 }
 
-/** Knappen i längdvalet. Namnger målet. */
+/** Knappen i längdvalet. Namnger målet med pris och period. */
 export function bytLangdKnapp(plan: PlanKey): string {
-  return `Byt till ${PLAN_BY_KEY[plan].name}`
+  return `Byt till ${paketMedPris(plan)}`
 }
 
 /** Statusraden. Dagen bär klockslag, resten datum. */

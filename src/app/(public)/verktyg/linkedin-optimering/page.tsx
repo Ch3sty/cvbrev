@@ -16,7 +16,7 @@ const STEG_TEXT = [
   'Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser, eller välj ditt sparade CV som källa. Inget fält är obligatoriskt.',
   'Vi bearbetar alla fem sektioner parallellt med svensk arbetsmarknad som ram, branschens sökord och anpassning för rekryteringssystem. Det tar 30 till 60 sekunder.',
   'Din nuvarande text står bredvid den optimerade. För varje sektion ser du poängen före och efter och exakt vad som ändrats. Inget händer som du inte godkänt.',
-  'En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn själv och sparar. Vi rör aldrig din profil.',
+  'En knapp kopierar alla sektioner eller en i taget. Du klistrar in på LinkedIn själv och sparar. Vi rör aldrig din profil.',
 ]
 
 const SEKTIONER = [
@@ -62,7 +62,7 @@ export default function LinkedinOptimeringSida() {
       '@type': 'Offer',
       price: String(PLAN_BY_KEY.cv_week.amount),
       priceCurrency: 'SEK',
-      description: `Ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, eller ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden`,
+      description: `Ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden`,
     },
     featureList:
       'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, poäng före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, kopiera och klistra in utan LinkedIn-inloggning, STAR-format på erfarenhet, anpassning för rekryteringssystem (ATS) med branschens nyckelord',
@@ -114,7 +114,7 @@ export default function LinkedinOptimeringSida() {
         position: 5,
         name: 'Kopiera tillbaka till LinkedIn',
         text:
-          'En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.',
+          'En knapp kopierar alla sektioner eller en i taget. Du klistrar in på LinkedIn manuellt och sparar.',
       },
     ],
   }
@@ -207,9 +207,9 @@ export default function LinkedinOptimeringSida() {
           roll: 'UX-designer inom B2B SaaS, från noll till åtta meddelanden på två veckor',
         }}
         slut={{
-          eyebrow: `${PLAN_BY_KEY.cv_week.name} eller Allt`,
+          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan`,
           rubrik: 'Sluta vara osynlig. Börja synas i dag.',
-          text: `LinkedIn-optimeringen ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: ${PLAN_BY_KEY.all_week.name} för ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.name} för ${PLAN_BY_KEY.all_month.amount} kr i månaden. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
+          text: `LinkedIn-optimeringen ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
           knapp: { text: 'Optimera min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

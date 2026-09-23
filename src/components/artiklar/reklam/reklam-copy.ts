@@ -9,9 +9,13 @@
  * "obegränsat" (vi säger "utan tak"), aldrig "AI-driven". Knapptexten säger
  * vad som händer. Belopp ur PLANS, mallantal ur TEMPLATE_COUNT, gratisgränser
  * ur kvottjänsten. Inga talstreck, inga ogaranterade siffror.
+ *
+ * Paketnamnen (beslut-paketnamn 2026-09-24): namnen ur PLANS, alltid med
+ * pris och period i samma rad, ordningen CV-paketet, Träningspaketet, Hela
+ * paketet, och Hela paketets egna rader före hänvisningen till de andra två.
  */
 
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketMedPris, paketNamn } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
@@ -21,6 +25,14 @@ const CV = PLAN_BY_KEY.cv_week.amount
 const TEST = PLAN_BY_KEY.test_week.amount
 const ALLT = PLAN_BY_KEY.all_week.amount
 const ALLT_MANAD = PLAN_BY_KEY.all_month.amount
+
+const CV_NAMN = paketNamn('cv_week')
+const TRANING_NAMN = paketNamn('test_week')
+const HELA_NAMN = paketNamn('all_week')
+/** "CV-paketet, 79 kr i veckan" */
+const CV_PRIS = paketMedPris('cv_week')
+const TRANING_PRIS = paketMedPris('test_week')
+const HELA_PRIS = paketMedPris('all_week')
 
 /** Talord för små tal i löptext: "tre matchade jobb". */
 const ORD = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
@@ -52,35 +64,35 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
     text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp.',
     knapp: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
-    paketrad: `Alla nivåer och provläge mot klockan ingår i Testveckan, ${TEST} kr.`,
+    paketrad: `Alla nivåer, provläge mot klockan och fördjupade personlighetstestet ingår i ${TRANING_PRIS}.`,
   },
   mallar: {
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
     text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     knapp: 'Välj en mall',
     href: '/verktyg/cv-mallar',
-    paketrad: `Alla ${TEMPLATE_COUNT} mallar och hela CV-analysen ingår i CV-veckan, ${CV} kr.`,
+    paketrad: `Alla ${TEMPLATE_COUNT} mallar och hela CV-analysen ingår i ${CV_PRIS}.`,
   },
   analys: {
     rubrik: 'Se varför CV:t fastnar innan du skickar det',
     text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Poängen och det tyngsta fyndet är gratis.',
     knapp: 'Analysera mitt CV',
     href: '/verktyg/cv-analys',
-    paketrad: `Hela analysen med varje fynd och åtgärd ingår i CV-veckan, ${CV} kr.`,
+    paketrad: `Hela analysen med varje fynd och åtgärd ingår i ${CV_PRIS}.`,
   },
   brev: {
-    rubrik: 'Skriv brevet på annonsen, inte på mallen',
-    text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett brev ${BREVFONSTER} att läsa på skärmen, gratis.`,
-    knapp: 'Skriv mitt brev',
+    rubrik: 'Skriv det personliga brevet på annonsen, inte på mallen',
+    text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett personligt brev ${BREVFONSTER} att läsa på skärmen, gratis.`,
+    knapp: 'Skriv mitt personliga brev',
     href: '/skapa-brev/start',
-    paketrad: `Brev utan tak, som PDF, ingår i CV-veckan, ${CV} kr.`,
+    paketrad: `Personliga brev utan tak, som PDF, ingår i ${CV_PRIS}.`,
   },
   coach: {
     rubrik: 'Träna svaret innan du sitter i rummet',
     text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor utan att betala.`,
     knapp: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
-    paketrad: `Coachen utan tak ingår i Allt, ${ALLT} kr i veckan.`,
+    paketrad: `Jobbcoachen, så mycket du vill, ingår i ${HELA_PRIS}.`,
   },
 }
 
@@ -91,7 +103,7 @@ export const INLINE_RAKNARE = {
   lankar: [
     { text: 'Räkna ut lönen efter skatt', href: '/rakna-ut/lon-efter-skatt' },
     { text: 'Räkna ut uppsägningstiden', href: '/rakna-ut/uppsagningstid' },
-    { text: 'Fråga coachen', href: '/verktyg/jobbcoachen' },
+    { text: 'Fråga Jobbcoachen', href: '/verktyg/jobbcoachen' },
   ],
 } as const
 
@@ -116,25 +128,25 @@ export interface SidoCopy {
 /** Sidokolumnens paketkort, desktop. */
 export const SIDO: Record<'cv' | 'test' | 'allt', SidoCopy> = {
   test: {
-    etikett: 'Testveckan',
+    etikett: TRANING_NAMN,
     rubrik: 'Träna med klockan på innan kallelsen kommer',
-    text: 'Alla nivåer, provläge, personlighetstest med tolkning.',
+    text: PLAN_BY_KEY.test_week.beskrivning,
     belopp: `${TEST} kr`,
     under: 'i veckan, ingen bindningstid',
     gratisrad: 'Grundnivån är gratis, en gång per dygn.',
   },
   cv: {
-    etikett: 'CV-veckan',
+    etikett: CV_NAMN,
     rubrik: 'Sju dagar till ett CV som går igenom',
-    text: `Alla ${TEMPLATE_COUNT} mallar, hela analysen, brev utan tak.`,
+    text: PLAN_BY_KEY.cv_week.beskrivning,
     belopp: `${CV} kr`,
     under: 'i veckan, ingen bindningstid',
-    gratisrad: `${Ord(FREE_TEMPLATE_COUNT)} mallar och ett brev ${BREVFONSTER} är gratis.`,
+    gratisrad: `${Ord(FREE_TEMPLATE_COUNT)} mallar och ett personligt brev ${BREVFONSTER} är gratis.`,
   },
   allt: {
-    etikett: 'Allt',
+    etikett: HELA_NAMN,
     rubrik: 'Förberedd in i intervjun och löneförhandlingen',
-    text: 'Jobbcoachen utan tak, CV, brev, tester och matchning.',
+    text: PLAN_BY_KEY.all_week.beskrivning,
     belopp: `${ALLT} kr`,
     under: `i veckan, eller ${ALLT_MANAD} kr i månaden`,
   },
@@ -153,22 +165,22 @@ export interface SlutCopy {
 /** Slutkortet i bläck, efter brödtexten. */
 export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
   test: {
-    etikett: 'Testveckan',
+    etikett: TRANING_NAMN,
     rubrik: 'Sju dagar. Alla nivåer. Klockan på.',
     rader: [
       'Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar',
       'Provläge med 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren',
-      'Personlighetstest med tolkning',
+      'Fördjupade personlighetstestet, 120 påståenden',
       'Din utveckling, test för test',
     ],
     prisrad: `${TEST} kr i veckan, säg upp när du vill.`,
-    knapp: 'Börja Testveckan',
+    knapp: `Börja med ${TRANING_PRIS}`,
     href: '/register?paket=test_week',
-    sekundar: { text: `Eller Allt för ${ALLT} kr, med CV och brev`, href: '/priser' },
+    sekundar: { text: `Eller ${HELA_PRIS}, med CV och personliga brev`, href: '/priser' },
   },
   cv: {
-    etikett: 'CV-veckan',
-    rubrik: 'Sju dagar. Ett CV som går igenom. Brev som svarar på annonsen.',
+    etikett: CV_NAMN,
+    rubrik: 'Sju dagar. Ett CV som går igenom. Personliga brev som svarar på annonsen.',
     rader: [
       'Hela CV-analysen med varje fynd och åtgärd',
       `Alla ${TEMPLATE_COUNT} mallar, nedladdning utan tak`,
@@ -176,21 +188,21 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
       'LinkedIn-profilen omskriven',
     ],
     prisrad: `${CV} kr i veckan, säg upp när du vill.`,
-    knapp: 'Börja CV-veckan',
+    knapp: `Börja med ${CV_PRIS}`,
     href: '/register?paket=cv_week',
-    sekundar: { text: `Eller Allt för ${ALLT} kr, med testerna`, href: '/priser' },
+    sekundar: { text: `Eller ${HELA_PRIS}, med testerna`, href: '/priser' },
   },
   allt: {
-    etikett: 'Allt',
-    rubrik: 'Allt. Från första annonsen till löneförhandlingen.',
+    etikett: HELA_NAMN,
+    rubrik: 'Allt ingår. Från första annonsen till löneförhandlingen.',
     rader: [
-      'Allt i CV-veckan och allt i Testveckan',
       'Jobbmatchning varje natt, med skälen utskrivna',
-      'Jobbcoachen utan tak',
+      'Jobbcoachen, så mycket du vill',
       'Bli upptäckt av rekryterare',
+      `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
     ],
     prisrad: `${ALLT} kr i veckan eller ${ALLT_MANAD} kr i månaden.`,
-    knapp: 'Börja med Allt',
+    knapp: `Börja med ${HELA_PRIS}`,
     href: '/register?paket=all_week',
     sekundar: { text: 'Se alla tre paketen', href: '/priser' },
   },
@@ -204,7 +216,7 @@ export const GRATIS_KORT = {
     `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
     'En CV-analys med poäng och tyngsta fyndet',
     `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
-    `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till coachen`,
+    `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till Jobbcoachen`,
     'Testernas grundnivå, en gång per dygn',
   ],
   knapp: 'Skapa konto gratis',
@@ -220,22 +232,22 @@ export const LISTA_SLUT = {
   paket: [
     {
       etikett: 'CV och personliga brev',
-      namn: 'CV-veckan',
-      text: `Alla ${TEMPLATE_COUNT} mallar, hela CV-analysen, brev utan tak som PDF, LinkedIn-profilen.`,
+      namn: CV_NAMN,
+      text: `Alla ${TEMPLATE_COUNT} mallar, hela CV-analysen, personliga brev utan tak som PDF, LinkedIn-profilen.`,
       pris: `${CV} kr`,
       under: 'i veckan',
     },
     {
       etikett: 'Rekryteringstester',
-      namn: 'Testveckan',
-      text: 'Alla nivåer i logik, verbalt och numeriskt, provläge mot klockan, personlighetstest med tolkning.',
+      namn: TRANING_NAMN,
+      text: 'Alla nivåer i logik, verbalt och numeriskt, provläge mot klockan, fördjupade personlighetstestet.',
       pris: `${TEST} kr`,
       under: 'i veckan',
     },
     {
       etikett: 'Rekommenderas',
-      namn: 'Allt',
-      text: 'Allt i båda, plus jobbmatchning varje natt, Jobbcoachen utan tak och Bli upptäckt.',
+      namn: HELA_NAMN,
+      text: 'Jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. Och allt i de andra två paketen.',
       pris: `${ALLT} kr`,
       under: `i veckan, eller ${ALLT_MANAD} kr i månaden`,
     },

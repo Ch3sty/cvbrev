@@ -26,11 +26,10 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 
 import Logo from '@/components/Logo'
 import { IlluScenAllt } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketMedPris } from '@/lib/plans/plans'
 import NavIkon from './NavIkon'
 import { GRUPPER, HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
 
-const ALLT_VECKA = PLAN_BY_KEY.all_week.amount
 
 /** IlluScenAllt är ritad för bläck. På insunken blir papperen vita och etiketten ink-3. */
 const SCEN_PA_PAPPER = {
@@ -183,15 +182,15 @@ export default function LandingNavbar() {
                     <div className="w-[120px] text-ink-1" style={SCEN_PA_PAPPER}>
                       <IlluScenAllt className="h-auto w-full" />
                     </div>
-                    <p className="mt-3 text-varde text-ink-1">Allt i en vecka, {ALLT_VECKA} kr</p>
+                    <p className="mt-3 text-varde text-ink-1">{paketMedPris('all_week')}</p>
                     <p className="mt-2 text-sm leading-[22px] text-ink-2">
-                      CV, brev, tester, matchning och coach. Säg upp med ett klick.
+                      {PLAN_BY_KEY.all_week.beskrivning}. Säg upp med ett klick.
                     </p>
                     <Link
                       href="/priser"
                       className="mt-3 inline-block text-sm font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
                     >
-                      Se paketen
+                      Se alla tre paketen
                     </Link>
                   </div>
                 </div>

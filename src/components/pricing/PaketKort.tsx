@@ -30,6 +30,7 @@ import {
 import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
 import LangdVal from './LangdVal'
 import {
+  DAG_RAD,
   PAKET_KORT,
   PAKET_PLAN,
   VALJARE,
@@ -164,6 +165,8 @@ export default function PaketKort({
         <h3 className="font-display text-[26px] font-bold leading-[30px] tracking-[-0.025em] lg:text-[30px] lg:leading-[34px]">
           {copy.namn}
         </h3>
+        {/* Förklaringsraden under namnet (R2, beslut-paketnamn 2026-09-24). */}
+        <p className={`mt-1 text-meta ${meta}`}>{copy.beskrivning}</p>
 
         {/* Värdemeningen, en per skärmstorlek. */}
         <p className="mt-2 font-display text-[18px] font-semibold leading-6 tracking-[-0.01em] lg:hidden">
@@ -173,7 +176,7 @@ export default function PaketKort({
           {copy.varde}
         </p>
 
-        {/* För dig som: desktop på spåren, båda på Allt. */}
+        {/* För dig som: desktop på CV- och Träningspaketet, båda på Hela paketet. */}
         {copy.fordigMobil ? (
           <p className={`mt-2 text-sm leading-[22px] lg:hidden ${damp}`}>{copy.fordigMobil}</p>
         ) : null}
@@ -205,14 +208,18 @@ export default function PaketKort({
         {allt && visaLangd ? (
           <div className="mt-3">
             <LangdVal
-              label="Hur länge vill du ha Allt"
+              label={`Hur länge vill du ha ${copy.namn}`}
               value={langd}
               onChange={bytLangd}
               yta="ink"
               inaktiva={inaktivaLangder}
               langaEtiketter
             />
-            {langdNot ? <p className={`mt-2 text-meta ${meta}`}>{langdNot}</p> : null}
+            {langdNot ? (
+              <p className={`mt-2 text-meta ${meta}`}>{langdNot}</p>
+            ) : plan === 'all_day' ? (
+              <p className={`mt-2 text-meta ${meta}`}>{DAG_RAD}</p>
+            ) : null}
           </div>
         ) : null}
 
