@@ -23,11 +23,16 @@ export interface FordelningSegment {
   label: string
   value: number
   tone?: FordelningTon
+  /**
+   * Talet som legenden skriver ut, när värdet behöver format: "8 088 kr".
+   * Utan det skrivs value ut som det är. Tillagt för Räkna ut (2026-09-23).
+   */
+  visa?: string
 }
 
 export interface FordelningProps {
-  /** Det stora talet. */
-  total: number
+  /** Det stora talet. En sträng när talet behöver format: "26 912 kr". */
+  total: number | string
   /** Raden direkt under talet: "sökta i september". */
   unit: string
   /** Meningen som säger vad talet betyder. Obligatorisk. */
@@ -59,8 +64,8 @@ export default function Fordelning({
 
   return (
     <div className={className}>
-      <div className="flex items-baseline gap-3">
-        <span className="text-tal-display text-ink-1">{total}</span>
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="whitespace-nowrap text-tal-display text-ink-1">{total}</span>
         <span className="text-sm font-medium text-ink-2">{unit}</span>
       </div>
       <p className="mt-2 text-sm leading-[22px] text-ink-2">{mening}</p>
@@ -70,7 +75,7 @@ export default function Fordelning({
           <div
             className="mt-4 flex h-2 w-full gap-0.5 overflow-hidden rounded-full"
             role="img"
-            aria-label={synliga.map((s) => `${s.value} ${s.label}`).join(', ')}
+            aria-label={synliga.map((s) => `${s.visa ?? s.value} ${s.label}`).join(', ')}
           >
             {synliga.map((s) => (
               <span
@@ -88,7 +93,7 @@ export default function Fordelning({
                   className={`h-2 w-2 shrink-0 rounded-full ${TON[s.tone ?? 'ink']}`}
                 />
                 <span>
-                  <span className="font-semibold tabular-nums text-ink-1">{s.value}</span> {s.label}
+                  <span className="font-semibold tabular-nums text-ink-1">{s.visa ?? s.value}</span> {s.label}
                 </span>
               </li>
             ))}

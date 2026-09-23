@@ -1,102 +1,80 @@
 'use client'
 
-import { useState } from 'react'
-import { DelaRad } from './dela'
-
 /**
- * Konvertering timlön <-> månadslön med schablonen 174 timmar per månad
- * (40-timmarsvecka: 40 x 52 / 12 = 173,33, avrundat till 174 enligt
- * branschpraxis). Timmarna är justerbara för andra tjänstgöringsgrader.
+ * Timlön till månadslön och tillbaka. Logiken ligger i src/lib/rakna/timlon.ts.
  */
+import Segment from '@/components/shell/Segment'
+import KalkylatorSkal, { useIndata } from './KalkylatorSkal'
+import { FaltPanel, TalFalt } from './ui'
+import {
+  TIMLON_FORVAL,
+  TIMLON_KALLA,
+  TIMLON_STANDARD,
+  beraknaTimlon,
+  lasTimlon,
+  sammanfattaTimlon,
+  timlonParametrar,
+  type TimlonIndata,
+  type TimlonRiktning,
+} from '@/lib/rakna/timlon'
+import { kr } from '@/lib/rakna/format'
 
-const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 0 })
+export default function TimlonManadslon({ start = TIMLON_STANDARD }: { start?: TimlonIndata }) {
+  const [d, setD] = useIndata(start, lasTimlon)
+  const r = beraknaTimlon(d)
+  const s = sammanfattaTimlon(d, r)
+  const satt = (del: Partial<TimlonIndata>) => setD((x) => ({ ...x, ...del }))
+  const tillManad = d.riktning === 'tillManad'
 
-export default function TimlonManadslon() {
-  const [riktning, setRiktning] = useState<'tillManad' | 'tillTim'>('tillManad')
-  const [belopp, setBelopp] = useState('180')
-  const [timmar, setTimmar] = useState('174')
-
-  const beloppNum = Math.max(0, parseFloat(belopp.replace(/\s/g, '').replace(',', '.')) || 0)
-  const timmarNum = Math.max(1, parseFloat(timmar.replace(',', '.')) || 174)
-
-  const resultat = riktning === 'tillManad' ? beloppNum * timmarNum : beloppNum / timmarNum
-  const arslon = riktning === 'tillManad' ? resultat * 12 : beloppNum * 12
+  const falt = (
+    <FaltPanel>
+      <Segment<TimlonRiktning>
+        label="Vad du vill räkna om"
+        value={d.riktning}
+        onChange={(v) => satt({ riktning: v, belopp: TIMLON_FORVAL[v] })}
+        options={[
+          { value: 'tillManad', label: 'Timlön till månadslön' },
+          { value: 'tillTim', label: 'Månadslön till timlön' },
+        ]}
+      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TalFalt
+          id="belopp"
+          etikett={tillManad ? 'Timlön' : 'Månadslön'}
+          enhet="kr"
+          decimal
+          value={d.belopp}
+          onChange={(v) => satt({ belopp: v })}
+        />
+        <TalFalt
+          id="timmar"
+          etikett="Arbetstimmar per månad"
+          decimal
+          value={d.timmar}
+          onChange={(v) => satt({ timmar: v })}
+          hjalp="174 timmar är heltid med 40-timmarsvecka."
+        />
+      </div>
+    </FaltPanel>
+  )
 
   return (
-    <div className="not-prose my-8 rounded-2xl border border-orange-200 bg-gradient-to-b from-orange-50/70 to-white p-6 sm:p-8">
-      <div className="mb-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => { setRiktning('tillManad'); setBelopp('180') }}
-          className={`rounded-lg border px-3 py-2 text-xs font-semibold transition-colors ${
-            riktning === 'tillManad' ? 'border-orange-600 bg-orange-600 text-white' : 'border-orange-200 bg-white text-slate-700 hover:border-orange-400'
-          }`}
-        >
-          Timlön till månadslön
-        </button>
-        <button
-          type="button"
-          onClick={() => { setRiktning('tillTim'); setBelopp('31000') }}
-          className={`rounded-lg border px-3 py-2 text-xs font-semibold transition-colors ${
-            riktning === 'tillTim' ? 'border-orange-600 bg-orange-600 text-white' : 'border-orange-200 bg-white text-slate-700 hover:border-orange-400'
-          }`}
-        >
-          Månadslön till timlön
-        </button>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="belopp" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            {riktning === 'tillManad' ? 'Timlön (kr)' : 'Månadslön (kr)'}
-          </label>
-          <input
-            id="belopp"
-            type="text"
-            inputMode="decimal"
-            value={belopp}
-            onChange={(e) => setBelopp(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label htmlFor="timmar" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Arbetstimmar per månad
-          </label>
-          <input
-            id="timmar"
-            type="text"
-            inputMode="decimal"
-            value={timmar}
-            onChange={(e) => setTimmar(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <div className="mt-5 rounded-xl border border-orange-200 bg-white p-4 sm:p-5">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <p className="mb-0 text-xs font-bold uppercase tracking-wide text-slate-400">
-              {riktning === 'tillManad' ? 'Månadslön' : 'Timlön'}
-            </p>
-            <p className="mb-0 text-2xl font-black text-slate-900">
-              {riktning === 'tillManad' ? `${fmt.format(resultat)} kr` : `${resultat.toFixed(2).replace('.', ',')} kr`}
-            </p>
-          </div>
-          <div>
-            <p className="mb-0 text-xs font-bold uppercase tracking-wide text-slate-400">Årslön före skatt</p>
-            <p className="mb-0 text-2xl font-black text-slate-900">{fmt.format(arslon)} kr</p>
-          </div>
-        </div>
-      </div>
-
-      <DelaRad badda={{ slug: 'timlon-till-manadslon', titel: 'Räkna om timlön till månadslön' }} />
-
-      <p className="mb-0 mt-4 text-xs text-slate-500">
-        Schablonen 174 timmar motsvarar heltid med 40-timmarsvecka. Semesterlön
-        och ob-tillägg ingår inte i konverteringen.
-      </p>
-    </div>
+    <KalkylatorSkal
+      slug="timlon-till-manadslon"
+      titel="Räkna om timlön till månadslön"
+      falt={falt}
+      etikett={s.namn}
+      premiss={tillManad ? `${d.belopp} kr i timmen` : `${kr(r.beloppNum)} i månaden`}
+      tal={s.tal}
+      enhet={s.enhet}
+      mening={`Räknat på ${d.timmar} timmar i månaden blir årslönen ${kr(r.arslon)} före skatt. Semesterlön och ob-tillägg ingår inte.`}
+      kalla={TIMLON_KALLA}
+      parametrar={timlonParametrar(d)}
+      delText={
+        tillManad
+          ? `${d.belopp} kr i timmen är ${kr(r.resultat)} i månaden och ${kr(r.arslon)} om året, räknat på ${d.timmar} timmar.`
+          : `${kr(r.beloppNum)} i månaden är ${s.tal} i timmen, räknat på ${d.timmar} timmar.`
+      }
+    />
   )
 }

@@ -101,6 +101,9 @@ export const config = {
      *   Rena maskinfiler. De har ingen session och ska ligga kvar i CDN:et.
      * - opengraph-image / twitter-image
      *   Genereras en gång och cachas. Cookien gjorde dem ocacheade.
+     * - api/og (Räkna ut-resultatens delningsbilder)
+     *   Samma skäl som opengraph-image: bilden är densamma för samma
+     *   parametrar och ska ligga kvar i CDN:et utan session.
      * - api/cron
      *   Vercels schemaläggare autentiserar med egen hemlighet, inte session.
      * - _next i sin helhet, inte bara static och image
@@ -109,6 +112,6 @@ export const config = {
      * Övriga API-routes går kvar genom proxyn: de har egen auth där det
      * behövs, och updateSession blockerar bara PROTECTED_ROUTES.
      */
-    '/((?!_next/|api/cron/|favicon\\.ico|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|llms\\.txt|.*opengraph-image|.*twitter-image|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|otf|mp4|webm|txt|xml|json|pdf|css|js|map)$).*)',
+    '/((?!_next/|api/cron/|api/og/|favicon\\.ico|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|llms\\.txt|.*opengraph-image|.*twitter-image|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|otf|mp4|webm|txt|xml|json|pdf|css|js|map)$).*)',
   ],
 }

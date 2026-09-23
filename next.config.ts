@@ -48,6 +48,8 @@ const nextConfig: NextConfig = {
     '/api/letters/download': ['./node_modules/@sparticuz/chromium/**/*'],
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*'],
     '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
+    // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk.
+    '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*'],
   },
 
   // Markera dessa paket som externa för serverside bundling
@@ -357,6 +359,34 @@ const nextConfig: NextConfig = {
       // OBS: Lägg INTE till redirects för nya yrken automatiskt!
       // Endast yrken som hade gamla artiklar under /artiklar/personligt-brev-* behöver redirects
     ]
+  },
+
+  // Räkna ut: en länk med kalkylatorns nyckelparameter visar den delade vyn,
+  // som räknar resultatet på servern och pekar og:image på resultatets bild
+  // (/api/og/rakna-ut/<slug>). Utan parametrar är sidan statisk som förut.
+  // Nyckeln per kalkylator står i NYCKEL i src/lib/rakna/delning.ts, och
+  // testet i src/lib/rakna/__tests__/delning.test.ts håller listorna i takt.
+  async rewrites() {
+    const nyckel: Record<string, string> = {
+      'lon-efter-skatt': 'lon',
+      uppsagningstid: 'vem',
+      semesterersattning: 'lage',
+      'timlon-till-manadslon': 'belopp',
+      loneforhandling: 'lon',
+      'vad-kostar-en-anstalld': 'lon',
+      felrekrytering: 'lon',
+      sourcing: 'kanal',
+      traffsakerhet: 'metod',
+    }
+    return {
+      beforeFiles: Object.entries(nyckel).map(([slug, key]) => ({
+        source: `/rakna-ut/${slug}`,
+        has: [{ type: 'query' as const, key }],
+        destination: `/rakna-ut/${slug}/delad`,
+      })),
+      afterFiles: [],
+      fallback: [],
+    }
   },
 };
 

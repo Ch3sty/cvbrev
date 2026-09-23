@@ -1,168 +1,109 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { DelaRad, byggUrl, lasQuery, useQuerySynk } from './dela'
-
 /**
- * Vad kostar en anställd 2026. Arbetsgivaravgift 31,42 % (20,81 % på lönedelar
- * upp till 25 000 kr/mån för den som fyllt 18 men inte 23 år, ersättningar
- * utbetalda apr 2026-sep 2027). Kollektivavtal tjänstemän (ITP1 enligt
- * Avtalat): ålderspension 4,5 % av lön upp till 52 125 kr/mån (7,5
- * inkomstbasbelopp) och 30 % däröver, försäkringar (TGL, TFA, TRR,
- * sjukförsäkring) schablonerade till 0,4 %, särskild löneskatt 24,26 % på
- * pensionspremier. Semestertillägg 0,43 % per dag enligt semesterlagen.
+ * Vad kostar en anställd 2026. Logiken ligger i src/lib/rakna/anstalldKostnad.ts.
  */
+import { useEffect, useState } from 'react'
+import KalkylatorSkal, { useIndata } from './KalkylatorSkal'
+import { FaltPanel, Kryss, PostRader, TalFalt } from './ui'
+import {
+  ANSTALLD_KALLA,
+  ANSTALLD_STANDARD,
+  anstalldParametrar,
+  beraknaAnstalld,
+  lasAnstalld,
+  type AnstalldIndata,
+} from '@/lib/rakna/anstalldKostnad'
+import { decimal, kr } from '@/lib/rakna/format'
 
-const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 0 })
+function siffror(s: string): number {
+  return Math.max(0, parseInt(s.replace(/\s/g, ''), 10) || 0)
+}
 
-const AGA = 0.3142
-const AGA_UNG = 0.2081
-const UNG_TAK = 25000
-const ITP_GRANS = 52125
-const ITP_LAG = 0.045
-const ITP_HOG = 0.3
-const FORSAKRINGAR = 0.004
-const SLP = 0.2426
-const TILLAGG_PER_DAG = 0.0043
-
-export default function AnstalldKostnad() {
-  const [lon, setLon] = useState('38000')
-  const [ung, setUng] = useState(false)
-  const [avtal, setAvtal] = useState(true)
-  const [dagar, setDagar] = useState('25')
+export default function AnstalldKostnad({ start = ANSTALLD_STANDARD }: { start?: AnstalldIndata }) {
+  const [d, setD] = useIndata(start, lasAnstalld)
+  const [lonText, setLonText] = useState(String(start.lon))
+  const [dagarText, setDagarText] = useState(String(start.dagar))
 
   useEffect(() => {
-    const q = lasQuery()
-    const qLon = q.get('lon')
-    if (qLon && /^\d+$/.test(qLon)) setLon(qLon)
-    const qDagar = q.get('dagar')
-    if (qDagar && /^\d+$/.test(qDagar)) setDagar(qDagar)
-    if (q.get('ung') === '1') setUng(true)
-    if (q.get('avtal') === '0') setAvtal(false)
-  }, [])
+    setLonText((t) => (siffror(t) === d.lon ? t : String(d.lon)))
+    setDagarText((t) => (siffror(t) === d.dagar ? t : String(d.dagar)))
+  }, [d.lon, d.dagar])
 
-  const lonNum = Math.max(0, parseInt(lon.replace(/\s/g, ''), 10) || 0)
-  const dagarNum = Math.max(0, parseInt(dagar, 10) || 0)
+  const r = beraknaAnstalld(d)
+  const satt = (del: Partial<AnstalldIndata>) => setD((x) => ({ ...x, ...del }))
+  const avtalskostnad = r.pension + r.slp + r.forsakringar
 
-  const semestertillagg = (lonNum * TILLAGG_PER_DAG * dagarNum) / 12
-  const lonebas = lonNum + semestertillagg
+  const falt = (
+    <FaltPanel>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TalFalt
+          id="akLon"
+          etikett="Månadslön före skatt"
+          enhet="kr"
+          value={lonText}
+          onChange={(v) => {
+            setLonText(v)
+            satt({ lon: siffror(v) })
+          }}
+        />
+        <TalFalt
+          id="akDagar"
+          etikett="Semesterdagar"
+          value={dagarText}
+          onChange={(v) => {
+            setDagarText(v)
+            satt({ dagar: siffror(v) })
+          }}
+        />
+      </div>
+      <div>
+        <Kryss checked={d.avtal} onChange={(v) => satt({ avtal: v })}>
+          Kollektivavtal med tjänstepension (ITP1)
+        </Kryss>
+        <Kryss checked={d.ung} onChange={(v) => satt({ ung: v })}>
+          Den anställda är 18 till 22 år
+        </Kryss>
+      </div>
+    </FaltPanel>
+  )
 
-  const aga = ung
-    ? Math.min(lonebas, UNG_TAK) * AGA_UNG + Math.max(0, lonebas - UNG_TAK) * AGA
-    : lonebas * AGA
-
-  const pension = avtal ? Math.min(lonNum, ITP_GRANS) * ITP_LAG + Math.max(0, lonNum - ITP_GRANS) * ITP_HOG : 0
-  const slp = pension * SLP
-  const forsakringar = avtal ? lonNum * FORSAKRINGAR : 0
-
-  const total = lonebas + aga + pension + slp + forsakringar
-
-  const delParams = {
-    lon: String(lonNum),
-    dagar: dagarNum !== 25 ? String(dagarNum) : null,
-    ung: ung ? '1' : null,
-    avtal: avtal ? null : '0',
-  }
-  useQuerySynk(delParams)
-  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld', delParams)
-  const resultatText = `En anställd med ${fmt.format(lonNum)} kr/mån kostar totalt ${fmt.format(total)} kr/mån (${fmt.format(total * 12)} kr/år) 2026, inklusive arbetsgivaravgift${avtal ? ', ITP1 och särskild löneskatt' : ''}. Räkna själv: ${delUrl}`
-
-  const rader: [string, number][] = [
-    ['Bruttolön', lonNum],
-    ['Semestertillägg (utslaget per månad)', semestertillagg],
-    [ung ? 'Arbetsgivaravgift (nedsatt för unga)' : 'Arbetsgivaravgift 31,42 %', aga],
-    ...(avtal
+  const rader: [string, string][] = [
+    ['Bruttolön', kr(d.lon)],
+    ['Semestertillägg, utslaget per månad', kr(r.semestertillagg)],
+    [d.ung ? 'Arbetsgivaravgift, nedsatt för unga' : 'Arbetsgivaravgift 31,42 %', kr(r.aga)],
+    ...(d.avtal
       ? ([
-          ['Tjänstepension ITP1', pension],
-          ['Särskild löneskatt på pensionen 24,26 %', slp],
-          ['Avtalsförsäkringar (TGL, TFA, TRR m.m.)', forsakringar],
-        ] as [string, number][])
+          ['Tjänstepension ITP1', kr(r.pension)],
+          ['Särskild löneskatt på pensionen 24,26 %', kr(r.slp)],
+          ['Avtalsförsäkringar (TGL, TFA, TRR med flera)', kr(r.forsakringar)],
+        ] as [string, string][])
       : []),
   ]
 
   return (
-    <div className="not-prose my-8 rounded-2xl border border-orange-200 bg-gradient-to-b from-orange-50/70 to-white p-6 sm:p-8">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="akLon" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Månadslön före skatt (kr)
-          </label>
-          <input
-            id="akLon"
-            type="text"
-            inputMode="numeric"
-            value={lon}
-            onChange={(e) => setLon(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label htmlFor="akDagar" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Semesterdagar
-          </label>
-          <input
-            id="akDagar"
-            type="text"
-            inputMode="numeric"
-            value={dagar}
-            onChange={(e) => setDagar(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <div className="mt-3 flex flex-wrap gap-4">
-        <label className="flex items-center gap-2 text-sm text-slate-700">
-          <input type="checkbox" checked={avtal} onChange={(e) => setAvtal(e.target.checked)} className="accent-orange-600" />
-          Kollektivavtal med tjänstepension (ITP1)
-        </label>
-        <label className="flex items-center gap-2 text-sm text-slate-700">
-          <input type="checkbox" checked={ung} onChange={(e) => setUng(e.target.checked)} className="accent-orange-600" />
-          Den anställda är 18-22 år
-        </label>
-      </div>
-
-      <div className="mt-5 rounded-xl border border-orange-200 bg-white p-4 sm:p-5">
-        <dl className="mb-4 space-y-1.5">
-          {rader.map(([namn, belopp]) => (
-            <div key={namn} className="flex items-baseline justify-between gap-3 text-sm">
-              <dt className="text-slate-600">{namn}</dt>
-              <dd className="ml-0 font-semibold text-slate-900">{fmt.format(belopp)} kr</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="border-t border-orange-100 pt-3">
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div>
-              <p className="mb-0 text-xs font-bold uppercase tracking-wide text-slate-400">Kostnad per månad</p>
-              <p className="mb-0 text-2xl font-black text-slate-900">{fmt.format(total)} kr</p>
-            </div>
-            <div>
-              <p className="mb-0 text-xs font-bold uppercase tracking-wide text-slate-400">Kostnad per år</p>
-              <p className="mb-0 text-2xl font-black text-slate-900">{fmt.format(total * 12)} kr</p>
-            </div>
-            <div>
-              <p className="mb-0 text-xs font-bold uppercase tracking-wide text-slate-400">Gånger bruttolönen</p>
-              <p className="mb-0 text-2xl font-black text-slate-900">
-                {lonNum > 0 ? (total / lonNum).toFixed(2).replace('.', ',') : '0'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <DelaRad
-        delUrl={delUrl}
-        resultatText={resultatText}
-        badda={{ slug: 'vad-kostar-en-anstalld', titel: 'Vad kostar en anställd?' }}
-      />
-
-      <p className="mb-0 mt-4 text-xs text-slate-500">
-        Direkta lönekostnader. Utrustning, lokalyta, utbildning och
-        rekryteringskostnaden tillkommer. Ungdomsnedsättningen gäller
-        ersättningar som betalas ut april 2026 till september 2027 för den som
-        fyllt 18 men inte 23 år. Vägledning, inte rådgivning.
-      </p>
-    </div>
+    <KalkylatorSkal
+      slug="vad-kostar-en-anstalld"
+      titel="Vad kostar en anställd?"
+      falt={falt}
+      etikett="Vad kostar en anställd?"
+      premiss={`${kr(d.lon)} i månadslön${d.avtal ? ' med kollektivavtal' : ''}`}
+      tal={kr(r.total)}
+      enhet="i månaden för arbetsgivaren"
+      mening={
+        d.lon > 0
+          ? `Det är ${decimal(r.faktor, 2)} gånger bruttolönen och ${kr(r.total * 12)} om året, före utrustning, lokal och rekrytering.`
+          : 'Skriv in månadslönen före skatt.'
+      }
+      segment={[
+        { label: 'lön och semestertillägg', value: d.lon + r.semestertillagg, visa: kr(d.lon + r.semestertillagg), tone: 'ink' },
+        { label: 'arbetsgivaravgift', value: r.aga, visa: kr(r.aga), tone: 'stark' },
+        { label: 'pension, löneskatt och försäkringar', value: avtalskostnad, visa: kr(avtalskostnad), tone: 'mjuk' },
+      ]}
+      detaljer={<PostRader rader={rader} />}
+      kalla={ANSTALLD_KALLA}
+      parametrar={anstalldParametrar(d)}
+      delText={`En anställd med ${kr(d.lon)} i månaden kostar ${kr(r.total)} i månaden (${kr(r.total * 12)} om året) 2026, med arbetsgivaravgift${d.avtal ? ', ITP1 och särskild löneskatt' : ''}.`}
+    />
   )
 }

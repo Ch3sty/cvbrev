@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { DelaRad } from '@/components/rakna/dela'
+import { KANALER, beraknaSourcing, type KanalId } from '@/lib/rakna/sourcing'
 
 /**
  * Sourcingtratten: interaktiv kalkyl på sourcingpillaren. Räknar hur många
@@ -10,26 +11,8 @@ import { DelaRad } from '@/components/rakna/dela'
  * Schabloner, tydligt deklarerade: egna kanaldata slår alltid dessa.
  */
 
-const KANALER = [
-  {
-    id: 'mass',
-    label: 'Massutskick, generiskt',
-    beskrivning: 'samma text till många',
-    svarsfrekvens: 0.08,
-  },
-  {
-    id: 'riktat',
-    label: 'Riktat och personligt',
-    beskrivning: 'under 400 tecken, individuellt',
-    svarsfrekvens: 0.2,
-  },
-  {
-    id: 'pool',
-    label: 'Kandidatpool med opt-in',
-    beskrivning: 'kandidaten har valt att vara sökbar',
-    svarsfrekvens: 0.35,
-  },
-] as const
+// Kanalerna och räkningen ligger i src/lib/rakna/sourcing.ts, delade med
+// kalkylatorn på /rakna-ut/sourcing.
 
 export default function SourcingTratt() {
   const [kanalId, setKanalId] = useState<string>('riktat')
@@ -37,18 +20,12 @@ export default function SourcingTratt() {
   const [svarTillIntervju, setSvarTillIntervju] = useState(30)
   const [intervjuTillAnstallning, setIntervjuTillAnstallning] = useState(25)
 
-  const kanal = KANALER.find((k) => k.id === kanalId) ?? KANALER[1]
-
-  const intervjuerKravs = anstallningar / (intervjuTillAnstallning / 100)
-  const svarKravs = intervjuerKravs / (svarTillIntervju / 100)
-  const kontakterKravs = Math.ceil(svarKravs / kanal.svarsfrekvens)
-
-  const steg = [
-    { label: 'Riktade kontakter', varde: kontakterKravs },
-    { label: `Svar (${Math.round(kanal.svarsfrekvens * 100)} % svarsfrekvens)`, varde: Math.ceil(svarKravs) },
-    { label: `Intervjuer (${svarTillIntervju} % av svaren)`, varde: Math.ceil(intervjuerKravs) },
-    { label: `Anställningar (${intervjuTillAnstallning} % av intervjuerna)`, varde: anstallningar },
-  ]
+  const { steg, kontakterKravs } = beraknaSourcing({
+    kanal: kanalId as KanalId,
+    anstallningar,
+    svarTillIntervju,
+    intervjuTillAnstallning,
+  })
   const maxVarde = steg[0].varde
 
   return (
