@@ -39,6 +39,41 @@ export function arToken(v: unknown): v is string {
   return typeof v === 'string' && UUID.test(v)
 }
 
+type Tillgangsrad = Pick<IntervjuRad, 'user_id' | 'claimed_by' | 'expires_at' | 'full'>
+
+/**
+ * Får den här användaren se raden (eller göra anspråk på den)? Ren funktion,
+ * delas av sidan och proxyns 404-kontroll så att båda säger samma sak.
+ */
+export function arTillganglig(rad: Tillgangsrad, userId: string, nu: number = Date.now()): boolean {
+  if (new Date(rad.expires_at).getTime() <= nu) return false
+  if (rad.full?.irrelevant) return false
+  if (rad.claimed_by) return rad.claimed_by === userId
+  // Ett svar skrivet inloggat får bara hämtas av samma konto.
+  return !rad.user_id || rad.user_id === userId
+}
+
+/**
+ * Proxyns kontroll för /dashboard/intervju/[token]: finns ett svar som den
+ * här användaren får se? Dashboarden strömmar (dashboard/loading.tsx), så
+ * notFound() i sidan kommer efter att status 200 redan skickats. Proxyn
+ * svarar därför 404 innan renderingen börjar.
+ */
+export async function intervjuSvarFinns(
+  admin: SupabaseClient<any>,
+  token: string,
+  userId: string
+): Promise<boolean> {
+  if (!arToken(token)) return false
+  const { data, error } = await admin
+    .from('anon_interview_samples')
+    .select('user_id, claimed_by, expires_at, full')
+    .eq('token', token)
+    .maybeSingle()
+  if (error || !data) return false
+  return arTillganglig(data as unknown as Tillgangsrad, userId)
+}
+
 const KOLUMNER =
   'token, question, answer, level, summary, works, missing, missing_kind, full, improved_answer, improved_why, user_id, claimed_by, created_at, expires_at'
 
@@ -62,13 +97,8 @@ export async function hamtaEllerGorAnsprak(
   if (error || !data) return null
   const rad = data as unknown as IntervjuRad
 
-  if (new Date(rad.expires_at).getTime() <= Date.now()) return null
-  if (rad.full?.irrelevant) return null
-
+  if (!arTillganglig(rad, userId)) return null
   if (rad.claimed_by === userId) return rad
-  if (rad.claimed_by) return null
-  // Ett svar skrivet inloggat får bara hämtas av samma konto.
-  if (rad.user_id && rad.user_id !== userId) return null
 
   // Villkorad uppdatering: två samtidiga anspråk kan inte båda vinna.
   const { data: uppdaterad, error: uppdateringsFel } = await admin

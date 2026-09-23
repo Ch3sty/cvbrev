@@ -15,7 +15,10 @@
 // så det finns exakt en ingång och inget som kan skugga den igen.
 
 import { NextResponse, type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { updateSession, type EfterInloggning } from '@/lib/supabase/middleware'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { intervjuSvarFinns } from '@/lib/intervju/rad'
 import { adminAuthMiddleware } from '@/middleware/admin-auth'
 import {
   ATTRIBUTION_COOKIE,
@@ -85,9 +88,31 @@ export async function proxy(request: NextRequest) {
     return adminAuthMiddleware(request)
   }
 
-  const response = await updateSession(request)
+  const response = await updateSession(request, intervjuKontroll(request))
   setAttributionCookie(request, response)
   return response
+}
+
+/**
+ * /dashboard/intervju/[token]: 404 med rätt status för ett svar som inte
+ * finns, gått ut eller tillhör någon annan (docs/qa/qa-intervjuprov-2026-09-23.md,
+ * fynd 2). dashboard/loading.tsx gör att sidan strömmar, så notFound() i
+ * sidan kommer först när status 200 redan skickats. Rewriten går till en
+ * adress utan route, så rot-sidans not-found ritas med status 404.
+ */
+const INTERVJU_SIDA = /^\/dashboard\/intervju\/([^/]+)\/?$/
+
+function intervjuKontroll(request: NextRequest): EfterInloggning | undefined {
+  const traff = INTERVJU_SIDA.exec(request.nextUrl.pathname)
+  if (!traff) return undefined
+  // RSC-hämtningar vid klientnavigering får ingen HTML-status; bara dokument.
+  if (request.headers.get('sec-fetch-dest') === 'empty' || request.headers.has('rsc')) return undefined
+  const token = decodeURIComponent(traff[1])
+  return async (userId) => {
+    const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
+    if (await intervjuSvarFinns(admin, token, userId)) return null
+    return NextResponse.rewrite(new URL('/_intervjusvar-saknas', request.url), { status: 404 })
+  }
 }
 
 export const config = {

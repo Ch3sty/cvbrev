@@ -66,7 +66,15 @@ function gissaAnvandarId(request: NextRequest): string | null {
   }
 }
 
-export async function updateSession(request: NextRequest) {
+/**
+ * Valfri kontroll som proxyn kör när den inloggade användaren är känd. Ger
+ * den ett svar används det i stället för sidan (cookies från förnyelsen
+ * flyttas över). Finns för /dashboard/intervju/[token], där en 404 måste
+ * sättas innan dashboarden börjar strömma.
+ */
+export type EfterInloggning = (userId: string) => Promise<NextResponse | null>
+
+export async function updateSession(request: NextRequest, efterInloggning?: EfterInloggning) {
   // En header med det här namnet får aldrig komma utifrån. Den tas bort
   // innan något annat händer, och sätts nedan bara av oss själva.
   request.headers.delete(ANVANDARE_HEADER)
@@ -150,6 +158,16 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (!user) return supabaseResponse
+
+  if (efterInloggning) {
+    const eget = await efterInloggning(user.id)
+    if (eget) {
+      for (const cookie of supabaseResponse.cookies.getAll()) {
+        eget.cookies.set(cookie)
+      }
+      return eget
+    }
+  }
 
   // Bär proxyns verifierade användare vidare till serverns rendering, så att
   // layouten och sidan slipper varsin rundtur till Supabase Auth
