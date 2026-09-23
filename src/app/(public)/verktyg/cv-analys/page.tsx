@@ -1,19 +1,31 @@
 /**
- * /verktyg/cv-analys - landningssida i orange/rod-DNA.
- * Sektioner: Hero med live-demo -> Sa funkar det -> Vad vi kontrollerar
- * (6 kategorier) -> Resultat-bevis -> Skrivtips -> FAQ -> CTA-band.
- * SEO: WebApplication + HowTo + FAQPage JSON-LD.
+ * /verktyg/cv-analys på verktygsmallen (docs/design/analys-visuell-linje-2026-09-22.html,
+ * avsnitt 5). h1, title, description och schemat (WebApplication, HowTo,
+ * FAQPage) är oförändrade; bara ramen och sektionernas form är nya.
  */
-import Breadcrumb from '@/components/Breadcrumb'
-import CVAnalysHero from './components/CVAnalysHero'
-import CVAnalysHurFunkar from './components/CVAnalysHurFunkar'
-import CVAnalysVadVikollar from './components/CVAnalysVadVikollar'
-import CVAnalysResultatBevis from './components/CVAnalysResultatBevis'
-import CVAnalysSkrivtips from './components/CVAnalysSkrivtips'
-import CVAnalysFAQ from './components/CVAnalysFAQ'
-import CVAnalysCTABand from './components/CVAnalysCTABand'
+import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import CVAnalysMini from './components/CVAnalysMini'
 import { CV_ANALYS_FAQ_ITEMS } from './components/cv-analys-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
+import { IlluScenCv } from '@/components/illustrations/PriserScener'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
+
+const KATEGORIER = [
+  { rubrik: 'Läsbarhet för rekryteringssystem', text: 'Att rubriker, formatering och filstruktur fungerar i de system svenska arbetsgivare sorterar med. Inga kolumner som förvirrar maskinen.' },
+  { rubrik: 'Struktur', text: 'Avsnittens längd och ordning, datumformat och att de viktiga rubrikerna (Erfarenhet, Utbildning, Kompetenser) finns på rätt plats.' },
+  { rubrik: 'Språk och grammatik', text: 'Aktiva verb, inga fyllnadsord och en konsekvent ton. "Ansvarig för" blir "Ledde", "Jobbade med" blir "Drev".' },
+  { rubrik: 'Nyckelord', text: 'Vi jämför med vanliga söktermer i din bransch och flaggar de viktigaste som saknas, till exempel Scrum, intressenthantering och budget för en projektledare.' },
+  { rubrik: 'Kvantifiering', text: 'Hur många mätbara resultat du visar, och var siffror gör mest nytta. "Ökade försäljningen" blir "Ökade försäljningen 40 procent på 8 månader".' },
+  { rubrik: 'Profil och styrkor', text: 'Din öppning, omskriven till tre rader som lyfter det just du kan och som rekryteraren minns.' },
+]
+
+const SKRIVTIPS = [
+  { rubrik: 'Kvantifiera dina resultat', text: 'Siffror övertygar mer än adjektiv. "Ökade omsättningen 40 procent på 8 månader" säger mer än "duktig på försäljning".' },
+  { rubrik: 'Börja varje punkt med ett verb', text: 'Drev, byggde, ledde, införde. Aktiva verb visar handlingskraft; passiva formuleringar gör att du försvinner i mängden.' },
+  { rubrik: 'Använd annonsens egna ord', text: 'Står en term i annonsen, skriv den exakt så i CV:t. Rekryteringssystemen letar efter exakta termer, inte synonymer.' },
+  { rubrik: 'En sida räcker ofta', text: 'Under fem års erfarenhet: en A4. Mer erfarenhet: högst två. Akademiska CV med publikationer kan vara längre, men då av en anledning.' },
+  { rubrik: 'Hoppa över bilden', text: 'Bilder kan göra att systemen läser fel. I Sverige väger innehållet tyngre än utseendet, så lägg platsen på det som säljer dig.' },
+]
 
 export default function CVAnalysSida() {
   // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
@@ -112,25 +124,71 @@ export default function CVAnalysSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="bg-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <Breadcrumb
-            items={[
-              { name: 'Hem', href: '/' },
-              { name: 'Verktyg', href: '/funktioner' },
-              { name: 'CV-analys', href: '/verktyg/cv-analys' },
-            ]}
-          />
-        </div>
-
-        <CVAnalysHero />
-        <CVAnalysHurFunkar />
-        <CVAnalysVadVikollar />
-        <CVAnalysResultatBevis />
-        <CVAnalysSkrivtips />
-        <CVAnalysFAQ />
-        <CVAnalysCTABand />
-      </main>
+      <VerktygsSida
+        brodsmulor={[
+          { name: 'Hem', href: '/' },
+          { name: 'Verktyg', href: '/funktioner' },
+          { name: 'CV-analys', href: '/verktyg/cv-analys' },
+        ]}
+        eyebrow="CV-analys · vet varför CV:t inte får svar"
+        h1="Få konkret feedback på ditt CV på 60 sekunder"
+        ingress="Vi läser ditt CV som ett rekryteringssystem gör och kontrollerar struktur, språk, nyckelord och kvantifiering."
+        fet="Du får en poäng från 0 till 100, betyg i sex kategorier och åtgärder du kan göra direkt."
+        primar={{ text: 'Analysera mitt CV', href: '#mini-analys' }}
+        sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
+        loften={[
+          { tal: '1 analys', text: 'gratis per konto' },
+          { tal: '60 sek', text: 'till poängen' },
+          { tal: '6', text: 'kategorier med betyg' },
+        ]}
+        scen={<IlluScenCv className="h-auto w-full" />}
+        handling={<CVAnalysMini />}
+        handlingId="mini-analys"
+        steg={{
+          id: 'sa-funkar-det',
+          rubrik: 'Så fungerar det',
+          ingress: 'Fyra steg från uppladdat CV till en starkare ansökan.',
+          rader: howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text })),
+          lank: { text: 'Analysera mitt CV', href: '#mini-analys' },
+        }}
+        kontroll={{
+          eyebrow: 'Vad vi kontrollerar',
+          rubrik: 'Sex saker rekryteraren och systemet ser först',
+          rader: KATEGORIER,
+        }}
+        extra={[
+          {
+            eyebrow: 'Skrivtips',
+            rubrik: 'Fem saker som lyfter vilket CV som helst',
+            rader: SKRIVTIPS,
+          },
+        ]}
+        citat={{
+          text: 'Jag fick 64 i ATS-poäng på första analysen och insåg att jag inte hade kvantifierat något alls. Efter en eftermiddag med förslagen var jag uppe i 91. Tre veckor senare hade jag tre intervjuer.',
+          namn: 'Sara, 31, Stockholm',
+          roll: 'marknadsförare, från 64 till 91 i poäng',
+        }}
+        slut={{
+          eyebrow: 'CV-veckan',
+          rubrik: 'Hela analysen, varje fynd med åtgärd.',
+          text: `Poängen och det tyngsta fyndet är gratis. Hela analysen, alla mallar och personliga brev utan tak ingår i CV-veckan, ${PLAN_BY_KEY.cv_week.amount} kr i veckan.`,
+          knapp: { text: 'Analysera mitt CV gratis', href: '#mini-analys' },
+          sekundar: { text: 'Se CV-exempel först', href: '/exempel' },
+        }}
+        faq={{
+          rubrik: 'Frågor om CV-analysen',
+          ingress: (
+            <>
+              Hittar du inte svaret? Mejla{' '}
+              <a href="mailto:support@jobbcoach.ai" className="text-ink-1 underline decoration-kant-stark underline-offset-4">
+                support@jobbcoach.ai
+              </a>
+              .
+            </>
+          ),
+          fragor: CV_ANALYS_FAQ_ITEMS,
+        }}
+      />
     </>
   )
 }
