@@ -24,7 +24,7 @@ import {
 } from '@/components/illustrations/PriserScener'
 import { FUNKTIONER } from '@/components/pricing/paket-copy'
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 const KNAPP =
   'inline-flex h-12 w-full items-center justify-center rounded-lg bg-ink-1 px-5 text-base font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto'

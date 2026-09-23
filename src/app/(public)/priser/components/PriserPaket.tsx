@@ -14,7 +14,7 @@
  * bara knappens destination som skiljer, så ingenting flyttar sig.
  */
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import PaketKort from '@/components/pricing/PaketKort'
@@ -27,30 +27,18 @@ import {
   type PaketId,
 } from '@/components/pricing/paket-copy'
 import { capture } from '@/lib/analytics/events'
-import { getSupabaseClient } from '@/lib/supabase/client-manager'
+import { useAuth } from '@/contexts/AuthContext'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
 
 export default function PriserPaket() {
   const router = useRouter()
-  const [inloggad, setInloggad] = useState(false)
+  // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
+  // sessionscookie. Prissidan och startsidan betalade annars klienten för
+  // varje besökare.
+  const { user } = useAuth()
+  const inloggad = Boolean(user)
   const [busy, setBusy] = useState<PlanKey | null>(null)
   const [alltLangd, setAlltLangd] = useState<PlanLength>('vecka')
-
-  useEffect(() => {
-    let levande = true
-    getSupabaseClient()
-      .auth.getSession()
-      .then(({ data }) => {
-        if (levande) setInloggad(Boolean(data.session))
-      })
-      .catch(() => {
-        // Kan inte läsas: behandla som utloggad. Registreringen tar ändå
-        // emot den som redan har ett konto.
-      })
-    return () => {
-      levande = false
-    }
-  }, [])
 
   const valj = useCallback(
     (plan: PlanKey) => {

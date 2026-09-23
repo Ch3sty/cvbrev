@@ -23,14 +23,13 @@ import LinkedInOptimizerClient from './LinkedInOptimizerClient';
 import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature } from '@/lib/access/features';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function LinkedInOptimizerPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

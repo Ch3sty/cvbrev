@@ -204,8 +204,8 @@ function sidladdningVid(): number {
 }
 
 /**
- * Står cookie-bannern kvar? Klassen sätts av react-cookie-consent i
- * client-layout, och elementet tas bort ur DOM när samtycket lämnats.
+ * Står cookie-bannern kvar? Klassen sätts av CookieBanner (samtycke/) när
+ * bannern visas, och elementet tas bort ur DOM när samtycket lämnats.
  */
 function cookiebannerUppe(): boolean {
   const el = document.querySelector('.cookie-banner-container')

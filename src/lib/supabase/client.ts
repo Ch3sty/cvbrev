@@ -3,6 +3,7 @@ import { createBrowserClient } from '@supabase/ssr'
 import { type Database } from '@/types/database.types'
 // Import storage initializer to ensure it runs first
 import './storage-init'
+import { signaleraKlientSkapad } from './klient-signal'
 
 /**
  * Webbläsarklienten använder @supabase/ssr:s inbyggda cookie-hantering.
@@ -51,7 +52,16 @@ async function boundedLock<R>(
   }
 }
 
+let signalerad = false
+
 export const createClient = () => {
+  // createBrowserClient är en singleton i webbläsaren, så alla anropare delar
+  // samma auth-instans. Första gången meddelar vi AuthProvider, som inte
+  // laddar klienten själv när det saknas session (klient-signal.ts).
+  if (!signalerad && typeof window !== 'undefined') {
+    signalerad = true
+    signaleraKlientSkapad()
+  }
   return createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

@@ -21,6 +21,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getCandidateInterests } from '@/lib/interests/getCandidateInterests';
 import type { CandidateInterest } from '@/components/interests/hubTypes';
 import MessageHub from '@/components/interests/MessageHub';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function MeddelandenPage({
   searchParams,
@@ -34,9 +35,7 @@ export default async function MeddelandenPage({
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

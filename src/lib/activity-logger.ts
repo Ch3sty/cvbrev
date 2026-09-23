@@ -1,5 +1,14 @@
 // src/lib/activity-logger.ts
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
+/**
+ * Supabase-klienten laddas vid första loggningen, inte med modulen. Loggern
+ * importeras av rot-layoutens klientlager (ActivityTracker, notiserna), och en
+ * statisk import lade hela supabase-js i varje publik sidas JavaScript, också
+ * för besökare som aldrig loggar in och alltså aldrig loggar något.
+ */
+async function klient() {
+  const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+  return getSupabaseClient();
+}
 
 // Aktivitetstyper
 export type ActivityType =
@@ -76,7 +85,7 @@ export async function logUserActivity(
   metadata: Record<string, any> = {}
 ): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await klient();
 
     const { error } = await supabase
       .from('user_activities')
@@ -108,7 +117,7 @@ export async function logUserActivity(
  */
 export async function getUserActivities(userId: string, limit: number = 10): Promise<any[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await klient();
 
     const { data, error } = await supabase
       .from('user_activities')
@@ -136,7 +145,7 @@ export async function getUserActivities(userId: string, limit: number = 10): Pro
  */
 export async function getSystemActivities(limit: number = 20): Promise<any[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await klient();
 
     const { data, error } = await supabase
       .from('user_activities')

@@ -25,14 +25,13 @@ import {
 } from '@/lib/letters/letter-quota';
 import type { Letter } from '@/store/letter-store';
 import MinaBrevClient from './MinaBrevClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function MinaBrevPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

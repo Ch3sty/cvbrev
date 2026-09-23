@@ -18,6 +18,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess'
 import { isPlanKey, PLAN_BY_KEY } from '@/lib/plans/plans'
 import type { Scope } from '@/lib/access/features'
 import ValkommenClient from './VeckaStartClient'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
 export const metadata = { title: 'Välkommen' }
 
@@ -38,9 +39,7 @@ export default async function ValkommenPage({
   const cookieStore = await cookies()
   const supabase = createServerClient({ cookies: cookieStore })
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await hamtaVerifieradAnvandare()
 
   if (!user) redirect('/login')
 

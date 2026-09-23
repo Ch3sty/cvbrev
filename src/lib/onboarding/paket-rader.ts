@@ -9,7 +9,7 @@
 // Klientsäker: ren data och rena funktioner.
 
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'

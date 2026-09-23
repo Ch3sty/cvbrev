@@ -2,7 +2,7 @@
 
 import PageHeader from '@/components/shell/PageHeader';
 import { IlluScenMallar } from '@/components/illustrations/PriserScener';
-import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal';
 
 /**
  * Sidhuvudet för CV-mallar. Sidans enda h1.

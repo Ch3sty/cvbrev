@@ -9,7 +9,7 @@
  * ligger i src/lib/stripe/planPrices.ts.
  */
 
-import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 export type PlanKey = 'cv_week' | 'test_week' | 'all_day' | 'all_week' | 'all_month' | 'all_quarter'
 

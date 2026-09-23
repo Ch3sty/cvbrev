@@ -114,51 +114,81 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
-/* Bannern ritas av react-cookie-consent med inline-stilar: gradientknapp,
-   orange kant, orange länktext och en kaka i fyra orangetoner. På en publik
-   sida hör det hemma, inne i appen bryter det mot både gradientförbudet och
-   taket på tre orange element per skärm, på varje vy samtidigt. Samtycket
-   måste ändå gå att lämna, så bannern målas om i stället för att döljas. */
-html[data-app-surface='true'] .cookie-banner-container {
-  background: var(--panel) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-top: 1px solid var(--kant) !important;
-  box-shadow: none !important;
-  color: var(--ink-2) !important;
+/* Cookie-samtycket (src/components/samtycke/CookieBanner.tsx). Tråden
+   (docs/designsystem.md §12): panel, hårlinje, svävande skugga, bläckknapp,
+   ingen gradient, samma på publika sidor och i appen. */
+.cookie-banner-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 14px 20px max(calc(env(safe-area-inset-bottom, 0px) + 14px), 14px);
+  background: var(--panel);
+  color: var(--ink-2);
+  border-top: 1px solid var(--kant);
+  box-shadow: 0 -8px 24px rgba(28, 25, 23, 0.08);
 }
 
-html[data-app-surface='true'] .cookie-banner-buttons button {
-  font-weight: 600 !important;
-  font-size: 14px !important;
-  min-height: 44px !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
+.cookie-banner-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 560px;
+}
+
+.cookie-banner-rubrik {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--ink-1);
+}
+
+.cookie-banner-text {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.cookie-banner-text a {
+  color: var(--ink-1);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--kant-stark);
+  text-underline-offset: 2px;
+}
+
+.cookie-banner-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.cookie-banner-buttons button {
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /* Acceptera är vyns enda fyllda knapp här, alltså ink, aldrig gradient. */
-html[data-app-surface='true'] #rcc-confirm-button {
-  background: var(--ink-1) !important;
-  color: #fff !important;
+#rcc-confirm-button {
+  background: var(--ink-1);
+  color: #fff;
+  border: none;
 }
 
-html[data-app-surface='true'] #rcc-decline-button {
-  background: var(--panel) !important;
-  color: var(--ink-1) !important;
-  border: 1px solid var(--kant-stark) !important;
-}
-
-/* Kakan och "Läs mer" är de två sista orangea ytorna. Ikonen tonas till ink-2
-   och länken följer textknappen i avsnitt 2 i överlämningen. */
-html[data-app-surface='true'] .cookie-banner-content svg {
-  filter: grayscale(1);
-  opacity: 0.55;
-}
-
-html[data-app-surface='true'] .cookie-banner-content a {
-  color: var(--ink-1) !important;
-  text-decoration-color: var(--kant-stark) !important;
-  text-underline-offset: 4px;
+#rcc-decline-button {
+  background: var(--panel);
+  color: var(--ink-1);
+  border: 1px solid var(--kant-stark);
 }
 
 body {

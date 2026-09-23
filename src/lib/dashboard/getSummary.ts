@@ -128,43 +128,94 @@ export interface DashboardSummaryData {
     provade: BrickaKey[]
     fakta: BrickaFakta
   }
+  /**
+   * Sidomenyns antal. Menyn hämtade dem förut själv med tre count-frågor
+   * efter mount; nu kommer de ur samma svar som resten av skalet.
+   * Valfritt eftersom ett äldre svar i sessionStorage-cachen kan sakna dem.
+   */
+  sidomeny?: {
+    cv: number
+    /** Sparade personliga brev, som raden Mina brev räknar. */
+    brev: number
+    ansokningar: number
+  }
+  /** Superadmin: menyn visar länken till adminen. */
+  arAdmin?: boolean
 }
 
-/** Speglar INTERVIEW_STATUSES i useApplicationsSummary.ts. */
-const INTERVIEW_STATUSES = ['interview_invited', 'interview_completed', 'trial_work_completed']
+/** Ett svar i samma form som en PostgREST-fråga, så aggregeringen är en och samma. */
+type Svar<T = any> = { data?: T | null; count?: number | null }
 
-/** Måndag 00:00 i innevarande vecka, svensk tid. */
-function startOfWeekStockholm(now: Date): Date {
-  const sv = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(now)
-  const midnight = new Date(`${sv}T00:00:00`)
-  // getDay: 0 = söndag. Vi vill ha måndag som första dag.
-  const weekday = (midnight.getDay() + 6) % 7
-  midnight.setDate(midnight.getDate() - weekday)
-  return midnight
-}
-
-/** Hur många dygn sedan senaste händelse. */
-function daysSince(iso: string | null, now: Date): number {
-  if (!iso) return 0
-  const t = new Date(iso).getTime()
-  if (Number.isNaN(t)) return 0
-  return Math.max(0, Math.floor((now.getTime() - t) / 86400000))
+type Rader = {
+  lettersRes: Svar<any[]>
+  cvRes: Svar<any[]>
+  profileRes: Svar<Record<string, unknown>>
+  applicationsRes: Svar<any[]>
+  analysisRes: Svar
+  linkedinRes: Svar
+  downloadRes: Svar
+  matchRes: Svar
+  grantsRes: Svar<any[]>
+  candidateRes: Svar<{ visibility?: string | null }>
+  convRes: Svar
+  chatRes: Svar
+  testRes: Svar<any[]>
+  personalityRes: Svar
+  senasteAnalysRes: Svar<{ score?: string | number | null }>
+  adminRes: Svar<{ role?: string } | null>
 }
 
 /**
- * Hämtar och aggregerar allt hemskärmen behöver i en omgång parallella queries.
- * Anropas både av API-routen och av dashboard-layouten.
- *
- * supabase: en klient skapad med createServerClient, redan bunden till
- * användarens cookies. Anroparen ansvarar för autentiseringen och skickar in
- * userId, den här funktionen gör ingen egen auth-kontroll.
+ * Finns inte funktionen dashboard_summering i databasen (migrationen
+ * 20260923120000 ej applicerad) minns processen det, så att varje
+ * sidladdning inte betalar ett misslyckat anrop innan de femton frågorna.
  */
-export async function getDashboardSummary(
-  supabase: any,
-  userId: string
-): Promise<DashboardSummaryData> {
-  // Fyra parallella queries. Ingen count-fråga: vi hämtar ändå raderna för
-  // brev och CV, så vi räknar på radernas längd i stället.
+let rpcSaknas = false
+
+/**
+ * Raderna i en rundtur: funktionen dashboard_summering() returnerar samma
+ * rader och räkningar som de femton frågorna nedan, som ett JSON-objekt.
+ * RLS gäller som förut (security invoker), och användaren tas ur JWT:n.
+ */
+async function hamtaViaRpc(supabase: any): Promise<Rader | null> {
+  if (rpcSaknas) return null
+  const { data, error } = await supabase.rpc('dashboard_summering')
+  if (error) {
+    // PGRST202: funktionen finns inte. Andra fel (nät, tidsgräns) ska inte
+    // stänga av vägen för gott, bara falla tillbaka den här gången.
+    if (error.code === 'PGRST202' || error.code === '42883') rpcSaknas = true
+    return null
+  }
+  if (!data) return null
+  const r = data as Record<string, any>
+  const antal = (v: unknown) => ({ count: Number(v ?? 0) || 0 })
+  return {
+    lettersRes: { data: r.letters ?? [] },
+    cvRes: { data: r.cv ?? [] },
+    profileRes: { data: r.profile ?? null },
+    applicationsRes: { data: r.applications ?? [] },
+    analysisRes: antal(r.analysis_count),
+    linkedinRes: antal(r.linkedin_count),
+    downloadRes: antal(r.download_count),
+    matchRes: antal(r.match_count),
+    grantsRes: { data: r.grants ?? [] },
+    candidateRes: { data: r.candidate_visibility == null ? null : { visibility: r.candidate_visibility } },
+    convRes: antal(r.conversation_count),
+    chatRes: antal(r.chat_count),
+    testRes: { data: r.tests ?? [] },
+    personalityRes: antal(r.personality_count),
+    senasteAnalysRes: { data: r.senaste_poang == null ? null : { score: r.senaste_poang } },
+    adminRes: { data: r.ar_admin ? { role: 'super_admin' } : null },
+  }
+}
+
+/**
+ * Reservvägen: samma rader med femton frågor parallellt, som före
+ * dashboard_summering(). Används när funktionen saknas eller svarar fel.
+ */
+async function hamtaParallellt(supabase: any, userId: string): Promise<Rader> {
+  // Ingen count-fråga för brev och CV: vi hämtar ändå raderna, så vi räknar
+  // på radernas längd i stället.
   const [
     lettersRes,
     cvRes,
@@ -181,10 +232,11 @@ export async function getDashboardSummary(
     testRes,
     personalityRes,
     senasteAnalysRes,
+    adminRes,
   ] = await Promise.all([
     supabase
       .from('letters')
-      .select('id, title, company, job_title, created_at')
+      .select('id, title, company, job_title, created_at, is_saved')
       .eq('user_id', userId)
       .order('created_at', { ascending: false }),
     supabase
@@ -260,7 +312,86 @@ export async function getDashboardSummary(
       .order('completed_at', { ascending: false, nullsFirst: false })
       .limit(1)
       .maybeSingle(),
+    // Sidomenyns adminlänk. Menyn frågade själv efter mount.
+    supabase
+      .from('admin_users')
+      .select('role')
+      .eq('id', userId)
+      .eq('role', 'super_admin')
+      .maybeSingle(),
   ])
+  return {
+    lettersRes,
+    cvRes,
+    profileRes,
+    applicationsRes,
+    analysisRes,
+    linkedinRes,
+    downloadRes,
+    matchRes,
+    grantsRes,
+    candidateRes,
+    convRes,
+    chatRes,
+    testRes,
+    personalityRes,
+    senasteAnalysRes,
+    adminRes,
+  }
+}
+
+/** Speglar INTERVIEW_STATUSES i useApplicationsSummary.ts. */
+const INTERVIEW_STATUSES = ['interview_invited', 'interview_completed', 'trial_work_completed']
+
+/** Måndag 00:00 i innevarande vecka, svensk tid. */
+function startOfWeekStockholm(now: Date): Date {
+  const sv = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(now)
+  const midnight = new Date(`${sv}T00:00:00`)
+  // getDay: 0 = söndag. Vi vill ha måndag som första dag.
+  const weekday = (midnight.getDay() + 6) % 7
+  midnight.setDate(midnight.getDate() - weekday)
+  return midnight
+}
+
+/** Hur många dygn sedan senaste händelse. */
+function daysSince(iso: string | null, now: Date): number {
+  if (!iso) return 0
+  const t = new Date(iso).getTime()
+  if (Number.isNaN(t)) return 0
+  return Math.max(0, Math.floor((now.getTime() - t) / 86400000))
+}
+
+/**
+ * Hämtar och aggregerar allt hemskärmen behöver i en omgång parallella queries.
+ * Anropas både av API-routen och av dashboard-layouten.
+ *
+ * supabase: en klient skapad med createServerClient, redan bunden till
+ * användarens cookies. Anroparen ansvarar för autentiseringen och skickar in
+ * userId, den här funktionen gör ingen egen auth-kontroll.
+ */
+export async function getDashboardSummary(
+  supabase: any,
+  userId: string
+): Promise<DashboardSummaryData> {
+  const rader = (await hamtaViaRpc(supabase)) ?? (await hamtaParallellt(supabase, userId))
+  const {
+    lettersRes,
+    cvRes,
+    profileRes,
+    applicationsRes,
+    analysisRes,
+    linkedinRes,
+    downloadRes,
+    matchRes,
+    grantsRes,
+    candidateRes,
+    convRes,
+    chatRes,
+    testRes,
+    personalityRes,
+    senasteAnalysRes,
+    adminRes,
+  } = rader
 
   const now = new Date()
 
@@ -502,5 +633,11 @@ export async function getDashboardSummary(
       provade,
       fakta,
     },
+    sidomeny: {
+      cv: cvRows.length,
+      brev: letters.filter((l: { is_saved?: boolean | null }) => l.is_saved === true).length,
+      ansokningar: apps.length,
+    },
+    arAdmin: Boolean(adminRes?.data),
   }
 }

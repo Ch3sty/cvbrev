@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { getAktivitet } from '@/lib/dashboard/aktivitet'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
 export default async function HemAktivitet() {
   let dagar: Awaited<ReturnType<typeof getAktivitet>> = []
@@ -20,9 +21,7 @@ export default async function HemAktivitet() {
   const kakor = await cookies()
   try {
     const supabase = createServerClient({ cookies: kakor })
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    const user = await hamtaVerifieradAnvandare()
     if (!user) return null
     dagar = await getAktivitet(supabase, user.id)
   } catch (fel) {

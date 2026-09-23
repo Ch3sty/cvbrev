@@ -11,34 +11,42 @@ import { extractHeadingsFromContent, filterH2Headings } from '@/lib/extractHeadi
 
 // Importera MDX-komponenter
 import CustomImage from '@/components/mdx/Image';
+// Klientkomponenterna som bara några artiklar använder (räknarna och
+// brevexemplen) kommer via mdx-klient.tsx, som laddar dem med next/dynamic.
+// Som statiska importer följde deras JavaScript med på varje artikel, också
+// de som aldrig ritar dem: 29 kB komprimerat på en artikel om logiska tester.
+// De serverrenderas som förut.
+import {
+  UppsagningstidRaknare,
+  LoneforhandlingsKalkylator,
+  PersonligtBrevExample,
+  PersonligtBrevExampleLarare,
+  PersonligtBrevExampleBarnskotare,
+  PersonligtBrevExampleLakare,
+  PersonligtBrevExampleSommarjobb,
+  PersonligtBrevExampleSjukskoterska,
+  PersonligtBrevExamplePersonligAssistent,
+  PersonligtBrevExampleAdministrator,
+  PersonligtBrevExampleSaljare,
+  PersonligtBrevExampleForskollarare,
+  PersonligtBrevExampleButikssaljare,
+  PersonligtBrevExampleEngelska,
+  PersonligtBrevExampleLagerarbetare,
+  PersonligtBrevExampleVardOmsorg,
+  PersonligtBrevExampleEkonomiassistent,
+  PersonligtBrevExampleReceptionist,
+  PersonligtBrevExampleUtanErfarenhet,
+  PersonligtBrevExampleIngenjor,
+  PersonligtBrevExampleIT,
+  PersonligtBrevExampleKurator,
+  PersonligtBrevExampleStadare,
+  PersonligtBrevExampleHandlaggare,
+  PersonligtBrevExampleUtbildning,
+  PersonligtBrevPreview,
+} from '@/components/artiklar/mdx-klient';
 import FAQContainer from '@/components/mdx/FAQContainer';
 import FAQItem from '@/components/mdx/FAQItem';
-import UppsagningstidRaknare from '@/components/rakna/UppsagningstidRaknare';
-import LoneforhandlingsKalkylator from '@/components/rakna/LoneforhandlingsKalkylator';
-import PersonligtBrevExample from '@/components/mdx/PersonligtBrevExample';
-import PersonligtBrevExampleLarare from '@/components/mdx/PersonligtBrevExampleLarare';
-import PersonligtBrevExampleBarnskotare from '@/components/mdx/PersonligtBrevExampleBarnskotare';
-import PersonligtBrevExampleLakare from '@/components/mdx/PersonligtBrevExampleLakare';
-import PersonligtBrevExampleSommarjobb from '@/components/mdx/PersonligtBrevExampleSommarjobb';
-import PersonligtBrevExampleSjukskoterska from '@/components/mdx/PersonligtBrevExampleSjukskoterska';
-import PersonligtBrevExamplePersonligAssistent from '@/components/mdx/PersonligtBrevExamplePersonligAssistent';
-import PersonligtBrevExampleAdministrator from '@/components/mdx/PersonligtBrevExampleAdministrator';
-import PersonligtBrevExampleSaljare from '@/components/mdx/PersonligtBrevExampleSaljare';
-import PersonligtBrevExampleForskollarare from '@/components/mdx/PersonligtBrevExampleForskollarare';
-import PersonligtBrevExampleButikssaljare from '@/components/mdx/PersonligtBrevExampleButikssaljare';
-import PersonligtBrevExampleEngelska from '@/components/mdx/PersonligtBrevExampleEngelska';
-import PersonligtBrevExampleLagerarbetare from '@/components/mdx/PersonligtBrevExampleLagerarbetare';
-import PersonligtBrevExampleVardOmsorg from '@/components/mdx/PersonligtBrevExampleVardOmsorg';
-import PersonligtBrevExampleEkonomiassistent from '@/components/mdx/PersonligtBrevExampleEkonomiassistent';
-import PersonligtBrevExampleReceptionist from '@/components/mdx/PersonligtBrevExampleReceptionist';
-import PersonligtBrevExampleUtanErfarenhet from '@/components/mdx/PersonligtBrevExampleUtanErfarenhet';
-import PersonligtBrevExampleIngenjor from '@/components/mdx/PersonligtBrevExampleIngenjor';
-import PersonligtBrevExampleIT from '@/components/mdx/PersonligtBrevExampleIT';
-import PersonligtBrevExampleKurator from '@/components/mdx/PersonligtBrevExampleKurator';
-import PersonligtBrevExampleStadare from '@/components/mdx/PersonligtBrevExampleStadare';
-import PersonligtBrevExampleHandlaggare from '@/components/mdx/PersonligtBrevExampleHandlaggare';
-import PersonligtBrevExampleUtbildning from '@/components/mdx/PersonligtBrevExampleUtbildning';
-import PersonligtBrevPreview from '@/components/mdx/PersonligtBrevPreview';
+
 import LayoutFormatExample from '@/components/mdx/LayoutFormatExample';
 import CoverLetterHeaderExample from '@/components/mdx/CoverLetterHeaderExample';
 import CVExample from '@/components/mdx/CVExample';

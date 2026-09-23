@@ -18,6 +18,7 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import MinaCvClient, { type InitialCv } from './MinaCvClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 const FREE_MAX_CVS = 2;
 const PREMIUM_MAX_CVS = 50;
@@ -26,9 +27,7 @@ export default async function MinaCVPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

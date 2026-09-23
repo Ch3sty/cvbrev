@@ -5,8 +5,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Schibsted_Grotesk } from 'next/font/google'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
-import { cookies } from 'next/headers'
-import { createServerClient } from '@/lib/supabase/server'
+import CookieBanner from '@/components/samtycke/CookieBanner'
 
 // display: 'swap' ritar text direkt med reservsnittet i stället för att hålla
 // den osynlig, och adjustFontFallback låter Next räkna fram ett reservsnitt
@@ -173,6 +172,8 @@ export default function RootLayout({
         <ClientLayout>
           {children}
         </ClientLayout>
+        {/* Samtycket: server-HTML och ett inline-skript, ingen klientkomponent. */}
+        <CookieBanner />
       </body>
     </html>
   )

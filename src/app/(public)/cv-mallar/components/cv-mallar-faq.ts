@@ -5,7 +5,7 @@
  *  - "cv mall gratis", "cv mall ladda ner", "cv mall pdf",
  *  - "professionell cv-mall", "modern cv mall", "ats-säker cv-mall"
  */
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 export const CV_MALLAR_FAQ = [
   {
