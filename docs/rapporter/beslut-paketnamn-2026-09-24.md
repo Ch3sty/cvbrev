@@ -89,3 +89,12 @@ Klicktest i riktig webbläsare som ny användare på alla sju ytorna i tabellen 
 1. Godkänna namnsystemet ovan. Ett nej på "Testpaketet" ensamt ändrar bara det ordet; alternativet i så fall är Rekryteringstestpaketet med taket på 24 tecken slopat i sidomenyn.
 2. Döpa om produkterna i Stripe före deploy.
 3. Om Hela paketet ska bli en Stripe-produkt med tre priser (rekommenderas, men kan vänta till en lugn vecka eftersom det rör webhook och `premium_grants.scope`).
+
+## Ägarens beslut 2026-09-24, efter copywriterns stresstest
+
+- Namnen: **CV-paketet, Träningspaketet, Hela paketet, Dagspasset.** Träningspaketet i stället för Testpaketet, eftersom "Testpaketet" bredvid "Starta gratis test" läses som ett betalt provpaket (copywriterns stresstest).
+- Ordval i all copy: "Jobbcoachen", aldrig "coachen utan tak". "Personliga brev", aldrig bara "brev". Hela paketets rad ska säga att allt ingår, inklusive jobbmatchning, Jobbcoachen och Bli upptäckt.
+- Personlighetstestet lyfts fram i paketen där det ingår (grundtestet gratis, fördjupade testet i Träningspaketet och Hela paketet).
+- Betalväggens verb: "Skaffa", inte "Ta".
+- Opus 5.5 byter namn i kod och i Stripe (produktnamn och prisnicknames, prisid oförändrade). Ägaren godkände att agenten gör Stripe-bytet.
+- Bygget av personlighetsprovet och Inför intervjun körs på Opus 5.5 direkt efter namnbytet, allt pushas till main när det är klart.
