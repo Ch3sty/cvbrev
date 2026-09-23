@@ -16,6 +16,7 @@ import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
 import FinalCTA from '@/components/exempel-shared/FinalCTA'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
+import ExempelKlient from '@/components/exempel-shared/ExempelKlient'
 import BrevPreviewShell from '@/components/brev-exempel-shared/BrevPreviewShell'
 
 // SEO: Lazy-load InteractiveLetterPreview för bättre Page Speed
@@ -302,6 +303,8 @@ export default function PersonligtBrevExempelPage({
           ctaHref={`/skapa-brev/start?yrke=${slug}`}
         />
       </main>
+
+      <ExempelKlient kind="letter" slug={slug} />
 
       <StickyMobileCTA
         cluster="letter"

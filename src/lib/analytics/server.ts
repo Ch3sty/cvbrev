@@ -23,6 +23,8 @@ export type ServerEventName =
   | 'renewal_succeeded'
   | 'onboarding_step_completed'
   | 'onboarding_completed'
+  /** Bara från Google-callbacken; lösenordskonton skjuts av register-form. */
+  | 'signup_completed'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
   /** Fria tilläggsfält, till exempel scope och amount_sek på betalningen. */

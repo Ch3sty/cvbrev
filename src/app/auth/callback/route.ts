@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { logActivityServer } from '@/lib/activation-tracking'
+import { captureServer } from '@/lib/analytics/server'
 import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 
 /** Bara relativa paths inom appen släpps igenom, aldrig protokoll-relativa. */
@@ -128,6 +129,18 @@ export async function GET(request: NextRequest) {
   )
 
   if (isNewAccount) {
+    // signup_completed för Google-konton. Register-form skjuter den från
+    // klienten, men här följer en serverredirect och PostHog-klienten
+    // startar först när besökaren rör sidan, så vi skjuter från servern.
+    // distinct_id är användar-id:t, samma som klientens identify, så
+    // händelsen landar på samma person som den anonyma sessionen.
+    const attr = (acquisition ?? {}) as { landing_path?: unknown; landing_cluster?: unknown }
+    captureServer('signup_completed', user.id, {
+      method: 'google',
+      ...(typeof attr.landing_path === 'string' ? { source_page: attr.landing_path } : {}),
+      ...(typeof attr.landing_cluster === 'string' ? { source_cluster: attr.landing_cluster } : {}),
+    })
+
     // post-signup sparar attributionen och startar livscykelmailen. Ingen
     // trial: reverse trial är borta (ägarens beslut 3).
     // Fire and forget, men vi inväntar den här eftersom redirecten annars

@@ -15,6 +15,7 @@ import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
 import RelateradeYrkenGrid from '@/components/exempel-shared/RelateradeYrkenGrid'
 import FinalCTA from '@/components/exempel-shared/FinalCTA'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
+import ExempelKlient from '@/components/exempel-shared/ExempelKlient'
 import CvPreviewShell from '@/components/cv-exempel-shared/CvPreviewShell'
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data'
 
@@ -221,6 +222,8 @@ export default function CVExempelPage({
         {/* Final CTA */}
         <FinalCTA variant="cv" yrke={data.yrke} ctaHref={`/cv-mallar/start?yrke=${slug}`} />
       </main>
+
+      <ExempelKlient kind="cv" slug={slug} />
 
       <StickyMobileCTA
         cluster="cv"
