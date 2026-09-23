@@ -1,0 +1,12 @@
+{
+  "token": "f19f7f8c-1912-4bce-87ed-f0fb315ee51f",
+  "level": 3,
+  "levelLabel": "Godkänt",
+  "summary": "Initiativet är tydligt beskrivet, men vi får inte veta vad handlingen ledde till.",
+  "works": "Du beskriver situationen på lagret på ett mycket konkret sätt och visar prov på eget initiativ när du tar fram statistik och presenterar ett lösningsförslag för chefen.",
+  "missing": "Du avslutar precis när det blir som mest intressant och berättar inte om chefen godkände förslaget, hur det implementerades eller vilket resultat det faktiskt gav för verksamheten.",
+  "lockedPointCount": 4,
+  "improvedLineCount": 8,
+  "missingKind": "resultatet",
+  "expiresAt": "2026-09-30T19:53:08.316778+00:00"
+}

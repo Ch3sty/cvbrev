@@ -1,0 +1,305 @@
+[
+  {
+    "id": "bra-1",
+    "fraga": "styrkor",
+    "langd": 649,
+    "forvantat": "4 till 5",
+    "utfall": 5,
+    "levelLabel": "Övertygande",
+    "summary": "Styrkan bevisas med tydliga siffror och svagheten har en konkret handlingsplan.",
+    "works": "Du ger ett utmärkt exempel på din styrka med konkreta resultat i procent från din tid på Dagab. Din svaghet är genuin och du beskriver pedagogiskt hur du hanterar den i vardagen genom tydliga avstämningar.",
+    "missing": "Det enda som saknas för att göra svaret ännu starkare är en tydligare koppling till hur dessa egenskaper blir en tillgång i just den roll du söker nu.",
+    "missingKind": "kopplingen",
+    "punkter": [
+      {
+        "title": "Koppla till den sökta rollen",
+        "text": "Du har ett mycket starkt svar med tydliga bevis. För att lyfta det till absolut högsta nivå bör du avsluta med att knyta an till den aktuella tjänsten och förklara hur din förmåga att strukturera kaos kommer till nytta hos oss."
+      },
+      {
+        "title": "Behåll de exakta siffrorna",
+        "text": "Siffrorna om plockfelen som gick från två till 0,6 procent är svarets största styrka. Se till att leverera dessa med självförtroende i rummet då de ger direkt trovärdighet."
+      },
+      {
+        "title": "Betona din personliga utveckling",
+        "text": "När du pratar om din svaghet visar du på stor självinsikt. Fortsätt att hålla fokus på verktyget du använder för att hantera det, då det visar att du är coachbar och lösningsorienterad."
+      },
+      {
+        "title": "Håll ett lugnt tempo",
+        "text": "Eftersom ditt svar innehåller mycket konkret information och siffror är det viktigt att du talar i ett lugnt tempo. Låt rekryteraren hinna anteckna de fina resultaten du refererar till."
+      }
+    ],
+    "improvedAnswer": "En styrka jag har är att jag får ordning på kaos. När jag började som lagerplanerare på Dagab i Jönköping låg plockfelen på runt två procent. Jag gick igenom ett halvårs avvikelser, såg att hälften kom från två hyllsektioner med liknande artikelnummer och ritade om platserna. Efter tre månader var vi nere på 0,6 procent. Den strukturen och problemlösningsförmågan vill jag bidra med även i den här rollen. Min svaghet är att jag har svårt att släppa detaljer när jag delegerar. Jag märkte det när en kollega tog över inventeringen och jag kontrollerade allt hon gjorde. Nu bestämmer vi i förväg vilka två saker jag följer upp, och resten släpper jag. Det har gjort att hon tar mer eget ansvar, och jag har fått tid till planeringen, vilket gör att jag kan fokusera på rätt saker framöver.",
+    "improvedWhy": "En kort mening lades till som kopplar styrkan direkt till den sökta rollen, vilket gör det redan starka svaret helt komplett.",
+    "ms": 4202,
+    "promptTokens": 1454,
+    "completionTokens": 657,
+    "costUsd": 0.008094
+  },
+  {
+    "id": "bra-2",
+    "fraga": "star",
+    "langd": 655,
+    "forvantat": "4 till 5",
+    "utfall": 5,
+    "levelLabel": "Övertygande",
+    "summary": "Initiativet visas med tydliga siffror och ett konkret resultat för verksamheten.",
+    "works": "Du beskriver problemet med tydliga siffror och visar exakt vad du själv gjorde för att lösa det. Kopplingen mellan din analys av statistiken och det faktiska resultatet är mycket stark.",
+    "missing": "Det enda som kan förbättras är att förtydliga din specifika roll i receptionen och varför just du hade mandatet att driva denna förändring.",
+    "missingKind": "kopplingen",
+    "punkter": [
+      {
+        "title": "Situation",
+        "text": "Du sätter en tydlig ram direkt genom att nämna arbetsplatsen och det konkreta problemet med 40 minuters väntetid. Detta ger oss en bra förståelse för utgångsläget och problemets omfattning."
+      },
+      {
+        "title": "Uppgift",
+        "text": "Det framgår tydligt att ingen ägde frågan och att du tog eget initiativ. Du kan förstärka detta ytterligare genom att kort nämna om detta låg utanför dina ordinarie arbetsuppgifter."
+      },
+      {
+        "title": "Handling",
+        "text": "Du beskriver dina steg i jag-form, från att föra statistik till att skapa instruktioner och förankra idén hos chefen. Det visar på en strukturerad problemlösningsförmåga och god samarbetsförmåga."
+      },
+      {
+        "title": "Resultat",
+        "text": "Resultatet är exemplariskt med konkreta och mätbara siffror på hur väntetiden och klagomålen minskade. Lärdomen du avslutar med knyter ihop säcken på ett mycket professionellt sätt."
+      }
+    ],
+    "improvedAnswer": "På min förra arbetsplats, en vårdcentral i Umeå, hade telefonkön varit ett problem i över ett år. Patienter fick vänta i 40 minuter och alla klagade, men ingen hade det formella ansvaret för att lösa det. Jag jobbade i receptionen och som medicinsk sekreterare, och kände att detta påverkade hela vår arbetsmiljö, så jag bestämde mig för att ta tag i det. Jag förde statistik i två veckor och såg att 30 procent av samtalen gällde receptförnyelser som egentligen kunde skötas digitalt. Jag tog fram en kort instruktion för hur patienterna kunde göra detta själva, fick verksamhetschefen att godkänna ett nytt val i telefonmenyn och visade mina kollegor hur det nya flödet fungerade. Efter två månader hade väntetiden gått ner till 15 minuter och antalet klagomål halverats. Jag lärde mig att det lönar sig att mäta och analysera data innan man föreslår en förändring, vilket är något jag tar med mig till denna roll.",
+    "improvedWhy": "Jag förtydligade din yrkesroll och varför du tog initiativet, samt förstärkte kopplingen till den sökta tjänsten i slutklämmen.",
+    "ms": 4816,
+    "promptTokens": 1465,
+    "completionTokens": 755,
+    "costUsd": 0.008993
+  },
+  {
+    "id": "medel-1",
+    "fraga": "styrkor",
+    "langd": 245,
+    "forvantat": "3",
+    "utfall": 3,
+    "levelLabel": "Godkänt",
+    "summary": "Styrkan har ett bevis, men svagheten stannar vid en bekännelse.",
+    "works": "Du lyfter fram din struktur på ett bra sätt genom att nämna att du hanterade tre projekt samtidigt utan att missa några deadlines.",
+    "missing": "Du behöver beskriva en konkret plan för hur du hanterar din svårighet att delegera samt ge ett exempel på hur detta visar sig i arbetet.",
+    "missingKind": "planen",
+    "punkter": [
+      {
+        "title": "Utveckla beviset för din styrka",
+        "text": "Du nämner att du hanterade tre projekt samtidigt, vilket är bra. Förklara kortfattat hur din struktur såg ut i praktiken, till exempel om du använde något specifikt planeringsverktyg eller metodik för att lyckas."
+      },
+      {
+        "title": "Ge ett exempel på svagheten",
+        "text": "Beskriv en specifik situation där din ovilja att delegera ledde till en utmaning för dig eller teamet. Det gör svagheten mer konkret och trovärdig för oss som rekryterar."
+      },
+      {
+        "title": "Presentera en aktiv handlingsplan",
+        "text": "Det absolut viktigaste är att visa hur du arbetar med din svaghet idag. Berätta vad du gör rent praktiskt för att utmana dig själv att släppa på kontrollen och lita på dina kollegor."
+      },
+      {
+        "title": "Koppla till den sökta rollen",
+        "text": "Avsluta med att kort förklara hur din struktur kommer att hjälpa oss i den här specifika rollen, och hur du kommer att hantera delegering i vårt team."
+      }
+    ],
+    "improvedAnswer": "En av mina främsta styrkor är att jag är väldigt strukturerad. På mitt förra jobb som [yrkesroll] hade jag ansvar för tre projekt samtidigt, och tack vare att jag satte upp tydliga veckoplaner och milstolpar lyckades vi hålla samtliga deadlines. Min svaghet är att jag ibland kan ha svårt att delegera eftersom jag har ett starkt kontrollbehov och vill säkerställa att allt blir rätt. Det märktes till exempel under [en situation där du tog på dig för mycket]. För att hantera detta har jag börjat arbeta mer aktivt med [din plan, till exempel att sätta upp korta avstämningar i stället för att göra allt själv]. Det har hjälpt mig att lita mer på mina kollegor och frigöra tid till mina egna prioriterade uppgifter.",
+    "improvedWhy": "Svaret kompletterades med en konkret situation där svagheten visade sig samt en tydlig handlingsplan för hur svagheten hanteras i vardagen.",
+    "ms": 3752,
+    "promptTokens": 1337,
+    "completionTokens": 678,
+    "costUsd": 0.008108
+  },
+  {
+    "id": "medel-2",
+    "fraga": "star",
+    "langd": 384,
+    "forvantat": "3",
+    "utfall": 3,
+    "levelLabel": "Godkänt",
+    "summary": "Initiativet är tydligt beskrivet men vi får inte veta vad förändringen faktiskt gav.",
+    "works": "Du beskriver situationen på lagret på ett konkret sätt och visar prov på eget initiativ när du tog fram statistik och föreslog en lösning för lagerchefen.",
+    "missing": "Det saknas ett tydligt resultat med siffror eller tidsbesparing som visar effekten av ditt nya arbetssätt samt en kort lärdom.",
+    "missingKind": "resultatet",
+    "punkter": [
+      {
+        "title": "Situation",
+        "text": "Du sätter snabbt upp ramen för problemet på lagret. Det är bra att du förklarar hur plocklistorna skapade onödigt arbete och att ingen annan tog tag i det."
+      },
+      {
+        "title": "Uppgift",
+        "text": "Det framgår att du tog på dig uppgiften självmant. Förtydliga gärna varför du kände att det var ditt ansvar att agera, till exempel för att effektivisera din egen och gruppens vardag."
+      },
+      {
+        "title": "Handling",
+        "text": "Du beskriver dina steg med att ta fram statistik och prata med chefen. Förstärk din egen roll här genom att betona hur du lade upp argumenten och hur du praktiskt gick tillväga för att genomföra sorteringen."
+      },
+      {
+        "title": "Resultat",
+        "text": "Detta är den svagaste delen i ditt svar. Du behöver avsluta med att berätta hur mycket tid ni sparade, hur plockrundorna effektiviserades i procent eller minuter, samt vad du lärde dig av att driva igenom förändringen."
+      }
+    ],
+    "improvedAnswer": "På mitt förra jobb på ett lager hade vi under flera veckor problem med att plocklistorna kom i fel ordning, vilket gjorde att vi gick fram och tillbaka i onödan och förlorade mycket tid. Ingen ägde frågan, så jag bestämde mig för att ta tag i det. Jag tog fram statistik på hur lång tid en plockrunda tog och föreslog för lagerchefen att vi skulle sortera listorna efter gång i stället för efter ordernummer. Han tyckte det var en bra idé och gav mig förtroendet att testa detta. Efter att vi började sortera listorna efter mitt system minskade vi tidsåtgången för varje plockrunda med [antal] minuter, vilket motsvarade en effektivisering på [antal] procent för hela teamet. Det lärde mig att det alltid lönar sig att lyfta blicken och föreslå konkreta förbättringar baserat på data.",
+    "improvedWhy": "Jag lade till ett konkret, mätbart resultat och en avslutande lärdom för att ge svaret en fullständig STAR-struktur.",
+    "ms": 3802,
+    "promptTokens": 1374,
+    "completionTokens": 690,
+    "costUsd": 0.008271
+  },
+  {
+    "id": "medel-3",
+    "fraga": "styrkor",
+    "langd": 333,
+    "forvantat": "2 till 3",
+    "utfall": 3,
+    "levelLabel": "Godkänt",
+    "summary": "Styrkan har en bra grund men svagheten saknar ett konkret exempel.",
+    "works": "Du kopplar din sociala förmåga till din fyraåriga erfarenhet från butiksarbete vilket ger en bra grundläggande trovärdighet. Det är också positivt att du har en metod med listor för att hantera din stress.",
+    "missing": "Du behöver ge ett konkret exempel på en situation där din stress har märkts och hur du använde din metod för att lösa det.",
+    "missingKind": "exemplet",
+    "punkter": [
+      {
+        "title": "Förankra styrkan i en situation",
+        "text": "Du nämner att du är social och flexibel under dina fyra år i butik. Välj ut en specifik händelse där din flexibilitet eller samarbetsförmåga faktiskt räddade situationen för att göra det mer minnesvärt."
+      },
+      {
+        "title": "Ge svagheten ett konkret exempel",
+        "text": "Att bli stressad är mänskligt, men utan ett exempel blir det svårt för oss att bedöma hur det påverkar ditt arbete. Berätta om en specifik situation där det blev mycket att göra och hur du reagerade."
+      },
+      {
+        "title": "Utveckla planen för din svaghet",
+        "text": "Du nämner att du gör listor och tar en sak i taget. Beskriv mer ingående hur detta hjälper dig i stunden och hur det förändrar ditt arbetssätt så att stressen inte påverkar resultatet."
+      },
+      {
+        "title": "Koppla till den sökta rollen",
+        "text": "Avsluta med att kort förklara hur du tar med dig dessa lärdomar och arbetssätt till den roll du söker hos oss idag."
+      }
+    ],
+    "improvedAnswer": "Jag skulle säga att min främsta styrka är min samarbetsförmåga och flexibilitet, vilket jag har utvecklat under mina fyra år i butik. Till exempel [en situation där du ställde upp eller löste ett problem med kort varsel], vilket gjorde att vi klarade dagens försäljningsmål. En svaghet är att jag kan bli stressad när arbetsbelastningen blir väldigt hög under korta stunder. Det märktes till exempel under [en specifik situation där det blev stressigt]. För att hantera detta har jag utvecklat en metod där jag aktivt stannar upp, gör en snabb prioriteringslista och fokuserar på en sak i taget. Det gör att jag behåller lugnet och kan slutföra mina uppgifter med hög kvalitet även under press.",
+    "improvedWhy": "Svaret har kompletterats med platshållare för konkreta exempel för både styrkan och svagheten, samtidigt som hanteringen av svagheten har gjorts mer handlingskraftig.",
+    "ms": 3537,
+    "promptTokens": 1362,
+    "completionTokens": 601,
+    "costUsd": 0.007452
+  },
+  {
+    "id": "medel-4",
+    "fraga": "star",
+    "langd": 360,
+    "forvantat": "3",
+    "utfall": 3,
+    "levelLabel": "Godkänt",
+    "summary": "Handlingen försvinner i ett gemensamt vi och det konkreta resultatet saknas.",
+    "works": "Du identifierar ett tydligt vardagsproblem med dubbelbokade mötesrum som många kan relatera till och beskriver situationen på ett enkelt sätt.",
+    "missing": "Du beskriver lösningen som ett gemensamt lagarbete i vi-form vilket gör att din personliga insats och ditt initiativ helt suddas ut.",
+    "missingKind": "jag-formen",
+    "punkter": [
+      {
+        "title": "Situation",
+        "text": "Du sätter snabbt ramarna för problemet med dubbelbokade mötesrum. Förtydliga gärna kortfattat hur detta påverkade arbetet på kontoret för att höja insatsen i din berättelse."
+      },
+      {
+        "title": "Uppgift",
+        "text": "Det framgår inte varför just du tog tag i detta eller hur initiativet väcktes. Beskriv hur du tog det första steget för att lyfta frågan på mötet när ingen annan agerade."
+      },
+      {
+        "title": "Handling",
+        "text": "Du använder vi-form när du beskriver hur systemet sattes upp och informationen skickades ut. Vi behöver höra exakt vad du gjorde, vilka delar du ansvarade för och hur du drev processen framåt."
+      },
+      {
+        "title": "Resultat",
+        "text": "Resultatet att det blev mycket bättre är för allmänt hållet. Beskriv utfallet mer konkret, till exempel hur snabbt problemet löstes eller hur mycket tid kontoret sparade på det nya systemet."
+      }
+    ],
+    "improvedAnswer": "Vi hade ett stort problem på kontoret med att våra mötesrum ständigt dubbelbokades, vilket skapade daglig irritation och sena mötesstarter. Eftersom ingen tog tag i det lyfte jag frågan på vårt veckomöte och föreslog att vi skulle strukturera om hela bokningssystemet i Outlook. Jag tog på mig ansvaret att leda förändringen. Jag satte upp de nya digitala kalendrarna, konfigurerade behörigheterna och skapade en enkel lathund för hur rummen skulle bokas. Därefter höll jag i en kort genomgång för hela teamet och skickade ut instruktionerna. Efter min insats löste vi problemet helt och dubbelbokningarna minskade till [siffra/noll] redan första veckan, vilket sparade oss både tid och frustration.",
+    "improvedWhy": "Svaret har skrivits om till jag-form för att lyfta fram ditt personliga initiativ och din konkreta handling, samtidigt som resultatet har gjorts mer mätbart.",
+    "ms": 3863,
+    "promptTokens": 1364,
+    "completionTokens": 578,
+    "costUsd": 0.007248
+  },
+  {
+    "id": "dalig-1",
+    "fraga": "styrkor",
+    "langd": 311,
+    "forvantat": "1 till 2",
+    "utfall": 2,
+    "levelLabel": "Tunt",
+    "summary": "Styrkorna radas upp utan bevis och svagheten är en klassisk klyscha utan plan.",
+    "works": "Du lyckas nämna flera positiva egenskaper och visar en vilja att leverera goda resultat i ditt arbete.",
+    "missing": "Du behöver ge konkreta exempel som bevisar dina styrkor och byta ut klyschan mot en verklig svaghet med en tillhörande handlingsplan.",
+    "missingKind": "exemplet",
+    "punkter": [
+      {
+        "title": "Välj ut en specifik styrka",
+        "text": "Istället för att rada upp fem olika egenskaper bör du välja ut en eller max två styrkor som är direkt relevanta för tjänsten du söker. Det blir lättare för oss att komma ihåg och tro på det du säger om du fokuserar ditt svar."
+      },
+      {
+        "title": "Bevisa styrkan med ett exempel",
+        "text": "Berätta om en specifik situation i ditt arbetsliv där du använde din valda styrka. Beskriv vad du gjorde och vad det ledde till för resultat, gärna med något mätbart."
+      },
+      {
+        "title": "Byt ut din svaghet",
+        "text": "Att beskriva sig själv som perfektionist som jobbar för hårt uppfattas ofta som ett försök att dölja sina faktiska utvecklingsområden. Välj en verklig, mindre kritisk svaghet som du faktiskt kämpar med i arbetsvardagen."
+      },
+      {
+        "title": "Presentera en konkret plan",
+        "text": "Visa på självinsikt genom att förklara hur du aktivt arbetar för att hantera din svaghet. Berätta om de verktyg, metoder eller strategier du använder för att svagheten inte ska påverka ditt arbete negativt."
+      }
+    ],
+    "improvedAnswer": "Min främsta styrka är att jag är väldigt noggrann och strukturerad. I min roll som [tidigare yrkesroll] visade det sig till exempel när jag [en situation där du organiserade eller kvalitetssäkrade något], vilket ledde till att [resultatet]. När det gäller mina utvecklingsområden så har jag ibland svårt att [en verklig svaghet, till exempel delegera uppgifter eller tala inför stora grupper]. Jag är medveten om detta och arbetar aktivt på det genom att [din konkreta plan, till exempel använda ett digitalt planeringsverktyg eller ta små steg i taget], vilket har gjort att det fungerar mycket bättre i vardagen.",
+    "improvedWhy": "Svaret har rensats från klyschor och tomma ord till förmån för en tydlig struktur med plats för konkreta exempel och en verklig handlingsplan.",
+    "ms": 4701,
+    "promptTokens": 1361,
+    "completionTokens": 670,
+    "costUsd": 0.008072
+  },
+  {
+    "id": "dalig-2",
+    "fraga": "star",
+    "langd": 288,
+    "forvantat": "1 till 2",
+    "utfall": 2,
+    "levelLabel": "Tunt",
+    "summary": "Påståenden om din initiativförmåga saknar en verklig situation som bevisar egenskaperna.",
+    "works": "Du visar en positiv inställning till att ta ansvar och lyfter fram att du har fått god feedback från tidigare chefer för din initiativförmåga.",
+    "missing": "Du behöver ge ett konkret exempel från ditt arbetsliv som beskriver en specifik situation, vad du gjorde och vad resultatet blev.",
+    "missingKind": "exemplet",
+    "punkter": [
+      {
+        "title": "Situation",
+        "text": "Inled med att beskriva ett specifikt tillfälle på en tidigare arbetsplats där ett problem uppstod som ingen annan tog tag i. Beskriv kortfattat sammanhanget så att vi förstår bakgrunden och allvaret i problemet."
+      },
+      {
+        "title": "Uppgift",
+        "text": "Förklara varför det blev just ditt ansvar att agera eller varför du valde att kliva fram. Det hjälper oss att förstå din drivkraft och din förmåga att se verksamhetens behov."
+      },
+      {
+        "title": "Handling",
+        "text": "Beskriv i detalj och i jag-form vad du faktiskt gjorde för att lösa problemet. Berätta om dina tankegångar, vilka steg du tog och hur du övervann eventuella hinder på vägen."
+      },
+      {
+        "title": "Resultat",
+        "text": "Avsluta med att berätta vad ditt agerande ledde till för verksamheten. Sätt gärna ord på effekten, till exempel sparad tid, nöjdare kunder eller förbättrat samarbete, och vad du lärde dig av händelsen."
+      }
+    ],
+    "improvedAnswer": "Jag är en person som gärna tar initiativ när jag ser att något behöver lösas. Ett exempel på detta var på min tidigare arbetsplats [arbetsplats] när vi drabbades av [beskriv problemet kort]. Eftersom ingen annan tog tag i det eftersom det låg mellan olika avdelningars ansvarsområden, bestämde jag mig för att agera. Jag började med att [beskriv ditt första steg], och sedan [beskriv ditt nästa steg] för att hitta en långsiktig lösning. Genom att jag tog detta initiativ lyckades vi [beskriv det positiva resultatet eller effekten], vilket ledde till att [beskriv följden, till exempel sparad tid eller nöjdare kunder]. Det visade mig hur viktigt det är att våga kliva fram även när spelreglerna är otydliga.",
+    "improvedWhy": "Svaret har strukturerats om enligt STAR-metoden och förvandlats från allmänna påståenden till en konkret mall som belyser en specifik situation, din personliga handling och det faktiska resultatet.",
+    "ms": 4585,
+    "promptTokens": 1342,
+    "completionTokens": 690,
+    "costUsd": 0.008223
+  },
+  {
+    "id": "irrelevant",
+    "fraga": "star",
+    "langd": 258,
+    "forvantat": "relevant=false (422)",
+    "utfall": "irrelevant",
+    "ms": 1186
+  },
+  {
+    "id": "for-kort",
+    "fraga": "styrkor",
+    "langd": 79,
+    "forvantat": "400 too_short, inget modellanrop",
+    "utfall": "too_short"
+  }
+]
