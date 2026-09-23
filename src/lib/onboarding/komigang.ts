@@ -11,6 +11,7 @@
 
 import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { paketNamnForScope } from '@/lib/plans/plans'
 
 /** Brickornas nycklar. Speglar nycklarna i profiles.onboarding_steps. */
 export type BrickaKey =
@@ -67,11 +68,9 @@ export function listaFor(paket: Paket): readonly BrickaKey[] {
   return KOM_IGANG_LISTA[paket ?? 'gratis']
 }
 
-/** Rubriken: "Kom igång med CV-veckan". Gratis får bara "Kom igång". */
+/** Rubriken: "Kom igång med CV-paketet". Gratis får bara "Kom igång". */
 export function komIgangRubrik(paket: Paket): string {
-  if (paket === 'cv') return 'Kom igång med CV-veckan'
-  if (paket === 'tester') return 'Kom igång med Testveckan'
-  if (paket === 'allt') return 'Kom igång med Allt'
+  if (paket) return `Kom igång med ${paketNamnForScope(paket)}`
   return 'Kom igång'
 }
 
@@ -341,13 +340,7 @@ export const KOM_IGANG = {
   nastaEtikett: 'Föreslaget nästa',
   /** Arkets sista rad under den öppnade brickan (sektion 4, vänster). */
   ingarI: (paket: Paket) =>
-    paket === 'cv'
-      ? 'Ingår i CV-veckan, utan tak'
-      : paket === 'tester'
-        ? 'Ingår i Testveckan, utan tak'
-        : paket === 'allt'
-          ? 'Ingår i Allt, utan tak'
-          : 'Ingår i gratisnivån',
+    paket ? `Ingår i ${paketNamnForScope(paket)}, utan tak` : 'Ingår i gratisnivån',
 } as const
 
 /* -------------------------------------------- välkomstskärmen, sektion 1 */
@@ -365,14 +358,14 @@ export interface Valkommen {
 export function valkommen(paket: Exclude<Paket, null>): Valkommen {
   if (paket === 'tester') {
     return {
-      topp: 'Testveckan',
-      rubrik: 'Du har Testveckan. Alla nivåer är öppna.',
+      topp: paketNamnForScope('tester'),
+      rubrik: `Du har ${paketNamnForScope('tester')}. Alla nivåer är öppna.`,
       ingress:
         'Matrislogik, verbalt, numeriskt och personlighet, provläge mot klockan och förklaring på varje fråga. Vi föreslår att du börjar med grundnivån i matrislogik, den vanligaste typen i urvalstest.',
       steg: [
         'Matrislogik, grundnivå. Cirka 20 minuter, förklaring efter varje fråga.',
         'Gå vidare till avancerad nivå, eller prova verbalt och numeriskt.',
-        'När du är varm: provläge mot klockan, och personlighetstestet med tolkning.',
+        'När du är varm: provläge mot klockan, och det fördjupade personlighetstestet.',
       ],
       primar: 'Börja med matrislogik',
       primarHref: '/dashboard/tester/matrislogik-grund',
@@ -381,14 +374,14 @@ export function valkommen(paket: Exclude<Paket, null>): Valkommen {
   }
   if (paket === 'allt') {
     return {
-      topp: 'Allt',
-      rubrik: 'Du har Allt. Hela jobbsöket är öppet.',
+      topp: paketNamnForScope('allt'),
+      rubrik: `Du har ${paketNamnForScope('allt')}. Hela jobbsöket är öppet.`,
       ingress:
-        'CV, personliga brev, alla tester, jobbmatchning, jobbcoachen och Bli upptäckt. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
+        'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
       steg: [
         'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
         'Kör jobbmatchningen på det uppdaterade CV:t och se jobb du inte hittat själv.',
-        'Gör dig synlig för rekryterare, skriv brev från träffarna, träna tester, fråga coachen.',
+        'Gör dig synlig för rekryterare, skriv personliga brev från träffarna, träna tester, fråga Jobbcoachen.',
       ],
       primar: 'Ladda upp CV:t',
       primarHref: '/dashboard/profil/cv',
@@ -396,8 +389,8 @@ export function valkommen(paket: Exclude<Paket, null>): Valkommen {
     }
   }
   return {
-    topp: 'CV-veckan',
-    rubrik: 'Du har CV-veckan. Allt är öppet nu.',
+    topp: paketNamnForScope('cv'),
+    rubrik: `Du har ${paketNamnForScope('cv')}. Allt är öppet nu.`,
     ingress: `Hela CV-analysen, ${TEMPLATE_COUNT} mallar, personliga brev och LinkedIn-profilen, i vilken ordning du vill. Vi föreslår att du börjar med CV:t, för allt annat bygger på det.`,
     steg: [
       'Ladda upp CV:t, PDF eller Word. En minut.',
@@ -419,7 +412,7 @@ export function valkommenMedCv(
 ): Pick<Valkommen, 'rubrik' | 'ingress' | 'primar' | 'primarHref' | 'sekundar'> & {
   cvRad: string
 } {
-  const namn = paket === 'allt' ? 'Allt' : 'CV-veckan'
+  const namn = paketNamnForScope(paket)
   const delar = [
     uppladdat ? `Uppladdat ${uppladdat}.` : null,
     typeof poang === 'number' ? `Poäng ${poang} med gratisnivån.` : null,

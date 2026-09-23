@@ -86,9 +86,9 @@ describe('läget', () => {
   })
 
   it('rubriken följer paketet', () => {
-    expect(komIgangRubrik('cv')).toBe('Kom igång med CV-veckan')
-    expect(komIgangRubrik('tester')).toBe('Kom igång med Testveckan')
-    expect(komIgangRubrik('allt')).toBe('Kom igång med Allt')
+    expect(komIgangRubrik('cv')).toBe('Kom igång med CV-paketet')
+    expect(komIgangRubrik('tester')).toBe('Kom igång med Träningspaketet')
+    expect(komIgangRubrik('allt')).toBe('Kom igång med Hela paketet')
     expect(komIgangRubrik(null)).toBe('Kom igång')
   })
 })
@@ -149,12 +149,12 @@ describe('välkomstskärmen', () => {
     expect(valkommen('cv').primar).toBe('Ladda upp CV:t')
     expect(valkommen('tester').primar).toBe('Börja med matrislogik')
     expect(valkommen('allt').steg).toHaveLength(3)
-    expect(valkommen('cv').rubrik).toBe('Du har CV-veckan. Allt är öppet nu.')
+    expect(valkommen('cv').rubrik).toBe('Du har CV-paketet. Allt är öppet nu.')
   })
 
   it('den som redan har ett CV får analysen som första steg', () => {
     const v = valkommenMedCv('cv', 'Anna_CV.pdf', '14 september', 61)
-    expect(v.rubrik).toBe('Du har CV-veckan. Och ett CV redan.')
+    expect(v.rubrik).toBe('Du har CV-paketet. Och ett CV redan.')
     expect(v.primar).toBe('Kör hela CV-analysen')
     expect(v.cvRad).toBe('Uppladdat 14 september. Poäng 61 med gratisnivån.')
   })
@@ -173,7 +173,7 @@ describe('menyn', () => {
 
   it('huvudet säger paketet, förnyelsen och priset ur prislistan', () => {
     const h = menyHuvud({ ...bas, scope: 'tester', planKey: 'test_week' })
-    expect(h.rubrik).toBe('Du har Testveckan')
+    expect(h.rubrik).toBe('Du har Träningspaketet')
     expect(h.under).toBe(`Förnyas 29 september, ${PLAN_BY_KEY.test_week.amount} kr`)
     expect(menyHuvud({ ...bas, scope: null, planKey: null }).rubrik).toBe('Du är på gratisnivån')
   })
@@ -181,11 +181,11 @@ describe('menyn', () => {
   it('underraderna följer scopet, aldrig hårdkodade tal', () => {
     const tester = { ...bas, scope: 'tester' as const, planKey: 'test_week' as const }
     expect(menyRad('mallar', tester).text).toBe('3 mallar, en nedladdning')
-    expect(menyRad('brev', tester).text).toBe('Ett brev i veckan att läsa')
+    expect(menyRad('brev', tester).text).toBe('Ett personligt brev i veckan att läsa')
     expect(menyRad('matchning', tester).text).toBe('Tre träffar per natt')
     expect(menyRad('coach', tester).text).toBe('7 av 10 meddelanden kvar')
-    expect(menyRad('linkedin', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i CV-veckan och Allt.' })
-    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i Allt.' })
+    expect(menyRad('linkedin', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i CV-paketet och Hela paketet.' })
+    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i Hela paketet.' })
     expect(menyRad('sokta', tester).text).toBe('Alltid gratis')
 
     const allt = { ...bas, scope: 'allt' as const, planKey: 'all_week' as const, chatLimit: null }
@@ -197,8 +197,8 @@ describe('menyn', () => {
   it('mellanskillnaden räknas ur prislistan', () => {
     expect(mellanskillnadKr('cv_week')).toBe(PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY.cv_week.amount)
     expect(mellanskillnadKr('all_week')).toBeNull()
-    expect(ellerAlltKnapp('test_week')).toBe('Eller Allt för 20 kr till i veckan')
-    expect(graEtikettTest('cv')).toBe('Testveckan 79 kr, eller Allt')
-    expect(graEtikettTest(null)).toBe('Testveckan 79 kr')
+    expect(ellerAlltKnapp('test_week')).toBe('Eller Hela paketet för 20 kr till i veckan')
+    expect(graEtikettTest('cv')).toBe('Träningspaketet, 79 kr i veckan, eller Hela paketet')
+    expect(graEtikettTest(null)).toBe('Träningspaketet, 79 kr i veckan')
   })
 })

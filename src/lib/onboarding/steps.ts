@@ -26,7 +26,7 @@ export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
 
 /**
  * "Kommit igång" per spår, avsnitt 6. Tre steg, alla tre krävs, mätt inom
- * 24 timmar från köp (12 timmar för Allt-dagen).
+ * 24 timmar från köp (12 timmar för Dagspasset).
  */
 export const REQUIRED_STEPS_BY_TRACK: Record<Track, readonly string[]> = {
   cv: ['upload_cv', 'analyze_cv', 'download_cv_template'],

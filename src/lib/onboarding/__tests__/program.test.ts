@@ -24,7 +24,7 @@ describe('paketen', () => {
     }
   })
 
-  it('bara Allt-dagen är engångs, och bara spåren har en ingår inte-rad', () => {
+  it('bara Dagspasset är engångs, och bara spåren har en ingår inte-rad', () => {
     expect(PAKET.all_day.engangs).toBe(true)
     expect(PAKET.all_week.engangs).toBeUndefined()
     expect(PAKET.cv_week.ingarInte).toBeTruthy()
@@ -64,13 +64,13 @@ describe('kassans lagkravsrader', () => {
 describe('fel spår i taket', () => {
   it('raden säger vad paketet ger, inte vad det saknar', () => {
     const rad = felSparRad('tester')
-    expect(rad).toContain('Du har Testveckan')
+    expect(rad).toContain('Du har Träningspaketet')
     expect(rad).not.toMatch(/ingår inte|saknas|låst/i)
   })
 
-  it('kortet pekar på Allt-veckan för båda spåren', () => {
-    expect(felSparText('tester')).toContain('Allt-veckan')
-    expect(felSparText('cv')).toContain('Allt-veckan')
+  it('kortet pekar på Hela paketet för båda spåren', () => {
+    expect(felSparText('tester')).toContain('Hela paketet')
+    expect(felSparText('cv')).toContain('Hela paketet')
   })
 
   it('prisraden visar mellanskillnaden, aldrig hela paketpriset', () => {

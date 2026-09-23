@@ -11,7 +11,7 @@
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
-import { PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketNamn as planNamn, paketNamnForScope, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 
 /** Samma form som summary.paket i /api/dashboard/summary. */
@@ -35,11 +35,10 @@ function storForst(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-/** Namnet i menyn: spåren i bestämd form, Allt som "Allt", dagen som "Allt-dagen". */
+/** Namnet i menyn, ur PLANS via plans.ts. Utan paket: "gratisnivån". */
 export function paketNamn(planKey: PlanKey | null): string {
   if (!planKey) return 'gratisnivån'
-  if (planKey === 'cv_week' || planKey === 'test_week' || planKey === 'all_day') return PLAN_BY_KEY[planKey].name
-  return 'Allt'
+  return planNamn(planKey)
 }
 
 function svensktDatum(iso: string | null): string | null {
@@ -57,7 +56,7 @@ function svenskTid(iso: string | null): string | null {
 }
 
 export interface MenyHuvud {
-  /** "Du har Testveckan" */
+  /** "Du har Träningspaketet" */
   rubrik: string
   /** "Förnyas 29 september, 79 kr" */
   under: string
@@ -118,9 +117,11 @@ export interface MenyRad {
   variant?: PaywallVariant
 }
 
-/** "Ingår inte. Finns i CV-veckan och Allt." */
+/** "Ingår inte. Finns i CV-paketet och Hela paketet." */
 function ingarInte(paket: 'cv' | 'allt'): string {
-  return paket === 'cv' ? 'Ingår inte. Finns i CV-veckan och Allt.' : 'Ingår inte. Finns i Allt.'
+  return paket === 'cv'
+    ? `Ingår inte. Finns i ${paketNamnForScope('cv')} och ${paketNamnForScope('allt')}.`
+    : `Ingår inte. Finns i ${paketNamnForScope('allt')}.`
 }
 
 export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
@@ -141,9 +142,9 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
         : { text: `${FREE_TEMPLATE_COUNT} mallar, en nedladdning`, ingar: true }
     case 'brev':
     case 'skapa_brev':
-      if (scopeHasFeature(s, 'letter_download')) return { text: 'Brev utan tak, som PDF', ingar: true }
+      if (scopeHasFeature(s, 'letter_download')) return { text: 'Personliga brev utan tak, som PDF', ingar: true }
       return {
-        text: p.lettersLimit === 1 ? 'Ett brev i veckan att läsa' : `${storForst(talOrd(p.lettersLimit ?? 1))} brev i veckan att läsa`,
+        text: p.lettersLimit === 1 ? 'Ett personligt brev i veckan att läsa' : `${storForst(talOrd(p.lettersLimit ?? 1))} personliga brev i veckan att läsa`,
         ingar: true,
       }
     case 'matchning':
@@ -171,7 +172,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
   }
 }
 
-/** Mellanskillnaden i kronor mot Allt-veckan för ett spår, annars null. */
+/** Mellanskillnaden i kronor mot Hela paketet (veckan) för ett spår, annars null. */
 export function mellanskillnadKr(planKey: PlanKey | null): number | null {
   if (planKey !== 'cv_week' && planKey !== 'test_week') return null
   return Math.max(0, PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY[planKey].amount)
@@ -182,36 +183,40 @@ export function menyFot(p: PaketLage): string | null {
   const diff = mellanskillnadKr(p.planKey)
   if (diff === null) return null
   const del = p.scope === 'tester' ? 'CV-delen' : 'testerna'
-  return `Vill du ha ${del} också? Allt kostar ${diff} kr till i veckan och öppnar allt grått.`
+  return `Vill du ha ${del} också? ${paketNamnForScope('allt')} kostar ${diff} kr till i veckan och öppnar allt grått.`
 }
 
 /* ------------------------------------------ gråade vyer, sektion 3 */
 
-/** "Testveckan 79 kr, eller Allt" på testsidan, "Testveckan 79 kr" för gratis. */
+/**
+ * "Träningspaketet, 79 kr i veckan, eller Hela paketet" på testsidan,
+ * "Träningspaketet, 79 kr i veckan" för gratis.
+ */
 export function graEtikettTest(scope: Scope | null): string {
-  const pris = `${PLAN_BY_KEY.test_week.name} ${PLAN_BY_KEY.test_week.amount} kr`
-  return scope ? `${pris}, eller Allt` : pris
+  const pris = `${planNamn('test_week')}, ${prisPeriod('test_week')}`
+  return scope ? `${pris}, eller ${paketNamnForScope('allt')}` : pris
 }
 
 /**
- * Fotknapparna: "Byt till Testveckan, 79 kr" och "Eller Allt för 20 kr till i veckan".
+ * Fotknapparna: "Byt till Träningspaketet, 79 kr i veckan" och
+ * "Eller Hela paketet för 20 kr till i veckan".
  * "Byt", inte "Lägg till": spårbytet går via Stripe-portalen och ersätter
  * prenumerationen. Kassan bär aldrig två paket samtidigt (saas-lead, D2 fråga 2).
  */
 export function laggTillKnapp(plan: 'cv_week' | 'test_week'): string {
-  return `Byt till ${PLAN_BY_KEY[plan].name}, ${PLAN_BY_KEY[plan].amount} kr`
+  return `Byt till ${planNamn(plan)}, ${prisPeriod(plan)}`
 }
 export function ellerAlltKnapp(fran: PlanKey | null): string | null {
   const diff = mellanskillnadKr(fran)
-  return diff === null ? null : `Eller Allt för ${diff} kr till i veckan`
+  return diff === null ? null : `Eller ${paketNamnForScope('allt')} för ${diff} kr till i veckan`
 }
 
 /** Testsidans huvud per paket. */
 export function testHuvud(scope: Scope | null): { statusrad: string | null; rubrik: string | null; ingress: string | null } {
   if (scope === 'cv') {
     return {
-      statusrad: `Du har ${PLAN_BY_KEY.cv_week.name}`,
-      rubrik: 'Grundnivån ingår. Resten finns i Testveckan.',
+      statusrad: `Du har ${planNamn('cv_week')}`,
+      rubrik: `Grundnivån ingår. Resten finns i ${planNamn('test_week')}, ${prisPeriod('test_week')}.`,
       ingress: null,
     }
   }
@@ -219,7 +224,7 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
     return {
       statusrad: null,
       rubrik: null,
-      ingress: `Grundnivån i alla fyra typer ingår gratis, en gång per typ och dygn. Nivåerna över, provläget och personlighetstestets tolkning finns i Testveckan, ${PLAN_BY_KEY.test_week.amount} kr i veckan.`,
+      ingress: `Grundnivån i alla fyra typer ingår gratis, en gång per typ och dygn. Nivåerna över, provläget och det fördjupade personlighetstestet finns i ${planNamn('test_week')}, ${prisPeriod('test_week')}.`,
     }
   }
   return { statusrad: null, rubrik: null, ingress: null }
@@ -229,8 +234,8 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
 export function mallHuvud(scope: Scope | null): { statusrad: string; rubrik: string; not: string } | null {
   if (scopeHasFeature(scope, 'cv_templates_all')) return null
   return {
-    statusrad: scope === 'tester' ? `Du har ${PLAN_BY_KEY.test_week.name}` : 'Du är på gratisnivån',
-    rubrik: `${FREE_TEMPLATE_COUNT} mallar ingår. Alla ${TEMPLATE_COUNT} finns i CV-veckan.`,
+    statusrad: scope === 'tester' ? `Du har ${planNamn('test_week')}` : 'Du är på gratisnivån',
+    rubrik: `${FREE_TEMPLATE_COUNT} mallar ingår. Alla ${TEMPLATE_COUNT} finns i ${planNamn('cv_week')}, ${prisPeriod('cv_week')}.`,
     not: 'Gråa mallar går att förhandsvisa i full storlek, inte ladda ned.',
   }
 }
