@@ -282,7 +282,7 @@ function isCvRelatedArticle(tags: string[] | undefined): boolean {
 }
 
 // Funktion för att injicera CVTemplateShowcase i mitten av MDX-innehåll.
-// Bara för CV-relaterade artiklar — meningslöst på t.ex. brev- eller
+// Bara för CV-relaterade artiklar, meningslöst på t.ex. brev- eller
 // intervju-artiklar.
 function injectCVTemplateShowcase(content: string, tags: string[] | undefined): string {
     // Hoppa över för icke-CV-artiklar

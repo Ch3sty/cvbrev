@@ -21,7 +21,7 @@ export default function AuthRedirect() {
           router.push('/dashboard');
         }
       } catch {
-        // Tyst — landningssidan ska visas även om auth-checken failar
+        // Tyst: landningssidan ska visas även om auth-checken failar
       }
     };
 

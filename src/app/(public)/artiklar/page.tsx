@@ -44,7 +44,7 @@ export async function generateMetadata({
     ? `${SITE_URL}/artiklar?${canonicalQs}`
     : `${SITE_URL}/artiklar`;
 
-  // Filtrerade vyer (tag eller sida >1) noindexas — de är tunna dubbletter som
+  // Filtrerade vyer (tag eller sida >1) noindexas: de är tunna dubbletter som
   // Google annars flaggar som "duplicate without user-selected canonical" och
   // som kannibaliserar artiklarna. follow:true behålls så länkkraft flödar vidare.
   const isFiltered = Boolean(tag) || (Boolean(page) && page !== '1');

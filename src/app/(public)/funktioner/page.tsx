@@ -1,18 +1,6 @@
 import type { Metadata } from 'next';
-import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import AuthRedirect from '@/components/landing/AuthRedirect';
-import FunktionerHero from '@/components/funktioner/FunktionerHero';
-import ToolsOverview from '@/components/funktioner/ToolsOverview';
-import PersonligtBrevSection from '@/components/funktioner/PersonligtBrevSection';
-import CvAnalysSection from '@/components/funktioner/CvAnalysSection';
-import CvSkapaOchMallarSection from '@/components/funktioner/CvSkapaOchMallarSection';
-import JobMatchingShowcase from '@/components/landing/JobMatchingShowcase';
-import JobbcoachenSpotlight from '@/components/landing/JobbcoachenSpotlight';
-import TesterSection from '@/components/funktioner/TesterSection';
-import LinkedinOptimeringSection from '@/components/funktioner/LinkedinOptimeringSection';
-import ComparisonSection from '@/components/funktioner/ComparisonSection';
-import FunktionerFAQ from '@/components/funktioner/FunktionerFAQ';
-import RichFinalCTA from '@/components/landing/RichFinalCTA';
+import FunktionerSida from './FunktionerSida';
 
 export const metadata: Metadata = {
   title: 'Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai',
@@ -36,34 +24,15 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * /funktioner i linjen (docs/design/analys-visuell-linje-2026-09-22.html,
+ * avsnitt 5). Metadata och h1 oförändrade.
+ */
 export default function FunktionerPage() {
   return (
-    <GlobalCountersProvider>
-      <div className="min-h-screen bg-white">
-        <AuthRedirect />
-
-        <main>
-          <FunktionerHero />
-          <ToolsOverview />
-          <PersonligtBrevSection />
-          <CvAnalysSection />
-          <CvSkapaOchMallarSection />
-
-          <div id="jobbmatchning" className="scroll-mt-20">
-            <JobMatchingShowcase />
-          </div>
-
-          <div id="jobbcoachen" className="scroll-mt-20">
-            <JobbcoachenSpotlight />
-          </div>
-
-          <TesterSection />
-          <LinkedinOptimeringSection />
-          <ComparisonSection />
-          <FunktionerFAQ />
-          <RichFinalCTA />
-        </main>
-      </div>
-    </GlobalCountersProvider>
+    <div className="min-h-screen bg-mark">
+      <AuthRedirect />
+      <FunktionerSida />
+    </div>
   );
 }
