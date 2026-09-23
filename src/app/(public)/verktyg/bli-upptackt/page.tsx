@@ -49,7 +49,7 @@ export default function BliUpptacktSida() {
     name: 'Bli upptäckt av rekryterare på Jobbcoach.ai',
     url: 'https://www.jobbcoach.ai/verktyg/bli-upptackt',
     description:
-      'Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja, gratis att synas.',
+      `Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja. Synligheten ingår i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, eller ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden.`,
     serviceType: 'Karriärtjänst',
     areaServed: { '@type': 'Country', name: 'Sverige' },
     provider: {
@@ -59,9 +59,9 @@ export default function BliUpptacktSida() {
     },
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: String(PLAN_BY_KEY.all_week.amount),
       priceCurrency: 'SEK',
-      description: 'Gratis att synas för kandidater',
+      description: `Ingår i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, eller ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden. Profil och tester utan kostnad, synligheten kräver Allt.`,
     },
   }
 
@@ -141,7 +141,7 @@ export default function BliUpptacktSida() {
         slut={{
           eyebrow: `${PLAN_BY_KEY.all_week.name} eller ${PLAN_BY_KEY.all_month.name}`,
           rubrik: 'Redo att bli hittad i stället för att leta?',
-          text: `Skapa din profil på några minuter och gör testerna när du vill. Synligheten för rekryterare ingår i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden. Du är anonym tills du tackar ja och stänger av när du vill.`,
+          text: `Profilen och testerna gör du utan att betala. Synligheten för rekryterare ingår i Allt: ${PLAN_BY_KEY.all_week.name} för ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.name} för ${PLAN_BY_KEY.all_month.amount} kr i månaden, säg upp när du vill. Utan Allt visas profilen inte i rekryterarnas sökningar. Du är anonym tills du tackar ja och stänger av synligheten med ett klick.`,
           knapp: { text: 'Skapa min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

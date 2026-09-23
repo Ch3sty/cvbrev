@@ -17,11 +17,6 @@
         "text": "Linda Eriksson"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: vad är logiska tester?"
@@ -70,16 +65,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -92,17 +77,21 @@
       "#typerna-av-logiska-tester",
       "#vad-ar-ett-logiskt-test",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/matrislogik-test-guide",
       "/artiklar/numeriskt-test-guide",
       "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
       "/artiklar/rotation-test-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verbalt-test-guide",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=begåvningstest jobb",
@@ -113,11 +102,11 @@
       "/artiklar?tag=logiskt tänkande test",
       "/artiklar?tag=matrigma",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
-      "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester"
@@ -126,29 +115,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -184,11 +165,6 @@
         "tag": "h3",
         "id": "",
         "text": "Helena Andersson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
       },
       {
         "tag": "h2",
@@ -329,16 +305,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -353,16 +319,20 @@
       "#vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar",
       "#vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/arbetsintervju-guide",
       "/artiklar/beskriva-sig-sjalv-intervju-egenskaper",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cover-letter-sverige",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/olika-intervjutyper-tips",
       "/artiklar/personliga-egenskaper-intervju",
       "/artiklar/personliga-egenskaper-intervju",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/vanliga-intervjufragor-svar",
       "/artiklar?tag=dåliga egenskaper intervju",
       "/artiklar?tag=dåliga egenskaper lista",
@@ -375,10 +345,10 @@
       "/artiklar?tag=utvecklingsbara sidor",
       "/artiklar?tag=utvecklingsområden intervju",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
-      "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
@@ -389,29 +359,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -447,11 +409,6 @@
         "tag": "h3",
         "id": "",
         "text": "Helena Andersson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
       },
       {
         "tag": "h2",
@@ -497,16 +454,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -518,17 +465,21 @@
       "#star-steg-for-steg",
       "#vanliga-misstag-med-star-metoden",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/arbetsintervju-guide",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cover-letter-sverige",
+      "/artiklar/hur-ska-ett-cv-se-ut",
       "/artiklar/kompetensbaserade-intervjufragor",
       "/artiklar/kompetensbaserade-intervjufragor",
       "/artiklar/olika-intervjutyper-tips",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/strukturerad-intervju",
       "/artiklar/strukturerad-intervju",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/vanliga-intervjufragor-svar",
       "/artiklar?tag=beteendefrågor intervju",
       "/artiklar?tag=intervjuteknik",
@@ -540,10 +491,10 @@
       "/artiklar?tag=star teknik",
       "/artiklar?tag=star-metoden",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
-      "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
       "/verktyg/rekryteringstester"
@@ -552,29 +503,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -611,11 +554,6 @@
         "tag": "h3",
         "id": "",
         "text": "Johan Lindberg"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
       },
       {
         "tag": "h2",
@@ -661,16 +599,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -681,14 +609,18 @@
       "#sa-skriver-du-ett-motivationsbrev-steg-for-steg",
       "#vanliga-misstag-i-motivationsbrev",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
       "/artiklar/hur-skriver-man-ett-personligt-brev",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-utbildning",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=motivationsbrev",
       "/artiklar?tag=motivationsbrev exempel",
@@ -697,7 +629,7 @@
       "/artiklar?tag=motiveringsbrev",
       "/artiklar?tag=statement of purpose",
       "/priser",
-      "/skapa-brev/start",
+      "/priser",
       "/skapa-brev/start",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -710,29 +642,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -768,11 +692,6 @@
         "tag": "h3",
         "id": "",
         "text": "Helena Andersson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
       },
       {
         "tag": "h2",
@@ -848,16 +767,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -867,15 +776,19 @@
       "#vad-ar-en-kompetensbaserad-intervju",
       "#vanliga-misstag-i-kompetensbaserade-intervjuer",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/arbetsintervju-guide",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
       "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/strukturerad-intervju",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/styrkor-svagheter-intervju",
       "/artiklar?tag=beteendefrågor intervju",
       "/artiklar?tag=intervjufrågor",
@@ -885,10 +798,10 @@
       "/artiklar?tag=kompetensbaserade intervjufrågor",
       "/artiklar?tag=sbr metoden",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
-      "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
@@ -898,29 +811,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1011,11 +916,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1028,14 +928,18 @@
       "#varfor-du-inte-ska-sluta-trana-och-umgas-nar-du-borjar-nytt",
       "#varfor-ett-nytt-jobb-vacker-angest",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/angest-jobbet-dags-att-byta",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/byta-jobb-praktiska-tips",
       "/artiklar/hitta-ratt-karriarvag",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/vaga-byta-jobb",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=byta jobb nervös",
@@ -1047,9 +951,13 @@
       "/artiklar?tag=ångest inför nytt jobb",
       "/artiklar?tag=ångest över nytt jobb",
       "/priser",
+      "/priser",
+      "/rakna-ut/lon-efter-skatt",
+      "/rakna-ut/uppsagningstid",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
       "/verktyg/rekryteringstester"
     ],
@@ -1057,29 +965,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1155,11 +1055,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1170,15 +1065,19 @@
       "#stanna-eller-byta-sa-avgor-du",
       "#vad-ett-jobbyte-gor-med-lonen",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/byta-jobb-praktiska-tips",
       "/artiklar/byta-jobb-praktiska-tips",
       "/artiklar/byta-karriar-jobbsokande-guide",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/saga-upp-sig",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/vaga-byta-jobb",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=byta jobb karriär",
@@ -1189,11 +1088,15 @@
       "/artiklar?tag=hur ofta ska man byta jobb",
       "/artiklar?tag=jobbhoppare",
       "/priser",
+      "/priser",
+      "/rakna-ut/lon-efter-skatt",
       "/rakna-ut/lon-efter-skatt",
       "/rakna-ut/loneforhandling",
+      "/rakna-ut/uppsagningstid",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
       "/verktyg/rekryteringstester"
     ],
@@ -1201,29 +1104,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1261,11 +1156,6 @@
         "text": "Helena Andersson"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: vad riskerar den som ljuger i CV:t?"
@@ -1296,11 +1186,6 @@
         "text": "Gränsen: marknadsföring är tillåtet, fakta är heliga"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Mallar som ökar dina chanser att få jobbet"
-      },
-      {
         "tag": "h2",
         "id": "de-arliga-alternativen-till-de-vanligaste-lognerna",
         "text": "De ärliga alternativen till de vanligaste lögnerna"
@@ -1309,16 +1194,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1329,19 +1204,23 @@
       "#sa-vanligt-ar-det-och-det-ar-darfor-kontrollerna-finns",
       "#straffratten-nar-cv-fusket-blir-ett-brott",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
       "/artiklar/arbetslivserfarenhet-cv",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-utan-erfarenhet",
       "/artiklar/handlingsord-cv",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/nyckelord-i-cv",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/provanstallning",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/sprak-i-cv",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/utbildning-i-cv",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=avsked cv-lögn",
@@ -1351,14 +1230,10 @@
       "/artiklar?tag=ljuga på cv",
       "/artiklar?tag=urkundsförfalskning cv",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-analys",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
@@ -1370,29 +1245,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1428,11 +1295,6 @@
         "tag": "h3",
         "id": "",
         "text": "Johan Lindberg"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
       },
       {
         "tag": "h2",
@@ -1473,16 +1335,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1493,16 +1345,20 @@
       "#vad-butikskedjorna-sjalva-sager-att-de-soker",
       "#vanliga-misstag-i-butiksansokningar",
       "/",
-      "/",
       "/artiklar",
       "/artiklar",
-      "/artiklar",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-utan-erfarenhet",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/personligt-brev-avslutning-exempel",
       "/artiklar/personligt-brev-exempel-generella",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
       "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/soka-jobb-via-mail",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar?tag=jobba i butik",
       "/artiklar?tag=personligt brev butik",
       "/artiklar?tag=personligt brev exempel",
@@ -1513,7 +1369,7 @@
       "/personligt-brev-exempel/butiksbitrade",
       "/personligt-brev-exempel/butikssaljare",
       "/priser",
-      "/skapa-brev/start",
+      "/priser",
       "/skapa-brev/start",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -1526,29 +1382,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1589,11 +1437,6 @@
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: hur klarar man ett rotationstest?"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
       },
       {
         "tag": "h2",
@@ -1649,16 +1492,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1673,17 +1506,21 @@
       "#vanliga-uppgiftstyper-du-kan-mota",
       "#vilka-yrken-kraver-spatial-formaga",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetsintervju-guide",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/matrislogik-test-guide",
       "/artiklar/numeriskt-test-guide",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
       "/artiklar/rekryteringstester-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verbalt-test-guide",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=figurtest rekrytering",
@@ -1694,11 +1531,11 @@
       "/artiklar?tag=spatial förmåga test",
       "/artiklar?tag=spatialt test",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
-      "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
@@ -1710,29 +1547,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1813,11 +1642,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -1829,15 +1653,19 @@
       "#sa-begar-du-tjanstgoringsbetyg-med-fardig-formulering",
       "#tva-dokument-tva-helt-olika-jobb",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/referenser-cv",
       "/artiklar/rekommendationsbrev-exempel-mall",
       "/artiklar/rekommendationsbrev-exempel-mall",
       "/artiklar/saga-upp-sig",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=arbetsbetyg",
       "/artiklar?tag=arbetsgivarintyg",
@@ -1847,9 +1675,13 @@
       "/artiklar?tag=tjänstgöringsbetyg mall",
       "/artiklar?tag=tjänstgöringsintyg",
       "/priser",
+      "/priser",
+      "/rakna-ut/lon-efter-skatt",
+      "/rakna-ut/uppsagningstid",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
       "/verktyg/rekryteringstester"
     ],
@@ -1857,29 +1689,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -1915,11 +1739,6 @@
         "tag": "h3",
         "id": "",
         "text": "Linda Eriksson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
       },
       {
         "tag": "h2",
@@ -1980,16 +1799,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2004,14 +1813,18 @@
       "#var-fallorna-sitter",
       "#vem-moter-numeriska-test-och-i-vilka-roller",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetsintervju-guide",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=numerical reasoning svenska",
       "/artiklar?tag=numeriska tester",
@@ -2021,11 +1834,11 @@
       "/artiklar?tag=siffertest rekrytering",
       "/artiklar?tag=tabelltest",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
-      "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
@@ -2036,29 +1849,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2099,11 +1904,6 @@
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: hur funkar ett personlighetstest vid jobbansökan?"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
       },
       {
         "tag": "h2",
@@ -2154,16 +1954,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Gör testet innan arbetsgivaren gör det"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2177,16 +1967,20 @@
       "#vanliga-personlighetstest-i-svensk-rekrytering",
       "#varfor-du-ska-svara-arligt",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetsintervju-guide",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/nervos-infor-intervju-tips",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/rekryteringstester-guide",
       "/artiklar/rekryteringstester-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=big five test",
       "/artiklar?tag=disc test jobb",
@@ -2196,11 +1990,11 @@
       "/artiklar?tag=personlighetstest jobb",
       "/artiklar?tag=personlighetstest rekrytering",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
-      "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
       "/verktyg/rekryteringstester",
@@ -2213,29 +2007,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2272,11 +2058,6 @@
         "tag": "h3",
         "id": "",
         "text": "Helena Andersson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
       },
       {
         "tag": "h2",
@@ -2337,16 +2118,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna svaret innan du sitter i rummet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2361,17 +2132,21 @@
       "#vilka-egenskaper-passar-olika-yrken",
       "#visa-pasta-inte-den-enda-regel-som-spelar-roll",
       "/",
-      "/",
       "/artiklar",
       "/artiklar",
-      "/artiklar",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/personliga-egenskaper-intervju",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-struktur-innehall",
       "/artiklar/personligt-brev-struktur-innehall",
       "/artiklar/skillnad-cv-personligt-brev",
       "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/skriva-personligt-brev-med-ai",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/tips-pa-personligt-brev",
       "/artiklar/vad-ska-finnas-med-i-personligt-brev",
       "/artiklar/vanliga-misstag-personligt-brev",
@@ -2387,12 +2162,12 @@
       "/cv-exempel",
       "/personligt-brev-exempel",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-analys",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
-      "/verktyg/jobbcoachen",
       "/verktyg/jobbcoachen",
       "/verktyg/jobbmatchning",
       "/verktyg/personligt-brev",
@@ -2402,29 +2177,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2460,11 +2227,6 @@
         "tag": "h3",
         "id": "",
         "text": "Johan Lindberg"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
       },
       {
         "tag": "h2",
@@ -2520,16 +2282,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2542,14 +2294,18 @@
       "#uppfoljning-sa-paminner-du-utan-att-tjata",
       "#vanliga-misstag-som-sanker-mejlansokan",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-mall-pdf-gratis",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-spontanansokan",
       "/artiklar/rubrik-for-personligt-brev",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/uppfoljning-efter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=intresseanmälan jobb",
@@ -2574,29 +2330,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2634,11 +2382,6 @@
         "text": "Helena Andersson"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: hur gör jag mitt CV ATS-vänligt?"
@@ -2664,11 +2407,6 @@
         "text": "Formatet: så bygger du ett CV som systemen läser felfritt"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Mallar som ökar dina chanser att få jobbet"
-      },
-      {
         "tag": "h2",
         "id": "innehallet-konkret-slar-vagt-i-systemet-och-hos-manniskan",
         "text": "Innehållet: konkret slår vagt, i systemet och hos människan"
@@ -2682,16 +2420,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2702,17 +2430,21 @@
       "#testa-innan-du-skickar",
       "#vad-ett-ats-ar-och-vad-det-faktiskt-gor",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/ai-rekrytering-sverige",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/handlingsord-cv",
       "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/nyckelord-i-cv",
       "/artiklar/nyckelord-i-cv",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=applicant tracking system",
       "/artiklar?tag=ats",
@@ -2723,15 +2455,11 @@
       "/artiklar?tag=rekryteringssystem",
       "/artiklar?tag=teamtailor cv",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
       "/verktyg/cv-analys",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
+      "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
@@ -2741,29 +2469,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2800,11 +2520,6 @@
         "tag": "h3",
         "id": "",
         "text": "Johan Lindberg"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
       },
       {
         "tag": "h2",
@@ -2865,16 +2580,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -2889,17 +2594,21 @@
       "#sa-anvander-du-exemplen",
       "#se-avslutningen-i-sitt-sammanhang",
       "/",
-      "/",
       "/artiklar",
       "/artiklar",
-      "/artiklar",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/byta-karriar-jobbsokande-guide",
       "/artiklar/hur-avslutar-man-personligt-brev",
       "/artiklar/hur-avslutar-man-personligt-brev",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/personligt-brev-butik",
       "/artiklar/personligt-brev-butik",
       "/artiklar/personligt-brev-exempel-generella",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar?tag=ansökningsbrev avslutning",
       "/artiklar?tag=avsluta personligt brev exempel",
       "/artiklar?tag=avslutning exempel",
@@ -2910,7 +2619,7 @@
       "/personligt-brev-exempel/underskoterska",
       "/personligt-brev-exempel/vardbitrade",
       "/priser",
-      "/skapa-brev/start",
+      "/priser",
       "/skapa-brev/start",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -2923,29 +2632,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -2981,11 +2682,6 @@
         "tag": "h3",
         "id": "",
         "text": "Johan Lindberg"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
       },
       {
         "tag": "h2",
@@ -3026,16 +2722,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -3046,14 +2732,18 @@
       "#vad-folkhogskolan-vill-veta-de-fyra-fragorna",
       "#vanliga-misstag-i-folkhogskoleansokan",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/motivationsbrev-exempel",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-utbildning",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=allmän kurs folkhögskola",
       "/artiklar?tag=folkhögskola ansökan",
@@ -3062,7 +2752,7 @@
       "/artiklar?tag=profilkurs",
       "/artiklar?tag=söka folkhögskola",
       "/priser",
-      "/skapa-brev/start",
+      "/priser",
       "/skapa-brev/start",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -3075,29 +2765,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -3134,11 +2816,6 @@
         "tag": "h3",
         "id": "",
         "text": "Helena Andersson"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
       },
       {
         "tag": "h2",
@@ -3209,16 +2886,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Skriv ditt brev på fem minuter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -3235,16 +2902,20 @@
       "#vad-heter-cv-och-personligt-brev-pa-engelska",
       "#vanliga-misstag-svenskar-gor",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-pa-engelska-resume",
       "/artiklar/cv-pa-engelska-resume",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-guide",
       "/artiklar/skriva-personligt-brev-med-ai",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=cover letter exempel",
       "/artiklar?tag=cover letter svenska",
@@ -3261,7 +2932,7 @@
       "/artiklar?tag=vad är cover letter",
       "/personligt-brev-exempel",
       "/priser",
-      "/skapa-brev/start",
+      "/priser",
       "/skapa-brev/start",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -3274,29 +2945,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -3336,11 +2999,6 @@
         "text": "Helena Andersson"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: hur skriver man CV utan erfarenhet?"
@@ -3376,11 +3034,6 @@
         "text": "Profil-exempel för olika situationer"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Mallar som ökar dina chanser att få jobbet"
-      },
-      {
         "tag": "h2",
         "id": "vanliga-misstag-i-student-cvt",
         "text": "Vanliga misstag i student-CV:t"
@@ -3409,16 +3062,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -3434,17 +3077,21 @@
       "#vad-rekryteraren-faktiskt-letar-efter-hos-en-junior",
       "#vanliga-misstag-i-student-cvt",
       "/",
-      "/",
-      "/artiklar",
       "/artiklar",
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-exempel-yrken",
       "/artiklar/cv-utan-erfarenhet",
       "/artiklar/cv-utan-erfarenhet",
       "/artiklar/fardigheter-kompetenser-cv",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/personligt-brev-utan-erfarenhet",
       "/artiklar/skriva-cv-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?tag=cv exempel nyexaminerad",
       "/artiklar?tag=cv exempel sommarjobb",
@@ -3455,13 +3102,9 @@
       "/artiklar?tag=nyexad cv",
       "/artiklar?tag=student cv",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
@@ -3472,29 +3115,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -3528,7 +3163,7 @@
     "rubriker": [
       {
         "tag": "h2",
-        "id": "",
+        "id": "start-matchning",
         "text": "Vi matchar din erfarenhet mot tjänstens krav"
       },
       {
@@ -3537,39 +3172,9 @@
         "text": "Robotarna har redan läst ditt CV."
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "AI-rekrytering klassad som högriskverksamhet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Knepen som gör att du inte sorteras bort"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Så tar du dig förbi robotarna"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Intervjuad av en robot"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Optimera CV:t och brevet för det system som faktiskt läser dem."
-      },
-      {
         "tag": "h2",
-        "id": "",
-        "text": "Sex verktyg som arbetar tillsammans"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Personliga brev"
+        "id": "start-verktyg",
+        "text": "Tre verktyg som gör ansökan starkare"
       },
       {
         "tag": "h3",
@@ -3584,67 +3189,17 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Jobbcoachen"
-      },
-      {
-        "tag": "h3",
-        "id": "",
         "text": "Rekryteringstester"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "LinkedIn-optimering"
+        "tag": "h2",
+        "id": "start-mer",
+        "text": "Och resten av jobbsöket"
       },
       {
         "tag": "h2",
-        "id": "",
-        "text": "En coach som har läst ditt CV"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Vi hittar tjänster du själv aldrig hade sökt"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Två verktyg, en sammanhängande ansökan"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "ATS-säkra mallar för svenska rekryterare"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skräddarsytt för varje jobbannons"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna på samma tester som rekryterarna använder"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Matrislogik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Verbal förmåga"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Numerisk förmåga"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "En vecka som bär hela jobbsöket."
+        "id": "priser-paket",
+        "text": "Tre paket. Välj det som matchar var du är."
       },
       {
         "tag": "h3",
@@ -3663,61 +3218,48 @@
       },
       {
         "tag": "h2",
-        "id": "",
+        "id": "start-faq",
         "text": "Svaren på det du undrar"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Allt du behöver för att landa nästa jobb"
       }
     ],
     "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "#sa-jobbar-vi",
       "/cv-exempel",
-      "/cv-exempel",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/personligt-brev-exempel",
-      "/personligt-brev-exempel",
       "/personligt-brev-exempel",
       "/priser",
       "/priser",
-      "/priser",
-      "/register",
-      "/register"
+      "/skapa-brev/start",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -3728,10 +3270,7 @@
       "/verktyg/skapa-cv"
     ],
     "jsonLd": [],
-    "forstaBild": {
-      "src": "/mallar/norrsken.svg",
-      "alt": "Norrsken CV-mall"
-    }
+    "forstaBild": null
   },
   {
     "path": "/artiklar",
@@ -3776,11 +3315,6 @@
         "text": "CV-format: kronologiskt, funktionellt eller hybrid? Så väljer du rätt"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Allt du behöver för din jobbsökning"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Datorkunskaper i CV:t: så listar du dem så de betyder något"
@@ -3794,41 +3328,6 @@
         "tag": "h2",
         "id": "",
         "text": "Handlingsord i CV:t: 120 aktiva verb som lyfter dina meriter"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Hittade du inte vad du sökte?"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Professionella CV-mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Djupgående CV-analys"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Personliga brev som konverterar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Smart jobbmatchning"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Kompetensgap-analys"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Karriärinsikter"
       }
     ],
     "lankar": [
@@ -3837,29 +3336,20 @@
       "/artiklar",
       "/artiklar/ai-jobbmatchning",
       "/artiklar/ai-jobbmatchning",
-      "/artiklar/ai-jobbmatchning",
-      "/artiklar/arbetslivserfarenhet-cv",
       "/artiklar/arbetslivserfarenhet-cv",
       "/artiklar/arbetslivserfarenhet-cv",
       "/artiklar/ats-vanligt-cv",
       "/artiklar/ats-vanligt-cv",
-      "/artiklar/ats-vanligt-cv",
-      "/artiklar/bli-hittad-av-rekryterare",
       "/artiklar/bli-hittad-av-rekryterare",
       "/artiklar/bli-hittad-av-rekryterare",
       "/artiklar/cv-format-kronologiskt-funktionellt",
       "/artiklar/cv-format-kronologiskt-funktionellt",
-      "/artiklar/cv-format-kronologiskt-funktionellt",
-      "/artiklar/datorkunskaper-cv",
       "/artiklar/datorkunskaper-cv",
       "/artiklar/datorkunskaper-cv",
       "/artiklar/europass-cv",
       "/artiklar/europass-cv",
-      "/artiklar/europass-cv",
       "/artiklar/handlingsord-cv",
       "/artiklar/handlingsord-cv",
-      "/artiklar/handlingsord-cv",
-      "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar/verifierade-testresultat-vs-cv",
       "/artiklar?page=16",
@@ -3894,37 +3384,30 @@
       "/artiklar?tag=rekryteringstester",
       "/artiklar?tag=skriva%20personligt%20brev",
       "/artiklar?tag=verifierade%20testresultat",
-      "/login?signup=true",
-      "/register",
+      "/priser",
+      "/priser",
+      "/verktyg/cv-mallar",
       "/verktyg/cv-mallar"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -3938,7 +3421,10 @@
       "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2}]}",
       "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Vår samling av karriärguider, CV-tips och artiklar för att lyckas med jobbsökningen.\",\"inLanguage\":\"sv-SE\",\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"Verifierade testresultat vs CV-påståenden: vad rekryteraren faktiskt kan lita på\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/artiklar/verifierade-testresultat-vs-cv\"},{\"@type\":\"ListItem\",\"name\":\"AI-jobbmatchning: så fungerar det när jobben hittar dig i stället\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},{\"@type\":\"ListItem\",\"name\":\"Arbetslivserfarenhet i CV:t: så beskriver du dina jobb så de säljer\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/artiklar/arbetslivserfarenhet-cv\"},{\"@type\":\"ListItem\",\"name\":\"ATS-vänligt CV: så fungerar rekryteringssystemen och så klarar du dem\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/artiklar/ats-vanligt-cv\"},{\"@type\":\"ListItem\",\"name\":\"Bli hittad av rekryterare: så vänder du på hela jobbsökandet\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/artiklar/bli-hittad-av-rekryterare\"},{\"@type\":\"ListItem\",\"name\":\"CV-format: kronologiskt, funktionellt eller hybrid? Så väljer du rätt\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/artiklar/cv-format-kronologiskt-funktionellt\"},{\"@type\":\"ListItem\",\"name\":\"Datorkunskaper i CV:t: så listar du dem så de betyder något\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/artiklar/datorkunskaper-cv\"},{\"@type\":\"ListItem\",\"name\":\"Europass CV: vad det är, när det är rätt val och när du ska låta bli\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/artiklar/europass-cv\"},{\"@type\":\"ListItem\",\"name\":\"Handlingsord i CV:t: 120 aktiva verb som lyfter dina meriter\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/artiklar/handlingsord-cv\"}]},\"name\":\"Karriärbiblioteket — alla artiklar\",\"url\":\"https://www.jobbcoach.ai/artiklar\"}"
     ],
-    "forstaBild": null
+    "forstaBild": {
+      "src": "/images/artiklar/verifierade-testresultat-vs-cv.webp",
+      "alt": "Verifierade testresultat vs CV-påståenden: vad rekryteraren faktiskt kan lita på"
+    }
   },
   {
     "path": "/artiklar?tag=cv",
@@ -3971,41 +3457,6 @@
         "tag": "h2",
         "id": "",
         "text": "Skriva personligt brev med AI: den ultimata guiden (2026)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Hittade du inte vad du sökte?"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Professionella CV-mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Djupgående CV-analys"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Personliga brev som konverterar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Smart jobbmatchning"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Kompetensgap-analys"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Karriärinsikter"
       }
     ],
     "lankar": [
@@ -4013,14 +3464,10 @@
       "/artiklar",
       "/artiklar/meritforteckning-eller-cv",
       "/artiklar/meritforteckning-eller-cv",
-      "/artiklar/meritforteckning-eller-cv",
-      "/artiklar/skillnad-cv-personligt-brev",
       "/artiklar/skillnad-cv-personligt-brev",
       "/artiklar/skillnad-cv-personligt-brev",
       "/artiklar/skriva-cv-guide",
       "/artiklar/skriva-cv-guide",
-      "/artiklar/skriva-cv-guide",
-      "/artiklar/skriva-personligt-brev-med-ai",
       "/artiklar/skriva-personligt-brev-med-ai",
       "/artiklar/skriva-personligt-brev-med-ai",
       "/artiklar?tag=Skriva%20personligt%20brev%20med%20AI",
@@ -4041,36 +3488,28 @@
       "/artiklar?tag=skriva%20cv",
       "/artiklar?tag=skriva%20personligt%20brev",
       "/artiklar?tag=vad%20%C3%A4r%20skillnaden%20mellan%20personligt%20brev%20och%20cv",
-      "/register",
+      "/priser",
       "/verktyg/cv-mallar"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -4084,7 +3523,10 @@
       "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar?tag=cv\",\"name\":\"cv\",\"position\":3}]}",
       "{\"@context\":\"https://schema.org\",\"@type\":\"CollectionPage\",\"description\":\"Samling av artiklar om cv.\",\"inLanguage\":\"sv-SE\",\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"mainEntity\":{\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"Meritförteckning eller CV: vad är skillnaden och när används vilken?\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/artiklar/meritforteckning-eller-cv\"},{\"@type\":\"ListItem\",\"name\":\"Skriva CV: Den Kompletta Guiden till ett Vinnande CV\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/artiklar/skriva-cv-guide\"},{\"@type\":\"ListItem\",\"name\":\"Skillnaden mellan personligt brev och cv (förklaring & tips)\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/artiklar/skillnad-cv-personligt-brev\"},{\"@type\":\"ListItem\",\"name\":\"Skriva personligt brev med AI: den ultimata guiden (2026)\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/artiklar/skriva-personligt-brev-med-ai\"}]},\"name\":\"Artiklar om cv\",\"url\":\"https://www.jobbcoach.ai/artiklar?tag=cv\"}"
     ],
-    "forstaBild": null
+    "forstaBild": {
+      "src": "/images/artiklar/meritforteckning-eller-cv.webp",
+      "alt": "Meritförteckning eller CV: vad är skillnaden och när används vilken?"
+    }
   },
   {
     "path": "/funktioner",
@@ -4099,183 +3541,112 @@
     "robots": "",
     "rubriker": [
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Personligt brev"
+        "tag": "h2",
+        "id": "brev-rubrik",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h2",
+        "id": "cv-analys-rubrik",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h2",
+        "id": "cv-skapa-mallar-rubrik",
+        "text": "Ett CV som både systemet och rekryteraren läser"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "CV-analys"
+        "text": "Bygg CV:t steg för steg"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Skapa CV"
+        "text": "41 mallar, 3 gratis"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "CV-mallar"
+        "text": "Foto och LinkedIn där mallen stöder det"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Jobbmatchning"
+        "text": "Ladda ner som PDF"
       },
       {
-        "tag": "h3",
+        "tag": "h2",
+        "id": "tester-rubrik",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobben hittar dig, och du går förberedd in i intervjun."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h2",
         "id": "",
         "text": "Jobbcoachen"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Rekryteringstester"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "LinkedIn-optimering"
+        "tag": "h2",
+        "id": "linkedin-rubrik",
+        "text": "Bli hittad på LinkedIn"
       },
       {
         "tag": "h2",
-        "id": "",
-        "text": "Brev som matchar annonsen, från ditt CV"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "En analys som faktiskt säger något"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Lägg till mätbara resultat"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Förbättra profiltexten"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Optimera erfarenhetsbeskrivningar"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg ditt CV. Välj en mall."
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Vi hittar tjänster du själv aldrig hade sökt"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "En coach som har läst ditt CV"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Träna på samma tester som rekryterarna använder"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Matrislogik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Verbal förmåga"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Numerisk förmåga"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Profilen som faktiskt hittas"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Vad ingår på respektive nivå"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Det du undrar om verktygen"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Allt du behöver för att landa nästa jobb"
+        "id": "funktioner-faq",
+        "text": "Vanliga frågor"
       }
     ],
     "lankar": [
       "#brev",
-      "#brev",
-      "#cv-analys",
       "#cv-analys",
       "#cv-skapa-mallar",
-      "#cv-skapa-mallar",
-      "#cv-skapa-mallar",
-      "#cv-skapa-mallar",
-      "#jobbcoachen",
       "#jobbcoachen",
       "#jobbmatchning",
-      "#jobbmatchning",
       "#linkedin",
-      "#linkedin",
-      "#tester",
       "#tester",
       "/cv-exempel",
       "/dashboard/cv-mallar",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
-      "/login?signup=true",
       "/personligt-brev-exempel",
       "/priser",
       "/priser",
-      "/register"
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -4286,10 +3657,7 @@
       "/verktyg/skapa-cv"
     ],
     "jsonLd": [],
-    "forstaBild": {
-      "src": "/mallar/norrsken.svg",
-      "alt": "Norrsken CV-mall"
-    }
+    "forstaBild": null
   },
   {
     "path": "/om-oss",
@@ -4305,7 +3673,7 @@
     "rubriker": [
       {
         "tag": "h2",
-        "id": "",
+        "id": "om-berattelse",
         "text": "Från cvbrev.se till Jobbcoach.ai"
       },
       {
@@ -4326,12 +3694,12 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Plattform med fler verktyg"
+        "text": "En plattform med fler verktyg"
       },
       {
         "tag": "h2",
-        "id": "",
-        "text": "Tre saker vi alltid håller fast vid"
+        "id": "om-loften",
+        "text": "Tre saker vi lovar"
       },
       {
         "tag": "h3",
@@ -4351,98 +3719,33 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Så hjälper plattformen dig"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skapa starka ansökningar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Hitta jobben som passar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Få svar när du behöver dem"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Träna på rekryteringstester"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Optimera din LinkedIn"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Anpassat för svensk arbetsmarknad"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Svenska källor"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "GDPR från grunden"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Svensk ton"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Snabba uppdateringar"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Redo att börja eller har en fråga?"
+        "text": "Saknar du något, eller har du en fråga?"
       }
     ],
     "lankar": [
       "#vart-team",
       "/",
-      "/funktioner",
-      "/funktioner",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -4549,36 +3852,27 @@
     "lankar": [
       "#funktioner",
       "#gratis",
-      "#guide",
-      "/registrera"
+      "#guide"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -4614,7 +3908,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Fyra steg från upplagt CV till starkare ansökan"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -4634,17 +3928,17 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Spara den nya versionen"
+        "text": "Spara den förbättrade versionen"
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "Sex kategorier. Inget undgår oss."
+        "text": "Sex saker rekryteraren och systemet ser först"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "ATS-kompatibilitet"
+        "text": "Läsbarhet för rekryteringssystem"
       },
       {
         "tag": "h3",
@@ -4674,12 +3968,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "En analys räcker oftast för att se skillnaden"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Fem regler som höjer din ATS-poäng"
+        "text": "Fem saker som lyfter vilket CV som helst"
       },
       {
         "tag": "h3",
@@ -4709,16 +3998,15 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Det du undrar om CV-analysen"
+        "text": "Hela analysen, varje fynd med åtgärd."
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "Få din ATS-poäng på 60 sekunder."
+        "text": "Frågor om CV-analysen"
       }
     ],
     "lankar": [
-      "#mini-analys",
       "#mini-analys",
       "#mini-analys",
       "#mini-analys",
@@ -4731,29 +4019,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -4785,7 +4065,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Fyra steg från val till färdig PDF"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -4800,7 +4080,7 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Vi flyttar in datan"
+        "text": "Vi flyttar in innehållet"
       },
       {
         "tag": "h3",
@@ -4810,222 +4090,12 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Alla våra mallar. På ett ställe."
+        "text": "Mer än en snygg layout"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Norrsken"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Aurora"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Atlas"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Galleri"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Pedagog"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Aspekt"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Klinik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skymning"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Disk"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Logistik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Verkstad"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Myndighet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Konto"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Disk Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Logistik Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Verkstad Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Myndighet Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Konto Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Norrsken Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Tidlös Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Stack Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Hantverkare Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Student Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Sidopanel Plus"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Hantverkare"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Forskare"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Servering"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Linje"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Spektrum"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Kvist"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Magasin"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Karta"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Avtryck"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Sidopanel"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Editorial"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Tidlös"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Konsulten"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Stack"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Bold"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Student"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Vården"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Mer än bara en snygg layout"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "ATS-säkra mallar"
+        "text": "Byggda för rekryteringssystem"
       },
       {
         "tag": "h3",
@@ -5035,12 +4105,12 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Fotosupport där det passar"
+        "text": "Profilbild där det passar"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "LinkedIn-integration"
+        "text": "LinkedIn synligt i sidhuvudet"
       },
       {
         "tag": "h3",
@@ -5050,102 +4120,49 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Funkar på mobil"
+        "text": "Fungerar i mobilen"
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "En bra mall är skillnaden mellan tom skärm och intervju"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Det du undrar om CV-mallarna"
+        "text": "Alla våra mallar. På ett ställe."
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Välj din mall och bygg ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det du undrar om CV-mallarna"
       }
     ],
     "lankar": [
       "#mall-galleri",
       "/",
       "/cv-exempel",
-      "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -5162,7 +4179,7 @@
     ],
     "forstaBild": {
       "src": "/mallar/norrsken.svg",
-      "alt": "Norrsken"
+      "alt": "Mallen Norrsken"
     }
   },
   {
@@ -5180,7 +4197,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Sju enkla steg till färdigt CV"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -5210,17 +4227,17 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "ATS-säkra mallar"
+        "text": "Mallar som rekryteringssystemen kan läsa"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Live-preview medan du skriver"
+        "text": "Förhandsvisning medan du skriver"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Auto-save i bakgrunden"
+        "text": "Sparas automatiskt"
       },
       {
         "tag": "h3",
@@ -5230,17 +4247,17 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Importera från LinkedIn"
+        "text": "Hämta uppgifterna från LinkedIn"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Funkar lika bra på mobilen"
+        "text": "Fungerar lika bra i mobilen"
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "Designer som passar din bransch"
+        "text": "Mallar som passar din bransch"
       },
       {
         "tag": "h3",
@@ -5263,27 +4280,35 @@
         "text": "Tio minuters arbete som gör skillnad i månader"
       },
       {
-        "tag": "h2",
+        "tag": "h3",
         "id": "",
-        "text": "Vanliga frågor om att skapa CV"
+        "text": "10 minuter till färdigt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsbart för systemen i alla mallar"
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Skapa ditt CV gratis på minuter."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om att skapa CV"
       }
     ],
     "lankar": [
       "/",
       "/cv-exempel",
       "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar"
     ],
@@ -5291,29 +4316,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -5328,10 +4345,7 @@
       "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val till färdig PDF: välj mall, fyll i sju enkla steg, vi sätter ihop, ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så skapar du ett CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj en mall\",\"position\":1,\"text\":\"Bläddra bland modern, traditionell och kreativ stil. Du kan byta mall efteråt utan att förlora din data.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i sju enkla steg\",\"position\":2,\"text\":\"Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och språk. Allt sparas automatiskt.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi sätter ihop CV:t\",\"position\":3,\"text\":\"Allt landar automatiskt på rätt plats i mallen. Live-preview visar slutresultatet medan du skriver.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda ner som PDF eller Word\",\"position\":4,\"text\":\"När du är nöjd exporterar du ditt CV. Sparas i ditt konto för senare redigering.\"}],\"totalTime\":\"PT10M\"}",
       "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Skapa CV gratis online med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.\",\"featureList\":\"Sju-stegs CV-byggare, live-preview, ATS-säkra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly\",\"name\":\"Jobbcoach.ai CV-byggare\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Skapa CV helt gratis, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/skapa-cv\"}"
     ],
-    "forstaBild": {
-      "src": "/mallar/norrsken.svg",
-      "alt": "Norrsken-mall"
-    }
+    "forstaBild": null
   },
   {
     "path": "/verktyg/personligt-brev",
@@ -5348,7 +4362,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Fyra steg från tomt pappertill färdig ansökan"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -5373,7 +4387,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Sju mallar. En för varje bransch."
+        "text": "7 mallar, en för varje bransch"
       },
       {
         "tag": "h3",
@@ -5413,11 +4427,6 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "När brevet svarar mot kravenhar rekryteraren en anledning att ringa"
-      },
-      {
-        "tag": "h2",
-        "id": "",
         "text": "Fem regler som höjer svarsfrekvensen"
       },
       {
@@ -5433,7 +4442,7 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Håll det under en sida"
+        "text": "Håll brevet under en sida"
       },
       {
         "tag": "h3",
@@ -5443,55 +4452,63 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Tre stycken räcker"
+        "text": "Skriv tre stycken"
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "Det du undrar om brevverktyget"
+        "text": "När brevet svarar mot kraven har rekryteraren en anledning att ringa"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ett brev gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "PDF och Word"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "79 kr för hela veckan"
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Ditt nästa brev tar tre minuter, inte tre timmar."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det du undrar om brevverktyget"
       }
     ],
     "lankar": [
       "#sa-funkar-det",
       "/",
-      "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -5523,7 +4540,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Så hittar du jobb på fyra steg"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -5543,7 +4560,7 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Du får jobb sorterade efter relevans"
+        "text": "Du får jobben sorterade"
       },
       {
         "tag": "h2",
@@ -5583,7 +4600,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Sex anledningar att låta oss hjälpa dig hitta jobbet"
+        "text": "Sex skäl att låta oss söka åt dig"
       },
       {
         "tag": "h3",
@@ -5593,7 +4610,7 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Matchnings-procent per annons"
+        "text": "Matchning i procent per annons"
       },
       {
         "tag": "h3",
@@ -5603,71 +4620,54 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Filtrera på distans"
+        "text": "Avstånd du väljer själv"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Uppdaterat dagligen"
+        "text": "Uppdaterat varje dag"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Sortering på relevans"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Det är så jobbsök borde funka"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Vanliga frågor om att söka jobb"
+        "text": "Bäst träff överst"
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Hitta ditt nästa jobb automatiskt."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om att söka jobb"
       }
     ],
     "lankar": [
       "#sa-funkar-det",
       "/",
       "/cv-exempel",
-      "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -5699,7 +4699,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Så funkar Karriärguiden"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -5724,7 +4724,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Sex områden vi kan hjälpa dig med"
+        "text": "Sex områden vi hjälper dig med"
       },
       {
         "tag": "h3",
@@ -5762,58 +4762,71 @@
         "text": "Verifierad svensk arbetsmarknadsdata"
       },
       {
-        "tag": "h2",
+        "tag": "h3",
         "id": "",
-        "text": "Det är så karriärråd borde funka"
+        "text": "Arbetsförmedlingen"
       },
       {
-        "tag": "h2",
+        "tag": "h3",
         "id": "",
-        "text": "Vanliga frågor om karriärrådgivning"
+        "text": "SCB"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fackförbund"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Försäkringskassan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CSN"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skatteverket"
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Sluta googla. Fråga någon som vet."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om karriärrådgivning"
       }
     ],
     "lankar": [
       "#sa-funkar-det",
       "#sa-funkar-det",
       "/",
-      "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -5850,32 +4863,7 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Tre testtyper, alla gratis att börja"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Matrislogik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Verbalt resonemang"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Numeriskt resonemang"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Ta reda på vad rekryteraren ser i dig"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Från första frågan till färdig rapport"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
@@ -5885,12 +4873,12 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Lös frågor i din takt"
+        "text": "Lös frågorna i din takt"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Få score och tid direkt"
+        "text": "Se resultat och tid direkt"
       },
       {
         "tag": "h3",
@@ -5930,7 +4918,57 @@
       {
         "tag": "h3",
         "id": "",
-        "text": "Tabell-tolkning"
+        "text": "Tabelltolkning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre testtyper, alla gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbalt resonemang"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriskt resonemang"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ta reda på vad rekryteraren ser i dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppenhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Noggrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Extraversion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vänlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Känslostabilitet"
       },
       {
         "tag": "h2",
@@ -5938,14 +4976,29 @@
         "text": "Träning som syns på resultatet"
       },
       {
-        "tag": "h2",
+        "tag": "h3",
         "id": "",
-        "text": "Vanliga frågor om rekryteringstester"
+        "text": "Grundnivån är gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rapport efter varje pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Testveckan tar bort taket"
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Träna nu. Kom förberedd sen."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om rekryteringstester"
       }
     ],
     "lankar": [
@@ -5953,43 +5006,27 @@
       "#testtyper",
       "/",
       "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
-      "/register",
       "/verktyg/rekryteringstester/prova"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -6341,8 +5378,7 @@
     "path": "/artiklar/cv-mall-gratis-guide",
     "status": 200,
     "h1": [
-      "CV-mall gratis: vilka funkar 2026 (och vilka du ska skippa)",
-      "Erik Lindberg"
+      "CV-mall gratis: vilka funkar 2026 (och vilka du ska skippa)"
     ],
     "title": "CV-mall gratis 2026: vilka funkar (och vilka du ska skippa)",
     "description": "Gratis CV-mall till svenska jobb 2026: vilka mallar funkar, vilka tre du ska undvika och var du laddar ner ATS-vänliga mallar utan mejl eller vattenstämpel.",
@@ -6356,11 +5392,6 @@
         "text": "Helena Andersson"
       },
       {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: var hittar jag en gratis CV-mall?"
@@ -6369,11 +5400,6 @@
         "tag": "h2",
         "id": "det-viktigaste-forst-vad-gor-en-cv-mall-bra",
         "text": "Det viktigaste först: vad gör en CV-mall bra?"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Profil"
       },
       {
         "tag": "h2",
@@ -6457,11 +5483,6 @@
       },
       {
         "tag": "h3",
-        "id": "",
-        "text": "Mallar som ökar dina chanser att få jobbet"
-      },
-      {
-        "tag": "h3",
         "id": "hur-du-formulerar-erfarenheter",
         "text": "Hur du formulerar erfarenheter"
       },
@@ -6494,16 +5515,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -6519,19 +5530,23 @@
       "#var-du-hittar-bra-mallar-gratis",
       "#varfor-words-inbyggda-cv-mallar-inte-ar-vad-de-var",
       "/",
-      "/",
       "/artiklar",
       "/artiklar",
-      "/artiklar",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/cv-mall-pdf-gratis",
       "/artiklar/cv-mall-pdf-gratis",
       "/artiklar/cv-mall-word-gratis",
       "/artiklar/cv-mall-word-gratis",
+      "/artiklar/hur-ska-ett-cv-se-ut",
       "/artiklar/hur-skriver-man-cv",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/online-cv-byggare-gratis",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/skriva-cv-guide",
       "/artiklar/skriva-cv-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar?tag=cv mall",
       "/artiklar?tag=cv mall gratis",
       "/artiklar?tag=cv mall ladda ner",
@@ -6547,12 +5562,9 @@
       "/cv-exempel",
       "/cv-exempel",
       "/priser",
+      "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
@@ -6568,29 +5580,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -6614,8 +5618,7 @@
     "path": "/artiklar/bra-cv-guide",
     "status": 200,
     "h1": [
-      "Bra CV: 12 kännetecken + exempel som inspirerar",
-      "Erik Lindberg"
+      "Bra CV: 12 kännetecken + exempel som inspirerar"
     ],
     "title": "Bra CV 2026: Vad utmärker ett riktigt bra CV?",
     "description": "Vad gör ett CV bra? Lär dig kännetecknen för ett vinnande CV genom exempel, tips och expertriktlinjer. Se före/efter-exempel som visar skillnaden.",
@@ -6632,11 +5635,6 @@
         "tag": "h2",
         "id": "",
         "text": "Snabbsvar: vad gör ett CV bra?"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
       },
       {
         "tag": "h2",
@@ -6657,11 +5655,6 @@
         "tag": "h3",
         "id": "testa-vara-professionella-cv-mallar",
         "text": "Testa våra professionella CV-mallar"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Profil"
       },
       {
         "tag": "h2",
@@ -6697,11 +5690,6 @@
         "tag": "h2",
         "id": "felfritt-sprak-och-grammatik",
         "text": "Felfritt språk och grammatik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Mallar som ökar dina chanser att få jobbet"
       },
       {
         "tag": "h2",
@@ -6747,16 +5735,6 @@
         "tag": "h2",
         "id": "",
         "text": "Vanliga Frågor (FAQ)"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Bygg CV:t på en av våra mallar"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Välj spåret du söker på"
       }
     ],
     "lankar": [
@@ -6774,15 +5752,19 @@
       "#tydlig-struktur-och-lasbarhet",
       "#vad-ar-ett-bra-cv-egentligen",
       "/",
-      "/",
       "/artiklar",
       "/artiklar",
-      "/artiklar",
+      "/artiklar/bild-i-cv-ja-eller-nej",
       "/artiklar/fardigheter-cv-exempel",
       "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/hur-ska-ett-cv-se-ut",
       "/artiklar/hur-skriver-man-cv",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
       "/artiklar/kompetenser-cv-guide",
+      "/artiklar/personligt-brev-pa-engelska",
       "/artiklar/skriva-cv-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
       "/artiklar/vad-ar-ett-cv",
       "/artiklar/vanliga-cv-misstag",
       "/artiklar?tag=bra cv",
@@ -6791,6 +5773,7 @@
       "/artiklar?tag=exempel på ett bra cv",
       "/artiklar?tag=hur ser ett bra cv ut",
       "/cv-exempel",
+      "/priser",
       "/priser",
       "/skapa-brev/start",
       "/verktyg/cv-analys",
@@ -6806,10 +5789,6 @@
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
       "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
-      "/verktyg/cv-mallar",
       "/verktyg/jobbmatchning",
       "/verktyg/rekryteringstester",
       "/verktyg/skapa-cv"
@@ -6818,29 +5797,21 @@
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",

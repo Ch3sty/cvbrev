@@ -10,6 +10,7 @@
 import Link from 'next/link';
 import { Check } from 'lucide-react';
 import PageHeader from '@/components/shell/PageHeader';
+import { PLAN_BY_KEY } from '@/lib/plans/plans';
 import {
   IkonCv,
   IkonAnalys,
@@ -86,7 +87,7 @@ const features: Feature[] = [
       'Formuleringar som sticker ut',
       'Rätt nyckelord för din bransch och roll',
       'Anpassat för LinkedIns sökning',
-      'Gratis: en optimering i veckan. Premium: obegränsat',
+      `Ingår i ${PLAN_BY_KEY.cv_week.name} och Allt`,
     ],
     href: '/dashboard/linkedin-optimizer',
     cta: 'Optimera LinkedIn',

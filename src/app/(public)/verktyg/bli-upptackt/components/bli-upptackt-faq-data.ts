@@ -1,4 +1,9 @@
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
+
 export type FaqItem = { q: string; a: string }
+
+const ALLT_VECKA = PLAN_BY_KEY.all_week
+const ALLT_MANAD = PLAN_BY_KEY.all_month
 
 export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   {
@@ -16,6 +21,10 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Måste jag göra personlighetstestet och kunskapstesterna?',
     a: 'Nej, det är helt frivilligt. Du kan synas ändå. Men gör du testerna får din profil starkare bevis för vad du kan och hur du jobbar, vilket ökar chansen att rätt rekryterare hör av sig.',
+  },
+  {
+    q: 'Vad kostar det att synas för rekryterare?',
+    a: `Synligheten ingår i Allt: ${ALLT_VECKA.name} för ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.name} för ${ALLT_MANAD.amount} kr i månaden, och du säger upp när du vill. Utan Allt kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med Allt får du dessutom jobbmatchning varje natt, Jobbcoachen utan tak och allt i CV-veckan och Testveckan.`,
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',

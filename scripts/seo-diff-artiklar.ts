@@ -46,6 +46,25 @@ interface Avtryck {
   forstaBild: { src: string; alt: string } | null;
 }
 
+/**
+ * Sidor vars baslinje tagits om, med skälet. Allt annat i fore.json är
+ * avtrycket från orört läge 23 september.
+ */
+const BASLINJE_OMTAGEN: Array<{ path: string; datum: string; skal: string }> = [
+  {
+    path: '/verktyg/bli-upptackt',
+    datum: '2026-09-23',
+    skal:
+      'Ägarbeslut: synligheten för rekryterare ingår i Allt, och texten ska säga det. Service-schemat (price 0, "Gratis att synas") och FAQPage-schemat fick en fråga om vad det kostar. h1, title, description och canonical oförändrade.',
+  },
+  {
+    path: '/verktyg/linkedin-optimering',
+    datum: '2026-09-23',
+    skal:
+      'Ägarbeslut: LinkedIn-optimeringen ingår i CV-veckan och Allt, gratisnivån har ingen optimering. WebApplication-schemats offer, HowTo-schemats estimatedCost och FAQPage-svaret om kostnaden sa "en gratis optimering i veckan". h1, title, description och canonical oförändrade.',
+  },
+]
+
 function arg(namn: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf('--' + namn);
   return i >= 0 ? process.argv[i + 1] : fallback;
@@ -350,6 +369,8 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       }
     }
     rader.push(`### ${f.path}`);
+    const omtagen = BASLINJE_OMTAGEN.find((b) => b.path === f.path);
+    if (omtagen) rader.push(`- baslinjen omtagen ${omtagen.datum}: ${omtagen.skal}`);
     rader.push(sidrader.length ? sidrader.join('\n') : '- oförändrad');
     rader.push('');
   }
@@ -375,6 +396,27 @@ async function main() {
     console.log(`\nSparat: ${ut} (${avtryck.length} sidor)`);
     return;
   }
+  if (lage === 'baslinje') {
+    const bas = `http://localhost:${arg('port', '8300')}`;
+    const foreFil = arg('fore', 'docs/qa/seo-diff/fore.json')!;
+    const fore = JSON.parse(fs.readFileSync(foreFil, 'utf8')) as Avtryck[];
+    const lista = arg('sidor')?.split(',') ?? [];
+    for (const s of lista) {
+      const post = BASLINJE_OMTAGEN.find((b) => b.path === s);
+      if (!post) throw new Error(`${s} står inte i BASLINJE_OMTAGEN. Lägg till den med skälet först.`);
+      const i = fore.findIndex((a) => a.path === s);
+      if (i < 0) throw new Error(`${s} saknas i ${foreFil}`);
+      const ny = await ta(bas, s);
+      for (const falt of ['title', 'description', 'canonical'] as const) {
+        if (fore[i][falt] !== ny[falt]) throw new Error(`${s}: ${falt} har ändrats, baslinjen tas inte om`);
+      }
+      if (JSON.stringify(fore[i].h1) !== JSON.stringify(ny.h1)) throw new Error(`${s}: h1 har ändrats, baslinjen tas inte om`);
+      fore[i] = ny;
+      console.log(`Baslinjen omtagen för ${s} (${post.datum}): ${post.skal}`);
+    }
+    fs.writeFileSync(foreFil, JSON.stringify(fore, null, 2));
+    return;
+  }
   if (lage === 'jamfor') {
     const fore = JSON.parse(fs.readFileSync(arg('fore')!, 'utf8')) as Avtryck[];
     const efter = JSON.parse(fs.readFileSync(arg('efter')!, 'utf8')) as Avtryck[];
@@ -386,7 +428,7 @@ async function main() {
     console.log(huvud + rapport);
     process.exit(fel ? 1 : 0);
   }
-  console.log('Användning: ta --port 8300 --ut fil.json | jamfor --fore a.json --efter b.json');
+  console.log('Användning: ta --port 8300 --ut fil.json | jamfor --fore a.json --efter b.json | baslinje --port 8300 --fore fore.json --sidor /a,/b');
   process.exit(2);
 }
 

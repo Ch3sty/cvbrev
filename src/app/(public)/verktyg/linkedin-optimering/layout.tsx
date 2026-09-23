@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title:
       'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
     description:
-      'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan, ingen LinkedIn-inloggning.',
+      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i CV-veckan och i Allt, ingen LinkedIn-inloggning.',
     url: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title:
       'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
     description:
-      'Vi optimerar fem sektioner samtidigt och du copy-pastar tillbaka. En gratis optimering i veckan.',
+      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i CV-veckan och i Allt.',
   },
   robots: {
     index: true,
