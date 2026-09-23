@@ -5,11 +5,10 @@ import { IkonSynlig } from '@/components/illustrations/Ikoner';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
 
 /**
- * Bli upptäckt-posten i sidomenyn, med en dynamisk undertext som skapar
- * kopplingen till meddelanden (som bor i headern, inte som egen post):
- *   - synlighet av → "Gör dig tillgänglig för rekryterare"
- *   - väntande intresse → "N rekryterare väntar på svar" (fel-ton)
- *   - synlig utan ärende → "Ny" i metadata, ingen undertext
+ * Bli upptäckt-posten i sidomenyn. Menyn har inga underrader längre
+ * (regel 8), så läget står till höger på raden:
+ *   - väntande intresse → "N väntar" i fel-ton, och raden får kant
+ *   - annars → "Ny" i metadata
  * Delar datakälla (useCandidateInterests) med header-ikonen så siffrorna
  * aldrig hamnar i otakt.
  */
@@ -20,32 +19,27 @@ export default function BliUpptacktSidebarLink({
   isMobile?: boolean;
   onClose?: () => void;
 }) {
-  const { pending, isVisible, loaded } = useCandidateInterests();
+  const { pending, loaded } = useCandidateInterests();
 
-  // Raden förklarar alltid vad funktionen är; läget byter bara texten.
-  let sublabel: React.ReactNode = 'Rekryterare hittar dig, anonymt';
-  let showNy = true;
-  if (loaded) {
-    if (pending > 0) {
-      sublabel = (
-        <span className="font-medium text-fel">
-          {pending === 1 ? '1 rekryterare väntar på svar' : `${pending} rekryterare väntar på svar`}
-        </span>
-      );
-      showNy = false;
-    } else if (isVisible) {
-      sublabel = 'Synlig, anonym tills du svarar';
-    }
-  }
+  const vantar = loaded && pending > 0;
+  const badge = vantar ? (
+    <span
+      className="text-meta font-medium text-fel"
+      aria-label={pending === 1 ? '1 rekryterare väntar på svar' : `${pending} rekryterare väntar på svar`}
+    >
+      {pending} väntar
+    </span>
+  ) : (
+    <span className="text-meta text-ink-3">Ny</span>
+  );
 
   return (
     <SidebarLink
       href="/dashboard/bli-upptackt"
       label="Bli upptäckt"
       icon={IkonSynlig}
-      highlight={loaded && pending > 0}
-      sublabel={sublabel}
-      badge={showNy ? <span className="text-meta text-ink-3">Ny</span> : undefined}
+      highlight={vantar}
+      badge={badge}
       isMobile={isMobile}
       onClick={onClose}
     />

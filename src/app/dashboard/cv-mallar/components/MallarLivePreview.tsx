@@ -9,12 +9,10 @@ import {
   getFontById,
 } from '@/lib/cv/preview-utils';
 
-import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 
-import TemplateSelector from './TemplateSelector';
+import MallGrid from './MallGrid';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
@@ -181,14 +179,13 @@ export default function MallarLivePreview({
         <section>
           <StepHeader
             number={2}
-            title="Välj din mall"
-            description={`Bläddra i listan eller öppna galleriet för att se alla ${TEMPLATE_COUNT} mallar.`}
+            title="Välj mall"
+            description={`Sex av ${TEMPLATE_COUNT} syns här. Alla klarar rekryteringssystemens läsning.`}
           />
-          <TemplateSelector
+          <MallGrid
             selectedTemplate={selectedTemplate}
             onTemplateSelect={handleTemplateSelect}
             isPremium={isPremium}
-            onUpgradeClick={onUpgrade}
           />
         </section>
 
@@ -207,6 +204,8 @@ export default function MallarLivePreview({
               isLoading={isLoading}
               previewError={previewError}
               hasCV={!!selectedCV}
+              templateId={selectedTemplate}
+              fontId={selectedFont}
             />
 
             {/* Mall-info */}
@@ -250,12 +249,16 @@ function PreviewContainer({
   isLoading,
   previewError,
   hasCV,
+  templateId,
+  fontId,
 }: {
   previewHTML: string;
   templateName: string | undefined;
   isLoading: boolean;
   previewError: string | null;
   hasCV: boolean;
+  templateId: string;
+  fontId: string;
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-kant bg-panel">
@@ -286,7 +289,20 @@ function PreviewContainer({
           CLS på 0,06. Alla fyra tillstånd bor nu i samma låda, som aldrig
           byter storlek, och innehållet scrollar inuti den. */}
       <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken sm:h-[850px]">
-        {!hasCV && <PreviewEmptyState />}
+        {/* Förhandsvisningen är aldrig tom (analysen 22 september, avsnitt 4):
+            utan valt CV visas mallen med exempeltext, samma serverrenderade
+            dokument som artiklarnas mallvisning. */}
+        {!hasCV && (
+          <div className="px-3 py-3 sm:px-4 sm:py-4">
+            <p className="mb-2 text-meta text-ink-3">Exempel-CV. Välj ditt CV i steg 1 så ser du ditt eget.</p>
+            <iframe
+              key={`${templateId}-${fontId}`}
+              src={`/api/public/exempel/cv?mall=${encodeURIComponent(templateId)}&typsnitt=${encodeURIComponent(fontId)}`}
+              title={`Exempel i mallen ${templateName ?? ''}`}
+              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-panel"
+            />
+          </div>
+        )}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
           /* Nyckeln byts nar previewn andras, sa React monterar om noden och
@@ -318,9 +334,8 @@ const HORIZONTAL_PADDING = 24; // 12px var sida
 
 function ScaledPreview({ html }: { html: string }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(A4_WIDTH_PX + HORIZONTAL_PADDING);
-  const [contentHeight, setContentHeight] = useState(0);
+  const [contentHeight, setContentHeight] = useState(A4_HEIGHT_PX);
 
   // Matt tillgangligt utrymme i wrapper-divren
   useEffect(() => {
@@ -334,76 +349,48 @@ function ScaledPreview({ html }: { html: string }) {
     return () => observer.disconnect();
   }, []);
 
-  // Matt riktig hojd pa det renderade CV:t (foran scaling)
-  useEffect(() => {
-    if (!contentRef.current) return;
-    const observer = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        setContentHeight(entry.contentRect.height);
-      }
-    });
-    observer.observe(contentRef.current);
-    return () => observer.disconnect();
-  }, [html]);
-
   const availableWidth = Math.max(containerWidth - HORIZONTAL_PADDING, 280);
   const scale = availableWidth < A4_WIDTH_PX ? availableWidth / A4_WIDTH_PX : 1;
-  const scaledHeight = contentHeight * scale;
 
   return (
     <div ref={wrapperRef} className="px-3 sm:px-4 py-3 sm:py-4 flex justify-center">
-      {/* Outer-div har den slutgiltiga (skalade) hojden sa containern reserverar
-          ratt utrymme. transform paverkar inte layout-storlek, dafor reservation. */}
       <div
         style={{
-          // Bredden följer föräldern, höjden följer A4-proportionen via CSS.
-          // Tidigare räknades båda ur en JS-mätning av containern, som
-          // startade på desktop-bredd och korrigerades efter första
-          // renderingen. Det var samma gissning som MallToolbar gjorde, och
-          // den ritade om hela kolumnen på mobil. aspect-ratio reserverar
-          // ytan redan i server-HTML, utan att någon behöver mäta.
           width: '100%',
-          maxWidth: `${A4_WIDTH_PX}px`,
-          aspectRatio: `${A4_WIDTH_PX} / ${A4_HEIGHT_PX}`,
-          height: contentHeight > 0 ? `${scaledHeight}px` : undefined,
+          maxWidth: A4_WIDTH_PX + "px",
+          height: contentHeight * scale + "px",
           flexShrink: 0,
+          overflow: 'hidden',
         }}
       >
-        {/* Mallens HTML är ett helt CV-dokument och har därför en egen h1 med
-            personens namn. Helt rätt i en PDF, men här ligger dokumentet inuti
-            en sida som redan har sin rubrik, så sidan fick två h1 och
-            rubrikträdet sa emot sig själv. Förhandsvisningen är en bild av
-            resultatet, inte läsbar struktur: role="img" kapslar in den och
-            håller mallens rubriker utanför sidans disposition. */}
-        <div
-          ref={contentRef}
-          className="bg-white"
-          role="img"
-          aria-label="Förhandsvisning av ditt CV i vald mall"
+        {/* Mallens HTML är ett helt dokument med egen <style>, som sätter
+            typsnitt på body och alla element. Inlagt direkt i sidan tog den
+            över sidans typsnitt, också den nya display-rubriken, och rubriken
+            bröts om när förhandsvisningen kom (CLS 0,04, linjen 2026-09-23).
+            I en iframe stannar stilen i dokumentet. Höjden läses ur
+            dokumentet när det laddats; innan dess reserveras en A4. */}
+        <iframe
+          srcDoc={html}
+          title="Förhandsvisning av ditt CV i vald mall"
+          scrolling="no"
+          onLoad={(e) => {
+            const doc = e.currentTarget.contentDocument
+            const h = doc?.documentElement?.scrollHeight ?? 0
+            if (h > 0) setContentHeight(Math.max(h, A4_HEIGHT_PX))
+          }}
+          className="block border-0 bg-panel"
           style={{
-            width: `${A4_WIDTH_PX}px`,
-            transform: scale < 1 ? `scale(${scale})` : undefined,
+            width: A4_WIDTH_PX + "px",
+            height: contentHeight + "px",
+            transform: scale < 1 ? "scale(" + scale + ")" : undefined,
             transformOrigin: 'top left',
           }}
-          dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
     </div>
   );
 }
 
-function PreviewEmptyState() {
-  return (
-    <div className="flex h-full items-center justify-center px-6 py-20">
-      <EmptyState
-        bare
-        illustration={IlluTomMapp}
-        title="Välj ett CV först"
-        description="När du valt ett CV ovanför ser du hur det ser ut i den valda mallen direkt här."
-      />
-    </div>
-  );
-}
 
 function PreviewLoading() {
   return (

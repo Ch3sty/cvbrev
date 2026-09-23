@@ -1,18 +1,28 @@
 /**
- * /om-oss - landningssida i orange/rod-DNA.
- * Sektioner: Hero -> Berattelse (tidslinje) -> Principer -> Team
- * -> Sa hjalper plattformen dig -> Byggt for Sverige -> Kontakt + CTA.
- * SEO: Organization + WebPage med breadcrumb JSON-LD.
+ * /om-oss i linjen (docs/design/analys-visuell-linje-2026-09-22.html, avsnitt 5).
+ * SEO: Organization och AboutPage med brödsmulor som JSON-LD, oförändrade.
  */
-import Breadcrumb from '@/components/Breadcrumb'
-import OmOssHero from './components/OmOssHero'
-import OmOssBerattelse from './components/OmOssBerattelse'
-import OmOssPrinciper from './components/OmOssPrinciper'
-import OmOssSaHjalper from './components/OmOssSaHjalper'
-import OmOssForSverige from './components/OmOssForSverige'
-import OmOssKontakt from './components/OmOssKontakt'
+import OmOssSida from './OmOssSida'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
-export default function OmOssSida() {
+export const revalidate = 86400
+
+/** Talen läses en gång per dygn. Går de inte att läsa faller de bort. */
+async function talen(): Promise<{ konton: number | null; brev: number | null }> {
+  try {
+    const db = getSupabaseAdmin()
+    const [k, b] = await Promise.all([
+      db.from('profiles').select('*', { count: 'exact', head: true }),
+      db.from('letters').select('*', { count: 'exact', head: true }),
+    ])
+    return { konton: k.count || null, brev: b.count || null }
+  } catch {
+    return { konton: null, brev: null }
+  }
+}
+
+export default async function OmOssPage() {
+  const { konton, brev } = await talen()
   // === Schema.org markup ===
 
   const organizationSchema = {
@@ -84,23 +94,7 @@ export default function OmOssSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
 
-      <main className="bg-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <Breadcrumb
-            items={[
-              { name: 'Hem', href: '/' },
-              { name: 'Om oss', href: '/om-oss' },
-            ]}
-          />
-        </div>
-
-        <OmOssHero />
-        <OmOssBerattelse />
-        <OmOssPrinciper />
-        <OmOssSaHjalper />
-        <OmOssForSverige />
-        <OmOssKontakt />
-      </main>
+      <OmOssSida konton={konton} brev={brev} />
     </>
   )
 }

@@ -20,14 +20,14 @@ const PUNKTER = [
 
 export default function RekryteringstesterProvaKort() {
   return (
-    <div className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
+    <div className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
       <div className="flex items-start gap-3">
-        <IlluKlusterTest size={24} className="mt-1 flex-shrink-0 text-neutral-700" />
+        <IlluKlusterTest size={24} className="mt-1 flex-shrink-0 text-ink-2" />
         <div className="min-w-0 flex-1">
-          <h2 className="text-base font-semibold text-neutral-900">
+          <h2 className="text-base font-semibold text-ink-1">
             Gör ett prov direkt, utan konto
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+          <p className="mt-2 text-sm leading-relaxed text-ink-2">
             Du behöver inte registrera dig för att se var du står. Fem frågor tar ett par
             minuter.
           </p>
@@ -38,10 +38,10 @@ export default function RekryteringstesterProvaKort() {
         {PUNKTER.map((punkt) => (
           <li key={punkt} className="flex items-center gap-3">
             <span
-              className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-600"
+              className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-1"
               aria-hidden="true"
             />
-            <span className="text-sm text-neutral-600">{punkt}</span>
+            <span className="text-sm text-ink-2">{punkt}</span>
           </li>
         ))}
       </ul>
@@ -56,7 +56,7 @@ export default function RekryteringstesterProvaKort() {
             target: '/verktyg/rekryteringstester/prova',
           })
         }
-        className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 sm:w-auto"
+        className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
       >
         Prova fem frågor
         <ArrowRight className="h-4 w-4" aria-hidden="true" />

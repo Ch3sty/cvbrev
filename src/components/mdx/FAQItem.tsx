@@ -1,45 +1,31 @@
-'use client';
+import React from 'react';
 
-import React, { useState } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
-
+/**
+ * En fråga i artiklarna som details och summary: ingen klientkod, och
+ * svaret står i HTML även hopfällt, alltså samma text för Google som
+ * FAQPage-schemat (docs/design/analys-artiklar-2026-09-23.html, avsnitt 5).
+ */
 interface FAQItemProps {
   question: string;
   children: React.ReactNode;
 }
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    // Behåller border-bottom för separation
-    <div className="border-b border-gray-200 last:border-b-0 faq-item">
-      {/* --- ÄNDRING: Tog bort h2-wrappen runt knappen --- */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        // --- ÄNDRING: Ökat padding px-4, justerat textstorlek/vikt explicit ---
-        className="flex justify-between items-center w-full px-4 py-4 text-left text-base font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus-visible:ring focus-visible:ring-pink-500 focus-visible:ring-opacity-75 transition-colors"
-        aria-expanded={isOpen}
-      >
-        <span className="flex-1 pr-4">{question}</span>
-        <ChevronDownIcon
-          className={`w-5 h-5 text-pink-500 transform transition-transform duration-300 ease-in-out ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
-      <div
-        className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-          isOpen ? 'max-h-[1000px]' : 'max-h-0'
-        }`}
-      >
-        {/* --- ÄNDRING: Ökat padding px-4, satt explicit text-sm --- */}
-        {/* --- VIKTIGT: Behåller prose här för att styla svaret, men det är nu isolerat från förälderns prose tack vare not-prose i containern --- */}
-        <div className="px-4 pt-2 pb-5 text-sm text-gray-600 prose  prose-sm max-w-none prose-p:my-2 prose-ul:my-2 faq-answer">
-          {children}
-        </div>
+    <details className="faq-item group rounded-xl border border-kant bg-panel px-4 sm:px-5">
+      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-base font-semibold text-ink-1 [&::-webkit-details-marker]:hidden">
+        <span className="flex-1">{question}</span>
+        <span className="shrink-0 text-ink-3 group-open:hidden" aria-hidden="true">
+          +
+        </span>
+        <span className="hidden shrink-0 text-ink-3 group-open:inline" aria-hidden="true">
+          −
+        </span>
+      </summary>
+      <div className="faq-answer prose prose-sm max-w-none pb-4 text-ink-2 prose-p:my-2 prose-p:text-ink-2 prose-ul:my-2 prose-a:text-ink-1">
+        {children}
       </div>
-    </div>
+    </details>
   );
 };
 

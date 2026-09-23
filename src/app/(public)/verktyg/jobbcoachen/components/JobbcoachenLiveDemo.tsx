@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Send } from 'lucide-react'
 
 /**
@@ -59,7 +58,6 @@ const SCENARIOS: Scenario[] = [
 
 const SCENARIO_DURATION_MS = 13000
 const TYPING_DURATION_MS = 1600
-const ANSWER_REVEAL_MS = 800
 
 type Phase = 'fraga' | 'typing' | 'svar'
 
@@ -73,12 +71,8 @@ export default function JobbcoachenLiveDemo() {
     setPhase('fraga')
 
     const timeouts: NodeJS.Timeout[] = []
-    timeouts.push(
-      setTimeout(() => setPhase('typing'), 700)
-    )
-    timeouts.push(
-      setTimeout(() => setPhase('svar'), 700 + TYPING_DURATION_MS)
-    )
+    timeouts.push(setTimeout(() => setPhase('typing'), 700))
+    timeouts.push(setTimeout(() => setPhase('svar'), 700 + TYPING_DURATION_MS))
     timeouts.push(
       setTimeout(() => {
         setScenarioIdx((prev) => (prev + 1) % SCENARIOS.length)
@@ -91,171 +85,99 @@ export default function JobbcoachenLiveDemo() {
   }, [scenarioIdx])
 
   return (
-    <div
-      className="rounded-3xl bg-white border border-orange-100 overflow-hidden lg:sticky lg:top-6 w-full"
-      style={{
-        boxShadow: '0 16px 48px -20px rgba(249, 115, 22, 0.28)',
-      }}
-    >
-      {/* Header */}
-      <div
-        className="flex items-center gap-3 px-4 sm:px-5 py-3.5 text-white"
-        style={{
-          background:
-            'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-        }}
-      >
-        <div className="w-9 h-9 rounded-full bg-white/95 flex items-center justify-center flex-shrink-0">
+    <div className="w-full overflow-hidden rounded-xl border border-kant bg-panel">
+      {/* Huvud */}
+      <div className="flex items-center gap-3 border-b border-kant px-4 py-3.5 sm:px-5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-insunken text-ink-1">
           <CoachAvatar />
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="text-sm font-black truncate">Karriärguiden</div>
-          <div className="flex items-center gap-1.5 text-[11px] text-white/85">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-300" />
-            </span>
-            Online · Svarar med svenska källor
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-sm font-semibold text-ink-1">Karriärguiden</div>
+          <div className="flex items-center gap-1.5 text-meta text-ink-3">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-positiv" aria-hidden="true" />
+            Svarar med svenska källor
           </div>
         </div>
       </div>
 
-      {/* Chat-yta */}
-      <div className="px-4 sm:px-5 py-4 sm:py-5 bg-orange-50/30 min-h-[360px] sm:min-h-[400px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`scen-${scenarioIdx}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-3"
-          >
-            {/* User-fraga */}
-            <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="flex justify-end"
-            >
-              <div
-                className="max-w-[85%] sm:max-w-[80%] px-4 py-2.5 rounded-2xl rounded-tr-md text-white text-[13px] sm:text-sm leading-snug font-medium"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                }}
-              >
-                {scenario.user}
+      {/* Samtalet */}
+      <div className="min-h-[360px] bg-insunken px-4 py-4 shadow-insunken sm:min-h-[400px] sm:px-5 sm:py-5">
+        <div className="space-y-3">
+          {/* Frågan */}
+          <div className="flex justify-end">
+            <div className="max-w-[85%] rounded-xl rounded-tr-md bg-ink-1 px-4 py-2.5 text-[13px] font-medium leading-snug text-white sm:max-w-[80%] sm:text-sm">
+              {scenario.user}
+            </div>
+          </div>
+
+          {/* Skriver */}
+          {phase === 'typing' && (
+            <div className="flex justify-start">
+              <div className="inline-flex items-center gap-1.5 rounded-xl rounded-tl-md border border-kant bg-panel px-4 py-3">
+                <TypingDot delay={0} />
+                <TypingDot delay={150} />
+                <TypingDot delay={300} />
               </div>
-            </motion.div>
+            </div>
+          )}
 
-            {/* Typing-indikator */}
-            {phase === 'typing' && (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="flex justify-start"
-              >
-                <div className="px-4 py-3 rounded-2xl rounded-tl-md bg-white border border-orange-100 inline-flex items-center gap-1.5">
-                  <TypingDot delay={0} />
-                  <TypingDot delay={0.15} />
-                  <TypingDot delay={0.3} />
+          {/* Svaret */}
+          {phase === 'svar' && (
+            <div className="flex justify-start">
+              <div className="max-w-[88%] space-y-2 sm:max-w-[85%]">
+                <div className="rounded-xl rounded-tl-md border border-kant bg-panel px-4 py-3 text-[13px] leading-relaxed text-ink-2 sm:text-sm">
+                  <FormattedAnswer text={scenario.answer} />
                 </div>
-              </motion.div>
-            )}
-
-            {/* Assistant-svar */}
-            {phase === 'svar' && (
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="flex justify-start"
-              >
-                <div className="max-w-[88%] sm:max-w-[85%] space-y-2">
-                  <div className="px-4 py-3 rounded-2xl rounded-tl-md bg-white border border-orange-100 text-[13px] sm:text-sm text-slate-700 leading-relaxed">
-                    <FormattedAnswer text={scenario.answer} />
-                  </div>
-
-                  {/* Kalle-pills */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: ANSWER_REVEAL_MS / 1000, duration: 0.3 }}
-                    className="flex flex-wrap gap-1.5"
-                  >
-                    {scenario.sources.map((src, i) => (
-                      <SourcePill key={i} num={i + 1} src={src} />
-                    ))}
-                  </motion.div>
+                <div className="flex flex-wrap gap-1.5">
+                  {scenario.sources.map((src, i) => (
+                    <SourcePill key={i} num={i + 1} src={src} />
+                  ))}
                 </div>
-              </motion.div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Disabled input */}
-      <div className="px-4 sm:px-5 py-3 border-t border-orange-100 bg-white">
-        <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-orange-50/60 border border-orange-100">
-          <span className="flex-1 text-[12px] sm:text-[13px] text-slate-500 truncate">
-            Logga in för att fråga själv
-          </span>
-          <button
-            disabled
+      {/* Låst fält */}
+      <div className="border-t border-kant bg-panel px-4 py-3 sm:px-5">
+        <div className="flex items-center gap-2 rounded-lg border border-kant bg-insunken px-3.5 py-2.5 shadow-insunken">
+          <span className="flex-1 truncate text-[12px] text-ink-3 sm:text-[13px]">Logga in för att fråga själv</span>
+          <span
             aria-hidden="true"
-            tabIndex={-1}
-            className="w-8 h-8 rounded-xl flex items-center justify-center text-white flex-shrink-0 cursor-default"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626)',
-              opacity: 0.85,
-            }}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-ink-1 text-white opacity-40"
           >
-            <Send className="w-3.5 h-3.5" strokeWidth={2.5} />
-          </button>
+            <Send className="h-3.5 w-3.5" strokeWidth={2.5} />
+          </span>
         </div>
       </div>
     </div>
   )
 }
 
-// === Coach-avatar ===
+// === Coachens avatar ===
 
 function CoachAvatar() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="9" r="3" fill="#DC2626" />
-      <path d="M 5 18 Q 5 13 11 13 Q 17 13 17 18" fill="#DC2626" />
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="11" cy="9" r="3" fill="currentColor" />
+      <path d="M 5 18 Q 5 13 11 13 Q 17 13 17 18" fill="currentColor" />
     </svg>
   )
 }
 
-// === Typing-prick ===
+// === Skrivprick ===
 
 function TypingDot({ delay }: { delay: number }) {
   return (
-    <motion.span
-      className="block w-1.5 h-1.5 rounded-full bg-orange-400"
-      animate={{ y: [0, -3, 0] }}
-      transition={{
-        duration: 0.9,
-        repeat: Infinity,
-        delay,
-        ease: 'easeInOut',
-      }}
+    <span
+      className="block h-1.5 w-1.5 animate-bounce rounded-full bg-ink-3"
+      style={{ animationDelay: `${delay}ms` }}
     />
   )
 }
 
-// === Formaterat svar med (Kalla N) som badge ===
+// === Svar med (Källa N) som siffra ===
 
 function FormattedAnswer({ text }: { text: string }) {
   const parts = text.split(/(\(Källa \d+\))/g)
@@ -267,11 +189,7 @@ function FormattedAnswer({ text }: { text: string }) {
           return (
             <span
               key={i}
-              className="inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-black text-white align-middle mx-0.5"
-              style={{
-                background:
-                  'linear-gradient(135deg, #F97316, #DC2626)',
-              }}
+              className="mx-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink-1 align-middle text-[10px] font-semibold text-white"
             >
               {match[1]}
             </span>
@@ -283,26 +201,16 @@ function FormattedAnswer({ text }: { text: string }) {
   )
 }
 
-// === Kalle-pill ===
+// === Källa ===
 
 function SourcePill({ num, src }: { num: number; src: Source }) {
   return (
-    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-orange-200 text-[11px] font-bold text-slate-700">
-      <span
-        className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[9px] text-white"
-        style={{
-          background: 'linear-gradient(135deg, #F97316, #DC2626)',
-        }}
-      >
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-kant bg-panel px-2.5 py-1 text-[11px] font-semibold text-ink-2">
+      <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-ink-1 text-[9px] text-white">
         {num}
       </span>
-      <span className="truncate max-w-[140px] sm:max-w-[180px]">
-        {src.label}
-      </span>
-      <ExternalLink
-        className="w-3 h-3 text-orange-600 flex-shrink-0"
-        strokeWidth={2.5}
-      />
+      <span className="max-w-[140px] truncate sm:max-w-[180px]">{src.label}</span>
+      <ExternalLink className="h-3 w-3 shrink-0 text-ink-3" strokeWidth={2.5} aria-hidden="true" />
     </div>
   )
 }

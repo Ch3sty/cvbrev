@@ -6,6 +6,11 @@
  * Aktiv rad: bg-insunken plus tråden, 3 px längs panelens vänsterkant
  * (.thread-row i globals.css). Ikonen är naken, 20 px, i ink-2; aktiv i
  * ink-1. Antal står till höger i metadata, ink-3, aldrig i en badge.
+ *
+ * Två vikter (regel 8 i docs/design/analys-visuell-linje-2026-09-22.html):
+ * tung för de fyra huvudvalen (15/600 i ink-1, 44 px), lätt för verktygen
+ * (14/500 i ink-2, 40 px på desktop). Underrader används inte längre i
+ * menyn; vad som ingår står i sidhuvudet och i "Vad ingår?".
  * Ingen orange utöver tråden: Premium-raden får kant när den behöver
  * uppmärksamhet, inte en fylld yta.
  */
@@ -21,6 +26,8 @@ interface SidebarLinkProps {
   count?: number | null;
   badge?: ReactNode;
   sublabel?: ReactNode;
+  /** Huvudval: 15/600 i ink-1. Utelämnat är lätt vikt. */
+  tung?: boolean;
   /** Raden ska synas: kant runt raden. Aldrig fyllning. */
   highlight?: boolean;
   /** Aktiv bara på exakt adress, inte på undersidor. Profil har prenumerationen under sig. */
@@ -44,6 +51,7 @@ export default function SidebarLink({
   badge,
   sublabel,
   highlight,
+  tung,
   exact,
   locked,
   onLocked,
@@ -74,12 +82,9 @@ export default function SidebarLink({
           }`}
         >
           <Icon className="h-5 w-5 shrink-0 text-kant-stark" size={20} />
-          <span className="flex min-w-0 flex-1 flex-col">
-            <span className="truncate leading-5">{label}</span>
-            {sublabel ? (
-              <span className="truncate text-xs font-normal leading-4 text-ink-3">{sublabel}</span>
-            ) : null}
-          </span>
+          {/* Var funktionen finns läses upp i aria-label och står i
+              betalväggen som trycket öppnar, inte som underrad. */}
+          <span className="min-w-0 flex-1 truncate leading-5">{label}</span>
           <svg
             viewBox="0 0 24 24"
             width="16"
@@ -106,15 +111,20 @@ export default function SidebarLink({
         prefetch={true}
         onClick={handleClick}
         aria-current={isActive ? 'page' : undefined}
-        className={`group flex items-center gap-2.5 rounded-lg px-3 text-sm font-medium transition-colors duration-[120ms] touch-manipulation ${
-          isMobile ? 'min-h-[48px]' : 'min-h-[40px]'
-        } ${
+        className={`group flex items-center gap-3 rounded-lg px-3 transition-colors duration-[120ms] touch-manipulation ${
+          tung ? 'text-[15px] font-semibold' : 'text-sm font-medium'
+        } ${isMobile ? 'min-h-[48px]' : tung ? 'min-h-[44px]' : 'min-h-[40px]'} ${
           isActive
             ? 'thread-row bg-insunken text-ink-1'
-            : 'text-ink-2 hover:bg-insunken/60 hover:text-ink-1'
+            : tung
+              ? 'text-ink-1 hover:bg-insunken/60'
+              : 'text-ink-2 hover:bg-insunken/60 hover:text-ink-1'
         } ${highlight && !isActive ? 'border border-kant-stark' : ''}`}
       >
-        <Icon className={`h-5 w-5 shrink-0 ${isActive ? 'text-ink-1' : 'text-ink-2'}`} size={20} />
+        <Icon
+          className={`h-5 w-5 shrink-0 ${isActive || tung ? 'text-ink-1' : 'text-ink-2'}`}
+          size={20}
+        />
 
         <span className="flex min-w-0 flex-1 flex-col">
           <span className="truncate leading-5">{label}</span>

@@ -35,8 +35,14 @@ export default function SidebarFooter({
         <IkonHjalp size={20} className="shrink-0" />
         <span className="truncate">Hjälp och kontakt</span>
       </Link>
-      <Link href="/dashboard/bugg-feedback" onClick={handleLink} className={ROW}>
-        <IkonBugg size={20} className="shrink-0" />
+      {/* Lättare än Hjälp: en felrapport är inte ett val i samma vikt som
+          Mitt jobbsök (regel 8, docs/design/analys-visuell-linje-2026-09-22.html). */}
+      <Link
+        href="/dashboard/bugg-feedback"
+        onClick={handleLink}
+        className="flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-meta text-ink-3 transition-colors hover:bg-insunken/60 hover:text-ink-1"
+      >
+        <IkonBugg size={16} className="shrink-0" />
         <span className="truncate">Rapportera ett fel</span>
       </Link>
 

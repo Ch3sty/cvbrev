@@ -1,6 +1,8 @@
 'use client';
 
 import PageHeader from '@/components/shell/PageHeader';
+import { IlluScenMallar } from '@/components/illustrations/PriserScener';
+import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 
 /**
  * Sidhuvudet för CV-mallar. Sidans enda h1.
@@ -12,8 +14,10 @@ import PageHeader from '@/components/shell/PageHeader';
 export default function CvMallarHero() {
   return (
     <PageHeader
-      title="Byt design på ditt CV"
-      description="Ditt innehåll, snyggare format. Välj mall, anpassa typsnitt och ladda ner som PDF."
+      eyebrow="CV-mallar"
+      title="Samma innehåll, en mall rekryteraren läser."
+      description={`Välj ett CV, välj en av ${TEMPLATE_COUNT} mallar, ladda ner som PDF. Alla klarar rekryteringssystemens läsning.`}
+      scene={<IlluScenMallar className="h-auto w-full" />}
     />
   );
 }

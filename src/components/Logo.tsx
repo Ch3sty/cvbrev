@@ -6,7 +6,8 @@ import Link from 'next/link'
  * Jobbcoach.ai-logo: J-monogram + ordmark, valfri tagline.
  *
  * Varianter:
- *  - default      = orange/rod-ikon + mork text (ljus bakgrund)
+ *  - default      = orange ikon (#F97316, platt, logotypen är systemets enda
+ *                   undantag från tokens) + mörk text (ljus bakgrund)
  *  - default-tag  = default + tagline under
  *  - compact      = orange/rod-ikon + mork text utan tagline (default for navbar)
  *  - on-dark      = orange/rod-ikon + vit text (mork bakgrund, footer, dark mode)
@@ -60,12 +61,12 @@ function LogoSvg({
   const isOnDark = variant === 'on-dark'
   const isMonoWhite = variant === 'mono-white'
 
-  const wordColor = isOnDark || isMonoWhite ? '#FFFFFF' : '#0F172A'
+  const wordColor = isOnDark || isMonoWhite ? '#FFFFFF' : '#1C1917'
   const aiColor = isOnDark
     ? 'rgba(255,255,255,0.55)'
     : isMonoWhite
     ? 'rgba(255,255,255,0.7)'
-    : '#94A3B8'
+    : '#6B645E'
 
   if (showTagline) {
     return (
@@ -78,17 +79,10 @@ function LogoSvg({
         aria-label={ariaLabel}
         className={className}
       >
-        <defs>
-          <linearGradient id="logo-grad-warm" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="0.55" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
         {isMonoWhite ? (
           <rect x="1" y="9" width="46" height="46" rx="11" fill="rgba(255,255,255,0.18)" stroke="#FFFFFF" strokeWidth="2" />
         ) : (
-          <rect x="0" y="8" width="48" height="48" rx="12" fill="url(#logo-grad-warm)" />
+          <rect x="0" y="8" width="48" height="48" rx="12" fill="#F97316" />
         )}
         <text
           x="24"
@@ -138,17 +132,10 @@ function LogoSvg({
       aria-label={ariaLabel}
       className={className}
     >
-      <defs>
-        <linearGradient id="logo-grad-warm" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#F97316" />
-          <stop offset="0.55" stopColor="#DC2626" />
-          <stop offset="1" stopColor="#BE185D" />
-        </linearGradient>
-      </defs>
       {isMonoWhite ? (
         <rect x="1" y="1" width="46" height="46" rx="11" fill="rgba(255,255,255,0.18)" stroke="#FFFFFF" strokeWidth="2" />
       ) : (
-        <rect x="0" y="0" width="48" height="48" rx="12" fill="url(#logo-grad-warm)" />
+        <rect x="0" y="0" width="48" height="48" rx="12" fill="#F97316" />
       )}
       <text
         x="24"

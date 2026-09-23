@@ -27,6 +27,24 @@ module.exports = {
           2: 'var(--ink-2)',
           3: 'var(--ink-3)',
           hover: 'var(--ink-hover)',
+          // Tonerna på bläckytan (Allt-kortet, InkPanel). Fanns som
+          // variabler i globals.css men saknade klassnamn, så text-ink-1-mjuk
+          // och border-ink-1-kant genererade ingenting (upptäckt i linjen
+          // 2026-09-23).
+          '1-mjuk': 'var(--ink-1-mjuk)',
+          '1-kant': 'var(--ink-1-kant)',
+          '1-accent': 'var(--ink-1-accent)',
+        },
+        // Spårens färgetiketter (designsystem §12 punkt 3): text-cv,
+        // bg-cv-mjuk, text-test, bg-test-mjuk. Samma fel som ovan: variablerna
+        // fanns, klasserna inte.
+        cv: {
+          DEFAULT: 'var(--cv)',
+          mjuk: 'var(--cv-mjuk)',
+        },
+        test: {
+          DEFAULT: 'var(--test)',
+          mjuk: 'var(--test-mjuk)',
         },
         accent: {
           DEFAULT: 'var(--accent)',
@@ -67,16 +85,16 @@ module.exports = {
           700: '#C2305B',
         },
       },
-      // Typskalan (docs/designsystem.md, "Typografi"). text-h1, text-fraga,
-      // text-tal, text-kort, text-meta, text-steg.
-      // Rubriker i Schibsted Grotesk, bara för display-klasser på prissidan
-      // och köpvägen (avsnitt 12). Variabeln sätts av next/font i layout.tsx
-      // och faller tillbaka på Inter.
+      // Typskalan (docs/designsystem.md avsnitt 3). text-fraga, text-tal,
+      // text-kort, text-meta, text-steg bor här. Display-klasserna text-h1,
+      // text-h1-pub, text-h2-pub och text-varde byter storlek vid lg och bär
+      // familjen, så de ligger som klasser i globals.css (v2.1, en linje).
+      // Variabeln --font-display sätts av next/font i layout.tsx och faller
+      // tillbaka på Inter.
       fontFamily: {
         display: ['var(--font-display)', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        h1: ['28px', { lineHeight: '32px', letterSpacing: '-0.02em', fontWeight: '600' }],
         fraga: ['22px', { lineHeight: '28px', letterSpacing: '-0.02em', fontWeight: '600' }],
         tal: ['40px', { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '500' }],
         kort: ['16px', { lineHeight: '22px', letterSpacing: '-0.01em', fontWeight: '600' }],

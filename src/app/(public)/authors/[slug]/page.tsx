@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { AUTHORS, getAuthorById, getAllAuthorIds, getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
 import { getAllPostsMeta } from '@/lib/blog';
-import ArticleCard from '@/components/artiklar/ArticleCard';
+import { ArtikelKort } from '@/components/artiklar/lista/ArtikelLista';
 
 const SITE_URL = 'https://www.jobbcoach.ai';
 
@@ -140,7 +140,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
           ) : (
             <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <ArticleCard key={post.slug} post={post} />
+                <ArtikelKort key={post.slug} post={post} />
               ))}
             </div>
           )}

@@ -71,6 +71,22 @@ export interface DashboardSummaryData {
     replyCount: number
     pipeline: DashboardSummaryPipelineItem[]
   }
+  /**
+   * Hemskärmens fördelning och sammanhangsrad (docs/design/analys-visuell-linje-2026-09-22.html,
+   * avsnitt 3). Valfri eftersom ett äldre svar i sessionStorage-cachen kan sakna den.
+   */
+  hem?: {
+    /** Öppna ansökningar utan svar, tysta i över två veckor. */
+    tysta: number
+    /** Öppna ansökningar som väntar svar men inte är tysta än. */
+    vantar: number
+    /** Öppna ansökningar i intervjuskedet. */
+    intervju: number
+    /** Svar som kommit det senaste dygnet. */
+    svarSenasteDygnet: number
+    /** Den intervju som ligger närmast, om någon. */
+    nastaIntervju: { company: string; jobTitle: string } | null
+  }
   onboarding: {
     completedSteps: string[]
     rewardClaimed: boolean
@@ -275,6 +291,11 @@ export async function getDashboardSummary(
 
   const weekStart = startOfWeekStockholm(now).getTime()
   const open: DashboardSummaryPipelineItem[] = []
+  let hemTysta = 0
+  let hemVantar = 0
+  let hemIntervju = 0
+  let svarSenasteDygnet = 0
+  let nastaIntervju: { company: string; jobTitle: string } | null = null
 
   for (const app of apps) {
     const closed = statusIsClosed(app.current_status)
@@ -295,6 +316,20 @@ export async function getDashboardSummary(
 
     const appliedAt = new Date(app.applied_at ?? app.created_at).getTime()
     if (!Number.isNaN(appliedAt) && appliedAt >= weekStart) weekCount++
+
+    // Hemskärmens fördelning: varje öppen ansökan i exakt ett segment.
+    if (!closed) {
+      if (INTERVIEW_STATUSES.includes(app.current_status ?? '')) {
+        hemIntervju++
+        if (!nastaIntervju && app.current_status === 'interview_invited') {
+          nastaIntervju = { company: app.company, jobTitle: app.job_title }
+        }
+      } else if (silent) hemTysta++
+      else hemVantar++
+    }
+    if (statusHasResponse(app.current_status) && !Number.isNaN(last) && now.getTime() - last < 86400000) {
+      svarSenasteDygnet++
+    }
 
     // Pågår nu: bara öppna ärenden, de avslutade har ingen handling kvar.
     if (!closed) {
@@ -437,6 +472,13 @@ export async function getDashboardSummary(
       weekCount,
       replyCount,
       pipeline: open.slice(0, 5),
+    },
+    hem: {
+      tysta: hemTysta,
+      vantar: hemVantar,
+      intervju: hemIntervju,
+      svarSenasteDygnet,
+      nastaIntervju,
     },
     onboarding: {
       completedSteps: validatedSteps,

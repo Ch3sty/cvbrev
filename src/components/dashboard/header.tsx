@@ -3,12 +3,15 @@
 /**
  * Toppraden (docs/designsystem.md, "Informationsarkitektur").
  *
- * Hälsning till vänster, meddelanden, notisklocka och profilmeny till höger.
- * Klockan flyttar sig aldrig. Panel på mark, hårlinje under. Ingen
- * streak-pill, inget datum.
+ * Var man är till vänster ("Träna · Rekryteringstester"), meddelanden,
+ * notisklocka och profilmeny till höger. Hälsningen flyttade in i
+ * hemskärmens display-h1 (docs/design/analys-visuell-linje-2026-09-22.html,
+ * avsnitt 3), så toppraden säger bara platsen. Klockan flyttar sig aldrig.
+ * Panel på mark, hårlinje under.
  */
 
 import { Menu } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import NotificationBell from './NotificationBell';
 import MessagesHeaderButton from './MessagesHeaderButton';
@@ -26,7 +29,30 @@ function isMissingName(value: string | null | undefined): boolean {
   return trimmed === '' || trimmed.toLowerCase() === 'ej angivet';
 }
 
+/** Toppradens plats: gruppen i sidomenyn och sidans namn. */
+const PLATSER: Array<[string, string]> = [
+  ['/dashboard/sokta-tjanster', 'Sökta tjänster'],
+  ['/dashboard/profil/cv', 'Mina CV'],
+  ['/dashboard/mina-brev', 'Personliga brev'],
+  ['/dashboard/skapa-brev', 'Skriv och förbättra · Skriv nytt brev'],
+  ['/dashboard/cv-analys', 'Skriv och förbättra · Analysera CV'],
+  ['/dashboard/cv-mallar', 'Skriv och förbättra · CV-mallar'],
+  ['/dashboard/linkedin-optimizer', 'Skriv och förbättra · LinkedIn-profilen'],
+  ['/dashboard/jobbmatchning', 'Hitta jobb · Matchade jobb'],
+  ['/dashboard/bli-upptackt', 'Hitta jobb · Bli upptäckt'],
+  ['/dashboard/tester', 'Träna · Rekryteringstester'],
+  ['/dashboard/jobbcoachen', 'Träna · Jobbcoachen'],
+  ['/dashboard/profil/prenumeration', 'Konto · Profil och prenumeration'],
+  ['/dashboard/profil', 'Konto · Profil'],
+];
+
+function plats(pathname: string): string {
+  if (pathname === '/dashboard') return 'Mitt jobbsök';
+  return PLATSER.find(([p]) => pathname === p || pathname.startsWith(p + '/'))?.[1] ?? 'Jobbcoach.ai';
+}
+
 export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
+  const pathname = usePathname() ?? '/dashboard';
   // Profilfälten ligger i den delade summaryn, så raden kostar inget eget
   // nätverksanrop.
   const { summary } = useDashboardData();
@@ -83,16 +109,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
     return 'Användare';
   };
 
-  const getFirstName = () => getUserName().split(' ')[0];
 
-  const getGreeting = () => {
-    const h = new Date().getHours();
-    if (h < 5) return 'God natt';
-    if (h < 10) return 'God morgon';
-    if (h < 17) return 'Hej';
-    if (h < 22) return 'God kväll';
-    return 'God natt';
-  };
 
   const avatarUrl =
     profileInfo.profile_photo_url || user?.user_metadata?.avatar_url || null;
@@ -115,9 +132,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         )}
 
         <div className="min-w-0 flex-1 px-2 lg:px-0">
-          <p className="truncate text-base font-semibold tracking-[-0.01em] text-ink-1">
-            {getGreeting()}, {getFirstName()}
-          </p>
+          <p className="truncate text-sm font-medium text-ink-2">{plats(pathname)}</p>
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-1">

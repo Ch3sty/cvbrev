@@ -61,6 +61,22 @@ export interface DashboardSummary {
     pipeline: DashboardSummaryPipelineItem[];
   };
   /**
+   * Hemskärmens fördelning och sammanhangsrad (docs/design/analys-visuell-linje-2026-09-22.html,
+   * avsnitt 3). Valfri eftersom ett äldre svar i sessionStorage-cachen kan sakna den.
+   */
+  hem?: {
+    /** Öppna ansökningar utan svar, tysta i över två veckor. */
+    tysta: number;
+    /** Öppna ansökningar som väntar svar men inte är tysta än. */
+    vantar: number;
+    /** Öppna ansökningar i intervjuskedet. */
+    intervju: number;
+    /** Svar som kommit det senaste dygnet. */
+    svarSenasteDygnet: number;
+    /** Den intervju som ligger närmast, om någon. */
+    nastaIntervju: { company: string; jobTitle: string } | null;
+  };
+  /**
    * Onboarding-stegen, validerade på servern. Valfri eftersom ett äldre svar
    * i sessionStorage-cachen kan sakna fältet.
    */

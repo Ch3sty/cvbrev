@@ -254,15 +254,74 @@ body {
 }
 
 /* ========================================
-   VARUMÄRKESGRADIENTER
-   En källa till sanning för husets gradient, i stället för hex-stopp
-   hårdkodade per komponent. --jc-gradient-hero är reserverad för EN
-   primär handling per vy; allt annat använder warm/soft eller platta toner.
+   DISPLAY-SKALAN (docs/designsystem.md avsnitt 3, v2.1 en linje)
+   Varje vy har exakt en h1 i Schibsted Grotesk 800. Klassen bär familj,
+   vikt, storlek och radavstånd för båda skärmlägena, så en rubrik aldrig
+   behöver sätta dem själv. Brytpunkten är lg, samma som prissidan.
    ======================================== */
-:root {
-  --jc-gradient-hero: linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%);
-  --jc-gradient-warm: linear-gradient(135deg, #F97316, #DC2626);
-  --jc-gradient-soft: linear-gradient(135deg, #FFEDD5, #FED7AA);
+@layer utilities {
+  /* Sidrubrik i inloggat läge: 32/35 mobil, 44/46 desktop. */
+  .text-h1 {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 32px;
+    line-height: 35px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  /* Sidrubrik på publika sidor: 32/35 mobil, 60/60 desktop. */
+  .text-h1-pub {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 32px;
+    line-height: 35px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  /* Sektionsrubrik på publika sidor: 28/32 mobil, 40/44 desktop. */
+  .text-h2-pub {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  /* Värdemening och scenens rubrik: 18/24, 600. */
+  .text-varde {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  /* Stort tal i display, till exempel hemskärmens 11 och startsidans bevis. */
+  .text-tal-display {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 1024px) {
+    .text-h1 {
+      font-size: 44px;
+      line-height: 46px;
+    }
+    .text-h1-pub {
+      font-size: 60px;
+      line-height: 60px;
+    }
+    .text-h2-pub {
+      font-size: 40px;
+      line-height: 44px;
+    }
+    .text-tal-display {
+      font-size: 48px;
+      line-height: 48px;
+    }
+  }
 }
 
 /* ========================================
@@ -952,4 +1011,180 @@ html {
   .confirm-draw { stroke-dashoffset: 0; }
   .confirm-rise { opacity: 1; transform: none; }
   .confirm-panel::before { width: calc(100% + 2px); border-radius: 12px 12px 0 0; }
+}
+
+/* ========================================
+   ARTIKLARNA (docs/design/analys-artiklar-2026-09-23.html, avsnitt 5)
+   Prose i Trådens tokens: brödtext ink-2 16/27, h2 i display 26/31,
+   tabeller i panel, blockquote med tråden. Samma element som förut
+   (p, ul, ol, table, blockquote), bara nya tokens. Allt med not-prose
+   inuti (reklamkort, FAQ, exempel) lämnas i fred.
+   ======================================== */
+.artikel-prose {
+  --tw-prose-body: var(--ink-2);
+  --tw-prose-headings: var(--ink-1);
+  --tw-prose-links: var(--ink-1);
+  --tw-prose-bold: var(--ink-1);
+  --tw-prose-counters: var(--ink-3);
+  --tw-prose-bullets: var(--kant-stark);
+  --tw-prose-hr: var(--kant);
+  --tw-prose-quotes: var(--ink-1);
+  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-captions: var(--ink-3);
+  --tw-prose-code: var(--ink-1);
+  --tw-prose-th-borders: var(--kant);
+  --tw-prose-td-borders: var(--kant);
+  font-size: 16px;
+  line-height: 27px;
+  color: var(--ink-2);
+}
+@media (min-width: 1024px) {
+  .artikel-prose {
+    font-size: 17px;
+    line-height: 29px;
+  }
+}
+.artikel-prose h2:not(.not-prose *) {
+  font-family: var(--font-display), Inter, system-ui, sans-serif;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink-1);
+  margin-top: 48px;
+  margin-bottom: 12px;
+  scroll-margin-top: 88px;
+}
+@media (min-width: 1024px) {
+  .artikel-prose h2:not(.not-prose *) {
+    font-size: 26px;
+    line-height: 31px;
+  }
+}
+.artikel-prose h3:not(.not-prose *) {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 600;
+  color: var(--ink-1);
+  margin-top: 32px;
+  margin-bottom: 8px;
+  scroll-margin-top: 88px;
+}
+.artikel-prose a:not(.not-prose *) {
+  color: var(--ink-1);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--kant-stark);
+  text-underline-offset: 4px;
+}
+.artikel-prose a:not(.not-prose *):hover {
+  text-decoration-color: var(--ink-1);
+}
+.artikel-prose blockquote:not(.not-prose *) {
+  position: relative;
+  border-left: 0;
+  margin: 24px 0;
+  padding: 4px 0 4px 20px;
+  font-style: normal;
+  color: var(--ink-1);
+}
+.artikel-prose blockquote:not(.not-prose *)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+.artikel-prose blockquote:not(.not-prose *) p::before,
+.artikel-prose blockquote:not(.not-prose *) p::after {
+  content: none;
+}
+.artikel-prose table:not(.not-prose *) {
+  display: block;
+  overflow-x: auto;
+  border: 1px solid var(--kant);
+  border-radius: 12px;
+  background: var(--panel);
+  font-size: 14px;
+  line-height: 22px;
+}
+.artikel-prose thead:not(.not-prose *) th {
+  background: var(--insunken);
+  color: var(--ink-1);
+  padding: 10px 12px;
+}
+.artikel-prose tbody:not(.not-prose *) td {
+  padding: 10px 12px;
+}
+.artikel-prose code:not(.not-prose *) {
+  background: var(--insunken);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-weight: 500;
+}
+.artikel-prose code:not(.not-prose *)::before,
+.artikel-prose code:not(.not-prose *)::after {
+  content: none;
+}
+.artikel-prose img:not(.not-prose *) {
+  border-radius: 12px;
+  border: 1px solid var(--kant);
+}
+
+/* Innehållsförteckningen: tråden visar avsnittet man läser. */
+.toc-aktiv {
+  position: relative;
+  color: var(--ink-1);
+  font-weight: 500;
+}
+.toc-aktiv::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ========================================
+   RESERVTYPSNITTET FÖR DISPLAY-RUBRIKERNA
+   next/font skapar "Schibsted Grotesk Fallback" ur Arial med måtten för
+   normal vikt. Rubrikerna står i 600 till 800, där Schibsted är 3 till 8
+   procent bredare än den syntetiskt fetade Arial. En rubrik som bröts på två
+   rader i reservtypsnittet kunde därför bli tre när typsnittet kom, och allt
+   under den flyttade sig (CLS 0,04 på CV-mallar, 2026-09-23). Samma namn med
+   viktintervall tar över för de feta vikterna; storleken är uppmätt mot det
+   riktiga typsnittet.
+   ======================================== */
+@font-face {
+  font-family: 'Schibsted Grotesk Fallback';
+  src: local('Arial');
+  font-weight: 550 650;
+  size-adjust: 107.8%;
+  ascent-override: 93.46%;
+  descent-override: 24.67%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk Fallback';
+  src: local('Arial');
+  font-weight: 651 750;
+  size-adjust: 110.2%;
+  ascent-override: 93.46%;
+  descent-override: 24.67%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk Fallback';
+  src: local('Arial');
+  font-weight: 751 900;
+  size-adjust: 112.7%;
+  ascent-override: 93.46%;
+  descent-override: 24.67%;
+  line-gap-override: 0%;
 }

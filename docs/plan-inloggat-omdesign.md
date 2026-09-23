@@ -457,6 +457,8 @@ osant slutar lita på ATS-poängen, matchningsprocenten och testresultaten ocks�
 
 ## 10. Åtgärdslista
 
+> 2026-09-23: sidomenyn byggd om enligt den visuella linjen (docs/design/analys-visuell-linje-2026-09-22.html, regel 8): fyra tunga val med antal, verktygen i tre grupper (Skriv och förbättra, Hitta jobb, Träna), inga underrader i menyn; hemskärmen med display-h1, Nästa handling som bläckyta och aktiviteten som meningar per dag. Detaljer i docs/bygg-noter-paket.md, "Visuell linje: avgjort".
+
 ### Våg 1: sanning, intäkt och blockerare (en vecka)
 
 1. Stryk alla "7 dagar"-löften i 8 filer. **S.** Inga beroenden.
