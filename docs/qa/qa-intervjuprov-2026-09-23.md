@@ -122,16 +122,34 @@ artiklarna (+9 kB).
 1. **Felkanten försvann när fältet hade fokus** (steg 3, första körningen: kanten var
    ink-1). `focus:border-ink-1` vann över `border-fel`. Rättat: fokuskanten sätts bara
    när fältet inte har fel. Omkört, OK.
-2. **404 för annan användares token ges med HTTP 200.** Innehållet är 404-sidan med
-   `noindex` och inget av svaret läcker, men `src/app/dashboard/loading.tsx` gör att
-   dashboardsidorna strömmar, och statusen är skickad när `notFound()` körs. Gäller alla
-   dashboardsidor. Inte rättat: kräver att laddningsgränsen flyttas för hela dashboarden.
-3. **Samtyckesrutan täcker "Skapa konto" på mobil** (`#rcc-confirm-button` ligger över
-   knappen tills den tryckts bort). Befintligt beteende, utanför bygget. QA trycker bort
-   rutan först, som en besökare.
-4. **Mobilens klistrade knapprad ("Träna intervjufrågor") täcker spärrkortets underkant**
-   när kortet står längst ner på skärmen. Befintligt beteende. Kortet går att scrolla
-   fram; värt att se över om raden ska döljas medan provet syns.
+2. **404 för annan användares token gavs med HTTP 200.** `src/app/dashboard/loading.tsx`
+   gör att dashboardsidorna strömmar, så statusen var skickad när `notFound()` kördes.
+   Rättat för intervjusidan: proxyn (`src/proxy.ts`, via en valfri kontroll i
+   `updateSession`) slår upp raden när användaren är känd och skriver om till en adress
+   utan route med status 404. Samma regel (`arTillganglig` i `src/lib/intervju/rad.ts`)
+   används av sidan. curl mot produktionsbygget: annan användares token 404, eget token
+   200, okänt uuid 404, ogiltigt token 404, utan session 307 till /login. RSC-hämtningar
+   vid klientnavigering går förbi kontrollen och får sidans egen 404. Den generella
+   lösningen för hela dashboarden vore att flytta `loading.tsx` in i en route-grupp, så att
+   sidor som behöver en riktig 404 kan ligga utanför Suspense-gränsen; inte gjord nu.
+3. **Samtyckesrutan och mobilens klistrade knapprad täckte kontoknappen.** Rättat med
+   `useFriSikt` (`src/components/shared/useFriSikt.ts`): när en spärr syns sätts
+   `data-fri-sikt` på html, och globals.css skjuter ut samtycket och `[data-sticky-mobil]`
+   nedåt med transform och visibility (inget layoutskifte). Samtycket kommer tillbaka när
+   spärren scrollats ur bild. Används i intervjuprovets spärr- och kvotkort, testprovets
+   spärr och brevprovets spärr (samma rutt, samma problem; brevprovet inte provat i
+   webbläsaren eftersom det kostar en generering). Pixel 7, knappen längst ner på skärmen:
+
+   | Fall | Före (regeln avstängd) | Efter |
+   |---|---|---|
+   | Intervjuprov, samtycket synligt | knappen täckt av samtycket (`pixel7-fri-sikt-intervju-fore.png`) | fri (`pixel7-fri-sikt-intervju-synlig.png`) |
+   | Intervjuprov, samtycket accepterat | knappen täckt av knappraden (`pixel7-fri-sikt-intervju-accepterad-fore.png`) | fri (`pixel7-fri-sikt-intervju-accepterad.png`) |
+   | Intervjuprov, spärren ur bild | | samtycket tillbaka (`pixel7-fri-sikt-intervju-banner-tillbaka.png`) |
+   | Testprovet, samtycket synligt | knappen täckt av samtycket (`pixel7-fri-sikt-testprov-fore.png`) | fri (`pixel7-fri-sikt-testprov-synlig.png`) |
+   | Testprovet, samtycket accepterat | | fri (`pixel7-fri-sikt-testprov-accepterad.png`) |
+
+   Kvar: på testprovet ligger samtycket också över svarsalternativen under själva provet
+   (inte en spärr, så utanför den här rättningen).
 5. **Omskrivningen hittar ibland på detaljer**, se avsnitt 1.
 
 ## 5. Avvikelser från specen och varför
