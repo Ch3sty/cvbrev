@@ -124,13 +124,15 @@ Tillstånd `type Phase = 'inbjudan' | 'svarar' | 'laddar' | 'resultat'` plus `fe
 | fel | `FlowError` under stegraden, svaren kvar. |
 | kvot | rubriken, `StatusRow tone="neutral" showDot wrap` med kvottexten, kontoknappen, villkorsraden. Skalan dold. |
 
-Skalan: `<div role="radiogroup" aria-label="Hur väl stämmer påståendet">` med fem `<button role="radio" aria-checked>`,
-`min-h-11 w-full` i `grid gap-2`, `sm:grid-cols-5`. Valt: `border-ink-1 shadow-val` plus bock i ink-1 (mobil).
-Tangentbord: pil upp/ned (mobil) och vänster/höger flyttar fokus och val inom gruppen, mellanslag eller
-Enter bekräftar och går vidare. Ett tryck går vidare efter 160 ms. Räknaren `aria-live="polite"`.
-Fokus flyttas till påståendet (`tabIndex={-1}`) vid varje byte.
+Skalan är ett reglage, inte fem knappar (finishomgång 2026-09-24, designfilen tillstånd a och b): ett insunket spår (`h-2 rounded-full bg-insunken shadow-insunken`, inskjutet 10 procent från var sida) med fem stopp, ritat i `<div role="radiogroup" aria-label="Hur väl stämmer påståendet">` som `grid grid-cols-5 h-11` där varje kolumn är en `<button role="radio" aria-checked aria-label={skalans ord}>` med hela kolumnen som träffyta (44 px hög, 76 px bred på Pixel 7). Pricken är 14 px `bg-panel border-2 border-kant-stark`; hover ger `border-ink-1`; passerade stopp `bg-ink-1`; valt stopp 24 px `bg-ink-1` med vit bock (samma bock som ChoiceCard, 13 px). Spåret fylls i `bg-ink-1` från vänster till valt stopp (`width: (value-1)/4 * 100%`, 160 ms). Under spåret ytterlägenas ord i `text-meta text-ink-3` (vänster och höger), och under dem det valda lägets ord centrerat i `text-sm font-medium text-ink-1` med `aria-live="polite"`; före val står "Tryck på ett läge" i ink-3. Raden är alltid reserverad (min-h 20) så panelen inte hoppar.
+Tangentbord: pil vänster/höger (och upp/ned) flyttar fokus och val inom gruppen, mellanslag eller Enter bekräftar och går vidare. Ett tryck går vidare efter 160 ms. Räknaren `aria-live="polite"`.
+Fokus flyttas till citatet (`tabIndex={-1}`) vid varje byte. Fokusringen är `outline 2px accent` med `outline-offset -6px` och `rounded-lg` runt kolumnen.
 
-Höjd: `.pastaende` har `min-h-[52px]` (två rader 20/26) på mobil och `min-h-[56px]` på desktop, så panelen inte
+Påståendet ritas som intervjuprovets fråga: `<blockquote className="border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">` utan citattecken, inuti en `div` med `min-h-[52px] sm:min-h-[56px]` (två rader) som låser panelens höjd. Under det instruktionsraden i `text-meta text-ink-3`.
+
+Resultatets grafik: femhörningen ur `IlluPersonlighet` (`TestIllustrations.tsx`) ritad i 96 (desktop 112) med de riktiga utslagen (`level = score/100` per hörn, ordning C, E, S, A, O medurs från toppen), axlar i `kant-stark` 1,5 px, konturen i `currentColor` 3 px, profilen fylld i accent 0,85. Lägg den som en ny export `IlluProfilPentagon({ levels, size })` i `TestIllustrations.tsx`, aldrig som inline-SVG i komponenten. Faktorraderna är `Fordelning`-komponentens segmentrad (`flex h-2 gap-0.5 rounded-full overflow-hidden`, fyllda segment `bg-ink-1`, tomma `bg-insunken shadow-[inset_0_0_0_1px_var(--kant-stark)]`), fem segment, med `role="img" aria-label="n av 5"`. Bandordet i `text-meta font-medium text-ink-2`.
+
+Höjd: citatets omslutande `div` har `min-h-[52px]` (två rader 18/24) på mobil och `min-h-[56px]` på desktop, så panelen inte
 ändrar höjd mellan påstående 1 och 20. Påståenden längre än två rader på 380 px bredd får inte finnas (kontrollera
 de tjugo i QA steg 3).
 

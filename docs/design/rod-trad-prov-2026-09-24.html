@@ -15,6 +15,7 @@
   --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;--fel-morker:#7F1D1D;
   --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
   --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+  --illu-fill:var(--panel);--illu-accent:var(--accent);--illu-soft:var(--accent-mjuk);--illu-muted:var(--kant-stark);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:14px;line-height:21px;-webkit-font-smoothing:antialiased}
@@ -23,6 +24,7 @@ p{margin:0}
 svg{display:block}
 a{color:inherit}
 ul{margin:0;padding:0;list-style:none}
+button{font:inherit}
 
 /* ---------------------------------------------------------- dokumentets ram */
 .wrap{max-width:1400px;margin:0 auto;padding:40px 24px 80px}
@@ -73,19 +75,6 @@ ul{margin:0;padding:0;list-style:none}
 .prov .rubrik{margin-top:8px;font-family:var(--display);font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);text-wrap:balance}
 .prov .text{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
 .desk .prov .text{font-size:16px;line-height:24px}
-.steg{margin-top:16px;display:flex;justify-content:space-between;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
-.pastaende{margin-top:8px;font-family:var(--display);font-size:20px;line-height:26px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1);min-height:52px}
-.desk .pastaende{font-size:22px;line-height:28px}
-.instr{margin-top:6px;font-size:13px;line-height:18px;color:var(--ink-3)}
-.likert{margin-top:12px;display:grid;gap:8px}
-.desk .likert{grid-template-columns:repeat(5,1fr)}
-.likert button,.likert .val{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--kant);border-radius:8px;background:var(--panel);font:inherit;font-size:14px;font-weight:500;color:var(--ink-1);text-align:left}
-.desk .likert .val{justify-content:center;text-align:center;padding:0 8px;font-size:13px;line-height:17px}
-.likert .val.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
-.likert .val.vald::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L19 7'/%3E%3C/svg%3E") center/12px no-repeat;flex:none;margin-left:8px}
-.desk .likert .val.vald::after{display:none}
-.likert .val.fokus{outline:2px solid var(--accent);outline-offset:2px}
-.tillbaka{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .knapp{margin-top:16px;display:inline-flex;height:44px;width:100%;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:8px;background:var(--ink-1);color:#fff;font-size:14px;font-weight:500;line-height:1;text-decoration:none;border:0;font-family:inherit}
 .desk .knapp,.app-desk .knapp{width:auto}
 .knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
@@ -260,12 +249,71 @@ th{background:var(--insunken);font-weight:600;color:var(--ink-1)}
 td:first-child{color:var(--ink-3);white-space:nowrap}
 tr:last-child td{border-bottom:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.kravtab{margin-top:12px;border:1px solid var(--kant);border-radius:8px;overflow:hidden;max-width:none}
-.kravtab td:first-child{color:var(--ink-1);font-weight:500;white-space:normal}
-.kravtab td{padding:8px 10px;font-size:13px}
+
+/* ============================================================ Del A, finishomgång 2026-09-24.
+   Provpanelen ritas med Intervjuprov.tsx:s klasser översatta till px:
+   eyebrow text-steg, rubrik display 22/28 700, ingress 14/22 (sm 16/24),
+   citatet blockquote border-l-[3px] border-accent py-0.5 pl-3 display 18/24
+   600 (sm 20/26), knappen h-11 font-medium, fotnoten text-meta. */
+.t-steg{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.t-varde{font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.prov .ingress{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.desk .prov .ingress{font-size:16px;line-height:24px}
+.stegrad{margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.citatram{margin-top:12px;min-height:52px}
+.citat{margin:0;padding:2px 0 2px 12px;border-left:3px solid var(--accent);font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.desk .citat{font-size:20px;line-height:26px}
+.desk .citatram{min-height:56px}
+.instr{margin-top:8px;font-size:13px;line-height:18px;color:var(--ink-3)}
+/* Reglaget: fem stopp på ett insunket spår (fältets toner), fyllt i bläck
+   till valt läge. Träffytan är 44 px per kolumn, aldrig bara pricken. */
+.reglage{margin-top:16px;position:relative}
+.reglage .spar{position:absolute;left:10%;right:10%;top:18px;height:8px;border-radius:9999px;background:var(--insunken);box-shadow:inset 0 1px 0 var(--insunken-topp)}
+.reglage .spar i{position:absolute;left:0;top:0;bottom:0;border-radius:9999px;background:var(--ink-1);width:var(--fyll,0%)}
+.reglage .stopp{position:relative;display:grid;grid-template-columns:repeat(5,1fr);height:44px}
+.reglage .stopp button{position:relative;height:44px;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.reglage .stopp button::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--panel);border:2px solid var(--kant-stark);transition:transform 160ms ease-out,background-color 160ms,border-color 160ms}
+.reglage .stopp button:hover::before{border-color:var(--ink-1)}
+.reglage .stopp button.fylld::before{background:var(--ink-1);border-color:var(--ink-1)}
+.reglage .stopp button.vald::before{width:24px;height:24px;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.5l4 4 8-9'/%3E%3C/svg%3E") center/13px no-repeat;border-color:var(--ink-1)}
+.reglage .stopp button.fokus{outline:2px solid var(--accent);outline-offset:-6px;border-radius:8px}
+.reglage .poler{display:flex;justify-content:space-between;gap:12px;margin-top:2px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.reglage .valt{margin-top:4px;min-height:20px;text-align:center;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.reglage .valt.tom{color:var(--ink-3);font-weight:400}
+.tillbaka{margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.laddar .l1{line-height:20px}
+/* Profilen: femhörningen ur IlluPersonlighet (TestIllustrations.tsx) i 96
+   med riktiga utslag, faktorraderna är Fordelnings segmentrad (h-2 gap-0.5). */
+.profilhuvud{margin-top:12px;display:flex;gap:16px;align-items:flex-start}
+.profilhuvud .pent{flex:none;width:96px;color:var(--ink-1)}
+.desk .profilhuvud .pent{width:112px}
+.profilhuvud .t-varde{flex:1;min-width:0;margin-top:4px}
+.prov .faktorer{gap:16px}
+.prov .faktor .band{font-weight:500;color:var(--ink-2)}
+.prov .faktor .lasning{margin-top:8px}
+.seg{margin-top:8px;display:flex;height:8px;gap:2px;border-radius:9999px;overflow:hidden}
+.seg i{flex:1;background:var(--insunken);box-shadow:inset 0 0 0 1px var(--kant-stark)}
+.seg i:first-child{border-radius:9999px 0 0 9999px}.seg i:last-child{border-radius:0 9999px 9999px 0}
+.seg i.pa{background:var(--ink-1);box-shadow:none}
+.prov .sparr,.art>.sparr{margin-top:24px}
+.sparr .rad2{gap:0 20px}
+.sparr .rad2 .textlank{line-height:44px}
+.felrad a{display:inline-flex;min-height:44px;align-items:center;line-height:20px}
+.ik{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.last .lbl svg{fill:none;stroke:currentColor;stroke-width:1.5}
 </style>
 </head>
 <body>
+
+<!-- Symboler för Del A: låset ur LastBlock, pilen (lucide ArrowRight), FlowErrors ikon och
+     IlluBlurGate 96 ur StartFlowIllustrations.tsx med samma stigar. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ik-las" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="ik-pil" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="ik-fel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="illu-blurgate" viewBox="0 0 96 96"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="10" width="52" height="68" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/><path d="M26 26h28M26 36h28" stroke="currentColor" stroke-width="3"/><path d="M26 48h28M26 58h20" stroke="currentColor" stroke-width="3" stroke-opacity=".3" stroke-dasharray="6 6"/><rect x="54" y="54" width="32" height="26" rx="8" fill="var(--illu-accent)" fill-opacity=".2" stroke="currentColor" stroke-width="3"/><path d="M60 54v-7a10 10 0 0 1 20 0v7" stroke="currentColor" stroke-width="3"/><circle cx="70" cy="67" r="3.5" fill="currentColor"/></g></symbol>
+</svg>
+
 <div class="wrap">
 
 <header class="doc-head">
@@ -328,7 +376,7 @@ tr:last-child td{border-bottom:0}
 <section class="sektion">
   <p class="eyebrow">Del A · Tillstånd a</p>
   <h2>Inbjudan: första påståendet syns direkt</h2>
-  <p class="led">Ingen startknapp. Rubrik, en mening, och det första påståendet med skalan under. Den som trycker har börjat, och det är där <code>sample_started</code> loggas. Skalan är fem rader på mobil (44 px, hela bredden, ett tryck per rad, tummen når allt) och fem kolumner på desktop.</p>
+  <p class="led">Panelen är intervjuprovets panel: eyebrow, display-rubrik 22/28, ingress, och påståendet med samma citatbehandling som intervjufrågan (tråden i kanten, display 18/24). Under det ett reglage: fem stopp på ett insunket spår, ytterlägenas etiketter under, valt läge fyllt i bläck. Ingen startknapp. Den som trycker har börjat, och det är där <code>sample_started</code> loggas.</p>
   <div class="rad">
     <div class="kol">
       <p class="etikett">Pixel 7 · personlighetstest-jobb-guide, efter "Så tolkas svaren"</p>
@@ -337,18 +385,17 @@ tr:last-child td{border-bottom:0}
           <p class="dim">Rekryteraren använder sedan profilen för att välja frågor till intervjun, till exempel "berätta om en gång då du hittade ett fel i en rapport i sista stund". Testet ger alltså underlag till samtalet snarare än ett färdigt beslut.</p>
         </div>
         <aside class="prov">
-          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="t-steg">Personlighetsprovet</p>
           <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
-          <p class="text">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
-          <div class="steg"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
-          <p class="pastaende">Jag gör klart det jag lovat även när ingen följer upp.</p>
+          <p class="ingress">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
+          <div class="stegrad"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
+          <div class="citatram"><blockquote class="citat">Jag gör klart det jag lovat även när ingen följer upp.</blockquote></div>
           <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
-          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
-            <span class="val">Stämmer inte alls</span>
-            <span class="val">Stämmer dåligt</span>
-            <span class="val">Varken eller</span>
-            <span class="val">Stämmer ganska bra</span>
-            <span class="val">Stämmer helt</span>
+          <div class="reglage" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <div class="spar" aria-hidden="true"><i style="--fyll:0%"></i></div>
+            <div class="stopp"><button type="button" role="radio" aria-checked="false" aria-label="Stämmer inte alls"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer dåligt"></button><button type="button" role="radio" aria-checked="false" aria-label="Varken eller"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer ganska bra"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer helt"></button></div>
+            <div class="poler" aria-hidden="true"><span>Stämmer inte alls</span><span>Stämmer helt</span></div>
+            <p class="valt tom">Tryck på ett läge</p>
           </div>
           <p class="fotnot">Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</p>
         </aside>
@@ -357,30 +404,29 @@ tr:last-child td{border-bottom:0}
           <p class="dim">De flesta test du möter i Sverige bygger på femfaktormodellen, men de skiljer sig i längd, rapport och vem som får se vad.</p>
         </div>
       </div></div>
-      <div class="motiv"><b>Mobil.</b> Påståendet i display 20/26 så det läses som en fråga, inte som en formulärrad. Skalan i fem rader ger fem stora träffytor och ingen horisontell krypning. Panelens höjd är låst av påståendets min-height (två rader), så påstående 2 till 20 ritas på samma yta.
-        <ul><li>Orange räknat: framstegslinjen i överkanten från påstående 2 (1), fokusringen (2). Två av tre.</li><li>Ingen startknapp: första trycket är starten. Det sparar ett steg och ett beslut.</li><li>Ordningen är blandad per faktor (aldrig fyra samvetsgrannhet i rad), seedad på token så samma prov ser likadant ut vid rehydrering.</li></ul></div>
+      <div class="motiv"><b>Mobil.</b> Påståendet är citatet, med tråden i kanten precis som frågan i intervjuprovet, så de två proven läses som syskon. Reglaget: spåret är ett insunket fält (samma toner som textfältet), stoppen är 14 px prickar med 44 px höga träffytor i fem kolumner, så tummen träffar hela kolumnen och inte pricken. Under spåret står bara ytterlägena; det valda lägets ord skrivs ut mitt under när man tryckt.
+        <ul><li>Orange räknat: citatets tråd (1), framstegslinjen från påstående 2 (2), fokusringen (3). Tre av tre, inget annat orange i panelen.</li><li>Ingen startknapp: första trycket är starten. Det sparar ett steg och ett beslut.</li><li>Panelens höjd är låst av citatets min-height (två rader), så påstående 2 till 20 ritas på samma yta.</li></ul></div>
     </div>
     <div class="kol bred">
       <p class="etikett">Desktop · artikelkolumnen 720 px · map-test-personlighetstest</p>
       <div class="desk"><div class="art">
         <aside class="prov">
-          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="t-steg">Personlighetsprovet</p>
           <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
-          <p class="text">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
-          <div class="steg"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
-          <p class="pastaende">Jag gör klart det jag lovat även när ingen följer upp.</p>
+          <p class="ingress">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
+          <div class="stegrad"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
+          <div class="citatram"><blockquote class="citat">Jag gör klart det jag lovat även när ingen följer upp.</blockquote></div>
           <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
-          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
-            <span class="val">Stämmer inte alls</span>
-            <span class="val">Stämmer dåligt</span>
-            <span class="val">Varken eller</span>
-            <span class="val">Stämmer ganska bra</span>
-            <span class="val">Stämmer helt</span>
+          <div class="reglage" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <div class="spar" aria-hidden="true"><i style="--fyll:0%"></i></div>
+            <div class="stopp"><button type="button" role="radio" aria-checked="false" aria-label="Stämmer inte alls"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer dåligt"></button><button type="button" role="radio" aria-checked="false" aria-label="Varken eller"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer ganska bra"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer helt"></button></div>
+            <div class="poler" aria-hidden="true"><span>Stämmer inte alls</span><span>Stämmer helt</span></div>
+            <p class="valt tom">Tryck på ett läge</p>
           </div>
           <p class="fotnot">Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</p>
         </aside>
       </div></div>
-      <div class="motiv"><b>Desktop.</b> Skalan blir en rad med fem lika breda knappar, etiketterna i 13 px centrerade. Piltangenter flyttar mellan alternativen som i en radiogrupp, mellanslag väljer och går vidare. Samma DOM som mobilen, bara grid-kolumnerna ändras.</div>
+      <div class="motiv"><b>Desktop.</b> Samma DOM, 24 px padding. Piltangenter flyttar mellan stoppen som i en radiogrupp, mellanslag eller Enter bekräftar och går vidare. Fokusringen ligger som en rundad ram runt kolumnen, 2 px accent. Hover gör prickens kant till bläck.</div>
     </div>
   </div>
 </section>
@@ -389,35 +435,34 @@ tr:last-child td{border-bottom:0}
 <section class="sektion">
   <p class="eyebrow">Del A · Tillstånd b</p>
   <h2>Mitt i provet, och när servern räknar</h2>
-  <p class="led">Från påstående 2 löper tråden längs panelens överkant som framstegslinje: här är du. Ett val går vidare efter 160 ms så bocken hinner synas. "Föregående påstående" är en textlänk under skalan, aldrig en andra knapp. Efter påstående 20 räknar servern ihop profilen, vilket tar under en sekund, men skelettet visas ändå så att bytet inte blinkar.</p>
+  <p class="led">Från påstående 2 löper tråden längs panelens överkant som framstegslinje: här är du. Spåret fylls i bläck från vänster till valt stopp, som ett reglage, och det valda lägets ord står under. Ett val går vidare efter 160 ms så fyllningen hinner synas. "Föregående påstående" är en textlänk, aldrig en andra knapp. Efter påstående 20 räknar servern ihop profilen, vilket tar under en sekund, men skelettet visas ändå så att bytet inte blinkar.</p>
   <div class="rad">
     <div class="kol">
       <p class="etikett">Pixel 7 · påstående 8 av 20, valet gjort</p>
       <div class="tele"><div class="art">
         <aside class="prov framsteg" style="--w:40%">
-          <p class="eyebrow">Personlighetsprovet</p>
-          <div class="steg"><span>Påstående 8 av 20</span><span>Inga rätt eller fel</span></div>
-          <p class="pastaende">Jag arbetar helst i ett rum för mig själv.</p>
+          <p class="t-steg">Personlighetsprovet</p>
+          <div class="stegrad"><span>Påstående 8 av 20</span><span>Inga rätt eller fel</span></div>
+          <div class="citatram"><blockquote class="citat">Jag arbetar helst i ett rum för mig själv.</blockquote></div>
           <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
-          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
-            <span class="val">Stämmer inte alls</span>
-            <span class="val vald fokus">Stämmer dåligt</span>
-            <span class="val">Varken eller</span>
-            <span class="val">Stämmer ganska bra</span>
-            <span class="val">Stämmer helt</span>
+          <div class="reglage" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <div class="spar" aria-hidden="true"><i style="--fyll:25%"></i></div>
+            <div class="stopp"><button type="button" role="radio" aria-checked="false" class="fylld" aria-label="Stämmer inte alls"></button><button type="button" role="radio" aria-checked="true" class="vald fokus" aria-label="Stämmer dåligt"></button><button type="button" role="radio" aria-checked="false" aria-label="Varken eller"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer ganska bra"></button><button type="button" role="radio" aria-checked="false" aria-label="Stämmer helt"></button></div>
+            <div class="poler" aria-hidden="true"><span>Stämmer inte alls</span><span>Stämmer helt</span></div>
+            <p class="valt" aria-live="polite">Stämmer dåligt</p>
           </div>
           <div class="tillbaka"><a class="textlank" href="#">Föregående påstående</a><span class="fotnot" style="margin:0">Svar sparas i panelen</span></div>
         </aside>
       </div></div>
-      <div class="motiv"><b>Under provet.</b> Rubriken och ingressen fälls bort efter första svaret (som intervjuprovets ingress) så skalan ligger högre upp. Framstegslinjen är 2 px accent i överkanten, 5 procent per påstående. Bocken i ink-1 på valt alternativ, aldrig orange: tråden betyder position, valet markeras med kant och bock.
-        <ul><li>Svaren ligger i komponentens state och i sessionStorage under token, så en omladdning mitt i provet fortsätter där man var.</li><li>Inget tangentbord behövs. VoiceOver läser "Påstående 8 av 20, Jag arbetar helst i ett rum för mig själv, radiogrupp, fem alternativ".</li></ul></div>
+      <div class="motiv"><b>Under provet.</b> Rubriken och ingressen fälls bort efter första svaret (som intervjuprovets ingress) så citatet och reglaget ligger högre upp. Framstegslinjen är 2 px accent i överkanten, 5 procent per påstående. Valt stopp växer till 24 px i bläck med bock, spåret fylls till stoppet; passerade stopp fylls i bläck. Ingen orange i reglaget: tråden betyder position, valet markeras med bläck.
+        <ul><li>Svaren ligger i komponentens state och i sessionStorage under token, så en omladdning mitt i provet fortsätter där man var.</li><li>TalkBack läser "Påstående 8 av 20, Jag arbetar helst i ett rum för mig själv, Hur väl stämmer påståendet, radiogrupp, Stämmer dåligt, vald, 2 av 5".</li></ul></div>
     </div>
     <div class="kol">
       <p class="etikett">Pixel 7 · efter påstående 20, servern räknar</p>
       <div class="tele"><div class="art">
         <aside class="prov framsteg" style="--w:100%">
-          <p class="eyebrow">Personlighetsprovet</p>
-          <div class="steg"><span>Påstående 20 av 20</span><span>Klart</span></div>
+          <p class="t-steg">Personlighetsprovet</p>
+          <div class="stegrad"><span>Påstående 20 av 20</span><span>Klart</span></div>
           <div class="laddar" role="status" aria-live="polite">
             <p class="l1">Vi räknar ihop din profil</p>
             <div class="wl" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -434,31 +479,34 @@ tr:last-child td{border-bottom:0}
 <section class="sektion">
   <p class="eyebrow">Del A · Tillstånd c och d</p>
   <h2>Profilen direkt, spärren i samma andetag</h2>
-  <p class="led">Det som syns före kontot: en mening om vad rekryteraren lägger märke till först, och de fem faktorerna med bandord (Hög, Mitt emellan, Låg), femsegmentsmätare och en mening per faktor i rekryterarens perspektiv. Inga råpoäng: tjugo påståenden ger en riktning, inte ett tal, och siffror hade lovat en precision provet inte har. Det låsta: profilen läst mot sex vanliga kravprofiler, det du kan säga på intervjun, och de tio påståendena som var omvända med ett mått på hur konsekvent du svarade.</p>
+  <p class="led">Det som syns före kontot: femhörningen ur testhubbens <code>IlluPersonlighet</code> ritad med de riktiga utslagen, en mening om vad rekryteraren lägger märke till först, och de fem faktorerna som Fordelnings segmentrad med bandord (Hög, Mitt emellan, Låg) och en mening per faktor i rekryterarens perspektiv. Inga råpoäng: tjugo påståenden ger en riktning, inte ett tal. Det låsta: profilen läst mot sex vanliga kravprofiler, det du kan säga på intervjun, och de tio påståendena som var omvända med ett mått på hur konsekvent du svarade.</p>
   <div class="rad">
     <div class="kol">
       <p class="etikett">Pixel 7 · resultat och spärr (hela panelen)</p>
       <div class="tele"><div class="art">
         <aside class="prov" aria-live="polite">
-          <p class="eyebrow">Din profil</p>
-          <p class="mening">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          <p class="t-steg">Din profil</p>
+          <div class="profilhuvud">
+            <svg class="pent" viewBox="0 0 96 96" aria-hidden="true"><g stroke="var(--kant-stark)" stroke-width="1.5"><path d="M48 48L48 14M48 48L80.3 37.5M48 48L68 75.5M48 48L28 75.5M48 48L15.7 37.5"/></g><polygon points="48,14 80.3,37.5 68,75.5 28,75.5 15.7,37.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><polygon points="48,14 59.3,44.3 65,71.4 37,63.1 30.2,42.2" fill="var(--illu-accent)" opacity=".85"/></svg>
+            <p class="t-varde">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          </div>
           <div class="faktorer">
-            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="seg" role="img" aria-label="5 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="seg" role="img" aria-label="2 av 5"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="seg" role="img" aria-label="4 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="seg" role="img" aria-label="3 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="seg" role="img" aria-label="3 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
             <div class="rader" aria-hidden="true"><i style="width:88%"></i><i style="width:76%"></i><i style="width:92%"></i><i style="width:70%"></i><i style="width:84%"></i><i style="width:78%"></i></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
             <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:90%"></i><i style="width:72%"></i><i style="width:86%"></i><i style="width:64%"></i></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
             <div class="rader" aria-hidden="true"><i style="width:80%"></i><i style="width:68%"></i><i style="width:50%"></i></div>
           </div>
           <p class="sr">Du ser hela tolkningen när du skapat ett konto.</p>
@@ -467,62 +515,56 @@ tr:last-child td{border-bottom:0}
           <div>
             <p class="rubrik2">Spara profilen och se hela tolkningen</p>
             <p class="text">Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.</p>
-            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a class="knapp" href="#">Skapa konto gratis<svg class="ik" style="stroke-width:2"><use href="#ik-pil"/></svg></a>
             <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Gör om provet</a></div>
           </div>
         </section>
       </div></div>
-      <div class="motiv"><b>Vad som syns före kontot.</b> Hela profilen. Det är spegeln, och den ska vara gratis och hel, annars känns provet som ett lockbete. Det låsta är det man gör med spegeln: läsningen mot kravprofiler, intervjuformuleringarna och facit på omvändningen. Etiketterna säger exakt vad som ligger där, med antal.
-        <ul><li>Meningen överst är byggd av de två faktorer som avviker mest från mitten. Ligger allt i mitten: "Det rekryteraren lägger märke till först: en jämn profil utan utslag. Räkna med frågor om vad du väljer när du får välja."</li><li>Mätaren är fem segment i ink-1, som intervjuprovets nivå. Segmenten är kvintiler av faktorpoängen, bandordet följer motorns band (låg under 40, hög från 70).</li><li>Stabilitet visas inverterat: hög stabilitet är låg särbarhet i motorn. Konsekvent med MAP-artikeln och med hur rekryterare pratar.</li><li>Spärrkortet är intervjuprovets: upphöjd kant, kontoknapp med pil, villkorsrad, "Gör om provet" som textlänk.</li></ul></div>
+      <div class="motiv"><b>Vad som syns före kontot.</b> Hela profilen. Det är spegeln, och den ska vara gratis och hel, annars känns provet som ett lockbete. Det låsta är det man gör med spegeln. Femhörningen är samma symbol som testhubbens personlighetsikon, i 96 med profilens fyllning i accent (illustrationens accent, räknas som ett orange), och den gör att resultatet känns igen på hubben där ikonen sitter.
+        <ul><li>Meningen överst är byggd av de två faktorer som avviker mest från mitten. Ligger allt i mitten: "Det rekryteraren lägger märke till först: en jämn profil utan utslag. Räkna med frågor om vad du väljer när du får välja."</li><li>Segmentraden är Fordelnings: fem segment, 8 px, fyllda i bläck, tomma i insunken med kant-stark innerkant. Bandordet i 13/500 ink-2.</li><li>Stabilitet visas inverterat: hög stabilitet är låg särbarhet i motorn.</li><li>Spärrkortet är intervjuprovets: upphöjd kant, kontoknapp med pil, villkorsrad, "Gör om provet" som textlänk.</li></ul></div>
     </div>
     <div class="kol bred">
       <p class="etikett">Desktop · resultat och spärr</p>
       <div class="desk"><div class="art">
         <aside class="prov" aria-live="polite">
-          <p class="eyebrow">Din profil</p>
-          <p class="mening">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          <p class="t-steg">Din profil</p>
+          <div class="profilhuvud">
+            <svg class="pent" viewBox="0 0 96 96" aria-hidden="true"><g stroke="var(--kant-stark)" stroke-width="1.5"><path d="M48 48L48 14M48 48L80.3 37.5M48 48L68 75.5M48 48L28 75.5M48 48L15.7 37.5"/></g><polygon points="48,14 80.3,37.5 68,75.5 28,75.5 15.7,37.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><polygon points="48,14 59.3,44.3 65,71.4 37,63.1 30.2,42.2" fill="var(--illu-accent)" opacity=".85"/></svg>
+            <p class="t-varde" style="font-size:20px;line-height:26px">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          </div>
           <div class="faktorer">
-            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
-            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="seg" role="img" aria-label="5 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="seg" role="img" aria-label="2 av 5"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="seg" role="img" aria-label="4 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="seg" role="img" aria-label="3 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="seg" role="img" aria-label="3 av 5"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
             <div class="rader" aria-hidden="true"><i style="width:88%"></i><i style="width:76%"></i><i style="width:92%"></i><i style="width:70%"></i><i style="width:84%"></i><i style="width:78%"></i></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
             <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:90%"></i><i style="width:72%"></i><i style="width:86%"></i><i style="width:64%"></i></div>
           </div>
           <div class="last">
-            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
+            <p class="lbl"><svg><use href="#ik-las"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
             <div class="rader" aria-hidden="true"><i style="width:80%"></i><i style="width:68%"></i><i style="width:50%"></i></div>
           </div>
           <p class="sr">Du ser hela tolkningen när du skapat ett konto.</p>
         </aside>
         <section class="sparr">
-          <div class="illu" aria-hidden="true">
-            <svg viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="14" y="10" width="52" height="68" rx="8" fill="#fff" stroke="currentColor" stroke-width="3"/>
-              <path d="M26 26h28M26 36h28" stroke="currentColor" stroke-width="3"/>
-              <path d="M26 48h28M26 58h20" stroke="currentColor" stroke-width="3" stroke-opacity=".3" stroke-dasharray="6 6"/>
-              <rect x="54" y="54" width="32" height="26" rx="8" fill="#D9480F" fill-opacity=".2" stroke="currentColor" stroke-width="3"/>
-              <path d="M60 54v-7a10 10 0 0 1 20 0v7" stroke="currentColor" stroke-width="3"/>
-              <circle cx="70" cy="67" r="3.5" fill="currentColor"/>
-            </svg>
-          </div>
+          <svg class="illu" aria-hidden="true"><use href="#illu-blurgate"/></svg>
           <div style="flex:1;min-width:0">
             <p class="rubrik2">Spara profilen och se hela tolkningen</p>
             <p class="text">Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.</p>
-            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a class="knapp" href="#">Skapa konto gratis<svg class="ik" style="stroke-width:2"><use href="#ik-pil"/></svg></a>
             <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Gör om provet</a></div>
           </div>
         </section>
       </div></div>
-      <div class="motiv"><b>Desktop.</b> Samma panel, samma ordning. IlluBlurGate i 96 till vänster i spärrkortet, som i intervjuprovet. Meningarna per faktor är skrivna så att de slutar i något rekryteraren "kommer att fråga": det är det som gör att tolkningen bakom spärren känns nödvändig, inte bara trevlig.
-        <ul><li>Inloggad besökare som gör provet i artikeln får ingen spärr utan raden "Profilen ligger i ditt konto" med länken "Se hela tolkningen", som intervjuprovets inloggade läge.</li><li>Kvot: tre prov per IP och dygn, som testprovet (ingen AI-kostnad). Vid det fjärde: statusraden "Tre prov på ett dygn räcker för en profil. Med ett gratiskonto gör du hela testet med 50 påståenden och sparar resultatet." och kontoknappen, skalan dold.</li></ul></div>
+      <div class="motiv"><b>Desktop.</b> Samma panel, samma ordning, femhörningen i 112. IlluBlurGate i 96 till vänster i spärrkortet, som i intervjuprovet. Meningarna per faktor slutar i något rekryteraren "kommer att fråga": det är det som gör att tolkningen bakom spärren känns nödvändig, inte bara trevlig.
+        <ul><li>Inloggad besökare som gör provet i artikeln får ingen spärr utan raden "Profilen ligger i ditt konto" med länken "Se hela tolkningen", som intervjuprovets inloggade läge.</li><li>Kvot: tre prov per IP och dygn, som testprovet (ingen AI-kostnad). Vid det fjärde: statusraden och kontoknappen, reglaget dolt.</li></ul></div>
     </div>
   </div>
 </section>
@@ -537,11 +579,11 @@ tr:last-child td{border-bottom:0}
       <p class="etikett">Pixel 7 · servern svarade inte efter påstående 20</p>
       <div class="tele"><div class="art">
         <aside class="prov framsteg" style="--w:100%">
-          <p class="eyebrow">Personlighetsprovet</p>
-          <div class="steg"><span>Påstående 20 av 20</span><span>Klart</span></div>
+          <p class="t-steg">Personlighetsprovet</p>
+          <div class="stegrad"><span>Påstående 20 av 20</span><span>Klart</span></div>
           <div class="felrad" role="alert">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
-            <div><b>Vi kunde inte räkna ihop profilen just nu</b><p>Dina svar finns kvar. Försök igen om en stund.</p><div><a href="#">Försök igen</a></div></div>
+            <svg class="ik"><use href="#ik-fel"/></svg>
+            <div><b>Vi kunde inte räkna ihop profilen just nu</b><p>Dina svar finns kvar. Försök igen om en stund.</p><a href="#">Försök igen</a></div>
           </div>
         </aside>
       </div></div>
@@ -551,10 +593,10 @@ tr:last-child td{border-bottom:0}
       <p class="etikett">Pixel 7 · fjärde provet samma dygn (429)</p>
       <div class="tele"><div class="art">
         <aside class="prov">
-          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="t-steg">Personlighetsprovet</p>
           <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
           <div class="statusrad"><span class="v"><i></i><span style="white-space:normal">Tre prov på ett dygn räcker för en profil. Med ett gratiskonto gör du hela testet med 50 påståenden och sparar resultatet.</span></span></div>
-          <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a class="knapp" href="#" style="margin-top:16px">Skapa konto gratis<svg class="ik" style="stroke-width:2"><use href="#ik-pil"/></svg></a>
           <p class="fotnot">Inget kreditkort · Avsluta när du vill</p>
         </aside>
       </div></div>
@@ -907,6 +949,7 @@ tr:last-child td{border-bottom:0}
     <tr><td>steg.raknare / steg.hoger / steg.klart</td><td>Påstående {n} av 20 · Inga rätt eller fel · Klart</td></tr>
     <tr><td>instruktion</td><td>Tänk på hur du är på jobbet, och svara med första rimliga svaret.</td></tr>
     <tr><td>skala (1 till 5)</td><td>Stämmer inte alls · Stämmer dåligt · Varken eller · Stämmer ganska bra · Stämmer helt</td></tr>
+    <tr><td>reglage.poler / reglage.tom</td><td>Stämmer inte alls · Stämmer helt (ytterlägena under spåret) · Tryck på ett läge (innan val, i ink-3)</td></tr>
     <tr><td>tillbaka / sparas</td><td>Föregående påstående · Svar sparas i panelen</td></tr>
     <tr><td>fotnot</td><td>Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</td></tr>
     <tr><td>laddar.rubrik / laddar.meta</td><td>Vi räknar ihop din profil · Tar en sekund.</td></tr>
@@ -1017,16 +1060,16 @@ tr:last-child td{border-bottom:0}
   <h2>Kontroll mot designsystemet</h2>
   <table>
     <tr><th>Punkt</th><th>Så här</th></tr>
-    <tr><td>Träffytor</td><td>Skalans alternativ 44 px höga och hela bredden på mobil, knappar 44, textlänkar min-height 44, listradernas "Öppna" 44, ChoiceCards minst 56.</td></tr>
-    <tr><td>Fokus</td><td>Tråden: outline 2 px accent, 2 px offset. Skalan är en radiogrupp: piltangenter flyttar, mellanslag väljer och går vidare, Skift plus Tab når "Föregående påstående". Fokus flyttas till nästa påstående (aria-live på räknaren), till felraden vid fel, till resultatets eyebrow vid profil.</td></tr>
-    <tr><td>Roller</td><td>Skalan role=radiogroup med aria-label "Hur väl stämmer påståendet", varje alternativ role=radio aria-checked. Räknaren aria-live=polite. Resultatpanelen aria-live=polite. Platshållarrader aria-hidden med sr-only-mening. Listan på hubben är ul med en li per prov, talet läses "3 av 5".</td></tr>
-    <tr><td>Kontrast</td><td>ink-3 på panel 5,0:1 (bandord, meta), accent-ink på panel för Nyhet och Rekommenderas 6,4:1, vit på ink-1 17,5:1, positiv-prick följs alltid av text.</td></tr>
-    <tr><td>Orange per skärm</td><td>Provet: framstegslinjen och fokusringen (2). Hubben desktop: menyradens tråd, Nyhet, fokusring (3). Hubben mobil: fokusring (1). Aldrig fler.</td></tr>
+    <tr><td>Träffytor</td><td>Reglagets fem stopp är 44 px höga kolumner över hela panelbredden (76 px breda på Pixel 7), knappar 44, textlänkar min-height 44, listradernas "Öppna" 44, ChoiceCards minst 56.</td></tr>
+    <tr><td>Fokus</td><td>Tråden: outline 2 px accent. Reglaget är en radiogrupp: piltangenter flyttar, mellanslag väljer och går vidare, Skift plus Tab når "Föregående påstående". Fokus flyttas till citatet (aria-live på räknaren), till felraden vid fel, till resultatets eyebrow vid profil.</td></tr>
+    <tr><td>Roller</td><td>Reglaget role=radiogroup med aria-label "Hur väl stämmer påståendet", varje stopp role=radio med aria-label och aria-checked. Det valda lägets ord under spåret är aria-live=polite. Segmentraderna role=img med "n av 5". Femhörningen aria-hidden (faktorraderna bär informationen). Platshållarrader aria-hidden med sr-only-mening. Listan på hubben är ul med en li per prov, talet läses "3 av 5".</td></tr>
+    <tr><td>Kontrast</td><td>ink-3 på panel 5,0:1 (poler, meta), ink-2 på panel för bandord, accent-ink på panel för Nyhet och Rekommenderas 6,4:1, vit på ink-1 17,5:1, positiv-prick följs alltid av text. Reglagets fyllning i ink-1 mot insunken 12:1.</td></tr>
+    <tr><td>Orange per skärm</td><td>Provet: citatets tråd, framstegslinjen, fokusringen (3). Resultatet: femhörningens accent, fokusringen (2). Hubben desktop: menyradens tråd, Nyhet, fokusring (3). Hubben mobil: fokusring (1). Aldrig fler.</td></tr>
     <tr><td>Bläckytor</td><td>Exakt en per vy: Nästa handling på hubben och hemskärmen, ingen i provet, ingen på resultatsidorna.</td></tr>
     <tr><td>Rubrikträd</td><td>Provets rubrik är p med display-stil i artiklarna. På /verktyg/personlighetstest är sidans h1 sidmallens, panelens rubrik förblir p. SEO-diff på båda artiklarna ska visa noll ändrade rubriker.</td></tr>
-    <tr><td>Rörelse</td><td>Framstegslinjens bredd och laddningens tråd. Vid prefers-reduced-motion står de stilla. Påståendebytet är ett innehållsbyte utan animation.</td></tr>
-    <tr><td>Layoutskifte</td><td>Provpanelen har låst höjd under påstående 1 till 20 (påståendets min-height två rader, skalan fast). Resultatet växer nedåt. Hubben serverrenderar listan och profilen, ingen klientrundtur efter mount.</td></tr>
-    <tr><td>Radier och avstånd</td><td>Panel 12, skalans alternativ och knappar 8, chips 6. Avstånd 4/8/12/16/24/32.</td></tr>
+    <tr><td>Rörelse</td><td>Framstegslinjens bredd, reglagets fyllning (160 ms) och laddningens tråd. Vid prefers-reduced-motion står de stilla. Påståendebytet är ett innehållsbyte utan animation.</td></tr>
+    <tr><td>Layoutskifte</td><td>Provpanelen har låst höjd under påstående 1 till 20 (citatets min-height två rader, reglaget fast höjd, det valda ordets rad reserverad). Resultatet växer nedåt. Hubben serverrenderar listan och profilen, ingen klientrundtur efter mount.</td></tr>
+    <tr><td>Radier och avstånd</td><td>Panel 12, fält, knappar och statusrad 8, chips 6. Avstånd 4/8/12/16/24/32.</td></tr>
   </table>
 </section>
 
