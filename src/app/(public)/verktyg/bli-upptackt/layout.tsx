@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Bli upptäckt, låt rekryterare hitta dig | Jobbcoach.ai',
   description:
-    'Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Du är anonym tills du själv svarar, och det kostar ingenting att synas.',
+    'Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Anonym tills du själv tackar ja. Ingår i Allt.',
   keywords:
     'bli upptäckt, synlig för rekryterare, bli hittad av rekryterare, kandidatprofil, passiv jobbsökning, arbetsstilstest, verifierade testresultat, anonym profil rekrytering',
   openGraph: {
