@@ -61,7 +61,7 @@ const BASLINJE_OMTAGEN: Array<{ path: string; datum: string; skal: string }> = [
     path: '/verktyg/linkedin-optimering',
     datum: '2026-09-23',
     skal:
-      'Ägarbeslut: LinkedIn-optimeringen ingår i CV-veckan och Allt, gratisnivån har ingen optimering. WebApplication-schemats offer, HowTo-schemats estimatedCost och FAQPage-svaret om kostnaden sa "en gratis optimering i veckan". h1, title, description och canonical oförändrade.',
+      'Ägarbeslut: LinkedIn-optimeringen ingår i CV-veckan och Allt, gratisnivån har ingen optimering. WebApplication-schemats offer, HowTo-schemats estimatedCost och FAQPage-svaret om kostnaden sa "en gratis optimering i veckan". Omtagen igen 2026-09-23 (Räkna ut-omgången, del 1): WebApplication- och HowTo-schemat hade det gamla produktnamnet "Karriärguidens AI" och anglicismerna Split-view, branschkeywords, score-rapport och copy-paste, och FAQ-frågan hette "Vad är ATS-keywords på LinkedIn?". Bytt till Jobbcoach.ai och svenska facktermer (rekryteringssystem (ATS), nyckelord, delad vy). h1, title, description och canonical oförändrade.',
   },
 ]
 
@@ -111,6 +111,17 @@ const OVRIGA = [
   '/verktyg/rekryteringstester',
   '/verktyg/linkedin-optimering',
   '/verktyg/bli-upptackt',
+  // Räkna ut-hubben och de nio kalkylatorerna, omritade i linjen 2026-09-23.
+  '/rakna-ut',
+  '/rakna-ut/felrekrytering',
+  '/rakna-ut/lon-efter-skatt',
+  '/rakna-ut/loneforhandling',
+  '/rakna-ut/semesterersattning',
+  '/rakna-ut/sourcing',
+  '/rakna-ut/timlon-till-manadslon',
+  '/rakna-ut/traffsakerhet',
+  '/rakna-ut/uppsagningstid',
+  '/rakna-ut/vad-kostar-en-anstalld',
   // Artiklar med showcase (CV-kluster), så att showcasens byte också prövas.
   '/artiklar/cv-mall-gratis-guide',
   '/artiklar/bra-cv-guide',
