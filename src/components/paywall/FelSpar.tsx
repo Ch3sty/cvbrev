@@ -3,7 +3,7 @@
 /**
  * Fel spår i taket (docs/plan-paket-och-onboarding.md, Fas 2A flöde 4).
  *
- * Situationen: någon på Testveckan öppnar CV-mallarna. Hon ska inte mötas av
+ * Situationen: någon på Träningspaketet öppnar CV-mallarna. Hon ska inte mötas av
  * samma betalvägg som en gratisanvändare, för hon betalar redan. Skillnaden
  * måste synas.
  *
@@ -32,6 +32,7 @@ import {
   FEL_SPAR,
   felSparRad,
   felSparRubrik,
+  felSparKnapp,
   felSparText,
   mellanskillnad,
   type Track,
@@ -184,7 +185,7 @@ export default function FelSpar({
 
         <div className="mt-4">
           <button type="button" onClick={uppgradera} disabled={busy} className={KNAPP_PRIMAR}>
-            {busy ? 'Öppnar kassan' : FEL_SPAR.primar}
+            {busy ? 'Öppnar kassan' : felSparKnapp(priceDeltaKr ?? null)}
           </button>
         </div>
 

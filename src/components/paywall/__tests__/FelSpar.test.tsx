@@ -51,7 +51,7 @@ describe('FelSparRad', () => {
 
   it('säger vad paketet ger, inte vad det saknar', () => {
     render(<FelSparRad feature="cv_templates_all" scope="tester" surface="/x" />)
-    expect(screen.getByText(/Du har Testveckan/)).toBeTruthy()
+    expect(screen.getByText(/Du har Träningspaketet/)).toBeTruthy()
   })
 
   it('renderar ingenting för Allt eller för gratisnivån', () => {
@@ -83,6 +83,6 @@ describe('FelSpar, kortet i arket', () => {
 
   it('knappen säger att den leder till en betalning', () => {
     render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
-    expect(screen.getByRole('button', { name: 'Byt till Allt-veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Byt till Hela paketet, 20 kr till i veckan' })).toBeTruthy()
   })
 })

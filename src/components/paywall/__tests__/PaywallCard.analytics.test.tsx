@@ -84,7 +84,7 @@ describe('PaywallCard, mätning', () => {
     render(<PaywallCard variant="nedladdning" track="cv" />)
     captureMock.mockClear()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Ta CV-veckan' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skaffa CV-paketet, 79 kr i veckan' }))
 
     expect(captureMock).toHaveBeenCalledWith('paywall_cta_clicked', {
       variant: 'nedladdning',

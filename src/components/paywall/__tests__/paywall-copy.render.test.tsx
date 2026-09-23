@@ -5,38 +5,39 @@ import { getPaywallCopy, GRATISRADER, planForPaywall } from '@/components/paywal
 
 /**
  * Betalväggarnas copy, PW1 till PW7 ur docs/plan-paket-och-onboarding.md
- * Fas 2B avsnitt 4. Varje variant ska föreslå rätt spår och nämna Allt en
- * enda gång.
+ * Fas 2B avsnitt 4, med namnen ur beslut-paketnamn 2026-09-24. Varje variant
+ * ska föreslå rätt paket, bära pris i knappen och nämna Hela paketet en gång.
  */
 
 describe('betalväggarnas copy per spärr', () => {
-  it('PW1, mall: pekar på mallen och säljer CV-veckan', () => {
+  it('PW1, mall: pekar på mallen och säljer CV-paketet', () => {
     render(<PaywallCard variant="mall" />)
-    expect(screen.getByText('Den här mallen ingår i CV-veckan')).toBeTruthy()
+    expect(screen.getByText('Mallen ingår i CV-paketet, 79 kr i veckan')).toBeTruthy()
     expect(screen.getByText(/Du ser hela mallen som den blir/)).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Ta CV-veckan' })).toBeTruthy()
+    expect(screen.getByText('79 kr i veckan, säg upp när du vill.')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Skaffa CV-paketet, 79 kr i veckan' })).toBeTruthy()
   })
 
-  it('PW2, testnivå: namnger nivån och säljer Testveckan', () => {
+  it('PW2, testnivå: namnger nivån och säljer Träningspaketet', () => {
     render(<PaywallCard variant="testniva" />)
-    expect(screen.getByText('Avancerad nivå ingår i Testveckan')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Ta Testveckan' })).toBeTruthy()
+    expect(screen.getByText('Avancerad nivå ingår i Träningspaketet, 79 kr i veckan')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Skaffa Träningspaketet, 79 kr i veckan' })).toBeTruthy()
   })
 
   it('PW3, analys: kvitterar poängen och det tyngsta fyndet före priset', () => {
     render(<PaywallCard variant="analys" />)
-    expect(screen.getByText('Åtgärderna ligger i CV-veckan')).toBeTruthy()
+    expect(screen.getByText('Åtgärderna ligger i CV-paketet, 79 kr i veckan')).toBeTruthy()
     expect(
       screen.getByText(/Du har sett det tyngsta fyndet och din läsbarhetspoäng/)
     ).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Se alla åtgärder' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Se alla åtgärder, 79 kr i veckan' })).toBeTruthy()
     // Ingen ATS-förekomst i den rekommenderade texten.
     expect(document.body.textContent).not.toMatch(/ATS/)
   })
 
   it('PW4, brevnedladdning: värdet först, spärren sedan', () => {
     render(<PaywallCard variant="nedladdning" />)
-    expect(screen.getByText('Ditt brev är klart')).toBeTruthy()
+    expect(screen.getByText('Ditt personliga brev är klart')).toBeTruthy()
     expect(screen.getByText(/Läs och kopiera det fritt/)).toBeTruthy()
     expect(screen.getByText('Kopiera texten i stället')).toBeTruthy()
     expect(document.body.textContent).not.toMatch(/Lås upp/)
@@ -49,10 +50,10 @@ describe('betalväggarnas copy per spärr', () => {
     expect(document.body.textContent).not.toMatch(/42 mallar/)
   })
 
-  it('PW6, jobbträffar: Allt en gång, inget spår föreslås', () => {
+  it('PW6, jobbträffar: Hela paketet en gång, inget mindre paket föreslås', () => {
     render(<PaywallCard variant="jobbtraffar" hiddenCount={22} />)
     expect(screen.getByText('Se varför du passar för alla 25')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Ta Allt-veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Skaffa Hela paketet, 99 kr i veckan' })).toBeTruthy()
   })
 
   it('PW7, chatten: gränsen är per konto, aldrig "dagens"', () => {
@@ -82,15 +83,16 @@ describe('betalväggarnas copy per spärr', () => {
       const copy = getPaywallCopy(variant)
       const text = [copy.title, copy.body, copy.primary, copy.secondary].join(' ')
       expect(text, `${variant} har talstreck`).not.toMatch(/—/)
-      expect(copy.title.length, `${variant}: rubrik över 40`).toBeLessThanOrEqual(40)
-      expect(copy.primary.length, `${variant}: primär över 24`).toBeLessThanOrEqual(24)
+      // Rubrik och knapp bär pris och period sedan 2026-09-24 (R1), därav längre tak.
+      expect(copy.title.length, `${variant}: rubrik över 56`).toBeLessThanOrEqual(56)
+      expect(copy.primary.length, `${variant}: primär över 40`).toBeLessThanOrEqual(40)
       expect(copy.secondary.length, `${variant}: sekundär över 24`).toBeLessThanOrEqual(24)
     }
   })
 })
 
 describe('vilket paket betalväggen föreslår', () => {
-  it('CV-funktioner föreslår CV-veckan, testfunktioner Testveckan', () => {
+  it('CV-funktioner föreslår CV-paketet, testfunktioner Träningspaketet', () => {
     expect(planForPaywall('mall')).toBe('cv_week')
     expect(planForPaywall('cv-export')).toBe('cv_week')
     expect(planForPaywall('nedladdning')).toBe('cv_week')
@@ -98,12 +100,12 @@ describe('vilket paket betalväggen föreslår', () => {
     expect(planForPaywall('testniva')).toBe('test_week')
   })
 
-  it('funktioner som bara Allt ger föreslår Allt-veckan', () => {
+  it('funktioner som bara Hela paketet ger föreslår Hela paketet', () => {
     expect(planForPaywall('chatt')).toBe('all_week')
     expect(planForPaywall('jobbtraffar')).toBe('all_week')
   })
 
-  it('har hon valt Allt som spår föreslås aldrig ett smalare paket', () => {
+  it('har hon valt Hela paketet föreslås aldrig ett smalare paket', () => {
     expect(planForPaywall('mall', { track: 'allt' })).toBe('all_week')
     expect(planForPaywall('testniva', { track: 'allt' })).toBe('all_week')
   })
@@ -132,16 +134,16 @@ describe('paketen', () => {
   it('sex paket, med namnen i bestämd form och priserna ur ägarens beslut', async () => {
     const { PLANS } = await import('@/lib/plans/plans')
     expect(PLANS.map((p) => [p.key, p.name, p.amount])).toEqual([
-      ['cv_week', 'CV-veckan', 79],
-      ['test_week', 'Testveckan', 79],
-      ['all_day', 'Allt-dagen', 49],
-      ['all_week', 'Allt-veckan', 99],
-      ['all_month', 'Allt-månaden', 149],
-      ['all_quarter', 'Allt-kvartalet', 299],
+      ['cv_week', 'CV-paketet', 79],
+      ['test_week', 'Träningspaketet', 79],
+      ['all_day', 'Dagspasset', 49],
+      ['all_week', 'Hela paketet', 99],
+      ['all_month', 'Hela paketet', 149],
+      ['all_quarter', 'Hela paketet', 299],
     ])
   })
 
-  it('bara Allt-dagen är ett engångsköp, och den ger ett dygn', async () => {
+  it('bara Dagspasset är ett engångsköp, och den ger ett dygn', async () => {
     const { PLANS, PLAN_BY_KEY } = await import('@/lib/plans/plans')
     expect(PLANS.filter((p) => p.mode === 'payment').map((p) => p.key)).toEqual(['all_day'])
     expect(PLAN_BY_KEY.all_day.grantDays).toBe(1)

@@ -4,9 +4,9 @@
  * Produktvalet som öppnas från betalväggarna och prissidan
  * (docs/plan-paket-och-onboarding.md, ägarens beslut 4).
  *
- * Sex paket, men tre val: spåret väljs först, längden efteråt. CV-veckan och
- * Testveckan finns bara som vecka och får därför inget längdval alls. Väljs
- * Allt visas fyra längder som ett Segment, och Allt-veckan är förvald.
+ * Sex paket, men tre val: paketet väljs först, längden efteråt. CV-paketet och
+ * Träningspaketet finns bara som vecka och får därför inget längdval alls. Väljs
+ * Hela paketet visas fyra längder som ett Segment, och veckan är förvald.
  *
  * Postar till /api/stripe/create-plan-session { plan } och skickar vidare
  * till Stripe ({ url }).
@@ -30,7 +30,7 @@ export type PlanOrder = 'daypass-first' | 'month-first'
 /** De tre valen. Allt är ett spår i valet, en längd i steget efter. */
 type Val = 'cv_week' | 'test_week' | 'allt'
 
-/** Längderna på Allt, i den ordning kassan visar dem. */
+/** Längderna på Hela paketet, i den ordning kassan visar dem. */
 const ALLT_LANGDER: readonly PlanKey[] = ['all_day', 'all_week', 'all_month', 'all_quarter']
 
 interface UpgradeSheetProps {
@@ -86,7 +86,7 @@ export default function UpgradeSheet({
   const [loading, setLoading] = useState<PlanKey | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [losses, setLosses] = useState<PremiumLossItem[] | null>(null)
-  /** Längden på Allt. Veckan är förvald (ägarens beslut 4). */
+  /** Längden på Hela paketet. Veckan är förvald (ägarens beslut 4). */
   const [alltLangd, setAlltLangd] = useState<PlanKey>('all_week')
   const pathname = usePathname()
   const surface = pathname ?? ''
@@ -132,7 +132,7 @@ export default function UpgradeSheet({
   /**
    * Ordningen på de tre valen. Det föreslagna spåret står först, eftersom
    * betalväggen redan sagt vilket paket som löser just den här spärren.
-   * Utan förslag står Allt först på prissidan och CV-veckan i betalväggar.
+   * Utan förslag står Hela paketet först på prissidan och CV-paketet i betalväggar.
    */
   const ordning: Val[] = useMemo(() => {
     const bas: Val[] =
@@ -197,7 +197,7 @@ export default function UpgradeSheet({
             ) : null}
           </button>
 
-          {/* Längdvalet finns bara på Allt. Spåren har bara vecka, och ett
+          {/* Längdvalet finns bara på Hela paketet. De andra har bara vecka, och ett
               segment med ett läge vore ingen fråga. Valt läge markeras i
               ink, inte i accent, så det räknas inte som ett orange element. */}
           {arAllt ? (
@@ -253,10 +253,10 @@ export default function UpgradeSheet({
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
             <h2 id="upgrade-sheet-title" className="text-kort text-ink-1">
-              Välj spåret du söker på
+              Välj paketet som passar
             </h2>
             <p className="mt-1 text-sm leading-[22px] text-ink-2">
-              Spåren ger sin del av produkten. Allt ger båda, och du väljer själv hur länge.
+              {PLAN_BY_KEY.cv_week.name} och {PLAN_BY_KEY.test_week.name} ger var sin del. {PLAN_BY_KEY.all_week.name} ger allt, och du väljer själv hur länge.
             </p>
           </div>
           <button
@@ -291,7 +291,7 @@ export default function UpgradeSheet({
 
         {error ? <p className="mt-3 text-sm text-fel">{error}</p> : null}
         <p className="mt-4 text-meta text-ink-3">
-          Allt-dagen är ett engångsköp och dras aldrig igen. Prenumerationer avslutar du med ett
+          {PLAN_BY_KEY.all_day.name} är ett engångsköp och dras aldrig igen. Prenumerationer avslutar du med ett
           klick i ditt konto.
         </p>
       </div>

@@ -128,6 +128,8 @@ export interface AnalyticsEvents {
     feature?: string
     /** Paketet knappen föreslår, ur suggestPlan. */
     suggestedPlan?: PlanKey
+    /** Sant från 2026-09-24: kortet visar pris i knappen och en prisrad. */
+    price_shown?: boolean
   }
   paywall_cta_clicked: {
     variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'

@@ -151,6 +151,9 @@ export default function PaywallCard({
       surface,
       ...(sparradFeature ? { feature: sparradFeature } : {}),
       ...(suggestedPlan ? { suggestedPlan: suggestedPlan as PlanKey } : {}),
+      // Från paketnamnsbytet 2026-09-24 bär kortet pris i knappen och en
+      // prisrad, så avläsningen kan skilja före och efter.
+      price_shown: true,
     })
     // Var fel spår tar i taket. Skjuts en gång per montering, samma som ovan.
     if (sparradFeature) {
@@ -188,6 +191,7 @@ export default function PaywallCard({
     hiddenCount,
     quotaFeature: quota?.feature,
     track,
+    plan: (suggestedPlan as PlanKey | null) ?? undefined,
   })
   const Illu = ILLU[variant] ?? IlluPlattaPremium
 
@@ -307,11 +311,14 @@ export default function PaywallCard({
     <>
       <h3 className="text-kort text-ink-1">{copy.title}</h3>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
+      {copy.prisrad ? (
+        <p className="mt-2 text-sm font-medium text-ink-1">{copy.prisrad}</p>
+      ) : null}
       <div className="mt-4">
         <button
           type="button"
           onClick={primarHandling}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
         >
           {copy.primary}
         </button>
