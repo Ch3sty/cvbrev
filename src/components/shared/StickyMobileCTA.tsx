@@ -122,7 +122,7 @@ export default function StickyMobileCTA({
 
   return (
     <div
-      className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 bg-white"
+      className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-kant bg-panel"
       style={{
         height: 64,
         paddingBottom: 'env(safe-area-inset-bottom)',
@@ -145,7 +145,7 @@ export default function StickyMobileCTA({
               target: ctaHref,
             })
           }
-          className="flex h-11 flex-1 items-center justify-center rounded-lg bg-orange-600 px-4 text-sm font-semibold text-white"
+          className="flex h-11 flex-1 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
         >
           {ctaLabel}
         </Link>
@@ -154,7 +154,7 @@ export default function StickyMobileCTA({
           onClick={handleDismiss}
           tabIndex={visible ? undefined : -1}
           aria-label="Dölj"
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-3 hover:bg-insunken"
         >
           <X className="h-5 w-5" aria-hidden="true" />
         </button>

@@ -1,0 +1,4 @@
+OK   /artiklar                                          LCP   252 (1500)  CLS     0  FCP  252   795 kB  JS 462 kB/32 (egen 462 kB)  HTML rå 125 kB
+OK   /artiklar/logiska-tester                           LCP   172 (1500)  CLS     0  FCP  128   659 kB  JS 455 kB/31 (egen 455 kB)  HTML rå 148 kB
+OK   /artiklar/cv-mall-gratis-guide                     LCP   140 (1500)  CLS     0  FCP  140   674 kB  JS 475 kB/33 (egen 475 kB)  HTML rå 190 kB
+OK   /artiklar/hur-ofta-byta-jobb                       LCP   172 (1500)  CLS     0  FCP  128   658 kB  JS 455 kB/31 (egen 455 kB)  HTML rå 128 kB

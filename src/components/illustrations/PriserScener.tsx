@@ -605,3 +605,204 @@ export function RadIkon({ namn, className }: { namn: RadIkonNamn; className?: st
     </svg>
   )
 }
+
+/* ============================================ linjens scener, 240 × 200
+ * docs/design/analys-visuell-linje-2026-09-22.html, "Nya illustrationer som
+ * behövs", och analys-artiklar-2026-09-23.html. Samma språk som scenerna
+ * ovan: konturer i currentColor (stroke 4), papper i --illu-fill, en
+ * accentyta högst en tiondel av motivet, ett rörligt element lutat 4 till 8
+ * grader, inga bakgrundscirklar, aldrig hex, aldrig gradient.
+ */
+
+/** Uppföljning: en hög ansökningar i en låda, ett brev lyfter ur högen lutat 6 grader. */
+export function IlluScenUppfoljning({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="52" y="96" width="136" height="36" rx="8" fill={ILLU.fill} />
+        <rect x="46" y="110" width="148" height="36" rx="8" fill={ILLU.fill} />
+        <path d="M30 124v44a10 10 0 0 0 10 10h160a10 10 0 0 0 10-10v-44" fill={ILLU.fill} />
+        <path d="M30 124h52a8 8 0 0 1 8 8v4a8 8 0 0 0 8 8h44a8 8 0 0 0 8-8v-4a8 8 0 0 1 8-8h52" />
+      </g>
+      <g transform="rotate(6 120 60)" stroke="currentColor" strokeWidth={4}>
+        <rect x="70" y="22" width="100" height="72" rx="10" fill={ILLU.fill} />
+        <path d="M70 32l50 34 50-34" />
+      </g>
+      <g transform="rotate(6 120 60)">
+        <circle cx="166" cy="26" r="10" fill={ILLU.accent} />
+      </g>
+    </Scen>
+  )
+}
+
+/** CV-mallar: tre CV-ark i solfjäder, det främsta med textrader och ett accentstreck vid rubriken. */
+export function IlluScenMallar({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="40" y="36" width="96" height="128" rx="10" fill={ILLU.fill} transform="rotate(-8 88 100)" />
+        <rect x="104" y="36" width="96" height="128" rx="10" fill={ILLU.fill} transform="rotate(8 152 100)" />
+        <rect x="72" y="26" width="96" height="140" rx="10" fill={ILLU.fill} />
+        <circle cx="96" cy="54" r="10" fill={ILLU.fill} />
+        <path d="M114 50h36M114 62h24M88 104h60M88 118h60M88 132h44M88 146h56" />
+      </g>
+      <rect x="86" y="80" width="40" height="8" rx="3" fill={ILLU.accent} />
+    </Scen>
+  )
+}
+
+/** Biblioteket: tre ark i solfjäder med textrader på det främsta, accentstreck vid en rad. */
+export function IlluScenBibliotek({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="36" y="44" width="104" height="132" rx="10" fill={ILLU.fill} transform="rotate(-6 88 110)" />
+        <rect x="100" y="44" width="104" height="132" rx="10" fill={ILLU.fill} transform="rotate(6 152 110)" />
+        <rect x="68" y="24" width="104" height="148" rx="10" fill={ILLU.fill} />
+        <path d="M86 50h68M86 66h52M86 92h68M86 106h68M86 120h48M86 134h68M86 148h40" />
+      </g>
+      <rect x="82" y="100" width="76" height="12" rx="3" fill={ILLU.soft} />
+      <rect x="82" y="100" width="8" height="12" rx="2" fill={ILLU.accent} />
+    </Scen>
+  )
+}
+
+/** LinkedIn-profilen: en profilsida med foto till vänster och ett förstoringsglas över rubrikraden. */
+export function IlluScenLinkedin({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="24" y="30" width="176" height="140" rx="12" fill={ILLU.fill} />
+        <circle cx="62" cy="74" r="20" fill={ILLU.fill} />
+        <path d="M96 64h72M96 84h48M44 118h136M44 136h116M44 154h80" />
+      </g>
+      <rect x="92" y="58" width="42" height="12" rx="3" fill={ILLU.accent} />
+      <g transform="rotate(-6 150 78)" stroke="currentColor" strokeWidth={4}>
+        <circle cx="140" cy="68" r="28" fill="none" />
+        <path d="M160 88l26 26" strokeWidth={6} />
+      </g>
+    </Scen>
+  )
+}
+
+/** Bli upptäckt: ett anonymt kort med maskade rader och ett öga som öppnas. */
+export function IlluScenUpptackt({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="30" y="36" width="140" height="132" rx="12" fill={ILLU.fill} />
+        <circle cx="64" cy="72" r="16" fill={ILLU.fill} />
+        <path d="M92 66h56M92 80h36" />
+      </g>
+      <rect x="48" y="104" width="104" height="12" rx="4" fill={INSUNKEN} />
+      <rect x="48" y="126" width="88" height="12" rx="4" fill={INSUNKEN} />
+      <rect x="48" y="148" width="64" height="8" rx="3" fill={INSUNKEN} />
+      <g transform="rotate(-6 188 70)" stroke="currentColor" strokeWidth={4}>
+        <path d="M152 70s14-24 36-24 36 24 36 24-14 24-36 24-36-24-36-24z" fill={ILLU.fill} />
+      </g>
+      <g transform="rotate(-6 188 70)">
+        <circle cx="188" cy="70" r="9" fill={ILLU.accent} />
+      </g>
+    </Scen>
+  )
+}
+
+/** Skapa CV: ett ark där tre rader skrivs in, en penna lutad 8 grader. */
+export function IlluScenSkapaCv({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="40" y="20" width="120" height="164" rx="12" fill={ILLU.fill} />
+        <path d="M60 48h60M60 66h80M60 84h46" />
+      </g>
+      <path d="M60 118h80M60 136h80M60 154h56" stroke={ILLU.muted} strokeWidth={4} strokeDasharray="2 10" />
+      <g transform="rotate(8 176 110)" stroke="currentColor" strokeWidth={4}>
+        <path d="M168 40h20v104l-10 18-10-18z" fill={ILLU.fill} />
+        <path d="M168 62h20" />
+      </g>
+      <g transform="rotate(8 176 110)">
+        <path d="M172 154l6 10 6-10z" fill={ILLU.accent} />
+      </g>
+    </Scen>
+  )
+}
+
+/** Om oss: skrivbordet från cvbrev till Jobbcoach. Ett brev till vänster, CV och matris samlade till höger. */
+export function IlluScenSkrivbordet({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="16" y="60" width="70" height="92" rx="10" fill={ILLU.fill} transform="rotate(-6 51 106)" />
+        <path d="M30 84h40M30 98h32M30 112h40M30 126h24" transform="rotate(-6 51 106)" />
+        <rect x="112" y="28" width="80" height="108" rx="10" fill={ILLU.fill} />
+        <path d="M126 50h52M126 64h40M126 90h52M126 104h52M126 118h32" />
+        <rect x="150" y="104" width="74" height="74" rx="10" fill={ILLU.fill} transform="rotate(6 187 141)" />
+        <path d="M175 108v66M199 108v66M152 130h70M152 154h70" transform="rotate(6 187 141)" />
+      </g>
+      <path d="M92 100h14" stroke="currentColor" strokeWidth={4} strokeDasharray="2 8" />
+      <g transform="rotate(6 187 141)">
+        <rect x="203" y="158" width="16" height="16" rx="3" fill={ILLU.accent} />
+      </g>
+      <text x="51" y="176" textAnchor="middle" fontFamily={BODY} fontWeight={600} fontSize={11} fill={INK_3} letterSpacing={1}>
+        CVBREV
+      </text>
+    </Scen>
+  )
+}
+
+/** Intervjun: två stolar mot varandra och ett ark mellan dem. */
+export function IlluScenIntervju({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <path d="M40 60v70h44M40 130v44M84 130v44M40 100h44v30" />
+        <path d="M200 60v70h-44M200 130v44M156 130v44M200 100h-44v30" />
+        <rect x="100" y="86" width="40" height="52" rx="6" fill={ILLU.fill} transform="rotate(-6 120 112)" />
+      </g>
+      <g transform="rotate(-6 120 112)">
+        <rect x="108" y="98" width="24" height="6" rx="2" fill={ILLU.accent} />
+      </g>
+    </Scen>
+  )
+}
+
+/* ========================================================= hero 520 × 400 */
+
+/**
+ * Sållet: ett CV går in i ett såll av tre streckade spalter och kommer ut på
+ * andra sidan med en accentbock. Startsidans hero.
+ */
+export function IlluScenSallet({ className, title }: ScenProps) {
+  return (
+    <Scen w={520} h={400} className={className} title={title}>
+      <rect width="520" height="400" rx="20" fill={INSUNKEN} />
+      <g transform="rotate(-6 110 190)" stroke="currentColor" strokeWidth={5}>
+        <rect x="46" y="100" width="128" height="176" rx="14" fill={ILLU.fill} />
+        <circle cx="78" cy="136" r="14" fill={ILLU.fill} />
+        <path d="M102 130h52M102 146h36M66 180h92M66 200h92M66 220h70M66 240h86" />
+      </g>
+      <g stroke="currentColor" strokeWidth={5} strokeDasharray="4 14">
+        <path d="M226 76v240M262 76v240M298 76v240" />
+      </g>
+      <rect x="206" y="60" width="112" height="272" rx="14" stroke={ILLU.muted} strokeWidth={4} />
+      <text x="262" y="44" textAnchor="middle" fontFamily={BODY} fontWeight={600} fontSize={13} fill={INK_3} letterSpacing={1.5}>
+        REKRYTERINGSSYSTEMET
+      </text>
+      <g stroke="currentColor" strokeWidth={5}>
+        <rect x="348" y="96" width="128" height="176" rx="14" fill={ILLU.fill} />
+        <circle cx="380" cy="132" r="14" fill={ILLU.fill} />
+        <path d="M404 126h52M404 142h36M368 176h92M368 196h92M368 216h70M368 236h86" />
+      </g>
+      <g transform="translate(466 104)">
+        <circle r="24" fill={ILLU.accent} />
+        <path d="M-10 0l7 7 13-14" stroke={ILLU.onAccent} strokeWidth={5} />
+      </g>
+      <text x="110" y="316" textAnchor="middle" fontFamily={BODY} fontWeight={600} fontSize={13} fill={INK_3} letterSpacing={1.5}>
+        DITT CV
+      </text>
+      <text x="412" y="316" textAnchor="middle" fontFamily={BODY} fontWeight={600} fontSize={13} fill={INK_3} letterSpacing={1.5}>
+        TILL REKRYTERAREN
+      </text>
+    </Scen>
+  )
+}

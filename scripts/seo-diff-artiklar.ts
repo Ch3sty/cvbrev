@@ -109,7 +109,18 @@ const TILLATNA_RUBRIKER = [
   'Innehållsförteckning',
   'Mallar som ökar dina chanser',
   'Sidfot',
+  // ArticleClusterCTA och ClusterFinalCTA före linjen (inline h3, slutkort h2).
+  'Gör testet innan arbetsgivaren gör det',
+  'Träna svaret innan du sitter i rummet',
+  'Skriv ditt brev på fem minuter',
+  'Bygg CV:t på en av våra mallar',
 ];
+
+/**
+ * h1 som satt i showcasens statiska reserv (exempelpersonens namn i ett
+ * h1 inuti brödtexten). De är inte artikelns rubrik och får försvinna.
+ */
+const TILLATNA_H1 = ['Erik Lindberg', 'Maria Johansson'];
 
 function sidor(): string[] {
   const urvalFil = 'scripts/.publikt-urval.json';
@@ -132,6 +143,8 @@ function normHref(href: string): string | null {
   if (h.startsWith('https://www.jobbcoach.ai')) h = h.slice('https://www.jobbcoach.ai'.length) || '/';
   if (h.startsWith('http') || h.startsWith('mailto:') || h.startsWith('tel:')) return null;
   if (!h.startsWith('/') && !h.startsWith('#') && !h.startsWith('?')) return null;
+  // Inloggning och registrering är handlingar, inte länkmål för sökmotorer.
+  if (/^\/(login|register|registrera)(\?|$)/.test(h)) return null;
   return h;
 }
 
@@ -252,7 +265,15 @@ function unikSkillnad(a: string[], b: string[]): { borta: string[]; nya: string[
   return { borta: [...sa].filter((x) => !sb.has(x)), nya: [...sb].filter((x) => !sa.has(x)) };
 }
 
-function jamfor(fore: Avtryck[], efter: Avtryck[]): { rapport: string; fel: number } {
+function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: number } {
+  // Samma filter som vid avtrycket, så att äldre avtryck jämförs på samma villkor.
+  const rensa = (a: Avtryck): Avtryck => ({
+    ...a,
+    lankar: a.lankar.filter((l) => normHref(l) !== null),
+    ramLankar: a.ramLankar.filter((l) => normHref(l) !== null),
+  });
+  const fore = foreRa.map(rensa);
+  const efter = efterRa.map(rensa);
   const rader: string[] = [];
   let fel = 0;
   const efterMap = new Map(efter.map((e) => [e.path, e]));
@@ -271,11 +292,15 @@ function jamfor(fore: Avtryck[], efter: Avtryck[]): { rapport: string; fel: numb
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {
         if (f[falt] !== e[falt]) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
-      if (JSON.stringify(f.h1) !== JSON.stringify(e.h1)) {
+      const h1f = f.h1.filter((h) => !TILLATNA_H1.includes(h));
+      const h1e = e.h1.filter((h) => !TILLATNA_H1.includes(h));
+      if (h1f.length !== f.h1.length) info(`showcasens h1 ut: ${JSON.stringify(f.h1.filter((h) => TILLATNA_H1.includes(h)))}`);
+      if (JSON.stringify(h1f) !== JSON.stringify(h1e)) {
         brott(`h1: ${JSON.stringify(f.h1)} → ${JSON.stringify(e.h1)}`);
       }
       // Rubriker: samma ordning och id, utom tillåtna reklamkortsrubriker.
-      const tillaten = (r: Rubrik) => TILLATNA_RUBRIKER.some((t) => r.text.startsWith(t));
+      const tillaten = (r: Rubrik) =>
+        TILLATNA_RUBRIKER.some((t) => (t.length <= 8 ? r.text === t : r.text.startsWith(t)));
       const fr = f.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
       const er = e.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
       if (f.path.startsWith('/artiklar/')) {

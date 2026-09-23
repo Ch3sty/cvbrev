@@ -43,19 +43,27 @@ import LayoutFormatExample from '@/components/mdx/LayoutFormatExample';
 import CoverLetterHeaderExample from '@/components/mdx/CoverLetterHeaderExample';
 import CVExample from '@/components/mdx/CVExample';
 
-// Importera artikelkomponenter
-import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
-import ArticleTemplateShowcase from '@/components/artiklar/ArticleTemplateShowcase';
-import ArticleClusterCTA, { ClusterFinalCTA } from '@/components/artiklar/ArticleClusterCTA';
-import { getCtaVariantForTags, type CtaCluster } from '@/lib/cta/clusters';
-import PersonligtBrevTemplateShowcase from '@/components/artiklar/PersonligtBrevTemplateShowcase';
-import InteractiveCVShowcase from '@/components/artiklar/InteractiveCVShowcase';
-import InteractiveLetterShowcase from '@/components/artiklar/InteractiveLetterShowcase';
+// Artikelramen i linjen (docs/design/analys-artiklar-2026-09-23.html).
+// Serverrenderad; enda klientkoden är ArtikelKlient (mätning och
+// innehållsförteckningens tråd), mallväljaren och mobilens klistrade knapp.
+import ArtikelRam, { type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
+import { InlineKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
+import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
+import StickyMobileCTA from '@/components/shared/StickyMobileCTA';
+import {
+    getCtaVariantForTags,
+    inlineVerktygForKluster,
+    paketForKluster,
+    type CtaCluster,
+    type InlineVerktyg,
+} from '@/lib/cta/clusters';
 
-// Backwards compat - äldre artiklar refererar till dessa namn i MDX
-// BroadConversionBanner är MDX-aliaset för inline-CTA:n. Klustret binds in
-// per artikel i ArticlePage, så aliaset sätts där och inte här.
-const CVTemplateShowcase = ArticleTemplateShowcase;
+// MDX-aliasen behålls så att artiklarna inte ändras: CVTemplateShowcase är
+// nu MallMiniatyrer (riktiga mallar ur registret), InteractiveCVShowcase och
+// InteractiveLetterShowcase är mallvisningen med serverrenderat dokument.
+// BroadConversionBanner binds per artikel i ArticlePage.
+const CVTemplateShowcase = MallMiniatyrer;
 
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
@@ -233,10 +241,11 @@ function generateHowToSchema(data: HowToData | undefined, slug: string): React.R
     } catch (error) { console.error("Error generating HowTo schema:", error); return null; }
 }
 
-// Injicerar klustrets inline-CTA i MDX-innehållet (docs/plan-konvertering.md, C4).
-// Karriärartiklar hoppas över: de har ingen produkt att föreslå mitt i texten.
-function injectClusterCta(content: string, cluster: CtaCluster): string {
-    if (cluster === 'career') {
+// Injicerar klustrets inline-kort i MDX-innehållet (docs/plan-konvertering.md, C4).
+// Karriärartiklar utan lön, uppsägning eller jobbyte hoppas över: de har ingen
+// produkt att föreslå mitt i texten (analys-artiklar-2026-09-23, klusterregeln).
+function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
+    if (verktyg === 'lankrad') {
         return content;
     }
 
@@ -307,26 +316,60 @@ function injectCVTemplateShowcase(content: string, tags: string[] | undefined): 
     return paragraphs.join('\n\n');
 }
 
+/**
+ * Tre relaterade artiklar: flest gemensamma taggar, sedan nyast, fyllt med
+ * de senaste. Samma urval som ArticleSidebar gjorde i klienten, nu på
+ * servern så att bara tre artiklar följer med sidan i stället för alla.
+ */
+function relateradeArtiklar(alla: PostMeta[], slug: string, taggar: string[]): RelateradArtikel[] {
+    const andra = alla.filter((p) => p.slug !== slug);
+    const tid = (p: PostMeta) => (p.date ? parseISO(p.date).getTime() : 0);
+    let urval: PostMeta[] = [];
+    if (taggar.length > 0) {
+        urval = andra
+            .map((p) => ({ p, gemensamma: p.tags?.filter((t) => taggar.includes(t)).length || 0 }))
+            .filter((x) => x.gemensamma > 0)
+            .sort((a, b) => b.gemensamma - a.gemensamma || tid(b.p) - tid(a.p))
+            .slice(0, 3)
+            .map((x) => x.p);
+    }
+    if (urval.length < 3) {
+        const senaste = andra
+            .filter((p) => !urval.some((u) => u.slug === p.slug))
+            .sort((a, b) => tid(b) - tid(a));
+        urval = [...urval, ...senaste].slice(0, 3);
+    }
+    return urval.map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        date: p.date,
+        lasminuter: Math.max(1, Math.ceil((p.wordCount ?? 1000) / 200)),
+    }));
+}
+
 // --- SIDKOMPONENTEN (ArticlePage) ---
 export default async function ArticlePage({ params }: ArticlePageProps) {
     const resolvedParams = await params;
     const slug = resolvedParams.slug;
     const post = getPostBySlug(slug);
-    const allPostsMeta = await getAllPostsMeta();
-
     if (!post) {
         notFound();
     }
+    const allPostsMeta = getAllPostsMeta();
 
     // Extract headings for SEO-optimized TOC
     const headings = filterH2Headings(extractHeadingsFromContent(post.content));
 
     // Klustret styr vilken CTA artikeln får (docs/plan-konvertering.md, C4).
     const cluster: CtaCluster = getCtaVariantForTags(post.frontmatter.tags);
+    const verktyg = inlineVerktygForKluster(cluster, post.frontmatter.tags);
+    const paket = paketForKluster(cluster, post.frontmatter.tags);
+    const author = getAuthorForArticle(slug, post.frontmatter.tags || [], post.frontmatter.title);
+    const relaterade = relateradeArtiklar(allPostsMeta, slug, post.frontmatter.tags || []);
 
     // Injicera båda komponenter i innehållet - UTAN att modifiera headings.
     // CV-showcasen bara för cv-klustret, inte för alla cv-taggade artiklar.
-    const contentWithBanner = injectClusterCta(post.content, cluster);
+    const contentWithBanner = injectClusterCta(post.content, verktyg);
     const contentWithBannerAndCV =
         cluster === 'cv'
             ? injectCVTemplateShowcase(contentWithBanner, post.frontmatter.tags)
@@ -347,11 +390,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         LoneforhandlingsKalkylator: LoneforhandlingsKalkylator,
         // Lägg till konverteringskomponenter som kan användas i MDX
         // Aliaset bevaras för äldre MDX som skriver ut komponenten själv.
-        BroadConversionBanner: () => <ArticleClusterCTA cluster={cluster} slug={slug} position="inline" />,
+        BroadConversionBanner: () => <InlineKort cluster={cluster} verktyg={verktyg} slug={slug} />,
         CVTemplateShowcase: CVTemplateShowcase,
-        PersonligtBrevTemplateShowcase: PersonligtBrevTemplateShowcase,
-        InteractiveCVShowcase: InteractiveCVShowcase,
-        InteractiveLetterShowcase: InteractiveLetterShowcase,
+        PersonligtBrevTemplateShowcase: BrevMallVisning,
+        InteractiveCVShowcase: CvMallVisning,
+        InteractiveLetterShowcase: BrevMallVisning,
         PersonligtBrevExample: PersonligtBrevExample,
         PersonligtBrevExampleLarare: PersonligtBrevExampleLarare,
         PersonligtBrevExampleBarnskotare: PersonligtBrevExampleBarnskotare,
@@ -468,19 +511,25 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     return (
         <>
-            <ArticleClientWrapper
-                post={post}
+            <ArtikelRam
                 slug={slug}
-                allPostsMeta={allPostsMeta}
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                date={post.frontmatter.date}
+                tags={post.frontmatter.tags}
                 readingTime={readingTime}
+                author={author}
                 headings={headings}
                 cluster={cluster}
+                paket={paket}
+                relaterade={relaterade}
+                sticky={<StickyMobileCTA cluster={cluster} slug={slug} />}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* Final CTA, klusterstyrd */}
-                <ClusterFinalCTA cluster={cluster} slug={slug} />
-            </ArticleClientWrapper>
+                {/* Slutkortet: paketet för klustret, i bläck. */}
+                {paket ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
+            </ArtikelRam>
 
             {/* Schema markup */}
             {articleSchemaScript}

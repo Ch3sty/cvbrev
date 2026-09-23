@@ -1,13 +1,13 @@
 import { getAllPostsMeta } from '@/lib/blog';
 import { Metadata } from 'next';
+import { Fragment } from 'react';
 import { generateTagsData } from '@/components/artiklar/ModernCategoriesServer';
-import ArticlesHero from '@/components/artiklar/ArticlesHero';
-import StickyCategoryBar from '@/components/artiklar/StickyCategoryBar';
-import ArticleCard from '@/components/artiklar/ArticleCard';
-import InlineFeedCTA from '@/components/artiklar/InlineFeedCTA';
-import ArticlesPagination from '@/components/artiklar/ArticlesPagination';
-import ArticlesFinalCTA from '@/components/artiklar/ArticlesFinalCTA';
-import EmptyState from '@/components/artiklar/EmptyState';
+// Listan i linjen (docs/design/analys-artiklar-2026-09-23.html, avsnitt 4):
+// serverkomponenter, gallerilayouten kvar med gratiskortet inblandat bland
+// artikelkorten och de tre paketen i bläck efter pagineringen.
+import { ArtikelKort, FilterRad, ListHuvud, Paginering, TomLista } from '@/components/artiklar/lista/ArtikelLista';
+import { GratisKort, ListaSlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import ArtikelKlient from '@/components/artiklar/ArtikelKlient';
 
 const ITEMS_PER_PAGE = 9;
 const SITE_URL = 'https://www.jobbcoach.ai';
@@ -125,9 +125,10 @@ export default async function ArticlesIndexPage({
   const featuredPost = showFeatured ? paginatedPosts[0] : null;
   const regularPosts = showFeatured ? paginatedPosts.slice(1) : paginatedPosts;
 
-  // Inline-CTA i feed:en EN gång (efter pos 5 om >= 6 regular posts, ingen filter)
+  // Gratiskortet en gång i rutnätet, på plats 7 räknat med det stora kortet
+  // (efter det femte vanliga kortet), bara i den ofiltrerade listan.
   const showInlineCTA = !tagFilter && regularPosts.length >= 6;
-  const inlineCTAIndex = 5; // injekteras EFTER index 4 (dvs efter 5:e kortet)
+  const inlineCTAIndex = 5;
 
   // === SEO: SCHEMA MARKUP ===
   const breadcrumbSchema = {
@@ -183,9 +184,7 @@ export default async function ArticlesIndexPage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/20">
-
-      {/* Schema markup */}
+    <div className="min-h-screen bg-mark">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -195,83 +194,43 @@ export default async function ArticlesIndexPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
 
-      {/* Hero */}
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 pt-20 sm:pt-24 pb-4 sm:pb-6">
-        <ArticlesHero totalPosts={allPosts.length} />
-      </div>
+      <div className="mx-auto max-w-[1200px] px-4 pb-12 pt-6 sm:px-6 lg:px-12 lg:pb-[72px] lg:pt-12">
+        <ListHuvud antal={allPosts.length} />
+        <FilterRad kategorier={tagsData} aktiv={tagFilter} totalt={allPosts.length} />
 
-      {/* Sticky kategori-bar */}
-      <StickyCategoryBar
-        categories={tagsData}
-        activeTag={tagFilter}
-        totalCount={allPosts.length}
-      />
-
-      {/* Innehåll */}
-      <div className="container max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-10">
-        {filteredPosts.length === 0 ? (
-          <EmptyState
-            tagFilter={tagFilter}
-            popularTags={tagsData.slice(0, 4).map((t) => t.tag)}
-          />
-        ) : (
-          <div className="space-y-10 sm:space-y-14">
-            {/* Featured */}
-            {featuredPost && (
-              <section>
-                <ArticleCard
-                  key={featuredPost.slug}
-                  post={featuredPost}
-                  tagFilter={tagFilter}
-                  featured
-                />
-              </section>
-            )}
-
-            {/* Grid med inline-CTA */}
-            <section>
-              <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {regularPosts.map((post, idx) => {
-                  // Injekta InlineFeedCTA efter pos 5 (om visas)
-                  const elements: React.ReactNode[] = [];
-
-                  if (showInlineCTA && idx === inlineCTAIndex) {
-                    elements.push(<InlineFeedCTA key="inline-cta" />);
-                  }
-
-                  elements.push(
-                    <ArticleCard
-                      key={post.slug}
-                      post={post}
-                      tagFilter={tagFilter}
-                    />
-                  );
-
-                  return elements;
-                })}
+        <div className="mt-8 space-y-10 sm:space-y-12">
+          {filteredPosts.length === 0 ? (
+            <TomLista tag={tagFilter} populara={tagsData.slice(0, 4).map((t) => t.tag)} />
+          ) : (
+            <>
+              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {featuredPost ? <ArtikelKort post={featuredPost} stor prioritet /> : null}
+                {regularPosts.map((post, idx) => (
+                  <Fragment key={post.slug}>
+                    {showInlineCTA && idx === inlineCTAIndex ? (
+                      <GratisKort cluster="lista" position="inline" />
+                    ) : null}
+                    <ArtikelKort post={post} prioritet={!featuredPost && idx === 0} />
+                  </Fragment>
+                ))}
               </div>
-            </section>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <section className="pt-2">
-                <ArticlesPagination
-                  currentPage={validCurrentPage}
-                  totalPages={totalPages}
-                  totalPosts={totalPosts}
-                  itemsPerPage={ITEMS_PER_PAGE}
+              {totalPages > 1 ? (
+                <Paginering
+                  sida={validCurrentPage}
+                  sidor={totalPages}
+                  totalt={totalPosts}
+                  perSida={ITEMS_PER_PAGE}
                   tag={tagFilter}
                 />
-              </section>
-            )}
+              ) : null}
 
-            {/* Final CTA */}
-            <section>
-              <ArticlesFinalCTA />
-            </section>
-          </div>
-        )}
+              <ListaSlutKort />
+            </>
+          )}
+        </div>
       </div>
+      <ArtikelKlient />
     </div>
   );
 }

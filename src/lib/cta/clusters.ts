@@ -97,3 +97,89 @@ export function getCtaVariantForTags(tags: string[] | undefined | null): CtaClus
 export function clusterHasProductCta(cluster: CtaCluster): boolean {
   return cluster !== 'career'
 }
+
+/* ----------------------------------------------------- paketet per kluster */
+
+/**
+ * Paketet som reklamkorten i en artikel föreslår
+ * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6, klusterregeln).
+ *
+ *   test       → Testveckan
+ *   cv, letter → CV-veckan
+ *   interview  → Allt
+ *   career     → Allt när taggarna handlar om lön, uppsägning, byta jobb
+ *                eller arbetsgivarintyg; annars inget paket alls
+ *   generic    → gratiskortet
+ *
+ * Aldrig trial, aldrig "7 dagar gratis".
+ */
+export type ArtikelPaket = 'cv' | 'test' | 'allt' | 'gratis'
+
+/** Karriärtaggar som gör att en karriärartikel föreslår Allt. */
+const CAREER_ALLT: readonly string[] = [
+  'lön',
+  'lon',
+  'uppsägning',
+  'uppsagning',
+  'säga upp',
+  'saga upp',
+  'byta jobb',
+  'arbetsgivarintyg',
+  'tjänstgöringsbetyg',
+  'tjanstgoringsbetyg',
+  'löneförhandling',
+  'loneforhandling',
+]
+
+function harTagg(tags: string[] | undefined | null, nyckelord: readonly string[]): boolean {
+  if (!tags) return false
+  const norm = tags.map(normalizeTag)
+  return norm.some((t) => nyckelord.some((kw) => t.includes(kw)))
+}
+
+/** Karriärartikel om lön, uppsägning eller jobbyte. */
+export function arKarriarLon(tags: string[] | undefined | null): boolean {
+  return harTagg(tags, CAREER_ALLT)
+}
+
+export function paketForKluster(
+  cluster: CtaCluster,
+  tags: string[] | undefined | null
+): ArtikelPaket | null {
+  switch (cluster) {
+    case 'test':
+      return 'test'
+    case 'cv':
+    case 'letter':
+      return 'cv'
+    case 'interview':
+      return 'allt'
+    case 'career':
+      return arKarriarLon(tags) ? 'allt' : null
+    case 'generic':
+      return 'gratis'
+  }
+}
+
+/** Inline-kortets verktyg. CV-artiklar om ATS eller analys får CV-analysen i stället för mallarna. */
+export type InlineVerktyg = 'test' | 'mallar' | 'analys' | 'brev' | 'coach' | 'raknare' | 'lankrad'
+
+export function inlineVerktygForKluster(
+  cluster: CtaCluster,
+  tags: string[] | undefined | null
+): InlineVerktyg {
+  switch (cluster) {
+    case 'test':
+      return 'test'
+    case 'cv':
+      return harTagg(tags, ['ats', 'analys']) ? 'analys' : 'mallar'
+    case 'letter':
+      return 'brev'
+    case 'interview':
+      return 'coach'
+    case 'career':
+      return arKarriarLon(tags) ? 'raknare' : 'lankrad'
+    case 'generic':
+      return 'mallar'
+  }
+}

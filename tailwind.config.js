@@ -27,6 +27,24 @@ module.exports = {
           2: 'var(--ink-2)',
           3: 'var(--ink-3)',
           hover: 'var(--ink-hover)',
+          // Tonerna på bläckytan (Allt-kortet, InkPanel). Fanns som
+          // variabler i globals.css men saknade klassnamn, så text-ink-1-mjuk
+          // och border-ink-1-kant genererade ingenting (upptäckt i linjen
+          // 2026-09-23).
+          '1-mjuk': 'var(--ink-1-mjuk)',
+          '1-kant': 'var(--ink-1-kant)',
+          '1-accent': 'var(--ink-1-accent)',
+        },
+        // Spårens färgetiketter (designsystem §12 punkt 3): text-cv,
+        // bg-cv-mjuk, text-test, bg-test-mjuk. Samma fel som ovan: variablerna
+        // fanns, klasserna inte.
+        cv: {
+          DEFAULT: 'var(--cv)',
+          mjuk: 'var(--cv-mjuk)',
+        },
+        test: {
+          DEFAULT: 'var(--test)',
+          mjuk: 'var(--test-mjuk)',
         },
         accent: {
           DEFAULT: 'var(--accent)',
