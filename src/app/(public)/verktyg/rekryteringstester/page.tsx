@@ -69,6 +69,9 @@ const GUIDER = [
   { rubrik: 'Verbala test', text: 'Sant, falskt eller går ej att avgöra, och fällan som fäller flest.', href: '/artiklar/verbalt-test-guide', lank: 'Läs guiden om verbala test' },
   { rubrik: 'Rotationstest', text: 'Spatial förmåga, att vrida figurer i huvudet. Vanligt i tekniska roller och ingenjörsyrken.', href: '/artiklar/rotation-test-guide', lank: 'Läs guiden om rotationstest' },
   { rubrik: 'Personlighetstest', text: 'Femfaktormodellen, vad dimensionerna betyder för olika roller och varför ärlighet lönar sig.', href: '/artiklar/personlighetstest-jobb-guide', lank: 'Läs guiden om personlighetstest' },
+  { rubrik: 'Deduktiva och induktiva test', text: 'Regel till slutsats eller exempel till regel. Sex lösta uppgifter och vilka tester Aon och SHL använder.', href: '/artiklar/deduktivt-induktivt-test', lank: 'Läs guiden om deduktiva och induktiva test' },
+  { rubrik: 'Alva Labs logiktest', text: 'Tjugo adaptiva matrisuppgifter med två minuter var, och hur skalan 1 till 10 ska läsas.', href: '/artiklar/alva-labs-logiktest', lank: 'Läs guiden om Alvas logiktest' },
+  { rubrik: 'MAP från Assessio', text: 'Personlighetstestet med 200 påståenden: vad de fem faktorerna mäter och vad arbetsgivaren ser.', href: '/artiklar/map-test-personlighetstest', lank: 'Läs guiden om MAP-testet' },
 ].map((g) => ({
   rubrik: g.rubrik,
   text: (
