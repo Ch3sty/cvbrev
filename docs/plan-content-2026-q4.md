@@ -144,3 +144,5 @@ Lyckas inte en sida vid andra avläsningen gör vi en av tre saker: ny titel om 
 - Sammanslagningarna (M1 till M7 och exempelparen): uppskjutna tills resten av planen är klar. Veckoordningen kör nytt och omskrivningar (R-listan) i stället.
 - Rekryterarsidor: beslut väntar på ägarens svar.
 - IndexNow-nyckel och Bing Webmaster Tools är på plats 2026-09-23 (importerat från Search Console, sajtkarta uppladdad).
+- Rekryterarsidor (beslut 4, 2026-09-24): ja, men först när resten av planen är klar. Kandidatsidorna går före hela kvartalet; rekryterarämnena "lönekartläggning krav" och "kompetensbaserad rekrytering" ligger i kö efter v52.
+- Personlighetstest (ändrat 2026-09-24): byggs nu, inte i oktober. Publikt smakprov i artiklarna där det passar (som intervjuprovet) och en röd tråd in i det inloggade läget: besökaren som gjort intervjuprovet eller personlighetstestet ska hitta sina resultat, kunna följa upp och göra om, även som betalande. Design i artefakt först.
