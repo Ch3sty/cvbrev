@@ -43,7 +43,9 @@ import {
   PersonligtBrevExampleHandlaggare,
   PersonligtBrevExampleUtbildning,
   PersonligtBrevPreview,
+  Intervjuprov,
 } from '@/components/artiklar/mdx-klient';
+import type { IntervjuprovProps } from '@/components/artiklar/intervjuprov/Intervjuprov';
 import FAQContainer from '@/components/mdx/FAQContainer';
 import FAQItem from '@/components/mdx/FAQItem';
 
@@ -396,6 +398,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         Link: Link,
         UppsagningstidRaknare: UppsagningstidRaknare,
         LoneforhandlingsKalkylator: LoneforhandlingsKalkylator,
+        // Intervjuprovet (docs/design/intervjuprov-spec-2026-09-23.md). Slugen
+        // följer med till eventen och till signup_started:s source_page.
+        Intervjuprov: (p: IntervjuprovProps) => <Intervjuprov {...p} slug={slug} />,
         // Lägg till konverteringskomponenter som kan användas i MDX
         // Aliaset bevaras för äldre MDX som skriver ut komponenten själv.
         BroadConversionBanner: () => <InlineKort cluster={cluster} verktyg={verktyg} slug={slug} />,

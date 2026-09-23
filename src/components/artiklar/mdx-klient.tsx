@@ -36,3 +36,5 @@ export const PersonligtBrevExampleStadare = dynamic(() => import('@/components/m
 export const PersonligtBrevExampleHandlaggare = dynamic(() => import('@/components/mdx/PersonligtBrevExampleHandlaggare'))
 export const PersonligtBrevExampleUtbildning = dynamic(() => import('@/components/mdx/PersonligtBrevExampleUtbildning'))
 export const PersonligtBrevPreview = dynamic(() => import('@/components/mdx/PersonligtBrevPreview'))
+// Intervjuprovet ritas bara i två intervjuartiklar (docs/design/intervjuprov-spec-2026-09-23.md).
+export const Intervjuprov = dynamic(() => import('@/components/artiklar/intervjuprov/Intervjuprov'))
