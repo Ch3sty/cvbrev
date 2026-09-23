@@ -1101,6 +1101,11 @@ html {
     line-height: 31px;
   }
 }
+/* Snabbsvarsrutorna (137 artiklar) sätter mt-0 på sin h2, men regeln ovan
+   vinner på specificitet och lade 48 px luft ovanför rubriken inne i rutan. */
+.artikel-prose h2.mt-0:not(.not-prose *) {
+  margin-top: 0;
+}
 .artikel-prose h3:not(.not-prose *) {
   font-size: 18px;
   line-height: 25px;
