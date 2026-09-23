@@ -13,6 +13,7 @@
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
+import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
 
 const CV = PLAN_BY_KEY.cv_week.amount
@@ -69,7 +70,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
   },
   coach: {
     rubrik: 'Träna svaret innan du sitter i rummet',
-    text: 'Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. Tio frågor gratis, direkt i webbläsaren.',
+    text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor gratis, direkt i webbläsaren.`,
     knapp: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
     paketrad: `Coachen utan tak ingår i Allt, ${ALLT} kr i veckan.`,
@@ -196,7 +197,7 @@ export const GRATIS_KORT = {
     `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
     'En CV-analys med poäng och tyngsta fyndet',
     'Ett personligt brev på en annons, att läsa',
-    `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och tio frågor till coachen`,
+    `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till coachen`,
     'Testernas grundnivå, en gång per dygn',
   ],
   knapp: 'Skapa konto gratis',

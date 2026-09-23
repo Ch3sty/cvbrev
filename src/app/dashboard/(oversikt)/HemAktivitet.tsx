@@ -15,8 +15,11 @@ import { getAktivitet } from '@/lib/dashboard/aktivitet'
 
 export default async function HemAktivitet() {
   let dagar: Awaited<ReturnType<typeof getAktivitet>> = []
+  // cookies() utanför try: Next signalerar dynamisk rendering med ett kast
+  // som inte får fångas här.
+  const kakor = await cookies()
   try {
-    const supabase = createServerClient({ cookies: await cookies() })
+    const supabase = createServerClient({ cookies: kakor })
     const {
       data: { user },
     } = await supabase.auth.getUser()

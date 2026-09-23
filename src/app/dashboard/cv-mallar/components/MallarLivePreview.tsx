@@ -334,9 +334,8 @@ const HORIZONTAL_PADDING = 24; // 12px var sida
 
 function ScaledPreview({ html }: { html: string }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(A4_WIDTH_PX + HORIZONTAL_PADDING);
-  const [contentHeight, setContentHeight] = useState(0);
+  const [contentHeight, setContentHeight] = useState(A4_HEIGHT_PX);
 
   // Matt tillgangligt utrymme i wrapper-divren
   useEffect(() => {
@@ -350,58 +349,42 @@ function ScaledPreview({ html }: { html: string }) {
     return () => observer.disconnect();
   }, []);
 
-  // Matt riktig hojd pa det renderade CV:t (foran scaling)
-  useEffect(() => {
-    if (!contentRef.current) return;
-    const observer = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        setContentHeight(entry.contentRect.height);
-      }
-    });
-    observer.observe(contentRef.current);
-    return () => observer.disconnect();
-  }, [html]);
-
   const availableWidth = Math.max(containerWidth - HORIZONTAL_PADDING, 280);
   const scale = availableWidth < A4_WIDTH_PX ? availableWidth / A4_WIDTH_PX : 1;
-  const scaledHeight = contentHeight * scale;
 
   return (
     <div ref={wrapperRef} className="px-3 sm:px-4 py-3 sm:py-4 flex justify-center">
-      {/* Outer-div har den slutgiltiga (skalade) hojden sa containern reserverar
-          ratt utrymme. transform paverkar inte layout-storlek, dafor reservation. */}
       <div
         style={{
-          // Bredden följer föräldern, höjden följer A4-proportionen via CSS.
-          // Tidigare räknades båda ur en JS-mätning av containern, som
-          // startade på desktop-bredd och korrigerades efter första
-          // renderingen. Det var samma gissning som MallToolbar gjorde, och
-          // den ritade om hela kolumnen på mobil. aspect-ratio reserverar
-          // ytan redan i server-HTML, utan att någon behöver mäta.
           width: '100%',
-          maxWidth: `${A4_WIDTH_PX}px`,
-          aspectRatio: `${A4_WIDTH_PX} / ${A4_HEIGHT_PX}`,
-          height: contentHeight > 0 ? `${scaledHeight}px` : undefined,
+          maxWidth: A4_WIDTH_PX + "px",
+          height: contentHeight * scale + "px",
           flexShrink: 0,
+          overflow: 'hidden',
         }}
       >
-        {/* Mallens HTML är ett helt CV-dokument och har därför en egen h1 med
-            personens namn. Helt rätt i en PDF, men här ligger dokumentet inuti
-            en sida som redan har sin rubrik, så sidan fick två h1 och
-            rubrikträdet sa emot sig själv. Förhandsvisningen är en bild av
-            resultatet, inte läsbar struktur: role="img" kapslar in den och
-            håller mallens rubriker utanför sidans disposition. */}
-        <div
-          ref={contentRef}
-          className="bg-white"
-          role="img"
-          aria-label="Förhandsvisning av ditt CV i vald mall"
+        {/* Mallens HTML är ett helt dokument med egen <style>, som sätter
+            typsnitt på body och alla element. Inlagt direkt i sidan tog den
+            över sidans typsnitt, också den nya display-rubriken, och rubriken
+            bröts om när förhandsvisningen kom (CLS 0,04, linjen 2026-09-23).
+            I en iframe stannar stilen i dokumentet. Höjden läses ur
+            dokumentet när det laddats; innan dess reserveras en A4. */}
+        <iframe
+          srcDoc={html}
+          title="Förhandsvisning av ditt CV i vald mall"
+          scrolling="no"
+          onLoad={(e) => {
+            const doc = e.currentTarget.contentDocument
+            const h = doc?.documentElement?.scrollHeight ?? 0
+            if (h > 0) setContentHeight(Math.max(h, A4_HEIGHT_PX))
+          }}
+          className="block border-0 bg-panel"
           style={{
-            width: `${A4_WIDTH_PX}px`,
-            transform: scale < 1 ? `scale(${scale})` : undefined,
+            width: A4_WIDTH_PX + "px",
+            height: contentHeight + "px",
+            transform: scale < 1 ? "scale(" + scale + ")" : undefined,
             transformOrigin: 'top left',
           }}
-          dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
     </div>
