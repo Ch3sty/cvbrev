@@ -12,6 +12,7 @@
 // - Chatt:        ai_messages (användarens egna meddelanden, role='user')
 // - CV-analys:    cv_analysis_jobs (usage_counted=true, hela kontots historik)
 // - Brev:         profiles-kolumnerna weekly_letter_* plus letters-historiken
+// - Intervjuprov: anon_interview_samples (sparade svar sedan midnatt, per user_id)
 //
 // Gränserna efter paketomgången:
 //   Brev      1 per konto, därefter 1 per rullande sju dygn
@@ -145,6 +146,44 @@ export async function checkDailyTestQuota(
     used,
     limit: DAILY_LIMIT_TEST_SESSIONS,
     nextResetAt: nextMidnightStockholm().toISOString(),
+  };
+}
+
+/** Intervjuprovet i artiklarna: ett bedömt svar per dygn på gratisnivån. */
+export const DAILY_LIMIT_INTERVIEW_SAMPLES = 1;
+
+/**
+ * Intervjuprovet för inloggade (docs/design/intervjuprov-spec-2026-09-23.md,
+ * avsnitt 6). Räknar sparade rader i anon_interview_samples sedan midnatt
+ * svensk tid. Irrelevanta svar från inloggade sparas som en rad markerad
+ * irrelevant, så de räknas också (ägarens beslut 9, 2026-09-23).
+ *
+ * Tabellen har RLS utan policies, så klienten som skickas in måste vara
+ * admin-klienten: en användarklient ser noll rader och släpper igenom allt.
+ */
+export async function checkDailyInterviewQuota(
+  supabase: AnySupabase,
+  userId: string,
+  now: Date = new Date()
+): Promise<QuotaResult> {
+  if (await userHasAccess(supabase, userId, 'interview_unlimited')) {
+    return accessResult(DAILY_LIMIT_INTERVIEW_SAMPLES);
+  }
+
+  const since = startOfTodayStockholm(now).toISOString();
+  const { count } = await supabase
+    .from('anon_interview_samples')
+    .select('token', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gte('created_at', since);
+
+  const used = count ?? 0;
+  return {
+    allowed: used < DAILY_LIMIT_INTERVIEW_SAMPLES,
+    isPremium: false,
+    used,
+    limit: DAILY_LIMIT_INTERVIEW_SAMPLES,
+    nextResetAt: nextMidnightStockholm(now).toISOString(),
   };
 }
 

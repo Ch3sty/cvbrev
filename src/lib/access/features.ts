@@ -24,6 +24,7 @@ export type Feature =
   | 'test_exam_mode'
   | 'test_history'
   | 'chat_unlimited'
+  | 'interview_unlimited'
   | 'job_matches_all'
   | 'bli_upptackt'
   | 'linkedin'
@@ -44,6 +45,9 @@ export const FEATURES: Record<Feature, readonly Scope[]> = {
   test_exam_mode: ['tester', 'allt'],
   test_history: ['tester', 'allt'],
   chat_unlimited: ['allt'],
+  // Intervjuprovet i artiklarna utan dagskvot: Testveckan och alla Allt-paket
+  // (ägarens beslut 5, 2026-09-23). Gratiskonton får ett prov per dygn.
+  interview_unlimited: ['tester', 'allt'],
   job_matches_all: ['allt'],
   bli_upptackt: ['allt'],
   // LinkedIn-profilen följer CV-spåret (spec-onboarding sektion 3 och 5).

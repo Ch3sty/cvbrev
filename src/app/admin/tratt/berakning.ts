@@ -271,6 +271,7 @@ export const FEATURE_NAMN: Record<Feature, string> = {
   test_exam_mode: 'Provläge',
   test_history: 'Testhistorik',
   chat_unlimited: 'Jobbcoachen utan tak',
+  interview_unlimited: 'Intervjuprovet utan tak',
   job_matches_all: 'Alla jobbmatchningar',
   bli_upptackt: 'Bli upptäckt',
   linkedin: 'LinkedIn-profilen',

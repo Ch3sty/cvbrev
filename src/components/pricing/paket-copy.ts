@@ -782,6 +782,7 @@ export const FEATURE_ETIKETT: Record<Feature, string> = {
   test_exam_mode: 'Tidsatt provläge',
   test_history: 'Din testhistorik',
   chat_unlimited: 'Fler meddelanden i chatten',
+  interview_unlimited: 'Fler intervjuprov',
   job_matches_all: 'Fler jobbträffar',
   bli_upptackt: 'Bli upptäckt',
   linkedin: 'LinkedIn-profilen',

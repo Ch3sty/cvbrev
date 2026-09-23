@@ -79,6 +79,7 @@ export const PLANS: readonly Plan[] = [
       'Alla testnivåer, obegränsat antal försök',
       'Provläge med tidsgräns',
       'Resultathistorik och utveckling över tid',
+      'Intervjuprovet: öva svar utan begränsning',
       'Säg upp när du vill',
     ],
   },
