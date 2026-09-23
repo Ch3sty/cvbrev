@@ -16,8 +16,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import InlineCVUpload from '@/components/cv/InlineCVUpload'
 import QuickScoreReveal from '@/components/cv/QuickScoreReveal'
-import MarginPlate from '@/components/shell/MarginPlate'
-import { IlluArketLyfter, IlluPlattaCvPoang } from '@/components/illustrations/TradenScener'
+import { IlluArketLyfter } from '@/components/illustrations/TradenScener'
+import { IlluScenBrev } from '@/components/illustrations/PriserScener'
 
 export type DashboardState = 'A' | 'B' | 'C'
 
@@ -45,11 +45,10 @@ export default function DashboardHero({ state, userId, firstName, onCvUploaded }
 
   if (state === 'B') {
     return (
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5" aria-label="Nästa steg">
-        <div className="flex items-start gap-3">
-          <MarginPlate>
-            <IlluPlattaCvPoang size={48} />
-          </MarginPlate>
+      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-label="Nästa steg">
+        {/* Display-h1 och scen i egen kolumn i stället för marginalplatta
+            (analysen 22 september, avsnitt 3: tillstånd B). */}
+        <div className="flex items-center gap-8">
           <div className="min-w-0 flex-1">
             <h1 className="text-h1 text-ink-1">Nästa steg: brevet</h1>
             <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
@@ -63,6 +62,9 @@ export default function DashboardHero({ state, userId, firstName, onCvUploaded }
                 Se hela CV-analysen
               </Link>
             </div>
+          </div>
+          <div className="hidden w-[240px] shrink-0 text-ink-1 lg:block" aria-hidden="true">
+            <IlluScenBrev className="h-auto w-full" />
           </div>
         </div>
       </section>

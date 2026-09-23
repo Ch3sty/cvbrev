@@ -1,12 +1,13 @@
 'use client'
 
 /**
- * "Pågår nu": de tre mest tidskänsliga ansökningarna
- * (docs/design/koncept-2026-09-13.md, ram 1).
+ * "Pågår nu": de mest tidskänsliga ansökningarna som rader direkt på mark
+ * (regel 4 och 6 i docs/design/analys-visuell-linje-2026-09-22.html).
  *
- * Sektionsetikett 14/500 i ink-3 med "Alla N" till höger, sedan rader i en
- * panel. Intervju i positiv, tyst i ink-1. Sorteringen sker i
- * useApplicationsSummary: tysta först, sedan intervjuer, sedan äldst.
+ * Varje rad säger vad som hänt i användarens ord och erbjuder nästa steg:
+ * "BAUHAUS · Butikssäljare / Sökt för 54 dagar sedan, inget svar än /
+ * Följ upp". Sorteringen sker i summeringen: tysta först, sedan intervjuer,
+ * sedan äldst.
  */
 
 import Link from 'next/link'
@@ -22,30 +23,30 @@ interface PagarNuProps {
   letterCount?: number
 }
 
-const INTERVIEW = new Set(['interview_invited', 'interview_completed', 'trial_work_completed'])
+const INTERVJU = new Set(['interview_invited', 'interview_completed', 'trial_work_completed'])
 
-/** Kort lägesbeskrivning under raden. */
-function statusLine(item: PipelineItem): { text: string; tone: string } {
-  if (item.needsFollowUp) return { text: `Tyst ${item.days} dagar`, tone: 'text-ink-1' }
-  const meta = item.status ? STATUS_META[item.status] : null
-  if (meta) {
-    return {
-      text: meta.label,
-      tone: item.status && INTERVIEW.has(item.status) ? 'text-positiv' : 'text-ink-3',
-    }
-  }
-  return {
-    text: item.days === 0 ? 'Sökt idag' : `Sökt ${item.days} dagar sedan`,
-    tone: 'text-ink-3',
-  }
+function dagar(n: number): string {
+  if (n === 0) return 'i dag'
+  if (n === 1) return 'i går'
+  return `för ${n} dagar sedan`
 }
 
-const BTN = 'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover'
+/** Raden under företaget: vad som hänt, i användarens ord. */
+function lage(item: PipelineItem): { text: string; ton: string } {
+  if (item.status && INTERVJU.has(item.status)) {
+    return { text: STATUS_META[item.status]?.label ?? 'Intervju', ton: 'text-positiv' }
+  }
+  if (item.needsFollowUp) return { text: `Sökt ${dagar(item.days)}, inget svar än`, ton: 'text-ink-2' }
+  const meta = item.status ? STATUS_META[item.status] : null
+  if (meta && item.status !== 'applied') return { text: meta.label, ton: 'text-ink-2' }
+  return { text: `Sökt ${dagar(item.days)}`, ton: 'text-ink-3' }
+}
+
+const BTN =
+  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover'
 
 export default function PagarNu({ items, total, letterCount = 0 }: PagarNuProps) {
   if (items.length === 0) {
-    // Merparten av befintliga konton har brev men inga loggade ansökningar.
-    // Då är importvägen den primära handlingen, inte det generiska tomma läget.
     const hasLetters = letterCount > 0
     return (
       <EmptyState
@@ -70,49 +71,37 @@ export default function PagarNu({ items, total, letterCount = 0 }: PagarNuProps)
 
   return (
     <section aria-label="Pågående ansökningar">
-      <div className="mb-2 flex items-baseline justify-between gap-3">
+      <div className="flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-medium text-ink-3">Pågår nu</h2>
         {total > items.length ? (
           <Link
             href="/dashboard/sokta-tjanster"
-            className="text-meta font-medium text-ink-3 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+            className="text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
           >
             Alla {total}
           </Link>
         ) : null}
       </div>
 
-      <ul className="rounded-xl border border-kant bg-panel">
+      <ul className="mt-2 divide-y divide-kant border-y border-kant">
         {items.map((item) => {
-          const line = statusLine(item)
+          const l = lage(item)
           return (
-            <li key={item.id} className="border-b border-kant last:border-b-0">
-              <Link
-                href={`/dashboard/sokta-tjanster/${item.id}`}
-                className="flex min-h-11 items-center gap-3 px-4 py-3 transition-colors hover:bg-insunken/60"
-              >
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-ink-1">
-                    {item.company} · {item.jobTitle}
-                  </span>
-                  <span className={`block truncate text-meta ${line.tone}`}>{line.text}</span>
+            <li key={item.id} className="flex min-h-14 items-center gap-3 py-3">
+              <Link href={`/dashboard/sokta-tjanster/${item.id}`} className="group min-w-0 flex-1">
+                <span className="block truncate text-sm font-semibold text-ink-1 group-hover:underline group-hover:decoration-kant-stark group-hover:underline-offset-4">
+                  {item.company} · {item.jobTitle}
                 </span>
-
-                <svg
-                  viewBox="0 0 24 24"
-                  width="20"
-                  height="20"
-                  className="shrink-0 text-ink-3"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M9 6l6 6-6 6" />
-                </svg>
+                <span className={`block truncate text-meta ${l.ton}`}>{l.text}</span>
               </Link>
+              {item.needsFollowUp ? (
+                <Link
+                  href={`/dashboard/sokta-tjanster/${item.id}`}
+                  className="inline-flex min-h-11 shrink-0 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                >
+                  Följ upp
+                </Link>
+              ) : null}
             </li>
           )
         })}
