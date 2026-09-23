@@ -9,7 +9,7 @@
  *   gratis  alla tre med knappar, knappen bär paketet till köpsteget
  *   spår    det egna kortet visar "Du har det här paketet", det andra spåret
  *           byter vid nästa förnyelse, Allt visar mellanskillnaden
- *   Allt    spåren visar "Ingår i Allt", Allt-kortet bär längdbytet där
+ *   Allt    spåren visar "Ingår i Hela paketet", Allt-kortet bär längdbytet där
  *           dagläget är inaktivt för en löpande kund, och Säg upp står i
  *           hanteringslistan
  *
@@ -204,7 +204,7 @@ export default function PrenumerationClient({
       };
     }
 
-    // Spår: det egna kortet, det andra spåret, och Allt med mellanskillnaden.
+    // Spår: det egna kortet, det andra spåret, och Hela paketet med mellanskillnaden.
     if (tillstand === 'track') {
       if (id === egetPaket) {
         return { status: KONTO.dittPaket, fotnot: null };

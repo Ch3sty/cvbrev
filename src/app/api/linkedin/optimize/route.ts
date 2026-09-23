@@ -896,8 +896,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // LinkedIn-profilen ligger i CV-spåret och i Allt (featuren linkedin i
-    // src/lib/access/features.ts). Gratisnivån och Testveckan får 402 med
+    // LinkedIn-profilen ligger i CV-spåret och i Hela paketet (featuren linkedin i
+    // src/lib/access/features.ts). Gratisnivån och Träningspaketet får 402 med
     // paketet betalväggen ska föreslå, precis som brevnedladdningen.
     const harLinkedin = await userHasAccess(supabase, user.id, 'linkedin')
     if (!harLinkedin) {

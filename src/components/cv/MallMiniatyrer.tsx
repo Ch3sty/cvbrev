@@ -23,7 +23,7 @@ import { PLAN_BY_KEY } from '@/lib/plans/plans'
 
 export interface MallMiniatyrProps {
   mall: Pick<SimpleTemplate, 'id' | 'name' | 'imagePath' | 'tier'>
-  /** Raden under namnet: "gratis", "CV-veckan". */
+  /** Raden under namnet: "gratis", "CV-paketet". */
   under?: ReactNode
   vald?: boolean
   /** Mallen ingår inte i paketet: insunken med lås. */
@@ -86,12 +86,12 @@ export default function MallMiniatyrer() {
       </p>
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {urval.map((m) => (
-          <MallMiniatyr key={m.id} mall={m} under={m.tier === 'free' ? 'gratis' : 'CV-veckan'} />
+          <MallMiniatyr key={m.id} mall={m} under={m.tier === 'free' ? 'gratis' : PLAN_BY_KEY.cv_week.name} />
         ))}
       </div>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink-2">
-          {FREE_TEMPLATE_COUNT} gratis, alla {TEMPLATE_COUNT} i CV-veckan för {PLAN_BY_KEY.cv_week.amount} kr.
+          {FREE_TEMPLATE_COUNT} gratis, alla {TEMPLATE_COUNT} i {PLAN_BY_KEY.cv_week.name} för {PLAN_BY_KEY.cv_week.amount} kr i veckan.
         </p>
         <Link
           href="/verktyg/cv-mallar"

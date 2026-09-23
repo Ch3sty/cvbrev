@@ -76,7 +76,7 @@ export default function DevelopmentView({
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
           {hasHistory
             ? 'Varje punkt är ett försök. Linjen visar hur dina resultat rör sig över tid.'
-            : 'Du ser ditt senaste försök per test. Hela serien ingår i Testveckan.'}
+            : 'Du ser ditt senaste försök per test. Hela serien ingår i Träningspaketet.'}
         </p>
       </div>
 

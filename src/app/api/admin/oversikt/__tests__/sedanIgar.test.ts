@@ -30,7 +30,7 @@ function kop(varden: Partial<KopRad> = {}): KopRad {
     id: 'ch_1',
     tid: '2026-09-22T12:14:00Z',
     paket: 'all_day',
-    paketNamn: 'Allt-dagen',
+    paketNamn: 'Dagspasset',
     beloppOre: 4900,
     typ: 'engangs',
     ny: true,
@@ -124,12 +124,12 @@ describe('tidEtikett', () => {
 describe('kopHandelser', () => {
   it('skriver paket, kort konto-id och ny kund', () => {
     const [h] = kopHandelser([kop()], 0);
-    expect(h.text).toBe('Köp: Allt-dagen, konto 580ee411, ny kund');
+    expect(h.text).toBe('Köp: Dagspasset, konto 580ee411, ny kund');
     expect(h.beloppOre).toBe(4900);
   });
 
   it('kallar en löpande betalning som inte är ny för förnyelse', () => {
-    const [h] = kopHandelser([kop({ typ: 'lopande', ny: false, paketNamn: 'Allt-månaden' })], 0);
+    const [h] = kopHandelser([kop({ typ: 'lopande', ny: false, paketNamn: 'Hela paketet, en månad' })], 0);
     expect(h.text).toContain('förnyelse');
   });
 
@@ -185,7 +185,7 @@ describe('händelserna ur Supabase', () => {
       { dag: '2026-09-22', dimension: 'cv', personer: 1, uppdaterad: '2026-09-22T17:48:00Z' },
       { dag: '2026-09-22', dimension: 'allt', personer: 1, uppdaterad: '2026-09-22T17:48:00Z' },
     ]);
-    expect(h.text).toBe('2 personer valde spår (1 CV, 1 Allt)');
+    expect(h.text).toBe('2 personer valde spår (1 CV, 1 Hela paketet)');
   });
 
   it('tar bara i dag och i går för uppsägningar, och hoppar över nollor', () => {
@@ -214,12 +214,12 @@ describe('mrrPaketText', () => {
   const rad = (v: Partial<DagligaMetrik>) => ({ dag: '2026-09-22', ...v }) as DagligaMetrik;
 
   it('skriver antal gånger paket och pris', () => {
-    expect(mrrPaketText(rad({ active_all_month: 3 }))).toBe('3 × Allt-månaden 149 kr');
+    expect(mrrPaketText(rad({ active_all_month: 3 }))).toBe('3 × Hela paketet, en månad 149 kr');
   });
 
-  it('lämnar Allt-dagen utanför, den har ingen MRR', () => {
+  it('lämnar Dagspasset utanför, den har ingen MRR', () => {
     expect(mrrPaketText(rad({ active_all_month: 3, active_all_day: 1 }))).toBe(
-      '3 × Allt-månaden 149 kr'
+      '3 × Hela paketet, en månad 149 kr'
     );
   });
 

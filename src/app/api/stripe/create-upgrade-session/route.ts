@@ -5,7 +5,7 @@
 //
 // Sedan paketen infördes (docs/plan-paket-och-onboarding.md avsnitt 5) har
 // rutten två utgångar. Har kunden redan en levande prenumeration på ett spår
-// och begär Allt-veckan byter vi pris på den befintliga prenumerationen med
+// och begär Hela paketet byter vi pris på den befintliga prenumerationen med
 // proration, och svarar { upgraded: true } utan att öppna någon kassa. I
 // övriga fall blir det en vanlig embedded checkout som förut.
 
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
-    // Undantaget är uppgraderingen från ett spår till Allt, som byter pris på
+    // Undantaget är uppgraderingen från ett spår till Hela paketet, som byter pris på
     // den prenumeration kunden redan har.
     const existing = await findLiveSubscription(customerId)
     if (existing) {

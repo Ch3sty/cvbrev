@@ -405,7 +405,7 @@ async function Intakt({ fonster }: { fonster: FonsterVal }) {
         </tbody>
       </table>
       <p className="mt-3 text-meta text-ink-3">
-        {`Ur Stripe. Allt-dagen och andra engångsköp ingår, återbetalningar dras från sitt paket.${interna ? ` ${tal(interna)} ${interna === 1 ? 'internt köp' : 'interna köp'} undantagna.` : ''} `}
+        {`Ur Stripe. Dagspasset och andra engångsköp ingår, återbetalningar dras från sitt paket.${interna ? ` ${tal(interna)} ${interna === 1 ? 'internt köp' : 'interna köp'} undantagna.` : ''} `}
         {dagarMedKop >= DIAGRAM_DAGAR
           ? 'Diagrammet visar intäkt per dag i spårfärgerna.'
           : `Tabell tills köpen finns på ${talOrd(DIAGRAM_DAGAR)} dagar (${tal(dagarMedKop)} hittills); då kommer diagrammet med spårfärgerna.`}

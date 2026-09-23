@@ -32,13 +32,12 @@ import {
 } from '@/components/illustrations/PriserScener'
 import { capture } from '@/lib/analytics/events'
 import { SPARVAL_GRATIS, type PlanKeyPaket, type Track } from '@/lib/onboarding/program'
-import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketNamn, type PlanKey, type PlanLength } from '@/lib/plans/plans'
 import {
   KOPSTEG,
   KOPSTEG_FAR,
   PAKET_PLAN,
   SPARVAL,
-  namnForPlan,
   planForLangd,
   type PaketId,
 } from '@/components/pricing/paket-copy'
@@ -62,7 +61,7 @@ function nastaDragning(plan: PlanKey): string {
   }).format(d)
 }
 
-/** Sluttid för Allt-dagen: klockslag, inte datum. */
+/** Sluttid för Dagspasset: klockslag, inte datum. */
 function dygnSlutar(): string {
   const d = new Date(Date.now() + 24 * 60 * 60 * 1000)
   return new Intl.DateTimeFormat('sv-SE', {
@@ -91,7 +90,7 @@ export default function ValjSparClient({
 }: ValjSparClientProps) {
   const router = useRouter()
   const [steg, setSteg] = useState<Steg>('val')
-  // Första kortet är förvalt (specen visar CV-veckan vald), så primären är
+  // Första kortet är förvalt (specen visar CV-paketet vald), så primären är
   // aldrig tyst spärrad. Ett tidigare spår eller ?paket vinner.
   const [track, setTrack] = useState<Track | null>(initialTrack ?? 'cv')
   const sparatTrack = useRef<Track | null>(null)
@@ -220,8 +219,8 @@ export default function ValjSparClient({
       plan,
       cta: 'primary',
     })
-    // Bytte hon till Allt i köpsteget ska spåret följa med, annars säger
-    // profilen CV och kvittot Allt.
+    // Bytte hon till Hela paketet i köpsteget ska spåret följa med, annars
+    // säger profilen CV och kvittot Hela paketet.
     if (track && sparatTrack.current !== track) {
       const ok = await sparaSpar(track, 'purchase')
       if (!ok) {
@@ -339,7 +338,7 @@ export default function ValjSparClient({
         <section className="mt-4 rounded-xl border border-kant-stark bg-panel p-4" aria-label="Kvitto">
           <div className="flex items-baseline justify-between gap-3">
             <p className="font-display text-xl font-bold tracking-[-0.025em] text-ink-1">
-              {namnForPlan(plan)}
+              {paketNamn(plan)}
             </p>
             <p className="font-display text-[26px] font-bold tabular-nums tracking-[-0.025em] text-ink-1">
               {PLAN_BY_KEY[plan].amount} kr{' '}
@@ -391,7 +390,7 @@ export default function ValjSparClient({
           </div>
         </section>
 
-        {/* Allt i stället, eller längden på Allt. */}
+        {/* Hela paketet i stället, eller längden på Hela paketet. */}
         <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3">
           <p className="text-steg uppercase text-ink-3">
             {paket === 'allt' ? KOPSTEG.alltLangd : KOPSTEG.alltIStallet}

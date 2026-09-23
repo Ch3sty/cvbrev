@@ -55,9 +55,9 @@ export interface PlanForvantan {
 /**
  * Antal manader per debitering, for de tva paket som debiteras i manader.
  *
- * Allt-manaden ar en manad, Allt-kvartalet tre. Veckopaketen debiteras i
+ * Hela paketet per manad ar en manad, per kvartal tre. Veckopaketen debiteras i
  * veckor och har darfor null har: jamforelsen hoppar over intervallkollen for
- * dem i stallet for att rakna om veckor till manader. Allt-dagen ar ett
+ * dem i stallet for att rakna om veckor till manader. Dagspasset ar ett
  * engangskop och har ingen period alls.
  */
 const MANADER_PER_PLAN: Partial<Record<PlanKey, number>> = {

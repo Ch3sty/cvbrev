@@ -312,8 +312,8 @@ async function PerPaket({ vecka, idag }: { vecka: VeckoRad; idag: string }) {
       </table>
       <p className="mt-3 text-meta text-ink-3">
         Från spårvalet och framåt. Besökare och nya konton vet inte vilket paket som väljs och står
-        bara i veckotabellen. Köp är köp ur Stripe den här veckan, förnyelser oräknade, Allt-dagen
-        räknas till Allt.
+        bara i veckotabellen. Köp är köp ur Stripe den här veckan, förnyelser oräknade, Dagspasset
+        räknas till Hela paketet.
       </p>
     </Panel>
   );

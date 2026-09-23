@@ -16,5 +16,5 @@ export const TEMPLATE_COUNT = 41
 /** Antalet mallar som ingår på gratisnivån. */
 export const FREE_TEMPLATE_COUNT = 3
 
-/** Antalet mallar som kräver CV-veckan eller Allt. */
+/** Antalet mallar som kräver CV-paketet eller Hela paketet. */
 export const PREMIUM_TEMPLATE_COUNT = 38

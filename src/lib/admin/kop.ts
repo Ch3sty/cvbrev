@@ -79,10 +79,8 @@ const BETALSATT: Record<string, string> = {
 
 export function paketNamn(paket: PaketNyckel | null): string {
   if (!paket) return 'Okänt paket';
-  const namn = PAKET_ORDNING.find((p) => p.nyckel === paket)?.namn ?? paket;
-  // PAKET_ORDNING skrivs utan diakritiska tecken i collect.ts. Sidorna ska
-  // ha riktig svenska.
-  return namn.replace('Allt-manaden', 'Allt-månaden');
+  // Namnen i PAKET_ORDNING kommer ur PLANS (paketMedLangd).
+  return PAKET_ORDNING.find((p) => p.nyckel === paket)?.namn ?? paket;
 }
 
 /** Paket ur checkout-metadata (planKey eller plan). */

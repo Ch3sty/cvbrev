@@ -2,7 +2,7 @@
  * Prenumeration: en vy, tre tillstånd
  * (docs/plan-paket-och-onboarding.md, Fas 2D avsnitt 3).
  *
- * Gratis, spår och Allt. Skelettet är detsamma i alla tre: sidhuvud, en
+ * Gratis, spår och Hela paketet. Skelettet är detsamma i alla tre: sidhuvud, en
  * statusrad som säger läget, en panel som säger vad hon har, noll till en
  * panel som föreslår nästa steg, och en hanteringslista. Skillnaden ligger i
  * panelernas innehåll, inte i hur sidan är byggd.

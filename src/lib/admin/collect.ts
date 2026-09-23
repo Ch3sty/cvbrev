@@ -17,6 +17,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
+import { paketMedLangd } from '@/lib/plans/plans';
 import {
   hamtaUndantag,
   hogqlUteslutning,
@@ -59,7 +60,7 @@ export interface DagligaMetrik {
   /** Rader i formatted_cv_downloads inom dygnet. */
   templates_downloaded: number | null;
   /* Aktiva per paket (docs/plan-paket-och-onboarding.md avsnitt 5). Fem av
-     sex raknas pa Stripe-prenumerationernas price-id; Allt-dagen ar ett
+     sex raknas pa Stripe-prenumerationernas price-id; Dagspasset ar ett
      engangskop och raknas pa giltiga premium_grants i stallet. */
   active_cv_week: number | null;
   active_test_week: number | null;
@@ -180,14 +181,9 @@ export type PaketNyckel =
   | 'all_quarter';
 
 /** Paketen i den ordning de ska staa i adminen, med lasbart namn. */
-export const PAKET_ORDNING: ReadonlyArray<{ nyckel: PaketNyckel; namn: string }> = [
-  { nyckel: 'cv_week', namn: 'CV-veckan' },
-  { nyckel: 'test_week', namn: 'Testveckan' },
-  { nyckel: 'all_day', namn: 'Allt-dagen' },
-  { nyckel: 'all_week', namn: 'Allt-veckan' },
-  { nyckel: 'all_month', namn: 'Allt-manaden' },
-  { nyckel: 'all_quarter', namn: 'Allt-kvartalet' },
-];
+export const PAKET_ORDNING: ReadonlyArray<{ nyckel: PaketNyckel; namn: string }> = (
+  ['cv_week', 'test_week', 'all_day', 'all_week', 'all_month', 'all_quarter'] as const
+).map((nyckel) => ({ nyckel, namn: paketMedLangd(nyckel) }));
 
 /** Kolumnen i admin_daily_metrics som bar antalet aktiva per paket. */
 export const PAKET_KOLUMN: Record<PaketNyckel, keyof DagligaMetrik> = {
@@ -202,7 +198,7 @@ export const PAKET_KOLUMN: Record<PaketNyckel, keyof DagligaMetrik> = {
 /**
  * Paketnyckel till env-namnet dar dess Stripe-price-id bor.
  *
- * Allt-dagen star med, men den ar ett engangskop och dyker aldrig upp bland
+ * Dagspasset star med, men den ar ett engangskop och dyker aldrig upp bland
  * prenumerationerna. Den raknas pa premium_grants i stallet, se
  * raknaAllaDagen. Manaden ligger kvar pa NEXT_PUBLIC_STRIPE_PRICE_ID, som ar
  * det pris checkouten redan anvander.
@@ -300,7 +296,7 @@ export function paketFranSubscriptions(
 }
 
 /**
- * Allt-dagen: giltiga engangsgrants med scope allt.
+ * Dagspasset: giltiga engangsgrants med scope allt.
  *
  * Kallan ar premium_grants och inte Stripe, eftersom ett engangskop inte ar
  * en prenumeration och darfor inte finns bland subscriptions. source som
@@ -429,7 +425,7 @@ export interface StripeDelresultat {
   active_subs: number;
   trialing_subs: number;
   failed_payments: number;
-  /** Aktiva och normaliserad MRR per paket. Allt-dagen fylls av collect. */
+  /** Aktiva och normaliserad MRR per paket. Dagspasset fylls av collect. */
   paket: Record<PaketNyckel, PaketSiffror>;
 }
 
@@ -1587,7 +1583,7 @@ export async function collectAdminMetrics(
     rad.letters_created = s.letters_created;
     rad.tests_completed = s.tests_completed;
     rad.templates_downloaded = s.templates_downloaded;
-    // Allt-dagen ar ett engangskop och finns inte bland Stripes
+    // Dagspasset ar ett engangskop och finns inte bland Stripes
     // prenumerationer. Den raknas pa giltiga premium_grants i stallet.
     rad.active_all_day = await raknaAllaDagen(admin, dag, u);
     delsteg.supabase = 'ok';

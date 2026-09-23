@@ -165,12 +165,12 @@ describe('visaKalla', () => {
 });
 
 describe('paketEtikett', () => {
-  it('kallar dagspasset Allt-dagen och betalande (gomer 22 sep)', () => {
+  it('kallar dagspasset Dagspasset och betalande (gomer 22 sep)', () => {
     const e = paketEtikett(
       rad({ premium_source: 'onetime_1d', premium_until: OM_EN_DAG }),
       NU
     );
-    expect(e).toMatchObject({ grupp: 'betalande', namn: 'Allt-dagen', lopande: false });
+    expect(e).toMatchObject({ grupp: 'betalande', namn: 'Dagspasset', lopande: false });
   });
 
   it('ett utgånget dagspass ar gratis', () => {
@@ -181,10 +181,10 @@ describe('paketEtikett', () => {
   it('namnger lopande prenumerationer ur priset', () => {
     expect(
       paketEtikett(rad({ subscription_status: 'active', planKey: 'all_month', premium_scope: 'allt' }), NU)
-    ).toMatchObject({ grupp: 'betalande', namn: 'Allt-månaden', lopande: true });
+    ).toMatchObject({ grupp: 'betalande', namn: 'Hela paketet, en månad', lopande: true });
     expect(
       paketEtikett(rad({ subscription_status: 'active', planKey: 'all_quarter' }), NU).namn
-    ).toBe('Allt-kvartalet');
+    ).toBe('Hela paketet, ett kvartal');
     expect(paketEtikett(rad({ subscription_status: 'past_due', planKey: 'all_week' }), NU).grupp).toBe(
       'betalande'
     );
@@ -192,13 +192,13 @@ describe('paketEtikett', () => {
 
   it('faller tillbaka pa behorigheten nar priset ar okant', () => {
     expect(paketEtikett(rad({ subscription_status: 'active', premium_scope: 'cv' }), NU).namn).toBe(
-      'CV-veckan'
+      'CV-paketet'
     );
     expect(paketEtikett(rad({ subscription_status: 'active', premium_scope: 'tester' }), NU).namn).toBe(
-      'Testveckan'
+      'Träningspaketet'
     );
     expect(paketEtikett(rad({ subscription_status: 'active', premium_scope: 'allt' }), NU).namn).toBe(
-      'Allt, okänd längd'
+      'Hela paketet, okänd längd'
     );
   });
 
@@ -222,7 +222,7 @@ describe('paketEtikett', () => {
   it('en betald prenumeration vinner over en gammal provperiodskalla', () => {
     expect(
       paketEtikett(rad({ subscription_status: 'active', premium_source: 'signup_trial', planKey: 'all_week' }), NU)
-    ).toMatchObject({ grupp: 'betalande', namn: 'Allt-veckan' });
+    ).toMatchObject({ grupp: 'betalande', namn: 'Hela paketet, en vecka' });
   });
 
   it('premium fran admin ar tilldelad, inte betalande', () => {
@@ -401,7 +401,7 @@ describe('format', () => {
   });
 
   it('byter raa systemvarden mot svenska ord', () => {
-    expect(kallaText('onetime_1d')).toBe('Engångsköp, Allt-dagen');
+    expect(kallaText('onetime_1d')).toBe('Engångsköp, Dagspasset');
     expect(kallaText('signup_trial')).toBe('Provperiod vid registrering');
     expect(kallaText(null)).toBe('ingen');
     expect(statusText('active')).toBe('aktiv');

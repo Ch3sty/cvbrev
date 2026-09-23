@@ -4,7 +4,7 @@
  * Raden för ett personlighetstest på hubben.
  *
  * Grundnivån öppnar alltid testets sida. Tolkningen (avancerad nivå) ingår
- * i Testveckan och Allt; i andra paket är raden grå med lås och paketets
+ * i Träningspaketet och Hela paketet; i andra paket är raden grå med lås och paketets
  * namn, och trycket öppnar betalväggen (spec-onboarding 2026-09-22,
  * sektion 3).
  */
@@ -37,7 +37,7 @@ interface Props {
   /** Nivån ingår inte i paketet: etiketten säger var den finns. */
   locked?: string | null;
   onLocked?: () => void;
-  /** Underraden på grundnivån utanför Testveckan: "Resultatet utan tolkning". */
+  /** Underraden på grundnivån utanför Träningspaketet: "Resultatet utan tolkning". */
   dagRad?: string | null;
 }
 

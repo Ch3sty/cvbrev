@@ -1,6 +1,7 @@
 // src/lib/email/lifecycle/templates/conversion.ts
 // Kvotvägg, kortkrävande trial, engångsköp som gått ut (plan D4).
 
+import { paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { hasPremiumNow, isPayingNow, swedishDate } from './helpers';
@@ -20,7 +21,7 @@ export const quotaWall: LifecycleEmail = {
   shouldSend: async (ctx) => !hasPremiumNow(ctx.profile),
   render: (ctx) => {
     const subject = 'Du har slagit i taket tre gånger den här veckan';
-    const preheader = 'Välj spåret du söker på och kör en vecka utan tak, från 79 kr.';
+    const preheader = 'Välj paketet som passar det du söker och kör en vecka utan tak, från 79 kr.';
     return {
       subject,
       preheader,
@@ -32,12 +33,12 @@ export const quotaWall: LifecycleEmail = {
           heading('Du söker mer än gratisnivån räcker till') +
           paragraph(`${greet(ctx.profile.full_name)} du har slagit i taket tre gånger de senaste dagarna.`) +
           paragraph(
-            'Det är inte ett problem, det betyder att du söker på allvar. Men då arbetar du emot en gräns som är byggd för den som skickar en ansökan i veckan. Välj det spår du faktiskt söker på, så tar vi bort taket där.'
+            'Det är inte ett problem, det betyder att du söker på allvar. Men då arbetar du emot en gräns som är byggd för den som skickar en ansökan i veckan. Välj det paket som passar det du faktiskt söker, så tar vi bort taket där.'
           ),
         note: list([
-          'CV-veckan, 79 kr: alla mallar, full CV-analys, brev du kan ladda ner',
-          'Testveckan, 79 kr: alla nivåer, provläget, hela din historik',
-          'Allt-veckan, 99 kr: båda spåren, jobbmatchningen och jobbcoachen',
+          `${paketMedPris('cv_week')}: alla mallar, full CV-analys, personliga brev du kan ladda ner`,
+          `${paketMedPris('test_week')}: alla nivåer, provläget, fördjupade personlighetstestet`,
+          `${paketMedPris('all_week')}: jobbmatchningen, Jobbcoachen, Bli upptäckt och allt i de andra två`,
         ]),
         ctaLabel: 'Se vad som ingår',
         ctaUrl: '/priser',
@@ -65,7 +66,7 @@ export const onetimeExpired: LifecycleEmail = {
           heading('Din period är slut') +
           paragraph(`${greet(ctx.profile.full_name)} ditt köp har löpt ut och kontot är tillbaka på gratisnivån.`) +
           paragraph(
-            'Allt du skapat ligger kvar och går att läsa och kopiera. Söker du fortfarande väljer du spåret du söker på: CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Vill du bara ha en kväll räcker Allt-dagen för 49 kr.'
+            `Allt du skapat ligger kvar och går att läsa och kopiera. Söker du fortfarande väljer du paketet som passar: ${paketMedPris('cv_week')}, ${paketMedPris('test_week')} eller ${paketMedPris('all_week')}. Vill du bara ha en kväll räcker ${paketMedPris('all_day')}.`
           ),
         ctaLabel: 'Förläng min tillgång',
         ctaUrl: '/dashboard/profil/prenumeration',

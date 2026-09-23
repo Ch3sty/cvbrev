@@ -51,7 +51,7 @@ export interface Blockeringar {
   rader: Blockering[]
   /** Summan av listan. Panelens tal, aldrig en egen räkning. */
   totalt: number
-  /** Spänner blockeringarna båda spåren? Avgör om Allt-veckan föreslås. */
+  /** Spänner blockeringarna båda spåren? Avgör om Hela paketet föreslås. */
   badaSparen: boolean
 }
 
@@ -117,9 +117,9 @@ export async function lasBlockeringar(
  * Paketet sidan föreslår, i ordningen ur Fas 2D.
  *
  * 1. Finns blockeringar i ett spår, föreslå det spåret. Spänner de båda
- *    spåren blir det Allt-veckan.
+ *    spåren blir det Hela paketet.
  * 2. Finns inga blockeringar men ett spår i onboarding_track, föreslå det.
- * 3. Finns varken eller, föreslå Allt-veckan och säg i D28 att vi inte vet.
+ * 3. Finns varken eller, föreslå Hela paketet och säg i D28 att vi inte vet.
  *
  * Ren funktion, testbar utan databas.
  */

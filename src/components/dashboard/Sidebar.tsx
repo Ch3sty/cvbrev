@@ -108,7 +108,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     } else if (hasPremiumTier) {
       premiumLabel = 'Aktiv';
     } else {
-      // Priset läses ur PLANS. Allt-dagen är lägsta priset i stegen, och
+      // Priset läses ur PLANS. Dagspasset är lägsta priset i stegen, och
       // skrivs alltid som "från" (ägarens beslut 4).
       premiumLabel = `Från ${PLAN_BY_KEY.all_day.amount} kr`;
       premiumNeedsAttention = true;
@@ -170,7 +170,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
   /**
    * Det gråa läget om valet inte ingår. menyRad levererar fortfarande
-   * texten ("Ingår i CV-veckan"), men den läses bara upp för skärmläsare
+   * texten ("Ingår i CV-paketet"), men den läses bara upp för skärmläsare
    * på den låsta raden; menyn visar inga underrader.
    */
   const rad = (val: MenyVal) => menyRad(val, paket);

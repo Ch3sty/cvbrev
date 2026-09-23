@@ -81,7 +81,7 @@ describe('scopeHasFeature', () => {
 })
 
 describe('suggestPlan', () => {
-  it('föreslår CV-veckan för CV-funktionerna', () => {
+  it('föreslår CV-paketet för CV-funktionerna', () => {
     const cvFeatures: Feature[] = [
       'cv_templates_all',
       'cv_export',
@@ -93,20 +93,20 @@ describe('suggestPlan', () => {
     }
   })
 
-  it('föreslår Testveckan för testfunktionerna', () => {
+  it('föreslår Träningspaketet för testfunktionerna', () => {
     const testFeatures: Feature[] = ['tests_above_base', 'test_exam_mode', 'test_history']
     for (const feature of testFeatures) {
       expect(suggestPlan(feature)).toBe('test_week')
     }
   })
 
-  it('föreslår Allt-veckan för det bara Allt ger', () => {
+  it('föreslår Hela paketet för det bara Allt ger', () => {
     expect(suggestPlan('chat_unlimited')).toBe('all_week')
     expect(suggestPlan('job_matches_all')).toBe('all_week')
     expect(suggestPlan('bli_upptackt')).toBe('all_week')
   })
 
-  it('föreslår alltid Allt-veckan när spåret är allt', () => {
+  it('föreslår alltid Hela paketet när spåret är allt', () => {
     for (const feature of ALLA_FEATURES) {
       expect(suggestPlan(feature, 'allt')).toBe('all_week')
     }

@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
                 ...quotaExceededBody(
                     'cv_analysis',
                     quota,
-                    'Du har använt din analys. Att köra om den ingår i CV-veckan och i Allt.'
+                    'Du har använt din analys. Att köra om den ingår i CV-paketet, 79 kr i veckan, och i Hela paketet.'
                 ),
                 feature: 'cv_analysis_full',
                 suggestedPlan: suggestPlan('cv_analysis_full', track),

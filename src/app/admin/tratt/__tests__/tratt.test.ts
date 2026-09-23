@@ -31,7 +31,7 @@ function kop(del: Partial<KopRad>): KopRad {
     id: 'ch_1',
     tid: '2026-09-22T12:14:00Z',
     paket: 'all_day',
-    paketNamn: 'Allt-dagen',
+    paketNamn: 'Dagspasset',
     beloppOre: 4900,
     typ: 'engangs',
     ny: true,
@@ -139,7 +139,7 @@ describe('var det tar stopp', () => {
   it('skriver specens mening när datan är liten', () => {
     const text = stoppMening(byggBlockeringar(rader, 'feature_blocked'), [], 'i dag', MATSTART.kopvag);
     expect(text).toBe(
-      '1 spärr i dag: full CV-analys, 4 gånger av 1 person, paketet som säljs där är CV-veckan. Gråa val: 0 sedan 22 sep kl. 19.02.'
+      '1 spärr i dag: full CV-analys, 4 gånger av 1 person, paketet som säljs där är CV-paketet. Gråa val: 0 sedan 22 sep kl. 19.02.'
     );
   });
 
@@ -152,10 +152,10 @@ describe('var det tar stopp', () => {
 
 describe('köpen', () => {
   const alltDagen = kop({});
-  const fornyelse = kop({ id: 'ch_2', paket: 'all_month', paketNamn: 'Allt-månaden', beloppOre: 14900, typ: 'lopande', ny: false, tid: '2026-09-20T08:00:00Z' });
+  const fornyelse = kop({ id: 'ch_2', paket: 'all_month', paketNamn: 'Hela paketet, en månad', beloppOre: 14900, typ: 'lopande', ny: false, tid: '2026-09-20T08:00:00Z' });
   const internt = kop({ id: 'ch_3', internt: true, tid: '2026-09-22T18:00:00Z' });
   const ater = kop({ id: 're_1', aterbetalning: true, beloppOre: -4900, ny: false, tid: '2026-09-22T19:00:00Z' });
-  const cvVeckan = kop({ id: 'ch_4', paket: 'cv_week', paketNamn: 'CV-veckan', beloppOre: 7900, tid: '2026-09-23T09:00:00Z' });
+  const cvVeckan = kop({ id: 'ch_4', paket: 'cv_week', paketNamn: 'CV-paketet', beloppOre: 7900, tid: '2026-09-23T09:00:00Z' });
 
   it('räknar köp i fönstret utan interna, återbetalningar och förnyelser', () => {
     const rader = [cvVeckan, ater, internt, alltDagen, fornyelse];
@@ -169,7 +169,7 @@ describe('köpen', () => {
     expect(k.matsFran).toBe(true);
     expect(k.varde).toBe('Mäts från 22 sep kl. 19.02');
     expect(k.jamforelse).toBe(
-      '1 köp före mätstart: Allt-dagen 49 kr, 22 sep kl. 14.14. Första andel när minst fem sett köpsteget.'
+      '1 köp före mätstart: Dagspasset 49 kr, 22 sep kl. 14.14. Första andel när minst fem sett köpsteget.'
     );
     expect(k.varde).not.toContain('–');
   });
@@ -181,16 +181,16 @@ describe('köpen', () => {
     expect(k.matsFran).toBe(false);
   });
 
-  it('har intäkt per paket med Allt-dagen, utan interna och med återbetalningen dragen', () => {
+  it('har intäkt per paket med Dagspasset, utan interna och med återbetalningen dragen', () => {
     const rader = intaktPerPaket([cvVeckan, ater, internt, alltDagen, fornyelse], MATSTART.paket);
     const per = Object.fromEntries(rader.map((r) => [r.namn, r]));
-    expect(per['Allt-dagen']).toMatchObject({ nya: 1, ore: 0, spar: 'allt' });
-    expect(per['CV-veckan']).toMatchObject({ nya: 1, ore: 7900, spar: 'cv' });
+    expect(per['Dagspasset']).toMatchObject({ nya: 1, ore: 0, spar: 'allt' });
+    expect(per['CV-paketet']).toMatchObject({ nya: 1, ore: 7900, spar: 'cv' });
     // Förnyelsen 20 sep ligger före fönstret.
-    expect(per['Allt-månaden']).toBeUndefined();
+    expect(per['Hela paketet, en månad']).toBeUndefined();
     // Det som säljs står med även utan köp.
-    expect(per['Testveckan']).toMatchObject({ nya: 0, fornyelser: 0, ore: 0 });
-    expect(rader[0].namn).toBe('CV-veckan');
+    expect(per['Träningspaketet']).toMatchObject({ nya: 0, fornyelser: 0, ore: 0 });
+    expect(rader[0].namn).toBe('CV-paketet');
   });
 
   it('skriver köpen som i specen', () => {

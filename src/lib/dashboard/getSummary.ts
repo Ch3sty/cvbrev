@@ -108,9 +108,9 @@ export interface DashboardSummaryData {
     track: Scope | null
     /** Paketnyckeln, härledd ur scope och sluttid. Null på gratisnivån. */
     planKey: PlanKey | null
-    /** Nästa dragning (ISO), eller dygnets slut för Allt-dagen. */
+    /** Nästa dragning (ISO), eller dygnets slut för Dagspasset. */
     fornyasAt: string | null
-    /** Allt-dagen: behörigheten kommer bara ur ett engångsköp. */
+    /** Dagspasset: behörigheten kommer bara ur ett engångsköp. */
     dayPassOnly: boolean
     /** Jobbcoachen: använda och tak på gratisnivån, null-tak = utan tak. */
     chatUsed: number
@@ -526,7 +526,7 @@ export async function getDashboardSummary(
   const smalareGrant = grants.map((rad) => rad?.scope).find(giltigtScope) ?? null
   const scope = harAllaDagen ? 'allt' : (profilScope ?? smalareGrant)
 
-  // Allt-dagen: behörigheten kommer ur ett engångsköp och inte ur en
+  // Dagspasset: behörigheten kommer ur ett engångsköp och inte ur en
   // prenumeration. Menyhuvudet säger då när dygnet tar slut i stället för
   // när paketet förnyas. Villkoret är precis det: ett giltigt grant och
   // ingen prenumeration bakom det.
@@ -537,7 +537,7 @@ export async function getDashboardSummary(
     .pop() ?? null
   const endastDagpass = profilScope === null && grantSlutar !== null
 
-  // Paketet, för menyhuvudet "Du har CV-veckan, förnyas 29 september, 79 kr".
+  // Paketet, för menyhuvudet "Du har CV-paketet, förnyas 29 september, 79 kr".
   const premiumUntil = profileRow?.premium_until ? new Date(profileRow.premium_until as string) : null
   const planKey = endastDagpass ? ('all_day' as PlanKey) : harPaket(scope, premiumUntil, now)
   const fornyasAt = endastDagpass

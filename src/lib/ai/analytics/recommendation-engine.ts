@@ -212,10 +212,10 @@ export class UserRecommender {
       return {
         user_id: user.id,
         type: 'upgrade_prompt',
-        title: 'Välj ett spår',
+        title: 'Välj ett paket',
         description: isHittingLimits
-          ? 'Du närmar dig veckans gräns. CV-veckan ger brev utan tak.'
-          : 'CV-veckan samlar mallarna, brevet och den fulla analysen',
+          ? 'Du närmar dig veckans gräns. CV-paketet, 79 kr i veckan, ger personliga brev utan tak.'
+          : 'CV-paketet, 79 kr i veckan, samlar mallarna, de personliga breven och den fulla analysen',
         priority: 'high',
         expected_impact: {
           user_value: 90,

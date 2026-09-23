@@ -7,8 +7,8 @@
 // rundtur och dessutom sidans layoutförskjutning när skelettet byttes ut.
 //
 // Efter paketomgången summeras raderna per scope, inte per flagga
-// (docs/plan-paket-och-onboarding.md avsnitt 5). En Testveckan-kund har inte
-// obegränsade brev, och en CV-veckan-kund har inte obegränsad chatt, så
+// (docs/plan-paket-och-onboarding.md avsnitt 5). En kund med Träningspaketet har inte
+// obegränsade brev, och en kund med CV-paketet har inte obegränsad chatt, så
 // varje rad frågar efter sin egen feature.
 //
 // Frågorna och limiterna är identiska med routens. Ändras de ena ska de

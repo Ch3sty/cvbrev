@@ -2,7 +2,7 @@
  * Intervjuprovets dagskvot (docs/design/intervjuprov-spec-2026-09-23.md, avsnitt 6,
  * ägarens beslut 5 2026-09-23): ett prov per dygn på gratisnivån, räknat mot
  * anon_interview_samples sedan midnatt svensk tid, och ingen gräns för den
- * som har interview_unlimited (Testveckan och alla Allt-paket).
+ * som har interview_unlimited (Träningspaketet och alla Allt-paket).
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -46,7 +46,7 @@ describe('gränsen', () => {
     expect(DAILY_LIMIT_INTERVIEW_SAMPLES).toBe(1)
   })
 
-  it('ges obegränsat av Testveckan och Allt, inte av CV-veckan', () => {
+  it('ges obegränsat av Träningspaketet och Allt, inte av CV-paketet', () => {
     expect(FEATURES.interview_unlimited).toEqual(['tester', 'allt'])
   })
 })

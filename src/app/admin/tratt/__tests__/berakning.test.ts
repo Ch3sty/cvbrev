@@ -23,7 +23,7 @@ describe('paketFranDimension', () => {
     expect(paketFranDimension('')).toBeNull();
   });
 
-  it('lägger Stripe-paketen i sitt spår, Allt-dagen under Allt', () => {
+  it('lägger Stripe-paketen i sitt spår, Dagspasset under Allt', () => {
     expect(sparFranPaket('cv_week')).toBe('cv');
     expect(sparFranPaket('all_day')).toBe('allt');
     expect(sparFranPaket(null)).toBeNull();

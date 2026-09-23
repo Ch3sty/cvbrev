@@ -33,7 +33,7 @@ interface Props {
   recommendSlug?: TestSlug;
   /** Paketet. Null är gratisnivån. */
   scope?: Scope | null;
-  /** Etiketten på gråa rader: "Testveckan 79 kr, eller Allt". */
+  /** Etiketten på gråa rader: "Träningspaketet 79 kr, eller Hela paketet". */
   graEtikett?: string;
   /** Ett grått val tryckt. Featuren säger vad som spärrade. */
   onLocked?: (feature: Feature) => void;

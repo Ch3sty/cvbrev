@@ -8,6 +8,7 @@
 
 import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, firstName } from './layout';
+import { paketNamnUrMetadata } from '@/lib/plans/plans';
 
 function greet(ctx: LifecycleContext): string {
   const name = firstName(ctx.profile.full_name);
@@ -24,7 +25,8 @@ export const uppsagtGallerUt: LifecycleEmail = {
   transactional: true,
   shouldSend: async () => true,
   render: (ctx) => {
-    const paket = (ctx.metadata?.planName as string) || 'CV-veckan';
+    // Namnet ur planKey, eller ett gammalt planName översatt till det nya.
+    const paket = paketNamnUrMetadata(ctx.metadata);
     const slut = (ctx.metadata?.periodEnd as string) || '';
     const slutText = slut
       ? new Intl.DateTimeFormat('sv-SE', {
@@ -64,7 +66,7 @@ export const kvittoMejl: LifecycleEmail = {
   transactional: true,
   shouldSend: async () => true,
   render: (ctx) => {
-    const paket = (ctx.metadata?.planName as string) || 'CV-veckan';
+    const paket = paketNamnUrMetadata(ctx.metadata);
     const belopp = Number(ctx.metadata?.amount ?? 79) || 79;
     const start = (ctx.metadata?.periodStart as string) || '';
     const slut = (ctx.metadata?.periodEnd as string) || '';

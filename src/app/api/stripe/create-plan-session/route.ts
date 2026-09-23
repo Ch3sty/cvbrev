@@ -1,7 +1,7 @@
 // src/app/api/stripe/create-plan-session/route.ts
 // ================================================
 // En checkout-rutt för alla sex paket (docs/plan-paket-och-onboarding.md
-// avsnitt 5). Klienten skickar en PlanKey, aldrig ett price id. Allt-dagen
+// avsnitt 5). Klienten skickar en PlanKey, aldrig ett price id. Dagspasset
 // blir mode 'payment', de fem övriga mode 'subscription'. Ingen trial:
 // reverse trial är borta enligt ägarens beslut 3. Svaret är { url } till
 // Stripes hostade checkout.
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     // Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
     // Undantaget från ångerrätten på fjorton dagar gäller bara om samtycket
     // är dokumenterat, alltså får ett köp utan kryssruta inte gå igenom.
-    // Kravet gäller varje paket: Allt-dagen påbörjas lika direkt som de fem
+    // Kravet gäller varje paket: Dagspasset påbörjas lika direkt som de fem
     // löpande, och avsnitt 8 säger uttryckligen att samtycket krävs likväl.
     if (consent !== true) {
       return NextResponse.json(
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       if (existing && blocksAsDuplicate(existing, selected.scope)) {
         return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
       }
-      // Uppgradering från ett spår till Allt byter pris på den befintliga
+      // Uppgradering från ett spår till Hela paketet byter pris på den befintliga
       // prenumerationen. En andra checkout skulle ge kunden två abonnemang.
       if (existing) {
         return NextResponse.json(

@@ -4,8 +4,8 @@
 // bor.
 //
 // De tre befintliga priserna behåller sina price-id och byter bara nyckelnamn
-// i koden: STRIPE_PRICE_DAYPASS blir Allt-dagen, NEXT_PUBLIC_STRIPE_PRICE_ID
-// blir Allt-månaden och STRIPE_PRICE_QUARTER blir Allt-kvartalet. Inga kvitton
+// i koden: STRIPE_PRICE_DAYPASS blir Dagspasset, NEXT_PUBLIC_STRIPE_PRICE_ID
+// blir Hela paketet (månad) och STRIPE_PRICE_QUARTER blir Hela paketet (kvartal). Inga kvitton
 // eller befintliga köp påverkas. De tre veckopriserna är nya och skapas med
 // scripts/stripe-skapa-paket.ts.
 

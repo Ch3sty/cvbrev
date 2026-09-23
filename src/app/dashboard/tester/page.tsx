@@ -52,8 +52,8 @@ export default async function TesterHubPage() {
     // trimmas dock i hämtningen, alltså läses scopet först och skickas in.
     //
     // Efter paketomgången är frågan inte längre "är hon premium" utan vilket
-    // spår hon köpt: en CV-veckan-kund har inte testhistoriken, och en
-    // Testveckan-kund har den (docs/plan-paket-och-onboarding.md, avsnitt 4
+    // spår hon köpt: en kund med CV-paketet har inte testhistoriken, och en
+    // kund med Träningspaketet har den (docs/plan-paket-och-onboarding.md, avsnitt 4
     // och 5).
     const [scope, profileRes] = await Promise.all([
       getUserScope(supabase, user.id),

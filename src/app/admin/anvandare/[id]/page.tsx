@@ -313,7 +313,7 @@ export default async function AdminAnvandarePage({
             </Uppgift>
             <Uppgift etikett="Behörighet">
               {/* Engangskop och provperioder bar sin behorighet pa
-                  premium_grants, inte i profilen, och den ar alltid Allt. */}
+                  premium_grants, inte i profilen, och den ar alltid Hela paketet. */}
               {behorighetText(
                 paket.grupp === 'gratis' || paket.grupp === 'provperiod_slut'
                   ? null

@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
           ...quotaExceededBody(
             'chat_message',
             quota,
-            'Du har använt dina tio meddelanden. Chatten utan tak ingår i Allt-veckan.'
+            'Du har använt dina tio meddelanden. I Hela paketet, 99 kr i veckan, frågar du Jobbcoachen så mycket du vill.'
           ),
           feature: 'chat_unlimited',
           suggestedPlan: suggestPlan('chat_unlimited', track),

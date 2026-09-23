@@ -122,7 +122,7 @@ describe('foreslaPaket', () => {
     expect(foreslaPaket(tomt, 'allt')).toBe('all_week')
   })
 
-  it('föreslår Allt-veckan när vi varken har blockeringar eller spår', () => {
+  it('föreslår Hela paketet när vi varken har blockeringar eller spår', () => {
     expect(foreslaPaket(tomt, null)).toBe('all_week')
   })
 })

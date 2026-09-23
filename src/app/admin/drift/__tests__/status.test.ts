@@ -33,15 +33,15 @@ describe('Drift, status per delsteg', () => {
 });
 
 describe('Drift, webhookens senaste kop', () => {
-  it('tar grantens paketnamn nar Allt-dagen ocksa skrev paket_started_at', () => {
+  it('tar grantens paketnamn nar Dagspasset ocksa skrev paket_started_at', () => {
     const kop = senasteKop([
-      { userId: 'k', tid: '2026-09-22T12:14:05Z', paket: 'CV-veckan', kalla: 'profil' },
-      { userId: 'k', tid: '2026-09-22T12:14:00Z', paket: 'Allt-dagen', kalla: 'grant' },
-      { userId: 'x', tid: '2026-09-20T08:00:00Z', paket: 'Testveckan', kalla: 'profil' },
+      { userId: 'k', tid: '2026-09-22T12:14:05Z', paket: 'CV-paketet', kalla: 'profil' },
+      { userId: 'k', tid: '2026-09-22T12:14:00Z', paket: 'Dagspasset', kalla: 'grant' },
+      { userId: 'x', tid: '2026-09-20T08:00:00Z', paket: 'Träningspaketet', kalla: 'profil' },
     ]);
-    expect(kop?.paket).toBe('Allt-dagen');
+    expect(kop?.paket).toBe('Dagspasset');
     expect(kopText(kop, '2026-09-22T08:51:00Z')).toBe(
-      'Senaste köp som webhooken bokförde: 22 sep kl. 14.14, Allt-dagen.'
+      'Senaste köp som webhooken bokförde: 22 sep kl. 14.14, Dagspasset.'
     );
   });
 

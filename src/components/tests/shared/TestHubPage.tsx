@@ -171,7 +171,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
                 href={PREMIUM_HREF}
                 className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
               >
-                Ta Testveckan
+                Skaffa Träningspaketet, 79 kr i veckan
               </Link>
             ) : quotaLock ? undefined : (
               <button

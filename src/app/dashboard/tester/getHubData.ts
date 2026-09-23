@@ -100,7 +100,7 @@ export interface TesterHubData {
   provBestPercent: Record<string, number | null>;
   isPremium: boolean;
   /**
-   * Sann när kontot har featuren test_history, alltså Testveckan eller Allt.
+   * Sann när kontot har featuren test_history, alltså Träningspaketet eller Hela paketet.
    *
    * Gratisnivån ser senaste sessionen, aldrig serien (avsnitt 4: "Senaste
    * sessionen fri, historik premium"). Utvecklingen över tid är

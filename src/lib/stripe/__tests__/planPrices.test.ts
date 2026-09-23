@@ -73,7 +73,7 @@ describe('planPrices', () => {
     expect(priceIdToPlanKey(null)).toBeNull()
   })
 
-  it('allowlistan är prenumerationerna, aldrig Allt-dagen', () => {
+  it('allowlistan är prenumerationerna, aldrig Dagspasset', () => {
     const tillatna = getSubscriptionPriceAllowlist()
     expect(tillatna).toContain('price_cv_week')
     expect(tillatna).toContain('price_test_week')

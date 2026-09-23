@@ -21,8 +21,8 @@
 //   Tester    1 per test_type och dygn på grundnivån, oförändrat
 //
 // Behörigheten frågas per feature via userHasAccess. isPremium-parametrarna
-// är borta: en Testveckan-kund har inte obegränsade brev, och en CV-veckan-
-// kund har inte obegränsad chatt.
+// är borta: en kund med Träningspaketet har inte obegränsade brev, och en
+// kund med CV-paketet har inte obegränsad chatt.
 // =============================================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -224,7 +224,7 @@ export async function checkChatQuota(
  * rullas tillbaka vid failure av jobs-routen, den logiken är orörd).
  *
  * Omkörningen är uttaget: den som vill se poängen röra sig efter en rättning
- * betalar för det, och det är precis vad CV-veckans dag 2 handlar om.
+ * betalar för det, och det är precis vad dag 2 i CV-paketet handlar om.
  */
 export async function checkCvAnalysisQuota(
   supabase: AnySupabase,

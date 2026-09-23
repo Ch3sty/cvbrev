@@ -24,7 +24,7 @@ export default function SaveAndTemplateStep({
 }: SaveAndTemplateStepProps) {
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
   // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
-  // gång. Mallvalet behöver scope, inte en fri/premium-flagga: Testveckan
+  // gång. Mallvalet behöver scope, inte en fri/premium-flagga: Träningspaketet
   // ger inga mallar (docs/plan-paket-och-onboarding.md avsnitt 3).
   const { summary } = useDashboardData();
   const [saveToLibrary, setSaveToLibrary] = useState(canSave);

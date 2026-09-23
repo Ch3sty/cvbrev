@@ -7,7 +7,7 @@
  * formulering, men samma radform som testen. Ingen fylld yta: raden skiljs
  * från träningstesten med en starkare hårlinje ovanför.
  *
- * Provläget ingår i Testveckan och Allt. I andra paket är raden grå med
+ * Provläget ingår i Träningspaketet och Hela paketet. I andra paket är raden grå med
  * lås och paketets namn (spec-onboarding 2026-09-22, sektion 3).
  */
 

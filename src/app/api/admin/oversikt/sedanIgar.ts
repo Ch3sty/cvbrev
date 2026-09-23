@@ -9,7 +9,7 @@
 
 import type { KopRad } from '@/lib/admin/kop';
 import type { DagligaMetrik, PaketNyckel } from '@/lib/admin/collect';
-import { PLANS } from '@/lib/plans/plans';
+import { PLANS, paketMedLangd } from '@/lib/plans/plans';
 import { klockslag, datumKort } from '@/lib/admin/tomt';
 
 export const DYGN_MS = 24 * 60 * 60 * 1000;
@@ -168,7 +168,7 @@ export function kontoHandelse(skapade: string[], idag: string): Handelse | null 
   };
 }
 
-const SPAR_NAMN: Record<string, string> = { cv: 'CV', tester: 'Tester', allt: 'Allt' };
+const SPAR_NAMN: Record<string, string> = { cv: 'CV', tester: 'Tester', allt: 'Hela paketet' };
 
 export interface SparRad {
   dag: string;
@@ -267,7 +267,7 @@ const PAKET_KOLUMNER: Array<{ nyckel: PaketNyckel; kolumn: keyof DagligaMetrik }
 ];
 
 /**
- * "3 × Allt-månaden 149 kr" ur active_*-kolumnerna. Allt-dagen är ett
+ * "3 × Hela paketet, en månad 149 kr" ur active_*-kolumnerna. Dagspasset är ett
  * engångsköp och har ingen MRR, så den står inte med.
  */
 export function mrrPaketText(rad: DagligaMetrik | null | undefined): string {
@@ -278,7 +278,7 @@ export function mrrPaketText(rad: DagligaMetrik | null | undefined): string {
     if (!n) continue;
     const plan = PLANS.find((p) => p.key === nyckel);
     if (!plan) continue;
-    delar.push(`${n} × ${plan.name} ${plan.amount} kr`);
+    delar.push(`${n} × ${paketMedLangd(plan.key)} ${plan.amount} kr`);
   }
   return delar.length ? delar.join(', ') : 'inga löpande kunder';
 }

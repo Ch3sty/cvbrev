@@ -116,7 +116,7 @@ export interface KopKandidat {
 }
 
 /**
- * Senaste köpet webhooken bokförde. Allt-dagen skriver både en grant och
+ * Senaste köpet webhooken bokförde. Dagspasset skriver både en grant och
  * paket_started_at; inom fem minuter från varandra är de samma köp, och då
  * vinner grantens paketnamn (profilens price_id kan vara en gammal
  * prenumeration).
@@ -137,7 +137,7 @@ export function senasteKop(kandidater: KopKandidat[]): KopKandidat | null {
   return forsta;
 }
 
-/** "Senaste köp som webhooken bokförde: 22 sep kl. 14.14, Allt-dagen." */
+/** "Senaste köp som webhooken bokförde: 22 sep kl. 14.14, Dagspasset." */
 export function kopText(kop: KopKandidat | null, sedan: string): string {
   if (!kop) return `Webhooken har inte bokfört något köp sedan ${tidKort(sedan)}.`;
   return `Senaste köp som webhooken bokförde: ${tidKort(kop.tid)}, ${kop.paket}.`;

@@ -104,8 +104,8 @@ export function clusterHasProductCta(cluster: CtaCluster): boolean {
  * Paketet som reklamkorten i en artikel föreslår
  * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6, klusterregeln).
  *
- *   test       → Testveckan
- *   cv, letter → CV-veckan
+ *   test       → Träningspaketet
+ *   cv, letter → CV-paketet
  *   interview  → Allt
  *   career     → Allt när taggarna handlar om lön, uppsägning, byta jobb
  *                eller arbetsgivarintyg; annars inget paket alls
@@ -115,7 +115,7 @@ export function clusterHasProductCta(cluster: CtaCluster): boolean {
  */
 export type ArtikelPaket = 'cv' | 'test' | 'allt' | 'gratis'
 
-/** Karriärtaggar som gör att en karriärartikel föreslår Allt. */
+/** Karriärtaggar som gör att en karriärartikel föreslår Hela paketet. */
 const CAREER_ALLT: readonly string[] = [
   'lön',
   'lon',

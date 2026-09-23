@@ -8,7 +8,7 @@
  * sortering i databasen, aldrig hela tabellen och aldrig en Supabase-fraga
  * fran klienten.
  *
- * Paketet star i bestamd form (Allt-dagen, Allt-manaden), inte som nivan
+ * Paketet star i bestamd form (Dagspasset, Hela paketet, en manad), inte som nivan
  * Premium: en dagspasskund, en arskund och adminkontot ska ga att skilja at.
  * Undantagna konton syns bara i gruppen "Admin och test" och raknas aldrig i
  * sidhuvudets tal.

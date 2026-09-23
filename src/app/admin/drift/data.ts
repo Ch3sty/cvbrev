@@ -13,6 +13,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { hamtaUndantagCachad } from '@/lib/admin/metrics';
 import { uteslut } from '@/lib/admin/undantag';
 import { FLODE_SAMLAD, PAKET_ORDNING, paketFranPrisId } from '@/lib/admin/collect';
+import { PLAN_BY_KEY, paketNamnForScope } from '@/lib/plans/plans';
 import {
   delstegStatus,
   felFranUndantag,
@@ -113,18 +114,17 @@ export interface CronStatus {
 function paketForProfil(priceId: string | null, scope: string | null): string {
   const nyckel = paketFranPrisId(priceId);
   if (nyckel) {
-    const namn = PAKET_ORDNING.find((p) => p.nyckel === nyckel)?.namn ?? nyckel;
-    return namn.replace('Allt-manaden', 'Allt-månaden');
+    return PAKET_ORDNING.find((p) => p.nyckel === nyckel)?.namn ?? nyckel;
   }
-  if (scope === 'cv') return 'CV-veckan';
-  if (scope === 'tester') return 'Testveckan';
-  if (scope === 'allt') return 'ett Allt-paket';
+  if (scope === 'cv') return paketNamnForScope('cv');
+  if (scope === 'tester') return paketNamnForScope('tester');
+  if (scope === 'allt') return `${paketNamnForScope('allt')}, okänd längd`;
   return 'okänt paket';
 }
 
-/** Paketnamnet ur en grant: Allt-dagen ar onetime_1d. */
+/** Paketnamnet ur en grant: Dagspasset ar onetime_1d. */
 function paketForGrant(source: string | null, days: number | null): string {
-  if (source === 'onetime_1d' || days === 1) return 'Allt-dagen';
+  if (source === 'onetime_1d' || days === 1) return PLAN_BY_KEY.all_day.name;
   return days ? `${days} dagar Premium` : 'okänt paket';
 }
 
@@ -275,7 +275,7 @@ export const hamtaDriftData = unstable_cache(
           .order('dag', { ascending: false })
           .limit(1)
       ),
-      // Webhookens senaste bokforing, utan Stripe-anrop: Allt-dagen skriver
+      // Webhookens senaste bokforing, utan Stripe-anrop: Dagspasset skriver
       // en grant med stripe_event_id, prenumerationerna paket_started_at.
       sakert(() =>
         uteslut(

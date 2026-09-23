@@ -12,7 +12,7 @@
  *   kvar    panel med kant, tom ring i kant-stark
  *
  * Varje bricka går att öppna direkt: trycket går till handlingen. Ingen
- * "bara i Allt"-etikett här, gränsen syns där den är (sektion 3).
+ * "bara i Hela paketet"-etikett här, gränsen syns där den är (sektion 3).
  * Kvitteringen är aldrig en knapp: den sker på servern när handlingen görs.
  */
 

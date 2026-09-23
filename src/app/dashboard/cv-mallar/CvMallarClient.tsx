@@ -4,10 +4,10 @@
  * CV-mallarnas klientdel.
  *
  * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
- * 3): utanför CV-veckan och Allt är mall 4 till 41 gråa med lås, går att
+ * 3): utanför CV-paketet och Hela paketet är mall 4 till 41 gråa med lås, går att
  * förhandsvisa i full storlek men inte ladda ned, och trycket på
  * nedladdningen öppnar betalväggen för rätt paket med mellanskillnaden.
- * Testveckans kund får fotknapparna "Byt till CV-veckan" och "Eller Allt
+ * kunden med Träningspaketet får fotknapparna "Byt till CV-paketet" och "Eller Allt
  * för 20 kr till i veckan". Talen kommer ur mallregistret och prislistan.
  */
 
@@ -189,7 +189,7 @@ export default function CvMallarClient({
       <CvMallarHero />
 
       {/* Paketets gräns: vad som ingår, var resten finns, och att gråa
-          mallar går att förhandsvisa. Bara utanför CV-veckan och Allt. */}
+          mallar går att förhandsvisa. Bara utanför CV-paketet och Allt. */}
       {huvud ? (
         <section className="space-y-2" aria-label="Ditt paket">
           <StatusRow tone="neutral" showDot>
@@ -245,7 +245,7 @@ export default function CvMallarClient({
         />
       </section>
 
-      {/* Foten för Testveckans kund (sektion 3). */}
+      {/* Foten för kunden med Träningspaketet (sektion 3). */}
       {scope === 'tester' ? (
         <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
           <button

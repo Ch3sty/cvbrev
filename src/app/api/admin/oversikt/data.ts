@@ -95,7 +95,7 @@ export interface OversiktData {
   /** Pengar. Intakt, engangskop och nya betalande kommer ur kop.ts pa sidan. */
   intakter: {
     mrrOre: Tal;
-    /** "3 × Allt-månaden 149 kr" ur active_*-kolumnerna. */
+    /** "3 × Hela paketet, en månad 149 kr" ur active_*-kolumnerna. */
     mrrPaket: string;
     aktivaPren: Tal;
     misslyckade7: number;

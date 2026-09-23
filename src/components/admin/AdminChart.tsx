@@ -21,9 +21,9 @@
  * | Positivt utfall  | var(--positiv)    |
  * | Varning          | var(--varning)    |
  * | Fel              | var(--fel)        |
- * | CV-veckan        | var(--diagram-cv) |
- * | Testveckan       | var(--diagram-test)|
- * | Allt             | var(--ink-1)      |
+ * | CV-paketet       | var(--diagram-cv) |
+ * | Träningspaketet  | var(--diagram-test)|
+ * | Hela paketet     | var(--ink-1)      |
  * | Rutnat           | var(--kant)       |
  * | Axeltext         | var(--ink-3), 12  |
  *
@@ -61,7 +61,7 @@ export type AdminSerieRoll =
   | 'positiv'
   | 'varning'
   | 'fel'
-  /* Sparfargerna (designsystem avsnitt 12): CV-veckan, Testveckan, Allt. */
+  /* Sparfargerna (designsystem avsnitt 12): CV-paketet, Träningspaketet, Hela paketet. */
   | 'cv'
   | 'test'
   | 'allt';

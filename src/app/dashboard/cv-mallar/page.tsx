@@ -74,7 +74,7 @@ export default async function CVMallarPage({
     cvRows = (cvRes.data ?? []) as InitialCv[];
 
     // Efter paketomgången är frågan vilket spår hon köpt: alla mallar
-    // ingår i CV-veckan och Allt (cv_templates_all), aldrig i Testveckan.
+    // ingår i CV-paketet och Hela paketet (cv_templates_all), aldrig i Träningspaketet.
     const profile = profileRes.data as { premium_until?: string | null; onboarding_track?: string | null } | null;
     scope = scopeRes;
     isPremium = scopeHasFeature(scope, 'cv_templates_all');

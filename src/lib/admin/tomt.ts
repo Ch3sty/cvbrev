@@ -24,7 +24,7 @@
 export const MATSTART = {
   /** Stripe har ingen historisk MRR. Serien är sann från den här dagen. */
   mrr: '2026-09-15',
-  /** Paketen (CV-veckan, Testveckan, Allt) såldes från 22 sep 10.51. */
+  /** Paketen (CV-paketet, Träningspaketet, Hela paketet) såldes från 22 sep 10.51. */
   paket: '2026-09-22T08:51:00Z',
   /** Köpvägens händelser (purchase_step_viewed m.fl.) från 22 sep 19.02. */
   kopvag: '2026-09-22T17:02:00Z',

@@ -17,7 +17,7 @@ import {
   type DagligaMetrik,
   type PaketNyckel,
 } from '@/lib/admin/collect';
-import { PLANS } from '@/lib/plans/plans';
+import { PLANS, paketMedLangd } from '@/lib/plans/plans';
 import { MATSTART } from '@/lib/admin/tomt';
 
 /** Kronor ur ore, utan decimaler. 59 900 ore blir "599 kr". */
@@ -278,7 +278,7 @@ export function byggVattenfall(dagar: DagligaMetrik[]): Vattenfall | null {
  *
  * Normaliseringen ar hela poangen med raden. Ett veckopris pa 99 kr ar
  * 429 kr i manaden, inte 99, och utan omraekningen ser veckopaketen ut att
- * tjana en femtedel av vad de tjanar. Allt-dagen ar ett engangskop och har
+ * tjana en femtedel av vad de tjanar. Dagspasset ar ett engangskop och har
  * darfor ingen MRR alls, precis som i mrrOreFranSubscriptions: den intakten
  * syns i revenue_ore i stallet.
  */
@@ -286,7 +286,7 @@ export interface PaketRad {
   nyckel: PaketNyckel;
   namn: string;
   aktiva: number | null;
-  /** Null for Allt-dagen: ett engangskop ar ingen aterkommande intakt. */
+  /** Null for Dagspasset: ett engangskop ar ingen aterkommande intakt. */
   mrrOre: number | null;
 }
 
@@ -312,6 +312,6 @@ export function paketRader(senaste: DagligaMetrik | null): PaketRad[] {
     }
 
     // Namnet ur PLANS ar sanningen, PAKET_ORDNING ar reserven.
-    return { nyckel, namn: plan?.name ?? namn, aktiva, mrrOre };
+    return { nyckel, namn: plan ? paketMedLangd(plan.key) : namn, aktiva, mrrOre };
   });
 }

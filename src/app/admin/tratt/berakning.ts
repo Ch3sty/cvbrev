@@ -11,6 +11,7 @@
  */
 
 import { dagBakat, dagStr, type PaketNyckel } from '@/lib/admin/collect';
+import { paketNamn, paketNamnForScope } from '@/lib/plans/plans';
 import type { KopRad } from '@/lib/admin/kop';
 import { FEATURES, suggestPlan, type Feature } from '@/lib/access/features';
 import { KOM_IGANG_LISTA, brickaText, type BrickaKey } from '@/lib/onboarding/komigang';
@@ -41,14 +42,14 @@ export type Paket = 'cv' | 'tester' | 'allt';
 export const PAKETEN: readonly Paket[] = ['cv', 'tester', 'allt'];
 
 export const PAKET_NAMN: Record<Paket, string> = {
-  cv: 'CV-veckan',
-  tester: 'Testveckan',
-  allt: 'Allt',
+  cv: paketNamnForScope('cv'),
+  tester: paketNamnForScope('tester'),
+  allt: paketNamnForScope('allt'),
 };
 
 /**
- * Spårfärgerna ur designsystemet (avsnitt 12): CV-veckan blå, Testveckan
- * brun, Allt ink. Färgen följer paketet på varje diagram och i varje
+ * Spårfärgerna ur designsystemet (avsnitt 12): CV-paketet blå, Träningspaketet
+ * brun, Hela paketet ink. Färgen följer paketet på varje diagram och i varje
  * tabell, aldrig rangordningen, och står alltid bredvid ett namn.
  */
 export const PAKET_ROLL: Record<Paket, AdminSerieRoll> = {
@@ -270,7 +271,7 @@ export const FEATURE_NAMN: Record<Feature, string> = {
   tests_above_base: 'Tester över grundnivå',
   test_exam_mode: 'Provläge',
   test_history: 'Testhistorik',
-  chat_unlimited: 'Jobbcoachen utan tak',
+  chat_unlimited: 'Jobbcoachen, fler meddelanden',
   interview_unlimited: 'Intervjuprovet utan tak',
   job_matches_all: 'Alla jobbmatchningar',
   bli_upptackt: 'Bli upptäckt',
@@ -334,7 +335,7 @@ const personer = (n: number) => `${tal(n)} ${n === 1 ? 'person' : 'personer'}`;
 /**
  * "Var det tar stopp" som en mening, tills det finns sju dagar med data:
  * "1 spärr i dag: full CV-analys, 4 gånger av 1 person, paketet som säljs
- * där är CV-veckan. Gråa val: 0 sedan 22 sep kl. 19.02."
+ * där är CV-paketet. Gråa val: 0 sedan 22 sep kl. 19.02."
  *
  * period: "i dag" eller fönstrets etikett. graFran: när gråa val började
  * räknas i fönstret.
@@ -570,7 +571,7 @@ export function kopIFonster(rader: KopRad[], franIso: string, tillIso?: string):
   });
 }
 
-/** "Allt-dagen 49 kr, 22 sep kl. 14.14". */
+/** "Dagspasset 49 kr, 22 sep kl. 14.14". */
 export function kopText(r: KopRad): string {
   return `${r.paketNamn} ${kronor(r.beloppOre)}, ${tidKort(r.tid)}`;
 }
@@ -624,7 +625,7 @@ export interface IntaktRad {
 const ALLTID_RAD: PaketNyckel[] = ['cv_week', 'test_week'];
 
 /**
- * Intäkt per paket i fönstret, Allt-dagen med, interna bort, återbetalningar
+ * Intäkt per paket i fönstret, Dagspasset med, interna bort, återbetalningar
  * dragna från sitt paket. Högst intäkt först.
  */
 export function intaktPerPaket(rader: KopRad[], franIso: string): IntaktRad[] {
@@ -648,7 +649,7 @@ export function intaktPerPaket(rader: KopRad[], franIso: string): IntaktRad[] {
     if (arFornyelse(r)) ut.fornyelser += 1;
     else ut.nya += 1;
   }
-  const namn: Record<string, string> = { cv_week: 'CV-veckan', test_week: 'Testveckan' };
+  const namn: Record<string, string> = { cv_week: paketNamn('cv_week'), test_week: paketNamn('test_week') };
   for (const p of ALLTID_RAD) if (!per.has(p)) rad(p, namn[p]);
 
   return [...per.values()].sort((a, b) => b.ore - a.ore || b.nya + b.fornyelser - (a.nya + a.fornyelser));

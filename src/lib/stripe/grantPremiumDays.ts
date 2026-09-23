@@ -35,7 +35,7 @@ export async function grantPremiumDays(
     stripeEventId: string
     /** t.ex. 'onetime_1d' */
     source?: string
-    /** Behörigheten dagarna ger. Allt-dagen är alltid 'allt'. */
+    /** Behörigheten dagarna ger. Dagspasset är alltid 'allt'. */
     scope?: PlanScope
   }
 ): Promise<GrantPremiumDaysResult> {

@@ -7,7 +7,7 @@
  * Det som måste hålla, och som det här testet vaktar:
  *
  *   1. Ett köp utan samtycke går inte igenom, och ingen Stripe-session skapas.
- *      Gäller både prenumerationerna och engångsköpet Allt-dagen.
+ *      Gäller både prenumerationerna och engångsköpet Dagspasset.
  *   2. Med samtycke bär sessionen tidsstämpel och den exakta kryssrutetexten,
  *      och samma metadata följer med ned på subscription_data respektive
  *      payment_intent_data, alltså den rad som överlever själva sessionen.
@@ -88,7 +88,7 @@ describe('create-plan-session, ångerrättssamtycket', () => {
     expect(sessionsSkapa).not.toHaveBeenCalled()
   })
 
-  it('svarar 400 utan samtycke på Allt-dagen, som är ett engångsköp', async () => {
+  it('svarar 400 utan samtycke på Dagspasset, som är ett engångsköp', async () => {
     const res = await anrop({ plan: 'all_day', source: 'test' })
 
     expect(res.status).toBe(400)

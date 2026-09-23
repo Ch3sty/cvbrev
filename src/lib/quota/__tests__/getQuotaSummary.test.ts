@@ -90,18 +90,18 @@ describe('getQuotaSummary: Allt', () => {
 });
 
 describe('getQuotaSummary: per spår', () => {
-  it('CV-veckan öppnar CV-raderna men lämnar chatt och tester kvar', async () => {
+  it('CV-paketet öppnar CV-raderna men lämnar chatt och tester kvar', async () => {
     scope = 'cv';
 
     const items = byKey(await run(null));
     expect(items.letters.limit).toBeNull();
     expect(items.analysis.limit).toBeNull();
-    // Chatten och testerna ligger i Allt respektive Testveckan.
+    // Chatten och testerna ligger i Allt respektive Träningspaketet.
     expect(items.chat.limit).toBe(FREE_CHAT_MESSAGES_PER_ACCOUNT);
     expect(items.tests.limit).toBe(DAILY_LIMIT_TEST_SESSIONS);
   });
 
-  it('Testveckan öppnar testraden men lämnar brev och analys kvar', async () => {
+  it('Träningspaketet öppnar testraden men lämnar brev och analys kvar', async () => {
     scope = 'tester';
 
     const items = byKey(await run(null));

@@ -29,7 +29,7 @@ import {
   type KomIgangLage,
   type Paket,
 } from '@/lib/onboarding/komigang';
-import { PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans';
+import { PLAN_BY_KEY, paketNamn as planNamn, paketNamnForScope, type PlanKey } from '@/lib/plans/plans';
 
 export const KOMIGANG_TYPE = 'komigang';
 export const PAKET_FORNYAS_TYPE = 'paket_fornyas';
@@ -41,7 +41,7 @@ function greet(ctx: LifecycleContext): string {
 
 function paketNamn(plan: PlanKey | null): string {
   if (!plan) return 'paketet';
-  return plan === 'cv_week' || plan === 'test_week' ? PLAN_BY_KEY[plan].name : 'Allt';
+  return planNamn(plan);
 }
 
 function svensktDatum(iso: string | null | undefined): string | null {
@@ -151,7 +151,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
             ? `${storForst(talOrd(dagar))} dagar kvar, och ${talOrd(kvar)} saker du inte provat än.`
             : `${storForst(talOrd(kvar))} saker du inte provat än.`,
         preheader: `${storForst(lista(kvarTitlar))}. Alla tar under tio minuter.`,
-        body: `${hej} Kvar i ${paketNamn(null) === 'paketet' ? 'paketet' : ''}${paketNamnUr(lage)}: ${lista(kvarTitlar)}. Vi föreslår mallen, så att CV:t du just förbättrat blir en PDF som rekryteringssystem läser.`,
+        body: `${hej} Kvar i ${paketNamnUr(lage)}: ${lista(kvarTitlar)}. Vi föreslår mallen, så att CV:t du just förbättrat blir en PDF som rekryteringssystem läser.`,
         cta: 'Välj mall',
       };
     case 'brev':
@@ -235,10 +235,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
 }
 
 function paketNamnUr(lage: KomIgangLage): string {
-  if (lage.paket === 'cv') return 'CV-veckan';
-  if (lage.paket === 'tester') return 'Testveckan';
-  if (lage.paket === 'allt') return 'Allt';
-  return 'gratisnivån';
+  return lage.paket ? paketNamnForScope(lage.paket) : 'gratisnivån';
 }
 
 function storForst(s: string): string {
@@ -340,7 +337,9 @@ export const paketFornyasMejl: LifecycleEmail = {
     if (tal.ansokningar > 0) delar.push(`${talOrd(tal.ansokningar)} ansökningar`);
     const summering = delar.length > 0 ? `${delar.join(', ')}.` : 'Det du byggt finns kvar.';
 
-    const subject = `${namn} förnyas i morgon. Så här gick den.`;
+    const langre = plan !== null && PLAN_BY_KEY[plan].length !== 'vecka';
+    // R1: namnet och beloppet i samma ämnesrad.
+    const subject = `${namn} förnyas i morgon, ${belopp} kr. Så här gick ${langre ? 'perioden' : 'veckan'}.`;
     const preheader = `${storForst(summering)} Fortsätt eller avsluta, ett klick.`;
 
     const provatRad = lage.klar
@@ -358,7 +357,7 @@ export const paketFornyasMejl: LifecycleEmail = {
         userId: ctx.userId,
         preheader,
         transactional: true,
-        body: heading(`Så här gick ${namn === 'Allt' ? 'perioden' : 'veckan'}`) + paragraph(escapeHtml(summering)) + paragraph(escapeHtml(body)),
+        body: heading(`Så här gick ${langre ? 'perioden' : 'veckan'}`) + paragraph(escapeHtml(summering)) + paragraph(escapeHtml(body)),
         ctaLabel: 'Se veckan',
         ctaUrl: '/dashboard',
         footNote: '<a href="/dashboard/profil/prenumeration" style="color:#94A3B8;">Avsluta</a>',

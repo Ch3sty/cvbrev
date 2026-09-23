@@ -5,6 +5,7 @@
 // /api/admin/email/campaign-gratisniva, som lägger in raderna i
 // email_schedule så runnern skickar dem i sin vanliga takt.
 
+import { paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { hasPremiumNow, swedishDate } from './helpers';
@@ -44,7 +45,7 @@ export const gratisnivaAndras: LifecycleEmail = {
           list([
             'CV-mallar: tre fria mallar, resten förhandsvisas i full storlek',
             'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
-            'Personliga brev: ett brev per konto, sedan ett i veckan. Nedladdningen ingår i CV-veckan',
+            `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketMedPris('cv_week')}`,
             'Rekryteringstester: grundnivån i varje testtyp, en gång per dygn',
             'Jobbcoachen: tio meddelanden per konto',
           ]) +
@@ -52,7 +53,7 @@ export const gratisnivaAndras: LifecycleEmail = {
         ctaLabel: 'Se vad som gäller',
         ctaUrl: '/priser',
         footNote:
-          'Söker du jobb intensivt just nu väljer du spåret du söker på: CV-veckan eller Testveckan för 79 kr i veckan, Allt-veckan för 99. Du säger upp i ditt konto.',
+          `Söker du jobb intensivt just nu väljer du paketet som passar: ${paketMedPris('cv_week')}, ${paketMedPris('test_week')} eller ${paketMedPris('all_week')}. Du säger upp i ditt konto.`,
       }),
     };
   },

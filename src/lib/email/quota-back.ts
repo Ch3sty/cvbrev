@@ -166,7 +166,7 @@ export function generateQuotaBackEmail(userId: string, feature: string): {
           <!-- Sekundär rad -->
           <tr>
             <td style="padding:16px 32px 30px 32px;">
-              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#94A3B8;">Vill du slippa vänta? <a href="${base}/priser" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:none;">Välj spåret du söker på</a>, från 79 kr i veckan. Du säger upp i ditt konto.</p>
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#94A3B8;">Vill du slippa vänta? <a href="${base}/priser" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:none;">Välj paketet som passar</a>, från 79 kr i veckan. Du säger upp i ditt konto.</p>
             </td>
           </tr>
         </table>

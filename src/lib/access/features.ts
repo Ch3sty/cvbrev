@@ -32,7 +32,7 @@ export type Feature =
 /**
  * Feature till de scope som ger den.
  *
- * Brevet ligger i CV-spåret, inte i Allt: den som laddar ned en mall ska
+ * Brevet ligger i CV-spåret, inte i Hela paketet: den som laddar ned en mall ska
  * kunna skicka in hela ansökan samma kväll, och en ansökan är CV plus brev
  * (avsnitt 3). Testspåret får inget brev.
  */
@@ -45,7 +45,7 @@ export const FEATURES: Record<Feature, readonly Scope[]> = {
   test_exam_mode: ['tester', 'allt'],
   test_history: ['tester', 'allt'],
   chat_unlimited: ['allt'],
-  // Intervjuprovet i artiklarna utan dagskvot: Testveckan och alla Allt-paket
+  // Intervjuprovet i artiklarna utan dagskvot: Träningspaketet och alla Allt-paket
   // (ägarens beslut 5, 2026-09-23). Gratiskonton får ett prov per dygn.
   interview_unlimited: ['tester', 'allt'],
   job_matches_all: ['allt'],
@@ -84,11 +84,11 @@ export type PlanKeyNamn =
 /**
  * Vilket paket betalväggen ska föreslå när en feature tar i taket.
  *
- * Två regler, i den ordningen. Har hon valt spåret Allt föreslår vi alltid
- * Allt-veckan: en Allt-köpare ska aldrig skickas tillbaka till ett spår.
+ * Två regler, i den ordningen. Har hon valt spåret Hela paketet föreslår vi alltid
+ * Hela paketet: en Allt-köpare ska aldrig skickas tillbaka till ett spår.
  * Annars föreslår vi det spår som faktiskt innehåller funktionen, alltså
- * CV-veckan för CV-funktioner och Testveckan för testfunktioner. Funktioner
- * som bara Allt ger föreslår Allt-veckan.
+ * CV-paketet för CV-funktioner och Träningspaketet för testfunktioner. Funktioner
+ * som bara Allt ger föreslår Hela paketet.
  *
  * Ren funktion med flit: den anropas i renderingen av varje betalvägg, och
  * förslaget ska gå att testa utan en databas.

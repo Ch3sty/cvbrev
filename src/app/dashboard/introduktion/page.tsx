@@ -87,7 +87,7 @@ const features: Feature[] = [
       'Formuleringar som sticker ut',
       'Rätt nyckelord för din bransch och roll',
       'Anpassat för LinkedIns sökning',
-      `Ingår i ${PLAN_BY_KEY.cv_week.name} och Allt`,
+      `Ingår i ${PLAN_BY_KEY.cv_week.name} och ${PLAN_BY_KEY.all_week.name}`,
     ],
     href: '/dashboard/linkedin-optimizer',
     cta: 'Optimera LinkedIn',

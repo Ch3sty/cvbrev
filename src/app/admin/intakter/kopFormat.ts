@@ -77,7 +77,7 @@ export function kopTypText(r: KopRad): string {
 }
 
 /**
- * Senaste nya betalande före fönstret, för "före det: 25 jun, Allt-månaden".
+ * Senaste nya betalande före fönstret, för "före det: 25 jun, Hela paketet, en månad".
  * Null när liggaren inte har någon.
  */
 export function senasteNyFore(rader: KopRad[], franMs: number): KopRad | null {

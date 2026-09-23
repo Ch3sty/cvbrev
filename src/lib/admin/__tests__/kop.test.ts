@@ -34,7 +34,7 @@ describe('byggKopRad', () => {
     const r = byggKopRad(DAGSPASS, false, profiler, tomtUndantag());
     expect(r).toMatchObject({
       paket: 'all_day',
-      paketNamn: 'Allt-dagen',
+      paketNamn: 'Dagspasset',
       beloppOre: 4900,
       typ: 'engangs',
       ny: true,
@@ -57,8 +57,8 @@ describe('byggKopRad', () => {
     expect(byggKopRad(DAGSPASS, false, profiler, u).internt).toBe(true);
   });
 
-  it('skriver Allt-månaden med å', () => {
-    expect(paketNamn('all_month')).toBe('Allt-månaden');
+  it('skriver Hela paketet, en månad med å', () => {
+    expect(paketNamn('all_month')).toBe('Hela paketet, en månad');
     expect(paketNamn(null)).toBe('Okänt paket');
   });
 });
@@ -68,7 +68,7 @@ describe('summera', () => {
     id: 'x',
     tid: '2026-09-22T12:00:00Z',
     paket: 'all_month',
-    paketNamn: 'Allt-månaden',
+    paketNamn: 'Hela paketet, en månad',
     beloppOre: 14900,
     typ: 'lopande',
     ny: false,

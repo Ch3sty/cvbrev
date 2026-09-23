@@ -3,6 +3,7 @@
 // kontostatus, och ignorerar därför opt-out. Undantaget är snävt, allt
 // säljande ligger i de vanliga mailen.
 
+import { paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, firstName } from './layout';
 
@@ -58,10 +59,10 @@ export const cancelImmediate: LifecycleEmail = {
           heading('Din prenumeration är avslutad') +
           paragraph(`${greet(ctx.profile.full_name)} det är klart. Inget mer dras.`) +
           paragraph(
-            'Dina brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: tre CV-mallar, ett personligt brev i veckan och grundnivån i varje testtyp.'
+            'Dina personliga brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: tre CV-mallar, ett personligt brev i veckan och grundnivån i varje testtyp.'
           ) +
           paragraph(
-            'Skulle du behöva oss igen under en intensiv period väljer du spåret du söker på. CV-veckan och Testveckan kostar 79 kr i veckan, Allt-veckan 99, och du säger upp i ditt konto.'
+            `Skulle du behöva oss igen under en intensiv period väljer du paketet som passar: ${paketMedPris('cv_week')}, ${paketMedPris('test_week')} eller ${paketMedPris('all_week')}. Du säger upp i ditt konto.`
           ),
         ctaLabel: 'Till min översikt',
         ctaUrl: '/dashboard',

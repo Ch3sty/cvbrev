@@ -81,7 +81,7 @@ const NAMN: Record<string, string> = {
   payment_failed: 'Betalningen misslyckades',
   cancel_immediate: 'Uppsägning, direkt',
   cancel_followup: 'Uppsägning, uppföljning',
-  onetime_expired: 'Allt-dagen slut',
+  onetime_expired: 'Dagspasset slut',
 };
 
 export function mallNamn(nyckel: string): string {

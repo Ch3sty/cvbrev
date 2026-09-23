@@ -49,7 +49,7 @@ export default async function LinkedInOptimizerPage() {
     getUserScope(supabase, user.id).catch(() => null),
   ]);
 
-  // LinkedIn-profilen ligger i CV-spåret och i Allt. Menyn gråar valet, men
+  // LinkedIn-profilen ligger i CV-spåret och i Hela paketet. Menyn gråar valet, men
   // adressen är nåbar, så sidan visar samma betalvägg som menyn i stället
   // för wizarden. Rutten /api/linkedin/optimize svarar 402 på samma feature.
   if (!scopeHasFeature(scope, 'linkedin')) {

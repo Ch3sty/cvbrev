@@ -331,7 +331,7 @@ export interface MisslyckadRad {
 /** En uppsagd prenumeration, for raden Uppsagningar 30 dagar. */
 export interface UppsagdRad {
   tid: string;
-  /** Till exempel "provperiod på Allt-månaden startad 9 sep, aldrig debiterad". */
+  /** Till exempel "provperiod på Hela paketet, en månad, startad 9 sep, aldrig debiterad". */
   vad: string;
 }
 

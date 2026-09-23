@@ -13,7 +13,7 @@
  * Ren modul utan serverberoenden: klientkomponenter och tester laser den.
  */
 
-import { PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans';
+import { PLAN_BY_KEY, paketMedLangd, paketNamnForScope, type PlanKey } from '@/lib/plans/plans';
 import { datumKort, tidKort } from '@/lib/admin/tomt';
 
 /** Ett antal, till exempel 1 204. Noll och null ar "0", aldrig streck. */
@@ -162,10 +162,10 @@ function giltig(until: string | null, nu: number): boolean {
 
 /** Paketet for en lopande prenumeration: priset forst, behorigheten som reserv. */
 function prenumerationsNamn(planKey: PlanKey | null | undefined, scope: string | null | undefined): string {
-  if (planKey) return PLAN_BY_KEY[planKey].name;
+  if (planKey) return paketMedLangd(planKey);
   if (scope === 'cv') return PLAN_BY_KEY.cv_week.name;
   if (scope === 'tester') return PLAN_BY_KEY.test_week.name;
-  return 'Allt, okänd längd';
+  return `${PLAN_BY_KEY.all_week.name}, okänd längd`;
 }
 
 /** Engangskopet ur premium_source, till exempel onetime_1d. */
@@ -291,8 +291,8 @@ export function statusText(status: string | null | undefined): string {
 
 /** premium_scope pa svenska. */
 export function behorighetText(scope: string | null | undefined): string {
-  if (scope === 'cv') return 'CV-spåret';
-  if (scope === 'tester') return 'Testspåret';
-  if (scope === 'allt') return 'Allt';
+  if (scope === 'cv') return paketNamnForScope('cv');
+  if (scope === 'tester') return paketNamnForScope('tester');
+  if (scope === 'allt') return paketNamnForScope('allt');
   return 'ingen';
 }

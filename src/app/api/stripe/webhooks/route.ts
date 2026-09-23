@@ -403,7 +403,7 @@ export async function POST(request: Request) {
                if (onetimeUserId && Number.isFinite(onetimeDays) && onetimeDays > 0) {
                  try {
                    const admin = getSupabaseAdmin() as any;
-                   // Allt-dagen är det enda engångsköpet, och den ger alltid
+                   // Dagspasset är det enda engångsköpet, och den ger alltid
                    // 'allt'. Scope skrivs på premium_grants-raden, aldrig på
                    // profiles.premium_scope.
                    const result = await grantPremiumDays(admin, {

@@ -10,8 +10,8 @@
  *
  * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
  * 3 och 5): nivåer som inte ingår är gråa med lås och paketets namn, huvudet
- * säger vad som ingår, och CV-veckans kund får fotknapparna "Byt till
- * Testveckan" och "Eller Allt för 20 kr till i veckan".
+ * säger vad som ingår, och kunden med CV-paketet får fotknapparna "Byt till
+ * Träningspaketet" och "Eller Allt för 20 kr till i veckan".
  */
 
 import { useCallback, useState } from 'react';
@@ -82,7 +82,7 @@ export default function TesterHubClient({
   const huvud = testHuvud(scope);
   const graEtikett = graEtikettTest(scope);
 
-  // "1 kvar i dag" på grundnivån utanför Testveckan: en gång per typ och dygn.
+  // "1 kvar i dag" på grundnivån utanför Träningspaketet: en gång per typ och dygn.
   const dagRad = useCallback(
     (slug: string): string | null => {
       if (harAllaNivaer) return null;
@@ -93,9 +93,9 @@ export default function TesterHubClient({
     [harAllaNivaer, perTest]
   );
 
-  // Fotknapparna för CV-veckans kund: sidbyte och Allt går båda via
+  // Fotknapparna för kunden med CV-paketet: sidbyte och Hela paketet går båda via
   // uppgraderingsrutten, som svarar med Stripe-portalen för spårbyte och
-  // kassan med mellanskillnaden för Allt (D1 fråga 7).
+  // kassan med mellanskillnaden för Hela paketet (D1 fråga 7).
   const uppgradera = async (plan: PlanKey) => {
     if (busy) return;
     setBusy(plan);
@@ -152,7 +152,7 @@ export default function TesterHubClient({
           title="Känn igen uppgiften innan provdagen."
           description={
             huvud.ingress ??
-            'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Testveckan och Allt.'
+            'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
           }
           scene={<IlluScenMatris className="h-auto w-full" />}
         >
@@ -163,7 +163,7 @@ export default function TesterHubClient({
           />
         </PageHeader>
 
-        {/* CV-veckans kund: paketet, och var resten finns. */}
+        {/* kunden med CV-paketet: paketet, och var resten finns. */}
         {huvud.statusrad ? (
           <StatusRow tone="neutral" showDot>
             {huvud.statusrad}
@@ -227,7 +227,7 @@ export default function TesterHubClient({
               />
             ))}
 
-            {/* Foten för CV-veckans kund (sektion 3). */}
+            {/* Foten för kunden med CV-paketet (sektion 3). */}
             {scope === 'cv' ? (
               <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
                 <button

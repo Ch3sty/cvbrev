@@ -19,7 +19,7 @@ import { isPlanKey, PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
 import ValjSparClient from './ValjSparClient'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
-export const metadata = { title: 'Välj spår' }
+export const metadata = { title: 'Välj paket' }
 
 export default async function ValjSparPage({
   searchParams,

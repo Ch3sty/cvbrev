@@ -23,7 +23,7 @@ interface Props {
   perTest: Record<TestSlug, PerTestStats>;
   provBestPercent?: number | null;
   scope?: Scope | null;
-  /** Etiketten på gråa nivåer: "Testveckan 79 kr, eller Allt". */
+  /** Etiketten på gråa nivåer: "Träningspaketet 79 kr, eller Hela paketet". */
   graEtikett?: string;
   onLocked?: (feature: Feature) => void;
   /** Dagsrytmen på grundnivån: "1 kvar i dag". */

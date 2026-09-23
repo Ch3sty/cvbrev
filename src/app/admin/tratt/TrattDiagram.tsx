@@ -4,17 +4,18 @@
  * Klientgränsen för Tratts diagram. Tar färdiga rader från vyerna och ritar
  * dem, hämtar ingenting. Vyerna bestämmer om ett diagram alls ska visas
  * (sju dagar med data, fem köpare); diagramregeln i AdminChart tar resten.
- * Paketen ritas alltid i spårfärgerna: CV-veckan blå, Testveckan brun,
+ * Paketen ritas alltid i spårfärgerna: CV-paketet blå, Träningspaketet brun,
  * Allt ink.
  */
 
 import AdminChart, { type AdminSerie } from '@/components/admin/AdminChart';
 import type { BlockeringRad, BrickaAndel, FornyelseVecka, IntaktDag, Paket } from './berakning';
+import { paketNamnForScope } from '@/lib/plans/plans';
 
 const PAKET_SERIE: Record<Paket, AdminSerie> = {
-  cv: { nyckel: 'cv', namn: 'CV-veckan', typ: 'linje', roll: 'cv' },
-  tester: { nyckel: 'tester', namn: 'Testveckan', typ: 'linje', roll: 'test' },
-  allt: { nyckel: 'allt', namn: 'Allt', typ: 'linje', roll: 'allt' },
+  cv: { nyckel: 'cv', namn: paketNamnForScope('cv'), typ: 'linje', roll: 'cv' },
+  tester: { nyckel: 'tester', namn: paketNamnForScope('tester'), typ: 'linje', roll: 'test' },
+  allt: { nyckel: 'allt', namn: paketNamnForScope('allt'), typ: 'linje', roll: 'allt' },
 };
 
 const tal = (v: number) => `${Math.round(v).toLocaleString('sv-SE')} st`;
