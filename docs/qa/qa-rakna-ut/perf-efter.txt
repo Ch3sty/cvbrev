@@ -1,0 +1,32 @@
+Server: http://localhost:5216   Körningar: 3   Sidor: 11
+Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens), utan inloggning
+
+OK   /rakna-ut                                          LCP   560 (1500)  CLS     0  FCP  560   449 kB  JS 272 kB/19  HTML rå 68 kB
+OK   /rakna-ut/felrekrytering                           LCP   560 (1500)  CLS     0  FCP  560   438 kB  JS 268 kB/19  HTML rå 73 kB
+OK   /rakna-ut/lon-efter-skatt                          LCP   596 (1500)  CLS     0  FCP  596   481 kB  JS 311 kB/20  HTML rå 96 kB
+OK   /rakna-ut/loneforhandling                          LCP   716 (1500)  CLS     0  FCP  716   438 kB  JS 267 kB/19  HTML rå 77 kB
+OK   /rakna-ut/semesterersattning                       LCP   564 (1500)  CLS     0  FCP  564   438 kB  JS 268 kB/19  HTML rå 79 kB
+OK   /rakna-ut/sourcing                                 LCP   472 (1500)  CLS     0  FCP  472   439 kB  JS 269 kB/19  HTML rå 76 kB
+OK   /rakna-ut/timlon-till-manadslon                    LCP   608 (1500)  CLS     0  FCP  608   438 kB  JS 268 kB/19  HTML rå 75 kB
+OK   /rakna-ut/traffsakerhet                            LCP   504 (1500)  CLS     0  FCP  504   439 kB  JS 269 kB/19  HTML rå 78 kB
+OK   /rakna-ut/uppsagningstid                           LCP   636 (1500)  CLS     0  FCP  636   438 kB  JS 268 kB/19  HTML rå 79 kB
+OK   /rakna-ut/vad-kostar-en-anstalld                   LCP   492 (1500)  CLS     0  FCP  492   438 kB  JS 268 kB/19  HTML rå 83 kB
+OK   /rakna-ut/lon-efter-skatt?lon=42000&kommun=Uppsala LCP   496 (1500)  CLS     0  FCP  496   475 kB  JS 311 kB/20  HTML rå 98 kB
+
+
+SAMMANFATTNING
+sida                                               klick    LCP    FCP    CLS  TTFB    kB  status
+--------------------------------------------------------------------------------------------------------
+/rakna-ut                                              0    560    560      0    12   449  OK
+/rakna-ut/felrekrytering                               0    560    560      0     9   438  OK
+/rakna-ut/lon-efter-skatt                              0    596    596      0    13   481  OK
+/rakna-ut/loneforhandling                              0    716    716      0     9   438  OK
+/rakna-ut/semesterersattning                           0    564    564      0     8   438  OK
+/rakna-ut/sourcing                                     0    472    472      0     7   439  OK
+/rakna-ut/timlon-till-manadslon                        0    608    608      0     7   438  OK
+/rakna-ut/traffsakerhet                                0    504    504      0     7   439  OK
+/rakna-ut/uppsagningstid                               0    636    636      0     7   438  OK
+/rakna-ut/vad-kostar-en-anstalld                       0    492    492      0     7   438  OK
+/rakna-ut/lon-efter-skatt?lon=42000&kommun=Uppsala     0    496    496      0    18   475  OK
+--------------------------------------------------------------------------------------------------------
+11 av 11 inom budget.

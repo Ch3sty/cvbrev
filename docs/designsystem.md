@@ -196,7 +196,9 @@ oavsett skärmstorlek.
 Regel 5: ett tal står aldrig ensamt. Talet i `text-tal-display`, en mening som
 säger vad det betyder, en segmentrad och en legend som skriver ut varje
 segments tal och innebörd. Tonerna `ink`, `stark`, `mjuk`, `positiv` och
-`accent` (räknas mot taket på tre orange).
+`accent` (räknas mot taket på tre orange). `total` får vara en sträng och
+varje segment en `visa`-text när talet behöver format ("26 912 kr").
+På bläck pekas tonerna om med `PA_BLACK` i `src/components/rakna/ui.tsx`.
 
 **`StatusRow { children, tone?, showDot?, action?, label?, className? }`**
 Alltid en rad i panel med `border-kant`, aldrig ett kort, aldrig en fylld yta.
@@ -393,7 +395,8 @@ betalväggar. `IlluArketLyfter` står kvar i dashboardens tillstånd A.
 Scenerna i familjen: `IlluScenCv`, `IlluScenMatris`, `IlluScenBrev`,
 `IlluScenMatch`, `IlluScenCoach`, `IlluScenAllt`, `IlluScenUppfoljning`,
 `IlluScenMallar`, `IlluScenBibliotek`, `IlluScenLinkedin`,
-`IlluScenUpptackt`, `IlluScenSkapaCv`, `IlluScenSkrivbordet` i 240 × 200,
+`IlluScenUpptackt`, `IlluScenSkapaCv`, `IlluScenSkrivbordet`, `IlluScenIntervju`,
+`IlluScenKalkylator` (Räkna ut: räknare med resultatet i orange) i 240 × 200,
 `IlluScenHero` och `IlluScenSallet` i 520 × 400. Språket: konturer i
 `currentColor` (stroke 4 i 240, 5 i 520), papper i `--illu-fill`, en
 accentyta högst en tiondel av motivet, ett rörligt element lutat 4 till 8

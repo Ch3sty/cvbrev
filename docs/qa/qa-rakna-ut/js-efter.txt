@@ -1,0 +1,16 @@
+Efter ombyggnaden, produktionsbygge port 5216, scripts/js-fordelning.mjs (Pixel 7, kall cache).
+HTML-skript = JavaScript i HTML-svarets skript (budgeten 180 kB). Efterladdat = förhämtning av länkade sidor, PostHog och, på Lön efter skatt, skattetabellerna som laddas efter första renderingen.
+
+/rakna-ut                                          HTML-skript 158 kB/11  efterladdat 263 kB/7   (före 159)
+/rakna-ut/lon-efter-skatt                          HTML-skript 168 kB/11  efterladdat 292 kB/8   (före 205)
+/rakna-ut/felrekrytering                           HTML-skript 164 kB/11  efterladdat 253 kB/7   (före 162)
+/rakna-ut/loneforhandling                          HTML-skript 164 kB/11  efterladdat 253 kB/7
+/rakna-ut/semesterersattning                       HTML-skript 164 kB/11  efterladdat 253 kB/7
+/rakna-ut/sourcing                                 HTML-skript 165 kB/11  efterladdat 253 kB/7
+/rakna-ut/timlon-till-manadslon                    HTML-skript 164 kB/11  efterladdat 253 kB/7
+/rakna-ut/traffsakerhet                            HTML-skript 166 kB/11  efterladdat 253 kB/7
+/rakna-ut/uppsagningstid                           HTML-skript 165 kB/11  efterladdat 253 kB/7   (före 162)
+/rakna-ut/vad-kostar-en-anstalld                   HTML-skript 164 kB/11  efterladdat 253 kB/7
+/rakna-ut/lon-efter-skatt?lon=42000&kommun=Uppsala HTML-skript 168 kB/11  efterladdat 292 kB/8   (delad vy)
+
+Mellanmätning: med en gemensam serverväljare som importerade alla nio klientkalkylatorer låg varje sida på 180 kB. Därför har varje sida en egen startfil i src/components/rakna/start/.
