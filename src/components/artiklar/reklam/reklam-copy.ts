@@ -2,18 +2,19 @@
  * Reklamkortens texter i artiklarna och artikellistan
  * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6, "Texterna, kort
  * för kort"), med ägarens justering 2026-09-23: "Gör provet innan
- * rekryteraren gör det" utgår och ersätts.
+ * rekryteraren gör det" utgår och ersätts. Slutgranskade av copywritern
+ * 2026-09-23: brevet är ett per rullande sju dygn, aldrig "ett om dagen".
  *
  * Vi-form, verbet först, gratis före pris, priset som tal, aldrig
  * "obegränsat" (vi säger "utan tak"), aldrig "AI-driven". Knapptexten säger
  * vad som händer. Belopp ur PLANS, mallantal ur TEMPLATE_COUNT, gratisgränser
- * ur kvottjänsten. Inga talstreck.
+ * ur kvottjänsten. Inga talstreck, inga ogaranterade siffror.
  */
 
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
-import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
+import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
 
 const CV = PLAN_BY_KEY.cv_week.amount
@@ -29,6 +30,12 @@ const Ord = (n: number) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+/** Brevfönstret i ord: "var sjunde dag". Faller tillbaka på "var N:e dag". */
+const ORDNING: Record<number, string> = { 7: 'sjunde', 14: 'fjortonde', 30: 'trettionde' }
+const BREVFONSTER = ORDNING[LETTER_WINDOW_DAYS]
+  ? `var ${ORDNING[LETTER_WINDOW_DAYS]} dag`
+  : `var ${LETTER_WINDOW_DAYS}:e dag`
+
 export interface InlineCopy {
   rubrik: string
   text: string
@@ -41,7 +48,7 @@ export interface InlineCopy {
 /** Inline-kortet efter andra stycket: verktyget, gratis först. */
 export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, InlineCopy> = {
   test: {
-    rubrik: 'Se mönstret innan klockan börjar gå',
+    rubrik: 'Öva på frågorna innan de räknas',
     text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp.',
     knapp: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
@@ -49,28 +56,28 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
   },
   mallar: {
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
-    text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, alla granskade mot svenska rekryteringssystem. Du fyller i, vi formaterar.`,
+    text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     knapp: 'Välj en mall',
     href: '/verktyg/cv-mallar',
     paketrad: `Alla ${TEMPLATE_COUNT} mallar och hela CV-analysen ingår i CV-veckan, ${CV} kr.`,
   },
   analys: {
     rubrik: 'Se varför CV:t fastnar innan du skickar det',
-    text: 'Ladda upp, vi läser som en rekryterare gör på sex sekunder. Poängen och det tyngsta fyndet är gratis.',
+    text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Poängen och det tyngsta fyndet är gratis.',
     knapp: 'Analysera mitt CV',
     href: '/verktyg/cv-analys',
     paketrad: `Hela analysen med varje fynd och åtgärd ingår i CV-veckan, ${CV} kr.`,
   },
   brev: {
     rubrik: 'Skriv brevet på annonsen, inte på mallen',
-    text: 'Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett brev om dagen att läsa, gratis.',
+    text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett brev ${BREVFONSTER} att läsa på skärmen, gratis.`,
     knapp: 'Skriv mitt brev',
     href: '/skapa-brev/start',
     paketrad: `Brev utan tak, som PDF, ingår i CV-veckan, ${CV} kr.`,
   },
   coach: {
     rubrik: 'Träna svaret innan du sitter i rummet',
-    text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor gratis, direkt i webbläsaren.`,
+    text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor utan att betala.`,
     knapp: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
     paketrad: `Coachen utan tak ingår i Allt, ${ALLT} kr i veckan.`,
@@ -80,7 +87,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */
 export const INLINE_RAKNARE = {
   rubrik: 'Räkna på det själv, fråga sedan',
-  text: 'Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som har läst ditt CV.',
+  text: 'Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som utgår från ditt CV.',
   lankar: [
     { text: 'Räkna ut lönen efter skatt', href: '/rakna-ut/lon-efter-skatt' },
     { text: 'Räkna ut uppsägningstiden', href: '/rakna-ut/uppsagningstid' },
@@ -122,7 +129,7 @@ export const SIDO: Record<'cv' | 'test' | 'allt', SidoCopy> = {
     text: `Alla ${TEMPLATE_COUNT} mallar, hela analysen, brev utan tak.`,
     belopp: `${CV} kr`,
     under: 'i veckan, ingen bindningstid',
-    gratisrad: `${Ord(FREE_TEMPLATE_COUNT)} mallar och ett brev om dagen är gratis.`,
+    gratisrad: `${Ord(FREE_TEMPLATE_COUNT)} mallar och ett brev ${BREVFONSTER} är gratis.`,
   },
   allt: {
     etikett: 'Allt',
@@ -196,7 +203,7 @@ export const GRATIS_KORT = {
   rader: [
     `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
     'En CV-analys med poäng och tyngsta fyndet',
-    'Ett personligt brev på en annons, att läsa',
+    `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
     `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till coachen`,
     'Testernas grundnivå, en gång per dygn',
   ],
@@ -230,7 +237,7 @@ export const LISTA_SLUT = {
       namn: 'Allt',
       text: 'Allt i båda, plus jobbmatchning varje natt, Jobbcoachen utan tak och Bli upptäckt.',
       pris: `${ALLT} kr`,
-      under: `i veckan, eller ${ALLT_MANAD} i månaden`,
+      under: `i veckan, eller ${ALLT_MANAD} kr i månaden`,
     },
   ],
   knapp: 'Se paketen',
