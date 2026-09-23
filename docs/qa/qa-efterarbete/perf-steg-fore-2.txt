@@ -1,0 +1,18 @@
+Konto: ägarens (mest data)   Server: http://localhost:5215   Körningar: 5
+
+STEG (Node mot Supabase, median)
+  auth.getUser, en rundtur        156 ms
+  recruiter_profiles, en rundtur  158 ms
+  getDashboardSummary             227 ms
+
+/dashboard
+  server TTFB utan rekryterarcookie  768 ms
+  server TTFB med rekryterarcookie   554 ms
+  Pixel 7: svar 793 ms, HTML klar 809 ms, FCP 1188 ms, LCP 1332 ms, hydrering 1523 ms, JS 377 kB
+  förhämtningar (RSC) 19, varav före LCP 0, API-anrop 17
+
+/dashboard/profil
+  server TTFB utan rekryterarcookie  770 ms
+  server TTFB med rekryterarcookie   558 ms
+  Pixel 7: svar 556 ms, HTML klar 568 ms, FCP 1000 ms, LCP 1176 ms, hydrering 1404 ms, JS 387 kB
+  förhämtningar (RSC) 14, varav före LCP 0, API-anrop 13
