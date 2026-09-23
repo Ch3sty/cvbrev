@@ -39,6 +39,8 @@ interface Props {
   onLocked?: (feature: Feature) => void;
   /** Dagsrytmen på grundnivån: "1 kvar i dag" per slug. */
   dagRad?: (slug: string) => string | null;
+  /** Rader direkt på mark i stället för i en panel (personligheten, regel 4). */
+  utanPanel?: boolean;
 }
 
 export default function TestGroup({
@@ -54,6 +56,7 @@ export default function TestGroup({
   graEtikett = '',
   onLocked,
   dagRad,
+  utanPanel = false,
 }: Props) {
   const isPersonality = group.key === 'personlighet';
 
@@ -76,7 +79,13 @@ export default function TestGroup({
         <p className="mt-0.5 text-meta text-ink-3">{group.searchHint}</p>
       </div>
 
-      <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+      <ul
+        className={
+          utanPanel
+            ? 'divide-y divide-kant border-y border-kant [&_a]:px-0 [&_button]:px-0'
+            : 'divide-y divide-kant rounded-xl border border-kant bg-panel'
+        }
+      >
         {group.cognitive.map((test, i) => {
           const l = las(test.slug);
           return (

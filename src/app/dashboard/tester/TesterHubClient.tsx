@@ -25,11 +25,14 @@ import { scopeHasFeature } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
 import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
 import { ellerAlltKnapp, graEtikettTest, laggTillKnapp, testHuvud } from '@/lib/onboarding/paket-rader';
-import TestStatsCard from './components/TestStatsCard';
-import EmptyTestsCallout from './components/EmptyTestsCallout';
+import Link from 'next/link';
+import InkPanel, { INK_KNAPP } from '@/components/shell/InkPanel';
+import { IlluScenMatris } from '@/components/illustrations/PriserScener';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestGroup from './components/TestGroup';
-import { TEST_GROUPS } from './components/testCatalog';
+import TestKategori from './components/TestKategori';
+import { ALL_COGNITIVE_TESTS, TEST_GROUPS } from './components/testCatalog';
+import { featureForSlug, testPaths } from './testConfig';
 import type { TesterHubData } from './getHubData';
 
 const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
@@ -114,15 +117,44 @@ export default function TesterHubClient({
   };
   const alltKnapp = ellerAlltKnapp(planKey);
 
+  // Rekommendationen i bläck (analysen 22 september, avsnitt 4): logiktestet
+  // på grundnivå för den som inte gjort något, annars det första test som
+  // ingår och inte är gjort. Finns inget sådant visas ingen bläckyta.
+  const rekommendation = (() => {
+    if (!hasAnyData) {
+      return {
+        eyebrow: 'Börja här',
+        title: 'Logiktestet på grundnivå',
+        text: `Den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning. ${ALL_COGNITIVE_TESTS[0].questionCount} frågor, cirka ${ALL_COGNITIVE_TESTS[0].timeLabel} minuter.`,
+        href: testPaths.hub('matrislogik-grund'),
+        knapp: 'Starta första testet',
+      };
+    }
+    const nasta = ALL_COGNITIVE_TESTS.find((t) => {
+      const f = featureForSlug(t.slug);
+      return (perTest[t.slug]?.attempts ?? 0) === 0 && (!f || scopeHasFeature(scope, f));
+    });
+    if (!nasta) return null;
+    return {
+      eyebrow: 'Nästa test',
+      title: `${nasta.title}, ${nasta.levelLabel.toLowerCase()}`,
+      text: `Du har inte gjort det än. ${nasta.questionCount} frågor, cirka ${nasta.timeLabel} minuter, förklaring efter varje fråga.`,
+      href: testPaths.hub(nasta.slug),
+      knapp: 'Starta testet',
+    };
+  })();
+
   return (
     <div className="mx-auto max-w-3xl py-6">
       <div className="space-y-4 sm:space-y-6">
         <PageHeader
-          title="Rekryteringstester"
+          eyebrow="Rekryteringstester"
+          title="Känn igen uppgiften innan provdagen."
           description={
             huvud.ingress ??
-            'Träna på de moment rekryterare faktiskt använder: logik, verbalt resonemang, siffror och personlighet.'
+            'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Testveckan och Allt.'
           }
+          scene={<IlluScenMatris className="h-auto w-full" />}
         >
           <TesterTabs
             active={tab}
@@ -148,46 +180,52 @@ export default function TesterHubClient({
 
         {tab === 'tester' ? (
           <div key="tester" className="space-y-4 sm:space-y-6">
-            {hasAnyData ? (
-              <TestStatsCard
-                completedTestCount={aggregate.completedTestCount}
-                totalTestCount={9}
-                averageBestPercentage={aggregate.averageBestPercentage}
-                totalTimeSeconds={aggregate.totalTimeSeconds}
+            {rekommendation ? (
+              <InkPanel
+                eyebrow={rekommendation.eyebrow}
+                title={rekommendation.title}
+                text={rekommendation.text}
+                action={
+                  <Link href={rekommendation.href} className={INK_KNAPP}>
+                    {rekommendation.knapp}
+                  </Link>
+                }
               />
-            ) : (
-              <EmptyTestsCallout />
-            )}
+            ) : null}
 
-            <div className="space-y-6">
-              {TEST_GROUPS.map((group, gi) => {
-                const startIndex = TEST_GROUPS.slice(0, gi).reduce(
-                  (acc, g) => acc + g.cognitive.length + g.personality.length,
-                  0
-                );
-                return (
-                  <TestGroup
-                    key={group.key}
-                    group={group}
-                    startIndex={startIndex}
-                    isPremium={isPremium}
-                    perTest={perTest}
-                    personality={personalityStats}
-                    bestTest={bestTest}
-                    provBestPercent={
-                      group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
-                    }
-                    recommendSlug={
-                      !hasAnyData && group.key === 'logik' ? 'matrislogik-grund' : undefined
-                    }
-                    scope={scope}
-                    graEtikett={graEtikett}
-                    onLocked={(feature) => setSparr(feature)}
-                    dagRad={dagRad}
-                  />
-                );
-              })}
-            </div>
+            {/* Tre kognitiva typer som paneler med nivåsegment, personligheten
+                som rader direkt på mark (regel 4: högst tre ytor i samma vikt). */}
+            {TEST_GROUPS.filter((g) => g.key !== 'personlighet').map((group) => (
+              <TestKategori
+                key={group.key}
+                group={group}
+                perTest={perTest}
+                provBestPercent={
+                  group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
+                }
+                scope={scope}
+                graEtikett={graEtikett}
+                onLocked={(feature) => setSparr(feature)}
+                dagRad={dagRad}
+              />
+            ))}
+
+            {TEST_GROUPS.filter((g) => g.key === 'personlighet').map((group) => (
+              <TestGroup
+                key={group.key}
+                group={group}
+                startIndex={0}
+                isPremium={isPremium}
+                perTest={perTest}
+                personality={personalityStats}
+                bestTest={bestTest}
+                scope={scope}
+                graEtikett={graEtikett}
+                onLocked={(feature) => setSparr(feature)}
+                dagRad={dagRad}
+                utanPanel
+              />
+            ))}
 
             {/* Foten för CV-veckans kund (sektion 3). */}
             {scope === 'cv' ? (
