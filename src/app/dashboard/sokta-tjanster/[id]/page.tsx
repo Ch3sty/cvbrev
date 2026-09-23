@@ -14,6 +14,7 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import type { JobApplicationEvent } from '@/lib/applications/status';
 import ApplicationDetailClient, { type ApplicationDetail } from './ApplicationDetailClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function ApplicationDetailPage({
   params,
@@ -24,9 +25,7 @@ export default async function ApplicationDetailPage({
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) redirect('/login');
 

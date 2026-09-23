@@ -26,6 +26,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Scope } from '@/lib/access/features';
 import { harPaket } from '@/lib/plans/harPaket';
 import type { PlanKey } from '@/lib/plans/plans';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 function lasTrack(v: unknown): Scope | null {
   return v === 'cv' || v === 'tester' || v === 'allt' ? v : null;
@@ -35,9 +36,7 @@ export default async function TesterHubPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

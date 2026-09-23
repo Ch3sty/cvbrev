@@ -1,0 +1,3 @@
+vy sida | före LCP (FCP) | efter LCP (FCP) | JS före/efter
+inloggat dashboard | 1680 (1504) | 916 (880) [före 1680,1696,1360 efter 916,1180,880]
+inloggat profil | 1728 (1536) | 896 (756) [före 2180,1728,1364 efter 972,880,896]

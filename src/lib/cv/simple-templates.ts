@@ -880,18 +880,12 @@ export function getTemplateById(id: string): SimpleTemplate | undefined {
 }
 
 /**
- * Antalet CV-mallar i registret. Anvands i all saljcopy som namner ett
- * mallantal, sa att siffran aldrig kan glida isar fran listan ovan.
- * Testet i src/lib/cv/__tests__/template-count.test.ts bevakar aven de
- * filer som inte kan importera konstanten (statisk copy).
+ * Mallantalen. Talen står i template-antal.ts så att lätta moduler (prisstegen,
+ * säljcopyn) kan läsa dem utan att dra in registret ovan. Testet i
+ * src/lib/cv/__tests__/template-count.test.ts bevakar att de räknar rätt mot
+ * registret, och även de filer som inte kan importera konstanten (statisk copy).
  */
-export const TEMPLATE_COUNT = SIMPLE_TEMPLATES.length;
-
-/** Antalet mallar som ingar utan Premium. */
-export const FREE_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'free').length;
-
-/** Antalet mallar som kraver Premium. */
-export const PREMIUM_TEMPLATE_COUNT = SIMPLE_TEMPLATES.filter(t => t.tier === 'premium').length;
+export { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from './template-antal';
 
 /**
  * De tre fria mallarna (docs/plan-paket-och-onboarding.md, avsnitt 4 och

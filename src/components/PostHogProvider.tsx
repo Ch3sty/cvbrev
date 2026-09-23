@@ -15,11 +15,30 @@ import { arTestEpost } from '@/lib/admin/undantag'
  * LCP-elementet är en H1 som redan står i server-HTML.
  *
  * Här är vi en vanlig klientkomponent. Koden hamnar i en egen chunk som
- * hämtas först när webbläsaren är ledig. Autocapture och pageviews fungerar
- * som förut, den första pageview-händelsen skickas när init:en kört.
+ * hämtas först när besökaren gör något på sidan, eller direkt efter
+ * målningen för den som är inloggad. Autocapture och pageviews fungerar som
+ * förut, den första pageview-händelsen skickas när init:en kört.
  */
 
 let initierad = false
+
+type Anvandare = { id: string; email?: string | null }
+
+/** Den inloggade användaren som senast sågs, för identify efter init. */
+let aktuell: Anvandare | null = null
+
+type Posthog = typeof import('posthog-js').default
+
+function identifiera(posthog: Posthog, user: Anvandare): void {
+  // Testkonton markeras som interna redan vid identify, så att adminens
+  // HogQL-frågor och dashboarden kan filtrera bort dem
+  // (docs/design/spec-admin-tydlighet-2026-09-22.html, princip 6).
+  // Adminkonton markeras av MarkeraIntern i adminlayouten.
+  posthog.identify(user.id, {
+    email: user.email,
+    ...(arTestEpost(user.email) ? { is_internal: true } : {}),
+  })
+}
 
 function starta(): void {
   if (initierad) return
@@ -37,71 +56,73 @@ function starta(): void {
     // Gör klienten läsbar för src/lib/analytics/events.ts, som medvetet
     // undviker en egen import av samma skäl.
     ;(window as unknown as { posthog?: unknown }).posthog = posthog
+    // Användaren kan ha varit känd innan init:en hann köra.
+    if (aktuell) identifiera(posthog, aktuell)
   })
 }
 
 export default function PostHogIdentify() {
   const { user } = useAuth()
 
-  // Starta när webbläsaren är ledig. Taket gör att händelser inte tappas på
-  // en sida som aldrig blir riktigt ledig.
+  // När startar vi? Inloggad: direkt efter att sidan målats, som förut.
+  // Besökare på en publik sida: först när hon gör något, alltså scrollar,
+  // trycker, klickar eller skriver. posthog-js är den största enskilda
+  // filen som laddas efter sidan (173 kB), och en besökare som bara läser
+  // rubriken och går betalade den tidigare ändå. Händelser som mäts innan
+  // dess ligger i kön i src/lib/analytics/events.ts och skickas vid start.
+  // Priset är att en besökare som lämnar utan att röra sidan inte räknas
+  // som sidvisning (docs/bygg-noter-paket.md, Efterarbete: avgjort).
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const w = window as Window &
-      typeof globalThis & {
-        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
-        cancelIdleCallback?: (id: number) => void
-      }
-    // requestIdleCallback utlöses vid huvudtrådens första lucka, och den
-    // luckan kommer före LCP på en tung artikelsida. Mätningen visade att
-    // posthog-js (173 kB) då hämtades vid 1135 ms och låg före LCP ändå.
-    // Vi väntar därför tills sidan har målat sitt största element, och
-    // faller tillbaka på en timer om LCP aldrig rapporteras.
     let startad = false
     const kor = () => {
       if (startad) return
       startad = true
+      stada()
       starta()
     }
 
-    let obs: PerformanceObserver | null = null
-    try {
-      obs = new PerformanceObserver(() => {
-        // Ge målningen en tick till innan vi lägger 173 kB på tråden.
-        w.setTimeout(kor, 300)
-      })
-      obs.observe({ type: 'largest-contentful-paint', buffered: true })
-    } catch {
-      // Webbläsare utan LCP-stöd faller igenom till timern nedan.
+    const HANDELSER = ['pointerdown', 'keydown', 'scroll', 'touchstart'] as const
+    const stada = () => {
+      for (const h of HANDELSER) window.removeEventListener(h, kor, true)
+      obs?.disconnect()
+      if (timer) window.clearTimeout(timer)
     }
 
-    const id = w.setTimeout(kor, 4000)
-    return () => {
-      obs?.disconnect()
-      w.clearTimeout(id)
+    let obs: PerformanceObserver | null = null
+    let timer = 0
+
+    if (user) {
+      // Inloggad: vänta tills sidan målat sitt största element och ge
+      // målningen en tick, med en timer som tak.
+      try {
+        obs = new PerformanceObserver(() => {
+          timer = window.setTimeout(kor, 300)
+        })
+        obs.observe({ type: 'largest-contentful-paint', buffered: true })
+      } catch {
+        // Webbläsare utan LCP-stöd faller igenom till timern nedan.
+      }
+      if (!timer) timer = window.setTimeout(kor, 4000)
     }
-  }, [])
+
+    for (const h of HANDELSER) window.addEventListener(h, kor, { capture: true, passive: true, once: true })
+    return stada
+  }, [user])
 
   useEffect(() => {
+    const forra = aktuell
+    aktuell = user ? { id: user.id, email: user.email } : null
+    // Innan init finns inget att identifiera mot; starta() tar det.
+    if (!initierad) return
     let avbruten = false
 
     void import('posthog-js').then(({ default: posthog }) => {
-      // Init:en kan ännu inte ha kört. Då har vi inget att identifiera mot,
-      // och nästa körning av effekten tar det.
       if (avbruten || !posthog.__loaded) return
-
-      if (user) {
-        // Testkonton markeras som interna redan vid identify, så att
-        // adminens HogQL-frågor och dashboarden kan filtrera bort dem
-        // (docs/design/spec-admin-tydlighet-2026-09-22.html, princip 6).
-        // Adminkonton markeras av MarkeraIntern i adminlayouten.
-        posthog.identify(user.id, {
-          email: user.email,
-          ...(arTestEpost(user.email) ? { is_internal: true } : {}),
-        })
-      } else {
-        posthog.reset()
-      }
+      if (user) identifiera(posthog, { id: user.id, email: user.email })
+      // Bara vid utloggning. En anonym besökare ska behålla sitt id mellan
+      // sidorna, annars går tratten från landning till konto inte att följa.
+      else if (forra) posthog.reset()
     })
 
     return () => {

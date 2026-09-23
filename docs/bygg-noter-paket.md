@@ -1215,3 +1215,120 @@ Allvarligast först.
 8. Avvikelse: taggpillren flyttade till artikelns slut ("Ämnen") enligt artefaktens förslag; artefakten lämnade beslutet till SEO-agenten. Länkarna finns kvar i HTML, seo-diffen är noll.
 9. Copy: den nya inline-rubriken för testklustret ("Se mönstret innan klockan börjar gå") ersätter den utgångna; de fjorton texterna är inte slutgranskade av copywriteragenten. Stegtexterna på några verktygssidor kommer ur HowTo-schemat och innehåller enstaka anglicismer ("Live-preview" på Skapa CV) som inte går att ändra utan att röra schemat.
 10. Rätt enligt planerna: ingen trial, inga "7 dagar gratis", priser ur PLANS i alla nya komponenter, mallantal ur TEMPLATE_COUNT, gratisgränser ur kvotkonstanterna, inga talstreck eller Sparkles i nya filer (kvarvarande talstreck ligger i låst JSON-LD och i OG-bildens alt-text), en bläckyta per skärm (sidomenyns paket-huvud undantaget enligt artefakten), 44 px träffytor i nya navigationsrader.
+
+## Efterarbete: avgjort
+Byggagenten (Opus 5.5), 2026-09-23, gren `linje/efterarbete`. Tre delar: prestanda i skalet och rot-layouten (A), Bli upptäckt och LinkedIn säger vilket paket de ingår i (B), copywriterns slutgranskning av reklamkorten (C). Beslut tagna utan mellanfrågor; skälen står här.
+
+### Hur det mättes
+Före och efter byggdes som två produktionsbyggen (`.next-fore` från 38ec57d9, `.next-perf` från arbetskopian) och kördes samtidigt på port 5215 och 5214, och mätningarna gick **omväxlande** mot de två servrarna. En första körning mot bara efterbygget gav LCP som svängde 300 ms mellan körningar på samma kod, så absoluta tal från olika tillfällen går inte att jämföra; det här gör det. Pixel 7-emulering, 3x CPU, LTE, ägarens konto med mest data. Nytt skript: `scripts/perf-steg-inloggat.ts` delar upp sidladdningen i steg (auth-rundtur, rekryteraruppslag, summering, serversvar med och utan rekryterarcookie, svar, FCP, LCP, hydrering, JS, förhämtningar). Råtal i `docs/qa/qa-efterarbete/perf-*.txt`.
+
+### A. Före och efter, inloggat
+perf-inloggat, median av tre omgångar à tre körningar per bygge:
+
+<table>
+<thead><tr><th>Sida</th><th>Före LCP</th><th>Efter LCP</th><th>Budget</th></tr></thead>
+<tbody>
+<tr><td>Hemskärmen /dashboard</td><td>1 680 ms</td><td>916 ms</td><td>1 000 ms</td></tr>
+<tr><td>Profil /dashboard/profil</td><td>1 728 ms</td><td>896 ms</td><td>1 000 ms</td></tr>
+</tbody>
+</table>
+
+Per steg, perf-steg-inloggat, medel av två omgångar per bygge (hemskärmen / profilen):
+
+<table>
+<thead><tr><th>Steg</th><th>Före</th><th>Efter</th></tr></thead>
+<tbody>
+<tr><td>Supabase Auth getUser, en rundtur (Node lokalt)</td><td>155 ms, tre gånger per sidladdning (proxy, layout, sida)</td><td>155 ms, en gång (proxyn)</td></tr>
+<tr><td>Rekryteraruppslaget i proxyn</td><td>155 ms, i serie efter getUser</td><td>parallellt med getUser</td></tr>
+<tr><td>Summeringen (15 frågor parallellt)</td><td>ca 220 ms</td><td>oförändrad tills migrationen appliceras, se nedan</td></tr>
+<tr><td>Serversvar, utan rekryterarcookie</td><td>776 / 777 ms</td><td>622 / 568 ms</td></tr>
+<tr><td>Serversvar, med rekryterarcookie</td><td>560 / 565 ms</td><td>472 / 410 ms</td></tr>
+<tr><td>Svar i Pixel 7 (TTFB)</td><td>740 / 565 ms</td><td>560 / 418 ms</td></tr>
+<tr><td>FCP</td><td>1 126 / 1 066 ms</td><td>984 / 872 ms</td></tr>
+<tr><td>LCP</td><td>1 280 / 1 236 ms</td><td>984 / 872 ms</td></tr>
+<tr><td>Hydrering klar</td><td>1 502 / 1 476 ms</td><td>1 506 / 1 242 ms</td></tr>
+<tr><td>JS över nätet</td><td>377 / 387 kB</td><td>353 / 363 kB</td></tr>
+<tr><td>RSC-förhämtningar, varav före LCP</td><td>19 (0) / 14 (0)</td><td>12 (0) / 8 (0)</td></tr>
+<tr><td>API-, REST- och auth-anrop under laddningen</td><td>17 / 13</td><td>13 / 9</td></tr>
+</tbody>
+</table>
+
+LCP låg 150 till 200 ms efter FCP på båda sidorna före. Skälet var sidbytets intoning: innehållet startade på opacitet 0 även vid första laddningen, och ett osynligt element räknas inte som målat. Efter ändringen är LCP lika med FCP.
+
+### A. Före och efter, publikt
+JavaScript i HTML-svarets skript (scripts/js-fordelning.mjs): artikeln 243 → 168 kB, startsidan 221 → 167 kB, alla tio uppmätta publika sidor 159 till 168 kB, alltså under 180 kB (`docs/qa/qa-efterarbete/js-fordelning.txt`). Per fil på artikeln (gzip, uppskattat ur bygget):
+
+<table>
+<thead><tr><th>Fil</th><th>Före</th><th>Efter</th></tr></thead>
+<tbody>
+<tr><td>React DOM</td><td>65 kB</td><td>65 kB</td></tr>
+<tr><td>supabase-js (GoTrue, PostgREST, Realtime)</td><td>32 kB</td><td>0, laddas bara med session</td></tr>
+<tr><td>@supabase/ssr, Buffer, lagringstvätten</td><td>11 kB</td><td>0</td></tr>
+<tr><td>Rot-layoutens klientlager med react-cookie-consent</td><td>18 kB</td><td>9 kB</td></tr>
+<tr><td>Mallregistret (via plans.ts i headerns meny)</td><td>14 kB</td><td>0, talen i template-antal.ts</td></tr>
+<tr><td>Brevexempel i MDX (varje artikel)</td><td>19 kB</td><td>0, bara där de ritas</td></tr>
+<tr><td>Räknarna i MDX (varje artikel)</td><td>11 kB</td><td>0, bara där de ritas</td></tr>
+<tr><td>Headerns meny och scener</td><td>(i mallregistrets fil)</td><td>8 kB</td></tr>
+<tr><td>AuthContext, signalen, analys</td><td>(i klientlagret)</td><td>6 kB</td></tr>
+<tr><td>Artikelsidans egen kod (ArtikelKlient, mallväljaren)</td><td>(i MDX-filerna ovan)</td><td>9 kB</td></tr>
+<tr><td>Next (router, runtime, turbopack, process)</td><td>61 kB</td><td>61 kB</td></tr>
+<tr><td>Summa</td><td>237 kB</td><td>163 kB</td></tr>
+</tbody>
+</table>
+
+LCP, Pixel 7, median av tre omväxlande omgångar (före → efter, ms): startsidan 644 → 648, Priser 684 → 672, Artiklar 712 → 628, logiska-tester 784 → 768, cv-analys 588 → 584, rekryteringstester 564 → 596, Funktioner 556 → 568, Om oss 528 → 532. Desktop i samma ordning: 240 → 268, 160 → 168, 304 → 400, 228 → 248, 152 → 156, 156 → 152, 164 → 144, 128 → 160. Spridningen mellan enskilda körningar är 60 till 140 ms på samma bygge (Artiklar desktop: 396, 304, 296 före och 400, 444, 288 efter), så ingen sida har en skillnad som går att skilja från bruset; CLS 0 på alla. Råtal i `docs/qa/qa-efterarbete/perf-publikt-fore-efter.txt`.
+
+### A. Vad som ändrades och varför
+- **Auth i skalet.** Proxyn är fortfarande den enda som förnyar sessionen (memory reference_auth_cookie_refresh). Den bär nu sin verifierade användare vidare i request-headern `x-jc-anvandare`, signerad med HMAC-SHA256 (`src/lib/supabase/anvandare-header.ts`, nyckel härledd ur service-rollnyckeln, Web Crypto så att det fungerar i proxyn). Layouten, 19 serversidor under /dashboard, getLetterForUser, HemAktivitet och /api/dashboard/summary läser den via `hamtaVerifieradAnvandare()` (React cache, en läsning per request). Signaturen krävs eftersom matchern inte släpper alla adresser genom proxyn; en osignerad header skulle gå att förfalska. Proxyn tar dessutom alltid bort en inkommande header med samma namn. Saknas eller är headern ogiltig görs auth.getUser() som förut. Projektets JWT är HS256 utan publika nycklar, så getClaims() kunde inte ersätta rundturen lokalt.
+- **Rekryteraruppslaget** startar parallellt med getUser, med användar-id:t läst overifierat ur sessionscookien, och används bara om getUser() bekräftar samma id.
+- **Summeringen i en rundtur: skriven men inte applicerad.** `supabase/migrations/20260923120000_dashboard_summering.sql` definierar `dashboard_summering()` (security invoker, användaren ur auth.uid(), samma rader och räkningar som de femton frågorna i ett JSON-objekt). getSummary.ts anropar den först och faller tillbaka på de femton frågorna om den saknas; processen minns PGRST202 så att en saknad funktion inte kostar ett extra anrop per sidladdning. **Applicering mot produktionsdatabasen nekades av behörighetsspärren i den här sessionen.** Ägaren eller saas-lead applicerar filen (Supabase MCP apply_migration, namnet dashboard_summering); koden plockar upp den utan omdeploy, senast när en serverinstans startar om (en instans som redan sett PGRST202 minns det). Förväntad vinst lokalt: summeringen från ungefär 220 till ungefär 155 ms.
+- **Cache för det som inte ändras per sekund.** Rekryterarflaggan cachas som förut (cookie, tio minuter); adminflaggan och sidomenyns antal kommer nu ur summeringen i stället för egna frågor; mallantalen är konstanter. Ingen cache av användarens egen summering mellan requests: Kom igång, antalen och Nästa handling ska spegla en handling direkt efter att den gjorts, och det är den känslan ägaren kallade omedelbar.
+- **Sidomenyn** gjorde en adminfråga och tre count-frågor efter mount på varje sida. Antalen och adminlänken kommer nu ur summeringen (`sidomeny`, `arAdmin`) och står i server-HTML:en från början. Realtidskanalerna öppnas fortfarande när sidan är ledig men hämtar om summeringen (en gång per skur, 800 ms) i stället för tre räkningar.
+- **Förhämtning på sidomenyns länkar: behållen.** Mätningen visar 12 RSC-förhämtningar på hemskärmen och 8 på profilen, ingen före LCP. Admin stängde av förhämtningen för att 50 rader startade 50 anrop samtidigt med sidans egna; här ligger de efter LCP och gör första klicket snabbare. Att stänga av dem hade inte gett någon LCP-vinst.
+- **Intoningen vid sidbyte** körs bara efter första klientnavigeringen (DashboardShell). Se ovan.
+- **Supabase-klienten på publika sidor.** AuthProvider importerar inte klienten längre; den laddas när det finns en sessionscookie, eller när inloggningen eller registreringen skapar klienten (`src/lib/supabase/klient-signal.ts`, händelsen skickas från createClient i client.ts). NotificationProvider hade en egen lyssnare på samma sak och läser nu AuthContext. activity-logger importerar klienten först vid loggning. RedirectLoggedIn, AuthRedirect och PriserPaket gjorde egna auth.getUser()/getSession() för varje besökare och läser nu AuthContext.
+- **Cookie-samtycket** är server-HTML i en `<template>` plus ett inline-skript under 1 kB (`src/components/samtycke/CookieBanner.tsx`), utan React. Samma cookie (cvBrevCookieConsent, 180 dygn) och samma knapp-id:n, så ingen som redan svarat får frågan igen och QA-skripten hittar knapparna. Samtycket skickas till GTM direkt i stället för efter hydreringen. Markeringen ligger som innerHTML: en `<template>` med JSX-barn gav hydreringsfel 418 på varje sida (barnen hamnar i template.content), vilket QA-körningen fångade och som är rättat. react-cookie-consent står kvar i package.json men importeras inte.
+- **PostHog** startar på publika sidor först när besökaren scrollar, trycker, klickar eller skriver; för inloggade efter LCP som förut. Händelser som mäts innan dess ligger i kön i events.ts. Priset: en besökare som lämnar utan att röra sidan räknas inte som sidvisning i PostHog (GA via GTM påverkas inte). Samtidigt rättat: identify gjordes aldrig för en användare som var känd redan vid montering, eftersom init inte hunnit köra; nu identifieras hon när init är klar. reset() körs bara vid utloggning, så en anonym besökare behåller sitt id mellan sidorna.
+- **plans.ts** importerade TEMPLATE_COUNT ur simple-templates.ts och drog därmed in hela mallregistret i headerns meny på varje sida. Talen står i `src/lib/cv/template-antal.ts`; simple-templates exporterar dem vidare och template-count.test.ts vaktar att de stämmer mot registret.
+- **Artiklarnas MDX-komponenter** med klientkod (två räknare, 24 brevexempel) importerades statiskt i artikelsidan och följde med i varje artikels JavaScript. De går nu via `src/components/artiklar/mdx-klient.tsx` med next/dynamic i en klientmodul; next/dynamic direkt i serverkomponenten delade inte upp dem (uppmätt). Serverrenderingen är oförändrad (kontrollerat på loneforhandling och personligt-brev-utan-erfarenhet).
+- Kvar av skalets kostnad: hydreringen är klar först vid ungefär 1,5 s på hemskärmen i emuleringen, och FCP ligger 400 ms efter HTML-svaret, varav en första layout på 140 ms (3x CPU) och 32 kB CSS. Ingen av dem låg på vägen till budgeten i den här omgången.
+
+### B. Bli upptäckt och LinkedIn
+Texterna skrevs av copywriteragenten (svensk-ux-copywriter) efter produktfakta ur features.ts och kvottjänsten, belopp ur PLAN_BY_KEY.
+- /verktyg/bli-upptackt: ny FAQ-fråga "Vad kostar det att synas för rekryterare?" med svaret att synligheten ingår i Allt (Allt-veckan 99 kr i veckan eller Allt-månaden 149 kr i månaden), att profilen utan Allt inte visas i rekryterarnas sökningar, och att profil och tester går att göra utan att betala. Service-schemat: price 99 och en beskrivning med båda Allt-priserna i stället för "Gratis att synas för kandidater". Slutpanelen säger samma sak.
+- /verktyg/linkedin-optimering: FAQ-frågan "Är det gratis att optimera sin LinkedIn?" blev "Vad kostar LinkedIn-optimeringen?" med svaret att den ingår i CV-veckan (79 kr i veckan) och i Allt (99 i veckan eller 149 i månaden), och att man utan paket ser exemplet men inte kör optimeringen. WebApplication-erbjudandet (price 79) och HowTo-kostnaden följer. Heron sa "Optimera gratis" och "1 gratis optimering varje vecka", vilket var osant: gratisnivån har ingen LinkedIn-optimering (API:t svarar 402). Knappen säger nu "Optimera min profil" och löftet "0 inloggningar på din LinkedIn". Slutpanelen säger CV-veckan eller Allt. OG- och Twitter-beskrivningen rättade på samma sätt. Anglicismer i FAQ-svaren (keywords, copy-pasta, autofyllt) rättade utan att ändra innebörden.
+- h1, title, meta description och canonical är oförändrade på båda sidorna. seo-diff-artiklar.ts fick läget `baslinje` och listan `BASLINJE_OMTAGEN` med skälet per sida; läget vägrar sidor utanför listan och vägrar om h1, title, description eller canonical ändrats. Diffen före omtagningen gav exakt två fel, JSON-LD på de två sidorna (docs/qa/seo-diff/diff-efterarbete-fore-baslinje.md); efter omtagningen noll fel på 37 sidor (diff-efterarbete.md).
+- Samma osanning stod i dashboardens introduktionssida ("Gratis: en optimering i veckan. Premium: obegränsat"); rättad till "Ingår i CV-veckan och Allt".
+- Vakttest: `src/components/verktyg/__tests__/allt-texter.test.ts`.
+
+### C. Reklamkorten, före och efter
+Granskade av copywriteragenten enligt rollen. Ändrade rader:
+
+<table>
+<thead><tr><th>Kort</th><th>Före</th><th>Efter</th><th>Varför</th></tr></thead>
+<tbody>
+<tr><td>Inline, test, rubrik</td><td>Se mönstret innan klockan börjar gå</td><td>Öva på frågorna innan de räknas</td><td>"Mönstret" gick att läsa som matrisens mönster eller testets upplägg; den nya säger värdet rakt: träna innan resultatet betyder något.</td></tr>
+<tr><td>Inline, mallar, text</td><td>... alla granskade mot svenska rekryteringssystem.</td><td>... byggda så att rekryteringssystem läser dem rätt.</td><td>"Granskade mot" antyder en extern kontroll vi inte kan belägga.</td></tr>
+<tr><td>Inline, analys, text</td><td>Ladda upp, vi läser som en rekryterare gör på sex sekunder.</td><td>Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet.</td><td>Sex sekunder är en ogaranterad siffra; "första urvalet" är facktermen.</td></tr>
+<tr><td>Inline, brev, text</td><td>Ett brev om dagen att läsa, gratis.</td><td>Ett brev var sjunde dag att läsa på skärmen, gratis.</td><td>Faktafel: gratisnivån är ett brev per rullande sju dygn. Frasen byggs nu ur LETTER_WINDOW_DAYS.</td></tr>
+<tr><td>Inline, coach, text</td><td>Tio frågor gratis, direkt i webbläsaren.</td><td>Tio frågor utan att betala.</td><td>"Direkt i webbläsaren" antydde att det gick utan konto.</td></tr>
+<tr><td>Inline, räknare, text</td><td>... Jobbcoachen, som har läst ditt CV.</td><td>... Jobbcoachen, som utgår från ditt CV.</td><td>Påstod något om läsarens konto som inte behöver stämma.</td></tr>
+<tr><td>Sidokolumn, CV, gratisrad</td><td>Tre mallar och ett brev om dagen är gratis.</td><td>Tre mallar och ett brev var sjunde dag är gratis.</td><td>Samma faktafel som ovan.</td></tr>
+<tr><td>Gratiskortet, rad 3</td><td>Ett personligt brev på en annons, att läsa</td><td>Ett personligt brev var sjunde dag, att läsa på skärmen</td><td>Utan tidsfönstret lästes raden som ett brev per annons.</td></tr>
+<tr><td>Listans slutkort, Allt</td><td>i veckan, eller 149 i månaden</td><td>i veckan, eller 149 kr i månaden</td><td>Saknade "kr", olikt resten.</td></tr>
+</tbody>
+</table>
+
+Godkända oförändrade: inline test (text, knapp, paketrad), mallar och analys (rubrik, knapp, paketrad), brev (rubrik, paketrad), coach (rubrik, knapp, paketrad), räknarnas rubrik och länkar, länkraden, sidokolumnens test- och Allt-kort, alla tre slutkort (rätt paket per kluster: test till Testveckan, CV och brev till CV-veckan, intervju och lön till Allt) och listans slutkort i övrigt. Inget "Lås upp", ingen trial, priser ur PLANS, mallantal ur konstanterna. Det fanns inga tester som vaktade texterna; `src/components/artiklar/reklam/__tests__/reklam-copy.test.ts` är ny (priser ur PLANS och inga andra belopp, paket per kluster, mallantal, brevfönstret, förbjudna ord och talstreck, den strukna rubriken).
+
+### Kvalitet
+tsc rent, vitest 54 filer och 657 tester gröna, produktionsbygget rent. Riktig webbläsartest med `scripts/qa-efterarbete.mjs` (systemets Chrome, Pixel 7 och desktop, varje publik vy i en egen inkognitokontext, ett tillfälligt Allt-konto skapat med service-rollen, inloggning genom formuläret, hård omladdning, kontot raderat och kontrollerat borta ur auth.users): noll konsolfel, noll svar 4xx/5xx, en h1 per vy, ingen horisontell scroll, primär handling inom första skärmhöjden, header och bottennav synliga, sidomenyns antal (3, 1, 2) från servern, samtycket syns, går att acceptera och kommer inte tillbaka, PostHog noll anrop före scroll, inloggad på /verktyg/linkedin-optimering skickas till /dashboard/linkedin-optimizer. Skärmdumpar i `docs/qa/qa-efterarbete/`.
+
+### Öppna punkter
+1. Migrationen `20260923120000_dashboard_summering.sql` behöver appliceras (se ovan). Hemskärmen och profilen ligger inom budget även utan den.
+2. Meta description på /verktyg/bli-upptackt säger fortfarande "det kostar ingenting att synas". Låst enligt uppdraget; osann mot beslutet. Copywriterns förslag när den öppnas: "Skapa en anonym kandidatprofil och bli hittad av verifierade rekryterare. Anonym tills du tackar ja. Ingår i Allt."
+3. LinkedIn-sidans WebApplication- och HowTo-schema har kvar anglicismer och fel produktnamn ("copy-paste", "score-rapport", "Split-view", "Karriärguidens AI", "branschkeywords"), och FAQ-frågan "Vad är ATS-keywords på LinkedIn?" står kvar. Egen omgång med SEO-agenten.
+4. Artikeln vad-ar-en-jobbcoach säger i FAQ att gratisversionen har en CV-analys och ett brev per månad och att Premium kostar 149 kr; inaktuellt mot paketen.
+5. PostHog räknar inte besökare som lämnar utan att röra sidan. Jämför sidvisningar i PostHog mot GA före och efter deploy innan trattsiffror tolkas.
+6. Efterladdat JavaScript på publika sidor är 244 till 263 kB, nästan helt next/link-förhämtning av länkade sidor. Ligger efter LCP och räknas inte i budgeten, men kostar mobildata.
+7. Hydreringen på hemskärmen är klar först vid ungefär 1,5 s i emuleringen; knappar svarar inte innan dess.

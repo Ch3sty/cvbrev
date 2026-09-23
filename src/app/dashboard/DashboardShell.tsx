@@ -16,7 +16,7 @@
  * som layoutskifte när innehållet kommer in sent.
  */
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import type { User } from '@supabase/supabase-js';
 import DashboardSidebar from '@/components/dashboard/Sidebar';
@@ -96,6 +96,18 @@ export default function DashboardShell({
   // flödessteg. Vi hoppar över den direkt i stället: pathname är känd redan
   // vid första render, så det finns ingen bild där bannern syns.
   const isFlowRoute = FLOW_ROUTES.some((r) => pathname?.startsWith(r));
+
+  // Sidbytets intoning hör till sidbyten, inte till första laddningen. På
+  // den första målningen startade innehållet på opacitet 0, och webbläsaren
+  // räknar inte ett osynligt element som målat: hemskärmens största element
+  // (Nästa handling) registrerades därför först när intoningen hunnit en bit,
+  // efter att resten av skalet redan stod där. Serverns HTML visas nu direkt,
+  // och intoningen tar vid från första klientnavigeringen.
+  // En gång navigerat alltid navigerat, även tillbaka till första sidan.
+  const forstaSokvag = useRef(pathname);
+  const navigerat = useRef(false);
+  if (pathname !== forstaSokvag.current) navigerat.current = true;
+  const harNavigerat = navigerat.current;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
@@ -218,7 +230,10 @@ export default function DashboardShell({
               avstånd var precis det som gjorde att något alltid låg fel. */}
           <main className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-6 lg:px-8 lg:py-6 dashboard-main-content relative bg-mark">
             <div className="mx-auto max-w-[960px] relative">
-              <div key={pathname} className="motion-safe:animate-[fadeInPlace_150ms_ease-out]">
+              <div
+                key={pathname}
+                className={harNavigerat ? 'motion-safe:animate-[fadeInPlace_150ms_ease-out]' : undefined}
+              >
                 {children}
               </div>
             </div>

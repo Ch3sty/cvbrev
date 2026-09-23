@@ -1,36 +1,22 @@
 'use client';
 
+/**
+ * Skickar inloggade från startsidan och Funktioner till dashboarden.
+ * Användaren läses ur AuthContext, som bara laddar Supabase-klienten när det
+ * finns en sessionscookie; en egen auth.getUser() här betalades förut av
+ * varje besökare.
+ */
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function AuthRedirect() {
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
-    let isMounted = true;
-
-    const checkAuth = async () => {
-      try {
-        const supabase = getSupabaseClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (user && isMounted) {
-          router.push('/dashboard');
-        }
-      } catch {
-        // Tyst: landningssidan ska visas även om auth-checken failar
-      }
-    };
-
-    checkAuth();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
+    if (user) router.push('/dashboard');
+  }, [user, router]);
 
   return null;
 }

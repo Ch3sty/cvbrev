@@ -17,6 +17,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { isTrack, type Track } from '@/lib/onboarding/program'
 import { isPlanKey, PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
 import ValjSparClient from './ValjSparClient'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
 export const metadata = { title: 'Välj spår' }
 
@@ -29,9 +30,7 @@ export default async function ValjSparPage({
   const cookieStore = await cookies()
   const supabase = createServerClient({ cookies: cookieStore })
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = await hamtaVerifieradAnvandare()
 
   if (!user) redirect('/login')
 

@@ -1,0 +1,102 @@
+[
+  {
+    "vy": "pixel7",
+    "sida": "artikel /artiklar/logiska-tester",
+    "h1": 1,
+    "horisontellScroll": false,
+    "reklamkort": true,
+    "samtycke": "accepterad, borta true, cookie true, visas igen false",
+    "posthog": "före scroll 0 anrop, efter scroll 4",
+    "fel": []
+  },
+  {
+    "vy": "pixel7",
+    "sida": "/verktyg/bli-upptackt",
+    "h1": 1,
+    "horisontellScroll": false,
+    "primarInomVy": true,
+    "slutpanel": true,
+    "faq": "Vad kostar det att synas för rekryterare?+−Synligheten ingår i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden, och du säger upp när du vill. Utan Allt kan du skapa din profil och göra tester",
+    "schemaGratis": false,
+    "fel": []
+  },
+  {
+    "vy": "pixel7",
+    "sida": "/verktyg/linkedin-optimering",
+    "h1": 1,
+    "horisontellScroll": false,
+    "primarInomVy": true,
+    "slutpanel": true,
+    "faq": "Vad kostar LinkedIn-optimeringen?+−Optimeringen ingår i CV-veckan för 79 kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: Allt-veckan för 99 kr i veckan ",
+    "schemaGratis": false,
+    "fel": []
+  },
+  {
+    "vy": "pixel7",
+    "sida": "/dashboard (inloggad, Allt, hård omladdning)",
+    "efterInloggning": "/dashboard",
+    "h1": 1,
+    "horisontellScroll": false,
+    "header": true,
+    "nastaHandling": true,
+    "primarInomVy": true,
+    "navSynlig": true,
+    "sidomenyAntal": [
+      "Sökta tjänster3",
+      "Mina CV1",
+      "Personliga brev2"
+    ],
+    "inloggadPaLinkedinSidan": "/dashboard/linkedin-optimizer",
+    "fel": []
+  },
+  {
+    "vy": "desktop",
+    "sida": "artikel /artiklar/logiska-tester",
+    "h1": 1,
+    "horisontellScroll": false,
+    "reklamkort": true,
+    "samtycke": "accepterad, borta true, cookie true, visas igen false",
+    "posthog": "före scroll 0 anrop, efter scroll 4",
+    "fel": []
+  },
+  {
+    "vy": "desktop",
+    "sida": "/verktyg/bli-upptackt",
+    "h1": 1,
+    "horisontellScroll": false,
+    "primarInomVy": true,
+    "slutpanel": true,
+    "faq": "Vad kostar det att synas för rekryterare?+−Synligheten ingår i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden, och du säger upp när du vill. Utan Allt kan du skapa din profil och göra tester",
+    "schemaGratis": false,
+    "fel": []
+  },
+  {
+    "vy": "desktop",
+    "sida": "/verktyg/linkedin-optimering",
+    "h1": 1,
+    "horisontellScroll": false,
+    "primarInomVy": true,
+    "slutpanel": true,
+    "faq": "Vad kostar LinkedIn-optimeringen?+−Optimeringen ingår i CV-veckan för 79 kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: Allt-veckan för 99 kr i veckan ",
+    "schemaGratis": false,
+    "fel": []
+  },
+  {
+    "vy": "desktop",
+    "sida": "/dashboard (inloggad, Allt, hård omladdning)",
+    "efterInloggning": "/dashboard",
+    "h1": 1,
+    "horisontellScroll": false,
+    "header": true,
+    "nastaHandling": true,
+    "primarInomVy": true,
+    "navSynlig": true,
+    "sidomenyAntal": [
+      "Sökta tjänster3",
+      "Mina CV1",
+      "Personliga brev2"
+    ],
+    "inloggadPaLinkedinSidan": "/dashboard/linkedin-optimizer",
+    "fel": []
+  }
+]

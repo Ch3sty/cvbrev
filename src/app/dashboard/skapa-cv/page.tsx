@@ -19,14 +19,13 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import CVCreatorWizard from './components/CVCreatorWizard';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function SkapaCVPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login?redirect=/dashboard/skapa-cv');

@@ -71,7 +71,7 @@ const TOM_PAKET: PaketLage = {
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
   // Profilen och paketet kommer ur den delade summeringen. Ingen egen
   // rundtur: menyn renderas på varje sida och har hemskärmens LCP-budget.
-  const { summary } = useDashboardData();
+  const { summary, refresh } = useDashboardData();
   const profile = (summary?.profile ?? null) as {
     premium_until?: string | null;
     subscription_tier?: string | null;
@@ -118,96 +118,54 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const { user } = useAuth();
   const userId = user?.id ?? null;
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [cvCount, setCvCount] = useState<number | null>(null);
-  const [letterCount, setLetterCount] = useState<number | null>(null);
-  const [applicationCount, setApplicationCount] = useState<number | null>(null);
+  // Antalen och adminlänken kommer ur den delade summeringen, som layouten
+  // läser på servern. Menyn gjorde förut en adminfråga och tre count-frågor
+  // efter mount, på varje sida.
+  const isAdmin = Boolean(summary?.arAdmin);
+  const cvCount = summary?.sidomeny?.cv ?? summary?.cv.count ?? null;
+  const letterCount = summary?.sidomeny?.brev ?? null;
+  const applicationCount = summary?.sidomeny?.ansokningar ?? null;
   const supabase = getSupabaseClient();
 
   // Ett grått val tryckt: betalväggen för rätt paket.
   const [sparr, setSparr] = useState<{ feature: Feature; variant: PaywallVariant } | null>(null);
 
+  // Antalen hålls levande: ändras CV, brev eller ansökningar i en annan flik
+  // eller i ett flöde hämtas summeringen om, en gång per skur av ändringar.
+  // Kanalerna öppnas först när sidan är ledig; ingen av dem behövs för
+  // första målningen.
   useEffect(() => {
     if (!userId) return;
     const uid: string = userId;
-
     const channels: ReturnType<typeof supabase.channel>[] = [];
     let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const hamtaOm = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => void refresh(), 800);
+    };
 
-    const loadAdminAndCounts = async () => {
-      try {
-        const { data: adminData } = await supabase
-          .from('admin_users')
-          .select('role')
-          .eq('id', uid)
-          .eq('role', 'super_admin')
-          .maybeSingle();
-        setIsAdmin(!!adminData);
-
-        await refreshCounts(uid);
-
-        if (cancelled) return;
-
+    const oppna = () => {
+      if (cancelled) return;
+      for (const table of ['cv_texts', 'letters', 'job_applications']) {
         channels.push(
           supabase
-            .channel('sidebar_cv_texts_changes')
-            .on(
-              'postgres_changes',
-              { event: '*', schema: 'public', table: 'cv_texts', filter: `user_id=eq.${uid}` },
-              () => refreshCounts(uid)
-            )
-            .subscribe(),
-          supabase
-            .channel('sidebar_letters_changes')
-            .on(
-              'postgres_changes',
-              { event: '*', schema: 'public', table: 'letters', filter: `user_id=eq.${uid}` },
-              () => refreshCounts(uid)
-            )
-            .subscribe(),
-          supabase
-            .channel('sidebar_job_applications_changes')
-            .on(
-              'postgres_changes',
-              { event: '*', schema: 'public', table: 'job_applications', filter: `user_id=eq.${uid}` },
-              () => refreshCounts(uid)
-            )
+            .channel(`sidebar_${table}_changes`)
+            .on('postgres_changes', { event: '*', schema: 'public', table, filter: `user_id=eq.${uid}` }, hamtaOm)
             .subscribe()
         );
-      } catch (error) {
-        console.error('Sidebar: error loading admin and counts', error);
       }
     };
 
-    const refreshCounts = async (uid: string) => {
-      const [{ count: cvCountResult }, { count: letterCountResult }, { count: applicationCountResult }] = await Promise.all([
-        supabase
-          .from('cv_texts')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', uid),
-        supabase
-          .from('letters')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', uid)
-          .eq('is_saved', true),
-        supabase
-          .from('job_applications')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', uid),
-      ]);
-      setCvCount(cvCountResult ?? 0);
-      setLetterCount(letterCountResult ?? 0);
-      setApplicationCount(applicationCountResult ?? 0);
-    };
-
-    // Ingenting av det här behövs för första målningen.
-    scheduleIdle(() => loadAdminAndCounts(), 3000);
+    const avbryt = scheduleIdle(oppna, 3000);
 
     return () => {
       cancelled = true;
+      avbryt?.();
+      if (timer) clearTimeout(timer);
       channels.forEach((ch) => supabase.removeChannel(ch));
     };
-  }, [supabase, userId]);
+  }, [supabase, userId, refresh]);
 
 
   /**

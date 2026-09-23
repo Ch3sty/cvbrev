@@ -1,8 +1,20 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
-import { User } from '@supabase/supabase-js';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import type { User } from '@supabase/supabase-js';
+import { KLIENT_SKAPAD, harSessionscookie } from '@/lib/supabase/klient-signal';
+
+/**
+ * Supabase-klienten laddas bara när den behövs. AuthProvider ligger i rot-
+ * layouten och alltså på varje publik sida; en statisk import lade supabase-js
+ * (drygt 40 kB komprimerat) i varje besökares JavaScript, också för den som
+ * aldrig loggat in. Nu laddas klienten när det finns en sessionscookie, eller
+ * när inloggningen eller registreringen skapar den (klient-signal.ts).
+ */
+async function laddaKlient() {
+  const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+  return getSupabaseClient();
+}
 
 interface AuthContextType {
   user: User | null;
@@ -42,7 +54,7 @@ export function AuthProvider({ children, initialUser = null }: AuthProviderProps
 
   const refreshUser = useCallback(async () => {
     try {
-      const supabase = getSupabaseClient();
+      const supabase = await laddaKlient();
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     } catch (error) {
@@ -52,42 +64,57 @@ export function AuthProvider({ children, initialUser = null }: AuthProviderProps
   }, []);
 
   useEffect(() => {
-    const supabase = getSupabaseClient();
+    let avbruten = false;
+    let avsluta: (() => void) | null = null;
+    let kopplar = false;
 
-    // Initial auth check
-    const initAuth = async () => {
-      // Servern har redan verifierat sessionen och skickat ner användaren.
-      // onAuthStateChange nedan fångar ändå in- och utloggning.
-      if (initialUser) {
-        setIsLoading(false);
-        return;
-      }
+    const koppla = async () => {
+      if (kopplar || avbruten) return;
+      kopplar = true;
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
+        const supabase = await laddaKlient();
+        if (avbruten) return;
+
+        // Fångar in- och utloggning, också den som sker på sidan efter att
+        // klienten skapats av inloggningsformuläret.
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+          async (event, session) => {
+            if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+              setUser(session?.user ?? null);
+            } else if (event === 'SIGNED_OUT') {
+              setUser(null);
+            }
+          }
+        );
+        avsluta = () => subscription.unsubscribe();
+
+        // Servern har redan verifierat sessionen och skickat ner användaren.
+        if (!initialUser) {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (!avbruten) setUser(user);
+        }
       } catch (error) {
         console.error('Error checking auth:', error);
-        setUser(null);
+        if (!avbruten && !initialUser) setUser(null);
       } finally {
-        setIsLoading(false);
+        if (!avbruten) setIsLoading(false);
       }
     };
 
-    initAuth();
+    if (initialUser || harSessionscookie(document.cookie)) {
+      void koppla();
+    } else {
+      // Ingen session: ingen användare, och inget att ladda.
+      setIsLoading(false);
+    }
 
-    // Subscribe to auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          setUser(session?.user ?? null);
-        } else if (event === 'SIGNED_OUT') {
-          setUser(null);
-        }
-      }
-    );
+    const narKlientenSkapas = () => void koppla();
+    window.addEventListener(KLIENT_SKAPAD, narKlientenSkapas);
 
     return () => {
-      subscription.unsubscribe();
+      avbruten = true;
+      window.removeEventListener(KLIENT_SKAPAD, narKlientenSkapas);
+      avsluta?.();
     };
   }, [initialUser]);
 

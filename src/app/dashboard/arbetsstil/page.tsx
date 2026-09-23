@@ -22,14 +22,13 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getArbetsstilData, EMPTY_ARBETSSTIL } from './getArbetsstilData';
 import ArbetsstilClient from './ArbetsstilClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function ArbetsstilPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

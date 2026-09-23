@@ -10,7 +10,7 @@
 // (komigang-server.ts) när handlingen faktiskt sker, aldrig via en knapp.
 
 import type { Scope } from '@/lib/access/features'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 /** Brickornas nycklar. Speglar nycklarna i profiles.onboarding_steps. */
 export type BrickaKey =

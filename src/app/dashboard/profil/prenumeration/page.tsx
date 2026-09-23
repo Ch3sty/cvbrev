@@ -21,6 +21,7 @@ import { harPaket } from '@/lib/plans/harPaket';
 import type { Scope } from '@/lib/access/features';
 import { lasBlockeringar, foreslaPaket, type Blockeringar } from './blockeringar';
 import PrenumerationClient from './PrenumerationClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 interface SubscriptionProfile {
   subscription_tier?: string | null;
@@ -40,9 +41,7 @@ export default async function PrenumerationPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

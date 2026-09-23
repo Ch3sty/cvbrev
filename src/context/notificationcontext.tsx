@@ -4,7 +4,6 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 import { useAuth } from '@/contexts/AuthContext'
 import Notification from '@/components/ui/notification'
 import Toast from '@/components/ui/toast/Toast'
-import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { ActivityType, logUserActivity } from '@/lib/activity-logger'
 
 // Typ för notifikationer
@@ -112,26 +111,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const [showConfetti, setShowConfetti] = useState(true)
   const { user: authUser } = useAuth()
   
-  // Hämta och lyssna på användarändringar
+  // Användaren kommer från AuthContext, som ligger ovanför den här
+  // providern och själv lyssnar på in- och utloggning. Den egna
+  // prenumerationen på Supabase här var en andra lyssnare på samma sak, och
+  // den drog in klienten i varje publik sidas JavaScript.
   useEffect(() => {
-    const supabase = getSupabaseClient()
-    
-    // Användaren kommer från AuthContext, som ligger ovanför den här
-    // providern i trädet och redan har den serverläst från rot-layouten.
-    // Det egna auth.getUser() här var en extra rundtur över nätet på varje
-    // sidladdning, för ett värde vi redan hade.
     setCurrentUser(authUser ?? null)
-
-    // Lyssna på auth-ändringar
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setCurrentUser(session?.user ?? null)
-      }
-    )
-    
-    return () => {
-      authListener.subscription.unsubscribe()
-    }
   }, [authUser])
   
   // Visa notifikation utan aktivitetsloggning

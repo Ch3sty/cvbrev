@@ -21,6 +21,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getDashboardSummary } from '@/lib/dashboard/getSummary';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function DashboardLayout({
   children,
@@ -30,9 +31,7 @@ export default async function DashboardLayout({
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

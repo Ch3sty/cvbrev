@@ -13,7 +13,7 @@
  */
 
 import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
 

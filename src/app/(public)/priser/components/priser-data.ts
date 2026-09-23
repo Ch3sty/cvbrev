@@ -11,7 +11,7 @@
  * omgång, annars säger sidan en sak och spärren en annan.
  */
 
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 export const PREMIUM_CURRENCY = 'SEK'
 

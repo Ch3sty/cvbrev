@@ -24,6 +24,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Scope } from '@/lib/access/features';
 import { harPaket } from '@/lib/plans/harPaket';
 import type { PlanKey } from '@/lib/plans/plans';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function CVMallarPage({
   searchParams,
@@ -39,9 +40,7 @@ export default async function CVMallarPage({
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

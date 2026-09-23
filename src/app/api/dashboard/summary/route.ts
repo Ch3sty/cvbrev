@@ -14,6 +14,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { getDashboardSummary } from '@/lib/dashboard/getSummary'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
 export type { DashboardSummaryPipelineItem } from '@/lib/dashboard/getSummary'
 
@@ -22,12 +23,11 @@ export async function GET() {
     const cookieStore = await cookies()
     const supabase = createServerClient({ cookies: cookieStore })
 
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser()
+    // Proxyn har redan verifierat sessionen; utan dess signerade header
+    // görs auth.getUser() som förut (verifierad-anvandare.ts).
+    const user = await hamtaVerifieradAnvandare()
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json({ success: false, error: 'Ej autentiserad' }, { status: 401 })
     }
 

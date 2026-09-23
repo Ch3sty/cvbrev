@@ -26,14 +26,13 @@ import type { JobApplication } from '@/lib/applications/status';
 import SoktaTjansterClient, {
   type BackfillCandidate,
 } from './SoktaTjansterClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function SoktaTjansterPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

@@ -7,7 +7,7 @@
  */
 
 import { suggestPlan, type Feature, type Scope } from '@/lib/access/features'
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 export type PaywallVariant =
   | 'mall'

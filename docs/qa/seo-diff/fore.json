@@ -6021,12 +6021,72 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Varför syns du inte idag"
+        "text": "Så fungerar det"
       },
       {
         "tag": "h3",
         "id": "",
-        "text": "Rekryterare söker på keywords"
+        "text": "Hämta din profiltext från LinkedIn"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Klistra in i fem fält"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi optimerar fem sektioner samtidigt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jämför före och efter"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kopiera tillbaka till LinkedIn"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fem sektioner i ett pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rubrik, högst 220 tecken"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Om mig, 250 till 350 ord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Erfarenhet i STAR-format"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utbildning, valfritt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kompetenser i 3 till 4 grupper"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Varför du inte syns i dag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryterare söker på sökord"
       },
       {
         "tag": "h3",
@@ -6037,66 +6097,6 @@
         "tag": "h3",
         "id": "",
         "text": "Algoritmen belönar fullständighet"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Fem steg från copy till copy"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Hämta din profiltext"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Klistra in eller välj sparat CV"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Vi optimerar fem sektioner samtidigt"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Du jämför före och efter"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Du kopierar tillbaka till LinkedIn"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Fem sektioner, ett pass"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Rubrik"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Om mig"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Erfarenhet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Utbildning"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Kompetenser"
       },
       {
         "tag": "h2",
@@ -6116,56 +6116,39 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Optimering som syns i inkorgen"
+        "text": "Sluta vara osynlig. Börja synas i dag."
       },
       {
         "tag": "h2",
         "id": "",
         "text": "Vanliga frågor om LinkedIn-optimering"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Sluta vara osynlig. Börja synas idag."
       }
     ],
     "lankar": [
       "#sa-funkar-det",
       "#sa-funkar-det",
       "/",
-      "/funktioner",
-      "/register",
-      "/register",
-      "/register",
-      "/register"
+      "/funktioner"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -6176,9 +6159,9 @@
       "/verktyg/skapa-cv"
     ],
     "jsonLd": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryterare hittar kandidater genom att söka på keywords i LinkedIns sökmotor. Om din rubrik bara säger \\\"Marknadsförare\\\" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel \\\"B2B SaaS marknadsförare i Stockholm\\\". Det handlar inte om att du är osynlig, utan om att profilen inte är optimerad för det sökspråk rekryterare använder.\"},\"name\":\"Varför syns jag inte på LinkedIn idag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel \\\"Senior frontend-utvecklare | React, TypeScript, design systems | Bygger produkt för B2B SaaS-bolag\\\" istället för bara \\\"Frontend-utvecklare\\\". Vi skapar förslag baserat på din erfarenhet och målroll, så du slipper stirra på en blank ruta.\"},\"name\":\"Hur skriver man en bra LinkedIn-rubrik?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS står för Applicant Tracking System och är de sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: rubrik, om-mig och erfarenhet. Vi identifierar keywords som matchar din erfarenhet och vävs in i texten naturligt, utan att det låter robotaktigt eller forcerat.\"},\"name\":\"Vad är ATS-keywords på LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn manuellt. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.\"},\"name\":\"Loggar ni in på min LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Själva AI-optimeringen tar 30-60 sekunder. Räkna sedan med 2-3 minuter för att copy-pasta in resultatet i LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare eftersom alla fält autofyllt från början.\"},\"name\":\"Hur lång tid tar optimeringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det går snabbare om du har ett sparat CV. Då fyller vi automatiskt i din erfarenhet, utbildning och kompetenser från CV-datan. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.\"},\"name\":\"Behöver jag ladda upp mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Stå ut bygger en bred profil som funkar mot flera arbetsgivare och rekryterare i din bransch, perfekt om du är öppen för olika typer av roller. Sikta på en specifik roll trycker fram exakt de keywords och formuleringar som krävs för en given titel, till exempel Senior Backend Engineer eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i andra läget när som helst.\"},\"name\":\"Vad är skillnaden mellan \\\"Stå ut i mängden\\\" och \\\"Sikta på en specifik roll\\\"?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du får en gratis optimering i veckan utan att lämna kortuppgifter, och du ser hela resultatet direkt. Behöver du fler optimeringar (till exempel om du tränar flera versioner mot olika roller) ingår LinkedIn-optimeringen i Allt-veckan för 99 kr i veckan och i Allt-månaden för 149 kr.\"},\"name\":\"Är det gratis att optimera sin LinkedIn?\"}]}",
-      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fem steg från copy-paste till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så optimerar du din LinkedIn-profil med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Hämta din profiltext från LinkedIn\",\"position\":1,\"text\":\"Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in i fem fält\",\"position\":2,\"text\":\"Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi optimerar fem sektioner samtidigt\",\"position\":3,\"text\":\"Karriärguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning på 30-60 sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför före och efter\",\"position\":4,\"text\":\"Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som ändrats.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera tillbaka till LinkedIn\",\"position\":5,\"text\":\"En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.\"}],\"totalTime\":\"PT5M\"}",
-      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.\",\"featureList\":\"Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords\",\"name\":\"Jobbcoach.ai LinkedIn-optimering\",\"offers\":{\"@type\":\"Offer\",\"description\":\"1 optimering gratis per vecka, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/linkedin-optimering\"}"
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \\\"Marknadsförare\\\" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel \\\"B2B SaaS marknadsförare i Stockholm\\\". Det handlar inte om att du är osynlig, utan om att profilen inte är skriven för det sökspråk rekryterare använder.\"},\"name\":\"Varför syns jag inte på LinkedIn idag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel \\\"Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag\\\" i stället för bara \\\"Frontend-utvecklare\\\". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.\"},\"name\":\"Hur skriver man en bra LinkedIn-rubrik?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS står för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.\"},\"name\":\"Vad är ATS-keywords på LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn själv. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.\"},\"name\":\"Loggar ni in på min LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom alla fält då är ifyllda från början.\"},\"name\":\"Hur lång tid tar optimeringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det går snabbare om du har ett sparat CV. Då fyller vi i din erfarenhet, utbildning och kompetenser från ditt CV. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.\"},\"name\":\"Behöver jag ladda upp mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Stå ut bygger en bred profil som fungerar mot flera arbetsgivare och rekryterare i din bransch, bra om du är öppen för olika typer av roller. Sikta på en specifik roll lyfter fram exakt de sökord och formuleringar som krävs för en given titel, till exempel Senior backendutvecklare eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst.\"},\"name\":\"Vad är skillnaden mellan \\\"Stå ut i mängden\\\" och \\\"Sikta på en specifik roll\\\"?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen ingår i CV-veckan för 79 kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.\"},\"name\":\"Vad kostar LinkedIn-optimeringen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fem steg från copy-paste till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"79\"},\"name\":\"Så optimerar du din LinkedIn-profil med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Hämta din profiltext från LinkedIn\",\"position\":1,\"text\":\"Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in i fem fält\",\"position\":2,\"text\":\"Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi optimerar fem sektioner samtidigt\",\"position\":3,\"text\":\"Karriärguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning på 30-60 sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför före och efter\",\"position\":4,\"text\":\"Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som ändrats.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera tillbaka till LinkedIn\",\"position\":5,\"text\":\"En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.\"}],\"totalTime\":\"PT5M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.\",\"featureList\":\"Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords\",\"name\":\"Jobbcoach.ai LinkedIn-optimering\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Ingår i CV-veckan, 79 kr i veckan, och i Allt-veckan, 99 kr i veckan, eller Allt-månaden, 149 kr i månaden\",\"price\":\"79\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/linkedin-optimering\"}"
     ],
     "forstaBild": null
   },
@@ -6194,6 +6177,31 @@
     "ogImage": "",
     "robots": "index, follow",
     "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skapa din profil"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gör testerna, om du vill"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Slå på synlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "En rekryterare hör av sig, du väljer"
+      },
       {
         "tag": "h2",
         "id": "",
@@ -6218,11 +6226,6 @@
         "tag": "h3",
         "id": "",
         "text": "Så du passar teamet"
-      },
-      {
-        "tag": "h2",
-        "id": "",
-        "text": "Rekryteraren hittar dig för att du faktiskt passar"
       },
       {
         "tag": "h2",
@@ -6252,31 +6255,6 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Fyra steg, du styr i varje"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Skapa din profil"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Gör testerna, om du vill"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "Slå på synlighet"
-      },
-      {
-        "tag": "h3",
-        "id": "",
-        "text": "En rekryterare hör av sig, du väljer"
-      },
-      {
-        "tag": "h2",
-        "id": "",
         "text": "Du har full kontroll hela vägen"
       },
       {
@@ -6295,6 +6273,16 @@
         "text": "Bara riktiga företag får söka"
       },
       {
+        "tag": "h3",
+        "id": "",
+        "text": "Ditt lönespann stannar hos dig"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Rekryteraren hittar dig för att du passar"
+      },
+      {
         "tag": "h2",
         "id": "",
         "text": "Det här ser en rekryterare av din profil"
@@ -6302,47 +6290,38 @@
       {
         "tag": "h2",
         "id": "",
-        "text": "Det du undrar"
+        "text": "Redo att bli hittad i stället för att leta?"
       },
       {
         "tag": "h2",
         "id": "",
-        "text": "Redo att bli hittad i stället för att leta?"
+        "text": "Frågor om Bli upptäckt"
       }
     ],
     "lankar": [
       "#sa-funkar-det",
-      "/",
-      "/register",
-      "/register"
+      "#sa-funkar-det",
+      "/"
     ],
     "ramLankar": [
       "/",
       "/anvandarvillkor",
       "/artiklar",
-      "/artiklar/bild-i-cv-ja-eller-nej",
-      "/artiklar/cover-letter-sverige",
-      "/artiklar/hur-avslutar-man-personligt-brev",
-      "/artiklar/hur-ska-ett-cv-se-ut",
-      "/artiklar/kompetensbaserad-intervju-star-metoden",
-      "/artiklar/personligt-brev-pa-engelska",
-      "/artiklar/skriva-personligt-brev-guide",
-      "/artiklar/styrkor-svagheter-intervju",
       "/cv-exempel",
       "/cv-mallar",
       "/exempel",
       "/for-rekryterare",
+      "/for-rekryterare/insikter",
       "/funktioner",
       "/hjalpcenter",
       "/integritetspolicy",
       "/integritetspolicy#cookies",
       "/kontakt",
-      "/login",
       "/om-oss",
       "/personligt-brev-exempel",
       "/priser",
       "/rakna-ut",
-      "/register",
+      "/verktyg/bli-upptackt",
       "/verktyg/cv-analys",
       "/verktyg/cv-mallar",
       "/verktyg/jobbcoachen",
@@ -6353,8 +6332,8 @@
       "/verktyg/skapa-cv"
     ],
     "jsonLd": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen.\"},\"name\":\"Kan min nuvarande chef se att jag är synlig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Bara rekryterare vars sökning matchar din profil kan se dig, och de kan bara skicka en kontaktförfrågan, inte kontakta dig direkt. Du väljer själv om du vill svara.\"},\"name\":\"Kommer jag bli nerspammad av rekryterare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi kontrollerar att varje rekryterare och företag är verifierat innan de får tillgång till kandidatpoolen. Oseriösa konton stängs av.\"},\"name\":\"Hur vet jag att rekryterarna är seriösa?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, det är helt frivilligt. Du kan synas ändå. Men gör du testerna får din profil starkare bevis för vad du kan och hur du jobbar, vilket ökar chansen att rätt rekryterare hör av sig.\"},\"name\":\"Måste jag göra personlighetstestet och kunskapstesterna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Din profil visar bara din roll, region, kompetenser och testresultat. Lön är något du och rekryteraren pratar om själva, om och när ni börjar chatta.\"},\"name\":\"Syns min lön eller mitt löneanspråk för rekryterare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, när som helst. Du stänger av synligheten med ett klick, och din profil slutar då dyka upp i rekryterares sökningar direkt.\"},\"name\":\"Kan jag ångra mig och sluta synas?\"}]}",
-      "{\"@context\":\"https://schema.org\",\"@type\":\"Service\",\"areaServed\":{\"@type\":\"Country\",\"name\":\"Sverige\"},\"description\":\"Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja, gratis att synas.\",\"name\":\"Bli upptäckt av rekryterare på Jobbcoach.ai\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Gratis att synas för kandidater\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"serviceType\":\"Karriärtjänst\",\"url\":\"https://www.jobbcoach.ai/verktyg/bli-upptackt\"}"
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen.\"},\"name\":\"Kan min nuvarande chef se att jag är synlig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Bara rekryterare vars sökning matchar din profil kan se dig, och de kan bara skicka en kontaktförfrågan, inte kontakta dig direkt. Du väljer själv om du vill svara.\"},\"name\":\"Kommer jag bli nerspammad av rekryterare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi kontrollerar att varje rekryterare och företag är verifierat innan de får tillgång till kandidatpoolen. Oseriösa konton stängs av.\"},\"name\":\"Hur vet jag att rekryterarna är seriösa?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, det är helt frivilligt. Du kan synas ändå. Men gör du testerna får din profil starkare bevis för vad du kan och hur du jobbar, vilket ökar chansen att rätt rekryterare hör av sig.\"},\"name\":\"Måste jag göra personlighetstestet och kunskapstesterna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Synligheten ingår i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden, och du säger upp när du vill. Utan Allt kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med Allt får du dessutom jobbmatchning varje natt, Jobbcoachen utan tak och allt i CV-veckan och Testveckan.\"},\"name\":\"Vad kostar det att synas för rekryterare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Din profil visar bara din roll, region, kompetenser och testresultat. Lön är något du och rekryteraren pratar om själva, om och när ni börjar chatta.\"},\"name\":\"Syns min lön eller mitt löneanspråk för rekryterare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, när som helst. Du stänger av synligheten med ett klick, och din profil slutar då dyka upp i rekryterares sökningar direkt.\"},\"name\":\"Kan jag ångra mig och sluta synas?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Service\",\"areaServed\":{\"@type\":\"Country\",\"name\":\"Sverige\"},\"description\":\"Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja. Synligheten ingår i Allt-veckan, 99 kr i veckan, eller Allt-månaden, 149 kr i månaden.\",\"name\":\"Bli upptäckt av rekryterare på Jobbcoach.ai\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Ingår i Allt-veckan, 99 kr i veckan, eller Allt-månaden, 149 kr i månaden. Profil och tester utan kostnad, synligheten kräver Allt.\",\"price\":\"99\",\"priceCurrency\":\"SEK\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"serviceType\":\"Karriärtjänst\",\"url\":\"https://www.jobbcoach.ai/verktyg/bli-upptackt\"}"
     ],
     "forstaBild": null
   },

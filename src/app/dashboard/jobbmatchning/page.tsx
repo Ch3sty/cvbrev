@@ -27,6 +27,7 @@ import {
   EMPTY_JOBBMATCHNING_DATA,
 } from './getJobbmatchningData';
 import JobbmatchningClient from './JobbmatchningClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 /**
  * Sidan är personlig och får aldrig serveras ur en cache. Utan det här kan en
@@ -39,9 +40,7 @@ export default async function JobbmatchningPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

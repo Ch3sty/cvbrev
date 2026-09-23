@@ -1,0 +1,15 @@
+JavaScript i HTML-svarets skript (parser) och efterladdat, Pixel 7, kall cache (scripts/js-fordelning.mjs), slutbygget 2026-09-23.
+Före (docs/qa/qa-linje/js-fordelning.txt): /artiklar/logiska-tester 243 kB/14, / 221 kB/13.
+
+/artiklar/logiska-tester HTML-skript 168 kB/12  efterladdat 255 kB/7
+/ HTML-skript 167 kB/12  efterladdat 244 kB/5
+/om-oss HTML-skript 159 kB/12  efterladdat 253 kB/7
+/verktyg/bli-upptackt HTML-skript 160 kB/12  efterladdat 252 kB/6
+/verktyg/linkedin-optimering HTML-skript 161 kB/12  efterladdat 253 kB/7
+/priser HTML-skript 168 kB/12  efterladdat 252 kB/6
+/artiklar HTML-skript 165 kB/12  efterladdat 262 kB/7
+/funktioner HTML-skript 159 kB/12  efterladdat 263 kB/7
+/verktyg/cv-analys HTML-skript 161 kB/12  efterladdat 253 kB/7
+/verktyg/rekryteringstester HTML-skript 161 kB/12  efterladdat 260 kB/8
+
+Efterladdat är nu next/link-förhämtning av länkade sidor; PostHog laddas inte förrän besökaren rör sidan.

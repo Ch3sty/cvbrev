@@ -25,14 +25,13 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getProfilData, EMPTY_PROFIL_DATA } from './getProfilData';
 import ProfilClient from './ProfilClient';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function ProfilPage() {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
     redirect('/login');

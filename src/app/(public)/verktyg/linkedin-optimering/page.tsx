@@ -60,9 +60,9 @@ export default function LinkedinOptimeringSida() {
     operatingSystem: 'Web browser',
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: String(PLAN_BY_KEY.cv_week.amount),
       priceCurrency: 'SEK',
-      description: '1 optimering gratis per vecka, ingen kortuppgift',
+      description: `Ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, eller ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden`,
     },
     featureList:
       'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords',
@@ -78,7 +78,7 @@ export default function LinkedinOptimeringSida() {
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
-      value: '0',
+      value: String(PLAN_BY_KEY.cv_week.amount),
     },
     step: [
       {
@@ -161,10 +161,10 @@ export default function LinkedinOptimeringSida() {
         h1="Hamna i rekryterarnas sökresultat på LinkedIn"
         ingress="Du klistrar in din profiltext, vi optimerar fem sektioner samtidigt och ger dig en bättre version att klistra tillbaka."
         fet="Vi loggar aldrig in på din LinkedIn, du behåller full kontroll."
-        primar={{ text: 'Optimera gratis', href: '/register' }}
+        primar={{ text: 'Optimera min profil', href: '/register' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
-          { tal: '1 gratis', text: 'optimering varje vecka' },
+          { tal: '0', text: 'inloggningar på din LinkedIn' },
           { tal: '5', text: 'sektioner samtidigt' },
           { tal: '5 min', text: 'tills profilen är uppdaterad' },
         ]}
@@ -177,7 +177,7 @@ export default function LinkedinOptimeringSida() {
           ingress:
             'Inga inloggningar på LinkedIn och ingen automatisk publicering. Du kopierar in, vi optimerar, du kopierar tillbaka. Klart på fem minuter.',
           rader: howToSchema.step.map((s, i) => ({ rubrik: s.name, text: STEG_TEXT[i] })),
-          lank: { text: 'Optimera din LinkedIn gratis', href: '/register' },
+          lank: { text: 'Optimera min profil', href: '/register' },
         }}
         kontroll={{
           eyebrow: 'Vad vi optimerar',
@@ -207,10 +207,10 @@ export default function LinkedinOptimeringSida() {
           roll: 'UX-designer inom B2B SaaS, från noll till åtta meddelanden på två veckor',
         }}
         slut={{
-          eyebrow: PLAN_BY_KEY.cv_week.name,
+          eyebrow: `${PLAN_BY_KEY.cv_week.name} eller Allt`,
           rubrik: 'Sluta vara osynlig. Börja synas i dag.',
-          text: `En optimering i veckan är gratis, utan kortuppgift och utan inloggning på din LinkedIn. Vill du optimera fler gånger, till exempel mot olika roller, ingår LinkedIn-optimeringen i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, tillsammans med full CV-analys och alla mallar.`,
-          knapp: { text: 'Optimera din LinkedIn gratis', href: '/register' },
+          text: `LinkedIn-optimeringen ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: ${PLAN_BY_KEY.all_week.name} för ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.name} för ${PLAN_BY_KEY.all_month.amount} kr i månaden. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
+          knapp: { text: 'Optimera min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}
         faq={{

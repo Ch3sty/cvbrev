@@ -14,6 +14,7 @@
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import type { Letter } from '@/store/letter-store';
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export async function getLetterForUser(id: string): Promise<{
   user: { id: string } | null;
@@ -22,9 +23,7 @@ export async function getLetterForUser(id: string): Promise<{
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await hamtaVerifieradAnvandare();
 
   if (!user) return { user: null, letter: null };
 

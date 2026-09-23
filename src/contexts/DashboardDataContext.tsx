@@ -112,6 +112,14 @@ export interface DashboardSummary {
       matrisAv?: number | null;
     };
   };
+  /** Sidomenyns antal, ur samma svar. Valfri: äldre cache kan sakna den. */
+  sidomeny?: {
+    cv: number;
+    brev: number;
+    ansokningar: number;
+  };
+  /** Superadmin: menyn visar adminlänken. */
+  arAdmin?: boolean;
 }
 
 interface DashboardDataContextValue {
