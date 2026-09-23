@@ -9,12 +9,10 @@ import {
   getFontById,
 } from '@/lib/cv/preview-utils';
 
-import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 
-import TemplateSelector from './TemplateSelector';
+import MallGrid from './MallGrid';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
@@ -181,14 +179,13 @@ export default function MallarLivePreview({
         <section>
           <StepHeader
             number={2}
-            title="Välj din mall"
-            description={`Bläddra i listan eller öppna galleriet för att se alla ${TEMPLATE_COUNT} mallar.`}
+            title="Välj mall"
+            description={`Sex av ${TEMPLATE_COUNT} syns här. Alla klarar rekryteringssystemens läsning.`}
           />
-          <TemplateSelector
+          <MallGrid
             selectedTemplate={selectedTemplate}
             onTemplateSelect={handleTemplateSelect}
             isPremium={isPremium}
-            onUpgradeClick={onUpgrade}
           />
         </section>
 
@@ -207,6 +204,8 @@ export default function MallarLivePreview({
               isLoading={isLoading}
               previewError={previewError}
               hasCV={!!selectedCV}
+              templateId={selectedTemplate}
+              fontId={selectedFont}
             />
 
             {/* Mall-info */}
@@ -250,12 +249,16 @@ function PreviewContainer({
   isLoading,
   previewError,
   hasCV,
+  templateId,
+  fontId,
 }: {
   previewHTML: string;
   templateName: string | undefined;
   isLoading: boolean;
   previewError: string | null;
   hasCV: boolean;
+  templateId: string;
+  fontId: string;
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-kant bg-panel">
@@ -286,7 +289,20 @@ function PreviewContainer({
           CLS på 0,06. Alla fyra tillstånd bor nu i samma låda, som aldrig
           byter storlek, och innehållet scrollar inuti den. */}
       <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken sm:h-[850px]">
-        {!hasCV && <PreviewEmptyState />}
+        {/* Förhandsvisningen är aldrig tom (analysen 22 september, avsnitt 4):
+            utan valt CV visas mallen med exempeltext, samma serverrenderade
+            dokument som artiklarnas mallvisning. */}
+        {!hasCV && (
+          <div className="px-3 py-3 sm:px-4 sm:py-4">
+            <p className="mb-2 text-meta text-ink-3">Exempel-CV. Välj ditt CV i steg 1 så ser du ditt eget.</p>
+            <iframe
+              key={`${templateId}-${fontId}`}
+              src={`/api/public/exempel/cv?mall=${encodeURIComponent(templateId)}&typsnitt=${encodeURIComponent(fontId)}`}
+              title={`Exempel i mallen ${templateName ?? ''}`}
+              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-panel"
+            />
+          </div>
+        )}
         {hasCV && previewError && <PreviewError message={previewError} />}
         {hasCV && !previewError && previewHTML && (
           /* Nyckeln byts nar previewn andras, sa React monterar om noden och
@@ -392,18 +408,6 @@ function ScaledPreview({ html }: { html: string }) {
   );
 }
 
-function PreviewEmptyState() {
-  return (
-    <div className="flex h-full items-center justify-center px-6 py-20">
-      <EmptyState
-        bare
-        illustration={IlluTomMapp}
-        title="Välj ett CV först"
-        description="När du valt ett CV ovanför ser du hur det ser ut i den valda mallen direkt här."
-      />
-    </div>
-  );
-}
 
 function PreviewLoading() {
   return (

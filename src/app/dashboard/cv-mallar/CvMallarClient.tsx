@@ -76,6 +76,7 @@ export default function CvMallarClient({
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [sparrOppen, setSparrOppen] = useState(false);
   const [busy, setBusy] = useState<PlanKey | null>(null);
+  const [bytCv, setBytCv] = useState(false);
 
   const isPremium = initialIsPremium;
   const huvud = mallHuvud(scope);
@@ -199,18 +200,39 @@ export default function CvMallarClient({
         </section>
       ) : null}
 
-      {/* Steg 1: Valj CV */}
+      {/* Steg 1 är en statusrad när ett CV redan är valt: det är gjort
+          (analysen 22 september, avsnitt 4). "Byt" fäller ut väljaren. */}
       <section data-flow-section="cv">
-        <StepHeader
-          number={1}
-          title="Välj vilket CV du vill använda"
-          description="Vi använder innehållet från CV:t i mallen du väljer i nästa steg."
-        />
-        <CompactCvPicker
-          cvs={initialCvs}
-          selectedCV={selectedCvId}
-          onCVSelect={setSelectedCvId}
-        />
+        {selectedCV && !bytCv ? (
+          <StatusRow
+            tone="positive"
+            showDot
+            label="Steg 1 av 3, CV"
+            action={
+              <button
+                type="button"
+                onClick={() => setBytCv(true)}
+                className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+              >
+                Byt
+              </button>
+            }
+          >
+            Steg 1 av 3 · CV: {selectedCV.file_name.replace(/\.[^/.]+$/, '')}
+          </StatusRow>
+        ) : (
+          <>
+            <StepHeader number={1} title="Vilket CV?" description="Vi lägger innehållet från CV:t i mallen du väljer." />
+            <CompactCvPicker
+              cvs={initialCvs}
+              selectedCV={selectedCvId}
+              onCVSelect={(id) => {
+                setSelectedCvId(id);
+                setBytCv(false);
+              }}
+            />
+          </>
+        )}
       </section>
 
       <section data-flow-section="template">
