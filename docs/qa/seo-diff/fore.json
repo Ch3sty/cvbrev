@@ -6159,9 +6159,9 @@
       "/verktyg/skapa-cv"
     ],
     "jsonLd": [
-      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \\\"Marknadsförare\\\" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel \\\"B2B SaaS marknadsförare i Stockholm\\\". Det handlar inte om att du är osynlig, utan om att profilen inte är skriven för det sökspråk rekryterare använder.\"},\"name\":\"Varför syns jag inte på LinkedIn idag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel \\\"Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag\\\" i stället för bara \\\"Frontend-utvecklare\\\". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.\"},\"name\":\"Hur skriver man en bra LinkedIn-rubrik?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS står för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.\"},\"name\":\"Vad är ATS-keywords på LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn själv. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.\"},\"name\":\"Loggar ni in på min LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom alla fält då är ifyllda från början.\"},\"name\":\"Hur lång tid tar optimeringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det går snabbare om du har ett sparat CV. Då fyller vi i din erfarenhet, utbildning och kompetenser från ditt CV. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.\"},\"name\":\"Behöver jag ladda upp mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Stå ut bygger en bred profil som fungerar mot flera arbetsgivare och rekryterare i din bransch, bra om du är öppen för olika typer av roller. Sikta på en specifik roll lyfter fram exakt de sökord och formuleringar som krävs för en given titel, till exempel Senior backendutvecklare eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst.\"},\"name\":\"Vad är skillnaden mellan \\\"Stå ut i mängden\\\" och \\\"Sikta på en specifik roll\\\"?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen ingår i CV-veckan för 79 kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.\"},\"name\":\"Vad kostar LinkedIn-optimeringen?\"}]}",
-      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fem steg från copy-paste till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"79\"},\"name\":\"Så optimerar du din LinkedIn-profil med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Hämta din profiltext från LinkedIn\",\"position\":1,\"text\":\"Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in i fem fält\",\"position\":2,\"text\":\"Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi optimerar fem sektioner samtidigt\",\"position\":3,\"text\":\"Karriärguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning på 30-60 sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför före och efter\",\"position\":4,\"text\":\"Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som ändrats.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera tillbaka till LinkedIn\",\"position\":5,\"text\":\"En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.\"}],\"totalTime\":\"PT5M\"}",
-      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.\",\"featureList\":\"Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords\",\"name\":\"Jobbcoach.ai LinkedIn-optimering\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Ingår i CV-veckan, 79 kr i veckan, och i Allt-veckan, 99 kr i veckan, eller Allt-månaden, 149 kr i månaden\",\"price\":\"79\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/linkedin-optimering\"}"
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \\\"Marknadsförare\\\" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel \\\"B2B SaaS marknadsförare i Stockholm\\\". Det handlar inte om att du är osynlig, utan om att profilen inte är skriven för det sökspråk rekryterare använder.\"},\"name\":\"Varför syns jag inte på LinkedIn idag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel \\\"Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag\\\" i stället för bara \\\"Frontend-utvecklare\\\". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.\"},\"name\":\"Hur skriver man en bra LinkedIn-rubrik?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS är förkortningen för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.\"},\"name\":\"Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn själv. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.\"},\"name\":\"Loggar ni in på min LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom alla fält då är ifyllda från början.\"},\"name\":\"Hur lång tid tar optimeringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det går snabbare om du har ett sparat CV. Då fyller vi i din erfarenhet, utbildning och kompetenser från ditt CV. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.\"},\"name\":\"Behöver jag ladda upp mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Stå ut bygger en bred profil som fungerar mot flera arbetsgivare och rekryterare i din bransch, bra om du är öppen för olika typer av roller. Sikta på en specifik roll lyfter fram exakt de sökord och formuleringar som krävs för en given titel, till exempel Senior backendutvecklare eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst.\"},\"name\":\"Vad är skillnaden mellan \\\"Stå ut i mängden\\\" och \\\"Sikta på en specifik roll\\\"?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen ingår i CV-veckan för 79 kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i Allt: Allt-veckan för 99 kr i veckan eller Allt-månaden för 149 kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.\"},\"name\":\"Vad kostar LinkedIn-optimeringen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fem steg från din nuvarande profiltext till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"79\"},\"name\":\"Så optimerar du din LinkedIn-profil med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Hämta din profiltext från LinkedIn\",\"position\":1,\"text\":\"Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in i fem fält\",\"position\":2,\"text\":\"Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi optimerar fem sektioner samtidigt\",\"position\":3,\"text\":\"Jobbcoach.ai bearbetar alla fem sektioner parallellt med svensk arbetsmarknad som ram, branschens nyckelord och anpassning för rekryteringssystem (ATS) på 30 till 60 sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför före och efter\",\"position\":4,\"text\":\"En delad vy visar din nuvarande text bredvid den optimerade. Per sektion ser du hur poängen ändrats och vad som skrivits om.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera tillbaka till LinkedIn\",\"position\":5,\"text\":\"En knapp kopierar hela paketet eller en sektion åt gången. Du klistrar in på LinkedIn manuellt och sparar.\"}],\"totalTime\":\"PT5M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du klistrar in din text och får en optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.\",\"featureList\":\"Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, poäng före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, kopiera och klistra in utan LinkedIn-inloggning, STAR-format på erfarenhet, anpassning för rekryteringssystem (ATS) med branschens nyckelord\",\"name\":\"Jobbcoach.ai LinkedIn-optimering\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Ingår i CV-veckan, 79 kr i veckan, och i Allt-veckan, 99 kr i veckan, eller Allt-månaden, 149 kr i månaden\",\"price\":\"79\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/linkedin-optimering\"}"
     ],
     "forstaBild": null
   },
@@ -6860,5 +6860,767 @@
       "src": "/images/jobbcoach/Helena.webp",
       "alt": "Helena Andersson - Senior Karriärcoach"
     }
+  },
+  {
+    "path": "/rakna-ut",
+    "status": 200,
+    "h1": [
+      "Räkna ut: kalkylatorer för lön, jobb och rekrytering"
+    ],
+    "title": "Räkna ut: gratis kalkylatorer för lön, jobb och rekrytering",
+    "description": "Gratis kalkylatorer utan konto: lön efter skatt 2026, uppsägningstid enligt LAS, semesterersättning, vad en anställd kostar och mer. Byggda på myndighetsdata.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "För dig som söker jobb eller byter"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lön efter skatt 2026"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Uppsägningstid enligt LAS"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Semesterersättning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Timlön till månadslön"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Löneförhandlingens värde"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "För dig som anställer"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vad kostar en anställd?"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Felrekryteringens kostnad"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sourcingtratten"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träffsäkerhetssimulatorn"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/rakna-ut/felrekrytering",
+      "/rakna-ut/lon-efter-skatt",
+      "/rakna-ut/loneforhandling",
+      "/rakna-ut/semesterersattning",
+      "/rakna-ut/sourcing",
+      "/rakna-ut/timlon-till-manadslon",
+      "/rakna-ut/traffsakerhet",
+      "/rakna-ut/uppsagningstid",
+      "/rakna-ut/vad-kostar-en-anstalld"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/felrekrytering",
+    "status": 200,
+    "h1": [
+      "Räkna ut vad en felrekrytering kostar"
+    ],
+    "title": "Räkna ut vad en felrekrytering kostar",
+    "description": "Ange månadslönen och se felrekryteringens kostnad post för post: rekrytering, lön under anställningen, produktionsbortfall och omstarten. Källbelagd kalkyl.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/felrekrytering",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Räkna på er egen felrekrytering"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/for-rekryterare/insikter/vad-kostar-en-felrekrytering",
+      "/for-rekryterare/insikter/vad-kostar-en-felrekrytering",
+      "/for-rekryterare/insikter/vakanskostnad",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/vad-kostar-en-anstalld"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vanliga svenska uppskattningar landar kring 700 000 kronor för en tjänstemannaroll när allt räknas in: rekryteringskostnaden, lön och arbetsgivaravgifter under den misslyckade anställningen, produktionsbortfall, chefstid och omstarten med en ny rekrytering. Beloppet skalar med lönenivån, kalkylatorn låter dig räkna på er faktiska situation.\"},\"name\":\"Vad kostar en felrekrytering?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryteringskostnaden för den första processen, lönekostnad inklusive arbetsgivaravgift under anställningsmånaderna, ett produktionsbortfall som speglar att rollen inte levererar som tänkt, kringkostnader som chefstid och introduktion, samt omstartskostnaden när processen måste göras om. Varje post kan justeras efter era förhållanden.\"},\"name\":\"Vilka poster ingår i kalkylen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Forskningen är entydig: strukturerat urval slår magkänsla. Kravprofil som styr processen, strukturerade intervjuer med samma frågor och ankarskalor, arbetsprov eller validerade tester, och referenstagning med struktur. Vi har skrivit igenom hela kedjan i våra insikter för rekryterare.\"},\"name\":\"Hur undviker man felrekryteringar?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Ange månadslönen för rollen och se kostnaden post för post, från första annonsen till omstarten. Samma kalkylator som i vår insikt om felrekryteringens kostnad.\",\"name\":\"Räkna ut vad en felrekrytering kostar\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/felrekrytering\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/lon-efter-skatt",
+    "status": 200,
+    "h1": [
+      "Räkna ut lön efter skatt 2026"
+    ],
+    "title": "Räkna ut lön efter skatt 2026: nettolön i din kommun",
+    "description": "Räkna ut din lön efter skatt med Skatteverkets skattetabeller 2026 och din kommuns faktiska skattesats. Jämför två löner eller kommuner och se skillnaden per år.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/hur-ofta-byta-jobb",
+      "/artiklar/loneansprak-intervju",
+      "/artiklar/loneforhandling",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/loneforhandling"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Arbetsgivaren drar preliminärskatt enligt Skatteverkets skattetabell för din kommun. Tabellen bygger på kommunalskatt och regionskatt, begravningsavgift, eventuell kyrkoavgift, samt grundavdrag, jobbskatteavdrag och statlig inkomstskatt över skiktgränsen. Kalkylatorn slår upp din lön direkt i 2026 års tabeller i stället för att approximera med formler.\"},\"name\":\"Hur räknas lön efter skatt ut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tabellnumret är summan av skattesatserna där du är folkbokförd, avrundad till hel procent. I Stockholm 2026 är summan 30,69 procent utan kyrkoavgift, vilket ger tabell 31, och cirka 31,6 procent för medlemmar i Svenska kyrkan, vilket ger tabell 32. Kalkylatorn väljer tabell automatiskt när du väljer kommun.\"},\"name\":\"Vilken skattetabell tillhör jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Statlig inkomstskatt på 20 procent tas ut på beskattningsbar förvärvsinkomst över skiktgränsen 643 000 kronor. Räknat före grundavdrag motsvarar det en brytpunkt på cirka 660 400 kronor om året, ungefär 55 000 kronor i månaden, för den som inte fyllt 66 år.\"},\"name\":\"När betalar man statlig inkomstskatt 2026?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kommunalskatten och regionskatten bestäms lokalt och varierar 2026 från 28,93 procent i Österåker till 35,65 procent i Dorotea, med ett riksgenomsnitt på 32,38 procent. På en månadslön runt 35 000 kronor kan skillnaden mellan Sveriges lägsta och högsta skattesats motsvara flera hundralappar i månaden.\"},\"name\":\"Varför skiljer sig lönen efter skatt mellan kommuner?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, det är arbetsgivarens preliminärskatteavdrag enligt tabell. Den slutliga skatten avgörs i deklarationen och kan påverkas av avdrag, flera arbetsgivare, ränteinkomster med mera. För de flesta med en anställning och en inkomst ligger tabellavdraget dock mycket nära den slutliga skatten.\"},\"name\":\"Är beloppet min slutliga skatt?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, för de flesta löntagare. Jobbskatteavdraget förstärktes i 2026 års budget med som mest omkring 400 kronor i månaden, och avtrappningen av avdraget vid höga inkomster slopades. Effekten ligger redan inbakad i 2026 års skattetabeller som kalkylatorn använder.\"},\"name\":\"Blev skatten lägre 2026?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Se vad som blir kvar av lönen i din kommun, beräknat med Skatteverkets riktiga skattetabeller för 2026. Jämför gärna två löner eller två kommuner, det är så du ser vad ett jobbyte eller en flytt faktiskt är värd i handen.\",\"name\":\"Räkna ut lön efter skatt 2026\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/loneforhandling",
+    "status": 200,
+    "h1": [
+      "Vad är en löneförhandling värd?"
+    ],
+    "title": "Vad är en löneförhandling värd? Räkna på höjningen",
+    "description": "Räkna ut vad en löneökning är värd över 5, 10 och 20 år. En höjning på 2 000 kr i månaden växer med varje revision, se den ackumulerade skillnaden.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/loneforhandling",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/hur-ofta-byta-jobb",
+      "/artiklar/loneansprak-intervju",
+      "/artiklar/loneforhandling",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/lon-efter-skatt"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Därför att varje framtida revision räknas i procent av din nuvarande lön. En förhandlad höjning följer med i basen och växer med varje års revision, och tjänstepensionen, för de flesta 4,5 procent av lönen, betalas in på den högre nivån varje månad. Skillnaden mellan att förhandla och att avstå ackumuleras därför år efter år.\"},\"name\":\"Varför är en löneförhandling värd mer än höjningen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med en årlig revision på 2,5 procent blir den ackumulerade bruttoskillnaden ungefär 270 000 kronor över tio år, eftersom höjningen räknas upp varje år tillsammans med resten av lönen. Prova själv i räknaren med dina egna siffror.\"},\"name\":\"Hur mycket är 2 000 kr mer i månaden värt på tio år?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De två starkaste lägena är vid nytt jobb, innan du tackat ja, och när ditt ansvar förändrats påtagligt. Det årliga lönesamtalet är i praktiken en justering inom en given pott, medan ingångslönen sätter basen som alla framtida revisioner räknas på. Det är därför löneanspråket vid jobbyte väger tyngst av allt.\"},\"name\":\"När är rätt läge att förhandla lön?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, dubbelt. Den allmänna pensionen baseras på din pensionsgrundande inkomst, och tjänstepensionen betalas som en procentsats av lönen, vanligen 4,5 procent upp till 7,5 inkomstbasbelopp och 30 procent på lönedelar däröver. En högre lön i dag är alltså också en högre pensionsavsättning varje månad framöver.\"},\"name\":\"Påverkar lönen min pension?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"En höjning du förhandlar fram i dag följer med i basen för varje framtida revision. Räkna på vad skillnaden blir över 5, 10 och 20 år, med dina egna antaganden.\",\"name\":\"Vad är en löneförhandling värd?\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/loneforhandling\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/semesterersattning",
+    "status": 200,
+    "h1": [
+      "Räkna ut semesterersättning"
+    ],
+    "title": "Räkna ut semesterersättning och semestertillägg",
+    "description": "Räkna ut semesterersättning enligt semesterlagen: 12 procent med procentregeln eller 5,03 procent av månadslönen per sparad dag vid slutlön. Med källor.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/semesterersattning",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "/artiklar/saga-upp-sig",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/uppsagningstid"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med procentregeln är semesterlönen tolv procent av din sammanlagda förfallna lön under intjänandeåret, enligt 16 b § semesterlagen. Regeln används framför allt vid timlön, kortare anställningar och lön som varierar. Semesterersättning när anställningen tar slut beräknas enligt samma grunder.\"},\"name\":\"Hur mycket är semesterersättningen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med sammalöneregeln behåller du ordinarie lön under semestern och får ett semestertillägg på 0,43 procent av månadslönen per betald semesterdag, enligt 16 a § semesterlagen. När sparade dagar ska betalas ut i pengar vid slutlön används dagslönen, i praktiken 4,6 procent av månadslönen, plus tillägget, alltså 5,03 procent av månadslönen per dag.\"},\"name\":\"Hur räknas semesterersättning ut för månadslön?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Semestertillägget betalas normalt ut i samband med semestern. Semesterersättning för intjänade och sparade dagar när du slutar en anställning ska betalas ut utan oskäligt dröjsmål, senast en månad efter anställningens slut, enligt 30 § semesterlagen.\"},\"name\":\"När betalas semesterersättningen ut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Som huvudregel nej. Semesterlagen kräver att semesterlön och semesterersättning går att särskilja från lönen, och en klumpsumma där allt påstås ingå håller sällan vid en tvist. Vid mycket korta anställningar kan ersättningen dock betalas ut löpande, men den ska redovisas separat på lönebeskedet.\"},\"name\":\"Får man baka in semesterersättning i lönen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ofta, och då till din fördel. Många tjänstemannaavtal ger ett semestertillägg på 0,8 procent av månadslönen per dag i stället för lagens 0,43, och vissa avtal räknar med 13 procent i stället för 12. Lagens procentsatser är golvet, kollektivavtalet kan bara förbättra dem.\"},\"name\":\"Gäller andra procentsatser med kollektivavtal?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Semestertillägg per dag, ersättning för sparade dagar vid slutlön eller tolv procent enligt procentregeln, beroende på hur du får din lön.\",\"name\":\"Räkna ut semesterersättning\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/semesterersattning\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/sourcing",
+    "status": 200,
+    "h1": [
+      "Sourcingtratten: från kontakter till anställning"
+    ],
+    "title": "Sourcingtratten: räkna ut hur många kontakter som krävs",
+    "description": "Hur många riktade kontakter krävs för en anställning? Räkna baklänges genom svarsfrekvens, intervjuer och erbjudanden med benchmarks från branschdata.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/sourcing",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sourcingtratten"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/for-rekryterare/insikter/hitta-kandidater-sourcing",
+      "/for-rekryterare/insikter/hitta-kandidater-sourcing",
+      "/for-rekryterare/insikter/uppsokande-rekrytering",
+      "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
+      "/rakna-ut",
+      "/rakna-ut"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med typiska svarsfrekvenser på 10 till 25 procent för uppsökande meddelanden, och normala konverteringar vidare till intervju, erbjudande och accept, krävs ofta någonstans mellan 30 och 100 riktade kontakter per anställning beroende på roll och hantverk. Tratten räknar på era egna antaganden åt båda hållen.\"},\"name\":\"Hur många kandidater måste man kontakta för en anställning?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"LinkedIns egna data pekar på att korta meddelanden under 400 tecken får omkring 22 procent bättre svarsfrekvens och individuellt skickade meddelanden cirka 15 procent högre än massutskick. Branschbenchmarks för svarsfrekvens ligger ofta i spannet 10 till 25 procent, hantverket avgör var i spannet ni hamnar.\"},\"name\":\"Vad är en bra svarsfrekvens på uppsökande meddelanden?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Två sätt: höj konverteringen i varje steg med bättre meddelanden och snabbare process, eller börja med kandidater som redan visat intresse. En kandidatpool där kandidaterna själva registrerat sig och angett villkor vänder på tratten, ni kontaktar bara personer som redan är öppna för rätt erbjudande.\"},\"name\":\"Hur gör man tratten mindre?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Ange hur många ni ska anställa och er kanalkvalitet, så visar tratten hur många kontakter, svar och intervjuer som krävs, eller vänd på den och se vad era kontakter räcker till.\",\"name\":\"Sourcingtratten: från kontakter till anställning\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/sourcing\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/timlon-till-manadslon",
+    "status": 200,
+    "h1": [
+      "Räkna om timlön till månadslön"
+    ],
+    "title": "Räkna om timlön till månadslön (och tvärtom)",
+    "description": "Konvertera timlön till månadslön eller månadslön till timlön med 174-timmarsschablonen. Justera timmarna för deltid och se årslönen direkt.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/loneansprak-intervju",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/lon-efter-skatt",
+      "/rakna-ut/semesterersattning"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Multiplicera timlönen med 174, schablonen för antalet arbetstimmar per månad vid heltid med 40-timmarsvecka. En timlön på 180 kronor motsvarar alltså ungefär 31 300 kronor i månadslön. Schablonen kommer av att 40 timmar i veckan gånger 52 veckor delat på 12 månader blir 173,33 timmar, som i löneadministration avrundas till 174.\"},\"name\":\"Hur räknar man om timlön till månadslön?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Dela månadslönen med 174. En månadslön på 31 000 kronor motsvarar ungefär 178 kronor i timmen vid heltid. Arbetar du deltid är timlönen densamma, det är antalet timmar som skiljer, så dela alltid heltidslönen med heltidsmåttet.\"},\"name\":\"Hur räknar man om månadslön till timlön?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Inte automatiskt. Semesterersättningen på 12 procent enligt semesterlagen ska normalt redovisas separat och får inte utan tydlig överenskommelse bakas in i timlönen. Om en annons anger timlön inklusive semesterersättning är den jämförbara lönen alltså cirka 10,7 procent lägre.\"},\"name\":\"Ingår semesterersättning i timlönen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Månadens faktiska arbetstid varierar mellan cirka 160 och 184 timmar beroende på hur helgdagarna faller, och vissa branscher med annan veckoarbetstid använder andra delningstal, till exempel inom vård och skift. 174 är den vanligaste schablonen för 40-timmarsvecka, men du kan ändra timtalet i räknaren efter din arbetstid.\"},\"name\":\"Varför använder vissa 165 eller 160 timmar i stället?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Konvertera åt båda hållen med 174-timmarsschablonen för heltid, eller ändra timtalet efter din faktiska arbetstid. Årslönen får du på köpet.\",\"name\":\"Räkna om timlön till månadslön\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/traffsakerhet",
+    "status": 200,
+    "h1": [
+      "Träffsäkerhetssimulatorn: jämför urvalsmetoder"
+    ],
+    "title": "Träffsäkerhetssimulatorn: jämför urvalsmetoder",
+    "description": "Hur många rekryteringar lyckas med CV-granskning jämfört med strukturerad intervju och test? Simulera urvalsmetodernas träffsäkerhet på forskningens siffror.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/traffsakerhet",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Simulera er träffsäkerhet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/for-rekryterare/insikter/kognitiva-tester-rekrytering-forskning",
+      "/for-rekryterare/insikter/kognitiva-tester-rekrytering-forskning",
+      "/for-rekryterare/insikter/strukturerad-intervju-och-test",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/felrekrytering"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Enligt den senaste stora forskningsgenomgången (Sackett med kollegor, 2022) ligger strukturerade intervjuer och kunskaps- eller arbetsprovstest i toppen, medan ostrukturerade intervjuer och CV-bedömningar hamnar långt efter. Kombinationen strukturerad intervju plus test höjer träffsäkerheten ytterligare, det är den kombinationen simulatorn låter dig jämföra mot.\"},\"name\":\"Vilken urvalsmetod är mest träffsäker?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Simulatorn använder Taylor-Russell-logik: givet metodens validitet, andelen kandidater som skulle lyckas i rollen och hur selektivt ni väljer, beräknas hur stor andel av de valda som faktiskt lyckas. Valideringssiffrorna kommer från Sackett med kollegors metaanalys från 2022.\"},\"name\":\"Hur fungerar simuleringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, och mer ju fler rekryteringar ni gör. Skillnaden mellan en svag och en stark urvalsmetod kan motsvara flera lyckade rekryteringar per tio anställda, och varje undviken felrekrytering är värd hundratusentals kronor. Räkna gärna vidare i felrekryteringskalkylatorn.\"},\"name\":\"Spelar metodvalet verkligen så stor roll?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Välj urvalsmetod och se hur stor andel av rekryteringarna som förväntas lyckas, byggt på urvalsforskningens validitetssiffror. Samma simulator som i vår forskningsinsikt.\",\"name\":\"Träffsäkerhetssimulatorn: jämför urvalsmetoder\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/traffsakerhet\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/uppsagningstid",
+    "status": 200,
+    "h1": [
+      "Räkna ut din uppsägningstid"
+    ],
+    "title": "Räkna ut din uppsägningstid enligt LAS",
+    "description": "Hur lång uppsägningstid har du? Räkna ut den enligt LAS utifrån anställningstid och vem som säger upp, och få din sista anställningsdag som datum.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/uppsagningstid",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/byta-jobb-praktiska-tips",
+      "/artiklar/provanstallning",
+      "/artiklar/saga-upp-sig",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/semesterersattning"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En månad enligt 11 § LAS, oavsett hur länge du varit anställd, om inte ditt anställningsavtal eller kollektivavtal anger längre tid. Många tjänstemannaavtal förlänger den egna uppsägningstiden till två eller tre månader efter några års anställning, så kontrollera alltid avtalet.\"},\"name\":\"Hur lång uppsägningstid har jag om jag säger upp mig själv?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Minst en månad, och därefter en trappa efter sammanlagd anställningstid: två månader efter två år, tre efter fyra år, fyra efter sex år, fem efter åtta år och sex månader efter tio års anställning, allt enligt 11 § LAS. Kollektivavtal kan ge längre tider, bland annat för äldre arbetstagare.\"},\"name\":\"Hur lång uppsägningstid gäller när arbetsgivaren säger upp?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En provanställning får avbrytas i förtid av båda parter utan uppsägningstid, om inget annat avtalats (6 § LAS). Arbetsgivaren ska dock underrätta dig minst två veckor i förväg (31 § LAS), och i många kollektivavtal gäller en månads ömsesidig uppsägningstid även under provanställning.\"},\"name\":\"Vad gäller vid provanställning?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, trappan i LAS utgår från den sammanlagda anställningstiden hos arbetsgivaren, även om den är uppdelad på flera perioder eller olika anställningsformer. Tidigare vikariat och visstidsanställningar hos samma arbetsgivare räknas alltså med.\"},\"name\":\"Räknas all anställningstid hos arbetsgivaren?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du och arbetsgivaren kan alltid komma överens om ett tidigare slutdatum när du säger upp dig, det kallas ofta att bli arbetsbefriad eller att förkorta tiden i samförstånd. Däremot kan arbetsgivaren inte ensidigt korta din lagstadgade uppsägningstid, och du kan inte tvingas gå tidigare än avtalat.\"},\"name\":\"Kan jag förhandla bort eller förkorta uppsägningstiden?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Ange när anställningen började och vem som säger upp, så får du uppsägningstiden enligt LAS och din sista anställningsdag som konkret datum.\",\"name\":\"Räkna ut din uppsägningstid\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/uppsagningstid\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/rakna-ut/vad-kostar-en-anstalld",
+    "status": 200,
+    "h1": [
+      "Vad kostar en anställd?"
+    ],
+    "title": "Vad kostar en anställd 2026? Räkna ut totalkostnaden",
+    "description": "Räkna ut vad en anställd kostar per månad och år 2026: arbetsgivaravgift, tjänstepension, försäkringar, särskild löneskatt och semester, post för post.",
+    "canonical": "https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld",
+    "ogImage": "https://www.jobbcoach.ai/images/rakna-ut.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så räknar vi"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Läs mer"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
+      "/for-rekryterare/insikter/vakanskostnad",
+      "/rakna-ut",
+      "/rakna-ut",
+      "/rakna-ut/felrekrytering"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Arbetsgivaravgiften på 31,42 procent är den största posten. Med kollektivavtal tillkommer tjänstepension, för tjänstemän med ITP1 4,5 procent av lönen upp till 52 125 kronor i månaden och 30 procent däröver, avtalsförsäkringar på några tiondels procent, särskild löneskatt på 24,26 procent av pensionspremierna samt semestertillägg. Tumregeln är att totalkostnaden landar på cirka 1,4 till 1,5 gånger bruttolönen.\"},\"name\":\"Vad kostar en anställd utöver lönen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den fulla arbetsgivaravgiften är 31,42 procent av bruttolönen. För anställda som fyllt 18 men inte 23 år är avgiften tillfälligt nedsatt till 20,81 procent på lönedelar upp till 25 000 kronor i månaden, för ersättningar som betalas ut mellan april 2026 och september 2027.\"},\"name\":\"Hur hög är arbetsgivaravgiften 2026?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En skatt på 24,26 procent som arbetsgivaren betalar på pensionskostnader, till exempel ITP-premier. Den glöms ofta bort i snabbkalkyler men gör att varje pensionskrona i praktiken kostar 1,24 kronor, vilket märks tydligt på lönedelar över 52 125 kronor i månaden där premien är 30 procent.\"},\"name\":\"Vad är särskild löneskatt?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Lagkraven är då bruttolön, arbetsgivaravgift och semesterlön. Men de flesta seriösa arbetsgivare utan kollektivavtal tecknar ändå tjänstepension och försäkringar på liknande nivåer, både för att kunna rekrytera och för att villkoren annars blir en varningsflagga för erfarna kandidater. Räkna med att marknaden, inte lagen, sätter golvet.\"},\"name\":\"Vad kostar en anställd utan kollektivavtal?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Annonsering, urval, intervjutid och eventuellt byråarvode kommer ovanpå lönekostnaden, och en tom stol under rekryteringstiden har en egen vakanskostnad. Vi har räknat på båda i våra insikter för rekryterare, se länkarna nedan.\"},\"name\":\"Vad kostar rekryteringen innan den anställda ens börjat?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"FinanceApplication\",\"description\":\"Bruttolönen är bara början. Här är hela månadskostnaden 2026, post för post: arbetsgivaravgift, tjänstepension, särskild löneskatt, försäkringar och semester.\",\"name\":\"Vad kostar en anställd?\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld\"}"
+    ],
+    "forstaBild": null
   }
 ]
