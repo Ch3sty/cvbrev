@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { DelaRad, byggUrl, lasQuery, useQuerySynk } from '@/components/rakna/dela'
+import { DIREKTA_KOSTNADER, beraknaFelrek } from '@/lib/rakna/felrekrytering'
 
 /**
  * Interaktiv felrekryteringskalkylator för insikten "Vad kostar en
@@ -10,11 +11,8 @@ import { DelaRad, byggUrl, lasQuery, useQuerySynk } from '@/components/rakna/del
  * produktionsbortfall/teampåverkan och omrekrytering skalade mot lönenivån.
  */
 
-const BAS_LON = 40_000 // referenslönen i artikelns räkneexempel
-const ARBETSGIVARFAKTOR = 1.42
-const DIREKTA_KOSTNADER = 90_000 // annons, tester, ~30 h intern tid
-const BAS_PRODUKTIONSBORTFALL = 150_000 // vid baslön och 10 månader
-const BAS_OMREKRYTERING = 200_000 // vid baslön
+// Antagandena och räkningen ligger i src/lib/rakna/felrekrytering.ts, delade
+// med kalkylatorn på /rakna-ut/felrekrytering.
 
 function kr(n: number): string {
   return `${Math.round(n / 1000) * 1000}`.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr'
@@ -32,13 +30,7 @@ export default function FelrekryteringsKalkylator() {
     if (qMan >= 4 && qMan <= 18) setManader(qMan)
   }, [])
 
-  const lonefaktor = manadslon / BAS_LON
-  const arbetsgivarkostnad = manadslon * ARBETSGIVARFAKTOR
-
-  const improduktivLon = arbetsgivarkostnad * manader * 0.5
-  const produktionsbortfall = BAS_PRODUKTIONSBORTFALL * lonefaktor * (manader / 10)
-  const omrekrytering = BAS_OMREKRYTERING * lonefaktor
-  const total = DIREKTA_KOSTNADER + improduktivLon + produktionsbortfall + omrekrytering
+  const { improduktivLon, produktionsbortfall, omrekrytering, total } = beraknaFelrek({ manadslon, manader })
 
   const delParams = { lon: String(manadslon), man: String(manader) }
   useQuerySynk(delParams)

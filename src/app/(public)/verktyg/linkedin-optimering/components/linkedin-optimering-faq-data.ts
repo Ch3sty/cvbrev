@@ -26,8 +26,8 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
     a: 'En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel "Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag" i stället för bara "Frontend-utvecklare". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.',
   },
   {
-    q: 'Vad är ATS-keywords på LinkedIn?',
-    a: 'ATS står för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.',
+    q: 'Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?',
+    a: 'ATS är förkortningen för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.',
   },
   {
     q: 'Loggar ni in på min LinkedIn?',

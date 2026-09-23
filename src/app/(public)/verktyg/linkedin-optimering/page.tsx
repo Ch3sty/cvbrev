@@ -55,7 +55,7 @@ export default function LinkedinOptimeringSida() {
     name: 'Jobbcoach.ai LinkedIn-optimering',
     url: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
     description:
-      'Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du copy-pastar in din text och får optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.',
+      'Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du klistrar in din text och får en optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -65,7 +65,7 @@ export default function LinkedinOptimeringSida() {
       description: `Ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, eller ${PLAN_BY_KEY.all_month.name}, ${PLAN_BY_KEY.all_month.amount} kr i månaden`,
     },
     featureList:
-      'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, score-rapport före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, copy-paste-flöde utan LinkedIn-inloggning, STAR-format på erfarenhet, ATS-optimering med branschkeywords',
+      'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, poäng före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, kopiera och klistra in utan LinkedIn-inloggning, STAR-format på erfarenhet, anpassning för rekryteringssystem (ATS) med branschens nyckelord',
   }
 
   const howToSchema = {
@@ -73,7 +73,7 @@ export default function LinkedinOptimeringSida() {
     '@type': 'HowTo',
     name: 'Så optimerar du din LinkedIn-profil med Jobbcoach.ai',
     description:
-      'Fem steg från copy-paste till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.',
+      'Fem steg från din nuvarande profiltext till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.',
     totalTime: 'PT5M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -100,14 +100,14 @@ export default function LinkedinOptimeringSida() {
         position: 3,
         name: 'Vi optimerar fem sektioner samtidigt',
         text:
-          'Karriärguidens AI bearbetar alla fem sektioner parallellt med svensk arbetsmarknadskontext, branschkeywords och ATS-anpassning på 30-60 sekunder.',
+          'Jobbcoach.ai bearbetar alla fem sektioner parallellt med svensk arbetsmarknad som ram, branschens nyckelord och anpassning för rekryteringssystem (ATS) på 30 till 60 sekunder.',
       },
       {
         '@type': 'HowToStep',
         position: 4,
         name: 'Jämför före och efter',
         text:
-          'Split-view visar din nuvarande text bredvid den optimerade. Per sektion ser du score-deltan och vad som ändrats.',
+          'En delad vy visar din nuvarande text bredvid den optimerade. Per sektion ser du hur poängen ändrats och vad som skrivits om.',
       },
       {
         '@type': 'HowToStep',

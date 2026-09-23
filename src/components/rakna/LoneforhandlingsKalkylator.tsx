@@ -1,134 +1,97 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { DelaRad, byggUrl, lasQuery, useQuerySynk } from './dela'
-
 /**
- * Vad en löneförhandling är värd över tid. Jämför löneutvecklingen med och
- * utan en förhandlad höjning, med samma årliga revision i båda scenarierna.
- * Inga externa antaganden, användaren styr revisionstakten själv.
+ * Vad en löneförhandling är värd över tid. Logiken ligger i
+ * src/lib/rakna/loneforhandling.ts.
  */
+import { useEffect, useState } from 'react'
+import KalkylatorSkal, { useIndata } from './KalkylatorSkal'
+import { FaltPanel, PostRader, TalFalt } from './ui'
+import {
+  FORHANDLING_KALLA,
+  FORHANDLING_STANDARD,
+  beraknaForhandling,
+  forhandlingParametrar,
+  lasForhandling,
+  type ForhandlingIndata,
+} from '@/lib/rakna/loneforhandling'
+import { kr, krTecken } from '@/lib/rakna/format'
 
-const fmt = new Intl.NumberFormat('sv-SE', { maximumFractionDigits: 0 })
-
-function ackumulerat(startlon: number, hojning: number, revision: number, ar: number): number {
-  let diff = 0
-  let utan = startlon
-  let med = startlon + hojning
-  for (let i = 0; i < ar; i++) {
-    diff += (med - utan) * 12
-    utan *= 1 + revision
-    med *= 1 + revision
-  }
-  return diff
+function siffror(s: string): number {
+  return Math.max(0, parseInt(s.replace(/\s/g, ''), 10) || 0)
 }
 
-export default function LoneforhandlingsKalkylator() {
-  const [lon, setLon] = useState('36000')
-  const [hojning, setHojning] = useState('2000')
-  const [revision, setRevision] = useState('2,5')
+export default function LoneforhandlingsKalkylator({ start = FORHANDLING_STANDARD }: { start?: ForhandlingIndata }) {
+  const [d, setD] = useIndata(start, lasForhandling)
+  const [lonText, setLonText] = useState(String(start.lon))
+  const [hojText, setHojText] = useState(String(start.hojning))
 
   useEffect(() => {
-    const q = lasQuery()
-    const qLon = q.get('lon')
-    if (qLon && /^\d+$/.test(qLon)) setLon(qLon)
-    const qHojning = q.get('hojning')
-    if (qHojning && /^\d+$/.test(qHojning)) setHojning(qHojning)
-    const qRev = q.get('rev')
-    if (qRev && /^[\d,.]+$/.test(qRev)) setRevision(qRev)
-  }, [])
+    setLonText((t) => (siffror(t) === d.lon ? t : String(d.lon)))
+    setHojText((t) => (siffror(t) === d.hojning ? t : String(d.hojning)))
+  }, [d.lon, d.hojning])
 
-  const lonNum = Math.max(0, parseInt(lon.replace(/\s/g, ''), 10) || 0)
-  const hojningNum = Math.max(0, parseInt(hojning.replace(/\s/g, ''), 10) || 0)
-  const revisionNum = Math.max(0, parseFloat(revision.replace(',', '.')) || 0) / 100
+  const r = beraknaForhandling(d)
+  const satt = (del: Partial<ForhandlingIndata>) => setD((x) => ({ ...x, ...del }))
 
-  const perioder: [string, number][] = [5, 10, 20].map((ar) => [
-    `Efter ${ar} år`,
-    ackumulerat(lonNum, hojningNum, revisionNum, ar),
-  ])
-
-  const delParams = {
-    lon: String(lonNum),
-    hojning: String(hojningNum),
-    rev: revision !== '2,5' ? revision : null,
-  }
-  useQuerySynk(delParams)
-  const delUrl = byggUrl('https://www.jobbcoach.ai/rakna-ut/loneforhandling', delParams)
-  const resultatText = `${fmt.format(hojningNum)} kr mer i månaden i löneförhandlingen är värt +${fmt.format(perioder[1][1])} kr över tio år, när varje revision räknas på den högre lönen. Räkna själv: ${delUrl}`
+  const falt = (
+    <FaltPanel>
+      <TalFalt
+        id="lfLon"
+        etikett="Nuvarande månadslön"
+        enhet="kr"
+        value={lonText}
+        onChange={(v) => {
+          setLonText(v)
+          satt({ lon: siffror(v) })
+        }}
+      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TalFalt
+          id="lfHojning"
+          etikett="Förhandlad höjning per månad"
+          enhet="kr"
+          value={hojText}
+          onChange={(v) => {
+            setHojText(v)
+            satt({ hojning: siffror(v) })
+          }}
+        />
+        <TalFalt
+          id="lfRevision"
+          etikett="Årlig revision"
+          enhet="%"
+          decimal
+          value={d.rev}
+          onChange={(v) => satt({ rev: v })}
+          hjalp="Samma takt med och utan höjningen."
+        />
+      </div>
+    </FaltPanel>
+  )
 
   return (
-    <div className="not-prose my-8 rounded-2xl border border-orange-200 bg-gradient-to-b from-orange-50/70 to-white p-6 sm:p-8">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <div>
-          <label htmlFor="lfLon" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Nuvarande månadslön (kr)
-          </label>
-          <input
-            id="lfLon"
-            type="text"
-            inputMode="numeric"
-            value={lon}
-            onChange={(e) => setLon(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label htmlFor="lfHojning" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Förhandlad höjning (kr/mån)
-          </label>
-          <input
-            id="lfHojning"
-            type="text"
-            inputMode="numeric"
-            value={hojning}
-            onChange={(e) => setHojning(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label htmlFor="lfRevision" className="mb-1 block text-xs font-bold uppercase tracking-wide text-slate-500">
-            Årlig revision (%)
-          </label>
-          <input
-            id="lfRevision"
-            type="text"
-            inputMode="decimal"
-            value={revision}
-            onChange={(e) => setRevision(e.target.value)}
-            className="w-full rounded-lg border border-orange-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <div className="mt-5 rounded-xl border border-orange-200 bg-white p-4 sm:p-5">
-        <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">
-          Ackumulerad bruttoskillnad jämfört med att inte förhandla
-        </p>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {perioder.map(([rubrik, belopp]) => (
-            <div key={rubrik}>
-              <p className="mb-0 text-sm text-slate-600">{rubrik}</p>
-              <p className="mb-0 text-2xl font-black text-emerald-700">+{fmt.format(belopp)} kr</p>
-            </div>
-          ))}
-        </div>
-        <p className="mb-0 mt-3 text-sm text-slate-600">
-          Höjningen räknas upp med samma procentuella revision som resten av
-          lönen, det är därför skillnaden växer varje år. Ovanpå detta kommer
-          tjänstepensionen, som för de flesta är 4,5 procent av lönen: en högre
-          lön i dag är också en högre pensionsinbetalning varje månad framåt.
-        </p>
-      </div>
-
-      <DelaRad
-        delUrl={delUrl}
-        resultatText={resultatText}
-        badda={{ slug: 'loneforhandling', titel: 'Vad är en löneförhandling värd?' }}
-      />
-
-      <p className="mb-0 mt-4 text-xs text-slate-500">
-        Beloppen är före skatt och bygger på dina egna antaganden om revision.
-      </p>
-    </div>
+    <KalkylatorSkal
+      slug="loneforhandling"
+      titel="Vad är en löneförhandling värd?"
+      falt={falt}
+      etikett="Löneförhandlingens värde"
+      premiss={`${kr(d.hojning)} mer i månaden på ${kr(d.lon)}`}
+      tal={krTecken(r.ar10)}
+      enhet="mer i lön över tio år"
+      mening="Höjningen räknas upp med samma revision som resten av lönen, därför växer skillnaden varje år. Beloppen är före skatt, och ovanpå dem kommer tjänstepensionen, som för de flesta är 4,5 procent av lönen."
+      detaljer={
+        <PostRader
+          rader={[
+            ['Efter 5 år', krTecken(r.ar5)],
+            ['Efter 10 år', krTecken(r.ar10)],
+            ['Efter 20 år', krTecken(r.ar20)],
+          ]}
+        />
+      }
+      kalla={FORHANDLING_KALLA}
+      parametrar={forhandlingParametrar(d)}
+      delText={`${kr(d.hojning)} mer i månaden i löneförhandlingen är värt ${krTecken(r.ar10)} över tio år, när varje revision räknas på den högre lönen.`}
+    />
   )
 }

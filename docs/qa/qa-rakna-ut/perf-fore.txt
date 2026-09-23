@@ -1,0 +1,14 @@
+Före ombyggnaden (commit 42aed68b), produktionsbygge, port 5216, Pixel 7, 3x CPU, LTE, median av tre.
+scripts/perf-publikt.ts --korningar 3
+
+sida                                               LCP    FCP    CLS  TTFB    kB
+/rakna-ut                                          488    488      0     8   515
+/rakna-ut/felrekrytering                           548    548      0     9   433
+/rakna-ut/lon-efter-skatt                          552    552      0     9   477
+/rakna-ut/loneforhandling                          728    728      0     9   433
+/rakna-ut/semesterersattning                       596    596      0     8   433
+/rakna-ut/sourcing                                 544    544      0     9   434
+/rakna-ut/timlon-till-manadslon                    556    556      0     7   433
+/rakna-ut/traffsakerhet                            556    556      0     8   434
+/rakna-ut/uppsagningstid                           672    672      0    11   433
+/rakna-ut/vad-kostar-en-anstalld                   556    556      0     8   434

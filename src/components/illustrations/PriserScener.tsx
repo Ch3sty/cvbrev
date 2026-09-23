@@ -326,6 +326,47 @@ export function IlluScenAllt({ className, title }: ScenProps) {
   )
 }
 
+/**
+ * Räkna ut: en räknare med resultatet i orange i displayen och ett kvitto
+ * lutat 6 grader bakom, där uträkningen står i rader. Hubben och de nio
+ * kalkylatorerna.
+ */
+export function IlluScenKalkylator({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g transform="rotate(6 182 96)" stroke="currentColor" strokeWidth={4}>
+        <rect x="146" y="30" width="72" height="124" rx="10" fill={ILLU.fill} />
+        <path d="M162 56h40M162 74h28M162 92h40M162 110h20M162 134h40" />
+      </g>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="34" y="18" width="128" height="166" rx="14" fill={ILLU.fill} />
+        <rect x="50" y="34" width="96" height="42" rx="6" fill={INSUNKEN} />
+        <rect x="50" y="90" width="26" height="22" rx="5" />
+        <rect x="85" y="90" width="26" height="22" rx="5" />
+        <rect x="120" y="90" width="26" height="22" rx="5" />
+        <rect x="50" y="120" width="26" height="22" rx="5" />
+        <rect x="85" y="120" width="26" height="22" rx="5" />
+        <rect x="120" y="120" width="26" height="22" rx="5" />
+        <rect x="50" y="150" width="26" height="22" rx="5" />
+        <rect x="85" y="150" width="26" height="22" rx="5" />
+        <rect x="120" y="150" width="26" height="22" rx="5" fill="currentColor" />
+      </g>
+      <path d="M127 158h12M127 164h12" stroke={ILLU.fill} strokeWidth={3} />
+      <text
+        x="138"
+        y="64"
+        textAnchor="end"
+        fontFamily={DISPLAY}
+        fontWeight={800}
+        fontSize={22}
+        fill={ILLU.accent}
+      >
+        26 912
+      </text>
+    </Scen>
+  )
+}
+
 /* ========================================================= hero 520 × 400 */
 
 /** Veckan på skrivbordet: CV med poäng, personligt brev, matris och tråden. */

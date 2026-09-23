@@ -1,0 +1,7 @@
+localhost:5216 (se ordningen nedan) HTML-skript 159 kB/12  efterladdat 314 kB/12
+localhost:5216 (se ordningen nedan) HTML-skript 205 kB/13  efterladdat 253 kB/7
+localhost:5216 (se ordningen nedan) HTML-skript 162 kB/12  efterladdat 253 kB/7
+localhost:5216 (se ordningen nedan) HTML-skript 162 kB/12  efterladdat 253 kB/7
+localhost:5216 (se ordningen nedan) HTML-skript 161 kB/12  efterladdat 253 kB/7
+
+Ordning: /rakna-ut, /rakna-ut/lon-efter-skatt, /rakna-ut/felrekrytering, /rakna-ut/uppsagningstid, /verktyg/jobbcoachen (jämförelse)

@@ -1,0 +1,398 @@
+[
+  {
+    "enhet": "pixel7",
+    "sida": "/rakna-ut",
+    "h1": "Räkna ut: kalkylatorer för lön, jobb och rekrytering",
+    "kort": 10,
+    "black": 1,
+    "scrollX": false,
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "lon-efter-skatt",
+    "forstaFaltTop": 408,
+    "fore": {
+      "tal": "32 938 kr",
+      "premiss": "42 000 kr i lön i Uppsala"
+    },
+    "efter": {
+      "tal": "32 938 kr",
+      "premiss": "42 000 kr i lön i Uppsala"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt?lon=42000&kommun=Uppsala",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "uppsagningstid",
+    "forstaFaltTop": 354,
+    "fore": {
+      "tal": "5 månader",
+      "premiss": "Sista anställningsdag 1 mars 2027"
+    },
+    "efter": {
+      "tal": "5 månader",
+      "premiss": "Sista anställningsdag 1 mars 2027"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/uppsagningstid?vem=ag&start=2018-05-01&datum=2026-10-01",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "semesterersattning",
+    "forstaFaltTop": 354,
+    "fore": {
+      "tal": "26 760 kr",
+      "premiss": "38 000 kr i månadslön, 14 sparade dagar"
+    },
+    "efter": {
+      "tal": "26 760 kr",
+      "premiss": "38 000 kr i månadslön, 14 sparade dagar"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/semesterersattning?lage=manad&lon=38000&dagar=14",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "timlon-till-manadslon",
+    "forstaFaltTop": 381,
+    "fore": {
+      "tal": "33 930 kr",
+      "premiss": "195 kr i timmen"
+    },
+    "efter": {
+      "tal": "33 930 kr",
+      "premiss": "195 kr i timmen"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon?riktning=manad&belopp=195",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "loneforhandling",
+    "forstaFaltTop": 381,
+    "fore": {
+      "tal": "+336 101 kr",
+      "premiss": "2 500 kr mer i månaden på 40 000 kr"
+    },
+    "efter": {
+      "tal": "+336 101 kr",
+      "premiss": "2 500 kr mer i månaden på 40 000 kr"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/loneforhandling?lon=40000&hojning=2500",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "vad-kostar-en-anstalld",
+    "forstaFaltTop": 346,
+    "fore": {
+      "tal": "62 365 kr",
+      "premiss": "45 000 kr i månadslön med kollektivavtal"
+    },
+    "efter": {
+      "tal": "62 365 kr",
+      "premiss": "45 000 kr i månadslön med kollektivavtal"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld?lon=45000",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "felrekrytering",
+    "forstaFaltTop": 381,
+    "fore": {
+      "tal": "842 000 kr",
+      "premiss": "55 000 kr i månadslön, avslut efter 8 månader"
+    },
+    "efter": {
+      "tal": "842 000 kr",
+      "premiss": "55 000 kr i månadslön, avslut efter 8 månader"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/felrekrytering?lon=55000&man=8",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "sourcing",
+    "forstaFaltTop": 407,
+    "fore": {
+      "tal": "~39",
+      "premiss": "3 anställningar, kandidatpool med samtycke"
+    },
+    "efter": {
+      "tal": "~39",
+      "premiss": "3 anställningar, kandidatpool med samtycke"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/sourcing?kanal=pool&anst=3&svar=30&intervju=25",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "pixel7",
+    "sida": "traffsakerhet",
+    "forstaFaltTop": 401,
+    "fore": {
+      "tal": "7 av 10",
+      "premiss": "Strukturerad intervju"
+    },
+    "efter": {
+      "tal": "7 av 10",
+      "premiss": "Strukturerad intervju"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/traffsakerhet?metod=strukturerad&bas=50&kvot=30",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "/rakna-ut",
+    "h1": "Räkna ut: kalkylatorer för lön, jobb och rekrytering",
+    "kort": 10,
+    "black": 1,
+    "scrollX": false,
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "lon-efter-skatt",
+    "forstaFaltTop": 454,
+    "fore": {
+      "tal": "32 938 kr",
+      "premiss": "42 000 kr i lön i Uppsala"
+    },
+    "efter": {
+      "tal": "32 938 kr",
+      "premiss": "42 000 kr i lön i Uppsala"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt?lon=42000&kommun=Uppsala",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "uppsagningstid",
+    "forstaFaltTop": 425,
+    "fore": {
+      "tal": "5 månader",
+      "premiss": "Sista anställningsdag 1 mars 2027"
+    },
+    "efter": {
+      "tal": "5 månader",
+      "premiss": "Sista anställningsdag 1 mars 2027"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/uppsagningstid?vem=ag&start=2018-05-01&datum=2026-10-01",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "semesterersattning",
+    "forstaFaltTop": 425,
+    "fore": {
+      "tal": "26 760 kr",
+      "premiss": "38 000 kr i månadslön, 14 sparade dagar"
+    },
+    "efter": {
+      "tal": "26 760 kr",
+      "premiss": "38 000 kr i månadslön, 14 sparade dagar"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/semesterersattning?lage=manad&lon=38000&dagar=14",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "timlon-till-manadslon",
+    "forstaFaltTop": 425,
+    "fore": {
+      "tal": "33 930 kr",
+      "premiss": "195 kr i timmen"
+    },
+    "efter": {
+      "tal": "33 930 kr",
+      "premiss": "195 kr i timmen"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon?riktning=manad&belopp=195",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "loneforhandling",
+    "forstaFaltTop": 454,
+    "fore": {
+      "tal": "+336 101 kr",
+      "premiss": "2 500 kr mer i månaden på 40 000 kr"
+    },
+    "efter": {
+      "tal": "+336 101 kr",
+      "premiss": "2 500 kr mer i månaden på 40 000 kr"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/loneforhandling?lon=40000&hojning=2500",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "vad-kostar-en-anstalld",
+    "forstaFaltTop": 395,
+    "fore": {
+      "tal": "62 365 kr",
+      "premiss": "45 000 kr i månadslön med kollektivavtal"
+    },
+    "efter": {
+      "tal": "62 365 kr",
+      "premiss": "45 000 kr i månadslön med kollektivavtal"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld?lon=45000",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "felrekrytering",
+    "forstaFaltTop": 454,
+    "fore": {
+      "tal": "842 000 kr",
+      "premiss": "55 000 kr i månadslön, avslut efter 8 månader"
+    },
+    "efter": {
+      "tal": "842 000 kr",
+      "premiss": "55 000 kr i månadslön, avslut efter 8 månader"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/felrekrytering?lon=55000&man=8",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "sourcing",
+    "forstaFaltTop": 454,
+    "fore": {
+      "tal": "~39",
+      "premiss": "3 anställningar, kandidatpool med samtycke"
+    },
+    "efter": {
+      "tal": "~39",
+      "premiss": "3 anställningar, kandidatpool med samtycke"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/sourcing?kanal=pool&anst=3&svar=30&intervju=25",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  },
+  {
+    "enhet": "desktop",
+    "sida": "traffsakerhet",
+    "forstaFaltTop": 454,
+    "fore": {
+      "tal": "7 av 10",
+      "premiss": "Strukturerad intervju"
+    },
+    "efter": {
+      "tal": "7 av 10",
+      "premiss": "Strukturerad intervju"
+    },
+    "samma": true,
+    "serverTal": true,
+    "lank": "https://www.jobbcoach.ai/rakna-ut/traffsakerhet?metod=strukturerad&bas=50&kvot=30",
+    "og": {
+      "status": 200,
+      "typ": "image/png"
+    },
+    "fel": []
+  }
+]
