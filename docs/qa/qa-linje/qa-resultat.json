@@ -1,0 +1,338 @@
+[
+  {
+    "vy": "start",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/start-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": true,
+    "vw": 412,
+    "lcp": 552,
+    "cls": 0
+  },
+  {
+    "vy": "start",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/start-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": true,
+    "vw": 1280
+  },
+  {
+    "vy": "priser",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/priser-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 556,
+    "cls": 0
+  },
+  {
+    "vy": "priser",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/priser-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "artiklar",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/artiklar-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 536,
+    "cls": 0
+  },
+  {
+    "vy": "artiklar",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/artiklar-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "artikel-logiska-tester",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/artikel-logiska-tester-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 648,
+    "cls": 0
+  },
+  {
+    "vy": "artikel-logiska-tester",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/artikel-logiska-tester-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "verktyg-cv-analys",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/verktyg-cv-analys-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 524,
+    "cls": 0
+  },
+  {
+    "vy": "verktyg-cv-analys",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/verktyg-cv-analys-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "verktyg-rekryteringstester",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/verktyg-rekryteringstester-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 492,
+    "cls": 0
+  },
+  {
+    "vy": "verktyg-rekryteringstester",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/verktyg-rekryteringstester-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "funktioner",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/funktioner-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 500,
+    "cls": 0
+  },
+  {
+    "vy": "funktioner",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/funktioner-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "om-oss",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/om-oss-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412,
+    "lcp": 452,
+    "cls": 0
+  },
+  {
+    "vy": "om-oss",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/om-oss-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "megameny",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/megameny-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "mobilmeny",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/mobilmeny-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "hemskarm-gratis",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/hemskarm-gratis-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "hemskarm-gratis",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/hemskarm-gratis-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "testhubb-gratis",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/testhubb-gratis-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "testhubb-gratis",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/testhubb-gratis-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "cv-mallar-gratis",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/cv-mallar-gratis-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "cv-mallar-gratis",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/cv-mallar-gratis-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "mobilnav-gratis",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/mobilnav-gratis-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "hemskarm-allt",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/hemskarm-allt-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "hemskarm-allt",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/hemskarm-allt-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "testhubb-allt",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/testhubb-allt-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "testhubb-allt",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/testhubb-allt-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "cv-mallar-allt",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/cv-mallar-allt-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  },
+  {
+    "vy": "cv-mallar-allt",
+    "typ": "desktop",
+    "fil": "docs/qa/qa-linje/cv-mallar-allt-desktop.png",
+    "fel": [],
+    "bredd": 1265,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 1280
+  },
+  {
+    "vy": "mobilnav-allt",
+    "typ": "pixel7",
+    "fil": "docs/qa/qa-linje/mobilnav-allt-pixel7.png",
+    "fel": [],
+    "bredd": 412,
+    "h1": 1,
+    "primarSynlig": null,
+    "vw": 412
+  }
+]

@@ -9,6 +9,7 @@
  *   npx tsx scripts/perf-inloggat.ts --korningar 1       # snabbare
  *   npx tsx scripts/perf-inloggat.ts --port 5200         # mot en server som redan kör
  *   npx tsx scripts/perf-inloggat.ts --filter tester     # bara routes som matchar
+ *   npx tsx scripts/perf-inloggat.ts --filter =dashboard # exakt ett namn
  *   npx tsx scripts/perf-inloggat.ts --json ut.json      # spara resultatet
  *
  * Kräver att `npx next build` har körts och att en produktionsserver kör på
@@ -311,7 +312,7 @@ async function main() {
     }
   }
 
-  const valda = ROUTES.filter((r) => !filter || r.namn.includes(filter) || r.path.includes(filter));
+  const valda = ROUTES.filter((r) => !filter || (filter.startsWith('=') ? r.namn === filter.slice(1) : r.namn.includes(filter) || r.path.includes(filter)));
   console.log(`Konto: ${epost}`);
   console.log(`Server: ${bas}   Körningar per route: ${korningar}   Routes: ${valda.length}`);
   console.log('Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)\n');

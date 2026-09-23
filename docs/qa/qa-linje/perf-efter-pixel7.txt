@@ -1,0 +1,10 @@
+OK   /                                                  LCP   536 (1000)  CLS     0  FCP  536   503 kB  JS 334 kB/21  HTML rå 121 kB
+OK   /artiklar                                          LCP   536 (1500)  CLS     0  FCP  536   637 kB  JS 371 kB/24  HTML rå 125 kB
+OK   /artiklar/logiska-tester                           LCP   680 (1500)  CLS     0  FCP  536   568 kB  JS 367 kB/24  HTML rå 147 kB
+OK   /artiklar/cv-mall-gratis-guide                     LCP   540 (1500)  CLS     0  FCP  540   558 kB  JS 373 kB/24  HTML rå 190 kB
+OK   /artiklar/hur-ofta-byta-jobb                       LCP   668 (1500)  CLS     0  FCP  528   551 kB  JS 365 kB/23  HTML rå 128 kB
+OK   /verktyg/cv-analys                                 LCP   500 (1500)  CLS     0  FCP  500   527 kB  JS 338 kB/23  HTML rå 99 kB
+OK   /verktyg/rekryteringstester                        LCP   500 (1500)  CLS     0  FCP  500   539 kB  JS 344 kB/24  HTML rå 120 kB
+OK   /funktioner                                        LCP   504 (1500)  CLS     0  FCP  504   525 kB  JS 345 kB/23  HTML rå 109 kB
+OK   /om-oss                                            LCP   472 (1500)  CLS     0  FCP  472   515 kB  JS 335 kB/23  HTML rå 64 kB
+OK   /priser                                            LCP   540 (1500)  CLS     0  FCP  540   513 kB  JS 344 kB/22  HTML rå 172 kB
