@@ -52,7 +52,7 @@ export default function PriserPaket() {
       // Ångerrättssamtycket lämnas på köpsteget, som bär både kryssrutan och
       // knappen. Prissidan öppnar därför aldrig kassan själv.
       router.push(
-        inloggad ? `/dashboard/valj-spar?paket=${plan}` : `/registrera?paket=${plan}`
+        inloggad ? `/dashboard/valj-spar?paket=${plan}` : `/register?paket=${plan}`
       )
     },
     [inloggad, router]

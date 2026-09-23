@@ -163,7 +163,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     ],
     prisrad: `${TEST} kr i veckan, säg upp när du vill.`,
     knapp: 'Börja Testveckan',
-    href: '/registrera?paket=test_week',
+    href: '/register?paket=test_week',
     sekundar: { text: `Eller Allt för ${ALLT} kr, med CV och brev`, href: '/priser' },
   },
   cv: {
@@ -177,7 +177,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     ],
     prisrad: `${CV} kr i veckan, säg upp när du vill.`,
     knapp: 'Börja CV-veckan',
-    href: '/registrera?paket=cv_week',
+    href: '/register?paket=cv_week',
     sekundar: { text: `Eller Allt för ${ALLT} kr, med testerna`, href: '/priser' },
   },
   allt: {
@@ -191,7 +191,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     ],
     prisrad: `${ALLT} kr i veckan eller ${ALLT_MANAD} kr i månaden.`,
     knapp: 'Börja med Allt',
-    href: '/registrera?paket=all_week',
+    href: '/register?paket=all_week',
     sekundar: { text: 'Se alla tre paketen', href: '/priser' },
   },
 }

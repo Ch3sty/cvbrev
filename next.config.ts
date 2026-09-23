@@ -124,6 +124,10 @@ const nextConfig: NextConfig = {
       // (ägarens beslut 2026-09-22). Adresserna levde i mejl och externa
       // länkar, så de pekas om till prissidan i stället för att ge 404.
       { source: '/invite/:code', destination: '/priser', permanent: true },
+      // /registrera har aldrig funnits som rutt, men paketreleasen 22 sep och
+      // reklamkorten 23 sep länkade dit. Publika sidor CDN-cachas ett dygn, så
+      // gamla länkar lever kvar en stund. Frågesträngen (paket) följer med.
+      { source: '/registrera', destination: '/register', permanent: false },
       { source: '/trial-signup', destination: '/priser', permanent: true },
       { source: '/trial-signup/:path*', destination: '/priser', permanent: true },
       { source: '/dashboard/gastinbjudningar', destination: '/priser', permanent: true },

@@ -36,7 +36,7 @@ export default function PriserGratis() {
         )}
       </p>
       <Link
-        href="/registrera"
+        href="/register"
         className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken"
       >
         {GRATIS.knapp}
