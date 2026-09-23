@@ -900,8 +900,8 @@ Anna Bergström`
   'saljare': {
     yrke: 'Säljare',
     sokvolym: 880,
-    metaTitle: 'Personligt Brev Säljare - Färdigt B2B-exempel (2026) | Jobbcoach.ai',
-    metaDescription: 'Professionellt personligt brev-exempel för säljare med kvantifierade försäljningsresultat, CRM-kompetens och konkret säljprocess. ATS-optimerat för B2B/B2C.',
+    metaTitle: 'Personligt brev säljare: exempel att utgå från',
+    metaDescription: 'Personligt brev för säljare med måluppfyllelse, pipeline och CRM i siffror. Färdigt B2B-exempel att kopiera, plus tips som gör brevet ditt eget.',
 
     seoIntro: 'Ett starkt personligt brev för säljare visar kvantifierbara försäljningsresultat, konkret säljprocess och beprövad förmåga att driva affärer från prospekt till avslut. Detta exempel illustrerar hur du balanserar hårda siffror (måluppfyllelse, deal size, conversion rate) med mjuka värden som kundrelationer och långsiktig kontohantering.\n\nBrevet är optimerat för ATS-system och inkluderar bransch-relevanta nyckelord som CRM, pipeline-management, prospektering, closing rate och merförsäljning.\n\nOavsett om du söker B2B-försäljning, SaaS-sales eller retail sales ger detta exempel en solid grund för att visa din säljkompetens genom konkreta prestationer snarare än tomma påståenden.',
 
@@ -1717,8 +1717,8 @@ Lisa Bergström`
   'barnskotare': {
     yrke: 'Barnskötare',
     sokvolym: 210,
-    metaTitle: 'Personligt Brev Barnskötare - Färdigt exempel (2026)',
-    metaDescription: 'Konkret exempel på personligt brev för barnskötare med ATS-optimerade nyckelord. Visa din erfarenhet från barngrupp, pedagogisk verksamhet och omsorg. Se hur kandidaten beskriver konkreta situationer och anpassa efter din bakgrund.',
+    metaTitle: 'Personligt brev barnskötare: färdigt exempel för förskola',
+    metaDescription: 'Personligt brev för barnskötare på förskola: färdigt exempel med inskolning, Lpfö 18 och samarbete med vårdnadshavare. Kopiera, anpassa och skicka.',
 
     seoIntro: 'Ett starkt personligt brev som barnskötare visar både din omsorgsförmåga och pedagogiska medvetenhet. Detta färdiga exempel demonstrerar hur du konkret beskriver erfarenhet från barngrupp, dagliga rutiner och samarbete med vårdnadshavare – på ett sätt som passar både ATS-system och rekryterande förskollärare.\n\nExemplet innehåller nyckelord som "pedagogisk verksamhet", "inskolning", "Lpfö 18" och "barngrupp 1-3 år" – termer som förskolor och kommuner söker efter i moderna rekryteringssystem. Du ser också hur kandidaten beskriver konkreta situationer: hur många barn hen arbetat med, vilka åldersgrupper, och specifika exempel på pedagogiska aktiviteter och omvårdnadsmoment.\n\nAnvänd detta exempel som mall och anpassa efter din egen erfarenhet, utbildning och den specifika förskola du söker till. Ett personligt brev för barnskötare ska visa både din omsorgsförmåga i praktiken och din pedagogiska kompetens – beskriv konkreta situationer där du skapat trygghet, stimulerat utveckling och samarbetat professionellt.',
 
@@ -2680,9 +2680,9 @@ Marcus Andersson`
     ],
 
     relaterade: [
+      { yrke: 'Lagerchef', slug: 'lagerchef' },
       { yrke: 'Truckförare', slug: 'truckforare' },
       { yrke: 'Logistikassistent', slug: 'logistikassistent' },
-      { yrke: 'Lagerchef', slug: 'lagerchef' },
       { yrke: 'Terminalarbetare', slug: 'terminalarbetare' }
     ]
   },
