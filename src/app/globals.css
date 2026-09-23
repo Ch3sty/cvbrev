@@ -114,6 +114,16 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
+/* En spärr med kontoknapp syns (useFriSikt): samtycket och mobilens
+   klistrade knapprad glider ut nedåt så de aldrig ligger över knappen.
+   Transform och visibility, aldrig höjd, så inget layoutskifte. Samtycket
+   kommer tillbaka när spärren scrollats ur bild. */
+html[data-fri-sikt='true'] .cookie-banner-container,
+html[data-fri-sikt='true'] [data-sticky-mobil] {
+  transform: translateY(100%) !important;
+  visibility: hidden;
+}
+
 /* Cookie-samtycket (src/components/samtycke/CookieBanner.tsx). Tråden
    (docs/designsystem.md §12): panel, hårlinje, svävande skugga, bläckknapp,
    ingen gradient, samma på publika sidor och i appen. */

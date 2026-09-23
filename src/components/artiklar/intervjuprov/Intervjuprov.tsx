@@ -23,6 +23,7 @@ import { ArrowRight, Lock } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
 import { storePendingIntervju } from '@/lib/letters/claim-draft-client'
 import { IlluBlurGate } from '@/components/illustrations/StartFlowIllustrations'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import FlowError from '@/components/shell/FlowError'
 import StatusRow from '@/components/shell/StatusRow'
@@ -89,6 +90,9 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
   const faltRef = useRef<HTMLTextAreaElement>(null)
   const resultatRef = useRef<HTMLParagraphElement>(null)
   const felRef = useRef<HTMLDivElement>(null)
+  // Spärrkortet och kvotkortet: samtycket och mobilens knapprad får aldrig täcka kontoknappen.
+  const sparrRef = useRef<HTMLElement>(null)
+  useFriSikt(sparrRef, phase === 'resultat' || kvot !== null)
   const startadRef = useRef(false)
   const forstaTeckenRef = useRef<number | null>(null)
 
@@ -222,7 +226,7 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
   /* -------------------------------------------------------------- kvoten */
   if (kvot) {
     return (
-      <aside className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-labelledby={rubrikId}>
+      <aside ref={sparrRef} className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-labelledby={rubrikId}>
         {eyebrow}
         {rubrik}
         {citat}
@@ -325,7 +329,7 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
           {inloggad ? null : <p className="sr-only">{COPY.last.sr}</p>}
         </aside>
 
-        <section className="mt-6 mb-8 rounded-xl border border-kant-stark bg-panel p-4 not-prose sm:p-6">
+        <section ref={sparrRef} className="mt-6 mb-8 rounded-xl border border-kant-stark bg-panel p-4 not-prose sm:p-6">
           <div className="sm:flex sm:items-start sm:gap-5">
             <IlluBlurGate size={96} className="hidden shrink-0 text-ink-1 sm:block" />
             <div className="min-w-0 flex-1">

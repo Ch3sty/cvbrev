@@ -122,6 +122,7 @@ export default function StickyMobileCTA({
 
   return (
     <div
+      data-sticky-mobil
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-kant bg-panel"
       style={{
         height: 64,

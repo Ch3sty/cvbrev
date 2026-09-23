@@ -8,7 +8,8 @@
  * var fel plus förklaringarna kommer först efter registrering.
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
@@ -241,6 +242,9 @@ export default function ProvaFlow() {
  */
 function ResultGate({ result, token }: { result: ResultResponse; token: string }) {
   const registerHref = `/register?test=${encodeURIComponent(token)}`
+  // Samtycket får aldrig ligga över kontoknappen (useFriSikt).
+  const sparrRef = useRef<HTMLDivElement>(null)
+  useFriSikt(sparrRef)
 
   useEffect(() => {
     storePendingTestSession(token)
@@ -282,7 +286,7 @@ function ResultGate({ result, token }: { result: ResultResponse; token: string }
         </ul>
       </div>
 
-      <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
+      <div ref={sparrRef} className="mt-6 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
         <h2 className="text-base font-semibold text-neutral-900">
           Du fick {result.score} av {result.total} rätt
         </h2>

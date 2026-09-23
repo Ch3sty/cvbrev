@@ -8,7 +8,8 @@
  * finns bara på servern tills någon registrerat sig.
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
@@ -260,6 +261,9 @@ function Field({
  */
 function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string }) {
   const registerHref = `/register?draft=${encodeURIComponent(draft.draftToken)}`
+  // Samtycket får aldrig ligga över kontoknappen (useFriSikt).
+  const sparrRef = useRef<HTMLElement>(null)
+  useFriSikt(sparrRef)
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -286,7 +290,7 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
         </p>
       </article>
 
-      <section className="mt-6 rounded-xl border border-neutral-200 bg-white p-5 sm:p-6">
+      <section ref={sparrRef} className="mt-6 rounded-xl border border-neutral-200 bg-white p-5 sm:p-6">
         <div className="flex items-start gap-4">
           <IlluBlurGate size={96} className="hidden flex-shrink-0 text-neutral-700 sm:block" />
           <div className="min-w-0 flex-1">
