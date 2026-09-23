@@ -17,6 +17,7 @@ import { capture } from '@/lib/analytics/events'
 const DRAFT_STORAGE_KEY = 'jc_pending_draft'
 const CV_START_STORAGE_KEY = 'jc_pending_cv_start'
 const TEST_STORAGE_KEY = 'jc_pending_test'
+const INTERVJU_STORAGE_KEY = 'jc_pending_intervju'
 
 function readSession(key: string): string | null {
   try {
@@ -158,6 +159,49 @@ export async function claimPendingTestSession(): Promise<string | null> {
   } catch (err) {
     console.error('[claim-draft] Kunde inte hämta provet:', err)
     clearSession(TEST_STORAGE_KEY)
+    return null
+  }
+}
+
+/** Sparar intervjuprovets token så den överlever vägen genom registreringen. */
+export function storePendingIntervju(token: string): void {
+  try {
+    sessionStorage.setItem(INTERVJU_STORAGE_KEY, token)
+  } catch {
+    // Länken /register?intervju=... bär token även utan sessionStorage.
+  }
+}
+
+/**
+ * Kopplar ett anonymt intervjusvar till det nya kontot
+ * (docs/design/intervjuprov-spec-2026-09-23.md, avsnitt 5). Först här
+ * blir hela återkopplingen och det omskrivna svaret tillgängliga.
+ *
+ * Returnerar path till svaret i dashboarden, eller null om inget väntar.
+ */
+export async function claimPendingIntervju(): Promise<string | null> {
+  const token = readQueryParam('intervju') ?? readSession(INTERVJU_STORAGE_KEY)
+  if (!token) return null
+
+  try {
+    const res = await fetch('/api/public/intervjuprov/claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    })
+
+    clearSession(INTERVJU_STORAGE_KEY)
+
+    if (!res.ok) return null
+
+    const data = (await res.json()) as { redirect?: string }
+    if (!data.redirect) return null
+
+    capture('draft_claimed', { kind: 'interview' })
+    return data.redirect
+  } catch (err) {
+    console.error('[claim-draft] Kunde inte hämta intervjusvaret:', err)
+    clearSession(INTERVJU_STORAGE_KEY)
     return null
   }
 }

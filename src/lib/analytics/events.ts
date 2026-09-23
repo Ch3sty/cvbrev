@@ -27,6 +27,15 @@ interface ClusterContext {
 }
 
 /**
+ * Intervjuprovet i artiklarna (docs/design/intervjuprov-spec-2026-09-23.md,
+ * avsnitt 4): vilken fråga och vilken artikel provet gjordes i.
+ */
+interface SampleIntervju {
+  question?: 'styrkor' | 'star'
+  slug?: string
+}
+
+/**
  * Eventnamn till egenskaper. Lägg till nya event här, inte som fria strängar
  * i komponenterna, så att namnen förblir sökbara.
  */
@@ -41,14 +50,19 @@ export interface AnalyticsEvents {
   }
   example_viewed: { kind: 'letter' | 'cv'; yrke_slug: string }
   example_cta_clicked: { kind: 'letter' | 'cv'; yrke_slug: string; target: string }
-  sample_started: ClusterContext & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis'; yrke_slug?: string }
-  sample_completed: ClusterContext & {
-    kind: 'letter' | 'cv' | 'test' | 'cv_analysis'
-    yrke_slug?: string
-    /** Millisekunder från start till färdigt resultat. */
-    duration_ms?: number
-  }
-  signup_gate_shown: ClusterContext & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' }
+  sample_started: ClusterContext &
+    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview'; yrke_slug?: string }
+  sample_completed: ClusterContext &
+    SampleIntervju & {
+      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview'
+      yrke_slug?: string
+      /** Millisekunder från start till färdigt resultat. */
+      duration_ms?: number
+      /** Intervjuprovets nivå, 1 till 5. */
+      level?: number
+    }
+  signup_gate_shown: ClusterContext &
+    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' }
   signup_started: ClusterContext & {
     method?: 'password' | 'google'
     source_page?: string
@@ -59,7 +73,7 @@ export interface AnalyticsEvents {
     source_page?: string
     source_cluster?: string
   }
-  draft_claimed: { kind: 'letter' | 'cv' | 'test'; yrke_slug?: string }
+  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview'; yrke_slug?: string }
   activation_first_doc: { kind: 'letter' | 'cv' }
   /* ---------------------------------------------- jobbmatchningen, våg 1
      docs/plan-jobbmatchning.md avsnitt 3. Målet är andelen träffar som

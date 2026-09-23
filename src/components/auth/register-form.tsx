@@ -18,7 +18,7 @@ import { logUserActivity } from '@/lib/activity-logger'
 import { AlertCircle } from 'lucide-react'
 import { capture, identifyUser } from '@/lib/analytics/events'
 import { getAcquisitionSource, getSignupAnalyticsContext } from '@/lib/analytics/attribution'
-import { claimPendingDraft, claimPendingCvStart, claimPendingTestSession } from '@/lib/letters/claim-draft-client'
+import { claimPendingDraft, claimPendingCvStart, claimPendingTestSession, claimPendingIntervju } from '@/lib/letters/claim-draft-client'
 import AuthCvPaper from './AuthCvPaper'
 import AuthInput from './AuthInput'
 import AuthSubmitButton from './AuthSubmitButton'
@@ -58,6 +58,11 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
   // förvalt i stället för att få samma fråga en gång till.
   const paketParam = searchParams.get('paket')
   const valtPaket = isPlanKey(paketParam) ? paketParam : null
+
+  // Intervjuprovets token ur /register?intervju=... (ett uuid, inget annat).
+  const intervjuParam = searchParams.get('intervju')
+  const intervjuToken =
+    intervjuParam && /^[0-9a-f-]{36}$/i.test(intervjuParam) ? intervjuParam : null
   const sparvalHref = valtPaket
     ? `${TRACK_CHOICE_PATH}?paket=${valtPaket}`
     : TRACK_CHOICE_PATH
@@ -171,7 +176,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
       // Utkast från de publika flödena hämtas hem och bestämmer landningen.
       let destination: string | null = null
       try {
-        destination = (await claimPendingDraft()) || (await claimPendingCvStart()) || (await claimPendingTestSession())
+        destination = (await claimPendingDraft()) || (await claimPendingCvStart()) || (await claimPendingTestSession()) || (await claimPendingIntervju())
       } catch (claimError) {
         console.error('[register] Kunde inte hämta hem utkast:', claimError)
       }
@@ -229,8 +234,17 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
           {/* Paketet följer med genom Google också: callbacken skickar nya
               konton till 'next', så spårvalet med förvalt paket måste stå
               där redan när knappen trycks. */}
+          {/* Intervjuprovet: Google-vägen kör inte claim-kedjan nedan, så nya
+              konton skickas direkt till svaret. Sidan kopplar ett ohämtat svar
+              till kontot, precis som claim-rutten gör för lösenordsvägen. */}
           <GoogleSignInButton
-            next={redirectTo === '/dashboard' && valtPaket ? sparvalHref : redirectTo}
+            next={
+              intervjuToken
+                ? `/dashboard/intervju/${encodeURIComponent(intervjuToken)}`
+                : redirectTo === '/dashboard' && valtPaket
+                  ? sparvalHref
+                  : redirectTo
+            }
             label="Fortsätt med Google"
           />
           <AuthDivider />

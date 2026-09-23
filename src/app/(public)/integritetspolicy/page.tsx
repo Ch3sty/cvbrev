@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdatedDate = "2024-07-27"; // *** UPPDATERA detta datum när policyn ändras ***
+  const lastUpdatedDate = "2026-09-23"; // *** UPPDATERA detta datum när policyn ändras ***
 
   return (
     <div className="bg-navy-900 py-16 lg:py-24">
@@ -156,6 +156,9 @@ export default function PrivacyPolicyPage() {
           </p>
           <p className="text-gray-300 leading-relaxed">
             Dina uppladdade CV-filer (original och textversion) samt dina sparade personliga brev lagras i vår databas (Supabase) och är kopplade till ditt konto. Du kan när som helst radera dessa filer och brev via ditt konto. Om du raderar ditt konto kommer även denna data att raderas [Specificera eventuell fördröjning eller backup-policy om relevant].
+          </p>
+          <p className="text-gray-300 leading-relaxed mt-4">
+            Svar du skriver i intervjuprovet i våra artiklar sparas i sju dagar tillsammans med bedömningen, så att du kan hämta hela återkopplingen. Det gäller också när du skapat ett konto och svaret kopplats till det. Efter sju dagar raderas svaret automatiskt. Vi sparar inte din IP-adress, bara en envägskodad version som används för att begränsa antalet prov per dygn.
           </p>
         </section>
 
