@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Röd tråd för proven, design 2026-09-24</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Tokens ordagrant ur src/app/globals.css (Tråden v2.1). */
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;
+  --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;--fel-morker:#7F1D1D;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:14px;line-height:21px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:var(--display);letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+svg{display:block}
+a{color:inherit}
+ul{margin:0;padding:0;list-style:none}
+
+/* ---------------------------------------------------------- dokumentets ram */
+.wrap{max-width:1400px;margin:0 auto;padding:40px 24px 80px}
+.doc-head{max-width:78ch}
+.doc-head .eyebrow{margin-bottom:8px}
+.doc-head h1{font-size:40px;line-height:44px;font-weight:800;letter-spacing:-.025em}
+.doc-head p{margin-top:12px;color:var(--ink-2);font-size:16px;line-height:25px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.sektion{margin-top:64px}
+.sektion>.eyebrow{margin-bottom:8px}
+.sektion>h2{font-size:26px;line-height:31px;font-weight:700}
+.sektion>.led{margin-top:10px;max-width:78ch;color:var(--ink-2);font-size:15px;line-height:24px}
+.rad{margin-top:24px;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.kol{flex:0 0 auto}
+.etikett{margin:0 0 10px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.motiv{margin-top:14px;max-width:412px;padding:12px 14px;background:var(--panel);border:1px solid var(--kant);border-radius:8px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.motiv b{color:var(--ink-1);font-weight:600}
+.motiv ul{margin:6px 0 0;padding-left:18px;list-style:disc}
+.motiv li+li{margin-top:3px}
+.kol.bred .motiv{max-width:760px}
+.kol.desk-app .motiv{max-width:1000px}
+
+/* Beslutsruta i dokumentet */
+.beslut{margin-top:20px;max-width:900px;padding:16px 18px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:12px}
+.beslut h3{font-size:16px;line-height:22px;font-weight:700}
+.beslut p{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.beslut ul{margin-top:8px;padding-left:18px;list-style:disc;font-size:14px;line-height:22px;color:var(--ink-2)}
+.beslut li+li{margin-top:4px}
+
+/* Telefonram, Pixel 7 = 412 px bred. Ingen chrome, bara ytan. */
+.tele{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.tele .art{padding:16px 16px 20px}
+/* Desktopkolumn = artikelns innehållskolumn, max 720 px (ArtikelRam). */
+.desk{width:720px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.desk .art{padding:24px 24px 28px}
+
+/* Artikelprosa runtomkring, ur .artikel-prose. */
+.prosa{color:var(--ink-2);font-size:16px;line-height:27px}
+.desk .prosa{font-size:17px;line-height:29px}
+.prosa h2{font-family:var(--display);font-size:24px;line-height:29px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);margin:0 0 12px}
+.prosa p+p{margin-top:16px}
+.prosa .dim{opacity:.55}
+
+/* ---------------------------------------------------------- provpanelen */
+.prov{margin:32px 0;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.desk .prov{padding:24px}
+.prov.framsteg::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:var(--w,40%);background:var(--accent);border-radius:2px}
+.prov .rubrik{margin-top:8px;font-family:var(--display);font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);text-wrap:balance}
+.prov .text{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.desk .prov .text{font-size:16px;line-height:24px}
+.steg{margin-top:16px;display:flex;justify-content:space-between;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.pastaende{margin-top:8px;font-family:var(--display);font-size:20px;line-height:26px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1);min-height:52px}
+.desk .pastaende{font-size:22px;line-height:28px}
+.instr{margin-top:6px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.likert{margin-top:12px;display:grid;gap:8px}
+.desk .likert{grid-template-columns:repeat(5,1fr)}
+.likert button,.likert .val{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 12px;border:1px solid var(--kant);border-radius:8px;background:var(--panel);font:inherit;font-size:14px;font-weight:500;color:var(--ink-1);text-align:left}
+.desk .likert .val{justify-content:center;text-align:center;padding:0 8px;font-size:13px;line-height:17px}
+.likert .val.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.likert .val.vald::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L19 7'/%3E%3C/svg%3E") center/12px no-repeat;flex:none;margin-left:8px}
+.desk .likert .val.vald::after{display:none}
+.likert .val.fokus{outline:2px solid var(--accent);outline-offset:2px}
+.tillbaka{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.knapp{margin-top:16px;display:inline-flex;height:44px;width:100%;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:8px;background:var(--ink-1);color:#fff;font-size:14px;font-weight:500;line-height:1;text-decoration:none;border:0;font-family:inherit}
+.desk .knapp,.app-desk .knapp{width:auto}
+.knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
+.knapp.vit{background:var(--panel);color:var(--ink-1);font-weight:600}
+.knapp svg{width:16px;height:16px}
+.fotnot{margin-top:12px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.textlank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px;line-height:44px;display:inline-block}
+.textlank.kort{line-height:20px}
+
+/* Laddning: tråden längs panelens överkant och tre rader som fylls. */
+.laddar{margin-top:16px;position:relative;overflow:hidden;border:1px solid var(--kant);border-radius:12px;background:var(--panel);padding:16px}
+.laddar::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:40%;background:var(--accent);border-radius:2px}
+.laddar .l1{font-size:14px;font-weight:500;color:var(--ink-1)}
+.wl{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.wl span{display:block;height:12px;border-radius:4px;background:var(--insunken);position:relative;overflow:hidden}
+.wl span::after{content:"";position:absolute;inset:0;background:var(--kant-stark);transform-origin:left;transform:scaleX(.62)}
+.wl span:nth-child(2)::after{transform:scaleX(.3)}
+.wl span:nth-child(3){width:70%}.wl span:nth-child(3)::after{transform:scaleX(0)}
+
+/* Profilen: fem faktorer, bandord, femsegmentsmätare. Aldrig råpoäng i provet. */
+.mening{margin-top:12px;font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.faktorer{margin:16px 0 0;padding:16px 0 0;border-top:1px solid var(--kant);display:grid;gap:14px}
+.faktor .topp{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.faktor .namn{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-1)}
+.faktor .band{font-size:13px;line-height:18px;color:var(--ink-3);white-space:nowrap}
+.faktor .matare{margin-top:6px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.faktor .matare i{display:block;height:6px;border-radius:3px;background:var(--insunken)}
+.faktor .matare i.pa{background:var(--ink-1)}
+.faktor .lasning{margin-top:6px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.desk .faktor .lasning{font-size:15px;line-height:23px}
+.faktor .tal{font-size:14px;font-weight:500;color:var(--ink-1);font-variant-numeric:tabular-nums}
+.faktor .linje{margin-top:6px;height:2px;background:var(--kant)}
+.faktor .linje i{display:block;height:2px;background:var(--ink-1)}
+
+/* Spärren: platshållare, aldrig riktig text som blurras. */
+.last{margin-top:16px;padding-top:16px;border-top:1px solid var(--kant)}
+.last .lbl{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.last .lbl svg{width:16px;height:16px;color:var(--ink-3);flex:none}
+.rader{margin-top:10px;display:grid;gap:10px}
+.rader i{display:block;height:12px;border-radius:4px;background:var(--kant);opacity:.55}
+.last+.last{margin-top:20px;padding-top:0;border-top:0}
+.sparr{margin-top:16px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:12px;padding:16px}
+.desk .sparr{padding:24px;display:flex;gap:20px;align-items:flex-start}
+.sparr .illu{display:none}
+.desk .sparr .illu{display:block;width:96px;flex:none;color:var(--ink-1)}
+.sparr .rubrik2{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.sparr .text{margin-top:6px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.sparr .knapp{margin-top:16px}
+.sparr .rad2{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:13px;line-height:18px;color:var(--ink-3)}
+.sparr .rad2 .textlank{line-height:20px}
+
+/* Fel och status */
+.felrad{margin-top:16px;display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--fel-kant);background:var(--fel-mjuk);border-radius:8px;color:var(--fel)}
+.felrad svg{width:20px;height:20px;flex:none;margin-top:2px}
+.felrad b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.felrad p{margin-top:2px;font-size:14px;line-height:22px;color:var(--fel-morker)}
+.felrad a{font-size:14px;font-weight:500;color:var(--fel-morker);text-decoration:underline;text-decoration-color:var(--fel-kant);text-underline-offset:4px;line-height:44px}
+.statusrad{margin-top:16px;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 12px;min-height:44px;border:1px solid var(--kant);border-radius:8px;background:var(--panel);font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.statusrad .v{display:flex;gap:8px;align-items:center;min-width:0}
+.statusrad i{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.statusrad i.pos{background:var(--positiv)}
+.statusrad .textlank{line-height:20px;flex:none}
+
+/* ---------------------------------------------------------- appramar */
+.app{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;position:relative}
+.app .topp{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.app .topp b{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.app .topp .meny{width:24px;height:24px;color:var(--ink-1)}
+.app .inne{padding:16px 16px 84px}
+.app .nav{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--panel);border-top:1px solid var(--kant);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:4px 8px 8px}
+.app .nav span{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:500;color:var(--ink-3);min-height:48px;justify-content:center}
+.app .nav span.pa{color:var(--ink-1)}
+.app .nav svg{width:24px;height:24px}
+.app-desk{width:1180px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;display:flex}
+.app-desk .side{width:256px;flex:none;background:var(--panel);border-right:1px solid var(--kant);padding:16px 12px 20px}
+.app-desk .huvud{flex:1;min-width:0;padding:32px 40px 40px}
+.app-desk .huvud .inne{max-width:768px}
+.side .logo{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em;padding:0 8px 16px}
+.side .paket{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:12px;background:var(--ink-1);padding:12px;color:#fff;margin-bottom:8px}
+.side .paket b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.side .paket small{display:block;font-size:12px;line-height:16px;color:var(--ink-1-mjuk)}
+.side .paket a{font-size:12px;font-weight:500;text-decoration:underline;text-decoration-color:var(--ink-1-kant);text-underline-offset:3px;flex:none}
+.side .sekt{margin-top:12px}
+.side .sekt .eyebrow{padding:8px 12px 4px}
+.side .r{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 12px;border-radius:8px;font-size:14px;color:var(--ink-2);position:relative}
+.side .r.tung{font-weight:500;color:var(--ink-1);min-height:44px}
+.side .r svg{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.side .r.aktiv{background:var(--insunken);color:var(--ink-1);font-weight:500}
+.side .r.aktiv::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.side .r .antal{margin-left:auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.side .r .ny{margin-left:auto;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-ink)}
+.side .fot{margin-top:16px;padding:0 12px;font-size:12px;line-height:16px;color:var(--ink-3)}
+
+/* Sidmall: PageHeader, sektionsetikett, panel, rader, InkPanel */
+.ph .eyebrow{margin-bottom:8px}
+.ph h1{font-size:32px;line-height:35px;font-weight:800;letter-spacing:-.025em}
+.app-desk .ph h1{font-size:44px;line-height:46px}
+.ph .desc{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2);max-width:60ch}
+.app-desk .ph .desc{font-size:16px;line-height:24px}
+.ph .knapp{margin-top:16px}
+.app-desk .ph{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.app-desk .ph .knapp{margin-top:4px;flex:none}
+.sl{margin:24px 0 8px;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-3)}
+.app-desk .sl{margin-top:32px}
+.panel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px}
+.app-desk .panel{padding:20px}
+.panel .kort{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.panel .meta{font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.panel .lankar{margin-top:12px;padding-top:12px;border-top:1px solid var(--kant);display:flex;flex-wrap:wrap;gap:4px 20px}
+.panel .lankar .textlank{line-height:36px}
+.ink{background:var(--ink-1);border:1px solid var(--ink-1);border-radius:12px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:16px}
+.app-desk .ink{padding:24px;flex-direction:row-reverse;align-items:center;gap:24px}
+.ink .scen{width:120px;flex:none;color:#fff}
+.app-desk .ink .scen{width:200px}
+.ink .eyebrow{color:var(--ink-1-accent);font-weight:600}
+.ink .t{margin-top:8px;font-family:var(--display);font-size:24px;line-height:28px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+.app-desk .ink .t{font-size:28px;line-height:32px}
+.ink .x{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-1-mjuk);max-width:56ch}
+.app-desk .ink .x{font-size:16px;line-height:24px}
+.ink .h{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.app-desk .ink .h{flex-direction:row;align-items:center;gap:16px}
+.ink .h .knapp{margin:0}
+.ink .lank{font-size:14px;font-weight:500;color:var(--ink-1-mjuk);text-decoration:underline;text-decoration-color:var(--ink-1-kant);text-underline-offset:4px}
+.lista{border-top:1px solid var(--kant);border-bottom:1px solid var(--kant)}
+.lista li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--kant)}
+.lista li:first-child{border-top:0}
+.lista .v{flex:1;min-width:0}
+.lista .fr{display:block;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.lista .u{display:block;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.lista .niva{flex:none;display:flex;align-items:baseline;gap:4px;min-width:52px}
+.lista .niva b{font-family:var(--display);font-size:22px;line-height:24px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.lista .niva small{font-size:12px;color:var(--ink-3)}
+.lista .textlank{line-height:44px;flex:none}
+.tom{padding:32px 16px;text-align:center}
+.tom .ill{width:96px;height:96px;margin:0 auto 12px;color:var(--ink-1)}
+.tom .kort{font-size:16px;font-weight:600;color:var(--ink-1)}
+.tom p{margin:4px auto 0;max-width:280px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.tom .knapp{width:auto;margin-top:16px}
+
+/* Flödesskal: topprad med framstegslinje, sticky fot */
+.flow .topp2{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--kant);position:relative}
+.flow .topp2::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:50%;background:var(--accent)}
+.flow .topp2 b{font-size:14px;font-weight:600}
+.flow .topp2 span{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.flow .fot{position:absolute;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--kant);padding:12px 16px 16px;box-shadow:0 -8px 24px rgba(28,25,23,.08)}
+.flow .fot .knapp{margin:0}
+.flow .inne{padding:16px 16px 100px}
+.valkort{display:grid;gap:8px;margin-top:12px}
+.vk{position:relative;border:1px solid var(--kant);border-radius:8px;background:var(--panel);padding:12px 44px 12px 12px;display:flex;gap:12px;align-items:flex-start}
+.vk.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.vk.vald::after{content:"";position:absolute;right:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L19 7'/%3E%3C/svg%3E") center/13px no-repeat}
+.vk .platta{width:56px;height:56px;border-radius:8px;background:var(--accent-mjuk);display:flex;align-items:center;justify-content:center;flex:none;color:var(--ink-1)}
+.vk .platta svg{width:28px;height:28px}
+.vk .ikon{width:24px;height:24px;color:var(--ink-2);flex:none;margin-top:2px}
+.vk .ey{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.vk .t{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.vk .d{margin-top:2px;font-size:14px;line-height:20px;color:var(--ink-2)}
+.vk .m{margin-top:4px;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* Kedjan */
+.kedja{margin-top:20px;display:grid;grid-template-columns:repeat(5,minmax(180px,1fr));gap:12px;max-width:1160px}
+.kedja div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:14px 16px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.kedja div b{display:block;font-family:var(--display);font-size:16px;line-height:22px;font-weight:700;color:var(--ink-1);margin-bottom:4px}
+.kedja div code{display:block;margin-top:8px;font-size:12px;color:var(--accent-ink);font-family:ui-monospace,Menlo,monospace}
+.kedja div.sp{border-color:var(--ink-1);background:var(--ink-1);color:var(--ink-1-mjuk)}
+.kedja div.sp b{color:#fff}.kedja div.sp code{color:var(--ink-1-accent)}
+
+/* Tabeller i dokumentet */
+table{border-collapse:collapse;width:100%;max-width:1160px;margin-top:16px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden;font-size:13px;line-height:19px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--kant)}
+th{background:var(--insunken);font-weight:600;color:var(--ink-1)}
+td:first-child{color:var(--ink-3);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.kravtab{margin-top:12px;border:1px solid var(--kant);border-radius:8px;overflow:hidden;max-width:none}
+.kravtab td:first-child{color:var(--ink-1);font-weight:500;white-space:normal}
+.kravtab td{padding:8px 10px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-head">
+  <p class="eyebrow">Design för godkännande · 2026-09-24</p>
+  <h1>Röd tråd för proven: personlighetsprovet och Inför intervjun</h1>
+  <p>Två saker som hänger ihop. Del A är ett publikt personlighetsprov som smakprov, byggt som intervjuprovet: tjugo påståenden i artikeln, en profil direkt, spärren före hela tolkningen. Del B är platsen i det inloggade läget där proven, profilen och nästa övning samlas, så att besökaren som gjorde ett prov i en artikel hittar det igen som gratisanvändare och som betalande. Alla ytor på Pixel 7 (412 px) och desktop, i Trådens tokens ur globals.css. All text är slutcopy.</p>
+</header>
+
+<!-- ================================================================ FYND -->
+<section class="sektion">
+  <p class="eyebrow">Fynd innan designen</p>
+  <h2>Personlighetstestmotorn finns redan, och tråden ska gå in i den</h2>
+  <p class="led">Uppdraget sa att det inte finns någon personlighetstestmotor i produkten. Det stämmer inte. I <code>src/lib/personalityTest/</code> ligger en femfaktorbank med 50 påståenden (grund) och 120 (fördjupad), en poängräknare, tolkningstexter per faktor och band, och intervjutips. Testen körs på <code>/dashboard/tester/personlighet-grund</code> (gratis, en gång per dygn) och <code>personlighet-avancerad</code> (Testveckan och Allt), resultatet landar i <code>personality_test_sessions</code> och <code>user_personality_profile</code>, och sidan <code>/dashboard/arbetsstil</code> skriver en rapport i du-form ur profilen. Bli upptäckt bygger på samma motor.</p>
+  <div class="beslut">
+    <h3>Vad det betyder för designen</h3>
+    <ul>
+      <li>Det publika provet är ett smakprov av det befintliga grundtestet: tjugo egna påståenden, fyra per faktor, poängsatta med samma <code>computeScores</code>. Ingen ny motor, inga nya tolkningsregler utan de som redan finns.</li>
+      <li>Den röda tråden inloggad går till det som redan finns: hela testet med 50 påståenden (gratis), det fördjupade med 120 och arbetsstilsrapporten (Testveckan). Smakprovet är dörren, inte en egen värld.</li>
+      <li>Smakprovet skriver aldrig till <code>user_personality_profile</code>. Tjugo påståenden räcker för en spegel, inte för en profil som Bli upptäckt visar rekryterare. Det står i spärrens text: "gör hela testet".</li>
+      <li>Faktornamnen är motorns: Öppenhet, Samvetsgrannhet, Utåtriktning, Vänlighet. Den femte visas som <b>Stabilitet</b> (100 minus särbarhet), samma ord som MAP och artiklarna använder. Se beslut 3.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================================================================ KEDJAN -->
+<section class="sektion">
+  <p class="eyebrow">Kedjan</p>
+  <h2>Från ett prov i en artikel till en betalande som övar vidare</h2>
+  <p class="led">Samma fem steg som intervjuprovet, och det som är nytt är steg fyra och fem: en plats inloggad där provet ligger kvar, kan göras om, och där paketet syns utan att tjata. Landningen efter registrering är oförändrad (resultatsidan per token), men den pekar nu vidare in i hubben.</p>
+  <div class="kedja">
+    <div><b>1. Provet i artikeln</b>Intervjuprovet eller personlighetsprovet, utan konto. Resultat direkt, spärr på resten.<code>sample_completed → signup_gate_shown</code></div>
+    <div><b>2. Kontot</b>Skapa konto gratis. Token följer med i länken och sessionStorage, som i dag.<code>signup_started → signup_completed → draft_claimed</code></div>
+    <div><b>3. Landningen</b>/dashboard/intervju/{token} eller /dashboard/intervju/profil/{token}: hela återkopplingen, och sist raden som pekar mot Inför intervjun.</div>
+    <div class="sp"><b>4. Inför intervjun</b>/dashboard/intervju: nästa handling i bläck, dina prov som rader, din profil, kvoten som en rad med Testveckan som textlänk.<code>interview_hub_viewed</code></div>
+    <div><b>5. Testveckan</b>Kvotraden försvinner, Nytt intervjuprov utan tak, det fördjupade testet öppet. Samma sida, inget nytt läge.<code>subscription_paid</code></div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: PLACERING -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Placering</p>
+  <h2>Både panel i artiklarna och en egen sida, samma komponent</h2>
+  <p class="led">Rekommendation: komponenten <code>Personlighetsprov</code> byggs en gång och monteras på tre ställen. I <code>personlighetstest-jobb-guide</code> direkt efter "Så tolkas svaren" (läsaren har just sett tio exempel och vill veta var hon själv hamnar), i <code>map-test-personlighetstest</code> efter "Exempel på påståenden i MAP-stil", och som huvudinnehåll på en ny sida <code>/verktyg/personlighetstest</code>.</p>
+  <div class="beslut">
+    <h3>Varför båda, och varför sidan är den kanoniska</h3>
+    <ul>
+      <li><b>Länkvärde.</b> Sökorden "personlighetstest gratis" och "map test gratis" har efterfrågan i Search Console (plan-content Q4, rad 2 och R4). En artikelpanel rankar inte på dem, en verktygssida gör det, och den får länkar från båda artiklarna, rekryteringstester-sidan (som i dag skickar personlighetsdelen till /register) och prissidans testspår. Testprovet på /verktyg/rekryteringstester/prova visade att en egen URL med smakprov ger konton.</li>
+      <li><b>Laddtid.</b> Tjugo påståenden som text är under 3 kB och skickas i klientbundeln utan facit (omvändningen ligger på servern). Panelen renderas på servern i första läget med samma höjd som klienten hydrerar till, precis som intervjuprovet: noll CLS, ingen påverkan på artikelns LCP. Panelen byter påstående på plats och växer aldrig förrän resultatet kommer, så inget i artikeln flyttar sig under provet.</li>
+      <li><b>Konvertering.</b> I artikeln är läsaren redan i rätt läge och provet tar två minuter, samma logik som intervjuprovet. På sidan får den som kommer från sök samma prov utan att först läsa 2 000 ord. Panelen i artikeln länkar inte till sidan: den är sidan, i artikeln.</li>
+      <li><b>Så gjorde testprovet.</b> Där ligger flödet bara på en egen sida och artiklarna länkar dit. Det fungerade för fem matrisfrågor som kräver bild och bredd. Påståenden på en femgradig skala ryms i artikelkolumnen, så här går vi steget längre och lägger provet i löptexten också.</li>
+    </ul>
+  </div>
+  <div class="beslut">
+    <h3>Tolkningstexten är statisk, inte AI-genererad</h3>
+    <p>Poängen är ren beräkning. Tolkningen är också ren data: fem faktorer gånger tre band ger femton meningar i rekryterarens perspektiv (i den här filen), sex kravprofiler med regler, och intervjupunkter ur motorns befintliga <code>DIMENSION_TEXTS</code> och <code>interviewTips</code>. Kostnad noll, svarstid noll, och varje mening kan copywritern läsa och godkänna en gång. Ett AI-anrop hade kostat ungefär som intervjuprovet (under en krona per hundra), men gett femton varianter av samma sak per dag och en risk för meningar vi inte kan stå för i rekryterarens namn. Skillnaden mot intervjuprovet är att där finns ett fritt svar att läsa; här finns tjugo kryss. Statisk text är rätt kvalitet för tjugo kryss.</p>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: TILLSTÅND A -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Tillstånd a</p>
+  <h2>Inbjudan: första påståendet syns direkt</h2>
+  <p class="led">Ingen startknapp. Rubrik, en mening, och det första påståendet med skalan under. Den som trycker har börjat, och det är där <code>sample_started</code> loggas. Skalan är fem rader på mobil (44 px, hela bredden, ett tryck per rad, tummen når allt) och fem kolumner på desktop.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · personlighetstest-jobb-guide, efter "Så tolkas svaren"</p>
+      <div class="tele"><div class="art">
+        <div class="prosa">
+          <p class="dim">Rekryteraren använder sedan profilen för att välja frågor till intervjun, till exempel "berätta om en gång då du hittade ett fel i en rapport i sista stund". Testet ger alltså underlag till samtalet snarare än ett färdigt beslut.</p>
+        </div>
+        <aside class="prov">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
+          <p class="text">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
+          <div class="steg"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
+          <p class="pastaende">Jag gör klart det jag lovat även när ingen följer upp.</p>
+          <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
+          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <span class="val">Stämmer inte alls</span>
+            <span class="val">Stämmer dåligt</span>
+            <span class="val">Varken eller</span>
+            <span class="val">Stämmer ganska bra</span>
+            <span class="val">Stämmer helt</span>
+          </div>
+          <p class="fotnot">Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</p>
+        </aside>
+        <div class="prosa">
+          <h2>Vanliga personlighetstest i svensk rekrytering</h2>
+          <p class="dim">De flesta test du möter i Sverige bygger på femfaktormodellen, men de skiljer sig i längd, rapport och vem som får se vad.</p>
+        </div>
+      </div></div>
+      <div class="motiv"><b>Mobil.</b> Påståendet i display 20/26 så det läses som en fråga, inte som en formulärrad. Skalan i fem rader ger fem stora träffytor och ingen horisontell krypning. Panelens höjd är låst av påståendets min-height (två rader), så påstående 2 till 20 ritas på samma yta.
+        <ul><li>Orange räknat: framstegslinjen i överkanten från påstående 2 (1), fokusringen (2). Två av tre.</li><li>Ingen startknapp: första trycket är starten. Det sparar ett steg och ett beslut.</li><li>Ordningen är blandad per faktor (aldrig fyra samvetsgrannhet i rad), seedad på token så samma prov ser likadant ut vid rehydrering.</li></ul></div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · artikelkolumnen 720 px · map-test-personlighetstest</p>
+      <div class="desk"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
+          <p class="text">Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</p>
+          <div class="steg"><span>Påstående 1 av 20</span><span>Inga rätt eller fel</span></div>
+          <p class="pastaende">Jag gör klart det jag lovat även när ingen följer upp.</p>
+          <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
+          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <span class="val">Stämmer inte alls</span>
+            <span class="val">Stämmer dåligt</span>
+            <span class="val">Varken eller</span>
+            <span class="val">Stämmer ganska bra</span>
+            <span class="val">Stämmer helt</span>
+          </div>
+          <p class="fotnot">Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Desktop.</b> Skalan blir en rad med fem lika breda knappar, etiketterna i 13 px centrerade. Piltangenter flyttar mellan alternativen som i en radiogrupp, mellanslag väljer och går vidare. Samma DOM som mobilen, bara grid-kolumnerna ändras.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: TILLSTÅND B -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Tillstånd b</p>
+  <h2>Mitt i provet, och när servern räknar</h2>
+  <p class="led">Från påstående 2 löper tråden längs panelens överkant som framstegslinje: här är du. Ett val går vidare efter 160 ms så bocken hinner synas. "Föregående påstående" är en textlänk under skalan, aldrig en andra knapp. Efter påstående 20 räknar servern ihop profilen, vilket tar under en sekund, men skelettet visas ändå så att bytet inte blinkar.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · påstående 8 av 20, valet gjort</p>
+      <div class="tele"><div class="art">
+        <aside class="prov framsteg" style="--w:40%">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <div class="steg"><span>Påstående 8 av 20</span><span>Inga rätt eller fel</span></div>
+          <p class="pastaende">Jag arbetar helst i ett rum för mig själv.</p>
+          <p class="instr">Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
+          <div class="likert" role="radiogroup" aria-label="Hur väl stämmer påståendet">
+            <span class="val">Stämmer inte alls</span>
+            <span class="val vald fokus">Stämmer dåligt</span>
+            <span class="val">Varken eller</span>
+            <span class="val">Stämmer ganska bra</span>
+            <span class="val">Stämmer helt</span>
+          </div>
+          <div class="tillbaka"><a class="textlank" href="#">Föregående påstående</a><span class="fotnot" style="margin:0">Svar sparas i panelen</span></div>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Under provet.</b> Rubriken och ingressen fälls bort efter första svaret (som intervjuprovets ingress) så skalan ligger högre upp. Framstegslinjen är 2 px accent i överkanten, 5 procent per påstående. Bocken i ink-1 på valt alternativ, aldrig orange: tråden betyder position, valet markeras med kant och bock.
+        <ul><li>Svaren ligger i komponentens state och i sessionStorage under token, så en omladdning mitt i provet fortsätter där man var.</li><li>Inget tangentbord behövs. VoiceOver läser "Påstående 8 av 20, Jag arbetar helst i ett rum för mig själv, radiogrupp, fem alternativ".</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · efter påstående 20, servern räknar</p>
+      <div class="tele"><div class="art">
+        <aside class="prov framsteg" style="--w:100%">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <div class="steg"><span>Påstående 20 av 20</span><span>Klart</span></div>
+          <div class="laddar" role="status" aria-live="polite">
+            <p class="l1">Vi räknar ihop din profil</p>
+            <div class="wl" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="fotnot" style="margin-top:12px">Tar en sekund.</p>
+          </div>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Räkningen.</b> LoadingSkeleton i varianten writing, tråden hela vägen. Servern får tjugo svar, vänder de omvända, normaliserar per faktor med motorns <code>computeScores</code> och sparar raden. Klienten får aldrig veta vilka som var omvända: det är en del av det låsta.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: TILLSTÅND C + D -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Tillstånd c och d</p>
+  <h2>Profilen direkt, spärren i samma andetag</h2>
+  <p class="led">Det som syns före kontot: en mening om vad rekryteraren lägger märke till först, och de fem faktorerna med bandord (Hög, Mitt emellan, Låg), femsegmentsmätare och en mening per faktor i rekryterarens perspektiv. Inga råpoäng: tjugo påståenden ger en riktning, inte ett tal, och siffror hade lovat en precision provet inte har. Det låsta: profilen läst mot sex vanliga kravprofiler, det du kan säga på intervjun, och de tio påståendena som var omvända med ett mått på hur konsekvent du svarade.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · resultat och spärr (hela panelen)</p>
+      <div class="tele"><div class="art">
+        <aside class="prov" aria-live="polite">
+          <p class="eyebrow">Din profil</p>
+          <p class="mening">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          <div class="faktorer">
+            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
+            <div class="rader" aria-hidden="true"><i style="width:88%"></i><i style="width:76%"></i><i style="width:92%"></i><i style="width:70%"></i><i style="width:84%"></i><i style="width:78%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
+            <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:90%"></i><i style="width:72%"></i><i style="width:86%"></i><i style="width:64%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
+            <div class="rader" aria-hidden="true"><i style="width:80%"></i><i style="width:68%"></i><i style="width:50%"></i></div>
+          </div>
+          <p class="sr">Du ser hela tolkningen när du skapat ett konto.</p>
+        </aside>
+        <section class="sparr">
+          <div>
+            <p class="rubrik2">Spara profilen och se hela tolkningen</p>
+            <p class="text">Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.</p>
+            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Gör om provet</a></div>
+          </div>
+        </section>
+      </div></div>
+      <div class="motiv"><b>Vad som syns före kontot.</b> Hela profilen. Det är spegeln, och den ska vara gratis och hel, annars känns provet som ett lockbete. Det låsta är det man gör med spegeln: läsningen mot kravprofiler, intervjuformuleringarna och facit på omvändningen. Etiketterna säger exakt vad som ligger där, med antal.
+        <ul><li>Meningen överst är byggd av de två faktorer som avviker mest från mitten. Ligger allt i mitten: "Det rekryteraren lägger märke till först: en jämn profil utan utslag. Räkna med frågor om vad du väljer när du får välja."</li><li>Mätaren är fem segment i ink-1, som intervjuprovets nivå. Segmenten är kvintiler av faktorpoängen, bandordet följer motorns band (låg under 40, hög från 70).</li><li>Stabilitet visas inverterat: hög stabilitet är låg särbarhet i motorn. Konsekvent med MAP-artikeln och med hur rekryterare pratar.</li><li>Spärrkortet är intervjuprovets: upphöjd kant, kontoknapp med pil, villkorsrad, "Gör om provet" som textlänk.</li></ul></div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · resultat och spärr</p>
+      <div class="desk"><div class="art">
+        <aside class="prov" aria-live="polite">
+          <p class="eyebrow">Din profil</p>
+          <p class="mening">Det rekryteraren lägger märke till först: hög samvetsgrannhet och låg utåtriktning.</p>
+          <div class="faktorer">
+            <div class="faktor"><div class="topp"><span class="namn">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div><p class="lasning">Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Utåtriktning</span><span class="band">Låg</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div><p class="lasning">Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Stabilitet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div><p class="lasning">Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra.</p></div>
+            <div class="faktor"><div class="topp"><span class="namn">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div><p class="lasning">Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod.</p></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Så läses din profil mot sex vanliga kravprofiler</p>
+            <div class="rader" aria-hidden="true"><i style="width:88%"></i><i style="width:76%"></i><i style="width:92%"></i><i style="width:70%"></i><i style="width:84%"></i><i style="width:78%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Det du kan säga på intervjun, faktor för faktor</p>
+            <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:90%"></i><i style="width:72%"></i><i style="width:86%"></i><i style="width:64%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>De tio påståendena som var omvända, och hur konsekvent du svarade</p>
+            <div class="rader" aria-hidden="true"><i style="width:80%"></i><i style="width:68%"></i><i style="width:50%"></i></div>
+          </div>
+          <p class="sr">Du ser hela tolkningen när du skapat ett konto.</p>
+        </aside>
+        <section class="sparr">
+          <div class="illu" aria-hidden="true">
+            <svg viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="10" width="52" height="68" rx="8" fill="#fff" stroke="currentColor" stroke-width="3"/>
+              <path d="M26 26h28M26 36h28" stroke="currentColor" stroke-width="3"/>
+              <path d="M26 48h28M26 58h20" stroke="currentColor" stroke-width="3" stroke-opacity=".3" stroke-dasharray="6 6"/>
+              <rect x="54" y="54" width="32" height="26" rx="8" fill="#D9480F" fill-opacity=".2" stroke="currentColor" stroke-width="3"/>
+              <path d="M60 54v-7a10 10 0 0 1 20 0v7" stroke="currentColor" stroke-width="3"/>
+              <circle cx="70" cy="67" r="3.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <p class="rubrik2">Spara profilen och se hela tolkningen</p>
+            <p class="text">Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.</p>
+            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Gör om provet</a></div>
+          </div>
+        </section>
+      </div></div>
+      <div class="motiv"><b>Desktop.</b> Samma panel, samma ordning. IlluBlurGate i 96 till vänster i spärrkortet, som i intervjuprovet. Meningarna per faktor är skrivna så att de slutar i något rekryteraren "kommer att fråga": det är det som gör att tolkningen bakom spärren känns nödvändig, inte bara trevlig.
+        <ul><li>Inloggad besökare som gör provet i artikeln får ingen spärr utan raden "Profilen ligger i ditt konto" med länken "Se hela tolkningen", som intervjuprovets inloggade läge.</li><li>Kvot: tre prov per IP och dygn, som testprovet (ingen AI-kostnad). Vid det fjärde: statusraden "Tre prov på ett dygn räcker för en profil. Med ett gratiskonto gör du hela testet med 50 påståenden och sparar resultatet." och kontoknappen, skalan dold.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: FEL -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Tillstånd e</p>
+  <h2>Servern svarade inte, och dagens prov gjorda</h2>
+  <p class="led">Två fel finns. Ett obesvarat påstående kan inte uppstå (man kommer inte vidare utan val), och för kort text finns inte. Kvar är servern och kvoten, båda i intervjuprovets form. Svaren ligger kvar i panelen vid fel, och "Försök igen" skickar dem en gång till.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · servern svarade inte efter påstående 20</p>
+      <div class="tele"><div class="art">
+        <aside class="prov framsteg" style="--w:100%">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <div class="steg"><span>Påstående 20 av 20</span><span>Klart</span></div>
+          <div class="felrad" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div><b>Vi kunde inte räkna ihop profilen just nu</b><p>Dina svar finns kvar. Försök igen om en stund.</p><div><a href="#">Försök igen</a></div></div>
+          </div>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Fel.</b> FlowError ordagrant. Nätverksfel får texten "Vi nådde inte servern. Kontrollera uppkopplingen och försök igen. Dina svar finns kvar." Svaren skickas om med samma token, servern är idempotent på token.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · fjärde provet samma dygn (429)</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Personlighetsprovet</p>
+          <p class="rubrik">Se vad rekryteraren läser ut av dig</p>
+          <div class="statusrad"><span class="v"><i></i><span style="white-space:normal">Tre prov på ett dygn räcker för en profil. Med ett gratiskonto gör du hela testet med 50 påståenden och sparar resultatet.</span></span></div>
+          <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <p class="fotnot">Inget kreditkort · Avsluta när du vill</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Kvoten.</b> StatusRow neutral med wrap, som intervjuprovets. Tre per IP och dygn i <code>public_rate_limits</code> med scope <code>anon_personality</code>. Ingen dygnsbudget behövs: ingen modell anropas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: HUBBEN -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Inför intervjun</p>
+  <h2>En sida inloggad där proven, profilen och nästa övning bor</h2>
+  <p class="led">Ny sida på <code>/dashboard/intervju</code> (resultatsidan per token ligger redan under samma stig). Menyetikett "Inför intervjun" under Träna, mellan Rekryteringstester och Jobbcoachen. Sidmallen: PageHeader med den primära handlingen "Nytt intervjuprov", Nästa handling som vyns enda bläckyta, "Dina intervjuprov" som rader på mark (aldrig fyra paneler i följd), kvoten som en statusrad med Testveckan som textlänk, och "Din personlighetsprofil" som panel. Inga nya komponenter: PageHeader, InkPanel, StatusRow, EmptyState, listraderna från "Det här har du gjort".</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · gratisnivån, ett prov gjort i går, dagens prov gjort, smakprovsprofil</p>
+      <div class="app">
+        <div class="topp"><b>jobbcoach</b><svg class="meny" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="inne">
+          <div class="ph">
+            <p class="eyebrow">Träna</p>
+            <h1>Inför intervjun</h1>
+            <p class="desc">Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil.</p>
+            <a class="knapp" href="#">Nytt intervjuprov</a>
+          </div>
+
+          <div class="ink" style="margin-top:24px">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="120" height="90" rx="12" fill="#2C2724"/><path d="M50 65h80M50 85h60M50 105h40"/><path d="M150 100l30 22v-22" fill="#2C2724"/><rect x="120" y="120" width="90" height="50" rx="12" fill="#2C2724"/><path d="M140 145h50" stroke="#FBB98A"/></svg></div>
+            <div style="min-width:0;flex:1">
+              <p class="eyebrow">Nästa handling</p>
+              <p class="t">Skriv om svaret om styrkor och svagheter</p>
+              <p class="x">Du fick 3 av 5 i går, och det var planen för svagheten som saknades. Skriv om med den, så ser du om nivån lyfter. Nästa prov öppnar i morgon.</p>
+              <div class="h"><a class="knapp vit" href="#">Läs återkopplingen igen</a><a class="lank" href="#">Välj en annan fråga</a></div>
+            </div>
+          </div>
+
+          <p class="sl">Dina intervjuprov</p>
+          <ul class="lista">
+            <li><span class="niva"><b>3</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Godkänt · I går · omskrivet med planen</span></span><a class="textlank" href="#">Öppna</a></li>
+          </ul>
+          <div class="statusrad"><span class="v"><i></i><span style="white-space:normal">Ett prov per dygn ingår. Dagens är gjort, nästa öppnar i morgon.</span></span><a class="textlank" href="#">Se Testveckan</a></div>
+
+          <p class="sl">Din personlighetsprofil</p>
+          <div class="panel">
+            <p class="kort">Hög samvetsgrannhet, låg utåtriktning</p>
+            <p class="meta">Smakprovet, 20 påståenden · 23 september</p>
+            <div class="faktorer" style="gap:10px;margin-top:12px;padding-top:12px">
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Samvetsgrannhet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Utåtriktning</span><span class="band">Låg</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i></i><i></i><i></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Stabilitet</span><span class="band">Hög</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Vänlighet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Öppenhet</span><span class="band">Mitt emellan</span></div><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div></div>
+            </div>
+            <div class="lankar"><a class="textlank" href="#">Hela tolkningen</a><a class="textlank" href="#">Gör hela testet, 50 påståenden</a></div>
+          </div>
+        </div>
+        <div class="nav">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hem</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Ansökningar</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Skapa</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>Mobil, gratisnivån.</b> Primärknappen "Nytt intervjuprov" i sidhuvudet, full bredd, inom första skärmhöjden. Bläckytan bär vyns viktigaste handling: skriv om det svar som fick 3, eftersom det är där lyftet finns. När dagens prov redan är gjort blir knappen "Läs återkopplingen igen" och texten säger när nästa öppnar. Ingen andra bläckyta, ingen betalvägg.
+        <ul><li>Kvoten är en rad, inte ett kort, och den enda säljytan på sidan är textlänken "Se Testveckan". Raden visas bara när dagens prov är gjort. Före det säger menyn vad som ingår.</li><li>Radens tal i display 22/800 med "av 5" i meta: samma som resultatets, så nivån känns igen.</li><li>Profilpanelen upprepar smakprovets fem faktorer med bandord, och pekar mot hela testet med 50 påståenden som ingår gratis. Panelen är den tredje ytan i samma vikt (statusrad emellan), regel 4 håller.</li><li>Orange räknat: aktiv menyrad syns inte här (mobil), fokusring (1). Ett av tre.</li></ul></div>
+    </div>
+  </div>
+  <div class="rad">
+    <div class="kol desk-app">
+      <p class="etikett">Desktop 1180 px · Testveckan, fyra prov, hela profilen från grundtestet</p>
+      <div class="app-desk">
+        <div class="side">
+          <div class="logo">jobbcoach</div>
+          <div class="paket"><span><b>Du har Testveckan</b><small>Förnyas 1 oktober, 79 kr</small></span><a href="#">Vad ingår?</a></div>
+          <div class="sekt">
+            <div class="r tung"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Mitt jobbsök</div>
+            <div class="r tung"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Sökta tjänster<span class="antal">6</span></div>
+            <div class="r tung"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>Mina CV<span class="antal">2</span></div>
+            <div class="r tung"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>Personliga brev<span class="antal">3</span></div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Skriv och förbättra</p>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Skriv nytt brev</div>
+            <div class="r"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>Analysera CV</div>
+            <div class="r"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>CV-mallar</div>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>LinkedIn-profilen</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Hitta jobb</p>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M4 12h6l2-4 2 8 2-4h4"/></svg>Matchade jobb</div>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Bli upptäckt</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Träna</p>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M4 18l5-8 4 5 3-3 4 6"/></svg>Rekryteringstester</div>
+            <div class="r aktiv"><svg viewBox="0 0 24 24"><path d="M4 5h11v8H8l-4 3z"/><path d="M13 11h7v8h-3l-3 2v-2h-1"/></svg>Inför intervjun<span class="ny">Nyhet</span></div>
+            <div class="r"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/><path d="M15 4l2 2"/></svg>Jobbcoachen</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Konto</p>
+            <div class="r"><svg viewBox="0 0 24 24"><path d="M4 16l2-9 6 5 6-5 2 9z"/></svg>Profil och prenumeration<span class="antal">Aktiv</span></div>
+          </div>
+          <p class="fot">Vill du ha CV-delen också? Allt kostar 20 kr till i veckan och öppnar allt grått.</p>
+        </div>
+        <div class="huvud"><div class="inne">
+          <div class="ph">
+            <div>
+              <p class="eyebrow">Träna</p>
+              <h1>Inför intervjun</h1>
+              <p class="desc">Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Utan tak i Testveckan.</p>
+            </div>
+            <a class="knapp" href="#">Nytt intervjuprov</a>
+          </div>
+
+          <div class="ink" style="margin-top:32px">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="120" height="90" rx="12" fill="#2C2724"/><path d="M50 65h80M50 85h60M50 105h40"/><path d="M150 100l30 22v-22" fill="#2C2724"/><rect x="120" y="120" width="90" height="50" rx="12" fill="#2C2724"/><path d="M140 145h50" stroke="#FBB98A"/></svg></div>
+            <div style="min-width:0;flex:1">
+              <p class="eyebrow">Nästa handling</p>
+              <p class="t">Öva på "Varför ska vi anställa just dig?"</p>
+              <p class="x">Den enda av de sju frågorna du inte svarat på än, och den där rekryteraren jämför dig med de andra i urvalet. Två krav ur annonsen, ett bevis per krav.</p>
+              <div class="h"><a class="knapp vit" href="#">Svara på frågan</a><a class="lank" href="#">Välj en annan fråga</a></div>
+            </div>
+          </div>
+
+          <p class="sl">Dina intervjuprov</p>
+          <ul class="lista">
+            <li><span class="niva"><b>4</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Starkt · I dag · omskrivet med kopplingen</span></span><a class="textlank" href="#">Öppna</a></li>
+            <li><span class="niva"><b>3</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Godkänt · 23 september · omskrivet med planen</span></span><a class="textlank" href="#">Öppna</a></li>
+            <li><span class="niva"><b>4</b><small>av 5</small></span><span class="v"><span class="fr">Ett problem du löste</span><span class="u">Starkt · 23 september · omskrivet med resultatet</span></span><a class="textlank" href="#">Öppna</a></li>
+            <li><span class="niva"><b>2</b><small>av 5</small></span><span class="v"><span class="fr">Berätta om dig själv</span><span class="u">Tunt · 22 september · omskrivet med exemplet</span></span><a class="textlank" href="#">Öppna</a></li>
+          </ul>
+
+          <p class="sl">Din personlighetsprofil</p>
+          <div class="panel">
+            <p class="kort">Drivande genomförare</p>
+            <p class="meta">Grundtestet, 50 påståenden · 25 september</p>
+            <div class="faktorer" style="gap:10px;margin-top:12px;padding-top:12px">
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Samvetsgrannhet</span><span class="tal">82</span></div><div class="linje"><i style="width:82%"></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Utåtriktning</span><span class="tal">64</span></div><div class="linje"><i style="width:64%"></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Stabilitet</span><span class="tal">71</span></div><div class="linje"><i style="width:71%"></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Vänlighet</span><span class="tal">55</span></div><div class="linje"><i style="width:55%"></i></div></div>
+              <div class="faktor"><div class="topp"><span class="namn" style="font-weight:500">Öppenhet</span><span class="tal">48</span></div><div class="linje"><i style="width:48%"></i></div></div>
+            </div>
+            <div class="lankar"><a class="textlank" href="#">Hela analysen</a><a class="textlank" href="#">Din arbetsstil</a><a class="textlank" href="#">Fördjupade testet, 120 påståenden</a></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="motiv"><b>Desktop, Testveckan.</b> Samma sida, ingen kvotrad. Sidhuvudets underrad säger "Utan tak i Testveckan", vilket är enda gången paketet nämns. Nästa handling väljer den fråga användaren inte gjort. Listan är rader direkt på mark, som "Det här har du gjort" på hemskärmen: tal, fråga, etikett, datum och vad omskrivningen gav, och "Öppna" som textlänk. Sidomenyn: "Inför intervjun" som aktiv rad med tråden, etiketten Nyhet i accent-ink under de första fyra veckorna (samma mönster som Sökta tjänster fick).
+        <ul><li>Profilpanelen visar hela testets profil med tal (som PersonalityProfileCard gör redan i dag) och arketypen ur arbetsstilsmotorn som kortrubrik. Länkarna leder till det som finns: hela analysen, Din arbetsstil, det fördjupade testet.</li><li>Orange räknat: tråden på menyraden (1), etiketten Nyhet (2), fokusring (3). Tre av tre, så inget annat orange på sidan.</li><li>Rangordning för Nästa handling på den här sidan: 1 omskrivning om senaste provet fick 3 eller lägre och kvot finns, 2 en fråga som inte gjorts, 3 hela personlighetstestet om bara smakprovet finns, 4 "Läs återkopplingen igen" när kvoten är slut.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: TOMT + NYTT PROV -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Tomt tillstånd och nytt prov</p>
+  <h2>Utan prov, och flödet för att välja fråga</h2>
+  <p class="led">En användare som registrerat sig utan att göra ett prov (till exempel via CV-spåret) ser samma sida med EmptyState i listan. Nytt intervjuprov är ett tvåstegsflöde i FlowShell: fråga, sedan svar. Frågesteget är sju ChoiceCards, det rekommenderade valet med marginalplatta (en per vy). Svarssteget är intervjuprovets fält och bedömning i inloggat läge, och resultatet landar på resultatsidan per token.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · inga prov, ingen profil (registrerad via CV-spåret)</p>
+      <div class="app">
+        <div class="topp"><b>jobbcoach</b><svg class="meny" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="inne">
+          <div class="ph">
+            <p class="eyebrow">Träna</p>
+            <h1>Inför intervjun</h1>
+            <p class="desc">Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil.</p>
+            <a class="knapp" href="#">Nytt intervjuprov</a>
+          </div>
+          <div class="ink" style="margin-top:24px">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="120" height="90" rx="12" fill="#2C2724"/><path d="M50 65h80M50 85h60M50 105h40"/><path d="M150 100l30 22v-22" fill="#2C2724"/><rect x="120" y="120" width="90" height="50" rx="12" fill="#2C2724"/><path d="M140 145h50" stroke="#FBB98A"/></svg></div>
+            <div style="min-width:0;flex:1">
+              <p class="eyebrow">Börja här</p>
+              <p class="t">Öva på "Berätta om dig själv"</p>
+              <p class="x">Frågan kommer nästan alltid först. Skriv ditt svar som du skulle säga det, så säger vi vad rekryteraren hör och vad som saknas. Ett prov om dagen ingår.</p>
+              <div class="h"><a class="knapp vit" href="#">Svara på frågan</a><a class="lank" href="#">Välj en annan fråga</a></div>
+            </div>
+          </div>
+          <p class="sl">Dina intervjuprov</p>
+          <div class="panel tom">
+            <div class="ill" aria-hidden="true"><svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 20h44v32H30l-12 10z" fill="#fff"/><path d="M52 44h30v28H70l-10 8v-8h-8z" fill="#fff"/><path d="M24 32h24M24 40h16"/></svg></div>
+            <p class="kort">Inga prov än</p>
+            <p>Skriv ett svar så säger vi vad rekryteraren hör. Ett prov om dagen ingår gratis.</p>
+          </div>
+          <p class="sl">Din personlighetsprofil</p>
+          <div class="panel">
+            <p class="kort">Ingen profil än</p>
+            <p class="meta" style="margin-top:4px;font-variant-numeric:normal">Femtio påståenden, tio minuter. Sedan ser du vad rekryteraren läser ut av dig.</p>
+            <div class="lankar"><a class="textlank" href="#">Gör personlighetstestet</a></div>
+          </div>
+        </div>
+        <div class="nav">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hem</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Ansökningar</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Skapa</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>Tomt.</b> EmptyState utan egen knapp: primärknappen finns redan i sidhuvudet och bläckytan, en tredje hade brutit regeln om en primär handling. Profilpanelen utan profil pekar mot hela testet (gratis), aldrig mot smakprovet: en inloggad ska göra det riktiga testet direkt.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · Nytt intervjuprov, steg 1 av 2: välj fråga</p>
+      <div class="app flow">
+        <div class="topp2"><span><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span><b>Nytt intervjuprov</b><span>Steg 1 av 2</span></div>
+        <div class="inne">
+          <p class="eyebrow">Välj fråga</p>
+          <p style="margin-top:8px;font-size:22px;line-height:28px;font-weight:600;letter-spacing:-.02em">Vilken fråga vill du öva på?</p>
+          <div class="valkort" role="radiogroup">
+            <div class="vk vald"><div class="platta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div><div><p class="ey">Rekommenderas</p><p class="t">Berätta om dig själv</p><p class="d">Kommer nästan alltid först. Nuläge, två saker som gjort dig bra, varför du sitter här.</p><p class="m">Inte gjord än</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M5 11l7-7 7 7"/></svg><div><p class="t">Vilka är dina styrkor och svagheter?</p><p class="d">Självinsikt och relevans. En styrka med bevis, en svaghet med plan.</p><p class="m">Gjord 2 gånger · bäst 4 av 5</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l2-9 6 5 6-5 2 9z"/></svg><div><p class="t">Varför ska vi anställa just dig?</p><p class="d">Två krav ur annonsen, ett bevis per krav, och det du ger som inte står där.</p><p class="m">Inte gjord än</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l6-6M14 4l6 6-8 8H6v-6z"/></svg><div><p class="t">Varför söker du det här jobbet?</p><p class="d">Vad i rollen som lockar, vad i företaget, och vad du lämnar utan att tala illa om det.</p><p class="m">Inte gjord än</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><div><p class="t">Berätta om en gång då du löste ett problem som ingen annan tog tag i.</p><p class="d">Kompetensbaserad fråga, svaras med STAR. Initiativ, eget ansvar, resultat.</p><p class="m">Gjord 1 gång · 4 av 5</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11v8H8l-4 3z"/><path d="M13 11h7v8h-3l-3 2v-2h-1"/></svg><div><p class="t">Berätta om en konflikt med en kollega och hur du hanterade den.</p><p class="d">STAR igen. Rekryteraren lyssnar efter att du tog samtalet, inte vem som hade rätt.</p><p class="m">Inte gjord än</p></div></div>
+            <div class="vk"><svg class="ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l8 14H4z"/><path d="M12 10v4M12 16h.01"/></svg><div><p class="t">Berätta om ett misstag du gjort på jobbet.</p><p class="d">Misstaget rakt ut, vad du gjorde direkt, och vad du ändrade efteråt.</p><p class="m">Inte gjord än</p></div></div>
+          </div>
+        </div>
+        <div class="fot"><a class="knapp" href="#">Fortsätt</a></div>
+      </div>
+      <div class="motiv"><b>Frågevalet.</b> FlowShell med steg 1 av 2 och tråden som framstegslinje under toppraden, sticky fot med Fortsätt, bottennavet dolt (som alla flerstegsflöden). Sju ChoiceCards: det rekommenderade med marginalplatta 56 och etiketten Rekommenderas i accent-ink, resten med naken ikon 24. Metaraden per kort säger om frågan är gjord och bästa nivån, så listan också är en historik.
+        <ul><li>Rekommendationen: första frågan i listan som inte gjorts, annars den med lägst bästa nivå.</li><li>Steg 2 är intervjuprovets panel ordagrant (fält, räknare, tips, bedömning) i inloggat läge, med FlowShells fot som bedömningsknapp. Resultatet landar på /dashboard/intervju/{token}.</li><li>Två frågor är publika (styrkor, STAR), fem finns bara inloggad. API:et avvisar de fem för anonyma anrop.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ KEDJAN I TRE SKÄRMAR -->
+<section class="sektion">
+  <p class="eyebrow">Kedjan i tre skärmar</p>
+  <h2>Besökaren gör provet, registrerar sig, köper Testveckan</h2>
+  <p class="led">Det ägaren bad om: hela vägen från anonym till betalande, med det som är nytt markerat. Skärm 1 är intervjuprovets spärr som den redan ser ut (oförändrad). Skärm 2 är landningen efter registrering, resultatsidan per token, med en ny rad sist som pekar in i hubben. Skärm 3 är hubben som gratisanvändare, och samma sida en vecka senare med Testveckan.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Skärm 1 · artikeln, spärren efter bedömningen (oförändrad)</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Din bedömning</p>
+          <div style="margin-top:16px;display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--display);font-size:40px;line-height:40px;font-weight:800;letter-spacing:-.03em">3</span><span style="font-size:14px;color:var(--ink-3)">av 5</span></div>
+          <div class="faktor" style="margin-top:10px"><div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div></div>
+          <p class="mening" style="margin-top:10px">Godkänt. Styrkan har ett bevis, men svagheten stannar vid en bekännelse.</p>
+          <div class="last"><p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Fullständig återkoppling, fem punkter</p><div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:72%"></i><i style="width:90%"></i></div></div>
+        </aside>
+        <section class="sparr"><div>
+          <p class="rubrik2">Se hela återkopplingen och ditt svar omskrivet</p>
+          <p class="text">Skapa ett gratiskonto så får du återkopplingen punkt för punkt och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.</p>
+          <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span></div>
+        </div></section>
+      </div></div>
+      <div class="motiv"><b>1. Anonym.</b> Inget ändras här. Token följer med i /register?intervju={token} och sessionStorage, claim-kedjan i register-form är den befintliga.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Skärm 2 · landningen efter registrering, /dashboard/intervju/{token}, nedre delen</p>
+      <div class="app">
+        <div class="topp"><b>jobbcoach</b><svg class="meny" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="inne">
+          <div class="ph"><p class="eyebrow">Inför intervjun</p><h1>Ditt intervjusvar, bedömt</h1><p class="desc">Hela återkopplingen och ditt svar omskrivet. Vi sparar det i ditt konto.</p></div>
+          <div class="panel" style="margin-top:16px">
+            <p class="kort">Ditt svar, omskrivet</p>
+            <p class="meta" style="font-variant-numeric:normal">Planen för svagheten är tillagd, resten är dina ord.</p>
+            <p style="margin-top:12px;padding:12px;border:1px solid var(--kant);border-radius:8px;background:var(--insunken);box-shadow:inset 0 1px 0 var(--insunken-topp);font-size:16px;line-height:24px">En av mina styrkor är att jag är strukturerad. På mitt förra jobb hade jag ansvar för tre projekt samtidigt och ingen deadline sprack. Min svaghet är att jag har haft svårt att delegera. Det märktes när jag <mark style="background:var(--panel);outline:1px solid var(--kant-stark)">[situation]</mark>, så numera <mark style="background:var(--panel);outline:1px solid var(--kant-stark)">[vad du gör åt det]</mark>.</p>
+            <p class="meta" style="margin-top:8px;font-variant-numeric:normal">Det inom hakparenteser fyller du i själv. Vi hittar aldrig på siffror eller händelser åt dig.</p>
+            <a class="knapp" href="#">Öva på nästa fråga<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+          <div class="statusrad"><span class="v"><i class="pos"></i><span style="white-space:normal">Sparat under Inför intervjun, med dina prov och din profil.</span></span><a class="textlank" href="#">Öppna</a></div>
+        </div>
+        <div class="nav">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hem</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Ansökningar</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Skapa</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>2. Registrerad.</b> Tre ändringar på den befintliga sidan: eyebrow "Inför intervjun" i stället för "Intervjuprovet", primärknappen "Öva på nästa fråga" (till frågevalet) i stället för "Öva vidare med Jobbcoachen", och sist en positiv statusrad som säger var provet ligger. Beskrivningen säger "i ditt konto" i stället för "i sju dagar", se beslut 2.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Skärm 3 · Inför intervjun, dagen efter, som gratisanvändare, sedan med Testveckan</p>
+      <div class="app" style="height:auto">
+        <div class="topp"><b>jobbcoach</b><svg class="meny" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="inne" style="padding-bottom:16px">
+          <div class="ph"><p class="eyebrow">Träna</p><h1>Inför intervjun</h1><a class="knapp" href="#">Nytt intervjuprov</a></div>
+          <p class="sl">Dina intervjuprov</p>
+          <ul class="lista">
+            <li><span class="niva"><b>3</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Godkänt · I går · omskrivet med planen</span></span><a class="textlank" href="#">Öppna</a></li>
+          </ul>
+          <div class="statusrad"><span class="v"><i></i><span style="white-space:normal">Ett prov per dygn ingår. Dagens är kvar.</span></span><a class="textlank" href="#">Se Testveckan</a></div>
+          <p class="eyebrow" style="margin-top:28px;padding-top:16px;border-top:1px dashed var(--kant-stark)">Samma sida, en vecka senare med Testveckan</p>
+          <p class="sl">Dina intervjuprov</p>
+          <ul class="lista">
+            <li><span class="niva"><b>4</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Starkt · I dag · omskrivet med kopplingen</span></span><a class="textlank" href="#">Öppna</a></li>
+            <li><span class="niva"><b>4</b><small>av 5</small></span><span class="v"><span class="fr">Ett problem du löste</span><span class="u">Starkt · I dag · omskrivet med resultatet</span></span><a class="textlank" href="#">Öppna</a></li>
+            <li><span class="niva"><b>3</b><small>av 5</small></span><span class="v"><span class="fr">Styrkor och svagheter</span><span class="u">Godkänt · 23 september · omskrivet med planen</span></span><a class="textlank" href="#">Öppna</a></li>
+          </ul>
+          <p class="fotnot">Ingen kvotrad. Två prov samma dag, och sidhuvudets underrad säger "Utan tak i Testveckan".</p>
+        </div>
+      </div>
+      <div class="motiv"><b>3. Gratis, sedan Testveckan.</b> Skillnaden mellan de två lägena är en rad som försvinner och en mening i sidhuvudet. Det är hela uppgraderingen sett från sidan: ingen betalvägg, inget kort som säljer, inget lås. Kvotraden i gratisläget säger vad som ingår ("Ett prov per dygn ingår") innan den säger vad som är slut, och textlänken går till Testveckan i kassan med förvalt paket.
+        <ul><li>Mätning: <code>feature_blocked</code> med feature <code>interview_unlimited</code> loggas när raden visas i läget "dagens är gjort", så vi ser hur många som möter taket och hur många som klickar.</li><li>Efter köpet landar hon på hemskärmen med kvittot som i dag, och Kom igång-hjälpredan för Testveckan får en ny bricka "Intervjuprovet" (se specen).</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ HEMSKÄRMEN OCH MENYN -->
+<section class="sektion">
+  <p class="eyebrow">Hemskärmen och sidomenyn</p>
+  <h2>Var tråden syns utanför sidan</h2>
+  <p class="led">Tre ställen. Sidomenyn får raden "Inför intervjun" under Träna. Hemskärmens Nästa handling får två nya steg i rankningen, efter uppföljningen och AF-rapporten men före de oprövade funktionerna: ett prov som fick 3 eller lägre och inte skrivits om på tre dagar, och ett smakprov utan riktigt test. "Det här har du gjort" får meningar för prov och profil.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · hemskärmen, Nästa handling efter ett prov på nivå 3</p>
+      <div class="app">
+        <div class="topp"><b>jobbcoach</b><svg class="meny" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+        <div class="inne">
+          <div class="ph"><h1>Hej Sara</h1><p class="desc">Ett nytt svar sedan i går.</p></div>
+          <div class="ink" style="margin-top:16px">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="120" height="90" rx="12" fill="#2C2724"/><path d="M50 65h80M50 85h60M50 105h40"/><path d="M150 100l30 22v-22" fill="#2C2724"/><rect x="120" y="120" width="90" height="50" rx="12" fill="#2C2724"/><path d="M140 145h50" stroke="#FBB98A"/></svg></div>
+            <div style="min-width:0;flex:1">
+              <p class="eyebrow">Nästa handling</p>
+              <p class="t">Skriv om svaret om styrkor och svagheter</p>
+              <p class="x">Du fick 3 av 5 i går. Planen för svagheten saknades, och den är det lättaste att lägga till.</p>
+              <div class="h"><a class="knapp vit" href="#">Skriv om svaret</a><a class="lank" href="#">Senare</a></div>
+            </div>
+          </div>
+          <p class="sl">Det här har du gjort</p>
+          <p class="eyebrow">I går</p>
+          <ul class="lista" style="margin-top:4px">
+            <li><span class="v"><span class="fr">Du övade på frågan om styrkor och svagheter, 3 av 5.</span><span class="u">Planen för svagheten saknades.</span></span><a class="textlank" href="#">Skriv om</a></li>
+            <li><span class="v"><span class="fr">Du gjorde personlighetsprovet.</span><span class="u">Hög samvetsgrannhet, låg utåtriktning. Hela testet ingår.</span></span><a class="textlank" href="#">Gör hela testet</a></li>
+          </ul>
+        </div>
+        <div class="nav">
+          <span class="pa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/></svg>Hem</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 10h8M8 14h5"/></svg>Ansökningar</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Skapa</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>Hemskärmen.</b> NastaHandling får två nya <code>kind</code>: <code>interview-rewrite</code> och <code>personality-full</code>. Avfärdning som för uppföljningen, sju dagar. Aktivitetsmeningarna följer regel 6: subjekt, verb, vad det betyder, ett nästa steg som textlänk. Bottennavet ändras inte: fyra slots, och Inför intervjun nås via Hem (Nästa handling), aktiviteten och menyn. En femte slot hade brutit navets regel om fyra.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ COPY -->
+<section class="sektion">
+  <p class="eyebrow">Slutcopy</p>
+  <h2>Alla strängar på ett ställe</h2>
+  <p class="led">Svenska facktermer, vi-form, inga talstreck, inget "AI". Strängarna går in i två copyfiler (<code>personlighetsprov-copy.ts</code> och <code>infor-intervjun-copy.ts</code>), aldrig inline. De femton faktormeningarna och de tjugo påståendena ligger i egna datafiler eftersom de är innehåll, inte gränssnitt.</p>
+  <table>
+    <tr><th>Nyckel</th><th>Text</th></tr>
+    <tr><td colspan="2" style="color:var(--ink-1);font-weight:600;background:var(--insunken)">Personlighetsprovet (publikt)</td></tr>
+    <tr><td>eyebrow</td><td>Personlighetsprovet</td></tr>
+    <tr><td>rubrik</td><td>Se vad rekryteraren läser ut av dig</td></tr>
+    <tr><td>ingress</td><td>Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.</td></tr>
+    <tr><td>steg.raknare / steg.hoger / steg.klart</td><td>Påstående {n} av 20 · Inga rätt eller fel · Klart</td></tr>
+    <tr><td>instruktion</td><td>Tänk på hur du är på jobbet, och svara med första rimliga svaret.</td></tr>
+    <tr><td>skala (1 till 5)</td><td>Stämmer inte alls · Stämmer dåligt · Varken eller · Stämmer ganska bra · Stämmer helt</td></tr>
+    <tr><td>tillbaka / sparas</td><td>Föregående påstående · Svar sparas i panelen</td></tr>
+    <tr><td>fotnot</td><td>Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</td></tr>
+    <tr><td>laddar.rubrik / laddar.meta</td><td>Vi räknar ihop din profil · Tar en sekund.</td></tr>
+    <tr><td>resultat.eyebrow</td><td>Din profil</td></tr>
+    <tr><td>resultat.mening</td><td>Det rekryteraren lägger märke till först: {hög|låg} {faktor} och {hög|låg} {faktor}. (Jämn profil: Det rekryteraren lägger märke till först: en jämn profil utan utslag. Räkna med frågor om vad du väljer när du får välja.)</td></tr>
+    <tr><td>band</td><td>Hög · Mitt emellan · Låg (motorns bandFor: låg under 40, hög från 70)</td></tr>
+    <tr><td>faktor.namn</td><td>Samvetsgrannhet · Utåtriktning · Stabilitet · Vänlighet · Öppenhet (ordning: störst avvikelse först)</td></tr>
+    <tr><td>lasning.samvetsgrannhet</td><td>Hög: Rekryteraren ser någon som levererar utan påminnelser, och kommer att fråga när strukturen kostade dig flexibilitet. · Mitt: Rekryteraren ser någon som planerar när det behövs och släpper när det inte gör det. Ha ett exempel på båda. · Låg: Rekryteraren ser någon som trivs med tempo och improvisation, och kommer att fråga hur du håller deadlines.</td></tr>
+    <tr><td>lasning.utatriktning</td><td>Hög: Rekryteraren ser någon som tar plats och får energi av människor, och kommer att fråga hur du lämnar utrymme åt andra. · Mitt: Rekryteraren ser någon som fungerar både i rummet och vid skrivbordet. Berätta vilket du väljer när du får välja. · Låg: Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp.</td></tr>
+    <tr><td>lasning.stabilitet</td><td>Hög: Rekryteraren ser någon som behåller lugnet när det stormar, och kommer att fråga om du märker när andra inte gör det. · Mitt: Rekryteraren ser någon som reagerar på press men hämtar sig. Berätta vad du gör de första tio minuterna. · Låg: Rekryteraren ser någon som tar jobbet på allvar och bär det med sig, och kommer att fråga hur du sätter gränser.</td></tr>
+    <tr><td>lasning.vanlighet</td><td>Hög: Rekryteraren ser någon som håller ihop gruppen, och kommer att fråga när du senast sa emot. · Mitt: Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra. · Låg: Rekryteraren ser någon som säger som det är, och kommer att fråga hur du tar hand om relationen efteråt.</td></tr>
+    <tr><td>lasning.oppenhet</td><td>Hög: Rekryteraren ser någon som gärna prövar nytt, och kommer att fråga hur du landar det i rutiner. · Mitt: Rekryteraren ser någon som väljer nytt när det ger något. Ha ett exempel på en förändring du drev och en du avstod. · Låg: Rekryteraren ser någon som håller sig till det beprövade, och kommer att fråga hur du tar emot ett nytt system.</td></tr>
+    <tr><td>last.kravprofiler / last.intervju / last.omvanda</td><td>Så läses din profil mot sex vanliga kravprofiler · Det du kan säga på intervjun, faktor för faktor · De tio påståendena som var omvända, och hur konsekvent du svarade</td></tr>
+    <tr><td>last.sr</td><td>Du ser hela tolkningen när du skapat ett konto.</td></tr>
+    <tr><td>sparr.rubrik</td><td>Spara profilen och se hela tolkningen</td></tr>
+    <tr><td>sparr.text</td><td>Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.</td></tr>
+    <tr><td>sparr.knapp / sparr.villkor / sparr.igen</td><td>Skapa konto gratis · Inget kreditkort · Avsluta när du vill · Gör om provet</td></tr>
+    <tr><td>inloggad.rubrik / inloggad.text / inloggad.knapp</td><td>Profilen ligger i ditt konto · Där finns hela tolkningen, och hela testet med 50 påståenden. · Se hela tolkningen</td></tr>
+    <tr><td>fel.server</td><td>Vi kunde inte räkna ihop profilen just nu / Dina svar finns kvar. Försök igen om en stund. / Försök igen</td></tr>
+    <tr><td>fel.natverk</td><td>Vi nådde inte servern / Kontrollera uppkopplingen och försök igen. Dina svar finns kvar. / Försök igen</td></tr>
+    <tr><td>kvot.ip</td><td>Tre prov på ett dygn räcker för en profil. Med ett gratiskonto gör du hela testet med 50 påståenden och sparar resultatet.</td></tr>
+    <tr><td colspan="2" style="color:var(--ink-1);font-weight:600;background:var(--insunken)">Sidan /verktyg/personlighetstest</td></tr>
+    <tr><td>title / h1</td><td>Personlighetstest gratis: se vad rekryteraren läser ut av dig · Personlighetstest, gratis och utan konto</td></tr>
+    <tr><td>description</td><td>Tjugo påståenden på femfaktormodellen, samma som MAP och de flesta test i svensk rekrytering. Du får din profil direkt och en rad per faktor om hur en rekryterare läser den.</td></tr>
+    <tr><td colspan="2" style="color:var(--ink-1);font-weight:600;background:var(--insunken)">Inför intervjun (inloggat)</td></tr>
+    <tr><td>meny.etikett / meny.nyhet</td><td>Inför intervjun · Nyhet</td></tr>
+    <tr><td>sida.eyebrow / sida.titel</td><td>Träna · Inför intervjun</td></tr>
+    <tr><td>sida.beskrivning / sida.beskrivningUtanTak</td><td>Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. · (Testveckan och Allt) ... din profil. Utan tak i Testveckan. / Utan tak i Allt.</td></tr>
+    <tr><td>sida.knapp</td><td>Nytt intervjuprov</td></tr>
+    <tr><td>nasta.omskrivning</td><td>Skriv om svaret om {fråga i bestämd form} / Du fick {n} av 5 {i går|datum}, och det var {det som saknades} som saknades. Skriv om med {det}, så ser du om nivån lyfter. / Skriv om svaret · (kvot slut, tillägg:) Nästa prov öppnar i morgon. / Läs återkopplingen igen</td></tr>
+    <tr><td>nasta.nyFraga</td><td>Öva på "{fråga}" / {frågans beskrivning} / Svara på frågan · sekundär: Välj en annan fråga</td></tr>
+    <tr><td>nasta.forstaGang</td><td>eyebrow Börja här · Öva på "Berätta om dig själv" / Frågan kommer nästan alltid först. Skriv ditt svar som du skulle säga det, så säger vi vad rekryteraren hör och vad som saknas. Ett prov om dagen ingår. / Svara på frågan</td></tr>
+    <tr><td>nasta.helaTestet</td><td>Gör hela personlighetstestet / Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår gratis. / Starta testet</td></tr>
+    <tr><td>lista.etikett / lista.oppna</td><td>Dina intervjuprov · Öppna</td></tr>
+    <tr><td>lista.rad</td><td>{frågans korta namn} / {nivåetikett} · {I dag|I går|datum} · omskrivet med {planen|resultatet|exemplet|kopplingen|jag-formen}</td></tr>
+    <tr><td>fraga.kort</td><td>Berätta om dig själv · Styrkor och svagheter · Varför ska vi anställa dig · Varför söker du jobbet · Ett problem du löste · En konflikt · Ett misstag</td></tr>
+    <tr><td>tom.rubrik / tom.text</td><td>Inga prov än · Skriv ett svar så säger vi vad rekryteraren hör. Ett prov om dagen ingår gratis.</td></tr>
+    <tr><td>kvot.kvar / kvot.slut / kvot.lank</td><td>Ett prov per dygn ingår. Dagens är kvar. · Ett prov per dygn ingår. Dagens är gjort, nästa öppnar i morgon. · Se Testveckan</td></tr>
+    <tr><td>profil.etikett</td><td>Din personlighetsprofil</td></tr>
+    <tr><td>profil.smakprov.meta / profil.grund.meta / profil.avancerad.meta</td><td>Smakprovet, 20 påståenden · {datum} / Grundtestet, 50 påståenden · {datum} / Fördjupade testet, 120 påståenden · {datum}</td></tr>
+    <tr><td>profil.smakprov.rubrik</td><td>{Hög|Låg} {faktor}, {hög|låg} {faktor} (samma regel som resultat.mening, utan inledningen)</td></tr>
+    <tr><td>profil.lankar</td><td>Hela tolkningen · Gör hela testet, 50 påståenden · Hela analysen · Din arbetsstil · Fördjupade testet, 120 påståenden · (utan tests_above_base:) Fördjupade testet ingår i Testveckan</td></tr>
+    <tr><td>profil.tom</td><td>Ingen profil än / Femtio påståenden, tio minuter. Sedan ser du vad rekryteraren läser ut av dig. / Gör personlighetstestet</td></tr>
+    <tr><td>ny.titel / ny.steg1 / ny.fraga / ny.rekommenderas / ny.fortsatt</td><td>Nytt intervjuprov · Välj fråga · Vilken fråga vill du öva på? · Rekommenderas · Fortsätt</td></tr>
+    <tr><td>ny.meta</td><td>Inte gjord än · Gjord {en gång|n gånger} · bäst {n} av 5</td></tr>
+    <tr><td>ny.steg2</td><td>Ditt svar (fältets etikett) · Bedöm mitt svar (fotens knapp) · resten ur intervjuprovets copy</td></tr>
+    <tr><td>fraga.beratta</td><td>Berätta om dig själv. / Kommer nästan alltid först. Nuläge, två saker som gjort dig bra, varför du sitter här. / tips: Ha med: var du är i dag, två saker som gjort dig bra på det du gör, och varför du sitter här.</td></tr>
+    <tr><td>fraga.varforVi</td><td>Varför ska vi anställa just dig? / Två krav ur annonsen, ett bevis per krav, och det du ger som inte står där. / tips: Ha med: två krav ur annonsen med ett bevis var, och det du ger som inte står i annonsen.</td></tr>
+    <tr><td>fraga.varforJobbet</td><td>Varför söker du det här jobbet? / Vad i rollen som lockar, vad i företaget, och vad du lämnar utan att tala illa om det. / tips: Ha med: vad i rollen som lockar, vad i företaget, och vad du lämnar, utan att tala illa om det.</td></tr>
+    <tr><td>fraga.konflikt</td><td>Berätta om en konflikt med en kollega och hur du hanterade den. / STAR igen. Rekryteraren lyssnar efter att du tog samtalet, inte vem som hade rätt. / tips: Ha med: [Situation] [Uppgift] [Handling] [Resultat]</td></tr>
+    <tr><td>fraga.misstag</td><td>Berätta om ett misstag du gjort på jobbet. / Misstaget rakt ut, vad du gjorde direkt, och vad du ändrade efteråt. / tips: Ha med: misstaget rakt ut, vad du gjorde direkt, och vad du ändrade efteråt.</td></tr>
+    <tr><td>landning.eyebrow / landning.beskrivning / landning.knapp / landning.rad / landning.radLank</td><td>Inför intervjun · Hela återkopplingen och ditt svar omskrivet. Vi sparar det i ditt konto. · Öva på nästa fråga · Sparat under Inför intervjun, med dina prov och din profil. · Öppna</td></tr>
+    <tr><td>profilsida.titel / profilsida.beskrivning</td><td>Din profil, hela tolkningen · Så läser en rekryterare de fem faktorerna, vad du kan säga på intervjun och vilka påståenden som var omvända.</td></tr>
+    <tr><td>profilsida.krav.rubrik / kolumner</td><td>Så läses din profil mot sex vanliga kravprofiler · Kravprofil / Väger tungt / Din profil</td></tr>
+    <tr><td>profilsida.krav.utfall</td><td>Passar profilen · Räkna med en fråga om {faktor} · Kräver ett bra svar om {faktor} och {faktor}</td></tr>
+    <tr><td>profilsida.konsekvens</td><td>Dina svar hängde ihop i {n} av 5 faktorer. (n under 4:) Där de inte gjorde det svarade du åt samma håll på ett påstående och dess motsats. I ett skarpt test sänker det profilens tillförlitlighet, så svara utifrån jobbet och första intrycket.</td></tr>
+    <tr><td>profilsida.knapp / profilsida.lank</td><td>Gör hela testet, 50 påståenden · Till Inför intervjun</td></tr>
+    <tr><td>hem.nasta.omskrivning</td><td>Skriv om svaret om {fråga} / Du fick {n} av 5 {när}. {Det som saknades} saknades, och det är det lättaste att lägga till. / Skriv om svaret · Senare</td></tr>
+    <tr><td>hem.nasta.helaTestet</td><td>Gör hela personlighetstestet / Smakprovet gav en riktning. Hela testet ger profilen rekryteraren jämför med, och det ingår. / Starta testet · Senare</td></tr>
+    <tr><td>hem.aktivitet.prov</td><td>Du övade på frågan om {fråga}, {n} av 5. / {Det som saknades} saknades. / Skriv om (nivå 3 eller lägre) eller Öppna</td></tr>
+    <tr><td>hem.aktivitet.profil</td><td>Du gjorde personlighetsprovet. / {rubrik ur profil.smakprov.rubrik}. Hela testet ingår. / Gör hela testet</td></tr>
+    <tr><td>komigang.intervju (bricka, Testveckan och Allt)</td><td>Intervjuprovet, utan tak / Svara som i rummet, få nivå och omskrivning / klarText: Provet finns under Inför intervjun / knapp: Gör ett intervjuprov</td></tr>
+  </table>
+</section>
+
+<!-- ================================================================ PÅSTÅENDEN -->
+<section class="sektion">
+  <p class="eyebrow">De tjugo påståendena</p>
+  <h2>Egna formuleringar, fyra per faktor, hälften omvända</h2>
+  <p class="led">Skrivna för jobbversionen av personen, aldrig fritiden, och aldrig samma som de tio exemplen i artikeln (de är redan avslöjade som omvända där). Kolumnen Omvänd lämnar aldrig servern. Ordningen i provet blandas per token så att två av samma faktor aldrig står intill varandra.</p>
+  <table>
+    <tr><th>Id</th><th>Påstående</th><th>Faktor</th><th>Omvänd</th></tr>
+    <tr><td>s-01</td><td>Jag gör klart det jag lovat även när ingen följer upp.</td><td>Samvetsgrannhet</td><td>nej</td></tr>
+    <tr><td>s-02</td><td>Jag börjar helst med det roligaste och tar det tråkiga sist.</td><td>Samvetsgrannhet</td><td>ja</td></tr>
+    <tr><td>s-03</td><td>Mina listor och mappar är i ordning utan att jag anstränger mig.</td><td>Samvetsgrannhet</td><td>nej</td></tr>
+    <tr><td>s-04</td><td>Jag tar ofta beslut i stunden i stället för att planera.</td><td>Samvetsgrannhet</td><td>ja</td></tr>
+    <tr><td>s-05</td><td>Jag tar gärna ordet först på ett möte med nya människor.</td><td>Utåtriktning</td><td>nej</td></tr>
+    <tr><td>s-06</td><td>En hel dag med kundkontakt tar mer energi än den ger.</td><td>Utåtriktning</td><td>ja</td></tr>
+    <tr><td>s-07</td><td>Jag lär känna nya kollegor snabbt utan att tänka på det.</td><td>Utåtriktning</td><td>nej</td></tr>
+    <tr><td>s-08</td><td>Jag arbetar helst i ett rum för mig själv.</td><td>Utåtriktning</td><td>ja</td></tr>
+    <tr><td>s-09</td><td>Jag testar gärna ett nytt arbetssätt även när det gamla fungerar.</td><td>Öppenhet</td><td>nej</td></tr>
+    <tr><td>s-10</td><td>Jag håller mig till det som är beprövat i stället för att experimentera.</td><td>Öppenhet</td><td>ja</td></tr>
+    <tr><td>s-11</td><td>Jag läser på om saker som ligger utanför mitt eget område.</td><td>Öppenhet</td><td>nej</td></tr>
+    <tr><td>s-12</td><td>Diskussioner om idéer utan tydligt mål tröttar ut mig.</td><td>Öppenhet</td><td>ja</td></tr>
+    <tr><td>s-13</td><td>Jag ger hellre efter i en fråga än låter stämningen bli dålig.</td><td>Vänlighet</td><td>nej</td></tr>
+    <tr><td>s-14</td><td>Jag säger vad jag tycker även om det sårar.</td><td>Vänlighet</td><td>ja</td></tr>
+    <tr><td>s-15</td><td>Jag märker när en kollega har det tungt och frågar hur det är.</td><td>Vänlighet</td><td>nej</td></tr>
+    <tr><td>s-16</td><td>Jag utgår från att folk har egna motiv tills de visat annat.</td><td>Vänlighet</td><td>ja</td></tr>
+    <tr><td>s-17</td><td>Jag behåller lugnet när planen spricker i sista stund.</td><td>Särbarhet (visas som Stabilitet)</td><td>ja</td></tr>
+    <tr><td>s-18</td><td>Kritik på jobbet ligger kvar i mig flera dagar.</td><td>Särbarhet (visas som Stabilitet)</td><td>nej</td></tr>
+    <tr><td>s-19</td><td>Jag sover dåligt natten före en viktig presentation.</td><td>Särbarhet (visas som Stabilitet)</td><td>nej</td></tr>
+    <tr><td>s-20</td><td>Motgångar rinner av mig ganska fort.</td><td>Särbarhet (visas som Stabilitet)</td><td>ja</td></tr>
+  </table>
+  <p class="led" style="margin-top:16px">Kravprofilerna bakom spärren, statisk data. Kravet är ett band eller högre; "mitt+" betyder Mitt emellan eller Hög.</p>
+  <table>
+    <tr><th>Kravprofil</th><th>Väger tungt</th><th>Regel</th></tr>
+    <tr><td>Ekonomi och administration</td><td>Noggrannhet och att klara bokslutsperioder</td><td>Samvetsgrannhet hög, Stabilitet mitt+</td></tr>
+    <tr><td>Sälj och kundkontakt</td><td>Energi i mötet och att tåla ett nej</td><td>Utåtriktning hög, Stabilitet mitt+, Samvetsgrannhet mitt+</td></tr>
+    <tr><td>Vård och omsorg</td><td>Omtanke, lugn och att göra det som ska göras</td><td>Vänlighet hög, Stabilitet mitt+, Samvetsgrannhet mitt+</td></tr>
+    <tr><td>IT och utveckling</td><td>Nyfikenhet på nya lösningar och att leverera</td><td>Öppenhet mitt+, Samvetsgrannhet mitt+</td></tr>
+    <tr><td>Ledarskap och projektledning</td><td>Ta plats, hålla planen, hålla lugnet</td><td>Utåtriktning mitt+, Samvetsgrannhet hög, Stabilitet hög</td></tr>
+    <tr><td>Lager, produktion och drift</td><td>Pålitlighet och jämnt humör i tempo</td><td>Samvetsgrannhet mitt+, Stabilitet mitt+</td></tr>
+  </table>
+</section>
+
+<section class="sektion">
+  <p class="eyebrow">Tillgänglighet och mått</p>
+  <h2>Kontroll mot designsystemet</h2>
+  <table>
+    <tr><th>Punkt</th><th>Så här</th></tr>
+    <tr><td>Träffytor</td><td>Skalans alternativ 44 px höga och hela bredden på mobil, knappar 44, textlänkar min-height 44, listradernas "Öppna" 44, ChoiceCards minst 56.</td></tr>
+    <tr><td>Fokus</td><td>Tråden: outline 2 px accent, 2 px offset. Skalan är en radiogrupp: piltangenter flyttar, mellanslag väljer och går vidare, Skift plus Tab når "Föregående påstående". Fokus flyttas till nästa påstående (aria-live på räknaren), till felraden vid fel, till resultatets eyebrow vid profil.</td></tr>
+    <tr><td>Roller</td><td>Skalan role=radiogroup med aria-label "Hur väl stämmer påståendet", varje alternativ role=radio aria-checked. Räknaren aria-live=polite. Resultatpanelen aria-live=polite. Platshållarrader aria-hidden med sr-only-mening. Listan på hubben är ul med en li per prov, talet läses "3 av 5".</td></tr>
+    <tr><td>Kontrast</td><td>ink-3 på panel 5,0:1 (bandord, meta), accent-ink på panel för Nyhet och Rekommenderas 6,4:1, vit på ink-1 17,5:1, positiv-prick följs alltid av text.</td></tr>
+    <tr><td>Orange per skärm</td><td>Provet: framstegslinjen och fokusringen (2). Hubben desktop: menyradens tråd, Nyhet, fokusring (3). Hubben mobil: fokusring (1). Aldrig fler.</td></tr>
+    <tr><td>Bläckytor</td><td>Exakt en per vy: Nästa handling på hubben och hemskärmen, ingen i provet, ingen på resultatsidorna.</td></tr>
+    <tr><td>Rubrikträd</td><td>Provets rubrik är p med display-stil i artiklarna. På /verktyg/personlighetstest är sidans h1 sidmallens, panelens rubrik förblir p. SEO-diff på båda artiklarna ska visa noll ändrade rubriker.</td></tr>
+    <tr><td>Rörelse</td><td>Framstegslinjens bredd och laddningens tråd. Vid prefers-reduced-motion står de stilla. Påståendebytet är ett innehållsbyte utan animation.</td></tr>
+    <tr><td>Layoutskifte</td><td>Provpanelen har låst höjd under påstående 1 till 20 (påståendets min-height två rader, skalan fast). Resultatet växer nedåt. Hubben serverrenderar listan och profilen, ingen klientrundtur efter mount.</td></tr>
+    <tr><td>Radier och avstånd</td><td>Panel 12, skalans alternativ och knappar 8, chips 6. Avstånd 4/8/12/16/24/32.</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>
