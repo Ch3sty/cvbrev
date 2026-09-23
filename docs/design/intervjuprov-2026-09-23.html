@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intervjuprovet, design 2026-09-23</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Tokens ordagrant ur src/app/globals.css (Tråden v2.1). */
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;
+  --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;--fel-morker:#7F1D1D;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:14px;line-height:21px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:var(--display);letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+svg{display:block}
+a{color:inherit}
+
+/* ---------------------------------------------------------- dokumentets ram */
+.wrap{max-width:1400px;margin:0 auto;padding:40px 24px 80px}
+.doc-head{max-width:76ch}
+.doc-head .eyebrow{margin-bottom:8px}
+.doc-head h1{font-size:40px;line-height:44px;font-weight:800;letter-spacing:-.025em}
+.doc-head p{margin-top:12px;color:var(--ink-2);font-size:16px;line-height:25px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.sektion{margin-top:64px}
+.sektion>.eyebrow{margin-bottom:8px}
+.sektion>h2{font-size:26px;line-height:31px;font-weight:700}
+.sektion>p.led{margin-top:8px;color:var(--ink-2);max-width:76ch;font-size:15px;line-height:23px}
+.rad{margin-top:20px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;padding-bottom:8px}
+.kol{flex:none}
+.kol>.etikett{font-size:13px;line-height:18px;color:var(--ink-3);margin-bottom:8px}
+.motiv{margin-top:14px;max-width:412px;padding:12px 14px;background:var(--panel);border:1px solid var(--kant);border-radius:8px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.motiv b{color:var(--ink-1);font-weight:600}
+.motiv ul{margin:6px 0 0;padding-left:18px}
+.motiv li+li{margin-top:3px}
+.kol.bred .motiv{max-width:720px}
+
+/* Telefonram, Pixel 7 = 412 px bred. Ingen chrome, bara artikelns yta. */
+.tele{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.tele .art{padding:16px 16px 20px}
+/* Desktopkolumn = artikelns innehållskolumn, max 720 px (ArtikelRam). */
+.desk{width:720px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden}
+.desk .art{padding:24px 24px 28px}
+
+/* Artikelprosa runtomkring, ur .artikel-prose. */
+.prosa{color:var(--ink-2);font-size:16px;line-height:27px}
+.desk .prosa{font-size:17px;line-height:29px}
+.prosa h2{font-family:var(--display);font-size:24px;line-height:29px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);margin:0 0 12px}
+.desk .prosa h2{font-size:26px;line-height:31px}
+.prosa p+p{margin-top:16px}
+.prosa ul{margin:8px 0 0;padding-left:22px}
+.prosa li::marker{color:var(--kant-stark)}
+.prosa .dim{opacity:.55}
+
+/* ---------------------------------------------------------- komponenten */
+.prov{margin:32px 0;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.desk .prov{padding:24px}
+.prov .rubrik{margin-top:8px;font-family:var(--display);font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);text-wrap:balance}
+.prov .text{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.desk .prov .text{font-size:16px;line-height:24px}
+.fraga{margin:16px 0 0;padding:2px 0 2px 12px;border-left:3px solid var(--accent);font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.desk .fraga{font-size:20px;line-height:26px}
+.falt{display:block;margin-top:16px}
+.falt .lbl{display:block;margin-bottom:4px;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-2)}
+.ta{display:block;width:100%;min-height:152px;padding:12px;border:1px solid var(--kant);border-radius:8px;background:var(--insunken);box-shadow:inset 0 1px 0 var(--insunken-topp);font-family:var(--body);font-size:16px;line-height:24px;color:var(--ink-1);resize:vertical}
+.ta::placeholder,.ta .ph{color:var(--ink-3)}
+.ta.fokus{border-color:var(--ink-1);outline:2px solid var(--accent);outline-offset:2px}
+.ta.fel{border-color:var(--fel)}
+.ta.lasad{color:var(--ink-3)}
+.ta .mark{background:var(--panel);outline:1px solid var(--kant-stark)}
+.metarad{margin-top:4px;display:flex;justify-content:space-between;gap:12px;font-size:13px;line-height:18px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.metarad .feltext{color:var(--fel);flex:1}
+.metarad span:last-child{flex:none;white-space:nowrap}
+.tips{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 6px;align-items:center;font-size:13px;line-height:18px;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);font-size:12px;line-height:16px;font-weight:500}
+.chip.pa{background:var(--ink-1);color:#fff}
+.knapp{margin-top:16px;display:inline-flex;height:44px;width:100%;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:8px;background:var(--ink-1);color:#fff;font-size:14px;font-weight:500;line-height:1;text-decoration:none}
+.desk .knapp{width:auto}
+.knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
+.knapp.dis{opacity:.4}
+.knapp svg{width:16px;height:16px}
+.fotnot{margin-top:12px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.textlank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px}
+
+/* Laddning: tråden längs panelens överkant och tre rader som fylls. */
+.laddar{margin-top:16px;position:relative;overflow:hidden;border:1px solid var(--kant);border-radius:12px;background:var(--panel);padding:16px}
+.laddar::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:40%;background:var(--accent);border-radius:2px}
+.laddar .l1{font-size:14px;font-weight:500;color:var(--ink-1)}
+.wl{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.wl span{display:block;height:12px;border-radius:4px;background:var(--insunken);position:relative;overflow:hidden}
+.wl span::after{content:"";position:absolute;inset:0;background:var(--kant-stark);transform-origin:left;transform:scaleX(.62)}
+.wl span:nth-child(2)::after{transform:scaleX(.3)}
+.wl span:nth-child(3){width:70%}.wl span:nth-child(3)::after{transform:scaleX(0)}
+
+/* Bedömningen. */
+.niva{margin-top:16px;display:flex;align-items:baseline;gap:10px}
+.niva .tal{font-family:var(--display);font-size:40px;line-height:40px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink-1)}
+.niva .av{font-size:14px;color:var(--ink-3)}
+.matare{margin-top:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.matare i{display:block;height:6px;border-radius:3px;background:var(--insunken)}
+.matare i.pa{background:var(--ink-1)}
+.mening{margin-top:10px;font-family:var(--display);font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.punkter{margin:16px 0 0;padding:16px 0 0;border-top:1px solid var(--kant);list-style:none;display:grid;gap:12px}
+.punkter li{display:grid;grid-template-columns:10px 1fr;gap:10px;align-items:start}
+.punkter i{display:block;width:10px;height:10px;border-radius:50%;margin-top:6px}
+.punkter i.pos{background:var(--positiv)}
+.punkter i.var{background:var(--varning)}
+.punkter b{display:block;font-size:14px;line-height:20px;font-weight:600;color:var(--ink-1)}
+.punkter span{display:block;font-size:14px;line-height:22px;color:var(--ink-2)}
+.desk .punkter span{font-size:15px;line-height:23px}
+
+/* Spärren: platshållare, aldrig riktig text som blurras. */
+.last{margin-top:16px;padding-top:16px;border-top:1px solid var(--kant)}
+.last .lbl{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.last .lbl svg{width:16px;height:16px;color:var(--ink-3)}
+.rader{margin-top:10px;display:grid;gap:10px}
+.rader i{display:block;height:12px;border-radius:4px;background:var(--kant);opacity:.55}
+.last+.last{margin-top:20px;padding-top:0;border-top:0}
+.sparr{margin-top:16px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:12px;padding:16px}
+.desk .sparr{padding:24px;display:flex;gap:20px;align-items:flex-start}
+.sparr .illu{display:none}
+.desk .sparr .illu{display:block;width:96px;flex:none;color:var(--ink-1)}
+.sparr .rubrik2{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.sparr .text{margin-top:6px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.sparr .knapp{margin-top:16px}
+.sparr .rad2{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:13px;line-height:18px;color:var(--ink-3)}
+
+/* Fel: felraden ur FlowError. Rött aldrig på hela kortet. */
+.felrad{margin-top:16px;display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--fel-kant);background:var(--fel-mjuk);border-radius:8px;color:var(--fel)}
+.felrad svg{width:20px;height:20px;flex:none;margin-top:2px}
+.felrad b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.felrad p{margin-top:2px;font-size:14px;line-height:22px;color:var(--fel-morker)}
+.felrad .lankar{margin-top:4px;display:flex;gap:20px}
+.felrad a{font-size:14px;font-weight:500;color:var(--fel-morker);text-decoration:underline;text-decoration-color:var(--fel-kant);text-underline-offset:4px;line-height:44px}
+/* Kvotrad: StatusRow neutral, aldrig ett fel. */
+.statusrad{margin-top:16px;display:flex;gap:10px;align-items:center;padding:12px;border:1px solid var(--kant);border-radius:8px;background:var(--panel);font-size:14px;line-height:20px;color:var(--ink-1)}
+.statusrad i{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+
+/* Flödesbild */
+.flode{margin-top:20px;display:grid;grid-template-columns:repeat(5,minmax(180px,1fr));gap:12px;max-width:1160px}
+.flode div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:14px 16px;font-size:13px;line-height:19px;color:var(--ink-2);position:relative}
+.flode div b{display:block;font-family:var(--display);font-size:16px;line-height:22px;font-weight:700;color:var(--ink-1);margin-bottom:4px}
+.flode div code{display:block;margin-top:8px;font-size:12px;color:var(--accent-ink);font-family:ui-monospace,Menlo,monospace}
+.flode div.sp{border-color:var(--ink-1);background:var(--ink-1);color:var(--ink-1-mjuk)}
+.flode div.sp b{color:#fff}.flode div.sp code{color:var(--ink-1-accent)}
+
+/* Copytabell */
+table{border-collapse:collapse;width:100%;max-width:1160px;margin-top:16px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden;font-size:13px;line-height:19px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--kant)}
+th{background:var(--insunken);font-weight:600;color:var(--ink-1)}
+td:first-child{color:var(--ink-3);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-head">
+  <p class="eyebrow">Design för godkännande · 2026-09-23</p>
+  <h1>Intervjuprovet</h1>
+  <p>Ett smakprov i intervjuartiklarna, byggt som testprovet: besökaren svarar på en intervjufråga i artikeln, får en kort bedömning direkt och möter spärren före den fullständiga återkopplingen och ett förbättrat svar. Sidan visar varje tillstånd på Pixel 7 (412 px) och i artikelns desktopkolumn (720 px), i Trådens tokens ur globals.css. All text är slutcopy.</p>
+</header>
+
+<!-- ================================================================ FLÖDET -->
+<section class="sektion">
+  <p class="eyebrow">Flödet</p>
+  <h2>Fem tillstånd, en panel, spärren efter bedömningen</h2>
+  <p class="led">Provet är en enda panel i artikelns löpande text. Den byter innehåll på plats, sidan laddas aldrig om, och spärren visas i samma ögonblick som bedömningen: besökaren har redan fått värde när frågan om konto kommer.</p>
+  <div class="flode">
+    <div><b>a. Inbjudan</b>Frågan, ett textfält, en knapp. Inget konto.<code>(inget event)</code></div>
+    <div><b>b. Skriver</b>Räknare, lätt tips om struktur, laddning i panelen.<code>sample_started vid första tecknet</code></div>
+    <div><b>c. Bedömning</b>Nivå 1 till 5 med en mening, det som fungerar, det som saknas.<code>sample_completed</code></div>
+    <div class="sp"><b>d. Spärren</b>Platshållare för hela återkopplingen och det förbättrade svaret. Skapa konto gratis.<code>signup_gate_shown → signup_started</code></div>
+    <div><b>e. Fel</b>För kort, inte ett svar, tjänsten svarade inte, dagens tre prov gjorda.<code>(inget event)</code></div>
+  </div>
+</section>
+
+<!-- ================================================================ PLACERING -->
+<section class="sektion">
+  <p class="eyebrow">Placering</p>
+  <h2>Där läsaren precis fått exemplen</h2>
+  <p class="led">På styrkor-svagheter-intervju ligger provet direkt efter listblocket (svagheter lista, dåliga egenskaper, utvecklingsbara sidor), alltså när läsaren har sett tjugo exempel och naturligt undrar hur det egna svaret står sig. På STAR-artikeln efter avsnittet "Ett färdigt STAR-svar från början till slut", före "Så förbereder du dina STAR-historier". Reklamkortet efter andra stycket är kvar som det är: provet ersätter ingenting.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · styrkor-svagheter-intervju, efter listblocket</p>
+      <div class="tele"><div class="art">
+        <div class="prosa">
+          <h2>Utvecklingsbara sidor: så pratar du om dem</h2>
+          <p>Frågan är samma som svaghetsfrågan, men ordvalet bjuder in dig att prata om utveckling i stället för brister. Svara med en sida du arbetar med, ett exempel på när den märkts och vad du gör åt den.</p>
+          <ul><li>Svårt att delegera: ett exempel, en plan</li><li>Otålighet med långsamma processer</li><li class="dim">Nervositet inför stora presentationer</li></ul>
+        </div>
+
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <p class="text">Skriv ditt svar på frågan, så säger vi direkt vad som håller och vad rekryteraren saknar.</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta"><span class="ph">Skriv som du skulle säga det. En styrka med ett exempel, en svaghet och vad du gör åt den.</span></div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>0 av 1 200</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+
+        <div class="prosa">
+          <h2>Så väljer du rätt styrkor och svagheter för just din roll</h2>
+          <p class="dim">Läs jobbannonsen och välj styrkor som matchar det rollen faktiskt kräver, samma ord som annonsen använder om det är ärligt.</p>
+        </div>
+      </div></div>
+      <div class="motiv"><b>Varför här.</b> Listblocket ger läsaren materialet, provet ger läsaren spegeln. Panelen har samma ram, eyebrow och display-rubrik i 22/28 som reklamkortet, så den känns som artikelns egen del, inte som en annons. Rubriken är ett <b>p</b> med display-stil, aldrig h2, så artikelns rubrikträd och SEO-avtryck är orörda.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ A -->
+<section class="sektion">
+  <p class="eyebrow">Tillstånd a</p>
+  <h2>Inbjudan: frågan och ett fält</h2>
+  <p class="led">Värdet först i rubriken (regel 7), frågan som citat med tråden i kanten, fältet insunket i papperet. En primär handling. Fotnoten säger det som annars stoppar folk: inget konto, och vad som händer med texten.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · STAR-artikeln</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <p class="text">Skriv ditt svar på frågan, så säger vi direkt vad som håller och vad rekryteraren saknar.</p>
+          <blockquote class="fraga">"Berätta om en gång då du löste ett problem som ingen annan tog tag i."</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta"><span class="ph">Skriv som du skulle säga det. Vad var läget, vad var din uppgift, vad gjorde du och vad blev resultatet.</span></div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>0 av 1 200</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Mobil.</b> Fältet är 152 px högt, ungefär sex rader, och texten 16 px så iOS inte zoomar. Knappen tar hela bredden och ligger inom räckhåll för tummen. Platshållaren är frågans struktur i en mening, så tipset finns där innan man börjar skriva.
+        <ul><li>Orange räknat: citatets tråd (1), fokusringen (2). Två av tre.</li><li>Fältet har synlig etikett "Ditt svar", inte bara placeholder.</li></ul></div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · artikelkolumnen 720 px · styrkor-svagheter-intervju</p>
+      <div class="desk"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <p class="text">Skriv ditt svar på frågan, så säger vi direkt vad som håller och vad rekryteraren saknar.</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta"><span class="ph">Skriv som du skulle säga det. En styrka med ett exempel, en svaghet och vad du gör åt den.</span></div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>0 av 1 200</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Desktop.</b> Samma panel med 24 px padding, knappen i egen bredd till vänster som i reklamkorten. Ingen scen: fältet är bilden. Panelen står i artikelkolumnen, aldrig i sidokolumnen, så mobil och desktop är samma komponent i samma DOM-ordning.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ B -->
+<section class="sektion">
+  <p class="eyebrow">Tillstånd b</p>
+  <h2>Besökaren skriver, sedan väntar</h2>
+  <p class="led">Räknaren rullar i metaraden. Under fältet tänds en lätt strukturrad: fyra chips för STAR, en mening för styrkor och svagheter. Ingen nyckelordsdetektion i första versionen, chipsen är en påminnelse, inte ett betyg. Efter "Bedöm mitt svar" låses fältet, knappen byts mot laddningspanelen med tråden.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · STAR, mitt i skrivandet, fältet i fokus</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Berätta om en gång då du löste ett problem som ingen annan tog tag i."</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta fokus">På mitt förra jobb på ett lager hade vi under flera veckor problem med att plocklistorna kom i fel ordning, så att vi gick fram och tillbaka i onödan. Ingen ägde frågan. Jag tog fram statistik på hur lång tid en plockrunda tog och föreslog för lagerchefen att vi skulle</div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>312 av 1 200</span></div>
+          <div class="tips"><span>Ha med:</span><span class="chip">Situation</span><span class="chip">Uppgift</span><span class="chip">Handling</span><span class="chip">Resultat</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Räknare och tips.</b> Räknaren står till höger i metaraden i tabulära siffror och byter aldrig plats. Gränsen 1 200 tecken motsvarar ungefär två minuters tal, vilket är den längd artikeln själv rekommenderar. Chipsen är insunkna, ingen färg, ingen bock: vi lovar inte att vi räknat delarna.
+        <ul><li>Ingresstexten under rubriken fälls bort så snart fältet har innehåll, så fältet och knappen ligger högre på skärmen.</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · styrkor, laddar efter "Bedöm mitt svar"</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta lasad">En av mina styrkor är att jag är strukturerad. På mitt förra jobb hade jag ansvar för tre projekt samtidigt och ingen deadline sprack. Min svaghet är att jag har svårt att delegera, jag vill gärna göra saker själv för att veta att det blir rätt.</div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>264 av 1 200</span></div>
+          <div class="laddar" role="status" aria-live="polite">
+            <p class="l1">Vi läser ditt svar som en rekryterare</p>
+            <div class="wl" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="fotnot" style="margin-top:12px">Brukar ta under tio sekunder.</p>
+          </div>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Laddning.</b> LoadingSkeleton i varianten writing: rubriken säger vad som händer, tråden löper längs överkanten, tre rader fylls. Ingen spinner. Fältet står kvar i ink-3 så användaren ser att texten inte försvunnit. Tar det över 20 sekunder byts metaraden till "Tar lite längre än vanligt, vi är kvar".</div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · styrkor, mitt i skrivandet</p>
+      <div class="desk"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta fokus">En av mina styrkor är att jag är strukturerad. På mitt förra jobb hade jag ansvar för tre projekt samtidigt och ingen deadline sprack. Min svaghet är att jag har svårt att delegera, jag vill gärna göra saker själv för att veta att det blir rätt.</div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>264 av 1 200</span></div>
+          <div class="tips"><span>Ha med: en styrka med ett konkret exempel, en svaghet och vad du gör åt den.</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Desktop.</b> Tipsraden för styrkor är en mening, inte chips: frågan har ingen fast fyrstegsstruktur och fyra etiketter hade låtsats att den har det. Fältet får fokusringen i accent, samma som hela systemet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ C + D -->
+<section class="sektion">
+  <p class="eyebrow">Tillstånd c och d</p>
+  <h2>Bedömningen direkt, spärren i samma andetag</h2>
+  <p class="led">Talet står aldrig ensamt (regel 5): nivån får en mening som säger vad rekryteraren hör. Två punkter, en som fungerar och en som saknas, i klartext. Därunder ligger det kontot låser upp som platshållare, precis som i brevprovet: raderna är tomma element, texten finns bara på servern. Spärrkortet är samma kort som testprovets och brevprovets, med samma villkorsrad.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · styrkor, resultat och spärr (hela panelen)</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Din bedömning</p>
+          <div class="niva"><span class="tal">3</span><span class="av">av 5</span></div>
+          <div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></div>
+          <p class="mening">Godkänt. Styrkan har ett bevis, men svagheten stannar vid en bekännelse.</p>
+          <ul class="punkter">
+            <li><i class="pos"></i><div><b>Det som fungerar</b><span>Du namnger styrkan och bevisar den med tre projekt och noll spruckna deadlines. Det är exakt vad intervjuaren vill höra.</span></div></li>
+            <li><i class="var"></i><div><b>Det som saknas</b><span>Svagheten har inget exempel på när den märkts och ingen plan. Utan planen låter "svårt att delegera" som ett problem för teamet.</span></div></li>
+          </ul>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Fullständig återkoppling, fem punkter</p>
+            <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:72%"></i><i style="width:90%"></i><i style="width:64%"></i><i style="width:78%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Ditt svar, omskrivet med planen</p>
+            <div class="rader" aria-hidden="true"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:86%"></i><i style="width:48%"></i></div>
+          </div>
+          <p class="sr">Du ser hela återkopplingen och det omskrivna svaret när du skapat ett konto.</p>
+        </aside>
+        <section class="sparr">
+          <div>
+            <p class="rubrik2">Se hela återkopplingen och ditt svar omskrivet</p>
+            <p class="text">Skapa ett gratiskonto så får du återkopplingen punkt för punkt och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.</p>
+            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Skriv om och bedöm igen</a></div>
+          </div>
+        </section>
+      </div></div>
+      <div class="motiv"><b>Vad som syns före kontot.</b> Nivå, mening, en styrka och en brist. Det räcker för att svaret ska kännas läst, och det lämnar den konkreta hjälpen (punkterna och omskrivningen) bakom spärren. Etiketterna på de låsta blocken säger exakt vad som finns där, med antal: "fem punkter", "omskrivet med planen". Ett hänglås i 16 px, ingen suddig text.
+        <ul><li>Mätaren är fem segment i ink-1, inte accent, så orange stannar på citatets tråd.</li><li>Punkternas prickar följs alltid av text (färg är aldrig ensam bärare).</li><li>Spärrkortet är upphöjt (border-kant-stark): ett erbjudande, ingen position, alltså ingen tråd.</li><li>"Skriv om och bedöm igen" är en textlänk, aldrig en andra knapp.</li></ul></div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · STAR, resultat och spärr</p>
+      <div class="desk"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Din bedömning</p>
+          <div class="niva"><span class="tal">4</span><span class="av">av 5</span></div>
+          <div class="matare" aria-hidden="true"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i></div>
+          <p class="mening">Starkt. Rekryteraren ser vad du gjorde, men inte vad det gav.</p>
+          <ul class="punkter">
+            <li><i class="pos"></i><div><b>Det som fungerar</b><span>Situationen är kort och konkret, och handlingen är din egen: du tog fram statistiken och la förslaget. Jag-formen håller hela vägen.</span></div></li>
+            <li><i class="var"></i><div><b>Det som saknas</b><span>Resultatet. Vad hände med plockrundorna efter ändringen? En siffra eller en mening om utfallet gör svaret komplett.</span></div></li>
+          </ul>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Fullständig återkoppling, del för del i STAR</p>
+            <div class="rader" aria-hidden="true"><i style="width:84%"></i><i style="width:72%"></i><i style="width:90%"></i><i style="width:64%"></i></div>
+          </div>
+          <div class="last">
+            <p class="lbl"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Ditt svar, omskrivet med resultatet</p>
+            <div class="rader" aria-hidden="true"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:86%"></i><i style="width:48%"></i></div>
+          </div>
+          <p class="sr">Du ser hela återkopplingen och det omskrivna svaret när du skapat ett konto.</p>
+        </aside>
+        <section class="sparr">
+          <div class="illu" aria-hidden="true">
+            <svg viewBox="0 0 96 96" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="10" width="52" height="68" rx="8" fill="#fff" stroke="currentColor" stroke-width="3"/>
+              <path d="M26 26h28M26 36h28" stroke="currentColor" stroke-width="3"/>
+              <path d="M26 48h28M26 58h20" stroke="currentColor" stroke-width="3" stroke-opacity=".3" stroke-dasharray="6 6"/>
+              <rect x="54" y="54" width="32" height="26" rx="8" fill="#D9480F" fill-opacity=".2" stroke="currentColor" stroke-width="3"/>
+              <path d="M60 54v-7a10 10 0 0 1 20 0v7" stroke="currentColor" stroke-width="3"/>
+              <circle cx="70" cy="67" r="3.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <p class="rubrik2">Se hela återkopplingen och ditt svar omskrivet</p>
+            <p class="text">Skapa ett gratiskonto så får du återkopplingen del för del och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.</p>
+            <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <div class="rad2"><span>Inget kreditkort · Avsluta när du vill</span><a class="textlank" href="#">Skriv om och bedöm igen</a></div>
+          </div>
+        </section>
+      </div></div>
+      <div class="motiv"><b>Desktop.</b> Spärrkortet får IlluBlurGate i 96 till vänster, samma illustration som brevprovets gate, dold på mobil precis som där. Meningen efter nivån är skriven i rekryterarens perspektiv ("ser vad du gjorde, men inte vad det gav") så bedömningen låter som en person som läst, inte som ett system som poängsatt.
+        <ul><li>Nivåskalan: 1 Otillräckligt, 2 Tunt, 3 Godkänt, 4 Starkt, 5 Övertygande. Etiketten sätts av servern ur nivåtalet, aldrig av modellen.</li><li>STAR-variantens låsta återkoppling är "del för del i STAR", styrkornas är "fem punkter". Antalet kommer från svaret.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ E -->
+<section class="sektion">
+  <p class="eyebrow">Tillstånd e</p>
+  <h2>För kort, inte ett svar, tjänsten svarade inte, dagens prov gjorda</h2>
+  <p class="led">Fel visas i panelen, aldrig som toast. Fältet behåller alltid texten. Rött bara på fältkanten och i felraden, aldrig på hela kortet. Kvoten är inte ett fel utan en statusrad med vägen vidare.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · för kort svar</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta fel">Jag är strukturerad och bra på att samarbeta. Min svaghet är att jag är otålig.</div>
+          </label>
+          <div class="metarad"><span class="feltext" role="alert">Skriv minst 200 tecken så har vi något att bedöma. Ett exempel på när styrkan märkts räcker långt.</span><span>78 av 1 200</span></div>
+          <a class="knapp" href="#">Bedöm mitt svar</a>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>För kort.</b> Knappen är aldrig avstängd: en avstängd knapp förklarar inte varför. Trycket ger fältet felkant och en hjälptext i text-fel som säger vad som saknas och hur man kommer vidare, med fokus tillbaka i fältet. Inget anrop till servern under 200 tecken.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · tjänsten svarade inte</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta">En av mina styrkor är att jag är strukturerad. På mitt förra jobb hade jag ansvar för tre projekt samtidigt och ingen deadline sprack. Min svaghet är att jag har svårt att delegera, jag vill gärna göra saker själv för att veta att det blir rätt.</div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>264 av 1 200</span></div>
+          <div class="felrad" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div><b>Vi kunde inte bedöma svaret just nu</b><p>Ditt svar finns kvar i fältet. Försök igen om en stund.</p><div class="lankar"><a href="#">Försök igen</a></div></div>
+          </div>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Tjänsten svarade inte.</b> FlowError ordagrant: fel-mjuk yta, ikon 20, fet rubrik, en mening, "Försök igen" som textlänk med 44 px träffyta. Samma rad täcker 500 från bedömningen och nätverksfel; texten skiljer bara på "Vi nådde inte servern. Kontrollera uppkopplingen och försök igen."</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · tre prov gjorda i dag (429)</p>
+      <div class="tele"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Vilka är dina styrkor och svagheter?"</blockquote>
+          <div class="statusrad"><i></i><span>Du har gjort tre intervjuprov i dag. Med ett gratiskonto tränar du vidare direkt, och vi sparar svaren.</span></div>
+          <a class="knapp" href="#">Skapa konto gratis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <p class="fotnot">Inget kreditkort · Avsluta när du vill</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Kvoten.</b> Tre prov per IP och dygn, som testprovet. Det är ingen felsituation: StatusRow neutral, fältet göms, knappen blir kontoknappen. Samma sak vid dagsbudgeten (503) med texten "Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt."</div>
+    </div>
+    <div class="kol bred">
+      <p class="etikett">Desktop · inte ett svar på frågan (modellen svarar relevant: false)</p>
+      <div class="desk"><div class="art">
+        <aside class="prov">
+          <p class="eyebrow">Intervjuprovet</p>
+          <p class="rubrik">Svara som om du satt i rummet</p>
+          <blockquote class="fraga">"Berätta om en gång då du löste ett problem som ingen annan tog tag i."</blockquote>
+          <label class="falt"><span class="lbl">Ditt svar</span>
+            <div class="ta">Hej, jag undrar hur lång tid det brukar ta innan man får svar efter en intervju? Jag var på intervju förra veckan hos ett företag i Göteborg och de sa att de skulle höra av sig men jag har inte hört något ännu. Ska jag ringa dem eller vänta? Tack på förhand.</div>
+          </label>
+          <div class="metarad"><span>Minst 200 tecken</span><span>268 av 1 200</span></div>
+          <div class="felrad" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            <div><b>Det här ser inte ut som ett svar på frågan</b><p>Skriv hur du skulle svara rekryteraren, i jag-form och om en verklig situation. Texten finns kvar i fältet.</p><div class="lankar"><a href="#">Ändra svaret</a></div></div>
+          </div>
+          <p class="fotnot">Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</p>
+        </aside>
+      </div></div>
+      <div class="motiv"><b>Inte ett svar.</b> Frågor till oss, jobbannonser och slumptext ska inte få en nivå: en nivå på nonsens gör hela provet oseriöst. Modellen returnerar relevant: false, servern svarar 422 och panelen säger vad som förväntas. Försöket räknas mot dagens tre prov, eftersom IP-spärren räknar upp vid kontrollen och ett obegränsat antal försök hade bjudit in till att testa gränserna. "Ändra svaret" flyttar fokus till fältet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ COPY -->
+<section class="sektion">
+  <p class="eyebrow">Slutcopy</p>
+  <h2>Alla strängar på ett ställe</h2>
+  <p class="led">Svenska facktermer, vi-form, inga talstreck, inget "AI". Knappen säger vad som händer. Strängarna går in i en copyfil, aldrig inline i komponenten.</p>
+  <table>
+    <tr><th>Nyckel</th><th>Text</th></tr>
+    <tr><td>eyebrow</td><td>Intervjuprovet</td></tr>
+    <tr><td>rubrik</td><td>Svara som om du satt i rummet</td></tr>
+    <tr><td>ingress</td><td>Skriv ditt svar på frågan, så säger vi direkt vad som håller och vad rekryteraren saknar.</td></tr>
+    <tr><td>fraga.styrkor</td><td>"Vilka är dina styrkor och svagheter?"</td></tr>
+    <tr><td>fraga.star</td><td>"Berätta om en gång då du löste ett problem som ingen annan tog tag i."</td></tr>
+    <tr><td>falt.etikett</td><td>Ditt svar</td></tr>
+    <tr><td>falt.platshallare.styrkor</td><td>Skriv som du skulle säga det. En styrka med ett exempel, en svaghet och vad du gör åt den.</td></tr>
+    <tr><td>falt.platshallare.star</td><td>Skriv som du skulle säga det. Vad var läget, vad var din uppgift, vad gjorde du och vad blev resultatet.</td></tr>
+    <tr><td>meta.min / meta.raknare</td><td>Minst 200 tecken · {n} av 1 200</td></tr>
+    <tr><td>tips.styrkor</td><td>Ha med: en styrka med ett konkret exempel, en svaghet och vad du gör åt den.</td></tr>
+    <tr><td>tips.star</td><td>Ha med: [Situation] [Uppgift] [Handling] [Resultat]</td></tr>
+    <tr><td>knapp.bedom</td><td>Bedöm mitt svar</td></tr>
+    <tr><td>fotnot</td><td>Inget konto behövs. Svaret sparas i sju dagar så att du kan hämta hela återkopplingen.</td></tr>
+    <tr><td>laddar.rubrik / laddar.meta / laddar.lang</td><td>Vi läser ditt svar som en rekryterare · Brukar ta under tio sekunder. · Tar lite längre än vanligt, vi är kvar.</td></tr>
+    <tr><td>resultat.eyebrow</td><td>Din bedömning</td></tr>
+    <tr><td>niva.etiketter</td><td>1 Otillräckligt · 2 Tunt · 3 Godkänt · 4 Starkt · 5 Övertygande (servern sätter etiketten, meningen skriver modellen)</td></tr>
+    <tr><td>punkt.fungerar / punkt.saknas</td><td>Det som fungerar · Det som saknas</td></tr>
+    <tr><td>last.aterkoppling.styrkor / .star</td><td>Fullständig återkoppling, {n} punkter · Fullständig återkoppling, del för del i STAR</td></tr>
+    <tr><td>last.omskrivet</td><td>Ditt svar, omskrivet med {det som saknades: planen / resultatet / exemplet}</td></tr>
+    <tr><td>last.sr</td><td>Du ser hela återkopplingen och det omskrivna svaret när du skapat ett konto.</td></tr>
+    <tr><td>sparr.rubrik</td><td>Se hela återkopplingen och ditt svar omskrivet</td></tr>
+    <tr><td>sparr.text</td><td>Skapa ett gratiskonto så får du återkopplingen punkt för punkt och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.</td></tr>
+    <tr><td>sparr.knapp / sparr.villkor / sparr.igen</td><td>Skapa konto gratis · Inget kreditkort · Avsluta när du vill · Skriv om och bedöm igen</td></tr>
+    <tr><td>fel.kort</td><td>Skriv minst 200 tecken så har vi något att bedöma. Ett exempel på när styrkan märkts räcker långt. (STAR: Ett par meningar om vad du gjorde räcker långt.)</td></tr>
+    <tr><td>fel.langt</td><td>Vi bedömer upp till 1 200 tecken. Korta ner till det viktigaste, det gör svaret bättre också i rummet.</td></tr>
+    <tr><td>fel.irrelevant</td><td>Det här ser inte ut som ett svar på frågan / Skriv hur du skulle svara rekryteraren, i jag-form och om en verklig situation. Texten finns kvar i fältet. / Ändra svaret</td></tr>
+    <tr><td>fel.server</td><td>Vi kunde inte bedöma svaret just nu / Ditt svar finns kvar i fältet. Försök igen om en stund. / Försök igen</td></tr>
+    <tr><td>fel.natverk</td><td>Vi nådde inte servern / Kontrollera uppkopplingen och försök igen. Ditt svar finns kvar i fältet. / Försök igen</td></tr>
+    <tr><td>kvot.ip</td><td>Du har gjort tre intervjuprov i dag. Med ett gratiskonto tränar du vidare direkt, och vi sparar svaren.</td></tr>
+    <tr><td>kvot.budget</td><td>Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt.</td></tr>
+  </table>
+</section>
+
+<section class="sektion">
+  <p class="eyebrow">Tillgänglighet och mått</p>
+  <h2>Kontroll mot designsystemet</h2>
+  <table>
+    <tr><th>Punkt</th><th>Så här</th></tr>
+    <tr><td>Träffytor</td><td>Knapp 44 px, textlänkar med min-height 44, fältet minst 152 px högt.</td></tr>
+    <tr><td>Fokus</td><td>Tråden: outline 2 px accent, 2 px offset, på fält, knapp och länkar. Fokus flyttas till felraden vid fel och till resultatets eyebrow vid bedömning.</td></tr>
+    <tr><td>Roller</td><td>Laddning role=status aria-busy aria-live=polite. Fel role=alert. Resultatpanelen aria-live=polite så skärmläsaren får nivån uppläst. Platshållarraderna aria-hidden med sr-only-mening.</td></tr>
+    <tr><td>Kontrast</td><td>ink-3 på panel 5,0:1, positiv på panel 5,5:1, varning-prick följs av text, fel på fel-mjuk 5,3:1. Inget under 12 px, metadata 13 px.</td></tr>
+    <tr><td>Orange per skärm</td><td>Citatets tråd, fokusringen. Högst två av tre.</td></tr>
+    <tr><td>Rubrikträd</td><td>Rubriken är p med display-stil. Inga h2/h3 i panelen. Artikelns SEO-diff (scripts i docs/design/analys-artiklar-2026-09-23) ska visa noll ändrade rubriker.</td></tr>
+    <tr><td>Rörelse</td><td>Bara laddningens tråd och radfyllning. Vid prefers-reduced-motion står de stilla. Panelen byter innehåll utan höjdanimation.</td></tr>
+    <tr><td>Layoutskifte</td><td>Panelen renderas på servern i tillstånd a med samma höjd som klienten hydrerar till. Ingen CLS: skeletten byter aldrig höjd, resultatet växer nedåt.</td></tr>
+    <tr><td>Radier och avstånd</td><td>Panel 12 px, fält och knappar 8 px, chips 6 px. Avstånd 4/8/12/16/24.</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

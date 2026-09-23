@@ -1,0 +1,387 @@
+<meta charset="utf-8"><title>Analys: SEO-tillväxt och konton, september 2026</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:11pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.bar{fill:var(--acc)}.bar.warn{fill:#c2410c;opacity:.55}
+.pt{fill:var(--dim);opacity:.32}.pt.hot{fill:var(--acc);opacity:.85}
+.leader{stroke:var(--faint);stroke-width:.6;opacity:.6}
+.curve{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;opacity:.7}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim)}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style>
+<div class="wrap">
+
+<h1>Mer trafik och fler konton från sökningen</h1>
+<p class="sub">Search Console, PostHog och Supabase, 12 juni till 21 september 2026. Var trafiken kommer ifrån, vilka sidor som ger konton och vad vi gör de kommande fyra veckorna.</p>
+<p class="meta">Rapport till ägaren, skriven 23 september 2026. Källor: Google Search Console (sc-domain:jobbcoach.ai, sista dag med data 21 september), URL-inspektion i Search Console, PostHog EU projekt 148688 (interna konton i kohort 248676 bortfiltrerade), Supabase (profiles, bara läsning), sajtkartan. Uppföljning av analysen 12 september.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Klick per dag</div><div class="v">21,1</div><div class="d">8 till 21 sep, mot 13,9 de 14 dagarna före</div></div>
+<div class="kpi"><div class="k">Visningar per dag</div><div class="v">1 207</div><div class="d">i stort sett oförändrat sedan augusti</div></div>
+<div class="kpi"><div class="k">Snittposition</div><div class="v">15,7</div><div class="d">23,7 de 14 dagarna före</div></div>
+<div class="kpi"><div class="k">Nya konton</div><div class="v">32</div><div class="d">8 till 21 sep, mot 23 före</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Klicken ökade 52 procent på två veckor, men inte för att vi syns mer.</strong> 296 klick de senaste 14 dagarna mot 194 de 14 dagarna före, på nästan exakt samma antal visningar (16 899 mot 16 617). Hela ökningen är bättre position: 23,7 till 15,7. Nästan ingenting av det som föreslogs 12 september är gjort. Tillväxten har kommit av sig själv, från sidor som mognat.</li>
+<li><strong>En sida bär hälften av ökningen: /artiklar/logiska-tester.</strong> Från 9 till 59 klick på två veckor, från position 16,6 till 11,5. Testklustret gav 98 av septembers 406 klick, alltså en fjärdedel av all organisk trafik. Det är också det enda klustret där besökarna faktiskt skaffar konto.</li>
+<li><strong>Testsidorna ger konton, artiklarna ger läsare.</strong> Sessioner som börjar på en testsida blir konto i 3,8 procent av fallen, sessioner som börjar på en vanlig artikel i 0,4 procent. Av dem som läste en testartikel efter 11 september klickade 72 procent på CTA:n. I intervjuklustret klickade 5 procent, och på styrkor-svagheter-intervju, vår näst största sida, klickade ingen av 50.</li>
+<li><strong>Vi har inte publicerat en ny artikel sedan 23 juli, och det syns i visningarna.</strong> Visningarna per dag har legat still kring 1 130 till 1 230 sedan augusti. Räkna ut-sidorna tappade 90 procent av sina visningar runt 22 augusti utan att vi rörde dem, och Google har inte hämtat om dem sedan 27 juli. Arton sidor i sajtkartan är inte indexerade, och /verktyg i sajtkartan svarar 404.</li>
+<li><strong>Den största läckan i september är fortfarande cover-letter-sverige.</strong> 2 436 visningar i månaden på position 7,5 och fyra klick. Åtgärden föreslogs för elva dagar sedan, tar en timme och är inte gjord. Den ligger först i listan igen, tillsammans med tre nya testsidor och ett listblock på styrkor-svagheter som tillsammans är värda 100 till 190 klick i månaden.</li>
+</ol>
+
+<div class="box acc">
+<h4>Läs det här först: tre saker gick live alldeles nyss och kan inte bedömas ännu</h4>
+<p>Allt i den här rapporten om CTA:er, provstarter och registrering mäter perioden 11 till 22 september. Sedan dess har tre releaser bytt ut det som mättes. Siffrorna beskriver alltså versionen före, och det är den som går att lära av. Effekten av de nya versionerna läses av tidigast vid datumen i tabellen.</p>
+</div>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad</th><th>Konsekvens för rapporten</th><th>Går att läsa av</th></tr></thead>
+<tbody>
+<tr><td>11 sep 22:08</td><td>Konverteringsomgången: PostHog-händelserna article_*, sample_*, signup_*, blur-gate och publika smakprov.</td><td>Tratten i avsnitt 6 bygger på 12 dagar</td><td>nu, med försiktighet</td></tr>
+<tr><td>13 sep 13:00</td><td>PostHog startar efter sidladdning i stället för direkt.</td><td>PostHog-sessioner före och efter är inte jämförbara</td><td>använd Search Console för trend</td></tr>
+<tr><td>15 sep 12:00</td><td>Kö i analysklienten: händelser före PostHog-start försvann tidigare tyst.</td><td>Händelsevolymen stiger från 15 sep utan att beteendet ändrats</td><td>jämför bara 15 sep och framåt</td></tr>
+<tr><td>21 sep 21:54</td><td>Attributionen (acquisition_source) fungerar för första gången; proxyn kördes inte tidigare.</td><td>Konton före detta saknar landningssida</td><td>kring 20 oktober, vid cirka 50 konton</td></tr>
+<tr><td>21 sep 22:54</td><td>Publika sidor CDN-cachas ett dygn.</td><td>Innehållsändringar syns med upp till 24 timmars fördröjning</td><td>&nbsp;</td></tr>
+<tr><td>22 sep 10:51</td><td>Veckopaketen, ny prissida, stramare gratisnivå, reverse trial borttagen.</td><td>Frysfönstret till 26 september bröts; trial- och köpsiffror 11 till 22 sep mäter en version som är ersatt</td><td>vecka 45 enligt planen</td></tr>
+<tr><td>23 sep, morgon</td><td>Visuella linjen: ny header, footer, startsida, nio verktygssidor, artiklarna serverrenderade med nya reklamkort per kluster. PostHog på publika sidor startar först vid interaktion.</td><td>CTA-siffrorna i avsnitt 6 gäller de gamla korten; sidvisningar i PostHog faller från 23 sep av mättekniska skäl</td><td>positioner 30 sep och 14 okt, CTA kring 7 okt</td></tr>
+<tr><td>23 sep 12:21</td><td>Räkna ut-hubben och de nio kalkylatorerna ombyggda, delbart resultat.</td><td>Tappet i avsnitt 4 skedde före ombyggnaden</td><td>mitten av oktober</td></tr>
+</tbody>
+</table>
+<p class="lead">Källa: tidslinjen över driftsättningar i saas-lead. Search Console ligger två dagar efter, så inget i den här rapporten fångar releaserna 22 och 23 september.</p>
+
+<h2><span class="num">2</span>Utveckling över perioden</h2>
+
+<svg viewBox="0 0 680 230" class="chart" role="img" aria-label="Organiska klick per vecka"><line x1="44" y1="194" x2="656" y2="194" class="grid"/><text x="36" y="197.5" class="ax r">0</text><line x1="44" y1="152.5" x2="656" y2="152.5" class="grid"/><text x="36" y="156" class="ax r">45</text><line x1="44" y1="111" x2="656" y2="111" class="grid"/><text x="36" y="114.5" class="ax r">90</text><line x1="44" y1="69.5" x2="656" y2="69.5" class="grid"/><text x="36" y="73" class="ax r">135</text><line x1="44" y1="28" x2="656" y2="28" class="grid"/><text x="36" y="31.5" class="ax r">180</text><line x1="612.2857142857143" y1="28" x2="612.2857142857143" y2="194" stroke="#8b949e" stroke-width=".8" stroke-dasharray="3 3"/><text x="608.2857142857143" y="36" class="note" text-anchor="end">förra rapporten</text><path d="M 44 194 L 44.0 189.4 L 87.7 182.0 L 131.4 168.2 L 175.1 164.5 L 218.9 156.2 L 262.6 169.1 L 306.3 163.6 L 350.0 147.9 L 393.7 123.9 L 437.4 115.6 L 481.1 126.7 L 524.9 123.0 L 568.6 97.2 L 612.3 75.0 L 656.0 39.1 L 656 194 Z" class="area"/><path d="M 44.0 189.4 L 87.7 182.0 L 131.4 168.2 L 175.1 164.5 L 218.9 156.2 L 262.6 169.1 L 306.3 163.6 L 350.0 147.9 L 393.7 123.9 L 437.4 115.6 L 481.1 126.7 L 524.9 123.0 L 568.6 97.2 L 612.3 75.0 L 656.0 39.1" class="line"/><circle cx="44.0" cy="189.4" r="3" class="dot"/><text x="44.0" y="212" class="ax c">8 jun</text><text x="44.0" y="180.4" class="val c">5</text><circle cx="87.7" cy="182.0" r="3" class="dot"/><circle cx="131.4" cy="168.2" r="3" class="dot"/><text x="131.4" y="212" class="ax c">22 jun</text><circle cx="175.1" cy="164.5" r="3" class="dot"/><circle cx="218.9" cy="156.2" r="3" class="dot"/><text x="218.9" y="212" class="ax c">6 jul</text><circle cx="262.6" cy="169.1" r="3" class="dot"/><circle cx="306.3" cy="163.6" r="3" class="dot"/><text x="306.3" y="212" class="ax c">20 jul</text><circle cx="350.0" cy="147.9" r="3" class="dot"/><circle cx="393.7" cy="123.9" r="3" class="dot"/><text x="393.7" y="212" class="ax c">3 aug</text><text x="393.7" y="114.9" class="val c">76</text><circle cx="437.4" cy="115.6" r="3" class="dot"/><circle cx="481.1" cy="126.7" r="3" class="dot"/><text x="481.1" y="212" class="ax c">17 aug</text><circle cx="524.9" cy="123.0" r="3" class="dot"/><circle cx="568.6" cy="97.2" r="3" class="dot"/><text x="568.6" y="212" class="ax c">31 aug</text><text x="568.6" y="88.2" class="val c">105</text><circle cx="612.3" cy="75.0" r="3" class="dot"/><text x="612.3" y="66.0" class="val c">129</text><circle cx="656.0" cy="39.1" r="3" class="dot"/><text x="656.0" y="212" class="ax c">14 sep</text><text x="656.0" y="30.1" class="val c">168</text></svg>
+<p class="figc">Organiska klick per vecka, måndag till söndag. Första veckan har tre dagar. Veckan som började 21 september har bara en dag med data och är utelämnad. Den streckade linjen markerar var förra rapporten slutade.</p>
+
+<table>
+<thead><tr><th>Period</th><th class="n">Dagar</th><th class="n">Klick</th><th class="n">Klick/dag</th><th class="n">Visningar</th><th class="n">Visn/dag</th><th class="n">CTR</th><th class="n">Position</th></tr></thead>
+<tbody>
+<tr><td>12 juni till 31 juli</td><td class="n">50</td><td class="n">217</td><td class="n">4,3</td><td class="n">39 614</td><td class="n">792</td><td class="n">0,55 %</td><td class="n">29,4</td></tr>
+<tr><td>Augusti</td><td class="n">31</td><td class="n">344</td><td class="n">11,1</td><td class="n">35 151</td><td class="n">1 134</td><td class="n">0,98 %</td><td class="n">24,2</td></tr>
+<tr><td>1 till 21 september</td><td class="n">21</td><td class="n">406</td><td class="n">19,3</td><td class="n">25 798</td><td class="n">1 228</td><td class="n">1,57 %</td><td class="n">18,4</td></tr>
+<tr class="sum"><td>Hela perioden</td><td class="n">102</td><td class="n">967</td><td class="n">9,5</td><td class="n">100 563</td><td class="n">986</td><td class="n">0,96 %</td><td class="n">&nbsp;</td></tr>
+</tbody>
+</table>
+
+<h3>Jämfört med förra rapporten</h3>
+<table>
+<thead><tr><th>Fönster</th><th class="n">Klick</th><th class="n">Klick/dag</th><th class="n">Visn/dag</th><th class="n">CTR</th><th class="n">Position</th><th class="n">Nya konton</th></tr></thead>
+<tbody>
+<tr><td>Förra rapporten, 12 juni till 9 sep</td><td class="n">719</td><td class="n">8,0</td><td class="n">960</td><td class="n">0,83 %</td><td class="n">26,3</td><td class="n">75</td></tr>
+<tr><td>Efter förra rapporten, 10 till 21 sep</td><td class="n">248</td><td class="n">20,7</td><td class="n">1 183</td><td class="n">1,75 %</td><td class="n">15,3</td><td class="n">30 <span class="sm">10 till 23 sep</span></td></tr>
+<tr><td>25 aug till 7 sep (14 dagar)</td><td class="n">194</td><td class="n">13,9</td><td class="n">1 187</td><td class="n">1,17 %</td><td class="n">23,7</td><td class="n">23</td></tr>
+<tr><td>8 till 21 sep (14 dagar)</td><td class="n">296</td><td class="n">21,1</td><td class="n">1 207</td><td class="n">1,75 %</td><td class="n">15,7</td><td class="n">32</td></tr>
+<tr class="sum"><td>Förändring, två veckor mot två veckor</td><td class="n up">+52 %</td><td class="n">&nbsp;</td><td class="n">+2 %</td><td class="n">&nbsp;</td><td class="n up">8 platser</td><td class="n up">+39 %</td></tr>
+</tbody>
+</table>
+<p class="lead">Nya konton ur Supabase, ägarens adminkonto och testkonton borttagna (admin_undantagna_konton). Förra rapporten räknade 80 konton med dem inräknade; utan dem är det 75.</p>
+
+<p>Tre saker drev de senaste två veckorna, och de går att peka ut.</p>
+<p><strong>Logiska-tester slog igenom på riktigt.</strong> Sidan försvann nästan helt ur resultaten mellan 21 augusti och 4 september (noll till nio visningar om dagen) och kom tillbaka 5 september på en högre nivå än före: 80 till 190 visningar om dagen och position 9 till 13 i stället för 16 till 30. Den står ensam för 50 av de 102 extra klicken.</p>
+<p><strong>Styrkor-svagheter-intervju tog sig in på sida ett.</strong> Från position 13,7 till 8,6 och från 12 till 30 klick på två veckor. Förra rapporten räknade med att det skulle kräva en utbyggnad av sidan. Den behövdes inte för att komma till sida ett, men den behövs för att komma högre (avsnitt 5).</p>
+<p><strong>Startsidan och kompetensbaserade-intervjufragor.</strong> Startsidan gick från noll till tio klick, och kompetensbaserade-intervjufragor från position 43 i augusti till 16 och tolv klick.</p>
+
+<div class="box">
+<h4>Varför positionen förbättrades så mycket</h4>
+<p>En del av förbättringen från 23,7 till 15,7 är ett räknefenomen: visningar på position 51 och sämre halverades (3 735 till 1 818 på sida+fråga-nivå), och när de djupa visningarna försvinner stiger snittet utan att något rankat bättre. Men klicken är det robusta måttet, och de ökade 52 procent. Visningarna på position 4 till 10 ökade från 1 823 till 2 113 och gav 20 klick i stället för 7. Det är en verklig förflyttning.</p>
+<p>Mönstret med ett tapp kring 21 till 22 augusti och en återkomst i början av september syns på flera sidor samtidigt (logiska-tester, räkna ut, flera insikter). Vi hade ingen driftsättning mellan 16 augusti och 11 september, så orsaken ligger hos Google. Det stämmer med en omviktning av rankningen, men det kan vi inte belägga ur vår egen data.</p>
+</div>
+
+<h3>Position per spann, två veckor mot två veckor</h3>
+<table>
+<thead><tr><th>Position</th><th class="n">Visn 25 aug till 7 sep</th><th class="n">Klick</th><th class="n">Visn 8 till 21 sep</th><th class="n">Klick</th><th class="n">CTR nu</th></tr></thead>
+<tbody>
+<tr><td>1 till 3</td><td class="n">221</td><td class="n">5</td><td class="n">362</td><td class="n">8</td><td class="n">2,21 %</td></tr>
+<tr><td>4 till 10</td><td class="n">1 823</td><td class="n">7</td><td class="n">2 113</td><td class="n">20</td><td class="n">0,95 %</td></tr>
+<tr><td>11 till 20</td><td class="n">1 793</td><td class="n">5</td><td class="n">1 734</td><td class="n">5</td><td class="n">0,29 %</td></tr>
+<tr><td>21 till 50</td><td class="n">4 175</td><td class="n">1</td><td class="n">2 562</td><td class="n">7</td><td class="n">0,27 %</td></tr>
+<tr><td>51 och sämre</td><td class="n">3 735</td><td class="n">1</td><td class="n">1 818</td><td class="n">0</td><td class="n">0 %</td></tr>
+</tbody>
+</table>
+<p class="lead">Sida+fråga-nivå. Klicken i tabellen är bara de som går att knyta till en synlig sökfråga, 14 procent av alla klick (se avsnitt 8). CTR 0,95 procent på position 4 till 10 är fortfarande en tredjedel av normalt.</p>
+
+<h3>Kluster, enhet och kanal</h3>
+<table>
+<thead><tr><th>Kluster</th><th class="n">Sidor i sajtkartan</th><th class="n">Utan visning 14 d</th><th class="n">Sidor med klick</th><th class="n">Klick 14 d</th><th class="n">Visningar 14 d</th><th class="n">Position</th></tr></thead>
+<tbody>
+<tr><td>/artiklar</td><td class="n">138</td><td class="n">15</td><td class="n">43</td><td class="n">210</td><td class="n">13 757</td><td class="n">15,0</td></tr>
+<tr><td>/personligt-brev-exempel</td><td class="n">100</td><td class="n">15</td><td class="n">21</td><td class="n">30</td><td class="n">1 924</td><td class="n">15,9</td></tr>
+<tr><td>/cv-exempel</td><td class="n">100</td><td class="n">29</td><td class="n">10</td><td class="n">16</td><td class="n">1 082</td><td class="n">19,6</td></tr>
+<tr><td>/cv-mallar</td><td class="n">75</td><td class="n">10</td><td class="n">6</td><td class="n">9</td><td class="n">790</td><td class="n">18,3</td></tr>
+<tr><td>/for-rekryterare/insikter</td><td class="n">30</td><td class="n">6</td><td class="n">3</td><td class="n">3</td><td class="n">582</td><td class="n">35,5</td></tr>
+<tr><td>/verktyg</td><td class="n">8</td><td class="n">1</td><td class="n">4</td><td class="n">17</td><td class="n">815</td><td class="n">30,1</td></tr>
+<tr><td>/rakna-ut</td><td class="n">10</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">96</td><td class="n">7,3</td></tr>
+<tr><td>Startsidan</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">10</td><td class="n">244</td><td class="n">22,3</td></tr>
+</tbody>
+</table>
+<p class="lead">Klick och visningar 8 till 21 september. Verktygsraden inkluderar /verktyg/skapa-cv, som inte finns i sajtkartan. 304 av de 472 sidorna i sajtkartan, 64 procent, fick visningar men inte ett enda klick de senaste två veckorna.</p>
+
+<p><strong>Mobilen drar ifrån.</strong> De senaste 14 dagarna gav mobilen 146 klick på position 10,3 och datorn 144 på position 18,9. För första gången är mobilen den större kanalen, trots att den bara har 37 procent av visningarna.</p>
+
+<p><strong>Bing är nästan lika stort som Google, och vi mäter det inte alls.</strong> Sedan 1 augusti har PostHog 1 507 svenska sessioner från google.com och 1 209 från bing.com, plus 160 från DuckDuckGo och 95 från Yahoo, som båda hämtar sina resultat från Bing. Bing-besökarna landar på samma sidor som Google-besökarna (styrkor-svagheter-intervju, logiska-tester, arbetsintervju-guide) och stannar lika länge. Vi har ingen Bing Webmaster Tools, alltså ingen bild av vad som rankar där eller varför. Fyra av de 43 spårbara konton som kom från sök sedan augusti kom via Bing.</p>
+
+<h2><span class="num">3</span>Vad som är bra</h2>
+
+<svg viewBox="0 0 680 370" class="chart" role="img" aria-label="Topp 15 sidor på klick i september"><text x="242" y="19" class="ax r">/artiklar/logiska-tester</text><rect x="250" y="8" width="376.0" height="14" rx="2" class="bar"/><text x="632.0" y="19" class="val">68</text><text x="676" y="19" class="ax r dim">p13</text><text x="242" y="43" class="ax r">/artiklar/styrkor-svagheter-intervju</text><rect x="250" y="32" width="199.1" height="14" rx="2" class="bar"/><text x="455.1" y="43" class="val">36</text><text x="676" y="43" class="ax r dim">p10</text><text x="242" y="67" class="ax r">/artiklar/kompetensbaserad-intervju-sta…</text><rect x="250" y="56" width="149.3" height="14" rx="2" class="bar"/><text x="405.3" y="67" class="val">27</text><text x="676" y="67" class="ax r dim">p3</text><text x="242" y="91" class="ax r">/artiklar/motivationsbrev-exempel</text><rect x="250" y="80" width="82.9" height="14" rx="2" class="bar"/><text x="338.9" y="91" class="val">15</text><text x="676" y="91" class="ax r dim">p4</text><text x="242" y="115" class="ax r">/</text><rect x="250" y="104" width="77.4" height="14" rx="2" class="bar"/><text x="333.4" y="115" class="val">14</text><text x="676" y="115" class="ax r dim">p21</text><text x="242" y="139" class="ax r">/artiklar/kompetensbaserade-intervjufra…</text><rect x="250" y="128" width="71.9" height="14" rx="2" class="bar"/><text x="327.9" y="139" class="val">13</text><text x="676" y="139" class="ax r dim">p16</text><text x="242" y="163" class="ax r">/verktyg/rekryteringstester</text><rect x="250" y="152" width="66.4" height="14" rx="2" class="bar"/><text x="322.4" y="163" class="val">12</text><text x="676" y="163" class="ax r dim">p40</text><text x="242" y="187" class="ax r">/artiklar/ljuga-i-cv</text><rect x="250" y="176" width="60.8" height="14" rx="2" class="bar"/><text x="316.8" y="187" class="val">11</text><text x="676" y="187" class="ax r dim">p8</text><text x="242" y="211" class="ax r">/artiklar/hur-ofta-byta-jobb</text><rect x="250" y="200" width="55.3" height="14" rx="2" class="bar"/><text x="311.3" y="211" class="val">10</text><text x="676" y="211" class="ax r dim">p14</text><text x="242" y="235" class="ax r">/artiklar/angest-infor-nytt-jobb</text><rect x="250" y="224" width="49.8" height="14" rx="2" class="bar"/><text x="305.8" y="235" class="val">9</text><text x="676" y="235" class="ax r dim">p13</text><text x="242" y="259" class="ax r">/artiklar/personligt-brev-butik</text><rect x="250" y="248" width="44.2" height="14" rx="2" class="bar"/><text x="300.2" y="259" class="val">8</text><text x="676" y="259" class="ax r dim">p7</text><text x="242" y="283" class="ax r">/personligt-brev-exempel/aldreboende</text><rect x="250" y="272" width="33.2" height="14" rx="2" class="bar"/><text x="289.2" y="283" class="val">6</text><text x="676" y="283" class="ax r dim">p17</text><text x="242" y="307" class="ax r">/artiklar/arbetsgivarintyg-tjanstgoring…</text><rect x="250" y="296" width="27.6" height="14" rx="2" class="bar"/><text x="283.6" y="307" class="val">5</text><text x="676" y="307" class="ax r dim">p19</text><text x="242" y="331" class="ax r">/artiklar/rotation-test-guide</text><rect x="250" y="320" width="27.6" height="14" rx="2" class="bar"/><text x="283.6" y="331" class="val">5</text><text x="676" y="331" class="ax r dim">p8</text><text x="242" y="355" class="ax r">/artiklar/personligt-brev-kompetenser-e…</text><rect x="250" y="344" width="27.6" height="14" rx="2" class="bar"/><text x="283.6" y="355" class="val">5</text><text x="676" y="355" class="ax r dim">p32</text></svg>
+<p class="figc">Topp 15 sidor på klick, 1 till 21 september. Siffran längst till höger är genomsnittlig position.</p>
+
+<p><strong>Testklustret är vår viktigaste tillgång, både för trafik och konton.</strong> Logiska-tester, rekryteringstester, rotation, numeriskt, verbalt, matrislogik och personlighetstest gav 98 klick i september, 24 procent av allt. 21 av de 74 konton som skapats sedan 1 augusti och går att spåra i PostHog började på en testsida, fler än från något annat kluster. Det är trafik med ett konkret problem (ett test hos en arbetsgivare om några dagar) och en konkret lösning bakom inloggningen.</p>
+
+<p><strong>Smakprovet för testerna fungerar.</strong> 29 svenska besökare startade de fem publika testfrågorna efter 11 september, 28 gjorde klart, 28 såg registreringsspärren och 15 började registrera sig direkt från provsidan. Det är den bästa sträckan i hela tratten, och den visar vad som fungerar: låt besökaren göra något på riktigt, visa resultatet och be om konto för resten.</p>
+
+<p><strong>Intervjuartiklarna rankar.</strong> STAR-artikeln ligger stadigt på 3,4 med 3,8 procent CTR, motivationsbrev-exempel steg från 7,1 till 4,1 och har 6,1 procent CTR, kompetensbaserade-intervjufragor 7,9 procent. Så ska sidor bete sig på sida ett.</p>
+
+<p><strong>Yrkesexemplen omsätter visningar bättre än artiklarna.</strong> /personligt-brev-exempel har 1,56 procent CTR, äldreboende steg från position 22,5 till 11,5 och gav sex klick, enhetschef, elevassistent, köksbiträde och fastighetsskötare ligger på position 3 till 8. Paritetsprincipen håller.</p>
+
+<p><strong>AI-assistenterna börjar skicka folk.</strong> chatgpt.com, copilot.microsoft.com och gemini.google.com gav 45 svenska sessioner sedan augusti och sex av de 74 spårbara kontona. Litet i volym, men åtta procent av kontona från under två procent av sessionerna.</p>
+
+<h2><span class="num">4</span>Vad som är dåligt</h2>
+
+<svg viewBox="0 0 680 300" class="chart" role="img" aria-label="CTR mot position"><line x1="50" y1="262" x2="666" y2="262" class="grid"/><text x="44" y="265" class="ax r">0 %</text><line x1="50" y1="212.4" x2="666" y2="212.4" class="grid"/><text x="44" y="215.4" class="ax r">2 %</text><line x1="50" y1="162.8" x2="666" y2="162.8" class="grid"/><text x="44" y="165.8" class="ax r">4 %</text><line x1="50" y1="113.19999999999999" x2="666" y2="113.19999999999999" class="grid"/><text x="44" y="116.19999999999999" class="ax r">6 %</text><line x1="50" y1="63.599999999999994" x2="666" y2="63.599999999999994" class="grid"/><text x="44" y="66.6" class="ax r">8 %</text><line x1="50" y1="14" x2="666" y2="14" class="grid"/><text x="44" y="17" class="ax r">10 %</text><text x="50" y="276" class="ax c">1</text><text x="130.3478260869565" y="276" class="ax c">10</text><text x="219.6231884057971" y="276" class="ax c">20</text><text x="308.8985507246377" y="276" class="ax c">30</text><text x="398.17391304347825" y="276" class="ax c">40</text><text x="487.4492753623188" y="276" class="ax c">50</text><text x="576.7246376811594" y="276" class="ax c">60</text><text x="666" y="276" class="ax c">70+</text><text x="358" y="292" class="note c">Genomsnittlig position (lägre är bättre)</text><path d="M 50.0 14.0 L 58.9 14.0 L 67.9 38.8 L 76.8 100.8 L 85.7 138.0 L 94.6 162.8 L 112.5 187.6 L 130.3 207.4 L 175.0 232.2 L 219.6 242.2 L 308.9 252.1 L 487.4 258.3 L 666.0 260.8" class="curve"/><circle cx="153.1" cy="175.2" r="9.3" class="pt" stroke="#fff" stroke-width="1"/><circle cx="133.6" cy="215.6" r="9.3" class="pt" stroke="#fff" stroke-width="1"/><circle cx="107.7" cy="257.6" r="8.9" class="pt hot" stroke="#fff" stroke-width="1"/><circle cx="212.1" cy="245.9" r="7.0" class="pt" stroke="#fff" stroke-width="1"/><circle cx="71.4" cy="167.8" r="6.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="167.9" cy="223.6" r="6.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="592.6" cy="262.0" r="6.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="207.2" cy="253.2" r="6.4" class="pt" stroke="#fff" stroke-width="1"/><circle cx="391.7" cy="262.0" r="6.2" class="pt" stroke="#fff" stroke-width="1"/><circle cx="123.6" cy="238.0" r="5.9" class="pt hot" stroke="#fff" stroke-width="1"/><circle cx="394.4" cy="185.7" r="5.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="155.4" cy="204.5" r="5.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="109.9" cy="191.1" r="5.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="333.7" cy="242.5" r="5.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="113.9" cy="241.2" r="5.7" class="pt hot" stroke="#fff" stroke-width="1"/><circle cx="226.7" cy="233.1" r="5.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="226.3" cy="158.7" r="5.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="142.9" cy="246.6" r="5.6" class="pt hot" stroke="#fff" stroke-width="1"/><circle cx="157.8" cy="238.6" r="5.5" class="pt hot" stroke="#fff" stroke-width="1"/><circle cx="489.1" cy="262.0" r="5.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="393.4" cy="262.0" r="5.4" class="pt" stroke="#fff" stroke-width="1"/><circle cx="79.4" cy="111.4" r="5.2" class="pt" stroke="#fff" stroke-width="1"/><circle cx="326.7" cy="262.0" r="5.2" class="pt" stroke="#fff" stroke-width="1"/><circle cx="496.1" cy="262.0" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="446.8" cy="262.0" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="188.4" cy="239.8" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="530.8" cy="262.0" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="610.1" cy="262.0" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="104.2" cy="167.1" r="5.1" class="pt" stroke="#fff" stroke-width="1"/><circle cx="202.3" cy="248.8" r="5.0" class="pt" stroke="#fff" stroke-width="1"/><circle cx="270.7" cy="262.0" r="4.9" class="pt" stroke="#fff" stroke-width="1"/><circle cx="351.5" cy="247.7" r="4.9" class="pt" stroke="#fff" stroke-width="1"/><circle cx="169.5" cy="233.3" r="4.9" class="pt" stroke="#fff" stroke-width="1"/><circle cx="194.2" cy="262.0" r="4.9" class="pt" stroke="#fff" stroke-width="1"/><circle cx="133.3" cy="247.4" r="4.9" class="pt" stroke="#fff" stroke-width="1"/><circle cx="116.0" cy="231.9" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="180.8" cy="65.4" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="626.0" cy="262.0" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="249.9" cy="246.3" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="659.1" cy="262.0" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="138.9" cy="262.0" r="4.8" class="pt" stroke="#fff" stroke-width="1"/><circle cx="204.4" cy="228.3" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="170.7" cy="228.3" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="288.8" cy="262.0" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="439.1" cy="262.0" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="113.3" cy="174.1" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="189.4" cy="262.0" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="236.6" cy="226.6" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="193.4" cy="154.9" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="312.9" cy="244.2" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="288.6" cy="262.0" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="282.6" cy="243.9" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="565.1" cy="262.0" r="4.7" class="pt" stroke="#fff" stroke-width="1"/><circle cx="110.0" cy="185.1" r="4.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="426.2" cy="262.0" r="4.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="243.1" cy="262.0" r="4.6" class="pt" stroke="#fff" stroke-width="1"/><circle cx="162.7" cy="218.9" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="156.7" cy="196.2" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="417.8" cy="262.0" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="324.6" cy="149.3" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="329.4" cy="216.9" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="134.1" cy="216.5" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="666.0" cy="262.0" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="497.8" cy="238.4" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="105.9" cy="262.0" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="350.5" cy="262.0" r="4.5" class="pt" stroke="#fff" stroke-width="1"/><circle cx="216.3" cy="262.0" r="4.4" class="pt" stroke="#fff" stroke-width="1"/><line x1="107.7" y1="257.6" x2="422.0" y2="169.7" class="leader"/><text x="425.0" y="172.7" class="ax">cover-letter-sverige (1705 visn, 0,2 %)</text><line x1="113.9" y1="241.2" x2="422.0" y2="183.4" class="leader"/><text x="425.0" y="186.4" class="ax">rekommendationsbrev-exempel-mall (357 visn, 0,8 %)</text><line x1="123.6" y1="238.0" x2="422.0" y2="197.0" class="leader"/><text x="425.0" y="200.0" class="ax">soka-jobb-via-mail (413 visn, 1,0 %)</text><line x1="142.9" y1="246.6" x2="422.0" y2="210.6" class="leader"/><text x="425.0" y="213.6" class="ax">brev/barnskotare (323 visn, 0,6 %)</text><line x1="157.8" y1="238.6" x2="422.0" y2="224.3" class="leader"/><text x="425.0" y="227.3" class="ax">personligt-brev-avslutning-exempel (318 visn, 0,9 %)</text><text x="167.1" y="171.2" class="ax">logiska-tester</text><text x="149.6" y="209.6" class="ax">styrkor-svagheter-intervju</text><text x="67.4" y="157.8" class="ax">star-metoden</text><text x="87.4" y="105.4" class="ax">motivationsbrev-exempel</text></svg>
+<p class="figc">Sidor med minst 100 visningar 1 till 21 september. Storleken följer visningarna, den streckade linjen visar ungefär vad CTR brukar vara per position. Orange: position 1 till 15, CTR under 1,2 procent och minst 300 visningar, alltså sidor som rankar men inte får klicket.</p>
+
+<div class="box acc">
+<h4>Cover-letter-sverige: samma läcka som för elva dagar sedan</h4>
+<p>1 705 visningar och tre klick i september, position 7,5. Inget är ändrat i filen sedan 21 juli. Uppdelat per fråga syns två olika problem.</p>
+<p><strong>Mallavsikt vi inte svarar på:</strong> "cover letter svenska" gav 518 visningar på position 8,0 och ett klick. Den som söker så vill ha ett brev att utgå ifrån, inte en förklaring. Titeln "Vad betyder cover letter? Svensk guide med exempel 2026" lovar en förklaring.</p>
+<p><strong>Definitionsfrågor som besvaras direkt i Google:</strong> "vad är cover letter" (175 visningar, position 4,6), "vad betyder cover letter" (74, position 3,9), "vad är ett cover letter" (62, position 2,9), "är cover letter personligt brev" (30, position 2,6) och "vad menas med cover letter" (29, position 4,4). 370 visningar på topp fem och noll klick. Svaret är ett ord långt och står sannolikt redan i sökresultatet. De frågorna kommer aldrig att ge klick, oavsett vad vi gör. Omskrivningen ska därför riktas helt mot mallavsikten.</p>
+</div>
+
+<h3>Räkna ut tappade 90 procent av visningarna, utan att vi rörde något</h3>
+<table>
+<thead><tr><th>Sida</th><th class="n">Visn augusti</th><th class="n">Visn 8 till 21 sep</th><th class="n">Per dag före</th><th class="n">Per dag nu</th><th>Senast hämtad av Google</th></tr></thead>
+<tbody>
+<tr><td>/rakna-ut/timlon-till-manadslon</td><td class="n">942</td><td class="n">17</td><td class="n">30,4</td><td class="n">1,2</td><td>27 juli</td></tr>
+<tr><td>/rakna-ut/semesterersattning</td><td class="n">307</td><td class="n">7</td><td class="n">9,9</td><td class="n">0,5</td><td>27 juli</td></tr>
+<tr><td>/rakna-ut/vad-kostar-en-anstalld</td><td class="n">248</td><td class="n">35</td><td class="n">8,0</td><td class="n">2,5</td><td>27 juli</td></tr>
+<tr><td>/rakna-ut/lon-efter-skatt</td><td class="n">234</td><td class="n">15</td><td class="n">7,5</td><td class="n">1,1</td><td>27 juli</td></tr>
+</tbody>
+</table>
+<p>Hela räkna ut-klustret låg på 30 till 190 visningar om dagen fram till 21 augusti och har sedan 28 augusti legat på 1 till 21. Sidorna är indexerade och har rätt kanonisk adress, men Google har inte hämtat om dem på två månader. Ingen av dem gav klick ens när visningarna fanns (fyra klick på 1 890 visningar i augusti), så tappet kostar oss synlighet mer än besökare. Hubben och kalkylatorerna byggdes om 23 september; det nya läget går att läsa av i mitten av oktober. Samma tapp syns på insikterna för rekryterare (bakgrundskontroller från 33 till 21 visningar om dagen, lönekartläggning från 11 till noll) och på /cv-mallar (från 14 till 3).</p>
+
+<h3>Sidor som finns men inte är indexerade</h3>
+<p>URL-inspektionen av alla 472 adresser i sajtkartan 23 september: 454 är indexerade. Arton är det inte, och två av dem är direkta fel i sajtkartan.</p>
+<table>
+<thead><tr><th>Status i Google</th><th class="n">Antal</th><th>Adresser</th></tr></thead>
+<tbody>
+<tr><td>Upptäckt, inte indexerad</td><td class="n">5</td><td>/personligt-brev-exempel/forskollarare, /receptionist, /lagerchef; /cv-exempel/socialsekreterare; /for-rekryterare/insikter/medarbetartips</td></tr>
+<tr><td>Okänd för Google</td><td class="n">6</td><td>/artiklar/mjuka-harda-kompetenser, /artiklar/online-cv-byggare-gratis, /personligt-brev-exempel/hotellvard, /cv-mallar/butikssaljare, /for-rekryterare/insikter/lonerapportering, /authors/linda</td></tr>
+<tr><td>Hämtad, inte indexerad</td><td class="n">3</td><td>/artiklar/cv-profil-sammanfattning (senast 2 april), /artiklar/fardiga-personliga-brev (7 maj), /cv-exempel/ekonom (5 maj)</td></tr>
+<tr><td>Fel i sajtkartan</td><td class="n">2</td><td class="down">/verktyg svarar 404 och är okänd för Google. /personligt-brev-exempel/stadare omdirigeras (308) till /lokalvardare men står kvar i sajtkartan.</td></tr>
+<tr><td>404 vid senaste hämtning</td><td class="n">2</td><td>/authors/helena och /authors/johan (maj); svarar 200 i dag, väntar på omhämtning</td></tr>
+</tbody>
+</table>
+<p class="lead">"Upptäckt, inte indexerad" betyder att Google känner till adressen men inte bedömt den värd att hämta. Det rör nya yrkesexempel och tunna sidor; de behöver interna länkar från sidor som redan rankar, inte bara en plats i sajtkartan. Cv-profil-sammanfattning hade 551 visningar i förra rapporten och föll ur indexet.</p>
+
+
+<h3>Kannibalisering</h3>
+<p><strong>Två artiklar slåss om "avsluta personligt brev".</strong> /artiklar/personligt-brev-avslutning-exempel (454 visningar i månaden, position 13,1) och /artiklar/hur-avslutar-man-personligt-brev (226, position 23,4) tar samma frågor: "avsluta personligt brev" på 28,2, "personligt brev avslut" på 23,4, "hur avslutar man ett personligt brev" på 28,1. Ingen av dem når sida ett. <strong>Barnskötarbrevet rankar för förskollärare</strong> ("förskollärare personligt brev" på 15,1, "personligt brev förskollärare" på 17,2) medan /personligt-brev-exempel/forskollarare inte är indexerad. <strong>/artiklar/rekryteringstester-guide</strong> har fått tre visningar på hundra dagar och hämtades senast 17 juni; ämnet ägs redan av /verktyg/rekryteringstester och logiska-tester.</p>
+
+<h3>Innehållet står still</h3>
+<p>Senaste publicerade artikel är daterad 23 juli. Sedan dess har vi inte lagt till en enda sida i /artiklar, och de enda innehållsändringarna sedan 12 september är jobbcoach-artikelns priser. Visningarna har legat mellan 1 070 och 1 360 om dagen, vecka för vecka, i sju veckor. All tillväxt sedan augusti kommer från att befintliga sidor klättrar. Det håller en tid till, men taket syns: de sidor som klättrat mest (logiska-tester, styrkor-svagheter) ligger nu på position 8 till 12 och har mindre kvar att hämta per plats.</p>
+
+<h3>Verktygssidorna rankar inte</h3>
+<p>/verktyg/rekryteringstester ligger på position 39,6 och tappar ("rekryteringstester" 63 visningar på 33,2, "rekryteringstest" 28 på 20,7). /verktyg/skapa-cv får 546 visningar i månaden på position 32,8 för "cv byggare", "skapa cv gratis" och "cv online", men sidan saknas i sajtkartan. Båda sidorna fick ny mall 23 september, så titeländringar bör vänta till positionen efter releasen är avläst 30 september.</p>
+
+<h2><span class="num">5</span>Var vi har mest att tjäna</h2>
+<p class="lead">Rangordnat efter klick per månad delat med insats. Klick utgår från nuvarande visningar och en normal CTR-kurva vid målpositionen. Konton utgår från vår faktiska omvandling per ingångstyp sedan 1 augusti: testsidor 3,8 konton per 100 sessioner, artiklar 0,4, yrkesexempel 0,7, verktyg och startsida 4 till 8.</p>
+
+<table>
+<thead><tr><th class="n">#</th><th>Möjlighet</th><th>Insats</th><th class="n">Klick/mån</th><th class="n">Konton/mån</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td><strong>Bygg ut testklustret med tre sidor och länka ihop det</strong><span class="sm">Alva Labs logiktest, MAP-testet och deduktiv/induktiv slutledning har synliga frågor på position 8 till 25 som bara logiska-tester och personlighetstest-guiden fångar i förbifarten. Logiska-tester (2 776 visningar i månaden) är vår starkaste sida och ska skicka vidare.</span></td><td><span class="tag m">M</span></td><td class="n">40 till 80</td><td class="n">2 till 3</td></tr>
+<tr><td class="n">2</td><td><strong>Ett smakprov för intervjuklustret, byggt som testprovet</strong><span class="sm">113 besökare läste en intervjuartikel på tolv dagar och 6 klickade på CTA:n, mot 49 av 68 i testklustret. Ett "skriv ditt svar på styrkor och svagheter, få en bedömning" med spärr efter svaret. Ingen klickeffekt, men den största kontohävstången vi har. Kräver ditt beslut.</span></td><td><span class="tag m">M</span></td><td class="n">0</td><td class="n">4 till 8</td></tr>
+<tr><td class="n">3</td><td><strong>Listblock på styrkor-svagheter-intervju</strong><span class="sm">2 751 visningar i månaden på position 10,4. Delfrågorna "svagheter lista" (6,1), "styrkor och svagheter lista" (7,1), "dåliga egenskaper lista" (9,0), "utvecklingsbara sidor" (10,0) och "negativa egenskaper lista" (10,4) ger nästan inga klick. Från position 8 till 5 är cirka 40 klick i månaden.</span></td><td><span class="tag m">M</span></td><td class="n">30 till 50</td><td class="n">under 1</td></tr>
+<tr><td class="n">4</td><td><strong>Snippetpass och en sammanslagning, sex sidor</strong><span class="sm">söka-jobb-via-mail, rekommendationsbrev-exempel-mall, brev/barnskotare, brev/saljare, datorkunskaper-cv, samt avslutningsartiklarna slagna ihop</span></td><td><span class="tag m">M</span></td><td class="n">25 till 45</td><td class="n">cirka 1</td></tr>
+<tr><td class="n">5</td><td><strong>Cover-letter-sverige mot mallavsikten</strong><span class="sm">"cover letter svenska" ca 740 visningar i månaden på position 8. Från 0,2 till 2,5 procent CTR</span></td><td><span class="tag s">S</span></td><td class="n">15 till 30</td><td class="n">cirka 1</td></tr>
+<tr><td class="n">6</td><td><strong>Bakgrundskontroll för kandidater</strong><span class="sm">Nio frågor om bakgrundskontroll ger ca 640 visningar i månaden på position 25 till 78, alla på rekryterarinsikten. Frågorna "bakgrundskontroll anställning", "bakgrundskontroller vid anställning" och "bakgrundskontroll jobb" ställs av kandidater</span></td><td><span class="tag m">M</span></td><td class="n">15 till 30</td><td class="n">0</td></tr>
+<tr><td class="n">7</td><td><strong>Få in de oindexerade sidorna och räkna ut i Google igen</strong><span class="sm">Indexeringsbegäran, interna länkar från lönesidorna, sajtkartan kompletterad</span></td><td><span class="tag s">S</span></td><td class="n">5 till 20</td><td class="n">under 1</td></tr>
+<tr><td class="n">8</td><td><strong>Bing Webmaster Tools och IndexNow</strong><span class="sm">Bing med partners står för ungefär lika många svenska sessioner som Google. I dag ser vi ingenting av det</span></td><td><span class="tag s">S</span></td><td class="n">mätning</td><td class="n">&nbsp;</td></tr>
+</tbody>
+</table>
+
+<p>Punkt 1, 3, 4, 5 och 6 är sammantaget 125 till 235 klick i månaden, 20 till 37 procent mer organisk trafik mot dagens cirka 630 i månaden. Men den som vill ha konton ska läsa punkt 2 och avsnitt 6 först. Trafik till artiklar blir nästan aldrig konton; trafik till något man kan prova blir det.</p>
+
+<h2><span class="num">6</span>Konvertering: besökare till konto</h2>
+<p class="lead">Registrering, inte betalning. PostHog-händelserna finns sedan 11 september 22:08, så tratten nedan bygger på tolv dagar och svenska besökare, unika personer per steg. Konton per ingångstyp bygger på PostHog-personer kopplade till Supabase-konton sedan 1 augusti.</p>
+
+<svg viewBox="0 0 680 190" class="chart" role="img" aria-label="Konton per hundra sessioner per ingångstyp"><text x="182" y="20" class="ax r">Verktygssidor</text><rect x="190" y="8" width="327.4" height="16" rx="2" class="bar"/><text x="523.4" y="20" class="val">7,9 %</text><text x="676" y="20" class="ax r dim">5 konton av 63 sessioner</text><text x="182" y="50" class="ax r">Startsidan</text><rect x="190" y="38" width="193.1" height="16" rx="2" class="bar"/><text x="389.1" y="50" class="val">4,7 %</text><text x="676" y="50" class="ax r dim">11 konton av 235 sessioner</text><text x="182" y="80" class="ax r">CV-mallar</text><rect x="190" y="68" width="187.5" height="16" rx="2" class="bar"/><text x="383.5" y="80" class="val">4,5 %</text><text x="676" y="80" class="ax r dim">3 konton av 66 sessioner</text><text x="182" y="110" class="ax r">Testsidor</text><rect x="190" y="98" width="158.4" height="16" rx="2" class="bar"/><text x="354.4" y="110" class="val">3,8 %</text><text x="676" y="110" class="ax r dim">21 konton av 547 sessioner</text><text x="182" y="140" class="ax r">Yrkesexempel</text><rect x="190" y="128" width="27.4" height="16" rx="2" class="bar"/><text x="223.4" y="140" class="val">0,7 %</text><text x="676" y="140" class="ax r dim">3 konton av 451 sessioner</text><text x="182" y="170" class="ax r">Artiklar (utom test)</text><rect x="190" y="158" width="17.6" height="16" rx="2" class="bar"/><text x="213.6" y="170" class="val">0,4 %</text><text x="676" y="170" class="ax r dim">9 konton av 2 108 sessioner</text></svg>
+<p class="figc">Nya konton per 100 svenska sessioner, efter vilken sorts sida sessionen började på, sorterat efter andel. Testsidorna har lägre andel än verktygssidorna men nio gånger fler sessioner, och ger därför flest konton. 1 augusti till 23 september. 17 konton landade direkt på inloggningen eller hemskärmen och syns inte här.</p>
+
+<h3>Tratten efter 11 september, svenska besökare</h3>
+<table>
+<thead><tr><th>Steg</th><th class="n">Personer</th><th class="n">Av föregående</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Sidvisning, alla publika sidor</td><td class="n">475</td><td class="n">&nbsp;</td><td>PostHog räknar lågt, se avsnitt 8</td></tr>
+<tr><td>article_viewed</td><td class="n">299</td><td class="n">63 %</td><td>&nbsp;</td></tr>
+<tr><td>article_cta_shown</td><td class="n">286</td><td class="n">96 %</td><td>Karriärartiklar har ingen produkt-CTA</td></tr>
+<tr><td>article_cta_clicked</td><td class="n">64</td><td class="n">22 %</td><td class="down">49 av dem kom från testklustret</td></tr>
+<tr><td>sample_started</td><td class="n">44</td><td class="n">69 %</td><td>29 test, 9 brev, 4 CV, 2 analys</td></tr>
+<tr><td>sample_completed</td><td class="n">32</td><td class="n">73 %</td><td class="down">Brevprovet: 2 av 9 blev klara</td></tr>
+<tr><td>signup_gate_shown</td><td class="n">34</td><td class="n">&nbsp;</td><td>28 test, 2 brev, 2 CV, 2 analys</td></tr>
+<tr><td>signup_started</td><td class="n">27</td><td class="n">79 %</td><td>15 från testprovet</td></tr>
+<tr><td>signup_completed</td><td class="n">9</td><td class="n">33 %</td><td class="down">Räknas bara vid lösenord, inte Google</td></tr>
+<tr><td>Nya konton i Supabase, samma period</td><td class="n">26</td><td class="n">&nbsp;</td><td>Varav minst 11 via Google-inloggning</td></tr>
+</tbody>
+</table>
+
+<h3>CTA per kluster, 11 till 22 september</h3>
+<table>
+<thead><tr><th>Kluster</th><th class="n">Läste</th><th class="n">Såg CTA</th><th class="n">Klickade</th><th class="n">Klickandel</th><th>CTA:n pekade på</th></tr></thead>
+<tbody>
+<tr><td>test</td><td class="n">76</td><td class="n">68</td><td class="n">49</td><td class="n up">72 %</td><td>/verktyg/rekryteringstester/prova, fem frågor</td></tr>
+<tr><td>interview</td><td class="n">113</td><td class="n">111</td><td class="n">6</td><td class="n down">5 %</td><td>/verktyg/jobbcoachen</td></tr>
+<tr><td>letter</td><td class="n">53</td><td class="n">68</td><td class="n">4</td><td class="n down">6 %</td><td>/skapa-brev/start</td></tr>
+<tr><td>cv</td><td class="n">35</td><td class="n">44</td><td class="n">5</td><td class="n down">11 %</td><td>/verktyg/cv-mallar</td></tr>
+<tr><td>career</td><td class="n">31</td><td class="n">2</td><td class="n">0</td><td class="n">&nbsp;</td><td>ingen produkt-CTA, bara länkrad</td></tr>
+</tbody>
+</table>
+<p class="lead">Unika personer. De nya reklamkorten per kluster gick live 23 september och ersätter dessa; första avläsning kring 7 oktober.</p>
+
+<h3>Vilka sidor ger konton och vilka ger bara trafik</h3>
+<table>
+<thead><tr><th>Sida</th><th class="n">Klick sep</th><th class="n">Läsare 11 till 22 sep</th><th class="n">CTA-klick</th><th>Bedömning</th></tr></thead>
+<tbody>
+<tr><td>/artiklar/logiska-tester</td><td class="n">68</td><td class="n">64</td><td class="n">36</td><td class="up">Ger konton. Två konton landade här efter 11 sep</td></tr>
+<tr><td>/verktyg/rekryteringstester</td><td class="n">12</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="up">Vanligaste första sidan för nya konton sedan augusti, 14 st</td></tr>
+<tr><td>Startsidan</td><td class="n">14</td><td class="n">&nbsp;</td><td class="n">&nbsp;</td><td class="up">11 konton sedan augusti, mest direkttrafik</td></tr>
+<tr><td>/artiklar/styrkor-svagheter-intervju</td><td class="n">36</td><td class="n">52</td><td class="n">0</td><td class="down">Bara trafik. Näst största sidan, noll klick på CTA</td></tr>
+<tr><td>/artiklar/kompetensbaserad-intervju-star-metoden</td><td class="n">27</td><td class="n">14</td><td class="n">3</td><td>Bara trafik</td></tr>
+<tr><td>/artiklar/hur-ofta-byta-jobb</td><td class="n">10</td><td class="n">7</td><td class="n">0</td><td>Bara trafik, ingen CTA</td></tr>
+<tr><td>/artiklar/angest-infor-nytt-jobb</td><td class="n">9</td><td class="n">5</td><td class="n">0</td><td>Bara trafik, ingen CTA; läsaren har redan jobbet</td></tr>
+<tr><td>/artiklar/ljuga-i-cv</td><td class="n">11</td><td class="n">5</td><td class="n">0</td><td>Bara trafik</td></tr>
+<tr><td>Yrkesexemplen, alla</td><td class="n">67</td><td class="n">57</td><td class="n">&nbsp;</td><td>8 provstarter, 2 registreringsstarter; example_* mäts inte</td></tr>
+</tbody>
+</table>
+
+<div class="box acc">
+<h4>Var besökarna försvinner, i tur och ordning</h4>
+<ul>
+<li><strong>Artikeln till CTA-klick i allt utom testklustret.</strong> 218 personer läste en artikel utanför testklustret efter 11 september. Tre startade ett smakprov och en började registrera sig. I testklustret: 101 personer, 30 provstarter, 18 registreringsstarter. Skillnaden sitter inte i texten, den sitter i vad CTA:n erbjuder. Testklustret erbjuder något att göra direkt. Intervjuklustret erbjuder en chatt.</li>
+<li><strong>Brevprovet tappar tre av fyra.</strong> Nio startade det publika brevutkastet på /skapa-brev/start och två blev klara. Testprovet tappar en av 29. Brevflödet behöver en genomgång av var i stegen det faller, och det går att göra i sessionsinspelningarna utan ny mätning.</li>
+<li><strong>Registreringen själv är inte problemet.</strong> 27 började och 26 konton skapades. Den som kommer så långt blir kvar.</li>
+</ul>
+</div>
+
+<p>Aktiveringen för de 26 kontona efter 11 september: tolv har ett CV (46 procent), tretton har kört analysen, ett har skapat ett brev. Brevsiffran är låg och bör följas nu när gratisnivån ändrades 22 september.</p>
+
+<h2><span class="num">7</span>Åtgärder kommande fyra veckor</h2>
+<p class="lead">Varje rad går att lämna till en agent som den står. Textarbete går till svensk-ux-copywriter med avsikten och kraven här, SEO-granskningen till seo-content-strategist-se. Artikelregler enligt artikel-arbetssättet: källverifiering, inga talstreck, SVG-bild vid ny artikel, seoTitle högst 60 tecken, description 110 till 158.</p>
+
+<table>
+<thead><tr><th class="n">#</th><th>Åtgärd</th><th>Insats</th><th>Förväntad effekt</th></tr></thead>
+<tbody>
+<tr><td class="n">1<span class="sm">v 39</span></td><td><strong>Rätta mätningen innan vi mäter mer.</strong> example_viewed och example_cta_clicked är definierade i src/lib/analytics/events.ts men anropas ingenstans; lägg in dem på /personligt-brev-exempel/[yrke] och /cv-exempel/[yrke]. signup_completed skickas bara i src/components/auth/register-form.tsx; lägg till samma händelse med method: 'google' när ett nytt konto skapas via OAuth-återkopplingen.</td><td><span class="tag s">S</span></td><td>Tratten och exemplen går att läsa av 7 oktober. I dag saknas halva registreringarna och alla exempelhändelser.</td></tr>
+<tr><td class="n">2<span class="sm">v 39</span></td><td><strong>Cover-letter-sverige mot mallavsikten.</strong> seoTitle: "Cover letter på svenska: mall och exempel att kopiera" (53 tecken). description: "Ett färdigt cover letter på svenska att kopiera, mallen stycke för stycke och när du ska skriva på engelska i stället. Plus vad ordet faktiskt betyder." title (H1): "Cover letter på svenska: mall, exempel och vad ordet betyder". Första skärmen: ett komplett svenskt exempelbrev i kopierbar ruta, förklaringen därefter. CTA till /skapa-brev/start. Behåll URL och befintliga H2:or som rankar.</td><td><span class="tag s">S</span></td><td>15 till 30 klick i månaden. Synligt 2 till 3 veckor efter att Google hämtat om sidan.</td></tr>
+<tr><td class="n">3<span class="sm">v 39</span></td><td><strong>Länka ihop testklustret.</strong> Från /artiklar/logiska-tester: en sektion "Övningsguider per testtyp" med länk till numeriskt-test-guide, verbalt-test-guide, matrislogik-test-guide, rotation-test-guide och personlighetstest-jobb-guide, och från var och en av dem tillbaka till logiska-tester och till /verktyg/rekryteringstester/prova. I src/app/sitemap.ts: lägg till /verktyg/skapa-cv och /verktyg/bli-upptackt, ta bort /verktyg (svarar 404) och /personligt-brev-exempel/stadare (omdirigeras till /lokalvardare). Länka de fem sidorna som är upptäckta men inte indexerade från närmaste sida som rankar (förskollärare från barnskötare, receptionist från hotellvärd, lagerchef från lagerarbetare, socialsekreterare från handläggare, medarbetartips från insiktshubben). Slå ihop /artiklar/rekryteringstester-guide med /verktyg/rekryteringstester (301, flytta det som är unikt).</td><td><span class="tag s">S</span></td><td>10 till 20 klick i månaden och fler besök som når provet.</td></tr>
+<tr><td class="n">4<span class="sm">v 39, ägaren</span></td><td><strong>Search Console och Bing.</strong> Begär indexering (ägarkontot, servicekontot kan bara läsa) för de tio räkna ut-sidorna och de oindexerade sidorna i avsnitt 4. Skapa Bing Webmaster Tools för jobbcoach.ai, importera från Search Console, skicka sajtkartan. Lägg IndexNow-nyckeln så nya och ändrade sidor pingas.</td><td><span class="tag s">S</span></td><td>Räkna ut tillbaka mot 1 500 visningar i månaden; en första bild av Bing inom en vecka.</td></tr>
+<tr><td class="n">5<span class="sm">v 40</span></td><td><strong>Listblock på /artiklar/styrkor-svagheter-intervju.</strong> Tre nya H2:or högt upp, före exempelsvaren: "Svagheter: lista med 15 exempel", "Dåliga egenskaper och negativa egenskaper: lista", "Utvecklingsbara sidor: exempel och hur du säger dem". Varje lista som punktlista med en rads förklaring, så att den kan bli utdrag i Google. Lägg frågorna "Vad kan man säga som svaghet på en intervju?" och "Vad är utvecklingsbara sidor?" i faq. seoTitle: "Styrkor och svagheter på intervju: 20 svar och listor" (52 tecken). Rubrikerna som redan rankar lämnas orörda.</td><td><span class="tag m">M</span></td><td>30 till 50 klick i månaden vid position 5 till 6.</td></tr>
+<tr><td class="n">6<span class="sm">v 40</span></td><td><strong>Snippetpass och sammanslagning.</strong> (a) Slå ihop /artiklar/hur-avslutar-man-personligt-brev med /artiklar/personligt-brev-avslutning-exempel, 301 till den senare, ny seoTitle "Avsluta personligt brev: 25 exempel på sista meningen". (b) /personligt-brev-exempel/barnskotare: titel som börjar med "Personligt brev barnskötare", länk till /personligt-brev-exempel/forskollarare, och förskolläraren får egen länk från /personligt-brev-exempel. (c) /personligt-brev-exempel/saljare: titel "Personligt brev säljare: exempel att utgå från". (d) söka-jobb-via-mail, rekommendationsbrev-exempel-mall och datorkunskaper-cv: seoTitle och description mot den fråga som har flest visningar (ämnesrad, rekommendationsbrev mall, datorkunskaper i cv).</td><td><span class="tag m">M</span></td><td>25 till 45 klick i månaden.</td></tr>
+<tr><td class="n">7<span class="sm">v 41</span></td><td><strong>Tre nya testsidor.</strong> /artiklar/alva-labs-logiktest (målfråga "alva logiktest", även "gratis alva test", "alva labs logiktest öva"): hur testet är uppbyggt, tidsgräns, hur du övar, länk till provet. /artiklar/map-test-personlighetstest (målfråga "map test", även "personlighetstest map", "map test gratis", "map test exempel"): vad testet mäter, hur resultatet läses, exempelpåståenden. /artiklar/deduktivt-induktivt-test (målfråga "deduktiv slutledningsförmåga test", även "induktiv slutledningsförmåga test gratis", "deduktiv logik"): skillnaden, exempeluppgifter med lösning. Alla tre i testklustret med provet som CTA. Uppgifter om leverantörernas tester verifieras mot leverantörernas egna sidor.</td><td><span class="tag m">M</span></td><td>30 till 60 klick i månaden inom sex till åtta veckor, 1 till 3 konton.</td></tr>
+<tr><td class="n">8<span class="sm">v 41, beslut</span></td><td><strong>Intervjuprovet.</strong> Ett publikt smakprov på /artiklar/styrkor-svagheter-intervju och kompetensbaserad-intervju-star-metoden: besökaren skriver sitt svar på en fråga, får en kort bedömning, och spärren kommer före den fullständiga återkopplingen. Samma händelser som testprovet (sample_started, sample_completed, signup_gate_shown med kind 'interview'). Design i artefakt före bygge.</td><td><span class="tag m">M</span></td><td>4 till 8 konton i månaden om det når en tredjedel av testprovets effekt.</td></tr>
+<tr><td class="n">9<span class="sm">v 42</span></td><td><strong>Bakgrundskontroll för kandidater.</strong> Ny artikel /artiklar/bakgrundskontroll-vid-anstallning, målfråga "bakgrundskontroll anställning", även "bakgrundskontroller vid anställning", "bakgrundskontroll jobb", "vad kollar man i en bakgrundskontroll". Kandidatens perspektiv: vad arbetsgivaren får kontrollera, vad som kräver samtycke, belastningsregisterutdrag. Länka till och från /for-rekryterare/insikter/bakgrundskontroller.</td><td><span class="tag m">M</span></td><td>15 till 30 klick i månaden.</td></tr>
+<tr><td class="n">10<span class="sm">v 42</span></td><td><strong>Avläsning.</strong> Positioner på de 40 största artiklarna mot 21 september (linjen live 23 september), CTA-klick per kluster med de nya reklamkorten, räkna ut-visningar, exempelhändelserna och signup_completed per metod. Kör scripts/analys-seo-tillvaxt.ts för ny data.</td><td><span class="tag s">S</span></td><td>Avgör om linjen påverkat rankningen och om reklamkorten slår de gamla.</td></tr>
+</tbody>
+</table>
+
+<p>Sammantaget 125 till 235 extra klick i månaden inom sex till tio veckor, och 5 till 13 extra konton i månaden om intervjuprovet byggs. Utan intervjuprovet stannar kontoeffekten på 3 till 5, eftersom de flesta av de nya klicken hamnar på artiklar som inte omvandlar.</p>
+
+<h3>Förra rapportens åtgärder</h3>
+<table>
+<thead><tr><th>Åtgärd 12 september</th><th>Status</th><th>Syns effekt?</th></tr></thead>
+<tbody>
+<tr><td>Skriv om cover-letter-sverige mot exempel och mall</td><td class="down">Inte gjord. Filen orörd sedan 21 juli.</td><td>1 193 visningar på 14 dagar, position 6,8, tre klick. Ligger först igen.</td></tr>
+<tr><td>Interna länkar från starka sidor till sida två</td><td class="down">Inte gjord. Inga ändringar i content/ sedan 12 sep utöver jobbcoach-artikelns priser.</td><td>&nbsp;</td></tr>
+<tr><td>Lämna säljflödet orört till 26 sep</td><td class="down">Inte följd. Paketen, ny prissida och trial borttagen 22 sep, efter ägarbeslut på effektanalysen 21 sep.</td><td>Konverteringssiffrorna 11 till 22 sep mäter en ersatt version.</td></tr>
+<tr><td>LCP och CLS i skapa-brev och profil</td><td class="up">Gjord 12 till 13 sep, nio omgångar. Skapa-brev 1,1 s i emulering.</td><td>PostHog p75 går att läsa efter 27 sep.</td></tr>
+<tr><td>Snippetgenomgång, nio sidor</td><td class="down">Inte gjord.</td><td>Timlon-till-manadslon, som stod först, har sedan dess tappat nästan alla visningar.</td></tr>
+<tr><td>Lyft styrkor-svagheter-intervju</td><td class="down">Inte gjord.</td><td>Sidan steg ändå, 13,7 till 8,6, och gav 30 klick på 14 dagar. Förra rapportens mål på cirka 55 i månaden nåddes utan arbete.</td></tr>
+<tr><td>Kontrollpunkt trial, blur-gate, prisstege</td><td class="up">Gjord 21 sep (analys-effekt-2026-09-21).</td><td>Ledde till att reverse trial togs bort 22 sep.</td></tr>
+<tr><td>Testklustret, lyft /verktyg/rekryteringstester</td><td class="down">Inte gjord som innehåll. Sidan fick ny mall 23 sep.</td><td>Logiska-tester steg av egen kraft; verktygssidan ligger kvar på 38 till 40.</td></tr>
+<tr><td>Läs av cancel-flowet</td><td class="up">Flödet fångar: två rader i cancel_intents.</td><td>&nbsp;</td></tr>
+</tbody>
+</table>
+<p>Av fem SEO-åtgärder är ingen gjord. Sedan 12 september har arbetet gått till inloggat läge, admin, paketen och den visuella linjen. Det var rätt prioriterat för produkten, men det betyder att klickökningen i den här rapporten inte är ett resultat av något vi gjort, och att samma läckor står kvar.</p>
+
+<h2><span class="num">8</span>Datakvalitet och vad vi inte kan se</h2>
+
+<table>
+<thead><tr><th>Vad vi inte ser</th><th>Varför</th><th>Vad som krävs</th></tr></thead>
+<tbody>
+<tr><td>86 procent av klicken per sökfråga</td><td>Search Console döljer sällsynta frågor. Bara 14 procent av klicken de senaste 14 dagarna går att knyta till en synlig fråga (40 av 296), och 42 procent av visningarna. Logiska-tester fick 68 klick i september men bara ett fåtal syns per fråga.</td><td>Inget att göra. Sidnivån är pålitlig, frågenivån är ett stickprov.</td></tr>
+<tr><td>Bing, DuckDuckGo och Yahoo</td><td>Ingen Bing Webmaster Tools. Ungefär lika många svenska sessioner som Google enligt PostHog.</td><td>Åtgärd 4.</td></tr>
+<tr><td>Exempelsidornas tratt</td><td>example_viewed och example_cta_clicked anropas aldrig i koden. Noll händelser sedan 11 sep.</td><td>Åtgärd 1.</td></tr>
+<tr><td>Registreringar via Google</td><td>signup_completed skickas bara vid lösenord. Minst 11 av 26 konton efter 11 sep kom via Google och saknas i PostHog-tratten.</td><td>Åtgärd 1. Tills dess: räkna konton ur Supabase.</td></tr>
+<tr><td>Landningssida per konto</td><td>acquisition_source skrevs aldrig före 21 sep 21:54. Tre av fyra externa konton efter fixen har värdet; direktbesök får det inte, med avsikt.</td><td>Avläsning kring 20 oktober. Här har kopplingen gjorts via PostHog-personer, vilket fångar 74 av 105 konton sedan juni.</td></tr>
+<tr><td>Trender i PostHog över 13 och 23 sep</td><td>PostHog startar efter sidladdning sedan 13 sep och först vid interaktion sedan 23 sep. Svenska sessioner föll från 412 till 334 i veckan efter 13 sep medan Google-klicken steg 30 procent.</td><td>Använd Search Console för trafiktrend och PostHog bara för beteende inom samma mätversion.</td></tr>
+<tr><td>Effekt av linjen, reklamkorten och paketen</td><td>Live 22 till 23 sep. Search Console ligger två dagar efter.</td><td>Positioner 30 sep och 14 okt, CTA kring 7 okt, köp vecka 45.</td></tr>
+<tr><td>Räkna ut efter ombyggnaden</td><td>Live 23 sep 12:21, sidorna inte hämtade av Google sedan 27 juli.</td><td>Mitten av oktober, efter indexeringsbegäran.</td></tr>
+<tr><td>Varför räkna ut och insikterna tappade</td><td>Ingen deploy i fönstret 16 aug till 11 sep. Orsaken ligger hos Google och går inte att belägga ur vår data.</td><td>Följ om tappet står kvar efter omhämtning.</td></tr>
+<tr><td>Konkurrenternas läge</td><td>Inte undersökt i den här rapporten, efter uppdragets avgränsning.</td><td>En separat genomgång av sökresultatet för testfrågorna före åtgärd 7.</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<h4>Behöver ditt beslut</h4>
+<ul>
+<li><strong>Innehållstakten.</strong> Ingen ny artikel sedan 23 juli. Planen ovan innehåller fyra nya sidor på fyra veckor (tre testsidor och bakgrundskontroll) plus fem omskrivningar. För att visningarna ska börja växa igen efter oktober behövs sex till tio nya sidor i månaden, med testklustret först. Säg ja eller nej till takten, så planerar jag därefter.</li>
+<li><strong>Intervjuprovet (åtgärd 8).</strong> Det är en produktändring på publika sidor och den största hävstången för konton vi har hittat. Den behöver design i artefakt och ditt godkännande innan den byggs.</li>
+<li><strong>Två ägaråtgärder som ingen agent kan göra:</strong> indexeringsbegäran i Search Console och ett konto i Bing Webmaster Tools. Servicekontot har bara läsrätt.</li>
+<li><strong>Ingen mer mallomläggning på publika sidor till 7 oktober.</strong> Linjen och de nya reklamkorten gick live 23 september. Innehållsändringarna i listan rör text, inte mallar, och går bra parallellt. Men en ny omgång på header, artikelmall eller verktygssidor före 7 oktober gör att vi inte kan skilja effekten av linjen från effekten av nästa ändring.</li>
+</ul>
+</div>
+
+<footer>
+Underlag: Search Console 12 juni till 21 september 2026, alla sidor och frågor paginerat (dimensionerna datum, sida, fråga, sida+fråga, enhet, land), i delperioderna juni-juli, augusti, september, 25 aug till 7 sep och 8 till 21 sep. URL-inspektion för alla 473 adresser i sajtkartan 23 september. PostHog EU projekt 148688, 1 augusti till 23 september, svenska besökare, kohort 248676 (interna) bortfiltrerad. Supabase: profiles med admin_undantagna_konton() borttagna, cancel_intents, premium_grants, bara läsning. Insamlingsskript: scripts/analys-seo-tillvaxt.ts och scripts/posthog-query.ts.
+</footer>
+
+</div>
