@@ -102,9 +102,9 @@ describe('R1 i paketcopyn', () => {
     kontrollera(s)
   })
 
-  it('betalväggens verb är Skaffa, aldrig Ta', () => {
+  it('betalväggens verb är Köp, aldrig Ta eller Skaffa', () => {
     for (const plan of PLAN_KEYS) {
-      expect(knappText(plan)).toMatch(/^Skaffa /)
+      expect(knappText(plan)).toMatch(/^Köp /)
     }
   })
 })
@@ -142,7 +142,7 @@ describe('R1 i betalväggarna', () => {
     kontrollera(s)
   })
 
-  it('primärknappen säger Skaffa och beloppet när den säljer ett paket', () => {
+  it('primärknappen säger Köp och beloppet när den säljer ett paket', () => {
     for (const variant of VARIANTER) {
       const c = getPaywallCopy(variant)
       if (!c.plan) continue

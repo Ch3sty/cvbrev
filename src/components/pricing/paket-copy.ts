@@ -801,9 +801,9 @@ export const INTERVALL_RAD: Record<PlanKey, string> = {
   all_quarter: 'i kvartalet, förnyas var tredje månad',
 }
 
-/** Knapptexten i betalväggarna: verbet Skaffa, namnet, pris och period (R1). */
+/** Knapptexten i betalväggarna: verbet Köp, namnet, pris och period (R1). */
 export function knappText(plan: PlanKey): string {
-  return `Skaffa ${paketMedPris(plan)}`
+  return `Köp ${paketMedPris(plan)}`
 }
 
 /** H1 på prissidan, samma rad återanvänds på startsidan. */

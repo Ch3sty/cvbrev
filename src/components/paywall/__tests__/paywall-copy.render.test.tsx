@@ -15,13 +15,13 @@ describe('betalväggarnas copy per spärr', () => {
     expect(screen.getByText('Mallen ingår i CV-paketet, 79 kr i veckan')).toBeTruthy()
     expect(screen.getByText(/Du ser hela mallen som den blir/)).toBeTruthy()
     expect(screen.getByText('79 kr i veckan, säg upp när du vill.')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Skaffa CV-paketet, 79 kr i veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Köp CV-paketet, 79 kr i veckan' })).toBeTruthy()
   })
 
   it('PW2, testnivå: namnger nivån och säljer Träningspaketet', () => {
     render(<PaywallCard variant="testniva" />)
     expect(screen.getByText('Avancerad nivå ingår i Träningspaketet, 79 kr i veckan')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Skaffa Träningspaketet, 79 kr i veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Köp Träningspaketet, 79 kr i veckan' })).toBeTruthy()
   })
 
   it('PW3, analys: kvitterar poängen och det tyngsta fyndet före priset', () => {
@@ -53,7 +53,7 @@ describe('betalväggarnas copy per spärr', () => {
   it('PW6, jobbträffar: Hela paketet en gång, inget mindre paket föreslås', () => {
     render(<PaywallCard variant="jobbtraffar" hiddenCount={22} />)
     expect(screen.getByText('Se varför du passar för alla 25')).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Skaffa Hela paketet, 99 kr i veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Köp Hela paketet, 99 kr i veckan' })).toBeTruthy()
   })
 
   it('PW7, chatten: gränsen är per konto, aldrig "dagens"', () => {

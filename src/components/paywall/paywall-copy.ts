@@ -4,7 +4,7 @@
  * docs/rapporter/beslut-paketnamn-2026-09-24.md.
  *
  * Reglerna som gäller alla varianter: den primära knappen föreslår rätt
- * paket med verbet Skaffa, namnet, pris och period ("Skaffa CV-paketet, 79 kr
+ * paket med verbet Köp, namnet, pris och period ("Köp CV-paketet, 79 kr
  * i veckan"). Rubriker som nämner ett paket bär pris och period i samma
  * sträng (R1). Under brödtexten står en fast prisrad. Hela paketet nämns en
  * gång i brödtexten, aldrig fler. Namnen läses ur PLANS. Inga talstreck.
@@ -83,9 +83,9 @@ export const GRATISRADER = {
   jobbtraffar: 'De tre bästa träffarna ingår',
 } as const
 
-/** Betalväggens knapp: "Skaffa CV-paketet, 79 kr i veckan". */
+/** Betalväggens knapp: "Köp CV-paketet, 79 kr i veckan". */
 export function skaffaKnapp(plan: PlanKey): string {
-  return `Skaffa ${paketMedPris(plan)}`
+  return `Köp ${paketMedPris(plan)}`
 }
 
 /** Prisraden under brödtexten. Dagspasset förnyas inte, resten sägs upp. */

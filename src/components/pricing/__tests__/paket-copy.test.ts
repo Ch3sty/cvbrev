@@ -181,11 +181,11 @@ describe('antalsraden', () => {
 })
 
 describe('knapptexterna', () => {
-  it('betalväggarna säger Skaffa, namnger paketet och bär pris och period', () => {
+  it('betalväggarna säger Köp, namnger paketet och bär pris och period', () => {
     for (const key of ALLA_NYCKLAR) {
-      expect(knappText(key as PlanKey)).toMatch(new RegExp(`^Skaffa ${PLAN_BY_KEY[key].name}, ${PLAN_BY_KEY[key].amount} kr`))
+      expect(knappText(key as PlanKey)).toMatch(new RegExp(`^Köp ${PLAN_BY_KEY[key].name}, ${PLAN_BY_KEY[key].amount} kr`))
     }
-    expect(knappText('cv_week')).toBe('Skaffa CV-paketet, 79 kr i veckan')
+    expect(knappText('cv_week')).toBe('Köp CV-paketet, 79 kr i veckan')
   })
 
   it('korten säger Börja med, namnet, pris och period', () => {

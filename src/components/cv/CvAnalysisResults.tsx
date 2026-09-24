@@ -518,7 +518,7 @@ const PremiumTeaserSection: React.FC = React.memo(() => (
             href="/dashboard/valj-spar?paket=cv_week"
             className="inline-flex items-center h-11 px-6 text-sm font-medium text-white transition-all bg-orange-600 hover:bg-orange-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
-            Skaffa CV-paketet, 79 kr i veckan
+            Köp CV-paketet, 79 kr i veckan
             <ChevronRight className="w-4 h-4 ml-2" />
         </Link>
     </section>

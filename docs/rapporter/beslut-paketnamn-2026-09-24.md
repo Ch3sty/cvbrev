@@ -95,6 +95,6 @@ Klicktest i riktig webbläsare som ny användare på alla sju ytorna i tabellen 
 - Namnen: **CV-paketet, Träningspaketet, Hela paketet, Dagspasset.** Träningspaketet i stället för Testpaketet, eftersom "Testpaketet" bredvid "Starta gratis test" läses som ett betalt provpaket (copywriterns stresstest).
 - Ordval i all copy: "Jobbcoachen", aldrig "coachen utan tak". "Personliga brev", aldrig bara "brev". Hela paketets rad ska säga att allt ingår, inklusive jobbmatchning, Jobbcoachen och Bli upptäckt.
 - Personlighetstestet lyfts fram i paketen där det ingår (grundtestet gratis, fördjupade testet i Träningspaketet och Hela paketet).
-- Betalväggens verb: "Skaffa", inte "Ta".
+- Betalväggens verb: "Köp", inte "Ta" (ägaren 2026-09-24 förmiddag; "Skaffa" som copywritern föreslog är utbytt).
 - Opus 5.5 byter namn i kod och i Stripe (produktnamn och prisnicknames, prisid oförändrade). Ägaren godkände att agenten gör Stripe-bytet.
 - Bygget av personlighetsprovet och Inför intervjun körs på Opus 5.5 direkt efter namnbytet, allt pushas till main när det är klart.
