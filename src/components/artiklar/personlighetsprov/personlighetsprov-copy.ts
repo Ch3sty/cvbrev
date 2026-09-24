@@ -69,8 +69,8 @@ export const COPY = {
 
 /** Sidan /verktyg/personlighetstest. */
 export const SIDA = {
-  title: 'Personlighetstest gratis: se vad rekryteraren läser ut av dig',
+  title: 'Personlighetstest gratis: vad rekryteraren läser ut av dig',
   h1: 'Personlighetstest, gratis och utan konto',
   description:
-    'Tjugo påståenden på femfaktormodellen, samma som MAP och de flesta test i svensk rekrytering. Du får din profil direkt och en rad per faktor om hur en rekryterare läser den.',
+    'Tjugo påståenden på femfaktormodellen, samma modell som MAP och de flesta svenska rekryteringstest. Din profil direkt, med en rad per faktor.',
 } as const
