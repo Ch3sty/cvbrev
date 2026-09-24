@@ -16,6 +16,7 @@
 
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import PageHeader from '@/components/shell/PageHeader';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
@@ -25,6 +26,9 @@ import { scopeHasFeature } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
 import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
 import { ellerAlltKnapp, graEtikettTest, laggTillKnapp, testHuvud } from '@/lib/onboarding/paket-rader';
+import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
+import PaketBytesRad from '@/components/paywall/PaketBytesRad';
+import { PAKETBYTE } from '@/components/pricing/paket-copy';
 import Link from 'next/link';
 import InkPanel, { INK_KNAPP } from '@/components/shell/InkPanel';
 import { IlluScenMatris } from '@/components/illustrations/PriserScener';
@@ -63,6 +67,8 @@ export default function TesterHubClient({
   const [tab, setTab] = useState<TesterTab>('tester');
   const [sparr, setSparr] = useState<Feature | null>(null);
   const [busy, setBusy] = useState<PlanKey | null>(null);
+  const [bytUtfall, setBytUtfall] = useState<BytUtfall | null>(null);
+  const router = useRouter();
 
   const { perTest, aggregate, personality, provBestPercent, isPremium, hasHistory, scope } =
     data;
@@ -99,21 +105,15 @@ export default function TesterHubClient({
   const uppgradera = async (plan: PlanKey) => {
     if (busy) return;
     setBusy(plan);
-    try {
-      const res = await fetch('/api/stripe/create-upgrade-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planKey: plan, returnPath: '/dashboard/tester' }),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (json?.url) {
-        window.location.href = json.url as string;
-        return;
-      }
-    } catch {
-      /* knappen blir tryckbar igen */
+    setBytUtfall(null);
+    const utfall = await bytPaket(plan, '/dashboard/tester');
+    if (utfall.typ === 'kassa') {
+      window.location.href = utfall.url;
+      return;
     }
+    setBytUtfall(utfall);
     setBusy(null);
+    if (utfall.typ === 'bytt') router.refresh();
   };
   const alltKnapp = ellerAlltKnapp(planKey);
 
@@ -227,8 +227,10 @@ export default function TesterHubClient({
               />
             ))}
 
+            <PaketBytesRad utfall={bytUtfall} />
+
             {/* Foten för kunden med CV-paketet (sektion 3). */}
-            {scope === 'cv' ? (
+            {scope === 'cv' && bytUtfall?.typ !== 'bytt' ? (
               <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
                 <button
                   type="button"
@@ -236,7 +238,7 @@ export default function TesterHubClient({
                   disabled={busy !== null}
                   className={KNAPP_PRIMAR}
                 >
-                  {busy === 'test_week' ? 'Öppnar' : laggTillKnapp('test_week')}
+                  {busy === 'test_week' ? PAKETBYTE.arbetar : laggTillKnapp('test_week')}
                 </button>
                 {alltKnapp ? (
                   <button
@@ -245,7 +247,7 @@ export default function TesterHubClient({
                     disabled={busy !== null}
                     className={KNAPP_SEKUNDAR}
                   >
-                    {busy === 'all_week' ? 'Öppnar' : alltKnapp}
+                    {busy === 'all_week' ? PAKETBYTE.arbetar : alltKnapp}
                   </button>
                 ) : null}
               </div>

@@ -5,12 +5,17 @@
 // en gång per montering och aldrig per omritning.
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 const captureMock = vi.fn()
 
 vi.mock('@/lib/analytics/events', () => ({
   capture: (...args: unknown[]) => captureMock(...args),
+}))
+
+const refreshMock = vi.fn()
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: refreshMock, push: vi.fn(), replace: vi.fn() }),
 }))
 
 import FelSpar, { FelSparRad } from '../FelSpar'
@@ -84,5 +89,44 @@ describe('FelSpar, kortet i arket', () => {
   it('knappen säger att den leder till en betalning', () => {
     render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
     expect(screen.getByRole('button', { name: 'Byt till Hela paketet, 20 kr till i veckan' })).toBeTruthy()
+  })
+})
+
+// Köptestet 2026-09-24, bugg 3: rutten svarar { upgraded: true } utan url vid
+// ett lyckat byte och 409 när ett paket redan löper. Båda ska synas.
+describe('FelSpar, svaret på knappen', () => {
+  beforeEach(() => {
+    captureMock.mockClear()
+    refreshMock.mockClear()
+  })
+
+  const svara = (status: number, body: unknown) =>
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
+    )
+
+  it('ett lyckat byte ger bekräftelsen och hämtar om sidan när arket stängs', async () => {
+    svara(200, { upgraded: true, planKey: 'all_week', scope: 'allt' })
+    const onClose = vi.fn()
+    render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={onClose} />)
+    fireEvent.click(screen.getByRole('button', { name: /Byt till Hela paketet/ }))
+    await waitFor(() => expect(screen.getByText('Du har nu Hela paketet')).toBeTruthy())
+    expect(screen.queryByRole('button', { name: /Byt till Hela paketet/ })).toBeNull()
+    expect(refreshMock).not.toHaveBeenCalled()
+    fireEvent.click(screen.getAllByRole('button', { name: /Stäng/ })[0])
+    expect(onClose).toHaveBeenCalled()
+    expect(refreshMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('409 säger varför och länkar till prenumerationssidan', async () => {
+    svara(409, { error: 'Du har redan en aktiv prenumeration.', alreadySubscribed: true })
+    render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
+    fireEvent.click(screen.getByRole('button', { name: /Byt till Hela paketet/ }))
+    await waitFor(() =>
+      expect(screen.getByText('Du har redan ett paket som löper. Byt paket från prenumerationssidan.')).toBeTruthy()
+    )
+    const lank = screen.getByRole('link', { name: 'Till prenumerationen' })
+    expect(lank.getAttribute('href')).toBe('/dashboard/profil/prenumeration')
+    expect(refreshMock).not.toHaveBeenCalled()
   })
 })

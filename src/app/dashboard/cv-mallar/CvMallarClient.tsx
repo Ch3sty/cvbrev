@@ -13,6 +13,7 @@
 
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
@@ -21,6 +22,9 @@ import GraValSheet from '@/components/paywall/GraValSheet';
 import type { Scope } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
 import { ellerAlltKnapp, laggTillKnapp, mallHuvud } from '@/lib/onboarding/paket-rader';
+import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
+import PaketBytesRad from '@/components/paywall/PaketBytesRad';
+import { PAKETBYTE } from '@/components/pricing/paket-copy';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
@@ -76,7 +80,9 @@ export default function CvMallarClient({
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [sparrOppen, setSparrOppen] = useState(false);
   const [busy, setBusy] = useState<PlanKey | null>(null);
+  const [bytUtfall, setBytUtfall] = useState<BytUtfall | null>(null);
   const [bytCv, setBytCv] = useState(false);
+  const router = useRouter();
 
   const isPremium = initialIsPremium;
   const huvud = mallHuvud(scope);
@@ -85,24 +91,21 @@ export default function CvMallarClient({
   // Betalväggen för rätt paket, med mellanskillnaden om hon har ett spår.
   const handleUpgradeClick = () => setSparrOppen(true);
 
+  // Hela paketet byter pris på prenumerationen direkt och svarar utan url;
+  // ett sidledes byte får 409. Båda ska synas som en rad, aldrig tystnad.
   const uppgradera = async (plan: PlanKey) => {
     if (busy) return;
     setBusy(plan);
-    try {
-      const res = await fetch('/api/stripe/create-upgrade-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planKey: plan, returnPath: '/dashboard/cv-mallar' }),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (json?.url) {
-        window.location.href = json.url as string;
-        return;
-      }
-    } catch {
-      /* knappen blir tryckbar igen */
+    setBytUtfall(null);
+    const utfall = await bytPaket(plan, '/dashboard/cv-mallar');
+    if (utfall.typ === 'kassa') {
+      window.location.href = utfall.url;
+      return;
     }
+    setBytUtfall(utfall);
     setBusy(null);
+    // Servern har redan det nya paketet: hämta om sidan så mallarna låses upp.
+    if (utfall.typ === 'bytt') router.refresh();
   };
 
   const handleGenerateCV = async (params: {
@@ -245,8 +248,10 @@ export default function CvMallarClient({
         />
       </section>
 
+      <PaketBytesRad utfall={bytUtfall} />
+
       {/* Foten för kunden med Träningspaketet (sektion 3). */}
-      {scope === 'tester' ? (
+      {scope === 'tester' && bytUtfall?.typ !== 'bytt' ? (
         <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
           <button
             type="button"
@@ -254,7 +259,7 @@ export default function CvMallarClient({
             disabled={busy !== null}
             className={KNAPP_PRIMAR}
           >
-            {busy === 'cv_week' ? 'Öppnar' : laggTillKnapp('cv_week')}
+            {busy === 'cv_week' ? PAKETBYTE.arbetar : laggTillKnapp('cv_week')}
           </button>
           {alltKnapp ? (
             <button
@@ -263,7 +268,7 @@ export default function CvMallarClient({
               disabled={busy !== null}
               className={KNAPP_SEKUNDAR}
             >
-              {busy === 'all_week' ? 'Öppnar' : alltKnapp}
+              {busy === 'all_week' ? PAKETBYTE.arbetar : alltKnapp}
             </button>
           ) : null}
         </div>

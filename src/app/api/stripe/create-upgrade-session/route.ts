@@ -25,6 +25,7 @@ import {
 } from '@/lib/stripe/planPrices'
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
 import { PAKETSKARM } from '@/lib/onboarding/program'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 export async function POST(request: NextRequest) {
   try {
@@ -169,6 +170,25 @@ export async function POST(request: NextRequest) {
         console.log(
           `[CREATE UPGRADE SESSION] ${user.id}: ${existing.scope} till ${requestedScope} på ${existing.id}.`
         )
+
+        // Profilen skrivs direkt, inte först när webhooken kommer. Klienten
+        // hämtar om sidan i nästa sekund och ska då se det nya paketet
+        // (köptestet 2026-09-24, bugg 3). Webhooken skriver samma värden när
+        // customer.subscription.updated landar.
+        try {
+          const { error: profilFel } = await (getSupabaseAdmin() as any)
+            .from('profiles')
+            .update({
+              premium_scope: requestedScope,
+              price_id: priceId,
+              subscription_tier: 'premium',
+              cancel_at_period_end: false,
+            })
+            .eq('id', user.id)
+          if (profilFel) console.error('[CREATE UPGRADE SESSION] Profilen kunde inte skrivas:', profilFel.message)
+        } catch (error) {
+          console.error('[CREATE UPGRADE SESSION] Profilen kastade:', error)
+        }
         return NextResponse.json({ upgraded: true, planKey: requestedPlanKey, scope: requestedScope })
       }
 

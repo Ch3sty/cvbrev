@@ -23,6 +23,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Sheet from '@/components/shell/Sheet'
 import StatusRow from '@/components/shell/StatusRow'
 import MarginPlate from '@/components/shell/MarginPlate'
@@ -38,6 +39,9 @@ import {
   type Track,
 } from '@/lib/onboarding/program'
 import type { Feature } from '@/lib/access/features'
+import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient'
+import PaketBytesRad from './PaketBytesRad'
+import { PAKETBYTE } from '@/components/pricing/paket-copy'
 
 const KNAPP_PRIMAR =
   'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40'
@@ -127,6 +131,8 @@ export default function FelSpar({
   className,
 }: FelSparProps) {
   const [busy, setBusy] = useState(false)
+  const [utfall, setUtfall] = useState<BytUtfall | null>(null)
+  const router = useRouter()
 
   // upgrade_shown för arket, en gång per öppning.
   const oppnat = useRef(false)
@@ -148,27 +154,31 @@ export default function FelSpar({
       surface: typeof window === 'undefined' ? '' : window.location.pathname,
       cta: 'primary',
     })
-    try {
-      const res = await fetch('/api/stripe/create-upgrade-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planKey: 'all_week', returnPath }),
-      })
-      const json = await res.json().catch(() => ({}))
-      if (json?.url) {
-        window.location.href = json.url as string
-        return
-      }
-    } catch {
-      /* faller igenom till knappen som blir tryckbar igen */
+    // Rutten byter pris på prenumerationen och svarar { upgraded: true }
+    // utan url. Förut väntade knappen bara på url, så ett lyckat byte såg ut
+    // som ingenting (köptestet 2026-09-24, bugg 3).
+    setUtfall(null)
+    const svar = await bytPaket('all_week', returnPath)
+    if (svar.typ === 'kassa') {
+      window.location.href = svar.url
+      return
     }
+    setUtfall(svar)
     setBusy(false)
+  }
+
+  // Efter ett lyckat byte hämtas sidan om först när arket stängs. Görs det
+  // direkt byter föräldern scope till allt och arket försvinner innan
+  // bekräftelsen hunnit läsas.
+  const stang = () => {
+    onClose()
+    if (utfall?.typ === 'bytt') router.refresh()
   }
 
   if (!scope || scope === 'allt') return null
 
   return (
-    <Sheet open={open} onClose={onClose} bare className={className}>
+    <Sheet open={open} onClose={stang} bare className={className}>
       <div className="p-4">
         <div className="flex items-start gap-3">
           <MarginPlate>
@@ -183,14 +193,18 @@ export default function FelSpar({
         <p className="mt-4 text-meta text-ink-3">{mellanskillnad(priceDeltaKr ?? null)}</p>
         <p className="mt-1 text-meta text-ink-3">{FEL_SPAR.proration}</p>
 
-        <div className="mt-4">
-          <button type="button" onClick={uppgradera} disabled={busy} className={KNAPP_PRIMAR}>
-            {busy ? 'Öppnar kassan' : felSparKnapp(priceDeltaKr ?? null)}
-          </button>
-        </div>
+        <PaketBytesRad utfall={utfall} className="mt-4" />
+
+        {utfall?.typ !== 'bytt' ? (
+          <div className="mt-4">
+            <button type="button" onClick={uppgradera} disabled={busy} className={KNAPP_PRIMAR}>
+              {busy ? PAKETBYTE.arbetar : felSparKnapp(priceDeltaKr ?? null)}
+            </button>
+          </div>
+        ) : null}
 
         <div className="mt-3 text-center">
-          <button type="button" onClick={onClose} className={LANK}>
+          <button type="button" onClick={stang} className={LANK}>
             {FEL_SPAR.stang}
           </button>
         </div>
