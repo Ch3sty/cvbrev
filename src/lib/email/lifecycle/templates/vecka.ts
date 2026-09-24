@@ -8,7 +8,7 @@
 
 import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, firstName } from './layout';
-import { paketNamnUrMetadata } from '@/lib/plans/plans';
+import { PLAN_BY_KEY, isPlanKey, paketNamnUrMetadata } from '@/lib/plans/plans';
 
 function greet(ctx: LifecycleContext): string {
   const name = firstName(ctx.profile.full_name);
@@ -81,11 +81,21 @@ export const kvittoMejl: LifecycleEmail = {
     const subject = `Kvitto: ${paket}, ${belopp} kr`;
     const preheader = `Perioden ${fmt(start)} till ${fmt(slut)}.`;
 
+    // Förnyelsen följer paketets längd. Dagspasset förnyas inte alls.
+    const planKey = isPlanKey(ctx.metadata?.planKey) ? ctx.metadata.planKey : null;
+    const langd = planKey ? PLAN_BY_KEY[planKey].length : 'vecka';
+    const engangs = langd === 'dag';
+    const fornyelse =
+      langd === 'månad' ? 'varje månad' : langd === 'kvartal' ? 'var tredje månad' : 'var sjunde dag';
+    const brodtext = engangs
+      ? `Här är kvittot på ${belopp} kr för ${paket}. Det gäller ${fmt(start)} till ${fmt(slut)} och förnyas inte, inget mer dras.`
+      : `Här är kvittot på ${belopp} kr för ${paket}. Perioden gäller ${fmt(start)} till ${fmt(slut)} och förnyas sedan ${fornyelse} med samma belopp tills du säger upp. Uppsägning görs i ditt konto under Prenumeration och tar ett klick.`;
+
     const rader = [
       `Belopp: ${belopp} kr inklusive moms`,
       `Paket: ${paket}`,
       `Period: ${fmt(start)} till ${fmt(slut)}`,
-      `Nästa dragning: ${fmt(slut)}`,
+      ...(engangs ? [] : [`Nästa dragning: ${fmt(slut)}`]),
     ];
 
     return {
@@ -98,17 +108,15 @@ export const kvittoMejl: LifecycleEmail = {
         transactional: true,
         body:
           heading(`Kvitto för ${paket}`) +
-          paragraph(
-            `Här är kvittot på ${belopp} kr för ${paket}. Perioden gäller ${fmt(start)} till ${fmt(slut)} och förnyas sedan var sjunde dag med samma belopp tills du säger upp. Uppsägning görs i ditt konto under Prenumeration och tar ett klick.`
-          ) +
+          paragraph(brodtext) +
           rader
             .map(
               (rad) =>
                 `<p style="margin:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#475569;">${rad}</p>`
             )
             .join(''),
-        ctaLabel: 'Säg upp',
-        ctaUrl: '/dashboard/profil/prenumeration',
+        ctaLabel: engangs ? 'Till Mitt jobbsök' : 'Säg upp',
+        ctaUrl: engangs ? '/dashboard' : '/dashboard/profil/prenumeration',
       }),
     };
   },

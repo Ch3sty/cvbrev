@@ -436,7 +436,7 @@ export default function ValjSparClient({
       step={1}
       totalSteps={2}
       onExit={() => router.push('/dashboard')}
-      primaryLabel={SPARVAL.primar(paket)}
+      primaryLabel={SPARVAL.primar(paket, plan)}
       onPrimary={vidareTillPaket}
       primaryDisabled={!track}
       primaryBlockedReason="Välj ett av de tre korten först."

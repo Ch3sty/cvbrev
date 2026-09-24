@@ -201,6 +201,8 @@ describe('knapptexterna', () => {
   it('spårvalets primär namnger paketet', () => {
     expect(SPARVAL.primar('cv')).toBe('Fortsätt med CV-paketet, 79 kr i veckan')
     expect(SPARVAL.primar('allt')).toBe('Fortsätt med Hela paketet, 99 kr i veckan')
+    expect(SPARVAL.primar('allt', 'all_month')).toBe('Fortsätt med Hela paketet, 149 kr i månaden')
+    expect(SPARVAL.primar('allt', 'all_day')).toBe('Fortsätt med Dagspasset, 49 kr, ett dygn')
   })
 })
 

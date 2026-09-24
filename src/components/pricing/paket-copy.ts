@@ -524,7 +524,8 @@ export interface SparValKort {
 export const SPARVAL = {
   fraga: 'Vad ska du göra den här veckan?',
   under: 'Vi ordnar hemskärmen efter det. Går att byta sen.',
-  primar: (paket: PaketId) => `Fortsätt med ${paketMedPris(PAKET_PLAN[paket])}`,
+  /** Plan följer med när längden redan är vald (?paket=all_month), annars veckan. */
+  primar: (paket: PaketId, plan?: PlanKey) => `Fortsätt med ${paketMedPris(plan ?? PAKET_PLAN[paket])}`,
   sekundar: 'Börja gratis i stället',
   fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, testernas grundnivå`,
   kort: [
