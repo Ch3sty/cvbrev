@@ -99,3 +99,59 @@ SCRATCH=<tmp> node scripts/qa-kop-testlage.mjs byte desktop
 SCRATCH=<tmp> node scripts/qa-kop-testlage.mjs uppsagning cv desktop
 SCRATCH=<tmp> node scripts/qa-kop-testlage.mjs kortfel desktop
 ```
+
+## Rättelser och omkörning, 2026-09-24 (förmiddag)
+
+Buggarna 1 till 5, 7 och 9 ovan är rättade. Omkörningen gjordes mot ett nytt produktionsbygge i testläget (`NEXT_DIST_DIR=.next-stripe2`, samma miljö som ovan: `.env.test.local` i processen, PostHog av, ogiltig Resend-nyckel), med relät `scripts/stripe-testlage-webhook.mjs` och i riktig Chrome på Pixel 7 om inget annat sägs. Skärmdumpar: `docs/qa/kop-testlage/fix-*.png`. Kontona hette `qa-kop-<paket>-fix-2026-09-24@jobbcoach.ai` (`TAGG` och `PREFIX` i skriptet, nytt läge `angra`). 65 event postades, alla fick 200.
+
+### Live-endpointen (läst med live-nyckeln, bara läsning)
+
+`webhookEndpoints.list()`: en endpoint, `https://www.jobbcoach.ai/api/stripe/webhooks`, status enabled, 72 eventtyper, skapad 2025-09-22, **`api_version: 2025-08-27.basil`**. Kontots standardversion (svarshuvudet `Stripe-Version` när anropet inte anger någon) är också `2025-08-27.basil`. De fyra senaste `invoice.payment_succeeded` i live (31 augusti till 9 september) saknar `invoice.subscription` och har `parent`. Live drabbas alltså i dag och har gjort det sedan endpointen skapades: `paket_started_at` skrivs aldrig för prenumerationer, `subscription_paid` och `renewal_succeeded` mäts aldrig från servern, hjälpredans kö rensas inte vid köp, och mejlet om misslyckad betalning har aldrig gått ut. Rättelsen verkar från deploy. Redan betalande kunder saknar `paket_started_at` tills en backfyllning görs.
+
+### Per bugg
+
+**1, hög. Fakturans prenumeration.** Orsak: rutten läste `invoice.subscription`, som inte finns i basil. Rättelse: `invoiceSubscriptionId()` läser `parent.subscription_details.subscription` och det gamla fältet. Samma hjälpfil läser `payment_intent`, `charge`, radens pris och period i båda formaten, och `subscriptionPeriodEnd()` läser periodens slut på roten (acacia) eller på raden (basil). Genomgång mot basil: av de flyttade fälten läser rutten prenumerationen, fakturaradens period och prenumerationens `current_period_end`; `checkout.session` och `customer.subscription.*` använder bara fält som inte flyttat. SDK:n är låst till acacia, så rutternas egna `retrieve`-anrop får det gamla formatet, men periodens slut läses nu robust ifall låsningen ändras. `payment_failed` skickas inte längre för den första fakturan (kortet nekat i kassan, kunden ser felet där och prenumerationen blir incomplete) och bara en gång per event. Filer: `src/lib/stripe/invoiceFields.ts`, `src/app/api/stripe/webhooks/route.ts`, `src/lib/email/lifecycle/hooks.ts`. Verifierat: 13 enhetstest med båda payloadformerna (basil-fakturan hämtad ur testläget). Omkörning: `paket_started_at` satt för Träningspaketet (07:18:28), Hela paketet månad (07:20:23) och Dagspasset (07:21:34). Kortfelet gav `invoice.payment_failed` med 200 och inget mejl i kön.
+
+**2, medel. Belopp i menyn.** Orsak: `harPaket()` gissade längden ur `premium_until`, som webhooken nollar för prenumerationer. Rättelse: paketet slås upp ur `profiles.price_id` med `priceIdToPlanKey`, bara när prenumerationen lever (active, trialing, past_due, unpaid) och priset ger samma scope. Gissningen står kvar för engångsköp och manuell premium. Alla fem anropare skickar prisid och status. Filer: `src/lib/plans/harPaket.ts`, `src/lib/dashboard/getSummary.ts`, `cv-mallar/page.tsx`, `tester/page.tsx`, `profil/prenumeration/page.tsx`, `src/lib/email/lifecycle/runner.ts`. Verifierat: 15 enhetstest, ett per prenumerationsnyckel plus reserverna. Menyn för Hela paketet månad: "Förnyas 24 oktober, 149 kr" (`fix-hela-manad-pixel7-f-meny.png`). Prenumerationssidans statusrad har nu datum ("Hela paketet, förnyas 24 oktober"); den läste tidigare det nollade `premium_until`.
+
+**3, medel. Bytesknapparna.** Orsak: knapparna väntade på `json.url`, men rutten svarar `{ upgraded: true }` utan url vid bytet och 409 vid sidledes byte. Rättelse: `bytPaket()` skiljer på bytt, kassa, redan och fel. Bytt: raden "Du har nu Hela paketet" och `router.refresh()` (i arket först när det stängs, annars försvinner arket med bekräftelsen). 409: raden "Du har redan ett paket som löper. Byt paket från prenumerationssidan." med länken Till prenumerationen. Rutten skriver också scope och prisid på profilen direkt vid bytet, så omladdningen visar det nya paketet innan webhooken kommit. Samma rättelse i testhubbens fot för CV-paketet. Filer: `src/lib/stripe/bytPaketKlient.ts`, `src/components/paywall/PaketBytesRad.tsx`, `FelSpar.tsx`, `CvMallarClient.tsx`, `TesterHubClient.tsx`, `create-upgrade-session/route.ts`, strängarna i `paket-copy.ts` (`PAKETBYTE`). Verifierat: två nya komponenttest i `FelSpar.test.tsx`. Omkörning, Träningspaketet på `/dashboard/cv-mallar`: "Byt till CV-paketet" gav 409 och raden med länken (`fix-byte-pixel7-1b-byt-till-cv.png`), "Eller Hela paketet för 20 kr till i veckan" gav 200 och "Du har nu Hela paketet" (`fix-byte-pixel7-2-efter-klick.png`), profilen fick scope allt och nytt prisid, menyn "Du har Hela paketet / Förnyas 1 oktober, 99 kr". Ett andra köp via kassan ger fortfarande 409.
+
+**4, medel. Kvittot.** Orsak: ingen anropade mallen `receipt`. Rättelse: webhooken skickar kvittot vid Dagspassets `checkout.session.completed` och vid prenumerationens första faktura (`billing_reason` subscription_create), aldrig vid förnyelse eller prisbyte (planen avsnitt 8 kräver kvitto vid köpet). Idempotent per Stripe-event: raden `receipt_<event.id>` läggs i `email_schedule` först, unique-indexet stoppar en andra, och bara den som skapade raden skickar. Misslyckas sändningen står ämnet i `last_error`, och morgonkörningen försöker igen, högst tre gånger. Filer: `hooks.ts` (`sendOncePerStripeEvent`, `onPaymentReceipt`), `runner.ts` (`sendScheduledRowNow`), `registry.ts` (suffixet `_evt_`), webhookrutten. Verifierat: 8 test för ämnet och registret, 2 för idempotensen. Omkörning, `email_schedule.last_error` med den ogiltiga nyckeln: "resend: API key is invalid | ämne: Kvitto: Träningspaketet, 79 kr", "… Kvitto: Hela paketet, en månad, 149 kr" och "… Kvitto: Dagspasset, 49 kr", med planKey, belopp och period i metadata (24 september till 24 oktober för månaden). Uppgraderingen gav inget kvitto.
+
+**5, medel. Uppsagt paket.** Orsak: `cancel_at_period_end` sparades inte. Rättelse: ny kolumn `profiles.cancel_at_period_end` (migration `20260924150000_profiles_cancel_at_period_end.sql`, applicerad på Jobbcoach-projektet, bara en kolumn med standardvärde false). Webhooken sätter den vid varje prenumerationsevent, även när portalen använder `cancel_at`. Menyn: "Gäller till 24 oktober, förnyas inte". Prenumerationssidan: "Hela paketet, uppsagt. Gäller till 24 oktober, förnyas inte", och raden Säg upp byts mot Ångra uppsägningen, som öppnar kundportalen. Portalen har redan "Säg inte upp abonnemang", så ingen egen ångra-rutt behövdes. Förnyelsepåminnelsen hoppas över för ett uppsagt paket. Filer: migrationen, webhookrutten, `paket-rader.ts`, `getSummary.ts`, `DashboardDataContext.tsx`, `PrenumerationClient.tsx`, `prenumeration/page.tsx`, `runner.ts`, `paket-copy.ts`. Verifierat: enhetstest för menyhuvudet. Omkörning, Hela paketet månad: vår enkät, portalen, "Säg upp abonnemang", profilen `cancel_at_period_end = true`, prenumerationssidan och menyn enligt ovan (`fix-uppsagning-hela-manad-pixel7-8b-prenumeration-uppsagd.png`, `-9-meny.png`). Ångra: Ångra uppsägningen, portalen, Säg inte upp abonnemang, flaggan tillbaka till false och menyn "Förnyas 24 oktober, 149 kr" (`fix-angra-*`).
+
+**7, låg. Menyhuvudet.** Namnet och underraden kapades med `truncate`. Nu radbryts de, och Vad ingår? står kvar uppe till höger, i sidomenyn och i profilmenyn (`Sidebar.tsx`, `ProfileMenu.tsx`). Desktop 1280 px med den längsta raden: "Gäller till 24 oktober, förnyas inte" på två rader utan kapning (`fix-hela-manad-desktop-f-meny.png`).
+
+**9, låg. Dagspassets returskärm.** Välkomstskärmen valde text ur scopet. Nu får Dagspasset (`plan=all_day` i returadressen) egen rubrik via `paketNamn('all_day')` (`komigang.ts`, `vecka/start/page.tsx`, `VeckaStartClient.tsx`). Test, och omkörningen: "Du har Dagspasset. Hela jobbsöket är öppet i ett dygn.", menyn "Du har Dagspasset / Gäller till 09:21".
+
+`npx tsc --noEmit` rent (utom `.next/dev/types`), vitest 71 filer och 861 test gröna, produktionsbygget gick igenom.
+
+### Kvar
+
+- Sidledes byte mellan CV-paketet och Träningspaketet går fortfarande inte i appen. Prenumerationssidans "Byt till CV-paketet" går till samma rutt och får samma 409. Kundportalens konfiguration måste tillåta prisbyte, eller så byggs ett schemalagt byte vid nästa förnyelse.
+- Befintliga betalande kunder i live saknar `paket_started_at`. Kan backfyllas ur Stripe (första fakturans datum per prenumeration).
+- Kom igång-arket säger "Kom igång med Hela paketet" för Dagspasset; bara returskärmen är rättad.
+- Buggarna 6 (React-fel #185), 8 (var trettionde dag) och 10 (offer_shown) är orörda.
+- En registrering på Pixel 7 stannade kvar på formuläret utan att signup-anropet gick iväg (första försöket, inget konto skapades). Nästa försök med samma steg gick igenom. Inte återskapat.
+
+### Städning, omkörningen
+
+Stripe testläge: 4 testkunder raderade (Träningspaketet, Hela paketet månad, Dagspasset, kortfel), 3 prenumerationer avslutade (verifierat `canceled`), 1 öppen checkout-session utgången. Produkter, priser och portalkonfiguration ligger kvar.
+
+Supabase (produktion), räknat före och raderat per id (6 konton: de fyra köpkontona och två sonderingskonton från felsökningen av registreringen):
+
+| Tabell | Före | Raderade | Kvar |
+|---|---|---|---|
+| user_activities | 92 | 92 | 0 |
+| email_schedule | 15 | 15 | 0 |
+| email_confirmations | 6 | 6 | 0 |
+| monthly_guest_allowances | 3 | 3 | 0 |
+| premium_grants | 1 | 1 | 0 |
+| cancel_intents | 1 | 1 | 0 |
+| email_log | 0 | 0 | 0 |
+| profiles | 6 | 6 | 0 |
+| auth.users (auth admin, sist) | 6 | 6 | 0 |
+
+Kontrollfrågan över alla tabeller med `user_id` gav noll rader, och inga `qa-kop-`-användare finns kvar i auth. Dagspasskontot fick adressen `…@jobboach.ai` (samma tappade tecken som förra gången) och raderades per id. Id: traning 5473b0bf-600c-4585-b34d-522b026c431f, hela-manad 39ed6b0a-6769-453d-988e-205de341ea37, dagspass 0f7f9ec7-3d54-4899-9ac3-c179fb23ade7, kortfel df3b36ea-8a05-4672-abb6-720b378e2908, sondering 9323fe2f-8c8d-440b-b593-d13c82ab94ad och 1c10b0d0-29cb-42fc-a616-f4856a3e720e.
+
+Byggkatalogen `.next-stripe2` borttagen, tsconfig-raderna återställda.

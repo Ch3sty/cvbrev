@@ -39,6 +39,10 @@ if (!SCRATCH) throw new Error('Sätt SCRATCH')
 const KONTON_FIL = `${SCRATCH}/qa-kop-konton.json`
 const RESULTAT_FIL = `${SCRATCH}/qa-kop-resultat.jsonl`
 const LOSEN = 'QaKop!2026-09-24x'
+// Omkörningar: PREFIX sätts före skärmdumparnas namn (fix- efter rättelserna),
+// TAGG skiljer kontonas adresser från en tidigare körning.
+const PREFIX = process.env.PREFIX || ''
+const TAGG = process.env.TAGG || '2026-09-24'
 fs.mkdirSync(UT, { recursive: true })
 
 const env = Object.fromEntries(
@@ -102,11 +106,16 @@ async function nySida(browser, vy) {
   })
   p.on('pageerror', (e) => fel.push('pageerror: ' + String(e?.message ?? e).slice(0, 200)))
   await p.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS })
+  if (process.env.DEBUG) {
+    p.on('response', (r) => {
+      if (/auth\/v1|\/api\/auth/.test(r.url())) console.log('DEBUG', r.status(), r.url().split('?')[0].slice(-60))
+    })
+  }
   return { p, ctx, fel }
 }
 
 async function dump(p, namn, fullPage = true) {
-  const fil = `${UT}/${namn}.png`
+  const fil = `${UT}/${PREFIX}${namn}.png`
   await p.screenshot({ path: fil, fullPage }).catch(async () => p.screenshot({ path: fil }))
   return fil
 }
@@ -153,7 +162,7 @@ async function profil(id) {
   const { data } = await admin
     .from('profiles')
     .select(
-      'id, email, premium_scope, premium_until, premium_source, subscription_tier, subscription_status, subscription_id, price_id, current_period_end, stripe_customer_id, angerratt_samtycke_at, paket_started_at, onboarding_track'
+      'id, email, premium_scope, premium_until, premium_source, subscription_tier, subscription_status, subscription_id, price_id, current_period_end, cancel_at_period_end, stripe_customer_id, angerratt_samtycke_at, paket_started_at, onboarding_track'
     )
     .eq('id', id)
     .maybeSingle()
@@ -320,7 +329,7 @@ async function efterKop(browser, nyckel, vy, { full = true, redanInloggad = null
 
 async function kop(browser, nyckel, vy) {
   const pk = PAKET[nyckel]
-  const email = `qa-kop-${nyckel}-2026-09-24@jobbcoach.ai`
+  const email = `qa-kop-${nyckel}-${TAGG}@jobbcoach.ai`
   const prefix = `${nyckel}-${vy}`
   const { p, ctx, fel } = await nySida(browser, vy)
 
@@ -440,6 +449,22 @@ async function kop(browser, nyckel, vy) {
   )
   const { data: grants } = await admin.from('premium_grants').select('id, days, scope, source, premium_until_after').eq('user_id', id)
   logg(nyckel, 'd-webhook', { ok: vantat.ok, profil: vantat.profil, grants })
+
+  // Kvittot (bugg 4) och paket_started_at (bugg 1): raden receipt_<event.id>
+  // i email_schedule, med ämnet i last_error när Resend-nyckeln är ogiltig.
+  let kvitto = []
+  for (let i = 0; i < 20 && kvitto.length === 0; i++) {
+    const { data } = await admin
+      .from('email_schedule')
+      .select('id, email_type, attempts, last_error, sent_at, metadata')
+      .eq('user_id', id)
+      .like('email_type', 'receipt_%')
+    kvitto = data ?? []
+    if (!kvitto.length) await vanta(2000)
+  }
+  const efter = await profil(id)
+  logg(nyckel, 'd2-kvitto-och-start', { paket_started_at: efter?.paket_started_at ?? null, kvitto })
+  sparaKonto(nyckel, { emailScheduleIds: kvitto.map((k) => k.id) })
   sparaKonto(nyckel, {
     customer: vantat.profil?.stripe_customer_id ?? null,
     subscription: vantat.profil?.subscription_id ?? null,
@@ -456,7 +481,7 @@ async function kop(browser, nyckel, vy) {
 
 async function kortfel(browser, vy) {
   const nyckel = 'kortfel'
-  const email = `qa-kop-${nyckel}-2026-09-24@jobbcoach.ai`
+  const email = `qa-kop-${nyckel}-${TAGG}@jobbcoach.ai`
   const prefix = `${nyckel}-${vy}`
   const { p, ctx } = await nySida(browser, vy)
   await p.goto(BAS + '/register?paket=cv_week', { waitUntil: 'networkidle2' })
@@ -487,6 +512,11 @@ async function kortfel(browser, vy) {
   await vanta(8000)
   const pr = await profil(rad?.id)
   logg(nyckel, `kortfel-${vy}`, { kvarPaStripe, rader, profil: pr })
+  const { data: kortfelMejl } = await admin
+    .from('email_schedule')
+    .select('id, email_type, last_error')
+    .eq('user_id', rad?.id)
+  logg(nyckel, `kortfel-mejl-${vy}`, { rader: kortfelMejl })
   sparaKonto(nyckel, { customer: pr?.stripe_customer_id ?? null })
   // Tillbaka till appen: inget paket
   await p.goto(BAS + '/dashboard', { waitUntil: 'networkidle2' })
@@ -523,7 +553,8 @@ async function byte(browser, vy) {
     await klickaText(p, /^Byt till CV-paketet/, 'button')
     await vanta(5000)
     await dump(p, `${prefix}-1b-byt-till-cv`)
-    logg('byte', `1b-byt-till-cv-${vy}`, { url: p.url().replace(BAS, ''), svar: [...svar] })
+    const besked = (await text(p)).split('\n').map((r) => r.trim()).filter((r) => /redan ett paket|Till prenumerationen/.test(r))
+    logg('byte', `1b-byt-till-cv-${vy}`, { url: p.url().replace(BAS, ''), svar: [...svar], besked })
   } catch (e) {
     logg('byte', `1b-byt-till-cv-${vy}`, { fel: String(e?.message ?? e).slice(0, 200) })
   }
@@ -533,7 +564,13 @@ async function byte(browser, vy) {
   await klickaText(p, /Hela paketet för \d+ kr till i veckan/, 'button, a')
   await vanta(6000)
   await dump(p, `${prefix}-2-efter-klick`)
-  logg('byte', `2-klick-${vy}`, { url: p.url().replace(BAS, ''), svar, rader: paketRader(await text(p)) })
+  const efterKlick = await text(p)
+  logg('byte', `2-klick-${vy}`, {
+    url: p.url().replace(BAS, ''),
+    svar,
+    bekraftelse: efterKlick.split('\n').map((r) => r.trim()).filter((r) => /Du har nu/.test(r)),
+    rader: paketRader(efterKlick),
+  })
 
   const vantat = await vantaPaProfil(k.id, (pr) => pr.premium_scope === 'allt', 90000)
   logg('byte', '3-profil', { fore: { scope: fore?.premium_scope, price: fore?.price_id, sub: fore?.subscription_id }, efter: vantat.profil, ok: vantat.ok })
@@ -605,6 +642,11 @@ async function uppsagning(browser, nyckel, vy) {
     await klickaText(p, /^(Skicka|Skicka in|Submit|Hoppa över|Skip)$/i, 'button').catch(() => {})
     await vanta(2500)
     await dump(p, `${prefix}-7-portal-klar`)
+    // Erbjuder portalen att ångra? Då räcker länken dit från prenumerationssidan.
+    const portalText = await p.evaluate(() => document.body.innerText)
+    logg(nyckel, `u4b-portal-angra-${vy}`, {
+      rader: portalText.split('\n').map((r) => r.trim()).filter((r) => /Förnya|Renew|avbryts|upphör|Avslutas|cancel/i.test(r)).slice(0, 8),
+    })
   } catch (e) {
     logg(nyckel, `u4-portal-fel-${vy}`, { fel: String(e?.message ?? e).slice(0, 200) })
   }
@@ -619,9 +661,55 @@ async function uppsagning(browser, nyckel, vy) {
   await vanta(2500)
   await dump(p, `${prefix}-8-prenumeration-efter`)
   logg(nyckel, `u6-prenumeration-efter-${vy}`, { rader: (await text(p)).split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 30) })
+  const vantatUppsagd = await vantaPaProfil(k.id, (pr) => pr.cancel_at_period_end === true, 60000)
+  if (vantatUppsagd.ok) {
+    await p.reload({ waitUntil: 'networkidle2' })
+    await vanta(2000)
+    await dump(p, `${prefix}-8b-prenumeration-uppsagd`)
+    logg(nyckel, `u6b-prenumeration-uppsagd-${vy}`, { rader: (await text(p)).split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 30) })
+  }
   const meny = await menyText(p, vy)
-  logg(nyckel, `u7-meny-${vy}`, { rader: meny.split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 6) })
+  await dump(p, `${prefix}-9-meny`, false)
+  logg(nyckel, `u7-meny-${vy}`, { uppsagdIProfil: vantatUppsagd.ok, rader: meny.split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 6) })
   if (fel.length) logg(nyckel, `konsolfel-uppsagning-${vy}`, { fel: [...new Set(fel)].slice(0, 10) })
+  await ctx.close()
+}
+
+/* --------------------------------------------- ångra uppsägningen */
+
+// Prenumerationssidans "Ångra uppsägningen" öppnar kundportalen, som har
+// "Säg inte upp abonnemang". Webhooken ska då nolla cancel_at_period_end.
+async function angra(browser, nyckel, vy) {
+  const k = lasKonton()[nyckel]
+  const prefix = `angra-${nyckel}-${vy}`
+  const { p, ctx } = await nySida(browser, vy)
+  await loggaIn(p, k.email)
+  await p.goto(BAS + '/dashboard/profil/prenumeration', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await Promise.all([
+    p.waitForNavigation({ waitUntil: 'networkidle2', timeout: 60000 }).catch(() => {}),
+    klickaText(p, /^Ångra uppsägningen$/, 'a, button'),
+  ])
+  await vantaPa(p, () => location.hostname.includes('stripe.com'), null, 60000).catch(() => {})
+  await vanta(2500)
+  await dump(p, `${prefix}-1-portal`, false)
+  await klickaText(p, /Säg inte upp abonnemang|Förnya|Renew/i, 'a, button')
+  await vanta(2500)
+  await dump(p, `${prefix}-2-portal-bekrafta`, false)
+  await klickaText(p, /^(Säg inte upp abonnemang|Förnya abonnemang|Förnya|Renew subscription|Renew)$/i, 'button').catch(() => {})
+  await vanta(3000)
+  await dump(p, `${prefix}-3-portal-klar`, false)
+  const vantat = await vantaPaProfil(k.id, (pr) => pr.cancel_at_period_end === false, 60000)
+  await p.goto(BAS + '/dashboard/profil/prenumeration', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await dump(p, `${prefix}-4-prenumeration`, false)
+  const meny = await menyText(p, vy)
+  logg(nyckel, `angra-${vy}`, {
+    ok: vantat.ok,
+    cancel_at_period_end: vantat.profil?.cancel_at_period_end,
+    status: (await text(p)).split('\n').map((r) => r.trim()).filter((r) => /förnyas|uppsagt/i.test(r)).slice(0, 3),
+    meny: meny.split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 2),
+  })
   await ctx.close()
 }
 
@@ -640,6 +728,7 @@ try {
   else if (lage === 'kortfel') await kortfel(browser, a1 || 'pixel7')
   else if (lage === 'byte') await byte(browser, a1 || 'desktop')
   else if (lage === 'uppsagning') await uppsagning(browser, a1, a2 || 'desktop')
+  else if (lage === 'angra') await angra(browser, a1, a2 || 'desktop')
   else if (lage === 'dagspass-yta') await efterKop(browser, 'dagspass', a1 || 'pixel7', { full: false })
   else throw new Error('okänt läge ' + lage)
 } catch (e) {
