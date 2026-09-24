@@ -242,6 +242,45 @@ export function prisPeriod(plan: PlanKey): string {
   }
 }
 
+/** Kalendermånader i en period. Veckan och dygnet räknas i dagar. */
+const MANADER: Partial<Record<PlanLength, number>> = { 'månad': 1, 'kvartal': 3 }
+const DAGAR: Partial<Record<PlanLength, number>> = { dag: 1, vecka: 7 }
+
+/**
+ * Nästa dragning räknat från en dragning, som Stripe räknar den: veckan sju
+ * dagar senare, månaden samma datum nästa kalendermånad och kvartalet samma
+ * datum tre månader senare. Finns inte datumet i målmånaden (31 till en
+ * månad med 30 dagar) blir det månadens sista dag. Räknas i UTC, som Stripes
+ * billing_cycle_anchor.
+ *
+ * Används där prenumerationen inte finns än (köpsteget). När den finns är
+ * current_period_end från Stripe facit.
+ */
+export function nastaDragningEfter(plan: PlanKey, fran: Date): Date {
+  const langd = PLAN_BY_KEY[plan].length
+  const dagar = DAGAR[langd]
+  if (dagar) return new Date(fran.getTime() + dagar * 86_400_000)
+  return laggTillManader(fran, MANADER[langd] ?? 1)
+}
+
+/** Föregående dragning, för när bara periodens slut är känt. Samma regel baklänges. */
+export function foregaendeDragning(plan: PlanKey, slut: Date): Date {
+  const langd = PLAN_BY_KEY[plan].length
+  const dagar = DAGAR[langd]
+  if (dagar) return new Date(slut.getTime() - dagar * 86_400_000)
+  return laggTillManader(slut, -(MANADER[langd] ?? 1))
+}
+
+function laggTillManader(d: Date, antal: number): Date {
+  const ar = d.getUTCFullYear()
+  const man = d.getUTCMonth() + antal
+  const sistaDag = new Date(Date.UTC(ar, man + 1, 0)).getUTCDate()
+  const ut = new Date(d.getTime())
+  ut.setUTCDate(1)
+  ut.setUTCFullYear(ar, man, Math.min(d.getUTCDate(), sistaDag))
+  return ut
+}
+
 /** Namnet med pris och period: "CV-paketet, 79 kr i veckan". */
 export function paketMedPris(plan: PlanKey): string {
   return `${paketNamn(plan)}, ${prisPeriod(plan)}`

@@ -38,7 +38,9 @@ import {
   KOPSTEG_FAR,
   PAKET_PLAN,
   SPARVAL,
+  nastaDragningText,
   planForLangd,
+  samtyckeVidKop,
   type PaketId,
 } from '@/components/pricing/paket-copy'
 
@@ -49,16 +51,12 @@ const PAKET_FOR: Record<Track, PaketId> = { cv: 'cv', tester: 'test', allt: 'all
 
 const SCEN = { cv: IlluScenCv, test: IlluScenMatris, allt: IlluScenAllt } as const
 
-/** Nästa dragning, svensk tid, i formen "29 september". */
+/**
+ * Nästa dragning, svensk tid, i formen "29 september". Räknad som Stripe
+ * räknar den från köpet: samma datum nästa månad, inte trettio dagar.
+ */
 function nastaDragning(plan: PlanKey): string {
-  const l = PLAN_BY_KEY[plan].length
-  const dagar = l === 'månad' ? 30 : l === 'kvartal' ? 90 : 7
-  const d = new Date(Date.now() + dagar * 24 * 60 * 60 * 1000)
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'long',
-    timeZone: 'Europe/Stockholm',
-  }).format(d)
+  return nastaDragningText(plan)
 }
 
 /** Sluttid för Dagspasset: klockslag, inte datum. */
@@ -422,7 +420,7 @@ export default function ValjSparClient({
             style={{ accentColor: 'var(--ink-1)' }}
             className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
           />
-          <span>{KOPSTEG.samtycke(plan)}</span>
+          <span>{samtyckeVidKop(plan)}</span>
         </label>
       </FlowShell>
     )

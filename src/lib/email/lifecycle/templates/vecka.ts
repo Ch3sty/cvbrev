@@ -86,10 +86,14 @@ export const kvittoMejl: LifecycleEmail = {
     const langd = planKey ? PLAN_BY_KEY[planKey].length : 'vecka';
     const engangs = langd === 'dag';
     const fornyelse =
-      langd === 'månad' ? 'varje månad' : langd === 'kvartal' ? 'var tredje månad' : 'var sjunde dag';
+      langd === 'månad'
+        ? 'varje månad på samma datum'
+        : langd === 'kvartal'
+          ? 'var tredje månad på samma datum'
+          : 'var sjunde dag';
     const brodtext = engangs
       ? `Här är kvittot på ${belopp} kr för ${paket}. Det gäller ${fmt(start)} till ${fmt(slut)} och förnyas inte, inget mer dras.`
-      : `Här är kvittot på ${belopp} kr för ${paket}. Perioden gäller ${fmt(start)} till ${fmt(slut)} och förnyas sedan ${fornyelse} med samma belopp tills du säger upp. Uppsägning görs i ditt konto under Prenumeration och tar ett klick.`;
+      : `Här är kvittot på ${belopp} kr för ${paket}. Perioden gäller ${fmt(start)} till ${fmt(slut)} och dras sedan ${fornyelse} med samma belopp tills du säger upp. Uppsägning görs i ditt konto under Prenumeration och tar ett klick.`;
 
     const rader = [
       `Belopp: ${belopp} kr inklusive moms`,

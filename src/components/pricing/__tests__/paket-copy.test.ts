@@ -107,7 +107,8 @@ describe('talen räknas, de skrivs aldrig', () => {
       expect(text, key).toContain('ångerrätten')
     }
     expect(KOPSTEG.samtycke('all_day')).toContain('engångsköp')
-    expect(KOPSTEG.samtycke('all_week')).toContain('förnyas')
+    expect(KOPSTEG.samtycke('all_week')).toContain('dras var sjunde dag')
+    expect(KOPSTEG.samtycke('all_month')).toContain('dras varje månad på samma datum')
   })
 
   it('längdvalet leder till rätt paket', () => {

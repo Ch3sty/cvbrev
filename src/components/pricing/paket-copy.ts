@@ -14,6 +14,7 @@
 
 import {
   PLAN_BY_KEY,
+  nastaDragningEfter,
   paketMedPris,
   paketNamn,
   prisPeriod,
@@ -266,7 +267,7 @@ export function alltPrisSub(plan: PlanKey): string {
     case 'vecka':
       return `i veckan\neller ${ALLT_MANAD} kr i månaden`
     case 'månad':
-      return 'i månaden\nförnyas var trettionde dag'
+      return 'i månaden\ndras varje månad på samma datum'
     case 'kvartal':
       return 'per kvartal\nförnyas var tredje månad'
   }
@@ -619,9 +620,9 @@ export const KOPSTEG = {
       case 'vecka':
         return `var sjunde dag, nästa ${datum}`
       case 'månad':
-        return `var trettionde dag, nästa ${datum}`
+        return `varje månad på samma datum, nästa ${datum}`
       case 'kvartal':
-        return `var tredje månad, nästa ${datum}`
+        return `var tredje månad på samma datum, nästa ${datum}`
     }
   },
   /** Första steget efter betalningen, ett per paket. */
@@ -642,7 +643,13 @@ export const KOPSTEG = {
   alltIStallet: `Vill du ha ${HELA_NAMN} i stället?`,
   alltLangd: `Hur länge vill du ha ${HELA_NAMN}?`,
   dagSparrad: 'Dagen är ett engångsköp och går inte att kombinera med din prenumeration.',
-  samtycke: (plan: PlanKey) => {
+  /**
+   * Ångerrättssamtycket, ordagrant det kunden kryssar i. Beloppet är paketets
+   * pris (samma som Stripe-priset) och datumet nästa dragning räknad som
+   * Stripe räknar den (nastaDragningEfter i plans.ts): samma datum varje
+   * månad, inte trettio dagar.
+   */
+  samtycke: (plan: PlanKey, nasta?: string) => {
     const p = PLAN_BY_KEY[plan]
     const start =
       'Jag vill att innehållet startar direkt och förstår att ångerrätten därmed inte gäller.'
@@ -653,9 +660,10 @@ export const KOPSTEG = {
       p.length === 'vecka'
         ? 'var sjunde dag'
         : p.length === 'månad'
-          ? 'var trettionde dag'
-          : 'var tredje månad'
-    return `${start} Prenumerationen förnyas med ${p.amount} kr ${takt} tills jag säger upp den.`
+          ? 'varje månad på samma datum'
+          : 'var tredje månad på samma datum'
+    const nastaGang = nasta ? `, nästa gång ${nasta},` : ''
+    return `${start} ${p.amount} kr dras ${takt}${nastaGang} tills jag säger upp prenumerationen.`
   },
   samtyckeSparr: 'Kryssa i rutan ovanför för att fortsätta.',
   primar: (plan: PlanKey) => `Till betalning, ${PLAN_BY_KEY[plan].amount} kr`,
@@ -664,6 +672,29 @@ export const KOPSTEG = {
 } as const
 
 /** Köpstegets fyra rader "Det här får du från i kväll", per paket. */
+/**
+ * Nästa dragning för ett köp som görs nu, i formen "24 oktober", svensk tid.
+ * Samma datum som Stripe sätter som current_period_end när prenumerationen
+ * skapas, eftersom köpet är periodens ankare.
+ */
+export function nastaDragningText(plan: PlanKey, nu: Date = new Date()): string {
+  return new Intl.DateTimeFormat('sv-SE', {
+    day: 'numeric',
+    month: 'long',
+    timeZone: 'Europe/Stockholm',
+  }).format(nastaDragningEfter(plan, nu))
+}
+
+/**
+ * Samtycket som det står i köpstegets kryssruta, med datumet ifyllt. Rutterna
+ * lägger exakt den här texten i sessionens metadata, så beviset och det
+ * kunden läste är samma mening.
+ */
+export function samtyckeVidKop(plan: PlanKey, nu: Date = new Date()): string {
+  const engangs = PLAN_BY_KEY[plan].mode === 'payment'
+  return KOPSTEG.samtycke(plan, engangs ? undefined : nastaDragningText(plan, nu))
+}
+
 export const KOPSTEG_FAR: Record<PaketId, readonly { fet: string; text: string }[]> = {
   cv: [
     { fet: 'Hela CV-analysen', text: ', kör om utan tak' },
@@ -749,7 +780,7 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
     `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
   ],
   all_month: [
-    `Allt i ${HELA_NAMN}, i trettio dagar`,
+    `Allt i ${HELA_NAMN}, en månad i taget`,
     'Billigare än fyra veckor i rad',
     'Säg upp när som helst, ett klick',
   ],
@@ -766,7 +797,7 @@ export const INTERVALL_RAD: Record<PlanKey, string> = {
   test_week: 'i veckan, förnyas var sjunde dag',
   all_day: 'i 24 timmar, förnyas inte',
   all_week: 'i veckan, förnyas var sjunde dag',
-  all_month: 'i månaden, förnyas var trettionde dag',
+  all_month: 'i månaden, dras samma datum varje månad',
   all_quarter: 'i kvartalet, förnyas var tredje månad',
 }
 

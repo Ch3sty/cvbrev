@@ -12,7 +12,7 @@ import type { AnySupabase, LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
 import { resolveLifecycleEmail, WEEKLY_DIGEST_TYPE, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE } from './registry';
 import { harPaket } from '@/lib/plans/harPaket';
-import { PLAN_BY_KEY } from '@/lib/plans/plans';
+import { PLAN_BY_KEY, foregaendeDragning } from '@/lib/plans/plans';
 import { scheduleEmail, sendAfterStockholm, isoWeekKey } from './schedule';
 
 /** Avsändaren som redan är verifierad för domänen i Resend. */
@@ -420,10 +420,9 @@ export async function scheduleKomIgangMejl(
     // Ett uppsagt paket förnyas inte, så det får ingen påminnelse om det.
     // Hjälpredans dagliga mejl fortsätter perioden ut: hon har betalat för den.
     if (timmarKvar !== null && timmarKvar > 0 && timmarKvar <= 36 && profile.cancel_at_period_end !== true) {
-      // Perioden började en periodlängd före nästa dragning.
-      const langd = planKey ? PLAN_BY_KEY[planKey].length : 'vecka';
-      const dagar = langd === 'månad' ? 30 : langd === 'kvartal' ? 90 : 7;
-      const periodStart = fornyas ? new Date(fornyas.getTime() - dagar * 86400000).toISOString() : null;
+      // Perioden började en periodlängd före nästa dragning, räknat som
+      // Stripe räknar: samma datum förra månaden, inte trettio dagar bakåt.
+      const periodStart = fornyas ? foregaendeDragning(planKey ?? 'all_week', fornyas).toISOString() : null;
       await scheduleEmail(admin, profile.id, `${PAKET_FORNYAS_TYPE}_${datum}`, now, { scope, planKey, periodStart });
       result.fornyas += 1;
       continue;

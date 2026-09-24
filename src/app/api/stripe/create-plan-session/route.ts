@@ -18,7 +18,7 @@ import {
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
-import { PAKETSKARM } from '@/lib/onboarding/program'
+import { samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 export async function POST(request: NextRequest) {
   try {
@@ -128,10 +128,12 @@ export async function POST(request: NextRequest) {
       productKind: selected.mode === 'payment' ? 'onetime' : 'subscription',
       source: typeof source === 'string' ? source.slice(0, 80) : 'unknown',
       // Beviset. Tidsstämpeln sätts på servern, aldrig av klienten, och
-      // texten hämtas ur samma konstant som kryssrutan renderar, så att
-      // metadata och det kunden faktiskt läste inte kan glida isär.
+      // texten byggs av samma funktion som köpstegets kryssruta renderar,
+      // med belopp och nästa dragning, så att metadata och det kunden
+      // faktiskt läste inte kan glida isär. Förut stod en äldre, kortare
+      // text här (PAKETSKARM.samtycke) som kunden aldrig såg.
       angerratt_samtycke_at: new Date().toISOString(),
-      angerratt_samtycke_text: PAKETSKARM.samtycke,
+      angerratt_samtycke_text: samtyckeVidKop(selected.key),
     }
 
     const session = await stripe.checkout.sessions.create({

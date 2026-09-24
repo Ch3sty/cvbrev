@@ -18,7 +18,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { PAKETSKARM } from '@/lib/onboarding/program'
+import { samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 const ANVANDARE = { id: 'user-1', email: 'kund@example.com', user_metadata: {} }
 
@@ -109,8 +109,10 @@ describe('create-plan-session, ångerrättssamtycket', () => {
     expect(res.status).toBe(200)
 
     const arg = sessionsSkapa.mock.calls[0][0]
-    expect(arg.metadata.angerratt_samtycke_text).toBe(PAKETSKARM.samtycke)
-    expect(arg.subscription_data.metadata.angerratt_samtycke_text).toBe(PAKETSKARM.samtycke)
+    // Samma mening som köpstegets kryssruta, med belopp och nästa dragning.
+    expect(arg.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('cv_week'))
+    expect(arg.metadata.angerratt_samtycke_text).toContain('79 kr dras var sjunde dag, nästa gång')
+    expect(arg.subscription_data.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('cv_week'))
 
     // Servertid, inte klienttid: stämpeln ligger inom anropets egen sekund.
     const vid = Date.parse(arg.metadata.angerratt_samtycke_at)
@@ -127,7 +129,7 @@ describe('create-plan-session, ångerrättssamtycket', () => {
 
     const arg = sessionsSkapa.mock.calls[0][0]
     expect(arg.mode).toBe('payment')
-    expect(arg.payment_intent_data.metadata.angerratt_samtycke_text).toBe(PAKETSKARM.samtycke)
+    expect(arg.payment_intent_data.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('all_day'))
     expect(arg.payment_intent_data.metadata.angerratt_samtycke_at).toBe(
       arg.metadata.angerratt_samtycke_at
     )

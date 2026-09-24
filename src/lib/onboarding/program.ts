@@ -95,18 +95,18 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     ],
   }),
   all_month: paket('all_month', {
-    intervall: 'Förnyas var trettionde dag tills du säger upp',
+    intervall: 'Dras varje månad på samma datum tills du säger upp',
     ingar: [
-      'Jobbmatchning, Jobbcoachen och Bli upptäckt, i trettio dagar',
+      'Jobbmatchning, Jobbcoachen och Bli upptäckt, en månad i taget',
       'Billigare än fyra veckor i rad',
       `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
       'Säg upp när som helst, ett klick',
     ],
   }),
   all_quarter: paket('all_quarter', {
-    intervall: 'Förnyas var nittionde dag tills du säger upp',
+    intervall: 'Dras var tredje månad på samma datum tills du säger upp',
     ingar: [
-      'Jobbmatchning, Jobbcoachen och Bli upptäckt, i nittio dagar',
+      'Jobbmatchning, Jobbcoachen och Bli upptäckt, i tre månader',
       'Lägsta priset per vecka',
       `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
       'Säg upp när som helst, ett klick',
