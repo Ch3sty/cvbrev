@@ -1,0 +1,140 @@
+{
+  "tid": "2026-09-24T11:17:03.031Z",
+  "kor": false,
+  "konton": [
+    {
+      "id": "f785553d-3048-4318-9041-074b1e39dccd",
+      "email": "qa-reg-20260924-1-paket@jobbcoach.ai",
+      "tagg": "paket",
+      "skapad": "2026-09-24T09:59:58.172Z"
+    },
+    {
+      "id": "972eb2c2-c483-4e14-a3f2-86c052565796",
+      "email": "qa-reg-20260924-2-testprov@jobbcoach.ai",
+      "tagg": "testprov",
+      "skapad": "2026-09-24T10:00:12.637Z"
+    },
+    {
+      "id": "663960c0-786e-4341-beae-50587c234ccb",
+      "email": "qa-reg-20260924-3-bar@jobbcoach.ai",
+      "tagg": "bar",
+      "skapad": "2026-09-24T10:00:19.228Z"
+    },
+    {
+      "id": "f3a17e76-7cae-4bb8-b96f-249d6e8dcec0",
+      "email": "qa-reg-20260924-4-paket@jobbcoach.ai",
+      "tagg": "paket",
+      "skapad": "2026-09-24T10:09:20.061Z"
+    },
+    {
+      "id": "7dfea5b5-dda8-4b01-a8a8-b6b3c8e42670",
+      "email": "qa-reg-20260924-5-testprov@jobbcoach.ai",
+      "tagg": "testprov",
+      "skapad": "2026-09-24T10:09:33.953Z"
+    },
+    {
+      "id": "6eadddc8-8d01-4e18-b339-1460c30061e1",
+      "email": "qa-reg-20260924-6-bar@jobbcoach.ai",
+      "tagg": "bar",
+      "skapad": "2026-09-24T10:09:40.194Z"
+    },
+    {
+      "id": "d05ca358-e02a-46ad-bd66-47311459a776",
+      "email": "qa-reg-20260924-7-cv@jobbcoach.ai",
+      "tagg": "cv",
+      "skapad": "2026-09-24T10:25:43.128Z"
+    },
+    {
+      "id": "5161c7e6-94db-4532-8ed7-8724453a1271",
+      "email": "qa-reg-20260924-8-brev@jobbcoach.ai",
+      "tagg": "brev",
+      "skapad": "2026-09-24T10:26:14.412Z"
+    },
+    {
+      "id": "6ff3ac66-3f52-4c6f-92e4-1afa2e046d9b",
+      "email": "qa-reg-20260924-9-tester@jobbcoach.ai",
+      "tagg": "tester",
+      "skapad": "2026-09-24T10:26:45.654Z"
+    },
+    {
+      "id": "7000ad28-57fe-4b64-ae50-c90f3ee81620",
+      "email": "qa-reg-20260924-10-intervju@jobbcoach.ai",
+      "tagg": "intervju",
+      "skapad": "2026-09-24T10:27:18.844Z"
+    },
+    {
+      "id": "2cddf0ed-daee-462b-b474-c1337b0cc09c",
+      "email": "qa-reg-20260924-11-jobb@jobbcoach.ai",
+      "tagg": "jobb",
+      "skapad": "2026-09-24T10:27:50.211Z"
+    },
+    {
+      "id": "90ecf126-7223-4c0a-b985-0424b4964301",
+      "email": "qa-reg-20260924-12-hoppa@jobbcoach.ai",
+      "tagg": "hoppa",
+      "skapad": "2026-09-24T10:28:39.066Z"
+    },
+    {
+      "id": "c40d558b-d087-48ae-bb66-5a75d3adaaab",
+      "email": "qa-reg-20260924-13-cv@jobbcoach.ai",
+      "tagg": "cv",
+      "skapad": "2026-09-24T10:44:44.967Z"
+    },
+    {
+      "id": "51686003-c9e0-49e3-926d-aa9dab497c10",
+      "email": "qa-reg-20260924-14-brev@jobbcoach.ai",
+      "tagg": "brev",
+      "skapad": "2026-09-24T10:45:06.333Z"
+    },
+    {
+      "id": "31c84304-bd15-4a0a-b5d7-e773ed7e77d2",
+      "email": "qa-reg-20260924-15-tester@jobbcoach.ai",
+      "tagg": "tester",
+      "skapad": "2026-09-24T10:45:27.998Z"
+    },
+    {
+      "id": "a7f81e93-3472-4683-b494-913e5b885b5c",
+      "email": "qa-reg-20260924-16-intervju@jobbcoach.ai",
+      "tagg": "intervju",
+      "skapad": "2026-09-24T10:45:49.232Z"
+    },
+    {
+      "id": "2b42a4c3-144c-48f0-ae1d-e880c2b2ad62",
+      "email": "qa-reg-20260924-17-jobb@jobbcoach.ai",
+      "tagg": "jobb",
+      "skapad": "2026-09-24T10:46:10.300Z"
+    },
+    {
+      "id": "ed8ece25-dc84-4349-9d51-2ba4297628c2",
+      "email": "qa-reg-20260924-18-hoppa@jobbcoach.ai",
+      "tagg": "hoppa",
+      "skapad": "2026-09-24T10:46:19.862Z"
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "cv_texts",
+      "raknat": 2
+    },
+    {
+      "tabell": "email_confirmations",
+      "raknat": 18
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 36
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 175
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_test_sessions",
+      "raknat": 2
+    }
+  ],
+  "auth": [],
+  "kontroll": null
+}

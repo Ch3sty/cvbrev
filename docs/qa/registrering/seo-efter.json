@@ -1,0 +1,1507 @@
+[
+  {
+    "path": "/priser",
+    "status": 200,
+    "h1": [
+      "En vecka som bär hela jobbsöket."
+    ],
+    "title": "Priser: en vecka som bär hela jobbsöket | Jobbcoach.ai",
+    "description": "CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Allt öppet direkt, ingen bindningstid, säg upp med ett klick. Gratisnivån ligger kvar.",
+    "canonical": "https://www.jobbcoach.ai/priser",
+    "ogImage": "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?b30d3311c46eacde",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "priser-paket",
+        "text": "Tre paket. Ett för CV:t, ett för träningen, ett för hela jobbsöket."
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-paketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träningspaketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hela paketet"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-funktioner",
+        "text": "Vad du faktiskt får, funktion för funktion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoachen"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-guide",
+        "text": "Allt är öppet från första minuten. Så här guidar vi dig igenom det."
+      },
+      {
+        "tag": "h3",
+        "id": "guide-cv",
+        "text": "CV-paketet"
+      },
+      {
+        "tag": "h3",
+        "id": "guide-test",
+        "text": "Träningspaketet"
+      },
+      {
+        "tag": "h3",
+        "id": "guide-allt",
+        "text": "Hela paketet"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-jamforelse",
+        "text": "Vad som ingår, rad för rad"
+      }
+    ],
+    "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "/verktyg/personlighetstest"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"AggregateOffer\",\"availability\":\"https://schema.org/InStock\",\"highPrice\":299,\"lowPrice\":49,\"name\":\"Jobbcoach.ai\",\"offerCount\":6,\"offers\":[{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Få CV:t genom rekryteringssystemet och skriv personliga brev som svarar på annonsen.\",\"name\":\"CV-paketet\",\"price\":79,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Känn igen varje uppgift på testdagen. Och förstå vad personlighetstestet säger om dig.\",\"name\":\"Träningspaketet\",\"price\":79,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i ett dygn. Ett engångsköp, ingenting dras igen.\",\"name\":\"Dagspasset\",\"price\":49,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Jobbmatchning, Jobbcoachen och Bli upptäckt. Och allt i CV-paketet och Träningspaketet.\",\"name\":\"Hela paketet, en vecka\",\"price\":99,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i en månad, billigare än fyra veckor i rad.\",\"name\":\"Hela paketet, en månad\",\"price\":149,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i tre månader, för ett sök som du vet tar tid.\",\"name\":\"Hela paketet, ett kvartal\",\"price\":299,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"}],\"priceCurrency\":\"SEK\",\"url\":\"https://www.jobbcoach.ai/priser\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"För att det mesta du behöver bygger du på en vecka: CV:t, de personliga breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Hela paketet per månad billigare per vecka, 149 kr i månaden, och det finns där när du vill ha det.\"},\"name\":\"Varför säljer ni veckor och inte månader?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den förnyas var sjunde dag tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.\"},\"name\":\"Vad händer när veckan är slut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Mellan CV-paketet och Träningspaketet byter du direkt, priset är detsamma och dragningsdagen står kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.\"},\"name\":\"Kan jag byta paket mitt i veckan?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I ditt konto, under Profil och prenumeration, ett klick. Lika enkelt som att köpa. Veckan du redan betalat gäller ut.\"},\"name\":\"Hur säger jag upp?\"}]}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/rekryteringstester",
+    "status": 200,
+    "h1": [
+      "Träna på rekryteringstester innan arbetsgivaren testar dig"
+    ],
+    "title": "Rekryteringstester: träna inför urvalet | Jobbcoach.ai",
+    "description": "Träna på matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder. Grundnivån är gratis, ingen kortuppgift.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/rekryteringstester",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/rekryteringstester/opengraph-image-1ge1s0?bd858035cc0de84d",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Gör ett prov direkt, utan konto"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lös frågorna i din takt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se resultat och tid direkt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se vad du missade"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex färdigheter som avgör testet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mönsterigenkänning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsförståelse"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kritiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Snabbräkning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tabelltolkning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre testtyper, alla gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbalt resonemang"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriskt resonemang"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ta reda på vad rekryteraren ser i dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppenhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Noggrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Extraversion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vänlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Känslostabilitet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träning som syns på resultatet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Grundnivån är gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rapport efter varje pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träningspaketet tar bort taket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så förbereder du dig inför ett rekryteringstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öva på rätt testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träna under tidspress"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj tillfälle och miljö"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svara ärligt på personlighetsdelen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Reda ut frågorna i förväg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Räkna med att det känns svårt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Guider per testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiska tester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriska test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbala test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rotationstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personlighetstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Deduktiva och induktiva test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Alva Labs logiktest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "MAP från Assessio"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träna nu. Kom förberedd sen."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om rekryteringstester"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#testtyper",
+      "/",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/deduktivt-induktivt-test",
+      "/artiklar/logiska-tester",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/matrislogik-test-guide",
+      "/artiklar/numeriskt-test-guide",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/rotation-test-guide",
+      "/artiklar/verbalt-test-guide",
+      "/funktioner",
+      "/verktyg/personlighetstest",
+      "/verktyg/rekryteringstester/prova"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryteringstester är standardiserade prov som mäter logiskt tänkande, språkförståelse och sifferanalys. Arbetsgivare använder dem för att jämföra kandidater på samma villkor och för att förutsäga hur du kommer prestera i rollen. Vanliga leverantörer i Sverige är SHL, Cut-e och Assessio och tester förekommer både hos myndigheter, konsultbolag och i tjänstemannaroller.\"},\"name\":\"Vad är rekryteringstester och varför används de?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på 15 frågor per pass i samma format som SHL och Cut-e använder.\"},\"name\":\"Hur fungerar ett matrislogik-test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. Vårt verbala test innehåller 12 textpassager med fyra påståenden per passage, totalt 48 bedömningar.\"},\"name\":\"Vad är verbalt resonemang och hur tränar man på det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på 24 frågor per pass.\"},\"name\":\"Vad är numeriskt resonemang?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Träna i samma tidspress som det skarpa testet och gör flera pass per testtyp. Det viktigaste är att lära sig formatet, så att du inte slösar tid på att tolka frågan utan kan fokusera på själva lösningen. Efter varje pass går vi igenom dina rätt och fel så du ser exakt vilka mönster du missade och kan jobba på dem.\"},\"name\":\"Hur tränar jag bäst inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Det är fusk att se de exakta frågorna i det skarpa testet i förväg, men att träna på samma typ av frågor är helt accepterat och även förväntat. Tester som SHL och Cut-e mäter en stabil förmåga som påverkas av träning, ungefär som körkortsteorin. Den som tränat på formatet hinner bättre.\"},\"name\":\"Är det fusk att träna inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Väl utformade tester är mer objektiva än magkänsla, eftersom alla kandidater bedöms på samma sätt. Etablerade leverantörer som Aon (tidigare cut-e) och Assessio låter dessutom oberoende granskare som DNV och Buros certifiera sina tester. Testet är ändå ett komplement till intervjun, inte en ersättning. En seriös arbetsgivare väger samman test, intervju och erfarenhet.\"},\"name\":\"Är rekryteringstester rättvisa?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Begåvningstester ger oftast ett normerat värde, alltså hur du presterar jämfört med en jämförelsegrupp, medan personlighetstester ger en profil utan rätt eller fel. Du kan be om återkoppling, och resultaten är personuppgifter som hanteras enligt GDPR. Vissa arbetsgivare, som Saab och Sweco enligt tidningen Ingenjören, sparar testresultat i upp till två år, så du kan slippa göra om testet om du söker en ny tjänst hos dem. Fråga gärna hur länge resultatet sparas och hur det vägs in.\"},\"name\":\"Vad betyder mitt resultat, och vilka rättigheter har jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Våra grundtester tar runt 20 minuter och de avancerade versionerna runt 25 minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.\"},\"name\":\"Hur lång tid tar varje test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Grundnivån i varje testtyp är gratis, en gång per dag och testtyp, utan att du lämnar kortuppgifter. Vill du köra fler försök, gå vidare till avancerad och expertnivå, öva i tidsatt provläge eller följa din utveckling över tid ingår allt det i Träningspaketet för 79 kr i veckan. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.\"},\"name\":\"Är testerna gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Många arbetsgivare, framför allt inom konsult, bank och offentlig sektor, låter kandidater göra ett personlighetstest som en del av urvalsprocessen. Testet mäter hur du fungerar i arbete, inte om du är en bra eller dålig person. Det finns inga rätta svar. Arbetsgivaren jämför din profil med vad rollen kräver och med andra kandidater.\"},\"name\":\"Vad är ett personlighetstest i rekrytering?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Big Five är den psykologiska modell som ligger till grund för de flesta seriösa personlighetstester i rekrytering, bland annat de som SHL och Assessio använder. Modellen mäter fem dimensioner: Öppenhet (kreativitet och nyfikenhet), Noggrannhet (struktur och målmedvetenhet), Extraversion (social energi), Vänlighet (samarbete och empati) och Känslostabilitet (stresstålighet). Vår personlighetsprofil bygger på samma modell.\"},\"name\":\"Vad är Big Five-modellen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Delvis. Du kan svara på ett sätt som du tror att arbetsgivaren vill se, men moderna tester har inbyggda konsistenskontroller som fångar upp om du svarar orealistiskt positivt. Det vanligaste rådet från rekryterare är att svara ärligt. Det du faktiskt vill ta med dig från vår profil är förståelsen för vilka dimensioner du hamnar på, så att du kan prata om dem på ett genomtänkt sätt i intervjun.\"},\"name\":\"Går det att manipulera ett personlighetstest?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så tränar du på rekryteringstester med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj test\",\"position\":1,\"text\":\"Plocka ett av tre gratistester: matrislogik, verbalt resonemang eller numeriskt resonemang.\"},{\"@type\":\"HowToStep\",\"name\":\"Lös frågor i din takt\",\"position\":2,\"text\":\"Markera ditt svar och gå till nästa fråga. Timern räknar tempot men avbryter aldrig.\"},{\"@type\":\"HowToStep\",\"name\":\"Få score och tid direkt\",\"position\":3,\"text\":\"När du svarat klart visas procent korrekta, total tid och snitt-tid per fråga.\"},{\"@type\":\"HowToStep\",\"name\":\"Se vad du missade\",\"position\":4,\"text\":\"Fråga för fråga ser du ditt svar mot facit och förstår vilka mönster du kan träna mer på.\"}],\"totalTime\":\"PT20M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"EducationalApplication\",\"description\":\"Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighetsanalys.\",\"featureList\":\"Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med Premium\",\"name\":\"Jobbcoach.ai Rekryteringstester\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Alla grundnivåtester gratis, en gång per dag, utan kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/rekryteringstester\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/cv-mallar",
+    "status": 200,
+    "h1": [
+      "Professionella CV-mallar för svenska arbetsgivare"
+    ],
+    "title": "CV-mallar: välj, fyll i och ladda ner | Jobbcoach.ai",
+    "description": "Välj bland professionella CV-mallar, fyll i dina uppgifter och ladda ner som PDF. Gratis att börja, ATS-säkra och byggda för svenska arbetsgivare.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/cv-mallar/opengraph-image-qm1nzh?cb98d21220ca4878",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj en mall"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fyll i dina uppgifter"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi flyttar in innehållet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF eller Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Mer än en snygg layout"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Byggda för rekryteringssystem"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "PDF och Word"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Profilbild där det passar"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "LinkedIn synligt i sidhuvudet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Redigera när du vill"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fungerar i mobilen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla våra mallar. På ett ställe."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Välj din mall och bygg ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det du undrar om CV-mallarna"
+      }
+    ],
+    "lankar": [
+      "#mall-galleri",
+      "/",
+      "/cv-exempel",
+      "/cv-mallar/start?mall=aspekt",
+      "/cv-mallar/start?mall=atlas",
+      "/cv-mallar/start?mall=aurora",
+      "/cv-mallar/start?mall=avtryck",
+      "/cv-mallar/start?mall=bold-modern",
+      "/cv-mallar/start?mall=bygg",
+      "/cv-mallar/start?mall=disk",
+      "/cv-mallar/start?mall=disk-plus",
+      "/cv-mallar/start?mall=editorial-magazine",
+      "/cv-mallar/start?mall=forskare",
+      "/cv-mallar/start?mall=galleri",
+      "/cv-mallar/start?mall=hantverkare-plus",
+      "/cv-mallar/start?mall=karta",
+      "/cv-mallar/start?mall=klinik",
+      "/cv-mallar/start?mall=konsult-kompakt",
+      "/cv-mallar/start?mall=konto",
+      "/cv-mallar/start?mall=konto-plus",
+      "/cv-mallar/start?mall=kvist",
+      "/cv-mallar/start?mall=linje",
+      "/cv-mallar/start?mall=logistik",
+      "/cv-mallar/start?mall=logistik-plus",
+      "/cv-mallar/start?mall=magasin",
+      "/cv-mallar/start?mall=myndighet",
+      "/cv-mallar/start?mall=myndighet-plus",
+      "/cv-mallar/start?mall=norrsken",
+      "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "/cv-mallar/start?mall=norrsken-plus",
+      "/cv-mallar/start?mall=pedagog",
+      "/cv-mallar/start?mall=servering",
+      "/cv-mallar/start?mall=sidebar-icons",
+      "/cv-mallar/start?mall=sidopanel-plus",
+      "/cv-mallar/start?mall=skymning",
+      "/cv-mallar/start?mall=spektrum",
+      "/cv-mallar/start?mall=stack-developer",
+      "/cv-mallar/start?mall=stack-plus",
+      "/cv-mallar/start?mall=student-plus",
+      "/cv-mallar/start?mall=student-startup",
+      "/cv-mallar/start?mall=tidlos-formell",
+      "/cv-mallar/start?mall=tidlos-plus",
+      "/cv-mallar/start?mall=varden-omsorg",
+      "/cv-mallar/start?mall=verkstad",
+      "/cv-mallar/start?mall=verkstad-plus",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Alla våra mallar är skrivna med svenska Applicant Tracking Systems i åtanke. Vi använder rena rubriker, vanlig text utan komplicerad formattering och ett strukturerat upplägg som ATS-systemen läser utan problem. Det betyder att din ansökan kommer fram till rekryteraren och inte filtreras bort på vägen.\"},\"name\":\"Är CV-mallarna ATS-säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, både PDF och Word (.docx). PDF är vanligast och fungerar perfekt med ATS-system. Word är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.\"},\"name\":\"Kan jag ladda ner mitt CV som PDF eller Word?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Modern stil passar tech, design, marknadsföring och konsultroller. Traditionell stil passar bank, juridik, vård och offentlig sektor. Kreativ stil passar reklam, media och kreativa yrken. Du kan också byta mall efteråt utan att behöva fylla i din data igen, vi flyttar allt åt dig.\"},\"name\":\"Vilken mall passar bäst för mitt yrke?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i CV-paketet för 79 kr i veckan.\"},\"name\":\"Vad är skillnaden på gratis och premium-mallarna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Allt du fyller i sparas i ditt konto och du kan när som helst gå tillbaka, redigera och ladda ner en ny version. Du kan också byta mall utan att förlora din data.\"},\"name\":\"Kan jag redigera CV:t senare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vissa premium-mallar stödjer foto. Det är en designfråga snarare än något ATS-systemet bryr sig om. I Sverige värderas innehållet alltid mer än utseendet, men en professionell bild kan ge en mänsklig touch i mallar där det är inbyggt.\"},\"name\":\"Stödjer mallarna profilbild?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Mallarna är språkneutrala, så du kan fylla i dem på engelska och få en professionell layout som fungerar både i Sverige och utomlands. Tänk på att vissa länder har egna konventioner: i USA är ett CV oftast en sida, i Tyskland väntas oftast ett \\\"Lebenslauf\\\" med foto.\"},\"name\":\"Kan jag använda mallen för internationella ansökningar?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Hela byggprocessen funkar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.\"},\"name\":\"Är mallarna mobile-friendly när jag bygger CV:t?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in datan, ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så bygger du ett CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj en mall\",\"position\":1,\"text\":\"Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i dina uppgifter\",\"position\":2,\"text\":\"Vårt formulär guidar dig genom varje sektion. Du kan importera från LinkedIn eller börja från ett befintligt CV.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi flyttar in datan\",\"position\":3,\"text\":\"Allt landar automatiskt på rätt plats i mallen. Byter du mall efteråt följer datan med.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda ner som PDF eller Word\",\"position\":4,\"text\":\"Exportera ditt CV. Sparas i ditt konto för senare redigering.\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"description\":\"Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra och anpassade för svenska arbetsgivare.\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Ren minimal mall med subtila orange-detaljer för alla branscher\",\"image\":\"https://www.jobbcoach.ai/mallar/norrsken.webp\",\"name\":\"Norrsken\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"norrsken\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#norrsken\"},\"position\":1},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Resultat-första premium-mall för säljare, affärsutveckling och finans\",\"image\":\"https://www.jobbcoach.ai/mallar/aurora.webp\",\"name\":\"Aurora\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"aurora\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#aurora\"},\"position\":2},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Centrerad serif-mall för executive och styrelseroller\",\"image\":\"https://www.jobbcoach.ai/mallar/atlas.webp\",\"name\":\"Atlas\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"atlas\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#atlas\"},\"position\":3},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Designermall med rektangulärt foto, tools-grid och peach-accenter\",\"image\":\"https://www.jobbcoach.ai/mallar/galleri.webp\",\"name\":\"Galleri\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"galleri\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#galleri\"},\"position\":4},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för lärare och pedagoger med behörigheter och kompetensområden\",\"image\":\"https://www.jobbcoach.ai/mallar/pedagog.webp\",\"name\":\"Pedagog\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"pedagog\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#pedagog\"},\"position\":5},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Bred premium-mall för tjänstemän, ingenjörer, ekonomer och HR med foto\",\"image\":\"https://www.jobbcoach.ai/mallar/aspekt.webp\",\"name\":\"Aspekt\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"aspekt\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#aspekt\"},\"position\":6},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för läkare med specialistbevis, kompetensområden och publikationer\",\"image\":\"https://www.jobbcoach.ai/mallar/klinik.webp\",\"name\":\"Klinik\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"klinik\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#klinik\"},\"position\":7},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium-mall med mörk header — för personliga varumärken och founders\",\"image\":\"https://www.jobbcoach.ai/mallar/skymning.webp\",\"name\":\"Skymning\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"skymning\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#skymning\"},\"position\":8},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Gratis CV-mall för butik, kassa och kundnära service\",\"image\":\"https://www.jobbcoach.ai/mallar/disk.webp\",\"name\":\"Disk\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"disk\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#disk\"},\"position\":9},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för lager, logistik och transport\",\"image\":\"https://www.jobbcoach.ai/mallar/logistik.webp\",\"name\":\"Logistik\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"logistik\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#logistik\"},\"position\":10},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för industri, maskin och produktion\",\"image\":\"https://www.jobbcoach.ai/mallar/verkstad.webp\",\"name\":\"Verkstad\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"verkstad\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#verkstad\"},\"position\":11},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för offentlig sektor och myndighetsutövning\",\"image\":\"https://www.jobbcoach.ai/mallar/myndighet.webp\",\"name\":\"Myndighet\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"myndighet\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#myndighet\"},\"position\":12},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Gratis CV-mall för ekonomi, redovisning och finans\",\"image\":\"https://www.jobbcoach.ai/mallar/konto.webp\",\"name\":\"Konto\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konto\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konto\"},\"position\":13},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för butik och frontline med foto, magazine-känsla och customer voice-block\",\"image\":\"https://www.jobbcoach.ai/mallar/disk-plus.webp\",\"name\":\"Disk Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"disk-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#disk-plus\"},\"position\":14},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för lager och logistik med dark header och cyan-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/logistik-plus.webp\",\"name\":\"Logistik Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"logistik-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#logistik-plus\"},\"position\":15},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för ingenjörer med blueprint-grid och två-kolumn-layout\",\"image\":\"https://www.jobbcoach.ai/mallar/verkstad-plus.webp\",\"name\":\"Verkstad Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"verkstad-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#verkstad-plus\"},\"position\":16},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för offentlig sektor med centrerad serif-header och guld-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/myndighet-plus.webp\",\"name\":\"Myndighet Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"myndighet-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#myndighet-plus\"},\"position\":17},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för ekonomi och finans med tre-kolumns header och nyckeltal\",\"image\":\"https://www.jobbcoach.ai/mallar/konto-plus.webp\",\"name\":\"Konto Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konto-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konto-plus\"},\"position\":18},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Norrsken med foto-ring, gradient-namn och profil-block\",\"image\":\"https://www.jobbcoach.ai/mallar/norrsken-plus.webp\",\"name\":\"Norrsken Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"norrsken-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#norrsken-plus\"},\"position\":19},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-uppgradering av Tidlös med Garamond serif, ornament och burgundy-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/tidlos-plus.webp\",\"name\":\"Tidlös Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"tidlos-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#tidlos-plus\"},\"position\":20},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Stack med teknik-pill-banner och två-kolumn-layout\",\"image\":\"https://www.jobbcoach.ai/mallar/stack-plus.webp\",\"name\":\"Stack Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"stack-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#stack-plus\"},\"position\":21},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-uppgradering av Hantverkare med foto, projektportfölj och dubbel-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/hantverkare-plus.webp\",\"name\":\"Hantverkare Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"hantverkare-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#hantverkare-plus\"},\"position\":22},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Student med foto, drömjobb-eyebrow och utbildning först\",\"image\":\"https://www.jobbcoach.ai/mallar/student-plus.webp\",\"name\":\"Student Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"student-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#student-plus\"},\"position\":23},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Sidopanel med foto, profilblock och orange-magenta accent\",\"image\":\"https://www.jobbcoach.ai/mallar/sidopanel-plus.webp\",\"name\":\"Sidopanel Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"sidopanel-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#sidopanel-plus\"},\"position\":24},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för hantverkare och bygg med behörigheter och certifikat\",\"image\":\"https://www.jobbcoach.ai/mallar/bygg.webp\",\"name\":\"Hantverkare\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"bygg\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#bygg\"},\"position\":25},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för forskare och doktorander med publikationer och stipendier\",\"image\":\"https://www.jobbcoach.ai/mallar/forskare.webp\",\"name\":\"Forskare\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"forskare\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#forskare\"},\"position\":26},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för restaurang, hotell och service med språk och diplom i fokus\",\"image\":\"https://www.jobbcoach.ai/mallar/servering.webp\",\"name\":\"Servering\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"servering\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#servering\"},\"position\":27},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Minimalistisk Swiss-design — helt monokrom, ingen accentfärg\",\"image\":\"https://www.jobbcoach.ai/mallar/linje.webp\",\"name\":\"Linje\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"linje\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#linje\"},\"position\":28},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium-mall med levande gradient-sidopanel — för marknadsförare och kreativa\",\"image\":\"https://www.jobbcoach.ai/mallar/spektrum.webp\",\"name\":\"Spektrum\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"spektrum\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#spektrum\"},\"position\":29},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall med skogsgrön header — för hållbarhet, klimat och cleantech\",\"image\":\"https://www.jobbcoach.ai/mallar/kvist.webp\",\"name\":\"Kvist\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"kvist\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#kvist\"},\"position\":30},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium tidnings-cover-mall med stort foto och dramatisk serif-typografi\",\"image\":\"https://www.jobbcoach.ai/mallar/magasin.webp\",\"name\":\"Magasin\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"magasin\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#magasin\"},\"position\":31},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall med timeline och kompetensstaplar — för data, BI och konsulter\",\"image\":\"https://www.jobbcoach.ai/mallar/karta.webp\",\"name\":\"Karta\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"karta\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#karta\"},\"position\":32},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium retro-mall med cream-bakgrund, ramning och vintage-typografi\",\"image\":\"https://www.jobbcoach.ai/mallar/avtryck.webp\",\"name\":\"Avtryck\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"avtryck\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#avtryck\"},\"position\":33},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Tydlig sidopanel med kontakt och kompetenser, modernt utseende\",\"image\":\"https://www.jobbcoach.ai/mallar/sidebar-icons.webp\",\"name\":\"Sidopanel\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"sidebar-icons\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#sidebar-icons\"},\"position\":34},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Asymmetrisk magazine-layout med foto, LinkedIn och tidslinje\",\"image\":\"https://www.jobbcoach.ai/mallar/editorial-magazine.webp\",\"name\":\"Editorial\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"editorial-magazine\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#editorial-magazine\"},\"position\":35},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Klassisk formell mall för juridik, bank och offentlig sektor\",\"image\":\"https://www.jobbcoach.ai/mallar/tidlos-formell.webp\",\"name\":\"Tidlös\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"tidlos-formell\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#tidlos-formell\"},\"position\":36},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Kompakt premium-mall för seniora kandidater med foto och LinkedIn\",\"image\":\"https://www.jobbcoach.ai/mallar/konsult-kompakt.webp\",\"name\":\"Konsulten\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konsult-kompakt\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konsult-kompakt\"},\"position\":37},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Modern utvecklarmall med kompetens-stack ovanför erfarenhet\",\"image\":\"https://www.jobbcoach.ai/mallar/stack-developer.webp\",\"name\":\"Stack\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"stack-developer\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#stack-developer\"},\"position\":38},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Stark typografisk hierarki med foto och LinkedIn för marknadsföring\",\"image\":\"https://www.jobbcoach.ai/mallar/bold-modern.webp\",\"name\":\"Bold\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"bold-modern\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#bold-modern\"},\"position\":39},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"För studenter och nyexaminerade — utbildning först, projekt och praktik\",\"image\":\"https://www.jobbcoach.ai/mallar/student-startup.webp\",\"name\":\"Student\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"student-startup\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#student-startup\"},\"position\":40},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Designad för vård och omsorg med legitimationer först och kompetensområden\",\"image\":\"https://www.jobbcoach.ai/mallar/varden-omsorg.webp\",\"name\":\"Vården\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"varden-omsorg\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#varden-omsorg\"},\"position\":41}],\"name\":\"CV-mallar för svenska arbetsgivare\",\"numberOfItems\":41}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/norrsken.svg",
+      "alt": "Mallen Norrsken"
+    }
+  },
+  {
+    "path": "/verktyg/skapa-cv",
+    "status": 200,
+    "h1": [
+      "Skapa ditt CV gratis på minuter"
+    ],
+    "title": "Skapa CV gratis online | Jobbcoach.ai",
+    "description": "Bygg ditt CV i sju steg med direkt förhandsvisning och mallar som läses rätt av rekryteringssystem. Ladda ner som PDF eller Word, allt på svenska.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/skapa-cv",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/skapa-cv/opengraph-image-hksbes?b89aeac9cbbb490e",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj en mall"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fyll i sju enkla steg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi sätter ihop CV:t"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF eller Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex saker som gör CV-byggandet enkelt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mallar som rekryteringssystemen kan läsa"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Förhandsvisning medan du skriver"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sparas automatiskt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF eller Word"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hämta uppgifterna från LinkedIn"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fungerar lika bra i mobilen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Mallar som passar din bransch"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Norrsken"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Aurora"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Atlas"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tio minuters arbete som gör skillnad i månader"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "10 minuter till färdigt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsbart för systemen i alla mallar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Skapa ditt CV gratis på minuter."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om att skapa CV"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/cv-exempel",
+      "/funktioner",
+      "/verktyg/cv-mallar",
+      "/verktyg/cv-mallar"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en live-preview av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF eller Word.\"},\"name\":\"Hur skapar jag ett professionellt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du kan skapa ditt CV och ladda ner det en gång utan att lämna kortuppgifter. Tre CV-mallar är fria, och de räcker långt för de flesta ansökningar. Vill du ha alla mallar och ladda ner utan tak ingår det i CV-paketet för 79 kr i veckan.\"},\"name\":\"Är det gratis att skapa CV online hos er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tio till femton minuter om du har dina uppgifter framför dig. Vi guidar dig genom sju steg och alla fält är optionella efter de viktigaste. Vill du gå snabbare kan du importera från LinkedIn eller ladda upp ett befintligt CV som vi extraherar datan från åt dig.\"},\"name\":\"Hur lång tid tar det att skapa ett CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Du kan börja från ett tomt papper och fylla i allt själv. Men om du redan har ett CV i Word eller PDF kan du ladda upp det och vi extraherar all data automatiskt. Det sparar tid och du slipper skriva om allt manuellt.\"},\"name\":\"Behöver jag ladda upp ett befintligt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi har stöd för LinkedIn-import som hämtar din profil, erfarenhet, utbildning och kompetenser direkt. Det är ett snabbt sätt att komma igång om din LinkedIn redan är uppdaterad.\"},\"name\":\"Kan jag importera mina uppgifter från LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi sparar automatiskt allt du fyller i medan du jobbar. Du kan stänga fliken mitt i ett steg och fortsätta senare där du slutade. När du är klar och har laddat ner CV:t finns det också kvar i ditt konto för framtida redigering.\"},\"name\":\"Hur sparas mitt CV medan jag bygger det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Både PDF och Word (.docx) ingår alltid. PDF är det vanligaste och fungerar perfekt med ATS-system och rekryterares verktyg. Word är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.\"},\"name\":\"Vilka format kan jag ladda ner CV:t i?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Hela byggprocessen är mobile-first och fungerar lika smidigt på telefonen som på datorn. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn, allt syncas mellan enheter.\"},\"name\":\"Funkar CV-byggaren på mobilen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val till färdig PDF: välj mall, fyll i sju enkla steg, vi sätter ihop, ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så skapar du ett CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj en mall\",\"position\":1,\"text\":\"Bläddra bland modern, traditionell och kreativ stil. Du kan byta mall efteråt utan att förlora din data.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i sju enkla steg\",\"position\":2,\"text\":\"Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och språk. Allt sparas automatiskt.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi sätter ihop CV:t\",\"position\":3,\"text\":\"Allt landar automatiskt på rätt plats i mallen. Live-preview visar slutresultatet medan du skriver.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda ner som PDF eller Word\",\"position\":4,\"text\":\"När du är nöjd exporterar du ditt CV. Sparas i ditt konto för senare redigering.\"}],\"totalTime\":\"PT10M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Skapa CV gratis online med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.\",\"featureList\":\"Sju-stegs CV-byggare, live-preview, ATS-säkra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly\",\"name\":\"Jobbcoach.ai CV-byggare\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Skapa CV helt gratis, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/skapa-cv\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/personligt-brev",
+    "status": 200,
+    "h1": [
+      "Skräddarsy ditt brev till varje annons"
+    ],
+    "title": "Personligt brev som matchar annonsen | Jobbcoach.ai",
+    "description": "Vi läser annonsens kravprofil och skriver brevet mot den. Sju mallar, sex tonaliteter, export som PDF eller Word. Första brevet gratis, ingen kortuppgift.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/personligt-brev",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/personligt-brev/opengraph-image-t4ad01?df403e07131105ee",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj ditt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Klistra in jobbannonsen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj mall och ton"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF eller Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "7 mallar, en för varje bransch"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Klassisk"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Minimalist"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kompakt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Modern"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Executive"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kreativ"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Traditionell"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fem regler som höjer svarsfrekvensen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Använd annonsens egna ord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Visa siffror, inte adjektiv"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Håll brevet under en sida"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matcha företagets ton"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skriv tre stycken"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "När brevet svarar mot kraven har rekryteraren en anledning att ringa"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ett brev gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "PDF och Word"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "79 kr för hela veckan"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ditt nästa brev tar tre minuter, inte tre timmar."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det du undrar om brevverktyget"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "/",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Från start till färdig PDF tar det två till fyra minuter. Du laddar upp ditt CV (eller väljer ett du sparat), klistrar in jobbannonsen och väljer mall och ton. Vi sätter ihop brevet på några sekunder. Vill du justera något efteråt går det när som helst innan du laddar ner.\"},\"name\":\"Hur lång tid tar det att skapa ett brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ChatGPT skriver generella brev, har ingen koll på svenska arbetsmarknaden och kräver att du skriver bra prompts. Vi är byggda specifikt för svenska jobbansökningar: vår tjänst läser annonsen som rekryterare i Sverige skriver dem, matchar mot ditt CV, och optimerar för ATS-systemen som filtrerar ansökningar.\"},\"name\":\"Vad är skillnaden mot att skriva själv eller använda ChatGPT?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, både PDF och Word (.docx). Word-formatet är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.\"},\"name\":\"Kan jag ladda ner brevet som Word-dokument?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det första brevet är gratis, sedan skriver du ett nytt i veckan. Allt du skrivit ligger kvar att läsa och kopiera, även på gratisnivån. Vill du skriva utan tak och ladda ner breven som PDF och Word ingår det i CV-paketet för 79 kr i veckan.\"},\"name\":\"Hur många brev kan jag skapa gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vår tjänst läser ditt specifika CV och varje annons separat, så två personer som söker samma jobb får olika brev. Du väljer också ton och mall, vilket ger ytterligare variation. Det är ditt brev, vi hjälper bara till med strukturen och språket.\"},\"name\":\"Kommer brevet att kännas som något vi alla skickat in?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi följer GDPR, all data lagras i EU och vi säljer aldrig din information vidare. Du kan radera ditt konto när som helst, då försvinner allt, även våra kopior. Vi använder inte ditt CV för att träna någon modell.\"},\"name\":\"Är det säkert att lämna mitt CV och era brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Generellt: Klassisk eller Minimalist till de flesta vita-kragsroller. Modern eller Kreativ till tech, design och marknadsföring. Executive eller Traditionell till bank, juridik och konsultbyråer. Du kan byta mall efteråt utan att skriva om brevet.\"},\"name\":\"Vilken mall ska jag välja?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, från vården och offentlig sektor till tech och kreativa yrken. Tonalitetsvalen och de sju mallarna täcker spannet av svenska arbetsplatser. Med CV-paketet, 79 kr i veckan, väljer vi dessutom tonen åt dig: vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder.\"},\"name\":\"Fungerar brevet för alla branscher?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från tomt papper till färdig ansökan: välj CV, klistra in annons, välj mall och ton, ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så skapar du ett personligt brev med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj ditt CV\",\"position\":1,\"text\":\"Ladda upp eller välj ett CV du redan sparat. Vår tjänst plockar ut din erfarenhet och dina styrkor.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in jobbannonsen\",\"position\":2,\"text\":\"Vi läser annonsen, identifierar nyckelkraven och matchar dem mot din bakgrund.\"},{\"@type\":\"HowToStep\",\"name\":\"Välj mall och ton\",\"position\":3,\"text\":\"Sju mallar för olika branscher och sex tonalitetsval, från professionellt till entusiastiskt.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda ner som PDF eller Word\",\"position\":4,\"text\":\"Granska, finjustera om du vill, exportera. Spara brevet i ditt konto för senare.\"}],\"totalTime\":\"PT4M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Skräddarsy personliga brev som matchar jobbannonsen. Sju mallar, sex tonaliteter, ATS-optimerat. Export som PDF eller Word.\",\"featureList\":\"7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt\",\"name\":\"Jobbcoach.ai Personligt brev-verktyg\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Första brevet gratis, sedan ett i veckan. Ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/personligt-brev\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/jobbmatchning",
+    "status": 200,
+    "h1": [
+      "Hitta jobb som matchar ditt CV automatiskt"
+    ],
+    "title": "Jobbmatchning: lediga jobb som passar ditt CV | Jobbcoach.ai",
+    "description": "Vi läser ditt CV och matchar det mot lediga tjänster från Arbetsförmedlingen, med skälet till varje träff utskrivet. Tre träffar gratis, ingen kortuppgift.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/jobbmatchning",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/jobbmatchning/opengraph-image-vvryjo?7e6e1aad8673eccf",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Aktivera ditt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi extraherar yrkesdata"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi söker tusentals annonser"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Du får jobben sorterade"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex datapunkter ur ditt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Yrkesroller"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kompetenser"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utbildning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Plats"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Språk"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Erfarenhetsnivå"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex skäl att låta oss söka åt dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Roller du inte tänkt på själv"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matchning i procent per annons"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tusentals lediga jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Avstånd du väljer själv"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Uppdaterat varje dag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Bäst träff överst"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hitta ditt nästa jobb automatiskt."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om att söka jobb"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "/",
+      "/cv-exempel",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din utbildning och din ort och ger dig en matchnings-procent per annons. De jobb där du har starkast match hamnar överst i listan.\"},\"name\":\"Hur hittar jag jobb som passar mig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi söker direkt mot Arbetsförmedlingens öppna API som är Sveriges största samling av lediga jobb. Det innebär att du får tillgång till samma annonser som finns på arbetsformedlingen.se, men sorterade efter hur väl just ditt CV matchar varje tjänst.\"},\"name\":\"Var hittar jag lediga jobb i Sverige?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vår matchningstjänst extraherar nyckeldata från ditt CV: yrkesroller, kompetenser, utbildningsnivå, plats och språk. Sedan jämförs den datan mot kraven i varje jobbannons. Resultatet är en procentsiffra mellan 0 och 100 som visar hur väl just ditt CV svarar mot det specifika jobbet.\"},\"name\":\"Hur matchar man CV mot lediga jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Alla jobbannonser kommer från Arbetsförmedlingens öppna data, som täcker både offentlig och privat sektor i hela Sverige. Vi lägger inte till egna annonser och tar inte betalt av arbetsgivare för synlighet, så listan är opartisk och uppdaterad direkt från källan.\"},\"name\":\"Var kommer jobben ifrån?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Annonserna uppdateras dagligen. När en arbetsgivare publicerar en ny tjänst på Arbetsförmedlingen syns den i din feed inom timmar. När en tjänst tas bort försvinner den också automatiskt från listan, så du slipper söka jobb som redan är tillsatta.\"},\"name\":\"Hur ofta uppdateras jobbannonserna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i Hela paketet för 99 kr i veckan eller 149 kr i månaden.\"},\"name\":\"Är det gratis att söka jobb online hos er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi använder JobTech Taxonomy som är den officiella svenska standarden för yrkesklassificering, så funktionen täcker allt från undersköterskor och lärare till mjukvaruutvecklare och projektledare. Det enda kravet är att du har ett CV att aktivera.\"},\"name\":\"Funkar jobbmatchning för alla yrken?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, vi behöver något att matcha mot. Du kan antingen ladda upp ett befintligt CV i PDF eller Word, eller skapa ett nytt med vår CV-byggare. När CV:t är aktiverat extraheras all data automatiskt och du kan börja söka jobb direkt.\"},\"name\":\"Behöver jag ladda upp ett CV?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från aktiverat CV till sorterade jobbmatchningar: aktivera CV, vi extraherar yrkesdata, vi söker tusentals annonser, du får jobben sorterade efter relevans.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så hittar du jobb med Jobbcoach.ai jobbmatchning\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Aktivera ditt CV\",\"position\":1,\"text\":\"Ladda upp ett CV eller välj ett du redan sparat. Aktivering tar några sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi extraherar yrkesdata\",\"position\":2,\"text\":\"Vi läser ut yrkesroller, kompetenser, utbildning, plats och språk automatiskt.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi söker tusentals annonser\",\"position\":3,\"text\":\"Vi söker direkt mot Arbetsförmedlingens öppna API i hela Sverige.\"},{\"@type\":\"HowToStep\",\"name\":\"Du får jobben sorterade\",\"position\":4,\"text\":\"Varje annons får matchnings-procent. Toppmatchningarna hamnar överst.\"}],\"totalTime\":\"PT3M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Hitta jobb som matchar ditt CV automatiskt. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons.\",\"featureList\":\"Tusentals lediga jobb från Arbetsförmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige\",\"name\":\"Jobbcoach.ai jobbmatchning\",\"offers\":{\"@type\":\"Offer\",\"description\":\"3 fulla träffar med skälen gratis, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/jobbmatchning\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/personlighetstest",
+    "status": 200,
+    "h1": [
+      "Personlighetstest, gratis och utan konto"
+    ],
+    "title": "Personlighetstest gratis: vad rekryteraren läser ut av dig",
+    "description": "Tjugo påståenden på femfaktormodellen, samma modell som MAP och de flesta svenska rekryteringstest. Din profil direkt, med en rad per faktor.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/personlighetstest",
+    "ogImage": "",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svara på tjugo påståenden"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se profilen direkt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spara den med ett gratiskonto"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gör hela testet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "De fem faktorerna och vad rekryteraren ser i dem"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Samvetsgrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utåtriktning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Stabilitet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vänlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppenhet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Femtio påståenden, gratis i kontot"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om personlighetstestet"
+      }
+    ],
+    "lankar": [
+      "#provet",
+      "#provet",
+      "#sa-funkar-det",
+      "/",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Provet med tjugo påståenden kräver inget konto. Med ett gratiskonto sparar du profilen och får hela tolkningen, och hela testet med femtio påståenden ingår också gratis.\"},\"name\":\"Är personlighetstestet gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Femfaktormodellen, även kallad Big Five. Det är samma modell som MAP från Assessio och de flesta personlighetstest i svensk rekrytering bygger på. Faktorerna är samvetsgrannhet, utåtriktning, stabilitet, vänlighet och öppenhet.\"},\"name\":\"Vilken modell bygger testet på?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tjugo påståenden ger en riktning, inte ett exakt tal. Därför visar vi bandord i stället för poäng. Vill du ha en profil du kan lita på gör du hela testet med femtio påståenden i kontot.\"},\"name\":\"Räcker tjugo påståenden för en profil?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Hälften av påståendena är formulerade åt andra hållet, så att \\\"stämmer inte\\\" ger högt värde på faktorn. Det är så ett test ser om du svarar konsekvent. Efter att du skapat ett konto ser du vilka tio som var omvända och hur konsekvent du svarade.\"},\"name\":\"Vad är omvända påståenden?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du kan vänja dig vid formatet, och det är värt det. Svaren ska däremot vara ärliga: de flesta test har en indikator som flaggar tillrättalagda svar, och den som svarar sig in i fel roll hamnar på en arbetsplats där hen trivs sämre.\"},\"name\":\"Kan jag öva inför ett skarpt personlighetstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Grundtestet med femtio påståenden är gratis. Med Träningspaketet, 79 kr i veckan eller Hela paketet, 99 kr i veckan, ingår det fördjupade testet med 120 påståenden och 30 delfaktorer, och intervjuprovet utan tak.\"},\"name\":\"Vad ingår om jag betalar?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Tjugo påståenden på femfaktormodellen, samma modell som MAP och de flesta svenska rekryteringstest. Din profil direkt, med en rad per faktor.\",\"name\":\"Jobbcoach.ai Personlighetstest\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Gratis, utan konto\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/personlighetstest\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/cv-analys",
+    "status": 200,
+    "h1": [
+      "Få konkret feedback på ditt CV på 60 sekunder"
+    ],
+    "title": "CV-analys: poäng och konkreta förslag | Jobbcoach.ai",
+    "description": "Vi läser ditt CV som ett rekryteringssystem gör och ger dig en läsbarhetspoäng, betyg i sex kategorier och konkreta åtgärder. En analys gratis per konto.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/cv-analys",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/cv-analys/opengraph-image-j3dyn0?fba8bd718b8c5b98",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Analysera ditt CV direkt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda upp ditt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi analyserar i bakgrunden"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Få ATS-poäng och förslag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spara den förbättrade versionen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex saker rekryteraren och systemet ser först"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsbarhet för rekryteringssystem"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Struktur"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Språk och grammatik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Nyckelord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kvantifiering"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Profil och styrkor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fem saker som lyfter vilket CV som helst"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kvantifiera dina resultat"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Börja varje punkt med ett verb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Använd annonsens egna ord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "En sida räcker ofta"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hoppa över bilden"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hela analysen, varje fynd med åtgärd."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Frågor om CV-analysen"
+      }
+    ],
+    "lankar": [
+      "#mini-analys",
+      "#mini-analys",
+      "#mini-analys",
+      "#sa-funkar-det",
+      "/",
+      "/exempel",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Mellan 30 och 60 sekunder från att du klickat på \\\"Analysera\\\". Vi läser igenom hela CV:t, kontrollerar struktur, språk, nyckelord och kvantifiering, och returnerar en ATS-poäng samt konkreta förbättringsförslag i sex kategorier. Du behöver inte vänta vid skärmen, du får ett mejl när analysen är klar.\"},\"name\":\"Hur lång tid tar en CV-analys?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS-poängen är ett mått från 0 till 100 på hur väl ditt CV fungerar med Applicant Tracking Systems som svenska arbetsgivare använder för att sålla bland ansökningar. 70 och uppåt betyder goda chanser att passera, 80 är mycket bra, 90 är toppnivå. Vi testar mot strukturkrav, läsbarhet, nyckelords-täckning och formatering.\"},\"name\":\"Vad betyder ATS-poängen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får förslag inom sex kategorier: ATS-kompatibilitet (rubriker, formatering), Struktur (avsnittslängd, ordningsföljd), Språk och grammatik (aktiva verb, svammelord, tonläge), Nyckelord (branschtermer som saknas), Kvantifiering (siffror och resultat) samt Profil och styrkor (öppningsbeskrivning, personliga styrkor). För varje punkt ser du den nuvarande texten, en föreslagen omskrivning och hur många poäng den ger.\"},\"name\":\"Vilka förbättringsförslag får jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi stöder både svenska och engelska CV. Analysen anpassar sig automatiskt till språket och kontrollerar grammatik, vokabulär och stil mot rätt språkmodell. Tänk på att svenska arbetsgivare oftast föredrar ansökningar på svenska om jobbet inte är uttalat internationellt.\"},\"name\":\"Behöver jag ha CV:t på svenska?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En analys per konto är gratis, utan att du lämnar kortuppgifter. Du ser läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet i klartext med åtgärd. Vill du se alla fynd och köra om analysen efter en rättning ingår det i CV-paketet för 79 kr i veckan.\"},\"name\":\"Hur många analyser får jag göra gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Med CV-paketet, 79 kr i veckan, sparar du hur många CV-versioner du vill och ser poängen sida vid sida. Det är användbart när du testar olika rubriker, byter ordningsföljd eller skräddarsyr CV:t för en specifik bransch och vill veta vilken version som faktiskt presterar bäst.\"},\"name\":\"Kan jag jämföra olika versioner av mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. All data lagras i EU enligt GDPR, vi säljer aldrig din information vidare och vi använder inte ditt CV för att träna någon modell. Du kan radera kontot med ett klick och då försvinner allt, även våra kopior.\"},\"name\":\"Är mitt CV säkert hos er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får upp resultatet direkt och kan välja vilka förslag du vill applicera. Klickar du i en förbättring uppdateras potentialpoängen i realtid så du ser exakt hur mycket bättre CV:t blir. När du är nöjd kan du spara den förbättrade versionen och ladda ner den som PDF eller Word.\"},\"name\":\"Vad händer efter analysen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från upplagt CV till starkare ansökan: ladda upp, vi analyserar, få ATS-poäng, spara förbättrad version.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så analyserar du ditt CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Ladda upp ditt CV\",\"position\":1,\"text\":\"Ladda upp ett befintligt CV som PDF eller välj ett du redan sparat. Vi accepterar både svenska och engelska.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi analyserar i bakgrunden\",\"position\":2,\"text\":\"Det tar 30 till 60 sekunder. Vi kontrollerar struktur, språk, nyckelord och kvantifierade resultat.\"},{\"@type\":\"HowToStep\",\"name\":\"Få ATS-poäng och förslag\",\"position\":3,\"text\":\"Du får en ATS-poäng från 0 till 100 plus förslag i sex kategorier med exakt vad som bör ändras.\"},{\"@type\":\"HowToStep\",\"name\":\"Spara den förbättrade versionen\",\"position\":4,\"text\":\"Välj vilka förslag du vill applicera, granska before/after och ladda ner som PDF eller Word.\"}],\"totalTime\":\"PT60S\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"CV-analys som ger ATS-poäng från 0 till 100, sex kategori-betyg och konkreta förbättringsförslag på 60 sekunder. Anpassad för svenska arbetsgivare.\",\"featureList\":\"ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), before/after-text, konkreta förbättringsförslag, svenska och engelska CV\",\"name\":\"Jobbcoach.ai CV-analys\",\"offers\":{\"@type\":\"Offer\",\"description\":\"1 CV-analys gratis per konto, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/cv-analys\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/",
+    "status": 200,
+    "h1": [
+      "Därför får du inte svar på dina ansökningar"
+    ],
+    "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+    "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+    "canonical": "",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "start-matchning",
+        "text": "Vi matchar din erfarenhet mot tjänstens krav"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Robotarna har redan läst ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "start-verktyg",
+        "text": "Tre verktyg som gör ansökan starkare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analys"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbmatchning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h2",
+        "id": "start-mer",
+        "text": "Och resten av jobbsöket"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-paket",
+        "text": "Tre paket. Ett för CV:t, ett för träningen, ett för hela jobbsöket."
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-paketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träningspaketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hela paketet"
+      },
+      {
+        "tag": "h2",
+        "id": "start-faq",
+        "text": "Svaren på det du undrar"
+      }
+    ],
+    "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "#sa-jobbar-vi",
+      "/cv-exempel",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [],
+    "forstaBild": null
+  }
+]
