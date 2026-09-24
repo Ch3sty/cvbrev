@@ -103,6 +103,14 @@ export interface AnalyticsEvents {
     claimed: boolean
     via: 'forslag' | 'smakprov' | 'redirect' | 'paket' | 'sparval'
   }
+  /* ------------------------------------------ profilsidan
+     docs/design/profil-registrering-spec-2026-09-24.md, Del A. Aldrig
+     fältets värde, bara vilket fält och var. */
+  profile_viewed: { missing: ('namn' | 'ort')[]; har_foto: boolean; anchor: string }
+  profile_field_saved: { field: string; section: 'cv' | 'personliga_brev' | 'jobbsok' | 'konto' }
+  profile_photo_uploaded: { source: 'upload'; resized: boolean; bytes_before: number; bytes_after: number }
+  profile_photo_failed: { reason: 'too_large' | 'type' | 'network' }
+  letter_tone_default_set: { tone: string }
   draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality'; yrke_slug?: string }
   activation_first_doc: { kind: 'letter' | 'cv' }
   /* ---------------------------------------------- jobbmatchningen, våg 1

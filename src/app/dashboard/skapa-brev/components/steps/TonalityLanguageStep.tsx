@@ -24,6 +24,7 @@ import {
   type IkonProps,
 } from '@/components/illustrations/Ikoner';
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
+import { ANDRA_FORVALD_TON } from '@/app/dashboard/profil/profil-copy';
 
 type Tonality =
   | 'professional'
@@ -160,6 +161,14 @@ export default function TonalityLanguageStep({
           );
         })}
       </div>
+
+      {/* Länken in till profilens förvalda ton (profil-registrering 2026-09-24, Del A). */}
+      <Link
+        href="/dashboard/profil#personliga-brev"
+        className="inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+      >
+        {ANDRA_FORVALD_TON}
+      </Link>
 
       <div className="pt-1">
         <p className="text-sm font-medium text-ink-1">Brevets språk</p>

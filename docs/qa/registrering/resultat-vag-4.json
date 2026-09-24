@@ -1,0 +1,117 @@
+[
+  {
+    "namn": "pixel7: fotoramen och knappen inom 900 px",
+    "ok": true,
+    "not": "{\"ram\":602,\"knapp\":569,\"cvSlut\":1383}"
+  },
+  {
+    "namn": "pixel7: Överst i ditt CV slutar före 1 400 px",
+    "ok": true,
+    "not": "1383"
+  },
+  {
+    "namn": "statusrad: Ort saknas i ditt CV",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "statusrad: ordet foto nämns inte",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "sektionsordning cv, personliga-brev, jobbsok, konto",
+    "ok": true,
+    "not": "[\"cv\",\"personliga-brev\",\"jobbsok\",\"konto\"]"
+  },
+  {
+    "namn": "växlarna för brevhuvudet bara i Personliga brev",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "profil: CLS 0",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "Hoppa till: Personliga brev med rubriken under toppraden",
+    "ok": true,
+    "not": "215"
+  },
+  {
+    "namn": "ton: Självsäker sparad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "foto: 5 MB-fotot sparat",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "foto: sparat under 2 MB (lagrat i bucketen)",
+    "ok": true,
+    "not": "{\"storlek\":[122154],\"fore\":5486346,\"anrop\":1}"
+  },
+  {
+    "namn": "foto: PDF ger felraden Filen går inte att läsa",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "foto: ingen toast",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "foto: Ta bort sparat",
+    "ok": true,
+    "not": "{\"profile_photo_url\":\"\",\"preferred_tonality\":\"confident\"}"
+  },
+  {
+    "namn": "ton: confident i databasen",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "statusrad: försvinner med namn och ort ifyllda",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "omladdning: ton och ort sparade",
+    "ok": true,
+    "not": "{\"ton\":\"confident\",\"ort\":\"Örebro\",\"rubrik\":215}"
+  },
+  {
+    "namn": "#personliga-brev landar med rubriken synlig under toppraden",
+    "ok": true,
+    "not": "215"
+  },
+  {
+    "namn": "konto: Mejl från oss öppnar arket med två växlar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop: CV-huvudets förhandsvisning till höger",
+    "ok": true,
+    "not": "{\"synlig\":true,\"bredd\":232,\"text\":\"Anna Bar\\nÖrebro\\nSå ser CV:ts huvud ut i mallar med foto. Fylls i medan du skriver.\"}"
+  },
+  {
+    "namn": "desktop: CLS 0",
+    "ok": false,
+    "not": "[{\"v\":0.002,\"src\":[\"DIV#.flex flex-shrink-0 items-center gap-1\"]}]"
+  },
+  {
+    "namn": "Smart val: luckan med paketnamn och pris",
+    "ok": true,
+    "not": ""
+  }
+]

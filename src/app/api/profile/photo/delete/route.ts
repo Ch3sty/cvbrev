@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export async function DELETE(request: NextRequest) {
   try {
     // Create Supabase client
     const cookieStore = await cookies();
-    const supabase = createServerClient(
+    // Sessionen läses med användarens cookies. Lagringen och profilraden
+    // skrivs med service role: klienten ovan bar användarens JWT, så
+    // lagringens RLS (första mappen ska vara användar-id) stoppade varje
+    // uppladdning till users/{id}/ (profil-registrering 2026-09-24, QA).
+    const authKlient = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
       {
@@ -20,13 +25,14 @@ export async function DELETE(request: NextRequest) {
     );
 
     // Get authenticated user
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { data: { user }, error: authError } = await authKlient.auth.getUser();
     if (authError || !user) {
       return NextResponse.json(
         { error: 'Ej auktoriserad' },
         { status: 401 }
       );
     }
+    const supabase = getSupabaseAdmin() as any;
 
     // Get current profile photo path
     const { data: currentProfile, error: fetchError } = await supabase

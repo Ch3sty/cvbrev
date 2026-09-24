@@ -188,7 +188,7 @@ export function brickaText(
         titel: 'Profilen ifylld',
         text: 'Önskad roll och ort',
         kort: 'fyll i profilen',
-        href: '/dashboard/profil#inriktning',
+        href: '/dashboard/profil#jobbsok',
         knapp: 'Fyll i profilen',
       }
     case 'cv_upp':

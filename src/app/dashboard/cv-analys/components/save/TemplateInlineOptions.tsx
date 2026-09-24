@@ -81,7 +81,7 @@ export default function TemplateInlineOptions({
 
       {hasMissingData && (
         <Link
-          href="/dashboard/profil"
+          href="/dashboard/profil#cv"
           className="inline-flex items-center text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark transition-colors hover:decoration-ink-1"
         >
           Lägg till saknad info i profilen

@@ -227,7 +227,7 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
         <button type="button" onClick={snooze} className={LINK}>
           Inte nu
         </button>
-        <Link href="/dashboard/profil#presentation" className={LINK}>
+        <Link href="/dashboard/profil#cv" className={LINK}>
           Se hela profilen
         </Link>
       </div>

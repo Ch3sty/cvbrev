@@ -35,7 +35,7 @@ export const TONALITIES: TonalityOption[] = [
   {
     value: 'creative',
     label: 'Kreativ',
-    shortDescription: 'Personlig och innovativ, passar reklam, design och media.',
+    shortDescription: 'Personlig och nytänkande, passar reklam, design och media.',
   },
   {
     value: 'confident',
@@ -50,7 +50,7 @@ export const TONALITIES: TonalityOption[] = [
   {
     value: 'auto',
     label: 'Smart val',
-    shortDescription: 'Vi väljer ton automatiskt utifrån varje annons.',
+    shortDescription: 'Vi väljer ton utifrån varje annons.',
     premium: true,
   },
 ]
