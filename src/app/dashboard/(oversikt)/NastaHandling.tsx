@@ -9,10 +9,15 @@
  * sedan AF-fönstret, sedan exakt en oprövad funktion i taget.
  */
 
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { capture } from '@/lib/analytics/events'
+import { GRUNDTEST_HREF, nyttProvHref } from '@/lib/intervju/lankar'
+import { nar } from '@/lib/intervju/nasta'
+import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import type { NextBestAction } from '@/hooks/useNextBestAction'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
-import { IlluScenBrev, IlluScenCv, IlluScenUppfoljning } from '@/components/illustrations/PriserScener'
+import { IlluScenBrev, IlluScenCv, IlluScenIntervju, IlluScenUppfoljning } from '@/components/illustrations/PriserScener'
 
 interface NastaHandlingProps {
   action: NextBestAction
@@ -40,6 +45,22 @@ function copyFor(action: NonNullable<NextBestAction>) {
         cta: 'Öppna rapporten',
         Scen: IlluScenBrev,
       }
+    case 'interview-rewrite':
+      return {
+        title: HEM.omskrivning.rubrik(action.prov.question),
+        text: HEM.omskrivning.text(action.prov.level, nar(action.prov.createdAt), action.prov.missingKind, action.prov.question),
+        href: nyttProvHref(action.prov.question),
+        cta: HEM.omskrivning.knapp,
+        Scen: IlluScenIntervju,
+      }
+    case 'personality-full':
+      return {
+        title: HEM.helaTestet.rubrik,
+        text: HEM.helaTestet.text,
+        href: GRUNDTEST_HREF,
+        cta: HEM.helaTestet.knapp,
+        Scen: IlluScenIntervju,
+      }
     case 'feature':
       return {
         title: action.feature.cta,
@@ -52,6 +73,11 @@ function copyFor(action: NonNullable<NextBestAction>) {
 }
 
 export default function NastaHandling({ action, onDismiss }: NastaHandlingProps) {
+  const kind = action?.kind ?? null
+  // Mätningen av de nya stegen (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 4).
+  useEffect(() => {
+    if (kind) capture('next_action_shown', { kind, surface: 'hem' })
+  }, [kind])
   if (!action) return null
   const copy = copyFor(action)
   return (

@@ -102,7 +102,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
     pipeline: (summary?.applications.pipeline ?? []) as ApplicationsSummary['pipeline'],
   } satisfies ApplicationsSummary;
 
-  const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary);
+  const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary, summary?.intervju);
   const recommendedSlug =
     rewardClaimed && nextAction?.kind === 'feature' ? nextAction.feature.slug : null;
 

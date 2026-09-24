@@ -231,7 +231,7 @@ export default function RekryteringstesterSida() {
             rubrik: 'Ta reda på vad rekryteraren ser i dig',
             ingress: `De flesta arbetsgivare utgår från Big Five när de mäter personlighet i rekrytering. Bygg din egen profil och se var du hamnar på de fem dimensionerna. Det finns inga rätta svar, och resultatet kan du använda inför intervjun. Gratis: 50 frågor, cirka 10 minuter. Med ${TRANINGSPAKETET.name} eller ${PLAN_BY_KEY.all_week.name}: det fördjupade testet, 120 påståenden och 30 delfaktorer, cirka 25 minuter.`,
             rader: BIG_FIVE,
-            lank: { text: 'Testa din personlighet och se vad rekryteraren ser', href: '/register' },
+            lank: { text: 'Gör personlighetsprovet, tjugo påståenden utan konto', href: '/verktyg/personlighetstest' },
           },
           {
             eyebrow: 'Vad som ingår',

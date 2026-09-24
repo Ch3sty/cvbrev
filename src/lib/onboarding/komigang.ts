@@ -31,6 +31,7 @@ export type BrickaKey =
   | 'verbalt_numeriskt_grund'
   | 'provlage'
   | 'personlighet'
+  | 'intervjuprov'
   | 'kurva'
 
 /** Hjälpredans fyra listor. Null är gratisnivån. */
@@ -45,6 +46,7 @@ export const KOM_IGANG_LISTA: Record<'cv' | 'tester' | 'allt' | 'gratis', readon
     'verbalt_numeriskt_grund',
     'provlage',
     'personlighet',
+    'intervjuprov',
     'kurva',
     'cv_upp',
   ],
@@ -60,6 +62,9 @@ export const KOM_IGANG_LISTA: Record<'cv' | 'tester' | 'allt' | 'gratis', readon
     'bli_upptackt',
     'coach',
     'matris_grund',
+    // Inför intervjun (docs/design/rod-trad-prov-spec-2026-09-24.md). Listan
+    // saknar personlighetsbrickan, så intervjuprovet står sist.
+    'intervjuprov',
   ],
   gratis: ['profil', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'],
 }
@@ -279,6 +284,16 @@ export function brickaText(key: BrickaKey, paket: Paket, fakta: BrickaFakta = {}
         kort: 'personlighetstestet',
         href: '/dashboard/tester/personlighet-grund',
         knapp: 'Gör personlighetstestet',
+      }
+    case 'intervjuprov':
+      return {
+        key,
+        titel: 'Intervjuprovet, utan tak',
+        text: 'Svara som i rummet, få nivå och omskrivning',
+        klarText: 'Provet finns under Inför intervjun',
+        kort: 'intervjuprovet',
+        href: '/dashboard/intervju/ny',
+        knapp: 'Gör ett intervjuprov',
       }
     case 'kurva':
       return {

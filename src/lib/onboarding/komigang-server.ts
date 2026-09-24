@@ -125,6 +125,8 @@ export interface ProvadeUnderlag {
   /** test_type för slutförda sessioner i logic_test_v4_sessions. */
   testTypes: readonly (string | null)[]
   personalityCompleted: number
+  /** Intervjuprov skrivna inloggad (anon_interview_samples.user_id). Valfritt för äldre anropare. */
+  intervjuprovCount?: number
 }
 
 /** Vilka brickor som är provade, oavsett paket. Listan filtreras sedan per paket. */
@@ -145,6 +147,7 @@ export function harledProvade(u: ProvadeUnderlag): BrickaKey[] {
   if (u.visibility && u.visibility !== 'off') provade.add('bli_upptackt')
   if (u.conversationCount > 0) provade.add('coach')
   if (u.personalityCompleted > 0) provade.add('personlighet')
+  if ((u.intervjuprovCount ?? 0) > 0) provade.add('intervjuprov')
 
   for (const t of u.testTypes) {
     for (const key of brickorForTestType(t)) provade.add(key)
@@ -170,6 +173,7 @@ export function harledProvade(u: ProvadeUnderlag): BrickaKey[] {
     'verbalt_numeriskt_grund',
     'provlage',
     'personlighet',
+    'intervjuprov',
     'kurva',
   ]
   return KEYS.filter((k) => provade.has(k))
@@ -198,6 +202,7 @@ export async function hamtaProvadeUnderlag(admin: any, userId: string): Promise<
     convRes,
     testRes,
     personalityRes,
+    intervjuRes,
   ] = await Promise.all([
     admin.from('profiles').select('onboarding_steps, goal_role, location').eq('id', userId).maybeSingle(),
     admin.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', userId),
@@ -222,6 +227,7 @@ export async function hamtaProvadeUnderlag(admin: any, userId: string): Promise<
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
       .not('completed_at', 'is', null),
+    admin.from('anon_interview_samples').select('token', { count: 'exact', head: true }).eq('user_id', userId),
   ])
 
   const profil = (profileRes?.data ?? null) as Record<string, unknown> | null
@@ -240,5 +246,6 @@ export async function hamtaProvadeUnderlag(admin: any, userId: string): Promise<
     conversationCount: convRes?.count ?? 0,
     testTypes: ((testRes?.data ?? []) as Array<{ test_type: string | null }>).map((r) => r.test_type),
     personalityCompleted: personalityRes?.count ?? 0,
+    intervjuprovCount: intervjuRes?.count ?? 0,
   }
 }

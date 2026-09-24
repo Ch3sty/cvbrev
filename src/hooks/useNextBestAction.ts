@@ -7,8 +7,11 @@
 // Rankning:
 //   1. Uppföljningsnudge: pågående ansökningar med 14+ dagars tystnad
 //   2. AF-rapportfönstret: den 1:a till 14:e, om något söktes förra månaden
-//   3. En (1) oprövad nyckelfunktion från useUnusedFeatures (Bli upptäckt först)
-//   4. Ingenting: etablerade användare får ytan till Snabbåtgärder i stället
+//   3. Intervjuprovet: senaste provet 3 av 5 eller lägre och äldre än ett dygn
+//   4. Personlighetsprovet gjort men inte hela testet
+//      (3 och 4: docs/design/rod-trad-prov-spec-2026-09-24.md, avfärdas sju dagar)
+//   5. En (1) oprövad nyckelfunktion från useUnusedFeatures (Bli upptäckt först)
+//   6. Ingenting: etablerade användare får ytan till Snabbåtgärder i stället
 //
 // Varje typ har egen avfärdning med vettig livslängd (nudge 7 dagar,
 // AF-påminnelsen till nästa fönster, features via useUnusedFeatures egna).
@@ -18,15 +21,20 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useUnusedFeatures, type FeatureSpotlightItem, type FeatureSlug } from '@/hooks/useUnusedFeatures';
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
+import { hemIntervjuSteg, type IntervjuHem, type ProvSammanfattning } from '@/lib/intervju/nasta';
 
 export type NextBestAction =
   | { kind: 'follow-up'; count: number }
   | { kind: 'af-report'; monthLabel: string; count: number }
+  | { kind: 'interview-rewrite'; prov: ProvSammanfattning }
+  | { kind: 'personality-full'; smakprovToken: string }
   | { kind: 'feature'; feature: FeatureSpotlightItem }
   | null;
 
 const DISMISS_FOLLOW_UP = 'nasta-steg-follow-up-until';
 const DISMISS_AF = 'nasta-steg-af-until';
+const DISMISS_INTERVJU = 'nasta-steg-interview-rewrite-until';
+const DISMISS_PERSONLIGHET = 'nasta-steg-personality-full-until';
 const FOLLOW_UP_SNOOZE_DAYS = 7;
 
 function isSnoozed(key: string): boolean {
@@ -53,7 +61,10 @@ interface UseNextBestActionResult {
   dismiss: () => void;
 }
 
-export function useNextBestAction(appSummary: ApplicationsSummary): UseNextBestActionResult {
+export function useNextBestAction(
+  appSummary: ApplicationsSummary,
+  intervju?: IntervjuHem | null
+): UseNextBestActionResult {
   const { feature, loading: featuresLoading, dismiss: dismissFeature } = useUnusedFeatures();
   // Bump för att räkna om efter en dismiss (localStorage är inte reaktivt).
   const [, setVersion] = useState(0);
@@ -68,17 +79,27 @@ export function useNextBestAction(appSummary: ApplicationsSummary): UseNextBestA
     if (inAfWindow(now) && appSummary.prevMonthCount > 0 && !isSnoozed(DISMISS_AF)) {
       return { kind: 'af-report', monthLabel: prevMonthLabel(now), count: appSummary.prevMonthCount };
     }
+    const steg = hemIntervjuSteg(intervju, now.getTime(), (kind) =>
+      isSnoozed(kind === 'interview-rewrite' ? DISMISS_INTERVJU : DISMISS_PERSONLIGHET)
+    );
+    if (steg) return steg;
     if (feature) {
       return { kind: 'feature', feature };
     }
     return null;
-  }, [appSummary, feature]);
+  }, [appSummary, feature, intervju]);
 
   const dismiss = useCallback(() => {
     if (!action) return;
     if (action.kind === 'follow-up') {
       localStorage.setItem(
         DISMISS_FOLLOW_UP,
+        String(Date.now() + FOLLOW_UP_SNOOZE_DAYS * 24 * 60 * 60 * 1000)
+      );
+      setVersion((v) => v + 1);
+    } else if (action.kind === 'interview-rewrite' || action.kind === 'personality-full') {
+      localStorage.setItem(
+        action.kind === 'interview-rewrite' ? DISMISS_INTERVJU : DISMISS_PERSONLIGHET,
         String(Date.now() + FOLLOW_UP_SNOOZE_DAYS * 24 * 60 * 60 * 1000)
       );
       setVersion((v) => v + 1);

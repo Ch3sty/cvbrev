@@ -36,6 +36,9 @@ import {
 import type { BrickaFakta, BrickaKey } from '@/lib/onboarding/komigang'
 import { harledProvade, sparadeNycklar } from '@/lib/onboarding/komigang-server'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { hamtaProv, hamtaSenasteSmakprov } from '@/lib/intervju/data'
+import type { IntervjuHem } from '@/lib/intervju/nasta'
 
 export interface DashboardSummaryPipelineItem {
   id: string
@@ -141,6 +144,12 @@ export interface DashboardSummaryData {
   }
   /** Superadmin: menyn visar länken till adminen. */
   arAdmin?: boolean
+  /**
+   * Inför intervjun (docs/design/rod-trad-prov-spec-2026-09-24.md): hemskärmens
+   * två nya steg i Nästa handling. Valfritt eftersom ett äldre svar i
+   * sessionStorage-cachen kan sakna det.
+   */
+  intervju?: IntervjuHem
 }
 
 /** Ett svar i samma form som en PostgREST-fråga, så aggregeringen är en och samma. */
@@ -373,7 +382,11 @@ export async function getDashboardSummary(
   supabase: any,
   userId: string
 ): Promise<DashboardSummaryData> {
+  // Proven läses med admin-klienten (RLS utan policies) i samma omgång som
+  // resten, två frågor till och ingen efter mount.
+  const intervjuLas = hamtaIntervjuRader(userId)
   const rader = (await hamtaViaRpc(supabase)) ?? (await hamtaParallellt(supabase, userId))
+  const intervjuRader = await intervjuLas
   const {
     lettersRes,
     cvRes,
@@ -570,6 +583,7 @@ export async function getDashboardSummary(
     conversationCount: convRes.count ?? 0,
     testTypes: testRader.map((r) => r.test_type),
     personalityCompleted: personalityRes.count ?? 0,
+    intervjuprovCount: intervjuRader.prov.length,
   })
 
   const matrisBasta = testRader
@@ -639,5 +653,25 @@ export async function getDashboardSummary(
       ansokningar: apps.length,
     },
     arAdmin: Boolean(adminRes?.data),
+    intervju: {
+      antalProv: intervjuRader.prov.length,
+      senaste: intervjuRader.prov[0] ?? null,
+      smakprovToken: intervjuRader.smakprovToken,
+      harProfil: (personalityRes.count ?? 0) > 0,
+    },
+  }
+}
+
+/** Proven och smakprovet för hemskärmen. Ett läsfel ger tomma svar, aldrig ett fel. */
+async function hamtaIntervjuRader(
+  userId: string
+): Promise<{ prov: Awaited<ReturnType<typeof hamtaProv>>; smakprovToken: string | null }> {
+  try {
+    const admin = getSupabaseAdmin() as any
+    const [prov, smakprov] = await Promise.all([hamtaProv(admin, userId, 20), hamtaSenasteSmakprov(admin, userId)])
+    return { prov, smakprovToken: smakprov?.token ?? null }
+  } catch (err) {
+    console.error('[summary] Kunde inte läsa intervjuproven:', err)
+    return { prov: [], smakprovToken: null }
   }
 }

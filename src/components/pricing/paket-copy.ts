@@ -67,6 +67,8 @@ export interface PaketRad {
   mobil?: boolean
   /** Kortare rubrik på mobil. */
   rubrikMobil?: string
+  /** Textlänk efter texten, till exempel till ett prov utan konto. */
+  lank?: { text: string; href: string }
 }
 
 export interface PaketKortCopy {
@@ -184,6 +186,8 @@ export const PAKET_KORT: Record<PaketId, PaketKortCopy> = {
         ikon: 'kurva',
         rubrik: 'Vet vad personlighetstestet säger om dig',
         text: 'Det fördjupade testet, 120 påståenden. Se hur profilen tolkas och förbered svaren på frågorna som följer. Grundtestet är gratis.',
+        // Personlighetsprovet utan konto (docs/design/rod-trad-prov-spec-2026-09-24.md).
+        lank: { text: 'Gör provet utan konto', href: '/verktyg/personlighetstest' },
       },
       {
         ikon: 'kurva',

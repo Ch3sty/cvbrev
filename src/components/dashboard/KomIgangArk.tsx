@@ -31,6 +31,7 @@ import {
   IlluScenBrev,
   IlluScenCoach,
   IlluScenCv,
+  IlluScenIntervju,
   IlluScenMatch,
   IlluScenMatris,
   type ScenProps,
@@ -64,6 +65,7 @@ export const BRICKA_IKON: Record<BrickaKey, ComponentType<ScenProps>> = {
   verbalt_numeriskt_grund: IlluBrickaDiag,
   provlage: IlluScenMatris,
   personlighet: IlluBrickaPerson,
+  intervjuprov: IlluScenIntervju,
   kurva: IlluBrickaKurva,
 }
 

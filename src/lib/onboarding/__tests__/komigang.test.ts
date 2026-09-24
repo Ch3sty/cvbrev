@@ -31,10 +31,11 @@ const TOMT: ProvadeUnderlag = {
 }
 
 describe('listorna', () => {
-  it('har exakt specens antal: CV 8, Test 8, Allt 11, gratis 5', () => {
+  // Intervjuprovet tillkom i Test och Allt 2026-09-24 (rod-trad-prov-spec).
+  it('har exakt specens antal: CV 8, Test 9, Allt 12, gratis 5', () => {
     expect(KOM_IGANG_LISTA.cv).toHaveLength(8)
-    expect(KOM_IGANG_LISTA.tester).toHaveLength(8)
-    expect(KOM_IGANG_LISTA.allt).toHaveLength(11)
+    expect(KOM_IGANG_LISTA.tester).toHaveLength(9)
+    expect(KOM_IGANG_LISTA.allt).toHaveLength(12)
     expect(KOM_IGANG_LISTA.gratis).toHaveLength(5)
   })
 
@@ -45,10 +46,15 @@ describe('listorna', () => {
     expect(KOM_IGANG_LISTA.tester[1]).toBe('matris_grund')
   })
 
-  it('Allt är CV-listan med jobbmatchningen efter uppdatera_cv, sedan bli upptäckt, coachen, testerna', () => {
+  it('Allt är CV-listan med jobbmatchningen efter uppdatera_cv, sedan bli upptäckt, coachen, testerna, intervjuprovet', () => {
     const allt = KOM_IGANG_LISTA.allt
     expect(allt[allt.indexOf('uppdatera_cv') + 1]).toBe('jobbmatchning')
-    expect(allt.slice(-3)).toEqual(['bli_upptackt', 'coach', 'matris_grund'])
+    expect(allt.slice(-4)).toEqual(['bli_upptackt', 'coach', 'matris_grund', 'intervjuprov'])
+  })
+
+  it('Intervjuprovet står efter personlighetstestet i Test', () => {
+    const t = KOM_IGANG_LISTA.tester
+    expect(t[t.indexOf('personlighet') + 1]).toBe('intervjuprov')
   })
 
   it('varje bricka har titel, text, kort och en adress i appen', () => {

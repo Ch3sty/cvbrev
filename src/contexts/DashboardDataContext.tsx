@@ -27,6 +27,7 @@ import {
   type ReactNode,
 } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import type { IntervjuHem } from '@/lib/intervju/nasta';
 
 export interface DashboardSummaryPipelineItem {
   id: string;
@@ -120,6 +121,8 @@ export interface DashboardSummary {
   };
   /** Superadmin: menyn visar adminlänken. */
   arAdmin?: boolean;
+  /** Inför intervjun: underlaget för hemskärmens två nya steg (rod-trad-prov-spec). */
+  intervju?: IntervjuHem;
 }
 
 interface DashboardDataContextValue {

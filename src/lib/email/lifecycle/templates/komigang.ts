@@ -224,6 +224,13 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
         body: `${hej} Personlighetstestet ger en profil, inte ett betyg. Tolkningen visar hur en rekryterare läser den, och vad du kan vänta dig för frågor.`,
         cta: 'Gör personlighetstestet',
       };
+    case 'intervjuprov':
+      return {
+        subject: 'Svara som i rummet, så säger vi vad rekryteraren hör.',
+        preheader: 'Sju vanliga intervjufrågor. Nivå och omskrivning direkt.',
+        body: `${hej} Intervjuprovet ligger under Inför intervjun. Skriv ditt svar på en fråga du vet att du får, så får du en nivå från 1 till 5, vad som saknas och ditt svar omskrivet.`,
+        cta: 'Gör ett intervjuprov',
+      };
     case 'kurva':
       return {
         subject: 'Din kurva. Alla sessioner per typ.',

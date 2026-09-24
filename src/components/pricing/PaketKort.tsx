@@ -254,6 +254,14 @@ export default function PaketKort({
                   </span>
                   <span className={`hidden text-[13px] leading-[18px] lg:block ${damp}`}>
                     {rad.text}
+                    {rad.lank ? (
+                      <>
+                        {' '}
+                        <a href={rad.lank.href} className="underline decoration-kant-stark underline-offset-4">
+                          {rad.lank.text}
+                        </a>
+                      </>
+                    ) : null}
                   </span>
                 </span>
               </li>

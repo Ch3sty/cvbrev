@@ -14,6 +14,13 @@
  */
 
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { hamtaProv } from '@/lib/intervju/data'
+import { GRUNDTEST_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
+import { profilRubrik } from '@/lib/personlighet/smakprov-tolkning'
+import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
+import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
+import type { BigFiveScores } from '@/lib/personalityTest/types'
 
 export interface AktivitetMening {
   text: string
@@ -136,6 +143,32 @@ function meningarFor(rader: Rad[]): AktivitetMening[] {
       lank: { text: 'Kör igen', href: '/dashboard/tester' },
     })
   }
+
+  // Inför intervjun (docs/design/rod-trad-prov-spec-2026-09-24.md): det
+  // senaste provet för dagen, och personlighetsprovet.
+  const prov = av('intervjuprov')
+  if (prov.length > 0) {
+    const p = prov[0].data
+    const fraga = p.question as FragaId
+    const level = Number(p.level)
+    ut.push({
+      text: HEM.aktivitet.prov(fraga, level),
+      under: HEM.aktivitet.provUnder(String(p.missingKind), fraga),
+      lank:
+        level <= 3
+          ? { text: HEM.aktivitet.skrivOm, href: nyttProvHref(fraga) }
+          : { text: HEM.aktivitet.oppna, href: provHref(String(p.token)) },
+    })
+  }
+
+  const smak = av('personlighetsprov')
+  if (smak.length > 0) {
+    ut.push({
+      text: HEM.aktivitet.profil,
+      under: HEM.aktivitet.profilUnder(profilRubrik(smak[0].data.scores as BigFiveScores)),
+      lank: { text: HEM.aktivitet.profilLank, href: GRUNDTEST_HREF },
+    })
+  }
   return ut
 }
 
@@ -173,6 +206,9 @@ export async function getAktivitet(supabase: any, userId: string, antalDagar = 3
     supabase.from('job_applications').select('id, job_title, company, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(10),
   ])
 
+  // Proven ligger i tabeller med RLS utan policies: admin-klienten, filtrerat på användaren.
+  const [intervjuprov, personlighetsprov] = await hamtaProvRader(userId)
+
   const rader: Rad[] = []
   const lagg = (typ: string, iso: string | null | undefined, data: Record<string, unknown>) => {
     if (!iso) return
@@ -191,6 +227,9 @@ export async function getAktivitet(supabase: any, userId: string, antalDagar = 3
   for (const r of ned.data ?? []) lagg('nedladdning', r.downloaded_at ?? r.created_at, { mall: r.template_id })
   for (const r of test.data ?? []) lagg('test', r.completed_at, { testType: r.test_type, score: r.score })
   for (const r of ansok.data ?? []) lagg('ansokan', r.created_at, { jobTitle: r.job_title, company: r.company })
+  for (const r of intervjuprov)
+    lagg('intervjuprov', r.createdAt, { token: r.token, question: r.question, level: r.level, missingKind: r.missingKind })
+  for (const r of personlighetsprov) lagg('personlighetsprov', r.created_at, { scores: r.scores })
 
   const dagar = [...new Set(rader.map((r) => r.dag))].sort().reverse().slice(0, antalDagar)
   const nu = new Date()
@@ -203,4 +242,27 @@ export async function getAktivitet(supabase: any, userId: string, antalDagar = 3
       meningar: meningarFor(rader.filter((r) => r.dag === d)).slice(0, 4),
     }))
     .filter((d) => d.meningar.length > 0)
+}
+
+/** Intervjuproven och de hämtade personlighetsproven, nyast först. Tyst vid fel. */
+async function hamtaProvRader(
+  userId: string
+): Promise<[Awaited<ReturnType<typeof hamtaProv>>, Array<{ created_at: string; scores: BigFiveScores }>]> {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const admin = getSupabaseAdmin() as any
+    const [prov, smak] = await Promise.all([
+      hamtaProv(admin, userId, 10),
+      admin
+        .from('anon_personality_samples')
+        .select('created_at, scores')
+        .eq('claimed_by', userId)
+        .order('created_at', { ascending: false })
+        .limit(5),
+    ])
+    return [prov, (smak?.data ?? []) as Array<{ created_at: string; scores: BigFiveScores }>]
+  } catch (err) {
+    console.error('[aktivitet] Kunde inte läsa proven:', err)
+    return [[], []]
+  }
 }
