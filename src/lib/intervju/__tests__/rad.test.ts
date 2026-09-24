@@ -40,6 +40,13 @@ describe('arTillganglig', () => {
   })
 })
 
+describe('permanenta rader (beslut 2, 2026-09-24)', () => {
+  it('en hämtad rad utan expires_at går inte ut', () => {
+    expect(arTillganglig(rad({ claimed_by: 'a', expires_at: null }), 'a', NU + 365 * 86400000)).toBe(true)
+    expect(arTillganglig(rad({ claimed_by: 'a', expires_at: null }), 'b', NU)).toBe(false)
+  })
+})
+
 describe('arToken', () => {
   it('godtar bara uuid', () => {
     expect(arToken('f5ae063c-b3f4-4e16-b441-eed30f9affea')).toBe(true)

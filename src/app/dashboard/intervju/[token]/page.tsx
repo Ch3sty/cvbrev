@@ -16,6 +16,8 @@ import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowRight } from 'lucide-react'
 import PageHeader from '@/components/shell/PageHeader'
+import StatusRow from '@/components/shell/StatusRow'
+import { INFOR_INTERVJUN_HREF, nyttProvHref } from '@/lib/intervju/lankar'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprak } from '@/lib/intervju/rad'
@@ -113,7 +115,7 @@ export default async function IntervjuSvarPage({
       </section>
 
       <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
-        <h2 className="text-kort text-ink-1">{rad.question === 'star' ? S.aterkopplingStar : S.aterkoppling}</h2>
+        <h2 className="text-kort text-ink-1">{fraga.starChips ? S.aterkopplingStar : S.aterkoppling}</h2>
         <ol className="mt-3 grid gap-4">
           {punkter.map((p, i) => (
             <li key={i} className="grid grid-cols-[24px_1fr] items-start gap-2">
@@ -134,18 +136,36 @@ export default async function IntervjuSvarPage({
           {medPlatshallare(rad.improved_answer)}
         </p>
         <p className="mt-2 text-meta text-ink-3">
-          {S.platshallare} {S.sparasTill(svensktDatum(rad.expires_at))}
+          {S.platshallare}
+          {rad.expires_at ? ` ${S.sparasTill(svensktDatum(rad.expires_at))}` : null}
         </p>
 
         <Link
-          href="/dashboard/jobbcoachen"
-          data-cta="intervjuprov-jobbcoachen"
+          href={nyttProvHref()}
+          data-cta="intervjuprov-nasta-fraga"
           className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
         >
           {S.knapp}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </section>
+
+      {/* Sist: var provet ligger (docs/design/rod-trad-prov-spec-2026-09-24.md, beslut 4). */}
+      <StatusRow
+        tone="positive"
+        showDot
+        wrap
+        action={
+          <Link
+            href={INFOR_INTERVJUN_HREF}
+            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+          >
+            {S.radLank}
+          </Link>
+        }
+      >
+        {S.rad}
+      </StatusRow>
     </div>
   )
 }

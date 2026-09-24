@@ -321,6 +321,21 @@ export function IkonSynlig(props: IkonProps) {
   )
 }
 
+/**
+ * Intervju: två pratbubblor, frågan till vänster och svaret till höger
+ * (docs/design/rod-trad-prov-2026-09-24.html, sidomenyn). Svarsbubblan är
+ * accentformen.
+ */
+export function IkonIntervju(props: IkonProps) {
+  return (
+    <Ikon {...props}>
+      <path d="M4 5h11v8H8l-4 3z" />
+      <path style={IA} d="M13 11h7v8h-3l-3 2v-2h-1z" />
+      <path d="M13 11h7v8h-3l-3 2v-2h-1" />
+    </Ikon>
+  )
+}
+
 /** Bugg: skalbagge. */
 export function IkonBugg(props: IkonProps) {
   return (

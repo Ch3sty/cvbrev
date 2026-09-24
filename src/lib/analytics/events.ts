@@ -12,6 +12,7 @@ import type { CtaCluster } from '@/lib/cta/clusters'
 import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
+import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
@@ -31,7 +32,7 @@ interface ClusterContext {
  * avsnitt 4): vilken fråga och vilken artikel provet gjordes i.
  */
 interface SampleIntervju {
-  question?: 'styrkor' | 'star'
+  question?: FragaId
   slug?: string
 }
 
@@ -51,10 +52,10 @@ export interface AnalyticsEvents {
   example_viewed: { kind: 'letter' | 'cv'; yrke_slug: string }
   example_cta_clicked: { kind: 'letter' | 'cv'; yrke_slug: string; target: string }
   sample_started: ClusterContext &
-    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview'; yrke_slug?: string }
+    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'; yrke_slug?: string }
   sample_completed: ClusterContext &
     SampleIntervju & {
-      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview'
+      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'
       yrke_slug?: string
       /** Millisekunder från start till färdigt resultat. */
       duration_ms?: number
@@ -62,7 +63,7 @@ export interface AnalyticsEvents {
       level?: number
     }
   signup_gate_shown: ClusterContext &
-    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' }
+    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality' }
   signup_started: ClusterContext & {
     method?: 'password' | 'google'
     source_page?: string
@@ -73,7 +74,7 @@ export interface AnalyticsEvents {
     source_page?: string
     source_cluster?: string
   }
-  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview'; yrke_slug?: string }
+  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality'; yrke_slug?: string }
   activation_first_doc: { kind: 'letter' | 'cv' }
   /* ---------------------------------------------- jobbmatchningen, våg 1
      docs/plan-jobbmatchning.md avsnitt 3. Målet är andelen träffar som
@@ -214,6 +215,17 @@ export interface AnalyticsEvents {
      orsakerna ligger kvar i cancel_intents. */
   cancel_started: { plan: PlanKey; surface: string }
   subscription_paid: { plan: string; amount?: number }
+  /* ---------------------------------------------- Inför intervjun
+     docs/design/rod-trad-prov-spec-2026-09-24.md avsnitt 4. */
+  interview_hub_viewed: {
+    prov_count: number
+    has_profile: 'none' | 'sample' | 'full'
+    scope: string | null
+    next_action: string
+  }
+  interview_practice_started: { question: FragaId; surface: 'dashboard' }
+  interview_practice_completed: { question: FragaId; level: number; surface: 'dashboard' }
+  next_action_shown: { kind: string; surface: 'infor-intervjun' | 'hem' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

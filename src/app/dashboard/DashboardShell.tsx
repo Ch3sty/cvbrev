@@ -32,6 +32,8 @@ const FLOW_ROUTES = [
   '/dashboard/linkedin-optimizer',
   // Välkomstskärmen efter köpet äger också hela skärmen (sektion 1).
   '/dashboard/vecka/start',
+  // Nytt intervjuprov (docs/design/rod-trad-prov-spec-2026-09-24.md).
+  '/dashboard/intervju/ny',
 ];
 import dynamic from 'next/dynamic';
 

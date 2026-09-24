@@ -30,7 +30,8 @@ export interface IntervjuRad {
   user_id: string | null
   claimed_by: string | null
   created_at: string
-  expires_at: string
+  /** Null när raden är hämtad till ett konto: då är den permanent (beslut 2, 2026-09-24). */
+  expires_at: string | null
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -46,7 +47,7 @@ type Tillgangsrad = Pick<IntervjuRad, 'user_id' | 'claimed_by' | 'expires_at' | 
  * delas av sidan och proxyns 404-kontroll så att båda säger samma sak.
  */
 export function arTillganglig(rad: Tillgangsrad, userId: string, nu: number = Date.now()): boolean {
-  if (new Date(rad.expires_at).getTime() <= nu) return false
+  if (rad.expires_at !== null && new Date(rad.expires_at).getTime() <= nu) return false
   if (rad.full?.irrelevant) return false
   if (rad.claimed_by) return rad.claimed_by === userId
   // Ett svar skrivet inloggat får bara hämtas av samma konto.
@@ -100,22 +101,23 @@ export async function hamtaEllerGorAnsprak(
   if (!arTillganglig(rad, userId)) return null
   if (rad.claimed_by === userId) return rad
 
-  // Villkorad uppdatering: två samtidiga anspråk kan inte båda vinna.
+  // Villkorad uppdatering: två samtidiga anspråk kan inte båda vinna. En
+  // hämtad rad är permanent (beslut 2, 2026-09-24): expires_at blir null.
   const { data: uppdaterad, error: uppdateringsFel } = await admin
     .from('anon_interview_samples')
-    .update({ claimed_by: userId })
+    .update({ claimed_by: userId, expires_at: null })
     .eq('token', token)
     .is('claimed_by', null)
     .select('token')
     .maybeSingle()
 
   if (uppdateringsFel || !uppdaterad) return null
-  return { ...rad, claimed_by: userId }
+  return { ...rad, claimed_by: userId, expires_at: null }
 }
 
 /**
- * Tar bort svar vars sju dygn gått ut, också de som hämtats till ett konto
- * (ägarens beslut 7: svaret sparas i sju dagar). Körs i cronens
+ * Tar bort ohämtade svar vars sju dygn gått ut. Hämtade rader har
+ * expires_at null och rörs aldrig (beslut 2, 2026-09-24). Körs i cronens
  * midnattsslot, aldrig i ett eget cron-jobb. Returnerar antal borttagna.
  */
 export async function cleanupExpiredIntervjuprov(admin: SupabaseClient<any>): Promise<number> {

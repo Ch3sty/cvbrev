@@ -10,7 +10,11 @@
  * Svenska facktermer, vi-form, inga talstreck, inget "AI".
  */
 
-import type { FragaId } from './fragor'
+import { paketMedPris } from '@/lib/plans/plans'
+import { FRAGOR, type FragaId } from './fragor'
+
+/** STAR-frågorna har egna formuleringar i felraden, låset och spärren. */
+const arStar = (fraga: FragaId) => FRAGOR[fraga].starChips
 
 export const MIN_TECKEN = 200
 export const MAX_TECKEN = 1200
@@ -62,7 +66,7 @@ export const COPY = {
   punkt: { fungerar: 'Det som fungerar', saknas: 'Det som saknas' },
   last: {
     aterkoppling: (fraga: FragaId, n: number) =>
-      fraga === 'star'
+      arStar(fraga)
         ? 'Fullständig återkoppling, del för del i STAR'
         : `Fullständig återkoppling, ${ANTAL_ORD[n] ?? tal(n)} punkter`,
     omskrivet: (kind: string) => `Ditt svar, omskrivet med ${kind}`,
@@ -71,7 +75,7 @@ export const COPY = {
   sparr: {
     rubrik: 'Se hela återkopplingen och ditt svar omskrivet',
     text: (fraga: FragaId) =>
-      fraga === 'star'
+      arStar(fraga)
         ? 'Skapa ett gratiskonto så får du återkopplingen del för del och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.'
         : 'Skapa ett gratiskonto så får du återkopplingen punkt för punkt och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.',
     knapp: 'Skapa konto gratis',
@@ -80,9 +84,9 @@ export const COPY = {
   },
   fel: {
     kort: (fraga: FragaId) =>
-      fraga === 'star'
+      arStar(fraga)
         ? `Skriv minst ${tal(MIN_TECKEN)} tecken så har vi något att bedöma. Ett par meningar om vad du gjorde räcker långt.`
-        : `Skriv minst ${tal(MIN_TECKEN)} tecken så har vi något att bedöma. Ett exempel på när styrkan märkts räcker långt.`,
+        : `Skriv minst ${tal(MIN_TECKEN)} tecken så har vi något att bedöma. Ett konkret exempel från jobbet räcker långt.`,
     langt:
       'Vi bedömer upp till 1 200 tecken. Korta ner till det viktigaste, det gör svaret bättre också i rummet.',
     irrelevant: {
@@ -105,27 +109,31 @@ export const COPY = {
     ip: 'Du har gjort dagens intervjuprov. Med ett gratiskonto tränar du vidare direkt, och vi sparar svaren.',
     budget:
       'Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt.',
-    inloggad:
-      'Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med Träningspaketet, 79 kr i veckan, övar du utan gräns.',
-    inloggadLank: 'Se Träningspaketet, 79 kr i veckan',
+    inloggad: `Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med ${paketMedPris('test_week')} övar du utan gräns.`,
+    inloggadLank: `Se ${paketMedPris('test_week')}`,
+    /** Anonym begäran på en fråga som bara finns inloggad. */
+    intePublik: 'Den här frågan finns i ditt konto. Skapa ett gratiskonto så övar du på alla sju.',
   },
   /** Dashboardsidan /dashboard/intervju/[token] (spec avsnitt 5, beslut 1). */
   sida: {
     titel: 'Ditt intervjusvar, bedömt',
-    beskrivning: 'Hela återkopplingen och ditt svar omskrivet. Vi sparar det i sju dagar.',
-    eyebrow: 'Intervjuprovet',
+    beskrivning: 'Hela återkopplingen och ditt svar omskrivet. Vi sparar det i ditt konto.',
+    eyebrow: 'Inför intervjun',
     dittSvar: 'Ditt svar',
     aterkoppling: 'Hela återkopplingen',
     aterkopplingStar: 'Hela återkopplingen, del för del i STAR',
     omskrivet: 'Ditt svar, omskrivet',
     platshallare:
       'Det inom hakparenteser fyller du i själv. Vi hittar aldrig på siffror eller händelser åt dig.',
-    knapp: 'Öva vidare med Jobbcoachen',
+    knapp: 'Öva på nästa fråga',
     sparasTill: (datum: string) => `Sparas till ${datum}.`,
+    /** Den positiva statusraden sist på sidan, mot hubben. */
+    rad: 'Sparat under Inför intervjun, med dina prov och din profil.',
+    radLank: 'Öppna',
   },
   inloggad: {
     rubrik: 'Hela återkopplingen ligger i ditt konto',
-    text: 'Där finns återkopplingen punkt för punkt och ditt svar omskrivet. Vi sparar det i sju dagar.',
+    text: 'Där finns återkopplingen punkt för punkt och ditt svar omskrivet, sparat under Inför intervjun.',
     knapp: 'Se hela återkopplingen',
   },
 } as const

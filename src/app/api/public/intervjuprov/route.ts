@@ -25,7 +25,9 @@ import { checkDailyInterviewQuota, quotaExceededBody } from '@/lib/quota/quotaSe
 import { bedomIntervjusvar } from '@/lib/intervju/bedomning'
 import { kontrolleraSvarslangd, omskrivetRader } from '@/lib/intervju/validering'
 import { trackAIUsage } from '@/lib/ai-cost-tracker'
-import { arFragaId } from '@/components/artiklar/intervjuprov/fragor'
+import { FRAGOR, arFragaId } from '@/components/artiklar/intervjuprov/fragor'
+import { TRANINGSPAKET_HREF, provHref } from '@/lib/intervju/lankar'
+import { markeraBricka } from '@/lib/onboarding/komigang-server'
 import { COPY, MAX_TECKEN, MIN_TECKEN } from '@/components/artiklar/intervjuprov/intervjuprov-copy'
 
 export const maxDuration = 30
@@ -50,6 +52,7 @@ export async function POST(request: Request) {
   if (!arFragaId(question)) {
     return NextResponse.json({ error: 'bad_question' }, { status: 400 })
   }
+  const publik = FRAGOR[question].publik
   const answer = typeof body.answer === 'string' ? body.answer.trim() : ''
   const langdFel = kontrolleraSvarslangd(answer, MIN_TECKEN, MAX_TECKEN)
   if (langdFel === 'too_short') {
@@ -69,6 +72,15 @@ export async function POST(request: Request) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Fem av sju frågor finns bara inloggad (docs/design/rod-trad-prov-spec-2026-09-24.md).
+  // Kontrollen står före IP-spärren så att ett avvisat anrop aldrig räknas som ett prov.
+  if (!user && !publik) {
+    return NextResponse.json(
+      { error: 'question_not_public', message: COPY.kvot.intePublik, registerHref: '/register' },
+      { status: 400 }
+    )
+  }
+
   if (user) {
     // Admin-klienten: tabellen har RLS utan policies (se checkDailyInterviewQuota).
     const quota = await checkDailyInterviewQuota(admin, user.id)
@@ -76,7 +88,8 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           ...quotaExceededBody('interview_sample', quota, COPY.kvot.inloggad),
-          upgradeHref: '/priser',
+          // Köpsteget med Träningspaketet förvalt (beslut 7, 2026-09-24).
+          upgradeHref: TRANINGSPAKET_HREF,
         },
         { status: 429 }
       )
@@ -181,6 +194,8 @@ export async function POST(request: Request) {
       ip_hash: hashIp(ip),
       user_id: user?.id ?? null,
       claimed_by: user?.id ?? null,
+      // Inloggad: raden ägs direkt och är permanent (beslut 2, 2026-09-24).
+      ...(user ? { expires_at: null } : {}),
     })
     .select('token, expires_at')
     .single()
@@ -193,7 +208,10 @@ export async function POST(request: Request) {
     )
   }
 
-  const row = data as { token: string; expires_at: string }
+  const row = data as { token: string; expires_at: string | null }
+
+  // Kom igång: brickan Intervjuprovet kvitteras när en inloggad rad sparas.
+  if (user) void markeraBricka(user.id, 'intervjuprov')
 
   // 6. Det synliga svaret. Inget ur full, improvedAnswer eller improvedWhy.
   return NextResponse.json({
@@ -207,6 +225,6 @@ export async function POST(request: Request) {
     improvedLineCount: omskrivetRader(b.improvedAnswer),
     missingKind: b.missingKind,
     expiresAt: row.expires_at,
-    ...(user ? { href: `/dashboard/intervju/${row.token}` } : {}),
+    ...(user ? { href: provHref(row.token) } : {}),
   })
 }

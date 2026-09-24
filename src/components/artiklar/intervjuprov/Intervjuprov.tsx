@@ -17,7 +17,7 @@
  * Ingen delad komponent med test- och brevprovet (ägarens beslut 4).
  */
 
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type MutableRefObject } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Lock } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
@@ -34,6 +34,24 @@ export interface IntervjuprovProps {
   fraga: FragaId
   /** Artikelns slug, för source_page och slug i eventen. Sätts av page.tsx. */
   slug?: string
+  /**
+   * artikel (standard): panelen i löptexten, oförändrad.
+   * flode: steg 2 i Nytt intervjuprov (docs/design/rod-trad-prov-spec-2026-09-24.md).
+   * Ingen aside-ram, ingen eyebrow, rubrik eller fotnot (FlowShell äger
+   * ramen), ingen bedömningsknapp (FlowShells fot anropar bedomRef), och
+   * resultatet går till onResultat i stället för att spärrkortet ritas.
+   */
+  laege?: 'artikel' | 'flode'
+  /** Flödesläget: fotens knapp anropar funktionen som läggs här. */
+  bedomRef?: MutableRefObject<(() => void) | null>
+  /** Flödesläget: resultatet, med href till svaret i kontot. */
+  onResultat?: (href: string, level: number) => void
+  /** Flödesläget: laddar (fotens knapp i väntläge). */
+  onLaddar?: (laddar: boolean) => void
+  /** Flödesläget: kvoten tog slut, foten döljs. */
+  onKvot?: () => void
+  /** Flödesläget: första tecknet. */
+  onStart?: () => void
 }
 
 type Phase = 'inbjudan' | 'skriver' | 'laddar' | 'resultat'
@@ -73,8 +91,18 @@ const BREDD_OMSKRIVET = [92, 80, 88, 70, 86, 82, 90, 76]
 
 const LANG_VANTAN_MS = 20_000
 
-export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
+export default function Intervjuprov({
+  fraga,
+  slug,
+  laege = 'artikel',
+  bedomRef,
+  onResultat,
+  onLaddar,
+  onKvot,
+  onStart,
+}: IntervjuprovProps) {
   const f = FRAGOR[fraga]
+  const flode = laege === 'flode'
   const rubrikId = useId()
   const hjalpId = useId()
 
@@ -109,9 +137,22 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
     return () => clearTimeout(t)
   }, [phase])
 
+  // Flödesläget: laddningen till fotens knapp, resultatet till föräldern.
+  useEffect(() => {
+    if (flode) onLaddar?.(phase === 'laddar')
+  }, [flode, phase, onLaddar])
+
+  useEffect(() => {
+    if (flode && kvot) onKvot?.()
+  }, [flode, kvot, onKvot])
+
   // Resultatet: fokus till eyebrow, mätning, och token sparas inför registreringen.
   useEffect(() => {
     if (phase !== 'resultat' || !resultat) return
+    if (flode) {
+      if (resultat.href) onResultat?.(resultat.href, resultat.level)
+      return
+    }
     resultatRef.current?.focus()
     const duration_ms = forstaTeckenRef.current ? Date.now() - forstaTeckenRef.current : undefined
     capture('sample_completed', {
@@ -126,7 +167,7 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
       storePendingIntervju(resultat.token)
       capture('signup_gate_shown', { kind: 'interview', cluster: 'interview', question: fraga, slug })
     }
-  }, [phase, resultat, fraga, slug])
+  }, [phase, resultat, fraga, slug, flode, onResultat])
 
   // Fel: fokus till felraden så att skärmläsaren och tangentbordet hamnar där.
   useEffect(() => {
@@ -137,7 +178,8 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
     if (!startadRef.current && varde.length > 0) {
       startadRef.current = true
       forstaTeckenRef.current = Date.now()
-      capture('sample_started', { kind: 'interview', cluster: 'interview', question: fraga, slug })
+      if (flode) onStart?.()
+      else capture('sample_started', { kind: 'interview', cluster: 'interview', question: fraga, slug })
     }
     setText(varde)
     if (phase === 'inbjudan' && varde.length > 0) setPhase('skriver')
@@ -201,6 +243,9 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
     }
   }
 
+  // Flödesläget: FlowShells fot anropar bedömningen.
+  if (bedomRef) bedomRef.current = bedom
+
   function skrivOm() {
     setResultat(null)
     setPhase('skriver')
@@ -225,26 +270,31 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
 
   /* -------------------------------------------------------------- kvoten */
   if (kvot) {
+    const Ram = flode ? 'div' : 'aside'
     return (
-      <aside ref={sparrRef} className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-labelledby={rubrikId}>
-        {eyebrow}
-        {rubrik}
+      <Ram
+        ref={sparrRef as React.RefObject<HTMLDivElement>}
+        className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+        aria-labelledby={flode ? undefined : rubrikId}
+      >
+        {flode ? null : eyebrow}
+        {flode ? null : rubrik}
         {citat}
         <StatusRow
           tone="neutral"
           showDot
           wrap
           className="mt-4"
-          action={
-            kvot.upgradeHref ? (
-              <Link href={kvot.upgradeHref} className={TEXTLANK}>
-                {COPY.kvot.inloggadLank}
-              </Link>
-            ) : undefined
-          }
         >
           {kvot.text}
         </StatusRow>
+        {/* Länken under raden, inte i den: namnet med pris är för långt för
+            radens högerkant på 412 px och klämde texten till en smal spalt. */}
+        {kvot.upgradeHref ? (
+          <Link href={kvot.upgradeHref} className={`mt-1 ${TEXTLANK}`}>
+            {COPY.kvot.inloggadLank}
+          </Link>
+        ) : null}
         {kvot.registerHref ? (
           <>
             <Link
@@ -259,11 +309,15 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
             <p className="mt-3 text-meta text-ink-3">{COPY.sparr.villkor}</p>
           </>
         ) : null}
-      </aside>
+      </Ram>
     )
   }
 
   /* ----------------------------------------------------------- resultatet */
+  // Flödesläget byter sida till svaret; panelen står kvar i laddning till dess.
+  if (flode && phase === 'resultat') {
+    return <LoadingSkeleton variant="writing" label={COPY.laddar.rubrik} meta={COPY.laddar.meta} className="mt-4" />
+  }
   if (phase === 'resultat' && resultat) {
     const niva = Math.min(5, Math.max(1, Math.round(resultat.level)))
     const inloggad = Boolean(resultat.href)
@@ -378,11 +432,15 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
   const felCopy =
     fel === 'irrelevant' ? COPY.fel.irrelevant : fel === 'natverk' ? COPY.fel.natverk : COPY.fel.server
 
+  const Panel = flode ? 'div' : 'aside'
   return (
-    <aside className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-labelledby={rubrikId}>
-      {eyebrow}
-      {rubrik}
-      {visaIngress ? (
+    <Panel
+      className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+      aria-labelledby={flode ? undefined : rubrikId}
+    >
+      {flode ? null : eyebrow}
+      {flode ? null : rubrik}
+      {visaIngress && !flode ? (
         <p className="mt-2 text-sm leading-[22px] text-ink-2 sm:text-base sm:leading-6">{COPY.ingress}</p>
       ) : null}
       {citat}
@@ -423,7 +481,7 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
       {visaTips ? (
         <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-meta text-ink-3">
           <span>{f.tips}</span>
-          {fraga === 'star'
+          {f.starChips
             ? STAR_DELAR.map((del) => (
                 <span
                   key={del}
@@ -452,14 +510,14 @@ export default function Intervjuprov({ fraga, slug }: IntervjuprovProps) {
             onRetry={fel === 'irrelevant' ? fokusFalt : bedom}
           />
         </div>
-      ) : (
+      ) : flode ? null : (
         <button type="button" onClick={bedom} data-cta="intervjuprov-bedom" className={`mt-4 ${KNAPP}`}>
           {COPY.knapp.bedom}
         </button>
       )}
 
-      {laddar ? null : <p className="mt-3 text-meta text-ink-3">{COPY.fotnot}</p>}
-    </aside>
+      {laddar || flode ? null : <p className="mt-3 text-meta text-ink-3">{COPY.fotnot}</p>}
+    </Panel>
   )
 }
 

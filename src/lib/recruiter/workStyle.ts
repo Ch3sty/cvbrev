@@ -132,7 +132,7 @@ const ARCHETYPES: Record<string, { title: string; description: string }> = {
 /** Alla arketyp-titlar, för sökfiltrets flerval (filtrerar på visad etikett, aldrig på råvärden). */
 export const ARCHETYPE_TITLES: string[] = Object.values(ARCHETYPES).map((a) => a.title);
 
-function archetypeFor(domains: DomainScores): { title: string; description: string } {
+export function archetypeFor(domains: DomainScores): { title: string; description: string } {
   const domainsScored: Array<{ key: DomainKey; value: number }> = [
     { key: 'O', value: domains.openness },
     { key: 'C', value: domains.conscientiousness },

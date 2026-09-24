@@ -48,7 +48,11 @@ import {
   IkonEntusiastisk,
   IkonKrona,
   IkonSynlig,
+  IkonIntervju,
 } from '@/components/illustrations/Ikoner';
+
+/** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
+const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00');
 
 interface DashboardSidebarProps {
   onClose?: () => void;
@@ -316,6 +320,22 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             label="Rekryteringstester"
             icon={IkonBalanserad}
             {...graProps('tester')}
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          {/* Inför intervjun (docs/design/rod-trad-prov-spec-2026-09-24.md). Ingår i
+              alla nivåer, så raden är aldrig grå. Nyhet i fyra veckor, till
+              och med 2026-10-21 (ägarens beslut 8): efter det faller etiketten
+              bort av sig själv. */}
+          <SidebarLink
+            href="/dashboard/intervju"
+            label="Inför intervjun"
+            icon={IkonIntervju}
+            badge={
+              Date.now() < NYHET_INFOR_INTERVJUN_TILL ? (
+                <span className="text-[11px] font-semibold uppercase leading-4 tracking-[0.04em] text-accent-ink">Nyhet</span>
+              ) : undefined
+            }
             isMobile={isMobile}
             onClick={onClose}
           />
