@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { scheduleIdle } from '@/lib/scheduleIdle';
+import type { SignupIntent } from '@/components/registrering/intent';
 
 export interface FeatureSlug {
   slug:
@@ -90,13 +91,59 @@ const FEATURE_ACTIVITY_TYPES: Record<FeatureSlug['slug'], string[]> = {
 
 const DISMISS_PREFIX = 'feature-spotlight-dismissed-';
 
+/**
+ * Område per funktion, för bredden (profil-registrering 2026-09-24, punkt 3):
+ * förslaget efter första dokumentet väljs ur det andra området.
+ */
+const OMRADE: Record<FeatureSlug['slug'], 'skriv' | 'jobb' | 'trana'> = {
+  'cv-analys': 'skriv',
+  jobbmatchning: 'jobb',
+  'bli-upptackt': 'jobb',
+  jobbcoachen: 'trana',
+  tester: 'trana',
+};
+
+const OMRADE_FOR_VAL: Record<SignupIntent, 'skriv' | 'jobb' | 'trana'> = {
+  cv: 'skriv',
+  brev: 'skriv',
+  jobb: 'jobb',
+  tester: 'trana',
+  intervju: 'trana',
+};
+
+/** Funktionen som ska föreslås först för ett val: ur det andra området. */
+const FORST_FOR_VAL: Record<SignupIntent, FeatureSlug['slug']> = {
+  cv: 'tester',
+  brev: 'tester',
+  jobb: 'tester',
+  tester: 'cv-analys',
+  intervju: 'cv-analys',
+};
+
+/** Ligger funktionen utanför området hon valde? Mäts som outside_intent. */
+export function featureUtanforVal(slug: FeatureSlug['slug'], intent: SignupIntent | null | undefined): boolean {
+  if (!intent) return false;
+  return OMRADE[slug] !== OMRADE_FOR_VAL[intent];
+}
+
+/**
+ * Ordningen på förslagen. Utan val dagens ordning (Bli upptäckt först). Med
+ * val: funktionen ur det andra området först, sedan övriga i dagens ordning.
+ * Valet ändrar bara ordningen, aldrig vad som finns.
+ */
+export function featureOrdning(intent: SignupIntent | null | undefined): FeatureSpotlightItem[] {
+  if (!intent) return FEATURES;
+  const forst = FORST_FOR_VAL[intent];
+  return [...FEATURES.filter((f) => f.slug === forst), ...FEATURES.filter((f) => f.slug !== forst)];
+}
+
 interface UseUnusedFeaturesResult {
   feature: FeatureSpotlightItem | null;
   loading: boolean;
   dismiss: (slug: FeatureSlug['slug']) => void;
 }
 
-export function useUnusedFeatures(): UseUnusedFeaturesResult {
+export function useUnusedFeatures(intent: SignupIntent | null = null): UseUnusedFeaturesResult {
   const [feature, setFeature] = useState<FeatureSpotlightItem | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -165,7 +212,7 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
           return activityTypes.some((t) => usedTypes.has(t));
         };
 
-        const next = FEATURES.find((f) => !dismissed(f.slug) && !isUsed(f.slug));
+        const next = featureOrdning(intent).find((f) => !dismissed(f.slug) && !isUsed(f.slug));
 
         if (!cancelled) {
           setFeature(next ?? null);
@@ -188,7 +235,7 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [intent]);
 
   const dismiss = (slug: FeatureSlug['slug']) => {
     if (typeof window !== 'undefined') {
@@ -196,7 +243,7 @@ export function useUnusedFeatures(): UseUnusedFeaturesResult {
     }
     // Visa nästa oprovade feature
     const dismissed = (s: string) => localStorage.getItem(DISMISS_PREFIX + s) === 'true';
-    const next = FEATURES.find((f) => f.slug !== slug && !dismissed(f.slug));
+    const next = featureOrdning(intent).find((f) => f.slug !== slug && !dismissed(f.slug));
     setFeature(next ?? null);
   };
 

@@ -120,7 +120,7 @@ export default function CVAnalysMini() {
             i klartext med åtgärd.
           </p>
           <Link
-            href="/register"
+            href="/register?borja=cv"
             data-cta="mini-analys-gate"
             onClick={() =>
               capture('signup_started', {

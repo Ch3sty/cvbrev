@@ -16,6 +16,11 @@
  * traningsHandling som enda bläckyta, CV:t som textlänk under och
  * aktiviteten. ?cv=1 (textlänken) visar A som vanligt.
  *
+ * Bredden (profil-registrering 2026-09-24): träningsfokus gäller också ett
+ * gratiskonto som valde testerna eller intervjun vid registreringen. Valet
+ * ändrar bara ordningen: testvalet får första testet först, intervjuvalet
+ * intervjufrågan. Menyn och behörigheterna läser aldrig valet.
+ *
  * DowngradedNotice ligger överst i alla lägen. Hjälpredan Kom igång ligger
  * inte här utan i skalet: en rad ovanför bottennavigeringen och ett ark
  * (docs/design/spec-onboarding-2026-09-22.html, sektion 2).
@@ -43,6 +48,7 @@ import JobbsokOversikt from './JobbsokOversikt';
 import PagarNu from './PagarNu';
 import NastaHandling from './NastaHandling';
 import HemHuvud, { sammanhangsrad } from './HemHuvud';
+import ProvaOcksa from './ProvaOcksa';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 import { traningsHandling } from '@/lib/intervju/nasta';
@@ -111,7 +117,9 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
     pipeline: (summary?.applications.pipeline ?? []) as ApplicationsSummary['pipeline'],
   } satisfies ApplicationsSummary;
 
-  const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary, summary?.intervju);
+  // Valet i registreringen, bara för hemskärmens ordning (kriterium 14).
+  const valtVidStart = summary?.paket?.scope ? null : (summary?.komIgang?.intent ?? null);
+  const { action: nextAction, dismiss: dismissNextAction } = useNextBestAction(appSummary, summary?.intervju, valtVidStart);
   const recommendedSlug =
     rewardClaimed && nextAction?.kind === 'feature' ? nextAction.feature.slug : null;
 
@@ -202,8 +210,17 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
   const totalLetters = stats.totalLetters || 0;
   const isPremium = stats.isPremium || false;
   const state = deriveDashboardState(cvCount, totalLetters);
+  const valtTraning = valtVidStart === 'tester' || valtVidStart === 'intervju';
   const traningsFokus =
-    state === 'A' && summary?.paket?.scope === 'tester' && searchParams.get('cv') !== '1';
+    state === 'A' &&
+    (summary?.paket?.scope === 'tester' || (!summary?.paket?.scope && valtTraning)) &&
+    searchParams.get('cv') !== '1';
+  const traningsRad =
+    summary?.paket?.scope === 'tester'
+      ? HEM.traning.rad
+      : valtVidStart === 'intervju'
+        ? HEM.traning.radValtIntervju
+        : HEM.traning.radValtTester;
 
   // B7: vilket tillstånd användaren faktiskt mötte. En gång per session.
   const loggedState = useRef<string | null>(null);
@@ -259,9 +276,9 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {traningsFokus ? (
         <>
-          <HemHuvud fornamn={stats.firstName} rad={HEM.traning.rad} />
+          <HemHuvud fornamn={stats.firstName} rad={traningsRad} />
           <NastaHandling
-            action={traningsHandling(summary?.intervju)}
+            action={traningsHandling(summary?.intervju, valtVidStart === 'tester')}
             onDismiss={() => {}}
             secondary={
               <Link href="/dashboard?cv=1" className={`${INK_LANK} inline-flex min-h-11 items-center`}>
@@ -289,6 +306,11 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
         <>
           <SnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
           <ProfilKomplettering />
+          {/* Prova också kommer efter idle (useUnusedFeatures). Sist, så att
+              den sena ankomsten inte flyttar något: CLS 0. */}
+          {nextAction?.kind === 'feature' && valtVidStart ? (
+            <ProvaOcksa slug={nextAction.feature.slug} intent={valtVidStart} />
+          ) : null}
         </>
       )}
 
@@ -307,7 +329,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
               per vy (regel 3). */}
           <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start">
             <div className="lg:order-2">
-              <NastaHandling action={nextAction} onDismiss={dismissNextAction} />
+              <NastaHandling action={nextAction} onDismiss={dismissNextAction} intent={valtVidStart} />
             </div>
             <div className="lg:order-1">
               <JobbsokOversikt summary={appSummary} fordelning={summary?.hem} />

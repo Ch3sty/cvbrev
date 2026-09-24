@@ -114,6 +114,12 @@ export interface DashboardSummary {
       matrisRatt?: number | null;
       matrisAv?: number | null;
     };
+    /**
+     * Valet i registreringen. Läses bara av Kom igång och hemskärmens
+     * ordning, aldrig av menyn eller behörigheterna (profil-registrering
+     * 2026-09-24, kriterium 14).
+     */
+    intent?: 'cv' | 'brev' | 'tester' | 'intervju' | 'jobb' | null;
   };
   /** Sidomenyns antal, ur samma svar. Valfri: äldre cache kan sakna den. */
   sidomeny?: {

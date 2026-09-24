@@ -216,7 +216,19 @@ export function nastaTest(gjordaTestTyper: readonly (string | null)[]): { slug: 
   return null
 }
 
-export function traningsHandling(i: IntervjuHem | null | undefined): TraningsHandling {
+/**
+ * Träningsfokusets Nästa handling. testForst (gratiskonto som valde testerna
+ * vid registreringen, profil-registrering 2026-09-24): första
+ * rekryteringstestet går före intervjufrågan, så länge inget test är gjort.
+ */
+export function traningsHandling(
+  i: IntervjuHem | null | undefined,
+  testForst = false
+): TraningsHandling {
+  if (testForst) {
+    const forstaTest = nastaTest(i?.gjordaTestTyper ?? [])
+    if (forstaTest?.forsta) return { kind: 'test-next', ...forstaTest }
+  }
   const s = i?.senaste ?? null
   if (s && s.level <= 3) return { kind: 'interview-rewrite', prov: s }
   const basta: Partial<Record<FragaId, number>> = { ...(i?.bastaNiva ?? {}) }

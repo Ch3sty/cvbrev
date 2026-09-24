@@ -6,6 +6,7 @@ import 'server-only';
  * En källa per steg:
  *
  *   Nya konton           profiles.created_at i fönstret, undantagna bort
+ *   Såg förslaget        admin_flode_daily, pricing_viewed med surface signup_forslag
  *   Valde spår           admin_flode_daily, track_selected per spår
  *   Såg köpsteget        admin_flode_daily, purchase_step_viewed (från MATSTART.kopvag)
  *   Gick till kassan     admin_flode_daily, checkout_started (från MATSTART.kopvag)
@@ -45,6 +46,8 @@ import {
 export interface KopvagData {
   /** Nya konton i fönstret ur profiles. Null när databasen inte svarade. */
   nyaKonton: number | null;
+  /** Personer som såg registreringens förslag (steg 3), unika per dag och summerade. */
+  forslag: number;
   /** Personer som valde spår, unika per dag och summerade. */
   spar: { totalt: number; perPaket: Record<Paket, number> };
   /** Personer som sett köpsteget, från mätstarten eller fönstrets början. */
@@ -118,11 +121,16 @@ export const hamtaKopvagData = unstable_cache(
     const spar = { totalt: 0, perPaket: { cv: 0, tester: 0, allt: 0 } as Record<Paket, number> };
     let kopsteget = 0;
     let kassan = 0;
+    let forslag = 0;
     let samladeDagar = 0;
 
     for (const r of rader) {
       if (r.handelse === FLODE_SAMLAD) {
         samladeDagar += 1;
+        continue;
+      }
+      if (r.handelse === 'pricing_viewed') {
+        if (r.dimension === 'signup_forslag') forslag += r.personer;
         continue;
       }
       if (r.handelse === 'track_selected') {
@@ -143,6 +151,7 @@ export const hamtaKopvagData = unstable_cache(
 
     return {
       nyaKonton,
+      forslag,
       spar,
       kopsteget,
       kassan,

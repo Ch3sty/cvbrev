@@ -156,7 +156,7 @@ export default function SkapaCvSida() {
         h1="Skapa ditt CV gratis på minuter"
         ingress="Vår CV-byggare tar dig genom sju enkla steg och visar CV:t medan du skriver. Du fyller i, vi sätter ihop och du laddar ner som PDF eller Word."
         fet="Gratis att börja och helt på svenska."
-        primar={{ text: 'Bygg mitt CV gratis', href: '/register' }}
+        primar={{ text: 'Bygg mitt CV gratis', href: '/register?borja=cv' }}
         sekundar={{ text: 'Se mallarna', href: '/verktyg/cv-mallar' }}
         loften={[
           { tal: '10 min', text: 'från start till färdigt CV' },
@@ -171,7 +171,7 @@ export default function SkapaCvSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Du skriver, vi sätter ihop. Inga krångliga Word-mallar att kämpa med.',
           rader: howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text })),
-          lank: { text: 'Skapa mitt CV gratis', href: '/register' },
+          lank: { text: 'Skapa mitt CV gratis', href: '/register?borja=cv' },
         }}
         kontroll={{
           eyebrow: 'Vad du får',
@@ -205,7 +205,7 @@ export default function SkapaCvSida() {
                 text: 'Ansökan sorteras inte bort på vägen för att maskinen inte kunde läsa den.',
               },
             ],
-            lank: { text: 'Skapa ditt CV gratis', href: '/register' },
+            lank: { text: 'Skapa ditt CV gratis', href: '/register?borja=cv' },
           },
         ]}
         citat={{
@@ -217,7 +217,7 @@ export default function SkapaCvSida() {
           eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan`,
           rubrik: 'Skapa ditt CV gratis på minuter.',
           text: `Sju enkla steg, förhandsvisning och mallar som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, full CV-analys och nedladdning av allt du skriver ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
-          knapp: { text: 'Bygg mitt CV gratis', href: '/register' },
+          knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}
         faq={{

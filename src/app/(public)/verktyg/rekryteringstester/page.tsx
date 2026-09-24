@@ -194,7 +194,7 @@ export default function RekryteringstesterSida() {
         h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
         ingress="Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder."
         fet="Tre tester gratis, ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
-        primar={{ text: 'Starta gratis test', href: '/register' }}
+        primar={{ text: 'Starta gratis test', href: '/register?borja=tester' }}
         sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
         loften={[
           { tal: '3 tester', text: 'gratis på grundnivå' },
@@ -209,7 +209,7 @@ export default function RekryteringstesterSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Från första frågan till färdig rapport. Ingen registrering innan du provar, du börjar inom 30 sekunder.',
           rader: STEG,
-          lank: { text: 'Starta gratis test', href: '/register' },
+          lank: { text: 'Starta gratis test', href: '/register?borja=tester' },
         }}
         kontroll={{
           eyebrow: 'Vad du tränar på',
@@ -224,7 +224,7 @@ export default function RekryteringstesterSida() {
             rubrik: 'Tre testtyper, alla gratis att börja',
             ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${TRANINGSPAKETET.name} för ${TRANINGSPAKETET.amount} kr i veckan.`,
             rader: TESTTYPER,
-            lank: { text: 'Starta gratis test', href: '/register' },
+            lank: { text: 'Starta gratis test', href: '/register?borja=tester' },
           },
           {
             eyebrow: 'Personlighetsprofil',
@@ -262,7 +262,7 @@ export default function RekryteringstesterSida() {
           eyebrow: `${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan`,
           rubrik: 'Träna nu. Kom förberedd sen.',
           text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan.`,
-          knapp: { text: 'Starta gratis test', href: '/register' },
+          knapp: { text: 'Starta gratis test', href: '/register?borja=tester' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}
         faq={{

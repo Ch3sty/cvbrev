@@ -136,7 +136,7 @@ export default function JobbmatchningSida() {
         h1="Hitta jobb som matchar ditt CV automatiskt"
         ingress="Aktivera ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen."
         fet="Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel."
-        primar={{ text: 'Hitta jobb gratis', href: '/register' }}
+        primar={{ text: 'Hitta jobb gratis', href: '/register?borja=jobb' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
           { tal: `${FREE_TIER_JOB_LIMIT} träffar`, text: 'gratis med skälen' },
@@ -151,7 +151,7 @@ export default function JobbmatchningSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Fyra steg från aktiverat CV till en lista sorterad efter hur väl du passar.',
           rader: howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text })),
-          lank: { text: 'Hitta jobb nu', href: '/register' },
+          lank: { text: 'Hitta jobb nu', href: '/register?borja=jobb' },
         }}
         kontroll={{
           eyebrow: 'Vad vi läser ut',
@@ -176,7 +176,7 @@ export default function JobbmatchningSida() {
           eyebrow: 'Allt-paketet',
           rubrik: 'Hitta ditt nästa jobb automatiskt.',
           text: `Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i ${PLAN_BY_KEY.all_week.name}: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden, utan bindningstid.`,
-          knapp: { text: 'Hitta jobb gratis', href: '/register' },
+          knapp: { text: 'Hitta jobb gratis', href: '/register?borja=jobb' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}
         faq={{

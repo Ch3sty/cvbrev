@@ -20,6 +20,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 import { useUnusedFeatures, type FeatureSpotlightItem, type FeatureSlug } from '@/hooks/useUnusedFeatures';
+import type { SignupIntent } from '@/components/registrering/intent';
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { hemIntervjuSteg, type IntervjuHem, type ProvSammanfattning } from '@/lib/intervju/nasta';
 import type { FragaId } from '@/components/artiklar/intervjuprov/fragor';
@@ -67,9 +68,11 @@ interface UseNextBestActionResult {
 
 export function useNextBestAction(
   appSummary: ApplicationsSummary,
-  intervju?: IntervjuHem | null
+  intervju?: IntervjuHem | null,
+  /** Valet i registreringen, bara som ordning för den oprövade funktionen. */
+  intent: SignupIntent | null = null
 ): UseNextBestActionResult {
-  const { feature, loading: featuresLoading, dismiss: dismissFeature } = useUnusedFeatures();
+  const { feature, loading: featuresLoading, dismiss: dismissFeature } = useUnusedFeatures(intent);
   // Bump för att räkna om efter en dismiss (localStorage är inte reaktivt).
   const [, setVersion] = useState(0);
 

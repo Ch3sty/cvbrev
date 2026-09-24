@@ -257,3 +257,21 @@ export const STEG3 = {
   /** "79 kr / vecka" i kortets prisrad. */
   pris: (plan: 'cv_week' | 'test_week' | 'all_week') => `${PLAN_BY_KEY[plan].amount} kr / vecka`,
 } as const
+
+/* ------------------------------------------------------------ bredden, hemskärmen */
+
+/** Raden "Prova också" efter första dokumentet (designfilen, Bredden punkt 3). */
+export const PROVA_OCKSA = {
+  etikett: 'Prova också',
+  knapp: 'Prova',
+  tester: {
+    rubrik: 'Klarar du logiktestet?',
+    text: 'Du har ett CV klart. Logiktest är vanliga i urvalet efter ansökan. Grundnivån ingår gratis.',
+    href: '/dashboard/tester/matrislogik-grund',
+  },
+  'cv-analys': {
+    rubrik: 'Vad ser rekryteraren i ditt CV?',
+    text: 'Analysen visar poängen och det tyngsta fyndet, gratis.',
+    href: '/dashboard/cv-analys',
+  },
+} as const

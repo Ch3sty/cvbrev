@@ -73,7 +73,10 @@ export function KomIgangProvider({ children }: { children: ReactNode }) {
   const lage = useMemo(() => {
     if (!summary?.komIgang || !summary.paket) return null
     const paket: Paket = summary.paket.scope
-    return komIgangLage(paket, summary.komIgang.provade, summary.paket.planKey === 'all_day')
+    // Valet i registreringen ordnar gratislistan. Betalande får paketets
+    // lista oavsett val.
+    const intent = paket ? null : (summary.komIgang.intent ?? null)
+    return komIgangLage(paket, summary.komIgang.provade, summary.paket.planKey === 'all_day', intent)
   }, [summary])
 
   const fakta = summary?.komIgang?.fakta ?? {}

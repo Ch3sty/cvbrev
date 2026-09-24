@@ -34,7 +34,8 @@ import {
   resolveWeeklyLetterCounter,
 } from '@/lib/quota/quotaService'
 import type { BrickaFakta, BrickaKey } from '@/lib/onboarding/komigang'
-import { harledProvade, sparadeNycklar } from '@/lib/onboarding/komigang-server'
+import { harledProvade, komIgangIntent, sparadeNycklar } from '@/lib/onboarding/komigang-server'
+import type { SignupIntent } from '@/components/registrering/intent'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaProv, hamtaSenasteSmakprov } from '@/lib/intervju/data'
@@ -132,6 +133,12 @@ export interface DashboardSummaryData {
   komIgang: {
     provade: BrickaKey[]
     fakta: BrickaFakta
+    /**
+     * Valet i registreringen (profil-registrering 2026-09-24). Läses bara av
+     * Kom igång och hemskärmens ordning, aldrig av menyn eller behörigheterna.
+     * Valfritt eftersom ett äldre svar i sessionStorage-cachen kan sakna det.
+     */
+    intent?: SignupIntent | null
   }
   /**
    * Sidomenyns antal. Menyn hämtade dem förut själv med tre count-frågor
@@ -654,6 +661,7 @@ export async function getDashboardSummary(
     komIgang: {
       provade,
       fakta,
+      intent: komIgangIntent(profileRow),
     },
     sidomeny: {
       cv: cvRows.length,

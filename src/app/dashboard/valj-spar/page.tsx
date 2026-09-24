@@ -9,7 +9,8 @@
  *
  * `?paket=<planKey>` förväljer spåret och längden. Prissidan och
  * registreringen skickar med den, så att den som redan valt paket inte får
- * frågan en gång till.
+ * frågan en gång till. `&steg=kop` öppnar köpsteget direkt (registreringens
+ * förslag och prissidan, docs/design/profil-registrering-spec-2026-09-24.md).
  */
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -67,6 +68,7 @@ export default async function ValjSparPage({
       initialTrack={forvaltSpar ?? initialTrack}
       initialPlanKey={forvaltPaket}
       harLopandePrenumeration={harLopandePrenumeration}
+      oppnaKopsteg={params.steg === 'kop' && forvaltPaket !== null}
     />
   )
 }

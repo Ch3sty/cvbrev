@@ -48,6 +48,13 @@ export interface FlowShellProps {
   onExit?: () => void
   /** Etikett för lämna-knappen när onBack saknas. */
   exitLabel?: string
+  /**
+   * Ingen chevron till vänster när onBack saknas: bara krysset lämnar
+   * flödet. Registreringens steg 3, där det inte finns något steg att backa till.
+   */
+  utanTillbaka?: boolean
+  /** Innehåll och fot i en kolumn på 560 px i stället för 768 (en fråga, inte en prislista). */
+  smal?: boolean
 
   /** Primärknappens text. Foten döljs helt om den utelämnas. */
   primaryLabel?: string
@@ -63,6 +70,12 @@ export interface FlowShellProps {
   busyLabel?: string
   /** Valfri sekundär handling i foten. Alltid textlänk, aldrig andra knapp. */
   footerSecondary?: ReactNode
+  /**
+   * Sekundären som en knapp i samma storlek bredvid primären (under på
+   * mobil), i stället för under den. Registreringens steg 3: Köp och Börja
+   * gratis är två lika stora val.
+   */
+  footerSecondarySameSize?: boolean
 
   /** Stegets innehåll. Skalet äger scrollen, innehållet ska inte scrolla själv. */
   children: ReactNode
@@ -77,6 +90,8 @@ export default function FlowShell({
   onBack,
   onExit,
   exitLabel = 'Avsluta',
+  utanTillbaka = false,
+  smal = false,
   primaryLabel,
   onPrimary,
   primaryDisabled,
@@ -84,6 +99,7 @@ export default function FlowShell({
   primaryBusy,
   busyLabel = 'Vänta',
   footerSecondary,
+  footerSecondarySameSize = false,
   children,
   banner,
 }: FlowShellProps) {
@@ -137,7 +153,7 @@ export default function FlowShell({
     }
   }, [showFooter, primaryBlockedReason, footerSecondary])
 
-  const backButton = onBack ?? onExit
+  const backButton = onBack ?? (utanTillbaka ? undefined : onExit)
   const backLabel = onBack ? 'Föregående steg' : exitLabel
 
   // Flödet döljer både dashboardheadern och bottennavet. Utan den här knappen
@@ -202,7 +218,7 @@ export default function FlowShell({
 
       {/* Mitten: flödets enda scrollyta. */}
       <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto w-full max-w-3xl px-4 py-4">
+        <div className={`mx-auto w-full ${smal ? 'max-w-[560px] sm:pt-7' : 'max-w-3xl'} px-4 py-4`}>
           {banner ? <div className="mb-4">{banner}</div> : null}
           {children}
         </div>
@@ -216,23 +232,26 @@ export default function FlowShell({
           className="flex-shrink-0 border-t border-kant bg-panel"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
-          <div className="mx-auto w-full max-w-3xl px-4 py-3">
+          <div className={`mx-auto w-full ${smal ? 'max-w-[560px]' : 'max-w-3xl'} px-4 py-3`}>
             {primaryBlockedReason && primaryDisabled && !primaryBusy ? (
               <p className="mb-2 text-sm text-ink-2" aria-live="polite">
                 {primaryBlockedReason}
               </p>
             ) : null}
 
-            <button
-              type="button"
-              onClick={onPrimary}
-              disabled={primaryDisabled || primaryBusy}
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
-            >
-              {primaryBusy ? busyLabel : primaryLabel}
-            </button>
+            <div className={footerSecondarySameSize ? 'grid gap-2 sm:flex sm:gap-3' : undefined}>
+              <button
+                type="button"
+                onClick={onPrimary}
+                disabled={primaryDisabled || primaryBusy}
+                className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+              >
+                {primaryBusy ? busyLabel : primaryLabel}
+              </button>
+              {footerSecondarySameSize ? footerSecondary : null}
+            </div>
 
-            {footerSecondary ? <div className="mt-2">{footerSecondary}</div> : null}
+            {footerSecondary && !footerSecondarySameSize ? <div className="mt-2">{footerSecondary}</div> : null}
           </div>
         </footer>
       ) : null}

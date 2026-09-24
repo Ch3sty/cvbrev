@@ -28,6 +28,11 @@ export const MATSTART = {
   paket: '2026-09-22T08:51:00Z',
   /** Köpvägens händelser (purchase_step_viewed m.fl.) från 22 sep 19.02. */
   kopvag: '2026-09-22T17:02:00Z',
+  /**
+   * Registreringens förslag (steg 3, pricing_viewed surface signup_forslag).
+   * Byggt 24 sep; räknas från deploy. Sätts om till deploytiden vid push.
+   */
+  forslag: '2026-09-24T12:00:00Z',
   /** Kolumnerna per paket i admin_daily_metrics finns från 21 sep. */
   paketKolumner: '2026-09-21',
   /** Attributionen (acquisition_source) sattes korrekt från 21 sep 22.00. */

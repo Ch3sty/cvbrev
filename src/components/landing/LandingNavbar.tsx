@@ -29,6 +29,16 @@ import { IlluScenAllt } from '@/components/illustrations/PriserScener'
 import { PLAN_BY_KEY, paketMedPris } from '@/lib/plans/plans'
 import NavIkon from './NavIkon'
 import { GRUPPER, HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
+import { ENTRY_STORAGE_KEY } from '@/components/registrering/intent'
+
+/** Registreringens ingång (profil-registrering 2026-09-24): headern, utan att ändra adressen. */
+function markeraIngang(entry: 'header' | 'meny') {
+  try {
+    sessionStorage.setItem(ENTRY_STORAGE_KEY, entry)
+  } catch {
+    /* privat läge: ingången blir direkt */
+  }
+}
 
 
 /** IlluScenAllt är ritad för bläck. På insunken blir papperen vita och etiketten ink-3. */
@@ -216,6 +226,7 @@ export default function LandingNavbar() {
           <Link
             href="/register"
             data-cta="navbar-signup"
+            onClick={() => markeraIngang(mobilOppen ? 'meny' : 'header')}
             className="inline-flex h-10 items-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
           >
             Skapa konto

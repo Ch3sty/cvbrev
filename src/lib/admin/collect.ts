@@ -794,6 +794,9 @@ export function byggFunnelRader(
 export const FLODE_HANDELSER = [
   '$pageview',
   'signup_completed',
+  // Registreringens steg 3 (profil-registrering 2026-09-24): pricing_viewed
+  // med surface signup_forslag är steget mellan Konto och Spårval i Tratt.
+  'pricing_viewed',
   'track_selected',
   'purchase_step_viewed',
   'consent_checked',
@@ -814,6 +817,7 @@ export const FLODE_SAMLAD = '_samlad';
 const HOGQL_FLODE_DIM = `multiIf(
   event in ('purchase_step_viewed', 'consent_checked', 'checkout_started', 'subscription_paid', 'renewal_succeeded'), toString(properties.plan),
   event = 'track_selected', toString(properties.track),
+  event = 'pricing_viewed', toString(properties.surface),
   event in ('feature_blocked', 'gray_option_tapped'), toString(properties.feature),
   event = 'onboarding_step_completed', concat(toString(properties.paket), '|', toString(properties.step)),
   event in ('onboarding_completed', 'welcome_viewed', 'komigang_opened'), toString(properties.paket),

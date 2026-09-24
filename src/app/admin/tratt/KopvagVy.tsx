@@ -104,6 +104,11 @@ export default async function KopvagVy({
         <ol className="divide-y divide-kant">
           <StegRad tagg="konton" text="Nya konton, ur databasen" antal={d.nyaKonton} />
           <StegRad
+            tagg="förslag"
+            text={`Såg förslaget efter kontot (registreringens steg 3), ur PostHog, mäts från ${tidKort(MATSTART.forslag)}`}
+            antal={d.forslag}
+          />
+          <StegRad
             tagg="spår"
             text={`Personer som valde spår, ur PostHog${sparDelar.length ? `: ${sparDelar.join(', ')}` : ''}`}
             antal={d.spar.totalt}

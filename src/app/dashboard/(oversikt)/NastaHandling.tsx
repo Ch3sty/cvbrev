@@ -17,6 +17,8 @@ import { getTestConfig, testPaths } from '@/app/dashboard/tester/testConfig'
 import { nar } from '@/lib/intervju/nasta'
 import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import type { NextBestAction } from '@/hooks/useNextBestAction'
+import { featureUtanforVal } from '@/hooks/useUnusedFeatures'
+import type { SignupIntent } from '@/components/registrering/intent'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
 import { IlluScenBrev, IlluScenCv, IlluScenIntervju, IlluScenMatris, IlluScenUppfoljning } from '@/components/illustrations/PriserScener'
 
@@ -25,6 +27,8 @@ interface NastaHandlingProps {
   onDismiss: () => void
   /** Ersätter "Senare", till exempel CV-länken i träningsfokus. */
   secondary?: ReactNode
+  /** Valet i registreringen, för mätningen outside_intent (bredden). */
+  intent?: SignupIntent | null
 }
 
 function copyFor(action: NonNullable<NextBestAction>) {
@@ -93,7 +97,7 @@ function copyFor(action: NonNullable<NextBestAction>) {
   }
 }
 
-export default function NastaHandling({ action, onDismiss, secondary }: NastaHandlingProps) {
+export default function NastaHandling({ action, onDismiss, secondary, intent = null }: NastaHandlingProps) {
   const kind = action?.kind ?? null
   // Mätningen av de nya stegen (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 4).
   useEffect(() => {
@@ -108,7 +112,18 @@ export default function NastaHandling({ action, onDismiss, secondary }: NastaHan
       text={copy.text}
       scene={<copy.Scen className="h-auto w-full" />}
       action={
-        <Link href={copy.href} className={INK_KNAPP}>
+        <Link
+          href={copy.href}
+          className={INK_KNAPP}
+          onClick={() =>
+            capture('next_action_clicked', {
+              kind: action.kind,
+              surface: 'hem',
+              ...(action.kind === 'feature' ? { slug: action.feature.slug } : {}),
+              outside_intent: action.kind === 'feature' ? featureUtanforVal(action.feature.slug, intent) : false,
+            })
+          }
+        >
           {copy.cta}
         </Link>
       }

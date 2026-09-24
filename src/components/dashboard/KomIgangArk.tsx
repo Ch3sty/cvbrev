@@ -24,9 +24,14 @@ import {
   brickaText,
   komIgangRubrik,
   KOM_IGANG,
+  OMRADE_FOR_BRICKA,
+  OMRADE_FOR_INTENT,
+  utanforIntent,
   type BrickaKey,
   type Paket,
 } from '@/lib/onboarding/komigang'
+import { capture } from '@/lib/analytics/events'
+import type { SignupIntent } from '@/components/registrering/intent'
 import {
   IlluScenBrev,
   IlluScenCoach,
@@ -107,26 +112,38 @@ export default function KomIgangArk() {
         {lage.dagspass ? (
           <p className="mt-1 text-sm leading-5 text-ink-2">{KOM_IGANG.dygnRad}</p>
         ) : null}
+        {lage.gratisMedVal ? (
+          <p className="mt-0.5 text-sm leading-[22px] text-ink-2">{KOM_IGANG.gratisUnder}</p>
+        ) : null}
 
-        <ol role="list" className="mt-3 grid gap-2">
-          {lage.lista.map((key) => {
-            const tillstand: Tillstand = lage.provade.includes(key)
-              ? 'klar'
-              : key === lage.nasta
-                ? 'nasta'
-                : 'kvar'
-            return (
-              <Bricka
-                key={key}
-                bricka={key}
-                paket={lage.paket}
-                tillstand={tillstand}
-                onNavigate={stang}
-                fakta={fakta}
-              />
-            )
-          })}
-        </ol>
+        {grupper(lage.lista, lage.gratisMedVal ? lage.intent : null).map((grupp) => (
+          <div key={grupp.etikett ?? 'alla'}>
+            {grupp.etikett ? (
+              <p className="mb-2 mt-3.5 text-steg uppercase text-ink-3">{grupp.etikett}</p>
+            ) : null}
+            <ol role="list" className={`grid gap-2 ${grupp.etikett ? '' : 'mt-3'}`}>
+              {grupp.brickor.map((key) => {
+                const tillstand: Tillstand = lage.provade.includes(key)
+                  ? 'klar'
+                  : key === lage.nasta
+                    ? 'nasta'
+                    : 'kvar'
+                return (
+                  <Bricka
+                    key={key}
+                    bricka={key}
+                    paket={lage.paket}
+                    tillstand={tillstand}
+                    onNavigate={stang}
+                    fakta={fakta}
+                    gratisMedVal={lage.gratisMedVal}
+                    intent={lage.intent}
+                  />
+                )
+              })}
+            </ol>
+          </div>
+        ))}
 
         <div className="mt-4 text-center">
           <button type="button" onClick={dolj} className={LANK}>
@@ -138,20 +155,41 @@ export default function KomIgangArk() {
   )
 }
 
+/**
+ * Gratislistan per val delas i två områden, "Det du valde" och "Gratis i de
+ * andra delarna" (designfilen, Bredden). Övriga listor är en grupp utan etikett.
+ */
+function grupper(
+  lista: readonly BrickaKey[],
+  intent: SignupIntent | null
+): { etikett: string | null; brickor: BrickaKey[] }[] {
+  if (!intent) return [{ etikett: null, brickor: [...lista] }]
+  const valt = lista.filter((k) => OMRADE_FOR_BRICKA[k] === OMRADE_FOR_INTENT[intent])
+  const andra = lista.filter((k) => OMRADE_FOR_BRICKA[k] !== OMRADE_FOR_INTENT[intent])
+  return [
+    { etikett: KOM_IGANG.omradeValt, brickor: valt },
+    { etikett: KOM_IGANG.omradeAndra, brickor: andra },
+  ].filter((g) => g.brickor.length > 0)
+}
+
 function Bricka({
   bricka,
   paket,
   tillstand,
   onNavigate,
   fakta,
+  gratisMedVal = false,
+  intent = null,
 }: {
   bricka: BrickaKey
   paket: Paket
   tillstand: Tillstand
   onNavigate: () => void
   fakta: Parameters<typeof brickaText>[2]
+  gratisMedVal?: boolean
+  intent?: SignupIntent | null
 }) {
-  const t = brickaText(bricka, paket, fakta)
+  const t = brickaText(bricka, paket, fakta, gratisMedVal)
   const Ikon = BRICKA_IKON[bricka]
   const klar = tillstand === 'klar'
   const nasta = tillstand === 'nasta'
@@ -168,7 +206,15 @@ function Bricka({
     <li>
       <Link
         href={t.href}
-        onClick={onNavigate}
+        onClick={() => {
+          capture('kom_igang_tile_clicked', {
+            bricka,
+            paket,
+            intent,
+            outside_intent: utanforIntent(bricka, intent),
+          })
+          onNavigate()
+        }}
         aria-label={`${t.titel}, ${under}, ${klar ? 'provad' : nasta ? 'föreslagen som nästa' : 'inte provad än'}`}
         className={`grid min-h-[64px] grid-cols-[44px_1fr_24px] items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors hover:border-kant-stark ${ram}`}
       >

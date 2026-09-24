@@ -1,0 +1,302 @@
+[
+  {
+    "namn": "steg 1: fyra kort ovanför foten",
+    "ok": true,
+    "not": "{\"fjardeBotten\":604,\"knappBotten\":873,\"huvudTopp\":788,\"hojd\":915,\"sparrad\":true,\"sparr\":\"Välj vad du vill börja med, eller hoppa över.\"}"
+  },
+  {
+    "namn": "steg 1: Fortsätt syns utan scroll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "steg 1: Fortsätt spärrad med orsak",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "steg 1: piltangenterna flyttar och väljer",
+    "ok": true,
+    "not": "tester/tester"
+  },
+  {
+    "namn": "steg 1: Tabb går till Hoppa över",
+    "ok": true,
+    "not": "Hoppa över och skapa konto direkt"
+  },
+  {
+    "namn": "steg 2: tillbaka-pilen behåller valet",
+    "ok": true,
+    "not": "tester"
+  },
+  {
+    "namn": "borja: steg 2 direkt",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "borja: Ändra ger steg 1 med testerna förvalda",
+    "ok": true,
+    "not": "tester"
+  },
+  {
+    "namn": "testsidan: fyra Starta gratis test till ?borja=tester",
+    "ok": true,
+    "not": "[\"/register?borja=tester\",\"/register?borja=tester\",\"/register?borja=tester\",\"/register?borja=tester\"]"
+  },
+  {
+    "namn": "cv: steg 1 visas från headern",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "cv: steg 2 med valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "cv: steg 3 visas",
+    "ok": true,
+    "not": "/dashboard/valkommen"
+  },
+  {
+    "namn": "cv: rubriken med förnamnet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "cv: Köp och Börja gratis lika stora",
+    "ok": true,
+    "not": "[[380,44],[380,44]]"
+  },
+  {
+    "namn": "cv: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "cv: Börja gratis landar på CV-byggaren",
+    "ok": true,
+    "not": "/dashboard/skapa-cv?steg=1"
+  },
+  {
+    "namn": "brev: steg 1 visas från headern",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "brev: steg 2 med valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "brev: steg 3 visas",
+    "ok": true,
+    "not": "/dashboard/valkommen"
+  },
+  {
+    "namn": "brev: rubriken med förnamnet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "brev: Köp och Börja gratis lika stora",
+    "ok": true,
+    "not": "[[380,44],[380,44]]"
+  },
+  {
+    "namn": "brev: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "brev: Börja gratis landar på Skriv nytt brev",
+    "ok": true,
+    "not": "/dashboard/skapa-brev?steg=1"
+  },
+  {
+    "namn": "tester: steg 1 visas från headern",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester: steg 2 med valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester: steg 3 visas",
+    "ok": true,
+    "not": "/dashboard/valkommen"
+  },
+  {
+    "namn": "tester: rubriken med förnamnet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester: Köp och Börja gratis lika stora",
+    "ok": true,
+    "not": "[[380,44],[380,44]]"
+  },
+  {
+    "namn": "tester: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "tester: Köp landar på köpsteget med Träningspaketet och samtycket",
+    "ok": true,
+    "not": "/dashboard/valj-spar?paket=test_week&steg=kop"
+  },
+  {
+    "namn": "intervju: steg 1 visas från headern",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "intervju: steg 2 med valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "intervju: steg 3 visas",
+    "ok": true,
+    "not": "/dashboard/valkommen"
+  },
+  {
+    "namn": "intervju: rubriken med förnamnet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "intervju: Köp och Börja gratis lika stora",
+    "ok": true,
+    "not": "[[271,44],[200,44]]"
+  },
+  {
+    "namn": "intervju: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "intervju: Börja gratis landar på Inför intervjun",
+    "ok": true,
+    "not": "/dashboard/intervju"
+  },
+  {
+    "namn": "jobb: steg 1 visas från headern",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "jobb: steg 2 med valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "jobb: steg 3 visas",
+    "ok": true,
+    "not": "/dashboard/valkommen"
+  },
+  {
+    "namn": "jobb: rubriken med förnamnet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "jobb: Köp och Börja gratis lika stora",
+    "ok": true,
+    "not": "[[248,44],[200,44]]"
+  },
+  {
+    "namn": "jobb: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "jobb: krysset gör som Börja gratis",
+    "ok": true,
+    "not": "/dashboard/jobbmatchning"
+  },
+  {
+    "namn": "hoppa över: steg 2 utan valrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hoppa över: spårvalet utan förval",
+    "ok": true,
+    "not": "/dashboard/valj-spar valda=0"
+  },
+  {
+    "namn": "db cv: onboarding_intent cv, onboarding_track cv",
+    "ok": true,
+    "not": "{\"id\":\"c40d558b-d087-48ae-bb66-5a75d3adaaab\",\"onboarding_intent\":\"cv\",\"onboarding_track\":\"cv\"}"
+  },
+  {
+    "namn": "db brev: onboarding_intent brev, onboarding_track cv",
+    "ok": true,
+    "not": "{\"id\":\"51686003-c9e0-49e3-926d-aa9dab497c10\",\"onboarding_intent\":\"brev\",\"onboarding_track\":\"cv\"}"
+  },
+  {
+    "namn": "db tester: onboarding_intent tester, onboarding_track tester",
+    "ok": true,
+    "not": "{\"id\":\"31c84304-bd15-4a0a-b5d7-e773ed7e77d2\",\"onboarding_intent\":\"tester\",\"onboarding_track\":\"tester\"}"
+  },
+  {
+    "namn": "db intervju: onboarding_intent intervju, onboarding_track tester",
+    "ok": true,
+    "not": "{\"id\":\"a7f81e93-3472-4683-b494-913e5b885b5c\",\"onboarding_intent\":\"intervju\",\"onboarding_track\":\"tester\"}"
+  },
+  {
+    "namn": "db jobb: onboarding_intent jobb, onboarding_track allt",
+    "ok": true,
+    "not": "{\"id\":\"2b42a4c3-144c-48f0-ae1d-e880c2b2ad62\",\"onboarding_intent\":\"jobb\",\"onboarding_track\":\"allt\"}"
+  },
+  {
+    "namn": "db hoppa: onboarding_intent null, onboarding_track null",
+    "ok": true,
+    "not": "{\"id\":\"ed8ece25-dc84-4349-9d51-2ba4297628c2\",\"onboarding_intent\":null,\"onboarding_track\":null}"
+  },
+  {
+    "namn": "hem tester: raden om valet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem tester: Gör ditt första rekryteringstest",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem tester: CV-länken finns kvar",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "kom igång tester: sex brickor i ordning",
+    "ok": true,
+    "not": "[513,567,631,710,778,845]"
+  },
+  {
+    "namn": "kom igång tester: områdesetiketterna",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "kom igång tester: ingen uppladdningsbricka",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "hem cv efter första CV:t: Prova också föreslår logiktestet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "menyn identisk för cv och jobb",
+    "ok": true,
+    "not": "321/321"
+  }
+]

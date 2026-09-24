@@ -189,6 +189,9 @@ export const HEM = {
       knapp: 'Starta testet',
     },
     cvLank: 'Vill du börja med CV:t i stället?',
+    /** Gratiskonto med ett val vid registreringen (profil-registrering 2026-09-24). */
+    radValtTester: 'Du valde testerna, så vi börjar med träningen.',
+    radValtIntervju: 'Du valde intervjun, så vi börjar med träningen.',
   },
   aktivitet: {
     prov: (fraga: FragaId, level: number) => `Du övade på frågan om ${FRAGOR[fraga].bestamd}, ${level} av 5.`,

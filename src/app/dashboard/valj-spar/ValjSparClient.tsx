@@ -11,7 +11,7 @@
  *         första steget, "Vill du ha allt i stället?" med längdvalet,
  *         samtyckesrutan och "Till betalning, 79 kr".
  *   1.1b  gratisanvändarens spårfråga, utan priser. Nås bara om inget spår
- *         är valt, vilket förvalet gör ovanligt.
+ *         är valt och hon trycker Börja gratis.
  *
  * Skärmarna är steg i ett flöde, inte tre sidor: tillbaka går till
  * föregående steg, och framstegslinjen är tråden. All logik för samtycke,
@@ -24,6 +24,7 @@ import FlowShell from '@/components/shell/FlowShell'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import FlowError from '@/components/shell/FlowError'
 import LangdVal from '@/components/pricing/LangdVal'
+import SparKort from '@/components/pricing/SparKort'
 import { IkonCv, IkonAnalys, IkonHem } from '@/components/illustrations/Ikoner'
 import {
   IlluScenAllt,
@@ -79,18 +80,26 @@ export interface ValjSparClientProps {
    * längdvalet (D48b): bytet nedåt vore en uppsägning plus ett engångsköp.
    */
   harLopandePrenumeration?: boolean
+  /**
+   * ?steg=kop: öppna köpsteget direkt. Registreringens förslag (steg 3) och
+   * prissidans ?paket= landar här, efter att paketet redan valts.
+   */
+  oppnaKopsteg?: boolean
 }
 
 export default function ValjSparClient({
   initialTrack,
   initialPlanKey = null,
   harLopandePrenumeration = false,
+  oppnaKopsteg = false,
 }: ValjSparClientProps) {
   const router = useRouter()
-  const [steg, setSteg] = useState<Steg>('val')
-  // Första kortet är förvalt (specen visar CV-paketet vald), så primären är
-  // aldrig tyst spärrad. Ett tidigare spår eller ?paket vinner.
-  const [track, setTrack] = useState<Track | null>(initialTrack ?? 'cv')
+  const [steg, setSteg] = useState<Steg>(oppnaKopsteg && initialTrack ? 'paket' : 'val')
+  // Inget förval (profil-registrering 2026-09-24, kriterium 8): utan ?paket
+  // och utan sparat spår är inget kort valt, och primären är spärrad med sin
+  // orsak utskriven tills ett kort är valt. Förvalet gav fel spår åt alla
+  // som kom från testsidan.
+  const [track, setTrack] = useState<Track | null>(initialTrack)
   const sparatTrack = useRef<Track | null>(null)
   const [gratisVal, setGratisVal] = useState<'cv' | 'tester' | 'ingen' | null>(null)
   const [langd, setLangd] = useState<PlanLength>(() => {
@@ -465,97 +474,19 @@ export default function ValjSparClient({
         {SPARVAL.kort.map((kort) => (
           <SparKort
             key={kort.paket}
-            kort={kort}
+            Scen={SCEN[kort.paket]}
+            ink={kort.paket === 'allt'}
+            eyebrow={kort.paket === 'allt' ? 'Rekommenderas' : undefined}
+            rubrik={kort.rubrik}
+            namn={kort.namn}
+            duFar={kort.duFar}
+            prisText={kort.prisText}
+            pris={kort.pris}
             selected={track === TRACK_FOR[kort.paket]}
             onSelect={() => setTrack(TRACK_FOR[kort.paket])}
           />
         ))}
       </div>
     </FlowShell>
-  )
-}
-
-/**
- * Valkortet i spårvalet (.vkort i specen). Lokalt i sidan: ChoiceCard har
- * varken illustration på insunken platta, "du får"-lista, prisrad eller
- * ink-varianten för det rekommenderade kortet.
- *
- * Val markeras med kant i ink-1 och shadow-val på papper. Det mörka kortet
- * får i stället en ring i ink-1 utanför marken, eftersom en ink-kant är
- * osynlig på en ink-yta. role="radio" med aria-checked som ChoiceCard.
- */
-function SparKort({
-  kort,
-  selected,
-  onSelect,
-}: {
-  kort: (typeof SPARVAL.kort)[number]
-  selected: boolean
-  onSelect: () => void
-}) {
-  const rek = kort.paket === 'allt'
-  const Scen = SCEN[kort.paket]
-  const damp = rek ? 'text-ink-1-mjuk' : 'text-ink-2'
-  const meta = rek ? 'text-ink-1-mjuk' : 'text-ink-3'
-  const valdKlass = selected
-    ? rek
-      ? 'border-ink-1 shadow-[0_0_0_2px_var(--mark),0_0_0_4px_var(--ink-1)]'
-      : 'border-ink-1 shadow-val'
-    : rek
-      ? 'border-ink-1'
-      : 'border-kant hover:border-kant-stark'
-
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={selected}
-      onClick={onSelect}
-      className={`grid w-full grid-cols-[56px_1fr] items-start gap-3 rounded-xl border p-4 text-left transition-[border-color,box-shadow] duration-[160ms] ease-out ${
-        rek ? 'bg-ink-1 text-white' : 'bg-panel text-ink-1'
-      } ${valdKlass}`}
-    >
-      <span
-        className={`grid h-14 w-14 place-items-center rounded-lg ${rek ? 'bg-ink-hover' : 'bg-insunken'}`}
-        aria-hidden="true"
-      >
-        <Scen className="h-11 w-11" />
-      </span>
-      <span className="min-w-0">
-        {rek ? (
-          <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-1-accent">
-            Rekommenderas
-          </span>
-        ) : null}
-        <span className="block text-base font-semibold leading-[21px]">{kort.rubrik}</span>
-        <span className={`mt-0.5 block text-[13px] leading-[18px] ${damp}`}>{kort.namn}</span>
-      </span>
-
-      <ul
-        className={`col-span-2 mt-0.5 grid gap-1 border-t pt-2 text-[13px] leading-[18px] ${damp} ${
-          rek ? 'border-ink-1-kant' : 'border-kant'
-        }`}
-      >
-        {kort.duFar.map((rad) => (
-          <li key={rad.fet} className="flex gap-2">
-            <span
-              className={`mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full ${rek ? 'bg-panel' : 'bg-ink-1'}`}
-              aria-hidden="true"
-            />
-            <span>
-              <b className={`font-semibold ${rek ? 'text-white' : 'text-ink-1'}`}>{rad.fet}</b>
-              {rad.text}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <span className={`col-span-2 flex items-baseline justify-between gap-3 pt-2 text-[13px] ${meta}`}>
-        <span>{kort.prisText}</span>
-        <b className={`shrink-0 font-display text-xl font-bold tabular-nums ${rek ? 'text-white' : 'text-ink-1'}`}>
-          {kort.pris}
-        </b>
-      </span>
-    </button>
   )
 }

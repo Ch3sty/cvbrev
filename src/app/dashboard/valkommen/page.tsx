@@ -14,7 +14,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { SIGNUP_COOKIE, lasSignupCookie } from '@/components/registrering/intent'
+import { SIGNUP_COOKIE, lasIntent, lasSignupCookie, type SignupIntent } from '@/components/registrering/intent'
 import ValkommenClient from './ValkommenClient'
 
 export const metadata = { title: 'Kom igång' }
@@ -27,26 +27,31 @@ export default async function ValkommenPage() {
   if (!user) redirect('/login')
 
   const cookieStore = await cookies()
-  const signup = lasSignupCookie(cookieStore.get(SIGNUP_COOKIE)?.value)
+  let signup = lasSignupCookie(cookieStore.get(SIGNUP_COOKIE)?.value)
 
   let fornamn: string | null = null
   let skapad: number | null = null
+  let sparatVal: SignupIntent | null = null
   try {
     const admin = getSupabaseAdmin() as any
     const { data } = await admin
       .from('profiles')
-      .select('full_name, created_at')
+      .select('full_name, created_at, onboarding_intent, onboarding_track_asked_at')
       .eq('id', user.id)
       .maybeSingle()
     const namn = typeof data?.full_name === 'string' ? data.full_name.trim() : ''
     fornamn = namn ? namn.split(/\s+/)[0] : null
     skapad = data?.created_at ? new Date(data.created_at).getTime() : null
+    // Valet finns redan sparat men cookien saknas (blockerade kakor, ny
+    // flik): förslaget visas ändå, så länge spåret inte är valt.
+    if (!data?.onboarding_track_asked_at) sparatVal = lasIntent(data?.onboarding_intent)
   } catch {
     /* ett läsfel får aldrig stoppa landningen */
   }
   if (skapad === null && user.created_at) skapad = new Date(user.created_at).getTime()
 
   const nytt = skapad !== null && Date.now() - skapad < NYTT_KONTO_MS
+  if (!signup && nytt && sparatVal) signup = { intent: sparatVal, entry: 'direkt', skipped: false }
 
   // Inget pågående registreringsflöde: hemskärmen.
   if (!signup && !nytt) redirect('/dashboard')

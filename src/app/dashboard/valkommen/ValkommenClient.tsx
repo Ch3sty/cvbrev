@@ -3,14 +3,15 @@
 /**
  * Valkommen-sidans klient (Del B). Hämtkedjan först: brevutkast, CV-start,
  * testprov, intervjuprov och personlighetsprov. En träff skickar till
- * resultatet. Annars redirect, sedan paket (köpsteget), sedan spårvalet.
+ * resultatet. Annars redirect, sedan paket (köpsteget), sedan valet (steg 3,
+ * ForslagSteg), annars spårvalet utan förval.
  *
  * Kedjan kördes förut bara i lösenordsvägen (register-form). Här körs den
  * för båda, och token läses ur cookien jc_signup, så Google-vägen hämtar
  * också hem brevutkast, CV-start och testprov.
  */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   claimPendingCvStart,
@@ -21,10 +22,12 @@ import {
 } from '@/lib/letters/claim-draft-client'
 import { capture } from '@/lib/analytics/events'
 import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
+import ForslagSteg from './ForslagSteg'
 import {
   landningsgren,
   rensaSignupCookie,
   type SignupCookie,
+  type SignupIntent,
 } from '@/components/registrering/intent'
 
 /** Hämtkedjan, i samma ordning som förut. Token ur cookien för rätt typ. */
@@ -50,9 +53,10 @@ export interface ValkommenClientProps {
   fornamn: string | null
 }
 
-export default function ValkommenClient({ signup }: ValkommenClientProps) {
+export default function ValkommenClient({ signup, fornamn }: ValkommenClientProps) {
   const router = useRouter()
   const kord = useRef(false)
+  const [forslag, setForslag] = useState<SignupIntent | null>(null)
 
   useEffect(() => {
     if (kord.current) return
@@ -67,16 +71,23 @@ export default function ValkommenClient({ signup }: ValkommenClientProps) {
         return
       }
       const gren = landningsgren(signup, TRACK_CHOICE_PATH)
-      const destination = gren.via === 'forslag' ? TRACK_CHOICE_PATH : gren.destination
-      capture('signup_landed', {
-        destination,
-        intent,
-        claimed: false,
-        via: gren.via === 'forslag' ? 'sparval' : gren.via,
-      })
-      router.replace(destination)
+      if (gren.via === 'forslag') {
+        // Valet sparas direkt, så att Kom igång och hemskärmen följer det
+        // även om hon lämnar steg 3 utan att trycka något.
+        void fetch('/api/onboarding/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ intent: gren.intent }),
+        }).catch(() => {})
+        setForslag(gren.intent)
+        return
+      }
+      capture('signup_landed', { destination: gren.destination, intent, claimed: false, via: gren.via })
+      router.replace(gren.destination)
     })()
   }, [signup, router])
+
+  if (forslag) return <ForslagSteg intent={forslag} fornamn={fornamn} entry={signup?.entry} />
 
   return (
     <div className="fixed inset-0 z-50 bg-mark lg:left-64" aria-busy="true" aria-label="Laddar">

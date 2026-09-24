@@ -1,0 +1,8 @@
+/priser | före:       2 href="/register"  | efter:       2 href="/register" 
+/verktyg/rekryteringstester | före:       5 href="/register"  | efter:       1 href="/register"       4 href="/register?borja=tester" 
+/verktyg/cv-mallar | före:       3 href="/register"  | efter:       1 href="/register"       2 href="/register?borja=cv" 
+/verktyg/skapa-cv | före:       5 href="/register"  | efter:       1 href="/register"       4 href="/register?borja=cv" 
+/verktyg/personligt-brev | före:       5 href="/register"  | efter:       1 href="/register"       4 href="/register?borja=brev" 
+/verktyg/jobbmatchning | före:       4 href="/register"  | efter:       1 href="/register"       3 href="/register?borja=jobb" 
+/verktyg/personlighetstest | före:       2 href="/register"  | efter:       1 href="/register"       1 href="/register?borja=tester" 
+/verktyg/cv-analys | före:       1 href="/register"  | efter:       1 href="/register" 

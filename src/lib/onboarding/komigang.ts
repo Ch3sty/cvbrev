@@ -12,6 +12,7 @@
 import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { paketNamn, paketNamnForScope } from '@/lib/plans/plans'
+import type { SignupIntent } from '@/components/registrering/intent'
 
 /** Brickornas nycklar. Speglar nycklarna i profiles.onboarding_steps. */
 export type BrickaKey =
@@ -69,7 +70,60 @@ export const KOM_IGANG_LISTA: Record<'cv' | 'tester' | 'allt' | 'gratis', readon
   gratis: ['profil', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'],
 }
 
-export function listaFor(paket: Paket): readonly BrickaKey[] {
+/**
+ * Gratislistorna per val i registreringen (docs/design/profil-registrering-spec-2026-09-24.md,
+ * Del B, bredden punkt 1). Det hon kom för först, sedan en gratis bricka ur
+ * varje annat område. Brickorna är funktioner man får något av, aldrig
+ * steg: cv_upp och profil står aldrig här. Uppladdningen är första steget
+ * inne i analysen, brevet, mallen och matchningen, och brickan räknas som
+ * provad först när funktionen gett sitt resultat.
+ *
+ * Valet ändrar bara ordningen här. Det läses av Kom igång och hemskärmens
+ * ordning, aldrig av menyn eller behörigheterna (saas-leads villkor 1).
+ */
+export const KOM_IGANG_LISTA_GRATIS: Record<SignupIntent, readonly BrickaKey[]> = {
+  tester: ['matris_grund', 'personlighet', 'intervjuprov', 'analys_gratis', 'brev', 'jobbmatchning'],
+  intervju: ['intervjuprov', 'personlighet', 'matris_grund', 'analys_gratis', 'brev', 'jobbmatchning'],
+  cv: ['analys_gratis', 'mall', 'brev', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+  brev: ['brev', 'analys_gratis', 'mall', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+  jobb: ['jobbmatchning', 'analys_gratis', 'brev', 'mall', 'matris_grund', 'intervjuprov'],
+}
+
+/** Område per bricka i gratislistorna: skriva, jobb eller träna. */
+export type Omrade = 'skriv' | 'jobb' | 'trana'
+
+export const OMRADE_FOR_BRICKA: Partial<Record<BrickaKey, Omrade>> = {
+  analys_gratis: 'skriv',
+  analys: 'skriv',
+  mall: 'skriv',
+  brev: 'skriv',
+  jobbmatchning: 'jobb',
+  matris_grund: 'trana',
+  personlighet: 'trana',
+  intervjuprov: 'trana',
+}
+
+export const OMRADE_FOR_INTENT: Record<SignupIntent, Omrade> = {
+  cv: 'skriv',
+  brev: 'skriv',
+  tester: 'trana',
+  intervju: 'trana',
+  jobb: 'jobb',
+}
+
+/** Ligger brickan utanför det område hon valde? Mäts som outside_intent. */
+export function utanforIntent(key: BrickaKey, intent: SignupIntent | null): boolean {
+  if (!intent) return false
+  const omrade = OMRADE_FOR_BRICKA[key]
+  return omrade !== undefined && omrade !== OMRADE_FOR_INTENT[intent]
+}
+
+/**
+ * Listan för ett paket. Gratisnivån med ett val får listan per val; utan
+ * val dagens lista. Betalande får paketets lista oavsett val.
+ */
+export function listaFor(paket: Paket, intent: SignupIntent | null = null): readonly BrickaKey[] {
+  if (!paket && intent) return KOM_IGANG_LISTA_GRATIS[intent]
   return KOM_IGANG_LISTA[paket ?? 'gratis']
 }
 
@@ -116,7 +170,17 @@ export interface BrickaText {
  * varierar med paketet på två ställen: matrislogiken i CV-listan säger
  * "Ingår gratis", och mallen i gratislistan säger "3 mallar, en nedladdning".
  */
-export function brickaText(key: BrickaKey, paket: Paket, fakta: BrickaFakta = {}): BrickaText {
+export function brickaText(
+  key: BrickaKey,
+  paket: Paket,
+  fakta: BrickaFakta = {},
+  /** Gratislistan per val: titlarna är funktioner och undertexten säger vad som ingår gratis. */
+  gratisMedVal = false
+): BrickaText {
+  if (gratisMedVal && !paket) {
+    const g = GRATIS_TEXT[key]
+    if (g) return { ...brickaText(key, paket, fakta, false), ...g }
+  }
   switch (key) {
     case 'profil':
       return {
@@ -312,6 +376,17 @@ export function brickaText(key: BrickaKey, paket: Paket, fakta: BrickaFakta = {}
   }
 }
 
+/** Gratisvarianterna ur designfilens slutcopy ("Kom igång, gratis"). */
+const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>> = {
+  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Ingår gratis, en gång per dygn' },
+  personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
+  intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
+  analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },
+  brev: { titel: 'Skriv ett personligt brev', text: 'Ett ingår gratis att läsa' },
+  jobbmatchning: { titel: 'Se tre matchade jobb', text: 'Jobb du inte hittat själv, med skälen' },
+  mall: { titel: 'Välj en CV-mall', text: `${FREE_TEMPLATE_COUNT} mallar och en nedladdning ingår gratis` },
+}
+
 function talOrd(n: number): string {
   const ord = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
   return ord[n] ?? String(n)
@@ -330,14 +405,19 @@ export interface KomIgangLage {
   klar: boolean
   /** Dagspasset: samma lista som Hela paketet, men ett dygn och eget namn. */
   dagspass: boolean
+  /** Valet i registreringen. Styr bara ordningen, och bara på gratisnivån. */
+  intent: SignupIntent | null
+  /** Gratislistan per val används: arket får områdesetiketterna. */
+  gratisMedVal: boolean
 }
 
 export function komIgangLage(
   paket: Paket,
   provade: readonly string[],
-  dagspass = false
+  dagspass = false,
+  intent: SignupIntent | null = null
 ): KomIgangLage {
-  const lista = listaFor(paket)
+  const lista = listaFor(paket, intent)
   const provadeSet = new Set(provade)
   const provadeILista = lista.filter((k) => provadeSet.has(k))
   const nasta = lista.find((k) => !provadeSet.has(k)) ?? null
@@ -350,11 +430,14 @@ export function komIgangLage(
     antalTotalt: lista.length,
     klar: nasta === null,
     dagspass: paket === 'allt' && dagspass,
+    intent: paket ? null : intent,
+    gratisMedVal: !paket && intent !== null,
   }
 }
 
 /** Radens undertext: "3 av 8 provade. Nästa: uppdatera CV:t." */
 export function komIgangRadText(lage: KomIgangLage, fakta: BrickaFakta = {}): string {
+  if (lage.gratisMedVal) return KOM_IGANG.radGratis(lage.antalProvade, lage.antalTotalt)
   const bas = `${lage.antalProvade} av ${lage.antalTotalt} provade.`
   if (!lage.nasta) return bas
   return `${bas} Nästa: ${brickaText(lage.nasta, lage.paket, fakta).kort}.`
@@ -362,6 +445,11 @@ export function komIgangRadText(lage: KomIgangLage, fakta: BrickaFakta = {}): st
 
 export const KOM_IGANG = {
   dolj: 'Dölj hjälpredan',
+  /** Gratislistan per val (profil-registrering 2026-09-24). */
+  gratisUnder: 'Allt här ingår gratis.',
+  omradeValt: 'Det du valde',
+  omradeAndra: 'Gratis i de andra delarna',
+  radGratis: (n: number, totalt: number) => `${n} av ${totalt} provade, allt ingår gratis`,
   visaAllt: 'Visa allt som ingår',
   nastaEtikett: 'Föreslaget nästa',
   /** Raden under arkets rubrik för Dagspasset: dygnet är det som styr. */

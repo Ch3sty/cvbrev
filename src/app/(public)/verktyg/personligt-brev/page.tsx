@@ -162,7 +162,7 @@ export default function PersonligtBrevSida() {
         h1="Skräddarsy ditt brev till varje annons"
         ingress="Vi läser jobbannonsen och ditt CV, plockar ut nyckelorden som betyder något och skriver ett brev som låter som du. Mall, ton och språk väljer du själv."
         fet="Klart på några minuter."
-        primar={{ text: 'Skapa ditt brev', href: '/register' }}
+        primar={{ text: 'Skapa ditt brev', href: '/register?borja=brev' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
           { tal: '1 brev', text: 'gratis, utan kortuppgift' },
@@ -177,7 +177,7 @@ export default function PersonligtBrevSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Fyra steg från tomt papper till färdig ansökan. Du gör valen, vi sätter ihop brevet.',
           rader: howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text })),
-          lank: { text: 'Börja skriva nu', href: '/register' },
+          lank: { text: 'Börja skriva nu', href: '/register?borja=brev' },
         }}
         kontroll={{
           eyebrow: 'Mallar',
@@ -208,7 +208,7 @@ export default function PersonligtBrevSida() {
               { rubrik: 'PDF och Word', text: `Nedladdningen ingår i ${PLAN_BY_KEY.cv_week.name}.` },
               { rubrik: `${pris} kr för hela veckan`, text: `${PLAN_BY_KEY.cv_week.name}. Säg upp när du vill i ditt konto.` },
             ],
-            lank: { text: 'Skriv ditt första brev gratis', href: '/register' },
+            lank: { text: 'Skriv ditt första brev gratis', href: '/register?borja=brev' },
           },
         ]}
         citat={{
@@ -220,7 +220,7 @@ export default function PersonligtBrevSida() {
           eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan`,
           rubrik: 'Ditt nästa brev tar tre minuter, inte tre timmar.',
           text: `Första brevet är gratis och kräver ingen kortuppgift, sedan skriver du ett nytt i veckan. Personliga brev utan tak, alla mallar och nedladdning som PDF och Word ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
-          knapp: { text: 'Skapa ditt brev gratis', href: '/register' },
+          knapp: { text: 'Skapa ditt brev gratis', href: '/register?borja=brev' },
         }}
         faq={{
           rubrik: 'Det du undrar om brevverktyget',

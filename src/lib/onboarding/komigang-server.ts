@@ -22,6 +22,17 @@
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { captureServer, timmarSedan } from '@/lib/analytics/server'
 import { listaFor, type BrickaKey, type Paket } from './komigang'
+import { lasIntent, type SignupIntent } from '@/components/registrering/intent'
+
+/**
+ * Valet i registreringen ur en profilrad, för Kom igång och hemskärmens
+ * ordning. Den här filen och komigang.ts är de enda i src/lib som läser
+ * kolumnen (saas-leads villkor 1, kriterium 14): summeringen anropar
+ * funktionen i stället för att läsa fältet själv.
+ */
+export function komIgangIntent(profil: Record<string, unknown> | null | undefined): SignupIntent | null {
+  return lasIntent(profil?.onboarding_intent)
+}
 
 /** Sant för de tre paketen, falskt för null och skräp. */
 function arPaket(v: unknown): v is Exclude<Paket, null> {
@@ -44,7 +55,7 @@ export async function markeraBricka(userId: string, key: BrickaKey): Promise<voi
 
     const { data: profil } = await admin
       .from('profiles')
-      .select('onboarding_steps, premium_scope, paket_started_at')
+      .select('onboarding_steps, premium_scope, paket_started_at, onboarding_intent')
       .eq('id', userId)
       .maybeSingle()
 
@@ -60,7 +71,7 @@ export async function markeraBricka(userId: string, key: BrickaKey): Promise<voi
     // Mätningen. Paketet är det köpta scopet, null på gratisnivån; listan
     // per paket ger brickans index och avgör när allt är provat.
     const paket: Paket = arPaket(profil?.premium_scope) ? profil.premium_scope : null
-    const lista = listaFor(paket)
+    const lista = listaFor(paket, komIgangIntent(profil))
     const index = lista.indexOf(key)
     const timmar = timmarSedan(profil?.paket_started_at ?? null)
     const gemensamt = {

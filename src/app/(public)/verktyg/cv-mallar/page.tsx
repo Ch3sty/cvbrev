@@ -219,7 +219,7 @@ export default function CVMallarSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Fyra steg från val till färdig PDF. Du fyller i dina uppgifter en gång och byter mall när du vill.',
           rader: STEG,
-          lank: { text: 'Bygg ditt CV nu', href: '/register' },
+          lank: { text: 'Bygg ditt CV nu', href: '/register?borja=cv' },
         }}
         kontroll={{
           eyebrow: 'Vad du får',
@@ -237,7 +237,7 @@ export default function CVMallarSida() {
           eyebrow: CV_VECKAN.name,
           rubrik: 'Välj din mall och bygg ditt CV.',
           text: `Tjugo minuter från val till färdig PDF. ${FREE_TEMPLATE_COUNT} mallar är gratis, utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, hela CV-analysen och nedladdning i Word och PDF ingår i ${CV_VECKAN.name}, ${CV_VECKAN.amount} kr i veckan.`,
-          knapp: { text: 'Bygg mitt CV gratis', href: '/register' },
+          knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}
         faq={{

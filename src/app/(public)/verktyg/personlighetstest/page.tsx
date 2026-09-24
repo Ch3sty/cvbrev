@@ -140,7 +140,7 @@ export default function PersonlighetstestSida() {
           eyebrow: 'Hela testet',
           rubrik: 'Femtio påståenden, gratis i kontot',
           text: 'Provet ger en riktning. Hela testet ger profilen rekryteraren faktiskt jämför med, och den sparas inför intervjun.',
-          knapp: { text: 'Skapa konto gratis', href: '/register' },
+          knapp: { text: 'Skapa konto gratis', href: '/register?borja=tester' },
           sekundar: { text: 'Gör provet först', href: '#provet' },
         }}
         faq={{
