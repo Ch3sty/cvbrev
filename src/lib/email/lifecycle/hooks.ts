@@ -10,7 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
 import { LIFECYCLE_EMAILS } from './registry';
-import { LIFECYCLE_FROM } from './runner';
+import { LIFECYCLE_FROM, sendScheduledRowNow } from './runner';
 import { scheduleEmail, scheduleMany, cancelScheduled, sendAfterStockholm, isoWeekKey } from './schedule';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,6 +87,74 @@ export async function sendLifecycleNow(
   }
 }
 
+/** Vad kvittot behöver. Beloppet i kronor, perioden som ISO-datum. */
+export interface KvittoUnderlag {
+  planKey: string;
+  amount: number;
+  periodStart: string | null;
+  periodEnd: string | null;
+}
+
+/**
+ * Skickar ett webhook-utlöst mejl en gång per Stripe-event.
+ *
+ * Raden <typ>_<event.id> i email_schedule läggs in först, och bara den
+ * anropare som faktiskt skapade raden skickar. Ett omsänt event hittar raden
+ * och gör ingenting. Går sändningen fel står raden kvar med last_error (och
+ * ämnet), och morgonens körning försöker igen, högst tre gånger.
+ */
+export async function sendOncePerStripeEvent(
+  admin: AnySupabase,
+  userId: string,
+  emailType: string,
+  stripeEventId: string,
+  metadata: Record<string, unknown> = {}
+): Promise<'sent' | 'canceled' | 'failed' | 'duplicate'> {
+  try {
+    const { data, error } = await (admin as any)
+      .from('email_schedule')
+      .upsert(
+        {
+          user_id: userId,
+          email_type: `${emailType}_${stripeEventId}`,
+          send_after: new Date().toISOString(),
+          metadata: { ...metadata, stripeEventId },
+        },
+        { onConflict: 'user_id,email_type', ignoreDuplicates: true }
+      )
+      .select('id');
+    if (error) {
+      console.error(`[lifecycle] ${emailType} kunde inte lägga in ${stripeEventId}:`, error.message);
+      return 'failed';
+    }
+    const rowId = (data as Array<{ id: string }> | null)?.[0]?.id;
+    if (!rowId) {
+      console.log(`[lifecycle] ${emailType} för ${stripeEventId} redan hanterat, inget nytt utskick`);
+      return 'duplicate';
+    }
+    const utfall = await sendScheduledRowNow(admin, rowId);
+    console.log(`[lifecycle] ${emailType} för ${stripeEventId} till ${userId}: ${utfall}`);
+    return utfall;
+  } catch (error: any) {
+    console.error(`[lifecycle] ${emailType} för ${stripeEventId} kastade:`, error?.message);
+    return 'failed';
+  }
+}
+
+/**
+ * Kvittot vid köpet (docs/plan-paket-och-onboarding.md avsnitt 8, K18 till
+ * K24). Skickas en gång per köp: Dagspassets checkout.session.completed och
+ * prenumerationens första faktura. Förnyelser får inget eget kvitto från oss.
+ */
+export async function onPaymentReceipt(
+  admin: AnySupabase,
+  userId: string,
+  stripeEventId: string,
+  underlag: KvittoUnderlag
+): Promise<void> {
+  await sendOncePerStripeEvent(admin, userId, 'receipt', stripeEventId, { ...underlag });
+}
+
 /** Hjälpredans mejltyper, som prefix: komigang_<datum> och paket_fornyas_<datum>. */
 const KOMIGANG_PREFIX = ['komigang_', 'paket_fornyas_'];
 
@@ -152,8 +220,18 @@ export async function onSubscriptionDeleted(admin: AnySupabase, userId: string):
 }
 
 /** Betalningen gick inte igenom. Transaktionellt, ignorerar opt-out. */
-export async function onPaymentFailed(admin: AnySupabase, userId: string): Promise<void> {
+export async function onPaymentFailed(
+  admin: AnySupabase,
+  userId: string,
+  stripeEventId?: string
+): Promise<void> {
   try {
+    // Med event-id: ett mejl per misslyckad dragning, även om Stripe skickar
+    // eventet två gånger.
+    if (stripeEventId) {
+      await sendOncePerStripeEvent(admin, userId, 'payment_failed', stripeEventId);
+      return;
+    }
     await sendLifecycleNow(admin, userId, 'payment_failed');
   } catch (error: any) {
     console.error('[lifecycle] onPaymentFailed misslyckades:', error?.message);

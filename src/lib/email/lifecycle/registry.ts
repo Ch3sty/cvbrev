@@ -59,6 +59,13 @@ export function resolveLifecycleEmail(emailType: string): LifecycleEmail | null 
   if (daySuffix && LIFECYCLE_EMAILS[daySuffix[1]]) {
     return LIFECYCLE_EMAILS[daySuffix[1]];
   }
+
+  // Kvittot får Stripe-eventets id som suffix (receipt_evt_1UJ...): ett per
+  // betalning, aldrig två för samma event även när Stripe skickar det igen.
+  const eventSuffix = emailType.match(/^(.+)_evt_[A-Za-z0-9]+$/);
+  if (eventSuffix && LIFECYCLE_EMAILS[eventSuffix[1]]) {
+    return LIFECYCLE_EMAILS[eventSuffix[1]];
+  }
   return null;
 }
 

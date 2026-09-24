@@ -20,7 +20,13 @@ import {
   onSubscriptionDeleted,
   onPaketStarted,
   onPaketEnded,
+  onPaymentReceipt,
 } from '@/lib/email/lifecycle/hooks';
+import {
+  invoicePeriod,
+  invoiceSubscriptionId,
+  subscriptionPeriodEnd,
+} from '@/lib/stripe/invoiceFields';
 
 // Slår upp user_id från Stripe-kunden, för livscykelmailen (spår D5).
 const userIdForCustomer = async (customerId: string): Promise<string | null> => {
@@ -171,11 +177,24 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
     }
 
     // Skapa dataobjektet för uppdatering (inkluderar nu subscription_tier)
+    // Periodens slut ligger på roten i acacia (SDK:ns version) och på raden
+    // i basil. Helpern läser båda, så ett byte av SDK-version inte ger
+    // "Invalid Date" i profilen.
+    const periodEnd = subscriptionPeriodEnd(subscription);
+
+    // Uppsagt men löper till periodens slut. Portalen sätter antingen
+    // cancel_at_period_end eller ett cancel_at; båda betyder att paketet inte
+    // förnyas. En avslutad prenumeration har inget att förnya alls.
+    const uppsagd =
+        isActiveOrTrialing &&
+        (subscription.cancel_at_period_end === true || typeof subscription.cancel_at === 'number');
+
     const subscriptionData: any = {
         subscription_id: subscription.id,
         subscription_status: subscription.status, // Behåll den detaljerade Stripe-statusen
         price_id: priceId,
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        current_period_end: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
+        cancel_at_period_end: uppsagd,
         // Lägg till den uppdaterade tier-statusen:
         subscription_tier: newSubscriptionTier
     };
@@ -273,8 +292,15 @@ export async function POST(request: Request) {
      // Extrahera customerId och subscriptionId
      if (eventData.customer) { customerId = eventData.customer; } 
      else if (eventData.object === 'checkout.session' && eventData.customer) { customerId = eventData.customer; } 
-     if (eventData.object === 'subscription') { relevantSubscriptionId = eventData.id; } 
-     else if (eventData.subscription) { relevantSubscriptionId = eventData.subscription; }
+     // Fakturor bär prenumerationen i invoice.parent.subscription_details
+     // sedan API-version basil, som live-endpointen står på. Det gamla
+     // invoice.subscription finns inte längre i payloaden, och utan den här
+     // raden hoppade båda fakturagrenarna över allt (docs/qa/
+     // qa-kop-testlage-2026-09-24.md, bugg 1). Checkout-sessionen har kvar
+     // session.subscription.
+     if (eventData.object === 'subscription') { relevantSubscriptionId = eventData.id; }
+     else if (eventData.object === 'invoice') { relevantSubscriptionId = invoiceSubscriptionId(eventData); }
+     else if (typeof eventData.subscription === 'string') { relevantSubscriptionId = eventData.subscription; }
 
      // Huvudlogik för events
      switch (event.type) {
@@ -362,6 +388,22 @@ export async function POST(request: Request) {
                          await skrivPaketStart(updated.userId);
                          await onPaketStarted(getSupabaseAdmin() as any, updated.userId);
                      }
+
+                     // Kvittot vid köpet, bara på prenumerationens första
+                     // faktura. Förnyelser och prisbyten får inget kvitto
+                     // från oss (planen avsnitt 8 kräver det vid köpet).
+                     if (eventData.billing_reason === 'subscription_create' && plan) {
+                         const period = invoicePeriod(eventData);
+                         await onPaymentReceipt(getSupabaseAdmin() as any, updated.userId, event.id, {
+                             planKey: plan,
+                             amount: betaltOre !== null ? Math.round(betaltOre / 100) : PLAN_BY_KEY[plan].amount,
+                             periodStart: period.start,
+                             periodEnd: period.end ?? (() => {
+                                 const slut = subscriptionPeriodEnd(fullSubscription);
+                                 return slut ? new Date(slut * 1000).toISOString() : null;
+                             })(),
+                         });
+                     }
                  }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
@@ -373,8 +415,15 @@ export async function POST(request: Request) {
                  await updateUserSubscription(customerId, fullSubscription);
 
                  // Spår D: transaktionellt mail, ignorerar opt-out.
+                 //
+                 // Inte för den första fakturan: den faller när kortet nekas
+                 // i kassan, där kunden redan ser felet och kan försöka igen.
+                 // Prenumerationen blir då incomplete och har inget att
+                 // "fortsätta som vanligt", vilket mejlet lovar.
                  const userId = await userIdForCustomer(customerId);
-                 if (userId) await onPaymentFailed(getSupabaseAdmin() as any, userId);
+                 if (userId && eventData.billing_reason !== 'subscription_create') {
+                     await onPaymentFailed(getSupabaseAdmin() as any, userId, event.id);
+                 }
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'checkout.session.completed':
@@ -421,11 +470,21 @@ export async function POST(request: Request) {
                      await skrivPaketStart(onetimeUserId);
                      const onetimePlan = eventData.metadata?.planKey ?? eventData.metadata?.plan;
                      const belopp = typeof eventData.amount_total === 'number' ? eventData.amount_total / 100 : undefined;
+                     const kvittoPlan: PlanKey = isPlanKey(onetimePlan) ? onetimePlan : 'all_day';
                      capturePaidServerside({
                        userId: onetimeUserId,
-                       plan: isPlanKey(onetimePlan) ? onetimePlan : 'all_day',
+                       plan: kvittoPlan,
                        scope: 'allt',
                        amountSek: belopp,
+                     });
+
+                     // Kvittot. grantPremiumDays har redan spärrat omsända
+                     // event, och kvittot har sin egen spärr per event-id.
+                     await onPaymentReceipt(admin, onetimeUserId, event.id, {
+                       planKey: kvittoPlan,
+                       amount: belopp !== undefined ? Math.round(belopp) : PLAN_BY_KEY[kvittoPlan].amount,
+                       periodStart: new Date().toISOString(),
+                       periodEnd: result.premiumUntil ?? null,
                      });
                    }
                  } catch (error) {

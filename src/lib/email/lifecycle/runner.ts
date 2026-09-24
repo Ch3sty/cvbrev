@@ -124,7 +124,9 @@ async function processRow(
   });
 
   if (error) {
-    await failRow(admin, row, `resend: ${error.message ?? 'okänt fel'}`);
+    // Ämnet står med i felet, så ett försök som stoppades går att läsa i
+    // email_schedule utan att mallen renderas om.
+    await failRow(admin, row, `resend: ${error.message ?? 'okänt fel'} | ämne: ${rendered.subject}`);
     return 'failed';
   }
 
@@ -151,6 +153,39 @@ async function processRow(
   }
 
   return 'sent';
+}
+
+/**
+ * Skickar en redan schemalagd rad direkt, utanför morgonkörningen. För mejl
+ * som ska ut i samma sekund som händelsen, som kvittot. Raden är
+ * idempotensnyckeln: den som lade in den äger utskicket. Misslyckas
+ * sändningen står raden kvar med attempts och last_error, och morgonens
+ * körning försöker igen.
+ */
+export async function sendScheduledRowNow(
+  admin: AnySupabase,
+  rowId: string
+): Promise<'sent' | 'canceled' | 'failed'> {
+  const { data: row, error } = await (admin as any)
+    .from('email_schedule')
+    .select('id, user_id, email_type, attempts, metadata')
+    .eq('id', rowId)
+    .is('sent_at', null)
+    .is('canceled_at', null)
+    .maybeSingle();
+  if (error || !row) return 'canceled';
+
+  const { data: profile } = await (admin as any)
+    .from('profiles')
+    .select(PROFILE_COLUMNS)
+    .eq('id', row.user_id)
+    .maybeSingle();
+  const profiles = new Map<string, LifecycleProfile>(
+    profile ? [[profile.id as string, profile as LifecycleProfile]] : []
+  );
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  return processRow(admin, resend, row as ScheduleRow, profiles);
 }
 
 /** Kör alla förfallna livscykelmail. */
@@ -361,7 +396,7 @@ export async function scheduleKomIgangMejl(
 
   const { data: rows, error } = await (admin as any)
     .from('profiles')
-    .select('id, email, premium_scope, premium_until, current_period_end, subscription_status, quota_emails_opt_out')
+    .select('id, email, premium_scope, premium_until, current_period_end, subscription_status, price_id, cancel_at_period_end, quota_emails_opt_out')
     .in('subscription_status', ['active', 'trialing'])
     .not('email', 'is', null)
     .limit(1000);
@@ -375,11 +410,16 @@ export async function scheduleKomIgangMejl(
     if (profile.quota_emails_opt_out === true) { result.skipped += 1; continue; }
     const scope = profile.premium_scope === 'cv' || profile.premium_scope === 'tester' ? profile.premium_scope : 'allt';
     const premiumUntil = profile.premium_until ? new Date(profile.premium_until) : null;
-    const planKey = harPaket(scope, premiumUntil, now);
+    const planKey = harPaket(scope, premiumUntil, now, {
+      priceId: profile.price_id ?? null,
+      status: profile.subscription_status ?? null,
+    });
     const fornyas = profile.current_period_end ? new Date(profile.current_period_end) : premiumUntil;
     const timmarKvar = fornyas ? (fornyas.getTime() - now.getTime()) / 3600000 : null;
 
-    if (timmarKvar !== null && timmarKvar > 0 && timmarKvar <= 36) {
+    // Ett uppsagt paket förnyas inte, så det får ingen påminnelse om det.
+    // Hjälpredans dagliga mejl fortsätter perioden ut: hon har betalat för den.
+    if (timmarKvar !== null && timmarKvar > 0 && timmarKvar <= 36 && profile.cancel_at_period_end !== true) {
       // Perioden började en periodlängd före nästa dragning.
       const langd = planKey ? PLAN_BY_KEY[planKey].length : 'vecka';
       const dagar = langd === 'månad' ? 30 : langd === 'kvartal' ? 90 : 7;
