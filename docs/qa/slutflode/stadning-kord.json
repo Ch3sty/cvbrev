@@ -1,0 +1,314 @@
+{
+  "tid": "2026-09-24T12:29:05.274Z",
+  "kor": true,
+  "konton": [
+    {
+      "nyckel": "1",
+      "id": "f9d541a0-a9ee-471e-9971-158983f932bb",
+      "email": "qa-slut-1-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "2",
+      "id": "c9df485a-e63f-4290-a784-c16254d71575",
+      "email": "qa-slut-2-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "3",
+      "id": "63c36aa8-49af-406d-8ea1-99e05173f6f2",
+      "email": "qa-slut-3-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "4",
+      "id": "579c6581-79a2-4a1b-8bb8-1579c1ecef90",
+      "email": "qa-slut-4-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "5",
+      "id": "3f35e8ab-7e52-4fdb-9c64-de6ed52ad89e",
+      "email": "qa-slut-5-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "5-dag",
+      "id": "546d8991-9868-4921-99a0-43c9f0ba7797",
+      "email": "qa-slut-5-dag-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "6-intervju",
+      "id": "16a8171f-ef02-457f-891c-85d4556f05a6",
+      "email": "qa-slut-6-intervju-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "6-personlighet",
+      "id": "35ab95a9-4ab6-44b3-b994-44644ed3b609",
+      "email": "qa-slut-6-personlighet-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "6-logik",
+      "id": "5ad9023f-37cb-4b89-8da6-64eef9703cb2",
+      "email": "qa-slut-6-logik-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "6-brev",
+      "id": "51136fc2-ed8b-4a06-9a39-a1a41f7080d4",
+      "email": "qa-slut-6-brev-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "7-cv",
+      "id": "06a9f961-086a-4334-a17f-a5c2f09f04d3",
+      "email": "qa-slut-7-cv-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "7-intervju",
+      "id": "d8c9cad0-61ac-4aeb-85e1-6e7522a193c7",
+      "email": "qa-slut-7-intervju-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "6-brev2",
+      "id": "f0311f81-e87e-4e92-8d94-de2df53c77d1",
+      "email": "qa-slut-6-brev2-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "9-kort",
+      "id": "43e73491-1062-48a2-ab42-2861f8f534b8",
+      "email": "qa-slut-9-kort-2026-09-24@jobbcoach.ai"
+    }
+  ],
+  "stripe": [
+    {
+      "kund": "cus_VJoh3BJi0Yo7RU",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "redanRaderad": true
+    },
+    {
+      "kund": "cus_VJok5ejNxg1WgC",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "redanRaderad": true
+    },
+    {
+      "kund": "cus_VJolNp6OATGGZA",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "redanRaderad": true
+    },
+    {
+      "kund": "cus_VJonBxIDPyWV3V",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "redanRaderad": true
+    },
+    {
+      "kund": "cus_VJooYdpoGqTFHa",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "redanRaderad": true
+    },
+    {
+      "kund": "cus_VJp5m7nBP2y8aq",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "prenumerationer": [
+        "incomplete"
+      ],
+      "fel": "You cannot cancel a subscription with an active checkout session. Expire the checkout session instead."
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "ai_usage_costs",
+      "raknat": 1,
+      "raderat": 1,
+      "varv": 0
+    },
+    {
+      "tabell": "anon_interview_samples",
+      "raknat": 1,
+      "raderat": 1,
+      "varv": 0
+    },
+    {
+      "tabell": "cancel_intents",
+      "raknat": 1,
+      "raderat": 1,
+      "varv": 0
+    },
+    {
+      "tabell": "cv_texts",
+      "raknat": 2,
+      "raderat": 2,
+      "varv": 0
+    },
+    {
+      "tabell": "email_confirmations",
+      "raknat": 12,
+      "raderat": 12,
+      "varv": 0
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 33,
+      "raderat": 33,
+      "varv": 0
+    },
+    {
+      "tabell": "letters",
+      "raknat": 2,
+      "raderat": 2,
+      "varv": 0
+    },
+    {
+      "tabell": "monthly_guest_allowances",
+      "raknat": 5,
+      "raderat": 5,
+      "varv": 0
+    },
+    {
+      "tabell": "premium_grants",
+      "raknat": 1,
+      "raderat": 1,
+      "varv": 0
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 342,
+      "raderat": 342,
+      "varv": 0
+    },
+    {
+      "tabell": "profiles (id)",
+      "raknat": 14,
+      "raderat": 14
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_interview_samples",
+      "tokens": 2,
+      "raknat": 2,
+      "raderat": 2
+    },
+    {
+      "tabell": "anon_personality_samples",
+      "tokens": 1,
+      "raknat": 1,
+      "raderat": 1
+    },
+    {
+      "tabell": "anon_test_sessions",
+      "tokens": 1,
+      "raknat": 1,
+      "raderat": 1
+    },
+    {
+      "tabell": "public_letter_drafts",
+      "tokens": 2,
+      "raknat": 2,
+      "raderat": 2
+    }
+  ],
+  "rateLimits": {
+    "fore": [
+      {
+        "scope": "anon_interview",
+        "count": 1
+      },
+      {
+        "scope": "anon_personality",
+        "count": 1
+      },
+      {
+        "scope": "anon_test",
+        "count": 3
+      },
+      {
+        "scope": "letter_draft",
+        "count": 2
+      }
+    ],
+    "efter": [
+      {
+        "scope": "anon_test",
+        "count": 2
+      }
+    ]
+  },
+  "lagring": [
+    {
+      "begarda": 4,
+      "raderade": 1,
+      "fel": null
+    }
+  ],
+  "auth": [
+    {
+      "id": "f9d541a0-a9ee-471e-9971-158983f932bb",
+      "resultat": "raderad"
+    },
+    {
+      "id": "c9df485a-e63f-4290-a784-c16254d71575",
+      "resultat": "raderad"
+    },
+    {
+      "id": "63c36aa8-49af-406d-8ea1-99e05173f6f2",
+      "resultat": "raderad"
+    },
+    {
+      "id": "579c6581-79a2-4a1b-8bb8-1579c1ecef90",
+      "resultat": "raderad"
+    },
+    {
+      "id": "3f35e8ab-7e52-4fdb-9c64-de6ed52ad89e",
+      "resultat": "raderad"
+    },
+    {
+      "id": "546d8991-9868-4921-99a0-43c9f0ba7797",
+      "resultat": "raderad"
+    },
+    {
+      "id": "16a8171f-ef02-457f-891c-85d4556f05a6",
+      "resultat": "raderad"
+    },
+    {
+      "id": "35ab95a9-4ab6-44b3-b994-44644ed3b609",
+      "resultat": "raderad"
+    },
+    {
+      "id": "5ad9023f-37cb-4b89-8da6-64eef9703cb2",
+      "resultat": "raderad"
+    },
+    {
+      "id": "51136fc2-ed8b-4a06-9a39-a1a41f7080d4",
+      "resultat": "raderad"
+    },
+    {
+      "id": "06a9f961-086a-4334-a17f-a5c2f09f04d3",
+      "resultat": "raderad"
+    },
+    {
+      "id": "d8c9cad0-61ac-4aeb-85e1-6e7522a193c7",
+      "resultat": "raderad"
+    },
+    {
+      "id": "f0311f81-e87e-4e92-8d94-de2df53c77d1",
+      "resultat": "raderad"
+    },
+    {
+      "id": "43e73491-1062-48a2-ab42-2861f8f534b8",
+      "resultat": "raderad"
+    }
+  ],
+  "kontroll": {
+    "profiler": 0,
+    "auth": 0,
+    "authQaSlut": 0,
+    "userIdRader": [],
+    "foton": 0
+  }
+}

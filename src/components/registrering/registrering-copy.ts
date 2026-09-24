@@ -106,7 +106,7 @@ export const STEG2 = {
 
 export const SMAKPROV: Record<
   SmakprovTyp,
-  { eyebrow: string; rubrik: string; knapp: string; status: string }
+  { eyebrow: string; rubrik: string; knapp: string; status: string; under?: string }
 > = {
   intervju: {
     eyebrow: 'Ditt intervjuprov',
@@ -131,15 +131,18 @@ export const SMAKPROV: Record<
     rubrik: 'Skapa konto och läs hela brevet',
     knapp: 'Skapa konto och läs brevet',
     status: 'Det du skrivit är sparat i sju dagar',
+    under: 'Brevet sparas på kontot. Du landar på det direkt.',
   },
   cv_start: {
     eyebrow: 'Ditt CV',
     rubrik: 'Skapa konto och fortsätt på ditt CV',
     knapp: 'Skapa konto och fortsätt',
     status: 'Det du skrivit är sparat i sju dagar',
+    under: 'Det du skrivit sparas på kontot. Du fortsätter där du slutade.',
   },
 }
 
+/** Underraden för proven. Brevet och CV-starten har egen rad (under ovan). */
 export const SMAKPROV_UNDER = 'Svaret och bedömningen sparas på kontot. Du landar på dem direkt.'
 export const SMAKPROV_FOTNOT = 'Gratis. Inget kort behövs.'
 

@@ -24,7 +24,8 @@ import {
   type IkonProps,
 } from '@/components/illustrations/Ikoner';
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
-import { ANDRA_FORVALD_TON } from '@/app/dashboard/profil/profil-copy';
+import { ANDRA_FORVALD_TON, BREV_SEKTION } from '@/app/dashboard/profil/profil-copy';
+import { paketMedPris } from '@/lib/plans/plans';
 
 type Tonality =
   | 'professional'
@@ -123,7 +124,7 @@ export default function TonalityLanguageStep({
           eyebrow={isPremium ? 'Rekommenderas' : undefined}
           title="Vi väljer ton åt dig"
           description="Vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder."
-          meta={isPremium ? 'Läser kraven · Branschens ton' : 'Ingår i Premium'}
+          meta={isPremium ? 'Läser kraven · Branschens ton' : BREV_SEKTION.smartMeta}
           leading={
             <MarginPlate>
               <IlluPlattaSmartTon size={48} />
@@ -133,12 +134,12 @@ export default function TonalityLanguageStep({
 
         {!isPremium ? (
           <p className="text-meta text-ink-3">
-            Automatiskt tonval ingår i Premium.{' '}
+            Automatiskt tonval ingår i alla tre paketen.{' '}
             <Link
               href={PREMIUM_HREF}
               className="font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
-              Se vad Premium kostar
+              Se {paketMedPris('cv_week')}
             </Link>
           </p>
         ) : null}

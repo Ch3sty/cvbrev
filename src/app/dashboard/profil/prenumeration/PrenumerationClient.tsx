@@ -21,7 +21,6 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, Slash, X } from 'lucide-react';
 
@@ -53,6 +52,9 @@ import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
 import CancelFlowModal from './components/CancelFlowModal';
 import type { Blockeringar } from './blockeringar';
 
+// En API-rutt som svarar med en redirect till Stripe: vanlig <a>, inte
+// next/link, som annars hämtar RSC från rutten, loggar fel och skapar en
+// extra portalsession innan den faller tillbaka på vanlig navigering.
 const PORTAL = '/api/stripe/create-portal-session';
 
 const RAD =
@@ -367,26 +369,26 @@ export default function PrenumerationClient({
           <h2 className="text-sm font-medium text-ink-3">{KONTO.hantera}</h2>
           <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-panel">
             <li>
-              <Link href={PORTAL} className={RAD}>
+              <a href={PORTAL} className={RAD}>
                 {KONTO.bytKort}
                 <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href={PORTAL} className={RAD}>
+              <a href={PORTAL} className={RAD}>
                 {KONTO.kvitton}
                 <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
-              </Link>
+              </a>
             </li>
             <li>
               {uppsagd ? (
                 // Stripes kundportal visar "Förnya abonnemang" för ett
                 // uppsagt paket, och det sätter cancel_at_period_end = false.
                 // Webhooken speglar det tillbaka till profilen.
-                <Link href={PORTAL} className={RAD}>
+                <a href={PORTAL} className={RAD}>
                   {KONTO.angraUppsagning}
                   <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
-                </Link>
+                </a>
               ) : (
                 <button type="button" onClick={sagUpp} className={`${RAD} w-full text-left`}>
                   {KONTO.sagUpp}

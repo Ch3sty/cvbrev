@@ -48,7 +48,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Ren enspaltig layout som passar i alla branscher',
         'Subtil orange-accent på sektionsrubriker matchar varumärket',
         'Lätta divider-linjer mellan jobb ger luftig läsbarhet',
-        'ATS-säker — inga clip-paths eller absolutpositioner',
+        'ATS-säker, inga clip-paths eller absolutpositioner',
       ],
     },
   },
@@ -89,7 +89,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Centrerad serif-header med Playfair Display ger gravitas',
         'Subtil gold-accent och dubbel-linje signalerar tradition',
         'Justerad text för formell presentation',
-        'Inga foton — namn-driven CV som executive search vill ha',
+        'Inga foton, namn-driven CV som executive search vill ha',
       ],
     },
   },
@@ -133,7 +133,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Lärare', 'Förskollärare', 'Gymnasielärare', 'Pedagogiska ledare', 'Skola'],
       strengths: [
-        'Salviegrön sidopanel — varm och pedagogisk färg',
+        'Salviegrön sidopanel, varm och pedagogisk färg',
         '"Pedagogisk erfarenhet" istället för arbetslivserfarenhet',
         'Behörigheter och legitimation överst i sidopanelen',
         'Auto-genererad lista över skolor och lärosäten',
@@ -156,7 +156,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Ekonomer', 'Controllers', 'HR', 'Ingenjörer', 'Projektledare', 'Alla branscher'],
       strengths: [
-        'Bred professional-mall — passar alla yrken som vill ha foto',
+        'Bred professional-mall, passar alla yrken som vill ha foto',
         '"Fokusområden"-pills lyfter dina kärnkompetenser',
         'Slate-blå accent signalerar trygghet och kompetens',
         'Source Serif Pro rubriker + Inter body ger balans',
@@ -182,14 +182,14 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Centrerad serif-header signalerar akademisk prestige',
         'Höger panel för legitimation, kompetensområden och publikationer',
         '"Klinisk tjänstgöring" istället för arbetslivserfarenhet',
-        'Burgundy-accent — vetenskaplig utan att vara kall',
+        'Burgundy-accent, vetenskaplig utan att vara kall',
       ],
     },
   },
   {
     id: 'skymning',
     name: 'Skymning',
-    description: 'Premium-mall med mörk header — för personliga varumärken och founders',
+    description: 'Premium-mall med mörk header, för personliga varumärken och founders',
     imagePath: '/mallar/skymning.svg',
     category: 'creative',
     tier: 'premium',
@@ -205,7 +205,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Mörk navy-header sticker ut visuellt mot ljusa CV:n',
         'Orange gradient-linje binder ihop header och body',
         'Fraunces serif på namn ger statement-känsla',
-        'ATS-säker — mörk header är bara CSS-bakgrund',
+        'ATS-säker, mörk header är bara CSS-bakgrund',
       ],
     },
   },
@@ -239,7 +239,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Lagerarbetare', 'Truckförare', 'Logistiker', 'Lagerchef', 'Terminalarbetare'],
       strengths: [
-        '"Behörigheter & körkort"-block direkt efter header — det rekryterare först söker efter',
+        '"Behörigheter & körkort"-block direkt efter header, det rekryterare först söker efter',
         'Industriell typografi (Roboto) signalerar branschen',
         'Cyan-accent och kondenserad layout för robust läsbarhet',
         'WMS-system och certifikat lyfts som egen sektion',
@@ -296,7 +296,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Strukturerad tabell-layout med tabular-nums för siffror',
         'Mörkblå (#1e3a8a) signalerar bank och finans',
         '"Redovisningssystem"-sektion (Visma, Fortnox, SAP, Hogia)',
-        'Dubbel-divider under header — bokslut-känsla',
+        'Dubbel-divider under header, bokslut-känsla',
       ],
     },
   },
@@ -422,7 +422,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       strengths: [
         'Garamond serif body ger formell akademisk-känsla',
         'Foto med tunn burgundy-ram (#7c2d12) som komplement till svart',
-        '"— § —"-ornament mellan header och sammanfattning',
+        '§-ornament mellan header och sammanfattning',
         'Box-shadow trick för dubbel-linje under header',
       ],
     },
@@ -476,7 +476,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       strengths: [
         'Foto med cyan-ram och Fraunces-serif på namn ger statement',
         '"Söker · {drömjobb}"-eyebrow visar målroll direkt',
-        'Utbildning först — placerar din meriter där rekryteraren tittar',
+        'Utbildning först, placerar din meriter där rekryteraren tittar',
         'LinkedIn integrerad i header',
       ],
     },
@@ -513,7 +513,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       strengths: [
         'Behörigheter & körkort i framträdande block direkt efter sammanfattning',
         'Auto-genererad pill-rad över arbetsplatser och projekt',
-        '"Yrkeserfarenhet" istället för arbetslivserfarenhet — mer naturligt',
+        '"Yrkeserfarenhet" istället för arbetslivserfarenhet, mer naturligt',
         'Tjock orange-accent under header signalerar yrkes-DNA',
       ],
     },
@@ -537,7 +537,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
         'Centrerad serif-header följer akademisk konvention',
         '"Forskningserfarenhet" och 65/35 layout för publikationer i sidopanel',
         'Auto-genererad sektion "Senaste publikationer" från projekt-data',
-        'Subtil indigo-accent — akademisk auktoritet utan att vara stiff',
+        'Subtil indigo-accent, akademisk auktoritet utan att vara stiff',
       ],
     },
   },
@@ -558,7 +558,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       suitableFor: ['Kockar', 'Servitörer', 'Baristas', 'Hovmästare', 'Hotell', 'Restaurangchefer'],
       strengths: [
         'Champagne-färgad sidopanel ger gastronomi-vibe utan klyschor',
-        'Språk högst upp i sidopanelen — kritiskt för service-yrken',
+        'Språk högst upp i sidopanelen, kritiskt för service-yrken',
         '"Branscherfarenhet" istället för arbetslivserfarenhet',
         'Auto-genererad lista över unika restauranger och hotell',
       ],
@@ -567,7 +567,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'linje',
     name: 'Linje',
-    description: 'Minimalistisk Swiss-design — helt monokrom, ingen accentfärg',
+    description: 'Minimalistisk Swiss-design, helt monokrom, ingen accentfärg',
     imagePath: '/mallar/linje.svg',
     category: 'modern',
     tier: 'premium',
@@ -580,10 +580,10 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Arkitekter', 'Design leads', 'Redaktörer', 'Intellektuella roller'],
       strengths: [
-        'Helt monokrom — bara svart, vit och två gråtoner',
+        'Helt monokrom, bara svart, vit och två gråtoner',
         'Asymmetrisk header med vertikal divider mellan namn och kontakt',
         'Helvetica Neue + hairline-linjer i klassisk Swiss-stil',
-        'Sticker ut genom att INTE sticka ut — innehållet talar',
+        'Sticker ut genom att INTE sticka ut, innehållet talar',
       ],
     },
   },
@@ -591,7 +591,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'spektrum',
     name: 'Spektrum',
-    description: 'Premium-mall med levande gradient-sidopanel — för marknadsförare och kreativa',
+    description: 'Premium-mall med levande gradient-sidopanel, för marknadsförare och kreativa',
     imagePath: '/mallar/spektrum.svg',
     category: 'creative',
     tier: 'premium',
@@ -614,7 +614,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'kvist',
     name: 'Kvist',
-    description: 'Premium-mall med skogsgrön header — för hållbarhet, klimat och cleantech',
+    description: 'Premium-mall med skogsgrön header, för hållbarhet, klimat och cleantech',
     imagePath: '/mallar/kvist.svg',
     category: 'traditional',
     tier: 'premium',
@@ -651,16 +651,16 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
       suitableFor: ['Mediepersoner', 'Journalister', 'Författare', 'Redaktörer', 'Personliga varumärken'],
       strengths: [
         'Stort foto 220×280 ger tidnings-cover-känsla',
-        'Playfair Display 48px namn — dramatisk serif-statement',
+        'Playfair Display 48px namn, dramatisk serif-statement',
         'Mörkröd accent och mono-font på meta för editorial-DNA',
-        'Sammanfattning som blockquote — tidnings-prosa',
+        'Sammanfattning som blockquote, tidnings-prosa',
       ],
     },
   },
   {
     id: 'karta',
     name: 'Karta',
-    description: 'Premium-mall med timeline och kompetensstaplar — för data, BI och konsulter',
+    description: 'Premium-mall med timeline och kompetensstaplar, för data, BI och konsulter',
     imagePath: '/mallar/karta.svg',
     category: 'modern',
     tier: 'premium',
@@ -696,9 +696,9 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Författare', 'Akademiker', 'Gallerister', 'Kulturarbetare', 'Formgivare'],
       strengths: [
-        'Cream/elfenben bakgrund — ingen rent vit yta',
+        'Cream/elfenben bakgrund, ingen rent vit yta',
         'Decorative dubbel-ramning runt hela CV:t',
-        'Fraunces serif + ornament (◆, ✦, —) ger retro-känsla',
+        'Fraunces serif och ornament (◆, ✦) ger retro-känsla',
         'Centrerad layout med italic-prosa som vintage-magasin',
       ],
     },
@@ -779,7 +779,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Konsulter', 'Seniora kandidater', 'Management', '8+ års erfarenhet'],
       strengths: [
-        'Kompakt 12.5px body — får plats med 8+ jobb',
+        'Kompakt 12.5px body, får plats med 8+ jobb',
         'Mörkblå-grå sidopanel signalerar professionalism',
         'Foto + LinkedIn integrerade snyggt',
         'Tät rad-spacing utan att kännas crammad',
@@ -797,7 +797,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Utvecklare', 'DevOps', 'Data engineers', 'Tech leads'],
       strengths: [
-        'Kompetens-grid (3 kol) ovanför erfarenhet — skill-first',
+        'Kompetens-grid (3 kol) ovanför erfarenhet, skill-first',
         'Mono-font på datum och meta ger dev-känsla',
         'Cyan accent matchar tech-estetik',
         'Skriven för utvecklare av utvecklare',
@@ -820,7 +820,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Marknadsförare', 'Brand managers', 'Content', 'Copywriters'],
       strengths: [
-        'Stort namn (44px) på två rader — visuell statement',
+        'Stort namn (44px) på två rader, visuell statement',
         'Tjock svart divider som typografisk ankare',
         'Magazine-stil dubbel-divider mellan sektioner',
         'Mycket whitespace, designad känsla',
@@ -830,7 +830,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'student-startup',
     name: 'Student',
-    description: 'För studenter och nyexaminerade — utbildning först, projekt och praktik',
+    description: 'För studenter och nyexaminerade, utbildning först, projekt och praktik',
     imagePath: '/mallar/student-startup.svg',
     category: 'modern',
     tier: 'free',
@@ -838,10 +838,10 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Studenter', 'Nyexaminerade', '0-2 års erfarenhet', 'Sommarjobb'],
       strengths: [
-        'Utbildning först — anpassad för få jobb i CV',
+        'Utbildning först, anpassad för få jobb i CV',
         'Egen sektion för projekt och praktik',
         '"Praktik & Arbetslivserfarenhet" istället för bara erfarenhet',
-        'Cyan accent — utbildningsfärg, ej corporate',
+        'Cyan accent, utbildningsfärg, ej corporate',
       ],
     },
   },
@@ -861,8 +861,8 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     metadata: {
       suitableFor: ['Sjuksköterskor', 'Undersköterskor', 'Fysioterapeuter', 'Vården'],
       strengths: [
-        'Legitimationer först i sidopanelen — det viktigaste syns',
-        'Salviegrön sidopanel — vårdens färgspråk',
+        'Legitimationer först i sidopanelen, det viktigaste syns',
+        'Salviegrön sidopanel, vårdens färgspråk',
         '"Klinisk erfarenhet" istället för "Arbetslivserfarenhet"',
         'Auto-genererad lista över unika arbetsplatser',
       ],

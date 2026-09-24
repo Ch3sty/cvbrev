@@ -109,7 +109,7 @@ export const COPY = {
     ip: 'Du har gjort dagens intervjuprov. Med ett gratiskonto tränar du vidare direkt, och vi sparar svaren.',
     budget:
       'Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt.',
-    inloggad: `Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med ${paketMedPris('test_week')} övar du utan gräns.`,
+    inloggad: `Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med ${paketMedPris('test_week')}, övar du utan gräns.`,
     inloggadLank: `Se ${paketMedPris('test_week')}`,
     /** Anonym begäran på en fråga som bara finns inloggad. */
     intePublik: 'Den här frågan finns i ditt konto. Skapa ett gratiskonto så övar du på alla sju.',

@@ -237,7 +237,7 @@ export default function RegisterKontoSteg({
 
   const eyebrow = smak ? smak.eyebrow : visaSteg ? STEG2.steg : null
   const rubrik = smak ? smak.rubrik : STEG2.rubrik
-  const under = smak ? SMAKPROV_UNDER : STEG2.under
+  const under = smak ? (smak.under ?? SMAKPROV_UNDER) : STEG2.under
 
   const google = (
     <GoogleSignInButton

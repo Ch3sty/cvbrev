@@ -167,6 +167,21 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
     setPrefilled(toPrefilled(profile as unknown as Record<string, any>, next));
   }, [profile]);
 
+  // Ankaret vid klientnavigering (brevflödets "Ändra förvald ton"): Next
+  // scrollar till #personliga-brev innan sektionen finns, så sidan stod kvar
+  // överst på desktop. En gång vid mount, och bara om rubriken inte redan syns.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!['cv', 'personliga-brev', 'jobbsok', 'konto'].includes(id)) return;
+    const raf = requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top;
+      if (top < 0 || top > window.innerHeight / 2) el.scrollIntoView({ block: 'start' });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   // profile_viewed en gång per sidladdning: vad som saknas i CV:t, om fotot
   // finns och vilket ankare sidan öppnades på. Aldrig värdena.
   const visad = useRef(false);

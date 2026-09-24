@@ -70,7 +70,7 @@ export async function POST(request: Request) {
 
     const existingId = (existing as { id?: string } | null)?.id
     if (existingId) {
-      return NextResponse.json({ redirect: `/dashboard/skapa-brev/${existingId}` })
+      return NextResponse.json({ redirect: `/dashboard/mina-brev/${existingId}` })
     }
   }
 
@@ -102,5 +102,5 @@ export async function POST(request: Request) {
     .is('claimed_by', null)
 
   const letterId = (letter as { id: string }).id
-  return NextResponse.json({ redirect: `/dashboard/skapa-brev/${letterId}` })
+  return NextResponse.json({ redirect: `/dashboard/mina-brev/${letterId}` })
 }
