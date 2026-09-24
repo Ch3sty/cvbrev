@@ -83,3 +83,72 @@ Allt skapat sparades per id och raderades per id:
 - 56 rader i `user_activities` och 1 i `ai_usage_costs` för de två QA-kontona, raderade per user_id.
 - QA-kontona `qa-rodtrad-a-1790209804636@jobbcoach.ai` (40fefe68…) och `qa-rodtrad-b-1790209812081@jobbcoach.ai` (2d257a57…) raderade ur `auth.users`; profilerna följde med (0 kvar).
 - Inga personlighetssessioner skapades. Tabellen `admin_undantagna_konton` finns inte i databasen; kontona är `qa-`-adresser och raderade.
+
+## Produktion 2026-09-24
+
+Mot https://www.jobbcoach.ai efter deployen, i riktig Chrome (inte headless) via puppeteer-core,
+ny inkognitokontext per genomgång. Pixel 7 (412 × 915, DPR 2, Android-Chromes user agent) och
+desktop 1280 × 800. Cookiebannern besvarad i förväg (den styr bara GTM, inte PostHog) så att
+dumparna blir rena. Dumpar: `docs/qa/rod-trad-prov/prod-*.png`. Ingen kod ändrad.
+
+| Steg | Förväntat | Faktiskt | Dump |
+|---|---|---|---|
+| 1 | QA-konto via registreringen, Träningspaketet simulerat | OK: `qa-prov-2026-09-24@jobbcoach.ai` registrerat med lösenord (säkerhetskontrollen passerade), landade på `/dashboard/valj-spar`. Id `2f7a8e5c-7924-4d6a-9429-4850ef4cdca1`. Profilen fick `subscription_tier` premium, `premium_scope` tester, `premium_until` och `current_period_end` +7 d, `subscription_status` active, `premium_source` stripe, `onboarding_track` tester (per id, Management API med jobbcoach-token) | `prod-pixel7-01a-registrering.png`, `prod-pixel7-01b-efter-registrering.png` |
+| 16b | Två prov samma dag med Träningspaketet: ingen kvotrad, ingen 429, båda i listan med nivå | OK: "Varför ska vi anställa just dig?" (287 tecken) gav 200 och nivå 4, "Varför söker du det här jobbet?" (297 tecken) gav 200 och nivå 4, riktiga Gemini-bedömningar på cirka tio sekunder. Resultatsidan med eyebrow, svaret, bedömningen, fyra punkter och omskrivet svar. Hubben: "Utan tak i Träningspaketet", ingen kvotrad, båda raderna med "4 av 5", "Starkt · I dag" och Öppna. Nästa handling bytte från Börja här till nyFraga ("Berätta om dig själv") | `prod-pixel7-16b-0-hubben-fore.png`, `prod-pixel7-16b-{1,2}{a,b,c,d}-*.png`, `prod-pixel7-16b-3-hubben-tva-prov.png`, `prod-desktop-16b-hubben-tva-prov.png` |
+| 17 | Grundtestet klart, panelen i läget riktig profil med arketyp, tal och tre länkar | OK: 50 påståenden, `complete` gav 200 (O 63, C 63, E 63, A 50, N 50). Panelen: "Strukturerad analytiker", "Grundtestet, 50 påståenden · 24 september", fem faktorer med tal och staplar, länkarna Hela analysen (`/dashboard/tester/personlighet-grund/test/{id}/results`), Din arbetsstil och Fördjupade testet, 120 påståenden. PostHog: `has_profile` gick från none till full | `prod-pixel7-17a` till `17f`, `prod-desktop-17e-hubben-riktig-profil.png` |
+| 17, hem | Nästa handling på hemskärmen | Visas inte, enligt design: kontot saknar CV och hemskärmen är i läge A ("Börja med ditt CV, Qa", uppladdningen). Nästa handling finns bara i läge C. Kom igång visar 2 av 9 provade. Se fynd 3 | `prod-pixel7-17g-hem-nasta-handling.png`, `prod-pixel7-17h-hem-hela.png`, `prod-desktop-17g-hem-nasta-handling.png` |
+| Anonymt | Personlighetsprovet på verktygssidan till spärren | OK: 20 påståenden, 200 från `/api/public/personlighetsprov`, profil med mening och fem faktorrader, spärren "Skapa konto gratis" med `?personlighet={token}`. Token 28e4c733-1c5c-4abd-b67f-377ba82a7d11 | `prod-pixel7-a1` till `a3b`, `prod-desktop-a3-personlighetsprov.png` |
+| Anonymt | Intervjuprovet i artikeln till spärren | OK: styrkor, 303 tecken, 200 och nivå 4, spärren "Se hela återkopplingen och ditt svar omskrivet" med `?intervju={token}`. Token ad6c81ad-5a80-4b9a-a3bd-2db9b46629fb. Inte registrerat | `prod-pixel7-a4` till `a6b` |
+| 22 | PostHog | Se nedan | |
+| Live | Title, description, sajtkarta, `/ny`, annan token | Title 58 tecken, description 141 tecken, canonical rätt. `/sitemap.xml` innehåller `/verktyg/personlighetstest`. `/dashboard/intervju/ny` inloggad: 200. `/dashboard/intervju/{token}` för ett prov som en annan användare äger: 404 | `prod-pixel7-k1-ny-inloggad.png`, `prod-pixel7-k2-annan-token-404.png` |
+
+### PostHog (steg 22)
+
+HogQL mot de tre identiteterna i körningen (QA-kontot, dess anonyma id före registreringen och den
+anonyma sessionen), 07:26 till 07:45 svensk tid. Alla kom in:
+
+- `signup_started` och `signup_completed`: `method: password`.
+- `interview_hub_viewed` (9): `scope: tester`, `prov_count` 0, 1, 2, `has_profile` none och efter grundtestet full, `next_action` forstaGang och sedan nyFraga. Varje följs av `next_action_shown` med `surface: infor-intervjun`.
+- `interview_practice_started` och `interview_practice_completed` (2 + 2): `surface: dashboard`, `question` varfor_vi och varfor_jobbet, `level` 4.
+- `sample_started`, `sample_completed`, `signup_gate_shown` med `kind: personality`, `cluster: test`, `slug: verktyg/personlighetstest`, `duration_ms` 11043 på completed.
+- `sample_started`, `sample_completed`, `signup_gate_shown` med `kind: interview`, `cluster: interview`, `question: styrkor`, `slug: styrkor-svagheter-intervju`, `level` 4 och `duration_ms` 9595 på completed.
+- `feature_blocked` kom inte, vilket stämmer: Träningspaketet har inget tak och den anonyma sessionen nådde ingen kvot.
+
+### Fynd i produktion
+
+1. **Kvottext till betalande (copy).** Träningspaketet, noll prov, `/dashboard/intervju`: bläckytan
+   "Börja här" slutar med "Ett prov om dagen ingår." och den tomma listan säger "Ett prov om dagen
+   ingår gratis.", medan ingressen ovanför säger "Utan tak i Träningspaketet". Orsak:
+   `src/app/dashboard/intervju/page.tsx` rad 54 lägger till `NASTA.forstaGang.kvot` när `kvotKvar` är
+   sann utan att titta på `utanTak`, och `TOM.text` (rad 157) har ingen variant för betalande.
+   Dump: `prod-pixel7-16b-0-hubben-fore.png`. Inte rättat (ingen kod i den här omgången).
+2. **Grundtestet tappar läget vid omladdning (fanns före deployen).** `TestSessionView` startar med tomma
+   svar och påstående 1 efter omladdning, fast servern har kvar svaren (här 48 av 50). Den som laddar om
+   måste svara på alla 50 igen innan Lämna in går att trycka på. Samma sak om ett snabbt tryck landar
+   medan svaret sparas: två av 50 tryck i första varvet hamnade på samma påstående.
+3. **Hemskärmen efter prov och grundtest utan CV.** Enligt design (läge A) men värt ett beslut: den som
+   köpt Träningspaketet och bara övat möts av "Börja med ditt CV" utan Nästa handling.
+4. **404 för annan användares token** är Next.js standardsida på engelska ("This page could not be
+   found."), utan skal eller väg tillbaka. Rätt status, men inte i Trådens stil.
+
+### Städning i produktion
+
+Allt skapat sparades per id eller token och raderades med samma villkor som räkningen:
+
+| Tabell | Villkor | Räknat | Raderat |
+|---|---|---|---|
+| anon_interview_samples | token in (4c1d40d3…, c2d52821…, ad6c81ad…) | 3 | 3 |
+| anon_personality_samples | token = 28e4c733… | 1 | 1 |
+| user_personality_profile | user_id = QA-kontot (radens nyckel) | 1 | 1 |
+| personality_test_sessions | id = 5b92ca09-8fa9-40a7-ac3e-3cdfa00c5d53 | 1 | 1 |
+| user_activities | id in (64 id) | 64 | 64 |
+| ai_usage_costs | id in (e37571f6…, fa6b6f55…) | 2 | 2 |
+| email_schedule | id in (2bbd8ae4…, cd5617f2…) | 2 | 2 |
+| email_confirmations | id = 765f04cd… | 1 | 1 |
+| monthly_guest_allowances | id = f5f4fe04… | 1 | 1 |
+| public_rate_limits | ip_hash 25b66935…, fönster 2026-09-24, scope anon_personality och anon_interview (count 1 vardera, bara våra prov) | 2 | 2 |
+
+Raden för samma ip_hash med fönster 2026-09-23 lämnades orörd. QA-kontot raderades sist via auth admin
+med id `2f7a8e5c-7924-4d6a-9429-4850ef4cdca1`; profiles följde med. Kontroll efteråt: 0 rader för id:t i
+auth.users, profiles och alla bastabeller i public med en användarkolumn. Bekräftelsemejlet till
+QA-adressen gick iväg vid registreringen.
