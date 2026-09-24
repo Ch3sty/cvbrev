@@ -1,0 +1,775 @@
+[
+  {
+    "path": "/verktyg/cv-mallar",
+    "status": 200,
+    "h1": [
+      "Professionella CV-mallar för svenska arbetsgivare"
+    ],
+    "title": "CV-mallar: välj, fyll i och ladda ner | Jobbcoach.ai",
+    "description": "Välj bland professionella CV-mallar, fyll i dina uppgifter och ladda ner som PDF. Gratis att börja, ATS-säkra och byggda för svenska arbetsgivare.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/cv-mallar/opengraph-image-qm1nzh?cb98d21220ca4878",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj en mall"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fyll i dina uppgifter"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi flyttar in innehållet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF eller Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Mer än en snygg layout"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Byggda för rekryteringssystem"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "PDF och Word"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Profilbild där det passar"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "LinkedIn synligt i sidhuvudet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Redigera när du vill"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fungerar i mobilen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla våra mallar. På ett ställe."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Välj din mall och bygg ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det du undrar om CV-mallarna"
+      }
+    ],
+    "lankar": [
+      "#mall-galleri",
+      "/",
+      "/cv-exempel",
+      "/cv-mallar/start?mall=aspekt",
+      "/cv-mallar/start?mall=atlas",
+      "/cv-mallar/start?mall=aurora",
+      "/cv-mallar/start?mall=avtryck",
+      "/cv-mallar/start?mall=bold-modern",
+      "/cv-mallar/start?mall=bygg",
+      "/cv-mallar/start?mall=disk",
+      "/cv-mallar/start?mall=disk-plus",
+      "/cv-mallar/start?mall=editorial-magazine",
+      "/cv-mallar/start?mall=forskare",
+      "/cv-mallar/start?mall=galleri",
+      "/cv-mallar/start?mall=hantverkare-plus",
+      "/cv-mallar/start?mall=karta",
+      "/cv-mallar/start?mall=klinik",
+      "/cv-mallar/start?mall=konsult-kompakt",
+      "/cv-mallar/start?mall=konto",
+      "/cv-mallar/start?mall=konto-plus",
+      "/cv-mallar/start?mall=kvist",
+      "/cv-mallar/start?mall=linje",
+      "/cv-mallar/start?mall=logistik",
+      "/cv-mallar/start?mall=logistik-plus",
+      "/cv-mallar/start?mall=magasin",
+      "/cv-mallar/start?mall=myndighet",
+      "/cv-mallar/start?mall=myndighet-plus",
+      "/cv-mallar/start?mall=norrsken",
+      "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "/cv-mallar/start?mall=norrsken-plus",
+      "/cv-mallar/start?mall=pedagog",
+      "/cv-mallar/start?mall=servering",
+      "/cv-mallar/start?mall=sidebar-icons",
+      "/cv-mallar/start?mall=sidopanel-plus",
+      "/cv-mallar/start?mall=skymning",
+      "/cv-mallar/start?mall=spektrum",
+      "/cv-mallar/start?mall=stack-developer",
+      "/cv-mallar/start?mall=stack-plus",
+      "/cv-mallar/start?mall=student-plus",
+      "/cv-mallar/start?mall=student-startup",
+      "/cv-mallar/start?mall=tidlos-formell",
+      "/cv-mallar/start?mall=tidlos-plus",
+      "/cv-mallar/start?mall=varden-omsorg",
+      "/cv-mallar/start?mall=verkstad",
+      "/cv-mallar/start?mall=verkstad-plus",
+      "/funktioner"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Alla våra mallar är skrivna med svenska Applicant Tracking Systems i åtanke. Vi använder rena rubriker, vanlig text utan komplicerad formattering och ett strukturerat upplägg som ATS-systemen läser utan problem. Det betyder att din ansökan kommer fram till rekryteraren och inte filtreras bort på vägen.\"},\"name\":\"Är CV-mallarna ATS-säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, både PDF och Word (.docx). PDF är vanligast och fungerar perfekt med ATS-system. Word är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.\"},\"name\":\"Kan jag ladda ner mitt CV som PDF eller Word?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Modern stil passar tech, design, marknadsföring och konsultroller. Traditionell stil passar bank, juridik, vård och offentlig sektor. Kreativ stil passar reklam, media och kreativa yrken. Du kan också byta mall efteråt utan att behöva fylla i din data igen, vi flyttar allt åt dig.\"},\"name\":\"Vilken mall passar bäst för mitt yrke?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i CV-paketet för 79 kr i veckan.\"},\"name\":\"Vad är skillnaden på gratis och premium-mallarna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Allt du fyller i sparas i ditt konto och du kan när som helst gå tillbaka, redigera och ladda ner en ny version. Du kan också byta mall utan att förlora din data.\"},\"name\":\"Kan jag redigera CV:t senare?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vissa premium-mallar stödjer foto. Det är en designfråga snarare än något ATS-systemet bryr sig om. I Sverige värderas innehållet alltid mer än utseendet, men en professionell bild kan ge en mänsklig touch i mallar där det är inbyggt.\"},\"name\":\"Stödjer mallarna profilbild?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Mallarna är språkneutrala, så du kan fylla i dem på engelska och få en professionell layout som fungerar både i Sverige och utomlands. Tänk på att vissa länder har egna konventioner: i USA är ett CV oftast en sida, i Tyskland väntas oftast ett \\\"Lebenslauf\\\" med foto.\"},\"name\":\"Kan jag använda mallen för internationella ansökningar?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Hela byggprocessen funkar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.\"},\"name\":\"Är mallarna mobile-friendly när jag bygger CV:t?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in datan, ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så bygger du ett CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj en mall\",\"position\":1,\"text\":\"Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i dina uppgifter\",\"position\":2,\"text\":\"Vårt formulär guidar dig genom varje sektion. Du kan importera från LinkedIn eller börja från ett befintligt CV.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi flyttar in datan\",\"position\":3,\"text\":\"Allt landar automatiskt på rätt plats i mallen. Byter du mall efteråt följer datan med.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda ner som PDF eller Word\",\"position\":4,\"text\":\"Exportera ditt CV. Sparas i ditt konto för senare redigering.\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"description\":\"Professionella CV-mallar i modern, traditionell och kreativ stil. ATS-säkra och anpassade för svenska arbetsgivare.\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Ren minimal mall med subtila orange-detaljer för alla branscher\",\"image\":\"https://www.jobbcoach.ai/mallar/norrsken.webp\",\"name\":\"Norrsken\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"norrsken\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#norrsken\"},\"position\":1},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Resultat-första premium-mall för säljare, affärsutveckling och finans\",\"image\":\"https://www.jobbcoach.ai/mallar/aurora.webp\",\"name\":\"Aurora\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"aurora\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#aurora\"},\"position\":2},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Centrerad serif-mall för executive och styrelseroller\",\"image\":\"https://www.jobbcoach.ai/mallar/atlas.webp\",\"name\":\"Atlas\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"atlas\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#atlas\"},\"position\":3},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Designermall med rektangulärt foto, tools-grid och peach-accenter\",\"image\":\"https://www.jobbcoach.ai/mallar/galleri.webp\",\"name\":\"Galleri\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"galleri\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#galleri\"},\"position\":4},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för lärare och pedagoger med behörigheter och kompetensområden\",\"image\":\"https://www.jobbcoach.ai/mallar/pedagog.webp\",\"name\":\"Pedagog\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"pedagog\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#pedagog\"},\"position\":5},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Bred premium-mall för tjänstemän, ingenjörer, ekonomer och HR med foto\",\"image\":\"https://www.jobbcoach.ai/mallar/aspekt.webp\",\"name\":\"Aspekt\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"aspekt\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#aspekt\"},\"position\":6},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för läkare med specialistbevis, kompetensområden och publikationer\",\"image\":\"https://www.jobbcoach.ai/mallar/klinik.webp\",\"name\":\"Klinik\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"klinik\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#klinik\"},\"position\":7},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium-mall med mörk header — för personliga varumärken och founders\",\"image\":\"https://www.jobbcoach.ai/mallar/skymning.webp\",\"name\":\"Skymning\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"skymning\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#skymning\"},\"position\":8},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Gratis CV-mall för butik, kassa och kundnära service\",\"image\":\"https://www.jobbcoach.ai/mallar/disk.webp\",\"name\":\"Disk\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"disk\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#disk\"},\"position\":9},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för lager, logistik och transport\",\"image\":\"https://www.jobbcoach.ai/mallar/logistik.webp\",\"name\":\"Logistik\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"logistik\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#logistik\"},\"position\":10},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för industri, maskin och produktion\",\"image\":\"https://www.jobbcoach.ai/mallar/verkstad.webp\",\"name\":\"Verkstad\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"verkstad\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#verkstad\"},\"position\":11},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för offentlig sektor och myndighetsutövning\",\"image\":\"https://www.jobbcoach.ai/mallar/myndighet.webp\",\"name\":\"Myndighet\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"myndighet\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#myndighet\"},\"position\":12},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Gratis CV-mall för ekonomi, redovisning och finans\",\"image\":\"https://www.jobbcoach.ai/mallar/konto.webp\",\"name\":\"Konto\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konto\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konto\"},\"position\":13},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för butik och frontline med foto, magazine-känsla och customer voice-block\",\"image\":\"https://www.jobbcoach.ai/mallar/disk-plus.webp\",\"name\":\"Disk Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"disk-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#disk-plus\"},\"position\":14},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för lager och logistik med dark header och cyan-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/logistik-plus.webp\",\"name\":\"Logistik Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"logistik-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#logistik-plus\"},\"position\":15},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för ingenjörer med blueprint-grid och två-kolumn-layout\",\"image\":\"https://www.jobbcoach.ai/mallar/verkstad-plus.webp\",\"name\":\"Verkstad Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"verkstad-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#verkstad-plus\"},\"position\":16},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för offentlig sektor med centrerad serif-header och guld-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/myndighet-plus.webp\",\"name\":\"Myndighet Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"myndighet-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#myndighet-plus\"},\"position\":17},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för ekonomi och finans med tre-kolumns header och nyckeltal\",\"image\":\"https://www.jobbcoach.ai/mallar/konto-plus.webp\",\"name\":\"Konto Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konto-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konto-plus\"},\"position\":18},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Norrsken med foto-ring, gradient-namn och profil-block\",\"image\":\"https://www.jobbcoach.ai/mallar/norrsken-plus.webp\",\"name\":\"Norrsken Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"norrsken-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#norrsken-plus\"},\"position\":19},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-uppgradering av Tidlös med Garamond serif, ornament och burgundy-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/tidlos-plus.webp\",\"name\":\"Tidlös Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"tidlos-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#tidlos-plus\"},\"position\":20},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Stack med teknik-pill-banner och två-kolumn-layout\",\"image\":\"https://www.jobbcoach.ai/mallar/stack-plus.webp\",\"name\":\"Stack Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"stack-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#stack-plus\"},\"position\":21},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-uppgradering av Hantverkare med foto, projektportfölj och dubbel-accent\",\"image\":\"https://www.jobbcoach.ai/mallar/hantverkare-plus.webp\",\"name\":\"Hantverkare Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"hantverkare-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#hantverkare-plus\"},\"position\":22},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Student med foto, drömjobb-eyebrow och utbildning först\",\"image\":\"https://www.jobbcoach.ai/mallar/student-plus.webp\",\"name\":\"Student Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"student-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#student-plus\"},\"position\":23},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-uppgradering av Sidopanel med foto, profilblock och orange-magenta accent\",\"image\":\"https://www.jobbcoach.ai/mallar/sidopanel-plus.webp\",\"name\":\"Sidopanel Plus\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"sidopanel-plus\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#sidopanel-plus\"},\"position\":24},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Gratis CV-mall för hantverkare och bygg med behörigheter och certifikat\",\"image\":\"https://www.jobbcoach.ai/mallar/bygg.webp\",\"name\":\"Hantverkare\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"bygg\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#bygg\"},\"position\":25},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall för forskare och doktorander med publikationer och stipendier\",\"image\":\"https://www.jobbcoach.ai/mallar/forskare.webp\",\"name\":\"Forskare\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"forskare\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#forskare\"},\"position\":26},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall för restaurang, hotell och service med språk och diplom i fokus\",\"image\":\"https://www.jobbcoach.ai/mallar/servering.webp\",\"name\":\"Servering\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"servering\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#servering\"},\"position\":27},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Minimalistisk Swiss-design — helt monokrom, ingen accentfärg\",\"image\":\"https://www.jobbcoach.ai/mallar/linje.webp\",\"name\":\"Linje\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"linje\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#linje\"},\"position\":28},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium-mall med levande gradient-sidopanel — för marknadsförare och kreativa\",\"image\":\"https://www.jobbcoach.ai/mallar/spektrum.webp\",\"name\":\"Spektrum\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"spektrum\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#spektrum\"},\"position\":29},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Premium-mall med skogsgrön header — för hållbarhet, klimat och cleantech\",\"image\":\"https://www.jobbcoach.ai/mallar/kvist.webp\",\"name\":\"Kvist\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"kvist\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#kvist\"},\"position\":30},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium tidnings-cover-mall med stort foto och dramatisk serif-typografi\",\"image\":\"https://www.jobbcoach.ai/mallar/magasin.webp\",\"name\":\"Magasin\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"magasin\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#magasin\"},\"position\":31},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Premium-mall med timeline och kompetensstaplar — för data, BI och konsulter\",\"image\":\"https://www.jobbcoach.ai/mallar/karta.webp\",\"name\":\"Karta\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"karta\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#karta\"},\"position\":32},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Premium retro-mall med cream-bakgrund, ramning och vintage-typografi\",\"image\":\"https://www.jobbcoach.ai/mallar/avtryck.webp\",\"name\":\"Avtryck\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"avtryck\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#avtryck\"},\"position\":33},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Tydlig sidopanel med kontakt och kompetenser, modernt utseende\",\"image\":\"https://www.jobbcoach.ai/mallar/sidebar-icons.webp\",\"name\":\"Sidopanel\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"sidebar-icons\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#sidebar-icons\"},\"position\":34},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Asymmetrisk magazine-layout med foto, LinkedIn och tidslinje\",\"image\":\"https://www.jobbcoach.ai/mallar/editorial-magazine.webp\",\"name\":\"Editorial\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"editorial-magazine\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#editorial-magazine\"},\"position\":35},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Klassisk formell mall för juridik, bank och offentlig sektor\",\"image\":\"https://www.jobbcoach.ai/mallar/tidlos-formell.webp\",\"name\":\"Tidlös\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"tidlos-formell\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#tidlos-formell\"},\"position\":36},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Kompakt premium-mall för seniora kandidater med foto och LinkedIn\",\"image\":\"https://www.jobbcoach.ai/mallar/konsult-kompakt.webp\",\"name\":\"Konsulten\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"konsult-kompakt\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#konsult-kompakt\"},\"position\":37},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"Modern utvecklarmall med kompetens-stack ovanför erfarenhet\",\"image\":\"https://www.jobbcoach.ai/mallar/stack-developer.webp\",\"name\":\"Stack\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"stack-developer\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#stack-developer\"},\"position\":38},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"creative\",\"description\":\"Stark typografisk hierarki med foto och LinkedIn för marknadsföring\",\"image\":\"https://www.jobbcoach.ai/mallar/bold-modern.webp\",\"name\":\"Bold\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"bold-modern\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#bold-modern\"},\"position\":39},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"modern\",\"description\":\"För studenter och nyexaminerade — utbildning först, projekt och praktik\",\"image\":\"https://www.jobbcoach.ai/mallar/student-startup.webp\",\"name\":\"Student\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"0\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"student-startup\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#student-startup\"},\"position\":40},{\"@type\":\"ListItem\",\"item\":{\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"category\":\"traditional\",\"description\":\"Designad för vård och omsorg med legitimationer först och kompetensområden\",\"image\":\"https://www.jobbcoach.ai/mallar/varden-omsorg.webp\",\"name\":\"Vården\",\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"149\",\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/cv-mallar\"},\"sku\":\"varden-omsorg\",\"url\":\"https://www.jobbcoach.ai/cv-mallar#varden-omsorg\"},\"position\":41}],\"name\":\"CV-mallar för svenska arbetsgivare\",\"numberOfItems\":41}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/norrsken.svg",
+      "alt": "Mallen Norrsken"
+    }
+  },
+  {
+    "path": "/cv-mallar",
+    "status": 200,
+    "h1": [
+      "CV-mallar för svenska yrken gratis och premium"
+    ],
+    "title": "CV-mallar 2026 — gratis och premium-mallar att ladda ner | Jobbcoach.ai",
+    "description": "Välj bland färdiga ATS-säkra CV-mallar för svenska yrken. Gratis att ladda ner, anpassade per bransch och uppdaterade för 2026. Modern, traditionell, kreativ — välj din stil.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar",
+    "ogImage": "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?cb28ca34f420bffc",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Yrkesmallar — för ditt specifika yrke"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läkare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Specialistsjuksköterska"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Barnmorska"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fysioterapeut"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sjuksköterska"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Undersköterska"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vårdbiträde"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hemtjänst"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hemtjänstpersonal"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personlig assistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Psykolog"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kurator"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Boendestöd"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vårdadministratör"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Förskollärare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lärare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Grundskollärare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Specialpedagog"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Barnskötare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Elevassistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fritidspedagog"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fritidsledare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Student"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Butiksbiträde"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Butikssäljare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Butikschef"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kassörska"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kundtjänstmedarbetare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kundtjänst"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hotellvärd"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Receptionist"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kundrådgivare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lagerarbetare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Truckförare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logistiker"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lagerchef"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Terminalarbetare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logistikassistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fastighetsskötare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Servicemedarbetare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lokalvårdare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kock"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Bartender"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Konditor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Barista"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Servitris/Restaurangbiträde"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Köksbiträde"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Säljare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Account Manager"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sommarjobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Systemutvecklare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "DevOps Engineer"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "IT-konsult"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Projektledare IT"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Scrum Master"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Produktchef"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ingenjör"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Automationsingenjör"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Konstruktör"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ekonomiassistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Administrativ assistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Redovisningsekonom"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Controller"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ekonom"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "HR-specialist"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Administratör"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Handläggare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "LSS-handläggare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Socialsekreterare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kontorsassistent"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Chef"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Enhetschef"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Projektledare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Teamledare"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla våra CV-mallar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad gör en bra CV-mall för svenska arbetsgivare?"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mallen måste passera rekryteringssystemet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Olika yrken kräver olika mall-DNA"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mallen ska passa hur långt du kommit i karriären"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Använd båda — de är kompletterande"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om CV-mallar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "CV för cv-mallar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Letar du efter ett färdigt CV-exempel istället?"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/cv-exempel",
+      "/cv-exempel",
+      "/cv-mallar/account-manager",
+      "/cv-mallar/administrativ-assistent",
+      "/cv-mallar/administrator",
+      "/cv-mallar/automationsingenior",
+      "/cv-mallar/barista",
+      "/cv-mallar/barnmorska",
+      "/cv-mallar/barnskotare",
+      "/cv-mallar/bartender",
+      "/cv-mallar/boendestod",
+      "/cv-mallar/butiksbitrade",
+      "/cv-mallar/butikschef",
+      "/cv-mallar/butikssaljare",
+      "/cv-mallar/chef",
+      "/cv-mallar/controller",
+      "/cv-mallar/devops-engineer",
+      "/cv-mallar/ekonom",
+      "/cv-mallar/ekonomiassistent",
+      "/cv-mallar/elevassistent",
+      "/cv-mallar/enhetschef",
+      "/cv-mallar/fastighetsskotare",
+      "/cv-mallar/forskollarare",
+      "/cv-mallar/fritidsledare",
+      "/cv-mallar/fritidspedagog",
+      "/cv-mallar/fysioterapeut",
+      "/cv-mallar/grundskollarare",
+      "/cv-mallar/handlaggare",
+      "/cv-mallar/hemtjanst",
+      "/cv-mallar/hemtjanstpersonal",
+      "/cv-mallar/hotellvard",
+      "/cv-mallar/hr-specialist",
+      "/cv-mallar/ingenjor",
+      "/cv-mallar/it-konsult",
+      "/cv-mallar/kassorska",
+      "/cv-mallar/kock",
+      "/cv-mallar/koksbitrade",
+      "/cv-mallar/konditor",
+      "/cv-mallar/konstruktor",
+      "/cv-mallar/kontorsassistent",
+      "/cv-mallar/kundradgivare",
+      "/cv-mallar/kundtjanst",
+      "/cv-mallar/kundtjanstmedarbetare",
+      "/cv-mallar/kurator",
+      "/cv-mallar/lagerarbetare",
+      "/cv-mallar/lagerchef",
+      "/cv-mallar/lakare",
+      "/cv-mallar/larare",
+      "/cv-mallar/logistikassistent",
+      "/cv-mallar/logistiker",
+      "/cv-mallar/lokalvardare",
+      "/cv-mallar/lss-handlaggare",
+      "/cv-mallar/personlig-assistent",
+      "/cv-mallar/produktchef",
+      "/cv-mallar/projektledare",
+      "/cv-mallar/projektledare-it",
+      "/cv-mallar/psykolog",
+      "/cv-mallar/receptionist",
+      "/cv-mallar/redovisningsekonom",
+      "/cv-mallar/saljare",
+      "/cv-mallar/scrum-master",
+      "/cv-mallar/servicemedarbetare",
+      "/cv-mallar/servitris-restaurangbitrade",
+      "/cv-mallar/sjukskoterska",
+      "/cv-mallar/socialsekreterare",
+      "/cv-mallar/sommarjobb",
+      "/cv-mallar/specialistsjukskoterska",
+      "/cv-mallar/specialpedagog",
+      "/cv-mallar/student",
+      "/cv-mallar/systemutvecklare",
+      "/cv-mallar/teamledare",
+      "/cv-mallar/terminalarbetare",
+      "/cv-mallar/truckforare",
+      "/cv-mallar/underskoterska",
+      "/cv-mallar/vardadministrator",
+      "/cv-mallar/vardbitrade",
+      "/exempel"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/exempel\",\"name\":\"Exempel\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar\",\"name\":\"CV-mallar\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, 3 av våra 41 CV-mallar är gratis att ladda ner. De övriga 38 ingår i CV-paketet och i Hela paketet. Alla gratismallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. De mallar som ingår i paketen har mer designfrihet: stöd för foto, färgade paneler och specialiserade yrkesvarianter.\"},\"name\":\"Är CV-mallarna gratis att ladda ner?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det beror på branschen. För traditionella tjänsteyrken passar Norrsken, Atlas eller Tidlös. För tech används Stack-mallen. För vård och pedagogik finns specialiserade mallar (Vården, Klinik, Pedagog) som lyfter rätt meriter — legitimationer, behörigheter, kompetensområden.\"},\"name\":\"Vilken CV-mall är bäst för svenska arbetsgivare 2026?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En CV-mall är en design-struktur du fyller med ditt eget innehåll. Ett CV-exempel är någon annans färdiga CV som du kan låta dig inspireras av. Vi har båda — använd en mall för designen och titta på exempel för innehållsformuleringar.\"},\"name\":\"Vad är skillnaden mellan en CV-mall och ett CV-exempel?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Alla våra ATS-märkta mallar är. Det betyder ingen clip-path, inga absolutpositionerade textelement, standardrubriker (Arbetslivserfarenhet, Utbildning, Kompetenser) och vanlig HTML-struktur som rekryteringssystem som Heroma, Visma och Workday kan läsa korrekt.\"},\"name\":\"Är mallarna ATS-säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du laddar ner som PDF direkt från vår mallväljare. Word-export är inte tillgänglig — vi rekommenderar PDF eftersom det säkerställer att layouten ser exakt likadan ut hos rekryteraren. Word-filer förändras ofta beroende på mottagarens version.\"},\"name\":\"Kan jag ladda ner CV-mallen som PDF eller Word?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tre frågor: Vilken bransch? Hur konservativ är arbetsgivaren? Hur mycket erfarenhet har du? Vård, juridik, offentlig sektor → traditionell mall (Tidlös, Klinik, Atlas). Tech, marknadsföring, kreativa → modern eller kreativ mall (Stack, Aurora, Galleri). Stor erfarenhet → kompakt mall (Konsulten). Begränsad erfarenhet → enkel mall (Student, Norrsken).\"},\"name\":\"Hur väljer jag rätt CV-mall för mitt yrke?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Inte obligatoriskt i Sverige men vanligt. Foto är framträdande i serviceyrken, sälj och pedagogik. Mindre vanligt i juridik, akademi och executive search. Våra mallar har foto-stöd där det passar — du kan toggla av/på beroende på preferens.\"},\"name\":\"Behöver jag foto på CV:t?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, men anpassa innehållet per ansökan. Mallen är formen — innehållet ska speglar tjänsten du söker. Använd vår CV-byggare som låter dig skapa flera versioner med samma mall men olika sammanfattning, kompetenser och fokus.\"},\"name\":\"Kan jag använda samma mall för olika ansökningar?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Student-mallen är specialdesignad för dig — den lyfter utbildning först, ger plats för projekt och praktik istället för fast anställning, och har en cyan accent som signalerar utbildning snarare än corporate. Funkar perfekt för sommarjobbsansökningar och första riktiga jobbet.\"},\"name\":\"Vilken mall ska jag välja som student utan jobberfarenhet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Som regel 1 sida för 0-5 års erfarenhet, 1.5-2 sidor för 5-10 år, max 2 sidor för seniora positioner. Undantag: läkare, akademiker och konsulter med många meritlistor kan motivera 2-3 sidor. Mallarna är designade för att hålla typografisk balans oavsett längd.\"},\"name\":\"Hur lång ska mitt CV vara?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"description\":\"Bibliotek med yrkesspecifika CV-mallar för 74 yrken. ATS-säkra, gratis och anpassade för svenska arbetsgivare.\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"CV-mall för Läkare\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/cv-mallar/lakare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Specialistsjuksköterska\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/cv-mallar/specialistsjukskoterska\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Barnmorska\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/cv-mallar/barnmorska\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Fysioterapeut\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/cv-mallar/fysioterapeut\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Sjuksköterska\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/cv-mallar/sjukskoterska\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Undersköterska\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/cv-mallar/underskoterska\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Vårdbiträde\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/cv-mallar/vardbitrade\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Hemtjänst\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/cv-mallar/hemtjanst\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Hemtjänstpersonal\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/cv-mallar/hemtjanstpersonal\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Personlig assistent\",\"position\":10,\"url\":\"https://www.jobbcoach.ai/cv-mallar/personlig-assistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Psykolog\",\"position\":11,\"url\":\"https://www.jobbcoach.ai/cv-mallar/psykolog\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kurator\",\"position\":12,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kurator\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Boendestöd\",\"position\":13,\"url\":\"https://www.jobbcoach.ai/cv-mallar/boendestod\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Vårdadministratör\",\"position\":14,\"url\":\"https://www.jobbcoach.ai/cv-mallar/vardadministrator\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Förskollärare\",\"position\":15,\"url\":\"https://www.jobbcoach.ai/cv-mallar/forskollarare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Lärare\",\"position\":16,\"url\":\"https://www.jobbcoach.ai/cv-mallar/larare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Grundskollärare\",\"position\":17,\"url\":\"https://www.jobbcoach.ai/cv-mallar/grundskollarare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Specialpedagog\",\"position\":18,\"url\":\"https://www.jobbcoach.ai/cv-mallar/specialpedagog\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Barnskötare\",\"position\":19,\"url\":\"https://www.jobbcoach.ai/cv-mallar/barnskotare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Elevassistent\",\"position\":20,\"url\":\"https://www.jobbcoach.ai/cv-mallar/elevassistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Fritidspedagog\",\"position\":21,\"url\":\"https://www.jobbcoach.ai/cv-mallar/fritidspedagog\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Fritidsledare\",\"position\":22,\"url\":\"https://www.jobbcoach.ai/cv-mallar/fritidsledare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Student\",\"position\":23,\"url\":\"https://www.jobbcoach.ai/cv-mallar/student\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Butiksbiträde\",\"position\":24,\"url\":\"https://www.jobbcoach.ai/cv-mallar/butiksbitrade\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Butikssäljare\",\"position\":25,\"url\":\"https://www.jobbcoach.ai/cv-mallar/butikssaljare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Butikschef\",\"position\":26,\"url\":\"https://www.jobbcoach.ai/cv-mallar/butikschef\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kassörska\",\"position\":27,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kassorska\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kundtjänstmedarbetare\",\"position\":28,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kundtjanstmedarbetare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kundtjänst\",\"position\":29,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kundtjanst\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Hotellvärd\",\"position\":30,\"url\":\"https://www.jobbcoach.ai/cv-mallar/hotellvard\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Receptionist\",\"position\":31,\"url\":\"https://www.jobbcoach.ai/cv-mallar/receptionist\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kundrådgivare\",\"position\":32,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kundradgivare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Lagerarbetare\",\"position\":33,\"url\":\"https://www.jobbcoach.ai/cv-mallar/lagerarbetare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Truckförare\",\"position\":34,\"url\":\"https://www.jobbcoach.ai/cv-mallar/truckforare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Logistiker\",\"position\":35,\"url\":\"https://www.jobbcoach.ai/cv-mallar/logistiker\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Lagerchef\",\"position\":36,\"url\":\"https://www.jobbcoach.ai/cv-mallar/lagerchef\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Terminalarbetare\",\"position\":37,\"url\":\"https://www.jobbcoach.ai/cv-mallar/terminalarbetare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Logistikassistent\",\"position\":38,\"url\":\"https://www.jobbcoach.ai/cv-mallar/logistikassistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Fastighetsskötare\",\"position\":39,\"url\":\"https://www.jobbcoach.ai/cv-mallar/fastighetsskotare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Servicemedarbetare\",\"position\":40,\"url\":\"https://www.jobbcoach.ai/cv-mallar/servicemedarbetare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Lokalvårdare\",\"position\":41,\"url\":\"https://www.jobbcoach.ai/cv-mallar/lokalvardare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kock\",\"position\":42,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kock\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Bartender\",\"position\":43,\"url\":\"https://www.jobbcoach.ai/cv-mallar/bartender\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Konditor\",\"position\":44,\"url\":\"https://www.jobbcoach.ai/cv-mallar/konditor\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Barista\",\"position\":45,\"url\":\"https://www.jobbcoach.ai/cv-mallar/barista\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Servitris/Restaurangbiträde\",\"position\":46,\"url\":\"https://www.jobbcoach.ai/cv-mallar/servitris-restaurangbitrade\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Köksbiträde\",\"position\":47,\"url\":\"https://www.jobbcoach.ai/cv-mallar/koksbitrade\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Säljare\",\"position\":48,\"url\":\"https://www.jobbcoach.ai/cv-mallar/saljare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Account Manager\",\"position\":49,\"url\":\"https://www.jobbcoach.ai/cv-mallar/account-manager\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Sommarjobb\",\"position\":50,\"url\":\"https://www.jobbcoach.ai/cv-mallar/sommarjobb\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Systemutvecklare\",\"position\":51,\"url\":\"https://www.jobbcoach.ai/cv-mallar/systemutvecklare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för DevOps Engineer\",\"position\":52,\"url\":\"https://www.jobbcoach.ai/cv-mallar/devops-engineer\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för IT-konsult\",\"position\":53,\"url\":\"https://www.jobbcoach.ai/cv-mallar/it-konsult\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Projektledare IT\",\"position\":54,\"url\":\"https://www.jobbcoach.ai/cv-mallar/projektledare-it\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Scrum Master\",\"position\":55,\"url\":\"https://www.jobbcoach.ai/cv-mallar/scrum-master\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Produktchef\",\"position\":56,\"url\":\"https://www.jobbcoach.ai/cv-mallar/produktchef\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Ingenjör\",\"position\":57,\"url\":\"https://www.jobbcoach.ai/cv-mallar/ingenjor\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Automationsingenjör\",\"position\":58,\"url\":\"https://www.jobbcoach.ai/cv-mallar/automationsingenior\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Konstruktör\",\"position\":59,\"url\":\"https://www.jobbcoach.ai/cv-mallar/konstruktor\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Ekonomiassistent\",\"position\":60,\"url\":\"https://www.jobbcoach.ai/cv-mallar/ekonomiassistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Administrativ assistent\",\"position\":61,\"url\":\"https://www.jobbcoach.ai/cv-mallar/administrativ-assistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Redovisningsekonom\",\"position\":62,\"url\":\"https://www.jobbcoach.ai/cv-mallar/redovisningsekonom\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Controller\",\"position\":63,\"url\":\"https://www.jobbcoach.ai/cv-mallar/controller\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Ekonom\",\"position\":64,\"url\":\"https://www.jobbcoach.ai/cv-mallar/ekonom\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för HR-specialist\",\"position\":65,\"url\":\"https://www.jobbcoach.ai/cv-mallar/hr-specialist\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Administratör\",\"position\":66,\"url\":\"https://www.jobbcoach.ai/cv-mallar/administrator\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Handläggare\",\"position\":67,\"url\":\"https://www.jobbcoach.ai/cv-mallar/handlaggare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för LSS-handläggare\",\"position\":68,\"url\":\"https://www.jobbcoach.ai/cv-mallar/lss-handlaggare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Socialsekreterare\",\"position\":69,\"url\":\"https://www.jobbcoach.ai/cv-mallar/socialsekreterare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Kontorsassistent\",\"position\":70,\"url\":\"https://www.jobbcoach.ai/cv-mallar/kontorsassistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Chef\",\"position\":71,\"url\":\"https://www.jobbcoach.ai/cv-mallar/chef\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Enhetschef\",\"position\":72,\"url\":\"https://www.jobbcoach.ai/cv-mallar/enhetschef\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Projektledare\",\"position\":73,\"url\":\"https://www.jobbcoach.ai/cv-mallar/projektledare\"},{\"@type\":\"ListItem\",\"name\":\"CV-mall för Teamledare\",\"position\":74,\"url\":\"https://www.jobbcoach.ai/cv-mallar/teamledare\"}],\"name\":\"CV-mallar för svenska yrken\",\"numberOfItems\":74}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/norrsken.svg",
+      "alt": "Norrsken CV-mall"
+    }
+  },
+  {
+    "path": "/cv-mallar/start",
+    "status": 200,
+    "h1": [
+      "Välj din CV-mall"
+    ],
+    "title": "Välj CV-mall | jobbcoach.ai",
+    "description": "Välj en granskad CV-mall och börja fylla i. Tolv mallar är gratis och alla är testade mot svenska rekryteringssystem.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar",
+    "ogImage": "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?cb28ca34f420bffc",
+    "robots": "noindex, follow",
+    "rubriker": [],
+    "lankar": [],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [],
+    "forstaBild": {
+      "src": "/mallar/norrsken.svg",
+      "alt": "Förhandsvisning av CV-mallen Norrsken"
+    }
+  }
+]

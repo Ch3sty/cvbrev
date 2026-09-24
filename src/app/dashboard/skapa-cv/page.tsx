@@ -20,8 +20,18 @@ import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import CVCreatorWizard from './components/CVCreatorWizard';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { getTemplateById } from '@/lib/cv/simple-templates';
 
-export default async function SkapaCVPage() {
+export default async function SkapaCVPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mall?: string }>;
+}) {
+  // Mallen som valdes före registreringen (/verktyg/cv-mallar,
+  // /cv-mallar/start) följer med hit som ?mall= och förväljs i granskningen.
+  const { mall } = await searchParams;
+  const initialTemplate = mall && getTemplateById(mall) ? mall : undefined;
+
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
@@ -47,5 +57,5 @@ export default async function SkapaCVPage() {
     console.error('Fel vid server-hämtning av adminstatus:', error);
   }
 
-  return <CVCreatorWizard initialIsAdmin={isAdmin} />;
+  return <CVCreatorWizard initialIsAdmin={isAdmin} initialTemplate={initialTemplate} />;
 }

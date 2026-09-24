@@ -72,9 +72,12 @@ export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
         <span className="block truncate text-sm font-semibold leading-5">{rubrik}</span>
         <span className="block truncate text-xs leading-4 text-ink-3">{rad}</span>
       </span>
+      {/* Ringen rymmer två siffror på båda sidor av snedstrecket, "11/12":
+          44 px med 11 px text, luft på båda sidor. I 36 px med 13 px text låg talet utanför
+          cirkeln (2026-09-24). */}
       <span
         aria-hidden="true"
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink-1 text-[13px] font-semibold tabular-nums"
+        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink-1 text-[11px] font-semibold leading-none tabular-nums"
       >
         {lage.antalProvade}/{lage.antalTotalt}
       </span>

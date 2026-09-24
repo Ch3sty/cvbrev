@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
 import { storePendingCvStart } from '@/lib/letters/claim-draft-client'
+import { paketNamn } from '@/lib/plans/plans'
 
 export interface StartTemplate {
   id: string
@@ -88,7 +89,7 @@ export default function StartMallval({
                     {template.name}
                   </p>
                   <p className="mt-0.5 text-xs text-neutral-600 leading-tight">
-                    {template.tier === 'free' ? 'Gratis' : 'Ingår i Premium'}
+                    {template.tier === 'free' ? 'Gratis' : `Ingår i ${paketNamn('cv_week')}`}
                   </p>
                 </div>
               </button>

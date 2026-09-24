@@ -144,9 +144,12 @@ function previewSectionForStep(step: number): PreviewSection | undefined {
 
 export default function CVCreatorWizard({
   initialIsAdmin = false,
+  initialTemplate,
 }: {
   /** Server-läst adminflagga. Styr enbart knappen "Fyll i testdata". */
   initialIsAdmin?: boolean;
+  /** Mallen ur ?mall=, vald på mallsidan eller i /cv-mallar/start. Validerad på servern. */
+  initialTemplate?: string;
 }) {
   const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
@@ -176,7 +179,7 @@ export default function CVCreatorWizard({
   const [cvData, setCVData] = useState<CVDraft>(initialCVDraft);
 
   // Template selection state (for step 7)
-  const [selectedTemplate, setSelectedTemplate] = useState<string>('norrsken');
+  const [selectedTemplate, setSelectedTemplate] = useState<string>(initialTemplate || 'norrsken');
 
   // Saving state
   const [isSaving, setIsSaving] = useState(false);

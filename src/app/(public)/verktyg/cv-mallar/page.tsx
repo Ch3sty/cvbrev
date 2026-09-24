@@ -28,9 +28,33 @@ import CVMallarGalleri from './components/CVMallarGalleri'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMallar } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketMedPris, paketNamn } from '@/lib/plans/plans'
+import { isValidTemplateId } from '@/lib/cv/templates'
+import { FONTS } from '@/lib/cv/preview-utils'
 
 const CV_VECKAN = PLAN_BY_KEY.cv_week
+
+/** Registrets beskrivningar har tankstreck; i löptexten blir de komma. Schemat läser registret orört. */
+const lopText = (t: string) => t.replace(/\s+—\s+/g, ', ')
+
+/**
+ * Listorna till heroväljaren och galleriet, i sin minsta form. Hela
+ * mallregistret och mallmotorn stannar på servern. Gratismallarna först i
+ * väljaren: det är dem besökaren kan använda utan att betala.
+ */
+const DEMO_MALLAR = SIMPLE_TEMPLATES.filter((t) => isValidTemplateId(t.id))
+  .map((t) => ({ id: t.id, name: t.name, description: lopText(t.description), tier: t.tier }))
+  .sort((a, b) => (a.tier === b.tier ? 0 : a.tier === 'free' ? -1 : 1))
+const DEMO_TYPSNITT = FONTS.map((f) => ({ id: f.id, name: f.name }))
+const GALLERI_MALLAR = SIMPLE_TEMPLATES.map((t) => ({
+  id: t.id,
+  name: t.name,
+  description: lopText(t.description),
+  imagePath: t.imagePath,
+  category: t.category,
+  tier: t.tier,
+  features: t.features,
+}))
 
 const STEG = [
   { rubrik: 'Välj en mall', text: 'Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch och din stil bäst.' },
@@ -172,7 +196,8 @@ export default function CVMallarSida() {
         h1="Professionella CV-mallar för svenska arbetsgivare"
         ingress="Välj mellan modern, traditionell och kreativ stil. Alla mallar läses rätt av rekryteringssystemen och är redo att fyllas i."
         fet="Du behöver inte börja från ett tomt papper."
-        primar={{ text: 'Bygg ditt CV gratis', href: '/register' }}
+        // Mallväljaren i heron byter adressen till vald mall och typsnitt.
+        primar={{ text: 'Bygg ditt CV gratis', href: '/cv-mallar/start?mall=norrsken&typsnitt=calibri', dataCta: 'cv-mallar-bygg' }}
         sekundar={{ text: 'Se alla mallar', href: '#mall-galleri' }}
         loften={[
           { tal: `${TEMPLATE_COUNT}`, text: 'mallar i tre stilar' },
@@ -180,7 +205,14 @@ export default function CVMallarSida() {
           { tal: 'PDF + Word', text: 'redo att skicka' },
         ]}
         scen={<IlluScenMallar className="h-auto w-full" />}
-        handling={<CVMallarLiveDemo />}
+        handling={
+          <CVMallarLiveDemo
+            mallar={DEMO_MALLAR}
+            typsnitt={DEMO_TYPSNITT}
+            paketGrupp={`I ${paketNamn('cv_week')}`}
+            paketRad={`Ingår i ${paketMedPris('cv_week')}`}
+          />
+        }
         handlingId="valj-mall"
         steg={{
           id: 'sa-funkar-det',
@@ -195,7 +227,7 @@ export default function CVMallarSida() {
           ingress: 'Varje mall hjälper dig genom hela ansökan, inte bara med hur sidan ser ut.',
           rader: FUNKTIONER,
         }}
-        fritt={<CVMallarGalleri />}
+        fritt={<CVMallarGalleri mallar={GALLERI_MALLAR} paket={paketNamn('cv_week')} />}
         citat={{
           text: 'Jag hade suttit i två veckor och försökt få Word att se rätt ut. Jag bytte till en av era mallar, fyllde i mina uppgifter på tjugo minuter och hade tre intervjuer bokade veckan efter.',
           namn: 'Anna, 28, Malmö',
