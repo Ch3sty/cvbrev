@@ -179,6 +179,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
+    {
+      // Personlighetsprovet utan konto (docs/design/rod-trad-prov-spec-2026-09-24.md).
+      url: `${baseUrl}/verktyg/personlighetstest`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
   ];
 
   // 3. Hämta alla artikel-slugs och datum dynamiskt

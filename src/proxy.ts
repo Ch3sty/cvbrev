@@ -19,6 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { updateSession, type EfterInloggning } from '@/lib/supabase/middleware'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { intervjuSvarFinns } from '@/lib/intervju/rad'
+import { smakprovFinns } from '@/lib/personlighet/smakprov-rad'
 import { adminAuthMiddleware } from '@/middleware/admin-auth'
 import {
   ATTRIBUTION_COOKIE,
@@ -102,15 +103,26 @@ export async function proxy(request: NextRequest) {
  */
 const INTERVJU_SIDA = /^\/dashboard\/intervju\/([^/]+)\/?$/
 
+/** Tolkningssidan för personlighetsprovet, samma 404-regel (rod-trad-prov-spec). */
+const PROFIL_SIDA = /^\/dashboard\/intervju\/profil\/([^/]+)\/?$/
+/** Egna undersidor under /dashboard/intervju som inte är en token. */
+const EGNA_SIDOR = new Set(['ny', 'profil'])
+
 function intervjuKontroll(request: NextRequest): EfterInloggning | undefined {
-  const traff = INTERVJU_SIDA.exec(request.nextUrl.pathname)
-  if (!traff) return undefined
+  const pathname = request.nextUrl.pathname
+  const profil = PROFIL_SIDA.exec(pathname)
+  const traff = profil ? null : INTERVJU_SIDA.exec(pathname)
+  if (!profil && !traff) return undefined
+  if (traff && EGNA_SIDOR.has(traff[1])) return undefined
   // RSC-hämtningar vid klientnavigering får ingen HTML-status; bara dokument.
   if (request.headers.get('sec-fetch-dest') === 'empty' || request.headers.has('rsc')) return undefined
-  const token = decodeURIComponent(traff[1])
+  const token = decodeURIComponent((profil ?? traff)![1])
   return async (userId) => {
     const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
-    if (await intervjuSvarFinns(admin, token, userId)) return null
+    const finns = profil
+      ? await smakprovFinns(admin, token, userId)
+      : await intervjuSvarFinns(admin, token, userId)
+    if (finns) return null
     return NextResponse.rewrite(new URL('/_intervjusvar-saknas', request.url), { status: 404 })
   }
 }

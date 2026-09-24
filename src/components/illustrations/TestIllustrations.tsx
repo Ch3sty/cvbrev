@@ -286,3 +286,53 @@ export function IlluNiva({
     </IlluSvg>
   )
 }
+
+/**
+ * Femhörningen ur IlluPersonlighet med riktiga utslag
+ * (docs/design/rod-trad-prov-spec-2026-09-24.md, "Resultatets grafik").
+ * viewBox 96: axlar i kant-stark 1,5, konturen i currentColor 3, profilen
+ * fylld i accent 0,85. levels är 0 till 1 per hörn, i ordningen
+ * Samvetsgrannhet, Utåtriktning, Stabilitet, Vänlighet, Öppenhet medurs
+ * från toppen. Alltid dekorativ: faktorraderna bär informationen.
+ */
+export function IlluProfilPentagon({
+  levels,
+  size = 96,
+  className,
+}: {
+  levels: readonly number[]
+  size?: number
+  className?: string
+}) {
+  const R = 34
+  const pts = [0, 1, 2, 3, 4].map((i) => {
+    const a = (Math.PI * 2 * i) / 5 - Math.PI / 2
+    return { x: 48 + Math.cos(a) * R, y: 48 + Math.sin(a) * R }
+  })
+  const f = (n: number) => n.toFixed(1)
+  const kontur = pts.map((p) => `${f(p.x)},${f(p.y)}`).join(' ')
+  const axlar = pts.map((p) => `M48 48L${f(p.x)} ${f(p.y)}`).join('')
+  const profil = pts
+    .map((p, i) => {
+      // Ett litet golv så att en låg faktor fortfarande syns som ett hörn.
+      const l = Math.max(0.08, Math.min(1, levels[i] ?? 0))
+      return `${f(48 + (p.x - 48) * l)},${f(48 + (p.y - 48) * l)}`
+    })
+    .join(' ')
+
+  return (
+    <svg
+      viewBox="0 0 96 96"
+      width={size}
+      height={size}
+      className={className}
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d={axlar} stroke="var(--kant-stark)" strokeWidth="1.5" />
+      <polygon points={kontur} stroke="currentColor" strokeWidth="3" strokeLinejoin="round" />
+      <polygon points={profil} fill={ILLU.accent} opacity="0.85" />
+    </svg>
+  )
+}

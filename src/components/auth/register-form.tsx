@@ -18,7 +18,7 @@ import { logUserActivity } from '@/lib/activity-logger'
 import { AlertCircle } from 'lucide-react'
 import { capture, identifyUser } from '@/lib/analytics/events'
 import { getAcquisitionSource, getSignupAnalyticsContext } from '@/lib/analytics/attribution'
-import { claimPendingDraft, claimPendingCvStart, claimPendingTestSession, claimPendingIntervju } from '@/lib/letters/claim-draft-client'
+import { claimPendingDraft, claimPendingCvStart, claimPendingTestSession, claimPendingIntervju, claimPendingPersonlighet } from '@/lib/letters/claim-draft-client'
 import AuthCvPaper from './AuthCvPaper'
 import AuthInput from './AuthInput'
 import AuthSubmitButton from './AuthSubmitButton'
@@ -63,6 +63,10 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
   const intervjuParam = searchParams.get('intervju')
   const intervjuToken =
     intervjuParam && /^[0-9a-f-]{36}$/i.test(intervjuParam) ? intervjuParam : null
+  // Personlighetsprovets token ur /register?personlighet=... (samma regel).
+  const personlighetParam = searchParams.get('personlighet')
+  const personlighetToken =
+    personlighetParam && /^[0-9a-f-]{36}$/i.test(personlighetParam) ? personlighetParam : null
   const sparvalHref = valtPaket
     ? `${TRACK_CHOICE_PATH}?paket=${valtPaket}`
     : TRACK_CHOICE_PATH
@@ -176,7 +180,7 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
       // Utkast från de publika flödena hämtas hem och bestämmer landningen.
       let destination: string | null = null
       try {
-        destination = (await claimPendingDraft()) || (await claimPendingCvStart()) || (await claimPendingTestSession()) || (await claimPendingIntervju())
+        destination = (await claimPendingDraft()) || (await claimPendingCvStart()) || (await claimPendingTestSession()) || (await claimPendingIntervju()) || (await claimPendingPersonlighet())
       } catch (claimError) {
         console.error('[register] Kunde inte hämta hem utkast:', claimError)
       }
@@ -241,7 +245,9 @@ export default function RegisterForm({ onStateChange }: RegisterFormProps = {}) 
             next={
               intervjuToken
                 ? `/dashboard/intervju/${encodeURIComponent(intervjuToken)}`
-                : redirectTo === '/dashboard' && valtPaket
+                : personlighetToken
+                  ? `/dashboard/intervju/profil/${encodeURIComponent(personlighetToken)}`
+                  : redirectTo === '/dashboard' && valtPaket
                   ? sparvalHref
                   : redirectTo
             }

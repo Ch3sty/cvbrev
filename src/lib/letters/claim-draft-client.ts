@@ -205,3 +205,48 @@ export async function claimPendingIntervju(): Promise<string | null> {
     return null
   }
 }
+
+const PERSONLIGHET_STORAGE_KEY = 'jc_pending_personlighet'
+
+/** Sparar personlighetsprovets token så den överlever vägen genom registreringen. */
+export function storePendingPersonlighet(token: string): void {
+  try {
+    sessionStorage.setItem(PERSONLIGHET_STORAGE_KEY, token)
+  } catch {
+    // Länken /register?personlighet=... bär token även utan sessionStorage.
+  }
+}
+
+/**
+ * Kopplar ett anonymt personlighetsprov till det nya kontot
+ * (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 5). Först här
+ * blir hela tolkningen tillgänglig.
+ *
+ * Returnerar path till tolkningssidan, eller null om inget väntar.
+ */
+export async function claimPendingPersonlighet(): Promise<string | null> {
+  const token = readQueryParam('personlighet') ?? readSession(PERSONLIGHET_STORAGE_KEY)
+  if (!token) return null
+
+  try {
+    const res = await fetch('/api/public/personlighetsprov/claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    })
+
+    clearSession(PERSONLIGHET_STORAGE_KEY)
+
+    if (!res.ok) return null
+
+    const data = (await res.json()) as { redirect?: string }
+    if (!data.redirect) return null
+
+    capture('draft_claimed', { kind: 'personality' })
+    return data.redirect
+  } catch (err) {
+    console.error('[claim-draft] Kunde inte hämta personlighetsprovet:', err)
+    clearSession(PERSONLIGHET_STORAGE_KEY)
+    return null
+  }
+}

@@ -14,6 +14,7 @@ import { createFollowUpNotifications } from '@/lib/notifications/followUp';
 import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
 import { cleanupExpiredAnonSessions } from '@/lib/tests/anon-session';
 import { cleanupExpiredIntervjuprov } from '@/lib/intervju/rad';
+import { cleanupExpiredSmakprov } from '@/lib/personlighet/smakprov-rad';
 import { collectAdminMetrics, dagStr } from '@/lib/admin/collect';
 
 /**
@@ -239,13 +240,17 @@ export async function GET(request: NextRequest) {
     // ====================================
     // 2c. INTERVJUPROVET: RENSNING (midnattsslotten)
     // ====================================
-    // docs/design/intervjuprov-spec-2026-09-23.md avsnitt 6. Svaren sparas i
-    // sju dygn och tas sedan bort, också de som hämtats till ett konto.
+    // docs/design/intervjuprov-spec-2026-09-23.md avsnitt 6 och
+    // docs/design/rod-trad-prov-spec-2026-09-24.md avsnitt 6. Ohämtade
+    // intervjusvar och personlighetsprov tas bort efter sju dygn. Hämtade
+    // rader har expires_at null och rörs aldrig (ägarens beslut 2, 2026-09-24).
     // Samma rutt som övriga jobb: ett tredje cron-jobb går inte på planen.
     if (!isMorningSlot) {
       results.intervjuprovCleanup = { success: true, deleted: await cleanupExpiredIntervjuprov(supabaseAdmin) };
+      results.personlighetsprovCleanup = { success: true, deleted: await cleanupExpiredSmakprov(supabaseAdmin) };
     } else {
       results.intervjuprovCleanup = { skipped: true, reason: 'Midnattsslotten rensar' };
+      results.personlighetsprovCleanup = { skipped: true, reason: 'Midnattsslotten rensar' };
     }
 
     // ====================================
