@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profil och registrering, design 2026-09-24</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Tokens ordagrant ur src/app/globals.css (Tråden v2.1), typskalan ur tailwind.config.js. */
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;--kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;
+  --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;--fel-morker:#7F1D1D;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:14px;line-height:21px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:var(--display);letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+svg{display:block}
+a{color:inherit}
+ul{margin:0;padding:0;list-style:none}
+button{font:inherit}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.92em;color:var(--accent-ink)}
+
+/* ---------------------------------------------------------- dokumentets ram (samma som rod-trad-prov) */
+.wrap{max-width:1400px;margin:0 auto;padding:40px 24px 80px}
+.doc-head{max-width:80ch}
+.doc-head .eyebrow{margin-bottom:8px}
+.doc-head h1{font-size:40px;line-height:44px;font-weight:800;letter-spacing:-.025em}
+.doc-head p{margin-top:12px;color:var(--ink-2);font-size:16px;line-height:25px}
+.eyebrow{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.sektion{margin-top:64px}
+.sektion>.eyebrow{margin-bottom:8px}
+.sektion>h2{font-size:26px;line-height:31px;font-weight:700}
+.sektion>.led{margin-top:10px;max-width:80ch;color:var(--ink-2);font-size:15px;line-height:24px}
+.rad{margin-top:24px;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.kol{flex:0 0 auto}
+.etikett{margin:0 0 10px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.motiv{margin-top:14px;max-width:412px;padding:12px 14px;background:var(--panel);border:1px solid var(--kant);border-radius:8px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.motiv b{color:var(--ink-1);font-weight:600}
+.motiv ul{margin:6px 0 0;padding-left:18px;list-style:disc}
+.motiv li+li{margin-top:3px}
+.kol.bred .motiv{max-width:760px}
+.kol.desk-app .motiv{max-width:1000px}
+.beslut{margin-top:20px;max-width:960px;padding:16px 18px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:12px}
+.beslut h3{font-size:16px;line-height:22px;font-weight:700}
+.beslut p{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.beslut ul,.beslut ol{margin-top:8px;padding-left:20px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.beslut ul{list-style:disc}
+.beslut li+li{margin-top:4px}
+.beslut b{color:var(--ink-1)}
+table{border-collapse:collapse;width:100%;max-width:1160px;margin-top:16px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;overflow:hidden;font-size:13px;line-height:19px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--kant)}
+th{background:var(--insunken);font-weight:600;color:var(--ink-1)}
+td:first-child{color:var(--ink-3)}
+tr:last-child td{border-bottom:0}
+td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stapel{display:inline-block;height:8px;border-radius:9999px;background:var(--ink-1);vertical-align:middle;margin-right:8px}
+.stapel.ljus{background:var(--kant-stark)}
+
+/* ---------------------------------------------------------- knappar och länkar (h-11, rounded-lg, text-sm font-medium) */
+.knapp{display:inline-flex;height:44px;width:100%;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:8px;background:var(--ink-1);color:#fff;font-size:14px;font-weight:500;line-height:1;text-decoration:none;border:0;font-family:inherit;white-space:nowrap}
+.knapp.sek{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark);font-weight:600}
+.knapp.auto{width:auto}
+.knapp.av{opacity:.6}
+.knapp svg{width:16px;height:16px}
+.textlank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px;line-height:44px;display:inline-block}
+.textlank.kort{line-height:20px}
+.textlank.dampad{color:var(--ink-2)}
+.fotnot{font-size:13px;line-height:18px;color:var(--ink-3)}
+.ik{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------------------------------------------------------- appramar, som referensfilen */
+.app{width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;position:relative}
+.app .topp{height:56px;display:flex;align-items:center;gap:4px;padding:0 8px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.app .topp .meny{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ink-1)}
+.app .topp .meny svg{width:24px;height:24px}
+.app .topp .plats{flex:1;min-width:0;padding:0 8px;font-size:14px;font-weight:500;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app .topp .av{width:32px;height:32px;border-radius:50%;border:1px solid var(--kant);background:var(--insunken);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink-2);margin:0 6px}
+.app .topp .klocka{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ink-1)}
+.app .inne{padding:16px 16px 88px}
+.app .nav{position:absolute;left:0;right:0;bottom:0;height:57px;background:var(--panel);border-top:1px solid var(--kant);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:4px 8px 0}
+.app .nav span{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:500;color:var(--ink-3);min-height:48px;justify-content:center}
+.app .nav span.pa{color:var(--ink-1)}
+.app .nav svg{width:24px;height:24px}
+.app-desk{width:1180px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;display:flex}
+.app-desk .side{width:256px;flex:none;background:var(--panel);border-right:1px solid var(--kant);padding:16px 12px 20px}
+.app-desk .kolumn{flex:1;min-width:0;display:flex;flex-direction:column}
+.app-desk .hdr{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--panel);border-bottom:1px solid var(--kant);font-size:14px;font-weight:500;color:var(--ink-2)}
+.app-desk .hdr .hoger{display:flex;align-items:center;gap:12px;color:var(--ink-1)}
+.app-desk .hdr .av{width:32px;height:32px;border-radius:50%;border:1px solid var(--kant);background:var(--insunken);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink-2)}
+.app-desk .huvud{flex:1;min-width:0;padding:32px 40px 40px}
+.app-desk .huvud .inne{max-width:768px}
+.side .logo{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;padding:0 4px 16px}
+.side .paket{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-radius:12px;background:var(--ink-1);padding:12px;color:#fff;margin-bottom:8px}
+.side .paket b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.side .paket small{display:block;margin-top:2px;font-size:12px;line-height:16px;color:var(--ink-1-mjuk)}
+.side .paket a{font-size:12px;font-weight:500;text-decoration:underline;text-decoration-color:var(--ink-1-kant);text-underline-offset:3px;flex:none}
+.side .sekt{margin-top:12px}
+.side .sekt .eyebrow{padding:8px 12px 4px}
+.side .r{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 12px;border-radius:8px;font-size:14px;color:var(--ink-2);position:relative}
+.side .r.tung{font-weight:500;color:var(--ink-1);min-height:44px;font-size:15px}
+.side .r svg{width:22px;height:22px;flex:none}
+.side .r.aktiv{background:var(--insunken);color:var(--ink-1);font-weight:500}
+.side .r.aktiv::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.side .r .antal{margin-left:auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.side .r.las{color:var(--ink-3)}
+.side .r.las .lasik{margin-left:auto;width:14px;height:14px}
+.ny{outline:2px dashed var(--kant-stark);outline-offset:2px}
+
+/* Sidmall: PageHeader (text-h1 32/35, lg 44/46), sektionsetikett */
+.ph .eyebrow{margin-bottom:8px}
+.ph h1{font-family:var(--display);font-size:32px;line-height:35px;font-weight:800;letter-spacing:-.025em}
+.app-desk .ph h1{font-size:44px;line-height:46px}
+.ph .desc{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2);max-width:60ch}
+.app-desk .ph .desc{font-size:16px;line-height:24px}
+
+/* StatusRow: min-h-11, rounded-lg, border-kant, bg-panel, px-3, text-sm font-medium */
+.statusrad{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:8px 12px;min-height:44px;border:1px solid var(--kant);border-radius:8px;background:var(--panel);font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.statusrad .v{display:flex;gap:8px;align-items:center;min-width:0}
+.statusrad i{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.statusrad i.pos{background:var(--positiv)}
+.statusrad.varm{color:var(--accent-ink)}
+.statusrad.varm i{background:var(--accent)}
+.statusrad .textlank{line-height:20px;flex:none}
+
+/* ---------------------------------------------------------- profilsidan: ProfileCard, fält, växlar, ChoiceCard */
+.hopp{margin-top:16px;display:flex;flex-wrap:wrap;gap:0 20px;border-bottom:1px solid var(--kant)}
+.hopp a{font-size:14px;font-weight:500;color:var(--ink-2);text-decoration:none;line-height:44px;position:relative}
+.hopp a.pa{color:var(--ink-1)}
+.hopp a.pa::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink-1)}
+.pk{margin-top:16px;background:var(--panel);border:1px solid var(--kant);border-radius:12px}
+.app-desk .pk{margin-top:24px}
+.pk.aktiv{border-color:var(--kant-stark)}
+.pk-h{display:flex;gap:12px;align-items:flex-start;padding:16px;position:relative}
+.app-desk .pk-h{padding:20px}
+.pk.aktiv .pk-h::before{content:"";position:absolute;left:-1px;top:16px;bottom:16px;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.pk-h h2{font-family:var(--body);font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.pk-h p{margin-top:4px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.pk-b{border-top:1px solid var(--kant);padding:16px;display:grid;gap:20px}
+.app-desk .pk-b{padding:20px}
+.pk-b.tva{grid-template-columns:1fr 232px;gap:24px;align-items:start}
+.pk-b.tva .falten{display:grid;gap:20px}
+.fl-l{display:flex;align-items:baseline;gap:8px;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.tag{font-size:13px;line-height:18px;font-weight:400;color:var(--ink-3)}
+.fl-d{margin-top:4px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.inp{margin-top:8px;height:44px;display:flex;align-items:center;border:1px solid var(--kant);border-radius:8px;background:var(--insunken);box-shadow:inset 0 1px 0 var(--insunken-topp);padding:0 12px;font-size:16px;color:var(--ink-1)}
+.inp.tom{color:var(--ink-3)}
+.inp.last{color:var(--ink-3);justify-content:space-between}
+.inp.last svg{width:16px;height:16px}
+.inp.fokus{background:var(--panel);border-color:var(--kant-stark);box-shadow:0 0 0 2px rgba(217,72,15,.4)}
+.inp.felaktig{background:var(--panel);border-color:var(--fel-kant)}
+.st{margin-top:6px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.st.ok{color:var(--positiv)}
+.st.fel{color:var(--fel)}
+.tgl{border:1px solid var(--kant);border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px}
+.tgl+.tgl{margin-top:8px}
+.tgl b{display:block;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.tgl small{display:block;margin-top:2px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.sw{width:44px;height:24px;border-radius:9999px;background:var(--ink-1);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:4px;left:24px;width:16px;height:16px;border-radius:50%;background:var(--panel)}
+.sw.av{background:var(--kant-stark)}
+.sw.av::after{left:4px}
+.cc-grid{margin-top:8px;display:grid;gap:8px}
+.app-desk .cc-grid{grid-template-columns:1fr 1fr}
+.cc{position:relative;display:flex;gap:12px;align-items:flex-start;border:1px solid var(--kant);border-radius:12px;background:var(--panel);padding:12px 44px 12px 12px;text-align:left}
+.cc.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.cc.vald::after{content:"";position:absolute;right:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.5l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat}
+.cc .ci{width:24px;height:24px;flex:none;color:var(--ink-2);margin-top:1px}
+.cc .t{display:block;font-size:14px;line-height:20px;font-weight:600;letter-spacing:-.01em;color:var(--ink-1)}
+.cc .d{display:block;margin-top:2px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.cc .m{display:block;margin-top:4px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.cc.stor{padding:14px 44px 14px 14px}
+.lista-rad{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:4px 0;border-top:1px solid var(--kant)}
+.lista-rad:first-child{border-top:0}
+.lista-rad b{display:block;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-1)}
+.lista-rad small{display:block;font-size:13px;line-height:18px;color:var(--ink-3)}
+.lista-rad .chev{width:20px;height:20px;color:var(--ink-3);flex:none}
+.figur{border:1px solid var(--kant);border-radius:8px;background:var(--insunken);box-shadow:inset 0 1px 0 var(--insunken-topp);padding:12px}
+.figur .papper{background:var(--panel);border:1px solid var(--kant);border-radius:6px;padding:12px}
+.figur figcaption{margin-top:8px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.cvhuvud{display:flex;gap:10px;align-items:center}
+.cvhuvud .fotomini{width:40px;height:40px;border-radius:50%;flex:none;overflow:hidden;background:var(--insunken)}
+.cvhuvud b{display:block;font-family:var(--display);font-size:15px;line-height:18px;font-weight:700;letter-spacing:-.01em}
+.cvhuvud small{display:block;font-size:11px;line-height:14px;color:var(--ink-3)}
+.cvrader{margin-top:10px;display:grid;gap:5px}
+.cvrader i{display:block;height:5px;border-radius:3px;background:var(--insunken)}
+
+/* Fotoblocket: ram 88 mobil / 96 desktop, knapp, textlänk, meta */
+.foto{display:flex;gap:16px;align-items:center}
+.ram{width:88px;height:88px;flex:none;border-radius:12px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.app-desk .ram{width:96px;height:96px}
+.ram.tom{border:1px dashed var(--kant-stark);background:var(--insunken);color:var(--ink-3)}
+.ram.tom svg{width:40px;height:40px}
+.ram.har{border:1px solid var(--kant)}
+.ram.laddar::after{content:"";position:absolute;left:0;top:0;height:3px;width:55%;background:var(--accent)}
+.ram.laddar img,.ram.laddar svg{opacity:.45}
+.foto .h{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-width:0}
+.foto .h .rad2{display:flex;align-items:center;gap:8px}
+.foto .meta{margin-top:4px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.felrad{margin-top:8px;display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--fel-kant);background:var(--fel-mjuk);border-radius:8px;color:var(--fel)}
+.felrad svg{width:20px;height:20px;flex:none;margin-top:1px}
+.felrad b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.felrad p{margin-top:2px;font-size:14px;line-height:22px;color:var(--fel-morker)}
+.remsa{display:grid;gap:12px}
+.remsa .kortis{width:412px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:16px}
+.remsa .kortis .etk{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+
+/* Profilmenyn (dropdown, w-64, shadow-svav) */
+.dropdown{width:256px;background:var(--panel);border:1px solid var(--kant);border-radius:12px;box-shadow:0 8px 24px rgba(28,25,23,.12),0 1px 2px rgba(28,25,23,.08);overflow:hidden}
+.dropdown .who{padding:12px 16px;border-bottom:1px solid var(--kant)}
+.dropdown .who b{display:block;font-size:14px;font-weight:500}
+.dropdown .who small{display:block;font-size:13px;line-height:18px;color:var(--ink-3)}
+.dropdown .pak{margin:8px;border-radius:8px;background:var(--ink-1);color:#fff;padding:8px 12px;display:flex;justify-content:space-between;gap:12px}
+.dropdown .pak b{display:block;font-size:14px;line-height:20px;font-weight:600}
+.dropdown .pak small{display:block;font-size:12px;line-height:16px;color:var(--ink-1-mjuk)}
+.dropdown .pak a{font-size:12px;font-weight:500;text-decoration:underline;text-decoration-color:var(--ink-1-kant);text-underline-offset:3px}
+.dropdown nav{padding:4px 0}
+.dropdown nav span{display:flex;align-items:center;min-height:44px;padding:0 16px;font-size:14px;color:var(--ink-2)}
+.dropdown nav span.ny{outline-offset:-4px}
+
+/* ---------------------------------------------------------- flödesskal: FlowShell (inloggat) och det publika skalet */
+.skal{width:412px;height:800px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.skal-d{width:1180px;height:830px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;position:relative;display:flex}
+.skal-d .fs{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+.fs-topp{flex:none;background:var(--panel);border-bottom:1px solid var(--kant);position:relative}
+.fs-topp .in{height:56px;display:flex;align-items:center;gap:4px;padding:0 8px;max-width:768px;margin:0 auto}
+.fs-topp .in b{flex:1;min-width:0;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.fs-topp .in .n{font-size:14px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding:0 4px}
+.fs-topp .kn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ink-1)}
+.fs-topp .kn svg{width:24px;height:24px}
+.fs-topp .kn.tom{visibility:hidden}
+.fs-linje{height:2px;background:var(--kant)}
+.fs-linje i{display:block;height:2px;background:var(--accent)}
+.fs-main{flex:1;min-height:0;overflow:hidden}
+.fs-main .in{max-width:768px;margin:0 auto;padding:16px}
+.fs-main .smal{max-width:560px}
+.fs-fot{flex:none;background:var(--panel);border-top:1px solid var(--kant);box-shadow:0 -8px 24px rgba(28,25,23,.08)}
+.fs-fot .in{max-width:768px;margin:0 auto;padding:12px 16px 16px}
+.fs-fot .tva{display:grid;gap:8px}
+.skal-d .fs-fot .tva{display:flex;gap:12px}
+.skal-d .fs-fot .knapp{width:auto;min-width:200px}
+.fs-fot .fotnot{margin-top:8px;text-align:center}
+.skal-d .fs-fot .fotnot{text-align:left}
+/* Publikt skal: logga och Logga in i toppen, ingen meny, samma linje */
+.pub-topp .in{padding:0 16px;max-width:none}
+.skal-d .pub-topp .in{padding:0 48px}
+.logga{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em;flex:1}
+.logga i{width:28px;height:28px;border-radius:7px;background:var(--accent);color:#fff;font-style:normal;display:flex;align-items:center;justify-content:center;font-size:16px}
+.logga span{font-weight:700}
+.t-steg{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.fraga{margin-top:4px;font-family:var(--display);font-size:26px;line-height:31px;font-weight:700;letter-spacing:-.025em;color:var(--ink-1)}
+.under{margin-top:4px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.valen{margin-top:16px;display:grid;gap:8px}
+.google{margin-top:16px;height:44px;border:1px solid var(--kant-stark);border-radius:8px;background:var(--panel);display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-1)}
+.google svg{width:18px;height:18px}
+.eller{margin:16px 0 4px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink-3)}
+.eller::before,.eller::after{content:"";flex:1;height:1px;background:var(--kant)}
+.formfalt{display:grid;gap:16px;margin-top:12px}
+.villkor{margin-top:16px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.villkor u{text-decoration-color:var(--kant-stark);text-underline-offset:3px}
+
+/* Förslagskortet, samma form som SparKort i ValjSparClient */
+.sk{margin-top:16px;border:1px solid var(--kant-stark);border-radius:12px;background:var(--panel);padding:16px;display:grid;grid-template-columns:56px 1fr;gap:12px}
+.sk.ink{background:var(--ink-1);border-color:var(--ink-1);color:#fff}
+.sk .pl{width:56px;height:56px;border-radius:8px;background:var(--insunken);display:grid;place-items:center;color:var(--ink-1)}
+.sk.ink .pl{background:var(--ink-hover);color:#fff}
+.sk .pl svg{width:44px;height:44px}
+.sk .ey{display:block;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.sk.ink .ey{color:var(--ink-1-mjuk)}
+.sk .ru{display:block;font-size:16px;line-height:21px;font-weight:600}
+.sk .na{display:block;margin-top:2px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.sk.ink .na{color:var(--ink-1-mjuk)}
+.sk ul{grid-column:1/-1;border-top:1px solid var(--kant);padding-top:8px;display:grid;gap:4px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.sk.ink ul{border-color:var(--ink-1-kant);color:var(--ink-1-mjuk)}
+.sk li{display:flex;gap:8px}
+.sk li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink-1);flex:none;margin-top:6px}
+.sk.ink li::before{background:var(--panel)}
+.sk li b{font-weight:600;color:var(--ink-1)}
+.sk.ink li b{color:#fff}
+.sk .pr{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-top:4px;font-size:13px;color:var(--ink-3)}
+.sk.ink .pr{color:var(--ink-1-mjuk)}
+.sk .pr b{font-family:var(--display);font-size:20px;font-weight:700;color:var(--ink-1);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sk.ink .pr b{color:#fff}
+.gratis{margin-top:12px;border:1px solid var(--kant);border-radius:12px;background:var(--panel);padding:12px 16px}
+.gratis ul{margin-top:6px;display:grid;gap:4px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.gratis li{display:flex;gap:8px}
+.gratis li svg{width:16px;height:16px;flex:none;color:var(--ink-2);margin-top:1px}
+.notrad{margin-top:12px;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:18px;color:var(--ink-2)}
+.notrad svg{width:18px;height:18px;flex:none;color:var(--ink-3)}
+
+/* Publika headern (LandingNavbar), bara det som behövs för att visa var tratten börjar */
+.pubhdr{background:var(--panel);border-bottom:1px solid var(--kant);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 16px;height:64px}
+.pubhdr .val{display:flex;gap:4px}
+.pubhdr .val span{padding:0 12px;height:40px;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--ink-1);border-radius:8px}
+.pubhdr .hog{display:flex;gap:8px;align-items:center}
+.pubhdr .li{height:40px;padding:0 12px;display:flex;align-items:center;font-size:15px;font-weight:500}
+.pubhdr .sk2{height:40px;padding:0 16px;border-radius:8px;background:var(--ink-1);color:#fff;display:flex;align-items:center;font-size:14px;font-weight:600}
+.markor{position:relative}
+.markor::after{content:attr(data-n);position:absolute;top:-10px;right:-10px;width:22px;height:22px;border-radius:50%;background:var(--ink-1);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;border:2px solid var(--mark)}
+.ingang{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:1160px;margin-top:20px}
+.ingang div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:14px 16px;font-size:13px;line-height:19px;color:var(--ink-2)}
+.ingang div b{display:block;font-family:var(--display);font-size:16px;line-height:22px;font-weight:700;color:var(--ink-1);margin-bottom:4px}
+.ingang div code{display:block;margin-top:8px;font-size:12px}
+.ingang div.sp{background:var(--ink-1);border-color:var(--ink-1);color:var(--ink-1-mjuk)}
+.ingang div.sp b{color:#fff}
+.ingang div.sp code{color:var(--ink-1-accent)}
+.tratt{margin-top:20px;display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:8px;max-width:1160px}
+.tratt div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:12px 14px;font-size:12px;line-height:17px;color:var(--ink-2)}
+.tratt div b{display:block;font-size:14px;line-height:20px;color:var(--ink-1);margin-bottom:4px}
+.tratt div code{display:block;margin-top:6px;font-size:11px;line-height:15px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ik-meny" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="ik-klocka" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="ik-hem" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></symbol>
+  <symbol id="ik-ansok" viewBox="0 0 24 24"><path d="M3 7h7l2 2h9v10H3z"/></symbol>
+  <symbol id="ik-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="ik-profil" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+  <symbol id="ik-krona" viewBox="0 0 24 24"><path d="M4 17l2-9 6 5 6-5 2 9z"/><path d="M5 20h14"/></symbol>
+  <symbol id="ik-cv" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h6"/></symbol>
+  <symbol id="ik-brev" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></symbol>
+  <symbol id="ik-test" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M16.5 13.5v6M13.5 16.5h6"/></symbol>
+  <symbol id="ik-intervju" viewBox="0 0 24 24"><path d="M4 5h11v8H8l-4 3z"/><path d="M13 11h7v8h-3l-3 2v-2h-1"/></symbol>
+  <symbol id="ik-jobb" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></symbol>
+  <symbol id="ik-analys" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></symbol>
+  <symbol id="ik-mallar" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  <symbol id="ik-lank" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="ik-oga" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="ik-coach" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M9 21h6M12 17v4"/><path d="M8 10h8M8 13h5"/></symbol>
+  <symbol id="ik-las" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="ik-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="ik-bak" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="ik-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="ik-bock" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9"/></symbol>
+  <symbol id="ik-fel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="ik-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="ik-kamera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="ik-silhuett" viewBox="0 0 40 40"><circle cx="20" cy="15" r="7"/><path d="M7 35a13 13 0 0 1 26 0"/></symbol>
+  <symbol id="ik-tonpro" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2"/></symbol>
+  <symbol id="ik-tonkre" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></symbol>
+  <symbol id="ik-tonsja" viewBox="0 0 24 24"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></symbol>
+  <symbol id="ik-tonbal" viewBox="0 0 24 24"><path d="M12 4v16M5 20h14"/><path d="M5 8h14"/><path d="M5 8l-2 6h4zM19 8l-2 6h4z"/></symbol>
+  <symbol id="ik-tonsmart" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="5"/></symbol>
+  <!-- Porträtt för fyllt foto: abstrakt, varm ton, ingen clipart-person. -->
+  <symbol id="portratt" viewBox="0 0 96 96"><rect width="96" height="96" fill="#D9CBB8"/><circle cx="48" cy="40" r="17" fill="#8C6E58"/><path d="M14 96c3-22 17-32 34-32s31 10 34 32z" fill="#3A3531"/><path d="M31 36c0-12 8-20 17-20s18 8 18 20c-4-7-10-9-17-9s-13 3-18 9z" fill="#2C2724"/></symbol>
+  <!-- Googles logga: varumärket kräver originalfärgerna. -->
+  <symbol id="google" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></symbol>
+  <!-- Scenerna i förslagskortets platta, ritade som IlluScenCv / IlluScenMatris / IlluScenAllt i 44. -->
+  <symbol id="scen-cv" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="22" height="30" rx="2.5" fill="#fff"/><path d="M13 13h12M13 18h12M13 23h8"/><circle cx="31" cy="12" r="6" fill="#fff" stroke="#D9480F"/><path d="M29 12h4" stroke="#D9480F"/></g></symbol>
+  <symbol id="scen-matris" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="26" height="26" rx="2.5" fill="#fff"/><path d="M15.7 8v26M24.3 8v26M7 16.7h26M7 25.3h26"/><circle cx="11.3" cy="12.3" r="2"/><path d="M18 14.5l2-4 2 4z"/><rect x="26.5" y="19" width="4" height="4"/><circle cx="34" cy="10" r="5" fill="#fff" stroke="#D9480F"/><path d="M34 8v2.3l1.5 1" stroke="#D9480F"/></g></symbol>
+  <symbol id="scen-allt" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="19" rx="2"/><rect x="15" y="7" width="14" height="19" rx="2" fill="#2C2724"/><rect x="25" y="10" width="14" height="19" rx="2" fill="#2C2724"/><path d="M8 35h28" stroke="#FBB98A"/><circle cx="14" cy="35" r="1.8" fill="#fff"/><circle cx="22" cy="35" r="1.8" fill="#fff"/><circle cx="30" cy="35" r="1.8" fill="#fff"/></g></symbol>
+</svg>
+
+<div class="wrap">
+
+<header class="doc-head">
+  <p class="eyebrow">Design för godkännande · 2026-09-24</p>
+  <h1>Profilen för sig, prenumerationen för sig, och en kort väg in för den som klickar Skapa konto</h1>
+  <p>Två saker. Del A delar upp kontot i två menyrader och bygger om profilsidan så att namn, ort och foto till CV:t står först, med förvald ton för personliga brev under en egen rubrik. Del B är en tratt i tre steg för den som skapar konto via headern: vad vill du börja med, kontot, och ett förslag på paket med gratis som ett fullvärdigt val. Mockuperna är ritade i Trådens tokens ur globals.css med de riktiga komponenternas klasser (PageHeader, ProfileCard, ProfileTextField, ProfileToggle, ChoiceCard, StatusRow, FlowShell, SparKort) översatta till px. Underlaget är skärmdumpar av produktionen tagna i dag, inloggad som ett QA-konto som är raderat. All text är slutcopy.</p>
+</header>
+
+<!-- ================================================================ FYND -->
+<section class="sektion">
+  <p class="eyebrow">Fynd innan designen</p>
+  <h2>Det ägaren såg stämmer, och registreringen har två fel till</h2>
+  <p class="led">Genomgången gjordes i produktionen på Pixel 7 och desktop 1280, som gratisanvändare utan CV, och i koden på main (307e306d).</p>
+  <div class="beslut">
+    <h3>Profilen</h3>
+    <ul>
+      <li><b>Menyraden "Profil och prenumeration" leder till en sida utan profil.</b> Sidomenyn pekar på <code>/dashboard/profil/prenumeration</code>, som bara har paketkorten, gratislistan och hanteringen. Profilen nås från profilmenyn i toppraden ("Profil") och från fliken Profil i mobilnavet. På desktop kortas raden dessutom till "Profil och pr..." bredvid "Från 49 kr".</li>
+      <li><b>Fotot ligger 1 400 px ned och tonen 3 000 px ned på en telefon.</b> Profilsidan är 4 624 px hög på Pixel 7. Först kommer förtroendetexten om AI (sju rader), sedan namn, e-post och telefon med sin brevväxel, ort med sin brevväxel, och först därefter foto. Förvald ton ligger i sektion två, "Så hjälper vi dig", efter målroll, bransch och fem fält för jobbmatchningen.</li>
+      <li><b>Brevens inställningar är utspridda.</b> "Ta med i brev" för telefon och ort ligger under CV-fälten, tonen ligger bland Jobbcoachens fält, och förhandsvisningen av brevhuvudet ligger sist i CV-sektionen. Tre saker som bara påverkar brevet står på tre ställen.</li>
+      <li><b>Namnet krävs för ett CV men säger det inte.</b> <code>generate-formatted</code> svarar 422 <code>name_required</code> utan namn. Profilen visar "Krävs" i grått och inget om vad som saknas.</li>
+      <li>"Smart val" står som "Ingår i Premium". Premium finns inte längre som namn. Spärren läser <code>subscriptionTier</code>, så alla tre paketen öppnar den.</li>
+    </ul>
+  </div>
+  <div class="beslut">
+    <h3>Registreringen</h3>
+    <ul>
+      <li><b>Paketvalet finns, men det kommer efter kontot och ser ut som en prislista.</b> Sedan 22 september landar varje nytt konto på <code>/dashboard/valj-spar</code>, "Vad ska du göra den här veckan?", med tre betalpaket och "Börja gratis i stället" längst ned. CV-paketet är förvalt. Hela paketet ligger under vecket på en telefon.</li>
+      <li><b>Förvalet ger fel spår.</b> Kontot som kom från <code>/artiklar/verbalt-test-guide</code> den 23 september sparades med spåret CV: hon tryckte Börja gratis med CV-kortet förvalt. Samma sak händer alla som kommer från testsidan, som är den största källan (se nästa sektion).</li>
+      <li><b>/register säger något som inte är sant.</b> "Fem dagar Premium ingår. Inget kort behövs." Reverse trial togs bort 22 september (ägarens beslut 3). Sidan visar också "94 % når intervju", "8 AI-verktyg" och "12 487 CV:n skapade" som ingen tabell backar, en CV-poängmätare för tre formulärfält och en orange knapp ur den gamla designen.</li>
+      <li><b>Google tappar smakproven.</b> Hämtkedjan (brev, CV-start, test) körs bara i lösenordsvägen i <code>register-form.tsx</code>. Den som skapar konto med Google efter ett brevutkast eller ett testprov landar på spårvalet och resultatet hämtas aldrig hem. Intervju- och personlighetsproven klarar sig, de har egna next-adresser.</li>
+      <li><b>Google-kontona syns inte i PostHog.</b> Callbacken skickar <code>signup_completed</code> med <code>void fetch</code> precis före redirecten, och i Vercel hinner den inte iväg: 0 Google-registreringar i PostHog de senaste 30 dagarna mot 15 i databasen. Google-knappen skickar inget <code>signup_started</code> alls.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================================================================ DATA -->
+<section class="sektion">
+  <p class="eyebrow">Var registreringarna kommer ifrån</p>
+  <h2>Testsidan skickar flest till ett tomt formulär, och Google är halva flödet</h2>
+  <p class="led">PostHog, senaste 30 dagarna (25 augusti till 24 september), med kohort 248676 bortfiltrerad (ägarens konto och testkonton). Databasen, samma period, med <code>admin_undantagna_konton()</code> bortfiltrerad. Talen är små och ska läsas som riktning, inte som andelar att optimera mot.</p>
+  <table>
+    <thead><tr><th>Sidan före /register i samma session</th><th class="tal">Personer</th><th class="tal">Sidvisningar</th><th>Vad sidan skickar med till /register</th></tr></thead>
+    <tbody>
+      <tr><td>/verktyg/rekryteringstester</td><td class="tal"><span class="stapel" style="width:116px"></span>58</td><td class="tal">74</td><td>Ingenting. Fyra knappar "Starta gratis test" går till en bar <code>/register</code>.</td></tr>
+      <tr><td>/login</td><td class="tal"><span class="stapel" style="width:56px"></span>28</td><td class="tal">30</td><td>Ingenting. Länken "Skapa konto" under inloggningen.</td></tr>
+      <tr><td>/verktyg/rekryteringstester/prova</td><td class="tal"><span class="stapel" style="width:36px"></span>18</td><td class="tal">18</td><td>Provets token (<code>?test=</code>). Ska inte få tratten.</td></tr>
+      <tr><td>Sessionen börjar på /register</td><td class="tal"><span class="stapel" style="width:30px"></span>15</td><td class="tal">15</td><td>Direkt eller från sök.</td></tr>
+      <tr><td>/verktyg/cv-mallar, /verktyg/skapa-cv, /cv-mallar/start</td><td class="tal"><span class="stapel" style="width:26px"></span>13</td><td class="tal">15</td><td>CV-start har token (<code>?cv_start=</code>), övriga inget.</td></tr>
+      <tr><td>Artiklar (lista och enskilda)</td><td class="tal"><span class="stapel" style="width:24px"></span>12</td><td class="tal">13</td><td>Ingenting, utom intervju- och personlighetsprovet.</td></tr>
+      <tr><td>/verktyg/jobbcoachen, /jobbmatchning, /personligt-brev, /cv-analys</td><td class="tal"><span class="stapel" style="width:16px"></span>8</td><td class="tal">8</td><td>Ingenting.</td></tr>
+      <tr><td>Startsidan, /priser, /skapa-brev/start, /om-oss</td><td class="tal"><span class="stapel" style="width:18px"></span>9</td><td class="tal">9</td><td>Priser skickar <code>?paket=</code>, brevstarten <code>?draft=</code>.</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <thead><tr><th>Nya konton i databasen</th><th class="tal">Antal</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Senaste 30 dagarna</td><td class="tal">60</td><td>45 med lösenord, 15 med Google. Sista veckan: 5 av 7 med Google.</td></tr>
+      <tr><td>Med attribution sparad</td><td class="tal">4</td><td>Cookien skrevs först från 21 september (commit 35bdb71f). Äldre konton saknar källa helt.</td></tr>
+      <tr><td>Sedan spårvalet gick live, 22 september</td><td class="tal">8</td><td>6 personer såg spårvalet i PostHog. Spår sparat: CV gratis 3, Hela paketet med köp 1, inget spår 4.</td></tr>
+      <tr><td>Någon som valde Träningspaketet</td><td class="tal">0</td><td>Trots att testsidan är största källan till /register.</td></tr>
+      <tr><td>/register utan parameter, andel av alla visningar</td><td class="tal">84 %</td><td>156 av 185. Alltså header, login, testsidan och verktygssidorna. Det är de här besökarna tratten är till för.</td></tr>
+    </tbody>
+  </table>
+  <div class="beslut">
+    <h3>Vad det betyder för designen</h3>
+    <ul>
+      <li>Den vanligaste besökaren på /register vill träna på tester, har ännu inte sagt det, och möts av ett CV-formulär följt av ett förvalt CV-paket. Första frågan i tratten är därför <b>vad hon vill börja med</b>, och testsidans knappar ska skicka svaret med (<code>?borja=tester</code>) så att hon inte ens får frågan.</li>
+      <li>Google är halva flödet och snart mer. Allt tratten gör måste fungera genom Googles redirect, alltså ligga i adressen eller i en server-läst cookie, inte i React-state.</li>
+      <li>Vi mäter i dag inte hälften av registreringarna. Tratten får ingen avläsning förrän Google-händelserna skickas på riktigt, så det är steg 1 i byggordningen.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: NAVIGERING -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Navigeringen</p>
+  <h2>Två menyrader under Konto: Profil och Prenumeration</h2>
+  <p class="led">Sidomenyns grupp Konto får två rader i stället för en. Profil överst, eftersom den behövs av alla varje gång de gör ett CV. Prenumeration under, med samma statusetikett som i dag ("Från 49 kr", "Aktiv", "2 dagar kvar"). Adresserna står kvar: <code>/dashboard/profil</code> och <code>/dashboard/profil/prenumeration</code>, eftersom Stripes return_url, kundportalen och tio betalväggar redan pekar dit. Profilmenyn i toppraden får samma två ord i samma ordning. Nytt i bilderna är markerat med streckad ram.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Desktop · sidomenyns nedre del och profilmenyn</p>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <div class="side" style="width:256px;background:var(--panel);border:1px solid var(--kant-stark);border-radius:14px">
+          <div class="sekt"><p class="eyebrow">Träna</p>
+            <div class="r"><svg class="ik"><use href="#ik-test"/></svg>Rekryteringstester</div>
+            <div class="r"><svg class="ik"><use href="#ik-intervju"/></svg>Inför intervjun</div>
+            <div class="r"><svg class="ik"><use href="#ik-coach"/></svg>Jobbcoachen</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Konto</p>
+            <div class="r aktiv ny"><svg class="ik"><use href="#ik-profil"/></svg>Profil</div>
+            <div class="r ny" style="margin-top:4px"><svg class="ik"><use href="#ik-krona"/></svg>Prenumeration<span class="antal">Från 49 kr</span></div>
+          </div>
+        </div>
+        <div class="dropdown">
+          <div class="who"><b>Anna Lind</b><small>anna.lind@exempel.se</small></div>
+          <div class="pak"><span><b>Du är på gratisnivån</b><small>Tre paket, från 49 kr</small></span><a href="#">Vad ingår?</a></div>
+          <nav><span>Kom igång</span><span class="ny">Profil</span><span class="ny">Prenumeration</span><span>Logga ut</span></nav>
+        </div>
+      </div>
+      <div class="motiv" style="max-width:560px"><b>Varför två rader och inte en sida med flikar.</b> Profilen används av alla, ofta, och av skäl som inte har med pengar att göra: namnet i CV:t, ett nytt foto, tonen i nästa brev. Prenumerationen används sällan och av skäl som bara har med pengar att göra. En gemensam rad tvingar den ena gruppen att leta i den andras sida, vilket är exakt vad ägaren såg. Rubriken i toppraden blir "Konto · Profil" respektive "Konto · Prenumeration" (<code>PLATSER</code> i header.tsx).
+        <ul><li>Profilmenyn byter "Köp eller byt paket" mot "Prenumeration" och flyttar den under Profil. Paketrutan i ink överst i menyn står kvar och är den som säljer.</li><li>Mobilnavets flik Profil är oförändrad och går till profilen. Prenumerationen nås därifrån via raden i Konto längst ned (se nästa sektion) och via sidomenyn bakom menyknappen.</li><li>Orange: bara tråden på aktiv rad. En av tre.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: PROFILEN MOBIL + DESKTOP -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Profilsidan</p>
+  <h2>CV-uppgifterna först, personliga brev under egen rubrik, sedan jobbsök och konto</h2>
+  <p class="led">Fyra sektioner i den ordning användaren behöver dem. <b>Överst i ditt CV</b> (foto, namn, ort, telefon, e-post, LinkedIn) är den aktiva sektionen med tråden. <b>Personliga brev</b> samlar förvald ton, brevhuvudets två växlar och förhandsvisningen. <b>Jobbsök</b> har målroll, bransch, matchningens önskemål och Bli upptäckt. <b>Konto</b> har prenumerationsraden, mejlen, utloggning och radering. En rad "Hoppa till" under sidhuvudet gör varje sektion ett tryck bort, och ankarna (<code>#cv</code>, <code>#personliga-brev</code>, <code>#jobbsok</code>, <code>#konto</code>) används av länkar från resten av appen.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · ny gratisanvändare via e-post: namn ifyllt, ort och foto saknas</p>
+      <div class="app">
+        <div class="topp"><span class="meny"><svg class="ik"><use href="#ik-meny"/></svg></span><span class="plats">Konto · Profil</span><span class="klocka"><svg class="ik" style="width:24px;height:24px"><use href="#ik-klocka"/></svg></span><span class="av">A</span></div>
+        <div class="inne">
+          <div class="ph">
+            <p class="eyebrow">Konto</p>
+            <h1>Din profil</h1>
+            <p class="desc">Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.</p>
+          </div>
+          <nav class="hopp"><a class="pa" href="#">CV-uppgifter</a><a href="#">Personliga brev</a><a href="#">Jobbsök</a><a href="#">Konto</a></nav>
+          <div class="statusrad" style="margin-top:16px"><span class="v"><i></i><span>Två saker saknas i ditt CV: ort och foto</span></span></div>
+
+          <section class="pk aktiv" id="cv">
+            <div class="pk-h"><div><h2>Överst i ditt CV</h2><p>Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.</p></div></div>
+            <div class="pk-b">
+              <div>
+                <p class="fl-l">Foto <span class="tag">Valfritt</span></p>
+                <div class="foto" style="margin-top:8px">
+                  <div class="ram tom"><svg class="ik" style="stroke-width:1.5"><use href="#ik-silhuett"/></svg></div>
+                  <div class="h">
+                    <a class="knapp sek auto" href="#"><svg class="ik"><use href="#ik-kamera"/></svg>Ladda upp foto</a>
+                    <p class="meta">JPG, PNG eller WebP, högst 2 MB</p>
+                  </div>
+                </div>
+                <p class="fl-d" style="margin-top:8px">Används bara i CV-mallar med plats för foto. Foto är frivilligt i Sverige, och rekryteringssystem läser bara texten.</p>
+              </div>
+              <div>
+                <p class="fl-l">Namn <span class="tag">Krävs</span></p>
+                <p class="fl-d">Står överst i ditt CV och dina personliga brev.</p>
+                <div class="inp">Anna Lind</div>
+              </div>
+              <div>
+                <p class="fl-l">Ort <span class="tag">Valfritt</span></p>
+                <p class="fl-d">Rekryteraren ser direkt om du bor nära jobbet.</p>
+                <div class="inp tom">Till exempel Örebro</div>
+              </div>
+              <div>
+                <p class="fl-l">Telefon <span class="tag">Valfritt</span></p>
+                <p class="fl-d">Så att rekryteraren kan ringa dig.</p>
+                <div class="inp tom">070 123 45 67</div>
+              </div>
+              <div>
+                <p class="fl-l">E-post</p>
+                <p class="fl-d">Din inloggning och adressen rekryteraren svarar på.</p>
+                <div class="inp last"><span>anna.lind@exempel.se</span><svg class="ik" style="stroke-width:1.5" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div>
+              </div>
+              <div>
+                <p class="fl-l">LinkedIn <span class="tag">Valfritt</span></p>
+                <p class="fl-d">Blir en rad i CV:t. Rekryterare klickar ofta dit innan de hör av sig.</p>
+                <div class="inp tom">linkedin.com/in/ditt-namn</div>
+              </div>
+              <div class="statusrad"><span class="v"><i class="pos"></i><span>Sparas separat, går aldrig till någon AI</span></span><a class="textlank dampad" href="#">Så gör vi</a></div>
+            </div>
+          </section>
+
+          <section class="pk" id="personliga-brev">
+            <div class="pk-h"><div><h2>Personliga brev</h2><p>Gäller bara dina personliga brev. Ditt CV påverkas inte.</p></div></div>
+            <div class="pk-b">
+              <div>
+                <p class="fl-l">Förvald ton</p>
+                <p class="fl-d">Tonen vi börjar med när du skapar ett nytt brev. Du kan alltid byta i själva brevet.</p>
+                <div class="cc-grid" role="radiogroup">
+                  <div class="cc"><svg class="ik ci"><use href="#ik-tonpro"/></svg><span><span class="t">Professionell</span><span class="d">Formell och saklig, passar etablerade branscher.</span></span></div>
+                  <div class="cc"><svg class="ik ci"><use href="#ik-tonkre"/></svg><span><span class="t">Kreativ</span><span class="d">Personlig och nytänkande, passar reklam, design och media.</span></span></div>
+                  <div class="cc"><svg class="ik ci"><use href="#ik-tonsja"/></svg><span><span class="t">Självsäker</span><span class="d">Bestämd och rakt på sak, passar ledarroller och sälj.</span></span></div>
+                  <div class="cc vald"><svg class="ik ci"><use href="#ik-tonbal"/></svg><span><span class="t">Balanserad</span><span class="d">Lagom formell och personlig, passar de flesta jobb.</span></span></div>
+                  <div class="cc"><svg class="ik ci"><use href="#ik-tonsmart"/></svg><span><span class="t">Smart val</span><span class="d">Vi väljer ton utifrån varje annons.</span><span class="m">Ingår när du har ett paket</span></span></div>
+                </div>
+              </div>
+              <div>
+                <p class="fl-l">Brevhuvudet</p>
+                <p class="fl-d">Vad som står under ditt namn överst i brevet.</p>
+                <div style="margin-top:8px">
+                  <div class="tgl"><span><b>Telefon i brevhuvudet</b><small>Av om du hellre blir kontaktad på mejl.</small></span><span class="sw"></span></div>
+                  <div class="tgl"><span><b>Ort i brevhuvudet</b><small>Av om du söker jobb på annan ort.</small></span><span class="sw"></span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pk" id="jobbsok">
+            <div class="pk-h"><div><h2>Jobbsök</h2><p>Styr jobbmatchningen och Jobbcoachens svar. Inget här står i ditt CV eller dina brev.</p></div></div>
+            <div class="pk-b">
+              <div><p class="fl-l">Målroll <span class="tag">Valfritt</span></p><div class="inp tom">Till exempel Projektledare</div></div>
+              <div><p class="fl-l">Bransch <span class="tag">Valfritt</span></p><div class="inp tom">Vård, IT, bygg, handel</div></div>
+              <div class="lista-rad" style="border:1px solid var(--kant);border-radius:8px;padding:4px 12px"><span><b>Så söker vi jobb åt dig</b><small>Inga önskemål än, vi söker i hela landet</small></span><a class="textlank kort" href="#">Ändra</a></div>
+              <div class="statusrad"><span class="v"><i></i><span>Inte sökbar för rekryterare</span></span><a class="textlank dampad" href="#">Bli upptäckt</a></div>
+            </div>
+          </section>
+
+          <section class="pk" id="konto">
+            <div class="pk-h"><div><h2>Konto</h2><p>Paket, mejl från oss, utloggning och radering.</p></div></div>
+            <div class="pk-b" style="gap:0;padding-top:4px;padding-bottom:4px">
+              <div class="lista-rad"><span><b>Prenumeration</b><small>Gratisnivån · tre paket, från 49 kr</small></span><svg class="ik chev"><use href="#ik-chev"/></svg></div>
+              <div class="lista-rad"><span><b>Mejl från oss</b><small>Veckosammanfattning på, påminnelser på</small></span><svg class="ik chev"><use href="#ik-chev"/></svg></div>
+              <div class="lista-rad"><span><b>Logga ut</b><small>Från den här enheten</small></span><svg class="ik chev"><use href="#ik-chev"/></svg></div>
+              <div class="lista-rad"><span><b>Radera mitt konto</b><small>All data tas bort och kan inte återställas</small></span><svg class="ik chev"><use href="#ik-chev"/></svg></div>
+            </div>
+          </section>
+        </div>
+        <div class="nav">
+          <span><svg class="ik"><use href="#ik-hem"/></svg>Hem</span>
+          <span><svg class="ik"><use href="#ik-ansok"/></svg>Ansökningar</span>
+          <span><svg class="ik"><use href="#ik-plus"/></svg>Skapa</span>
+          <span class="pa"><svg class="ik" style="stroke-width:2.25"><use href="#ik-profil"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>Mobil.</b> Fotot står först i sektionen eftersom det är det enda fältet som inte är text, och det man letar efter när en mall frågar efter foto. Namn och ort följer direkt, sedan telefon, e-post och LinkedIn. Sektionen slutar vid 1 340 px, mot 2 560 px för samma fält i dag. Förvald ton börjar vid ungefär 1 500 px i stället för 3 000, och går att nå med ett tryck i Hoppa till.
+        <ul><li>Förtroendetexten krymper till en statusrad i positiv längst ned i CV-sektionen, med "Så gör vi" som öppnar hela stycket i ett ark. Löftet står kvar där det behövs, men det skjuter inte ned fälten.</li><li>Statusraden överst säger vad som saknas i CV:t, i klartext, och försvinner när allt är ifyllt. Saknas namnet blir den varm: "Namnet saknas. Utan det kan vi inte skapa ditt CV."</li><li>Konto är rader, inte fyra paneler. Mejlen och raderingen öppnas som ark (Sheet) eftersom de sällan används.</li><li>Orange: tråden på CV-sektionen (1), fokusringen (2), den varma statusraden när namnet saknas (3).</li></ul></div>
+    </div>
+    <div class="kol" style="max-width:520px">
+      <p class="etikett">Hoppa till, fyra lägen</p>
+      <div class="motiv" style="margin-top:0;max-width:520px"><b>Varför en ankarrad och inte fyra sidor.</b> Fyra undersidor hade gett fyra laddningar och tvingat den som vill ändra namn och ton samtidigt att gå fram och tillbaka. Profilen är en sida man fyller i en gång och sedan besöker för en sak. Raden gör den saken ett tryck bort utan att dela upp sidan.
+        <ul><li>Understrykningen i ink-1 följer sektionen som syns (IntersectionObserver), aldrig orange.</li><li>Raden är inte sticky. Sticky under en sticky topprad på 412 px tar 100 px av en redan lång sida.</li><li>Länkar in från appen: tonsteget i Skriv nytt brev får textlänken "Ändra förvald ton" till <code>#personliga-brev</code>, mallvalets "Lägg till saknad info i profilen" går till <code>#cv</code>, och ProfilKomplettering på hemskärmen byter <code>#presentation</code> mot <code>#cv</code>.</li></ul></div>
+      <p class="etikett" style="margin-top:24px">Sparlogiken</p>
+      <div class="motiv" style="margin-top:0;max-width:520px"><b>Spara per fält, som i dag.</b> Varje fält sparar på blur, växlar och tonval direkt vid tryck, fotot när uppladdningen är klar. <code>useFieldSave</code> och <code>FieldStatusLine</code> står kvar oförändrade: "Sparar" i ink-3, "Sparat" i positiv i 2,5 sekunder, fel i fel med fältets värde kvar.
+        <ul><li>Per sektion avvisas. Det kräver en spara-knapp per sektion, och den som byter ort och går till CV-byggaren tappar ändringen tyst. Det var exakt felet med den gamla SaveBar.</li><li>Namnet valideras på blur (minst två tecken) och sparas inte förrän det är giltigt, med raden "Namnet måste vara minst två tecken."</li><li>Tonvalet visar sin statusrad under kortgruppen, inte under varje kort.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="rad">
+    <div class="kol desk-app">
+      <p class="etikett">Desktop 1180 px · samma användare efter en stund: foto uppladdat, ort ifylld, markören i Telefon</p>
+      <div class="app-desk">
+        <div class="side">
+          <div class="logo">Jobbcoach.ai</div>
+          <div class="paket"><span><b>Du är på gratisnivån</b><small>Tre paket, från 49 kr</small></span><a href="#">Vad ingår?</a></div>
+          <div class="sekt">
+            <div class="r tung"><svg class="ik"><use href="#ik-hem"/></svg>Mitt jobbsök</div>
+            <div class="r tung"><svg class="ik"><use href="#ik-ansok"/></svg>Sökta tjänster</div>
+            <div class="r tung"><svg class="ik"><use href="#ik-cv"/></svg>Mina CV<span class="antal">1</span></div>
+            <div class="r tung"><svg class="ik"><use href="#ik-brev"/></svg>Personliga brev</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Skriv och förbättra</p>
+            <div class="r"><svg class="ik"><use href="#ik-plus"/></svg>Skriv nytt brev</div>
+            <div class="r"><svg class="ik"><use href="#ik-analys"/></svg>Analysera CV</div>
+            <div class="r"><svg class="ik"><use href="#ik-mallar"/></svg>CV-mallar</div>
+            <div class="r las"><svg class="ik"><use href="#ik-lank"/></svg>LinkedIn-profilen<svg class="ik lasik" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Hitta jobb</p>
+            <div class="r"><svg class="ik"><use href="#ik-jobb"/></svg>Matchade jobb</div>
+            <div class="r las"><svg class="ik"><use href="#ik-oga"/></svg>Bli upptäckt<svg class="ik lasik" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Träna</p>
+            <div class="r"><svg class="ik"><use href="#ik-test"/></svg>Rekryteringstester</div>
+            <div class="r"><svg class="ik"><use href="#ik-intervju"/></svg>Inför intervjun</div>
+            <div class="r"><svg class="ik"><use href="#ik-coach"/></svg>Jobbcoachen</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Konto</p>
+            <div class="r aktiv"><svg class="ik"><use href="#ik-profil"/></svg>Profil</div>
+            <div class="r" style="margin-top:4px"><svg class="ik"><use href="#ik-krona"/></svg>Prenumeration<span class="antal">Från 49 kr</span></div>
+          </div>
+        </div>
+        <div class="kolumn">
+          <div class="hdr"><span>Konto · Profil</span><span class="hoger"><svg class="ik" style="width:24px;height:24px"><use href="#ik-klocka"/></svg><span class="av">A</span><span style="font-weight:500">Anna Lind</span></span></div>
+          <div class="huvud"><div class="inne">
+            <div class="ph">
+              <p class="eyebrow">Konto</p>
+              <h1>Din profil</h1>
+              <p class="desc">Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.</p>
+            </div>
+            <nav class="hopp" style="margin-top:20px"><a class="pa" href="#">CV-uppgifter</a><a href="#">Personliga brev</a><a href="#">Jobbsök</a><a href="#">Konto</a></nav>
+
+            <section class="pk aktiv">
+              <div class="pk-h"><div><h2>Överst i ditt CV</h2><p>Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.</p></div></div>
+              <div class="pk-b tva">
+                <div class="falten">
+                  <div>
+                    <p class="fl-l">Foto <span class="tag">Valfritt</span></p>
+                    <div class="foto" style="margin-top:8px">
+                      <div class="ram har"><svg viewBox="0 0 96 96" style="width:100%;height:100%"><use href="#portratt"/></svg></div>
+                      <div class="h">
+                        <span class="rad2"><a class="knapp sek auto" href="#">Byt foto</a><a class="textlank dampad" href="#" style="padding:0 8px">Ta bort</a></span>
+                        <p class="meta">JPG, PNG eller WebP, högst 2 MB</p>
+                      </div>
+                    </div>
+                    <p class="st ok">Sparat</p>
+                  </div>
+                  <div><p class="fl-l">Namn <span class="tag">Krävs</span></p><p class="fl-d">Står överst i ditt CV och dina personliga brev.</p><div class="inp">Anna Lind</div></div>
+                  <div><p class="fl-l">Ort <span class="tag">Valfritt</span></p><p class="fl-d">Rekryteraren ser direkt om du bor nära jobbet.</p><div class="inp">Örebro</div></div>
+                  <div><p class="fl-l">Telefon <span class="tag">Valfritt</span></p><p class="fl-d">Så att rekryteraren kan ringa dig.</p><div class="inp fokus">070 123 45<span style="display:inline-block;width:1px;height:20px;background:var(--ink-1);margin-left:1px"></span></div></div>
+                  <div><p class="fl-l">E-post</p><p class="fl-d">Din inloggning och adressen rekryteraren svarar på.</p><div class="inp last"><span>anna.lind@exempel.se</span><svg class="ik" style="stroke-width:1.5" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div></div>
+                  <div><p class="fl-l">LinkedIn <span class="tag">Valfritt</span></p><p class="fl-d">Blir en rad i CV:t. Rekryterare klickar ofta dit innan de hör av sig.</p><div class="inp tom">linkedin.com/in/ditt-namn</div></div>
+                  <div class="statusrad"><span class="v"><i class="pos"></i><span>Sparas separat, går aldrig till någon AI</span></span><a class="textlank dampad" href="#">Så gör vi</a></div>
+                </div>
+                <figure class="figur" style="margin:0;position:sticky;top:0">
+                  <div class="papper">
+                    <div class="cvhuvud"><span class="fotomini"><svg viewBox="0 0 96 96" style="width:100%;height:100%"><use href="#portratt"/></svg></span><span><b>Anna Lind</b><small>Örebro · 070 123 45</small></span></div>
+                    <div class="cvrader"><i style="width:90%"></i><i style="width:75%"></i><i style="width:82%"></i><i style="width:40%;margin-top:6px"></i><i style="width:88%"></i><i style="width:70%"></i></div>
+                  </div>
+                  <figcaption>Så ser CV:ts huvud ut i mallar med foto. Fylls i medan du skriver.</figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <section class="pk">
+              <div class="pk-h"><div><h2>Personliga brev</h2><p>Gäller bara dina personliga brev. Ditt CV påverkas inte.</p></div></div>
+              <div class="pk-b">
+                <div>
+                  <p class="fl-l">Förvald ton</p>
+                  <p class="fl-d">Tonen vi börjar med när du skapar ett nytt brev. Du kan alltid byta i själva brevet.</p>
+                  <div class="cc-grid">
+                    <div class="cc"><svg class="ik ci"><use href="#ik-tonpro"/></svg><span><span class="t">Professionell</span><span class="d">Formell och saklig, passar etablerade branscher.</span></span></div>
+                    <div class="cc"><svg class="ik ci"><use href="#ik-tonkre"/></svg><span><span class="t">Kreativ</span><span class="d">Personlig och nytänkande, passar reklam, design och media.</span></span></div>
+                    <div class="cc"><svg class="ik ci"><use href="#ik-tonsja"/></svg><span><span class="t">Självsäker</span><span class="d">Bestämd och rakt på sak, passar ledarroller och sälj.</span></span></div>
+                    <div class="cc vald"><svg class="ik ci"><use href="#ik-tonbal"/></svg><span><span class="t">Balanserad</span><span class="d">Lagom formell och personlig, passar de flesta jobb.</span></span></div>
+                    <div class="cc"><svg class="ik ci"><use href="#ik-tonsmart"/></svg><span><span class="t">Smart val</span><span class="d">Vi väljer ton utifrån varje annons.</span><span class="m">Ingår när du har ett paket</span></span></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div></div>
+        </div>
+      </div>
+      <div class="motiv"><b>Desktop.</b> Kolumnen är 768 px, inte full bredd som i dag (944 px), så att fälten får en läsbar längd och förhandsvisningen ryms bredvid. CV-sektionen har två spalter: fälten till vänster, CV:ts huvud till höger i ett insunket fält som ligger kvar medan man scrollar genom sektionen. Den ersätter brevhuvudets miniatyr i CV-sektionen, som flyttar till Personliga brev (där den hör hemma, eftersom växlarna bara påverkar brevet).
+        <ul><li>Tonkorten ligger i två kolumner på desktop, en på mobil, som i dag.</li><li>Fokus: fältet lyfts till panel med kant-stark och en ring i accent på 40 %. Det är vyns andra orange efter tråden.</li><li>Sektionerna Jobbsök och Konto är samma som på mobil och ritas inte om här.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: FOTO -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Fotouppladdningen</p>
+  <h2>Fem lägen för fotot, alla i samma ruta</h2>
+  <p class="led">Ramen är 88 px på mobil och 96 px på desktop, rundad 12, och visar alltid samma sak som CV:t kommer att visa. En knapp (sekundär, 44 px), en textlänk när det finns något att ta bort, och en metarad. På en telefon öppnar knappen systemets väljare med <code>accept="image/jpeg,image/png,image/webp"</code>, som på Android och iOS erbjuder både kamera och bildbibliotek. Ingen dra-och-släpp-yta på mobil, den finns bara på desktop där man kan dra.</p>
+  <div class="rad">
+    <div class="kol">
+      <div class="remsa">
+        <div class="kortis"><p class="etk">Tomt</p>
+          <div class="foto"><div class="ram tom"><svg class="ik" style="stroke-width:1.5"><use href="#ik-silhuett"/></svg></div><div class="h"><a class="knapp sek auto" href="#"><svg class="ik"><use href="#ik-kamera"/></svg>Ladda upp foto</a><p class="meta">JPG, PNG eller WebP, högst 2 MB</p></div></div>
+        </div>
+        <div class="kortis"><p class="etk">Laddar upp</p>
+          <div class="foto"><div class="ram har laddar"><svg viewBox="0 0 96 96" style="width:100%;height:100%"><use href="#portratt"/></svg></div><div class="h"><span class="knapp sek auto av">Laddar upp</span><p class="meta">Bilden förminskas till 800 px innan den skickas</p></div></div>
+        </div>
+        <div class="kortis"><p class="etk">Klart</p>
+          <div class="foto"><div class="ram har"><svg viewBox="0 0 96 96" style="width:100%;height:100%"><use href="#portratt"/></svg></div><div class="h"><span class="rad2"><a class="knapp sek auto" href="#">Byt foto</a><a class="textlank dampad" href="#" style="padding:0 8px">Ta bort</a></span><p class="meta">JPG, PNG eller WebP, högst 2 MB</p></div></div>
+          <p class="st ok">Sparat</p>
+        </div>
+        <div class="kortis"><p class="etk">Från Google</p>
+          <div class="foto"><div class="ram har"><svg viewBox="0 0 96 96" style="width:100%;height:100%"><use href="#portratt"/></svg></div><div class="h"><span class="rad2"><a class="knapp sek auto" href="#">Byt foto</a><a class="textlank dampad" href="#" style="padding:0 8px">Ta bort</a></span><p class="meta">Hämtat från ditt Google-konto</p></div></div>
+        </div>
+        <div class="kortis"><p class="etk">Fel</p>
+          <div class="foto"><div class="ram tom"><svg class="ik" style="stroke-width:1.5"><use href="#ik-silhuett"/></svg></div><div class="h"><a class="knapp sek auto" href="#"><svg class="ik"><use href="#ik-kamera"/></svg>Ladda upp foto</a><p class="meta">JPG, PNG eller WebP, högst 2 MB</p></div></div>
+          <div class="felrad"><svg class="ik"><use href="#ik-fel"/></svg><div><b>Bilden är för stor</b><p>Den är 6,1 MB och gränsen är 2 MB. Ta en skärmdump av bilden eller välj en mindre.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kol" style="max-width:560px">
+      <div class="motiv" style="margin-top:0;max-width:560px"><b>Varför fotot i en ruta och inte en dropzone.</b> Dagens uppladdning är en streckad yta med en knapp i, bredvid en ram på 72 px. Två rutor för en sak, och ytan säger "dra hit" på en telefon där ingen kan dra. Ett foto förstår man genom att se det, så ramen är beskedet och knappen bredvid är handlingen.
+        <ul><li><b>Förminskning i klienten</b> (canvas, längsta sidan 800 px, JPEG 0,85) innan uppladdning. Mobilkameror ger 3 till 6 MB, och i dag stoppas de av 2 MB-gränsen med "Bilden är för stor. Max 2 MB tillåts". Med förminskningen ska felet i praktiken bara träffa trasiga filer. Det här är en ny funktion, se specen.</li><li><b>Fel i flödet</b>, som en felrad under fotot med vad som gick fel och vad man gör, aldrig som toast. I dag går felet till <code>successWithMascot</code>, alltså en toast med maskot.</li><li><b>Beskärning</b> byggs inte nu. Mallarna beskär med object-fit: cover mot mitten, och ramen på 88 px visar samma beskärning. Ett porträtt som ser fel ut i ramen ser fel ut i CV:t, och då byter man bild.</li><li>"Ta bort" frågar inte. Fotot går att ladda upp igen på två sekunder, och en bekräftelse för det är brus.</li></ul></div>
+      <p class="etikett" style="margin-top:24px">Tomma tillstånd på sidan</p>
+      <div class="motiv" style="margin-top:0;max-width:560px"><b>Statusraden överst är sidans enda tomma tillstånd.</b> Profilen har alltid minst e-post, så sidan är aldrig tom, men CV:t kan vara det. Raden räknar tre fält som CV:t behöver (namn, ort, foto) och säger vilka som saknas.
+        <ul><li>Namn saknas (bara möjligt om någon raderat det): varm rad, "Namnet saknas. Utan det kan vi inte skapa ditt CV."</li><li>Ort och foto saknas: neutral, "Två saker saknas i ditt CV: ort och foto".</li><li>Bara foto saknas: raden visas inte. Foto är frivilligt i Sverige och vi ska inte tjata om det.</li><li>Google-konto: namn och foto är ofta ifyllda från start, och raden säger då bara "Ort saknas i ditt CV".</li><li>Fälten själva visar platshållare i ink-3 ("Till exempel Örebro"), aldrig "Ej angivet".</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL A: PRENUMERATION -->
+<section class="sektion">
+  <p class="eyebrow">Del A · Prenumerationssidan</p>
+  <h2>Prenumerationen behåller sitt innehåll och får sitt eget namn</h2>
+  <p class="led">Sidan är redan en ren prenumerationssida och byggs inte om. Det som ändras är att den heter det den är, och att inget från profilen hamnar där. Det enda som flyttar mellan sidorna är riktningen: profilens Konto-sektion får en rad som leder hit, och den här sidans sidhuvud får eyebrow "Konto" som profilen, så att de två läses som syskon.</p>
+  <table>
+    <thead><tr><th>Innehåll i dag</th><th>Var det hamnar</th><th>Skäl</th></tr></thead>
+    <tbody>
+      <tr><td>Namn, e-post, telefon, ort, foto, LinkedIn</td><td>Profil, Överst i ditt CV</td><td>Det CV:t behöver, först.</td></tr>
+      <tr><td>Ta med telefon i brev, ta med ort i brev</td><td>Profil, Personliga brev, som "Brevhuvudet"</td><td>Påverkar bara brevet. Stod under CV-fälten.</td></tr>
+      <tr><td>Brevhuvudets förhandsvisning</td><td>Profil, Personliga brev (mobil under växlarna, desktop bredvid tonen)</td><td>Visar vad växlarna gör.</td></tr>
+      <tr><td>Förvald ton</td><td>Profil, Personliga brev, först</td><td>Ägarens krav 3.</td></tr>
+      <tr><td>Målroll, bransch, Så söker vi jobb åt dig</td><td>Profil, Jobbsök</td><td>Styr matchningen och Jobbcoachen, inte dokumenten.</td></tr>
+      <tr><td>Bli upptäckt (statusrad)</td><td>Profil, Jobbsök</td><td>Oförändrad.</td></tr>
+      <tr><td>Förtroendeblocket om AI</td><td>Profil, statusrad i CV-sektionen, hela texten i ett ark</td><td>Löftet står kvar vid fälten det gäller.</td></tr>
+      <tr><td>Mejl från oss, Logga ut, Radera konto</td><td>Profil, Konto, som rader som öppnar ark</td><td>Sällan använt, ska inte ta en skärmhöjd.</td></tr>
+      <tr><td>Paketkort, gratislistan, stopplistan, byt kort, kvitton, säg upp</td><td>Prenumeration, oförändrat</td><td>Redan rätt sida.</td></tr>
+      <tr><td>Rubriken "Konto · Profil och prenumeration"</td><td>"Konto · Prenumeration"</td><td>Toppraden säger var man är.</td></tr>
+    </tbody>
+  </table>
+  <div class="beslut">
+    <h3>Något jag såg på prenumerationssidan som inte är del av uppdraget</h3>
+    <p>På desktop 1280 med sidomeny ryms inte knapptexterna i de tre paketkorten. "Börja med Träningspaketet, 79 kr i veckan" bryts på tre rader i en 44 px hög knapp och klipps upp och ned (skärmdump i <code>profil-registrering-2026-09-24/produktion/prenumeration-desktop.png</code>). Knapparna i <code>PaketKort</code> behöver <code>h-auto min-h-11 py-2</code> eller kortare text i det inloggade läget. Det bör rättas i samma släpp, eftersom prenumerationssidan får mer trafik när den får en egen menyrad.</p>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: INGÅNGAR -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Var tratten börjar</p>
+  <h2>Samma adress, fler vägar in, och varje väg säger vad den vet</h2>
+  <p class="led">Tratten bor på <code>/register</code>, så alla länkar som finns i dag fortsätter att fungera och ingen sida behöver ändras för att få den. Vad besökaren redan har sagt följer med i adressen, och tratten hoppar över de steg vars svar den redan har. Footern har i dag ingen Skapa konto-länk (kontrollerat i produktionen), och ska inte få någon: headern är synlig på varje sida och räcker.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Desktop · LandingNavbar, h-16</p>
+      <div style="width:760px;border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden">
+        <div class="pubhdr"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><span class="val"><span>Funktioner</span><span>Priser</span><span>Artiklar</span><span>Om oss</span></span><span class="hog"><span class="li markor" data-n="2">Logga in</span><span class="sk2 markor" data-n="1">Skapa konto</span></span></div>
+      </div>
+      <p class="etikett" style="margin-top:20px">Pixel 7 · header och öppen meny</p>
+      <div style="width:412px;border:1px solid var(--kant-stark);border-radius:14px;overflow:hidden;background:var(--panel)">
+        <div class="pubhdr" style="padding:0 12px"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><span class="hog"><span class="sk2 markor" data-n="1">Skapa konto</span><span style="width:44px;height:44px;border-radius:8px;background:var(--insunken);display:flex;align-items:center;justify-content:center"><svg class="ik" style="width:20px;height:20px"><use href="#ik-x"/></svg></span></span></div>
+        <div style="padding:12px 16px 16px;border-top:1px solid var(--kant);font-size:14px;font-weight:500;display:flex;gap:24px"><span class="markor" data-n="2" style="text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px;line-height:44px">Logga in</span><span style="color:var(--ink-2);line-height:44px;text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px">Skapa konto</span></div>
+      </div>
+    </div>
+    <div class="kol" style="max-width:380px">
+      <div class="motiv" style="margin-top:0"><b>1. Skapa konto</b> i headern och menyn: <code>/register</code>, tratten från steg 1. Knappen och länken sätter <code>jc_signup_entry=header</code> i sessionStorage vid klick, så vi kan skilja headern från andra ingångar utan att ändra adressen.<br><br><b>2. Logga in</b>: <code>/login</code>, vars länk "Skapa konto" går till <code>/register</code> med <code>entry=login</code>. Den som hamnade på inloggningen utan konto (28 personer på 30 dagar) får samma tratt.</div>
+    </div>
+  </div>
+  <div class="ingang">
+    <div class="sp"><b>Bar /register</b>Header, meny, inloggningen, verktygssidornas knappar. Steg 1, 2 och 3.<code>/register</code></div>
+    <div><b>Med vad hon vill</b>Testsidans fyra "Starta gratis test", CV-mallarnas och verktygssidornas knappar. Steg 1 hoppas över, steg 2 visar valet med "Ändra".<code>/register?borja=tester</code></div>
+    <div><b>Med paket</b>Prissidans knappar. Steg 1 och 3 hoppas över, kontot landar direkt på köpsteget som i dag.<code>/register?paket=cv_week</code></div>
+    <div><b>Med smakprov</b>Brevutkast, CV-start, testprov, intervjuprov, personlighetsprov. Ingen tratt: ett steg, kontot, sedan resultatet.<code>?draft= ?cv_start= ?test= ?intervju= ?personlighet=</code></div>
+    <div><b>Med redirect</b>En inloggad sida som skickat hit (<code>?redirect=/dashboard/...</code>). Ingen tratt, kontot landar där hon var på väg.<code>/register?redirect=...</code></div>
+    <div><b>Google i alla fem</b>Allt ovan ligger i adressen och i cookien <code>jc_signup</code> (intent, entry, token-typ), som läses av <code>/auth/callback</code> och <code>/dashboard/valkommen</code>.<code>SameSite=Lax, 1 timme</code></div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: STEG 1 -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Steg 1 av 3</p>
+  <h2>Vad vill du börja med? Fem val, ett tryck, eller hoppa över</h2>
+  <p class="led">Första skärmen på /register är en fråga, inte ett formulär. Fem ChoiceCards (plain, naken ikon 24) i en radiogrupp, i den ordning folk söker jobb: CV, personliga brev, rekryteringstester, intervjun, jobb. Inga priser på den här skärmen. Fortsätt i foten är spärrad tills ett kort är valt, och "Hoppa över och skapa konto direkt" står som textlänk under korten för den som vet vad hon vill och bara vill in.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · /register, inget valt än</p>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><a class="textlank kort" href="#" style="padding:12px 4px">Logga in</a></div><div class="fs-linje"><i style="width:33%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 1 av 3</p>
+          <h2 class="fraga">Vad vill du börja med?</h2>
+          <p class="under">Vi öppnar rätt verktyg när kontot är klart. Allt annat finns i menyn, och det mesta går att prova gratis.</p>
+          <div class="valen" role="radiogroup">
+            <div class="cc"><svg class="ik ci"><use href="#ik-cv"/></svg><span><span class="t">Skriva CV</span><span class="d">Bygg det steg för steg eller ladda upp ditt gamla och se vad rekryteraren ser.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-brev"/></svg><span><span class="t">Skriva personliga brev</span><span class="d">Klistra in annonsen, så skriver vi brevet utifrån ditt CV.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-test"/></svg><span><span class="t">Klara rekryteringstesterna</span><span class="d">Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-intervju"/></svg><span><span class="t">Förbereda intervjun</span><span class="d">Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-jobb"/></svg><span><span class="t">Hitta jobb att söka</span><span class="d">Vi matchar ditt CV mot lediga jobb varje natt och skriver varför de passar.</span></span></div>
+          </div>
+          <a class="textlank" href="#">Hoppa över och skapa konto direkt</a>
+        </div></div>
+        <div class="fs-fot"><div class="in"><span class="knapp av">Fortsätt</span><p class="fotnot">Gratis att börja. Inget kort behövs.</p></div></div>
+      </div>
+      <div class="motiv"><b>Mobil.</b> Fem kort à 82 till 90 px ryms med frågan och foten på 800 px, och den femte syns delvis så att man ser att det finns fler. Ett tryck väljer (bock i ink-1, kant ink-1), ett tryck till på Fortsätt går vidare. Ingen automatisk övergång vid tryck: den som råkar trycka fel ska kunna ändra sig utan att först backa.
+        <ul><li>Toppen är det publika skalet: loggan och "Logga in", ingen meny. Den som är här har bestämt sig för att skapa konto, och menyn är en väg ut.</li><li>Tråden är framstegslinjen, en tredjedel. Enda orange förutom fokusringen.</li><li>Hoppa över leder till steg 2 utan val. Efter kontot får hon då dagens spårval, fast utan förval (se steg 3).</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · Klara rekryteringstesterna vald</p>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><a class="textlank kort" href="#" style="padding:12px 4px">Logga in</a></div><div class="fs-linje"><i style="width:33%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 1 av 3</p>
+          <h2 class="fraga">Vad vill du börja med?</h2>
+          <p class="under">Vi öppnar rätt verktyg när kontot är klart. Allt annat finns i menyn, och det mesta går att prova gratis.</p>
+          <div class="valen">
+            <div class="cc"><svg class="ik ci"><use href="#ik-cv"/></svg><span><span class="t">Skriva CV</span><span class="d">Bygg det steg för steg eller ladda upp ditt gamla och se vad rekryteraren ser.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-brev"/></svg><span><span class="t">Skriva personliga brev</span><span class="d">Klistra in annonsen, så skriver vi brevet utifrån ditt CV.</span></span></div>
+            <div class="cc vald"><svg class="ik ci"><use href="#ik-test"/></svg><span><span class="t">Klara rekryteringstesterna</span><span class="d">Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-intervju"/></svg><span><span class="t">Förbereda intervjun</span><span class="d">Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare.</span></span></div>
+            <div class="cc"><svg class="ik ci"><use href="#ik-jobb"/></svg><span><span class="t">Hitta jobb att söka</span><span class="d">Vi matchar ditt CV mot lediga jobb varje natt och skriver varför de passar.</span></span></div>
+          </div>
+        </div></div>
+        <div class="fs-fot"><div class="in"><span class="knapp">Fortsätt</span><p class="fotnot">Gratis att börja. Inget kort behövs.</p></div></div>
+      </div>
+      <div class="motiv"><b>Varför fem val och inte fyra.</b> Ägaren skrev "träna inför tester/intervju" som ett val. De landar på olika sidor (testhubben och Inför intervjun) och intervjun ingår gratis med ett prov per dygn, medan testerna över grundnivå kostar. Ett gemensamt kort hade tvingat fram en följdfråga efter kontot. Två kort kostar en rad och sparar en skärm. Om ägaren vill ha fyra slås de ihop till "Träna inför tester och intervju" med landning på testhubben.</div>
+    </div>
+  </div>
+  <div class="rad">
+    <div class="kol desk-app">
+      <p class="etikett">Desktop 1180 px · samma steg, kolumnen 560 px centrerad</p>
+      <div class="skal-d">
+        <div class="fs">
+          <div class="fs-topp pub-topp"><div class="in"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><span style="font-size:14px;color:var(--ink-2)">Har du redan ett konto? <a class="textlank kort" href="#">Logga in</a></span></div><div class="fs-linje"><i style="width:33%"></i></div></div>
+          <div class="fs-main"><div class="in smal" style="padding-top:32px">
+            <p class="t-steg">Steg 1 av 3</p>
+            <h2 class="fraga">Vad vill du börja med?</h2>
+            <p class="under">Vi öppnar rätt verktyg när kontot är klart. Allt annat finns i menyn, och det mesta går att prova gratis.</p>
+            <div class="valen">
+              <div class="cc vald"><svg class="ik ci"><use href="#ik-cv"/></svg><span><span class="t">Skriva CV</span><span class="d">Bygg det steg för steg eller ladda upp ditt gamla och se vad rekryteraren ser.</span></span></div>
+              <div class="cc"><svg class="ik ci"><use href="#ik-brev"/></svg><span><span class="t">Skriva personliga brev</span><span class="d">Klistra in annonsen, så skriver vi brevet utifrån ditt CV.</span></span></div>
+              <div class="cc"><svg class="ik ci"><use href="#ik-test"/></svg><span><span class="t">Klara rekryteringstesterna</span><span class="d">Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga.</span></span></div>
+              <div class="cc"><svg class="ik ci"><use href="#ik-intervju"/></svg><span><span class="t">Förbereda intervjun</span><span class="d">Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare.</span></span></div>
+              <div class="cc"><svg class="ik ci"><use href="#ik-jobb"/></svg><span><span class="t">Hitta jobb att söka</span><span class="d">Vi matchar ditt CV mot lediga jobb varje natt och skriver varför de passar.</span></span></div>
+            </div>
+            <a class="textlank" href="#">Hoppa över och skapa konto direkt</a>
+          </div></div>
+          <div class="fs-fot"><div class="in" style="max-width:560px;padding-left:16px;padding-right:16px;display:flex;align-items:center;gap:16px"><span class="knapp" style="width:auto;min-width:200px">Fortsätt</span><p class="fotnot" style="margin:0">Gratis att börja. Inget kort behövs.</p></div></div>
+        </div>
+      </div>
+      <div class="motiv"><b>Desktop.</b> Samma DOM. Kolumnen är 560 px, som spårvalet i Fas 2D, eftersom fem kort i tre kolumner läses som en prislista och det här är en fråga. Topprad och fot går kant till kant, innehållet är centrerat. "Logga in" får sin förklaring, "Har du redan ett konto?", när det finns plats. Piltangenter flyttar mellan korten, mellanslag väljer, Tabb går till Hoppa över och sedan Fortsätt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: STEG 2 -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Steg 2 av 3</p>
+  <h2>Kontot: Google först, tre fält för den som vill ha e-post</h2>
+  <p class="led">Valet står överst som en statusrad med "Ändra", så hon ser att svaret följer med. Under det Google (den väg halva flödet redan tar), en avdelare, och de tre fälten i profilens fältform (etikett, insunket fält, ingen versal-etikett). Skapa konto ligger i den klistrade foten så att knappen följer med tangentbordet. Allt den gamla sidan hade runtom (statistikrutor, CV-poäng, förhandsvisning, citat) tas bort.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · kom via "Starta gratis test", valet är redan gjort</p>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="kn"><svg class="ik"><use href="#ik-bak"/></svg></span><span class="logga" style="font-size:16px">Skapa konto</span><span class="n">2 / 3</span></div><div class="fs-linje"><i style="width:66%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 2 av 3</p>
+          <h2 class="fraga">Skapa ditt konto</h2>
+          <p class="under">Tar under en minut. Med Google räcker ett tryck.</p>
+          <div class="statusrad" style="margin-top:16px"><span class="v"><svg class="ik" style="width:20px;height:20px;color:var(--ink-2)"><use href="#ik-test"/></svg><span>Du börjar med rekryteringstesterna</span></span><a class="textlank kort dampad" href="#">Ändra</a></div>
+          <div class="google"><svg><use href="#google"/></svg>Fortsätt med Google</div>
+          <div class="eller">eller med e-post</div>
+          <div class="formfalt">
+            <div><p class="fl-l">Namn</p><div class="inp tom">Förnamn och efternamn</div></div>
+            <div><p class="fl-l">E-post</p><div class="inp tom">namn@exempel.se</div></div>
+            <div><p class="fl-l">Lösenord</p><div class="inp tom">Minst 8 tecken</div></div>
+          </div>
+          <p class="villkor">Genom att skapa konto godkänner du våra <u>användarvillkor</u> och vår <u>integritetspolicy</u>.</p>
+        </div></div>
+        <div class="fs-fot"><div class="in"><span class="knapp">Skapa konto</span><p class="fotnot">Har du redan ett konto? <u style="color:var(--ink-1);text-decoration-color:var(--kant-stark);text-underline-offset:3px">Logga in</u></p></div></div>
+      </div>
+      <div class="motiv"><b>Mobil.</b> Namnet står först eftersom det är det CV:t och breven behöver, och det är samma fält som profilens "Krävs". Google-knappen är sekundär med kant, inte ink, så sidan har en enda primär. Turnstile körs osynligt (managed) och visar sig bara om den behöver en bekräftelse.
+        <ul><li>Tillbaka-pilen går till steg 1 med valet kvar. Från en ingång som hoppade över steg 1 finns ingen pil, bara loggan.</li><li>Fälten: <code>autocomplete="name"</code>, <code>"email"</code>, <code>"new-password"</code>, <code>enterKeyHint</code> next, next, done. Done skickar formuläret.</li><li>Orange: framstegslinjen (1), fokusringen (2).</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · adressen finns redan</p>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="kn"><svg class="ik"><use href="#ik-bak"/></svg></span><span class="logga" style="font-size:16px">Skapa konto</span><span class="n">2 / 3</span></div><div class="fs-linje"><i style="width:66%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 2 av 3</p>
+          <h2 class="fraga">Skapa ditt konto</h2>
+          <div class="felrad" style="margin-top:12px"><svg class="ik"><use href="#ik-fel"/></svg><div><b>Det finns redan ett konto med den adressen</b><p>Logga in i stället, så kommer du rätt. Ditt val följer med.</p><a class="textlank kort" style="color:var(--fel-morker);text-decoration-color:var(--fel-kant);line-height:44px" href="#">Logga in</a></div></div>
+          <div class="formfalt">
+            <div><p class="fl-l">Namn</p><div class="inp">Anna Lind</div></div>
+            <div><p class="fl-l">E-post</p><div class="inp felaktig">anna.lind@exempel.se</div></div>
+            <div><p class="fl-l">Lösenord</p><div class="inp">••••••••••</div></div>
+          </div>
+          <div class="google"><svg><use href="#google"/></svg>Fortsätt med Google</div>
+        </div></div>
+        <div class="fs-fot"><div class="in"><span class="knapp">Skapa konto</span><p class="fotnot">Har du redan ett konto? <u style="color:var(--ink-1);text-decoration-color:var(--kant-stark);text-underline-offset:3px">Logga in</u></p></div></div>
+      </div>
+      <div class="motiv"><b>Fel.</b> Felet står överst i flödet, där ögat börjar efter trycket, med vad som hänt och vad man gör. "Logga in" bär med sig <code>borja</code> och <code>redirect</code>. Fältet med felet får kant i fel-kant. Samma form för "Lösenordet måste vara minst 8 tecken", "Skriv ditt namn, minst två tecken" och säkerhetskontrollen. Efter ett fel flyttar Google-knappen under fälten, så att den som skrivit in allt inte börjar om.</div>
+    </div>
+  </div>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · från intervjuprovet med token: ingen tratt</p>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><a class="textlank kort" href="#" style="padding:12px 4px">Logga in</a></div><div class="fs-linje"><i style="width:100%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Ditt intervjuprov</p>
+          <h2 class="fraga">Skapa konto och läs hela återkopplingen</h2>
+          <p class="under">Svaret och bedömningen sparas på kontot. Du landar på dem direkt.</p>
+          <div class="statusrad" style="margin-top:16px"><span class="v"><i class="pos"></i><span>Ditt svar är sparat i sju dagar</span></span></div>
+          <div class="google"><svg><use href="#google"/></svg>Fortsätt med Google</div>
+          <div class="eller">eller med e-post</div>
+          <div class="formfalt">
+            <div><p class="fl-l">Namn</p><div class="inp tom">Förnamn och efternamn</div></div>
+            <div><p class="fl-l">E-post</p><div class="inp tom">namn@exempel.se</div></div>
+            <div><p class="fl-l">Lösenord</p><div class="inp tom">Minst 8 tecken</div></div>
+          </div>
+        </div></div>
+        <div class="fs-fot"><div class="in"><span class="knapp">Skapa konto och läs återkopplingen</span><p class="fotnot">Gratis. Inget kort behövs.</p></div></div>
+      </div>
+      <div class="motiv"><b>Smakprov.</b> Ett enda steg. Ingen stegräkning, framstegslinjen är full, ingen fråga om vad hon vill göra: hon har redan gjort det. Rubriken och knappen säger vad hon får. Efter kontot kör <code>/dashboard/valkommen</code> hämtkedjan och skickar henne till resultatet, både efter lösenord och efter Google. Se rubrikerna per provtyp i slutcopyn.</div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Desktop 1180 px · steg 2 från headern, CV valt</p>
+      <div class="skal-d" style="width:760px;height:760px">
+        <div class="fs">
+          <div class="fs-topp pub-topp"><div class="in" style="padding:0 24px"><span class="kn" style="margin-left:-12px"><svg class="ik"><use href="#ik-bak"/></svg></span><span class="logga" style="font-size:16px">Skapa konto</span><span class="n">2 / 3</span></div><div class="fs-linje"><i style="width:66%"></i></div></div>
+          <div class="fs-main"><div class="in smal" style="padding-top:28px">
+            <p class="t-steg">Steg 2 av 3</p>
+            <h2 class="fraga">Skapa ditt konto</h2>
+            <p class="under">Tar under en minut. Med Google räcker ett tryck.</p>
+            <div class="statusrad" style="margin-top:16px"><span class="v"><svg class="ik" style="width:20px;height:20px;color:var(--ink-2)"><use href="#ik-cv"/></svg><span>Du börjar med att skriva CV</span></span><a class="textlank kort dampad" href="#">Ändra</a></div>
+            <div class="google"><svg><use href="#google"/></svg>Fortsätt med Google</div>
+            <div class="eller">eller med e-post</div>
+            <div class="formfalt">
+              <div><p class="fl-l">Namn</p><div class="inp">Anna Lind</div></div>
+              <div><p class="fl-l">E-post</p><div class="inp fokus">anna.lind@exe<span style="display:inline-block;width:1px;height:20px;background:var(--ink-1);margin-left:1px"></span></div></div>
+              <div><p class="fl-l">Lösenord</p><div class="inp tom">Minst 8 tecken</div></div>
+            </div>
+            <p class="villkor">Genom att skapa konto godkänner du våra <u>användarvillkor</u> och vår <u>integritetspolicy</u>.</p>
+          </div></div>
+          <div class="fs-fot"><div class="in" style="max-width:560px;display:flex;align-items:center;gap:16px"><span class="knapp" style="width:auto;min-width:200px">Skapa konto</span><p class="fotnot" style="margin:0">Har du redan ett konto? <u style="color:var(--ink-1);text-decoration-color:var(--kant-stark);text-underline-offset:3px">Logga in</u></p></div></div>
+        </div>
+      </div>
+      <div class="motiv" style="max-width:760px"><b>Desktop.</b> Ingen sidopanel. Dagens tvåspaltiga AuthShell med citat och statistik ersätts av samma kolumn som steg 1, så att de tre stegen ser ut som ett flöde och inte som tre sidor. /login får samma skal i samma släpp, annars möts den som växlar mellan dem av två designer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ DEL B: STEG 3 -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Steg 3 av 3</p>
+  <h2>Ett förslag som följer valet, och gratis som ett lika stort val bredvid</h2>
+  <p class="led">Efter kontot, inne i appen på <code>/dashboard/valkommen</code> i FlowShell. Ett enda paketkort i spårvalets form (platta med scen, handling som rubrik, namnet under, tre rader, pris med period), sedan en ruta med vad gratis ger för just det valet, sedan en rad om första steget. Foten har två knappar i samma storlek: "Skaffa [paket], [pris]" i ink och "Börja gratis" med kant. Krysset uppe till höger gör samma sak som Börja gratis. Ingen jämförelse med tre kort här: den finns bakom "Jämför alla tre paketen" för den som vill.</p>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · valet Skriva CV</p>
+      <div class="skal">
+        <div class="fs-topp"><div class="in"><span class="kn tom"></span><b>Kom igång</b><span class="n">3 / 3</span><span class="kn"><svg class="ik"><use href="#ik-x"/></svg></span></div><div class="fs-linje"><i style="width:100%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 3 av 3</p>
+          <h2 class="fraga">Klart, Anna. Så får du CV:t genom urvalet</h2>
+          <p class="under">Börja gratis direkt, eller ta med hela analysen och alla mallar från start.</p>
+          <div class="sk">
+            <span class="pl"><svg><use href="#scen-cv"/></svg></span>
+            <span><span class="ey">Förslag utifrån ditt val</span><span class="ru">Få CV:t genom och skriv personliga brev</span><span class="na">CV-paketet</span></span>
+            <ul>
+              <li><span><b>Hela CV-analysen.</b> Varje fynd med åtgärd, kör om utan tak.</span></li>
+              <li><span><b>41 CV-mallar</b> som rekryteringssystem läser.</span></li>
+              <li><span><b>Personliga brev</b> på annonsen, som PDF.</span></li>
+            </ul>
+            <span class="pr"><span>Förnyas var sjunde dag, säg upp när du vill</span><b>79 kr / vecka</b></span>
+          </div>
+          <div class="gratis"><p class="t-steg">Gratis, utan kort</p>
+            <ul><li><svg class="ik"><use href="#ik-bock"/></svg>3 CV-mallar och en nedladdning</li><li><svg class="ik"><use href="#ik-bock"/></svg>En CV-analys med poängen och det tyngsta fyndet</li></ul>
+          </div>
+          <a class="textlank" href="#">Jämför alla tre paketen</a>
+        </div></div>
+        <div class="fs-fot"><div class="in"><div class="tva"><span class="knapp">Skaffa CV-paketet, 79 kr i veckan</span><span class="knapp sek">Börja gratis</span></div></div></div>
+      </div>
+      <div class="motiv"><b>Mobil.</b> Kortet, gratisrutan och båda knapparna syns utan scroll på 800 px. Paketkortet är inte ink här (det är det på spårvalet för Hela paketet) eftersom skärmen föreslår ett paket, inte rangordnar tre. Ink sparas till Hela paketet när valet är "Hitta jobb", där det är det enda som ger funktionen.
+        <ul><li>"Förslag utifrån ditt val" står som eyebrow, så det är tydligt varför just det här paketet visas.</li><li>Skaffa går till köpsteget som finns (<code>/dashboard/valj-spar?paket=cv_week&amp;steg=kop</code>) med kvitto, samtycke och kassa oförändrade. Börja gratis går direkt till CV-byggaren.</li><li>Orange: framstegslinjen (1). Scenens lilla accent räknas som illustration, inte som yta.</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · valet Klara rekryteringstesterna</p>
+      <div class="skal">
+        <div class="fs-topp"><div class="in"><span class="kn tom"></span><b>Kom igång</b><span class="n">3 / 3</span><span class="kn"><svg class="ik"><use href="#ik-x"/></svg></span></div><div class="fs-linje"><i style="width:100%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 3 av 3</p>
+          <h2 class="fraga">Klart, Anna. Så går du in förberedd på testdagen</h2>
+          <p class="under">Grundnivån är öppen redan nu. Resten av nivåerna och provläget finns i Träningspaketet.</p>
+          <div class="sk">
+            <span class="pl"><svg><use href="#scen-matris"/></svg></span>
+            <span><span class="ey">Förslag utifrån ditt val</span><span class="ru">Var förberedd på testdagen</span><span class="na">Träningspaketet</span></span>
+            <ul>
+              <li><span><b>Alla nivåer</b> i matrislogik, verbalt och numeriskt.</span></li>
+              <li><span><b>Provläge mot klockan</b>, 25 till 40 minuter.</span></li>
+              <li><span><b>Fördjupade personlighetstestet</b>, 120 påståenden.</span></li>
+            </ul>
+            <span class="pr"><span>Förnyas var sjunde dag, säg upp när du vill</span><b>79 kr / vecka</b></span>
+          </div>
+          <div class="gratis"><p class="t-steg">Gratis, utan kort</p>
+            <ul><li><svg class="ik"><use href="#ik-bock"/></svg>Grundnivån i alla fyra testtyperna, en gång per typ och dygn</li><li><svg class="ik"><use href="#ik-bock"/></svg>Personlighetstestet med 50 påståenden</li></ul>
+          </div>
+          <a class="textlank" href="#">Jämför alla tre paketen</a>
+        </div></div>
+        <div class="fs-fot"><div class="in"><div class="tva"><span class="knapp">Skaffa Träningspaketet, 79 kr i veckan</span><span class="knapp sek">Börja gratis</span></div></div></div>
+      </div>
+      <div class="motiv"><b>Testvalet.</b> Den största gruppen på /register får det paket den kom för, i stället för CV-paketet förvalt. Börja gratis landar på testhubben <code>/dashboard/tester</code>, där grundnivån är öppen. Spåret sparas som <code>tester</code>, så hemskärmen och betalväggarna föreslår Träningspaketet från första dagen.</div>
+    </div>
+  </div>
+  <div class="rad">
+    <div class="kol desk-app">
+      <p class="etikett">Desktop 1180 px · valet Hitta jobb att söka, med sidomenyn synlig (FlowShell ligger vid lg:left-64)</p>
+      <div class="skal-d">
+        <div class="side" style="width:256px;flex:none;background:var(--panel);border-right:1px solid var(--kant);padding:16px 12px">
+          <div class="logo">Jobbcoach.ai</div>
+          <div class="paket"><span><b>Du är på gratisnivån</b><small>Tre paket, från 49 kr</small></span><a href="#">Vad ingår?</a></div>
+          <div class="sekt">
+            <div class="r tung"><svg class="ik"><use href="#ik-hem"/></svg>Mitt jobbsök</div>
+            <div class="r tung"><svg class="ik"><use href="#ik-ansok"/></svg>Sökta tjänster</div>
+            <div class="r tung"><svg class="ik"><use href="#ik-cv"/></svg>Mina CV</div>
+            <div class="r tung"><svg class="ik"><use href="#ik-brev"/></svg>Personliga brev</div>
+          </div>
+        </div>
+        <div class="fs">
+          <div class="fs-topp"><div class="in"><span class="kn tom"></span><b>Kom igång</b><span class="n">3 / 3</span><span class="kn"><svg class="ik"><use href="#ik-x"/></svg></span></div><div class="fs-linje"><i style="width:100%"></i></div></div>
+          <div class="fs-main"><div class="in smal" style="padding-top:28px">
+            <p class="t-steg">Steg 3 av 3</p>
+            <h2 class="fraga">Klart, Anna. Så hittar jobben dig</h2>
+            <p class="under">Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis.</p>
+            <div class="sk ink">
+              <span class="pl"><svg><use href="#scen-allt"/></svg></span>
+              <span><span class="ey">Förslag utifrån ditt val</span><span class="ru">Allt ingår, plus jobb som hittar dig</span><span class="na">Hela paketet</span></span>
+              <ul>
+                <li><span><b>Jobbmatchning:</b> 25 jobb per natt, med skälen utskrivna.</span></li>
+                <li><span><b>Bli upptäckt:</b> rekryterare hittar dig, anonymt tills du svarar.</span></li>
+                <li><span><b>Jobbcoachen</b>, och allt i CV-paketet och Träningspaketet.</span></li>
+              </ul>
+              <span class="pr"><span>Eller Dagspasset 49 kr, månad 149 kr, kvartal 299 kr</span><b>99 kr / vecka</b></span>
+            </div>
+            <div class="gratis"><p class="t-steg">Gratis, utan kort</p>
+              <ul><li><svg class="ik"><use href="#ik-bock"/></svg>Tre matchade jobb</li><li><svg class="ik"><use href="#ik-bock"/></svg>Tio frågor till Jobbcoachen</li></ul>
+            </div>
+            <a class="textlank" href="#">Jämför alla tre paketen</a>
+          </div></div>
+          <div class="fs-fot"><div class="in" style="max-width:560px"><div class="tva"><span class="knapp">Skaffa Hela paketet, 99 kr i veckan</span><span class="knapp sek">Börja gratis</span></div></div></div>
+        </div>
+      </div>
+      <div class="motiv"><b>Desktop, jobbvalet.</b> Här är kortet ink, eftersom Hela paketet är det enda paketet med matchning och Bli upptäckt, och ink-kortet är samma form som Hela paketet har på spårvalet och prissidan. Längderna står i prisraden, inte som segment: valet av längd görs på köpsteget som i dag.
+        <ul><li>FlowShell ligger till höger om sidomenyn på desktop, som alla flöden. Menyn syns men är inte målet: det är första gången hon ser appen, och den ska se ut som det den är.</li><li>Börja gratis landar på <code>/dashboard/jobbmatchning</code>, vars egen onboarding ber om CV:t.</li><li>Orange på skärmen: framstegslinjen (1), scenens punkt i accent-mjuk (räknas inte, illustration). Ett av tre.</li></ul></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>Val i steg 1</th><th>Spår som sparas</th><th>Förslag i steg 3</th><th>Börja gratis landar på</th><th>Skaffa landar på</th></tr></thead>
+    <tbody>
+      <tr><td>Skriva CV</td><td><code>cv</code></td><td>CV-paketet, 79 kr i veckan</td><td><code>/dashboard/skapa-cv</code>, byggaren</td><td>Köpsteget, sedan <code>/dashboard/vecka/start</code> som i dag</td></tr>
+      <tr><td>Skriva personliga brev</td><td><code>cv</code></td><td>CV-paketet, 79 kr i veckan</td><td><code>/dashboard/skapa-brev</code>, som skickar till CV-uppladdningen när CV saknas</td><td>Samma</td></tr>
+      <tr><td>Klara rekryteringstesterna</td><td><code>tester</code></td><td>Träningspaketet, 79 kr i veckan</td><td><code>/dashboard/tester</code>, hubben</td><td>Samma</td></tr>
+      <tr><td>Förbereda intervjun</td><td><code>tester</code></td><td>Träningspaketet, 79 kr i veckan</td><td><code>/dashboard/intervju</code>, Inför intervjun</td><td>Samma</td></tr>
+      <tr><td>Hitta jobb att söka</td><td><code>allt</code></td><td>Hela paketet, 99 kr i veckan</td><td><code>/dashboard/jobbmatchning</code></td><td>Samma</td></tr>
+      <tr><td>Hoppade över steg 1</td><td>inget</td><td>Dagens spårval, tre kort, <b>utan förval</b></td><td>Hemskärmen</td><td>Samma</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================================================================ DEL B: MÄTNING -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Mätning</p>
+  <h2>Tratten i åtta steg, och varje steg har en händelse</h2>
+  <p class="led">Befintliga händelser används där de finns (<code>signup_started</code>, <code>signup_completed</code>, <code>pricing_viewed</code>, <code>track_selected</code>, <code>paywall_cta_clicked</code>, <code>purchase_step_viewed</code>, <code>checkout_started</code>, <code>subscription_paid</code>, <code>activation_first_doc</code>). Tre nya behövs, och två befintliga måste lagas innan något av det här går att läsa.</p>
+  <div class="tratt">
+    <div><b>1. Ingång</b>Vilken knapp, vilken sida.<code>signup_flow_viewed step=val, entry, source_page</code></div>
+    <div><b>2. Val</b>Ett av fem, eller hoppa över.<code>signup_intent_selected intent, preset</code></div>
+    <div><b>3. Kontosteget</b>Visat, och vilken väg.<code>signup_flow_viewed step=konto</code><code>signup_started method</code></div>
+    <div><b>4. Konto</b>Klient för lösenord, server för Google, lagad.<code>signup_completed method, intent, entry</code></div>
+    <div><b>5. Förslaget</b>Vilket paket visades.<code>pricing_viewed surface=signup_forslag, plan, intent</code></div>
+    <div><b>6. Beslut</b>Skaffa eller gratis.<code>track_selected intent=purchase|free</code><code>signup_landed destination</code></div>
+  </div>
+  <table>
+    <thead><tr><th>Händelse</th><th>Ny eller ändrad</th><th>Egenskaper</th><th>Skjuts när</th></tr></thead>
+    <tbody>
+      <tr><td><code>signup_flow_viewed</code></td><td>Ny</td><td><code>step</code> val | konto | forslag, <code>entry</code> header | login | verktyg | pris | smakprov | direkt, <code>preset_intent</code>, <code>source_page</code>, <code>source_cluster</code></td><td>Varje steg renderas, en gång per besök på steget.</td></tr>
+      <tr><td><code>signup_intent_selected</code></td><td>Ny</td><td><code>intent</code> cv | brev | tester | intervju | jobb | null, <code>preset</code> (kom med i adressen), <code>skipped</code></td><td>Fortsätt eller Hoppa över i steg 1, eller när steg 2 visas med ett förval.</td></tr>
+      <tr><td><code>signup_started</code></td><td>Ändrad</td><td>Lägg till <code>intent</code>, <code>entry</code>. Skjuts också vid tryck på Google-knappen med <code>method: 'google'</code>.</td><td>Skapa konto eller Google trycks.</td></tr>
+      <tr><td><code>signup_completed</code></td><td>Lagas</td><td>Lägg till <code>intent</code>, <code>entry</code>. I <code>/auth/callback</code> ska serverhändelsen inväntas (<code>await</code> med 1,5 s tak) före redirecten.</td><td>Kontot finns.</td></tr>
+      <tr><td><code>pricing_viewed</code></td><td>Befintlig</td><td><code>surface: 'signup_forslag'</code>, <code>plan</code>, <code>intent</code></td><td>Steg 3 renderas.</td></tr>
+      <tr><td><code>track_selected</code></td><td>Befintlig</td><td><code>track</code>, <code>intent</code> purchase | free, <code>surface: 'signup_forslag'</code>, <code>onboarding_intent</code></td><td>Skaffa eller Börja gratis (också krysset) i steg 3.</td></tr>
+      <tr><td><code>signup_landed</code></td><td>Ny</td><td><code>destination</code> (sökväg), <code>intent</code>, <code>claimed</code> (hämtat smakprov), <code>via</code> forslag | smakprov | redirect | paket</td><td>/dashboard/valkommen skickar vidare, alla grenar.</td></tr>
+      <tr><td><code>activation_first_doc</code></td><td>Befintlig</td><td>Läses per <code>onboarding_intent</code> på personen</td><td>Oförändrat.</td></tr>
+    </tbody>
+  </table>
+  <div class="beslut">
+    <h3>Så läser vi tratten efter fyra veckor</h3>
+    <ul>
+      <li><b>Ingång till konto per entry:</b> <code>signup_flow_viewed step=val</code> till <code>signup_completed</code>, uppdelat på entry. Jämförs med dagens tal: 20 personer på /register till 8 konton sedan 22 september.</li>
+      <li><b>Hoppar steg 1 av folk?</b> Andelen som lämnar på <code>step=val</code> utan <code>signup_intent_selected</code>. Över 25 % mot kontosteget är signalen att flytta frågan efter kontot (beslut 1 nedan).</li>
+      <li><b>Förslag till köp:</b> <code>pricing_viewed surface=signup_forslag</code> till <code>checkout_started</code> och <code>subscription_paid</code>, per intent.</li>
+      <li><b>Gratis som landar rätt:</b> <code>signup_landed</code> till <code>activation_first_doc</code> inom 24 timmar, per intent. Det är måttet på att "landar rätt" fungerar.</li>
+      <li>PostHog-insikt i dashboarden "Paket och onboarding" (968012) med kohortfiltret, och Tratt i adminen får ett steg till mellan Konto och Spårval.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================================================================ SLUTCOPY -->
+<section class="sektion">
+  <p class="eyebrow">Slutcopy</p>
+  <h2>Alla strängar på ett ställe</h2>
+  <table>
+    <thead><tr><th style="width:24%">Plats</th><th>Text</th></tr></thead>
+    <tbody>
+      <tr><td>Sidomeny, Konto</td><td>Profil · Prenumeration</td></tr>
+      <tr><td>Profilmeny</td><td>Kom igång · Profil · Prenumeration · Logga ut</td></tr>
+      <tr><td>Toppraden</td><td>Konto · Profil / Konto · Prenumeration</td></tr>
+      <tr><td>Profil, sidhuvud</td><td>Konto / Din profil / Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.</td></tr>
+      <tr><td>Hoppa till</td><td>CV-uppgifter · Personliga brev · Jobbsök · Konto</td></tr>
+      <tr><td>Statusrad, saknas</td><td>Två saker saknas i ditt CV: ort och foto / Ort saknas i ditt CV / Namnet saknas. Utan det kan vi inte skapa ditt CV.</td></tr>
+      <tr><td>Sektion 1</td><td>Överst i ditt CV / Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.</td></tr>
+      <tr><td>Foto</td><td>Foto · Valfritt / Ladda upp foto / Byt foto / Ta bort / Laddar upp / JPG, PNG eller WebP, högst 2 MB / Hämtat från ditt Google-konto / Används bara i CV-mallar med plats för foto. Foto är frivilligt i Sverige, och rekryteringssystem läser bara texten.</td></tr>
+      <tr><td>Foto, fel</td><td>Bilden är för stor / Den är {n} MB och gränsen är 2 MB. Ta en skärmdump av bilden eller välj en mindre. · Filen går inte att läsa / Välj en bild i JPG, PNG eller WebP. · Bilden kunde inte sparas / Nätet svarade inte. Försök igen om en stund.</td></tr>
+      <tr><td>Namn, Ort, Telefon</td><td>Står överst i ditt CV och dina personliga brev. / Rekryteraren ser direkt om du bor nära jobbet. / Så att rekryteraren kan ringa dig. / Platshållare: Till exempel Örebro · 070 123 45 67</td></tr>
+      <tr><td>E-post, LinkedIn</td><td>Din inloggning och adressen rekryteraren svarar på. / Blir en rad i CV:t. Rekryterare klickar ofta dit innan de hör av sig.</td></tr>
+      <tr><td>Integritet</td><td>Sparas separat, går aldrig till någon AI / Så gör vi (arket: dagens IntegritetsBlock-text oförändrad)</td></tr>
+      <tr><td>Sektion 2</td><td>Personliga brev / Gäller bara dina personliga brev. Ditt CV påverkas inte.</td></tr>
+      <tr><td>Förvald ton</td><td>Förvald ton / Tonen vi börjar med när du skapar ett nytt brev. Du kan alltid byta i själva brevet. / Smart val: Vi väljer ton utifrån varje annons. · Ingår när du har ett paket</td></tr>
+      <tr><td>Brevhuvudet</td><td>Brevhuvudet / Vad som står under ditt namn överst i brevet. / Telefon i brevhuvudet · Av om du hellre blir kontaktad på mejl. / Ort i brevhuvudet · Av om du söker jobb på annan ort. / Så börjar dina personliga brev.</td></tr>
+      <tr><td>Sektion 3</td><td>Jobbsök / Styr jobbmatchningen och Jobbcoachens svar. Inget här står i ditt CV eller dina brev. / Så söker vi jobb åt dig · Inga önskemål än, vi söker i hela landet · Ändra / Inte sökbar för rekryterare · Sökbar för rekryterare · Bli upptäckt</td></tr>
+      <tr><td>Sektion 4</td><td>Konto / Paket, mejl från oss, utloggning och radering. / Prenumeration · Gratisnivån · tre paket, från 49 kr / Mejl från oss / Logga ut · Från den här enheten / Radera mitt konto · All data tas bort och kan inte återställas</td></tr>
+      <tr><td>Länk in från brevflödet</td><td>Ändra förvald ton</td></tr>
+      <tr><td>Register, steg 1</td><td>Steg 1 av 3 / Vad vill du börja med? / Vi öppnar rätt verktyg när kontot är klart. Allt annat finns i menyn, och det mesta går att prova gratis. / Hoppa över och skapa konto direkt / Fortsätt / Gratis att börja. Inget kort behövs. / Spärrad: Välj vad du vill börja med, eller hoppa över.</td></tr>
+      <tr><td>Steg 1, korten</td><td>Skriva CV · Bygg det steg för steg eller ladda upp ditt gamla och se vad rekryteraren ser. / Skriva personliga brev · Klistra in annonsen, så skriver vi brevet utifrån ditt CV. / Klara rekryteringstesterna · Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga. / Förbereda intervjun · Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare. / Hitta jobb att söka · Vi matchar ditt CV mot lediga jobb varje natt och skriver varför de passar.</td></tr>
+      <tr><td>Register, steg 2</td><td>Skapa konto (topprad) / Steg 2 av 3 / Skapa ditt konto / Tar under en minut. Med Google räcker ett tryck. / Fortsätt med Google / eller med e-post / Namn · Förnamn och efternamn / E-post · namn@exempel.se / Lösenord · Minst 8 tecken / Genom att skapa konto godkänner du våra användarvillkor och vår integritetspolicy. / Skapa konto / Skapar kontot / Har du redan ett konto? Logga in</td></tr>
+      <tr><td>Steg 2, valraden</td><td>Du börjar med att skriva CV · att skriva personliga brev · rekryteringstesterna · intervjun · att hitta jobb / Ändra</td></tr>
+      <tr><td>Steg 2, fel</td><td>Det finns redan ett konto med den adressen / Logga in i stället, så kommer du rätt. Ditt val följer med. · Logga in / Skriv ditt namn, minst två tecken. / Lösenordet måste vara minst 8 tecken. / Vi kunde inte bekräfta att du är en människa. Ladda om sidan och försök igen.</td></tr>
+      <tr><td>Smakprov, per typ</td><td>Ditt intervjuprov · Skapa konto och läs hela återkopplingen · Skapa konto och läs återkopplingen / Ditt personlighetsprov · Skapa konto och läs hela tolkningen · Skapa konto och läs tolkningen / Ditt testprov · Skapa konto och se alla svar med förklaring · Skapa konto och se svaren / Ditt brev · Skapa konto och läs hela brevet · Skapa konto och läs brevet / Ditt CV · Skapa konto och fortsätt på ditt CV · Skapa konto och fortsätt / Statusrad: Ditt svar är sparat i sju dagar (brev och CV: Det du skrivit är sparat i sju dagar) / Fotnot: Gratis. Inget kort behövs.</td></tr>
+      <tr><td>Steg 3, gemensamt</td><td>Kom igång (topprad) / Steg 3 av 3 / Förslag utifrån ditt val / Gratis, utan kort / Jämför alla tre paketen / Börja gratis / Förnyas var sjunde dag, säg upp när du vill</td></tr>
+      <tr><td>Steg 3, CV</td><td>Klart, {förnamn}. Så får du CV:t genom urvalet / Börja gratis direkt, eller ta med hela analysen och alla mallar från start. / Få CV:t genom och skriv personliga brev · CV-paketet / Hela CV-analysen. Varje fynd med åtgärd, kör om utan tak. · 41 CV-mallar som rekryteringssystem läser. · Personliga brev på annonsen, som PDF. / Gratis: 3 CV-mallar och en nedladdning · En CV-analys med poängen och det tyngsta fyndet / Skaffa CV-paketet, 79 kr i veckan</td></tr>
+      <tr><td>Steg 3, brev</td><td>Klart, {förnamn}. Så skriver du brev som svarar på annonsen / Brevet skrivs utifrån ditt CV, så första steget är att lägga in det. / samma kort som CV / Gratis: Ett personligt brev att läsa, sedan ett i veckan · En CV-analys med poängen och det tyngsta fyndet / Skaffa CV-paketet, 79 kr i veckan</td></tr>
+      <tr><td>Steg 3, tester</td><td>Klart, {förnamn}. Så går du in förberedd på testdagen / Grundnivån är öppen redan nu. Resten av nivåerna och provläget finns i Träningspaketet. / Var förberedd på testdagen · Träningspaketet / Alla nivåer i matrislogik, verbalt och numeriskt. · Provläge mot klockan, 25 till 40 minuter. · Fördjupade personlighetstestet, 120 påståenden. / Gratis: Grundnivån i alla fyra testtyperna, en gång per typ och dygn · Personlighetstestet med 50 påståenden / Skaffa Träningspaketet, 79 kr i veckan</td></tr>
+      <tr><td>Steg 3, intervju</td><td>Klart, {förnamn}. Så övar du inför intervjun / Ett intervjuprov per dygn ingår gratis. Vill du öva utan tak finns Träningspaketet. / Var förberedd på testdagen · Träningspaketet / Intervjuprov utan tak, med återkoppling på varje svar. · Fördjupade personlighetstestet, 120 påståenden. · Alla nivåer i rekryteringstesterna. / Gratis: Ett intervjuprov per dygn med återkoppling · Personlighetstestet med 50 påståenden / Skaffa Träningspaketet, 79 kr i veckan</td></tr>
+      <tr><td>Steg 3, jobb</td><td>Klart, {förnamn}. Så hittar jobben dig / Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis. / Allt ingår, plus jobb som hittar dig · Hela paketet / Jobbmatchning: 25 jobb per natt, med skälen utskrivna. · Bli upptäckt: rekryterare hittar dig, anonymt tills du svarar. · Jobbcoachen, och allt i CV-paketet och Träningspaketet. / Eller Dagspasset 49 kr, månad 149 kr, kvartal 299 kr / Gratis: Tre matchade jobb · Tio frågor till Jobbcoachen / Skaffa Hela paketet, 99 kr i veckan</td></tr>
+      <tr><td>Förnamn saknas</td><td>Rubriken börjar med "Klart." i stället för "Klart, {förnamn}."</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================================================================ BESLUT -->
+<section class="sektion">
+  <p class="eyebrow">Ägaren tar ställning</p>
+  <h2>Fem beslut innan bygget</h2>
+  <div class="beslut">
+    <ol>
+      <li><b>Frågan före kontot, inte efter.</b> Rekommendation: före, som i den här designen. Den kostar ett tryck, gör kontosteget begripligt ("du börjar med testerna") och låter oss skicka valet genom Googles redirect. Planen från 22 september (Fas 2A) lade spårvalet efter kontot för att inte göra formuläret längre. Frågan här är inte ett fält i formuläret utan en egen skärm som går att hoppa över, och den ersätter den fråga som i dag kommer efter. Mätregeln ovan (över 25 % tapp på steg 1) avgör om vi flyttar tillbaka.</li>
+      <li><b>Fem val eller fyra.</b> Rekommendation: fem, med tester och intervju isär, eftersom de landar på olika ställen och har olika gratisnivå.</li>
+      <li><b>Paketet som primär knapp i steg 3.</b> Rekommendation: ja, som i spårvalet (Fas 2D), med Börja gratis i samma storlek bredvid. Alternativet är gratis som primär och paketet som sekundär, vilket ger fler aktiva gratiskonton och färre köp i första sessionen.</li>
+      <li><b>/register och /login i det nya skalet.</b> Rekommendation: ja, i samma släpp. Dagens /register lovar fem dagars Premium som inte finns och visar statistik vi inte kan belägga. Om tratten dröjer måste åtminstone den raden och statistikrutorna bort nu.</li>
+      <li><b>Klientförminskning av foton.</b> Rekommendation: ja. Det är ny kod (canvas i webbläsaren), men utan den stoppas de flesta mobilfoton av 2 MB-gränsen.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ KONTROLL -->
+<section class="sektion">
+  <p class="eyebrow">Kontroll mot designsystemet</p>
+  <h2>Orange, träffytor och regler</h2>
+  <table>
+    <thead><tr><th>Yta</th><th>Orange</th><th>Primärknappar</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Profil, mobil och desktop</td><td>Tråden på CV-sektionen, fokusringen, varm statusrad bara när namnet saknas. Högst 3.</td><td>0, sidan sparar per fält</td><td>Toggles och tonval i ink-1. Ingen marginalplatta: fotot är sektionens bild.</td></tr>
+      <tr><td>Sidomenyn, Konto</td><td>Tråden på aktiv rad. 1.</td><td>0</td><td>Statusetiketten i ink-3 som i dag.</td></tr>
+      <tr><td>Register steg 1 och 2</td><td>Framstegslinjen, fokusring. 2.</td><td>1 (Fortsätt / Skapa konto)</td><td>Loggans orange ruta är varumärket och räknas inte, som i headern.</td></tr>
+      <tr><td>Steg 3</td><td>Framstegslinjen. 1.</td><td>1 ink + 1 sekundär i samma storlek</td><td>Paketkortet i ink bara för Hela paketet.</td></tr>
+      <tr><td>Alla</td><td colspan="3">Träffytor 44 px (fält, knappar, textlänkar med line-height 44, kort). Minsta text 12 px (eyebrow). Ingen Sparkles, inga talstreck, inget "AI" i gränssnittstexten utom integritetslöftet som redan är godkänt. Paketnamn följs alltid av pris eller period i knappar och kort. "Personliga brev", aldrig "brev" ensamt i rubriker och menyer.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+</body>
+</html>
