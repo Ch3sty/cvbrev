@@ -100,8 +100,8 @@ export default function TesterHubClient({
   );
 
   // Fotknapparna för kunden med CV-paketet: sidbyte och Hela paketet går båda via
-  // uppgraderingsrutten, som svarar med Stripe-portalen för spårbyte och
-  // kassan med mellanskillnaden för Hela paketet (D1 fråga 7).
+  // uppgraderingsrutten, som byter pris på prenumerationen direkt. Sidbytet
+  // till Träningspaketet utan proration, Hela paketet med mellanskillnaden.
   const uppgradera = async (plan: PlanKey) => {
     if (busy) return;
     setBusy(plan);

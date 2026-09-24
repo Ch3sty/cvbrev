@@ -197,7 +197,7 @@ export const PRISER_FAQ_ITEMS = [
   {
     id: 'byta-spar',
     q: 'Kan jag byta paket mitt i veckan?',
-    a: 'Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.',
+    a: 'Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Mellan CV-paketet och Träningspaketet byter du direkt, priset är detsamma och dragningsdagen står kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.',
   },
   {
     id: 'saga-upp',

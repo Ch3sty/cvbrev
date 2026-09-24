@@ -930,6 +930,19 @@ export const PAKETBYTE = {
   tillPrenumeration: 'Till prenumerationen',
   href: '/dashboard/profil/prenumeration',
   fel: 'Det gick inte att byta paket just nu. Försök igen om en stund.',
+  /**
+   * 409 med vidFornyelse: från Hela paketet till ett spår, eller en annan
+   * längd. Perioden kunden betalat för gäller ut, och inget byte schemaläggs
+   * åt henne, så raden säger vad hon gör i kundportalen.
+   */
+  vidFornyelse: (skal: 'nedgradering' | 'langd') =>
+    skal === 'nedgradering'
+      ? `Nedgradering sker vid nästa förnyelse. Säg upp ${HELA_NAMN} i kundportalen, så gäller det perioden ut, och välj sedan det nya paketet.`
+      : `Byte av längd sker vid nästa förnyelse. Säg upp ${HELA_NAMN} i kundportalen, så gäller det perioden ut, och välj sedan den nya längden.`,
+  tillPortalen: 'Till kundportalen',
+  portalHref: '/api/stripe/create-portal-session',
+  /** Fotnoten på det andra spårets kort: sidbytet sker direkt. */
+  sidbyteNot: 'Byts direkt, samma pris och samma dragningsdag',
 } as const
 
 /** Statusraden. Dagen bär klockslag, resten datum. */

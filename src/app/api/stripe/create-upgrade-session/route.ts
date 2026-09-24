@@ -4,10 +4,12 @@
 // För befintliga användare som vill uppgradera till Premium
 //
 // Sedan paketen infördes (docs/plan-paket-och-onboarding.md avsnitt 5) har
-// rutten två utgångar. Har kunden redan en levande prenumeration på ett spår
-// och begär Hela paketet byter vi pris på den befintliga prenumerationen med
-// proration, och svarar { upgraded: true } utan att öppna någon kassa. I
-// övriga fall blir det en vanlig embedded checkout som förut.
+// rutten två utgångar. Har kunden redan en levande prenumeration byter vi pris
+// på den i stället för att öppna en kassa (valjByte i src/lib/stripe/paketByte.ts):
+// spår till Hela paketet med proration, CV-paketet och Träningspaketet
+// sinsemellan utan, och svaret blir { upgraded: true }. Nedgradering och
+// längdbyte går inte direkt och får 409 med beskedet. Utan prenumeration blir
+// det en vanlig embedded checkout som förut.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
@@ -16,8 +18,9 @@ import { stripe } from '@/lib/stripe/server'
 import {
   findLiveSubscription,
   alreadySubscribedResponse,
-  blocksAsDuplicate,
 } from '@/lib/stripe/guard-existing-subscription'
+import { valjByte } from '@/lib/stripe/paketByte'
+import { PAKETBYTE } from '@/components/pricing/paket-copy'
 import {
   getSubscriptionPriceAllowlist,
   getStripePriceId,
@@ -134,19 +137,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
-    // Undantaget är uppgraderingen från ett spår till Hela paketet, som byter pris på
-    // den prenumeration kunden redan har.
+    // En levande prenumeration byter pris i stället, och valjByte avgör hur:
+    // uppgradering direkt med mellanskillnaden, sidbyte direkt utan proration,
+    // nedgradering och längdbyte först vid nästa förnyelse.
     const existing = await findLiveSubscription(customerId)
     if (existing) {
-      const isUpgrade =
-        requestedScope !== null &&
-        (existing.scope === 'cv' || existing.scope === 'tester') &&
-        requestedScope === 'allt'
+      const val = valjByte(existing.planKey, requestedPlanKey)
 
-      if (isUpgrade) {
-        // Byt pris på raden i stället för att teckna en ny prenumeration.
-        // always_invoice fakturerar mellanskillnaden direkt, så kunden får
-        // Allt samma sekund och inte vid nästa dragning.
+      if (val.typ === 'uppgradering' || val.typ === 'sidbyte') {
         const subscription = await stripe.subscriptions.retrieve(existing.id)
         const itemId = subscription.items.data[0]?.id
         if (!itemId) {
@@ -154,51 +152,73 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: 'Kunde inte byta paket. Försök igen.' }, { status: 500 })
         }
 
+        // Uppgradering: always_invoice fakturerar mellanskillnaden direkt, så
+        // kunden får Hela paketet samma sekund och inte vid nästa dragning.
+        // Sidbyte: samma belopp och längd, så ingen proration, ingen faktura
+        // och inget kvitto. Dragningsdagen står kvar. En uppsägning står
+        // också kvar: den som sagt upp och byter spår har inte ångrat sig.
+        const uppgradering = val.typ === 'uppgradering'
         await stripe.subscriptions.update(existing.id, {
           items: [{ id: itemId, price: priceId }],
-          proration_behavior: 'always_invoice',
-          cancel_at_period_end: false,
+          proration_behavior: uppgradering ? 'always_invoice' : 'none',
+          ...(uppgradering ? { cancel_at_period_end: false } : {}),
           metadata: {
             userId: user.id,
             supabaseUUID: user.id,
             planKey: requestedPlanKey ?? '',
-            scope: requestedScope,
-            source: 'upgrade-track-to-all',
+            scope: requestedScope ?? '',
+            source: uppgradering ? 'upgrade-track-to-all' : 'sidbyte-track-to-track',
           },
         })
 
         console.log(
-          `[CREATE UPGRADE SESSION] ${user.id}: ${existing.scope} till ${requestedScope} på ${existing.id}.`
+          `[CREATE UPGRADE SESSION] ${user.id}: ${val.typ} ${existing.planKey} till ${requestedPlanKey} på ${existing.id}.`
         )
 
         // Profilen skrivs direkt, inte först när webhooken kommer. Klienten
         // hämtar om sidan i nästa sekund och ska då se det nya paketet
         // (köptestet 2026-09-24, bugg 3). Webhooken skriver samma värden när
-        // customer.subscription.updated landar.
+        // customer.subscription.updated landar. Paketet läses ur price_id.
         try {
+          const profilData: Record<string, unknown> = {
+            premium_scope: requestedScope,
+            price_id: priceId,
+            subscription_tier: 'premium',
+          }
+          if (uppgradering) profilData.cancel_at_period_end = false
+          // Ett sidbyte byter spår, och hemskärmens ordning följer spåret.
+          else profilData.onboarding_track = requestedScope
           const { error: profilFel } = await (getSupabaseAdmin() as any)
             .from('profiles')
-            .update({
-              premium_scope: requestedScope,
-              price_id: priceId,
-              subscription_tier: 'premium',
-              cancel_at_period_end: false,
-            })
+            .update(profilData)
             .eq('id', user.id)
           if (profilFel) console.error('[CREATE UPGRADE SESSION] Profilen kunde inte skrivas:', profilFel.message)
         } catch (error) {
           console.error('[CREATE UPGRADE SESSION] Profilen kastade:', error)
         }
-        return NextResponse.json({ upgraded: true, planKey: requestedPlanKey, scope: requestedScope })
+        return NextResponse.json({
+          upgraded: true,
+          byte: val.typ,
+          planKey: requestedPlanKey,
+          scope: requestedScope,
+        })
       }
 
-      if (blocksAsDuplicate(existing, requestedScope ?? 'allt')) {
-        console.warn(`[CREATE UPGRADE SESSION] Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
-        return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
+      if (val.typ === 'vidFornyelse') {
+        // Inget schemalagt byte finns i appen. Beskedet säger när bytet kan
+        // ske, och länken går till kundportalen där uppsägningen görs.
+        return NextResponse.json(
+          {
+            error: PAKETBYTE.vidFornyelse(val.skal),
+            vidFornyelse: true,
+            skal: val.skal,
+            manageUrl: PAKETBYTE.portalHref,
+          },
+          { status: 409 }
+        )
       }
 
-      // Kvar: nedgraderingar och byten mellan spår. De hanteras i portalen,
-      // inte här, så att kunden ser vad som händer med den period hon betalat.
+      console.warn(`[CREATE UPGRADE SESSION] Kund ${customerId} har redan ${existing.id} (${existing.status}). Blockerar dubblett.`)
       return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
     }
 

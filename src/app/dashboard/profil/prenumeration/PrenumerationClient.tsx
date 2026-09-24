@@ -8,7 +8,7 @@
  *
  *   gratis  alla tre med knappar, knappen bär paketet till köpsteget
  *   spår    det egna kortet visar "Du har det här paketet", det andra spåret
- *           byter vid nästa förnyelse, Allt visar mellanskillnaden
+ *           byts direkt (samma pris), Allt visar mellanskillnaden
  *   Allt    spåren visar "Ingår i Hela paketet", Allt-kortet bär längdbytet där
  *           dagläget är inaktivt för en löpande kund, och Säg upp står i
  *           hanteringslistan
@@ -22,6 +22,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ChevronRight, Slash, X } from 'lucide-react';
 
 import PageHeader from '@/components/shell/PageHeader';
@@ -35,6 +36,7 @@ import {
   KONTO,
   PAKET_IDS,
   PAKET_PLAN,
+  PAKETBYTE,
   besparing,
   borjaKnapp,
   gangerText,
@@ -46,6 +48,8 @@ import {
   type PaketId,
 } from '@/components/pricing/paket-copy';
 import { FREE_HIGHLIGHTS } from '@/app/(public)/priser/components/priser-data';
+import PaketBytesRad from '@/components/paywall/PaketBytesRad';
+import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
 import CancelFlowModal from './components/CancelFlowModal';
 import type { Blockeringar } from './blockeringar';
 
@@ -83,6 +87,16 @@ export default function PrenumerationClient({
   const [fel, setFel] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [uppsagning, setUppsagning] = useState(false);
+  const [bytUtfall, setBytUtfall] = useState<BytUtfall | null>(null);
+  // Raden står under statusraden, men knappen sitter längre ned i korten.
+  // Den rullas fram så att svaret syns där kunden tittar.
+  const bytRadRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (bytUtfall && bytUtfall.typ !== 'kassa') {
+      bytRadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [bytUtfall]);
+  const router = useRouter();
   // Allt-kortets längd. För en Allt-kund börjar den på det hon har.
   const [langd, setLangd] = useState<PlanLength>(
     paket && PLAN_BY_KEY[paket].scope === 'allt' ? PLAN_BY_KEY[paket].length : 'vecka'
@@ -147,36 +161,27 @@ export default function PrenumerationClient({
     window.location.href = `/dashboard/valj-spar?paket=${plan}`;
   }, []);
 
-  /** Uppgradering och längdbyte byter pris på den befintliga prenumerationen. */
-  const byt = useCallback(async (planKey: PlanKey) => {
-    setBusy(true);
-    setFel(null);
-    try {
-      const res = await fetch('/api/stripe/create-upgrade-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planKey }),
-      });
-      const data = (await res.json()) as {
-        upgraded?: boolean;
-        url?: string;
-        error?: string;
-      };
-      if (data.upgraded) {
-        window.location.reload();
+  /**
+   * Bytesknapparna går via samma rutt som betalväggarna. Uppgradering och
+   * sidbyte sker direkt; nedgradering och längdbyte får beskedet att det sker
+   * vid nästa förnyelse. Utfallet står som en rad under statusraden.
+   */
+  const byt = useCallback(
+    async (planKey: PlanKey) => {
+      setBusy(true);
+      setFel(null);
+      setBytUtfall(null);
+      const utfall = await bytPaket(planKey, '/dashboard/profil/prenumeration');
+      if (utfall.typ === 'kassa') {
+        window.location.href = utfall.url;
         return;
       }
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-      setFel(data.error ?? 'Det gick inte att byta paket. Försök igen.');
-    } catch {
-      setFel('Det gick inte att byta paket. Försök igen.');
-    } finally {
+      setBytUtfall(utfall);
       setBusy(false);
-    }
-  }, []);
+      if (utfall.typ === 'bytt') router.refresh();
+    },
+    [router]
+  );
 
   // Uppsägningen skjuter cancel_started och öppnar enkäten, som i sin tur
   // lämnar över till Stripe-portalen. Enkäten hindrar aldrig någon: "Avsluta
@@ -222,7 +227,7 @@ export default function PrenumerationClient({
             onClick: () => byt(PAKET_PLAN[id]),
             disabled: busy || !harStripePrenumeration,
           },
-          fotnot: KONTO.byterVidFornyelse,
+          fotnot: PAKETBYTE.sidbyteNot,
         };
       }
       return {
@@ -299,6 +304,10 @@ export default function PrenumerationClient({
       <StatusRow tone="neutral" showDot label="Ditt läge" wrap>
         {statusText}
       </StatusRow>
+
+      <div ref={bytRadRef} className="scroll-mt-24">
+        <PaketBytesRad utfall={bytUtfall} />
+      </div>
 
       {/* Blockeringslistan står före korten: inte "köp det här" utan
           "det här tog stopp, och det här löser det". */}

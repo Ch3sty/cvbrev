@@ -91,8 +91,8 @@ export default function CvMallarClient({
   // Betalväggen för rätt paket, med mellanskillnaden om hon har ett spår.
   const handleUpgradeClick = () => setSparrOppen(true);
 
-  // Hela paketet byter pris på prenumerationen direkt och svarar utan url;
-  // ett sidledes byte får 409. Båda ska synas som en rad, aldrig tystnad.
+  // Hela paketet och sidbytet till CV-paketet byter pris på prenumerationen
+  // direkt och svarar utan url. Utfallet syns som en rad, aldrig tystnad.
   const uppgradera = async (plan: PlanKey) => {
     if (busy) return;
     setBusy(plan);

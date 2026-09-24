@@ -2,9 +2,11 @@
 
 /**
  * Svaret på en bytesknapp, som en rad (docs/qa/qa-kop-testlage-2026-09-24.md,
- * bugg 3). Lyckat byte: positiv rad "Du har nu Hela paketet". Ett nej (409):
- * neutral rad som säger varför och länkar till prenumerationssidan. Fel:
- * neutral rad, knappen blir tryckbar igen.
+ * bugg 3). Lyckat byte, uppgradering eller sidbyte: positiv rad "Du har nu
+ * Träningspaketet". Nedgradering eller längdbyte: neutral rad om att det sker
+ * vid nästa förnyelse, med länk till kundportalen. Samma paket igen (409):
+ * neutral rad med länk till prenumerationssidan. Fel: neutral rad, knappen
+ * blir tryckbar igen.
  */
 import Link from 'next/link'
 import StatusRow from '@/components/shell/StatusRow'
@@ -28,6 +30,25 @@ export default function PaketBytesRad({
       <div role="status" className={className}>
         <StatusRow tone="positive" showDot wrap>
           {PAKETBYTE.klart(utfall.planKey)}
+        </StatusRow>
+      </div>
+    )
+  }
+
+  if (utfall.typ === 'vidFornyelse') {
+    return (
+      <div role="status" className={className}>
+        <StatusRow
+          tone="neutral"
+          showDot
+          wrap
+          action={
+            <a href={PAKETBYTE.portalHref} className={LANK}>
+              {PAKETBYTE.tillPortalen}
+            </a>
+          }
+        >
+          {PAKETBYTE.vidFornyelse(utfall.skal)}
         </StatusRow>
       </div>
     )
