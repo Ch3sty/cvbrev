@@ -25,6 +25,14 @@ export const VECKA_START_PATH = '/dashboard/vecka/start'
 export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
 
 /**
+ * Enda landningen efter ett nytt konto, för lösenord och för Google
+ * (docs/design/profil-registrering-spec-2026-09-24.md, Del B). Sidan kör
+ * hämtkedjan för smakproven och skickar vidare: redirect, paket, förslaget
+ * i steg 3 eller spårvalet.
+ */
+export const VALKOMMEN_PATH = '/dashboard/valkommen'
+
+/**
  * "Kommit igång" per spår, avsnitt 6. Tre steg, alla tre krävs, mätt inom
  * 24 timmar från köp (12 timmar för Dagspasset).
  */

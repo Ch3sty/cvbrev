@@ -9,8 +9,8 @@
  * PostHogs /capture/ med projektnyckeln och användar-id som distinct_id, så
  * händelsen landar på samma person som klientens identify.
  *
- * Fire and forget. Anropet returnerar synkront och blockerar aldrig den
- * rutt som skjuter: PostHog får varken fälla ett svar till Stripe (då
+ * Fire and forget för de flesta anropare: löftet avvisas aldrig och behöver
+ * inte väntas in. PostHog får varken fälla ett svar till Stripe (då
  * kommer eventet igen och vi bokför det två gånger) eller fördröja en
  * kvittering. Alla fel fångas och loggas som varning.
  */
@@ -23,7 +23,7 @@ export type ServerEventName =
   | 'renewal_succeeded'
   | 'onboarding_step_completed'
   | 'onboarding_completed'
-  /** Bara från Google-callbacken; lösenordskonton skjuts av register-form. */
+  /** Bara från Google-callbacken; lösenordskonton skjuts av RegisterKontoSteg. */
   | 'signup_completed'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
@@ -50,17 +50,19 @@ function konfiguration(): { apiKey: string; host: string } | null {
 }
 
 /**
- * Skjuter en händelse från servern. Returnerar direkt; anropet får aldrig
- * awaitas i ett flöde som svarar en användare eller Stripe.
+ * Skjuter en händelse från servern. Returnerar löftet för anropet, som
+ * aldrig avvisas. Webhooken och rutterna väntar inte på det; Google-callbacken
+ * väntar med ett tak (vantaMedTak nedan), eftersom en serverless-funktion
+ * annars fryses vid redirecten innan anropet hunnit iväg.
  */
 export function captureServer<E extends ServerEventName>(
   event: E,
   distinctId: string,
   properties: ServerEventProperties<E>
-): void {
+): Promise<void> {
   const konf = konfiguration()
-  if (!konf) return
-  if (!distinctId) return
+  if (!konf) return Promise.resolve()
+  if (!distinctId) return Promise.resolve()
 
   const payload: CapturePayload = {
     api_key: konf.apiKey,
@@ -76,15 +78,36 @@ export function captureServer<E extends ServerEventName>(
   }
 
   try {
-    void fetch(`${konf.host}/capture/`, {
+    return fetch(`${konf.host}/capture/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    }).catch((error: unknown) => {
-      console.warn(`[POSTHOG] ${event} kunde inte skickas:`, (error as Error)?.message ?? error)
-    })
+    }).then(
+      () => undefined,
+      (error: unknown) => {
+        console.warn(`[POSTHOG] ${event} kunde inte skickas:`, (error as Error)?.message ?? error)
+      }
+    )
   } catch (error: unknown) {
     console.warn(`[POSTHOG] ${event} kastade:`, (error as Error)?.message ?? error)
+    return Promise.resolve()
+  }
+}
+
+/**
+ * Väntar in ett löfte högst takMs millisekunder. Svarar sant om löftet hann
+ * klart. Används där ett anrop måste hinna iväg före en redirect men aldrig
+ * får hålla kvar användaren (Google-callbackens signup_completed, 1,5 s).
+ */
+export async function vantaMedTak(lofte: Promise<unknown>, takMs = 1500): Promise<boolean> {
+  let timer: ReturnType<typeof setTimeout> | null = null
+  const tak = new Promise<boolean>((resolve) => {
+    timer = setTimeout(() => resolve(false), takMs)
+  })
+  try {
+    return await Promise.race([lofte.then(() => true, () => true), tak])
+  } finally {
+    if (timer) clearTimeout(timer)
   }
 }
 

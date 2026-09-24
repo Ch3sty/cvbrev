@@ -129,7 +129,7 @@ export function getSignupAnalyticsContext(): {
 
 /**
  * Hela attributionen som den ska skrivas till profiles.acquisition_source
- * vid registrering. Spår B anropar den i register-form och Google-callbacken.
+ * vid registrering. Registreringen (RegisterKontoSteg) och Google-callbacken anropar den.
  */
 export function getAcquisitionSource(): Attribution | null {
   return readAttribution();

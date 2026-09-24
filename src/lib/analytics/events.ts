@@ -13,6 +13,7 @@ import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
 import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
+import type { SignupEntry, SignupIntent } from '@/components/registrering/intent'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
@@ -68,11 +69,39 @@ export interface AnalyticsEvents {
     method?: 'password' | 'google'
     source_page?: string
     source_cluster?: string
+    /** Valet i registreringens steg 1, null när det hoppades över eller saknas. */
+    intent?: SignupIntent | null
+    entry?: SignupEntry
   }
   signup_completed: ClusterContext & {
     method?: 'password' | 'google'
     source_page?: string
     source_cluster?: string
+    intent?: SignupIntent | null
+    entry?: SignupEntry
+  }
+  /* ------------------------------------------ registreringstratten
+     docs/design/profil-registrering-spec-2026-09-24.md, Del B "Mätning".
+     Ingång, val, konto, förslag, beslut och landning. */
+  signup_flow_viewed: {
+    step: 'val' | 'konto' | 'forslag'
+    entry: SignupEntry
+    preset_intent?: SignupIntent | null
+    source_page?: string
+    source_cluster?: string
+  }
+  signup_intent_selected: {
+    intent: SignupIntent | null
+    /** Valet kom med i adressen (?borja=). */
+    preset: boolean
+    skipped: boolean
+  }
+  signup_landed: {
+    destination: string
+    intent: SignupIntent | null
+    /** Ett smakprov hämtades hem till kontot. */
+    claimed: boolean
+    via: 'forslag' | 'smakprov' | 'redirect' | 'paket' | 'sparval'
   }
   draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality'; yrke_slug?: string }
   activation_first_doc: { kind: 'letter' | 'cv' }
@@ -145,7 +174,11 @@ export interface AnalyticsEvents {
      ritades. trigger står kvar för anroparna som bara har det. */
   pricing_viewed: ClusterContext & {
     trigger: PricingTrigger
-    surface?: 'public' | 'account'
+    surface?: 'public' | 'account' | 'signup_forslag'
+    /** Paketet som visades, när ytan visar ett enda (registreringens steg 3). */
+    plan?: PlanKey
+    /** Valet i registreringens steg 1. */
+    intent?: SignupIntent | null
     logged_in?: boolean
     scope?: string | null
     track?: string | null
@@ -162,6 +195,8 @@ export interface AnalyticsEvents {
     surface: string
     /** Skiljer den som valde spår för att köpa från den som valde gratis. */
     intent?: 'purchase' | 'free'
+    /** Registreringens val, när spåret sparas från steg 3. */
+    onboarding_intent?: SignupIntent | null
   }
   track_changed: { from: string | null; to: string | null; surface: string }
   /* Köpsteget (skärm 1.2 i ValjSparClient) och vägen till Stripe. Tratten i
@@ -226,6 +261,11 @@ export interface AnalyticsEvents {
   interview_practice_started: { question: FragaId; surface: 'dashboard' }
   interview_practice_completed: { question: FragaId; level: number; surface: 'dashboard' }
   next_action_shown: { kind: string; surface: 'infor-intervjun' | 'hem' }
+  /* Bredden (beslut-registrering 2026-09-24, fråga 3): trycket på Nästa
+     handling eller raden Prova också. outside_intent är sant när funktionen
+     ligger utanför det område hon valde vid registreringen. */
+  next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
+  kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

@@ -1,70 +1,23 @@
 // src/app/register/page.tsx
-'use client'
+//
+// Registreringen (docs/design/profil-registrering-spec-2026-09-24.md, Del B).
+// Servern läser adressen och väljer läge ur landningstabellen: tratten,
+// kontot med ett förval (?borja=), smakprovet (?draft=, ?cv_start=, ?test=,
+// ?intervju=, ?personlighet=), paketet (?paket=) eller redirecten
+// (?redirect=). Klienten ritar stegen i det publika flödesskalet.
 
-import { Suspense, useCallback, useState } from 'react'
-import RegisterForm from '@/components/auth/register-form'
-import AuthShell from '@/components/auth/AuthShell'
-import RegisterCvPreview from '@/components/auth/RegisterCvPreview'
-import { ToolSkapaCvIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+import RegisterFlode from '@/components/registrering/RegisterFlode'
+import { registerIngang } from '@/components/registrering/intent'
 
-const REGISTER_QUOTES = [
-  'Bygg ett CV som öppnar dörrar.',
-  'Personliga brev som faktiskt läses.',
-  'Din nästa jobbansökan börjar här.',
-]
-
-const REGISTER_STATS = [
-  { value: '12 487', label: 'CV:n skapade' },
-  { value: '94%', label: 'når intervju' },
-  { value: '8', label: 'AI-verktyg' },
-  { value: '2 min', label: 'till färdigt CV' },
-]
-
-interface FormState {
-  fullName: string
-  email: string
-  score: number
-}
-
-export default function RegisterPage() {
-  const [formState, setFormState] = useState<FormState>({
-    fullName: '',
-    email: '',
-    score: 0,
+export default async function RegisterPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const params = await searchParams
+  const ingang = registerIngang((namn) => {
+    const v = params[namn]
+    return typeof v === 'string' ? v : null
   })
-
-  const handleStateChange = useCallback((state: FormState) => {
-    setFormState(state)
-  }, [])
-
-  const hasContent =
-    formState.fullName.trim().length > 0 || formState.email.trim().length > 0
-
-  return (
-    <AuthShell
-      illustration={
-        // På desktop: göm illustrationen när användaren börjat skriva (preview tar över)
-        hasContent ? null : <ToolSkapaCvIllustration className="w-full h-full" />
-      }
-      quotes={REGISTER_QUOTES}
-      stats={REGISTER_STATS}
-      desktopSideSlot={
-        hasContent ? (
-          <RegisterCvPreview
-            fullName={formState.fullName}
-            email={formState.email}
-            variant="desktop"
-          />
-        ) : null
-      }
-    >
-      <Suspense
-        fallback={
-          <div className="text-center text-slate-500 py-12">Laddar...</div>
-        }
-      >
-        <RegisterForm onStateChange={handleStateChange} />
-      </Suspense>
-    </AuthShell>
-  )
+  return <RegisterFlode ingang={ingang} />
 }

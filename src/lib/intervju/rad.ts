@@ -4,7 +4,7 @@
  *
  * Delas av claim-rutten och dashboardsidan. Sidan gör samma anspråk som
  * rutten när raden är ohämtad: Google-registreringen går inte genom
- * claim-kedjan i register-form och landar därför direkt på sidan.
+ * hämtkedjan på /dashboard/valkommen och landar därför direkt på sidan.
  *
  * Säkerheten är densamma i båda vägarna: token är ett slumpat uuid som bara
  * den som skrev svaret har sett, och en rad som redan hämtats av någon annan

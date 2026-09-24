@@ -114,6 +114,26 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
+/* Registreringen och inloggningen (PubliktFlodesskal) renderas på servern,
+   och bannern är server-HTML. Utan en höjd redan i första bilden stod bannern
+   i botten tills skriptet mätt foten och flyttade sig sedan 73 px: ett
+   layoutskifte på sidan alla nya konton passerar. Fotens höjd är känd per
+   läge (knapp 44, fotnot 18, spärrorsak 20, luft), så den står här. */
+html:has([data-publikt-flode]) .cookie-banner-container {
+  bottom: var(--flow-footer-h, 99px) !important;
+}
+html:has([data-publikt-flode='blockerad']) .cookie-banner-container {
+  bottom: var(--flow-footer-h, 127px) !important;
+}
+@media (min-width: 640px) {
+  html:has([data-publikt-flode]) .cookie-banner-container {
+    bottom: var(--flow-footer-h, 73px) !important;
+  }
+  html:has([data-publikt-flode='blockerad']) .cookie-banner-container {
+    bottom: var(--flow-footer-h, 101px) !important;
+  }
+}
+
 /* En spärr med kontoknapp syns (useFriSikt): samtycket och mobilens
    klistrade knapprad glider ut nedåt så de aldrig ligger över knappen.
    Transform och visibility, aldrig höjd, så inget layoutskifte. Samtycket

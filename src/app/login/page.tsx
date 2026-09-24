@@ -1,38 +1,23 @@
 // src/app/login/page.tsx
-'use client'
+//
+// Inloggningen i samma publika flödesskal som registreringen
+// (docs/design/profil-registrering-spec-2026-09-24.md, beslut 4): den som
+// växlar mellan dem möter en design, inte två. Adressen läses på servern så
+// att skalet (och cookie-bannerns plats ovanför foten) finns redan i första
+// HTML:en, utan layoutskifte.
 
-import { Suspense } from 'react'
-import LoginForm from '@/components/auth/login-form'
-import AuthShell from '@/components/auth/AuthShell'
-import { ToolCvAnalysIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+import LoginFlode from '@/components/registrering/LoginFlode'
 
-const LOGIN_QUOTES = [
-  'Tillbaka för att jaga ditt nästa jobb.',
-  'Var inte ödmjuk — du har stora drömmar.',
-  'En vana att fortsätta söka. En coach som hjälper.',
-]
-
-const LOGIN_STATS = [
-  { value: '12 487', label: 'CV:n skapade' },
-  { value: '94%', label: 'når intervju' },
-  { value: '8', label: 'AI-verktyg' },
-  { value: '2 min', label: 'till färdigt CV' },
-]
-
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const p = await searchParams
+  const s = (n: string) => (typeof p[n] === 'string' ? (p[n] as string) : null)
   return (
-    <AuthShell
-      illustration={<ToolCvAnalysIllustration className="w-full h-full" />}
-      quotes={LOGIN_QUOTES}
-      stats={LOGIN_STATS}
-    >
-      <Suspense
-        fallback={
-          <div className="text-center text-slate-500 py-12">Laddar...</div>
-        }
-      >
-        <LoginForm />
-      </Suspense>
-    </AuthShell>
+    <LoginFlode
+      params={{ redirect: s('redirect'), borja: s('borja'), error: s('error'), confirmed: s('confirmed'), reset: s('reset') }}
+    />
   )
 }

@@ -1,0 +1,177 @@
+[
+  {
+    "namn": "pixel7 bar: rubrik Skapa ditt konto",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 bar: inga osanna påståenden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 bar: Google först",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 bar: ingen footer",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 bar: CLS 0",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 bar: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 borja: valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 smakprov: rubrik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 smakprov: knapp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 smakprov: statusrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 login: nya skalet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 login: inga osanna påståenden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "pixel7 login: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: rubrik Skapa ditt konto",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: inga osanna påståenden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: Google först",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: ingen footer",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: CLS 0",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop bar: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop borja: valraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop smakprov: rubrik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop smakprov: knapp",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop smakprov: statusrad",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop login: nya skalet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop login: inga osanna påståenden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "desktop login: inga sidfel",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "paket: kontot skapat",
+    "ok": true,
+    "not": "f3a17e76-7cae-4bb8-b96f-249d6e8dcec0"
+  },
+  {
+    "namn": "paket: landar på valj-spar med paketet",
+    "ok": true,
+    "not": "/dashboard/valj-spar?paket=all_month&steg=kop"
+  },
+  {
+    "namn": "finns: felraden",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "finns: Logga in bär valet",
+    "ok": true,
+    "not": "/login?borja=cv"
+  },
+  {
+    "namn": "testprov: rubrik",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "testprov: kontot skapat",
+    "ok": true,
+    "not": "7dfea5b5-dda8-4b01-a8a8-b6b3c8e42670"
+  },
+  {
+    "namn": "testprov: landar på testerna via hämtkedjan",
+    "ok": true,
+    "not": "/dashboard/tester"
+  },
+  {
+    "namn": "bar: kontot skapat",
+    "ok": true,
+    "not": "6eadddc8-8d01-4e18-b339-1460c30061e1"
+  },
+  {
+    "namn": "bar: landar på spårvalet",
+    "ok": true,
+    "not": "/dashboard/valj-spar"
+  }
+]

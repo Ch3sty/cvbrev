@@ -1,8 +1,8 @@
 // src/app/auth/callback/route.ts
 // OAuth-callback för Google-inloggning (docs/plan-konvertering.md, B2).
 //
-// Växlar koden mot en session, säkerställer att profilraden finns, startar
-// reverse trial för nyskapade konton och skickar användaren vidare till en
+// Växlar koden mot en session, säkerställer att profilraden finns,
+// skickar nya konton till /dashboard/valkommen och övriga vidare till en
 // validerad relativ path.
 
 import { cookies } from 'next/headers'
@@ -10,8 +10,9 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { logActivityServer } from '@/lib/activation-tracking'
-import { captureServer } from '@/lib/analytics/server'
-import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
+import { captureServer, vantaMedTak } from '@/lib/analytics/server'
+import { VALKOMMEN_PATH } from '@/lib/onboarding/steps'
+import { SIGNUP_COOKIE, googleCallbackMal, lasSignupCookie } from '@/components/registrering/intent'
 
 /** Bara relativa paths inom appen släpps igenom, aldrig protokoll-relativa. */
 function safeNext(raw: string | null): string {
@@ -66,6 +67,11 @@ export async function GET(request: NextRequest) {
   } catch {
     /* trasig cookie ska aldrig stoppa inloggningen */
   }
+
+  // Registreringstratten (jc_signup): valet, ingången, smakprovet, paketet
+  // och redirecten. Skrivs av /register före hoppet till Google, SameSite=Lax,
+  // så den följer med tillbaka hit.
+  const signup = lasSignupCookie(cookieStore.get(SIGNUP_COOKIE)?.value)
 
   let isNewAccount = false
 
@@ -135,8 +141,14 @@ export async function GET(request: NextRequest) {
     // distinct_id är användar-id:t, samma som klientens identify, så
     // händelsen landar på samma person som den anonyma sessionen.
     const attr = (acquisition ?? {}) as { landing_path?: unknown; landing_cluster?: unknown }
-    captureServer('signup_completed', user.id, {
+    //
+    // Inväntas med ett tak på 1,5 s. Utan väntan fryste Vercel funktionen vid
+    // redirecten innan anropet hann iväg: 0 Google-konton i PostHog på 30
+    // dagar mot 15 i databasen (designfilen, Fynd).
+    const skickad = captureServer('signup_completed', user.id, {
       method: 'google',
+      intent: signup?.intent ?? null,
+      entry: signup?.entry ?? 'direkt',
       ...(typeof attr.landing_path === 'string' ? { source_page: attr.landing_path } : {}),
       ...(typeof attr.landing_cluster === 'string' ? { source_cluster: attr.landing_cluster } : {}),
     })
@@ -158,14 +170,20 @@ export async function GET(request: NextRequest) {
     } catch (trialError) {
       console.error('[auth/callback] post-signup misslyckades:', trialError)
     }
+
+    await vantaMedTak(skickad, 1500)
   }
 
-  // Nytt konto via Google landar på spårvalet, inte på hemskärmen. Samma skäl
-  // som i register-form: mätpunkt 1 är spårval till köp i samma session, och
-  // steget får inte konkurrera med sju andra element (Fas 2A flöde 1). Bad
-  // användaren uttryckligen om en annan sida, alltså ett riktigt next, går
-  // hon dit i stället: hon var mitt i något när kontot skapades.
-  const destination = isNewAccount && next === '/dashboard' ? TRACK_CHOICE_PATH : next
+  // Nytt konto landar på /dashboard/valkommen, den enda landningen efter ett
+  // nytt konto (Del B). Den kör hämtkedjan för brevutkast, CV-start och
+  // testprov, som förut bara kördes i lösenordsvägen, och läser tratten ur
+  // jc_signup. Bad användaren uttryckligen om en annan sida går hon dit.
+  const destination = googleCallbackMal({
+    isNewAccount,
+    next,
+    cookie: signup,
+    valkommenPath: VALKOMMEN_PATH,
+  })
 
   return NextResponse.redirect(`${origin}${destination}`)
 }

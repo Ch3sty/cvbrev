@@ -4,7 +4,7 @@
  *
  * Samma mönster som src/lib/intervju/rad.ts: claim-rutten och
  * tolkningssidan gör samma anspråk, så Google-registreringen (som inte går
- * genom claim-kedjan i register-form) landar rätt ändå. En hämtad rad är
+ * genom hämtkedjan på /dashboard/valkommen) landar rätt ändå. En hämtad rad är
  * permanent (expires_at null, ägarens beslut 2).
  *
  * Server: tabellen har RLS utan policies och läses bara med admin-klienten.

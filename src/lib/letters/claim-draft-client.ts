@@ -8,6 +8,9 @@
  * när det inte finns något att hämta, så anropande kod kan falla tillbaka på
  * sin vanliga destination.
  *
+ * Varje claim-funktion tar också token direkt (fran), för valkommen-sidan
+ * som läser den ur cookien jc_signup efter Googles redirect.
+ *
  * Ingen av dem kastar: ett misslyckat claim får aldrig stoppa en registrering
  * som redan gått igenom.
  */
@@ -68,8 +71,8 @@ export function storePendingCvStart(value: string): void {
  *
  * Returnerar path till brevet, eller null om inget väntar.
  */
-export async function claimPendingDraft(): Promise<string | null> {
-  const token = readQueryParam('draft') ?? readSession(DRAFT_STORAGE_KEY)
+export async function claimPendingDraft(fran?: string | null): Promise<string | null> {
+  const token = fran ?? readQueryParam('draft') ?? readSession(DRAFT_STORAGE_KEY)
   if (!token) return null
 
   try {
@@ -105,8 +108,8 @@ export async function claimPendingDraft(): Promise<string | null> {
  *
  * Format på värdet: "{yrke}:{mall}".
  */
-export async function claimPendingCvStart(): Promise<string | null> {
-  const raw = readQueryParam('cv_start') ?? readSession(CV_START_STORAGE_KEY)
+export async function claimPendingCvStart(fran?: string | null): Promise<string | null> {
+  const raw = fran ?? readQueryParam('cv_start') ?? readSession(CV_START_STORAGE_KEY)
   if (!raw) return null
 
   clearSession(CV_START_STORAGE_KEY)
@@ -136,8 +139,8 @@ export function storePendingTestSession(token: string): void {
  *
  * Returnerar path till testöversikten, eller null om inget prov väntar.
  */
-export async function claimPendingTestSession(): Promise<string | null> {
-  const token = readQueryParam('test') ?? readSession(TEST_STORAGE_KEY)
+export async function claimPendingTestSession(fran?: string | null): Promise<string | null> {
+  const token = fran ?? readQueryParam('test') ?? readSession(TEST_STORAGE_KEY)
   if (!token) return null
 
   try {
@@ -179,8 +182,8 @@ export function storePendingIntervju(token: string): void {
  *
  * Returnerar path till svaret i dashboarden, eller null om inget väntar.
  */
-export async function claimPendingIntervju(): Promise<string | null> {
-  const token = readQueryParam('intervju') ?? readSession(INTERVJU_STORAGE_KEY)
+export async function claimPendingIntervju(fran?: string | null): Promise<string | null> {
+  const token = fran ?? readQueryParam('intervju') ?? readSession(INTERVJU_STORAGE_KEY)
   if (!token) return null
 
   try {
@@ -224,8 +227,8 @@ export function storePendingPersonlighet(token: string): void {
  *
  * Returnerar path till tolkningssidan, eller null om inget väntar.
  */
-export async function claimPendingPersonlighet(): Promise<string | null> {
-  const token = readQueryParam('personlighet') ?? readSession(PERSONLIGHET_STORAGE_KEY)
+export async function claimPendingPersonlighet(fran?: string | null): Promise<string | null> {
+  const token = fran ?? readQueryParam('personlighet') ?? readSession(PERSONLIGHET_STORAGE_KEY)
   if (!token) return null
 
   try {

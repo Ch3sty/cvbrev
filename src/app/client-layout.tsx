@@ -35,6 +35,10 @@ export default function ClientLayout({
     pathname?.startsWith('/dashboard') ||
     pathname?.startsWith('/rekryterare') ||
     pathname?.startsWith('/admin');
+  // Registreringen och inloggningen är flöden i ett eget skal på hela
+  // skärmen (docs/design/profil-registrering-2026-09-24.html). Footern hör
+  // inte hemma under dem.
+  const arFlode = pathname === '/register' || pathname === '/login';
 
   // Appytan märks på rotelementet, för globals.css (bland annat
   // cookie-bannerns placering i flöden).
@@ -70,7 +74,7 @@ export default function ClientLayout({
             </main>
 
         {/* Footer - visas overallt utom pa appytorna (dashboard + rekryterarportal) */}
-        {!isAppSurface && <Footer />}
+        {!isAppSurface && !arFlode && <Footer />}
 
         {/* Cookie-samtycket ritas av rot-layouten som server-HTML
             (src/components/samtycke/CookieBanner.tsx), utan React här. */}
