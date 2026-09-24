@@ -152,7 +152,8 @@ describe('kriterium 15: menyn är identisk oavsett val', () => {
     expect(html[0].length).toBeGreaterThan(1000)
     expect(html[1]).toBe(html[0])
     expect(html[2]).toBe(html[0])
-  })
+    // Sidomenyn importeras dynamiskt med hela sitt träd; i hela sviten tar det mer än 5 s.
+  }, 60_000)
 })
 
 /* ------------------------------------------------------------ 16 och bredden */
