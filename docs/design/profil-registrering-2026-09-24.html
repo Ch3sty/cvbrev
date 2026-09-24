@@ -313,6 +313,56 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 .tratt div{background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:12px 14px;font-size:12px;line-height:17px;color:var(--ink-2)}
 .tratt div b{display:block;font-size:14px;line-height:20px;color:var(--ink-1);margin-bottom:4px}
 .tratt div code{display:block;margin-top:6px;font-size:11px;line-height:15px}
+/* Alternativ C: paketkort som ChoiceCard med pris och tre rader */
+.ccp{position:relative;border:1px solid var(--kant);border-radius:12px;background:var(--panel);padding:12px 44px 12px 12px}
+.ccp.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.ccp.vald::after{content:"";position:absolute;right:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.5l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat}
+.ccp .topp3{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ccp .t{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-1)}
+.ccp .p{font-size:13px;line-height:18px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ccp ul{margin-top:6px;display:grid;gap:2px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.ccp li{display:flex;gap:8px}
+.ccp li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ink-1);flex:none;margin-top:7px}
+.lv{margin-top:8px;display:flex;gap:6px}
+.lv span{flex:1;height:32px;border:1px solid var(--kant);border-radius:6px;font-size:12px;display:flex;align-items:center;justify-content:center;color:var(--ink-2)}
+.lv span.pa{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1);font-weight:600;color:var(--ink-1)}
+.stampel{display:inline-block;margin-bottom:10px;background:var(--panel);border:1px dashed var(--kant-stark);border-radius:8px;padding:6px 10px;font-size:13px;line-height:18px;font-weight:500;color:var(--ink-2)}
+.jmf td:first-child{color:var(--ink-1);font-weight:600;white-space:nowrap}
+.jmf td.val{background:var(--insunken)}
+/* Kom igång-arket (KomIgangArk): Sheet på mobil, brickor min-h 64, grid 44/1fr/24 */
+.dimma{position:absolute;inset:0;background:rgba(28,25,23,.45)}
+.ark{position:absolute;left:0;right:0;bottom:0;background:var(--panel);border-radius:16px 16px 0 0;box-shadow:0 8px 24px rgba(28,25,23,.12),0 1px 2px rgba(28,25,23,.08);padding:8px 16px 20px}
+.ark .grepp{width:40px;height:4px;border-radius:2px;background:var(--kant-stark);margin:0 auto 10px}
+.ark .ah{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ark h2{font-family:var(--display);font-size:20px;line-height:26px;font-weight:700;letter-spacing:-.02em}
+.ark .n{font-size:14px;color:var(--ink-3);font-variant-numeric:tabular-nums;line-height:26px}
+.brickor{margin-top:4px;display:grid;gap:8px}
+.bricka{display:grid;grid-template-columns:44px 1fr 24px;gap:12px;align-items:center;min-height:64px;padding:8px 12px;border:1px solid var(--kant);border-radius:12px;background:var(--panel)}
+.bricka.nasta{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.bricka .ip{width:44px;height:44px;border-radius:8px;background:var(--insunken);display:flex;align-items:center;justify-content:center;color:var(--ink-1)}
+.bricka.nasta .ip{background:var(--accent-mjuk)}
+.bricka .ip svg{width:26px;height:26px}
+.bricka .ey{display:block;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.bricka b{display:block;font-size:14px;line-height:19px;font-weight:600;color:var(--ink-1)}
+.bricka small{display:block;font-size:12px;line-height:17px;color:var(--ink-3)}
+.bricka .ring{width:24px;height:24px;border-radius:50%;border:2px solid var(--kant-stark);display:flex;align-items:center;justify-content:center}
+.bricka.nasta .ring{border-color:var(--ink-1)}
+.bricka.nasta .ring::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.omrade{margin:12px 0 6px;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+/* HemHuvud och InkPanel (NastaHandling) */
+.hh h1{margin-top:8px;font-family:var(--display);font-size:32px;line-height:35px;font-weight:800;letter-spacing:-.025em}
+.hh p.rad3{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-2)}
+.inkp{margin-top:20px;background:var(--ink-1);border:1px solid var(--ink-1);border-radius:12px;padding:16px;color:#fff;display:flex;flex-direction:column;gap:16px}
+.inkp .scen{width:120px;color:#fff}
+.inkp .ey{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-1-accent)}
+.inkp .t{margin-top:8px;font-family:var(--display);font-size:24px;line-height:28px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+.inkp .x{margin-top:8px;font-size:14px;line-height:22px;color:var(--ink-1-mjuk)}
+.inkp .h{margin-top:24px;display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.inkp .knapp{background:var(--panel);color:var(--ink-1);font-weight:600}
+.inkp .lank{font-size:14px;font-weight:500;color:var(--ink-1-mjuk);text-decoration:underline;text-decoration-color:var(--ink-1-kant);text-underline-offset:4px;min-height:44px;display:inline-flex;align-items:center}
+.forslagsrad{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:8px 0;border-top:1px solid var(--kant);border-bottom:1px solid var(--kant)}
+.forslagsrad b{display:block;font-size:14px;line-height:20px;font-weight:500}
+.forslagsrad small{display:block;font-size:13px;line-height:18px;color:var(--ink-3)}
 </style>
 </head>
 <body>
@@ -356,6 +406,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <!-- Scenerna i förslagskortets platta, ritade som IlluScenCv / IlluScenMatris / IlluScenAllt i 44. -->
   <symbol id="scen-cv" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="22" height="30" rx="2.5" fill="#fff"/><path d="M13 13h12M13 18h12M13 23h8"/><circle cx="31" cy="12" r="6" fill="#fff" stroke="#D9480F"/><path d="M29 12h4" stroke="#D9480F"/></g></symbol>
   <symbol id="scen-matris" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="26" height="26" rx="2.5" fill="#fff"/><path d="M15.7 8v26M24.3 8v26M7 16.7h26M7 25.3h26"/><circle cx="11.3" cy="12.3" r="2"/><path d="M18 14.5l2-4 2 4z"/><rect x="26.5" y="19" width="4" height="4"/><circle cx="34" cy="10" r="5" fill="#fff" stroke="#D9480F"/><path d="M34 8v2.3l1.5 1" stroke="#D9480F"/></g></symbol>
+  <symbol id="scen-matris-ink" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8" width="26" height="26" rx="2.5" fill="#2C2724"/><path d="M15.7 8v26M24.3 8v26M7 16.7h26M7 25.3h26"/><circle cx="11.3" cy="12.3" r="2"/><path d="M18 14.5l2-4 2 4z"/><rect x="26.5" y="19" width="4" height="4"/><circle cx="34" cy="10" r="5" fill="#2C2724" stroke="#FBB98A"/><path d="M34 8v2.3l1.5 1" stroke="#FBB98A"/></g></symbol>
   <symbol id="scen-allt" viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="19" rx="2"/><rect x="15" y="7" width="14" height="19" rx="2" fill="#2C2724"/><rect x="25" y="10" width="14" height="19" rx="2" fill="#2C2724"/><path d="M8 35h28" stroke="#FBB98A"/><circle cx="14" cy="35" r="1.8" fill="#fff"/><circle cx="22" cy="35" r="1.8" fill="#fff"/><circle cx="30" cy="35" r="1.8" fill="#fff"/></g></symbol>
 </svg>
 
@@ -365,6 +416,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <p class="eyebrow">Design för godkännande · 2026-09-24</p>
   <h1>Profilen för sig, prenumerationen för sig, och en kort väg in för den som klickar Skapa konto</h1>
   <p>Två saker. Del A delar upp kontot i två menyrader och bygger om profilsidan så att namn, ort och foto till CV:t står först, med förvald ton för personliga brev under en egen rubrik. Del B är en tratt i tre steg för den som skapar konto via headern: vad vill du börja med, kontot, och ett förslag på paket med gratis som ett fullvärdigt val. Mockuperna är ritade i Trådens tokens ur globals.css med de riktiga komponenternas klasser (PageHeader, ProfileCard, ProfileTextField, ProfileToggle, ChoiceCard, StatusRow, FlowShell, SparKort) översatta till px. Underlaget är skärmdumpar av produktionen tagna i dag, inloggad som ett QA-konto som är raderat. All text är slutcopy.</p>
+  <p><b>Uppdaterad samma dag efter saas-leads beslut</b> (<code>docs/rapporter/beslut-registrering-2026-09-24.md</code>): alternativen vägda, villkoren för frågan före kontot, bredden för alla konton, statusraden utan foto och besluten. Filen visar flödet som det blir. Väntar på ägarens slutliga ja.</p>
 </header>
 
 <!-- ================================================================ FYND -->
@@ -432,6 +484,58 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   </div>
 </section>
 
+<!-- ================================================================ ALTERNATIV -->
+<section class="sektion">
+  <p class="eyebrow">Tre alternativ vägda</p>
+  <h2>Frågan före kontot som verktygsval, inte som paketval</h2>
+  <p class="led">Saas-lead vägde tre former för den bara /register-ingången mot konto, köp och aktivering. Den valda formen är A. Ur C behålls formen och pengavägen, och C avgörs av en avläsning 22 oktober i stället för att byggas nu. Skälet i en mening: HBO Max kan börja med priset därför att besökaren redan vet vad HBO är. Vår besökare sökte "logiskt test" på Google för tio sekunder sedan, och det enda hon vet om oss är att testet var gratis.</p>
+  <table class="jmf">
+    <thead><tr><th></th><th>A. Fråga före kontot (vald)</th><th>B. Inget före, spårval efter (i dag)</th><th>C. Paketvy före kontot (HBO Max-form)</th></tr></thead>
+    <tbody>
+      <tr><td>Till konto</td><td class="val">Ett tryck extra för 84 procent, men kontosteget får ett skäl ("Du börjar med testerna"). Nettot är okänt, därför finns en kill-regel.</td><td>Kortast väg, men formuläret står utan skäl när statistiken och trialraden tas bort.</td><td>Störst risk. Den som tryckte "Starta gratis test" möter ett pris innan hon sett ett test. Gratis som fjärde kort tävlar på paketens villkor och förlorar (Fas 2D avvisade det).</td></tr>
+      <tr><td>Till köp</td><td class="val">Priset syns i steg 3 med sammanhang, för den som redan har konto.</td><td>Samma skärm som A:s steg 3, fast utan intent och med CV förvalt.</td><td>Priset syns tidigast av alla, men köpet kräver ändå konto och kassa. C kan aldrig ge fler köp än antalet konton, och den sänker antalet konton.</td></tr>
+      <tr><td>Aktivering</td><td class="val">Landar i rätt verktyg. Bäst.</td><td>Landar på hemskärmen i allmänt läge.</td><td>Gratisvalet säger inte vad hon vill göra. Samma som B.</td></tr>
+    </tbody>
+  </table>
+  <div class="beslut">
+    <h3>Beslut: A, med tre villkor</h3>
+    <ol>
+      <li><b>Valet styr aldrig vad som syns.</b> <code>onboarding_intent</code> får bara läsas av landningen, Kom igång och hemskärmens ordning. Aldrig av <code>Sidebar</code>, <code>features.ts</code> eller någon behörighet. Det står som acceptanskriterium med grep i specen.</li>
+      <li><b>Kill-regel.</b> Mäts med minst 60 ingångar, alltså tidigast fyra veckor efter deploy. Tappar steg 1 mer än 25 procent mot kontosteget flyttar samma fem kort till efter kontot, inga andra ändringar.</li>
+      <li><b>Raden under frågan står kvar:</b> "Allt annat finns i menyn, och det mesta går att prova gratis."</li>
+    </ol>
+  </div>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · paketvyn som den skulle se ut</p>
+      <span class="stampel">Alternativ C, byggs bara om avläsningen 22 oktober motiverar det</span>
+      <div class="skal">
+        <div class="fs-topp pub-topp"><div class="in"><span class="logga"><i>J</i><b>Jobbcoach<span>.ai</span></b></span><a class="textlank kort" href="#" style="padding:12px 4px">Logga in</a></div><div class="fs-linje"><i style="width:33%"></i></div></div>
+        <div class="fs-main"><div class="in">
+          <p class="t-steg">Steg 1 av 3</p>
+          <h2 class="fraga">Välj hur du vill börja</h2>
+          <p class="under">Gratis räcker långt. Paketen tar bort taken.</p>
+          <div class="valen" role="radiogroup">
+            <div class="ccp vald"><div class="topp3"><span class="t">CV-paketet</span><span class="p">79 kr i veckan</span></div>
+              <ul><li>Hela CV-analysen, kör om utan tak</li><li>41 CV-mallar som rekryteringssystem läser</li><li>Personliga brev på annonsen, som PDF</li></ul></div>
+            <div class="ccp"><div class="topp3"><span class="t">Träningspaketet</span><span class="p">79 kr i veckan</span></div>
+              <ul><li>Alla nivåer i matrislogik, verbalt och numeriskt</li><li>Provläge mot klockan</li><li>Fördjupade personlighetstestet, 120 påståenden</li></ul></div>
+            <div class="ccp"><div class="topp3"><span class="t">Hela paketet</span><span class="p">99 kr i veckan</span></div>
+              <ul><li>Jobbmatchning, 25 jobb per natt</li><li>Jobbcoachen och Bli upptäckt</li><li>Allt i CV-paketet och Träningspaketet</li></ul>
+              <div class="lv"><span>Dag</span><span class="pa">Vecka</span><span>Månad</span><span>Kvartal</span></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="fs-fot"><div class="in"><div class="tva"><span class="knapp">Fortsätt</span><span class="knapp sek">Börja gratis</span></div></div></div>
+      </div>
+    </div>
+    <div class="kol" style="max-width:560px">
+      <div class="motiv" style="margin-top:0;max-width:560px"><b>Vad som behålls ur C redan nu.</b> Formen: ChoiceCards i radiogrupp med en enda Fortsätt i foten, vilket är exakt steg 1 i A och spårvalets form. Och pengavägen: den som redan vet att hon vill köpa kommer från /priser eller ett reklamkort med <code>?paket=</code>, hoppar över frågan och landar på köpsteget efter kontot. Den vägen är C i praktiken, och den finns sedan 22 september.
+        <ul><li><b>Avläsning 22 oktober.</b> Ger /priser-ingången minst tre gånger fler köp per konto än headeringången byggs C som A/B-test på bar /register.</li><li>I så fall med gratis som sekundärknapp i foten, aldrig som fjärde kort, och längdväxeln bara på Hela paketet, som ritat här.</li><li>Samma tre paketnamn, priser och ordning som prissidan. Inga nya strängar behövs om C byggs.</li></ul></div>
+    </div>
+  </div>
+</section>
+
 <!-- ================================================================ DEL A: NAVIGERING -->
 <section class="sektion">
   <p class="eyebrow">Del A · Navigeringen</p>
@@ -471,7 +575,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <p class="led">Fyra sektioner i den ordning användaren behöver dem. <b>Överst i ditt CV</b> (foto, namn, ort, telefon, e-post, LinkedIn) är den aktiva sektionen med tråden. <b>Personliga brev</b> samlar förvald ton, brevhuvudets två växlar och förhandsvisningen. <b>Jobbsök</b> har målroll, bransch, matchningens önskemål och Bli upptäckt. <b>Konto</b> har prenumerationsraden, mejlen, utloggning och radering. En rad "Hoppa till" under sidhuvudet gör varje sektion ett tryck bort, och ankarna (<code>#cv</code>, <code>#personliga-brev</code>, <code>#jobbsok</code>, <code>#konto</code>) används av länkar från resten av appen.</p>
   <div class="rad">
     <div class="kol">
-      <p class="etikett">Pixel 7 · ny gratisanvändare via e-post: namn ifyllt, ort och foto saknas</p>
+      <p class="etikett">Pixel 7 · ny gratisanvändare via e-post: namn ifyllt, ort saknas</p>
       <div class="app">
         <div class="topp"><span class="meny"><svg class="ik"><use href="#ik-meny"/></svg></span><span class="plats">Konto · Profil</span><span class="klocka"><svg class="ik" style="width:24px;height:24px"><use href="#ik-klocka"/></svg></span><span class="av">A</span></div>
         <div class="inne">
@@ -481,7 +585,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
             <p class="desc">Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.</p>
           </div>
           <nav class="hopp"><a class="pa" href="#">CV-uppgifter</a><a href="#">Personliga brev</a><a href="#">Jobbsök</a><a href="#">Konto</a></nav>
-          <div class="statusrad" style="margin-top:16px"><span class="v"><i></i><span>Två saker saknas i ditt CV: ort och foto</span></span></div>
+          <div class="statusrad" style="margin-top:16px"><span class="v"><i></i><span>Ort saknas i ditt CV</span></span></div>
 
           <section class="pk aktiv" id="cv">
             <div class="pk-h"><div><h2>Överst i ditt CV</h2><p>Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.</p></div></div>
@@ -579,7 +683,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
         </div>
       </div>
       <div class="motiv"><b>Mobil.</b> Fotot står först i sektionen eftersom det är det enda fältet som inte är text, och det man letar efter när en mall frågar efter foto. Namn och ort följer direkt, sedan telefon, e-post och LinkedIn. Sektionen slutar vid 1 340 px, mot 2 560 px för samma fält i dag. Förvald ton börjar vid ungefär 1 500 px i stället för 3 000, och går att nå med ett tryck i Hoppa till.
-        <ul><li>Förtroendetexten krymper till en statusrad i positiv längst ned i CV-sektionen, med "Så gör vi" som öppnar hela stycket i ett ark. Löftet står kvar där det behövs, men det skjuter inte ned fälten.</li><li>Statusraden överst säger vad som saknas i CV:t, i klartext, och försvinner när allt är ifyllt. Saknas namnet blir den varm: "Namnet saknas. Utan det kan vi inte skapa ditt CV."</li><li>Konto är rader, inte fyra paneler. Mejlen och raderingen öppnas som ark (Sheet) eftersom de sällan används.</li><li>Orange: tråden på CV-sektionen (1), fokusringen (2), den varma statusraden när namnet saknas (3).</li></ul></div>
+        <ul><li>Förtroendetexten krymper till en statusrad i positiv längst ned i CV-sektionen, med "Så gör vi" som öppnar hela stycket i ett ark. Löftet står kvar där det behövs, men det skjuter inte ned fälten.</li><li>Statusraden överst säger om namn eller ort saknas i CV:t, i klartext, och försvinner när båda är ifyllda. Foto räknas aldrig. Saknas namnet blir den varm: "Namnet saknas. Utan det kan vi inte skapa ditt CV."</li><li>Konto är rader, inte fyra paneler. Mejlen och raderingen öppnas som ark (Sheet) eftersom de sällan används.</li><li>Orange: tråden på CV-sektionen (1), fokusringen (2), den varma statusraden när namnet saknas (3).</li></ul></div>
     </div>
     <div class="kol" style="max-width:520px">
       <p class="etikett">Hoppa till, fyra lägen</p>
@@ -722,8 +826,8 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
       <div class="motiv" style="margin-top:0;max-width:560px"><b>Varför fotot i en ruta och inte en dropzone.</b> Dagens uppladdning är en streckad yta med en knapp i, bredvid en ram på 72 px. Två rutor för en sak, och ytan säger "dra hit" på en telefon där ingen kan dra. Ett foto förstår man genom att se det, så ramen är beskedet och knappen bredvid är handlingen.
         <ul><li><b>Förminskning i klienten</b> (canvas, längsta sidan 800 px, JPEG 0,85) innan uppladdning. Mobilkameror ger 3 till 6 MB, och i dag stoppas de av 2 MB-gränsen med "Bilden är för stor. Max 2 MB tillåts". Med förminskningen ska felet i praktiken bara träffa trasiga filer. Det här är en ny funktion, se specen.</li><li><b>Fel i flödet</b>, som en felrad under fotot med vad som gick fel och vad man gör, aldrig som toast. I dag går felet till <code>successWithMascot</code>, alltså en toast med maskot.</li><li><b>Beskärning</b> byggs inte nu. Mallarna beskär med object-fit: cover mot mitten, och ramen på 88 px visar samma beskärning. Ett porträtt som ser fel ut i ramen ser fel ut i CV:t, och då byter man bild.</li><li>"Ta bort" frågar inte. Fotot går att ladda upp igen på två sekunder, och en bekräftelse för det är brus.</li></ul></div>
       <p class="etikett" style="margin-top:24px">Tomma tillstånd på sidan</p>
-      <div class="motiv" style="margin-top:0;max-width:560px"><b>Statusraden överst är sidans enda tomma tillstånd.</b> Profilen har alltid minst e-post, så sidan är aldrig tom, men CV:t kan vara det. Raden räknar tre fält som CV:t behöver (namn, ort, foto) och säger vilka som saknas.
-        <ul><li>Namn saknas (bara möjligt om någon raderat det): varm rad, "Namnet saknas. Utan det kan vi inte skapa ditt CV."</li><li>Ort och foto saknas: neutral, "Två saker saknas i ditt CV: ort och foto".</li><li>Bara foto saknas: raden visas inte. Foto är frivilligt i Sverige och vi ska inte tjata om det.</li><li>Google-konto: namn och foto är ofta ifyllda från start, och raden säger då bara "Ort saknas i ditt CV".</li><li>Fälten själva visar platshållare i ink-3 ("Till exempel Örebro"), aldrig "Ej angivet".</li></ul></div>
+      <div class="motiv" style="margin-top:0;max-width:560px"><b>Statusraden överst är sidans enda tomma tillstånd.</b> Profilen har alltid minst e-post, så sidan är aldrig tom, men CV:t kan vara det. Raden räknar två fält, namn och ort, och aldrig foto. Foto är frivilligt i Sverige och står därför aldrig i raden, oavsett vad mer som saknas.
+        <ul><li>Ort saknas: neutral rad, "Ort saknas i ditt CV". Det är det vanliga fallet, både för e-postkonton och Google-konton.</li><li>Namn saknas (bara möjligt om någon raderat det): varm rad, "Namnet saknas. Utan det kan vi inte skapa ditt CV." Saknas båda gäller den varma raden.</li><li>Namn och ort ifyllda: raden visas inte, med eller utan foto.</li><li>Fälten själva visar platshållare i ink-3 ("Till exempel Örebro"), aldrig "Ej angivet".</li></ul></div>
     </div>
   </div>
 </section>
@@ -790,6 +894,14 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <p class="eyebrow">Del B · Steg 1 av 3</p>
   <h2>Vad vill du börja med? Fem val, ett tryck, eller hoppa över</h2>
   <p class="led">Första skärmen på /register är en fråga, inte ett formulär. Fem ChoiceCards (plain, naken ikon 24) i en radiogrupp, i den ordning folk söker jobb: CV, personliga brev, rekryteringstester, intervjun, jobb. Inga priser på den här skärmen. Fortsätt i foten är spärrad tills ett kort är valt, och "Hoppa över och skapa konto direkt" står som textlänk under korten för den som vet vad hon vill och bara vill in.</p>
+  <div class="beslut">
+    <h3>Villkoren för steg 1</h3>
+    <ul>
+      <li><b>Valet styr landning, ordning och förslag, aldrig vad som syns.</b> <code>onboarding_intent</code> läses bara av <code>/dashboard/valkommen</code>, Kom igång och hemskärmens ordning. Aldrig av <code>Sidebar</code>, <code>src/lib/access/</code> (där <code>features.ts</code> bor) eller någon route under <code>/api/</code> utom <code>/api/onboarding/track</code>. Menyn och alla behörigheter är desamma för alla konton.</li>
+      <li><b>Kill-regel:</b> minst 60 ingångar, tidigast fyra veckor efter deploy. Tappar steg 1 mer än 25 procent mot kontosteget flyttar samma fem kort till efter kontot, inga andra ändringar.</li>
+      <li><b>Raden "Allt annat finns i menyn, och det mesta går att prova gratis" står kvar</b> under frågan.</li>
+    </ul>
+  </div>
   <div class="rad">
     <div class="kol">
       <p class="etikett">Pixel 7 · /register, inget valt än</p>
@@ -964,6 +1076,10 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <p class="eyebrow">Del B · Steg 3 av 3</p>
   <h2>Ett förslag som följer valet, och gratis som ett lika stort val bredvid</h2>
   <p class="led">Efter kontot, inne i appen på <code>/dashboard/valkommen</code> i FlowShell. Ett enda paketkort i spårvalets form (platta med scen, handling som rubrik, namnet under, tre rader, pris med period), sedan en ruta med vad gratis ger för just det valet, sedan en rad om första steget. Foten har två knappar i samma storlek: "Skaffa [paket], [pris]" i ink och "Börja gratis" med kant. Krysset uppe till höger gör samma sak som Börja gratis. Ingen jämförelse med tre kort här: den finns bakom "Jämför alla tre paketen" för den som vill.</p>
+  <div class="beslut">
+    <h3>Mätregel för primärknappen</h3>
+    <p>Avläsning fyra veckor efter deploy: går över 85 procent till gratis och under 5 procent till kassan byter Skaffa och Börja gratis plats som primär. Inget annat ändras. Till dess är paketet primär, eftersom det är den enda ytan där en ny användare ser ett pris med sammanhang, och det enda köpet sedan juni kom från skärmen efter kontot.</p>
+  </div>
   <div class="rad">
     <div class="kol">
       <p class="etikett">Pixel 7 · valet Skriva CV</p>
@@ -1024,7 +1140,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
   <div class="rad">
     <div class="kol desk-app">
       <p class="etikett">Desktop 1180 px · valet Hitta jobb att söka, med sidomenyn synlig (FlowShell ligger vid lg:left-64)</p>
-      <div class="skal-d">
+      <div class="skal-d" style="height:960px">
         <div class="side" style="width:256px;flex:none;background:var(--panel);border-right:1px solid var(--kant);padding:16px 12px">
           <div class="logo">Jobbcoach.ai</div>
           <div class="paket"><span><b>Du är på gratisnivån</b><small>Tre paket, från 49 kr</small></span><a href="#">Vad ingår?</a></div>
@@ -1033,6 +1149,25 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
             <div class="r tung"><svg class="ik"><use href="#ik-ansok"/></svg>Sökta tjänster</div>
             <div class="r tung"><svg class="ik"><use href="#ik-cv"/></svg>Mina CV</div>
             <div class="r tung"><svg class="ik"><use href="#ik-brev"/></svg>Personliga brev</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Skriv och förbättra</p>
+            <div class="r"><svg class="ik"><use href="#ik-plus"/></svg>Skriv nytt brev</div>
+            <div class="r"><svg class="ik"><use href="#ik-analys"/></svg>Analysera CV</div>
+            <div class="r"><svg class="ik"><use href="#ik-mallar"/></svg>CV-mallar</div>
+            <div class="r las"><svg class="ik"><use href="#ik-lank"/></svg>LinkedIn-profilen<svg class="ik lasik" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Hitta jobb</p>
+            <div class="r"><svg class="ik"><use href="#ik-jobb"/></svg>Matchade jobb</div>
+            <div class="r las"><svg class="ik"><use href="#ik-oga"/></svg>Bli upptäckt<svg class="ik lasik" viewBox="0 0 16 16"><use href="#ik-las"/></svg></div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Träna</p>
+            <div class="r"><svg class="ik"><use href="#ik-test"/></svg>Rekryteringstester</div>
+            <div class="r"><svg class="ik"><use href="#ik-intervju"/></svg>Inför intervjun</div>
+            <div class="r"><svg class="ik"><use href="#ik-coach"/></svg>Jobbcoachen</div>
+          </div>
+          <div class="sekt"><p class="eyebrow">Konto</p>
+            <div class="r"><svg class="ik"><use href="#ik-profil"/></svg>Profil</div>
+            <div class="r" style="margin-top:4px"><svg class="ik"><use href="#ik-krona"/></svg>Prenumeration<span class="antal">Från 49 kr</span></div>
           </div>
         </div>
         <div class="fs">
@@ -1059,7 +1194,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
           <div class="fs-fot"><div class="in" style="max-width:560px"><div class="tva"><span class="knapp">Skaffa Hela paketet, 99 kr i veckan</span><span class="knapp sek">Börja gratis</span></div></div></div>
         </div>
       </div>
-      <div class="motiv"><b>Desktop, jobbvalet.</b> Här är kortet ink, eftersom Hela paketet är det enda paketet med matchning och Bli upptäckt, och ink-kortet är samma form som Hela paketet har på spårvalet och prissidan. Längderna står i prisraden, inte som segment: valet av längd görs på köpsteget som i dag.
+      <div class="motiv"><b>Menyn är densamma för alla konton. Valet styr landning, ordning och förslag, aldrig vad som syns.</b><br><br><b>Desktop, jobbvalet.</b> Här är kortet ink, eftersom Hela paketet är det enda paketet med matchning och Bli upptäckt, och ink-kortet är samma form som Hela paketet har på spårvalet och prissidan. Längderna står i prisraden, inte som segment: valet av längd görs på köpsteget som i dag.
         <ul><li>FlowShell ligger till höger om sidomenyn på desktop, som alla flöden. Menyn syns men är inte målet: det är första gången hon ser appen, och den ska se ut som det den är.</li><li>Börja gratis landar på <code>/dashboard/jobbmatchning</code>, vars egen onboarding ber om CV:t.</li><li>Orange på skärmen: framstegslinjen (1), scenens punkt i accent-mjuk (räknas inte, illustration). Ett av tre.</li></ul></div>
     </div>
   </div>
@@ -1074,6 +1209,108 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
       <tr><td>Hoppade över steg 1</td><td>inget</td><td>Dagens spårval, tre kort, <b>utan förval</b></td><td>Hemskärmen</td><td>Samma</td></tr>
     </tbody>
   </table>
+</section>
+
+<!-- ================================================================ DEL B: BREDDEN -->
+<section class="sektion">
+  <p class="eyebrow">Del B · Bredden syns för alla, oavsett val</p>
+  <h2>Valet bestämmer vad som kommer först, aldrig vad som finns</h2>
+  <p class="led">Av 99 konton på 90 dagar gjorde 47 ett CV och 35 ett test. Fyra gjorde båda, alla samma dag och alla CV först. Ingen gick från test till CV. Risken är alltså inte att frågan smalnar av upptäckten, utan att vi inte visar bredden för någon. Det är en fråga för hemskärmen, inte för registreringen. Tre små ändringar (S) i samma släpp som tratten, annars är valet tomt för gratisanvändaren. Menyn är orörd: alla rader syns för alla, och ingen ny rad tillkommer.</p>
+  <div class="beslut">
+    <h3>De tre punkterna</h3>
+    <ol>
+      <li><b>Kom igång per intent för gratiskonton.</b> <code>KOM_IGANG_LISTA.gratis</code> blir fem listor, en per intent, med samma regel: det hon kom för först, sedan en gratis bricka från varje annat område. Intent tester: matrislogik grund, personlighetstestet, intervjuprovet, ladda upp CV, CV-analysen, tre matchade jobb. Intent CV: ladda upp CV, CV-analysen, en mall, ett personligt brev, matrislogik grund, intervjuprovet. Varje bricka går att göra utan att betala, så arket säljer ingenting och visar allt.</li>
+      <li><b>Träningsfokus på hemskärmen även för gratis.</b> I dag kräver det <code>scope === 'tester'</code>. Villkoret blir <code>scope === 'tester'</code> eller <code>onboarding_intent</code> tester eller intervju. Utan det pekar hemskärmen på CV-uppladdning för den som kom för ett test.</li>
+      <li><b>Intent som ordning i <code>useUnusedFeatures</code>.</b> Förslaget efter första dokumentet väljs ur det andra området: CV-intent får testerna först, test-intent får CV-analysen först. Där ska korsanvändningen födas.</li>
+    </ol>
+  </div>
+  <div class="rad">
+    <div class="kol">
+      <p class="etikett">Pixel 7 · gratiskonto med intent tester, Kom igång öppnat från sidomenyn</p>
+      <div class="app" style="height:800px">
+        <div class="topp"><span class="meny"><svg class="ik"><use href="#ik-meny"/></svg></span><span class="plats">Mitt jobbsök</span><span class="klocka"><svg class="ik" style="width:24px;height:24px"><use href="#ik-klocka"/></svg></span><span class="av">A</span></div>
+        <div class="inne"><div class="hh">
+            <p class="eyebrow">Torsdag 24 september</p>
+            <h1>God kväll, Anna</h1>
+            <p class="rad3">Du valde testerna, så vi börjar med träningen.</p>
+          </div>
+          <div class="inkp">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 44 44" style="width:100%;height:auto"><use href="#scen-matris-ink"/></svg></div>
+            <div>
+              <p class="ey">Nästa handling</p>
+              <p class="t">Gör ditt första rekryteringstest</p>
+              <p class="x">Logiktestet på grundnivå visar var du står innan det skarpa testet från arbetsgivaren kommer.</p>
+              <div class="h"><a class="knapp" href="#">Starta testet</a><a class="lank" href="#">Vill du börja med CV:t i stället?</a></div>
+            </div>
+          </div></div>
+        <div class="nav">
+          <span class="pa"><svg class="ik" style="stroke-width:2.25"><use href="#ik-hem"/></svg>Hem</span>
+          <span><svg class="ik"><use href="#ik-ansok"/></svg>Ansökningar</span>
+          <span><svg class="ik"><use href="#ik-plus"/></svg>Skapa</span>
+          <span><svg class="ik"><use href="#ik-profil"/></svg>Profil</span>
+        </div>
+        <div class="dimma"></div>
+        <div class="ark">
+          <div class="grepp"></div>
+          <div class="ah"><h2>Kom igång</h2><span class="n">0 av 6</span></div>
+          <p class="under" style="margin-top:2px">Allt här ingår gratis.</p>
+          <p class="omrade">Det du valde</p>
+          <ol class="brickor">
+            <li class="bricka nasta"><span class="ip"><svg class="ik"><use href="#ik-test"/></svg></span><span><span class="ey">Föreslaget nästa</span><b>Matrislogik, grundnivå</b><small>Ingår gratis, en gång per dygn</small></span><span class="ring"></span></li>
+            <li class="bricka"><span class="ip"><svg class="ik"><use href="#ik-profil"/></svg></span><span><b>Personlighetstestet</b><small>50 påståenden, se vad rekryteraren läser ut</small></span><span class="ring"></span></li>
+            <li class="bricka"><span class="ip"><svg class="ik"><use href="#ik-intervju"/></svg></span><span><b>Intervjuprovet</b><small>En fråga, återkoppling på svaret</small></span><span class="ring"></span></li>
+          </ol>
+          <p class="omrade">Gratis i de andra delarna</p>
+          <ol class="brickor">
+            <li class="bricka"><span class="ip"><svg class="ik"><use href="#ik-cv"/></svg></span><span><b>Ladda upp CV:t</b><small>PDF eller Word, en minut</small></span><span class="ring"></span></li>
+            <li class="bricka"><span class="ip"><svg class="ik"><use href="#ik-analys"/></svg></span><span><b>CV-analysen, gratisnivån</b><small>Poängen och tyngsta fyndet</small></span><span class="ring"></span></li>
+            <li class="bricka"><span class="ip"><svg class="ik"><use href="#ik-jobb"/></svg></span><span><b>Tre matchade jobb</b><small>Jobb du inte hittat själv, med skälen</small></span><span class="ring"></span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="motiv"><b>Kom igång, intent tester.</b> Samma ark och samma brickor som i dag (<code>KomIgangArk</code>, 64 px höga, ikon på insunken platta, ring till höger), bara en annan lista. Den som kom för testerna ser testerna först och därefter en bricka ur varje annat område: CV, analys och jobb. Så ser hon hela bredden första gången, utan en egen "Det här finns också"-rad.
+        <ul><li>Två små områdesetiketter i eyebrow-stil delar listan. Det är det enda nya i arket.</li><li>Undertexterna säger "Ingår gratis" där det behövs. Ingen bricka leder till en betalvägg.</li><li>Orange: Föreslaget nästa i accent-ink (1), ringens punkt (2). Som i dag.</li></ul></div>
+    </div>
+    <div class="kol">
+      <p class="etikett">Pixel 7 · samma konto, hemskärmen med arket stängt</p>
+      <div class="app" style="height:800px">
+        <div class="topp"><span class="meny"><svg class="ik"><use href="#ik-meny"/></svg></span><span class="plats">Mitt jobbsök</span><span class="klocka"><svg class="ik" style="width:24px;height:24px"><use href="#ik-klocka"/></svg></span><span class="av">A</span></div>
+        <div class="inne"><div class="hh">
+            <p class="eyebrow">Torsdag 24 september</p>
+            <h1>God kväll, Anna</h1>
+            <p class="rad3">Du valde testerna, så vi börjar med träningen.</p>
+          </div>
+          <div class="inkp">
+            <div class="scen" aria-hidden="true"><svg viewBox="0 0 44 44" style="width:100%;height:auto"><use href="#scen-matris-ink"/></svg></div>
+            <div>
+              <p class="ey">Nästa handling</p>
+              <p class="t">Gör ditt första rekryteringstest</p>
+              <p class="x">Logiktestet på grundnivå visar var du står innan det skarpa testet från arbetsgivaren kommer.</p>
+              <div class="h"><a class="knapp" href="#">Starta testet</a><a class="lank" href="#">Vill du börja med CV:t i stället?</a></div>
+            </div>
+          </div>
+          <div class="forslagsrad"><span><b>Kom igång</b><small>0 av 6 provade, allt ingår gratis</small></span><a class="textlank kort" href="#">Öppna</a></div>
+        </div>
+        <div class="nav">
+          <span class="pa"><svg class="ik" style="stroke-width:2.25"><use href="#ik-hem"/></svg>Hem</span>
+          <span><svg class="ik"><use href="#ik-ansok"/></svg>Ansökningar</span>
+          <span><svg class="ik"><use href="#ik-plus"/></svg>Skapa</span>
+          <span><svg class="ik"><use href="#ik-profil"/></svg>Profil</span>
+        </div>
+      </div>
+      <div class="motiv"><b>Hemskärmen, intent tester.</b> Träningsfokus gäller nu även gratis: HemHuvud med raden "Du valde testerna, så vi börjar med träningen.", och Nästa handling (InkPanel) pekar på första rekryteringstestet i stället för CV-uppladdningen. "Vill du börja med CV:t i stället?" står kvar som textlänk, så att CV-vägen aldrig är gömd.
+        <ul><li>Samma komponenter och samma copy som betalande Träningspaketet har i dag (<code>HEM.traning</code>), utom första raden, som för gratis säger vad hon valde i stället för vilket paket hon har.</li><li>Intent intervju ger samma skärm med intervjufrågan först (<code>traningsHandling</code> som i dag).</li></ul></div>
+    </div>
+    <div class="kol" style="max-width:412px">
+      <p class="etikett">Förslagsraden efter första dokumentet, intent CV</p>
+      <div style="width:412px;background:var(--mark);border:1px solid var(--kant-stark);border-radius:14px;padding:16px">
+        <p class="sl" style="margin:0 0 8px;font-size:14px;line-height:20px;font-weight:500;color:var(--ink-3)">Prova också</p>
+        <div class="forslagsrad" style="margin-top:0"><span><b>Klarar du logiktestet?</b><small>Du har ett CV klart. Logiktest är vanliga i urvalet efter ansökan. Grundnivån ingår gratis.</small></span><a class="textlank kort" href="#" style="flex:none">Prova</a></div>
+      </div>
+      <div class="motiv"><b>useUnusedFeatures med intent som ordning.</b> Hemskärmens enda rad med en oprövad funktion (plan-inloggat-omdesign, avsnitt 4) väljer nu ur det andra området. För CV-intent är det testerna efter första dokumentet; för test-intent är det CV-analysen. Raden byts när funktionen använts, som i dag.
+        <ul><li>Intent tester får motsvarande rad: "Vad ser rekryteraren i ditt CV? Analysen visar poängen och det tyngsta fyndet, gratis."</li><li>Mäts med <code>next_action_clicked</code> och <code>outside_intent: true</code>.</li></ul></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================================================================ DEL B: MÄTNING -->
@@ -1103,11 +1340,13 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
     </tbody>
   </table>
   <div class="beslut">
-    <h3>Så läser vi tratten efter fyra veckor</h3>
+    <h3>Så läser vi tratten: fyra veckor efter deploy, och 22 oktober</h3>
     <ul>
       <li><b>Ingång till konto per entry:</b> <code>signup_flow_viewed step=val</code> till <code>signup_completed</code>, uppdelat på entry. Jämförs med dagens tal: 20 personer på /register till 8 konton sedan 22 september.</li>
-      <li><b>Hoppar steg 1 av folk?</b> Andelen som lämnar på <code>step=val</code> utan <code>signup_intent_selected</code>. Över 25 % mot kontosteget är signalen att flytta frågan efter kontot (beslut 1 nedan).</li>
-      <li><b>Förslag till köp:</b> <code>pricing_viewed surface=signup_forslag</code> till <code>checkout_started</code> och <code>subscription_paid</code>, per intent.</li>
+      <li><b>Kill-regeln för steg 1:</b> minst 60 ingångar, tidigast fyra veckor efter deploy. Tapp mellan <code>signup_flow_viewed step=val</code> och <code>step=konto</code> över 25 procent flyttar samma fem kort till efter kontot.</li>
+      <li><b>Förslag till köp:</b> <code>pricing_viewed surface=signup_forslag</code> till <code>checkout_started</code> och <code>subscription_paid</code>, per intent. Över 85 procent gratis och under 5 procent kassa efter fyra veckor byter primärknapp.</li>
+      <li><b>22 oktober, alternativ C:</b> köp per konto från /priser-ingången (<code>entry=pris</code>) mot headeringången (<code>entry=header</code>). Minst tre gånger fler från /priser bygger C som A/B-test på bar /register.</li>
+      <li><b>Bredden:</b> andelen gratiskonton som provar en funktion utanför sitt intent inom sju dagar (<code>kom_igang_tile_clicked</code> och <code>next_action_clicked</code> med <code>outside_intent: true</code>). I dag gjorde 4 av 99 konton både CV och test.</li>
       <li><b>Gratis som landar rätt:</b> <code>signup_landed</code> till <code>activation_first_doc</code> inom 24 timmar, per intent. Det är måttet på att "landar rätt" fungerar.</li>
       <li>PostHog-insikt i dashboarden "Paket och onboarding" (968012) med kohortfiltret, och Tratt i adminen får ett steg till mellan Konto och Spårval.</li>
     </ul>
@@ -1126,7 +1365,7 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
       <tr><td>Toppraden</td><td>Konto · Profil / Konto · Prenumeration</td></tr>
       <tr><td>Profil, sidhuvud</td><td>Konto / Din profil / Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.</td></tr>
       <tr><td>Hoppa till</td><td>CV-uppgifter · Personliga brev · Jobbsök · Konto</td></tr>
-      <tr><td>Statusrad, saknas</td><td>Två saker saknas i ditt CV: ort och foto / Ort saknas i ditt CV / Namnet saknas. Utan det kan vi inte skapa ditt CV.</td></tr>
+      <tr><td>Statusrad, saknas</td><td>Ort saknas i ditt CV / Namnet saknas. Utan det kan vi inte skapa ditt CV. (Foto nämns aldrig.)</td></tr>
       <tr><td>Sektion 1</td><td>Överst i ditt CV / Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.</td></tr>
       <tr><td>Foto</td><td>Foto · Valfritt / Ladda upp foto / Byt foto / Ta bort / Laddar upp / JPG, PNG eller WebP, högst 2 MB / Hämtat från ditt Google-konto / Används bara i CV-mallar med plats för foto. Foto är frivilligt i Sverige, och rekryteringssystem läser bara texten.</td></tr>
       <tr><td>Foto, fel</td><td>Bilden är för stor / Den är {n} MB och gränsen är 2 MB. Ta en skärmdump av bilden eller välj en mindre. · Filen går inte att läsa / Välj en bild i JPG, PNG eller WebP. · Bilden kunde inte sparas / Nätet svarade inte. Försök igen om en stund.</td></tr>
@@ -1151,6 +1390,9 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
       <tr><td>Steg 3, tester</td><td>Klart, {förnamn}. Så går du in förberedd på testdagen / Grundnivån är öppen redan nu. Resten av nivåerna och provläget finns i Träningspaketet. / Var förberedd på testdagen · Träningspaketet / Alla nivåer i matrislogik, verbalt och numeriskt. · Provläge mot klockan, 25 till 40 minuter. · Fördjupade personlighetstestet, 120 påståenden. / Gratis: Grundnivån i alla fyra testtyperna, en gång per typ och dygn · Personlighetstestet med 50 påståenden / Skaffa Träningspaketet, 79 kr i veckan</td></tr>
       <tr><td>Steg 3, intervju</td><td>Klart, {förnamn}. Så övar du inför intervjun / Ett intervjuprov per dygn ingår gratis. Vill du öva utan tak finns Träningspaketet. / Var förberedd på testdagen · Träningspaketet / Intervjuprov utan tak, med återkoppling på varje svar. · Fördjupade personlighetstestet, 120 påståenden. · Alla nivåer i rekryteringstesterna. / Gratis: Ett intervjuprov per dygn med återkoppling · Personlighetstestet med 50 påståenden / Skaffa Träningspaketet, 79 kr i veckan</td></tr>
       <tr><td>Steg 3, jobb</td><td>Klart, {förnamn}. Så hittar jobben dig / Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis. / Allt ingår, plus jobb som hittar dig · Hela paketet / Jobbmatchning: 25 jobb per natt, med skälen utskrivna. · Bli upptäckt: rekryterare hittar dig, anonymt tills du svarar. · Jobbcoachen, och allt i CV-paketet och Träningspaketet. / Eller Dagspasset 49 kr, månad 149 kr, kvartal 299 kr / Gratis: Tre matchade jobb · Tio frågor till Jobbcoachen / Skaffa Hela paketet, 99 kr i veckan</td></tr>
+      <tr><td>Kom igång, gratis</td><td>Kom igång / {n} av 6 / Allt här ingår gratis. / Det du valde / Gratis i de andra delarna / Brickor intent tester: Matrislogik, grundnivå · Ingår gratis, en gång per dygn / Personlighetstestet · 50 påståenden, se vad rekryteraren läser ut / Intervjuprovet · En fråga, återkoppling på svaret / Ladda upp CV:t · PDF eller Word, en minut / CV-analysen, gratisnivån · Poängen och tyngsta fyndet / Tre matchade jobb · Jobb du inte hittat själv, med skälen</td></tr>
+      <tr><td>Hemskärmen, gratis med intent</td><td>Du valde testerna, så vi börjar med träningen. / Du valde intervjun, så vi börjar med träningen. / Kom igång · {n} av 6 provade, allt ingår gratis · Öppna</td></tr>
+      <tr><td>Prova också</td><td>Prova också / CV-intent: Klarar du logiktestet? · Du har ett CV klart. Logiktest är vanliga i urvalet efter ansökan. Grundnivån ingår gratis. · Prova / Test-intent: Vad ser rekryteraren i ditt CV? · Analysen visar poängen och det tyngsta fyndet, gratis. · Prova</td></tr>
       <tr><td>Förnamn saknas</td><td>Rubriken börjar med "Klart." i stället för "Klart, {förnamn}."</td></tr>
     </tbody>
   </table>
@@ -1158,16 +1400,18 @@ td.tal,th.tal{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 
 <!-- ================================================================ BESLUT -->
 <section class="sektion">
-  <p class="eyebrow">Ägaren tar ställning</p>
-  <h2>Fem beslut innan bygget</h2>
+  <p class="eyebrow">Beslutade av saas-lead 2026-09-24</p>
+  <h2>Besluten</h2>
+  <p class="led">Underlag: <code>docs/rapporter/beslut-registrering-2026-09-24.md</code>. <b>Väntar på ägarens slutliga ja.</b></p>
   <div class="beslut">
     <ol>
-      <li><b>Frågan före kontot, inte efter.</b> Rekommendation: före, som i den här designen. Den kostar ett tryck, gör kontosteget begripligt ("du börjar med testerna") och låter oss skicka valet genom Googles redirect. Planen från 22 september (Fas 2A) lade spårvalet efter kontot för att inte göra formuläret längre. Frågan här är inte ett fält i formuläret utan en egen skärm som går att hoppa över, och den ersätter den fråga som i dag kommer efter. Mätregeln ovan (över 25 % tapp på steg 1) avgör om vi flyttar tillbaka.</li>
-      <li><b>Fem val eller fyra.</b> Rekommendation: fem, med tester och intervju isär, eftersom de landar på olika ställen och har olika gratisnivå.</li>
-      <li><b>Paketet som primär knapp i steg 3.</b> Rekommendation: ja, som i spårvalet (Fas 2D), med Börja gratis i samma storlek bredvid. Alternativet är gratis som primär och paketet som sekundär, vilket ger fler aktiva gratiskonton och färre köp i första sessionen.</li>
-      <li><b>/register och /login i det nya skalet.</b> Rekommendation: ja, i samma släpp. Dagens /register lovar fem dagars Premium som inte finns och visar statistik vi inte kan belägga. Om tratten dröjer måste åtminstone den raden och statistikrutorna bort nu.</li>
-      <li><b>Klientförminskning av foton.</b> Rekommendation: ja. Det är ny kod (canvas i webbläsaren), men utan den stoppas de flesta mobilfoton av 2 MB-gränsen.</li>
+      <li><b>Frågan före kontot. Beslutat: före, med villkor.</b> Som verktygsval, aldrig paketval. Valet styr aldrig vad som syns (grep i specen), kill-regeln med minst 60 ingångar och 25 procent tapp, raden om menyn står kvar. Fas 2A:s argument gällde formulärfält; det här är en skärm som går att hoppa över och som ersätter dagens paketlista.</li>
+      <li><b>Fem val eller fyra. Beslutat: fem.</b> Tester och intervju landar på olika sidor med olika gratisnivå.</li>
+      <li><b>Paketet som primär i steg 3. Beslutat: ja, med mätregel.</b> Börja gratis i samma storlek. Över 85 procent gratis och under 5 procent kassa efter fyra veckor byter primären, inget annat.</li>
+      <li><b>/register och /login i nya skalet. Beslutat: ja, samma släpp.</b> Men trialraden ("Fem dagar Premium ingår") och statistikrutorna på /register tas bort denna vecka, före allt annat. De är osanna påståenden på sajtens viktigaste sida.</li>
+      <li><b>Klientförminskning av foton. Beslutat: ja.</b> 800 px längsta sida räcker för mallarnas fotoruta.</li>
     </ol>
+    <p>Därtill: C avgörs av avläsningen 22 oktober, de tre punkterna för bredden byggs i samma släpp som tratten, statusraden i profilen räknar aldrig foto, och "Smart val: Ingår när du har ett paket" står kvar.</p>
   </div>
 </section>
 
