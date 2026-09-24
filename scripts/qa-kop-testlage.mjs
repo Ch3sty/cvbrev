@@ -22,6 +22,14 @@
 //        vår uppsägning (cancel_intents) och kundportalen
 //   node scripts/qa-kop-testlage.mjs dagspass-yta <pixel7|desktop>
 //        hemskärm och meny efter att Dagspasset gått ut
+//   node scripts/qa-kop-testlage.mjs sidbyte <pixel7|desktop>
+//        Träningspaketet till CV-paketet från CV-mallarnas betalvägg och tillbaka
+//        från testhubbens, samma dag. Stripe kontrolleras efter varje byte.
+//        NEDGRADERING=1 lägger till Hela paketet och sedan CV-paketet (beskedet).
+//   node scripts/qa-kop-testlage.mjs samtycke <paket> <planKey> <pixel7|desktop>
+//        köpsteget utan betalning: samtyckestexten och förnyelseraden
+//
+// KOP_FULL=0 hoppar över paketets sju ytor efter köpet.
 //
 // <paket> är cv, traning, dagspass, hela-vecka, hela-manad, hela-kvartal.
 // Kontona heter qa-kop-<paket>-2026-09-24@jobbcoach.ai. Id:n sparas i
@@ -128,7 +136,7 @@ async function klickaText(p, re, sel = 'a, button, [role="radio"]') {
     (src, s) => {
       const r = new RegExp(src)
       const el = [...document.querySelectorAll(s)].find(
-        (e) => r.test((e.innerText || e.textContent || '').replace(/\s+/g, ' ').trim()) && e.offsetParent !== null
+        (e) => r.test((e.innerText || e.textContent || '').replace(/\s+/g, ' ').trim()) && e.getClientRects().length > 0
       )
       if (!el) return false
       el.scrollIntoView({ block: 'center' })
@@ -472,7 +480,7 @@ async function kop(browser, nyckel, vy) {
   })
 
   // (e) till (h) i samma session
-  await efterKop(browser, nyckel, vy, { full: true, redanInloggad: { p, ctx, fel } })
+  await efterKop(browser, nyckel, vy, { full: process.env.KOP_FULL !== '0', redanInloggad: { p, ctx, fel } })
   if (fel.length) logg(nyckel, `konsolfel-kop-${vy}`, { fel: [...new Set(fel)].slice(0, 10) })
   await ctx.close()
 }
@@ -713,6 +721,175 @@ async function angra(browser, nyckel, vy) {
   await ctx.close()
 }
 
+/* --------------------------------------------------------- sidbyte */
+
+// Stripe i testläget, bara för kontrollerna efter bytet. Testnyckeln ur
+// .env.test.local, aldrig live.
+async function stripeTest() {
+  const envTest = Object.fromEntries(
+    fs
+      .readFileSync('.env.test.local', 'utf8')
+      .split(/\r?\n/)
+      .filter((r) => r.includes('=') && !r.trim().startsWith('#'))
+      .map((r) => [r.slice(0, r.indexOf('=')).trim(), r.slice(r.indexOf('=') + 1).trim()])
+  )
+  if (!envTest.STRIPE_SECRET_KEY?.startsWith('sk_test_')) throw new Error('.env.test.local saknar testnyckel')
+  const { default: Stripe } = await import('stripe')
+  return { stripe: new Stripe(envTest.STRIPE_SECRET_KEY, { apiVersion: '2025-02-24.acacia' }), envTest }
+}
+
+async function stripeLage(stripe, envTest, kund) {
+  const subs = await stripe.subscriptions.list({ customer: kund, status: 'all', limit: 10 })
+  const fakturor = await stripe.invoices.list({ customer: kund, limit: 20 })
+  const vantande = await stripe.invoiceItems.list({ customer: kund, pending: true, limit: 20 })
+  const prisNamn = (id) =>
+    ({
+      [envTest.STRIPE_PRICE_CV_WEEK]: 'cv_week',
+      [envTest.STRIPE_PRICE_TEST_WEEK]: 'test_week',
+      [envTest.STRIPE_PRICE_ALL_WEEK]: 'all_week',
+    })[id] ?? id
+  return {
+    prenumerationer: subs.data.map((s) => ({
+      id: s.id,
+      status: s.status,
+      pris: prisNamn(s.items.data[0]?.price?.id),
+      metadata: { planKey: s.metadata?.planKey, scope: s.metadata?.scope, source: s.metadata?.source },
+      periodSlut: new Date(s.current_period_end * 1000).toISOString(),
+      cancelAtPeriodEnd: s.cancel_at_period_end,
+    })),
+    fakturor: fakturor.data.map((f) => ({ id: f.id, reason: f.billing_reason, betalt: f.amount_paid / 100, status: f.status })),
+    vantandeRader: vantande.data.length,
+  }
+}
+
+const rader = (t, re) => t.split('\n').map((r) => r.trim()).filter((r) => re.test(r))
+
+async function sidbyte(browser, vy) {
+  const nyckel = 'traning'
+  const k = lasKonton()[nyckel]
+  const prefix = `sidbyte-${vy}`
+  const { stripe, envTest } = await stripeTest()
+  const { p, ctx, fel } = await nySida(browser, vy)
+  const svar = []
+  p.on('response', async (r) => {
+    if (r.url().includes('/api/stripe/create-upgrade-session')) {
+      svar.push({ status: r.status(), body: (await r.text().catch(() => '')).slice(0, 300) })
+    }
+  })
+  await loggaIn(p, k.email)
+  const fore = await profil(k.id)
+  const kund = fore.stripe_customer_id
+  logg('sidbyte', '0-fore', { profil: fore, stripe: await stripeLage(stripe, envTest, kund) })
+
+  // 1. Träningspaketet till CV-paketet från betalväggen på CV-mallarna.
+  await p.goto(BAS + '/dashboard/cv-mallar', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await dump(p, `${prefix}-1-cv-mallar-betalvagg`)
+  await klickaText(p, /^Byt till CV-paketet/, 'button')
+  await vantaPa(p, () => /Du har nu CV-paketet|Det gick inte|redan ett paket/.test(document.body.innerText), null, 30000).catch(() => {})
+  await vanta(1500)
+  await dump(p, `${prefix}-2-du-har-nu-cv`)
+  logg('sidbyte', `1-till-cv-${vy}`, { svar: svar.splice(0), besked: rader(await text(p), /Du har nu|redan|Det gick inte/) })
+  const v1 = await vantaPaProfil(k.id, (pr) => pr.premium_scope === 'cv' && pr.price_id === envTest.STRIPE_PRICE_CV_WEEK, 60000)
+  // Webhooken bekräftar: vänta in eventet och läs profilen igen.
+  await vanta(8000)
+  logg('sidbyte', '1b-profil-och-stripe', { ok: v1.ok, profil: await profil(k.id), stripe: await stripeLage(stripe, envTest, kund) })
+
+  await p.goto(BAS + '/dashboard', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  const meny1 = await menyText(p, vy)
+  await dump(p, `${prefix}-3-meny-cv`, false)
+  await stangMeny(p)
+  logg('sidbyte', `1c-meny-${vy}`, { rader: meny1.split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 4) })
+
+  // 2. Tillbaka samma dag, från testhubbens betalvägg för CV-paketet.
+  await p.goto(BAS + '/dashboard/tester', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await dump(p, `${prefix}-4-testhubb-betalvagg`)
+  await klickaText(p, /^Byt till Träningspaketet/, 'button')
+  await vantaPa(p, () => /Du har nu Träningspaketet|Det gick inte|redan ett paket/.test(document.body.innerText), null, 30000).catch(() => {})
+  await vanta(1500)
+  await dump(p, `${prefix}-5-du-har-nu-traning`)
+  logg('sidbyte', `2-tillbaka-${vy}`, { svar: svar.splice(0), besked: rader(await text(p), /Du har nu|redan|Det gick inte/) })
+  const v2 = await vantaPaProfil(k.id, (pr) => pr.premium_scope === 'tester' && pr.price_id === envTest.STRIPE_PRICE_TEST_WEEK, 60000)
+  await vanta(8000)
+  logg('sidbyte', '2b-profil-och-stripe', { ok: v2.ok, profil: await profil(k.id), stripe: await stripeLage(stripe, envTest, kund) })
+
+  await p.goto(BAS + '/dashboard', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  const meny2 = await menyText(p, vy)
+  await dump(p, `${prefix}-6-meny-traning`, false)
+  await stangMeny(p)
+  logg('sidbyte', `2c-meny-${vy}`, { rader: meny2.split('\n').map((r) => r.trim()).filter(Boolean).slice(0, 4) })
+
+  // 3. Prenumerationssidan: CV-paketets kort säger att bytet sker direkt.
+  await p.goto(BAS + '/dashboard/profil/prenumeration', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await dump(p, `${prefix}-7-prenumeration`)
+  logg('sidbyte', `3-prenumeration-${vy}`, { rader: rader(await text(p), /Byt till|Byts direkt|Du har|förnyas/i).slice(0, 10) })
+
+  // 4. Nedgradering: först Hela paketet (uppgradering med mellanskillnaden),
+  // sedan CV-paketet från prenumerationssidan. Ska ge beskedet, inte bytas.
+  if (process.env.NEDGRADERING === '1') {
+    await klickaText(p, /^Byt till Hela paketet/, 'button')
+    await vantaPa(p, () => /Du har nu Hela paketet|Det gick inte/.test(document.body.innerText), null, 30000).catch(() => {})
+    await vantaPaProfil(k.id, (pr) => pr.premium_scope === 'allt', 60000)
+    await vanta(6000)
+    await p.reload({ waitUntil: 'networkidle2' })
+    await vanta(2000)
+    svar.length = 0
+    await klickaText(p, /^Byt till CV-paketet.*vid nästa förnyelse/, 'a, button')
+    await vantaPa(p, () => /Nedgradering sker vid nästa förnyelse|Det gick inte/.test(document.body.innerText), null, 30000).catch(() => {})
+    await vanta(1000)
+    await dump(p, `${prefix}-8-nedgradering-besked`)
+    logg('sidbyte', `4-nedgradering-${vy}`, {
+      svar: svar.splice(0),
+      besked: rader(await text(p), /Nedgradering|kundportalen/i),
+      scope: (await profil(k.id))?.premium_scope,
+      stripe: await stripeLage(stripe, envTest, kund),
+    })
+  }
+  if (fel.length) logg('sidbyte', `konsolfel-${vy}`, { fel: [...new Set(fel)].slice(0, 10) })
+  await ctx.close()
+}
+
+// Bara nedgraderingens besked, för ett konto som redan har Hela paketet.
+async function nedgradering(browser, vy) {
+  const k = lasKonton().traning
+  const { p, ctx } = await nySida(browser, vy)
+  await loggaIn(p, k.email)
+  await p.goto(BAS + '/dashboard/profil/prenumeration', { waitUntil: 'networkidle2' })
+  await vanta(2000)
+  await klickaText(p, /^Byt till CV-paketet.*vid nästa förnyelse/, 'a, button')
+  await vantaPa(p, () => /Nedgradering sker vid nästa förnyelse|Det gick inte/.test(document.body.innerText), null, 30000).catch(() => {})
+  await vanta(1500)
+  await dump(p, `sidbyte-${vy}-8-nedgradering-besked`, false)
+  logg('sidbyte', `4b-nedgradering-vy-${vy}`, { scope: (await profil(k.id))?.premium_scope })
+  await ctx.close()
+}
+
+/* ----------------------------------------- köpstegets samtycke */
+
+// Köpsteget för ett paket utan att betala: samtyckestexten och förnyelseraden.
+async function samtyckeSteg(browser, nyckel, plan, vy) {
+  const k = lasKonton()[nyckel]
+  const { p, ctx } = await nySida(browser, vy)
+  await loggaIn(p, k.email)
+  await p.goto(`${BAS}/dashboard/valj-spar?paket=${plan}`, { waitUntil: 'networkidle2' })
+  await vanta(1500)
+  await klickaText(p, /^Fortsätt med/, 'button')
+  await vantaPa(p, () => /Steg 2 av 2/i.test(document.body.innerText))
+  await vanta(800)
+  const samtycke = await p.evaluate(() => document.querySelector('label input[type="checkbox"]')?.closest('label')?.innerText ?? null)
+  const villkor = await p.evaluate(() =>
+    [...document.querySelectorAll('section[aria-label="Kvitto"] dl div')].map((d) => d.innerText.replace(/\s+/g, ' ').trim())
+  )
+  await p.evaluate(() => document.querySelector('label input[type="checkbox"]')?.scrollIntoView({ block: 'center' }))
+  await dump(p, `samtycke-${plan}-${vy}`, false)
+  logg('samtycke', `${plan}-${vy}`, { samtycke, villkor })
+  await ctx.close()
+}
+
 /* ------------------------------------------------------------ körning */
 
 const [lage, a1, a2] = process.argv.slice(2)
@@ -729,6 +906,9 @@ try {
   else if (lage === 'byte') await byte(browser, a1 || 'desktop')
   else if (lage === 'uppsagning') await uppsagning(browser, a1, a2 || 'desktop')
   else if (lage === 'angra') await angra(browser, a1, a2 || 'desktop')
+  else if (lage === 'sidbyte') await sidbyte(browser, a1 || 'pixel7')
+  else if (lage === 'nedgradering') await nedgradering(browser, a1 || 'pixel7')
+  else if (lage === 'samtycke') await samtyckeSteg(browser, a1, a2, process.argv[5] || 'pixel7')
   else if (lage === 'dagspass-yta') await efterKop(browser, 'dagspass', a1 || 'pixel7', { full: false })
   else throw new Error('okänt läge ' + lage)
 } catch (e) {

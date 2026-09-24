@@ -132,6 +132,7 @@ Buggarna 1 till 5, 7 och 9 ovan är rättade. Omkörningen gjordes mot ett nytt 
 - Befintliga betalande kunder i live saknar `paket_started_at`. Kan backfyllas ur Stripe (första fakturans datum per prenumeration).
 - Kom igång-arket säger "Kom igång med Hela paketet" för Dagspasset; bara returskärmen är rättad.
 - Buggarna 6 (React-fel #185), 8 (var trettionde dag) och 10 (offer_shown) är orörda.
+- Klart i eftermiddagens omgång: sidbytet, backfyllningen, Kom igång för Dagspasset och bugg 8. Se avsnittet Sidbyte, backfyllning och texter nedan.
 - En registrering på Pixel 7 stannade kvar på formuläret utan att signup-anropet gick iväg (första försöket, inget konto skapades). Nästa försök med samma steg gick igenom. Inte återskapat.
 
 ### Städning, omkörningen
@@ -155,3 +156,85 @@ Supabase (produktion), räknat före och raderat per id (6 konton: de fyra köpk
 Kontrollfrågan över alla tabeller med `user_id` gav noll rader, och inga `qa-kop-`-användare finns kvar i auth. Dagspasskontot fick adressen `…@jobboach.ai` (samma tappade tecken som förra gången) och raderades per id. Id: traning 5473b0bf-600c-4585-b34d-522b026c431f, hela-manad 39ed6b0a-6769-453d-988e-205de341ea37, dagspass 0f7f9ec7-3d54-4899-9ac3-c179fb23ade7, kortfel df3b36ea-8a05-4672-abb6-720b378e2908, sondering 9323fe2f-8c8d-440b-b593-d13c82ab94ad och 1c10b0d0-29cb-42fc-a616-f4856a3e720e.
 
 Byggkatalogen `.next-stripe2` borttagen, tsconfig-raderna återställda.
+
+## Sidbyte, backfyllning och texter, 2026-09-24 (eftermiddag)
+
+Fyra av punkterna under Kvar ovan. Byggt och klicktestat mot ett nytt produktionsbygge i testläget (`NEXT_DIST_DIR=.next-byte`, `.env.test.local` i processen, PostHog av, ogiltig Resend-nyckel), relät `scripts/stripe-testlage-webhook.mjs`, riktig Chrome med Pixel 7. Skärmdumpar `docs/qa/kop-testlage/byte-*.png`. 29 event postades, alla fick 200. Nya lägen i `scripts/qa-kop-testlage.mjs`: `sidbyte`, `nedgradering`, `samtycke`, och `KOP_FULL=0`.
+
+### 1. Sidbyte mellan CV-paketet och Träningspaketet
+
+Orsak: `create-upgrade-session` släppte bara igenom spår till Hela paketet; allt annat blev 409. Rättelse: `valjByte()` (`src/lib/stripe/paketByte.ts`) avgör vad bytet blir, och rutten gör det:
+
+| Från, till | Utfall |
+|---|---|
+| CV-paketet eller Träningspaketet till Hela paketet | uppgradering som förut, `always_invoice`, mellanskillnaden direkt |
+| CV-paketet och Träningspaketet sinsemellan | sidbyte: `subscriptions.update` med nytt pris och `proration_behavior: 'none'`, gäller direkt, ingen faktura, dragningsdagen står kvar, en uppsägning står kvar |
+| Hela paketet till ett spår | 409 med `vidFornyelse`, beskedet "Nedgradering sker vid nästa förnyelse. Säg upp Hela paketet i kundportalen, så gäller det perioden ut, och välj sedan det nya paketet." och länken Till kundportalen |
+| Hela paketet till en annan längd | samma, "Byte av längd sker vid nästa förnyelse" |
+| Samma paket, okänt pris | 409 som förut |
+
+Planen (PR11) beskrev spårbytet som "säg upp och köp det andra", men dubblettspärren stoppar ett nytt köp så länge perioden löper, så den vägen fungerade inte. Appen har inget stöd för subscription schedules och kundportalen tillåter inte prisbyte, därför bara besked och portal för nedgraderingen. Rutten skriver `premium_scope`, `price_id`, `subscription_tier` och (vid sidbyte) `onboarding_track` på profilen direkt; paketet läses ur `price_id`. Klienten (`bytPaket`, `PaketBytesRad`) har utfallet `vidFornyelse`; prenumerationssidan använder samma rad och rullar fram den. Prissidans FAQ säger nu att spårbytet sker direkt. Enhetstest: `src/lib/stripe/__tests__/paketByte.test.ts` (7).
+
+Klicktest, Pixel 7, kontot `qa-kop-traning-byte-2026-09-24@jobbcoach.ai`:
+
+| Steg | Utfall |
+|---|---|
+| Köp Träningspaketet | OK, 79 kr, faktura `subscription_create`, kvittot i kön (ämnet i `last_error`) |
+| CV-mallarnas betalvägg, "Byt till CV-paketet" | 200 `{ upgraded: true, byte: 'sidbyte' }`, raden "Du har nu CV-paketet" (`byte-sidbyte-pixel7-2-du-har-nu-cv.png`) |
+| Stripe efter bytet | en prenumeration, pris `cv_week`, metadata `cv_week`/`cv`, periodens slut 1 oktober oförändrat, en faktura (79 kr), inga väntande fakturarader |
+| Profil och meny | scope cv, price_id för CV-paketet, spår cv; menyn "Du har CV-paketet / Förnyas 1 oktober, 79 kr" |
+| Testhubbens betalvägg, "Byt till Träningspaketet" (samma dag) | 200, "Du har nu Träningspaketet"; Stripe: samma prenumeration, pris `test_week`, fortfarande en faktura; menyn "Du har Träningspaketet" |
+| Prenumerationssidan | CV-paketets kort: "Byt till CV-paketet, 79 kr i veckan", fotnot "Byts direkt, samma pris och samma dragningsdag" |
+| Nedgradering, efter uppgradering till Hela paketet (20 kr) | "Byt till CV-paketet … vid nästa förnyelse" gav 409 och raden med beskedet och Till kundportalen, scope kvar allt, priset orört (`byte-sidbyte-pixel7-8-nedgradering-besked.png`) |
+| Kvitton | ett enda, vid köpet. Sidbytena och uppgraderingen gav inget |
+
+Uppdraget sa "byt till CV-paketet från betalväggen på testhubben", men Träningspaketet har ingen betalvägg på testhubben (allt där ingår). Bytet till CV-paketet gjordes därför från CV-mallarnas betalvägg och bytet tillbaka från testhubbens betalvägg, som CV-paketet har.
+
+### 2. Backfyllning av paket_started_at i live
+
+`scripts/backfill-paket-started-at.ts` listar levande och de senaste 90 dagarnas avslutade prenumerationer med live-nyckeln (bara läsning), tar första betalda fakturans datum (`status_transitions.paid_at`), kontrollerar fakturans prenumeration med `invoiceSubscriptionId`, matchar profilen på `subscription_id` och sedan `stripe_customer_id`, och skriver `paket_started_at` med villkoret `paket_started_at is null` i samma UPDATE. Supabase nås via Management API med `SUPABASE_TOKEN_JOBBCOACH`, och skriptet kontrollerar att projektet är `dbvbnbkvadvlhjhomibg`. Torrkörning först, sedan skarpt:
+
+| E-post | Kund | Prenumeration | Status | planKey | Första betalda fakturan |
+|---|---|---|---|---|---|
+| ma***@g***.com | cus_VEKKZ0NojWYsmo | sub_1UDrgWPWMWdjmTDjoVL2cbsj | canceled | all_month | 2026-09-09 20:01 UTC |
+| jo***@g***.com | cus_V2vy7yfKwpbfXA | sub_1U2qAePWMWdjmTDjqE0JKj6w | canceled | all_month | 2026-08-10 10:11 UTC |
+| en***@l***.se | cus_Up3kUkBn5HWsaD | sub_1TpPffPWMWdjmTDjV8d8oNn1 | canceled | all_month | 2026-07-04 09:15 UTC |
+| ir***@g***.com | cus_UcqdCf89t1NAlC | sub_1TmAYcPWMWdjmTDjyv5z3K9c | active | all_month | 2026-06-25 10:30 UTC |
+| lo***@g***.com | cus_UlU6SsPUwDTX72 | sub_1Tlx8vPWMWdjmTDjRa1Rhcxl | canceled | all_month | 2026-06-24 20:11 UTC |
+| sa***@g***.com | cus_Udoa8dXg3LwwJo | sub_1TeWz0PWMWdjmTDj0GaEq7Wj | canceled | all_month | 2026-06-04 08:50 UTC |
+| st***@g***.com | cus_U4lcvJPEmYgjGO | sub_1T6c65PWMWdjmTDjubYCm15u | active | all_month | 2026-03-02 19:25 UTC |
+| to***@g***.com | cus_U3sYjGXJGMOXUU | sub_1T5kqiPWMWdjmTDjTkI0QITH | canceled | all_month | 2026-02-28 10:34 UTC |
+| kh***@c***.se | cus_TfCdQfUIqFxwjM | sub_1ShsFbPWMWdjmTDjNwjIwgZi | active | all_month | 2025-12-24 13:37 UTC |
+
+Tio prenumerationer i Stripe, nio profiler (en profil hade två prenumerationer; den som står i `profiles.subscription_id` vann). Skrivna 9, kontrolläsningen 9 av 9, och en ny räkning i databasen gav 9 profiler med `paket_started_at`. Ingen annan kolumn rördes. Skrivningen är avsiktlig och städas inte bort.
+
+### 3. Texter
+
+**Kom igång för Dagspasset.** Arket och raden sa "Kom igång med Hela paketet". Läget bär nu `dagspass` (summeringens planKey `all_day`), rubriken tar `paketNamn('all_day')` och arket får raden "Hela jobbsöket är öppet i ett dygn. Ta CV:t först, så har resten ett uppdaterat CV att arbeta med." Samma namn i Kom igång-mejlet. Klicktest efter köp av Dagspasset på Pixel 7: "Kom igång med Dagspasset, 0 av 12" med dygnsraden (`byte-dagspass-pixel7-e2-komigang.png`), menyn "Du har Dagspasset / Gäller till 10:04".
+
+**Var trettionde dag (bugg 8).** Stripe drar månaden samma kalenderdatum och kvartalet var tredje månad (live- och testpriserna lästa: 149 kr `1 month`, 299 kr `3 month`, alla sex beloppen stämmer med PLANS). Ändrat: prisraden på Hela paketets kort, köpstegets förnyelserad, samtycket, kontosidans punkter och intervallrad, onboardingens paketrader (även kvartalets "var nittionde dag") och kvittot ("dras sedan varje månad på samma datum", nästa dragning är fakturaradens periodslut, alltså Stripes). `nastaDragningEfter()` i `plans.ts` räknar nästa dragning som Stripe (UTC, månadens sista dag när datumet saknas) och ersätter +30 och +90 dagar på köpsteget och i förnyelsepåminnelsens periodstart. Samtycket bär nu belopp och datum, och `create-plan-session` lägger exakt den texten i sessionens metadata; tidigare låg där en äldre, kortare mening som kunden aldrig såg. Klicktest, köpsteget för Hela paketet månad på Pixel 7: "Förnyas: varje månad på samma datum, nästa 24 oktober" och samtycket "… 149 kr dras varje månad på samma datum, nästa gång 24 oktober, tills jag säger upp prenumerationen." (`byte-samtycke-all_month-pixel7.png`). Enhetstest: `manad-dragning.test.ts` (11), Kom igång (2), uppdaterade samtyckestest.
+
+`npx tsc --noEmit` rent (utom `.next/dev/types`), vitest 73 filer och 881 test gröna, produktionsbygget gick igenom (två gånger, det andra efter att prenumerationssidans rad fick rulla fram).
+
+### Kvar efter det här
+
+- Buggarna 6 (React-fel #185) och 10 (offer_shown) är orörda.
+- Nedgradering och längdbyte schemaläggs inte; kunden säger upp i portalen och väljer nytt paket när perioden gått ut. Ett riktigt schemalagt byte kräver subscription schedules eller att portalen tillåter prisbyte.
+- Kom igång-brickan heter "Fråga jobbcoachen" med litet j (befintlig sträng, inte ändrad här).
+- Registreringen på Pixel 7 stannade på formuläret vid första försöket även den här gången (inget konto skapades); andra försöket gick igenom.
+
+### Städning
+
+Stripe testläge: 2 testkunder raderade (Träningspaketet, Dagspasset), 1 prenumeration avslutad (verifierat `canceled`), inga öppna checkout-sessioner. Supabase (produktion), räknat före och raderat per id med `id in (…)`, kontona 60d19467-f514-4d27-863b-2fdd4dc881bc (traning) och 65f3fcf5-ed03-4a9b-b7f3-febba6e3def6 (dagspass):
+
+| Tabell | Före | Raderade | Kvar |
+|---|---|---|---|
+| user_activities | 46 | 46 | 0 |
+| email_schedule | 6 | 6 | 0 |
+| email_confirmations | 2 | 2 | 0 |
+| monthly_guest_allowances | 2 | 2 | 0 |
+| premium_grants | 1 | 1 | 0 |
+| profiles | 2 | 2 | 0 |
+| auth.users (auth admin, sist) | 2 | 2 | 0 |
+
+Kontrollfrågan över alla tabeller med `user_id` gav noll rader. Byggkatalogen `.next-byte` borttagen, tsconfig-raderna återställda.
