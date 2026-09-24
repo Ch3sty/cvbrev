@@ -57,11 +57,23 @@ export default async function TesterHubPage() {
     // och 5).
     const [scope, profileRes] = await Promise.all([
       getUserScope(supabase, user.id),
-      supabase.from('profiles').select('onboarding_track, premium_until').eq('id', user.id).maybeSingle(),
+      supabase
+        .from('profiles')
+        .select('onboarding_track, premium_until, price_id, subscription_status')
+        .eq('id', user.id)
+        .maybeSingle(),
     ]);
-    const profil = (profileRes.data ?? null) as { onboarding_track?: string | null; premium_until?: string | null } | null;
+    const profil = (profileRes.data ?? null) as {
+      onboarding_track?: string | null;
+      premium_until?: string | null;
+      price_id?: string | null;
+      subscription_status?: string | null;
+    } | null;
     track = lasTrack(profil?.onboarding_track);
-    planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null);
+    planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null, new Date(), {
+      priceId: profil?.price_id,
+      status: profil?.subscription_status,
+    });
     const hasHistory = scopeHasFeature(scope, 'test_history');
 
     data = await getTesterHubData(supabase, user.id, scope !== null, hasHistory, scope);

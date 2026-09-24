@@ -115,6 +115,8 @@ export interface DashboardSummaryData {
     fornyasAt: string | null
     /** Dagspasset: behörigheten kommer bara ur ett engångsköp. */
     dayPassOnly: boolean
+    /** Uppsagt: gäller till fornyasAt men förnyas inte. */
+    uppsagd: boolean
     /** Jobbcoachen: använda och tak på gratisnivån, null-tak = utan tak. */
     chatUsed: number
     chatLimit: number | null
@@ -552,7 +554,12 @@ export async function getDashboardSummary(
 
   // Paketet, för menyhuvudet "Du har CV-paketet, förnyas 29 september, 79 kr".
   const premiumUntil = profileRow?.premium_until ? new Date(profileRow.premium_until as string) : null
-  const planKey = endastDagpass ? ('all_day' as PlanKey) : harPaket(scope, premiumUntil, now)
+  const planKey = endastDagpass
+    ? ('all_day' as PlanKey)
+    : harPaket(scope, premiumUntil, now, {
+        priceId: (profileRow?.price_id as string | null | undefined) ?? null,
+        status: (profileRow?.subscription_status as string | null | undefined) ?? null,
+      })
   const fornyasAt = endastDagpass
     ? grantSlutar
     : ((profileRow?.current_period_end as string | undefined) ??
@@ -638,6 +645,7 @@ export async function getDashboardSummary(
       planKey,
       fornyasAt,
       dayPassOnly: endastDagpass,
+      uppsagd: !endastDagpass && profileRow?.cancel_at_period_end === true,
       chatUsed,
       chatLimit: scopeHasFeature(scope, 'chat_unlimited') ? null : FREE_CHAT_MESSAGES_PER_ACCOUNT,
       lettersUsed,

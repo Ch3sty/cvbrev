@@ -61,7 +61,7 @@ export default async function CVMallarPage({
         .order('created_at', { ascending: false }),
       supabase
         .from('profiles')
-        .select('premium_until, onboarding_track')
+        .select('premium_until, onboarding_track, price_id, subscription_status')
         .eq('id', user.id)
         .maybeSingle(),
       getUserScope(supabase, user.id),
@@ -75,12 +75,20 @@ export default async function CVMallarPage({
 
     // Efter paketomgången är frågan vilket spår hon köpt: alla mallar
     // ingår i CV-paketet och Hela paketet (cv_templates_all), aldrig i Träningspaketet.
-    const profile = profileRes.data as { premium_until?: string | null; onboarding_track?: string | null } | null;
+    const profile = profileRes.data as {
+      premium_until?: string | null;
+      onboarding_track?: string | null;
+      price_id?: string | null;
+      subscription_status?: string | null;
+    } | null;
     scope = scopeRes;
     isPremium = scopeHasFeature(scope, 'cv_templates_all');
     const t = profile?.onboarding_track;
     track = t === 'cv' || t === 'tester' || t === 'allt' ? t : null;
-    planKey = harPaket(scope, profile?.premium_until ? new Date(profile.premium_until) : null);
+    planKey = harPaket(scope, profile?.premium_until ? new Date(profile.premium_until) : null, new Date(), {
+      priceId: profile?.price_id,
+      status: profile?.subscription_status,
+    });
   } catch (error) {
     // Går hämtningen fel ska sidan ändå gå att öppna. Klienten hämtar om.
     console.error('Fel vid server-hämtning av CV-mallar:', error);

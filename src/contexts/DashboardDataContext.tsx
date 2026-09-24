@@ -97,6 +97,8 @@ export interface DashboardSummary {
     planKey: 'cv_week' | 'test_week' | 'all_day' | 'all_week' | 'all_month' | 'all_quarter' | null;
     fornyasAt: string | null;
     dayPassOnly: boolean;
+    /** Saknas i äldre cachade svar. */
+    uppsagd?: boolean;
     chatUsed: number;
     chatLimit: number | null;
     lettersUsed: number;
