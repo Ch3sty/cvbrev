@@ -31,6 +31,9 @@ interface SubscriptionProfile {
   subscription_id?: string | null;
   subscription_status?: string | null;
   onboarding_track?: string | null;
+  price_id?: string | null;
+  current_period_end?: string | null;
+  cancel_at_period_end?: boolean | null;
 }
 
 function lasTrack(varde: unknown): Scope | null {
@@ -54,7 +57,7 @@ export default async function PrenumerationPage() {
     supabase
       .from('profiles')
       .select(
-        'subscription_tier, premium_until, premium_source, premium_scope, subscription_id, subscription_status, onboarding_track'
+        'subscription_tier, premium_until, premium_source, premium_scope, subscription_id, subscription_status, onboarding_track, price_id, current_period_end, cancel_at_period_end'
       )
       .eq('id', user.id)
       .maybeSingle(),
@@ -91,7 +94,11 @@ export default async function PrenumerationPage() {
   const tillstand: 'free' | 'track' | 'all' =
     scope === 'allt' ? 'all' : scope ? 'track' : 'free';
 
-  const paket = harPaket(scope, premiumUntil);
+  // Längden ur prisid:t när det finns (bugg 2 i köptestet), annars gissningen.
+  const paket = harPaket(scope, premiumUntil, new Date(), {
+    priceId: profile?.price_id ?? null,
+    status: profile?.subscription_status ?? null,
+  });
 
   // Admin och tidsbegränsad premium är varianter av tillstånd Allt med en
   // annan statusrad och utan längdval (Fas 2D). Ingen egen skiss behövs.
@@ -104,13 +111,22 @@ export default async function PrenumerationPage() {
       profile?.subscription_status ?? ''
     );
 
+  // Statusradens datum: nästa dragning för en prenumeration, sluttiden för
+  // tidsbegränsad premium. Webhooken nollar premium_until för prenumerationer,
+  // så utan current_period_end hade raden saknat datum.
+  const slutIso = harStripePrenumeration
+    ? (profile?.current_period_end ?? premiumUntilIso)
+    : premiumUntilIso;
+  const uppsagd = harStripePrenumeration && profile?.cancel_at_period_end === true;
+
   return (
     <PrenumerationClient
       tillstand={tillstand}
       scope={scope}
       track={track}
       paket={paket && isPlanKey(paket) ? paket : null}
-      premiumUntil={premiumUntilIso}
+      premiumUntil={slutIso}
+      uppsagd={uppsagd}
       premiumSource={premiumSource}
       harStripePrenumeration={harStripePrenumeration}
       blockeringar={blockeringar}

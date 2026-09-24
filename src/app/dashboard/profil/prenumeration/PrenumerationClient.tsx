@@ -42,6 +42,7 @@ import {
   paketForPlan,
   planForLangd,
   statusRadText,
+  uppsagdStatusText,
   type PaketId,
 } from '@/components/pricing/paket-copy';
 import { FREE_HIGHLIGHTS } from '@/app/(public)/priser/components/priser-data';
@@ -59,6 +60,8 @@ export interface PrenumerationClientProps {
   track: Scope | null;
   paket: PlanKey | null;
   premiumUntil: string | null;
+  /** Uppsagt i Stripe: gäller perioden ut, förnyas inte. */
+  uppsagd?: boolean;
   premiumSource: string | null;
   harStripePrenumeration: boolean;
   blockeringar: Blockeringar;
@@ -71,6 +74,7 @@ export default function PrenumerationClient({
   track,
   paket,
   premiumUntil: premiumUntilIso,
+  uppsagd = false,
   premiumSource,
   harStripePrenumeration,
   blockeringar,
@@ -186,7 +190,9 @@ export default function PrenumerationClient({
     tillstand === 'free'
       ? KONTO.statusGratis
       : paket
-        ? statusRadText(paket, premiumUntil)
+        ? uppsagd
+          ? uppsagdStatusText(paket, premiumUntil)
+          : statusRadText(paket, premiumUntil)
         : 'Premium aktivt';
 
   const egetPaket: PaketId | null = paket ? paketForPlan(paket) : null;
@@ -364,12 +370,25 @@ export default function PrenumerationClient({
               </Link>
             </li>
             <li>
-              <button type="button" onClick={sagUpp} className={`${RAD} w-full text-left`}>
-                {KONTO.sagUpp}
-                <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
-              </button>
+              {uppsagd ? (
+                // Stripes kundportal visar "Förnya abonnemang" för ett
+                // uppsagt paket, och det sätter cancel_at_period_end = false.
+                // Webhooken speglar det tillbaka till profilen.
+                <Link href={PORTAL} className={RAD}>
+                  {KONTO.angraUppsagning}
+                  <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
+                </Link>
+              ) : (
+                <button type="button" onClick={sagUpp} className={`${RAD} w-full text-left`}>
+                  {KONTO.sagUpp}
+                  <ChevronRight className="h-5 w-5 text-ink-3" strokeWidth={1.75} aria-hidden="true" />
+                </button>
+              )}
             </li>
           </ul>
+          {uppsagd ? (
+            <p className="mt-2 text-sm leading-[22px] text-ink-2">{KONTO.uppsagdNot}</p>
+          ) : null}
         </section>
       ) : null}
 

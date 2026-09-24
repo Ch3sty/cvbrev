@@ -21,6 +21,8 @@ export interface PaketLage {
   planKey: PlanKey | null
   fornyasAt: string | null
   dayPassOnly: boolean
+  /** Uppsagt i Stripe: gäller till fornyasAt, förnyas inte. Saknas i äldre svar. */
+  uppsagd?: boolean
   chatUsed: number
   chatLimit: number | null
   lettersUsed: number
@@ -85,6 +87,14 @@ export function menyHuvud(p: PaketLage): MenyHuvud {
   }
   const plan = PLAN_BY_KEY[p.planKey]
   const datum = svensktDatum(p.fornyasAt)
+  if (p.uppsagd) {
+    return {
+      rubrik: `Du har ${paketNamn(p.planKey)}`,
+      under: datum ? `Gäller till ${datum}, förnyas inte` : 'Uppsagt, förnyas inte',
+      lank: 'Vad ingår?',
+      href,
+    }
+  }
   return {
     rubrik: `Du har ${paketNamn(p.planKey)}`,
     under: datum ? `Förnyas ${datum}, ${plan.amount} kr` : `${plan.amount} kr ${plan.suffix}`,

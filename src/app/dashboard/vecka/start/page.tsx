@@ -85,9 +85,13 @@ export default async function ValkommenPage({
   const paket: Scope | null = scope ?? (isPlanKey(planParam) ? PLAN_BY_KEY[planParam].scope : null)
   if (!paket) redirect('/dashboard')
 
+  // Dagspasset ger scopet allt men har sitt eget namn på skärmen.
+  const dagspass = planParam === 'all_day' && paket === 'allt'
+
   return (
     <ValkommenClient
       paket={paket}
+      dagspass={dagspass}
       cvNamn={cvNamn}
       cvUppladdat={cvUppladdat}
       poang={poang}

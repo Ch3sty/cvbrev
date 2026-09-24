@@ -706,6 +706,10 @@ export const KONTO = {
   bytKort: 'Byt betalkort',
   kvitton: 'Kvitton',
   sagUpp: 'Säg upp',
+  /** Uppsagt läge: paketet gäller perioden ut men förnyas inte. */
+  angraUppsagning: 'Ångra uppsägningen',
+  uppsagdNot:
+    'Uppsägningen är klar. Paketet gäller perioden ut och inget mer dras. Ångrar du dig fortsätter det som vanligt, utan nytt köp.',
   stoppRubrik: 'Det här har tagit stopp',
   gratisRubrik: 'Vad gratisnivån ger',
 } as const
@@ -901,6 +905,32 @@ export function besparing(plan: PlanKey): string | null {
 export function bytLangdKnapp(plan: PlanKey): string {
   return `Byt till ${paketMedPris(plan)}`
 }
+
+/** Statusraden för ett uppsagt paket: "Hela paketet, uppsagt. Gäller till 1 oktober, förnyas inte". */
+export function uppsagdStatusText(plan: PlanKey, slut: Date | null): string {
+  const namn = PLAN_BY_KEY[plan].name
+  if (!slut) return `${namn}, uppsagt. Förnyas inte`
+  const datum = slut.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' })
+  return `${namn}, uppsagt. Gäller till ${datum}, förnyas inte`
+}
+
+/* ------------------------------------------ byte från betalväggen */
+
+/**
+ * Svaren på bytesknapparna i betalväggen och på mallarnas och testernas fot
+ * (docs/qa/qa-kop-testlage-2026-09-24.md, bugg 3). Paketnamnen via helpern.
+ */
+export const PAKETBYTE = {
+  /** Bytet gick igenom på servern. "Du har nu Hela paketet" */
+  klart: (plan: PlanKey) => `Du har nu ${PLAN_BY_KEY[plan].name}`,
+  /** Under klicket. */
+  arbetar: 'Byter paket',
+  /** 409: ett sidledes byte eller ett andra köp. */
+  redanPaket: 'Du har redan ett paket som löper. Byt paket från prenumerationssidan.',
+  tillPrenumeration: 'Till prenumerationen',
+  href: '/dashboard/profil/prenumeration',
+  fel: 'Det gick inte att byta paket just nu. Försök igen om en stund.',
+} as const
 
 /** Statusraden. Dagen bär klockslag, resten datum. */
 export function statusRadText(plan: PlanKey, slut: Date | null): string {

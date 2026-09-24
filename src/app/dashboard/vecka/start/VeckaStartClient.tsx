@@ -39,9 +39,11 @@ export interface ValkommenClientProps {
   cvNamn: string | null
   cvUppladdat: string | null
   poang: number | null
+  /** Köpet var Dagspasset: scopet är allt, men namnet ska vara Dagspasset. */
+  dagspass?: boolean
 }
 
-export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang }: ValkommenClientProps) {
+export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dagspass = false }: ValkommenClientProps) {
   const router = useRouter()
   const { oppna } = useKomIgang()
 
@@ -69,8 +71,11 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang }: V
     capture('welcome_viewed', { paket, has_cv: Boolean(cvNamn) })
   }, [paket, cvNamn])
 
-  const bas = valkommen(paket)
-  const medCv = (paket === 'cv' || paket === 'allt') && cvNamn ? valkommenMedCv(paket, cvNamn, cvUppladdat, poang) : null
+  const bas = valkommen(paket, dagspass)
+  const medCv =
+    (paket === 'cv' || paket === 'allt') && cvNamn
+      ? valkommenMedCv(paket, cvNamn, cvUppladdat, poang, dagspass)
+      : null
   const Scen = paket === 'tester' ? IlluValkommenTest : IlluValkommenCv
   const scenTitel =
     paket === 'tester' ? 'Matrislogik och en klocka' : 'Två CV och en uppladdningspil på tråden'

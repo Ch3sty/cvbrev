@@ -205,10 +205,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       >
         {/* Menyhuvudet: paketet, förnyelsen, priset. Ink-1 med vit text,
             samma yta som Kom igång-raden och Allt-kortet. */}
-        <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-ink-1 px-3 py-3 text-white">
+        <div className="mb-2 flex items-start justify-between gap-3 rounded-xl bg-ink-1 px-3 py-3 text-white">
           <span className="min-w-0">
-            <span className="block truncate text-sm font-semibold leading-5">{huvud.rubrik}</span>
-            <span className="block truncate text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
+            <span className="block text-sm font-semibold leading-5 break-words">{huvud.rubrik}</span>
+            <span className="mt-0.5 block text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
           </span>
           <a
             href={huvud.href}

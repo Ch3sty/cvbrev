@@ -91,10 +91,10 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
           </div>
 
           {huvud ? (
-            <div className="m-2 flex items-center justify-between gap-3 rounded-lg bg-ink-1 px-3 py-2 text-white">
+            <div className="m-2 flex items-start justify-between gap-3 rounded-lg bg-ink-1 px-3 py-2 text-white">
               <span className="min-w-0">
-                <span className="block truncate text-sm font-semibold leading-5">{huvud.rubrik}</span>
-                <span className="block truncate text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
+                <span className="block text-sm font-semibold leading-5 break-words">{huvud.rubrik}</span>
+                <span className="mt-0.5 block text-xs leading-4 text-ink-1-mjuk">{huvud.under}</span>
               </span>
               <Link
                 href={huvud.href}

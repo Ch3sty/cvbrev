@@ -11,7 +11,7 @@
 
 import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { paketNamnForScope } from '@/lib/plans/plans'
+import { paketNamn, paketNamnForScope } from '@/lib/plans/plans'
 
 /** Brickornas nycklar. Speglar nycklarna i profiles.onboarding_steps. */
 export type BrickaKey =
@@ -370,7 +370,28 @@ export interface Valkommen {
   sekundar: string
 }
 
-export function valkommen(paket: Exclude<Paket, null>): Valkommen {
+/**
+ * Dagspasset ger scopet allt men är inte Hela paketet: skärmen säger
+ * Dagspasset och att det gäller ett dygn (köptestet 2026-09-24, bugg 9).
+ */
+export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkommen {
+  if (paket === 'allt' && dagspass) {
+    const namn = paketNamn('all_day')
+    return {
+      topp: namn,
+      rubrik: `Du har ${namn}. Hela jobbsöket är öppet i ett dygn.`,
+      ingress:
+        'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt, i 24 timmar. Vi föreslår att du börjar med CV:t och analysen, så hinner du använda resten på ett uppdaterat CV.',
+      steg: [
+        'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
+        'Kör jobbmatchningen på det uppdaterade CV:t och skriv personliga brev från träffarna.',
+        'Träna tester eller fråga Jobbcoachen med tiden som är kvar.',
+      ],
+      primar: 'Ladda upp CV:t',
+      primarHref: '/dashboard/profil/cv',
+      sekundar: KOM_IGANG.visaAllt,
+    }
+  }
   if (paket === 'tester') {
     return {
       topp: paketNamnForScope('tester'),
@@ -423,11 +444,12 @@ export function valkommenMedCv(
   paket: 'cv' | 'allt',
   cvNamn: string,
   uppladdat: string | null,
-  poang: number | null
+  poang: number | null,
+  dagspass = false
 ): Pick<Valkommen, 'rubrik' | 'ingress' | 'primar' | 'primarHref' | 'sekundar'> & {
   cvRad: string
 } {
-  const namn = paketNamnForScope(paket)
+  const namn = paket === 'allt' && dagspass ? paketNamn('all_day') : paketNamnForScope(paket)
   const delar = [
     uppladdat ? `Uppladdat ${uppladdat}.` : null,
     typeof poang === 'number' ? `Poäng ${poang} med gratisnivån.` : null,
