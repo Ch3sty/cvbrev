@@ -78,7 +78,7 @@ export default function KomIgangArk() {
   const { lage, fakta, arkOppet, stang, dolj } = useKomIgang()
   if (!lage) return null
 
-  const rubrik = komIgangRubrik(lage.paket)
+  const rubrik = komIgangRubrik(lage.paket, lage.dagspass)
 
   return (
     <Sheet open={arkOppet} onClose={stang} bare size="md">
@@ -103,6 +103,10 @@ export default function KomIgangArk() {
             </svg>
           </button>
         </div>
+
+        {lage.dagspass ? (
+          <p className="mt-1 text-sm leading-5 text-ink-2">{KOM_IGANG.dygnRad}</p>
+        ) : null}
 
         <ol role="list" className="mt-3 grid gap-2">
           {lage.lista.map((key) => {

@@ -86,7 +86,7 @@ async function lasLage(ctx: LifecycleContext): Promise<{ lage: KomIgangLage; pak
   const plan = (ctx.metadata?.planKey as PlanKey | undefined) ?? null;
   const underlag = await hamtaProvadeUnderlag(ctx.admin, ctx.userId);
   const provade = harledProvade(underlag);
-  return { lage: komIgangLage(paket, provade), paket, plan };
+  return { lage: komIgangLage(paket, provade, plan === 'all_day'), paket, plan };
 }
 
 /* --------------------------------------------------- nästa bricka */
@@ -242,6 +242,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
 }
 
 function paketNamnUr(lage: KomIgangLage): string {
+  if (lage.dagspass) return planNamn('all_day');
   return lage.paket ? paketNamnForScope(lage.paket) : 'gratisnivån';
 }
 

@@ -208,3 +208,24 @@ describe('menyn', () => {
     expect(graEtikettTest(null)).toBe('Träningspaketet, 79 kr i veckan')
   })
 })
+
+describe('Kom igång för Dagspasset (köptestet 2026-09-24, Kvar)', () => {
+  it('rubriken säger Dagspasset, inte Hela paketet', async () => {
+    const { komIgangRubrik, komIgangLage } = await import('../komigang')
+    const { paketNamn } = await import('@/lib/plans/plans')
+    expect(komIgangRubrik('allt', true)).toBe(`Kom igång med ${paketNamn('all_day')}`)
+    expect(komIgangRubrik('allt')).toBe('Kom igång med Hela paketet')
+    // Flaggan betyder bara något för scopet allt.
+    expect(komIgangRubrik('cv', true)).toBe('Kom igång med CV-paketet')
+    expect(komIgangLage('allt', [], true).dagspass).toBe(true)
+    expect(komIgangLage('cv', [], true).dagspass).toBe(false)
+    // Samma lista som Hela paketet: dygnet ger allt.
+    expect(komIgangLage('allt', [], true).lista).toEqual(komIgangLage('allt', []).lista)
+  })
+
+  it('raden under rubriken talar om dygnet, utan talstreck', async () => {
+    const { KOM_IGANG } = await import('../komigang')
+    expect(KOM_IGANG.dygnRad).toContain('ett dygn')
+    expect(KOM_IGANG.dygnRad).not.toMatch(/[—–]/)
+  })
+})

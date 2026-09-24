@@ -44,7 +44,7 @@ export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
 
   // Sidomenyn är 256 px: där står den korta formen ur specens sektion 5,
   // "Kom igång" och "2 av 8 provade". Den flytande raden bär hela meningen.
-  const rubrik = variant === 'sidomeny' ? 'Kom igång' : komIgangRubrik(lage.paket)
+  const rubrik = variant === 'sidomeny' ? 'Kom igång' : komIgangRubrik(lage.paket, lage.dagspass)
   const rad =
     variant === 'sidomeny'
       ? `${lage.antalProvade} av ${lage.antalTotalt} provade`

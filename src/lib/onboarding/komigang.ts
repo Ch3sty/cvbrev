@@ -73,8 +73,12 @@ export function listaFor(paket: Paket): readonly BrickaKey[] {
   return KOM_IGANG_LISTA[paket ?? 'gratis']
 }
 
-/** Rubriken: "Kom igång med CV-paketet". Gratis får bara "Kom igång". */
-export function komIgangRubrik(paket: Paket): string {
+/**
+ * Rubriken: "Kom igång med CV-paketet". Gratis får bara "Kom igång".
+ * Dagspasset ger scopet allt men heter Dagspasset, inte Hela paketet.
+ */
+export function komIgangRubrik(paket: Paket, dagspass = false): string {
+  if (paket === 'allt' && dagspass) return `Kom igång med ${paketNamn('all_day')}`
   if (paket) return `Kom igång med ${paketNamnForScope(paket)}`
   return 'Kom igång'
 }
@@ -324,9 +328,15 @@ export interface KomIgangLage {
   antalProvade: number
   antalTotalt: number
   klar: boolean
+  /** Dagspasset: samma lista som Hela paketet, men ett dygn och eget namn. */
+  dagspass: boolean
 }
 
-export function komIgangLage(paket: Paket, provade: readonly string[]): KomIgangLage {
+export function komIgangLage(
+  paket: Paket,
+  provade: readonly string[],
+  dagspass = false
+): KomIgangLage {
   const lista = listaFor(paket)
   const provadeSet = new Set(provade)
   const provadeILista = lista.filter((k) => provadeSet.has(k))
@@ -339,6 +349,7 @@ export function komIgangLage(paket: Paket, provade: readonly string[]): KomIgang
     antalProvade: provadeILista.length,
     antalTotalt: lista.length,
     klar: nasta === null,
+    dagspass: paket === 'allt' && dagspass,
   }
 }
 
@@ -353,6 +364,8 @@ export const KOM_IGANG = {
   dolj: 'Dölj hjälpredan',
   visaAllt: 'Visa allt som ingår',
   nastaEtikett: 'Föreslaget nästa',
+  /** Raden under arkets rubrik för Dagspasset: dygnet är det som styr. */
+  dygnRad: 'Hela jobbsöket är öppet i ett dygn. Ta CV:t först, så har resten ett uppdaterat CV att arbeta med.',
   /** Arkets sista rad under den öppnade brickan (sektion 4, vänster). */
   ingarI: (paket: Paket) =>
     paket ? `Ingår i ${paketNamnForScope(paket)}, utan tak` : 'Ingår i gratisnivån',
