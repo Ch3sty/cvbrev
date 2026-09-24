@@ -1,0 +1,59 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><style>@page{size:A4;margin:18mm 16mm}body{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:10.5pt;line-height:1.5;color:#1C1917}h1{font-size:20pt;line-height:1.2;margin:0 0 6pt;letter-spacing:-.02em}h2{font-size:13.5pt;margin:18pt 0 6pt;padding-top:8pt;border-top:2px solid #D9480F;letter-spacing:-.01em}h3{font-size:11.5pt;margin:12pt 0 4pt}p{margin:0 0 7pt}ol,ul{margin:0 0 8pt;padding-left:18pt}li{margin:0 0 4pt}code{font-family:Consolas,Menlo,monospace;font-size:9pt;color:#9A3412;background:#FBE7D3;padding:0 3px;border-radius:3px}table{border-collapse:collapse;width:100%;margin:6pt 0 10pt;font-size:9pt;page-break-inside:avoid}th,td{border:1px solid #DBD2C4;padding:5pt 6pt;vertical-align:top;text-align:left}th{background:#ECE6DC}b{font-weight:600}.foot{margin-top:20pt;font-size:8.5pt;color:#6B645E;border-top:1px solid #DBD2C4;padding-top:6pt}</style></head><body><h1>Beslut: registreringstratten och profilomläggningen</h1>
+<p>Datum 2026-09-24. Roll: saas-lead. Underlag: <code>docs/design/profil-registrering-2026-09-24.html</code> med spec, <code>docs/plan-paket-och-onboarding.md</code> (Fas 2A och 2D), <code>docs/rapporter/beslut-paketnamn-2026-09-24.md</code>, <code>docs/rapporter/analys-seo-tillvaxt-2026-09-23.md</code>, koden på main (307e306d), PostHog utan kohort 248676 och Supabase utan <code>admin_undantagna_konton()</code>. Ingen kod och ingen designfil är ändrad.</p>
+<h2>Vad koden och datan säger, som ägarens fråga hänger på</h2>
+<ol>
+<li><b>Valet döljer ingenting, och kan inte göra det.</b> <code>onboarding_track</code> läses av betalväggens <code>suggestPlan</code> (<code>src/lib/access/features.ts</code>, rad 96), av sidomenyns grå rader och av tester- och cv-mallar-sidornas presentation. Ingen behörighet läser det. <code>suggestPlan</code> väljer dessutom paket efter den funktion hon faktiskt stötte på, spåret slår bara igenom när det är <code>allt</code>. Alltså: den som kom för CV och sedan öppnar nivå 2 i testerna får Träningspaketet föreslaget, inte CV-paketet. Ägarens uppgraderingsväg via upptäckt fungerar i dag av konstruktion.</li>
+<li><b>Det som planen lovade att spåret styr är inte byggt.</b> Fas 2A skärm 1.3 säger att spåret ordnar hemskärmen. <code>useNextBestAction</code> läser inte spåret, träningsfokus gäller bara betalande (<code>DashboardHem.tsx</code>, rad 206, <code>scope === 'tester'</code>), och Kom igång för gratiskonton har en fast lista (profil, CV, analys, mall, matrislogik) oavsett vad hon kom för. Ett gratiskonto som kom för testerna får i dag en hemskärm som pekar på CV-uppladdning.</li>
+<li><b>De två folkgrupperna möts inte, redan i dag, utan någon fråga.</b> Av 99 konton på 90 dagar gjorde 47 ett CV och 35 ett test. Fyra gjorde båda, alla samma dag och alla CV först. Noll gick från test till CV. Risken att en fråga smalnar av upptäckten är därför inte den verkliga risken. Den verkliga risken är att vi inte visar bredden för någon, och det är en hemskärmsfråga, inte en registreringsfråga.</li>
+<li><b>Formuläret är flaskhalsen, inte valet.</b> 140 personer på /register på 30 dagar, 33 tryckte Skapa konto, 60 konton i databasen (Google räknas inte i PostHog). Sedan spårvalet gick live 22 september: 5 nya konton, 3 valde CV gratis (förvalt kort), 0 Träningspaketet, 1 köp (Dagspasset).</li>
+</ol>
+<h2>Fråga 1 och alternativ C: var frågan ska ligga, och om det ska vara en paketvy</h2>
+<p>Tre alternativ vägda på konto, köp och aktivering.</p>
+<table><thead><tr><th></th><th>A. Fråga före kontot (designen)</th><th>B. Inget före, spårval efter (i dag)</th><th>C. Paketvy före kontot (ägarens tanke)</th></tr></thead><tbody>
+<tr><td>Till konto</td><td>Ett tryck extra för 84 procent, men kontosteget får ett skäl ("Du börjar med testerna"). Okänt netto, kill-regel finns.</td><td>Kortast väg, men formuläret står utan skäl när statistik och trialrad tas bort.</td><td>Störst risk. Den som tryckte "Starta gratis test" möter ett pris innan hon sett ett test. Gratis som fjärde kort tävlar på paketens villkor och förlorar (Fas 2D avvisade det).</td></tr>
+<tr><td>Till köp</td><td>Priset syns i steg 3 med sammanhang, för den som redan har konto.</td><td>Samma skärm som A:s steg 3, fast utan intent, med CV förvalt.</td><td>Priset syns tidigast av alla, men köpet kräver ändå konto och kassa, så C kan aldrig ge fler köp än antalet konton, och den sänker antalet konton.</td></tr>
+<tr><td>Aktivering</td><td>Landar i rätt verktyg. Bäst.</td><td>Landar på hemskärmen i allmänt läge, 47 procent i dag.</td><td>Gratisvalet säger inte vad hon vill göra. Samma som B.</td></tr>
+</tbody></table>
+<p><b>Beslut: A, med tre villkor.</b> Frågan ställs före kontot, som ett verktygsval, aldrig som ett paketval. Den kostar ett tryck, går att hoppa över, ersätter dagens paketlista efter kontot, och den bär genom Googles redirect. Villkoren: (1) <code>onboarding_intent</code> får bara läsas av landningen, Kom igång och hemskärmens ordning, aldrig av <code>Sidebar</code>, <code>features.ts</code> eller någon behörighet, och det står som acceptanskriterium med grep. (2) Kill-regeln mäts med minst 60 ingångar, alltså tidigast fyra veckor efter deploy: tappar steg 1 mer än 25 procent mot kontosteget flyttar samma fem kort till efter kontot, inga andra ändringar. (3) Textsidan "Allt annat finns i menyn, och det mesta går att prova gratis" står kvar under frågan.</p>
+<p><b>C avvisas som ingång för bar /register, men två saker ur C behålls.</b> Formen: ChoiceCards i radiogrupp med en enda Fortsätt i foten, vilket är exakt designens steg 1 och spårvalets form i Fas 2D. Och pengavägen: den som redan vet att hon vill köpa kommer från /priser eller ett reklamkort med <code>?paket=</code>, hoppar över frågan och landar på köpsteget efter kontot. Den vägen är C i praktiken, och den finns sedan 22 september. Avläsning 22 oktober: ger /priser-ingången fler köp per konto än headeringången med minst tre gånger, byggs C som A/B-test på bar /register, då med gratis som sekundärknapp i foten, inte som fjärde kort, och längdväxeln bara på Hela paketet.</p>
+<p>Skälet i en mening: HBO Max kan börja med priset därför att besökaren redan vet vad HBO är. Vår besökare sökte "logiskt test" på Google för tio sekunder sedan, och det enda hon vet om oss är att testet var gratis.</p>
+<h2>Fråga 2: vad valet får påverka</h2>
+<p>Valet påverkar tre saker och inget mer: landningssidan vid Börja gratis, ordningen i Kom igång och Nästa handling, och vilket paket steg 3 föreslår. Steg 3 behålls som designen ritar det, ett kort med Börja gratis lika stor bredvid, av två skäl: det är den enda ytan där en ny användare ser ett pris med sammanhang (lärdomen från reverse trial var att ingen såg ett pris), och det enda köpet sedan juni kom just från skärmen efter kontot. Betalväggarna fortsätter föreslå paket efter funktionen hon stötte på, så upptäcktsvägen tester efter CV leder till Träningspaketet, inte tillbaka till CV-paketet. Ingen kodändring behövs för det, det är dagens <code>suggestPlan</code>.</p>
+<h2>Fråga 3: så ser hon hela bredden första gången</h2>
+<p>Ingen ny "Det här finns också"-rad. Kom igång är den raden, och den byggs om så att bredden är inbyggd i stället för att förlita sig på menyn.</p>
+<ol>
+<li><b>Kom igång per intent för gratiskonton (S).</b> <code>KOM_IGANG_LISTA.gratis</code> blir fem listor, en per intent, med samma regel för alla: det hon kom för först, sedan en gratis bricka från varje annat område. Intent tester: matrislogik grund, personlighetstestet, intervjuprovet, ladda upp CV, analysen, tre matchade jobb. Intent CV: ladda upp CV, analysen, en mall, ett personligt brev, matrislogik grund, intervjuprovet. Varje bricka är något hon kan göra utan att betala, så raden säljer ingenting och visar allt.</li>
+<li><b>Träningsfokus på hemskärmen också för gratiskonton med intent tester eller intervju (S).</b> I dag kräver det <code>scope === 'tester'</code>. Utan det pekar hemskärmen på CV-uppladdning för den som kom för ett test, vilket är fel första handling.</li>
+<li><b>Nästa handlings oprövade funktion väljs ur det andra området (S).</b> <code>useUnusedFeatures</code> får intent som ordningsnyckel: CV-intent får testerna som första förslag efter första dokumentet, test-intent får CV-analysen. Det är där korsanvändningen ska födas, och den föds inte i dag (4 av 99).</li>
+<li><b>Menyn orörd.</b> Alla rader syns för alla. De grå raderna säger redan "Ingår inte. Finns i X" och gäller bara betalfunktioner.</li>
+</ol>
+<h2>Fråga 4: de fem besluten</h2>
+<table><thead><tr><th>#</th><th>Beslut</th><th>Svar</th></tr></thead><tbody>
+<tr><td>1</td><td>Före eller efter kontot</td><td>Före, med villkoren och kill-regeln ovan. Fas 2A:s argument gällde formulärfält; det här är en skärm som går att hoppa över och som ersätter dagens paketlista.</td></tr>
+<tr><td>2</td><td>Fem val eller fyra</td><td>Fem. Tester och intervju landar på olika sidor med olika gratisnivå.</td></tr>
+<tr><td>3</td><td>Paketet som primär i steg 3</td><td>Ja, med Börja gratis i samma storlek. Avläsning efter fyra veckor: går över 85 procent till gratis och under 5 procent till kassan byts primären, inget annat.</td></tr>
+<tr><td>4</td><td>/register och /login i nya skalet</td><td>Ja, samma släpp. Men raden om fem dagars Premium och statistikrutorna tas bort denna vecka, före allt annat. Det är osanna påståenden på sajtens viktigaste sida.</td></tr>
+<tr><td>5</td><td>Klientförminskning av foton</td><td>Ja. 800 px längsta sida räcker för mallarnas fotoruta.</td></tr>
+</tbody></table>
+<h2>Fråga 5: profilomläggningen, tre ändringar</h2>
+<ol>
+<li><b>Statusraden räknar namn och ort, aldrig foto.</b> Designen säger att vi inte ska tjata om foto och räknar sedan foto när ort också saknas. En regel: foto står aldrig i raden.</li>
+<li><b>"Smart val: Ingår när du har ett paket" står kvar</b> eftersom koden spärrar på <code>subscriptionTier</code> och alla tre paketen öppnar den. Ingen ny feature-nyckel nu; specens osäkerhet stryks.</li>
+<li><b>Byggordningen vänds.</b> Mätningen och de osanna påståendena först (S), sedan Del B, sedan Del A:s navigering (S) och profilsidan (M). Registreringen träffar varje nytt konto, profilen träffar bekvämligheten för befintliga. PaketKort-knappen (h-auto) följer med Del A:s navigering.</li>
+</ol>
+<p>Resten av Del A godkänns som ritat: två menyrader, fyra sektioner, Hoppa till, spara per fält, fotofältet.</p>
+<h2>Vad som ändras i designen och specen</h2>
+<ul>
+<li>Steg 1: oförändrat. Acceptanskriterium tillkommer: <code>onboarding_intent</code> förekommer inte i <code>src/components/dashboard/Sidebar.tsx</code>, <code>src/lib/access/</code> eller någon route under <code>/api/</code> utom <code>/api/onboarding/track</code>.</li>
+<li>Steg 3: oförändrat i form. Mätregeln för primärknappen tillkommer.</li>
+<li>Nytt i Del B: Kom igång per intent, träningsfokus för gratiskonton, intent som ordning i <code>useUnusedFeatures</code>. Tre S-punkter, samma släpp som steg 3, annars är frågan tom för gratisanvändaren.</li>
+<li>Del A: statusraden utan foto, osäkerheten om Smart val struken.</li>
+<li>Byggordning: 1 mätningen, 2 osanna påståenden, 3 Del B datamodell och valkommen, 4 Del B steg 1 till 3 med de tre nya S-punkterna, 5 Del A navigering, 6 Del A profilsidan, 7 QA.</li>
+<li>Avläsning: 22 oktober för /priser-vägen mot headervägen (alternativ C-frågan), fyra veckor efter deploy för kill-regeln och steg 3.</li>
+</ul>
+<h2>Behöver ägarens beslut</h2>
+<ol>
+<li>Godkänna A med villkoren, och att C avgörs av avläsningen 22 oktober i stället för att byggas nu.</li>
+<li>Godkänna att de osanna påståendena på /register tas bort denna vecka, oberoende av resten.</li>
+<li>Godkänna de tre S-punkterna för bredden i samma släpp som tratten.</li>
+</ol><p class="foot">jobbcoach.ai · saas-lead · beslut-registrering-2026-09-24.md</p></body></html>
