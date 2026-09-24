@@ -45,13 +45,13 @@ const LANK_UTAN_DISPLAY = TEXTLANK.replace('inline-flex ', '')
 const PRIMAR =
   'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover'
 
-function handlingensCopy(h: HubbHandling, kvotKvar: boolean, now: Date) {
+function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date) {
   switch (h.kind) {
     case 'forstaGang':
       return {
         eyebrow: NASTA.forstaGang.eyebrow,
         rubrik: NASTA.forstaGang.rubrik,
-        text: kvotKvar ? `${NASTA.forstaGang.text} ${NASTA.forstaGang.kvot}` : NASTA.forstaGang.text,
+        text: NASTA.forstaGangText(kvotKvar, utanTak),
         knapp: NASTA.forstaGang.knapp,
         href: nyttProvHref('beratta'),
       }
@@ -102,7 +102,7 @@ export default async function InforIntervjunPage() {
   const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
   const data = await getInforIntervjunData(supabase, admin, user.id)
   const now = new Date()
-  const c = handlingensCopy(data.handling, data.kvotKvar, now)
+  const c = handlingensCopy(data.handling, data.kvotKvar, data.utanTak, now)
 
   const beskrivning = data.utanTak && data.scope ? SIDA.beskrivningUtanTak(data.scope) : SIDA.beskrivning
   const kvotSlut = !data.utanTak && !data.kvotKvar
@@ -154,7 +154,7 @@ export default async function InforIntervjunPage() {
             ))}
           </ul>
         ) : (
-          <EmptyState bare={false} title={TOM.rubrik} description={TOM.text} />
+          <EmptyState bare={false} title={TOM.rubrik} description={TOM.textFor(data.utanTak)} />
         )}
         {data.utanTak ? null : (
           <StatusRow

@@ -98,15 +98,15 @@ export async function proxy(request: NextRequest) {
  * /dashboard/intervju/[token]: 404 med rätt status för ett svar som inte
  * finns, gått ut eller tillhör någon annan (docs/qa/qa-intervjuprov-2026-09-23.md,
  * fynd 2). dashboard/loading.tsx gör att sidan strömmar, så notFound() i
- * sidan kommer först när status 200 redan skickats. Rewriten går till en
- * adress utan route, så rot-sidans not-found ritas med status 404.
+ * sidan kommer först när status 200 redan skickats. Rewriten går till
+ * /dashboard/intervju/saknas, som ritar 404-vyn i dashboardens skal med status 404.
  */
 const INTERVJU_SIDA = /^\/dashboard\/intervju\/([^/]+)\/?$/
 
 /** Tolkningssidan för personlighetsprovet, samma 404-regel (rod-trad-prov-spec). */
 const PROFIL_SIDA = /^\/dashboard\/intervju\/profil\/([^/]+)\/?$/
 /** Egna undersidor under /dashboard/intervju som inte är en token. */
-const EGNA_SIDOR = new Set(['ny', 'profil'])
+const EGNA_SIDOR = new Set(['ny', 'profil', 'saknas'])
 
 function intervjuKontroll(request: NextRequest): EfterInloggning | undefined {
   const pathname = request.nextUrl.pathname
@@ -123,7 +123,7 @@ function intervjuKontroll(request: NextRequest): EfterInloggning | undefined {
       ? await smakprovFinns(admin, token, userId)
       : await intervjuSvarFinns(admin, token, userId)
     if (finns) return null
-    return NextResponse.rewrite(new URL('/_intervjusvar-saknas', request.url), { status: 404 })
+    return NextResponse.rewrite(new URL('/dashboard/intervju/saknas', request.url), { status: 404 })
   }
 }
 

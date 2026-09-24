@@ -38,7 +38,7 @@ import { harledProvade, sparadeNycklar } from '@/lib/onboarding/komigang-server'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaProv, hamtaSenasteSmakprov } from '@/lib/intervju/data'
-import type { IntervjuHem } from '@/lib/intervju/nasta'
+import { bastaNivaPerFraga, type IntervjuHem } from '@/lib/intervju/nasta'
 
 export interface DashboardSummaryPipelineItem {
   id: string
@@ -658,6 +658,8 @@ export async function getDashboardSummary(
       senaste: intervjuRader.prov[0] ?? null,
       smakprovToken: intervjuRader.smakprovToken,
       harProfil: (personalityRes.count ?? 0) > 0,
+      bastaNiva: bastaNivaPerFraga(intervjuRader.prov),
+      gjordaTestTyper: testRader.map((r) => r.test_type),
     },
   }
 }

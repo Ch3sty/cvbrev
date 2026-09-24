@@ -11,12 +11,18 @@
  *                          (docs/design/analys-visuell-linje-2026-09-22.html,
  *                          avsnitt 3)
  *
+ * Träningsfokus (ägarens beslut 2026-09-24): med Träningspaketet (scope
+ * tester) och inget CV ersätts A av hälsningen, Nästa handling ur
+ * traningsHandling som enda bläckyta, CV:t som textlänk under och
+ * aktiviteten. ?cv=1 (textlänken) visar A som vanligt.
+ *
  * DowngradedNotice ligger överst i alla lägen. Hjälpredan Kom igång ligger
  * inte här utan i skalet: en rad ovanför bottennavigeringen och ett ark
  * (docs/design/spec-onboarding-2026-09-22.html, sektion 2).
  */
 
 import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -39,6 +45,9 @@ import NastaHandling from './NastaHandling';
 import HemHuvud, { sammanhangsrad } from './HemHuvud';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
+import { traningsHandling } from '@/lib/intervju/nasta';
+import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy';
+import { INK_LANK } from '@/components/shell/InkPanel';
 
 interface DashboardStats {
   totalLetters: number;
@@ -193,6 +202,8 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
   const totalLetters = stats.totalLetters || 0;
   const isPremium = stats.isPremium || false;
   const state = deriveDashboardState(cvCount, totalLetters);
+  const traningsFokus =
+    state === 'A' && summary?.paket?.scope === 'tester' && searchParams.get('cv') !== '1';
 
   // B7: vilket tillstånd användaren faktiskt mötte. En gång per session.
   const loggedState = useRef<string | null>(null);
@@ -246,12 +257,28 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
       )}
       <DowngradedNotice />
 
-      <DashboardHero
-        state={state}
-        userId={stats.userId}
-        firstName={stats.firstName}
-        onCvUploaded={handleCvUploaded}
-      />
+      {traningsFokus ? (
+        <>
+          <HemHuvud fornamn={stats.firstName} rad={HEM.traning.rad} />
+          <NastaHandling
+            action={traningsHandling(summary?.intervju)}
+            onDismiss={() => {}}
+            secondary={
+              <Link href="/dashboard?cv=1" className={`${INK_LANK} inline-flex min-h-11 items-center`}>
+                {HEM.traning.cvLank}
+              </Link>
+            }
+          />
+          {aktivitet}
+        </>
+      ) : (
+        <DashboardHero
+          state={state}
+          userId={stats.userId}
+          firstName={stats.firstName}
+          onCvUploaded={handleCvUploaded}
+        />
+      )}
 
       {/* Kortet gör en egen rundtur till profiles efter att summeringen kommit,
           så det landar drygt två sekunder in. Låg det över SnabbAtgarder sköt

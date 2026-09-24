@@ -89,6 +89,10 @@ export interface IntervjuHem {
   senaste: ProvSammanfattning | null
   smakprovToken: string | null
   harProfil: boolean
+  /** Bästa nivå per gjord fråga. Valfritt: ett äldre cachat svar kan sakna det. */
+  bastaNiva?: Partial<Record<FragaId, number>>
+  /** test_type för avklarade kognitiva tester (logic_test_v4_sessions). */
+  gjordaTestTyper?: (string | null)[]
 }
 
 export type HemIntervjuSteg =
@@ -153,4 +157,75 @@ export function nar(iso: string, now: Date = new Date()): string {
 
 export function fragaKort(fraga: FragaId): string {
   return FRAGOR[fraga].kort
+}
+
+/* ------------------------------------------------------ träningsfokus */
+
+/**
+ * Hemskärmen för den som har Träningspaketet (scope tester) men inget CV
+ * (ägarens beslut 2026-09-24): träningen är Nästa handling, i Inför intervjuns
+ * rangordning, och CV:t blir en sekundär textlänk.
+ *
+ *   interview-rewrite   senaste provet 3 eller lägre (ingen dygnsgräns, inget tak)
+ *   interview-new       första ogjorda intervjufrågan i FRAGOR-ordning
+ *   personality-full    smakprov finns men ingen riktig profil
+ *   test-next           nästa rekryteringstest på högre nivå
+ *   interview-new       annars frågan med lägst bästa nivå, så att ytan aldrig blir tom
+ */
+export type TraningsHandling =
+  | { kind: 'interview-rewrite'; prov: ProvSammanfattning }
+  | { kind: 'interview-new'; fraga: FragaId }
+  | { kind: 'personality-full'; smakprovToken: string }
+  | { kind: 'test-next'; slug: string; forsta: boolean }
+
+/** Kognitiva tester per typ, i nivåordning. Slug och test_type i logic_test_v4_sessions. */
+export const TESTSTEGE: ReadonlyArray<ReadonlyArray<{ slug: string; testType: string }>> = [
+  [
+    { slug: 'matrislogik-grund', testType: 'matrislogik' },
+    { slug: 'matrislogik-avancerad', testType: 'matrislogik-avancerad' },
+    { slug: 'matrislogik-expert', testType: 'matrislogik-expert' },
+  ],
+  [
+    { slug: 'verbal-resonemang', testType: 'verbal-resonemang' },
+    { slug: 'verbal-resonemang-v2', testType: 'verbal-resonemang-v2' },
+    { slug: 'verbal-resonemang-expert', testType: 'verbal-resonemang-expert' },
+  ],
+  [
+    { slug: 'numeriskt-test', testType: 'numerical-reasoning' },
+    { slug: 'numeriskt-test-v2', testType: 'numerical-reasoning-v2' },
+    { slug: 'numeriskt-test-expert', testType: 'numerical-reasoning-expert' },
+  ],
+]
+
+/**
+ * Nästa test på högre nivå: för varje testtyp i ordning, steget efter det
+ * högsta avklarade. Inget avklarat alls ger logiktestet på grundnivå.
+ * Allt avklarat ger null.
+ */
+export function nastaTest(gjordaTestTyper: readonly (string | null)[]): { slug: string; forsta: boolean } | null {
+  const gjorda = new Set(gjordaTestTyper.map((t) => t ?? 'matrislogik'))
+  const nagotGjort = TESTSTEGE.some((stege) => stege.some((s) => gjorda.has(s.testType)))
+  if (!nagotGjort) return { slug: TESTSTEGE[0][0].slug, forsta: true }
+  for (const stege of TESTSTEGE) {
+    let hogsta = -1
+    stege.forEach((s, i) => {
+      if (gjorda.has(s.testType)) hogsta = i
+    })
+    if (hogsta >= 0 && hogsta < stege.length - 1) return { slug: stege[hogsta + 1].slug, forsta: false }
+  }
+  return null
+}
+
+export function traningsHandling(i: IntervjuHem | null | undefined): TraningsHandling {
+  const s = i?.senaste ?? null
+  if (s && s.level <= 3) return { kind: 'interview-rewrite', prov: s }
+  const basta: Partial<Record<FragaId, number>> = { ...(i?.bastaNiva ?? {}) }
+  if (s) basta[s.question] = Math.max(basta[s.question] ?? 0, s.level)
+  const ogjord = FRAGA_ORDNING.find((f) => basta[f] === undefined)
+  if (ogjord) return { kind: 'interview-new', fraga: ogjord }
+  if (i?.smakprovToken && !i.harProfil) return { kind: 'personality-full', smakprovToken: i.smakprovToken }
+  const test = nastaTest(i?.gjordaTestTyper ?? [])
+  if (test) return { kind: 'test-next', ...test }
+  const lagst = [...FRAGA_ORDNING].sort((a, b) => (basta[a] ?? 0) - (basta[b] ?? 0))[0]
+  return { kind: 'interview-new', fraga: lagst }
 }

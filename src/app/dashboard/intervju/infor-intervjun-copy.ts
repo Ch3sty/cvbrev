@@ -63,6 +63,9 @@ export const NASTA = {
     kvot: 'Ett prov om dagen ingår.',
     knapp: 'Svara på frågan',
   },
+  /** Kvotmeningen bara för den som har ett tak och dagens prov kvar. */
+  forstaGangText: (kvotKvar: boolean, utanTak: boolean): string =>
+    kvotKvar && !utanTak ? `${NASTA.forstaGang.text} ${NASTA.forstaGang.kvot}` : NASTA.forstaGang.text,
   helaTestet: {
     rubrik: 'Gör hela personlighetstestet',
     text: 'Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår gratis.',
@@ -84,6 +87,9 @@ export const LISTA = {
 export const TOM = {
   rubrik: 'Inga prov än',
   text: 'Skriv ett svar så säger vi vad rekryteraren hör. Ett prov om dagen ingår gratis.',
+  /** Med interview_unlimited: samma text utan kvotmeningen. */
+  textUtanTak: 'Skriv ett svar så säger vi vad rekryteraren hör.',
+  textFor: (utanTak: boolean): string => (utanTak ? TOM.textUtanTak : TOM.text),
 } as const
 
 export const KVOT = {
@@ -164,6 +170,26 @@ export const HEM = {
     knapp: 'Starta testet',
   },
   senare: 'Senare',
+  /**
+   * Träningsfokus: Träningspaketet utan CV (ägarens beslut 2026-09-24).
+   * Omskrivningen och hela testet återanvänder texterna ovan.
+   */
+  traning: {
+    rad: `Du har ${paketNamnForScope('tester')}, så vi börjar med träningen.`,
+    nyFraga: {
+      rubrik: (fraga: FragaId) => `Öva på "${FRAGOR[fraga].text.replace(/\.$/, '')}"`,
+      text: (fraga: FragaId) => FRAGOR[fraga].beskrivning,
+      knapp: 'Svara på frågan',
+    },
+    test: {
+      forstaRubrik: 'Gör ditt första rekryteringstest',
+      forstaText: 'Logiktestet på grundnivå visar var du står innan det skarpa testet från arbetsgivaren kommer.',
+      rubrik: (titel: string) => `Nästa nivå: ${titel.charAt(0).toLowerCase()}${titel.slice(1)}`,
+      text: 'Samma typ av test, ett steg svårare, så att det skarpa testet inte blir första gången du möter nivån.',
+      knapp: 'Starta testet',
+    },
+    cvLank: 'Vill du börja med CV:t i stället?',
+  },
   aktivitet: {
     prov: (fraga: FragaId, level: number) => `Du övade på frågan om ${FRAGOR[fraga].bestamd}, ${level} av 5.`,
     provUnder: (missingKind: string, fraga: FragaId) => `${storBokstav(saknadesFras(missingKind, fraga))} saknades.`,
@@ -173,4 +199,13 @@ export const HEM = {
     profilUnder: (rubrik: string) => `${rubrik}. Hela testet ingår.`,
     profilLank: 'Gör hela testet',
   },
+} as const
+
+/** 404 under /dashboard/intervju: annan användares token, borttaget eller utgånget prov. */
+export const SAKNAS = {
+  eyebrow: 'Inför intervjun',
+  titel: 'Det här provet finns inte',
+  text: 'Länken leder till ett prov som har tagits bort eller hör till ett annat konto.',
+  lankHubb: 'Till Inför intervjun',
+  lankHem: 'Till hemskärmen',
 } as const

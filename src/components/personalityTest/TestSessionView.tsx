@@ -1,17 +1,19 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
 
 import LikertScale from './LikertScale';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import type {
   LikertValue,
   PersonalityItem,
   PersonalityTestType,
 } from '@/lib/personalityTest/types';
+import { forstaObesvarade, nastaIndex, svarIOrdning } from '@/lib/personalityTest/aterupptag';
 
 /** Testets namn i provskalets topprad. Speglar title i testConfig. */
 const TITLE_BY_TYPE: Record<PersonalityTestType, string> = {
@@ -37,9 +39,46 @@ export default function TestSessionView({
   const [answers, setAnswers] = useState<(LikertValue | null)[]>(
     () => Array(items.length).fill(null)
   );
-  const [isSaving, setIsSaving] = useState(false);
+  // Sparade svar hämtas från servern vid mount, så att en omladdning
+  // fortsätter vid första obesvarade i stället för påstående 1.
+  const [loaded, setLoaded] = useState(false);
+  // Låset gäller från tryck tills sparningen bekräftats och vyn gått vidare,
+  // så att ett snabbt andra tryck aldrig landar på samma påstående.
+  const lockRef = useRef(false);
+  const [locked, setLocked] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let avbruten = false;
+    (async () => {
+      try {
+        const res = await fetch(
+          `/api/personalityTest/answer?sessionId=${encodeURIComponent(sessionId)}`,
+          { cache: 'no-store' }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (avbruten) return;
+          if (data.completed) {
+            router.replace(`${resultsBasePath}/${sessionId}/results`);
+            return;
+          }
+          const sparade = svarIOrdning(items, data.answers);
+          setAnswers(sparade);
+          setCurrentIdx(forstaObesvarade(sparade));
+        }
+      } catch (error) {
+        console.error('Failed to load answers:', error);
+      } finally {
+        if (!avbruten) setLoaded(true);
+      }
+    })();
+    return () => {
+      avbruten = true;
+    };
+  }, [sessionId, items, resultsBasePath, router]);
 
   const item = items[currentIdx];
   const answeredCount = useMemo(
@@ -49,15 +88,17 @@ export default function TestSessionView({
   const allAnswered = answeredCount === items.length;
 
   const saveAnswer = useCallback(
-    async (questionId: string, value: LikertValue) => {
+    async (questionId: string, value: LikertValue): Promise<boolean> => {
       try {
-        await fetch('/api/personalityTest/answer', {
+        const res = await fetch('/api/personalityTest/answer', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, questionId, value }),
         });
+        return res.ok;
       } catch (error) {
         console.error('Failed to save answer:', error);
+        return false;
       }
     },
     [sessionId]
@@ -65,32 +106,46 @@ export default function TestSessionView({
 
   const handleSelect = useCallback(
     async (value: LikertValue) => {
-      setIsSaving(true);
-      const next = [...answers];
-      next[currentIdx] = value;
-      setAnswers(next);
-      await saveAnswer(item.id, value);
-      setIsSaving(false);
+      if (lockRef.current || !loaded) return;
+      lockRef.current = true;
+      setLocked(true);
+      setSaveError(null);
 
-      // Auto-advance till nästa obesvarade
+      const idx = currentIdx;
+      const previous = answers[idx];
+      const next = [...answers];
+      next[idx] = value;
+      setAnswers(next);
+
+      const ok = await saveAnswer(items[idx].id, value);
+      if (!ok) {
+        setAnswers((cur) => {
+          const back = [...cur];
+          back[idx] = previous;
+          return back;
+        });
+        setSaveError('Svaret sparades inte. Försök igen.');
+        lockRef.current = false;
+        setLocked(false);
+        return;
+      }
+
+      // Vidare till nästa obesvarade, låset släpps först när vyn bytt påstående
       setTimeout(() => {
-        const nextUnanswered = next.findIndex((a, i) => i > currentIdx && a === null);
-        if (nextUnanswered !== -1) {
-          setCurrentIdx(nextUnanswered);
-        } else if (currentIdx < items.length - 1) {
-          setCurrentIdx(currentIdx + 1);
-        }
+        setCurrentIdx(nastaIndex(next, idx));
+        lockRef.current = false;
+        setLocked(false);
       }, 200);
     },
-    [answers, currentIdx, item, items.length, saveAnswer]
+    [answers, currentIdx, items, loaded, saveAnswer]
   );
 
   const handlePrev = () => {
-    if (currentIdx > 0) setCurrentIdx(currentIdx - 1);
+    if (!lockRef.current && currentIdx > 0) setCurrentIdx(currentIdx - 1);
   };
 
   const handleNext = () => {
-    if (currentIdx < items.length - 1) setCurrentIdx(currentIdx + 1);
+    if (!lockRef.current && currentIdx < items.length - 1) setCurrentIdx(currentIdx + 1);
   };
 
   const handleFinish = async () => {
@@ -127,6 +182,14 @@ export default function TestSessionView({
     return () => window.removeEventListener('keydown', handleKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIdx, handleSelect]);
+
+  if (!loaded) {
+    return (
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <LoadingSkeleton variant="card" label="Testet laddas" />
+      </div>
+    );
+  }
 
   return (
     <TestFlowShell
@@ -203,11 +266,18 @@ export default function TestSessionView({
                 </p>
               </div>
 
-              <LikertScale
-                value={answers[currentIdx]}
-                onChange={handleSelect}
-                disabled={isSaving}
-              />
+              {/* Under sparningen tar knapparna inte emot tryck, men ser likadana ut. */}
+              <div
+                className={locked ? 'pointer-events-none' : undefined}
+                aria-busy={locked}
+              >
+                <LikertScale value={answers[currentIdx]} onChange={handleSelect} />
+              </div>
+              {saveError && (
+                <p role="alert" className="text-center text-sm text-red-700">
+                  {saveError}
+                </p>
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -217,7 +287,9 @@ export default function TestSessionView({
             total={items.length}
             currentIdx={currentIdx}
             answers={answers}
-            onNavigate={setCurrentIdx}
+            onNavigate={(i) => {
+              if (!lockRef.current) setCurrentIdx(i);
+            }}
           />
         </div>
 

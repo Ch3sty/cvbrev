@@ -22,6 +22,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useUnusedFeatures, type FeatureSpotlightItem, type FeatureSlug } from '@/hooks/useUnusedFeatures';
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary';
 import { hemIntervjuSteg, type IntervjuHem, type ProvSammanfattning } from '@/lib/intervju/nasta';
+import type { FragaId } from '@/components/artiklar/intervjuprov/fragor';
 
 export type NextBestAction =
   | { kind: 'follow-up'; count: number }
@@ -29,6 +30,9 @@ export type NextBestAction =
   | { kind: 'interview-rewrite'; prov: ProvSammanfattning }
   | { kind: 'personality-full'; smakprovToken: string }
   | { kind: 'feature'; feature: FeatureSpotlightItem }
+  // Bara i träningsfokus (Träningspaketet utan CV), se traningsHandling i nasta.ts.
+  | { kind: 'interview-new'; fraga: FragaId }
+  | { kind: 'test-next'; slug: string; forsta: boolean }
   | null;
 
 const DISMISS_FOLLOW_UP = 'nasta-steg-follow-up-until';
@@ -109,7 +113,7 @@ export function useNextBestAction(
       const endOfWindow = new Date(now.getFullYear(), now.getMonth(), 15);
       localStorage.setItem(DISMISS_AF, String(endOfWindow.getTime()));
       setVersion((v) => v + 1);
-    } else {
+    } else if (action.kind === 'feature') {
       dismissFeature(action.feature.slug as FeatureSlug['slug']);
     }
   }, [action, dismissFeature]);
