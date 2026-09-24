@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
 import { Crown, Linkedin } from 'lucide-react';
 
@@ -106,7 +107,7 @@ export function LinkedInInput({
         </label>
         <div className="flex items-center text-xs text-pink-700 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-300 px-3 py-1 rounded-full shadow-sm">
           <Crown className="w-3 h-3 mr-1" />
-          Premium
+          {PAKETRADER.bricka}
         </div>
       </div>
 

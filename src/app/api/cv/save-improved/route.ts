@@ -4,6 +4,7 @@
  * Includes CV quota validation based on subscription tier
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
           error: 'CV limit reached',
           message: `Du har nått din gräns på ${maxCvs} CV:n. ${
             subscriptionTier === 'free'
-              ? 'Uppgradera till Premium för att få upp till 50 CV:n.'
+              ? PAKETRADER.cvFler
               : 'Ta bort några CV:n för att kunna spara nya.'
           }`,
           currentCount: count,

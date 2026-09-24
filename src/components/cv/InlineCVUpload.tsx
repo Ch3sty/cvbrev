@@ -1,4 +1,5 @@
 'use client';
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useCallback } from 'react';
 import { Upload, FileText, X } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
@@ -184,7 +185,7 @@ export default function InlineCVUpload({
 
               {subscriptionTier === 'free' && (
                 <p className="text-center text-meta text-ink-3">
-                  Som gratisanvändare kan du ladda upp två CV. Premium ger obegränsat.
+                  {PAKETRADER.uppladdning}
                 </p>
               )}
             </div>

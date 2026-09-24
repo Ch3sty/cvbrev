@@ -457,7 +457,7 @@ export const pedagogTemplate: CVTemplateGenerator = {
   generate: generatePedagogHTML,
   metadata: {
     name: 'Pedagog',
-    description: 'Premium-mall för lärare och pedagoger med behörigheter och kompetensområden',
+    description: 'Mall för lärare och pedagoger med behörigheter och kompetensområden',
     category: 'traditional',
     tier: 'premium'
   }

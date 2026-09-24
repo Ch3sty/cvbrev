@@ -164,7 +164,7 @@ export default function KontaktForm({ variant = 'public', onSubmitSuccess }: Kon
               value={formData.subject}
               onChange={handleInputChange}
               className={s.field}
-              placeholder="Till exempel en fråga om Premium"
+              placeholder="Till exempel en fråga om ditt paket"
             />
           </div>
 

@@ -175,9 +175,9 @@ describe('Google-vägen, simulerad från knapp till landning', () => {
     expect(gren).toEqual({ via: 'redirect', destination: '/dashboard/cv-mallar' })
   })
 
-  it('Hoppa över landar på spårvalet', () => {
+  it('Hoppa över landar på spårvalet, som vet att frågan redan hoppats över', () => {
     const { gren } = genomGoogle({ ...bas, skipped: true }, true)
-    expect(gren).toEqual({ via: 'sparval', destination: SPARVAL })
+    expect(gren).toEqual({ via: 'sparval', destination: `${SPARVAL}?hoppat=1` })
   })
 
   it('befintligt konto: hemskärmen, eller redirecten, eller valkommen om ett smakprov väntar', () => {

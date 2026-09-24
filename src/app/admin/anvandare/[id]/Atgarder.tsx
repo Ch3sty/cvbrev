@@ -71,7 +71,7 @@ export default function Atgarder({ userId, epost, egetId }: AtgarderProps) {
       const data = await svar.json();
       if (!svar.ok) throw new Error(data?.error ?? 'Åtgärden gick inte igenom');
       setOppen(null);
-      setKlart(data?.message ?? 'Premium tilldelat.');
+      setKlart(data?.message ?? 'Paket tilldelat.');
       router.refresh();
     } catch (e) {
       setOppen(null);

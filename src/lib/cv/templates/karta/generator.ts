@@ -532,7 +532,7 @@ export const kartaTemplate: CVTemplateGenerator = {
   generate: generateKartaHTML,
   metadata: {
     name: 'Karta',
-    description: 'Premium-mall med timeline och kompetensstaplar — för data, BI och konsulter',
+    description: 'Mall med timeline och kompetensstaplar, för data, BI och konsulter',
     category: 'modern',
     tier: 'premium'
   }

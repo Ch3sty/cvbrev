@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
 import { Upload, Lock } from 'lucide-react';
 import { formatCVDate } from '@/lib/utils/date-formatter';
@@ -77,7 +78,7 @@ export default function CVSelectionStep({
               meta={formatCVDate(cv.created_at)}
               description={
                 locked
-                  ? 'Låst tills du uppgraderar till Premium.'
+                  ? PAKETRADER.lastCv
                   : undefined
               }
             />

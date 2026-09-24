@@ -101,14 +101,14 @@ Allt som byggts i dag, genomgånget som nya användare: registreringstratten, Ko
 
 ### Kvarstående
 
-- **K1, medel. Logiktestprovet lovar svaren men visar dem inte.** Registreringen säger "Skapa konto och se alla svar med förklaring". Efter kontot kör valkommen-sidan `/api/public/test-session/claim`, som bara loggar aktiviteten `test_completed` och svarar `redirect: /dashboard/tester`. Hubben visar "Börja här, Logiktestet på grundnivå, Starta första testet"; provets svar och förklaringar syns ingenstans. Reproduktion: `/verktyg/rekryteringstester/prova`, svara på fem frågor, Skapa konto, konto med lösenord, landar på `/dashboard/tester` (`v6-logik-landning.png`). Åtgärd: en resultatsida för det hämtade provet (svaren ur `anon_test_sessions` och `questionsForToken`), eller ändra löftet i `SMAKPROV.test` och spärren.
-- **K2, låg (copy, större än en småsak).** "Premium" står kvar i ett tjugotal användarsträngar, bland annat i CV-byggarens steg 7 som väg 1 landar i ("Mallen kräver Premium", "Se Premium", mallbrickan "Premium", spärrorsaken "Mallen kräver Premium. Välj en annan mall eller spara utan PDF."), brevflödets mallsteg ("Den här mallen ingår i Premium."), `PurchaseConfirmation.tsx` ("Tack. Premium är aktiverat."), `CVSelectionStep.tsx`, `CvCard.tsx`, LinkedIn-optimeraren och prenumerationssidans "Premium aktivt". Grep: `grep -rn "Premium" src/app/dashboard src/components --include=*.tsx`. Inte ändrat här.
+- **K1, medel. Logiktestprovet lovar svaren men visar dem inte.** Rättat samma dag, se "Sista punkterna" nedan. Registreringen säger "Skapa konto och se alla svar med förklaring". Efter kontot kör valkommen-sidan `/api/public/test-session/claim`, som bara loggar aktiviteten `test_completed` och svarar `redirect: /dashboard/tester`. Hubben visar "Börja här, Logiktestet på grundnivå, Starta första testet"; provets svar och förklaringar syns ingenstans. Reproduktion: `/verktyg/rekryteringstester/prova`, svara på fem frågor, Skapa konto, konto med lösenord, landar på `/dashboard/tester` (`v6-logik-landning.png`). Åtgärd: en resultatsida för det hämtade provet (svaren ur `anon_test_sessions` och `questionsForToken`), eller ändra löftet i `SMAKPROV.test` och spärren.
+- **K2, låg (copy, större än en småsak).** Rättat samma dag, se "Sista punkterna" nedan. "Premium" står kvar i ett tjugotal användarsträngar, bland annat i CV-byggarens steg 7 som väg 1 landar i ("Mallen kräver Premium", "Se Premium", mallbrickan "Premium", spärrorsaken "Mallen kräver Premium. Välj en annan mall eller spara utan PDF."), brevflödets mallsteg ("Den här mallen ingår i Premium."), `PurchaseConfirmation.tsx` ("Tack. Premium är aktiverat."), `CVSelectionStep.tsx`, `CvCard.tsx`, LinkedIn-optimeraren och prenumerationssidans "Premium aktivt". Grep: `grep -rn "Premium" src/app/dashboard src/components --include=*.tsx`. Inte ändrat här.
 - **K3, låg.** React-fel #418 (hydrering) loggades en gång på brevutkastets landning före R1, alltså på 404-sidan. Efter rättelsen inget fel.
 
 ## Iakttagelser
 
-1. **Betalväggens köpknapp tar tre steg till kassan när spåret är sparat.** "Köp CV-paketet, 79 kr i veckan" på en låst mall öppnar produktvalet ("Välj paketet som passar", alla tre paketen), sedan spårvalet, sedan köpsteget. Kommentaren i `PaywallCard.tsx` säger att det är avsiktligt, men knappen har redan namngett paketet. Förslag: gå direkt till `?paket=cv_week&steg=kop`.
-2. **Hoppa över frågar samma sak igen.** Den som hoppar över steg 1 möter spårvalet och sedan gratisfrågan "Vad vill du börja med?", det vill säga tre val innan hemskärmen.
+1. **Betalväggens köpknapp tar tre steg till kassan när spåret är sparat.** Rättat, se "Sista punkterna". "Köp CV-paketet, 79 kr i veckan" på en låst mall öppnar produktvalet ("Välj paketet som passar", alla tre paketen), sedan spårvalet, sedan köpsteget. Kommentaren i `PaywallCard.tsx` säger att det är avsiktligt, men knappen har redan namngett paketet. Förslag: gå direkt till `?paket=cv_week&steg=kop`.
+2. **Hoppa över frågar samma sak igen.** Rättat, se "Sista punkterna". Den som hoppar över steg 1 möter spårvalet och sedan gratisfrågan "Vad vill du börja med?", det vill säga tre val innan hemskärmen.
 3. Returskärmen efter kassan visar "Du är på gratisnivån" i menyn tills webhooken landat (känt sedan köptestet).
 4. På steg 3 för jobbvalet visar sidomenyns Kom igång "0 av 5" (listan utan val) och efter Börja gratis "0 av 6".
 5. Alla tolv registreringar med lösenord (Pixel 7 och desktop) gick igenom vid första försöket; felet från köptestet, där formuläret stod kvar utan anrop, kom inte tillbaka.
@@ -147,3 +147,49 @@ Per token: `anon_interview_samples` 2, `anon_personality_samples` 1, `anon_test_
 QA-kontonas id: 1 f9d541a0-a9ee-471e-9971-158983f932bb, 2 c9df485a-e63f-4290-a784-c16254d71575, 3 63c36aa8-49af-406d-8ea1-99e05173f6f2, 4 579c6581-79a2-4a1b-8bb8-1579c1ecef90, 5 3f35e8ab-7e52-4fdb-9c64-de6ed52ad89e, 5-dag 546d8991-9868-4921-99a0-43c9f0ba7797, 6-intervju 16a8171f-ef02-457f-891c-85d4556f05a6, 6-personlighet 35ab95a9-4ab6-44b3-b994-44644ed3b609, 6-logik 5ad9023f-37cb-4b89-8da6-64eef9703cb2, 6-brev 51136fc2-ed8b-4a06-9a39-a1a41f7080d4, 6-brev2 f0311f81-e87e-4e92-8d94-de2df53c77d1, 7-cv 06a9f961-086a-4334-a17f-a5c2f09f04d3, 7-intervju d8c9cad0-61ac-4aeb-85e1-6e7522a193c7, 9-kort 43e73491-1062-48a2-ab42-2861f8f534b8.
 
 Byggkatalogen `.next-slut` borttagen, tsconfig-raderna som bygget lade till återställda. `.env.test.local` ligger kvar lokalt och är gitignorerad.
+
+## Sista punkterna: K1, K2 och iakttagelse 1 och 2 (eftermiddag)
+
+Samma miljö som ovan: `.env.test.local` i processen för `next build` och `next start`, `NEXT_DIST_DIR=.next-sist`, `NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1`, port 3481, PostHog av, ogiltig Resend-nyckel, relät `scripts/stripe-testlage-webhook.mjs`. Riktig Chrome på Pixel 7. Skript: `scripts/qa-slutflode-sist.mjs <logik|hoppa|mall|kop>` på hjälparna i `scripts/qa-slutflode.mjs`. Skärmdumpar `docs/qa/slutflode/sist-*.png`, kontrollerna i `sist-resultat.jsonl`. Två byggen (det andra efter rättelsen av statusraden i steg 7).
+
+### Vad som byggts
+
+- **K1, logiktestprovets landning.** Ny sida `/dashboard/tester/prov/[token]`: resultatet (antal rätt av fem), genomgången fråga för fråga med Rätt, Fel eller Hoppad, ditt svar, rätt svar och regeln som förklaring, alla öppna från start. Genomgången är testernas egen `MatrixQuestionReview` (nya props `fragor`, `utanTid`, `allaOppna`), så förklaringstexterna är desamma som i dashboardens logiktest. Vägen vidare: "Gör grundnivån" och, bara för gratiskonton, "Se Träningspaketet, 79 kr i veckan" till köpsteget. Claim-rutten gör anspråk och svarar `redirect: /dashboard/tester/prov/{token}`; aktiviteten loggas bara vid första hämtningen. `anon_test_sessions` fick `claimed_by` (on delete cascade), `claimed_at` och nullbar `expires_at` (migrering `20260924200000_testprov_claim.sql`, körd i produktion): en hämtad rad är permanent som intervju- och personlighetsprovens. Ett hämtat prov går inte att rätta om. Annan användares token, utgånget eller okänt ger 404 med rätt status (proxyn skriver om till `/dashboard/tester/prov/saknas` i dashboardens skal). Logik i `src/lib/tests/prov-rad.ts`, strängar i `src/app/dashboard/tester/prov/prov-copy.ts`.
+- **Iakttagelse 1, köpet i ett steg.** `kopstegHref(plan)` i `src/lib/onboarding/steps.ts`. Betalväggens knapp (`PaywallCard`) går direkt till `?paket=<key>&steg=kop` också med sparat spår; produktvalet öppnas bara när knappen saknar paket. Samma sak för produktvalets kort (`UpgradeSheet`), prissidan inloggad, `/kassa`, prenumerationssidans köp, CV-analysens "Köp CV-paketet", `TRANINGSPAKET_HREF` (intervjuprovets kvotrad och hubben) och steg 3 i registreringen. `/dashboard/valj-spar` öppnar köpsteget när ett paket står i adressen; spårvalet visas bara utan paket.
+- **Iakttagelse 2, frågan högst en gång.** Valkommen skickar den som hoppade över steg 1 till `/dashboard/valj-spar?hoppat=1`, och där går "Börja gratis i stället" utan valt kort direkt till hemskärmen (spåret sparas som null).
+- **K2, Premium.** Användarsträngarna i dashboarden, API-svaren, komponenterna, de publika sidorna, villkoren och integritetspolicyn, mallbeskrivningarna och 69 rubriker "Premium-mallen X" i yrkesmallarna. Ersättningarna ligger i `PAKETRADER` i `src/components/paywall/paywall-copy.ts`: knappar "Köp CV-paketet, 79 kr i veckan" (via `paketMedPris`), etiketter "Ingår när du har ett paket", små brickor på mallar och typsnitt "CV-paketet" (via `paketNamn`). CV-byggarens steg 7: brickan "CV-paketet", statusraden "Ingår när du har ett paket" med "Köp CV-paketet, 79 kr i veckan" till köpsteget, spärrorsaken "Mallen ingår i CV-paketet, 79 kr i veckan. Välj en annan mall eller spara utan PDF.". PurchaseConfirmation: "Tack. Du har CV-paketet." (och "är aktivt" i stället för "är aktiv"). Testet i `src/lib/plans/__tests__/paketnamn.test.ts` faller nu på ordet Premium i kod utanför kommentarer; identifierare (`isPremium`, `PremiumGate`), gemena värden (`'premium'`, `premium_*`) och markerade testfiler släpps igenom, och i yrkesmallarnas branschtexter (Premium-restauranger, Premium-CAD) fångas bara produktnamnet.
+
+### Väg × steg × utfall
+
+| Del | Steg | Utfall | Dump |
+|---|---|---|---|
+| K1 | `/verktyg/rekryteringstester/prova` anonymt, fem svar, spärren "Skapa konto och se svaren" | OK | `sist-logik-1-sparr` |
+| K1 | Registreringen lovar "Skapa konto och se alla svar med förklaring", konto med lösenord | OK | `sist-logik-2-register` |
+| K1 | Landar på `/dashboard/tester/prov/{token}` | OK "1 rätt av 5", Rätt, Fel, Fel, Fel, Fel, fem regler öppna, "Gör grundnivån" och "Se Träningspaketet, 79 kr i veckan" (till `?paket=test_week&steg=kop`), inga talstreck, inget Premium, inga konsolfel | `sist-logik-3-resultat` |
+| K1 | Omladdning | OK samma resultat | |
+| K1 | Ett annat konto öppnar samma token | OK status 404, "Det här provet finns inte" i dashboardens skal | `sist-logik-4-annans-prov-404` |
+| 2 | Konto med valet CV, Börja gratis (spåret cv sparat), låst mall Aurora, betalväggen | OK "Köp CV-paketet, 79 kr i veckan" | `sist-kop-1-betalvagg` |
+| 2 | Köp-knappen | OK, **ett steg**: direkt till `/dashboard/valj-spar?paket=cv_week&steg=kop`, "Steg 2 av 2", inget produktval och inget spårval | `sist-kop-2-kopsteg-direkt` |
+| 2 | Samtycke, kassa med 4242, webhook | OK "Abonnera på CV-paketet, 79,00 kr per vecka", profilen scope cv och active, returskärmen "Du har CV-paketet. Allt är öppet nu." | `sist-kop-3-*`, `sist-kop-4-retur` |
+| 3 | Header, Hoppa över, konto | OK landar på `/dashboard/valj-spar?hoppat=1` | `sist-hoppa-1-steg2`, `sist-hoppa-2-sparval` |
+| 3 | Börja gratis i stället | OK, **direkt till hemskärmen**, ingen "Vad vill du börja med?" | `sist-hoppa-3-hem` |
+| K2 | CV-byggarens steg 7 med låst mall (`?steg=7&mall=disk-plus`), gratiskonto | Första bygget: brickorna "CV-paketet" och knappen rätt, men statusraden visade den långa meningen avkortad ("Den här mallen ..."). Rättat: raden säger "Ingår när du har ett paket" och bryter rad, meningen ligger i aria-label. Omkört: OK, inget Premium, Köp-länken till `?paket=cv_week&steg=kop` | `sist-mall-1-steg7-last`, `sist-mall-2-steg7-helsida` |
+
+`npx tsc --noEmit` rent (utom `.next/dev/types`), vitest 79 filer gröna med de nya testerna: `src/lib/tests/__tests__/prov-rad.test.ts` (claim-landningen, null och därmed 404 för annans token, genomgången), `src/components/paywall/__tests__/kopvag.test.tsx` (köpvägen i ett steg, också med sparat spår), `src/app/dashboard/valj-spar/__tests__/hoppat.test.tsx` (frågan högst en gång, köpsteget vid paket i adressen) och Premium-grepet i `paketnamn.test.ts`.
+
+### Kvar efter den här omgången
+
+- Gemena "premium-varianten", "premium-mall" och "premium-kontor" står kvar i omkring 97 rader i de publika yrkesmallarnas brödtext (`yrkesmall-content.ts`). Uppdraget gällde "Premium"; de gemena är SEO-text och behöver en egen copyrunda.
+- Logiktestprovet utan konto visar redan frågans regel under varje fråga medan man svarar (`ProvaFlow.tsx`). Regeln är samma text som förklaringen på resultatsidan, så det kontot låser upp är i praktiken rätt svar och vilka som var fel. Förslag: dölj regeln i provet, som dashboardens ledtrådsläge gör.
+
+### Städning (sista punkterna)
+
+Webbservern och relät stoppades först. `scripts/qa-slutflode-stada.mjs` per id med `STADLOGG=sist-stadning` (loggarna `docs/qa/slutflode/sist-stadning-torrkorning.json` och `sist-stadning-kord.json`; skriptet fick prefixet så att förmiddagens loggar ligger kvar).
+
+**Stripe testläge:** 1 testkund (köpkontot), prenumerationen avslutad (verifierat `canceled`), kunden raderad. Ingen öppen kassa fanns.
+
+**Supabase (produktion), 3 konton**, räknat före och raderat med `user_id in (…)`: user_activities 29, email_schedule 7, email_confirmations 3, monthly_guest_allowances 1, profiles (id) 3, auth.users 3. Per token: `anon_test_sessions` 1. `public_rate_limits` för localhost-nyckeln: `anon_test` 3 före, tillbaka till 2. Kontroll efteråt: 0 profiler och 0 auth-användare för id:na, 0 `qa-slut-`-användare i auth, 0 rader med `user_id`, 0 foton.
+
+QA-kontonas id: sist-logik cb315402-e0be-4a2b-8c06-9e1b45514db0, sist-hoppa 75a132bc-1e4c-42b2-bbd2-a89ff5b51410, sist-kop 5b954c03-35e5-4a45-bbef-1ca6918e0c33.
+
+Byggkatalogen `.next-sist` borttagen, tsconfig-raderna som bygget lade till återställda.

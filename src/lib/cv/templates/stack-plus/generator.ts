@@ -233,7 +233,7 @@ export const stackPlusTemplate: CVTemplateGenerator = {
   generate: generateStackPlusHTML,
   metadata: {
     name: 'Stack Plus',
-    description: 'Premium-uppgradering av Stack med foto, tech-pillar-banner och tvåkolumns layout',
+    description: 'Stack med foto, tech-pillar-banner och tvåkolumns layout',
     category: 'modern',
     tier: 'premium'
   }

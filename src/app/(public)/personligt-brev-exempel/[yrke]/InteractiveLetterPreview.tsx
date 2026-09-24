@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Palette, Type, Eye, Download, Crown, CheckCircle, ChevronDown, Check } from 'lucide-react'
@@ -98,7 +99,7 @@ const FONTS = [
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
 
   // Premium
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'CV-paketet', tier: 'premium' }
 ]
 
 export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLetterPreviewProps) {
@@ -373,7 +374,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
                   >
-                    {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+                    {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
                       const categoryFonts = FONTS.filter(f => f.category === category)
                       if (categoryFonts.length === 0) return null
 
@@ -458,7 +459,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                         </div>
 
                         <div className="overflow-y-auto flex-1">
-                          {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+                          {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
                             const categoryFonts = FONTS.filter(f => f.category === category)
                             if (categoryFonts.length === 0) return null
 
@@ -528,7 +529,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
               >
                 <Crown className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div className="text-xs text-amber-900">
-                  <span className="font-semibold">{template.name}</span> är en premium-mall. Uppgradera till Premium för tillgång till alla mallar och obegränsade nedladdningar.
+                  <span className="font-semibold">{template.name}</span> ingår i {PAKETRADER.bricka}, med alla mallar och nedladdningar utan tak.
                 </div>
               </motion.div>
             )}
@@ -566,7 +567,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
             {template.tier === 'premium' && (
               <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                 <Crown className="w-3 h-3" />
-                Premium
+                {PAKETRADER.bricka}
               </div>
             )}
           </div>

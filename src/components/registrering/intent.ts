@@ -224,6 +224,9 @@ export function harledEntry(
 
 /* ------------------------------------------------------------ valkommen */
 
+/** Parametern som säger till spårvalet att frågan i steg 1 redan hoppats över. */
+export const HOPPAT_PARAM = 'hoppat'
+
 export type Landningsgren =
   | { via: 'redirect'; destination: string }
   | { via: 'paket'; destination: string }
@@ -239,6 +242,10 @@ export function landningsgren(c: SignupCookie | null, sparvalPath: string): Land
   if (c?.redirect) return { via: 'redirect', destination: c.redirect }
   if (c?.paket) return { via: 'paket', destination: `${sparvalPath}?paket=${c.paket}&steg=kop` }
   if (c?.intent) return { via: 'forslag', intent: c.intent }
+  // Hoppade hon över "Vad vill du börja med?" i steg 1 ställs frågan inte
+  // igen: Börja gratis i spårvalet går då direkt till hemskärmen
+  // (QA 2026-09-24, iakttagelse 2).
+  if (c?.skipped) return { via: 'sparval', destination: `${sparvalPath}?${HOPPAT_PARAM}=1` }
   return { via: 'sparval', destination: sparvalPath }
 }
 

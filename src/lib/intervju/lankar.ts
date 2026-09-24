@@ -22,7 +22,7 @@ export const profilHref = (token: string) => `/dashboard/intervju/profil/${token
  * Köpvägen läser ?paket=<planKey> i /dashboard/valj-spar, samma parameter
  * som prissidan och betalväggarna använder (docs/bygg-noter-paket.md).
  */
-export const TRANINGSPAKET_HREF = '/dashboard/valj-spar?paket=test_week'
+export const TRANINGSPAKET_HREF = '/dashboard/valj-spar?paket=test_week&steg=kop'
 
 /** Grundtestet och det fördjupade testet. */
 export const GRUNDTEST_HREF = '/dashboard/tester/personlighet-grund'

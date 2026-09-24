@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -120,7 +121,7 @@ export default function SimpleTemplateGallery({
                 <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-lg flex items-center justify-center z-10">
                   <div className="text-center">
                     <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
-                    <p className="text-sm text-gray-700 font-medium mb-2">Premium Mall</p>
+                    <p className="text-sm text-gray-700 font-medium mb-2">{PAKETRADER.ingar}</p>
                     <Button
                       size="sm"
                       className="bg-orange-600 hover:bg-orange-700 text-white text-xs"
@@ -185,7 +186,7 @@ export default function SimpleTemplateGallery({
                           : 'bg-amber-100 text-amber-800 border-amber-200'
                       }`}>
                         <Crown className="h-3 w-3 mr-1" />
-                        {isLocked ? 'Låst' : 'Premium'}
+                        {isLocked ? 'Låst' : PAKETRADER.bricka}
                       </Badge>
                     ) : (
                       <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 text-xs">

@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -176,7 +177,7 @@ export default function CVGenerationModal({
                     {selectedTemplate?.tier === 'premium' && (
                       <Badge className="bg-amber-100 text-amber-800">
                         <Crown className="w-3 h-3 mr-1" />
-                        Premium
+                        {PAKETRADER.bricka}
                       </Badge>
                     )}
                   </div>

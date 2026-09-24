@@ -269,7 +269,7 @@ export default function SuccessCelebration({
               >
                 <div className="flex items-center mb-2">
                   <Star className="w-4 h-4 text-pink-400 mr-2" />
-                  <span className="text-pink-400 font-medium text-sm">Premium Kvalitet</span>
+                  <span className="text-pink-400 font-medium text-sm">Hög kvalitet</span>
                 </div>
                 <p className="text-gray-300 text-sm">
                   Ditt CV är optimerat för svenska ATS-system och följer 2024 års rekryteringstrender. 

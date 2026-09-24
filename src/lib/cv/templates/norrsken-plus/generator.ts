@@ -219,7 +219,7 @@ export const norrskenPlusTemplate: CVTemplateGenerator = {
   generate: generateNorrskenPlusHTML,
   metadata: {
     name: 'Norrsken Plus',
-    description: 'Premium-uppgradering av Norrsken med foto, gradient-namn och två-kolumns body',
+    description: 'Norrsken med foto, gradient-namn och två-kolumns body',
     category: 'modern',
     tier: 'premium'
   }

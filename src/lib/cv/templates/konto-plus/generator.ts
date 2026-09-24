@@ -233,7 +233,7 @@ export const kontoPlusTemplate: CVTemplateGenerator = {
   generate: generateKontoPlusHTML,
   metadata: {
     name: 'Konto Plus',
-    description: 'Premium-mall för ekonomi/finans med foto-header, nyckeltal och emerald-accent',
+    description: 'Mall för ekonomi/finans med foto-header, nyckeltal och emerald-accent',
     category: 'modern',
     tier: 'premium'
   }

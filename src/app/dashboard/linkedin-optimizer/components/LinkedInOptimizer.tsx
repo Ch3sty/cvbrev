@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
@@ -316,7 +317,7 @@ export default function LinkedInOptimizer({
       if (data?.error) {
         if (data.quota_exceeded) {
           throw new Error(
-            'Du har använt din veckokvot. Uppgradera till Premium för obegränsad optimering.'
+            PAKETRADER.linkedinKvot
           )
         }
         throw new Error(data.error)

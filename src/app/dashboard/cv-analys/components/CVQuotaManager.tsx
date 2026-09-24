@@ -1,6 +1,8 @@
 // src/components/cv/analysis/CVQuotaManager.tsx
 'use client';
 
+import { kopstegHref } from '@/lib/onboarding/steps'
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
 import { Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
@@ -95,16 +97,16 @@ export default function CVQuotaManager({
       </h4>
       <p className="mt-1 text-sm leading-relaxed text-ink-2">
         {subscriptionTier === 'free'
-          ? `Du har nått din gräns på ${maxCvs} sparade CV. Radera ett befintligt CV för att spara det nya, eller uppgradera till Premium för 50 CV.`
+          ? PAKETRADER.cvFullt(maxCvs)
           : `Du har nått din gräns på ${maxCvs} sparade CV. Radera ett befintligt CV för att spara det nya.`}
       </p>
 
       {subscriptionTier === 'free' && (
         <a
-          href="/dashboard/profil/prenumeration"
+          href={kopstegHref('cv_week')}
           className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
         >
-          Uppgradera till Premium
+          {PAKETRADER.kopCv}
         </a>
       )}
 

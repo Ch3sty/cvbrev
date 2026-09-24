@@ -40,7 +40,8 @@ export async function POST(request: Request) {
   // ---- Rätta en pågående session ----
   if (token && hasAnswers) {
     const session = await getAnonSession(admin, token)
-    if (!session) {
+    // Ett hämtat prov är låst: svaren på resultatsidan ska stå kvar som de var.
+    if (!session || session.claimed_by) {
       return NextResponse.json(
         { error: 'Sessionen finns inte längre eller har gått ut.' },
         { status: 404 }
@@ -61,6 +62,7 @@ export async function POST(request: Request) {
       .from('anon_test_sessions')
       .update({ answers, score })
       .eq('token', token)
+      .is('claimed_by', null)
 
     return NextResponse.json({
       score,

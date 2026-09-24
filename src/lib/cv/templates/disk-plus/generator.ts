@@ -214,7 +214,7 @@ export const diskPlusTemplate: CVTemplateGenerator = {
   generate: generateDiskPlusHTML,
   metadata: {
     name: 'Disk Plus',
-    description: 'Premium-mall för butik och frontline-service med foto-banner och magazine-stil',
+    description: 'Mall för butik och frontline-service med foto-banner och magazine-stil',
     category: 'modern',
     tier: 'premium'
   }

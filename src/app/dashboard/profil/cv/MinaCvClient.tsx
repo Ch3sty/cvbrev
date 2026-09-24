@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -322,7 +323,7 @@ export default function MinaCvClient({
       {cvCount > 0 && (
         <StatusRow label="Antal CV">
           {isPremium
-            ? `${cvCount} sparade CV. Premium, inga gränser.`
+            ? PAKETRADER.cvUtanGrans(cvCount)
             : `${cvCount} av ${FREE_LIMIT} CV använda.`}
         </StatusRow>
       )}

@@ -1699,7 +1699,7 @@ function generateExecutivePremiumHTML(cvData: CVMetadata): string {
     </head>
     <body>
         <div class="cv-container">
-            <!-- Premium Executive Header -->
+            <!-- Executive Header -->
             <div class="executive-header">
                 <div class="header-main">
                     <h1>${cvData.personalInfo.fullName}</h1>
@@ -1781,7 +1781,7 @@ function generateExecutivePremiumHTML(cvData: CVMetadata): string {
                 </div>
                 ` : ''}
                 
-                <!-- Premium Referenser -->
+                <!-- Referenser -->
                 <div class="references-section">
                     <p>Referenser lämnas på begäran</p>
                 </div>

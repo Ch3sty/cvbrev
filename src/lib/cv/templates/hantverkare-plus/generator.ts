@@ -234,7 +234,7 @@ export const hantverkarePlusTemplate: CVTemplateGenerator = {
   generate: generateHantverkarePlusHTML,
   metadata: {
     name: 'Hantverkare Plus',
-    description: 'Premium-uppgradering av Hantverkare med foto, dubbel-accent och projektportfölj',
+    description: 'Hantverkare med foto, dubbel-accent och projektportfölj',
     category: 'traditional',
     tier: 'premium'
   }

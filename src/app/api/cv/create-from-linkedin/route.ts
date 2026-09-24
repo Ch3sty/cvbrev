@@ -1,3 +1,4 @@
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
           error: 'CV limit reached',
           message:
             subscriptionTier === 'free'
-              ? `Du har nått din gräns på ${maxCvs} CV:n. Uppgradera till Premium eller ta bort ett CV för att skapa ett nytt.`
+              ? PAKETRADER.cvGrans(maxCvs)
               : `Du har nått din gräns på ${maxCvs} CV:n. Ta bort ett gammalt CV för att skapa ett nytt.`,
           quota_exceeded: true,
           subscription_tier: subscriptionTier,

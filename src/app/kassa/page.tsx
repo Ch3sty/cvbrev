@@ -13,6 +13,7 @@ import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { kopstegHref } from '@/lib/onboarding/steps'
 
 function KassaInner() {
   const params = useSearchParams()
@@ -31,7 +32,7 @@ function KassaInner() {
     // montering, så den kan inte längre öppna kassan själv. Den bär i stället
     // paketet till köpsteget, som har både rutan och knappen. Utloggade
     // skickas dit via inloggningen av sidan själv.
-    router.replace(`/dashboard/valj-spar?paket=${planParam}`)
+    router.replace(kopstegHref(planParam))
   }, [planParam, router, attempt])
 
   const plan = isPlanKey(planParam) ? PLAN_BY_KEY[planParam] : null

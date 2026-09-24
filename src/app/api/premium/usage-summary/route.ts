@@ -7,6 +7,7 @@
 // efter verklig användning. Har hon laddat ner tre brev står nedladdningen
 // först. Har hon inte laddat ner något står brevkvoten först.
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
@@ -34,7 +35,7 @@ export interface PremiumUsageSummary {
  * hon förlorar, och då ska den stå före den generella exporträkningen.
  */
 const PREMIUM_TEMPLATE_ITEM: PremiumLossItem = {
-  label: 'CV-mallar som ingår i Premium',
+  label: PAKETRADER.mallarIPaketet,
   free: 'Låsta',
   premium: 'Alla',
 }
@@ -51,7 +52,7 @@ const DEFAULT_ORDER: Array<{ feature: PremiumFeature; item: PremiumLossItem }> =
   },
   {
     feature: 'cv_export',
-    item: { label: 'Export PDF och Word', free: 'Ett CV, sedan Premium', premium: 'Obegränsat' },
+    item: { label: 'Export PDF och Word', free: PAKETRADER.exportGratis, premium: 'Obegränsat' },
   },
   {
     feature: 'cv_analysis_full',

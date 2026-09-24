@@ -39,6 +39,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import CVImprovementWorkflow, { Suggestion } from './CVImprovementWorkflow';
 import CVSectionAnalysisOverview from './analysis/CVSectionAnalysisOverview';
+import { kopstegHref } from '@/lib/onboarding/steps';
 
 // --- Type Definitions ---
 // It's highly recommended to move these types to a shared location
@@ -515,7 +516,7 @@ const PremiumTeaserSection: React.FC = React.memo(() => (
             poängen röra sig.
         </p>
         <Link
-            href="/dashboard/valj-spar?paket=cv_week"
+            href={kopstegHref('cv_week')}
             className="inline-flex items-center h-11 px-6 text-sm font-medium text-white transition-all bg-orange-600 hover:bg-orange-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
             Köp CV-paketet, 79 kr i veckan

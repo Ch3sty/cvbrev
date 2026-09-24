@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -208,7 +209,7 @@ export default function CVExportOptions({
 
       // Check if user has access to premium templates
       if (template.tier === 'premium' && subscriptionTier !== 'premium') {
-        throw new Error('Premium-mallar kräver en Premium-prenumeration.');
+        throw new Error(PAKETRADER.mallIngar);
       }
 
       const fileName = `${generateFilename()}.${selectedFormat}`;

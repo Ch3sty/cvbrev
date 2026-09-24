@@ -446,7 +446,7 @@ export class CohortAnalyzer {
 
       cohorts.push({
         cohort_id: 'premium_users',
-        cohort_name: 'Premium-användare',
+        cohort_name: 'Användare med paket',
         size: premiumUsers.length,
         retention_rate: retentionRate,
         ltv: avgLTV,

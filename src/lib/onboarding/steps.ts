@@ -25,6 +25,15 @@ export const VECKA_START_PATH = '/dashboard/vecka/start'
 export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
 
 /**
+ * Köpsteget för ett paket (QA 2026-09-24, iakttagelse 1). En köpknapp som
+ * redan namngett paket och pris går hit direkt, aldrig via produktvalet eller
+ * spårvalet. Samtycket och Till betalning står på köpsteget.
+ */
+export function kopstegHref(plan: string): string {
+  return `${TRACK_CHOICE_PATH}?paket=${encodeURIComponent(plan)}&steg=kop`
+}
+
+/**
  * Enda landningen efter ett nytt konto, för lösenord och för Google
  * (docs/design/profil-registrering-spec-2026-09-24.md, Del B). Sidan kör
  * hämtkedjan för smakproven och skickar vidare: redirect, paket, förslaget

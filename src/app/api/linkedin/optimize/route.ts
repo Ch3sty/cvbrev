@@ -1,3 +1,4 @@
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini'
@@ -985,7 +986,7 @@ export async function POST(req: NextRequest) {
         {
           error: isPremium
             ? 'Du har nått din veckovisa gräns. Kontakta support om du behöver fler optimeringar.'
-            : 'Du har använt din gratis optimering denna vecka. Uppgradera till Premium för obegränsade optimeringar!',
+            : PAKETRADER.linkedinKvot,
           quota_exceeded: true
         },
         { status: 429 }

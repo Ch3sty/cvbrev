@@ -11,6 +11,7 @@
  * ett talstreck i en title-attribut ingen ser på mobil.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from 'lucide-react';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 import dynamic from 'next/dynamic';
@@ -43,7 +44,7 @@ interface CvCardProps {
   isLocked?: boolean;
 }
 
-const LOCKED_HINT = 'Låst tills du uppgraderar till Premium';
+const LOCKED_HINT = PAKETRADER.lastCv;
 
 export default function CvCard({
   cv,

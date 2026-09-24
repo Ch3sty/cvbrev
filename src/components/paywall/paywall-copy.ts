@@ -351,3 +351,47 @@ export const KVOT_COPY_BY_FEATURE: Record<string, Pick<PaywallCopy, 'title' | 'b
   cv_analysis: kvotCopy('cv_analysis'),
   chat_message: kvotCopy('chat_message'),
 }
+
+/* ------------------------------------------------ där det stod Premium */
+
+/**
+ * Raderna som ersatte ordet "Premium" i gränssnittet
+ * (docs/qa/qa-slutflode-2026-09-24.md, K2). En knapp säger Köp med paketets
+ * namn och pris, en etikett "Ingår när du har ett paket", och en liten
+ * bricka på en mall eller ett typsnitt namnet på paketet den ingår i.
+ * CV-delen (mallar, analys, personliga brev som PDF, LinkedIn) ligger i
+ * CV-paketet, så det är paketet raderna nämner.
+ */
+export const PAKETRADER = {
+  ingar: 'Ingår när du har ett paket',
+  bricka: paketNamn('cv_week'),
+  kopCv: skaffaKnapp('cv_week'),
+  jamfor: 'Jämför paketen',
+  mallSparr: `Mallen ingår i ${paketMedPris('cv_week')}. Välj en annan mall eller spara utan PDF.`,
+  mallIngar: `Den här mallen ingår i ${paketMedPris('cv_week')}.`,
+  mallarRubrik: `Mallar i ${paketNamn('cv_week')}`,
+  mallarGratisOchPaket: `Gratis och i ${paketNamn('cv_week')}`,
+  lastCv: 'Låst. Ingår när du har ett paket.',
+  cvFullt: (max: number) =>
+    `Du har nått din gräns på ${max} sparade CV. Radera ett befintligt CV för att spara det nya, eller köp ${paketMedPris('cv_week')} för 50 CV.`,
+  cvFulltKort: `Ta bort ett gammalt CV eller köp ${paketMedPris('cv_week')} för att spara fler.`,
+  cvUtanGrans: (antal: number) => `${antal} sparade CV. Paketet har inga gränser.`,
+  cvGrans: (max: number) =>
+    `Du har nått din gräns på ${max} CV. Köp ${paketMedPris('cv_week')} eller ta bort ett CV för att skapa ett nytt.`,
+  cvFler: `Köp ${paketMedPris('cv_week')} för att få upp till 50 CV.`,
+  uppladdning: `Som gratisanvändare kan du ladda upp två CV. ${paketNamn('cv_week')} ger obegränsat.`,
+  analysUtanTak: 'Du har ett paket. Analysera så ofta du vill.',
+  linkedinKvot: `Du har använt din veckokvot. Med ${paketMedPris('cv_week')} optimerar du utan gräns.`,
+  paketAktivt: 'Ett paket är aktivt',
+  tackTitel: (namn: string | null) => (namn ? `Tack. Du har ${namn}.` : 'Tack. Ditt paket är öppet.'),
+  tackOkant: (datum: string | null) =>
+    datum ? `Paketet gäller till och med ${datum}.` : 'Paketet är öppet. Allt i det är upplåst.',
+  aktivitetKop: 'köpte ett paket',
+  tillgangTill: (datum: string) => `Paketet gäller fram till ${datum}`,
+  aterAktivera:
+    'Du har redan en prenumeration som löper ut vid periodens slut. Vill du behålla paketet kan du återaktivera den i prenumerationsportalen.',
+  belonning: (dagar: number) => `Du har fått ${paketNamn('all_week')} i ${dagar} ${dagar === 1 ? 'dag' : 'dagar'}.`,
+  belonningEnDag: `Din belöning, en dag med ${paketNamn('all_week')}, aktiveras automatiskt.`,
+  mallarIPaketet: `CV-mallar som ingår i ${paketNamn('cv_week')}`,
+  exportGratis: `Ett CV, sedan ${paketNamn('cv_week')}`,
+} as const

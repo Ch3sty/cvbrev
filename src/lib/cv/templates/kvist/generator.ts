@@ -478,7 +478,7 @@ export const kvistTemplate: CVTemplateGenerator = {
   generate: generateKvistHTML,
   metadata: {
     name: 'Kvist',
-    description: 'Premium-mall med skogsgrön header — för hållbarhet, klimat och cleantech',
+    description: 'Mall med skogsgrön header, för hållbarhet, klimat och cleantech',
     category: 'traditional',
     tier: 'premium'
   }

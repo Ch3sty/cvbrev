@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useRef, useEffect } from 'react';
 import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from 'lucide-react';
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
@@ -275,7 +276,7 @@ function FontOptionRow({
         </span>
         {font.tier === 'premium' && (
           <span className="flex-shrink-0 rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-3">
-            Premium
+            {PAKETRADER.bricka}
           </span>
         )}
       </span>

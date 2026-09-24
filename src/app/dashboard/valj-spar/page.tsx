@@ -9,8 +9,8 @@
  *
  * `?paket=<planKey>` förväljer spåret och längden. Prissidan och
  * registreringen skickar med den, så att den som redan valt paket inte får
- * frågan en gång till. `&steg=kop` öppnar köpsteget direkt (registreringens
- * förslag och prissidan, docs/design/profil-registrering-spec-2026-09-24.md).
+ * frågan en gång till, och köpsteget öppnas direkt. Spårvalet visas bara när
+ * inget paket är valt (QA 2026-09-24, iakttagelse 1).
  */
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -18,6 +18,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { isTrack, type Track } from '@/lib/onboarding/program'
 import { isPlanKey, PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
 import ValjSparClient from './ValjSparClient'
+import { HOPPAT_PARAM } from '@/components/registrering/intent'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
 export const metadata = { title: 'Välj paket' }
@@ -68,7 +69,12 @@ export default async function ValjSparPage({
       initialTrack={forvaltSpar ?? initialTrack}
       initialPlanKey={forvaltPaket}
       harLopandePrenumeration={harLopandePrenumeration}
-      oppnaKopsteg={params.steg === 'kop' && forvaltPaket !== null}
+      // Frågan i steg 1 hoppades över: Börja gratis ställer den inte igen.
+      utanGratisfraga={params[HOPPAT_PARAM] === '1'}
+      // Ett valt paket öppnar alltid köpsteget (QA 2026-09-24, iakttagelse 1):
+      // spårvalet visas bara när inget paket är valt. ?steg=kop står kvar i
+      // länkarna och betyder samma sak.
+      oppnaKopsteg={forvaltPaket !== null}
     />
   )
 }

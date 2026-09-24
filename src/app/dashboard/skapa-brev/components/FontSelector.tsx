@@ -10,6 +10,7 @@
  * kvar här oförändrad.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Sheet from '@/components/shell/Sheet';
@@ -150,7 +151,7 @@ const CATEGORY_LABELS: Record<FontCategory, string> = {
   'ats-safe': 'ATS-säkra klassiker',
   modern: 'Moderna (Google Fonts)',
   formal: 'Formella (serif)',
-  premium: 'Premium',
+  premium: PAKETRADER.ingar,
 };
 
 const CATEGORY_ORDER: FontCategory[] = ['ats-safe', 'modern', 'formal', 'premium'];
@@ -250,7 +251,7 @@ export default function FontSelector({
           <span className="block text-sm font-medium text-ink-1">
             {font.name}
             {font.tier === 'premium' ? (
-              <span className="ml-2 text-meta font-normal text-ink-3">Premium</span>
+              <span className="ml-2 text-meta font-normal text-ink-3">{PAKETRADER.bricka}</span>
             ) : null}
           </span>
           <span className="block truncate text-meta text-ink-3" style={{ fontFamily: font.fallback }}>

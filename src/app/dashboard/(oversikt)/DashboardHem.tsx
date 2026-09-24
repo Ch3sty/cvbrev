@@ -26,6 +26,7 @@
  * (docs/design/spec-onboarding-2026-09-22.html, sektion 2).
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -188,7 +189,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
       void logUserActivity(
         stats.userId,
         'premium_activated',
-        'aktiverade Premium',
+        PAKETRADER.aktivitetKop,
         { tier: 'premium', plan: searchParams.get('plan') ?? undefined }
       );
     }

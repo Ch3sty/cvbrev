@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import { useCVStore } from '@/store/cv-store'
 import { formatCVDate } from '@/lib/utils/date-formatter'
@@ -58,7 +59,7 @@ export default function CvSelectorList({
             title={cv.file_name}
             meta={
               locked
-                ? 'Låst. Uppgradera till Premium för att kunna välja det.'
+                ? PAKETRADER.lastCv
                 : ageLabel
             }
             leading={<IkonCv size={24} />}

@@ -2,12 +2,16 @@
  * POST /api/public/test-session/claim
  *
  * Kopplar en anonym provsession till det nyss skapade kontot
- * (docs/plan-konvertering.md, C9). Först här får användaren se vilka frågor
- * som var fel och läsa förklaringarna.
+ * (docs/plan-konvertering.md, C9) och skickar till resultatsidan
+ * /dashboard/tester/prov/[token], där alla fem svar står med rätt eller fel
+ * och förklaringen per fråga (docs/qa/qa-slutflode-2026-09-24.md, K1).
+ * Raden blir permanent (expires_at null), som intervjuprovets.
  *
- * Vi loggar resultatet som en aktivitet så det syns i dashboarden, men vi
- * skapar ingen test_sessions-rad: provet är fem frågor, inte ett helt test,
- * och ska inte förorena percentilstatistiken.
+ * Idempotent: har samma användare redan hämtat provet får hon samma
+ * redirect igen. Hämtat av någon annan, utgånget eller okänt ger 404.
+ *
+ * Vi skapar ingen test_sessions-rad: provet är fem frågor, inte ett helt
+ * test, och ska inte förorena percentilstatistiken.
  */
 
 import { cookies } from 'next/headers'
@@ -15,11 +19,11 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { getAnonSession, questionsForToken, roughPercentile } from '@/lib/tests/anon-session'
+import { arProvToken, hamtaEllerGorAnsprakProv, provGenomgang, provResultatHref } from '@/lib/tests/prov-rad'
 import { logActivityServer } from '@/lib/activation-tracking'
 
 export async function POST(request: Request) {
-  let token: string | undefined
+  let token: unknown
   try {
     const body = await request.json()
     token = typeof body?.token === 'string' ? body.token.trim() : undefined
@@ -27,7 +31,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Ogiltig begäran' }, { status: 400 })
   }
 
-  if (!token) {
+  if (!arProvToken(token)) {
     return NextResponse.json({ error: 'Token saknas' }, { status: 400 })
   }
 
@@ -42,50 +46,30 @@ export async function POST(request: Request) {
   }
 
   const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
-  const session = await getAnonSession(admin, token)
+  const fore = await admin.from('anon_test_sessions').select('claimed_by').eq('token', token).maybeSingle()
+  const redanHamtad = (fore.data as { claimed_by: string | null } | null)?.claimed_by === user.id
+  const rad = await hamtaEllerGorAnsprakProv(admin, token, user.id)
 
-  if (!session) {
-    return NextResponse.json(
-      { error: 'Provet finns inte längre eller har gått ut.' },
-      { status: 404 }
-    )
+  if (!rad) {
+    return NextResponse.json({ error: 'Provet finns inte längre eller har gått ut.' }, { status: 404 })
   }
 
-  const questions = questionsForToken(token)
-  const answers = Array.isArray(session.answers) ? session.answers : []
-  const score = session.score ?? 0
+  const { ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [])
 
-  // Idempotent: loggningen får köras om utan att skapa dubbletter av värde,
-  // och själva svaret beror bara på sessionen.
-  try {
-    await logActivityServer(
-      user.id,
-      'test_completed',
-      'Gjorde provet utan konto',
-      {
+  // Aktiviteten loggas bara vid första hämtningen, så att en omladdning
+  // inte ger dubbletter i historiken.
+  if (!redanHamtad) {
+    try {
+      await logActivityServer(user.id, 'test_completed', 'Gjorde provet utan konto', {
         slug: 'matrislogik-prova',
-        score,
-        total: questions.length,
+        score: ratt,
+        total: totalt,
         anonymous_origin: true,
-      }
-    )
-  } catch (err) {
-    console.error('[test-session/claim] Kunde inte logga aktivitet:', err)
+      })
+    } catch (err) {
+      console.error('[test-session/claim] Kunde inte logga aktivitet:', err)
+    }
   }
 
-  return NextResponse.json({
-    redirect: '/dashboard/tester',
-    score,
-    total: questions.length,
-    percentile: roughPercentile(score, questions.length),
-    // Nu är det fritt fram: facit och förklaringar följer med.
-    review: questions.map((q, i) => ({
-      id: q.id,
-      title: q.title,
-      rule: q.rule,
-      correctAnswer: q.correctAnswer,
-      yourAnswer: answers[i] ?? -1,
-      correct: answers[i] === q.correctAnswer,
-    })),
-  })
+  return NextResponse.json({ redirect: provResultatHref(rad.token), score: ratt, total: totalt })
 }

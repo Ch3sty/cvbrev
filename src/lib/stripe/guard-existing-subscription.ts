@@ -11,6 +11,7 @@
 // Vi frågar alltid Stripe, aldrig bara databasen. profiles.subscription_id
 // rymmer en enda rad, så en andra prenumeration är osynlig där.
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { stripe } from '@/lib/stripe/server'
 import { PLAN_BY_KEY, type PlanKey, type PlanScope } from '@/lib/plans/plans'
 import { priceIdToPlanKey } from '@/lib/stripe/planPrices'
@@ -83,7 +84,7 @@ export async function findLiveSubscription(
  */
 export function alreadySubscribedResponse(existing: ExistingSubscription) {
   const message = existing.cancelAtPeriodEnd
-    ? 'Du har redan en prenumeration som löper ut vid periodens slut. Vill du fortsätta som Premium kan du återaktivera den i prenumerationsportalen.'
+    ? PAKETRADER.aterAktivera
     : 'Du har redan en aktiv prenumeration. Hantera den i prenumerationsportalen.'
 
   return {

@@ -210,7 +210,7 @@ export default function SavedDiscountsAccordion() {
               {/* Info och CTA */}
               <div className="pt-3 border-t border-slate-100">
                 <p className="text-xs text-slate-500 mb-3">
-                  Rabattkoder appliceras automatiskt vid betalning för Premium-användare.
+                  Rabattkoder dras automatiskt vid betalning när du har ett paket.
                 </p>
                 <Link
                   href="/dashboard/profil/prenumeration"

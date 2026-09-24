@@ -447,7 +447,7 @@ export const avtryckTemplate: CVTemplateGenerator = {
   generate: generateAvtryckHTML,
   metadata: {
     name: 'Avtryck',
-    description: 'Premium retro-mall med cream-bakgrund, ramning och vintage-typografi',
+    description: 'Retro-mall med cream-bakgrund, ramning och vintage-typografi',
     category: 'creative',
     tier: 'premium'
   }

@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from 'lucide-react';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
@@ -50,7 +51,7 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
 
         {template.tier === 'premium' && (
           <Badge tone="neutral" icon={<Crown className="h-4 w-4" strokeWidth={1.75} />}>
-            Premium
+            {PAKETRADER.bricka}
           </Badge>
         )}
       </div>

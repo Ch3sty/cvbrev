@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">2. Beskrivning av Tjänsten</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            jobbcoach.ai tillhandahåller en plattform där användare kan ladda upp sitt CV, klistra in jobbannonser och använda vår AI-teknologi för att generera utkast till personliga brev. Tjänsten kan erbjudas i olika nivåer, inklusive en gratisversion med begränsad funktionalitet och en eller flera betalda prenumerationsnivåer ("Premium") med utökade funktioner och/eller högre användningsgränser.
+            jobbcoach.ai tillhandahåller en plattform där användare kan ladda upp sitt CV, klistra in jobbannonser och använda vår AI-teknologi för att generera utkast till personliga brev. Tjänsten kan erbjudas i olika nivåer, inklusive en gratisversion med begränsad funktionalitet och en eller flera betalda prenumerationsnivåer ("paket") med utökade funktioner och/eller högre användningsgränser.
           </p>
           <p className="text-gray-300 leading-relaxed">
             Vi strävar efter att Tjänsten ska vara tillgänglig och funktionell, men vi garanterar inte oavbruten eller felfri drift. Vi förbehåller oss rätten att ändra, uppdatera, avbryta eller begränsa Tjänsten eller dess funktioner när som helst, med eller utan förvarning.
@@ -108,27 +108,27 @@ export default function TermsOfServicePage() {
           </p>
         </section>
 
-        {/* 7. Premiumtjänster och Betalning */}
+        {/* 7. Paket och betalning */}
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">7. Premiumtjänster och Betalning</h2>
+          <h2 className="text-2xl font-semibold text-white mb-4">7. Paket och betalning</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Om du väljer att prenumerera på våra Premiumtjänster, godkänner du att betala de avgifter som anges vid köptillfället.
+            Om du väljer att prenumerera på våra paket, godkänner du att betala de avgifter som anges vid köptillfället.
           </p>
           <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
             <li>
               <strong className="font-semibold text-white">Betalningshantering:</strong> Alla betalningar hanteras säkert via vår tredjepartsleverantör, Stripe.com. Genom att göra ett köp godkänner du även Stripes användarvillkor och integritetspolicy. Vi lagrar inga kortuppgifter.
             </li>
             <li>
-              <strong className="font-semibold text-white">Prenumerationsperiod och Förnyelse:</strong> Premium-prenumerationer faktureras i förskott på återkommande basis (t.ex. månadsvis eller årsvis), enligt den period du valt. Din prenumeration förnyas automatiskt vid slutet av varje period om du inte avbryter den.
+              <strong className="font-semibold text-white">Prenumerationsperiod och Förnyelse:</strong> Prenumerationer på paket faktureras i förskott på återkommande basis (t.ex. månadsvis eller årsvis), enligt den period du valt. Din prenumeration förnyas automatiskt vid slutet av varje period om du inte avbryter den.
             </li>
             <li>
-              <strong className="font-semibold text-white">Avbokning:</strong> Du kan avbryta din Premium-prenumeration när som helst via din "profilsida" eller "genom att kontakta support"]. Avbokningen träder i kraft vid slutet av den innevarande faktureringsperioden. Du har tillgång till Premium-funktionerna fram till dess.
+              <strong className="font-semibold text-white">Avbokning:</strong> Du kan avbryta din prenumeration när som helst via din "profilsida" eller "genom att kontakta support"]. Avbokningen träder i kraft vid slutet av den innevarande faktureringsperioden. Du har tillgång till paketets funktioner fram till dess.
             </li>
              <li>
               <strong className="font-semibold text-white">Återbetalningar:</strong> Betalda prenumerationsavgifter är generellt sett inte återbetalningsbara, förutom där det krävs enligt lag. [Justera detta om ni har en annan policy]. Vi erbjuder inga återbetalningar eller krediter för delvis använda prenumerationsperioder.
             </li>
              <li>
-              <strong className="font-semibold text-white">Prisändringar:</strong> Vi förbehåller oss rätten att ändra priserna för våra Premiumtjänster. Eventuella prisändringar träder i kraft vid nästa förnyelseperiod efter att vi har meddelat dig om ändringen via e-post och i webbappen. 
+              <strong className="font-semibold text-white">Prisändringar:</strong> Vi förbehåller oss rätten att ändra priserna för våra paket. Eventuella prisändringar träder i kraft vid nästa förnyelseperiod efter att vi har meddelat dig om ändringen via e-post och i webbappen. 
             </li>
           </ul>
         </section>

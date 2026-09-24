@@ -288,11 +288,11 @@ function buildYrkesContent(slug: string, namn: string, kategori: string): YrkesC
       },
       {
         q: 'Behövs foto på CV:t?',
-        a: 'Inte obligatoriskt i Sverige men vanligt. Premium-mallen har stöd för foto medan gratis-versionen är ren. Båda är ATS-säkra. Välj utifrån branschen — vissa branscher förväntar sig foto, andra ser det som onödigt.',
+        a: 'Inte obligatoriskt i Sverige men vanligt. Mallen i CV-paketet har stöd för foto medan gratis-versionen är ren. Båda är ATS-säkra. Välj utifrån branschen: vissa branscher förväntar sig foto, andra ser det som onödigt.',
       },
       {
         q: 'Vilken är bäst av gratis och premium?',
-        a: `Beror på dig. Gratis-mallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Premium-mallen har plats för foto, LinkedIn och har visuellt rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar premium mer.`,
+        a: `Beror på dig. Gratis-mallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Mallen i CV-paketet har plats för foto, LinkedIn och har visuellt rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar premium mer.`,
       },
     ],
   }

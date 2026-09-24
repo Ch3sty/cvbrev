@@ -42,7 +42,7 @@ const features: Feature[] = [
       'Vi läser av arbetslivserfarenhet och roller',
       'Identifierar dina kompetenser och färdigheter',
       'Sparar kontaktuppgifter till dina brev',
-      'Premium: obegränsat antal CV:n',
+      'Med ett paket: obegränsat antal CV',
     ],
     href: '/dashboard/profil/cv',
     cta: 'Ladda upp CV',
@@ -116,7 +116,7 @@ const features: Feature[] = [
     benefits: [
       'Läsbara för rekryteringssystem',
       'Branschanpassade, rätt stil för din sektor',
-      'Premium-mallar: Platinum Executive, Nordic Professional, Creative Edge',
+      'Mallarna i CV-paketet: Platinum Executive, Nordic Professional, Creative Edge',
       'Olika mallar för olika typer av roller',
     ],
     href: '/dashboard/cv-mallar',

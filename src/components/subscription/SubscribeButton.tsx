@@ -4,6 +4,7 @@
 
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react';
 // Importera eventuella ikoner du vill använda, t.ex. Crown eller en laddningsikon
 // import { Crown } from 'lucide-react';
@@ -94,7 +95,7 @@ export function SubscribeButton({ priceId, planName, className = '', disabled = 
           </>
         ) : (
            // ***** HÄR ÄR ÄNDRINGEN *****
-           "Uppgradera till Premium" // Statisk text istället för dynamisk
+           PAKETRADER.kopCv
            // ***** SLUT PÅ ÄNDRINGEN *****
         )}
       </button>

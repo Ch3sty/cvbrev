@@ -10,8 +10,7 @@
  * spärren: brevet syns i sin helhet ovanför, fynden står ovanför kortet.
  *
  * Efter paketomgången bär kortet feature och scope. Knappen leder till
- * spårvalet med rätt paket förvalt, eller rakt in i kassan när spåret redan
- * är valt, och varje visning skjuter både paywall_shown och feature_blocked
+ * köpsteget för paketet i knappen, och varje visning skjuter både paywall_shown och feature_blocked
  * så att vi ser var fel spår tar i taket.
  *
  * Har användaren ett betalt spår som inte räcker är det inte en betalvägg
@@ -26,6 +25,7 @@ import { getPaywallCopy, planForPaywall, VARIANT_FEATURE, type PaywallVariant } 
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
+import { kopstegHref } from '@/lib/onboarding/steps'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
 import FelSpar from './FelSpar'
 import MarginPlate from '@/components/shell/MarginPlate'
@@ -211,18 +211,23 @@ export default function PaywallCard({
   }
 
   /**
-   * Har hon redan valt spår finns inget att välja: då är produktvalet rätt
-   * yta, och längden väljs där. Har hon inte valt spår leder knappen till
-   * spårvalet med paketet förvalt, så steget aldrig börjar från noll.
+   * Knappen har redan namngett paket och pris, så den går direkt till
+   * köpsteget för det paketet (QA 2026-09-24, iakttagelse 1), aldrig via
+   * produktvalet eller spårvalet. Bara när knappen saknar paket väljs det:
+   * med sparat spår i produktvalet, annars i spårvalet.
    */
+  const knappPlan: PlanKey | null = copy.plan ?? (suggestedPlan as PlanKey | null) ?? null
   const primarHandling = () => {
     ctaClicked('primary')
+    if (knappPlan) {
+      window.location.href = kopstegHref(knappPlan)
+      return
+    }
     if (track) {
       setSheetOpen(true)
       return
     }
-    const mal = suggestedPlan ? `${SPARVAL_HREF}?paket=${suggestedPlan}` : SPARVAL_HREF
-    window.location.href = mal
+    window.location.href = SPARVAL_HREF
   }
 
   const secondary = (() => {

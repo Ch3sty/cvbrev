@@ -1,6 +1,7 @@
 // src/components/cv/analysis/CVQuotaManager.tsx
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
 import { AlertTriangle, Trash2, Crown } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -105,8 +106,7 @@ export default function CVQuotaManager({
             <p className="text-sm text-amber-800 mb-3">
               {subscriptionTier === 'free' ? (
                 <>
-                  Du har nått din gräns på {maxCvs} sparade CV:n. Radera ett befintligt CV för att spara det nya,
-                  eller uppgradera till Premium för 50 CV:n.
+                  {PAKETRADER.cvFullt(maxCvs)}
                 </>
               ) : (
                 <>
@@ -122,7 +122,7 @@ export default function CVQuotaManager({
                 onClick={() => window.location.href = '/profile?tab=subscription'}
               >
                 <Crown className="w-4 h-4 mr-2" />
-                Uppgradera till Premium
+                {PAKETRADER.kopCv}
               </Button>
             )}
           </div>

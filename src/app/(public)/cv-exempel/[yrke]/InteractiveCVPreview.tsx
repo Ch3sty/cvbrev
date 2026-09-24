@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
@@ -56,7 +57,7 @@ const FONTS = [
   { id: 'georgia', name: 'Georgia', family: 'Georgia, Times, serif', category: 'Formella', tier: 'free' },
   { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'CV-paketet', tier: 'premium' }
 ]
 
 export default function InteractiveCVPreview({ exempelCV, initialHTML }: InteractiveCVPreviewProps) {
@@ -205,7 +206,7 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                     <div className="border-t border-slate-100 p-2">
                       <div className="px-3 py-2 text-xs font-semibold text-amber-600 uppercase flex items-center gap-1">
                         <Crown className="w-3 h-3" />
-                        Premium mallar
+                        {PAKETRADER.mallarRubrik}
                       </div>
                       {premiumTemplates.map((t) => (
                         <button
@@ -263,7 +264,7 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 max-h-[400px] overflow-y-auto"
                   >
-                    {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+                    {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
                       const categoryFonts = FONTS.filter(f => f.category === category)
                       if (categoryFonts.length === 0) return null
 
@@ -336,7 +337,7 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                 {template.tier === 'premium' && (
                   <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                     <Crown className="w-3 h-3" />
-                    Premium
+                    {PAKETRADER.bricka}
                   </div>
                 )}
               </div>

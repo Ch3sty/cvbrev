@@ -10,6 +10,7 @@
  * omladdning inte visar den igen.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
@@ -60,12 +61,12 @@ export default function PurchaseConfirmation({
 
   const body = (() => {
     if (!selected) {
-      return dateText ? `Premium är aktivt till och med ${dateText}.` : 'Premium är aktivt. Allt är upplåst.'
+      return PAKETRADER.tackOkant(dateText)
     }
     if (isRecurring) {
       return dateText
-        ? `${selected.name} är aktiv. Nästa debitering ${dateText}. Du kan avsluta när du vill.`
-        : `${selected.name} är aktiv. Du kan avsluta när du vill.`
+        ? `${selected.name} är aktivt. Nästa debitering ${dateText}. Du kan avsluta när du vill.`
+        : `${selected.name} är aktivt. Du kan avsluta när du vill.`
     }
     return dateText
       ? `${selected.name} gäller till och med ${dateText}. Inget dras automatiskt efter det.`
@@ -74,7 +75,7 @@ export default function PurchaseConfirmation({
 
   return (
     <Confirmation
-      title="Tack. Premium är aktiverat."
+      title={PAKETRADER.tackTitel(selected?.name ?? null)}
       description={body}
       action={
         <Link

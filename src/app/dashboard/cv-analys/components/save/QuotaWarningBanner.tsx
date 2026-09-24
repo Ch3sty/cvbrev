@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import CVQuotaManager from '../CVQuotaManager';
@@ -37,7 +38,7 @@ export default function QuotaWarningBanner({
             Biblioteket är fullt, {cvCount} av {maxCvs} platser använda
           </p>
           <p className="mt-0.5 text-meta text-ink-3">
-            Ta bort ett gammalt CV eller uppgradera till Premium för att spara fler.
+            {PAKETRADER.cvFulltKort}
           </p>
         </div>
         <div className="flex-shrink-0">

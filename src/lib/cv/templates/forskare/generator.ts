@@ -462,7 +462,7 @@ export const forskareTemplate: CVTemplateGenerator = {
   generate: generateForskareHTML,
   metadata: {
     name: 'Forskare',
-    description: 'Premium-mall för forskare och doktorander med publikationer och stipendier',
+    description: 'Mall för forskare och doktorander med publikationer och stipendier',
     category: 'traditional',
     tier: 'premium'
   }

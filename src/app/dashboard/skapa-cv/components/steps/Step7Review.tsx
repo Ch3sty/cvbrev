@@ -1,5 +1,7 @@
 'use client';
 
+import { kopstegHref } from '@/lib/onboarding/steps';
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -251,7 +253,7 @@ export default function Step7Review({
     const blockedReason = !isValid
       ? 'Fyll i namn, e-post och telefon samt minst en erfarenhet eller utbildning.'
       : isTemplateLocked
-        ? 'Mallen kräver Premium. Välj en annan mall eller spara utan PDF.'
+        ? PAKETRADER.mallSparr
         : undefined;
     registerPrimary({
       label: 'Spara och ladda ner PDF',
@@ -389,7 +391,7 @@ export default function Step7Review({
                       {template.tier === 'premium' ? (
                         <>
                           <IkonKrona size={14} />
-                          Premium
+                          {PAKETRADER.bricka}
                         </>
                       ) : (
                         'Gratis'
@@ -406,14 +408,15 @@ export default function Step7Review({
           <StatusRow
             tone="warm"
             showDot
-            label="Mallen kräver Premium"
+            wrap
+            label={PAKETRADER.mallIngar}
             action={
-              <Link href="/dashboard/profil/prenumeration" className="text-sm font-medium text-accent-ink underline decoration-kant-stark underline-offset-4">
-                Se Premium
+              <Link href={kopstegHref('cv_week')} className="inline-flex min-h-11 items-center text-sm font-medium text-accent-ink underline decoration-kant-stark underline-offset-4">
+                {PAKETRADER.kopCv}
               </Link>
             }
           >
-            Den här mallen kräver Premium
+            {PAKETRADER.ingar}
           </StatusRow>
         )}
       </section>

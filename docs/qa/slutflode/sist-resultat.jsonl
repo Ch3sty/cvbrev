@@ -1,0 +1,26 @@
+{"tid":"2026-09-24T13:00:58.318Z","del":"logik","steg":"spärren: Skapa konto och se svaren","ok":true,"href":"/register?test=473be2e7-1453-4715-853a-0bc4fc1bb1ed"}
+{"tid":"2026-09-24T13:00:59.588Z","del":"logik","steg":"registreringen lovar svaren med förklaring","ok":true,"rad":"Skapa konto och se alla svar med förklaring"}
+{"tid":"2026-09-24T13:01:10.366Z","del":"logik","steg":"landar på resultatsidan under /dashboard/tester","ok":true,"id":"cb315402-e0be-4a2b-8c06-9e1b45514db0","url":"/dashboard/tester/prov/473be2e7-1453-4715-853a-0bc4fc1bb1ed"}
+{"tid":"2026-09-24T13:01:10.367Z","del":"logik","steg":"fem frågor med rätt eller fel","ok":true,"markeringar":["Rätt","Fel","Fel","Fel","Fel"]}
+{"tid":"2026-09-24T13:01:10.367Z","del":"logik","steg":"förklaring per fråga (regeln), öppen från start","ok":true,"forsta":"Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, ner"}
+{"tid":"2026-09-24T13:01:10.368Z","del":"logik","steg":"vägen vidare: Gör grundnivån och Se Träningspaketet, 79 kr i veckan","ok":true,"rader":["rätt av 5","Gör grundnivån","Se Träningspaketet, 79 kr i veckan","Alla nivåer, tidsatt provläge och förklaring till varje fråga ingår i Träningspaketet."]}
+{"tid":"2026-09-24T13:01:10.370Z","del":"logik","steg":"Träningspaketet-länken går till köpsteget","ok":true,"traning":"/dashboard/valj-spar?paket=test_week&steg=kop"}
+{"tid":"2026-09-24T13:01:10.371Z","del":"logik","steg":"inga talstreck eller Premium på sidan","ok":true}
+{"tid":"2026-09-24T13:01:27.484Z","del":"logik","steg":"omladdning visar samma resultat","ok":true}
+{"tid":"2026-09-24T13:01:27.485Z","del":"logik","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-09-24T13:01:47.373Z","del":"hoppa","steg":"spårvalet efter Hoppa över","ok":true,"id":"75a132bc-1e4c-42b2-bbd2-a89ff5b51410","url":"/dashboard/valj-spar?hoppat=1"}
+{"tid":"2026-09-24T13:01:50.317Z","del":"hoppa","steg":"Börja gratis landar på hemskärmen utan frågan en gång till","ok":true,"url":"/dashboard","rader":["Börja med ditt CV, Hanna","Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder.","Dra och släpp ditt CV här","eller klicka för att välja fil","PDF, Word eller text. Max 5 MB.","Namn, telefon och adress maskas innan texten går vidare till någon AI."]}
+{"tid":"2026-09-24T13:01:54.207Z","del":"hoppa","steg":"annan användares token ger 404","ok":true,"status":404}
+{"tid":"2026-09-24T13:01:59.917Z","del":"mall","steg":"steg 7: låst mall utan Premium","ok":false,"rader":["CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet"]}
+{"tid":"2026-09-24T13:02:00.002Z","del":"mall","steg":"Köp-länken går till köpsteget","ok":true,"kopLank":"/dashboard/valj-spar?paket=cv_week&steg=kop"}
+{"tid":"2026-09-24T13:02:00.004Z","del":"hoppa","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-09-24T13:02:35.121Z","del":"kop","steg":"kontot har ett sparat spår (cv)","ok":true,"id":"5b954c03-35e5-4a45-bbef-1ca6918e0c33","track":"cv"}
+{"tid":"2026-09-24T13:02:43.321Z","del":"kop","steg":"betalväggen på låst mall","ok":true,"mall":"Aurora, ingår i CV-paketet"}
+{"tid":"2026-09-24T13:02:46.668Z","del":"kop","steg":"STEG 2 AV 2","ok":true,"url":"/dashboard/valj-spar?paket=cv_week&steg=kop"}
+{"tid":"2026-09-24T13:02:59.005Z","del":"kop","steg":"köpsteget och kassan med 4242","ok":true,"kassa":["Abonnera på CV-paketet","79,00 kr","per vecka","Frankrike","Kroatien","Ukraina","Betala på ett säkert sätt hos Jobbcoach .AI och på alla andra ställen som godtar Link.","Betala och abonnera","Genom att prenumerera godkänner du att Jobbcoach .AI debiterar dig enligt villkoren tills du avbryter."],"samtycke":"Jag vill att innehållet startar direkt och förstår att ångerrätten därmed inte gäller. 79 kr dras var sjunde dag, nästa gång 1 oktober, tills jag säger upp prenumerationen."}
+{"tid":"2026-09-24T13:03:08.503Z","del":"kop","steg":"webhook: profilen har CV-paketet","ok":true,"scope":"cv","status":"active"}
+{"tid":"2026-09-24T13:03:08.505Z","del":"kop","steg":"returskärmen","ok":null,"url":"/dashboard/vecka/start?premium_activated=true&plan=cv_week","rader":["CV-paketet","Du har CV-paketet. Allt är öppet nu.","Hela CV-analysen, 41 mallar, personliga brev och LinkedIn-profilen, i vilken ordning du vill. Vi föreslår att du börjar med CV:t, för allt annat bygger på det.","SÅ HÄR GÅR DET TILL","1","Ladda upp CV:t, PDF eller Word. En minut."]}
+{"tid":"2026-09-24T13:03:08.506Z","del":"kop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-09-24T13:06:25.768Z","del":"mall","steg":"steg 7: låst mall utan Premium","ok":true,"rader":["CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet","CV-paketet"]}
+{"tid":"2026-09-24T13:06:25.875Z","del":"mall","steg":"Köp-länken går till köpsteget","ok":true,"kopLank":"/dashboard/valj-spar?paket=cv_week&steg=kop"}
+{"tid":"2026-09-24T13:06:25.876Z","del":"mall","steg":"konsolfel","ok":true,"fel":[]}

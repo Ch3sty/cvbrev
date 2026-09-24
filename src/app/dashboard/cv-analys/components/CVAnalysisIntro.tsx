@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
 
 import PageHeader from '@/components/shell/PageHeader';
@@ -65,7 +66,7 @@ export default function CVAnalysisIntro({
       {visaKvot && (
         <StatusRow label="Analyser kvar">
           {isPremium
-            ? 'Premium. Analysera så ofta du vill.'
+            ? PAKETRADER.analysUtanTak
             : `${remainingAnalyses} ${
                 remainingAnalyses === 1 ? 'analys' : 'analyser'
               } kvar. Som gratisanvändare får du en ny var tredje dygn.`}

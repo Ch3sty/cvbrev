@@ -11,7 +11,8 @@
 //   4. localhost-nyckeln i public_rate_limits återställs till läget före testet
 //   5. foton i lagringen per sökväg (och det som ligger under users/<id>/)
 //   6. profiles per id, auth-användarna sist, kontrollfråga
-// Aldrig mönster, aldrig tidsfönster. Loggen skrivs till docs/qa/slutflode/.
+// Aldrig mönster, aldrig tidsfönster. Loggen skrivs till docs/qa/slutflode/,
+// med prefixet ur STADLOGG (standard stadning).
 
 import fs from 'node:fs'
 import { createClient } from '@supabase/supabase-js'
@@ -195,5 +196,5 @@ if (KOR) {
 }
 
 fs.mkdirSync('docs/qa/slutflode', { recursive: true })
-fs.writeFileSync(`docs/qa/slutflode/stadning-${KOR ? 'kord' : 'torrkorning'}.json`, JSON.stringify(logg, null, 2))
+fs.writeFileSync(`docs/qa/slutflode/${process.env.STADLOGG || 'stadning'}-${KOR ? 'kord' : 'torrkorning'}.json`, JSON.stringify(logg, null, 2))
 console.log(JSON.stringify(logg, null, 1))

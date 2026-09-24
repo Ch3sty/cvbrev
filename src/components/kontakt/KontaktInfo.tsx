@@ -47,7 +47,7 @@ function DashboardInfo() {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-ink-1">Konto och support</p>
             <p className="mt-0.5 text-meta text-ink-3">
-              Inloggning, betalning eller ditt Premium-konto. Premium har förtur.
+              Inloggning, betalning eller ditt paket. Har du ett paket får du svar först.
             </p>
             <a href="mailto:support@jobbcoach.ai" className={LINK}>
               support@jobbcoach.ai
@@ -118,7 +118,7 @@ export default function KontaktInfo({ variant = 'public' }: KontaktInfoProps) {
           </div>
 
           <p className="text-slate-600 mb-3 text-xs sm:text-sm">
-            Problem med inloggning, betalning eller ditt Premium-konto? Kontakta:
+            Problem med inloggning, betalning eller ditt paket? Kontakta:
           </p>
 
           <a
@@ -132,7 +132,7 @@ export default function KontaktInfo({ variant = 'public' }: KontaktInfoProps) {
           <div className="pt-3 border-t border-blue-200/50">
             <p className="text-xs text-slate-600 flex items-center gap-1">
               <Info className="w-3 h-3 flex-shrink-0" />
-              Premium-användare har prioriterad hantering
+              Har du ett paket hanteras ditt ärende först
             </p>
           </div>
         </div>

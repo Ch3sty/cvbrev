@@ -24,6 +24,7 @@ import { capture } from '@/lib/analytics/events'
 import type { PaywallVariant } from './paywall-copy'
 import type { PremiumLossItem } from '@/app/api/premium/usage-summary/route'
 import { IlluDagspass, IlluVecka, IlluManad, IlluKvartal } from '@/components/illustrations/PriserIllustrations'
+import { kopstegHref } from '@/lib/onboarding/steps'
 
 export type PlanOrder = 'daypass-first' | 'month-first'
 
@@ -155,7 +156,7 @@ export default function UpgradeSheet({
     // Ångerrättssamtycket (avsnitt 8) ska kryssas på samma skärm som
     // köpknappen. Arket har ingen sådan kryssruta, så det öppnar inte kassan
     // själv utan bär paketet till köpsteget där rutan står bredvid knappen.
-    window.location.href = `/dashboard/valj-spar?paket=${plan}`
+    window.location.href = kopstegHref(plan)
   }
 
   /** Ett val, alltså ett spår. Allt bär sitt längdval inuti kortet. */

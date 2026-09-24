@@ -60,7 +60,9 @@ export interface AnonSessionRow {
   questions: unknown
   answers: number[] | null
   score: number | null
-  expires_at: string
+  claimed_by: string | null
+  /** Null när provet är hämtat till ett konto (src/lib/tests/prov-rad.ts). */
+  expires_at: string | null
 }
 
 /** Hämtar en session om den finns och inte gått ut. */
@@ -70,14 +72,14 @@ export async function getAnonSession(
 ): Promise<AnonSessionRow | null> {
   const { data, error } = await admin
     .from('anon_test_sessions')
-    .select('token, questions, answers, score, expires_at')
+    .select('token, questions, answers, score, claimed_by, expires_at')
     .eq('token', token)
     .maybeSingle()
 
   if (error || !data) return null
 
   const row = data as unknown as AnonSessionRow
-  if (new Date(row.expires_at).getTime() < Date.now()) return null
+  if (row.expires_at !== null && new Date(row.expires_at).getTime() < Date.now()) return null
 
   return row
 }

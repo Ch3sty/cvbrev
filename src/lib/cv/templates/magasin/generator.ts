@@ -462,7 +462,7 @@ export const magasinTemplate: CVTemplateGenerator = {
   generate: generateMagasinHTML,
   metadata: {
     name: 'Magasin',
-    description: 'Premium tidnings-cover-mall med stort foto och dramatisk serif-typografi',
+    description: 'Tidnings-cover-mall med stort foto och dramatisk serif-typografi',
     category: 'creative',
     tier: 'premium'
   }

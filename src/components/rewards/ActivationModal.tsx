@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check, Gift, Calendar, Crown, ExternalLink } from 'lucide-react';
@@ -64,14 +65,14 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
           </motion.div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            Premium Aktiverat!
+            Paketet är aktiverat
           </h3>
           <p className="text-lg text-gray-600 mb-6">{message}</p>
 
           <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-6 mb-6">
             <div className="flex items-center justify-center gap-3 mb-2">
               <Calendar className="w-5 h-5 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">Premium giltig till</span>
+              <span className="text-sm font-medium text-gray-700">Paketet gäller till</span>
             </div>
             <p className="text-2xl font-bold text-purple-700">
               {expiryDate.toLocaleDateString('sv-SE', {
@@ -89,7 +90,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             href="/dashboard"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-200"
           >
-            Utforska Premium-funktioner
+            Utforska paketet
             <ExternalLink className="w-4 h-4" />
           </Link>
         </div>
@@ -111,7 +112,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
           </motion.div>
 
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            Premium Förlängd!
+            Paketet är förlängt
           </h3>
           <p className="text-lg text-gray-600 mb-6">{message}</p>
 
@@ -172,7 +173,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               </div>
             </div>
             <p className="text-xs text-gray-600 mt-3">
-              Koden är sparad och kan användas när du uppgraderar till Premium
+              Koden är sparad och kan användas när du köper ett paket
             </p>
           </div>
 
@@ -187,7 +188,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               href="/dashboard/profil/prenumeration"
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
             >
-              Uppgradera till Premium
+              {PAKETRADER.kopCv}
             </Link>
           </div>
         </div>

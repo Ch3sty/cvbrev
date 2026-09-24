@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Gift, Copy, Check, ExternalLink, Calendar, Tag } from 'lucide-react';
@@ -229,7 +230,7 @@ const SavedDiscounts: React.FC = () => {
                         href="/dashboard/profil/prenumeration"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 whitespace-nowrap text-sm"
                       >
-                        Uppgradera till Premium
+                        {PAKETRADER.kopCv}
                         <ExternalLink className="w-4 h-4" />
                       </Link>
                     )}
@@ -249,8 +250,8 @@ const SavedDiscounts: React.FC = () => {
         </h4>
         <ul className="text-sm text-gray-700 space-y-1">
           <li>• Rabattkoder kan bara användas en gång och gäller för en betalning</li>
-          <li>• <strong>Premium-användare:</strong> Rabatten appliceras automatiskt på nästa månadsbetalning</li>
-          <li>• <strong>Gratis-användare:</strong> Klicka på "Uppgradera till Premium" för att aktivera rabatten</li>
+          <li>• <strong>Med ett paket:</strong> Rabatten dras automatiskt vid nästa betalning</li>
+          <li>• <strong>På gratisnivån:</strong> Köp ett paket för att använda rabatten</li>
           <li>• Utgångna koder kan inte användas – lås upp nya belöningar för fler rabatter</li>
         </ul>
       </div>

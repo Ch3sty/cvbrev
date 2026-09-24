@@ -10,7 +10,7 @@ export interface FontOption {
   id: string;
   name: string;
   family: string;
-  category: 'ATS-Säkra' | 'Moderna' | 'Formella' | 'Premium';
+  category: 'ATS-Säkra' | 'Moderna' | 'Formella' | 'CV-paketet';
   tier: 'free' | 'premium';
 }
 
@@ -32,7 +32,7 @@ export const FONTS: FontOption[] = [
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
 
   // Premium
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' },
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'CV-paketet', tier: 'premium' },
 ];
 
 export const DEFAULT_FONT_ID = 'calibri';

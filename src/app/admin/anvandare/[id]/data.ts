@@ -448,7 +448,7 @@ export async function hamtaTidslinje(userId: string): Promise<Tidslinje> {
       tid: t,
       rubrik: kopt
         ? `Köpte ${kallaText(kallan).replace(/^Engångsköp, /, '')}`
-        : `Premium ${dagar > 0 ? `${dagar} ${dagar === 1 ? 'dag' : 'dagar'}` : 'tilldelat'}`,
+        : `Paket ${dagar > 0 ? `${dagar} ${dagar === 1 ? 'dag' : 'dagar'}` : 'tilldelat'}`,
       detalj: kallan ? kallaText(kallan) : null,
     });
   }

@@ -125,7 +125,7 @@ function paketForProfil(priceId: string | null, scope: string | null): string {
 /** Paketnamnet ur en grant: Dagspasset ar onetime_1d. */
 function paketForGrant(source: string | null, days: number | null): string {
   if (source === 'onetime_1d' || days === 1) return PLAN_BY_KEY.all_day.name;
-  return days ? `${days} dagar Premium` : 'okänt paket';
+  return days ? `Paket ${days} dagar` : 'okänt paket';
 }
 
 /** Dagens datum i svensk tid, YYYY-MM-DD. */

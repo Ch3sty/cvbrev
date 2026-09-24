@@ -5,6 +5,7 @@
 
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
@@ -34,7 +35,7 @@ export function EmbeddedSubscribeButton({
   className = '',
   disabled = false,
   apiEndpoint = '/api/stripe/create-upgrade-session',
-  buttonText = 'Uppgradera till Premium'
+  buttonText = PAKETRADER.kopCv
 }: EmbeddedSubscribeButtonProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

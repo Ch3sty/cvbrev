@@ -440,7 +440,7 @@ export const skymningTemplate: CVTemplateGenerator = {
   generate: generateSkymningHTML,
   metadata: {
     name: 'Skymning',
-    description: 'Premium-mall med mörk header — för personliga varumärken och founders',
+    description: 'Mall med mörk header, för personliga varumärken och founders',
     category: 'creative',
     tier: 'premium'
   }

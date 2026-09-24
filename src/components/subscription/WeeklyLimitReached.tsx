@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Crown } from 'lucide-react'
@@ -253,7 +254,7 @@ export default function WeeklyLimitReached({
 
           {/* Eyebrow */}
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
-            Premium-funktion
+            {PAKETRADER.ingar}
           </div>
 
           {/* Rubrik */}
@@ -279,7 +280,7 @@ export default function WeeklyLimitReached({
               />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-slate-900 mb-1.5">
-                  Med Premium får du
+                  Med ett paket får du
                 </p>
                 <ul className="space-y-1 text-xs text-slate-700">
                   <li className="flex items-start gap-1.5">
@@ -318,7 +319,7 @@ export default function WeeklyLimitReached({
               boxShadow: '0 12px 28px -10px rgba(220, 38, 38, 0.5)',
             }}
           >
-            <span>Uppgradera till Premium</span>
+            <span>{PAKETRADER.kopCv}</span>
             <ArrowRight className="w-5 h-5" strokeWidth={2.4} />
           </Link>
 

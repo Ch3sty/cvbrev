@@ -20,6 +20,7 @@ import { updateSession, type EfterInloggning } from '@/lib/supabase/middleware'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { intervjuSvarFinns } from '@/lib/intervju/rad'
 import { smakprovFinns } from '@/lib/personlighet/smakprov-rad'
+import { provFinns } from '@/lib/tests/prov-rad'
 import { adminAuthMiddleware } from '@/middleware/admin-auth'
 import {
   ATTRIBUTION_COOKIE,
@@ -105,11 +106,23 @@ const INTERVJU_SIDA = /^\/dashboard\/intervju\/([^/]+)\/?$/
 
 /** Tolkningssidan för personlighetsprovet, samma 404-regel (rod-trad-prov-spec). */
 const PROFIL_SIDA = /^\/dashboard\/intervju\/profil\/([^/]+)\/?$/
+/** Logiktestprovets resultatsida, samma 404-regel (QA 2026-09-24, K1). */
+const LOGIKPROV_SIDA = /^\/dashboard\/tester\/prov\/([^/]+)\/?$/
 /** Egna undersidor under /dashboard/intervju som inte är en token. */
 const EGNA_SIDOR = new Set(['ny', 'profil', 'saknas'])
 
 function intervjuKontroll(request: NextRequest): EfterInloggning | undefined {
   const pathname = request.nextUrl.pathname
+  const logikprov = LOGIKPROV_SIDA.exec(pathname)
+  if (logikprov && logikprov[1] !== 'saknas') {
+    if (request.headers.get('sec-fetch-dest') === 'empty' || request.headers.has('rsc')) return undefined
+    const token = decodeURIComponent(logikprov[1])
+    return async (userId) => {
+      const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
+      if (await provFinns(admin, token, userId)) return null
+      return NextResponse.rewrite(new URL('/dashboard/tester/prov/saknas', request.url), { status: 404 })
+    }
+  }
   const profil = PROFIL_SIDA.exec(pathname)
   const traff = profil ? null : INTERVJU_SIDA.exec(pathname)
   if (!profil && !traff) return undefined

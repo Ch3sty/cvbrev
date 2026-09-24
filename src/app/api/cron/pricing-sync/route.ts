@@ -83,13 +83,13 @@ export async function GET(request: NextRequest) {
         .or('subscription_status.is.null,subscription_status.not.in.(active,trialing)');
 
       if (fetchError) {
-        console.error('[Premium Expiration] Error fetching expired users:', fetchError);
+        console.error('[Paketutgång] Error fetching expired users:', fetchError);
         results.premiumExpiration = { success: false, error: fetchError.message };
       } else if (!expiredUsers || expiredUsers.length === 0) {
-        console.log('[Premium Expiration] No expired premiums found');
+        console.log('[Paketutgång] No expired premiums found');
         results.premiumExpiration = { success: true, expired: 0 };
       } else {
-        console.log(`[Premium Expiration] Found ${expiredUsers.length} expired users`);
+        console.log(`[Paketutgång] Found ${expiredUsers.length} expired users`);
 
         const userIds = expiredUsers.map((u: any) => u.id);
         // premium_scope nollas tillsammans med tier: behörigheten är ett spår
@@ -101,12 +101,12 @@ export async function GET(request: NextRequest) {
           .in('id', userIds);
 
         if (updateError) {
-          console.error('[Premium Expiration] Error updating users:', updateError);
+          console.error('[Paketutgång] Error updating users:', updateError);
           results.premiumExpiration = { success: false, error: updateError.message };
         } else {
           let onetimeMails = 0;
           for (const user of expiredUsers) {
-            console.log(`[Premium Expiration] Downgraded ${user.email} - Source: ${user.premium_source}, Expired: ${user.premium_until}`);
+            console.log(`[Paketutgång] Downgraded ${user.email} - Source: ${user.premium_source}, Expired: ${user.premium_until}`);
 
             // Spår D3: engångsköp som löpt ut får ett kort "vill du förlänga".
             // Reverse trial (signup_trial) har rt_day6 och ska INTE få det här.
@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
                 await onOnetimeExpired(supabaseAdmin, user.id);
                 onetimeMails++;
               } catch (hookError: any) {
-                console.error('[Premium Expiration] onOnetimeExpired misslyckades:', hookError?.message);
+                console.error('[Paketutgång] onOnetimeExpired misslyckades:', hookError?.message);
               }
             }
           }
@@ -123,7 +123,7 @@ export async function GET(request: NextRequest) {
         }
       }
     } catch (error: any) {
-      console.error('[Premium Expiration] Unexpected error:', error);
+      console.error('[Paketutgång] Unexpected error:', error);
       results.premiumExpiration = { success: false, error: error.message };
     }
 

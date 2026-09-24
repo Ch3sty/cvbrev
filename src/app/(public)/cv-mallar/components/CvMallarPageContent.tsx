@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -90,7 +91,7 @@ export default function CvMallarPageContent({
   const FILTERS: { id: FilterType; label: string }[] = [
     { id: 'all', label: 'Alla mallar' },
     { id: 'free', label: 'Gratis' },
-    { id: 'premium', label: 'Premium' },
+    { id: 'premium', label: PAKETRADER.bricka },
     { id: 'yrkesmallar', label: 'Yrkesmallar' },
     { id: 'modern', label: 'Modern' },
     { id: 'traditional', label: 'Traditionell' },
@@ -193,7 +194,7 @@ export default function CvMallarPageContent({
 
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500 whitespace-nowrap">
-                        Gratis + Premium
+                        {PAKETRADER.mallarGratisOchPaket}
                       </span>
                       <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all whitespace-nowrap">
                         <FileText className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
@@ -267,7 +268,7 @@ export default function CvMallarPageContent({
                 {t.tier === 'premium' && (
                   <span className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
                     <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-                    Premium
+                    {PAKETRADER.bricka}
                   </span>
                 )}
                 {t.features?.atsSafe && (

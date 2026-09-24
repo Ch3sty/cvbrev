@@ -146,3 +146,81 @@ describe('namnen ur PLANS', () => {
     expect(paketNamnUrMetadata(null)).toBe('CV-paketet')
   })
 })
+
+/**
+ * Ordet Premium (docs/qa/qa-slutflode-2026-09-24.md, K2). Produkten heter
+ * paket sedan 2026-09-24: en knapp säger Köp med paketnamn och pris, en
+ * etikett "Ingår när du har ett paket". De tekniska namnen får stå kvar:
+ * premium_*-kolumner och värdet 'premium' (gemener), identifierare som
+ * isPremium och PremiumGate (ordet sitter ihop med annat), kommentarer och
+ * testfiler med markören. I yrkesmallarnas branschtexter är premium ett
+ * vanligt ord (Premium-restauranger, Premium-CAD); där fångas bara
+ * produktnamnet.
+ */
+describe('ordet Premium', () => {
+  const ORD = /(^|[^A-Za-z_])Premium(?![A-Z0-9_])/
+  const PRODUKT = /Premium[- ]?(mall|variant|konto|användare|prenumeration|funktion|tjänst|nivå)/
+  const BRANSCHTEXT = new Set(['app/(public)/cv-mallar/yrkesmall-content.ts'])
+
+  /** Rader utan kommentarer. Grovt men räcker: blockkommentarer och //-rader faller bort. */
+  function koddrader(text: string): Array<[number, string]> {
+    const ut: Array<[number, string]> = []
+    let iBlock = false
+    text.split(/\r?\n/).forEach((rad, i) => {
+      const t = rad.trim()
+      if (iBlock) {
+        if (t.includes('*/')) iBlock = false
+        return
+      }
+      if (t.startsWith('/*') && !t.includes('*/')) {
+        iBlock = true
+        return
+      }
+      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*') || t.startsWith('{/*')) return
+      ut.push([i + 1, rad.replace(/\s\/\/.*$/, '')])
+    })
+    return ut
+  }
+
+  it('står inte i någon användarsträng i src', () => {
+    const traffar: string[] = []
+    for (const fil of filer(SRC)) {
+      if (!/\.(ts|tsx)$/.test(fil)) continue
+      const rel = path.relative(SRC, fil).split(path.sep).join('/')
+      if (rel.includes('__tests__/') || /\.test\.tsx?$/.test(rel)) continue
+      const text = fs.readFileSync(fil, 'utf8')
+      if (text.includes(MARKOR)) continue
+      const regel = BRANSCHTEXT.has(rel) ? PRODUKT : ORD
+      for (const [nr, rad] of koddrader(text)) {
+        if (regel.test(rad)) traffar.push(`${rel}:${nr}: ${rad.trim().slice(0, 120)}`)
+      }
+    }
+    expect(traffar, `"Premium" i src:\n${traffar.join('\n')}`).toEqual([])
+  })
+
+  it('fångar ordet men inte de tekniska namnen', () => {
+    const fangar = (rad: string) => ORD.test(rad)
+    expect(fangar("label: 'Mallen kräver Premium'")).toBe(true)
+    expect(fangar('Se Premium')).toBe(true)
+    expect(fangar('Premium-mallar')).toBe(true)
+    expect(fangar('våra Premiumtjänster')).toBe(true)
+    expect(fangar("tier === 'premium'")).toBe(false)
+    expect(fangar('premium_until')).toBe(false)
+    expect(fangar('if (isPremium) return')).toBe(false)
+    expect(fangar('<PremiumGate>')).toBe(false)
+    expect(PRODUKT.test("title: 'Premium-mallen Disk Plus med foto'")).toBe(true)
+    expect(PRODUKT.test("kategori: 'Premium-restauranger'")).toBe(false)
+  })
+
+  it('ersättningarna följer paketnamnen', async () => {
+    const { PAKETRADER } = await import('@/components/paywall/paywall-copy')
+    expect(PAKETRADER.ingar).toBe('Ingår när du har ett paket')
+    expect(PAKETRADER.kopCv).toBe('Köp CV-paketet, 79 kr i veckan')
+    expect(PAKETRADER.bricka).toBe(paketNamn('cv_week'))
+    expect(PAKETRADER.mallSparr).toBe('Mallen ingår i CV-paketet, 79 kr i veckan. Välj en annan mall eller spara utan PDF.')
+    for (const v of Object.values(PAKETRADER)) {
+      const text = typeof v === 'function' ? (v as (x: never) => string)(3 as never) : v
+      expect(text).not.toMatch(/Premium|—/)
+    }
+  })
+})

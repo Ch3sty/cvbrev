@@ -125,8 +125,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Olika sjukhus letar efter olika kompetensprofiler. Vi har en taggrad där du listar diagnosspektra och utredningstyper du behärskar i klartext, vilket både rekryterare och ATS kan parsa.',
       },
       {
-        title: 'Premium-mallen lägger CME-block',
-        description: 'För specialist- och överläkarroller väger vidareutbildning tungt. Premium-varianten har ett dedikerat block för CME-poäng, kongressbidrag och fortbildning som inte tar plats från klinisk tjänstgöring.',
+        title: 'CV-paketets mall lägger CME-block',
+        description: 'För specialist- och överläkarroller väger vidareutbildning tungt. Paketvarianten har ett dedikerat block för CME-poäng, kongressbidrag och fortbildning som inte tar plats från klinisk tjänstgöring.',
       },
       {
         title: 'Sober färgsättning för tradition',
@@ -477,7 +477,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'A-HLR, ATLS, CMP, sterilteknik och förskrivningsrätt har egen sektion. Vi har sett att vårdchefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Premium-mallen lägger till foto',
+        title: 'CV-paketets mall lägger till foto',
         description: 'För distrikt, hemsjukvård och primärvård där relationer värderas, lägger premium-varianten till foto och LinkedIn. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -821,7 +821,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, Akta Ryggen, basala hygienrutiner, BPSD och nutrition har egen sektion med utgångsdatum. Vi har sett att enhetschefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Premium-mallen lägger till foto',
+        title: 'CV-paketets mall lägger till foto',
         description: 'För hemtjänst och kundnära roller där relationer värderas, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -1515,7 +1515,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Säljutbildningar (intern eller extern), kassansvar-certifikat och kundbemötande-utbildningar har egen rad. Visar att du har strukturerad utveckling utöver bara "tid i butik".',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior-roller (butikschef, avdelningschef, flagship-butiker) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -1867,7 +1867,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt Roboto Condensed med cyan-accent och kondenserad layout som signalerar industri och produktion. Ingen klick-baitig design som drar fokus från meriterna.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior-roller (lagerchef, terminalansvarig) lägger Logistik Plus till foto, mörkt grafit-band och tabellär arbetslivshistorik. Skapar en mer professionell first impression utan att kompromissa med ATS.',
       },
       {
@@ -2217,7 +2217,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Vi har sett att rektorer letar specifikt efter metoder de redan använder på skolan.',
       },
       {
-        title: 'Premium-mallen lägger till foto',
+        title: 'CV-paketets mall lägger till foto',
         description: 'I lärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
       },
       {
@@ -2562,7 +2562,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Reggio Emilia, Montessori, NPF-kompetens, språkstöd, TAKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter pedagogik som matchar deras förskola.',
       },
       {
-        title: 'Premium-mallen lägger till foto',
+        title: 'CV-paketets mall lägger till foto',
         description: 'I förskollärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck som passar pedagogiskt yrke utan att kompromissa med ATS.',
       },
       {
@@ -2907,7 +2907,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Körkort B, anpassade fordon, lyfthjälpmedel och AKK har egen rad. Många brukare behöver specifika kompetenser och vår mall låter dem syns utan att blanda in i generisk text.',
       },
       {
-        title: 'Premium-mallen lägger till foto',
+        title: 'CV-paketets mall lägger till foto',
         description: 'I assistansrollen där relationer värderas mest, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
       },
       {
@@ -3252,7 +3252,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HACCP, livsmedelshygien, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior-roller (sous chef, köksmästare, executive chef) lägger Servering till foto och magazine-känsla. Skapar en professionell first impression som passar premium-restauranger.',
       },
       {
@@ -3601,7 +3601,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Ingen klick-baitig design som drar fokus från behörigheter och meriter.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior-roller (truckchef, lagerförman) lägger Logistik Plus till foto och dark header. Skapar en mer professionell first impression utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -3947,7 +3947,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'Premium-mallen Konto Plus med snabbfakta',
+        title: 'CV-paketets mall Konto Plus med snabbfakta',
         description: 'För senior-roller (senior ekonomiassistent, redovisningsassistent) lägger Konto Plus till tre-kolumns header med snabbfakta och navy-emerald gradient. Skapar en mer professionell first impression.',
       },
       {
@@ -4288,7 +4288,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, basala hygienrutiner, Akta Ryggen, BPSD-utbildning, eventuella delegeringar. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'Premium-mallen Vården med foto',
+        title: 'CV-paketets mall Vården med foto',
         description: 'I omsorgssektorn där relationer värderas, lägger premium-varianten Vården till foto och språkblock i sidopanelen. Skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
       },
       {
@@ -4633,7 +4633,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, basala hygienrutiner, Akta Ryggen, eventuella medicindelegeringar har egen rad med utgångsdatum. Mallen lyfter formell kompetens utan att blanda med löpande text.',
       },
       {
-        title: 'Premium-mallen Vården med foto',
+        title: 'CV-paketets mall Vården med foto',
         description: 'I hemtjänsten där relationer värderas, lägger premium-varianten Vården till foto. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
       },
       {
@@ -4986,7 +4986,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
       },
       {
-        title: 'Premium-mallen Klinik med foto',
+        title: 'CV-paketets mall Klinik med foto',
         description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar en mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
       },
     ],
@@ -5323,7 +5323,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'I förskolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett mer personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -5672,7 +5672,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för samverkan med specialpedagog, kurator och elevhälsoteam. Visar att du tar ansvar bortom enskild eleven och kan arbeta strukturerat.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'I skolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -6017,7 +6017,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior-roller (huvudkassör, kassansvarig, supervisor) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla som passar premium-retail.',
       },
       {
@@ -6358,7 +6358,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Opera PMS, Mews, Visma Reception, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior-roller eller premium-segment lägger Disk Plus till foto. För hotellbranschen där förstaintrycket räknas är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -7052,7 +7052,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'Premium-mallen Konto Plus med snabbfakta',
+        title: 'CV-paketets mall Konto Plus med snabbfakta',
         description: 'För senior-roller (group controller, head of FP&A) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar professionell first impression.',
       },
       {
@@ -7393,7 +7393,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        title: 'CV-paketets mall Myndighet Plus med guld-accent',
         description: 'För senior-roller (förstesocialsekreterare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla.',
       },
       {
@@ -7738,7 +7738,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Microsoft Project, Jira, Asana, Monday, Smartsheet, Confluence. Mallen separerar verktygen från generiska kompetenser så rekryterare ser specifik systemvana direkt.',
       },
       {
-        title: 'Premium-mallen Aspekt med fokusområden',
+        title: 'CV-paketets mall Aspekt med fokusområden',
         description: 'För senior projektledare och program manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression utan att bli flashig för konsultsegmentet.',
       },
       {
@@ -8083,7 +8083,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Workday, SuccessFactors, BambooHR, CIPD-cert. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'Premium-mallen Aspekt med fokusområden',
+        title: 'CV-paketets mall Aspekt med fokusområden',
         description: 'För senior HR-roller och HRBP lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression som passar HR-chefer.',
       },
       {
@@ -8428,7 +8428,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SolidWorks, Catia, AutoCAD, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
       },
       {
-        title: 'Premium-mallen Verkstad Plus med blueprint-grid',
+        title: 'CV-paketets mall Verkstad Plus med blueprint-grid',
         description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar en designresonemang som passar konstruktörer och senior-ingenjörer.',
       },
       {
@@ -8773,7 +8773,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'UGL, IFL, Mind-Lab, eventuella certifieringar. Mallen lyfter ledarskaps-utveckling som eget block med datum.',
       },
       {
-        title: 'Premium-mallen Aspekt med fokusområden',
+        title: 'CV-paketets mall Aspekt med fokusområden',
         description: 'För avancemang till avdelningschef lägger Aspekt till "Fokusområden"-pills. Skapar professionell first impression som passar nästa karriärsteg.',
       },
       {
@@ -9118,7 +9118,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'MBA från Handels, INSEAD, IESE. Executive Education från SSE, Harvard. Mallen lyfter formell utbildning som eget block med datum.',
       },
       {
-        title: 'Premium-mallen Atlas eller Tidlös Plus',
+        title: 'CV-paketets mall Atlas eller Tidlös Plus',
         description: 'För C-suite och senior chef-roller lägger Atlas till centrerad serif-header med Playfair Display och guld-accent. Tidlös Plus har Garamond serif och burgundy-accent. Båda signalerar prestige.',
       },
       {
@@ -9463,7 +9463,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell licentiat eller disputation. Mallen har dedikerat block som passar regionalanknutna och universitetstjänster.',
       },
       {
-        title: 'Premium-mallen Klinik med sidopanel för meriter',
+        title: 'CV-paketets mall Klinik med sidopanel för meriter',
         description: 'Klinik-mallen har specialistuppdelning, kompetensområden och publikationer i högerpanel. Skapar formell prestige som passar specialistroller och senior-tjänster.',
       },
       {
@@ -9808,7 +9808,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Rektorer letar specifikt efter metoder de redan använder.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'I lärarrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -10498,7 +10498,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SAP, Manhattan, Lean, Six Sigma. Mallen separerar system och metodik från generiska kompetenser så logistikchefer ser specifik nivå direkt.',
       },
       {
-        title: 'Premium-mallen Aspekt med fokusområden',
+        title: 'CV-paketets mall Aspekt med fokusområden',
         description: 'För senior logistik-roller och supply chain manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression.',
       },
       {
@@ -10843,7 +10843,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Opera PMS, Mews, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För premium-hotell där förstaintrycket räknas, lägger Disk Plus till foto. För hotellbranschen är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -11196,7 +11196,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
       },
       {
-        title: 'Premium-mallen Klinik med foto',
+        title: 'CV-paketets mall Klinik med foto',
         description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
       },
     ],
@@ -11533,7 +11533,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        title: 'CV-paketets mall Myndighet Plus med guld-accent',
         description: 'För senior-roller (1:e-handläggare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -11878,7 +11878,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'TEACCH, AKK, bildstöd, Bornholm, lågaffektivt bemötande. Mallen lyfter pedagogiska metoder som eget block så rektorer letar specifikt efter metoder de redan använder.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'I specialpedagogrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar mer personligt intryck för elevhälsochefer.',
       },
       {
@@ -12568,7 +12568,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Jira, Productboard, CSPO-cert, SAFe POPM. Mallen lyfter formell kompetens som eget block med datum.',
       },
       {
-        title: 'Premium-mallen Magasin med editorial-känsla',
+        title: 'CV-paketets mall Magasin med editorial-känsla',
         description: 'För senior produktchefer och chief product officer lägger Magasin till asymmetrisk grid och plats för "tankeledare-citat". Skapar visuell tyngd som passar SaaS- och fintech-bolag.',
       },
       {
@@ -12913,7 +12913,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'UGL, IFL, kedje-specifika program. Mallen lyfter ledarskap-utveckling som eget block med datum.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior butikschefer och regional manager lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression som passar premium-retail.',
       },
       {
@@ -13258,7 +13258,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Telefon, mejl, chat, system. Mallen lyfter kanaler och system som eget block så team leaders ser specifik kompetens direkt.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior kundtjänst-roller och team leader lägger Disk Plus till foto. Skapar mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -13603,7 +13603,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HACCP, alkohollagen, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior-roller (bar manager, bar chef, executive bartender) lägger Servering till foto och magazine-känsla. Skapar professionell first impression som passar premium-barer.',
       },
       {
@@ -13948,7 +13948,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SolidWorks, Catia, Inventor, NX, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
       },
       {
-        title: 'Premium-mallen Verkstad Plus med blueprint-grid',
+        title: 'CV-paketets mall Verkstad Plus med blueprint-grid',
         description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar designresonemang som passar konstruktörer.',
       },
       {
@@ -14293,7 +14293,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SAP WMS, Manhattan, Lean, Six Sigma. Mallen lyfter system och metodik som eget block så distriktschefer ser specifik nivå direkt.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior lagerchef-roller och regional manager lägger Logistik Plus till foto, dark header och tabellär layout. Skapar professionell first impression.',
       },
       {
@@ -14638,7 +14638,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter målgrupp (barn, ungdom, vuxna) per uppdragsgivare. Skolkurator-erfarenhet och sjukvårdskurator-erfarenhet konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'För senior kurator inom skola eller habilitering lägger Pedagog till foto och varm färgton. Skapar trygghet och passar verksamheter där personlig kontakt är central.',
       },
       {
@@ -14983,7 +14983,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetsområde (kirurgi, ortopedi, primärvård, BUP). Specialisering är CV-kritisk inom vård.',
       },
       {
-        title: 'Premium-mallen Konto Plus med foto',
+        title: 'CV-paketets mall Konto Plus med foto',
         description: 'För senior vårdadministratör eller koordinator lägger Konto Plus till foto och ren design. Skapar trygghet vilket passar verksamheter där noggrannhet värderas.',
       },
       {
@@ -15328,7 +15328,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för åldersgrupp per uppdragsgivare. Erfarenhet från F-klass och 4-6 konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'För senior fritidspedagog eller arbetslagsledare lägger Pedagog till foto och varm färgton. Skapar trygghet och passar skolverksamhet där personlig kontakt är central.',
       },
       {
@@ -15673,7 +15673,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Ansvarsfull försäljning, säljutbildningar (Mystery Shopper, NPS), kedje-specifika program lyfts som eget block.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För butikssäljare som söker premium-roller eller butikschefsambition lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression.',
       },
       {
@@ -16018,7 +16018,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen separerar bolag och kundsegment (privat, företag, premium). Erfarenhet inom olika segment konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Norrsken Plus med foto',
+        title: 'CV-paketets mall Norrsken Plus med foto',
         description: 'Bank- och försäkringsbranschen värderar personlig kontakt. Norrsken Plus lägger till foto och varm färgton som passar relationsbyggande roller.',
       },
       {
@@ -16363,7 +16363,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för produktområde per uppdragsgivare. Erfarenhet från premium-konditori och industri-bageri konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior konditor eller chefskonditor lägger Servering till foto och varm färgton. Skapar professionell first impression som passar premium-segment.',
       },
       {
@@ -16708,7 +16708,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bank, försäkring, retail, offentlig sektor lyfts som eget kompetensblock. Differentierar dig från konsulter med bara teknisk bredd.',
       },
       {
-        title: 'Premium-mallen Stack Plus med foto',
+        title: 'CV-paketets mall Stack Plus med foto',
         description: 'För senior IT-konsult eller tech lead lägger Stack Plus till foto och ren design. Skapar professionell first impression som passar konsultbranschen där relation värderas.',
       },
       {
@@ -17053,7 +17053,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för teamtyp och teknisk kontext per uppdragsgivare. Erfarenhet från frontend-team och plattformsteam konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Aspekt med foto',
+        title: 'CV-paketets mall Aspekt med foto',
         description: 'För senior Scrum Master eller agile coach lägger Aspekt till foto och premium-känsla. Skapar professionell first impression som passar coaching-roller.',
       },
       {
@@ -17398,7 +17398,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och bolagsstorlek per uppdragsgivare. Erfarenhet från industri och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Konto Plus med foto',
+        title: 'CV-paketets mall Konto Plus med foto',
         description: 'För senior ekonom eller controller lägger Konto Plus till foto och ren design. Skapar professionell first impression som passar ekonomi-branschen.',
       },
       {
@@ -17743,7 +17743,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhet och specialisering per uppdragsgivare. Förlossning och MVC konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Klinik med foto',
+        title: 'CV-paketets mall Klinik med foto',
         description: 'Premium-segmentet (Sophiahemmet, BB Stockholm) värderar personlig kontakt. Klinik lägger till foto och formell färgton som passar barnmorskerollen.',
       },
       {
@@ -18088,7 +18088,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för målgrupp och kontext per uppdragsgivare. Erfarenhet från psykisk ohälsa och autism konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Vården & Omsorg med foto',
+        title: 'CV-paketets mall Vården & Omsorg med foto',
         description: 'För senior boendestöd eller samordnare lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
       },
       {
@@ -18433,7 +18433,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för åldersgrupp och kontext per uppdragsgivare. Erfarenhet från mellanstadium och gymnasium konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Pedagog med foto',
+        title: 'CV-paketets mall Pedagog med foto',
         description: 'För senior fritidsledare eller verksamhetsledare lägger Pedagog till foto och varm färgton. Skapar trygghet som passar ungdomsverksamhet.',
       },
       {
@@ -18778,7 +18778,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och produkt per uppdragsgivare. Telecom-erfarenhet och bank-erfarenhet konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Disk Plus med foto',
+        title: 'CV-paketets mall Disk Plus med foto',
         description: 'För senior kundtjänst eller team lead-ambition lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression.',
       },
       {
@@ -19123,7 +19123,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för fastighetsbestånd och ansvarsområde per uppdragsgivare. Erfarenhet från bostadshus och kommersiella fastigheter konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Hantverkare Plus med foto',
+        title: 'CV-paketets mall Hantverkare Plus med foto',
         description: 'För senior fastighetsskötare eller arbetsledare lägger Hantverkare Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -19468,7 +19468,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för kafétyp (specialty, kedja, hotell, restaurang) per uppdragsgivare. Erfarenhet från specialty och kedja konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior barista eller chef-barista lägger Servering till foto och varm färgton. Skapar professionell first impression som passar specialty-segmentet.',
       },
       {
@@ -19813,7 +19813,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från bank och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Aspekt med foto',
+        title: 'CV-paketets mall Aspekt med foto',
         description: 'För senior IT-projektledare eller program manager lägger Aspekt till foto och premium-känsla. Skapar professionell first impression.',
       },
       {
@@ -20158,7 +20158,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Konto Plus med foto',
+        title: 'CV-paketets mall Konto Plus med foto',
         description: 'För senior administrativ assistent eller VD-assistent lägger Konto Plus till foto och ren design. Skapar professionell first impression.',
       },
       {
@@ -20503,7 +20503,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för myndighet och ärendetyp per uppdragsgivare. Erfarenhet från Skatteverket och kommun konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Myndighet Plus med foto',
+        title: 'CV-paketets mall Myndighet Plus med foto',
         description: 'För senior administratör eller verksamhetsassistent lägger Myndighet Plus till foto och formell färgton. Skapar förtroende som passar offentlig sektor.',
       },
       {
@@ -20848,7 +20848,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetsområde och teamstorlek per uppdragsgivare. Erfarenhet från vård och socialtjänst konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Tidlös Plus med foto',
+        title: 'CV-paketets mall Tidlös Plus med foto',
         description: 'För senior enhetschef eller verksamhetschef lägger Tidlös Plus till foto och premium-känsla. Skapar förtroende som passar chefsroller.',
       },
       {
@@ -21193,7 +21193,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för brukargrupp och kontext per uppdragsgivare. Erfarenhet från demensvård och palliativ vård konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Vården & Omsorg med foto',
+        title: 'CV-paketets mall Vården & Omsorg med foto',
         description: 'För senior hemtjänstpersonal eller kontaktperson lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
       },
       {
@@ -21538,7 +21538,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter både relevant och icke-relevant arbete på samma sätt. Sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'Premium-mallen Student Plus med foto',
+        title: 'CV-paketets mall Student Plus med foto',
         description: 'För trainee-program eller premium-praktik lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
       },
       {
@@ -21883,7 +21883,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för terminaltyp och ansvarsområde per uppdragsgivare. Erfarenhet från pakettransport och industrilager konkurrerar inte.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior terminalarbetare eller lagerförman lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -22228,7 +22228,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och processområde per uppdragsgivare. Erfarenhet från 3PL och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior logistikassistent eller logistikkoordinator lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -22573,7 +22573,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetstyp och kontext per uppdragsgivare. Erfarenhet från hotell och fastighet konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Logistik Plus med foto',
+        title: 'CV-paketets mall Logistik Plus med foto',
         description: 'För senior servicemedarbetare eller koordinator lägger Logistik Plus till foto och magazine-känsla. Skapar professionell first impression.',
       },
       {
@@ -22918,7 +22918,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för restaurangkoncept per uppdragsgivare. Erfarenhet från fine dining och snabbmat konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior servitris eller premium-restaurang lägger Servering till foto och varm färgton. Skapar professionell first impression.',
       },
       {
@@ -23263,7 +23263,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för kökstyp per uppdragsgivare. Erfarenhet från restaurang och skolkök konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Servering med foto',
+        title: 'CV-paketets mall Servering med foto',
         description: 'För senior köksbiträde eller kock-aspirant lägger Servering till foto och varm färgton. Skapar professionell first impression.',
       },
       {
@@ -23608,7 +23608,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter både relevant och icke-relevant arbete. Tidigare sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'Premium-mallen Student Plus med foto',
+        title: 'CV-paketets mall Student Plus med foto',
         description: 'För premium-sommarjobb eller trainee-program lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
       },
       {
@@ -23953,7 +23953,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från fordon och livsmedel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Verkstad Plus med foto',
+        title: 'CV-paketets mall Verkstad Plus med foto',
         description: 'För senior automationsingenjör eller systemansvarig lägger Verkstad Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -24298,7 +24298,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'Premium-mallen Myndighet Plus med foto',
+        title: 'CV-paketets mall Myndighet Plus med foto',
         description: 'För senior kontorsassistent eller office manager lägger Myndighet Plus till foto och formell färgton. Skapar professionell first impression.',
       },
       {
@@ -24650,7 +24650,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och regelverken.',
       },
       {
-        title: 'Premium-mallen Konto Plus med snabbfakta',
+        title: 'CV-paketets mall Konto Plus med snabbfakta',
         description: 'För senior-roller (controller, redovisningschef) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar en mer professionell first impression.',
       },
       {
@@ -25342,7 +25342,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'Premium-mallen Myndighet Plus med guld-accent',
+        title: 'CV-paketets mall Myndighet Plus med guld-accent',
         description: 'För senior-roller (enhetschef, förvaltningschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
       },
       {

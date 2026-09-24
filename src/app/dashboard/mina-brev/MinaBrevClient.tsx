@@ -9,6 +9,7 @@
  * sidbakgrund: marken kommer från skalet.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -248,7 +249,7 @@ export default function MinaBrevClient({
           action={
             harLasta ? (
               <Link href={PREMIUM_HREF} className={LINK}>
-                Se Premium
+                {PAKETRADER.jamfor}
               </Link>
             ) : undefined
           }

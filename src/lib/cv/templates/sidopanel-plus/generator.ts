@@ -284,7 +284,7 @@ export const sidopanelPlusTemplate: CVTemplateGenerator = {
   generate: generateSidopanelPlusHTML,
   metadata: {
     name: 'Sidopanel Plus',
-    description: 'Premium-uppgradering av Sidopanel med foto, profilblock och orange-magenta accent',
+    description: 'Sidopanel med foto, profilblock och orange-magenta accent',
     category: 'modern',
     tier: 'premium'
   }

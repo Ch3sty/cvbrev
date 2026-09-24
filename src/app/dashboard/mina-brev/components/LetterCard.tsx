@@ -7,6 +7,8 @@
  * Premium. Ingen rotation, ingen skugga, ingen orange yta.
  */
 
+import { kopstegHref } from '@/lib/onboarding/steps'
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
 import LetterActions from './LetterActions';
@@ -104,11 +106,11 @@ export default function LetterCard({
 
         {isLocked ? (
           <Link
-            href="/dashboard/profil/prenumeration"
+            href={kopstegHref('cv_week')}
             onClick={(e) => e.stopPropagation()}
             className="relative z-20 mt-1 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >
-            Öppna brevet med Premium
+            {PAKETRADER.kopCv}
           </Link>
         ) : null}
       </div>

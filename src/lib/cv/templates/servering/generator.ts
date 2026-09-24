@@ -464,7 +464,7 @@ export const serveringTemplate: CVTemplateGenerator = {
   generate: generateServeringHTML,
   metadata: {
     name: 'Servering',
-    description: 'Premium-mall för restaurang, hotell och service med språk och diplom i fokus',
+    description: 'Mall för restaurang, hotell och service med språk och diplom i fokus',
     category: 'modern',
     tier: 'premium'
   }

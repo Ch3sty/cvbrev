@@ -9,6 +9,7 @@
  * /api/quota/status som återanvänder quotaService.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
@@ -84,7 +85,7 @@ export default function QuotaNudgeRow({ isPremium, className }: QuotaNudgeRowPro
         href={PREMIUM_HREF}
         className="shrink-0 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
       >
-        Se Premium
+        {PAKETRADER.jamfor}
       </Link>
     </section>
   )

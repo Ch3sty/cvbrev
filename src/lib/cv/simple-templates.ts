@@ -120,7 +120,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'pedagog',
     name: 'Pedagog',
-    description: 'Premium-mall för lärare och pedagoger med behörigheter och kompetensområden',
+    description: 'Mall för lärare och pedagoger med behörigheter och kompetensområden',
     imagePath: '/mallar/pedagog.svg',
     category: 'traditional',
     tier: 'premium',
@@ -166,7 +166,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'klinik',
     name: 'Klinik',
-    description: 'Premium-mall för läkare med specialistbevis, kompetensområden och publikationer',
+    description: 'Mall för läkare med specialistbevis, kompetensområden och publikationer',
     imagePath: '/mallar/klinik.svg',
     category: 'traditional',
     tier: 'premium',
@@ -189,7 +189,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'skymning',
     name: 'Skymning',
-    description: 'Premium-mall med mörk header, för personliga varumärken och founders',
+    description: 'Mall med mörk header, för personliga varumärken och founders',
     imagePath: '/mallar/skymning.svg',
     category: 'creative',
     tier: 'premium',
@@ -304,7 +304,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'disk-plus',
     name: 'Disk Plus',
-    description: 'Premium-mall för butik och frontline med foto, magazine-känsla och customer voice-block',
+    description: 'Mall för butik och frontline med foto, magazine-känsla och customer voice-block',
     imagePath: '/mallar/disk-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -322,7 +322,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'logistik-plus',
     name: 'Logistik Plus',
-    description: 'Premium-mall för lager och logistik med dark header och cyan-accent',
+    description: 'Mall för lager och logistik med dark header och cyan-accent',
     imagePath: '/mallar/logistik-plus.svg',
     category: 'traditional',
     tier: 'premium',
@@ -340,7 +340,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'verkstad-plus',
     name: 'Verkstad Plus',
-    description: 'Premium-mall för ingenjörer med blueprint-grid och två-kolumn-layout',
+    description: 'Mall för ingenjörer med blueprint-grid och två-kolumn-layout',
     imagePath: '/mallar/verkstad-plus.svg',
     category: 'traditional',
     tier: 'premium',
@@ -358,7 +358,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'myndighet-plus',
     name: 'Myndighet Plus',
-    description: 'Premium-mall för offentlig sektor med centrerad serif-header och guld-accent',
+    description: 'Mall för offentlig sektor med centrerad serif-header och guld-accent',
     imagePath: '/mallar/myndighet-plus.svg',
     category: 'traditional',
     tier: 'premium',
@@ -376,7 +376,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'konto-plus',
     name: 'Konto Plus',
-    description: 'Premium-mall för ekonomi och finans med tre-kolumns header och nyckeltal',
+    description: 'Mall för ekonomi och finans med tre-kolumns header och nyckeltal',
     imagePath: '/mallar/konto-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -394,7 +394,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'norrsken-plus',
     name: 'Norrsken Plus',
-    description: 'Premium-uppgradering av Norrsken med foto-ring, gradient-namn och profil-block',
+    description: 'Norrsken med foto-ring, gradient-namn och profil-block',
     imagePath: '/mallar/norrsken-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -412,7 +412,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'tidlos-plus',
     name: 'Tidlös Plus',
-    description: 'Premium-uppgradering av Tidlös med Garamond serif, ornament och burgundy-accent',
+    description: 'Tidlös med Garamond serif, ornament och burgundy-accent',
     imagePath: '/mallar/tidlos-plus.svg',
     category: 'traditional',
     tier: 'premium',
@@ -430,7 +430,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'stack-plus',
     name: 'Stack Plus',
-    description: 'Premium-uppgradering av Stack med teknik-pill-banner och två-kolumn-layout',
+    description: 'Stack med teknik-pill-banner och två-kolumn-layout',
     imagePath: '/mallar/stack-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -448,7 +448,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'hantverkare-plus',
     name: 'Hantverkare Plus',
-    description: 'Premium-uppgradering av Hantverkare med foto, projektportfölj och dubbel-accent',
+    description: 'Hantverkare med foto, projektportfölj och dubbel-accent',
     imagePath: '/mallar/hantverkare-plus.svg',
     category: 'traditional',
     tier: 'premium',
@@ -466,7 +466,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'student-plus',
     name: 'Student Plus',
-    description: 'Premium-uppgradering av Student med foto, drömjobb-eyebrow och utbildning först',
+    description: 'Student med foto, drömjobb-eyebrow och utbildning först',
     imagePath: '/mallar/student-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -484,7 +484,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'sidopanel-plus',
     name: 'Sidopanel Plus',
-    description: 'Premium-uppgradering av Sidopanel med foto, profilblock och orange-magenta accent',
+    description: 'Sidopanel med foto, profilblock och orange-magenta accent',
     imagePath: '/mallar/sidopanel-plus.svg',
     category: 'modern',
     tier: 'premium',
@@ -521,7 +521,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'forskare',
     name: 'Forskare',
-    description: 'Premium-mall för forskare och doktorander med publikationer och stipendier',
+    description: 'Mall för forskare och doktorander med publikationer och stipendier',
     imagePath: '/mallar/forskare.svg',
     category: 'traditional',
     tier: 'premium',
@@ -544,7 +544,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'servering',
     name: 'Servering',
-    description: 'Premium-mall för restaurang, hotell och service med språk och diplom i fokus',
+    description: 'Mall för restaurang, hotell och service med språk och diplom i fokus',
     imagePath: '/mallar/servering.svg',
     category: 'modern',
     tier: 'premium',
@@ -591,7 +591,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'spektrum',
     name: 'Spektrum',
-    description: 'Premium-mall med levande gradient-sidopanel, för marknadsförare och kreativa',
+    description: 'Mall med levande gradient-sidopanel, för marknadsförare och kreativa',
     imagePath: '/mallar/spektrum.svg',
     category: 'creative',
     tier: 'premium',
@@ -614,7 +614,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'kvist',
     name: 'Kvist',
-    description: 'Premium-mall med skogsgrön header, för hållbarhet, klimat och cleantech',
+    description: 'Mall med skogsgrön header, för hållbarhet, klimat och cleantech',
     imagePath: '/mallar/kvist.svg',
     category: 'traditional',
     tier: 'premium',
@@ -637,7 +637,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'magasin',
     name: 'Magasin',
-    description: 'Premium tidnings-cover-mall med stort foto och dramatisk serif-typografi',
+    description: 'Tidnings-cover-mall med stort foto och dramatisk serif-typografi',
     imagePath: '/mallar/magasin.svg',
     category: 'creative',
     tier: 'premium',
@@ -660,7 +660,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'karta',
     name: 'Karta',
-    description: 'Premium-mall med timeline och kompetensstaplar, för data, BI och konsulter',
+    description: 'Mall med timeline och kompetensstaplar, för data, BI och konsulter',
     imagePath: '/mallar/karta.svg',
     category: 'modern',
     tier: 'premium',
@@ -683,7 +683,7 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
   {
     id: 'avtryck',
     name: 'Avtryck',
-    description: 'Premium retro-mall med cream-bakgrund, ramning och vintage-typografi',
+    description: 'Retro-mall med cream-bakgrund, ramning och vintage-typografi',
     imagePath: '/mallar/avtryck.svg',
     category: 'creative',
     tier: 'premium',

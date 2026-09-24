@@ -12,6 +12,7 @@
  *  - /dashboard/cv-analys (efter steg 3 klart - hamta belogning)
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
 import { useOnboarding } from '@/contexts/OnboardingContext'
@@ -39,7 +40,7 @@ const NEXT_STEP_CONFIG = {
   analyze_cv: {
     completedLabel: 'CV analyserat',
     nextTitle: 'Alla tre steg klara!',
-    nextDescription: 'Din belöning – 1 dag Premium – aktiveras automatiskt.',
+    nextDescription: PAKETRADER.belonningEnDag,
     ctaLabel: 'Till översikten',
     ctaHref: '/dashboard',
   },

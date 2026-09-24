@@ -152,7 +152,7 @@ export async function PATCH(
       success: true,
       action: 'grant_premium',
       premiumUntil: resultat.premiumUntil,
-      message: `Premium förlängt med ${premiumDays} ${
+      message: `Paketet förlängt med ${premiumDays} ${
         premiumDays === 1 ? 'dag' : 'dagar'
       }.`,
     })

@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
               <strong className="font-semibold text-white">Kontoinformation:</strong> Din e-postadress och ett hashat lösenord för att du ska kunna logga in. Namn och telefonnummer samlas endast in om du frivilligt väljer att ange detta i din profil.
             </li>
             <li>
-              <strong className="font-semibold text-white">Betalningsrelaterad Information (för Premium):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar **inte** in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din Premium-åtkomst.
+              <strong className="font-semibold text-white">Betalningsrelaterad Information (för paket):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar **inte** in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din tillgång till ditt paket.
             </li>
             <li>
               <strong className="font-semibold text-white">CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen samt en textversion (som du kan redigera i tjänsten) i vår säkra databas hos Supabase.
@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
             <li>
               <strong className="font-semibold text-white">Viktig Information om OpenAI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till OpenAI:s tjänst via deras API. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det **avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.** Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till OpenAI för generering.
             </li>
-            <li>För att hantera ditt konto och din eventuella Premium-prenumeration (baserat på information från Stripe).</li>
+            <li>För att hantera ditt konto och ditt eventuella paket (baserat på information från Stripe).</li>
             <li>För att förbättra och optimera Tjänsten (genom analys av t.ex. användningsdata).</li>
             <li>För att kommunicera med dig (t.ex. svara på supportärenden).</li>
             <li>För att uppfylla legala krav och förhindra missbruk av Tjänsten.</li>
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
                     <strong className="font-semibold">Supabase:</strong> Används för säker hosting av vår databas där din kontoinformation, CV-filer (original och text), sparade brev och annan nödvändig data lagras.
                   </li>
                   <li>
-                    <strong className="font-semibold">Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för Premium-prenumerationer. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
+                    <strong className="font-semibold">Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för paketen. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
                   </li>
                   <li>
                     <strong className="font-semibold">OpenAI:</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till OpenAI:s API för att möjliggöra genereringen av det personliga brevet.

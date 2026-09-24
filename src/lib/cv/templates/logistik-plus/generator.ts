@@ -212,7 +212,7 @@ export const logistikPlusTemplate: CVTemplateGenerator = {
   generate: generateLogistikPlusHTML,
   metadata: {
     name: 'Logistik Plus',
-    description: 'Premium-mall för lager och transport med mörk header och tabellär projekt-historik',
+    description: 'Mall för lager och transport med mörk header och tabellär projekt-historik',
     category: 'traditional',
     tier: 'premium'
   }

@@ -11,7 +11,8 @@
  *         första steget, "Vill du ha allt i stället?" med längdvalet,
  *         samtyckesrutan och "Till betalning, 79 kr".
  *   1.1b  gratisanvändarens spårfråga, utan priser. Nås bara om inget spår
- *         är valt och hon trycker Börja gratis.
+ *         är valt och hon trycker Börja gratis, och aldrig för den som
+ *         hoppade över samma fråga i registreringen (utanGratisfraga).
  *
  * Skärmarna är steg i ett flöde, inte tre sidor: tillbaka går till
  * föregående steg, och framstegslinjen är tråden. All logik för samtycke,
@@ -85,6 +86,12 @@ export interface ValjSparClientProps {
    * prissidans ?paket= landar här, efter att paketet redan valts.
    */
   oppnaKopsteg?: boolean
+  /**
+   * Hon hoppade över "Vad vill du börja med?" i registreringen. Börja gratis
+   * utan valt kort går då direkt till hemskärmen: frågan ställs högst en gång
+   * (QA 2026-09-24, iakttagelse 2).
+   */
+  utanGratisfraga?: boolean
 }
 
 export default function ValjSparClient({
@@ -92,6 +99,7 @@ export default function ValjSparClient({
   initialPlanKey = null,
   harLopandePrenumeration = false,
   oppnaKopsteg = false,
+  utanGratisfraga = false,
 }: ValjSparClientProps) {
   const router = useRouter()
   const [steg, setSteg] = useState<Steg>(oppnaKopsteg && initialTrack ? 'paket' : 'val')
@@ -191,7 +199,7 @@ export default function ValjSparClient({
 
   const borjaGratis = useCallback(async () => {
     if (busy) return
-    if (!track) {
+    if (!track && !utanGratisfraga) {
       setSteg('gratisval')
       return
     }
@@ -200,7 +208,7 @@ export default function ValjSparClient({
     const ok = await sparaSpar(track, 'free')
     setBusy(false)
     if (ok) router.push('/dashboard')
-  }, [track, busy, sparaSpar, router])
+  }, [track, busy, utanGratisfraga, sparaSpar, router])
 
   /* ------------------------------------------------------- 1.1b: gratisanvändaren */
 

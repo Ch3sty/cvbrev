@@ -72,18 +72,40 @@ export default function MatrixQuestionReview({
   slug,
   sessionId,
   answers,
+  fragor,
+  utanTid = false,
+  allaOppna = false,
 }: {
   slug: string
   sessionId: string
   answers: MatrixSavedAnswer[]
+  /**
+   * Frågorna, när urvalet inte följer slugen. Logiktestprovet utan konto har
+   * fem frågor seedade på sin token (src/lib/tests/prov-rad.ts).
+   */
+  fragor?: LayeredQuestion[]
+  /** Utan tidsraden: provet utan konto mätte ingen tid per fråga. */
+  utanTid?: boolean
+  /** Alla förklaringar öppna från start, för en kort genomgång. */
+  allaOppna?: boolean
 }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [oppna, setOppna] = useState<ReadonlySet<number>>(() =>
+    allaOppna && fragor ? new Set(fragor.map((_, i) => i)) : new Set()
+  )
+  const vaxla = (i: number) =>
+    setOppna((fore) => {
+      const nya = new Set(fore)
+      if (nya.has(i)) nya.delete(i)
+      else nya.add(i)
+      return nya
+    })
 
   // Samma seedade urval som testvyn gav, alltså exakt hennes frågor.
   const questions = useMemo(() => {
+    if (fragor) return fragor
     const select = SELECTORS[slug]
     return select ? select(sessionId) : []
-  }, [slug, sessionId])
+  }, [fragor, slug, sessionId])
 
   // Sessioner från en äldre frågebank matchar inte dagens urval. Då finns
   // ingen genomgång att visa, och vi säger det i stället för att visa fel.
@@ -149,13 +171,13 @@ export default function MatrixQuestionReview({
         <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
           {questions.map((q, i) => {
             const answer = answers.find((a) => a.q_id === q.id)
-            const isOpen = openIndex === i
+            const isOpen = oppna.has(i)
 
             return (
               <li key={q.id}>
                 <button
                   type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  onClick={() => vaxla(i)}
                   aria-expanded={isOpen}
                   className="flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left hover:bg-insunken"
                 >
@@ -167,9 +189,11 @@ export default function MatrixQuestionReview({
                       {q.title.replace(/^FRÅGA\s+\d+\s*[-]\s*/i, '')}
                     </span>
                     <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
-                      {answer
-                        ? `${formatShort(answer.time_spent)} · svårighet ${q.difficulty} av 3`
-                        : 'Inte besvarad'}
+                      {!answer
+                        ? 'Inte besvarad'
+                        : utanTid
+                          ? `Svårighet ${q.difficulty} av 3`
+                          : `${formatShort(answer.time_spent)} · svårighet ${q.difficulty} av 3`}
                     </span>
                   </span>
                   <span

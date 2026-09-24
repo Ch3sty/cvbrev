@@ -193,7 +193,7 @@ export const studentPlusTemplate: CVTemplateGenerator = {
   generate: generateStudentPlusHTML,
   metadata: {
     name: 'Student Plus',
-    description: 'Premium-uppgradering av Student med foto, drömjobb-eyebrow och utbildning först',
+    description: 'Student med foto, drömjobb-eyebrow och utbildning först',
     category: 'modern',
     tier: 'premium'
   }

@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -243,7 +244,7 @@ export function StripeSubscriptionDetails() {
                   Prenumerationen är uppsagd
                 </p>
                 <p className="text-xs text-orange-700 mt-1">
-                  Du har tillgång till Premium fram till {formatDate(sub.currentPeriodEnd)}
+                  {PAKETRADER.tillgangTill(formatDate(sub.currentPeriodEnd))}
                 </p>
               </div>
             </div>

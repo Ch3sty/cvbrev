@@ -462,7 +462,7 @@ export const klinikTemplate: CVTemplateGenerator = {
   generate: generateKlinikHTML,
   metadata: {
     name: 'Klinik',
-    description: 'Premium-mall för läkare med specialistbevis, kompetensområden och publikationer',
+    description: 'Mall för läkare med specialistbevis, kompetensområden och publikationer',
     category: 'traditional',
     tier: 'premium'
   }

@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -215,7 +216,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 )}
                 <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
                   <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-                  Premium
+                  {PAKETRADER.bricka}
                 </span>
               </div>
               <div className="p-3 flex-1 flex flex-col">

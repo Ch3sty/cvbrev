@@ -224,7 +224,7 @@ export const verkstadPlusTemplate: CVTemplateGenerator = {
   generate: generateVerkstadPlusHTML,
   metadata: {
     name: 'Verkstad Plus',
-    description: 'Premium industri-mall med blueprint-header, foto och verktygs-stack i sidopanel',
+    description: 'Industri-mall med blueprint-header, foto och verktygs-stack i sidopanel',
     category: 'traditional',
     tier: 'premium'
   }

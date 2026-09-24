@@ -225,7 +225,7 @@ export const myndighetPlusTemplate: CVTemplateGenerator = {
   generate: generateMyndighetPlusHTML,
   metadata: {
     name: 'Myndighet Plus',
-    description: 'Premium-mall för senior offentlig sektor med centrerad serif-header och gold-accent',
+    description: 'Mall för senior offentlig sektor med centrerad serif-header och gold-accent',
     category: 'traditional',
     tier: 'premium'
   }

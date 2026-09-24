@@ -22,7 +22,7 @@ import SparKort from '@/components/pricing/SparKort'
 import { IlluScenAllt, IlluScenCv, IlluScenMatris } from '@/components/illustrations/PriserScener'
 import { capture } from '@/lib/analytics/events'
 import { paketNamn } from '@/lib/plans/plans'
-import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
+import { kopstegHref } from '@/lib/onboarding/steps'
 import { INTENTS, type SignupEntry, type SignupIntent } from '@/components/registrering/intent'
 import { STEG3 } from '@/components/registrering/registrering-copy'
 
@@ -42,7 +42,7 @@ const SCEN = {
 
 /** Köpstegets adress för valets paket. */
 export function kopHref(intent: SignupIntent): string {
-  return `${TRACK_CHOICE_PATH}?paket=${INTENTS[intent].plan}&steg=kop`
+  return kopstegHref(INTENTS[intent].plan)
 }
 
 export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: ForslagStegProps) {

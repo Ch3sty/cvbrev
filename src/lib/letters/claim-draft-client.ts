@@ -137,7 +137,8 @@ export function storePendingTestSession(token: string): void {
  * Kopplar en anonym provsession till det nya kontot (C9). Först här får
  * användaren tillgång till facit, förklaringar och normjämförelse.
  *
- * Returnerar path till testöversikten, eller null om inget prov väntar.
+ * Returnerar path till provets resultatsida (/dashboard/tester/prov/[token]),
+ * eller null om inget prov väntar.
  */
 export async function claimPendingTestSession(fran?: string | null): Promise<string | null> {
   const token = fran ?? readQueryParam('test') ?? readSession(TEST_STORAGE_KEY)

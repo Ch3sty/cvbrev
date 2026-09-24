@@ -29,6 +29,7 @@ import {
 import { capture } from '@/lib/analytics/events'
 import { useAuth } from '@/contexts/AuthContext'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
+import { kopstegHref } from '@/lib/onboarding/steps'
 
 export default function PriserPaket() {
   const router = useRouter()
@@ -52,7 +53,7 @@ export default function PriserPaket() {
       // Ångerrättssamtycket lämnas på köpsteget, som bär både kryssrutan och
       // knappen. Prissidan öppnar därför aldrig kassan själv.
       router.push(
-        inloggad ? `/dashboard/valj-spar?paket=${plan}` : `/register?paket=${plan}`
+        inloggad ? kopstegHref(plan) : `/register?paket=${plan}`
       )
     },
     [inloggad, router]

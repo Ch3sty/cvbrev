@@ -441,7 +441,7 @@ export const spektrumTemplate: CVTemplateGenerator = {
   generate: generateSpektrumHTML,
   metadata: {
     name: 'Spektrum',
-    description: 'Premium-mall med levande gradient-sidopanel — för marknadsförare och kreativa',
+    description: 'Mall med levande gradient-sidopanel, för marknadsförare och kreativa',
     category: 'creative',
     tier: 'premium'
   }

@@ -308,7 +308,7 @@ async function MallarFlik() {
                   </span>
                 </Td>
                 <Td dampad>{r.kategori}</Td>
-                <Td dampad>{r.niva === 'free' ? 'Gratis' : 'Premium'}</Td>
+                <Td dampad>{r.niva === 'free' ? 'Gratis' : 'Paket'}</Td>
                 <Td hoger tal>
                   {r.nedladdningar.toLocaleString('sv-SE')}
                 </Td>

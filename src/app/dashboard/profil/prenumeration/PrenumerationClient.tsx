@@ -20,6 +20,7 @@
  * felbannern, köpanropen och längdvalet.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, Slash, X } from 'lucide-react';
@@ -51,6 +52,7 @@ import PaketBytesRad from '@/components/paywall/PaketBytesRad';
 import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
 import CancelFlowModal from './components/CancelFlowModal';
 import type { Blockeringar } from './blockeringar';
+import { kopstegHref } from '@/lib/onboarding/steps';
 
 // En API-rutt som svarar med en redirect till Stripe: vanlig <a>, inte
 // next/link, som annars hämtar RSC från rutten, loggar fel och skapar en
@@ -160,7 +162,7 @@ export default function PrenumerationClient({
     // Ångerrättssamtycket kryssas på köpsteget, som bär både kryssrutan och
     // knappen. Kontosidan öppnar därför inte kassan själv.
     setBusy(true);
-    window.location.href = `/dashboard/valj-spar?paket=${plan}`;
+    window.location.href = kopstegHref(plan);
   }, []);
 
   /**
@@ -200,7 +202,7 @@ export default function PrenumerationClient({
         ? uppsagd
           ? uppsagdStatusText(paket, premiumUntil)
           : statusRadText(paket, premiumUntil)
-        : 'Premium aktivt';
+        : PAKETRADER.paketAktivt;
 
   const egetPaket: PaketId | null = paket ? paketForPlan(paket) : null;
 

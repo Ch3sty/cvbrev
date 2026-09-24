@@ -227,7 +227,7 @@ export const tidlosPlusTemplate: CVTemplateGenerator = {
   generate: generateTidlosPlusHTML,
   metadata: {
     name: 'Tidlös Plus',
-    description: 'Premium-uppgradering av Tidlös med foto, dubbel-divider och burgundy-accent',
+    description: 'Tidlös med foto, dubbel-divider och burgundy-accent',
     category: 'traditional',
     tier: 'premium'
   }

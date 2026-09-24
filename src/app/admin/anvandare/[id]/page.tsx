@@ -60,7 +60,7 @@ const KALLA_TEXT: Record<HandelseKalla, string> = {
   brev: 'Brev',
   analys: 'Analys',
   ansokan: 'Ansökan',
-  premium: 'Premium',
+  premium: 'Paket',
   mejl: 'Mejl',
   posthog: 'PostHog',
 };

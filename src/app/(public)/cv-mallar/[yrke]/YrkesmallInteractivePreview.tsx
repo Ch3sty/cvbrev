@@ -1,5 +1,6 @@
 'use client'
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, Crown, ChevronDown, Check, Type, Palette, Star } from 'lucide-react'
@@ -353,7 +354,7 @@ export default function YrkesmallInteractivePreview({
             {template.tier === 'premium' && (
               <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                 <Crown className="w-3 h-3" />
-                Premium
+                {PAKETRADER.bricka}
               </div>
             )}
           </div>

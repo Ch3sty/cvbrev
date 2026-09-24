@@ -4,6 +4,7 @@
  * Functions to activate different types of rewards for different user types
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { stripe } from '@/lib/stripe/server';
 import { RewardActivationResult, PremiumReward, UserClassification } from './types';
@@ -36,7 +37,7 @@ export async function activateTemporaryPremium(
   return {
     success: true,
     type: 'temporary_premium',
-    message: `Du har fått Premium i ${durationDays} dagar!`,
+    message: PAKETRADER.belonning(durationDays),
     data: {
       expiresAt: expiresAt.toISOString(),
       durationDays

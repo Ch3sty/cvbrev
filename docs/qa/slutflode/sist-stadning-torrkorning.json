@@ -1,0 +1,74 @@
+{
+  "tid": "2026-09-24T13:07:10.882Z",
+  "kor": false,
+  "konton": [
+    {
+      "nyckel": "sist-logik",
+      "id": "cb315402-e0be-4a2b-8c06-9e1b45514db0",
+      "email": "qa-slut-sist-logik-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "sist-hoppa",
+      "id": "75a132bc-1e4c-42b2-bbd2-a89ff5b51410",
+      "email": "qa-slut-sist-hoppa-2026-09-24@jobbcoach.ai"
+    },
+    {
+      "nyckel": "sist-kop",
+      "id": "5b954c03-35e5-4a45-bbef-1ca6918e0c33",
+      "email": "qa-slut-sist-kop-2026-09-24@jobbcoach.ai"
+    }
+  ],
+  "stripe": [
+    {
+      "kund": "cus_VJpytQxcx5UMIe",
+      "avslutade": 0,
+      "utgangna": 0,
+      "raderad": false,
+      "prenumerationer": [
+        "active"
+      ],
+      "levande": 1,
+      "oppnaKassor": 0
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "email_confirmations",
+      "raknat": 3
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 7
+    },
+    {
+      "tabell": "monthly_guest_allowances",
+      "raknat": 1
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 29
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_test_sessions",
+      "tokens": 1,
+      "raknat": 1
+    }
+  ],
+  "rateLimits": {
+    "fore": [
+      {
+        "scope": "anon_test",
+        "count": 3
+      }
+    ]
+  },
+  "lagring": [
+    {
+      "sokvagar": []
+    }
+  ],
+  "auth": [],
+  "kontroll": null
+}

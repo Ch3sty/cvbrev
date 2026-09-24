@@ -9,6 +9,7 @@
  * ingen orange yta.
  */
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
@@ -63,7 +64,7 @@ function TemplateCard({
   onOpenPreview: () => void;
 }) {
   const meta = [
-    template.tier === 'premium' ? 'Premium' : 'Gratis',
+    template.tier === 'premium' ? PAKETRADER.bricka : 'Gratis',
     ...template.industries.slice(0, 2),
   ].join(' · ');
 
@@ -278,7 +279,7 @@ export default function TemplateStep({
         footer={
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-5">
             {previewLocked ? (
-              <p className="text-sm text-ink-2">Den här mallen ingår i Premium.</p>
+              <p className="text-sm text-ink-2">{PAKETRADER.mallIngar}</p>
             ) : null}
             <button
               type="button"

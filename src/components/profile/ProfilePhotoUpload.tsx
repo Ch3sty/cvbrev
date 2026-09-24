@@ -1,5 +1,6 @@
 'use client';
 
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useRef } from 'react';
 import { Upload, User, Trash2, Crown } from 'lucide-react';
 
@@ -131,7 +132,7 @@ export function ProfilePhotoUpload({
         </div>
         <div className="flex items-center text-xs text-pink-700 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-300 px-2 py-1 rounded-full">
           <Crown className="w-3 h-3 mr-1" />
-          Premium
+          {PAKETRADER.bricka}
         </div>
       </div>
 
