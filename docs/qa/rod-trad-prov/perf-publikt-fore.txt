@@ -1,0 +1,16 @@
+Server: http://localhost:8301   Körningar: 3   Sidor: 3
+Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens), utan inloggning
+
+OK   /artiklar/personlighetstest-jobb-guide             LCP   772 (1500)  CLS     0  FCP  612   473 kB  JS 273 kB/19  HTML rå 178 kB
+OK   /artiklar/map-test-personlighetstest               LCP   748 (1500)  CLS     0  FCP  588   475 kB  JS 273 kB/19  HTML rå 152 kB
+OK   /verktyg/rekryteringstester                        LCP   544 (1500)  CLS     0  FCP  544   464 kB  JS 272 kB/20  HTML rå 149 kB
+
+
+SAMMANFATTNING
+sida                                               klick    LCP    FCP    CLS  TTFB    kB  status
+--------------------------------------------------------------------------------------------------------
+/artiklar/personlighetstest-jobb-guide                 0    772    612      0    16   473  OK
+/artiklar/map-test-personlighetstest                   0    748    588      0    10   475  OK
+/verktyg/rekryteringstester                            0    544    544      0     9   464  OK
+--------------------------------------------------------------------------------------------------------
+3 av 3 inom budget.

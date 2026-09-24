@@ -1,0 +1,1170 @@
+[
+  {
+    "path": "/artiklar/personlighetstest-jobb-guide",
+    "status": 200,
+    "h1": [
+      "Personlighetstest vid rekrytering: så fungerar de och varför du ska svara ärligt"
+    ],
+    "title": "Personlighetstest vid rekrytering: 10 exempel och Big Five",
+    "description": "Personlighetstest vid rekrytering mäter passning, inte rätt eller fel. Se tio exempelpåståenden, hur de tolkas i Big Five och varför ärliga svar lönar sig.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/personlighetstest-jobb-guide.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Linda Eriksson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur funkar ett personlighetstest vid jobbansökan?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ett-personlighetstest-mater",
+        "text": "Vad ett personlighetstest mäter"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-de-fem-dimensionerna-betyder-for-olika-roller",
+        "text": "Vad de fem dimensionerna betyder för olika roller"
+      },
+      {
+        "tag": "h2",
+        "id": "exempel-pa-fragor-i-ett-personlighetstest-vid-rekrytering",
+        "text": "Exempel på frågor i ett personlighetstest vid rekrytering"
+      },
+      {
+        "tag": "h3",
+        "id": "sa-tolkas-svaren",
+        "text": "Så tolkas svaren"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-personlighetstest-i-svensk-rekrytering",
+        "text": "Vanliga personlighetstest i svensk rekrytering"
+      },
+      {
+        "tag": "h2",
+        "id": "big-five-mot-typtester-en-viktig-skillnad",
+        "text": "Big Five mot typtester: en viktig skillnad"
+      },
+      {
+        "tag": "h2",
+        "id": "varfor-du-ska-svara-arligt",
+        "text": "Varför du ska svara ärligt"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-mycket-sager-ett-personlighetstest-egentligen",
+        "text": "Hur mycket säger ett personlighetstest egentligen?"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-forbereder-du-dig-pa-ratt-satt",
+        "text": "Så förbereder du dig på rätt sätt"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-missuppfattningar",
+        "text": "Vanliga missuppfattningar"
+      },
+      {
+        "tag": "h2",
+        "id": "testet-ar-en-pusselbit",
+        "text": "Testet är en pusselbit"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#big-five-mot-typtester-en-viktig-skillnad",
+      "#exempel-pa-fragor-i-ett-personlighetstest-vid-rekrytering",
+      "#hur-mycket-sager-ett-personlighetstest-egentligen",
+      "#sa-forbereder-du-dig-pa-ratt-satt",
+      "#testet-ar-en-pusselbit",
+      "#vad-de-fem-dimensionerna-betyder-for-olika-roller",
+      "#vad-ett-personlighetstest-mater",
+      "#vanliga-missuppfattningar",
+      "#vanliga-personlighetstest-i-svensk-rekrytering",
+      "#varfor-du-ska-svara-arligt",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/arbetsintervju-guide",
+      "/artiklar/bakgrundskontroll-vid-anstallning",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/logiska-tester",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/nervos-infor-intervju-tips",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=big five test",
+      "/artiklar?tag=disc test jobb",
+      "/artiklar?tag=femfaktormodellen",
+      "/artiklar?tag=personlighetstest",
+      "/artiklar?tag=personlighetstest gratis",
+      "/artiklar?tag=personlighetstest jobb",
+      "/artiklar?tag=personlighetstest rekrytering",
+      "/artiklar?tag=personlighetstest rekrytering exempel",
+      "/artiklar?tag=personlighetstester",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbmatchning",
+      "/verktyg/personlighetstest",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester/prova"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/linda\",\"@type\":\"Person\",\"description\":\"Senior rekryteringskonsult med omfattande erfarenhet från executive search och talangförvärv. Inriktad på kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Linda.webp\",\"width\":200},\"jobTitle\":\"Chefsrekryterare & Employer Branding Expert\",\"knowsAbout\":[\"Executive Search\",\"Kompetensbaserad rekrytering\",\"Förhandlingsstrategier\",\"Employer Branding\"],\"name\":\"Linda Eriksson\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-06-17T00:00:00.000Z\",\"description\":\"Personlighetstest vid rekrytering mäter passning, inte rätt eller fel. Se tio exempelpåståenden, hur de tolkas i Big Five och varför ärliga svar lönar sig.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Vad ett personlighetstest mäter\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#vad-ett-personlighetstest-mater\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Vad de fem dimensionerna betyder för olika roller\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#vad-de-fem-dimensionerna-betyder-for-olika-roller\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Exempel på frågor i ett personlighetstest vid rekrytering\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#exempel-pa-fragor-i-ett-personlighetstest-vid-rekrytering\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Vanliga personlighetstest i svensk rekrytering\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#vanliga-personlighetstest-i-svensk-rekrytering\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Big Five mot typtester: en viktig skillnad\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#big-five-mot-typtester-en-viktig-skillnad\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Varför du ska svara ärligt\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#varfor-du-ska-svara-arligt\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Hur mycket säger ett personlighetstest egentligen?\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#hur-mycket-sager-ett-personlighetstest-egentligen\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Så förbereder du dig på rätt sätt\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#sa-forbereder-du-dig-pa-ratt-satt\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Vanliga missuppfattningar\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#vanliga-missuppfattningar\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\"},\"name\":\"Testet är en pusselbit\",\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide#testet-ar-en-pusselbit\"}],\"headline\":\"Personlighetstest vid rekrytering: så fungerar de och varför du ska svara ärligt\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/personlighetstest-jobb-guide.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"personlighetstest jobb, personlighetstest rekrytering, personlighetstest rekrytering exempel, personlighetstester, personlighetstest, big five test, femfaktormodellen, disc test jobb, personlighetstest gratis\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\",\"wordCount\":3233}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/personlighetstest-jobb-guide\",\"name\":\"Personlighetstest vid rekrytering: så fungerar de och varför du ska svara ärligt\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De seriösa testerna bygger på femfaktormodellen, även kallad Big Five, som enligt Akavia är den vetenskapligt accepterade standarden. Den mäter fem dimensioner: öppenhet, samvetsgrannhet, extraversion, tillmötesgående och neuroticism. Testet bedömer hur mycket eller lite du har av varje egenskap, för att se hur du sannolikt fungerar i rollen och i företagskulturen. Det finns inga rätt eller fel svar, bara grader av passning.\"},\"name\":\"Vad mäter ett personlighetstest vid rekrytering?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du tar ställning till korta påståenden om hur du brukar vara, till exempel 'Jag dubbelkollar siffrorna innan jag skickar iväg en rapport', och markerar hur väl de stämmer på en skala från stämmer inte alls till stämmer helt. Ofta är ungefär hälften av påståendena omvända, och samma egenskap mäts med flera formuleringar så att testet kan se om du svarar konsekvent.\"},\"name\":\"Hur ser frågorna ut i ett personlighetstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du bör låta bli, och det är svårare än det låter. Akavia påpekar att personlighetstester ofta har en inbyggd indikator som upptäcker inkonsekventa eller överdrivet enhetliga svar. Försöker du svara som den perfekta kandidaten blir mönstret oftast misstänkt och resultatet flaggas som otillförlitligt, vilket är värre än ett ärligt men icke-optimalt svar. Dessutom vinner du i bästa fall en roll som inte passar dig.\"},\"name\":\"Kan man fuska på ett personlighetstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Femfaktormodellen mäter egenskaper på en skala och har starkt vetenskapligt stöd. Typtester som DISC och MBTI placerar dig i en kategori eller bokstavskombination. Akavia citerar professor Magnus Lindwall: om resultatet blir en typ har det inte särskilt mycket med vetenskap att göra. Typtester kan kännas underhållande men skapar en illusion av kunskap som saknar vetenskaplig grund. Lita mest på test som ger dig grader, inte en etikett.\"},\"name\":\"Vad är skillnaden mellan Big Five och DISC eller MBTI?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Undersök testtypen i förväg och läs in dig på rollen så att du förstår vilka egenskaper som är relevanta. Akavia rekommenderar att man övar på motsvarande test online, undviker att vara hungrig eller överkoffeinerad, och frågar rekryteraren hur resultatet används. Men förbered dig för att svara ärligt och konsekvent, inte för att gissa rätt svar. Det finns inget facit att plugga in.\"},\"name\":\"Hur förbereder man sig för ett personlighetstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Väl utformade test är ofta mer objektiva än en intervju, eftersom alla bedöms på samma sätt, och Akavia noterar att validiteten ofta är bättre än för intervjuer. De mest pålitliga testerna är certifierade av DNV och bygger på femfaktormodellen. Men ett personlighetstest ska enbart användas som komplement till intervju och arbetsprov, aldrig som ensamt beslutsunderlag.\"},\"name\":\"Är personlighetstest rättvist?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Linda.webp",
+      "alt": "Linda Eriksson - Chefsrekryterare & Employer Branding Expert"
+    }
+  },
+  {
+    "path": "/artiklar/map-test-personlighetstest",
+    "status": 200,
+    "h1": [
+      "MAP-test: så fungerar Assessios personlighetstest och så svarar du"
+    ],
+    "title": "MAP-test: Assessios personlighetstest med exempel",
+    "description": "MAP-testet från Assessio har 200 påståenden och ingen tidsgräns. Se vad de fem faktorerna mäter, exempel på påståenden och vad arbetsgivaren ser efteråt.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/map-test-personlighetstest",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/map-test-personlighetstest.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Helena Andersson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: vad är MAP-testet?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-map-mater-fem-faktorer-och-25-delskalor",
+        "text": "Vad MAP mäter: fem faktorer och 25 delskalor"
+      },
+      {
+        "tag": "h2",
+        "id": "map-och-map-essence-tva-versioner",
+        "text": "MAP och MAP Essence: två versioner"
+      },
+      {
+        "tag": "h2",
+        "id": "exempel-pa-pastaenden-i-map-stil",
+        "text": "Exempel på påståenden i MAP-stil"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-svarar-man-pa-map-testet",
+        "text": "Hur svarar man på MAP-testet?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-arbetsgivaren-ser-och-vad-du-far-tillbaka",
+        "text": "Vad arbetsgivaren ser, och vad du får tillbaka"
+      },
+      {
+        "tag": "h2",
+        "id": "gar-det-att-gora-map-testet-gratis",
+        "text": "Går det att göra MAP-testet gratis?"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-missforstand-om-map",
+        "text": "Vanliga missförstånd om MAP"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#exempel-pa-pastaenden-i-map-stil",
+      "#gar-det-att-gora-map-testet-gratis",
+      "#hur-svarar-man-pa-map-testet",
+      "#map-och-map-essence-tva-versioner",
+      "#vad-arbetsgivaren-ser-och-vad-du-far-tillbaka",
+      "#vad-map-mater-fem-faktorer-och-25-delskalor",
+      "#vanliga-missforstand-om-map",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/bakgrundskontroll-vid-anstallning",
+      "/artiklar/beskriva-sig-sjalv-intervju-egenskaper",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/logiska-tester",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=assessio personlighetstest",
+      "/artiklar?tag=femfaktormodellen",
+      "/artiklar?tag=map personlighetstest",
+      "/artiklar?tag=map test",
+      "/artiklar?tag=map test exempel",
+      "/artiklar?tag=map test gratis",
+      "/artiklar?tag=personlighetstest map",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbmatchning",
+      "/verktyg/personlighetstest",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/helena\",\"@type\":\"Person\",\"description\":\"Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Helena.webp\",\"width\":200},\"jobTitle\":\"Senior Karriärcoach\",\"knowsAbout\":[\"Karriärstrategi\",\"Meritdokumentation\",\"Intervjumetodik\",\"Professionell utveckling\"],\"name\":\"Helena Andersson\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-09-23T00:00:00.000Z\",\"description\":\"MAP-testet från Assessio har 200 påståenden och ingen tidsgräns. Se vad de fem faktorerna mäter, exempel på påståenden och vad arbetsgivaren ser efteråt.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Vad MAP mäter: fem faktorer och 25 delskalor\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#vad-map-mater-fem-faktorer-och-25-delskalor\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"MAP och MAP Essence: två versioner\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#map-och-map-essence-tva-versioner\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Exempel på påståenden i MAP-stil\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#exempel-pa-pastaenden-i-map-stil\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Hur svarar man på MAP-testet?\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#hur-svarar-man-pa-map-testet\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Vad arbetsgivaren ser, och vad du får tillbaka\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#vad-arbetsgivaren-ser-och-vad-du-far-tillbaka\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Går det att göra MAP-testet gratis?\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#gar-det-att-gora-map-testet-gratis\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\"},\"name\":\"Vanliga missförstånd om MAP\",\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest#vanliga-missforstand-om-map\"}],\"headline\":\"MAP-test: så fungerar Assessios personlighetstest och så svarar du\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/map-test-personlighetstest.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"map test, personlighetstest map, map personlighetstest, map test gratis, map test exempel, assessio personlighetstest, femfaktormodellen\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\",\"wordCount\":2066}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/map-test-personlighetstest\",\"name\":\"MAP-test: så fungerar Assessios personlighetstest och så svarar du\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"MAP är ett personlighetstest från svenska Assessio som används vid rekrytering och utveckling av personal. Det bygger på femfaktormodellen och mäter fem huvudskalor med totalt 25 delskalor. Du tar ställning till påståenden om hur väl de stämmer in på dig, och resultatet jämförs med en normgrupp och med en kravprofil för rollen.\"},\"name\":\"Vad är MAP-testet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Hela MAP har ingen tidsgräns. Assessios hjälpcenter anger att det tar cirka 20 till 40 minuter, och i Assessios egen genomgång av testet består det av 200 påståenden. Den kortare varianten MAP Essence tar enligt Assessio tolv minuter och används ofta tidigt i urval med många sökande.\"},\"name\":\"Hur lång tid tar MAP-testet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du kan försöka svara som du tror att arbetsgivaren vill, men det lönar sig sällan. Assessio skriver att det inte finns någon fördel med att vara oärlig eller fundera för mycket på hur du förväntas svara. Rätt profil beror på rollen, och en tillrättalagd profil gör intervjun och de första månaderna svårare, eftersom du förväntas vara den personen.\"},\"name\":\"Kan man fuska på MAP-testet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Själva MAP går inte att göra fritt, det skickas ut av arbetsgivare som har licens hos Assessio. Du kan däremot öva på formatet gratis med ett annat personlighetstest som bygger på samma femfaktormodell, till exempel det hos oss, så att du vet hur påståendena känns innan det skarpa testet.\"},\"name\":\"Går det att göra MAP-testet gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Arbetsgivaren ser din profil på de fem faktorerna och, beroende på rapport, delskalorna. Resultatet jämförs med en normgrupp och matchas mot en kravprofil för rollen. Du får själv automatisk återkoppling efter testet. Assessio skriver att resultatet inte kan återanvändas hos en annan arbetsgivare, av dataskyddsskäl enligt GDPR.\"},\"name\":\"Vad ser arbetsgivaren av mitt MAP-resultat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"MAP Essence är en kortare version som bygger på ett urval av frågorna i MAP. Den tar tolv minuter och mäter fem dimensioner: utåtriktning, social stil, samvetsgrannhet, stabilitet och öppenhet. Arbetsgivaren kan lägga på algoritmer för integritet och serviceförmåga. Den används ofta i handel, lager, sälj och produktion.\"},\"name\":\"Vad är skillnaden mellan MAP och MAP Essence?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Helena.webp",
+      "alt": "Helena Andersson - Senior Karriärcoach"
+    }
+  },
+  {
+    "path": "/priser",
+    "status": 200,
+    "h1": [
+      "En vecka som bär hela jobbsöket."
+    ],
+    "title": "Priser: en vecka som bär hela jobbsöket | Jobbcoach.ai",
+    "description": "CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Allt öppet direkt, ingen bindningstid, säg upp med ett klick. Gratisnivån ligger kvar.",
+    "canonical": "https://www.jobbcoach.ai/priser",
+    "ogImage": "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?b30d3311c46eacde",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "priser-paket",
+        "text": "Tre paket. Ett för CV:t, ett för träningen, ett för hela jobbsöket."
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-paketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träningspaketet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hela paketet"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-funktioner",
+        "text": "Vad du faktiskt får, funktion för funktion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoachen"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-guide",
+        "text": "Allt är öppet från första minuten. Så här guidar vi dig igenom det."
+      },
+      {
+        "tag": "h3",
+        "id": "guide-cv",
+        "text": "CV-paketet"
+      },
+      {
+        "tag": "h3",
+        "id": "guide-test",
+        "text": "Träningspaketet"
+      },
+      {
+        "tag": "h3",
+        "id": "guide-allt",
+        "text": "Hela paketet"
+      },
+      {
+        "tag": "h2",
+        "id": "priser-jamforelse",
+        "text": "Vad som ingår, rad för rad"
+      }
+    ],
+    "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "/verktyg/personlighetstest"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"AggregateOffer\",\"availability\":\"https://schema.org/InStock\",\"highPrice\":299,\"lowPrice\":49,\"name\":\"Jobbcoach.ai\",\"offerCount\":6,\"offers\":[{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Få CV:t genom rekryteringssystemet och skriv personliga brev som svarar på annonsen.\",\"name\":\"CV-paketet\",\"price\":79,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Känn igen varje uppgift på testdagen. Och förstå vad personlighetstestet säger om dig.\",\"name\":\"Träningspaketet\",\"price\":79,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i ett dygn. Ett engångsköp, ingenting dras igen.\",\"name\":\"Dagspasset\",\"price\":49,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Jobbmatchning, Jobbcoachen och Bli upptäckt. Och allt i CV-paketet och Träningspaketet.\",\"name\":\"Hela paketet, en vecka\",\"price\":99,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i en månad, billigare än fyra veckor i rad.\",\"name\":\"Hela paketet, en månad\",\"price\":149,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"Hela paketet i tre månader, för ett sök som du vet tar tid.\",\"name\":\"Hela paketet, ett kvartal\",\"price\":299,\"priceCurrency\":\"SEK\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"}],\"priceCurrency\":\"SEK\",\"url\":\"https://www.jobbcoach.ai/priser\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"För att det mesta du behöver bygger du på en vecka: CV:t, de personliga breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Hela paketet per månad billigare per vecka, 149 kr i månaden, och det finns där när du vill ha det.\"},\"name\":\"Varför säljer ni veckor och inte månader?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den förnyas var sjunde dag tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.\"},\"name\":\"Vad händer när veckan är slut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.\"},\"name\":\"Kan jag byta paket mitt i veckan?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I ditt konto, under Profil och prenumeration, ett klick. Lika enkelt som att köpa. Veckan du redan betalat gäller ut.\"},\"name\":\"Hur säger jag upp?\"}]}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/verktyg/rekryteringstester",
+    "status": 200,
+    "h1": [
+      "Träna på rekryteringstester innan arbetsgivaren testar dig"
+    ],
+    "title": "Rekryteringstester: träna inför urvalet | Jobbcoach.ai",
+    "description": "Träna på matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder. Grundnivån är gratis, ingen kortuppgift.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/rekryteringstester",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/rekryteringstester/opengraph-image-1ge1s0?bd858035cc0de84d",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Gör ett prov direkt, utan konto"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lös frågorna i din takt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se resultat och tid direkt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se vad du missade"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex färdigheter som avgör testet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mönsterigenkänning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsförståelse"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kritiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Snabbräkning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tabelltolkning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre testtyper, alla gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbalt resonemang"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriskt resonemang"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ta reda på vad rekryteraren ser i dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppenhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Noggrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Extraversion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vänlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Känslostabilitet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träning som syns på resultatet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Grundnivån är gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rapport efter varje pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träningspaketet tar bort taket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så förbereder du dig inför ett rekryteringstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öva på rätt testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träna under tidspress"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj tillfälle och miljö"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svara ärligt på personlighetsdelen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Reda ut frågorna i förväg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Räkna med att det känns svårt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Guider per testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiska tester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriska test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbala test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rotationstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personlighetstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Deduktiva och induktiva test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Alva Labs logiktest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "MAP från Assessio"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träna nu. Kom förberedd sen."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om rekryteringstester"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#testtyper",
+      "/",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/deduktivt-induktivt-test",
+      "/artiklar/logiska-tester",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/matrislogik-test-guide",
+      "/artiklar/numeriskt-test-guide",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/rotation-test-guide",
+      "/artiklar/verbalt-test-guide",
+      "/funktioner",
+      "/verktyg/personlighetstest",
+      "/verktyg/rekryteringstester/prova"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryteringstester är standardiserade prov som mäter logiskt tänkande, språkförståelse och sifferanalys. Arbetsgivare använder dem för att jämföra kandidater på samma villkor och för att förutsäga hur du kommer prestera i rollen. Vanliga leverantörer i Sverige är SHL, Cut-e och Assessio och tester förekommer både hos myndigheter, konsultbolag och i tjänstemannaroller.\"},\"name\":\"Vad är rekryteringstester och varför används de?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på 15 frågor per pass i samma format som SHL och Cut-e använder.\"},\"name\":\"Hur fungerar ett matrislogik-test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. Vårt verbala test innehåller 12 textpassager med fyra påståenden per passage, totalt 48 bedömningar.\"},\"name\":\"Vad är verbalt resonemang och hur tränar man på det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på 24 frågor per pass.\"},\"name\":\"Vad är numeriskt resonemang?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Träna i samma tidspress som det skarpa testet och gör flera pass per testtyp. Det viktigaste är att lära sig formatet, så att du inte slösar tid på att tolka frågan utan kan fokusera på själva lösningen. Efter varje pass går vi igenom dina rätt och fel så du ser exakt vilka mönster du missade och kan jobba på dem.\"},\"name\":\"Hur tränar jag bäst inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Det är fusk att se de exakta frågorna i det skarpa testet i förväg, men att träna på samma typ av frågor är helt accepterat och även förväntat. Tester som SHL och Cut-e mäter en stabil förmåga som påverkas av träning, ungefär som körkortsteorin. Den som tränat på formatet hinner bättre.\"},\"name\":\"Är det fusk att träna inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Väl utformade tester är mer objektiva än magkänsla, eftersom alla kandidater bedöms på samma sätt. Etablerade leverantörer som Aon (tidigare cut-e) och Assessio låter dessutom oberoende granskare som DNV och Buros certifiera sina tester. Testet är ändå ett komplement till intervjun, inte en ersättning. En seriös arbetsgivare väger samman test, intervju och erfarenhet.\"},\"name\":\"Är rekryteringstester rättvisa?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Begåvningstester ger oftast ett normerat värde, alltså hur du presterar jämfört med en jämförelsegrupp, medan personlighetstester ger en profil utan rätt eller fel. Du kan be om återkoppling, och resultaten är personuppgifter som hanteras enligt GDPR. Vissa arbetsgivare, som Saab och Sweco enligt tidningen Ingenjören, sparar testresultat i upp till två år, så du kan slippa göra om testet om du söker en ny tjänst hos dem. Fråga gärna hur länge resultatet sparas och hur det vägs in.\"},\"name\":\"Vad betyder mitt resultat, och vilka rättigheter har jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Våra grundtester tar runt 20 minuter och de avancerade versionerna runt 25 minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.\"},\"name\":\"Hur lång tid tar varje test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Grundnivån i varje testtyp är gratis, en gång per dag och testtyp, utan att du lämnar kortuppgifter. Vill du köra fler försök, gå vidare till avancerad och expertnivå, öva i tidsatt provläge eller följa din utveckling över tid ingår allt det i Träningspaketet för 79 kr i veckan. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.\"},\"name\":\"Är testerna gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Många arbetsgivare, framför allt inom konsult, bank och offentlig sektor, låter kandidater göra ett personlighetstest som en del av urvalsprocessen. Testet mäter hur du fungerar i arbete, inte om du är en bra eller dålig person. Det finns inga rätta svar. Arbetsgivaren jämför din profil med vad rollen kräver och med andra kandidater.\"},\"name\":\"Vad är ett personlighetstest i rekrytering?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Big Five är den psykologiska modell som ligger till grund för de flesta seriösa personlighetstester i rekrytering, bland annat de som SHL och Assessio använder. Modellen mäter fem dimensioner: Öppenhet (kreativitet och nyfikenhet), Noggrannhet (struktur och målmedvetenhet), Extraversion (social energi), Vänlighet (samarbete och empati) och Känslostabilitet (stresstålighet). Vår personlighetsprofil bygger på samma modell.\"},\"name\":\"Vad är Big Five-modellen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Delvis. Du kan svara på ett sätt som du tror att arbetsgivaren vill se, men moderna tester har inbyggda konsistenskontroller som fångar upp om du svarar orealistiskt positivt. Det vanligaste rådet från rekryterare är att svara ärligt. Det du faktiskt vill ta med dig från vår profil är förståelsen för vilka dimensioner du hamnar på, så att du kan prata om dem på ett genomtänkt sätt i intervjun.\"},\"name\":\"Går det att manipulera ett personlighetstest?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så tränar du på rekryteringstester med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj test\",\"position\":1,\"text\":\"Plocka ett av tre gratistester: matrislogik, verbalt resonemang eller numeriskt resonemang.\"},{\"@type\":\"HowToStep\",\"name\":\"Lös frågor i din takt\",\"position\":2,\"text\":\"Markera ditt svar och gå till nästa fråga. Timern räknar tempot men avbryter aldrig.\"},{\"@type\":\"HowToStep\",\"name\":\"Få score och tid direkt\",\"position\":3,\"text\":\"När du svarat klart visas procent korrekta, total tid och snitt-tid per fråga.\"},{\"@type\":\"HowToStep\",\"name\":\"Se vad du missade\",\"position\":4,\"text\":\"Fråga för fråga ser du ditt svar mot facit och förstår vilka mönster du kan träna mer på.\"}],\"totalTime\":\"PT20M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"EducationalApplication\",\"description\":\"Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighetsanalys.\",\"featureList\":\"Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med Premium\",\"name\":\"Jobbcoach.ai Rekryteringstester\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Alla grundnivåtester gratis, en gång per dag, utan kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/rekryteringstester\"}"
+    ],
+    "forstaBild": null
+  },
+  {
+    "path": "/artiklar/styrkor-svagheter-intervju",
+    "status": 200,
+    "h1": [
+      "Styrkor och svagheter på intervjun: 20 exempel med färdiga svar (2026)"
+    ],
+    "title": "Styrkor och svagheter intervju: lista med 50 exempel",
+    "description": "Styrkor och svagheter på intervjun: listor med 25 svagheter och 25 styrkor, färdiga formuleringar och så svarar du på frågan om utvecklingsbara sidor.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/styrkor-svagheter-intervju.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Helena Andersson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur svarar man på frågan om styrkor och svagheter?"
+      },
+      {
+        "tag": "h2",
+        "id": "lista-25-svagheter-du-kan-namna-pa-intervjun-och-hur-du-vander-dem",
+        "text": "Lista: 25 svagheter du kan nämna på intervjun (och hur du vänder dem)"
+      },
+      {
+        "tag": "h3",
+        "id": "arbetssatt-och-tempo",
+        "text": "Arbetssätt och tempo"
+      },
+      {
+        "tag": "h3",
+        "id": "samarbete-och-kommunikation",
+        "text": "Samarbete och kommunikation"
+      },
+      {
+        "tag": "h3",
+        "id": "kunskap-och-erfarenhet",
+        "text": "Kunskap och erfarenhet"
+      },
+      {
+        "tag": "h2",
+        "id": "lista-25-styrkor-att-namna-pa-intervjun-och-beviset-som-bar-dem",
+        "text": "Lista: 25 styrkor att nämna på intervjun (och beviset som bär dem)"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-betyder-utvecklingsbara-sidor",
+        "text": "Vad betyder utvecklingsbara sidor?"
+      },
+      {
+        "tag": "h2",
+        "id": "darfor-fragar-intervjuaren-om-styrkor-och-svagheter",
+        "text": "Därför frågar intervjuaren om styrkor och svagheter"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar",
+        "text": "\"Vilka är dina styrkor?\" 8 exempel med färdiga svar"
+      },
+      {
+        "tag": "h3",
+        "id": "samarbetsformaga",
+        "text": "Samarbetsförmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "problemlosningsformaga",
+        "text": "Problemlösningsförmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "struktur-och-organisation",
+        "text": "Struktur och organisation"
+      },
+      {
+        "tag": "h3",
+        "id": "kommunikationsformaga",
+        "text": "Kommunikationsförmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "ansvarstagande",
+        "text": "Ansvarstagande"
+      },
+      {
+        "tag": "h3",
+        "id": "anpassningsformaga",
+        "text": "Anpassningsförmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "initiativformaga",
+        "text": "Initiativförmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "noggrannhet",
+        "text": "Noggrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "pastaende-eller-bevis-sa-hors-skillnaden",
+        "text": "Påstående eller bevis: så hörs skillnaden"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar",
+        "text": "\"Vilka är dina svagheter?\" 8 exempel med färdiga svar"
+      },
+      {
+        "tag": "h3",
+        "id": "svart-att-delegera",
+        "text": "Svårt att delegera"
+      },
+      {
+        "tag": "h3",
+        "id": "otalighet-med-langsamma-processer",
+        "text": "Otålighet med långsamma processer"
+      },
+      {
+        "tag": "h3",
+        "id": "nervositet-infor-stora-presentationer",
+        "text": "Nervositet inför stora presentationer"
+      },
+      {
+        "tag": "h3",
+        "id": "tar-pa-mig-for-mycket",
+        "text": "Tar på mig för mycket"
+      },
+      {
+        "tag": "h3",
+        "id": "for-sjalvkritisk",
+        "text": "För självkritisk"
+      },
+      {
+        "tag": "h3",
+        "id": "en-teknisk-fardighet-under-uppbyggnad",
+        "text": "En teknisk färdighet under uppbyggnad"
+      },
+      {
+        "tag": "h3",
+        "id": "svart-att-ge-kritik-direkt",
+        "text": "Svårt att ge kritik direkt"
+      },
+      {
+        "tag": "h3",
+        "id": "behover-detaljer-for-att-kanna-mig-trygg",
+        "text": "Behöver detaljer för att känna mig trygg"
+      },
+      {
+        "tag": "h2",
+        "id": "daliga-egenskaper-du-aldrig-ska-namna-som-svaghet",
+        "text": "Dåliga egenskaper du aldrig ska nämna som svaghet"
+      },
+      {
+        "tag": "h2",
+        "id": "utvecklingsbara-sidor-sa-pratar-du-om-dem",
+        "text": "Utvecklingsbara sidor: så pratar du om dem"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-valjer-du-ratt-styrkor-och-svagheter-for-just-din-roll",
+        "text": "Så väljer du rätt styrkor och svagheter för just din roll"
+      },
+      {
+        "tag": "h2",
+        "id": "anpassa-svaret-junior-erfaren-eller-karriarbytare",
+        "text": "Anpassa svaret: junior, erfaren eller karriärbytare"
+      },
+      {
+        "tag": "h2",
+        "id": "exempel-pa-komplett-svar-styrka-och-svaghet-i-samma-fraga",
+        "text": "Exempel på komplett svar: styrka och svaghet i samma fråga"
+      },
+      {
+        "tag": "h2",
+        "id": "arlighet-och-strategi-i-balans",
+        "text": "Ärlighet och strategi i balans"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#anpassa-svaret-junior-erfaren-eller-karriarbytare",
+      "#arlighet-och-strategi-i-balans",
+      "#daliga-egenskaper-du-aldrig-ska-namna-som-svaghet",
+      "#darfor-fragar-intervjuaren-om-styrkor-och-svagheter",
+      "#exempel-pa-komplett-svar-styrka-och-svaghet-i-samma-fraga",
+      "#lista-25-styrkor-att-namna-pa-intervjun-och-beviset-som-bar-dem",
+      "#lista-25-svagheter-du-kan-namna-pa-intervjun-och-hur-du-vander-dem",
+      "#sa-valjer-du-ratt-styrkor-och-svagheter-for-just-din-roll",
+      "#utvecklingsbara-sidor-sa-pratar-du-om-dem",
+      "#vad-betyder-utvecklingsbara-sidor",
+      "#vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar",
+      "#vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/arbetsintervju-guide",
+      "/artiklar/beskriva-sig-sjalv-intervju-egenskaper",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cover-letter-sverige",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/olika-intervjutyper-tips",
+      "/artiklar/personliga-egenskaper-intervju",
+      "/artiklar/personliga-egenskaper-intervju",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/vanliga-intervjufragor-svar",
+      "/artiklar?tag=dåliga egenskaper intervju",
+      "/artiklar?tag=dåliga egenskaper lista",
+      "/artiklar?tag=jobbintervju",
+      "/artiklar?tag=negativa egenskaper intervju",
+      "/artiklar?tag=negativa egenskaper lista",
+      "/artiklar?tag=positiva egenskaper intervju",
+      "/artiklar?tag=styrkor intervju",
+      "/artiklar?tag=styrkor och svagheter intervju",
+      "/artiklar?tag=styrkor och svagheter lista",
+      "/artiklar?tag=svagheter intervju",
+      "/artiklar?tag=svagheter lista",
+      "/artiklar?tag=utvecklingsbara sidor",
+      "/artiklar?tag=utvecklingsområden intervju",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/helena\",\"@type\":\"Person\",\"description\":\"Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Helena.webp\",\"width\":200},\"jobTitle\":\"Senior Karriärcoach\",\"knowsAbout\":[\"Karriärstrategi\",\"Meritdokumentation\",\"Intervjumetodik\",\"Professionell utveckling\"],\"name\":\"Helena Andersson\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-07-19T00:00:00.000Z\",\"description\":\"Styrkor och svagheter på intervjun: listor med 25 svagheter och 25 styrkor, färdiga formuleringar och så svarar du på frågan om utvecklingsbara sidor.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Lista: 25 svagheter du kan nämna på intervjun (och hur du vänder dem)\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#lista-25-svagheter-du-kan-namna-pa-intervjun-och-hur-du-vander-dem\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Lista: 25 styrkor att nämna på intervjun (och beviset som bär dem)\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#lista-25-styrkor-att-namna-pa-intervjun-och-beviset-som-bar-dem\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Vad betyder utvecklingsbara sidor?\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#vad-betyder-utvecklingsbara-sidor\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Därför frågar intervjuaren om styrkor och svagheter\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#darfor-fragar-intervjuaren-om-styrkor-och-svagheter\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"\\\"Vilka är dina styrkor?\\\" 8 exempel med färdiga svar\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"\\\"Vilka är dina svagheter?\\\" 8 exempel med färdiga svar\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Dåliga egenskaper du aldrig ska nämna som svaghet\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#daliga-egenskaper-du-aldrig-ska-namna-som-svaghet\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Utvecklingsbara sidor: så pratar du om dem\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#utvecklingsbara-sidor-sa-pratar-du-om-dem\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Så väljer du rätt styrkor och svagheter för just din roll\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#sa-valjer-du-ratt-styrkor-och-svagheter-for-just-din-roll\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Anpassa svaret: junior, erfaren eller karriärbytare\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#anpassa-svaret-junior-erfaren-eller-karriarbytare\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Exempel på komplett svar: styrka och svaghet i samma fråga\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#exempel-pa-komplett-svar-styrka-och-svaghet-i-samma-fraga\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\"},\"name\":\"Ärlighet och strategi i balans\",\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju#arlighet-och-strategi-i-balans\"}],\"headline\":\"Styrkor och svagheter på intervjun: 20 exempel med färdiga svar (2026)\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/styrkor-svagheter-intervju.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"styrkor och svagheter intervju, styrkor intervju, svagheter intervju, negativa egenskaper intervju, positiva egenskaper intervju, svagheter lista, styrkor och svagheter lista, dåliga egenskaper lista, negativa egenskaper lista, dåliga egenskaper intervju, utvecklingsbara sidor, utvecklingsområden intervju, jobbintervju\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\",\"wordCount\":5421}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/styrkor-svagheter-intervju\",\"name\":\"Styrkor och svagheter på intervjun: 20 exempel med färdiga svar (2026)\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Välj en genuin men hanterbar svaghet som inte är en kärnkompetens i rollen: svårt att delegera, otålighet med långsamma processer, nervositet inför stora presentationer, för självkritisk, tar på sig för mycket, eller en teknisk färdighet du håller på att lära dig. Det avgörande är inte vilken svaghet du väljer utan att du visar ett konkret exempel på när den märkts och vad du gör för att bli bättre.\"},\"name\":\"Vilka svagheter är okej att nämna på en intervju?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Förbered 2 till 3 relevanta styrkor och 1 till 2 genomtänkta svagheter. Kvalitet slår kvantitet: varje styrka ska ha ett konkret exempel, gärna med en siffra, och varje svaghet ska ha en tydlig plan för hur du arbetar med den. Fler än så hinner du sällan leverera trovärdigt, och intervjuaren minns ändå bara de bästa.\"},\"name\":\"Hur många styrkor och svagheter bör jag förbereda?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Det är en klyscha som de flesta intervjuare genomskådar som ett försök att maskera en styrka som svaghet, och det kan dessutom signalera att du har svårt att slutföra uppgifter eller samarbeta. Samma sak gäller jag jobbar för hårt. Välj i stället en genuin men hanterbar svaghet och visa vad du konkret gör för att utvecklas.\"},\"name\":\"Är jag är perfektionist ett bra svar på svagheter?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Utvecklingsbara sidor är ett annat ord för svagheter eller utvecklingsområden, och det är ofta exakt den formuleringen intervjuaren använder: berätta om dina utvecklingsbara sidor. Frågan är samma som svaghetfrågan, men ordvalet är en gåva, det bjuder in dig att prata om utveckling i stället för brister. Svara med en genuin sida du arbetar med, ett exempel på när den märkts och vad du gör åt den.\"},\"name\":\"Vad är utvecklingsbara sidor?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Undvik fyra saker: klyschorna perfektionist och jobbar för hårt, svagheter som är kärnkompetenser i rollen (slarvig med siffror som revisor), karaktärsbrister som oärlighet eller att ofta komma sent, och svaret jag har inga svagheter, som signalerar brist på självinsikt. Nämn inte heller privata problem, håll dig till professionella färdigheter och arbetssätt.\"},\"name\":\"Vad ska man inte svara på frågan om svagheter?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, anpassa alltid. Läs jobbannonsen och välj styrkor som matchar det rollen faktiskt kräver, samma ord som annonsen använder om det är ärligt. Svagheten väljer du med motsatt logik: den ska ligga tillräckligt långt från rollens kärna för att vara ofarlig, men vara sann nog att du kan berätta trovärdigt om den. En svaghet som fungerar utmärkt i en intervju kan vara diskvalificerande i en annan.\"},\"name\":\"Kan jag använda samma styrkor och svagheter i alla intervjuer?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Helena.webp",
+      "alt": "Helena Andersson - Senior Karriärcoach"
+    }
+  },
+  {
+    "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+    "status": 200,
+    "h1": [
+      "STAR-metoden: så svarar du på \"berätta om en gång då...\" på intervjun"
+    ],
+    "title": "STAR-metoden vid intervju: guide + exempel 2026",
+    "description": "STAR står för Situation, Task, Action, Result. Så svarar du när rekryteraren ber dig 'berätta om en gång då'. Här är strukturen, ett exempel och misstagen.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/kompetensbaserad-intervju-star-metoden.webp",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Helena Andersson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: vad är STAR-metoden?"
+      },
+      {
+        "tag": "h2",
+        "id": "nar-anvands-star-metoden",
+        "text": "När används STAR-metoden?"
+      },
+      {
+        "tag": "h2",
+        "id": "star-steg-for-steg",
+        "text": "STAR steg för steg"
+      },
+      {
+        "tag": "h2",
+        "id": "ett-fardigt-star-svar-fran-borjan-till-slut",
+        "text": "Ett färdigt STAR-svar från början till slut"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-forbereder-du-dina-star-historier",
+        "text": "Så förbereder du dina STAR-historier"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-misstag-med-star-metoden",
+        "text": "Vanliga misstag med STAR-metoden"
+      },
+      {
+        "tag": "h2",
+        "id": "star-funkar-aven-utan-lang-cv",
+        "text": "STAR funkar även utan lång CV"
+      },
+      {
+        "tag": "h2",
+        "id": "sammanfattning",
+        "text": "Sammanfattning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#ett-fardigt-star-svar-fran-borjan-till-slut",
+      "#nar-anvands-star-metoden",
+      "#sa-forbereder-du-dina-star-historier",
+      "#sammanfattning",
+      "#star-funkar-aven-utan-lang-cv",
+      "#star-steg-for-steg",
+      "#vanliga-misstag-med-star-metoden",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/arbetsintervju-guide",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cover-letter-sverige",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserade-intervjufragor",
+      "/artiklar/kompetensbaserade-intervjufragor",
+      "/artiklar/olika-intervjutyper-tips",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/strukturerad-intervju",
+      "/artiklar/strukturerad-intervju",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar/vanliga-intervjufragor-svar",
+      "/artiklar?tag=beteendefrågor intervju",
+      "/artiklar?tag=intervjuteknik",
+      "/artiklar?tag=kompetensbaserad intervju",
+      "/artiklar?tag=star intervjuteknik",
+      "/artiklar?tag=star metoden",
+      "/artiklar?tag=star metoden intervju",
+      "/artiklar?tag=star modellen",
+      "/artiklar?tag=star teknik",
+      "/artiklar?tag=star-metoden",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/helena\",\"@type\":\"Person\",\"description\":\"Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Helena.webp\",\"width\":200},\"jobTitle\":\"Senior Karriärcoach\",\"knowsAbout\":[\"Karriärstrategi\",\"Meritdokumentation\",\"Intervjumetodik\",\"Professionell utveckling\"],\"name\":\"Helena Andersson\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2025-04-19T00:00:00.000Z\",\"description\":\"STAR står för Situation, Task, Action, Result. Så svarar du när rekryteraren ber dig 'berätta om en gång då'. Här är strukturen, ett exempel och misstagen.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"När används STAR-metoden?\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#nar-anvands-star-metoden\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"STAR steg för steg\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#star-steg-for-steg\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"Ett färdigt STAR-svar från början till slut\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#ett-fardigt-star-svar-fran-borjan-till-slut\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"Så förbereder du dina STAR-historier\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#sa-forbereder-du-dina-star-historier\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"Vanliga misstag med STAR-metoden\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#vanliga-misstag-med-star-metoden\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"STAR funkar även utan lång CV\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#star-funkar-aven-utan-lang-cv\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\"},\"name\":\"Sammanfattning\",\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden#sammanfattning\"}],\"headline\":\"STAR-metoden: så svarar du på \\\"berätta om en gång då...\\\" på intervjun\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/kompetensbaserad-intervju-star-metoden.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"star metoden, star-metoden, star metoden intervju, star teknik, star modellen, star intervjuteknik, kompetensbaserad intervju, beteendefrågor intervju, intervjuteknik\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\",\"wordCount\":2039}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\",\"name\":\"STAR-metoden: så svarar du på \\\"berätta om en gång då...\\\" på intervjun\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"STAR står för Situation, Task, Action och Result, på svenska Situation, Uppgift, Handling och Resultat. Det är en struktur för att svara på intervjufrågor som ber dig berätta om en konkret händelse. Du sätter scenen (situation), förklarar vad som krävdes av dig (uppgift), beskriver vad du gjorde (handling) och avslutar med vad det ledde till (resultat). Akavia beskriver STAR som ett användbart verktyg för att förbereda sig så väl som möjligt inför en arbetsintervju.\"},\"name\":\"Vad står STAR för?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Använd STAR så fort en fråga ber om ett konkret exempel ur din erfarenhet. Det känns igen på formuleringar som 'berätta om en gång då du...', 'ge ett exempel på när...' eller 'beskriv ett tillfälle då...'. Den typen av fråga kallas beteendefråga och är vanligast i kompetensbaserade intervjuer. Du behöver inte använda STAR på rena faktafrågor eller på hypotetiska 'vad skulle du göra om'-frågor, även om du ofta kan stärka ett hypotetiskt svar med ett verkligt STAR-exempel.\"},\"name\":\"När ska jag använda STAR-metoden?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Sikta på ungefär 1,5 till 2 minuter. Det räcker för att beskriva situationen, din uppgift, dina handlingar och resultatet utan att tappa lyssnaren. Lägg merparten av tiden på handling och resultat, eftersom det är där du faktiskt visar din kompetens. Situationen ska bara sätta scenen, så håll den kort. Svävar du iväg över tre minuter har du oftast tagit med för mycket bakgrund.\"},\"name\":\"Hur långt bör ett STAR-svar vara?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Att fastna i situationen och uppgiften och få för lite tid över till handling och resultat. Många målar upp en lång bakgrund och avslutar sedan vagt med 'och så löste det sig'. Det andra vanliga misstaget är att säga 'vi' i stället för 'jag' i handlingsdelen, så att rekryteraren inte förstår vad just du bidrog med. Berätta om teamets arbete, men var tydlig med din egen roll i det.\"},\"name\":\"Vad är vanligaste misstaget med STAR-metoden?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det stärker svaret när det går. Kvantifierade resultat som 'kortade handläggningstiden från fem till två dagar' är konkreta och trovärdiga. Saknas siffror fungerar kvalitativa resultat bra: en nöjd kund, en löst konflikt, en rutin som lever kvar. Det viktiga är att det finns ett tydligt utfall av dina handlingar, inte att det uttrycks i procent. Ett ärligt kvalitativt resultat slår en uppblåst siffra.\"},\"name\":\"Måste jag ha siffror i resultatet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Situationerna behöver inte komma från ett jobb. Studieprojekt, föreningsliv, extrajobb, praktik och ideellt arbete fungerar lika bra, så länge exemplet visar den kompetens frågan handlar om. En grupp där du tog ansvar för ett kandidatarbete, en konflikt du löste i en förening eller ett evenemang du organiserade är fullt giltiga STAR-historier. Rekryteraren letar efter hur du agerar, inte var det råkade hända.\"},\"name\":\"Fungerar STAR-metoden om jag saknar arbetslivserfarenhet?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Bygg ett starkt, strukturerat svar på en kompetensbaserad intervjufråga, del för del.\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/kompetensbaserad-intervju-star-metoden\",\"@type\":\"WebPage\"},\"name\":\"Svara på beteendefrågor med STAR-metoden\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Situation\",\"position\":1,\"text\":\"Sätt scenen kort: var, när och vilka var inblandade, precis så mycket bakgrund att lyssnaren förstår sammanhanget.\"},{\"@type\":\"HowToStep\",\"name\":\"Uppgift\",\"position\":2,\"text\":\"Ringa in vad som var ditt ansvar i situationen och varför det var viktigt eller svårt.\"},{\"@type\":\"HowToStep\",\"name\":\"Handling\",\"position\":3,\"text\":\"Beskriv konkret och utförligt vad du gjorde steg för steg, och säg jag så att ditt eget bidrag framgår.\"},{\"@type\":\"HowToStep\",\"name\":\"Resultat\",\"position\":4,\"text\":\"Knyt ihop med ett tydligt, gärna mätbart, utfall och vad du lärde dig.\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Helena.webp",
+      "alt": "Helena Andersson - Senior Karriärcoach"
+    }
+  }
+]

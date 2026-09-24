@@ -1,0 +1,40 @@
+{
+  "role": "complementary",
+  "backendNodeId": 11,
+  "name": "Öva på frågorna innan de räknas",
+  "children": [
+    {
+      "role": "StaticText",
+      "backendNodeId": 1045,
+      "name": "VERKTYGET"
+    },
+    {
+      "role": "StaticText",
+      "backendNodeId": 1046,
+      "name": "Öva på frågorna innan de räknas"
+    },
+    {
+      "role": "StaticText",
+      "backendNodeId": 1047,
+      "name": "Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp."
+    },
+    {
+      "role": "link",
+      "backendNodeId": 411,
+      "name": "Gör ett övningstest",
+      "url": "http://localhost:8300/verktyg/rekryteringstester",
+      "children": [
+        {
+          "role": "StaticText",
+          "backendNodeId": 1048,
+          "name": "Gör ett övningstest"
+        }
+      ]
+    },
+    {
+      "role": "StaticText",
+      "backendNodeId": 1049,
+      "name": "Alla nivåer, provläge mot klockan och fördjupade personlighetstestet ingår i Träningspaketet, 79 kr i veckan."
+    }
+  ]
+}

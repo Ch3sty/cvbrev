@@ -1,0 +1,55 @@
+{
+  "status": 200,
+  "body": {
+    "token": "87aab669-65de-4db3-aca4-2998e2f3cb2d",
+    "mening": "Det rekryteraren lägger märke till först: hög öppenhet och låg utåtriktning.",
+    "faktorer": [
+      {
+        "key": "openness",
+        "namn": "Öppenhet",
+        "band": "high",
+        "bandOrd": "Hög",
+        "segment": 5,
+        "lasning": "Rekryteraren ser någon som gärna prövar nytt, och kommer att fråga hur du landar det i rutiner."
+      },
+      {
+        "key": "extraversion",
+        "namn": "Utåtriktning",
+        "band": "low",
+        "bandOrd": "Låg",
+        "segment": 1,
+        "lasning": "Rekryteraren ser en lyssnare som tänker först, och kommer att fråga hur du gör dig hörd i en grupp."
+      },
+      {
+        "key": "conscientiousness",
+        "namn": "Samvetsgrannhet",
+        "band": "mid",
+        "bandOrd": "Mitt emellan",
+        "segment": 4,
+        "lasning": "Rekryteraren ser någon som planerar när det behövs och släpper när det inte gör det. Ha ett exempel på båda."
+      },
+      {
+        "key": "stability",
+        "namn": "Stabilitet",
+        "band": "low",
+        "bandOrd": "Låg",
+        "segment": 2,
+        "lasning": "Rekryteraren ser någon som tar jobbet på allvar och bär det med sig, och kommer att fråga hur du sätter gränser."
+      },
+      {
+        "key": "agreeableness",
+        "namn": "Vänlighet",
+        "band": "mid",
+        "bandOrd": "Mitt emellan",
+        "segment": 3,
+        "lasning": "Rekryteraren ser någon som samarbetar utan att ge upp sin ståndpunkt. Ha ett exempel på en oenighet som slutade bra."
+      }
+    ],
+    "lockedCounts": {
+      "krav": 6,
+      "intervju": 5,
+      "omvanda": 3
+    },
+    "expiresAt": "2026-10-01T00:29:18.302197+00:00"
+  }
+}

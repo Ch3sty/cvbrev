@@ -140,7 +140,7 @@ Lyckas inte en sida vid andra avläsningen gör vi en av tre saker: ny titel om 
 ## Ägarens beslut 2026-09-23
 
 - Yrkesspecifika intervjuartiklar: ja, två i december (undersköterska, sjuksköterska). "Kommer snart"-korten står kvar tills dess.
-- Publikt personlighetstest: vänta tills intervjuprovet visat siffror i oktober. Det finns ingen personlighetstestmotor i produkten i dag, provet på /verktyg/rekryteringstester/prova är logiktest.
+- Publikt personlighetstest: byggt 2026-09-24 som personlighetsprovet (docs/design/rod-trad-prov-spec-2026-09-24.md), tjugo påståenden i personlighetstest-jobb-guide, map-test-personlighetstest och på /verktyg/personlighetstest. Rättelse: motorn fanns redan (src/lib/personalityTest/, grundtestet med 50 och det fördjupade med 120 påståenden i kontot), och provet poängsätts med den. Provet på /verktyg/rekryteringstester/prova är fortfarande logiktest.
 - Sammanslagningarna (M1 till M7 och exempelparen): uppskjutna tills resten av planen är klar. Veckoordningen kör nytt och omskrivningar (R-listan) i stället.
 - Rekryterarsidor: beslut väntar på ägarens svar.
 - IndexNow-nyckel och Bing Webmaster Tools är på plats 2026-09-23 (importerat från Search Console, sajtkarta uppladdad).

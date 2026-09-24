@@ -1,0 +1,15 @@
+(node:41468) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Konto: christiankarlssson@gmail.com
+Server: http://localhost:8300   Körningar per route: 3   Routes: 1
+Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)
+
+OK  intervju                 LCP   916 ms (budget 1500)  CLS 0.001  rundturer  0  text 831
+
+
+SAMMANFATTNING
+sida                    budget        LCP     FCP     CLS  rundt.  förfr.  status
+--------------------------------------------------------------------------------
+intervju                lista         916     552   0.001       0      63  OK
+--------------------------------------------------------------------------------
+1 av 1 inom budget.
