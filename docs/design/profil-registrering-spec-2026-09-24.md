@@ -111,7 +111,7 @@ Per fält, som i dag. Textfält på blur, växlar och tonval direkt, fotot när 
 ### Flödet
 
 ```
-/register (bar)                  steg 1 val  ─┬─ steg 2 konto ─ /auth eller signUp ─ /dashboard/valkommen ─ steg 3 förslag ─┬─ Skaffa → /dashboard/valj-spar?paket=X&steg=kop → Stripe → /dashboard/vecka/start
+/register (bar)                  steg 1 val  ─┬─ steg 2 konto ─ /auth eller signUp ─ /dashboard/valkommen ─ steg 3 förslag ─┬─ Köp → /dashboard/valj-spar?paket=X&steg=kop → Stripe → /dashboard/vecka/start
 /register?borja=tester           (hoppas)    ─┘                                                                         └─ Börja gratis / kryss → landning per val
 /register?paket=cv_week          (hoppas)      steg 2 konto ─────────────────────── /dashboard/valkommen ─ direkt till köpsteget (som i dag)
 /register?intervju=|personlighet=|test=|draft=|cv_start=   ett steg, kontot ──────── /dashboard/valkommen ─ hämtkedjan ─ resultatet
@@ -140,7 +140,7 @@ Hoppa över i steg 1              steg 2 konto ───────────
 | `src/app/(public)/verktyg/rekryteringstester/page.tsx` | De fyra "Starta gratis test" går till `/register?borja=tester`. Övriga verktygssidor med bar `/register` får motsvarande `borja` (cv, brev, jobb). Grep: `href: '/register'` och `href="/register"` i `src/app/(public)`. |
 | `src/app/login/page.tsx` + `login-form.tsx` | Samma publika skal som /register (beslut 4). |
 | `src/lib/onboarding/steps.ts` | Ny konstant `VALKOMMEN_PATH = '/dashboard/valkommen'`. |
-| `src/lib/onboarding/komigang.ts` | Bredden, punkt 1 (S). `KOM_IGANG_LISTA.gratis` blir en lista per intent: det hon kom för först, sedan en gratis bricka från varje annat område. tester: matris_grund, personlighet, intervjuprov, cv_upp, analys_gratis, jobbmatchning. intervju: intervjuprov, personlighet, matris_grund, cv_upp, analys_gratis, jobbmatchning. cv: cv_upp, analys_gratis, mall, brev, matris_grund, intervjuprov. brev: cv_upp, brev, analys_gratis, mall, matris_grund, intervjuprov. jobb: cv_upp, jobbmatchning, analys_gratis, brev, matris_grund, intervjuprov. Utan intent: dagens lista. Nycklarna finns redan i `BrickaKey`. `personlighet`, `intervjuprov` och `jobbmatchning` får en gratisvariant av undertexten enligt designfilens slutcopy, samma mönster som `analys_gratis`. Arket får två områdesetiketter, "Det du valde" och "Gratis i de andra delarna". |
+| `src/lib/onboarding/komigang.ts` | Bredden, punkt 1 (S). `KOM_IGANG_LISTA.gratis` blir en lista per intent: det hon kom för först, sedan en gratis bricka från varje annat område. tester: matris_grund, personlighet, intervjuprov, analys_gratis, brev, jobbmatchning. intervju: intervjuprov, personlighet, matris_grund, analys_gratis, brev, jobbmatchning. cv: analys_gratis, mall, brev, jobbmatchning, matris_grund, intervjuprov. brev: brev, analys_gratis, mall, jobbmatchning, matris_grund, intervjuprov. jobb: jobbmatchning, analys_gratis, brev, mall, matris_grund, intervjuprov. **Regel: brickorna är funktioner man får något av, aldrig steg.** `cv_upp` och `profil` står aldrig i gratislistorna per intent. Uppladdningen är första steget inne i analysen, brevet, mallen och matchningen, och brickan markeras klar först när funktionen gett sitt resultat (`analyze_cv`, `create_letter`, `download_cv_template`, `match_jobs`). Titlar: Analysera ditt CV, Skriv ett personligt brev, Se tre matchade jobb, Välj en CV-mall. Utan intent: dagens lista. Nycklarna finns redan i `BrickaKey`. `personlighet`, `intervjuprov` och `jobbmatchning` får en gratisvariant av undertexten enligt designfilens slutcopy, samma mönster som `analys_gratis`. Arket får två områdesetiketter, "Det du valde" och "Gratis i de andra delarna". |
 | `src/app/dashboard/(oversikt)/DashboardHem.tsx` | Bredden, punkt 2 (S). `traningsFokus` gäller också när `onboarding_intent` är tester eller intervju, inte bara `scope === 'tester'`. Raden i HemHuvud för gratis: "Du valde testerna, så vi börjar med träningen." respektive intervjun. Intent intervju ger intervjufrågan först, intent tester testet först. |
 | `src/hooks/useUnusedFeatures.ts` | Bredden, punkt 3 (S). Tar `intent` som ordningsnyckel: efter första dokumentet föreslås först en funktion ur det andra området (CV-intent: matrislogik grund; test- och intervju-intent: CV-analysen). Raden byts när funktionen använts, som i dag. Skjuter `next_action_clicked` med `outside_intent`. |
 | `src/components/dashboard/Sidebar.tsx`, `src/lib/access/*` | **Ingen ändring.** Menyn och behörigheterna är desamma för alla konton, se grep-kriteriet. |
@@ -196,7 +196,7 @@ export interface ForslagStegProps {
   intent: SignupIntent
   fornamn: string | null
 }
-// Primär: "Skaffa {paketNamn}, {pris}" → /dashboard/valj-spar?paket={plan}&steg=kop
+// Primär: "Köp {paketNamn}, {pris}" → /dashboard/valj-spar?paket={plan}&steg=kop
 // Sekundär i foten (FlowShell footerSecondary): "Börja gratis" → INTENTS[intent].landning
 // onExit (krysset) = Börja gratis. Båda sparar spåret via /api/onboarding/track.
 ```
@@ -235,7 +235,7 @@ Se tabellen i designfilen, sektion "Mätning". Sammanfattning: nya `signup_flow_
 1. Headerns Skapa konto öppnar steg 1 på /register. Inga statistikrutor, ingen CV-poängmätare, ingen text om fem dagar Premium någonstans på sidan (grep `Fem dagar Premium` i src ger noll träffar).
 2. Steg 1 på Pixel 7: frågan, minst fyra kort och Fortsätt syns utan scroll. Fortsätt är spärrad tills ett kort är valt och spärrorsaken läses upp.
 3. `/register?borja=tester` visar steg 2 direkt med raden "Du börjar med rekryteringstesterna" och Ändra, som leder till steg 1 med testerna förvalda.
-4. Konto med lösenord från steg 1 med Skriva CV landar på steg 3 med CV-paketet. Börja gratis landar på `/dashboard/skapa-cv`. Skaffa landar på köpsteget med CV-paketet och samtyckesrutan.
+4. Konto med lösenord från steg 1 med Skriva CV landar på steg 3 med CV-paketet. Börja gratis landar på `/dashboard/skapa-cv`. Köp landar på köpsteget med CV-paketet och samtyckesrutan.
 5. Samma sak med Google: valet överlever redirecten (cookien), steg 3 visar rätt paket, och `signup_completed` med `method: 'google'` syns i PostHog inom en minut.
 6. Från intervjuprovet med token (lösenord och Google) landar kontot på `/dashboard/intervju/{token}` utan steg 1 och steg 3. Samma för personlighetsprovet, testprovet (`?test=`), brevutkastet (`?draft=`) och CV-starten (`?cv_start=`), där de tre sista i dag misslyckas med Google.
 7. Prissidans `?paket=all_month` landar efter kontot på köpsteget med Hela paketet och månad valt, utan steg 1 och 3.
@@ -247,7 +247,7 @@ Se tabellen i designfilen, sektion "Mätning". Sammanfattning: nya `signup_flow_
 13. /register LCP under 1,5 s på Pixel 7 över 4G (publik budget), ingen JS-bundel över dagens.
 14. **Grep-kriteriet.** `grep -rn "onboarding_intent" src` träffar bara `src/app/dashboard/valkommen/`, `src/app/api/onboarding/track/`, `src/lib/onboarding/komigang.ts` (och `komigang-server.ts`), `src/components/dashboard/KomIgang*`, `src/app/dashboard/(oversikt)/`, `src/hooks/useUnusedFeatures.ts`, `src/components/registrering/` och typfilerna. Noll träffar i `src/components/dashboard/Sidebar.tsx`, `src/lib/access/` och i någon route under `src/app/api/` utom `onboarding/track`. Testet läggs som enhetstest som läser filträdet, så att det faller i CI.
 15. Menyn är identisk för ett gratiskonto med intent cv, tester och jobb (jämför skärmdumpar av sidomenyn och mobilnavet, alla rader synliga, samma grå rader).
-16. Gratiskonto med intent tester: Kom igång visar matrislogik grundnivå först och därefter en bricka från CV, analys och jobb. Hemskärmen visar "Gör ditt första rekryteringstest" som Nästa handling, inte CV-uppladdning, med länken "Vill du börja med CV:t i stället?".
+16. Gratiskonto med intent tester: Kom igång visar matrislogik grundnivå först och därefter Analysera ditt CV, Skriv ett personligt brev och Se tre matchade jobb. Ingen gratislista per intent innehåller `cv_upp` eller `profil` (enhetstest på `KOM_IGANG_LISTA`). Hemskärmen visar "Gör ditt första rekryteringstest" som Nästa handling, inte CV-uppladdning, med länken "Vill du börja med CV:t i stället?".
 17. Gratiskonto med intent cv, efter första CV:t: raden Prova också föreslår logiktestet på grundnivå.
 
 ---
