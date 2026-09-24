@@ -126,11 +126,13 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel }: Pr
                 Kom igång
               </button>
             )}
-            <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>
-              Köp eller byt paket
-            </MenuLink>
+            {/* Samma två ord och ordning som sidomenyns Konto
+                (profil-registrering 2026-09-24, kriterium 3). */}
             <MenuLink href="/dashboard/profil" onNavigate={() => setOpen(false)}>
               Profil
+            </MenuLink>
+            <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>
+              Prenumeration
             </MenuLink>
             <button
               type="button"

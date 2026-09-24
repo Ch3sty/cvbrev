@@ -278,7 +278,7 @@ export default function PrenumerationClient({
 
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-4 sm:space-y-6 sm:p-6">
-      <PageHeader title="Prenumeration" description={KONTO.ingress} />
+      <PageHeader eyebrow="Konto" title="Prenumeration" description={KONTO.ingress} />
 
       {fel ? (
         <div className="rounded-xl border border-fel-kant bg-fel-mjuk p-4">

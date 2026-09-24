@@ -47,6 +47,7 @@ import {
   IkonLank,
   IkonEntusiastisk,
   IkonKrona,
+  IkonProfil,
   IkonSynlig,
   IkonIntervju,
 } from '@/components/illustrations/Ikoner';
@@ -86,7 +87,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const huvud = menyHuvud(paket);
   const fot = menyFot(paket);
 
-  // Kort status bredvid raden Profil och prenumeration: "Aktiv" / "5 dagar
+  // Kort status bredvid raden Prenumeration: "Aktiv" / "5 dagar
   // kvar" / "Från 49 kr". Kanten tänds bara när paketet behöver
   // uppmärksamhet: gratis, eller snart slut.
   let premiumLabel: string | null = null;
@@ -349,10 +350,22 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           />
         </SidebarSection>
 
+        {/* Två rader under Konto (profil-registrering 2026-09-24, Del A):
+            profilen används av alla, ofta; prenumerationen sällan. Samma
+            adresser som förut, och Profil är aktiv bara på själva profilen,
+            inte på Prenumeration eller Mina CV (/dashboard/profil/cv). */}
         <SidebarSection eyebrow="Konto">
           <SidebarLink
+            href="/dashboard/profil"
+            label="Profil"
+            icon={IkonProfil}
+            exact
+            isMobile={isMobile}
+            onClick={onClose}
+          />
+          <SidebarLink
             href="/dashboard/profil/prenumeration"
-            label="Profil och prenumeration"
+            label="Prenumeration"
             icon={IkonKrona}
             badge={
               premiumLabel ? <span className="text-meta text-ink-3">{premiumLabel}</span> : undefined

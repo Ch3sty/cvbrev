@@ -1,0 +1,52 @@
+[
+  {
+    "namn": "meny: Profil och Prenumeration under Konto",
+    "ok": true,
+    "not": "{\"profil\":\"Profil\",\"pren\":\"Prenumeration Från 49 kr\",\"ordning\":4,\"trunkerad\":false}"
+  },
+  {
+    "namn": "meny: ingen text trunkeras vid 256 px",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "namn": "profil: raden Profil aktiv",
+    "ok": true,
+    "not": "[\"Profil\"]"
+  },
+  {
+    "namn": "profil: toppraden Konto · Profil",
+    "ok": true,
+    "not": "Konto · Profil"
+  },
+  {
+    "namn": "prenumeration: raden Prenumeration aktiv, inte Profil",
+    "ok": true,
+    "not": "[\"Prenumeration\"]"
+  },
+  {
+    "namn": "prenumeration: toppraden Konto · Prenumeration",
+    "ok": true,
+    "not": "Konto · Prenumeration"
+  },
+  {
+    "namn": "prenumeration: paketkortens knappar klipps inte",
+    "ok": true,
+    "not": "[{\"t\":\"Börja med CV-paketet, 79 kr i veckan\",\"klipp\":false,\"h\":56},{\"t\":\"Börja med Träningspaketet, 79 kr i veckan\",\"klipp\":false,\"h\":76},{\"t\":\"Börja med Hela paketet, 99 kr i veckan\",\"klipp\":false,\"h\":56}]"
+  },
+  {
+    "namn": "Mina CV: raden Mina CV aktiv och ingen Konto-rad",
+    "ok": true,
+    "not": "[\"Mina CV\"]"
+  },
+  {
+    "namn": "profilmenyn: Kom igång, Profil, Prenumeration, Logga ut",
+    "ok": true,
+    "not": "[\"Kom igång\",\"Profil\",\"Prenumeration\",\"Logga ut\"]"
+  },
+  {
+    "namn": "pixel7: sidomenyn har Profil och Prenumeration",
+    "ok": true,
+    "not": ""
+  }
+]

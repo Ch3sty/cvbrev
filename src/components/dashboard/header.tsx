@@ -42,7 +42,7 @@ const PLATSER: Array<[string, string]> = [
   ['/dashboard/bli-upptackt', 'Hitta jobb · Bli upptäckt'],
   ['/dashboard/tester', 'Träna · Rekryteringstester'],
   ['/dashboard/jobbcoachen', 'Träna · Jobbcoachen'],
-  ['/dashboard/profil/prenumeration', 'Konto · Profil och prenumeration'],
+  ['/dashboard/profil/prenumeration', 'Konto · Prenumeration'],
   ['/dashboard/profil', 'Konto · Profil'],
 ];
 

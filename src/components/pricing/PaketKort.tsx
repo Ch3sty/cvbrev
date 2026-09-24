@@ -269,7 +269,10 @@ export default function PaketKort({
           </ul>
         </div>
 
-        {/* Knappen sist i flödet men tryckt mot kortets fot. */}
+        {/* Knappen sist i flödet men tryckt mot kortets fot. Höjden får växa
+            (h-auto, py-2): tre kort bredvid sidomenyn gav tre rader text i en
+            fast knapp som klipptes (profil-registrering 2026-09-24). Lägsta
+            höjden är kvar på 52 px, så prissidan ser ut som förut. */}
         <div className="mt-auto pt-6">
           {status ? (
             <p
@@ -285,14 +288,14 @@ export default function PaketKort({
               type="button"
               onClick={knappen.onClick}
               disabled={knappen.disabled}
-              className={`flex h-[52px] w-full items-center justify-center gap-2 rounded-lg text-base font-semibold transition-colors disabled:opacity-40 ${
+              className={`flex h-auto min-h-[52px] w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-center text-base font-semibold leading-5 transition-colors disabled:opacity-40 ${
                 allt
                   ? 'bg-panel text-ink-1 hover:bg-mark'
                   : 'bg-ink-1 text-white hover:bg-ink-hover'
               }`}
             >
               {knappen.text}
-              <ArrowRight className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+              <ArrowRight className="h-5 w-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             </button>
           ) : null}
 
