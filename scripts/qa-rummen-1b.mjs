@@ -26,6 +26,8 @@
 //             utgång på varje steg, Pixel 7 med adressfält.
 //   natfel    nätverksfel på POST i brevflödet och i profilens autospara.
 //   tema      Utseende på profilen: Ljust, Mörkt, Följer systemet.
+//   komigang  Kom igång-raden på Jobbsökets hem (spec 16.3.4): rulla golvet
+//             till botten, sista raden i listan ska synas ovanför raden.
 //
 // Konton qa-rummen-1b-*@jobbcoach-qa.test skapas med id och raderas med id,
 // aldrig med tidsfönster (feedback_testdata_stadning). Antalet rader räknas
@@ -62,7 +64,8 @@ const ROUTEFILTER = arg('routes') ? arg('routes').split(',') : null
 const KONTOFILTER = arg('konton') ? arg('konton').split(',') : null
 const FORMFILTER = arg('former') ? arg('former').split(',') : null
 const BAS = `http://localhost:${PORT}`
-const UT = path.resolve('docs/qa/rummen/vag-1b')
+// --ut docs/qa/rummen/vag-1b/efter-granskning för omkörningen efter spec 16.
+const UT = path.resolve(arg('ut', 'docs/qa/rummen/vag-1b'))
 const KONTOFIL = path.resolve('scripts/.qa-rummen-1b-konton.json')
 const RESULTATFIL = path.join(UT, BARA ? `resultat-${BARA.join('-')}.json` : 'resultat.json')
 fs.mkdirSync(UT, { recursive: true })
@@ -914,6 +917,46 @@ async function delTema(browser, konton) {
   }
 }
 
+/** Kom igång-raden flyter över dörrnavet: sista raden i listan syns vid scrollbotten. */
+async function delKomigang(browser, konton) {
+  const mapp = path.join(UT, 'komigang')
+  fs.mkdirSync(mapp, { recursive: true })
+  resultat.komigang = []
+  for (const kontoNamn of ['mycket', 'hela']) {
+    for (const system of ['light', 'dark']) {
+      const { page, logg } = await nySida(browser, { form: 'pixel7', system, email: konton[kontoNamn].email })
+      try {
+        await besok(page, BAS + '/dashboard')
+        const info = await page.evaluate(async () => {
+          const rad = document.querySelector('[data-komigang-rad="flytande"]')
+          const main = document.querySelector('.dashboard-main-content') || document.querySelector('main')
+          const rullare = [main, main?.parentElement, document.scrollingElement].find((e) => e && e.scrollHeight > e.clientHeight + 4)
+          if (rullare) rullare.scrollTop = rullare.scrollHeight
+          await new Promise((r) => setTimeout(r, 400))
+          const golv = [...document.querySelectorAll('main section, main li, main article')].filter((e) => e.getBoundingClientRect().height > 0)
+          const sista = golv.sort((a, b) => b.getBoundingClientRect().bottom - a.getBoundingClientRect().bottom)[0]
+          const rr = rad?.getBoundingClientRect()
+          const sr = sista?.getBoundingClientRect()
+          return {
+            rad: Boolean(rad),
+            radTopp: rr ? Math.round(rr.top) : null,
+            sistaBotten: sr ? Math.round(sr.bottom) : null,
+            sistaText: sista?.textContent?.trim().slice(0, 60) ?? null,
+            paddingBottom: main ? getComputedStyle(main).paddingBottom : null,
+          }
+        })
+        const ok = !info.rad || (info.sistaBotten !== null && info.sistaBotten <= info.radTopp)
+        const fil = `komigang-${kontoNamn}-${system === 'light' ? 'ljust' : 'morkt'}-botten.png`
+        await page.screenshot({ path: path.join(mapp, fil) })
+        resultat.komigang.push({ konto: kontoNamn, system, fil: 'komigang/' + fil, ...info, ok, konsol: logg.konsol })
+        console.log(`${fil.padEnd(40)} rad ${info.rad} topp ${info.radTopp} sista ${info.sistaBotten} pb ${info.paddingBottom} ${ok ? 'ok' : 'ANM: sista raden bakom Kom igång'}`)
+      } finally {
+        await page.close()
+      }
+    }
+  }
+}
+
 // ------------------------------------------------------------------ körning
 async function main() {
   if (flagga('radera')) {
@@ -930,6 +973,7 @@ async function main() {
     if (kor('tema')) await delTema(browser, konton)
     if (kor('floden')) await delFloden(browser, konton)
     if (kor('natfel')) await delNatfel(browser, konton)
+    if (kor('komigang')) await delKomigang(browser, konton)
     if (kor('vyer')) await delVyer(browser, konton)
   } finally {
     await browser.close()

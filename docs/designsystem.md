@@ -287,23 +287,44 @@ bara för interaktion. Status per komponent: vilken våg den byggs i.
 **`Topprad`** (klient) `{ brand, kontext?, stang? }`: 60 px (72 dator),
 brand i display 15/700, avatar 34 px, notiser och meddelanden bara när de har
 något, alla knappar 44 px, `data-topprad`. **`Rubrik`** (server)
-`{ titel, rad?, liten?, as? }`.
+`{ titel, rad?, liten?, as? }`. **`RumHuvud`** (server) `{ title, description?,
+eyebrow?, handling?, tat? }`: h1 är undersidans namn (`RUBRIK` i
+`src/lib/rum/copy.ts`), eyebrow bara för data (datumraden), `handling` bara
+`LANK_VAGG` eller `KNAPP_GLAS`.
 
-**`Dorrnav`** (klient, våg 1b, ersätter `MobileBottomNav`): `nav aria-label="Rummen"`,
-fyra dörrar Testträning, CV, Personliga brev, Jobbsöket, 72 px plus safe
+**Regeln: väggen säger var du är, det lyfta kortet vad du gör.** Väggen bär
+aldrig primärknappen. Vyns primära handling står i ett `LyftKort` först på
+golvet (`Golv lyft`, `RumHuvud tat={false}`), som överlappar väggen 30 px.
+Ordningen på golvet är alltid lyft kort, sedan statusrad eller flikar, sedan
+listor. `scripts/grep-rummen.mjs --vag 1b --noll` stoppar `KNAPP_PRIMAR` på
+väggen.
+
+| Står på väggen | Står på golvet |
+|---|---|
+| Topprad (rummets namn, konto, notiser) | Lyft kort (vyns enda kopparknapp) |
+| Rubrik (undersidans namn) och en rad status | Kort |
+| Instrument (dagsrad, nivåskala, kurva) | Rader |
+| Glasknapp i automatisk bredd eller vägglänk | Statusrad, flikar, sök och filter |
+
+**`Dorrnav`** (klient, våg 1b, ersätter `MobileBottomNav`): `nav aria-label="Huvudmeny"`,
+fyra dörrar Tester, CV, Personliga brev, Jobbsöket (`DORR_ETIKETT.mobil`;
+på dator heter testdörren Rekryteringstester, `DORR_ETIKETT.dator`), 72 px plus safe
 area, aktiv dörr `bg-ton text-ton-ink`, etikett aktiv `text-ink-1` 600,
 `aria-current="page"`. **`Sidomeny`** (klient, våg 1b, ersätter `Sidebar`):
-248 px, fyra rumsrader 48 px, aktiv dörr `bg-rum text-white`, grupp "I
-<rummet>" med undersidor 40 px och kopparlinje på aktiv, konto längst ner.
+248 px, fyra rumsrader 48 px, aktiv dörr `bg-rum text-white`, grupprubrik
+med rummets namn och undersidor 40 px med kopparlinje på aktiv, kontot
+längst ner på två rader (namn 13/500, paket 12).
 Inga realtidskanaler i kritisk väg.
 
 **Knappar** (`src/components/shell/knappar.ts`, våg 1b, ersätter
 `INK_KNAPP`/`INK_LANK`): `KNAPP_PRIMAR` (koppar, 48 px, radie 12),
-`KNAPP_SEKUNDAR` (papper med `border-kant-stark`), `KNAPP_GLAS` (på väggen,
-`bg-white/[.08]` med `border-vagg-kant`), `LANK`, `LANK_VAGG`, `KNAPPRAD`.
-Exakt ett `KNAPP_PRIMAR` per vy; det sekundära i en betalvägg är alltid `LANK`.
+`KNAPP_SEKUNDAR` (papper med `border-kant-stark`; `KNAPP_SEKUNDAR_LAG`, 40 px
+och 14 px text, när två eller fler sekundära står i rad), `KNAPP_GLAS` (på
+väggen, `bg-white/[.08]` med `border-vagg-kant`, alltid automatisk bredd),
+`LANK`, `LANK_VAGG`, `KNAPPRAD`. Exakt ett `KNAPP_PRIMAR` per vy, aldrig på
+väggen; det sekundära i en betalvägg är alltid `LANK`.
 
-**`LyftKort`** (server) `{ eyebrow?, eyebrowTon?, titel, text?, handling?, sekundar?, fot?, children?, label }`:
+**`LyftKort`** (server) `{ eyebrow?, eyebrowTon?, titel?, text?, handling?, sekundar?, fot?, children?, label }`:
 papper, `shadow-lyft`, överlappar väggen 30 px, i mörkt läge `border-kant`.
 Tar rollen som vyns viktigaste handling från `InkPanel`.
 **`Kort`**, **`Rader`** (rader 56 px, `border-t border-kant` mellan),
@@ -556,6 +577,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-11 (1b, granskning).** Lyftet tillbaka i alla vyer: väggen bär aldrig primärknappen, `RumHuvud handling` i stället för `action`, `LyftKort` först på golvet, h1 är undersidans namn, kategori-eyebrows borta, Kom igång-raden på papper med kopparring, kontoraden på två rader, `KNAPP_GLAS` i automatisk bredd, `KNAPP_SEKUNDAR_LAG`, `Dagsring` utan uppvärmning. Testrummets dörr heter Tester på mobil och Rekryteringstester på dator.
 
 **v3, Rummen, 2026-10-10 (våg 1b).** Skalet byggt: `data-rum` per route (`rumForPath`), vägg, golv och topprad, dörrnavet med fyra rum, sidomenyn med undersidor per rum, profilen i toppraden och Skapa borttagen. `KNAPP_PRIMAR` i koppar, `LyftKort`, `Kort`, `Rader`, `Chip`, `Dagsrad`, `Dagsring`, `Veckorad`, `RumSymboler`. FlowShell, ark och betalväggar i rummens material. Utseende-väljaren på profilen, `theme-color` i väggens kulör, `--fokus` med egna kontrastrader, `.dokument` håller brev ljusa i mörkt läge. Grå Tailwind-klasser borta ur inloggat.
 
