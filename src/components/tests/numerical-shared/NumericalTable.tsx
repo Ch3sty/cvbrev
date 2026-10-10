@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+
 interface TableData {
   headers: string[];
   rows: (string | number)[][];
@@ -18,56 +20,98 @@ interface NumericalTableProps {
  * varannan färgad rad, och en summarad markeras med en starkare överkant och
  * halvfet text i ink-1. Tabellen scrollar i sin egen ruta så sidan aldrig
  * scrollar i sidled.
+ *
+ * Mobil (2026-10-10): på en Pixel 7 klipptes kolumnerna längst till höger,
+ * ofta just Totalt eller Täckningsbidrag som frågan krävde, utan något tecken
+ * på att tabellen gick att svepa. Fyra av fem som startade testet efter 24
+ * september satt i Mobile Safari. Cellerna är nu tätare under sm, rubrikerna
+ * får bryta rad, och blir tabellen ändå bredare än rutan tonar högerkanten ut
+ * och en rad under tabellen säger att man kan svepa.
  */
 export default function NumericalTable({ data }: NumericalTableProps) {
+  const rutaRef = useRef<HTMLDivElement>(null);
+  const [bredare, setBredare] = useState(false);
+  const [vidSlutet, setVidSlutet] = useState(false);
+
+  useEffect(() => {
+    const ruta = rutaRef.current;
+    if (!ruta) return;
+    const mat = () => {
+      const kan = ruta.scrollWidth > ruta.clientWidth + 1;
+      setBredare(kan);
+      setVidSlutet(!kan || ruta.scrollLeft + ruta.clientWidth >= ruta.scrollWidth - 2);
+    };
+    mat();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(mat) : null;
+    ro?.observe(ruta);
+    ruta.addEventListener('scroll', mat, { passive: true });
+    return () => {
+      ro?.disconnect();
+      ruta.removeEventListener('scroll', mat);
+    };
+  }, [data]);
+
   return (
     <div className="overflow-hidden rounded-xl border border-kant bg-panel">
-      <div className="overflow-x-auto p-3 sm:p-4">
-        <table className="w-full border-collapse text-sm">
-          {data.caption && (
-            <caption className="caption-top mb-3 text-left text-kort text-ink-1">
-              {data.caption}
-            </caption>
-          )}
-          <thead>
-            <tr>
-              {data.headers.map((header, i) => (
-                <th
-                  key={i}
-                  scope="col"
-                  className={`border-b border-kant-stark px-3 py-2.5 text-steg uppercase text-ink-3 sm:px-4 ${
-                    i === 0 ? 'text-left' : 'text-right'
-                  }`}
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-kant">
-            {data.rows.map((row, ri) => {
-              const isLast = ri === data.rows.length - 1;
-              const isHighlighted = data.highlightLastRow && isLast;
-              return (
-                <tr key={ri} className={isHighlighted ? 'border-t border-kant-stark' : ''}>
-                  {row.map((cell, ci) => (
-                    <td
-                      key={ci}
-                      className={`px-3 py-2.5 sm:px-4 ${
-                        ci === 0
-                          ? 'text-left text-ink-1'
-                          : 'text-right tabular-nums text-ink-2'
-                      } ${isHighlighted ? 'font-medium text-ink-1' : ''}`}
-                    >
-                      {cell}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="relative">
+        <div ref={rutaRef} className="overflow-x-auto p-3 sm:p-4">
+          <table className="w-full border-collapse text-[13px] leading-5 sm:text-sm">
+            {data.caption && (
+              <caption className="caption-top mb-3 text-left text-kort text-ink-1">
+                {data.caption}
+              </caption>
+            )}
+            <thead>
+              <tr>
+                {data.headers.map((header, i) => (
+                  <th
+                    key={i}
+                    scope="col"
+                    className={`border-b border-kant-stark px-2 py-2 align-bottom text-[12px] font-medium leading-4 text-ink-3 sm:px-4 sm:py-2.5 sm:text-steg sm:uppercase ${
+                      i === 0 ? 'text-left' : 'text-right'
+                    }`}
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-kant">
+              {data.rows.map((row, ri) => {
+                const isLast = ri === data.rows.length - 1;
+                const isHighlighted = data.highlightLastRow && isLast;
+                return (
+                  <tr key={ri} className={isHighlighted ? 'border-t border-kant-stark' : ''}>
+                    {row.map((cell, ci) => (
+                      <td
+                        key={ci}
+                        className={`px-2 py-2 sm:px-4 sm:py-2.5 ${
+                          ci === 0
+                            ? 'text-left text-ink-1'
+                            : 'whitespace-nowrap text-right tabular-nums text-ink-2'
+                        } ${isHighlighted ? 'font-medium text-ink-1' : ''}`}
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {bredare && !vidSlutet ? (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-panel to-transparent"
+          />
+        ) : null}
       </div>
+      {bredare ? (
+        <p className="border-t border-kant px-3 py-2 text-meta text-ink-3 sm:px-4">
+          Svep i tabellen för att se alla kolumner.
+        </p>
+      ) : null}
     </div>
   );
 }
