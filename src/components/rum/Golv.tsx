@@ -7,7 +7,7 @@
  * enda ställe även för vyer som saknar golv.
  *
  * I konceptet börjar varje golv med det lyfta kortet, som överlappar
- * väggen 30 px. Vyer i våg 1b som ännu inte har ett lyft kort börjar 16 px
+ * väggen 30 px. Vyer utan lyft kort (flöden, Jobbcoachen) börjar 16 px (24 på dator, spec 16.2 fråga 7)
  * under väggen i stället; `lyft` tar bort det avståndet när första kortet
  * är ett LyftKort.
  *
@@ -25,7 +25,7 @@ export interface GolvProps {
 
 export default function Golv({ children, className, lyft }: GolvProps) {
   return (
-    <div className={`flex-1 px-4 lg:px-10 ${lyft ? '' : 'pt-4'}`}>
+    <div className={`flex-1 px-4 lg:px-10 ${lyft ? '' : 'pt-4 lg:pt-6'}`}>
       <div className={`mx-auto flex w-full max-w-[1120px] flex-col gap-4 ${className ?? ''}`}>{children}</div>
     </div>
   )
