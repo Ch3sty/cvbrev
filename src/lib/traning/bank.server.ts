@@ -1,6 +1,6 @@
 // src/lib/traning/bank.server.ts
 // =============================================================================
-// Testträningens bank: V7-bankernas frågor med de fält motorn behöver.
+// Bank för rummet Rekryteringstester: V7-bankernas frågor med de fält motorn behöver.
 // Bara server: bankerna har facit (src/lib/logicTestV7/fragor.server.ts).
 //
 // Fälten från våg 3c läses defensivt, eftersom bankerna fylls på parallellt:

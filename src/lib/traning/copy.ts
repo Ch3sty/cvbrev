@@ -1,5 +1,5 @@
 // src/lib/traning/copy.ts
-// Testträningens texter (spec-rummen avsnitt 8: aldrig i JSX). Utkasten är
+// Texterna i rummet Rekryteringstester (spec-rummen 17.1; avsnitt 8: aldrig i JSX). Utkasten är
 // art-directors ur konceptet och gäller tills svensk-ux-copywriter ersatt dem
 // (avsnitt 9). Regler: vi-form, svenska facktermer, inga tankstreck, "samma
 // format som", aldrig "samma test".
