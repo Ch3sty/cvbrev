@@ -4,38 +4,23 @@
 // Samma sessionId → samma frågor (stabilt under hela sessionen och identiskt
 // mellan test-sidan, resultat-sidan och svar-API:t). Olika sessionId → olika
 // uppsättning, så att "gör om testet" ger nya frågor.
+//
+// Urvalet returnerar frågorna i bankens form, med facit. Det får bara köras
+// på servern: klienten får frågorna via fragor.server.ts, med blandade
+// alternativ och utan correctAnswer.
 // =============================================================================
 
 import grundBank from './questionBankGrund.v7.json';
 import avanceradBank from './questionBank.v7.json';
 import expertBank from './questionBankExpert.v7.json';
 import type { LayeredQuestion } from './layered.v7';
+import { hashString, mulberry32 } from './blanda';
+import { QUESTIONS_PER_SESSION } from './konstanter';
 
 export const GRUND_POOL = grundBank as unknown as LayeredQuestion[];
 export const AVANCERAD_POOL = avanceradBank as unknown as LayeredQuestion[];
 export const EXPERT_POOL = expertBank as unknown as LayeredQuestion[];
-export const QUESTIONS_PER_SESSION = 15;
-
-// Enkel deterministisk hash (FNV-1a) av en sträng → 32-bitars heltal.
-function hashString(str: string): number {
-  let h = 0x811c9dc5;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);
-  }
-  return h >>> 0;
-}
-
-// Mulberry32 — liten deterministisk PRNG från ett frö.
-function mulberry32(seed: number) {
-  return function () {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
+export { QUESTIONS_PER_SESSION };
 
 // Deterministiskt urval ur en given pool, seedat på sessionId.
 function selectFromPool(

@@ -1,17 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { arBlandad } from '@/lib/logicTestV7/blanda';
+import { BANK_FOR_RUTT, bedomSvar, hittaFraga } from '@/lib/logicTestV7/fragor.server';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
-import questionBank from '@/lib/logicTestV5/questionBank.v5.json';
-import questionBankV7Grund from '@/lib/logicTestV7/questionBankGrund.v7.json';
-import questionBankV7Expert from '@/lib/logicTestV7/questionBankExpert.v7.json';
-
-// Slå ihop bankerna så svar-API:t hittar V5-frågor (pågående sessioner), V7-grund
-// och V7-expert. Endast id + correctAnswer behövs här.
-const allQuestions = [...questionBank, ...questionBankV7Grund, ...questionBankV7Expert] as Array<{
-  id: string;
-  correctAnswer: number;
-}>;
 
 export async function POST(request: Request) {
   try {
@@ -60,8 +52,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find question in combined bank (V5 + V7-grund)
-    const question = allQuestions.find((q) => q.id === questionId);
+    // Facit slås upp i den kombinerade banken (V5 + V7 grund och expert).
+    const question = hittaFraga(BANK_FOR_RUTT.v4, questionId);
 
     if (!question) {
       return NextResponse.json(
@@ -70,12 +62,19 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if answer is correct
-    const isCorrect = selectedIndex === question.correctAnswer;
+    // Servern dömer. selectedIndex är positionen hon klickade på; med
+    // sessionens permutation blir det originalindex, som lagras och rättas.
+    // Sessioner utan meta.alternativ_blandade har identitetsordningen.
+    const bedomt = bedomSvar(question, sessionId, arBlandad(session.meta), selectedIndex);
+    if (!bedomt) {
+      return NextResponse.json({ error: 'Invalid answer' }, { status: 400 });
+    }
+    const isCorrect = bedomt.correct;
 
     const answerData = {
       q_id: questionId,
-      selected: selectedIndex,
+      selected: bedomt.selected,
+      visat: bedomt.visat,
       correct: isCorrect,
       time_spent: timeSpent || 0
     };
@@ -106,7 +105,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      correct: isCorrect,
       answeredCount
     });
   } catch (error) {

@@ -107,7 +107,9 @@ describe('hamtaEllerGorAnsprakProv', () => {
   })
 
   it('gör anspråk på ett ohämtat prov och gör det permanent', async () => {
-    const m = adminMed({ answers: [0, 0, 0, 0, 0], claimed_by: null, expires_at: SENARE })
+    // Anspråket läser riktig klocka: utgången måste ligga framåt från i dag.
+    const omEnVecka = new Date(Date.now() + 7 * 86400000).toISOString()
+    const m = adminMed({ answers: [0, 0, 0, 0, 0], claimed_by: null, expires_at: omEnVecka })
     const r = await hamtaEllerGorAnsprakProv(m.admin, TOKEN, 'a')
     expect(r?.claimed_by).toBe('a')
     expect(r?.expires_at).toBeNull()

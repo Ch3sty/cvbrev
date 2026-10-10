@@ -1,22 +1,10 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { arBlandad } from '@/lib/logicTestV7/blanda';
+import { BANK_FOR_RUTT, bedomSvar, hittaFraga } from '@/lib/logicTestV7/fragor.server';
 import { examDeadlinePassed } from '@/lib/tests/sessionGate';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
-import questionBankV5 from '@/lib/logicTestV5/questionBank.v5.json';
-import questionBankGrund from '@/lib/logicTestV7/questionBankGrund.v7.json';
-import questionBankAvancerad from '@/lib/logicTestV7/questionBank.v7.json';
-import questionBankExpert from '@/lib/logicTestV7/questionBankExpert.v7.json';
-
-// Prov-svar måste hitta facit oavsett vilken nivå frågan kom från. Slå ihop ALLA
-// fyra logik-banker (V5 legacy + V7 grund/avancerad/expert). Fråge-id är unika
-// tvärs poolerna, så uppslag per id är entydigt.
-const allQuestions = [
-  ...questionBankV5,
-  ...questionBankGrund,
-  ...questionBankAvancerad,
-  ...questionBankExpert,
-] as Array<{ id: string; correctAnswer: number }>;
 
 export async function POST(request: Request) {
   try {
@@ -54,16 +42,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'exam_time_up' }, { status: 409 });
     }
 
-    const question = allQuestions.find((q) => q.id === questionId);
+    const question = hittaFraga(BANK_FOR_RUTT.prov, questionId);
     if (!question) {
       return NextResponse.json({ error: 'Question not found' }, { status: 404 });
     }
 
-    const isCorrect = selectedIndex === question.correctAnswer;
+    // Servern dömer. selectedIndex är positionen hon klickade på; med
+    // sessionens permutation blir det originalindex, som lagras och rättas.
+    // Sessioner utan meta.alternativ_blandade har identitetsordningen.
+    const bedomt = bedomSvar(question, sessionId, arBlandad(session.meta), selectedIndex);
+    if (!bedomt) {
+      return NextResponse.json({ error: 'Invalid answer' }, { status: 400 });
+    }
+    const isCorrect = bedomt.correct;
 
     const answerData = {
       q_id: questionId,
-      selected: selectedIndex,
+      selected: bedomt.selected,
+      visat: bedomt.visat,
       correct: isCorrect,
       time_spent: timeSpent || 0,
     };
@@ -85,7 +81,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Session already completed' }, { status: 400 });
     }
 
-    return NextResponse.json({ success: true, correct: isCorrect, answeredCount });
+    return NextResponse.json({ success: true, answeredCount });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

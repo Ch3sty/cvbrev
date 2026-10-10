@@ -7,6 +7,7 @@ import bankV1 from '@/lib/numericalTest/questionBank.json';
 import bankV2 from '@/lib/numericalTestV2/questionBank.json';
 import bankExpert from '@/lib/numericalTestExpert/questionBank.json';
 import type { Passage } from '@/lib/numericalTest/types';
+import { blandaPassagernasAlternativ } from '@/lib/numericalTest/blandaAlternativ';
 
 export const POOL_V1 = bankV1 as unknown as Passage[];
 export const POOL_V2 = bankV2 as unknown as Passage[];
@@ -54,5 +55,6 @@ export function selectProvPassagesForSession(sessionId: string): Passage[] {
 
   const selected = [...pick(POOL_V1), ...pick(POOL_V2), ...pick(POOL_EXPERT)];
   const orderRng = mulberry32(hashString(sessionId + ':order'));
-  return shuffle(selected, orderRng);
+  // Alternativen blandas per session och fråga; svaren lagras som id.
+  return blandaPassagernasAlternativ(shuffle(selected, orderRng), sessionId);
 }

@@ -4,6 +4,8 @@
 // Kör: node scripts/validate-v7-questions.mjs <fil.json>
 
 import { readFileSync } from 'node:fs';
+import { randomUUID } from 'node:crypto';
+import { alternativSeed, blandadPermutation } from './lib/blanda-alternativ.mjs';
 
 const path = process.argv[2];
 const bank = JSON.parse(readFileSync(path, 'utf8'));
@@ -140,6 +142,42 @@ for (const q of bank) {
       if (symNorm(g[2][2]) === symNorm(g[2][1]) && norm(g[2][2]) !== norm(g[2][1])) errors.push(`${tag} facit ser ut som cellen till vänster efter rotationsnormalisering (trivial)`);
     }
   }
+}
+
+// Rätt svars position efter blandningen (src/lib/logicTestV7/blanda.ts).
+// Banken får ha rätt svar var som helst; det som visas ska ändå fördela sig
+// jämnt. 1 000 slumpade sessioner, varje position ska hamna inom en sjättedel
+// ± 2 procentenheter. Bankens egen fördelning skrivs ut som upplysning.
+{
+  const SESSIONER = 1000;
+  const n = 6;
+  const ra = Array(n).fill(0);
+  bank.forEach((q) => {
+    if (Number.isInteger(q.correctAnswer) && q.correctAnswer < n) ra[q.correctAnswer] += 1;
+  });
+  const pos = Array(n).fill(0);
+  let total = 0;
+  for (let s = 0; s < SESSIONER; s++) {
+    const id = randomUUID();
+    for (const q of bank) {
+      if (!Array.isArray(q.options) || q.options.length !== n) continue;
+      const perm = blandadPermutation(alternativSeed(id, q.id), n);
+      pos[perm.indexOf(q.correctAnswer)] += 1;
+      total += 1;
+    }
+  }
+  const andel = pos.map((p) => p / Math.max(total, 1));
+  console.log(`\nRätt svar i banken per position (A-F): ${ra.join(' / ')}`);
+  console.log(
+    `Efter blandning, ${SESSIONER} sessioner: ${andel.map((a) => (a * 100).toFixed(1) + ' %').join(' / ')}`
+  );
+  andel.forEach((a, i) => {
+    if (Math.abs(a - 1 / n) > 0.02) {
+      errors.push(
+        `rätt svar hamnar på ${String.fromCharCode(65 + i)} i ${(a * 100).toFixed(1)} % efter blandning (ska vara ~16,7 %)`
+      );
+    }
+  });
 }
 
 console.log(`\nV7-validering: ${bank.length} frågor i ${path}\n`);

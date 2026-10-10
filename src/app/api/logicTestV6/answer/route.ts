@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { arBlandad } from '@/lib/logicTestV7/blanda';
+import { BANK_FOR_RUTT, bedomSvar, hittaFraga } from '@/lib/logicTestV7/fragor.server';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
-import questionBank from '@/lib/logicTestV7/questionBank.v7.json';
 
 export async function POST(request: Request) {
   try {
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
     }
 
     // Find question in questionBank
-    const question = questionBank.find((q: any) => q.id === questionId);
+    const question = hittaFraga(BANK_FOR_RUTT.v6, questionId);
 
     if (!question) {
       return NextResponse.json(
@@ -61,12 +62,19 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if answer is correct
-    const isCorrect = selectedIndex === question.correctAnswer;
+    // Servern dömer. selectedIndex är positionen hon klickade på; med
+    // sessionens permutation blir det originalindex, som lagras och rättas.
+    // Sessioner utan meta.alternativ_blandade har identitetsordningen.
+    const bedomt = bedomSvar(question, sessionId, arBlandad(session.meta), selectedIndex);
+    if (!bedomt) {
+      return NextResponse.json({ error: 'Invalid answer' }, { status: 400 });
+    }
+    const isCorrect = bedomt.correct;
 
     const answerData = {
       q_id: questionId,
-      selected: selectedIndex,
+      selected: bedomt.selected,
+      visat: bedomt.visat,
       correct: isCorrect,
       time_spent: timeSpent || 0
     };
@@ -97,7 +105,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      correct: isCorrect,
       answeredCount
     });
   } catch (error) {

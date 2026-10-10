@@ -11,7 +11,9 @@
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7'
+import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
+import { permutationForSession, tillVisat } from '@/lib/logicTestV7/blanda'
+import { genomgaFraga } from '@/lib/logicTestV7/visning'
 import { questionsForToken } from './anon-session'
 
 export interface ProvRad {
@@ -22,6 +24,8 @@ export interface ProvRad {
   created_at: string
   /** Null när raden är hämtad till ett konto: då är den permanent. */
   expires_at: string | null
+  /** meta.alternativ_blandade. Saknas på rader från före blandningen. */
+  meta?: unknown
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -44,7 +48,9 @@ export function arProvTillgangligt(rad: Tillgangsrad, userId: string, nu: number
   return true
 }
 
-const KOLUMNER = 'token, answers, score, claimed_by, created_at, expires_at'
+// '*' så att raden går att läsa både före och efter migreringen som lägger
+// till meta (alternativ_blandade).
+const KOLUMNER = '*'
 
 /** Proxyns kontroll för /dashboard/tester/prov/[token]. */
 export async function provFinns(admin: SupabaseClient<any>, token: string, userId: string): Promise<boolean> {
@@ -92,13 +98,16 @@ export async function hamtaEllerGorAnsprakProv(
 /** Ett sparat svar i samma form som testernas genomgång läser. */
 export interface ProvSvar {
   q_id: string
+  /** Originalindex i banken. */
   selected: number
+  /** Positionen hon klickade på i provet. */
+  visat: number
   correct: boolean
   time_spent: number
 }
 
 export interface ProvGenomgang {
-  fragor: LayeredQuestion[]
+  fragor: GenomgangsFraga[]
   svar: ProvSvar[]
   ratt: number
   totalt: number
@@ -108,18 +117,28 @@ export interface ProvGenomgang {
  * Frågorna ur token (samma urval som provet visade) och svaren i den form
  * MatrixQuestionReview läser. Obesvarade frågor (-1) får inget svar och
  * visas som hoppade. Rättningen görs om här mot facit i frågebanken.
+ *
+ * `answers` är originalindex (så lagrar test-session-routen dem). Frågorna
+ * ritas i provets visade ordning, seedad på token + frågans id när raden har
+ * meta.alternativ_blandade, annars i bankens ordning som förut.
  */
-export function provGenomgang(token: string, answers: readonly number[]): ProvGenomgang {
-  const fragor = questionsForToken(token)
+export function provGenomgang(
+  token: string,
+  answers: readonly number[],
+  blandade = false
+): ProvGenomgang {
+  const bank = questionsForToken(token)
   const svar: ProvSvar[] = []
   let ratt = 0
-  fragor.forEach((q, i) => {
+  bank.forEach((q, i) => {
     const valt = answers[i]
     if (typeof valt !== 'number' || !Number.isInteger(valt) || valt < 0 || valt >= q.options.length) return
     const correct = valt === q.correctAnswer
     if (correct) ratt += 1
-    svar.push({ q_id: q.id, selected: valt, correct, time_spent: 0 })
+    const visat = tillVisat(permutationForSession(token, q, blandade), valt)
+    svar.push({ q_id: q.id, selected: valt, visat, correct, time_spent: 0 })
   })
+  const fragor = bank.map((q) => genomgaFraga(q, token, blandade))
   return { fragor, svar, ratt, totalt: fragor.length }
 }
 
