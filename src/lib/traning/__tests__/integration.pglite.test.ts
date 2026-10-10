@@ -39,6 +39,7 @@ const BETALD = '11111111-1111-4111-8111-111111111111'
 const GRATIS = '22222222-2222-4222-8222-222222222222'
 const K1 = '33333333-3333-4333-8333-333333333333'
 const R1 = '44444444-4444-4444-8444-444444444444'
+const T1 = '55555555-5555-4555-8555-555555555555'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let db: any
@@ -122,12 +123,14 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
         [GRATIS, 'bo@example.se'],
         [K1, 'k1@example.se'],
         [R1, 'r1@example.se'],
+        [T1, 't1@example.se'],
       ],
     })
     admin = pgKlient(db)
     SCOPE[BETALD] = 'allt'
     SCOPE[K1] = 'allt'
     SCOPE[R1] = 'allt'
+    SCOPE[T1] = 'allt'
     SCOPE[GRATIS] = null
   }, 60_000)
 
@@ -298,6 +301,27 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     // Passets upprepade frågor kom inte in i frågestatistiken; generalrepetitionens räknade gjorde det.
     const statEfter = (await db.query('select coalesce(sum(antal),0)::int as n from public.fraga_statistik')).rows[0].n
     expect(statEfter - statFore).toBe(svarG.length)
+  }, 60_000)
+
+  it('14.4: tiden ute sparas som fel, bara i generalrepetition med tid per uppgift', async () => {
+    await admin.from('test_planer').insert({ user_id: T1, testtyper: ['matris'], leverantor: 'alva' }).select('user_id').single()
+    const g = await skapaTraningssession({ supabase: anvandare, admin, userId: T1, begard: 'general', idag: '2026-10-09' })
+    expect(g.ok).toBe(true)
+    if (!g.ok) return
+    expect(g.vy.format).toBe('alva')
+    const q = g.vy.fragor[g.vy.aktuell!]
+    const r = await svaraTraning({ admin, userId: T1, sessionId: g.vy.id, questionId: q.id, selectedIndex: null, tidenUte: true, timeSpent: 120 })
+    expect(r.ok).toBe(true)
+    const rad = (await hamtaSession(admin, T1, g.vy.id))!
+    expect((rad.answers as unknown[])[0]).toMatchObject({ q_id: q.id, selected: -1, visat: null, correct: false, tiden_ute: true, time_spent: 120 })
+    expect(sessionsvy(rad)!.besvarade[0]).toMatchObject({ valdVisat: null, tidenUte: true })
+
+    // I ett pass avvisas det.
+    const p = await skapaTraningssession({ supabase: anvandare, admin, userId: T1, begard: 'pass', idag: '2026-10-09' })
+    expect(p.ok).toBe(true)
+    if (!p.ok) return
+    const fel = await svaraTraning({ admin, userId: T1, sessionId: p.vy.id, questionId: p.vy.fragor[0].id, selectedIndex: null, tidenUte: true, timeSpent: 5 })
+    expect(fel).toMatchObject({ ok: false, status: 400, fel: 'tiden_ute_bara_per_uppgift' })
   }, 60_000)
 
   it('servern dömer: fel fråga, dubbelsvar och avslutad session avvisas', async () => {

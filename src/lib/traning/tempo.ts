@@ -12,6 +12,7 @@
 // långsam när den tog över 1,5 × medianen för frågor med samma svårighet.
 // =============================================================================
 
+import { TRANING_COPY } from './copy';
 import { arNaraNivan, type Prior } from './svarighet';
 
 export type Leverantor = 'matrigma' | 'alva' | 'shl' | 'aon' | 'annat';
@@ -45,6 +46,16 @@ export interface Provformat {
   verifierad: boolean;
   /** Var siffrorna kommer ifrån. */
   kalla: string;
+  /**
+   * Total tid för provet, eller en tidsgräns per uppgift (Alva). Med
+   * per_uppgift går passet vidare när uppgiftens tid är ute (spec 14.4).
+   */
+  tidsform: 'total' | 'per_uppgift';
+  /**
+   * En mening under formatet när provet inte bara är matriser eller har en
+   * annan uppgiftstyp (spec 14.4). Texten bor i copy.ts. Null för övriga.
+   */
+  anmarkning: string | null;
 }
 
 function budget(minuter: number, antal: number): number {
@@ -64,45 +75,57 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     verifierad: false,
     // FLAGGAD: tredjepartsuppgift (briefen avsnitt 2), inte Assessios egen sida.
     kalla: 'tredjepart',
+    tidsform: 'total',
+    anmarkning: null,
   },
   matrigma_adaptiv: {
     nyckel: 'matrigma_adaptiv',
     leverantor: 'matrigma',
     namn: 'Matrigma',
-    // Briefen: "Adaptiv Matrigma cirka 12 min". Antalet är okänt; vi
-    // simulerar med mätningens tolv frågor i tre band. Öppen fråga till
-    // testansvarig.
+    // Briefen: "Adaptiv Matrigma cirka 12 min". Antalet är en simulering
+    // (mätningens tolv frågor i tre band) och står med "cirka" tills
+    // testansvarig verifierat det (3c). FLAGGAD.
     antal: 12,
     minuter: 12,
-    budget_s: 68, // samma uppgiftstyp som klassisk
+    // Spec 14.4: 12 minuter på 12 uppgifter, så att tidsraden säger 1:00.
+    budget_s: 60,
     adaptiv: true,
     cirka: true,
     verifierad: false,
     kalla: 'tredjepart',
+    tidsform: 'total',
+    anmarkning: null,
   },
   alva: {
     nyckel: 'alva',
     leverantor: 'alva',
     namn: 'Alva Logic',
     antal: 20,
-    minuter: 40, // 2 minuter per uppgift
+    // Övre gräns för tidsgrans_s; tiden gäller per uppgift (tidsform).
+    minuter: 40,
     budget_s: 120,
     adaptiv: true,
     cirka: true,
     verifierad: false,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
+    tidsform: 'per_uppgift',
+    anmarkning: null,
   },
   shl: {
     nyckel: 'shl',
     leverantor: 'shl',
     namn: 'SHL Verify',
-    antal: 24,
-    minuter: 36,
-    budget_s: budget(36, 24), // 90
-    adaptiv: true,
+    // Spec 14.4: SHL Verify G+ blandar siffror, slutledning och figurer.
+    // Provläget övar figurdelen: 18 uppgifter på 25 minuter.
+    antal: 18,
+    minuter: 25,
+    budget_s: 90,
+    adaptiv: false,
     cirka: true,
     verifierad: false,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
+    tidsform: 'total',
+    anmarkning: TRANING_COPY.format.anmarkning.shl,
   },
   aon: {
     nyckel: 'aon',
@@ -115,6 +138,8 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     cirka: true,
     verifierad: false,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
+    tidsform: 'total',
+    anmarkning: TRANING_COPY.format.anmarkning.aon,
   },
   eget: {
     nyckel: 'eget',
@@ -127,6 +152,8 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     cirka: false,
     verifierad: true,
     kalla: 'eget',
+    tidsform: 'total',
+    anmarkning: null,
   },
 };
 
@@ -155,9 +182,16 @@ export function tempobudget(leverantor?: string | null, variant?: string | null)
   return formatForPlan(leverantor, variant).budget_s;
 }
 
-/** "35 uppgifter, 40 minuter", med "cirka" före när siffrorna inte är verifierade. */
+/**
+ * "35 uppgifter, 40 minuter", eller "20 uppgifter, 2 minuter per uppgift"
+ * för per_uppgift, med "cirka" före när siffrorna inte är verifierade.
+ */
 export function formatText(f: Provformat): string {
-  const text = `${f.antal} uppgifter, ${f.minuter} minuter`;
+  const tid =
+    f.tidsform === 'per_uppgift'
+      ? `${Math.round(f.budget_s / 60)} minuter per uppgift`
+      : `${f.minuter} minuter`;
+  const text = `${f.antal} uppgifter, ${tid}`;
   return f.cirka ? `cirka ${text}` : text;
 }
 

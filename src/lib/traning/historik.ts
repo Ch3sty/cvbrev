@@ -71,6 +71,8 @@ export interface SparatSvar {
   correct: boolean;
   time_spent: number;
   vet_inte?: boolean;
+  /** Uppgiftens tid tog slut (generalrepetition med tid per uppgift, spec 14.4). */
+  tiden_ute?: boolean;
 }
 
 const TYPER: readonly Sessionstyp[] = ['matning', 'ommatning', 'pass', 'riktat', 'general'];
@@ -97,6 +99,7 @@ export function lasSvar(answers: unknown): SparatSvar[] {
       correct: r.correct === true,
       time_spent: typeof r.time_spent === 'number' && r.time_spent > 0 ? Math.round(r.time_spent) : 0,
       vet_inte: r.vet_inte === true ? true : undefined,
+      tiden_ute: r.tiden_ute === true ? true : undefined,
     });
   }
   return ut;

@@ -42,6 +42,13 @@ export const TRANING_COPY = {
     /** "Sju dagar sedan mätningen, sex pass, ingen missad dag" */
     gratis: (pass: number) => `Sju dagar sedan mätningen, ${antalPass(pass)}, ingen missad dag`,
   },
+  format: {
+    /** Under formatet på provdagen-raden (1b/1c), spec 14.4. Nyckel per format. */
+    anmarkning: {
+      shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Provläget övar figurdelen.',
+      aon: 'scales ix har en annan uppgiftstyp, att hitta regeln bland rutnät. Provläget övar tempot med matriser.',
+    },
+  },
   fel: {
     passHamtas: 'Passet gick inte att hämta.',
     forsokIgen: 'Försök igen. Din nivå och dina pass är sparade, ingenting försvann.',

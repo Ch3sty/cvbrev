@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { arLangsam, formatForPlan, formatText, median, PROVFORMAT, raknaTempo, tempobudget } from '../tempo'
 import { pForNiva } from '../svarighet'
+import { TRANING_COPY } from '../copy'
 
 describe('provformaten', () => {
   it('tempobudgeten per format: 68, 83, 120, 90, 15 sekunder', () => {
@@ -9,6 +10,24 @@ describe('provformaten', () => {
     expect(tempobudget('alva')).toBe(120)
     expect(tempobudget('shl')).toBe(90)
     expect(tempobudget('aon')).toBe(15)
+  })
+
+  it('14.4: adaptiv Matrigma 60 s, SHL 18 på 25 med 90 s och fast, Alva per uppgift', () => {
+    expect(tempobudget('matrigma', 'adaptiv')).toBe(60)
+    expect(PROVFORMAT.shl).toMatchObject({ antal: 18, minuter: 25, budget_s: 90, adaptiv: false, cirka: true })
+    expect(PROVFORMAT.alva.tidsform).toBe('per_uppgift')
+    expect(PROVFORMAT.alva.minuter).toBe(40)
+    for (const f of Object.values(PROVFORMAT)) if (f.nyckel !== 'alva') expect(f.tidsform).toBe('total')
+    expect(formatText(PROVFORMAT.alva)).toBe('cirka 20 uppgifter, 2 minuter per uppgift')
+    expect(formatText(PROVFORMAT.shl)).toBe('cirka 18 uppgifter, 25 minuter')
+    expect(formatText(PROVFORMAT.matrigma_adaptiv)).toBe('cirka 12 uppgifter, 12 minuter')
+  })
+
+  it('14.4: anmärkningen ur copy.ts för SHL och Aon, null för övriga', () => {
+    expect(PROVFORMAT.shl.anmarkning).toBe(TRANING_COPY.format.anmarkning.shl)
+    expect(PROVFORMAT.shl.anmarkning).toBe('SHL Verify G+ blandar siffror, slutledning och figurer. Provläget övar figurdelen.')
+    expect(PROVFORMAT.aon.anmarkning).toBe(TRANING_COPY.format.anmarkning.aon)
+    for (const k of ['matrigma_klassisk', 'matrigma_adaptiv', 'alva', 'eget'] as const) expect(PROVFORMAT[k].anmarkning).toBeNull()
   })
 
   it('Vet inte, Annat och okänd leverantör ger vårt provläge 18 på 25', () => {

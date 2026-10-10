@@ -68,7 +68,7 @@ import {
 import { byggPlan, type PlanDag } from './plan';
 import { raknaSerie, type Serie } from './serie';
 import type { FragaStatistik } from './svarighet';
-import { formatForPlan, raknaTempo, type Provformat, type Tempo } from './tempo';
+import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -222,9 +222,11 @@ export async function lasBehorighet(supabase: Klient, userId: string): Promise<B
 
 export interface BesvaradFraga {
   q_id: string;
-  /** Det hon valde, som visat index. Null för "Vet inte". */
+  /** Det hon valde, som visat index. Null för "Vet inte" och när tiden tog slut. */
   valdVisat: number | null;
   vetInte: boolean;
+  /** Uppgiftens tid tog slut (generalrepetition med tid per uppgift). */
+  tidenUte: boolean;
   tid_s: number;
 }
 
@@ -330,8 +332,9 @@ export function sessionsvy(rad: SessionRad & { started_at?: string | null }): Se
     aktuell: avslutad || forstaObesvarade < 0 ? null : forstaObesvarade,
     besvarade: svar.map((s) => ({
       q_id: s.q_id,
-      valdVisat: s.vet_inte ? null : s.visat,
+      valdVisat: s.vet_inte || s.tiden_ute ? null : s.visat,
       vetInte: !!s.vet_inte,
+      tidenUte: !!s.tiden_ute,
       tid_s: s.time_spent,
     })),
     aterkoppling,
@@ -532,9 +535,14 @@ export async function svaraTraning(args: {
   userId: string;
   sessionId: string;
   questionId: string;
-  /** Visat index. Null tillsammans med vetInte. */
+  /** Visat index. Null tillsammans med vetInte eller tidenUte. */
   selectedIndex: unknown;
   vetInte?: boolean;
+  /**
+   * Uppgiftens tid tog slut (spec 14.4). Bara i generalrepetitioner vars
+   * format har tid per uppgift (Alva). Räknas som fel.
+   */
+  tidenUte?: boolean;
   timeSpent: unknown;
 }): Promise<SvarResultat> {
   const rad = await hamtaSession(args.admin, args.userId, args.sessionId);
@@ -567,7 +575,12 @@ export async function svaraTraning(args: {
   const vetInte = args.vetInte === true;
 
   let sparat: SparatSvar;
-  if (vetInte) {
+  if (args.tidenUte === true) {
+    if (meta.typ !== 'general' || PROVFORMAT[meta.format]?.tidsform !== 'per_uppgift') {
+      return { ok: false, status: 400, fel: 'tiden_ute_bara_per_uppgift' };
+    }
+    sparat = { q_id: q.id, selected: -1, visat: null, correct: false, tiden_ute: true, time_spent: tid };
+  } else if (vetInte) {
     // "Vet inte, visa regeln": bara i pass, räknas som fel, tiden sparas.
     if (!visarAterkopplingUnderTiden(meta.typ)) return { ok: false, status: 400, fel: 'vet_inte_bara_i_pass' };
     sparat = { q_id: q.id, selected: -1, visat: null, correct: false, time_spent: tid, vet_inte: true };
@@ -847,7 +860,10 @@ export async function slutforTraning(args: {
 export interface Traningsstatus {
   idag: Dag;
   plan: Testplan | null;
-  format: Pick<Provformat, 'nyckel' | 'namn' | 'antal' | 'minuter' | 'budget_s' | 'adaptiv' | 'cirka'>;
+  format: Pick<
+    Provformat,
+    'nyckel' | 'namn' | 'antal' | 'minuter' | 'budget_s' | 'adaptiv' | 'cirka' | 'tidsform' | 'anmarkning'
+  >;
   niva: number | null;
   /** Kurvans punkter. Utan historik (gratis): bara den senaste. */
   punkter: Nivapunkt[];
@@ -923,6 +939,8 @@ export async function hamtaTraningsstatus(args: {
       budget_s: format.budget_s,
       adaptiv: format.adaptiv,
       cirka: format.cirka,
+      tidsform: format.tidsform,
+      anmarkning: format.anmarkning,
     },
     niva: senasteNiva(lage.punkter),
     punkter: (historikLast ? lage.punkter.slice(-1) : lage.punkter).map(({ dag, typ, niva }) => ({ dag, typ, niva })),
