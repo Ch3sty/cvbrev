@@ -16,6 +16,7 @@ import {
   isTemplateHTML as checkIsTemplateHTML,
 } from '@/lib/letters/extract-editable-content';
 import StatusRow from '@/components/shell/StatusRow';
+import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { scopeLetterHtml, BREV_SCOPE } from '@/app/dashboard/mina-brev/scopeLetterHtml';
@@ -326,6 +327,7 @@ export default function PreviewStep({
                 </button>
               ) : null}
             </div>
+            <DokumentEpostRad dokument="brev" />
           </div>
 
           <FontSelector selectedFont={selectedFont} onFontChange={onFontChange} isPremium={isPremium} />

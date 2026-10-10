@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { arGiltigEpost, EPOST_MAX } from '@/lib/profile/dokumentEpost';
+import { captureServer, vantaMedTak } from '@/lib/analytics/server';
 
 /**
  * PATCH /api/profile/contact
@@ -8,6 +10,10 @@ import { createServerClient } from '@/lib/supabase/server';
  * Sparar namn, telefon och ort från kortet "Komplettera profilen"
  * (docs/plan-inloggat-saljflode.md, punkt 6). Ett fält i taget eller flera,
  * sparas vid blur i gränssnittet.
+ *
+ * contact_email (2026-10-10) är adressen i CV-mallar och personliga brev.
+ * Tom sträng eller null betyder kontoadressen och sparas som null. Ingen
+ * verifiering skickas: adressen används bara i användarens egna dokument.
  *
  * RLS begränsar update till egen rad, så vi kör med användarens egen klient
  * och behöver ingen service role här.
@@ -44,7 +50,7 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
     }
 
-    const updates: Record<string, string> = {};
+    const updates: Record<string, string | boolean | null> = {};
 
     for (const field of ALLOWED) {
       const raw = (body as Record<string, unknown>)[field];
@@ -66,6 +72,26 @@ export async function PATCH(request: Request) {
       updates[field] = value;
     }
 
+    // E-post i CV och brev. Tom betyder kontoadressen.
+    let nyDokumentEpost: string | null | undefined;
+    if ('contact_email' in (body as Record<string, unknown>)) {
+      const raw = (body as Record<string, unknown>).contact_email;
+      if (raw !== null && typeof raw !== 'string') {
+        return NextResponse.json({ error: 'Adressen måste vara text.' }, { status: 400 });
+      }
+      const value = (raw ?? '').trim();
+      if (value && (value.length > EPOST_MAX || !arGiltigEpost(value))) {
+        return NextResponse.json(
+          { error: 'Det ser inte ut som en e-postadress.', field: 'contact_email' },
+          { status: 400 }
+        );
+      }
+      const konto = (user.email ?? '').trim().toLowerCase();
+      // Samma som kontoadressen betyder samma sak som tomt: följ kontot.
+      nyDokumentEpost = value && value.toLowerCase() !== konto ? value : null;
+      updates.contact_email = nyDokumentEpost;
+    }
+
     if (Object.keys(updates).length === 0) {
       return NextResponse.json({ error: 'Inget att spara.' }, { status: 400 });
     }
@@ -73,23 +99,53 @@ export async function PATCH(request: Request) {
     // Punkt 4 i planen sätter togglarna till true som default. Den som fyller i
     // telefon eller ort här vill uppenbarligen ha dem i brevhuvudet.
     if (updates.phone) {
-      (updates as Record<string, unknown>).include_phone_in_letters = true;
+      updates.include_phone_in_letters = true;
     }
     if (updates.location) {
-      (updates as Record<string, unknown>).include_location_in_letters = true;
+      updates.include_location_in_letters = true;
     }
 
-    const { error: updateError } = await supabase
+    // Föregående värde behövs bara för mätningen.
+    let hadeEgenForut = false;
+    if (nyDokumentEpost) {
+      const { data: fore } = await supabase
+        .from('profiles')
+        .select('contact_email')
+        .eq('id', user.id)
+        .maybeSingle();
+      const tidigare = (fore as { contact_email?: string | null } | null)?.contact_email ?? null;
+      hadeEgenForut = Boolean(tidigare);
+      if (tidigare && tidigare.toLowerCase() === nyDokumentEpost.toLowerCase()) {
+        // Oförändrad: spara ändå, men mät inte en ändring som inte skett.
+        nyDokumentEpost = undefined;
+      }
+    }
+
+    const { data: sparad, error: updateError } = await supabase
       .from('profiles')
       .update(updates)
-      .eq('id', user.id);
+      .eq('id', user.id)
+      .select('contact_email')
+      .single();
 
     if (updateError) {
-      console.error('profile/contact update error:', updateError);
+      console.error('profile/contact update error:', updateError.code);
       return NextResponse.json({ error: 'Kunde inte spara.' }, { status: 500 });
     }
 
-    return NextResponse.json({ saved: Object.keys(updates) });
+    if (nyDokumentEpost) {
+      await vantaMedTak(
+        captureServer('document_email_changed', user.id, {
+          differs_from_account: true,
+          had_custom_before: hadeEgenForut,
+        })
+      );
+    }
+
+    return NextResponse.json({
+      saved: Object.keys(updates),
+      contact_email: (sparad as { contact_email?: string | null } | null)?.contact_email ?? null,
+    });
   } catch (error) {
     console.error('profile/contact error:', error);
     return NextResponse.json({ error: 'Kunde inte spara.' }, { status: 500 });

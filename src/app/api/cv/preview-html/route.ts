@@ -8,6 +8,7 @@
  * for att garantera att preview matchar PDF-output exakt.
  */
 import { cookies } from 'next/headers';
+import { epostForCv } from '@/lib/profile/dokumentEpost';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getTemplateGenerator } from '@/lib/cv/templates';
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
     // Berika med profile-data sa preview matchar PDF (foto + LinkedIn)
     const { data: userProfile } = await supabase
       .from('profiles')
-      .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
+      .select('profile_photo_url, linkedin_url, full_name, email, contact_email, phone, location')
       .eq('id', user.id)
       .single();
 
@@ -94,7 +95,8 @@ export async function POST(request: NextRequest) {
         }
       }
       if (userProfile.full_name) cvData.personalInfo.fullName = userProfile.full_name;
-      if (userProfile.email) cvData.personalInfo.email = userProfile.email;
+      // Samma regel som PDF:en i generate-formatted: det användaren skrivit vinner.
+      cvData.personalInfo.email = epostForCv(cvData.personalInfo.email, userProfile, user);
       if (userProfile.phone) cvData.personalInfo.phone = userProfile.phone;
       if (userProfile.location) cvData.personalInfo.address = userProfile.location;
     }

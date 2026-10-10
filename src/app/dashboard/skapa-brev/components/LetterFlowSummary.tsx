@@ -7,6 +7,7 @@
  * och kvot.
  */
 
+import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import {
   IkonCv,
@@ -164,6 +165,7 @@ export default function LetterFlowSummary({
             />
           </div>
         </div>
+        <DokumentEpostRad dokument="brev" className="mt-3" />
       </div>
 
       {!hidePrimaryAction ? (

@@ -6,6 +6,7 @@
 
 
 import { PLAN_BY_KEY, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { DOKUMENT_EPOST } from '@/lib/profile/dokumentEpost-copy'
 
 export const PROFIL = {
   eyebrow: 'Konto',
@@ -33,7 +34,7 @@ export const CV_SEKTION = {
   namnFel: 'Namnet måste vara minst två tecken.',
   ort: { etikett: 'Ort', text: 'Rekryteraren ser direkt om du bor nära jobbet.', plats: 'Till exempel Örebro' },
   telefon: { etikett: 'Telefon', text: 'Så att rekryteraren kan ringa dig.', plats: '070 123 45 67' },
-  epost: { etikett: 'E-post', text: 'Din inloggning och adressen rekryteraren svarar på.' },
+  epost: { etikett: DOKUMENT_EPOST.etikett, text: DOKUMENT_EPOST.text, konto: DOKUMENT_EPOST.konto, fel: DOKUMENT_EPOST.fel },
   linkedin: {
     etikett: 'LinkedIn',
     text: 'Blir en rad i CV:t. Rekryterare klickar ofta dit innan de hör av sig.',

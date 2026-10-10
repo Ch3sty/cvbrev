@@ -16,6 +16,7 @@ import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
@@ -143,7 +144,7 @@ export async function POST(request: Request) {
       // *** STEG 2: Hämta profildata (PII) ***
       const { data: profileData, error: profileFetchError } = await supabase
         .from('profiles')
-        .select('full_name, email, phone, location, include_phone_in_letters, include_location_in_letters')
+        .select('full_name, email, contact_email, phone, location, include_phone_in_letters, include_location_in_letters')
         .eq('id', user.id)
         .single();
 
@@ -188,7 +189,7 @@ export async function POST(request: Request) {
       console.log('');
       console.log('🔒 Data som INTE skickas till OpenAI:');
       console.log('  - Namn:', profileData.full_name, '❌');
-      console.log('  - Email:', profileData.email, '❌');
+      console.log('  - E-post: loggas inte', '❌');
       console.log('  - Telefon:', profileData.phone || 'ej angivet', '❌');
       console.log('  - Plats:', profileData.location || 'ej angivet', '❌');
       console.log('');
@@ -214,7 +215,8 @@ export async function POST(request: Request) {
       // *** STEG 7: Skapa ProfileDataForLetter-objekt ***
       const profileForLetter: ProfileDataForLetter = {
         full_name: profileData.full_name || 'Namn saknas',
-        email: profileData.email,
+        // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
+        email: dokumentEpost(profileData, user),
         phone: profileData.phone || null,
         location: profileData.location || null,
         include_phone_in_letters: profileData.include_phone_in_letters || false,

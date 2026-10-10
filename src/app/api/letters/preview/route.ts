@@ -1,5 +1,6 @@
 // src/app/api/letters/preview/route.ts
 import { cookies } from 'next/headers';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPreview } from '@/lib/pdf/puppeteer-pdf';
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
       company: metadata?.company || '',
       position: metadata?.position || metadata?.job_title || '',
       author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
-      email: user.email || '',
+      email: dokumentEpost(profileData, user),
       phone: profileData?.phone || '',
       location: profileData?.location || '',
       date: new Date().toLocaleDateString('sv-SE')

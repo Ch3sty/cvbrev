@@ -17,6 +17,8 @@ import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
 import { paketMedPris } from '@/lib/plans/plans';
+import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
+import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 
 interface CV {
   id: string;
@@ -233,6 +235,14 @@ export default function MallarLivePreview({
               onGenerate={handleGenerate}
               onUpgrade={onUpgrade}
             />
+
+            {/* Vilken adress PDF:en får, med Ändra på plats. */}
+            {selectedCV && !isLockedPremium ? (
+              <DokumentEpostRad
+                dokument="cv"
+                cvEpost={normalizeStructuredData(selectedCV.structured_data)?.personalInfo.email ?? null}
+              />
+            ) : null}
           </div>
         </section>
       </div>

@@ -1,5 +1,6 @@
 // src/app/api/letters/download/route.ts
 import { cookies } from 'next/headers';
+import { dokumentEpost, bytEpostIBrev } from '@/lib/profile/dokumentEpost';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
@@ -335,7 +336,7 @@ export async function POST(request: Request) {
       company: company || '',
       position: position || '',
       author: profileData.full_name,
-      email: user.email || '',
+      email: dokumentEpost(profileData, user),
       phone: profileData?.phone || '',
       location: profileData?.location || '',
       date: new Date().toLocaleDateString('sv-SE')
@@ -357,7 +358,9 @@ export async function POST(request: Request) {
       fileName += '.docx';
     } else if (format === 'pdf') {
       // content är redan komplett HTML från template, skicka med font
-      fileData = await createProfessionalPDF(content, fontFamily);
+      // Sparade brev har adressen inbakad från när de skapades. Byt den mot
+      // den aktuella så PDF:en följer profilfältet "E-post i CV och brev".
+      fileData = await createProfessionalPDF(bytEpostIBrev(content, enhancedMetadata.email), fontFamily);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {

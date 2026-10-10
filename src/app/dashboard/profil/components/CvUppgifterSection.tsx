@@ -17,7 +17,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import { ProfileTextField, INPUT_CLASS } from './ProfileField'
+import { ProfileTextField } from './ProfileField'
 import StatusRow from '@/components/shell/StatusRow'
 import FotoFalt from './FotoFalt'
 import type { FieldSaveState } from './useFieldSave'
@@ -26,7 +26,11 @@ import { CV_SEKTION } from '../profil-copy'
 const Sheet = dynamic(() => import('@/components/shell/Sheet'), { ssr: false })
 
 export interface CvUppgifterSectionProps {
+  /** Kontoadressen (inloggning och kvitton). */
   email: string
+  /** Adressen i CV och brev. Förifylld med kontoadressen. */
+  dokumentEpost: string
+  onDokumentEpostChange: (v: string) => void
   fullName: string
   phone: string
   location: string
@@ -116,25 +120,24 @@ export default function CvUppgifterSection(props: CvUppgifterSectionProps) {
             maxLength={32}
           />
 
-          <div>
-            <label htmlFor="profil-epost" className="block text-sm font-medium text-ink-1">
-              {CV_SEKTION.epost.etikett}
-            </label>
-            <p className="mt-1 text-sm leading-[22px] text-ink-2">{CV_SEKTION.epost.text}</p>
-            <div className="relative">
-              <input
-                id="profil-epost"
-                type="email"
-                value={props.email}
-                disabled
-                autoComplete="email"
-                className={`${INPUT_CLASS} pr-10`}
-              />
-              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="pointer-events-none absolute right-3 top-[26px] text-ink-3" aria-hidden="true">
-                <rect x="3" y="7" width="10" height="7" rx="1.5" />
-                <path d="M5 7V5a3 3 0 0 1 6 0v2" />
-              </svg>
-            </div>
+          <div id="cv-epost" className="scroll-mt-24">
+            <ProfileTextField
+              id="profil-epost"
+              label={CV_SEKTION.epost.etikett}
+              description={CV_SEKTION.epost.text}
+              value={props.dokumentEpost}
+              onChange={props.onDokumentEpostChange}
+              onBlur={() => props.onSaveField('contact_email')}
+              state={props.stateFor('contact_email')}
+              hint={CV_SEKTION.epost.konto(props.email)}
+              placeholder={props.email}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              enterKeyHint="next"
+              autoCapitalize="none"
+              maxLength={254}
+            />
           </div>
 
           <ProfileTextField

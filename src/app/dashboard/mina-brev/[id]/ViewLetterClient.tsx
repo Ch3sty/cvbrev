@@ -24,6 +24,7 @@ import PaywallCard from '@/components/paywall/PaywallCard';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
+import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
 
 const PRIMARY =
   'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
@@ -279,6 +280,10 @@ export default function ViewLetterClient({
           {isDeleting ? 'Tar bort' : 'Ta bort'}
         </button>
       </div>
+
+      {/* Adressen nedladdningen får. Sparade brev har adressen inbakad, så
+          /api/letters/download byter den mot den aktuella. */}
+      <DokumentEpostRad dokument="brev" />
 
       {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
       <div className="overflow-hidden rounded-xl border border-kant bg-white">

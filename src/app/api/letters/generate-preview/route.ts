@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
@@ -192,7 +193,7 @@ export async function POST(request: Request) {
       // Hämta användarens profildata för att inkludera i brevet
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('full_name, email, phone, location, include_phone_in_letters, include_location_in_letters')
+        .select('full_name, email, contact_email, phone, location, include_phone_in_letters, include_location_in_letters')
         .eq('id', user.id)
         .single();
 
@@ -204,7 +205,8 @@ export async function POST(request: Request) {
       // Bygg profilobjekt för template
       const profileForLetter: ProfileDataForLetter = {
         full_name: profileData.full_name || 'Ditt namn',
-        email: profileData.email,
+        // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
+        email: dokumentEpost(profileData, user),
         phone: profileData.phone || undefined,
         location: profileData.location || undefined,
         include_phone_in_letters: profileData.include_phone_in_letters || false,

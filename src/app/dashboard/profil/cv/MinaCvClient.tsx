@@ -17,6 +17,7 @@ import PageHeader from '@/components/shell/PageHeader';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 // Syns aldrig i första vyn. Bekräftelsedialogen öppnas vid borttagning,
 // snabb-poängen bara direkt efter en uppladdning.
@@ -410,7 +411,7 @@ export default function MinaCvClient({
                     isLocked={lockedCvIds.has(cv.id)}
                     userContact={{
                       full_name: profile?.full_name ?? '',
-                      email: profile?.email ?? '',
+                      email: dokumentEpost(profile),
                       phone: profile?.phone ?? '',
                       location: profile?.location ?? '',
                     }}
