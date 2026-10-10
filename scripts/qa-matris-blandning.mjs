@@ -431,6 +431,10 @@ try {
   const ctx = await browser.createBrowserContext()
   const p = await ctx.newPage()
   p.setDefaultNavigationTimeout(180000)
+  // Lokalt saknas x-forwarded-for, så alla körningar delar IP-gränsen för
+  // smakprovet ("unknown"). QA_IP ger körningen en egen nyckel (en
+  // dokumentationsadress, TEST-NET-3) utan att röra public_rate_limits.
+  if (process.env.QA_IP) await p.setExtraHTTPHeaders({ 'x-forwarded-for': process.env.QA_IP })
   await p.setViewport(VY[vy].viewport)
   await p.setUserAgent(VY[vy].ua)
   await p.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS })
