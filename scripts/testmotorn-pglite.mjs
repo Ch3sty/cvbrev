@@ -147,7 +147,23 @@ for (const f of [
 ]) {
   const a = await som('authenticated', U1, f)
   ok(`authenticated får inte köra ${f.match(/public\.(\w+)/)[1]}`, !a.ok, a.error)
+  const n = await som('anon', null, f)
+  ok(`anon får inte köra ${f.match(/public\.(\w+)/)[1]}`, !n.ok, n.error)
 }
+// Regeln för nya funktioner: ingen EXECUTE för public, anon eller authenticated.
+r = await som('service_role', null, `
+  select p.proname, r.rolname
+    from pg_proc p
+    cross join (values ('anon'), ('authenticated')) as r(rolname)
+   where p.pronamespace = 'public'::regnamespace
+     and p.proname in ('traning_skydda_skrivning', 'uppdatera_fraga_statistik', 'registrera_milstolpar', 'slutfor_traningssession')
+     and has_function_privilege(r.rolname, p.oid, 'EXECUTE')`)
+ok('inga av de nya funktionerna är körbara för anon eller authenticated', r.ok && r.rows.length === 0, JSON.stringify(r.rows ?? r.error))
+r = await som('service_role', null, `
+  select count(*)::int n from pg_proc
+   where pronamespace = 'public'::regnamespace and prosecdef
+     and proname in ('traning_skydda_skrivning', 'uppdatera_fraga_statistik', 'registrera_milstolpar', 'slutfor_traningssession')`)
+ok('ingen av de nya funktionerna är SECURITY DEFINER', r.ok && r.rows[0].n === 0, JSON.stringify(r.rows ?? r.error))
 r = await som('service_role', null, `select public.registrera_milstolpar($1, array['forsta_matningen','provdagen']) n`, [U1])
 ok('registrera_milstolpar returnerar bara nya märken', JSON.stringify(r.rows[0].n) === '["provdagen"]', JSON.stringify(r.rows))
 

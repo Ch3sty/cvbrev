@@ -82,6 +82,12 @@ begin
 end;
 $$;
 
+-- Triggerfunktion, security invoker och inte anropbar som RPC (returnerar
+-- trigger), men stängs ändå enligt regeln för nya funktioner. EXECUTE prövas
+-- när triggern skapas, inte när den avfyras, så spärren fungerar som förut.
+revoke all on function public.traning_skydda_skrivning() from public, anon, authenticated;
+grant execute on function public.traning_skydda_skrivning() to service_role;
+
 comment on function public.traning_skydda_skrivning() is
   'Avvisar INSERT/UPDATE/DELETE från anon/authenticated på testträningens tabeller (test_planer, test_nivapunkter, test_milstolpar, fraga_statistik).';
 
