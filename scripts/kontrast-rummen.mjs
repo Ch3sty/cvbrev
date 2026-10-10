@@ -18,7 +18,9 @@
 
 import fs from 'node:fs'
 
-const CSS = fs.readFileSync('src/app/globals.css', 'utf8')
+// CRLF efter utcheckning på Windows: allt läses som LF.
+const lf = (s) => s.replace(/\r\n/g, '\n')
+const CSS = lf(fs.readFileSync('src/app/globals.css', 'utf8'))
 const DOK = 'docs/designsystem.md'
 const SKRIV = process.argv.includes('--skriv')
 
@@ -235,7 +237,7 @@ const genererat =
 // ------------------------------------------------------------- dokumentet
 const START = '<!-- kontrast:start -->'
 const SLUT = '<!-- kontrast:slut -->'
-const dok = fs.readFileSync(DOK, 'utf8')
+const dok = lf(fs.readFileSync(DOK, 'utf8'))
 const i = dok.indexOf(START)
 const j = dok.indexOf(SLUT)
 
