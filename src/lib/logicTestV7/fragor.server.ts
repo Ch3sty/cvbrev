@@ -24,6 +24,9 @@ import {
   GRUND_POOL,
   AVANCERAD_POOL,
   EXPERT_POOL,
+  GRUND_3C,
+  AVANCERAD_3C,
+  EXPERT_3C,
 } from './selectQuestions.v7';
 import { selectProvQuestionsForSession } from './selectProv.v7';
 import {
@@ -115,6 +118,11 @@ const V5 = questionBankV5 as unknown as BankFraga[];
 const G = GRUND_POOL as unknown as BankFraga[];
 const A = AVANCERAD_POOL as unknown as BankFraga[];
 const E = EXPERT_POOL as unknown as BankFraga[];
+// Våg 3c: nya frågor rättas i samma rutter som sin nivå, så att passen kan
+// dra dem utan att rättningen behöver byggas om.
+const G3 = GRUND_3C as unknown as BankFraga[];
+const A3 = AVANCERAD_3C as unknown as BankFraga[];
+const E3 = EXPERT_3C as unknown as BankFraga[];
 
 /**
  * Bankerna varje svar-rutt slår upp facit i. V5 ligger kvar för sessioner
@@ -122,11 +130,11 @@ const E = EXPERT_POOL as unknown as BankFraga[];
  */
 export const BANK_FOR_RUTT = {
   /** /api/logicTestV4/answer: grund och expert (plus V5). */
-  v4: [...V5, ...G, ...E],
+  v4: [...V5, ...G, ...E, ...G3, ...E3],
   /** /api/logicTestV6/answer: avancerad. */
-  v6: [...A],
+  v6: [...A, ...A3],
   /** /api/logicTestProv/answer: alla nivåer. */
-  prov: [...V5, ...G, ...A, ...E],
+  prov: [...V5, ...G, ...A, ...E, ...G3, ...A3, ...E3],
 } as const;
 
 export function hittaFraga(

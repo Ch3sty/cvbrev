@@ -9,6 +9,9 @@ import { alternativSeed, blandadPermutation } from './lib/blanda-alternativ.mjs'
 
 const path = process.argv[2];
 const bank = JSON.parse(readFileSync(path, 'utf8'));
+const FAMILJER = new Set(
+  JSON.parse(readFileSync(new URL('../src/lib/logicTestV7/familjer.json', import.meta.url), 'utf8')).map((f) => f.id)
+);
 
 // Kanonisk nyckel för en cell (primitiv ELLER array av primitiver).
 // Stabil, djup serialisering (hanterar arrayer av objekt, t.ex. balanceline.items)
@@ -83,6 +86,26 @@ for (const q of bank) {
         errors.push(`${tag} rätt svar identiskt med distraktor → två rätta`);
       }
     }
+  }
+
+  // Fälten testmotorn läser (spec-rummen 6, våg 3a/3c): family ur
+  // familjer.json, difficulty 1-4 som prior, misstag en post per alternativ
+  // på originalindex, tom för facit. En distraktor utan text måste stå i
+  // misstagGranskas (manuell granskning), annars är det ett fel.
+  if (!FAMILJER.has(q.family)) errors.push(`${tag} family saknas eller finns inte i familjer.json (${q.family})`);
+  if (!Number.isInteger(q.difficulty) || q.difficulty < 1 || q.difficulty > 4) errors.push(`${tag} difficulty ska vara 1-4 (är ${q.difficulty})`);
+  if (!Array.isArray(q.misstag) || q.misstag.length !== q.options?.length) {
+    errors.push(`${tag} misstag ska ha en post per alternativ`);
+  } else {
+    const granskas = new Set(q.misstagGranskas ?? []);
+    q.misstag.forEach((m, i) => {
+      if (typeof m !== 'string') errors.push(`${tag} misstag ${i + 1} är inte en sträng`);
+      else if (i === q.correctAnswer && m !== '') errors.push(`${tag} misstag för rätt svar ska vara tomt`);
+      else if (i !== q.correctAnswer && m === '' && !granskas.has(i)) errors.push(`${tag} alternativ ${i + 1} saknar misstag och står inte i misstagGranskas`);
+      else if (granskas.has(i) && m !== '') errors.push(`${tag} alternativ ${i + 1} står i misstagGranskas men har text`);
+      if (typeof m === 'string' && /[—–]/.test(m)) errors.push(`${tag} tankstreck i misstag ${i + 1}`);
+    });
+    if (granskas.has(q.correctAnswer)) errors.push(`${tag} rätt svar står i misstagGranskas`);
   }
 
   // anti-trivialitet (facit isatt)

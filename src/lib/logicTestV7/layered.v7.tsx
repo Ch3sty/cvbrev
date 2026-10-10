@@ -13,6 +13,7 @@
 
 import React from 'react';
 import type { V7Cell } from './types.v7';
+import type { MatrisFamilj } from './familjer';
 import { SvgCellV7 } from './renderers.v7';
 
 // En cell kan vara EN primitiv (som idag) ELLER en stack av primitiver.
@@ -22,17 +23,29 @@ export type LayeredQuestion = {
   id: string;
   title: string;
   rule: string;
+  /** Svårighetsprior 1-4 (1 lättast) tills frågan har 30 svar. */
   difficulty: 1 | 2 | 3 | 4 | 5;
+  /** Mönsterfamilj, id ur familjer.json. Samma taxonomi i alla nivåer. */
+  family?: MatrisFamilj;
   grid: (LayeredCell | null)[][];
   options: LayeredCell[];
   correctAnswer: number;
+  /**
+   * Ett per alternativ, på originalindex (före blandningen): vilken dimension
+   * alternativet har fel i. Tom sträng för facit och för alternativ som
+   * väntar på manuell granskning (de står i misstagGranskas).
+   */
+  misstag?: string[];
+  /** Originalindex vars misstag ska skrivas av testansvarig. */
+  misstagGranskas?: number[];
 };
 
 /**
  * Frågan så som den visas i testet: alternativen i den ordning hon ser dem,
- * och utan facit. Byggs på servern (fragor.server.ts).
+ * och utan facit. Byggs på servern (fragor.server.ts). misstag och family
+ * följer inte med under testet (misstag avslöjar facit).
  */
-export type VisadFraga = Omit<LayeredQuestion, 'correctAnswer'>;
+export type VisadFraga = Omit<LayeredQuestion, 'correctAnswer' | 'misstag' | 'misstagGranskas' | 'family'>;
 
 /**
  * Frågan i genomgången efter avslutat test: samma visade ordning som i
