@@ -36,5 +36,7 @@ export function genomgaFraga(
   return {
     ...visaFraga(q, seedId, blandade),
     rattVisat: tillVisat(perm, q.correctAnswer),
+    // Familjen visas i genomgången efter avslutat test (15.9), aldrig under testet.
+    family: q.family ?? null,
   };
 }

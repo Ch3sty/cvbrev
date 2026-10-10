@@ -14,6 +14,7 @@ import { ChevronDown } from 'lucide-react'
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
 import type { GenomgangsFraga, LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { visatForSvar } from '@/lib/logicTestV7/blanda'
+import { familjNamn } from '@/lib/logicTestV7/familjer'
 
 export interface MatrixSavedAnswer {
   q_id: string
@@ -180,11 +181,13 @@ export default function MatrixQuestionReview({
                       {q.title.replace(/^FRÅGA\s+\d+\s*[-]\s*/i, '')}
                     </span>
                     <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
+                      {/* Spec-rummen 15.9: familjens namn i stället för svårigheten, som
+                          är en prior och inte ett faktum. Utan familj (V5) bara tiden. */}
                       {!answer
                         ? 'Inte besvarad'
-                        : utanTid
-                          ? `Svårighet ${q.difficulty} av 3`
-                          : `${formatShort(answer.time_spent)} · svårighet ${q.difficulty} av 3`}
+                        : [utanTid ? null : formatShort(answer.time_spent), familjNamn(q.family)]
+                            .filter(Boolean)
+                            .join(' · ')}
                     </span>
                   </span>
                   <span

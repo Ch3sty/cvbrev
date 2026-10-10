@@ -56,9 +56,11 @@ export type VisadFraga = Omit<LayeredQuestion, 'correctAnswer' | 'misstag' | 'mi
 
 /**
  * Frågan i genomgången efter avslutat test: samma visade ordning som i
- * testet, plus var rätt svar stod (visat index).
+ * testet, plus var rätt svar stod (visat index) och mönsterfamiljen, som
+ * genomgången visar i stället för svårigheten (spec-rummen 15.9). Saknas för
+ * V5-frågor.
  */
-export type GenomgangsFraga = VisadFraga & { rattVisat: number };
+export type GenomgangsFraga = VisadFraga & { rattVisat: number; family?: MatrisFamilj | null };
 
 export const isStack =(cell: LayeredCell): cell is V7Cell[] => Array.isArray(cell);
 

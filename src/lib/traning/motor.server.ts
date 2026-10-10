@@ -282,7 +282,7 @@ export interface Sessionsvy {
   /** Pass och riktat pass: återkopplingen per besvarad fråga. */
   aterkoppling: Record<string, Aterkoppling> | null;
   /** Efter avslutet: genomgången med rätt svar. */
-  genomgang: (GenomgangsFraga & { misstag: string | null; family: string | null })[] | null;
+  genomgang: (Omit<GenomgangsFraga, 'family'> & { misstag: string | null; family: string | null })[] | null;
 }
 
 function visarAterkopplingUnderTiden(typ: TraningsMeta['typ']): boolean {

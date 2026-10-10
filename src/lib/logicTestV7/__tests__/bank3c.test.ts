@@ -128,12 +128,17 @@ describe('matrisbanken efter våg 3c', () => {
     for (const q of ALLA_MATRISFRAGOR) expect(BANK_FOR_RUTT.prov.some((b) => b.id === q.id)).toBe(true)
   })
 
-  it('testvyn och genomgången får varken misstag eller family', () => {
+  it('testvyn får varken misstag eller family; genomgången får familjen men aldrig misstag (15.9)', () => {
     const id = '11111111-2222-4333-8444-555555555555'
-    for (const f of [...visadeFragor('matrislogik-grund', id, true), ...genomgangsFragor('matrislogik-expert', id, true)]) {
+    for (const f of visadeFragor('matrislogik-grund', id, true)) {
       expect(Object.keys(f)).not.toContain('misstag')
       expect(Object.keys(f)).not.toContain('family')
       expect(Object.keys(f)).not.toContain('correctAnswer')
+    }
+    for (const f of genomgangsFragor('matrislogik-expert', id, true)) {
+      expect(Object.keys(f)).not.toContain('misstag')
+      expect(Object.keys(f)).not.toContain('correctAnswer')
+      expect(familjNamn(f.family)).toBeTruthy()
     }
   })
 })
