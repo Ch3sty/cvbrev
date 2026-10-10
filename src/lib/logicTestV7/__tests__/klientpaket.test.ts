@@ -22,7 +22,7 @@ function filer(dir: string): string[] {
 }
 
 const FORBJUDNA = [
-  /logicTestV7\/questionBank[A-Za-z]*\.v7(\.json)?['"]/,
+  /logicTestV7\/questionBank[A-Za-z0-9]*\.v7(\.json)?['"]/,
   /logicTestV7\/selectQuestions\.v7['"]/,
   /logicTestV7\/selectProv\.v7['"]/,
   /logicTestV7\/fragor\.server['"]/,
