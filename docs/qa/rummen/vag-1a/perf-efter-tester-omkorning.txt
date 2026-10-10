@@ -1,0 +1,23 @@
+﻿node.exe : (node:13376) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connect
+ions and HTTPS requests insecure by disabling certificate verification.
+At C:\nvm4w\nodejs\npx.ps1:16 char:5
++     & "$basedir/node$exe"  "$basedir/node_modules/npm/bin/npx-cli.js" ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:13376) Wa...e verification.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-warnings ...` to show where the warning was created)
+Konto: christiankarlssson@gmail.com
+Server: http://localhost:5231   Körningar per route: 5   Routes: 1
+Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)
+
+OK  tester                   LCP   896 ms (budget 1500)  CLS 0.001  rundturer  0  text 1970
+
+
+SAMMANFATTNING
+sida                    budget        LCP     FCP     CLS  rundt.  förfr.  status
+--------------------------------------------------------------------------------
+tester                  lista         896     548   0.001       0      69  OK
+--------------------------------------------------------------------------------
+1 av 1 inom budget.
+Sparat till docs/qa/rummen/vag-1a/perf-efter-tester-omkorning.json

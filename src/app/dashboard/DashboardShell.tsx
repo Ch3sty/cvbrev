@@ -166,7 +166,11 @@ export default function DashboardShell({
         <NavigationProgress />
       </Suspense>
 
-      <div className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-mark">
+      {/* Rummet (spec-rummen 3.2 och 4.1). data-rum tänder Rummens tokens i
+          globals.css och står i serverns HTML, så ingen vy blinkar i fel
+          färg. Våg 1a: hela inloggat står i Jobbsöket (skog); rumForPath per
+          route kommer i våg 1b. */}
+      <div data-rum="jobb" className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-mark">
         <div className="flex h-screen supports-[height:100dvh]:h-dvh flex-col lg:flex-row">
         {/* Sidomeny, desktop (alltid synlig) */}
         <div className="hidden lg:block lg:relative lg:z-20">
