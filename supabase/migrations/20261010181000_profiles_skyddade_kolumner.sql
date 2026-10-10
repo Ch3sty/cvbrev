@@ -23,7 +23,7 @@
 --     NULL -> värde, aldrig byte eller rensning.
 --   * kvoträknarna (weekly_letter_*, weekly_linkedin_*, weekly_analysis_count).
 --     De lämnas utanför steg 1 och spärras i steg 2.
--- Steg 2 (20261010190000_profiles_skyddade_kolumner_steg2.sql) körs först när
+-- Steg 2 (20261010191000_profiles_skyddade_kolumner_steg2.sql) körs först när
 -- branchen fix/profiles-premium-spärr är deployad, där skrivningarna gjorts
 -- med admin-klienten.
 --
@@ -115,7 +115,7 @@ end;
 $$;
 
 comment on function public.profiles_skydda_kolumner() is
-  'Avvisar ändringar av prenumerations-, premium-, kvot- och kontokolumner i profiles från anon/authenticated utom för admin. Steg 1, se migrationen 20261010180000_profiles_skyddade_kolumner.';
+  'Avvisar ändringar av prenumerations-, premium-, kvot- och kontokolumner i profiles från anon/authenticated utom för admin. Steg 1, se migrationen 20261010181000_profiles_skyddade_kolumner.';
 
 revoke all on function public.profiles_skydda_kolumner() from public, anon, authenticated;
 

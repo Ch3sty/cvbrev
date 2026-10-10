@@ -15,7 +15,7 @@
 --     Annars kan en gratisanvändare nollställa sin egen kvot via PostgREST.
 --
 -- Rollback till steg 1: kör om funktionsdefinitionen i
--- 20261010180000_profiles_skyddade_kolumner.sql.
+-- 20261010181000_profiles_skyddade_kolumner.sql.
 
 create or replace function public.profiles_skydda_kolumner()
 returns trigger
@@ -96,4 +96,4 @@ end;
 $$;
 
 comment on function public.profiles_skydda_kolumner() is
-  'Avvisar ändringar av prenumerations-, premium-, kvot- och kontokolumner i profiles från anon/authenticated utom för admin. Steg 2, se migrationen 20261010190000_profiles_skyddade_kolumner_steg2.';
+  'Avvisar ändringar av prenumerations-, premium-, kvot- och kontokolumner i profiles från anon/authenticated utom för admin. Steg 2, se migrationen 20261010191000_profiles_skyddade_kolumner_steg2.';
