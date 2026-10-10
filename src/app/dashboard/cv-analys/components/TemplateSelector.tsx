@@ -58,7 +58,7 @@ export default function TemplateSelector({
                 }`}
               >
                 {/* Papperet får vara vitt */}
-                <div className="relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">
+                <div className="dokument relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">
                   {template.imagePath && (
                     <Image
                       src={template.imagePath}

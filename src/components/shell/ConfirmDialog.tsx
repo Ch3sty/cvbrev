@@ -15,7 +15,7 @@
 
 import { useState } from 'react'
 import Sheet from './Sheet'
-import { KNAPP_PRIMAR_SMAL } from './knappar'
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from './knappar'
 
 export interface ConfirmDialogProps {
   open: boolean
@@ -76,7 +76,7 @@ export default function ConfirmDialog({
             disabled={busy}
             className={
               destructive
-                ? 'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-60'
+                ? KNAPP_SEKUNDAR_SMAL
                 : 'inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 transition-colors hover:text-ink-1 disabled:opacity-60'
             }
           >

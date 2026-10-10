@@ -14,7 +14,7 @@
 // ingen hämtning för att måla sidan. Klientanropen som är kvar sker bara
 // efter en handling (logga, importera) eller när en tung flik väljs.
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -425,7 +425,7 @@ export default function SoktaTjansterClient({
                     setFilter('alla');
                     setSearchTerm('');
                   }}
-                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-2 transition-colors hover:border-kant-stark"
+                  className={KNAPP_SEKUNDAR_SMAL}
                 >
                   Rensa filter
                 </button>

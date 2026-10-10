@@ -18,7 +18,7 @@
  * paneler och sist en sekundär kant-knapp.
  */
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import RumHuvud from '@/components/rum/RumHuvud'
@@ -187,7 +187,7 @@ export default function TestResultsShell({
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href="/dashboard/tester"
-            className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 hover:border-kant-stark sm:w-auto"
+            className={`${KNAPP_SEKUNDAR_SMAL} sm:w-auto`}
           >
             Alla tester
           </Link>

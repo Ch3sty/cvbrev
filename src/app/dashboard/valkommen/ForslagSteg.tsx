@@ -14,6 +14,7 @@
  * Börja gratis och under 5 procent till kassan byter primärknapp, inget annat.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -100,7 +101,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
           type="button"
           onClick={() => void valj('free')}
           disabled={busy !== null}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+          className={`${KNAPP_SEKUNDAR} disabled:cursor-not-allowed sm:w-auto sm:min-w-[200px]`}
         >
           {busy === 'gratis' ? STEG3.busy : STEG3.borjaGratis}
         </button>

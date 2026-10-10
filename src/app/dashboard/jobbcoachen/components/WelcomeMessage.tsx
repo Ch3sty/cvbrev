@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { ArrowRight } from 'lucide-react';
 import { IkonBrev, IkonCv } from '@/components/illustrations/Ikoner';
 import ChatTrustStrip from './ChatTrustStrip';
@@ -57,7 +58,7 @@ export default function WelcomeMessage({
               <button
                 type="button"
                 onClick={onOpenSelector}
-                className="mt-3 inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark"
+                className={`${KNAPP_SEKUNDAR_SMAL} mt-3`}
               >
                 Välj dokument att dela
                 <ArrowRight size={20} strokeWidth={1.75} className="text-ink-3" />

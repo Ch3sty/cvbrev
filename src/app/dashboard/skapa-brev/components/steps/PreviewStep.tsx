@@ -8,7 +8,7 @@
  * över dokumentet. Ingen rörelse.
  */
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
@@ -48,7 +48,7 @@ interface PreviewStepProps {
 const PRIMARY =
   `${KNAPP_PRIMAR} disabled:cursor-not-allowed sm:w-auto`;
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark disabled:cursor-not-allowed disabled:opacity-60';
+  `${KNAPP_SEKUNDAR_SMAL} transition-[border-color] duration-[120ms] disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1';
 

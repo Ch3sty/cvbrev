@@ -15,6 +15,7 @@
  * öppnar detaljarket.
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { buildMatchReasons, publishedLabel } from '../data/match-reasons';
 import type { MatchScore } from '../data/match-score';
 import type { ActiveCVData } from '../getJobbmatchningData';
@@ -99,7 +100,7 @@ export default function MatchRow({
         <button
           type="button"
           onClick={() => onWriteLetter(job)}
-          className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
+          className={KNAPP_SEKUNDAR_SMAL}
         >
           Skriv brev
         </button>

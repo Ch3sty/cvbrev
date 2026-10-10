@@ -4,7 +4,7 @@
 // utskrift/PDF, kopierbar textsammanfattning för AF:s webbformulär,
 // delningslänk utan inloggning samt Sankey-diagram på större skärmar.
 
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ChevronLeft,
@@ -384,7 +384,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+            className={KNAPP_SEKUNDAR_SMAL}
           >
             <Printer className="h-4 w-4" strokeWidth={1.75} />
             Skriv ut eller spara som PDF
@@ -393,7 +393,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
             type="button"
             onClick={handleCopySummary}
             disabled={!report}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:opacity-50"
+            className={KNAPP_SEKUNDAR_SMAL}
           >
             {copied ? (
               <Check className="h-4 w-4 text-positiv" strokeWidth={1.75} />

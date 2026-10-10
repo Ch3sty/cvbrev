@@ -5,7 +5,7 @@
 // Prompt component for trial users to set their password
 // Shows as a dismissible banner in dashboard for users with password_set: false
 
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react'
 import { IkonCheck, IkonLas, IkonX } from '@/components/illustrations/RumSymboler'
 import { createClient } from '@/lib/supabase/client'
@@ -188,7 +188,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                 <button
                   type="button"
                   onClick={() => setIsExpanded(false)}
-                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
+                  className={KNAPP_SEKUNDAR_SMAL}
                 >
                   Avbryt
                 </button>

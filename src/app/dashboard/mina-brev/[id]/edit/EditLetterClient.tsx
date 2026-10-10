@@ -11,7 +11,7 @@
  * använde dem.
  */
 
-import { KNAPP_PRIMAR, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -30,7 +30,7 @@ import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 
 const PRIMARY = `${KNAPP_PRIMAR} disabled:cursor-not-allowed`;
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 const FALT =

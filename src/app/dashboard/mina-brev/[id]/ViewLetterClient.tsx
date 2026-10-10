@@ -11,7 +11,7 @@
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
-import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_GLAS, KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -29,7 +29,7 @@ import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
 
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
 const DESTRUKTIV =
   'inline-flex h-11 items-center justify-center rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
 const LINK =
