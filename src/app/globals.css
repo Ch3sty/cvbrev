@@ -20,6 +20,11 @@
   --mark: #EDE8DF;
   --panel: #FFFFFF;
   --insunken: #ECE6DC;
+  /* Rummens papper utanför inloggat, för komponenter som delas med publika
+     sidor (våg 1b mappade bg-white till bg-papper). Samma ytor som Trådens
+     panel och insunken, så publika sidor ser ut som förut. */
+  --papper: var(--panel);
+  --papper-2: var(--insunken);
   --insunken-topp: #D6CDBF;
   --kant: #DBD2C4;
   --kant-stark: #C4B9A8;

@@ -5,8 +5,9 @@
 // Prompt component for trial users to set their password
 // Shows as a dismissible banner in dashboard for users with password_set: false
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react'
-import { Lock, X, Eye, EyeOff, CheckCircle } from 'lucide-react'
+import { IkonCheck, IkonLas, IkonX } from '@/components/illustrations/RumSymboler'
 import { createClient } from '@/lib/supabase/client'
 
 interface SetPasswordPromptProps {
@@ -87,7 +88,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
     return (
       <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
         <div className="flex items-center gap-3">
-          <CheckCircle className="h-6 w-6 flex-shrink-0 text-positiv" strokeWidth={1.75} />
+          <IkonCheck className="flex-shrink-0 text-positiv" />
           <div className="flex-1">
             <p className="text-kort text-ink-1">Lösenordet är uppdaterat</p>
             <p className="text-meta text-ink-3">Du kan nu logga in med ditt nya lösenord.</p>
@@ -100,7 +101,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
   return (
     <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
       <div className="flex items-start gap-3">
-        <Lock className="mt-1 h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} />
+        <IkonLas className="mt-1 flex-shrink-0 text-ink-2" />
         <div className="flex-1">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -114,14 +115,14 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
               className="text-ink-3 transition-colors hover:text-ink-1"
               aria-label="Stäng"
             >
-              <X className="w-5 h-5" />
+              <IkonX size={20} />
             </button>
           </div>
 
           {!isExpanded ? (
             <button
               onClick={() => setIsExpanded(true)}
-              className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR_SMAL} mt-3`}
             >
               Skapa lösenord nu
             </button>
@@ -143,7 +144,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-11 w-full rounded-lg border border-kant bg-insunken pl-3 pr-11 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                    className="h-11 w-full rounded-lg border border-kant bg-insunken pl-3 pr-16 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                     placeholder="Minst 8 tecken"
                     required
                     minLength={8}
@@ -151,9 +152,11 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink-1"
+                    aria-pressed={showPassword}
+                    aria-label={showPassword ? 'Dölj lösenordet' : 'Visa lösenordet'}
+                    className="absolute right-1 top-1/2 inline-flex h-9 -translate-y-1/2 items-center rounded-lg px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? 'Dölj' : 'Visa'}
                   </button>
                 </div>
               </div>
@@ -178,7 +181,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="inline-flex h-11 flex-1 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                  className={`${KNAPP_PRIMAR_SMAL} flex-1`}
                 >
                   {isLoading ? 'Sparar...' : 'Spara lösenord'}
                 </button>

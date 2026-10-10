@@ -17,6 +17,13 @@ export const KNAPP_PRIMAR =
 export const KNAPP_SEKUNDAR =
   'inline-flex h-12 w-full items-center justify-center rounded-xl border border-kant-stark bg-papper px-[18px] text-[15px] font-semibold text-ink-1'
 
+/**
+ * Samma knappar utan full bredd, för knappar som står i en rad bredvid
+ * text eller en annan knapp (förr inline-knappar i bläck).
+ */
+export const KNAPP_PRIMAR_SMAL = KNAPP_PRIMAR.replace(' w-full', '')
+export const KNAPP_SEKUNDAR_SMAL = KNAPP_SEKUNDAR.replace(' w-full', '')
+
 export const KNAPP_GLAS =
   'inline-flex h-12 w-full items-center justify-center rounded-xl border border-vagg-kant bg-white/[.08] px-[18px] text-[15px] font-semibold text-vagg-ink'
 

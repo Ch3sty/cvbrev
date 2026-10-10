@@ -42,11 +42,8 @@ import type { Feature } from '@/lib/access/features'
 import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient'
 import PaketBytesRad from './PaketBytesRad'
 import { PAKETBYTE } from '@/components/pricing/paket-copy'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40'
-const LANK =
-  'text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
 const LANK_TYST =
   'text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1'
 

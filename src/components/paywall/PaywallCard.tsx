@@ -4,9 +4,10 @@
  * Gemensam betalvägg (docs/designsystem.md, "Betalväggar", och
  * docs/plan-paket-och-onboarding.md Fas 2B avsnitt 4).
  *
- * Kortet är en upphöjd panel (kant-stark): det är inte en position, det är
- * ett erbjudande. Marginalplattan bär vyns enda illustration, handlingen är
- * en ink-knapp, det sekundära alltid en textlänk. Värdet visas alltid före
+ * Kortet är papper med stark kant: det är inte en position, det är ett
+ * erbjudande. Marginalplattan bär vyns enda illustration, handlingen är
+ * kopparknappen (KNAPP_PRIMAR, Rummen våg 1b), det sekundära alltid en
+ * textlänk. Värdet visas alltid före
  * spärren: brevet syns i sin helhet ovanför, fynden står ovanför kortet.
  *
  * Efter paketomgången bär kortet feature och scope. Knappen leder till
@@ -27,6 +28,7 @@ import type { PlanKey } from '@/lib/plans/plans'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import FelSpar from './FelSpar'
 import MarginPlate from '@/components/shell/MarginPlate'
 import {
@@ -323,7 +325,7 @@ export default function PaywallCard({
         <button
           type="button"
           onClick={primarHandling}
-          className="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`${KNAPP_PRIMAR.replace('h-12', 'min-h-12')} py-2 text-center sm:w-auto`}
         >
           {copy.primary}
         </button>
@@ -359,7 +361,7 @@ export default function PaywallCard({
 
   return (
     <section
-      className={`rounded-xl border border-kant-stark bg-panel p-4 ${className ?? ''}`}
+      className={`rounded-2xl border border-kant-stark bg-papper p-4 ${className ?? ''}`}
       aria-label={copy.title}
     >
       <div className="flex items-start gap-3">

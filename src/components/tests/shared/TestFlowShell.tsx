@@ -106,7 +106,7 @@ export default function TestFlowShell({
   }, [footer])
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+    <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
       <header className="flex-shrink-0 border-b border-kant bg-panel">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-2 px-2">
           <h1 className="min-w-0 flex-1 truncate pl-2 text-base font-semibold tracking-[-0.01em] text-ink-1">
