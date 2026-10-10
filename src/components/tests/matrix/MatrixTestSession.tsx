@@ -610,7 +610,16 @@ function QuestionHeader({
       {!ready ? (
         // Höjden på skarpt läge, reserverad. Vet vi ännu inte vilket läge som
         // gäller målar vi ingetdera, i stället för att måla fel och byta.
-        <div className="h-[18px] mb-1" aria-hidden="true" />
+        // Platshållaren är samma markup som skarpt läge, osynlig: en fast
+        // höjd (18 px) missade radhöjden runt inline-flex och gav 8 px skifte.
+        <div className="invisible mb-1 inline-flex items-center gap-2" aria-hidden="true">
+          <span className="text-steg uppercase text-ink-3">Svårighet</span>
+          <div className="flex items-center gap-1">
+            {levels.map((level) => (
+              <div key={level} className="h-1.5 w-1.5 rounded-full" />
+            ))}
+          </div>
+        </div>
       ) : showHint ? (
         <>
           <h2 className="mb-3 text-fraga text-ink-1">{cleanTitle}</h2>

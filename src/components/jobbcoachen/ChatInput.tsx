@@ -73,7 +73,10 @@ export default function ChatInput({
     loadDocCounts();
   }, [supabase]);
 
-  // Auto-resize textarea
+  // Auto-resize textarea. field-sizing: content (klassen på fältet) ger
+  // samma höjd redan i första målningen i Chrome, så platshållaren som
+  // bryts på två rader på mobil inte flyttar panelen när effekten körs
+  // (CLS 0,007 i perf-inloggat före våg 1b).
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -183,7 +186,7 @@ export default function ChatInput({
             placeholder={placeholder}
             rows={1}
             enterKeyHint="send"
-            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
+            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken [field-sizing:content] px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
             style={{ maxHeight: '120px' }}
           />
 
