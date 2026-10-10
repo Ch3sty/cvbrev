@@ -69,6 +69,7 @@ import {
 } from './passgenerator';
 import { byggPlan, type PlanDag } from './plan';
 import { raknaSerie, type Serie } from './serie';
+import { fragaEfterProvet } from './testplan';
 import type { FragaStatistik } from './svarighet';
 import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
@@ -993,6 +994,11 @@ export interface Traningsstatus {
   dagarKvar: number | null;
   /** Dag 1 till 7 efter mätningen, för kvittot K1. Satt när Första veckan nåtts (spec 14.3). */
   forstaVeckan: ReturnType<typeof forstaVeckanSammanfattning> | null;
+  /**
+   * Ska "Hur gick det?" stå på väggen i dag (spec 14.8)? Servern avgör med
+   * samma regel som plan GET; UI:t håller inte reda på något.
+   */
+  fragaEfterProvet: boolean;
 }
 
 /**
@@ -1070,6 +1076,7 @@ export async function hamtaTraningsstatus(args: {
       start && milstolpar.some((m) => m.nyckel === 'forsta_veckan')
         ? forstaVeckanSammanfattning(start, lage.slutforda)
         : null,
+    fragaEfterProvet: fragaEfterProvet(lage.plan, idag),
   };
 }
 

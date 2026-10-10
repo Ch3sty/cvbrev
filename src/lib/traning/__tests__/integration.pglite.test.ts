@@ -203,6 +203,9 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     expect(status.milstolpar.map((x) => x.nyckel)).toContain('forsta_matningen')
     expect(status.milstolpar.map((x) => x.nyckel)).not.toContain('forsta_veckan')
     expect(status.dagarKvar).toBe(14)
+    // 14.8: "Hur gick det?" avgörs av servern, från dagen efter provet.
+    expect(status.fragaEfterProvet).toBe(false)
+    expect((await hamtaTraningsstatus({ supabase: anvandare, admin, userId: BETALD, idag: '2026-10-25' })).fragaEfterProvet).toBe(true)
     // Planen: ommätning 13 okt kvar (betalande), generalrepetition 22-23, prov 24.
     const dag = (d: string) => status.plandagar.find((x) => x.dag === d)
     expect(dag('2026-10-08')?.status).toBe('gjord')
