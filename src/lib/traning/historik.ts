@@ -11,6 +11,14 @@ import type { Pooler, Sammansattning, Sedd } from './passgenerator';
 import type { FormatNyckel } from './tempo';
 import type { Nasta } from './imorgon';
 
+/** Smakprovets svar som räknas in i den första mätningen (spec 14.5). */
+export interface Smakprov {
+  token: string;
+  /** Dagen smakprovet gjordes, svensk tid. */
+  dag: Dag;
+  svar: { q_id: string; correct: boolean }[];
+}
+
 /** Sessionens meta för en träningssession. Sätts när sessionen skapas. */
 export interface TraningsMeta {
   alternativ_blandade: true;
@@ -46,6 +54,11 @@ export interface TraningsMeta {
    * skapade före ändringen: tolkas som tom.
    */
   upprepade: string[];
+  /**
+   * Bara den första mätningen: smakprovets svar som räknas in (spec 14.5).
+   * De spelas upp före mätningens egna svar i det adaptiva urvalet.
+   */
+  smakprov?: Smakprov;
   /* Satt av complete: */
   niva_efter?: number | null;
   ratt?: number;
@@ -107,8 +120,9 @@ export function lasSvar(answers: unknown): SparatSvar[] {
 
 /**
  * Frågorna hon sett och dagen hon senast såg dem: alla besvarade frågor i
- * matrissessioner, och i fasta träningssessioner även de som visades men
- * inte besvarades.
+ * matrissessioner, i fasta träningssessioner även de som visades men inte
+ * besvarades, och smakprovets frågor som räknades in i mätningen (med
+ * mätningens dag).
  */
 export function seddaFragor(rader: readonly SessionRad[]): Sedd[] {
   const ut: Sedd[] = [];
@@ -117,6 +131,8 @@ export function seddaFragor(rader: readonly SessionRad[]): Sedd[] {
     for (const s of lasSvar(r.answers)) ut.push({ id: s.q_id, dag });
     const m = lasTraningsmeta(r.meta);
     for (const id of m?.fragor ?? []) ut.push({ id, dag });
+    // Smakprovets frågor som räknades in i mätningen är sedda (spec 14.5).
+    for (const s of m?.smakprov?.svar ?? []) ut.push({ id: s.q_id, dag });
   }
   return ut;
 }

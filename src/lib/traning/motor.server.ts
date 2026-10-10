@@ -23,6 +23,7 @@ import { bedomSvar, rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { genomgaFraga, visaFraga } from '@/lib/logicTestV7/visning';
 import type { GenomgangsFraga, VisadFraga } from '@/lib/logicTestV7/layered.v7';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
+import { questionsForToken } from '@/lib/tests/anon-session';
 import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Feature } from '@/lib/access/features';
 import { captureServer } from '@/lib/analytics/server';
@@ -43,6 +44,7 @@ import {
   slutfordaSessioner,
   type SessionRad,
   type SlutfordRad,
+  type Smakprov,
   type SparatSvar,
   type TraningsMeta,
 } from './historik';
@@ -247,7 +249,13 @@ export interface Sessionsvy {
   id: string;
   typ: TraningsMeta['typ'];
   variant: TraningsMeta['variant'];
+  /** Antal frågor i sessionen, smakprovets inräknade (mätningen: 12). */
   antal: number;
+  /**
+   * Antal frågor ur smakprovet som räknas in (spec 14.5). Hon svarar på
+   * antal − smakprov nya frågor: "fråga 1 av 7, fem räknas från smakprovet".
+   */
+  smakprov: number;
   adaptiv: boolean;
   tema: string | null;
   family: string | null;
@@ -284,11 +292,21 @@ function aterkopplingFor(q: TraningsFraga, sessionId: string, blandade: boolean,
   };
 }
 
-/** Frågorna i sessionens ordning: fasta ur meta, adaptiva ur svaren plus nästa. */
+/**
+ * Svaren det adaptiva urvalet spelar upp: smakprovets först (bara den
+ * första mätningen, spec 14.5), sedan sessionens egna.
+ */
+function adaptivaSvar(meta: TraningsMeta, svar: readonly SparatSvar[]): { q_id: string; correct: boolean }[] {
+  return [...(meta.smakprov?.svar ?? []), ...svar.map((s) => ({ q_id: s.q_id, correct: s.correct }))];
+}
+
+/**
+ * Frågorna i sessionens ordning: fasta ur meta, adaptiva ur svaren plus
+ * nästa. Smakprovets frågor räknas in i urvalet men visas inte.
+ */
 function sessionensFragor(meta: TraningsMeta, svar: readonly SparatSvar[]): { ids: string[]; nasta: NastaFraga | null } {
   if (meta.adaptiv && meta.pooler) {
-    const adaptiva = svar.map((s) => ({ q_id: s.q_id, correct: s.correct }));
-    const nasta = nastaAdaptivaFraga(meta.pooler, adaptiva, meta.antal);
+    const nasta = nastaAdaptivaFraga(meta.pooler, adaptivaSvar(meta, svar), meta.antal);
     return { ids: [...svar.map((s) => s.q_id), ...(nasta ? [nasta.id] : [])], nasta };
   }
   return { ids: meta.fragor ?? [], nasta: null };
@@ -319,6 +337,7 @@ export function sessionsvy(rad: SessionRad & { started_at?: string | null }): Se
     typ: meta.typ,
     variant: meta.variant,
     antal: meta.antal,
+    smakprov: meta.smakprov?.svar.length ?? 0,
     adaptiv: meta.adaptiv,
     tema: meta.tema,
     family: meta.family,
@@ -349,6 +368,60 @@ export function sessionsvy(rad: SessionRad & { started_at?: string | null }): Se
         })
       : null,
   };
+}
+
+/* -------------------------------- Smakprovet ------------------------------- */
+
+/** Smakprov äldre än så räknas inte in i mätningen. */
+export const SMAKPROV_MAX_DAGAR = 30;
+/** Färre giltiga svar än så: smakprovet ignoreras. */
+export const SMAKPROV_MINST = 3;
+
+/**
+ * Smakprovets svar som räknas in i den första mätningen (spec 14.5), ur en
+ * anon_test_sessions-rad. Bara blandade prov (svaren är originalindex) inom
+ * 30 dagar; obesvarade (−1) och frågor som inte finns i träningsbanken
+ * (pensionerade) hoppas över. Färre än tre giltiga svar ger null.
+ */
+export function tolkaSmakprov(
+  rad: { token: string; answers: unknown; meta?: unknown; created_at?: string | null },
+  idag: Dag
+): Smakprov | null {
+  if (!arBlandad(rad.meta) || !Array.isArray(rad.answers) || !rad.created_at) return null;
+  const dag = dagSthlm(rad.created_at);
+  if (dagarMellan(dag, idag) > SMAKPROV_MAX_DAGAR) return null;
+  const fragor = questionsForToken(rad.token);
+  const svar: Smakprov['svar'] = [];
+  fragor.forEach((q, i) => {
+    const orig = (rad.answers as unknown[])[i];
+    if (typeof orig !== 'number' || !Number.isInteger(orig) || orig < 0) return;
+    if (!hittaTraningsfraga(q.id)) return;
+    svar.push({ q_id: q.id, correct: orig === q.correctAnswer });
+  });
+  return svar.length >= SMAKPROV_MINST ? { token: rad.token, dag, svar } : null;
+}
+
+/** Senaste hämtade smakprovet med svar inom 30 dagar, tolkat. */
+async function lasSmakprov(admin: Klient, userId: string, idag: Dag): Promise<Smakprov | null> {
+  const fran = new Date(Date.now() - (SMAKPROV_MAX_DAGAR + 1) * 86_400_000).toISOString();
+  const { data, error } = await admin
+    .from('anon_test_sessions')
+    .select('*')
+    .eq('claimed_by', userId)
+    .not('answers', 'is', null)
+    .gte('created_at', fran)
+    .order('created_at', { ascending: false })
+    .limit(10);
+  if (error) {
+    // Smakprovet är en genväg, aldrig ett krav: utan det blir mätningen tolv nya frågor.
+    console.error('[traning] smakprovet gick inte att läsa', error);
+    return null;
+  }
+  // Den senaste blandade raden (meta.alternativ_blandade), filtrerad här
+  // eftersom villkoret ligger i jsonb.
+  const rader = (data ?? []) as { token: string; answers: unknown; meta?: unknown; created_at?: string }[];
+  const rad = rader.find((r) => arBlandad(r.meta));
+  return rad ? tolkaSmakprov(rad, idag) : null;
 }
 
 /* ------------------------------ Skapa session ------------------------------ */
@@ -384,7 +457,9 @@ export async function skapaTraningssession(args: {
   }
 
   const niva = senasteNiva(lage.punkter);
-  const sedda = seddaFragor(lage.rader);
+  // Den första mätningen räknar in smakprovets svar (spec 14.5).
+  const smakprov = beslut.typ === 'matning' ? await lasSmakprov(args.admin, args.userId, idag) : null;
+  const sedda = [...seddaFragor(lage.rader), ...(smakprov?.svar ?? []).map((s) => ({ id: s.q_id, dag: smakprov!.dag }))];
   const format = args.format ?? formatForPlan(lage.plan?.leverantor, lage.plan?.variant);
   // Seeden för urvalet: konto + dag + antal sessioner, så två pass samma dag
   // skiljer sig och samma anrop två gånger (dubbelklick) inte gör det.
@@ -410,8 +485,21 @@ export async function skapaTraningssession(args: {
   switch (beslut.typ) {
     case 'matning':
     case 'ommatning': {
-      const { pooler, upprepade } = valjPooler({ bank: lage.bank, sedda, idag, seed });
-      meta = { ...bas, antal: MATNING_FRAGOR, adaptiv: true, pooler, upprepade, tema: null, sammansattning: null, malniva: null };
+      // Smakprovets frågor står aldrig i poolerna (de räknas redan in).
+      const smakIds = new Set((smakprov?.svar ?? []).map((s) => s.q_id));
+      const bank = smakIds.size ? lage.bank.filter((q) => !smakIds.has(q.id)) : lage.bank;
+      const { pooler, upprepade } = valjPooler({ bank, sedda, idag, seed });
+      meta = {
+        ...bas,
+        antal: MATNING_FRAGOR,
+        adaptiv: true,
+        pooler,
+        upprepade,
+        tema: null,
+        sammansattning: null,
+        malniva: null,
+        ...(smakprov ? { smakprov } : {}),
+      };
       break;
     }
     case 'pass': {
@@ -602,7 +690,7 @@ export async function svaraTraning(args: {
   const efter = [...svar, sparat];
   let nastaVisad: VisadFraga | null = null;
   if (meta.adaptiv && meta.pooler) {
-    const n = nastaAdaptivaFraga(meta.pooler, efter.map((s) => ({ q_id: s.q_id, correct: s.correct })), meta.antal);
+    const n = nastaAdaptivaFraga(meta.pooler, adaptivaSvar(meta, efter), meta.antal);
     const nq = n ? hittaTraningsfraga(n.id) : null;
     nastaVisad = nq ? visaFraga(nq, rad.id, blandade) : null;
   }
@@ -699,8 +787,20 @@ export async function slutforTraning(args: {
     nivaSvar.push({ p: info.p, correct: s.correct, tid_s: s.time_spent, prior: info.prior, family: info.family });
   }
 
-  const ratt = rattaMatrisSvar(svar.filter((s) => s.selected >= 0));
-  const antal = svar.length;
+  // Smakprovets svar (bara den första mätningen, 14.5): med bankens p och
+  // tid 0, i nivån och i "rätt av antal", aldrig i tempot eller i
+  // frågestatistiken (de kommer från en anonym session).
+  const smakprov = meta.typ === 'matning' ? (meta.smakprov?.svar ?? []) : [];
+  const smakprovNiva: typeof nivaSvar = [];
+  for (const s of smakprov) {
+    const info = perId.get(s.q_id);
+    if (!info) continue;
+    smakprovNiva.push({ p: info.p, correct: s.correct, tid_s: 0, prior: info.prior, family: info.family });
+  }
+  nivaSvar.unshift(...smakprovNiva);
+
+  const ratt = rattaMatrisSvar(svar.filter((s) => s.selected >= 0)) + smakprov.filter((s) => s.correct).length;
+  const antal = svar.length + smakprov.length;
   const tid_s = svar.reduce((sum, s) => sum + s.time_spent, 0);
 
   // Nivån: bara för blandade sessioner (12.5). Pass utan mätning ger ingen
@@ -723,7 +823,11 @@ export async function slutforTraning(args: {
     }
   }
 
-  const tempo = raknaTempo(nivaSvar, fore ?? niva_efter, meta.budget_s);
+  // Tempot bara på svar med tid (smakprovets har tid 0). Indexen i
+  // tempo.langsamma räknas om till nivaSvar.
+  const medTid = nivaSvar.map((s, i) => ({ s, i })).filter(({ s }) => s.tid_s > 0);
+  const tempoMedTid = raknaTempo(medTid.map(({ s }) => s), fore ?? niva_efter, meta.budget_s);
+  const tempo: Tempo = { ...tempoMedTid, langsamma: tempoMedTid.langsamma.map((j) => medTid[j].i) };
   const langsammaIdx = new Set(tempo.langsamma);
   const dennaFamiljer: FamiljSvar[] = nivaSvar.map((s, i) => ({
     family: s.family,
@@ -810,7 +914,14 @@ export async function slutforTraning(args: {
   // Händelser, aldrig väntade på.
   const familjNamn = ackumulerat.svagaste.map((f) => f.family);
   if (meta.typ === 'matning' && niva_efter != null) {
-    void captureServer('nivamatning_klar', args.userId, { niva: niva_efter, over_tid: tempo.over_tid, familjer: familjNamn, tid_s });
+    void captureServer('nivamatning_klar', args.userId, {
+      niva: niva_efter,
+      over_tid: tempo.over_tid,
+      familjer: familjNamn,
+      tid_s,
+      // 14.1 punkt 6 och 14.5: antal frågor ur smakprovet som räknades in.
+      smakprov: smakprovNiva.length,
+    });
   } else if (meta.typ === 'ommatning' && niva_efter != null) {
     void captureServer('ommatning_klar', args.userId, { niva: niva_efter, delta: fore != null ? Math.round((niva_efter - fore) * 10) / 10 : 0 });
   } else if (meta.typ === 'pass' || meta.typ === 'riktat') {

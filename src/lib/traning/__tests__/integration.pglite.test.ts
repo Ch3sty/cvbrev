@@ -14,6 +14,7 @@ import { bankInfo, hittaTraningsfraga } from '../bank.server'
 import { permutationForSession, tillVisat, mulberry32, hashString } from '@/lib/logicTestV7/blanda'
 import { chansRatt, matningsNiva, PASS_TAK } from '../niva'
 import { validerPlan } from '../testplan'
+import { questionsForToken } from '@/lib/tests/anon-session'
 import type { Dag } from '../datum'
 
 const SCOPE: Record<string, string | null> = {}
@@ -40,6 +41,7 @@ const GRATIS = '22222222-2222-4222-8222-222222222222'
 const K1 = '33333333-3333-4333-8333-333333333333'
 const R1 = '44444444-4444-4444-8444-444444444444'
 const T1 = '55555555-5555-4555-8555-555555555555'
+const S1 = '66666666-6666-4666-8666-666666666666'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let db: any
@@ -124,6 +126,7 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
         [K1, 'k1@example.se'],
         [R1, 'r1@example.se'],
         [T1, 't1@example.se'],
+        [S1, 's1@example.se'],
       ],
     })
     admin = pgKlient(db)
@@ -131,6 +134,7 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     SCOPE[K1] = 'allt'
     SCOPE[R1] = 'allt'
     SCOPE[T1] = 'allt'
+    SCOPE[S1] = null
     SCOPE[GRATIS] = null
   }, 60_000)
 
@@ -301,6 +305,41 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     // Passets upprepade frågor kom inte in i frågestatistiken; generalrepetitionens räknade gjorde det.
     const statEfter = (await db.query('select coalesce(sum(antal),0)::int as n from public.fraga_statistik')).rows[0].n
     expect(statEfter - statFore).toBe(svarG.length)
+  }, 60_000)
+
+  it('14.5: smakprovets fem svar räknas in i den första mätningen', async () => {
+    const token = '66666666-0000-4000-8000-000000000001'
+    const fragor = questionsForToken(token)
+    // Fem svar som originalindex: tre rätt, två fel.
+    const answers = fragor.map((q, i) => (i < 3 ? q.correctAnswer : (q.correctAnswer + 1) % q.options.length))
+    await db.query(
+      `insert into public.anon_test_sessions(token, answers, score, claimed_by, created_at, meta) values ($1, $2::jsonb, 3, $3, $4::timestamptz, '{"alternativ_blandade": true}'::jsonb)`,
+      [token, JSON.stringify(answers), S1, '2026-10-04T10:00:00Z']
+    )
+    // Ett äldre oblandat smakprov ignoreras (bara det blandade räknas).
+    await db.query(
+      `insert into public.anon_test_sessions(token, answers, score, claimed_by, created_at) values ($1, $2::jsonb, 5, $3, $4::timestamptz)`,
+      ['66666666-0000-4000-8000-000000000002', JSON.stringify([0, 0, 0, 0, 0]), S1, '2026-10-05T10:00:00Z']
+    )
+    const smakIds = fragor.map((q) => q.id)
+    const statSmak = async () =>
+      (await db.query('select coalesce(sum(antal),0)::int as n from public.fraga_statistik where fraga_id = any($1)', [smakIds])).rows[0].n
+    const smakFore = await statSmak()
+    const m = await gor(S1, 'matning', '2026-10-06', 5)
+    expect(m.skapad.ok && m.skapad.vy.smakprov).toBe(5)
+    expect(m.skapad.ok && m.skapad.vy.antal).toBe(12)
+    expect(m.svar).toBe(7)
+    expect(m.avslut!.antal).toBe(12)
+    const rad = (await hamtaSession(admin, S1, m.id!))!
+    const meta = rad.meta as { pooler: Record<string, string[]>; smakprov: { svar: { q_id: string }[] } }
+    expect(meta.smakprov.svar.map((s) => s.q_id)).toEqual(smakIds)
+    const iPoolerna = Object.values(meta.pooler).flat()
+    expect(iPoolerna.some((id) => smakIds.includes(id))).toBe(false)
+    // Rätt räknas med smakprovets tre.
+    const egnaRatt = (rad.answers as { correct: boolean }[]).filter((a) => a.correct).length
+    expect(m.avslut!.ratt).toBe(egnaRatt + 3)
+    // Inget av smakprovet i frågestatistiken.
+    expect(await statSmak()).toBe(smakFore)
   }, 60_000)
 
   it('14.4: tiden ute sparas som fel, bara i generalrepetition med tid per uppgift', async () => {

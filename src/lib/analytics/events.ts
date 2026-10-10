@@ -285,7 +285,14 @@ export interface AnalyticsEvents {
   next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
   /* Testmotorn, våg 3a av Rummen (spec-rummen avsnitt 7). Skjuts från
      servern i /api/traning/pass/complete. */
-  nivamatning_klar: { niva: number; over_tid: number; familjer: string[]; tid_s: number }
+  nivamatning_klar: {
+    niva: number
+    over_tid: number
+    familjer: string[]
+    tid_s: number
+    /** Antal frågor ur smakprovet som räknades in i mätningen (spec 14.5). */
+    smakprov: number
+  }
   pass_klart: {
     typ: 'pass' | 'riktat'
     variant: 'grund' | 'niva'

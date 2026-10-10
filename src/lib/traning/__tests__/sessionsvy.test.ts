@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { sessionsvy } from '../motor.server'
+import { sessionsvy, tolkaSmakprov } from '../motor.server'
+import { questionsForToken } from '@/lib/tests/anon-session'
 import { hittaTraningsfraga, misstagFor, TRANINGSBANK } from '../bank.server'
 import { bedomSvar } from '@/lib/logicTestV7/fragor.server'
 import { permutationForSession, tillVisat } from '@/lib/logicTestV7/blanda'
@@ -106,6 +107,39 @@ describe('klientens vy av en träningssession', () => {
     expect(v.genomgang).toHaveLength(9)
     const q = hittaTraningsfraga(FRAGOR[0])!
     expect(v.genomgang![0].rattVisat).toBe(tillVisat(permutationForSession(id, q, true), q.correctAnswer))
+  })
+
+  it('14.5: fem smakprovssvar ger sju nya frågor av tolv, och smakprovet räknas i vyn', () => {
+    const { pooler } = valjPooler({ bank: bankInfo(), sedda: [], idag: '2026-10-10', seed: 'm' })
+    const smak = TRANINGSBANK.filter((q) => !Object.values(pooler).flat().includes(q.id)).slice(0, 5)
+    const smakprov = { token: 't', dag: '2026-10-08', svar: smak.map((q, i) => ({ q_id: q.id, correct: i % 2 === 0 })) }
+    const m = meta({ typ: 'matning', adaptiv: true, antal: 12, fragor: undefined, pooler, smakprov })
+    const id = '66666666-aaaa-4aaa-8aaa-000000000001'
+    let svar: ReturnType<typeof svara>[] = []
+    let v = sessionsvy(rad(id, m, svar))!
+    expect(v.smakprov).toBe(5)
+    expect(v.antal).toBe(12)
+    while (v.aktuell != null) {
+      svar = [...svar, svara(id, v.fragor[v.aktuell].id, 0)]
+      v = sessionsvy(rad(id, m, svar))!
+    }
+    expect(svar).toHaveLength(7)
+    expect(v.fragor.some((f) => smak.some((q) => q.id === f.id))).toBe(false)
+  })
+
+  it('14.5: tolkaSmakprov kräver blandning, tre giltiga svar och högst 30 dagar', () => {
+    const token = '77777777-aaaa-4aaa-8aaa-000000000001'
+    const fragor = questionsForToken(token)
+    const ratt = fragor.map((q) => q.correctAnswer)
+    const bas = { token, answers: ratt, meta: { alternativ_blandade: true }, created_at: '2026-10-08T10:00:00Z' }
+    const s = tolkaSmakprov(bas, '2026-10-10')!
+    expect(s.svar).toHaveLength(5)
+    expect(s.svar.every((x) => x.correct)).toBe(true)
+    expect(s.dag).toBe('2026-10-08')
+    expect(tolkaSmakprov({ ...bas, meta: {} }, '2026-10-10')).toBeNull()
+    expect(tolkaSmakprov({ ...bas, answers: [ratt[0], ratt[1], -1, -1, -1] }, '2026-10-10')).toBeNull()
+    expect(tolkaSmakprov({ ...bas, answers: [ratt[0], ratt[1], ratt[2], -1, -1] }, '2026-10-10')!.svar).toHaveLength(3)
+    expect(tolkaSmakprov(bas, '2026-11-10')).toBeNull()
   })
 
   it('en vanlig testsession (utan träningsmeta) ger ingen vy', () => {

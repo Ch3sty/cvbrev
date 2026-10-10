@@ -82,7 +82,7 @@ create table public.user_personality_profile(
   user_id uuid primary key, source_session_id uuid, source_test_type text, openness int, conscientiousness int,
   extraversion int, agreeableness int, neuroticism int, facet_scores jsonb, ai_analysis jsonb,
   computed_at timestamptz, updated_at timestamptz);
-create table public.anon_test_sessions(token uuid primary key default gen_random_uuid(), answers jsonb, score int, claimed_by uuid);
+create table public.anon_test_sessions(token uuid primary key default gen_random_uuid(), answers jsonb, score int, claimed_by uuid, created_at timestamptz not null default now());
 
 alter table public.logic_test_v4_sessions enable row level security;
 alter table public.personality_test_sessions enable row level security;
