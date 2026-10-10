@@ -12,7 +12,7 @@
  * använde dem.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_LAG, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -33,6 +33,8 @@ import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 const PRIMARY = `${KNAPP_PRIMAR} disabled:cursor-not-allowed`;
 const SECONDARY =
   `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
+/** Två sekundära i rad: 40 px (spec 16.2 fråga 17). */
+const SECONDARY_LAG = `${KNAPP_SEKUNDAR_LAG} disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 const FALT =
@@ -349,10 +351,10 @@ export default function EditLetterClient({
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-            <button type="button" onClick={handleStartEdit} className={SECONDARY}>
+            <button type="button" onClick={handleStartEdit} className={SECONDARY_LAG}>
               Redigera texten
             </button>
-            <button type="button" onClick={handleCopy} className={SECONDARY}>
+            <button type="button" onClick={handleCopy} className={SECONDARY_LAG}>
               {copied ? 'Kopierat' : 'Kopiera text'}
             </button>
           </div>
