@@ -4,7 +4,7 @@
  * visar exakt de fem frågorna med rätt eller fel och regeln som förklaring.
  */
 
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   arProvTillgangligt,
   arProvToken,
@@ -95,6 +95,17 @@ function adminMed(start: Record<string, unknown> | null) {
 }
 
 describe('hamtaEllerGorAnsprakProv', () => {
+  // Funktionen läser klockan själv (Date.now()). Utan låst klocka gick
+  // fallet sönder när SENARE (1 oktober) passerats: provet räknades som
+  // utgånget. Klockan låses till NU, samma ögonblick som resten av filen.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(NU)
+  })
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('gör anspråk på ett ohämtat prov och gör det permanent', async () => {
     const m = adminMed({ answers: [0, 0, 0, 0, 0], claimed_by: null, expires_at: SENARE })
     const r = await hamtaEllerGorAnsprakProv(m.admin, TOKEN, 'a')
