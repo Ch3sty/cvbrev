@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini'
 import { createServerClient } from '@/lib/supabase/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync'
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker'
 import { logUserActivity } from '@/lib/activity-logger'
@@ -947,7 +948,8 @@ export async function POST(req: NextRequest) {
       resetAt = new Date(now.getTime() + SEVEN_DAYS_MS)
       currentCount = 0
 
-      const { error: initError } = await supabase
+      // Kvotkolumnerna är spärrade för användarens session: admin-klienten skriver.
+      const { error: initError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update({
           weekly_linkedin_first_used_at: firstUsedAt.toISOString(),
@@ -966,7 +968,7 @@ export async function POST(req: NextRequest) {
       resetAt = new Date(now.getTime() + SEVEN_DAYS_MS)
       currentCount = 0
 
-      const { error: resetError } = await supabase
+      const { error: resetError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update({
           weekly_linkedin_first_used_at: firstUsedAt.toISOString(),
@@ -1115,7 +1117,7 @@ export async function POST(req: NextRequest) {
     // Increment quota count after successful optimization
     if (!saveError && savedOptimization) {
       const newCount = currentCount + 1
-      const { error: incrementError } = await supabase
+      const { error: incrementError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update({ weekly_linkedin_count: newCount })
         .eq('id', user.id)

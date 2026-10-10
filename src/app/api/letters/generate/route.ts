@@ -7,6 +7,7 @@ import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 // Importera GenerateLetterResult typen och funktionerna
 import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib/openai/api';
 // *** NY IMPORT FÖR AKTIVITETSLOGGNING ***
@@ -349,7 +350,10 @@ export async function POST(request: Request) {
     if (!harBetalt) {
       finalRemainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newDailyCount);
 
-      const { error: updateError } = await supabase
+      // Kvotkolumnerna i profiles är spärrade för användarens session
+      // (migrationen profiles_skyddade_kolumner), så räknaren skrivs med
+      // admin-klienten. Raden avgränsas fortfarande till user.id.
+      const { error: updateError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update(
           windowIsStale
