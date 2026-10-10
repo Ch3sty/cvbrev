@@ -1,6 +1,6 @@
 // src/app/api/letters/preview/route.ts
 import { cookies } from 'next/headers';
-import { dokumentEpost } from '@/lib/profile/dokumentEpost';
+import { kontaktIBrev } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPreview } from '@/lib/pdf/puppeteer-pdf';
@@ -41,15 +41,17 @@ export async function POST(request: Request) {
       .eq('id', user.id)
       .single();
       
-    // Förbered metadata med användarens information
+    // Förbered metadata med användarens information (samma regler som
+    // brevhuvudet, src/lib/profile/dokumentKontakt.ts).
+    const kontakt = kontaktIBrev(profileData, user);
     const enhancedMetadata: LetterMetadata = {
       title: metadata?.title || 'Ansökningsbrev',
       company: metadata?.company || '',
       position: metadata?.position || metadata?.job_title || '',
-      author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
-      email: dokumentEpost(profileData, user),
-      phone: profileData?.phone || '',
-      location: profileData?.location || '',
+      author: kontakt.namn || user.email?.split('@')[0] || 'Användare',
+      email: kontakt.epost,
+      phone: kontakt.telefon,
+      location: kontakt.ort,
       date: new Date().toLocaleDateString('sv-SE')
     };
     

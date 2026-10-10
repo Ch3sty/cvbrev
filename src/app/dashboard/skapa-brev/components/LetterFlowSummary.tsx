@@ -1,13 +1,15 @@
 'use client';
 
 /**
- * Steg 5: stämmer allt? Dina val som rader med naken ikon 24, och de
- * valfria kontaktuppgifterna till brevhuvudet som insunkna fält. Knappen
+ * Steg 5: stämmer allt? Dina val som rader med naken ikon 24, och
+ * kontaktuppgifterna till brevhuvudet som en rad med Ändra (2026-10-10:
+ * telefon och ort hade egna fält här, som sparades först när brevet
+ * skrevs; nu sparas de direkt och syns i brevet som skrivs). Knappen
  * ligger i skalets fot (hidePrimaryAction), kortet bär bara metaraden om tid
  * och kvot.
  */
 
-import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
+import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import {
   IkonCv,
@@ -45,9 +47,6 @@ const LANG_LABELS: Record<string, string> = {
   en: 'English',
 };
 
-const FIELD =
-  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken transition-colors placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent';
-
 interface LetterFlowSummaryProps {
   cvName: string | null;
   jobDescriptionPreview: string;
@@ -59,11 +58,6 @@ interface LetterFlowSummaryProps {
   onGenerate: () => void;
   /** Antal brev kvar idag (dagskvot, 1/dag för gratisanvändare) */
   remainingLetters?: number | null;
-  /** B3: brevhuvudets kontaktuppgifter, förifyllda från profilen */
-  phone: string;
-  location: string;
-  onPhoneChange: (value: string) => void;
-  onLocationChange: (value: string) => void;
   /**
    * Döljer kortets egen knapp. I FlowShell ligger den primära handlingen i
    * den sticky foten, och två knappar med samma jobb på samma skärm är precis
@@ -82,10 +76,6 @@ export default function LetterFlowSummary({
   isGenerating,
   onGenerate,
   remainingLetters,
-  phone,
-  location,
-  onPhoneChange,
-  onLocationChange,
   hidePrimaryAction,
 }: LetterFlowSummaryProps) {
   const template = DOCX_TEMPLATES[templateId as keyof typeof DOCX_TEMPLATES];
@@ -127,46 +117,9 @@ export default function LetterFlowSummary({
         })}
       </ul>
 
-      {/* B3: telefon och ort samlas in här i stället för vid registrering.
-          Båda är valfria. */}
-      <div className="mt-4 border-t border-kant pt-4">
-        <h3 className="text-kort text-ink-1">Kontaktuppgifter till brevhuvudet</h3>
-        <p className="mt-1 text-sm leading-[22px] text-ink-2">
-          Valfritt. Vi sparar dem på din profil så du slipper fylla i dem nästa gång.
-        </p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div>
-            <label htmlFor="letter-phone" className="mb-1 block text-sm text-ink-2">
-              Telefon
-            </label>
-            <input
-              id="letter-phone"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              value={phone}
-              onChange={(e) => onPhoneChange(e.target.value)}
-              placeholder="070 123 45 67"
-              className={FIELD}
-            />
-          </div>
-          <div>
-            <label htmlFor="letter-location" className="mb-1 block text-sm text-ink-2">
-              Ort
-            </label>
-            <input
-              id="letter-location"
-              type="text"
-              autoComplete="address-level2"
-              value={location}
-              onChange={(e) => onLocationChange(e.target.value)}
-              placeholder="Stockholm"
-              className={FIELD}
-            />
-          </div>
-        </div>
-        <DokumentEpostRad dokument="brev" className="mt-3" />
-      </div>
+      {/* B3: kontaktuppgifterna till brevhuvudet. Raden visar vad brevet
+          får, Ändra sparar direkt i profilen och brevet skrivs med dem. */}
+      <KontaktuppgifterRad dokument="brev" className="mt-4" />
 
       {!hidePrimaryAction ? (
         <button

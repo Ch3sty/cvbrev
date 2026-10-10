@@ -4,6 +4,8 @@ import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
+import { arPlatshallareNamn, arPlatshallareTelefon, arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
+import { arTomEllerPlatshallare } from '@/lib/profile/dokumentEpost'
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,6 +55,16 @@ export async function POST(req: NextRequest) {
         },
         { status: 403 }
       )
+    }
+
+    // Platshållare sparas aldrig, även om en äldre klient skickar dem. Tomma
+    // fält fylls från profilen när dokumentet skapas (dokumentKontakt.ts).
+    if (cvData?.personalInfo) {
+      const pi = cvData.personalInfo
+      if (arPlatshallareNamn(pi.fullName)) pi.fullName = ''
+      if (arTomEllerPlatshallare(pi.email)) pi.email = ''
+      if (pi.phone !== undefined && arPlatshallareTelefon(pi.phone)) pi.phone = ''
+      if (arPlatshallareTitel(pi.title)) pi.title = ''
     }
 
     // Create CV in database (save to cv_texts table)

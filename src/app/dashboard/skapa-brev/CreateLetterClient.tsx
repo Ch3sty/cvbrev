@@ -27,6 +27,8 @@ import { useNotification } from '@/context/notificationcontext';
 
 import LetterFlowLayout from './components/LetterFlowLayout';
 import LetterFlowSummary from './components/LetterFlowSummary';
+import type { SparadKontakt } from '@/components/shell/KontaktuppgifterRad';
+import { bytKontaktIBrev } from '@/lib/profile/dokumentKontakt';
 import FlowShell from '@/components/shell/FlowShell';
 import FlowError from '@/components/shell/FlowError';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
@@ -156,7 +158,6 @@ export default function CreateLetterClient({
   const {
     subscriptionTier,
     profile,
-    updateProfile,
     loading: profileLoading,
   } = useProfile();
 
@@ -169,8 +170,10 @@ export default function CreateLetterClient({
 
   const lockedCvIds = useRef(new Set(initialLockedCvIds)).current;
 
-  // B3: brevhuvudets kontaktuppgifter. Samlas in här i stället för vid
-  // registrering, där de bara var friktion. Båda är valfria.
+  // B3: brevhuvudets telefon och ort. Sedan 2026-10-10 redigeras de i raden
+  // i steg 5 (KontaktuppgifterRad), som sparar direkt i profilen. Värdena
+  // hålls kvar här bara för att utkastets form (LETTER_FLOW_VERSION 1) inte
+  // ska ändras.
   const [headerPhone, setHeaderPhone] = useState('');
   const [headerLocation, setHeaderLocation] = useState('');
   // Förifyll när profilen laddats, men skriv aldrig över något användaren
@@ -416,20 +419,10 @@ export default function CreateLetterClient({
     setShowPipeline(true);
     setIsSubmitting(true);
 
-    // B3: spara brevhuvudets kontaktuppgifter om användaren ändrat dem.
-    // Fire-and-forget: en misslyckad profilsparning får aldrig stoppa brevet.
-    const trimmedPhone = headerPhone.trim();
-    const trimmedLocation = headerLocation.trim();
-    if (
-      trimmedPhone !== (profile?.phone || '') ||
-      trimmedLocation !== (profile?.location || '')
-    ) {
-      void Promise.resolve(
-        updateProfile({ phone: trimmedPhone, location: trimmedLocation })
-      ).catch((err) => {
-        console.error('Kunde inte spara kontaktuppgifter:', err);
-      });
-    }
+    // B3: brevhuvudets kontaktuppgifter sparas numera direkt i raden i
+    // steg 5 (KontaktuppgifterRad), innan brevet skrivs. Den gamla
+    // sparningen här var fire-and-forget och kunde landa efter att servern
+    // redan läst profilen, så brevet fick det gamla numret.
 
     // Scroll till pipeline
     requestAnimationFrame(() => {
@@ -484,7 +477,7 @@ export default function CreateLetterClient({
     } finally {
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, headerPhone, headerLocation, profile, updateProfile, isSubmitting]);
+  }, [selectedCV, jobDescription, tonality, language, templateId, createLetter, isSubmitting]);
 
   // Steg 6 när brevet landat.
   //
@@ -572,6 +565,18 @@ export default function CreateLetterClient({
     },
     [generatedLetter, selectedCV, jobDescription, tonality, language, createLetter]
   );
+
+  // Kontaktuppgifterna ändrades i raden i steg 6: byt dem i huvud och
+  // avslutning direkt, så förhandsvisningen stämmer utan nedladdning.
+  // Brödtexten rörs aldrig (src/lib/profile/dokumentKontakt.ts).
+  const handleKontaktSparad = useCallback((r: SparadKontakt) => {
+    const byt = (html: string) =>
+      html.includes('class="body-content"') ? bytKontaktIBrev(html, r.efter, r.fore) : html;
+    setGeneratedLetter((prev) => (prev ? byt(prev) : prev));
+    setLetterData((prev: any) =>
+      prev && typeof prev.content === 'string' ? { ...prev, content: byt(prev.content) } : prev
+    );
+  }, []);
 
   const handleEditLetter = (content: string) => {
     setGeneratedLetter(content);
@@ -790,6 +795,7 @@ export default function CreateLetterClient({
             registerRef={(el) => {
               previewRef.current = el;
             }}
+            onKontaktSparad={handleKontaktSparad}
           />
         )}
         {downloadGate && generatedLetter && (
@@ -989,10 +995,6 @@ export default function CreateLetterClient({
             isGenerating={isSubmitting || isGenerating}
             onGenerate={handleGenerateLetter}
             remainingLetters={remainingToday}
-            phone={headerPhone}
-            location={headerLocation}
-            onPhoneChange={setHeaderPhone}
-            onLocationChange={setHeaderLocation}
             hidePrimaryAction
           />
           {/* Brevet skrivs: rubriken säger vad som görs, tre rader fylls,
@@ -1032,6 +1034,7 @@ export default function CreateLetterClient({
             registerRef={(el) => {
               previewRef.current = el;
             }}
+            onKontaktSparad={handleKontaktSparad}
           />
           {downloadGate && (
             <div className="mt-4">

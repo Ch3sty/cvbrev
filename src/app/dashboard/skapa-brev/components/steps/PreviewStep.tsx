@@ -16,7 +16,7 @@ import {
   isTemplateHTML as checkIsTemplateHTML,
 } from '@/lib/letters/extract-editable-content';
 import StatusRow from '@/components/shell/StatusRow';
-import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
+import KontaktuppgifterRad, { type SparadKontakt } from '@/components/shell/KontaktuppgifterRad';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { scopeLetterHtml, BREV_SCOPE } from '@/app/dashboard/mina-brev/scopeLetterHtml';
@@ -43,6 +43,8 @@ interface PreviewStepProps {
   isPremium?: boolean;
   isRegeneratingTemplate?: boolean;
   registerRef?: (el: HTMLElement | null) => void;
+  /** Kontaktuppgifterna sparades i raden: föräldern byter dem i brevet. */
+  onKontaktSparad?: (r: SparadKontakt) => void;
 }
 
 const PRIMARY =
@@ -67,6 +69,7 @@ export default function PreviewStep({
   isPremium = false,
   isRegeneratingTemplate = false,
   registerRef,
+  onKontaktSparad,
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
@@ -327,7 +330,7 @@ export default function PreviewStep({
                 </button>
               ) : null}
             </div>
-            <DokumentEpostRad dokument="brev" />
+            <KontaktuppgifterRad dokument="brev" onSparad={onKontaktSparad} />
           </div>
 
           <FontSelector selectedFont={selectedFont} onFontChange={onFontChange} isPremium={isPremium} />

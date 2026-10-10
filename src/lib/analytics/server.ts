@@ -27,6 +27,8 @@ export type ServerEventName =
   | 'signup_completed'
   /** /api/profile/contact när en egen dokumentadress sparas. */
   | 'document_email_changed'
+  /** /api/profile/contact när namn, telefon eller ort i dokumenten ändras. */
+  | 'document_contact_changed'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
   /** Fria tilläggsfält, till exempel scope och amount_sek på betalningen. */

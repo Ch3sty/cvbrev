@@ -17,8 +17,7 @@ import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
 import { paketMedPris } from '@/lib/plans/plans';
-import DokumentEpostRad from '@/components/shell/DokumentEpostRad';
-import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
+import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 
 interface CV {
   id: string;
@@ -41,6 +40,12 @@ interface MallarLivePreviewProps {
   }) => void;
   onUpgrade?: () => void;
   initialTemplate?: string;
+  /**
+   * Kontaktuppgifterna sparades i raden och servern bytte dem i CV:ts
+   * structured_data. Föräldern lägger in den nya datan, så förhandsvisningen
+   * och PDF:en får de nya värdena utan omladdning.
+   */
+  onCvKontaktSparad?: (cv: { id: string; structured_data: unknown }) => void;
 }
 
 const DEFAULT_TEMPLATE_ID = 'norrsken';
@@ -62,7 +67,11 @@ export default function MallarLivePreview({
   onGenerate,
   onUpgrade,
   initialTemplate,
+  onCvKontaktSparad,
 }: MallarLivePreviewProps) {
+  // Kontaktuppgifterna kan ändras utan att CV:t byts: profilen fyller tomma
+  // fält, så förhandsvisningen hämtas om efter varje sparning i raden.
+  const [kontaktVersion, setKontaktVersion] = useState(0);
   const [selectedTemplate, setSelectedTemplate] = useState<string>(
     initialTemplate || DEFAULT_TEMPLATE_ID
   );
@@ -151,7 +160,7 @@ export default function MallarLivePreview({
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [selectedCV?.cv_text, selectedTemplate, selectedFont, includePhoto, includeLinkedIn]);
+  }, [selectedCV?.cv_text, selectedCV?.structured_data, kontaktVersion, selectedTemplate, selectedFont, includePhoto, includeLinkedIn]);
 
   const handleTemplateSelect = (templateId: string) => {
     const tpl = getTemplateById(templateId);
@@ -236,11 +245,15 @@ export default function MallarLivePreview({
               onUpgrade={onUpgrade}
             />
 
-            {/* Vilken adress PDF:en får, med Ändra på plats. */}
+            {/* Vilka kontaktuppgifter PDF:en får, med Ändra på plats. */}
             {selectedCV && !isLockedPremium ? (
-              <DokumentEpostRad
+              <KontaktuppgifterRad
                 dokument="cv"
-                cvEpost={normalizeStructuredData(selectedCV.structured_data)?.personalInfo.email ?? null}
+                cv={{ id: selectedCV.id, structured_data: selectedCV.structured_data ?? null }}
+                onSparad={(r) => {
+                  if (r.cv) onCvKontaktSparad?.(r.cv);
+                  setKontaktVersion((v) => v + 1);
+                }}
               />
             ) : null}
           </div>

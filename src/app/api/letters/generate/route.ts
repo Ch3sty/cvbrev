@@ -17,6 +17,7 @@ import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
+import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
@@ -167,7 +168,8 @@ export async function POST(request: Request) {
         professionalContent,
         'letter_generate',
         user.id,
-        { fullName: profileData.full_name ?? null }
+        // Profilens och CV:ts namn och telefon (src/lib/profile/dokumentKontakt.ts).
+        kandaUppgifterForMaskning(profileData, cvData.structured_data)
       );
       const anonymizedSkills = guarded.text;
 

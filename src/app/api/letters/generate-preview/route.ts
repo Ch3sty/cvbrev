@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
+import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
     // Hämta användarprofil för att kontrollera prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, full_name')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, full_name, phone')
       .eq('id', user.id)
       .single();
 
@@ -161,7 +162,8 @@ export async function POST(request: Request) {
         cvData.cv_text,
         'letter_preview',
         user.id,
-        { fullName: profile?.full_name ?? null }
+        // Profilens och CV:ts namn och telefon (src/lib/profile/dokumentKontakt.ts).
+        kandaUppgifterForMaskning(profile, cvData.structured_data)
       );
       const cleanedCV = guarded.text;
 

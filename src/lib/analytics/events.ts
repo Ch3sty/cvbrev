@@ -111,6 +111,13 @@ export interface AnalyticsEvents {
   /** E-post i CV och brev (2026-10-10). Skjuts från servern när en egen
       adress sparas som skiljer sig från kontoadressen. Aldrig adressen. */
   document_email_changed: { differs_from_account: true; had_custom_before: boolean }
+  /** Kontaktuppgifter i CV och brev (2026-10-10). Vilka fält, varifrån och
+      hur många CV:n som följde med. Aldrig värdena. */
+  document_contact_changed: {
+    fields: ('namn' | 'telefon' | 'ort')[]
+    source: 'rad_cv' | 'rad_brev' | 'profil' | 'kort'
+    cv_updated: number
+  }
   profile_photo_uploaded: { source: 'upload'; resized: boolean; bytes_before: number; bytes_after: number }
   profile_photo_failed: { reason: 'too_large' | 'type' | 'network' }
   letter_tone_default_set: { tone: string }

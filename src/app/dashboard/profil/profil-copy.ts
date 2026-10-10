@@ -7,6 +7,7 @@
 
 import { PLAN_BY_KEY, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { DOKUMENT_EPOST } from '@/lib/profile/dokumentEpost-copy'
+import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 
 export const PROFIL = {
   eyebrow: 'Konto',
@@ -27,7 +28,8 @@ export const PROFIL = {
 
 export const CV_SEKTION = {
   rubrik: 'Överst i ditt CV',
-  under: 'Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.',
+  /** Förklarar att det här är uppgifterna i CV och brev (2026-10-10). */
+  under: DOKUMENT_KONTAKT.profilText,
   valfritt: 'Valfritt',
   kravs: 'Krävs',
   namn: { etikett: 'Namn', text: 'Står överst i ditt CV och dina personliga brev.', plats: 'Förnamn och efternamn' },

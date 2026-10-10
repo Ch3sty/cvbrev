@@ -37,14 +37,31 @@ export function dokumentEpost(profile: ProfilMedEpost, user?: AnvandareMedEpost)
 }
 
 /**
+ * Exempeladresser som förifyllningar och importer har satt när adressen
+ * saknades. LinkedIn-importen satte din@email.com fram till 2026-10-10, så
+ * redan importerade CV:n har den kvar i structured_data.
+ */
+export const EPOST_PLATSHALLARE: readonly string[] = [
+  'din@email.com',
+  'din@epost.se',
+  'din@e-post.se',
+  'din@mail.com',
+  'your@email.com',
+  'email@example.com',
+  'name@example.com',
+  'namn@exempel.se',
+];
+
+/**
  * Sant när e-postfältet i CV-datan inte är något användaren skrivit: tomt,
- * en platshållare från maskningen ([E-POST], [EMAIL], [EMAIL REMOVED]) eller
- * något som inte ens ser ut som en adress.
+ * en platshållare från maskningen ([E-POST], [EMAIL], [EMAIL REMOVED]), en
+ * känd exempeladress eller något som inte ens ser ut som en adress.
  */
 export function arTomEllerPlatshallare(v: string | null | undefined): boolean {
   const t = (v ?? '').trim();
   if (!t) return true;
   if (/^\[.*\]$/.test(t)) return true;
+  if (EPOST_PLATSHALLARE.includes(t.toLowerCase())) return true;
   return !t.includes('@');
 }
 

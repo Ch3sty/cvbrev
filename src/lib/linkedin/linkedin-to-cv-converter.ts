@@ -370,8 +370,8 @@ export function formatCVMetadataAsText(cvData: CVMetadata): string {
   let text = ''
 
   // Personal Info
-  text += `${cvData.personalInfo.fullName}\n`
-  text += `${cvData.personalInfo.email}\n`
+  if (cvData.personalInfo.fullName) text += `${cvData.personalInfo.fullName}\n`
+  if (cvData.personalInfo.email) text += `${cvData.personalInfo.email}\n`
   if (cvData.personalInfo.phone) text += `${cvData.personalInfo.phone}\n`
   if (cvData.personalInfo.address) text += `${cvData.personalInfo.address}\n`
   if (cvData.personalInfo.location) text += `${cvData.personalInfo.location}\n`
@@ -467,12 +467,13 @@ export function convertLinkedInToCV(
   userEmail?: string,
   userName?: string
 ): CVMetadata {
-  // Extract personal info from "Om mig" section
-  // We'll use a simple approach - the user will need to fill in contact details separately
+  // Inga platshållare (2026-10-10). "Ditt namn" och din@email.com hamnade
+  // i PDF:en när namnet eller adressen saknades. Ett tomt fält fylls i stället
+  // från profilen när dokumentet skapas (src/lib/profile/dokumentKontakt.ts).
   const personalInfo: CVPersonalInfo = {
-    fullName: userName || 'Ditt namn',
-    email: userEmail || 'din@email.com',
-    title: 'Professionell titel'
+    fullName: (userName ?? '').trim(),
+    email: (userEmail ?? '').trim(),
+    title: ''
   }
 
   // Parse experience

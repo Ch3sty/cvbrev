@@ -255,6 +255,32 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
             ? () => (String(value).trim().length < 2 ? CV_SEKTION.namnFel : null)
             : undefined;
 
+        // Namn, telefon och ort går via servern (2026-10-10), som också flyttar
+        // in de nya värdena i de CV:n där fältet fortfarande har det gamla
+        // profilvärdet. Brevhuvudets togglar lämnas orörda här, de har egna
+        // växlar under Personliga brev. Därefter uppdateras den lokala
+        // profilen med samma värde, så att andra vyer ser ändringen direkt.
+        if (key === 'full_name' || key === 'phone' || key === 'location') {
+          const t = String(value).trim();
+          void save(
+            key,
+            async () => {
+              const res = await fetch('/api/profile/contact', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ [key]: t || null, visa_i_brev: false, kalla: 'profil' }),
+              });
+              if (!res.ok) return false;
+              await updateProfile({ [key]: t } as any);
+              capture('profile_field_saved', { field: key, section: 'cv' });
+              void refreshDashboard();
+              return true;
+            },
+            validate
+          );
+          return current;
+        }
+
         void save(
           key,
           async () => {

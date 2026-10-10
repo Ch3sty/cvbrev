@@ -49,7 +49,10 @@ export function normalizeStructuredData(input: unknown): CVMetadata | null {
  * vara en sang.
  */
 function ensureValidCVMetadata(data: CVMetadata): CVMetadata | null {
-  if (!data.personalInfo?.fullName || typeof data.personalInfo.fullName !== 'string') {
+  // Tomt namn är giltigt sedan 2026-10-10: LinkedIn-importen sätter inte
+  // längre "Ditt namn" när namnet saknas, och dokumenten fyller ett tomt
+  // namn från profilen (src/lib/profile/dokumentKontakt.ts).
+  if (typeof data.personalInfo?.fullName !== 'string') {
     return null;
   }
   return {
