@@ -22,7 +22,13 @@ import { SvgLayeredCell } from '../src/lib/logicTestV7/layered.v7';
 import type { LayeredCell, LayeredQuestion } from '../src/lib/logicTestV7/layered.v7';
 import familjer from '../src/lib/logicTestV7/familjer.json';
 
-const UT = process.argv[2] ?? 'docs/qa/rummen/vag-3c/granskning';
+// Flaggor (spec-rummen 15.10 och 15.11):
+//   --ringar          bara frågor med ringceller (alla nivåer, pensionerade märkta)
+//   --fragor=a,b,c    bara de angivna frågorna (kan kombineras med --ringar)
+const ARGS = process.argv.slice(2);
+const UT = ARGS.find((a) => !a.startsWith('--')) ?? 'docs/qa/rummen/vag-3c/granskning';
+const RINGAR = ARGS.includes('--ringar');
+const FRAGOR = (ARGS.find((a) => a.startsWith('--fragor='))?.slice('--fragor='.length) ?? '').split(',').filter(Boolean);
 mkdirSync(UT, { recursive: true });
 
 const NIVAER = [
@@ -83,7 +89,20 @@ h2{font-size:17px;line-height:22px;margin:4px 0 12px}
 `;
 
 const valda: { q: LayeredQuestion; niva: string; kalla: string }[] = [];
-for (const { niva, fryst, ny } of NIVAER) {
+const harRing = (q: LayeredQuestion) =>
+  [...q.grid.flat(), ...q.options].some((c) => c && (Array.isArray(c) ? c : [c]).some((p) => (p as { kind?: string }).kind === 'ring'));
+if (RINGAR || FRAGOR.length) {
+  for (const { niva, fryst, ny } of NIVAER) {
+    for (const [fil, kalla] of [[fryst, 'fryst'], [ny, '3c']] as const) {
+      for (const q of las(fil)) {
+        if ((RINGAR && harRing(q)) || FRAGOR.includes(q.id)) {
+          valda.push({ q, niva, kalla: q.pensionerad ? `${kalla}, pensionerad` : kalla });
+        }
+      }
+    }
+  }
+}
+for (const { niva, fryst, ny } of RINGAR || FRAGOR.length ? [] : NIVAER) {
   const F = las(fryst);
   const N = las(ny);
   for (const f of familjer as { id: string }[]) {
