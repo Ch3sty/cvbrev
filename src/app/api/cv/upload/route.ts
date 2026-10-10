@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import { markFirstMilestone } from '@/lib/activation-tracking';
 import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
@@ -329,8 +330,12 @@ Alternativt: Ladda upp som .DOCX istället.`,
     }
 
     // Kvotkontroll sker här, efter storage upload och idempotency-check,
-    // så att en reconnect för en redan sparad fil aldrig blockeras av kvoten
-    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
+    // så att en reconnect för en redan sparad fil aldrig blockeras av kvoten.
+    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const { harBetalt, maxCvs: cvGrans } = await getCvGrans(supabase, user.id);
+
+    if (!harBetalt && !profile.email_verified_at) {
       const { count: cvCount } = await supabase
         .from('cv_texts')
         .select('id', { count: 'exact', head: true })
@@ -346,13 +351,13 @@ Alternativt: Ladda upp som .DOCX istället.`,
       }
     }
 
-    if (profile.subscription_tier === 'free') {
+    if (!harBetalt) {
       const { count } = await supabase
         .from('cv_texts')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id);
 
-      if (count !== null && count >= 2) {
+      if (count !== null && count >= cvGrans) {
         emitter.error({
           error: 'Som gratisanvändare kan du bara ha 2 CV. Uppgradera till premium för att hantera flera CV:n.',
           code: 'CV_LIMIT_REACHED',

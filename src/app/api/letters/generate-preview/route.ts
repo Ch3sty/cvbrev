@@ -3,6 +3,7 @@ import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
@@ -65,6 +66,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
+    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const harBetalt = await userHasAccess(supabase, user.id, 'any');
+
     // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
     // Samma räknarkolumner som /api/letters/generate så båda flödena delar kvot.
     const now = new Date();
@@ -77,7 +82,7 @@ export async function POST(request: Request) {
     const newCount = effectiveCount + 1;
 
     // Kontrollera om användaren har nått sin dagsgräns (endast för gratisanvändare)
-    if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+    if (!harBetalt && effectiveCount >= DAILY_LIMIT_LETTERS) {
       return NextResponse.json(
         quotaExceededBody(
           'letter_generation',
@@ -301,7 +306,7 @@ export async function POST(request: Request) {
     
     // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
     // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
-    if (profile.subscription_tier === 'free') {
+    if (!harBetalt) {
       const { error: updateError } = await supabase
         .from('profiles')
         .update(
@@ -331,7 +336,7 @@ export async function POST(request: Request) {
       activeGenerations.delete(requestKey);
       
       // För gratisanvändare, returnera också antalet återstående brev idag
-      if (profile.subscription_tier === 'free') {
+      if (!harBetalt) {
         const remainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newCount);
         return NextResponse.json({
           success: true,

@@ -8,6 +8,7 @@ import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: NextRequest) {
@@ -36,20 +37,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get subscription tier
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('subscription_tier')
-      .eq('id', user.id)
-      .single();
-
-    if (profileError) {
-      console.error('Error fetching profile:', profileError);
-      // Continue with free tier as fallback
-    }
-
-    const subscriptionTier = profile?.subscription_tier || 'free';
-    const maxCvs = subscriptionTier === 'premium' ? 50 : 2; // Matchar frontend use-profile.ts maxCVCount
+    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const { harBetalt, maxCvs } = await getCvGrans(supabase, user.id);
+    const subscriptionTier = harBetalt ? 'premium' : 'free';
 
     // Check current CV count
     const { count, error: countError } = await supabase

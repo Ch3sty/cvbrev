@@ -2,6 +2,7 @@ import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
+import { getCvGrans } from '@/lib/supabase/premiumAccess'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
 import { arPlatshallareNamn, arPlatshallareTelefon, arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
@@ -27,15 +28,11 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Kvotvalidering — samma policy som /api/cv/upload och /api/cv/save-improved.
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('subscription_tier')
-      .eq('id', userId)
-      .single()
-
-    const subscriptionTier = profile?.subscription_tier || 'free'
-    const maxCvs = subscriptionTier === 'premium' ? 50 : 2
+    // Kvotvalidering, samma policy som /api/cv/upload och /api/cv/save-improved.
+    // Behörigheten läses via premiumAccess så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const { harBetalt, maxCvs } = await getCvGrans(supabase, userId)
+    const subscriptionTier = harBetalt ? 'premium' : 'free'
 
     const { count: cvCount } = await supabase
       .from('cv_texts')

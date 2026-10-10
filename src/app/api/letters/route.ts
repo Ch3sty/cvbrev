@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { markFirstMilestone } from '@/lib/activation-tracking';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { getActiveLetterIds, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
 
 // Hämta alla brev för inloggad användare
@@ -40,17 +41,11 @@ export async function GET(request: Request) {
 
     // Lås-flagga per brev: gratisanvändare har bara de 2 senast sparade
     // breven AKTIVA (updated_at DESC, fallback created_at). Resten är låsta.
-    // Premium: allt är aktivt.
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('subscription_tier')
-      .eq('id', user.id)
-      .single();
-
+    // Betald behörighet (prenumeration, engångsköp, admin): allt är aktivt.
     const letters = Array.isArray(data) ? data : [];
     let payload = letters.map((letter) => ({ ...letter, isLocked: false }));
 
-    if (profile?.subscription_tier !== 'premium') {
+    if (!(await userHasAccess(supabase, user.id, 'any'))) {
       const savedLetters = letters.filter((l) => l.is_saved === true);
       const activeIds = getActiveLetterIds(savedLetters, FREE_ACTIVE_LETTER_LIMIT);
       payload = letters.map((letter) => ({
@@ -111,7 +106,8 @@ export async function POST(request: Request) {
     // Check email verification for free users FIRST (before saved letter limit)
     // Raknar bara SPARADE brev (is_saved = true) - inte rader som auto-skapas
     // vid generering. Annars blockeras anvandaren redan vid sitt forsta sparforsok.
-    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
+    // Behörigheten via premiumAccess, så att engångsköp och admin räknas.
+    if (!profile.email_verified_at && !(await userHasAccess(supabase, user.id, 'any'))) {
       const { count: savedLetterCount, error: totalCountError } = await supabase
         .from('letters')
         .select('id', { count: 'exact', head: true })

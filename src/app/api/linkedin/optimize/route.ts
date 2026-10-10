@@ -927,13 +927,14 @@ export async function POST(req: NextRequest) {
     // Check if user is premium and fetch quota fields
     const { data: profile } = await supabase
       .from('profiles')
-      .select('subscription_status, weekly_linkedin_count, weekly_linkedin_first_used_at, weekly_linkedin_reset_at, premium_until')
+      .select('weekly_linkedin_count, weekly_linkedin_first_used_at, weekly_linkedin_reset_at')
       .eq('id', user.id)
       .single()
 
     const now = new Date()
-    const isPremium = profile?.subscription_status === 'active' ||
-      (profile?.premium_until && new Date(profile.premium_until) > now)
+    // Behörigheten kommer från premiumAccess ovan. subscription_status missade
+    // engångsköpen i premium_grants och gav dem gratisnivåns veckokvot.
+    const isPremium = harLinkedin
 
     // Initialize and check quota
     let currentCount = profile?.weekly_linkedin_count || 0

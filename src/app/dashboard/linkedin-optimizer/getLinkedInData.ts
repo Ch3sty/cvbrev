@@ -15,6 +15,7 @@
  * läser.
  */
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
+import { getCvGrans } from '@/lib/supabase/premiumAccess';
 
 /** CV-raden så som cv-store bär den. Samma kolumner som fetchCVs läste. */
 export interface LinkedInCvRow {
@@ -60,7 +61,7 @@ export async function getLinkedInData(
 ): Promise<LinkedInPageData> {
   // Profilens namn går före metadatans: har användaren själv skrivit in ett
   // namn på profilsidan är det hennes, inte Googles.
-  const [cvRes, profileRes] = await Promise.all([
+  const [cvRes, profileRes, grans] = await Promise.all([
     supabase
       .from('cv_texts')
       .select('*')
@@ -68,9 +69,10 @@ export async function getLinkedInData(
       .order('created_at', { ascending: false }),
     supabase
       .from('profiles')
-      .select('full_name, subscription_tier, premium_until')
+      .select('full_name')
       .eq('id', userId)
       .maybeSingle(),
+    getCvGrans(supabase, userId),
   ]);
 
   if (cvRes.error) {
@@ -80,25 +82,17 @@ export async function getLinkedInData(
     console.error('LinkedIn: kunde inte läsa profilnamnet', profileRes.error);
   }
 
-  const profileRow = profileRes.data as {
-    full_name?: string | null;
-    subscription_tier?: string | null;
-    premium_until?: string | null;
-  } | null;
+  const profileRow = profileRes.data as { full_name?: string | null } | null;
 
   const profileName = profileRow?.full_name || null;
   const cvs = (cvRes.data ?? []) as LinkedInCvRow[];
 
-  // CV-låsen: samma regel som useCvQuota körde på klienten. 'premium' i
-  // tabellen räknas som premium, premium_until läses som säkerhetsnät mot en
-  // utgången rad, precis som i useProfile.
-  const untilOk =
-    !profileRow?.premium_until ||
-    new Date(profileRow.premium_until).getTime() > Date.now();
-  const isPremium = profileRow?.subscription_tier === 'premium' && untilOk;
+  // CV-låsen: samma regel som useCvQuota körde på klienten. Behörigheten
+  // läses via premiumAccess, så att engångsköp i premium_grants och admin
+  // räknas, inte bara profiles.subscription_tier.
   const active = getActiveCvIds(
     cvs.map((cv) => ({ id: cv.id, created_at: cv.created_at ?? '' })),
-    isPremium ? 50 : 2
+    grans.maxCvs
   );
 
   return {

@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 // Importera GenerateLetterResult typen och funktionerna
 import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib/openai/api';
 // *** NY IMPORT FÖR AKTIVITETSLOGGNING ***
@@ -80,6 +81,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
+    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const harBetalt = await userHasAccess(supabase, user.id, 'any');
+
     // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
     // Kolumnerna weekly_letter_* återanvänds men tolkas som dagsräknare via
     // resolveDailyLetterCounter — fönstret är självrensande, så vi skriver
@@ -93,7 +98,7 @@ export async function POST(request: Request) {
     const resetAt = nextMidnightStockholm(now);
 
     // Kontroll av dagsgräns för gratis-användare
-    if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+    if (!harBetalt && effectiveCount >= DAILY_LIMIT_LETTERS) {
       signalQuotaWall(user.id, 'letter_generation');
       logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men dagsgräns nådd', { limit: DAILY_LIMIT_LETTERS, current: effectiveCount });
       return NextResponse.json(
@@ -341,7 +346,7 @@ export async function POST(request: Request) {
     // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
     let finalRemainingLetters = null;
     const newDailyCount = effectiveCount + 1;
-    if (profile.subscription_tier === 'free') {
+    if (!harBetalt) {
       finalRemainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newDailyCount);
 
       const { error: updateError } = await supabase
@@ -380,7 +385,7 @@ export async function POST(request: Request) {
       };
 
       // Lägg till kvotinformation för gratis-användare (dagsvärden)
-      if (profile.subscription_tier === 'free') {
+      if (!harBetalt) {
          responseData.remainingLetters = finalRemainingLetters;
          responseData.nextResetDate = resetAt.toISOString();
          responseData.currentCount = newDailyCount;

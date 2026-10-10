@@ -17,6 +17,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
+import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import MinaCvClient, { type InitialCv } from './MinaCvClient';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
@@ -37,17 +38,15 @@ export default async function MinaCVPage() {
   let isPremium = false;
 
   try {
-    const [cvRes, profileRes] = await Promise.all([
+    const [cvRes, grans] = await Promise.all([
       supabase
         .from('cv_texts')
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false }),
-      supabase
-        .from('profiles')
-        .select('subscription_tier')
-        .eq('id', user.id)
-        .maybeSingle(),
+      // Behörigheten via premiumAccess: engångsköp i premium_grants och admin
+      // räknas, inte bara profiles.subscription_tier.
+      getCvGrans(supabase, user.id),
     ]);
 
     if (cvRes.error) {
@@ -55,9 +54,7 @@ export default async function MinaCVPage() {
     }
 
     cvRows = (cvRes.data ?? []) as InitialCv[];
-    const profile = profileRes.data as { subscription_tier?: string | null } | null;
-    // Identisk regel som useCvQuota: 'premium' i tabellen räknas som premium.
-    isPremium = profile?.subscription_tier === 'premium';
+    isPremium = grans.harBetalt;
   } catch (error) {
     // Går hämtningen fel ska sidan ändå gå att öppna. Klienten hämtar om.
     console.error('Fel vid server-hämtning av Mina CV:', error);
