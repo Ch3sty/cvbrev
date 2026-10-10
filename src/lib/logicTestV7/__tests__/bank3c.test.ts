@@ -3,8 +3,9 @@
  *
  * - Varje fråga i alla sex banker har en familj ur familjer.json, en
  *   svårighetsprior 1-4 och ett misstag per alternativ på originalindex.
- * - De klassiska testerna drar fortfarande bara ur de 28 frusna frågorna per
- *   nivå, så att gamla sessioner får samma urval på resultatsidan.
+ * - Sessioner utan meta.bank_version drar ur de 28 frusna frågorna per nivå,
+ *   så att gamla sessioner får samma urval på resultatsidan. Nya klassiska
+ *   sessioner (bank_version 2) drar ur alla ej pensionerade (spec-rummen 15).
  * - misstag och family följer aldrig med till testvyn (misstag avslöjar facit).
  */
 import { describe, expect, it } from 'vitest'
@@ -19,9 +20,14 @@ import {
   selectQuestionsForSession,
   selectAvanceradQuestionsForSession,
   selectExpertQuestionsForSession,
+  VALBARA_GRUND,
+  VALBARA_AVANCERAD,
+  VALBARA_EXPERT,
+  bankVersion,
 } from '../selectQuestions.v7'
 import { selectProvQuestionsForSession } from '../selectProv.v7'
-import { BANK_FOR_RUTT, visadeFragor, genomgangsFragor } from '../fragor.server'
+import { BANK_FOR_RUTT, visadeFragor, genomgangsFragor, matrisInnehall } from '../fragor.server'
+import { questionsForToken } from '@/lib/tests/anon-session'
 import { FAMILJER, arMatrisFamilj, familjNamn } from '../familjer'
 
 describe('matrisbanken efter våg 3c', () => {
@@ -58,17 +64,49 @@ describe('matrisbanken efter våg 3c', () => {
     expect(familjNamn('okand')).toBeNull()
   })
 
-  it('de klassiska testerna drar bara ur de frusna bankerna', () => {
+  it('sessioner utan bank_version drar ur de 28, version 2 ur alla ej pensionerade', () => {
     const nya = new Set([...GRUND_3C, ...AVANCERAD_3C, ...EXPERT_3C].map((q) => q.id))
+    const pensionerade = new Set(ALLA_MATRISFRAGOR.filter((q) => q.pensionerad).map((q) => q.id))
+    let nyaIVersion2 = 0
     for (let i = 0; i < 50; i++) {
       const id = `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`
+      // Version 1 (meta utan bank_version): som före våg 3c.
+      const v1 = genomgangsFragor('matrislogik-grund', id, true)
+      expect(v1.map((q) => q.id)).toEqual(selectQuestionsForSession(id).map((q) => q.id))
       for (const q of [
         ...selectQuestionsForSession(id),
         ...selectAvanceradQuestionsForSession(id),
         ...selectExpertQuestionsForSession(id),
         ...selectProvQuestionsForSession(id),
       ]) expect(nya.has(q.id)).toBe(false)
+      // Version 2: ur ALLA_<nivå>, aldrig en pensionerad fråga.
+      const v2 = [
+        ...selectQuestionsForSession(id, undefined, 2),
+        ...selectAvanceradQuestionsForSession(id, undefined, 2),
+        ...selectExpertQuestionsForSession(id, undefined, 2),
+        ...selectProvQuestionsForSession(id, 2),
+        ...questionsForToken(id, 2),
+      ]
+      for (const q of v2) expect(pensionerade.has(q.id), q.id).toBe(false)
+      nyaIVersion2 += v2.filter((q) => nya.has(q.id)).length
     }
+    expect(nyaIVersion2).toBeGreaterThan(0)
+  })
+
+  it('bankversionen läses ur meta, och test- och resultatsida drar samma urval', () => {
+    expect(bankVersion(undefined)).toBe(1)
+    expect(bankVersion({ alternativ_blandade: true })).toBe(1)
+    expect(bankVersion({ alternativ_blandade: true, bank_version: 2 })).toBe(2)
+    const id = '22222222-3333-4444-8555-666666666666'
+    const meta = { alternativ_blandade: true, bank_version: 2 }
+    const pagaende = matrisInnehall({ id, test_type: 'matrislogik-avancerad', meta, completed_at: null })
+    const klar = matrisInnehall({ id, test_type: 'matrislogik-avancerad', meta, completed_at: '2026-10-11T08:00:00Z' })
+    expect(klar.genomgang!.map((q) => q.id)).toEqual(pagaende.fragor.map((q) => q.id))
+    expect(pagaende.fragor.map((q) => q.id)).toEqual(selectAvanceradQuestionsForSession(id, undefined, 2).map((q) => q.id))
+  })
+
+  it('valbara per nivå efter pensioneringen: 89, 80 och 83', () => {
+    expect([VALBARA_GRUND.length, VALBARA_AVANCERAD.length, VALBARA_EXPERT.length]).toEqual([89, 80, 83])
   })
 
   it('nya frågor rättas i sin nivås rutt', () => {

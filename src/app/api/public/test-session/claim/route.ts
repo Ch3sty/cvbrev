@@ -21,6 +21,8 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { arProvToken, hamtaEllerGorAnsprakProv, provGenomgang, provResultatHref } from '@/lib/tests/prov-rad'
 import { logActivityServer } from '@/lib/activation-tracking'
+import { arBlandad } from '@/lib/logicTestV7/blanda'
+import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 
 export async function POST(request: Request) {
   let token: unknown
@@ -54,7 +56,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Provet finns inte längre eller har gått ut.' }, { status: 404 })
   }
 
-  const { ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [])
+  const { ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
 
   // Aktiviteten loggas bara vid första hämtningen, så att en omladdning
   // inte ger dubbletter i historiken.

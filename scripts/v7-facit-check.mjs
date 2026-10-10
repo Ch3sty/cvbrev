@@ -14,11 +14,14 @@
 //      värde exakt en gång, och ingen distraktor fullbordar kvadraten.
 //   4. family och misstag i banken är desamma som generatorns logik ger
 //      (misstag som står i misstagGranskas räknas inte).
-// Över alla banker: unika id och inget rutnät två gånger.
+// Över alla banker: unika id och inget rutnät två gånger bland ej
+// pensionerade frågor (fel, spec-rummen 15.3).
 //
 // 3c-bankerna körs dessutom genom den strikta kvalitetskontrollen
 // (scripts/lib/matris/kontroll.mjs). För de 84 ursprungliga skrivs den som
-// upplysning, eftersom de är frysta och redan granskade.
+// upplysning, eftersom de är frysta och redan granskade, utom två former i
+// samma fack (15.4) och tankstreck (15.5), som är fel. Pensionerade frågor
+// (pensionerad: true) facitkontrolleras men räknas inte som upplysningar.
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
@@ -41,6 +44,7 @@ const info = [];
 const ids = new Map();
 const rutnat = new Map();
 let antal = 0;
+let antalPensionerade = 0;
 
 for (const fil of filer) {
   const bank = JSON.parse(readFileSync(fil, 'utf8'));
@@ -50,9 +54,18 @@ for (const fil of filer) {
     const tag = `[${q.id}]`;
     if (ids.has(q.id)) fel.push(`${tag} id finns också i ${ids.get(q.id)}`);
     ids.set(q.id, fil);
+    // Pensionerade frågor (spec-rummen 15) ligger kvar för gamla sessioner.
+    // Facit kontrolleras som för alla, men de räknas inte i rutnätsjämförelsen
+    // och ger inga upplysningar.
+    const pensionerad = q.pensionerad === true;
+    if (pensionerad) antalPensionerade++;
     const g = stable(q.grid);
-    if (rutnat.has(g)) (ny ? fel : info).push(`${tag} samma rutnät som ${rutnat.get(g)}`);
-    else rutnat.set(g, q.id);
+    if (!pensionerad) {
+      // Samma rutnät två gånger bland ej pensionerade frågor, över alla sex
+      // banker, är ett fel (15.3): då skiljer sig nivåerna inte åt.
+      if (rutnat.has(g)) fel.push(`${tag} samma rutnät som ${rutnat.get(g)}`);
+      else rutnat.set(g, q.id);
+    }
 
     const t = tolka(q);
     if (!t.ok) { fel.push(`${tag} ingen regel för ${(t.saknar ?? [t.orsak]).join(', ')}`); continue; }
@@ -89,12 +102,19 @@ for (const fil of filer) {
     });
 
     const k = kontrollera(q, { strikt: true, familj: q.family });
+    if (pensionerad) continue;
     if (ny) fel.push(...k.map((x) => `[strikt] ${x}`));
-    else info.push(...k.filter((x) => !/saknar misstagstext/.test(x)).map((x) => `[strikt, fryst] ${x}`));
+    else {
+      // Två former i samma fack (15.4) och tankstreck (15.5) är fel även för
+      // de frysta frågorna; resten står som upplysning.
+      const hart = (x) => /två former i samma fack|tankstreck/.test(x);
+      fel.push(...k.filter(hart).map((x) => `[strikt, fryst] ${x}`));
+      info.push(...k.filter((x) => !hart(x) && !/saknar misstagstext/.test(x)).map((x) => `[strikt, fryst] ${x}`));
+    }
   }
 }
 
-console.log(`\nFacit- och latin-square-kontroll: ${antal} frågor i ${filer.length} banker\n`);
+console.log(`\nFacit- och latin-square-kontroll: ${antal} frågor i ${filer.length} banker (${antalPensionerade} pensionerade, ${antal - antalPensionerade} valbara)\n`);
 if (info.length) {
   console.log(`Upplysning om de frysta bankerna (${info.length}), räknas inte som fel:`);
   info.forEach((x) => console.log('  · ' + x));

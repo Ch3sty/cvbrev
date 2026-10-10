@@ -30,6 +30,7 @@
   },
   {
     "id": "v7g-q2-ring-count-fill",
+    "pensionerad": true,
     "title": "Antal ringar per kolumn, innersta färg per rad",
     "rule": "Antalet ringar inuti varandra ökar med en för varje kolumn (en, två, tre). Raden bestämmer färgen på den innersta ringen: rad 1 svart, rad 2 grå, rad 3 ofylld. De yttre ringarna är alltid ofyllda.",
     "difficulty": 2,

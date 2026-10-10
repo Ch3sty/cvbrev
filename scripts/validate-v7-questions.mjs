@@ -43,11 +43,37 @@ const symNorm = (cell) => {
 const errors = [];
 const seen = new Set();
 
+// Pensionerade frågor (spec-rummen avsnitt 15) ligger kvar i filen för gamla
+// sessioner men väljs aldrig till något nytt. De hoppas över i kontrollerna
+// av dubbletter, tankstreck och parallellitet; struktur och facit gäller dem
+// fortfarande.
+const TANKSTRECK = /[—–]/;
+const pensionerade = bank.filter((q) => q.pensionerad === true).length;
+
 for (const q of bank) {
   const tag = `[${q.id}]`;
+  const aktiv = q.pensionerad !== true;
+  if (q.pensionerad !== undefined && q.pensionerad !== true) errors.push(`${tag} pensionerad ska vara true eller saknas`);
   if (!q.id) errors.push(`${tag} saknar id`);
   else if (seen.has(q.id)) errors.push(`${tag} duplicerat id`);
   else seen.add(q.id);
+
+  // Tankstreck i titel och regel är ett fel för alla ej pensionerade frågor
+  // (spec-rummen 15.5). Misstag kontrolleras nedan.
+  if (aktiv && TANKSTRECK.test(`${q.title ?? ''}${q.rule ?? ''}`)) errors.push(`${tag} tankstreck i titel eller regel`);
+
+  // Orbital (spec-rummen 15.8): pricken bara på de åtta kompasspunkterna
+  // (index 0 till 7, aldrig 30 grader), ramen alltid den streckade cirkeln
+  // med fylld eller ofylld mittpunkt. Inga andra fält.
+  for (const cell of [...(q.grid ?? []).flat().filter(Boolean), ...(q.options ?? [])]) {
+    for (const p of Array.isArray(cell) ? cell : [cell]) {
+      if (p?.kind !== 'orbital') continue;
+      const okLage = p.satellite === null || (Number.isInteger(p.satellite) && p.satellite >= 0 && p.satellite <= 7);
+      const okRam = p.center === 'filled' || p.center === 'open';
+      const okFalt = Object.keys(p).every((k) => ['kind', 'center', 'satellite'].includes(k));
+      if (!okLage || !okRam || !okFalt) errors.push(`${tag} orbital utanför regeln (åtta kompasspunkter, streckad ram, fylld eller ofylld mitt)`);
+    }
+  }
 
   // grid 3x3, exakt en null sist
   if (!Array.isArray(q.grid) || q.grid.length !== 3 || q.grid.some((r) => r.length !== 3)) {
@@ -77,7 +103,7 @@ for (const q of bank) {
   } else {
     const keys = q.options.map(norm);
     const dupes = keys.filter((k, i) => keys.indexOf(k) !== i);
-    if (dupes.length) errors.push(`${tag} identiska svarsalternativ`);
+    if (dupes.length && aktiv) errors.push(`${tag} identiska svarsalternativ`);
     if (typeof q.correctAnswer !== 'number' || q.correctAnswer < 0 || q.correctAnswer > 5) {
       errors.push(`${tag} correctAnswer ogiltigt`);
     } else {
@@ -107,7 +133,7 @@ for (const q of bank) {
       else if (i === q.correctAnswer && m !== '') errors.push(`${tag} misstag för rätt svar ska vara tomt`);
       else if (i !== q.correctAnswer && m === '' && !granskas.has(i)) errors.push(`${tag} alternativ ${i + 1} saknar misstag och står inte i misstagGranskas`);
       else if (granskas.has(i) && m !== '') errors.push(`${tag} alternativ ${i + 1} står i misstagGranskas men har text`);
-      if (typeof m === 'string' && /[—–]/.test(m)) errors.push(`${tag} tankstreck i misstag ${i + 1}`);
+      if (aktiv && typeof m === 'string' && TANKSTRECK.test(m)) errors.push(`${tag} tankstreck i misstag ${i + 1}`);
     });
     if (granskas.has(q.correctAnswer)) errors.push(`${tag} rätt svar står i misstagGranskas`);
   }
@@ -133,7 +159,7 @@ for (const q of bank) {
   // symmetri-normaliserade nycklar. Rapportera bara kollisioner som INTE
   // redan fångats som exakta dubbletter ovan (norm-nycklarna skiljer sig,
   // men cellerna ser identiska ut efter normalisering).
-  if (Array.isArray(q.options) && q.options.length === 6) {
+  if (aktiv && Array.isArray(q.options) && q.options.length === 6) {
     const keys = q.options.map(norm);
     const skeys = q.options.map(symNorm);
     const symDupe = (a, b) => skeys[a] === skeys[b] && keys[a] !== keys[b];
@@ -207,7 +233,7 @@ for (const q of bank) {
   });
 }
 
-console.log(`\nV7-validering: ${bank.length} frågor i ${path}\n`);
+console.log(`\nV7-validering: ${bank.length} frågor i ${path}${pensionerade ? ` (${pensionerade} pensionerade, ${bank.length - pensionerade} valbara)` : ''}\n`);
 if (errors.length === 0) {
   console.log('✓ ALLA passerade. Struktur ok, inga dubbletter, inga triviala frågor.');
   process.exit(0);

@@ -1609,6 +1609,7 @@
   },
   {
     "id": "v7e-t2",
+    "pensionerad": true,
     "title": "L-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1692,6 +1693,7 @@
   },
   {
     "id": "v7e-t3",
+    "pensionerad": true,
     "title": "T-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1858,6 +1860,7 @@
   },
   {
     "id": "v7e-t5",
+    "pensionerad": true,
     "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2190,6 +2193,7 @@
   },
   {
     "id": "v7e-t9",
+    "pensionerad": true,
     "title": "Vinkeln roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2941,6 +2945,7 @@
   },
   {
     "id": "v7e-b3",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Cirkeln står stilla. Kvadraten flyttar ett steg åt höger i varje ruta och växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
@@ -3192,6 +3197,7 @@
   },
   {
     "id": "v7e-b4",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln rör sig spegelvänt: kvadraten åt höger, cirkeln åt vänster lika långt, båda på samma sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
@@ -3443,6 +3449,7 @@
   },
   {
     "id": "v7e-b5",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln står på samma plats och flyttar ett steg åt höger i varje ruta. De byter över- och underläge i varje ruta. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,

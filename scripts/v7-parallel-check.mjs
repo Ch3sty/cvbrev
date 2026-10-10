@@ -41,6 +41,8 @@ const issues = [];
 
 for (const q of bank) {
   if (typeof q.correctAnswer !== 'number') continue;
+  // Pensionerade frågor väljs aldrig till något nytt (spec-rummen 15).
+  if (q.pensionerad === true) continue;
   const g = q.grid.map((r) => r.slice());
   g[2][2] = q.options[q.correctAnswer]; // facit isatt
   const isSym = /spegl|schack|symmetr|180|motsatt|diagonal/i.test(q.rule);
@@ -71,7 +73,8 @@ for (const q of bank) {
   }
 }
 
-console.log(`\nParallellitetskontroll: ${bank.length} frågor i ${path}\n`);
+const pens = bank.filter((q) => q.pensionerad === true).length;
+console.log(`\nParallellitetskontroll: ${bank.length - pens} frågor i ${path}${pens ? ` (${pens} pensionerade överhoppade)` : ''}\n`);
 if (issues.length === 0) {
   console.log('✓ Inga parallella frågor. Reglerna kopplar rader och kolumner.');
   process.exit(0);

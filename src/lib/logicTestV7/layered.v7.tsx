@@ -38,6 +38,13 @@ export type LayeredQuestion = {
   misstag?: string[];
   /** Originalindex vars misstag ska skrivas av testansvarig. */
   misstagGranskas?: number[];
+  /**
+   * Pensionerad (spec-rummen avsnitt 15): ligger kvar i filen så att gamla
+   * sessioners urval och genomgång stämmer, men väljs aldrig till något nytt.
+   */
+  pensionerad?: boolean;
+  /** Frivillig andel rätt i [0,05, 0,95] när generatorn kan gradera (14.1 punkt 4). */
+  p_prior?: number;
 };
 
 /**

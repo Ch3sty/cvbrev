@@ -1,6 +1,7 @@
 [
   {
     "id": "v7-q4-vector-rotation",
+    "pensionerad": true,
     "title": "Vektorn vrider sig medurs",
     "rule": "Vektorn vrider sig 45° medurs per cell, läst rad för rad. Pilhuvudet är alltid fyllt och vektorn alltid lång.",
     "difficulty": 3,
@@ -266,8 +267,8 @@
   },
   {
     "id": "v7-q8-stack-latin",
-    "title": "Latin square — bas och symbol",
-    "rule": "Varje rad och varje kolumn ska innehålla exakt en cirkel-bas, en kvadrat-bas och en triangel-bas — och exakt en plus-symbol, en ring-symbol och en prick-symbol.",
+    "title": "Grundform och symbol i rad och kolumn",
+    "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som grundform, och exakt ett plus, en ring och en prick som symbol.",
     "difficulty": 3,
     "family": "latin-flera",
     "grid": [
@@ -517,6 +518,7 @@
   },
   {
     "id": "v7-q12-triple-stack",
+    "pensionerad": true,
     "title": "Tre attribut samtidigt",
     "rule": "Varje cell har tre attribut. Raden bestämmer basformen — rad 1 = cirkel, rad 2 = kvadrat, rad 3 = triangel. Kolumnen bestämmer fyllningen — kolumn 1 = ofylld, kolumn 2 = grå, kolumn 3 = svart. Symbolen är 'plus' på huvuddiagonalen (övre vänster till nedre höger), annars 'ring'.",
     "difficulty": 4,
@@ -796,6 +798,7 @@
   },
   {
     "id": "v7-a-ring-latin",
+    "pensionerad": true,
     "title": "Ringfyllning i rader och kolumner",
     "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
     "difficulty": 3,
@@ -934,6 +937,7 @@
   },
   {
     "id": "v7-a-tally-latin",
+    "pensionerad": true,
     "title": "Antal streck i rader och kolumner",
     "rule": "Strecken står alltid upprätt. Antalet följer en latin square: varje rad och kolumn har exakt en med två, en med tre och en med fyra streck.",
     "difficulty": 3,
@@ -1253,6 +1257,7 @@
   },
   {
     "id": "v7-a-stack-symbol",
+    "pensionerad": true,
     "title": "Symbolen i rader och kolumner",
     "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen följer en latin square: varje rad och kolumn har exakt en med plus, en med minus och en med prick.",
     "difficulty": 3,
@@ -1696,6 +1701,7 @@
   },
   {
     "id": "v7-a-vector-90",
+    "pensionerad": true,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1807,6 +1813,7 @@
   },
   {
     "id": "v7-a-vector-cw45",
+    "pensionerad": true,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2056,6 +2063,7 @@
   },
   {
     "id": "v7-a-poly-latin2",
+    "pensionerad": true,
     "title": "Antal sidor i rader och kolumner",
     "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 3,
@@ -2167,6 +2175,7 @@
   },
   {
     "id": "v7-a-poly-fill",
+    "pensionerad": true,
     "title": "Fyllning i rader och kolumner",
     "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart.",
     "difficulty": 3,
@@ -2749,6 +2758,7 @@
   },
   {
     "id": "v7-a-poly-latin3",
+    "pensionerad": true,
     "title": "Antal sidor i rader och kolumner",
     "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 3,

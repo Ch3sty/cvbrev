@@ -16,6 +16,7 @@ import {
   ALLA_AVANCERAD,
   ALLA_EXPERT,
   ALLA_GRUND,
+  arValbar,
 } from '@/lib/logicTestV7/selectQuestions.v7';
 import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 import { lasFamilj } from './familjer';
@@ -36,20 +37,33 @@ function medKalla(pool: readonly LayeredQuestion[], kalla: Bankkalla): TraningsF
   return pool.map((q) => ({ ...(q as TraningsFraga), kalla }));
 }
 
-/**
- * Alla matrisfrågor motorn får välja bland: de frusna 28 per nivå och våg
- * 3c:s frågor (ALLA_*). V5 ingår inte.
- */
-export const TRANINGSBANK: readonly TraningsFraga[] = [
+/** Hela matrisbanken med källa, pensionerade inräknade (för gamla sessioner). */
+const HELA_BANKEN: readonly TraningsFraga[] = [
   ...medKalla(ALLA_GRUND, 'grund'),
   ...medKalla(ALLA_AVANCERAD, 'avancerad'),
   ...medKalla(ALLA_EXPERT, 'expert'),
 ];
 
-const PER_ID = new Map(TRANINGSBANK.map((q) => [q.id, q]));
+/**
+ * Alla matrisfrågor motorn får välja bland: de frusna 28 per nivå och våg
+ * 3c:s frågor (ALLA_*), utan pensionerade (spec-rummen 15). V5 ingår inte.
+ */
+export const TRANINGSBANK: readonly TraningsFraga[] = HELA_BANKEN.filter(arValbar);
 
+const PER_ID = new Map(HELA_BANKEN.map((q) => [q.id, q]));
+const VALBARA_ID = new Set(TRANINGSBANK.map((q) => q.id));
+
+/**
+ * Frågan ur hela banken, pensionerade inräknade: en session som redan har
+ * frågan ska kunna visa och rätta den.
+ */
 export function hittaTraningsfraga(id: string): TraningsFraga | undefined {
   return PER_ID.get(id);
+}
+
+/** Finns frågan bland dem motorn får välja (TRANINGSBANK)? */
+export function arValbarTraningsfraga(id: string): boolean {
+  return VALBARA_ID.has(id);
 }
 
 export function familjFor(q: { family?: unknown }): string | null {

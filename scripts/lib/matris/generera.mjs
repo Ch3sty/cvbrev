@@ -42,7 +42,17 @@ const rays = (a) => ({ kind: 'ray', rays: sortNum(a.map((x) => mod(x, 8))) });
 const hjul = (a) => ({ kind: 'sectorwheel', filled: sortNum(a.map((x) => mod(x, 8))) });
 const tl = (p) => ({ kind: 'tile', pattern: p });
 const lat = (cells) => ({ kind: 'lattice', cells: [...cells] });
-const orb = (satellite, center = 'filled') => ({ kind: 'orbital', center, satellite });
+// Orbital (spec-rummen 15.8): pricken står bara på de åtta kompasspunkterna
+// (index 0 till 7, multipler av 45 grader, aldrig 30), och ramen är alltid
+// den streckade cirkeln med fylld eller ofylld mittpunkt. Prickar utan ram
+// är förbjudna.
+const orb = (satellite, center = 'filled') => {
+  if (!(satellite === null || (Number.isInteger(satellite) && satellite >= 0 && satellite <= 7))) {
+    throw new Error(`orbital: pricken måste stå på en av de åtta kompasspunkterna (fick ${satellite})`);
+  }
+  if (center !== 'filled' && center !== 'open') throw new Error(`orbital: mittpunkten måste vara fylld eller ofylld (fick ${center})`);
+  return { kind: 'orbital', center, satellite };
+};
 const poly = (sides, fill) => ({ kind: 'poly', sides, rotation: 0, fill });
 const stack = (base, symbol, baseFill = 'none') => ({ kind: 'stack', base, symbol, baseFill });
 const tally = (count, orientation = 'vertical') => ({ kind: 'tally', count, orientation });
@@ -615,6 +625,11 @@ export function bygg(recept, upptagna = new Set()) {
     const r = rng(`${recept.id}#${forsok}`);
     const b = BYGGARE[recept.byggare](r, recept.p);
     if (!b) continue;
+    // Två rörelser (balanslinjen): aldrig två former i samma fack, varken i
+    // rutnätet eller i facit (spec-rummen 15.4, regel 6). Distraktorerna
+    // filtreras nedan.
+    const fackKrock = (c) => c && c.kind === 'balanceline' && new Set(c.items.map((i) => `${i.posX}:${i.side}`)).size !== c.items.length;
+    if ([...b.grid.flat(), b.facit].some(fackKrock)) { fel.push(`försök ${forsok}: två former i samma fack`); continue; }
     const facitKey = key(b.facit);
     const sett = new Set([facitKey]);
     const kand = [];

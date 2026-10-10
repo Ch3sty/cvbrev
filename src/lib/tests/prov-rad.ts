@@ -15,6 +15,7 @@ import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 import { permutationForSession, tillVisat } from '@/lib/logicTestV7/blanda'
 import { genomgaFraga } from '@/lib/logicTestV7/visning'
 import { questionsForToken } from './anon-session'
+import type { BankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 
 export interface ProvRad {
   token: string
@@ -125,9 +126,11 @@ export interface ProvGenomgang {
 export function provGenomgang(
   token: string,
   answers: readonly number[],
-  blandade = false
+  blandade = false,
+  /** Radens meta.bank_version (bankVersion). Saknas den: de 28 frusna. */
+  version: BankVersion = 1
 ): ProvGenomgang {
-  const bank = questionsForToken(token)
+  const bank = questionsForToken(token, version)
   const svar: ProvSvar[] = []
   let ratt = 0
   bank.forEach((q, i) => {

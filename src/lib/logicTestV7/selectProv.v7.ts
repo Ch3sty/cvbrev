@@ -10,7 +10,7 @@
 // i fragor.server.ts (blanda.ts), inte här.
 // =============================================================================
 
-import { GRUND_POOL, AVANCERAD_POOL, EXPERT_POOL } from './selectQuestions.v7';
+import { poolFor, type BankVersion } from './selectQuestions.v7';
 import type { LayeredQuestion } from './layered.v7';
 import { hashString, mulberry32 } from './blanda';
 import { PROV_PER_LEVEL, PROV_TOTAL_QUESTIONS } from './konstanter';
@@ -30,15 +30,17 @@ function shuffle<T>(arr: T[], rng: () => number): T[] {
  * Drar PROV_PER_LEVEL frågor ur varje nivåpool och blandar ihop dem till ett
  * prov. Två oberoende seeds (urval resp. slutordning) härleds ur sessionId.
  */
-export function selectProvQuestionsForSession(sessionId: string): LayeredQuestion[] {
+export function selectProvQuestionsForSession(sessionId: string, version: BankVersion = 1): LayeredQuestion[] {
   const pickRng = mulberry32(hashString(sessionId));
   const pick = (pool: LayeredQuestion[]) =>
     shuffle(pool, pickRng).slice(0, Math.min(PROV_PER_LEVEL, pool.length));
 
+  // Version 1 (sessioner utan meta.bank_version): de 28 per nivå som förut.
+  // Version 2: alla valbara per nivå, pensionerade frågor aldrig.
   const selected = [
-    ...pick(GRUND_POOL),
-    ...pick(AVANCERAD_POOL),
-    ...pick(EXPERT_POOL),
+    ...pick(poolFor('grund', version)),
+    ...pick(poolFor('avancerad', version)),
+    ...pick(poolFor('expert', version)),
   ];
 
   // Blanda så nivåerna inte kommer i klump. Egen seed-variant för stabil ordning.

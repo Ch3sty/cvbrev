@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { arBlandad } from '@/lib/logicTestV7/blanda';
+import { bankVersion, medBankversion } from '@/lib/logicTestV7/fragor.server';
 
 // GET /api/logicTestV4/percentile?sessionId=<uuid>
 // Svarar med hur stor andel av alla slutförda sessioner (samma test_type)
@@ -13,7 +14,8 @@ import { arBlandad } from '@/lib/logicTestV7/blanda';
 // Bara sessioner med meta.alternativ_blandade jämförs, i täljare och nämnare.
 // Poäng från före blandningen av svarsalternativen är ett tak, inte ett mått
 // (docs/design/spec-rummen-2026-10-10.md 12.4). Filtret går på flaggan, inte
-// på tid. En oblandad session får ingen percentil alls.
+// på tid. En oblandad session får ingen percentil alls. Jämförelsen görs
+// dessutom per bankversion (meta.bank_version, spec-rummen 15).
 export async function GET(request: Request) {
   try {
     const sessionId = new URL(request.url).searchParams.get('sessionId');
@@ -47,20 +49,28 @@ export async function GET(request: Request) {
 
     const admin = getSupabaseAdmin();
     const testType = session.test_type ?? 'matrislogik';
+    // Per bankversion (spec-rummen 15): version 2 jämförs bara med version 2.
+    const version = bankVersion(session.meta);
 
     const [{ count: total }, { count: below }] = await Promise.all([
-      admin
-        .from('logic_test_v4_sessions')
-        .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
-        .eq('meta->>alternativ_blandade', 'true')
+      medBankversion(
+        admin
+          .from('logic_test_v4_sessions')
+          .select('id', { count: 'exact', head: true })
+          .eq('test_type', testType)
+          .eq('meta->>alternativ_blandade', 'true'),
+        version
+      )
         .not('completed_at', 'is', null)
         .not('score', 'is', null),
-      admin
-        .from('logic_test_v4_sessions')
-        .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
-        .eq('meta->>alternativ_blandade', 'true')
+      medBankversion(
+        admin
+          .from('logic_test_v4_sessions')
+          .select('id', { count: 'exact', head: true })
+          .eq('test_type', testType)
+          .eq('meta->>alternativ_blandade', 'true'),
+        version
+      )
         .not('completed_at', 'is', null)
         .lt('score', session.score),
     ]);
