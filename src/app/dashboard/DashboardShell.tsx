@@ -84,7 +84,12 @@ export default function DashboardShell({
   // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
   // topprad och fot. E-postbannern hoppas över direkt, pathname är känd
   // redan vid första render, så det finns ingen bild där bannern syns.
-  const isFlowRoute = FLOW_ROUTES.some((r) => pathname?.startsWith(r));
+  // Testpassen (/tester/<test>/test/<id>) är också ett läge: TestFlowShell
+  // täcker skärmen. Bannern under den syntes aldrig men målades ändå och blev
+  // vyns LCP-element när profilen landat (perf-inloggat, tester prov).
+  const isFlowRoute =
+    FLOW_ROUTES.some((r) => pathname?.startsWith(r)) ||
+    /^\/dashboard\/tester\/[^/]+\/test\/[^/]+\/?$/.test(pathname ?? '');
 
   // Sidbytets intoning hör till sidbyten, inte till första laddningen
   // (LCP registreras inte på ett osynligt element).
