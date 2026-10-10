@@ -12,7 +12,7 @@
  * Resultatet är fortfarande testets eget: rubriken bär testets namn och nivå,
  * och nästa nivå kommer ur testConfig.
  *
- * Sidmallen (docs/design/designsystem-v2-utkast.md): PageHeader med vyns enda
+ * Sidmallen (Rummen våg 1b): väggen (RumHuvud) med vyns enda
  * primärknapp, poängpanelen med stora tal i text-tal, percentilen som panel
  * med en 2 px mätare, bryggan som panel, nästa nivå som rad, genomgången i
  * paneler och sist en sekundär kant-knapp.

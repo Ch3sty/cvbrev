@@ -186,7 +186,7 @@ export default function MessageBubble({
 
           {content && (
             <div className="rounded-xl bg-ink-1 px-4 py-3">
-              <p className="whitespace-pre-wrap break-words text-sm leading-[22px] text-white">
+              <p className="whitespace-pre-wrap break-words text-sm leading-[22px] text-papper">
                 {content}
               </p>
             </div>

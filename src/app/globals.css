@@ -294,14 +294,19 @@
   }
 }
 
-/* Övergång i mörkt läge, våg 1a till 4. Trådens bläckytor och knappar
-   (bg-ink-1 med vit text: InkPanel, primärknappar, pakethuvudet) blir annars
-   ljusa med vit text när ink-1 vänds i mörkt läge, och vyns viktigaste
-   handling försvinner. Aliasen ink-1-mjuk, ink-1-kant och ink-1-accent
-   pekar redan på väggens toner, så ytan får väggens färg: samma roll som
-   väggen i konceptet. Punkter, staplar och val i bg-ink-1 utan vit text
-   vänds som de ska. Tas bort när knapparna blivit KNAPP_PRIMAR och InkPanel
-   blivit LyftKort (våg 1b och 4). */
+/* Övergång i mörkt läge, våg 1a till 4. Trådens bläckytor med vit text
+   blir annars ljusa med vit text när ink-1 vänds i mörkt läge. Ytan får
+   väggens färg, dit aliasen ink-1-mjuk, ink-1-kant och ink-1-accent redan
+   pekar.
+
+   Våg 1b har tagit bort allt regeln täckte i det 1b restylar: knapparna är
+   KNAPP_PRIMAR och KNAPP_SEKUNDAR, InkPanel är LyftKort i rummen,
+   pakethuvudet är borta med Sidomeny, och valda lägen och bockar står i
+   text-papper som vänds med läget. Kvar under regeln är bara delade
+   komponenter som också visas på publika sidor och därför inte bytte i
+   1b: PaketKort och SparKort (prenumerationen och spårvalet) och
+   intervjuprovets artikelkomponent. Regeln och de sista ytorna tas bort i
+   våg 4 och 5. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):has([data-rum]) .bg-ink-1.text-white {
     background-color: var(--vagg);

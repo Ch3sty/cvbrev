@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
@@ -190,7 +191,7 @@ export default function ChatInput({
             type="button"
             onClick={handleSubmit}
             disabled={!canSend}
-            className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+            className={`${KNAPP_PRIMAR_SMAL} shrink-0`}
           >
             Skicka
           </button>
