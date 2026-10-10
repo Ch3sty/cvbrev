@@ -53,3 +53,6 @@ supabase/.temp/
 
 # Lokal Claude-inställning (innehåller dev-overrides som NODE_TLS_REJECT_UNAUTHORIZED)
 .claude/settings.json
+
+# QA-konton som skripten skapar och raderar själva
+scripts/.qa-*-konton.json

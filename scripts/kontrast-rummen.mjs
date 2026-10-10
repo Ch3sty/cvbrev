@@ -73,6 +73,14 @@ function upplost(rum, lage) {
   return t
 }
 
+/** Tokenns värde, med var(--x) upplöst (--fokus pekar på --koppar-ink). */
+function varde(t, namn, djup = 0) {
+  const v = t[namn] ?? ''
+  const m = v.match(/^var\(--([a-z0-9-]+)\)$/i)
+  if (m && djup < 5) return varde(t, m[1], djup + 1)
+  return v
+}
+
 // ------------------------------------------------------------- WCAG
 function rgb(hex) {
   const h = hex.replace('#', '')
@@ -123,8 +131,15 @@ const PAR = [
   { fg: 'varning', bg: 'varning-mjuk', typ: 'text', roll: 'Varningsrad' },
   { fg: 'fel', bg: 'papper', typ: 'text', roll: 'Feltext' },
   { fg: 'fel', bg: 'fel-mjuk', typ: 'text', roll: 'Felrad' },
-  { fg: 'koppar', bg: 'papper', typ: 'grafik', roll: 'Fokusring, kopparlinje på kort' },
-  { fg: 'koppar', bg: 'golv', typ: 'fraga', roll: 'Fokusring på golvet. Under 3 i ljust läge, öppen fråga till art-director' },
+  { fg: 'koppar', bg: 'papper', typ: 'grafik', roll: 'Kopparlinje på kort och i sidomenyn' },
+  { fg: 'koppar', bg: 'golv', typ: 'aldrig-text', roll: 'Ren koppar mot golvet: därför är fokusringen koppar-ink (13.2)' },
+  // Fokusringen (spec 13.2, våg 1b): --fokus är koppar-ink på golv, papper
+  // och ton, och koppar-ljus på väggen (.vagg skriver över variabeln).
+  { fg: 'fokus', bg: 'golv', typ: 'grafik', roll: 'Fokusringen på golvet' },
+  { fg: 'fokus', bg: 'papper', typ: 'grafik', roll: 'Fokusringen på kort' },
+  { fg: 'fokus', bg: 'ton', typ: 'grafik', roll: 'Fokusringen på ton (aktiv rad, chip)' },
+  { fg: 'koppar-ljus', bg: 'vagg', typ: 'grafik', roll: 'Fokusringen på väggen' },
+  { fg: 'koppar-ljus', bg: 'vagg-2', typ: 'grafik', roll: 'Fokusringen på väggens ljusa del' },
   { fg: 'papper', bg: 'golv', typ: 'ton', roll: 'Tonsteg papper mot golv' },
 ]
 
@@ -137,8 +152,8 @@ function rakna(lage) {
     const v = {}
     for (const r of RUM) {
       const t = upplost(r, lage)
-      const a = rgb(t[p.fg] ?? '')
-      const b = rgb(t[p.bg] ?? '')
+      const a = rgb(varde(t, p.fg))
+      const b = rgb(varde(t, p.bg))
       if (!a || !b) {
         v[r] = null
         continue

@@ -149,8 +149,13 @@ efter varje tokenändring; `--skriv` skriver om tabellerna nedan.
 | `varning` på `varning-mjuk` | 4,6 | 4,6 | 4,6 | 4,6 | 4,6 | AA, minst 4,5 | Varningsrad |
 | `fel` på `papper` | 6,0 | 6,0 | 6,0 | 6,0 | 6,0 | AA, minst 4,5 | Feltext |
 | `fel` på `fel-mjuk` | 4,8 | 4,8 | 4,8 | 4,8 | 4,8 | AA, minst 4,5 | Felrad |
-| `koppar` på `papper` | 3,0 | 3,0 | 3,0 | 3,0 | 3,0 | grafik, minst 3 | Fokusring, kopparlinje på kort |
-| `koppar` på `golv` | 2,6 | 2,6 | 2,5 | 2,5 | 2,5 | grafik, minst 3 (öppen) | Fokusring på golvet. Under 3 i ljust läge, öppen fråga till art-director |
+| `koppar` på `papper` | 3,0 | 3,0 | 3,0 | 3,0 | 3,0 | grafik, minst 3 | Kopparlinje på kort och i sidomenyn |
+| `koppar` på `golv` | 2,6 | 2,6 | 2,5 | 2,5 | 2,5 | aldrig text | Ren koppar mot golvet: därför är fokusringen koppar-ink (13.2) |
+| `fokus` på `golv` | 4,9 | 4,9 | 4,9 | 4,9 | 4,9 | grafik, minst 3 | Fokusringen på golvet |
+| `fokus` på `papper` | 5,8 | 5,8 | 5,8 | 5,8 | 5,8 | grafik, minst 3 | Fokusringen på kort |
+| `fokus` på `ton` | 4,5 | 4,7 | 4,4 | 4,7 | 4,4 | grafik, minst 3 | Fokusringen på ton (aktiv rad, chip) |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | grafik, minst 3 | Fokusringen på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | grafik, minst 3 | Fokusringen på väggens ljusa del |
 | `papper` på `golv` | 1,2 | 1,2 | 1,2 | 1,2 | 1,2 | tonsteg | Tonsteg papper mot golv |
 | `vit` på `rum` | 8,4 | 7,3 | 9,8 | 7,9 | 10,9 | grafik, minst 3 | Aktiv dörr i sidomenyn (ikon) |
 
@@ -187,8 +192,13 @@ Väggen byter aldrig, så väggparen är desamma som i ljust läge.
 | `varning` på `varning-mjuk` | 6,5 | 6,5 | 6,5 | 6,5 | 6,5 | AA, minst 4,5 | Varningsrad |
 | `fel` på `papper` | 6,2 | 6,1 | 6,4 | 6,2 | 6,2 | AA, minst 4,5 | Feltext |
 | `fel` på `fel-mjuk` | 5,4 | 5,4 | 5,4 | 5,4 | 5,4 | AA, minst 4,5 | Felrad |
-| `koppar` på `papper` | 5,7 | 5,6 | 5,9 | 5,7 | 5,7 | grafik, minst 3 | Fokusring, kopparlinje på kort |
-| `koppar` på `golv` | 6,2 | 6,2 | 6,4 | 6,2 | 6,2 | grafik, minst 3 (öppen) | Fokusring på golvet. Under 3 i ljust läge, öppen fråga till art-director |
+| `koppar` på `papper` | 5,7 | 5,6 | 5,9 | 5,7 | 5,7 | grafik, minst 3 | Kopparlinje på kort och i sidomenyn |
+| `koppar` på `golv` | 6,2 | 6,2 | 6,4 | 6,2 | 6,2 | aldrig text | Ren koppar mot golvet: därför är fokusringen koppar-ink (13.2) |
+| `fokus` på `golv` | 9,1 | 9,0 | 9,4 | 9,1 | 9,0 | grafik, minst 3 | Fokusringen på golvet |
+| `fokus` på `papper` | 8,3 | 8,1 | 8,6 | 8,3 | 8,3 | grafik, minst 3 | Fokusringen på kort |
+| `fokus` på `ton` | 6,6 | 6,0 | 7,0 | 6,1 | 6,9 | grafik, minst 3 | Fokusringen på ton (aktiv rad, chip) |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | grafik, minst 3 | Fokusringen på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | grafik, minst 3 | Fokusringen på väggens ljusa del |
 | `papper` på `golv` | 1,1 | 1,1 | 1,1 | 1,1 | 1,1 | tonsteg | Tonsteg papper mot golv |
 
 ### Adminens spårfärger (Tråden, panel `#FFFFFF`)
@@ -257,7 +267,7 @@ En linje genom alla rum. Den betyder **här är du** och **det här rör sig**.
 | Kurvan och nivåskalan | linje 2,25 px, punkter med `stroke: vagg`, yta `#g-yta` 0,38 → 0 |
 | Aktiv undersida i sidomenyn | `shadow-[inset_3px_0_0_var(--koppar)]` |
 | Märken | exakt en kopparyta per symbol |
-| Fokusring | `outline: 2px solid var(--koppar); outline-offset: 2px` på `:focus-visible` |
+| Fokusring | `outline: 2px solid var(--fokus); outline-offset: 2px` på `:focus-visible`; `--fokus` är koppar-ink på golv, papper och ton och koppar-ljus på väggen (13.2) |
 | Text | koppar-ljus på väggen, koppar-ink på papper och golv, aldrig ren koppar |
 
 Val markeras med `border-ink-1` och en bock, inte med koppar.
@@ -378,7 +388,7 @@ rum, ingen skalning på kort, ingen konfetti.
 - Kontrast AA enligt tabellen i avsnitt 2: inget textpar under 4,5:1.
 - Träffytor 44 px, 48 px i navigation.
 - Minsta text 12 px; 11 px bara i SVG-axlar med `aria-label` som läser ut talen.
-- Fokusring i koppar, 2 px med 2 px offset, aldrig borttagen.
+- Fokusring 2 px med 2 px offset, aldrig borttagen: koppar-ink på golv, papper och ton, koppar-ljus på väggen (`--fokus`, raderna i avsnitt 2).
 - `prefers-reduced-motion` ger sluttillstånd direkt.
 - Exakt ett `h1` per vy, på väggen.
 - Laddning `role="status" aria-busy aria-live="polite"`, framsteg
@@ -546,6 +556,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-10 (våg 1b).** Skalet byggt: `data-rum` per route (`rumForPath`), vägg, golv och topprad, dörrnavet med fyra rum, sidomenyn med undersidor per rum, profilen i toppraden och Skapa borttagen. `KNAPP_PRIMAR` i koppar, `LyftKort`, `Kort`, `Rader`, `Chip`, `Dagsrad`, `Dagsring`, `Veckorad`, `RumSymboler`. FlowShell, ark och betalväggar i rummens material. Utseende-väljaren på profilen, `theme-color` i väggens kulör, `--fokus` med egna kontrastrader, `.dokument` håller brev ljusa i mörkt läge. Grå Tailwind-klasser borta ur inloggat.
 
 **v3, Rummen, 2026-10-10 (våg 1a).** Spec `docs/design/spec-rummen-2026-10-10.md`,
 godkänd av testansvarig. Vad som ändrades:
