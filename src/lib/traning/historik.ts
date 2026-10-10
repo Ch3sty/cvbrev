@@ -48,7 +48,7 @@ export interface TraningsMeta {
   malniva: number | null;
   ateranvanda: number;
   /**
-   * Frågor hon sett inom 14 dagar före sessionens dag. Räknas i "rätt av
+   * Frågor hon sett inom ATERANVAND_EFTER_DAGAR (30 med BANK_RACKER_30_DAGAR) före sessionens dag. Räknas i "rätt av
    * antal" och visas i genomgången, men inte mot nivån, tempot, familjerna
    * eller frågestatistiken (spec-rummen 14.1 punkt 3). Saknas i sessioner
    * skapade före ändringen: tolkas som tom.

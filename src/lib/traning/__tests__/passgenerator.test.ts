@@ -15,7 +15,8 @@ import {
 import { bankInfo } from '../bank.server'
 import { bandForP, pForNiva, NARA_NIVAN_P } from '../svarighet'
 import { laggTill } from '../datum'
-import { ATERANVAND_EFTER_DAGAR, BANK_RACKER_30_DAGAR } from '../flaggor'
+import { ATERANVAND_EFTER_DAGAR, BANK_RACKER_30_DAGAR, BANK_RACKER_MINST_PER_NIVA } from '../flaggor'
+import { VALBARA_AVANCERAD, VALBARA_EXPERT, VALBARA_GRUND } from '@/lib/logicTestV7/selectQuestions.v7'
 import { chansRatt, passUppdatering } from '../niva'
 import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda'
 
@@ -76,14 +77,17 @@ describe('sammansättningen', () => {
 })
 
 describe('återanvändningen', () => {
-  it('flaggan: banken räcker inte i dag, fönstret är 14 dagar', () => {
-    expect(BANK_RACKER_30_DAGAR).toBe(false)
-    expect(ATERANVAND_EFTER_DAGAR).toBe(14)
+  it('14.6: flaggan sätts när varje nivå har minst 80 ej pensionerade, fönstret blir 30 dagar', () => {
+    const minst = Math.min(VALBARA_GRUND.length, VALBARA_AVANCERAD.length, VALBARA_EXPERT.length)
+    expect(BANK_RACKER_30_DAGAR).toBe(minst >= BANK_RACKER_MINST_PER_NIVA)
+    expect(BANK_RACKER_30_DAGAR).toBe(true)
+    expect(ATERANVAND_EFTER_DAGAR).toBe(30)
   })
 
-  it('friskhet: aldrig sedd, efter 14 dagar, inte förra veckan, minst två dagar, aldrig i går eller i dag', () => {
+  it('friskhet: aldrig sedd, efter fönstret, inte förra veckan, minst två dagar, aldrig i går eller i dag', () => {
     expect(friskhet(undefined, IDAG)).toBe(0)
-    expect(friskhet(laggTill(IDAG, -14), IDAG)).toBe(1)
+    expect(friskhet(laggTill(IDAG, -ATERANVAND_EFTER_DAGAR), IDAG)).toBe(1)
+    expect(friskhet(laggTill(IDAG, -14), IDAG)).toBe(2)
     expect(friskhet(laggTill(IDAG, -8), IDAG)).toBe(2)
     expect(friskhet(laggTill(IDAG, -7), IDAG)).toBe(3)
     expect(friskhet(laggTill(IDAG, -2), IDAG)).toBe(3)
@@ -103,7 +107,7 @@ describe('återanvändningen', () => {
   it('när banken tar slut återanvänds frågor äldst först, och urvalet säger hur många', () => {
     const bank = synt(12)
     const sedda: Sedd[] = [
-      ...bank.slice(0, 6).map((q) => ({ id: q.id, dag: laggTill(IDAG, -20) })),
+      ...bank.slice(0, 6).map((q) => ({ id: q.id, dag: laggTill(IDAG, -(ATERANVAND_EFTER_DAGAR + 5)) })),
       ...bank.slice(6, 12).map((q) => ({ id: q.id, dag: laggTill(IDAG, -3) })),
     ]
     const u = valjPass({ bank, niva: 5, sedda, idag: IDAG, seed: 's5' })
@@ -111,7 +115,7 @@ describe('återanvändningen', () => {
     expect(u.ateranvanda).toBe(9)
     // Alla sex som är äldst kom med.
     for (const q of bank.slice(0, 6)) expect(u.fragor).toContain(q.id)
-    // Upprepade är bara de som sågs inom 14 dagar (friskhet 2 och 3), inte de för 20 dagar sedan.
+    // Upprepade är bara de som sågs inom återanvändningsfönstret (friskhet 2 och 3), inte de äldre.
     const nyligen = new Set(bank.slice(6, 12).map((q) => q.id))
     expect(u.upprepade).toHaveLength(3)
     expect(u.upprepade.every((id) => nyligen.has(id))).toBe(true)

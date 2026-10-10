@@ -11,7 +11,7 @@
 // - aldrig samma fråga två gånger i samma session;
 // - aldrig en fråga som visats i dag eller i går ("två dagar i rad");
 // - helst en fråga hon aldrig sett, sedan en som inte visats på
-//   ATERANVAND_EFTER_DAGAR dagar (14 med dagens bank, 30 när
+//   ATERANVAND_EFTER_DAGAR dagar (30 sedan BANK_RACKER_30_DAGAR sattes, 14 utan
 //   BANK_RACKER_30_DAGAR), sedan en som inte visats förra veckan (8 dagar),
 //   sist en som visats för minst två dagar sedan. Varje steg används bara när
 //   det förra inte räcker, och urvalet säger hur många som återanvändes.

@@ -782,7 +782,7 @@ export async function slutforTraning(args: {
   const blandad = arBlandad(rad.meta);
   const perId = new Map(lage.bank.map((q) => [q.id, q]));
 
-  // Frågor hon sett inom 14 dagar före sessionens dag räknas inte mot nivån,
+  // Frågor hon sett inom ATERANVAND_EFTER_DAGAR (30) före sessionens dag räknas inte mot nivån,
   // tempot, familjerna eller frågestatistiken (14.1 punkt 3). De räknas i
   // "rätt av antal" och visas i genomgången.
   const upprepade = new Set(meta.upprepade ?? []);

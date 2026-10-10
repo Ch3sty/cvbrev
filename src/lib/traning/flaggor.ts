@@ -3,17 +3,18 @@
 // 6 våg 3c och 10.4). Ändra ett värde, inget annat.
 
 /**
- * Sätts när banken passerar 250 validerade matrisfrågor, alltså när trettio
- * dagars pass räcker utan att en fråga kommer tillbaka.
- *
- * false (i dag, 84 frågor): en fråga får komma tillbaka efter
- * ATERANVAND_EFTER_DAGAR dagar, aldrig två dagar i rad och aldrig i samma
- * pass. Tar banken slut ändå släpper urvalet på kravet stegvis (se
- * passgenerator.ts, FRISKHET).
+ * Sätts när varje nivå har minst 80 frågor som inte är pensionerade
+ * (spec-rummen 14.6). Efter våg 3c och pensioneringarna i avsnitt 15:
+ * grund 89, avancerad 80, expert 83, alltså sann.
  *
  * true: en fråga kommer tillbaka först efter 30 dagar.
+ * false: efter 14 dagar. I båda fallen aldrig två dagar i rad och aldrig i
+ * samma pass; tar banken slut ändå släpper urvalet på kravet stegvis (se
+ * passgenerator.ts, FRISKHET).
  */
-export const BANK_RACKER_30_DAGAR = false;
+export const BANK_RACKER_30_DAGAR = true;
+/** Minsta antal valbara frågor per nivå för BANK_RACKER_30_DAGAR. */
+export const BANK_RACKER_MINST_PER_NIVA = 80;
 
 /**
  * Sätts när frågestatistiken bär nivåer över 7,5. Till dess har nivån tak
