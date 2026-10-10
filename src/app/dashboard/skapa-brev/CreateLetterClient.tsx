@@ -28,6 +28,8 @@ import { useNotification } from '@/context/notificationcontext';
 import LetterFlowLayout from './components/LetterFlowLayout';
 import LetterFlowSummary from './components/LetterFlowSummary';
 import FlowShell from '@/components/shell/FlowShell';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import FlowError from '@/components/shell/FlowError';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -766,7 +768,12 @@ export default function CreateLetterClient({
   // i stället för flödet. Ett redan genererat brev visas fortfarande under
   // spärren så att det kan sparas/laddas ned.
   if (quotaLock) {
+    // Spärrvyn är en sida, inte ett flödessteg: den står i brevrummet med
+    // väggen och toppraden (Rummen våg 1b).
     return (
+      <>
+      <RumHuvud title="Skriv nytt brev" />
+      <Golv>
       <LetterFlowLayout>
         <PaywallCard
           variant="kvot"
@@ -800,6 +807,8 @@ export default function CreateLetterClient({
           />
         )}
       </LetterFlowLayout>
+      </Golv>
+      </>
     );
   }
 

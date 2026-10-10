@@ -9,6 +9,7 @@
  * sidbakgrund: marken kommer från skalet.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -22,7 +23,8 @@ import Link from 'next/link';
 import LetterCard from './components/LetterCard';
 import LetterCardCompact from './components/LetterCardCompact';
 import ViewToggle, { type ViewMode } from './components/ViewToggle';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomBrev } from '@/components/illustrations/EmptyStateIllustrations';
@@ -40,8 +42,8 @@ const Notification = dynamic(() => import('@/components/ui/notification'), {
 
 const VIEW_MODE_STORAGE_KEY = 'minabrev_view_mode';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover';
+// Väggens Skapa nytt brev är vyns kopparknapp; tomma lägen har sekundär.
+const PRIMARY = KNAPP_SEKUNDAR_SMAL;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
@@ -231,16 +233,18 @@ export default function MinaBrevClient({
     totalCount > effectiveMaxSavedLetters;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-4 pb-16">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Dina personliga brev"
         description="Läs, redigera och ladda ned de brev du har sparat."
         action={
-          <Link href="/dashboard/skapa-brev" className={PRIMARY}>
+          <Link href="/dashboard/skapa-brev" className={KNAPP_PRIMAR}>
             Skapa nytt brev
           </Link>
         }
       />
+    <Golv>
+    <div className="w-full max-w-5xl space-y-4">
 
       {/* Kvotraden: hur många brev som ryms på nivån. */}
       {totalCount > 0 && (
@@ -354,5 +358,7 @@ export default function MinaBrevClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }

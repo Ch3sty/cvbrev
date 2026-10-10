@@ -363,6 +363,21 @@
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
 }
+/* Dokumentet (brevet, mallförhandsvisningen) är vitt papper i båda lägena
+   (spec 13.1: mallförhandsvisningar ska vara vita). Inne i det står texten
+   alltid i ljusa lägets bläck, annars blir den ljus text på vitt i mörkt läge. */
+.dokument {
+  color-scheme: light;
+  color: #1A1A1F;
+  --ink-1: #1A1A1F;
+  --ink-2: #4A4A55;
+  --ink-3: #65656E;
+  --kant: #E3E1DC;
+  --kant-stark: #C9C6BF;
+  --papper: #FFFFFF;
+  --papper-2: #F4F3F0;
+}
+
 /* Väggen på dator: 40 px marginal och 32 px radie (konceptets .main .vagg). */
 @media (min-width: 1024px) {
   .vagg {

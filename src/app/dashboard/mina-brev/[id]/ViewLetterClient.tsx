@@ -11,12 +11,15 @@
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
@@ -25,8 +28,6 @@ import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
 const SECONDARY =
   'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
 const DESTRUKTIV =
@@ -165,28 +166,39 @@ export default function ViewLetterClient({
 
   /* Identiskt med loading.tsx, så bytet inte flyttar något. */
   if (!currentLetter && (!harForsokt || isLoading)) {
+    // Egen nyckel på golvet: när brevet landat byts golvet i stället för att
+    // flyttas, så väggens nya höjd inte räknas som ett layoutskifte.
     return (
-      <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-        <div className="h-8 w-48 rounded bg-insunken" />
-        <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
-        <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar brev" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+            <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+            <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
   if (error || (!isLoading && !currentLetter)) {
     return (
-      <div className="mx-auto max-w-lg">
-        <FlowError
-          title="Brevet kunde inte hittas"
-          message={error || 'Brevet finns inte eller har tagits bort.'}
-          secondaryAction={
-            <Link href="/dashboard/mina-brev" className={LINK}>
-              Tillbaka till mina brev
-            </Link>
-          }
-        />
-      </div>
+      <>
+        <RumHuvud title="Brevet kunde inte hittas" />
+        <Golv key="fel">
+          <div className="w-full max-w-lg">
+            <FlowError
+              title="Brevet kunde inte hittas"
+              message={error || 'Brevet finns inte eller har tagits bort.'}
+              secondaryAction={
+                <Link href="/dashboard/mina-brev" className={LINK}>
+                  Tillbaka till mina brev
+                </Link>
+              }
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -224,20 +236,23 @@ export default function ViewLetterClient({
   const html = isTemplateHTML(currentLetter.content || '');
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 pb-16">
-      <PageHeader
+    <>
+      <RumHuvud
         title={currentLetter.title || 'Ansökningsbrev'}
         description={beskrivning || undefined}
         action={
-          <Link href={`/dashboard/mina-brev/${id}/edit`} className={PRIMARY}>
+          // Betalväggen under brevet bär kopparknappen när den syns.
+          <Link href={`/dashboard/mina-brev/${id}/edit`} className={downloadGate ? KNAPP_GLAS : KNAPP_PRIMAR}>
             Redigera
           </Link>
         }
       >
-        <Link href="/dashboard/mina-brev" className={`${LINK} mt-2`}>
+        <Link href="/dashboard/mina-brev" className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
           Alla dina brev
         </Link>
-      </PageHeader>
+      </RumHuvud>
+    <Golv key="brev">
+    <div className="w-full max-w-3xl space-y-4">
 
       {copied ? (
         <StatusRow tone="positive" showDot label="Texten är kopierad">
@@ -281,7 +296,7 @@ export default function ViewLetterClient({
       </div>
 
       {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
-      <div className="overflow-hidden rounded-xl border border-kant bg-white">
+      <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
         {html ? (
           <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
             <div
@@ -330,5 +345,7 @@ export default function ViewLetterClient({
         destructive
       />
     </div>
+    </Golv>
+    </>
   );
 }

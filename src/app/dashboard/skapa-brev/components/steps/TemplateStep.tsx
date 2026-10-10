@@ -9,6 +9,7 @@
  * ingen orange yta.
  */
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -81,7 +82,7 @@ function TemplateCard({
     >
       <span
         aria-hidden="true"
-        className={`absolute right-5 top-5 z-10 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-white transition-opacity duration-[160ms] ${
+        className={`absolute right-5 top-5 z-10 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-papper transition-opacity duration-[160ms] ${
           isSelected ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -295,7 +296,7 @@ export default function TemplateStep({
                   if (previewTemplateId) onTemplateChange(previewTemplateId);
                   setPreviewTemplateId(null);
                 }}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 Välj denna mall
               </button>
