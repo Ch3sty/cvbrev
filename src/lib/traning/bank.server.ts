@@ -13,9 +13,9 @@
 // =============================================================================
 
 import {
-  AVANCERAD_POOL,
-  EXPERT_POOL,
-  GRUND_POOL,
+  ALLA_AVANCERAD,
+  ALLA_EXPERT,
+  ALLA_GRUND,
 } from '@/lib/logicTestV7/selectQuestions.v7';
 import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 import { lasFamilj } from './familjer';
@@ -34,11 +34,14 @@ function medKalla(pool: readonly LayeredQuestion[], kalla: Bankkalla): TraningsF
   return pool.map((q) => ({ ...(q as TraningsFraga), kalla }));
 }
 
-/** Alla matrisfrågor motorn får välja bland. V5 ingår inte. */
+/**
+ * Alla matrisfrågor motorn får välja bland: de frusna 28 per nivå och våg
+ * 3c:s frågor (ALLA_*). V5 ingår inte.
+ */
 export const TRANINGSBANK: readonly TraningsFraga[] = [
-  ...medKalla(GRUND_POOL, 'grund'),
-  ...medKalla(AVANCERAD_POOL, 'avancerad'),
-  ...medKalla(EXPERT_POOL, 'expert'),
+  ...medKalla(ALLA_GRUND, 'grund'),
+  ...medKalla(ALLA_AVANCERAD, 'avancerad'),
+  ...medKalla(ALLA_EXPERT, 'expert'),
 ];
 
 const PER_ID = new Map(TRANINGSBANK.map((q) => [q.id, q]));

@@ -101,8 +101,11 @@ async function gor(userId: string, begard: 'matning' | 'pass' | 'riktat' | 'gene
 
 describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
   beforeAll(async () => {
-    // @ts-expect-error .mjs utan typer
-    const { byggSchema, PARSERS } = await import('../../../../scripts/testmotorn-pglite-schema.mjs')
+    // .mjs: typerna som tsc härleder ur JS-filen är för snäva (konton blir never[]).
+    const { byggSchema, PARSERS } = (await import('../../../../scripts/testmotorn-pglite-schema.mjs')) as unknown as {
+      byggSchema: (db: unknown, opt: { admin?: string[]; konton?: [string, string][] }) => Promise<void>
+      PARSERS: unknown
+    }
     db = new PGlite!({ parsers: PARSERS })
     await byggSchema(db, {
       konton: [
