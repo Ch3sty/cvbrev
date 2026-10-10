@@ -5,6 +5,7 @@
  * Personlighetsresultatet bor på Tester-fliken, inte här.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect } from 'react';
 import Link from 'next/link';
 import EmptyState from '@/components/shell/EmptyState';
@@ -57,7 +58,7 @@ export default function DevelopmentView({
           action={
             <Link
               href="/dashboard/tester/matrislogik-grund"
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+              className={`${KNAPP_PRIMAR} sm:w-auto`}
             >
               Gör ditt första test
             </Link>

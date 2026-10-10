@@ -12,10 +12,12 @@
  * så hon ser vad testet är innan hon möter betalväggen.
  */
 
+import { KNAPP_GLAS, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
@@ -109,23 +111,34 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
 
   if (profileLoading) {
     return (
-      <div className="mx-auto max-w-3xl py-6">
-        <LoadingSkeleton variant="card" label="Testet laddas" />
-      </div>
+      <>
+        {/* Samma vägg som när profilen landat, med knappens plats
+            reserverad, så golvet inte hoppar. */}
+        <RumHuvud
+          title={config.title}
+          description={config.description}
+          action={<span aria-hidden="true" className="skelett-vagg block h-12 w-full sm:w-44" />}
+        />
+        <Golv>
+          <div className="w-full max-w-3xl">
+            <LoadingSkeleton variant="card" label="Testet laddas" />
+          </div>
+        </Golv>
+      </>
     )
   }
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
-      <div className="space-y-6">
-        <PageHeader
+    <>
+        <RumHuvud
           title={config.title}
           description={config.description}
           action={
             isLocked ? (
+              // Betalväggen nedan bär kopparknappen; här en glasknapp.
               <Link
                 href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_GLAS}
               >
                 Köp Träningspaketet, 79 kr i veckan
               </Link>
@@ -134,7 +147,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
                 type="button"
                 onClick={handleStart}
                 disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 {isStarting
                   ? 'Startar testet'
@@ -144,7 +157,10 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
               </button>
             )
           }
-        >
+        />
+    <Golv>
+    <div className="w-full max-w-3xl">
+      <div className="space-y-6">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <TestLevelBadge kind="personlighet" level={config.level} />
             <span className="text-xs tabular-nums text-ink-3">
@@ -154,7 +170,6 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
               ca {config.minutes} min
             </span>
           </div>
-        </PageHeader>
 
         {startError ? (
           <p className="text-sm text-fel" role="alert">
@@ -204,5 +219,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
         ) : null}
       </div>
     </div>
+    </Golv>
+    </>
   )
 }

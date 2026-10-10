@@ -13,10 +13,12 @@
  * gissar aldrig själv om kvoten är slut.
  */
 
+import { KNAPP_GLAS, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import PageHeader from '@/components/shell/PageHeader'
 import StatusRow from '@/components/shell/StatusRow'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
@@ -160,16 +162,16 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   const kindName = KIND_LABEL[config.kind]
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
-      <div className="space-y-6">
-        <PageHeader
+    <>
+        <RumHuvud
           title={config.title}
           description={config.description}
           action={
             isLocked ? (
+              // Betalväggen nedan bär kopparknappen; här en glasknapp.
               <Link
                 href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_GLAS}
               >
                 Köp Träningspaketet, 79 kr i veckan
               </Link>
@@ -178,7 +180,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
                 type="button"
                 onClick={handleStart}
                 disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 {isStarting
                   ? 'Startar testet'
@@ -188,7 +190,10 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
               </button>
             )
           }
-        >
+        />
+    <Golv>
+    <div className="w-full max-w-3xl">
+      <div className="space-y-6">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <TestLevelBadge kind={config.kind} level={config.level} />
             <span className="text-xs tabular-nums text-ink-3">
@@ -201,7 +206,6 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
               <span className="text-xs text-ink-3">En omgång per dag</span>
             ) : null}
           </div>
-        </PageHeader>
 
         {sessionsLoading && !quotaLock ? (
           // Platshållare i exakt radens mått medan tidigare resultat hämtas.
@@ -285,5 +289,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         )}
       </div>
     </div>
+    </Golv>
+    </>
   )
 }

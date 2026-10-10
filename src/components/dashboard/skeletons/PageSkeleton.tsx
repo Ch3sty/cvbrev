@@ -11,6 +11,9 @@
  * Server-komponent (ingen 'use client'): rena divar, ingen interaktivitet.
  */
 
+import VaggLaddar from '@/components/rum/VaggLaddar'
+import Golv from '@/components/rum/Golv'
+
 export function SkeletonBlock({
   height,
   className = '',
@@ -26,7 +29,7 @@ export function SkeletonBlock({
   return (
     <div
       aria-hidden="true"
-      className={`${rounded} border border-kant bg-panel ${thread ? 'loading-thread' : ''} ${className}`}
+      className={`${rounded} border border-kant bg-papper ${thread ? 'loading-thread' : ''} ${className}`}
       style={{ height }}
     />
   )
@@ -118,13 +121,18 @@ export function SkeletonIntro() {
 }
 
 /**
- * Wrapper som matchar innehållsytans rytm.
- * (Layouten ger redan padding och maxbredd, så detta är bara vertikal rytm.)
+ * Sidans skelett i rummet (Rummen våg 1b): väggen med toppraden och
+ * rubrikens skelett, sedan blocken på golvet i sidans vertikala rytm.
  */
 export function SkeletonPage({ children }: { children: React.ReactNode }) {
   return (
-    <div className="space-y-4 sm:space-y-6" role="status" aria-busy="true" aria-label="Laddar sida">
-      {children}
-    </div>
+    <>
+      <VaggLaddar label="Laddar sida" />
+      <Golv>
+        <div className="space-y-4 sm:space-y-6" role="status" aria-busy="true" aria-label="Laddar sida">
+          {children}
+        </div>
+      </Golv>
+    </>
   )
 }

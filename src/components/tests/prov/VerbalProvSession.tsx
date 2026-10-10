@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -322,14 +323,14 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
                 setFinishError(null);
                 setShowFinishConfirm(true);
               }}
-              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
             >
               Lämna in
             </button>
           ) : (
             <button
               onClick={handleNext}
-              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
             >
               Nästa
               <ChevronRight className="h-4 w-4" strokeWidth={1.75} />

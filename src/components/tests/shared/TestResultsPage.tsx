@@ -13,13 +13,15 @@
  * tillbaka på den gamla klienthämtningen, så resultatet alltid går att visa.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
@@ -154,38 +156,48 @@ export default function TestResultsPage({
   }, [config.kind, state, session])
 
   if (state === 'loading') {
+    // Samma vägg som resultatet (TestResultsShell), med knappens plats
+    // reserverad, så golvet inte hoppar när sessionen landat.
     return (
-      <div className="mx-auto max-w-3xl py-6">
-        <div
-          className="space-y-4 sm:space-y-6"
-          role="status"
-          aria-busy="true"
-          aria-label="Laddar resultat"
-        >
-          <div className="h-8 w-2/3 rounded-lg bg-insunken" aria-hidden="true" />
-          <div className="loading-thread h-40 rounded-xl border border-kant bg-panel" aria-hidden="true" />
-          <div className="h-64 rounded-xl border border-kant bg-panel" aria-hidden="true" />
-        </div>
-      </div>
+      <>
+        <RumHuvud
+          title={`${config.title}: ditt resultat`}
+          description="Här är genomgången fråga för fråga."
+          action={<span aria-hidden="true" className="skelett-vagg block h-12 w-full sm:w-40" />}
+        />
+        <Golv>
+          <div
+            className="w-full max-w-3xl space-y-4 sm:space-y-6"
+            role="status"
+            aria-busy="true"
+            aria-label="Laddar resultat"
+          >
+            <div className="h-7 w-24 rounded-lg bg-insunken" aria-hidden="true" />
+            <div className="loading-thread h-40 rounded-xl border border-kant bg-papper" aria-hidden="true" />
+            <div className="h-64 rounded-xl border border-kant bg-papper" aria-hidden="true" />
+          </div>
+        </Golv>
+      </>
     )
   }
 
   if (state === 'missing' || !session) {
     return (
-      <div className="mx-auto max-w-3xl py-6">
-        <PageHeader
+      <>
+        <RumHuvud
           title="Resultatet gick inte att hämta"
           description="Sessionen finns inte kvar, eller så hör den till ett annat konto. Kör testet igen så sparas ett nytt resultat."
           action={
             <Link
               href={`/dashboard/tester/${config.slug}`}
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+              className={KNAPP_PRIMAR}
             >
               Till {config.title.toLowerCase()}
             </Link>
           }
         />
-      </div>
+        <Golv>{null}</Golv>
+      </>
     )
   }
 

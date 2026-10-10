@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
 
@@ -199,9 +200,9 @@ export default function TestSessionView({
       progressPercent={(answeredCount / items.length) * 100}
       meter={
         <div className="flex items-center justify-between gap-3 text-xs sm:text-sm">
-          <span className="font-bold tabular-nums text-slate-900">
+          <span className="font-bold tabular-nums text-ink-1">
             Fråga {currentIdx + 1}{' '}
-            <span className="font-normal text-slate-500">av {items.length}</span>
+            <span className="font-normal text-ink-3">av {items.length}</span>
           </span>
           <span className="rounded-full border border-orange-100 bg-orange-50 px-2 py-0.5 font-semibold tabular-nums text-orange-700">
             {answeredCount} svar
@@ -214,7 +215,7 @@ export default function TestSessionView({
             onClick={handlePrev}
             disabled={currentIdx === 0}
             aria-label="Föregående påstående"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
           </button>
@@ -224,7 +225,7 @@ export default function TestSessionView({
               onClick={() => setShowFinishConfirm(true)}
               disabled={!allAnswered}
               title={allAnswered ? 'Slutför testet' : 'Svara på alla frågor för att slutföra'}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 disabled:cursor-not-allowed touch-manipulation`}
             >
               <Flag className="h-4 w-4" strokeWidth={2.5} />
               Lämna in
@@ -232,7 +233,7 @@ export default function TestSessionView({
           ) : (
             <button
               onClick={handleNext}
-              className="inline-flex h-11 flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 text-sm font-medium text-white transition-colors hover:bg-orange-700 touch-manipulation"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
             >
               Nästa
               <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
@@ -255,13 +256,13 @@ export default function TestSessionView({
                 <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
                   Påstående {currentIdx + 1} av {items.length}
                 </div>
-                <div className="bg-white border border-orange-100 rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl mx-auto"
+                <div className="bg-papper border border-orange-100 rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl mx-auto"
                   style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.2)' }}>
-                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-slate-900 leading-relaxed">
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-ink-1 leading-relaxed">
                     {item.text}
                   </p>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-500 mt-3">
+                <p className="text-xs sm:text-sm text-ink-3 mt-3">
                   Välj det alternativ som stämmer bäst för dig
                 </p>
               </div>
@@ -308,7 +309,7 @@ export default function TestSessionView({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-3xl max-w-md w-full overflow-hidden"
+              className="relative bg-papper rounded-3xl max-w-md w-full overflow-hidden"
               style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
             >
               <div
@@ -327,12 +328,12 @@ export default function TestSessionView({
                     <Flag className="w-5 h-5" strokeWidth={2.25} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+                    <h3 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
                       Slutför testet?
                     </h3>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Du har besvarat <span className="font-bold text-slate-900">{answeredCount}</span> av{' '}
-                      <span className="font-bold text-slate-900">{items.length}</span> påståenden. Vi
+                    <p className="text-sm text-ink-2 mt-1">
+                      Du har besvarat <span className="font-bold text-ink-1">{answeredCount}</span> av{' '}
+                      <span className="font-bold text-ink-1">{items.length}</span> påståenden. Vi
                       beräknar din profil och du kan se resultatet direkt.
                     </p>
                   </div>
@@ -348,7 +349,7 @@ export default function TestSessionView({
                 <div className="flex gap-2 sm:gap-3 mt-5">
                   <button
                     onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
+                    className="flex-1 px-4 py-3 rounded-xl border border-kant bg-papper text-ink-2 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
                   >
                     Tillbaka
                   </button>
@@ -384,8 +385,8 @@ function QuestionNavigationDots({
   onNavigate: (idx: number) => void;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-3 sm:p-4">
-      <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 mb-2 text-center">
+    <div className="bg-papper rounded-2xl border border-kant p-3 sm:p-4">
+      <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-3 mb-2 text-center">
         Översikt — klicka för att hoppa
       </div>
       <div className="grid grid-cols-10 sm:grid-cols-15 gap-1">
@@ -401,7 +402,7 @@ function QuestionNavigationDots({
                   ? 'ring-2 ring-orange-500 ring-offset-1 text-white'
                   : isAnswered
                   ? 'text-white hover:scale-105'
-                  : 'bg-slate-100 text-slate-400 hover:bg-slate-200'
+                  : 'bg-papper-2 text-ink-3 hover:bg-kant'
               }`}
               style={
                 isAnswered || isCurrent

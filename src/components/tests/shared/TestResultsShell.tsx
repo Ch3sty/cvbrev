@@ -18,9 +18,11 @@
  * paneler och sist en sekundär kant-knapp.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard'
 import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer'
 import { getTestConfig, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
@@ -89,9 +91,8 @@ export default function TestResultsShell({
     : ''
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
-      <div className="space-y-4 sm:space-y-6">
-        <PageHeader
+    <>
+        <RumHuvud
           title={`${config.title}: ditt resultat`}
           description={
             completedDate
@@ -101,14 +102,18 @@ export default function TestResultsShell({
           action={
             <Link
               href={testPaths.hub(config.slug)}
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
+              className={KNAPP_PRIMAR}
             >
               Gör om testet
             </Link>
           }
-        >
+        />
+    <Golv>
+    <div className="w-full max-w-3xl">
+      <div className="space-y-4 sm:space-y-6">
+        <div>
           <TestLevelBadge kind={config.kind} level={config.level} />
-        </PageHeader>
+        </div>
 
         {/* Poängen. En panel, siffrorna bär vikten. */}
         <section
@@ -189,5 +194,7 @@ export default function TestResultsShell({
         </div>
       </div>
     </div>
+    </Golv>
+    </>
   )
 }
