@@ -606,9 +606,12 @@ async function delDorrar(browser, konton) {
               aktiv: aktiv?.textContent?.trim() ?? null,
               etiketter: lankar.map((a) => {
                 const r = a.getBoundingClientRect()
-                // Etikettens radantal: höjden minus dörren (30) och gap (3), 13 px per rad.
+                // Etikettens radantal: antal radrutor i etikettens textnod
+                // (etiketten är text direkt i länken, efter dörren).
                 const text = a.textContent.trim()
-                const rader = Math.round((a.scrollHeight - 33) / 13)
+                const omr = document.createRange()
+                omr.selectNodeContents(a.lastChild)
+                const rader = new Set([...omr.getClientRects()].map((x) => Math.round(x.top))).size
                 return { text, rader, klippt: a.scrollWidth > a.clientWidth + 1 || a.scrollHeight > r.height + 1 }
               }),
             }
@@ -709,7 +712,7 @@ async function delFokus(browser, konton) {
   const mal = [
     { namn: 'vagg', url: '/dashboard/mina-brev', sel: '[data-topprad] button[aria-haspopup="menu"]', form: 'pixel7' },
     { namn: 'golv', url: '/dashboard/mina-brev', sel: 'main input[type="search"]', form: 'pixel7' },
-    { namn: 'papper', url: '/dashboard/profil', sel: 'main section#cv input', form: 'pixel7' },
+    { namn: 'papper', url: '/dashboard/profil', sel: 'main section#cv input:not([type="file"])', form: 'pixel7' },
     { namn: 'ton', url: '/dashboard/tester', sel: 'nav[aria-label="Sidomeny"] a.bg-ton', form: 'desktop' },
   ]
   for (const system of ['light', 'dark']) {
@@ -731,6 +734,7 @@ async function delFokus(browser, konton) {
         const fil = `fokus-${m.namn}-${system === 'light' ? 'ljust' : 'morkt'}.png`
         if (el) {
           const b = await el.boundingBox()
+          if (b)
           await page.screenshot({ path: path.join(mapp, fil), clip: { x: Math.max(0, b.x - 16), y: Math.max(0, b.y - 16), width: Math.min(b.width + 32, 600), height: b.height + 32 } })
         }
         resultat.fokus.push({ underlag: m.namn, system, fil: 'fokus/' + fil, ...finns })

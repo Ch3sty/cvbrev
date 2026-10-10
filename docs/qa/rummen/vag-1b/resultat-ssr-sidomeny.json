@@ -1,0 +1,859 @@
+{
+  "bas": "http://localhost:5232",
+  "tid": "2026-10-10T22:00:51.614Z",
+  "vyer": [],
+  "ssr": [
+    {
+      "url": "/dashboard",
+      "vantat": "jobb",
+      "dataRum": "jobb",
+      "themeColor": [
+        "#1B3324"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/tester",
+      "vantat": "tran",
+      "dataRum": "tran",
+      "themeColor": [
+        "#1B2246"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/profil/cv",
+      "vantat": "cv",
+      "dataRum": "cv",
+      "themeColor": [
+        "#113538"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/mina-brev",
+      "vantat": "brev",
+      "dataRum": "brev",
+      "themeColor": [
+        "#3A1930"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/profil",
+      "vantat": "neutral",
+      "dataRum": "neutral",
+      "themeColor": [
+        "#26262C"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/sokta-tjanster",
+      "vantat": "jobb",
+      "dataRum": "jobb",
+      "themeColor": [
+        "#1B3324"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    },
+    {
+      "url": "/dashboard/tester/matrislogik-grund",
+      "vantat": "tran",
+      "dataRum": "tran",
+      "themeColor": [
+        "#1B2246"
+      ],
+      "topprad": true,
+      "dorrnav": true,
+      "ok": true
+    }
+  ],
+  "dorrar": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 2,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 2,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "byte": [
+        {
+          "dorr": "Testträning",
+          "fore": "jobb",
+          "rum": "tran",
+          "transition": "background-color 0.24s",
+          "theme": "#1B2246",
+          "url": "/dashboard/tester"
+        },
+        {
+          "dorr": "CV",
+          "fore": "tran",
+          "rum": "cv",
+          "transition": "background-color 0.24s",
+          "theme": "#113538",
+          "url": "/dashboard/profil/cv"
+        },
+        {
+          "dorr": "Personliga brev",
+          "fore": "cv",
+          "rum": "brev",
+          "transition": "background-color 0.24s",
+          "theme": "#3A1930",
+          "url": "/dashboard/mina-brev"
+        },
+        {
+          "dorr": "Jobbsöket",
+          "fore": "brev",
+          "rum": "jobb",
+          "transition": "background-color 0.24s",
+          "theme": "#1B3324",
+          "url": "/dashboard"
+        }
+      ]
+    }
+  ],
+  "sidomeny": [
+    {
+      "system": "light",
+      "rum": "tran",
+      "fil": "sidomeny/sidomeny-ljust-tran.png",
+      "aktivaRum": [
+        "Testträning"
+      ],
+      "grupp": "I Träningen",
+      "aktiv": [
+        {
+          "text": "Testträning",
+          "skugga": "none"
+        },
+        {
+          "text": "Alla tester4",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "Provläget"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "light",
+      "rum": "cv",
+      "fil": "sidomeny/sidomeny-ljust-cv.png",
+      "aktivaRum": [
+        "CV"
+      ],
+      "grupp": "I CV",
+      "aktiv": [
+        {
+          "text": "CV",
+          "skugga": "none"
+        },
+        {
+          "text": "Mina CV",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "LinkedIn-profilen"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "light",
+      "rum": "brev",
+      "fil": "sidomeny/sidomeny-ljust-brev.png",
+      "aktivaRum": [
+        "Personliga brev"
+      ],
+      "grupp": "I Personliga brev",
+      "aktiv": [
+        {
+          "text": "Personliga brev",
+          "skugga": "none"
+        },
+        {
+          "text": "Mina brev",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "light",
+      "rum": "jobb",
+      "fil": "sidomeny/sidomeny-ljust-jobb.png",
+      "aktivaRum": [
+        "Jobbsöket"
+      ],
+      "grupp": "I Jobbsöket",
+      "aktiv": [
+        {
+          "text": "Sökta tjänster",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "Bli upptäckt"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "light",
+      "rum": "neutral",
+      "fil": "sidomeny/sidomeny-ljust-neutral.png",
+      "aktivaRum": [],
+      "grupp": "I Konto",
+      "aktiv": [
+        {
+          "text": "PrenumerationFrån 49 kr",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "dark",
+      "rum": "tran",
+      "fil": "sidomeny/sidomeny-morkt-tran.png",
+      "aktivaRum": [
+        "Testträning"
+      ],
+      "grupp": "I Träningen",
+      "aktiv": [
+        {
+          "text": "Testträning",
+          "skugga": "none"
+        },
+        {
+          "text": "Alla tester4",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "Provläget"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "dark",
+      "rum": "cv",
+      "fil": "sidomeny/sidomeny-morkt-cv.png",
+      "aktivaRum": [
+        "CV"
+      ],
+      "grupp": "I CV",
+      "aktiv": [
+        {
+          "text": "CV",
+          "skugga": "none"
+        },
+        {
+          "text": "Mina CV",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "LinkedIn-profilen"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "dark",
+      "rum": "brev",
+      "fil": "sidomeny/sidomeny-morkt-brev.png",
+      "aktivaRum": [
+        "Personliga brev"
+      ],
+      "grupp": "I Personliga brev",
+      "aktiv": [
+        {
+          "text": "Personliga brev",
+          "skugga": "none"
+        },
+        {
+          "text": "Mina brev",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "sidomeny/sidomeny-morkt-jobb.png",
+      "aktivaRum": [
+        "Jobbsöket"
+      ],
+      "grupp": "I Jobbsöket",
+      "aktiv": [
+        {
+          "text": "Sökta tjänster",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [
+        "Bli upptäckt"
+      ],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "system": "dark",
+      "rum": "neutral",
+      "fil": "sidomeny/sidomeny-morkt-neutral.png",
+      "aktivaRum": [],
+      "grupp": "I Konto",
+      "aktiv": [
+        {
+          "text": "PrenumerationFrån 49 kr",
+          "skugga": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(224, 122, 47) 3px 0px 0px 0px inset"
+        }
+      ],
+      "las": [],
+      "konto": "AAAnna Andersson · Gratisnivån",
+      "konsol": []
+    },
+    {
+      "las": {
+        "knapp": true,
+        "dialog": true
+      }
+    }
+  ],
+  "fokus": [
+    {
+      "underlag": "vagg",
+      "system": "light",
+      "fil": "fokus/fokus-vagg-ljust.png",
+      "outline": "2px solid rgb(244, 185, 138)",
+      "offset": "2px",
+      "fokus": "#f4b98a"
+    },
+    {
+      "underlag": "golv",
+      "system": "light",
+      "fil": "fokus/fokus-golv-ljust.png",
+      "outline": "2px solid rgb(168, 73, 26)",
+      "offset": "2px",
+      "fokus": "#a8491a"
+    }
+  ],
+  "floden": [],
+  "natfel": [],
+  "tema": []
+}
