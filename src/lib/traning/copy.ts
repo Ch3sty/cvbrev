@@ -31,6 +31,17 @@ export const TRANING_COPY = {
     generalrepetitionen: 'Generalrepetitionen',
     provdagen: 'Provdagen',
   } satisfies Record<MilstolpeNyckel, string>,
+  /**
+   * Kvittot K1 för Första veckan (spec 14.3), två varianter. Utkast:
+   * copywritern har sista ordet.
+   */
+  forstaVeckan: {
+    /** "Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag" */
+    betalande: (pass: number, ommatningar: number) =>
+      `Sju dagar sedan mätningen, ${antalPass(pass)} och ${talord(ommatningar, 'en')} ${ommatningar === 1 ? 'ommätning' : 'ommätningar'}, ingen missad dag`,
+    /** "Sju dagar sedan mätningen, sex pass, ingen missad dag" */
+    gratis: (pass: number) => `Sju dagar sedan mätningen, ${antalPass(pass)}, ingen missad dag`,
+  },
   fel: {
     passHamtas: 'Passet gick inte att hämta.',
     forsokIgen: 'Försök igen. Din nivå och dina pass är sparade, ingenting försvann.',
@@ -38,6 +49,18 @@ export const TRANING_COPY = {
     redanBesvarad: 'Frågan är redan besvarad.',
   },
 } as const;
+
+const TALORD = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio'];
+
+/** Tal som ord upp till tio, annars siffror. Ettan efter genus ("en ommätning", "ett pass"). */
+export function talord(n: number, ett: 'en' | 'ett' = 'ett'): string {
+  if (n === 1) return ett;
+  return Number.isInteger(n) && n >= 0 && n < TALORD.length ? TALORD[n] : String(n);
+}
+
+function antalPass(n: number): string {
+  return `${talord(n, 'ett')} pass`;
+}
 
 export function versal(s: string): string {
   return s.length ? s[0].toUpperCase() + s.slice(1) : s;

@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { forstaVeckanNadd, nyaMilstolpar, type Nivapunkt, type SlutfordSession } from '../milstolpar'
+import {
+  forstaVeckanNadd,
+  forstaVeckanSammanfattning,
+  nyaMilstolpar,
+  type Nivapunkt,
+  type SlutfordSession,
+} from '../milstolpar'
+import { TRANING_COPY } from '../copy'
 import { beraknaForm } from '../form'
 import { imorgonRad, nastaForPass } from '../imorgon'
 
@@ -31,14 +38,39 @@ describe('milstolparna', () => {
     expect(forstaVeckanNadd('2026-10-06', K1.slice(0, 6), '2026-10-12', PROV)).toBe(false)
   })
 
-  it('Första veckan kräver alla planerade dagar: ett missat pass eller utebliven ommätning ger inget märke', () => {
+  it('Första veckan kräver alla planerade dagar: ett missat pass eller en tom ommätningsdag ger inget märke', () => {
     const utanTorsdag = K1.filter((s) => s.dag !== '2026-10-08')
     expect(forstaVeckanNadd('2026-10-06', utanTorsdag, '2026-10-14', PROV)).toBe(false)
+    const ingetPaOmmatningsdagen = K1.filter((s) => s.typ !== 'ommatning')
+    expect(forstaVeckanNadd('2026-10-06', ingetPaOmmatningsdagen, '2026-10-14', PROV)).toBe(false)
+    // 14.3: på ommätningens dag räcker vilken slutförd session som helst.
     const passIStalletForOmmatning = K1.map((s) => (s.typ === 'ommatning' ? { ...s, typ: 'pass' as const } : s))
-    expect(forstaVeckanNadd('2026-10-06', passIStalletForOmmatning, '2026-10-13', PROV)).toBe(false)
+    expect(forstaVeckanNadd('2026-10-06', passIStalletForOmmatning, '2026-10-13', PROV)).toBe(true)
     // Mätningar räknas inte som pass.
     const matningIStallet = K1.map((s) => (s.dag === '2026-10-09' ? { ...s, typ: 'ommatning' as const } : s))
     expect(forstaVeckanNadd('2026-10-06', matningIStallet, '2026-10-13', PROV)).toBe(false)
+  })
+
+  it('14.3 gratis: grundpass dag 1 till 7 utom söndag, ommätningen låst, märket nås dag 7', () => {
+    // Mätning tisdag 6 oktober, grundpass 7-10, 12 och 13 (ommätningens dag). Söndag 11 vila.
+    const gratis: SlutfordSession[] = [
+      { dag: '2026-10-06', typ: 'matning' },
+      ...['2026-10-07', '2026-10-08', '2026-10-09', '2026-10-10', '2026-10-12', '2026-10-13'].map((dag) => ({ dag, typ: 'pass' as const })),
+    ]
+    expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-12')).toBe(false)
+    expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-13')).toBe(true)
+    expect(forstaVeckanSammanfattning('2026-10-06', gratis)).toEqual({ pass: 6, ommatningar: 0, generalrepetitioner: 0 })
+    expect(TRANING_COPY.forstaVeckan.gratis(6)).toBe('Sju dagar sedan mätningen, sex pass, ingen missad dag')
+  })
+
+  it('K1-sammanfattningen: fem pass och en ommätning, mätningen räknas inte', () => {
+    const s = forstaVeckanSammanfattning('2026-10-06', [...K1, { dag: '2026-10-14', typ: 'pass' }])
+    expect(s).toEqual({ pass: 5, ommatningar: 1, generalrepetitioner: 0 })
+    expect(TRANING_COPY.forstaVeckan.betalande(s.pass, s.ommatningar)).toBe(
+      'Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag'
+    )
+    // Riktade pass räknas som pass.
+    expect(forstaVeckanSammanfattning('2026-10-06', [{ dag: '2026-10-07', typ: 'riktat' }]).pass).toBe(1)
   })
 
   it('Nivån upp: första hela nivån över mätningens (5,0 ger märket vid 6,0; 6,3 vid 7,0)', () => {

@@ -6,8 +6,9 @@
 // - Första mätningen: mätningen sparad.
 // - Första veckan: sju dagar sedan mätningen med alla planerade dagar gjorda.
 //   Vilodagen ingår (kräver inget), mätning och ommätning räknas inte som
-//   pass, men en planerad ommätning ska vara gjord. K1: "Sju dagar sedan
-//   mätningen, fem pass och en ommätning".
+//   pass. På en dag med ommätning eller generalrepetition räcker vilken
+//   slutförd session som helst, så att märket inte sitter bakom betalväggen
+//   (spec 14.3). K1: "Sju dagar sedan mätningen, fem pass och en ommätning".
 // - Nivån upp: första hela nivån över mätningens. 5,0 ger märket vid 6,0,
 //   6,3 vid 7,0.
 // - Generalrepetitionen: första slutförda.
@@ -92,10 +93,12 @@ export function forstaVeckanNadd(
       case 'prov':
         break;
       case 'ommatning':
-        if (!gjort?.has('ommatning')) return false;
-        break;
       case 'general':
-        if (!gjort?.has('general')) return false;
+        // Spec 14.3: märket får inte sitta bakom betalväggen. På en dag med
+        // ommätning eller generalrepetition räcker vilken slutförd session
+        // som helst (gjort innehåller bara träningstyper; mätningens dag 0
+        // ligger utanför fönstret).
+        if (!gjort || gjort.size === 0) return false;
         break;
       default:
         // Ett pass: pass, riktat pass eller generalrepetition räknas. En
@@ -104,6 +107,30 @@ export function forstaVeckanNadd(
     }
   }
   return true;
+}
+
+export interface ForstaVeckan {
+  /** Pass och riktade pass. */
+  pass: number;
+  ommatningar: number;
+  generalrepetitioner: number;
+}
+
+/**
+ * Vad hon gjorde dag 1 till 7 efter mätningen, för kvittot K1 ("Sju dagar
+ * sedan mätningen, fem pass och en ommätning"). Pass och riktade pass räknas
+ * som pass (spec 14.3).
+ */
+export function forstaVeckanSammanfattning(matningsdag: Dag, sessioner: readonly SlutfordSession[]): ForstaVeckan {
+  const r: ForstaVeckan = { pass: 0, ommatningar: 0, generalrepetitioner: 0 };
+  for (const s of sessioner) {
+    const n = dagarMellan(matningsdag, s.dag);
+    if (n < 1 || n > 7) continue;
+    if (s.typ === 'pass' || s.typ === 'riktat') r.pass++;
+    else if (s.typ === 'ommatning') r.ommatningar++;
+    else if (s.typ === 'general') r.generalrepetitioner++;
+  }
+  return r;
 }
 
 /**

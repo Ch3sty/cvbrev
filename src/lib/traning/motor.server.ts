@@ -47,7 +47,13 @@ import {
   type TraningsMeta,
 } from './historik';
 import { imorgonRad, nastaForPass, type Imorgon } from './imorgon';
-import { forstaMatningen, nyaMilstolpar, type MilstolpeNyckel, type Nivapunkt } from './milstolpar';
+import {
+  forstaMatningen,
+  forstaVeckanSammanfattning,
+  nyaMilstolpar,
+  type MilstolpeNyckel,
+  type Nivapunkt,
+} from './milstolpar';
 import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, type NivaSvar } from './niva';
 import {
   nastaAdaptivaFraga,
@@ -858,6 +864,8 @@ export interface Traningsstatus {
   ovisade: string[];
   dagensPassGjort: boolean;
   dagarKvar: number | null;
+  /** Dag 1 till 7 efter mätningen, för kvittot K1. Satt när Första veckan nåtts (spec 14.3). */
+  forstaVeckan: ReturnType<typeof forstaVeckanSammanfattning> | null;
 }
 
 /**
@@ -929,6 +937,10 @@ export async function hamtaTraningsstatus(args: {
     ovisade: milstolpar.filter((m) => !m.visad_at).map((m) => m.nyckel),
     dagensPassGjort: lage.slutforda.some((s) => s.dag === idag && (s.typ === 'pass' || s.typ === 'riktat' || s.typ === 'general')),
     dagarKvar: prov ? dagarMellan(idag, prov) : null,
+    forstaVeckan:
+      start && milstolpar.some((m) => m.nyckel === 'forsta_veckan')
+        ? forstaVeckanSammanfattning(start, lage.slutforda)
+        : null,
   };
 }
 

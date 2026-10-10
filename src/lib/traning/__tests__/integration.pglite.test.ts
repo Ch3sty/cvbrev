@@ -253,6 +253,7 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     const status = await hamtaTraningsstatus({ supabase: anvandare, admin, userId: K1, idag: '2026-10-13' })
     expect(status.serie.dagar).toBe(7) // 6-10, 12, 13; söndagen är frizon
     expect(status.ovisade).toContain('forsta_veckan')
+    expect(status.forstaVeckan).toEqual({ pass: 5, ommatningar: 1, generalrepetitioner: 0 })
 
     // Kvittot visat: visad_at sätts, märket kommer inte igen.
     await admin.from('test_milstolpar').update({ visad_at: new Date().toISOString() }).eq('user_id', K1).eq('nyckel', 'forsta_veckan')
