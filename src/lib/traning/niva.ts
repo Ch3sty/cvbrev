@@ -21,8 +21,13 @@
 //   på den sänker lite; fel på en säker uppgift sänker mycket. Summan har tak
 //   ±0,5 per pass, så nivån inte fladdrar. Det är ett glidande medel: nivån
 //   rör sig mot det passet visar, aldrig hela vägen på en gång.
-// - Tolv mätfrågor ger en punkt med vikt 1: mätningen ersätter nivån helt.
-//   Färre besvarade mätfrågor väger n/12.
+// - Den första mätningen sätter nivån helt. Ommätningen och
+//   generalrepetitionen väger OMMATNING_VIKT (0,5) mot nivån före, gånger
+//   n/12 när färre än tolv frågor besvarades: tolv frågor har standardfel
+//   cirka 0,6 nivåer, så en ensam ommätning får inte skriva över kurvan
+//   (spec-rummen 14.1 punkt 1).
+// - Riktade pass flyttar inte nivån, och frågor hon sett de senaste 14
+//   dagarna räknas inte (motor.server.ts, spec 14.1 punkt 2 och 3).
 // - Nivån visas med en decimal och har tak 7,5 tills
 //   BANK_KALIBRERAD_OVER_7_5 är sann.
 // =============================================================================
@@ -32,8 +37,12 @@ import { nivaForP } from './svarighet';
 
 export const NIVA_MIN = 1;
 export const NIVA_MAX = 10;
-/** Antal mätfrågor som ger en punkt med vikt 1. */
+/** Antal mätfrågor i en hel mätning. */
 export const MATNING_ANTAL = 12;
+/** Ommätningens och generalrepetitionens vikt mot nivån före (spec 14.1 punkt 1). */
+export const OMMATNING_VIKT = 0.5;
+/** Nivån passen räknas mot innan någon mätning är gjord (spec 14.1 punkt 5). */
+export const STARTNIVA_UTAN_MATNING = 4;
 /** Passets steg per fråga, i nivåer per (utfall − väntat). */
 export const PASS_K = 0.1;
 /** Största förflyttning per pass. */
@@ -94,13 +103,14 @@ export interface Nivaresultat {
 }
 
 /**
- * Mätningen och ommätningen. Tolv svar ger vikt 1 (nivån ersätts), färre
- * väger n/12 mot nivån före. Utan nivå före gäller mätningen helt.
+ * Mätningen, ommätningen och generalrepetitionen. Utan nivå före (den
+ * första mätningen) gäller mätningen helt. Med nivå före väger den
+ * OMMATNING_VIKT × n/12 mot nivån före.
  */
 export function matningsNiva(svar: readonly NivaSvar[], fore?: number | null): Nivaresultat {
   const matt = beraknaNiva(svar);
   if (fore == null) return { niva: matt, delta: 0 };
-  const vikt = Math.min(1, svar.length / MATNING_ANTAL);
+  const vikt = OMMATNING_VIKT * Math.min(1, svar.length / MATNING_ANTAL);
   const niva = avrunda(begransa(fore + vikt * (matt - fore)));
   return { niva, delta: avrunda(niva - fore) };
 }

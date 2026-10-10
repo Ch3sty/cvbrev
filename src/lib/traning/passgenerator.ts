@@ -94,6 +94,15 @@ function kandidater(
 
 const efterFriskhet = (a: Kandidat, b: Kandidat) => a.friskhet - b.friskhet || a.slump - b.slump;
 
+/** Sedd inom återanvändningsfönstret: friskhet 2 eller 3. */
+export function arUpprepad(f: Friskhet): boolean {
+  return f === 2 || f === 3;
+}
+
+function upprepadeAv(valda: readonly Kandidat[]): string[] {
+  return valda.filter((k) => arUpprepad(k.friskhet)).map((k) => k.q.id);
+}
+
 /**
  * Delar kandidaterna efter friskhet: det minsta steget t som räcker till
  * `antal` frågor. Alla frågor friskare än t tas med (`sakra`), resten av
@@ -136,6 +145,12 @@ export interface Urval {
   tema: string | null;
   /** Antal frågor hon sett förut (friskhet 1 till 3). */
   ateranvanda: number;
+  /**
+   * Frågorna hon sett för 2 till 13 dagar sedan (friskhet 2 eller 3). De
+   * räknas inte mot nivån, tempot, familjerna eller frågestatistiken
+   * (spec-rummen 14.1 punkt 3).
+   */
+  upprepade: string[];
   /** Nivån passet riktades mot. */
   malniva: number;
 }
@@ -223,6 +238,7 @@ export function valjPass(inp: {
     sammansattning: faktiskt,
     tema: tema && valda.some((k) => k.q.family === tema) ? tema : null,
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,
+    upprepade: upprepadeAv(valda),
     malniva,
   };
 }
@@ -289,7 +305,7 @@ export function valjRiktat(inp: {
   );
   const valda = alla.slice(0, antal);
   if (valda.length < Math.min(RIKTAT_MINST, antal)) {
-    return { fragor: [], sammansattning: { nara: 0, under: 0, over: 0 }, tema: inp.family, ateranvanda: 0, malniva: inp.niva };
+    return { fragor: [], sammansattning: { nara: 0, under: 0, over: 0 }, tema: inp.family, ateranvanda: 0, upprepade: [], malniva: inp.niva };
   }
   const s: Sammansattning = { nara: 0, under: 0, over: 0 };
   for (const k of valda) {
@@ -303,6 +319,7 @@ export function valjRiktat(inp: {
     sammansattning: s,
     tema: inp.family,
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,
+    upprepade: upprepadeAv(valda),
     malniva: inp.niva,
   };
 }
@@ -316,6 +333,7 @@ export const BAND_ORDNING: readonly Band[] = ['latt', 'mellan', 'svar'];
 /**
  * Mätningens pooler: upp till `perBand` frågor per svårighetsband, ordnade
  * efter friskhet. Mätningen och ommätningen föredrar frågor hon inte sett.
+ * `upprepade` är poolfrågorna hon sett för 2 till 13 dagar sedan.
  */
 export function valjPooler(inp: {
   bank: readonly BankFragaInfo[];
@@ -323,15 +341,19 @@ export function valjPooler(inp: {
   idag: Dag;
   seed: string;
   perBand?: number;
-}): Pooler {
+}): { pooler: Pooler; upprepade: string[] } {
   const perBand = inp.perBand ?? 12;
   const alla = kandidater(inp.bank, inp.sedda, inp.idag, inp.seed).sort(efterFriskhet);
   const pooler: Pooler = { latt: [], mellan: [], svar: [] };
+  const valda: Kandidat[] = [];
   for (const k of alla) {
     const b = bandForP(k.q.p);
-    if (pooler[b].length < perBand) pooler[b].push(k.q.id);
+    if (pooler[b].length < perBand) {
+      pooler[b].push(k.q.id);
+      valda.push(k);
+    }
   }
-  return pooler;
+  return { pooler, upprepade: upprepadeAv(valda) };
 }
 
 export interface AdaptivtSvar {
@@ -392,7 +414,7 @@ export function valjGeneral(inp: {
   sedda: readonly Sedd[];
   idag: Dag;
   seed: string;
-}): string[] {
+}): { fragor: string[]; upprepade: string[] } {
   const { sakra, pool } = delaEfterFriskhet(kandidater(inp.bank, inp.sedda, inp.idag, inp.seed), inp.antal);
   const tredjedel = Math.floor(inp.antal / 3);
   const mal: Record<Band, number> = {
@@ -410,7 +432,7 @@ export function valjGeneral(inp: {
     lagg(valda, perBand[b], Math.min(inp.antal - valda.length, Math.max(0, mal[b])), tagna);
   }
   if (valda.length < inp.antal) lagg(valda, [...pool].sort(efterFriskhet), inp.antal - valda.length, tagna);
-  return valda.map((k) => k.q).sort(lattastForst).map((q) => q.id);
+  return { fragor: valda.map((k) => k.q).sort(lattastForst).map((q) => q.id), upprepade: upprepadeAv(valda) };
 }
 
 /* ------------------------------ Uppvärmningen ------------------------------ */

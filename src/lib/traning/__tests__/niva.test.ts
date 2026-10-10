@@ -6,7 +6,9 @@ import {
   foreslaSikte,
   matningsNiva,
   MATNING_ANTAL,
+  OMMATNING_VIKT,
   passUppdatering,
+  STARTNIVA_UTAN_MATNING,
   PASS_TAK,
   STOD_NIVA,
   type NivaSvar,
@@ -29,6 +31,15 @@ describe('svårigheten', () => {
     expect(svarighetPrior(5)).toBe(4)
     expect(svarighetPrior(0)).toBe(1)
     expect(svarighetPrior(undefined)).toBe(3)
+  })
+
+  it('p_prior ersätter priorklassen tills statistiken räcker, bara inom [0,05, 0,95]', () => {
+    expect(pForFraga(3, null, 0.62)).toBe(0.62)
+    expect(pForFraga(3, { antal: 29, ratt: 1 }, 0.62)).toBe(0.62)
+    expect(pForFraga(3, { antal: 30, ratt: 15 }, 0.62)).toBe(0.5)
+    expect(pForFraga(3, null, 0.99)).toBe(0.55)
+    expect(pForFraga(3, null, 0.01)).toBe(0.55)
+    expect(pForFraga(3, null, null)).toBe(0.55)
   })
 
   it('priorn gäller tills 30 svar, sedan uppmätt andel', () => {
@@ -91,17 +102,22 @@ describe('beraknaNiva', () => {
 })
 
 describe('matningsNiva', () => {
-  it('tolv frågor ger en punkt med vikt 1: nivån före ersätts helt', () => {
+  it('ommätningen väger hälften: tolv frågor flyttar nivån halvvägs mot det uppmätta', () => {
     const s = blandad(8)
     expect(s).toHaveLength(MATNING_ANTAL)
-    expect(matningsNiva(s, 3).niva).toBe(beraknaNiva(s))
-    expect(matningsNiva(s, 7).niva).toBe(beraknaNiva(s))
+    expect(OMMATNING_VIKT).toBe(0.5)
+    expect(matningsNiva(s, 3).niva).toBe(avrunda(3 + 0.5 * (beraknaNiva(s) - 3)))
+    expect(matningsNiva(s, 7).niva).toBe(avrunda(7 + 0.5 * (beraknaNiva(s) - 7)))
   })
 
-  it('sex frågor väger hälften', () => {
+  it('sex frågor väger en fjärdedel', () => {
     const s = blandad(8).slice(0, 6)
     const matt = beraknaNiva(s)
-    expect(matningsNiva(s, 3).niva).toBeCloseTo(avrunda(3 + 0.5 * (matt - 3)), 5)
+    expect(matningsNiva(s, 3).niva).toBeCloseTo(avrunda(3 + 0.25 * (matt - 3)), 5)
+  })
+
+  it('startnivån utan mätning är en konstant, 4', () => {
+    expect(STARTNIVA_UTAN_MATNING).toBe(4)
   })
 
   it('utan nivå före gäller mätningen helt, delta 0', () => {

@@ -16,6 +16,8 @@ import { bankInfo } from '../bank.server'
 import { bandForP, pForNiva, NARA_NIVAN_P } from '../svarighet'
 import { laggTill } from '../datum'
 import { ATERANVAND_EFTER_DAGAR, BANK_RACKER_30_DAGAR } from '../flaggor'
+import { chansRatt, passUppdatering } from '../niva'
+import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda'
 
 const IDAG = '2026-10-10'
 
@@ -109,6 +111,69 @@ describe('återanvändningen', () => {
     expect(u.ateranvanda).toBe(9)
     // Alla sex som är äldst kom med.
     for (const q of bank.slice(0, 6)) expect(u.fragor).toContain(q.id)
+    // Upprepade är bara de som sågs inom 14 dagar (friskhet 2 och 3), inte de för 20 dagar sedan.
+    const nyligen = new Set(bank.slice(6, 12).map((q) => q.id))
+    expect(u.upprepade).toHaveLength(3)
+    expect(u.upprepade.every((id) => nyligen.has(id))).toBe(true)
+  })
+
+  it('upprepade: riktat pass, generalrepetition och mätningens pooler fyller fältet', () => {
+    const bank = synt(40)
+    const sedda: Sedd[] = bank.map((q) => ({ id: q.id, dag: laggTill(IDAG, -5) }))
+    expect(valjRiktat({ bank, family: 'Rotation', niva: 5, sedda, idag: IDAG, seed: 'r' }).upprepade).toHaveLength(9)
+    const g = valjGeneral({ bank, antal: 18, sedda, idag: IDAG, seed: 'g' })
+    expect(g.upprepade).toEqual(expect.arrayContaining(g.fragor))
+    expect(g.upprepade).toHaveLength(18)
+    const m = valjPooler({ bank, sedda, idag: IDAG, seed: 'm' })
+    const iPoolerna = [...m.pooler.latt, ...m.pooler.mellan, ...m.pooler.svar]
+    expect(m.upprepade.sort()).toEqual(iPoolerna.sort())
+    expect(valjPooler({ bank, sedda: [], idag: IDAG, seed: 'm' }).upprepade).toEqual([])
+  })
+
+  it('fjorton grundpass med upprepningar från dag 4: den som memorerar driver inte nivån', () => {
+    // 28 grundfrågor kring nivå 5, som grundbanken före 3c. Användaren har
+    // sann nivå 5,0 och kan svaret på varje fråga hon sett (memorerar). Utan
+    // filtret drev hon från 5,0 till 6,9 (simuleringen i 14 underlag).
+    // Tjugo seedade körningar: snittet ska ligga inom 0,3 från start, och
+    // utan filtret ska samma användare driva uppåt (kontrollen att
+    // simuleringen faktiskt memorerar).
+    const bank: BankFragaInfo[] = Array.from({ length: 28 }, (_, i) => ({
+      id: `g${i}`,
+      p: 0.35 + (0.5 * i) / 27,
+      prior: 3,
+      family: null,
+      kalla: 'grund',
+    }))
+    const kor = (seed: string, filtrera: boolean) => {
+      const rng = mulberry32(hashString(seed))
+      const sett = new Set<string>()
+      const sedda: Sedd[] = []
+      let niva = 5
+      let upprepningar = 0
+      for (let d = 0; d < 14; d++) {
+        const dag = laggTill(IDAG, d)
+        const u = valjPass({ bank, niva, sedda, idag: dag, seed: `p${d}`, endastGrund: true })
+        if (d >= 3) upprepningar += u.upprepade.length
+        const raknas = filtrera ? u.fragor.filter((id) => !u.upprepade.includes(id)) : u.fragor
+        const svar = raknas.map((id) => {
+          const p = bank.find((q) => q.id === id)!.p
+          return { p, correct: sett.has(id) || rng() < chansRatt(5, p) }
+        })
+        niva = passUppdatering(niva, svar).niva
+        for (const id of u.fragor) {
+          sett.add(id)
+          sedda.push({ id, dag })
+        }
+      }
+      return { niva, upprepningar }
+    }
+    const seeds = Array.from({ length: 20 }, (_, i) => `memorera${i}`)
+    const med = seeds.map((s) => kor(s, true))
+    const utan = seeds.map((s) => kor(s, false))
+    const snitt = (xs: { niva: number }[]) => xs.reduce((a, x) => a + x.niva, 0) / xs.length
+    expect(med.every((r) => r.upprepningar > 0)).toBe(true)
+    expect(Math.abs(snitt(med) - 5)).toBeLessThanOrEqual(0.3)
+    expect(snitt(utan)).toBeGreaterThan(6)
   })
 
   it('en bank där allt visades i går ger ett tomt pass, aldrig en upprepning', () => {
@@ -141,7 +206,7 @@ describe('riktat pass och tema', () => {
 })
 
 describe('mätningen, adaptivt i tre band', () => {
-  const pooler = valjPooler({ bank: synt(), sedda: [], idag: IDAG, seed: 'm' })
+  const { pooler } = valjPooler({ bank: synt(), sedda: [], idag: IDAG, seed: 'm' })
 
   it('poolerna ligger i rätt band', () => {
     const p = new Map(synt().map((q) => [q.id, q.p]))
@@ -178,16 +243,17 @@ describe('mätningen, adaptivt i tre band', () => {
 
 describe('generalrepetitionen och uppvärmningen', () => {
   it('fast generalrepetition: antal frågor jämnt över banden, lätt till svår', () => {
-    const ids = valjGeneral({ bank: synt(), antal: 18, sedda: [], idag: IDAG, seed: 'g' })
-    const p = new Map(synt().map((q) => [q.id, q.p]))
+    const { fragor: ids, upprepade } = valjGeneral({ bank: synt(), antal: 18, sedda: [], idag: IDAG, seed: 'g' })
+    expect(upprepade).toEqual([])
+    const p =new Map(synt().map((q) => [q.id, q.p]))
     expect(ids).toHaveLength(18)
     const band = ids.map((id) => bandForP(p.get(id)!))
     expect(band.filter((b) => b === 'latt')).toHaveLength(6)
     expect(band.filter((b) => b === 'svar')).toHaveLength(6)
   })
 
-  it('Matrigma klassisk (35) med dagens bank på 84 frågor går, med alla tre bankerna', () => {
-    const ids = valjGeneral({ bank: bankInfo(), antal: 35, sedda: [], idag: IDAG, seed: 'g' })
+  it('Matrigma klassisk (35) går med hela banken, alla tre nivåerna', () => {
+    const { fragor: ids } = valjGeneral({ bank: bankInfo(), antal: 35, sedda: [], idag: IDAG, seed: 'g' })
     expect(ids).toHaveLength(35)
     expect(new Set(ids).size).toBe(35)
   })

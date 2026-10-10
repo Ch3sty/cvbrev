@@ -29,6 +29,7 @@ function meta(over: Partial<TraningsMeta> = {}): TraningsMeta {
     niva_fore: 5,
     malniva: 5,
     ateranvanda: 0,
+    upprepade: [],
     ...over,
   }
 }
@@ -84,7 +85,7 @@ describe('klientens vy av en träningssession', () => {
   })
 
   it('mätningen visar ingen återkoppling under tiden, bara den aktuella frågan', () => {
-    const pooler = valjPooler({ bank: bankInfo(), sedda: [], idag: '2026-10-10', seed: 'm' })
+    const { pooler } = valjPooler({ bank: bankInfo(), sedda: [], idag: '2026-10-10', seed: 'm' })
     const m = meta({ typ: 'matning', adaptiv: true, antal: 12, fragor: undefined, pooler })
     const id = '44444444-aaaa-4aaa-8aaa-000000000001'
     const v0 = sessionsvy(rad(id, m))!

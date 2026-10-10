@@ -12,7 +12,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { pgKlient } from './pgKlient'
 import { bankInfo, hittaTraningsfraga } from '../bank.server'
 import { permutationForSession, tillVisat, mulberry32, hashString } from '@/lib/logicTestV7/blanda'
-import { chansRatt, PASS_TAK } from '../niva'
+import { chansRatt, matningsNiva, PASS_TAK } from '../niva'
 import { validerPlan } from '../testplan'
 import type { Dag } from '../datum'
 
@@ -38,6 +38,7 @@ try {
 const BETALD = '11111111-1111-4111-8111-111111111111'
 const GRATIS = '22222222-2222-4222-8222-222222222222'
 const K1 = '33333333-3333-4333-8333-333333333333'
+const R1 = '44444444-4444-4444-8444-444444444444'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let db: any
@@ -63,12 +64,20 @@ function valtIndex(sessionId: string, qid: string, theta: number, p: number, rng
   return { visat: ratt ? rattVisat : (rattVisat + 1 + Math.floor(rng() * 5)) % 6, ratt }
 }
 
-async function gor(userId: string, begard: 'matning' | 'pass' | 'riktat' | 'general', dag: Dag, theta: number, opt: { vetInteForsta?: boolean } = {}) {
+async function gor(
+  userId: string,
+  begard: 'matning' | 'pass' | 'riktat' | 'general',
+  dag: Dag,
+  theta: number,
+  opt: { vetInteForsta?: boolean; family?: string; behallTid?: boolean; fore?: (id: string) => Promise<void> } = {}
+) {
   const rng = mulberry32(hashString(`${userId}:${dag}:${begard}`))
-  const r = await skapaTraningssession({ supabase: anvandare, admin, userId, begard, idag: dag })
+  const r = await skapaTraningssession({ supabase: anvandare, admin, userId, begard, family: opt.family, idag: dag })
   if (!r.ok) return { skapad: r }
   const id = r.vy.id
-  await sattTid(id, dag, false)
+  // Generalrepetitionen har en tidsgräns räknad från started_at: behåll den riktiga tiden.
+  if (!opt.behallTid) await sattTid(id, dag, false)
+  if (opt.fore) await opt.fore(id)
   let vy = r.vy
   const facitIKlienten = JSON.stringify(vy).includes('correctAnswer')
   let svar = 0
@@ -95,7 +104,7 @@ async function gor(userId: string, begard: 'matning' | 'pass' | 'riktat' | 'gene
   }
   const avslut = await slutforTraning({ admin, userId, sessionId: id, idag: dag })
   expect(avslut.ok).toBe(true)
-  await sattTid(id, dag, true)
+  if (!opt.behallTid) await sattTid(id, dag, true)
   return { skapad: r, id, svar, senast, facitIKlienten, avslut: avslut.ok ? avslut.avslut : null }
 }
 
@@ -112,11 +121,13 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
         [BETALD, 'anna@example.se'],
         [GRATIS, 'bo@example.se'],
         [K1, 'k1@example.se'],
+        [R1, 'r1@example.se'],
       ],
     })
     admin = pgKlient(db)
     SCOPE[BETALD] = 'allt'
     SCOPE[K1] = 'allt'
+    SCOPE[R1] = 'allt'
     SCOPE[GRATIS] = null
   }, 60_000)
 
@@ -248,6 +259,45 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     const efter = await hamtaTraningsstatus({ supabase: anvandare, admin, userId: K1, idag: '2026-10-14' })
     expect(efter.ovisade).not.toContain('forsta_veckan')
   }, 120_000)
+
+  it('14.1: riktat pass ger ingen punkt, generalrepetitionen väger hälften, upprepade frågor räknas inte', async () => {
+    const m = await gor(R1, 'matning', '2026-10-06', 5)
+    const fore = m.avslut!.niva_efter!
+
+    // Riktat pass: räknas i familjen, inte i nivån.
+    const r = await gor(R1, 'riktat', '2026-10-07', 5, { family: 'vridning' })
+    expect(r.skapad.ok).toBe(true)
+    expect(r.avslut!.niva_efter).toBeNull()
+    expect(r.avslut!.familjer.passet.map((f) => f.family)).toContain('vridning')
+
+    // Ett pass där alla frågor står som upprepade: delta 0, punkten skrivs ändå.
+    const p = await gor(R1, 'pass', '2026-10-08', 7, {
+      fore: async (id) => {
+        await db.query(
+          `update public.logic_test_v4_sessions set meta = jsonb_set(meta, '{upprepade}', meta->'fragor') where id = $1`,
+          [id]
+        )
+      },
+    })
+    expect(p.avslut!.niva_fore).toBe(fore)
+    expect(p.avslut!.niva_efter).toBe(fore)
+    const statFore = (await db.query('select coalesce(sum(antal),0)::int as n from public.fraga_statistik')).rows[0].n
+
+    // Generalrepetitionen: matningsNiva med nivån före, alltså halv vikt.
+    const g = await gor(R1, 'general', '2026-10-09', 6.5, { behallTid: true })
+    expect(g.skapad.ok).toBe(true)
+    const rad = (await hamtaSession(admin, R1, g.id!))!
+    const meta = rad.meta as { upprepade: string[] }
+    const svarG = (rad.answers as { q_id: string; correct: boolean }[]).filter((s) => !meta.upprepade.includes(s.q_id))
+    const vantad = matningsNiva(svarG.map((s) => ({ p: P.get(s.q_id)!, correct: s.correct })), fore).niva
+    expect(g.avslut!.niva_efter).toBe(vantad)
+
+    const status = await hamtaTraningsstatus({ supabase: anvandare, admin, userId: R1, idag: '2026-10-09' })
+    expect(status.punkter.map((x) => `${x.dag}:${x.typ}`)).toEqual(['2026-10-06:matning', '2026-10-08:pass', '2026-10-09:general'])
+    // Passets upprepade frågor kom inte in i frågestatistiken; generalrepetitionens räknade gjorde det.
+    const statEfter = (await db.query('select coalesce(sum(antal),0)::int as n from public.fraga_statistik')).rows[0].n
+    expect(statEfter - statFore).toBe(svarG.length)
+  }, 60_000)
 
   it('servern dömer: fel fråga, dubbelsvar och avslutad session avvisas', async () => {
     const r = await skapaTraningssession({ supabase: anvandare, admin, userId: BETALD, begard: 'pass', idag: '2026-10-12' })

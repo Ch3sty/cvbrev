@@ -295,6 +295,10 @@ export interface AnalyticsEvents {
     antal: number
     over_tid: number
     tid_s: number
+    /** Frågor hon sett förut (friskhet 1 till 3), ur sessionens meta. */
+    ateranvanda: number
+    /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
+    raknade: number
   }
   ommatning_klar: { niva: number; delta: number }
   generalrepetition_klar: { format: string; ratt: number; antal: number }

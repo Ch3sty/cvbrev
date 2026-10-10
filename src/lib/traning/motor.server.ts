@@ -48,7 +48,7 @@ import {
 } from './historik';
 import { imorgonRad, nastaForPass, type Imorgon } from './imorgon';
 import { forstaMatningen, nyaMilstolpar, type MilstolpeNyckel, type Nivapunkt } from './milstolpar';
-import { foreslaSikte, matningsNiva, passUppdatering, type NivaSvar } from './niva';
+import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, type NivaSvar } from './niva';
 import {
   nastaAdaptivaFraga,
   valjGeneral,
@@ -394,14 +394,15 @@ export async function skapaTraningssession(args: {
     niva_fore: niva,
     family: null as string | null,
     ateranvanda: 0,
+    upprepade: [] as string[],
   };
 
   let meta: TraningsMeta;
   switch (beslut.typ) {
     case 'matning':
     case 'ommatning': {
-      const pooler = valjPooler({ bank: lage.bank, sedda, idag, seed });
-      meta = { ...bas, antal: MATNING_FRAGOR, adaptiv: true, pooler, tema: null, sammansattning: null, malniva: null };
+      const { pooler, upprepade } = valjPooler({ bank: lage.bank, sedda, idag, seed });
+      meta = { ...bas, antal: MATNING_FRAGOR, adaptiv: true, pooler, upprepade, tema: null, sammansattning: null, malniva: null };
       break;
     }
     case 'pass': {
@@ -416,7 +417,7 @@ export async function skapaTraningssession(args: {
       // "Samma familj en nivå upp": passet riktas en nivå upp när förra
       // passet lovade det och temat är detsamma.
       const upp = forra?.nasta === 'familj_upp' && tema && forra.tema === tema;
-      const bas_niva = niva ?? 4;
+      const bas_niva = niva ?? STARTNIVA_UTAN_MATNING;
       const urval = valjPass({
         bank: lage.bank,
         niva: upp ? bas_niva + 1 : bas_niva,
@@ -437,13 +438,22 @@ export async function skapaTraningssession(args: {
         sammansattning: urval.sammansattning,
         malniva: urval.malniva,
         ateranvanda: urval.ateranvanda,
+        upprepade: urval.upprepade,
       };
       break;
     }
     case 'riktat': {
       const family = (args.family ?? '').trim();
       if (!family) return { ok: false, status: 422, fel: 'familj_saknas' };
-      const urval = valjRiktat({ bank: lage.bank, family, niva: niva ?? 4, sedda, idag, seed, antal: PASS_ANTAL });
+      const urval = valjRiktat({
+        bank: lage.bank,
+        family,
+        niva: niva ?? STARTNIVA_UTAN_MATNING,
+        sedda,
+        idag,
+        seed,
+        antal: PASS_ANTAL,
+      });
       if (urval.fragor.length === 0) return { ok: false, status: 422, fel: 'familj_for_liten' };
       meta = {
         ...bas,
@@ -455,18 +465,19 @@ export async function skapaTraningssession(args: {
         sammansattning: urval.sammansattning,
         malniva: urval.malniva,
         ateranvanda: urval.ateranvanda,
+        upprepade: urval.upprepade,
       };
       break;
     }
     case 'general': {
       const tidsgrans_s = format.minuter * 60;
       if (format.adaptiv) {
-        const pooler = valjPooler({ bank: lage.bank, sedda, idag, seed, perBand: format.antal });
+        const { pooler, upprepade } = valjPooler({ bank: lage.bank, sedda, idag, seed, perBand: format.antal });
         const antal = Math.min(format.antal, pooler.latt.length + pooler.mellan.length + pooler.svar.length);
-        meta = { ...bas, antal, adaptiv: true, pooler, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
+        meta = { ...bas, antal, adaptiv: true, pooler, upprepade, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
       } else {
-        const fragor = valjGeneral({ bank: lage.bank, antal: format.antal, sedda, idag, seed });
-        meta = { ...bas, antal: fragor.length, adaptiv: false, fragor, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
+        const { fragor, upprepade } = valjGeneral({ bank: lage.bank, antal: format.antal, sedda, idag, seed });
+        meta = { ...bas, antal: fragor.length, adaptiv: false, fragor, upprepade, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
       }
       break;
     }
@@ -655,8 +666,15 @@ export async function slutforTraning(args: {
   const blandad = arBlandad(rad.meta);
   const perId = new Map(lage.bank.map((q) => [q.id, q]));
 
+  // Frågor hon sett inom 14 dagar före sessionens dag räknas inte mot nivån,
+  // tempot, familjerna eller frågestatistiken (14.1 punkt 3). De räknas i
+  // "rätt av antal" och visas i genomgången.
+  const upprepade = new Set(meta.upprepade ?? []);
+  const raknas = new Set(svar.map((s) => s.q_id).filter((id) => !upprepade.has(id)));
+
   const nivaSvar: (NivaSvar & { tid_s: number; prior: BankFragaInfo['prior']; family: string | null })[] = [];
   for (const s of svar) {
+    if (!raknas.has(s.q_id)) continue;
     const info = perId.get(s.q_id);
     if (!info) continue;
     nivaSvar.push({ p: info.p, correct: s.correct, tid_s: s.time_spent, prior: info.prior, family: info.family });
@@ -667,14 +685,22 @@ export async function slutforTraning(args: {
   const tid_s = svar.reduce((sum, s) => sum + s.time_spent, 0);
 
   // Nivån: bara för blandade sessioner (12.5). Pass utan mätning ger ingen
-  // punkt: kurvan börjar med mätningen.
+  // punkt: kurvan börjar med mätningen. Riktade pass flyttar aldrig nivån
+  // (14.1 punkt 2): frågorna är valda ur en familj hon är svag i. Ommätningen
+  // och generalrepetitionen väger hälften (14.1 punkt 1, matningsNiva).
+  // Räknas inget svar ger en mätning ingen punkt (kan bara ske när banken är
+  // slut), ett pass ger nivån före så att kurvan visar dagen.
   const fore = senasteNiva(lage.punkter);
   let niva_efter: number | null = null;
-  if (blandad) {
+  if (blandad && meta.typ !== 'riktat') {
     if (meta.typ === 'matning' || meta.typ === 'ommatning') {
-      niva_efter = matningsNiva(nivaSvar, meta.typ === 'ommatning' ? fore : null).niva;
+      if (nivaSvar.length > 0) niva_efter = matningsNiva(nivaSvar, meta.typ === 'ommatning' ? fore : null).niva;
     } else if (fore != null) {
-      niva_efter = passUppdatering(fore, nivaSvar).niva;
+      if (meta.typ === 'general') {
+        niva_efter = nivaSvar.length > 0 ? matningsNiva(nivaSvar, fore).niva : null;
+      } else {
+        niva_efter = passUppdatering(fore, nivaSvar).niva;
+      }
     }
   }
 
@@ -717,7 +743,9 @@ export async function slutforTraning(args: {
   const nasta = meta.typ === 'pass' || meta.typ === 'riktat' ? nastaForPass(ratt, antal) : null;
 
   const statistik = blandad
-    ? svar.map((s) => ({ fraga_id: s.q_id, test_kind: 'matris', correct: s.correct, tid_s: s.time_spent, selected: s.selected }))
+    ? svar
+        .filter((s) => raknas.has(s.q_id))
+        .map((s) => ({ fraga_id: s.q_id, test_kind: 'matris', correct: s.correct, tid_s: s.time_spent, selected: s.selected }))
     : null;
 
   const { data, error } = await args.admin.rpc('slutfor_traningssession', {
@@ -776,6 +804,10 @@ export async function slutforTraning(args: {
       antal,
       over_tid: tempo.over_tid,
       tid_s,
+      // 14.1 punkt 6: hur ofta trappan går ner och hur mycket som räknades.
+      ateranvanda: meta.ateranvanda ?? 0,
+      // Riktade pass räknas aldrig mot nivån (14.1 punkt 2).
+      raknade: meta.typ === 'riktat' ? 0 : nivaSvar.length,
     });
   } else if (meta.typ === 'general') {
     void captureServer('generalrepetition_klar', args.userId, { format: meta.format, ratt, antal });

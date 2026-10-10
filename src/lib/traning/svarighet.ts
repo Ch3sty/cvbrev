@@ -29,12 +29,30 @@ export interface FragaStatistik {
   ratt: number;
 }
 
-/** p för en fråga: uppmätt från 30 svar, annars priorn. */
-export function pForFraga(prior: Prior, stat?: FragaStatistik | null): number {
+/** Intervallet bankfältet p_prior måste ligga i för att gälla. */
+export const P_PRIOR_GRANS = { min: 0.05, max: 0.95 } as const;
+
+/** Bankens p_prior som tal, eller null när fältet saknas eller ligger utanför [0,05, 0,95]. */
+export function lasPPrior(varde: unknown): number | null {
+  return typeof varde === 'number' &&
+    Number.isFinite(varde) &&
+    varde >= P_PRIOR_GRANS.min &&
+    varde <= P_PRIOR_GRANS.max
+    ? varde
+    : null;
+}
+
+/**
+ * p för en fråga: uppmätt från 30 svar, annars bankens p_prior när den finns
+ * (spec 14.1 punkt 4), annars priorklassen.
+ */
+export function pForFraga(prior: Prior, stat?: FragaStatistik | null, pPrior?: number | null): number {
   if (stat && stat.antal >= MIN_SVAR_FOR_KALIBRERING && stat.antal > 0) {
     // Hålls inom (0,02, 0,98) så att en fråga alla klarat inte blir nivå 1,0.
     return Math.min(0.98, Math.max(0.02, stat.ratt / stat.antal));
   }
+  const p = lasPPrior(pPrior);
+  if (p != null) return p;
   return PRIOR_P[prior];
 }
 

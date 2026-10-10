@@ -94,6 +94,10 @@ for (const q of bank) {
   // misstagGranskas (manuell granskning), annars är det ett fel.
   if (!FAMILJER.has(q.family)) errors.push(`${tag} family saknas eller finns inte i familjer.json (${q.family})`);
   if (!Number.isInteger(q.difficulty) || q.difficulty < 1 || q.difficulty > 4) errors.push(`${tag} difficulty ska vara 1-4 (är ${q.difficulty})`);
+  // p_prior (spec-rummen 14.1 punkt 4): frivilligt, andel rätt i [0,05, 0,95].
+  if (q.p_prior !== undefined && (typeof q.p_prior !== 'number' || !(q.p_prior >= 0.05 && q.p_prior <= 0.95))) {
+    errors.push(`${tag} p_prior ska vara ett tal i [0,05, 0,95] (är ${q.p_prior})`);
+  }
   if (!Array.isArray(q.misstag) || q.misstag.length !== q.options?.length) {
     errors.push(`${tag} misstag ska ha en post per alternativ`);
   } else {

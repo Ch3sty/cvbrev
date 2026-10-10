@@ -27,6 +27,8 @@ export type TraningsFraga = LayeredQuestion & {
   family?: unknown;
   misstag?: unknown;
   svarighet_prior?: unknown;
+  /** Frivillig andel rätt i [0,05, 0,95] när generatorn kan gradera (spec 14.1 punkt 4). */
+  p_prior?: unknown;
   kalla: Bankkalla;
 };
 
@@ -73,7 +75,7 @@ export function bankInfo(statistik?: ReadonlyMap<string, FragaStatistik>): BankF
     return {
       id: q.id,
       prior,
-      p: pForFraga(prior, statistik?.get(q.id)),
+      p: pForFraga(prior, statistik?.get(q.id), q.p_prior as number | null | undefined),
       family: familjFor(q),
       kalla: q.kalla,
     };

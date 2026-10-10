@@ -39,6 +39,13 @@ export interface TraningsMeta {
   niva_fore: number | null;
   malniva: number | null;
   ateranvanda: number;
+  /**
+   * Frågor hon sett inom 14 dagar före sessionens dag. Räknas i "rätt av
+   * antal" och visas i genomgången, men inte mot nivån, tempot, familjerna
+   * eller frågestatistiken (spec-rummen 14.1 punkt 3). Saknas i sessioner
+   * skapade före ändringen: tolkas som tom.
+   */
+  upprepade: string[];
   /* Satt av complete: */
   niva_efter?: number | null;
   ratt?: number;
