@@ -55,6 +55,19 @@ describe('matrisbanken efter våg 3c', () => {
     }
   })
 
+  it('15.2, 15.7, 15.11: inga alternativ väntar på granskning, rutans plats namnges', () => {
+    expect(ALLA_MATRISFRAGOR.filter((q) => q.misstagGranskas?.length).map((q) => q.id)).toEqual([])
+    const texter = ALLA_MATRISFRAGOR.flatMap((q) => q.misstag ?? [])
+    expect(texter.filter((t) => /^En svart ruta (för mycket|saknas)\.$/.test(t))).toEqual([])
+    const q25 = ALLA_MATRISFRAGOR.find((q) => q.id === 'v7g-q25-poly-rotate-walk')!
+    expect(q25.rule).toContain('börjar om efter fyra lägen')
+    expect(q25.misstag![2]).toBe('Fel läge i vridningen. Efter 90 grader börjar den om på 0.')
+    expect(q25.misstag![3]).toBe('Samma som rutan till vänster. Vridningen har inte tagit sista steget.')
+    expect(ALLA_MATRISFRAGOR.find((q) => q.id === 'v7-q15-tile-xor')!.misstag![5]).toBe(
+      'Ingen ruta alls. De fyra hörnen finns i var sin ruta och ska vara med.'
+    )
+  })
+
   it('alla familjer finns i varje nivå, och namnen går att slå upp', () => {
     for (const niva of [GRUND_3C, AVANCERAD_3C, EXPERT_3C]) {
       const fam = new Set(niva.map((q) => q.family))

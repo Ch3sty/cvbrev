@@ -22,10 +22,17 @@ import { tolka, familjFor } from './lib/matris/tolka.mjs';
 import { misstagFor } from './lib/matris/misstag.mjs';
 import { stable } from './lib/matris/celler.mjs';
 
+// Alla sex banker (spec-rummen 15.7): när misstag.mjs ändras regenereras
+// texterna i 3c-bankerna också, utan att id, rutnät eller alternativ rörs.
+// Handskrivna texter (MANUELLA i misstag.mjs, 15.2 och 15.11) går före den
+// maskinella texten, så misstagGranskas försvinner när alla är skrivna.
 const BANKER = [
   'src/lib/logicTestV7/questionBankGrund.v7.json',
   'src/lib/logicTestV7/questionBank.v7.json',
   'src/lib/logicTestV7/questionBankExpert.v7.json',
+  'src/lib/logicTestV7/questionBankGrund3c.v7.json',
+  'src/lib/logicTestV7/questionBankAvancerad3c.v7.json',
+  'src/lib/logicTestV7/questionBankExpert3c.v7.json',
 ];
 const NYA = ['family', 'misstag', 'misstagGranskas'];
 const kontroll = process.argv.includes('--kontroll');

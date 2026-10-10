@@ -1602,9 +1602,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -1687,8 +1687,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta saknas.",
-      "En svart ruta saknas."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
     ]
   },
   {
@@ -1770,9 +1770,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -1853,9 +1853,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -1938,8 +1938,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas."
     ]
   },
   {
@@ -2021,8 +2021,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -2104,8 +2104,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Mönstret har vridit sig ett steg för långt.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -2187,8 +2187,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta saknas.",
-      "En svart ruta saknas."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
     ]
   },
   {
@@ -2271,8 +2271,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas."
     ]
   },
   {
@@ -2354,8 +2354,8 @@
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
-      "En svart ruta saknas.",
-      "En svart ruta saknas."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
     ]
   },
   {
@@ -2436,9 +2436,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {

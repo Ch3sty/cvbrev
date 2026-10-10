@@ -228,8 +228,8 @@
       "Den svarta rutan har flyttat ett steg för långt.",
       "Den svarta rutan har flyttat åt fel håll.",
       "Den svarta rutan har inte flyttat sista steget.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -432,7 +432,7 @@
       "Den svarta rutan har flyttat åt fel håll.",
       "Den svarta rutan har inte flyttat sista steget.",
       "Rätt plats, men rutan ska vara svart.",
-      "En svart ruta saknas."
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -699,7 +699,7 @@
   {
     "id": "v7g-q25-poly-rotate-walk",
     "title": "Femhörningen vrider sig stegvis",
-    "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta (0, 30, 60, 90 grader och så vidare). Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
+    "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta och börjar om efter fyra lägen: 0, 30, 60, 90, 0, 30 och så vidare. Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
     "difficulty": 2,
     "family": "vridning",
     "grid": [
@@ -719,12 +719,11 @@
     "misstag": [
       "",
       "Samma som rutan ovanför.",
-      "",
-      "Vridningen har inte ändrats sista steget.",
+      "Fel läge i vridningen. Efter 90 grader börjar den om på 0.",
+      "Samma som rutan till vänster. Vridningen har inte tagit sista steget.",
       "Vridningen stämmer, men alla figurer är femhörningar.",
       "Vridningen stämmer, men alla figurer är svarta."
-    ],
-    "misstagGranskas": [2]
+    ]
   },
   {
     "id": "v7g-q26-orbital-fill-latin",

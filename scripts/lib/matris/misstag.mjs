@@ -76,6 +76,34 @@ function textRotation(q, t, R, F, regel) {
   return textMangd(dim, R, F, seq);
 }
 
+// Rutornas namn (spec-rummen 15.7). 3×3: bit i = rad floor(i/3), kolumn i%3.
+const RUTA_3X3 = ['uppe till vänster', 'uppe i mitten', 'uppe till höger', 'till vänster i mitten', 'i mitten', 'till höger i mitten', 'nere till vänster', 'nere i mitten', 'nere till höger'];
+// 2×2: läget i medurs ordning (TL, TR, BR, BL), listat i läsordning.
+const RUTA_2X2 = ['uppe till vänster', 'uppe till höger', 'nere till höger', 'nere till vänster'];
+const LASORDNING_2X2 = { 0: 0, 1: 1, 3: 2, 2: 3 };
+const TAL_STOR = { 2: 'Två', 3: 'Tre', 4: 'Fyra', 5: 'Fem', 6: 'Sex', 7: 'Sju', 8: 'Åtta', 9: 'Nio' };
+
+/** Namnen på rutorna i en svart-ruta-dimension (tile eller 2×2 svart), i läsordning. Null för andra. */
+function rutnamn(dim, el) {
+  if (dim.tile) return [...el].map(Number).sort((a, b) => a - b).map((i) => RUTA_3X3[i]);
+  if (dim.lat === 'fill_black') return [...el].map(Number).sort((a, b) => LASORDNING_2X2[a] - LASORDNING_2X2[b]).map((p) => RUTA_2X2[p]);
+  return null;
+}
+/**
+ * Texten som generatorerna jämför när de väljer distraktorer med olika
+ * texter. Rutans namn (15.7) räknas inte: före 15.7 var "En svart ruta för
+ * mycket." samma text oavsett ruta, och urvalet ska bli detsamma så att
+ * incheckade 3c-frågor kan genereras om oförändrade. Flerrutstexterna fanns
+ * inte före 15.7 (alternativet var oförklarat) och ger null.
+ */
+export function urvalsText(x) {
+  if (!x) return x;
+  if (/(^|, men )([Tt]vå|[Tt]re|[Ff]yra|[Ff]em|[Ss]ex|[Ss]ju|[Åå]tta|[Nn]io) rutor (för mycket|saknas): /.test(x)) return null;
+  return x.replace(/[Rr]utan (?:uppe|nere|till|i)[^.]*? (är fylld fast den inte ska vara det|saknas)\./, (_m, s) => `rutan ? ${s}.`);
+}
+
+const lista = (namn) => (namn.length === 1 ? namn[0] : `${namn.slice(0, -1).join(', ')} och ${namn[namn.length - 1]}`);
+
 function textMangd(dim, R, F, seq) {
   const eR = element(dim, R);
   const eF = element(dim, F);
@@ -85,12 +113,18 @@ function textMangd(dim, R, F, seq) {
   const sF = new Set(eF);
   const ext = eF.filter((x) => !sR.has(x));
   const sak = eR.filter((x) => !sF.has(x));
-  if (ext.length === 1 && sak.length === 0) return `${artikel(sing)} ${sing} för mycket.`;
-  if (sak.length === 1 && ext.length === 0) return `${artikel(sing)} ${sing} saknas.`;
+  // 3×3 och 2×2 med svarta rutor: säg vilken ruta (15.7).
+  const nExt = rutnamn(dim, ext);
+  const nSak = rutnamn(dim, sak);
+  if (ext.length === 1 && sak.length === 0) return nExt ? `Rutan ${nExt[0]} är fylld fast den inte ska vara det.` : `${artikel(sing)} ${sing} för mycket.`;
+  if (sak.length === 1 && ext.length === 0) return nSak ? `Rutan ${nSak[0]} saknas.` : `${artikel(sing)} ${sing} saknas.`;
   if (seq && eF.length !== eR.length) {
     const storlekar = new Set(seq.map((v) => element(dim, v).length));
     if (storlekar.size === 1) return `Antalet ${plur} ändras aldrig.`;
   }
+  // Två eller fler rutor åt samma håll: "Två rutor för mycket: uppe till vänster och i mitten."
+  if (nExt && ext.length >= 2 && sak.length === 0 && TAL_STOR[ext.length]) return `${TAL_STOR[ext.length]} rutor för mycket: ${lista(nExt)}.`;
+  if (nSak && sak.length >= 2 && ext.length === 0 && TAL_STOR[sak.length]) return `${TAL_STOR[sak.length]} rutor saknas: ${lista(nSak)}.`;
   return null;
 }
 
@@ -318,6 +352,39 @@ function rattNamn(regel) {
  * tom sträng. Saknas förklaring blir posten null.
  */
 export function misstagFor(q, t = tolka(q)) {
+  const manuella = MANUELLA[q.id];
+  const maskinellt = misstagMaskinellt(q, t);
+  return manuella ? maskinellt.map((x, i) => (i === q.correctAnswer ? '' : manuella[i] ?? x)) : maskinellt;
+}
+
+/**
+ * Texter testansvarig skrivit för hand, på originalindex (spec-rummen 15.2
+ * och 15.11). De går före den maskinella texten överallt: generatorerna,
+ * berika-skriptet och facitkontrollen läser samma tabell.
+ */
+export const MANUELLA = {
+  'v7g-q25-poly-rotate-walk': {
+    2: 'Fel läge i vridningen. Efter 90 grader börjar den om på 0.',
+    3: 'Samma som rutan till vänster. Vridningen har inte tagit sista steget.',
+  },
+  'v7-q5-lattice-xor': {
+    3: 'Rutan uppe till höger finns i båda och ska bort. Rutan nere till höger finns bara i den första och ska vara kvar.',
+  },
+  'v7-q11-ring-xor': {
+    2: 'Tar bort allt. Mellanringen och den innersta finns bara i en av rutorna och ska vara kvar.',
+  },
+  'v7-q13-tile-mirror': {
+    4: 'Mittraden finns inte i någon spegling av rutan till vänster. Spegla den upp och ner.',
+    5: 'Kopierar den översta rutan i kolumnen.',
+  },
+  'v7-q15-tile-xor': {
+    1: 'Uppe till vänster och nere till höger saknas. Rutan till höger i mitten finns inte i någon av de två rutorna.',
+    4: 'Alla rutor fyllda. Mitten finns i båda rutorna och ska bort.',
+    5: 'Ingen ruta alls. De fyra hörnen finns i var sin ruta och ska vara med.',
+  },
+};
+
+function misstagMaskinellt(q, t) {
   if (!t.ok) return q.options.map((_, i) => (i === q.correctAnswer ? '' : null));
   // 2×2 där flera fyllningar vrids tillsammans: beskriv hela mönstret
   const latRot = Object.values(t.regel).filter((x) => x.regel !== 'konstant');

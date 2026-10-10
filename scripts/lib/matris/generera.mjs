@@ -14,7 +14,7 @@
 import { mulberry32, hashString } from '../blanda-alternativ.mjs';
 import { stable, tile as T, sektor, ray as RAY, lattice as LAT, LAT_MEDURS, mod } from './celler.mjs';
 import { kontrollera } from './kontroll.mjs';
-import { misstagFor } from './misstag.mjs';
+import { misstagFor, urvalsText } from './misstag.mjs';
 import { tolka, familjFor } from './tolka.mjs';
 
 export const key = (c) => stable(c);
@@ -652,8 +652,8 @@ export function bygg(recept, upptagna = new Set()) {
     if (!m) { fel.push(`försök ${forsok}: misstag kastade`); continue; }
     // välj fem med olika texter först, i byggarens ordning
     const valda = []; const texter = new Set();
-    kand.forEach((c, i) => { const x = m[i + 1]; if (x && !texter.has(x) && valda.length < 5) { valda.push(c); texter.add(x); } });
-    kand.forEach((c, i) => { const x = m[i + 1]; if (x && !valda.includes(c) && valda.length < 5 && [...texter].filter((y) => y === x).length < 2) { valda.push(c); } });
+    kand.forEach((c, i) => { const x = urvalsText(m[i + 1]); if (x && !texter.has(x) && valda.length < 5) { valda.push(c); texter.add(x); } });
+    kand.forEach((c, i) => { const x = urvalsText(m[i + 1]); if (x && !valda.includes(c) && valda.length < 5 && [...texter].filter((y) => y === x).length < 2) { valda.push(c); } });
     if (valda.length < 5) { fel.push(`försök ${forsok}: bara ${valda.length} förklarade distraktorer`); continue; }
     // facits plats slumpas (blandningen per session gör det ändå, men banken ska inte ha ett mönster)
     const pos = Math.floor(r() * 6);

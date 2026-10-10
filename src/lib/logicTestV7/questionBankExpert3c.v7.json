@@ -621,7 +621,7 @@
       "Mönstret har vridit sig åt fel håll.",
       "Det är en spegelbild, men mönstret ska vridas.",
       "Mönstret har vridit sig ett steg för långt.",
-      "En svart ruta för mycket."
+      "Rutan nere till höger är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -704,7 +704,7 @@
       "Det är en spegelbild, men mönstret ska vridas.",
       "",
       "Mönstret har vridit sig ett steg för långt.",
-      "En svart ruta för mycket."
+      "Rutan nere till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -1246,7 +1246,7 @@
       "Det är en spegelbild, men mönstret ska vridas.",
       "",
       "Mönstret har vridit sig ett steg för långt.",
-      "En svart ruta saknas."
+      "Rutan till höger i mitten saknas."
     ]
   },
   {
@@ -1592,7 +1592,7 @@
       "Den svarta rutan har flyttat ett steg för långt.",
       "Den svarta rutan har flyttat åt fel håll.",
       "Rätt plats, men rutan ska vara svart.",
-      "En svart ruta saknas.",
+      "Rutan nere till vänster saknas.",
       ""
     ]
   },
@@ -5845,7 +5845,7 @@
       "",
       "Tar med det som finns i båda. Det gemensamma ska bort.",
       "Visar bara det gemensamma. Det ska bort, resten ska med.",
-      "En svart ruta saknas.",
+      "Rutan till vänster i mitten saknas.",
       "Kopierar den översta rutan i kolumnen.",
       "Kopierar den mittersta rutan i kolumnen."
     ]
@@ -6013,7 +6013,7 @@
       "Kopierar den översta rutan i kolumnen.",
       "",
       "Kopierar den mittersta rutan i kolumnen.",
-      "En svart ruta för mycket."
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -6361,7 +6361,7 @@
       "Visar bara det gemensamma. Allt ska med.",
       "Kopierar den första rutan i raden.",
       "Kopierar den andra rutan i raden.",
-      "En svart ruta saknas.",
+      "Rutan uppe till vänster saknas.",
       ""
     ]
   },
@@ -6513,9 +6513,9 @@
       "Visar bara det gemensamma. Det ska bort, resten ska med.",
       "Kopierar den översta rutan i kolumnen.",
       "Kopierar den mittersta rutan i kolumnen.",
-      "En svart ruta saknas.",
+      "Rutan uppe till höger saknas.",
       "",
-      "En svart ruta för mycket."
+      "Rutan nere till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -6732,7 +6732,7 @@
       "Speglar i fel linje.",
       "",
       "Vrider i stället för att spegla.",
-      "En svart ruta saknas."
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -6814,8 +6814,8 @@
       "Kopierar den översta rutan i kolumnen.",
       "Speglar i fel linje.",
       "",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan uppe till vänster är fylld fast den inte ska vara det.",
+      "Rutan uppe i mitten är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -6897,7 +6897,7 @@
       "Kopierar den första rutan i raden.",
       "Speglar i fel linje.",
       "Vrider i stället för att spegla.",
-      "En svart ruta för mycket.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det.",
       ""
     ]
   },
@@ -6980,8 +6980,8 @@
       "Samma som rutan ovanför. Den andra speglingen saknas.",
       "Kopierar den översta rutan i kolumnen.",
       "Speglar i fel linje.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas."
+      "Rutan uppe till vänster är fylld fast den inte ska vara det.",
+      "Rutan uppe i mitten saknas."
     ]
   },
   {
@@ -7283,7 +7283,7 @@
       "Vrider i stället för att spegla.",
       "Rätt plats, men rutan ska vara grå.",
       "",
-      "En svart ruta för mycket."
+      "Rutan uppe till höger är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -7365,8 +7365,8 @@
       "",
       "Kopierar den första rutan i raden.",
       "Speglar i fel linje.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan uppe till vänster är fylld fast den inte ska vara det.",
+      "Rutan uppe i mitten är fylld fast den inte ska vara det."
     ]
   },
   {

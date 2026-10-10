@@ -257,13 +257,12 @@
     "correctAnswer": 0,
     "misstag": [
       "",
-      "En svart ruta saknas.",
+      "Rutan uppe till vänster saknas.",
       "Kopierar den första rutan i raden.",
-      "",
+      "Rutan uppe till höger finns i båda och ska bort. Rutan nere till höger finns bara i den första och ska vara kvar.",
       "Samma som rutan ovanför.",
-      "En svart ruta saknas."
-    ],
-    "misstagGranskas": [3]
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7-q8-stack-latin",
@@ -509,12 +508,11 @@
     "misstag": [
       "",
       "Tar med det som finns i båda. Det gemensamma ska bort.",
-      "",
+      "Tar bort allt. Mellanringen och den innersta finns bara i en av rutorna och ska vara kvar.",
       "Visar bara det gemensamma. Det ska bort, resten ska med.",
       "En svart ring saknas.",
       "Kopierar den första rutan i raden."
-    ],
-    "misstagGranskas": [2]
+    ]
   },
   {
     "id": "v7-q12-triple-stack",
@@ -707,10 +705,9 @@
       "",
       "Kopierar den första rutan i raden.",
       "Samma som rutan till vänster. Den andra speglingen saknas.",
-      "",
-      ""
-    ],
-    "misstagGranskas": [4,5]
+      "Mittraden finns inte i någon spegling av rutan till vänster. Spegla den upp och ner.",
+      "Kopierar den översta rutan i kolumnen."
+    ]
   },
   {
     "id": "v7-q15-tile-xor",
@@ -788,13 +785,12 @@
     "correctAnswer": 0,
     "misstag": [
       "",
-      "",
+      "Uppe till vänster och nere till höger saknas. Rutan till höger i mitten finns inte i någon av de två rutorna.",
       "Kopierar den första rutan i raden.",
       "Kopierar den andra rutan i raden.",
-      "",
-      ""
-    ],
-    "misstagGranskas": [1,4,5]
+      "Alla rutor fyllda. Mitten finns i båda rutorna och ska bort.",
+      "Ingen ruta alls. De fyra hörnen finns i var sin ruta och ska vara med."
+    ]
   },
   {
     "id": "v7-a-ring-latin",
@@ -1445,9 +1441,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta saknas.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -1528,9 +1524,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -1611,9 +1607,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket.",
-      "En svart ruta för mycket."
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   },
   {
@@ -1694,9 +1690,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas.",
-      "En svart ruta saknas."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster saknas."
     ]
   },
   {
@@ -3057,9 +3053,9 @@
       "",
       "Mönstret har inte vridit sig sista steget.",
       "Mönstret har vridit sig åt fel håll.",
-      "En svart ruta för mycket.",
-      "En svart ruta saknas.",
-      "En svart ruta för mycket."
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
     ]
   }
 ]
