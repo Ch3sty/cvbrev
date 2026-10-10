@@ -31,7 +31,7 @@ import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
 const SECONDARY =
   `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
 const DESTRUKTIV =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+  'inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-fel-kant bg-papper px-[18px] text-[15px] font-semibold text-fel disabled:cursor-not-allowed disabled:opacity-40';
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
