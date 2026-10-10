@@ -62,7 +62,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
 
   return (
     <>
-    <RumHuvud eyebrow={PROVSIDA.eyebrow} title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
+    <RumHuvud title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
     <Golv>
     <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 

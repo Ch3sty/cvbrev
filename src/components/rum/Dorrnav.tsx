@@ -3,7 +3,7 @@
 /**
  * Dörrnavet (spec-rummen 4.3, beslut 4, konceptets .bnav, ramarna N1 och N2).
  *
- * Fyra dörrar: Testträning, CV, Personliga brev, Jobbsöket. Den aktiva
+ * Fyra dörrar: Tester, CV, Personliga brev, Jobbsöket (DORR_ETIKETT.mobil). Den aktiva
  * dörren står i rummets ton bakom ikonen och etiketten i ink-1 600, så man
  * ser vilket rum man står i innan man läst ett ord. Jobbsöket är aktiv på
  * /dashboard och alla rum-jobb-routes; på kontots sidor är ingen dörr aktiv.

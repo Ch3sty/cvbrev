@@ -24,6 +24,7 @@ import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import { RUBRIK } from '@/lib/rum/copy';
 
 import { logUserActivity } from '@/lib/activity-logger';
 import { lockedCvIds, type CvAnalysData } from './getCvAnalysData';
@@ -159,7 +160,7 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
     return (
       <>
         <RumHuvud
-          title="Analysera ditt CV"
+          title={RUBRIK.analyseraCv}
           description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
         />
         <Golv>

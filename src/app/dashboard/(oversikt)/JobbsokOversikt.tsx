@@ -5,11 +5,10 @@
  * (regel 5 i docs/design/analys-visuell-linje-2026-09-22.html). "11 sökta i
  * september", en segmentrad för tysta, väntande och intervjuer, och en
  * mening om svaren och veckan. Aldrig svarsfrekvens: den bor på
- * ansökningssidan. Vyns primära knapp, i ink.
+ * ansökningssidan. Ingen egen länk: Logga sökt tjänst står en gång, på
+ * väggen (spec 16.2 fråga 14).
  */
 
-import { LANK } from '@/components/shell/knappar'
-import Link from 'next/link'
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary'
 import Fordelning from '@/components/shell/Fordelning'
 
@@ -51,14 +50,6 @@ export default function JobbsokOversikt({ summary, fordelning }: JobbsokOversikt
           { label: 'väntar svar', value: f.vantar, tone: 'stark' },
           { label: f.intervju === 1 ? 'intervju' : 'intervjuer', value: f.intervju, tone: 'positiv' },
         ]}
-        action={
-          <Link
-            href="/dashboard/sokta-tjanster?ny=1"
-            className={`${LANK} inline-flex min-h-11 items-center`}
-          >
-            Logga ansökan
-          </Link>
-        }
       />
     </section>
   )

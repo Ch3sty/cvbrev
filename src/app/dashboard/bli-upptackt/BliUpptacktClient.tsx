@@ -3,6 +3,7 @@
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
+import { BLI_UPPTACKT } from '@/lib/rum/copy'
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -203,10 +204,7 @@ export default function BliUpptacktClient({
   if (!profile.consent_given_at) {
     return (
       <>
-      <RumHuvud
-        title="Låt jobben hitta dig"
-        description="Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen. Du är anonym tills du själv godkänner en kontakt, och du stänger av synligheten när du vill."
-      />
+      <RumHuvud title={BLI_UPPTACKT.rubrik} description={BLI_UPPTACKT.radFore} />
       <Golv>
       <div className="w-full max-w-3xl">
         <section className="rounded-2xl border border-kant bg-papper p-6 text-center sm:p-8">
@@ -246,7 +244,16 @@ export default function BliUpptacktClient({
 
   return (
     <>
-    <RumHuvud title="Bli upptäckt" />
+    <RumHuvud
+      title={BLI_UPPTACKT.rubrik}
+      description={
+        profile.visibility !== 'off'
+          ? [BLI_UPPTACKT.radEfter, views && views.total > 0 ? BLI_UPPTACKT.tittat(views.total) : null]
+              .filter(Boolean)
+              .join(' ')
+          : undefined
+      }
+    />
     <Golv>
     <div className="w-full max-w-6xl">
       {/* Full bredd överst: master, larm, genväg till meddelanden */}

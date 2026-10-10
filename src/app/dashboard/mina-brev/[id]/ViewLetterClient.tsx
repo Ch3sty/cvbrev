@@ -4,14 +4,16 @@
  * Ett sparat brev (docs/design/overlamning-opus.md, avsnitt 4, "Lista" och
  * "Flödessteg").
  *
- * Väggen (RumHuvud) bär sidans enda h1 och bär primärhandlingen (Redigera). Övriga
- * handlingar är sekundära knappar i en panel. Brevet självt ligger på papper
- * (bg-white), vilket är specens enda tillåtna undantag från bg-panel.
+ * B1-skelettet (spec-rummen 16.3.2): väggen bär h1, metaraden och länken
+ * tillbaka. Brevet är det lyfta kortet, med Redigera som kopparknapp och
+ * Kopiera, PDF och Word som länkar under. Ta bort är en röd länk vid
+ * metaraden. Brevet självt ligger på vitt papper (dokumentytan, undantaget i
+ * spec 13.1).
  * Borttagning går genom ConfirmDialog, felet genom FlowError, laddningen
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
-import { KNAPP_GLAS, KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -19,6 +21,8 @@ import Link from 'next/link';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { BREVVY } from '@/lib/rum/copy';
 import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
@@ -31,10 +35,8 @@ import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { bytKontaktIBrev, kontaktIBrev, type ProfilKontakt } from '@/lib/profile/dokumentKontakt';
 
-const SECONDARY =
-  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
-const DESTRUKTIV =
-  'inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-fel-kant bg-papper px-[18px] text-[15px] font-semibold text-fel disabled:cursor-not-allowed disabled:opacity-40';
+/** Brevets tre länkar under Redigera (spec 16.3.2, B1). */
+const BREVLANK = `${LANK} inline-flex min-h-11 items-center disabled:cursor-not-allowed disabled:opacity-40`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
@@ -249,21 +251,67 @@ export default function ViewLetterClient({
 
   return (
     <>
+      {/* Väggen säger var du är (spec 16.3.2, B1): rubriken, metaraden och
+          länken tillbaka. Brevet är det lyfta kortet. */}
       <RumHuvud
         title={currentLetter.title || 'Ansökningsbrev'}
         description={beskrivning || undefined}
-        action={
-          // Betalväggen under brevet bär kopparknappen när den syns.
-          <Link href={`/dashboard/mina-brev/${id}/edit`} className={downloadGate ? KNAPP_GLAS : KNAPP_PRIMAR}>
-            Redigera
+        tat={false}
+        handling={
+          <Link href="/dashboard/mina-brev" className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
+            {BREVVY.allaBrev}
           </Link>
         }
-      >
-        <Link href="/dashboard/mina-brev" className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
-          Alla dina brev
-        </Link>
-      </RumHuvud>
-    <Golv key="brev">
+      />
+    <Golv key="brev" lyft>
+      <LyftKort label="Brevet" className="w-full max-w-3xl">
+        {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
+        <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
+          {html ? (
+            <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
+              <div
+                className={BREV_SCOPE}
+                dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
+              />
+            </div>
+          ) : (
+            <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
+              <div
+                className="mx-auto max-w-2xl text-ink-1"
+                style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+                dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
+              />
+            </div>
+          )}
+        </div>
+        <div className={KNAPPRAD}>
+          {/* Betalväggen under brevet bär kopparknappen när den syns. */}
+          <Link href={`/dashboard/mina-brev/${id}/edit`} className={downloadGate ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+            {BREVVY.redigera}
+          </Link>
+        </div>
+        <div className="mt-1.5 flex flex-wrap justify-center gap-x-5">
+          <button type="button" onClick={handleCopy} className={BREVLANK}>
+            {copied ? BREVVY.kopierad : BREVVY.kopiera}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDownload('pdf')}
+            disabled={downloading !== null}
+            className={BREVLANK}
+          >
+            {downloading === 'pdf' ? 'Skapar PDF' : BREVVY.pdf}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDownload('docx')}
+            disabled={downloading !== null}
+            className={BREVLANK}
+          >
+            {downloading === 'docx' ? 'Skapar Word' : BREVVY.word}
+          </button>
+        </div>
+      </LyftKort>
     <div className="w-full max-w-3xl space-y-4">
 
       {copied ? (
@@ -276,60 +324,9 @@ export default function ViewLetterClient({
         <FlowError message={downloadError} onRetry={() => setDownloadError(null)} retryLabel="Stäng" />
       ) : null}
 
-      {/* Handlingar. Primärhandlingen bor i sidhuvudet, de här är sekundära. */}
-      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-        <button type="button" onClick={handleCopy} className={SECONDARY}>
-          {copied ? 'Kopierat' : 'Kopiera text'}
-        </button>
-        <button
-          type="button"
-          onClick={() => handleDownload('pdf')}
-          disabled={downloading !== null}
-          className={SECONDARY}
-        >
-          {downloading === 'pdf' ? 'Skapar PDF' : 'Ladda ner PDF'}
-        </button>
-        <button
-          type="button"
-          onClick={() => handleDownload('docx')}
-          disabled={downloading !== null}
-          className={SECONDARY}
-        >
-          {downloading === 'docx' ? 'Skapar Word' : 'Ladda ner Word'}
-        </button>
-        <button
-          type="button"
-          onClick={() => setShowDeleteConfirm(true)}
-          disabled={isDeleting}
-          className={DESTRUKTIV}
-        >
-          {isDeleting ? 'Tar bort' : 'Ta bort'}
-        </button>
-      </div>
-
       {/* Adressen nedladdningen får. Sparade brev har adressen inbakad, så
           /api/letters/download byter den mot den aktuella. */}
       <KontaktuppgifterRad dokument="brev" />
-
-      {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
-      <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
-        {html ? (
-          <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
-            <div
-              className={BREV_SCOPE}
-              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
-            />
-          </div>
-        ) : (
-          <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
-            <div
-              className="mx-auto max-w-2xl text-ink-1"
-              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
-              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
-            />
-          </div>
-        )}
-      </div>
 
       {/* A1: betalvägg under det fullt synliga brevet */}
       {downloadGate && (
@@ -343,13 +340,21 @@ export default function ViewLetterClient({
         />
       )}
 
-      {(skapad || uppdaterad) && (
+      <div className="flex items-center justify-between gap-4">
         <p className="text-meta text-ink-3">
           {skapad ? `Skapad ${skapad}` : null}
           {skapad && uppdaterad ? ' · ' : null}
           {uppdaterad ? `Uppdaterad ${uppdaterad}` : null}
         </p>
-      )}
+        <button
+          type="button"
+          onClick={() => setShowDeleteConfirm(true)}
+          disabled={isDeleting}
+          className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-fel decoration-fel/40 disabled:cursor-not-allowed disabled:opacity-40`}
+        >
+          {isDeleting ? 'Tar bort' : BREVVY.taBort}
+        </button>
+      </div>
 
       <ConfirmDialog
         open={showDeleteConfirm}

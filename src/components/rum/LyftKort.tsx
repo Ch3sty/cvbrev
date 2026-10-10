@@ -16,7 +16,8 @@ import { KNAPPRAD } from '@/components/shell/knappar'
 export interface LyftKortProps {
   eyebrow?: string
   eyebrowTon?: 'koppar' | 'neutral'
-  titel: ReactNode
+  /** Utelämnas när kortet är innehållet självt (brevet i B1). */
+  titel?: ReactNode
   text?: ReactNode
   /** KNAPP_PRIMAR */
   handling?: ReactNode
@@ -59,7 +60,7 @@ export default function LyftKort({
       {eyebrow ? (
         <p className={`text-ey ${eyebrowTon === 'koppar' ? 'text-koppar-ink' : 'text-ink-3'}`}>{eyebrow}</p>
       ) : null}
-      <Titel className="mt-1 text-kort-t text-ink-1">{titel}</Titel>
+      {titel ? <Titel className="mt-1 text-kort-t text-ink-1">{titel}</Titel> : null}
       {text ? <div className="mt-1.5 text-sm leading-[21px] text-ink-2">{text}</div> : null}
       {children}
       {handling || sekundar ? (

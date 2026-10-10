@@ -8,6 +8,7 @@
 import Link from 'next/link'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { INFOR_INTERVJUN_HREF } from '@/lib/intervju/lankar'
 import { SAKNAS } from '../infor-intervjun-copy'
@@ -16,17 +17,18 @@ import { TEXTLANK } from './ProvRad'
 export default function SaknasVy() {
   return (
     <>
-      <RumHuvud
-        eyebrow={SAKNAS.eyebrow}
-        title={SAKNAS.titel}
-        description={SAKNAS.text}
-        action={
-          <Link href={INFOR_INTERVJUN_HREF} className={KNAPP_PRIMAR}>
-            {SAKNAS.lankHubb}
-          </Link>
-        }
-      />
-      <Golv>
+      <RumHuvud title={SAKNAS.titel} tat={false} />
+      <Golv lyft>
+        <LyftKort
+          label={SAKNAS.kortTitel}
+          titel={SAKNAS.kortTitel}
+          text={SAKNAS.text}
+          handling={
+            <Link href={INFOR_INTERVJUN_HREF} className={KNAPP_PRIMAR}>
+              {SAKNAS.lankHubb}
+            </Link>
+          }
+        />
         <Link href="/dashboard" className={TEXTLANK}>
           {SAKNAS.lankHem}
         </Link>

@@ -133,7 +133,6 @@ export default function OgPreviewPage() {
   return (
     <>
     <RumHuvud
-      eyebrow="Intern preview"
       title="OG-bild förhandsvisning"
       description="Alla dynamiska OG-bilder i 1200×630-format (Open Graph-storlek). Genereras automatiskt vid build/deploy via Next.js ImageResponse, inga manuella bilder krävs."
     />

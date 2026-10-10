@@ -1,6 +1,6 @@
 'use client';
 
-import { KNAPP_GLAS, KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -16,8 +16,9 @@ import CvCard from './components/CvCard';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { LYFT, RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
-import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
@@ -307,33 +308,37 @@ export default function MinaCvClient({
 
   return (
     <>
+      {/* Väggen säger var du är (spec 16.3.2): statusradens text står i
+          raden, uppladdningen i det lyfta kortet. Aldrig oändlighetstecken. */}
       <RumHuvud
-        title="Mina CV"
-        description="Ladda upp ditt CV en gång, använd det i brev, analys och mallar."
-        action={
-          !limitReached ? (
-            // Snabbpoängen efter en uppladdning bär kopparknappen; då står
-            // uppladdningen här som glasknapp (en kopparknapp per vy).
-            <a
-              href="#upload-zone"
-              className={quickScoreCvId ? KNAPP_GLAS : KNAPP_PRIMAR}
-            >
-              Ladda upp CV
-            </a>
-          ) : undefined
+        title={RUBRIK.minaCv}
+        description={
+          cvCount > 0
+            ? isPremium
+              ? PAKETRADER.cvUtanGrans(cvCount)
+              : `${cvCount} av ${FREE_LIMIT} CV använda.`
+            : 'Ladda upp ditt CV en gång, använd det i brev, analys och mallar.'
         }
+        tat={limitReached}
       />
-    <Golv>
+    <Golv lyft={!limitReached}>
+      {!limitReached ? (
+        <LyftKort
+          label={LYFT.minaCv.titel}
+          eyebrow={LYFT.minaCv.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.minaCv.titel}
+          text={LYFT.minaCv.text}
+          handling={
+            // Snabbpoängen efter en uppladdning bär kopparknappen; då är
+            // uppladdningen sekundär (en kopparknapp per vy).
+            <a href="#upload-zone" className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+              {LYFT.minaCv.handling}
+            </a>
+          }
+        />
+      ) : null}
     <div className="w-full max-w-5xl space-y-6">
-
-      {/* Statusrad: antal av kvoten. Aldrig oandlighetstecken. */}
-      {cvCount > 0 && (
-        <StatusRow label="Antal CV">
-          {isPremium
-            ? PAKETRADER.cvUtanGrans(cvCount)
-            : `${cvCount} av ${FREE_LIMIT} CV använda.`}
-        </StatusRow>
-      )}
 
       {/* Tomt tillstand enligt sidmallen */}
       {isEmpty && (

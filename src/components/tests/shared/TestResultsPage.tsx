@@ -19,10 +19,12 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import type { TestConfig } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { NIVA_I_RAD, RUBRIK, resultatRad } from '@/lib/rum/copy'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
@@ -165,20 +167,29 @@ export default function TestResultsPage({
     // reserverad, så golvet inte hoppar när sessionen landat.
     return (
       <>
+        {/* Samma vägg som resultatet (TestResultsShell). Datumet är inte
+            känt än, så dess plats hålls med osynlig text: raden får samma
+            höjd och golvet byts (egen nyckel) i stället för att flyttas. */}
         <RumHuvud
-          title={`${config.title}: ditt resultat`}
-          description="Här är genomgången fråga för fråga."
-          action={<span aria-hidden="true" className="skelett-vagg block h-12 w-full sm:w-40" />}
+          title={RUBRIK.resultat}
+          description={
+            <>
+              {resultatRad(KIND_LABEL[config.kind], NIVA_I_RAD[config.level], null)}{' '}
+              <span className="invisible" aria-hidden="true">
+                Genomfört 30 september 2026.
+              </span>
+            </>
+          }
+          tat={false}
         />
-        <Golv>
+        <Golv key="laddar" lyft>
           <div
             className="w-full max-w-3xl space-y-4 sm:space-y-6"
             role="status"
             aria-busy="true"
             aria-label="Laddar resultat"
           >
-            <div className="h-7 w-24 rounded-lg bg-insunken" aria-hidden="true" />
-            <div className="loading-thread h-40 rounded-xl border border-kant bg-papper" aria-hidden="true" />
+            <div className="loading-thread relative z-[2] -mt-[30px] h-48 rounded-2xl border border-[color:var(--lyft-kant)] bg-papper shadow-lyft" aria-hidden="true" />
             <div className="h-64 rounded-xl border border-kant bg-papper" aria-hidden="true" />
           </div>
         </Golv>
@@ -189,19 +200,20 @@ export default function TestResultsPage({
   if (state === 'missing' || !session) {
     return (
       <>
-        <RumHuvud
-          title="Resultatet gick inte att hämta"
-          description="Sessionen finns inte kvar, eller så hör den till ett annat konto. Kör testet igen så sparas ett nytt resultat."
-          action={
-            <Link
-              href={`/dashboard/tester/${config.slug}`}
-              className={KNAPP_PRIMAR}
-            >
-              Till {config.title.toLowerCase()}
-            </Link>
-          }
-        />
-        <Golv>{null}</Golv>
+        <RumHuvud title="Resultatet gick inte att hämta" tat={false} />
+        <Golv key="saknas" lyft>
+          <LyftKort
+            className="w-full max-w-3xl"
+            label={config.title}
+            titel={config.title}
+            text="Sessionen finns inte kvar, eller så hör den till ett annat konto. Kör testet igen så sparas ett nytt resultat."
+            handling={
+              <Link href={`/dashboard/tester/${config.slug}`} className={KNAPP_PRIMAR}>
+                Till {config.title.toLowerCase()}
+              </Link>
+            }
+          />
+        </Golv>
       </>
     )
   }

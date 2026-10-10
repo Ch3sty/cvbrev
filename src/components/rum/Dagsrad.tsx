@@ -1,7 +1,8 @@
 /**
  * Dagsraden på väggen (spec-rummen 4.4, konceptets .dagsrad): ringen och
  * tre tal i ett glaskort. Talen i display 22/24 tabulärt i vagg-ink,
- * etiketterna 12/16 i vagg-mjuk.
+ * etiketterna 12/16 i vagg-mjuk. Renderas inte på provdagen (spec 16.2
+ * fråga 4).
  *
  * Server component.
  */

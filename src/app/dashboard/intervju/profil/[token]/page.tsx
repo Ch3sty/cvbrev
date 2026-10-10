@@ -66,7 +66,7 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
 
   return (
     <>
-    <RumHuvud eyebrow={PROFILSIDA.eyebrow} title={PROFILSIDA.titel} description={PROFILSIDA.beskrivning} />
+    <RumHuvud title={PROFILSIDA.titel} description={PROFILSIDA.beskrivning} />
     <Golv>
     <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 

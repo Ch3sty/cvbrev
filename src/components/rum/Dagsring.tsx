@@ -3,8 +3,12 @@
  *
  *   kvar         streckad kopparring och en liten ring i mitten
  *   gjord        fylld kopparring och en bock
- *   general      streckad ring och en kvadrat i mitten (generalrepetitionen)
- *   uppvarmning  streckad ring och tre prickar (provdagens uppvärmning)
+ *   general      streckad ring och en kvadrat i mitten (generalrepetitionen,
+ *                bara de två dagarna före provet)
+ *
+ * Provdagen har ingen dagsring och ingen dagsrad alls (spec 16.2 fråga 4,
+ * testansvarigs villkor): väggen bär datumet och nivåskalan, uppvärmningen
+ * är det lyfta kortet. Rendera inte Dagsring eller Dagsrad den dagen.
  *
  * fyllAnimering sätter klassen .fyll på den fyllda ringen, så att
  * .motion .ring .fyll i globals.css ritar den en gång (bara när en ny punkt
@@ -13,7 +17,7 @@
  * Server component.
  */
 
-export type DagsringStatus = 'kvar' | 'gjord' | 'general' | 'uppvarmning'
+export type DagsringStatus = 'kvar' | 'gjord' | 'general'
 
 export interface DagsringProps {
   status: DagsringStatus
@@ -75,14 +79,8 @@ export default function Dagsring({ status, label, fyllAnimering, storlek = 56, c
           />
           {status === 'kvar' ? (
             <circle cx="28" cy="28" r="4" fill="none" stroke="var(--koppar)" strokeWidth="2" />
-          ) : status === 'general' ? (
-            <rect x="24" y="24" width="8" height="8" rx="1.5" fill="none" stroke="var(--koppar)" strokeWidth="2" />
           ) : (
-            <g fill="var(--koppar)">
-              <circle cx="21" cy="28" r="2" />
-              <circle cx="28" cy="28" r="2" />
-              <circle cx="35" cy="28" r="2" />
-            </g>
+            <rect x="24" y="24" width="8" height="8" rx="1.5" fill="none" stroke="var(--koppar)" strokeWidth="2" />
           )}
         </>
       )}

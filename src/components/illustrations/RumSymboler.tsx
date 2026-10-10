@@ -13,7 +13,7 @@
  * 2), 96 (tomt tillstånd), 120 (märkena, bas med graverad kant).
  *
  * Dörrarna och ikonerna har en ifylld form i currentColor, som i konceptet
- * (dörren i Testträning, punkten i Jobbsöket). Kopparn hör till
+ * (dörren i Rekryteringstester, punkten i Jobbsöket). Kopparn hör till
  * testtypernas symboler och märkena.
  */
 
@@ -41,7 +41,7 @@ function Ikon24({ size = 24, className, title, strokeWidth, children }: IkonProp
   )
 }
 
-/** Dörren till Testträning (#i-tran). */
+/** Dörren till Rekryteringstester, "Tester" på mobil (#i-tran). */
 export function DorrTran(p: IkonProps24) {
   return (
     <Ikon24 {...p}>

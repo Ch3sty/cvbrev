@@ -11,7 +11,10 @@
 //     text-gray-, bg-white, bg-gray-, border-gray- är noll i allt som renderas
 //     i inloggat (rummen-omfang.mjs), utom src/components/ui, dokumentytorna
 //     (brevet och CV-mallarnas förhandsvisning) och kommentarsrader; lucide
-//     noll i dashboard, shell och rum. Övriga mönster räknas men stoppar inte.
+//     noll i dashboard, shell och rum. Väggen bär aldrig KNAPP_PRIMAR (spec
+//     16.3.1): KNAPP_PRIMAR på samma rad som handling= eller action=, eller
+//     innanför ett <RumHuvud>- eller <Vagg>-element, stoppar. Övriga mönster
+//     räknas men stoppar inte.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -91,7 +94,46 @@ if (vag === '1b') {
     if (n) perFil.push([f, n])
   }
   const gra = perFil.reduce((a, [, n]) => a + n, 0)
-  grind1b = gra + lucide.length
+
+  // Väggen bär aldrig KNAPP_PRIMAR (spec 16.3.1 punkt 1).
+  const vaggTraffar = []
+  for (const f of alla) {
+    const kod = fs.readFileSync(f, 'utf8')
+    kod.split('\n').forEach((r, i) => {
+      if (/KNAPP_PRIMAR/.test(r) && /\b(handling|action)=/.test(r) && !kommentar(r)) vaggTraffar.push(`${f}:${i + 1}`)
+    })
+    for (const tagg of ['RumHuvud', 'Vagg']) {
+      let fran = 0
+      for (;;) {
+        const start = kod.indexOf('<' + tagg, fran)
+        if (start < 0) break
+        fran = start + 1
+        if (/\w/.test(kod[start + tagg.length + 1] ?? '')) continue
+        // Taggens slut på djup 0: "/>" (självstängd) eller ">" följt av </tagg>.
+        let djup = 0
+        let slut = -1
+        let sjalvstangd = false
+        for (let i = start + 1; i < kod.length; i++) {
+          const c = kod[i]
+          if (c === '{') djup++
+          else if (c === '}') djup--
+          else if (djup === 0 && c === '>') {
+            sjalvstangd = kod[i - 1] === '/'
+            slut = i
+            break
+          }
+        }
+        if (slut < 0) break
+        const stopp = sjalvstangd ? slut : kod.indexOf('</' + tagg + '>', slut)
+        if (/KNAPP_PRIMAR/.test(kod.slice(start, stopp < 0 ? slut : stopp))) {
+          vaggTraffar.push(`${f}:${kod.slice(0, start).split('\n').length} (<${tagg}>)`)
+        }
+      }
+    }
+  }
+  rader.push('', `## Våg 1b: KNAPP_PRIMAR på väggen: ${vaggTraffar.length} träffar`, ...vaggTraffar.map((t) => `       ${t}`))
+
+  grind1b = gra + lucide.length + vaggTraffar.length
   rader.push('', `## Våg 1b: grå klasser i inloggat (${omfang.length} filer): ${gra} träffar i ${perFil.length} filer`)
   for (const [f, n] of perFil.sort((a, b) => b[1] - a[1])) rader.push(`${String(n).padStart(5)}  ${f}`)
   rader.push(`Undantag: ${UNDANTAG.map(String).join(', ')}, rader med klassen dokument (pappersytan, spec 13.1) och kommentarsrader.`)

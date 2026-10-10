@@ -41,6 +41,7 @@ import MatchRow from './components/MatchRow';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import { RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -882,7 +883,7 @@ export default function JobbmatchningClient({
   if (initialData.loadFailed) {
     return (
       <>
-        <RumHuvud title="Dina matchningar" description={RUBRIK_RAD} />
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
         <Golv>
           <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
             <FlowError
@@ -900,7 +901,7 @@ export default function JobbmatchningClient({
   if (cvs.length === 0) {
     return (
       <>
-        <RumHuvud title="Dina matchningar" description={RUBRIK_RAD} />
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
         <Golv>
           <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
             <JobMatchingOnboarding />
@@ -988,7 +989,7 @@ export default function JobbmatchningClient({
 
   return (
     <>
-    <RumHuvud title="Dina matchningar" description={RUBRIK_RAD} />
+    <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
     <Golv>
     <div className="w-full max-w-[720px]">
       {/* Kedjan: panelerna hänger ihop med tråden och läses som ett förlopp. */}

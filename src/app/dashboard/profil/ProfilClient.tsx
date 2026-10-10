@@ -26,6 +26,7 @@ import { useNotification } from '@/context/notificationcontext';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
 import RumHuvud from '@/components/rum/RumHuvud';
+import { RUBRIK } from '@/lib/rum/copy';
 import Golv from '@/components/rum/Golv';
 import UtseendeSection from './components/UtseendeSection';
 import { capture } from '@/lib/analytics/events';
@@ -379,7 +380,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
 
   return (
     <>
-    <RumHuvud eyebrow={PROFIL.eyebrow} title={PROFIL.rubrik} description={PROFIL.under} />
+    <RumHuvud title={RUBRIK.profil} description={PROFIL.under} />
     <Golv>
     <div className="w-full max-w-[768px] space-y-4 lg:space-y-6">
 

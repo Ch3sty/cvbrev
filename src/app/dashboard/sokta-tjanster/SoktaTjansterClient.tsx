@@ -30,6 +30,8 @@ import {
 } from '@/lib/applications/status';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { JOBBSOK, LYFT, RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
 import EmptyState from '@/components/shell/EmptyState';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -310,24 +312,30 @@ export default function SoktaTjansterClient({
     );
   };
 
-  const logButton = (
-    <button
-      type="button"
-      onClick={() => setShowQuickLog(true)}
-      className={KNAPP_PRIMAR}
-    >
-      Logga ansökan
-    </button>
-  );
-
   return (
     <>
       <RumHuvud
-        title="Ansökningar"
+        title={RUBRIK.soktaTjanster}
         description="Din statistik över jobbsöket: hur många du sökt, hur långt du kommer i processerna och var det tar stopp. Logga varje sökt jobb så ser du mönstret."
-        action={totalCount > 0 ? logButton : undefined}
+        tat={totalCount === 0}
       />
-    <Golv>
+    <Golv lyft={totalCount > 0}>
+      {/* Det lyfta kortet står före flikarna (spec 16.3.1 punkt 4). Utan
+          poster bär det tomma läget handlingen i stället. */}
+      {totalCount > 0 ? (
+        <LyftKort
+          label={LYFT.soktaTjanster.titel}
+          eyebrow={LYFT.soktaTjanster.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.soktaTjanster.titel}
+          text={LYFT.soktaTjanster.text}
+          handling={
+            <button type="button" onClick={() => setShowQuickLog(true)} className={KNAPP_PRIMAR}>
+              {JOBBSOK.loggaSoktJobb}
+            </button>
+          }
+        />
+      ) : null}
     <div className="w-full max-w-5xl space-y-6">
         <div
           className="flex items-center gap-1 rounded-lg border border-kant bg-panel p-1"

@@ -33,7 +33,8 @@ import { Avatar, initialer } from '@/components/dashboard/ProfileMenu'
 import { useCandidateInterests } from '@/hooks/useCandidateInterests'
 import { TEST_GROUPS } from '@/app/dashboard/tester/components/testCatalog'
 import { aktivUndersida, DORRAR, rumForPath, type Rum } from '@/lib/rum/rum'
-import { CHIP, GRUPP_RUBRIK, NAV, UNDERSIDA, kontoRad } from '@/lib/rum/copy'
+import { CHIP, GRUPP_RUBRIK, KONTORAD, NAV, UNDERSIDA, provlageFormat } from '@/lib/rum/copy'
+import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import Chip from './Chip'
 import { DORR_IKON } from './Dorrnav'
 import { useRum } from './RumKontext'
@@ -41,6 +42,13 @@ import { markeraRumYta } from './rumMatning'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
+
+/**
+ * Provlägets format i klartext på den låsta raden (spec 16.2 fråga 2). När
+ * våg 2 inför provdatum visas raden inte alls på provdagen, för någon.
+ */
+const PROV = getTestConfig('matrislogik-prov')
+const PROV_FORMAT = PROV ? provlageFormat(PROV.totalQuestions, PROV.examMinutes ?? PROV.minutes) : undefined
 
 /** Gratisnivån innan summeringen hunnit fram. */
 const TOM_PAKET: PaketLage = {
@@ -61,7 +69,7 @@ export interface Undersida {
   chip?: ReactNode
   exact?: boolean
   /** Låst: trycket öppnar betalväggen. */
-  last?: { feature: Feature; variant: PaywallVariant; text: string }
+  last?: { feature: Feature; variant: PaywallVariant; text: string; format?: string }
 }
 
 /** Kort status bredvid Prenumeration: "Aktiv", "5 dagar kvar", "Från 49 kr". */
@@ -149,7 +157,7 @@ export default function Sidomeny() {
         etikett: UNDERSIDA.provlaget,
         last: scopeHasFeature(paket.scope, 'test_exam_mode')
           ? undefined
-          : { feature: 'test_exam_mode', variant: 'testniva', text: CHIP.lastEtikett },
+          : { feature: 'test_exam_mode', variant: 'testniva', text: CHIP.lastEtikett, format: PROV_FORMAT },
       },
     ],
     cv: [
@@ -200,7 +208,7 @@ export default function Sidomeny() {
     fullName && fullName.trim() && fullName.trim().toLowerCase() !== 'ej angivet'
       ? fullName
       : metaNamn || (user?.email ? String(user.email).split('@')[0] : 'Användare')
-  const paketText = paket.planKey ? paketNamn(paket.planKey) : 'Gratisnivån'
+  const paketText = paket.planKey ? paketNamn(paket.planKey) : KONTORAD.utanPaket
   const avatarUrl = (profil?.profile_photo_url as string | null | undefined) || null
 
   return (
@@ -231,7 +239,7 @@ export default function Sidomeny() {
               >
                 <Ikon size={20} />
               </span>
-              {d.etikett}
+              {d.etikettDator}
             </Link>
           )
         })}
@@ -245,10 +253,19 @@ export default function Sidomeny() {
                 key={u.href}
                 type="button"
                 onClick={() => setSparr({ feature: last.feature, variant: last.variant })}
-                aria-label={`${u.etikett}. ${last.text}`}
-                className="flex h-10 items-center justify-between gap-2 rounded-[10px] px-3 text-left text-sm text-ink-3 hover:bg-papper-2"
+                aria-label={[u.etikett, last.format, last.text].filter(Boolean).join('. ')}
+                className={`flex items-center justify-between gap-2 rounded-[10px] px-3 text-left text-sm text-ink-3 hover:bg-papper-2 ${
+                  last.format ? 'min-h-10 py-1.5' : 'h-10'
+                }`}
               >
-                <span className="truncate">{u.etikett}</span>
+                {last.format ? (
+                  <span className="flex min-w-0 flex-col">
+                    <span className="truncate text-ink-2">{u.etikett}</span>
+                    <span className="text-xs leading-4 text-ink-3">{last.format}</span>
+                  </span>
+                ) : (
+                  <span className="truncate">{u.etikett}</span>
+                )}
                 <Chip liten las label={last.text} />
               </button>
             )
@@ -281,10 +298,13 @@ export default function Sidomeny() {
 
       <Link
         href="/dashboard/profil"
-        className="mt-auto flex min-h-11 items-center gap-2.5 rounded-[10px] px-3 py-2 text-meta text-ink-2 hover:bg-papper-2"
+        className="mt-auto flex min-h-11 items-center gap-2.5 rounded-[10px] px-3 py-2 hover:bg-papper-2"
       >
         <Avatar avatarUrl={avatarUrl} initialer={initialer(namn, user?.email ?? '')} pa="meny" storlek={28} />
-        <span className="min-w-0 truncate">{kontoRad(namn, paketText)}</span>
+        <span className="flex min-w-0 flex-col">
+          <span className="break-words text-[13px] font-medium leading-[18px] text-ink-1">{namn}</span>
+          <span className="text-xs leading-4 text-ink-3">{paketText}</span>
+        </span>
       </Link>
 
       <SidebarFooter isAdmin={isAdmin} />

@@ -3,7 +3,8 @@
 /**
  * Redigera ett sparat brev (docs/design/overlamning-opus.md).
  *
- * Väggen (RumHuvud) bär sidans enda h1 och bär Spara som primärhandling. Brevinfon
+ * Väggen (RumHuvud) bär sidans enda h1 och länken tillbaka; Spara står i det
+ * lyfta kortet först på golvet (spec 16.3.1: väggen bär aldrig kopparknappen). Brevinfon
  * är fält enligt avsnitt 2, med hjälptext under titeln. Texten redigeras i
  * en insunken textarea, annars visas brevet på papper (bg-white, specens
  * enda tillåtna undantag). Fel via FlowError. Ingen rörelse, inga orange
@@ -20,6 +21,7 @@ import Link from 'next/link';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
 import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
@@ -236,20 +238,25 @@ export default function EditLetterClient({
     <>
       <RumHuvud
         title="Redigera brevet"
-        description={
-          templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'
+        tat={false}
+        handling={
+          <Link href={`/dashboard/mina-brev/${id}`} className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
+            Tillbaka till brevet
+          </Link>
         }
-        action={
+      />
+    <Golv key="brev" lyft>
+      <LyftKort
+        className="w-full max-w-3xl"
+        label="Ändringarna i brevet"
+        titel="Ändringarna i brevet"
+        text={templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'}
+        handling={
           <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
             {isSaving ? 'Sparar' : 'Spara'}
           </button>
         }
-      >
-        <Link href={`/dashboard/mina-brev/${id}`} className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
-          Tillbaka till brevet
-        </Link>
-      </RumHuvud>
-    <Golv key="brev">
+      />
     <div className="w-full max-w-3xl space-y-4">
 
       {saveError ? (
@@ -336,7 +343,7 @@ export default function EditLetterClient({
             </button>
           </div>
           <p className="mt-3 text-meta text-ink-3">
-            Texten läggs tillbaka i mallen. Tryck Spara i sidhuvudet för att spara brevet.
+            Texten läggs tillbaka i mallen. Tryck Spara överst för att spara brevet.
           </p>
         </section>
       ) : (

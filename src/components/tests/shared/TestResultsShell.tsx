@@ -12,25 +12,26 @@
  * Resultatet är fortfarande testets eget: rubriken bär testets namn och nivå,
  * och nästa nivå kommer ur testConfig.
  *
- * Sidmallen (Rummen våg 1b): väggen (RumHuvud) med vyns enda
- * primärknapp, poängpanelen med stora tal i text-tal, percentilen som panel
- * med en 2 px mätare, bryggan som panel, nästa nivå som rad, genomgången i
- * paneler och sist en sekundär kant-knapp.
+ * Sidmallen (Rummen, spec 16.3.2): väggen säger "Ditt resultat" och vilket
+ * test, talkortet är det lyfta kortet och bär vyns enda kopparknapp (Gör om
+ * testet). Under det percentilen, bryggan, nästa nivå, genomgången och sist
+ * en sekundär kant-knapp. Våg 2 ersätter allt med Resultatvy.
  */
 
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
+import LyftKort from '@/components/rum/LyftKort'
+import { NIVA_I_RAD, RUBRIK, resultatRad } from '@/lib/rum/copy'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
 import PercentileCard from '@/app/dashboard/tester/components/PercentileCard'
 import TestResultBridgeContainer from '@/components/tests/TestResultBridgeContainer'
-import { getTestConfig, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
+import { getTestConfig, KIND_LABEL, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import type {
   BridgeData,
   PercentileData,
 } from '@/app/dashboard/tester/[slug]/getResultsData'
-import TestLevelBadge from './TestLevelBadge'
 import TestNextLevelRow from './TestNextLevelRow'
 
 interface Props {
@@ -93,33 +94,21 @@ export default function TestResultsShell({
   return (
     <>
         <RumHuvud
-          title={`${config.title}: ditt resultat`}
-          description={
-            completedDate
-              ? `Genomfört ${completedDate}.`
-              : 'Här är genomgången fråga för fråga.'
-          }
-          action={
-            <Link
-              href={testPaths.hub(config.slug)}
-              className={KNAPP_PRIMAR}
-            >
-              Gör om testet
-            </Link>
-          }
+          title={RUBRIK.resultat}
+          description={resultatRad(KIND_LABEL[config.kind], NIVA_I_RAD[config.level], completedDate || null)}
+          tat={false}
         />
-    <Golv>
-    <div className="w-full max-w-3xl">
-      <div className="space-y-4 sm:space-y-6">
-        <div>
-          <TestLevelBadge kind={config.kind} level={config.level} />
-        </div>
-
-        {/* Poängen. En panel, siffrorna bär vikten. */}
-        <section
-          className="rounded-xl border border-kant bg-panel p-4 sm:p-5"
-          aria-label="Din poäng"
-        >
+    <Golv key="resultat" lyft>
+      {/* Talkortet är det lyfta kortet. Siffrorna bär vikten. */}
+      <LyftKort
+        label="Din poäng"
+        className="w-full max-w-3xl sm:p-5"
+        handling={
+          <Link href={testPaths.hub(config.slug)} className={KNAPP_PRIMAR}>
+            Gör om testet
+          </Link>
+        }
+      >
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <span className="text-tal tabular-nums text-ink-1">{score}</span>
             <span className="text-meta text-ink-3">av {total}</span>
@@ -141,7 +130,9 @@ export default function TestResultsShell({
               </dd>
             </div>
           </dl>
-        </section>
+      </LyftKort>
+    <div className="w-full max-w-3xl">
+      <div className="space-y-4 sm:space-y-6">
 
         {/*
           Percentilen och bryggan kommer färdiga från servern. Är läsningen

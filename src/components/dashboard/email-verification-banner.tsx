@@ -115,7 +115,7 @@ export default function EmailVerificationBanner() {
       <div className="mx-auto flex min-h-11 max-w-[1120px] items-center gap-3 px-4 lg:box-content lg:px-10">
         <p
           className={`min-w-0 flex-1 truncate text-sm ${
-            resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-koppar-ljus' : 'text-vagg-ink'
+            resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-koppar-ljus' : 'text-vagg-mjuk'
           }`}
         >
           {resendMessage ?? 'Bekräfta din e-post för att spara dokument permanent.'}

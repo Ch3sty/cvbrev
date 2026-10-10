@@ -6,6 +6,8 @@ import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
 import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaCvPoang } from '@/components/illustrations/TradenScener';
@@ -61,24 +63,22 @@ export default function CVAnalysisIntro({
   return (
     <>
     <RumHuvud
-      title="Analysera ditt CV"
+      title={RUBRIK.analyseraCv}
       description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
+      tat={false}
     />
-    <Golv>
-    <div className="w-full max-w-3xl space-y-6">
-
-      {visaKvot && (
-        <StatusRow label="Analyser kvar">
-          {isPremium
-            ? PAKETRADER.analysUtanTak
-            : `${remainingAnalyses} ${
-                remainingAnalyses === 1 ? 'analys' : 'analyser'
-              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
-        </StatusRow>
-      )}
-
-      {/* Enda plattan i vyn, på det kort som bär handlingen. */}
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <Golv lyft>
+      {/* Det lyfta kortet bär handlingen (spec 16.3.2), statusraden står under. */}
+      <LyftKort
+        label="En komplett bild av ditt CV"
+        className="w-full max-w-3xl sm:p-5"
+        handling={
+          <button type="button" onClick={onStartAnalysis} className={KNAPP_PRIMAR}>
+            Analysera mitt CV
+            <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+          </button>
+        }
+      >
         <div className="flex items-start gap-4">
           <MarginPlate>
             <IlluPlattaCvPoang size={48} />
@@ -99,16 +99,18 @@ export default function CVAnalysisIntro({
             </li>
           ))}
         </ul>
+      </LyftKort>
+    <div className="w-full max-w-3xl space-y-6">
 
-        <button
-          type="button"
-          onClick={onStartAnalysis}
-          className={`${KNAPP_PRIMAR} mt-5 sm:w-auto`}
-        >
-          Analysera mitt CV
-          <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        </button>
-      </section>
+      {visaKvot && (
+        <StatusRow label="Analyser kvar">
+          {isPremium
+            ? PAKETRADER.analysUtanTak
+            : `${remainingAnalyses} ${
+                remainingAnalyses === 1 ? 'analys' : 'analyser'
+              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
+        </StatusRow>
+      )}
 
       <section className="rounded-xl border border-kant bg-panel">
         <h2 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">

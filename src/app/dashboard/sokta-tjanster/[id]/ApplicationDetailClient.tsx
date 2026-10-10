@@ -229,25 +229,26 @@ export default function ApplicationDetailClient({
         description={
           detail.location ? `${detail.company}, ${detail.location}` : detail.company
         }
-        action={
-          <button
-            type="button"
-            onClick={() => setShowEdit(true)}
-            className={`${KNAPP_GLAS} gap-1.5`}
-          >
-            <IkonPenna size={16} />
-            Redigera
-          </button>
+        handling={
+          <>
+            <button
+              type="button"
+              onClick={() => setShowEdit(true)}
+              className={`${KNAPP_GLAS} gap-1.5`}
+            >
+              <IkonPenna size={16} />
+              Redigera
+            </button>
+            <Link
+              href="/dashboard/sokta-tjanster"
+              className={`${LANK_VAGG} inline-flex min-h-11 items-center gap-1.5`}
+            >
+              <IkonTillbaka size={16} />
+              Sökta tjänster
+            </Link>
+          </>
         }
-      >
-        <Link
-          href="/dashboard/sokta-tjanster"
-          className={`${LANK_VAGG} inline-flex min-h-11 items-center gap-1.5`}
-        >
-          <IkonTillbaka size={16} />
-          Sökta tjänster
-        </Link>
-      </RumHuvud>
+      />
     <Golv key="ansokan">
     <div className="relative">
       <div className="w-full max-w-3xl space-y-4 sm:space-y-5">

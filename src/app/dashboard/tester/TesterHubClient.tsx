@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
+import { TRAN_RAD } from '@/lib/rum/copy';
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
@@ -143,12 +144,11 @@ export default function TesterHubClient({
   return (
     <>
       <RumHuvud
-        eyebrow="Rekryteringstester"
         title="Känn igen uppgiften innan provdagen."
-        description={
+        description={`${TRAN_RAD} ${
           huvud.ingress ??
           'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
-        }
+        }`}
       />
     <Golv>
     <div className="w-full max-w-3xl">

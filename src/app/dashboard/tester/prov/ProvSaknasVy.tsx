@@ -9,6 +9,7 @@
 import Link from 'next/link'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PROV_SAKNAS } from './prov-copy'
 
@@ -18,17 +19,18 @@ const TEXTLANK =
 export default function ProvSaknasVy() {
   return (
     <>
-      <RumHuvud
-        eyebrow={PROV_SAKNAS.eyebrow}
-        title={PROV_SAKNAS.titel}
-        description={PROV_SAKNAS.text}
-        action={
-          <Link href="/dashboard/tester" className={KNAPP_PRIMAR}>
-            {PROV_SAKNAS.lankHubb}
-          </Link>
-        }
-      />
-      <Golv>
+      <RumHuvud title={PROV_SAKNAS.titel} tat={false} />
+      <Golv lyft>
+        <LyftKort
+          label={PROV_SAKNAS.kortTitel}
+          titel={PROV_SAKNAS.kortTitel}
+          text={PROV_SAKNAS.text}
+          handling={
+            <Link href="/dashboard/tester" className={KNAPP_PRIMAR}>
+              {PROV_SAKNAS.lankHubb}
+            </Link>
+          }
+        />
         <Link href="/dashboard" className={TEXTLANK}>
           {PROV_SAKNAS.lankHem}
         </Link>

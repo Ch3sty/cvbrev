@@ -118,11 +118,10 @@ export default async function InforIntervjunPage() {
       {/* Rummen våg 1b: väggen bär rubriken och Nytt prov som glasknapp, det
           lyfta kortet bär vyns enda kopparknapp (Nästa handling). */}
       <RumHuvud
-        eyebrow={SIDA.eyebrow}
         title={SIDA.titel}
         description={beskrivning}
         tat={false}
-        action={
+        handling={
           <Link href={nyttProvHref()} className={KNAPP_GLAS}>
             {SIDA.knapp}
           </Link>

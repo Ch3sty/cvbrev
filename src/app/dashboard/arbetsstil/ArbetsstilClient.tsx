@@ -37,7 +37,6 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
     <>
     {/* Rubriken på väggen (Rummen våg 1b), resten av heron på golvet. */}
     <RumHuvud
-      eyebrow="Din arbetsstil"
       title={ownReport ? ownReport.archetype.title : 'Din rapport i ord, byggd på dig'}
       description={
         ownReport

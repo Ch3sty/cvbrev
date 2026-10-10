@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation';
 import { ChevronRight, Slash, X } from 'lucide-react';
 
 import RumHuvud from '@/components/rum/RumHuvud';
+import { RUBRIK } from '@/lib/rum/copy';
 import Golv from '@/components/rum/Golv';
 import StatusRow from '@/components/shell/StatusRow';
 import PaketKort, { type PaketKortProps } from '@/components/pricing/PaketKort';
@@ -283,7 +284,7 @@ export default function PrenumerationClient({
 
   return (
     <>
-    <RumHuvud eyebrow="Konto" title="Prenumeration" description={KONTO.ingress} />
+    <RumHuvud title={RUBRIK.prenumeration} description={KONTO.ingress} />
     <Golv>
     <div className="w-full max-w-5xl space-y-4 sm:space-y-6">
 

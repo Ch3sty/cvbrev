@@ -417,7 +417,7 @@ async function kontroll(page, form) {
     }
 
     const topprad = document.querySelector('[data-topprad]')
-    const nav = document.querySelector('nav[aria-label="Rummen"]')
+    const nav = document.querySelector('nav[aria-label="Huvudmeny"]')
     const sidomeny = document.querySelector('nav[aria-label="Sidomeny"]')
     const flodeHuvud = document.querySelector('.fixed.inset-0.z-50 header')
     const h1 = [...document.querySelectorAll('h1')].find((h) => iBild(h)) || document.querySelector('h1')
@@ -567,7 +567,7 @@ async function delSsr(browser, konton) {
         dataRum: document.querySelector('[data-rum]')?.getAttribute('data-rum') ?? null,
         themeColor: [...document.querySelectorAll('meta[name="theme-color"]')].map((m) => `${m.getAttribute('content')}${m.getAttribute('media') ? ' ' + m.getAttribute('media') : ''}`),
         topprad: Boolean(document.querySelector('[data-topprad]')),
-        dorrnav: Boolean(document.querySelector('nav[aria-label="Rummen"]')),
+        dorrnav: Boolean(document.querySelector('nav[aria-label="Huvudmeny"]')),
       }))
       const vantat = rumForPath(url)
       const ok = svar.dataRum === vantat && svar.themeColor.length === 1 && svar.themeColor[0].toLowerCase() === VAGG[vantat]
@@ -594,11 +594,11 @@ async function delDorrar(browser, konton) {
         const { page, logg } = await nySida(browser, { form, system, email: konton.mycket.email })
         try {
           await besok(page, BAS + r.url)
-          const nav = await page.$('nav[aria-label="Rummen"]')
+          const nav = await page.$('nav[aria-label="Huvudmeny"]')
           const fil = `N-${form}-${system === 'light' ? 'ljust' : 'morkt'}-${r.namn}.png`
           await nav.screenshot({ path: path.join(mapp, fil) })
           const matt = await page.evaluate(() => {
-            const nav = document.querySelector('nav[aria-label="Rummen"]')
+            const nav = document.querySelector('nav[aria-label="Huvudmeny"]')
             const lankar = [...nav.querySelectorAll('a')]
             const aktiv = lankar.find((a) => a.getAttribute('aria-current') === 'page')
             return {
@@ -629,9 +629,9 @@ async function delDorrar(browser, konton) {
   try {
     await besok(page, BAS + '/dashboard')
     const steg = []
-    for (const dorr of ['Testträning', 'CV', 'Personliga brev', 'Jobbsöket']) {
+    for (const dorr of ['Tester', 'CV', 'Personliga brev', 'Jobbsöket']) {
       const fore = await page.evaluate(() => document.querySelector('[data-rum]').getAttribute('data-rum'))
-      const lank = await page.evaluateHandle((t) => [...document.querySelectorAll('nav[aria-label="Rummen"] a')].find((a) => a.textContent.trim() === t), dorr)
+      const lank = await page.evaluateHandle((t) => [...document.querySelectorAll('nav[aria-label="Huvudmeny"] a')].find((a) => a.textContent.trim() === t), dorr)
       await lank.asElement().click()
       await page.waitForNetworkIdle({ idleTime: 600, timeout: 30000 }).catch(() => {})
       await vanta(400)

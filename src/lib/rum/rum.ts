@@ -61,16 +61,19 @@ export const VAGG_FARG: Record<Rum, string> = {
 
 export interface Dorr {
   rum: Exclude<Rum, 'neutral'>
+  /** Dörrnavet på mobil. */
   etikett: string
+  /** Sidomenyn på dator. */
+  etikettDator: string
   href: string
 }
 
 /** De fyra dörrarna, i ordning (beslut 4). Ikonerna står i Dorrnav och Sidomeny. */
 export const DORRAR: readonly Dorr[] = [
-  { rum: 'tran', etikett: DORR_ETIKETT.tran, href: '/dashboard/tester' },
-  { rum: 'cv', etikett: DORR_ETIKETT.cv, href: '/dashboard/profil/cv' },
-  { rum: 'brev', etikett: DORR_ETIKETT.brev, href: '/dashboard/mina-brev' },
-  { rum: 'jobb', etikett: DORR_ETIKETT.jobb, href: '/dashboard' },
+  { rum: 'tran', etikett: DORR_ETIKETT.mobil.tran, etikettDator: DORR_ETIKETT.dator.tran, href: '/dashboard/tester' },
+  { rum: 'cv', etikett: DORR_ETIKETT.mobil.cv, etikettDator: DORR_ETIKETT.dator.cv, href: '/dashboard/profil/cv' },
+  { rum: 'brev', etikett: DORR_ETIKETT.mobil.brev, etikettDator: DORR_ETIKETT.dator.brev, href: '/dashboard/mina-brev' },
+  { rum: 'jobb', etikett: DORR_ETIKETT.mobil.jobb, etikettDator: DORR_ETIKETT.dator.jobb, href: '/dashboard' },
 ]
 
 /**

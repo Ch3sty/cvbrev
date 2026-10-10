@@ -72,7 +72,7 @@ export default async function IntervjuSvarPage({
 
   return (
     <>
-    <RumHuvud eyebrow={S.eyebrow} title={S.titel} description={S.beskrivning} />
+    <RumHuvud title={S.titel} description={S.beskrivning} />
     <Golv>
     <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 

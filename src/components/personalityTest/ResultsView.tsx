@@ -8,6 +8,8 @@ import { Home, RotateCcw } from 'lucide-react';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar';
+import { NIVA_I_RAD, RUBRIK, resultatRad } from '@/lib/rum/copy';
+import { KIND_LABEL } from '@/app/dashboard/tester/testConfig';
 import BigFiveChart from './BigFiveChart';
 import DimensionCard from './DimensionCard';
 import InterviewTipsCard from './InterviewTipsCard';
@@ -71,19 +73,29 @@ export default function ResultsView({
       .finally(() => setIsLoading(false));
   }, [sessionId, testType]);
 
-  // Rummen våg 1b: rubriken på Träningens vägg i stället för den egna
-  // toningen (ResultsHero). Samma vägg i alla tillstånd, så golvet inte hoppar
-  // när sessionen landat; datumet står i etiketten, som har fast höjd.
-  const etikett = testType === 'personlighet-grund' ? 'Personlighetsprofil' : 'Avancerad personlighetsprofil'
+  // Rubriken är "Ditt resultat" och raden testet, nivån och datumet, som på
+  // alla resultatsidor (spec 16.2 fråga 18). Samma vägg i alla tillstånd:
+  // innan datumet är känt hålls dess plats med osynlig text, så raden har
+  // samma höjd och golvet inte hoppar när sessionen landat.
+  const niva = testType === 'personlighet-grund' ? NIVA_I_RAD.grund : NIVA_I_RAD.avancerad
   const datum = session?.completed_at
     ? new Date(session.completed_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })
     : null
-  const minuter = session?.time_spent ? Math.round(session.time_spent / 60) : null
   const vagg = (
     <RumHuvud
-      eyebrow={[etikett, datum, minuter !== null ? `${minuter} min` : null].filter(Boolean).join(' · ')}
-      title="Din Big Five-profil"
-      description="Så här ser dina personlighetsdrag ut på de fem grundläggande dimensionerna. Kom ihåg: det finns inga rätt eller fel värden, bara en beskrivning av vem du är."
+      title={RUBRIK.resultat}
+      description={
+        datum ? (
+          resultatRad(KIND_LABEL.personlighet, niva, datum)
+        ) : (
+          <>
+            {resultatRad(KIND_LABEL.personlighet, niva, null)}{' '}
+            <span className="invisible" aria-hidden="true">
+              Genomfört 30 september 2026.
+            </span>
+          </>
+        )
+      }
     />
   )
 
