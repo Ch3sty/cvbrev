@@ -1,9 +1,11 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import StatusRow from '@/components/shell/StatusRow';
 import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaCvPoang } from '@/components/illustrations/TradenScener';
@@ -57,11 +59,13 @@ export default function CVAnalysisIntro({
   const visaKvot = remainingAnalyses !== null && remainingAnalyses !== undefined;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
-      <PageHeader
-        title="Analysera ditt CV"
-        description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
-      />
+    <>
+    <RumHuvud
+      title="Analysera ditt CV"
+      description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
+    />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-6">
 
       {visaKvot && (
         <StatusRow label="Analyser kvar">
@@ -99,7 +103,7 @@ export default function CVAnalysisIntro({
         <button
           type="button"
           onClick={onStartAnalysis}
-          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`${KNAPP_PRIMAR} mt-5 sm:w-auto`}
         >
           Analysera mitt CV
           <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
@@ -129,5 +133,7 @@ export default function CVAnalysisIntro({
         </ul>
       </section>
     </div>
+    </Golv>
+    </>
   );
 }

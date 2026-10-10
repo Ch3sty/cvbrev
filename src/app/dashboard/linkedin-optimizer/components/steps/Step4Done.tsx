@@ -1,5 +1,6 @@
 'use client'
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
@@ -119,7 +120,7 @@ export default function Step4Done({
             <button
               type="button"
               onClick={handleOpenLinkedIn}
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+              className={KNAPP_PRIMAR_SMAL}
             >
               Öppna LinkedIn
             </button>

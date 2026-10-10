@@ -1,6 +1,7 @@
 // src/components/cv/analysis/CVQuotaManager.tsx
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
@@ -104,7 +105,7 @@ export default function CVQuotaManager({
       {subscriptionTier === 'free' && (
         <a
           href={kopstegHref('cv_week')}
-          className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          className={`${KNAPP_PRIMAR_SMAL} mt-3`}
         >
           {PAKETRADER.kopCv}
         </a>

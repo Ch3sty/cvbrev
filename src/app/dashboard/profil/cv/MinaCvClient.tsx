@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_GLAS, KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -13,7 +14,8 @@ import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvCard from './components/CvCard';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
@@ -303,21 +305,25 @@ export default function MinaCvClient({
   const isEmpty = cvCount === 0;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Mina CV"
         description="Ladda upp ditt CV en gång, använd det i brev, analys och mallar."
         action={
           !limitReached ? (
+            // Snabbpoängen efter en uppladdning bär kopparknappen; då står
+            // uppladdningen här som glasknapp (en kopparknapp per vy).
             <a
               href="#upload-zone"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+              className={quickScoreCvId ? KNAPP_GLAS : KNAPP_PRIMAR}
             >
               Ladda upp CV
             </a>
           ) : undefined
         }
       />
+    <Golv>
+    <div className="w-full max-w-5xl space-y-6">
 
       {/* Statusrad: antal av kvoten. Aldrig oandlighetstecken. */}
       {cvCount > 0 && (
@@ -338,7 +344,7 @@ export default function MinaCvClient({
             action={
               <a
                 href="#upload-zone"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_SEKUNDAR_SMAL}
               >
                 Ladda upp CV
               </a>
@@ -449,6 +455,8 @@ export default function MinaCvClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 

@@ -13,6 +13,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { KNAPP_PRIMAR, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { Check } from 'lucide-react'
 import { logUserActivity } from '@/lib/activity-logger'
 import { IlluCvPoang } from '@/components/illustrations/DashboardIllustrations'
@@ -108,14 +109,14 @@ export default function QuickScoreReveal({
   // så vi bekräftar det och pekar vidare i stället för att visa ingenting.
   if (failed) {
     return (
-      <section className="bg-white rounded-xl border border-neutral-200 p-5">
-        <h2 className="text-base font-semibold text-neutral-900">Ditt CV är inläst</h2>
-        <p className="text-sm text-neutral-600 mt-1">
+      <section className="bg-papper rounded-xl border border-kant p-5">
+        <h2 className="text-base font-semibold text-ink-1">Ditt CV är inläst</h2>
+        <p className="text-sm text-ink-2 mt-1">
           Vi hann inte räkna fram poängen den här gången. Du kan gå vidare ändå.
         </p>
         <Link
           href={nextHref}
-          className="mt-4 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors"
+          className={`mt-4 ${KNAPP_PRIMAR_SMAL}`}
         >
           {nextLabel}
         </Link>
@@ -125,13 +126,13 @@ export default function QuickScoreReveal({
 
   if (loading) {
     return (
-      <section className="bg-white rounded-xl border border-neutral-200 p-5" aria-busy="true">
+      <section className="bg-papper rounded-xl border border-kant p-5" aria-busy="true">
         <div className="flex items-center gap-5">
-          <div className="w-24 h-24 rounded-full bg-neutral-100 animate-pulse shrink-0" />
+          <div className="w-24 h-24 rounded-full bg-papper-2 animate-pulse shrink-0" />
           <div className="flex-1 space-y-2.5">
-            <div className="h-5 w-2/3 rounded bg-neutral-100 animate-pulse" />
-            <div className="h-4 w-full rounded bg-neutral-100 animate-pulse" />
-            <p className="text-sm text-neutral-500 pt-1">Vi läser igenom ditt CV…</p>
+            <div className="h-5 w-2/3 rounded bg-papper-2 animate-pulse" />
+            <div className="h-4 w-full rounded bg-papper-2 animate-pulse" />
+            <p className="text-sm text-ink-3 pt-1">Vi läser igenom ditt CV…</p>
           </div>
         </div>
       </section>
@@ -141,31 +142,31 @@ export default function QuickScoreReveal({
   if (!data) return null
 
   return (
-    <section className="bg-white rounded-xl border border-neutral-200 p-5 sm:p-6 motion-safe:animate-[slideUp_200ms_ease-out_both]">
+    <section className="bg-papper rounded-xl border border-kant p-5 sm:p-6 motion-safe:animate-[slideUp_200ms_ease-out_both]">
       <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-5 sm:gap-6 items-start">
-        <div className="relative flex items-center justify-center w-24 h-24 mx-auto sm:mx-0 text-neutral-900">
+        <div className="relative flex items-center justify-center w-24 h-24 mx-auto sm:mx-0 text-ink-1">
           <IlluCvPoang size={96} />
           <span className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-xl font-semibold text-neutral-900 tabular-nums leading-none">
+            <span className="text-xl font-semibold text-ink-1 tabular-nums leading-none">
               {displayScore}
             </span>
-            <span className="text-xs text-neutral-500 mt-0.5">av 100</span>
+            <span className="text-xs text-ink-3 mt-0.5">av 100</span>
           </span>
         </div>
 
         <div className="min-w-0">
-          <h2 className="text-lg font-semibold text-neutral-900 tracking-tight">
+          <h2 className="text-lg font-semibold text-ink-1 tracking-tight">
             Så här ser ditt CV ut för en rekryterare
           </h2>
-          <p className="text-sm text-neutral-600 mt-1 leading-relaxed">{data.summary}</p>
+          <p className="text-sm text-ink-2 mt-1 leading-relaxed">{data.summary}</p>
 
           {data.improvements.length > 0 && (
             <div className="mt-4">
-              <p className="text-sm font-semibold text-neutral-900 mb-2">Tre saker att fixa</p>
+              <p className="text-sm font-semibold text-ink-1 mb-2">Tre saker att fixa</p>
               <ul className="space-y-1.5">
                 {data.improvements.slice(0, 3).map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-neutral-600 leading-snug">
-                    <Check className="w-4 h-4 shrink-0 mt-0.5 text-neutral-400" strokeWidth={2} />
+                  <li key={i} className="flex items-start gap-2 text-sm text-ink-2 leading-snug">
+                    <Check className="w-4 h-4 shrink-0 mt-0.5 text-ink-3" strokeWidth={2} />
                     {item}
                   </li>
                 ))}
@@ -175,7 +176,7 @@ export default function QuickScoreReveal({
 
           <Link
             href={nextHref}
-            className="mt-5 inline-flex items-center justify-center h-11 px-4 rounded-lg bg-orange-600 text-white text-sm font-medium hover:bg-orange-700 transition-colors w-full sm:w-auto"
+            className={`mt-5 ${KNAPP_PRIMAR} sm:w-auto`}
           >
             {nextLabel}
           </Link>

@@ -93,8 +93,10 @@ export default function LinkedInOptimizer({
   const router = useRouter()
 
   // Före första render, inte i en effekt: listan ska finnas när steg 1 målas.
+  // Bara i webbläsaren: på servern är storen en modul som delas mellan
+  // anrop, och där ska ingen användares CV-lista ligga kvar.
   const [seeded] = useState(() => {
-    seedCvStore(initialData.cvs)
+    if (typeof window !== 'undefined') seedCvStore(initialData.cvs)
     return true
   })
   void seeded
@@ -139,8 +141,13 @@ export default function LinkedInOptimizer({
   // auth.getUser() över nätet efter hydrering.
   const fullName = initialData.fullName ?? undefined
 
-  // CV-listan läses ur storen, som redan är seedad med serverns rader ovan.
-  const { cvs } = useCVStore()
+  // CV-listan: serverns rader tills storen har egna. Storen seedas bara i
+  // webbläsaren (se ovan), så serverns HTML och första klientrenderingen
+  // ritar samma lista. Förut lästes listan bara ur storen, som på servern
+  // är en delad modul, och listan i steg 1 byttes efter första målningen:
+  // CLS 0,292 (Rummen våg 1a, perf-körningen).
+  const { cvs: storeCvs } = useCVStore()
+  const cvs = storeCvs.length > 0 ? storeCvs : (initialData.cvs as unknown as typeof storeCvs)
 
   // Låsen räknades på servern med samma getActiveCvIds som useCvQuota använde.
   const lockedCvIds = useMemo(
@@ -466,6 +473,7 @@ export default function LinkedInOptimizer({
               sourceMode={sourceMode}
               selectedCvId={selectedCvId}
               hasCvs={cvs.length > 0}
+              cvs={cvs}
               lockedCvIds={lockedCvIds}
               onModeChange={setMode}
               onTargetRoleChange={setTargetRole}

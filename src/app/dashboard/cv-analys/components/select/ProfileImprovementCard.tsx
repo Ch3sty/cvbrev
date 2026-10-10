@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Edit3, X, Eye, EyeOff, User, Check } from 'lucide-react';
 import { RoundCheckbox, HighlightedText } from './ImprovementCard';
@@ -174,7 +175,7 @@ export default function ProfileImprovementCard({
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex h-11 items-center gap-1 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Spara

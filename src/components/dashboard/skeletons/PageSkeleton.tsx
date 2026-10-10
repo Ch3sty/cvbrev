@@ -65,17 +65,9 @@ export function SkeletonHero() {
 export function SkeletonIntro() {
   return (
     <>
-      {/* Sidhuvud: h1 28/32 plus två ingressrader. Ingen panel, ingen kant. */}
-      <div aria-hidden="true" className="loading-thread rounded-xl pt-1">
-        <SkeletonLine width="62%" height={28} />
-        <div className="mt-3 space-y-1.5">
-          <SkeletonLine width="100%" />
-          <SkeletonLine width="72%" />
-        </div>
-      </div>
-
-      {/* Statusrad: kvoten. Samma höjd som StatusRow (min-h-11). */}
-      <SkeletonBlock height={44} rounded="rounded-lg" />
+      {/* Sidhuvudet står på väggen (VaggLaddar). Statusrad: kvoten, samma
+          höjd som StatusRow (min-h-11). Tråden längs dess överkant. */}
+      <SkeletonBlock height={44} rounded="rounded-xl" thread />
 
       {/* Handlingskortet: platta 56, rubrik och brödtext, lista, knapp. */}
       <div aria-hidden="true" className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
