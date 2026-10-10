@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 
 export async function POST(request: NextRequest) {
@@ -39,7 +40,9 @@ export async function POST(request: NextRequest) {
     // Överlappande anrop kan inte längre skriva över varandras svar.
     let sparade: number | null;
     try {
-      sparade = await sparaTestsvar(supabase, {
+      sparade = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
         tabell: 'logic_test_v4_sessions',
         sessionId,
         nycklar: SVARSNYCKLAR.verbalPastaende,

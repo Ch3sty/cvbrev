@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { examDeadlinePassed } from '@/lib/tests/sessionGate';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 
@@ -42,7 +43,9 @@ export async function POST(request: NextRequest) {
 
     // Ett svar per påstående, atomärt i databasen (src/lib/tests/sparaSvar.ts).
     try {
-      const sparade = await sparaTestsvar(supabase, {
+      const sparade = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
         tabell: 'logic_test_v4_sessions',
         sessionId,
         nycklar: SVARSNYCKLAR.verbalPastaende,

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 
 type TestType = 'personlighet-grund' | 'personlighet-avancerad';
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json(sparr.body, { status: 402 });
     }
 
-    const { data: session, error: createError } = await supabase
+    const { data: session, error: createError } = await testSkrivKlient()
       .from('personality_test_sessions')
       .insert({
         user_id: user.id,

@@ -162,6 +162,25 @@ export function bedomSvar(
   return { selected, visat, correct: selected === q.correctAnswer };
 }
 
+const FACIT = new Map(BANK_FOR_RUTT.prov.map((q) => [q.id, q.correctAnswer]));
+
+/**
+ * Poängen för en matrissession: antal svar vars originalindex (`selected`)
+ * är frågans facit. Räknas om mot banken i stället för att lita på svarets
+ * `correct`, så att poängen bara beror på vad hon valde. Anroparen skickar
+ * redan unika svar (unikaSvar i src/lib/tests/sparaSvar.ts).
+ */
+export function rattaMatrisSvar(answers: readonly unknown[]): number {
+  let ratt = 0;
+  for (const rad of answers) {
+    const a = (rad ?? {}) as { q_id?: unknown; selected?: unknown };
+    if (typeof a.q_id !== 'string' || typeof a.selected !== 'number') continue;
+    const facit = FACIT.get(a.q_id);
+    if (facit !== undefined && facit === a.selected) ratt++;
+  }
+  return ratt;
+}
+
 /* ---------------------------- Nya sessioner ---------------------------- */
 
 /** PostgREST/Postgres-koderna för en kolumn som inte finns. */

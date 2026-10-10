@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { matrisInnehall, skapaMedBlandning } from '@/lib/logicTestV7/fragor.server';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkProvAllowance, PROV_TEST_TYPES } from '@/lib/prov/allowance';
@@ -39,7 +40,7 @@ export async function POST() {
     // Nya sessioner får meta.alternativ_blandade: alternativen visas i en
     // ordning seedad på sessionId + frågans id (src/lib/logicTestV7/blanda.ts).
     const { data: session, error: createError } = await skapaMedBlandning(
-      supabase,
+      testSkrivKlient(),
       'logic_test_v4_sessions',
       { user_id: user.id, test_type: TEST_TYPE, answers: [] }
     );

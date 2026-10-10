@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
@@ -61,7 +62,9 @@ export async function POST(request: Request) {
     // Ett svar per påstående, atomärt i databasen (src/lib/tests/sparaSvar.ts).
     let answeredCount: number | null;
     try {
-      answeredCount = await sparaTestsvar(supabase, {
+      answeredCount = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
         tabell: 'personality_test_sessions',
         sessionId,
         nycklar: SVARSNYCKLAR.personlighet,

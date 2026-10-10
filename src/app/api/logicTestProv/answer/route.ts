@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { arBlandad } from '@/lib/logicTestV7/blanda';
 import { BANK_FOR_RUTT, bedomSvar, hittaFraga } from '@/lib/logicTestV7/fragor.server';
 import { examDeadlinePassed } from '@/lib/tests/sessionGate';
@@ -67,7 +68,9 @@ export async function POST(request: Request) {
     // Ett svar per fråga, atomärt i databasen (src/lib/tests/sparaSvar.ts).
     let answeredCount: number | null;
     try {
-      answeredCount = await sparaTestsvar(supabase, {
+      answeredCount = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
         tabell: 'logic_test_v4_sessions',
         sessionId,
         nycklar: SVARSNYCKLAR.matris,

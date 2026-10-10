@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/numericalTestV2/validator';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
       : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     // Update session as completed
-    const { error: updateError } = await supabase
+    const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .update({
         completed_at: new Date().toISOString(),

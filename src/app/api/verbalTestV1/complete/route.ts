@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore, validateAnswer } from '@/lib/verbalTestV1/validator.v1';
 import type { TestAnswer } from '@/lib/verbalTestV1/types.v1';
@@ -75,7 +76,7 @@ export async function POST(request: NextRequest) {
       : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     // Update session with score and completion
-    const { error: updateError } = await supabase
+    const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .update({
         answers: validatedAnswers,
@@ -83,7 +84,8 @@ export async function POST(request: NextRequest) {
         time_spent: timeSpent,
         completed_at: new Date().toISOString()
       })
-      .eq('id', sessionId);
+      .eq('id', sessionId)
+      .eq('user_id', user.id);
 
     // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
     // Tyst vid fel, får aldrig fälla svaret.

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkProvAllowance, PROV_TEST_TYPES } from '@/lib/prov/allowance';
 
@@ -33,7 +34,7 @@ export async function POST() {
       );
     }
 
-    const { data: session, error: createError } = await supabase
+    const { data: session, error: createError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .insert({ user_id: user.id, test_type: TEST_TYPE, answers: [] })
       .select()

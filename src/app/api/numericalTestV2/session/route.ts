@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
@@ -46,7 +47,7 @@ export async function POST() {
     }
 
     // Create new test session
-    const { data: session, error: createError } = await supabase
+    const { data: session, error: createError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .insert({
         user_id: user.id,

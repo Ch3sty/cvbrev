@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { validateAnswer } from '@/lib/numericalTestV2/validator';
 import type { TestAnswer } from '@/lib/numericalTestV2/types';
@@ -52,7 +53,9 @@ export async function POST(request: NextRequest) {
     // Ett omval ersätter det tidigare svaret, och överlappande anrop kan inte
     // skriva över varandras svar.
     try {
-      const sparade = await sparaTestsvar(supabase, {
+      const sparade = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
         tabell: 'logic_test_v4_sessions',
         sessionId,
         nycklar: SVARSNYCKLAR.passageFraga,
