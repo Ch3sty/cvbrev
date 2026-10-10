@@ -28,14 +28,22 @@ function counts(total: number, below: number) {
     chain.some((c) => c.method === 'lt') ? { count: below } : { count: total };
 }
 
-const session = (test_type: string, score: number, completed_at: string) => ({
+const session = (test_type: string, score: number, completed_at: string, meta?: unknown) => ({
   test_type,
   score,
   completed_at,
+  meta,
 });
 
+/** Blandad session i bankversion 2 (spec-rummen 12.4, 15). */
+const BLANDAD_V2 = { alternativ_blandade: true, bank_version: 2 };
+
+/** Kedjan har filtret `method(kolumn, värde)`. */
+const harFilter = (chain: ChainCall[], method: string, kolumn: string, varde: unknown) =>
+  chain.some((c) => c.method === method && c.args[0] === kolumn && c.args[1] === varde);
+
 function run(
-  sessions: Array<{ test_type: string; score: number; completed_at: string }>,
+  sessions: Array<{ test_type: string; score: number; completed_at: string; meta?: unknown }>,
   extra: Record<string, TableResponse> = {}
 ) {
   const { client } = createSupabaseMock({
@@ -124,7 +132,7 @@ describe('getCandidateSummary: percentilgränsen', () => {
   it('visar percentil exakt på gränsen', async () => {
     adminCounts = counts(MIN_PERCENTILE_SAMPLE, 5);
 
-    const summary = await run([session('matrislogik', 90, '2026-01-01T10:00:00Z')]);
+    const summary = await run([session('matrislogik', 90, '2026-01-01T10:00:00Z', BLANDAD_V2)]);
 
     expect(summary.results.matrislogik.percentile).toBe(20);
   });
@@ -132,9 +140,51 @@ describe('getCandidateSummary: percentilgränsen', () => {
   it('räknar percentilen som andel under användarens score', async () => {
     adminCounts = counts(200, 150);
 
-    const summary = await run([session('matrislogik', 90, '2026-01-01T10:00:00Z')]);
+    const summary = await run([session('matrislogik', 90, '2026-01-01T10:00:00Z', BLANDAD_V2)]);
 
     expect(summary.results.matrislogik.percentile).toBe(75);
+  });
+
+  it('12.4: en oblandad matrissession visas som resultat men får ingen percentil', async () => {
+    adminCounts = counts(200, 150);
+
+    const summary = await run([session('matrislogik-expert', 93, '2026-01-01T10:00:00Z')]);
+
+    expect(summary.results.matrislogik).toMatchObject({ done: true, bestScore: 93, level: 'expert', percentile: null });
+  });
+
+  it('12.4 och 15: matrisunderlaget är blandade sessioner i samma bankversion', async () => {
+    const kedjor: ChainCall[][] = [];
+    adminCounts = (chain) => {
+      kedjor.push(chain);
+      return counts(200, 150)(chain);
+    };
+
+    await run([session('matrislogik', 90, '2026-01-01T10:00:00Z', BLANDAD_V2)]);
+    expect(kedjor).toHaveLength(2);
+    for (const k of kedjor) {
+      expect(harFilter(k, 'eq', 'meta->>alternativ_blandade', 'true')).toBe(true);
+      expect(harFilter(k, 'eq', 'meta->>bank_version', '2')).toBe(true);
+    }
+
+    kedjor.length = 0;
+    await run([session('matrislogik', 90, '2026-01-01T10:00:00Z', { alternativ_blandade: true })]);
+    for (const k of kedjor) {
+      expect(harFilter(k, 'eq', 'meta->>alternativ_blandade', 'true')).toBe(true);
+      expect(harFilter(k, 'is', 'meta->>bank_version', null)).toBe(true);
+    }
+  });
+
+  it('verbalt och numeriskt blandas inte: underlaget är oförändrat', async () => {
+    const kedjor: ChainCall[][] = [];
+    adminCounts = (chain) => {
+      kedjor.push(chain);
+      return counts(200, 150)(chain);
+    };
+
+    const summary = await run([session('verbal-resonemang', 80, '2026-01-01T10:00:00Z')]);
+    expect(summary.results.verbal.percentile).toBe(75);
+    expect(kedjor.some((k) => k.some((c) => String(c.args[0]).startsWith('meta')))).toBe(false);
   });
 
   it('percentileFrom: null-underlag ger null, aldrig division med noll', () => {
