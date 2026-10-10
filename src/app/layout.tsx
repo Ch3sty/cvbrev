@@ -104,8 +104,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="sv" className={`h-full ${schibsted.variable}`}>
+    <html lang="sv" className={`h-full ${schibsted.variable}`} suppressHydrationWarning>
       <head>
+        {/* Temat (Rummen, spec 2.1). Körs före första målningen så att
+            ingen vy blinkar i fel läge: 'ljust' och 'morkt' sätter
+            data-theme, 'system' eller inget val tar bort attributet och
+            följer prefers-color-scheme. Tokens för mörkt läge finns bara i
+            inloggat ([data-rum]), så publika sidor påverkas inte. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('tema'),d=document.documentElement;if(t==='ljust')d.dataset.theme='light';else if(t==='morkt')d.dataset.theme='dark';else delete d.dataset.theme}catch(e){}`,
+          }}
+        />
+
         {/* Ensure dataLayer exists synchronously before GTM */}
         <script dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];`
@@ -168,6 +179,9 @@ export default function RootLayout({
           }}
         />
       </head>
+      {/* bg-white och text-gray-900 gäller publika sidor (Tråden). I inloggat
+          tar globals.css över med golvet och ink-1 via :root:has([data-rum]),
+          så publika sidor inte ändras av Rummen (beslut 1). */}
       <body className={`${inter.className} bg-white text-gray-900 flex flex-col min-h-full`}>
         <ClientLayout>
           {children}

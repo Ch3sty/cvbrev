@@ -15,6 +15,7 @@
  * vår egen /api/dashboard/summary. Ett HTTP-anrop till oss själva hade lagt
  * till en hel extra rundtur per sidladdning.
  */
+import type { Viewport } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
@@ -22,6 +23,19 @@ import { getDashboardSummary } from '@/lib/dashboard/getSummary';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+
+/**
+ * Systemets fält runt appen i inloggat (Rummen, spec 2.1): indigoväggens
+ * färg, och golvets mörka indigo i mörkt läge. Publika sidor behåller rotens
+ * benvita. Per rum kräver generateMetadata per route och tas bara om
+ * klicktestet visar att statusfältet bryter mot väggen (spec 10.10).
+ */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#1B2246' },
+    { media: '(prefers-color-scheme: dark)', color: '#0E1120' },
+  ],
+};
 
 export default async function DashboardLayout({
   children,
