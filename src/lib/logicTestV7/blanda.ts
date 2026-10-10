@@ -105,10 +105,26 @@ export function tillVisat(permutation: readonly number[], original: number): num
 
 /** Läser flaggan ur sessionens meta. Saknas den är sessionen oblandad. */
 export function arBlandad(meta: unknown): boolean {
-  return (
+  if (
     !!meta &&
     typeof meta === 'object' &&
     (meta as Record<string, unknown>).alternativ_blandade === true
+  ) {
+    return true;
+  }
+  return qaBlandaAlla();
+}
+
+/**
+ * Bara för klicktest mot en lokal dev-server innan migreringen körts:
+ * QA_BLANDA_ALLA_SESSIONER=1 behandlar varje session som blandad. Går aldrig
+ * att slå på i ett produktionsbygge (NODE_ENV är då 'production').
+ */
+function qaBlandaAlla(): boolean {
+  return (
+    typeof process !== 'undefined' &&
+    process.env.NODE_ENV === 'development' &&
+    process.env.QA_BLANDA_ALLA_SESSIONER === '1'
   );
 }
 
