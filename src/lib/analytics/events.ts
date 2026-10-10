@@ -283,6 +283,22 @@ export interface AnalyticsEvents {
      handling eller raden Prova också. outside_intent är sant när funktionen
      ligger utanför det område hon valde vid registreringen. */
   next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
+  /* Testmotorn, våg 3a av Rummen (spec-rummen avsnitt 7). Skjuts från
+     servern i /api/traning/pass/complete. */
+  nivamatning_klar: { niva: number; over_tid: number; familjer: string[]; tid_s: number }
+  pass_klart: {
+    typ: 'pass' | 'riktat'
+    variant: 'grund' | 'niva'
+    niva_fore: number | null
+    niva_efter: number | null
+    ratt: number
+    antal: number
+    over_tid: number
+    tid_s: number
+  }
+  ommatning_klar: { niva: number; delta: number }
+  generalrepetition_klar: { format: string; ratt: number; antal: number }
+  milstolpe_nadd: { nyckel: string }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
 }
 

@@ -29,6 +29,12 @@ export type ServerEventName =
   | 'document_email_changed'
   /** /api/profile/contact när namn, telefon eller ort i dokumenten ändras. */
   | 'document_contact_changed'
+  /** Testmotorn, /api/traning/pass/complete (spec-rummen avsnitt 7). */
+  | 'nivamatning_klar'
+  | 'pass_klart'
+  | 'ommatning_klar'
+  | 'generalrepetition_klar'
+  | 'milstolpe_nadd'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
   /** Fria tilläggsfält, till exempel scope och amount_sek på betalningen. */

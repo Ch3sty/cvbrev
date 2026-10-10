@@ -1,0 +1,90 @@
+// src/lib/traning/bank.server.ts
+// =============================================================================
+// Testträningens bank: V7-bankernas frågor med de fält motorn behöver.
+// Bara server: bankerna har facit (src/lib/logicTestV7/fragor.server.ts).
+//
+// Fälten från våg 3c läses defensivt, eftersom bankerna fylls på parallellt:
+// - family: text, saknas = null (frågan räknas inte i "Var du tappar" och
+//   väljs aldrig till ett riktat pass);
+// - misstag: en text per alternativ på ORIGINALINDEX, tom för det rätta.
+//   Fel längd eller annat än text = inga misstag (Regelpanel visar bara
+//   regeln, aldrig en påhittad mening);
+// - svarighet_prior: 1..4, saknas = dagens difficulty.
+// =============================================================================
+
+import {
+  AVANCERAD_POOL,
+  EXPERT_POOL,
+  GRUND_POOL,
+} from '@/lib/logicTestV7/selectQuestions.v7';
+import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
+import { lasFamilj } from './familjer';
+import type { BankFragaInfo, Bankkalla } from './passgenerator';
+import { pForFraga, svarighetPrior, type FragaStatistik, type Prior } from './svarighet';
+
+/** En bankfråga med våg 3c:s fält, alla frivilliga. */
+export type TraningsFraga = LayeredQuestion & {
+  family?: unknown;
+  misstag?: unknown;
+  svarighet_prior?: unknown;
+  kalla: Bankkalla;
+};
+
+function medKalla(pool: readonly LayeredQuestion[], kalla: Bankkalla): TraningsFraga[] {
+  return pool.map((q) => ({ ...(q as TraningsFraga), kalla }));
+}
+
+/** Alla matrisfrågor motorn får välja bland. V5 ingår inte. */
+export const TRANINGSBANK: readonly TraningsFraga[] = [
+  ...medKalla(GRUND_POOL, 'grund'),
+  ...medKalla(AVANCERAD_POOL, 'avancerad'),
+  ...medKalla(EXPERT_POOL, 'expert'),
+];
+
+const PER_ID = new Map(TRANINGSBANK.map((q) => [q.id, q]));
+
+export function hittaTraningsfraga(id: string): TraningsFraga | undefined {
+  return PER_ID.get(id);
+}
+
+export function familjFor(q: { family?: unknown }): string | null {
+  return lasFamilj(q.family);
+}
+
+export function priorFor(q: { svarighet_prior?: unknown; difficulty?: unknown }): Prior {
+  return svarighetPrior(q.svarighet_prior ?? q.difficulty);
+}
+
+/** Misstaget för ett valt alternativ (originalindex), eller null. */
+export function misstagFor(q: { misstag?: unknown; options: readonly unknown[] }, original: number): string | null {
+  const m = q.misstag;
+  if (!Array.isArray(m) || m.length !== q.options.length) return null;
+  const t = m[original];
+  return typeof t === 'string' && t.trim().length > 0 ? t.trim() : null;
+}
+
+/** Bankens frågor med p ur statistiken (30 svar) eller priorn. */
+export function bankInfo(statistik?: ReadonlyMap<string, FragaStatistik>): BankFragaInfo[] {
+  return TRANINGSBANK.map((q) => {
+    const prior = priorFor(q);
+    return {
+      id: q.id,
+      prior,
+      p: pForFraga(prior, statistik?.get(q.id)),
+      family: familjFor(q),
+      kalla: q.kalla,
+    };
+  });
+}
+
+/** Familjerna banken har, med antal frågor. Tom tills våg 3c fyllt i fältet. */
+export function bankensFamiljer(): { family: string; antal: number }[] {
+  const m = new Map<string, number>();
+  for (const q of TRANINGSBANK) {
+    const f = familjFor(q);
+    if (f) m.set(f, (m.get(f) ?? 0) + 1);
+  }
+  return [...m.entries()]
+    .map(([family, antal]) => ({ family, antal }))
+    .sort((a, b) => a.family.localeCompare(b.family, 'sv'));
+}

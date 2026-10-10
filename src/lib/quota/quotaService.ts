@@ -26,6 +26,7 @@
 // =============================================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { GRATISNIVA } from '@/lib/traning/gratisniva';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import type { Feature } from '@/lib/access/features';
 
@@ -48,8 +49,11 @@ export const FREE_CHAT_MESSAGES_PER_ACCOUNT = 10;
 /** Gammalt namn, samma tal. Behålls tills alla vyer läser det nya. */
 export const DAILY_LIMIT_CHAT_MESSAGES = FREE_CHAT_MESSAGES_PER_ACCOUNT;
 
-/** Tester: en slutförd session per test_type och dygn på grundnivån. */
-export const DAILY_LIMIT_TEST_SESSIONS = 1;
+/**
+ * Tester: en slutförd session per test_type och dygn på grundnivån. Läser
+ * gratisnivån (src/lib/traning/gratisniva.ts), samma tal som grundpasset.
+ */
+export const DAILY_LIMIT_TEST_SESSIONS: number = GRATISNIVA.grundpassPerDag;
 
 /** CV-analys: en per konto. Omkörningen är uttaget (avsnitt 4). */
 export const CV_ANALYSIS_LIMIT = 1;
