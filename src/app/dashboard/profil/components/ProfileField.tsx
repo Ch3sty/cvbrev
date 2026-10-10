@@ -64,6 +64,8 @@ export function FieldStatusLine({
 /* ------------------------------------------------------------------ textfält */
 
 interface TextFieldProps {
+  /** Stabilt id, när fältet ska gå att länka till. Annars useId. */
+  id?: string
   label: string
   /** Den förklarande raden. Står mellan etikett och inmatning. */
   description: string
@@ -86,6 +88,7 @@ interface TextFieldProps {
 }
 
 export function ProfileTextField({
+  id: fastId,
   label,
   description,
   value,
@@ -103,7 +106,8 @@ export function ProfileTextField({
   autoCapitalize,
   maxLength,
 }: TextFieldProps) {
-  const id = useId()
+  const autoId = useId()
+  const id = fastId ?? autoId
 
   return (
     <div>

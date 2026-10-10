@@ -137,6 +137,17 @@ export function NumericalTestSession({
   const pendingRef = useRef<Map<string, PendingAnswer>>(new Map());
   const [failedCount, setFailedCount] = useState(0);
 
+  // Svars-API:t läser hela answers, lägger till ett svar och skriver
+  // tillbaka. Två anrop som överlappar skriver alltså över varandra, och
+  // svaret som kom först försvinner tyst. Klicktestet 2026-10-10 tappade fyra
+  // svar i rad så. Alla sparningar från fliken går därför i kö, ett i taget.
+  const koRef = useRef<Promise<unknown>>(Promise.resolve());
+  const iKo = useCallback(<T,>(fn: () => Promise<T>): Promise<T> => {
+    const nasta = koRef.current.then(fn, fn);
+    koRef.current = nasta.catch(() => undefined);
+    return nasta;
+  }, []);
+
   const updateFailedCount = useCallback(() => {
     let n = 0;
     pendingRef.current.forEach((p) => {
@@ -253,7 +264,7 @@ export function NumericalTestSession({
   /* --------------------------- Svarssparning --------------------------- */
 
   const postAnswer = useCallback(
-    async (token: PendingAnswer) => {
+    (token: PendingAnswer) => iKo(async () => {
       const res = await fetch(answerEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -268,8 +279,8 @@ export function NumericalTestSession({
       if (!res.ok) {
         throw new Error(`Failed to save answer (${res.status})`);
       }
-    },
-    [answerEndpoint, sessionId]
+    }),
+    [answerEndpoint, sessionId, iKo]
   );
 
   // Bakgrundsomförsök efter att första sparningen misslyckats. Avbryts tyst
@@ -402,6 +413,9 @@ export function NumericalTestSession({
     setIsFinishing(true);
     setFinishError(null);
     try {
+      // Vänta in kön först: sista svaret är ofta fortfarande på väg, och
+      // skickas det en gång till räknas det dubbelt i poängen.
+      await koRef.current;
       // Spara eventuella osparade svar innan testet rättas.
       if (pendingRef.current.size > 0) {
         const allSaved = await flushPending(false);

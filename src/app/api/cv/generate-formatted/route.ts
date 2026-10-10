@@ -8,6 +8,7 @@ import { getTemplateGenerator } from '@/lib/cv/templates';
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { arPlatshallareNamn, arPlatshallareTitel, kontaktForCv } from '@/lib/profile/dokumentKontakt';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
@@ -2266,7 +2267,7 @@ export async function POST(request: NextRequest) {
         authedUserId = user.id;
         const { data: profile } = await supabase
           .from('profiles')
-          .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
+          .select('profile_photo_url, linkedin_url, full_name, email, contact_email, phone, location')
           .eq('id', user.id)
           .single();
 
@@ -2375,16 +2376,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Punkt 13: ett CV med e-postadressen som rubrik är värre än att fråga.
-    // Klienten visar fältet inline och gör om anropet automatiskt.
-    if (authedUserId && !userProfile?.full_name?.trim()) {
-      return NextResponse.json({ error: 'name_required' }, { status: 422 });
-    }
-
     // Use structured data if available and valid, otherwise parse from text.
     // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
     // hanterar bada formaten och returnerar null om strukturen ar trasig.
     let extractedCVData: CVMetadata | null = null;
+    // Var kontaktuppgifterna kommer ifrån styr vem som vinner (dokumentKontakt.ts).
+    let kontaktKalla: 'strukturerad' | 'text' = 'strukturerad';
     if (structuredData) {
       extractedCVData = normalizeStructuredData(structuredData);
       if (extractedCVData) {
@@ -2396,6 +2393,7 @@ export async function POST(request: NextRequest) {
     if (!extractedCVData) {
       console.log('⚠️ Fallback: Extraherar svenskt CV-innehåll från text...');
       extractedCVData = await extractSwedishCVContent(cvText);
+      kontaktKalla = 'text';
     }
 
     // Enhance CV data with user profile information
@@ -2409,11 +2407,24 @@ export async function POST(request: NextRequest) {
           extractedCVData.personalInfo.linkedin = userProfile.linkedin_url;
         }
       }
-      // Always override contact details with real profile values (cv_text may contain [EMAIL]/[TEL] placeholders)
-      if (userProfile.full_name) extractedCVData.personalInfo.fullName = userProfile.full_name;
-      if (userProfile.email) extractedCVData.personalInfo.email = userProfile.email;
-      if (userProfile.phone) extractedCVData.personalInfo.phone = userProfile.phone;
-      if (userProfile.location) extractedCVData.personalInfo.address = userProfile.location;
+      // Namn, telefon, e-post och ort: det användaren skrivit i CV:t vinner.
+      // Profilen fyller bara tomma fält och platshållare som [TELEFON] eller
+      // "Ditt namn" (src/lib/profile/dokumentKontakt.ts). Ett CV som bara
+      // finns som löptext får profilens värden som förut.
+      const kontakt = kontaktForCv(extractedCVData.personalInfo, userProfile, null, kontaktKalla);
+      extractedCVData.personalInfo.fullName = kontakt.fullName;
+      extractedCVData.personalInfo.email = kontakt.email;
+      extractedCVData.personalInfo.phone = kontakt.phone;
+      extractedCVData.personalInfo.address = kontakt.address;
+      // LinkedIn-importens "Professionell titel" i redan sparade CV:n.
+      if (arPlatshallareTitel(extractedCVData.personalInfo.title)) extractedCVData.personalInfo.title = '';
+    }
+
+    // Punkt 13: ett CV med e-postadressen som rubrik är värre än att fråga.
+    // Klienten visar fältet inline och gör om anropet automatiskt. Namnet i
+    // CV:t räcker sedan 2026-10-10, profilens behövs bara när CV:t saknar ett.
+    if (authedUserId && arPlatshallareNamn(extractedCVData.personalInfo.fullName)) {
+      return NextResponse.json({ error: 'name_required' }, { status: 422 });
     }
     
     // Generera template-specifik HTML baserat på vald mall

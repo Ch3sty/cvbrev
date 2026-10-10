@@ -17,8 +17,11 @@ import {
   getAnonSession,
   questionsForToken,
   roughPercentile,
+  tillOriginalSvar,
   toPublicQuestion,
 } from '@/lib/tests/anon-session'
+import { arBlandad } from '@/lib/logicTestV7/blanda'
+import { skapaMedBlandning } from '@/lib/logicTestV7/fragor.server'
 
 /** Tre provsessioner per IP och dygn. */
 const IP_LIMIT = 3
@@ -49,9 +52,14 @@ export async function POST(request: Request) {
     }
 
     const questions = questionsForToken(token)
-    const answers = (body.answers as unknown[])
-      .slice(0, questions.length)
-      .map((a) => (typeof a === 'number' && Number.isInteger(a) ? a : -1))
+    // Klienten skickar positionerna hon klickade på. Servern räknar om till
+    // originalindex med provets permutation; det är dem som lagras och rättas.
+    const answers = tillOriginalSvar(
+      questions,
+      token,
+      arBlandad(session.meta),
+      (body.answers as unknown[]).slice(0, questions.length)
+    )
 
     let score = 0
     questions.forEach((q, i) => {
@@ -88,11 +96,14 @@ export async function POST(request: Request) {
     )
   }
 
-  const { data, error } = await admin
-    .from('anon_test_sessions')
-    .insert({ questions: [], ip_hash: hashIp(ip) })
-    .select('token, expires_at')
-    .single()
+  // Nya prov får meta.alternativ_blandade: alternativen visas i en ordning
+  // seedad på token + frågans id.
+  const { data, error } = await skapaMedBlandning(
+    admin,
+    'anon_test_sessions',
+    { questions: [], ip_hash: hashIp(ip) },
+    'token, expires_at, meta'
+  )
 
   if (error || !data) {
     console.error('[anon-test] Kunde inte skapa session:', error)
@@ -102,7 +113,7 @@ export async function POST(request: Request) {
     )
   }
 
-  const row = data as { token: string; expires_at: string }
+  const row = data as unknown as { token: string; expires_at: string; meta?: unknown }
 
   // Frågorna härleds deterministiskt ur token, så vi sparar bara id:na
   // för spårbarhet. Facit ligger kvar i frågebanken på servern.
@@ -114,7 +125,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     token: row.token,
-    questions: questions.map(toPublicQuestion),
+    questions: questions.map((q) => toPublicQuestion(q, row.token, arBlandad(row.meta))),
     total: ANON_QUESTION_COUNT,
     expiresAt: row.expires_at,
   })

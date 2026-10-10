@@ -169,7 +169,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Påståendena går att avgöra direkt mot texten. Fällan är att svara utifrån vad du redan vet i stället för vad som faktiskt står.',
     api: '/api/verbalTestV1',
-    totalQuestions: 48,
+    totalQuestions: 60,
     minutes: 25,
     quotaFeature: 'test:verbal-resonemang',
     nextSlug: 'verbal-resonemang-v2',
@@ -183,7 +183,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Längre texter och påståenden som ligger nära varandra. Skillnaden mellan "falskt" och "går inte att avgöra" är där de flesta poängen tappas.',
     api: '/api/verbalTestV2',
-    totalQuestions: 48,
+    totalQuestions: 60,
     minutes: 30,
     quotaFeature: 'test:verbal-resonemang-v2',
     requiresFeature: 'tests_above_base',
@@ -229,8 +229,12 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Du läser av ett värde och räknar en andel eller en förändring. Räknaren är tillåten, och det som mäts är att du hittar rätt siffra i rätt kolumn.',
     api: '/api/numericalTest',
-    totalQuestions: 24,
-    minutes: 25,
+    // 8 passager × 4 frågor (src/lib/numericalTest/selectPassages.ts). Stod
+    // på 24 efter att urvalet gick från 6 till 8 passager i juni, så hubben
+    // lovade 24 frågor, räknaren visade 32 och procenten räknades mot 24.
+    // Låst mot urvalet i __tests__/testConfig.totals.test.ts.
+    totalQuestions: 32,
+    minutes: 30,
     quotaFeature: 'test:numerical-reasoning',
     nextSlug: 'numeriskt-test-v2',
   },
@@ -243,7 +247,8 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Svaret ligger två eller tre räkneoperationer bort och underlaget innehåller siffror du inte ska använda. Att välja bort rätt data är halva uppgiften.',
     api: '/api/numericalTestV2',
-    totalQuestions: 24,
+    // 8 passager × 4 frågor, samma rättelse som grundnivån.
+    totalQuestions: 32,
     minutes: 35,
     quotaFeature: 'test:numerical-reasoning-v2',
     requiresFeature: 'tests_above_base',

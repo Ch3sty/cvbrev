@@ -6,6 +6,8 @@
 
 
 import { PLAN_BY_KEY, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { DOKUMENT_EPOST } from '@/lib/profile/dokumentEpost-copy'
+import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 
 export const PROFIL = {
   eyebrow: 'Konto',
@@ -26,14 +28,15 @@ export const PROFIL = {
 
 export const CV_SEKTION = {
   rubrik: 'Överst i ditt CV',
-  under: 'Foto, namn och ort står i CV:ts huvud. Vi sätter in dem själva efteråt, de skickas aldrig till någon AI.',
+  /** Förklarar att det här är uppgifterna i CV och brev (2026-10-10). */
+  under: DOKUMENT_KONTAKT.profilText,
   valfritt: 'Valfritt',
   kravs: 'Krävs',
   namn: { etikett: 'Namn', text: 'Står överst i ditt CV och dina personliga brev.', plats: 'Förnamn och efternamn' },
   namnFel: 'Namnet måste vara minst två tecken.',
   ort: { etikett: 'Ort', text: 'Rekryteraren ser direkt om du bor nära jobbet.', plats: 'Till exempel Örebro' },
   telefon: { etikett: 'Telefon', text: 'Så att rekryteraren kan ringa dig.', plats: '070 123 45 67' },
-  epost: { etikett: 'E-post', text: 'Din inloggning och adressen rekryteraren svarar på.' },
+  epost: { etikett: DOKUMENT_EPOST.etikett, text: DOKUMENT_EPOST.text, konto: DOKUMENT_EPOST.konto, fel: DOKUMENT_EPOST.fel },
   linkedin: {
     etikett: 'LinkedIn',
     text: 'Blir en rad i CV:t. Rekryterare klickar ofta dit innan de hör av sig.',

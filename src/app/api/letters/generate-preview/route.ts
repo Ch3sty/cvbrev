@@ -1,6 +1,10 @@
 import { cookies } from 'next/headers';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
+import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
@@ -54,7 +58,7 @@ export async function POST(request: Request) {
     // Hämta användarprofil för att kontrollera prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, full_name')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, full_name, phone')
       .eq('id', user.id)
       .single();
 
@@ -62,6 +66,10 @@ export async function POST(request: Request) {
       console.error('Fel vid hämtning av användarprofil:', profileError);
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
+
+    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
+    // och admin räknas, inte bara profiles.subscription_tier.
+    const harBetalt = await userHasAccess(supabase, user.id, 'any');
 
     // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
     // Samma räknarkolumner som /api/letters/generate så båda flödena delar kvot.
@@ -75,7 +83,7 @@ export async function POST(request: Request) {
     const newCount = effectiveCount + 1;
 
     // Kontrollera om användaren har nått sin dagsgräns (endast för gratisanvändare)
-    if (profile.subscription_tier === 'free' && effectiveCount >= DAILY_LIMIT_LETTERS) {
+    if (!harBetalt && effectiveCount >= DAILY_LIMIT_LETTERS) {
       return NextResponse.json(
         quotaExceededBody(
           'letter_generation',
@@ -160,7 +168,8 @@ export async function POST(request: Request) {
         cvData.cv_text,
         'letter_preview',
         user.id,
-        { fullName: profile?.full_name ?? null }
+        // Profilens och CV:ts namn och telefon (src/lib/profile/dokumentKontakt.ts).
+        kandaUppgifterForMaskning(profile, cvData.structured_data)
       );
       const cleanedCV = guarded.text;
 
@@ -192,7 +201,7 @@ export async function POST(request: Request) {
       // Hämta användarens profildata för att inkludera i brevet
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('full_name, email, phone, location, include_phone_in_letters, include_location_in_letters')
+        .select('full_name, email, contact_email, phone, location, include_phone_in_letters, include_location_in_letters')
         .eq('id', user.id)
         .single();
 
@@ -204,7 +213,8 @@ export async function POST(request: Request) {
       // Bygg profilobjekt för template
       const profileForLetter: ProfileDataForLetter = {
         full_name: profileData.full_name || 'Ditt namn',
-        email: profileData.email,
+        // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
+        email: dokumentEpost(profileData, user),
         phone: profileData.phone || undefined,
         location: profileData.location || undefined,
         include_phone_in_letters: profileData.include_phone_in_letters || false,
@@ -297,8 +307,9 @@ export async function POST(request: Request) {
     
     // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
     // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
-    if (profile.subscription_tier === 'free') {
-      const { error: updateError } = await supabase
+    if (!harBetalt) {
+      // Kvotkolumnerna är spärrade för användarens session: admin-klienten skriver.
+      const { error: updateError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update(
           windowIsStale
@@ -327,7 +338,7 @@ export async function POST(request: Request) {
       activeGenerations.delete(requestKey);
       
       // För gratisanvändare, returnera också antalet återstående brev idag
-      if (profile.subscription_tier === 'free') {
+      if (!harBetalt) {
         const remainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newCount);
         return NextResponse.json({
           success: true,

@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
 import { computeScores, isComplete } from '@/lib/personalityTest/scoring';
+import type { PersonalityAnswer } from '@/lib/personalityTest/types';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -48,7 +51,7 @@ export async function POST(request: Request) {
       ? ITEMS_GRUND
       : ITEMS_AVANCERAD;
 
-    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const answers = unikaSvar<PersonalityAnswer>(session.answers, SVARSNYCKLAR.personlighet);
 
     if (!isComplete(itemBank, answers)) {
       return NextResponse.json(
@@ -63,7 +66,7 @@ export async function POST(request: Request) {
       (Date.now() - new Date(session.started_at).getTime()) / 1000
     );
 
-    const { error: updateError } = await supabase
+    const { error: updateError } = await testSkrivKlient()
       .from('personality_test_sessions')
       .update({
         completed_at: new Date().toISOString(),
@@ -71,7 +74,8 @@ export async function POST(request: Request) {
         scores: profile.scores,
         facet_scores: profile.facetScores ?? null,
       })
-      .eq('id', sessionId);
+      .eq('id', sessionId)
+      .eq('user_id', user.id);
 
     // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
     // Tyst vid fel, får aldrig fälla svaret.

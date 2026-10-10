@@ -20,13 +20,7 @@ import { NumericalTestSession } from '@/components/tests/numerical/NumericalTest
 import { VerbalTestSession } from '@/components/tests/verbal/VerbalTestSession'
 import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestSession'
 import type { Passage as NumericalPassage } from '@/lib/numericalTest/types'
-import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7'
 
-import {
-  selectQuestionsForSession,
-  selectAvanceradQuestionsForSession,
-  selectExpertQuestionsForSession,
-} from '@/lib/logicTestV7/selectQuestions.v7'
 import { selectPassagesForSession as selectNumericalGrund } from '@/lib/numericalTest/selectPassages'
 import { selectPassagesForSession as selectNumericalAvancerad } from '@/lib/numericalTestV2/selectPassages'
 import { selectPassagesForSession as selectNumericalExpert } from '@/lib/numericalTestExpert/selectPassages'
@@ -60,12 +54,13 @@ const VerbalExpertSession = dynamic(
   { loading: TestLoading }
 )
 
-/* Modulskopade urvalsfunktioner: stabil referens för vyernas memo. */
-const MATRIX_SELECT: Record<string, (id: string) => LayeredQuestion[]> = {
-  'matrislogik-grund': selectQuestionsForSession,
-  'matrislogik-avancerad': selectAvanceradQuestionsForSession,
-  'matrislogik-expert': selectExpertQuestionsForSession,
-}
+/*
+  Modulskopade urvalsfunktioner: stabil referens för vyernas memo.
+
+  Matrislogiken har inget urval här: frågorna byggs på servern (getRunData,
+  session-API:t) med blandade alternativ och utan facit, så frågebanken aldrig
+  följer med i klientpaketet.
+*/
 
 // V2- och expertpassager har samma fältstruktur som V1, så casten är säker.
 const numericalAvancerad = (id: string) =>
@@ -132,7 +127,6 @@ export default function TestRunner({
       <MatrixTestSession
         sessionId={sessionId}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
-        selectQuestions={MATRIX_SELECT[config.slug]}
         resultsPath={resultsPath}
         initialRun={runData}
         {...endpoints}

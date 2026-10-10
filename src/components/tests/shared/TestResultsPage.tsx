@@ -4,9 +4,11 @@
  * TestResultsPage: renderar resultatet för en session.
  *
  * Skalet runt omkring är gemensamt (TestResultsShell). Det som skiljer testen
- * åt är genomgången per fråga, och den väljs här utifrån testtyp. Frågeurvalet
- * seedas på sessionId, precis som testvyn gjorde, så genomgången visar exakt
- * de frågor användaren fick.
+ * åt är genomgången per fråga, och den väljs här utifrån testtyp. För
+ * matrislogiken byggs genomgången på servern (getResultsData eller
+ * session-API:t) med samma urval och samma visade ordning som testvyn, så
+ * bokstaven och rutan hon ser är dem hon såg i testet, och facit aldrig ligger
+ * i klientpaketet.
  *
  * Sessionen, percentilen och bryggans underlag kommer numera färdiga från
  * servern (getResultsData.ts). Gick den läsningen inte igenom faller sidan
@@ -17,7 +19,6 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
 import RumHuvud from '@/components/rum/RumHuvud'
@@ -25,6 +26,7 @@ import Golv from '@/components/rum/Golv'
 import TestResultsShell from './TestResultsShell'
 import MatrixQuestionReview from './reviews/MatrixQuestionReview'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
+import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 
 /*
   Genomgången per fråga ligger långt under första vyn: poängkortet,
@@ -51,11 +53,14 @@ interface SessionData {
   completed_at: string | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answers?: any[]
+  /** Matrislogikens genomgång, byggd på servern. */
+  genomgang?: GenomgangsFraga[] | null
 }
 
 /**
- * Matrislogik och proven lagras i logic_test_v4_sessions och läses direkt
- * ur Supabase. Övriga test har sina egna tabeller bakom sitt session-API.
+ * Matrislogik och proven lagras i logic_test_v4_sessions. Deras session-API
+ * svarar på ?id= med raden och genomgången. Övriga test listar sina sessioner
+ * bakom sitt session-API.
  */
 const READS_SUPABASE = new Set([
   'matrislogik-grund',
@@ -84,6 +89,7 @@ export default function TestResultsPage({
           time_spent: fromServer.session.timeSpent,
           completed_at: fromServer.session.completedAt,
           answers: fromServer.session.answers,
+          genomgang: fromServer.session.genomgang ?? null,
         }
       : null
   )
@@ -100,15 +106,14 @@ export default function TestResultsPage({
     const load = async () => {
       try {
         if (READS_SUPABASE.has(config.slug)) {
-          const supabase = getSupabaseClient()
-          const { data, error } = await supabase
-            .from('logic_test_v4_sessions')
-            .select('*')
-            .eq('id', sessionId)
-            .single()
-          if (error || !data) throw error ?? new Error('missing')
+          // Session-API:t ger raden plus genomgången (frågorna i visad
+          // ordning och var rätt svar stod), byggd på servern.
+          const res = await fetch(`${config.api}/session?id=${sessionId}`)
+          if (!res.ok) throw new Error('missing')
+          const data = await res.json()
+          if (!data?.session) throw new Error('missing')
           if (!cancelled) {
-            setSession(data as SessionData)
+            setSession({ ...(data.session as SessionData), genomgang: data.genomgang ?? null })
             setState('ready')
           }
           return
@@ -219,8 +224,8 @@ export default function TestResultsPage({
       {config.kind === 'matris' ? (
         <MatrixQuestionReview
           slug={config.slug}
-          sessionId={sessionId}
           answers={answers}
+          fragor={session.genomgang ?? []}
         />
       ) : config.kind === 'numerisk' ? (
         <NumericalReview slug={config.slug} sessionId={sessionId} answers={answers} />

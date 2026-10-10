@@ -5,33 +5,17 @@
 // träningsurvalet, så samma session ger samma prov (stabilt mellan test- och
 // resultatsida) och omspel ger nytt prov. Frågornas id är unika tvärs poolerna,
 // så svar-API:t kan slå upp facit oavsett vilken nivå frågan kom från.
+//
+// Urvalet returnerar frågorna i bankens form. Alternativens ordning blandas
+// i fragor.server.ts (blanda.ts), inte här.
 // =============================================================================
 
 import { GRUND_POOL, AVANCERAD_POOL, EXPERT_POOL } from './selectQuestions.v7';
 import type { LayeredQuestion } from './layered.v7';
+import { hashString, mulberry32 } from './blanda';
+import { PROV_PER_LEVEL, PROV_TOTAL_QUESTIONS } from './konstanter';
 
-/** Antal frågor per nivå i provet (6 × 3 nivåer = 18). */
-export const PROV_PER_LEVEL = 6;
-export const PROV_TOTAL_QUESTIONS = PROV_PER_LEVEL * 3;
-
-function hashString(str: string): number {
-  let h = 0x811c9dc5;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);
-  }
-  return h >>> 0;
-}
-
-function mulberry32(seed: number) {
-  return function () {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
+export { PROV_PER_LEVEL, PROV_TOTAL_QUESTIONS };
 
 function shuffle<T>(arr: T[], rng: () => number): T[] {
   const out = [...arr];

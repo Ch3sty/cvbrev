@@ -58,6 +58,8 @@ export function toJobPreferences(raw: unknown): JobPreferences {
 export interface Profile {
   id: string;
   email: string;
+  /** Adressen i CV-mallar och personliga brev. Null = kontoadressen. */
+  contact_email?: string | null;
   full_name?: string;
   phone?: string;
   location?: string; // Ort/plats för användaren

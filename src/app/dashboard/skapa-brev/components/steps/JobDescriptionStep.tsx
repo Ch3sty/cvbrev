@@ -8,7 +8,7 @@
  * rörelse, ingen orange yta. Frågan som rubrik sätts av CreateLetterClient.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 interface JobDescriptionStepProps {
   jobDescription: string;
@@ -32,18 +32,19 @@ export default function JobDescriptionStep({
   prefillCompany,
   prefillJobTitle,
 }: JobDescriptionStepProps) {
-  const [detectedKeywords, setDetectedKeywords] = useState<string[]>([]);
-  const [hasMarkedDone, setHasMarkedDone] = useState(startCollapsed);
-
-  useEffect(() => {
-    if (jobDescription.length > 50) {
-      const matches = jobDescription.match(KEYWORD_REGEX) || [];
-      const unique = matches.filter((v, i, a) => a.indexOf(v) === i);
-      setDetectedKeywords(unique.slice(0, 8));
-    } else {
-      setDetectedKeywords([]);
-    }
+  // Nyckelorden räknas fram under rendering, inte i en effekt. Effekten satte
+  // en ny array i state vid varje tangenttryck. Effekter efter ett
+  // tangenttryck körs direkt efter commit, och uppdateringen de gör hamnar i
+  // en lägre lane som Chrome låter vänta medan fler tangenttryck köas. Vid
+  // snabb inmatning (inklistring tecken för tecken, snabbskrivning, puppeteer)
+  // räknade React därför femtio commits i rad med väntande arbete och kastade
+  // fel #185, maximalt uppdateringsdjup.
+  const detectedKeywords = useMemo(() => {
+    if (jobDescription.length <= 50) return [];
+    const matches = jobDescription.match(KEYWORD_REGEX) || [];
+    return matches.filter((v, i, a) => a.indexOf(v) === i).slice(0, 8);
   }, [jobDescription]);
+  const [hasMarkedDone, setHasMarkedDone] = useState(startCollapsed);
 
   // Markeras som klart första gången texten passerar 50 tecken.
   useEffect(() => {

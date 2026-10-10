@@ -1,5 +1,6 @@
 // src/app/api/letters/download/route.ts
 import { cookies } from 'next/headers';
+import { bytKontaktIBrev, kontaktIBrev } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
@@ -329,15 +330,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'name_required' }, { status: 422 });
     }
 
-    // Förbered metadata med användarens information
+    // Förbered metadata med användarens information. Samma värden som
+    // brevhuvudet: telefon och ort bara när de ska visas i brev
+    // (src/lib/profile/dokumentKontakt.ts). Word-filen byggs om från dem.
+    const kontakt = kontaktIBrev(profileData, user);
     const enhancedMetadata: LetterMetadata = {
       title: title || 'Ansökningsbrev',
       company: company || '',
       position: position || '',
-      author: profileData.full_name,
-      email: user.email || '',
-      phone: profileData?.phone || '',
-      location: profileData?.location || '',
+      author: kontakt.namn,
+      email: kontakt.epost,
+      phone: kontakt.telefon,
+      location: kontakt.ort,
       date: new Date().toLocaleDateString('sv-SE')
     };
     
@@ -357,7 +361,14 @@ export async function POST(request: Request) {
       fileName += '.docx';
     } else if (format === 'pdf') {
       // content är redan komplett HTML från template, skicka med font
-      fileData = await createProfessionalPDF(content, fontFamily);
+      // Sparade brev har kontaktuppgifterna inbakade från när de skapades.
+      // Byt namn, telefon och e-post i huvud och avslutning mot de aktuella,
+      // aldrig i brödtexten. Orten går inte att känna igen säkert i ett
+      // sparat brev och står kvar.
+      fileData = await createProfessionalPDF(
+        bytKontaktIBrev(content, { namn: kontakt.namn, epost: kontakt.epost, telefon: kontakt.telefon }),
+        fontFamily
+      );
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {

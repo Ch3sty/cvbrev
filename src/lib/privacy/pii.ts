@@ -49,6 +49,18 @@ export interface MaskOptions {
   maskUrls?: boolean;
   /** Använd namnheuristiken på de första raderna. */
   detectNameHeuristically?: boolean;
+  /**
+   * Fler kända namn, till exempel namnet i CV:ts strukturerade data när det
+   * skiljer sig från profilens (2026-10-10: det användaren skrivit i
+   * CV-byggaren vinner i dokumenten, så det namnet måste också maskas).
+   */
+  extraNames?: Array<string | null | undefined>;
+  /**
+   * Kända telefonnummer ur profilen och CV:t. Maskas ordagrant med valfria
+   * avdelare mellan siffrorna, före de generella mönstren, så att även ett
+   * nummer i ett ovanligt format fångas.
+   */
+  knownPhones?: Array<string | null | undefined>;
 }
 
 export interface MaskResult {
@@ -154,6 +166,13 @@ export function maskPii(text: string, options: MaskOptions = {}): MaskResult {
     out = out.replace(new RegExp(pattern.source, pattern.flags), PLACEHOLDERS[kind]);
   };
 
+  // Kända nummer först, ordagrant men tåligt för mellanslag och bindestreck.
+  for (const tel of options.knownPhones ?? []) {
+    const siffror = (tel ?? '').replace(/\D/g, '');
+    if (siffror.length < 6) continue;
+    apply('phone', new RegExp(siffror.split('').join('[\\s().-]*'), 'g'));
+  }
+
   // Ordningen är medveten, se kommentaren vid PATTERNS.
   apply('email', PATTERNS.email);
   apply('personalId', PATTERNS.personalId);
@@ -190,6 +209,21 @@ export function maskPii(text: string, options: MaskOptions = {}): MaskResult {
     // Sammanhängande dubbletter efter delmaskning.
     out = out.replace(/\[NAMN\](?:\s+\[NAMN\])+/g, PLACEHOLDERS.name);
     if (names.length > 0) found.name = names;
+  }
+
+  // Övriga kända namn (CV:ts eget namn), hela namnet först och sedan delarna.
+  for (const extra of options.extraNames ?? []) {
+    const namn = (extra ?? '').trim();
+    if (namn.length < 2 || /^\[.*\]$/.test(namn)) continue;
+    const delar = namn.split(/\s+/).map((d) => d.trim()).filter((d) => d.length > 2);
+    for (const kandidat of [namn, ...delar]) {
+      const pattern = new RegExp(`\\b${escapeRegExp(kandidat)}\\b`, 'gi');
+      if (pattern.test(out)) {
+        found.name = [...(found.name ?? []), kandidat];
+        out = out.replace(new RegExp(`\\b${escapeRegExp(kandidat)}\\b`, 'gi'), PLACEHOLDERS.name);
+      }
+    }
+    out = out.replace(/\[NAMN\](?:\s+\[NAMN\])+/g, PLACEHOLDERS.name);
   }
 
   return { text: out, found, detectedName };

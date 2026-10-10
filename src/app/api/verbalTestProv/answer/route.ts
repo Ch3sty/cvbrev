@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { examDeadlinePassed } from '@/lib/tests/sessionGate';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 
 // Lagrar råa svar (passageId + statementIndex). Rättning sker i complete-routen
 // mot den merged prov-banken.
@@ -37,21 +39,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'exam_time_up' }, { status: 409 });
     }
 
-    const answers = Array.isArray(session.answers) ? session.answers : [];
-    const existingIndex = answers.findIndex(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (a: any) => a.passageId === passageId && a.statementIndex === statementIndex
-    );
     const newAnswer = { passageId, statementIndex, answer, timeSpent: timeSpent || 0 };
-    if (existingIndex !== -1) answers[existingIndex] = newAnswer;
-    else answers.push(newAnswer);
 
-    const { error: updateError } = await supabase
-      .from('logic_test_v4_sessions')
-      .update({ answers })
-      .eq('id', sessionId);
-
-    if (updateError) {
+    // Ett svar per påstående, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    try {
+      const sparade = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
+        tabell: 'logic_test_v4_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.verbalPastaende,
+        svar: newAnswer,
+        kravOavslutad: false,
+      });
+      if (sparade === null) {
+        return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+      }
+    } catch (updateError) {
       console.error('Error saving verbal prov answer:', updateError);
       return NextResponse.json({ error: 'Failed to save answer' }, { status: 500 });
     }

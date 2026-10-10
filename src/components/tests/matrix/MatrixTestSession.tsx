@@ -27,7 +27,8 @@ import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import { useTestHintMode } from '@/hooks/use-test-hint-mode';
-import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
+import type { VisadFraga } from '@/lib/logicTestV7/layered.v7';
+import { visatForSvar } from '@/lib/logicTestV7/blanda';
 import type { RunData, SavedAnswer } from '@/app/dashboard/tester/[slug]/getRunData';
 
 export type MatrixTestLevel = 'grund' | 'avancerad' | 'expert';
@@ -42,7 +43,6 @@ const TITLE_BY_LEVEL: Record<MatrixTestLevel, string> = {
 interface MatrixTestSessionProps {
   sessionId: string;
   level: MatrixTestLevel;
-  selectQuestions: (sessionId: string) => LayeredQuestion[];
   answerEndpoint: string;
   completeEndpoint: string;
   sessionEndpoint: string;
@@ -62,19 +62,19 @@ interface MatrixTestSessionProps {
 /**
  * Bygger upp svarslistan ur sessionens sparade svar.
  *
- * Exakt samma mappning som rehydreringen gjorde tidigare: varje fråga letar
- * upp sitt eget sparade svar på q_id, allt annat blir null. Ordningen på
- * `questions` kommer från selectQuestions och rörs inte.
+ * Varje fråga letar upp sitt eget sparade svar på q_id, allt annat blir null.
+ * Svaren hålls i VISAT index i vyn: nya svar har fältet `visat`, gamla
+ * (oblandade) sessioner har bara `selected`, som där är samma sak.
  */
 function restoreAnswers(
-  questions: LayeredQuestion[],
+  questions: VisadFraga[],
   saved: SavedAnswer[]
 ): { answers: (number | null)[]; firstUnanswered: number } | null {
   if (saved.length === 0) return null;
 
   const answers = questions.map((q) => {
     const hit = saved.find((a) => a && a.q_id === q.id);
-    return hit && typeof hit.selected === 'number' ? hit.selected : null;
+    return visatForSvar(hit);
   });
 
   const idx = answers.findIndex((a) => a === null);
@@ -100,7 +100,6 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export function MatrixTestSession({
   sessionId,
   level,
-  selectQuestions,
   answerEndpoint,
   completeEndpoint,
   sessionEndpoint,
@@ -109,17 +108,19 @@ export function MatrixTestSession({
 }: MatrixTestSessionProps) {
   const router = useRouter();
 
-  // Deterministiskt urval av frågor ur poolen, seedat på sessionId.
-  // Samma sessionId → samma frågor (stabilt under sessionen och = resultat-sidan).
-  const questions = useMemo(
-    () => selectQuestions(sessionId),
-    [selectQuestions, sessionId]
-  );
-
   // Servern har redan läst raden: då är rehydreringen klar innan vi monterat.
   // En redan avslutad session behåller laddvyn tills navigeringen skett, precis
   // som fetch-vägen gjorde.
   const serverSession = initialRun?.resolved ? initialRun.session : null;
+
+  // Frågorna kommer från servern: urvalet seedat på sessionId, alternativen i
+  // sessionens visade ordning (seedad på sessionId + frågans id) och utan
+  // facit. Samma ordning vid omladdning och på resultatsidan. Läses servern
+  // inte kommer de med rehydreringens fetch i stället.
+  const [questions, setQuestions] = useState<VisadFraga[]>(
+    () => serverSession?.fragor ?? []
+  );
+  const [loadFailed, setLoadFailed] = useState(false);
   const serverCompleted = serverSession?.completedAt != null;
   const serverRestored = useMemo(
     () =>
@@ -142,7 +143,7 @@ export function MatrixTestSession({
   const [isNavigating, setIsNavigating] = useState(false);
   // Serverläst och inte avslutad: ingen väntan, testet målas direkt.
   const [isHydrating, setIsHydrating] = useState(
-    () => !(serverSession != null && !serverCompleted)
+    () => !(serverSession != null && !serverCompleted && questions.length > 0)
   );
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
@@ -181,7 +182,7 @@ export function MatrixTestSession({
     let cancelled = false;
 
     // Servern läste raden redan. Ingen fetch, ingen andra rundtur.
-    if (serverSession) {
+    if (serverSession && (serverCompleted || questions.length > 0)) {
       if (serverCompleted) {
         // Redan avslutad session → direkt till resultatet, som förut.
         router.replace(resultsPath(sessionId));
@@ -204,21 +205,26 @@ export function MatrixTestSession({
               router.replace(resultsPath(sessionId));
               return;
             }
-            const saved: Array<{ q_id: string; selected: number }> = Array.isArray(
-              session.answers
-            )
+            const fragor: VisadFraga[] = Array.isArray(data?.fragor) ? data.fragor : [];
+            if (fragor.length === 0) {
+              setLoadFailed(true);
+              return;
+            }
+            setQuestions(fragor);
+            const saved: SavedAnswer[] = Array.isArray(session.answers)
               ? session.answers
               : [];
-            const restored = restoreAnswers(questions, saved);
-            if (restored) {
-              setAnswers(restored.answers);
-              setCurrentQuestion(restored.firstUnanswered);
-            }
+            const restored = restoreAnswers(fragor, saved);
+            setAnswers(restored?.answers ?? Array(fragor.length).fill(null));
+            setCurrentQuestion(restored?.firstUnanswered ?? 0);
           }
+        } else if (!cancelled) {
+          // Icke-ok svar (t.ex. 404): utan frågor finns inget test att visa.
+          setLoadFailed(true);
         }
-        // Icke-ok svar (t.ex. 404): fortsätt med tomt state, blockera inte testet.
       } catch {
-        // Nätverksfel: fortsätt med tomt state, blockera inte testet.
+        // Nätverksfel: utan frågor finns inget test att visa. Erbjud omförsök.
+        setLoadFailed(true);
       } finally {
         if (!cancelled && !redirected) {
           setIsHydrating(false);
@@ -435,9 +441,29 @@ export function MatrixTestSession({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion, question, handleSelectAnswer]);
 
+  if (loadFailed) {
+    return (
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <h2 className="text-kort text-ink-1">Testet gick inte att ladda</h2>
+          <p className="mt-2 text-sm leading-[22px] text-ink-2">
+            Dina sparade svar finns kvar. Kontrollera uppkopplingen och ladda om sidan.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          >
+            Ladda om
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   // Laddindikator tills rehydreringen är klar, så användaren inte hinner
   // svara innan tidigare svar förifyllts.
-  if (isHydrating) {
+  if (isHydrating || !question) {
     return (
       <div className="mx-auto w-full max-w-3xl px-4 py-6">
         <LoadingSkeleton variant="card" label="Testet laddas" />

@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { isLetterLocked, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
 
 // Hämta ett specifikt brev med ID
@@ -97,13 +98,8 @@ export async function PUT(
     // Lås-kontroll: gratisanvändare kan bara redigera sina 2 senast sparade
     // brev (aktiva). Äldre sparade brev är låsta tills Premium eller borttag.
     if (existingLetter.is_saved === true) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('subscription_tier')
-        .eq('id', user.id)
-        .single();
-
-      if (profile?.subscription_tier !== 'premium') {
+      // Behörigheten via premiumAccess, så att engångsköp och admin räknas.
+      if (!(await userHasAccess(supabase, user.id, 'any'))) {
         const { data: savedLetters } = await supabase
           .from('letters')
           .select('id, updated_at, created_at')

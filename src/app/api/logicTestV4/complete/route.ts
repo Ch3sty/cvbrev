@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
+import { rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: Request) {
@@ -52,8 +55,9 @@ export async function POST(request: Request) {
     }
 
     // Calculate score
-    const answers = Array.isArray(session.answers) ? session.answers : [];
-    const score = answers.filter((a: any) => a.correct).length;
+    const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris);
+    // Poängen räknas på unika svar och originalindex mot facit i banken.
+    const score = rattaMatrisSvar(answers);
 
     // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan
     // started_at räknar med pauser (startsidan uppmuntrar "pausa när du vill")
@@ -68,14 +72,15 @@ export async function POST(request: Request) {
       : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
     // Update session
-    const { error: updateError } = await supabase
+    const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .update({
         completed_at: new Date().toISOString(),
         score,
         time_spent: timeSpent
       })
-      .eq('id', sessionId);
+      .eq('id', sessionId)
+      .eq('user_id', user.id);
 
     // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
     // Tyst vid fel, får aldrig fälla svaret.

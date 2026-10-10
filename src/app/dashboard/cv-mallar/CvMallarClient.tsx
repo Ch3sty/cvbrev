@@ -68,10 +68,14 @@ export default function CvMallarClient({
   const { successWithMascotAndActivity } = useNotification();
 
   const [selectedCvId, setSelectedCvId] = useState<string | null>(initialSelectedCvId);
-  const selectedCV = useMemo(
-    () => initialCvs.find((cv) => cv.id === selectedCvId) ?? null,
-    [initialCvs, selectedCvId]
-  );
+  // structured_data som servern skrev om när kontaktuppgifterna sparades i
+  // raden vid mallen (KontaktuppgifterRad). Läggs över serverlistan.
+  const [nyStrukturerad, setNyStrukturerad] = useState<Record<string, unknown>>({});
+  const selectedCV = useMemo(() => {
+    const cv = initialCvs.find((c) => c.id === selectedCvId) ?? null;
+    if (!cv || !(cv.id in nyStrukturerad)) return cv;
+    return { ...cv, structured_data: nyStrukturerad[cv.id] };
+  }, [initialCvs, selectedCvId, nyStrukturerad]);
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
@@ -243,6 +247,7 @@ export default function CvMallarClient({
           isGenerating={isGenerating}
           onGenerate={handleGenerateCV}
           onUpgrade={handleUpgradeClick}
+          onCvKontaktSparad={(cv) => setNyStrukturerad((prev) => ({ ...prev, [cv.id]: cv.structured_data }))}
         />
       </section>
 

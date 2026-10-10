@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
+import { rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/selectProv.v7';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -38,9 +41,9 @@ export async function POST(request: Request) {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const answers = Array.isArray(session.answers) ? session.answers : [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const score = answers.filter((a: any) => a.correct).length;
+    const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris);
+    // Poängen räknas på unika svar och originalindex mot facit i banken.
+    const score = rattaMatrisSvar(answers);
 
     // Aktiv tid = summan av tiden per besvarad fråga. Matrislogik-provet har
     // ingen synlig timer eller hård tidsgräns i UI:t, så väggklocka sedan
@@ -55,10 +58,11 @@ export async function POST(request: Request) {
       ? activeTime
       : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
 
-    const { error: updateError } = await supabase
+    const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
       .update({ completed_at: new Date().toISOString(), score, time_spent: timeSpent })
-      .eq('id', sessionId);
+      .eq('id', sessionId)
+      .eq('user_id', user.id);
 
     // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
     // Tyst vid fel, får aldrig fälla svaret.

@@ -4,7 +4,8 @@
 
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { createServerClient } from '@/lib/supabase/server'; 
+import { createServerClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { stripe } from '@/lib/stripe/server';
 import { getURL } from '@/utils/helpers';
 import { findLiveSubscription, alreadySubscribedResponse } from '@/lib/stripe/guard-existing-subscription';
@@ -69,7 +70,10 @@ export async function POST(request: Request) {
           customerId = customer.id;
           console.log(`Checkout Info: Created Stripe customer ${customerId} for user ${user.id}`);
 
-          const { error: updateError } = await supabase
+          // Faktureringskolumnerna i profiles är spärrade för användarens
+          // session (migrationen profiles_skyddade_kolumner), så kund-id:t
+          // skrivs med admin-klienten.
+          const { error: updateError } = await (getSupabaseAdmin() as any)
             .from('profiles')
             .update({ stripe_customer_id: customerId })
             .eq('id', user.id);

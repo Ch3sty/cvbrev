@@ -30,6 +30,7 @@ import Golv from '@/components/rum/Golv';
 import UtseendeSection from './components/UtseendeSection';
 import { capture } from '@/lib/analytics/events';
 import { menyHuvud } from '@/lib/onboarding/paket-rader';
+import { arGiltigEpost, dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 import HoppaTill from './components/HoppaTill';
 import SaknasRad from './components/SaknasRad';
@@ -59,6 +60,7 @@ const PremiumGateModal = dynamic(() => import('./components/PremiumGateModal'), 
 /** Vilken sektion ett fält hör till, för profile_field_saved. */
 const SEKTION_FOR: Record<string, 'cv' | 'personliga_brev' | 'jobbsok' | 'konto'> = {
   full_name: 'cv',
+  contact_email: 'cv',
   location: 'cv',
   phone: 'cv',
   linkedin_url: 'cv',
@@ -80,6 +82,8 @@ const SEKTIONER = [
 
 interface ProfileFormState {
   full_name: string;
+  /** E-post i CV och brev. Visas förifylld med kontoadressen. */
+  contact_email: string;
   linkedin_url: string;
   profile_photo_url: string;
   preferred_tonality: TonalityValue;
@@ -94,6 +98,7 @@ interface ProfileFormState {
 
 const EMPTY_FORM: ProfileFormState = {
   full_name: '',
+  contact_email: '',
   linkedin_url: '',
   profile_photo_url: '',
   preferred_tonality: 'balanced',
@@ -111,6 +116,7 @@ function toForm(profile: Record<string, any> | null): ProfileFormState {
   if (!profile) return EMPTY_FORM;
   return {
     full_name: profile.full_name || '',
+    contact_email: dokumentEpost(profile),
     linkedin_url: profile.linkedin_url || '',
     profile_photo_url: profile.profile_photo_url || '',
     preferred_tonality: (profile.preferred_tonality || 'balanced') as TonalityValue,
@@ -145,7 +151,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
   const { successWithMascot } = useNotification();
 
   // Summaryn är server-hämtad av layouten och finns redan vid första render.
-  const { summary } = useDashboardData();
+  const { summary, refresh: refreshDashboard } = useDashboardData();
   const initialProfile = (summary?.profile as Record<string, any> | null) ?? null;
 
   const { profile, updateProfile, subscriptionTier } = useProfile();
@@ -174,7 +180,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
   // överst på desktop. En gång vid mount, och bara om rubriken inte redan syns.
   useEffect(() => {
     const id = window.location.hash.slice(1);
-    if (!['cv', 'personliga-brev', 'jobbsok', 'utseende', 'konto'].includes(id)) return;
+    if (!['cv', 'cv-epost', 'personliga-brev', 'jobbsok', 'utseende', 'konto'].includes(id)) return;
     const raf = requestAnimationFrame(() => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -219,10 +225,63 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
       setFormData((current) => {
         const value = current[key as keyof ProfileFormState];
 
+        // E-post i CV och brev går via servern, som validerar, sparar tom
+        // som null (kontoadressen) och mäter ändringen. Efteråt visar fältet
+        // det som gäller, så en tömd ruta fylls med kontoadressen igen.
+        if (key === 'contact_email') {
+          const t = String(value).trim();
+          void save(
+            key,
+            async () => {
+              const res = await fetch('/api/profile/contact', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contact_email: t }),
+              });
+              if (!res.ok) return false;
+              const data = (await res.json().catch(() => null)) as { contact_email?: string | null } | null;
+              const konto =
+                (profile?.email as string | undefined) || (initialProfile?.email as string | undefined) || '';
+              setFormData((prev) => ({ ...prev, contact_email: data?.contact_email || konto }));
+              capture('profile_field_saved', { field: key, section: 'cv' });
+              void refreshDashboard();
+              return true;
+            },
+            () => (t && !arGiltigEpost(t) ? CV_SEKTION.epost.fel : null)
+          );
+          return current;
+        }
+
         const validate =
           key === 'full_name'
             ? () => (String(value).trim().length < 2 ? CV_SEKTION.namnFel : null)
             : undefined;
+
+        // Namn, telefon och ort går via servern (2026-10-10), som också flyttar
+        // in de nya värdena i de CV:n där fältet fortfarande har det gamla
+        // profilvärdet. Brevhuvudets togglar lämnas orörda här, de har egna
+        // växlar under Personliga brev. Därefter uppdateras den lokala
+        // profilen med samma värde, så att andra vyer ser ändringen direkt.
+        if (key === 'full_name' || key === 'phone' || key === 'location') {
+          const t = String(value).trim();
+          void save(
+            key,
+            async () => {
+              const res = await fetch('/api/profile/contact', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ [key]: t || null, visa_i_brev: false, kalla: 'profil' }),
+              });
+              if (!res.ok) return false;
+              await updateProfile({ [key]: t } as any);
+              capture('profile_field_saved', { field: key, section: 'cv' });
+              void refreshDashboard();
+              return true;
+            },
+            validate
+          );
+          return current;
+        }
 
         void save(
           key,
@@ -252,7 +311,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
         return current;
       });
     },
-    [save, updateProfile]
+    [save, updateProfile, profile, initialProfile, refreshDashboard]
   );
 
   const handleLogout = async () => {
@@ -331,6 +390,8 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
 
       <CvUppgifterSection
         email={email}
+        dokumentEpost={formData.contact_email}
+        onDokumentEpostChange={(v) => setField('contact_email', v)}
         fullName={formData.full_name}
         phone={formData.phone}
         location={formData.location}

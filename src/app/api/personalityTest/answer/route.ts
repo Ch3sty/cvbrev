@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
 import type { PersonalityAnswer, LikertValue } from '@/lib/personalityTest/types';
@@ -55,32 +57,34 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid questionId' }, { status: 400 });
     }
 
-    const answers: PersonalityAnswer[] = Array.isArray(session.answers)
-      ? [...session.answers]
-      : [];
-    const existingIdx = answers.findIndex((a) => a.questionId === questionId);
     const next: PersonalityAnswer = { questionId, value };
 
-    if (existingIdx >= 0) {
-      answers[existingIdx] = next;
-    } else {
-      answers.push(next);
-    }
-
-    const { error: updateError } = await supabase
-      .from('personality_test_sessions')
-      .update({ answers })
-      .eq('id', sessionId);
-
-    if (updateError) {
+    // Ett svar per påstående, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    let answeredCount: number | null;
+    try {
+      answeredCount = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
+        tabell: 'personality_test_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.personlighet,
+        svar: next as unknown as Record<string, unknown>,
+      });
+    } catch (updateError) {
       console.error('Error saving answer:', updateError);
       return NextResponse.json(
         { error: 'Failed to save answer' },
         { status: 500 }
       );
     }
+    if (answeredCount === null) {
+      return NextResponse.json(
+        { error: 'Session already completed' },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({ success: true, answeredCount: answers.length });
+    return NextResponse.json({ success: true, answeredCount });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

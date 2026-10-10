@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
+import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 import type {
   CVMetadata,
   CVPersonalInfo,
@@ -210,7 +211,8 @@ export default function CVCreatorWizard({
         personalInfo: {
           ...prev.personalInfo,
           fullName: profile.full_name ?? '',
-          email: profile.email ?? '',
+          // E-post i CV och brev, annars kontoadressen.
+          email: dokumentEpost(profile),
           phone: profile.phone ?? '',
           address: profile.location ?? '',
         },
@@ -264,7 +266,7 @@ export default function CVCreatorWizard({
         case 0: {
           const hasProfileData = !!(
             profile?.full_name?.trim() &&
-            profile?.email?.trim() &&
+            dokumentEpost(profile) &&
             profile?.phone?.trim()
           );
           const hasCvData = !!(

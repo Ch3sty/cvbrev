@@ -26,6 +26,7 @@ import { cookies } from 'next/headers'
 import { getUserScope } from '@/lib/supabase/premiumAccess'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprakProv, provGenomgang } from '@/lib/tests/prov-rad'
+import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PROVSIDA } from '../prov-copy'
 
@@ -56,7 +57,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   ])
   if (!rad) notFound()
 
-  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [])
+  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta))
   const gratis = scope === null
 
   return (
@@ -86,7 +87,6 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
       <p className="text-sm leading-[22px] text-ink-2">{PROVSIDA.genomgang}</p>
       <MatrixQuestionReview
         slug="matrislogik-grund"
-        sessionId={rad.token}
         answers={svar}
         fragor={fragor}
         utanTid

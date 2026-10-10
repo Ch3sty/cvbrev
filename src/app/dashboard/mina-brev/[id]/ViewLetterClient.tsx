@@ -27,6 +27,9 @@ import PaywallCard from '@/components/paywall/PaywallCard';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../scopeLetterHtml';
+import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { bytKontaktIBrev, kontaktIBrev, type ProfilKontakt } from '@/lib/profile/dokumentKontakt';
 
 const SECONDARY =
   `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
@@ -57,6 +60,15 @@ export default function ViewLetterClient({
   } = useLetters({ skipInitialFetch: true });
   // Serverns brev gäller tills klienten har en egen version av samma id.
   const currentLetter = hamtatBrev && hamtatBrev.id === id ? hamtatBrev : initialLetter;
+
+  // Brevet visas med dagens kontaktuppgifter i huvud och avslutning, samma
+  // byte som PDF:en får (api/letters/download). Brödtexten rörs aldrig.
+  const { summary } = useDashboardData();
+  const kontakt = kontaktIBrev((summary?.profile as ProfilKontakt) ?? null);
+  const visatInnehall = (content: string) =>
+    content.includes('class="body-content"') && kontakt.namn
+      ? bytKontaktIBrev(content, { namn: kontakt.namn, epost: kontakt.epost, telefon: kontakt.telefon })
+      : content;
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [copied, setCopied] = useState(false);
   // A1: servern svarade 402 på nedladdningen. Brevet står kvar i sin helhet,
@@ -295,13 +307,17 @@ export default function ViewLetterClient({
         </button>
       </div>
 
+      {/* Adressen nedladdningen får. Sparade brev har adressen inbakad, så
+          /api/letters/download byter den mot den aktuella. */}
+      <KontaktuppgifterRad dokument="brev" />
+
       {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
       <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
         {html ? (
           <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
             <div
               className={BREV_SCOPE}
-              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
             />
           </div>
         ) : (
@@ -309,7 +325,7 @@ export default function ViewLetterClient({
             <div
               className="mx-auto max-w-2xl text-ink-1"
               style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
-              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
             />
           </div>
         )}

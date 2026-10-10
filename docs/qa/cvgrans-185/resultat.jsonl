@@ -1,0 +1,76 @@
+{"tid":"2026-10-10T17:08:20.379Z","floede":"brev","vy":"pixel7","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:08:23.274Z","floede":"brev","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:08:26.274Z","floede":"brev","vy":"pixel7","steg":"steg 2: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:08:26.274Z","floede":"brev","vy":"pixel7","steg":"steg 2: url","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-10T17:08:26.275Z","floede":"brev","vy":"pixel7","steg":"cv-mallar till skapa-brev steg 2 utan React-fel #185","ok":true,"nyaFel":[]}
+{"tid":"2026-10-10T17:08:26.275Z","floede":"brev","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:08:26.275Z","floede":"brev","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:08:40.515Z","floede":"brev","vy":"desktop","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:08:44.467Z","floede":"brev","vy":"desktop","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:08:47.472Z","floede":"brev","vy":"desktop","steg":"steg 2: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:08:47.473Z","floede":"brev","vy":"desktop","steg":"steg 2: url","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-10T17:08:47.473Z","floede":"brev","vy":"desktop","steg":"cv-mallar till skapa-brev steg 2 utan React-fel #185","ok":true,"nyaFel":[]}
+{"tid":"2026-10-10T17:08:47.473Z","floede":"brev","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:08:47.473Z","floede":"brev","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:09:07.966Z","floede":"brev","vy":"pixel7","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:09:09.845Z","floede":"brev","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:09:12.864Z","floede":"brev","vy":"pixel7","steg":"steg 2: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:09:12.864Z","floede":"brev","vy":"pixel7","steg":"steg 2: url","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-10T17:09:12.865Z","floede":"brev","vy":"pixel7","steg":"cv-mallar till skapa-brev steg 2 utan React-fel #185","ok":true,"nyaFel":[]}
+{"tid":"2026-10-10T17:09:12.865Z","floede":"brev","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:09:12.865Z","floede":"brev","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:09:14.566Z","floede":"linkedin","vy":"pixel7","steg":"före: två CV, subscription_tier free, Hela paketet bara via premium_grants","ok":true,"fore":2,"prof":{"subscription_tier":"free","premium_until":null}}
+{"tid":"2026-10-10T17:09:27.401Z","floede":"linkedin","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:09:30.093Z","floede":"linkedin","vy":"pixel7","steg":"steg 2: Optimera profilen i viewporten","ok":true}
+{"tid":"2026-10-10T17:12:30.617Z","floede":"linkedin","vy":"pixel7","steg":"avbrott","ok":false,"fel":"Waiting failed"}
+{"tid":"2026-10-10T17:12:30.730Z","floede":"linkedin","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:12:30.731Z","floede":"linkedin","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:12:33.033Z","floede":"linkedin","vy":"desktop","steg":"före: två CV, subscription_tier free, Hela paketet bara via premium_grants","ok":true,"fore":2,"prof":{"subscription_tier":"free","premium_until":null}}
+{"tid":"2026-10-10T17:12:45.898Z","floede":"linkedin","vy":"desktop","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:12:48.982Z","floede":"linkedin","vy":"desktop","steg":"steg 2: Optimera profilen i viewporten","ok":true}
+{"tid":"2026-10-10T17:15:49.519Z","floede":"linkedin","vy":"desktop","steg":"avbrott","ok":false,"fel":"Waiting failed"}
+{"tid":"2026-10-10T17:15:49.590Z","floede":"linkedin","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:15:49.591Z","floede":"linkedin","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:16:03.313Z","floede":"linkedin","vy":"pixel7","steg":"före: två CV, subscription_tier free, Hela paketet bara via premium_grants","ok":true,"fore":2,"prof":{"subscription_tier":"free","premium_until":null}}
+{"tid":"2026-10-10T17:16:14.569Z","floede":"linkedin","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:16:17.455Z","floede":"linkedin","vy":"pixel7","steg":"steg 2: Optimera profilen i viewporten","ok":true}
+{"tid":"2026-10-10T17:16:28.444Z","floede":"linkedin","vy":"pixel7","steg":"create-from-linkedin svarar 200 för tredje CV:t","ok":true,"status":200,"cvId":"251d56dc-3ae4-486a-a49e-131e0432d114"}
+{"tid":"2026-10-10T17:16:32.483Z","floede":"linkedin","vy":"pixel7","steg":"efter: tre CV på kontot","ok":true,"efter":3,"url":"/dashboard/cv-mallar?cv=251d56dc-3ae4-486a-a49e-131e0432d114"}
+{"tid":"2026-10-10T17:16:32.483Z","floede":"linkedin","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:16:32.484Z","floede":"linkedin","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:16:34.421Z","floede":"linkedin","vy":"desktop","steg":"före: två CV, subscription_tier free, Hela paketet bara via premium_grants","ok":true,"fore":2,"prof":{"subscription_tier":"free","premium_until":null}}
+{"tid":"2026-10-10T17:16:47.240Z","floede":"linkedin","vy":"desktop","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:16:50.194Z","floede":"linkedin","vy":"desktop","steg":"steg 2: Optimera profilen i viewporten","ok":true}
+{"tid":"2026-10-10T17:17:00.310Z","floede":"linkedin","vy":"desktop","steg":"create-from-linkedin svarar 200 för tredje CV:t","ok":true,"status":200,"cvId":"5a0ae6b7-5624-42dd-adff-835c706d8374"}
+{"tid":"2026-10-10T17:17:04.159Z","floede":"linkedin","vy":"desktop","steg":"efter: tre CV på kontot","ok":true,"efter":3,"url":"/dashboard/cv-mallar?cv=5a0ae6b7-5624-42dd-adff-835c706d8374"}
+{"tid":"2026-10-10T17:17:04.159Z","floede":"linkedin","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:17:04.160Z","floede":"linkedin","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:17:48.232Z","floede":"gratis","vy":"desktop","steg":"utan paket: create-from-linkedin svarar 403 och inget CV skapas","ok":true,"grants":0,"status":403,"message":"Du har nått din gräns på 2 CV. Köp CV-paketet, 79 kr i veckan eller ta bort ett CV för att skapa ett nytt.","cvEfter":3}
+{"tid":"2026-10-10T17:17:48.233Z","floede":"gratis","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:17:48.233Z","floede":"gratis","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:18:22.317Z","floede":"brev","vy":"pixel7","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:18:23.509Z","floede":"brev","vy":"pixel7","steg":"avbrott","ok":false,"fel":"ingen synlig länk till skapa-brev"}
+{"tid":"2026-10-10T17:18:23.580Z","floede":"brev","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:18:23.581Z","floede":"brev","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:18:49.825Z","floede":"brev","vy":"pixel7","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:18:52.920Z","floede":"brev","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:18:52.922Z","floede":"brev","vy":"pixel7","steg":"avbrott","ok":false,"fel":"hittade inte /^Fortsätt$/"}
+{"tid":"2026-10-10T17:18:52.990Z","floede":"brev","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:18:52.991Z","floede":"brev","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"omkörning","not":"rader nedan efter ombygget med CV-låsen på sidorna"}
+{"tid":"2026-10-10T17:24:48.244Z","floede":"brev","vy":"pixel7","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:24:50.952Z","floede":"brev","vy":"pixel7","steg":"steg 1: inga CV låsta för Hela paketet via premium_grants","ok":true,"antalCv":3}
+{"tid":"2026-10-10T17:24:51.532Z","floede":"brev","vy":"pixel7","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:24:54.683Z","floede":"brev","vy":"pixel7","steg":"steg 2: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:24:54.683Z","floede":"brev","vy":"pixel7","steg":"steg 2: url","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-10T17:24:54.683Z","floede":"brev","vy":"pixel7","steg":"cv-mallar till skapa-brev steg 2 utan React-fel #185","ok":true,"nyaFel":[]}
+{"tid":"2026-10-10T17:24:54.684Z","floede":"brev","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:24:54.684Z","floede":"brev","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T17:25:10.849Z","floede":"brev","vy":"desktop","steg":"cv-mallar: kontaktraden sparad","ok":true,"status":200}
+{"tid":"2026-10-10T17:25:14.593Z","floede":"brev","vy":"desktop","steg":"steg 1: inga CV låsta för Hela paketet via premium_grants","ok":true,"antalCv":3}
+{"tid":"2026-10-10T17:25:15.149Z","floede":"brev","vy":"desktop","steg":"steg 1: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:25:18.257Z","floede":"brev","vy":"desktop","steg":"steg 2: Fortsätt i viewporten","ok":true}
+{"tid":"2026-10-10T17:25:18.258Z","floede":"brev","vy":"desktop","steg":"steg 2: url","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-10T17:25:18.258Z","floede":"brev","vy":"desktop","steg":"cv-mallar till skapa-brev steg 2 utan React-fel #185","ok":true,"nyaFel":[]}
+{"tid":"2026-10-10T17:25:18.258Z","floede":"brev","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T17:25:18.259Z","floede":"brev","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}

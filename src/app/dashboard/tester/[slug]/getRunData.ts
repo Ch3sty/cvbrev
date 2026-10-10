@@ -15,15 +15,16 @@
  * explicit `.eq('user_id', ...)` skyddar raden precis som routens ägarkontroll
  * gjorde.
  *
- * VIKTIGT: ingen frågelogik finns här. Vilka frågor sessionen innehåller
- * avgörs fortfarande enbart av `selectQuestions(sessionId)` i testvyn, seedat
- * på sessionId och oförändrat. Den här filen läser bara sessionsraden:
- * sparade svar, om provet redan är avslutat, poäng och tid. Rättningen ligger
- * kvar i complete-routen.
+ * Frågorna byggs också här för matrislogiken: urvalet seedat på sessionId som
+ * förut, alternativen i sessionens visade ordning (meta.alternativ_blandade,
+ * src/lib/logicTestV7/blanda.ts) och utan facit. Klienten får aldrig
+ * frågebanken. Rättningen ligger kvar i answer- och complete-routerna.
  */
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import type { TestConfig } from '../testConfig'
+import { matrisInnehall } from '@/lib/logicTestV7/fragor.server'
+import type { VisadFraga } from '@/lib/logicTestV7/layered.v7'
 
 /**
  * Sessionsrader för matrislogik och proven ligger i logic_test_v4_sessions.
@@ -39,7 +40,10 @@ const TABLE_BY_API: Record<string, string> = {
 
 export interface SavedAnswer {
   q_id: string
+  /** Originalindex i banken. */
   selected: number
+  /** Visat index. Saknas i sessioner från före blandningen (då = selected). */
+  visat?: number
 }
 
 export interface RunSession {
@@ -50,6 +54,8 @@ export interface RunSession {
   completedAt: string | null
   score: number | null
   timeSpent: number | null
+  /** Matrislogikens frågor i visad ordning, utan facit. */
+  fragor?: VisadFraga[]
 }
 
 export interface RunData {
@@ -91,7 +97,7 @@ export async function getRunData(
 
     const { data, error } = await supabase
       .from(table)
-      .select('id, answers, completed_at, score, time_spent')
+      .select('*')
       .eq('id', sessionId)
       .eq('user_id', userId)
       .maybeSingle()
@@ -104,6 +110,8 @@ export async function getRunData(
       completed_at: string | null
       score: number | null
       time_spent: number | null
+      test_type: string | null
+      meta?: unknown
     }
 
     return {
@@ -113,6 +121,7 @@ export async function getRunData(
         completedAt: row.completed_at,
         score: row.score,
         timeSpent: row.time_spent,
+        ...(config.kind === 'matris' ? { fragor: matrisInnehall(row).fragor } : {}),
       },
       resolved: true,
     }

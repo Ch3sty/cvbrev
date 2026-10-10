@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { matrisInnehall, skapaMedBlandning } from '@/lib/logicTestV7/fragor.server';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
@@ -57,15 +59,17 @@ export async function POST(request: Request) {
     }
 
     // Create new session
-    const { data: session, error: createError } = await supabase
-      .from('logic_test_v4_sessions')
-      .insert({
+    // Nya sessioner får meta.alternativ_blandade: alternativen visas i en
+    // ordning seedad på sessionId + frågans id (src/lib/logicTestV7/blanda.ts).
+    const { data: session, error: createError } = await skapaMedBlandning(
+      testSkrivKlient(),
+      'logic_test_v4_sessions',
+      {
         user_id: user.id,
         answers: [],
         ...(testType ? { test_type: testType } : {}),
-      })
-      .select()
-      .single();
+      }
+    );
 
     if (createError) {
       console.error('Error creating session:', createError);
@@ -120,7 +124,8 @@ export async function GET(request: Request) {
         );
       }
 
-      return NextResponse.json({ session });
+      // Frågorna i visad ordning, utan facit. Genomgången bara när testet är rättat.
+      return NextResponse.json({ session, ...matrisInnehall(session) });
     }
 
     const testType = url.searchParams.get('test_type');

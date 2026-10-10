@@ -20,8 +20,8 @@ export default function VerbalInfoCard({ variant }: VerbalInfoCardProps) {
   const isV2 = variant === 'v2';
 
   const facts = [
-    { title: '12 passager', sub: 'fyra påståenden var' },
-    { title: '48 påståenden', sub: 'tre svarsalternativ' },
+    { title: '15 passager', sub: 'fyra påståenden var' },
+    { title: '60 påståenden', sub: 'tre svarsalternativ' },
     { title: 'Cirka 25 minuter', sub: 'tidsgräns' },
     {
       title: isV2 ? 'Avancerad' : 'Grundnivå',

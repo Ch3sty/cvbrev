@@ -8,6 +8,7 @@
  * for att garantera att preview matchar PDF-output exakt.
  */
 import { cookies } from 'next/headers';
+import { arPlatshallareTitel, kontaktForCv } from '@/lib/profile/dokumentKontakt';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getTemplateGenerator } from '@/lib/cv/templates';
@@ -56,6 +57,7 @@ export async function POST(request: NextRequest) {
     // Aldre CV:n kan vara sparade i ParsedCV-format - vi normaliserar.
     // Om data ar trasig faller vi tillbaka till regex-parser pa cvText.
     let cvData: CVMetadata | null = null;
+    let kontaktKalla: 'strukturerad' | 'text' = 'strukturerad';
     if (structuredData) {
       cvData = normalizeStructuredData(structuredData);
     }
@@ -68,6 +70,7 @@ export async function POST(request: NextRequest) {
       }
       try {
         cvData = await parseSwedishCVContent(cvText);
+        kontaktKalla = 'text';
       } catch (err) {
         console.error('Fel vid CV-parsing i preview:', err);
         return NextResponse.json(
@@ -80,7 +83,7 @@ export async function POST(request: NextRequest) {
     // Berika med profile-data sa preview matchar PDF (foto + LinkedIn)
     const { data: userProfile } = await supabase
       .from('profiles')
-      .select('profile_photo_url, linkedin_url, full_name, email, phone, location')
+      .select('profile_photo_url, linkedin_url, full_name, email, contact_email, phone, location')
       .eq('id', user.id)
       .single();
 
@@ -93,10 +96,14 @@ export async function POST(request: NextRequest) {
           (cvData.personalInfo as any).linkedin = userProfile.linkedin_url;
         }
       }
-      if (userProfile.full_name) cvData.personalInfo.fullName = userProfile.full_name;
-      if (userProfile.email) cvData.personalInfo.email = userProfile.email;
-      if (userProfile.phone) cvData.personalInfo.phone = userProfile.phone;
-      if (userProfile.location) cvData.personalInfo.address = userProfile.location;
+      // Samma regel som PDF:en i generate-formatted: det användaren skrivit i
+      // CV:t vinner, profilen fyller tomma fält och platshållare.
+      const kontakt = kontaktForCv(cvData.personalInfo, userProfile, user, kontaktKalla);
+      cvData.personalInfo.fullName = kontakt.fullName;
+      cvData.personalInfo.email = kontakt.email;
+      cvData.personalInfo.phone = kontakt.phone;
+      cvData.personalInfo.address = kontakt.address;
+      if (arPlatshallareTitel(cvData.personalInfo.title)) cvData.personalInfo.title = '';
     }
 
     // Generera HTML med vald mall + options

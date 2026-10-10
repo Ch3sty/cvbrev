@@ -24,13 +24,18 @@
  * VIKTIGT: ingen rättning och ingen percentillogik ändras. Poängen läses som
  * den står i raden, skriven av complete-routen. Percentilen räknas med exakt
  * samma två count-frågor och samma avrundning som
- * /api/logicTestV4/percentile, mot samma test_type. Frågegenomgången väljer
- * fortfarande sina frågor med samma seed på sessionId som testvyn använde.
+ * /api/logicTestV4/percentile, mot samma test_type och bara bland sessioner
+ * med blandade alternativ (meta.alternativ_blandade, se readPercentile).
+ * Frågegenomgången byggs här med samma urval och samma visade ordning som
+ * testvyn fick, plus var rätt svar stod, så facit aldrig ligger i klientpaketet.
  */
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import type { TestConfig } from '../testConfig'
+import { arBlandad } from '@/lib/logicTestV7/blanda'
+import { matrisInnehall } from '@/lib/logicTestV7/fragor.server'
+import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 
 /**
  * Matrislogik och proven lagras i logic_test_v4_sessions och kan läsas direkt.
@@ -52,6 +57,11 @@ export interface ResultsSession {
   completedAt: string | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answers: any[]
+  /**
+   * Matrislogikens genomgång: frågorna i den ordning hon såg dem och var
+   * rätt svar stod. Null för andra testtyper och för ej avslutade sessioner.
+   */
+  genomgang?: GenomgangsFraga[] | null
 }
 
 export interface PercentileData {
@@ -88,6 +98,13 @@ const UNRESOLVED: ResultsData = {
 /**
  * Räknar percentilen exakt som GET /api/logicTestV4/percentile.
  *
+ * Bara sessioner med meta.alternativ_blandade räknas, i både täljare och
+ * nämnare. Poäng från före blandningen är ett tak, inte ett mått
+ * (docs/design/spec-rummen-2026-10-10.md 12.4), och jämförs aldrig. Regeln
+ * om minst 25 sessioner står kvar, så percentilen saknas tills underlaget
+ * finns. Filtret går på flaggan, inte på tid: en session som öppnades före
+ * deployen och slutfördes efter är fortfarande oblandad.
+ *
  * Admin-klienten används av samma skäl som i routen: RLS hindrar en användare
  * från att se andras rader, och bara aggregat (två antal) lämnar servern.
  */
@@ -103,12 +120,14 @@ async function readPercentile(
         .from('logic_test_v4_sessions')
         .select('id', { count: 'exact', head: true })
         .eq('test_type', testType)
+        .eq('meta->>alternativ_blandade', 'true')
         .not('completed_at', 'is', null)
         .not('score', 'is', null),
       admin
         .from('logic_test_v4_sessions')
         .select('id', { count: 'exact', head: true })
         .eq('test_type', testType)
+        .eq('meta->>alternativ_blandade', 'true')
         .not('completed_at', 'is', null)
         .lt('score', score),
     ])
@@ -160,7 +179,7 @@ export async function getResultsData(
     const [sessionRes, cvRes, profileRes, todayRes] = await Promise.all([
       supabase
         .from(table)
-        .select('id, score, time_spent, completed_at, answers, test_type')
+        .select('*')
         .eq('id', sessionId)
         .eq('user_id', userId)
         .maybeSingle(),
@@ -190,6 +209,7 @@ export async function getResultsData(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       answers: any
       test_type: string | null
+      meta?: unknown
     }
 
     const session: ResultsSession = {
@@ -198,6 +218,7 @@ export async function getResultsData(
       timeSpent: row.time_spent,
       completedAt: row.completed_at,
       answers: Array.isArray(row.answers) ? row.answers : [],
+      genomgang: config.kind === 'matris' ? matrisInnehall(row).genomgang : null,
     }
 
     // Samma premiumvalidering som TestResultBridgeContainer gjorde.
@@ -225,8 +246,12 @@ export async function getResultsData(
     }
 
     // Percentilen gäller bara slutförda test med poäng, och aldrig prov.
+    // En oblandad session (före fixen) visas som resultat, aldrig som jämförelse.
     const showPercentile =
-      config.level !== 'prov' && row.completed_at !== null && row.score !== null
+      config.level !== 'prov' &&
+      row.completed_at !== null &&
+      row.score !== null &&
+      arBlandad(row.meta)
 
     const percentile = showPercentile
       ? await readPercentile(row.score as number, row.test_type ?? 'matrislogik')

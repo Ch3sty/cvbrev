@@ -8,6 +8,11 @@ export interface ProvSessionSnapshot {
   completed_at: string | null;
   started_at: string | null;
   answers: unknown[];
+  /**
+   * Matrisprovets frågor i visad ordning, utan facit (logicTestProv). Tom
+   * för de prov vars session-API inte skickar frågor.
+   */
+  fragor: unknown[];
 }
 
 export async function fetchProvSession(
@@ -24,6 +29,7 @@ export async function fetchProvSession(
       completed_at: session.completed_at ?? null,
       started_at: session.started_at ?? null,
       answers: Array.isArray(session.answers) ? session.answers : [],
+      fragor: Array.isArray(data?.fragor) ? data.fragor : [],
     };
   } catch {
     return null;

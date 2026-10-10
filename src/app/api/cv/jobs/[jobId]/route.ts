@@ -59,7 +59,8 @@ export async function GET(
       if (profileData?.subscription_tier === 'free') {
         const newCount = (profileData.weekly_analysis_count || 0) + 1;
 
-        const { error: updateError } = await supabase
+        // Kvotkolumnerna är spärrade för användarens session: admin-klienten skriver.
+        const { error: updateError } = await (getSupabaseAdmin() as any)
           .from('profiles')
           .update({ weekly_analysis_count: newCount })
           .eq('id', user.id);
@@ -159,7 +160,7 @@ export async function GET(
 
         if (profileData?.subscription_tier === 'free' && (profileData.weekly_analysis_count || 0) > 0) {
           const rolledBackCount = (profileData.weekly_analysis_count || 1) - 1;
-          const { error: rollbackError } = await supabase
+          const { error: rollbackError } = await (getSupabaseAdmin() as any)
             .from('profiles')
             .update({ weekly_analysis_count: rolledBackCount })
             .eq('id', user.id);

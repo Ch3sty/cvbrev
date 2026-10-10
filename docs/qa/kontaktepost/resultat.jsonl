@@ -1,0 +1,64 @@
+{"tid":"2026-10-10T15:41:36.865Z","floede":"epost","vy":"pixel7","steg":"profil: ny adress sparad","ok":true,"falt":"qa-dokument-pixel7@jobbcoach-qa.test","db":"qa-dokument-pixel7@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:41:45.280Z","floede":"epost","vy":"pixel7","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"E-post i brevet: qa-dokument-pixel7@jobbcoach-qa.test","primarIBild":true}
+{"tid":"2026-10-10T15:41:56.295Z","floede":"epost","vy":"pixel7","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-dokument-pixel7@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:42:02.275Z","floede":"epost","vy":"pixel7","steg":"brev: adressen i PDF:en","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-07-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:42:12.952Z","floede":"epost","vy":"pixel7","steg":"cv-mall (ny): raden och PDF:en","ok":false,"radText":"E-post i CV:t: qa-dokument-pixel7@jobbcoach-qa.test","status":500,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-09-_api_cv_generate_formatted.pdf","pdfHarAdressen":false}
+{"tid":"2026-10-10T15:42:17.276Z","floede":"epost","vy":"pixel7","steg":"profil: tömt fält ger kontoadressen","ok":true,"falt":"qa-epost-allt-2026-10-10@jobbcoach-qa.test","db":null}
+{"tid":"2026-10-10T15:42:23.135Z","floede":"epost","vy":"pixel7","steg":"cv-mall (konto): raden och PDF:en","ok":false,"radText":"E-post i CV:t: qa-epost-allt-2026-10-10@jobbcoach-qa.test","status":500,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-13-_api_cv_generate_formatted.pdf","pdfHarAdressen":false}
+{"tid":"2026-10-10T15:42:30.990Z","floede":"epost","vy":"pixel7","steg":"mina brev: sparat brev får kontoadressen tillbaka","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-15-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:42:34.393Z","floede":"epost","vy":"pixel7","steg":"profil: ogiltig adress stoppas på klienten","ok":true}
+{"tid":"2026-10-10T15:42:34.698Z","floede":"epost","vy":"pixel7","steg":"profil: ogiltig adress stoppas på servern","ok":true,"status":400}
+{"tid":"2026-10-10T15:42:34.698Z","floede":"epost","vy":"pixel7","steg":"konsolfel","ok":false,"fel":["Fel vid preview-hamtning: JSHandle@error","Fel vid CV-skapande: JSHandle@error","Fel vid preview-hamtning: JSHandle@error","Fel vid CV-skapande: JSHandle@error"]}
+{"tid":"2026-10-10T15:42:34.699Z","floede":"epost","vy":"pixel7","steg":"nätverksfel","ok":false,"natfel":["500 /api/cv/preview-html","500 /api/cv/generate-formatted","500 /api/cv/preview-html","500 /api/cv/generate-formatted","400 /api/profile/contact"]}
+{"tid":"2026-10-10T15:42:49.627Z","floede":"epost","vy":"desktop","steg":"profil: ny adress sparad","ok":true,"falt":"qa-dokument-desktop@jobbcoach-qa.test","db":"qa-dokument-desktop@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:43:00.578Z","floede":"epost","vy":"desktop","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"E-post i brevet: qa-dokument-desktop@jobbcoach-qa.test","primarIBild":true}
+{"tid":"2026-10-10T15:43:13.487Z","floede":"epost","vy":"desktop","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-dokument-desktop@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:43:23.586Z","floede":"epost","vy":"desktop","steg":"brev: adressen i PDF:en","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-07-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:43:36.497Z","floede":"epost","vy":"desktop","steg":"cv-mall (ny): raden och PDF:en","ok":false,"radText":"E-post i CV:t: qa-dokument-desktop@jobbcoach-qa.test","status":500,"fil":"docs\\qa\\kontaktepost\\epost-desktop-09-_api_cv_generate_formatted.pdf","pdfHarAdressen":false}
+{"tid":"2026-10-10T15:43:42.446Z","floede":"epost","vy":"desktop","steg":"profil: tömt fält ger kontoadressen","ok":true,"falt":"qa-epost-allt-2026-10-10@jobbcoach-qa.test","db":null}
+{"tid":"2026-10-10T15:43:49.983Z","floede":"epost","vy":"desktop","steg":"cv-mall (konto): raden och PDF:en","ok":false,"radText":"E-post i CV:t: qa-epost-allt-2026-10-10@jobbcoach-qa.test","status":500,"fil":"docs\\qa\\kontaktepost\\epost-desktop-13-_api_cv_generate_formatted.pdf","pdfHarAdressen":false}
+{"tid":"2026-10-10T15:43:59.018Z","floede":"epost","vy":"desktop","steg":"mina brev: sparat brev får kontoadressen tillbaka","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-15-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:44:06.828Z","floede":"epost","vy":"desktop","steg":"profil: ogiltig adress stoppas på klienten","ok":true}
+{"tid":"2026-10-10T15:44:07.180Z","floede":"epost","vy":"desktop","steg":"profil: ogiltig adress stoppas på servern","ok":true,"status":400}
+{"tid":"2026-10-10T15:44:07.180Z","floede":"epost","vy":"desktop","steg":"konsolfel","ok":false,"fel":["Fel vid preview-hamtning: JSHandle@error","Fel vid CV-skapande: JSHandle@error","Fel vid preview-hamtning: JSHandle@error","Fel vid CV-skapande: JSHandle@error"]}
+{"tid":"2026-10-10T15:44:07.181Z","floede":"epost","vy":"desktop","steg":"nätverksfel","ok":false,"natfel":["500 /api/cv/preview-html","500 /api/cv/generate-formatted","500 /api/cv/preview-html","500 /api/cv/generate-formatted","400 /api/profile/contact"]}
+{"tid":"2026-10-10T15:44:24.139Z","floede":"numerisk","vy":"pixel7","steg":"numerisk: hubben lovar 32 frågor","ok":true,"rad":"32 frågor"}
+{"tid":"2026-10-10T15:44:26.951Z","floede":"numerisk","vy":"pixel7","steg":"numerisk: första vyn","ok":true,"vh":915,"sidhojd":915,"knappTopp":859,"forstaAlternativTopp":700,"horisontellScroll":false}
+{"tid":"2026-10-10T15:45:08.560Z","floede":"numerisk","vy":"pixel7","steg":"numerisk: sista frågan","ok":true,"fraga":32,"av":32}
+{"tid":"2026-10-10T15:45:12.394Z","floede":"numerisk","vy":"pixel7","steg":"numerisk: slutförd och sparad","ok":true,"sessionId":"3be26a7e-8f74-43e7-a48b-2a08ba469c17","score":3,"svar":32,"resultatRad":"av 32"}
+{"tid":"2026-10-10T15:45:12.395Z","floede":"numerisk","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T15:45:12.396Z","floede":"numerisk","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T15:45:27.120Z","floede":"numerisk","vy":"desktop","steg":"numerisk: hubben lovar 32 frågor","ok":true,"rad":"32 frågor"}
+{"tid":"2026-10-10T15:45:27.124Z","floede":"numerisk","vy":"desktop","steg":"avbrott","ok":false,"fel":"hittade inte /^(Starta testet|Starta|Börja|Gör testet|Kör testet|Starta grundnivån)/i"}
+{"tid":"2026-10-10T15:45:27.124Z","floede":"numerisk","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T15:45:27.124Z","floede":"numerisk","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-10T15:46:07.880Z","floede":"epost","vy":"pixel7","steg":"profil: ny adress sparad","ok":true,"falt":"qa-dokument-pixel7@jobbcoach-qa.test","db":"qa-dokument-pixel7@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:46:16.091Z","floede":"epost","vy":"pixel7","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"E-post i brevet: qa-dokument-pixel7@jobbcoach-qa.test","primarIBild":true}
+{"tid":"2026-10-10T15:46:27.954Z","floede":"epost","vy":"pixel7","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-dokument-pixel7@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:46:33.015Z","floede":"epost","vy":"pixel7","steg":"brev: adressen i PDF:en","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-07-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:46:53.583Z","floede":"epost","vy":"pixel7","steg":"cv-mall (ny): raden och PDF:en","ok":true,"radText":"E-post i CV:t: qa-dokument-pixel7@jobbcoach-qa.test","status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-09-_api_cv_generate_formatted.pdf","pdfHarAdressen":true}
+{"tid":"2026-10-10T15:46:58.170Z","floede":"epost","vy":"pixel7","steg":"profil: tömt fält ger kontoadressen","ok":true,"falt":"qa-epost-allt-2026-10-10@jobbcoach-qa.test","db":null}
+{"tid":"2026-10-10T15:47:14.821Z","floede":"epost","vy":"pixel7","steg":"cv-mall (konto): raden och PDF:en","ok":true,"radText":"E-post i CV:t: qa-epost-allt-2026-10-10@jobbcoach-qa.test","status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-13-_api_cv_generate_formatted.pdf","pdfHarAdressen":true}
+{"tid":"2026-10-10T15:47:22.440Z","floede":"epost","vy":"pixel7","steg":"mina brev: sparat brev får kontoadressen tillbaka","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-pixel7-15-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:47:25.978Z","floede":"epost","vy":"pixel7","steg":"profil: ogiltig adress stoppas på klienten","ok":true}
+{"tid":"2026-10-10T15:47:26.277Z","floede":"epost","vy":"pixel7","steg":"profil: ogiltig adress stoppas på servern","ok":true,"status":400}
+{"tid":"2026-10-10T15:47:26.277Z","floede":"epost","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T15:47:26.278Z","floede":"epost","vy":"pixel7","steg":"nätverksfel","ok":false,"natfel":["400 /api/profile/contact"]}
+{"tid":"2026-10-10T15:47:40.525Z","floede":"epost","vy":"desktop","steg":"profil: ny adress sparad","ok":true,"falt":"qa-dokument-desktop@jobbcoach-qa.test","db":"qa-dokument-desktop@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:47:50.147Z","floede":"epost","vy":"desktop","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"E-post i brevet: qa-dokument-desktop@jobbcoach-qa.test","primarIBild":true}
+{"tid":"2026-10-10T15:48:04.264Z","floede":"epost","vy":"desktop","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-dokument-desktop@jobbcoach-qa.test"}
+{"tid":"2026-10-10T15:48:09.309Z","floede":"epost","vy":"desktop","steg":"brev: adressen i PDF:en","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-07-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:48:32.521Z","floede":"epost","vy":"desktop","steg":"cv-mall (ny): raden och PDF:en","ok":true,"radText":"E-post i CV:t: qa-dokument-desktop@jobbcoach-qa.test","status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-09-_api_cv_generate_formatted.pdf","pdfHarAdressen":true}
+{"tid":"2026-10-10T15:48:38.332Z","floede":"epost","vy":"desktop","steg":"profil: tömt fält ger kontoadressen","ok":true,"falt":"qa-epost-allt-2026-10-10@jobbcoach-qa.test","db":null}
+{"tid":"2026-10-10T15:48:55.783Z","floede":"epost","vy":"desktop","steg":"cv-mall (konto): raden och PDF:en","ok":true,"radText":"E-post i CV:t: qa-epost-allt-2026-10-10@jobbcoach-qa.test","status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-13-_api_cv_generate_formatted.pdf","pdfHarAdressen":true}
+{"tid":"2026-10-10T15:49:04.610Z","floede":"epost","vy":"desktop","steg":"mina brev: sparat brev får kontoadressen tillbaka","ok":true,"status":200,"fil":"docs\\qa\\kontaktepost\\epost-desktop-15-_api_letters_download.pdf"}
+{"tid":"2026-10-10T15:49:09.677Z","floede":"epost","vy":"desktop","steg":"profil: ogiltig adress stoppas på klienten","ok":true}
+{"tid":"2026-10-10T15:49:09.982Z","floede":"epost","vy":"desktop","steg":"profil: ogiltig adress stoppas på servern","ok":true,"status":400}
+{"tid":"2026-10-10T15:49:09.983Z","floede":"epost","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T15:49:09.983Z","floede":"epost","vy":"desktop","steg":"nätverksfel","ok":false,"natfel":["400 /api/profile/contact"]}
+{"tid":"2026-10-10T15:49:22.101Z","floede":"numerisk","vy":"desktop","steg":"numerisk: hubben lovar 32 frågor","ok":true,"rad":"32 frågor"}
+{"tid":"2026-10-10T15:49:24.509Z","floede":"numerisk","vy":"desktop","steg":"numerisk: första vyn","ok":true,"vh":800,"sidhojd":800,"knappTopp":744,"forstaAlternativTopp":845,"horisontellScroll":false}
+{"tid":"2026-10-10T15:50:06.072Z","floede":"numerisk","vy":"desktop","steg":"numerisk: sista frågan","ok":true,"fraga":32,"av":32}
+{"tid":"2026-10-10T15:50:09.680Z","floede":"numerisk","vy":"desktop","steg":"numerisk: slutförd och sparad","ok":true,"sessionId":"62e17902-f7d3-4c35-ad27-d88d86f440c5","score":4,"svar":32,"resultatRad":"av 32"}
+{"tid":"2026-10-10T15:50:09.681Z","floede":"numerisk","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-10T15:50:09.681Z","floede":"numerisk","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}

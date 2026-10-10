@@ -1,0 +1,34 @@
+{
+  "korning": "node scripts/sparr-testsessioner-prod.mjs, 2026-10-10 20:34, mot produktionens Supabase före 20261010210000 och 20261010211000",
+  "email": "qa-sparr-20261010183402@jobbcoach-qa.test",
+  "steg": {
+    "patch_score": {
+      "fel": null,
+      "rader": 1,
+      "score_fore": 3,
+      "score_i_databasen_efter": 15,
+      "kunde_forfalska": true,
+      "aterstalld_till": 3
+    },
+    "insert_avslutad": { "fel": null, "kunde_skapa": true },
+    "big_five": { "fel": null, "kunde_skriva": true },
+    "spara_testsvar_som_anvandare": { "fel": null, "svar": 1 },
+    "spara_testsvar_server_som_admin": {
+      "fel": "Could not find the function public.spara_testsvar_server(p_krav_oavslutad, p_nycklar, p_session, p_svar, p_tabell, p_user) in the schema cache",
+      "kod": "PGRST202",
+      "svar": null
+    },
+    "spara_testsvar_server_som_anvandare": {
+      "fel": "Could not find the function public.spara_testsvar_server(p_krav_oavslutad, p_nycklar, p_session, p_svar, p_tabell, p_user) in the schema cache",
+      "kod": "PGRST202"
+    }
+  },
+  "userId": "3690ec29-b45a-4ce9-bcdc-f6b924126728",
+  "stadning": {
+    "logic_test_v4_sessions": { "raknade": 2, "fel": null },
+    "user_personality_profile": { "raknade": 1, "fel": null },
+    "profiles": 1,
+    "auth_user": "raderad",
+    "sessioner_skapade_av_skriptet": ["696a3f32-624c-4519-95b2-047b616943de", "eb8d03aa-8e52-4394-a06d-bedcd42689e7"]
+  }
+}

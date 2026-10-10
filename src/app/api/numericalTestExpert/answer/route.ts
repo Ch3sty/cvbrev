@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { validateAnswer } from '@/lib/numericalTestExpert/validator';
 import type { TestAnswer } from '@/lib/numericalTest/types';
 
@@ -37,18 +39,25 @@ export async function POST(request: NextRequest) {
       timeSpent,
       timestamp: new Date().toISOString(),
     };
-    const prev: TestAnswer[] = Array.isArray(session.answers) ? session.answers : [];
-    const filtered = prev.filter((a) => a.questionId !== questionId);
-    const updatedAnswers = [...filtered, newAnswer];
 
-    const { error: updateError } = await supabase
-      .from('logic_test_v4_sessions')
-      .update({ answers: updatedAnswers })
-      .eq('id', sessionId)
-      .eq('user_id', user.id);
-
-    if (updateError) {
-      console.error('Error saving expert answer:', updateError);
+    // Ett svar per fråga, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    // Ett omval ersätter det tidigare svaret, och överlappande anrop kan inte
+    // skriva över varandras svar.
+    try {
+      const sparade = await sparaTestsvar(testSkrivKlient(), {
+        userId: user.id,
+        reserv: supabase,
+        tabell: 'logic_test_v4_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.passageFraga,
+        svar: newAnswer as unknown as Record<string, unknown>,
+        kravOavslutad: false,
+      });
+      if (sparade === null) {
+        return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+      }
+    } catch (updateError) {
+      console.error('Error saving answer:', updateError);
       return NextResponse.json({ error: 'Failed to save answer' }, { status: 500 });
     }
 

@@ -134,6 +134,23 @@ export async function userHasAccess(
   return scopeHasFeature(scope, feature);
 }
 
+/** Antal CV ett konto får ha. Matchar SUBSCRIPTION_LIMITS i use-profile.ts. */
+export const CV_GRANS_GRATIS = 2;
+export const CV_GRANS_BETALT = 50;
+
+/**
+ * CV-gränsen för kontot. Varje betald behörighet (prenumeration, engångsköp i
+ * premium_grants, admin) ger den höga gränsen, precis som subscription_tier
+ * 'premium' gjorde förut, så ingen befintlig kund får färre platser.
+ */
+export async function getCvGrans(
+  supabase: SupabaseClient<any, any, any>,
+  userId: string
+): Promise<{ harBetalt: boolean; maxCvs: number }> {
+  const harBetalt = await userHasAccess(supabase, userId, 'any');
+  return { harBetalt, maxCvs: harBetalt ? CV_GRANS_BETALT : CV_GRANS_GRATIS };
+}
+
 /**
  * Gamla frågan, oförändrad signatur. Behålls under migreringen så att inget
  * går sönder i ett mellanläge, och för de rutter där behörigheten inte hänger
