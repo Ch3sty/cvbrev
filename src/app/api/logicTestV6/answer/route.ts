@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import questionBank from '@/lib/logicTestV7/questionBank.v7.json';
 
 export async function POST(request: Request) {
@@ -63,10 +64,6 @@ export async function POST(request: Request) {
     // Check if answer is correct
     const isCorrect = selectedIndex === question.correctAnswer;
 
-    // Update answers array
-    const answers = Array.isArray(session.answers) ? [...session.answers] : [];
-    const existingIndex = answers.findIndex((a: any) => a.q_id === questionId);
-
     const answerData = {
       q_id: questionId,
       selected: selectedIndex,
@@ -74,30 +71,34 @@ export async function POST(request: Request) {
       time_spent: timeSpent || 0
     };
 
-    if (existingIndex >= 0) {
-      answers[existingIndex] = answerData;
-    } else {
-      answers.push(answerData);
-    }
-
-    // Save updated answers
-    const { error: updateError } = await supabase
-      .from('logic_test_v4_sessions')
-      .update({ answers })
-      .eq('id', sessionId);
-
-    if (updateError) {
+    // Ett svar per fråga, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    // Överlappande anrop kan inte längre skriva över varandras svar.
+    let answeredCount: number | null;
+    try {
+      answeredCount = await sparaTestsvar(supabase, {
+        tabell: 'logic_test_v4_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.matris,
+        svar: answerData,
+      });
+    } catch (updateError) {
       console.error('Error updating v6 answers:', updateError);
       return NextResponse.json(
         { error: 'Failed to save answer' },
         { status: 500 }
       );
     }
+    if (answeredCount === null) {
+      return NextResponse.json(
+        { error: 'Session already completed' },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
       correct: isCorrect,
-      answeredCount: answers.length
+      answeredCount
     });
   } catch (error) {
     console.error('Unexpected error:', error);

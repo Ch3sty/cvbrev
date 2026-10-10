@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/numericalTestV2/validator';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -35,12 +36,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate score and time
-    const score = calculateScore(session.answers || []);
+    const score = calculateScore(unikaSvar(session.answers, SVARSNYCKLAR.passageFraga));
 
     // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan
     // started_at räknar med pauser och gör per-fråga-statistiken
     // missvisande — används bara som fallback för sessioner utan tidsdata.
-    const activeTime = (session.answers || []).reduce(
+    const activeTime = unikaSvar(session.answers, SVARSNYCKLAR.passageFraga).reduce(
       (sum: number, answer: any) => sum + (typeof answer.timeSpent === 'number' ? answer.timeSpent : 0),
       0
     );

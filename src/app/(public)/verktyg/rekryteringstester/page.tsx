@@ -31,7 +31,7 @@ const FARDIGHETER = [
 
 const TESTTYPER = [
   { rubrik: 'Matrislogik', text: 'Hitta mönstret i en 3×3-matris med abstrakta former. Tränar mönsterigenkänning och logiskt tänkande i samma format som SHL Inductive Reasoning och Cut-e Scales. Grundnivå: 15 frågor, cirka 20 minuter. Avancerad nivå: 15 frågor, cirka 25 minuter.' },
-  { rubrik: 'Verbalt resonemang', text: 'Läs en kort text och avgör om ett påstående är sant, falskt eller inte går att avgöra. Tränar läsförståelse och kritiskt tänkande utan att förkunskaper spelar in. Grundnivå: 48 påståenden, cirka 20 minuter. Avancerad nivå: 48 påståenden, cirka 25 minuter.' },
+  { rubrik: 'Verbalt resonemang', text: 'Läs en kort text och avgör om ett påstående är sant, falskt eller inte går att avgöra. Tränar läsförståelse och kritiskt tänkande utan att förkunskaper spelar in. Grundnivå: 60 påståenden, cirka 20 minuter. Avancerad nivå: 60 påståenden, cirka 25 minuter.' },
   { rubrik: 'Numeriskt resonemang', text: 'Tolka tabeller och diagram med ekonomiska siffror och svara på frågor om procent och beräkningar. Tränar tabelltolkning och snabbräkning under tidspress. Grundnivå: 24 frågor, cirka 20 minuter. Avancerad nivå: 24 frågor, cirka 25 minuter.' },
 ]
 

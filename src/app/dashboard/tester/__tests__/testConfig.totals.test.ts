@@ -11,6 +11,10 @@ import { TOTAL_QUESTIONS as NUM_AVANCERAD } from '@/lib/numericalTestV2/selectPa
 import { TOTAL_QUESTIONS as NUM_EXPERT } from '@/lib/numericalTestExpert/selectPassages'
 import { PROV_TOTAL_QUESTIONS as NUM_PROV } from '@/lib/numericalTestProv/selectProv'
 import { QUESTIONS_PER_SESSION as MATRIS } from '@/lib/logicTestV7/selectQuestions.v7'
+import { TOTAL_STATEMENTS as VERBAL_GRUND } from '@/lib/verbalTestV1/selectPassages.v1'
+import { TOTAL_STATEMENTS as VERBAL_AVANCERAD } from '@/lib/verbalTestV2/selectPassages.v2'
+import { TOTAL_QUESTIONS as VERBAL_EXPERT } from '@/lib/verbalTestExpert/selectPassages'
+import { PROV_TOTAL_STATEMENTS as VERBAL_PROV } from '@/lib/verbalTestProv/selectProv'
 
 describe('testConfig.totalQuestions följer urvalet', () => {
   it.each([
@@ -21,6 +25,12 @@ describe('testConfig.totalQuestions följer urvalet', () => {
     ['matrislogik-grund', MATRIS],
     ['matrislogik-avancerad', MATRIS],
     ['matrislogik-expert', MATRIS],
+    // Verbala testen gick från 12 till 15 passager utan att konfigen följde
+    // med: hubben sade 48 påståenden och procenten räknades mot 48 (2026-10-10).
+    ['verbal-resonemang', VERBAL_GRUND],
+    ['verbal-resonemang-v2', VERBAL_AVANCERAD],
+    ['verbal-resonemang-expert', VERBAL_EXPERT],
+    ['verbal-resonemang-prov', VERBAL_PROV],
   ])('%s', (slug, faktiskt) => {
     expect(getTestConfig(slug)?.totalQuestions).toBe(faktiskt)
   })

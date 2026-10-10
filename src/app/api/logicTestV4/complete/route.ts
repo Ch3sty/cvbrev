@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
 export async function POST(request: Request) {
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
     }
 
     // Calculate score
-    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris);
     const score = answers.filter((a: any) => a.correct).length;
 
     // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan

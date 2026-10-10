@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore, validateAnswer } from '@/lib/verbalTestV1/validator.v1';
 import type { TestAnswer } from '@/lib/verbalTestV1/types.v1';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate all answers and add isCorrect flag
-    const answers: TestAnswer[] = Array.isArray(session.answers) ? session.answers : [];
+    const answers: TestAnswer[] = unikaSvar(session.answers, SVARSNYCKLAR.verbalPastaende);
     const validatedAnswers = answers.map(answer => {
       const validation = validateAnswer(
         answer.passageId,

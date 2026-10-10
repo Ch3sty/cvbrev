@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore, validateAnswer } from '@/lib/verbalTestProv/validator.prov';
 import type { TestAnswer } from '@/lib/verbalTestV1/types.v1';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
     }
 
-    const answers: TestAnswer[] = Array.isArray(session.answers) ? session.answers : [];
+    const answers: TestAnswer[] = unikaSvar(session.answers, SVARSNYCKLAR.verbalPastaende);
     const validated = answers.map((a) => ({
       ...a,
       isCorrect: validateAnswer(a.passageId, a.statementIndex, a.answer).isCorrect,

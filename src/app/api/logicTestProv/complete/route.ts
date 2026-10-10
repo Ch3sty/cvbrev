@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/selectProv.v7';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const score = answers.filter((a: any) => a.correct).length;
 

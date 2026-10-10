@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { ITEMS_GRUND } from '@/lib/personalityTest/itemsGrund';
 import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
 import { computeScores, isComplete } from '@/lib/personalityTest/scoring';
+import type { PersonalityAnswer } from '@/lib/personalityTest/types';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -48,7 +50,7 @@ export async function POST(request: Request) {
       ? ITEMS_GRUND
       : ITEMS_AVANCERAD;
 
-    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const answers = unikaSvar<PersonalityAnswer>(session.answers, SVARSNYCKLAR.personlighet);
 
     if (!isComplete(itemBank, answers)) {
       return NextResponse.json(

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,29 +28,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get existing session
-    const { data: session, error: fetchError } = await supabase
-      .from('logic_test_v4_sessions')
-      .select('*')
-      .eq('id', sessionId)
-      .eq('user_id', user.id)
-      .single();
-
-    if (fetchError || !session) {
-      return NextResponse.json(
-        { error: 'Session not found' },
-        { status: 404 }
-      );
-    }
-
-    // Update or add answer
-    const answers = Array.isArray(session.answers) ? session.answers : [];
-
-    // Find if answer already exists
-    const existingIndex = answers.findIndex(
-      (a: any) => a.passageId === passageId && a.statementIndex === statementIndex
-    );
-
     const newAnswer = {
       passageId,
       statementIndex,
@@ -57,23 +35,28 @@ export async function POST(request: NextRequest) {
       timeSpent: timeSpent || 0
     };
 
-    if (existingIndex !== -1) {
-      answers[existingIndex] = newAnswer;
-    } else {
-      answers.push(newAnswer);
-    }
-
-    // Update session
-    const { error: updateError } = await supabase
-      .from('logic_test_v4_sessions')
-      .update({ answers })
-      .eq('id', sessionId);
-
-    if (updateError) {
+    // Ett svar per påstående, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    // Överlappande anrop kan inte längre skriva över varandras svar.
+    let sparade: number | null;
+    try {
+      sparade = await sparaTestsvar(supabase, {
+        tabell: 'logic_test_v4_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.verbalPastaende,
+        svar: newAnswer,
+        kravOavslutad: false,
+      });
+    } catch (updateError) {
       console.error('Error updating session:', updateError);
       return NextResponse.json(
         { error: 'Failed to save answer' },
         { status: 500 }
+      );
+    }
+    if (sparade === null) {
+      return NextResponse.json(
+        { error: 'Session not found' },
+        { status: 404 }
       );
     }
 

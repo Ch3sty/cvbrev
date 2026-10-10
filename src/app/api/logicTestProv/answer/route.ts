@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { examDeadlinePassed } from '@/lib/tests/sessionGate';
+import { sparaTestsvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import questionBankV5 from '@/lib/logicTestV5/questionBank.v5.json';
 import questionBankGrund from '@/lib/logicTestV7/questionBankGrund.v7.json';
 import questionBankAvancerad from '@/lib/logicTestV7/questionBank.v7.json';
@@ -60,29 +61,31 @@ export async function POST(request: Request) {
 
     const isCorrect = selectedIndex === question.correctAnswer;
 
-    const answers = Array.isArray(session.answers) ? [...session.answers] : [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const existingIndex = answers.findIndex((a: any) => a.q_id === questionId);
     const answerData = {
       q_id: questionId,
       selected: selectedIndex,
       correct: isCorrect,
       time_spent: timeSpent || 0,
     };
-    if (existingIndex >= 0) answers[existingIndex] = answerData;
-    else answers.push(answerData);
 
-    const { error: updateError } = await supabase
-      .from('logic_test_v4_sessions')
-      .update({ answers })
-      .eq('id', sessionId);
-
-    if (updateError) {
+    // Ett svar per fråga, atomärt i databasen (src/lib/tests/sparaSvar.ts).
+    let answeredCount: number | null;
+    try {
+      answeredCount = await sparaTestsvar(supabase, {
+        tabell: 'logic_test_v4_sessions',
+        sessionId,
+        nycklar: SVARSNYCKLAR.matris,
+        svar: answerData,
+      });
+    } catch (updateError) {
       console.error('Error updating prov answers:', updateError);
       return NextResponse.json({ error: 'Failed to save answer' }, { status: 500 });
     }
+    if (answeredCount === null) {
+      return NextResponse.json({ error: 'Session already completed' }, { status: 400 });
+    }
 
-    return NextResponse.json({ success: true, correct: isCorrect, answeredCount: answers.length });
+    return NextResponse.json({ success: true, correct: isCorrect, answeredCount });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

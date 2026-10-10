@@ -169,7 +169,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Påståendena går att avgöra direkt mot texten. Fällan är att svara utifrån vad du redan vet i stället för vad som faktiskt står.',
     api: '/api/verbalTestV1',
-    totalQuestions: 48,
+    totalQuestions: 60,
     minutes: 25,
     quotaFeature: 'test:verbal-resonemang',
     nextSlug: 'verbal-resonemang-v2',
@@ -183,7 +183,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     levelBlurb:
       'Längre texter och påståenden som ligger nära varandra. Skillnaden mellan "falskt" och "går inte att avgöra" är där de flesta poängen tappas.',
     api: '/api/verbalTestV2',
-    totalQuestions: 48,
+    totalQuestions: 60,
     minutes: 30,
     quotaFeature: 'test:verbal-resonemang-v2',
     requiresFeature: 'tests_above_base',

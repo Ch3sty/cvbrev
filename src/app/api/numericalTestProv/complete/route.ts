@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
+import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/numericalTestProv/validator.prov';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 
@@ -28,13 +29,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
     }
 
-    const score = calculateScore(session.answers || []);
+    const score = calculateScore(unikaSvar(session.answers, SVARSNYCKLAR.passageFraga));
 
     // Aktiv tid = summan av tiden per besvarad fråga. Numeriska provet har
     // ingen hård tidsgräns — UI:ts klocka räknar bara uppåt (och nollställs
     // vid omladdning), så väggklocka sedan started_at räknar med pauser och
     // blir missvisande — används bara som fallback utan tidsdata.
-    const answers = Array.isArray(session.answers) ? session.answers : [];
+    const answers = unikaSvar(session.answers, SVARSNYCKLAR.passageFraga);
     const activeTime = answers.reduce(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (sum: number, a: any) => sum + (typeof a.timeSpent === 'number' ? a.timeSpent : 0),
