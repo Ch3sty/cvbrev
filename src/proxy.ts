@@ -28,6 +28,7 @@ import {
   buildAttribution,
   serializeAttribution,
 } from '@/lib/analytics/attribution'
+import { PATHNAME_HEADER } from '@/lib/rum/pathname-header'
 
 /**
  * First touch-attribution (docs/plan-konvertering.md, C1).
@@ -88,6 +89,16 @@ export async function proxy(request: NextRequest) {
   // Admin har egen auth och ingen attribution att spara.
   if (request.nextUrl.pathname.startsWith('/admin')) {
     return adminAuthMiddleware(request)
+  }
+
+  // Rummen (spec-rummen avsnitt 5): dashboard-layouten räknar rummet ur
+  // sökvägen redan på servern, så data-rum och statusfältets färg står rätt
+  // i första HTML. Headern sätts på requesten (updateSession för vidare
+  // request-headers) och skrivs alltid över, så den kan inte komma utifrån.
+  // 404-omskrivningarna nedan påverkas inte: de byter sida, inte rum.
+  request.headers.delete(PATHNAME_HEADER)
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    request.headers.set(PATHNAME_HEADER, request.nextUrl.pathname)
   }
 
   const response = await updateSession(request, intervjuKontroll(request))

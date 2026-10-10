@@ -16,26 +16,31 @@
  * till en hel extra rundtur per sidladdning.
  */
 import type { Viewport } from 'next';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getDashboardSummary } from '@/lib/dashboard/getSummary';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
+import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
+
+/** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
+async function rumForRequest(): Promise<Rum> {
+  const h = await headers();
+  return rumForPath(h.get(PATHNAME_HEADER));
+}
 
 /**
- * Systemets fält runt appen i inloggat (Rummen, spec 2.1): indigoväggens
- * färg, och golvets mörka indigo i mörkt läge. Publika sidor behåller rotens
- * benvita. Per rum kräver generateMetadata per route och tas bara om
- * klicktestet visar att statusfältet bryter mot väggen (spec 10.10).
+ * Systemets fält runt appen står i rummets vägg (spec-rummen 2.1 och 13,
+ * beslut 6): ett enda värde utan media-villkor, eftersom väggen är densamma
+ * i ljust och mörkt läge och statusfältet står över väggen, inte golvet.
+ * Vid klientnavigering mellan rum byter DashboardShell färgen.
  */
-export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#1B2246' },
-    { media: '(prefers-color-scheme: dark)', color: '#0E1120' },
-  ],
-};
+export async function generateViewport(): Promise<Viewport> {
+  return { themeColor: VAGG_FARG[await rumForRequest()] };
+}
 
 export default async function DashboardLayout({
   children,
@@ -60,8 +65,10 @@ export default async function DashboardLayout({
     console.error('Fel vid server-hämtning av dashboard-summary:', error);
   }
 
+  const rum = await rumForRequest();
+
   return (
-    <DashboardShell user={user} initialSummary={initialSummary}>
+    <DashboardShell user={user} initialSummary={initialSummary} rum={rum}>
       {children}
     </DashboardShell>
   );

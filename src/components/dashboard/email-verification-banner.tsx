@@ -11,7 +11,7 @@
 
 import { useEffect, useState } from 'react';
 import { useProfile } from '@/hooks/use-profile';
-import { X } from 'lucide-react';
+import { IkonX } from '@/components/illustrations/RumSymboler';
 
 const DISMISS_KEY = 'jc_email_banner_dismissed_at';
 const DISMISS_HOURS = 24;
@@ -110,12 +110,12 @@ export default function EmailVerificationBanner() {
     // slideUp är borttagen: den animerade in bannerns höjd och räknades som
     // ett layoutskifte i sig. Ytan är redan reserverad, bannern ska bara finnas.
     <div
-      className={`relative z-20 border-b border-kant bg-panel ${BANNER_MIN_HEIGHT_CLASS}`}
+      className={`relative z-20 border-b border-vagg-kant bg-vagg-2 text-vagg-ink ${BANNER_MIN_HEIGHT_CLASS}`}
     >
-      <div className="mx-auto flex min-h-11 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-11 max-w-[1120px] items-center gap-3 px-4 lg:box-content lg:px-10">
         <p
           className={`min-w-0 flex-1 truncate text-sm ${
-            resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-fel' : 'text-ink-1'
+            resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-koppar-ljus' : 'text-vagg-ink'
           }`}
         >
           {resendMessage ?? 'Bekräfta din e-post för att spara dokument permanent.'}
@@ -124,17 +124,17 @@ export default function EmailVerificationBanner() {
         <button
           onClick={handleResendEmail}
           disabled={isResending}
-          className="shrink-0 text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:opacity-40"
+          className="shrink-0 text-sm font-medium text-vagg-ink underline decoration-vagg-svag underline-offset-4 disabled:opacity-40"
         >
           {isResending ? 'Skickar' : 'Skicka igen'}
         </button>
 
         <button
           onClick={dismiss}
-          className="-mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-insunken"
+          className="-mr-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] text-vagg-mjuk transition-colors hover:bg-white/10"
           aria-label="Stäng"
         >
-          <X className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+          <IkonX size={16} />
         </button>
       </div>
     </div>

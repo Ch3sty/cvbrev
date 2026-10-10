@@ -22,7 +22,7 @@ export default function SidebarFooter({
   };
 
   return (
-    <div className="mt-auto space-y-px border-t border-kant px-3 pb-3 pt-2">
+    <div className="space-y-px border-t border-kant pt-2">
       {/* Admin, bara om admin. En navigationsrad som alla andra. */}
       {isAdmin ? (
         <Link href="/admin" onClick={handleLink} className={ROW}>

@@ -144,8 +144,16 @@
   --fel-mjuk: #F8E1DE;
   --fel-kant: #F0C7C2;
   --fel-morker: #7A2219;
+  /* fokus: koppar-ink på golv, papper och ton (4,9:1 mot golv, 4,4 till
+     4,7:1 mot ton); .vagg byter till koppar-ljus (spec 13.2) */
+  --fokus: var(--koppar-ink);
   /* djup */
   --lyft: 0 1px 2px rgba(20, 20, 40, 0.05), 0 10px 24px -14px rgba(20, 20, 40, 0.18);
+  /* det lyfta kortets kant: ingen i ljust läge, kant i mörkt (konceptets
+     .frame.morkt .kort.lyft) */
+  --lyft-kant: transparent;
+  /* dörrnavet: 72 px plus safe area (våg 1b, samma commit som Dorrnav) */
+  --bottom-nav-h: calc(72px + env(safe-area-inset-bottom, 0px));
   --dimma: rgba(10, 12, 30, 0.55);
   /* rummet, standard = Jobbsöket (skog); varje [data-rum] skriver över */
   --golv: #E8EEE7;
@@ -262,6 +270,25 @@
   --golv: #121318; --papper: #1B1C23; --papper-2: #22232B; --kant: #33343F; --kant-stark: #454654; --ton: #2A2A33; --ton-ink: #C9C8D2;
 }
 
+/* Det lyfta kortet får kant i mörkt läge, i rummets egen kantfärg. Skrivs
+   både på roten och på rummet, eftersom var(--kant) löses där den står. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]),
+  :root:not([data-theme="light"]) [data-rum] {
+    --lyft-kant: var(--kant);
+  }
+}
+:root[data-theme="dark"]:has([data-rum]),
+:root[data-theme="dark"] [data-rum] {
+  --lyft-kant: var(--kant);
+}
+/* Dörrnavet finns bara under lg. */
+@media (min-width: 1024px) {
+  :root:has([data-rum]) {
+    --bottom-nav-h: 0px;
+  }
+}
+
 /* Övergång i mörkt läge, våg 1a till 4. Trådens bläckytor och knappar
    (bg-ink-1 med vit text: InkPanel, primärknappar, pakethuvudet) blir annars
    ljusa med vit text när ink-1 vänds i mörkt läge, och vyns viktigaste
@@ -331,10 +358,22 @@
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
 }
-/* Fokusringen i koppar, i inloggat. Publika sidor har kvar Trådens nedan. */
+/* Väggen på dator: 40 px marginal och 32 px radie (konceptets .main .vagg). */
+@media (min-width: 1024px) {
+  .vagg {
+    border-radius: 0 0 32px 32px;
+  }
+}
+/* Fokusringen följer underlaget (spec 13.2, beslut 2): koppar-ink på golv,
+   papper och ton, koppar-ljus på väggen. Ren koppar mot golvet är 2,5:1 och
+   går inte. Offseten gör att ringen mäts mot underlaget, inte knappen.
+   Publika sidor har kvar Trådens ring nedan. */
 :root:has([data-rum]) :focus-visible {
-  outline: 2px solid var(--koppar);
+  outline: 2px solid var(--fokus);
   outline-offset: 2px;
+}
+.vagg {
+  --fokus: var(--koppar-ljus);
 }
 /* Byte av rum: väggen och golvet tonar, inget glider. */
 [data-rum] {
@@ -988,10 +1027,10 @@ html[data-komigang-rad] .dashboard-main-content {
   padding-bottom: calc(var(--bottom-nav-h) + 1.5rem + 76px);
 }
 
-/* On desktop (lg+), restore normal padding */
+/* Dator: inget nav, golvets 40 px under sista kortet (konceptets .main .golv). */
 @media (min-width: 1024px) {
   .dashboard-main-content {
-    padding-bottom: 1.5rem;
+    padding-bottom: 40px;
   }
 }
 
