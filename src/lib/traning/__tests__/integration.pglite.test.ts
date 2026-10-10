@@ -217,35 +217,39 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     expect(stat.rows[0].n).toBe(12 + 27 + 12)
   }, 60_000)
 
-  it('gratisnivån: en mätning, ett grundpass om dagen, resten bakom betalväggen', async () => {
+  it('gratisnivån (17.2): en mätning, ett grundpass dag 0, resten bakom betalväggen', async () => {
     const m = await gor(GRATIS, 'matning', '2026-10-06', 4.5)
     expect(m.avslut!.niva_efter).not.toBeNull()
     // Ingen plan: siktet föreslås men sparas inte.
     expect(m.avslut!.sikte).not.toBeNull()
 
-    const om = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'matning', idag: '2026-10-07' })
-    expect(om).toMatchObject({ ok: false, status: 402, beslut: { typ: 'ommatning', feature: 'tests_above_base' } })
-
-    const p = await gor(GRATIS, 'pass', '2026-10-07', 4.5)
+    // Dag 0: ett grundpass samma dag som mätningen.
+    const p = await gor(GRATIS, 'pass', '2026-10-06', 4.5)
     expect(p.skapad.ok && p.skapad.vy.variant).toBe('grund')
     const meta = (await hamtaSession(admin, GRATIS, p.id!))!.meta as { fragor: string[] }
     expect(meta.fragor.every((id) => hittaTraningsfraga(id)!.kalla === 'grund')).toBe(true)
 
-    const igen = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'pass', idag: '2026-10-07' })
+    const igen = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'pass', idag: '2026-10-06' })
     expect(igen).toMatchObject({ ok: false, status: 429 })
-    const imorgon = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'pass', idag: '2026-10-08' })
-    expect(imorgon.ok).toBe(true)
+
+    // Dag 1 efter mätningen: grundpasset kräver paket.
+    const dag1 = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'pass', idag: '2026-10-07' })
+    expect(dag1).toMatchObject({ ok: false, status: 402, beslut: { typ: 'pass', skal: 'betalvagg', feature: 'tests_above_base' } })
+
+    const om = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard: 'matning', idag: '2026-10-07' })
+    expect(om).toMatchObject({ ok: false, status: 402, beslut: { typ: 'ommatning', feature: 'tests_above_base' } })
 
     for (const begard of ['riktat', 'general'] as const) {
       const r = await skapaTraningssession({ supabase: anvandare, admin, userId: GRATIS, begard, family: 'Rotation', idag: '2026-10-08' })
       expect(r).toMatchObject({ ok: false, status: 402 })
     }
 
-    // Kurvan utan historik: bara senaste punkten.
+    // Kurvan utan historik: bara senaste punkten. Passdagarna efter dag 0 är låsta i planen.
     const status = await hamtaTraningsstatus({ supabase: anvandare, admin, userId: GRATIS, idag: '2026-10-08' })
     expect(status.historikLast).toBe(true)
     expect(status.punkter).toHaveLength(1)
     expect(status.plandagar.find((d) => d.typ === 'ommatning')?.status).toBe('last')
+    expect(status.plandagar.filter((d) => d.typ === 'pass' && d.dag >= '2026-10-08').every((d) => d.status === 'last')).toBe(true)
   }, 60_000)
 
   it('K1: mätning tisdag, fem pass och ommätning nästa tisdag ger Första veckan', async () => {

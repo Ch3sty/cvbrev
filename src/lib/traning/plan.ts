@@ -42,7 +42,7 @@ export interface PlanIn {
   /** Har användaren Hela paketet (eller Dagspasset)? Styr "last". */
   betalande?: boolean;
   /** Gratisnivån, för tester. */
-  gratis?: { ommatningGratis: boolean; provlageGratis: boolean };
+  gratis?: { ommatningGratis: boolean; provlageGratis: boolean; grundpassVarjeDag?: boolean };
   /** Dagar framåt utan datum. */
   rullandeDagar?: number;
 }
@@ -69,7 +69,10 @@ export function byggPlan(inp: PlanIn): PlanDag[] {
   const gratis = inp.gratis ?? GRATISNIVA;
   const last = (typ: PlanTyp): boolean =>
     !inp.betalande &&
-    ((typ === 'ommatning' && !gratis.ommatningGratis) || (typ === 'general' && !gratis.provlageGratis));
+    ((typ === 'ommatning' && !gratis.ommatningGratis) ||
+      (typ === 'general' && !gratis.provlageGratis) ||
+      // 17.2: passdagarna efter mätningens dag ingår inte när grundpasset bara gäller dag 0.
+      (typ === 'pass' && gratis.grundpassVarjeDag === false));
 
   return dagarIntervall(start, slut).map((dag) => {
     const typ = planTyp(dag, start, prov);

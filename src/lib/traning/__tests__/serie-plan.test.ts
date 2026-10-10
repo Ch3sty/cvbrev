@@ -105,6 +105,8 @@ describe('planen', () => {
       prov: '2026-10-24',
       idag: '2026-10-10',
       aktivaDagar: ['2026-10-06', '2026-10-07', '2026-10-09'],
+      // Statusreglerna med grundpass varje dag; 17.2 (standard) prövas nedan.
+      gratis: { ommatningGratis: false, provlageGratis: false, grundpassVarjeDag: true },
     })
     const status = (d: string) => plan.find((p) => p.dag === d)?.status
     expect(status('2026-10-07')).toBe('gjord')
@@ -115,6 +117,19 @@ describe('planen', () => {
     expect(status('2026-10-22')).toBe('last')
     const betald = byggPlan({ start: '2026-10-06', prov: '2026-10-24', idag: '2026-10-10', betalande: true })
     expect(betald.find((p) => p.dag === '2026-10-13')?.status).toBe('kvar')
+  })
+
+  it('17.2: utan paket är passdagarna efter mätningens dag låsta, med paket inte', () => {
+    const plan = byggPlan({ start: '2026-10-06', prov: '2026-10-24', idag: '2026-10-10', aktivaDagar: ['2026-10-06', '2026-10-07'] })
+    const status = (d: string) => plan.find((p) => p.dag === d)?.status
+    expect(status('2026-10-06')).toBe('gjord')
+    expect(status('2026-10-07')).toBe('gjord')
+    expect(status('2026-10-08')).toBe('missad')
+    expect(status('2026-10-10')).toBe('last')
+    expect(status('2026-10-12')).toBe('last')
+    expect(status('2026-10-11')).toBe('kvar') // söndag, vila
+    const betald = byggPlan({ start: '2026-10-06', prov: '2026-10-24', idag: '2026-10-10', betalande: true })
+    expect(betald.find((p) => p.dag === '2026-10-10')?.status).toBe('idag')
   })
 
   it('ett provdatum före mätningen ignoreras', () => {

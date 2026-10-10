@@ -1,29 +1,28 @@
 // src/lib/traning/gratisniva.ts
 // =============================================================================
-// Vad som ingår utan paket i Testträningen (spec-rummen avsnitt 0, beslut 6).
+// Vad som ingår utan paket i Rekryteringstester (spec-rummen avsnitt 17.2).
 //
-// DAGENS REKOMMENDATION, INTE ETT BESLUT. Vad som är gratis är en produkt- och
-// prisfråga som ägaren bekräftar före release av våg 3. Värdena nedan är
-// art-directors och testansvarigs rekommendation 2026-10-10: ett grundpass om
-// dagen gratis varje dag, mätningen gratis en gång, resultat och genomgång
-// alltid öppna; passet på din nivå, riktade pass, ommätning, kurvans historik,
-// provläget och generalrepetitionen ingår i Hela paketet.
+// ÄGARENS BESLUT 2026-10-11. Ersätter rekommendationen i beslut 6 och 14.9.
+// Gratis är smakprovet (anonymt, fem frågor), nivåmätningen en gång per konto
+// med full genomgång och ett grundpass samma dag som mätningen (dag 0).
+// Därefter betalvägg på allt: dagens pass, riktade pass, ommätning, kurvans
+// historik, provläget och generalrepetitionen ingår i Hela paketet. Resultat
+// och genomgång av det man redan gjort är alltid öppna.
 //
 // Läses av sessionGate (featureForTestType), quotaService
 // (DAILY_LIMIT_TEST_SESSIONS), tillgang.ts (passens gate), plan.ts (låsta
 // dagar) och, från våg 2/3b, getTraningSummary och PaywallCard.
-// Ändra ett värde, inget annat. Ska dag 2 låsas: sätt grundpassVarjeDag till
-// false (då ritas bara 1f och W3 om, beslut 6).
+// Ändra ett värde, inget annat.
 // =============================================================================
 
 export const GRATISNIVA = {
-  /** Grundpass (frågor under din nivå ur grundbanken) per dag utan paket. */
+  /** Grundpass (frågor under din nivå ur grundbanken) per dag utan paket. Med grundpassVarjeDag false gäller det bara dag 0. */
   grundpassPerDag: 1,
   /**
    * Grundpasset gratis varje dag. false = bara den första träningsdagen
-   * (mätningens dag); från dag 2 kräver passet Hela paketet.
+   * (mätningens dag, dag 0); från dag 1 kräver passet Hela paketet (17.2).
    */
-  grundpassVarjeDag: true,
+  grundpassVarjeDag: false,
   /** Nivåmätningen, en gång. */
   matningGratis: true,
   /** Ommätningen var sjunde dag. */

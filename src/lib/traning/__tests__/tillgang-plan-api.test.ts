@@ -8,11 +8,11 @@ import { familjestatistik, lasFamilj, svagasteFamiljer, varDuTappar } from '../f
 
 const bas: TillgangIn = { begard: 'pass', harOvanGrund: false, harProvlage: false, matningarSlutforda: 0, passSlutfordaIdag: 0 }
 
-describe('gratisnivån (rekommendationen, ägaren bekräftar)', () => {
-  it('standardvärdena är beslut 6', () => {
+describe('gratisnivån (ägarens beslut 2026-10-11, 17.2)', () => {
+  it('standardvärdena är 17.2: mätningen en gång och ett grundpass dag 0', () => {
     expect(GRATISNIVA).toMatchObject({
       grundpassPerDag: 1,
-      grundpassVarjeDag: true,
+      grundpassVarjeDag: false,
       matningGratis: true,
       ommatningGratis: false,
       genomgangGratis: true,
@@ -43,6 +43,15 @@ describe('gratisnivån (rekommendationen, ägaren bekräftar)', () => {
     expect(beslutaTillgang(bas)).toEqual({ tillatet: true, typ: 'pass', variant: 'grund' })
     expect(beslutaTillgang({ ...bas, passSlutfordaIdag: 1 })).toMatchObject({ tillatet: false, skal: 'kvot', grans: 1 })
     expect(beslutaTillgang({ ...bas, passSlutfordaIdag: 5, harOvanGrund: true })).toEqual({ tillatet: true, typ: 'pass', variant: 'niva' })
+  })
+
+  it('17.2 med standardvärdena: grundpass dag 0, betalvägg från dag 1 efter mätningen', () => {
+    const dag0 = { ...bas, matningarSlutforda: 1, forstaTraningsdag: '2026-10-10', idag: '2026-10-10' }
+    expect(beslutaTillgang(dag0)).toEqual({ tillatet: true, typ: 'pass', variant: 'grund' })
+    expect(beslutaTillgang({ ...dag0, passSlutfordaIdag: 1 })).toMatchObject({ tillatet: false, skal: 'kvot' })
+    const dag1 = { ...dag0, idag: '2026-10-11' }
+    expect(beslutaTillgang(dag1)).toEqual({ tillatet: false, typ: 'pass', skal: 'betalvagg', feature: 'tests_above_base' })
+    expect(beslutaTillgang({ ...dag1, harOvanGrund: true })).toEqual({ tillatet: true, typ: 'pass', variant: 'niva' })
   })
 
   it('en flagga per sak: dag 2 kan låsas, gratispasset är alltid ett grundpass', () => {
