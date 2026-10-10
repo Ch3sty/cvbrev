@@ -101,7 +101,7 @@ export function beslutaTillgang(inp: TillgangIn): TillgangBeslut {
       if (inp.passSlutfordaIdag >= grans) {
         return { tillatet: false, typ: 'pass', skal: 'kvot', anvant: inp.passSlutfordaIdag, grans };
       }
-      return { tillatet: true, typ: 'pass', variant: g.passPaNivanGratis ? 'niva' : 'grund' };
+      return { tillatet: true, typ: 'pass', variant: 'grund' };
     }
     case 'riktat':
       return g.riktadePassGratis || inp.harOvanGrund

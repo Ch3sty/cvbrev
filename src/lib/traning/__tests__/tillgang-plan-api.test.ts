@@ -19,8 +19,9 @@ describe('gratisnivån (rekommendationen, ägaren bekräftar)', () => {
       kurvaHistorikGratis: false,
       provlageGratis: false,
       riktadePassGratis: false,
-      passPaNivanGratis: false,
     })
+    // 14.9: flaggan för passet på nivån är borttagen.
+    expect(GRATISNIVA).not.toHaveProperty('passPaNivanGratis')
     expect(DAILY_LIMIT_TEST_SESSIONS).toBe(GRATISNIVA.grundpassPerDag)
   })
 
@@ -44,14 +45,14 @@ describe('gratisnivån (rekommendationen, ägaren bekräftar)', () => {
     expect(beslutaTillgang({ ...bas, passSlutfordaIdag: 5, harOvanGrund: true })).toEqual({ tillatet: true, typ: 'pass', variant: 'niva' })
   })
 
-  it('en flagga per sak: dag 2 kan låsas, passet på nivån kan bli gratis', () => {
+  it('en flagga per sak: dag 2 kan låsas, gratispasset är alltid ett grundpass', () => {
     const g = { ...GRATISNIVA, grundpassVarjeDag: false }
     expect(beslutaTillgang({ ...bas, gratis: g, forstaTraningsdag: '2026-10-09', idag: '2026-10-10' })).toMatchObject({
       tillatet: false,
       skal: 'betalvagg',
     })
     expect(beslutaTillgang({ ...bas, gratis: g, forstaTraningsdag: '2026-10-10', idag: '2026-10-10' })).toMatchObject({ tillatet: true })
-    expect(beslutaTillgang({ ...bas, gratis: { ...GRATISNIVA, passPaNivanGratis: true } })).toMatchObject({ variant: 'niva' })
+    expect(beslutaTillgang({ ...bas, gratis: g, forstaTraningsdag: '2026-10-10', idag: '2026-10-10' })).toMatchObject({ variant: 'grund' })
     expect(beslutaTillgang({ ...bas, begard: 'matning', matningarSlutforda: 3, gratis: { ...GRATISNIVA, ommatningGratis: true } })).toMatchObject({
       tillatet: true,
       typ: 'ommatning',

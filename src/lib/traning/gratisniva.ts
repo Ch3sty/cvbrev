@@ -36,12 +36,6 @@ export const GRATISNIVA = {
   provlageGratis: false,
   /** Riktade pass per mönsterfamilj. */
   riktadePassGratis: false,
-  /**
-   * Passet på din nivå (60/20/20 runt nivån ur alla tre bankerna). Utan paket
-   * är dagens pass ett grundpass. Egen flagga så att svaret kan komma sent;
-   * ingen post i specens lista, där ingår det i "Hela paketet".
-   */
-  passPaNivanGratis: false,
 } as const;
 
 export type Gratisniva = typeof GRATISNIVA;
