@@ -10,6 +10,7 @@
  * sedan äldst.
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link'
 import { STATUS_META } from '@/lib/applications/status'
 import type { PipelineItem } from '@/hooks/useApplicationsSummary'
@@ -43,7 +44,7 @@ function lage(item: PipelineItem): { text: string; ton: string } {
 }
 
 const BTN =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover'
+  KNAPP_SEKUNDAR_SMAL
 
 export default function PagarNu({ items, total, letterCount = 0 }: PagarNuProps) {
   if (items.length === 0) {

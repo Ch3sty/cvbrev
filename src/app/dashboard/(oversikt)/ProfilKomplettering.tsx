@@ -11,6 +11,7 @@
  * från uppladdat CV, så det här kortet fångar bara det parsern missade.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
@@ -220,7 +221,7 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
           type="button"
           onClick={save}
           disabled={saving}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:opacity-60 sm:w-auto"
+          className={`${KNAPP_SEKUNDAR} sm:w-auto`}
         >
           {saving ? 'Sparar' : 'Spara'}
         </button>

@@ -9,7 +9,9 @@
 
 import Link from 'next/link';
 import { Check } from 'lucide-react';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { KNAPP_PRIMAR } from '@/components/shell/knappar';
 import { PLAN_BY_KEY } from '@/lib/plans/plans';
 import {
   IkonCv,
@@ -129,12 +131,13 @@ const LINK =
 
 export default function IntroduktionPage() {
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader
-        title="Så fungerar Jobbcoach"
-        description="Sex verktyg som hjälper dig skapa bättre ansökningar, snabbare. Börja med ditt CV, sedan tar vi det därifrån."
-      />
-
+    <>
+    <RumHuvud
+      title="Så fungerar Jobbcoach"
+      description="Sex verktyg som hjälper dig skapa bättre ansökningar, snabbare. Börja med ditt CV, sedan tar vi det därifrån."
+    />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
       <section aria-label="Verktygen" className="space-y-4">
         <h2 className="text-sm font-medium text-ink-3">Verktygen</h2>
         {features.map((feature) => (
@@ -151,10 +154,7 @@ export default function IntroduktionPage() {
           Börja med att ladda upp ditt CV. Det tar en halv minut.
         </p>
         <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
-          <Link
-            href="/dashboard/profil/cv"
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
-          >
+          <Link href="/dashboard/profil/cv" className={`${KNAPP_PRIMAR} sm:w-auto`}>
             Ladda upp CV
           </Link>
           <Link href="/dashboard" className={LINK}>
@@ -163,6 +163,8 @@ export default function IntroduktionPage() {
         </div>
       </section>
     </div>
+    </Golv>
+    </>
   );
 }
 

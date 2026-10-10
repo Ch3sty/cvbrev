@@ -1,5 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -199,22 +202,22 @@ export default function BliUpptacktClient({
   // kvar och öppnas i samma ögonblick som samtycket är givet.
   if (!profile.consent_given_at) {
     return (
-      <div className="mx-auto py-4 sm:py-6 max-w-3xl">
-        <section className="rounded-xl border border-kant bg-panel p-6 text-center sm:p-8">
+      <>
+      <RumHuvud
+        title="Låt jobben hitta dig"
+        description="Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen. Du är anonym tills du själv godkänner en kontakt, och du stänger av synligheten när du vill."
+      />
+      <Golv>
+      <div className="w-full max-w-3xl">
+        <section className="rounded-2xl border border-kant bg-papper p-6 text-center sm:p-8">
           <span className="inline-block text-ink-1" aria-hidden="true">
             <IlluBliUpptackt size={96} />
           </span>
-          <h1 className="mt-4 text-h1 text-ink-1">Låt jobben hitta dig</h1>
-          <p className="mx-auto mt-2 max-w-prose text-sm leading-[22px] text-ink-2">
-            Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen.
-            Du är anonym tills du själv godkänner en kontakt, och du stänger av
-            synligheten när du vill.
-          </p>
           <button
             type="button"
             onClick={handleMasterToggle}
             disabled={saving}
-            className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40 sm:w-auto"
+            className={`${KNAPP_PRIMAR} mt-6 sm:w-auto`}
           >
             Kom igång
           </button>
@@ -236,11 +239,16 @@ export default function BliUpptacktClient({
           />
         )}
       </div>
+      </Golv>
+      </>
     );
   }
 
   return (
-    <div className="mx-auto py-4 sm:py-6 max-w-6xl">
+    <>
+    <RumHuvud title="Bli upptäckt" />
+    <Golv>
+    <div className="w-full max-w-6xl">
       {/* Full bredd överst: master, larm, genväg till meddelanden */}
       <div className="space-y-4 sm:space-y-5">
         <MasterHeader
@@ -352,6 +360,8 @@ export default function BliUpptacktClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 

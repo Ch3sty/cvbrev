@@ -4,7 +4,7 @@
  * Ett sparat brev (docs/design/overlamning-opus.md, avsnitt 4, "Lista" och
  * "Flödessteg").
  *
- * PageHeader är sidans enda h1 och bär primärhandlingen (Redigera). Övriga
+ * Väggen (RumHuvud) bär sidans enda h1 och bär primärhandlingen (Redigera). Övriga
  * handlingar är sekundära knappar i en panel. Brevet självt ligger på papper
  * (bg-white), vilket är specens enda tillåtna undantag från bg-panel.
  * Borttagning går genom ConfirmDialog, felet genom FlowError, laddningen

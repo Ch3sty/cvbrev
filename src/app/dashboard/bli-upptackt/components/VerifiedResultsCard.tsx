@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
@@ -198,7 +199,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
           {/* Enda vägen in till hela arbetsstilssidan sedan sidebar-posten togs bort */}
           <Link
             href="/dashboard/arbetsstil"
-            className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+            className={`${KNAPP_PRIMAR} mt-4`}
           >
             Öppna din arbetsstil
           </Link>

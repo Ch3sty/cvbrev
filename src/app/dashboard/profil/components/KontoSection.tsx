@@ -235,7 +235,7 @@ function RaderaKonto({
           type="button"
           onClick={radera}
           disabled={!kan || raderar}
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-white transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-papper transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
         >
           {raderar ? 'Tar bort' : 'Radera permanent'}
         </button>

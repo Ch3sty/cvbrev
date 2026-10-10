@@ -20,10 +20,9 @@ export default function WelcomeMessage({
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Vyns enda rubrik. */}
+      {/* Vyns rubrik står på väggen (JobbcoachenLayout); raden står kvar här. */}
       <div>
-        <h1 className="text-h1 text-ink-1">Jobbcoachen</h1>
-        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
+        <p className="text-sm leading-[22px] text-ink-2">
           Fråga om lön, intervjuer, arbetsrätt eller ditt CV. Vi svarar med källor du kan kolla själv.
         </p>
       </div>

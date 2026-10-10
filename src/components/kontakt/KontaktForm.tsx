@@ -15,6 +15,7 @@
 import { useState, FormEvent } from 'react'
 import { Send, CheckCircle, AlertTriangle } from 'lucide-react'
 import { IkonFel } from '@/components/illustrations/Ikoner'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 
 interface KontaktFormProps {
   variant?: 'public' | 'dashboard'
@@ -45,8 +46,8 @@ const DASHBOARD = {
     'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent',
   textarea:
     'w-full rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 resize-none focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent',
-  button: () =>
-    'inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto',
+  // Rummen våg 1b: dashboardvarianten har kopparknappen.
+  button: () => `${KNAPP_PRIMAR} disabled:cursor-not-allowed sm:w-auto`,
 }
 
 export default function KontaktForm({ variant = 'public', onSubmitSuccess }: KontaktFormProps) {

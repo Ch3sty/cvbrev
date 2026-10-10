@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { ChevronLeft } from 'lucide-react';
 import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaAnsokan } from '@/components/illustrations/TradenScener';
@@ -61,7 +62,7 @@ export default function PendingRequestPanel({
               type="button"
               disabled={busy}
               onClick={() => onRespond('accept')}
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+              className={KNAPP_PRIMAR_SMAL}
             >
               Acceptera
             </button>

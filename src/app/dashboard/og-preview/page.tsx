@@ -1,3 +1,5 @@
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import OgFrame from '@/components/og-preview/OgFrame';
 import {
   OgCvAnalysisIllustration,
@@ -129,16 +131,14 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
 
 export default function OgPreviewPage() {
   return (
-    <div className="container mx-auto py-6 sm:py-8 px-3 sm:px-4 max-w-[1280px]">
-      <div className="mb-6 sm:mb-8">
-        <p className="mb-1.5 text-steg uppercase text-ink-3">Intern preview</p>
-        <h1 className="text-h1 text-ink-1">OG-bild förhandsvisning</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-[22px] text-ink-2">
-          Alla dynamiska OG-bilder i 1200×630-format (Open Graph-storlek).
-          Genereras automatiskt vid build/deploy via Next.js
-          ImageResponse, inga manuella bilder krävs.
-        </p>
-      </div>
+    <>
+    <RumHuvud
+      eyebrow="Intern preview"
+      title="OG-bild förhandsvisning"
+      description="Alla dynamiska OG-bilder i 1200×630-format (Open Graph-storlek). Genereras automatiskt vid build/deploy via Next.js ImageResponse, inga manuella bilder krävs."
+    />
+    <Golv>
+    <div className="w-full">
 
       {/* Custom variants (nya) */}
       <h2 className="mb-4 mt-2 text-sm font-medium text-ink-3">
@@ -219,5 +219,7 @@ export default function OgPreviewPage() {
         per route, inga manuella PNG-filer.
       </div>
     </div>
+    </Golv>
+    </>
   );
 }

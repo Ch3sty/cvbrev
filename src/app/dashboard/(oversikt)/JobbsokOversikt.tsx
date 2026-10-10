@@ -8,6 +8,7 @@
  * ansökningssidan. Vyns primära knapp, i ink.
  */
 
+import { LANK } from '@/components/shell/knappar'
 import Link from 'next/link'
 import type { ApplicationsSummary } from '@/hooks/useApplicationsSummary'
 import Fordelning from '@/components/shell/Fordelning'
@@ -53,7 +54,7 @@ export default function JobbsokOversikt({ summary, fordelning }: JobbsokOversikt
         action={
           <Link
             href="/dashboard/sokta-tjanster?ny=1"
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+            className={`${LANK} inline-flex min-h-11 items-center`}
           >
             Logga ansökan
           </Link>

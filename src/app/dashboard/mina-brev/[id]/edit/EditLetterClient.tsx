@@ -3,7 +3,7 @@
 /**
  * Redigera ett sparat brev (docs/design/overlamning-opus.md).
  *
- * PageHeader är sidans enda h1 och bär Spara som primärhandling. Brevinfon
+ * Väggen (RumHuvud) bär sidans enda h1 och bär Spara som primärhandling. Brevinfon
  * är fält enligt avsnitt 2, med hjälptext under titeln. Texten redigeras i
  * en insunken textarea, annars visas brevet på papper (bg-white, specens
  * enda tillåtna undantag). Fel via FlowError. Ingen rörelse, inga orange

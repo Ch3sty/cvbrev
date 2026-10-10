@@ -10,6 +10,7 @@
  * omladdning inte visar den igen.
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -80,7 +81,7 @@ export default function PurchaseConfirmation({
       action={
         <Link
           href="/dashboard/skapa-brev"
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+          className={KNAPP_SEKUNDAR_SMAL}
         >
           Skriv ett brev
         </Link>

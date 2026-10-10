@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomSokning } from '@/components/illustrations/TradenScener';
@@ -41,7 +42,7 @@ export default function JobMatchingOnboarding() {
         action={
           <Link
             href="/dashboard/profil/cv"
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Ladda upp ditt första CV
           </Link>

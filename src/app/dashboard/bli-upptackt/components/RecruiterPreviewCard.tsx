@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import SectionCard from './SectionCard';
 import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip';
 import {
@@ -240,7 +241,7 @@ export default function RecruiterPreviewCard({
             type="button"
             disabled
             title="Så ser knappen ut för rekryteraren"
-            className="inline-flex h-11 shrink-0 cursor-not-allowed items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white opacity-40"
+            className={`${KNAPP_SEKUNDAR_SMAL} shrink-0 cursor-not-allowed opacity-40`}
           >
             Visa intresse
           </button>

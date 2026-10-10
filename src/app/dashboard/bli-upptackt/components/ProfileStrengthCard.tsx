@@ -140,7 +140,7 @@ export default function ProfileStrengthCard({
         <>
           <NextStep step={next} />
           {steps.length > 1 && (
-            <p className="mt-3 text-sm text-neutral-500">
+            <p className="mt-3 text-sm text-ink-3">
               {steps.length === 2
                 ? 'Ett steg till efter det.'
                 : `${steps.length - 1} steg till efter det.`}
@@ -148,7 +148,7 @@ export default function ProfileStrengthCard({
           )}
         </>
       ) : (
-        <p className="mt-4 text-sm text-neutral-600 leading-relaxed">
+        <p className="mt-4 text-sm text-ink-2 leading-relaxed">
           Profilen är klar. Du behöver inte göra något mer, och du kan ändra
           vad som helst när du vill.
         </p>
@@ -168,11 +168,11 @@ function ViewsRow({ views }: { views: ViewStats | null }) {
   // vad som gäller i stället för att skriva ut en nolla utan sammanhang.
   if (views.total === 0) {
     return (
-      <div className="flex items-start gap-3 rounded-lg border border-neutral-200 p-4">
-        <span className="shrink-0 text-neutral-900" aria-hidden="true">
+      <div className="flex items-start gap-3 rounded-lg border border-kant p-4">
+        <span className="shrink-0 text-ink-1" aria-hidden="true">
           <IlluProfilvisningar size={48} />
         </span>
-        <p className="text-sm text-neutral-600 leading-relaxed">
+        <p className="text-sm text-ink-2 leading-relaxed">
           Din profil är sökbar. Rekryterare söker i poolen i omgångar, så det
           kan dröja innan någon tittar. Vi säger till här när det händer.
         </p>
@@ -189,13 +189,13 @@ function ViewsRow({ views }: { views: ViewStats | null }) {
       : `${views.total} rekryterare har sett din profil`;
 
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-neutral-200 p-4">
-      <span className="shrink-0 text-neutral-900" aria-hidden="true">
+    <div className="flex items-start gap-3 rounded-lg border border-kant p-4">
+      <span className="shrink-0 text-ink-1" aria-hidden="true">
         <IlluProfilvisningar size={48} />
       </span>
       <div className="min-w-0">
-        <p className="text-base font-semibold text-neutral-900">{label}</p>
-        <p className="text-sm text-neutral-600 leading-relaxed mt-1">
+        <p className="text-base font-semibold text-ink-1">{label}</p>
+        <p className="text-sm text-ink-2 leading-relaxed mt-1">
           Du ser antalet, aldrig vem. De hör av sig om de vill gå vidare.
         </p>
       </div>
@@ -206,13 +206,13 @@ function ViewsRow({ views }: { views: ViewStats | null }) {
 /** Ett steg i taget. Ingen lista, ingen räknare över allt som saknas. */
 function NextStep({ step }: { step: Step }) {
   const inner = (
-    <div className="mt-4 flex items-start gap-3 rounded-lg border border-neutral-200 p-4 transition-colors hover:border-neutral-300">
-      <span className="shrink-0 text-neutral-900" aria-hidden="true">
+    <div className="mt-4 flex items-start gap-3 rounded-lg border border-kant p-4 transition-colors hover:border-kant-stark">
+      <span className="shrink-0 text-ink-1" aria-hidden="true">
         <IlluNastaSteg size={48} />
       </span>
       <div className="min-w-0">
-        <p className="text-xs text-neutral-500">Nästa steg</p>
-        <p className="text-base font-semibold text-neutral-900 leading-snug mt-0.5">
+        <p className="text-xs text-ink-3">Nästa steg</p>
+        <p className="text-base font-semibold text-ink-1 leading-snug mt-0.5">
           {step.label}
         </p>
       </div>

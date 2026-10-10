@@ -15,7 +15,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowRight } from 'lucide-react'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import StatusRow from '@/components/shell/StatusRow'
 import { INFOR_INTERVJUN_HREF, nyttProvHref } from '@/lib/intervju/lankar'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
@@ -69,8 +71,10 @@ export default async function IntervjuSvarPage({
   const punkter = rad.full?.points ?? []
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader eyebrow={S.eyebrow} title={S.titel} description={S.beskrivning} />
+    <>
+    <RumHuvud eyebrow={S.eyebrow} title={S.titel} description={S.beskrivning} />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 
       <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
         <blockquote className="border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
@@ -143,7 +147,7 @@ export default async function IntervjuSvarPage({
         <Link
           href={nyttProvHref()}
           data-cta="intervjuprov-nasta-fraga"
-          className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`mt-4 ${KNAPP_PRIMAR} sm:w-auto`}
         >
           {S.knapp}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -167,5 +171,7 @@ export default async function IntervjuSvarPage({
         {S.rad}
       </StatusRow>
     </div>
+    </Golv>
+    </>
   )
 }

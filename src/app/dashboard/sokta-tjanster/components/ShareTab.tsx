@@ -4,6 +4,7 @@
 // utskrift/PDF, kopierbar textsammanfattning för AF:s webbformulär,
 // delningslänk utan inloggning samt Sankey-diagram på större skärmar.
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ChevronLeft,
@@ -453,7 +454,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
               type="button"
               onClick={handleCreateShareLink}
               disabled={isSharing}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+              className={KNAPP_PRIMAR_SMAL}
             >
               <Link2 className="w-4 h-4" strokeWidth={1.75} />
               {isSharing ? 'Skapar' : 'Skapa delningslänk'}

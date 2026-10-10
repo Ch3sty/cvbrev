@@ -8,6 +8,7 @@
  * det sekundära en textlänk. Bygger på shell/Sheet.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import Link from 'next/link';
 import Sheet from '@/components/shell/Sheet';
 import MarginPlate from '@/components/shell/MarginPlate';
@@ -32,7 +33,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
           <Link
             href="/dashboard/profil/prenumeration"
             onClick={onClose}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR}
           >
             {SMART_VAL.knapp}
           </Link>

@@ -4,6 +4,7 @@
 // en tryckning väljer, datum förvalt till idag. "Ej svar" loggas aldrig
 // manuellt, det är ett beräknat tillstånd.
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react';
 import {
   PhoneCall,
@@ -161,7 +162,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
           type="button"
           onClick={handleSubmit}
           disabled={!selected || isSaving}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          className={KNAPP_PRIMAR}
         >
           {isSaving ? 'Sparar' : 'Spara händelse'}
         </button>

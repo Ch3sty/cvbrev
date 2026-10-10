@@ -3,7 +3,7 @@
 /**
  * Mina brev, listvyn (docs/design/overlamning-opus.md, avsnitt 4, "Lista").
  *
- * PageHeader med primärhandlingen, kvotraden som StatusRow, sökfältet som
+ * Väggen (RumHuvud) med primärhandlingen, kvotraden som StatusRow, sökfältet som
  * insunket fält och breven som kort utan skugga. Tomt läge via EmptyState,
  * borttagning via ConfirmDialog. Ingen rörelse, inga orange ytor, ingen egen
  * sidbakgrund: marken kommer från skalet.

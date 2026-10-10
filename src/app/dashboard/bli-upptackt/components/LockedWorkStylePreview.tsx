@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
 
 /**
@@ -52,7 +53,7 @@ export default function LockedWorkStylePreview() {
         </p>
         <Link
           href="/dashboard/tester/personlighet-avancerad"
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          className={`${KNAPP_SEKUNDAR_SMAL} shrink-0`}
         >
           Gör det fördjupade testet, 120 frågor
         </Link>

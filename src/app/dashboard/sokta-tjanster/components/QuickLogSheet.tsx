@@ -3,6 +3,7 @@
 // Snabblogg av en ansökan: två obligatoriska fält plus datum och kanal-chips.
 // Målet är under 15 sekunder. Används även i redigeringsläge från detaljvyn.
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import {
@@ -309,7 +310,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         <button
           type="submit"
           disabled={isSaving || !jobTitle.trim() || !company.trim()}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          className={KNAPP_PRIMAR}
         >
           {isSaving ? 'Sparar…' : isEdit ? 'Spara ändringar' : 'Logga ansökan'}
         </button>
