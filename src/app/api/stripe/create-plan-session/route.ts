@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { stripe } from '@/lib/stripe/server'
 import {
   findLiveSubscription,
@@ -88,7 +89,8 @@ export async function POST(request: NextRequest) {
         metadata: { supabaseUUID: user.id },
       })
       customerId = customer.id
-      await supabase.from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id)
+      // Kolumnen är spärrad för användarens session: admin-klienten skriver.
+      await (getSupabaseAdmin() as any).from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id)
     }
 
     // Spärren blockerar bara dubbletter av samma scope. En spårkund som

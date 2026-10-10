@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
@@ -298,7 +299,8 @@ export async function POST(request: Request) {
     // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
     // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
     if (profile.subscription_tier === 'free') {
-      const { error: updateError } = await supabase
+      // Kvotkolumnerna är spärrade för användarens session: admin-klienten skriver.
+      const { error: updateError } = await (getSupabaseAdmin() as any)
         .from('profiles')
         .update(
           windowIsStale

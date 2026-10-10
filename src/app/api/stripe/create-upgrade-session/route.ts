@@ -127,8 +127,9 @@ export async function POST(request: NextRequest) {
       })
       customerId = customer.id
 
-      // Save customer ID to profile
-      await supabase
+      // Save customer ID to profile. Kolumnen är spärrad för användarens
+      // session, så den skrivs med admin-klienten.
+      await (getSupabaseAdmin() as any)
         .from('profiles')
         .update({ stripe_customer_id: customerId })
         .eq('id', user.id)
