@@ -17,3 +17,14 @@ Testraderna raderade efter körningen, räknade före varje delete och bara på 
 
 - `../vag-3c/granskning-15/ringar/`: alla 15 frågor med ringceller efter rättelsen av ringrenderaren.
 - `../vag-3c/granskning-15/rattade/`: v7g-q25, v7-q5, v7-q8, v7-q11, v7-q13, v7-q15 och två 3c-frågor med rutans plats i misstaget.
+
+## Klicktest före main (2026-10-11, efter merge av origin/main e158144f)
+
+Produktionsbygget (`.next-3m`) på port 3498, samma skript, nytt konto `qa-rummen-3-a-2026-10-11@jobbcoach-qa.test` (Hela paketet via `premium_grants`). Skärmdumpar och `resultat.jsonl` i `klicktest-main/`.
+
+| Flöde | Vy | Resultat |
+|---|---|---|
+| Ny klassisk grundsession | Pixel 7 | Alla steg OK: `bank_version 2` och `alternativ_blandade`, 12 av 15 ur 3c, samma ordning efter omladdning, 14 av 15, genomgången med familjens namn. Inga konsol- eller nätverksfel. |
+| Smakprovet, anonymt | Pixel 7 | OK: 3 av 5 rätt, svaren lagras på originalindex. Första körningen gav FEL i `resultat.jsonl` eftersom skriptet räknade urvalet ur de 28 frusna; nya smakprov har `bank_version 2`. Skriptet läser nu versionen ur raden, andra körningen gick igenom. |
+
+Raderat efteråt, räknat före varje delete och bara på kontots id och de två egna token: 1 session, 9 aktivitetsrader, 1 premium_grant, 1 profil, kontot och 2 rader i anon_test_sessions. Kontrollräknat till 0 efteråt. Rader i public_rate_limits från smakproven (egen QA_IP-nyckel) är inte raderade; de går ut av sig själva.

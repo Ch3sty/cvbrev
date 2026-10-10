@@ -370,8 +370,11 @@ async function smakprovFlode(p) {
   await vanta(600)
   await bild(p, 'fraga-1')
   if (!token) throw new Error('fick ingen token')
-  const fv = forvantat(BANK.grund, token, 5, BLANDAD)
-  logg('smakprov startat', true, { token, rattPosition: fv.map((f) => bokstav(f.rattVisat)).join('') })
+  // Nya smakprov får meta.bank_version 2 (spec-rummen 15) och drar då ur de valbara.
+  const { data: anonRad } = await admin.from('anon_test_sessions').select('meta').eq('token', token).single()
+  const smakVersion = anonRad?.meta?.bank_version === 2 ? 2 : 1
+  const fv = forvantat(smakVersion === 2 ? BANK_V2.grund : BANK.grund, token, 5, BLANDAD)
+  logg('smakprov startat', true, { token, bankVersion: smakVersion, rattPosition: fv.map((f) => bokstav(f.rattVisat)).join('') })
   const klick = fv.map((f, i) => (i < 3 ? f.rattVisat : (f.rattVisat + 1) % 6))
   for (let i = 0; i < 5; i++) {
     await klickaAlternativ(p, klick[i])
