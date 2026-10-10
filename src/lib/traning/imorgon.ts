@@ -1,10 +1,11 @@
 // src/lib/traning/imorgon.ts
 // =============================================================================
 // "I morgon"-raden efter ett pass (granskningen 3.1 punkt 6, spec 3b.6):
-// - Nästa dag är ett pass: "I morgon: samma familj en nivå upp" när passet
+// - Nästa dag är ett pass: "I morgon: samma familj, ett steg svårare" när passet
 //   gick bra (minst två tredjedelar rätt), annars "I morgon: ny familj".
 // - Nästa dag är vila: veckodagen tar över. "Söndag är vilodag. Måndag: samma
-//   familj en nivå upp." (lördagsexemplet i P4).
+//   familj, ett steg svårare." (lördagsexemplet i P4; steget är STEG_UPP,
+//   en halv nivå, spec 14.7).
 // - Nästa dag är ommätning: veckodagen i stället för "I morgon":
 //   "Tisdag: ommätning, 8 minuter."
 // - Generalrepetition och provdagen: "I morgon: generalrepetition",
@@ -27,7 +28,7 @@ export interface Imorgon {
   text: string;
 }
 
-/** Gick passet bra nog för "samma familj en nivå upp"? */
+/** Gick passet bra nog för "samma familj, ett steg svårare"? */
 export function nastaForPass(ratt: number, antal: number): Nasta {
   return antal > 0 && ratt / antal >= 2 / 3 ? 'familj_upp' : 'ny_familj';
 }

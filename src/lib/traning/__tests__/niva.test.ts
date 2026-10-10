@@ -9,6 +9,7 @@ import {
   OMMATNING_VIKT,
   passUppdatering,
   STARTNIVA_UTAN_MATNING,
+  STEG_UPP,
   PASS_TAK,
   STOD_NIVA,
   type NivaSvar,
@@ -171,5 +172,23 @@ describe('foreslaSikte', () => {
     expect(foreslaSikte(5, null)).toBe(6)
     expect(foreslaSikte(5, 2)).toBe(5.5)
     expect(foreslaSikte(7.2, 30)).toBe(7.5)
+  })
+
+  it('14.7: avrundat till närmaste halva nivå, aldrig under nivå + 0,5', () => {
+    expect(foreslaSikte(5.4, 12)).toBe(6.5)
+    expect(foreslaSikte(5.3, null)).toBe(6.5)
+    expect(foreslaSikte(5.4, 2)).toBe(6)
+    expect(foreslaSikte(5.2, 2)).toBe(5.7)
+    for (const n of [1.2, 3.7, 4.4, 5.1, 6.6]) {
+      for (const d of [null, 0, 3, 9, 14, 40]) {
+        const s = foreslaSikte(n, d)
+        expect(s).toBeGreaterThanOrEqual(Math.min(nivaTak(), avrunda(n + 0.5)))
+        expect(s).toBeLessThanOrEqual(nivaTak())
+      }
+    }
+  })
+
+  it('14.7: steget upp är en halv nivå', () => {
+    expect(STEG_UPP).toBe(0.5)
   })
 })

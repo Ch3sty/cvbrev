@@ -56,7 +56,7 @@ import {
   type MilstolpeNyckel,
   type Nivapunkt,
 } from './milstolpar';
-import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, type NivaSvar } from './niva';
+import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, STEG_UPP, type NivaSvar } from './niva';
 import {
   nastaAdaptivaFraga,
   valjGeneral,
@@ -511,13 +511,13 @@ export async function skapaTraningssession(args: {
         forra,
         svagaste: varDuTappar(familjeunderlag(lage)).svagaste.map((f) => f.family),
       });
-      // "Samma familj en nivå upp": passet riktas en nivå upp när förra
+      // "Samma familj, ett steg svårare": passet riktas STEG_UPP (0,5) upp när förra
       // passet lovade det och temat är detsamma.
       const upp = forra?.nasta === 'familj_upp' && tema && forra.tema === tema;
       const bas_niva = niva ?? STARTNIVA_UTAN_MATNING;
       const urval = valjPass({
         bank: lage.bank,
-        niva: upp ? bas_niva + 1 : bas_niva,
+        niva: upp ? bas_niva + STEG_UPP : bas_niva,
         sedda,
         idag,
         seed,

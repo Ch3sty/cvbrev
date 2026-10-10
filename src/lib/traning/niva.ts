@@ -43,6 +43,12 @@ export const MATNING_ANTAL = 12;
 export const OMMATNING_VIKT = 0.5;
 /** Nivån passen räknas mot innan någon mätning är gjord (spec 14.1 punkt 5). */
 export const STARTNIVA_UTAN_MATNING = 4;
+/**
+ * Steget när passet går "samma familj, ett steg svårare": en halv nivå
+ * (spec 14.7). En hel nivå upp ger väntat 3 av 9 dagen efter en bra dag, en
+ * halv cirka 4 av 9.
+ */
+export const STEG_UPP = 0.5;
 /** Passets steg per fråga, i nivåer per (utfall − väntat). */
 export const PASS_K = 0.1;
 /** Största förflyttning per pass. */
@@ -134,11 +140,15 @@ export function passUppdatering(fore: number, svar: readonly NivaSvar[]): Nivare
 
 /**
  * Föreslaget sikte efter mätningen (M1: "Siktet är vårt förslag"). Byggets
- * förslag, testansvarig äger det: en tiondel per dag till provet, högst 1,5
- * över nivån, utan datum 1,0; aldrig över taket.
- * Exemplet: 5,0 med 18 dagar kvar ger 6,5.
+ * förslag, godkänt av testansvarig (spec 14.7): en tiondel per dag till
+ * provet, 0,5 till 1,5 över nivån, utan datum 1,0. Avrundat till närmaste
+ * halva nivå, aldrig under nivå + 0,5 och aldrig över taket.
+ * Exemplen: 5,0 med 18 dagar ger 6,5; utan datum 6,0; med 2 dagar 5,5;
+ * 7,2 med 30 dagar 7,5; 5,4 med 12 dagar 6,5.
  */
 export function foreslaSikte(niva: number, dagarKvar: number | null): number {
   const tillagg = dagarKvar == null ? 1 : Math.min(1.5, Math.max(0.5, dagarKvar * 0.1));
-  return avrunda(begransa(niva + tillagg));
+  const ra = niva + tillagg;
+  const halv = Math.round(ra * 2) / 2;
+  return avrunda(begransa(Math.max(niva + 0.5, halv)));
 }

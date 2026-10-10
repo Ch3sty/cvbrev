@@ -129,9 +129,9 @@ describe('formordet', () => {
 })
 
 describe('I morgon', () => {
-  it('lördagsexemplet: "Söndag är vilodag. Måndag: samma familj en nivå upp."', () => {
+  it('lördagsexemplet: "Söndag är vilodag. Måndag: samma familj, ett steg svårare."', () => {
     const r = imorgonRad({ idag: '2026-10-10', start: '2026-10-06', prov: PROV, ratt: 7, antal: 9 })
-    expect(r.text).toBe('Söndag är vilodag. Måndag: samma familj en nivå upp.')
+    expect(r.text).toBe('Söndag är vilodag. Måndag: samma familj, ett steg svårare.')
     expect(r.dag).toBe('2026-10-12')
   })
 
@@ -142,7 +142,7 @@ describe('I morgon', () => {
 
   it('vanlig dag, generalrepetition, provet, grundpass', () => {
     expect(imorgonRad({ idag: '2026-10-07', start: '2026-10-06', prov: PROV, ratt: 7, antal: 9 }).text).toBe(
-      'I morgon: samma familj en nivå upp'
+      'I morgon: samma familj, ett steg svårare'
     )
     expect(imorgonRad({ idag: '2026-10-07', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
       'I morgon: ny familj'
@@ -156,7 +156,7 @@ describe('I morgon', () => {
     expect(imorgonRad({ idag: '2026-10-07', start: null, ratt: 4, antal: 9 }).text).toBe('I morgon: nästa grundpass')
   })
 
-  it('två tredjedelar rätt räcker för "samma familj en nivå upp"', () => {
+  it('två tredjedelar rätt räcker för "samma familj, ett steg svårare"', () => {
     expect(nastaForPass(6, 9)).toBe('familj_upp')
     expect(nastaForPass(5, 9)).toBe('ny_familj')
   })

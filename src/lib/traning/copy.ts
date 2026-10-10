@@ -8,7 +8,7 @@ import type { MilstolpeNyckel } from './milstolpar';
 
 export const TRANING_COPY = {
   imorgon: {
-    familjUpp: 'samma familj en nivå upp',
+    familjUpp: 'samma familj, ett steg svårare',
     nyFamilj: 'ny familj',
     pass: 'nästa pass',
     grundpass: 'nästa grundpass',
