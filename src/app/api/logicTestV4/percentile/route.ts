@@ -2,12 +2,18 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { arBlandad } from '@/lib/logicTestV7/blanda';
 
 // GET /api/logicTestV4/percentile?sessionId=<uuid>
 // Svarar med hur stor andel av alla slutförda sessioner (samma test_type)
 // som har lägre poäng än den angivna sessionen. RLS begränsar användare till
 // egna rader, därför räknas jämförelsen med admin-klienten — endast aggregat
 // (antal) lämnar servern, aldrig andra användares data.
+//
+// Bara sessioner med meta.alternativ_blandade jämförs, i täljare och nämnare.
+// Poäng från före blandningen av svarsalternativen är ett tak, inte ett mått
+// (docs/design/spec-rummen-2026-10-10.md 12.4). Filtret går på flaggan, inte
+// på tid. En oblandad session får ingen percentil alls.
 export async function GET(request: Request) {
   try {
     const sessionId = new URL(request.url).searchParams.get('sessionId');
@@ -26,13 +32,17 @@ export async function GET(request: Request) {
     // Ägarkontroll + hämta poäng och test_type via användarens egen klient.
     const { data: session, error: fetchError } = await supabase
       .from('logic_test_v4_sessions')
-      .select('score, test_type, completed_at')
+      .select('*')
       .eq('id', sessionId)
       .eq('user_id', user.id)
       .single();
 
     if (fetchError || !session || !session.completed_at || session.score === null) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
+    }
+
+    if (!arBlandad(session.meta)) {
+      return NextResponse.json({ percentile: null, sampleSize: 0 });
     }
 
     const admin = getSupabaseAdmin();
@@ -43,12 +53,14 @@ export async function GET(request: Request) {
         .from('logic_test_v4_sessions')
         .select('id', { count: 'exact', head: true })
         .eq('test_type', testType)
+        .eq('meta->>alternativ_blandade', 'true')
         .not('completed_at', 'is', null)
         .not('score', 'is', null),
       admin
         .from('logic_test_v4_sessions')
         .select('id', { count: 'exact', head: true })
         .eq('test_type', testType)
+        .eq('meta->>alternativ_blandade', 'true')
         .not('completed_at', 'is', null)
         .lt('score', session.score),
     ]);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { QuestionGridV7 } from '@/components/tests/logicV7/QuestionGridV7';
@@ -15,10 +15,9 @@ import { examLimitMs } from '@/app/dashboard/tester/testConfig';
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { fetchProvSession } from '@/components/tests/prov/provSession';
-import {
-  selectProvQuestionsForSession,
-  PROV_TOTAL_QUESTIONS,
-} from '@/lib/logicTestV7/selectProv.v7';
+import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/konstanter';
+import { visatForSvar } from '@/lib/logicTestV7/blanda';
+import type { VisadFraga } from '@/lib/logicTestV7/layered.v7';
 
 interface Props {
   /** Sessionen som körs. Routen har redan packat upp params. */
@@ -45,11 +44,11 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
 
-  // Prov-urval: blandade frågor från alla nivåer, seedat på sessionId.
-  const questions = useMemo(
-    () => (sessionId ? selectProvQuestionsForSession(sessionId) : []),
-    [sessionId]
-  );
+  // Prov-urval: blandade frågor från alla nivåer, seedat på sessionId. Byggs
+  // på servern och kommer med rehydreringen: alternativen i sessionens visade
+  // ordning (seedad på sessionId + frågans id) och utan facit.
+  const [questions, setQuestions] = useState<VisadFraga[]>([]);
+  const [loadFailed, setLoadFailed] = useState(false);
 
   const question = questions[currentQuestion];
   const answeredQuestions = new Set(
@@ -63,7 +62,7 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
   // started_at plockas upp här, eftersom provet nu har en hård tidsgräns och
   // klockan måste räknas från serverns tid, inte från när fliken öppnades.
   useEffect(() => {
-    if (!sessionId || questions.length === 0) return;
+    if (!sessionId) return;
     let cancelled = false;
 
     const hydrate = async () => {
@@ -75,16 +74,22 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
         router.replace(`/dashboard/tester/matrislogik-prov/test/${sessionId}/results`);
         return;
       }
-      if (session && session.answers.length > 0) {
-        const saved = session.answers as Array<{ q_id?: string; selected?: number }>;
-        const restored = questions.map((q) => {
-          const hit = saved.find((a) => a && a.q_id === q.id);
-          return hit && typeof hit.selected === 'number' ? hit.selected : null;
-        });
+      const fragor = (session?.fragor ?? []) as VisadFraga[];
+      if (!session || fragor.length === 0) {
+        // Utan frågor finns inget prov att visa. Erbjud omförsök.
+        setLoadFailed(true);
+        return;
+      }
+      setQuestions(fragor);
+      setAnswers(Array(fragor.length).fill(null));
+      if (session.answers.length > 0) {
+        const saved = session.answers as Array<{ q_id?: string; selected?: number; visat?: number }>;
+        // Svaren hålls i visat index i vyn; gamla svar saknar visat (= selected).
+        const restored = fragor.map((q) => visatForSvar(saved.find((a) => a && a.q_id === q.id)));
         setAnswers(restored);
         const firstUnanswered = restored.findIndex((a) => a === null);
         setCurrentQuestion(
-          firstUnanswered === -1 ? Math.max(questions.length - 1, 0) : firstUnanswered
+          firstUnanswered === -1 ? Math.max(fragor.length - 1, 0) : firstUnanswered
         );
       }
       if (session?.started_at) setStartedAt(session.started_at);
@@ -242,9 +247,29 @@ export default function MatrisProvSession({ sessionId: sessionIdProp }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion, question, handleSelectAnswer]);
 
+  if (loadFailed) {
+    return (
+      <div className="mx-auto w-full max-w-3xl px-4 py-6">
+        <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <h2 className="text-kort text-ink-1">Provet gick inte att ladda</h2>
+          <p className="mt-2 text-sm leading-[22px] text-ink-2">
+            Dina sparade svar finns kvar. Kontrollera uppkopplingen och ladda om sidan.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          >
+            Ladda om
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   // Laddindikator tills rehydreringen är klar, så användaren inte hinner
   // svara innan tidigare svar förifyllts.
-  if (!sessionId || isHydrating) {
+  if (!sessionId || isHydrating || !question) {
     return (
       <div className="mx-auto w-full max-w-3xl px-4 py-6">
         <LoadingSkeleton variant="card" label="Provet laddas" />

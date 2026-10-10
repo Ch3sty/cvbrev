@@ -3,33 +3,26 @@
 /**
  * Genomgången fråga för fråga i matrislogik och logikprovet.
  *
- * Ersätter tre resultatsidor som var samma kod med olika kategorinamn. Vilket
- * frågeurval och vilken kategoriindelning som gäller kommer ur slugen.
+ * Ersätter tre resultatsidor som var samma kod med olika kategorinamn.
+ * Kategoriindelningen kommer ur slugen. Frågorna kommer färdiga från servern
+ * (fragor.server.ts): samma urval och samma visade ordning som i testet, plus
+ * var rätt svar stod. Bokstaven och rutan hon ser här är dem hon såg i testet.
  */
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import {
-  selectQuestionsForSession,
-  selectAvanceradQuestionsForSession,
-  selectExpertQuestionsForSession,
-} from '@/lib/logicTestV7/selectQuestions.v7'
-import { selectProvQuestionsForSession } from '@/lib/logicTestV7/selectProv.v7'
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
-import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7'
+import type { GenomgangsFraga, LayeredCell } from '@/lib/logicTestV7/layered.v7'
+import { visatForSvar } from '@/lib/logicTestV7/blanda'
 
 export interface MatrixSavedAnswer {
   q_id: string
+  /** Originalindex i banken. */
   selected: number
+  /** Visat index. Saknas i sessioner från före blandningen (då = selected). */
+  visat?: number
   correct: boolean
   time_spent: number
-}
-
-const SELECTORS: Record<string, (id: string) => LayeredQuestion[]> = {
-  'matrislogik-grund': selectQuestionsForSession,
-  'matrislogik-avancerad': selectAvanceradQuestionsForSession,
-  'matrislogik-expert': selectExpertQuestionsForSession,
-  'matrislogik-prov': selectProvQuestionsForSession,
 }
 
 /** Avancerad har namngivna kategorier per fråga, övriga härleds ur id:t. */
@@ -70,27 +63,26 @@ function formatShort(seconds: number): string {
 
 export default function MatrixQuestionReview({
   slug,
-  sessionId,
   answers,
   fragor,
   utanTid = false,
   allaOppna = false,
 }: {
   slug: string
-  sessionId: string
   answers: MatrixSavedAnswer[]
   /**
-   * Frågorna, när urvalet inte följer slugen. Logiktestprovet utan konto har
-   * fem frågor seedade på sin token (src/lib/tests/prov-rad.ts).
+   * Frågorna i visad ordning med var rätt svar stod, byggda på servern.
+   * Logiktestprovet utan konto har fem frågor seedade på sin token
+   * (src/lib/tests/prov-rad.ts).
    */
-  fragor?: LayeredQuestion[]
+  fragor: GenomgangsFraga[]
   /** Utan tidsraden: provet utan konto mätte ingen tid per fråga. */
   utanTid?: boolean
   /** Alla förklaringar öppna från start, för en kort genomgång. */
   allaOppna?: boolean
 }) {
   const [oppna, setOppna] = useState<ReadonlySet<number>>(() =>
-    allaOppna && fragor ? new Set(fragor.map((_, i) => i)) : new Set()
+    allaOppna ? new Set(fragor.map((_, i) => i)) : new Set()
   )
   const vaxla = (i: number) =>
     setOppna((fore) => {
@@ -100,12 +92,9 @@ export default function MatrixQuestionReview({
       return nya
     })
 
-  // Samma seedade urval som testvyn gav, alltså exakt hennes frågor.
-  const questions = useMemo(() => {
-    if (fragor) return fragor
-    const select = SELECTORS[slug]
-    return select ? select(sessionId) : []
-  }, [fragor, slug, sessionId])
+  // Samma urval och samma visade ordning som testvyn gav, alltså exakt
+  // hennes frågor.
+  const questions = fragor
 
   // Sessioner från en äldre frågebank matchar inte dagens urval. Då finns
   // ingen genomgång att visa, och vi säger det i stället för att visa fel.
@@ -171,6 +160,8 @@ export default function MatrixQuestionReview({
         <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
           {questions.map((q, i) => {
             const answer = answers.find((a) => a.q_id === q.id)
+            // Positionen hon klickade på i testet. Gamla svar saknar visat.
+            const valtVisat = visatForSvar(answer)
             const isOpen = oppna.has(i)
 
             return (
@@ -222,16 +213,16 @@ export default function MatrixQuestionReview({
                       {q.rule}
                     </p>
                     <div className="grid grid-cols-2 gap-3">
-                      {answer && !answer.correct ? (
+                      {answer && !answer.correct && valtVisat !== null && q.options[valtVisat] ? (
                         <ReviewCell
-                          label={`Ditt svar (${String.fromCharCode(65 + answer.selected)})`}
-                          cell={q.options[answer.selected]}
+                          label={`Ditt svar (${String.fromCharCode(65 + valtVisat)})`}
+                          cell={q.options[valtVisat]}
                           wrong
                         />
                       ) : null}
                       <ReviewCell
-                        label={`Rätt svar (${String.fromCharCode(65 + q.correctAnswer)})`}
-                        cell={q.options[q.correctAnswer]}
+                        label={`Rätt svar (${String.fromCharCode(65 + q.rattVisat)})`}
+                        cell={q.options[q.rattVisat]}
                       />
                     </div>
                   </div>

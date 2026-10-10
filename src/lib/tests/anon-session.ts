@@ -6,11 +6,17 @@
  * det inloggade grundtestet. Vi lagrar aldrig facit eller förklaringar i
  * klienten: rättningen sker på servern och de låsta delarna lämnar den inte
  * förrän någon registrerat sig.
+ *
+ * Alternativen blandas som i de inloggade testen (src/lib/logicTestV7/blanda.ts),
+ * seedat på token + frågans id, för sessioner med meta.alternativ_blandade.
+ * Klienten skickar visade positioner; servern räknar om till originalindex,
+ * som lagras i answers och rättas mot facit.
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { selectQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7'
 import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7'
+import { permutationForSession, tillOriginal } from '@/lib/logicTestV7/blanda'
 
 /** Fem frågor i provet, enligt planen. */
 export const ANON_QUESTION_COUNT = 5
@@ -24,15 +30,40 @@ export interface PublicQuestion {
   options: LayeredCell[]
 }
 
-/** Plockar bort facit innan frågan skickas till webbläsaren. */
-export function toPublicQuestion(q: LayeredQuestion): PublicQuestion {
+/**
+ * Plockar bort facit innan frågan skickas till webbläsaren, och lägger
+ * alternativen i den ordning provet visar dem.
+ */
+export function toPublicQuestion(
+  q: LayeredQuestion,
+  token: string,
+  blandade: boolean
+): PublicQuestion {
+  const perm = permutationForSession(token, q, blandade)
   return {
     id: q.id,
     title: q.title,
     rule: q.rule,
     grid: q.grid,
-    options: q.options,
+    options: perm.map((orig) => q.options[orig]),
   }
+}
+
+/**
+ * Visade positioner från klienten till originalindex. Allt som inte är ett
+ * giltigt alternativ blir -1 (obesvarad).
+ */
+export function tillOriginalSvar(
+  questions: LayeredQuestion[],
+  token: string,
+  blandade: boolean,
+  visade: unknown[]
+): number[] {
+  return questions.map((q, i) => {
+    const v = visade[i]
+    if (typeof v !== 'number' || !Number.isInteger(v)) return -1
+    return tillOriginal(permutationForSession(token, q, blandade), v)
+  })
 }
 
 /** Fem frågor ur grundpoolen, seedade på sessionstoken. */
@@ -63,6 +94,8 @@ export interface AnonSessionRow {
   claimed_by: string | null
   /** Null när provet är hämtat till ett konto (src/lib/tests/prov-rad.ts). */
   expires_at: string | null
+  /** meta.alternativ_blandade. Saknas på rader från före blandningen. */
+  meta?: unknown
 }
 
 /** Hämtar en session om den finns och inte gått ut. */
@@ -72,7 +105,9 @@ export async function getAnonSession(
 ): Promise<AnonSessionRow | null> {
   const { data, error } = await admin
     .from('anon_test_sessions')
-    .select('token, questions, answers, score, claimed_by, expires_at')
+    // '*' så att raden går att läsa både före och efter migreringen som
+    // lägger till meta.
+    .select('*')
     .eq('token', token)
     .maybeSingle()
 

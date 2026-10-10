@@ -28,7 +28,19 @@ export type LayeredQuestion = {
   correctAnswer: number;
 };
 
-export const isStack = (cell: LayeredCell): cell is V7Cell[] => Array.isArray(cell);
+/**
+ * Frågan så som den visas i testet: alternativen i den ordning hon ser dem,
+ * och utan facit. Byggs på servern (fragor.server.ts).
+ */
+export type VisadFraga = Omit<LayeredQuestion, 'correctAnswer'>;
+
+/**
+ * Frågan i genomgången efter avslutat test: samma visade ordning som i
+ * testet, plus var rätt svar stod (visat index).
+ */
+export type GenomgangsFraga = VisadFraga & { rattVisat: number };
+
+export const isStack =(cell: LayeredCell): cell is V7Cell[] => Array.isArray(cell);
 
 // Ritar en layered cell: en eller flera primitiver staplade i samma SVG-rymd.
 export const SvgLayeredCell: React.FC<{ cell: LayeredCell }> = ({ cell }) => {

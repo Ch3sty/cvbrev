@@ -4,6 +4,7 @@
 
 import { getAllPassages } from './validator';
 import type { Passage } from './types';
+import { blandaPassagernasAlternativ } from '@/lib/numericalTest/blandaAlternativ';
 
 export const PASSAGES_PER_SESSION = 8;
 export const QUESTIONS_PER_PASSAGE = 4;
@@ -38,5 +39,10 @@ export function selectPassagesForSession(
     const j = Math.floor(rng() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffled.slice(0, Math.min(count, shuffled.length));
+  // Alternativen blandas per session och fråga; svaren lagras som id, så
+  // rättningen påverkas inte (src/lib/numericalTest/blandaAlternativ.ts).
+  return blandaPassagernasAlternativ(
+    shuffled.slice(0, Math.min(count, shuffled.length)),
+    sessionId
+  );
 }
