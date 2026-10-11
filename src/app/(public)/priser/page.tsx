@@ -27,7 +27,7 @@ import PriserFAQ from './components/PriserFAQ'
 import PriserMatning from './components/PriserMatning'
 import { faqSchema, prisSchema } from './components/priser-schema'
 
-// Samma dygn som resten av (public). Sidan har ingen besökarspecifik data:
+// Samma 24 timmar som resten av (public). Sidan har ingen besökarspecifik data:
 // inloggningen läses i klienten, så CDN:et får behålla svaret.
 export const revalidate = 86400
 

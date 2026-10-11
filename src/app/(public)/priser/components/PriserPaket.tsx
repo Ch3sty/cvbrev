@@ -38,7 +38,7 @@ export default function PriserPaket() {
                   strokeWidth="1.75"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="mt-0.5 shrink-0 text-accent-ink"
+                  className="mt-0.5 shrink-0 text-ink-1"
                   aria-hidden="true"
                 >
                   <path d="M4 10.5l4 4 8-9" />

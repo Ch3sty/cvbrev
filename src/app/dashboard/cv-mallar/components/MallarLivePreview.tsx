@@ -464,7 +464,7 @@ function GenerateButton({
         onClick={onUpgrade}
         className={KNAPP_PRIMAR}
       >
-        {`Ladda ned med ${paketKort()}`}
+        {`Ladda ner med ${paketKort()}`}
       </button>
     );
   }

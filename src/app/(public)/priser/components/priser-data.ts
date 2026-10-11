@@ -20,6 +20,8 @@ export const PREMIUM_CURRENCY = 'SEK'
 
 const PREMIUM = paketKort()
 const PRIS = prisPeriod(SALD_PLAN)
+/** "Jobbcoach Premium", ur PLANS. */
+const HELA = paketNamn(SALD_PLAN)
 
 // === Gratisnivån ===
 
@@ -30,11 +32,11 @@ export const FREE_HIGHLIGHTS = [
   'Ett personligt brev att läsa, sedan ett i veckan',
   'Tre matchade jobb',
   'Tio frågor till Jobbcoachen',
-  'Grundnivån i alla fyra testtyperna, en gång per typ och dygn',
+  'En nivåmätning i testerna med genomgång, och ett första träningspass',
 ] as const
 
 /** Gratisnivån i en mening, för startsidan. */
-export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och grundnivån i testerna ingår utan att betala.`
+export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och en nivåmätning i testerna ingår utan att betala.`
 
 // === Jämförelsetabellen ===
 
@@ -111,10 +113,10 @@ export const COMPARISON: ComparisonGroup[] = [
     title: 'Rekryteringstester',
     rows: [
       {
-        label: 'Grundnivå',
+        label: 'Nivåmätning och första passet',
         sub: 'matrislogik, verbalt, numeriskt, personlighet',
-        free: g('1 per typ och dygn'),
-        premium: ja('Utan tak'),
+        free: g('En gång, med genomgång'),
+        premium: ja('Pass varje dag, utan tak'),
       },
       {
         label: 'Avancerad och expertnivå',
@@ -129,7 +131,7 @@ export const COMPARISON: ComparisonGroup[] = [
       },
       {
         label: 'Förklaring efter varje fråga',
-        free: g('Grundnivå'),
+        free: g('Det du har gjort'),
         premium: ja('Alla nivåer'),
       },
       {
@@ -137,6 +139,11 @@ export const COMPARISON: ComparisonGroup[] = [
         sub: 'alla sessioner i en kurva',
         free: g('Senaste sessionen'),
         premium: ja('Hela historiken'),
+      },
+      {
+        label: 'Riktade pass och generalrepetition',
+        free: NEJ,
+        premium: ja('Ingår'),
       },
     ],
   },
@@ -175,18 +182,20 @@ export const PRISER_FAQ_RUBRIK = 'Fler frågor om priset?'
 export const PRISER_FAQ_ITEMS = [
   {
     id: 'vad-ingar',
-    q: `Vad ingår i ${PREMIUM}?`,
+    // Fulla namnet: frågan blir FAQPage-schema och visas fristående i
+    // Google, där "Premium" utan varumärke är vem som helst (copy-vag5 6.1).
+    q: `Vad ingår i ${HELA}?`,
     a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med provläget och personlighetstestet, jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. ${PRIS}, och inget av det kostar extra.`,
   },
   {
     id: 'nar-manaden-ar-slut',
     q: 'Vad händer när månaden är slut?',
-    a: 'Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.',
+    a: 'Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen förnyelse i smyg.',
   },
   {
     id: 'borja-gratis',
     q: 'Kan jag börja gratis?',
-    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och testerna fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
+    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och testernas nivåmätning fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
   },
   {
     id: 'saga-upp',
@@ -196,8 +205,6 @@ export const PRISER_FAQ_ITEMS = [
 ] as const
 
 // === Metadata ===
-
-const HELA = paketNamn(SALD_PLAN)
 
 /**
  * title, description, openGraph, twitter och OG-bilden (copy-premium

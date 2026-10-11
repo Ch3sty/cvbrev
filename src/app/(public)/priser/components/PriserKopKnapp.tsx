@@ -6,7 +6,7 @@
  * Utloggad går till registreringen med Premium i adressen, inloggad direkt
  * till köpsteget med platsen "priser", så att köpet kan räknas per yta i
  * subscription_paid. Inloggningen läses i klienten och aldrig på servern,
- * eftersom sidan är CDN-cachad ett dygn (reference_vercel_env_saknas).
+ * eftersom sidan är CDN-cachad i 24 timmar (reference_vercel_env_saknas).
  * Knappen ser likadan ut i båda lägena, bara destinationen skiljer, så
  * ingenting flyttar sig (CLS 0).
  *
