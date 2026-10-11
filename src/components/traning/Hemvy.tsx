@@ -283,7 +283,7 @@ export default function Hemvy({ m }: { m: HemModell }) {
               <h1 className="mt-6 text-ey text-vagg-mjuk lg:mt-4">{v.provdag.eyebrow}</h1>
               <p className="mt-1.5 text-tal-stor text-vagg-ink">
                 {v.provdag.dag}
-                <span className="font-bold text-vagg-mjuk">{v.provdag.manadRest}</span>
+                <span className="font-display font-bold text-vagg-mjuk">{v.provdag.manadRest}</span>
               </p>
             </div>
             <p className="mt-3.5 max-w-[40ch] text-[15px] leading-[22px] text-vagg-mjuk">{v.provdag.text}</p>

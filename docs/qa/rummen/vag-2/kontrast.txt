@@ -1,0 +1,5 @@
+Par: 36 i ljust, 35 i mörkt, fem rum.
+Textpar kontrollerade: 240. Lägsta: koppar-text på koppar-djup i Träningen = 4,5:1.
+Admin: petrol 7,3:1, indigo 8,4:1 mot panelen, ΔE petrol/indigo 52,6 (deuteranopi 36,1).
+
+Inga avvikelser.
