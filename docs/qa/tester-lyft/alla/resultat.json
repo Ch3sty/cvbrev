@@ -1,0 +1,2246 @@
+[
+  {
+    "vy": "ny-m360-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "ny-m360-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "ny-pixel7-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "ny-pixel7-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 609,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 1,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "ny-desktop-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 602,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 602,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "ny-desktop-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 602,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": true,
+        "scen": true,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 602,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 0,
+          "ny": 3,
+          "last": 9
+        },
+        "segmentHojd": 86,
+        "gjordTitle": [],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 1,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-m360-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 539,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 539,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-m360-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 539,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 539,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-pixel7-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-pixel7-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-desktop-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 411,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 411,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "nagra-desktop-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 411,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "04-last-segment",
+        "betalvagg": true
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 411,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 2,
+          "ny": 1,
+          "last": 9
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "30 av 60, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-m360-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-m360-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": false,
+        "lyftKnappBotten": 3,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 294,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 518,
+        "synligHojd": 612,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-pixel7-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 497,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 497,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-pixel7-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 497,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 90,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 346,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 497,
+        "synligHojd": 787,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 2,
+        "oppnaRader": 0,
+        "panel": 0,
+        "bild": [
+          200,
+          96
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-desktop-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 390,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(235, 237, 246)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 390,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(235, 237, 246)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "premium-desktop-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-vyn",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 390,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03-popover",
+        "horisontellScroll": false,
+        "toppradSynlig": false,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 332,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 320,
+        "tema": "rgb(14, 17, 32)"
+      },
+      {
+        "steg": "03b-esc",
+        "popoverStangd": true,
+        "fokus": "Vad mäter logiktestet?"
+      },
+      {
+        "steg": "05-din-utveckling",
+        "testkortKvar": 0,
+        "horisontellScroll": false
+      },
+      {
+        "steg": "05b-tillbaka",
+        "testkort": 4
+      },
+      {
+        "steg": "06-omladdning",
+        "horisontellScroll": false,
+        "toppradSynlig": true,
+        "saGarDetTill": false,
+        "scen": false,
+        "lyft": true,
+        "lyftKnappIBild": true,
+        "lyftKnappBotten": 390,
+        "synligHojd": 900,
+        "testkort": 4,
+        "segment": {
+          "gjord": 4,
+          "ny": 8,
+          "last": 0
+        },
+        "segmentHojd": 80,
+        "gjordTitle": [
+          "14 av 15, 2 försök",
+          "12 av 15, 1 försök",
+          "36 av 60, 1 försök",
+          "20 av 32, 1 försök"
+        ],
+        "talILoptext": false,
+        "fakta": 4,
+        "iKnappar": 4,
+        "hjalprader": 3,
+        "oppnaRader": 0,
+        "panel": 320,
+        "bild": [
+          160,
+          120
+        ],
+        "popover": 0,
+        "tema": "rgb(14, 17, 32)"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  }
+]

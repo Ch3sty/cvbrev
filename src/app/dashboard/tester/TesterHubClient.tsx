@@ -153,7 +153,7 @@ export default function TesterHubClient({
           <Golv lyft={!!nasta}>
             <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-x-6">
               <div className="flex min-w-0 flex-col gap-4">
-                {nasta ? <NastaTestKort nasta={nasta} /> : null}
+                {nasta ? <NastaTestKort nasta={nasta} bildPaMobil={!steg} /> : null}
 
                 <div className="lg:max-w-[420px]">{flikar}</div>
 
