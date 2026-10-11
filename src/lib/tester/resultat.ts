@@ -8,7 +8,10 @@
  * - missarna (fel och obesvarade), som genomgången visar som små provblad
  * - "Var du tappade": grupper (familj, svarstyp, uppgiftstyp) med minst två
  *   frågor i sessionen, svagast först
- * - tempot mot provets tid per fråga, när svaren har tid per fråga
+ * - tempot mot provets tid, när svaren har tid per fråga. Hänger flera
+ *   påståenden eller frågor på samma underlag (verbalt grund och avancerad,
+ *   numeriskt, verbala provet) räknas tempot per underlag: lästiden hör till
+ *   texten, inte till första påståendet (testansvarig 2026-10-11, punkt 2)
  *
  * Gamla sessioner (answers som objekt, före blandningen, utan meta, ur en
  * äldre frågebank) ger en tom lista. Sidan visar då poängen och tiden, och
@@ -30,6 +33,24 @@ export interface ResultatFraga {
   text?: string | null
   /** Underlagets ämne, till exempel "Försäljningsanalys". */
   kalla?: string | null
+  /** Underlagets id (texten eller tabellen) när frågan hänger på ett. */
+  underlagId?: string | null
+}
+
+/** En stapel i tempot: en fråga, eller ett underlag med alla sina frågor. */
+export interface TempoStapel {
+  /** Ettbaserat ordningstal (frågans eller underlagets). */
+  nr: number
+  /** Sekunder, summan för ett underlag. null när inget mättes. */
+  tid: number | null
+  /** Rätt bara när alla frågor i underlaget är rätt. */
+  utfall: Utfall
+  /** Provets tid för stapeln: tid per fråga gånger antal frågor. */
+  budget: number
+  /** Antal frågor eller påståenden i stapeln. */
+  antal: number
+  /** Antal rätt av dem. */
+  ratt: number
 }
 
 export interface Grupp {
@@ -39,16 +60,20 @@ export interface Grupp {
 }
 
 export interface Tempo {
-  /** Provets tid per fråga i sekunder. */
+  /** Vad staplarna är: frågor (matris, verbalt expert) eller underlag. */
+  enhet: 'fraga' | 'underlag'
+  /** Provets tid per fråga, eller per underlag av vanlig storlek, i sekunder. */
   budget: number
-  /** Antal frågor med mätt tid över budgeten. */
+  /** Antal enheter med mätt tid över sin budget. */
   over: number
-  /** Antal frågor med mätt tid. */
+  /** Antal enheter med mätt tid. */
   matta: number
-  /** Snittid per mätt fråga, hela sekunder. */
+  /** Snittid per mätt enhet, hela sekunder. */
   snitt: number
-  /** Den långsammaste frågan som blev rätt och gick över budgeten. */
-  langsammastRatt: { nr: number; tid: number } | null
+  /** Den långsammaste enheten som blev rätt och gick över budgeten. */
+  langsammastRatt: { nr: number; tid: number; antal: number } | null
+  /** Staplarna i visad ordning. */
+  staplar: TempoStapel[]
 }
 
 export interface ResultatAnalys {
@@ -71,6 +96,44 @@ export function budgetPerFraga(minuter: number, antal: number): number {
   return Math.round((minuter * 60) / antal)
 }
 
+/**
+ * "Sitter" (testansvarig 2026-10-11, punkt 3): 85 procent, högst två missar
+ * på de korta testen. Samma tal i Din utveckling (Nivåerna) och i
+ * resultatsidans statusrad.
+ */
+export const SITTER_PROCENT = 85
+
+/** Medianen av de upp till tre senaste värdena, null utan värden. */
+export function medianSenaste(varden: readonly number[], antal = 3): number | null {
+  const v = varden.slice(-antal).slice().sort((a, b) => a - b)
+  if (v.length === 0) return null
+  const m = Math.floor(v.length / 2)
+  return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2
+}
+
+/**
+ * Slår ihop frågor på samma underlag till en stapel. Tiden är summan av
+ * de mätta tiderna (null om ingen mättes), utfallet rätt bara när alla är
+ * rätt. Frågor utan underlag blir en stapel var.
+ */
+export function perUnderlag(fragor: readonly ResultatFraga[], budgetPerFraga: number): TempoStapel[] {
+  const ut: (TempoStapel & { nyckel: string })[] = []
+  for (const f of fragor) {
+    const nyckel = f.underlagId ?? `fraga:${f.id}`
+    let st = ut.find((x) => x.nyckel === nyckel)
+    if (!st) {
+      st = { nyckel, nr: ut.length + 1, tid: null, utfall: 'ratt', budget: 0, antal: 0, ratt: 0 }
+      ut.push(st)
+    }
+    st.antal += 1
+    st.budget = budgetPerFraga * st.antal
+    if (f.utfall === 'ratt') st.ratt += 1
+    else st.utfall = 'fel'
+    if (typeof f.tid === 'number' && f.tid > 0) st.tid = (st.tid ?? 0) + f.tid
+  }
+  return ut.map(({ nyckel: _n, ...st }) => st)
+}
+
 export function analysera(fragor: ResultatFraga[], budget: number): ResultatAnalys {
   const missar = fragor.filter((f) => f.utfall !== 'ratt').map((f) => f.nr)
 
@@ -88,19 +151,38 @@ export function analysera(fragor: ResultatFraga[], budget: number): ResultatAnal
     .sort((a, b) => a.ratt / a.totalt - b.ratt / b.totalt || b.totalt - a.totalt || a.namn.localeCompare(b.namn, 'sv'))
   const svagast = grupper.length > 0 && grupper[0].ratt < grupper[0].totalt ? grupper[0] : null
 
-  const matta = fragor.filter((f) => typeof f.tid === 'number' && f.tid > 0)
+  // Per underlag när minst ett underlag bär flera frågor, annars per fråga.
+  const underlag = perUnderlag(fragor, budget)
+  const enhet: Tempo['enhet'] = underlag.length < fragor.length ? 'underlag' : 'fraga'
+  const staplar: TempoStapel[] =
+    enhet === 'underlag'
+      ? underlag
+      : fragor.map((f) => ({
+          nr: f.nr,
+          tid: typeof f.tid === 'number' && f.tid > 0 ? f.tid : null,
+          utfall: f.utfall,
+          budget,
+          antal: 1,
+          ratt: f.utfall === 'ratt' ? 1 : 0,
+        }))
+  const matta = staplar.filter((st) => typeof st.tid === 'number' && st.tid > 0)
   let tempo: Tempo | null = null
-  if (budget > 0 && matta.length > 0 && matta.length >= Math.ceil(fragor.length / 2)) {
-    const over = matta.filter((f) => (f.tid as number) > budget)
+  if (budget > 0 && matta.length > 0 && matta.length >= Math.ceil(staplar.length / 2)) {
+    const over = matta.filter((st) => (st.tid as number) > st.budget)
     const langsamRatt = over
-      .filter((f) => f.utfall === 'ratt')
+      .filter((st) => st.utfall === 'ratt')
       .sort((a, b) => (b.tid as number) - (a.tid as number))[0]
+    // Rubrikens budget: underlagets vanligaste storlek.
+    const storlekar = staplar.map((st) => st.antal)
+    const vanligast = storlekar.sort((a, b) => storlekar.filter((x) => x === b).length - storlekar.filter((x) => x === a).length)[0] ?? 1
     tempo = {
-      budget,
+      enhet,
+      budget: budget * vanligast,
       over: over.length,
       matta: matta.length,
-      snitt: Math.round(matta.reduce((s, f) => s + (f.tid as number), 0) / matta.length),
-      langsammastRatt: langsamRatt ? { nr: langsamRatt.nr, tid: langsamRatt.tid as number } : null,
+      snitt: Math.round(matta.reduce((s, st) => s + (st.tid as number), 0) / matta.length),
+      langsammastRatt: langsamRatt ? { nr: langsamRatt.nr, tid: langsamRatt.tid as number, antal: langsamRatt.antal } : null,
+      staplar,
     }
   }
 
@@ -189,6 +271,7 @@ export function fragorUnderlag(passages: PassageLik[], answers: unknown, grupper
           grupp: gruppera === 'svarstyp' ? SVARSTYP[st.correctAnswer] ?? null : null,
           text: st.text,
           kalla: p.topic ?? p.title ?? null,
+          underlagId: p.id,
         })
       })
     } else if (Array.isArray(p.questions)) {
@@ -203,6 +286,7 @@ export function fragorUnderlag(passages: PassageLik[], answers: unknown, grupper
           grupp: gruppera === 'uppgiftstyp' ? UPPGIFTSTYP[p.type ?? ''] ?? null : null,
           text: q.questionText,
           kalla: p.topic ?? p.title ?? null,
+          underlagId: p.id,
         })
       }
     }

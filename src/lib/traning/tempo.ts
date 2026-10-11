@@ -91,7 +91,8 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     budget_s: 60,
     adaptiv: true,
     cirka: true,
-    verifierad: false,
+    // Tiden verifierad av testansvarig 2026-10-11 (leverantörens hjälpcenter eller samstämmig tredjepart).
+    verifierad: true,
     kalla: 'tredjepart',
     tidsform: 'total',
     anmarkning: null,
@@ -105,8 +106,9 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     minuter: 40,
     budget_s: 120,
     adaptiv: true,
-    cirka: true,
-    verifierad: false,
+    cirka: false,
+    // Tiden verifierad av testansvarig 2026-10-11 (leverantörens hjälpcenter eller samstämmig tredjepart).
+    verifierad: true,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
     tidsform: 'per_uppgift',
     anmarkning: null,
@@ -119,7 +121,8 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     // Provläget övar figurdelen: 18 uppgifter på 25 minuter.
     antal: 18,
     minuter: 25,
-    budget_s: 90,
+    // 83, som antal och minuter säger (testansvarig 2026-10-11, punkt 6).
+    budget_s: budget(25, 18),
     adaptiv: false,
     cirka: true,
     verifierad: false,
@@ -135,8 +138,9 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     minuter: 5,
     budget_s: budget(5, 20), // 15
     adaptiv: false,
-    cirka: true,
-    verifierad: false,
+    cirka: false,
+    // Tiden verifierad av testansvarig 2026-10-11 (leverantörens hjälpcenter eller samstämmig tredjepart).
+    verifierad: true,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
     tidsform: 'total',
     anmarkning: TRANING_COPY.format.anmarkning.aon,

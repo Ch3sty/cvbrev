@@ -48,14 +48,16 @@ describe('hjalp-copy', () => {
   })
 
   it('markerar exakt de rutor som ska verifieras och visar dem inte', () => {
+    // Testansvarig verifierade A4, B3, B5 och C3 den 2026-10-11: inga flaggor kvar.
     const verifiera = ALLA.filter((id) => HJALP_RUTOR[id].verifiera)
-    expect(verifiera).toEqual(['A4', 'B3', 'B5', 'C3'])
+    expect(verifiera).toEqual([])
     for (const id of verifiera) {
       expect(HJALP_RUTOR[id].verifieraNot).toBeTruthy()
       expect(hjalpRuta(id)).toBeNull()
     }
     expect(hjalpRuta('B1')?.rubrik).toBe('Logiktest: vad är en matris?')
-    expect(synligaRutor(['A1', 'A4', 'A5']).map((r) => r.id)).toEqual(['A1', 'A5'])
+    expect(synligaRutor(['A1', 'A4', 'A5']).map((r) => r.id)).toEqual(['A1', 'A4', 'A5'])
+    expect(hjalpRuta('B3')?.text).toContain('Alva och Assessio har inget verbalt test')
   })
 })
 

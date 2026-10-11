@@ -11,18 +11,27 @@ import type { PerTestStats } from '@/app/dashboard/tester/getHubData'
 import { KLASSISKA, type KlassisktTest } from './katalog'
 import { UTV } from './copy'
 import { Eyebrow, UKort } from './delar'
+import { SITTER_PROCENT, medianSenaste } from '@/lib/tester/resultat'
 
 const N = UTV.nivaer
-/** Bästa procent från vilken en nivå "sitter". Copy, inte data: testansvarig godkänner gränsen. */
-const SITTER = 85
+
+/**
+ * Underlaget för "sitter" (testansvarig 2026-10-11, punkt 3): medianen av
+ * de upp till tre senaste försöken på nivån, inte bästa försöket. Ett enda
+ * bra försök bland tjugo sitter inte; en dålig dag raderar inte en bra
+ * vecka. Utan historik (gratis) blir det senaste försöket.
+ */
+export function sitterUnderlag(s: PerTestStats): number {
+  return medianSenaste((s.history ?? []).map((h) => h.percentage)) ?? s.bestPercentage
+}
 
 export function nivaRubrik(brickor: { t: KlassisktTest; s: PerTestStats }[]): string {
   // Rubriken talar om en testtyp i taget: logiken om den är gjord, annars den första gjorda.
   const allaGjorda = brickor.filter((b) => (b.s?.attempts ?? 0) > 0)
   const typ = allaGjorda.find((b) => b.t.typ === 'logik')?.t.typ ?? allaGjorda[0]?.t.typ
   const gjorda = allaGjorda.filter((b) => b.t.typ === typ)
-  const sitter = [...gjorda].reverse().find((b) => b.s.bestPercentage >= SITTER)
-  const satter = gjorda.find((b) => b.s.bestPercentage < SITTER && (!sitter || KLASSISKA.indexOf(b.t) > KLASSISKA.indexOf(sitter.t)))
+  const sitter = [...gjorda].reverse().find((b) => sitterUnderlag(b.s) >= SITTER_PROCENT)
+  const satter = gjorda.find((b) => sitterUnderlag(b.s) < SITTER_PROCENT && (!sitter || KLASSISKA.indexOf(b.t) > KLASSISKA.indexOf(sitter.t)))
   if (sitter && satter) return `${N.sitter(sitter.t.niva)} ${N.satter(satter.t.niva)}`
   if (sitter) return N.sitter(sitter.t.niva)
   return N.borjan

@@ -8,6 +8,7 @@
  */
 
 import type { TestKind, TestLevel } from '@/app/dashboard/tester/testConfig'
+import { paketKort } from '@/lib/plans/plans'
 import { ordTal, versal } from './resultat'
 
 /** Testets fråga på lyftkortet, samma som testkorten på Alla tester. */
@@ -18,6 +19,18 @@ export const TESTETS_FRAGA: Record<Exclude<TestKind, 'personlighet'>, string> = 
 }
 
 export const PROVETS_FRAGA = 'Som på riktigt, mot klockan.'
+
+/**
+ * Väggens rad på testsidan: formatet per testtyp (art-director 2026-10-11,
+ * beslut 4). Bara de leverantörer som hjälptexterna B2, B3 och B5 stöder
+ * efter testansvarigs kontroll samma dag: Assessio har inget verbalt test,
+ * och Aons scales numerical har ett annat format än vårt numeriska.
+ */
+export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
+  matris: 'Samma format som Matrigma från Assessio och Alva Logic.',
+  verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
+  numerisk: 'Samma format som det numeriska testet i SHL Verify.',
+}
 
 /** Nivån som eyebrow och som tal i faktaraden. */
 export const NIVA_NAMN: Record<TestLevel, string> = {
@@ -31,7 +44,7 @@ export const NIVA_TAL: Record<TestLevel, string> = {
   grund: 'Grund',
   avancerad: 'Avancerad',
   expert: 'Expert',
-  prov: 'Alla',
+  prov: '3',
 }
 
 export const TESTSIDA = {
@@ -45,15 +58,16 @@ export const TESTSIDA = {
   fakta: { fragor: 'frågor', minuter: 'minuter', niva: 'nivå', nivaer: 'nivåer', pastaenden: 'påståenden' },
   bast: {
     rub: 'Ditt bästa',
+    /** Bara i title och aria-label, aldrig som synlig text. */
     etikett: (ratt: number, totalt: number) => `${ratt} av ${totalt} rätt`,
     lank: 'Se genomgången',
   },
   forsok: {
     rub: 'Dina försök',
-    etikett: 'försök',
-    visaAlla: 'Visa alla försök',
+    visaAlla: 'Visa försöken',
     dolj: 'Dölj försöken',
-    aria: (n: number) => `Andel rätt i dina ${n} senaste försök, äldst till vänster.`,
+    aria: (n: number, senaste: number) =>
+      `Andel rätt i dina ${n} senaste försök, äldst till vänster. Senaste ${senaste} procent.`,
     kolumner: { datum: 'Datum', resultat: 'Rätt', tid: 'Tid' },
   },
   hjalpRubrik: (niva: string) => `Vad betyder ${niva.toLowerCase()}?`,
@@ -73,6 +87,16 @@ export interface Sakord {
   neutrum: boolean
 }
 
+/**
+ * Tempots enhet när det räknas per underlag (testansvarig 2026-10-11,
+ * punkt 2): texter i verbalt, tabeller i numeriskt.
+ */
+export function enhetsord(kind: TestKind): Sakord {
+  return kind === 'numerisk'
+    ? { en: 'tabell', flera: 'tabeller', bestamd: 'tabellerna', neutrum: false }
+    : { en: 'text', flera: 'texter', bestamd: 'texterna', neutrum: false }
+}
+
 export function sakord(kind: TestKind, slug: string): Sakord {
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
@@ -82,15 +106,16 @@ export function sakord(kind: TestKind, slug: string): Sakord {
 
 export const RESULTAT = {
   klart: 'Testet klart',
-  rubrik: (ratt: number, totalt: number, pct: number) => `${ratt} av ${totalt} rätt, ${pct} %`,
+  rubrik: (ratt: number, totalt: number) => `${ratt} av ${totalt} rätt`,
+  /** Ringen bär procenten: bara i aria-label, aldrig som synlig text. */
+  ringAria: (ratt: number, totalt: number, pct: number) => `${ratt} av ${totalt} rätt, ${pct} procent`,
   tre: {
-    ratt: 'rätt',
     tid: (min: number) => `av ${min} min`,
     over: (budget: number, en: string) => `över ${budget} s per ${en}`,
     snitt: (en: string) => `snitt per ${en}`,
   },
   bast: {
-    nu: 'Ditt bästa resultat på nivån.',
+    nu: 'Det här är ditt bästa på nivån.',
     tidigare: (b: number, t: number) => `Ditt bästa på nivån är ${b} av ${t}.`,
   },
   genomgang: {
@@ -127,27 +152,48 @@ export const RESULTAT = {
   },
   tempo: {
     rub: 'Tempo mot provets tid',
-    titel: (over: number, av: number, budget: number) =>
+    /** flera: enhetens plural när tempot räknas per underlag ("texter"). */
+    titel: (over: number, av: number, budget: number, flera?: string) =>
       over === 0
         ? 'Allt inom provets tid'
         : av > 20
-          ? `${over} av ${av} över ${budget} sekunder`
-          : `${versal(ordTal(over))} av ${ordTal(av)} över ${budget} sekunder`,
+          ? `${over} av ${av}${flera ? ` ${flera}` : ''} över ${budget} sekunder`
+          : `${versal(ordTal(over))} av ${ordTal(av)}${flera ? ` ${flera}` : ''} över ${budget} sekunder`,
     snitt: 'Snitt',
     langsam: (nr: number, tid: string, s: { en: string }) =>
       `${versal(s.en)} ${nr} tog ${tid} och blev rätt. På provet hade den tiden saknats till ${s.en === 'påstående' ? 'ett annat påstående' : 'en annan fråga'}.`,
+    /** Ett underlag där alla påståenden blev rätt. */
+    langsamUnderlag: (nr: number, tid: string, antal: number, s: { en: string }) =>
+      `${versal(s.en)} ${nr} tog ${tid} och ${antal > 1 ? `alla ${ordTal(antal)} blev rätt` : 'blev rätt'}. På provet hade den tiden saknats till en annan ${s.en}.`,
+    /** Stapelns title för ett underlag. */
+    stapel: (nr: number, tid: string, ratt: number, antal: number, s: { en: string }) =>
+      `${versal(s.en)} ${nr}: ${tid}, ${ratt} av ${antal} rätt`,
     budget: (b: number) => `provets tid, ${b} s`,
     budgetKort: (b: number) => `${b} s`,
     axelForsta: (s: { en: string }) => `${s.en} 1`,
     axelSista: (n: number, s: { en: string }) => `${s.en} ${n}`,
     legend: { ratt: 'rätt', fel: 'fel', over: 'över provets tid' },
-    aria: (over: number, av: number, budget: number) =>
-      `Tid per fråga. ${over} av ${av} tog längre än provets ${budget} sekunder.`,
+    aria: (over: number, av: number, budget: number, en = 'fråga') =>
+      `Tid per ${en}. ${over} av ${av} tog längre än provets ${budget} sekunder.`,
   },
+  /**
+   * Statusraden längst ner (testansvarig punkt 3 och 4, art-director beslut
+   * 1): rytmraden först, sedan CV-steget när CV saknas. Ingen knapp, ingen
+   * koppar: länken är radens enda handling.
+   */
   status: {
     text: 'Resultatet syns i Din utveckling.',
-    rytm: 'Samma nivå igen i morgon.',
+    rytm: {
+      under: 'Samma nivå igen i morgon.',
+      gratisGrund: 'Grundnivån är öppen en gång om dagen. Samma nivå igen i morgon.',
+      nastaOppen: 'Nästa nivå väntar i Alla tester.',
+      nastaLast: () => `Nästa nivå ingår i ${paketKort()}.`,
+      provOppet: 'Provläget väntar i Alla tester.',
+      provLast: () => `Provläget ingår i ${paketKort()}.`,
+    },
+    cv: 'Nästa steg i jobbsöket är CV:t.',
     lank: 'Alla tester',
+    lankCv: 'Ladda upp ditt CV',
   },
   saknas: {
     rubrik: 'Resultatet gick inte att hämta',

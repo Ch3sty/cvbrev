@@ -2,8 +2,7 @@
  * Hjälprutornas läge (skiss Provbladet, avsnitt 4 och beslut 5):
  *
  * - Öppen första gången, hopfälld sedan. "Första gången" avgör sidan
- *   (profiles.traning_sedd_at saknas eller inget test är gjort) och skickar
- *   in det som `forsta`.
+ *   (inget test är gjort än) och skickar in det som `forsta`.
  * - "Dölj hjälpen" stänger av all hjälp tills den slås på igen i profilen.
  *   Valet sparas i profiles.hjalp_dold (migreringen
  *   20261011160000_hjalp_dold.sql) och i localStorage som snabb lokal kopia.

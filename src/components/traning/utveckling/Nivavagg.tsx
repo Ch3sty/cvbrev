@@ -1,8 +1,10 @@
 /**
  * Nivåkurvan på väggen i Din utveckling (skiss Provbladet, avsnitt 2):
  * den befintliga Kurva i full höjd (sikteband, provlinje, planrad) med
- * märket "Nivån upp" på punkten där det nåddes, tre display-tal över
- * kurvan och en riktig legend under. Bara matris har nivå.
+ * märket "Nivån upp" på punkten där det nåddes, ett display-tal (nivån i
+ * dag) till vänster om kurvan och en riktig legend under. Mätningen och
+ * siktet läses i kurvan där de redan står; alla tre står i kurvans
+ * aria-label (art-director 2026-10-11, avvikelse 10). Bara matris har nivå.
  *
  * Märket ritas som HTML över kurvan, placerat med kurvans egen geometri
  * (kurvansGeometri), så att Kurva.tsx lämnas orörd.
@@ -114,25 +116,32 @@ function LegendVagg({ marke, general }: { marke: boolean; general: boolean }) {
 }
 
 export default function Nivavagg({ k, idag }: { k: UtvecklingKurva; idag: Dag }) {
-  const label = kurvansLabel(
+  const senast = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0)).pop()
+  const tal = [
+    senast ? `${UTV.stat.idag} ${decimal(senast.niva)}` : null,
+    `${UTV.stat.matning} ${decimal(k.start.niva)}`,
+    k.sikte != null && k.prov ? `${UTV.stat.sikte} ${decimal(k.sikte)}` : null,
+  ].filter(Boolean)
+  const label = `${kurvansLabel(
     { punkter: k.punkter, plan: k.plan, idag, start: k.start.dag, prov: k.prov, sikte: k.sikte, nyPunkt: false },
     k.passKvar
-  )
-  const senast = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0)).pop()
+  )} ${tal.join(', ').replace(/^./, (c) => c.toUpperCase())}.`
   const marke = !!markePunkt(k.punkter, k.nivanUpp)
   const general = k.plan.some((d) => d.typ === 'general')
   return (
     <div data-utv="kurva">
-      <div className="mt-5 grid max-w-[520px] grid-cols-3 gap-4">
-        {senast ? <VaggTal varde={decimal(senast.niva)} etikett={UTV.stat.idag} koppar /> : null}
-        <VaggTal varde={decimal(k.start.niva)} etikett={UTV.stat.matning} />
-        {k.sikte != null && k.prov ? <VaggTal varde={decimal(k.sikte)} etikett={UTV.stat.sikte} /> : null}
-      </div>
-      <div className="mt-4 lg:hidden">
-        <KurvaBredd k={k} idag={idag} bredd="mobil" label={label} />
-      </div>
-      <div className="mt-4 hidden max-w-[840px] lg:block">
-        <KurvaBredd k={k} idag={idag} bredd="dator" label={label} />
+      <div className="lg:mt-5 lg:flex lg:items-start lg:gap-8">
+        {senast ? (
+          <div className="mt-5 shrink-0 lg:mt-0 lg:w-[120px]">
+            <VaggTal varde={decimal(senast.niva)} etikett={UTV.stat.idag} koppar />
+          </div>
+        ) : null}
+        <div className="mt-4 lg:hidden">
+          <KurvaBredd k={k} idag={idag} bredd="mobil" label={label} />
+        </div>
+        <div className="hidden min-w-0 max-w-[840px] flex-1 lg:block">
+          <KurvaBredd k={k} idag={idag} bredd="dator" label={label} />
+        </div>
       </div>
       <LegendVagg marke={marke} general={general} />
       {k.historikLast ? <p className="mt-2 text-meta text-vagg-mjuk">{KURVAN.historikLast}</p> : null}

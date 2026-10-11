@@ -98,8 +98,7 @@ export default async function AllaTesterPage({
   let data: TesterHubData;
   let track: Scope | null = null;
   let planKey: PlanKey | null = null;
-  // Hjälpen och "Så går det till" (skiss Provbladet, avsnitt 1 och 4): öppen
-  // första gången, alltså när traning_sedd_at saknas eller inget test är gjort.
+  // traning_sedd_at behövs bara av motorns status i Din utveckling.
   let seddAt: string | null = null;
   let hjalpDold: boolean | null = null;
 
@@ -171,7 +170,11 @@ export default async function AllaTesterPage({
 
   const gjortNagot =
     data.aggregate.hasAnyData || data.personality.grund.hasProfile || data.personality.avancerad.hasProfile;
-  const forsta = !seddAt || !gjortNagot;
+  // Hjälpen och "Så går det till" (skiss Provbladet, avsnitt 1 och 4) är
+  // öppna så länge inget test är gjort. traning_sedd_at sätts bara av hemvyn
+  // efter mätningen och mäter inte det vi vill veta (testansvarig
+  // 2026-10-11, punkt 5).
+  const forsta = !gjortNagot;
 
   return (
     <TesterHubClient

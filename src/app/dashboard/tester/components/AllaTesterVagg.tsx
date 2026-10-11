@@ -6,8 +6,8 @@
  * Väggen säger var du är. För den som är ny förklarar den formatet i tre
  * glasrutor ("Så går det till") med rummets 48-symboler, och på dator står
  * scenen IlluScenVagen till höger. Rutorna och scenen försvinner när
- * profiles.traning_sedd_at finns och minst ett test är gjort, samma villkor
- * som hjälpens första gång, så att den vana får en lägre vägg.
+ * minst ett test är gjort, samma villkor som hjälpens första gång, så att
+ * den vana får en lägre vägg.
  *
  * Väggen bär aldrig KNAPP_PRIMAR (spec 16.3.1); den står i det lyfta kortet.
  */

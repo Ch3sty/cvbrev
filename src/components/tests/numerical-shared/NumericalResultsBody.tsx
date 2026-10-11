@@ -21,6 +21,8 @@ interface NumericalResultsBodyProps {
   byType: { [key in QuestionType]: { correct: number; total: number } };
   /** Prov-läge: förklaringar döljs, ersätts av en inaktiv markör. */
   showExplanations?: boolean;
+  /** Sidan sätter rubriken "Fråga för fråga" själv: den inre blir bara för skärmläsare. */
+  utanRubrik?: boolean;
 }
 
 const TYPE_LABEL: Record<QuestionType, string> = {
@@ -37,11 +39,12 @@ export default function NumericalResultsBody({
   byDifficulty,
   byType,
   showExplanations = true,
+  utanRubrik = false,
 }: NumericalResultsBodyProps) {
   return (
     <div className="space-y-6">
       <BreakdownSection byDifficulty={byDifficulty} byType={byType} />
-      <AnswerKey passages={passages} answers={answers} showExplanations={showExplanations} />
+      <AnswerKey passages={passages} answers={answers} showExplanations={showExplanations} utanRubrik={utanRubrik} />
     </div>
   );
 }
@@ -124,14 +127,16 @@ function AnswerKey({
   passages,
   answers,
   showExplanations,
+  utanRubrik,
 }: {
   passages: Passage[];
   answers: TestAnswer[];
   showExplanations: boolean;
+  utanRubrik: boolean;
 }) {
   return (
     <section aria-label="Fråga för fråga">
-      <h2 className="mb-2 text-sm font-medium text-ink-3">Fråga för fråga</h2>
+      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Fråga för fråga</h2>
       <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {passages.map((passage) => {
           const passageAnswers = answers.filter((a) => a.passageId === passage.id);

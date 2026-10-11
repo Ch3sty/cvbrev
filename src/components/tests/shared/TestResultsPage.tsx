@@ -4,10 +4,16 @@
  * TestResultsPage: resultatet efter ett test (tester-lyftet, skiss
  * Provbladet avsnitt 3, "samma språk, avslöjat i fyra steg").
  *
- *   s1  väggen: ringen och rubriken med resultatet
- *   s2  väggen: tre tal (rätt, tid, över provets tid per fråga)
+ *   s1  väggen: ringen (fylld till andelen rätt) och rubriken "12 av 15 rätt"
+ *   s2  väggen: två tal (tiden och tempot mot provets tid)
  *   s3  golvet: det lyfta kortet Genomgång, missarna som små provblad
  *   s4  golvet: Var du tappade, tempot och statusraden
+ *
+ * Statusraden (testansvarig 2026-10-11 punkt 3 och 4, art-director beslut
+ * 1): rytmraden efter om nivån sitter (SITTER_PROCENT), om nästa nivå eller
+ * provläget är öppet, och gratisnivåns dagskvot; sist steget vidare till
+ * CV:t när hon saknar ett. Bryggan till CV:t är borta; test_completed
+ * loggas här, en gång per visning.
  *
  * Ingen "nästa nivå", ingen percentil (jämförelsen bor i Din utveckling) och
  * inget rött: fel är ihåligt, långsamt är koppar.
@@ -25,7 +31,11 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { KIND_LABEL, LEVEL_LABEL, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, LEVEL_LABEL, TEST_CONFIGS, testPaths, type TestConfig, type TestLevel } from '@/app/dashboard/tester/testConfig'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
+import { scopeHasFeature, type Scope } from '@/lib/access/features'
+import { logUserActivity } from '@/lib/activity-logger'
+import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { ResultsData } from '@/app/dashboard/tester/[slug]/getResultsData'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
@@ -33,8 +43,8 @@ import LyftKort from '@/components/rum/LyftKort'
 import VaggLaddar from '@/components/rum/VaggLaddar'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
-import { analysera, budgetPerFraga, ordTal, svarslista, type ResultatAnalys } from '@/lib/tester/resultat'
-import { RESULTAT, TESTSIDA, sakord } from '@/lib/tester/copy'
+import { SITTER_PROCENT, analysera, budgetPerFraga, ordTal, svarslista, type ResultatAnalys } from '@/lib/tester/resultat'
+import { RESULTAT, TESTSIDA, enhetsord, sakord } from '@/lib/tester/copy'
 import ResultatVagg from '@/components/tests/resultat/ResultatVagg'
 import GenomgangKort from '@/components/tests/resultat/GenomgangKort'
 import TappadeKort from '@/components/tests/resultat/TappadeKort'
@@ -59,6 +69,28 @@ interface SessionData {
   genomgang?: GenomgangsFraga[] | null
 }
 
+
+const NASTA: Partial<Record<TestLevel, TestLevel>> = { grund: 'avancerad', avancerad: 'expert', expert: 'prov' }
+
+/**
+ * Rytmraden i statusraden. scope undefined: paketet är inte känt än, och
+ * raden säger då inget om lås.
+ */
+function rytmrad(config: TestConfig, pct: number, scope: Scope | null | undefined): string | null {
+  if (config.level === 'prov') return null
+  const kand = scope !== undefined
+  if (pct < SITTER_PROCENT) {
+    return kand && config.level === 'grund' && !scopeHasFeature(scope, 'tests_above_base')
+      ? RESULTAT.status.rytm.gratisGrund
+      : RESULTAT.status.rytm.under
+  }
+  const nastaNiva = NASTA[config.level]
+  const nasta = nastaNiva ? TEST_CONFIGS.find((c) => c.kind === config.kind && c.level === nastaNiva) : undefined
+  if (!nasta) return RESULTAT.status.rytm.under
+  const oppen = !kand || !nasta.requiresFeature || scopeHasFeature(scope, nasta.requiresFeature)
+  if (nasta.level === 'prov') return oppen ? RESULTAT.status.rytm.provOppet : RESULTAT.status.rytm.provLast()
+  return oppen ? RESULTAT.status.rytm.nastaOppen : RESULTAT.status.rytm.nastaLast()
+}
 
 function datumText(iso: string | null): string {
   if (!iso) return ''
@@ -93,6 +125,23 @@ export default function TestResultsPage({
   /** null: genomgången stängd. Annars de frågor (nollbaserat index) som står öppna. */
   const [genomgang, setGenomgang] = useState<number[] | null>(null)
   const listaRef = useRef<HTMLDivElement>(null)
+  const { summary } = useDashboardData()
+  const scope: Scope | null | undefined = summary ? ((summary.paket?.scope ?? null) as Scope | null) : undefined
+
+  /* test_completed, en gång per visning (förut i bryggan, B7). */
+  const loggad = useRef(false)
+  useEffect(() => {
+    if (state !== 'ready' || !session || loggad.current) return
+    loggad.current = true
+    const logga = (uid: string | null | undefined) => {
+      if (uid) void logUserActivity(uid, 'test_completed', 'Testresultat visades', { slug: config.slug })
+    }
+    if (resultsData?.userId) return logga(resultsData.userId)
+    getSupabaseClient()
+      .auth.getSession()
+      .then(({ data }) => logga(data.session?.user?.id))
+      .catch(() => {})
+  }, [state, session, config.slug, resultsData?.userId])
 
   useEffect(() => {
     if (fromServer?.session) return
@@ -213,8 +262,10 @@ export default function TestResultsPage({
 
   const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'verbal' | 'numerisk']
   const tempo = analys.tempo
-  const tredje = tempo
-    ? { tal: `${tempo.over} av ${tempo.matta}`, etikett: RESULTAT.tre.over(tempo.budget, sak.en) }
+  // Per underlag talar tempot om texter eller tabeller, annars om frågorna.
+  const tempoOrd = tempo?.enhet === 'underlag' ? enhetsord(config.kind) : sak
+  const tempoTal = tempo
+    ? { tal: `${tempo.over} av ${tempo.matta}`, etikett: RESULTAT.tre.over(tempo.budget, tempoOrd.en) }
     : { tal: `${total > 0 ? Math.round(timeSpent / total) : 0} s`, etikett: RESULTAT.tre.snitt(sak.en) }
 
   const bast = resultsData?.bastaPoang ?? null
@@ -226,20 +277,23 @@ export default function TestResultsPage({
   const gaIgenom = (nr?: number) => oppna(nr ? [nr - 1] : missar.map((f) => f.nr - 1))
   const visaAlla = () => oppna([])
 
+  const rytm = rytmrad(config, pct, scope)
+  const utanCv = resultsData?.hasCv === false
   const status = (
     <div className="steg s4 flex items-center justify-between gap-3 self-start rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
       <span className="flex min-w-0 items-center gap-2.5">
         <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
         <span>
           {RESULTAT.status.text}
-          {prov ? null : ` ${RESULTAT.status.rytm}`}
+          {rytm ? ` ${rytm}` : null}
+          {utanCv ? ` ${RESULTAT.status.cv}` : null}
         </span>
       </span>
       <Link
-        href="/dashboard/tester/alla"
-        className="shrink-0 whitespace-nowrap text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+        href={utanCv ? '/dashboard/profil/cv' : '/dashboard/tester/alla'}
+        className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
       >
-        {RESULTAT.status.lank}
+        {utanCv ? RESULTAT.status.lankCv : RESULTAT.status.lank}
       </Link>
     </div>
   )
@@ -255,7 +309,7 @@ export default function TestResultsPage({
         pct={pct}
         tidSek={timeSpent}
         minuter={config.examMinutes ?? config.minutes}
-        tredje={tredje}
+        tempo={tempoTal}
         rad={rad}
       />
       <Golv key="resultat" lyft>
@@ -286,7 +340,7 @@ export default function TestResultsPage({
             />
           ) : null}
           {tempo ? (
-            <TempoKort className="steg s4 lg:col-span-2" tempo={tempo} fragor={analys.fragor} sak={sak} />
+            <TempoKort className="steg s4 lg:col-span-2" tempo={tempo} sak={tempoOrd} />
           ) : null}
           {status}
         </div>
@@ -305,6 +359,7 @@ export default function TestResultsPage({
                 key={genomgang.join(',')}
                 oppnaFran={genomgang}
                 utanKategorier
+                utanRubrik
               />
             ) : config.kind === 'numerisk' ? (
               <NumericalReview slug={config.slug} sessionId={sessionId} answers={answers as never} />

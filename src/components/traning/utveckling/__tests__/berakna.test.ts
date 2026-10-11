@@ -48,9 +48,9 @@ describe('tempoSammandrag och rubriken', () => {
   it('räknar över tiden och var hon satt fast', () => {
     const s = tempoSammandrag({ dag: '2026-10-11', budget_s: 83, fragor: [{ tid_s: 90, ratt: false }, { tid_s: 40, ratt: true }, { tid_s: 100, ratt: true }] })
     expect(s).toEqual({ antal: 3, over: 2, snitt_s: 77, fastnade: [0] })
-    expect(tempoRubrik(0, 9)).toMatch(/hinner/)
-    expect(tempoRubrik(3, 9)).toMatch(/Mest/)
-    expect(tempoRubrik(4, 9)).toMatch(/Klockan/)
+    expect(tempoRubrik(0, 9)).toBe('Allt inom provets tid')
+    expect(tempoRubrik(3, 9)).toBe('Tre av nio över provets tid')
+    expect(tempoRubrik(25, 30)).toBe('25 av 30 över provets tid')
   })
 })
 
@@ -147,5 +147,20 @@ describe('nivaRubrik', () => {
     expect(nivaRubrik(b)).toBe('Avancerad sitter.')
     b[1].s.bestPercentage = 70
     expect(nivaRubrik(b)).toBe('Grund sitter. Avancerad håller på att sätta sig.')
+  })
+
+  it('sitter räknas på medianen av de tre senaste, inte bästa försöket', () => {
+    const b = KLASSISKA.slice(0, 1).map((t) => ({
+      t,
+      s: {
+        ...EMPTY_STATS,
+        attempts: 4,
+        bestPercentage: 100,
+        history: [100, 60, 70, 80].map((percentage) => ({ score: 0, percentage, timeSpent: 0, completedAt: '' })),
+      },
+    }))
+    expect(nivaRubrik(b as never)).not.toMatch(/sitter/)
+    b[0].s.history = [60, 87, 93].map((percentage) => ({ score: 0, percentage, timeSpent: 0, completedAt: '' }))
+    expect(nivaRubrik(b as never)).toBe('Grund sitter.')
   })
 })

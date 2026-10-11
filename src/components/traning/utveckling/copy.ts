@@ -5,6 +5,8 @@
  * Vi-form, inga tankstreck.
  */
 
+import { ordTal } from '@/lib/tester/resultat'
+
 export const UTV = {
   rubrik: 'Din utveckling',
   rad: 'Passen flyttar punkten lite, ommätningen mycket.',
@@ -75,13 +77,12 @@ export const UTV = {
     rubrik: 'Tempo mot provets tid',
     tomt: 'Tempot räknas när du gjort ett pass i logiktestet.',
     tomtTitel: 'Inget pass än',
-    hinner: 'Du hinner, med marginal.',
-    mest: 'Mest i tid. Några drog över.',
-    for: 'Klockan tar för mycket.',
+    /** Rubriken (art-director 2026-10-11, avvikelse 5): ett tal, i ord upp till tjugo. */
+    titel: (over: number, antal: number) =>
+      over === 0 ? 'Allt inom provets tid' : `${versal(ordTal(over))} av ${ordTal(antal)} över provets tid`,
+    snittText: (s: number) => `Snitt ${s} s per fråga.`,
+    budgetEtikett: (s: number) => `provets tid, ${s} s`,
     fast: 'Fel och långsam samtidigt betyder att du satt fast. På provet är det bättre att gissa och gå vidare.',
-    snitt: 'snitt per fråga',
-    budget: 'provets tid',
-    over: 'över provets tid',
     senaste: (datum: string) => `Senaste passet, ${datum}`,
     fraga: (n: number) => `fråga ${n}`,
     stapelTitel: (n: number, s: number, ratt: boolean) => `Fråga ${n}: ${s} s, ${ratt ? 'rätt' : 'fel'}`,

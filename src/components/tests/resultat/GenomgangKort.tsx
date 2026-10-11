@@ -8,6 +8,10 @@
  * Matrislogiken ritar matrisen i 80 px utan svarsalternativ (MatrisMiniatyr).
  * Verbalt och numeriskt visar påståendet eller frågan som en kort
  * textmarkering, den markerade raden i provbladets bild.
+ *
+ * Mobilen visar tre provblad. På dator visas upp till sex i en rad när
+ * missarna är fler än tre, så att kortet inte står halvtomt bredvid en tom
+ * högerhalva (art-director 2026-10-11, avvikelse 7).
  */
 
 import Link from 'next/link'
@@ -38,9 +42,11 @@ export interface GenomgangKortProps {
 }
 
 const VISAS = 3
+const VISAS_DATOR = 6
 
 export default function GenomgangKort(p: GenomgangKortProps) {
-  const visade = p.missar.slice(0, VISAS)
+  const visade = p.missar.slice(0, VISAS_DATOR)
+  const fler = visade.length > VISAS
 
   let titel: string
   let text: string
@@ -65,11 +71,14 @@ export default function GenomgangKort(p: GenomgangKortProps) {
       <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{text}</p>
 
       {p.lage === 'missar' && visade.length > 0 ? (
-        <ul className="mt-3 grid max-w-[420px] grid-cols-3 gap-2.5" data-missar>
-          {visade.map((f) => {
+        <ul
+          className={`mt-3 grid max-w-[420px] grid-cols-3 gap-2.5 ${fler ? 'lg:max-w-none lg:grid-cols-[repeat(6,104px)]' : ''}`}
+          data-missar
+        >
+          {visade.map((f, i) => {
             const fraga = p.genomgang?.[f.nr - 1]
             return (
-              <li key={f.nr} className="min-w-0">
+              <li key={f.nr} className={i < VISAS ? 'min-w-0' : 'hidden min-w-0 lg:block'}>
                 <button
                   type="button"
                   onClick={() => p.onGaIgenom(f.nr)}

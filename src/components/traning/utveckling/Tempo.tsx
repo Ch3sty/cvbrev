@@ -4,20 +4,21 @@
  * fel ihålig, över provets tid i koppar. Under: snittet per pass för de
  * senaste passen (meta.snitt_s, frågorna nära nivån).
  *
- * Talen står som display-tal och etiketter, aldrig i löptexten.
+ * Ett tal bär kortet (art-director 2026-10-11, avvikelse 5): rubriken
+ * "Tre av nio över provets tid", snittet som en mening och provets tid
+ * som etikett på den streckade linjen. Inga uppradade rutor med tal.
  */
 
 import { kortDatum } from '@/lib/traning/rubrik'
 import { tempoSammandrag } from './berakna'
 import { UTV } from './copy'
-import { Brodtext, Eyebrow, Legend, LegendPost, T2, Tal, UKort } from './delar'
+import { Brodtext, Eyebrow, Legend, LegendPost, T2, UKort } from './delar'
 import type { UtvecklingTempo } from './typer'
 
 const T = UTV.tempo
 
 export function tempoRubrik(over: number, antal: number): string {
-  if (over === 0) return T.hinner
-  return over * 3 <= antal ? T.mest : T.for
+  return T.titel(over, antal)
 }
 
 export default function Tempo({ tempo, className }: { tempo: UtvecklingTempo | null; className?: string }) {
@@ -43,15 +44,11 @@ export default function Tempo({ tempo, className }: { tempo: UtvecklingTempo | n
       <T2>{tempoRubrik(sum.over, sum.antal)}</T2>
       <p className="mt-1 text-meta text-ink-3">{T.senaste(kortDatum(s.dag))}</p>
 
-      <div className="mt-3 grid grid-cols-3 gap-3">
-        <Tal varde={String(sum.snitt_s)} enhet="s" etikett={T.snitt} />
-        <Tal varde={String(s.budget_s)} enhet="s" etikett={T.budget} />
-        <Tal varde={String(sum.over)} enhet={`/${sum.antal}`} etikett={T.over} ton={sum.over ? 'koppar' : 'ink'} />
-      </div>
+      <Brodtext>{T.snittText(sum.snitt_s)}</Brodtext>
 
       <div role="img" aria-label={T.aria(sum.over, sum.antal, sum.snitt_s, s.budget_s)} className="relative mt-5 flex h-[88px] items-end gap-[5px] pt-1.5" data-tempo-staplar>
         <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 border-t-[1.5px] border-dashed border-kant-stark" style={{ top: `${budgetTopp}%` }}>
-          <em className="absolute right-0 -top-[18px] not-italic text-ax text-ink-3">{T.budget}</em>
+          <em className="absolute right-0 -top-[18px] not-italic text-ax text-ink-3">{T.budgetEtikett(s.budget_s)}</em>
         </span>
         {s.fragor.map((f, i) => {
           const over = f.tid_s > s.budget_s

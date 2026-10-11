@@ -50,6 +50,7 @@ export default function NumericalReview({
       byDifficulty={getScoreByDifficulty(answers)}
       byType={getScoreByType(answers)}
       showExplanations={slug !== 'numeriskt-test-prov'}
+      utanRubrik
     />
   )
 }

@@ -25,12 +25,21 @@ export interface DagsringProps {
   label: string
   /** Ringens fyllning ritas (klassen .fyll). */
   fyllAnimering?: boolean
+  /**
+   * Andelen av varvet som fylls när status är gjord, 0 till 1 (resultatet:
+   * andelen rätt). Utelämnad: hela varvet. Minsta synliga båge 4 %.
+   */
+  andel?: number
   /** Renderad storlek, 56 (dagsraden) eller 64 (resultatet). */
   storlek?: 56 | 64
   className?: string
 }
 
-export default function Dagsring({ status, label, fyllAnimering, storlek = 56, className }: DagsringProps) {
+export default function Dagsring({ status, label, fyllAnimering, andel, storlek = 56, className }: DagsringProps) {
+  // Bågens längd är 151 (2π gånger 24). Slutläget står som --fyll-mal, så att
+  // fyllanimeringen i globals.css stannar vid andelen och inte vid helt varv.
+  const fylld = andel === undefined ? 1 : Math.min(1, Math.max(0.04, andel))
+  const mal = Math.round(151 * (1 - fylld) * 10) / 10
   return (
     <svg
       viewBox="0 0 56 56"

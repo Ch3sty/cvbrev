@@ -3,10 +3,11 @@
 /**
  * TestHubPage: startsidan för ett enskilt test (tester-lyftet, Provbladet).
  *
- *   väggen      testets rubrik och provbladets bild (illu-vagg)
- *   lyftkortet  nivån, testets fråga, faktaraden (frågor, minuter, nivå) som
- *               tal över etiketter, och vyns enda kopparknapp: starta eller
- *               gör om
+ *   väggen      testets rubrik, formatraden per testtyp (vilka prov det
+ *               liknar) och, på dator, provbladets bild (illu-vagg)
+ *   lyftkortet  nivån, testets fråga, faktaraden (frågor, minuter; provet
+ *               även nivåer) som tal över etiketter, och vyns enda
+ *               kopparknapp: starta eller gör om
  *   golvet      Ditt bästa (ett tal och en ruta per fråga) och Dina försök
  *               (antalet och en prickserie, listan i detaljvyn), sist
  *               hjälpraden med vad nivån betyder (hjälprutorna C5 och B)
@@ -16,9 +17,11 @@
  * Försöken läses på servern (getForsok.ts). Saknas de (null) hämtar sidan
  * själv via testets session-API och reserverar kortens plats under tiden.
  *
- * Kvoten räknas serverside i quotaService. Sidan startar alltid testet och
- * visar betalväggen först när API:t svarar 429. Den gissar aldrig själv om
- * kvoten är slut.
+ * Kvoten räknas serverside i quotaService (en slutförd session per test och
+ * dygn på grundnivån utan tests_above_base). Är dagens session redan gjord
+ * enligt försöken som servern läste visas betalväggen "test-tak" direkt vid
+ * sidladdning i stället för knappen (testansvarig 2026-10-11, punkt 4).
+ * Svarar API:t ändå 429 visas samma vägg efter klicket, som förut.
  */
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
@@ -35,7 +38,8 @@ import { testPaths, type TestConfig, type TestKind } from '@/app/dashboard/teste
 import { IlluMatris, IlluNumeriskt, IlluProvlage, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
-import { NIVA_NAMN, NIVA_TAL, PROVETS_FRAGA, TESTETS_FRAGA, TESTSIDA, sakord } from '@/lib/tester/copy'
+import { FORMATRAD, NIVA_NAMN, NIVA_TAL, PROVETS_FRAGA, TESTETS_FRAGA, TESTSIDA, sakord } from '@/lib/tester/copy'
+import { dagSthlm } from '@/lib/traning/datum'
 import BastaKort from '@/components/tests/testsida/BastaKort'
 import ForsokKort, { type ForsokRad } from '@/components/tests/testsida/ForsokKort'
 
@@ -182,6 +186,18 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
   const sak = sakord(config.kind, config.slug)
   const minuter = config.examMinutes ?? config.minutes
 
+  // Dagens grundsession redan gjord på gratisnivån: kvoten är använd.
+  // Bara när paketet är känt (summary laddad), så att en betalande aldrig
+  // ser väggen medan hennes data laddar.
+  const idag = dagSthlm()
+  const kvotAnvand =
+    !!summary &&
+    requiredFeature === null &&
+    !scopeHasFeature(scope, 'tests_above_base') &&
+    sessions.some((s) => !!s.completed_at && dagSthlm(s.completed_at) === idag)
+  const tak: QuotaLock | null =
+    quotaLock ?? (kvotAnvand ? { feature: config.quotaFeature, nextResetAt: nextMidnightISO() } : null)
+
   const bast = sessions.reduce<ForsokRad | null>((b, s) => (!b || (s.score ?? 0) > (b.score ?? 0) ? s : b), null)
   const bastPoang = bast?.score ?? 0
   const harForsok = sessions.length > 0
@@ -200,10 +216,11 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
     <HjalpProvider dold={null} forsta={!harForsok && !sessionsLoading}>
       <RumHuvud
         title={config.title}
-        description={config.description}
+        description={FORMATRAD[kind]}
         tat={false}
         instrument={
-          <div className="illu-vagg">
+          // Bara på dator: på mobil trycker bilden ner lyftkortet under vecket.
+          <div className="illu-vagg hidden lg:block">
             <Bild className="h-24 w-auto max-w-[160px] lg:ml-auto lg:h-auto lg:w-60 lg:max-w-none" />
           </div>
         }
@@ -222,10 +239,11 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
           <dl className="mt-3.5 flex flex-wrap gap-x-6 gap-y-2" data-fakta>
             <Fakta tal={config.totalQuestions} etikett={sak.flera} />
             <Fakta tal={minuter} etikett={TESTSIDA.fakta.minuter} />
-            <Fakta tal={NIVA_TAL[config.level]} etikett={arProv ? TESTSIDA.fakta.nivaer : TESTSIDA.fakta.niva} />
+            {/* Nivån står redan i eyebrow och rubrik; provet behåller "3 nivåer". */}
+            {arProv ? <Fakta tal={NIVA_TAL[config.level]} etikett={TESTSIDA.fakta.nivaer} /> : null}
           </dl>
           {/* Låst eller kvoten slut: betalväggen nedan bär sin egen knapp. */}
-          {isLocked || quotaLock ? null : (
+          {isLocked || tak ? null : (
             <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
               <button type="button" onClick={handleStart} disabled={isStarting} className={`${KNAPP_PRIMAR} sm:w-auto`}>
                 {startText}
@@ -240,12 +258,12 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
         </section>
 
         <div className="w-full max-w-3xl space-y-4">
-          {quotaLock ? (
+          {tak && !isLocked ? (
             <PaywallCard
               variant="test-tak"
               scope={scope}
               track={track}
-              quota={{ feature: quotaLock.feature, nextResetAt: quotaLock.nextResetAt }}
+              quota={{ feature: tak.feature, nextResetAt: tak.nextResetAt }}
             />
           ) : null}
 

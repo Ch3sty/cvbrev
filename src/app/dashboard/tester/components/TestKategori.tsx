@@ -23,7 +23,7 @@ import ProvCard from './ProvCard';
 import NivaSegment, { type NivaLage } from './NivaSegment';
 import Fakta, { spann } from './Fakta';
 import { provradTexter } from '../prov/prov-copy';
-import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo';
+import type { FormatNyckel } from '@/lib/traning/tempo';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import { featureForSlug, testPaths } from '../testConfig';
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features';
@@ -132,22 +132,16 @@ export default function TestKategori({
     return { key: t.slug, namn, href: testPaths.hub(t.slug), lage, feature };
   });
 
-  // Provets segment. Logikens är generalrepetitionen i planens format.
+  // Provets segment, bara för verbalt och numeriskt. Logikens prov är
+  // generalrepetitionen, som aldrig ger en procent i hubben: ett segment
+  // skulle stå som "inte gjord" för alltid. Provraden under segmenten bär
+  // det i stället (testansvarig 2026-10-11, punkt 1).
   const prov = group.prov ?? null;
   const provFeature = prov ? las(provLasSlug(prov)) : null;
-  if (prov) {
+  if (prov && !prov.general) {
     let lage: NivaLage;
     if (provFeature) {
       lage = lastLage('Prov');
-    } else if (prov.general) {
-      const f = PROVFORMAT[provformat] ?? PROVFORMAT.eget;
-      const antal = `${f.cirka ? 'cirka ' : ''}${f.antal} uppgifter`;
-      lage = {
-        typ: 'ny',
-        minuter: f.minuter,
-        etikett: antal,
-        aria: `${group.heading}, prov, ${antal}, ${f.minuter} minuter`,
-      };
     } else if (provBestPercent !== null) {
       lage = {
         typ: 'gjord',
@@ -186,13 +180,13 @@ export default function TestKategori({
       aria-labelledby={rubrikId}
       data-testkort={group.key}
     >
-      {/* Mobil: bild, faktarad, text. Dator: text och faktarad till vänster,
-          bilden 160 × 120 till höger, så att faktaraden får hela bredden. */}
+      {/* Mobil: bild, text, faktarad (vänsterställd), sist segmenten
+          (art-director 2026-10-11, avvikelse 2). Dator: text och faktarad
+          till vänster, bilden 160 × 120 till höger. */}
       <div className="grid grid-cols-1 gap-x-6 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-start">
         <div className="mx-auto w-full max-w-[200px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:max-w-none">
           <Bild className="block h-24 w-full lg:h-[120px]" />
         </div>
-        <Fakta poster={fakta} className="mb-3 lg:col-start-1 lg:row-start-2 lg:mb-0 lg:justify-start" />
         <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           <p className="flex items-center gap-2 text-ey uppercase text-ink-3">
             <span id={rubrikId}>{group.heading}</span>
@@ -203,9 +197,10 @@ export default function TestKategori({
           </h2>
           <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{group.blurb}</p>
         </div>
+        <Fakta poster={fakta} className="!justify-start lg:col-start-1 lg:row-start-2" />
       </div>
 
-      <ul className="mt-3.5 grid list-none grid-cols-2 gap-2 p-0 lg:grid-cols-4">
+      <ul className={`mt-3.5 grid list-none gap-2 p-0 ${segment.length === 3 ? 'grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'}`}>
         {segment.map((s) => (
           <li key={s.key} className="min-w-0">
             <NivaSegment

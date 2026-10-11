@@ -53,6 +53,10 @@ export interface ResultsData {
   nyss: boolean
   /** Användarens bästa poäng på samma test, den här sessionen inräknad. */
   bastaPoang: number | null
+  /** För loggningen test_completed. null när sessionen inte gick att läsa. */
+  userId: string | null
+  /** Har hon ett CV? Styr statusradens steg vidare. null när okänt. */
+  hasCv: boolean | null
 }
 
 const UNRESOLVED: ResultsData = {
@@ -61,6 +65,8 @@ const UNRESOLVED: ResultsData = {
   analys: null,
   bastaPoang: null,
   nyss: false,
+  userId: null,
+  hasCv: null,
 }
 
 /** Provets tid per fråga för testet: provtiden om den finns. */
@@ -112,7 +118,7 @@ export async function getResultsData(
 
     const testType = testTypeForSlug(config)
 
-    const [sessionRes, bastRes] = await Promise.all([
+    const [sessionRes, bastRes, cvRes] = await Promise.all([
       supabase
         .from('logic_test_v4_sessions')
         .select('*')
@@ -130,6 +136,10 @@ export async function getResultsData(
             .order('score', { ascending: false })
             .limit(1)
         : Promise.resolve({ data: null }),
+      // Statusradens steg vidare till CV:t (art-director 2026-10-11, beslut 1).
+      Promise.resolve(supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', userId)).catch(
+        () => ({ count: null, error: true })
+      ),
     ])
 
     if (sessionRes.error || !sessionRes.data) return UNRESOLVED
@@ -166,7 +176,10 @@ export async function getResultsData(
 
     const nyss = !!row.completed_at && Date.now() - new Date(row.completed_at).getTime() < 10 * 60_000
 
-    return { session, resolved: true, analys: bantad(analys), bastaPoang, nyss }
+    const cv = cvRes as { count: number | null; error: unknown }
+    const hasCv = cv.error || cv.count === null ? null : cv.count > 0
+
+    return { session, resolved: true, analys: bantad(analys), bastaPoang, nyss, userId, hasCv }
   } catch (error) {
     console.error('Resultatsidan: kunde inte hämta resultatet på servern', error)
     return UNRESOLVED

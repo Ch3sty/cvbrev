@@ -10,6 +10,7 @@ afterEach(() => cleanup())
 
 const logik = TEST_GROUPS.find((g) => g.key === 'logik')!
 const numerisk = TEST_GROUPS.find((g) => g.key === 'numerisk')!
+const verbal = TEST_GROUPS.find((g) => g.key === 'verbal')!
 
 function medGrund(scope: 'allt' | null) {
   const data = emptyHubData(scope !== null, scope !== null, scope)
@@ -67,6 +68,25 @@ describe('testkortets nivåsegment (skiss version 3)', () => {
     expect(last[0].tagName).toBe('BUTTON')
     expect(last[0].textContent).toContain('Premium')
     expect(container.textContent).not.toContain('Bästa resultat per nivå')
+  })
+
+  it('logiken har tre nivåsegment och provraden, verbalt fyra segment och ingen provrad', () => {
+    const data = emptyHubData(true, true, 'allt')
+    const logikKort = render(
+      <HjalpProvider dold={null} forsta={false}>
+        <TestKategori group={logik} perTest={data.perTest} scope="allt" />
+      </HjalpProvider>,
+    ).container
+    expect(logikKort.querySelectorAll('[data-niva]').length).toBe(3)
+    expect(logikKort.querySelectorAll('[data-provrad]').length).toBe(1)
+    cleanup()
+    const verbalKort = render(
+      <HjalpProvider dold={null} forsta={false}>
+        <TestKategori group={verbal} perTest={data.perTest} scope="allt" />
+      </HjalpProvider>,
+    ).container
+    expect(verbalKort.querySelectorAll('[data-niva]').length).toBe(4)
+    expect(verbalKort.querySelectorAll('[data-provrad]').length).toBe(0)
   })
 
   it('har en i-knapp per kort och rubriken som fråga', () => {

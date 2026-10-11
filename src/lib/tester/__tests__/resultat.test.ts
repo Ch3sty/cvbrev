@@ -4,6 +4,7 @@ import {
   budgetPerFraga,
   fragorMatris,
   fragorUnderlag,
+  medianSenaste,
   minSek,
   ordTal,
   svarslista,
@@ -125,7 +126,8 @@ describe('analysera', () => {
       ['Spegling', 2, 2],
     ])
     expect(a.svagast?.namn).toBe('Rotation')
-    expect(a.tempo).toEqual({ budget: 80, over: 2, matta: 5, snitt: 69, langsammastRatt: { nr: 3, tid: 120 } })
+    expect(a.tempo).toMatchObject({ enhet: 'fraga', budget: 80, over: 2, matta: 5, snitt: 69, langsammastRatt: { nr: 3, tid: 120, antal: 1 } })
+    expect(a.tempo?.staplar).toHaveLength(6)
   })
 
   it('utan tid per fråga finns inget tempo, och full pott ger ingen svagaste', () => {
@@ -133,6 +135,52 @@ describe('analysera', () => {
     expect(a.tempo).toBeNull()
     expect(a.svagast).toBeNull()
     expect(a.grupper).toHaveLength(1)
+  })
+
+  it('verbalt: femton texter med fyra påståenden och tid bara på första ger femton staplar per text', () => {
+    const fragor: ResultatFraga[] = []
+    for (let t = 0; t < 15; t++) {
+      for (let j = 0; j < 4; j++) {
+        fragor.push({
+          nr: fragor.length + 1,
+          id: `p${t}:${j}`,
+          // text 3 har två fel, resten alla rätt
+          utfall: t === 2 && j < 2 ? 'fel' : 'ratt',
+          tid: j === 0 ? (t === 6 ? 160 : 60) : null,
+          grupp: 'Sant',
+          underlagId: `p${t}`,
+        })
+      }
+    }
+    const a = analysera(fragor, budgetPerFraga(25, 60)) // 25 s per påstående
+    expect(a.tempo?.enhet).toBe('underlag')
+    expect(a.tempo?.budget).toBe(100)
+    expect(a.tempo?.staplar).toHaveLength(15)
+    expect(a.tempo?.staplar[0]).toMatchObject({ nr: 1, tid: 60, budget: 100, antal: 4, ratt: 4, utfall: 'ratt' })
+    expect(a.tempo?.staplar[2]).toMatchObject({ utfall: 'fel', ratt: 2 })
+    expect(a.tempo?.over).toBe(1)
+    expect(a.tempo?.matta).toBe(15)
+    expect(a.tempo?.langsammastRatt).toEqual({ nr: 7, tid: 160, antal: 4 })
+    // missar och grupper räknas fortfarande på påståendena
+    expect(a.missar).toEqual([9, 10])
+    expect(RESULTAT.tempo.titel(1, 15, 100, 'texter')).toBe('En av femton texter över 100 sekunder')
+    expect(RESULTAT.tempo.langsamUnderlag(7, '2:40', 4, { en: 'text' })).toBe(
+      'Text 7 tog 2:40 och alla fyra blev rätt. På provet hade den tiden saknats till en annan text.'
+    )
+    expect(RESULTAT.tempo.aria(3, 15, 100, 'text')).toBe('Tid per text. 3 av 15 tog längre än provets 100 sekunder.')
+    expect(RESULTAT.tempo.stapel(7, '2:40', 3, 4, { en: 'text' })).toBe('Text 7: 2:40, 3 av 4 rätt')
+  })
+
+  it('en fråga per underlag (verbalt expert) räknas per fråga', () => {
+    const fragor: ResultatFraga[] = [1, 2, 3].map((nr) => ({ nr, id: `q${nr}`, utfall: 'ratt', tid: 50, grupp: null, underlagId: `p${nr}` }))
+    expect(analysera(fragor, 40).tempo?.enhet).toBe('fraga')
+  })
+
+  it('medianen av de tre senaste', () => {
+    expect(medianSenaste([100, 60, 70, 80])).toBe(70)
+    expect(medianSenaste([93])).toBe(93)
+    expect(medianSenaste([80, 90])).toBe(85)
+    expect(medianSenaste([])).toBeNull()
   })
 
   it('en tom lista (gammal session) ger tom analys utan krasch', () => {

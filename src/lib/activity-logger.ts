@@ -64,7 +64,7 @@ export type ActivityType =
   // Aktiveringstratten (docs/plan-konvertering.md, B7)
   | 'quick_score_shown'             // Snabb-poängen visades efter uppladdning
   | 'test_completed'                // Testresultatsida visades
-  | 'bridge_clicked'                // Klick i TestResultBridge
+  | 'bridge_clicked'                // Klick i TestResultBridge (borttagen 2026-10-11, finns kvar för äldre rader)
   | 'signup_method'                 // Hur kontot skapades (password/google)
   | 'activation_state'              // Vilket dashboardtillstånd som visades (A/B/C)
   | 'quota_wall_hit';               // Slog i en kvotgräns (räknas av lifecycle/hooks)

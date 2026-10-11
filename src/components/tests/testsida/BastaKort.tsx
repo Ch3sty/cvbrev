@@ -3,7 +3,8 @@
 /**
  * Ditt bästa på testsidan (tester-lyftet): ett tal bär kortet, andelen rätt
  * i display, och under det en rad med en ruta per fråga där de rätta är
- * ifyllda. Antalet står som etikett under bilden, aldrig i en metarad.
+ * ifyllda. "9 av 15 rätt" står bara i title och aria-label, aldrig som
+ * synlig text (art-director 2026-10-11, avvikelse 3).
  * i-knappen förklarar vad procent rätt betyder (hjälpruta C1).
  */
 
@@ -39,6 +40,7 @@ export default function BastaKort({ ratt, totalt, href, className }: BastaKortPr
           className={`mt-3 flex ${rutor > 30 ? 'gap-px' : 'gap-[3px]'}`}
           role="img"
           aria-label={TESTSIDA.bast.etikett(ratt, totalt)}
+          title={TESTSIDA.bast.etikett(ratt, totalt)}
         >
           {Array.from({ length: rutor }, (_, i) => (
             <i
@@ -49,18 +51,17 @@ export default function BastaKort({ ratt, totalt, href, className }: BastaKortPr
           ))}
         </div>
       ) : (
-        <div className="mt-3 h-3 overflow-hidden rounded border border-kant bg-papper-2" role="img" aria-label={TESTSIDA.bast.etikett(ratt, totalt)}>
+        <div className="mt-3 h-3 overflow-hidden rounded border border-kant bg-papper-2" role="img" aria-label={TESTSIDA.bast.etikett(ratt, totalt)} title={TESTSIDA.bast.etikett(ratt, totalt)}>
           <i className="block h-full bg-ton-ink" style={{ width: `${pct}%` }} />
         </div>
       )}
-      <div className="mt-2 flex items-center justify-between gap-3">
-        <span className="text-meta tabular-nums text-ink-3">{TESTSIDA.bast.etikett(ratt, totalt)}</span>
-        {href ? (
-          <Link href={href} className={`${LANK} text-[13px]`}>
+      {href ? (
+        <div className="mt-2 flex items-center justify-end">
+          <Link href={href} className={`${LANK} inline-flex min-h-11 items-center text-[13px]`}>
             {TESTSIDA.bast.lank}
           </Link>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </section>
   )
 }

@@ -76,7 +76,8 @@ export default function VerbalResultsBody({
 
   // Bara genomgången: poängen och handlingarna kommer från TestResultsShell.
   if (bare) {
-    return <PassageReview answers={answers} passages={passages} isProv={isProv} />;
+    // Sidan (TestResultsPage) sätter rubriken "Fråga för fråga": den inre blir bara för skärmläsare.
+    return <PassageReview answers={answers} passages={passages} isProv={isProv} utanRubrik />;
   }
 
   return (
@@ -132,10 +133,12 @@ function PassageReview({
   answers,
   passages,
   isProv,
+  utanRubrik = false,
 }: {
   answers: SavedAnswer[];
   passages: ResultsPassage[];
   isProv?: boolean;
+  utanRubrik?: boolean;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -148,7 +151,7 @@ function PassageReview({
 
   return (
     <section aria-label="Passage för passage">
-      <h2 className="mb-2 text-sm font-medium text-ink-3">Passage för passage</h2>
+      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Passage för passage</h2>
 
       <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {passages.map((p, i) => {

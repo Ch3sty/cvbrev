@@ -59,14 +59,15 @@ describe('HjalpRad', () => {
     expect(container.innerHTML).toBe('')
   })
 
-  it('hoppar över rutor som väntar på verifiering', () => {
+  it('visar de rutor som verifierades 2026-10-11 (A4 och C3)', () => {
     const { container } = render(
       <HjalpProvider dold={null} forsta>
         <HjalpRad ids={['A4']} />
         <HjalpKnapp id="C3" />
       </HjalpProvider>,
     )
-    expect(container.innerHTML).toBe('')
+    expect(container.textContent).toContain('Hur lång tid tar det?')
+    expect(container.querySelector('button[aria-haspopup="dialog"]')).not.toBeNull()
   })
 })
 

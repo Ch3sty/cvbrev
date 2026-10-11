@@ -84,7 +84,7 @@ const GRATIS_RAD = `Gratis att prova: nivåmätningen en gång med genomgång oc
 export interface HjalpLageProps {
   /** profiles.hjalp_dold, null när kolumnen saknas eller inget val gjorts. */
   dold: boolean | null;
-  /** Första gången: traning_sedd_at saknas eller inget test är gjort. */
+  /** Första gången: inget test är gjort än. */
   forsta: boolean;
 }
 

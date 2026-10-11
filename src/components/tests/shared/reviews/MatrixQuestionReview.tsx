@@ -76,6 +76,7 @@ export default function MatrixQuestionReview({
   allaOppna = false,
   oppnaFran,
   utanKategorier = false,
+  utanRubrik = false,
 }: {
   slug: string
   answers: MatrixSavedAnswer[]
@@ -93,6 +94,8 @@ export default function MatrixQuestionReview({
   oppnaFran?: readonly number[]
   /** Utan "Så gick det per mönstertyp": resultatsidan visar det i Var du tappade. */
   utanKategorier?: boolean
+  /** Sidan sätter rubriken "Fråga för fråga" själv: den inre blir bara för skärmläsare. */
+  utanRubrik?: boolean
 }) {
   const [oppna, setOppna] = useState<ReadonlySet<number>>(() =>
     allaOppna ? new Set(fragor.map((_, i) => i)) : new Set(oppnaFran ?? [])
@@ -169,7 +172,7 @@ export default function MatrixQuestionReview({
       ) : null}
 
       <section aria-label="Fråga för fråga">
-        <h2 className="mb-2 text-sm font-medium text-ink-3">Fråga för fråga</h2>
+        <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Fråga för fråga</h2>
         <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
           {questions.map((q, i) => {
             const answer = answers.find((a) => a.q_id === q.id)

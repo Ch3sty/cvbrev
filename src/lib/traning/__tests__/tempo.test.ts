@@ -4,21 +4,22 @@ import { pForNiva } from '../svarighet'
 import { TRANING_COPY } from '../copy'
 
 describe('provformaten', () => {
-  it('tempobudgeten per format: 68, 83, 120, 90, 15 sekunder', () => {
+  it('tempobudgeten per format: 68, 83, 120, 83, 15 sekunder', () => {
     expect(tempobudget('matrigma', 'klassisk')).toBe(68)
     expect(tempobudget(null)).toBe(83)
     expect(tempobudget('alva')).toBe(120)
-    expect(tempobudget('shl')).toBe(90)
+    // SHL: 18 på 25 minuter ger 83, inte 90 (testansvarig 2026-10-11, punkt 6).
+    expect(tempobudget('shl')).toBe(83)
     expect(tempobudget('aon')).toBe(15)
   })
 
-  it('14.4: adaptiv Matrigma 60 s, SHL 18 på 25 med 90 s och fast, Alva per uppgift', () => {
+  it('14.4: adaptiv Matrigma 60 s, SHL 18 på 25 med 83 s och fast, Alva per uppgift', () => {
     expect(tempobudget('matrigma', 'adaptiv')).toBe(60)
-    expect(PROVFORMAT.shl).toMatchObject({ antal: 18, minuter: 25, budget_s: 90, adaptiv: false, cirka: true })
+    expect(PROVFORMAT.shl).toMatchObject({ antal: 18, minuter: 25, budget_s: 83, adaptiv: false, cirka: true })
     expect(PROVFORMAT.alva.tidsform).toBe('per_uppgift')
     expect(PROVFORMAT.alva.minuter).toBe(40)
     for (const f of Object.values(PROVFORMAT)) if (f.nyckel !== 'alva') expect(f.tidsform).toBe('total')
-    expect(formatText(PROVFORMAT.alva)).toBe('cirka 20 uppgifter, 2 minuter per uppgift')
+    expect(formatText(PROVFORMAT.alva)).toBe('20 uppgifter, 2 minuter per uppgift')
     expect(formatText(PROVFORMAT.shl)).toBe('cirka 18 uppgifter, 25 minuter')
     expect(formatText(PROVFORMAT.matrigma_adaptiv)).toBe('cirka 12 uppgifter, 12 minuter')
   })
@@ -43,13 +44,14 @@ describe('provformaten', () => {
     expect(formatForPlan('matrigma', 'adaptiv').nyckel).toBe('matrigma_adaptiv')
   })
 
-  it('leverantörsformaten står med cirka och är inte verifierade än; Matrigma är tredjepart', () => {
-    for (const f of Object.values(PROVFORMAT)) {
-      if (f.leverantor) {
-        expect(f.cirka).toBe(true)
-        expect(f.verifierad).toBe(false)
-      }
-    }
+  it('Alva, Aon och adaptiv Matrigma är verifierade; Matrigma klassisk och SHL står kvar med cirka', () => {
+    // Testansvarig 2026-10-11, punkt 6: tiden är verifierad. Adaptiv Matrigmas
+    // antal är vår simulering och står kvar med cirka.
+    expect(PROVFORMAT.alva).toMatchObject({ verifierad: true, cirka: false })
+    expect(PROVFORMAT.aon).toMatchObject({ verifierad: true, cirka: false })
+    expect(PROVFORMAT.matrigma_adaptiv).toMatchObject({ verifierad: true, cirka: true })
+    expect(PROVFORMAT.matrigma_klassisk).toMatchObject({ verifierad: false, cirka: true })
+    expect(PROVFORMAT.shl).toMatchObject({ verifierad: false, cirka: true })
     expect(PROVFORMAT.matrigma_klassisk.kalla).toBe('tredjepart')
     expect(formatText(PROVFORMAT.matrigma_klassisk)).toBe('cirka 35 uppgifter, 40 minuter')
     expect(formatText(PROVFORMAT.eget)).toBe('18 uppgifter, 25 minuter')
