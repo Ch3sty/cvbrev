@@ -144,6 +144,7 @@ export default function DashboardShell({
 
   // Mätpunkterna (spec avsnitt 7): rum_oppnat när rummet byts eller vid
   // landningen, sokta_tjanster_oppnad varje gång listan öppnas.
+  const valIRegistreringen = initialSummary?.komIgang?.intent ?? null;
   const senasteRum = useRef<Rum | null>(null);
   const senasteSida = useRef<string | null>(null);
   useEffect(() => {
@@ -153,12 +154,14 @@ export default function DashboardShell({
     const yta = tagRumYta(forsta);
     if (rum !== senasteRum.current) {
       senasteRum.current = rum;
-      capture('rum_oppnat', { rum, surface: yta });
+      // Registreringens val följer med som egenskap, bara för mätningen
+      // (copywriterns önskemål om dörren Tester); menyn läser det aldrig.
+      capture('rum_oppnat', { rum, surface: yta, intent: valIRegistreringen });
     }
     if (pathname === '/dashboard/sokta-tjanster') {
       capture('sokta_tjanster_oppnad', { surface: yta });
     }
-  }, [pathname, rum]);
+  }, [pathname, rum, valIRegistreringen]);
 
   return (
     <DashboardDataProvider initialSummary={initialSummary}>

@@ -364,6 +364,36 @@
 .kurva-yta {
   fill: url(#g-yta);
 }
+/* Kurvans och nivåskalans text (konceptets .kurva .ax/.lbl och .skala).
+   Fyllnaden sätts här och inte som attribut: klassen vinner över attributet. */
+.kurva .ax,
+.skala .ax {
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--vagg-mjuk);
+}
+.kurva .lbl,
+.skala .lbl {
+  font-family: var(--font-display), Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--vagg-ink);
+}
+.kurva .lbl.k,
+.skala .lbl.k {
+  fill: var(--koppar-ljus);
+}
+.kurva .lbl.soft,
+.skala .lbl.soft {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--vagg-mjuk);
+}
+.kurva .lbl.sikte,
+.skala .lbl.sikte {
+  fill: var(--ljus);
+}
 .skelett-vagg {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;

@@ -1,88 +1,49 @@
 /**
- * Testhubben är en server component, enligt samma mönster som
- * dashboard/sokta-tjanster och dashboard/skapa-brev.
+ * Hemvyn i Rekryteringstester (spec-rummen våg 2, konceptets 1a till 1p,
+ * T1, X1 och W1 till W4).
  *
- * Förut var hela sidan 'use client' och gjorde hela sitt arbete efter
- * hydrering. useAllTestStats fetchade nio session-endpoints, ett per kognitivt
- * test. Varje ProvCard fetchade sin egen, tre till. usePersonalityTestStats en
- * till. Och varje sådan route gjorde ett auth.getUser() innan den ens fick
- * fråga efter raderna. Tretton anrop, tjugosex rundturer, allt seriellt efter
- * att JS laddat. Mätningen landade på 28 rundturer och 5424 ms LCP.
+ * Serverrenderad med en rundtur: getTraningSummary läser motorns status,
+ * testernas två frågor och delar Jobbsökets summering med layouten. Första
+ * HTML innehåller väggen, kurvan och det lyfta kortet med riktiga tal.
  *
- * Nu läses sessionen här och all statistik hämtas i en parallell omgång med
- * två frågor (de tolv kognitiva anropen läser samma tabell och skiljer sig
- * bara på test_type). Första HTML innehåller korten färdiga.
+ * Saknas planen och valde hon tester eller intervju vid registreringen är
+ * ingången (E1 till E3) första vyn. Annars står hemvyn i tomt läge (T1).
  *
- * Premiumgraden läses bara för att avgöra om gratisraden ska visas och vilka
- * kort som markeras låsta. Kvoter och betalväggar ligger kvar där de låg: i
- * quotaService och serverside bakom att starta ett test.
+ * När vyn ritas med en ny punkt markeras profilen efter svaret
+ * (traning_sedd_at), så kurvan ritar sig en gång och står stilla nästa gång.
+ *
+ * Katalogen med alla tester bor på /dashboard/tester/alla.
  */
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import { getTesterHubData, emptyHubData, type TesterHubData } from './getHubData';
-import TesterHubClient from './TesterHubClient';
-import { getUserScope } from '@/lib/supabase/premiumAccess';
-import { scopeHasFeature, type Scope } from '@/lib/access/features';
-import { harPaket } from '@/lib/plans/harPaket';
-import type { PlanKey } from '@/lib/plans/plans';
+import { after } from 'next/server';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { getTraningSummary, markeraTraningSedd } from '@/lib/traning/getTraningSummary';
+import { byggHemvy } from '@/lib/traning/hemvy';
+import { TRANING_RUTT } from '@/lib/traning/rutter';
+import Hemvy from '@/components/traning/Hemvy';
+import { Betalvagg } from '@/components/traning/HemKlient';
 
-function lasTrack(v: unknown): Scope | null {
-  return v === 'cv' || v === 'tester' || v === 'allt' ? v : null;
-}
-
-export default async function TesterHubPage() {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
-
+export default async function TraningHem({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const user = await hamtaVerifieradAnvandare();
+  if (!user) redirect('/login');
 
-  if (!user) {
-    redirect('/login');
+  const [sum, sp] = await Promise.all([getTraningSummary(user.id), searchParams]);
+
+  const s = sum.status;
+  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && sum.valdeTester && sp.visa !== 'hem') {
+    redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
 
-  let data: TesterHubData;
-  let track: Scope | null = null;
-  let planKey: PlanKey | null = null;
+  const m = byggHemvy({ status: s, idag: sum.idag, flerTester: sum.flerTester, jobbsok: sum.jobbsok });
+  if (m.nyPunkt) after(() => markeraTraningSedd(user.id));
 
-  try {
-    // Scopet påverkar bara presentationen, inte vilka rader vi läser, så det
-    // hämtas i samma omgång som statistiken i stället för före. Historiken
-    // trimmas dock i hämtningen, alltså läses scopet först och skickas in.
-    //
-    // Efter paketomgången är frågan inte längre "är hon premium" utan vilket
-    // spår hon köpt: en kund med CV-paketet har inte testhistoriken, och en
-    // kund med Träningspaketet har den (docs/plan-paket-och-onboarding.md, avsnitt 4
-    // och 5).
-    const [scope, profileRes] = await Promise.all([
-      getUserScope(supabase, user.id),
-      supabase
-        .from('profiles')
-        .select('onboarding_track, premium_until, price_id, subscription_status')
-        .eq('id', user.id)
-        .maybeSingle(),
-    ]);
-    const profil = (profileRes.data ?? null) as {
-      onboarding_track?: string | null;
-      premium_until?: string | null;
-      price_id?: string | null;
-      subscription_status?: string | null;
-    } | null;
-    track = lasTrack(profil?.onboarding_track);
-    planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null, new Date(), {
-      priceId: profil?.price_id,
-      status: profil?.subscription_status,
-    });
-    const hasHistory = scopeHasFeature(scope, 'test_history');
-
-    data = await getTesterHubData(supabase, user.id, scope !== null, hasHistory, scope);
-  } catch (error) {
-    // Går läsningen fel ska hubben ändå gå att öppna och starta test ifrån.
-    // Korten visar då noll försök, precis som för en ny användare.
-    console.error('Testhubben: kunde inte hämta statistiken', error);
-    data = emptyHubData(false, false);
-  }
-
-  return <TesterHubClient data={data} track={track} planKey={planKey} />;
+  return (
+    <Betalvagg scope={sum.paket.scope} track={sum.paket.track} planKey={sum.paket.planKey}>
+      <Hemvy m={m} />
+    </Betalvagg>
+  );
 }

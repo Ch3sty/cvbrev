@@ -1007,6 +1007,60 @@ export interface Traningsstatus {
    * samma regel som plan GET; UI:t håller inte reda på något.
    */
   fragaEfterProvet: boolean;
+  /**
+   * Våg 2, hemvyn: mätningens punkt (dag och nivå) även när kurvans
+   * historik är låst, så "nivå, från 5,0" och siktebandets start står rätt.
+   */
+  start: { dag: Dag; niva: number } | null;
+  /**
+   * Temat (familjens id) som dagens pass får om det startas nu: samma
+   * valjTema som skapaTraningssession, så kortet på hemvyn säger det passet
+   * sedan gör. Null utan familjer i banken.
+   */
+  dagensTema: string | null;
+  /** Senast slutförda pass, riktade pass eller generalrepetition (1g och tempokortet). */
+  senastePass: SenastePass | null;
+  /** Behörigheterna statusen räknades med (hemvyns lås och betalväggar). */
+  behorighet: Behorighet;
+}
+
+/** Det senast slutförda passet, ur sessionens meta (satt av complete). */
+export interface SenastePass {
+  id: string;
+  dag: Dag;
+  typ: 'pass' | 'riktat' | 'general';
+  variant: 'grund' | 'niva';
+  tema: string | null;
+  ratt: number | null;
+  antal: number;
+  over_tid: number | null;
+  snitt_s: number | null;
+  budget_s: number;
+  niva_fore: number | null;
+  niva_efter: number | null;
+}
+
+function senastePassFor(slutforda: readonly SlutfordRad[]): SenastePass | null {
+  for (let i = slutforda.length - 1; i >= 0; i--) {
+    const s = slutforda[i];
+    if (s.typ !== 'pass' && s.typ !== 'riktat' && s.typ !== 'general') continue;
+    const m = s.meta;
+    return {
+      id: s.id,
+      dag: s.dag,
+      typ: s.typ,
+      variant: m.variant,
+      tema: m.tema ?? m.family ?? null,
+      ratt: typeof m.ratt === 'number' ? m.ratt : null,
+      antal: m.antal,
+      over_tid: typeof m.over_tid === 'number' ? m.over_tid : null,
+      snitt_s: typeof m.snitt_s === 'number' ? m.snitt_s : null,
+      budget_s: m.budget_s,
+      niva_fore: m.niva_fore ?? null,
+      niva_efter: m.niva_efter ?? null,
+    };
+  }
+  return null;
 }
 
 /**
@@ -1085,6 +1139,19 @@ export async function hamtaTraningsstatus(args: {
         ? forstaVeckanSammanfattning(start, lage.slutforda)
         : null,
     fragaEfterProvet: fragaEfterProvet(lage.plan, idag),
+    start: (() => {
+      const f = forstaMatningen(lage.punkter);
+      return f ? { dag: f.dag, niva: f.niva } : null;
+    })(),
+    dagensTema: valjTema({
+      bank: lage.bank,
+      sedda: seddaFragor(lage.rader),
+      idag,
+      forra: forraPasset(lage.slutforda),
+      svagaste: familjer.svagaste.map((f) => f.family),
+    }),
+    senastePass: senastePassFor(lage.slutforda),
+    behorighet: beh,
   };
 }
 

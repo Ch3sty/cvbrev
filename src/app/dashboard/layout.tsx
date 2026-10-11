@@ -16,10 +16,9 @@
  * till en hel extra rundtur per sidladdning.
  */
 import type { Viewport } from 'next';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import { getDashboardSummary } from '@/lib/dashboard/getSummary';
+import { hamtaSummering } from '@/lib/dashboard/summaryForRequest';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
@@ -47,9 +46,6 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
-
   const user = await hamtaVerifieradAnvandare();
 
   if (!user) {
@@ -57,13 +53,9 @@ export default async function DashboardLayout({
   }
 
   // Går summaryn fel ska det inte ta ner hela det inloggade läget. Skalet
-  // renderas ändå och DashboardDataProvider hämtar om på klienten.
-  let initialSummary: DashboardSummary | null = null;
-  try {
-    initialSummary = (await getDashboardSummary(supabase, user.id)) as DashboardSummary;
-  } catch (error) {
-    console.error('Fel vid server-hämtning av dashboard-summary:', error);
-  }
+  // renderas ändå och DashboardDataProvider hämtar om på klienten. Svaret
+  // delas med sidan i samma request (hamtaSummering är cache()).
+  const initialSummary: DashboardSummary | null = await hamtaSummering(user.id);
 
   const rum = await rumForRequest();
 
