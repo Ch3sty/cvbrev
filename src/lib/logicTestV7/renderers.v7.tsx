@@ -26,12 +26,17 @@ import { GEOMETRI } from './geometri';
 // scripts/v7-geometri-check.mjs räknar G1 till G12 på. Ändra måtten där,
 // inte här, så att ritningen och kontrollen inte glider isär.
 //
-// Designspråk:
-// - viewBox 0..100, alla former i [16, 84] (68×68 inre yta)
-// - Tunn stroke (#020617 slate-950) — skarpare än V5
-// - Strokebredd 3 — finare än V5:s 4
-// - Ljusare grå (#CBD5E1 slate-300) — mer subtil
-// - Round-linjer för mjukhet
+// Grafik v3 (docs/design/tester-v2-2026-10-11/grafik-v3-spec.md), tre regler:
+// - Bläck på papper: allt som bär information ritas i bläck (#020617) med en
+//   konturbredd, kontur.sw 3. Ringar, sektorlinjer och fylld pilspets i 2,5.
+// - Referens i grått: det som bara hjälper ögat (tomma rutor i blocken,
+//   orbitalens bana, luckans ram) ritas i ram-grått (#64748B, --m-ram) med
+//   kontur.ram 2,5. Ingen linje under 2,5 i figurerna.
+// - En skala: varje figur har yttermåttet 58 till 64 och ritas i 80 procent
+//   av sin ruta, både i matrisen och i alternativen.
+// Fasta hexvärden som .matrisyta i globals.css mappar till tokens (mörkt läge,
+// koppar-bläck i luckan). Aldrig <use>, <text>, filter eller gradienter:
+// attributmappningen når inte in i en <use>, och figurerna ska vara rena streck.
 // =============================================================================
 
 const G = GEOMETRI;
@@ -41,6 +46,12 @@ const FILL_GRAY = G.farger.fillGray;
 const FILL_NONE = 'transparent';
 const SW = G.kontur.sw;
 const SW_THIN = G.kontur.swThin;
+const RAM = G.farger.ram;
+const SW_RAM = G.kontur.ram;
+const VIT = G.farger.vit;
+
+/** Avrundat till två decimaler, så att markupen blir kort och stabil. */
+const r2 = (x: number) => Math.round(x * 100) / 100;
 
 const fillFor = (f: Fill): string =>
   f === 'black' ? FILL_BLACK : f === 'gray' ? FILL_GRAY : FILL_NONE;
@@ -121,7 +132,7 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
           y1={t.linje[1]}
           x2={t.linje[2]}
           y2={t.linje[3]}
-          stroke={cell.fill === 'black' ? 'white' : stroke}
+          stroke={cell.fill === 'black' ? VIT : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
         />
@@ -148,7 +159,7 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
           y1={f.linje[1]}
           x2={f.linje[2]}
           y2={f.linje[3]}
-          stroke={cell.fill === 'black' ? 'white' : stroke}
+          stroke={cell.fill === 'black' ? VIT : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
         />
@@ -182,16 +193,17 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
 
   return (
     <>
-      {/* Bas-cirkel (orbit-spår). Referensramen som gör vandringen läsbar,
-          minst 3:1 mot vitt (G10), därför slate-500 och inte slate-400. */}
+      {/* Banan: referens i ram-grått, prickad (36 runda prickar), så att den
+          inte konkurrerar med satelliten (spec 4.7). */}
       <circle
         cx="50"
         cy="50"
         r={orbitR}
         fill="none"
-        stroke={G.farger.orbitalBana}
+        stroke={RAM}
         strokeWidth={banaSw}
         strokeDasharray={banaStreck}
+        strokeLinecap={G.orbital.banaLinecap}
       />
       {/* Centerpunkt */}
       <circle
@@ -205,8 +217,8 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
       {/* Satellit */}
       {cell.satellite !== null && (() => {
         const a = angleFor(cell.satellite);
-        const cx = 50 + orbitR * Math.cos(a);
-        const cy = 50 + orbitR * Math.sin(a);
+        const cx = r2(50 + orbitR * Math.cos(a));
+        const cy = r2(50 + orbitR * Math.sin(a));
         return (
           <circle cx={cx} cy={cy} r={satellitR} fill={FILL_BLACK} />
         );
@@ -227,12 +239,15 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
   const baseStroke = strokeFor(cell.baseFill);
   const S = G.stack;
 
-  // Symbolerna ritas i kontrast: vitt bara på svart bas, mörkt på grå/ofylld
-  const symbolColor = cell.baseFill === 'black' ? 'white' : STROKE;
-  const symbolStrokeColor = cell.baseFill === 'black' ? 'white' : STROKE;
+  // Symbolerna ritas i kontrast: papper bara på svart bas, bläck på grå/ofylld.
+  const symbolColor = cell.baseFill === 'black' ? VIT : STROKE;
+  const symbolStrokeColor = symbolColor;
+  // Symbolens centrum per bas (triangelns tyngdpunkt ligger lägre, F4);
+  // plus, minus och kryss står som offset från det.
+  const [scx, scy] = S.symbolCentrum[cell.base];
 
   const linjer = (l: [number, number, number, number][]) =>
-    l.map(([x1, y1, x2, y2], i) => <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />);
+    l.map(([x1, y1, x2, y2], i) => <line key={i} x1={scx + x1} y1={scy + y1} x2={scx + x2} y2={scy + y2} />);
 
   return (
     <>
@@ -291,26 +306,26 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
       )}
       {cell.symbol === 'minus' && (
         <line
-          x1={S.minus[0][0]}
-          y1={S.minus[0][1]}
-          x2={S.minus[0][2]}
-          y2={S.minus[0][3]}
+          x1={scx + S.minus[0][0]}
+          y1={scy + S.minus[0][1]}
+          x2={scx + S.minus[0][2]}
+          y2={scy + S.minus[0][3]}
           stroke={symbolStrokeColor}
           strokeWidth={SW}
           strokeLinecap="round"
         />
       )}
       {cell.symbol === 'dot' && (
-        <circle cx="50" cy="50" r={S.prickR} fill={symbolColor} />
+        <circle cx={scx} cy={scy} r={S.prickR} fill={symbolColor} />
       )}
       {cell.symbol === 'ring' && (
         <circle
-          cx="50"
-          cy="50"
+          cx={scx}
+          cy={scy}
           r={S.ringR}
           fill="none"
           stroke={symbolStrokeColor}
-          strokeWidth={SW_THIN}
+          strokeWidth={SW}
         />
       )}
       {cell.symbol === 'cross' && (
@@ -332,7 +347,7 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
 // =============================================================================
 
 const LatticeRenderer: React.FC<{ cell: LatticeCell }> = ({ cell }) => {
-  // 2×2 grid i [16, 84]-yta. Cell-storlek 30, gap 4
+  // 2×2 rutor, ruta 28 och luft 4 från 20: yttermått 60 (spec 4.9).
   const { ruta: cellSize, gap, start } = G.lattice;
   const startX = start;
   const startY = start;
@@ -362,7 +377,9 @@ const LatticeQuad: React.FC<{
   const cy = pos.y + size / 2;
   const ki = G.lattice.kryssInsats;
 
-  // Bas-rektangel alltid synlig som tunn ram
+  // Fylld ruta: bläck eller grått med bläckkontur. Övriga (tom, prick, kryss)
+  // har en ram i ram-grått, samma bredd, så att målad yta är lika stor (V6).
+  const fylld = quad === 'fill_black' || quad === 'fill_gray';
   const baseRect = (
     <rect
       x={pos.x}
@@ -370,15 +387,9 @@ const LatticeQuad: React.FC<{
       width={size}
       height={size}
       rx={G.lattice.rx}
-      fill={
-        quad === 'fill_black'
-          ? FILL_BLACK
-          : quad === 'fill_gray'
-          ? FILL_GRAY
-          : 'none'
-      }
-      stroke={STROKE}
-      strokeWidth={SW_THIN}
+      fill={quad === 'fill_black' ? FILL_BLACK : quad === 'fill_gray' ? FILL_GRAY : 'none'}
+      stroke={fylld ? STROKE : RAM}
+      strokeWidth={SW_RAM}
     />
   );
 
@@ -389,7 +400,7 @@ const LatticeQuad: React.FC<{
       {quad === 'cross' && (
         <g
           stroke={STROKE}
-          strokeWidth={SW_THIN}
+          strokeWidth={G.lattice.symbolSw}
           strokeLinecap="round"
           fill="none"
         >
@@ -416,8 +427,8 @@ const RayRenderer: React.FC<{ cell: RayCell }> = ({ cell }) => {
       {/* Strålar */}
       {cell.rays.map((dir, i) => {
         const a = angleFor(dir);
-        const x2 = 50 + rayLen * Math.cos(a);
-        const y2 = 50 + rayLen * Math.sin(a);
+        const x2 = r2(50 + rayLen * Math.cos(a));
+        const y2 = r2(50 + rayLen * Math.sin(a));
         return (
           <line
             key={i}
@@ -454,7 +465,7 @@ const TallyRenderer: React.FC<{ cell: TallyCell }> = ({ cell }) => {
   const yMid = 50;
 
   return (
-    <g transform={isVertical ? '' : `rotate(90, 50, 50)`}>
+    <g transform={isVertical ? undefined : 'rotate(90, 50, 50)'}>
       {/* 4 raka pinnar */}
       {Array.from({ length: visibleCount }).map((_, i) => {
         const x = startX + i * gap;
@@ -492,10 +503,8 @@ const TallyRenderer: React.FC<{ cell: TallyCell }> = ({ cell }) => {
 // =============================================================================
 
 const RingRenderer: React.FC<{ cell: RingCell }> = ({ cell }) => {
-  // Yttre ring först. Radie för n ringar baserat på antal.
-  // 3 ringar: r = 30, 22, 14
-  // 2 ringar: r = 28, 18
-  // 1 ring: r = 28
+  // Yttre ring först. Radierna per antal står i geometri.json (31; 31, 20;
+  // 31, 23, 15), konturen 2,5.
   const radii =
     cell.rings.length === 3
       ? G.ring.radier['3']
@@ -546,8 +555,7 @@ const RING_GAP = G.ring.skiljelinje;
 
 const VectorRenderer: React.FC<{ cell: VectorCell }> = ({ cell }) => {
   // Bas-vektor pekar uppåt (angle 0). Vi roterar via SVG-transform.
-  // long = lång pil från (50, 78) till (50, 22)
-  // short = kort pil från (50, 70) till (50, 30)
+  // Lång och kort pil, spets och svans ur geometri.json (52 och 36 enheter).
   const matt = cell.length === 'long' ? G.vector.lang : G.vector.kort;
   const tipY = matt.spets;
   const tailY = matt.svans;
@@ -627,7 +635,8 @@ const PolyRenderer: React.FC<{ cell: PolyCell }> = ({ cell }) => {
 // =============================================================================
 
 const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
-  // 3 tiles à 18 + 2 gap à 2 = 58 → start (100-58)/2 = 21 ger centrum (50,50)
+  // Nio rutor à 18 med luft 4 från 19: yttermått 62 runt (50, 50). Tom ruta
+  // har ram i ram-grått, fylld är bläck med bläckkontur i samma bredd (F2, V6).
   const { ruta: cellSize, gap, start } = G.tile;
   const startX = start;
   const startY = start;
@@ -649,8 +658,8 @@ const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
             height={cellSize}
             rx={G.tile.rx}
             fill={isFilled ? FILL_BLACK : 'none'}
-            stroke={STROKE}
-            strokeWidth={SW_THIN}
+            stroke={isFilled ? STROKE : RAM}
+            strokeWidth={SW_RAM}
           />
         );
       })}
@@ -766,7 +775,7 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
       );
     }
     return (
-      <rect key={i} x={cx - s} y={cy - s} width={s * 2} height={s * 2} fill={fillVal} stroke={strokeVal} strokeWidth={SW} />
+      <rect key={i} x={cx - s} y={cy - s} width={s * 2} height={s * 2} rx={B.kvadratRx} fill={fillVal} stroke={strokeVal} strokeWidth={SW} />
     );
   };
 
@@ -793,6 +802,28 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
         />
       ))}
       {cell.items.map(drawShape)}
+    </>
+  );
+};
+
+// =============================================================================
+// LUCKAN — rutan som ska fyllas, före svaret
+// =============================================================================
+
+/**
+ * Luckan före svaret (spec avsnitt 5): streckad ram och ett frågetecken ritat
+ * som bana, båda i ram-grått. Ingen text och inget typsnitt, så att den ser
+ * likadan ut överallt och inte kan ge layoutskift; aldrig koppar, som bara
+ * betyder rätt svar. Ritas i en svg med viewBox 0..100, som figurerna.
+ */
+export const LuckaFigurV7: React.FC = () => {
+  const L = G.lucka;
+  const [a, b] = L.ram;
+  return (
+    <>
+      <rect x={a} y={a} width={b - a} height={b - a} rx={L.rx} fill="none" stroke={RAM} strokeWidth={L.sw} strokeDasharray={L.streck} />
+      <path d={L.fragetecken} fill="none" stroke={RAM} strokeWidth={L.frageteckenSw} strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx={L.prick[0]} cy={L.prick[1]} r={L.prick[2]} fill={RAM} />
     </>
   );
 };

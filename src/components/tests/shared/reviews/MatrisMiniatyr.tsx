@@ -1,13 +1,15 @@
 /**
  * 80 px-läget av MatrixQuestionReview (skiss Provbladet, avsnitt 3): bara
- * matrisen, utan svarsalternativ, ritad ur frågans egna figurer. Den tomma
- * rutan står streckad i koppar, som luckan hon skulle fylla.
+ * matrisen, utan svarsalternativ, ritad ur frågans egna figurer. Luckan är
+ * densamma som i testet (grafik v3): streckad ram och ritat
+ * frågetecken i ram-grått, aldrig koppar. Figuren i 80 procent av rutan.
  *
  * Figurerna är V7-renderarnas (SvgLayeredCell), inne i .matrisyta så att de
  * följer bläcket och papperet i mörkt läge. Inget rött, ingen bild.
  */
 
 import { SvgLayeredCell, type GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
+import { LuckaFigurV7 } from '@/lib/logicTestV7/renderers.v7'
 
 const RAM = 80
 const KANT = 4
@@ -18,8 +20,8 @@ export default function MatrisMiniatyr({ fraga, className }: { fraga: Pick<Genom
   const inre = RAM - KANT * 2
   const cw = inre / kolumner
   const ch = inre / Math.max(1, rader)
-  // Figuren står med luft i sin ruta, som på provbladet.
-  const luft = Math.min(cw, ch) * 0.14
+  // Figuren fyller 80 procent av sin ruta, som i testet (grafik v3).
+  const luft = Math.min(cw, ch) * 0.1
 
   return (
     <svg
@@ -46,18 +48,9 @@ export default function MatrisMiniatyr({ fraga, className }: { fraga: Pick<Genom
           const h = ch - luft * 2
           if (!cell) {
             return (
-              <rect
-                key={`${r}-${k}`}
-                x={x}
-                y={y}
-                width={w}
-                height={h}
-                rx="2"
-                fill="none"
-                stroke="var(--koppar)"
-                strokeWidth="1.5"
-                strokeDasharray="3 2"
-              />
+              <svg key={`${r}-${k}`} x={KANT + k * cw} y={KANT + r * ch} width={cw} height={ch} viewBox="0 0 100 100">
+                <LuckaFigurV7 />
+              </svg>
             )
           }
           return (

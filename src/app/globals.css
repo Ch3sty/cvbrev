@@ -528,11 +528,14 @@
    (#020617, #CBD5E1, vitt), som blir svart på mörkt papper i mörkt läge.
    Inne i .matrisyta följer de bläcket och papperet i stället, som
    konceptets .mcell och .mfill: svart blir ink-1, vitt blir papperet, grått
-   kant-stark. Rätt svar i den tomma rutan efter svaret står i koppar (P2). */
+   kant-stark, ram-grått (#64748B: tomma rutor, orbitalens bana, luckan)
+   ink-3. Rätt svar i luckan efter svaret står i koppar-bläck, som klarar
+   4,5:1 som figur; ramen i koppar (grafik v3, spec avsnitt 3). */
 .matrisyta {
   --m-ink: var(--ink-1);
   --m-gra: var(--kant-stark);
   --m-vit: var(--papper);
+  --m-ram: var(--ink-3);
 }
 .matrisyta [fill="#020617"] { fill: var(--m-ink); }
 .matrisyta [stroke="#020617"] { stroke: var(--m-ink); }
@@ -541,9 +544,20 @@
 .matrisyta [fill="#FFFFFF"] { fill: var(--m-vit); }
 .matrisyta [stroke="white"],
 .matrisyta [stroke="#FFFFFF"] { stroke: var(--m-vit); }
+.matrisyta [fill="#64748B"] { fill: var(--m-ram); }
+.matrisyta [stroke="#64748B"] { stroke: var(--m-ram); }
 .matrisyta .ratt-fylld {
-  --m-ink: var(--koppar);
+  --m-ink: var(--koppar-ink);
   --m-gra: var(--koppar-mjuk);
+  --m-ram: var(--koppar);
+  animation: matris-tona-in 150ms ease-out;
+}
+@keyframes matris-tona-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .matrisyta .ratt-fylld { animation: none; }
 }
 
 /* Under ett flerstegsflöde äger FlowShell hela skärmen och har en egen fot

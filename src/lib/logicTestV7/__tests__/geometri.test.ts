@@ -3,9 +3,9 @@
  * 5 punkt 7). Måtten ligger i geometri.json och delas med
  * scripts/v7-geometri-check.mjs, som räknar G1 till G12 på bankerna.
  *
- * - G5: minsta storlek på en 360-mobil. Rutnätet ritas i 0,84 px per enhet,
- *   alternativen i 0,56. Kontur, avstånd, prick och längdskillnad räknas i
- *   rutnätets skala, figurens storlek i båda.
+ * - G5: minsta storlek på en 360-mobil. Rutnät och alternativ ritas i samma
+ *   skala, 0,82 px per enhet (grafik v3). Kontur, avstånd, prick och
+ *   längdskillnad räknas i den skalan.
  * - G10: informationsbärande kontur och fyllning minst 4,5:1 mot cellens
  *   vita bakgrund, referensramar minst 3:1, och grå fyllning alltid med mörk
  *   kontur.
@@ -30,18 +30,16 @@ describe('G5: minsta storlek på 360 px', () => {
     expect(px(G.kontur.sw)).toBeGreaterThanOrEqual(G.g5.minKonturPx)
   })
 
-  it('den tunna konturen är ett känt gränsfall: 1,68 px, aldrig tunnare', () => {
-    // Rutnätens ramar, sektorlinjer och ringkonturer ritas i 2 enheter.
-    // Granskningen godkände 1,7 px för ringarna (dubbelt på DPR 2); testet
-    // låser att den inte krymper ytterligare.
-    expect(px(G.kontur.swThin)).toBeGreaterThanOrEqual(1.6)
+  it('den tunna konturen och ramen är minst 2 px (grafik v3, förr 1,68 px)', () => {
+    expect(px(G.kontur.swThin)).toBeGreaterThanOrEqual(G.g5.minKonturPx)
+    expect(px(G.kontur.ram)).toBeGreaterThanOrEqual(G.g5.minKonturPx)
   })
 
   it('minsta fria avstånd (G1) är minst 3 px', () => {
     expect(px(G.regler.minGap)).toBeGreaterThanOrEqual(G.g5.minAvstandPx)
   })
 
-  it('minsta prick är minst 6 px i diameter', () => {
+  it('minsta prick är minst 8 px i diameter', () => {
     const radier = [G.stack.prickR, G.lattice.prickR, G.ray.mittR, G.orbital.satellitR, G.dotsorbit.prickR]
     expect(px(2 * Math.min(...radier))).toBeGreaterThanOrEqual(G.g5.minPrickPx)
   })
@@ -70,8 +68,9 @@ describe('G10: kontrast mot cellens bakgrund', () => {
     expect(kontrastkvot(G.farger.vit, G.farger.fillBlack)).toBeGreaterThanOrEqual(G.g10.information)
   })
 
-  it('orbitalens streckade bana är en referensram och klarar 3:1', () => {
+  it('orbitalens prickade bana är en referensram i ram-grått och klarar 3:1', () => {
     expect(G.farger.orbitalBana).toBe('#64748B')
+    expect(G.farger.ram).toBe(G.farger.orbitalBana)
     expect(kontrastkvot(G.farger.orbitalBana, vit)).toBeGreaterThanOrEqual(G.g10.referensram)
     // den gamla färgen klarade det inte
     expect(kontrastkvot('#94A3B8', vit)).toBeLessThan(G.g10.referensram)

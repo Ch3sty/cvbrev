@@ -29,9 +29,15 @@ export type Geometri = {
     minLagen: number;
     /** Hela figurens period i en figurserie med fem visade (G9). */
     minPeriodFigurserie: number;
+    /** Nominellt yttermått per primitiv utan kontur, längsta axeln (V1). */
+    yttermatt: [number, number];
+    /** Primitiver som mäts på annat sätt i V1 (linjeformer, referensram). */
+    yttermattUndantag: Record<string, string>;
   };
-  /** Pixel per viewBox-enhet på en 360-mobil (G5). */
+  /** Pixel per viewBox-enhet på en 360-mobil (G5). Samma skala i rutnät och alternativ (V9). */
   skala360: { rutnat: number; alternativ: number };
+  /** Pixel per viewBox-enhet på 1280 (frågekolumnen 420 px). */
+  skala1280: { rutnat: number; alternativ: number };
   g5: {
     minFigurRutnatPx: number;
     minFigurAlternativPx: number;
@@ -48,9 +54,13 @@ export type Geometri = {
     fillBlack: string;
     fillGray: string;
     vit: string;
+    /** Ram-grått: referens som bara hjälper ögat (tomma rutor, banan, luckan). Mappas till --m-ram. */
+    ram: string;
+    /** Alias för ram, behålls för äldre läsare. */
     orbitalBana: string;
   };
-  kontur: { sw: number; swThin: number };
+  /** sw: bläck, all information. swThin: ringar, sektorlinjer, fylld pilspets. ram: referens i ram-grått. */
+  kontur: { sw: number; swThin: number; ram: number };
   glyph: {
     lambda: string;
     sigma: string;
@@ -59,19 +69,28 @@ export type Geometri = {
     phi: Ellips;
     pi: string;
   };
-  orbital: { banaR: number; banaSw: number; banaStreck: string; mittR: number; satellitR: number };
+  orbital: {
+    banaR: number;
+    banaSw: number;
+    banaStreck: string;
+    banaLinecap: 'round' | 'butt' | 'square';
+    mittR: number;
+    satellitR: number;
+  };
   stack: {
     cirkelR: number;
     kvadrat: { x: number; y: number; bredd: number; rx: number };
     triangel: Punkt[];
     romb: Punkt[];
+    /** Symbolens centrum per bas. Plus, minus och kryss är offset från det. */
+    symbolCentrum: Record<'circle' | 'square' | 'triangle' | 'diamond', Punkt>;
     plus: Linje[];
     minus: Linje[];
     kryss: Linje[];
     prickR: number;
     ringR: number;
   };
-  lattice: { ruta: number; gap: number; start: number; rx: number; prickR: number; kryssInsats: number };
+  lattice: { ruta: number; gap: number; start: number; rx: number; prickR: number; kryssInsats: number; symbolSw: number };
   ray: { mittR: number; langd: number };
   tally: { langd: number; gap: number; diagonalUtstick: number };
   ring: { radier: Record<'1' | '2' | '3', number[]>; skiljelinje: number };
@@ -89,6 +108,18 @@ export type Geometri = {
     halvbredd: number;
     avdelareX: [number, number];
     avdelareY: [number, number];
+    kvadratRx: number;
+  };
+  /** Luckan före svaret: streckad ram och ritat frågetecken i ram-grått (spec avsnitt 5). */
+  lucka: {
+    ram: [number, number];
+    rx: number;
+    sw: number;
+    streck: string;
+    fragetecken: string;
+    frageteckenSw: number;
+    /** cx, cy, r */
+    prick: [number, number, number];
   };
 };
 

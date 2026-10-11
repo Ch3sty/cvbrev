@@ -14,7 +14,7 @@
 import React from 'react';
 import type { V7Cell } from './types.v7';
 import type { MatrisFamilj } from './familjer';
-import { SvgCellV7 } from './renderers.v7';
+import { LuckaFigurV7, SvgCellV7 } from './renderers.v7';
 
 // En cell kan vara EN primitiv (som idag) ELLER en stack av primitiver.
 export type LayeredCell = V7Cell | V7Cell[];
@@ -62,7 +62,39 @@ export type VisadFraga = Omit<LayeredQuestion, 'correctAnswer' | 'misstag' | 'mi
  */
 export type GenomgangsFraga = VisadFraga & { rattVisat: number; family?: MatrisFamilj | null };
 
-export const isStack =(cell: LayeredCell): cell is V7Cell[] => Array.isArray(cell);
+export const isStack = (cell: LayeredCell): cell is V7Cell[] => Array.isArray(cell);
+
+/**
+ * En figur i sin ruta (grafik v3, spec avsnitt 1): svg i full storlek med
+ * 10 procent luft per sida, så att figuren fyller 80 procent av rutan i både
+ * matrisen och alternativen. Samma svg-i-full-storlek-mekanism för figurer
+ * och lucka ger samma höjd (höjdfällan i reference_matrix_test_system).
+ * Ska stå inne i .matrisyta, som mappar de fasta färgerna till tokens.
+ */
+export const FigurV7: React.FC<{ cell: LayeredCell; className?: string }> = ({ cell, className }) => (
+  <svg
+    viewBox="0 0 100 100"
+    className={`block h-full w-full p-[10%] ${className ?? ''}`}
+    shapeRendering="geometricPrecision"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <SvgLayeredCell cell={cell} />
+  </svg>
+);
+
+/** Luckan före svaret: streckad ram och ritat frågetecken i ram-grått, ingen text (V10). */
+export const LuckaV7: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    viewBox="0 0 100 100"
+    className={`block h-full w-full ${className ?? ''}`}
+    shapeRendering="geometricPrecision"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <LuckaFigurV7 />
+  </svg>
+);
 
 // Ritar en layered cell: en eller flera primitiver staplade i samma SVG-rymd.
 export const SvgLayeredCell: React.FC<{ cell: LayeredCell }> = ({ cell }) => {
