@@ -9,7 +9,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import KontaktForm from '../KontaktForm'
 
-const TACK = /Tack för ditt meddelande/
+const TACK = /Tack. Vi läser allt och svarar från support@jobbcoach.ai./
 const fetchMock = vi.fn()
 
 beforeEach(() => {
@@ -91,6 +91,14 @@ describe('KontaktForm', () => {
 
   it('platshållaren säger prenumeration, inte paket', () => {
     render(<KontaktForm variant="dashboard" />)
-    expect(screen.getByPlaceholderText('En fråga om din prenumeration')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Fråga om min prenumeration')).toBeInTheDocument()
+  })
+
+  it('Tack lovar ingen svarstid', async () => {
+    fetchMock.mockResolvedValue(svar(200, { ok: true }))
+    render(<KontaktForm variant="dashboard" />)
+    fyllOchSkicka()
+    expect(await screen.findByText(TACK)).toBeInTheDocument()
+    expect(screen.queryByText(/24 timmar/)).toBeNull()
   })
 })

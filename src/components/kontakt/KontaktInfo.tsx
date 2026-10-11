@@ -47,7 +47,7 @@ function DashboardInfo() {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-ink-1">Konto och support</p>
             <p className="mt-0.5 text-meta text-ink-3">
-              Inloggning, betalning eller din prenumeration. Har du {paketKort()} får du svar först.
+              Inloggning, betalning eller din prenumeration. Har du {paketKort()} tar vi ditt ärende först.
             </p>
             <a href="mailto:support@jobbcoach.ai" className={LINK}>
               support@jobbcoach.ai

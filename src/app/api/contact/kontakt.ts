@@ -61,29 +61,50 @@ export function escapeHtml(s: string): string {
 }
 
 export interface Avsandare {
-  userId: string
+  /** null på den publika vägen, där ingen är inloggad. */
+  userId: string | null
   kontoEpost: string | null
   /** Har kontot en betald behörighet? Då hanteras ärendet först. */
   harPremium: boolean
+  /** Skickat från /kontakt utan inloggning. Ämnet får [Publik]. */
+  publik?: boolean
+}
+
+/** Honungsfältet i det publika formuläret. Människor ser det aldrig. */
+export const HONUNGSFALT = 'webbplats'
+
+/** Är honungsfältet ifyllt? Då svarar routen 200 utan att skicka något. */
+export function arHonung(body: unknown): boolean {
+  if (!body || typeof body !== 'object') return false
+  const v = (body as Record<string, unknown>)[HONUNGSFALT]
+  if (typeof v === 'string') return v.trim().length > 0
+  return v != null && v !== false
 }
 
 /** Mejlet till supporten. Svar går till adressen i formuläret. */
 export function byggMejl(data: KontaktIn, fran: Avsandare) {
+  const publik = fran.publik ? ' [Publik]' : ''
   const prio = fran.harPremium ? ' [PREMIUM]' : ''
   // Radbrytningar i ämnet stoppas, de kan inte stå i en mejlrubrik.
-  const amne = `[KONTAKT]${prio} ${data.subject.replace(/[\r\n]+/g, ' ')}`
+  const amne = `[KONTAKT]${publik}${prio} ${data.subject.replace(/[\r\n]+/g, ' ')}`
   const rader = [
     ['Namn', data.name],
     ['Svara till', data.email],
     ['Kontots e-post', fran.kontoEpost ?? 'okänd'],
-    ['Användar-id', fran.userId],
+    ['Användar-id', fran.userId ?? 'inget, skickat utan inloggning'],
     ['Premium', fran.harPremium ? 'ja' : 'nej'],
   ] as const
-  const text = `${rader.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${data.message}\n\nSkickat från kontaktformuläret i inloggat läge.`
+  const kalla = fran.publik
+    ? 'Skickat från kontaktformuläret på /kontakt, utan inloggning.'
+    : 'Skickat från kontaktformuläret i inloggat läge.'
+  const text = `${rader.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${data.message}\n\n${kalla}`
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#334155;">
 ${rader.map(([k, v]) => `<p style="margin:0 0 4px 0;"><strong>${k}:</strong> ${escapeHtml(v)}</p>`).join('\n')}
 <p style="margin:16px 0 0 0;white-space:pre-wrap;">${escapeHtml(data.message)}</p>
-<p style="margin:16px 0 0 0;color:#64748b;font-size:12px;">Skickat från kontaktformuläret i inloggat läge.</p>
+<p style="margin:16px 0 0 0;color:#64748b;font-size:12px;">${kalla}</p>
 </div>`
   return { from: AVSANDARE, to: [mottagare()], replyTo: data.email, subject: amne, text, html }
 }
+
+/** Svaret över gränsen på den publika vägen (spec-rummen 23.1). */
+export const FEL_GRANS = 'Du har skickat flera meddelanden i dag. Maila support@jobbcoach.ai direkt.'

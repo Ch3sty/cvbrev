@@ -2,8 +2,10 @@
  * Fil: src/components/kontakt/KontaktFormPublik.tsx
  *
  * Beskrivning:
- * Återanvändbart kontaktformulär för den publika sidan och dashboarden.
- * Hanterar state, validering och submission.
+ * Kontaktformuläret på den publika sidan (/kontakt). Skickar till
+ * /api/contact, som utan inloggning tar den publika vägen (spec-rummen
+ * 23.1): honungsfält, tre meddelanden per IP och dygn. Tack visas bara när
+ * routen svarat 2xx, samma mönster som KontaktForm i inloggat läge.
  *
  * Varianten dashboard följer Tråden (docs/design/designsystem-v2-utkast.md):
  * panel, insunkna fält, ink-knapp, bekräftelse och fel som rader utan
@@ -21,6 +23,9 @@ interface KontaktFormProps {
   variant?: 'public' | 'dashboard'
   onSubmitSuccess?: () => void
 }
+
+const FEL_STANDARD = 'Vi nådde inte fram. Fälten står kvar, tryck Skicka igen, eller maila support@jobbcoach.ai.'
+const TACK = 'Tack. Vi läser allt och svarar från support@jobbcoach.ai.'
 
 const PUBLIC = {
   wrap: 'bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-xl sm:rounded-2xl border border-purple-200 p-4 sm:p-6 shadow-lg relative overflow-hidden',
@@ -55,6 +60,8 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  // Honungsfältet: osynligt för människor, robotar fyller i det.
+  const [webbplats, setWebbplats] = useState('')
 
   const isDashboard = variant === 'dashboard'
   const s = isDashboard ? DASHBOARD : PUBLIC
@@ -70,27 +77,41 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
     setSubmitStatus('idle')
     setErrorMessage('')
 
+    // Enkel validering före nätverket; routen kontrollerar samma sak.
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setSubmitStatus('error')
+      setErrorMessage('Fyll i alla fält.')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      console.log("Skickar formulär:", formData)
-      // Simulera API-anrop
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      // Enkel validering
-      if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-        throw new Error("Alla fält måste fyllas i.")
+      // /api/contact mejlar supporten via Resend. Tack visas bara på 2xx;
+      // allt annat, nätverksfel inräknat, är ett fel och fälten står kvar.
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, webbplats }),
+      })
+      if (!response.ok) {
+        let meddelande = ''
+        try {
+          const json = await response.json()
+          meddelande = typeof json?.message === 'string' ? json.message : ''
+        } catch {
+          meddelande = ''
+        }
+        throw new Error(meddelande || FEL_STANDARD)
       }
-
-      // -- HÄR SKICKAS DATAN TILL DIN BACKEND --
-      // const response = await fetch('/api/contact', { method: 'POST', ... });
-      // if (!response.ok) throw new Error('Något gick fel.');
 
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
       onSubmitSuccess?.()
-    } catch (error: any) {
-      console.error("Fel vid skickande:", error)
+    } catch (error: unknown) {
       setSubmitStatus('error')
-      setErrorMessage(error.message || 'Ett oväntat fel inträffade. Försök igen senare.')
+      // Ett nätverksfel (TypeError från fetch) får standardtexten, inte webbläsarens.
+      const text = error instanceof Error && !(error instanceof TypeError) ? error.message : ''
+      setErrorMessage(text || FEL_STANDARD)
     } finally {
       setIsSubmitting(false)
     }
@@ -115,6 +136,20 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Honungsfält: utanför skärmen, utan tabbstopp och dolt för skärmläsare. */}
+          <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+            <label htmlFor="webbplats">Lämna tomt</label>
+            <input
+              type="text"
+              name="webbplats"
+              id="webbplats"
+              tabIndex={-1}
+              autoComplete="off"
+              value={webbplats}
+              onChange={e => setWebbplats(e.target.value)}
+            />
+          </div>
+
           {/* Namn */}
           <div>
             <label htmlFor="name" className={s.label}>
@@ -165,7 +200,7 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
               value={formData.subject}
               onChange={handleInputChange}
               className={s.field}
-              placeholder="En fråga om din prenumeration"
+              placeholder="Fråga om min prenumeration"
             />
           </div>
 
@@ -208,15 +243,15 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
                   className="mt-3 flex items-center gap-2 text-sm font-medium text-positiv"
                 >
                   <span className="h-2 w-2 shrink-0 rounded-full bg-positiv" aria-hidden="true" />
-                  Tack för ditt meddelande. Vi svarar inom 24 timmar.
+                  {TACK}
                 </p>
               ) : (
-                <div className="mt-4 flex items-start p-4 bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-xl shadow-md">
+                <div
+                  role="status"
+                  className="mt-4 flex items-start p-4 bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-xl shadow-md"
+                >
                   <CheckCircle className="w-5 h-5 mr-3 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-emerald-900 text-sm sm:text-base">Tack för ditt meddelande!</p>
-                    <p className="text-emerald-700 text-xs sm:text-sm mt-1">Vi svarar inom 24 timmar.</p>
-                  </div>
+                  <p className="font-semibold text-emerald-900 text-sm sm:text-base">{TACK}</p>
                 </div>
               )
             ) : null}
@@ -237,7 +272,10 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
                   </div>
                 </div>
               ) : (
-                <div className="mt-4 flex items-start p-4 bg-gradient-to-br from-red-50 to-orange-50 border border-red-200 rounded-xl shadow-md">
+                <div
+                  role="alert"
+                  className="mt-4 flex items-start p-4 bg-gradient-to-br from-red-50 to-orange-50 border border-red-200 rounded-xl shadow-md"
+                >
                   <AlertTriangle className="w-5 h-5 mr-3 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-red-900 text-sm sm:text-base">Något gick fel</p>

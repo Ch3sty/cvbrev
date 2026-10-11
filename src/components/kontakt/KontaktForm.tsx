@@ -151,7 +151,7 @@ export default function KontaktForm({ onSubmitSuccess }: KontaktFormProps) {
               value={formData.subject}
               onChange={handleInputChange}
               className={s.field}
-              placeholder="En fråga om din prenumeration"
+              placeholder="Fråga om min prenumeration"
             />
           </div>
 
@@ -190,7 +190,7 @@ export default function KontaktForm({ onSubmitSuccess }: KontaktFormProps) {
                   className="mt-3 flex items-center gap-2 text-sm font-medium text-positiv"
                 >
                   <span className="h-2 w-2 shrink-0 rounded-full bg-positiv" aria-hidden="true" />
-                  Tack för ditt meddelande. Vi svarar inom 24 timmar.
+                  Tack. Vi läser allt och svarar från support@jobbcoach.ai.
                 </p>
             ) : null}
 
