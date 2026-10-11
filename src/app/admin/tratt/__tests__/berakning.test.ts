@@ -42,8 +42,9 @@ describe('byggBlockeringar', () => {
     ];
     const ut = byggBlockeringar(rader, 'feature_blocked');
     expect(ut.map((r) => r.feature)).toEqual(['cv_export', 'test_exam_mode', 'chat_unlimited']);
-    expect(ut[0]).toMatchObject({ personer: 4, antal: 5, paket: 'cv', roll: 'cv', namn: 'Ladda ned CV' });
-    expect(ut[1]).toMatchObject({ paket: 'tester', roll: 'test' });
+    expect(ut[0]).toMatchObject({ personer: 4, antal: 5, paket: 'allt', roll: 'allt', namn: 'Ladda ned CV' });
+    // Sedan 2026-10-11 säljs bara Premium (spec-rummen 17.3), så varje spärr säljer Allt.
+    expect(ut[1]).toMatchObject({ paket: 'allt', roll: 'allt' });
     expect(ut[2]).toMatchObject({ paket: 'allt', roll: 'allt' });
   });
 

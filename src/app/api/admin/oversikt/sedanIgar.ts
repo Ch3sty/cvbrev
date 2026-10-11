@@ -9,7 +9,7 @@
 
 import type { KopRad } from '@/lib/admin/kop';
 import type { DagligaMetrik, PaketNyckel } from '@/lib/admin/collect';
-import { PLANS, paketMedLangd } from '@/lib/plans/plans';
+import { PLANS, SALD_PLAN, paketMedLangd, paketNamn } from '@/lib/plans/plans';
 import { klockslag, datumKort } from '@/lib/admin/tomt';
 
 export const DYGN_MS = 24 * 60 * 60 * 1000;
@@ -168,7 +168,7 @@ export function kontoHandelse(skapade: string[], idag: string): Handelse | null 
   };
 }
 
-const SPAR_NAMN: Record<string, string> = { cv: 'CV', tester: 'Tester', allt: 'Hela paketet' };
+const SPAR_NAMN: Record<string, string> = { cv: 'CV', tester: 'Tester', allt: paketNamn(SALD_PLAN) };
 
 export interface SparRad {
   dag: string;
@@ -267,7 +267,7 @@ const PAKET_KOLUMNER: Array<{ nyckel: PaketNyckel; kolumn: keyof DagligaMetrik }
 ];
 
 /**
- * "3 × Hela paketet, en månad 149 kr" ur active_*-kolumnerna. Dagspasset är ett
+ * "3 × Jobbcoach Premium, en månad 149 kr" ur active_*-kolumnerna. Dagspasset är ett
  * engångsköp och har ingen MRR, så den står inte med.
  */
 export function mrrPaketText(rad: DagligaMetrik | null | undefined): string {

@@ -36,7 +36,7 @@ function kop(varden: Partial<KopRad> = {}): KopRad {
 }
 
 const manad = (id: string, tid: string) =>
-  kop({ id, tid, typ: 'lopande', ny: false, paket: 'all_month', paketNamn: 'Hela paketet, en månad', beloppOre: 14900 });
+  kop({ id, tid, typ: 'lopande', ny: false, paket: 'all_month', paketNamn: 'Jobbcoach Premium, en månad', beloppOre: 14900 });
 
 // 22 sep 2026 21.00 svensk tid.
 const NU = Date.parse('2026-09-22T19:00:00Z');
@@ -47,7 +47,7 @@ const RADER = [
   manad('ch_3', '2026-09-02T11:31:00Z'),
   manad('ch_4', '2026-08-31T14:37:00Z'),
   kop({ id: 'ch_int', internt: true, tid: '2026-09-22T10:00:00Z' }),
-  kop({ id: 'ch_gammal', tid: '2026-06-25T10:00:00Z', typ: 'lopande', paketNamn: 'Hela paketet, en månad', beloppOre: 14900 }),
+  kop({ id: 'ch_gammal', tid: '2026-06-25T10:00:00Z', typ: 'lopande', paketNamn: 'Jobbcoach Premium, en månad', beloppOre: 14900 }),
 ];
 
 describe('summeraKop och kopIFonster', () => {
@@ -140,8 +140,8 @@ describe('intaktPerDag', () => {
 
 describe('uppraknat', () => {
   it('skriver "A, B och C"', () => {
-    expect(uppraknat(['CV-paketet', 'Träningspaketet', 'Hela paketet'])).toBe(
-      'CV-paketet, Träningspaketet och Hela paketet'
+    expect(uppraknat(['CV-paketet', 'Träningspaketet', 'Jobbcoach Premium'])).toBe(
+      'CV-paketet, Träningspaketet och Jobbcoach Premium'
     );
     expect(uppraknat(['A'])).toBe('A');
     expect(uppraknat([])).toBe('');

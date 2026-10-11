@@ -57,8 +57,8 @@ describe('byggKopRad', () => {
     expect(byggKopRad(DAGSPASS, false, profiler, u).internt).toBe(true);
   });
 
-  it('skriver Hela paketet, en månad med å', () => {
-    expect(paketNamn('all_month')).toBe('Hela paketet, en månad');
+  it('skriver Jobbcoach Premium, en månad med å', () => {
+    expect(paketNamn('all_month')).toBe('Jobbcoach Premium, en månad');
     expect(paketNamn(null)).toBe('Okänt paket');
   });
 });
@@ -68,7 +68,7 @@ describe('summera', () => {
     id: 'x',
     tid: '2026-09-22T12:00:00Z',
     paket: 'all_month',
-    paketNamn: 'Hela paketet, en månad',
+    paketNamn: 'Jobbcoach Premium, en månad',
     beloppOre: 14900,
     typ: 'lopande',
     ny: false,

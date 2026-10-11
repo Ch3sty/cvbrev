@@ -129,7 +129,7 @@ describe('kopHandelser', () => {
   });
 
   it('kallar en löpande betalning som inte är ny för förnyelse', () => {
-    const [h] = kopHandelser([kop({ typ: 'lopande', ny: false, paketNamn: 'Hela paketet, en månad' })], 0);
+    const [h] = kopHandelser([kop({ typ: 'lopande', ny: false, paketNamn: 'Jobbcoach Premium, en månad' })], 0);
     expect(h.text).toContain('förnyelse');
   });
 
@@ -185,7 +185,7 @@ describe('händelserna ur Supabase', () => {
       { dag: '2026-09-22', dimension: 'cv', personer: 1, uppdaterad: '2026-09-22T17:48:00Z' },
       { dag: '2026-09-22', dimension: 'allt', personer: 1, uppdaterad: '2026-09-22T17:48:00Z' },
     ]);
-    expect(h.text).toBe('2 personer valde spår (1 CV, 1 Hela paketet)');
+    expect(h.text).toBe('2 personer valde spår (1 CV, 1 Jobbcoach Premium)');
   });
 
   it('tar bara i dag och i går för uppsägningar, och hoppar över nollor', () => {
@@ -214,12 +214,12 @@ describe('mrrPaketText', () => {
   const rad = (v: Partial<DagligaMetrik>) => ({ dag: '2026-09-22', ...v }) as DagligaMetrik;
 
   it('skriver antal gånger paket och pris', () => {
-    expect(mrrPaketText(rad({ active_all_month: 3 }))).toBe('3 × Hela paketet, en månad 149 kr');
+    expect(mrrPaketText(rad({ active_all_month: 3 }))).toBe('3 × Jobbcoach Premium, en månad 149 kr');
   });
 
   it('lämnar Dagspasset utanför, den har ingen MRR', () => {
     expect(mrrPaketText(rad({ active_all_month: 3, active_all_day: 1 }))).toBe(
-      '3 × Hela paketet, en månad 149 kr'
+      '3 × Jobbcoach Premium, en månad 149 kr'
     );
   });
 
