@@ -305,7 +305,7 @@ export default function ValjSparClient({
       <p className="mt-0.5 text-meta text-ink-3">{KOPSTEG.under}</p>
 
       <section
-        className="mt-4 rounded-2xl border border-koppar bg-papper p-4 shadow-[inset_0_0_0_1px_var(--koppar)]"
+        className="mt-4 rounded-2xl border border-kant bg-papper p-4"
         aria-label={KOPSTEG.farEtikett}
       >
         <p className="text-ey text-ink-3">{KOPSTEG.farEtikett}</p>
