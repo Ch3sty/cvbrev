@@ -112,6 +112,11 @@ export default function DashboardShell({
 
   // Sidbytets intoning hör till sidbyten, inte till första laddningen
   // (LCP registreras inte på ett osynligt element).
+  // Nyckeln för sidbytet. Passet byter adress från /tester/pass?typ=… till
+  // /tester/pass/<id> med replaceState när sessionen skapats; det är samma
+  // sida och får inte monteras om, annars startar passet en ny session i
+  // varje varv (loopen 2026-10-11).
+  const sidnyckel = pathname?.replace(/^(\/dashboard\/tester\/pass)(\/.*)?$/, '$1') ?? null;
   const forstaSokvag = useRef(pathname);
   const navigerat = useRef(false);
   if (pathname !== forstaSokvag.current) navigerat.current = true;
@@ -226,7 +231,7 @@ export default function DashboardShell({
                 --bottom-nav-h. Väggen och golvet sätter sina egna marginaler. */}
             <main className="dashboard-main-content relative flex-1 overflow-y-auto overscroll-contain bg-golv p-0">
               <div
-                key={pathname}
+                key={sidnyckel ?? undefined}
                 className={`flex min-h-full flex-col ${harNavigerat ? 'motion-safe:animate-[fadeInPlace_150ms_ease-out]' : ''}`}
               >
                 {children}

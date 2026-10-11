@@ -157,6 +157,9 @@ function Meddelande({ titel, text, children }: { titel: string; text?: string; c
   )
 }
 
+// Senaste startade session under sidvisningen, delad mellan monteringar.
+let senasteStart: { nyckel: string; at: number; api: PassApi; svar: ReturnType<PassApi['skapa']> } | null = null
+
 export default function PassFlode({
   api = fetchPassApi,
   start,
@@ -213,8 +216,18 @@ export default function PassFlode({
   const skapa = useCallback(async () => {
     if (!start) return
     setFas({ typ: 'startar' })
-    const r = await api.skapa(start.typ, { family: start.family, format: start.format })
+    // Spärr mot dubbla sessioner om komponenten monteras om under samma
+    // sidvisning (se loopen 2026-10-11): samma start inom 30 s återanvänder
+    // anropet i stället för att skapa en ny session.
+    const nyckel = `${start.typ}|${start.family ?? ''}|${start.format ?? ''}`
+    const nu = Date.now()
+    if (!senasteStart || senasteStart.api !== api || senasteStart.nyckel !== nyckel || nu - senasteStart.at > 30_000) {
+      senasteStart = { nyckel, at: nu, api, svar: api.skapa(start.typ, { family: start.family, format: start.format }) }
+    }
+    const r = await senasteStart.svar
     if (!r.ok) {
+      // Ett misslyckat försök återanvänds aldrig: Försök igen ska skapa på nytt.
+      senasteStart = null
       if (r.status === 402) capture('betalvagg_visad', { plats: betalvaggPlats(start.typ), dagar_kvar: null })
       setFas({ typ: 'startfel', status: r.status, fel: r.fel })
       return
