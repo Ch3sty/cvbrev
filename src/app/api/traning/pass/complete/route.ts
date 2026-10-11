@@ -27,6 +27,8 @@ export async function POST(request: Request) {
     if (!r.ok) return fel(r.status, r.fel);
     // Kom igång: grundtestets bricka står för "Mät din nivå" tills våg 2 döper om den.
     if (r.avslut.typ === 'matning') void markeraTestBricka(a.userId, 'matrislogik');
+    // Generalrepetitionen kvitterar provlägets bricka.
+    if (r.avslut.typ === 'general') void markeraTestBricka(a.userId, 'matrislogik-general');
     return NextResponse.json(r.avslut);
   } catch (e) {
     return internt(e, 'pass/complete POST');

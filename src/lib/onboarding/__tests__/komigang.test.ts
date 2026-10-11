@@ -144,6 +144,12 @@ describe('kvitteringen ur tabellerna', () => {
     expect(brickorForTestType('personlighet-grund')).toEqual(['personlighet'])
   })
 
+  it('Träningens generalrepetition kvitterar provläget, mätningen matris grund', () => {
+    expect(brickorForTestType('matrislogik-general')).toEqual(['provlage'])
+    expect(brickorForTestType('matrislogik-matning')).toEqual(['matris_grund'])
+    expect(brickorForTestType('matrislogik-pass')).toEqual([])
+  })
+
   it('tål skräp i onboarding_steps', () => {
     expect(sparadeNycklar(null)).toEqual([])
     expect(sparadeNycklar([1, 2])).toEqual([])
