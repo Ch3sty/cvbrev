@@ -192,7 +192,10 @@ if (vag === '3b') {
     return ut
   }
   const kopparText = rakna(/\btext-koppar(?![-\w])/)
-  const fel = rakna(/--fel\b|\b(text|bg|border|ring|fill|stroke)-fel\b/)
+  // Rött i passet: bara passets och resultatens filer. Ingången (våg 2) har
+  // sin sparfelsruta i felfärgerna, vilket är rätt: det är ett nätverksfel,
+  // inte en missad fråga (sammanslagningen 2 + 3b).
+  const fel = rakna(/--fel\b|\b(text|bg|border|ring|fill|stroke)-fel\b/).filter((t) => !t.startsWith('src/components/traning/Ingang.tsx:'))
   const lucideTraning = traning.filter((f) => /from ['"]lucide-react['"]/.test(fs.readFileSync(f, 'utf8')))
   const vaggPrimar = rakna(/<div className="vagg[^"]*"[^>]*>.*KNAPP_PRIMAR/)
   const jsxText = rakna(/>\s*[A-ZÅÄÖ][a-zåäö]+(\s+[a-zåäö]+){1,}\s*</)
