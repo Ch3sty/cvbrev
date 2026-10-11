@@ -1,9 +1,11 @@
 [
   {
     "id": "v7-q4-vector-rotation",
+    "pensionerad": true,
     "title": "Vektorn vrider sig medurs",
     "rule": "Vektorn vrider sig 45° medurs per cell, läst rad för rad. Pilhuvudet är alltid fyllt och vektorn alltid lång.",
     "difficulty": 3,
+    "family": "vridning",
     "grid": [
       [
         {
@@ -99,13 +101,22 @@
         "head": "open"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har vridit sig ett steg för långt.",
+      "Pilen hamnar 90 grader för långt.",
+      "Pilen pekar åt motsatt håll.",
+      "Pilen har vridit sig åt fel håll.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen."
+    ]
   },
   {
     "id": "v7-q5-lattice-xor",
     "title": "XOR i 2×2-rutnät",
     "rule": "Kolumn 3 visar de kvadranter som är fyllda i bara en av kolumnerna 1 eller 2. Kvadranter som är fyllda i båda blir tomma.",
     "difficulty": 3,
+    "family": "overlagring",
     "grid": [
       [
         {
@@ -243,13 +254,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Rutan uppe till vänster saknas.",
+      "Kopierar den första rutan i raden.",
+      "Rutan uppe till höger finns i båda och ska bort. Rutan nere till höger finns bara i den första och ska vara kvar.",
+      "Samma som rutan ovanför.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7-q8-stack-latin",
-    "title": "Latin square — bas och symbol",
-    "rule": "Varje rad och varje kolumn ska innehålla exakt en cirkel-bas, en kvadrat-bas och en triangel-bas — och exakt en plus-symbol, en ring-symbol och en prick-symbol.",
+    "title": "Grundform och symbol i rad och kolumn",
+    "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som grundform, och exakt ett plus, en ring och en prick som symbol.",
     "difficulty": 3,
+    "family": "latin-flera",
     "grid": [
       [
         {
@@ -345,13 +365,22 @@
         "baseFill": "none"
       }
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en cirkel.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en ring.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en prick.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick."
+    ]
   },
   {
     "id": "v7-q11-ring-xor",
     "title": "XOR per ring",
     "rule": "Varje ring (ytter, mitten, inner) i kolumn 3 är svart endast om den är svart i exakt en av kolumnerna 1 eller 2. Är ringen svart i båda eller ingen blir den ofylld.",
     "difficulty": 3,
+    "family": "overlagring",
     "grid": [
       [
         {
@@ -475,13 +504,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Tar bort allt. Mellanringen och den innersta finns bara i en av rutorna och ska vara kvar.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "En svart ring saknas.",
+      "Kopierar den första rutan i raden."
+    ]
   },
   {
     "id": "v7-q12-triple-stack",
+    "pensionerad": true,
     "title": "Tre attribut samtidigt",
     "rule": "Varje cell har tre attribut. Raden bestämmer basformen — rad 1 = cirkel, rad 2 = kvadrat, rad 3 = triangel. Kolumnen bestämmer fyllningen — kolumn 1 = ofylld, kolumn 2 = grå, kolumn 3 = svart. Symbolen är 'plus' på huvuddiagonalen (övre vänster till nedre höger), annars 'ring'.",
     "difficulty": 4,
+    "family": "latin-flera",
     "grid": [
       [
         {
@@ -577,13 +616,22 @@
         "baseFill": "gray"
       }
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "misstag": [
+      "Grundformen stämmer, men rutorna på diagonalen från övre vänstra hörnet har ett plus.",
+      "",
+      "Grundformen stämmer, men i tredje kolumnen är alla svarta.",
+      "Symbolen stämmer, men i tredje raden är alla trianglar.",
+      "Symbolen stämmer, men i tredje raden är alla trianglar.",
+      "Rutorna på diagonalen från övre vänstra hörnet har ett plus. I tredje kolumnen är alla svarta."
+    ]
   },
   {
     "id": "v7-q13-tile-mirror",
     "title": "Speglingskedja",
     "rule": "Kolumn 2 är en horisontell spegelbild av kolumn 1 (vänster ↔ höger). Kolumn 3 är en lodrät spegelbild av kolumn 2 (upp ↔ ner).",
     "difficulty": 4,
+    "family": "spegling",
     "grid": [
       [
         {
@@ -651,13 +699,22 @@
         "pattern": 392
       }
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "misstag": [
+      "Vrider i stället för att spegla.",
+      "",
+      "Kopierar den första rutan i raden.",
+      "Samma som rutan till vänster. Den andra speglingen saknas.",
+      "Mittraden finns inte i någon spegling av rutan till vänster. Spegla den upp och ner.",
+      "Kopierar den översta rutan i kolumnen."
+    ]
   },
   {
     "id": "v7-q15-tile-xor",
     "title": "XOR av rutmönster",
     "rule": "Kolumn 3 visar de rutor som är fyllda i bara en av kolumnerna 1 eller 2. Rutor som är fyllda i båda blir tomma.",
     "difficulty": 4,
+    "family": "overlagring",
     "grid": [
       [
         {
@@ -725,13 +782,23 @@
         "pattern": 0
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Uppe till vänster och nere till höger saknas. Rutan till höger i mitten finns inte i någon av de två rutorna.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Alla rutor fyllda. Mitten finns i båda rutorna och ska bort.",
+      "Ingen ruta alls. De fyra hörnen finns i var sin ruta och ska vara med."
+    ]
   },
   {
     "id": "v7-a-ring-latin",
+    "pensionerad": true,
     "title": "Ringfyllning i rader och kolumner",
     "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -854,13 +921,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en svart. De yttre ringarna är alltid ofyllda.",
+      "Den innersta ringen stämmer, men de yttre ringarna är alltid ofyllda.",
+      "Alla figurer har tre ringar. Tredje raden och tredje kolumnen har redan en svart."
+    ]
   },
   {
     "id": "v7-a-tally-latin",
+    "pensionerad": true,
     "title": "Antal streck i rader och kolumner",
     "rule": "Strecken står alltid upprätt. Antalet följer en latin square: varje rad och kolumn har exakt en med två, en med tre och en med fyra streck.",
     "difficulty": 3,
+    "family": "latin-antal",
     "grid": [
       [
         {
@@ -942,13 +1019,22 @@
         "orientation": "horizontal"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en med fyra streck.",
+      "Tredje raden och tredje kolumnen har redan en med två streck.",
+      "Antalet streck stämmer, men strecken står alltid upprätt.",
+      "Matrisen har ingen med ett streck.",
+      "Tredje raden och tredje kolumnen har redan en med två streck. Strecken står alltid upprätt."
+    ]
   },
   {
     "id": "v7-a-poly-latin",
     "title": "Antal sidor i rader och kolumner",
     "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -1044,13 +1130,22 @@
         "fill": "gray"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en femhörning.",
+      "Tredje raden och tredje kolumnen har redan en åttahörning.",
+      "Formen stämmer, men alla figurer är svarta.",
+      "Formen stämmer, men alla figurer är svarta.",
+      "Tredje raden och tredje kolumnen har redan en femhörning. Alla figurer är svarta."
+    ]
   },
   {
     "id": "v7-a-vector-ccw",
     "title": "Pilen vrider sig moturs",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "vridning",
     "grid": [
       [
         {
@@ -1146,13 +1241,23 @@
         "head": "filled"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har inte vridit sig sista steget.",
+      "Pilen har vridit sig ett steg för långt.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Pilen har vridit sig åt fel håll."
+    ]
   },
   {
     "id": "v7-a-stack-symbol",
+    "pensionerad": true,
     "title": "Symbolen i rader och kolumner",
     "rule": "Alla figurer har en ofylld cirkel som bas. Symbolen följer en latin square: varje rad och kolumn har exakt en med plus, en med minus och en med prick.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -1248,13 +1353,22 @@
         "baseFill": "black"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan ett plus.",
+      "Tredje raden och tredje kolumnen har redan en prick.",
+      "Symbolen stämmer, men grundformen är alltid en cirkel.",
+      "Matrisen har ingen ring.",
+      "Symbolen stämmer, men alla figurer är ofyllda."
+    ]
   },
   {
     "id": "v7-a-tile-L",
     "title": "L-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1322,13 +1436,22 @@
         "pattern": 305
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7-a-tile-T",
     "title": "T-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1396,13 +1519,22 @@
         "pattern": 185
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7-a-tile-Z-ccw",
     "title": "Z-blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1470,13 +1602,22 @@
         "pattern": 241
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7-a-tile-corner",
     "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1544,13 +1685,23 @@
         "pattern": 384
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster saknas."
+    ]
   },
   {
     "id": "v7-a-vector-90",
+    "pensionerad": true,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "vridning",
     "grid": [
       [
         {
@@ -1646,13 +1797,23 @@
         "head": "filled"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har inte vridit sig sista steget.",
+      "Pilen har vridit sig åt fel håll.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Pilen har vridit sig ett steg för långt."
+    ]
   },
   {
     "id": "v7-a-vector-cw45",
+    "pensionerad": true,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "vridning",
     "grid": [
       [
         {
@@ -1748,13 +1909,22 @@
         "head": "filled"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har inte vridit sig sista steget.",
+      "Pilen har vridit sig åt fel håll.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Pilen hamnar 90 grader för långt."
+    ]
   },
   {
     "id": "v7-a-ring-latin2",
     "title": "Ringfyllning i rader och kolumner",
     "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -1877,13 +2047,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en grå.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en svart. De yttre ringarna är alltid ofyllda.",
+      "Tredje raden och tredje kolumnen har redan en grå. De yttre ringarna är alltid ofyllda.",
+      "Alla figurer har tre ringar. Tredje raden och tredje kolumnen har redan en svart."
+    ]
   },
   {
     "id": "v7-a-poly-latin2",
+    "pensionerad": true,
     "title": "Antal sidor i rader och kolumner",
     "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -1979,13 +2159,23 @@
         "fill": "gray"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en sexhörning.",
+      "Tredje raden och tredje kolumnen har redan en åttahörning.",
+      "Tredje raden och tredje kolumnen har redan en sexhörning. Alla figurer är svarta.",
+      "Tredje raden och tredje kolumnen har redan en sexhörning. Alla figurer är svarta.",
+      "Formen stämmer, men alla figurer är svarta."
+    ]
   },
   {
     "id": "v7-a-poly-fill",
+    "pensionerad": true,
     "title": "Fyllning i rader och kolumner",
     "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2081,13 +2271,22 @@
         "fill": "gray"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Fyllningen stämmer, men alla figurer är sexhörningar.",
+      "Fyllningen stämmer, men alla figurer är sexhörningar.",
+      "Fyllningen stämmer, men ingen figur är vriden."
+    ]
   },
   {
     "id": "v7-a-poly-fill2",
     "title": "Fyllning i rader och kolumner",
     "rule": "Alla figurer är sexhörningar. Fyllningen följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2183,13 +2382,22 @@
         "fill": "gray"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en grå.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Alla figurer är sexhörningar. Tredje raden och tredje kolumnen har redan en grå.",
+      "Alla figurer är sexhörningar. Tredje raden och tredje kolumnen har redan en grå.",
+      "Ingen figur är vriden. Tredje raden och tredje kolumnen har redan en grå."
+    ]
   },
   {
     "id": "v7-a-stack-base",
     "title": "Basformen i rader och kolumner",
     "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och kolumn har exakt en cirkel, en kvadrat och en triangel.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2285,13 +2493,22 @@
         "baseFill": "black"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en cirkel.",
+      "Tredje raden och tredje kolumnen har redan en triangel.",
+      "Matrisen har ingen romb.",
+      "Grundformen stämmer, men alla figurer har en prick.",
+      "Grundformen stämmer, men alla figurer är ofyllda."
+    ]
   },
   {
     "id": "v7-a-stack-base2",
     "title": "Basformen i rader och kolumner",
     "rule": "Alla figurer är ofyllda och bär en prick. Basformen följer en latin square: varje rad och kolumn har exakt en cirkel, en kvadrat och en triangel.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2387,13 +2604,22 @@
         "baseFill": "black"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en kvadrat.",
+      "Tredje raden och tredje kolumnen har redan en triangel.",
+      "Matrisen har ingen romb.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat. Alla figurer har en prick.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat. Alla figurer är ofyllda."
+    ]
   },
   {
     "id": "v7-a-ring-latin3",
     "title": "Ringfyllning i rader och kolumner",
     "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2516,13 +2742,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en grå.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en svart. De yttre ringarna är alltid ofyllda.",
+      "Tredje raden och tredje kolumnen har redan en grå. De yttre ringarna är alltid ofyllda.",
+      "Alla figurer har tre ringar. Tredje raden och tredje kolumnen har redan en svart."
+    ]
   },
   {
     "id": "v7-a-poly-latin3",
+    "pensionerad": true,
     "title": "Antal sidor i rader och kolumner",
     "rule": "Alla figurer är svarta. Antalet sidor följer en latin square: varje rad och kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [
         {
@@ -2618,13 +2854,22 @@
         "fill": "gray"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en femhörning.",
+      "Tredje raden och tredje kolumnen har redan en åttahörning.",
+      "Formen stämmer, men alla figurer är svarta.",
+      "Formen stämmer, men alla figurer är svarta.",
+      "Tredje raden och tredje kolumnen har redan en femhörning. Alla figurer är svarta."
+    ]
   },
   {
     "id": "v7-a-vector-ccw90",
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "vridning",
     "grid": [
       [
         {
@@ -2720,13 +2965,22 @@
         "head": "filled"
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har inte vridit sig sista steget.",
+      "Pilen har vridit sig åt fel håll.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Pilen hamnar 45 grader för kort."
+    ]
   },
   {
     "id": "v7-a-tile-vinkel",
     "title": "Vinkeln roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -2794,6 +3048,14 @@
         "pattern": 295
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   }
 ]

@@ -27,6 +27,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprakProv, provGenomgang } from '@/lib/tests/prov-rad'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
+import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PROVSIDA } from '../prov-copy'
 
@@ -57,7 +58,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   ])
   if (!rad) notFound()
 
-  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta))
+  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
   const gratis = scope === null
 
   return (

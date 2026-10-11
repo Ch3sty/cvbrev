@@ -283,6 +283,33 @@ export interface AnalyticsEvents {
      handling eller raden Prova också. outside_intent är sant när funktionen
      ligger utanför det område hon valde vid registreringen. */
   next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
+  /* Testmotorn, våg 3a av Rummen (spec-rummen avsnitt 7). Skjuts från
+     servern i /api/traning/pass/complete. */
+  nivamatning_klar: {
+    niva: number
+    over_tid: number
+    familjer: string[]
+    tid_s: number
+    /** Antal frågor ur smakprovet som räknades in i mätningen (spec 14.5). */
+    smakprov: number
+  }
+  pass_klart: {
+    typ: 'pass' | 'riktat'
+    variant: 'grund' | 'niva'
+    niva_fore: number | null
+    niva_efter: number | null
+    ratt: number
+    antal: number
+    over_tid: number
+    tid_s: number
+    /** Frågor hon sett förut (friskhet 1 till 3), ur sessionens meta. */
+    ateranvanda: number
+    /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
+    raknade: number
+  }
+  ommatning_klar: { niva: number; delta: number }
+  generalrepetition_klar: { format: string; ratt: number; antal: number }
+  milstolpe_nadd: { nyckel: string }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b
      spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller

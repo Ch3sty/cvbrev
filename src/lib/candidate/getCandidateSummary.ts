@@ -25,6 +25,7 @@
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
 import { MIN_PERCENTILE_SAMPLE, STRENGTH_MAP } from '@/lib/candidate/strengthConstants';
+import { begransaTillUnderlag, percentilUnderlag } from '@/lib/logicTestV7/percentilUnderlag';
 
 // Re-exporteras så befintliga importörer och tester är oförändrade.
 export { MIN_PERCENTILE_SAMPLE, STRENGTH_MAP };
@@ -83,6 +84,8 @@ interface SessionRow {
   test_type: string | null;
   score: number | null;
   completed_at: string | null;
+  /** alternativ_blandade och bank_version styr percentilens underlag. */
+  meta?: unknown;
 }
 
 interface SkillsRow {
@@ -272,7 +275,7 @@ export async function getCandidateSummary(
     // Alla slutförda kognitiva sessioner (egna rader via RLS).
     supabase
       .from('logic_test_v4_sessions')
-      .select('test_type, score, completed_at')
+      .select('test_type, score, completed_at, meta')
       .eq('user_id', userId)
       .in('test_type', allTypes)
       .not('completed_at', 'is', null)
@@ -308,20 +311,39 @@ export async function getCandidateSummary(
       const level = LEVELS[types.indexOf(bestType)];
 
       // Percentil för nivån där bästa resultatet ligger. Endast aggregat
-      // (antal) lämnar admin-klienten.
+      // (antal) lämnar admin-klienten. Matrislogik jämförs bara med blandade
+      // sessioner i samma bankversion (spec-rummen 12.4, 15); en oblandad
+      // bästa session får ingen percentil, som i percentile-routen.
+      const underlag = percentilUnderlag(bestType, best.meta);
+      if (!underlag) {
+        const utan: FamilyResult = {
+          done: true,
+          bestScore: best.score,
+          level,
+          percentile: null,
+          completedAt: best.completed_at,
+        };
+        return [key, utan] as const;
+      }
       const [{ count: total }, { count: below }] = await Promise.all([
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (admin as any)
-          .from('logic_test_v4_sessions')
-          .select('id', { count: 'exact', head: true })
-          .eq('test_type', bestType)
+        begransaTillUnderlag(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (admin as any)
+            .from('logic_test_v4_sessions')
+            .select('id', { count: 'exact', head: true })
+            .eq('test_type', bestType),
+          underlag
+        )
           .not('completed_at', 'is', null)
           .not('score', 'is', null),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (admin as any)
-          .from('logic_test_v4_sessions')
-          .select('id', { count: 'exact', head: true })
-          .eq('test_type', bestType)
+        begransaTillUnderlag(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (admin as any)
+            .from('logic_test_v4_sessions')
+            .select('id', { count: 'exact', head: true })
+            .eq('test_type', bestType),
+          underlag
+        )
           .not('completed_at', 'is', null)
           .lt('score', best.score),
       ]);

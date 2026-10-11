@@ -14,7 +14,7 @@
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { selectQuestionsForSession } from '@/lib/logicTestV7/selectQuestions.v7'
+import { selectQuestionsForSession, type BankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import type { LayeredCell, LayeredQuestion } from '@/lib/logicTestV7/layered.v7'
 import { permutationForSession, tillOriginal } from '@/lib/logicTestV7/blanda'
 
@@ -66,9 +66,13 @@ export function tillOriginalSvar(
   })
 }
 
-/** Fem frågor ur grundpoolen, seedade på sessionstoken. */
-export function questionsForToken(token: string): LayeredQuestion[] {
-  return selectQuestionsForSession(token, ANON_QUESTION_COUNT)
+/**
+ * Fem frågor ur grundpoolen, seedade på sessionstoken. `version` ur radens
+ * meta.bank_version (bankVersion): 1 drar ur de 28 frusna som förut, 2 ur
+ * alla valbara grundfrågor, aldrig pensionerade (spec-rummen 15).
+ */
+export function questionsForToken(token: string, version: BankVersion = 1): LayeredQuestion[] {
+  return selectQuestionsForSession(token, ANON_QUESTION_COUNT, version)
 }
 
 /**

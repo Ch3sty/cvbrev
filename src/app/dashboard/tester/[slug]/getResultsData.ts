@@ -34,7 +34,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import type { TestConfig } from '../testConfig'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
-import { matrisInnehall } from '@/lib/logicTestV7/fragor.server'
+import { bankVersion, matrisInnehall, medBankversion, type BankVersion } from '@/lib/logicTestV7/fragor.server'
 import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 
 /**
@@ -110,24 +110,32 @@ const UNRESOLVED: ResultsData = {
  */
 async function readPercentile(
   score: number,
-  testType: string
+  testType: string,
+  /** Sessionens bankversion: jämförelsen görs per version (spec-rummen 15). */
+  version: BankVersion
 ): Promise<PercentileData | null> {
   try {
     const admin = getSupabaseAdmin()
 
     const [{ count: total }, { count: below }] = await Promise.all([
-      admin
-        .from('logic_test_v4_sessions')
-        .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
-        .eq('meta->>alternativ_blandade', 'true')
+      medBankversion(
+        admin
+          .from('logic_test_v4_sessions')
+          .select('id', { count: 'exact', head: true })
+          .eq('test_type', testType)
+          .eq('meta->>alternativ_blandade', 'true'),
+        version
+      )
         .not('completed_at', 'is', null)
         .not('score', 'is', null),
-      admin
-        .from('logic_test_v4_sessions')
-        .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
-        .eq('meta->>alternativ_blandade', 'true')
+      medBankversion(
+        admin
+          .from('logic_test_v4_sessions')
+          .select('id', { count: 'exact', head: true })
+          .eq('test_type', testType)
+          .eq('meta->>alternativ_blandade', 'true'),
+        version
+      )
         .not('completed_at', 'is', null)
         .lt('score', score),
     ])
@@ -254,7 +262,7 @@ export async function getResultsData(
       arBlandad(row.meta)
 
     const percentile = showPercentile
-      ? await readPercentile(row.score as number, row.test_type ?? 'matrislogik')
+      ? await readPercentile(row.score as number, row.test_type ?? 'matrislogik', bankVersion(row.meta))
       : null
 
     return { session, resolved: true, percentile, bridge }

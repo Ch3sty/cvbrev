@@ -4,6 +4,7 @@
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -113,13 +114,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w2",
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -229,13 +239,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w3",
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -358,13 +377,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret hamnar 45 grader för långt.",
+      "Mönstret hamnar 45 grader för kort.",
+      "En svart sektor saknas."
+    ]
   },
   {
     "id": "v7e-w4",
     "title": "Sektormönstret roterar tre steg",
     "rule": "Mönstret av svarta sektorer roterar 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -487,13 +515,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret hamnar 45 grader för långt.",
+      "Mönstret hamnar 45 grader för kort.",
+      "En svart sektor saknas."
+    ]
   },
   {
     "id": "v7e-w5",
     "title": "Sektormönstret roterar moturs",
     "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -617,13 +654,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w6",
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -747,13 +793,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w7",
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -890,13 +945,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret hamnar 45 grader för långt.",
+      "Mönstret hamnar 45 grader för kort.",
+      "En svart sektor saknas."
+    ]
   },
   {
     "id": "v7e-w8",
     "title": "Sektormönstret roterar moturs",
     "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1020,13 +1084,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w9",
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1164,13 +1237,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w10",
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1294,13 +1376,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "En svart sektor saknas.",
+      "En svart sektor för mycket."
+    ]
   },
   {
     "id": "v7e-w11",
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1423,13 +1514,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret hamnar 45 grader för långt.",
+      "Mönstret hamnar 45 grader för kort.",
+      "En svart sektor saknas."
+    ]
   },
   {
     "id": "v7e-t1",
     "title": "Blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1497,13 +1597,23 @@
         "pattern": 6
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
+    ]
   },
   {
     "id": "v7e-t2",
+    "pensionerad": true,
     "title": "L-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1571,13 +1681,23 @@
         "pattern": 48
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7e-t3",
+    "pensionerad": true,
     "title": "T-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1645,13 +1765,22 @@
         "pattern": 185
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7e-t4",
     "title": "Blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1719,13 +1848,23 @@
         "pattern": 6
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
+    ]
   },
   {
     "id": "v7e-t5",
+    "pensionerad": true,
     "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1793,13 +1932,22 @@
         "pattern": 129
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7e-t6",
     "title": "Z-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1867,13 +2015,22 @@
         "pattern": 496
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7e-t7",
     "title": "Trappan roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -1941,13 +2098,22 @@
         "pattern": 350
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Mönstret har vridit sig ett steg för långt.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7e-t8",
     "title": "L-blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -2015,13 +2181,23 @@
         "pattern": 48
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7e-t9",
+    "pensionerad": true,
     "title": "Vinkeln roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -2089,13 +2265,22 @@
         "pattern": 38
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten är fylld fast den inte ska vara det.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7e-t10",
     "title": "Diagonalblocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -2163,13 +2348,22 @@
         "pattern": 145
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Det är en spegelbild, men mönstret ska vridas.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger saknas."
+    ]
   },
   {
     "id": "v7e-t11",
     "title": "Trappan roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
+    "family": "monsterrotation",
     "grid": [
       [
         {
@@ -2237,13 +2431,22 @@
         "pattern": 95
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Mönstret har inte vridit sig sista steget.",
+      "Mönstret har vridit sig åt fel håll.",
+      "Rutan i mitten saknas.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
   },
   {
     "id": "v7e-b1",
     "title": "Former över och under linjen",
     "rule": "Kvadraten flyttar ett steg åt höger och cirkeln ett steg åt vänster i varje ruta från vänster till höger. Båda växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -2479,13 +2682,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.",
+      "Kvadraten har inte flyttat. Cirkeln har flyttat åt fel håll.",
+      "Kvadraten och cirkeln har inte bytt sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen."
+    ]
   },
   {
     "id": "v7e-b2",
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln flyttar båda ett steg åt höger i varje ruta från vänster till höger och växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -2721,13 +2933,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.",
+      "Kvadraten och cirkeln har inte flyttat.",
+      "Kvadraten och cirkeln har inte bytt sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen."
+    ]
   },
   {
     "id": "v7e-b3",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Cirkeln står stilla. Kvadraten flyttar ett steg åt höger i varje ruta och växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -2963,13 +3185,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Kvadraten har inte flyttat och har inte bytt sida om linjen.",
+      "Kvadraten har inte flyttat. Cirkeln står still i varje rad.",
+      "Kvadraten har inte bytt sida om linjen. Cirkeln ska vara kvar på samma sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen."
+    ]
   },
   {
     "id": "v7e-b4",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln rör sig spegelvänt: kvadraten åt höger, cirkeln åt vänster lika långt, båda på samma sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -3205,13 +3437,23 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Kvadraten och cirkeln har inte flyttat.",
+      "Kvadraten har inte flyttat. Cirkeln har flyttat åt fel håll.",
+      "Kvadraten och cirkeln ska vara kvar på samma sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Cirkeln står rätt, men kvadraten ska vara kvar på samma sida om linjen."
+    ]
   },
   {
     "id": "v7e-b5",
+    "pensionerad": true,
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln står på samma plats och flyttar ett steg åt höger i varje ruta. De byter över- och underläge i varje ruta. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -3447,13 +3689,22 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.",
+      "Kvadraten och cirkeln har inte flyttat.",
+      "Kvadraten och cirkeln har inte bytt sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen."
+    ]
   },
   {
     "id": "v7e-b6",
     "title": "Former över och under linjen",
     "rule": "Kvadraten flyttar två steg åt höger och cirkeln ett steg åt höger i varje ruta. Båda växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,
+    "family": "tva-rorelser",
     "grid": [
       [
         {
@@ -3689,6 +3940,14 @@
         ]
       }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.",
+      "Kvadraten har flyttat åt fel håll. Cirkeln har inte flyttat.",
+      "Kvadraten och cirkeln har inte bytt sida om linjen.",
+      "Cirkeln står rätt, men kvadraten har inte flyttat.",
+      "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen."
+    ]
   }
 ]

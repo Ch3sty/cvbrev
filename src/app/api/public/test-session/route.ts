@@ -21,6 +21,7 @@ import {
   toPublicQuestion,
 } from '@/lib/tests/anon-session'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
+import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { skapaMedBlandning } from '@/lib/logicTestV7/fragor.server'
 
 /** Tre provsessioner per IP och dygn. */
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const questions = questionsForToken(token)
+    const questions = questionsForToken(token, bankVersion(session.meta))
     // Klienten skickar positionerna hon klickade på. Servern räknar om till
     // originalindex med provets permutation; det är dem som lagras och rättas.
     const answers = tillOriginalSvar(
@@ -117,7 +118,7 @@ export async function POST(request: Request) {
 
   // Frågorna härleds deterministiskt ur token, så vi sparar bara id:na
   // för spårbarhet. Facit ligger kvar i frågebanken på servern.
-  const questions = questionsForToken(row.token)
+  const questions = questionsForToken(row.token, bankVersion(row.meta))
   await admin
     .from('anon_test_sessions')
     .update({ questions: questions.map((q) => q.id) })
