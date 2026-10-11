@@ -7,6 +7,7 @@
 //   node scripts/grep-rummen.mjs                 # skriv till stdout
 //   node scripts/grep-rummen.mjs --ut fil.txt    # och till fil
 //   node scripts/grep-rummen.mjs --noll          # exit 1 om något mönster har träffar
+//   node scripts/grep-rummen.mjs --vag 5 --noll  # paketbytet: "Hela paketet" och "Uppgradera" noll i användarytorna
 //   node scripts/grep-rummen.mjs --vag 4 --noll  # våg 1b:s grindar plus grep-listan noll i inloggat
 //     utanför testrummets kataloger (våg 2/3b), alias, lucide, InkPanel/PageHeader/MarginPlate
 //     och CreateSheet (spec avsnitt 6, våg 4)
@@ -295,10 +296,91 @@ if (vag === '4') {
   rader.push(`Varning (stoppar inte): nya importer av RumIkoner utanför baslinjen: ${nyaRumIkoner.length}`, ...nyaRumIkoner.map((f) => `       ${f}`))
 }
 
+// ------------------------------------------------------------ våg 5
+// Paketbytet (spec-rummen 17.3 och 17.4, copy-premium avsnitt 7): "Hela
+// paketet" och "Uppgradera" är noll i användarytorna. Räknar strängar och
+// JSX-text i kodrader (kommentarer bort) i hela src, utom de interna ytorna
+// (admin, cron) och innehållstexterna där ordet uppgradera betyder något
+// annat (CV- och brevexemplens yrkestexter).
+let grind5 = 0
+if (vag === '5') {
+  const UNDANTAG5 = [
+    /^src\/app\/admin\//,
+    /^src\/app\/api\/admin\//,
+    /^src\/app\/api\/cron\//,
+    /^src\/lib\/admin\//,
+    /^src\/components\/admin\//,
+    /^src\/lib\/ai\/analytics\/smart-alerts\.ts$/,
+    /^src\/app\/\(public\)\/cv-exempel\//,
+    /^src\/app\/\(public\)\/personligt-brev-exempel\//,
+    /^src\/app\/\(public\)\/cv-mallar\/yrkesmall-content\.ts$/,
+    /__tests__\//,
+    /\.test\.tsx?$/,
+  ]
+  const MONSTER5 = [
+    ['Hela paketet', /[Hh]ela paketet/],
+    ['Uppgradera', /[Uu]ppgradera/],
+  ]
+  // En kodrad utan kommentarer, och bara det som står i en sträng eller som
+  // JSX-text: identifierare som uppgradera() räknas inte.
+  const strangar = (rad) => {
+    const utan = rad.replace(/\s\/\/.*$/, '').replace(/\{\/\*.*?\*\/\}/g, '')
+    const ut = []
+    for (const m of utan.matchAll(/'([^'\\]|\\.)*'|"([^"\\]|\\.)*"|`([^`\\]|\\.)*`|>[^<>{}]+</g)) ut.push(m[0])
+    return ut.join(' ')
+  }
+  const kodrader5 = (text) => {
+    const ut = []
+    let iBlock = false
+    for (const rad of text.split(/\r?\n/)) {
+      const t = rad.trim()
+      if (iBlock) {
+        if (t.includes('*/')) iBlock = false
+        continue
+      }
+      if ((t.startsWith('/*') || t.startsWith('{/*')) && !t.includes('*/')) {
+        iBlock = true
+        continue
+      }
+      if (/^(\/\/|\*|\/\*|\{\/\*)/.test(t) || t.endsWith('*/}')) continue
+      ut.push(rad)
+    }
+    return ut
+  }
+  const omfang5 = filer('src')
+    .concat(
+      fs.existsSync('src')
+        ? (function tsFiler(dir) {
+            const ut = []
+            for (const d of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, d.name)
+              if (d.isDirectory()) ut.push(...tsFiler(p))
+              else if (p.endsWith('.ts')) ut.push(p)
+            }
+            return ut
+          })('src')
+        : []
+    )
+    .map((f) => f.split(path.sep).join('/'))
+    .filter((f) => !UNDANTAG5.some((u) => u.test(f)))
+  rader.push('', `## Våg 5: paketbytet i användarytorna (${omfang5.length} filer i src, utom admin, cron och yrkestexterna)`)
+  for (const [namn, re] of MONSTER5) {
+    const per = []
+    for (const f of omfang5) {
+      const traffar = kodrader5(fs.readFileSync(f, 'utf8')).filter((r) => re.test(strangar(r)))
+      if (traffar.length) per.push([f, traffar.length, traffar[0].trim().slice(0, 100)])
+    }
+    const tot = per.reduce((s, [, n]) => s + n, 0)
+    grind5 += tot
+    rader.push(`   ${namn}: ${tot} träffar`)
+    for (const [f, n, forsta] of per) rader.push(`${String(n).padStart(8)}  ${f}  (${forsta})`)
+  }
+}
+
 const text = rader.join('\n') + '\n'
 process.stdout.write(text)
 const i = process.argv.indexOf('--ut')
 if (i >= 0) fs.writeFileSync(process.argv[i + 1], text)
 if (process.argv.includes('--noll')) {
-  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : vag === '3b' ? grind3b > 0 : vag === '4' ? grind1b + grind4 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
+  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : vag === '3b' ? grind3b > 0 : vag === '4' ? grind1b + grind4 > 0 : vag === '5' ? grind5 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
 }
