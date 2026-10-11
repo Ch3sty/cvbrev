@@ -37,7 +37,7 @@ export const NIVA_NAMN: Record<TestLevel, string> = {
   grund: 'Grundnivå',
   avancerad: 'Avancerad nivå',
   expert: 'Expertnivå',
-  prov: 'Provläge',
+  prov: 'Övningsprov',
 }
 
 export const NIVA_TAL: Record<TestLevel, string> = {
@@ -188,8 +188,8 @@ export const RESULTAT = {
       gratisGrund: 'Grundnivån är öppen en gång om dagen. Samma nivå igen i morgon.',
       nastaOppen: 'Nästa nivå väntar i Alla tester.',
       nastaLast: () => `Nästa nivå ingår i ${paketKort()}.`,
-      provOppet: 'Provläget väntar i Alla tester.',
-      provLast: () => `Provläget ingår i ${paketKort()}.`,
+      provOppet: 'Övningsprovet väntar i Alla tester.',
+      provLast: () => `Övningsprovet ingår i ${paketKort()}.`,
     },
     cv: 'Nästa steg i jobbsöket är CV:t.',
     lank: 'Alla tester',

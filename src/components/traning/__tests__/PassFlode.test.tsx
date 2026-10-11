@@ -40,7 +40,7 @@ describe('PassFlode', () => {
       fireEvent.click(alternativ[fel])
     })
     await waitFor(() => expect(document.querySelector('.regelpanel')).not.toBeNull())
-    expect(screen.getByText(/^Inte den här · \d+ s$/)).toBeInTheDocument()
+    expect(screen.getByText(/^Inte den här, \d+ s$/)).toBeInTheDocument()
     expect(screen.getAllByRole('radio')).toHaveLength(6)
     expect(screen.getAllByRole('radio')[fel]).toHaveAttribute('aria-checked', 'true')
     expect(screen.getAllByRole('radio')[facit.rattVisat].getAttribute('aria-label')).toContain('rätt svar')
@@ -56,7 +56,7 @@ describe('PassFlode', () => {
     await act(async () => {
       fireEvent.click(screen.getByText('Vet inte, visa regeln'))
     })
-    await waitFor(() => expect(screen.getByText(/^Vet inte · \d+ s$/)).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText(/^Vet inte, \d+ s$/)).toBeInTheDocument())
     expect(screen.getAllByRole('radio').every((r) => r.getAttribute('aria-checked') === 'false')).toBe(true)
   })
 

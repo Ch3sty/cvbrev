@@ -12,23 +12,23 @@ export const TRANING_COPY = {
     nyFamilj: 'nytt mönster',
     pass: 'nästa pass',
     grundpass: 'nästa grundpass',
-    ommatning: 'ommätning, 8 minuter',
-    general: 'generalrepetition',
-    prov: 'provet. Tre uppvärmningsfrågor, inget mer.',
+    ommatning: 'mät din nivå igen, 8 minuter',
+    general: 'övningsprov',
+    prov: 'provet. Bara tre uppvärmningsfrågor.',
     vila: (veckodag: string) => `${versal(veckodag)} är vilodag.`,
   },
   serie: {
-    borjarOm: 'Serien börjar om i dag',
-    pausad: 'Serien pausar, inget bryts.',
+    borjarOm: 'Dagarna i rad börjar om i dag',
+    pausad: 'Dagarna i rad pausar, inget bryts.',
   },
   tema: {
     blandat: 'Blandade mönster',
   },
   milstolpar: {
-    forsta_matningen: 'Första mätningen',
+    forsta_matningen: 'Första nivåmätningen',
     forsta_veckan: 'Första veckan',
     nivan_upp: 'Nivån upp',
-    generalrepetitionen: 'Generalrepetitionen',
+    generalrepetitionen: 'Övningsprovet',
     provdagen: 'Provdagen',
   } satisfies Record<MilstolpeNyckel, string>,
   /**
@@ -36,17 +36,16 @@ export const TRANING_COPY = {
    * copywritern har sista ordet.
    */
   forstaVeckan: {
-    /** "Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag" */
-    betalande: (pass: number, ommatningar: number) =>
-      `Sju dagar sedan mätningen, ${antalPass(pass)} och ${talord(ommatningar, 'en')} ${ommatningar === 1 ? 'ommätning' : 'ommätningar'}, ingen missad dag`,
-    /** "Sju dagar sedan mätningen, sex pass, ingen missad dag" */
-    gratis: (pass: number) => `Sju dagar sedan mätningen, ${antalPass(pass)}, ingen missad dag`,
+    /** "Sju dagar sedan starten, fem pass, ingen missad dag" (copy-plan 3.9: samma text som gratis). */
+    betalande: (pass: number) => `Sju dagar sedan starten, ${antalPass(pass)}, ingen missad dag`,
+    /** "Sju dagar sedan starten, sex pass, ingen missad dag" */
+    gratis: (pass: number) => `Sju dagar sedan starten, ${antalPass(pass)}, ingen missad dag`,
   },
   format: {
     /** Under formatet på provdagen-raden (1b/1c), spec 14.4. Nyckel per format. */
     anmarkning: {
-      shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Provläget övar figurdelen.',
-      aon: 'scales ix har en annan uppgiftstyp, att hitta regeln bland rutnät. Provläget övar tempot med matriser.',
+      shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Övningsprovet övar figurdelen.',
+      aon: 'scales ix har en annan uppgiftstyp, att hitta regeln bland rutnät. Övningsprovet övar tempot med matriser.',
     },
   },
   fel: {

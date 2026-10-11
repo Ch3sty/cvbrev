@@ -86,7 +86,7 @@ const PREMIUM_KORT = 'Premium'
 /** Det som ingår i Premium, i den ordning prissidan och betalväggen visar det. */
 const HELA_PAKETET_RADER = [
   'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
-  'Alla rekryteringstester, provläget och personlighetstestet',
+  'Alla rekryteringstester, övningsprov och personlighetstestet',
   'Jobbmatchning varje natt, alla träffar med skälen',
   'Jobbcoachen, fråga så mycket du vill',
   'Bli upptäckt av rekryterare, anonymt',
@@ -124,11 +124,11 @@ export const PLANS: readonly Plan[] = [
     mode: 'subscription',
     suffix: 'i veckan',
     audience: 'Du har ett rekryteringstest framför dig',
-    body: '79 kr i veckan. Alla testnivåer, provläget, det fördjupade personlighetstestet och hela din resultathistorik. Dras varje vecka tills du säger upp.',
+    body: '79 kr i veckan. Alla testnivåer, övningsprov, det fördjupade personlighetstestet och hela din resultathistorik. Dras varje vecka tills du säger upp.',
     ctaLabel: `Köp ${TRANINGSPAKETET}, 79 kr i veckan`,
     highlights: [
       'Alla testnivåer, obegränsat antal försök',
-      'Provläge med tidsgräns',
+      'Övningsprov med tidsgräns',
       'Fördjupade personlighetstestet, 120 påståenden (grundtestet är gratis)',
       'Resultathistorik och utveckling över tid',
       'Intervjuprovet: öva svar utan begränsning',

@@ -1,6 +1,15 @@
-import VaggLaddar from '@/components/rum/VaggLaddar';
+import Vagg from '@/components/rum/Vagg';
+import Topprad from '@/components/rum/Topprad';
+import Lagesrad from '@/components/rum/Lagesrad';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 
-/** Undersidan laddar: väggen står, inget hoppar. */
+/** Alla tester laddar: väggen står med lägesraden, inget hoppar. */
 export default function Loading() {
-  return <VaggLaddar />;
+  return (
+    <Vagg tat>
+      <Topprad />
+      <Lagesrad aktiv="alla" />
+      <LoadingSkeleton variant="vagg" label="Laddar" />
+    </Vagg>
+  );
 }

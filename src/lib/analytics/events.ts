@@ -364,7 +364,7 @@ export interface AnalyticsEvents {
      Utseende ändras på profilen. */
   rum_oppnat: {
     rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
-    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+    surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning'
     /**
      * Registreringens val (copywriterns önskemål 2026-10-11): vilka som
      * trycker på Tester utan att ha valt tester, och om de lämnar rummet.
@@ -372,7 +372,7 @@ export interface AnalyticsEvents {
      */
     intent?: SignupIntent | null
   }
-  sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning' }
   tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
   /* ---------------------------------------------- Rummen, våg 2
      spec-rummen avsnitt 7. Ingången (E1 till E3), provdatumet och hemvyn i
@@ -387,6 +387,8 @@ export interface AnalyticsEvents {
   provdatum_hoppat_over: { steg: 2 | 3 }
   traning_hem_visad: {
     tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel'
+    /** 'lagesrad' när visningen kom från lägesraden (beslut-hemvy 2026-10-11). */
+    surface?: 'lagesrad'
   }
   efter_provet_svar: { svar: 'vidare' | 'vet_inte' | 'inte_vidare' }
   /* ---------------------------------------------- Rummen, våg 3b
@@ -411,14 +413,14 @@ export interface AnalyticsEvents {
   rum_bytt: {
     fran: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
     till: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
-    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+    surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning'
   }
   korsreferens_klick: {
     fran: 'tran' | 'cv' | 'brev' | 'jobb'
     till: 'tran' | 'cv' | 'brev' | 'jobb'
     variant: 'niva' | 'aldrig_matt' | 'intervju' | 'spara_sokt'
   }
-  sokta_tjanst_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  sokta_tjanst_oppnad: { surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

@@ -9,7 +9,7 @@
 //   Utan leverantör, typ     14 dagar till logiktestet (siffertestet, texttestet)
 //   Utan både                14 dagar till provet · Hur gick provet?
 //   Provdagen-raden          Samma format som Matrigma: 35 uppgifter, 40 minuter
-//                            eller Vårt provläge: 18 uppgifter, 25 minuter.
+//                            eller Vårt eget format: 18 uppgifter på 25 minuter.
 //                            Vet du leverantören så byter vi format.
 //   Utan datum               Rekryteringstester (17.1), raden "Sätt ett datum
 //                            så räknar vi bakåt"
@@ -68,7 +68,7 @@ function delar(dag: Dag): { d: number; m: number; y: number } {
 /*
  * Datumregeln i hemvyn (copy-premium-2026-10-11 avsnitt 9.2): formen följer
  * platsen, inte sektionen.
- *   kortDatum ("22 okt"): rader och rad-metor (Fler tester, Generalrepetitionen),
+ *   kortDatum ("22 okt"): rader och rad-metor (Fler tester, Övningsprovet),
  *     etiketter (tempo), toppradens kontextrad och kurvans axlar.
  *   datumText ("22 oktober"): rubriker, lyftkortets löptext och aria.
  * Kort form där ögat skummar, lång form där meningen läses eller läses upp.
@@ -162,7 +162,7 @@ export function kontextText(inp: RubrikIn & { provdatum: Dag | null }): string |
 }
 
 export interface Provrad {
-  /** "Samma format som Matrigma" eller "Vårt provläge". */
+  /** "Samma format som Matrigma" eller "Vårt eget format". */
   titel: string;
   /** "35 uppgifter, 40 minuter, fast ordning." */
   format: string;
@@ -186,17 +186,17 @@ export function provrad(format: Pick<Provformat, 'namn' | 'antal' | 'minuter' | 
   const f = format as Provformat;
   if (!format.namn) {
     return {
-      titel: 'Vårt provläge',
-      format: `${versal(formatText(f))}. Vet du leverantören så byter vi format.`,
+      titel: 'Vårt eget format',
+      format: `${versal(formatText(f))}. Vet du vem som gör testet, så byter vi format.`,
       antalTid: formatText(f),
       anmarkning: null,
       utanLeverantor: true,
     };
   }
-  const ordning = format.adaptiv ? 'svårare efter rätt svar' : 'fast ordning';
+  // Hur motorn väljer frågor hör hemma i hjälpen, inte i raden (copy-plan 4.8).
   return {
     titel: `Samma format som ${format.namn}`,
-    format: `${versal(formatText(f))}, ${ordning}.`,
+    format: `${versal(formatText(f))}.`,
     antalTid: formatText(f),
     anmarkning: format.anmarkning,
     utanLeverantor: false,

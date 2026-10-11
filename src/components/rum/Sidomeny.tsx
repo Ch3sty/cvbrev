@@ -39,7 +39,7 @@ import Chip from './Chip'
 import { DORR_IKON } from './Dorrnav'
 import { useRum } from './RumKontext'
 import { markeraRumYta } from './rumMatning'
-import { KURVAN_HREF } from '@/lib/traning/rutter'
+import { KURVAN_HREF, TRANING_RUTT } from '@/lib/traning/rutter'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
@@ -164,7 +164,8 @@ export default function Sidomeny() {
       { href: KURVAN_HREF, etikett: UNDERSIDA.kurvan },
       { href: '/dashboard/tester/alla', etikett: UNDERSIDA.allaTester, chip: <Chip liten>{TEST_GROUPS.length}</Chip> },
       {
-        href: '/dashboard/tester/matrislogik-prov',
+        // Samma övningsprov som hemvyn leder till (copy-plan 4.11).
+        href: TRANING_RUTT.provlaget,
         etikett: UNDERSIDA.provlaget,
         last: scopeHasFeature(paket.scope, 'test_exam_mode')
           ? undefined

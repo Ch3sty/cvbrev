@@ -69,7 +69,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
     text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Fem frågor gratis här. Mätning och första passet gratis med konto.',
     knapp: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
-    paketrad: `Alla nivåer, provläge mot klockan och fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
+    paketrad: `Alla nivåer, övningsprov mot klockan och fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
   },
   mallar: {
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
@@ -169,7 +169,7 @@ export interface SlutCopy {
 
 /** Raderna som säger att resten också ingår (copy-premium avsnitt 3). */
 const CV_RAD = 'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn'
-const TEST_RAD = 'Alla rekryteringstester, provläget och personlighetstestet'
+const TEST_RAD = 'Alla rekryteringstester, övningsprov och personlighetstestet'
 const SEKUNDAR = { text: 'Se vad som ingår', href: '/priser' }
 
 /** Slutkortet i bläck, efter brödtexten. */
@@ -179,7 +179,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     rubrik: 'Alla nivåer. Klockan på.',
     rader: [
       'Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar',
-      'Provläge med 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren',
+      'Övningsprov på 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren',
       'Fördjupade personlighetstestet, 120 påståenden',
       'Dessutom CV-analysen, alla mallar, personliga brev, jobbmatchning och Jobbcoachen',
     ],

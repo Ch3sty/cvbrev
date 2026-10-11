@@ -227,7 +227,7 @@ export const STEG3 = {
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
-        { fet: 'Provläge mot klockan', text: ', 25 till 40 minuter.' },
+        { fet: 'Övningsprov mot klockan', text: ', 25 till 40 minuter.' },
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,

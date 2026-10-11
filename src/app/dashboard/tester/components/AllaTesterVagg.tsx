@@ -15,6 +15,7 @@
 import type { ReactNode } from 'react';
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
+import Lagesrad from '@/components/rum/Lagesrad';
 import Rubrik from '@/components/rum/Rubrik';
 import { SymMatris, SymPlan } from '@/components/illustrations/RumSymboler';
 import { IlluScenVagen } from '@/components/traning/illu';
@@ -53,6 +54,7 @@ export default function AllaTesterVagg({
   return (
     <Vagg tat={tat}>
       <Topprad />
+      <Lagesrad aktiv="alla" />
       <div className={steg ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end lg:gap-8' : undefined}>
         <div className="min-w-0">
           <Rubrik titel={titel} rad={beskrivning} />

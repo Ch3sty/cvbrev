@@ -60,15 +60,14 @@ describe('milstolparna', () => {
     expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-12')).toBe(false)
     expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-13')).toBe(true)
     expect(forstaVeckanSammanfattning('2026-10-06', gratis)).toEqual({ pass: 6, ommatningar: 0, generalrepetitioner: 0 })
-    expect(TRANING_COPY.forstaVeckan.gratis(6)).toBe('Sju dagar sedan mätningen, sex pass, ingen missad dag')
+    expect(TRANING_COPY.forstaVeckan.gratis(6)).toBe('Sju dagar sedan starten, sex pass, ingen missad dag')
   })
 
   it('K1-sammanfattningen: fem pass och en ommätning, mätningen räknas inte', () => {
     const s = forstaVeckanSammanfattning('2026-10-06', [...K1, { dag: '2026-10-14', typ: 'pass' }])
     expect(s).toEqual({ pass: 5, ommatningar: 1, generalrepetitioner: 0 })
-    expect(TRANING_COPY.forstaVeckan.betalande(s.pass, s.ommatningar)).toBe(
-      'Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag'
-    )
+    // copy-plan 3.9: nivåmätningen stryks ur meningen.
+    expect(TRANING_COPY.forstaVeckan.betalande(s.pass)).toBe('Sju dagar sedan starten, fem pass, ingen missad dag')
     // Riktade pass räknas som pass.
     expect(forstaVeckanSammanfattning('2026-10-06', [{ dag: '2026-10-07', typ: 'riktat' }]).pass).toBe(1)
   })
@@ -137,7 +136,7 @@ describe('I morgon', () => {
 
   it('före ommätningen tar veckodagen över', () => {
     const r = imorgonRad({ idag: '2026-10-12', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 })
-    expect(r.text).toBe('Tisdag: ommätning, 8 minuter.')
+    expect(r.text).toBe('Tisdag: mät din nivå igen, 8 minuter.')
   })
 
   it('vanlig dag, generalrepetition, provet, grundpass', () => {
@@ -148,10 +147,10 @@ describe('I morgon', () => {
       'I morgon: nytt mönster'
     )
     expect(imorgonRad({ idag: '2026-10-21', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
-      'I morgon: generalrepetition'
+      'I morgon: övningsprov'
     )
     expect(imorgonRad({ idag: '2026-10-23', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
-      'I morgon: provet. Tre uppvärmningsfrågor, inget mer.'
+      'I morgon: provet. Bara tre uppvärmningsfrågor.'
     )
     expect(imorgonRad({ idag: '2026-10-07', start: null, ratt: 4, antal: 9 }).text).toBe('I morgon: nästa grundpass')
   })

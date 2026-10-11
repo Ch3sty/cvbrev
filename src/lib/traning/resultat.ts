@@ -281,7 +281,7 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
   } else if (avslut.typ === 'general') {
     // Formatet i stället för familjen (19.2 fråga 8).
     const f = PROVFORMAT[vy.format as FormatNyckel] ?? status?.format ?? null;
-    mening = f ? R.generalMening(`${f.namn ? `Samma format som ${f.namn}` : 'Vårt provläge'}, ${formatText(f as Provformat)}`) : null;
+    mening = f ? R.generalMening(`${f.namn ? `Samma format som ${f.namn}` : 'Vårt eget format'}, ${formatText(f as Provformat)}`) : null;
   } else {
     const tema = vy.tema ?? null;
     const temaStat = avslut.familjer.passet.find((f) => f.family === tema) ?? [...avslut.familjer.passet].sort((a, b) => b.antal - a.antal)[0];
@@ -408,7 +408,7 @@ export function planRader(
   const gen = efter.filter((p) => p.typ === 'general').map((p) => p.dag);
   if (gen.length) {
     const f = opt.format;
-    const formatRad = f.namn ? `Samma format som ${f.namn}, ${formatText(f as Provformat)}.` : `Vårt provläge, ${formatText(f as Provformat)}.`;
+    const formatRad = f.namn ? `Samma format som ${f.namn}, ${formatText(f as Provformat)}.` : `Vårt eget format, ${formatText(f as Provformat)}.`;
     rader.push({ punkt: 'general', titel: M.general(datumLista(gen)), meta: M.generalMeta(formatRad), chip: opt.betalande ? null : las, last: !opt.betalande });
   }
   const prov = efter.find((p) => p.typ === 'prov');
@@ -626,7 +626,7 @@ export function kvitto(nyckel: MilstolpeNyckel, status: Traningsstatus, opt: { b
     const v = status.forstaVeckan;
     if (v) {
       delar.push(
-        `${opt.betalande || v.ommatningar > 0 ? TRANING_COPY.forstaVeckan.betalande(v.pass, v.ommatningar) : TRANING_COPY.forstaVeckan.gratis(v.pass)}.`
+        `${opt.betalande || v.ommatningar > 0 ? TRANING_COPY.forstaVeckan.betalande(v.pass) : TRANING_COPY.forstaVeckan.gratis(v.pass)}.`
       );
     }
     const till = nivaVid(status.punkter, naddDag) ?? nu;

@@ -54,11 +54,12 @@ export const TRAN_RAD = 'Träna inför ditt rekryteringstest.'
 
 /** Undersidornas etiketter (spec 4.3). */
 export const UNDERSIDA = {
-  dagensPass: 'Dagens pass',
+  /** Hemvyn: samma ord som lägesraden (beslut-hemvy 2026-10-11, copy-plan avsnitt 5). */
+  dagensPass: 'Min plan',
   kurvan: 'Kurvan',
   testOchDatum: 'Test och datum',
   allaTester: 'Alla tester',
-  provlaget: 'Provläget',
+  provlaget: 'Övningsprov',
   minaCv: 'Mina CV',
   analyseraCv: 'Analysera CV',
   cvMallar: 'CV-mallar',
@@ -74,6 +75,16 @@ export const UNDERSIDA = {
   profil: 'Profil',
   prenumeration: 'Prenumeration',
   utseende: 'Utseende',
+} as const
+
+/**
+ * Lägesraden i Rekryteringstester (beslut-hemvy 2026-10-11 punkt 1): samma
+ * ord som sidomenyns undersidor, så att samma sida aldrig har två namn.
+ */
+export const LAGESRAD = {
+  etikett: 'Träna efter planen eller fritt',
+  plan: UNDERSIDA.dagensPass,
+  alla: UNDERSIDA.allaTester,
 } as const
 
 /** Chip-texter i sidomenyn. */
@@ -146,12 +157,12 @@ export const RUBRIK = {
   resultat: 'Ditt resultat',
 } as const
 
-/** Nivån i resultatraden: "grundnivå", "avancerad nivå", "expertnivå", "provläget". */
+/** Nivån i resultatraden: "grundnivå", "avancerad nivå", "expertnivå", "övningsprov". */
 export const NIVA_I_RAD = {
   grund: 'grundnivå',
   avancerad: 'avancerad nivå',
   expert: 'expertnivå',
-  prov: 'provläget',
+  prov: 'övningsprov',
 } as const
 
 /** Raden under resultatets rubrik: "Logiktest, grundnivå. Genomfört 26 september 2026." */
@@ -166,7 +177,7 @@ export function resultatRad(test: string, niva: string | null, datum: string | n
  * "Provläget" med ett lås, aldrig "samma test".
  */
 export function provlageFormat(uppgifter: number, minuter: number): string {
-  return `Vårt provläge. ${uppgifter} uppgifter, ${minuter} minuter.`
+  return `Övningsprov i vårt eget format: ${uppgifter} uppgifter på ${minuter} minuter.`
 }
 
 /** Bli upptäckt (spec 16.2 fråga 10 och copywriterns rad 8). */
@@ -203,9 +214,9 @@ export const LYFT = {
     text: 'Du kan pausa. Svaren sparas medan du gör testet.',
   },
   prov: {
-    eyebrow: 'Prov',
+    eyebrow: 'Övningsprov',
     titel: (antal: number, minuter: number | string) => `${antal} frågor, cirka ${minuter} minuter, mot klockan`,
-    text: 'Ingen förklaring under tiden. Genomgången kommer efter provet.',
+    text: 'Ingen förklaring under tiden. Genomgången kommer efteråt.',
   },
   /** Jobbsökets hem i tillstånd A (inget CV), spec 18.3 punkt 2. Barnet är uppladdningen. */
   jobbForstaCv: {

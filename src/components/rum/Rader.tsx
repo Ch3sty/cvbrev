@@ -23,9 +23,14 @@ export interface RadProps {
   /** Länk, chip eller IkonChev. */
   hoger?: ReactNode
   href?: string
+  /**
+   * I en tredjedelsspalt på dator står högersidan under metan, vänsterställd
+   * (beslut-hemvy 2026-10-11, avvikelse 4). Mobil oförändrad.
+   */
+  hogerUnder?: boolean
 }
 
-export function Rad({ symbol, svag, titel, meta, stapel, hoger, href }: RadProps) {
+export function Rad({ symbol, svag, titel, meta, stapel, hoger, href, hogerUnder }: RadProps) {
   const innehall = (
     <>
       {symbol ? (
@@ -45,10 +50,12 @@ export function Rad({ symbol, svag, titel, meta, stapel, hoger, href }: RadProps
           </span>
         ) : null}
       </span>
-      {hoger ? <span className="shrink-0">{hoger}</span> : null}
+      {hoger ? (
+        <span className={`shrink-0${hogerUnder ? ` lg:-mt-2 lg:w-full${symbol ? ' lg:pl-[52px]' : ''}` : ''}`}>{hoger}</span>
+      ) : null}
     </>
   )
-  const klass = 'flex min-h-14 items-center gap-3 px-4 py-3'
+  const klass = `flex min-h-14 items-center gap-3 px-4 py-3${hogerUnder && hoger ? ' lg:flex-wrap' : ''}`
   if (href) {
     return (
       <Link href={href} className={klass}>

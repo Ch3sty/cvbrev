@@ -95,9 +95,9 @@ export function datumLista(dagar: readonly string[]): string {
 
 /** Serieraden före "I morgon": "Fem dagar i rad." */
 export function serieText(dagar: number, status: 'pagar' | 'pausad' | 'bruten' | 'ingen'): string {
-  if (status === 'bruten' || status === 'ingen' || dagar <= 0) return 'Serien börjar om i dag.';
-  if (status === 'pausad') return 'Serien pausar, inget bryts.';
-  if (dagar === 1) return 'Serien har börjat.';
+  if (status === 'bruten' || status === 'ingen' || dagar <= 0) return 'Dagarna i rad börjar om i dag.';
+  if (status === 'pausad') return 'Dagarna i rad pausar, inget bryts.';
+  if (dagar === 1) return 'Första dagen i rad.';
   return `${versal(talord(dagar))} dagar i rad.`;
 }
 
@@ -125,18 +125,18 @@ export const PASS_COPY = {
   topp: {
     avsluta: 'Avsluta passet',
     stang: 'Stäng',
-    passRad: (heltal: number | null) => (heltal == null ? 'Dagens pass' : `Dagens pass · nivå ${heltal}`),
-    passGrundRad: 'Dagens pass · grundnivå',
-    riktatRad: (heltal: number | null) => (heltal == null ? 'Riktat pass' : `Riktat pass · nivå ${heltal}`),
+    passRad: (heltal: number | null) => (heltal == null ? 'Dagens pass' : `Dagens pass, nivå ${heltal}`),
+    passGrundRad: 'Dagens pass på grundnivå',
+    riktatRad: (heltal: number | null) => (heltal == null ? 'Extrapass' : `Extrapass, nivå ${heltal}`),
     blandat: 'Blandade mönster',
     matning: 'Nivåmätningen',
-    matningRad: 'Tolv uppgifter, svårare efter rätt svar',
+    matningRad: 'Tolv uppgifter, från lätta till svåra',
     /** Spec 14.5: "fråga 1 av 7, fem räknas från smakprovet". */
     matningSmakprov: (n: number) => `${versal(talord(n, 'en'))} räknas från smakprovet`,
-    ommatning: 'Veckans ommätning',
-    ommatningRad: 'Tolv uppgifter, tyngre punkt på kurvan',
-    general: 'Generalrepetition',
-    generalRad: (namn: string | null) => (namn ? `Samma format som ${namn}` : 'Vårt provläge'),
+    ommatning: 'Veckans nivåmätning',
+    ommatningRad: 'Tolv uppgifter, som första gången',
+    general: 'Övningsprov',
+    generalRad: (namn: string | null) => (namn ? `Samma format som ${namn}` : 'Vårt eget format'),
     uppvarmning: 'Uppvärmning',
     uppvarmningRad: 'Ingen tid, ingen nivå, inget sparas',
   },
@@ -155,10 +155,10 @@ export const PASS_COPY = {
   },
   vetInte: 'Vet inte, visa regeln',
   regel: {
-    fel: (s: number) => `Inte den här · ${s} s`,
-    ratt: (s: number) => `Rätt · ${s} s`,
-    vetInte: (s: number) => `Vet inte · ${s} s`,
-    tidenUte: (s: number) => `Tiden tog slut · ${s} s`,
+    fel: (s: number) => `Inte den här, ${s} s`,
+    ratt: (s: number) => `Rätt på ${s} s`,
+    vetInte: (s: number) => `Vet inte, ${s} s`,
+    tidenUte: (_s: number) => 'Tiden tog slut',
     /* Raden efter regeln (19.2 fråga 1): bandet ur urvalet och tiden mot provets. */
     strackRatt: 'Svårare än din nivå, och du klarade den inom provets tid.',
     strackRattOverTid: 'Svårare än din nivå. Rätt, men över provets tid.',
@@ -187,7 +187,7 @@ export const PASS_COPY = {
     kvot: 'Dagens grundpass är gjort.',
     kvotRad: 'Nästa grundpass i morgon.',
     familj: 'Det mönstret har för få uppgifter än så länge.',
-    familjRad: 'Välj ett annat riktat pass, eller gör dagens pass.',
+    familjRad: 'Välj ett annat mönster, eller gör dagens pass.',
   },
   laddar: {
     session: 'Hämtar passet',
@@ -196,15 +196,15 @@ export const PASS_COPY = {
   /* -------------------------------- Resultaten ------------------------------- */
   resultat: {
     sparat: {
-      pass: 'Dagens pass · sparat',
-      riktat: 'Riktat pass · sparat',
-      matning: 'Nivåmätningen · sparad',
-      ommatning: 'Ommätning · sparad',
-      general: 'Generalrepetition · sparad',
+      pass: 'Dagens pass sparat',
+      riktat: 'Extrapasset sparat',
+      matning: 'Nivåmätningen sparad',
+      ommatning: 'Nivåmätningen sparad',
+      general: 'Övningsprovet sparat',
     },
     passKlart: 'Passet klart',
-    riktatKlart: 'Riktat pass klart',
-    generalKlar: 'Generalrepetitionen klar',
+    riktatKlart: 'Extrapasset klart',
+    generalKlar: 'Övningsprovet klart',
     ringKlar: 'Dagens pass gjort',
     /** P4: "7 av 9 rätt. Nivån steg till 5,6." */
     rubrikUpp: (ratt: number, antal: number, niva: number) => `${ratt} av ${antal} rätt. Nivån steg till ${nivaKort(niva)}.`,
@@ -213,7 +213,7 @@ export const PASS_COPY = {
       `${ratt} av ${antal} rätt. Nivån ${nivaKort(niva)}, ner ${tiondelar(delta)}.`,
     rubrikStill: (ratt: number, antal: number, niva: number) => `${ratt} av ${antal} rätt. Nivån står kvar på ${nivaKort(niva)}.`,
     rubrikUtanNiva: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
-    riktatRad: 'Ett riktat pass räknas på mönstret du övar, inte på din nivå.',
+    riktatRad: 'Ett extrapass övar ett mönster. Det ändrar inte din nivå.',
     tal: {
       ratt: 'rätt',
       nivaFran: (fore: number) => `nivå, från ${nivaKort(fore)}`,
@@ -229,12 +229,14 @@ export const PASS_COPY = {
      */
     familjIdag: (ratt: number, antal: number, familj: string, forra: { ratt: number; antal: number; matning: boolean } | null) =>
       `${versal(familj)}: ${talord(ratt)} av ${talord(antal)} rätt i dag${
-        forra ? `, mot ${talord(forra.ratt)} av ${talord(forra.antal)} ${forra.matning ? 'i mätningen' : 'förra gången'}` : ''
+        forra ? `, mot ${talord(forra.ratt)} av ${talord(forra.antal)} ${forra.matning ? 'vid starten' : 'förra gången'}` : ''
       }.`,
-    /** Generalrepetitionen (19.2 fråga 8): formatet i stället för mönstret. */
-    generalMening: (format: string) => `${format}. Punkten väger som en ommätning på kurvan.`,
+    /** Övningsprovet (19.2 fråga 8): formatet i stället för mönstret. */
+    generalMening: (format: string) => `${format}. Punkten väger tyngre på kurvan än ett vanligt pass.`,
     passFlyttar: (ommatningDag: string | null) =>
-      ommatningDag ? `Pass flyttar nivån lite i taget, ommätningen på ${ommatningDag} mer.` : 'Pass flyttar nivån lite i taget, ommätningen mer.',
+      ommatningDag
+        ? `Passen flyttar nivån lite i taget. Nivåmätningen ${ommatningDag} flyttar den mer.`
+        : 'Passen flyttar nivån lite i taget. Nivåmätningarna flyttar den mer.',
     /** S1 (19.2 fråga 5): villkorad på missarna som var uppgifter över nivån. */
     sjonk: (overMissar: number) =>
       overMissar >= 2
@@ -249,8 +251,6 @@ export const PASS_COPY = {
       inga: 'Alla frågor inom provets tid',
       snitt: (snitt: number, budget: number) => `Snitt ${snitt} s, provet ger ${budget}.`,
       gaIgenom: 'Gå igenom dem först.',
-      /** Används inte längre i kortet (19.2 fråga 7); copywritern städar. */
-      naraNivan: 'Tempot mäts på frågor nära din nivå. De säkra räknas inte.',
       axelStart: 'fråga 1',
       axelMitt: 'streckad linje: provets tid',
       /** S1: fel svar ritas ihåliga (20.3 punkt 4). */
@@ -267,7 +267,7 @@ export const PASS_COPY = {
             ? 'En miss'
             : `${versal(talord(fel, 'en'))} missar, inget mönster sticker ut`,
       /** Efter mönstrets beskrivning (19.2 fråga 5). */
-      familjOvas: 'Mönstret går att öva i ett riktat pass.',
+      familjOvas: 'Mönstret går att öva i ett extrapass.',
       ingenFamilj: 'Gå igenom dem. Regeln och misstaget står vid varje fråga.',
     },
     genomgang: {
@@ -308,8 +308,8 @@ export const PASS_COPY = {
     ingaFamiljer: 'Inget mönster du tappade på i mätningen. Passen börjar på din nivå.',
     plan: {
       rubrik: (prov: string | null, dagar: number | null) =>
-        prov && dagar != null ? `Planen till ${datumLangt(prov)} · ${dagar} dagar` : 'Planen, en vecka framåt',
-      idag: 'I dag: mätningen',
+        prov && dagar != null ? `Planen fram till ${datumLangt(prov)}` : 'Planen, en vecka framåt',
+      idag: 'I dag: nivåmätningen',
       idagMeta: 'Klar. Första punkten på kurvan.',
       klart: 'Klart',
       grundIdag: 'I dag: ett grundpass',
@@ -318,35 +318,35 @@ export const PASS_COPY = {
       passNiva: (fran: string) => `${fran} och varje dag: passet på din nivå`,
       passNivaMeta: (familj: string | null, heltal: number) =>
         familj ? `Nio uppgifter nära nivå ${heltal}. Extra övning på mönstret du tappar mest på.` : `Nio uppgifter nära nivå ${heltal}.`,
-      ommatning: (dagar: string) => `${dagar}: ommätning`,
-      ommatningMeta: 'Åtta minuter, tyngre punkt på kurvan.',
-      general: (dagar: string) => `${dagar}: generalrepetition`,
+      ommatning: (dagar: string) => `${dagar}: mät din nivå igen`,
+      ommatningMeta: 'Åtta minuter. Visar om passen har flyttat dig.',
+      general: (dagar: string) => `${dagar}: övningsprov`,
       generalMeta: (format: string) => format,
       prov: (dag: string) => `${dag}: provdagen`,
-      provMeta: 'Tre uppvärmningsfrågor, inget mer.',
+      provMeta: 'Bara tre uppvärmningsfrågor.',
     },
     betalvagg: {
       rubrik: (dagar: number | null) =>
         dagar != null && dagar > 0 ? `${dagar} dagar kvar. Månaden täcker hela vägen.` : 'Passen på din nivå, varje dag.',
       /** 19.4 punkt 1: "samma format som" när leverantören är känd. */
       text: (formatNamn: string | null) =>
-        `Passen på din nivå, riktade pass, ommätning var sjunde dag, hela kurvan och generalrepetitionen ${
-          formatNamn ? `i samma format som ${formatNamn}` : 'i vårt provläge'
+        `Ett pass om dagen på din nivå, extrapass på det du tappar, ny nivåmätning varje vecka, hela kurvan och övningsprov ${
+          formatNamn ? `i samma format som ${formatNamn}` : 'i vårt eget format'
         }. Plus personliga brev, Jobbcoachen och matchade jobb.`,
       grundpassLank: 'Gör dagens grundpass gratis',
     },
   },
   ommatning: {
-    eyebrow: 'Veckans ommätning',
+    eyebrow: 'Veckans nivåmätning',
     /** O1: "5,8. Passen hade räknat dig till 5,7." */
     rubrik: (niva: number, fore: number | null) =>
       fore == null || Math.abs(fore - niva) < 0.05
         ? `${nivaKort(niva)}. Samma nivå som passen räknat fram.`
         : `${nivaKort(niva)}. Passen hade räknat dig till ${nivaKort(fore)}.`,
     skalaAria: (forsta: { dag: string; niva: number } | null, niva: number, sikte: number | null) =>
-      `Nivåskala.${forsta ? ` Mätningen ${datumLangt(forsta.dag)} ${nivaKort(forsta.niva)},` : ''} nu ${nivaKort(niva)}.${sikte != null ? ` Mål ${nivaKort(sikte)}.` : ''}`,
+      `Nivåskala.${forsta ? ` Starten ${datumLangt(forsta.dag)} ${nivaKort(forsta.niva)},` : ''} nu ${nivaKort(niva)}.${sikte != null ? ` Mål ${nivaKort(sikte)}.` : ''}`,
     franEtikett: (dag: string, niva: number) => `${datumKort(dag)} ${nivaKort(niva)}`,
-    delta: 'sedan mätningen',
+    delta: 'sedan starten',
     deltaVecka: 'på en vecka',
     kurvaRubrik: 'Kurvan med den nya punkten',
     /** O1 utan milstolpe: "Var du tappar nu" (art-director 20.2 fråga 8). */
@@ -355,16 +355,16 @@ export const PASS_COPY = {
     familjMot: (ratt: number, antal: number, r: number, a: number, dag: string) => `${ratt} av ${antal} rätt, mot ${r} av ${a} den ${dag}.`,
     /** Inget mönster nådde tröskeln: det ackumulerade (19.5 fråga 5). */
     familjHittills: (ratt: number, antal: number) => `${ratt} av ${antal} rätt hittills.`,
-    nastaOmmatning: (dag: string) => `Nästa ommätning ${datumMedVeckodag(dag)}.`,
+    nastaOmmatning: (dag: string) => `Nästa nivåmätning ${datumMedVeckodag(dag)}.`,
   },
   kvitto: {
-    eyebrow: (dag: string) => `Milstolpe · ${datumMedVeckodag(dag)}`,
+    eyebrow: (dag: string) => `Milstolpe, ${datumMedVeckodag(dag)}`,
     tillbaka: 'Tillbaka till Rekryteringstester',
     markeAria: (namn: string) => `Märket ${namn}`,
     /** Meningar per märke. Första veckan har två varianter i copy.ts (spec 14.3). */
-    forsta_matningen: (niva: number) => `Din första punkt på kurvan, nivå ${nivaKort(niva)}. Varje pass och varje ommätning bygger vidare på den.`,
-    nivan_upp: (fran: number, till: number) => `Från ${nivaKort(fran)} i mätningen till ${nivaKort(till)}. Första hela nivån över där du började.`,
-    generalrepetitionen: 'Första generalrepetitionen gjord, i provets format och på provets tid.',
+    forsta_matningen: (niva: number) => `Din första punkt på kurvan, nivå ${nivaKort(niva)}. Varje pass och varje ny mätning bygger vidare på den.`,
+    nivan_upp: (fran: number, till: number) => `Från ${nivaKort(fran)} vid starten till ${nivaKort(till)}. Första hela nivån över där du började.`,
+    generalrepetitionen: 'Första övningsprovet gjort, i provets format och på provets tid.',
     provdagen: 'Provdagen är passerad. Kurvan står kvar, och nästa datum sätter du när du vill.',
     nivaGick: (fran: number, till: number) => `Nivån gick från ${nivaKort(fran)} till ${nivaKort(till)}.`,
     nastaMarke: (namn: string, vid: number | null) => (vid != null ? `Nästa märke: ${namn}, vid ${nivaKort(vid)}.` : `Nästa märke: ${namn}.`),
@@ -387,9 +387,9 @@ export const PASS_COPY = {
   },
   betalvagg: {
     pass: 'Dagens pass ingår i',
-    riktat: 'Riktade pass ingår i',
-    general: 'Generalrepetitionen ingår i',
-    ommatning: 'Ommätningen ingår i',
+    riktat: 'Extrapassen ingår i',
+    general: 'Övningsprovet ingår i',
+    ommatning: 'Nivåmätningarna ingår i',
     text: `Resultat och genomgång av det du redan gjort är alltid dina, med eller utan ${paketKort()}.`,
   },
 } as const;

@@ -75,7 +75,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
     ingar: [
       'Alla 19 tester, grundnivå till expert',
-      'Tidsatt provläge, automatisk inlämning',
+      'Övningsprov mot klockan, automatisk inlämning',
       'Fördjupade personlighetstestet, 120 påståenden',
       'Hela din historik, inte bara senaste',
     ],
@@ -105,7 +105,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     intervall: 'Dras varje månad på samma datum tills du säger upp',
     ingar: [
       'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
-      'Alla rekryteringstester, provläget och personlighetstestet',
+      'Alla rekryteringstester, övningsprov och personlighetstestet',
       'Jobbmatchning, Jobbcoachen och Bli upptäckt',
       'Säg upp när som helst, ett klick',
     ],

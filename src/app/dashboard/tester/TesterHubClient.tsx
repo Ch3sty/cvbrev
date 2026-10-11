@@ -25,6 +25,7 @@ import { Suspense, lazy, use, useState, type ReactNode } from 'react';
 import Golv from '@/components/rum/Golv';
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
+import Lagesrad from '@/components/rum/Lagesrad';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { DinUtvecklingData } from '@/components/traning/utveckling/typer';
 import { TRAN_RAD, UNDERSIDA } from '@/lib/rum/copy';
@@ -53,7 +54,18 @@ const DinUtveckling = lazy(() => import('@/components/traning/utveckling/DinUtve
 /** Fliken Din utveckling när datan strömmat in från alla/page.tsx. */
 function UtvecklingFlik({ las, flikar }: { las: Promise<DinUtvecklingData>; flikar: ReactNode }) {
   const data = use(las);
-  return <DinUtveckling data={data} topprad={<Topprad />} flikar={flikar} />;
+  return (
+    <DinUtveckling
+      data={data}
+      topprad={
+        <>
+          <Topprad />
+          <Lagesrad aktiv="alla" />
+        </>
+      }
+      flikar={flikar}
+    />
+  );
 }
 
 /** Medan Din utveckling laddar: väggen i rätt höjd och flikarna på golvet. */
@@ -62,6 +74,7 @@ function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
     <div className="flex flex-1 flex-col" aria-busy="true">
       <Vagg>
         <Topprad />
+        <Lagesrad aktiv="alla" />
         <LoadingSkeleton variant="vagg" label="Laddar din utveckling" />
       </Vagg>
       <Golv>

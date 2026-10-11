@@ -18,6 +18,7 @@
  */
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
 import { LANK } from '@/components/shell/knappar'
@@ -27,7 +28,7 @@ import { INGANG } from '@/lib/traning/hem-copy'
 import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum'
 import { byggPlan, raknaPlan } from '@/lib/traning/plan'
 import { datumText } from '@/lib/traning/rubrik'
-import { talord } from '@/lib/traning/copy'
+import { talord, versal } from '@/lib/traning/copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { TaBortSvar } from './HemKlient'
 
@@ -57,16 +58,15 @@ function ord(n: number, ett: 'en' | 'ett' = 'ett'): string {
   return n >= 11 && n <= 20 ? TAL_UPP[n - 11] : talord(n, ett)
 }
 
-/** "14 dagar. Mätning i dag, åtta pass, två vilodagar, en ommätning, generalrepetition två dagar före och vila på provdagen." */
+/** "14 dagar. Åtta pass fram till provet, ett övningsprov två dagar före och vila på provdagen. Du kan ändra datumet när du vill." */
 export function plantext(idag: Dag, prov: Dag): { dagar: string; text: string } {
   const n = dagarMellan(idag, prov)
   if (n <= 0) return { dagar: '', text: INGANG.datum.planIdag }
   const r = raknaPlan(byggPlan({ start: idag, prov, idag, betalande: true }))
-  const pass = `${ord(r.pass)} pass`
-  const vila = r.vila ? `${ord(r.vila, 'en')} ${r.vila === 1 ? 'vilodag' : 'vilodagar'}` : ''
-  const om = r.ommatning ? `${ord(r.ommatning, 'en')} ${r.ommatning === 1 ? 'ommätning' : 'ommätningar'}` : null
-  const gen = r.general >= 2 ? 'generalrepetition två dagar före' : r.general === 1 ? 'generalrepetition dagen före' : null
-  return { dagar: INGANG.datum.planDagar(n), text: INGANG.datum.plan(pass, vila, om, gen) }
+  // Vila och nivåmätningar syns i planbilden, inte i meningen (copy-plan 3.6).
+  const pass = `${versal(ord(r.pass))} pass`
+  const gen = r.general >= 2 ? 'ett övningsprov två dagar före' : r.general === 1 ? 'ett övningsprov dagen före' : null
+  return { dagar: INGANG.datum.planDagar(n), text: INGANG.datum.plan(pass, gen) }
 }
 
 export default function Ingang({
@@ -231,18 +231,28 @@ export default function Ingang({
       primaryBusy={sparar}
       busyLabel={INGANG.sparar}
       footerSecondary={
-        steg === 2 ? (
-          <button
-            type="button"
-            className={`${LANK} min-h-9`}
-            onClick={() => {
-              setLev(null)
-              capture('provdatum_hoppat_over', { steg: 2 })
-              setSteg(3)
-            }}
-          >
-            {INGANG.hoppaOver}
-          </button>
+        steg === 2 || forsta ? (
+          <div className="flex flex-wrap items-center justify-between gap-x-6">
+            {steg === 2 ? (
+              <button
+                type="button"
+                className={`${LANK} min-h-9`}
+                onClick={() => {
+                  setLev(null)
+                  capture('provdatum_hoppat_over', { steg: 2 })
+                  setSteg(3)
+                }}
+              >
+                {INGANG.hoppaOver}
+              </button>
+            ) : null}
+            {forsta ? (
+              // Förbi planen (beslut-hemvy 2026-10-11): en länk, aldrig en knapp.
+              <Link href={TRANING_RUTT.alla} className={`${LANK} inline-flex min-h-9 items-center`} data-ingang-alla>
+                {INGANG.allaTester}
+              </Link>
+            ) : null}
+          </div>
         ) : undefined
       }
     >
@@ -299,7 +309,7 @@ export default function Ingang({
               <h1 className="font-display text-[26px] font-bold leading-[30px] tracking-[-.02em] text-ink-1">{INGANG.leverantor.fraga}</h1>
               <p className="mt-1.5 text-meta text-ink-3">{INGANG.leverantor.ledtrad}</p>
             </div>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Samma format som">
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Vem gör testet">
               {LEV.map((l) => (
                 <button key={l} type="button" role="radio" aria-checked={lev === l} onClick={() => setLev(l)} className={chipKlass(lev === l)}>
                   {INGANG.leverantor.val[l === 'vet_inte' ? 'vetInte' : l]}

@@ -28,6 +28,7 @@ import { SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import Chip from '@/components/rum/Chip'
+import { kikaRumYta } from '@/components/rum/rumMatning'
 import { HEM } from '@/lib/traning/hem-copy'
 import type { Betalvagg as Feature, HemMatning as Tillstand } from '@/lib/traning/hemvy'
 
@@ -219,7 +220,7 @@ export function HemMatning({ tillstand }: { tillstand: Tillstand }) {
   useEffect(() => {
     if (skickad.current === tillstand) return
     skickad.current = tillstand
-    capture('traning_hem_visad', { tillstand })
+    capture('traning_hem_visad', kikaRumYta() === 'lagesrad' ? { tillstand, surface: 'lagesrad' } : { tillstand })
   }, [tillstand])
   return null
 }

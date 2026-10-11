@@ -106,7 +106,8 @@ export interface RadModell {
 }
 
 export type Sektion =
-  | { typ: 'tempo'; tal: [Tal, Tal, Tal]; meta?: string; eyebrow?: string }
+  /** Tempokortet: ett tal (copy-plan 3.2). */
+  | { typ: 'tempo'; tal: Tal; meta?: string; eyebrow?: string }
   | { typ: 'rader'; nyckel: string; rubrik?: string; lank?: { text: string; href: string }; rader: RadModell[] }
   | { typ: 'status'; nyckel: string; text: string; ton: 'neutral' | 'koppar'; lank?: { text: string; href: string } };
 
@@ -122,7 +123,8 @@ export interface LyftModell {
   eyebrowTon: 'koppar' | 'neutral';
   titel: string;
   text?: string;
-  tre?: [Tal, Tal, Tal];
+  /** Kortets huvudtal (copy-plan 3.3): "7 av 9 rätt". */
+  tal?: Tal;
   handling?: Handling;
   sekundar?: { text: string; href: string };
   /** Meta under en linje i kortet (1f, och 1a:s "Mätningen är gratis", 22.2). */
@@ -147,6 +149,8 @@ export interface PlanbildData {
   plan: PlanDag[];
   idag: Dag;
   prov: Dag;
+  /** Mätningen är gjord (1b med en punkt): ingen "Mät min nivå" vid i dag. */
+  matt?: boolean;
   ariaLabel: string;
 }
 
@@ -167,7 +171,7 @@ export interface VaggModell {
   datumBox?: { text: string; lank: { text: string; href: string } };
   /** Tomt tillstånd (T1): planens symbol och meningen. */
   tomtBox?: { titel: string; text: string };
-  dagsrad?: { ring: 'kvar' | 'gjord' | 'general'; ringLabel: string; tal: [Tal, Tal, Tal] };
+  dagsrad?: { ring: 'kvar' | 'gjord' | 'general'; ringLabel: string; tal: Tal };
   vecka?: { status: ('gjord' | 'nu' | 'vila' | 'tom' | 'kvar' | 'om')[]; label: string };
   kurvaRubrik?: { text: string; form?: string; lank?: { text: string; href: string } };
   kurva?: KurvaData;
@@ -276,7 +280,7 @@ export function veckorad(plan: readonly PlanDag[], idag: Dag): ('gjord' | 'nu' |
 
 function veckoLabel(status: readonly string[]): string {
   const namn = ['måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag', 'söndag'];
-  const ord: Record<string, string> = { gjord: 'gjort', nu: 'i dag, kvar', vila: 'vilodag', tom: 'ingen plan', kvar: 'planerat', om: 'ommätning' };
+  const ord: Record<string, string> = { gjord: 'gjort', nu: 'i dag, kvar', vila: 'vilodag', tom: 'ingen plan', kvar: 'planerat', om: 'ny nivåmätning' };
   return `Veckan: ${status.map((s, i) => `${namn[i]} ${ord[s]}`).join(', ')}.`;
 }
 
@@ -285,12 +289,12 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   const delar: string[] = [];
   const pk = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0));
   if (pk.length) {
-    delar.push(`Nivå per dag från mätningen ${datumText(k.start)}: ${pk.map((p) => nivaKort(p.niva)).join(', ')}.`);
+    delar.push(`Nivå per dag från starten ${datumText(k.start)}: ${pk.map((p) => nivaKort(p.niva)).join(', ')}.`);
   }
   delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', passet kvar' : ''}.`);
   if (k.sikte != null && k.prov) delar.push(`Mål ${nivaKort(k.sikte)}.`);
   const om = k.plan.filter((p) => p.typ === 'ommatning' && p.dag > k.idag).map((p) => datumText(p.dag));
-  if (om.length) delar.push(`${om.length === 1 ? 'Ommätning' : 'Ommätningar'} ${om.join(' och ')}.`);
+  if (om.length) delar.push(`${om.length === 1 ? 'Ny nivåmätning' : 'Nya nivåmätningar'} ${om.join(' och ')}.`);
   const vila = k.plan.filter((p) => p.typ === 'vila').map((p) => datumText(p.dag));
   if (vila.length) delar.push(`${vila.length === 1 ? 'Vilodag' : 'Vilodagar'} ${vila.join(' och ')}.`);
   const last = k.plan.filter((p) => p.status === 'last');
@@ -348,16 +352,32 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
   // Valda typer först, de gjorda före de ogjorda.
   const vald = (t: string) => (testtyper.includes(t) ? 0 : 1);
   rader.sort((a, b) => vald(a._typ) - vald(b._typ));
-  return { typ: 'rader', nyckel: 'fler', rubrik: HEM.flerTester.rubrik, rader: rader.map(({ _typ: _, ...r }) => r) };
+  return {
+    typ: 'rader',
+    nyckel: 'fler',
+    rubrik: HEM.flerTester.rubrik,
+    lank: { text: HEM.flerTester.alla, href: TRANING_RUTT.alla },
+    rader: rader.map(({ _typ: _, ...r }) => r),
+  };
 }
 
+/**
+ * Jobbsöket som en rad (beslut-hemvy 2026-10-11 punkt 2): rummets namn och
+ * högst ett tal i metan, hela raden länk. Breven räknas aldrig på testväggen.
+ */
 function jobbsokStatus(j: JobbsokIn): Sektion {
   return {
-    typ: 'status',
+    typ: 'rader',
     nyckel: 'jobbsok',
-    text: jobbsokRad(j),
-    ton: 'neutral',
-    lank: { text: HEM.jobbsok.lank, href: TRANING_RUTT.jobbsok },
+    rader: [
+      {
+        titel: HEM.jobbsok.titel,
+        meta: jobbsokRad(j),
+        symbol: 'jobb',
+        hoger: { typ: 'chev' },
+        href: TRANING_RUTT.jobbsok,
+      },
+    ],
   };
 }
 
@@ -369,18 +389,22 @@ function varDuTappar(s: Traningsstatus, betalande: boolean, iMatningen: boolean)
     betalande || GRATISNIVA.riktadePassGratis
       ? { typ: 'lank', text: HEM.tappar.riktat, href: TRANING_RUTT.riktat(family) }
       : { typ: 'las', text: HEM.tappar.riktat, feature: 'tests_above_base', plats: 'riktat' };
-  const rader: RadModell[] = svaga.map((f, i) => ({
-    titel: namnFamilj(f.family) ?? f.family,
-    meta: iMatningen ? HEM.tappar.rattAvMatning(f.ratt, f.antal) : HEM.tappar.rattAv(f.ratt, f.antal),
-    stapel: { andel: f.andel, ton: i === 0 ? 'koppar' : 'ton' },
-    hoger: riktatHoger(f.family),
-    label: betalande ? undefined : `${namnFamilj(f.family) ?? f.family}. ${f.ratt} av ${f.antal} rätt. Riktat pass. ${lastAria()}`,
-  }));
+  // Ingen stapel på noll (avvikelse 3): metan säger det i ord.
+  const rader: RadModell[] = svaga.map((f, i) => {
+    const meta = iMatningen ? HEM.tappar.rattAvMatning(f.ratt, f.antal) : HEM.tappar.rattAv(f.ratt, f.antal);
+    return {
+      titel: namnFamilj(f.family) ?? f.family,
+      meta,
+      stapel: f.ratt > 0 ? { andel: f.andel, ton: i === 0 ? 'koppar' : 'ton' } : undefined,
+      hoger: riktatHoger(f.family),
+      label: betalande ? undefined : `${namnFamilj(f.family) ?? f.family}. ${meta} ${HEM.tappar.riktat}. ${lastAria()}`,
+    };
+  });
   if (langsam && betalande) {
     const namn = namnFamilj(langsam.family) ?? langsam.family;
     rader.push({
       titel: HEM.tappar.langsam(namn),
-      meta: `${langsam.ratt_men_langsamma} av ${langsam.antal} över provets tid.${langsam.ratt === langsam.antal ? ' Alla rätt.' : ''}`,
+      meta: HEM.tappar.langsamMeta(langsam.ratt_men_langsamma, langsam.antal),
       hoger: { typ: 'lank', text: HEM.tappar.tempopass, href: TRANING_RUTT.riktat(langsam.family) },
     });
   }
@@ -396,10 +420,14 @@ function varDuTappar(s: Traningsstatus, betalande: boolean, iMatningen: boolean)
 function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
   const r = provrad(s.format);
   const prov = s.plan?.provdatum ?? null;
-  // Raden heter Generalrepetitionen; formatet är metans första mening (22.2 fråga 4).
-  let meta = `${r.titel}. ${r.format}`;
-  if (r.anmarkning) meta += ` ${r.anmarkning}`;
-  if (prov) {
+  // Raden heter Övningsprovet och bär bara format och datum (copy-plan 3.5):
+  // antal och tid står i 1c-kortet, anmärkningen (SHL, Aon) i 1c-kortets text.
+  // Utan leverantör: "Vårt eget format, 18 uppgifter på 25 minuter. Vet du vem
+  // som gör testet, så byter vi format." Högst två meningar (avvikelse 4).
+  let meta = r.utanLeverantor ? `${r.titel}, ${r.format.charAt(0).toLowerCase()}${r.format.slice(1)}` : `${r.titel}.`;
+  if (r.utanLeverantor) {
+    // metan är komplett
+  } else if (prov) {
     // Samma mening för gratis och betalande: om raden är öppen eller låst
     // säger högersidan, aldrig metan (22.4 fråga 2).
     // Kort form: metan är en rad-meta (copy-premium 9.2, regeln vid kortDatum).
@@ -437,65 +465,37 @@ function tempoSektion(s: Traningsstatus): Sektion | null {
   const eget = !s.format.namn;
   const igar = p.dag === laggTill(s.idag, -1);
   const idag = p.dag === s.idag;
-  const passGjorda = s.aktivitet.pass;
+  // Ett tal (copy-plan 3.2): snittet och passen står i Din utveckling.
   return {
     typ: 'tempo',
     eyebrow: 'Tempo',
-    tal: [
-      { varde: `${over} av ${p.antal}`, etikett: idag ? HEM.tempo.overIdag : igar ? HEM.tempo.over : `över provets tid ${kortDatum(p.dag)}` },
-      p.snitt_s != null
-        ? { varde: `${Math.round(p.snitt_s)} s`, etikett: eget ? HEM.tempo.snittEget(s.format.budget_s) : HEM.tempo.snitt(s.format.budget_s) }
-        : { varde: `${s.format.budget_s} s`, etikett: 'provets tid per uppgift' },
-      { varde: String(Math.max(passGjorda, 1)), etikett: HEM.tempo.passGjorda },
-    ],
+    tal: { varde: `${over} av ${p.antal}`, etikett: idag ? HEM.tempo.overIdag : igar ? HEM.tempo.over : `över provets tid ${kortDatum(p.dag)}` },
     meta: eget ? HEM.tempo.metaEget : undefined,
   };
 }
 
 /* ------------------------------------------------------------ väggen */
 
-function dagsradTal(s: Traningsstatus, niva: number, tredje: 'serie' | 'dagar_kvar'): [Tal, Tal, Tal] {
+/**
+ * Dagsradens enda tal (beslut-hemvy 2026-10-11 punkt 2): nivån, med en
+ * etikett som säger varifrån. Serien står i raden under rubriken, dagarna
+ * till provet i rubriken och målet i kurvan, så inget tal står två gånger.
+ */
+function dagsradTal(s: Traningsstatus, niva: number): Tal {
   const start = s.start;
-  const forsta: Tal = {
-    varde: nivaKort(niva),
-    etikett:
-      start && start.dag === s.idag
-        ? HEM.dagsrad.nivaMattIdag
-        : start && start.dag === laggTill(s.idag, -1) && s.punkter.length <= 1
-          ? HEM.dagsrad.nivaMattIgar
-          : HEM.dagsrad.nivaFran(nivaKort(start?.niva ?? niva)),
-  };
-  const sikte = s.plan?.sikte ?? null;
-  const harDatum = s.dagarKvar != null && s.dagarKvar >= 0;
-  let andra: Tal;
-  if (sikte != null && harDatum) {
-    const kvar = Math.round((sikte - niva) * 10) / 10;
-    andra = kvar > 0 ? { varde: nivaKort(kvar), etikett: HEM.dagsrad.kvarSikte(nivaKort(sikte)) } : { varde: nivaKort(sikte), etikett: HEM.dagsrad.siktetNatt };
-  } else if (s.aktivitet.pass > 0) {
-    andra = { varde: String(s.aktivitet.pass), etikett: HEM.dagsrad.passGjorda };
-  } else {
-    andra = { varde: String(Math.max(1, s.aktivitet.matningar)), etikett: HEM.dagsrad.mattningGjord };
-  }
-  let tredjeTal: Tal;
-  if (tredje === 'dagar_kvar' && harDatum) {
-    tredjeTal = { varde: String(s.dagarKvar), etikett: HEM.dagsrad.dagarTillProvet(s.dagarKvar!) };
-  } else if (s.serie.dagar >= 2) {
-    tredjeTal = { varde: String(s.serie.dagar), etikett: HEM.dagsrad.dagarIRad };
-  } else if (harDatum) {
-    tredjeTal = { varde: String(s.dagarKvar), etikett: HEM.dagsrad.dagarTillProvet(s.dagarKvar!) };
-  } else if (andra.etikett !== HEM.dagsrad.passGjorda && s.aktivitet.pass > 0) {
-    tredjeTal = { varde: String(s.aktivitet.pass), etikett: HEM.dagsrad.passGjorda };
-  } else {
-    // Ingen serie än och inget datum: mätningen är det enda som är gjort.
-    tredjeTal = andra.etikett === HEM.dagsrad.mattningGjord
-      ? { varde: nivaKort(s.start?.niva ?? niva), etikett: 'mätningens nivå' }
-      : { varde: String(Math.max(1, s.aktivitet.matningar)), etikett: HEM.dagsrad.mattningGjord };
-  }
-  return [forsta, andra, tredjeTal];
+  const forandring = start ? Math.round((niva - start.niva) * 10) / 10 : 0;
+  // "mätt i dag" och "mätt i går" bara utan förändring, annars varifrån (copy-plan 3.1).
+  let etikett: string;
+  if (start && forandring !== 0) etikett = HEM.dagsrad.nivaFran(nivaKort(start.niva));
+  else if (!start || start.dag === s.idag) etikett = HEM.dagsrad.nivaMattIdag;
+  else if (start.dag === laggTill(s.idag, -1)) etikett = HEM.dagsrad.nivaMattIgar;
+  else etikett = HEM.dagsrad.nivaFran(nivaKort(start.niva));
+  return { varde: nivaKort(niva), etikett };
 }
 
-function radText(s: Traningsstatus, niva: number, dagLage: 'pass' | 'vila' | 'ommatning'): string {
-  const delar = [HEM.rad.niva(heltal(niva))];
+/** Raden under rubriken. Nivån står i dagsraden, så raden säger den inte (punkt 2). */
+function radText(s: Traningsstatus, dagLage: 'pass' | 'vila' | 'ommatning'): string {
+  const delar: string[] = [];
   if (s.serie.dagar >= 2) delar.push(HEM.rad.serie(versal(talord(s.serie.dagar))));
   else if (s.serie.status === 'bruten' && s.aktivitet.pass > 0) delar.push(HEM.rad.serieBorjarOm);
   if (dagLage === 'vila') delar.push(HEM.rad.vila);
@@ -504,8 +504,13 @@ function radText(s: Traningsstatus, niva: number, dagLage: 'pass' | 'vila' | 'om
   return delar.join(' ');
 }
 
+/**
+ * Kurvan tänds vid två punkter (beslut-hemvy 2026-10-11, avvikelse 2): med en
+ * enda punkt är den ett rutnät med en prick. Under två punkter väljer
+ * byggHemvy planbilden när datum finns, annars ingenting.
+ */
 function kurvaFor(s: Traningsstatus, provPasserat = false): KurvaData | undefined {
-  if (!s.start) return undefined;
+  if (!s.start || s.punkter.length < 2) return undefined;
   const plan = s.plandagar;
   const passKvar = !s.dagensPassGjort;
   const base: Omit<KurvaData, 'ariaLabel'> = {
@@ -729,9 +734,9 @@ export function byggHemvy(inp: HemIn): HemModell {
     const r = provrad(s.format);
     const generalGjord = s.senastePass?.typ === 'general' && s.senastePass.dag === s.idag;
     const kurva = kurvaFor(s);
+    const inforPlanbild = kurva ? undefined : planbildFor(s, aktuelltProv);
     const akt = s.aktivitet;
     const passText = antalOrd(akt.pass, 'ett', 'pass', 'pass');
-    const omText = antalOrd(akt.ommatningar, 'en', 'ommätning', 'ommätningar');
     const sektioner: Sektion[] = [];
     const svag = s.varDuTappar.svagaste[0];
     if (svag) {
@@ -742,8 +747,8 @@ export function byggHemvy(inp: HemIn): HemModell {
         rader: [
           {
             titel: HEM.tappar.kortPass(namnFamilj(svag.family) ?? svag.family),
-            meta: HEM.tappar.kortPassMeta(svag.ratt, svag.antal),
-            stapel: { andel: svag.andel, ton: 'ton' },
+            meta: HEM.tappar.kortPassMeta,
+            stapel: svag.ratt > 0 ? { andel: svag.andel, ton: 'ton' } : undefined,
             hoger:
               betalande || GRATISNIVA.riktadePassGratis
                 ? { typ: 'lank', text: HEM.tappar.starta, href: TRANING_RUTT.riktat(svag.family) }
@@ -760,14 +765,15 @@ export function byggHemvy(inp: HemIn): HemModell {
       nyPunkt: s.nyPunkt,
       vagg: {
         rubrik: rubrikForeProv(ri, dagarKvar),
-        rad: `${HEM.rad.niva(heltal(niva))} ${versal(HEM.rad.infor(passText, omText))}`,
+        rad: versal(HEM.rad.infor(passText)),
         dagsrad: {
           ring: generalGjord ? 'gjord' : 'general',
           ringLabel: generalGjord ? HEM.dagsrad.ringGeneralGjord : HEM.dagsrad.ringGeneral,
-          tal: dagsradTal(s, niva, 'dagar_kvar'),
+          tal: dagsradTal(s, niva),
         },
-        kurvaRubrik: kurvaRubrik(s),
+        kurvaRubrik: kurva || inforPlanbild ? kurvaRubrik(s, !kurva) : undefined,
         kurva,
+        planbild: kurva ? undefined : inforPlanbild,
       },
       lyft: generalGjord && s.senastePass
         ? klartLyft(s, betalande, true)
@@ -776,7 +782,8 @@ export function byggHemvy(inp: HemIn): HemModell {
             eyebrow: HEM.infor.eyebrow,
             eyebrowTon: 'koppar',
             titel: `${r.titel}: ${r.antalTid}`,
-            text: harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText(),
+            // Anmärkningen (SHL, Aon) först, flyttad från provraden (copy-plan 3.5).
+            text: [r.anmarkning, harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText()].filter(Boolean).join(' '),
             handling: harProv
               ? { typ: 'lank', text: HEM.infor.knapp, href: TRANING_RUTT.general }
               : kop(s, 'test_exam_mode', 'generalrepetition'),
@@ -788,6 +795,7 @@ export function byggHemvy(inp: HemIn): HemModell {
   /* ---------- 1b, 1g, 1f, 1h, 1i */
   const utanDatum = !aktuelltProv;
   const kurva = kurvaFor(s);
+  const planbild = kurva ? undefined : planbildFor(s, aktuelltProv);
   const efterPass = s.dagensPassGjort && !!s.senastePass && s.senastePass.dag === s.idag;
   const dagLage: 'pass' | 'vila' | 'ommatning' = dagTyp === 'vila' ? 'vila' : dagTyp === 'ommatning' ? 'ommatning' : 'pass';
 
@@ -822,7 +830,7 @@ export function byggHemvy(inp: HemIn): HemModell {
     // 17.2: grundpasset bara dag 0. Passet visas med tema och nivå, knappen köper.
     lyft = {
       label: 'Dagens pass',
-      eyebrow: HEM.pass.eyebrowNiva(heltal(niva)),
+      eyebrow: HEM.pass.eyebrow,
       eyebrowTon: 'koppar',
       titel: tema,
       text: HEM.pass.lastText(svagaste),
@@ -841,7 +849,7 @@ export function byggHemvy(inp: HemIn): HemModell {
   } else {
     lyft = {
       label: 'Dagens pass',
-      eyebrow: HEM.pass.eyebrowNiva(heltal(niva)),
+      eyebrow: HEM.pass.eyebrow,
       eyebrowTon: 'koppar',
       titel: tema,
       text: HEM.pass.text,
@@ -869,18 +877,19 @@ export function byggHemvy(inp: HemIn): HemModell {
 
   const vagg: VaggModell = {
     rubrik: utanDatum ? HEM.rubrikUtanDatumPass : rubrikForeProv(ri, dagarKvar!),
-    rad: radText(s, niva, dagLage),
+    rad: radText(s, dagLage),
     dagsrad: {
       ring: s.dagensPassGjort ? 'gjord' : 'kvar',
       ringLabel: s.dagensPassGjort ? HEM.dagsrad.ringGjord : HEM.dagsrad.ringKvar,
-      tal: dagsradTal(s, niva, 'serie'),
+      tal: dagsradTal(s, niva),
     },
     vecka: utanDatum ? undefined : (() => {
       const st = veckorad(s.plandagar, s.idag);
       return { status: st, label: veckoLabel(st) };
     })(),
-    kurvaRubrik: kurvaRubrik(s),
+    kurvaRubrik: kurva || planbild ? kurvaRubrik(s, !kurva) : undefined,
     kurva,
+    planbild,
     kurvaMeta: s.historikLast || s.plandagar.some((p) => p.status === 'last') ? HEM.kurva.gratisMeta() : undefined,
     datumBox: utanDatum ? { text: HEM.utanDatum.box, lank: { text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) } } : undefined,
   };
@@ -897,12 +906,24 @@ export function byggHemvy(inp: HemIn): HemModell {
   };
 }
 
-function kurvaRubrik(s: Traningsstatus): VaggModell['kurvaRubrik'] {
+/**
+ * Kurvans rubrik. Formen visas först från tre punkter (punkt 2): en eller två
+ * punkter har ingen form. Med planbilden i stället för kurvan heter raden
+ * Planen.
+ */
+function kurvaRubrik(s: Traningsstatus, planbild = false): VaggModell['kurvaRubrik'] {
   return {
-    text: HEM.kurva.rubrik,
-    form: s.form ? HEM.kurva.form(s.form.form) : undefined,
+    text: planbild ? HEM.ny.planRubrik : HEM.kurva.rubrik,
+    form: !planbild && s.form && s.punkter.length >= 3 ? HEM.kurva.form[s.form.form] ?? s.form.form : undefined,
     lank: { text: HEM.kurva.hela, href: TRANING_RUTT.kurvan },
   };
+}
+
+/** Planbilden under två punkter, när datum finns (avvikelse 2). Bara dagarna från i dag. */
+function planbildFor(s: Traningsstatus, prov: Dag | null): PlanbildData | undefined {
+  if (!prov || prov <= s.idag) return undefined;
+  const plan = s.plandagar.filter((d) => d.dag >= s.idag);
+  return { plan, idag: s.idag, prov, matt: true, ariaLabel: planbildLabel(plan, s.idag, prov, true) };
 }
 
 function matningLyft(betalande: boolean, smakprov: Traningsstatus['smakprov']): LyftModell {
@@ -948,31 +969,21 @@ function klartLyft(s: Traningsstatus, betalande: boolean, general: boolean): Lyf
   const p = s.senastePass!;
   const ratt = p.ratt ?? 0;
   let titel: string;
-  if (p.typ === 'riktat' || p.niva_efter == null) titel = HEM.klart.utanNiva(ratt, p.antal);
-  else if (p.niva_fore == null || p.niva_efter > p.niva_fore + 1e-9) titel = HEM.klart.upp(ratt, p.antal, nivaKort(p.niva_efter));
-  else if (Math.abs(p.niva_efter - p.niva_fore) < 1e-9) titel = HEM.klart.samma(ratt, p.antal, nivaKort(p.niva_efter));
-  else if (Math.round((p.niva_fore - p.niva_efter) * 10) === 1) titel = HEM.klart.ner(ratt, p.antal, nivaKort(p.niva_efter));
-  else titel = HEM.klart.nerMer(ratt, p.antal, nivaKort(p.niva_efter));
+  if (p.typ === 'riktat') titel = HEM.klart.utanNiva;
+  else if (p.niva_efter == null) titel = HEM.klart.utanNivaPass;
+  else if (p.niva_fore == null || p.niva_efter > p.niva_fore + 1e-9) titel = HEM.klart.upp(nivaKort(p.niva_efter));
+  else if (Math.abs(p.niva_efter - p.niva_fore) < 1e-9) titel = HEM.klart.samma(nivaKort(p.niva_efter));
+  else if (Math.round((p.niva_fore - p.niva_efter) * 10) === 1) titel = HEM.klart.ner(nivaKort(p.niva_efter));
+  else titel = HEM.klart.nerMer(nivaKort(p.niva_efter));
 
-  const delta = p.niva_efter != null && p.niva_fore != null ? Math.round((p.niva_efter - p.niva_fore) * 10) / 10 : null;
-  const tre: [Tal, Tal, Tal] = [
-    { varde: `${ratt} av ${p.antal}`, etikett: HEM.klart.talRatt },
-    p.typ === 'riktat' || delta == null
-      ? { varde: p.niva_efter != null ? nivaKort(p.niva_efter) : nivaKort(s.niva ?? 0), etikett: 'nivå, oförändrad' }
-      : {
-          varde: delta === 0 ? '±0' : `${delta > 0 ? '+' : '−'}${decimal(Math.abs(delta))}`,
-          etikett: HEM.klart.talNiva(nivaKort(p.niva_fore!)),
-          koppar: delta > 0,
-        },
-    { varde: `${p.over_tid ?? 0} av ${p.antal}`, etikett: HEM.klart.talOver },
-  ];
   return {
     label: general ? HEM.klart.eyebrowGeneral : HEM.klart.eyebrow,
     eyebrow: general ? HEM.klart.eyebrowGeneral : HEM.klart.eyebrow,
     eyebrowTon: 'koppar',
     titel,
     text: p.typ === 'riktat' ? HEM.klart.riktat : undefined,
-    tre,
+    // Ett tal (copy-plan 3.3): nivån står i titeln, tempot i genomgången.
+    tal: { varde: `${ratt} av ${p.antal}`, etikett: HEM.klart.talRatt },
     handling: { typ: 'lank', text: HEM.klart.knapp, href: TRANING_RUTT.genomgang(p.id) },
     sekundar: betalande && !general ? { text: HEM.klart.ettTill, href: TRANING_RUTT.pass } : undefined,
   };
@@ -996,12 +1007,12 @@ function imorgonText(s: Traningsstatus): string | null {
       dag = laggTill(dag, 1);
       t = s.plandagar.find((d) => d.dag === dag)?.typ ?? 'pass';
     }
-    const akt = t === 'ommatning' ? 'ommätning, 8 minuter' : t === 'general' ? 'generalrepetition' : t === 'prov' ? 'provet' : passText;
+    const akt = t === 'ommatning' ? 'mät din nivå igen, 8 minuter' : t === 'general' ? 'övningsprov' : t === 'prov' ? 'provet' : passText;
     return `${vd(imorgon)} är vilodag. ${vd(dag)}: ${akt}.`;
   }
-  if (typ === 'ommatning') return `${vd(imorgon)}: ommätning, 8 minuter.`;
-  if (typ === 'general') return 'I morgon: generalrepetition.';
-  if (typ === 'prov') return 'I morgon: provet. Tre uppvärmningsfrågor, inget mer.';
+  if (typ === 'ommatning') return `${vd(imorgon)}: mät din nivå igen, 8 minuter.`;
+  if (typ === 'general') return 'I morgon: övningsprov.';
+  if (typ === 'prov') return 'I morgon: provet. Bara tre uppvärmningsfrågor.';
   return `I morgon: ${passText}.`;
 }
 
@@ -1009,11 +1020,11 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
   const prov = s.plan!.provdatum!;
   const akt = s.aktivitet;
   const gjort =
-    akt.pass + akt.ommatningar + akt.generalrepetitioner > 0
+    // Nivåmätningarna stryks ur meningen (copy-plan 3.9).
+    akt.pass + akt.generalrepetitioner > 0
       ? `Du har gjort ${[
-          antalOrd(akt.pass, 'ett', 'pass', 'pass'),
-          akt.ommatningar ? antalOrd(akt.ommatningar, 'en', 'ommätning', 'ommätningar') : null,
-          akt.generalrepetitioner ? antalOrd(akt.generalrepetitioner, 'en', 'generalrepetition', 'generalrepetitioner') : null,
+          akt.pass ? antalOrd(akt.pass, 'ett', 'pass', 'pass') : null,
+          akt.generalrepetitioner ? antalOrd(akt.generalrepetitioner, 'ett', 'övningsprov', 'övningsprov') : null,
         ]
           .filter(Boolean)
           .join(', ')
@@ -1028,7 +1039,7 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
           sikte,
           etikettNu: HEM.provdag.skala.du(nivaKort(niva)),
           etikettFran: s.start ? HEM.provdag.skala.fran(String(heltal(s.start.niva))) : null,
-          aria: `Nivåskala 1 till 10. Du: ${nivaKort(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${nivaKort(s.start.niva)}.` : ''}${sikte != null ? ` Mål: ${nivaKort(sikte)}.` : ''}`,
+          aria: `Nivåskala 1 till 10. Du: ${nivaKort(niva)}.${s.start ? ` Starten ${datumText(s.start.dag)}: ${nivaKort(s.start.niva)}.` : ''}${sikte != null ? ` Mål: ${nivaKort(sikte)}.` : ''}`,
         }
       : null;
   const perUppgift = s.format.tidsform === 'per_uppgift';
@@ -1075,13 +1086,13 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
   };
 }
 
-function planbildLabel(plan: readonly PlanDag[], idag: Dag, prov: Dag): string {
+function planbildLabel(plan: readonly PlanDag[], idag: Dag, prov: Dag, matt = false): string {
   const om = plan.filter((p) => p.typ === 'ommatning').map((p) => datumText(p.dag));
   const gen = plan.filter((p) => p.typ === 'general').map((p) => datumText(p.dag));
   return [
-    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: mätning i dag, pass varje dag med vilodag söndag`,
-    om.length ? `, ommätning ${om.join(' och ')}` : '',
-    gen.length ? `, generalrepetition ${gen.join(' och ')}` : '',
+    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: ${matt ? 'nivån mätt' : 'mät din nivå i dag'}, pass varje dag med vilodag söndag`,
+    om.length ? `, ny nivåmätning ${om.join(' och ')}` : '',
+    gen.length ? `, övningsprov ${gen.join(' och ')}` : '',
     `, prov ${datumText(prov)}.`,
   ].join('');
 }
@@ -1110,7 +1121,7 @@ function felModell(inp: HemIn): HemModell {
 /** Gör talen i en dagsrad till text för tester och skärmläsare. */
 export function dagsradText(m: HemModell): string | null {
   const d = m.vagg.dagsrad;
-  return d ? d.tal.map((t) => `${t.varde} ${t.etikett}`).join(', ') : null;
+  return d ? `${d.tal.varde} ${d.tal.etikett}` : null;
 }
 
 export { kognitivaTyper, dagarMellan, ingarIPaketet };

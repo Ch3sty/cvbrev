@@ -15,7 +15,7 @@ export const PROVSIDA = {
     'Fem frågor ur logiktestet på grundnivå. Här ser du vilka du fick rätt och regeln bakom varje mönster.',
   resultatEtikett: 'Ditt resultat',
   av: (totalt: number) => `rätt av ${totalt}`,
-  meta: (datum: string) => `Provet utan konto, fem frågor · ${datum}`,
+  meta: (datum: string) => `Provet utan konto, fem frågor, ${datum}`,
   omdome: (ratt: number, totalt: number): string => {
     if (ratt === totalt) return 'Alla rätt. Grundnivån har femton frågor av samma sort, och efter den väntar avancerad nivå.'
     if (ratt >= totalt - 1) return 'Nästan alla rätt. Läs regeln för den du missade, så känner du igen mönstret nästa gång.'
@@ -25,15 +25,15 @@ export const PROVSIDA = {
   genomgang: 'Tryck på en fråga för att visa eller dölja regeln och rätt svar.',
   knapp: 'Gör grundnivån',
   traning: 'Se vad som ingår',
-  traningText: `Alla nivåer, tidsatt provläge och förklaring till varje fråga ingår i ${paketKort()}.`,
+  traningText: `Alla nivåer, övningsprov mot klockan och förklaring till varje fråga ingår i ${paketKort()}.`,
   hubb: 'Till rekryteringstesterna',
 } as const
 
-const TITEL_LAST = 'Provläge mot klockan'
+const TITEL_LAST = 'Övningsprov mot klockan'
 
 /**
  * Provradens text i testhubben (copy-premium-2026-10-11 avsnitt 5 och
- * spec-rummen 19.6). Logikgruppens rad är generalrepetitionen i planens
+ * spec-rummen 19.6). Logikgruppens rad är övningsprovet i planens
  * format och byggs av provrad(format) i src/lib/traning/rubrik.ts, samma
  * hjälpare som hemvyns Provdagen-rad. Leverantörsnamnet kommer bara ur
  * planens leverantör, aldrig ur en siffermatchning. Verbal- och
@@ -42,31 +42,31 @@ const TITEL_LAST = 'Provläge mot klockan'
  */
 export const PROVRAD = {
   titelLast: TITEL_LAST,
-  titelOppen: 'Prov: mät var du står',
+  titelOppen: 'Övningsprov mot klockan',
   ingar: `Ingår i ${paketKort()}.`,
-  /** Verbal och numerisk: "18 uppgifter, 25 minuter. Ingår i Premium." */
+  /** Verbal och numerisk: "18 uppgifter på 25 minuter. Ingår i Premium." */
   rad2: (uppgifter: number, minuter: number, last: boolean) =>
-    [`${uppgifter} uppgifter, ${minuter} minuter.`, last ? `Ingår i ${paketKort()}.` : null]
+    [`${uppgifter} uppgifter på ${minuter} minuter.`, last ? `Ingår i ${paketKort()}.` : null]
       .filter(Boolean)
       .join(' '),
   /**
-   * Generalrepetitionen: "Samma format som Matrigma. Cirka 35 uppgifter, 40
-   * minuter, fast ordning. Ingår i Premium." Anmärkningen (SHL, Aon) står
-   * före "Ingår i".
+   * Övningsprovet: "Samma format som Matrigma. Cirka 35 uppgifter på 40
+   * minuter. Ingår i Premium." Anmärkningen (SHL, Aon) står i 1c-kortet och
+   * i hjälpen, inte i raden (copy-plan 4.10).
    */
   rad2Format: (r: Provrad, last: boolean) =>
-    [`${r.titel}. ${r.format}`, r.anmarkning, last ? `Ingår i ${paketKort()}.` : null]
+    [`${r.titel}. ${r.format}`, last ? `Ingår i ${paketKort()}.` : null]
       .filter(Boolean)
       .join(' '),
-  /** "Provläge mot klockan. Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. Låst, ingår i Premium." */
+  /** "Övningsprov mot klockan. Samma format som Matrigma. Cirka 35 uppgifter på 40 minuter. Låst, ingår i Premium." */
   ariaFormat: (r: Provrad) => `${TITEL_LAST}. ${provradLabel(r, `Låst, ingår i ${paketKort()}.`)}`,
-  /** Verbal och numerisk: "Provläge mot klockan. 18 uppgifter, 25 minuter. Låst, ingår i Premium." */
+  /** Verbal och numerisk: "Övningsprov mot klockan. 18 uppgifter på 25 minuter. Låst, ingår i Premium." */
   aria: (uppgifter: number, minuter: number) =>
-    `${TITEL_LAST}. ${uppgifter} uppgifter, ${minuter} minuter. Låst, ingår i ${paketKort()}.`,
+    `${TITEL_LAST}. ${uppgifter} uppgifter på ${minuter} minuter. Låst, ingår i ${paketKort()}.`,
 } as const
 
 /**
- * Rad 2 och aria för en provrad. Generalrepetitionen (general) läser planens
+ * Rad 2 och aria för en provrad. Övningsprovet (general) läser planens
  * format, de andra provets antal och minuter.
  */
 export function provradTexter(

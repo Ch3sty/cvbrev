@@ -13,39 +13,39 @@ import { emptyHubData, getTesterHubData } from '../getHubData'
 describe('provraden för generalrepetitionen', () => {
   it('Matrigma klassisk, låst', () => {
     expect(PROVRAD.rad2Format(provrad(PROVFORMAT.matrigma_klassisk), true)).toBe(
-      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. Ingår i Premium.'
+      'Samma format som Matrigma. Cirka 35 uppgifter på 40 minuter. Ingår i Premium.'
     )
   })
 
   it('Matrigma adaptiv, öppen', () => {
     expect(PROVRAD.rad2Format(provrad(PROVFORMAT.matrigma_adaptiv), false)).toBe(
-      'Samma format som Matrigma. Cirka 12 uppgifter, 12 minuter, svårare efter rätt svar.'
+      'Samma format som Matrigma. Cirka 12 uppgifter på 12 minuter.'
     )
   })
 
   it('utan leverantör, öppen', () => {
     expect(PROVRAD.rad2Format(provrad(PROVFORMAT.eget), false)).toBe(
-      'Vårt provläge. 18 uppgifter, 25 minuter. Vet du leverantören så byter vi format.'
+      'Vårt eget format. 18 uppgifter på 25 minuter. Vet du vem som gör testet, så byter vi format.'
     )
   })
 
   it('utan leverantör, låst', () => {
     expect(PROVRAD.rad2Format(provrad(PROVFORMAT.eget), true)).toBe(
-      'Vårt provläge. 18 uppgifter, 25 minuter. Vet du leverantören så byter vi format. Ingår i Premium.'
+      'Vårt eget format. 18 uppgifter på 25 minuter. Vet du vem som gör testet, så byter vi format. Ingår i Premium.'
     )
   })
 
-  it('SHL, låst: anmärkningen står före "Ingår i"', () => {
+  it('SHL, låst: anmärkningen står i 1c-kortet, inte i raden (copy-plan 4.10)', () => {
     const rad = PROVRAD.rad2Format(provrad(PROVFORMAT.shl), true)
     expect(rad).toBe(
-      'Samma format som SHL Verify. Cirka 18 uppgifter, 25 minuter, fast ordning. SHL Verify G+ blandar siffror, slutledning och figurer. Provläget övar figurdelen. Ingår i Premium.'
+      'Samma format som SHL Verify. Cirka 18 uppgifter på 25 minuter. Ingår i Premium.'
     )
-    expect(rad.indexOf('Provläget övar figurdelen.')).toBeLessThan(rad.indexOf('Ingår i'))
+    expect(rad).not.toMatch(/figurdelen/)
   })
 
   it('aria-label låst', () => {
     expect(PROVRAD.ariaFormat(provrad(PROVFORMAT.matrigma_klassisk))).toBe(
-      'Provläge mot klockan. Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. Låst, ingår i Premium.'
+      'Övningsprov mot klockan. Samma format som Matrigma. Cirka 35 uppgifter på 40 minuter. Låst, ingår i Premium.'
     )
   })
 })
@@ -73,17 +73,17 @@ describe('katalogen', () => {
       const n = prov.totalQuestions
       const m = prov.minutes
       expect(provradTexter(prov, 'matrigma_klassisk', true)).toEqual({
-        rad2: `${n} uppgifter, ${m} minuter. Ingår i Premium.`,
-        aria: `Provläge mot klockan. ${n} uppgifter, ${m} minuter. Låst, ingår i Premium.`,
+        rad2: `${n} uppgifter på ${m} minuter. Ingår i Premium.`,
+        aria: `Övningsprov mot klockan. ${n} uppgifter på ${m} minuter. Låst, ingår i Premium.`,
       })
-      expect(provradTexter(prov, 'eget', false).rad2).toBe(`${n} uppgifter, ${m} minuter.`)
+      expect(provradTexter(prov, 'eget', false).rad2).toBe(`${n} uppgifter på ${m} minuter.`)
     }
   })
 
   it('provradTexter läser planens format för generalrepetitionen', () => {
     const logik = TEST_GROUPS[0].prov!
     expect(provradTexter(logik, 'matrigma_klassisk', false).rad2).toBe(
-      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning.'
+      'Samma format som Matrigma. Cirka 35 uppgifter på 40 minuter.'
     )
   })
 })

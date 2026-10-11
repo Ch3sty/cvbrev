@@ -8,6 +8,7 @@
  */
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
+import Lagesrad from '@/components/rum/Lagesrad';
 import Golv from '@/components/rum/Golv';
 
 const V = 'skelett-vagg';
@@ -18,6 +19,7 @@ export default function Loading() {
     <div className="flex flex-1 flex-col" aria-busy="true">
       <Vagg tat={false}>
         <Topprad />
+        <Lagesrad aktiv="plan" />
         <div role="status" aria-label="Laddar" className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-8">
           <div className="mt-2">
             <div className={`${V} h-9 w-[78%]`} />
@@ -26,8 +28,8 @@ export default function Loading() {
           <div>
             <div className="mt-5 flex items-center gap-4 rounded-2xl border border-vagg-kant bg-white/5 p-3.5 lg:mt-0">
               <div className={`${V} h-14 w-14 shrink-0 !rounded-full`} />
-              <div className="grid flex-1 grid-cols-3 gap-2">
-                {[48, 48, 32].map((b, i) => (
+              <div className="flex-1">
+                {[48].map((b, i) => (
                   <div key={i}>
                     <div className={`${V} h-6`} style={{ width: b }} />
                     <div className={`${V} mt-1.5 h-2.5 w-4/5`} />

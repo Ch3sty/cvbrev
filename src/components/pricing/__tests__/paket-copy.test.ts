@@ -150,7 +150,7 @@ describe('prissidan', () => {
     expect(matning.premium.text).toBe('Pass varje dag, utan tak')
     expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')
     const sist = tester.rows[tester.rows.length - 1]
-    expect(sist.label).toBe('Riktade pass och generalrepetition')
+    expect(sist.label).toBe('Extrapass och övningsprov')
     expect(sist.free.ton).toBe('nej')
     expect(sist.premium.text).toBe('Ingår')
     expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och testernas nivåmätning fungerar')

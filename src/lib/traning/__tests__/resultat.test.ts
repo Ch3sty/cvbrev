@@ -43,9 +43,9 @@ describe('formen på talen och datumen', () => {
 
   it('serien före "I morgon"', () => {
     expect(serieText(5, 'pagar')).toBe('Fem dagar i rad.')
-    expect(serieText(1, 'pagar')).toBe('Serien har börjat.')
-    expect(serieText(0, 'bruten')).toBe('Serien börjar om i dag.')
-    expect(serieText(3, 'pausad')).toBe('Serien pausar, inget bryts.')
+    expect(serieText(1, 'pagar')).toBe('Första dagen i rad.')
+    expect(serieText(0, 'bruten')).toBe('Dagarna i rad börjar om i dag.')
+    expect(serieText(3, 'pausad')).toBe('Dagarna i rad pausar, inget bryts.')
   })
 
   it('inga tankstreck och inget "poäng" i passets texter', () => {
@@ -104,7 +104,7 @@ describe('P4: passet klart, 10 oktober', () => {
 
   it('"I morgon" byts mot veckodagen före vilan (lördagsexemplet)', () => {
     expect(r.status).toBe('Fem dagar i rad. Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
-    expect(r.mening).toContain('ommätningen på tisdag mer')
+    expect(r.mening).toContain('Nivåmätningen tisdag flyttar den mer')
     // 19.2 fråga 4: jämförelsen med förra gången i mönstret.
     expect(r.mening).toMatch(/^Vrider sig och byter utseende: fem av sex rätt i dag, mot två av tre förra gången. /)
   })
@@ -125,7 +125,7 @@ describe('S1: nivån sjönk, 8 oktober', () => {
     expect(r.tal[1]).toEqual({ varde: '5,1', etikett: 'nivå, från 5,2' })
     // 19.2 fråga 5: två av missarna var uppgifter över nivån.
     expect(r.mening).toBe('Två av missarna var uppgifter över din nivå. De väger lätt när de blir fel och tungt när de blir rätt. Nivån rör sig högst ett halvt steg per pass.')
-    expect(r.kort.text).toMatch(/Mönstret går att öva i ett riktat pass.$/)
+    expect(r.kort.text).toMatch(/Mönstret går att öva i ett extrapass.$/)
     expect(r.kort.axelMitt).toBe('ihåliga staplar: fel svar')
     expect(r.kort.eyebrow).toBe('Vad som hände')
     expect(r.kort.titel).toBe('Fyra missar, tre på samma mönster')
@@ -140,8 +140,8 @@ describe('riktat pass', () => {
     const r = passResultat({ ...avslut, typ: 'riktat', niva_efter: null }, { ...vy, typ: 'riktat' }, status)
     expect(r.rubrik).toBe('7 av 9 rätt.')
     expect(r.skala).toBeNull()
-    expect(r.mening).toBe('Ett riktat pass räknas på mönstret du övar, inte på din nivå.')
-    expect(r.eyebrow).toBe('Riktat pass klart')
+    expect(r.mening).toBe('Ett extrapass övar ett mönster. Det ändrar inte din nivå.')
+    expect(r.eyebrow).toBe('Extrapasset klart')
   })
 })
 
@@ -159,17 +159,17 @@ describe('M1: nivåmätningen med betalväggen', () => {
     // Målet på egen rad, aldrig på skalan (copy-efter-lyftet avsnitt 4).
     expect(r.malRad).toMatch(/^Mål till provet: nivå \d(,\d)?$/)
     expect(r.skala.aria).not.toMatch(/[Ss]ikte/)
-    expect(r.planRubrik).toBe('Planen till 24 oktober · 18 dagar')
+    expect(r.planRubrik).toBe('Planen fram till 24 oktober')
     expect(r.plan.map((p) => p.titel)).toEqual([
-      'I dag: mätningen',
+      'I dag: nivåmätningen',
       'I dag: ett grundpass',
       '7 okt och varje dag: passet på din nivå',
-      '13 och 20 okt: ommätning',
-      '22 och 23 okt: generalrepetition',
+      '13 och 20 okt: mät din nivå igen',
+      '22 och 23 okt: övningsprov',
       '24 okt: provdagen',
     ])
     expect(r.plan.filter((p) => p.last).length).toBe(3)
-    expect(r.plan.find((p) => p.titel.includes('generalrepetition'))!.meta).toBe('Samma format som Matrigma, cirka 35 uppgifter, 40 minuter.')
+    expect(r.plan.find((p) => p.titel.includes('övningsprov'))!.meta).toBe('Samma format som Matrigma, cirka 35 uppgifter på 40 minuter.')
     expect(r.plan[2].chip).toMatchObject({ text: 'Ingår i Premium', las: true })
     // copy-premium avsnitt 8: kortformen i knappen, fulla namnet i prisraden.
     expect(r.betalvagg!.knapp).toBe(kopKnapp())
@@ -178,7 +178,7 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.betalvagg!.eyebrow).toBe('Premium')
     expect(r.betalvagg!.rubrik).toBe('18 dagar kvar. Månaden täcker hela vägen.')
     // 19.4 punkt 1: "samma format som" när leverantören är känd.
-    expect(r.betalvagg!.text).toContain('generalrepetitionen i samma format som Matrigma. Plus')
+    expect(r.betalvagg!.text).toContain('övningsprov i samma format som Matrigma. Plus')
     expect(r.betalvagg!.lank).toBe('Gör dagens grundpass gratis')
     expect(r.betalvagg!.lankTill).toBe('grundpass')
     expect(r.plan[1].chip).toMatchObject({ text: 'Gratis' })
@@ -209,7 +209,7 @@ describe('O1: veckans ommätning', () => {
     expect(r.skala).toMatchObject({ nu: 5.8, fran: 5.0, franEtikett: '6 okt 5' })
     expect(r.tal.map((t) => t.varde)).toEqual(['10 av 12', '+0,8', '1 av 12'])
     expect(r.tal[1].etikett).toBe('på en vecka')
-    expect(r.status.startsWith('Nästa ommätning tisdag 20 oktober.')).toBe(true)
+    expect(r.status.startsWith('Nästa nivåmätning tisdag 20 oktober.')).toBe(true)
     expect(r.milstolpe?.namn).toBe('Första veckan')
   })
   it('utan milstolpe: Var du tappar nu med "mot 6 okt" (20.2 fråga 8)', () => {
@@ -277,8 +277,8 @@ describe('generalrepetitionen (19.2 fråga 8)', () => {
   it('meningen säger formatet och att punkten väger som en ommätning', () => {
     const { avslut, vy, status } = resultatdata('P4')
     const r = passResultat({ ...avslut, typ: 'general' }, { ...vy, typ: 'general' }, status)
-    expect(r.mening).toBe('Samma format som Matrigma, cirka 35 uppgifter, 40 minuter. Punkten väger som en ommätning på kurvan.')
-    expect(r.eyebrow).toBe('Generalrepetitionen klar')
+    expect(r.mening).toBe('Samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Punkten väger tyngre på kurvan än ett vanligt pass.')
+    expect(r.eyebrow).toBe('Övningsprovet klart')
   })
 })
 
@@ -287,9 +287,9 @@ describe('K1: kvittot', () => {
     const d = byggForhandsdata('K1')
     if (d.ram !== 'K1') throw new Error('fel ram')
     expect(d.kvitto.namn).toBe('Första veckan')
-    expect(d.kvitto.eyebrow).toBe('Milstolpe · tisdag 13 oktober')
+    expect(d.kvitto.eyebrow).toBe('Milstolpe, tisdag 13 oktober')
     expect(d.kvitto.mening).toBe(
-      'Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag. Nivån gick från 5 till 5,8. Nästa märke: Nivån upp, vid 6.'
+      'Sju dagar sedan starten, fem pass, ingen missad dag. Nivån gick från 5 till 5,8. Nästa märke: Nivån upp, vid 6.'
     )
   })
 

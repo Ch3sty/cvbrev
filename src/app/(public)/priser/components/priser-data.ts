@@ -124,8 +124,8 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: ja('Ingår'),
       },
       {
-        label: 'Tidsatt provläge',
-        sub: '25 till 40 min, automatisk inlämning',
+        label: 'Övningsprov mot klockan',
+        sub: 'samma format och tid som ditt test',
         free: NEJ,
         premium: ja('Ingår'),
       },
@@ -141,7 +141,8 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: ja('Hela historiken'),
       },
       {
-        label: 'Riktade pass och generalrepetition',
+        label: 'Extrapass och övningsprov',
+        sub: 'på det du tappar, och i samma format som ditt test',
         free: NEJ,
         premium: ja('Ingår'),
       },
@@ -185,7 +186,7 @@ export const PRISER_FAQ_ITEMS = [
     // Fulla namnet: frågan blir FAQPage-schema och visas fristående i
     // Google, där "Premium" utan varumärke är vem som helst (copy-vag5 6.1).
     q: `Vad ingår i ${HELA}?`,
-    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med provläget och personlighetstestet, jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. ${PRIS}, och inget av det kostar extra.`,
+    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med övningsprov och personlighetstestet, jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. ${PRIS}, och inget av det kostar extra.`,
   },
   {
     id: 'nar-manaden-ar-slut',

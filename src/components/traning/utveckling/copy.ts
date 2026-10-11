@@ -9,15 +9,15 @@ import { ordTal } from '@/lib/tester/resultat'
 
 export const UTV = {
   rubrik: 'Din utveckling',
-  rad: 'Passen flyttar punkten lite, ommätningen mycket.',
+  rad: 'Passen flyttar nivån lite, nivåmätningen mer.',
   radUtanKurva: 'Resultaten från de klassiska testerna, nivå för nivå.',
   kurvaHjalp: 'Vad är nivån?',
-  stat: { idag: 'nivå i dag', matning: 'mätningen', sikte: 'mål' },
+  stat: { idag: 'nivå i dag', matning: 'vid start', sikte: 'mål' },
   nivanUpp: 'Nivån upp',
-  legend: { pass: 'pass', matning: 'mätning och ommätning', general: 'generalrepetition', sikte: 'mål', marke: 'märke' },
+  legend: { pass: 'pass', matning: 'nivåmätning', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
   utanKurva: {
-    titel: 'Nivåkurvan börjar med mätningen.',
-    text: 'Tolv uppgifter i logiktestet som anpassar sig efter dina svar. Sedan en punkt per pass.',
+    titel: 'Nivåkurvan börjar när du mätt din nivå.',
+    text: 'Tolv uppgifter i logiktestet, från lätta till svåra. Sedan en punkt per pass.',
     knapp: 'Mät din nivå',
   },
   tomt: {
@@ -67,7 +67,7 @@ export const UTV = {
     ingetText: 'Alla mönster med minst två frågor har gått rätt hittills.',
     rattAv: (r: number, a: number) => `${r} av ${a}`,
     langsam: 'rätt men långsamt',
-    riktat: (namn: string) => `Riktat pass: ${namn}`,
+    riktat: (namn: string) => `Extrapass på ${namn}`,
     legend: { ratt: 'rätt i tid', langsam: 'rätt men långsamt', svag: 'svagast' },
     aria: (namn: string, r: number, a: number, l: number) =>
       `${namn}: ${r} rätt av ${a}${l ? `, varav ${l} rätt men långsamt` : ''}`,

@@ -16,6 +16,7 @@
 import Link from 'next/link'
 import Vagg from '@/components/rum/Vagg'
 import Topprad from '@/components/rum/Topprad'
+import Lagesrad from '@/components/rum/Lagesrad'
 import Rubrik from '@/components/rum/Rubrik'
 import Golv from '@/components/rum/Golv'
 import LyftKort from '@/components/rum/LyftKort'
@@ -81,9 +82,10 @@ function HogerFor({ h }: { h: Hoger }) {
   )
 }
 
-function RadFor({ r }: { r: RadModell }) {
+function RadFor({ r, smal }: { r: RadModell; smal?: boolean }) {
   return (
     <Rad
+      hogerUnder={smal}
       symbol={r.symbol ? <SymbolFor s={r.symbol} /> : undefined}
       svag={r.svag}
       titel={r.titel}
@@ -95,15 +97,12 @@ function RadFor({ r }: { r: RadModell }) {
   )
 }
 
-function TreTal({ tal, pa }: { tal: [Tal, Tal, Tal]; pa: 'golv' }) {
+/** Ett huvudtal med etikett under (copy-plan 3.2 och 3.3: ett tal bär budskapet). */
+function EttTal({ tal }: { tal: Tal }) {
   return (
-    <dl className="grid grid-cols-3 gap-2">
-      {tal.map((t) => (
-        <div key={t.etikett} className="flex flex-col-reverse">
-          <dt className="mt-1 text-xs leading-4 text-ink-3">{t.etikett}</dt>
-          <dd className={`text-tal-tre ${t.koppar ? 'text-koppar-ink' : pa === 'golv' ? 'text-ink-1' : ''}`}>{t.varde}</dd>
-        </div>
-      ))}
+    <dl className="flex flex-col-reverse">
+      <dt className="mt-1 text-xs leading-4 text-ink-3">{tal.etikett}</dt>
+      <dd className={`text-tal-tre ${tal.koppar ? 'text-koppar-ink' : 'text-ink-1'}`}>{tal.varde}</dd>
     </dl>
   )
 }
@@ -160,9 +159,9 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
         fot={l.fot}
       >
         {h?.typ === 'kop' ? <p className="mt-2 text-sm font-medium text-ink-1">{h.prisrad}</p> : null}
-        {l.tre ? (
+        {l.tal ? (
           <div className="mt-3">
-            <TreTal tal={l.tre} pa="golv" />
+            <EttTal tal={l.tal} />
           </div>
         ) : null}
       </LyftKort>
@@ -170,7 +169,7 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
   )
 }
 
-function SektionFor({ s, forstaRad, spann, statusBred }: { s: Sektion; forstaRad: boolean; spann?: boolean; statusBred?: boolean }) {
+function SektionFor({ s, forstaRad, spann }: { s: Sektion; forstaRad: boolean; spann?: boolean }) {
   // På dator står de första korten bredvid det lyfta kortet och lyfts med det
   // (W1); rubriken flyttar då in i kortet, eftersom golvets grå text inte
   // går att läsa mot väggen.
@@ -180,9 +179,10 @@ function SektionFor({ s, forstaRad, spann, statusBred }: { s: Sektion; forstaRad
   const lyftDator = forstaRad
     ? 'lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:shadow-lyft lg:[&>section]:border-[color:var(--lyft-kant)]'
     : `lg:order-2${spann ? ' lg:col-span-2' : ''}`
+  // Statusrader går alltid i en egen rad över hela bredden (avvikelse 5).
   if (s.typ === 'status') {
     return (
-      <div className={statusBred ? 'lg:order-3 lg:col-span-3' : 'lg:order-2 lg:self-start'}>
+      <div className="lg:order-3 lg:col-span-3">
         <Statusrad text={s.text} ton={s.ton} lank={s.lank} />
       </div>
     )
@@ -192,7 +192,7 @@ function SektionFor({ s, forstaRad, spann, statusBred }: { s: Sektion; forstaRad
       <div className={lyftDator}>
         <Kort label="Tempo och pass">
           {s.eyebrow ? <p className="mb-2 hidden text-ey text-ink-3 lg:block">{s.eyebrow}</p> : null}
-          <TreTal tal={s.tal} pa="golv" />
+          <EttTal tal={s.tal} />
           {s.meta ? <p className="mt-3 text-meta text-ink-3">{s.meta}</p> : null}
         </Kort>
       </div>
@@ -207,10 +207,18 @@ function SektionFor({ s, forstaRad, spann, statusBred }: { s: Sektion; forstaRad
       ) : null}
       <Rader label={s.rubrik}>
         {s.rubrik && forstaRad ? (
-          <p className="hidden px-4 pb-0 pt-3.5 text-ey text-ink-3 lg:block">{s.rubrik}</p>
+          <div className="hidden items-baseline justify-between gap-3 px-4 pb-0 pt-3.5 lg:flex">
+            <p className="text-ey text-ink-3">{s.rubrik}</p>
+            {s.lank ? (
+              <Link href={s.lank.href} className={`${LANK} text-[13px]`}>
+                {s.lank.text}
+              </Link>
+            ) : null}
+          </div>
         ) : null}
         {s.rader.map((r) => (
-          <RadFor key={r.titel} r={r} />
+          // I en tredjedelsspalt står högersidan under metan (avvikelse 4).
+          <RadFor key={r.titel} r={r} smal={!forstaRad && !spann} />
         ))}
       </Rader>
     </div>
@@ -223,31 +231,34 @@ function KurvaPaVaggen({ m }: { m: HemModell }) {
   return (
     <>
       {v.kurvaRubrik ? (
-        <div className="mt-[22px] flex items-baseline justify-between gap-3">
-          <p className="text-ey text-vagg-mjuk">
-            {v.kurvaRubrik.text}
-            {v.kurvaRubrik.form ? (
-              <span className="ml-1 inline-flex items-center gap-1.5 normal-case tracking-normal">
-                <span aria-hidden="true">·</span>
-                <i aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-koppar shadow-[0_0_0_3px_rgba(224,122,47,.22)]" />
-                <span className="text-xs font-medium">{v.kurvaRubrik.form}</span>
-              </span>
+        <>
+          <div className="mt-[22px] flex items-baseline justify-between gap-3">
+            <p className="min-w-0 truncate text-ey text-vagg-mjuk">{v.kurvaRubrik.text}</p>
+            {v.kurvaRubrik.lank ? (
+              <Link
+                href={v.kurvaRubrik.lank.href}
+                className={`${LANK_VAGG} inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px]`}
+              >
+                {v.kurvaRubrik.lank.text}
+              </Link>
             ) : null}
-          </p>
-          {v.kurvaRubrik.lank ? (
-            <Link href={v.kurvaRubrik.lank.href} className={`${LANK_VAGG} inline-flex min-h-11 items-center text-[13px]`}>
-              {v.kurvaRubrik.lank.text}
-            </Link>
+          </div>
+          {/* Formen på egen rad, först från tre punkter (punkt 2). */}
+          {v.kurvaRubrik.form ? (
+            <p className="-mt-2 flex items-center gap-1.5 text-xs font-medium text-vagg-mjuk" data-form>
+              <i aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-koppar shadow-[0_0_0_3px_rgba(224,122,47,.22)]" />
+              {v.kurvaRubrik.form}
+            </p>
           ) : null}
-        </div>
+        </>
       ) : null}
       {v.kurva ? (
         <>
           <div className="lg:hidden">
-            <Kurva {...v.kurva} bredd="mobil" />
+            <Kurva {...v.kurva} bredd="mobil" utanPunktTal />
           </div>
           <div className="hidden max-w-[840px] lg:block">
-            <Kurva {...v.kurva} bredd="dator" />
+            <Kurva {...v.kurva} bredd="dator" utanPunktTal />
           </div>
         </>
       ) : null}
@@ -291,13 +302,15 @@ export default function Hemvy({ m }: { m: HemModell }) {
   // (Provdagen i W3), nästa står i tredje, och statusraderna går i en tredje
   // rad över hela bredden. En rad i en tredjedelsspalt bryter titeln på högst
   // två rader.
-  const andraRadSpann = bredLyft ? m.sektioner.findIndex((s, i) => !forstaRad.has(i) && s.typ !== 'status') : -1
+  // Regeln gäller alltid (avvikelse 5), inte bara under ett brett kort.
+  const andraRadSpann = m.sektioner.findIndex((s, i) => !forstaRad.has(i) && s.typ !== 'status')
 
   return (
     <div data-tillstand={m.tillstand} data-ram={m.ram} className="flex flex-1 flex-col">
       <HemMatning tillstand={matningsvarde(m.tillstand)} />
       <Vagg tat={false} className={v.provdag ? '!pb-9' : undefined}>
         <Topprad kontext={kontext} />
+        <Lagesrad aktiv="plan" />
         {v.provdag ? (
           <div className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-8">
             <div>
@@ -361,7 +374,6 @@ export default function Hemvy({ m }: { m: HemModell }) {
             s={s}
             forstaRad={forstaRad.has(i)}
             spann={i === andraRadSpann}
-            statusBred={bredLyft}
           />
         ))}
         {m.taBortSvar ? (

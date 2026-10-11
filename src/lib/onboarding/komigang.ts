@@ -346,13 +346,13 @@ export function brickaText(
     case 'provlage':
       return {
         key,
-        titel: 'Provläge mot klockan',
-        text: 'Provets format och tid, automatisk inlämning',
-        klarText: 'Ett prov inlämnat',
-        kort: 'provläget',
+        titel: 'Övningsprov mot klockan',
+        text: 'Samma format och tid som provet, lämnas in när tiden är ute',
+        klarText: 'Ett övningsprov gjort',
+        kort: 'övningsprovet',
         // Generalrepetitionen i planens format (spec-rummen 19.6).
         href: TRANING_RUTT.general,
-        knapp: 'Starta provet',
+        knapp: 'Starta övningsprovet',
       }
     case 'personlighet':
       return {
@@ -510,11 +510,11 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
       topp: paketNamnForScope('tester'),
       rubrik: `Du har ${paketNamnForScope('tester')}. Alla nivåer är öppna.`,
       ingress:
-        'Matrislogik, verbalt, numeriskt och personlighet, provläge mot klockan och förklaring på varje fråga. Vi föreslår att du börjar med grundnivån i matrislogik, den vanligaste typen i urvalstest.',
+        'Matrislogik, verbalt, numeriskt och personlighet, övningsprov mot klockan och förklaring på varje fråga. Vi föreslår att du börjar med grundnivån i matrislogik, den vanligaste typen i urvalstest.',
       steg: [
         'Matrislogik, grundnivå. Cirka 20 minuter, förklaring efter varje fråga.',
         'Gå vidare till avancerad nivå, eller prova verbalt och numeriskt.',
-        'När du är varm: provläge mot klockan, och det fördjupade personlighetstestet.',
+        'När du är varm: övningsprov mot klockan, och det fördjupade personlighetstestet.',
       ],
       primar: 'Börja med matrislogik',
       primarHref: '/dashboard/tester/matrislogik-grund',

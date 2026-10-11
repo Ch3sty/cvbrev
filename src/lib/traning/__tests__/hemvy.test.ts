@@ -45,10 +45,10 @@ describe('rubriktabellen (bilaga 11)', () => {
   it('provdagen-raden med och utan leverantör', () => {
     const m = provrad(PROVFORMAT.matrigma_klassisk)
     expect(m.titel).toBe('Samma format som Matrigma')
-    expect(m.format).toBe('Cirka 35 uppgifter, 40 minuter, fast ordning.')
+    expect(m.format).toBe('Cirka 35 uppgifter på 40 minuter.')
     const e = provrad(PROVFORMAT.eget)
-    expect(e.titel).toBe('Vårt provläge')
-    expect(e.format).toBe('18 uppgifter, 25 minuter. Vet du leverantören så byter vi format.')
+    expect(e.titel).toBe('Vårt eget format')
+    expect(e.format).toBe('18 uppgifter på 25 minuter. Vet du vem som gör testet, så byter vi format.')
     expect(provrad(PROVFORMAT.shl).anmarkning).toMatch(/blandar siffror/)
   })
   it('personlighet utan nedräkning och toppradens kontext', () => {
@@ -73,22 +73,21 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('1b: dag 5, passet kvar', () => {
     const m = modell('1b')
     expect(m.vagg.rubrik).toBe('14 dagar till Matrigma')
-    expect(m.vagg.rad).toBe('Nivå 5. Fyra dagar i rad. Dagens pass är kvar.')
-    expect(m.vagg.dagsrad!.tal.map((t) => `${t.varde} ${t.etikett}`)).toEqual([
-      '5,4 nivå, från 5',
-      '1,1 kvar till målet 6,5',
-      '4 dagar i rad',
-    ])
+    // Sifferregeln (beslut-hemvy 2026-10-11 punkt 2): nivån bara i dagsraden, ett tal.
+    expect(m.vagg.rad).toBe('Fyra dagar i rad. Dagens pass är kvar.')
+    expect(m.vagg.dagsrad!.tal).toEqual({ varde: '5,4', etikett: 'din nivå, började på 5' })
     expect(m.vagg.vecka!.status).toEqual(['tom', 'gjord', 'gjord', 'gjord', 'gjord', 'nu', 'vila'])
-    expect(m.lyft.eyebrow).toBe('Dagens pass · nivå 5')
+    // copy-plan 3.8: nivån är huvudtalet på väggen, eyebrowen säger den inte.
+    expect(m.lyft.eyebrow).toBe('Dagens pass')
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta dagens pass' })
     expect(m.kontext?.text).toBe('Matrigma, 24 okt')
   })
   it('1g: efter passet, 7 av 9 rätt och "I morgon" byts mot söndagens vila', () => {
     const m = modell('1g')
-    expect(m.lyft.titel).toBe('7 av 9 rätt. Nivån steg till 5,6.')
-    expect(m.lyft.tre!.map((t) => t.varde)).toEqual(['7 av 9', '+0,2', '2 av 9'])
-    expect(m.vagg.rad).toBe('Nivå 5. Fem dagar i rad. Dagens pass är gjort.')
+    // copy-plan 3.3: titeln säger nivån, rätt-talet är kortets enda tal.
+    expect(m.lyft.titel).toBe('Nivån steg till 5,6.')
+    expect(m.lyft.tal).toEqual({ varde: '7 av 9', etikett: 'rätt' })
+    expect(m.vagg.rad).toBe('Fem dagar i rad. Dagens pass är gjort.')
     const imorgon = m.sektioner.find((s) => s.typ === 'status' && s.nyckel === 'imorgon')
     expect(imorgon && imorgon.typ === 'status' ? imorgon.text : null).toBe('Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
     expect(m.nyPunkt).toBe(true)
@@ -97,41 +96,41 @@ describe('tillstånden med konceptets exempeltal', () => {
     const h = modell('1h')
     // 20.5 fråga 3: h1 upprepar aldrig toppradens brand.
     expect(h.vagg.rubrik).toBe('Ett pass om dagen')
-    expect(h.vagg.rad).toBe('Nivå 5. Fyra dagar i rad. Dagens pass är kvar.')
-    expect(h.vagg.datumBox?.text).toMatch(/^Sätt ett datum så räknar vi bakåt/)
-    expect(h.vagg.dagsrad!.tal[1]).toMatchObject({ varde: '3', etikett: 'pass gjorda' })
+    expect(h.vagg.rad).toBe('Fyra dagar i rad. Dagens pass är kvar.')
+    expect(h.vagg.datumBox?.text).toMatch(/^Sätt ett datum, så lägger vi upp planen/)
+    expect(h.vagg.dagsrad!.tal.varde).toBe('5,4')
     const i = modell('1i')
     expect(i.vagg.rubrik).toBe('14 dagar till logiktestet')
     const prov = i.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    expect(prov && prov.typ === 'rader' ? prov.rader[0].titel : null).toBe('Generalrepetitionen')
-    expect(prov && prov.typ === 'rader' ? prov.rader[0].meta : null).toMatch(/^Vårt provläge. /)
-    // W3 (gratis, 22.4 fråga 2): "Samma format som Matrigma. … I planen {prov-2} och dagen före provet."
+    expect(prov && prov.typ === 'rader' ? prov.rader[0].titel : null).toBe('Övningsprovet')
+    // copy-plan 3.5: utan leverantör format och erbjudandet, två meningar.
+    expect(prov && prov.typ === 'rader' ? prov.rader[0].meta : null).toBe(
+      'Vårt eget format, 18 uppgifter på 25 minuter. Vet du vem som gör testet, så byter vi format.'
+    )
+    // W3 (gratis, 22.4 fråga 2, copy-plan 3.5): format och datum, inte antal och tid.
     const w = modell('W3')
     const wp = w.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Generalrepetitionen' })
+    expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Övningsprovet' })
     // Datumet i kort form, rad-meta (copy-premium 9.2): provet 24 okt, planen 22 okt.
-    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toBe(
-      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. I planen 22 okt och dagen före provet.'
-    )
+    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toBe('Samma format som Matrigma. Ligger i planen 22 okt och dagen före provet.')
     // Betalande får samma mening: öppen eller låst säger högersidan (22.4 fråga 2).
     // 1c ligger två dagar före provet och har ingen Provdagen-rad, så 1b får visa det.
     const b = modell('1b')
     const bp = b.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    expect(bp && bp.typ === 'rader' ? bp.rader[0].meta : '').toBe(
-      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. I planen 22 okt och dagen före provet.'
-    )
+    expect(bp && bp.typ === 'rader' ? bp.rader[0].meta : '').toBe('Samma format som Matrigma. Ligger i planen 22 okt och dagen före provet.')
     const c = modell('1c')
     const cp = c.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ I planen \d+ [a-zåäö]+ och dagen före provet\.$/)
+    if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ Ligger i planen \d+ [a-zåäö]+ och dagen före provet\.$/)
   })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
     expect(c.vagg.rubrik).toBe('I övermorgon: Matrigma')
-    expect(c.vagg.rad).toBe('Nivå 6. Elva pass och två ommätningar bakom dig. Serien räknas inte de här dagarna.')
+    expect(c.vagg.rad).toBe('Elva pass bakom dig. Nu återstår bara övningsprovet.')
     expect(c.vagg.dagsrad!.ring).toBe('general')
     const d = modell('1d')
     expect(d.vagg.dagsrad).toBeUndefined()
-    expect(d.vagg.provdag?.text).toMatch(/^Du har gjort elva pass, två ommätningar och två generalrepetitioner\./)
+    // copy-plan 3.9: nivåmätningarna stryks ur meningen.
+    expect(d.vagg.provdag?.text).toMatch(/^Du har gjort elva pass och två övningsprov\./)
     expect(d.vagg.provdag?.skala?.etikettNu).toBe('Du 6,4')
     // Provdagen visar aldrig den låsta provdagen-raden (16.2).
     expect(d.sektioner.some((s) => s.typ === 'rader' && s.nyckel === 'provdagen')).toBe(false)
@@ -142,7 +141,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('T1, 1a, 1p och X1', () => {
     const t = modell('T1')
     expect(t.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
-    expect(t.vagg.rad).toBe('Börja med att mäta var du står. Sätt ett datum när du vet det, så räknar vi bakåt.')
+    expect(t.vagg.rad).toBe('Börja med att mäta var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.')
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 8 min' })
     const a = modell('1a')
     expect(a.vagg.planbild).toBeTruthy()
@@ -159,7 +158,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
     expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
-    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.')
+    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.')
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
     const a = modell('1as')
     expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
@@ -170,18 +169,18 @@ describe('tillstånden med konceptets exempeltal', () => {
     const m = modell('1t')
     expect(m.tillstand).toBe('annat_test')
     expect(m.vagg.rubrik).toBe('14 dagar till siffertestet')
-    expect(m.vagg.rad).toBe('Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får pass senare.')
+    expect(m.vagg.rad).toBe('Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får det senare.')
     expect(m.vagg.kurva).toBeUndefined()
     expect(m.vagg.planbild).toBeUndefined()
     expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Vi säger till när passen finns.' })
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
     const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
     const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null
-    expect(figurer).toMatchObject({ meta: 'Ej mätt. Mät din nivå, 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
+    expect(figurer).toMatchObject({ meta: 'Inte gjort än. Mät din nivå på 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
   })
   it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
     expect(modell('1a').vagg.kurvaMeta).toBe(
-      'Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i Premium: passen från dag två, ommätningen och generalrepetitionen.'
+      'Din första punkt på kurvan kommer när du mätt din nivå. De grå dagarna ingår i Premium: passen från dag två, nivåmätningarna och övningsprovet.'
     )
   })
   it('provdagen: samma råd för alla format, Matrigma-raden borta (19.3 fråga 4)', () => {
@@ -191,7 +190,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('tempokortet: över provets tid ur over_budget, ingen förklaringsmening (19.2 fråga 7)', () => {
     const m = modell('1b')
     const t = m.sektioner.find((s) => s.typ === 'tempo')
-    expect(t && t.typ === 'tempo' ? t.tal[0].varde : null).toBe('2 av 9')
+    expect(t && t.typ === 'tempo' ? t.tal.varde : null).toBe('2 av 9')
     expect(t && t.typ === 'tempo' ? t.meta : 'x').toBeUndefined()
   })
   it('inga streck, inga "0 %" och ingen tom graf i något tillstånd', () => {
@@ -200,7 +199,7 @@ describe('tillstånden med konceptets exempeltal', () => {
       expect(text, t).not.toMatch(/—|–|"-"|\b0 %/)
       const m = modell(t)
       if (m.vagg.kurva) expect(m.vagg.kurva.punkter.length, t).toBeGreaterThan(0)
-      for (const tal of m.vagg.dagsrad?.tal ?? []) expect(tal.varde, `${t} ${tal.etikett}`).not.toBe('0')
+      if (m.vagg.dagsrad) expect(m.vagg.dagsrad.tal.varde, t).not.toBe('0')
     }
   })
 })
@@ -208,23 +207,23 @@ describe('tillstånden med konceptets exempeltal', () => {
 describe('gratisnivån (17.2)', () => {
   it('dag 2 utan paket: passet visas med tema och nivå, knappen köper paketet', () => {
     const m = modell('1f')
-    expect(m.lyft.eyebrow).toBe('Dagens pass · nivå 5')
+    expect(m.lyft.eyebrow).toBe('Dagens pass')
     expect(m.lyft.handling).toMatchObject({ typ: 'kop', text: kopKnapp(), feature: 'tests_above_base', plats: 'dag2' })
     expect(m.lyft.handling).toHaveProperty('prisrad', 'Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
     // copy-premium avsnitt 8: kortformen i knappen, ryms på 360 px.
     expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
     expect(kopKnapp().length).toBeLessThan(30)
-    expect(m.vagg.dagsrad!.tal[0].etikett).toBe('nivå, mätt i går')
-    expect(m.vagg.dagsrad!.tal[2]).toMatchObject({ varde: '17', etikett: 'dagar till provet' })
+    expect(m.vagg.dagsrad!.tal.etikett).toBe('din nivå, mätt i går')
     const tappar = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'tappar')
     expect(tappar && tappar.typ === 'rader' ? tappar.rader.every((r) => r.hoger?.typ === 'las') : false).toBe(true)
-    expect(m.vagg.kurva!.plan.filter((d) => d.status === 'last').length).toBeGreaterThan(0)
+    // En punkt (mätt i går): planbilden i stället för kurvan (beslut-hemvy avvikelse 2).
+    expect(m.vagg.planbild!.plan.filter((d) => d.status === 'last').length).toBeGreaterThan(0)
   })
   it('mätningens dag utan paket: grundpasset är gratis', () => {
     const inp = fixtur('1f')
     const s = { ...inp.status!, idag: '2026-10-06', dagensPassGjort: false, dagarKvar: 18 }
     const m = byggHemvy({ ...inp, idag: '2026-10-06', status: s })
-    expect(m.lyft.eyebrow).toBe('Dagens pass · grundnivå')
+    expect(m.lyft.eyebrow).toBe('Dagens pass på grundnivå')
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta grundpasset' })
   })
 })
@@ -262,13 +261,14 @@ describe('ingången och raderna', () => {
   it('E3: 14 dagar från en lördag ger konceptets plan (granskningen 3.3)', () => {
     expect(plantext('2026-10-10', '2026-10-24')).toEqual({
       dagar: '14 dagar.',
-      text: 'Mätning i dag, åtta pass, två vilodagar, en ommätning, generalrepetition två dagar före och vila på provdagen. Går att ändra när som helst från huvudet.',
+      text: 'Åtta pass fram till provet, ett övningsprov två dagar före och vila på provdagen. Du kan ändra datumet när du vill.',
     })
   })
   it('Jobbsöket-raden', () => {
-    expect(jobbsokRad({ tjanster: 3, intervjuer: 1, brev: 2 })).toBe('3 sökta tjänster, 1 intervju, 2 personliga brev.')
-    expect(jobbsokRad({ tjanster: 0, intervjuer: 0, brev: 1 })).toBe('Inga sökta tjänster än. 1 personligt brev.')
-    expect(jobbsokRad({ tjanster: 0, intervjuer: 0, brev: 0 })).toBe('Inga sökta tjänster eller personliga brev än.')
+    // Högst ett tal, breven räknas aldrig (beslut-hemvy 2026-10-11 punkt 2).
+    expect(jobbsokRad({ tjanster: 3, intervjuer: 1, brev: 2 })).toBe('1 intervju på gång.')
+    expect(jobbsokRad({ tjanster: 13, intervjuer: 0, brev: 97 })).toBe('13 sökta tjänster.')
+    expect(jobbsokRad({ tjanster: 0, intervjuer: 0, brev: 1 })).toBe('Inga sökta tjänster än.')
   })
   it('decimal med komma', () => {
     expect(decimal(5)).toBe('5,0')
@@ -297,5 +297,53 @@ describe('instrumenten (art-director 20.3 punkt 8 och 20.5 fråga 1)', async () 
     const g = geo({ punkter: s.punkter, plan: s.plandagar, idag: s.idag, start: s.start!.dag, prov: s.plan!.provdatum, sikte: s.plan!.sikte, bredd: 'mobil' })
     const t = axelEtiketter(g, s.idag, s.plandagar, { prov: s.plan!.provdatum, dator: false }).map((x) => x.text)
     expect(t).toEqual(expect.arrayContaining(['i dag', '6 okt', '24 okt']))
+  })
+})
+
+describe('beslut-hemvy 2026-10-11', () => {
+  const enPunkt = (t: Fixtur) => {
+    const inp = fixtur(t)
+    const s = inp.status!
+    const forsta = s.punkter[0]
+    return byggHemvy({ ...inp, status: { ...s, punkter: [forsta], start: { ...s.start!, dag: forsta.dag, niva: forsta.niva } } })
+  }
+  it('kurvan tänds vid två punkter; under två ritas planbilden när datum finns', () => {
+    const m = enPunkt('1b')
+    expect(m.vagg.kurva).toBeUndefined()
+    expect(m.vagg.planbild).toMatchObject({ matt: true })
+    expect(m.vagg.kurvaRubrik?.form).toBeUndefined()
+    const h = enPunkt('1h')
+    expect(h.vagg.kurva).toBeUndefined()
+    expect(h.vagg.planbild).toBeUndefined()
+    expect(h.vagg.kurvaRubrik).toBeUndefined()
+  })
+  it('formen visas först från tre punkter', () => {
+    const inp = fixtur('1b')
+    const s = inp.status!
+    const tva = byggHemvy({ ...inp, status: { ...s, punkter: s.punkter.slice(0, 2), form: s.form ?? { form: 'stabil' } as never } })
+    expect(tva.vagg.kurva).toBeTruthy()
+    expect(tva.vagg.kurvaRubrik?.form).toBeUndefined()
+    const fler = byggHemvy({ ...inp, status: { ...s, form: s.form ?? { form: 'stabil' } as never } })
+    expect(s.punkter.length).toBeGreaterThanOrEqual(3)
+    expect(fler.vagg.kurvaRubrik?.form).toBeTruthy()
+  })
+  it('Jobbsöket är en rad med högst ett tal och Fler tester har sektionslänken', () => {
+    const m = modell('1b')
+    const j = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'jobbsok')
+    expect(j && j.typ === 'rader' ? j.rader[0] : null).toMatchObject({ symbol: 'jobb', hoger: { typ: 'chev' }, href: '/dashboard' })
+    const meta = j && j.typ === 'rader' ? j.rader[0].meta ?? '' : ''
+    expect((meta.match(/\d+/g) ?? []).length).toBeLessThanOrEqual(1)
+    const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
+    expect(fler && fler.typ === 'rader' ? fler.lank : null).toMatchObject({ href: '/dashboard/tester/alla' })
+  })
+  it('ingen stapel på noll i Var du tappar', () => {
+    const inp = fixtur('1b')
+    const s = inp.status!
+    const svaga = s.varDuTappar.svagaste.map((f, i) => (i === 0 ? { ...f, ratt: 0, andel: 0 } : f))
+    const m = byggHemvy({ ...inp, status: { ...s, varDuTappar: { ...s.varDuTappar, svagaste: svaga } } })
+    const t = m.sektioner.find((x) => x.typ === 'rader' && x.nyckel === 'tappar')
+    const rad = t && t.typ === 'rader' ? t.rader[0] : null
+    expect(rad?.stapel).toBeUndefined()
+    expect(rad?.meta).not.toMatch(/\b0\b/)
   })
 })

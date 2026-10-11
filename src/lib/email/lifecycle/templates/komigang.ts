@@ -235,9 +235,9 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
       };
     case 'provlage':
       return {
-        subject: 'Provläge mot klockan.',
+        subject: 'Övningsprov mot klockan.',
         preheader: '25 till 40 minuter, automatisk inlämning.',
-        body: `${hej} Provläget kör som ett skarpt urval: klockan går, inga förklaringar under tiden, automatisk inlämning när tiden är ute. Sitt ostört.`,
+        body: `${hej} Övningsprovet kör som ett skarpt urval: klockan går, inga förklaringar under tiden, automatisk inlämning när tiden är ute. Sitt ostört.`,
         cta: 'Starta provet',
       };
     case 'personlighet':

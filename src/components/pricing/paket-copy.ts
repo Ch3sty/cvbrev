@@ -253,7 +253,7 @@ export const FUNKTIONER = {
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
       sub: ingarGratis('en nivåmätning med genomgång och ett första träningspass.'),
-      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I provläget går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
+      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I övningsprovet går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
       steg: [
         'Diagnostest på grundnivå visar var du står per typ.',
         'Träna på avancerad och expertnivå i din svagaste typ, med förklaring på varje fråga.',
@@ -308,7 +308,7 @@ export const GUIDE = {
         'Personligt brev från en träff',
         'LinkedIn-profilen omskriven',
         'Testerna: grund, avancerad, expert',
-        'Provläge mot klockan och personlighetstestet',
+        'Övningsprov mot klockan och personlighetstestet',
       ],
     },
   } satisfies Record<PaketId, { etikett: string; steg: readonly string[] }>,
@@ -483,7 +483,7 @@ export const KONTO = {
   bytText: (fran: PlanKey) => {
     const scope = PLAN_BY_KEY[fran].scope
     if (scope === 'cv') {
-      return `${PREMIUM} ger allt du har i dag och dessutom alla rekryteringstester, provläget, jobbmatchningen, Jobbcoachen och Bli upptäckt.`
+      return `${PREMIUM} ger allt du har i dag och dessutom alla rekryteringstester, övningsprov, jobbmatchningen, Jobbcoachen och Bli upptäckt.`
     }
     if (scope === 'tester') {
       return `${PREMIUM} ger allt du har i dag och dessutom alla CV-mallar, CV-analysen, personliga brev, jobbmatchningen, Jobbcoachen och Bli upptäckt.`
@@ -518,7 +518,7 @@ export const KONTO = {
 /** Raden under paketnamnet i schemat och i äldre ytor. */
 export const PAKET_RAD: Record<PlanKey, string> = {
   cv_week: 'CV-mallar, CV-analys och personliga brev, en vecka i taget.',
-  test_week: 'Alla rekryteringstester och provläget, en vecka i taget.',
+  test_week: 'Alla rekryteringstester och övningsprov, en vecka i taget.',
   all_day: `${HELA_NAMN} i 24 timmar. Ett engångsköp, ingenting dras igen.`,
   all_week: `${HELA_NAMN} en vecka i taget.`,
   all_month: PLAN_BY_KEY[SALD_PLAN].body,
@@ -534,7 +534,7 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
   ],
   test_week: [
     'Fyra testtyper, grundnivå till expert',
-    'Tidsatt provläge och fördjupade personlighetstestet',
+    'Övningsprov mot klockan och fördjupade personlighetstestet',
     'Förklaring per fråga och din utveckling',
   ],
   all_day: [`Allt i ${PREMIUM}, i 24 timmar`, 'Engångsköp, ingen prenumeration', 'Tiden räknas från köpet'],
@@ -587,7 +587,7 @@ export const FEATURE_ETIKETT: Record<Feature, string> = {
   cv_analysis_full: 'Hela CV-analysen',
   letter_download: 'Brevnedladdning',
   tests_above_base: 'Testnivå över grundnivån',
-  test_exam_mode: 'Tidsatt provläge',
+  test_exam_mode: 'Övningsprov mot klockan',
   test_history: 'Din testhistorik',
   chat_unlimited: 'Fler meddelanden i chatten',
   interview_unlimited: 'Fler intervjuprov',
@@ -641,7 +641,7 @@ export function forslagSkal(input: {
   }
 
   if (track === 'tester') {
-    return `Du sa att du vill träna på testerna. ${PREMIUM} ger alla nivåer, provläget och förklaringarna.`
+    return `Du sa att du vill träna på testerna. ${PREMIUM} ger alla nivåer, övningsprov och förklaringarna.`
   }
 
   return `Vi vet inte vad du behöver än. ${PREMIUM} rymmer allt, så du behöver inte välja.`

@@ -122,14 +122,14 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
   B8: {
     id: 'B8',
     grupp: 'B',
-    rubrik: 'Provläget: vad är skillnaden mot träning?',
-    text: 'I träningen får du förklaring efter varje fråga och kan ta den tid du behöver. I provläget går klockan, du får inga förklaringar under tiden och provet lämnas in automatiskt när tiden är ute, precis som hos en rekryterare. Logikprovet är 18 uppgifter på 25 minuter, det verbala 48 på 40 minuter och det numeriska 36 på 40 minuter.',
+    rubrik: 'Övningsprovet: vad är skillnaden mot ett pass?',
+    text: 'I passen får du förklaring efter varje fråga och kan ta den tid du behöver. I övningsprovet (det vi förr kallade provläget) går klockan, du får inga förklaringar under tiden och provet lämnas in när tiden är ute, precis som hos en rekryterare. Logikprovet är 18 uppgifter på 25 minuter, det verbala 48 på 40 minuter och det numeriska 36 på 40 minuter.',
   },
   B9: {
     id: 'B9',
     grupp: 'B',
-    rubrik: 'Provläget: varför ska jag ange leverantör?',
-    text: 'Leverantörerna skiljer sig mest i tempot. Vet du vilket test du ska göra ställer vi om provet till samma antal uppgifter och samma tid som den leverantören använder. Då övar du på rätt klocka. Anger du ingen leverantör kör vi vårt eget format, 18 uppgifter på 25 minuter.',
+    rubrik: 'Övningsprovet: varför ska jag ange vem som gör testet?',
+    text: 'Testföretagen skiljer sig mest i tempot. Vet du vilket test du ska göra ställer vi om övningsprovet till samma antal uppgifter och samma tid. Då övar du på rätt klocka. Anger du inget kör vi vårt eget format, 18 uppgifter på 25 minuter.',
   },
 
   C1: {
@@ -185,7 +185,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'D3',
     grupp: 'D',
     rubrik: 'Vad räknas som en bra utveckling?',
-    text: 'En kurva som stiger de första försöken och sedan planar ut på en högre nivå. Att den planar ut är inget stopp. Det betyder att formatet sitter och att det är dags för en svårare nivå eller ett provläge med klocka. Svajar kurvan kraftigt är det oftast tempot eller dagsformen, inte förmågan, som varierar.',
+    text: 'En kurva som stiger de första försöken och sedan planar ut på en högre nivå. Att den planar ut är inget stopp. Det betyder att formatet sitter och att det är dags för en svårare nivå eller ett övningsprov mot klockan. Svajar kurvan kraftigt är det oftast tempot eller dagsformen, inte förmågan, som varierar.',
   },
 
   E1: {

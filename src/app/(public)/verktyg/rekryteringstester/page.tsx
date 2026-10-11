@@ -44,7 +44,7 @@ const BIG_FIVE = [
 const INGAR = [
   { rubrik: 'Gratis att prova', text: 'Fem frågor med facit här, utan konto. Med kontot en nivåmätning och ett första träningspass. Ingen kortuppgift.' },
   { rubrik: 'Rapport efter varje pass', text: 'Resultat, tid och en genomgång fråga för fråga med rätt svar.' },
-  { rubrik: `${paketKort()} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${prisPeriod(SALD_PLAN)}.` },
+  { rubrik: `${paketKort()} tar bort taket`, text: `Alla nivåer, övningsprov mot klockan och hela din resultathistorik, ${prisPeriod(SALD_PLAN)}.` },
 ]
 
 // Förberedelserna och guidelänkarna flyttades hit från /artiklar/rekryteringstester-guide
@@ -220,7 +220,7 @@ export default function RekryteringstesterSida() {
             id: 'testtyper',
             eyebrow: 'Kognitiva tester',
             rubrik: 'Tre testtyper, alla gratis att börja',
-            ingress: `Med ett gratiskonto gör du en nivåmätning med full genomgång och ett första träningspass samma dag, och resultatet är ditt. Att träna vidare, med avancerad nivå, expertnivå och tidsatt provläge, ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`,
+            ingress: `Med ett gratiskonto gör du en nivåmätning med full genomgång och ett första träningspass samma dag, och resultatet är ditt. Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`,
             rader: TESTTYPER,
             lank: { text: 'Starta gratis test', href: '/register?borja=tester' },
           },
@@ -254,7 +254,7 @@ export default function RekryteringstesterSida() {
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Träna nu. Kom förberedd sen.',
-          text: `Fem frågor gratis här. Mätning och första passet gratis med konto. Alla nivåer, provläget och din historik ingår i ${paketKort()}.`,
+          text: `Fem frågor gratis här. Mätning och första passet gratis med konto. Alla nivåer, övningsprov och din historik ingår i ${paketKort()}.`,
           knapp: { text: 'Starta gratis test', href: '/register?borja=tester' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

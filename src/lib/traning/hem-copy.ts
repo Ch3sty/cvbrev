@@ -49,9 +49,9 @@ export const HEM = {
   rubrikUtanDatum: 'Träna inför ditt rekryteringstest',
   rubrikUtanDatumPass: 'Ett pass om dagen',
   tomt: {
-    rad: 'Börja med att mäta var du står. Sätt ett datum när du vet det, så räknar vi bakåt.',
-    boxTitel: 'Din första punkt kommer efter mätningen.',
-    boxText: 'Sedan ett pass om dagen och ommätning var sjunde dag.',
+    rad: 'Börja med att mäta var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.',
+    boxTitel: 'Din första punkt på kurvan kommer när du mätt din nivå.',
+    boxText: 'Sedan ett pass om dagen, och var sjunde dag mäter du din nivå igen.',
     status: 'Inget datum än. Går att sätta när som helst.',
   },
   ny: {
@@ -59,13 +59,13 @@ export const HEM = {
     planRubrik: 'Planen',
     /** 1a gratis (20.5 fråga 4): märkena är grå och fyllda, inte ihåliga. */
     planMetaGratis: () =>
-      `Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i ${paketKort()}: passen från dag två, ommätningen och generalrepetitionen.`,
-    planMeta: 'Din första punkt på kurvan kommer efter mätningen. Ihåliga märken är planerade dagar, luckorna är söndagar.',
+      `Din första punkt på kurvan kommer när du mätt din nivå. De grå dagarna ingår i ${paketKort()}: passen från dag två, nivåmätningarna och övningsprovet.`,
+    planMeta: 'Din första punkt på kurvan kommer när du mätt din nivå. Ihåliga märken är kommande dagar, luckorna är söndagar.',
   },
   matning: {
     eyebrow: 'Första passet',
     titel: 'Mät din nivå. Cirka 8 minuter.',
-    text: 'Tolv figuruppgifter över hela svårighetsspannet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.',
+    text: 'Tolv figuruppgifter, från lätta till svåra. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.',
     knapp: 'Mät min nivå, 8 min',
     gratis: `Mätningen är gratis, med eller utan ${paketKort()}.`,
     /**
@@ -77,14 +77,14 @@ export const HEM = {
     smakprovKnapp: (m: number) => `Mät min nivå, ${m} min`,
     /** 1as/T1s (testansvarig 19.5 fråga 2): en text, inte två. Ersätter `text` när smakprov finns. */
     smakprovText: (n: number) =>
-      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.`,
+      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.`,
   },
   /**
    * 1t (19.3 fråga 2): bara siffror eller bara text valt. Passen finns i dag
    * bara för figurer och mönster; hemvyn erbjuder det valda testet.
    */
   annatTest: {
-    rad: 'Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får pass senare.',
+    rad: 'Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får det senare.',
     eyebrow: 'Första passet',
     titelSiffror: 'Gör siffertestet',
     titelText: 'Gör texttestet',
@@ -93,139 +93,134 @@ export const HEM = {
     knappText: 'Starta texttestet',
   },
   ommatning: {
-    eyebrow: 'Veckans ommätning',
+    eyebrow: 'Veckans nivåmätning',
     titel: 'Mät din nivå igen. Cirka 8 minuter.',
-    text: 'Tolv uppgifter som i mätningen. Ommätningen väger tyngre än ett pass och visar om passen har flyttat dig.',
+    text: 'Tolv uppgifter, som första gången. Den visar om passen har flyttat dig och ger en tyngre punkt på kurvan än ett vanligt pass.',
     knapp: 'Mät igen, 8 min',
-    lastText: () => `Ommätningarna ingår i ${paketKort()}.`,
+    lastText: () => `Nivåmätningarna efter den första ingår i ${paketKort()}.`,
   },
   pass: {
-    eyebrowNiva: (niva: number) => `Dagens pass · nivå ${niva}`,
-    eyebrowGrund: 'Dagens pass · grundnivå',
+    /** Nivån är huvudtalet på väggen (copy-plan 3.8), så eyebrowen säger den inte. */
+    eyebrow: 'Dagens pass',
+    eyebrowGrund: 'Dagens pass på grundnivå',
     temaSaknas: 'Blandade mönster',
-    text: 'Nio uppgifter, tio minuter. Sex nära din nivå, två lättare och en svårare. Regeln efter varje fråga.',
-    textGrund: 'Nio uppgifter på grundnivå, tio minuter. Regeln efter varje fråga. Grundpasset i dag är gratis.',
+    text: 'Nio uppgifter, ungefär tio minuter. De flesta ligger på din nivå. Vi förklarar varje svar.',
+    textGrund: 'Nio uppgifter på grundnivå, ungefär tio minuter. Vi förklarar varje svar. Dagens grundpass är gratis.',
     knapp: 'Starta dagens pass',
     knappGrund: 'Starta grundpasset',
     /** 17.2: från dag två ingår passen i Premium. */
     lastText: (svagaste: string | null) =>
       svagaste
-        ? `Nio uppgifter nära din nivå, tio minuter. Extra övning på mönstret du tappar mest på: ${svagaste}. Från andra dagen ingår passen i ${paketKort()}.`
-        : `Nio uppgifter, tio minuter, nära din nivå. Från andra dagen ingår passen i ${paketKort()}.`,
-    lastFot: `Mätningen, resultatet och genomgången är dina, med eller utan ${paketKort()}.`,
+        ? `Nio uppgifter på din nivå, med extra övning på det du tappar mest: ${svagaste}. Från dag två ingår passen i ${paketKort()}.`
+        : `Nio uppgifter på din nivå, ungefär tio minuter. Från dag två ingår passen i ${paketKort()}.`,
+    lastFot: `Nivåmätningen, resultatet och genomgången är dina, med eller utan ${paketKort()}.`,
   },
   vila: {
     eyebrow: 'Vilodag',
     titel: 'Söndag är vilodag',
-    text: 'Serien bryts inte av en söndag. Vill du ändå träna räknas passet som vanligt.',
+    text: 'Dina dagar i rad bryts inte av en söndag. Vill du träna ändå räknas passet som vanligt.',
     knapp: 'Starta ett frivilligt pass',
   },
   klart: {
-    eyebrow: 'Dagens pass · klart',
-    eyebrowGeneral: 'Generalrepetition · klar',
-    upp: (ratt: number, antal: number, niva: string) => `${ratt} av ${antal} rätt. Nivån steg till ${niva}.`,
-    samma: (ratt: number, antal: number, niva: string) => `${ratt} av ${antal} rätt. Nivån står på ${niva}.`,
-    ner: (ratt: number, antal: number, niva: string) => `${ratt} av ${antal} rätt. Nivån ${niva}, ner en tiondel.`,
-    nerMer: (ratt: number, antal: number, niva: string) => `${ratt} av ${antal} rätt. Nivån ${niva}.`,
-    utanNiva: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
-    riktat: 'Ett riktat pass räknas på mönstret du övar, inte på din nivå.',
+    eyebrow: 'Dagens pass är klart',
+    eyebrowGeneral: 'Övningsprovet är klart',
+    /* Rätt-talet är kortets huvudtal (copy-plan 3.3), titeln säger nivån. */
+    upp: (niva: string) => `Nivån steg till ${niva}.`,
+    samma: (niva: string) => `Nivån står på ${niva}.`,
+    ner: (niva: string) => `Nivån ${niva}, ner en tiondel.`,
+    nerMer: (niva: string) => `Nivån ${niva}.`,
+    utanNiva: 'Extrapasset klart.',
+    /** Ett pass utan nivå (sällsynt): ingen nivåmening att ge. */
+    utanNivaPass: 'Passet är klart.',
+    riktat: 'Ett extrapass övar ett mönster. Det ändrar inte din nivå.',
     talRatt: 'rätt',
-    talNiva: (fran: string) => `nivå, från ${fran}`,
-    talOver: 'över provets tid',
     knapp: 'Visa genomgången',
     ettTill: 'Ett pass till, frivilligt',
   },
   tempo: {
     over: 'över provets tid i går',
     overIdag: 'över provets tid i dag',
-    snitt: (budget: number) => `snitt, provet ger ${budget}`,
-    snittEget: (budget: number) => `snitt, provläget ger ${budget}`,
-    passGjorda: 'pass gjorda',
     /** 19.2 fråga 7: talet räknar alla besvarade frågor, ingen förklaringsmening. */
-    metaEget: 'Tiden per uppgift följer vårt provläge tills du anger leverantör.',
+    metaEget: 'Tiden räknas mot vårt eget format tills du anger vem som gör testet.',
   },
   rad: {
-    niva: (heltal: number) => `Nivå ${heltal}.`,
     serie: (dagar: string) => `${dagar} dagar i rad.`,
-    serieBorjarOm: 'Serien börjar om i dag.',
+    serieBorjarOm: 'Dagarna i rad börjar om i dag.',
     passKvar: 'Dagens pass är kvar.',
     passGjort: 'Dagens pass är gjort.',
     vila: 'Söndag är vilodag.',
-    ommatning: 'I dag: ommätning.',
-    infor: (pass: string, ommatningar: string) => `${pass} och ${ommatningar} bakom dig. Serien räknas inte de här dagarna.`,
+    ommatning: 'I dag mäter du din nivå igen.',
+    infor: (pass: string) => `${pass} bakom dig. Nu återstår bara övningsprovet.`,
   },
   dagsrad: {
-    nivaFran: (fran: string) => `nivå, från ${fran}`,
-    nivaMattIdag: 'nivå, mätt i dag',
-    nivaMattIgar: 'nivå, mätt i går',
-    kvarSikte: (sikte: string) => `kvar till målet ${sikte}`,
-    siktetNatt: 'målet, nått',
-    passGjorda: 'pass gjorda',
-    mattningGjord: 'mätning gjord',
-    dagarIRad: 'dagar i rad',
-    dagarTillProvet: (n: number) => (n === 1 ? 'dag till provet' : 'dagar till provet'),
+    nivaFran: (fran: string) => `din nivå, började på ${fran}`,
+    nivaMattIdag: 'din nivå, mätt i dag',
+    nivaMattIgar: 'din nivå, mätt i går',
     ringKvar: 'Dagens pass inte gjort än',
     ringGjord: 'Dagens pass gjort',
-    ringGeneral: 'Generalrepetitionen inte gjord än',
-    ringGeneralGjord: 'Generalrepetitionen gjord',
+    ringGeneral: 'Övningsprovet inte gjort än',
+    ringGeneralGjord: 'Övningsprovet gjort',
   },
   kurva: {
     rubrik: 'Din nivå, dag för dag',
     rubrikEfter: 'Din kurva fram till provet',
-    form: (ord: string) => `form: ${ord}`,
+    /** Ett ord per form, utan "form:" och utan mittpunkt (copy-plan 3.7). */
+    form: { stigande: 'På väg upp', stabil: 'Stabil', vilar: 'Vilar' } as Record<string, string>,
     hela: 'Hela kurvan',
     /* Instrumentens text, HTML över SVG:n (art-director 20.2 fråga 3). */
     sikte: (n: string) => `Mål ${n}`,
     sikteDator: (n: string) => `Mål ${n} före provet`,
     siktetSatts: 'Målet sätts med datumet',
-    matning: 'mätning',
-    matningDator: (n: string) => `mätning ${n}`,
+    matning: 'start',
+    matningDator: (n: string) => `start ${n}`,
     prov: 'Prov',
     provPasserat: (d: string) => `prov ${d}`,
     idag: 'i dag',
-    ommatningAxel: (d: string) => `${d} · ommätning`,
+    ommatningAxel: (d: string) => `${d}, ny mätning`,
     planMat: 'Mät min nivå',
-    planOm: 'ommätning',
-    planGen: 'generalrepetition',
-    planGenKort: 'generalrep.',
-    gratisMeta: () => `Grå platser: ommätningarna och generalrepetitionen ingår i ${paketKort()}. Kurvans historik också.`,
+    planOm: 'mät igen',
+    planGen: 'övningsprov',
+    planGenKort: 'övningsprov',
+    gratisMeta: () => `De grå dagarna ingår i ${paketKort()}: nivåmätningarna efter den första, övningsprovet och kurvans historik.`,
   },
   utanDatum: {
-    box: 'Sätt ett datum så räknar vi bakåt: ommätningar, generalrepetition och vila.',
+    box: 'Sätt ett datum, så lägger vi upp planen fram till provet: pass, övningsprov och vila.',
     sattDatum: 'Sätt datum',
-    provradMeta: 'Inget datum än; med datum lägger vi generalrepetitionen två dagar före.',
+    provradMeta: 'Inget datum än. Med ett datum lägger vi övningsprovet två dagar före provet.',
   },
   tappar: {
     rubrik: 'Var du tappar',
-    allaFamiljer: 'Alla mönster',
-    rattAv: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
-    rattAvMatning: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i mätningen.`,
+    allaFamiljer: 'Se alla mönster',
+    /** Aldrig "0" (avvikelse 3): noll rätt sägs i ord. */
+    rattAv: (ratt: number, antal: number) => (ratt === 0 ? `Inget rätt av ${antal}.` : `${ratt} av ${antal} rätt.`),
+    rattAvMatning: (ratt: number, antal: number) =>
+      ratt === 0 ? `Inget rätt av ${antal} i mätningen.` : `${ratt} av ${antal} rätt i mätningen.`,
     langsam: (namn: string) => `Rätt men långsamt: ${namn}`,
-    langsamMeta: (n: number, antal: number) => `${n} av ${antal} över provets tid. Alla rätt.`,
-    riktat: 'Riktat pass',
-    tempopass: 'Tempopass',
-    repetera: 'Repetera svagheten',
-    kortPass: (namn: string) => `Kort pass: ${namn}`,
-    kortPassMeta: (ratt: number, antal: number) => `Fem uppgifter, fem minuter. ${ratt} av ${antal} rätt hittills.`,
+    langsamMeta: (n: number, antal: number) => `Alla rätt, men ${n} av ${antal} tog längre tid än provet ger.`,
+    riktat: 'Öva på det',
+    tempopass: 'Öva tempot',
+    repetera: 'Repetera det du tappar på',
+    kortPass: (namn: string) => `Kort pass på ${namn}`,
+    kortPassMeta: 'Fem uppgifter, ungefär fem minuter.',
     starta: 'Starta',
   },
   provdagen: {
-    rubrik: 'Provdagen',
+    rubrik: 'Inför provet',
     /** Radens namn (art-director 22.2 fråga 4); formatet står i metan. */
-    radTitel: 'Generalrepetitionen',
+    radTitel: 'Övningsprovet',
     /** Metans tredje mening, samma för gratis och betalande (22.4 fråga 2). */
-    iPlanen: (datum: string) => `I planen ${datum} och dagen före provet.`,
-    gorEnNu: 'Gör en nu',
-    angeLeverantor: 'Ange leverantör',
+    iPlanen: (datum: string) => `Ligger i planen ${datum} och dagen före provet.`,
+    gorEnNu: 'Gör ett nu',
+    angeLeverantor: 'Vem gör testet?',
   },
   infor: {
-    eyebrow: 'Generalrepetition',
+    eyebrow: 'Övningsprov',
     titel: (format: string) => format,
-    text2: 'Fast ordning, ingen förklaring förrän efteråt. Sitt som på provet: tyst rum, dator, ingen paus. Dagen före gör du den en gång till.',
-    text1: 'Fast ordning, ingen förklaring förrän efteråt. Sitt som på provet: tyst rum, dator, ingen paus. Sista repetitionen före provet.',
-    knapp: 'Starta generalrepetitionen',
-    status: 'Dagen före: generalrepetition. Provdagen: tre uppvärmningsfrågor, inget mer.',
-    lastText: () => `Generalrepetitionen i leverantörens format ingår i ${paketKort()}. Resultat och genomgång av det du redan gjort är alltid dina.`,
+    text2: 'Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. I morgon gör du ett till.',
+    text1: 'Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. Det här är sista övningen före provet.',
+    knapp: 'Starta övningsprovet',
+    status: 'Övningsprov fram till provet. På provdagen bara tre uppvärmningsfrågor.',
+    lastText: () => `Övningsprovet i samma format som ditt test ingår i ${paketKort()}. Resultat och genomgång av det du redan gjort är alltid dina.`,
   },
   provdag: {
     eyebrow: (mal: string) => `I dag: ${mal}`,
@@ -250,7 +245,7 @@ export const HEM = {
     status: 'Inga pass i dag. Serien pausar, inget bryts.',
     skala: {
       du: (n: string) => `Du ${n}`,
-      fran: (n: string) => `${n} · mätningen`,
+      fran: (n: string) => `${n} vid start`,
     },
   },
   efter: {
@@ -309,37 +304,41 @@ export const HEM = {
     kurvan: 'Visa kurvan i stället',
   },
   flerTester: {
-    rubrik: 'Fler tester',
+    /** "Fler tester" heter Träna fritt (copy-plan avsnitt 5). */
+    rubrik: 'Träna fritt',
+    /** Sektionslänken till Alla tester (beslut-hemvy 2026-10-11 punkt 1). */
+    alla: 'Alla tester',
     figurer: 'Figurer och mönster',
     siffror: 'Siffror och tabeller',
     ord: 'Ord och text',
     personlighet: 'Personlighetstest',
     gjort: (datum: string) => `Senast gjort ${datum}.`,
-    figurerEj: 'Ej mätt. Mät din nivå, 8 minuter.',
+    figurerEj: 'Inte gjort än. Mät din nivå på 8 minuter.',
     siffrorEj: 'Inte gjort än. Läsa av tabeller, procent, andelar.',
     ordEj: 'Inte gjort än. Korta texter med frågor om vad som stämmer.',
     personlighetKlar: (datum: string) => `Profil klar ${datum}. Inga rätta svar, ingen nivå.`,
     personlighetEj: 'Inga rätta svar, ingen nivå. Se hur profilen tolkas.',
   },
   jobbsok: {
-    lank: 'Till Jobbsöket',
+    /** Radens titel: rummets namn (beslut-hemvy 2026-10-11 punkt 2). */
+    titel: 'Jobbsöket',
   },
   imorgon: {
     utanPlan: 'I morgon: nästa pass.',
   },
 } as const;
 
-/** "3 sökta tjänster, 1 intervju, 2 personliga brev." och de tomma varianterna. */
-export function jobbsokRad(antal: { tjanster: number; intervjuer: number; brev: number }): string {
-  const { tjanster, intervjuer, brev } = antal;
-  const brevText = brev === 1 ? '1 personligt brev' : `${brev} personliga brev`;
-  if (tjanster === 0) {
-    return brev > 0 ? `Inga sökta tjänster än. ${brevText}.` : 'Inga sökta tjänster eller personliga brev än.';
-  }
-  const delar = [tjanster === 1 ? '1 sökt tjänst' : `${tjanster} sökta tjänster`];
-  if (intervjuer > 0) delar.push(intervjuer === 1 ? '1 intervju' : `${intervjuer} intervjuer`);
-  if (brev > 0) delar.push(brevText);
-  return `${delar.join(', ')}.`;
+/**
+ * Jobbsökets rad på testväggen, högst ett tal (beslut-hemvy 2026-10-11 punkt
+ * 2, copy-plan 3.4): intervjun vinner, annars sökta tjänster. Breven räknas
+ * aldrig här. Copyplanens "1 intervju på gång. 13 sökta tjänster." har två
+ * tal; art-directors form (ett tal) gäller, så meningen slutar efter intervjun.
+ */
+export function jobbsokRad(antal: { tjanster: number; intervjuer: number; brev?: number }): string {
+  const { tjanster, intervjuer } = antal;
+  if (intervjuer > 0) return intervjuer === 1 ? '1 intervju på gång.' : `${intervjuer} intervjuer på gång.`;
+  if (tjanster > 0) return tjanster === 1 ? '1 sökt tjänst.' : `${tjanster} sökta tjänster.`;
+  return 'Inga sökta tjänster än.';
 }
 
 /* ------------------------------------------------------------ ingången */
@@ -351,10 +350,10 @@ export const INGANG = {
     personlighet: 'Personlighet',
   },
   stegEtikett: (steg: number, av: number, frivilligt?: boolean) =>
-    `Steg ${steg} av ${av}${frivilligt ? ' · frivilligt' : ''}`,
+    `Steg ${steg} av ${av}${frivilligt ? ', frivilligt' : ''}`,
   typ: {
     fraga: 'Vad ska du testas på?',
-    ledtrad: 'Välj det som står i kallelsen eller mejlet. Du kan välja flera. Vi lägger planen efter det.',
+    ledtrad: 'Välj det som står i kallelsen eller mejlet. Du kan välja flera. Vi lägger upp din plan efter det.',
     val: {
       matris: { titel: 'Figurer och mönster', rad: 'Rutnät där en bit saknas. Kallas ofta logiktest eller matriser.' },
       numerisk: { titel: 'Siffror och tabeller', rad: 'Läsa av tabeller, procent, andelar.' },
@@ -367,7 +366,7 @@ export const INGANG = {
   leverantor: {
     fraga: 'Vet du vem som gör testet?',
     ledtrad:
-      'Namnet står ofta i kallelsen, i länkens avsändare eller i rekryterarens mejl. Till exempel Assessio eller Matrigma, Alva Labs, SHL, Aon eller cut-e. Vet du inte så tränar du i vårt eget provläge.',
+      'Namnet står ofta i kallelsen, i länkens avsändare eller i rekryterarens mejl. Till exempel Assessio eller Matrigma, Alva Labs, SHL, Aon eller cut-e. Vet du inte, så tränar du i vårt eget format.',
     val: {
       matrigma: 'Matrigma (Assessio)',
       alva: 'Alva Logic',
@@ -382,13 +381,13 @@ export const INGANG = {
       adaptiv: 'Adaptiv, cirka 12 min',
       vetInte: 'Vet inte',
     },
-    variantMeta: 'Vet du inte så tränar vi tempot mot den klassiska och visar den adaptiva i provläget. Det täcker båda formaten.',
+    variantMeta: 'Vet du inte, så tränar vi tempot mot den klassiska. Övningsprovet visar också den adaptiva, så du har sett båda.',
     varumarke: 'Leverantörsnamnen är deras varumärken. Vi samarbetar inte med dem och tränar i samma format, inte med deras uppgifter.',
   },
   datum: {
     fraga: 'När är provet?',
     fragaPersonlighet: 'När är testet?',
-    ledtrad: 'Vi räknar bakåt från dagen: mätning i dag, ett pass om dagen, ommätning var sjunde dag, generalrepetition dagen före, vila på provdagen.',
+    ledtrad: 'Vi räknar bakåt från provdagen: ett kort pass om dagen, ett övningsprov dagen före och vila på själva dagen.',
     ledtradPersonlighet:
       'Inga rätta svar och inget att öva in. Vi visar hur profilen tolkas, så du känner igen frågorna och vet vad som händer med svaren.',
     falt: 'Provdagen',
@@ -396,27 +395,23 @@ export const INGANG = {
     chips: { vecka: 'Om en vecka', tvaVeckor: 'Om två veckor', manad: 'Om en månad' },
     /** "14 dagar." + planens innehåll (granskningen 3.3). */
     planDagar: (n: number) => (n === 1 ? '1 dag.' : `${n} dagar.`),
-    plan: (pass: string, vila: string, ommatning: string | null, general: string | null) =>
-      [
-        'Mätning i dag',
-        pass,
-        vila,
-        ommatning,
-        general,
-        'vila på provdagen',
-      ]
+    /** "Tio pass fram till provet, ett övningsprov två dagar före och vila på provdagen." (copy-plan 3.6) */
+    plan: (pass: string, general: string | null) =>
+      [`${pass} fram till provet`, general, 'vila på provdagen']
         .filter(Boolean)
         .join(', ')
-        .replace(/, vila på provdagen$/, ' och vila på provdagen') + '. Går att ändra när som helst från huvudet.',
+        .replace(/, vila på provdagen$/, ' och vila på provdagen') + '. Du kan ändra datumet när du vill.',
     planIdag: 'Provet är i dag. Vi hoppar över planen och ger dig tre uppvärmningsfrågor.',
     personlighetKort: (datum: string) => `Personlighetstest den ${datum}.`,
-    personlighetText: 'Inga rätta svar, men det hjälper att veta hur det tolkas. Inga pass, ingen nivå, ingen serie.',
+    personlighetText: 'Inga rätta svar, men det hjälper att veta hur det tolkas. Inga pass och ingen nivå.',
     hoppaOver: 'Hoppa över, jag vet inte än',
     taBort: 'Ta bort datumet',
     knapp: 'Visa min plan',
     knappPersonlighet: 'Visa hur det tolkas',
     passerat: 'Datumet har redan varit. Välj i dag eller senare.',
   },
+  /** Ingångens sekundära länk förbi planen (beslut-hemvy 2026-10-11 punkt 1). */
+  allaTester: 'Till alla tester',
   fortsatt: 'Fortsätt',
   hoppaOver: 'Hoppa över',
   sparar: 'Sparar',

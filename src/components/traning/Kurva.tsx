@@ -34,6 +34,7 @@ import type { PlanDag } from '@/lib/traning/plan'
 import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum'
 import { kortDatum } from '@/lib/traning/rubrik'
 import { HEM } from '@/lib/traning/hem-copy'
+import { nivaKort } from '@/lib/traning/pass-copy'
 
 export interface KurvaProps {
   punkter: readonly Nivapunkt[]
@@ -55,6 +56,11 @@ export interface KurvaProps {
   provPasserat?: boolean
   /** Unikt prefix för gradienterna när flera kurvor står på samma sida. */
   idPrefix?: string
+  /**
+   * Hemvyn (beslut-hemvy 2026-10-11 punkt 2): inget tal vid senaste punkten
+   * och bara ordet under mätningen. Axeln är visualiseringen.
+   */
+  utanPunktTal?: boolean
   className?: string
 }
 
@@ -152,8 +158,9 @@ export function segment(punkter: readonly { dag: Dag }[]): number[][] {
   return ut
 }
 
+/** Nivån som den renderas: 3, 5,6, aldrig "3,0" (copy-plan avsnitt 3). */
 function fmt(n: number): string {
-  return (Math.round(n * 10) / 10).toFixed(1).replace('.', ',')
+  return nivaKort(n)
 }
 
 const r1 = (n: number) => Math.round(n * 10) / 10
@@ -206,7 +213,7 @@ function Lapp({
 }
 
 export default function Kurva(props: KurvaProps) {
-  const { idag, prov = null, sikte = null, bredd, nyPunkt, ariaLabel, utanPlan, provPasserat, className } = props
+  const { idag, prov = null, sikte = null, bredd, nyPunkt, ariaLabel, utanPlan, provPasserat, utanPunktTal, className } = props
   const g = kurvansGeometri(props)
   const { matt, x, y } = g
   const dator = bredd === 'dator'
@@ -218,7 +225,7 @@ export default function Kurva(props: KurvaProps) {
   const xSlut = x(g.sista)
   const passIdagKvar = idagPlan && idagPlan.status === 'idag'
   // Siktets etikett flyttar under linjen när senaste punktens tal står i vägen.
-  const sikteKrock = !!senast && sikte != null && xSlut - x(senast.dag) < (dator ? 150 : 80) && Math.abs(y(senast.niva) - y(sikte)) < 20
+  const sikteKrock = !utanPunktTal && !!senast && sikte != null && xSlut - x(senast.dag) < (dator ? 150 : 80) && Math.abs(y(senast.niva) - y(sikte)) < 20
   const { W, H } = matt
   const K = HEM.kurva
 
@@ -345,14 +352,14 @@ export default function Kurva(props: KurvaProps) {
               {K.siktetSatts}
             </Lapp>
           ) : null}
-          {senast ? (
+          {senast && !utanPunktTal ? (
             <Lapp x={x(senast.dag)} y={y(senast.niva) - 7} W={W} H={H} ankX={dagar.length === 1 ? 'start' : 'mitt'} ankY="over" className={TXT.k}>
               {fmt(senast.niva)}
             </Lapp>
           ) : null}
           {dagar[0] && dagar[0].dag === g.forsta ? (
             <Lapp x={matt.x0} y={y(dagar[0].niva) + 7} W={W} H={H} ankX="start" ankY="under" className={TXT.soft}>
-              {dator ? K.matningDator(fmt(dagar[0].niva)) : K.matning}
+              {dator && !utanPunktTal ? K.matningDator(fmt(dagar[0].niva)) : K.matning}
             </Lapp>
           ) : null}
           {prov && !provPasserat ? (
@@ -510,6 +517,8 @@ export interface PlanbildProps {
   idag: Dag
   prov: Dag
   bredd: 'mobil' | 'dator'
+  /** Mätningen är gjord: "Mät min nivå" står inte vid i dag. */
+  matt?: boolean
   ariaLabel: string
   className?: string
 }
@@ -519,7 +528,7 @@ export interface PlanbildProps {
  * fram till provet. Ihåliga märken är planerade dagar, luckorna söndagar.
  * Aldrig en tom graf. Texten i HTML som på kurvan.
  */
-export function Planbild({ plan, idag, prov, bredd, ariaLabel, className }: PlanbildProps) {
+export function Planbild({ plan, idag, prov, bredd, matt, ariaLabel, className }: PlanbildProps) {
   const dator = bredd === 'dator'
   const W = dator ? 840 : 380
   const H = 100
@@ -578,14 +587,19 @@ export function Planbild({ plan, idag, prov, bredd, ariaLabel, className }: Plan
         <line x1={x(prov)} x2={x(prov)} y1="40" y2="86" stroke="var(--vagg-mjuk)" strokeWidth="1.5" />
       </svg>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <Lapp x={x0} y={55} W={W} H={H} ankX="start" ankY="over" className={TXT.k}>
-          {K.planMat}
-        </Lapp>
-        {om.map((d) => (
-          <Lapp key={`om-${d.dag}`} x={x(d.dag)} y={55} W={W} H={H} ankX="mitt" ankY="over" className={TXT.soft}>
-            {K.planOm}
+        {!matt ? (
+          <Lapp x={x0} y={55} W={W} H={H} ankX="start" ankY="over" className={TXT.k}>
+            {K.planMat}
           </Lapp>
-        ))}
+        ) : null}
+        {om
+          // En ny mätning nära övningsprovet tappar sin etikett, så texterna aldrig krockar.
+          .filter((d) => genMitt == null || Math.abs(x(d.dag) - genMitt) >= (textBredd(K.planOm) + textBredd(dator ? K.planGen : K.planGenKort)) / 2)
+          .map((d) => (
+            <Lapp key={`om-${d.dag}`} x={x(d.dag)} y={55} W={W} H={H} ankX="mitt" ankY="over" className={TXT.soft}>
+              {K.planOm}
+            </Lapp>
+          ))}
         {genMitt != null ? (
           <Lapp x={genMitt} y={55} W={W} H={H} ankX="mitt" ankY="over" className={TXT.soft}>
             {dator ? K.planGen : K.planGenKort}

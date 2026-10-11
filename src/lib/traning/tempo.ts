@@ -28,7 +28,7 @@ export type FormatNyckel =
 
 export interface Provformat {
   nyckel: FormatNyckel;
-  /** Leverantören formatet efterliknar, null för vårt eget provläge. */
+  /** Leverantören formatet efterliknar, null för vårt eget format. */
   leverantor: Exclude<Leverantor, 'annat'> | null;
   /** Namnet som får stå efter "samma format som". Null för vårt eget. */
   namn: string | null;
@@ -186,16 +186,22 @@ export function tempobudget(leverantor?: string | null, variant?: string | null)
   return formatForPlan(leverantor, variant).budget_s;
 }
 
+const TALORD_TOLV = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'];
+
 /**
- * "35 uppgifter, 40 minuter", eller "20 uppgifter, 2 minuter per uppgift"
- * för per_uppgift, med "cirka" före när siffrorna inte är verifierade.
+ * "35 uppgifter på 40 minuter", eller "20 uppgifter, två minuter var" för
+ * per_uppgift (talord upp till tolv), med "cirka" före när siffrorna inte är
+ * verifierade (copy-plan 4.9).
  */
 export function formatText(f: Provformat): string {
-  const tid =
-    f.tidsform === 'per_uppgift'
-      ? `${Math.round(f.budget_s / 60)} minuter per uppgift`
-      : `${f.minuter} minuter`;
-  const text = `${f.antal} uppgifter, ${tid}`;
+  let text: string;
+  if (f.tidsform === 'per_uppgift') {
+    const min = Math.round(f.budget_s / 60);
+    const ord = min >= 1 && min <= 12 ? TALORD_TOLV[min] : String(min);
+    text = `${f.antal} uppgifter, ${ord} ${min === 1 ? 'minut' : 'minuter'} var`;
+  } else {
+    text = `${f.antal} uppgifter på ${f.minuter} minuter`;
+  }
   return f.cirka ? `cirka ${text}` : text;
 }
 
