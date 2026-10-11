@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { BANK_VERSION } from '@/lib/logicTestV7/selectQuestions.v7'
 import { sessionsvy, tolkaSmakprov } from '../motor.server'
 import { questionsForToken } from '@/lib/tests/anon-session'
 import { hittaTraningsfraga, misstagFor, TRANINGSBANK } from '../bank.server'
@@ -129,9 +130,10 @@ describe('klientens vy av en träningssession', () => {
 
   it('14.5: tolkaSmakprov kräver blandning, tre giltiga svar och högst 30 dagar', () => {
     const token = '77777777-aaaa-4aaa-8aaa-000000000001'
-    const fragor = questionsForToken(token)
+    // Smakprovet i den bankversion nya sessioner får: alla fem frågor är valbara i passen.
+    const fragor = questionsForToken(token, BANK_VERSION)
     const ratt = fragor.map((q) => q.correctAnswer)
-    const bas = { token, answers: ratt, meta: { alternativ_blandade: true }, created_at: '2026-10-08T10:00:00Z' }
+    const bas = { token, answers: ratt, meta: { alternativ_blandade: true, bank_version: BANK_VERSION }, created_at: '2026-10-08T10:00:00Z' }
     const s = tolkaSmakprov(bas, '2026-10-10')!
     expect(s.svar).toHaveLength(5)
     expect(s.svar.every((x) => x.correct)).toBe(true)

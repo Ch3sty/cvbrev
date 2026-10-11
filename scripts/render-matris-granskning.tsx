@@ -38,7 +38,7 @@ const UT = ARGS.find((a) => !a.startsWith('--')) ?? 'docs/qa/rummen/vag-3c/grans
 const RINGAR = ARGS.includes('--ringar');
 const FRAGOR = (ARGS.find((a) => a.startsWith('--fragor='))?.slice('--fragor='.length) ?? '').split(',').filter(Boolean);
 const FIL = ARGS.find((a) => a.startsWith('--fil='))?.slice('--fil='.length) ?? null;
-type BandFraga = LayeredQuestion & { band?: string; mekanism?: string };
+type BandFraga = LayeredQuestion & { band?: string; mekanism?: string; recept?: string; p_prior?: number; fran_version?: number };
 mkdirSync(UT, { recursive: true });
 
 const NIVAER = [
@@ -80,8 +80,11 @@ function kort(q: LayeredQuestion, niva: string, kalla: string) {
     const granskas = q.misstagGranskas?.includes(i);
     return `<li><b>${String.fromCharCode(65 + i)}</b> ${ratt ? '<em>Rätt svar</em>' : granskas ? '<em class="varn">Manuell granskning</em>' : esc(m)}</li>`;
   });
+  // Bank_version 3: mallen och p_prior ur receptet står i metan.
+  const b = q as BandFraga;
+  const mall = b.recept ? ` · mall ${esc(b.recept)}${b.p_prior != null ? `, p_prior ${String(b.p_prior).replace('.', ',')}` : ''}` : '';
   return `<article id="${q.id}">
-    <header><div class="id">${q.id}</div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}</div><h2>${esc(q.title)}</h2>${distraktorRad(q as BandFraga)}</header>
+    <header><div class="id">${q.id}</div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}${mall}</div><h2>${esc(q.title)}</h2>${distraktorRad(q as BandFraga)}</header>
     <div class="grid">${celler.join('')}</div>
     <div class="alts">${alt.join('')}</div>
     <p class="regel">${esc(q.rule)}</p>
@@ -111,7 +114,8 @@ const valda: { q: LayeredQuestion; niva: string; kalla: string }[] = [];
 const harRing = (q: LayeredQuestion) =>
   [...q.grid.flat(), ...q.options].some((c) => c && (Array.isArray(c) ? c : [c]).some((p) => (p as { kind?: string }).kind === 'ring'));
 if (FIL) {
-  for (const q of JSON.parse(readFileSync(FIL, 'utf8')) as BandFraga[]) valda.push({ q, niva: 'expert', kalla: q.band ? `kandidat, ${q.band}` : 'kandidat' });
+  const nivaFor = (q: BandFraga) => (q.band ? 'expert' : ({ g: 'grund', a: 'avancerad', e: 'expert' } as Record<string, string>)[/^v7([gae])-/.exec(q.id)?.[1] ?? 'e']);
+  for (const q of JSON.parse(readFileSync(FIL, 'utf8')) as BandFraga[]) valda.push({ q, niva: nivaFor(q), kalla: q.band ? `kandidat, ${q.band}` : 'kandidat' });
 } else if (RINGAR || FRAGOR.length) {
   for (const { niva, fryst, ny } of NIVAER) {
     for (const [fil, kalla] of [[fryst, 'fryst'], [ny, '3c']] as const) {
@@ -149,7 +153,8 @@ for (const v of valda) {
   if (!el) continue;
   const fam = v.q.family ?? 'okand';
   const mek = (v.q as BandFraga).mekanism;
-  const namn = FIL && mek ? `${mek}-${v.q.id}.png` : `${v.niva}-${fam}-${v.q.id}.png`;
+  const rec = (v.q as BandFraga).recept;
+  const namn = FIL && rec ? `${rec}-${v.q.id}.png` : FIL && mek ? `${mek}-${v.q.id}.png` : `${v.niva}-${fam}-${v.q.id}.png`;
   await el.screenshot({ path: path.join(UT, namn) as `${string}.png` });
   n++;
 }
