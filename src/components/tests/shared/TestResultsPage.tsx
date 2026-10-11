@@ -218,7 +218,8 @@ export default function TestResultsPage({
     )
   }
 
-  const answers = session.answers ?? []
+  // Äldre testdata kan ha answers som objekt ({"_mock": true}); visa då inga svar i stället för att krascha.
+  const answers = Array.isArray(session.answers) ? session.answers : []
 
   return (
     <TestResultsShell
