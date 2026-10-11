@@ -1,6 +1,7 @@
 [
   {
     "id": "v7e-w1",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -126,6 +127,7 @@
   },
   {
     "id": "v7e-w2",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -251,6 +253,7 @@
   },
   {
     "id": "v7e-w3",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -389,6 +392,7 @@
   },
   {
     "id": "v7e-w4",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar tre steg",
     "rule": "Mönstret av svarta sektorer roterar 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -527,6 +531,7 @@
   },
   {
     "id": "v7e-w5",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar moturs",
     "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -666,6 +671,7 @@
   },
   {
     "id": "v7e-w6",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -805,6 +811,7 @@
   },
   {
     "id": "v7e-w7",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -957,6 +964,7 @@
   },
   {
     "id": "v7e-w8",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar moturs",
     "rule": "Mönstret av svarta sektorer roterar 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1096,6 +1104,7 @@
   },
   {
     "id": "v7e-w9",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1249,6 +1258,7 @@
   },
   {
     "id": "v7e-w10",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1388,6 +1398,7 @@
   },
   {
     "id": "v7e-w11",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret hoppar",
     "rule": "Mönstret av svarta sektorer roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1526,6 +1537,7 @@
   },
   {
     "id": "v7e-t1",
+    "pensionerad_fran": 3,
     "title": "Blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1777,6 +1789,7 @@
   },
   {
     "id": "v7e-t4",
+    "pensionerad_fran": 3,
     "title": "Blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -1944,6 +1957,7 @@
   },
   {
     "id": "v7e-t6",
+    "pensionerad_fran": 3,
     "title": "Z-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2027,6 +2041,7 @@
   },
   {
     "id": "v7e-t7",
+    "pensionerad_fran": 3,
     "title": "Trappan roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2110,6 +2125,7 @@
   },
   {
     "id": "v7e-t8",
+    "pensionerad_fran": 3,
     "title": "L-blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2277,6 +2293,7 @@
   },
   {
     "id": "v7e-t10",
+    "pensionerad_fran": 3,
     "title": "Diagonalblocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2360,6 +2377,7 @@
   },
   {
     "id": "v7e-t11",
+    "pensionerad_fran": 3,
     "title": "Trappan roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 4,
@@ -2694,6 +2712,7 @@
   },
   {
     "id": "v7e-b2",
+    "pensionerad_fran": 3,
     "title": "Former över och under linjen",
     "rule": "Kvadraten och cirkeln flyttar båda ett steg åt höger i varje ruta från vänster till höger och växlar sida om linjen. Varje rad börjar i ett nytt läge.",
     "difficulty": 4,

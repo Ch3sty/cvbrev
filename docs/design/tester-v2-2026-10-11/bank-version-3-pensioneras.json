@@ -1,15 +1,132 @@
 {
-  "beskrivning": "Expertfrågor som pensioneras i bank_version 3 (granskningen av parti 01, avsnitt 6 punkt 4). Inte påslaget: BANK_VERSION är 2.",
-  "antal": 53,
-  "per_familj": {
-    "monsterrotation": 24,
-    "tva-rorelser": 11,
-    "vridning": 4,
-    "vandring": 4,
-    "rotation-med-byte": 7,
-    "antal-andras": 3
+  "beskrivning": "Frågor som pensioneras i bank_version 3 (plan-facit-genvag 2.5): facit lika rutan uppe till vänster, plus uppräknade med tomt alternativ eller två rörelser i takt. Fältet pensionerad_fran: 3 i bankfilen; valbara i version 2.",
+  "antal": 157,
+  "per_niva": {
+    "grund": 64,
+    "avancerad": 45,
+    "expert": 48
+  },
+  "uttryckliga": {
+    "v7g-q26-orbital-fill-latin": "tomt alternativ",
+    "v7g-3c-lform-07": "tomt alternativ",
+    "v7g-3c-over-01": "tomt alternativ",
+    "v7g-3c-over-04": "tomt alternativ",
+    "v7a-3c-lform-03": "tomt alternativ",
+    "v7a-3c-over-04": "tomt alternativ",
+    "v7a-3c-tva-05": "balanslinje med sidbyte i läsordning, facit på mittrutan",
+    "v7e-3c-over-07": "tomt alternativ på expert",
+    "v7e-b2": "två rörelser i takt (G7)"
   },
   "ids": [
+    "v7g-q3-vector-rotation",
+    "v7g-q6-orbital-walk",
+    "v7g-q8-lattice-rotate",
+    "v7g-q9-vector-rotate-ccw",
+    "v7g-q13-orbital-walk-3",
+    "v7g-q15-lattice-ccw",
+    "v7g-q16-ray-rotate-walk",
+    "v7g-q17-poly-sides-latin",
+    "v7g-q18-vector-walk-half",
+    "v7g-q20-lattice-graycell-walk",
+    "v7g-q21-orbital-ccw",
+    "v7g-q23-tally-walk-count",
+    "v7g-q25-poly-rotate-walk",
+    "v7g-q26-orbital-fill-latin",
+    "v7g-q27-lattice-fill-cycle",
+    "v7g-q28-vector-len-walk",
+    "v7g-3c-vrid-01",
+    "v7g-3c-vrid-02",
+    "v7g-3c-vrid-03",
+    "v7g-3c-vrid-04",
+    "v7g-3c-vrid-05",
+    "v7g-3c-vrid-06",
+    "v7g-3c-vrid-07",
+    "v7g-3c-rot-01",
+    "v7g-3c-rot-02",
+    "v7g-3c-rot-03",
+    "v7g-3c-rot-04",
+    "v7g-3c-rot-05",
+    "v7g-3c-rot-06",
+    "v7g-3c-vand-01",
+    "v7g-3c-vand-02",
+    "v7g-3c-vand-03",
+    "v7g-3c-vand-04",
+    "v7g-3c-vand-05",
+    "v7g-3c-vand-06",
+    "v7g-3c-byte-01",
+    "v7g-3c-byte-02",
+    "v7g-3c-byte-03",
+    "v7g-3c-byte-04",
+    "v7g-3c-byte-05",
+    "v7g-3c-tva-01",
+    "v7g-3c-tva-02",
+    "v7g-3c-tva-03",
+    "v7g-3c-tva-04",
+    "v7g-3c-lant-01",
+    "v7g-3c-lant-03",
+    "v7g-3c-lant-04",
+    "v7g-3c-lant-05",
+    "v7g-3c-lant-07",
+    "v7g-3c-lform-01",
+    "v7g-3c-lform-02",
+    "v7g-3c-lform-03",
+    "v7g-3c-lform-06",
+    "v7g-3c-lform-07",
+    "v7g-3c-lform-08",
+    "v7g-3c-over-01",
+    "v7g-3c-over-04",
+    "v7g-3c-over-06",
+    "v7g-3c-speg-01",
+    "v7g-3c-speg-03",
+    "v7g-3c-antal-01",
+    "v7g-3c-antal-02",
+    "v7g-3c-antal-03",
+    "v7g-3c-antal-04",
+    "v7-a-vector-ccw",
+    "v7-a-tile-L",
+    "v7-a-tile-T",
+    "v7-a-tile-Z-ccw",
+    "v7-a-tile-corner",
+    "v7-a-ring-latin2",
+    "v7-a-vector-ccw90",
+    "v7-a-tile-vinkel",
+    "v7a-3c-vrid-01",
+    "v7a-3c-vrid-02",
+    "v7a-3c-vrid-03",
+    "v7a-3c-vrid-04",
+    "v7a-3c-vrid-05",
+    "v7a-3c-rot-01",
+    "v7a-3c-rot-02",
+    "v7a-3c-rot-03",
+    "v7a-3c-rot-04",
+    "v7a-3c-rot-05",
+    "v7a-3c-rot-06",
+    "v7a-3c-rot-07",
+    "v7a-3c-vand-01",
+    "v7a-3c-vand-02",
+    "v7a-3c-vand-03",
+    "v7a-3c-vand-04",
+    "v7a-3c-vand-05",
+    "v7a-3c-byte-01",
+    "v7a-3c-byte-02",
+    "v7a-3c-byte-03",
+    "v7a-3c-byte-04",
+    "v7a-3c-byte-05",
+    "v7a-3c-byte-06",
+    "v7a-3c-byte-07",
+    "v7a-3c-tva-01",
+    "v7a-3c-tva-02",
+    "v7a-3c-tva-04",
+    "v7a-3c-tva-05",
+    "v7a-3c-tva-06",
+    "v7a-3c-lant-01",
+    "v7a-3c-lform-01",
+    "v7a-3c-lform-03",
+    "v7a-3c-over-04",
+    "v7a-3c-speg-04",
+    "v7a-3c-antal-01",
+    "v7a-3c-antal-03",
+    "v7a-3c-antal-04",
     "v7e-w1",
     "v7e-w2",
     "v7e-w3",
@@ -28,9 +145,7 @@
     "v7e-t8",
     "v7e-t10",
     "v7e-t11",
-    "v7e-b1",
     "v7e-b2",
-    "v7e-b6",
     "v7e-3c-vrid-01",
     "v7e-3c-vrid-02",
     "v7e-3c-vrid-03",
@@ -54,387 +169,1112 @@
     "v7e-3c-byte-07",
     "v7e-3c-tva-01",
     "v7e-3c-tva-02",
-    "v7e-3c-tva-03",
-    "v7e-3c-tva-04",
-    "v7e-3c-tva-05",
-    "v7e-3c-tva-06",
     "v7e-3c-tva-07",
-    "v7e-3c-tva-08",
+    "v7e-3c-lform-02",
+    "v7e-3c-over-07",
     "v7e-3c-antal-01",
     "v7e-3c-antal-04",
     "v7e-3c-antal-05"
   ],
   "fragor": [
     {
+      "id": "v7g-q3-vector-rotation",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q6-orbital-walk",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q8-lattice-rotate",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q9-vector-rotate-ccw",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q13-orbital-walk-3",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q15-lattice-ccw",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q16-ray-rotate-walk",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q17-poly-sides-latin",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q18-vector-walk-half",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q20-lattice-graycell-walk",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q21-orbital-ccw",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q23-tally-walk-count",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q25-poly-rotate-walk",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q26-orbital-fill-latin",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "latin-form",
+      "skal": "tomt alternativ"
+    },
+    {
+      "id": "v7g-q27-lattice-fill-cycle",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-q28-vector-len-walk",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-05",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-06",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vrid-07",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-05",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-rot-06",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-05",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-vand-06",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-byte-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-byte-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-byte-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-byte-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-byte-05",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-tva-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-tva-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-tva-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-tva-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lant-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lant-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lant-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lant-05",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lant-07",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lform-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lform-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lform-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lform-06",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-lform-07",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "tomt alternativ"
+    },
+    {
+      "id": "v7g-3c-lform-08",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-over-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "overlagring",
+      "skal": "tomt alternativ"
+    },
+    {
+      "id": "v7g-3c-over-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "overlagring",
+      "skal": "tomt alternativ"
+    },
+    {
+      "id": "v7g-3c-over-06",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "overlagring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-speg-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "spegling",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-speg-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "spegling",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-antal-01",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-antal-02",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-antal-03",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7g-3c-antal-04",
+      "niva": "grund",
+      "fil": "src/lib/logicTestV7/questionBankGrund3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-vector-ccw",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-tile-L",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-tile-T",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-tile-Z-ccw",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-tile-corner",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-ring-latin2",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-vector-ccw90",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7-a-tile-vinkel",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBank.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vrid-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vrid-02",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vrid-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vrid-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vrid-05",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vridning",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-02",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-05",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-06",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-rot-07",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "monsterrotation",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vand-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vand-02",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vand-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vand-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-vand-05",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "vandring",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-02",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-05",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-06",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-byte-07",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "rotation-med-byte",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-tva-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-tva-02",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-tva-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-tva-05",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "balanslinje med sidbyte i läsordning, facit på mittrutan"
+    },
+    {
+      "id": "v7a-3c-tva-06",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "tva-rorelser",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-lant-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "latin-antal",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-lform-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-lform-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-over-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "overlagring",
+      "skal": "tomt alternativ"
+    },
+    {
+      "id": "v7a-3c-speg-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "spegling",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-antal-01",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-antal-03",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7a-3c-antal-04",
+      "niva": "avancerad",
+      "fil": "src/lib/logicTestV7/questionBankAvancerad3c.v7.json",
+      "family": "antal-andras",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
       "id": "v7e-w1",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w2",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w3",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w4",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w5",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w6",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w7",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w8",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w9",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w10",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-w11",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t1",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t4",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t6",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t7",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t8",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t10",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-t11",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
-    },
-    {
-      "id": "v7e-b1",
-      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": false
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-b2",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
       "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": false
-    },
-    {
-      "id": "v7e-b6",
-      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": false
+      "skal": "två rörelser i takt (G7)"
     },
     {
       "id": "v7e-3c-vrid-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vridning",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vrid-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vridning",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vrid-03",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vridning",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vrid-04",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vridning",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-03",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-04",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-05",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-rot-06",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "monsterrotation",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vand-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vandring",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vand-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vandring",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vand-03",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vandring",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-vand-04",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "vandring",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-03",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-04",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-05",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-06",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-byte-07",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "rotation-med-byte",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-tva-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "tva-rorelser",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-tva-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "tva-rorelser",
-      "facit_ruta0": true,
-      "sluter_sig": true
-    },
-    {
-      "id": "v7e-3c-tva-03",
-      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": true
-    },
-    {
-      "id": "v7e-3c-tva-04",
-      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": true
-    },
-    {
-      "id": "v7e-3c-tva-05",
-      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": true
-    },
-    {
-      "id": "v7e-3c-tva-06",
-      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-tva-07",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "tva-rorelser",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
-      "id": "v7e-3c-tva-08",
+      "id": "v7e-3c-lform-02",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
-      "family": "tva-rorelser",
-      "facit_ruta0": false,
-      "sluter_sig": false
+      "family": "latin-form",
+      "skal": "facit lika rutan uppe till vänster"
+    },
+    {
+      "id": "v7e-3c-over-07",
+      "niva": "expert",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "overlagring",
+      "skal": "tomt alternativ på expert"
     },
     {
       "id": "v7e-3c-antal-01",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "antal-andras",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-antal-04",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "antal-andras",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     },
     {
       "id": "v7e-3c-antal-05",
+      "niva": "expert",
       "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
       "family": "antal-andras",
-      "facit_ruta0": true,
-      "sluter_sig": true
+      "skal": "facit lika rutan uppe till vänster"
     }
   ]
 }

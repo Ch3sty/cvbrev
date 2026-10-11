@@ -60,6 +60,7 @@
   },
   {
     "id": "v7g-q3-vector-rotation",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
@@ -147,6 +148,7 @@
   },
   {
     "id": "v7g-q6-orbital-walk",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar runt cirkeln",
     "rule": "Pricken flyttar sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld hela vägen.",
     "difficulty": 2,
@@ -205,6 +207,7 @@
   },
   {
     "id": "v7g-q8-lattice-rotate",
+    "pensionerad_fran": 3,
     "title": "Den svarta rutan vandrar runt",
     "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -234,6 +237,7 @@
   },
   {
     "id": "v7g-q9-vector-rotate-ccw",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig moturs",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
@@ -350,6 +354,7 @@
   },
   {
     "id": "v7g-q13-orbital-walk-3",
+    "pensionerad_fran": 3,
     "title": "Pricken hoppar tre steg",
     "rule": "Pricken flyttar tre steg medurs (135 grader) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är ofylld hela vägen.",
     "difficulty": 2,
@@ -408,6 +413,7 @@
   },
   {
     "id": "v7g-q15-lattice-ccw",
+    "pensionerad_fran": 3,
     "title": "Den svarta rutan vandrar moturs",
     "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg moturs (uppe vänster, nere vänster, nere höger, uppe höger) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -437,6 +443,7 @@
   },
   {
     "id": "v7g-q16-ray-rotate-walk",
+    "pensionerad_fran": 3,
     "title": "Strecken vrider sig",
     "rule": "Två streck som pekar åt motsatt håll vrider sig 45 grader medurs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -466,6 +473,7 @@
   },
   {
     "id": "v7g-q17-poly-sides-latin",
+    "pensionerad_fran": 3,
     "title": "Antal sidor varierar i rader och kolumner",
     "rule": "Alla figurer är svarta. Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Ingen form upprepas i samma rad eller kolumn.",
     "difficulty": 3,
@@ -495,6 +503,7 @@
   },
   {
     "id": "v7g-q18-vector-walk-half",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig ett kvarts varv per steg",
     "rule": "Pilen vrider sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
@@ -553,6 +562,7 @@
   },
   {
     "id": "v7g-q20-lattice-graycell-walk",
+    "pensionerad_fran": 3,
     "title": "Den grå rutan vandrar medurs",
     "rule": "Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -582,6 +592,7 @@
   },
   {
     "id": "v7g-q21-orbital-ccw",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar moturs",
     "rule": "Pricken flyttar sig 45 grader moturs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld.",
     "difficulty": 2,
@@ -640,6 +651,7 @@
   },
   {
     "id": "v7g-q23-tally-walk-count",
+    "pensionerad_fran": 3,
     "title": "Strecken blir fler ruta för ruta",
     "rule": "Strecken står alltid upprätt. Antalet ökar med ett för varje ruta (1, 2, 3, 4) och börjar sedan om på 1. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -698,6 +710,7 @@
   },
   {
     "id": "v7g-q25-poly-rotate-walk",
+    "pensionerad_fran": 3,
     "title": "Femhörningen vrider sig stegvis",
     "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta och börjar om efter fyra lägen: 0, 30, 60, 90, 0, 30 och så vidare. Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
     "difficulty": 2,
@@ -727,6 +740,7 @@
   },
   {
     "id": "v7g-q26-orbital-fill-latin",
+    "pensionerad_fran": 3,
     "title": "Prickens läge varierar i rader och kolumner",
     "rule": "Mittpunkten är fylld i alla. Pricken kan sitta på tre ställen (uppe, nere till höger, nere till vänster). Varje rad och varje kolumn har exakt ett av varje läge. Inget läge upprepas i samma rad eller kolumn.",
     "difficulty": 3,
@@ -756,6 +770,7 @@
   },
   {
     "id": "v7g-q27-lattice-fill-cycle",
+    "pensionerad_fran": 3,
     "title": "Rutmönstret roterar ett kvarts varv",
     "rule": "Mönstret i de fyra rutorna roterar ett kvarts varv medurs för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner. Antalet svarta rutor förändras aldrig.",
     "difficulty": 3,
@@ -785,6 +800,7 @@
   },
   {
     "id": "v7g-q28-vector-len-walk",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter längd",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Längden växlar mellan lång och kort för varje ruta, och börjar med lång.",
     "difficulty": 3,

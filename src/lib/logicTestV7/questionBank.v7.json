@@ -1142,6 +1142,7 @@
   },
   {
     "id": "v7-a-vector-ccw",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig moturs",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1365,6 +1366,7 @@
   },
   {
     "id": "v7-a-tile-L",
+    "pensionerad_fran": 3,
     "title": "L-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1448,6 +1450,7 @@
   },
   {
     "id": "v7-a-tile-T",
+    "pensionerad_fran": 3,
     "title": "T-blocket roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1531,6 +1534,7 @@
   },
   {
     "id": "v7-a-tile-Z-ccw",
+    "pensionerad_fran": 3,
     "title": "Z-blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1614,6 +1618,7 @@
   },
   {
     "id": "v7-a-tile-corner",
+    "pensionerad_fran": 3,
     "title": "Hörnmönstret roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1921,6 +1926,7 @@
   },
   {
     "id": "v7-a-ring-latin2",
+    "pensionerad_fran": 3,
     "title": "Ringfyllning i rader och kolumner",
     "rule": "Alla figurer har tre ringar där de två yttre är ofyllda. Den innersta ringens fyllning följer en latin square: varje rad och kolumn har exakt en ofylld, en grå och en svart inner-ring.",
     "difficulty": 3,
@@ -2866,6 +2872,7 @@
   },
   {
     "id": "v7-a-vector-ccw90",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2977,6 +2984,7 @@
   },
   {
     "id": "v7-a-tile-vinkel",
+    "pensionerad_fran": 3,
     "title": "Vinkeln roterar",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,

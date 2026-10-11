@@ -1,6 +1,7 @@
 [
   {
     "id": "v7a-3c-vrid-01",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig 135 grader moturs",
     "rule": "Pilen vrider sig 135 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Längden och spetsen är likadana hela vägen.",
     "difficulty": 3,
@@ -112,6 +113,7 @@
   },
   {
     "id": "v7a-3c-vrid-02",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig 90 grader medurs",
     "rule": "Pilen vrider sig 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Längden och spetsen är likadana hela vägen.",
     "difficulty": 2,
@@ -223,6 +225,7 @@
   },
   {
     "id": "v7a-3c-vrid-03",
+    "pensionerad_fran": 3,
     "title": "Strecken vrider sig 45 grader",
     "rule": "Strecken vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Antalet streck och vinkeln mellan dem ändras aldrig.",
     "difficulty": 3,
@@ -362,6 +365,7 @@
   },
   {
     "id": "v7a-3c-vrid-04",
+    "pensionerad_fran": 3,
     "title": "Strecken vrider sig 135 grader",
     "rule": "Strecken vrider sig 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Antalet streck och vinkeln mellan dem ändras aldrig.",
     "difficulty": 3,
@@ -501,6 +505,7 @@
   },
   {
     "id": "v7a-3c-vrid-05",
+    "pensionerad_fran": 3,
     "title": "Strecken vrider sig 90 grader",
     "rule": "Strecken vrider sig 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Antalet streck och vinkeln mellan dem ändras aldrig.",
     "difficulty": 3,
@@ -639,6 +644,7 @@
   },
   {
     "id": "v7a-3c-rot-01",
+    "pensionerad_fran": 3,
     "title": "Blocket roterar medurs",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -722,6 +728,7 @@
   },
   {
     "id": "v7a-3c-rot-02",
+    "pensionerad_fran": 3,
     "title": "Blocket roterar moturs",
     "rule": "Mönstret i rutnätet roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -805,6 +812,7 @@
   },
   {
     "id": "v7a-3c-rot-03",
+    "pensionerad_fran": 3,
     "title": "Blocket roterar medurs",
     "rule": "Mönstret i rutnätet roterar 90 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -888,6 +896,7 @@
   },
   {
     "id": "v7a-3c-rot-04",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar 45 grader",
     "rule": "Mönstret av svarta sektorer roterar 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1026,6 +1035,7 @@
   },
   {
     "id": "v7a-3c-rot-05",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar 90 grader",
     "rule": "Mönstret av svarta sektorer roterar 90 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1165,6 +1175,7 @@
   },
   {
     "id": "v7a-3c-rot-06",
+    "pensionerad_fran": 3,
     "title": "Sektormönstret roterar 135 grader",
     "rule": "Mönstret av svarta sektorer roterar 135 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1304,6 +1315,7 @@
   },
   {
     "id": "v7a-3c-rot-07",
+    "pensionerad_fran": 3,
     "title": "Rutmönstret vrider sig medurs",
     "rule": "Mönstret i de fyra rutorna vrider sig ett kvarts varv medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -1457,6 +1469,7 @@
   },
   {
     "id": "v7a-3c-vand-01",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar 135 grader",
     "rule": "Pricken flyttar 135 grader moturs runt cirkeln för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld hela vägen.",
     "difficulty": 2,
@@ -1554,6 +1567,7 @@
   },
   {
     "id": "v7a-3c-vand-02",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar 90 grader",
     "rule": "Pricken flyttar 90 grader medurs runt cirkeln för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är ofylld hela vägen.",
     "difficulty": 2,
@@ -1651,6 +1665,7 @@
   },
   {
     "id": "v7a-3c-vand-03",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar moturs",
     "rule": "Pricken flyttar ett steg moturs runt de fyra rutorna (uppe till vänster, nere till vänster, nere till höger, uppe till höger) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -1804,6 +1819,7 @@
   },
   {
     "id": "v7a-3c-vand-04",
+    "pensionerad_fran": 3,
     "title": "Den grå rutan vandrar medurs",
     "rule": "Den grå rutan flyttar ett steg medurs runt de fyra rutorna (uppe till vänster, uppe till höger, nere till höger, nere till vänster) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
@@ -1957,6 +1973,7 @@
   },
   {
     "id": "v7a-3c-vand-05",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar 45 grader",
     "rule": "Pricken flyttar 45 grader medurs runt cirkeln för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är ofylld hela vägen.",
     "difficulty": 2,
@@ -2054,6 +2071,7 @@
   },
   {
     "id": "v7a-3c-byte-01",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter spets",
     "rule": "Pilen vrider sig 135 grader moturs för varje ruta. Spetsen växlar mellan fylld och öppen för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2165,6 +2183,7 @@
   },
   {
     "id": "v7a-3c-byte-02",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter längd",
     "rule": "Pilen vrider sig 90 grader medurs för varje ruta. Längden växlar mellan lång och kort för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2276,6 +2295,7 @@
   },
   {
     "id": "v7a-3c-byte-03",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter längd",
     "rule": "Pilen vrider sig 135 grader medurs för varje ruta. Längden växlar mellan lång och kort för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2387,6 +2407,7 @@
   },
   {
     "id": "v7a-3c-byte-04",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter spets",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Spetsen växlar mellan fylld och öppen för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2498,6 +2519,7 @@
   },
   {
     "id": "v7a-3c-byte-05",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar och mitten byter fyllning",
     "rule": "Pricken flyttar 135 grader medurs runt cirkeln för varje ruta. Mittpunkten växlar mellan fylld och ofylld för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2595,6 +2617,7 @@
   },
   {
     "id": "v7a-3c-byte-06",
+    "pensionerad_fran": 3,
     "title": "Pricken vandrar och mitten byter fyllning",
     "rule": "Pricken flyttar 90 grader moturs runt cirkeln för varje ruta. Mittpunkten växlar mellan fylld och ofylld för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2692,6 +2715,7 @@
   },
   {
     "id": "v7a-3c-byte-07",
+    "pensionerad_fran": 3,
     "title": "Pilen vrider sig och byter längd",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Längden växlar mellan lång och kort för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2803,6 +2827,7 @@
   },
   {
     "id": "v7a-3c-tva-01",
+    "pensionerad_fran": 3,
     "title": "Två markeringar vandrar åt olika håll",
     "rule": "Den svarta rutan flyttar ett steg medurs och den grå rutan ett steg moturs runt de fyra rutorna för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -2956,6 +2981,7 @@
   },
   {
     "id": "v7a-3c-tva-02",
+    "pensionerad_fran": 3,
     "title": "Två markeringar vandrar åt olika håll",
     "rule": "Pricken flyttar ett steg moturs och den svarta rutan ett steg medurs runt de fyra rutorna för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -3360,6 +3386,7 @@
   },
   {
     "id": "v7a-3c-tva-04",
+    "pensionerad_fran": 3,
     "title": "Former kring linjen",
     "rule": "Kvadraten flyttar ett steg åt vänster och stannar på samma sida om linjen. Cirkeln flyttar ett steg åt höger och byter sida om linjen för varje ruta. Kommer en form till kanten fortsätter den från andra sidan. Varje rad börjar förskjuten mot raden ovanför. Sidbytet följer läsordningen, uppifrån och ner.",
     "difficulty": 3,
@@ -3611,6 +3638,7 @@
   },
   {
     "id": "v7a-3c-tva-05",
+    "pensionerad_fran": 3,
     "title": "Former kring linjen",
     "rule": "Kvadraten flyttar ett steg åt höger och byter sida om linjen för varje ruta. Cirkeln flyttar ett steg åt höger och byter sida om linjen för varje ruta. Kommer en form till kanten fortsätter den från andra sidan. Varje rad börjar förskjuten mot raden ovanför. Sidbytet följer läsordningen, uppifrån och ner.",
     "difficulty": 4,
@@ -3862,6 +3890,7 @@
   },
   {
     "id": "v7a-3c-tva-06",
+    "pensionerad_fran": 3,
     "title": "Former kring linjen",
     "rule": "Cirkeln flyttar ett steg åt vänster och byter sida om linjen för varje ruta. Kommer en form till kanten fortsätter den från andra sidan. Varje rad börjar förskjuten mot raden ovanför. Sidbytet följer läsordningen, uppifrån och ner.",
     "difficulty": 3,
@@ -4048,6 +4077,7 @@
   },
   {
     "id": "v7a-3c-lant-01",
+    "pensionerad_fran": 3,
     "title": "Antal streck i rader och kolumner",
     "rule": "Strecken står alltid upprätt. Varje rad och varje kolumn har exakt en figur med två, en med tre och en med fyra streck.",
     "difficulty": 2,
@@ -4528,6 +4558,7 @@
   },
   {
     "id": "v7a-3c-lform-01",
+    "pensionerad_fran": 3,
     "title": "Antal hörn i rader och kolumner",
     "rule": "Alla figurer är grå. Varje rad och varje kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
     "difficulty": 2,
@@ -4750,6 +4781,7 @@
   },
   {
     "id": "v7a-3c-lform-03",
+    "pensionerad_fran": 3,
     "title": "Prickens läge i rader och kolumner",
     "rule": "Mittpunkten är ofylld i alla. Pricken sitter på ett av tre ställen: uppe till höger, nere eller till vänster. Varje rad och varje kolumn har varje läge exakt en gång.",
     "difficulty": 2,
@@ -5929,6 +5961,7 @@
   },
   {
     "id": "v7a-3c-over-04",
+    "pensionerad_fran": 3,
     "title": "Det som blir kvar",
     "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra.",
     "difficulty": 3,
@@ -6867,6 +6900,7 @@
   },
   {
     "id": "v7a-3c-speg-04",
+    "pensionerad_fran": 3,
     "title": "Två speglingar i rad",
     "rule": "Den mittersta rutan i varje kolumn är den översta speglad i en lodrät linje (vänster och höger byter plats). Den nedersta är den mittersta speglad i en vågrät linje (upp och ner byter plats).",
     "difficulty": 3,
@@ -7241,6 +7275,7 @@
   },
   {
     "id": "v7a-3c-antal-01",
+    "pensionerad_fran": 3,
     "title": "Strecken blir fler",
     "rule": "Antalet streck ökar med ett för varje ruta (ett, två, tre, fyra) och börjar sedan om. Strecken växlar mellan stående och liggande för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -7435,6 +7470,7 @@
   },
   {
     "id": "v7a-3c-antal-03",
+    "pensionerad_fran": 3,
     "title": "Strecken blir färre",
     "rule": "Ett streck tas bort för varje ruta, medurs runt mitten, tills ett är kvar. Sedan börjar det om. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 3,
@@ -7571,6 +7607,7 @@
   },
   {
     "id": "v7a-3c-antal-04",
+    "pensionerad_fran": 3,
     "title": "Sektorerna töms",
     "rule": "De svarta sektorerna blir en färre för varje ruta, medurs från samma startpunkt, och börjar om efter en. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,

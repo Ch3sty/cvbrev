@@ -36,11 +36,16 @@ export function genereraNiva(niva) {
     try {
       const q = bygg(rc, upptagna, { kandidatKrav: !tidigare.has(rc.id) });
       const gammal = tidigare.get(q.id);
-      if (gammal && key(gammal) !== key(q)) {
+      // Versionsfälten (bank_version 3) sätts i banken, inte av generatorn:
+      // de jämförs inte och följer med när filen skrivs om.
+      const utanVersion = ({ fran_version, pensionerad_fran, ...rest }) => rest;
+      if (gammal && key(utanVersion(gammal)) !== key(q)) {
         fel.push(`${q.id}: innehållet skulle ändras. Ett incheckat id får inte byta fråga; lägg nya recept sist.`);
         continue;
       }
-      ny.push(q);
+      if (!gammal) { ny.push(q); continue; }
+      const { id, ...rest } = q;
+      ny.push({ id, ...(gammal.pensionerad_fran !== undefined ? { pensionerad_fran: gammal.pensionerad_fran } : {}), ...(gammal.fran_version !== undefined ? { fran_version: gammal.fran_version } : {}), ...rest });
     } catch (e) {
       fel.push(e.message);
     }
