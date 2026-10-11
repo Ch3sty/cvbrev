@@ -23,9 +23,10 @@ export const profilHref = (token: string) => `/dashboard/intervju/profil/${token
 /**
  * Köpsteget för paketet som säljs, Jobbcoach Premium (spec-rummen 17.3).
  * Namnet står kvar från Träningspaketets tid; adressen byggs av kopstegHref
- * så att den följer SALD_PLAN.
+ * så att den följer SALD_PLAN. Platsen intervjuprov följer med till kassans
+ * metadata, så att köpet räknas mot väggen (betalvagg_visad i Intervjuprov).
  */
-export const TRANINGSPAKET_HREF = kopstegHref(SALD_PLAN)
+export const TRANINGSPAKET_HREF = kopstegHref(SALD_PLAN, 'intervjuprov')
 
 /** Grundtestet och det fördjupade testet. */
 export const GRUNDTEST_HREF = '/dashboard/tester/personlighet-grund'

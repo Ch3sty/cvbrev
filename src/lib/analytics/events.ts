@@ -57,6 +57,8 @@ export type BetalvaggPlats =
   | 'nedgraderad'
   | 'prenumeration'
   | 'smart_ton'
+  /** Intervjuprovet i artiklarna, när den inloggade kvoten är slut. */
+  | 'intervjuprov'
 
 /** Varför prissidan öppnades. */
 export type PricingTrigger = 'quota_lock' | 'nav' | 'cta' | 'paywall'

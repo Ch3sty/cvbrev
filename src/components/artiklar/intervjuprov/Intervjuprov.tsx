@@ -25,6 +25,7 @@ import { capture } from '@/lib/analytics/events'
 import { storePendingIntervju } from '@/lib/letters/claim-draft-client'
 import { IlluBlurGate } from '@/components/illustrations/StartFlowIllustrations'
 import { useFriSikt } from '@/components/shared/useFriSikt'
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import FlowError from '@/components/shell/FlowError'
 import StatusRow from '@/components/shell/StatusRow'
@@ -126,6 +127,9 @@ export default function Intervjuprov({
   // Spärrkortet och kvotkortet: samtycket och mobilens knapprad får aldrig täcka kontoknappen.
   const sparrRef = useRef<HTMLElement>(null)
   useFriSikt(sparrRef, phase === 'resultat' || kvot !== null)
+  // Kvotspärren med köplänk är en betalvägg (spec-rummen 23.8): nämnaren för
+  // köp med plats=intervjuprov. Bara när länken till köpsteget ritas.
+  useBetalvaggVisad('intervjuprov', Boolean(kvot?.upgradeHref))
   const startadRef = useRef(false)
   const forstaTeckenRef = useRef<number | null>(null)
 
