@@ -9,8 +9,8 @@
 
 import { motion } from 'framer-motion'
 import KontaktHero from '@/components/kontakt/KontaktHero'
-import KontaktForm from '@/components/kontakt/KontaktForm'
-import KontaktInfo from '@/components/kontakt/KontaktInfo'
+import KontaktForm from '@/components/kontakt/KontaktFormPublik'
+import KontaktInfo from '@/components/kontakt/KontaktInfoPublik'
 
 export default function KontaktPage() {
   return (

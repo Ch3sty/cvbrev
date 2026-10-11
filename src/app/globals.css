@@ -1297,7 +1297,7 @@ html {
   top: 16px;
   bottom: 16px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 0 2px 2px 0;
 }
 
@@ -1313,7 +1313,7 @@ html {
   top: 8px;
   bottom: 8px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 0 2px 2px 0;
 }
 
@@ -1335,7 +1335,7 @@ html {
   top: 24px;
   bottom: 24px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 2px;
 }
 /* På smala skärmar finns ingen marginal att lägga linjen i, så kedjan
@@ -1359,7 +1359,7 @@ html {
   left: 0;
   height: 2px;
   width: 40%;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 2px;
   animation: threadRun 1200ms ease-in-out infinite;
 }
@@ -1415,7 +1415,7 @@ html {
   left: -1px;
   height: 3px;
   width: 66%;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 12px 0 0 0;
   animation: threadToFull 200ms ease-out 240ms forwards;
 }
