@@ -43,13 +43,15 @@ export default function ProvCard({ href, rad2, anm, aria, locked, onLocked }: Pr
     </span>
   );
 
+  // Låst: raden öppnar startarket, vars betalvägg säger formatet och datumet
+  // (riktlinjerna 1.7). Exponeringen mäts där med kalla 'provrad' (1.8).
   if (locked) {
     return (
-      <button type="button" onClick={onLocked} aria-label={aria} className={RAD} data-provrad="last">
+      <Link href={`${href}?fran=provrad`} aria-label={aria} className={RAD} data-provrad="last" onClick={onLocked}>
         <SymProv size={36} className="shrink-0 text-ink-3" />
         {text}
         <IkonLas size={20} className="shrink-0 text-ink-3" />
-      </button>
+      </Link>
     );
   }
 

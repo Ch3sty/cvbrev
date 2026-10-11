@@ -210,7 +210,6 @@ export default function TestKategori({ group, perTest, plan = null, scope = null
           anm={provText.anm}
           aria={provText.aria}
           locked={provFeature !== null}
-          onLocked={provFeature ? () => onLocked?.(provFeature) : undefined}
         />
       ) : null}
     </section>

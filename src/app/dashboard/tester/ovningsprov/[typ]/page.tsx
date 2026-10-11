@@ -22,8 +22,16 @@ import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { passSida } from '../../pass/sida.server'
 
-export default async function OvningsprovStartSida({ params }: { params: Promise<{ typ: string }> }) {
+export default async function OvningsprovStartSida({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ typ: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const { typ } = await params
+  const sp = await searchParams
+  const fran = sp.fran === 'provrad' ? 'provrad' : null
   if (!arProvtyp(typ)) notFound()
   const { userId, supabase } = await passSida()
   const admin = testSkrivKlient()
@@ -67,6 +75,7 @@ export default async function OvningsprovStartSida({ params }: { params: Promise
       pagaende={pagaende?.id ?? null}
       gjortIdag={pagaende ? null : gjort?.id ?? null}
       tillbakaHref={TRANING_RUTT.alla}
+      fran={fran}
     />
   )
 }

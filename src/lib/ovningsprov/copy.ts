@@ -15,10 +15,10 @@ export const TYP_NAMN: Record<Provtyp, string> = { logik: 'Logik', verbal: 'Verb
 const TYP_GEMEN: Record<Provtyp, string> = { logik: 'logik', verbal: 'verbalt', numerisk: 'numeriskt' };
 
 /** Ordet för en uppgift i texterna. */
-export const PUNKT_ORD: Record<Provtyp, { en: string; flera: string }> = {
-  logik: { en: 'uppgift', flera: 'uppgifter' },
-  verbal: { en: 'påstående', flera: 'påståenden' },
-  numerisk: { en: 'fråga', flera: 'frågor' },
+export const PUNKT_ORD: Record<Provtyp, { en: string; flera: string; best: string; bestFlera: string }> = {
+  logik: { en: 'uppgift', flera: 'uppgifter', best: 'uppgiften', bestFlera: 'uppgifterna' },
+  verbal: { en: 'påstående', flera: 'påståenden', best: 'påståendet', bestFlera: 'påståendena' },
+  numerisk: { en: 'fråga', flera: 'frågor', best: 'frågan', bestFlera: 'frågorna' },
 };
 
 export const START = {
@@ -38,8 +38,8 @@ export const START = {
     { titel: 'Obesvarade räknas som fel', text: 'Gissa hellre än att lämna tomt.' },
   ],
   reglerAria: 'Tre regler',
-  efterLogik: 'Resultatet blir en punkt på kurvan med samma vikt som en nivåkoll. Genomgången med alla frågor kommer direkt efteråt.',
-  efter: 'Genomgången med alla frågor kommer direkt efteråt.',
+  efterLogik: 'Resultatet blir en punkt på kurvan med samma vikt som en nivåkoll. Genomgången med alla uppgifter kommer direkt efteråt.',
+  efter: 'Genomgången med rätt svar och förklaring kommer direkt efteråt.',
   knapp: 'Starta övningsprovet',
   startar: 'Startar provet',
   avbryt: 'Avbryter du sparas inget resultat.',
@@ -130,14 +130,20 @@ export const RESULTAT = {
   },
   genomgang: {
     rub: 'Genomgång',
-    titel: (n: number) => (n === 0 ? 'Inga frågor att titta på' : n === 1 ? 'En fråga att titta på' : `${versal(talord(n))} frågor att titta på`),
+    titel: (n: number, typ: Provtyp) =>
+      n === 0
+        ? `Inga ${PUNKT_ORD[typ].flera} att titta på`
+        : n === 1
+          ? `${typ === 'verbal' ? 'Ett' : 'En'} ${PUNKT_ORD[typ].en} att titta på`
+          : `${versal(talord(n))} ${PUNKT_ORD[typ].flera} att titta på`,
     text: (fel: number, obesvarade: number) =>
       obesvarade > 0 && fel > 0
-        ? 'Fel och obesvarade, med rätt svar och förklaringen vid varje fråga.'
+        ? 'Fel och obesvarade, med rätt svar och förklaringen vid var och en.'
         : obesvarade > 0
-          ? 'De obesvarade, med rätt svar och förklaringen vid varje fråga.'
-          : 'Rätt svar och förklaringen vid varje fråga.',
-    knapp: (n: number) => (n === 1 ? 'Gå igenom frågan' : `Gå igenom de ${talord(n)} frågorna`),
+          ? 'De obesvarade, med rätt svar och förklaringen vid var och en.'
+          : 'Rätt svar och förklaringen vid var och en.',
+    knapp: (n: number, typ: Provtyp) =>
+      n === 1 ? `Gå igenom ${PUNKT_ORD[typ].best}` : `Gå igenom de ${talord(n)} ${PUNKT_ORD[typ].bestFlera}`,
     dolj: 'Dölj genomgången',
     obesvarad: 'Obesvarad',
     ditt: (svar: string) => `Ditt svar: ${svar}`,

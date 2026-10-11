@@ -78,10 +78,10 @@ export function ovningsResultat(vy: Ovningsvy, opt: { datum: string | null; daga
     andra: andraTalet(typ, r.obesvarade),
     mening: RESULTAT.mening(r.obesvarade, besvarade > 0 ? (r.ratt / besvarade) : 0, r.tappade[0]?.namn ?? null),
     genomgang: {
-      titel: RESULTAT.genomgang.titel(missar),
+      titel: RESULTAT.genomgang.titel(missar, typ),
       text: RESULTAT.genomgang.text(missar - r.obesvarade, r.obesvarade),
       antal: missar,
-      knapp: RESULTAT.genomgang.knapp(missar),
+      knapp: RESULTAT.genomgang.knapp(missar, typ),
     },
     tappade: r.tappade.length
       ? {
@@ -152,10 +152,10 @@ export function logikResultat(inp: {
     andra: andraTalet('logik', inp.obesvarade),
     mening,
     genomgang: {
-      titel: RESULTAT.genomgang.titel(missar),
+      titel: RESULTAT.genomgang.titel(missar, 'logik'),
       text: RESULTAT.genomgang.text(missar - inp.obesvarade, inp.obesvarade),
       antal: missar,
-      knapp: RESULTAT.genomgang.knapp(missar),
+      knapp: RESULTAT.genomgang.knapp(missar, 'logik'),
     },
     tappade: tappade.length
       ? {

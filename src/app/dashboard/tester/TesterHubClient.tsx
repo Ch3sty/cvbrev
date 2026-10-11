@@ -141,7 +141,7 @@ export default function TesterHubClient({
   const { perTest, aggregate, personality, plan, harNivakoll, isPremium, scope } = data;
 
   const hasAnyData =
-    aggregate.hasAnyData || personality.grund.hasProfile || personality.avancerad.hasProfile;
+    aggregate.hasAnyData || harNivakoll || personality.grund.hasProfile || personality.avancerad.hasProfile;
 
   const harAllaNivaer = scopeHasFeature(scope, 'tests_above_base');
   const huvud = testHuvud(scope);

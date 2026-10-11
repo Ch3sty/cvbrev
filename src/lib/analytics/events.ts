@@ -405,6 +405,10 @@ export interface AnalyticsEvents {
   betalvagg_visad: {
     plats: BetalvaggPlats
     dagar_kvar: number | null
+    /** Varifrån (riktlinjer-tester-v2 1.8): 'provrad' när provraden i Alla tester öppnade den. */
+    kalla?: string
+    /** Testtypen vid övningsprovets betalvägg: logik, verbal, numerisk. */
+    test_kind?: string
   }
   /* ---------------------------------------------- Rummen, våg 4
      rum_bytt vid varje byte mellan två rum (inte landningen), med varifrån
