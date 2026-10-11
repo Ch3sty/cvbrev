@@ -69,7 +69,7 @@ export default function PersonligtBrevExampleSaljare() {
           className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
         >
           <Download className="w-5 h-5" />
-          Ladda ned exempel (.txt)
+          Ladda ner exempel (.txt)
         </button>
         <button
           onClick={handleCopyToClipboard}

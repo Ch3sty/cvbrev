@@ -233,6 +233,6 @@ export function mallHuvud(scope: Scope | null): { statusrad: string; rubrik: str
   return {
     statusrad: scope === 'tester' ? `Du har ${planNamn('test_week')}` : 'Du är på gratisnivån',
     rubrik: `${FREE_TEMPLATE_COUNT} mallar ingår. Alla ${TEMPLATE_COUNT} ingår i ${paketKort()}.`,
-    not: 'Gråa mallar går att förhandsvisa i full storlek, inte ladda ned.',
+    not: 'Gråa mallar går att förhandsvisa i full storlek, inte ladda ner.',
   }
 }

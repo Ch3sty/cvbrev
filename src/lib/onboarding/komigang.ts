@@ -257,7 +257,7 @@ export function brickaText(
     case 'mall':
       return {
         key,
-        titel: 'Välj mall och ladda ned',
+        titel: 'Välj mall och ladda ner',
         text:
           paket === 'cv' || paket === 'allt'
             ? `${TEMPLATE_COUNT} mallar som rekryteringssystem läser`

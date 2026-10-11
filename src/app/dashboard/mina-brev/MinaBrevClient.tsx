@@ -262,7 +262,7 @@ export default function MinaBrevClient({
               ) : null}
             </>
           ) : (
-            'Läs, redigera och ladda ned de brev du har sparat.'
+            'Läs, redigera och ladda ner de brev du har sparat.'
           )
         }
         tat={false}

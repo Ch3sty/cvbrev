@@ -98,7 +98,7 @@ export const COMPARISON: ComparisonGroup[] = [
       {
         label: 'Personliga brev',
         sub: 'skrivna på annonsen',
-        free: g('1, sedan 1 i veckan', 'läsa, inte ladda ned'),
+        free: g('1, sedan 1 i veckan', 'läsa, inte ladda ner'),
         premium: ja('Utan tak', 'nedladdning som PDF'),
       },
       {
