@@ -28,7 +28,7 @@ import CVMallarGalleri from './components/CVMallarGalleri'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMallar } from '@/components/illustrations/PriserScener'
-import { SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { isValidTemplateId } from '@/lib/cv/templates'
 import { FONTS } from '@/lib/cv/preview-utils'
 
@@ -100,7 +100,7 @@ export default function CVMallarSida() {
         url: `https://www.jobbcoach.ai/cv-mallar#${tpl.id}`,
         offers: {
           '@type': 'Offer',
-          price: tpl.tier === 'free' ? '0' : '149',
+          price: tpl.tier === 'free' ? '0' : String(PLAN_BY_KEY[SALD_PLAN].amount),
           priceCurrency: 'SEK',
           availability: 'https://schema.org/InStock',
           url: 'https://www.jobbcoach.ai/cv-mallar',
