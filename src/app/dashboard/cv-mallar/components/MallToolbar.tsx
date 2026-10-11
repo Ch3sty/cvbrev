@@ -6,6 +6,14 @@ import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from '@/com
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
+/**
+ * Typsnittsgruppens rubrik. preview-utils kallar premiumgruppen "CV-paketet";
+ * i appen heter den Premium (copy-premium avsnitt 3, brickan).
+ */
+function kategoriNamn(kategori: string): string {
+  return kategori === 'CV-paketet' ? PAKETRADER.bricka : kategori;
+}
+
 /** Maste matcha langden pa ut-keyframsen i FONT_MENU_CSS. */
 const FONT_EXIT_MS = 220;
 
@@ -152,7 +160,7 @@ export default function MallToolbar({
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2 first:pt-3 last:pb-3">
                     <div className="px-4 pb-1.5 text-steg uppercase text-ink-3">
-                      {category}
+                      {kategoriNamn(category)}
                     </div>
                     {fonts.map(font => (
                       <FontOptionRow
@@ -221,7 +229,7 @@ export default function MallToolbar({
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2">
                     <div className="px-5 pb-1.5 pt-2 text-steg uppercase text-ink-3">
-                      {category}
+                      {kategoriNamn(category)}
                     </div>
                     {fonts.map(font => (
                       <FontOptionRow
