@@ -9,6 +9,8 @@
  * Premium säljs: allt ingår i samma, och raden säger det. Serverkomponent.
  */
 
+import Link from 'next/link'
+
 import {
   IlluScenBrev,
   IlluScenCoach,
@@ -69,6 +71,16 @@ export default function PriserFunktioner() {
                       </li>
                     ))}
                   </ol>
+                ) : null}
+                {'lank' in kort && kort.lank ? (
+                  <p className="mt-3 text-sm">
+                    <Link
+                      href={kort.lank.href}
+                      className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+                    >
+                      {kort.lank.text}
+                    </Link>
+                  </p>
                 ) : null}
               </div>
             </article>

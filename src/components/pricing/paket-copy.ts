@@ -212,6 +212,8 @@ export interface FunktionKort {
   ingar: readonly PaketId[]
   /** Kortet spänner båda kolumnerna på desktop. */
   bred?: boolean
+  /** Textlänk under stegen, till en publik sida utan konto. */
+  lank?: { text: string; href: string }
 }
 
 /** "Ingår i Premium. Gratis: …" (copy-premium avsnitt 3). */
@@ -266,6 +268,9 @@ export const FUNKTIONER = {
       ],
       ingar: ['allt'],
       bred: true,
+      // Personlighetsprovet utan konto (docs/design/rod-trad-prov-spec-2026-09-24.md).
+      // Länken stod förr på Träningspaketets kort och flyttade hit i våg 5.
+      lank: { text: 'Gör personlighetsprovet utan konto', href: '/verktyg/personlighetstest' },
     },
     {
       id: 'matchade-jobb',
