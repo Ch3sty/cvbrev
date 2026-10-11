@@ -35,7 +35,7 @@ export async function GET() {
     return NextResponse.json({ success: true, data: data ?? [] });
   } catch (error) {
     console.error('Ansökningshämtning error:', error);
-    return NextResponse.json({ error: 'Serverfel vid hämtning av ansökningar' }, { status: 500 });
+    return NextResponse.json({ error: 'Serverfel när dina sökta tjänster skulle hämtas' }, { status: 500 });
   }
 }
 
@@ -123,7 +123,7 @@ export async function POST(request: Request) {
 
     if (insertError || !created) {
       console.error('Fel vid skapande av ansökan:', insertError);
-      return NextResponse.json({ error: insertError?.message || 'Kunde inte skapa ansökan' }, { status: 500 });
+      return NextResponse.json({ error: insertError?.message || 'Kunde inte spara den sökta tjänsten' }, { status: 500 });
     }
 
     // Första händelsen i tidslinjen; triggern sätter current_status = 'applied'.
@@ -137,6 +137,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: { ...created, current_status: 'applied' } });
   } catch (error) {
     console.error('Ansökningsskapande error:', error);
-    return NextResponse.json({ error: 'Serverfel vid skapande av ansökan' }, { status: 500 });
+    return NextResponse.json({ error: 'Serverfel när den sökta tjänsten skulle sparas' }, { status: 500 });
   }
 }

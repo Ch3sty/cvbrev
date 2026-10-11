@@ -33,7 +33,7 @@ export async function POST(
       .eq('user_id', user.id)
       .maybeSingle();
     if (!application) {
-      return NextResponse.json({ error: 'Ansökan hittades inte' }, { status: 404 });
+      return NextResponse.json({ error: 'Den sökta tjänsten hittades inte' }, { status: 404 });
     }
 
     let body: Record<string, unknown>;

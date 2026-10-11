@@ -199,7 +199,7 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
           <div className="flex items-start">
             <Info className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0 mt-0.5" />
             <p className="text-yellow-800">
-              Du har nått maxgränsen på {maxCvCount} CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
+              Du har nått maxgränsen på {maxCvCount} CV. För att ladda upp ett nytt CV, ta först bort ett befintligt.
             </p>
           </div>
         </div>

@@ -2,6 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { antal } from '@/lib/rum/antal';
 import {
   CheckCircle2,
   TrendingUp,
@@ -79,7 +80,7 @@ export default function AnalysisOverviewStep({
           Din analys är klar!
         </h3>
         <p className="text-lg text-gray-600">
-          Vi har identifierat <span className="font-semibold text-pink-600">{totalImprovements} förbättringar</span> för ditt CV
+          Vi har identifierat <span className="font-semibold text-pink-600">{antal(totalImprovements, 'förbättring', 'förbättringar')}</span> för ditt CV
         </p>
       </motion.div>
 

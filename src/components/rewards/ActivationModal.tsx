@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check, Gift, Calendar, Crown, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { paketKort } from '@/lib/plans/plans';
 
 interface ActivationModalProps {
   isOpen: boolean;
@@ -90,7 +91,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             href="/dashboard"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-200"
           >
-            Utforska paketet
+            {`Utforska ${paketKort()}`}
             <ExternalLink className="w-4 h-4" />
           </Link>
         </div>
@@ -120,7 +121,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             <div className="text-3xl font-bold text-emerald-600 mb-2">
               +{data.daysAdded} dagar
             </div>
-            <div className="text-sm text-gray-600 mb-3">tillagda på din premiumtid</div>
+            <div className="text-sm text-gray-600 mb-3">{`tillagda på din tid med ${paketKort()}`}</div>
             <div className="pt-3 border-t border-emerald-200">
               <div className="text-sm text-gray-700 mb-1">Nytt utgångsdatum:</div>
               <div className="text-lg font-semibold text-gray-900">
@@ -173,7 +174,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               </div>
             </div>
             <p className="text-xs text-gray-600 mt-3">
-              Koden är sparad och kan användas när du köper ett paket
+              {`Koden är sparad och gäller när du köper ${paketKort()}.`}
             </p>
           </div>
 

@@ -38,7 +38,7 @@ export async function GET() {
 
     if (linkedError) {
       console.error('Backfill: kunde inte hämta kopplade ansökningar', linkedError);
-      return NextResponse.json({ error: 'Kunde inte hämta ansökningar' }, { status: 500 });
+      return NextResponse.json({ error: 'Kunde inte hämta dina sökta tjänster' }, { status: 500 });
     }
 
     const linkedIds = new Set((linked ?? []).map((row) => row.letter_id));

@@ -56,6 +56,8 @@ export type BetalvaggPlats =
   | 'af_rapport'
   | 'nedgraderad'
   | 'prenumeration'
+  | 'smart_ton'
+  | 'linkedin_kvot'
 
 /** Varför prissidan öppnades. */
 export type PricingTrigger = 'quota_lock' | 'nav' | 'cta' | 'paywall'

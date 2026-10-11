@@ -1,6 +1,7 @@
 'use client';
 
 import ChangeLogItem from './ChangeLogItem';
+import { antal } from '@/lib/rum/antal';
 
 export interface ChangeLogData {
   /** Personbeskrivning ändrad */
@@ -71,7 +72,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
             ...(data.profile.changes.length > 0
               ? [
                   {
-                    label: `${data.profile.changes.length} förbättringar`,
+                    label: antal(data.profile.changes.length, 'förbättring', 'förbättringar'),
                     tone: 'orange' as const,
                   },
                 ]

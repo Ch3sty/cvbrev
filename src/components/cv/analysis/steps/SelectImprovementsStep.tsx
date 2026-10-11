@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { antal } from '@/lib/rum/antal';
 import { motion } from 'framer-motion';
 import {
   ChevronDown,
@@ -225,7 +226,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
             {totalSelected}
           </div>
           <div className="text-gray-600">
-            av {totalAvailable} förbättringar valda
+            {`av ${antal(totalAvailable, 'förbättring vald', 'förbättringar valda')}`}
           </div>
         </div>
       </div>

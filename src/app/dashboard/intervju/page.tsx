@@ -29,7 +29,10 @@ import EmptyState from '@/components/shell/EmptyState'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
-import { GRUNDTEST_HREF, TRANINGSPAKET_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
+import { GRUNDTEST_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
+
+/** Prissidan (copy-premium avsnitt 3: "Se vad som ingår"). */
+const PRISER_HREF = '/priser'
 import { nar, type HubbHandling } from '@/lib/intervju/nasta'
 import { getInforIntervjunData } from './getInforIntervjunData'
 import InforIntervjunClient from './InforIntervjunClient'
@@ -165,7 +168,7 @@ export default async function InforIntervjunPage() {
             wrap
             className="mt-4"
             action={
-              <Link href={TRANINGSPAKET_HREF} className={`hidden sm:inline-flex ${LANK_UTAN_DISPLAY}`}>
+              <Link href={PRISER_HREF} className={`hidden sm:inline-flex ${LANK_UTAN_DISPLAY}`}>
                 {KVOT.lank}
               </Link>
             }
@@ -175,7 +178,7 @@ export default async function InforIntervjunPage() {
         )}
         {/* På mobil står länken under raden: namnet med pris ryms inte bredvid texten. */}
         {data.utanTak ? null : (
-          <Link href={TRANINGSPAKET_HREF} className={`mt-1 flex w-fit sm:hidden ${LANK_UTAN_DISPLAY}`}>
+          <Link href={PRISER_HREF} className={`mt-1 flex w-fit sm:hidden ${LANK_UTAN_DISPLAY}`}>
             {KVOT.lank}
           </Link>
         )}

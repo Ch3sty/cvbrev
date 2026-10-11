@@ -6,10 +6,11 @@ import { matrisInnehall, skapaMedBlandning } from '@/lib/logicTestV7/fragor.serv
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
+import { paketKort } from '@/lib/plans/plans';
 
 const TEST_TYPE = 'matrislogik-avancerad';
 const QUOTA_MESSAGE =
-  'Du har redan gjort det här testet idag. Ny chans i morgon, eller uppgradera för obegränsat.';
+  `Du har redan gjort det här testet i dag. Ny chans i morgon, eller köp ${paketKort()} för obegränsat.`;
 
 export async function POST() {
   try {

@@ -239,7 +239,7 @@ export default function SoktaTjansterClient({
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.error || 'Kunde inte logga ansökan');
+        throw new Error(json.error || 'Kunde inte spara den sökta tjänsten');
       }
       const created = json.data as JobApplication;
       setApplications((prev) => [created, ...prev.filter((a) => a.id !== created.id)]);
@@ -293,7 +293,7 @@ export default function SoktaTjansterClient({
     successWithActivity(
       'Sparad i Sökta tjänster.',
       'application_logged',
-      `Loggade ansökan: ${created.job_title} hos ${created.company}`,
+      `Loggade en sökt tjänst: ${created.job_title} hos ${created.company}`,
       { applicationId: created.id, channel: created.application_channel },
       3000
     );

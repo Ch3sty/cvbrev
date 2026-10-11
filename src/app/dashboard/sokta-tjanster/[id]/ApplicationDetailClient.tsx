@@ -178,7 +178,7 @@ export default function ApplicationDetailClient({
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte uppdatera ansökan');
+      throw new Error(json.error || 'Kunde inte uppdatera den sökta tjänsten');
     }
     await load();
     success('Sparat.', 2500);

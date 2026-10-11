@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import { antal } from '@/lib/rum/antal';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, ChevronDown, ChevronUp, TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -79,7 +80,7 @@ export default function ProfileSummaryCard({
       {/* Changes Summary (Always Visible) */}
       {!isExpanded && (changes || []).length > 0 && (
         <div className="ml-9 text-sm text-gray-600">
-          <span className="font-medium">{(changes || []).length} förbättringar:</span> {(changes || [])[0]}
+          <span className="font-medium">{antal((changes || []).length, 'förbättring', 'förbättringar')}:</span> {(changes || [])[0]}
           {(changes || []).length > 1 && `, +${(changes || []).length - 1} till...`}
         </div>
       )}

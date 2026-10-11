@@ -669,7 +669,7 @@ export default function CreateLetterClient({
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte logga ansökan');
+      throw new Error(json.error || 'Kunde inte spara den sökta tjänsten');
     }
     logActivity(
       'application_logged',

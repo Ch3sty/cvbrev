@@ -22,9 +22,9 @@ import {
   IkonBalanserad,
   type IkonProps,
 } from '@/components/illustrations/Ikoner';
-import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
 import { ANDRA_FORVALD_TON, BREV_SEKTION } from '@/app/dashboard/profil/profil-copy';
-import { paketMedPris } from '@/lib/plans/plans';
+import { paketKort } from '@/lib/plans/plans';
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 
 type Tonality =
   | 'professional'
@@ -133,12 +133,12 @@ export default function TonalityLanguageStep({
 
         {!isPremium ? (
           <p className="text-meta text-ink-3">
-            Automatiskt tonval ingår i alla tre paketen.{' '}
+            {`Automatiskt tonval ingår i ${paketKort()}.`}{' '}
             <Link
-              href={PREMIUM_HREF}
+              href="/priser"
               className="font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
-              Se {paketMedPris('cv_week')}
+              {PAKETRADER.jamfor}
             </Link>
           </p>
         ) : null}

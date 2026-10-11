@@ -144,7 +144,7 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
                 />
                 <Tooltip
                   cursor={{ fill: 'rgba(28, 25, 23, 0.06)' }}
-                  formatter={(value: number) => [`${value} ansökningar`, '']}
+                  formatter={(value: number) => [value === 1 ? '1 sökt tjänst' : `${value} sökta tjänster`, '']}
                   separator=""
                   contentStyle={{
                     borderRadius: 8,

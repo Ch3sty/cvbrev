@@ -29,7 +29,7 @@ export async function GET(
       .single();
 
     if (error || !application) {
-      return NextResponse.json({ error: 'Ansökan hittades inte' }, { status: 404 });
+      return NextResponse.json({ error: 'Den sökta tjänsten hittades inte' }, { status: 404 });
     }
 
     const { data: events, error: eventsError } = await supabase
@@ -60,7 +60,7 @@ export async function GET(
     });
   } catch (error) {
     console.error('Ansökningshämtning error:', error);
-    return NextResponse.json({ error: 'Serverfel vid hämtning av ansökan' }, { status: 500 });
+    return NextResponse.json({ error: 'Serverfel när den sökta tjänsten skulle hämtas' }, { status: 500 });
   }
 }
 
@@ -127,7 +127,7 @@ export async function PUT(
 
     if (error || !data) {
       console.error('Fel vid uppdatering av ansökan:', error);
-      return NextResponse.json({ error: 'Kunde inte uppdatera ansökan' }, { status: 500 });
+      return NextResponse.json({ error: 'Kunde inte uppdatera den sökta tjänsten' }, { status: 500 });
     }
 
     // Om ansökningsdatumet ändrades: håll den första "Sökt"-händelsen i synk
@@ -152,7 +152,7 @@ export async function PUT(
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Ansökningsuppdatering error:', error);
-    return NextResponse.json({ error: 'Serverfel vid uppdatering av ansökan' }, { status: 500 });
+    return NextResponse.json({ error: 'Serverfel när den sökta tjänsten skulle uppdateras' }, { status: 500 });
   }
 }
 
@@ -178,7 +178,7 @@ export async function DELETE(
 
     if (error) {
       console.error('Fel vid borttagning av ansökan:', error);
-      return NextResponse.json({ error: 'Kunde inte ta bort ansökan' }, { status: 500 });
+      return NextResponse.json({ error: 'Kunde inte ta bort den sökta tjänsten' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });

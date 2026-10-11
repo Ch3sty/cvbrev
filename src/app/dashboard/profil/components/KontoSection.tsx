@@ -28,7 +28,7 @@ const MEJL: MejlRad[] = [
     key: 'digest',
     endpoint: '/api/email/digest-preference',
     title: 'Veckosammanfattning',
-    body: 'En gång i veckan: hur många jobb du sökte, vad som väntar på svar och vilka ansökningar som är värda en påminnelse. Skickas bara när du har ansökningar igång.',
+    body: 'En gång i veckan: hur många jobb du sökte, vad som väntar på svar och vilka sökta tjänster som är värda en påminnelse. Skickas bara när du har sökta tjänster igång.',
     ariaLabel: 'Veckosammanfattning via mejl',
   },
   {

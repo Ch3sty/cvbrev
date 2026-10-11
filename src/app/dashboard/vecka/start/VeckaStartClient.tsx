@@ -38,7 +38,7 @@ export interface ValkommenClientProps {
   cvNamn: string | null
   cvUppladdat: string | null
   poang: number | null
-  /** Köpet var Dagspasset: scopet är allt, men namnet ska vara Dagspasset. */
+  /** Köpet var Dagspasset (befintlig kund): scopet är allt i ett dygn. Namnet Dagspasset visas aldrig. */
   dagspass?: boolean
 }
 

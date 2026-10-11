@@ -10,6 +10,7 @@ import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
 import { backfillProfileContact } from '@/lib/profile/backfillContact';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
+import { paketKort } from '@/lib/plans/plans';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
@@ -359,7 +360,7 @@ Alternativt: Ladda upp som .DOCX istället.`,
 
       if (count !== null && count >= cvGrans) {
         emitter.error({
-          error: 'Som gratisanvändare kan du bara ha 2 CV. Uppgradera till premium för att hantera flera CV:n.',
+          error: `Som gratisanvändare kan du spara ${cvGrans} CV. Fler CV ingår i ${paketKort()}.`,
           code: 'CV_LIMIT_REACHED',
           status: 403,
         });

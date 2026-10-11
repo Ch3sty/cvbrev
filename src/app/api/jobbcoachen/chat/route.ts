@@ -5,6 +5,7 @@ import { checkChatQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
+import { paketKort } from '@/lib/plans/plans';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -127,7 +128,7 @@ export async function POST(req: NextRequest) {
           ...quotaExceededBody(
             'chat_message',
             quota,
-            'Du har använt dina tio meddelanden. I Hela paketet, 99 kr i veckan, frågar du Jobbcoachen så mycket du vill.'
+            `Du har använt dina tio meddelanden. I ${paketKort()} frågar du Jobbcoachen så mycket du vill.`
           ),
           feature: 'chat_unlimited',
           suggestedPlan: suggestPlan('chat_unlimited', track),

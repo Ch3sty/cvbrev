@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Gift, Copy, Check, ExternalLink, Calendar, Tag } from 'lucide-react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { paketKort } from '@/lib/plans/plans';
 
 interface DiscountCode {
   id: string;
@@ -250,8 +251,8 @@ const SavedDiscounts: React.FC = () => {
         </h4>
         <ul className="text-sm text-gray-700 space-y-1">
           <li>• Rabattkoder kan bara användas en gång och gäller för en betalning</li>
-          <li>• <strong>Med ett paket:</strong> Rabatten dras automatiskt vid nästa betalning</li>
-          <li>• <strong>På gratisnivån:</strong> Köp ett paket för att använda rabatten</li>
+          <li>• <strong>{`Med ${paketKort()}:`}</strong> Rabatten dras automatiskt vid nästa betalning</li>
+          <li>• <strong>På gratisnivån:</strong> {`Köp ${paketKort()} för att använda rabatten`}</li>
           <li>• Utgångna koder kan inte användas – lås upp nya belöningar för fler rabatter</li>
         </ul>
       </div>

@@ -12,7 +12,7 @@ import { Check } from '@/components/illustrations/RumIkoner';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import { KNAPP_PRIMAR } from '@/components/shell/knappar';
-import { PLAN_BY_KEY } from '@/lib/plans/plans';
+import { SALD_PLAN, paketKort, paketNamn } from '@/lib/plans/plans';
 import {
   IkonCv,
   IkonAnalys,
@@ -44,7 +44,7 @@ const features: Feature[] = [
       'Vi läser av arbetslivserfarenhet och roller',
       'Identifierar dina kompetenser och färdigheter',
       'Sparar kontaktuppgifter till dina brev',
-      'Med ett paket: obegränsat antal CV',
+      `Med ${paketKort()}: obegränsat antal CV`,
     ],
     href: '/dashboard/profil/cv',
     cta: 'Ladda upp CV',
@@ -89,7 +89,7 @@ const features: Feature[] = [
       'Formuleringar som sticker ut',
       'Rätt nyckelord för din bransch och roll',
       'Anpassat för LinkedIns sökning',
-      `Ingår i ${PLAN_BY_KEY.cv_week.name} och ${PLAN_BY_KEY.all_week.name}`,
+      `LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}`,
     ],
     href: '/dashboard/linkedin-optimizer',
     cta: 'Optimera LinkedIn',
@@ -118,7 +118,7 @@ const features: Feature[] = [
     benefits: [
       'Läsbara för rekryteringssystem',
       'Branschanpassade, rätt stil för din sektor',
-      'Mallarna i CV-paketet: Platinum Executive, Nordic Professional, Creative Edge',
+      `Mallar som ingår i ${paketKort()}: Platinum Executive, Nordic Professional, Creative Edge`,
       'Olika mallar för olika typer av roller',
     ],
     href: '/dashboard/cv-mallar',

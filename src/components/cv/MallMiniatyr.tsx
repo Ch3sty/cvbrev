@@ -13,7 +13,7 @@ import type { SimpleTemplate } from '@/lib/cv/simple-templates'
 
 export interface MallMiniatyrProps {
   mall: Pick<SimpleTemplate, 'id' | 'name' | 'imagePath' | 'tier'>
-  /** Raden under namnet: "gratis", "CV-paketet". */
+  /** Raden under namnet: "gratis", "Premium". */
   under?: ReactNode
   vald?: boolean
   /** Mallen ingår inte i paketet: insunken med lås. */

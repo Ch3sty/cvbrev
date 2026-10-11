@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { antal } from '@/lib/rum/antal';
 import {
   Target,
   Briefcase,
@@ -70,7 +71,7 @@ export default function AnalysisOverviewStep({
       title: 'Rollbaserade förbättringar',
       count: roleBasedCount,
       description: 'Vi förstärker varje arbetsbeskrivning med resultat och relevans.',
-      detail: `Vi går igenom ${roleBasedCount} roll${roleBasedCount === 1 ? '' : 'er'} och föreslår skarpare formuleringar med kvantifierad impact.`,
+      detail: `Vi går igenom ${antal(roleBasedCount, 'roll', 'roller')} och föreslår skarpare formuleringar med kvantifierad impact.`,
       priority: roleBasedCount > 5 ? 'high' : 'medium',
     },
     {
@@ -79,7 +80,7 @@ export default function AnalysisOverviewStep({
       title: 'Kompetenser och färdigheter',
       count: skillsCount,
       description: 'Nyckelord som rekryterare och urvalssystem letar efter.',
-      detail: `Vi lägger till ${skillsCount} efterfrågade kompetenser som matchar din målroll.`,
+      detail: `Vi lägger till ${antal(skillsCount, 'efterfrågad kompetens', 'efterfrågade kompetenser')} som matchar din målroll.`,
       priority: skillsCount > 7 ? 'high' : 'medium',
     },
     {
@@ -88,7 +89,7 @@ export default function AnalysisOverviewStep({
       title: 'Automatiska förbättringar',
       count: generalCount,
       description: 'Strukturella justeringar som lyfter helhetsintrycket.',
-      detail: `${generalCount} förbättringar för läsbarhet, formatering och flow.`,
+      detail: `${antal(generalCount, 'förbättring', 'förbättringar')} för läsbarhet, formatering och flöde.`,
       priority: 'medium',
     },
   ];
