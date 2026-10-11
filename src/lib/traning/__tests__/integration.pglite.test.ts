@@ -16,6 +16,7 @@ import { chansRatt, matningsNiva, PASS_TAK } from '../niva'
 import { validerPlan } from '../testplan'
 import { questionsForToken } from '@/lib/tests/anon-session'
 import type { Dag } from '../datum'
+import { byggHemvy } from '../hemvy'
 
 const SCOPE: Record<string, string | null> = {}
 const P = new Map(bankInfo().map((q) => [q.id, q.p]))
@@ -212,6 +213,17 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     expect(dag('2026-10-13')).toMatchObject({ typ: 'ommatning', status: 'kvar' })
     expect(dag('2026-10-23')?.typ).toBe('general')
 
+    // Våg 2: hemvyn ur samma status. Ommätningen i dag är gjord, så kortet
+    // visar dagens tal; start, tema och senaste passet kommer ur motorn.
+    expect(status.start).toEqual({ dag: '2026-10-06', niva: status.punkter[0].niva })
+    expect(status.behorighet.harOvanGrund).toBe(true)
+    expect(status.senastePass?.typ).toBe('pass')
+    expect(status.senastePass?.dag).toBe('2026-10-09')
+    const hem = byggHemvy({ status, idag: status.idag, flerTester: { verbalSenast: null, numeriskSenast: null, personlighetKlar: null }, jobbsok: { tjanster: 0, intervjuer: 0, brev: 0 } })
+    expect(hem.vagg.rubrik).toBe('14 dagar till Matrigma')
+    expect(hem.vagg.kurva?.punkter).toHaveLength(5)
+    expect(hem.lyft.handling).toBeTruthy()
+
     // Frågestatistiken: ett svar per besvarad fråga, bara blandade sessioner.
     const stat = await db.query('select sum(antal)::int as n from public.fraga_statistik')
     expect(stat.rows[0].n).toBe(12 + 27 + 12)
@@ -250,6 +262,11 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
     expect(status.punkter).toHaveLength(1)
     expect(status.plandagar.find((d) => d.typ === 'ommatning')?.status).toBe('last')
     expect(status.plandagar.filter((d) => d.typ === 'pass' && d.dag >= '2026-10-08').every((d) => d.status === 'last')).toBe(true)
+
+    // Våg 2: hemvyn (1f/W3 omritade enligt 17.2) säljer passet med kopparknappen.
+    const hem = byggHemvy({ status, idag: status.idag, flerTester: { verbalSenast: null, numeriskSenast: null, personlighetKlar: null }, jobbsok: { tjanster: 0, intervjuer: 0, brev: 0 } })
+    expect(hem.lyft.handling).toMatchObject({ typ: 'kop', feature: 'tests_above_base' })
+    expect(status.start?.dag).toBe('2026-10-06')
   }, 60_000)
 
   it('K1: mätning tisdag, fem pass och ommätning nästa tisdag ger Första veckan', async () => {
