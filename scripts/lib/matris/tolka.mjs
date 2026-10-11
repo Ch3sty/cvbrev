@@ -5,7 +5,9 @@
 // För varje dimension (celler.mjs) prövas alla enkla regler vi använder:
 // konstant, vridning i läsordning (fast eller växande steg), period,
 // latinsk kvadrat, rad, kolumn, diagonal, överlagring (union, XOR, snitt,
-// differens) per rad eller kolumn, spegling i två steg, summa av antal.
+// differens) per rad eller kolumn, överlagring följd av en vridning i
+// 45-gradessteg (strålar och sektorer, bandet "svår plus"), spegling i två
+// steg, summa av antal.
 // Varje regel som stämmer på de synliga rutorna ger en förutsägelse för
 // tomrummet. Ger två regler olika svar är frågan tvetydig.
 //
@@ -17,7 +19,7 @@
 
 import { dimsFor, rotera, spegelbilder, element, vKey, mod, tile, LAT_MEDURS } from './celler.mjs';
 
-const ORDNING = ['konstant', 'spegling', 'overlagring', 'rot-steg', 'rot-kumulativ', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'antal-steg', 'periodisk'];
+const ORDNING = ['konstant', 'spegling', 'overlagring', 'overlagring-vriden', 'rot-steg', 'rot-kumulativ', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'antal-steg', 'periodisk'];
 const LASORDNING = ['rot-steg', 'rot-kumulativ', 'periodisk', 'antal-steg'];
 
 // Ringar kan läsas på två sätt: antal + innersta + yttre, eller som en
@@ -137,6 +139,31 @@ function reglerFor(dim, V, seq, kind) {
     }
   }
 
+  // överlagring följd av vridning (bandet "svår plus"): tredje rutan är
+  // op(första, andra) vriden k steg om 45 grader. Bara mängder på åtta lägen
+  // (strålar, sektorer); 2×2 och 3×3 vrids inte här. Operationen ska göra
+  // något: blir resultatet bara den ena rutan är det en vridning av den, och
+  // då är det en annan familj. Regeln läggs till sist och tas bort igen om en
+  // annan regel redan förklarar dimensionen (se nedan), så att de frysta
+  // bankernas vridningar och speglingar läses som förut.
+  if (dim.mangd && dim.n === 8 && !harNull) {
+    for (const axel of ['kolumn', 'rad']) {
+      const trip = axel === 'kolumn'
+        ? [[V[0][0], V[0][1], V[0][2]], [V[1][0], V[1][1], V[1][2]]]
+        : [[V[0][0], V[1][0], V[2][0]], [V[0][1], V[1][1], V[2][1]]];
+      const [a3, b3] = axel === 'kolumn' ? [V[2][0], V[2][1]] : [V[0][2], V[1][2]];
+      for (const [op, f] of Object.entries(OPS)) {
+        for (let k = 1; k < 8; k++) {
+          const ok = trip.every(([a, b, c]) => {
+            const o = franMangd(dim, f(somMangd(dim, a), somMangd(dim, b)));
+            return !lika(o, a) && !lika(o, b) && lika(rotera(dim, o, k), c);
+          });
+          if (ok) add('overlagring-vriden', rotera(dim, franMangd(dim, f(somMangd(dim, a3), somMangd(dim, b3))), k), { op, axel, k });
+        }
+      }
+    }
+  }
+
   // spegling i två steg: kolumn 2 = M1(kolumn 1), kolumn 3 = M2(kolumn 2), eller per kolumn nedåt
   if ((dim.tile || dim.latHel || (dim.mangd && dim.typ === 'rot')) && !harNull) {
     const T = [];
@@ -161,6 +188,11 @@ function reglerFor(dim, V, seq, kind) {
     if ([0, 1].every((c) => V[0][c] + V[1][c] === V[2][c])) add('summa', V[0][2] + V[1][2], { axel: 'rad' });
   }
 
+  // Överlagring med vridning räknas bara när ingen enklare regel förklarar
+  // de synliga rutorna. En vridning i läsordning är till exempel alltid också
+  // "det som finns i den första men inte i den andra, vridet två steg" när
+  // rutorna inte överlappar.
+  if (fynd.some((f) => f.regel !== 'overlagring-vriden')) return fynd.filter((f) => f.regel !== 'overlagring-vriden');
   return fynd;
 }
 
@@ -229,9 +261,13 @@ export function familjFor(q, t = tolka(q)) {
   const aktiva = Object.values(t.regel).filter((r) => r.regel !== 'konstant');
   const regler = new Set(aktiva.map((r) => r.regel));
   if (regler.has('spegling')) return 'spegling';
-  if (regler.has('overlagring')) return 'overlagring';
+  if (regler.has('overlagring') || regler.has('overlagring-vriden')) return 'overlagring';
   if (regler.has('summa')) return 'antal-andras';
   if (t.kind === 'balanceline') return 'tva-rorelser';
+  // Minst två regler varav en latinsk kvadrat, och de övriga är latinska
+  // kvadrater, diagonaler eller växlingar i läsordning (schackmönster):
+  // latin-flera (bandet "svår plus", P1 till P3).
+  if (aktiva.length >= 2 && regler.has('latin') && aktiva.every((r) => ['latin', 'diagonal', 'periodisk'].includes(r.regel))) return 'latin-flera';
   const lasordning = aktiva.filter((r) => LASORDNING.includes(r.regel));
   if (lasordning.length) {
     // antal som ändras: räknedimension, eller en mängd som byter storlek

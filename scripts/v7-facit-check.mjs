@@ -22,12 +22,18 @@
 // upplysning, eftersom de är frysta och redan granskade, utom två former i
 // samma fack (15.4) och tankstreck (15.5), som är fel. Pensionerade frågor
 // (pensionerad: true) facitkontrolleras men räknas inte som upplysningar.
+//
+// Kandidatfiler (src/lib/logicTestV7/kandidater/) och frågor med band "plus"
+// körs alltid strikt. För bandet "svår plus" ingår oberoendet (ingen regel
+// är en funktion av en annan) och plus-kraven (antal regler, en regel
+// kopplad över rutnätet) i den strikta kontrollen och är fel. För alla andra
+// frågor skrivs oberoendet som upplysning: bankerna är frysta (beslut 15.6).
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
 import { tolka, familjFor, POS } from './lib/matris/tolka.mjs';
 import { misstagFor } from './lib/matris/misstag.mjs';
-import { kontrollera } from './lib/matris/kontroll.mjs';
+import { kontrollera, oberoende } from './lib/matris/kontroll.mjs';
 import { stable, vKey } from './lib/matris/celler.mjs';
 
 const ALLA = [
@@ -41,6 +47,7 @@ const ALLA = [
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
 const fel = [];
 const info = [];
+const infoOberoende = [];
 const ids = new Map();
 const rutnat = new Map();
 let antal = 0;
@@ -48,7 +55,7 @@ let antalPensionerade = 0;
 
 for (const fil of filer) {
   const bank = JSON.parse(readFileSync(fil, 'utf8'));
-  const ny = /3c\.v7\.json$/.test(fil);
+  const ny = /3c\.v7\.json$/.test(fil) || /[\\/]kandidater[\\/]/.test(fil);
   for (const q of bank) {
     antal++;
     const tag = `[${q.id}]`;
@@ -103,7 +110,8 @@ for (const fil of filer) {
 
     const k = kontrollera(q, { strikt: true, familj: q.family });
     if (pensionerad) continue;
-    if (ny) fel.push(...k.map((x) => `[strikt] ${x}`));
+    if (q.band !== 'plus') infoOberoende.push(...oberoende(q, t).map((x) => `[oberoende] ${x}`));
+    if (ny || q.band === 'plus') fel.push(...k.map((x) => `[strikt] ${x}`));
     else {
       // Två former i samma fack (15.4) och tankstreck (15.5) är fel även för
       // de frysta frågorna; resten står som upplysning.
@@ -118,6 +126,11 @@ console.log(`\nFacit- och latin-square-kontroll: ${antal} frågor i ${filer.leng
 if (info.length) {
   console.log(`Upplysning om de frysta bankerna (${info.length}), räknas inte som fel:`);
   info.forEach((x) => console.log('  · ' + x));
+  console.log('');
+}
+if (infoOberoende.length) {
+  console.log(`Upplysning om oberoende (${infoOberoende.length}), räknas inte som fel (bankerna är frysta, beslut 15.6):`);
+  infoOberoende.forEach((x) => console.log('  · ' + x));
   console.log('');
 }
 if (fel.length === 0) {

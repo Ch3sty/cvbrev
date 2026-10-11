@@ -258,6 +258,36 @@ function textOverlagring(q, t, R, F, regel) {
   return textMangd(dimEl.typ === 'mangd' ? { ...dimEl, mangd: true } : dimEl, R, F, null);
 }
 
+// Överlagring följd av vridning (bandet "svår plus"). Första träff vinner:
+// ovriden, fel håll, ett halvt varv för långt, fel operation med rätt
+// vridning, bara en av rutorna vriden, annars ett element för mycket eller
+// för lite.
+const VRID_TEXT = (k) => `${(k <= 4 ? k : 8 - k) * 45} grader ${k <= 4 ? 'medurs' : 'moturs'}`;
+export { VRID_TEXT };
+function textOverlagringVriden(q, t, R, F, regel) {
+  const dim = regel.dim;
+  const V = gridV(q, t, dim.id);
+  const { op, axel, k } = regel.info;
+  const [A, B] = axel === 'kolumn' ? [V[2][0], V[2][1]] : [V[0][2], V[1][2]];
+  const S = (v) => new Set(v.map(String));
+  const opv = (o) => [...OPS[o](S(A), S(B))].map(Number).sort((x, y) => x - y);
+  const rot = (v, j) => rotera(dim, v, j);
+  const C = opv(op);
+  if (lika(F, C)) return `Lägger ihop rätt, men mönstret ska också vridas ${VRID_TEXT(k)}.`;
+  if (lika(F, rot(C, -k))) return 'Vrider åt fel håll.';
+  if (mod(k + 4, 8) !== k && lika(F, rot(C, k + 4))) return 'Vrider rätt håll men ett halvt varv för långt.';
+  for (const o of Object.keys(OPS)) {
+    if (o === op) continue;
+    const D = opv(o);
+    if (lika(D, C) || !lika(F, rot(D, k))) continue;
+    const x = textOverlagring(q, t, C, D, { ...regel, regel: 'overlagring', info: { op, axel } });
+    if (x) return `Vridningen stämmer, men ${liten(x)}`;
+  }
+  if (lika(F, rot(A, k))) return `Vrider bara ${axel === 'kolumn' ? 'den första' : 'den översta'} rutan. De två ska först läggas ihop.`;
+  if (lika(F, rot(B, k))) return `Vrider bara ${axel === 'kolumn' ? 'den andra' : 'den mittersta'} rutan. De två ska först läggas ihop.`;
+  return textMangd(dim, R, F, null);
+}
+
 function textSpegling(q, t, R, F, regel) {
   const dim = regel.dim;
   const V = gridV(q, t, dim.id);
@@ -319,6 +349,7 @@ function textFor(q, t, dimId, F) {
       if (dim.balans && dim.sida) return textBalansSida(q, t, R, F, regel);
       return textRadKolumn(q, t, R, F, regel);
     case 'overlagring': return textOverlagring(q, t, R, F, regel);
+    case 'overlagring-vriden': return textOverlagringVriden(q, t, R, F, regel);
     case 'spegling': return textSpegling(q, t, R, F, regel);
     case 'summa': return textSumma(q, t, R, F, regel);
     default: return null;
@@ -341,6 +372,7 @@ function slaIhop(a, b) {
 function rattNamn(regel) {
   const d = regel.dim;
   if (d.balans) return null;
+  if (regel.regel === 'overlagring-vriden') return null; // "Vridningen stämmer, men" sätts i textOverlagringVriden
   if (d.typ === 'rot' && (d.verb === 'vridit sig')) return 'vridningen';
   if (d.typ === 'rot') return 'läget';
   if (d.id.startsWith('lat-')) return null;

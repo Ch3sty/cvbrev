@@ -1,0 +1,69 @@
+
+Facit- och latin-square-kontroll: 270 frågor i 6 banker (18 pensionerade, 252 valbara)
+
+Upplysning om de frysta bankerna (6), räknas inte som fel:
+  · [strikt, fryst] v7e-b1: "square.side" har samma sekvens i alla rader
+  · [strikt, fryst] v7e-b1: "circle.side" har samma sekvens i alla rader
+  · [strikt, fryst] v7e-b2: "square.side" har samma sekvens i alla rader
+  · [strikt, fryst] v7e-b2: "circle.side" har samma sekvens i alla rader
+  · [strikt, fryst] v7e-b6: "square.side" har samma sekvens i alla rader
+  · [strikt, fryst] v7e-b6: "circle.side" har samma sekvens i alla rader
+
+Upplysning om oberoende (55), räknas inte som fel (bankerna är frysta, beslut 15.6):
+  · [oberoende] v7g-q28-vector-len-walk: langd är en funktion av vinkel
+  · [oberoende] v7e-b1: sida-circle är en funktion av sida-square
+  · [oberoende] v7e-b2: pos-circle är en funktion av pos-square
+  · [oberoende] v7e-b2: sida-circle är en funktion av sida-square
+  · [oberoende] v7e-b6: sida-circle är en funktion av sida-square
+  · [oberoende] v7g-3c-rot-01: lat-fill_gray är en funktion av lat-fill_black
+  · [oberoende] v7g-3c-rot-02: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7g-3c-byte-01: spets är en funktion av vinkel
+  · [oberoende] v7g-3c-byte-02: langd är en funktion av vinkel
+  · [oberoende] v7g-3c-byte-03: mitt är en funktion av satellit
+  · [oberoende] v7g-3c-byte-04: mitt är en funktion av satellit
+  · [oberoende] v7g-3c-byte-05: spets är en funktion av vinkel
+  · [oberoende] v7g-3c-tva-01: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7g-3c-tva-02: lat-dot är en funktion av lat-fill_gray
+  · [oberoende] v7g-3c-tva-04: pos-circle är en funktion av pos-square
+  · [oberoende] v7a-3c-rot-07: lat-fill_gray är en funktion av lat-fill_black
+  · [oberoende] v7a-3c-rot-07: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7a-3c-rot-07: lat-dot är en funktion av lat-fill_gray
+  · [oberoende] v7a-3c-byte-01: spets är en funktion av vinkel
+  · [oberoende] v7a-3c-byte-02: langd är en funktion av vinkel
+  · [oberoende] v7a-3c-byte-03: langd är en funktion av vinkel
+  · [oberoende] v7a-3c-byte-04: spets är en funktion av vinkel
+  · [oberoende] v7a-3c-byte-05: mitt är en funktion av satellit
+  · [oberoende] v7a-3c-byte-06: mitt är en funktion av satellit
+  · [oberoende] v7a-3c-byte-07: langd är en funktion av vinkel
+  · [oberoende] v7a-3c-tva-01: lat-fill_gray är en funktion av lat-fill_black
+  · [oberoende] v7a-3c-tva-02: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7a-3c-tva-03: pos-circle är en funktion av pos-square
+  · [oberoende] v7a-3c-tva-04: pos-circle är en funktion av pos-square
+  · [oberoende] v7a-3c-tva-05: sida-circle är en funktion av sida-square
+  · [oberoende] v7a-3c-antal-01: riktning är en funktion av antal
+  · [oberoende] v7e-3c-rot-05: lat-fill_gray är en funktion av lat-fill_black
+  · [oberoende] v7e-3c-rot-05: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7e-3c-rot-05: lat-dot är en funktion av lat-fill_gray
+  · [oberoende] v7e-3c-byte-01: spets är en funktion av vinkel
+  · [oberoende] v7e-3c-byte-02: langd är en funktion av vinkel
+  · [oberoende] v7e-3c-byte-03: mitt är en funktion av satellit
+  · [oberoende] v7e-3c-byte-04: mitt är en funktion av satellit
+  · [oberoende] v7e-3c-byte-05: spets är en funktion av vinkel
+  · [oberoende] v7e-3c-byte-06: langd är en funktion av vinkel
+  · [oberoende] v7e-3c-byte-07: mitt är en funktion av satellit
+  · [oberoende] v7e-3c-tva-01: lat-dot är en funktion av lat-fill_black
+  · [oberoende] v7e-3c-tva-02: lat-dot är en funktion av lat-fill_gray
+  · [oberoende] v7e-3c-tva-03: sida-circle är en funktion av sida-square
+  · [oberoende] v7e-3c-tva-04: pos-circle är en funktion av pos-square
+  · [oberoende] v7e-3c-tva-04: sida-circle är en funktion av sida-square
+  · [oberoende] v7e-3c-tva-05: pos-circle är en funktion av pos-square
+  · [oberoende] v7e-3c-tva-06: pos-circle är en funktion av pos-square
+  · [oberoende] v7e-3c-tva-07: pos-circle är en funktion av pos-square
+  · [oberoende] v7e-3c-lfler-01: basfyll är en funktion av bas
+  · [oberoende] v7e-3c-lfler-02: basfyll är en funktion av bas
+  · [oberoende] v7e-3c-lfler-03: basfyll är en funktion av bas
+  · [oberoende] v7e-3c-lfler-04: basfyll är en funktion av symbol
+  · [oberoende] v7e-3c-antal-01: riktning är en funktion av antal
+  · [oberoende] v7e-3c-antal-05: riktning är en funktion av antal
+
+✓ Facit stämmer, inga tvetydiga frågor, alla latinska kvadrater håller, family och misstag i takt med generatorn.

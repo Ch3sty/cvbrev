@@ -51,6 +51,62 @@ function attribut(cell, strikt) {
   return out;
 }
 
+// ---------------------------------------------------------------- oberoende
+// Bandet "svår plus" (beställningen 1.1): reglerna ska vara oberoende av
+// varandra. För varje par av dimensioner med icke konstant regel räknas, med
+// facit isatt, de olika kombinationerna (x, y) över de nio rutorna. Är
+// antalet lika med antalet olika x (eller y) bestämmer x värdet på y (eller
+// tvärtom), och då är det en regel, inte två. Två latinska kvadrater av
+// ordning 3 ger antingen 3 eller 9 kombinationer.
+//
+// Dimensioner som tolkningen läser ur samma mängd i en andra vy (ringar som
+// mängd av svarta ringar, 2×2 som helt mönster) jämförs inte med varandra.
+const SAMMA_MANGD = new Set(['ringantal', 'ringsvart', 'ringgra', 'lat-hel']);
+
+export function oberoende(q, t = tolka(q)) {
+  if (!t || !t.ok) return [];
+  const full = q.grid.map((r) => r.slice());
+  full[2][2] = q.options[q.correctAnswer];
+  const aktiva = Object.entries(t.regel).filter(([, r]) => r.regel !== 'konstant').map(([id]) => id);
+  const varden = (id) => full.flat().map((c) => stable(t.dimsVy(c).find((d) => d.id === id).varde));
+  const fel = [];
+  for (let i = 0; i < aktiva.length; i++) for (let j = i + 1; j < aktiva.length; j++) {
+    const X = aktiva[i]; const Y = aktiva[j];
+    if (SAMMA_MANGD.has(X) && SAMMA_MANGD.has(Y)) continue;
+    const vx = varden(X); const vy = varden(Y);
+    const komb = new Set(vx.map((x, k) => `${x}|${vy[k]}`)).size;
+    const nx = new Set(vx).size; const ny = new Set(vy).size;
+    if (komb === nx) fel.push(`${q.id}: ${Y} är en funktion av ${X}`);
+    else if (komb === ny) fel.push(`${q.id}: ${X} är en funktion av ${Y}`);
+  }
+  return fel;
+}
+
+// Antal regler att hålla i huvudet. Överlagring med vridning räknas som två
+// (operationen och vridningen).
+export const KOPPLADE = new Set(['latin', 'diagonal', 'overlagring', 'overlagring-vriden']);
+export function antalRegler(t) {
+  return Object.values(t.regel).filter((r) => r.regel !== 'konstant').reduce((n, r) => n + (r.regel === 'overlagring-vriden' ? 2 : 1), 0);
+}
+
+/**
+ * Kraven för bandet "svår plus" utöver oberoendet: minst tre regler varav
+ * minst en kopplad över hela rutnätet. Undantag: överlagring med vridning
+ * (mekanism 3 i riktlinjerna 2.2) bär sig själv med två regler, eftersom
+ * strålar och sektorhjul bara har en dimension och en primitiv per cell
+ * gäller (G12).
+ */
+export function plusKrav(q, t = tolka(q)) {
+  if (!t || !t.ok) return [];
+  const fel = [];
+  const regler = Object.values(t.regel).map((r) => r.regel);
+  const n = antalRegler(t);
+  const vriden = regler.includes('overlagring-vriden');
+  if (n < 3 && !vriden) fel.push(`${q.id}: bara ${n} regler, bandet kräver minst tre`);
+  if (!regler.some((r) => KOPPLADE.has(r))) fel.push(`${q.id}: ingen regel är kopplad över hela rutnätet`);
+  return fel;
+}
+
 export function kontrollera(q, { strikt = true, familj = null } = {}) {
   const fel = [];
   const tag = q.id;
@@ -132,6 +188,7 @@ export function kontrollera(q, { strikt = true, familj = null } = {}) {
       }
     }
   }
+  if (strikt && q.band === 'plus' && t.ok) fel.push(...oberoende(q, t), ...plusKrav(q, t));
   if (strikt) {
     const m = misstagFor(q, t);
     m.forEach((x, i) => {
