@@ -1,0 +1,27 @@
+Kommando: node scripts/stripe-premium-byte.mjs --testlage --testenv=C:/Users/chris/cvbrev/.env.test.local
+Kört: 2026-10-11, från worktreen design/rummen-klar. Torrkörning, inget ändrat i Stripe. Inga nycklar i utskriften.
+(Nodes varning om NODE_TLS_REJECT_UNAUTHORIZED från maskinens miljö är borttagen.)
+
+Stripe-nyckel: TEST, torrkörning (inget ändras)
+Mål ur plans.ts: namn "Jobbcoach Premium", beskrivning "CV, personliga brev, tester, jobbmatchning och Jobbcoachen"
+
+Produkten hittad via priset ur NEXT_PUBLIC_STRIPE_PRICE_ID i .env.test.local: prod_VJjSwUfUqKFW52
+  all_month-priset: price_1UJ5zbPWMWdjmTDjDCVJTJpY  149 sek / 1 month  nickname "månad"  aktivt  metadata.planKey "all_month"
+
+Nuläge:
+  name                  "Hela paketet"
+  description           null
+  statement_descriptor  null
+  active                true
+  metadata              {"planKey":"all_month","scope":"allt"}
+
+Priser på produkten (1), rörs inte:
+  price_1UJ5zbPWMWdjmTDjDCVJTJpY  149 sek / 1 month  nickname "månad"  aktivt  metadata.planKey "all_month"
+
+Vad skriptet gör:
+  products.update prod_VJjSwUfUqKFW52: name "Hela paketet" -> "Jobbcoach Premium"
+  products.update prod_VJjSwUfUqKFW52: description null -> "CV, personliga brev, tester, jobbmatchning och Jobbcoachen"
+  Inga priser skapas eller ändras. Nicknames, belopp och intervall står kvar.
+  Kontoutdraget (statement descriptor) ändrar ägaren själv i Stripe: "JOBBCOACH PREMIUM".
+
+Torrkörning: inget ändrat. Kör med --skarpt för att byta.
