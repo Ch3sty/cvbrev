@@ -7,7 +7,7 @@
 
 import { dagSthlm, type Dag } from './datum';
 import type { SlutfordSession, Sessionstyp } from './milstolpar';
-import type { Pooler, Sammansattning, Sedd } from './passgenerator';
+import type { PassBand, Pooler, Sammansattning, Sedd } from './passgenerator';
 import type { FormatNyckel } from './tempo';
 import type { Nasta } from './imorgon';
 
@@ -46,6 +46,12 @@ export interface TraningsMeta {
   tidsgrans_s: number | null;
   niva_fore: number | null;
   malniva: number | null;
+  /**
+   * Pass och riktat pass: fack per fråga ur urvalet (spec 19.2 fråga 1).
+   * Null i mätning, ommätning och generalrepetition; saknas i sessioner
+   * skapade före ändringen.
+   */
+  band?: Record<string, PassBand> | null;
   ateranvanda: number;
   /**
    * Frågor hon sett inom ATERANVAND_EFTER_DAGAR (30 med BANK_RACKER_30_DAGAR) före sessionens dag. Räknas i "rätt av
@@ -63,6 +69,8 @@ export interface TraningsMeta {
   niva_efter?: number | null;
   ratt?: number;
   over_tid?: number;
+  /** Alla besvarade frågor över provets tid, tiden ute inräknad (spec 19.2 fråga 7). */
+  over_budget?: number;
   snitt_s?: number | null;
   nasta?: Nasta | null;
 }

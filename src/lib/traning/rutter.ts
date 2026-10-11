@@ -49,6 +49,9 @@ export const TRANING_RUTT = {
   genomgang: sessionHref,
   kvitto: kvittoHref,
   personlighet: '/dashboard/tester/personlighet-grund',
+  /** De klassiska testerna som inte har pass än (1t, Fler tester). */
+  siffror: '/dashboard/tester/numeriskt-test',
+  text: '/dashboard/tester/verbal-resonemang',
   intervju: '/dashboard/intervju',
   brev: '/dashboard/mina-brev',
   jobbsok: '/dashboard',

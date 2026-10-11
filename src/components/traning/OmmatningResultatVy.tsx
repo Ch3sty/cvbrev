@@ -19,6 +19,7 @@ import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { OmmatningResultat } from '@/lib/traning/resultat'
 import type { Traningsstatus } from '@/lib/traning/klient'
 import Kurva from './Kurva'
+import { VarDuTapparKort } from './MatningResultatVy'
 import Nivaskala from './Nivaskala'
 import { MilstolpeKortVy } from './PassResultatVy'
 import ResultatSkal, { TreTal } from './ResultatSkal'
@@ -86,12 +87,16 @@ export default function OmmatningResultatVy({ vm, status, antal, onTillbaka, mot
       }
       golv={
         <>
+          {/* Lyft kort: milstolpen, annars Var du tappar nu (20.2 fråga 8).
+              En statusrad lyfts aldrig. */}
           {vm.milstolpe ? (
             <div className="steg s4">
               <MilstolpeKortVy m={vm.milstolpe} lyft />
             </div>
-          ) : null}
-          <div className={`steg s4 ${vm.milstolpe ? '' : 'relative z-[2] -mt-[30px] rounded-xl shadow-lyft'}`}>
+          ) : (
+            <VarDuTapparKort eyebrow={O.varDuTapparNu} familjer={vm.familjer} className="steg s4" />
+          )}
+          <div className="steg s4">
             <StatusRow tone="warm" showDot wrap>
               <span className="text-ink-1">{vm.status}</span>
             </StatusRow>

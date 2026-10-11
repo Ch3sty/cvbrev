@@ -252,6 +252,8 @@ export interface Aterkoppling {
   /** Vad det valda alternativet "stämde på" (misstag[] på originalindex). Null när fältet saknas. */
   misstag: string | null;
   tid_s: number;
+  /** Frågans fack i passet (spec 19.2 fråga 1). Null utanför pass och riktat pass. */
+  band: 'under' | 'nara' | 'over' | null;
 }
 
 export interface Sessionsvy {
@@ -289,7 +291,7 @@ function visarAterkopplingUnderTiden(typ: TraningsMeta['typ']): boolean {
   return typ === 'pass' || typ === 'riktat';
 }
 
-function aterkopplingFor(q: TraningsFraga, sessionId: string, blandade: boolean, s: SparatSvar): Aterkoppling {
+function aterkopplingFor(q: TraningsFraga, sessionId: string, blandade: boolean, s: SparatSvar, meta: TraningsMeta): Aterkoppling {
   const g = genomgaFraga(q, sessionId, blandade);
   return {
     correct: s.correct,
@@ -298,6 +300,7 @@ function aterkopplingFor(q: TraningsFraga, sessionId: string, blandade: boolean,
     regel: q.rule,
     misstag: s.selected >= 0 && !s.correct ? misstagFor(q, s.selected) : null,
     tid_s: s.time_spent,
+    band: meta.band?.[q.id] ?? null,
   };
 }
 
@@ -337,7 +340,7 @@ export function sessionsvy(rad: SessionRad & { started_at?: string | null }): Se
     aterkoppling = {};
     for (const q of fragor) {
       const s = besvarade.get(q.id);
-      if (s) aterkoppling[q.id] = aterkopplingFor(q, rad.id, blandade, s);
+      if (s) aterkoppling[q.id] = aterkopplingFor(q, rad.id, blandade, s, meta);
     }
   }
 
@@ -486,6 +489,7 @@ export async function skapaTraningssession(args: {
     tidsgrans_s: null as number | null,
     niva_fore: niva,
     family: null as string | null,
+    band: null as Record<string, 'under' | 'nara' | 'over'> | null,
     ateranvanda: 0,
     upprepade: [] as string[],
   };
@@ -545,6 +549,7 @@ export async function skapaTraningssession(args: {
         malniva: urval.malniva,
         ateranvanda: urval.ateranvanda,
         upprepade: urval.upprepade,
+        band: urval.band,
       };
       break;
     }
@@ -572,6 +577,7 @@ export async function skapaTraningssession(args: {
         malniva: urval.malniva,
         ateranvanda: urval.ateranvanda,
         upprepade: urval.upprepade,
+        band: urval.band,
       };
       break;
     }
@@ -708,7 +714,7 @@ export async function svaraTraning(args: {
 
   return {
     ok: true,
-    aterkoppling: visarAterkopplingUnderTiden(meta.typ) ? aterkopplingFor(q, rad.id, blandade, sparat) : null,
+    aterkoppling: visarAterkopplingUnderTiden(meta.typ) ? aterkopplingFor(q, rad.id, blandade, sparat, meta) : null,
     nasta: nastaVisad,
     besvarade,
     antal: meta.antal,
@@ -725,12 +731,28 @@ export interface Avslut {
   ratt: number;
   antal: number;
   over_tid: number;
+  /**
+   * Alla besvarade frågor med tid över provets tid (tiden ute räknas,
+   * smakprovets svar med tid 0 räknas inte). Det tredje talet på alla
+   * resultatskärmar och hemvyns tempokort (spec 19.2 fråga 7).
+   */
+  over_budget: number;
   snitt_s: number | null;
   budget_s: number;
   tempo: Tempo;
   familjer: {
     /** Passets egna familjer. */
     passet: Familjestatistik[];
+    /**
+     * Temafamiljens utfall i den senaste tidigare slutförda sessionen där
+     * familjen hade minst två frågor (spec 19.2 fråga 4). Null när det saknas.
+     */
+    forra?: (Familjestatistik & { typ: 'matning' | 'pass' | 'riktat' | 'ommatning' | 'general' }) | null;
+    /**
+     * Ommätningen: familjerna i den första mätningen och dess dag, för O1:s
+     * "Var du tappar nu" med "mot 6 okt" (art-director 20.2 fråga 8).
+     */
+    matningen?: { dag: Dag; familjer: Familjestatistik[] } | null;
     /** De två svagaste, ackumulerat. */
     svagaste: Familjestatistik[];
     /** Rätt men långsamma, ackumulerat. */
@@ -759,6 +781,49 @@ function familjeunderlag(lage: Lage, extra: FamiljSvar[] = []): FamiljSvar[] {
     }
   }
   return ut;
+}
+
+/**
+ * Familjens utfall i den senaste tidigare slutförda sessionen där familjen
+ * hade minst två frågor (spec 19.2 fråga 4), ur samma svar som
+ * familjeunderlag men per session.
+ */
+export function forraIFamilj(lage: Pick<Lage, 'slutforda' | 'rader'>, family: string | null): NonNullable<Avslut['familjer']['forra']> | null {
+  if (!family) return null;
+  for (let i = lage.slutforda.length - 1; i >= 0; i--) {
+    const s = lage.slutforda[i];
+    const rad = lage.rader.find((r) => r.id === s.id);
+    if (!rad) continue;
+    let ratt = 0;
+    let antal = 0;
+    let langsamma = 0;
+    for (const a of unikaSvar(lasSvar(rad.answers), SVARSNYCKLAR.matris)) {
+      const q = hittaTraningsfraga(a.q_id);
+      if (!q || familjFor(q) !== family) continue;
+      antal += 1;
+      if (a.correct) {
+        ratt += 1;
+        if (a.time_spent > s.meta.budget_s) langsamma += 1;
+      }
+    }
+    if (antal >= 2) return { family, ratt, antal, andel: ratt / antal, ratt_men_langsamma: langsamma, typ: s.typ };
+  }
+  return null;
+}
+
+/** Familjerna i den första slutförda mätningen, med dagen (O1, 20.2 fråga 8). */
+export function matningensFamiljer(lage: Pick<Lage, 'slutforda' | 'rader'>): { dag: Dag; familjer: Familjestatistik[] } | null {
+  const s = lage.slutforda.find((x) => x.typ === 'matning');
+  if (!s) return null;
+  const rad = lage.rader.find((r) => r.id === s.id);
+  if (!rad) return null;
+  const svar: FamiljSvar[] = [];
+  for (const a of unikaSvar(lasSvar(rad.answers), SVARSNYCKLAR.matris)) {
+    const q = hittaTraningsfraga(a.q_id);
+    if (!q) continue;
+    svar.push({ family: familjFor(q), correct: a.correct, langsam: a.correct && a.time_spent > s.meta.budget_s });
+  }
+  return { dag: s.dag, familjer: varDuTappar(svar).alla };
 }
 
 export type AvslutResultat = { ok: true; avslut: Avslut } | { ok: false; status: 404 | 409 | 400; fel: string };
@@ -845,6 +910,23 @@ export async function slutforTraning(args: {
   }));
   const passet = varDuTappar(dennaFamiljer).alla;
   const ackumulerat = varDuTappar(familjeunderlag(lage, dennaFamiljer));
+  // Temafamiljen (passets tema, det riktade passets familj, annars den med
+  // flest frågor) och dess förra utfall (19.2 fråga 4).
+  const temaFamilj = meta.tema ?? meta.family ?? [...passet].sort((a, b) => b.antal - a.antal)[0]?.family ?? null;
+  const forra = meta.typ === 'pass' || meta.typ === 'riktat' ? forraIFamilj(lage, temaFamilj) : null;
+  // Över provets tid på alla besvarade frågor, tiden ute inräknad (19.2 fråga 7).
+  const over_budget = svar.filter((s) => s.tiden_ute || s.time_spent > meta.budget_s).length;
+  // Rätt per band ur urvalet (19.4 punkt 5).
+  const band_ratt = meta.band
+    ? svar.reduce(
+        (acc, s) => {
+          const b = meta.band?.[s.q_id];
+          if (b && s.correct) acc[b] += 1;
+          return acc;
+        },
+        { under: 0, nara: 0, over: 0 }
+      )
+    : null;
 
   const punkttyp: Nivapunkt['typ'] =
     meta.typ === 'matning' ? 'matning' : meta.typ === 'ommatning' ? 'ommatning' : meta.typ === 'general' ? 'general' : 'pass';
@@ -889,6 +971,7 @@ export async function slutforTraning(args: {
       niva_efter,
       ratt,
       over_tid: tempo.over_tid,
+      over_budget,
       snitt_s: tempo.snitt_s,
       nasta,
     },
@@ -947,6 +1030,7 @@ export async function slutforTraning(args: {
       ateranvanda: meta.ateranvanda ?? 0,
       // Riktade pass räknas aldrig mot nivån (14.1 punkt 2).
       raknade: meta.typ === 'riktat' ? 0 : nivaSvar.length,
+      band_ratt,
     });
   } else if (meta.typ === 'general') {
     void captureServer('generalrepetition_klar', args.userId, { format: meta.format, ratt, antal });
@@ -962,10 +1046,17 @@ export async function slutforTraning(args: {
       ratt,
       antal,
       over_tid: tempo.over_tid,
+      over_budget,
       snitt_s: tempo.snitt_s,
       budget_s: meta.budget_s,
       tempo,
-      familjer: { passet, svagaste: ackumulerat.svagaste, langsamma: ackumulerat.langsamma },
+      familjer: {
+        passet,
+        forra,
+        matningen: meta.typ === 'ommatning' ? matningensFamiljer(lage) : null,
+        svagaste: ackumulerat.svagaste,
+        langsamma: ackumulerat.langsamma,
+      },
       imorgon: { typ: imorgon.typ, text: imorgon.text, dag: imorgon.dag },
       ...(milOrdnade[0] ? { milstolpe: milOrdnade[0] } : {}),
       milstolpar: milOrdnade,
@@ -1022,6 +1113,11 @@ export interface Traningsstatus {
   senastePass: SenastePass | null;
   /** Behörigheterna statusen räknades med (hemvyns lås och betalväggar). */
   behorighet: Behorighet;
+  /**
+   * Smakprovet som räknas in i den första mätningen (spec 19.3 fråga 3),
+   * bara när ingen mätning är gjord. Null annars.
+   */
+  smakprov: { dag: Dag; antal: number } | null;
 }
 
 /** Det senast slutförda passet, ur sessionens meta (satt av complete). */
@@ -1034,6 +1130,8 @@ export interface SenastePass {
   ratt: number | null;
   antal: number;
   over_tid: number | null;
+  /** Över provets tid på alla besvarade frågor (19.2 fråga 7). Null i äldre sessioner. */
+  over_budget: number | null;
   snitt_s: number | null;
   budget_s: number;
   niva_fore: number | null;
@@ -1054,6 +1152,7 @@ function senastePassFor(slutforda: readonly SlutfordRad[]): SenastePass | null {
       ratt: typeof m.ratt === 'number' ? m.ratt : null,
       antal: m.antal,
       over_tid: typeof m.over_tid === 'number' ? m.over_tid : null,
+      over_budget: typeof m.over_budget === 'number' ? m.over_budget : null,
       snitt_s: typeof m.snitt_s === 'number' ? m.snitt_s : null,
       budget_s: m.budget_s,
       niva_fore: m.niva_fore ?? null,
@@ -1106,6 +1205,8 @@ export async function hamtaTraningsstatus(args: {
     !!senaste?.skapad_at && (!args.sedd_at || new Date(senaste.skapad_at).getTime() > new Date(args.sedd_at).getTime());
 
   const familjer = varDuTappar(familjeunderlag(lage));
+  // Smakprovsraden i 1a och T1 (19.3 fråga 3): bara före den första mätningen.
+  const smakprov = antalMatningar(lage.slutforda) === 0 && lage.punkter.length === 0 ? await lasSmakprov(args.admin, args.userId, idag) : null;
 
   return {
     idag,
@@ -1152,6 +1253,7 @@ export async function hamtaTraningsstatus(args: {
     }),
     senastePass: senastePassFor(lage.slutforda),
     behorighet: beh,
+    smakprov: smakprov ? { dag: smakprov.dag, antal: smakprov.svar.length } : null,
   };
 }
 

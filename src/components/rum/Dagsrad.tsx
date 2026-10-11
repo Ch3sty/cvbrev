@@ -8,6 +8,7 @@
  */
 
 import type { ReactNode } from 'react'
+import TalText from './TalText'
 
 export interface DagsradTal {
   varde: string
@@ -31,7 +32,9 @@ export default function Dagsrad({ ring, tal, className }: DagsradProps) {
         {tal.map((t) => (
           <div key={t.etikett} className="flex flex-col-reverse">
             <dt className="mt-0.5 text-xs leading-4 text-vagg-mjuk">{t.etikett}</dt>
-            <dd className="text-tal-rad text-vagg-ink">{t.varde}</dd>
+            <dd className="text-tal-rad text-vagg-ink">
+              <TalText>{t.varde}</TalText>
+            </dd>
           </div>
         ))}
       </dl>

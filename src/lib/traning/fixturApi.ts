@@ -18,6 +18,8 @@ export interface FixturFacit {
   /** Misstaget per visat index, null för rätt svar. */
   misstag: (string | null)[];
   family: string | null;
+  /** Frågans fack i passet (19.2 fråga 1). */
+  band?: 'under' | 'nara' | 'over' | null;
 }
 
 export interface Fixtur {
@@ -48,6 +50,7 @@ export function fixturApi(f: Fixtur): PassApi {
       regel: fa.regel,
       misstag: correct || vetInte || vald == null ? null : fa.misstag[vald] ?? null,
       tid_s: tid,
+      band: vy.typ === 'pass' || vy.typ === 'riktat' ? (fa.band ?? null) : null,
     };
   }
 
@@ -102,7 +105,7 @@ export function fixturApi(f: Fixtur): PassApi {
       const klar = avslutadVy();
       const svar = klar.besvarade;
       const ratt = svar.filter((b) => klar.aterkoppling?.[b.q_id]?.correct).length + (vy.typ === 'matning' ? vy.smakprov : 0);
-      const over = svar.filter((b) => b.tid_s > vy.budget_s).length;
+      const over = svar.filter((b) => b.tidenUte || b.tid_s > vy.budget_s).length;
       const tid_s = svar.reduce((s, b) => s + b.tid_s, 0);
       // Passets familjer och en nivå som följer svaren, så att rubriken går
       // ihop med talen när förhandsvisningen klickas igenom. Motorns riktiga
@@ -130,6 +133,7 @@ export function fixturApi(f: Fixtur): PassApi {
         ...f.avslut,
         ratt: Math.min(ratt, f.avslut.antal),
         over_tid: Math.min(over, f.avslut.antal),
+        over_budget: Math.min(over, f.avslut.antal),
         snitt_s: svar.length ? Math.round(tid_s / svar.length) : f.avslut.snitt_s,
         tid_s,
         niva_efter: arPass && fore != null ? Math.round((fore + delta) * 10) / 10 : f.avslut.niva_efter,

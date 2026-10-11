@@ -95,21 +95,23 @@ export function serieText(dagar: number, status: 'pagar' | 'pausad' | 'bruten' |
 }
 
 /**
- * Nivåmeningen i M1, per heltal, i provets termer och utan löften (briefen
- * avsnitt 5: "Nivå 7: du klarar de flesta uppgifter i klassisk Matrigma-tid",
- * aldrig percentil hos leverantören).
+ * Nivåmeningen i M1, per heltal (testansvarig 19.2 fråga 3). Nivån räknas
+ * på rätt och fel, tempot är ett eget tal, så meningen säger vad hon klarar.
+ * Kalibrerad mot priorerna (klass 1 till 4 ger nivå 2,35, 3,7, 5,05 och 6,4
+ * där chansen är hälften). 8 till 10 nås inte före BANK_KALIBRERAD_OVER_7_5
+ * men ska finnas.
  */
 const NIVAMENING: Record<number, string> = {
-  1: 'Du står i början av skalan. Reglerna är nya, och de flesta uppgifter tar längre än provets tid.',
-  2: 'Du klarar några av de enklaste uppgifterna. De flesta tar längre än provets tid.',
-  3: 'Du klarar enkla uppgifter, men de flesta tar längre än provets tid.',
-  4: 'Du klarar de enkla uppgifterna inom provets tid. Uppgifter med två regler samtidigt tar längre.',
-  5: 'Du klarar de flesta uppgifter på grundnivå inom provets tid. De svåra tar längre.',
-  6: 'Du klarar grundnivån inom provets tid och en del av de svåra uppgifterna.',
-  7: 'Du klarar de flesta uppgifter inom provets tid, också många av de svåra.',
-  8: 'Du klarar nästan alla uppgifter inom provets tid, också de svåra.',
-  9: 'Du klarar nästan alla uppgifter inom provets tid, också de svåra.',
-  10: 'Du klarar nästan alla uppgifter inom provets tid, också de svåra.',
+  1: 'Du står längst ner på skalan. Uppgifter med en regel i taget är inom räckhåll, och det är där passen börjar.',
+  2: 'Du klarar en del av de enklaste uppgifterna, de med en regel i taget. Passen börjar där.',
+  3: 'Du klarar de flesta uppgifter med en regel i taget. Två regler samtidigt går oftast fel än.',
+  4: 'Du klarar uppgifter med en regel i taget. Två regler samtidigt, som rotation med byte, går oftast fel än.',
+  5: 'Du klarar de flesta uppgifter på grundnivå. Två regler samtidigt, som rotation med byte, går ungefär varannan gång.',
+  6: 'Du klarar grundnivån, och oftare rätt än fel när två regler ska följas samtidigt. De svåraste uppgifterna går ungefär varannan gång.',
+  7: 'Du klarar de flesta uppgifter, också de med två regler samtidigt. De svåraste, med tre saker att följa, går oftare rätt än fel.',
+  8: 'Du klarar nästan allt, också de svåraste uppgifterna. Det som skiljer nu är tempot.',
+  9: 'Du klarar nästan alla uppgifter, också de svåraste. Det som finns kvar att träna är tempot under provets tid.',
+  10: 'Du klarar hela skalan. Det som finns kvar att träna är tempot under provets tid.',
 };
 
 export const PASS_COPY = {
@@ -150,6 +152,11 @@ export const PASS_COPY = {
     ratt: (s: number) => `Rätt · ${s} s`,
     vetInte: (s: number) => `Vet inte · ${s} s`,
     tidenUte: (s: number) => `Tiden tog slut · ${s} s`,
+    /* Raden efter regeln (19.2 fråga 1): bandet ur urvalet och tiden mot provets. */
+    strackRatt: 'Sträckuppgift över din nivå, klarad inom provets tid.',
+    strackRattOverTid: 'Sträckuppgift över din nivå. Rätt, men över provets tid.',
+    rattOverTid: 'Rätt, men över provets tid. Tempot räknas i resultatet.',
+    strackFel: 'Sträckuppgift över din nivå.',
   },
   knapp: {
     nasta: 'Nästa fråga',
@@ -208,12 +215,26 @@ export const PASS_COPY = {
       sekunder: (s: number) => `${s} s`,
       av: (a: number, b: number) => `${a} av ${b}`,
     },
-    /** P4 s3: "Fyra av fem rotationer rätt i dag." */
-    familjIdag: (ratt: number, antal: number, familj: string) =>
-      `${versal(talord(ratt))} av ${talord(antal)} i ${familj.toLowerCase()} rätt i dag.`,
+    /**
+     * P4 s3 (19.2 fråga 4): "Rotation med byte: fem av sex rätt i dag, mot
+     * två av tre förra gången." Jämförelsen är senaste sessionen där
+     * familjen hade minst två frågor, "i mätningen" när det var mätningen.
+     */
+    familjIdag: (ratt: number, antal: number, familj: string, forra: { ratt: number; antal: number; matning: boolean } | null) =>
+      `${versal(familj)}: ${talord(ratt)} av ${talord(antal)} rätt i dag${
+        forra ? `, mot ${talord(forra.ratt)} av ${talord(forra.antal)} ${forra.matning ? 'i mätningen' : 'förra gången'}` : ''
+      }.`,
+    /** Generalrepetitionen (19.2 fråga 8): formatet i stället för familjen. */
+    generalMening: (format: string) => `${format}. Punkten väger som en ommätning på kurvan.`,
     passFlyttar: (ommatningDag: string | null) =>
       ommatningDag ? `Pass flyttar nivån lite i taget, ommätningen på ${ommatningDag} mer.` : 'Pass flyttar nivån lite i taget, ommätningen mer.',
-    sjonk: 'Det händer. Sträckuppgifter över din nivå räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.',
+    /** S1 (19.2 fråga 5): villkorad på missarna som var sträckuppgifter över nivån. */
+    sjonk: (overMissar: number) =>
+      overMissar >= 2
+        ? `${versal(talord(overMissar))} av missarna var sträckuppgifter över din nivå. De räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.`
+        : overMissar === 1
+          ? 'En av missarna var en sträckuppgift över din nivå. Den räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.'
+          : 'En dag säger lite. Nivån rör sig högst 0,5 per pass, och genomgången säger mer än talet.',
     grundpass: 'Grundpassen flyttar sällan nivån när du redan är över 4.',
     tempo: {
       eyebrow: 'Tempo',
@@ -221,16 +242,26 @@ export const PASS_COPY = {
       inga: 'Alla frågor inom provets tid',
       snitt: (snitt: number, budget: number) => `Snitt ${snitt} s, provet ger ${budget}.`,
       gaIgenom: 'Gå igenom dem först.',
+      /** Används inte längre i kortet (19.2 fråga 7); copywritern städar. */
       naraNivan: 'Tempot mäts på frågor nära din nivå. De säkra räknas inte.',
       axelStart: 'fråga 1',
       axelMitt: 'streckad linje: provets tid',
+      /** S1: fel svar ritas ihåliga (20.3 punkt 4). */
+      axelFel: 'ihåliga staplar: fel svar',
       axelSlut: (n: number) => `fråga ${n}`,
       aria: (budget: number) => `Tid per fråga. Streckad linje: provets tid, ${budget} sekunder.`,
     },
     vadHande: {
       eyebrow: 'Vad som hände',
       titel: (fel: number, iFamilj: number) =>
-        iFamilj > 1 ? `${versal(talord(fel, 'en'))} ${fel === 1 ? 'miss' : 'missar'}, ${talord(iFamilj)} i samma familj` : `${versal(talord(fel, 'en'))} ${fel === 1 ? 'miss' : 'missar'}`,
+        iFamilj > 1
+          ? `${versal(talord(fel, 'en'))} ${fel === 1 ? 'miss' : 'missar'}, ${talord(iFamilj)} i samma familj`
+          : fel === 1
+            ? 'En miss'
+            : `${versal(talord(fel, 'en'))} missar, ingen familj sticker ut`,
+      /** Efter familjens beskrivning (19.2 fråga 5). */
+      familjOvas: 'Familjen går att öva med riktade pass.',
+      ingenFamilj: 'Gå igenom dem, regeln och misstaget står på varje.',
     },
     genomgang: {
       rubrik: 'Genomgången',
@@ -250,7 +281,8 @@ export const PASS_COPY = {
     eyebrow: 'Din nivå',
     av10: 'av 10',
     mening: (heltal: number) => NIVAMENING[Math.min(10, Math.max(1, heltal))],
-    familjerFel: (n: number) => (n === 1 ? 'I en familj väljer du oftare fel svar.' : `I ${talord(n)} familjer väljer du oftare fel svar.`),
+    familjerFel: (n: number) =>
+      n === 1 ? 'En familj drar ner mest, den står under Var du tappar.' : 'Två familjer drar ner mest, de står under Var du tappar.',
     skalaAria: (niva: number, sikte: number | null) =>
       `Nivåskala 1 till 10. Du: ${nivaText(niva)}.${sikte != null ? ` Föreslaget sikte: ${nivaText(sikte)}.` : ''}`,
     siktetMening: (dagar: number | null) =>
@@ -285,7 +317,11 @@ export const PASS_COPY = {
     betalvagg: {
       rubrik: (dagar: number | null) =>
         dagar != null && dagar > 0 ? `${dagar} dagar kvar. Månaden täcker hela vägen.` : 'Passen på din nivå, varje dag.',
-      text: 'Passen på din nivå, riktade pass, ommätning var sjunde dag, hela kurvan och generalrepetitionen i provets format. Plus personliga brev, Jobbcoachen och matchade jobb.',
+      /** 19.4 punkt 1: "samma format som" när leverantören är känd. */
+      text: (formatNamn: string | null) =>
+        `Passen på din nivå, riktade pass, ommätning var sjunde dag, hela kurvan och generalrepetitionen ${
+          formatNamn ? `i samma format som ${formatNamn}` : 'i vårt provläge'
+        }. Plus personliga brev, Jobbcoachen och matchade jobb.`,
       grundpassLank: 'Gör dagens grundpass gratis',
     },
   },
@@ -302,6 +338,9 @@ export const PASS_COPY = {
     delta: 'sedan mätningen',
     deltaVecka: 'på en vecka',
     kurvaRubrik: 'Kurvan med den nya punkten',
+    /** O1 utan milstolpe: "Var du tappar nu" (art-director 20.2 fråga 8). */
+    varDuTapparNu: 'Var du tappar nu',
+    familjMot: (ratt: number, antal: number, r: number, a: number, dag: string) => `${ratt} av ${antal} rätt, mot ${r} av ${a} ${dag}.`,
     nastaOmmatning: (dag: string) => `Nästa ommätning ${datumMedVeckodag(dag)}.`,
   },
   kvitto: {
@@ -322,6 +361,7 @@ export const PASS_COPY = {
     nasta: 'Nästa',
     tillResultatet: 'Tillbaka till resultatet',
     foregaende: 'Föregående',
+    fortsattRatta: (n: number) => (n === 1 ? 'Fortsätt med den rätta' : `Fortsätt med de ${talord(n)} rätta`),
   },
   uppvarmning: {
     ratt: 'Rätt',
@@ -329,7 +369,7 @@ export const PASS_COPY = {
     nasta: 'Nästa fråga',
     klarKnapp: 'Klar',
     klar: 'Uppvärmningen är klar',
-    klarText: 'Inget sparades. Stäng mejlen och mobilen, och öppna länken från rekryteraren när du är redo.',
+    klarText: 'Inget sparades, och inget mer behövs i dag. Stäng det här och öppna länken från rekryteraren när du är redo.',
   },
   betalvagg: {
     pass: 'Dagens pass ingår i',

@@ -7,10 +7,14 @@
  * Resultatet visas helt för alla: nivån som stort heltal (spec 14.1:
  * decimalen bara på kurvan) på instrumentet, meningen i provets termer, tre
  * tal, var du tappar, och planen till datumet. Gratis: dagens grundpass står
- * först och är gratis, allt efter i dag står låst med paketets namn, kortet
- * säger vad som ingår och foten bär vyns enda kopparknapp (Köp, namn, pris). Det
- * sekundära är en textlänk. Betalande: ingen betalvägg, kopparknappen i
- * foten.
+ * först och är gratis, allt efter i dag står låst med paketets namn, och
+ * paketkortet sist på golvet bär vyns enda kopparknapp (Köp, namn, pris) med
+ * en textlänk under. Ingen fot för gratis (art-director 20.2 fråga 1: en fast
+ * fot ligger aldrig ovanpå en betalvägg). Betalande: ingen betalvägg,
+ * kopparknappen i foten.
+ *
+ * Decimalen står under pricken på skalan (testansvarig 19.2 fråga 2), heltalet
+ * stort ovanför.
  *
  * betalvagg_visad (plats matning) skickas när kortet visas.
  */
@@ -19,10 +23,10 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { capture } from '@/lib/analytics/events'
 import { Rad } from '@/components/rum/Rader'
-import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { passHref } from '@/lib/traning/klient'
-import { PASS_COPY } from '@/lib/traning/pass-copy'
+import { nivaText, PASS_COPY } from '@/lib/traning/pass-copy'
 import type { MatningResultat } from '@/lib/traning/resultat'
 import Nivaskala from './Nivaskala'
 import Plan from './Plan'
@@ -37,6 +41,38 @@ export interface MatningResultatVyProps {
   /** Siktets ändra-länk (inställningarna, våg 2). */
   sikteHref?: string
   motion?: boolean
+}
+
+/**
+ * "Var du tappar" som lyft kort: M1 och O1 utan milstolpe (art-director 20.2
+ * fråga 8, samma komponent).
+ */
+export function VarDuTapparKort({
+  eyebrow,
+  familjer,
+  className,
+}: {
+  eyebrow: string
+  familjer: MatningResultat['familjer']
+  className?: string
+}) {
+  return (
+    <section
+      aria-label={eyebrow}
+      className={`relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft ${className ?? ''}`}
+    >
+      <p className="text-ey text-ink-3">{eyebrow}</p>
+      {familjer.length ? (
+        <div className="-mx-4 -mb-2 [&>*+*]:border-t [&>*+*]:border-kant">
+          {familjer.map((f, i) => (
+            <Rad key={i} titel={f.titel} meta={f.meta} stapel={f.andel != null && f.ton ? { andel: f.andel, ton: f.ton } : undefined} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{M.ingaFamiljer}</p>
+      )}
+    </section>
+  )
 }
 
 export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '/dashboard/tester/installningar#sikte', motion = true }: MatningResultatVyProps) {
@@ -67,6 +103,7 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
               nu={vm.skala.nu}
               sikte={vm.skala.sikte}
               etikettNu="Du"
+              etikettUnder={nivaText(vm.skala.nu)}
               siktLank={vm.skala.sikte != null ? { href: sikteHref, text: `Sikte ${String(vm.skala.sikte.toFixed(1)).replace('.', ',')}, ändra` } : null}
               aria={vm.skala.aria}
             />
@@ -77,31 +114,15 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
       }
       golv={
         <>
-          <section
-            aria-label={M.varDuTappar}
-            className="steg s3 relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft"
-          >
-            <p className="text-ey text-ink-3">{M.varDuTappar}</p>
-            {vm.familjer.length ? (
-              <div className="-mx-4 -mb-2 [&>*+*]:border-t [&>*+*]:border-kant">
-                {vm.familjer.map((f, i) => (
-                  <Rad
-                    key={i}
-                    titel={f.titel}
-                    meta={f.meta}
-                    stapel={f.andel != null && f.ton ? { andel: f.andel, ton: f.ton } : undefined}
-                  />
-                ))}
-              </div>
-            ) : (
-              <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{M.ingaFamiljer}</p>
-            )}
-          </section>
+          <VarDuTapparKort eyebrow={M.varDuTappar} familjer={vm.familjer} className="steg s3" />
           <section aria-label={vm.planRubrik} className="steg s4 rounded-2xl border border-kant bg-papper p-4">
             <p className="text-ey text-ink-3">{vm.planRubrik}</p>
             <Plan rader={vm.plan} />
           </section>
           {vm.betalvagg ? (
+            // Gratis (art-director 20.2 fråga 1): betalväggen bär sin egen knapp
+            // och är sista elementet på golvet. Ingen fast fot ovanpå resultatet;
+            // hela resultatet läses före priset.
             <section
               aria-label={vm.betalvagg.eyebrow}
               className="steg s4 rounded-2xl border border-koppar bg-papper p-4 shadow-[inset_0_0_0_1px_var(--koppar)]"
@@ -109,32 +130,34 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
               <p className="text-ey text-koppar-ink">{vm.betalvagg.eyebrow}</p>
               <h2 className="mt-1 text-kort-t text-ink-1">{vm.betalvagg.rubrik}</h2>
               <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{vm.betalvagg.text}</p>
+              <div className={KNAPPRAD}>
+                <Link
+                  href={kopstegHref('all_month')}
+                  className={KNAPP_PRIMAR}
+                  onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'matning', cta: 'primary' })}
+                >
+                  {vm.betalvagg.knapp}
+                </Link>
+                {vm.betalvagg.lankTill === 'grundpass' ? (
+                  <Link
+                    href={passHref('pass')}
+                    className={`${LANK} inline-flex min-h-9 items-center justify-center`}
+                    onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary' })}
+                  >
+                    {vm.betalvagg.lank}
+                  </Link>
+                ) : (
+                  <button type="button" onClick={onTillbaka} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
+                    {vm.betalvagg.lank}
+                  </button>
+                )}
+              </div>
             </section>
           ) : null}
         </>
       }
       fot={
-        vm.betalvagg ? (
-          // Gratis: betalväggens knapp står i foten, så att vyns enda
-          // kopparknapp är inom viewport på Pixel 7 (spec 6 våg 3b acceptans
-          // 8). Kortet på golvet säger vad som ingår.
-          <>
-            <Link
-              href={kopstegHref('all_month')}
-              className={KNAPP_PRIMAR}
-              onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'matning', cta: 'primary' })}
-            >
-              {vm.betalvagg.knapp}
-            </Link>
-            <Link
-              href={passHref('pass')}
-              className={`${LANK} inline-flex min-h-9 items-center justify-center`}
-              onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary' })}
-            >
-              {vm.betalvagg.lank}
-            </Link>
-          </>
-        ) : (
+        vm.betalvagg ? undefined : (
           <>
             <Link href={passHref('pass')} className={KNAPP_PRIMAR}>
               {PASS_COPY.knapp.startaPass}

@@ -153,7 +153,15 @@ export interface Urval {
   upprepade: string[];
   /** Nivån passet riktades mot. */
   malniva: number;
+  /**
+   * Fack per fråga (q_id): under, nära eller över nivån. Raden efter rätt
+   * svar ("Sträckuppgift över din nivå", spec 19.2 fråga 1) läser det.
+   * Riktade pass: nara på alla.
+   */
+  band: Record<string, PassBand>;
 }
+
+export type PassBand = keyof Sammansattning;
 
 function lagg(ut: Kandidat[], fran: Kandidat[], n: number, tagna: Set<string>): number {
   let lagt = 0;
@@ -240,6 +248,7 @@ export function valjPass(inp: {
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,
     upprepade: upprepadeAv(valda),
     malniva,
+    band: Object.fromEntries(valda.map((k) => [k.q.id, fack(k)])),
   };
 }
 
@@ -305,7 +314,7 @@ export function valjRiktat(inp: {
   );
   const valda = alla.slice(0, antal);
   if (valda.length < Math.min(RIKTAT_MINST, antal)) {
-    return { fragor: [], sammansattning: { nara: 0, under: 0, over: 0 }, tema: inp.family, ateranvanda: 0, upprepade: [], malniva: inp.niva };
+    return { fragor: [], sammansattning: { nara: 0, under: 0, over: 0 }, tema: inp.family, ateranvanda: 0, upprepade: [], malniva: inp.niva, band: {} };
   }
   const s: Sammansattning = { nara: 0, under: 0, over: 0 };
   for (const k of valda) {
@@ -321,6 +330,7 @@ export function valjRiktat(inp: {
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,
     upprepade: upprepadeAv(valda),
     malniva: inp.niva,
+    band: Object.fromEntries(valda.map((k) => [k.q.id, 'nara' as const])),
   };
 }
 

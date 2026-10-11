@@ -27,11 +27,13 @@ export interface GenomgangVyProps {
   onPos: (pos: number) => void
   onTillbakaResultat: (() => void) | null
   onTillbaka: () => void
+  /** Efter sista missen: "Fortsätt med de sju rätta" som sekundär länk (20.3 punkt 9). */
+  fortsattRatta?: { antal: number; onClick: () => void } | null
 }
 
 const G = PASS_COPY.genomgangVy
 
-export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat, onTillbaka }: GenomgangVyProps) {
+export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat, onTillbaka, fortsattRatta }: GenomgangVyProps) {
   const i = lista[Math.min(pos, lista.length - 1)] ?? 0
   const q = vy.fragor[i]
   const g = vy.genomgang?.[i] ?? null
@@ -75,7 +77,11 @@ export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat,
               {G.nasta}
             </button>
           )}
-          {pos > 0 ? (
+          {sista && fortsattRatta ? (
+            <button type="button" onClick={fortsattRatta.onClick} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
+              {G.fortsattRatta(fortsattRatta.antal)}
+            </button>
+          ) : pos > 0 ? (
             <button type="button" onClick={() => onPos(pos - 1)} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
               {G.foregaende}
             </button>

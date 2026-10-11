@@ -63,6 +63,25 @@ const S1_FRAGOR: { id: string; ratt: boolean; tid: number }[] = [
   { id: 'v7g-3c-byte-02', ratt: true, tid: 70 },
 ]
 
+/**
+ * Facken i passen (60/20/20, lättast först): två under, fem nära, två över.
+ * I P4 ger fråga 7 (rätt, 71 s) "Rätt, men över provets tid", fråga 8 (fel,
+ * över) "Sträckuppgift över din nivå" och fråga 9 (rätt, 29 s)
+ * "Sträckuppgift över din nivå, klarad inom provets tid".
+ */
+function bandFor(fragor: readonly { id: string }[]): Record<string, 'under' | 'nara' | 'over'> {
+  return Object.fromEntries(fragor.map((f, i) => [f.id, i < 2 ? 'under' : i >= fragor.length - 2 ? 'over' : 'nara'] as const))
+}
+
+/** S1: två av missarna (speglingen på 75 s och lantern) var sträckuppgifter över nivån. */
+const S1_BAND: Record<string, 'under' | 'nara' | 'over'> = {
+  ...bandFor(S1_FRAGOR),
+  'v7g-3c-speg-04': 'over',
+  'v7g-3c-lant-01': 'over',
+  'v7g-3c-antal-01': 'nara',
+  'v7g-3c-byte-02': 'nara',
+}
+
 /** Mätningen: sju nya frågor, fem räknas från smakprovet. */
 const MATNING_FRAGOR = ['v7g-3c-lant-03', 'v7g-3c-byte-01', 'v7g-3c-speg-02', 'v7g-3c-over-02', 'v7g-3c-byte-03', 'v7g-3c-tva-01', 'v7g-3c-lant-02']
 const SMAKPROV = ['v7g-q3-vector-rotation', 'v7g-q5-tally-latin', 'v7g-q6-orbital-walk', 'v7g-q10-poly-fill-latin', 'v7g-q14-stack-base-latin']
@@ -114,6 +133,8 @@ function bygg(args: {
   tema?: string | null
   antal?: number
   smakprov?: string[]
+  /** Fack per fråga (19.2 fråga 1), bara pass. */
+  band?: Record<string, 'under' | 'nara' | 'over'>
 }): { vy: Sessionsvy; facit: Record<string, FixturFacit> } {
   const meta: TraningsMeta = {
     alternativ_blandade: true,
@@ -135,6 +156,7 @@ function bygg(args: {
     malniva: null,
     ateranvanda: 0,
     upprepade: [],
+    band: args.band ?? null,
     ...(args.smakprov
       ? { smakprov: { token: 'fixtur', dag: START, svar: args.smakprov.map((q_id, i) => ({ q_id, correct: i !== 2 })) } }
       : {}),
@@ -151,7 +173,7 @@ function bygg(args: {
   }
   const vy = sessionsvy(rad)
   if (!vy) throw new Error('fixturens meta gick inte att läsa')
-  return { vy, facit: Object.fromEntries(args.ids.map((id) => [id, facitFor(args.id, id)])) }
+  return { vy, facit: Object.fromEntries(args.ids.map((id) => [id, { ...facitFor(args.id, id), band: args.band?.[id] ?? null }])) }
 }
 
 /* ----------------------------------------------------------------- läget */
@@ -213,6 +235,7 @@ function status(args: {
     dagensTema: null,
     senastePass: null,
     behorighet: { harOvanGrund: args.betalande, harProvlage: args.betalande, harHistorik: args.betalande },
+    smakprov: null,
   }
 }
 
@@ -244,6 +267,8 @@ function avslut(a: Partial<Avslut> & Pick<Avslut, 'typ' | 'ratt' | 'antal'>): Av
     sikte: SIKTE,
     tid_s: 0,
     ...a,
+    // Fixturerna räknar samma frågor i talet och i staplarna (19.2 fråga 7).
+    over_budget: a.over_budget ?? a.over_tid ?? 0,
   }
 }
 
@@ -260,7 +285,7 @@ const S1_ID = '0f3b0c7e-1a2b-4c3d-8e9f-0a1b2c3d4e08'
 const M_ID = '0f3b0c7e-1a2b-4c3d-8e9f-0a1b2c3d4e06'
 const O_ID = '0f3b0c7e-1a2b-4c3d-8e9f-0a1b2c3d4e13'
 
-export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): Forhandsdata {
+export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean; utanMilstolpe?: boolean; grundGjort?: boolean } = {}): Forhandsdata {
   const P4_AVSLUT = avslut({
     typ: 'pass',
     niva_fore: 5.4,
@@ -271,6 +296,8 @@ export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): F
     snitt_s: 44,
     familjer: {
       passet: [stat('rotation-med-byte', 5, 6, 2), stat('latin-antal', 1, 2), stat('spegling', 1, 1)],
+      // Förra gången familjen hade minst två frågor (19.2 fråga 4): passet 9 oktober.
+      forra: { ...stat('rotation-med-byte', 2, 3), typ: 'pass' },
       svagaste: [stat('rotation-med-byte', 8, 12), stat('latin-antal', 4, 7)],
       langsamma: [stat('spegling', 4, 5, 3)],
     },
@@ -296,6 +323,7 @@ export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): F
         avslutad: false,
         niva_fore: 5.4,
         tema: 'rotation-med-byte',
+        band: bandFor(PASS_FRAGOR),
       })
       const fixtur: Fixtur = { vy, facit, avslut: P4_AVSLUT, status: passStatus }
       if (ram === 'P1') return { ram, fixtur, initial: { idx: 2 }, fastTid: 38, betalande: true }
@@ -310,11 +338,11 @@ export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): F
       }
     }
     case 'P4': {
-      const { vy, facit } = bygg({ id: PASS_ID, typ: 'pass', dag: '2026-10-10', ids: PASS_FRAGOR.map((f) => f.id), svar: PASS_FRAGOR, avslutad: true, niva_fore: 5.4, tema: 'rotation-med-byte' })
+      const { vy, facit } = bygg({ id: PASS_ID, typ: 'pass', dag: '2026-10-10', ids: PASS_FRAGOR.map((f) => f.id), svar: PASS_FRAGOR, avslutad: true, niva_fore: 5.4, tema: 'rotation-med-byte', band: bandFor(PASS_FRAGOR) })
       return { ram, fixtur: { vy, facit, avslut: P4_AVSLUT, status: passStatus }, resultat: { avslut: P4_AVSLUT, vy, status: passStatus }, betalande: true }
     }
     case 'S1': {
-      const { vy, facit } = bygg({ id: S1_ID, typ: 'pass', dag: '2026-10-08', ids: S1_FRAGOR.map((f) => f.id), svar: S1_FRAGOR, avslutad: true, niva_fore: 5.2, tema: 'spegling' })
+      const { vy, facit } = bygg({ id: S1_ID, typ: 'pass', dag: '2026-10-08', ids: S1_FRAGOR.map((f) => f.id), svar: S1_FRAGOR, avslutad: true, niva_fore: 5.2, tema: 'spegling', band: S1_BAND })
       const st = status({ idag: '2026-10-08', punkter: PUNKTER.slice(0, 3), sessioner: sessionerTill('2026-10-08'), betalande: true, milstolpar: [{ nyckel: 'forsta_matningen', dag: START }] })
       const i = imorgonRad({ idag: '2026-10-08', start: START, prov: PROV, ratt: 5, antal: 9 })
       const a = avslut({
@@ -346,7 +374,9 @@ export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): F
         antal: 12,
         smakprov: SMAKPROV,
       })
-      const st = status({ idag: START, punkter: PUNKTER.slice(0, 1), sessioner: sessionerTill(START), betalande, milstolpar: [{ nyckel: 'forsta_matningen', dag: START }] })
+      const st0 = status({ idag: START, punkter: PUNKTER.slice(0, 1), sessioner: sessionerTill(START), betalande, milstolpar: [{ nyckel: 'forsta_matningen', dag: START }] })
+      // &grundgjort=1: grundpasset redan gjort i dag (19.2 fråga 6).
+      const st = opt.grundGjort ? { ...st0, dagensPassGjort: true } : st0
       const a = avslut({
         typ: 'matning',
         niva_efter: 5.0,
@@ -396,8 +426,14 @@ export function byggForhandsdata(ram: Ram, opt: { betalande?: boolean } = {}): F
         over_tid: 1,
         snitt_s: 45,
         imorgon: { typ: i.typ, text: i.text, dag: i.dag },
-        milstolpe: 'forsta_veckan',
-        milstolpar: ['forsta_veckan'],
+        // O1 utan milstolpe (&milstolpe=0): Var du tappar nu lyfts (20.3 punkt 7).
+        ...(opt.utanMilstolpe ? { milstolpar: [] } : { milstolpe: 'forsta_veckan' as const, milstolpar: ['forsta_veckan' as const] }),
+        familjer: {
+          passet: [stat('rotation-med-byte', 2, 3), stat('latin-antal', 1, 2), stat('spegling', 2, 2)],
+          matningen: { dag: START, familjer: [stat('rotation-med-byte', 1, 3), stat('latin-antal', 2, 4)] },
+          svagaste: [stat('rotation-med-byte', 6, 11), stat('latin-antal', 5, 8)],
+          langsamma: [],
+        },
         tid_s: 545,
       })
       return { ram: 'O1', fixtur: { vy, facit, avslut: a, status: st }, resultat: { avslut: a, vy, status: st }, betalande: true }

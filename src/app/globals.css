@@ -792,6 +792,12 @@ html[data-fri-sikt='true'] [data-sticky-mobil] {
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
   }
+  /* Decimalkommat i ett tabulärt tal (TalText): kommat får sin egen bredd,
+     annars blir "5,4" till "5 , 4" (spec-rummen 19.4 punkt 2). */
+  .tal-komma {
+    font-variant-numeric: proportional-nums;
+    font-feature-settings: 'tnum' 0;
+  }
   /* Resultatets tre tal, 28/30. */
   .text-tal-tre {
     font-family: var(--font-display), Inter, system-ui, sans-serif;

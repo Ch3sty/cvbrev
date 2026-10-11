@@ -47,7 +47,7 @@ import {
   type Traningsstatus,
 } from '@/lib/traning/klient'
 import { nivaHeltal, PASS_COPY } from '@/lib/traning/pass-copy'
-import { matningResultat, ommatningResultat, passResultat } from '@/lib/traning/resultat'
+import { andraRegelrad, matningResultat, ommatningResultat, passResultat } from '@/lib/traning/resultat'
 import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo'
 import GenomgangVy from './GenomgangVy'
 import MatningResultatVy from './MatningResultatVy'
@@ -73,7 +73,7 @@ type Fas =
   | { typ: 'avslutar'; tidenUte?: boolean }
   | { typ: 'avslutfel' }
   | { typ: 'resultat'; data: Resultatdata }
-  | { typ: 'genomgang'; vy: Sessionsvy; lista: number[]; pos: number; resultat: Resultatdata | null }
+  | { typ: 'genomgang'; vy: Sessionsvy; lista: number[]; pos: number; resultat: Resultatdata | null; ratta?: number[] }
 
 export interface PassFlodeInitial {
   idx?: number
@@ -379,7 +379,10 @@ export default function PassFlode({
       const alla = vyEfter.fragor.map((_, i) => i)
       const lista = startIndex == null ? alla : missar.includes(startIndex) ? missar : alla
       const pos = startIndex == null ? 0 : Math.max(0, lista.indexOf(startIndex))
-      setFas({ typ: 'genomgang', vy: vyEfter, lista, pos, resultat: data })
+      // Genomgången av missarna räknar "1 / 2" och slutar med "Fortsätt med de
+      // sju rätta" (art-director 20.3 punkt 9): knapp och räknare säger samma sak.
+      const ratta = lista === missar ? alla.filter((i) => !missar.includes(i)) : []
+      setFas({ typ: 'genomgang', vy: vyEfter, lista, pos, resultat: data, ratta })
     },
     []
   )
@@ -412,6 +415,11 @@ export default function PassFlode({
         lista={fas.lista}
         pos={fas.pos}
         onPos={(pos) => setFas({ ...fas, pos })}
+        fortsattRatta={
+          fas.ratta && fas.ratta.length > 0
+            ? { antal: fas.ratta.length, onClick: () => setFas({ ...fas, lista: fas.ratta!, pos: 0, ratta: [] }) }
+            : null
+        }
         onTillbakaResultat={fas.resultat ? () => setFas({ typ: 'resultat', data: fas.resultat! }) : null}
         onTillbaka={tillbaka}
       />
@@ -567,6 +575,8 @@ export default function PassFlode({
     )
   }
 
+  // Raden efter regeln: sträckuppgift och tid (testansvarig 19.2 fråga 1), bara i pass.
+  const regelRad2 = at && iPass ? andraRegelrad(at, vy.budget_s) : null
   const regelRad = at
     ? at.vetInte
       ? PASS_COPY.regel.vetInte(at.tid_s)
@@ -603,7 +613,7 @@ export default function PassFlode({
           onValj={(i) => void svara(i)}
         />
       ) : null}
-      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} visaVidSvar /> : null}
+      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} rad2={regelRad2} visaVidSvar /> : null}
       {fas.typ === 'sparar' ? (
         <p className="sr-only" role="status" aria-live="polite">
           {PASS_COPY.knapp.sparar}

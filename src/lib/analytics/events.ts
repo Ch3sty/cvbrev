@@ -306,6 +306,11 @@ export interface AnalyticsEvents {
     ateranvanda: number
     /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
     raknade: number
+    /**
+     * Antal rätt per band ur urvalet (spec 19.4 punkt 5): ger 60/20/20 väntat
+     * 4 till 5 av 9 på egen nivå? Null i sessioner utan band.
+     */
+    band_ratt: { under: number; nara: number; over: number } | null
   }
   ommatning_klar: { niva: number; delta: number }
   generalrepetition_klar: { format: string; ratt: number; antal: number }
@@ -340,7 +345,7 @@ export interface AnalyticsEvents {
   }
   provdatum_hoppat_over: { steg: 2 | 3 }
   traning_hem_visad: {
-    tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'fel'
+    tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel'
   }
   efter_provet_svar: { svar: 'vidare' | 'vet_inte' | 'inte_vidare' }
   /* ---------------------------------------------- Rummen, våg 3b

@@ -16,6 +16,7 @@
 //   provdag       1d   provdagen: inget räknar, inget blinkar
 //   efter         1e   dagen efter provet, frågan "Hur gick det?" (servern avgör)
 //   personlighet  1p   bara personlighetstestet valt
+//   annat_test    1t   bara siffror eller text valt: det valda testet lyfts (19.3)
 //   fel           X1   statusen gick inte att läsa
 //
 // Regler som gäller alla: inga streck, aldrig "0" eller "0 %", ingen tom
@@ -58,10 +59,11 @@ export type HemTillstand =
   | 'provdag'
   | 'efter'
   | 'personlighet'
+  | 'annat_test'
   | 'fel';
 
 /** Värdet för traning_hem_visad (spec avsnitt 7). */
-export type HemMatning = 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'fel';
+export type HemMatning = 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel';
 
 export function matningsvarde(t: HemTillstand): HemMatning {
   return t === 'efter_pass' ? 'mitt_i' : t;
@@ -96,7 +98,7 @@ export interface RadModell {
 }
 
 export type Sektion =
-  | { typ: 'tempo'; tal: [Tal, Tal, Tal]; meta: string; eyebrow?: string }
+  | { typ: 'tempo'; tal: [Tal, Tal, Tal]; meta?: string; eyebrow?: string }
   | { typ: 'rader'; nyckel: string; rubrik?: string; lank?: { text: string; href: string }; rader: RadModell[] }
   | { typ: 'status'; nyckel: string; text: string; ton: 'neutral' | 'koppar'; lank?: { text: string; href: string } };
 
@@ -112,6 +114,8 @@ export interface LyftModell {
   eyebrowTon: 'koppar' | 'neutral';
   titel: string;
   text?: string;
+  /** En egen rad under texten (smakprovet i 1a och T1, 19.3 fråga 3). */
+  rad?: string;
   tre?: [Tal, Tal, Tal];
   handling?: Handling;
   sekundar?: { text: string; href: string };
@@ -305,7 +309,7 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
       symbol: 'ord',
       svag: !verbal,
       hoger: { typ: 'chev' },
-      href: '/dashboard/tester/verbal-resonemang',
+      href: TRANING_RUTT.text,
     },
     {
       _typ: 'numerisk',
@@ -314,7 +318,7 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
       symbol: 'siffror',
       svag: !numerisk,
       hoger: { typ: 'chev' },
-      href: '/dashboard/tester/numeriskt-test',
+      href: TRANING_RUTT.siffror,
     },
     {
       _typ: 'personlighet',
@@ -334,7 +338,7 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
       symbol: 'matris',
       svag: true,
       hoger: { typ: 'chev' },
-      href: TRANING_RUTT.hem,
+      href: TRANING_RUTT.matning,
     });
   }
   // Valda typer först, de gjorda före de ogjorda.
@@ -420,7 +424,11 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
 
 function tempoSektion(s: Traningsstatus): Sektion | null {
   const p = s.senastePass;
-  if (!p || p.typ === 'general' || p.over_tid == null || p.ratt == null) return null;
+  if (!p || p.typ === 'general' || p.ratt == null) return null;
+  // Samma tal som P4 (19.2 fråga 7): alla besvarade frågor över provets tid.
+  // Äldre sessioner utan over_budget faller tillbaka på motorns över tiden.
+  const over = p.over_budget ?? p.over_tid;
+  if (over == null) return null;
   const eget = !s.format.namn;
   const igar = p.dag === laggTill(s.idag, -1);
   const idag = p.dag === s.idag;
@@ -429,13 +437,13 @@ function tempoSektion(s: Traningsstatus): Sektion | null {
     typ: 'tempo',
     eyebrow: 'Tempo',
     tal: [
-      { varde: `${p.over_tid} av ${p.antal}`, etikett: idag ? HEM.tempo.overIdag : igar ? HEM.tempo.over : `över provets tid ${kortDatum(p.dag)}` },
+      { varde: `${over} av ${p.antal}`, etikett: idag ? HEM.tempo.overIdag : igar ? HEM.tempo.over : `över provets tid ${kortDatum(p.dag)}` },
       p.snitt_s != null
         ? { varde: `${Math.round(p.snitt_s)} s`, etikett: eget ? HEM.tempo.snittEget(s.format.budget_s) : HEM.tempo.snitt(s.format.budget_s) }
         : { varde: `${s.format.budget_s} s`, etikett: 'provets tid per uppgift' },
       { varde: String(Math.max(passGjorda, 1)), etikett: HEM.tempo.passGjorda },
     ],
-    meta: eget ? HEM.tempo.metaEget : HEM.tempo.meta,
+    meta: eget ? HEM.tempo.metaEget : undefined,
   };
 }
 
@@ -618,6 +626,33 @@ export function byggHemvy(inp: HemIn): HemModell {
     };
   }
 
+  /* ---------- 1t: bara siffror eller bara text valt (19.3 fråga 2) */
+  const kognitiva = kognitivaTyper(testtyper);
+  if (niva == null && kognitiva.length > 0 && !kognitiva.includes('matris')) {
+    // Siffror först när båda är valda (numeriska testets slutförandefel är rättat, 85a0b00d).
+    const siffror = kognitiva.includes('numerisk');
+    const A = HEM.annatTest;
+    return {
+      tillstand: 'annat_test',
+      ram: '1t',
+      kontext: kontext(s),
+      nyPunkt: false,
+      vagg: {
+        rubrik: prov && dagarKvar != null && dagarKvar >= 0 ? rubrikForeProv(ri, dagarKvar) : HEM.rubrikUtanDatum,
+        rad: A.rad,
+      },
+      lyft: {
+        label: A.eyebrow,
+        eyebrow: A.eyebrow,
+        eyebrowTon: 'koppar',
+        titel: siffror ? A.titelSiffror : A.titelText,
+        text: A.text,
+        handling: { typ: 'lank', text: siffror ? A.knappSiffror : A.knappText, href: siffror ? TRANING_RUTT.siffror : TRANING_RUTT.text },
+      },
+      sektioner: [flerTester(inp.flerTester, testtyper, true), jobb],
+    };
+  }
+
   // Efter provet med svar: datumet är passerat och hör till det gamla provet.
   const provPasserat = !!prov && dagarKvar != null && dagarKvar < 0;
   const svar = provPasserat ? (s.plan?.utfall ?? null) : null;
@@ -625,7 +660,7 @@ export function byggHemvy(inp: HemIn): HemModell {
 
   /* ---------- T1 och 1a: ingen mätning */
   if (niva == null || !s.start) {
-    const mat = matningLyft(betalande);
+    const mat = matningLyft(betalande, s.smakprov ?? null);
     if (aktuelltProv && dagarKvar != null && dagarKvar > 0) {
       const plan = byggPlan({ start: s.idag, prov: aktuelltProv, idag: s.idag, betalande });
       return {
@@ -643,7 +678,7 @@ export function byggHemvy(inp: HemIn): HemModell {
             prov: aktuelltProv,
             ariaLabel: planbildLabel(plan, s.idag, aktuelltProv),
           },
-          kurvaMeta: plan.some((d) => d.status === 'last') ? `${HEM.ny.planMeta} ${HEM.ny.planMetaGratis}` : HEM.ny.planMeta,
+          kurvaMeta: plan.some((d) => d.status === 'last') ? HEM.ny.planMetaGratis() : HEM.ny.planMeta,
         },
         lyft: mat,
         sektioner: [fler, jobb],
@@ -658,8 +693,8 @@ export function byggHemvy(inp: HemIn): HemModell {
       kontext: kontext(s),
       nyPunkt: false,
       vagg: {
-        rubrik: RUM_RUBRIK,
-        rad: `${HEM.rumRad} ${HEM.tomt.rad}`,
+        rubrik: HEM.rubrikUtanDatum,
+        rad: HEM.tomt.rad,
         tomtBox: { titel: HEM.tomt.boxTitel, text: HEM.tomt.boxText },
       },
       lyft: mat,
@@ -736,7 +771,7 @@ export function byggHemvy(inp: HemIn): HemModell {
             eyebrow: HEM.infor.eyebrow,
             eyebrowTon: 'koppar',
             titel: `${r.titel}: ${r.antalTid}`,
-            text: harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText,
+            text: harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText(),
             handling: harProv
               ? { typ: 'lank', text: HEM.infor.knapp, href: TRANING_RUTT.general }
               : { typ: 'kop', text: kopKnapp(), feature: 'test_exam_mode' },
@@ -761,7 +796,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       eyebrow: HEM.ommatning.eyebrow,
       eyebrowTon: 'koppar',
       titel: HEM.ommatning.titel,
-      text: tillats ? HEM.ommatning.text : `${HEM.ommatning.text} ${HEM.ommatning.lastText}`,
+      text: tillats ? HEM.ommatning.text : `${HEM.ommatning.text} ${HEM.ommatning.lastText()}`,
       handling: tillats
         ? { typ: 'lank', text: HEM.ommatning.knapp, href: TRANING_RUTT.matning }
         : { typ: 'kop', text: kopKnapp(), feature: 'tests_above_base' },
@@ -828,7 +863,7 @@ export function byggHemvy(inp: HemIn): HemModell {
   else if (!betalande && !utanDatum) ram = '1f';
 
   const vagg: VaggModell = {
-    rubrik: utanDatum ? RUM_RUBRIK : rubrikForeProv(ri, dagarKvar!),
+    rubrik: utanDatum ? HEM.rubrikUtanDatumPass : rubrikForeProv(ri, dagarKvar!),
     rad: radText(s, niva, dagLage),
     dagsrad: {
       ring: s.dagensPassGjort ? 'gjord' : 'kvar',
@@ -841,7 +876,7 @@ export function byggHemvy(inp: HemIn): HemModell {
     })(),
     kurvaRubrik: kurvaRubrik(s),
     kurva,
-    kurvaMeta: s.historikLast || s.plandagar.some((p) => p.status === 'last') ? HEM.kurva.gratisMeta : undefined,
+    kurvaMeta: s.historikLast || s.plandagar.some((p) => p.status === 'last') ? HEM.kurva.gratisMeta() : undefined,
     datumBox: utanDatum ? { text: HEM.utanDatum.box, lank: { text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) } } : undefined,
   };
 
@@ -865,14 +900,18 @@ function kurvaRubrik(s: Traningsstatus): VaggModell['kurvaRubrik'] {
   };
 }
 
-function matningLyft(betalande: boolean): LyftModell {
+function matningLyft(betalande: boolean, smakprov: Traningsstatus['smakprov']): LyftModell {
+  // Smakprovet räknas in (19.3 fråga 3): raden under texten, minuterna på de nya.
+  const n = smakprov && smakprov.antal > 0 && smakprov.antal < 12 ? smakprov.antal : 0;
+  const m = n ? HEM.matning.smakprovMinuter(n) : null;
   return {
     label: HEM.matning.eyebrow,
     eyebrow: HEM.matning.eyebrow,
     eyebrowTon: 'koppar',
-    titel: HEM.matning.titel,
+    titel: m ? HEM.matning.smakprovTitel(m) : HEM.matning.titel,
     text: HEM.matning.text,
-    handling: { typ: 'lank', text: HEM.matning.knapp, href: TRANING_RUTT.matning },
+    rad: n ? HEM.matning.smakprovRad(n) : undefined,
+    handling: { typ: 'lank', text: m ? HEM.matning.smakprovKnapp(m) : HEM.matning.knapp, href: TRANING_RUTT.matning },
     under: !betalande && GRATISNIVA.matningGratis ? HEM.matning.gratis : undefined,
   };
 }
@@ -987,7 +1026,6 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
           aria: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Sikte: ${decimal(sikte)}.` : ''}`,
         }
       : null;
-  const matrigma = s.format.nyckel === 'matrigma_klassisk';
   const perUppgift = s.format.tidsform === 'per_uppgift';
   const dagStr = kortDatum(prov);
   const manad = manadNamn(prov);
@@ -1022,7 +1060,7 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
         nyckel: 'rad',
         rubrik: undefined,
         rader: [
-          { titel: HEM.provdag.rad.tystRum, meta: matrigma ? HEM.provdag.rad.tystRumMatrigma : HEM.provdag.rad.tystRumMeta },
+          { titel: HEM.provdag.rad.tystRum, meta: HEM.provdag.rad.tystRumMeta },
           { titel: HEM.provdag.rad.lattForst, meta: perUppgift ? HEM.provdag.rad.lattForstPerUppgift : HEM.provdag.rad.lattForstMeta },
           { titel: HEM.provdag.rad.efterat, meta: HEM.provdag.rad.efteratMeta },
         ],
@@ -1049,7 +1087,7 @@ function felModell(inp: HemIn): HemModell {
     ram: 'X1',
     kontext: null,
     nyPunkt: false,
-    vagg: { rubrik: RUM_RUBRIK, rad: HEM.rumRad },
+    vagg: { rubrik: HEM.rubrikUtanDatum, rad: '' },
     lyft: {
       label: HEM.fel.eyebrow,
       eyebrow: HEM.fel.eyebrow,

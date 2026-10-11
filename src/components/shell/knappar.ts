@@ -14,8 +14,11 @@
 // variant. Undantaget är KNAPP_GLAS, väggens sekundära handling, som alltid
 // har automatisk bredd (full bredd på glas finns bara i Kvitto och i ark).
 
+// whitespace-nowrap (art-director 20.5 punkt 2): kopparknappen bryts aldrig
+// på två rader. Ryms inte texten är det layouten som ändras (kortet spänner
+// två kolumner), aldrig knappen.
 export const KNAPP_PRIMAR =
-  'knapp-primar inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl px-[18px] text-[15px] font-semibold tracking-[-.005em] disabled:opacity-50'
+  'knapp-primar inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl px-[18px] text-[15px] font-semibold tracking-[-.005em] disabled:opacity-50'
 
 export const KNAPP_SEKUNDAR =
   'inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-kant-stark bg-papper px-[18px] text-[15px] font-semibold text-ink-1'

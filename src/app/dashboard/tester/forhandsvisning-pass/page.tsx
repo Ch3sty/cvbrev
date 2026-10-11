@@ -2,7 +2,8 @@
  * Förhandsvisning av våg 3b för utvecklare och klicktest:
  *
  *   /dashboard/tester/forhandsvisning-pass?ram=P1|P2|P3|P4|S1|M0|M1|O1|K1|uppvarmning
- *   (&betalande=1 för M0 och M1 utan betalvägg)
+ *   (&betalande=1 för M0 och M1 utan betalvägg, &milstolpe=0 för O1 utan
+ *   milstolpe, &grundgjort=1 för M1 när grundpasset redan är gjort)
  *
  * Finns bara när NODE_ENV är development eller TRANING_FORHANDSVISNING=1
  * (en flagga som aldrig sätts i produktionen); annars 404. Ritar samma
@@ -31,6 +32,6 @@ export default async function ForhandsvisningPassSida({
   const sp = await searchParams
   const v = Array.isArray(sp.ram) ? sp.ram[0] : sp.ram
   const ram: Ram = RAMAR.includes(v as Ram) ? (v as Ram) : 'P1'
-  const data = byggForhandsdata(ram, { betalande: sp.betalande === '1' })
+  const data = byggForhandsdata(ram, { betalande: sp.betalande === '1', utanMilstolpe: sp.milstolpe === '0', grundGjort: sp.grundgjort === '1' })
   return <Forhandsvisning data={data} />
 }

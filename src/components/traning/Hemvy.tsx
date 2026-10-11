@@ -180,7 +180,7 @@ function SektionFor({ s, forstaRad }: { s: Sektion; forstaRad: boolean }) {
         <Kort label="Tempo och pass">
           {s.eyebrow ? <p className="mb-2 hidden text-ey text-ink-3 lg:block">{s.eyebrow}</p> : null}
           <TreTal tal={s.tal} pa="golv" />
-          <p className="mt-3 text-meta text-ink-3">{s.meta}</p>
+          {s.meta ? <p className="mt-3 text-meta text-ink-3">{s.meta}</p> : null}
         </Kort>
       </div>
     )

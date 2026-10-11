@@ -21,7 +21,7 @@ import type { Nivapunkt } from './milstolpar';
 import type { SenastePass, Testplan, Traningsstatus } from './motor.server';
 import type { FlerTesterIn, HemIn, JobbsokIn } from './hemvy';
 
-export const TILLSTAND = ['T1', '1a', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1', 'W1', 'W2', 'W3', 'W4'] as const;
+export const TILLSTAND = ['T1', 'T1s', '1a', '1as', '1t', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1', 'W1', 'W2', 'W3', 'W4'] as const;
 export type Fixtur = (typeof TILLSTAND)[number];
 
 /** Datorramarna visar samma data som mobilens. */
@@ -80,12 +80,13 @@ function pass(dag: Dag, over: Partial<SenastePass> = {}): SenastePass {
     ratt: 7,
     antal: 9,
     over_tid: 2,
+    over_budget: over.over_budget ?? over.over_tid ?? 2,
     snitt_s: 44,
     budget_s: 68,
     niva_fore: 5.4,
     niva_efter: 5.6,
     ...over,
-  };
+  } as SenastePass;
 }
 
 interface Bygg {
@@ -101,6 +102,8 @@ interface Bygg {
   nyPunkt?: boolean;
   familjer?: 'matning' | 'pass' | 'ingen';
   aktivitet?: Traningsstatus['aktivitet'];
+  /** Smakprovet som räknas in i mätningen (19.3 fråga 3). */
+  smakprov?: Traningsstatus['smakprov'];
 }
 
 function status(b: Bygg): Traningsstatus {
@@ -177,6 +180,7 @@ function status(b: Bygg): Traningsstatus {
     dagensTema: b.dagensTema === undefined ? 'rotation-med-byte' : b.dagensTema,
     senastePass: b.senastePass ?? null,
     behorighet: { harOvanGrund: betalande, harProvlage: betalande, harHistorik: betalande },
+    smakprov: b.smakprov ?? null,
   };
 }
 
@@ -186,6 +190,29 @@ export function fixtur(t: Fixtur): HemIn & { laddar?: boolean } {
   switch (k) {
     case 'T1':
       return { idag: '2026-10-10', status: status({ idag: '2026-10-10', plan: null }), flerTester: FLER_NY, jobbsok: JOBB_NY };
+    case 'T1s':
+      // T1 med smakprov: fem frågor räknas in (19.3 fråga 3).
+      return {
+        idag: '2026-10-10',
+        status: status({ idag: '2026-10-10', plan: null, smakprov: { dag: '2026-10-09', antal: 5 } }),
+        flerTester: FLER_NY,
+        jobbsok: JOBB_NY,
+      };
+    case '1as':
+      return {
+        idag: '2026-10-10',
+        status: status({ idag: '2026-10-10', plan: plan({ sikte: null }), betalande: false, smakprov: { dag: '2026-10-09', antal: 5 } }),
+        flerTester: FLER_NY,
+        jobbsok: JOBB_NY,
+      };
+    case '1t':
+      // Bara siffror valt (19.3 fråga 2).
+      return {
+        idag: '2026-10-10',
+        status: status({ idag: '2026-10-10', plan: plan({ testtyper: ['numerisk'], leverantor: null, variant: null, sikte: null }), familjer: 'ingen' }),
+        flerTester: FLER_NY,
+        jobbsok: JOBB_NY,
+      };
     case '1a':
       return {
         idag: '2026-10-10',

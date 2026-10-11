@@ -11,14 +11,15 @@
 // =============================================================================
 
 import { familjInfo, familjNamn } from '@/lib/logicTestV7/familjer';
+import { svagasteFamiljer } from './familjer';
 import { paketMedPris, paketNamn } from '@/lib/plans/plans';
 import { TRANING_COPY, versal } from './copy';
 import { dagarMellan, veckodagNamn, type Dag } from './datum';
 import { MILSTOLPAR, type MilstolpeNyckel, type Nivapunkt } from './milstolpar';
 import { datumKort, datumLista, deltaText, fragorText, nivaHeltal, nivaText, PASS_COPY, serieText } from './pass-copy';
 import type { PlanDag } from './plan';
-import { formatText, type Provformat } from './tempo';
-import type { Avslut, Sessionsvy, Traningsstatus } from './klient';
+import { formatText, PROVFORMAT, type FormatNyckel, type Provformat } from './tempo';
+import type { Aterkoppling, Avslut, Sessionsvy, Traningsstatus } from './klient';
 
 const R = PASS_COPY.resultat;
 
@@ -80,13 +81,24 @@ export function byggStaplar(vy: Sessionsvy, budget_s: number): Staplar {
   return {
     staplar: svar.map((s) => ({
       hojd: Math.max(0.06, Math.min(1, s.tid_s / max)),
-      over: s.tid_s > budget_s,
+      over: s.tidenUte || s.tid_s > budget_s,
       fel: !s.correct,
       tid_s: s.tid_s,
     })),
     linje: 1 - budget_s / max,
     budget_s,
   };
+}
+
+/**
+ * Över provets tid: motorns over_budget (alla besvarade frågor, tiden ute
+ * inräknad, spec 19.2 fråga 7), eller samma räkning på sessionen för avslut
+ * utan fältet.
+ */
+export function overBudget(avslut: Pick<Avslut, 'over_budget' | 'over_tid' | 'budget_s'>, vy: Sessionsvy | null): number {
+  if (typeof avslut.over_budget === 'number') return avslut.over_budget;
+  if (!vy) return avslut.over_tid;
+  return vy.besvarade.filter((b) => b.tidenUte || b.tid_s > avslut.budget_s).length;
 }
 
 /** Rätt-raden i genomgången och raderna för missarna. */
@@ -112,6 +124,21 @@ export function byggGenomgang(vy: Sessionsvy): { rader: GenomgangsRad[]; ratt: n
     rader.push({ index: i, titel, meta: `${forklaring} ${R.genomgang.sekunder(b.tid_s)}` });
   });
   return { rader, ratt, missar };
+}
+
+/**
+ * Raden efter regeln i pass och riktat pass (testansvarig 19.2 fråga 1):
+ * rätt på en sträckuppgift inom tiden, rätt över tiden, eller en missad
+ * sträckuppgift. Rätt i övrigt inom tiden ger ingen rad (regeln räcker).
+ */
+export function andraRegelrad(at: Pick<Aterkoppling, 'correct' | 'band' | 'tid_s'>, budget_s: number): string | null {
+  const P = PASS_COPY.regel;
+  const over = at.band === 'over';
+  if (at.correct) {
+    if (over) return at.tid_s <= budget_s ? P.strackRatt : P.strackRattOverTid;
+    return at.tid_s > budget_s ? P.rattOverTid : null;
+  }
+  return over ? P.strackFel : null;
 }
 
 /** Nästa planerade dag av en typ efter i dag. */
@@ -226,8 +253,12 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
   const tal: [Tal, Tal, Tal] = [
     { varde: R.tal.av(ratt, antal), etikett: R.tal.ratt },
     andra,
-    { varde: R.tal.av(avslut.over_tid, antal), etikett: R.tal.overTid },
+    { varde: R.tal.av(overBudget(avslut, vy), antal), etikett: R.tal.overTid },
   ];
+
+  const staplar = byggStaplar(vy, avslut.budget_s);
+  const genomgang = byggGenomgang(vy);
+  const overNr = staplar.staplar.map((s, i) => (s.over ? i + 1 : 0)).filter((n) => n > 0);
 
   // Meningen under talen (s3).
   const idag = status?.idag ?? avslut.imorgon.dag;
@@ -235,19 +266,26 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
   const ommatningDag = ommatning ? veckodagNamn(ommatning.dag) : null;
   let mening: string | null;
   if (riktat) mening = R.riktatRad;
-  else if (riktning === 'ner') mening = R.sjonk;
-  else {
+  else if (riktning === 'ner') {
+    // Missar som var sträckuppgifter över nivån (bandet ur urvalet, 19.2 fråga 5).
+    const overMissar = genomgang.missar.filter((i) => vy.aterkoppling?.[vy.fragor[i]?.id]?.band === 'over').length;
+    mening = R.sjonk(overMissar);
+  } else if (avslut.typ === 'general') {
+    // Formatet i stället för familjen (19.2 fråga 8).
+    const f = PROVFORMAT[vy.format as FormatNyckel] ?? status?.format ?? null;
+    mening = f ? R.generalMening(`${f.namn ? `Samma format som ${f.namn}` : 'Vårt provläge'}, ${formatText(f as Provformat)}`) : null;
+  } else {
     const tema = vy.tema ?? null;
     const temaStat = avslut.familjer.passet.find((f) => f.family === tema) ?? [...avslut.familjer.passet].sort((a, b) => b.antal - a.antal)[0];
     const namn = familjText(temaStat?.family);
-    const forsta = temaStat && namn && temaStat.antal >= 2 ? `${R.familjIdag(temaStat.ratt, temaStat.antal, namn)} ` : '';
+    const forra = avslut.familjer.forra && avslut.familjer.forra.family === temaStat?.family ? avslut.familjer.forra : null;
+    const forsta =
+      temaStat && namn && temaStat.antal >= 2
+        ? `${R.familjIdag(temaStat.ratt, temaStat.antal, namn, forra ? { ratt: forra.ratt, antal: forra.antal, matning: forra.typ === 'matning' } : null)} `
+        : '';
     const andraMening = vy.variant === 'grund' ? R.grundpass : R.passFlyttar(ommatningDag);
-    mening = avslut.typ === 'general' ? forsta.trim() || null : `${forsta}${andraMening}`;
+    mening = `${forsta}${andraMening}`;
   }
-
-  const staplar = byggStaplar(vy, avslut.budget_s);
-  const genomgang = byggGenomgang(vy);
-  const overNr = staplar.staplar.map((s, i) => (s.over ? i + 1 : 0)).filter((n) => n > 0);
 
   // Kortet: tempot (P4), eller vad som hände när nivån sjönk (S1).
   let kort: PassResultat['kort'];
@@ -258,18 +296,19 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
       if (f) perFamilj.set(f, (perFamilj.get(f) ?? 0) + 1);
     }
     const [storst, iFamilj] = [...perFamilj.entries()].sort((a, b) => b[1] - a[1])[0] ?? [null, 0];
-    const info = familjInfo(storst);
+    // En familj "sticker ut" när minst två av missarna ligger där (19.2 fråga 5).
+    const info = iFamilj >= 2 ? familjInfo(storst) : null;
     kort = {
       eyebrow: R.vadHande.eyebrow,
-      titel: R.vadHande.titel(genomgang.missar.length, iFamilj),
-      text: info ? `${info.namn}: ${info.kort.charAt(0).toLowerCase()}${info.kort.slice(1)} Den går att öva bort med riktade pass.` : R.tempo.naraNivan,
+      titel: R.vadHande.titel(genomgang.missar.length, info ? iFamilj : 0),
+      text: info ? `${info.namn}: ${info.kort.charAt(0).toLowerCase()}${info.kort.slice(1)} ${R.vadHande.familjOvas}` : R.vadHande.ingenFamilj,
       staplar,
-      axelMitt: 'ljusa staplar: fel svar',
+      axelMitt: R.tempo.axelFel,
     };
   } else {
     const titel = overNr.length ? R.tempo.over(fragorText(overNr)) : R.tempo.inga;
+    // Kortet och talet räknar samma frågor (19.2 fråga 7): ingen förklaringsmening.
     const delar = [avslut.snitt_s != null ? R.tempo.snitt(avslut.snitt_s, avslut.budget_s) : null, overNr.length ? R.tempo.gaIgenom : null];
-    if (overNr.length !== avslut.over_tid) delar.push(R.tempo.naraNivan);
     kort = {
       eyebrow: R.tempo.eyebrow,
       titel,
@@ -322,7 +361,7 @@ export interface MatningResultat {
   familjer: { titel: string; meta: string; andel: number | null; ton: 'koppar' | 'ton' | null }[];
   planRubrik: string;
   plan: PlanRad[];
-  betalvagg: { eyebrow: string; rubrik: string; text: string; knapp: string; lank: string } | null;
+  betalvagg: { eyebrow: string; rubrik: string; text: string; knapp: string; lank: string; lankTill: 'grundpass' | 'tillbaka' } | null;
   dagarKvar: number | null;
 }
 
@@ -336,7 +375,9 @@ export function planRader(
   const las = { text: paketNamn('all_month'), las: true };
   const rader: PlanRad[] = [{ punkt: 'gjord', titel: M.idag, meta: M.idagMeta, chip: { text: M.klart, ton: true }, last: false }];
   if (!opt.betalande) {
-    rader.push({ punkt: 'kvar', titel: M.grundIdag, meta: M.grundIdagMeta, chip: { text: M.gratis, ton: true }, last: false });
+    // Grundpasset gjort (19.2 fråga 6): chippen säger Klart i stället för Gratis.
+    const gjort = status.dagensPassGjort;
+    rader.push({ punkt: gjort ? 'gjord' : 'kvar', titel: M.grundIdag, meta: M.grundIdagMeta, chip: { text: gjort ? M.klart : M.gratis, ton: true }, last: false });
   }
   const efter = status.plandagar.filter((p) => p.dag > idag);
   const forstaPass = efter.find((p) => p.typ === 'pass');
@@ -402,7 +443,7 @@ export function matningResultat(avslut: Avslut, status: Traningsstatus | null, b
     skala: { nu: niva, sikte, aria: PASS_COPY.matning.skalaAria(niva, sikte) },
     tal: [
       { varde: PASS_COPY.matning.ratt(avslut.ratt, avslut.antal), etikett: R.tal.ratt },
-      { varde: R.tal.av(avslut.over_tid, avslut.antal), etikett: R.tal.overTid },
+      { varde: R.tal.av(overBudget(avslut, null), avslut.antal), etikett: R.tal.overTid },
       avslut.snitt_s != null
         ? { varde: R.tal.sekunder(avslut.snitt_s), etikett: R.tal.snitt(avslut.budget_s) }
         : { varde: R.tal.sekunder(Math.round(avslut.tid_s / Math.max(1, avslut.antal))), etikett: R.tal.snitt(avslut.budget_s) },
@@ -416,9 +457,11 @@ export function matningResultat(avslut: Avslut, status: Traningsstatus | null, b
       : {
           eyebrow: paketNamn('all_month'),
           rubrik: PASS_COPY.matning.betalvagg.rubrik(dagarKvar),
-          text: PASS_COPY.matning.betalvagg.text,
+          text: PASS_COPY.matning.betalvagg.text(status?.format.namn ?? null),
           knapp: `Köp ${paketMedPris('all_month')}`,
-          lank: PASS_COPY.matning.betalvagg.grundpassLank,
+          // Grundpasset redan gjort: länken går tillbaka till rummet (19.2 fråga 6).
+          lank: status?.dagensPassGjort ? PASS_COPY.knapp.tillbaka : PASS_COPY.matning.betalvagg.grundpassLank,
+          lankTill: status?.dagensPassGjort ? 'tillbaka' : 'grundpass',
         },
     dagarKvar,
   };
@@ -434,6 +477,11 @@ export interface OmmatningResultat {
   forsta: Nivapunkt | null;
   status: string;
   milstolpe: MilstolpeKort | null;
+  /**
+   * "Var du tappar nu" ur ommätningen (art-director 20.2 fråga 8), med "mot
+   * 6 okt" där familjen fanns i mätningen. Lyfts när milstolpe saknas.
+   */
+  familjer: MatningResultat['familjer'];
 }
 
 export function forstaMatningPunkt(punkter: readonly Nivapunkt[]): Nivapunkt | null {
@@ -471,11 +519,22 @@ export function ommatningResultat(avslut: Avslut, status: Traningsstatus | null)
             koppar: niva - deltaFran > 0.05,
           }
         : { varde: nivaText(niva), etikett: 'nivå' },
-      { varde: R.tal.av(avslut.over_tid, avslut.antal), etikett: R.tal.overTid },
+      { varde: R.tal.av(overBudget(avslut, null), avslut.antal), etikett: R.tal.overTid },
     ],
     forsta,
     status: statusText,
     milstolpe: milstolpeKort(avslut.milstolpe),
+    familjer: svagasteFamiljer(avslut.familjer.passet).map((f, i) => {
+      const iMatningen = avslut.familjer.matningen?.familjer.find((m) => m.family === f.family) ?? null;
+      return {
+        titel: familjText(f.family) ?? f.family,
+        meta: iMatningen
+          ? PASS_COPY.ommatning.familjMot(f.ratt, f.antal, iMatningen.ratt, iMatningen.antal, datumKort(avslut.familjer.matningen!.dag))
+          : PASS_COPY.matning.familjMeta(f.ratt, f.antal),
+        andel: f.andel,
+        ton: i === 0 ? ('koppar' as const) : ('ton' as const),
+      };
+    }),
   };
 }
 

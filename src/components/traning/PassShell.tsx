@@ -20,6 +20,12 @@
  *
  * Interaktionen mellan frågorna laddar aldrig om sidan: skalet står kvar och
  * bara mitten byts.
+ *
+ * Dator (art-director 20.2 fråga 2): innehållskolumnen (matris, frågetext,
+ * alternativ, regelpanel) är 400 px så att uppgiften står i bild utan
+ * rullning på 1280 × 900; topprad, tidsrad och fot behåller 560 så att X,
+ * räknare och knapp inte flyttar mellan fråga och resultat. Flödeskroppen har
+ * fotens höjd som luft i botten, så regeln alltid går att rulla fram.
  */
 
 import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
@@ -156,7 +162,7 @@ export default function PassShell({
       ) : null}
 
       <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3.5 px-4 pb-4 pt-3">
+        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3.5 px-4 pb-[calc(16px+var(--flow-footer-h,0px))] pt-3 lg:max-w-[432px]">
           {banner}
           {children}
         </div>

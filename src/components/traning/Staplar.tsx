@@ -2,8 +2,12 @@
  * Tempo per fråga (spec-rummen 4.4, konceptets .staplar i P4 och S1).
  *
  * En stapel per fråga, 72 px hög yta, den streckade linjen är provets tid.
- * Över provets tid i koppar, fel svar tonade (opacitet 0,35), resten i
- * rummets ton. Aldrig rött. Axeln "fråga 1 ... fråga 9" i HTML, 11 px.
+ * Fel svar ritas ihåliga (art-director 20.3 punkt 4): 1,5 px kant i
+ * stapelns färg, ingen fyllning. Över tiden = fylld koppar, fel och över
+ * tiden = ihålig med kopparkant, rätt inom tiden = fylld ton-ink 0,75, fel
+ * inom tiden = ihålig i ton-ink. Ihåligt är kurvans språk för "inte gjord";
+ * koppar på låg opacitet blev brunt i mörkt läge. Aldrig rött. Axeln
+ * "fråga 1 ... fråga 9" i HTML, 11 px.
  *
  * Server component.
  */
@@ -28,8 +32,15 @@ export default function Staplar({ data, axel, aria }: StaplarProps) {
         {data.staplar.map((s, i) => (
           <i
             key={i}
-            className={`block flex-1 rounded-t-[3px] ${s.over ? 'bg-koppar' : 'bg-ton-ink'} ${
-              s.fel ? 'opacity-[.35]' : s.over ? '' : 'opacity-75'
+            data-stapel={s.fel ? (s.over ? 'fel-over' : 'fel') : s.over ? 'over' : 'ratt'}
+            className={`block flex-1 rounded-t-[3px] ${
+              s.fel
+                ? s.over
+                  ? 'border-[1.5px] border-koppar bg-transparent'
+                  : 'border-[1.5px] border-ton-ink bg-transparent opacity-75'
+                : s.over
+                  ? 'bg-koppar'
+                  : 'bg-ton-ink opacity-75'
             }`}
             style={{ height: `${Math.round(s.hojd * 100)}%` }}
           />

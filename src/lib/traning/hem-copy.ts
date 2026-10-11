@@ -11,6 +11,7 @@
 // =============================================================================
 
 import { paketNamn, prisPeriod } from '@/lib/plans/plans';
+import { talord, versal } from './copy';
 
 /** Paketet som säljs i Rekryteringstester (17.3). Namnbytet till Jobbcoach Premium sker i PLANS i våg 5. */
 export const SALJS = 'all_month' as const;
@@ -27,6 +28,13 @@ export function kopKnapp(): string {
 export const HEM = {
   /** Ägarens första rad i rummet (17.1). */
   rumRad: 'Träna inför ditt rekryteringstest.',
+  /**
+   * Väggens h1 utan datum (art-director 20.5 fråga 3): h1 upprepar aldrig
+   * toppradens brand "Rekryteringstester". T1 och X1 får ägarens rad, 1h
+   * rytmen.
+   */
+  rubrikUtanDatum: 'Träna inför ditt rekryteringstest',
+  rubrikUtanDatumPass: 'Ett pass om dagen',
   tomt: {
     rad: 'Börja med att mäta var du står. Sätt ett datum när du vet det, så räknar vi bakåt.',
     boxTitel: 'Din första punkt kommer efter mätningen.',
@@ -36,7 +44,9 @@ export const HEM = {
   ny: {
     rad: 'Vi börjar med att mäta var du står. Sedan ett pass om dagen fram till provdagen.',
     planRubrik: 'Planen',
-    planMetaGratis: 'Grå platser ingår i paketet: passen från dag två, ommätningen och generalrepetitionen.',
+    /** 1a gratis (20.5 fråga 4): märkena är grå och fyllda, inte ihåliga. */
+    planMetaGratis: () =>
+      `Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i ${paketNamn(SALJS)}: passen från dag två, ommätningen och generalrepetitionen.`,
     planMeta: 'Din första punkt på kurvan kommer efter mätningen. Ihåliga märken är planerade dagar, luckorna är söndagar.',
   },
   matning: {
@@ -45,13 +55,34 @@ export const HEM = {
     text: 'Tolv figuruppgifter över hela svårighetsspannet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.',
     knapp: 'Mät min nivå, 8 min',
     gratis: 'Gratis.',
+    /**
+     * Med smakprov (testansvarig 19.3 fråga 3): n frågor räknas in, minuterna
+     * räknas på de nya (40 s per fråga, minst 3).
+     */
+    smakprovMinuter: (n: number) => Math.max(3, Math.round(((12 - n) * 40) / 60)),
+    smakprovTitel: (m: number) => `Mät din nivå. Cirka ${m} minuter.`,
+    smakprovKnapp: (m: number) => `Mät min nivå, ${m} min`,
+    smakprovRad: (n: number) => `${versal(talord(n))} frågor från smakprovet räknas in, så du svarar på ${talord(12 - n)} nya.`,
+  },
+  /**
+   * 1t (19.3 fråga 2): bara siffror eller bara text valt. Passen finns i dag
+   * bara för figurer och mönster; hemvyn erbjuder det valda testet.
+   */
+  annatTest: {
+    rad: 'Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får pass senare.',
+    eyebrow: 'Första passet',
+    titelSiffror: 'Gör siffertestet',
+    titelText: 'Gör texttestet',
+    text: 'Resultat och genomgång direkt. Vi säger till när passen finns.',
+    knappSiffror: 'Starta siffertestet',
+    knappText: 'Starta texttestet',
   },
   ommatning: {
     eyebrow: 'Veckans ommätning',
     titel: 'Mät din nivå igen. Cirka 8 minuter.',
     text: 'Tolv uppgifter som i mätningen. Ommätningen väger tyngre än ett pass och visar om passen har flyttat dig.',
     knapp: 'Mät igen, 8 min',
-    lastText: 'Ommätningarna ingår i paketet.',
+    lastText: () => `Ommätningarna ingår i ${paketNamn(SALJS)}.`,
   },
   pass: {
     eyebrowNiva: (niva: number) => `Dagens pass · nivå ${niva}`,
@@ -95,8 +126,8 @@ export const HEM = {
     snitt: (budget: number) => `snitt, provet ger ${budget}`,
     snittEget: (budget: number) => `snitt, provläget ger ${budget}`,
     passGjorda: 'pass gjorda',
-    meta: 'Tempot mäts på frågor nära din nivå. De säkra räknas inte.',
-    metaEget: 'Tiden per uppgift följer vårt provläge tills du anger leverantör. Tempot mäts på frågor nära din nivå.',
+    /** 19.2 fråga 7: talet räknar alla besvarade frågor, ingen förklaringsmening. */
+    metaEget: 'Tiden per uppgift följer vårt provläge tills du anger leverantör.',
   },
   rad: {
     niva: (heltal: number) => `Nivå ${heltal}.`,
@@ -128,7 +159,7 @@ export const HEM = {
     rubrikEfter: 'Din kurva fram till provet',
     form: (ord: string) => `form: ${ord}`,
     hela: 'Hela kurvan',
-    gratisMeta: `Grå platser: ommätningarna och generalrepetitionen ingår i paketet. Kurvans historik också.`,
+    gratisMeta: () => `Grå platser: ommätningarna och generalrepetitionen ingår i ${paketNamn(SALJS)}. Kurvans historik också.`,
   },
   utanDatum: {
     box: 'Sätt ett datum så räknar vi bakåt: ommätningar, generalrepetition och vila.',
@@ -163,7 +194,7 @@ export const HEM = {
     text1: 'Fast ordning, ingen förklaring förrän efteråt. Sitt som på provet: tyst rum, dator, ingen paus. Sista repetitionen före provet.',
     knapp: 'Starta generalrepetitionen',
     status: 'Dagen före: generalrepetition. Provdagen: tre uppvärmningsfrågor, inget mer.',
-    lastText: `Generalrepetitionen i leverantörens format ingår i paketet. Resultat och genomgång av det du redan gjort är alltid dina.`,
+    lastText: () => `Generalrepetitionen i leverantörens format ingår i ${paketNamn(SALJS)}. Resultat och genomgång av det du redan gjort är alltid dina.`,
   },
   provdag: {
     eyebrow: (mal: string) => `I dag: ${mal}`,
@@ -177,8 +208,8 @@ export const HEM = {
     },
     rad: {
       tystRum: 'Tyst rum, dator, laddare',
+      /* Samma råd för alla format (19.3 fråga 4); formatspecifika råd först efter 14.4 punkt 5. */
       tystRumMeta: 'Stäng mejlen och mobilen innan du börjar.',
-      tystRumMatrigma: 'Klassisk Matrigma får inte pausas. Stäng mejlen och mobilen.',
       lattForst: 'Lätt uppgift först, svår sedan',
       lattForstMeta: 'Provet har total tid. Tar en uppgift över två minuter, gissa och gå vidare.',
       lattForstPerUppgift: 'Varje uppgift har sin egen tid. Gissa hellre än att låta tiden gå ut.',
