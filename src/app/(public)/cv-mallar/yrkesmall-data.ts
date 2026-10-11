@@ -292,7 +292,7 @@ function buildYrkesContent(slug: string, namn: string, kategori: string): YrkesC
       },
       {
         q: 'Vilken är bäst, gratismallen eller mallen i Premium?',
-        a: `Beror på dig. Gratis-mallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Mallen i Jobbcoach Premium har plats för foto, LinkedIn och har visuellt rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar premium mer.`,
+        a: `Beror på dig. Gratis-mallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Mallen i Jobbcoach Premium har plats för foto, LinkedIn och har visuellt rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar mallen i Premium mer.`,
       },
     ],
   }

@@ -64,12 +64,12 @@ export interface Avsandare {
   userId: string
   kontoEpost: string | null
   /** Har kontot en betald behörighet? Då hanteras ärendet först. */
-  premium: boolean
+  harPremium: boolean
 }
 
 /** Mejlet till supporten. Svar går till adressen i formuläret. */
 export function byggMejl(data: KontaktIn, fran: Avsandare) {
-  const prio = fran.premium ? ' [PREMIUM]' : ''
+  const prio = fran.harPremium ? ' [PREMIUM]' : ''
   // Radbrytningar i ämnet stoppas, de kan inte stå i en mejlrubrik.
   const amne = `[KONTAKT]${prio} ${data.subject.replace(/[\r\n]+/g, ' ')}`
   const rader = [
@@ -77,7 +77,7 @@ export function byggMejl(data: KontaktIn, fran: Avsandare) {
     ['Svara till', data.email],
     ['Kontots e-post', fran.kontoEpost ?? 'okänd'],
     ['Användar-id', fran.userId],
-    ['Premium', fran.premium ? 'ja' : 'nej'],
+    ['Premium', fran.harPremium ? 'ja' : 'nej'],
   ] as const
   const text = `${rader.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${data.message}\n\nSkickat från kontaktformuläret i inloggat läge.`
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#334155;">

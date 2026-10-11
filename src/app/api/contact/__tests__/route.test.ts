@@ -110,7 +110,7 @@ describe('kontakt.ts', () => {
 
   it('escapeHtml och ämnet utan radbrytningar', () => {
     expect(escapeHtml(`<a href="x">'&'</a>`)).toBe('&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;')
-    const m = byggMejl({ ...GILTIG, subject: 'Rad1\r\nBcc: x@y.se' }, { userId: 'u1', kontoEpost: null, premium: false })
+    const m = byggMejl({ ...GILTIG, subject: 'Rad1\r\nBcc: x@y.se' }, { userId: 'u1', kontoEpost: null, harPremium: false })
     expect(m.subject).toBe('[KONTAKT] Rad1 Bcc: x@y.se')
   })
 })

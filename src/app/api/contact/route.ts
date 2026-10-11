@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     }
     const resend = new Resend(nyckel)
     const { error } = await resend.emails.send(
-      byggMejl(v.data, { userId: user.id, kontoEpost: user.email ?? null, premium })
+      byggMejl(v.data, { userId: user.id, kontoEpost: user.email ?? null, harPremium: premium })
     )
     if (error) {
       console.error('[kontakt] Resend:', error)

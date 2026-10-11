@@ -43,7 +43,7 @@ function datum(iso: string): string {
 
 /**
  * Planen ur mejlets metadata: planKey vinner, annars ett gammalt planName
- * ("Hela paketet", "Allt-veckan") översatt. Null om ingen av dem finns.
+ * översatt via GAMLA_NAMN i plans.ts. Null om ingen av dem finns.
  */
 function planUrMetadata(meta: Record<string, unknown> | null | undefined): PlanKey | null {
   if (isPlanKey(meta?.planKey)) return meta.planKey;
