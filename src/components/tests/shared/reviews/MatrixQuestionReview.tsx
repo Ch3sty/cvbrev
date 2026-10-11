@@ -259,7 +259,7 @@ function ReviewCell({
       <p className={`text-meta font-medium ${wrong ? 'text-fel' : 'text-positiv'}`}>
         {label}
       </p>
-      <div className="mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
+      <div className="matrisyta mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
         <svg
           viewBox="0 0 100 100"
           className="h-full w-full"

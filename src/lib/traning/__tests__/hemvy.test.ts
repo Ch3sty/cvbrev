@@ -65,7 +65,8 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('varje fixtur ger rätt ram och exakt en primär handling i det lyfta kortet', () => {
     for (const t of TILLSTAND.filter((x) => x !== 'L1' && !x.startsWith('W'))) {
       const m = modell(t)
-      expect(m.ram, t).toBe(t)
+      const ram: Record<string, string> = { T1s: 'T1', '1as': '1a' }
+      expect(m.ram, t).toBe(ram[t] ?? t)
       if (t !== '1e') expect(m.lyft.handling, t).toBeTruthy()
     }
   })
@@ -94,7 +95,9 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('1h och 1i', () => {
     const h = modell('1h')
-    expect(h.vagg.rubrik).toBe('Rekryteringstester')
+    // 20.5 fråga 3: h1 upprepar aldrig toppradens brand.
+    expect(h.vagg.rubrik).toBe('Ett pass om dagen')
+    expect(h.vagg.rad).toBe('Nivå 5. Fyra dagar i rad. Dagens pass är kvar.')
     expect(h.vagg.datumBox?.text).toMatch(/^Sätt ett datum så räknar vi bakåt/)
     expect(h.vagg.dagsrad!.tal[1]).toMatchObject({ varde: '3', etikett: 'pass gjorda' })
     const i = modell('1i')
@@ -119,8 +122,8 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('T1, 1a, 1p och X1', () => {
     const t = modell('T1')
-    expect(t.vagg.rubrik).toBe('Rekryteringstester')
-    expect(t.vagg.rad).toMatch(/^Träna inför ditt rekryteringstest\./)
+    expect(t.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
+    expect(t.vagg.rad).toBe('Börja med att mäta var du står. Sätt ett datum när du vet det, så räknar vi bakåt.')
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 8 min' })
     const a = modell('1a')
     expect(a.vagg.planbild).toBeTruthy()
@@ -131,6 +134,45 @@ describe('tillstånden med konceptets exempeltal', () => {
     const x = modell('X1')
     expect(x.lyft.titel).toBe('Passet gick inte att hämta.')
     expect(x.lyft.handling?.typ).toBe('forsok')
+    expect(x.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
+    expect(x.vagg.rad).toBe('')
+  })
+  it('smakprovet räknas in i 1a och T1 (19.3 fråga 3)', () => {
+    const t = modell('T1s')
+    expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
+    expect(t.lyft.rad).toBe('Fem frågor från smakprovet räknas in, så du svarar på sju nya.')
+    expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
+    const a = modell('1as')
+    expect(a.lyft.rad).toBe('Fem frågor från smakprovet räknas in, så du svarar på sju nya.')
+    expect(modell('T1').lyft.rad).toBeUndefined()
+  })
+  it('1t: bara siffror valt erbjuder siffertestet, aldrig matrismätningen (19.3 fråga 2)', () => {
+    const m = modell('1t')
+    expect(m.tillstand).toBe('annat_test')
+    expect(m.vagg.rubrik).toBe('14 dagar till siffertestet')
+    expect(m.vagg.rad).toBe('Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får pass senare.')
+    expect(m.vagg.kurva).toBeUndefined()
+    expect(m.vagg.planbild).toBeUndefined()
+    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Vi säger till när passen finns.' })
+    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
+    const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
+    const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null
+    expect(figurer).toMatchObject({ meta: 'Ej mätt. Mät din nivå, 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
+  })
+  it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
+    expect(modell('1a').vagg.kurvaMeta).toBe(
+      'Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i Hela paketet: passen från dag två, ommätningen och generalrepetitionen.'
+    )
+  })
+  it('provdagen: samma råd för alla format, Matrigma-raden borta (19.3 fråga 4)', () => {
+    const d = modell('1d')
+    expect(JSON.stringify(d)).not.toMatch(/får inte pausas/)
+  })
+  it('tempokortet: över provets tid ur over_budget, ingen förklaringsmening (19.2 fråga 7)', () => {
+    const m = modell('1b')
+    const t = m.sektioner.find((s) => s.typ === 'tempo')
+    expect(t && t.typ === 'tempo' ? t.tal[0].varde : null).toBe('2 av 9')
+    expect(t && t.typ === 'tempo' ? t.meta : 'x').toBeUndefined()
   })
   it('inga streck, inga "0 %" och ingen tom graf i något tillstånd', () => {
     for (const t of TILLSTAND.filter((x) => x !== 'L1')) {
@@ -208,5 +250,30 @@ describe('ingången och raderna', () => {
   it('decimal med komma', () => {
     expect(decimal(5)).toBe('5,0')
     expect(decimal(6.35)).toBe('6,4')
+  })
+})
+
+describe('instrumenten (art-director 20.3 punkt 8 och 20.5 fråga 1)', async () => {
+  const { siktetKrockar } = await import('@/components/traning/Nivaskala')
+  const { axelEtiketter, kurvansGeometri: geo } = await import('@/components/traning/Kurva')
+  it('nivåskalan: siktet skrivs in i din etikett när de står närmare än 1,2', () => {
+    expect(siktetKrockar(6.4, 6.5)).toBe(true)
+    expect(siktetKrockar(5.0, 6.5)).toBe(false)
+    expect(siktetKrockar(5.4, null)).toBe(false)
+  })
+  it('axeln: "i dag" står alltid, slutdatumet faller bort i 1c på mobil', () => {
+    const s = fixtur('1c').status!
+    for (const bredd of ['mobil', 'dator'] as const) {
+      const g = geo({ punkter: s.punkter, plan: s.plandagar, idag: s.idag, start: s.start!.dag, prov: s.plan!.provdatum, sikte: s.plan!.sikte, bredd })
+      const e = axelEtiketter(g, s.idag, s.plandagar, { prov: s.plan!.provdatum, dator: bredd === 'dator' })
+      expect(e.map((x) => x.text), bredd).toContain('i dag')
+      if (bredd === 'mobil') expect(e.map((x) => x.text), bredd).not.toContain('24 okt')
+    }
+  })
+  it('axeln: i 1b står i dag, start och slut', () => {
+    const s = fixtur('1b').status!
+    const g = geo({ punkter: s.punkter, plan: s.plandagar, idag: s.idag, start: s.start!.dag, prov: s.plan!.provdatum, sikte: s.plan!.sikte, bredd: 'mobil' })
+    const t = axelEtiketter(g, s.idag, s.plandagar, { prov: s.plan!.provdatum, dator: false }).map((x) => x.text)
+    expect(t).toEqual(expect.arrayContaining(['i dag', '6 okt', '24 okt']))
   })
 })

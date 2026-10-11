@@ -122,39 +122,45 @@ export default function Helkurva({ s, fler }: { s: Traningsstatus | null; fler: 
             <Rad symbol={<Legendpunkt typ="plan" />} titel={KURVAN.legend.plan} meta={KURVAN.legend.planMeta} />
           </div>
         </LyftKort>
-        <div className="flex flex-col gap-4">
-          {s.historikLast ? (
-            <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
-              <span>{KURVAN.historikLast}</span>
-              <LasChip feature="tests_above_base" text={ingarIPaketet()} label={`${KURVAN.historikLast} Låst, ${ingarIPaketet().toLowerCase()}.`} />
-            </div>
-          ) : null}
-          <SektRubrik>{KURVAN.flerKurvor}</SektRubrik>
+        {/* Dator (art-director 20.5 fråga 2): första raden är bara lyfta kort,
+            Fler kurvor lyfts med rubriken som eyebrow; statusraderna står i
+            andra raden och lyfts aldrig. */}
+        {s.historikLast ? (
+          <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1 lg:order-2 lg:col-span-2">
+            <span>{KURVAN.historikLast}</span>
+            <LasChip feature="tests_above_base" text={ingarIPaketet()} label={`${KURVAN.historikLast} Låst, ${ingarIPaketet().toLowerCase()}.`} />
+          </div>
+        ) : null}
+        <div className="flex flex-col gap-4 lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:border-[color:var(--lyft-kant)] lg:[&>section]:shadow-lyft">
+          <div className="lg:hidden">
+            <SektRubrik>{KURVAN.flerKurvor}</SektRubrik>
+          </div>
           <Rader label={KURVAN.flerKurvor}>
+            <p className="hidden px-4 pb-0 pt-3.5 text-ey text-ink-3 lg:block">{KURVAN.flerKurvor}</p>
             <Rad
               symbol={<SymOrd size={40} />}
               svag={!fler.verbalSenast}
               titel={HEM.flerTester.ord}
               meta={KURVAN.ingenKurva(fler.verbalSenast ? kortDatum(dagSv(fler.verbalSenast)) : null)}
-              href="/dashboard/tester/verbal-resonemang"
+              href={TRANING_RUTT.text}
             />
             <Rad
               symbol={<SymSiffror size={40} />}
               svag={!fler.numeriskSenast}
               titel={HEM.flerTester.siffror}
               meta={KURVAN.ingenKurva(fler.numeriskSenast ? kortDatum(dagSv(fler.numeriskSenast)) : null)}
-              href="/dashboard/tester/numeriskt-test"
+              href={TRANING_RUTT.siffror}
             />
           </Rader>
-          <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
-            <span className="flex items-center gap-2.5">
-              <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-ink-3" />
-              {KURVAN.personlighet(persDag ? datumText(persDag) : null)}
-            </span>
-            <Link href={TRANING_RUTT.personlighet} className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-[13px]`}>
-              {persDag ? KURVAN.visaProfilen : KURVAN.gorProfilen}
-            </Link>
-          </div>
+        </div>
+        <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1 lg:order-2 lg:col-span-2">
+          <span className="flex items-center gap-2.5">
+            <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-ink-3" />
+            {KURVAN.personlighet(persDag ? datumText(persDag) : null)}
+          </span>
+          <Link href={TRANING_RUTT.personlighet} className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-[13px]`}>
+            {persDag ? KURVAN.visaProfilen : KURVAN.gorProfilen}
+          </Link>
         </div>
       </Golv>
     </div>

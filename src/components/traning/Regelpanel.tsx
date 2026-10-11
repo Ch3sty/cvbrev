@@ -48,7 +48,7 @@ export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: R
     // Fotens överkant, eller mains nederkant om foten saknas (de ligger kant i kant).
     const grans = Math.min(mainRect.bottom, fot ? fot.getBoundingClientRect().top : mainRect.bottom)
     const delta = panel.bottom - (grans - LUFT_OVER_FOTEN)
-    if (delta > 0) main.scrollBy({ top: delta, behavior: lugn ? 'auto' : 'smooth' })
+    if (delta > 0 && typeof main.scrollBy === 'function') main.scrollBy({ top: delta, behavior: lugn ? 'auto' : 'smooth' })
   }, [visaVidSvar])
 
   return (

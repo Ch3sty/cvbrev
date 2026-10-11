@@ -27,7 +27,7 @@ import GraValSheet from '@/components/paywall/GraValSheet';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { Feature, Scope } from '@/lib/access/features';
 import { scopeHasFeature } from '@/lib/access/features';
-import type { PlanKey } from '@/lib/plans/plans';
+import { paketNamn, type PlanKey } from '@/lib/plans/plans';
 import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
 import { ellerAlltKnapp, graEtikettTest, laggTillKnapp, testHuvud } from '@/lib/onboarding/paket-rader';
 import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
@@ -147,7 +147,7 @@ export default function TesterHubClient({
         title={UNDERSIDA.allaTester}
         description={`${TRAN_RAD} ${
           huvud.ingress ??
-          'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
+          `Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i ${paketNamn('all_month')}.`
         }`}
       />
     <Golv>

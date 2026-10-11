@@ -151,6 +151,7 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
         }
         fot={l.fot}
       >
+        {l.rad ? <p className="mt-2 text-sm leading-[21px] text-ink-2">{l.rad}</p> : null}
         {l.tre ? (
           <div className="mt-3">
             <TreTal tal={l.tre} pa="golv" />
@@ -166,10 +167,13 @@ function SektionFor({ s, forstaRad }: { s: Sektion; forstaRad: boolean }) {
   // På dator står de första korten bredvid det lyfta kortet och lyfts med det
   // (W1); rubriken flyttar då in i kortet, eftersom golvets grå text inte
   // går att läsa mot väggen.
-  const lyftDator = forstaRad ? 'lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:shadow-lyft lg:[&>section]:border-[color:var(--lyft-kant)]' : ''
+  // Allt utanför första raden står efter korten på dator (lg:order-2).
+  const lyftDator = forstaRad
+    ? 'lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:shadow-lyft lg:[&>section]:border-[color:var(--lyft-kant)]'
+    : 'lg:order-2'
   if (s.typ === 'status') {
     return (
-      <div className="lg:self-start">
+      <div className="lg:order-2 lg:self-start">
         <Statusrad text={s.text} ton={s.ton} lank={s.lank} />
       </div>
     )
@@ -260,16 +264,18 @@ export default function Hemvy({ m }: { m: HemModell }) {
       {m.kontext.text}
     </Link>
   ) : undefined
-  const bredLyft = m.tillstand === 'ny' || m.tillstand === 'tomt'
-  // Korten som står i första raden på dator bredvid det lyfta kortet.
+  // Ett kort vars knapptext inte ryms på en rad spänner två kolumner
+  // (art-director 20.5 punkt 2): kopparknappen bryts aldrig.
+  const bredLyft = m.tillstand === 'ny' || m.tillstand === 'tomt' || m.lyft.handling?.typ === 'kop'
+  // Första raden på dator (20.5 fråga 2): bara lyfta kort, en till tre.
+  // Statusrader lyfts aldrig; de står i andra raden (CSS-ordningen flyttar
+  // dem efter korten). Sektionsrubriken blir kortets eyebrow.
   const forstaRad = new Set<number>()
   let plats = bredLyft ? 2 : 1
   m.sektioner.forEach((s, i) => {
-    if (plats >= 3) return
-    if (s.typ === 'tempo' || (s.typ === 'rader' && (s.nyckel === 'tappar' || s.nyckel === 'fler' || s.nyckel === 'rad'))) {
-      forstaRad.add(i)
-      plats++
-    } else plats = 3
+    if (plats >= 3 || s.typ === 'status') return
+    forstaRad.add(i)
+    plats++
   })
 
   return (
@@ -338,7 +344,7 @@ export default function Hemvy({ m }: { m: HemModell }) {
           <SektionFor key={s.typ === 'tempo' ? 'tempo' : s.nyckel} s={s} forstaRad={forstaRad.has(i)} />
         ))}
         {m.taBortSvar ? (
-          <div className="px-1 lg:col-span-3">
+          <div className="px-1 lg:order-2 lg:col-span-3">
             <TaBortSvar />
           </div>
         ) : null}

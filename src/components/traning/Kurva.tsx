@@ -33,6 +33,7 @@ import type { Nivapunkt } from '@/lib/traning/milstolpar'
 import type { PlanDag } from '@/lib/traning/plan'
 import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum'
 import { kortDatum } from '@/lib/traning/rubrik'
+import { HEM } from '@/lib/traning/hem-copy'
 
 export interface KurvaProps {
   punkter: readonly Nivapunkt[]
@@ -157,6 +158,53 @@ function fmt(n: number): string {
 
 const r1 = (n: number) => Math.round(n * 10) / 10
 
+
+/* ------------------------------------------------------------ texten */
+
+/**
+ * All text på instrumenten är HTML över SVG:n, placerad i procent av
+ * viewBoxen (art-director 20.2 fråga 3: SVG:n håller geometri, texten skalas
+ * aldrig). `y` är ankarpunkten i viewBoxens enheter: över (textens nederkant
+ * vid y), mitt eller under (textens överkant vid y).
+ */
+const TXT = {
+  ax: 'text-[11px] font-medium leading-[14px] text-vagg-mjuk',
+  k: 'font-display text-[13px] font-bold leading-4 text-koppar-ljus',
+  soft: 'text-[11px] font-medium leading-[14px] text-vagg-mjuk',
+  sikte: 'text-[11px] font-medium leading-[14px] text-ljus',
+} as const
+
+function Lapp({
+  x,
+  y,
+  W,
+  H,
+  ankX,
+  ankY,
+  className,
+  children,
+}: {
+  x: number
+  y: number
+  W: number
+  H: number
+  ankX: 'start' | 'mitt' | 'slut'
+  ankY: 'over' | 'mitt' | 'under'
+  className: string
+  children: React.ReactNode
+}) {
+  const tx = ankX === 'start' ? '0' : ankX === 'mitt' ? '-50%' : '-100%'
+  const ty = ankY === 'over' ? '-100%' : ankY === 'mitt' ? '-50%' : '0'
+  return (
+    <span
+      className={`absolute whitespace-nowrap ${className}`}
+      style={{ left: `${((x / W) * 100).toFixed(2)}%`, top: `${((y / H) * 100).toFixed(2)}%`, transform: `translate(${tx}, ${ty})` }}
+    >
+      {children}
+    </span>
+  )
+}
+
 export default function Kurva(props: KurvaProps) {
   const { idag, prov = null, sikte = null, bredd, nyPunkt, ariaLabel, utanPlan, provPasserat, className } = props
   const g = kurvansGeometri(props)
@@ -171,149 +219,149 @@ export default function Kurva(props: KurvaProps) {
   const passIdagKvar = idagPlan && idagPlan.status === 'idag'
   // Siktets etikett flyttar under linjen när senaste punktens tal står i vägen.
   const sikteKrock = !!senast && sikte != null && xSlut - x(senast.dag) < (dator ? 150 : 80) && Math.abs(y(senast.niva) - y(sikte)) < 20
+  const { W, H } = matt
+  const K = HEM.kurva
 
   return (
     <div className={`${nyPunkt ? 'motion' : ''} ${className ?? ''}`}>
-      <svg
-        viewBox={`0 0 ${matt.W} ${matt.H}`}
-        role="img"
-        aria-label={ariaLabel}
-        className="kurva mt-2 block h-auto w-full overflow-visible"
-      >
-        <defs>
-          <linearGradient id={`${id}-yta`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#E07A2F" stopOpacity=".38" />
-            <stop offset="1" stopColor="#E07A2F" stopOpacity="0" />
-          </linearGradient>
-          <radialGradient id={`${id}-lyster`} cx=".5" cy=".5" r=".5">
-            <stop offset="0" stopColor="#F4B98A" stopOpacity=".55" />
-            <stop offset=".55" stopColor="#E07A2F" stopOpacity=".18" />
-            <stop offset="1" stopColor="#E07A2F" stopOpacity="0" />
-          </radialGradient>
-        </defs>
+      <div className="relative mt-2">
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ariaLabel} className="kurva block h-auto w-full overflow-visible">
+          <defs>
+            <linearGradient id={`${id}-yta`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#E07A2F" stopOpacity=".38" />
+              <stop offset="1" stopColor="#E07A2F" stopOpacity="0" />
+            </linearGradient>
+            <radialGradient id={`${id}-lyster`} cx=".5" cy=".5" r=".5">
+              <stop offset="0" stopColor="#F4B98A" stopOpacity=".55" />
+              <stop offset=".55" stopColor="#E07A2F" stopOpacity=".18" />
+              <stop offset="1" stopColor="#E07A2F" stopOpacity="0" />
+            </radialGradient>
+          </defs>
 
-        {/* rutnätet och y-axeln: tre heltal */}
-        {g.etiketter.map((v) => (
-          <g key={v}>
-            <line x1={matt.x0} x2={matt.x0 + matt.xW} y1={r1(y(v))} y2={r1(y(v))} stroke="var(--vagg-kant)" strokeWidth="1" />
-            <text className="ax" x={matt.x0 - (dator ? 12 : 10)} y={r1(y(v)) + 4} textAnchor="end">
-              {v}
-            </text>
-          </g>
-        ))}
+          {/* rutnätet: tre heltal */}
+          {g.etiketter.map((v) => (
+            <line key={v} x1={matt.x0} x2={matt.x0 + matt.xW} y1={r1(y(v))} y2={r1(y(v))} stroke="var(--vagg-kant)" strokeWidth="1" />
+          ))}
 
-        {/* siktet */}
-        {sikte != null && (prov || provPasserat) ? (
-          <g>
-            {!provPasserat ? (
-              <rect x={x(g.forsta)} y={r1(y(sikte)) - 3} width={r1(xSlut - x(g.forsta))} height="6" fill="var(--ljus)" opacity=".10" />
-            ) : null}
-            <line x1={x(g.forsta)} x2={xSlut} y1={r1(y(sikte))} y2={r1(y(sikte))} stroke="var(--ljus)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
-            {!provPasserat ? (
-              <text className="lbl soft sikte" x={xSlut - 6} y={r1(y(sikte)) + (sikteKrock ? 15 : -6)} textAnchor="end">
-                {dator ? `Sikte ${fmt(sikte)} före provet` : `Sikte ${fmt(sikte)}`}
-              </text>
-            ) : null}
-          </g>
-        ) : !prov && !provPasserat ? (
-          <text className="lbl soft" x={xSlut} y={30} textAnchor="end">
-            Siktet sätts med datumet
-          </text>
-        ) : null}
-
-        {/* ytan och linjen, bruten vid dagar utan punkt */}
-        {segs.map((s, i) => {
-          if (s.length < 2) return null
-          const pts = s.map((j) => `${r1(x(dagar[j].dag))} ${r1(y(dagar[j].niva))}`)
-          const d = `M${pts.join(' L')}`
-          const forstaX = r1(x(dagar[s[0]].dag))
-          const sistaX = r1(x(dagar[s[s.length - 1]].dag))
-          return (
-            <g key={`seg-${i}`}>
-              <path className="yta" d={`${d} L${sistaX} ${matt.ytaBotten} L${forstaX} ${matt.ytaBotten} Z`} fill={`url(#${id}-yta)`} />
-              <path
-                className="linje"
-                d={d}
-                pathLength={700}
-                fill="none"
-                stroke="var(--koppar)"
-                strokeWidth="2.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+          {/* siktet */}
+          {sikte != null && (prov || provPasserat) ? (
+            <g>
+              {!provPasserat ? (
+                <rect x={x(g.forsta)} y={r1(y(sikte)) - 3} width={r1(xSlut - x(g.forsta))} height="6" fill="var(--ljus)" opacity=".10" />
+              ) : null}
+              <line x1={x(g.forsta)} x2={xSlut} y1={r1(y(sikte))} y2={r1(y(sikte))} stroke="var(--ljus)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
             </g>
-          )
-        })}
+          ) : null}
 
-        {/* lystern bakom senaste punkten */}
-        {senast ? <circle cx={r1(x(senast.dag))} cy={r1(y(senast.niva))} r={matt.r.lyster} fill={`url(#${id}-lyster)`} /> : null}
+          {/* ytan och linjen, bruten vid dagar utan punkt */}
+          {segs.map((s, i) => {
+            if (s.length < 2) return null
+            const pts = s.map((j) => `${r1(x(dagar[j].dag))} ${r1(y(dagar[j].niva))}`)
+            const d = `M${pts.join(' L')}`
+            const forstaX = r1(x(dagar[s[0]].dag))
+            const sistaX = r1(x(dagar[s[s.length - 1]].dag))
+            return (
+              <g key={`seg-${i}`}>
+                <path className="yta" d={`${d} L${sistaX} ${matt.ytaBotten} L${forstaX} ${matt.ytaBotten} Z`} fill={`url(#${id}-yta)`} />
+                <path
+                  className="linje"
+                  d={d}
+                  pathLength={700}
+                  fill="none"
+                  stroke="var(--koppar)"
+                  strokeWidth="2.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+            )
+          })}
 
-        {/* punkterna */}
-        {dagar.map((q, i) => {
-          const cx = r1(x(q.dag))
-          const cy = r1(y(q.niva))
-          const sista = i === dagar.length - 1
-          const ny = sista && nyPunkt ? ' ny' : ''
-          if (q.typ === 'general') {
-            return <rect key={q.dag} className={`punkt${ny}`} x={cx - 4} y={cy - 4} width="8" height="8" rx="1.5" fill="var(--koppar)" stroke="var(--vagg)" strokeWidth="2" />
-          }
-          if (q.typ === 'matning' || q.typ === 'ommatning') {
-            return <circle key={q.dag} className={`punkt om${ny}`} cx={cx} cy={cy} r={matt.r.om} fill="var(--koppar)" stroke="var(--koppar-ljus)" strokeWidth="2.5" />
-          }
-          return <circle key={q.dag} className={`punkt${ny}`} cx={cx} cy={cy} r={sista ? matt.r.senast : matt.r.pass} fill="var(--koppar)" stroke="var(--vagg)" strokeWidth="2" />
-        })}
+          {/* lystern bakom senaste punkten */}
+          {senast ? <circle cx={r1(x(senast.dag))} cy={r1(y(senast.niva))} r={matt.r.lyster} fill={`url(#${id}-lyster)`} /> : null}
 
-        {/* talet över senaste punkten, och "mätning" under den första */}
-        {senast ? (
-          <text className="lbl k" x={r1(x(senast.dag))} y={r1(y(senast.niva)) - (dagar.length === 1 ? 12 : 11)} textAnchor={dagar.length === 1 ? 'start' : 'middle'}>
-            {fmt(senast.niva)}
-          </text>
-        ) : null}
-        {dagar[0] && dagar[0].dag === g.forsta ? (
-          <text className="lbl soft" x={matt.x0} y={r1(y(dagar[0].niva)) + 18} textAnchor="start">
-            {dator ? `mätning ${fmt(dagar[0].niva)}` : 'mätning'}
-          </text>
-        ) : null}
+          {/* punkterna */}
+          {dagar.map((q, i) => {
+            const cx = r1(x(q.dag))
+            const cy = r1(y(q.niva))
+            const sista = i === dagar.length - 1
+            const ny = sista && nyPunkt ? ' ny' : ''
+            if (q.typ === 'general') {
+              return <rect key={q.dag} className={`punkt${ny}`} x={cx - 4} y={cy - 4} width="8" height="8" rx="1.5" fill="var(--koppar)" stroke="var(--vagg)" strokeWidth="2" />
+            }
+            if (q.typ === 'matning' || q.typ === 'ommatning') {
+              return <circle key={q.dag} className={`punkt om${ny}`} cx={cx} cy={cy} r={matt.r.om} fill="var(--koppar)" stroke="var(--koppar-ljus)" strokeWidth="2.5" />
+            }
+            return <circle key={q.dag} className={`punkt${ny}`} cx={cx} cy={cy} r={sista ? matt.r.senast : matt.r.pass} fill="var(--koppar)" stroke="var(--vagg)" strokeWidth="2" />
+          })}
 
-        {/* dagens ihåliga punkt när passet inte är gjort */}
-        {passIdagKvar && senast && idag > senast.dag ? (
-          idagPlan!.typ === 'general' ? (
-            <rect x={r1(x(idag)) - 4} y={r1(y(senast.niva)) - 4} width="8" height="8" rx="1.5" fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
-          ) : (
-            <circle cx={r1(x(idag))} cy={r1(y(senast.niva))} r={matt.r.nu} fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
-          )
-        ) : null}
-
-        {/* provet */}
-        {prov ? (
-          <g>
-            <line
-              x1={r1(x(prov))}
-              x2={r1(x(prov))}
-              y1={matt.yTopp}
-              y2={utanPlan ? matt.ytaBotten : matt.planY + 6}
-              stroke={provPasserat ? 'var(--koppar)' : 'var(--vagg-mjuk)'}
-              strokeWidth="1.5"
-            />
-            {provPasserat ? (
-              <rect x={r1(x(prov)) - 4} y={matt.yTopp - 4} width="8" height="8" rx="1.5" fill="var(--koppar)" />
+          {/* dagens ihåliga punkt när passet inte är gjort */}
+          {passIdagKvar && senast && idag > senast.dag ? (
+            idagPlan!.typ === 'general' ? (
+              <rect x={r1(x(idag)) - 4} y={r1(y(senast.niva)) - 4} width="8" height="8" rx="1.5" fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
             ) : (
-              <text className="lbl soft" x={r1(x(prov)) - 4} y={matt.yTopp - 2} textAnchor="end">
-                Prov
-              </text>
-            )}
-          </g>
-        ) : null}
+              <circle cx={r1(x(idag))} cy={r1(y(senast.niva))} r={matt.r.nu} fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
+            )
+          ) : null}
 
-        {/* planraden */}
-        {!utanPlan ? (
-          <g aria-hidden="true">
-            {props.plan.map((d) => (
-              <Planmarke key={d.dag} dag={d} cx={r1(x(d.dag))} cy={matt.planY} matt={matt} />
-            ))}
-          </g>
-        ) : null}
-      </svg>
+          {/* provet */}
+          {prov ? (
+            <g>
+              <line
+                x1={r1(x(prov))}
+                x2={r1(x(prov))}
+                y1={matt.yTopp}
+                y2={utanPlan ? matt.ytaBotten : matt.planY + 6}
+                stroke={provPasserat ? 'var(--koppar)' : 'var(--vagg-mjuk)'}
+                strokeWidth="1.5"
+              />
+              {provPasserat ? <rect x={r1(x(prov)) - 4} y={matt.yTopp - 4} width="8" height="8" rx="1.5" fill="var(--koppar)" /> : null}
+            </g>
+          ) : null}
+
+          {/* planraden */}
+          {!utanPlan ? (
+            <g aria-hidden="true">
+              {props.plan.map((d) => (
+                <Planmarke key={d.dag} dag={d} cx={r1(x(d.dag))} cy={matt.planY} matt={matt} />
+              ))}
+            </g>
+          ) : null}
+        </svg>
+
+        {/* texten i HTML, aldrig skalad */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          {g.etiketter.map((v) => (
+            <Lapp key={v} x={matt.x0 - (dator ? 12 : 10)} y={y(v)} W={W} H={H} ankX="slut" ankY="mitt" className={TXT.ax}>
+              {v}
+            </Lapp>
+          ))}
+          {sikte != null && (prov || provPasserat) && !provPasserat ? (
+            <Lapp x={xSlut - 6} y={sikteKrock ? y(sikte) + 4 : y(sikte) - 3} W={W} H={H} ankX="slut" ankY={sikteKrock ? 'under' : 'over'} className={TXT.sikte}>
+              {dator ? K.sikteDator(fmt(sikte)) : K.sikte(fmt(sikte))}
+            </Lapp>
+          ) : !prov && !provPasserat ? (
+            <Lapp x={xSlut} y={31} W={W} H={H} ankX="slut" ankY="over" className={TXT.soft}>
+              {K.siktetSatts}
+            </Lapp>
+          ) : null}
+          {senast ? (
+            <Lapp x={x(senast.dag)} y={y(senast.niva) - 7} W={W} H={H} ankX={dagar.length === 1 ? 'start' : 'mitt'} ankY="over" className={TXT.k}>
+              {fmt(senast.niva)}
+            </Lapp>
+          ) : null}
+          {dagar[0] && dagar[0].dag === g.forsta ? (
+            <Lapp x={matt.x0} y={y(dagar[0].niva) + 7} W={W} H={H} ankX="start" ankY="under" className={TXT.soft}>
+              {dator ? K.matningDator(fmt(dagar[0].niva)) : K.matning}
+            </Lapp>
+          ) : null}
+          {prov && !provPasserat ? (
+            <Lapp x={x(prov) - 4} y={matt.yTopp + 1} W={W} H={H} ankX="slut" ankY="over" className={TXT.soft}>
+              {K.prov}
+            </Lapp>
+          ) : null}
+        </div>
+      </div>
       <Axel g={g} idag={idag} prov={prov} plan={props.plan} provPasserat={provPasserat} dator={dator} />
     </div>
   )
@@ -369,9 +417,57 @@ function Planmarke({ dag, cx, cy, matt }: { dag: PlanDag; cx: number; cy: number
   }
 }
 
+/** Ungefärlig bredd för en axeltext i viewBoxens enheter (11 px, cirka 6 per tecken). */
+function textBredd(text: string): number {
+  return text.length * 6 + 10
+}
+
+export interface AxelEtikett {
+  text: string
+  /** x i viewBoxens enheter. */
+  x: number
+  justering: 'v' | 'm' | 'h'
+  koppar?: boolean
+}
+
 /**
- * Axeln under kurvan, i HTML (11 px, aldrig skalad): första dagen, "i dag"
- * i koppar-ljus, en mittpunkt (nästa ommätning) och sista dagen.
+ * Axelns etiketter i prioritetsordning (art-director 20.5 fråga 1): i dag,
+ * start, slut, mittpunkt. "i dag" står alltid; en etikett som krockar med
+ * en som redan står faller bort. Exporterad för testerna.
+ */
+export function axelEtiketter(g: Pick<Geometri, 'forsta' | 'sista' | 'x' | 'matt'>, idag: Dag, plan: readonly PlanDag[], opt: { prov: Dag | null; provPasserat?: boolean; dator: boolean }): AxelEtikett[] {
+  const K = HEM.kurva
+  const W = g.matt.W
+  const spann = (e: AxelEtikett): [number, number] => {
+    const b = textBredd(e.text)
+    if (e.justering === 'v') return [0, b]
+    if (e.justering === 'h') return [e.x - b, e.x]
+    return [e.x - b / 2, e.x + b / 2]
+  }
+  const ut: AxelEtikett[] = []
+  const lagg = (e: AxelEtikett) => {
+    const [a, b] = spann(e)
+    if (ut.some((f) => {
+      const [c, d] = spann(f)
+      return a < d && c < b
+    })) return
+    ut.push(e)
+  }
+  if (idag >= g.forsta && idag <= g.sista) {
+    lagg({ text: K.idag, x: g.x(idag), justering: idag === g.forsta ? 'v' : idag === g.sista || g.x(idag) + textBredd(K.idag) / 2 > W ? 'h' : 'm', koppar: true })
+  }
+  lagg({ text: kortDatum(g.forsta), x: g.x(g.forsta), justering: 'v' })
+  lagg({ text: opt.provPasserat && opt.prov ? K.provPasserat(kortDatum(opt.prov)) : kortDatum(g.sista), x: g.x(g.sista), justering: 'h' })
+  const kommande = plan.filter((d) => d.typ === 'ommatning' && d.dag > idag)
+  for (const m of opt.dator ? kommande : kommande.slice(0, 1)) {
+    lagg({ text: opt.dator ? K.ommatningAxel(kortDatum(m.dag)) : kortDatum(m.dag), x: g.x(m.dag), justering: 'm' })
+  }
+  return ut
+}
+
+/**
+ * Axeln under kurvan, i HTML (11 px, aldrig skalad): i dag i koppar-ljus,
+ * första dagen, sista dagen och nästa ommätning, i den prioriteten.
  */
 function Axel({
   g,
@@ -389,31 +485,16 @@ function Axel({
   dator: boolean
 }) {
   const W = g.matt.W
-  const pct = (dag: Dag) => `${((g.x(dag) / W) * 100).toFixed(2)}%`
-  const narhet = dator ? 90 : 46
-  const etiketter: { text: string; left: string; justering: 'v' | 'm' | 'h'; koppar?: boolean }[] = [
-    { text: kortDatum(g.forsta), left: pct(g.forsta), justering: 'v' },
-  ]
-  const harIdag = idag > g.forsta && idag < g.sista
-  if (harIdag && g.x(idag) - g.x(g.forsta) > narhet / 1.4 && g.x(g.sista) - g.x(idag) > narhet) etiketter.push({ text: 'i dag', left: pct(idag), justering: 'm', koppar: true })
-  const kommande = plan.filter((d) => d.typ === 'ommatning' && d.dag > idag)
-  const mittDagar = dator ? kommande : kommande.slice(0, 1)
-  for (const m of mittDagar) {
-    const xm = g.x(m.dag)
-    const nara = (dag: Dag) => Math.abs(g.x(dag) - xm) < narhet
-    if ((harIdag && nara(idag)) || nara(g.sista) || etiketter.some((e) => e.justering === 'm' && e.text !== 'i dag' && Math.abs(parseFloat(e.left) / 100 * W - xm) < narhet)) continue
-    etiketter.push({ text: dator ? `${kortDatum(m.dag)} · ommätning` : kortDatum(m.dag), left: pct(m.dag), justering: 'm' })
-  }
-  etiketter.push({ text: provPasserat && prov ? `prov ${kortDatum(prov)}` : kortDatum(g.sista), left: pct(g.sista), justering: 'h' })
+  const etiketter = axelEtiketter(g, idag, plan, { prov, provPasserat, dator })
   return (
     <div aria-hidden="true" className="relative mt-1.5 h-4 text-ax text-vagg-mjuk">
       {etiketter.map((e) => (
         <span
-          key={`${e.text}-${e.left}`}
+          key={`${e.text}-${e.x}`}
           className={`absolute whitespace-nowrap ${e.koppar ? 'font-semibold text-koppar-ljus' : ''} ${
             e.justering === 'm' ? '-translate-x-1/2' : e.justering === 'h' ? '-translate-x-full' : ''
           }`}
-          style={{ left: e.justering === 'v' ? 0 : e.left }}
+          style={{ left: e.justering === 'v' ? 0 : `${((e.x / W) * 100).toFixed(2)}%` }}
         >
           {e.text}
         </span>
@@ -436,11 +517,12 @@ export interface PlanbildProps {
 /**
  * Planen som bild (1a, W2): före mätningen finns ingen kurva, bara dagarna
  * fram till provet. Ihåliga märken är planerade dagar, luckorna söndagar.
- * Aldrig en tom graf.
+ * Aldrig en tom graf. Texten i HTML som på kurvan.
  */
 export function Planbild({ plan, idag, prov, bredd, ariaLabel, className }: PlanbildProps) {
   const dator = bredd === 'dator'
   const W = dator ? 840 : 380
+  const H = 100
   const x0 = dator ? 40 : 30
   const xW = dator ? 776 : 336
   const antal = Math.max(2, dagarMellan(idag, prov) + 1)
@@ -450,75 +532,80 @@ export function Planbild({ plan, idag, prov, bredd, ariaLabel, className }: Plan
   const gen = plan.filter((d) => d.typ === 'general')
   const genMitt = gen.length ? (x(gen[0].dag) + x(gen[gen.length - 1].dag)) / 2 : null
   const last = (d: PlanDag) => d.status === 'last'
+  const K = HEM.kurva
   return (
-    <svg viewBox={`0 0 ${W} 100`} role="img" aria-label={ariaLabel} className={`kurva mt-2 block h-auto w-full overflow-visible ${className ?? ''}`}>
-      <line x1={x0} x2={x0 + xW} y1="70" y2="70" stroke="var(--vagg-kant)" strokeWidth="1" />
-      {plan.map((d) => {
-        const cx = x(d.dag)
-        if (d.dag === idag) {
-          return <circle key={d.dag} cx={cx} cy="70" r="7" fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
-        }
-        if (d.typ === 'prov') return null
-        if (d.typ === 'vila') {
-          return <circle key={d.dag} cx={cx} cy="70" r={r} fill="none" stroke="var(--vagg-svag)" strokeWidth="1.5" strokeDasharray="1 3" />
-        }
-        if (d.typ === 'general') {
-          const s = last(d) ? 8 : 7
-          return (
-            <rect
-              key={d.dag}
-              x={cx - s / 2}
-              y={70 - s / 2}
-              width={s}
-              height={s}
-              rx="1.5"
-              fill={last(d) ? 'var(--vagg-kant)' : 'none'}
-              stroke={last(d) ? 'none' : 'var(--vagg-svag)'}
-              strokeWidth="1.5"
-            />
-          )
-        }
-        if (d.typ === 'ommatning') {
+    <div className={`relative mt-2 ${className ?? ''}`}>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ariaLabel} className="kurva block h-auto w-full overflow-visible">
+        <line x1={x0} x2={x0 + xW} y1="70" y2="70" stroke="var(--vagg-kant)" strokeWidth="1" />
+        {plan.map((d) => {
+          const cx = x(d.dag)
+          if (d.dag === idag) {
+            return <circle key={d.dag} cx={cx} cy="70" r="7" fill="none" stroke="var(--koppar)" strokeWidth="2" strokeDasharray="3 3" />
+          }
+          if (d.typ === 'prov') return null
+          if (d.typ === 'vila') {
+            return <circle key={d.dag} cx={cx} cy="70" r={r} fill="none" stroke="var(--vagg-svag)" strokeWidth="1.5" strokeDasharray="1 3" />
+          }
+          if (d.typ === 'general') {
+            const s = last(d) ? 8 : 7
+            return (
+              <rect
+                key={d.dag}
+                x={cx - s / 2}
+                y={70 - s / 2}
+                width={s}
+                height={s}
+                rx="1.5"
+                fill={last(d) ? 'var(--vagg-kant)' : 'none'}
+                stroke={last(d) ? 'none' : 'var(--vagg-svag)'}
+                strokeWidth="1.5"
+              />
+            )
+          }
+          if (d.typ === 'ommatning') {
+            return last(d) ? (
+              <circle key={d.dag} cx={cx} cy="70" r={dator ? 5.5 : 5} fill="var(--vagg-kant)" />
+            ) : (
+              <circle key={d.dag} cx={cx} cy="70" r={dator ? 5.5 : 5} fill="none" stroke="var(--vagg-mjuk)" strokeWidth="2" />
+            )
+          }
           return last(d) ? (
-            <circle key={d.dag} cx={cx} cy="70" r={dator ? 5.5 : 5} fill="var(--vagg-kant)" />
+            <circle key={d.dag} cx={cx} cy="70" r={r + 1} fill="var(--vagg-kant)" />
           ) : (
-            <circle key={d.dag} cx={cx} cy="70" r={dator ? 5.5 : 5} fill="none" stroke="var(--vagg-mjuk)" strokeWidth="2" />
+            <circle key={d.dag} cx={cx} cy="70" r={r} fill="none" stroke="var(--vagg-svag)" strokeWidth="1.5" />
           )
-        }
-        return last(d) ? (
-          <circle key={d.dag} cx={cx} cy="70" r={r + 1} fill="var(--vagg-kant)" />
-        ) : (
-          <circle key={d.dag} cx={cx} cy="70" r={r} fill="none" stroke="var(--vagg-svag)" strokeWidth="1.5" />
-        )
-      })}
-      <text className="lbl k" x={x0} y="52" textAnchor="start">
-        Mät min nivå
-      </text>
-      {om.map((d) => (
-        <text key={`om-${d.dag}`} className="lbl soft" x={x(d.dag)} y="52" textAnchor="middle">
-          ommätning
-        </text>
-      ))}
-      {genMitt != null ? (
-        <text className="lbl soft" x={genMitt} y="52" textAnchor="middle">
-          {dator ? 'generalrepetition' : 'generalrep.'}
-        </text>
-      ) : null}
-      <line x1={x(prov)} x2={x(prov)} y1="40" y2="86" stroke="var(--vagg-mjuk)" strokeWidth="1.5" />
-      <text className="lbl soft" x={x(prov)} y="30" textAnchor="end">
-        Prov
-      </text>
-      <text className="ax" x={x0} y="96" textAnchor="start">
-        i dag
-      </text>
-      {om[0] ? (
-        <text className="ax" x={x(om[0].dag)} y="96" textAnchor="middle">
-          {kortDatum(om[0].dag)}
-        </text>
-      ) : null}
-      <text className="ax" x={x(prov)} y="96" textAnchor="end">
-        {kortDatum(prov)}
-      </text>
-    </svg>
+        })}
+        <line x1={x(prov)} x2={x(prov)} y1="40" y2="86" stroke="var(--vagg-mjuk)" strokeWidth="1.5" />
+      </svg>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <Lapp x={x0} y={55} W={W} H={H} ankX="start" ankY="over" className={TXT.k}>
+          {K.planMat}
+        </Lapp>
+        {om.map((d) => (
+          <Lapp key={`om-${d.dag}`} x={x(d.dag)} y={55} W={W} H={H} ankX="mitt" ankY="over" className={TXT.soft}>
+            {K.planOm}
+          </Lapp>
+        ))}
+        {genMitt != null ? (
+          <Lapp x={genMitt} y={55} W={W} H={H} ankX="mitt" ankY="over" className={TXT.soft}>
+            {dator ? K.planGen : K.planGenKort}
+          </Lapp>
+        ) : null}
+        <Lapp x={x(prov) - 4} y={36} W={W} H={H} ankX="slut" ankY="over" className={TXT.soft}>
+          {K.prov}
+        </Lapp>
+        <Lapp x={x0} y={88} W={W} H={H} ankX="start" ankY="under" className={TXT.ax}>
+          {K.idag}
+        </Lapp>
+        {om[0] ? (
+          <Lapp x={x(om[0].dag)} y={88} W={W} H={H} ankX="mitt" ankY="under" className={TXT.ax}>
+            {kortDatum(om[0].dag)}
+          </Lapp>
+        ) : null}
+        <Lapp x={x(prov)} y={88} W={W} H={H} ankX="slut" ankY="under" className={TXT.ax}>
+          {kortDatum(prov)}
+        </Lapp>
+      </div>
+    </div>
   )
 }
