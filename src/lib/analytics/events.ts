@@ -356,6 +356,8 @@ export interface AnalyticsEvents {
   ommatning_klar: { niva: number; delta: number }
   generalrepetition_klar: { format: string; ratt: number; antal: number; test_kind?: string; obesvarade?: number; fran?: string | null }
   kalibreringsfraga_svarad: { fraga_id: string; typ: string; correct: boolean }
+  /** Rapportknappen "Något ser fel ut" (tillagg-variation 3.2). */
+  fraga_rapporterad: { fraga_id: string; orsak: string; test_kind: string }
   milstolpe_nadd: { nyckel: string }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b

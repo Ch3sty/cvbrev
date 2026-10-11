@@ -21,6 +21,7 @@
 
 import { useEffect, useRef } from 'react'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
+import FragaRapport, { type FragaRapportProps } from './FragaRapport'
 
 const REGELPANEL = PASS_COPY.regelpanel
 
@@ -32,12 +33,17 @@ export interface RegelpanelProps {
   /** "Sträckuppgift över din nivå, klarad inom provets tid." */
   rad2?: string | null
   visaVidSvar?: boolean
+  /**
+   * Rapportknappen "Något ser fel ut" (tillagg-variation 3.2) under panelen,
+   * i passet och i genomgången. Aldrig under ett pågående övningsprov.
+   */
+  rapport?: FragaRapportProps
 }
 
 /** Avståndet mellan panelens nederkant och foten efter rullningen. */
 const LUFT_OVER_FOTEN = 12
 
-export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: RegelpanelProps) {
+export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar, rapport }: RegelpanelProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     const el = ref.current
@@ -65,6 +71,7 @@ export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: R
   // misstag", med bankens rule och misstag ordagrant under. Utfallet och
   // tiden står till höger om den första rubriken.
   return (
+    <>
     <div ref={ref} role="status" aria-live="polite" className="regelpanel rounded-[14px] bg-ton px-4 py-3.5 text-ton-ink" data-regelpanel>
       <p className="flex items-baseline justify-between gap-3">
         <span className="text-ey uppercase text-ton-ink">{REGELPANEL.regeln}</span>
@@ -83,5 +90,7 @@ export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: R
       ) : null}
       {rad2 ? <p className="mt-1.5 text-sm leading-5 text-ink-2">{rad2}</p> : null}
     </div>
+    {rapport ? <FragaRapport key={rapport.qId} {...rapport} /> : null}
+    </>
   )
 }

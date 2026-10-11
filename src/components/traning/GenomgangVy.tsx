@@ -90,7 +90,7 @@ export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat,
       }
     >
       {q ? <PassFraga key={q.id} fraga={q} vald={vald} ratt={rattVisat} last visaText={false} /> : null}
-      {q ? <Regelpanel rad={rad} regel={at?.regel ?? g?.rule ?? q.rule} misstag={misstag} /> : null}
+      {q ? <Regelpanel rad={rad} regel={at?.regel ?? g?.rule ?? q.rule} misstag={misstag} rapport={{ qId: q.id, sessionId: vy.id }} /> : null}
     </PassShell>
   )
 }

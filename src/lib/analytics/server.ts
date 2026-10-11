@@ -36,6 +36,8 @@ export type ServerEventName =
   | 'generalrepetition_klar'
   /** Kalibreringsfrågan i pass och övningsprov (riktlinjer-tester-v2 2.4). */
   | 'kalibreringsfraga_svarad'
+  /** Rapportknappen i frågevyn, /api/traning/fraga-rapport. */
+  | 'fraga_rapporterad'
   | 'milstolpe_nadd'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {

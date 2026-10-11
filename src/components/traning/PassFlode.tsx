@@ -730,7 +730,7 @@ export default function PassFlode({
           onValj={(i) => void svara(i)}
         />
       ) : null}
-      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} rad2={regelRad2} visaVidSvar /> : null}
+      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} rad2={regelRad2} visaVidSvar rapport={q ? { qId: q.id, sessionId: vy.id } : undefined} /> : null}
       {fas.typ === 'sparar' ? (
         <p className="sr-only" role="status" aria-live="polite">
           {PASS_COPY.knapp.sparar}
