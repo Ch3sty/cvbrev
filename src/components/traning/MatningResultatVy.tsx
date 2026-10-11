@@ -25,14 +25,17 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { capture } from '@/lib/analytics/events'
 import { Rad } from '@/components/rum/Rader'
-import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
-import { kopstegHref } from '@/lib/onboarding/steps'
-import { SALD_PLAN } from '@/lib/plans/plans'
-import { passHref } from '@/lib/traning/klient'
+import StatusRow from '@/components/shell/StatusRow'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { familjNamn } from '@/lib/logicTestV7/familjer'
+import { antalTid, ovningsformat } from '@/lib/ovningsprov/format'
+import { passHref, type Traningsstatus } from '@/lib/traning/klient'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { MatningResultat } from '@/lib/traning/resultat'
+import { datumText } from '@/lib/traning/rubrik'
+import type { PassTid } from '@/lib/traning/testplan'
+import ImorgonKort from './ImorgonKort'
 import Nivaskala from './Nivaskala'
-import Plan from './Plan'
 import ResultatSkal, { TreTal } from './ResultatSkal'
 
 const M = PASS_COPY.matning
@@ -40,6 +43,8 @@ const M = PASS_COPY.matning
 export interface MatningResultatVyProps {
   vm: MatningResultat
   antal: number
+  /** Statusen efter Nivåkollen: morgondagens tema, planen och tidpunkten. */
+  status?: Traningsstatus | null
   onTillbaka: () => void
   motion?: boolean
 }
@@ -52,15 +57,20 @@ export function VarDuTapparKort({
   eyebrow,
   familjer,
   className,
+  lyft = true,
 }: {
   eyebrow: string
   familjer: MatningResultat['familjer']
   className?: string
+  /** Lyft kort direkt under väggen (M1 och O1 utan milstolpe). Under "I morgon" står det platt. */
+  lyft?: boolean
 }) {
   return (
     <section
       aria-label={eyebrow}
-      className={`relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft ${className ?? ''}`}
+      className={`rounded-2xl border bg-papper p-4 ${
+        lyft ? 'relative z-[2] -mt-[30px] border-[color:var(--lyft-kant)] shadow-lyft' : 'border-kant'
+      } ${className ?? ''}`}
     >
       <p className="text-ey text-ink-3">{eyebrow}</p>
       {familjer.length ? (
@@ -76,7 +86,23 @@ export function VarDuTapparKort({
   )
 }
 
-export default function MatningResultatVy({ vm, antal, onTillbaka, motion = true }: MatningResultatVyProps) {
+/** Det I morgon-kortet behöver ur statusen (Testerna v2, skiss 5). */
+export function imorgonFranStatus(status: Traningsstatus | null, opt: { last: boolean; reservTema?: string | null }) {
+  const plan = status?.plan ?? null
+  const provdatum = plan?.provdatum ?? null
+  const f = ovningsformat('logik', plan?.leverantor ?? null, plan?.variant ?? null)
+  const tema = familjNamn(status?.dagensTema ?? null) ?? opt.reservTema ?? null
+  return {
+    tema,
+    passTid: (plan?.pass_tid ?? null) as PassTid | null,
+    format: `${f.namn ? `samma format som ${f.namn}` : 'vårt format'}, ${antalTid(f)}`,
+    provdatum: provdatum ? datumText(provdatum) : null,
+    status: opt.last ? (provdatum ? PASS_COPY.efterNivakollen.gratisDatum : PASS_COPY.efterNivakollen.gratis) : PASS_COPY.efterNivakollen.betalande,
+  }
+}
+
+export default function MatningResultatVy({ vm, antal, status = null, onTillbaka, motion = true }: MatningResultatVyProps) {
+  const imorgon = imorgonFranStatus(status, { last: vm.betalvagg != null, reservTema: vm.familjer.find((x) => x.andel != null)?.titel ?? null })
   const visad = useRef(false)
   const harVagg = vm.betalvagg != null
   useEffect(() => {
@@ -120,47 +146,33 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, motion = true
       }
       golv={
         <>
-          <VarDuTapparKort eyebrow={M.varDuTappar} familjer={vm.familjer} className="steg s3" />
-          <section aria-label={vm.planRubrik} className="steg s4 rounded-2xl border border-kant bg-papper p-4">
-            <p className="text-ey text-ink-3">{vm.planRubrik}</p>
-            <Plan rader={vm.plan} />
-          </section>
-          {vm.betalvagg ? (
-            // Gratis (art-director 20.2 fråga 1): betalväggen bär sin egen knapp
-            // och är sista elementet på golvet. Ingen fast fot ovanpå resultatet;
-            // hela resultatet läses före priset.
-            <section
-              aria-label={vm.betalvagg.eyebrow}
-              className="steg s4 rounded-2xl border border-kant bg-papper p-4"
-            >
-              <p className="text-ey text-koppar-ink">{vm.betalvagg.eyebrow}</p>
-              <h2 className="mt-1 text-kort-t text-ink-1">{vm.betalvagg.rubrik}</h2>
-              <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{vm.betalvagg.text}</p>
-              <p className="mt-2 text-sm font-medium text-ink-1">{vm.betalvagg.prisrad}</p>
-              <div className={KNAPPRAD}>
-                <Link
-                  href={kopstegHref(SALD_PLAN, 'matning')}
-                  className={KNAPP_PRIMAR}
-                  onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'matning', cta: 'primary', plats: 'matning' })}
-                >
-                  {vm.betalvagg.knapp}
-                </Link>
-                {vm.betalvagg.lankTill === 'grundpass' ? (
-                  <Link
-                    href={passHref('pass')}
-                    className={`${LANK} inline-flex min-h-9 items-center justify-center`}
-                    onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary', plats: 'matning' })}
-                  >
-                    {vm.betalvagg.lank}
-                  </Link>
-                ) : (
-                  <button type="button" onClick={onTillbaka} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
-                    {vm.betalvagg.lank}
-                  </button>
-                )}
-              </div>
-            </section>
-          ) : null}
+          {/* Dag 1-slutet (Testerna v2, skiss 5): "I morgon" med temat, formen
+              och tidpunkten som lyft kort. Gratis: passet låst men synligt,
+              betalväggen med formatet och datumet i samma kort, som sista
+              kopparn på golvet. Ingen fast fot ovanpå en betalvägg. */}
+          <ImorgonKort
+            className="steg s3"
+            forsta
+            tema={imorgon.tema}
+            passTid={imorgon.passTid}
+            last={vm.betalvagg != null}
+            format={imorgon.format}
+            provdatum={imorgon.provdatum}
+            dagarKvar={vm.dagarKvar}
+            lank={
+              vm.betalvagg
+                ? vm.betalvagg.lankTill === 'grundpass'
+                  ? { text: vm.betalvagg.lank, href: passHref('pass') }
+                  : { text: vm.betalvagg.lank, onClick: onTillbaka }
+                : null
+            }
+          />
+          <VarDuTapparKort eyebrow={M.varDuTapparNivakollen} familjer={vm.familjer} className="steg s4" lyft={false} />
+          <div className="steg s4">
+            <StatusRow tone="warm" showDot wrap>
+              <span className="text-ink-1">{imorgon.status}</span>
+            </StatusRow>
+          </div>
         </>
       }
       fot={

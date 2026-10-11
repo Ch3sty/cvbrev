@@ -206,7 +206,7 @@ export function milstolpeKort(nyckel: MilstolpeNyckel | undefined | null): Milst
   const titel: Record<MilstolpeNyckel, string> = {
     forsta_matningen: `${namn}: första punkten på kurvan`,
     forsta_veckan: `${namn}: sju dagar, inget missat`,
-    nivan_upp: `${namn}: en hel nivå över mätningen`,
+    nivan_upp: `${namn}: en hel nivå över Nivåkollen`,
     generalrepetitionen: `${namn}: provets format, på provets tid`,
     provdagen: `${namn}: passerad`,
   };

@@ -31,7 +31,7 @@ describe('betalväggarnas copy per spärr', () => {
   it('arket från testrummets låsta rader namnger det låsta, sekundären är Se vad som ingår (24.3 punkt 5)', () => {
     expect(getPaywallCopy('testniva', { plats: 'riktat' }).title).toBe('Extrapassen ingår i Premium')
     expect(getPaywallCopy('testniva', { plats: 'generalrepetition' }).title).toBe('Övningsprovet ingår i Premium')
-    expect(getPaywallCopy('testniva', { plats: 'ommatning' }).title).toBe('Nivåmätningarna ingår i Premium')
+    expect(getPaywallCopy('testniva', { plats: 'ommatning' }).title).toBe('Nya nivåkoller ingår i Premium')
     for (const plats of ['riktat', 'generalrepetition', 'ommatning', 'kurva'] as const) {
       const c = getPaywallCopy('testniva', { plats })
       expect(c.secondary).toBe('Se vad som ingår')

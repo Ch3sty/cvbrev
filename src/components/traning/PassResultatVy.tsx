@@ -22,6 +22,9 @@ import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, LANK } from '@/components/shell/knappar'
 import { KURVAN_HREF, kvittoHref } from '@/lib/traning/klient'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { MilstolpeKort, PassResultat } from '@/lib/traning/resultat'
+import type { Traningsstatus } from '@/lib/traning/klient'
+import ImorgonKort from './ImorgonKort'
+import { imorgonFranStatus } from './MatningResultatVy'
 import Marke, { MARKE_FOR } from './Marke'
 import Nivaskala from './Nivaskala'
 import ResultatSkal, { TreTal } from './ResultatSkal'
@@ -56,10 +59,15 @@ export interface PassResultatVyProps {
   onGenomga: (start?: number) => void
   onTillbaka: () => void
   motion?: boolean
+  /** Statusen efter passet, för "I morgon"-kortet (Testerna v2 4.2). Utan den visas bara statusraden. */
+  status?: Traningsstatus | null
+  betalande?: boolean
 }
 
-export default function PassResultatVy({ vm, onGenomga, onTillbaka, motion = true }: PassResultatVyProps) {
+export default function PassResultatVy({ vm, onGenomga, onTillbaka, motion = true, status = null, betalande = true }: PassResultatVyProps) {
   const sista = vm.antal
+  // "I morgon"-kortet efter varje pass: morgondagens tema, formen och tidpunkten.
+  const imorgon = status ? imorgonFranStatus(status, { last: !betalande }) : null
   return (
     <ResultatSkal
       label={vm.eyebrow}
@@ -145,6 +153,20 @@ export default function PassResultatVy({ vm, onGenomga, onTillbaka, motion = tru
               ) : null}
             </Rader>
           </div>
+          {imorgon ? (
+            <div className="steg s4">
+              <ImorgonKort
+                lyft={false}
+                betalvagg={false}
+                tema={imorgon.tema}
+                passTid={imorgon.passTid}
+                last={!betalande}
+                format={imorgon.format}
+                provdatum={imorgon.provdatum}
+                dagarKvar={status?.dagarKvar ?? null}
+              />
+            </div>
+          ) : null}
           <div className="steg s4">
             <StatusRow tone="warm" showDot wrap>
               <span className="text-ink-1">{vm.status}</span>

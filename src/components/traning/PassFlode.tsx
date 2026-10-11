@@ -58,6 +58,66 @@ import PassFraga from './PassFraga'
 import PassResultatVy from './PassResultatVy'
 import PassShell from './PassShell'
 import Regelpanel from './Regelpanel'
+import Kurva from './Kurva'
+import LogikProvFraga from './ovningsprov/LogikProvFraga'
+import OvningsResultatVy from './ovningsprov/OvningsResultatVy'
+import { logikResultat } from '@/lib/ovningsprov/resultat'
+import { kortDatum } from '@/lib/traning/rubrik'
+
+/** Logikens övningsprov som resultatets vymodell (Testerna v2, skiss 3). */
+function logikOvningsResultat(avslut: Avslut, vy: Sessionsvy, status: Traningsstatus | null) {
+  const f = PROVFORMAT[vy.format as FormatNyckel] ?? PROVFORMAT.eget
+  const per = new Map(vy.besvarade.map((b) => [b.q_id, b]))
+  const uppgifter = vy.fragor.map((q) => {
+    const b = per.get(q.id)
+    return { tid_s: b?.tid_s ?? 0, correct: !!vy.aterkoppling?.[q.id]?.correct, besvarad: !!b && !b.tidenUte }
+  })
+  // Adaptivt: frågorna hon inte hann få står inte i sessionen, men räknas.
+  const saknas = Math.max(0, (avslut.obesvarade ?? 0) - uppgifter.filter((u) => !u.besvarad).length)
+  for (let i = 0; i < saknas; i++) uppgifter.push({ tid_s: 0, correct: false, besvarad: false })
+  return logikResultat({
+    ratt: avslut.ratt,
+    antal: avslut.antal,
+    obesvarade: avslut.obesvarade ?? 0,
+    tid_s: avslut.tid_vagg_s ?? avslut.tid_s,
+    minuter: f.minuter,
+    budget_s: avslut.budget_s,
+    niva_fore: avslut.niva_fore,
+    niva_efter: avslut.niva_efter,
+    uppgifter,
+    familjer: [...avslut.familjer.passet]
+      .sort((a, b) => a.andel - b.andel)
+      .map((x) => ({ namn: familjNamn(x.family) ?? x.family ?? '', ratt: x.ratt, antal: x.antal })),
+    imorgon: avslut.imorgon.text,
+    datum: status ? kortDatum(status.idag) : null,
+  })
+}
+
+/** Kurvan med övningsprovets punkt, som ommätningens (våg 2:s Kurva). */
+function OvningsKurva({ status }: { status: Traningsstatus | null }) {
+  const start = status?.start?.dag ?? status?.punkter[0]?.dag ?? null
+  if (!status || !start || status.punkter.length < 1) return null
+  return (
+    <>
+      {(['mobil', 'dator'] as const).map((bredd) => (
+        <div key={bredd} className={bredd === 'mobil' ? 'lg:hidden' : 'hidden lg:block'}>
+          <Kurva
+            punkter={status.punkter}
+            plan={status.plandagar}
+            idag={status.idag}
+            start={start}
+            prov={status.plan?.provdatum ?? null}
+            sikte={status.plan?.sikte ?? null}
+            bredd={bredd}
+            idPrefix="ov"
+            nyPunkt
+            ariaLabel={PASS_COPY.ommatning.kurvaRubrik}
+          />
+        </div>
+      ))}
+    </>
+  )
+}
 
 export interface Resultatdata {
   avslut: Avslut
@@ -290,7 +350,8 @@ export default function PassFlode({
   useEffect(() => {
     if (avslutadVidStart.current || !initialVy || initial) return
     avslutadVidStart.current = true
-    if (!initialVy.avslutad && initialVy.aktuell == null && initialVy.besvarade.length > 0) void avsluta(initialVy)
+    // Övningsprovet lämnas in av henne eller av klockan, aldrig av en omladdning.
+    if (!initialVy.avslutad && initialVy.typ !== 'general' && initialVy.aktuell == null && initialVy.besvarade.length > 0) void avsluta(initialVy)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -421,16 +482,28 @@ export default function PassFlode({
   if (fas.typ === 'resultat') {
     const { avslut, vy: vyEfter, status } = fas.data
     if (avslut.typ === 'matning') {
-      return <MatningResultatVy vm={matningResultat(avslut, status, betalande, vyEfter?.smakprov ?? 0)} antal={avslut.antal} onTillbaka={tillbaka} />
+      return <MatningResultatVy vm={matningResultat(avslut, status, betalande, vyEfter?.smakprov ?? 0)} antal={avslut.antal} status={status} onTillbaka={tillbaka} />
     }
     if (avslut.typ === 'ommatning') {
       return <OmmatningResultatVy vm={ommatningResultat(avslut, status)} status={status} antal={avslut.antal} onTillbaka={tillbaka} />
+    }
+    if (avslut.typ === 'general') {
+      return (
+        <OvningsResultatVy
+          vm={logikOvningsResultat(avslut, vyEfter, status)}
+          kurva={<OvningsKurva status={status} />}
+          onGenomga={() => genomga(fas.data)}
+          onStang={tillbaka}
+        />
+      )
     }
     return (
       <PassResultatVy
         vm={passResultat(avslut, vyEfter, status)}
         onGenomga={(i) => genomga(fas.data, i)}
         onTillbaka={tillbaka}
+        status={status}
+        betalande={betalande}
       />
     )
   }
@@ -531,6 +604,19 @@ export default function PassFlode({
       <PassShell titel={start ? startTitel(start.typ) : PASS_COPY.laddar.session} undertitel={PASS_COPY.laddar.session} fraga={null} antal={null} tid={null} onAvsluta={tillbaka}>
         <Laddar text={PASS_COPY.laddar.session} />
       </PassShell>
+    )
+  }
+
+  // Övningsprovet mot klockan: egen frågevy med klocka och segmentstapel, ingen återkoppling.
+  if (vy.typ === 'general' && (fas.typ === 'fraga' || fas.typ === 'sparar' || fas.typ === 'svarfel')) {
+    return (
+      <LogikProvFraga
+        vy={vy}
+        api={api}
+        onKlar={(opt) => void avsluta(vy, opt)}
+        onAvbryt={tillbaka}
+        fastNu={forhandsvisning && fastTidProp != null ? new Date(vy.startad).getTime() + fastTidProp * 1000 : null}
+      />
     )
   }
 

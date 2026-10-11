@@ -20,6 +20,9 @@
  */
 
 import { useEffect, useRef } from 'react'
+import { PASS_COPY } from '@/lib/traning/pass-copy'
+
+const REGELPANEL = PASS_COPY.regelpanel
 
 export interface RegelpanelProps {
   /** "Inte den här · 52 s" */
@@ -58,11 +61,26 @@ export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: R
     return () => cancelAnimationFrame(id)
   }, [visaVidSvar])
 
+  // Testerna v2 (skiss 4): två rubriker i versaler, "Regeln" och "Ditt
+  // misstag", med bankens rule och misstag ordagrant under. Utfallet och
+  // tiden står till höger om den första rubriken.
   return (
-    <div ref={ref} role="status" aria-live="polite" className="regelpanel rounded-[14px] bg-ton px-4 py-3.5 text-ton-ink">
-      <p className="text-ey uppercase text-ton-ink">{rad}</p>
-      <p className="regelpanel-regel mt-1 font-display text-lg font-bold leading-[23px] tracking-[-.01em]">{regel}</p>
-      {misstag ? <p className="mt-1.5 text-sm leading-5 text-ink-2">{misstag}</p> : null}
+    <div ref={ref} role="status" aria-live="polite" className="regelpanel rounded-[14px] bg-ton px-4 py-3.5 text-ton-ink" data-regelpanel>
+      <p className="flex items-baseline justify-between gap-3">
+        <span className="text-ey uppercase text-ton-ink">{REGELPANEL.regeln}</span>
+        <span className="text-[12px] leading-4 text-ink-3">{rad}</span>
+      </p>
+      <p className="regelpanel-regel mt-1 font-display text-lg font-bold leading-[23px] tracking-[-.01em]" data-regel>
+        {regel}
+      </p>
+      {misstag ? (
+        <>
+          <p className="mt-3 text-ey uppercase text-ink-3">{REGELPANEL.misstag}</p>
+          <p className="mt-1 text-sm leading-5 text-ink-1" data-misstag>
+            {misstag}
+          </p>
+        </>
+      ) : null}
       {rad2 ? <p className="mt-1.5 text-sm leading-5 text-ink-2">{rad2}</p> : null}
     </div>
   )

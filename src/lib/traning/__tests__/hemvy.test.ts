@@ -144,7 +144,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     const t = modell('T1')
     expect(t.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
     expect(t.vagg.rad).toBe('Börja med att mäta var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.')
-    expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 8 min' })
+    expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 8 min' })
     const a = modell('1a')
     expect(a.vagg.planbild).toBeTruthy()
     expect(a.vagg.kurva).toBeUndefined()
@@ -159,12 +159,12 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
-    expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
+    expect(t.lyft.titel).toBe('Kolla din nivå. Cirka 5 minuter.')
     expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Efteråt vet du din nivå.')
-    expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
+    expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 5 min' })
     const a = modell('1as')
     expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
-    expect(a.lyft.fot).toBe('Mätningen är gratis, med eller utan Premium.')
+    expect(a.lyft.fot).toBe('Nivåkollen är gratis, med eller utan Premium.')
     expect(modell('T1').lyft.text).toMatch(/^Tolv figuruppgifter/)
   })
   it('1t: bara siffror valt erbjuder siffertestet, aldrig matrismätningen (19.3 fråga 2)', () => {
@@ -178,7 +178,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
     const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
     const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null
-    expect(figurer).toMatchObject({ meta: 'Inte gjort än. Mät din nivå på 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
+    expect(figurer).toMatchObject({ meta: 'Inte gjort än. Kolla din nivå på 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
   })
   it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
     expect(modell('1a').vagg.kurvaMeta).toBe(
@@ -215,7 +215,7 @@ describe('gratisnivån (17.2)', () => {
     // copy-premium avsnitt 8: kortformen i knappen, ryms på 360 px.
     expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
     expect(kopKnapp().length).toBeLessThan(30)
-    expect(m.vagg.dagsrad!.tal.etikett).toBe('din nivå, mätt i går')
+    expect(m.vagg.dagsrad!.tal.etikett).toBe('din nivå, kollad i går')
     const tappar = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'tappar')
     expect(tappar && tappar.typ === 'rader' ? tappar.rader.every((r) => r.hoger?.typ === 'las') : false).toBe(true)
     // En punkt (mätt i går): planbilden i stället för kurvan (beslut-hemvy avvikelse 2).

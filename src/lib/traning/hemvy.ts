@@ -290,7 +290,7 @@ export function veckorad(plan: readonly PlanDag[], idag: Dag): ('gjord' | 'nu' |
 
 function veckoLabel(status: readonly string[]): string {
   const namn = ['måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag', 'söndag'];
-  const ord: Record<string, string> = { gjord: 'gjort', nu: 'i dag, kvar', vila: 'vilodag', tom: 'ingen plan', kvar: 'planerat', om: 'ny nivåmätning' };
+  const ord: Record<string, string> = { gjord: 'gjort', nu: 'i dag, kvar', vila: 'vilodag', tom: 'ingen plan', kvar: 'planerat', om: 'ny nivåkoll' };
   return `Veckan: ${status.map((s, i) => `${namn[i]} ${ord[s]}`).join(', ')}.`;
 }
 
@@ -304,7 +304,7 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', passet kvar' : ''}.`);
   if (k.sikte != null && k.prov) delar.push(`Mål ${nivaKort(k.sikte)}.`);
   const om = k.plan.filter((p) => p.typ === 'ommatning' && p.dag > k.idag).map((p) => datumText(p.dag));
-  if (om.length) delar.push(`${om.length === 1 ? 'Ny nivåmätning' : 'Nya nivåmätningar'} ${om.join(' och ')}.`);
+  if (om.length) delar.push(`${om.length === 1 ? 'Ny nivåkoll' : 'Nya nivåkoller'} ${om.join(' och ')}.`);
   const vila = k.plan.filter((p) => p.typ === 'vila').map((p) => datumText(p.dag));
   if (vila.length) delar.push(`${vila.length === 1 ? 'Vilodag' : 'Vilodagar'} ${vila.join(' och ')}.`);
   const last = k.plan.filter((p) => p.status === 'last');
@@ -1022,10 +1022,10 @@ function imorgonText(s: Traningsstatus): string | null {
       dag = laggTill(dag, 1);
       t = s.plandagar.find((d) => d.dag === dag)?.typ ?? 'pass';
     }
-    const akt = t === 'ommatning' ? 'mät din nivå igen, 8 minuter' : t === 'general' ? 'övningsprov' : t === 'prov' ? 'provet' : passText;
+    const akt = t === 'ommatning' ? 'ny nivåkoll, 8 minuter' : t === 'general' ? 'övningsprov' : t === 'prov' ? 'provet' : passText;
     return `${vd(imorgon)} är vilodag. ${vd(dag)}: ${akt}.`;
   }
-  if (typ === 'ommatning') return `${vd(imorgon)}: mät din nivå igen, 8 minuter.`;
+  if (typ === 'ommatning') return `${vd(imorgon)}: ny nivåkoll, 8 minuter.`;
   if (typ === 'general') return 'I morgon: övningsprov.';
   if (typ === 'prov') return 'I morgon: provet. Bara tre uppvärmningsfrågor.';
   return `I morgon: ${passText}.`;
@@ -1105,8 +1105,8 @@ function planbildLabel(plan: readonly PlanDag[], idag: Dag, prov: Dag, matt = fa
   const om = plan.filter((p) => p.typ === 'ommatning').map((p) => datumText(p.dag));
   const gen = plan.filter((p) => p.typ === 'general').map((p) => datumText(p.dag));
   return [
-    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: ${matt ? 'nivån mätt' : 'mät din nivå i dag'}, pass varje dag med vilodag söndag`,
-    om.length ? `, ny nivåmätning ${om.join(' och ')}` : '',
+    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: ${matt ? 'Nivåkollen gjord' : 'Nivåkollen i dag'}, pass varje dag med vilodag söndag`,
+    om.length ? `, ny nivåkoll ${om.join(' och ')}` : '',
     gen.length ? `, övningsprov ${gen.join(' och ')}` : '',
     `, prov ${datumText(prov)}.`,
   ].join('');
