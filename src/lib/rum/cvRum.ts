@@ -12,6 +12,12 @@ import { CV_RUM } from './copy'
 
 /** Det ur analysresultatet som CV-rummet läser (JSON-fälten i result). */
 export interface AnalysUnderlag {
+  /**
+   * Analysraden (cv_analysis_jobs.id). "Åtgärda i CV:t" öppnar den sparade
+   * analysen med ?job=<id> (art-director 21.2 fråga 2); utan id lyfts inte
+   * "Åtgärda först".
+   */
+  jobbId?: string | null
   cvId: string | null
   /** När analysen blev klar (ISO). */
   klar: string | null

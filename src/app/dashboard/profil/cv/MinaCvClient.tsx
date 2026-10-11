@@ -323,7 +323,11 @@ export default function MinaCvClient({
   const underlag = analyseratCv ? cvRum.underlag : null;
   const poang = poangUrAnalys(underlag);
   const fynd = fyndUrAnalys(underlag);
-  const atgardaForst = fynd[0] ?? null;
+  // Ett lyft kort som pekar på sparad data öppnar den datan (21.2 fråga 2):
+  // "Åtgärda i CV:t" öppnar analysen med ?job=<id>, utan ny analys och utan
+  // kvot. Går den inte att öppna lyfts inte "Åtgärda först".
+  const atgardaHref = underlag?.jobbId ? `/dashboard/cv-analys?job=${encodeURIComponent(underlag.jobbId)}` : null;
+  const atgardaForst = atgardaHref ? fynd[0] ?? null : null;
   const vag = analyseratCv
     ? dokumentVag({
         harCv: true,
@@ -385,7 +389,7 @@ export default function MinaCvClient({
             titel={atgardaForst.titel}
             text={atgardaForst.meta}
             handling={
-              <Link href="/dashboard/cv-analys" className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+              <Link href={atgardaHref ?? '/dashboard/cv-analys'} className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
                 {CV_RUM.atgardaKnapp}
               </Link>
             }

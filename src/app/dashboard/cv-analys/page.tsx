@@ -23,6 +23,10 @@
  * Den hårda grinden är också oförändrad: utan CV går det inte att analysera,
  * och användaren skickas till CV-uppladdningen. Skillnaden är att det nu sker
  * innan sidan målats i stället för genom en router.push efter hydrering.
+ *
+ * Återupptagning (art-director 21.2 fråga 2): ?job=<id> öppnar en sparad
+ * analys (cv_analysis_jobs.result) i granskningssteget. Raden läses bara om
+ * den är användarens egen och klar; inget AI-anrop, ingen kvot, ingen ny rad.
  */
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -30,8 +34,13 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getCvAnalysData, emptyCvAnalysData } from './getCvAnalysData';
 import CvAnalysClient from './CvAnalysClient';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import type { AterupptagenAnalys } from './aterupptagning';
 
-export default async function CVAnalysisPage() {
+export default async function CVAnalysisPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
@@ -56,5 +65,27 @@ export default async function CVAnalysisPage() {
     redirect('/dashboard/profil/cv?reason=cv-required');
   }
 
-  return <CvAnalysClient data={data ?? emptyCvAnalysData(user.id)} />;
+  // Den sparade analysen, om adressen pekar på en. Bara läsning.
+  const sok = await searchParams;
+  const jobb = typeof sok.job === 'string' && /^[0-9a-f-]{36}$/i.test(sok.job) ? sok.job : null;
+  let aterupptagen: AterupptagenAnalys | null = null;
+  if (jobb) {
+    const { data: rad, error } = await supabase
+      .from('cv_analysis_jobs')
+      .select('id, cv_id, display_name, status, result')
+      .eq('id', jobb)
+      .eq('user_id', user.id)
+      .maybeSingle();
+    if (error) console.error('CV-analys: kunde inte läsa den sparade analysen', error);
+    if (rad && rad.status === 'completed' && rad.result && typeof rad.result === 'object') {
+      aterupptagen = {
+        id: rad.id as string,
+        cvId: (rad.cv_id as string | null) ?? null,
+        displayName: (rad.display_name as string | null) ?? null,
+        result: rad.result as Record<string, unknown>,
+      };
+    }
+  }
+
+  return <CvAnalysClient data={data ?? emptyCvAnalysData(user.id)} aterupptagen={aterupptagen} />;
 }

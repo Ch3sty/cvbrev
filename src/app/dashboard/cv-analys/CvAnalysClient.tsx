@@ -28,6 +28,7 @@ import { RUBRIK } from '@/lib/rum/copy';
 
 import { logUserActivity } from '@/lib/activity-logger';
 import { lockedCvIds, type CvAnalysData } from './getCvAnalysData';
+import { aterupptagning, type AterupptagenAnalys } from './aterupptagning';
 
 /**
  * Wizarden syns aldrig i första vyn: sidan öppnar alltid på introt, och
@@ -41,10 +42,21 @@ const CVAnalysisWizard = dynamic(() => import('./components/CVAnalysisWizard'), 
 
 const API_ANALYZE_ROUTE = '/api/cv/analyze';
 
-export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
+export default function CvAnalysClient({
+  data,
+  aterupptagen = null,
+}: {
+  data: CvAnalysData;
+  /** Sparad analys ur ?job=<id>: öppnas i granskningen, ingen kvot dras. */
+  aterupptagen?: AterupptagenAnalys | null;
+}) {
   const router = useRouter();
+  const ater = useMemo(() => (aterupptagen ? aterupptagning(aterupptagen) : null), [aterupptagen]);
 
-  const [showIntro, setShowIntro] = useState(true);
+  // En återupptagen analys hoppar över introt och spärrvyn: den kostar ingen
+  // kvot. Startar hon en ny analys därifrån gäller kvoten som vanligt.
+  const [showIntro, setShowIntro] = useState(!ater);
+  const [kvotSlut, setKvotSlut] = useState(false);
 
   /* Kvotläget. Startvärdena är serverns, och uppdateras av analyssvaret precis
      som förut: 429 med limitReached låser vyn med exakt återkomsttid, ett
@@ -112,6 +124,7 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
           const resetAt = result.nextResetAt || result.nextResetDate;
           if (resetAt) setQuotaLockResetAt(resetAt);
           setRemainingAnalyses(0);
+          setKvotSlut(true);
           const quotaError = new Error(
             result.message || 'Du har använt din CV-analys.'
           ) as Error & { quotaExceeded?: boolean };
@@ -153,8 +166,10 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
   // servern eller en räknare som gått i noll.
   const hasReachedLimit =
     !data.isPremium &&
-    (quotaLockResetAt !== null ||
-      (remainingAnalyses !== null && remainingAnalyses <= 0));
+    (ater
+      ? kvotSlut
+      : quotaLockResetAt !== null ||
+        (remainingAnalyses !== null && remainingAnalyses <= 0));
 
   if (hasReachedLimit) {
     return (
@@ -197,6 +212,7 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
         onAnalysisStart={handleAnalysisStart}
         onPollJob={pollForJobResult}
         onComplete={handleWizardComplete}
+        aterupptagning={ater}
       />
     </div>
   );

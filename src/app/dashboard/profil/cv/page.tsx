@@ -61,7 +61,7 @@ export default async function MinaCVPage() {
       supabase
         .from('cv_analysis_jobs')
         .select(
-          'cv_id, completed_at, display_name, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
+          'id, cv_id, completed_at, display_name, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
         )
         .eq('user_id', user.id)
         .eq('status', 'completed')
@@ -96,6 +96,7 @@ export default async function MinaCVPage() {
     if (senaste && cvRows.some((cv) => cv.id === senaste.cv_id)) {
       const cv = cvRows.find((c) => c.id === senaste.cv_id);
       cvRum.underlag = {
+        jobbId: (senaste.id as string) ?? null,
         cvId: (senaste.cv_id as string) ?? null,
         klar: (senaste.completed_at as string) ?? null,
         namn: (senaste.display_name as string) || cv?.file_name || null,
