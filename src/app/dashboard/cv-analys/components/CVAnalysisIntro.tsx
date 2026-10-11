@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ArrowRight, Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
+import { Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
@@ -74,7 +74,6 @@ export default function CVAnalysisIntro({
         handling={
           <button type="button" onClick={onStartAnalysis} className={KNAPP_PRIMAR}>
             Analysera mitt CV
-            <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
           </button>
         }
       >

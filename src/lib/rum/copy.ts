@@ -135,6 +135,8 @@ export const RUBRIK = {
   profil: UNDERSIDA.profil,
   prenumeration: UNDERSIDA.prenumeration,
   inforIntervjun: UNDERSIDA.inforIntervjun,
+  arbetsstil: 'Din arbetsstil',
+  meddelanden: 'Meddelanden',
   /** Alla resultatsidor tills Resultatvy i våg 2 (spec 16.2 fråga 18). */
   resultat: 'Ditt resultat',
 } as const
@@ -218,6 +220,14 @@ export const LYFT = {
     titel: (antal: number, minuter: number | string) => `${antal} påståenden, cirka ${minuter} minuter`,
     text: 'Inga rätta svar. Du får en profil, inte ett betyg.',
   },
+} as const
+
+/** Din arbetsstil (spec 18.4 punkt 1). Knapptexten ses över av testansvarig mot gratisnivån. */
+export const ARBETSSTIL = {
+  rad: 'Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i siffror, och den privata delen är bara din.',
+  forstTitel: 'Gör personlighetstestet först',
+  forstText: 'Din arbetsstilsrapport byggs på ditt personlighetstest. Det tar ungefär tio minuter, och det finns inga rätta svar.',
+  forstKnapp: 'Gör personlighetstestet',
 } as const
 
 /** Brevvyn, B1-skelettet (spec 16.3.2). */

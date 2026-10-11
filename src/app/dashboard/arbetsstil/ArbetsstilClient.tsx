@@ -1,8 +1,10 @@
 'use client';
 
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { ARBETSSTIL, RUBRIK } from '@/lib/rum/copy'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -35,18 +37,32 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
 
   return (
     <>
-    {/* Rubriken på väggen (Rummen våg 1b), resten av heron på golvet. */}
+    {/* h1 är undersidans namn (spec 18.4 punkt 1). Arketypen står i raden;
+        utan test lyfts vyns enda handling i ett kort. */}
     <RumHuvud
-      title={ownReport ? ownReport.archetype.title : 'Din rapport i ord, byggd på dig'}
-      description={
-        ownReport
-          ? ownReport.archetype.description
-          : 'Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i siffror, och den privata delen är bara din.'
-      }
+      title={RUBRIK.arbetsstil}
+      description={ownReport ? ownReport.archetype.title : ARBETSSTIL.rad}
+      tat={done}
     />
-    <Golv>
+    <Golv lyft={!done}>
+    {!done ? (
+      <LyftKort
+        label={ARBETSSTIL.forstTitel}
+        titel={ARBETSSTIL.forstTitel}
+        text={ARBETSSTIL.forstText}
+        className="w-full max-w-3xl"
+        handling={
+          <Link href="/dashboard/tester/personlighet-grund" className={`${KNAPP_PRIMAR} sm:w-auto`}>
+            {ARBETSSTIL.forstKnapp}
+          </Link>
+        }
+      />
+    ) : null}
     <div className="w-full max-w-3xl">
       <div className="space-y-5 sm:space-y-6">
+        {ownReport ? (
+          <p className="text-sm leading-[22px] text-ink-2">{ownReport.archetype.description}</p>
+        ) : null}
         <header className="rounded-2xl border border-kant bg-papper p-4 sm:p-5">
           <p className="text-meta text-ink-3">
             Det här är din egen rapport i du-form. Vad rekryterare får se styr
@@ -60,21 +76,6 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
             .
           </p>
         </header>
-
-        {!done && (
-          <SectionCard title="Gör personlighetstestet först" delay={0.1}>
-            <p className="mb-3 text-sm leading-[22px] text-ink-2">
-              Din arbetsstilsrapport byggs på ditt personlighetstest. Börja med
-              dagens test, det tar bara några minuter.
-            </p>
-            <Link
-              href="/dashboard/tester"
-              className={KNAPP_PRIMAR_SMAL}
-            >
-              Gör dagens test
-            </Link>
-          </SectionCard>
-        )}
 
         {/* Grundtestare: låst vy med skarpa rubriker */}
         {done && !ownReport && !hasAdvancedTest && (

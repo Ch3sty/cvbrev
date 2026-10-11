@@ -4,8 +4,8 @@
 // Tidslinjen är sanningskällan: händelser kan läggas till och tas bort,
 // aktuell status räknas alltid om av databasen.
 
-import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_VAGG } from '@/components/shell/knappar'
-import { IkonPenna, IkonTillbaka } from '@/components/illustrations/RumSymboler'
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
+import LyftKort from '@/components/rum/LyftKort'
 import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -15,8 +15,6 @@ import {
   MapPin,
   FileText,
   ExternalLink,
-  Plus,
-  Trash2,
   X,
 } from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
@@ -234,98 +232,28 @@ export default function ApplicationDetailClient({
             <button
               type="button"
               onClick={() => setShowEdit(true)}
-              className={`${KNAPP_GLAS} gap-1.5`}
+              className={KNAPP_GLAS}
             >
-              <IkonPenna size={16} />
               Redigera
             </button>
             <Link
               href="/dashboard/sokta-tjanster"
-              className={`${LANK_VAGG} inline-flex min-h-11 items-center gap-1.5`}
+              className={`${LANK_VAGG} inline-flex min-h-11 items-center`}
             >
-              <IkonTillbaka size={16} />
               Sökta tjänster
             </Link>
           </>
         }
+        tat={false}
       />
-    <Golv key="ansokan">
+    <Golv key="ansokan" lyft>
     <div className="relative">
       <div className="w-full max-w-3xl space-y-4 sm:space-y-5">
 
-        {/* Fakta om ansökan */}
-        <section className="rounded-xl border border-kant bg-papper p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0 text-meta text-ink-2">
-              <span className="inline-flex items-center gap-1.5">
-                <Building2 className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
-                {detail.company}
-              </span>
-              {detail.location && (
-                <span className="ml-3 inline-flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
-                  {detail.location}
-                </span>
-              )}
-            </div>
-            <StatusPill status={detail.current_status} />
-          </div>
-
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-kant pt-4 text-meta text-ink-2">
-            <span>
-              Sökt <span className="font-medium text-ink-1">{formatDateLong(detail.applied_at)}</span>
-            </span>
-            <span aria-hidden="true">·</span>
-            <span>{CHANNEL_META[detail.application_channel]?.label}</span>
-            {detail.letter && (
-              <>
-                <span aria-hidden="true">·</span>
-                <Link
-                  href={`/dashboard/mina-brev/${detail.letter.id}`}
-                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-                >
-                  <FileText className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  {detail.letter.title || 'Kopplat brev'}
-                </Link>
-              </>
-            )}
-            {detail.job_ad_url && (
-              <>
-                <span aria-hidden="true">·</span>
-                <a
-                  href={detail.job_ad_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  Till annonsen
-                </a>
-              </>
-            )}
-          </div>
-
-          {detail.notes && (
-            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
-              {detail.notes}
-            </div>
-          )}
-
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => setConfirmDeleteApplication(true)}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-fel-kant bg-papper px-4 text-sm font-medium text-fel transition-colors hover:bg-papper-2"
-            >
-              <Trash2 className="h-4 w-4" strokeWidth={1.75} />
-              Ta bort
-            </button>
-          </div>
-        </section>
-
-        {/* Tidslinje */}
-        <section className="rounded-xl border border-kant bg-papper p-4">
-          <h2 className="mb-4 text-kort text-ink-1">Händelser</h2>
+        {/* Tidslinjen är det lyfta kortet: den bär vyns handling,
+            Lägg till händelse (spec 16.3.1 och 18.4 punkt 3). */}
+        <LyftKort label="Händelser" titel="Händelser">
+          <div className="mt-4" />
 
           <ol className="relative space-y-0">
             {sortedEvents.map((event, index) => {
@@ -403,10 +331,79 @@ export default function ApplicationDetailClient({
             onClick={() => setShowAddEvent(true)}
             className={`${KNAPP_PRIMAR} mt-5`}
           >
-            <Plus className="w-4 h-4" strokeWidth={1.75} />
             Lägg till händelse
           </button>
+        </LyftKort>
+
+        {/* Fakta om ansökan */}
+        <section className="rounded-xl border border-kant bg-papper p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 text-meta text-ink-2">
+              <span className="inline-flex items-center gap-1.5">
+                <Building2 className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+                {detail.company}
+              </span>
+              {detail.location && (
+                <span className="ml-3 inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+                  {detail.location}
+                </span>
+              )}
+            </div>
+            <StatusPill status={detail.current_status} />
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-kant pt-4 text-meta text-ink-2">
+            {/* Ta bort är en röd länk vid metaraden som bekräftas i dialog
+                (spec 18.2 och 18.4 punkt 3), aldrig en knappfyllnad. */}
+            <span>
+              Sökt <span className="font-medium text-ink-1">{formatDateLong(detail.applied_at)}</span>
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>{CHANNEL_META[detail.application_channel]?.label}</span>
+            {detail.letter && (
+              <>
+                <span aria-hidden="true">·</span>
+                <Link
+                  href={`/dashboard/mina-brev/${detail.letter.id}`}
+                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                >
+                  <FileText className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  {detail.letter.title || 'Kopplat brev'}
+                </Link>
+              </>
+            )}
+            {detail.job_ad_url && (
+              <>
+                <span aria-hidden="true">·</span>
+                <a
+                  href={detail.job_ad_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  Till annonsen
+                </a>
+              </>
+            )}
+            <button
+              type="button"
+              onClick={() => setConfirmDeleteApplication(true)}
+              className={`${LANK} ml-auto inline-flex min-h-11 items-center text-fel decoration-fel/40`}
+            >
+              Ta bort
+            </button>
+          </div>
+
+          {detail.notes && (
+            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
+              {detail.notes}
+            </div>
+          )}
+
         </section>
+
       </div>
 
       {addEventMounted && (

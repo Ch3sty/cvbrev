@@ -14,7 +14,6 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { ArrowRight } from '@/components/illustrations/RumIkoner'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
@@ -150,7 +149,6 @@ export default async function IntervjuSvarPage({
           className={`mt-4 ${KNAPP_PRIMAR} sm:w-auto`}
         >
           {S.knapp}
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </section>
 
