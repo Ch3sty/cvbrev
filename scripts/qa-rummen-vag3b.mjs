@@ -517,7 +517,9 @@ if (flagga('radera')) {
   process.exit(0)
 }
 
-const k = await skapaKonto()
+// --email kör mot ett befintligt QA-konto (en annan körnings, till exempel
+// klar-3:s), utan att skapa eller radera något.
+const k = arg('email') ? { email: arg('email') } : await skapaKonto()
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] })
 try {
   if (kor('ramar')) await delRamar(browser, k)

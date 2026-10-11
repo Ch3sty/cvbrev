@@ -1,0 +1,207 @@
+{
+  "datum": "2026-10-11T04:15:35.739Z",
+  "fel": [
+    "klart-pixel7-ljust: eyebrow Brevet klart saknas",
+    "klart-pixel7-morkt: eyebrow Brevet klart saknas",
+    "klart-desktop-ljust: eyebrow Brevet klart saknas",
+    "klart-desktop-morkt: eyebrow Brevet klart saknas"
+  ],
+  "tomtcv": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "uppladdningILyft": true,
+      "kopparLaddaUpp": false,
+      "fortroende": false,
+      "antalLaddaUpp": 2,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "uppladdningILyft": true,
+      "kopparLaddaUpp": false,
+      "fortroende": false,
+      "antalLaddaUpp": 2,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "desktop",
+      "system": "light",
+      "uppladdningILyft": true,
+      "kopparLaddaUpp": false,
+      "fortroende": false,
+      "antalLaddaUpp": 2,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "uppladdningILyft": true,
+      "kopparLaddaUpp": false,
+      "fortroende": false,
+      "antalLaddaUpp": 2,
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "klart": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "h1": "Ditt brev till Klarna",
+      "eyebrow": false,
+      "traffar": true,
+      "saknas": true,
+      "laggTill": true,
+      "sparaSokt": true,
+      "steg": [],
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "h1": "Ditt brev till Klarna",
+      "eyebrow": false,
+      "traffar": true,
+      "saknas": true,
+      "laggTill": true,
+      "sparaSokt": true,
+      "steg": [],
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "desktop",
+      "system": "light",
+      "h1": "Ditt brev till Klarna",
+      "eyebrow": false,
+      "traffar": true,
+      "saknas": true,
+      "laggTill": true,
+      "sparaSokt": true,
+      "steg": [],
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "desktop",
+      "system": "dark",
+      "h1": "Ditt brev till Klarna",
+      "eyebrow": false,
+      "traffar": true,
+      "saknas": true,
+      "laggTill": true,
+      "sparaSokt": true,
+      "steg": [],
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "klartReducerad": [],
+  "utanKlart": {
+    "steg": 0,
+    "eyebrow": false
+  },
+  "forstarad": [
+    {
+      "system": "light",
+      "vaggBotten": 312,
+      "kort": [
+        {
+          "label": "Nästa handling",
+          "topp": 282,
+          "skugga": true
+        },
+        {
+          "label": "Sökta tjänster",
+          "topp": 282,
+          "skugga": true
+        },
+        {
+          "label": "Har du ett rekryteringstest på gång?",
+          "topp": 282,
+          "skugga": true
+        }
+      ],
+      "aktivitet": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "system": "dark",
+      "vaggBotten": 312,
+      "kort": [
+        {
+          "label": "Nästa handling",
+          "topp": 282,
+          "skugga": true
+        },
+        {
+          "label": "Sökta tjänster",
+          "topp": 282,
+          "skugga": true
+        },
+        {
+          "label": "Har du ett rekryteringstest på gång?",
+          "topp": 282,
+          "skugga": true
+        }
+      ],
+      "aktivitet": false,
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "hem": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "aktivitet": false,
+      "nastaTitel": "Följ upp Region Västra Götaland",
+      "nastaHref": "/dashboard/sokta-tjanster/c99173cb-3ad4-4076-9886-3fe42098111d",
+      "ansokan": false,
+      "vaggRad": "God morgon, Anna.\nFem sökta tjänster pågår. Intervju på Volvo Cars. En har varit tyst i 16 dagar.",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "aktivitet": false,
+      "nastaTitel": "Följ upp Region Västra Götaland",
+      "nastaHref": "/dashboard/sokta-tjanster/c99173cb-3ad4-4076-9886-3fe42098111d",
+      "ansokan": false,
+      "vaggRad": "God morgon, Anna.\nFem sökta tjänster pågår. Intervju på Volvo Cars. En har varit tyst i 16 dagar.",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "form": "desktop",
+      "system": "light",
+      "aktivitet": false,
+      "nastaTitel": "Följ upp Region Västra Götaland",
+      "nastaHref": "/dashboard/sokta-tjanster/c99173cb-3ad4-4076-9886-3fe42098111d",
+      "ansokan": false,
+      "vaggRad": "God morgon, Anna.\nFem sökta tjänster pågår. Intervju på Volvo Cars. En har varit tyst i 16 dagar.",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "jobbmatchning": "light",
+      "kedja": 0,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "jobbmatchning": "dark",
+      "kedja": 0,
+      "konsol": [],
+      "http": []
+    }
+  ]
+}

@@ -1,0 +1,774 @@
+{
+  "bas": "http://localhost:5246",
+  "tid": "2026-10-11T04:15:28.889Z",
+  "hem": [
+    {
+      "t": "T1",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "tomt",
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 8 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "T1-pixel7-ljust.png"
+    },
+    {
+      "t": "T1s",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "tomt",
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 5 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "T1s-pixel7-ljust.png"
+    },
+    {
+      "t": "1a",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "ny",
+      "ram": "1a",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 8 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1a-pixel7-ljust.png"
+    },
+    {
+      "t": "1as",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "ny",
+      "ram": "1a",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 5 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1as-pixel7-ljust.png"
+    },
+    {
+      "t": "1t",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "annat_test",
+      "ram": "1t",
+      "h1": [
+        "14 dagar till siffertestet"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta siffertestet"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1t-pixel7-ljust.png"
+    },
+    {
+      "t": "1b",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "mitt_i",
+      "ram": "1b",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta dagens pass"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1b-pixel7-ljust.png"
+    },
+    {
+      "t": "1c",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "infor",
+      "ram": "1c",
+      "h1": [
+        "I övermorgon: Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta generalrepetitionen"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1c-pixel7-ljust.png"
+    },
+    {
+      "t": "1d",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "provdag",
+      "ram": "1d",
+      "h1": [
+        "I dag: Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Värm upp, 2 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1d-pixel7-ljust.png"
+    },
+    {
+      "t": "1e",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "efter",
+      "ram": "1e",
+      "h1": [
+        "Hur gick Matrigma?"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1e-pixel7-ljust.png"
+    },
+    {
+      "t": "1f",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "mitt_i",
+      "ram": "1f",
+      "h1": [
+        "17 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Köp Hela paketet, 149 kr i månaden"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1f-pixel7-ljust.png"
+    },
+    {
+      "t": "1g",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "efter_pass",
+      "ram": "1g",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Visa genomgången"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": true,
+      "konsol": [],
+      "http": [],
+      "fil": "1g-pixel7-ljust.png"
+    },
+    {
+      "t": "1h",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "utan_datum",
+      "ram": "1h",
+      "h1": [
+        "Ett pass om dagen"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta dagens pass"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1h-pixel7-ljust.png"
+    },
+    {
+      "t": "1i",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "mitt_i",
+      "ram": "1i",
+      "h1": [
+        "14 dagar till logiktestet"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta dagens pass"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1i-pixel7-ljust.png"
+    },
+    {
+      "t": "1p",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "personlighet",
+      "ram": "1p",
+      "h1": [
+        "Personlighetstest den 24 oktober"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör profilen, 10 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1p-pixel7-ljust.png"
+    },
+    {
+      "t": "X1",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "fel",
+      "ram": "X1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Försök igen"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "X1-pixel7-ljust.png"
+    },
+    {
+      "t": "L1",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": null,
+      "ram": null,
+      "h1": [],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "L1-pixel7-ljust.png"
+    },
+    {
+      "t": "F1",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "kurvan",
+      "ram": "F1",
+      "h1": [
+        "Figurer och mönster"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "F1-pixel7-ljust.png"
+    },
+    {
+      "t": "W1",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "mitt_i",
+      "ram": "1b",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta dagens pass"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "W1-desktop-ljust.png"
+    },
+    {
+      "t": "W2",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "ny",
+      "ram": "1a",
+      "h1": [
+        "14 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 8 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "W2-desktop-ljust.png"
+    },
+    {
+      "t": "W3",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "mitt_i",
+      "ram": "1f",
+      "h1": [
+        "17 dagar till Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Köp Hela paketet, 149 kr i månaden"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "W3-desktop-ljust.png"
+    },
+    {
+      "t": "W4",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "provdag",
+      "ram": "1d",
+      "h1": [
+        "I dag: Matrigma"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Värm upp, 2 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "W4-desktop-ljust.png"
+    },
+    {
+      "t": "T1",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "tomt",
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 8 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "T1-desktop-ljust.png"
+    },
+    {
+      "t": "T1s",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "tomt",
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Mät min nivå, 5 min"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "T1s-desktop-ljust.png"
+    },
+    {
+      "t": "1t",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "annat_test",
+      "ram": "1t",
+      "h1": [
+        "14 dagar till siffertestet"
+      ],
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta siffertestet"
+      ],
+      "kopparIBild": true,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": null,
+      "svgTextMax": null,
+      "axHtml": null,
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "1t-desktop-ljust.png"
+    }
+  ],
+  "ingang": [],
+  "natfel": []
+}

@@ -27,6 +27,8 @@ export interface RumHuvudProps {
   description?: ReactNode
   /** Data ovanför rubriken (datumraden), aldrig en kategori. */
   eyebrow?: ReactNode
+  /** Eyebrowens ton: koppar-ljus för en bekräftelse ("Brevet klart", B1). */
+  eyebrowTon?: 'neutral' | 'koppar'
   /** Väggens sekundära handling: LANK_VAGG eller KNAPP_GLAS, aldrig KNAPP_PRIMAR. */
   handling?: ReactNode
   /** Innehåll under rubriken på väggen, till exempel flikar. */
@@ -36,6 +38,8 @@ export interface RumHuvudProps {
    * mobil, bredvid den på dator som i J2 (våg 4).
    */
   instrument?: ReactNode
+  /** Klass på instrumentets behållare (rörelsen i brevet klart, B1). */
+  instrumentClassName?: string
   /** Rubriken i .text-h1-liten. */
   liten?: boolean
   /** padding-bottom 24 i stället för 44 (inget lyft kort under). */
@@ -49,9 +53,11 @@ export default function RumHuvud({
   title,
   description,
   eyebrow,
+  eyebrowTon = 'neutral',
   handling,
   children,
   instrument,
+  instrumentClassName,
   liten,
   tat = true,
   topprad,
@@ -63,15 +69,15 @@ export default function RumHuvud({
       {instrument ? (
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center lg:gap-10">
           <div>
-            {eyebrow ? <p className="mt-2 text-ey text-vagg-mjuk">{eyebrow}</p> : null}
+            {eyebrow ? <p className={`mt-2 text-ey ${eyebrowTon === 'koppar' ? 'text-koppar-ljus' : 'text-vagg-mjuk'}`}>{eyebrow}</p> : null}
             <Rubrik titel={title} rad={description} liten={liten} />
             {handling ? <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5">{handling}</div> : null}
           </div>
-          <div className="mt-5 lg:mt-2">{instrument}</div>
+          <div className={`mt-5 lg:mt-2 ${instrumentClassName ?? ''}`}>{instrument}</div>
         </div>
       ) : (
         <>
-          {eyebrow ? <p className="mt-2 text-ey text-vagg-mjuk">{eyebrow}</p> : null}
+          {eyebrow ? <p className={`mt-2 text-ey ${eyebrowTon === 'koppar' ? 'text-koppar-ljus' : 'text-vagg-mjuk'}`}>{eyebrow}</p> : null}
           <Rubrik titel={title} rad={description} liten={liten} />
           {handling ? <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5">{handling}</div> : null}
         </>

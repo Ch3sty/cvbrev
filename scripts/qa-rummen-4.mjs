@@ -9,6 +9,11 @@
 //   node scripts/qa-rummen-4.mjs --port 5244 --bara vyer     # en del
 //   node scripts/qa-rummen-4.mjs --port 5244 --behall        # behåll kontona
 //   node scripts/qa-rummen-4.mjs --radera                    # radera sparade konton
+//   node scripts/qa-rummen-4.mjs --prefix qa-klar3 ...       # egna, unika adresser per körning
+//
+// --prefix ger adresserna <prefix>-<roll>-<tid>@jobbcoach-qa.test och en egen
+// kontofil, så att två agenter aldrig delar konton (feedback_testdata_stadning,
+// tillägget 2026-10-11).
 //
 // Kräver en produktionsserver (NEXT_DIST_DIR=.next-v4 npx next build,
 // NEXT_DIST_DIR=.next-v4 npx next start -p 5244).
@@ -30,6 +35,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import puppeteer from 'puppeteer-core'
+import { QA_ANALYS } from './qa-rummen-4-analys.mjs'
 
 const env = Object.fromEntries(
   fs
@@ -57,7 +63,9 @@ const FORMFILTER = arg('former') ? arg('former').split(',') : null
 const BAS = `http://localhost:${PORT}`
 // --ut docs/qa/rummen/vag-4/efter-granskning för omkörningen efter spec 16.
 const UT = path.resolve(arg('ut', 'docs/qa/rummen/vag-4'))
-const KONTOFIL = path.resolve('scripts/.qa-rummen-4-konton.json')
+const PREFIX = arg('prefix', 'qa-rummen-4')
+if (!/^qa-[a-z0-9-]+$/.test(PREFIX)) throw new Error('--prefix måste börja med qa- och bara ha a-z, 0-9 och -')
+const KONTOFIL = path.resolve(`scripts/.${PREFIX}-konton.json`)
 const RESULTATFIL = path.join(UT, BARA ? `resultat-${BARA.join('-')}.json` : 'resultat.json')
 fs.mkdirSync(UT, { recursive: true })
 const STANDARD = ['ssr', 'dorrar', 'sidomeny', 'tema', 'landning', 'vyer', 'spara']
@@ -147,7 +155,7 @@ async function skapaKonton() {
   const ut = {}
   const losen = 'QaRummen4!' + ts
   for (const namn of ['gratis', 'hela', 'mycket']) {
-    const email = `qa-rummen-4-${namn}-${ts}@jobbcoach-qa.test`
+    const email = `${PREFIX}-${namn}-${ts}@jobbcoach-qa.test`
     const { data, error } = await sb.auth.admin.createUser({
       email,
       password: losen,
@@ -172,7 +180,7 @@ async function skapaKonton() {
       const om30 = new Date(Date.now() + 30 * 86400000).toISOString()
       const { error: gErr } = await sb.from('premium_grants').insert({
         user_id: id,
-        stripe_event_id: `qa_rummen_4_${namn}_${ts}`,
+        stripe_event_id: `${PREFIX.replace(/-/g, '_')}_${namn}_${ts}`,
         days: 30,
         source: 'onetime_30d',
         scope: 'allt',
@@ -182,14 +190,29 @@ async function skapaKonton() {
     }
 
     if (namn === 'hela') {
-      const { error: hErr } = await sb.from('cv_texts').insert({
-        user_id: id,
-        file_name: 'Anna_CV.pdf',
-        original_file_path: `qa/${id}/cv.pdf`,
-        cv_text: 'Anna Andersson. Projektledare med sju års erfarenhet av IT-projekt i offentlig sektor. Göteborg.',
-        created_at: dag(3),
-      })
+      const { data: hCv, error: hErr } = await sb
+        .from('cv_texts')
+        .insert({
+          user_id: id,
+          file_name: 'Anna_CV.pdf',
+          original_file_path: `qa/${id}/cv.pdf`,
+          cv_text: 'Anna Andersson. Projektledare med sju års erfarenhet av IT-projekt i offentlig sektor. Göteborg.',
+          created_at: dag(3),
+        })
+        .select('id')
+        .single()
       if (hErr) console.warn('cv hela', hErr.message)
+      // En sparad analys, så att "Åtgärda i CV:t" kan öppnas (21.3 punkt 2).
+      if (hCv) {
+        const { data: hJobb, error: hjErr } = await sb
+          .from('cv_analysis_jobs')
+          .insert({ user_id: id, cv_id: hCv.id, status: 'completed', display_name: 'Projektledare, Volvo Cars', created_at: dag(1), completed_at: dag(1), result: QA_ANALYS })
+          .select('id')
+          .single()
+        if (hjErr) console.warn('analys hela', hjErr.message)
+        ut[namn].dyn = { analysJob: hJobb?.id ?? null, cv: hCv.id }
+        fs.writeFileSync(KONTOFIL, JSON.stringify(ut, null, 2))
+      }
     }
 
     if (namn === 'mycket') {
@@ -203,7 +226,7 @@ async function skapaKonton() {
       if (cvErr) console.warn('cv', cvErr.message)
       const senasteCv = [...(cvRader ?? [])].sort((a, b) => b.created_at.localeCompare(a.created_at))[0]
       if (senasteCv) {
-        const { error: anErr } = await sb.from('cv_analysis_jobs').insert({
+        const { data: anRad, error: anErr } = await sb.from('cv_analysis_jobs').insert({
           user_id: id,
           cv_id: senasteCv.id,
           status: 'completed',
@@ -222,9 +245,11 @@ async function skapaKonton() {
               { skill: 'Agil projektledning', atsImpact: 3, source: 'annons', reasoning: 'Står i annonsen.', relevance: 'hög' },
             ],
             generalImprovements: [{ title: 'Datumformat', category: 'format', atsImpact: 2, description: 'Blandade datumformat i erfarenheten.' }],
+            structuredCV: QA_ANALYS.structuredCV,
           },
-        })
+        }).select('id').single()
         if (anErr) console.warn('analys', anErr.message)
+        ut[namn].analysJob = anRad?.id ?? null
       }
 
       const foretag = ['Klarna', 'Volvo Cars', 'Region Västra Götaland', 'Spotify', 'Ericsson']
@@ -294,6 +319,7 @@ async function skapaKonton() {
         application: ansRader?.[0]?.id ?? null,
         testResult: sessRader?.find((s) => s.test_type === 'matrislogik')?.id ?? null,
         testSession: pagaende?.[0]?.id ?? null,
+        analysJob: ut[namn].analysJob ?? null,
       }
       fs.writeFileSync(KONTOFIL, JSON.stringify(ut, null, 2))
     }

@@ -313,12 +313,19 @@ export default function ViewLetterClient({
   // rubriken); utan träffar står metaraden kvar som förut.
   const vaggRad = traffRad ?? (klart ? undefined : beskrivning || undefined);
 
+  // Brevet klart (B1, 21.3 punkt 9): träffarna, brevet och raderna kommer
+  // in i tur och ordning, bara när hon kommer direkt från flödet. Rubriken
+  // står still (LCP). .motion .steg stängs av under prefers-reduced-motion.
+  const steg = (n: 1 | 2 | 3) => (klart ? `steg s${n}` : '');
+
   return (
-    <>
+    <div className={klart ? 'motion contents' : 'contents'}>
       {/* Väggen säger var du är (spec 16.3.2, B1): rubriken, metaraden och
           länken tillbaka. Brevet är det lyfta kortet. */}
       <RumHuvud
         eyebrow={klart ? BREV_RUM.ey : undefined}
+        eyebrowTon={klart ? 'koppar' : 'neutral'}
+        instrumentClassName={steg(1)}
         title={klart ? BREV_RUM.titel(currentLetter.company || null) : currentLetter.title || 'Ansökningsbrev'}
         description={vaggRad}
         instrument={instrument}
@@ -330,7 +337,7 @@ export default function ViewLetterClient({
         }
       />
     <Golv key="brev" lyft>
-      <LyftKort label="Brevet" className="w-full max-w-3xl">
+      <LyftKort label="Brevet" className={`w-full max-w-3xl ${steg(2)}`}>
         {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
         <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
           {html ? (
@@ -382,7 +389,7 @@ export default function ViewLetterClient({
 
       {/* B1: nästa steg som rader. Den saknade kravet först, sedan brevet
           som sökt tjänst i Jobbsöket. */}
-      <Rader label="Nästa">
+      <Rader label="Nästa" className={steg(3)}>
         {traff.saknas[0] && medTraffar ? (
           <Rad
             titel={BREV_RUM.laggTill(traff.saknas[0])}
@@ -485,6 +492,6 @@ export default function ViewLetterClient({
       />
     </div>
     </Golv>
-    </>
+    </div>
   );
 }
