@@ -31,6 +31,11 @@ export interface RumHuvudProps {
   handling?: ReactNode
   /** Innehåll under rubriken på väggen, till exempel flikar. */
   children?: ReactNode
+  /**
+   * Rummets instrument (spåret, poängringen, träffarna). Under rubriken på
+   * mobil, bredvid den på dator som i J2 (våg 4).
+   */
+  instrument?: ReactNode
   /** Rubriken i .text-h1-liten. */
   liten?: boolean
   /** padding-bottom 24 i stället för 44 (inget lyft kort under). */
@@ -46,6 +51,7 @@ export default function RumHuvud({
   eyebrow,
   handling,
   children,
+  instrument,
   liten,
   tat = true,
   topprad,
@@ -54,9 +60,22 @@ export default function RumHuvud({
   return (
     <Vagg tat={tat} className={className}>
       <Topprad {...topprad} />
-      {eyebrow ? <p className="mt-2 text-ey text-vagg-mjuk">{eyebrow}</p> : null}
-      <Rubrik titel={title} rad={description} liten={liten} />
-      {handling ? <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5">{handling}</div> : null}
+      {instrument ? (
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center lg:gap-10">
+          <div>
+            {eyebrow ? <p className="mt-2 text-ey text-vagg-mjuk">{eyebrow}</p> : null}
+            <Rubrik titel={title} rad={description} liten={liten} />
+            {handling ? <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5">{handling}</div> : null}
+          </div>
+          <div className="mt-5 lg:mt-2">{instrument}</div>
+        </div>
+      ) : (
+        <>
+          {eyebrow ? <p className="mt-2 text-ey text-vagg-mjuk">{eyebrow}</p> : null}
+          <Rubrik titel={title} rad={description} liten={liten} />
+          {handling ? <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5">{handling}</div> : null}
+        </>
+      )}
       {children ? <div className="mt-4">{children}</div> : null}
     </Vagg>
   )

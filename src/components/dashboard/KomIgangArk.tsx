@@ -200,7 +200,8 @@ function Bricka({
     : nasta
       ? 'border-ink-1 bg-papper shadow-val'
       : 'border-kant bg-papper'
-  const ikonYta = klar ? 'bg-papper' : nasta ? 'bg-koppar-mjuk' : 'bg-papper-2'
+  // Ikonen står naken i rummets ton, aldrig på en färgad ruta (spec 16.4 (b) 2).
+  const ikonFarg = klar ? 'text-ink-3' : 'text-ton-ink'
 
   return (
     <li>
@@ -220,7 +221,7 @@ function Bricka({
       >
         <span
           aria-hidden="true"
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-1 ${ikonYta}`}
+          className={`inline-flex h-11 w-11 items-center justify-center ${ikonFarg}`}
         >
           <Ikon className="h-[30px] w-[30px]" />
         </span>

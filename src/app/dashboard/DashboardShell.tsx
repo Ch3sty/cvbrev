@@ -66,6 +66,25 @@ const InstallPrompt = dynamic(
   { ssr: false }
 );
 
+/**
+ * Sparar rummet för nästa landning (POST /api/rum/senaste) när webbläsaren
+ * har tid över, aldrig i den kritiska vägen. Ett fel syns inte för
+ * användaren; nästa byte försöker igen.
+ */
+function minnsRummet(rum: Exclude<Rum, 'neutral'>) {
+  const skicka = () => {
+    void fetch('/api/rum/senaste', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rum }),
+      keepalive: true,
+    }).catch(() => {});
+  };
+  const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+  if (w.requestIdleCallback) w.requestIdleCallback(skicka, { timeout: 4000 });
+  else window.setTimeout(skicka, 1500);
+}
+
 export default function DashboardShell({
   children,
   user,
@@ -152,11 +171,18 @@ export default function DashboardShell({
     senasteSida.current = pathname;
     const yta = tagRumYta(forsta);
     if (rum !== senasteRum.current) {
+      const fran = senasteRum.current;
       senasteRum.current = rum;
       capture('rum_oppnat', { rum, surface: yta });
+      // Våg 4: bytet mellan två rum, och rummet /dashboard ska öppna nästa
+      // gång (profiles.senaste_rum). Kontot är inget rum man landar i.
+      if (fran) capture('rum_bytt', { fran, till: rum, surface: yta });
+      if (rum !== 'neutral') minnsRummet(rum);
     }
     if (pathname === '/dashboard/sokta-tjanster') {
       capture('sokta_tjanster_oppnad', { surface: yta });
+    } else if (/^\/dashboard\/sokta-tjanster\/[^/]+$/.test(pathname)) {
+      capture('sokta_tjanst_oppnad', { surface: yta });
     }
   }, [pathname, rum]);
 

@@ -11,7 +11,6 @@
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import Link from 'next/link';
 import Sheet from '@/components/shell/Sheet';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaSmartTon } from '@/components/illustrations/TradenScener';
 import { SMART_VAL } from '../profil-copy';
 
@@ -48,9 +47,9 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
       }
     >
       <div className="flex items-start gap-3">
-        <MarginPlate>
+        <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
           <IlluPlattaSmartTon size={48} />
-        </MarginPlate>
+        </span>
         <div className="min-w-0 flex-1">
           <p className="text-steg uppercase text-koppar-ink">{SMART_VAL.eyebrow}</p>
           <p className="mt-1 text-sm leading-[22px] text-ink-2">{SMART_VAL.text}</p>

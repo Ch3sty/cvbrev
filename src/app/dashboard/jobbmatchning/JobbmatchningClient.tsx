@@ -47,7 +47,6 @@ import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import Sheet from '@/components/shell/Sheet';
 import ChoiceCard from '@/components/shell/ChoiceCard';
-import MarginPlate from '@/components/shell/MarginPlate';
 import JobPreferencesFields, {
   jobPreferenceChips,
   jobPreferenceLocationChipCount,
@@ -665,6 +664,9 @@ export default function JobbmatchningClient({
         const funna = data.jobs || [];
         setJobs(funna);
         setHasMore(data.hasMore || false);
+        // Träffarna är sedda: de ska inte räknas som "nya" på Jobbsökets
+        // hem (spec-rummen 16.2 fråga 3). Tyst om det inte går.
+        void fetch('/api/rum/matchningar-sedda', { method: 'POST' }).catch(() => {});
 
         // Hur många annonser vi faktiskt läst igenom. Edge-funktionen svarar
         // med olika fält beroende på om svaret kom ur cachen eller inte, så
@@ -997,9 +999,9 @@ export default function JobbmatchningClient({
         {/* 1. Ditt CV ------------------------------------------------------ */}
         <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <div className="flex items-start gap-3">
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaCvPoang size={48} />
-            </MarginPlate>
+            </span>
             <div className="min-w-0 flex-1">
               <h2 className="text-kort text-ink-1">Ditt CV</h2>
               <p className="mt-0.5 truncate text-meta text-ink-3">{cvName}</p>

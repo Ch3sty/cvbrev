@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import Segment from '@/components/shell/Segment'
-import MarginPlate from '@/components/shell/MarginPlate'
 import { IlluPlattaPresentation } from '@/components/illustrations/TradenScener'
 import {
   IkonCv,
@@ -77,9 +76,9 @@ export default function Step1Mode({
              är kortet utgråat, och då faller etiketten bort helt. */
           eyebrow={hasCvs ? 'Rekommenderas' : undefined}
           leading={
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaPresentation size={48} />
-            </MarginPlate>
+            </span>
           }
           title="Utgå från mitt CV"
           description="Vi fyller LinkedIn-fälten med det som redan står i ditt CV. Du redigerar fritt innan vi optimerar."

@@ -40,6 +40,7 @@ import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaProv, hamtaSenasteSmakprov } from '@/lib/intervju/data'
 import { bastaNivaPerFraga, type IntervjuHem } from '@/lib/intervju/nasta'
+import type { TraningKors } from '@/lib/rum/jobbsok'
 
 export interface DashboardSummaryPipelineItem {
   id: string
@@ -50,6 +51,10 @@ export interface DashboardSummaryPipelineItem {
   days: number
   /** true när ansökan är tyst över gränsen och bör följas upp. */
   needsFollowUp: boolean
+  /** När ansökan skickades (ISO). Spåret på Jobbsökets hem (våg 4). */
+  appliedAt?: string | null
+  /** När statusen senast ändrades (ISO). */
+  statusAt?: string | null
 }
 
 export interface DashboardSummaryData {
@@ -159,6 +164,18 @@ export interface DashboardSummaryData {
    * sessionStorage-cachen kan sakna det.
    */
   intervju?: IntervjuHem
+  /**
+   * Jobbsökets hem i rummen (spec-rummen våg 4): korsreferensen till
+   * Rekryteringstester, "N nya" på Matchade jobb och Bli upptäckt-raden.
+   * Null när datan inte finns (tabellerna från våg 3a och funktionen från
+   * våg 4 är inte körda i alla miljöer); då säger vyn ingenting om det.
+   * Valfritt eftersom ett äldre cachat svar saknar det.
+   */
+  jobbsok?: {
+    traning: TraningKors | null
+    matchningarNya: number | null
+    bliUpptacktSynlig: boolean
+  }
 }
 
 /** Ett svar i samma form som en PostgREST-fråga, så aggregeringen är en och samma. */
@@ -394,8 +411,11 @@ export async function getDashboardSummary(
   // Proven läses med admin-klienten (RLS utan policies) i samma omgång som
   // resten, två frågor till och ingen efter mount.
   const intervjuLas = hamtaIntervjuRader(userId)
+  // Våg 4: korsreferensen och "N nya" i samma omgång, aldrig efter mount.
+  const traningLas = hamtaTraningKors(userId)
+  const nyaLas = hamtaMatchningarNya(supabase)
   const rader = (await hamtaViaRpc(supabase)) ?? (await hamtaParallellt(supabase, userId))
-  const intervjuRader = await intervjuLas
+  const [intervjuRader, traningKors, matchningarNya] = await Promise.all([intervjuLas, traningLas, nyaLas])
   const {
     lettersRes,
     cvRes,
@@ -493,6 +513,8 @@ export async function getDashboardSummary(
         status: app.current_status,
         days: daysSince(lastIso, now),
         needsFollowUp: silent,
+        appliedAt: app.applied_at ?? app.created_at ?? null,
+        statusAt: app.status_updated_at ?? null,
       })
     }
   }
@@ -677,6 +699,75 @@ export async function getDashboardSummary(
       bastaNiva: bastaNivaPerFraga(intervjuRader.prov),
       gjordaTestTyper: testRader.map((r) => r.test_type),
     },
+    jobbsok: {
+      traning: traningKors,
+      matchningarNya,
+      bliUpptacktSynlig: Boolean(
+        candidateRes?.data?.visibility && (candidateRes.data.visibility as string) !== 'off'
+      ),
+    },
+  }
+}
+
+/**
+ * Testträningens plan och senaste nivå för korsreferensen i Jobbsöket.
+ * Tabellerna test_planer och test_nivapunkter kommer med våg 3a; saknas de,
+ * eller går läsningen fel, blir svaret null och raden bjuder in i stället.
+ */
+let traningTabellerSaknas = false
+async function hamtaTraningKors(userId: string): Promise<TraningKors | null> {
+  if (traningTabellerSaknas) return null
+  try {
+    const admin = getSupabaseAdmin() as any
+    const [planRes, punktRes] = await Promise.all([
+      admin.from('test_planer').select('provdatum, leverantor, testtyper').eq('user_id', userId).maybeSingle(),
+      admin
+        .from('test_nivapunkter')
+        .select('niva, dag, skapad_at')
+        .eq('user_id', userId)
+        .eq('test_kind', 'matris')
+        .order('dag', { ascending: false })
+        .order('skapad_at', { ascending: false })
+        .limit(1),
+    ])
+    if (planRes.error || punktRes.error) {
+      // Tabellen finns inte (migreringen ej körd): sluta fråga i den här processen.
+      const kod = (planRes.error ?? punktRes.error)?.code
+      if (kod === 'PGRST205' || kod === '42P01') traningTabellerSaknas = true
+      return null
+    }
+    const plan = planRes.data as { provdatum?: string | null; leverantor?: string | null; testtyper?: string[] | null } | null
+    const punkt = ((punktRes.data ?? []) as Array<{ niva?: number | string | null }>)[0]
+    const niva = punkt?.niva === undefined || punkt?.niva === null ? null : Number(punkt.niva)
+    return {
+      niva: niva !== null && Number.isFinite(niva) ? niva : null,
+      provdatum: typeof plan?.provdatum === 'string' ? plan.provdatum : null,
+      leverantor: plan?.leverantor ?? null,
+      testtyper: Array.isArray(plan?.testtyper) ? (plan?.testtyper ?? []) : [],
+    }
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Nya träffar sedan Matchade jobb senast visades (spec 16.2 fråga 3).
+ * Funktionen matchningar_nya() kommer med våg 4:s migrering; saknas den
+ * blir svaret null och chipet visas inte.
+ */
+let matchningarNyaSaknas = false
+async function hamtaMatchningarNya(supabase: any): Promise<number | null> {
+  if (matchningarNyaSaknas) return null
+  try {
+    const { data, error } = await supabase.rpc('matchningar_nya')
+    if (error) {
+      if (error.code === 'PGRST202' || error.code === '42883' || error.code === '42703') matchningarNyaSaknas = true
+      return null
+    }
+    const n = typeof data === 'number' ? data : Number(data)
+    return data !== null && Number.isFinite(n) && n >= 0 ? n : null
+  } catch {
+    return null
   }
 }
 

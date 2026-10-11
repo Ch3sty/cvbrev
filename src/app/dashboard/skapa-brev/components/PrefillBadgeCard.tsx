@@ -6,7 +6,6 @@
  * genvägen som textlänk: den primära handlingen ligger i skalets fot.
  */
 
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaAnsokan } from '@/components/illustrations/TradenScener';
 
 interface PrefillBadgeCardProps {
@@ -34,9 +33,9 @@ export default function PrefillBadgeCard({
       className="mb-4 rounded-xl border border-kant-stark bg-papper p-4"
     >
       <div className="flex items-start gap-3">
-        <MarginPlate>
+        <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
           <IlluPlattaAnsokan size={48} />
-        </MarginPlate>
+        </span>
         <div className="min-w-0 flex-1">
           <p className="text-steg uppercase text-ink-3">Från jobbmatchningen</p>
           <h3 className="mt-0.5 text-kort text-ink-1">{jobTitle || 'Tjänsten'}</h3>

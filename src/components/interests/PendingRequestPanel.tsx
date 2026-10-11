@@ -2,7 +2,6 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { ChevronLeft } from '@/components/illustrations/RumIkoner';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaAnsokan } from '@/components/illustrations/TradenScener';
 import { type CandidateInterest } from './hubTypes';
 
@@ -40,9 +39,9 @@ export default function PendingRequestPanel({
 
       <div className="flex flex-1 items-center justify-center overflow-y-auto p-6">
         <div className="w-full max-w-md">
-          <MarginPlate className="mb-4">
+          <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block mb-4">
             <IlluPlattaAnsokan size={48} />
-          </MarginPlate>
+          </span>
 
           <h2 className="text-fraga text-ink-1">
             {interest.companyName} vill komma i kontakt
