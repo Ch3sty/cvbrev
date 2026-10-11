@@ -1021,7 +1021,7 @@ export async function slutforTraning(args: {
   //     Ordinarie svar får typ = meta.typ (matning | pass | riktat | ommatning |
   //     general). Svar på frågor i meta.upprepade skickas fortfarande inte.
   //   - uppdatera_fraga_statistik räknar typ i fraga_statistik.per_typ
-  //     (migreringen 20261012090000_fraga_kalibrering.sql); saknas typ blir det 'okand'.
+  //     (migreringen 20261012100000_fraga_kalibrering.sql); saknas typ blir det 'okand'.
   const statistik = blandad
     ? svar
         .filter((s) => raknas.has(s.q_id))

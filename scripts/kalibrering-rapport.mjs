@@ -2,7 +2,7 @@
 // =============================================================================
 // Kalibreringsrapporten för matrisfrågorna (beställningen "svarare frågor",
 // avsnitt 3.3 och 3.4). Läser vyn fraga_kalibrering_vy (migreringen
-// 20261012090000_fraga_kalibrering.sql) och alla bankfiler: de sex skarpa och
+// 20261012100000_fraga_kalibrering.sql) och alla bankfiler: de sex skarpa och
 // kandidatfilerna under src/lib/logicTestV7/kandidater/.
 //
 // Kör: node scripts/kalibrering-rapport.mjs [--ut=docs/qa/tester-v2/kalibrering/<datum>.json]

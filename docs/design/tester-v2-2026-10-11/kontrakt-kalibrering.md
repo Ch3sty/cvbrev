@@ -20,7 +20,7 @@ Datum 2026-10-11. Gäller omgång 1 (mekanismen för kalibreringsfrågan) och be
 
 ## I databasen
 
-- `uppdatera_fraga_statistik` räknar `typ` i den nya kolumnen `fraga_statistik.per_typ` (migreringen `supabase/migrations/20261012090000_fraga_kalibrering.sql`). Saknas `typ` räknas svaret som `okand`.
+- `uppdatera_fraga_statistik` räknar `typ` i den nya kolumnen `fraga_statistik.per_typ` (migreringen `supabase/migrations/20261012100000_fraga_kalibrering.sql`). Saknas `typ` räknas svaret som `okand`.
 - `fraga_kalibrering_vy` läser råsvaren ur `logic_test_v4_sessions`: bara blandade, avslutade sessioner, undantagna konton borta, "Vet inte" borta, upprepade borta. Typen per rad är `kalibrering` när raden har `kalibrering: true`, annars `meta.typ`, annars `klassisk` (nivåtesten utan `meta.typ`).
 - `fraga_statistik` förblir motorns källa för p (`pForFraga`, 30 svar). Vyn är kalibreringens sanning och underlaget för flyttar (`scripts/kalibrering-rapport.mjs`). För frågor utan kalibreringssvar ska vyns `svar` och `ratt` vara lika med `fraga_statistik.antal` och `.ratt`; en avvikelse är ett fel i kontraktet.
 
