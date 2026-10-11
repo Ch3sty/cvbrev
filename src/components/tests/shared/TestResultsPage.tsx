@@ -280,7 +280,9 @@ export default function TestResultsPage({
   const rytm = rytmrad(config, pct, scope)
   const utanCv = resultsData?.hasCv === false
   const status = (
-    <div className="steg s4 flex items-center justify-between gap-3 self-start rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+    // Full bredd på dator: i en tredjedelskolumn bröts raden på sex till sju
+    // rader (QA efter lyftet). Var du tappade spänner i stället över två rader.
+    <div className="steg s4 flex items-center justify-between gap-3 self-start rounded-xl lg:col-span-3 border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
       <span className="flex min-w-0 items-center gap-2.5">
         <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
         <span>
@@ -330,7 +332,7 @@ export default function TestResultsPage({
           />
           {harTappade ? (
             <TappadeKort
-              className="steg s4"
+              className="steg s4 lg:row-span-2"
               lyft
               grupper={analys.grupper}
               svagast={analys.svagast}
@@ -340,7 +342,7 @@ export default function TestResultsPage({
             />
           ) : null}
           {tempo ? (
-            <TempoKort className="steg s4 lg:col-span-2" tempo={tempo} sak={tempoOrd} />
+            <TempoKort className={`steg s4 ${harTappade ? 'lg:col-span-2' : 'lg:col-span-3'}`} tempo={tempo} sak={tempoOrd} />
           ) : null}
           {status}
         </div>

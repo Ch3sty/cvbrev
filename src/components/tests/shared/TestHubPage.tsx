@@ -235,7 +235,9 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
             <HjalpKnapp id={arProv ? 'B8' : MATER[kind]} />
           </p>
           <h2 className="mt-1 text-kort-t text-ink-1">{arProv ? PROVETS_FRAGA : TESTETS_FRAGA[kind]}</h2>
-          <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{config.levelBlurb}</p>
+          {/* Kvoten slut: på mobil står beskrivningen bara på datorn, så att
+              betalväggens knapp syns utan att rulla (QA efter lyftet, 360 px). */}
+          <p className={`mt-1.5 text-sm leading-[21px] text-ink-2 ${tak && !isLocked ? 'hidden sm:block' : ''}`}>{config.levelBlurb}</p>
           <dl className="mt-3.5 flex flex-wrap gap-x-6 gap-y-2" data-fakta>
             <Fakta tal={config.totalQuestions} etikett={sak.flera} />
             <Fakta tal={minuter} etikett={TESTSIDA.fakta.minuter} />
