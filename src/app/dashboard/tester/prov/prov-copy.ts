@@ -4,7 +4,7 @@
  * "Skapa konto och se alla svar med förklaring"; sidan håller det.
  */
 
-import { paketMedPris } from '@/lib/plans/plans'
+import { paketKort } from '@/lib/plans/plans'
 
 export const PROVSIDA = {
   eyebrow: 'Rekryteringstester',
@@ -22,9 +22,30 @@ export const PROVSIDA = {
   },
   genomgang: 'Tryck på en fråga för att visa eller dölja regeln och rätt svar.',
   knapp: 'Gör grundnivån',
-  traning: `Se ${paketMedPris('test_week')}`,
-  traningText: 'Alla nivåer, tidsatt provläge och förklaring till varje fråga ingår i Träningspaketet.',
+  traning: 'Se vad som ingår',
+  traningText: `Alla nivåer, tidsatt provläge och förklaring till varje fråga ingår i ${paketKort()}.`,
   hubb: 'Till rekryteringstesterna',
+} as const
+
+/**
+ * Provradens text i testhubben (copy-premium-2026-10-11 avsnitt 5,
+ * testansvarigs villkor). Talen läses ur provets konfiguration. "Samma
+ * format som" står bara när provets antal och minuter är leverantörens.
+ */
+export const PROVRAD = {
+  titelLast: 'Provläge mot klockan',
+  titelOppen: 'Prov: mät var du står',
+  format: (namn: string) => `Samma format som ${namn}.`,
+  matt: (uppgifter: number, minuter: number) => `${uppgifter} uppgifter, ${minuter} minuter.`,
+  ingar: `Ingår i ${paketKort()}.`,
+  /** Rad 2 som en mening: "Samma format som Matrigma. 35 uppgifter, 40 minuter. Ingår i Premium." */
+  rad2: (formatNamn: string | null, uppgifter: number, minuter: number, last: boolean) =>
+    [formatNamn ? `Samma format som ${formatNamn}.` : null, `${uppgifter} uppgifter, ${minuter} minuter.`, last ? `Ingår i ${paketKort()}.` : null]
+      .filter(Boolean)
+      .join(' '),
+  /** "Provläge mot klockan. Samma format som Matrigma, 35 uppgifter, 40 minuter. Låst, ingår i Premium." */
+  aria: (formatNamn: string | null, uppgifter: number, minuter: number) =>
+    `Provläge mot klockan. ${formatNamn ? `Samma format som ${formatNamn}, ${uppgifter}` : `${uppgifter}`} uppgifter, ${minuter} minuter. Låst, ingår i ${paketKort()}.`,
 } as const
 
 export const PROV_SAKNAS = {

@@ -1,7 +1,7 @@
 // Rättelserna efter köptestet i Stripes testläge
 // (docs/qa/qa-kop-testlage-2026-09-24.md): menyhuvudet för ett uppsagt paket
-// (bugg 5), Hela paketets längder i menyn (bugg 2) och Dagspassets
-// returskärm (bugg 9).
+// (bugg 5), Premiums längder i menyn (bugg 2) och returskärmen för en
+// befintlig Dagspass-kund (bugg 9), som sedan 2026-10-11 säger Premium.
 import { describe, it, expect } from 'vitest'
 import { menyHuvud, type PaketLage } from '../paket-rader'
 import { valkommen, valkommenMedCv } from '../komigang'
@@ -19,10 +19,10 @@ const BAS: PaketLage = {
 }
 
 describe('menyhuvudet', () => {
-  it('Hela paketet månad förnyas med 149 kr', () => {
+  it('Premium månad förnyas med 149 kr', () => {
     expect(menyHuvud(BAS).under).toBe('Förnyas 24 oktober, 149 kr')
   })
-  it('Hela paketet kvartal förnyas med 299 kr', () => {
+  it('Premium kvartal (befintlig kund) förnyas med 299 kr', () => {
     expect(menyHuvud({ ...BAS, planKey: 'all_quarter', fornyasAt: '2026-12-24T08:00:00Z' }).under).toBe(
       'Förnyas 24 december, 299 kr'
     )
@@ -37,17 +37,22 @@ describe('menyhuvudet', () => {
   })
 })
 
-describe('välkomstskärmen efter Dagspasset', () => {
-  it('säger Dagspasset, inte Hela paketet', () => {
+describe('välkomstskärmen för en befintlig Dagspass-kund', () => {
+  it('säger att det gäller ett dygn men aldrig Dagspasset', () => {
     const v = valkommen('allt', true)
-    expect(v.topp).toBe('Dagspasset')
-    expect(v.rubrik).toBe('Du har Dagspasset. Hela jobbsöket är öppet i ett dygn.')
+    expect(v.topp).toBe('Jobbcoach Premium')
+    expect(v.rubrik).toBe('Du har Premium. Hela jobbsöket är öppet i ett dygn.')
     expect(v.steg).toHaveLength(3)
+    expect(JSON.stringify(v)).not.toMatch(/Dagspass/)
   })
   it('med CV sedan tidigare', () => {
-    expect(valkommenMedCv('allt', 'cv.pdf', null, null, true).rubrik).toBe('Du har Dagspasset. Och ett CV redan.')
+    expect(valkommenMedCv('allt', 'cv.pdf', null, null, true).rubrik).toBe('Du har Premium. Och ett CV redan.')
   })
-  it('Hela paketet är oförändrat', () => {
-    expect(valkommen('allt').rubrik).toBe('Du har Hela paketet. Hela jobbsöket är öppet.')
+  it('Premium: fulla namnet i toppraden, kortformen i rubriken', () => {
+    expect(valkommen('allt').topp).toBe('Jobbcoach Premium')
+    expect(valkommen('allt').rubrik).toBe('Du har Premium. Hela jobbsöket är öppet.')
+  })
+  it('menyhuvudet för en Dagspass-kund säger Premium', () => {
+    expect(menyHuvud({ ...BAS, planKey: 'all_day', dayPassOnly: true }).rubrik).toBe('Du har Premium')
   })
 })

@@ -15,6 +15,7 @@ import { ALL_COGNITIVE_TESTS } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import type { Scope } from '@/lib/access/features';
+import { paketKort } from '@/lib/plans/plans';
 
 interface Props {
   perTest: Record<TestSlug, PerTestStats>;
@@ -77,7 +78,7 @@ export default function DevelopmentView({
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
           {hasHistory
             ? 'Varje punkt är ett försök. Linjen visar hur dina resultat rör sig över tid.'
-            : 'Du ser ditt senaste försök per test. Hela serien ingår i Träningspaketet.'}
+            : `Du ser ditt senaste försök per test. Hela serien ingår i ${paketKort()}.`}
         </p>
       </div>
 

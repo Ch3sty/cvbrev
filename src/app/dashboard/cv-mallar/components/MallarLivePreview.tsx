@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Crown, ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
+import { ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
 
 import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
@@ -17,7 +17,7 @@ import MallGrid from './MallGrid';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
-import { paketMedPris } from '@/lib/plans/plans';
+import { paketKort } from '@/lib/plans/plans';
 import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 
 interface CV {
@@ -464,8 +464,7 @@ function GenerateButton({
         onClick={onUpgrade}
         className={KNAPP_PRIMAR}
       >
-        <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        {`Ladda ned med ${paketMedPris('cv_week')}`}
+        {`Ladda ned med ${paketKort()}`}
       </button>
     );
   }

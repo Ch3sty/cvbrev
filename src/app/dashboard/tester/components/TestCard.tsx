@@ -20,6 +20,7 @@ import { ChevronRight } from 'lucide-react';
 import TestLevelBadge from '@/components/tests/shared/TestLevelBadge';
 import { testPaths, type TestKind, type TestLevel } from '../testConfig';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
+import { lastAria } from '@/lib/traning/hem-copy';
 
 export type TestCardVariant =
   | 'matrix-grund'
@@ -86,7 +87,7 @@ interface TestCardProps {
   isBestOverall?: boolean;
   isRecommended?: boolean;
   index?: number;
-  /** Nivån ingår inte i paketet: etiketten säger var den finns. */
+  /** Nivån ingår inte: etiketten "Ingår i Premium". */
   locked?: string | null;
   onLocked?: () => void;
   /** Dagsrytmen på gratisnivån: "1 kvar i dag". */
@@ -120,7 +121,7 @@ export default function TestCard({
         <button
           type="button"
           onClick={onLocked}
-          aria-label={`${title}, ${levelLabel.toLowerCase()}. Ingår inte. ${locked}`}
+          aria-label={`${title}, ${levelLabel.toLowerCase()}. ${lastAria()}`}
           className={HUB_ROW_LOCKED}
         >
           <span className="text-kant-stark">{badge}</span>

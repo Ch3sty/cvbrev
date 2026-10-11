@@ -14,7 +14,7 @@
 import { useMemo, useState } from 'react';
 import { MallMiniatyr } from '@/components/cv/MallMiniatyrer';
 import { SIMPLE_TEMPLATES, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
-import { paketNamn } from '@/lib/plans/plans';
+import { paketKort } from '@/lib/plans/plans';
 
 interface MallGridProps {
   selectedTemplate: string;
@@ -47,7 +47,7 @@ export default function MallGrid({ selectedTemplate, onTemplateSelect, isPremium
                 type="button"
                 role="radio"
                 aria-checked={vald}
-                aria-label={`${t.name}${last ? `, ingår i ${paketNamn('cv_week')}` : ''}`}
+                aria-label={`${t.name}${last ? `. Låst, ingår i ${paketKort()}.` : ''}`}
                 onClick={() => onTemplateSelect(t.id)}
                 className="block w-full rounded-lg text-left"
               >
@@ -55,7 +55,7 @@ export default function MallGrid({ selectedTemplate, onTemplateSelect, isPremium
                   mall={t}
                   vald={vald}
                   last={last}
-                  under={t.tier === 'free' ? 'Gratis' : last ? paketNamn('cv_week') : undefined}
+                  under={t.tier === 'free' ? 'Gratis' : last ? paketKort() : undefined}
                 />
               </button>
             </li>

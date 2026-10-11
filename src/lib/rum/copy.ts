@@ -5,6 +5,7 @@
 // är inarbetad. Ändra här, aldrig i JSX.
 
 import type { Rum } from './rum'
+import { paketKort } from '@/lib/plans/plans'
 
 /**
  * Dörrarnas etiketter. Aldrig "Brev" (beslut 4).
@@ -80,7 +81,8 @@ export const CHIP = {
   nyhet: 'Nyhet',
   nya: (n: number) => `${n} nya`,
   vantar: (n: number) => `${n} väntar`,
-  lastEtikett: 'Öppnas med ett paket',
+  /** Låst undersida (copy-premium avsnitt 3). */
+  lastEtikett: `Ingår i ${paketKort()}`,
 } as const
 
 /** Toppraden. */

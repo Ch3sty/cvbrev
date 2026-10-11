@@ -12,7 +12,7 @@
  * så hon ser vad testet är innan hon möter betalväggen.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -145,12 +145,9 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
         <RumHuvud title={config.title} description={config.description} tat={false} />
     <Golv lyft>
       {kort(
-        isLocked ? (
-          // Betalväggen nedan bär kopparknappen; här samma länk som förut.
-          <Link href={PREMIUM_HREF} className={KNAPP_SEKUNDAR}>
-            Köp Träningspaketet, 79 kr i veckan
-          </Link>
-        ) : (
+        // Låst: betalväggen nedan bär sin egen knapp (art-director 20.2
+        // fråga 1), så kortet har ingen handling.
+        isLocked ? undefined : (
           <button type="button" onClick={handleStart} disabled={isStarting} className={KNAPP_PRIMAR}>
             {isStarting ? 'Startar testet' : latest ? 'Gör om testet' : 'Starta testet'}
           </button>
@@ -185,6 +182,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
             feature={requiredFeature ?? undefined}
             scope={scope}
             track={track}
+            plats="testniva"
           />
             <p className="text-sm text-ink-2">
               Du kan börja med{' '}

@@ -13,7 +13,7 @@
  * gissar aldrig själv om kvoten är slut.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
 import LyftKort from '@/components/rum/LyftKort'
@@ -177,12 +177,9 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         titel={arProv ? LYFT.prov.titel(config.totalQuestions, config.minutes) : LYFT.test.titel(config.totalQuestions, config.minutes)}
         text={arProv ? LYFT.prov.text : LYFT.test.text}
         handling={
-          isLocked ? (
-            // Betalväggen nedan bär kopparknappen; här samma länk som förut.
-            <Link href={PREMIUM_HREF} className={KNAPP_SEKUNDAR}>
-              Köp Träningspaketet, 79 kr i veckan
-            </Link>
-          ) : quotaLock ? undefined : (
+          // Låst: betalväggen nedan bär sin egen knapp (art-director 20.2
+          // fråga 1), så kortet har ingen handling.
+          isLocked || quotaLock ? undefined : (
             <button type="button" onClick={handleStart} disabled={isStarting} className={KNAPP_PRIMAR}>
               {isStarting ? 'Startar testet' : sessions.length > 0 ? 'Gör om testet' : 'Starta testet'}
             </button>
@@ -263,6 +260,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
             feature={requiredFeature ?? undefined}
             scope={scope}
             track={track}
+            plats={arProv ? 'provlage' : 'testniva'}
           />
         ) : (
           <TestPreviousResults

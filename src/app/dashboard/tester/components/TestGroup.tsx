@@ -14,7 +14,7 @@ import TestCard from './TestCard';
 import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
 import ProvCard from './ProvCard';
-import type { TestGroup as TestGroupType } from './testCatalog';
+import { provradFormat, type TestGroup as TestGroupType } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import type { PersonalityTestStats } from '@/hooks/use-personality-test-stats';
 import { featureForSlug } from '../testConfig';
@@ -33,7 +33,7 @@ interface Props {
   recommendSlug?: TestSlug;
   /** Paketet. Null är gratisnivån. */
   scope?: Scope | null;
-  /** Etiketten på gråa rader: "Träningspaketet 79 kr, eller Hela paketet". */
+  /** Etiketten på gråa rader: "Ingår i Premium". */
   graEtikett?: string;
   /** Ett grått val tryckt. Featuren säger vad som spärrade. */
   onLocked?: (feature: Feature) => void;
@@ -153,8 +153,9 @@ export default function TestGroup({
             href={group.prov.href}
             totalQuestions={group.prov.totalQuestions}
             minutes={group.prov.minutes}
+            formatNamn={provradFormat(group.prov)}
             bestPercent={provBestPercent}
-            locked={provLas?.label ?? null}
+            locked={provLas !== null}
             onLocked={provLas ? () => onLocked?.(provLas.feature) : undefined}
           />
         ) : null}

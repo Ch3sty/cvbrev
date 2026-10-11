@@ -23,7 +23,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { scheduleIdle } from '@/lib/scheduleIdle'
 import { scopeHasFeature, type Feature } from '@/lib/access/features'
 import { menyFot, menyRad, paketNamn, type PaketLage } from '@/lib/onboarding/paket-rader'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import GraValSheet from '@/components/paywall/GraValSheet'
 import KomIgangRad from '@/components/dashboard/KomIgangRad'
@@ -73,8 +73,12 @@ export interface Undersida {
   last?: { feature: Feature; variant: PaywallVariant; text: string; format?: string }
 }
 
-/** Kort status bredvid Prenumeration: "Aktiv", "5 dagar kvar", "Från 49 kr". */
-function prenumerationsEtikett(profil: Record<string, unknown> | null): string | null {
+/**
+ * Kort status bredvid Prenumeration (copy-premium avsnitt 3): "Premium" för
+ * den som betalar, "5 dagar kvar" för en tidsbegränsad period och "149 kr i
+ * månaden" på gratisnivån. En befintlig spårkund ser sitt paket.
+ */
+function prenumerationsEtikett(profil: Record<string, unknown> | null, paket: PaketLage): string | null {
   if (!profil) return null
   const until = profil.premium_until as string | null | undefined
   const tier = profil.subscription_tier as string | null | undefined
@@ -83,13 +87,14 @@ function prenumerationsEtikett(profil: Record<string, unknown> | null): string |
   const harUntil = Boolean(until) && new Date(until as string) > new Date()
   const liveSub =
     !!subId && !String(subId).startsWith('sub_test') && ['active', 'trialing', 'past_due', 'unpaid'].includes(status)
-  if (liveSub) return 'Aktiv'
+  const namn = paket.planKey ? paketNamn(paket.planKey) : paketKort()
+  if (liveSub) return namn
   if (tier === 'premium' && harUntil) {
     const dagar = Math.max(1, Math.ceil((new Date(until as string).getTime() - Date.now()) / 86400000))
     return `${dagar} ${dagar === 1 ? 'dag' : 'dagar'} kvar`
   }
-  if (tier === 'premium') return 'Aktiv'
-  return `Från ${PLAN_BY_KEY.all_day.amount} kr`
+  if (tier === 'premium') return namn
+  return prisPeriod(SALD_PLAN)
 }
 
 export default function Sidomeny() {
@@ -203,7 +208,7 @@ export default function Sidomeny() {
       {
         href: '/dashboard/profil/prenumeration',
         etikett: UNDERSIDA.prenumeration,
-        chip: prenumerationsEtikett(profil) ? <Chip liten>{prenumerationsEtikett(profil)}</Chip> : undefined,
+        chip: prenumerationsEtikett(profil, paket) ? <Chip liten>{prenumerationsEtikett(profil, paket)}</Chip> : undefined,
       },
       { href: '/dashboard/profil#utseende', etikett: UNDERSIDA.utseende },
     ],
@@ -330,6 +335,7 @@ export default function Sidomeny() {
           track={paket.track}
           planKey={paket.planKey}
           surface="sidomeny"
+          plats="sidomeny"
         />
       ) : null}
     </div>

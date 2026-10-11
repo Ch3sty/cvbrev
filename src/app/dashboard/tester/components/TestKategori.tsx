@@ -17,13 +17,14 @@ import type { TestGroup } from './testCatalog';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import { featureForSlug, testPaths } from '../testConfig';
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features';
+import { ingarIPaketet, lastAria } from '@/lib/traning/hem-copy';
 
 interface Props {
   group: TestGroup;
   perTest: Record<TestSlug, PerTestStats>;
   provBestPercent?: number | null;
   scope?: Scope | null;
-  /** Etiketten på gråa nivåer: "Träningspaketet 79 kr, eller Hela paketet". */
+  /** Etiketten på gråa nivåer: "Ingår i Premium". */
   graEtikett?: string;
   onLocked?: (feature: Feature) => void;
   /** Dagsrytmen på grundnivån: "1 kvar i dag". */
@@ -77,14 +78,14 @@ export default function TestKategori({
           <button
             type="button"
             onClick={() => onLocked?.(feature)}
-            aria-label={`${group.heading}, ${namn.toLowerCase()}. Ingår inte. ${graEtikett}`}
+            aria-label={`${group.heading}, ${namn.toLowerCase()}. ${lastAria()}`}
             className={`${SEG} w-full border-kant bg-insunken text-ink-3 shadow-insunken hover:border-kant-stark`}
           >
             <span className="flex items-center gap-1.5 text-sm font-medium">
               {namn}
               <Las />
             </span>
-            <span className="truncate text-meta">{graEtikett || 'Ingår inte'}</span>
+            <span className="truncate text-meta">{graEtikett || ingarIPaketet()}</span>
           </button>
         </li>
       );

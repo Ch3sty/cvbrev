@@ -28,7 +28,6 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprakProv, provGenomgang } from '@/lib/tests/prov-rad'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
-import { kopstegHref } from '@/lib/onboarding/steps'
 import { PROVSIDA } from '../prov-copy'
 
 export const metadata = { title: 'Ditt logiktestprov', robots: { index: false, follow: false } }
@@ -94,7 +93,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         allaOppna
       />
 
-      {/* Vidare: grundnivån först, Träningspaketet bara för gratis. */}
+      {/* Vidare: grundnivån först, vad som ingår i Premium bara för gratis. */}
       <section className={PANEL} aria-label={PROVSIDA.knapp}>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
           <Link
@@ -106,7 +105,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           {gratis ? (
-            <Link href={kopstegHref('test_week')} data-cta="logiktestprov-traningspaketet" className={TEXTLANK}>
+            <Link href="/priser" data-cta="logiktestprov-premium" className={TEXTLANK}>
               {PROVSIDA.traning}
             </Link>
           ) : (

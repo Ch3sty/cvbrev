@@ -1,5 +1,6 @@
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import { getTestConfig } from '../testConfig';
+import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -64,6 +65,18 @@ export interface ProvDef {
   sessionEndpoint: string;
   totalQuestions: number;
   minutes: number;
+  /**
+   * Leverantörens format som provet efterliknar, för raden "Samma format
+   * som Matrigma" (copy-premium avsnitt 5). Meningen står bara när provets
+   * antal och minuter är formatets (provradFormat).
+   */
+  formatNyckel?: FormatNyckel;
+}
+
+/** Formatnamnet för provraden, bara när provet har leverantörens antal och tid. */
+export function provradFormat(prov: Pick<ProvDef, 'formatNyckel' | 'totalQuestions' | 'minutes'>): string | null {
+  const f = prov.formatNyckel ? PROVFORMAT[prov.formatNyckel] : null;
+  return f && f.antal === prov.totalQuestions && f.minuter === prov.minutes ? f.namn : null;
 }
 
 export interface TestGroup {
@@ -211,6 +224,7 @@ export const TEST_GROUPS: TestGroup[] = [
       href: '/dashboard/tester/matrislogik-prov',
       sessionEndpoint: '/api/logicTestProv/session',
       ...provCounts('matrislogik-prov'),
+      formatNyckel: 'matrigma_klassisk',
     },
   },
   {
