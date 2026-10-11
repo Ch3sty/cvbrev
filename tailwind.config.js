@@ -34,6 +34,14 @@ module.exports = {
           ink: 'var(--ton-ink)',
         },
         rum: 'var(--rum)',
+        // Illustrationsrollerna (riktning.md, tester-lyftet 2026-10-11), för
+        // HTML som ska stå i bildens toner: text-illu-dim, bg-illu-mjuk.
+        illu: {
+          dim: 'var(--illu-dim)',
+          mjuk: 'var(--illu-mjuk)',
+          fill: 'var(--illu-fill)',
+          accent: 'var(--illu-accent)',
+        },
         koppar: {
           DEFAULT: 'var(--koppar)',
           ink: 'var(--koppar-ink)',

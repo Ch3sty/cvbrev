@@ -1,0 +1,29 @@
+'use client'
+
+/**
+ * Scenen i introduktionen (illu-scen-vagen, 240 × 180, stroke 6). Säger:
+ * vägen från ansökan via test till intervju. Bara på dator, till höger om
+ * texten på väggen (sätt className="illu-vagg" där).
+ * Kopparn: den ifyllda cellen i provbladet.
+ */
+
+import { A, DIM, FILL, IlluRam, type IlluProvbladProps } from './Provbladet'
+
+export default function IlluScenVagen(p: IlluProvbladProps) {
+  return (
+    <IlluRam w={240} h={180} {...p}>
+      <path d="M12 160C60 160 76 130 110 116S168 86 228 36" stroke={DIM} strokeWidth="6" />
+      <rect x="20" y="100" width="44" height="56" rx="8" fill={FILL} stroke="currentColor" strokeWidth="6" />
+      <path d="M32 116h20M32 128h14M32 140h20" stroke={DIM} strokeWidth="4" />
+      <g transform="rotate(-6 120 96)">
+        <rect x="88" y="64" width="64" height="64" rx="10" fill={FILL} stroke="currentColor" strokeWidth="6" />
+        <path d="M109.3 64v64M130.7 64v64M88 85.3h64M88 106.7h64" stroke={DIM} strokeWidth="4" />
+        <rect x="134" y="110" width="14" height="14" rx="3" fill={A} />
+      </g>
+      <rect x="176" y="24" width="48" height="44" rx="8" fill={FILL} stroke="currentColor" strokeWidth="6" />
+      <path d="M176 38h48" stroke={DIM} strokeWidth="4" />
+      <path d="M188 16v12M212 16v12" stroke="currentColor" strokeWidth="6" />
+      <circle cx="206" cy="54" r="5" fill="currentColor" />
+    </IlluRam>
+  )
+}

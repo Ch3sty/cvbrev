@@ -85,6 +85,11 @@
   --illu-muted: var(--kant-stark);
   /* Knockout ovanpå accentytan (bock, pil). Aldrig hårdkodat vitt i SVG. */
   --illu-on-accent: #FFFFFF;
+  /* Provbladets roller (tester-lyftet 2026-10-11, riktning.md): dämpad
+     kontur för rutnät och övriga svar, mjuk yta för en markerad rad eller
+     cell. Väggen byter dem via .vagg och .illu-vagg. */
+  --illu-dim: var(--ink-3);
+  --illu-mjuk: var(--ton);
   /* Ikonernas accentform. Tom utanför marginalplattan, där sätts --ia. */
   --ia: none;
 
@@ -208,6 +213,8 @@
   --illu-soft: var(--koppar-mjuk);
   --illu-muted: var(--kant-stark);
   --illu-on-accent: #FFFFFF;
+  --illu-dim: var(--ink-3);
+  --illu-mjuk: var(--ton);
   --mark: var(--golv);
   --panel: var(--papper);
   --insunken: var(--papper-2);
@@ -454,6 +461,20 @@
 }
 .vagg {
   --fokus: var(--koppar-ljus);
+  /* Provbladet på väggen: dämpad kontur vagg-svag, mjuk yta vagg-mjuk 18 %.
+     --illu-fill byts bara med .illu-vagg, så att äldre bilder på väggen
+     står kvar som de är. */
+  --illu-dim: var(--vagg-svag);
+  --illu-mjuk: color-mix(in srgb, var(--vagg-mjuk) 18%, transparent);
+}
+/* Provbladets illustrationer på väggen (riktning.md): kontur vagg-ink, yta
+   vagg-2, samma SVG som på papperet. Sätts på bilden eller dess ram. */
+.illu-vagg {
+  color: var(--vagg-ink);
+  --illu-dim: var(--vagg-svag);
+  --illu-fill: var(--vagg-2);
+  --illu-mjuk: color-mix(in srgb, var(--vagg-mjuk) 18%, transparent);
+  --illu-accent: var(--koppar);
 }
 /* Byte av rum: väggen och golvet tonar, inget glider. */
 [data-rum] {
