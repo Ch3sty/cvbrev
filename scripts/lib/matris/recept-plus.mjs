@@ -96,3 +96,34 @@ export const PLUS = [
  * höger.
  */
 export const STRUKTUR_UNDANTAG = { P3: 'godkänd i granskningen av parti 01 (2.3), kravet gäller från parti 02' };
+
+// =============================================================================
+// Parti 02 (plan-facit-genvag 2.5 och spärrarna i avsnitt 3): P1', P2 och P3
+// körs om med urvalet för bank_version 3. I parti 01 var facit majoriteten i
+// varje egenskap (fyra av fem distraktorer kunde strykas genom att räkna
+// värden, spärren S6), och sju frågor hade triangel med kryss, som
+// geometrikontrollen spärrar (G1). Samma mekanismer, nya löpnummer:
+// p1-17 till -24, p2-09 till -16, p3-09 till -16. Triangel och kryss väljs
+// aldrig tillsammans. P3 kan inte få högerförskjutning: med den är
+// riktningen konstant på diagonalen, och då är spetsen (diagonalen) en
+// funktion av riktningen (oberoendet fäller den). P3 har därför en struktur
+// och står i STRUKTUR_UNDANTAG_02 (S8).
+// =============================================================================
+export const UT_02 = 'src/lib/logicTestV7/kandidater/expert-plus-parti-02.v7.json';
+const P1C = [
+  [BAS.cst, ['plus', 'minus'], 'hoger'], [BAS.csd, ['dot', 'cross'], 'vanster'], [BAS.ctd, ['plus', 'dot'], 'hoger'], [BAS.std, ['minus', 'dot'], 'vanster'],
+  [BAS.csd, ['plus', 'cross'], 'hoger'], [BAS.cst, ['minus', 'dot'], 'vanster'], [BAS.ctd, ['minus', 'plus'], 'vanster'], [BAS.csd, ['minus', 'cross'], 'hoger'],
+];
+const P2C = [
+  [BAS.cst, ['plus', 'minus', 'dot']], [BAS.csd, ['plus', 'dot', 'cross']], [BAS.ctd, ['minus', 'dot', 'ring']], [BAS.csd, ['plus', 'cross', 'ring']],
+  [BAS.std, ['plus', 'minus', 'ring']], [BAS.csd, ['minus', 'cross', 'ring']], [BAS.ctd, ['plus', 'dot', 'ring']], [BAS.cst, ['minus', 'dot', 'ring']],
+];
+const P3C = [[0, 2, 5], [0, 1, 3], [0, 2, 7], [1, 2, 7], [0, 3, 6], [2, 3, 5], [1, 4, 6], [3, 4, 6]].map((v) => [...v, 'vanster']);
+export const STRUKTUR_UNDANTAG_02 = { P3: 'högerförskjutning ger konstant riktning på diagonalen, se ovan' };
+const falt02 = { difficulty: 4, band: 'plus', p_prior: 0.45, v3: true };
+const alla = (p) => ({ ...p, alla: true });
+export const PLUS_02 = [
+  ...P1C.map(([baser, symboler, forskjutning], i) => ({ id: `v7e-plus-p1-${nr(i + 17)}`, familj: 'latin-flera', byggare: 'latinTrippelStack', p: alla({ fyll: 'latin', baser, symboler, forskjutning }), mekanism: 'P1', recept: 'P1', ...falt02 })),
+  ...P2C.map(([baser, symboler], i) => ({ id: `v7e-plus-p2-${nr(i + 9)}`, familj: 'latin-flera', byggare: 'latinTrippelStack', p: alla({ fyll: 'schack', baser, symboler }), mekanism: 'P2', recept: 'P2', ...falt02 })),
+  ...P3C.map(([a, b, c, forskjutning], i) => ({ id: `v7e-plus-p3-${nr(i + 9)}`, familj: 'latin-flera', byggare: 'latinTrippelPil', p: alla({ vinklar: [a, b, c], spetsDiag: i % 2 === 0 ? 'open' : 'filled', forskjutning }), mekanism: 'P3', recept: 'P3', ...falt02 })),
+];
