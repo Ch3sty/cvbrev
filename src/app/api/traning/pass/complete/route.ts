@@ -15,6 +15,7 @@
 import { NextResponse } from 'next/server';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 import { slutforTraning } from '@/lib/traning/motor.server';
+import { avbrytSchemalagtPassmejl } from '@/lib/email/lifecycle/traningsmejl';
 import { fel, inloggad, internt, lasKropp } from '@/lib/traning/rutt.server';
 
 export async function POST(request: Request) {
@@ -29,6 +30,10 @@ export async function POST(request: Request) {
     if (r.avslut.typ === 'matning') void markeraTestBricka(a.userId, 'matrislogik');
     // Generalrepetitionen kvitterar provlägets bricka.
     if (r.avslut.typ === 'general') void markeraTestBricka(a.userId, 'matrislogik-general');
+    // Dagens pass är gjort: ett schemalagt påminnelsemejl för i dag ska inte gå (pass_dag2).
+    if (r.avslut.typ === 'pass' || r.avslut.typ === 'riktat' || r.avslut.typ === 'general') {
+      void avbrytSchemalagtPassmejl(a.admin, a.userId);
+    }
     return NextResponse.json(r.avslut);
   } catch (e) {
     return internt(e, 'pass/complete POST');
