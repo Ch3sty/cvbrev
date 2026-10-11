@@ -31,8 +31,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { GRUNDTEST_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
 
-/** Prissidan (copy-premium avsnitt 3: "Se vad som ingår"). */
-const PRISER_HREF = '/priser'
+import { PRISER_HREF } from '@/lib/onboarding/steps'
 import { nar, type HubbHandling } from '@/lib/intervju/nasta'
 import { getInforIntervjunData } from './getInforIntervjunData'
 import InforIntervjunClient from './InforIntervjunClient'

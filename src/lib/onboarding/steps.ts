@@ -26,6 +26,13 @@ export const VECKA_START_PATH = '/dashboard/vecka/start'
 export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
 
 /**
+ * Prissidan. Betalväggarnas sekundära länk "Se vad som ingår" går hit
+ * (copy-premium avsnitt 3). Server- och klientsäker, så att serverkomponenter
+ * slipper egna konstanter.
+ */
+export const PRISER_HREF = '/priser'
+
+/**
  * Köpsteget för ett paket (QA 2026-09-24, iakttagelse 1). En köpknapp som
  * redan namngett paket och pris går hit direkt, aldrig via produktvalet eller
  * spårvalet. Samtycket och Till betalning står på köpsteget.

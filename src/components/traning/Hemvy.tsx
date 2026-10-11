@@ -43,9 +43,8 @@ import Kurva, { Planbild } from './Kurva'
 import Nivaskala from './Nivaskala'
 import { EfterProvet, ForsokIgen, HemMatning, KopKnapp, LasChip, TaBortSvar } from './HemKlient'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { PRISER_HREF } from '@/lib/onboarding/steps'
 
-/** Prissidan, betalväggens sekundära länk "Se vad som ingår". */
-const PRISER_HREF = '/priser'
 
 function SymbolFor({ s }: { s: Symbol }) {
   switch (s) {

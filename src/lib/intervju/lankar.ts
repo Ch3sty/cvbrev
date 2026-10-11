@@ -3,6 +3,9 @@
  * (docs/design/rod-trad-prov-spec-2026-09-24.md). Klientsäker.
  */
 
+import { kopstegHref } from '@/lib/onboarding/steps'
+import { SALD_PLAN } from '@/lib/plans/plans'
+
 /** Hubben Inför intervjun. */
 export const INFOR_INTERVJUN_HREF = '/dashboard/intervju'
 
@@ -18,11 +21,11 @@ export const provHref = (token: string) => `/dashboard/intervju/${token}`
 export const profilHref = (token: string) => `/dashboard/intervju/profil/${token}`
 
 /**
- * Köpsteget med Träningspaketet förvalt (ägarens beslut 7, 2026-09-24).
- * Köpvägen läser ?paket=<planKey> i /dashboard/valj-spar, samma parameter
- * som prissidan och betalväggarna använder (docs/bygg-noter-paket.md).
+ * Köpsteget för paketet som säljs, Jobbcoach Premium (spec-rummen 17.3).
+ * Namnet står kvar från Träningspaketets tid; adressen byggs av kopstegHref
+ * så att den följer SALD_PLAN.
  */
-export const TRANINGSPAKET_HREF = '/dashboard/valj-spar?paket=test_week&steg=kop'
+export const TRANINGSPAKET_HREF = kopstegHref(SALD_PLAN)
 
 /** Grundtestet och det fördjupade testet. */
 export const GRUNDTEST_HREF = '/dashboard/tester/personlighet-grund'

@@ -29,12 +29,11 @@ import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
 import { getPaywallCopy, planForPaywall, PAKETRADER, VARIANT_FEATURE, type PaywallVariant } from './paywall-copy'
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import { SALD_PLAN, saljbarPlan, type PlanKey } from '@/lib/plans/plans'
-import { kopstegHref } from '@/lib/onboarding/steps'
+import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import FelSpar from './FelSpar'
 
-/** Prissidan. Den sekundära länken "Se vad som ingår" går hit. */
-export const PRISER_HREF = '/priser'
+export { PRISER_HREF }
 
 /** Platsen för mätningen, per variant (spec-rummen avsnitt 7). */
 export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {

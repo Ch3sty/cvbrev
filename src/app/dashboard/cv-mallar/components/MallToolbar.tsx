@@ -7,11 +7,11 @@ import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/prev
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
 /**
- * Typsnittsgruppens rubrik. preview-utils kallar premiumgruppen "CV-paketet";
- * i appen heter den Premium (copy-premium avsnitt 3, brickan).
+ * Typsnittsgruppens rubrik. preview-utils kallar premiumgruppen "Premium",
+ * samma ord som brickan (copy-premium avsnitt 3).
  */
 function kategoriNamn(kategori: string): string {
-  return kategori === 'CV-paketet' ? PAKETRADER.bricka : kategori;
+  return kategori === 'Premium' ? PAKETRADER.bricka : kategori;
 }
 
 /** Maste matcha langden pa ut-keyframsen i FONT_MENU_CSS. */
