@@ -1,0 +1,170 @@
+{
+  "datum": "2026-10-11T16:53:11.153Z",
+  "bas": "http://localhost:5371",
+  "korningar": [
+    {
+      "form": "m360",
+      "system": "light",
+      "steg": {
+        "resultat": "docs/qa/efter-lyftet/omtag/m360-ljust-01-matningens-resultat.png",
+        "passet": "docs/qa/efter-lyftet/omtag/m360-ljust-02-dagens-pass-startat.png",
+        "hemvyn": "docs/qa/efter-lyftet/omtag/m360-ljust-03-hemvyn-efter-tillbaka.png",
+        "hemvynViaDorr": "docs/qa/efter-lyftet/omtag/m360-ljust-06-hemvyn-via-dorren.png",
+        "resultatsidan": "docs/qa/efter-lyftet/omtag/m360-ljust-05-testresultat-statusrad.png",
+        "betalvagg": "docs/qa/efter-lyftet/omtag/m360-ljust-04-testsida-kvot-anvand.png"
+      },
+      "tider": {
+        "startaDagensPass": 1213,
+        "tillbakaFranResultat": 340,
+        "cvTillTester": 1441
+      },
+      "sikte": {
+        "finns": false
+      },
+      "traffYta": "knappen",
+      "anrop": [
+        "GET /dashboard/tester/pass?typ=pass&_rsc=qev9h",
+        "POST /api/traning/pass/session"
+      ],
+      "startUrl": "/dashboard/tester/pass/1c1738d8-c5d0-4a41-97d6-c23d3c28e33d",
+      "konsolA": [],
+      "httpA": [],
+      "tillbakaHardNavigering": false,
+      "hemvynInaktuell": false,
+      "hemvynInaktuellViaDorr": false,
+      "dokumentladdningar": 0,
+      "konsolB": [],
+      "httpB": [],
+      "statusrad": {
+        "bredd": 328,
+        "rader": 7
+      },
+      "betalvagg": {
+        "finns": true,
+        "iBild": true,
+        "bottom": 601,
+        "hojd": 684
+      },
+      "konsolC": [],
+      "httpC": []
+    },
+    {
+      "form": "desktop",
+      "system": "light",
+      "steg": {
+        "resultat": "docs/qa/efter-lyftet/omtag/desktop-ljust-01-matningens-resultat.png",
+        "passet": "docs/qa/efter-lyftet/omtag/desktop-ljust-02-dagens-pass-startat.png",
+        "hemvyn": "docs/qa/efter-lyftet/omtag/desktop-ljust-03-hemvyn-efter-tillbaka.png",
+        "hemvynViaDorr": "docs/qa/efter-lyftet/omtag/desktop-ljust-06-hemvyn-via-dorren.png",
+        "resultatsidan": "docs/qa/efter-lyftet/omtag/desktop-ljust-05-testresultat-statusrad.png",
+        "betalvagg": "docs/qa/efter-lyftet/omtag/desktop-ljust-04-testsida-kvot-anvand.png"
+      },
+      "tider": {
+        "startaDagensPass": 1184,
+        "tillbakaFranResultat": 192,
+        "hemTillAlla1": 847,
+        "allaTillHem1": 179,
+        "hemTillAlla2": 178,
+        "allaTillHem2": 194,
+        "cvTillTester": 193
+      },
+      "sikte": {
+        "finns": false
+      },
+      "traffYta": "knappen",
+      "anrop": [
+        "GET /dashboard/tester/pass?typ=pass&_rsc=qev9h",
+        "POST /api/traning/pass/session"
+      ],
+      "startUrl": "/dashboard/tester/pass/e22e7946-508c-4ff0-a027-98b883b70c21",
+      "konsolA": [],
+      "httpA": [],
+      "tillbakaHardNavigering": false,
+      "hemvynInaktuell": false,
+      "hemvynInaktuellViaDorr": false,
+      "dokumentladdningar": 0,
+      "konsolB": [],
+      "httpB": [],
+      "statusrad": {
+        "bredd": 937,
+        "rader": 2
+      },
+      "betalvagg": {
+        "finns": true,
+        "iBild": true,
+        "bottom": 638,
+        "hojd": 900
+      },
+      "konsolC": [],
+      "httpC": []
+    }
+  ],
+  "navigeringar": [
+    {
+      "till": "/dashboard/tester",
+      "ms": 340,
+      "forstaSvar": 308,
+      "rsc": [
+        {
+          "url": "/dashboard/tester/kurvan",
+          "ms": 179,
+          "prefetch": true
+        }
+      ]
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 1441,
+      "forstaSvar": 5,
+      "rsc": []
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 192,
+      "forstaSvar": 176,
+      "rsc": []
+    },
+    {
+      "till": "/dashboard/tester/alla",
+      "ms": 847,
+      "forstaSvar": 337,
+      "rsc": [
+        {
+          "url": "/dashboard/tester/verbal-resonemang",
+          "ms": 298,
+          "prefetch": true
+        },
+        {
+          "url": "/dashboard/tester/matrislogik-avancerad",
+          "ms": 150,
+          "prefetch": true
+        }
+      ]
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 179,
+      "forstaSvar": 170,
+      "rsc": []
+    },
+    {
+      "till": "/dashboard/tester/alla",
+      "ms": 178,
+      "forstaSvar": 176,
+      "rsc": []
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 194,
+      "forstaSvar": 173,
+      "rsc": []
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 193,
+      "forstaSvar": 173,
+      "rsc": []
+    }
+  ],
+  "fel": []
+}

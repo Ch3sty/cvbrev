@@ -412,6 +412,11 @@ async function kor(browser, form, system) {
       await vanta(1200)
       const dorr = await synligLank(page, '/dashboard/tester')
       if (dorr) rad.tider.cvTillTester = await matNavigering(page, form, dorr, { url: '/dashboard/tester', valjare: 'main' })
+      // Dörrens förhämtning är från före mätningen; skalet hämtar om efter ett testflöde.
+      await vanta(2500)
+      rad.hemvynInaktuellViaDorr = await page.evaluate(() => !!document.querySelector('main a[href*="typ=matning"]'))
+      if (rad.hemvynInaktuellViaDorr) resultat.fel.push(`${pre}: hemvyn via Tester-dörren visar fortfarande mätningen som nästa steg`)
+      rad.steg.hemvynViaDorr = await dump(page, `${pre}-06-hemvyn-via-dorren`)
     }
     rad.dokumentladdningar = logg.dokument - dok0
     rad.konsolB = [...logg.konsol]

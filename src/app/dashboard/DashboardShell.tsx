@@ -23,7 +23,7 @@
  */
 
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import type { User } from '@supabase/supabase-js';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
@@ -66,6 +66,9 @@ const InstallPrompt = dynamic(
   { ssr: false }
 );
 
+/** Testflödena: pass, prov, uppvärmning och de klassiska testen med resultat. */
+const TESTFLODE = /^\/dashboard\/tester\/(?:pass|prov|uppvarmning)(?:\/|$)|^\/dashboard\/tester\/[^/]+\/test(?:\/|$)/;
+
 /**
  * Sparar rummet för nästa landning (POST /api/rum/senaste) när webbläsaren
  * har tid över, aldrig i den kritiska vägen. Ett fel syns inte för
@@ -98,6 +101,7 @@ export default function DashboardShell({
   rum: Rum;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const rum: Rum = pathname ? rumForPath(pathname) : serverRum;
 
   // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
@@ -165,6 +169,23 @@ export default function DashboardShell({
       m.content = farg;
     });
   }, [rum]);
+
+  // Färsk testvy efter ett test. Dörrarna förhämtar Rekryteringstester och
+  // routern håller förhämtningen i fem minuter, så den som gjort ett pass och
+  // går ut och in igen såg läget från före passet. Har ett testflöde besökts
+  // sedan sist hämtas testsidorna om en gång när man kommer tillbaka.
+  const testflodeBesokt = useRef(false);
+  useEffect(() => {
+    if (!pathname) return;
+    if (TESTFLODE.test(pathname)) {
+      testflodeBesokt.current = true;
+      return;
+    }
+    if (testflodeBesokt.current && pathname.startsWith('/dashboard/tester')) {
+      testflodeBesokt.current = false;
+      router.refresh();
+    }
+  }, [pathname, router]);
 
   // Mätpunkterna (spec avsnitt 7): rum_oppnat när rummet byts eller vid
   // landningen, sokta_tjanster_oppnad varje gång listan öppnas.

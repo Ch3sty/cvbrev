@@ -285,7 +285,7 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   const delar: string[] = [];
   const pk = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0));
   if (pk.length) {
-    delar.push(`Nivå per dag från mätningen ${datumText(k.start)}: ${pk.map((p) => decimal(p.niva)).join(', ')}.`);
+    delar.push(`Nivå per dag från mätningen ${datumText(k.start)}: ${pk.map((p) => nivaKort(p.niva)).join(', ')}.`);
   }
   delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', passet kvar' : ''}.`);
   if (k.sikte != null && k.prov) delar.push(`Mål ${nivaKort(k.sikte)}.`);
@@ -623,7 +623,7 @@ export function byggHemvy(inp: HemIn): HemModell {
         {
           typ: 'status',
           nyckel: 'efter',
-          text: HEM.efter.status(niva != null ? decimal(niva) : null),
+          text: HEM.efter.status(niva != null ? nivaKort(niva) : null),
           ton: 'neutral',
           lank: { text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) },
         },
@@ -1028,7 +1028,7 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
           sikte,
           etikettNu: HEM.provdag.skala.du(nivaKort(niva)),
           etikettFran: s.start ? HEM.provdag.skala.fran(String(heltal(s.start.niva))) : null,
-          aria: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Mål: ${nivaKort(sikte)}.` : ''}`,
+          aria: `Nivåskala 1 till 10. Du: ${nivaKort(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${nivaKort(s.start.niva)}.` : ''}${sikte != null ? ` Mål: ${nivaKort(sikte)}.` : ''}`,
         }
       : null;
   const perUppgift = s.format.tidsform === 'per_uppgift';

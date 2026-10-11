@@ -1,0 +1,89 @@
+{
+  "tid": "2026-10-11T16:56:30.362Z",
+  "konton": [
+    {
+      "nyckel": "m360-ljust-start-1791737591958",
+      "email": "qa-efter-lyftet-1791737591958@jobbcoach-qa.test",
+      "id": "25e8718e-7205-47f0-bce0-52cc6f8aa848",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka-1791737619431",
+      "email": "qa-efter-lyftet-1791737619431@jobbcoach-qa.test",
+      "id": "5b84751b-637e-431d-80a6-ce28f2256ce5",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 6,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot-1791737648680",
+      "email": "qa-efter-lyftet-1791737648680@jobbcoach-qa.test",
+      "id": "ec9884ad-a6ad-4d10-8930-b7215c878545",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791737682747",
+      "email": "qa-efter-lyftet-1791737682747@jobbcoach-qa.test",
+      "id": "2aeffa99-d96c-475f-b047-a49dc79ed692",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791737708140",
+      "email": "qa-efter-lyftet-1791737708140@jobbcoach-qa.test",
+      "id": "da707f76-4929-4865-aa84-d2371965245f",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791737741144",
+      "email": "qa-efter-lyftet-1791737741144@jobbcoach-qa.test",
+      "id": "8a45ca82-58fe-4b01-b152-0d80d5cb8492",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}
