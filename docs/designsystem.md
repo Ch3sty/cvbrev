@@ -373,9 +373,31 @@ bannrarna. `PassFraga`, `Regelpanel` (`bg-ton`,
 **Befintliga som behålls**: `StatusRow` (restylad i 1b: papper, punkt
 `bg-ink-3`, `warm` ger koppar; på väggen `bg-white/5`), `Fordelning`
 (Jobbsöket, segmentton `accent` blir koppar), `LoadingSkeleton` (får
-varianten `vagg`), `Sheet` (radie 24 upptill, papper, `--dimma`),
-`GraValSheet`/`PaywallCard` (utseende i 1b, innehåll i våg 5). `PageHeader`
-och `InkPanel` står kvar för publika sidor.
+varianten `vagg`), `Sheet` (radie 24 upptill, papper, `--dimma`).
+`PageHeader` och `InkPanel` står kvar för publika sidor.
+
+**Betalväggen** (`PaywallCard`, `GraValSheet`, lyftkorten i 1f, W3 och M1,
+art-director 24.2 fråga 1, 3 och 4). En anatomi för alla betalväggar:
+eyebrow i `text-ey text-koppar-ink` (valfri), rubrik i `text-kort-t`, text
+14/21 i ink-2, prisrad `text-sm font-medium text-ink-1`, `KNAPPRAD` med
+`KNAPP_PRIMAR` och exakt en `LANK`, fot i meta under hårlinje (valfri).
+Papper, `border-kant`, radie 16; `shadow-lyft` och `--lyft-kant` bara när
+den är vyns lyftkort. Ingen illustration, inget produktval. Reglerna:
+
+- **Ett lyftkort som är en betalvägg är betalväggen.** Det bär sin egen
+  knapp och öppnar inget ark.
+- **Arket öppnas bara från ett låschip eller en låst rad**, aldrig från en
+  kopparknapp. Arket är papperet och kortet innehållet: `GraValSheet` lägger
+  `PaywallCard bare` i `Sheet bare`, aldrig en ram i en ram. Arkets rubrik
+  namnger det hon tryckte på ("Riktade pass ingår i Premium") och det
+  sekundära är länken "Se vad som ingår".
+- **Samma knapp står aldrig två gånger i rad** i ett flöde.
+- **Ingen kopparkant.** Kopparn i en betalvägg är knappen. En betalvägg
+  känns igen på innehållet, prisraden med fulla namnet och kopparknappen,
+  inte på kanten. Samma sak på prenumerationssidan: inget kort med
+  kopparkant och ingen statusplatta; för gratis och spårkund är
+  Premium-kortet `LyftKort` först på golvet, för den som har Premium står
+  statusen på väggen och golvet börjar med Hantera.
 
 ## 7. Illustrationer, ikoner och symboler
 
@@ -536,13 +558,15 @@ Ljust, Mörkt" byggs i profilen i våg 1b. Tailwind har inget `darkMode`, och
 Systemfältet (`themeColor` i `src/app/dashboard/layout.tsx`) är indigoväggens
 `#1B2246` i ljust läge och `#0E1120` i mörkt.
 
-**Övergången (våg 1a till 4).** Trådens bläckytor med vit text
-(`bg-ink-1 text-white`: `InkPanel`, primärknapparna, pakethuvudet) hade
-blivit ljusa med vit text när ink-1 vänds. I mörkt läge får de därför
-väggens färg (`--vagg`, hover `--vagg-2`), vilket är den roll aliasen
-`ink-1-mjuk`, `ink-1-kant` och `ink-1-accent` redan pekar på. Regeln står
-i `globals.css` i båda formerna och tas bort när knapparna blivit
-`KNAPP_PRIMAR` och `InkPanel` blivit `LyftKort`. Hårdkodade `text-gray-*`
+**Övergången (våg 1a till det gamla testflödets omgång).** Trådens
+bläckytor med vit text (`bg-ink-1 text-white`) hade blivit ljusa med vit
+text när ink-1 vänds. I mörkt läge får de därför väggens färg (`--vagg`,
+hover `--vagg-2`), vilket är den roll aliasen `ink-1-mjuk`, `ink-1-kant`
+och `ink-1-accent` redan pekar på. Regeln står kvar i `globals.css` i båda
+formerna av ett enda skäl: tre knappar i det gamla testflödet,
+`Intervjuprov.tsx`, `MatrixTestSession.tsx` och `MatrisProvSession.tsx`.
+`PaketKort` och `SparKort` lämnade den i våg 5. Regeln tas bort när
+knapparna blivit `KNAPP_PRIMAR`. Hårdkodade `text-gray-*`
 och `bg-white` (grep-listan) är fortfarande fel i mörkt läge tills sidan
 migrerats; se QA-rapporten för våg 1a.
 
@@ -572,7 +596,7 @@ primär handling, en illustration och högst tre orange inslag.
 | `--ink-hover` | `#2C2724` | `hover:bg-ink-hover` | Primärknappens hover |
 | `--accent` / `--accent-ink` / `--accent-mjuk` | `#D9480F` / `#9A3412` / `#FBE7D3` | `bg-accent`, `text-accent-ink` | Tråden, orange som text, plattan |
 | `--positiv` / `--varning` / `--fel` | `#047857` / `#A14A05` / `#B91C1C` | `text-positiv` … | Status |
-| `--ink-1-mjuk` / `--ink-1-kant` / `--ink-1-accent` | `#CFC8BD` / `#3A3531` / `#FBB98A` | | Tonerna på bläckytan (InkPanel, Allt-kortet) |
+| `--ink-1-mjuk` / `--ink-1-kant` / `--ink-1-accent` | `#CFC8BD` / `#3A3531` / `#FBB98A` | | Tonerna på bläckytan (InkPanel, jämförelsetabellens huvud) |
 | `--cv` / `--cv-mjuk` | `#1D4ED8` / `#DCE6FB` | `text-cv`, `bg-cv-mjuk` | Spåretikett CV, 6,3:1 |
 | `--test` / `--test-mjuk` | `#7C2D12` / `#F6E4D6` | `text-test`, `bg-test-mjuk` | Spåretikett tester, 8,6:1 |
 
@@ -588,7 +612,8 @@ Sidrubrik `text-h1-pub` (display 32/35 mobil, 60/60 dator), sektionsrubrik
 sekundär `border-kant-stark bg-panel`, länk understruken i `decoration-kant-stark`.
 `PageHeader`, `InkPanel` (exakt en bläckyta per vy), `Fordelning`,
 `StatusRow`, `ChoiceCard`, `Segment`, `MarginPlate`, `EmptyState`,
-`Confirmation`, `Sheet`, `PaywallCard` som i v2.1. Fokusringen är tråden:
+`Confirmation`, `Sheet` som i v2.1. (`PaywallCard` är inloggat sedan 1b,
+avsnitt 6.) Fokusringen är tråden:
 `outline: 2px solid var(--accent)`.
 
 ### Rytm och sektionsföljd
@@ -602,11 +627,17 @@ Logotypens `#F97316` är det enda undantaget från tokens och byts inte.
 
 ### Prissidan och köpvägen
 
-`docs/design/spec-prissida-2026-09-22.html`: rubriker i Schibsted Grotesk,
-det rekommenderade paketet som enda fyllda ink-kort med vit text, och
-färgetiketterna `cv` och `test` bara där paketen nämns (mörk text på mjuk
-yta, aldrig som knapp). Byte till koppar och nytt paketinnehåll på `/priser`
-är våg 5 och saas-leads omgång.
+`docs/design/spec-prissida-2026-09-22.html` med rubriker i Schibsted
+Grotesk. `/priser` har ett kort, Trådens upphöjda panel
+(`border-kant-stark bg-panel`) med bläckknapp (`PriserPaket`); bockarna i
+listan är bläck (`text-ink-1`) och räknas inte bland de tre orange. Det
+finns inget rekommenderat kort och ingen `InkPanel` på sidan.
+`--ink-1-mjuk/-kant/-accent` står kvar för `InkPanel` på övriga publika
+sidor och för jämförelsetabellens huvud. Färgetiketterna `cv` och `test` är
+ur bruk (ett paket har inga spår); deras tokens tas bort ur
+`tailwind.config.js` när grep i `src` visar noll. Koppar och `PaketKort` på
+`/priser` kommer med publika sidors omgång (saas-lead och ägaren, SEO-diff
+som grind).
 
 ### Adminens diagram
 
@@ -637,6 +668,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-11 (våg 5, granskning).** En anatomi för alla betalväggar (avsnitt 6): ett lyftkort som är en betalvägg är betalväggen, arket öppnas bara från ett låschip eller en låst rad och ritar `PaywallCard bare`, samma knapp aldrig två gånger i rad, ingen kopparkant (`PaketKort` utan `markerad`). `PaywallCard` i `text-kort-t`. Prenumerationssidan följer golvregeln: statusen är väggens rad, Premium-kortet är `LyftKort` för gratis och spårkund, Premium har Hantera först och "Allt i Premium" som rader. `FelSpar` och `UpgradeSheet` borta; en spårkund får den vanliga väggen och knappen går till prenumerationssidan. `/priser`: bockarna i bläck, inget rekommenderat kort, `cv`/`test` ur bruk. Övergångsregeln i avsnitt 11 gäller bara det gamla testflödets tre knappar.
 
 **v3, Rummen, 2026-10-11 (4, granskning).** Första raden på dator, återupptagen analys, kopparlinjen och aktiviteten bort: Jobbsökets första rad på dator är bara lyfta kort med samma överkant (Nästa handling, Sökta tjänster med eyebrow och "Alla N" i foten, korsreferensens kort), statusraden i andra raden; "Åtgärda i CV:t" öppnar den sparade analysen; `.thread-chain` är borta ur `globals.css` och Jobbmatchningen; "Det här har du gjort" är borta från hemmet; Nästa handling namnger den tysta tjänsten; Mina CV utan CV har uppladdningen i lyftkortet; "Sparade CV"; `RumIkoner` är ett övergångslager. Våg 4 ärver `whitespace-nowrap` på `KNAPP_PRIMAR` och knappkontrollen på 360 px.
 
