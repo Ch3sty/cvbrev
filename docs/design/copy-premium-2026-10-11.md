@@ -8,10 +8,10 @@ Två former finns, inga fler.
 
 | Form | Skrivs | Används |
 |---|---|---|
-| Fullt namn | `Jobbcoach Premium` | Där namnet står utan jobbcoach.ai runt sig, eller där pengar byter ägare: knappar med verbet Köp, prissidans rubrik och kort, Stripe (produktnamn, kassan), kvitto (ämne, rubrik, rad), förnyelse- och uppsägningsmejl, köpbekräftelsen ("Tack. Du har Jobbcoach Premium."), prenumerationssidans kort och statusrad, SEO-title och description, AggregateOffer, användarvillkor, admin (med längd: "Jobbcoach Premium, en månad"). |
-| Kortform | `Premium` | Inne i appen och på publika sidor där sidan själv är Jobbcoach: låsta rader, chips, brickor på mall och typsnitt, sidomenyns underrad och badge, betalväggens rubrik, brödtext efter att fulla namnet stått en gång på ytan, eyebrows, FAQ-svar. |
+| Fullt namn | `Jobbcoach Premium` | Där namnet står utan jobbcoach.ai runt sig, eller där pengar byter ägare: betalväggens prisrad, prissidans rubrik och kort, Stripe (produktnamn, kassan), kvitto (ämne, rubrik, rad), förnyelse- och uppsägningsmejl, köpbekräftelsen ("Tack. Du har Jobbcoach Premium."), prenumerationssidans kort och statusrad, SEO-title och description, AggregateOffer, användarvillkor, admin (med längd: "Jobbcoach Premium, en månad"). |
+| Kortform | `Premium` | Inne i appen och på publika sidor där sidan själv är Jobbcoach: alla knappar med verbet Köp (avsnitt 8), låsta rader, chips, brickor på mall och typsnitt, sidomenyns underrad och badge, betalväggens rubrik, brödtext efter att fulla namnet stått en gång på ytan, eyebrows, FAQ-svar. |
 
-Regel per yta: fulla namnet står **en gång** per yta, i knappen eller i rubriken. Allt annat på samma yta säger Premium. På en betalvägg betyder det: rubriken säger Premium, knappen säger Jobbcoach Premium. Ett mejl eller ett kvitto är en egen yta: där står fulla namnet i ämne och rubrik, Premium får stå i brödtexten därefter.
+Regel per yta: fulla namnet står **en gång** per yta, i rubriken eller i prisraden ovanför knappen, aldrig i knappen (avsnitt 8). Allt annat på samma yta säger Premium. På en betalvägg betyder det: rubriken säger Premium, prisraden säger Jobbcoach Premium, knappen säger Premium. Ett mejl eller ett kvitto är en egen yta: där står fulla namnet i ämne och rubrik, Premium får stå i brödtexten därefter.
 
 Två undantag där kortformen är förbjuden, se avsnitt 4: rader som nämner LinkedIn, och Stripe/kvitto/mejl.
 
@@ -37,10 +37,10 @@ Datum och antal i exemplen är platshållare; de läses ur prenumerationen eller
 
 | Plats | Sträng |
 |---|---|
-| Knapp, betalvägg, prissida, köpsteg, nedgraderad | `Köp Jobbcoach Premium, 149 kr i månaden` |
-| Knapp när fulla namnet redan står som rubrik på samma kort (bara prissidans kort och köpsteget) | `Köp Premium, 149 kr i månaden` |
+| Knapp, överallt: betalvägg, prissida, köpsteg, nedgraderad, testrummets paketkort (ersätter `Köp Jobbcoach Premium, 149 kr i månaden`, som inte ryms på 360 px, avsnitt 8) | `Köp Premium, 149 kr i månaden` |
 | Betalväggens rubrik | `{Det låsta} ingår i Premium`. Exempel: `Mallen ingår i Premium`, `Avancerad nivå ingår i Premium`, `Provläget ingår i Premium`, `Åtgärderna ingår i Premium`, `Bli upptäckt ingår i Premium`, `Nedladdningen ingår i Premium`. LinkedIn: `LinkedIn-optimeringen ingår i Jobbcoach Premium` (avsnitt 4). |
-| Betalväggens prisrad under brödtexten | `149 kr i månaden, säg upp när du vill.` |
+| Betalväggens prisrad under brödtexten (bär nu fulla namnet, avsnitt 8) | `Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.` |
+| Prisraden när fulla namnet redan står i rubriken på samma kort (LinkedIn-väggen, prissidans kort, köpsteget) | `149 kr i månaden, säg upp när du vill.` |
 | Sekundärknapp i betalvägg (ersätter "Jämför paketen" och "Se vad paketen kostar") | `Se vad som ingår` (länk /priser) |
 | Låst rad, sidomenyns underrad, gråad nivå i testhubben, Kom igång-bricka | `Ingår i Premium` |
 | Låst rad med tak | `Ingår i Premium, utan tak` |
@@ -55,7 +55,7 @@ Datum och antal i exemplen är platshållare; de läses ur prenumerationen eller
 | Prissidans ingress | `Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.` |
 | PLANS.beskrivning för all_month (58 tecken, samma rad som ovan) | `CV, personliga brev, tester, jobbmatchning och Jobbcoachen` |
 | PLANS.body för all_month | `149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.` |
-| PLANS.ctaLabel för all_month | `Köp Jobbcoach Premium, 149 kr i månaden` |
+| PLANS.ctaLabel för all_month | `Köp Premium, 149 kr i månaden` |
 | SEO-title /priser (58 tecken) | `Priser: Jobbcoach Premium, 149 kr i månaden \| Jobbcoach.ai` |
 | Meta description /priser (148 tecken) | `Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.` |
 | Köpbekräftelsens rubrik | `Tack. Du har Jobbcoach Premium.` |
@@ -200,4 +200,79 @@ Dessa grep ska ge noll träffar i användarsträngar i src (kommentarer, tester 
 - `paketen`, `alla tre`, `de andra paketen`, `Byt paket`, `ett paket`
 - gement `premium` följt av mellanslag eller punkt
 
-Och dessa ska finnas: `Köp Jobbcoach Premium, 149 kr i månaden` i betalväggens knapp, `Ingår i Premium` på låsta rader, `Kvitto: Jobbcoach Premium, 149 kr` i kvittots ämne.
+Och dessa ska finnas: `Köp Premium, 149 kr i månaden` i betalväggens knapp, `Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.` i betalväggens prisrad, `Ingår i Premium` på låsta rader, `Kvitto: Jobbcoach Premium, 149 kr` i kvittots ämne. Strängen `Köp Jobbcoach Premium` ska inte finnas i någon knapp (avsnitt 8); i löptext är den tillåten.
+
+## 8. 360 px
+
+Tillägg 2026-10-11, kväll, efter art-directors mätning i spec-rummen 22.2 fråga 5. Ägaren är borta och har lämnat textbeslutet till copywritern. Ingen kod är ändrad.
+
+**Problemet.** `KNAPP_PRIMAR` har `whitespace-nowrap`, 48 px höjd, 15 px Inter 600 och 18 px padding per sida. Kortet har `p-4` och 16 px marginal på varje sida. På 360 px blir det 360 − 32 − 32 = 296 px knapp och 296 − 36 = 260 px för texten. Med cirka 8,3 px per tecken i Inter 600 på 15 px:
+
+| Text | Tecken | Bredd | På 360 px |
+|---|---|---|---|
+| `Köp Jobbcoach Premium, 149 kr i månaden` | 39 | cirka 324 px | ryms inte, 64 px för bred |
+| `Köp Premium, 149 kr i månaden` | 29 | cirka 240 px (glyfräkning cirka 235) | ryms, cirka 20 px över |
+| `Köp Premium, 149 kr/mån` | 23 | cirka 190 px | ryms, men förbjuden (nedan) |
+| `Köp Jobbcoach Premium` | 21 | cirka 175 px | ryms, men bryter 17.4 (pris eller period efter namnet) |
+
+Art-directors regel står: ryms inte texten är det layouten eller texten som ändras, aldrig knappen som bryts. Här är det texten.
+
+**Beslut 1: knappen säger `Köp Premium, 149 kr i månaden` överallt.** Samma sträng på betalväggen, prissidan, köpsteget, den nedgraderade vyn och testrummets paketkort (W3, 1a). Verbet Köp och priset efter namnet är kvar, så 17.4 följs. En enda knappsträng i stället för två betyder också att helpern i paywall-copy (`skaffaKnapp`) och PLANS.ctaLabel kan ge samma text utan undantag; knappen hårdkodar aldrig ordet, den läser `paketKort()`.
+
+**Beslut 2: inget `/mån`.** Snedstrecket är tabellspråk, inte talspråk. En köpknapp läses som en mening ("köp Premium, 149 kronor i månaden"), och "kr/mån" går inte att läsa högt utan att översätta. Det är också exakt den form avsnitt 2 (Pris och period) förbjuder i användartext, och regeln blir svagare om den bryts i produktens viktigaste knapp. Perioden får inte heller flyttas ur knappen: 17.4 kräver pris eller period efter namnet, och "149 kr" ensamt skulle läsas som ett engångspris.
+
+**Beslut 3: fulla namnet flyttar till prisraden ovanför knappen.** Betalväggens rubrik säger Premium (det låsta ingår i Premium), och ska fortsätta göra det, annars krockar den med Jobbcoachen (krock 3). Så prisraden under brödtexten, direkt ovanför knappen, blir `Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.` Det är samma rad som prissidans H1 och prenumerationssidans kort, så kunden ser samma namn och pris på väggen, på prissidan, i kassan och på kvittot. Priset står då två gånger på kortet, i prisraden och i knappen; det gjorde det redan förut och är rätt: raden är faktan, knappen är handlingen.
+
+På kort där fulla namnet redan står i rubriken (LinkedIn-väggen enligt krock 2, prissidans kort, köpsteget) behåller prisraden sin korta form `149 kr i månaden, säg upp när du vill.` så att namnet står en gång per yta.
+
+**Prisraden bryts gärna på två rader.** Den är text, inte knapp, och har ingen `nowrap`. På 360 px blir den två rader i 14 px, det är avsett.
+
+**Löptext rörs inte.** Där `Köp Jobbcoach Premium, 149 kr i månaden` står som mening i ett felmeddelande eller en brödtext (krock 4, use-profile.ts) kan den stå kvar; bara knappar har bredden som gräns. Men meningen är dålig som felmeddelande, så Opus-agenten skriver hellre `Fler CV ingår i Premium.` också där, samma som upload-routen.
+
+**Gräns för kommande knapptexter.** 260 px på 360 px ger högst cirka 30 tecken i Inter 600 på 15 px, inklusive mellanslag. Det är samma gräns som art-directors knappkontroll (22.2 fråga 5) listar för copywritern. Alla framtida knappsträngar skrivs under 30 tecken; behöver en knapp mer än det är det en rad ovanför knappen som ska bära resten.
+
+**Tester.** `paketnamn.test.ts` tillåter exakt `Köp Premium, 149 kr i månaden` och faller på `Köp Jobbcoach Premium` i ctaLabel och i `skaffaKnapp`. `paywall-copy.render.test.tsx` rad 56 och `kopvag.test.tsx` rad 45 byter till den nya knappsträngen.
+
+## 9. Tillägg våg 5
+
+Två textbeslut 2026-10-11, natt, efter Opus-agentens fråga från worktreet `agent-a7eef925647d8c234`. Ägaren är borta och har lämnat dem till copywritern. Ingen kod är ändrad i det här dokumentet.
+
+### 9.1 Nedladdningsväggen (PW4) behåller värdet i rubriken
+
+**Problemet.** Avsnitt 3 ger exemplet `Nedladdningen ingår i Premium` som betalväggsrubrik, och PW4 har följt det: rubriken säger att nedladdningen ingår, och "Ditt personliga brev är klart." har flyttat in i brödtexten. På `main` var rubriken `Ditt personliga brev är klart` (alternativ A från konverteringsomgången, testet heter fortfarande "värdet först, spärren sedan").
+
+**Beslut: PW4 går tillbaka till värdet först.** Mönstret `{Det låsta} ingår i Premium` är rätt där kunden möter något låst utan att ha fått något: en mall hon bläddrar till, en nivå hon inte nått, åtgärderna bakom analysens rubriker, LinkedIn, Bli upptäckt. PW4 är en annan situation. Hon har just fått ett färdigt brev och tryckte på Ladda ner; väggen är ett kvitto med en spärr under, inte en spärr. Det är samma skäl som redan gör att kvotväggarna inte följer mönstret: PW5 säger `Din gratis nedladdning är använd`, chatten `Dina tio meddelanden är använda`, veckobrevet `Ditt personliga brev för veckan är skrivet`. Rubriken säger vad som hänt henne, brödtexten säger vad som ingår i Premium. Regel: **har kunden fått något på ytan står det i rubriken; "ingår i Premium" står i rubriken bara när hon inte fått något än.**
+
+Avsnitt 1 (Premium i betalväggens rubrik) hålls ändå: ordet står en gång i brödtexten, fulla namnet i prisraden, kortformen i knappen.
+
+| Fält | Sträng |
+|---|---|
+| title | `Ditt personliga brev är klart` |
+| body | `Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i Premium, med alla mallar och hela CV-analysen.` |
+| primary | `Köp Premium, 149 kr i månaden` (oförändrad, via knappen) |
+| prisrad | `Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.` (oförändrad, avsnitt 8) |
+| secondary | `Kopiera texten i stället` (oförändrad) |
+
+Exemplet `Nedladdningen ingår i Premium` i avsnitt 3 stryks ur raden för betalväggens rubrik; det lever kvar som radtext på `verktyg/personligt-brev/page.tsx` rad 207 ("PDF och Word: Nedladdningen ingår i Premium."), där det är rätt, för där har hon inte fått något. `paywall-copy.render.test.tsx` rad 48 och 49 byter till rubriken ovan och `/Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i Premium/`. Kommentaren ovanför `case 'nedladdning'` säger åter "Rubriken säger att värdet är levererat innan spärren nämns."
+
+### 9.2 Datumform i Generalrepetitionens meta: kort form
+
+**Problemet.** Art-directorns exempel i spec 22.4 fråga 2 är "I planen 22 okt och dagen före provet." Koden i `hemvy.ts` rad 404 skickar `datumText` (lång form, "22 oktober") in i `HEM.provdagen.iPlanen`. Frågan var vilken form som gäller.
+
+**Hur hemvyn gör i dag.** Formen följer platsen, inte sektionen:
+
+| Plats | Form | Exempel i koden |
+|---|---|---|
+| Rad-meta (Fler tester) | kort, `kortDatum` | `Senast gjort 3 okt.`, `Profil klar 3 okt.` |
+| Toppradens kontext | kort | `Matrigma, 24 okt` |
+| Tempo-etikett | kort | `över provets tid 24 okt` |
+| Kurvans axlar och milstolpar | kort | `6 okt`, `24 okt` |
+| Rubriker | lång, `datumText` | `Personlighetstest den 24 oktober` |
+| Lyftkortets löptext | lång | `Gjord 3 oktober. Inga rätta svar.`, `Sikte 7,0 den 24 oktober.` |
+| Aria | lång | `Mätningen 6 oktober: 5,2.` |
+
+Generalrepetitionen är en rad-meta och står i W3 bredvid Fler tester, vars metor säger "3 okt". Enda stället där lång form står i en rad-meta är den här raden, och det är den som sticker ut.
+
+**Beslut: kort form.** Metan blir `Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter. I planen 22 okt och dagen före provet.` med `{datum}` ur `kortDatum(laggTill(prov, -2))`. Strängen i `hem-copy.ts` är oförändrad (`I planen ${datum} och dagen före provet.`); bytet är anropet i `hemvy.ts` rad 404, `datumText` blir `kortDatum`. Testet i `hemvy.test.ts` (`I planen \d+ \S+ och dagen före provet`) går igenom med båda och får gärna skärpas till `I planen 22 okt och dagen före provet.` för W3 och 1c.
+
+Regel för hemvyn, så frågan inte kommer tillbaka: **datum i rader, etiketter, kontextrad och axlar skrivs kort ("22 okt"); datum i rubriker, lyftkortets löptext och aria skrivs långt ("22 oktober").** Kort form där ögat skummar, lång form där meningen läses eller läses upp. Prenumerationssidan och kvittot ("11 november", avsnitt 3) är egna ytor med egna meningar och berörs inte.
