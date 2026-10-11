@@ -1,43 +1,49 @@
 'use client';
 
 /**
- * Testhubbens interaktiva del.
+ * Alla tester, den interaktiva delen (skiss Provbladet, version 3).
  *
- * All data kommer färdig som props från page.tsx, som läste den på servern.
- * Staten här är vilken flik som är vald och om ett grått val öppnat
- * betalväggen. Inga fetchanrop för att rita, ingen laddningsvy: första HTML
- * innehåller redan raderna med användarens riktiga resultat.
+ * All data kommer färdig som props från alla/page.tsx, som läste den på
+ * servern. Staten här är vilken flik som är vald och om ett låst val
+ * öppnat betalväggen. Inga fetchanrop för att rita.
  *
- * Gränsen syns här, där den är (spec-onboarding 2026-09-22, sektion 3 och 5,
- * med ägarens beslut 2026-10-11): nivåer som inte ingår är gråa med lås och
- * "Ingår i Premium", huvudet säger vad som ingår, och ett tryck på en grå
- * nivå öppnar betalväggen för Premium. Inga spår och inga sidbyten säljs.
+ * Sidan äger flikarna. Fliken Tester ritas här: väggen med "Så går det
+ * till" för den som är ny, det lyfta kortet "Nästa test", flikarna,
+ * hjälpraden och testkorten. Fliken Din utveckling ritas av
+ * @/components/traning/utveckling/DinUtveckling, som får flikarna som en
+ * plats att ställa efter sitt eget lyfta kort. HjalpProvider står runt
+ * båda.
+ *
+ * Hjälpen (avsnitt 4): på mobil hjälprader på golvet, på dator en
+ * sidopanel till höger om korten, så att den aldrig trycker ner dem.
+ *
+ * Gränsen syns där den är (spec-onboarding 2026-09-22, sektion 3 och 5):
+ * låsta nivåer har lås och "Premium", och ett tryck öppnar betalväggen.
  */
 
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
-import LyftKort from '@/components/rum/LyftKort';
 import { TRAN_RAD, UNDERSIDA } from '@/lib/rum/copy';
-import { KNAPP_PRIMAR } from '@/components/shell/knappar';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
-import type { TestSlug } from '@/hooks/use-all-test-stats';
+import { HjalpPanel, HjalpProvider, HjalpRad } from '@/components/hjalp';
 import type { Feature, Scope } from '@/lib/access/features';
 import { scopeHasFeature } from '@/lib/access/features';
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans';
-import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
-import { graEtikettTest, testHuvud } from '@/lib/onboarding/paket-rader';
-import Link from 'next/link';
+import { testHuvud } from '@/lib/onboarding/paket-rader';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
-import TestGroup from './components/TestGroup';
-import TestKategori from './components/TestKategori';
+import TestKategori, { BILD } from './components/TestKategori';
+import PersonlighetKort from './components/PersonlighetKort';
+import AllaTesterVagg, { saGarDetTillSteg } from './components/AllaTesterVagg';
+import NastaTestKort, { type NastaTest } from './components/NastaTestKort';
+import { spann } from './components/Fakta';
 import { ALL_COGNITIVE_TESTS, TEST_GROUPS } from './components/testCatalog';
+import { IlluMatris } from '@/components/traning/illu';
 import { featureForSlug, testPaths } from './testConfig';
 import type { TesterHubData } from './getHubData';
 
-const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
+const DinUtveckling = dynamic(() => import('@/components/traning/utveckling/DinUtveckling'), {
   loading: () => <div className="min-h-[420px]" aria-hidden="true" />,
 });
 
@@ -47,173 +53,168 @@ const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
  */
 const GRATIS_RAD = `Gratis att prova: nivåmätningen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
 
-/** Samma dag i svensk tid? */
-function sammaDag(iso: string | null): boolean {
-  if (!iso) return false;
-  const fmt = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' });
-  return fmt.format(new Date(iso)) === fmt.format(new Date());
+/** Hjälpens läge, läst på servern (src/lib/traning/hjalp.ts). */
+export interface HjalpLageProps {
+  /** profiles.hjalp_dold, null när kolumnen saknas eller inget val gjorts. */
+  dold: boolean | null;
+  /** Första gången: traning_sedd_at saknas eller inget test är gjort. */
+  forsta: boolean;
+}
+
+function gruppFor(slug: string) {
+  return TEST_GROUPS.find((g) => g.cognitive.some((t) => t.slug === slug)) ?? TEST_GROUPS[0];
 }
 
 export default function TesterHubClient({
   data,
   track = null,
   planKey = null,
+  hjalp = { dold: null, forsta: false },
+  startflik = 'tester',
 }: {
   data: TesterHubData;
   track?: Scope | null;
   planKey?: PlanKey | null;
+  hjalp?: HjalpLageProps;
+  startflik?: TesterTab;
 }) {
-  const [tab, setTab] = useState<TesterTab>('tester');
+  const [tab, setTab] = useState<TesterTab>(startflik);
   const [sparr, setSparr] = useState<Feature | null>(null);
 
-  const { perTest, aggregate, personality, provBestPercent, provformat, isPremium, hasHistory, scope } =
-    data;
-
-  const bestTest = Object.entries(perTest)
-    .filter(([, s]) => s.attempts > 0)
-    .sort((a, b) => b[1].bestPercentage - a[1].bestPercentage)[0]?.[0] as
-    | TestSlug
-    | undefined;
+  const { perTest, aggregate, personality, provBestPercent, provformat, isPremium, scope } = data;
 
   const hasAnyData =
     aggregate.hasAnyData || personality.grund.hasProfile || personality.avancerad.hasProfile;
 
-  const personalityStats = { ...personality, isLoading: false };
-
   const harAllaNivaer = scopeHasFeature(scope, 'tests_above_base');
   const huvud = testHuvud(scope);
-  const graEtikett = graEtikettTest(scope);
 
-  // "1 kvar i dag" på grundnivån utan paket: räknaren speglar kvoten i
-  // quotaService (DAILY_LIMIT_TEST_SESSIONS) och är ingen gratisutfästelse.
-  const dagRad = useCallback(
-    (slug: string): string | null => {
-      if (harAllaNivaer) return null;
-      const s = perTest[slug as TestSlug];
-      const kvar = s && sammaDag(s.lastAttempt) ? 0 : DAILY_LIMIT_TEST_SESSIONS;
-      return `${kvar} kvar i dag`;
-    },
-    [harAllaNivaer, perTest]
-  );
-
-  // Rekommendationen i bläck (analysen 22 september, avsnitt 4): logiktestet
-  // på grundnivå för den som inte gjort något, annars det första test som
-  // ingår och inte är gjort. Finns inget sådant visas ingen bläckyta.
-  const rekommendation = (() => {
+  // Nästa test (analysen 22 september, avsnitt 4): logiktestet på grundnivå
+  // för den som inte gjort något, annars det första test som ingår och inte
+  // är gjort. Talen står i faktaraden, aldrig i texten.
+  const nasta: NastaTest | null = (() => {
+    const fakta = (t: (typeof ALL_COGNITIVE_TESTS)[number]) => [
+      { tal: String(t.questionCount), etikett: 'frågor' },
+      { tal: t.timeLabel, etikett: 'minuter' },
+    ];
     if (!hasAnyData) {
+      const t = ALL_COGNITIVE_TESTS[0];
       return {
         eyebrow: 'Börja här',
-        title: 'Logiktestet på grundnivå',
-        text: `Den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning. ${ALL_COGNITIVE_TESTS[0].questionCount} frågor, cirka ${ALL_COGNITIVE_TESTS[0].timeLabel} minuter.`,
-        href: testPaths.hub('matrislogik-grund'),
+        titel: 'Logiktestet på grundnivå',
+        text: 'Den vanligaste typen av begåvningstest och en mjuk start på mönsterigenkänning. Förklaring efter varje fråga.',
+        href: testPaths.hub(t.slug),
         knapp: 'Starta första testet',
+        fakta: fakta(t),
+        Bild: IlluMatris,
       };
     }
-    const nasta = ALL_COGNITIVE_TESTS.find((t) => {
-      const f = featureForSlug(t.slug);
-      return (perTest[t.slug]?.attempts ?? 0) === 0 && (!f || scopeHasFeature(scope, f));
+    const t = ALL_COGNITIVE_TESTS.find((x) => {
+      const f = featureForSlug(x.slug);
+      return (perTest[x.slug]?.attempts ?? 0) === 0 && (!f || scopeHasFeature(scope, f));
     });
-    if (!nasta) return null;
+    if (!t) return null;
+    const grupp = gruppFor(t.slug);
     return {
       eyebrow: 'Nästa test',
-      title: `${nasta.title}, ${nasta.levelLabel.toLowerCase()}`,
-      text: `Du har inte gjort det än. ${nasta.questionCount} frågor, cirka ${nasta.timeLabel} minuter, förklaring efter varje fråga.`,
-      href: testPaths.hub(nasta.slug),
+      titel: `${grupp.heading}, ${t.levelLabel.toLowerCase()}`,
+      text: 'Du har inte gjort det än. Förklaring efter varje fråga.',
+      href: testPaths.hub(t.slug),
       knapp: 'Starta testet',
+      fakta: fakta(t),
+      Bild: BILD[grupp.key] ?? IlluMatris,
     };
   })();
 
+  const beskrivning = `${TRAN_RAD} ${
+    huvud.ingress ??
+    `Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL.${
+      harAllaNivaer ? '' : ` Alla nivåer ingår i ${paketKort()}.`
+    }`
+  }`;
+
+  const steg = hjalp.forsta
+    ? saGarDetTillSteg(spann(ALL_COGNITIVE_TESTS.map((t) => t.questionCount)))
+    : null;
+
+  const flikar = (
+    <TesterTabs active={tab} onChange={setTab} completedCount={aggregate.totalCompleted} />
+  );
+
+  const kognitiva = TEST_GROUPS.filter((g) => g.key !== 'personlighet');
+
   return (
-    <>
-      <RumHuvud
-        title={UNDERSIDA.allaTester}
-        description={`${TRAN_RAD} ${
-          huvud.ingress ??
-          `Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL.${harAllaNivaer ? '' : ` Alla nivåer ingår i ${paketKort()}.`}`
-        }`}
-      />
-    <Golv>
-    <div className="w-full max-w-3xl">
-      <div className="space-y-4 sm:space-y-6">
-        <TesterTabs
-          active={tab}
-          onChange={setTab}
-          completedCount={aggregate.totalCompleted}
-        />
+    <HjalpProvider dold={hjalp.dold} forsta={hjalp.forsta}>
+      {tab === 'utveckling' ? (
+        <DinUtveckling data={data} flikar={flikar} />
+      ) : (
+        <>
+          <AllaTesterVagg titel={UNDERSIDA.allaTester} beskrivning={beskrivning} steg={steg} tat={!nasta} />
+          <Golv lyft={!!nasta}>
+            <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-x-6">
+              <div className="flex min-w-0 flex-col gap-4">
+                {nasta ? <NastaTestKort nasta={nasta} /> : null}
 
-        {/* kunden med CV-paketet: paketet, och var resten finns. */}
-        {huvud.statusrad ? (
-          <StatusRow tone="neutral" showDot>
-            {huvud.statusrad}
-          </StatusRow>
-        ) : null}
-        {huvud.rubrik ? <p className="text-kort text-ink-1">{huvud.rubrik}</p> : null}
+                <div className="lg:max-w-[420px]">{flikar}</div>
 
-        {/* Vad som är gratis sägs en gång, som rad (spec-rummen 23.3 punkt
-            2 till 4): sant i båda gaterna, inga dygn, priset ur PLANS. */}
-        {!isPremium && !huvud.ingress ? (
-          <StatusRow tone="neutral" showDot>
-            {GRATIS_RAD}
-          </StatusRow>
-        ) : null}
+                <HjalpRad
+                  ids={['A1', 'A2', 'A5']}
+                  rubrik="Aldrig gjort ett rekryteringstest?"
+                  oppnasForsta={false}
+                  className="lg:hidden"
+                />
 
-        {tab === 'tester' ? (
-          <div key="tester" className="space-y-4 sm:space-y-6">
-            {rekommendation ? (
-              <LyftKort
-                utanOverlapp
-                label={rekommendation.title}
-                eyebrow={rekommendation.eyebrow}
-                titel={rekommendation.title}
-                text={rekommendation.text}
-                handling={
-                  <Link href={rekommendation.href} className={`${KNAPP_PRIMAR} sm:w-auto`}>
-                    {rekommendation.knapp}
-                  </Link>
-                }
+                {/* kunden med CV-paketet: paketet, och var resten finns. */}
+                {huvud.statusrad ? (
+                  <StatusRow tone="neutral" showDot>
+                    {huvud.statusrad}
+                  </StatusRow>
+                ) : null}
+                {huvud.rubrik ? <p className="text-kort text-ink-1">{huvud.rubrik}</p> : null}
+                {!isPremium && !huvud.ingress ? (
+                  <StatusRow tone="neutral" showDot>
+                    {GRATIS_RAD}
+                  </StatusRow>
+                ) : null}
+
+                {kognitiva.map((group, i) => (
+                  <div key={group.key} className="contents">
+                    <TestKategori
+                      group={group}
+                      perTest={perTest}
+                      provBestPercent={
+                        group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
+                      }
+                      provformat={provformat}
+                      scope={scope}
+                      onLocked={(feature) => setSparr(feature)}
+                    />
+                    {/* Nivåernas hjälp efter andra kortet på mobil, som i skissen. */}
+                    {i === 1 ? (
+                      <HjalpRad ids={['C5', 'B8']} rubrik="Vad betyder nivåerna?" className="lg:hidden" />
+                    ) : null}
+                  </div>
+                ))}
+
+                <PersonlighetKort
+                  personality={personality}
+                  scope={scope}
+                  onLocked={(feature) => setSparr(feature)}
+                />
+              </div>
+
+              <HjalpPanel
+                className={`hidden lg:block ${nasta ? 'lg:z-[2] lg:-mt-[30px]' : ''}`}
+                rader={[
+                  { ids: ['A1', 'A2', 'A3', 'A5'], rubrik: 'Aldrig gjort ett rekryteringstest?' },
+                  { ids: ['C5', 'B8'], rubrik: 'Vad skiljer grund, avancerad och expert?', oppnasForsta: false },
+                  { ids: ['C4'], oppnasForsta: false },
+                ]}
               />
-            ) : null}
-
-            {/* Tre kognitiva typer som paneler med nivåsegment, personligheten
-                som rader direkt på mark (regel 4: högst tre ytor i samma vikt). */}
-            {TEST_GROUPS.filter((g) => g.key !== 'personlighet').map((group) => (
-              <TestKategori
-                key={group.key}
-                group={group}
-                perTest={perTest}
-                provBestPercent={
-                  group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
-                }
-                provformat={provformat}
-                scope={scope}
-                graEtikett={graEtikett}
-                onLocked={(feature) => setSparr(feature)}
-                dagRad={dagRad}
-              />
-            ))}
-
-            {TEST_GROUPS.filter((g) => g.key === 'personlighet').map((group) => (
-              <TestGroup
-                key={group.key}
-                group={group}
-                startIndex={0}
-                isPremium={isPremium}
-                perTest={perTest}
-                personality={personalityStats}
-                bestTest={bestTest}
-                scope={scope}
-                graEtikett={graEtikett}
-                onLocked={(feature) => setSparr(feature)}
-                dagRad={dagRad}
-                utanPanel
-              />
-            ))}
-
-          </div>
-        ) : (
-          <DevelopmentView perTest={perTest} hasHistory={hasHistory} scope={scope} />
-        )}
-      </div>
+            </div>
+          </Golv>
+        </>
+      )}
 
       {sparr ? (
         <GraValSheet
@@ -228,8 +229,6 @@ export default function TesterHubClient({
           plats={sparr === 'test_exam_mode' ? 'provlage' : 'testniva'}
         />
       ) : null}
-    </div>
-    </Golv>
-    </>
+    </HjalpProvider>
   );
 }

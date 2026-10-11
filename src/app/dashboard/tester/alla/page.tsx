@@ -31,12 +31,20 @@ import { scopeHasFeature, type Scope } from '@/lib/access/features';
 import { harPaket } from '@/lib/plans/harPaket';
 import type { PlanKey } from '@/lib/plans/plans';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { hjalpDoldUrProfil } from '@/lib/traning/hjalp';
+import type { TesterTab } from '../components/TesterTabs';
 
 function lasTrack(v: unknown): Scope | null {
   return v === 'cv' || v === 'tester' || v === 'allt' ? v : null;
 }
 
-export default async function AllaTesterPage() {
+export default async function AllaTesterPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const startflik: TesterTab = sp.flik === 'utveckling' ? 'utveckling' : 'tester';
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
@@ -49,6 +57,10 @@ export default async function AllaTesterPage() {
   let data: TesterHubData;
   let track: Scope | null = null;
   let planKey: PlanKey | null = null;
+  // Hjälpen och "Så går det till" (skiss Provbladet, avsnitt 1 och 4): öppen
+  // första gången, alltså när traning_sedd_at saknas eller inget test är gjort.
+  let seddAt: string | null = null;
+  let hjalpDold: boolean | null = null;
 
   try {
     // Scopet påverkar bara presentationen, inte vilka rader vi läser, så det
@@ -59,20 +71,30 @@ export default async function AllaTesterPage() {
     // spår hon köpt: en kund med CV-paketet har inte testhistoriken, och en
     // kund med Träningspaketet har den (docs/plan-paket-och-onboarding.md, avsnitt 4
     // och 5).
-    const [scope, profileRes] = await Promise.all([
+    //
+    // hjalp_dold läses för sig: kolumnen kommer med migreringen
+    // 20261011160000_hjalp_dold.sql, och saknas den ska bara hjälpvalet falla
+    // tillbaka på localStorage, inte hela profilraden.
+    const [scope, profileRes, hjalpRes] = await Promise.all([
       getUserScope(supabase, user.id),
       supabase
         .from('profiles')
-        .select('onboarding_track, premium_until, price_id, subscription_status')
+        .select('onboarding_track, premium_until, price_id, subscription_status, traning_sedd_at')
         .eq('id', user.id)
         .maybeSingle(),
+      Promise.resolve(
+        (supabase as any).from('profiles').select('hjalp_dold').eq('id', user.id).maybeSingle()
+      ).catch((e: unknown) => ({ data: null, error: e })) as Promise<{ data: unknown; error: unknown }>,
     ]);
+    hjalpDold = hjalpRes.error ? null : hjalpDoldUrProfil(hjalpRes.data);
     const profil = (profileRes.data ?? null) as {
       onboarding_track?: string | null;
       premium_until?: string | null;
       price_id?: string | null;
       subscription_status?: string | null;
+      traning_sedd_at?: string | null;
     } | null;
+    seddAt = profil?.traning_sedd_at ?? null;
     track = lasTrack(profil?.onboarding_track);
     planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null, new Date(), {
       priceId: profil?.price_id,
@@ -88,5 +110,17 @@ export default async function AllaTesterPage() {
     data = emptyHubData(false, false);
   }
 
-  return <TesterHubClient data={data} track={track} planKey={planKey} />;
+  const gjortNagot =
+    data.aggregate.hasAnyData || data.personality.grund.hasProfile || data.personality.avancerad.hasProfile;
+  const forsta = !seddAt || !gjortNagot;
+
+  return (
+    <TesterHubClient
+      data={data}
+      track={track}
+      planKey={planKey}
+      hjalp={{ dold: hjalpDold, forsta }}
+      startflik={startflik}
+    />
+  );
 }
