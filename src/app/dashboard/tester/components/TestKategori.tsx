@@ -11,19 +11,20 @@
  * - Nivåsegmenten bär ett tal var (NivaSegment). En rad under rutnätet säger
  *   vad talet är när något är gjort.
  *
- * Logikgruppens prov är generalrepetitionen i planens format (spec-rummen
- * 19.6): segmentet Prov och provraden under nivåerna går båda dit, aldrig
- * till det gamla logikprovet. Nivåer som inte ingår i paketet är låsta och
- * trycket öppnar betalväggen för rätt paket.
+ * Testerna v2 (skiss 1): samma kort för logik, verbalt och numeriskt, tre
+ * nivåsegment och under hårlinjen provraden med övningsprovet mot klockan i
+ * planens format. Segmentet "Prov" finns inte längre; de gamla provsidorna
+ * står kvar för gamla resultat utan att något pekar dit. Nivåer som inte
+ * ingår i paketet är låsta och trycket öppnar betalväggen.
  */
 
 import type { ComponentType } from 'react';
-import { provLasSlug, type TestGroup } from './testCatalog';
+import { ENHET, NIVA_GOR, PROV_FEATURE, type TestGroup } from './testCatalog';
 import ProvCard from './ProvCard';
 import NivaSegment, { type NivaLage } from './NivaSegment';
 import Fakta, { spann } from './Fakta';
-import { provradTexter } from '../prov/prov-copy';
-import type { FormatNyckel } from '@/lib/traning/tempo';
+import { ovningsformat, provradTexter } from '@/lib/ovningsprov/format';
+import { SITTER_PROCENT, medianSenaste } from '@/lib/tester/resultat';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import { featureForSlug, testPaths } from '../testConfig';
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features';
@@ -36,9 +37,8 @@ import { IlluMatris, IlluNumeriskt, IlluVerbalt, type IlluProvbladProps } from '
 interface Props {
   group: TestGroup;
   perTest: Record<TestSlug, PerTestStats>;
-  provBestPercent?: number | null;
-  /** Planens provformat för generalrepetitionen, 'eget' utan plan. */
-  provformat?: FormatNyckel;
+  /** Planens leverantör och variant, null utan plan: provraden visar vårt format. */
+  plan?: { leverantor: string | null; variant: string | null } | null;
   scope?: Scope | null;
   onLocked?: (feature: Feature) => void;
 }
@@ -85,19 +85,23 @@ function forsok(n: number): string {
   return `${n} försök`;
 }
 
-export default function TestKategori({
-  group,
-  perTest,
-  provBestPercent = null,
-  provformat = 'eget',
-  scope = null,
-  onLocked,
-}: Props) {
+/**
+ * Sitter nivån? Medianen av de tre senaste resultaten över SITTER_PROCENT
+ * (riktlinjerna 5.3). Gratisnivån ser bara senaste sessionen, då räknas den.
+ */
+export function sitter(s: PerTestStats | undefined): boolean {
+  if (!s || s.attempts === 0) return false;
+  const m = medianSenaste(s.history.map((h) => h.percentage));
+  return (m ?? s.bestPercentage) > SITTER_PROCENT;
+}
+
+export default function TestKategori({ group, perTest, plan = null, scope = null, onLocked }: Props) {
   const las = (slug: string): Feature | null => {
     const f = featureForSlug(slug);
     return f && !scopeHasFeature(scope, f) ? f : null;
   };
   const premium = paketKort();
+  const nyckel = group.key === 'personlighet' ? 'logik' : group.key;
 
   const lastLage = (namn: string): NivaLage => ({
     typ: 'last',
@@ -105,71 +109,55 @@ export default function TestKategori({
     aria: `${group.heading}, ${namn.toLowerCase()}. ${lastAria()}`,
   });
 
-  const segment: { key: string; namn: string; href: string; lage: NivaLage; feature: Feature | null }[] =
+  const segment: { key: string; namn: string; href: string; lage: NivaLage; feature: Feature | null; nasta: boolean }[] =
     group.cognitive.map((t) => {
-    const s = perTest[t.slug];
-    const feature = las(t.slug);
-    const namn = t.levelLabel;
-    let lage: NivaLage;
-    if (feature) {
-      lage = lastLage(namn);
-    } else if ((s?.attempts ?? 0) > 0) {
-      const detalj = `${s.bestScore} av ${t.questionCount}, ${forsok(s.attempts)}`;
-      lage = {
-        typ: 'gjord',
-        procent: s.bestPercentage,
-        title: detalj,
-        aria: `${group.heading}, ${namn.toLowerCase()}, bäst ${s.bestPercentage} procent, ${detalj}`,
-      };
-    } else {
-      lage = {
-        typ: 'ny',
-        minuter: Number(t.timeLabel),
-        etikett: 'inte gjord',
-        aria: `${group.heading}, ${namn.toLowerCase()}, inte gjord, ${t.timeLabel} minuter`,
-      };
-    }
-    return { key: t.slug, namn, href: testPaths.hub(t.slug), lage, feature };
-  });
+      const s = perTest[t.slug];
+      const feature = las(t.slug);
+      const namn = t.levelLabel;
+      let lage: NivaLage;
+      if (feature) {
+        lage = lastLage(namn);
+      } else if ((s?.attempts ?? 0) > 0) {
+        const detalj = `${s.bestScore} av ${t.questionCount}, ${forsok(s.attempts)}`;
+        lage = {
+          typ: 'gjord',
+          procent: s.bestPercentage,
+          title: detalj,
+          aria: `${group.heading}, ${namn.toLowerCase()}, bäst ${s.bestPercentage} procent, ${detalj}`,
+        };
+      } else {
+        const gor = NIVA_GOR[nyckel][t.levelLabel];
+        lage = {
+          typ: 'ny',
+          minuter: Number(t.timeLabel),
+          etikett: gor,
+          aria: `${group.heading}, ${namn.toLowerCase()}, ${gor}, inte gjord, ${t.timeLabel} minuter`,
+        };
+      }
+      return { key: t.slug, namn, href: testPaths.hub(t.slug), lage, feature, nasta: false };
+    });
 
-  // Provets segment, bara för verbalt och numeriskt. Logikens prov är
-  // generalrepetitionen, som aldrig ger en procent i hubben: ett segment
-  // skulle stå som "inte gjord" för alltid. Provraden under segmenten bär
-  // det i stället (testansvarig 2026-10-11, punkt 1).
+  // "Nästa" på ett segment per kort: det första som inte är gjort när nivån
+  // under sitter. Ingen "Börja här" när något är gjort (riktlinjerna 5.3).
+  const nastaIdx = segment.findIndex(
+    (s, i) => i > 0 && s.lage.typ === 'ny' && segment[i - 1].lage.typ === 'gjord' && sitter(perTest[segment[i - 1].key as TestSlug])
+  );
+  if (nastaIdx > 0) segment[nastaIdx].nasta = true;
+
   const prov = group.prov ?? null;
-  const provFeature = prov ? las(provLasSlug(prov)) : null;
-  if (prov && !prov.general) {
-    let lage: NivaLage;
-    if (provFeature) {
-      lage = lastLage('Prov');
-    } else if (provBestPercent !== null) {
-      lage = {
-        typ: 'gjord',
-        procent: provBestPercent,
-        title: 'Bästa provresultat',
-        aria: `${group.heading}, prov, bäst ${provBestPercent} procent`,
-      };
-    } else {
-      lage = {
-        typ: 'ny',
-        minuter: prov.minutes,
-        etikett: `${prov.totalQuestions} frågor`,
-        aria: `${group.heading}, prov, ${prov.totalQuestions} frågor, ${prov.minutes} minuter`,
-      };
-    }
-    segment.push({ key: 'prov', namn: 'Prov', href: prov.href, lage, feature: provFeature });
-  }
+  const provFeature: Feature | null = prov && !scopeHasFeature(scope, PROV_FEATURE) ? PROV_FEATURE : null;
+  const provText = prov
+    ? provradTexter(ovningsformat(prov.typ, plan?.leverantor ?? null, plan?.variant ?? null), provFeature !== null)
+    : null;
 
   const nagotGjort = segment.some((s) => s.lage.typ === 'gjord');
-  const general = prov?.general ? prov : null;
-  const generalText = general ? provradTexter(general, provformat, provFeature !== null) : null;
 
   const Bild = BILD[group.key] ?? IlluMatris;
   const hjalpId = hjalpIdFor(group.key);
   const rubrikId = `testkort-${group.key}`;
 
   const fakta = [
-    { tal: spann(group.cognitive.map((t) => t.questionCount)), etikett: 'frågor' },
+    { tal: spann(group.cognitive.map((t) => t.questionCount)), etikett: ENHET[nyckel] },
     { tal: spann(group.cognitive.map((t) => Number(t.timeLabel))), etikett: 'minuter' },
     { tal: String(group.cognitive.length), etikett: 'nivåer' },
   ];
@@ -200,13 +188,14 @@ export default function TestKategori({
         <Fakta poster={fakta} className="!justify-start lg:col-start-1 lg:row-start-2" />
       </div>
 
-      <ul className={`mt-3.5 grid list-none gap-2 p-0 ${segment.length === 3 ? 'grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'}`}>
+      <ul className="mt-3.5 grid list-none grid-cols-3 gap-2 p-0">
         {segment.map((s) => (
           <li key={s.key} className="min-w-0">
             <NivaSegment
               namn={s.namn}
               lage={s.lage}
               href={s.href}
+              nasta={s.nasta}
               onLocked={s.feature ? () => onLocked?.(s.feature as Feature) : undefined}
             />
           </li>
@@ -214,11 +203,12 @@ export default function TestKategori({
       </ul>
       {nagotGjort ? <p className="mt-1.5 text-[11px] leading-[14px] text-ink-3">{NIVAETIKETT}</p> : null}
 
-      {general && generalText ? (
+      {prov && provText ? (
         <ProvCard
-          href={general.href}
-          rad2={generalText.rad2}
-          aria={generalText.aria}
+          href={prov.href}
+          rad2={provText.rad}
+          anm={provText.anm}
+          aria={provText.aria}
           locked={provFeature !== null}
           onLocked={provFeature ? () => onLocked?.(provFeature) : undefined}
         />

@@ -19,6 +19,7 @@ export interface Forsok {
   score: number | null
   time_spent: number | null
   completed_at: string | null
+  meta?: unknown
 }
 
 /** Fler än så visas aldrig i detaljlistan. */
@@ -33,7 +34,7 @@ export async function getForsok(config: TestConfig): Promise<Forsok[] | null> {
     const supabase = createServerClient({ cookies: await cookies() })
     const { data, error } = await supabase
       .from('logic_test_v4_sessions')
-      .select('id, score, time_spent, completed_at')
+      .select('id, score, time_spent, completed_at, meta')
       .eq('user_id', user.id)
       .eq('test_type', testType)
       .not('completed_at', 'is', null)

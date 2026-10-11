@@ -22,6 +22,9 @@
  */
 
 import { Suspense, lazy, use, useState, type ReactNode } from 'react';
+import Link from 'next/link';
+import { LANK } from '@/components/shell/knappar';
+import { TRANING_RUTT } from '@/lib/traning/rutter';
 import Golv from '@/components/rum/Golv';
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
@@ -88,10 +91,21 @@ function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
 }
 
 /**
- * Gratisraden (spec-rummen 23.3): nivåmätningen en gång med genomgång och
- * ett första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
+ * Gratisraden (spec-rummen 23.3): Nivåkollen en gång med genomgång och ett
+ * första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
  */
-const GRATIS_RAD = `Gratis att prova: nivåmätningen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
+const GRATIS_RAD = `Gratis att prova: nivåkollen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
+
+/**
+ * Katalogen slutar aldrig i sig själv (riktlinjerna 4.5, skiss 1): raden
+ * längst ner pekar på träningen, Nivåkollen för den som inte gjort den och
+ * dagens pass annars.
+ */
+export const TILL_TRANINGEN = {
+  nivakoll: 'Till träningen: nivåkollen, 8 minuter.',
+  pass: 'Till träningen: dagens pass, nio uppgifter.',
+  lank: 'Min plan',
+} as const;
 
 /** Hjälpens läge, läst på servern (src/lib/traning/hjalp.ts). */
 export interface HjalpLageProps {
@@ -124,7 +138,7 @@ export default function TesterHubClient({
   const [tab, setTab] = useState<TesterTab>(startflik);
   const [sparr, setSparr] = useState<Feature | null>(null);
 
-  const { perTest, aggregate, personality, provBestPercent, provformat, isPremium, scope } = data;
+  const { perTest, aggregate, personality, plan, harNivakoll, isPremium, scope } = data;
 
   const hasAnyData =
     aggregate.hasAnyData || personality.grund.hasProfile || personality.avancerad.hasProfile;
@@ -227,10 +241,7 @@ export default function TesterHubClient({
                     <TestKategori
                       group={group}
                       perTest={perTest}
-                      provBestPercent={
-                        group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
-                      }
-                      provformat={provformat}
+                      plan={plan}
                       scope={scope}
                       onLocked={(feature) => setSparr(feature)}
                     />
@@ -246,6 +257,19 @@ export default function TesterHubClient({
                   scope={scope}
                   onLocked={(feature) => setSparr(feature)}
                 />
+
+                <StatusRow
+                  tone="warm"
+                  showDot
+                  wrap
+                  action={
+                    <Link href={TRANING_RUTT.hem} className={`${LANK} text-[13px]`}>
+                      {TILL_TRANINGEN.lank}
+                    </Link>
+                  }
+                >
+                  <span className="text-ink-1">{harNivakoll ? TILL_TRANINGEN.pass : TILL_TRANINGEN.nivakoll}</span>
+                </StatusRow>
               </div>
 
               <HjalpPanel

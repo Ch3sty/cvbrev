@@ -20,6 +20,21 @@ export function sessionHref(sessionId: string): string {
   return `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`;
 }
 
+/**
+ * Startarket för övningsprovet mot klockan (riktlinjer-tester-v2 5.1): ett
+ * ark med formatet och tre regler före provet, för logik, verbalt och
+ * numeriskt. Logikens prov körs sedan i passflödet (passHref('general')),
+ * verbalt och numeriskt på ovningsprovSessionHref.
+ */
+export function ovningsprovHref(typ: 'logik' | 'verbal' | 'numerisk'): string {
+  return `/dashboard/tester/ovningsprov/${typ}`;
+}
+
+/** Ett pågående eller avslutat övningsprov i verbalt eller numeriskt. */
+export function ovningsprovSessionHref(typ: 'verbal' | 'numerisk', sessionId: string): string {
+  return `/dashboard/tester/ovningsprov/${typ}/${encodeURIComponent(sessionId)}`;
+}
+
 /** Uppvärmningen på provdagen, tre frågor som inte sparas. */
 export const UPPVARMNING_HREF = '/dashboard/tester/uppvarmning';
 
@@ -48,13 +63,16 @@ export const TRANING_RUTT = {
   installningarSteg: (steg: 1 | 2 | 3) => `/dashboard/tester/installningar?steg=${steg}`,
   kurvan: KURVAN_HREF,
   alla: '/dashboard/tester/alla',
-  /** Sidomenyns "Provläget": generalrepetitionen i planens format (spec 19.6). */
-  provlaget: passHref('general'),
-  /** Passflödet (våg 3b): mätning, dagens pass, riktat pass och generalrepetition. */
+  /** Sidomenyns "Övningsprov": startarket för logikens övningsprov i planens format. */
+  provlaget: ovningsprovHref('logik'),
+  /** Passflödet (våg 3b): Nivåkollen, dagens pass, riktat pass och övningsprovet. */
   matning: passHref('matning'),
   pass: passHref('pass'),
   riktat: (family: string) => passHref('riktat', { family }),
-  general: passHref('general'),
+  /** Övningsprovet går alltid via startarket (riktlinjerna 5.1). */
+  general: ovningsprovHref('logik'),
+  /** Passflödets egen start av logikens övningsprov, bara från startarket. */
+  generalStart: passHref('general'),
   uppvarmning: UPPVARMNING_HREF,
   /** Genomgången av ett slutfört pass (P4). */
   genomgang: sessionHref,

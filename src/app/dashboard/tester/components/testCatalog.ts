@@ -1,6 +1,7 @@
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import { getTestConfig } from '../testConfig';
-import { TRANING_RUTT } from '@/lib/traning/rutter';
+import { ovningsprovHref } from '@/lib/traning/rutter';
+import type { Provtyp } from '@/lib/ovningsprov/format';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -20,12 +21,6 @@ export type TestGroupKey = 'logik' | 'verbal' | 'numerisk' | 'personlighet';
  * stämde med testsidorna, så hubbens kort visade "29 av 60" bredvid en
  * procent räknad på 48.
  */
-/** Provets frågeantal och tid, också ur testConfig. */
-function provCounts(slug: string): { totalQuestions: number; minutes: number } {
-  const c = getTestConfig(slug);
-  return { totalQuestions: c?.totalQuestions ?? 0, minutes: c?.minutes ?? 0 };
-}
-
 function counts(slug: string): { questionCount: number; timeLabel: string } {
   const c = getTestConfig(slug);
   return {
@@ -58,29 +53,34 @@ export interface PersonalityTestDef {
   isPremiumLocked: boolean;
 }
 
+/**
+ * Provraden under nivåerna: övningsprovet mot klockan i planens format
+ * (riktlinjer-tester-v2 1.5). Samma rad på logik, verbalt och numeriskt;
+ * texten byggs av provradTexter(ovningsformat(typ, leverantör, variant)) och
+ * raden visar inget tal. Startarket ligger på ovningsprovHref(typ).
+ */
 export interface ProvDef {
-  /** Startsidan för provet. */
+  typ: Provtyp;
+  /** Startarket för övningsprovet. */
   href: string;
-  /** Session-API för senaste prov-resultat. */
-  sessionEndpoint: string;
-  totalQuestions: number;
-  minutes: number;
-  /**
-   * Raden är generalrepetitionen i planens format (spec-rummen 19.6): texten
-   * byggs av provrad(PROVFORMAT[provformat]) och raden visar inget tal.
-   */
-  general?: true;
 }
 
-/**
- * Sluggen vars requiresFeature låser raden. Generalrepetitionen har samma
- * lås som det gamla logikprovet (test_exam_mode), och dess href är passets
- * adress, inte en testsida, så sluggen går inte att läsa ur länken.
- */
-export function provLasSlug(prov: Pick<ProvDef, 'href' | 'general'>): string {
-  if (prov.general) return 'matrislogik-prov';
-  return prov.href.split('/').pop() ?? '';
-}
+/** Övningsprovet kräver test_exam_mode på alla tre testtyper (riktlinjerna 1.7). */
+export const PROV_FEATURE = 'test_exam_mode' as const;
+
+/** Vad varje nivå gör, i stället för rang (riktlinjerna 2.3, granskningen 6.1). Aldrig "lätt". */
+export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<TestLevelLabel, string>> = {
+  logik: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
+  verbal: { Grund: 'svaret står i texten', Avancerad: 'två ståndpunkter', Expert: 'argument' },
+  numerisk: { Grund: 'läs av och räkna', Avancerad: 'flera räknesteg', Expert: 'prognos, marginal' },
+};
+
+/** Faktaradens enhet per testtyp. */
+export const ENHET: Record<Exclude<TestGroupKey, 'personlighet'>, string> = {
+  logik: 'uppgifter',
+  verbal: 'påståenden',
+  numerisk: 'frågor',
+};
 
 export interface TestGroup {
   key: TestGroupKey;
@@ -92,7 +92,7 @@ export interface TestGroup {
   searchHint: string;
   cognitive: CognitiveTestDef[];
   personality: PersonalityTestDef[];
-  /** Prov-kort (4:e kortet) för kognitiva testtyper. Saknas för personlighet. */
+  /** Provraden för kognitiva testtyper. Saknas för personlighet. */
   prov?: ProvDef;
 }
 
@@ -223,15 +223,7 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även IQ-test, begåvningstest eller matrigma',
     cognitive: LOGIK_TESTS,
     personality: [],
-    prov: {
-      // Generalrepetitionen i planens format (spec-rummen 19.6). Endpointen
-      // står kvar för att getHubData inte ska ändra sin typtabell; procenten
-      // används inte för den här raden.
-      href: TRANING_RUTT.general,
-      sessionEndpoint: '/api/logicTestProv/session',
-      ...provCounts('matrislogik-prov'),
-      general: true,
-    },
+    prov: { typ: 'logik', href: ovningsprovHref('logik') },
   },
   {
     key: 'verbal',
@@ -241,11 +233,9 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även verbalt resonemang eller läsförståelsetest',
     cognitive: VERBAL_TESTS,
     personality: [],
-    prov: {
-      href: '/dashboard/tester/verbal-resonemang-prov',
-      sessionEndpoint: '/api/verbalTestProv/session',
-      ...provCounts('verbal-resonemang-prov'),
-    },
+    // De gamla provsidorna står kvar för gamla resultat, men ingen rad pekar
+    // dit (riktlinjerna 1.5, samma lösning som matrislogik-prov i spec 19.6).
+    prov: { typ: 'verbal', href: ovningsprovHref('verbal') },
   },
   {
     key: 'numerisk',
@@ -255,11 +245,7 @@ export const TEST_GROUPS: TestGroup[] = [
     searchHint: 'Kallas även numeriskt resonemang eller mattetest',
     cognitive: NUMERISK_TESTS,
     personality: [],
-    prov: {
-      href: '/dashboard/tester/numeriskt-test-prov',
-      sessionEndpoint: '/api/numericalTestProv/session',
-      ...provCounts('numeriskt-test-prov'),
-    },
+    prov: { typ: 'numerisk', href: ovningsprovHref('numerisk') },
   },
   {
     key: 'personlighet',
