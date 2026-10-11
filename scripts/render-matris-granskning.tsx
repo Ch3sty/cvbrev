@@ -3,6 +3,12 @@
 // Renderar ett urval matrisfrågor till PNG för okulär granskning (våg 3c).
 //
 // Kör: npx tsx scripts/render-matris-granskning.tsx [utkatalog]
+//      npx tsx scripts/render-matris-granskning.tsx <utkatalog> --fil=<fil.json>
+//
+// Med --fil renderas alla frågor i filen, i filens ordning (kandidatfiler).
+// För frågor med band (svår plus) står mekanismen, antalet regler och
+// distraktorkontrollens utfall per alternativ under metan, ur
+// scripts/lib/matris/distraktorer.mjs. PNG-namnet är då {mekanism}-{id}.png.
 //
 // Urvalet: för varje nivå och familj två frågor ur 3c-banken och en ur den
 // frusna banken när familjen finns där. Frågan ritas med appens egna
@@ -21,6 +27,8 @@ import puppeteer from 'puppeteer-core';
 import { SvgLayeredCell } from '../src/lib/logicTestV7/layered.v7';
 import type { LayeredCell, LayeredQuestion } from '../src/lib/logicTestV7/layered.v7';
 import familjer from '../src/lib/logicTestV7/familjer.json';
+// @ts-ignore modulen är ren JavaScript utan typer
+import { analysera, radPerAlternativ } from './lib/matris/distraktorer.mjs';
 
 // Flaggor (spec-rummen 15.10 och 15.11):
 //   --ringar          bara frågor med ringceller (alla nivåer, pensionerade märkta)
@@ -29,6 +37,8 @@ const ARGS = process.argv.slice(2);
 const UT = ARGS.find((a) => !a.startsWith('--')) ?? 'docs/qa/rummen/vag-3c/granskning';
 const RINGAR = ARGS.includes('--ringar');
 const FRAGOR = (ARGS.find((a) => a.startsWith('--fragor='))?.slice('--fragor='.length) ?? '').split(',').filter(Boolean);
+const FIL = ARGS.find((a) => a.startsWith('--fil='))?.slice('--fil='.length) ?? null;
+type BandFraga = LayeredQuestion & { band?: string; mekanism?: string };
 mkdirSync(UT, { recursive: true });
 
 const NIVAER = [
@@ -48,6 +58,14 @@ const svg = (cell: LayeredCell) =>
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
+function distraktorRad(q: BandFraga) {
+  if (!q.band) return '';
+  const a = analysera(q);
+  if (!a.ok) return `<p class="band">${esc(q.mekanism ?? '')} · ingen tolkning</p>`;
+  const rader = (radPerAlternativ(a) as string[]).filter((x) => !/rätt svar$/.test(x));
+  return `<p class="band"><b>${esc(q.mekanism ?? '')}</b> · ${a.R.length} regler (${esc(a.R.join(', '))}) · nära miss ${a.naraMiss} av 5<br>${rader.map(esc).join(' · ')}</p>`;
+}
+
 function kort(q: LayeredQuestion, niva: string, kalla: string) {
   const celler = q.grid.flat().map((c) =>
     c ? `<div class="cell">${svg(c)}</div>` : '<div class="cell tom"><span>?</span></div>'
@@ -63,7 +81,7 @@ function kort(q: LayeredQuestion, niva: string, kalla: string) {
     return `<li><b>${String.fromCharCode(65 + i)}</b> ${ratt ? '<em>Rätt svar</em>' : granskas ? '<em class="varn">Manuell granskning</em>' : esc(m)}</li>`;
   });
   return `<article id="${q.id}">
-    <header><div class="id">${q.id}</div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}</div><h2>${esc(q.title)}</h2></header>
+    <header><div class="id">${q.id}</div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}</div><h2>${esc(q.title)}</h2>${distraktorRad(q as BandFraga)}</header>
     <div class="grid">${celler.join('')}</div>
     <div class="alts">${alt.join('')}</div>
     <p class="regel">${esc(q.rule)}</p>
@@ -85,13 +103,16 @@ h2{font-size:17px;line-height:22px;margin:4px 0 12px}
 .bokstav{position:absolute;left:8px;top:8px;width:24px;height:24px;border:1px solid #E3E1DC;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center;color:#65656E;background:#fff}
 .regel{margin:12px 0 4px;font-size:13px;line-height:18px;color:#4A4A55}
 .misstag{margin:0;padding-left:0;list-style:none;font-size:12px;line-height:17px;color:#1A1A1F}
+.band{margin:-6px 0 10px;font-size:12px;line-height:17px;color:#4A4A55;background:#F4F3F0;border:1px solid #E3E1DC;border-radius:8px;padding:6px 8px}
 .misstag li{margin:2px 0} .misstag em{color:#A8491A;font-style:normal} .misstag .varn{color:#985A08}
 `;
 
 const valda: { q: LayeredQuestion; niva: string; kalla: string }[] = [];
 const harRing = (q: LayeredQuestion) =>
   [...q.grid.flat(), ...q.options].some((c) => c && (Array.isArray(c) ? c : [c]).some((p) => (p as { kind?: string }).kind === 'ring'));
-if (RINGAR || FRAGOR.length) {
+if (FIL) {
+  for (const q of JSON.parse(readFileSync(FIL, 'utf8')) as BandFraga[]) valda.push({ q, niva: 'expert', kalla: q.band ? `kandidat, ${q.band}` : 'kandidat' });
+} else if (RINGAR || FRAGOR.length) {
   for (const { niva, fryst, ny } of NIVAER) {
     for (const [fil, kalla] of [[fryst, 'fryst'], [ny, '3c']] as const) {
       for (const q of las(fil)) {
@@ -102,7 +123,7 @@ if (RINGAR || FRAGOR.length) {
     }
   }
 }
-for (const { niva, fryst, ny } of RINGAR || FRAGOR.length ? [] : NIVAER) {
+for (const { niva, fryst, ny } of FIL || RINGAR || FRAGOR.length ? [] : NIVAER) {
   const F = las(fryst);
   const N = las(ny);
   for (const f of familjer as { id: string }[]) {
@@ -127,7 +148,9 @@ for (const v of valda) {
   const el = await page.$(`article[id="${v.q.id}"]`);
   if (!el) continue;
   const fam = v.q.family ?? 'okand';
-  await el.screenshot({ path: path.join(UT, `${v.niva}-${fam}-${v.q.id}.png`) as `${string}.png` });
+  const mek = (v.q as BandFraga).mekanism;
+  const namn = FIL && mek ? `${mek}-${v.q.id}.png` : `${v.niva}-${fam}-${v.q.id}.png`;
+  await el.screenshot({ path: path.join(UT, namn) as `${string}.png` });
   n++;
 }
 await browser.close();
