@@ -1,0 +1,30 @@
+{
+  "/dashboard/tester": {
+    "hardLcpMedian": 1044,
+    "klientMedian": 101,
+    "hard": [
+      1292,
+      1044,
+      1012
+    ],
+    "klient": [
+      101,
+      101,
+      99
+    ]
+  },
+  "/dashboard/tester/alla": {
+    "hardLcpMedian": 928,
+    "klientMedian": 526,
+    "hard": [
+      820,
+      928,
+      928
+    ],
+    "klient": [
+      526,
+      527,
+      524
+    ]
+  }
+}

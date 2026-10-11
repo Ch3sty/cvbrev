@@ -1,0 +1,666 @@
+{
+  "tid": "2026-10-11T16:38:43.767Z",
+  "konton": [
+    {
+      "nyckel": "m360-ljust-start",
+      "email": "qa-efter-lyftet-1791734249934@jobbcoach-qa.test",
+      "id": "d3b535e3-e16d-47d6-9b28-bbdfca48cc31",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka",
+      "email": "qa-efter-lyftet-1791734296201@jobbcoach-qa.test",
+      "id": "21d3ac78-2901-4b60-95d8-ba6cc78f94f6",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot",
+      "email": "qa-efter-lyftet-1791734321872@jobbcoach-qa.test",
+      "id": "d7a3644b-484d-4133-9aa7-371c94035548",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start",
+      "email": "qa-efter-lyftet-1791734328948@jobbcoach-qa.test",
+      "id": "20c340bf-4fa7-4939-a94a-1ba509756891",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka",
+      "email": "qa-efter-lyftet-1791734371915@jobbcoach-qa.test",
+      "id": "bcb56e3e-2663-4115-9be7-3720b8a9296c",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 14,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot",
+      "email": "qa-efter-lyftet-1791734398540@jobbcoach-qa.test",
+      "id": "26aa98cd-5a3b-4e96-8023-eda0f8c49045",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791734531127",
+      "email": "qa-efter-lyftet-1791734531127@jobbcoach-qa.test",
+      "id": "81c1c1fc-e8fd-4e57-9e14-dc64f72dab3e",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791734574325",
+      "email": "qa-efter-lyftet-1791734574325@jobbcoach-qa.test",
+      "id": "b744bbfb-00a2-404a-a276-953e1f49251f",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791734604981",
+      "email": "qa-efter-lyftet-1791734604981@jobbcoach-qa.test",
+      "id": "39e1f5db-d34b-49d1-ad71-506f865179e2",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-start-1791734733729",
+      "email": "qa-efter-lyftet-1791734733729@jobbcoach-qa.test",
+      "id": "a7a7644d-c043-45b2-b19e-b006027d023b",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka-1791734764844",
+      "email": "qa-efter-lyftet-1791734764844@jobbcoach-qa.test",
+      "id": "c33fc8f5-032a-4e45-89d2-f730f6220075",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot-1791734797381",
+      "email": "qa-efter-lyftet-1791734797381@jobbcoach-qa.test",
+      "id": "0862535b-6a60-4367-9f29-6a8a2d875293",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791734805561",
+      "email": "qa-efter-lyftet-1791734805561@jobbcoach-qa.test",
+      "id": "7a6a1f7e-e4f7-4c7c-b4d1-9a193d44654d",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791734829206",
+      "email": "qa-efter-lyftet-1791734829206@jobbcoach-qa.test",
+      "id": "0a6c5bb7-121c-4a73-9158-44987366055f",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 9,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791734860325",
+      "email": "qa-efter-lyftet-1791734860325@jobbcoach-qa.test",
+      "id": "65885352-a782-4aec-b3b4-3103245e7734",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-start-1791734937760",
+      "email": "qa-efter-lyftet-1791734937760@jobbcoach-qa.test",
+      "id": "ed30176f-4b09-49a0-a108-efe4c93df8da",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka-1791734970728",
+      "email": "qa-efter-lyftet-1791734970728@jobbcoach-qa.test",
+      "id": "ffa6c58c-b77f-471d-8de4-08cd8e0af4e7",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot-1791734999969",
+      "email": "qa-efter-lyftet-1791734999969@jobbcoach-qa.test",
+      "id": "2d5180f5-4ffa-4593-b431-1b32dbdfce76",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791735041820",
+      "email": "qa-efter-lyftet-1791735041820@jobbcoach-qa.test",
+      "id": "b8ced6e8-4749-4a13-8eaa-fbde1e48dff6",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791735066884",
+      "email": "qa-efter-lyftet-1791735066884@jobbcoach-qa.test",
+      "id": "563a84e5-e4ab-4ccb-853c-697b2b1fdce1",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 9,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791735097880",
+      "email": "qa-efter-lyftet-1791735097880@jobbcoach-qa.test",
+      "id": "817bcbf0-0180-4dde-8d78-64363e7db02a",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-start-1791735724305",
+      "email": "qa-efter-lyftet-1791735724305@jobbcoach-qa.test",
+      "id": "500837a8-bff4-4c37-ab50-b43587da523a",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka-1791735749315",
+      "email": "qa-efter-lyftet-1791735749315@jobbcoach-qa.test",
+      "id": "e6c11dbf-ad93-4038-9b4c-2d2bf349d8f6",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot-1791735774133",
+      "email": "qa-efter-lyftet-1791735774133@jobbcoach-qa.test",
+      "id": "0877bdc6-39b0-4211-8dc3-e26536557fa0",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791735806735",
+      "email": "qa-efter-lyftet-1791735806735@jobbcoach-qa.test",
+      "id": "f156b53a-04e6-46e1-8b5d-870df15b7ef5",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791735831362",
+      "email": "qa-efter-lyftet-1791735831362@jobbcoach-qa.test",
+      "id": "cbef4c45-a55a-48df-9f42-65bdbef503c7",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 9,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791735858292",
+      "email": "qa-efter-lyftet-1791735858292@jobbcoach-qa.test",
+      "id": "c14d2a9b-946d-4ff4-9922-5aa0e145e5d9",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-start-1791735899303",
+      "email": "qa-efter-lyftet-1791735899303@jobbcoach-qa.test",
+      "id": "b02246e7-42ad-4de1-9b74-ae4848599adc",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-tillbaka-1791735939964",
+      "email": "qa-efter-lyftet-1791735939964@jobbcoach-qa.test",
+      "id": "ce0ea3f5-88ae-4712-b3b6-b60eccfddb7d",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-kvot-1791735964353",
+      "email": "qa-efter-lyftet-1791735964353@jobbcoach-qa.test",
+      "id": "346d5e76-b12a-41f4-aad9-1918ead39bd3",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-start-1791735999009",
+      "email": "qa-efter-lyftet-1791735999009@jobbcoach-qa.test",
+      "id": "e273c39d-e8a8-436e-afa3-4c494dcd4109",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tillbaka-1791736026580",
+      "email": "qa-efter-lyftet-1791736026580@jobbcoach-qa.test",
+      "id": "766f228f-680c-4e03-aa2e-7dbb8ae5025b",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 6,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-kvot-1791736052416",
+      "email": "qa-efter-lyftet-1791736052416@jobbcoach-qa.test",
+      "id": "1da37343-20ba-4420-b15b-baaac964e0ba",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-start-1791736084829",
+      "email": "qa-efter-lyftet-1791736084829@jobbcoach-qa.test",
+      "id": "91e163ab-7d17-49b5-9630-6e2ffc227f31",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 2,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tillbaka-1791736109473",
+      "email": "qa-efter-lyftet-1791736109473@jobbcoach-qa.test",
+      "id": "b03a553a-eb0a-4083-b215-480b40ebf5ea",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-kvot-1791736139843",
+      "email": "qa-efter-lyftet-1791736139843@jobbcoach-qa.test",
+      "id": "9fc84f2f-8b11-4b46-acd4-671a02b56eed",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-72b00a1a-c7c9-4b98-8b88-468c0afaa7ad",
+      "email": "qa-efter-lyftet-1791734101061@jobbcoach-qa.test",
+      "id": "72b00a1a-c7c9-4b98-8b88-468c0afaa7ad",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-135079f1-6769-4f88-beb2-8de204606857",
+      "email": "qa-efter-lyftet-1791734068930@jobbcoach-qa.test",
+      "id": "135079f1-6769-4f88-beb2-8de204606857",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-b7c9a87b-7428-45bc-b7c4-3cd6e466df13",
+      "email": "qa-efter-lyftet-1791734026444@jobbcoach-qa.test",
+      "id": "b7c9a87b-7428-45bc-b7c4-3cd6e466df13",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-d9c657d6-a7e3-480c-82b8-1153bda4590a",
+      "email": "qa-efter-lyftet-1791734020277@jobbcoach-qa.test",
+      "id": "d9c657d6-a7e3-480c-82b8-1153bda4590a",
+      "rader": {
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-201c4193-fa14-4651-9843-c11ceacc7a3f",
+      "email": "qa-efter-lyftet-1791733994959@jobbcoach-qa.test",
+      "id": "201c4193-fa14-4651-9843-c11ceacc7a3f",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 6,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-15ad2f22-329a-40bb-bb5d-05adffb502ba",
+      "email": "qa-efter-lyftet-1791733950553@jobbcoach-qa.test",
+      "id": "15ad2f22-329a-40bb-bb5d-05adffb502ba",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-950a8145-a9e6-4b4a-b978-56abb8ae974b",
+      "email": "qa-efter-lyftet-1791733551542@jobbcoach-qa.test",
+      "id": "950a8145-a9e6-4b4a-b978-56abb8ae974b",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-60a0872a-3e5e-4e7a-957b-24ee1c5827be",
+      "email": "qa-efter-lyftet-1791733508760@jobbcoach-qa.test",
+      "id": "60a0872a-3e5e-4e7a-957b-24ee1c5827be",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-167dbd0b-8d3b-4b4b-9897-bc0564d4adb7",
+      "email": "qa-efter-lyftet-1791733421925@jobbcoach-qa.test",
+      "id": "167dbd0b-8d3b-4b4b-9897-bc0564d4adb7",
+      "rader": {
+        "test_milstolpar": 1,
+        "user_activities": 3,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-9e686512-73b3-4e41-a78b-cb79a88e9647",
+      "email": "qa-efter-lyftet-1791733376411@jobbcoach-qa.test",
+      "id": "9e686512-73b3-4e41-a78b-cb79a88e9647",
+      "rader": {
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 4,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "hittad-709ffd23-7e57-419a-8e91-215517ffb7dc",
+      "email": "qa-efter-lyftet-1791733329279@jobbcoach-qa.test",
+      "id": "709ffd23-7e57-419a-8e91-215517ffb7dc",
+      "rader": {
+        "test_milstolpar": 1,
+        "user_activities": 3,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}

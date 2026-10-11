@@ -1,0 +1,81 @@
+{
+  "datum": "2026-10-11T16:24:58.914Z",
+  "bas": "http://localhost:5373",
+  "korningar": [
+    {
+      "form": "m360",
+      "system": "dark",
+      "steg": {
+        "resultat": "docs/qa/efter-lyftet/m360-morkt-01-matningens-resultat.png",
+        "passet": "docs/qa/efter-lyftet/m360-morkt-02-dagens-pass-startat.png",
+        "hemvyn": "docs/qa/efter-lyftet/m360-morkt-03-hemvyn-efter-tillbaka.png",
+        "resultatsidan": "docs/qa/efter-lyftet/m360-morkt-05-testresultat-statusrad.png",
+        "betalvagg": "docs/qa/efter-lyftet/m360-morkt-04-testsida-kvot-anvand.png"
+      },
+      "tider": {
+        "startaDagensPass": 1309,
+        "tillbakaFranResultat": 384,
+        "cvTillTester": 279
+      },
+      "sikte": {
+        "finns": false
+      },
+      "traffYta": "knappen",
+      "anrop": [
+        "GET /dashboard/tester/pass?typ=pass&_rsc=qev9h",
+        "POST /api/traning/pass/session"
+      ],
+      "startUrl": "/dashboard/tester/pass/4d0b2c90-edd8-4232-b406-4dfd1d7e77ac",
+      "konsolA": [],
+      "httpA": [],
+      "tillbakaHardNavigering": false,
+      "hemvynInaktuell": false,
+      "dokumentladdningar": 0,
+      "konsolB": [],
+      "httpB": [],
+      "statusrad": {
+        "bredd": 328,
+        "rader": 7
+      },
+      "betalvagg": {
+        "finns": true,
+        "iBild": true,
+        "bottom": 601,
+        "hojd": 684
+      },
+      "konsolC": [],
+      "httpC": []
+    }
+  ],
+  "navigeringar": [
+    {
+      "till": "/dashboard/tester",
+      "ms": 384,
+      "forstaSvar": 358,
+      "rsc": [
+        {
+          "url": "/dashboard/tester/kurvan",
+          "ms": 151,
+          "prefetch": true
+        },
+        {
+          "url": "/dashboard/tester/installningar",
+          "ms": 168,
+          "prefetch": true
+        },
+        {
+          "url": "/dashboard",
+          "ms": 208,
+          "prefetch": false
+        }
+      ]
+    },
+    {
+      "till": "/dashboard/tester",
+      "ms": 279,
+      "forstaSvar": 263,
+      "rsc": []
+    }
+  ],
+  "fel": []
+}

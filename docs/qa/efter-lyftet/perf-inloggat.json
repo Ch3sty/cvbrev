@@ -1,0 +1,139 @@
+{
+  "tid": "2026-10-11T16:19:05.626Z",
+  "bas": "http://localhost:5373",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "tester",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 988,
+        "cls": 0.001,
+        "fcp": 544,
+        "rundturer": 1,
+        "textLangd": 1250,
+        "forfragningar": 71
+      }
+    },
+    {
+      "namn": "tester hemvy 1b",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 992,
+        "cls": 0,
+        "fcp": 528,
+        "rundturer": 0,
+        "textLangd": 114,
+        "forfragningar": 44
+      }
+    },
+    {
+      "namn": "tester/alla",
+      "budget": "lista",
+      "m": {
+        "lcp": 936,
+        "cls": 0.001,
+        "fcp": 532,
+        "rundturer": 0,
+        "textLangd": 1765,
+        "forfragningar": 65
+      }
+    },
+    {
+      "namn": "tester/kurvan",
+      "budget": "lista",
+      "m": {
+        "lcp": 940,
+        "cls": 0.001,
+        "fcp": 576,
+        "rundturer": 0,
+        "textLangd": 991,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "tester/installningar",
+      "budget": "flode",
+      "m": {
+        "lcp": 640,
+        "cls": 0,
+        "fcp": 536,
+        "rundturer": 0,
+        "textLangd": 690,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "tester/[slug]",
+      "budget": "lista",
+      "m": {
+        "lcp": 888,
+        "cls": 0.001,
+        "fcp": 544,
+        "rundturer": 0,
+        "textLangd": 618,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "tester/[slug] verbalt",
+      "budget": "lista",
+      "m": {
+        "lcp": 876,
+        "cls": 0.001,
+        "fcp": 520,
+        "rundturer": 0,
+        "textLangd": 610,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "tester/[slug] numeriskt",
+      "budget": "lista",
+      "m": {
+        "lcp": 956,
+        "cls": 0.001,
+        "fcp": 604,
+        "rundturer": 0,
+        "textLangd": 611,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "tester/personlighet",
+      "budget": "lista",
+      "m": {
+        "lcp": 580,
+        "cls": 0.001,
+        "fcp": 548,
+        "rundturer": 0,
+        "textLangd": 709,
+        "forfragningar": 64
+      }
+    },
+    {
+      "namn": "tester prov",
+      "budget": "flode",
+      "m": {
+        "lcp": 2220,
+        "cls": 0,
+        "fcp": 752,
+        "rundturer": 5,
+        "textLangd": 300,
+        "forfragningar": 50
+      }
+    },
+    {
+      "namn": "tester resultat",
+      "budget": "flode",
+      "m": {
+        "lcp": 892,
+        "cls": 0.001,
+        "fcp": 508,
+        "rundturer": 0,
+        "textLangd": 1117,
+        "forfragningar": 63
+      }
+    }
+  ]
+}
