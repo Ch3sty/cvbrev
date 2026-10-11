@@ -18,6 +18,7 @@ import {
   FEATURE_ETIKETT,
   FORTROENDE,
   FUNKTIONER,
+  GRATIS,
   GUIDE,
   HERO,
   INTERVALL_RAD,
@@ -31,7 +32,6 @@ import {
   PAKET_RAD,
   PR_H1,
   SPARVAL,
-  UPPGRADERING_ARK,
   borjaKnapp,
   bytLangdKnapp,
   forslagKnapp,
@@ -46,6 +46,8 @@ import {
 } from '../paket-copy'
 import {
   COMPARISON,
+  FREE_HIGHLIGHTS,
+  GRATIS_RAD,
   JAMFORELSE_KOLUMNER,
   PRISER_FAQ_ITEMS,
   PRISER_FAQ_RUBRIK,
@@ -134,6 +136,45 @@ describe('prissidan', () => {
       const t = `${f.q} ${f.a}`
       expect(t, f.id).not.toMatch(/veck|mellanskillnad|byt(a|er)? paket|CV-paketet|Träningspaketet/i)
     }
+  })
+
+  it('gratisnivån lovar bara det som är sant i båda gaterna (spec-rummen 23.3, 23.7 b)', () => {
+    expect(FREE_HIGHLIGHTS).toContain('En nivåmätning i testerna med genomgång, och ett första träningspass')
+    expect(GRATIS_RAD).toBe(
+      '3 mallar, en CV-analys, ett personligt brev och en nivåmätning i testerna ingår utan att betala.'
+    )
+    const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
+    const matning = tester.rows.find((r) => r.label === 'Nivåmätning och första passet')!
+    expect(matning.sub).toBe('matrislogik, verbalt, numeriskt, personlighet')
+    expect(matning.free.text).toBe('En gång, med genomgång')
+    expect(matning.premium.text).toBe('Pass varje dag, utan tak')
+    expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')
+    const sist = tester.rows[tester.rows.length - 1]
+    expect(sist.label).toBe('Riktade pass och generalrepetition')
+    expect(sist.free.ton).toBe('nej')
+    expect(sist.premium.text).toBe('Ingår')
+    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och testernas nivåmätning fungerar')
+    const texter = [
+      ...FREE_HIGHLIGHTS,
+      GRATIS_RAD,
+      ...COMPARISON.flatMap((g) => g.rows.flatMap((r) => [r.label, r.sub ?? '', r.free.text, r.premium.text])),
+      ...PRISER_FAQ_ITEMS.flatMap((f) => [f.q, f.a]),
+      ...GRATIS.delar.map((d) => d.text),
+      ...FUNKTIONER.kort.map((k) => k.sub),
+      SPARVAL.fotnot,
+    ]
+    for (const t of texter) {
+      expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/i)
+    }
+  })
+
+  it('FAQ och hjälpredan enligt copy-vag5 6.1', () => {
+    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'vad-ingar')!.q).toBe('Vad ingår i Jobbcoach Premium?')
+    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'nar-manaden-ar-slut')!.a).toMatch(/Ingen förnyelse i smyg\.$/)
+    expect(GUIDE.h2).toBe('Hjälpredan Kom igång tar dig igenom allt i rätt ordning')
+    expect(GUIDE.ingress).toMatch(
+      /Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp med ett klick om du är klar\.$/
+    )
   })
 
   it('schemat: Product med AggregateOffer, ett erbjudande, inga betyg', () => {
@@ -243,9 +284,13 @@ describe('statusraderna på kontosidan', () => {
     expect(KONTO.dittPaket).toBe('Du har Premium')
   })
 
-  it('bytet för en spårkund säger vad som dras och att dagarna räknas av', () => {
+  it('bytet för en spårkund säger vad som dras och att veckan räknas av', () => {
     expect(KONTO.bytRubrik).toBe('Jobbcoach Premium')
-    expect(KONTO.bytPrisrad).toMatch(/^149 kr i månaden\. Dagarna du redan betalat för räknas av/)
+    // copy-vag5 6.1, och sant mot create-upgrade-session: proration och ny
+    // period från bytesdagen.
+    expect(KONTO.bytPrisrad).toBe(
+      '149 kr i månaden. Det du redan har betalat för resten av veckan drar vi av, och månaden räknas från i dag.'
+    )
     expect(KONTO.bytText('test_week')).toContain('CV-mallar')
     expect(KONTO.bytText('cv_week')).toContain('rekryteringstester')
   })
@@ -291,7 +336,7 @@ describe('förslagets skäl (D28)', () => {
 
 describe('talen räknas, de skrivs aldrig', () => {
   it('Dagspassets prisrad bär "för", längden står kvar för befintliga köp', () => {
-    expect(langdPrisRad('all_day')).toBe(`${PLAN_BY_KEY.all_day.amount} kr för ett dygn`)
+    expect(langdPrisRad('all_day')).toBe(`${PLAN_BY_KEY.all_day.amount} kr för 24 timmar`)
     expect(langdPrisRad('all_month')).toBe(`${PLAN_BY_KEY.all_month.amount} kr i månaden`)
   })
 
@@ -325,7 +370,6 @@ describe('skrivregeln (copy-premium avsnitt 2 och 7)', () => {
     ...Object.values(PAKET_PUNKTER).flat(),
     ...Object.values(INTERVALL_RAD),
     ...Object.values(FEATURE_ETIKETT),
-    ...Object.values(UPPGRADERING_ARK),
     KOPSTEG.rubrik(),
     KOPSTEG.prisrad(),
     KOPSTEG.under,

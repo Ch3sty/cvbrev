@@ -130,7 +130,7 @@ export function planForLangd(_langd?: PlanLength): PlanKey {
 export function alltPrisSub(plan: PlanKey): string {
   switch (PLAN_BY_KEY[plan].length) {
     case 'dag':
-      return 'för ett dygn\nengångsköp, inget dras igen'
+      return 'för 24 timmar\nengångsköp, inget dras igen'
     case 'vecka':
       return 'i veckan\nförnyas var sjunde dag'
     case 'månad':
@@ -148,12 +148,6 @@ export function borjaKnapp(_paket?: PaketId, _plan?: PlanKey): string {
   return kopKnapp()
 }
 
-/** Arket som öppnas från en betalvägg (UpgradeSheet): ett kort, inga val. */
-export const UPPGRADERING_ARK = {
-  stang: 'Stäng',
-  gratisRubrik: 'Så här blir det på gratisnivån',
-  fotnot: 'Kortbetalning via Stripe. Prenumerationen avslutar du med ett klick i ditt konto.',
-} as const
 
 /* ------------------------------------------------------------ hero */
 
@@ -193,8 +187,8 @@ export const GRATIS = {
     { text: ', ' },
     { text: 'tio frågor', fet: true },
     { text: ' till Jobbcoachen, och ' },
-    { text: 'grundnivån i alla fyra testtyperna', fet: true },
-    { text: ': hela testet med förklaring efter varje fråga, en gång per typ och dygn.' },
+    { text: 'en nivåmätning i testerna', fet: true },
+    { text: ' med full genomgång och ett första träningspass samma dag.' },
   ],
   knapp: 'Skapa konto gratis',
 } as const
@@ -258,7 +252,7 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: ingarGratis('grundnivån i varje typ, en gång per dygn.'),
+      sub: ingarGratis('en nivåmätning med genomgång och ett första träningspass.'),
       text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I provläget går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
       steg: [
         'Diagnostest på grundnivå visar var du står per typ.',
@@ -297,9 +291,9 @@ export const FUNKTIONER = {
 
 /** Det hjälpredan Kom igång leder igenom, i logisk ordning, profilen och CV:t först. */
 export const GUIDE = {
-  h2: 'Hjälpredan tar dig igenom allt, i rätt ordning',
+  h2: 'Hjälpredan Kom igång tar dig igenom allt i rätt ordning',
   ingress:
-    'Du gör vad du vill, när du vill. Hjälpredan Kom igång är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion och inte missar det som ger mest. Gör du hela listan första kvällen är det lika bra. Dagen innan månaden förnyas visar vi vad du gjort, och först då frågar vi om du vill fortsätta.',
+    'Du gör vad du vill, när du vill. Hjälpredan Kom igång är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion och inte missar det som ger mest. Gör du hela listan första kvällen är det lika bra. Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp med ett klick om du är klar.',
   listor: {
     allt: {
       etikett: `${11} steg`,
@@ -352,7 +346,7 @@ export const FORTROENDE_RADER = FORTROENDE.map((f) => ({ key: f.key, text: f.rub
 export const SPARVAL = {
   primar: (_paket?: PaketId, _plan?: PlanKey) => kopKnapp(),
   sekundar: 'Börja gratis i stället',
-  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, testernas grundnivå`,
+  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, en nivåmätning i testerna`,
 } as const
 
 /* ----------------------------------------------------------- köpsteget */
@@ -460,11 +454,14 @@ function datumText(d: Date): string {
 }
 
 export const KONTO = {
-  ingress: 'Vad du har i dag, och vad som öppnar resten.',
+  /** Väggens rad på gratisnivån (statusen står på väggen, 24.2 fråga 3). */
   statusGratis: 'Du är på gratisnivån',
   /** Rubriken över kortet (ersätter "Köp eller byt paket"). */
   paketRubrik: 'Prenumeration',
-  /** Kortets status när kunden redan har Premium. */
+  /**
+   * "Du har Premium", för andra ytor. Prenumerationssidan visar den inte:
+   * där är statusen väggens rad och kortet finns inte för den som har Premium.
+   */
   dittPaket: `Du har ${PREMIUM}`,
   ingarIAllt: `Ingår i ${PREMIUM}`,
   /** Köpknappen, samma som överallt. */
@@ -485,8 +482,13 @@ export const KONTO = {
     }
     return `${PREMIUM} ger allt.`
   },
-  /** Raden ovanför knappen vid byte: vad som dras och när. */
-  bytPrisrad: `${PRIS}. Dagarna du redan betalat för räknas av, och månaden räknas från i dag.`,
+  /**
+   * Raden ovanför knappen vid byte: vad som dras och när. Stämmer med
+   * create-upgrade-session: veckopris till månadspris byter intervall, så
+   * Stripe drar av den oanvända veckotiden (proration, always_invoice) och
+   * flyttar dragningsdagen till bytesdagen (billing_cycle_anchor).
+   */
+  bytPrisrad: `${PRIS}. Det du redan har betalat för resten av veckan drar vi av, och månaden räknas från i dag.`,
   hantera: 'Hantera',
   bytKort: 'Byt betalkort',
   kvitton: 'Kvitton',
@@ -501,8 +503,6 @@ export const KONTO = {
   tidsbegransad: 'Tillgången gäller en begränsad tid och förnyas inte av sig själv.',
   felKontakt: 'Kontakta support@jobbcoach.ai om problemet kvarstår.',
   stangFel: 'Stäng meddelande',
-  /** Statusradens etikett. */
-  lage: 'Ditt läge',
 } as const
 
 /* --------------------------------------------- bakåtkompatibla strängar */
@@ -511,7 +511,7 @@ export const KONTO = {
 export const PAKET_RAD: Record<PlanKey, string> = {
   cv_week: 'CV-mallar, CV-analys och personliga brev, en vecka i taget.',
   test_week: 'Alla rekryteringstester och provläget, en vecka i taget.',
-  all_day: `${HELA_NAMN} i ett dygn. Ett engångsköp, ingenting dras igen.`,
+  all_day: `${HELA_NAMN} i 24 timmar. Ett engångsköp, ingenting dras igen.`,
   all_week: `${HELA_NAMN} en vecka i taget.`,
   all_month: PLAN_BY_KEY[SALD_PLAN].body,
   all_quarter: `${HELA_NAMN} i tre månader i taget.`,
@@ -529,7 +529,7 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
     'Tidsatt provläge och fördjupade personlighetstestet',
     'Förklaring per fråga och din utveckling',
   ],
-  all_day: [`Allt i ${PREMIUM}, i 24 timmar`, 'Engångsköp, ingen prenumeration', 'Dygnet räknas från köpet'],
+  all_day: [`Allt i ${PREMIUM}, i 24 timmar`, 'Engångsköp, ingen prenumeration', 'Tiden räknas från köpet'],
   all_week: [`Allt i ${PREMIUM}, en vecka i taget`, 'Förnyas var sjunde dag', 'Säg upp när som helst, ett klick'],
   all_month: [`Allt i ${PREMIUM}, en månad i taget`, 'Dras samma datum varje månad', 'Säg upp när som helst, ett klick'],
   all_quarter: [`Allt i ${PREMIUM}, i tre månader`, 'Förnyas var tredje månad', 'Säg upp när som helst, ett klick'],
@@ -561,7 +561,6 @@ export const PR_INGRESS = HERO.ingress
 export const D_GRATIS_LANK = GRATIS.knapp
 
 export const D_PRENUMERATION = {
-  ingress: KONTO.ingress,
   statusGratis: KONTO.statusGratis,
   stoppRubrik: KONTO.stoppRubrik,
   gratisRubrik: KONTO.gratisRubrik,
@@ -640,7 +639,7 @@ export function forslagSkal(input: {
   return `Vi vet inte vad du behöver än. ${PREMIUM} rymmer allt, så du behöver inte välja.`
 }
 
-/** Raden om bytet för en kund med ett spår (FelSpar och kontosidan). */
+/** Raden om bytet för en kund med ett spår. */
 export function uppgraderingSkal(antal: number): string {
   if (antal <= 0) {
     return `${PREMIUM} lägger jobbmatchningen, Jobbcoachen och Bli upptäckt ovanpå det du redan har.`
@@ -652,7 +651,7 @@ export function uppgraderingSkal(antal: number): string {
 /** Prisraden för en längd. Dagen bär prepositionen "för". */
 export function langdPrisRad(plan: PlanKey): string {
   const p = PLAN_BY_KEY[plan]
-  return p.length === 'dag' ? `${p.amount} kr för ett dygn` : prisPeriod(plan)
+  return p.length === 'dag' ? `${p.amount} kr för 24 timmar` : prisPeriod(plan)
 }
 
 /** Knappen som förr bytte längd. Längder säljs inte längre: köpknappen. */
@@ -724,7 +723,7 @@ export const PAKETBYTE = {
   vidFornyelse: (skal: 'nedgradering' | 'langd') =>
     skal === 'nedgradering'
       ? `Nedgradering sker vid nästa förnyelse. Säg upp ${HELA_NAMN} i kundportalen, så gäller det perioden ut.`
-      : `Byte av längd sker vid nästa förnyelse. Säg upp ${HELA_NAMN} i kundportalen, så gäller det perioden ut, och köp sedan ${PREMIUM}, ${PRIS}.`,
+      : `Längden byts inte mitt i en period. Säg upp ${HELA_NAMN} i kundportalen, så gäller det perioden ut, och köp sedan ${PREMIUM}, ${PRIS}.`,
   tillPortalen: 'Till kundportalen',
   portalHref: '/api/stripe/create-portal-session',
 } as const

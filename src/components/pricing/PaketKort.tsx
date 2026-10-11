@@ -7,19 +7,26 @@
  * Bara ett paket säljs, så kortet har en form: namnet, förklaringsraden,
  * listan med vad som ingår, prisraden i kort form (namnet står i rubriken)
  * och köpknappen. Rummens material: papper, kant, radie 16, KNAPP_PRIMAR.
- * Kopparkanten markerar det sålda kortet och står bara där (`markerad`).
+ * Ingen kopparkant: med ett paket finns inget att rekommendera framför
+ * något annat, och kopparn i ett köpkort är knappen (art-director 24.2
+ * fråga 3). Ingen statusplatta heller: en text i en ram med knappens mått
+ * läses som en knapp som inte gör något.
+ *
+ * `lyft` gör kortet till vyns LyftKort, först på golvet och över väggen
+ * (prenumerationssidan på gratisnivån och för en spårkund). Utan `lyft` är
+ * det ett vanligt kort med kant.
  *
  * Används på kontosidan (/dashboard/profil/prenumeration). Den publika
  * prissidan har Trådens utseende och ett eget kort (PriserPaket), eftersom
- * koppar och knapp-primar bara finns i inloggat.
+ * koppar och KNAPP_PRIMAR bara finns i inloggat.
  *
- * Anroparen bestämmer knappen (text och handling), en status i stället för
- * knapp, en egen text eller prisrad (bytet för en kund med ett osålt
- * paket). Kortet vet ingenting om inloggning.
+ * Anroparen bestämmer knappen (text och handling), en egen text eller
+ * prisrad (bytet för en kund med ett osålt paket). Kortet vet ingenting om
+ * inloggning.
  */
 
 import { Check } from '@/components/illustrations/RumIkoner'
-import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { PAKET_KORT, type PaketId } from './paket-copy'
 
 export interface PaketKortKnapp {
@@ -36,16 +43,14 @@ export interface PaketKortProps {
   text?: string
   /** Ersätter prisraden ovanför knappen. */
   prisrad?: string
-  /** Knappen. null döljer den. Utelämnad ger köpknappen utan handling. */
+  /** Knappen. null döljer den och prisraden. Utelämnad ger köpknappen utan handling. */
   knapp?: PaketKortKnapp | null
-  /** Status i stället för knapp: "Du har Premium". */
-  status?: string
   /** Ersätter raden under knappen. null tar bort den. */
   fotnot?: string | null
-  /** Textlänk under knappen eller statusen. */
+  /** Textlänk bredvid knappen. */
   lank?: { text: string; onClick: () => void }
-  /** Kopparkanten: kortet är det som säljs. Standard sant. */
-  markerad?: boolean
+  /** Kortet är vyns lyfta kort och överlappar väggen. */
+  lyft?: boolean
   /** Visa listan med vad som ingår. Standard sant. */
   visaLista?: boolean
   id?: string
@@ -58,10 +63,9 @@ export default function PaketKort({
   text,
   prisrad,
   knapp,
-  status,
   fotnot,
   lank,
-  markerad = true,
+  lyft = false,
   visaLista = true,
   id,
   className,
@@ -72,13 +76,15 @@ export default function PaketKort({
   const fot = fotnot === undefined ? copy.fotnot : fotnot
   const namn = titel ?? copy.namn
 
+  const ram = lyft
+    ? 'relative z-[2] -mt-[30px] border-[color:var(--lyft-kant)] shadow-lyft'
+    : 'border-kant'
+
   return (
     <section
       id={id}
       aria-label={namn}
-      className={`flex flex-col rounded-2xl border bg-papper p-4 text-ink-1 sm:p-5 ${
-        markerad ? 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar)]' : 'border-kant'
-      } ${className ?? ''}`}
+      className={`flex flex-col rounded-2xl border bg-papper p-4 text-ink-1 ${lyft ? '' : 'sm:p-5'} ${ram} ${className ?? ''}`}
     >
       <h2 className="text-kort-t text-ink-1">{namn}</h2>
       <p className="mt-1 text-meta text-ink-3">{copy.beskrivning}</p>
@@ -98,36 +104,28 @@ export default function PaketKort({
         </div>
       ) : null}
 
-      <div className="mt-auto pt-4">
-        {status ? (
-          <p
-            role="status"
-            className="flex min-h-12 items-center justify-center rounded-xl border border-kant-stark px-4 text-[15px] font-semibold text-ink-1"
-          >
-            {status}
-          </p>
-        ) : knappen ? (
-          <>
-            <p className="mb-2.5 text-sm leading-[21px] text-ink-2">{prisrad ?? copy.prisrad}</p>
+      {knappen ? (
+        <div className="mt-auto pt-4">
+          <p className="text-sm font-medium text-ink-1">{prisrad ?? copy.prisrad}</p>
+          <div className={KNAPPRAD}>
             <button
               type="button"
               onClick={knappen.onClick}
               disabled={knappen.disabled}
-              className={`${KNAPP_PRIMAR} sm:w-auto sm:min-w-[280px]`}
+              className={KNAPP_PRIMAR}
             >
               {knappen.text}
             </button>
-          </>
-        ) : null}
+            {lank ? (
+              <button type="button" onClick={lank.onClick} className={LANK}>
+                {lank.text}
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
 
-        {lank ? (
-          <button type="button" onClick={lank.onClick} className={`${LANK} mt-3 block`}>
-            {lank.text}
-          </button>
-        ) : null}
-
-        {fot ? <p className="mt-2 text-meta text-ink-3">{fot}</p> : null}
-      </div>
+      {fot ? <p className="mt-3.5 border-t border-kant pt-3 text-meta text-ink-3">{fot}</p> : null}
     </section>
   )
 }

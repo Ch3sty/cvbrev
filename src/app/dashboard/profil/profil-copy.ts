@@ -102,7 +102,7 @@ export const KONTO_SEKTION = {
   rubrik: 'Konto',
   under: 'Prenumeration, mejl från oss, utloggning och radering.',
   prenumeration: 'Prenumeration',
-  gratis: `Gratisnivån · ${paketKort()}, ${prisPeriod(SALD_PLAN)}`,
+  gratis: `Gratisnivån · ${paketKort()} kostar ${prisPeriod(SALD_PLAN)}`,
   mejl: 'Mejl från oss',
   mejlStatus: (vecka: boolean, paminnelser: boolean) =>
     `Veckosammanfattning ${vecka ? 'på' : 'av'}, påminnelser ${paminnelser ? 'på' : 'av'}`,
@@ -119,7 +119,7 @@ export const KONTO_SEKTION = {
  */
 export const SMART_VAL = {
   rubrik: `Smart val ingår i ${paketKort()}`,
-  eyebrow: paketKort(),
+  eyebrow: 'Personliga brev',
   text: 'Vi läser annonsens språk och bransch och väljer tonen åt dig, brev för brev.',
   rader: [
     'Vi läser tonen i varje annons',

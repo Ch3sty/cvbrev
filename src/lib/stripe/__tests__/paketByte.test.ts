@@ -40,7 +40,8 @@ describe('PAKETBYTE, beskeden', () => {
   it('säger att längdbyte och nedgradering sker vid nästa förnyelse och pekar på kundportalen', () => {
     expect(PAKETBYTE.vidFornyelse('nedgradering')).toMatch(/^Nedgradering sker vid nästa förnyelse./)
     expect(PAKETBYTE.vidFornyelse('nedgradering')).toContain('Jobbcoach Premium')
-    expect(PAKETBYTE.vidFornyelse('langd')).toMatch(/^Byte av längd sker vid nästa förnyelse./)
+    // 23.7 (c): inget byte sker av sig självt, så meningen lovar ingen automatik.
+    expect(PAKETBYTE.vidFornyelse('langd')).toMatch(/^Längden byts inte mitt i en period\. Säg upp Jobbcoach Premium i kundportalen/)
     expect(PAKETBYTE.vidFornyelse('langd')).toContain('köp sedan Premium, 149 kr i månaden')
     expect(PAKETBYTE.portalHref).toBe('/api/stripe/create-portal-session')
   })
