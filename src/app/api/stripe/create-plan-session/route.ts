@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
       if (existing && blocksAsDuplicate(existing, selected.scope)) {
         return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
       }
-      // Uppgradering från ett spår till Hela paketet byter pris på den befintliga
+      // Uppgradering från ett spår till Jobbcoach Premium byter pris på den befintliga
       // prenumerationen. En andra checkout skulle ge kunden två abonnemang.
       if (existing) {
         return NextResponse.json(

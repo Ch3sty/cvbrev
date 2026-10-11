@@ -5,17 +5,21 @@
  * .sk), i rummens material sedan våg 5.
  *
  * Platta med scen, handling som rubrik, namnet under, "du får"-rader och
- * pris med period. Papper, kant, radie 16. Det sålda kortet (Jobbcoach
- * Premium) har kopparkant; något bläckkort med vit text finns inte längre.
- * Valbart (role="radio") när onSelect finns, annars ett stilla kort. Val
- * markeras med kant i ink-1, aldrig med koppar.
+ * pris med period. Papper, kant, radie 16. Ingen kopparkant: med ett paket
+ * finns inget att rekommendera framför något annat (art-director 24.2
+ * fråga 3), och något bläckkort med vit text finns inte längre. Valbart
+ * (role="radio") när onSelect finns, annars ett stilla kort. Val markeras
+ * med kant i ink-1, aldrig med koppar.
  */
 
 import type { ComponentType } from 'react'
 
 export interface SparKortProps {
   Scen: ComponentType<{ className?: string }>
-  /** Kopparkanten: kortet är det som säljs. */
+  /**
+   * Ritar ingenting sedan kopparkanten togs bort (24.3 punkt 1). Står kvar
+   * så att anroparna (ForslagSteg) inte går sönder; kan tas bort där.
+   */
   markerad?: boolean
   /** Etiketten över rubriken, till exempel "Förslag utifrån ditt val". */
   eyebrow?: string
@@ -32,7 +36,6 @@ export interface SparKortProps {
 
 export default function SparKort({
   Scen,
-  markerad = false,
   eyebrow,
   eyebrowTon = 'accent',
   rubrik,
@@ -48,9 +51,7 @@ export default function SparKort({
     ? selected
       ? 'border-ink-1 shadow-val'
       : 'border-kant hover:border-kant-stark'
-    : markerad
-      ? 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar)]'
-      : 'border-kant'
+    : 'border-kant'
   const eyebrowFarg = eyebrowTon === 'accent' ? 'text-koppar-ink' : 'text-ink-3'
 
   const innehall = (
