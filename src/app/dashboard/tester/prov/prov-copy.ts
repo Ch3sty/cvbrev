@@ -5,6 +5,8 @@
  */
 
 import { paketKort } from '@/lib/plans/plans'
+import { provrad, provradLabel, type Provrad } from '@/lib/traning/rubrik'
+import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo'
 
 export const PROVSIDA = {
   eyebrow: 'Rekryteringstester',
@@ -27,26 +29,60 @@ export const PROVSIDA = {
   hubb: 'Till rekryteringstesterna',
 } as const
 
+const TITEL_LAST = 'Provläge mot klockan'
+
 /**
- * Provradens text i testhubben (copy-premium-2026-10-11 avsnitt 5,
- * testansvarigs villkor). Talen läses ur provets konfiguration. "Samma
- * format som" står bara när provets antal och minuter är leverantörens.
+ * Provradens text i testhubben (copy-premium-2026-10-11 avsnitt 5 och
+ * spec-rummen 19.6). Logikgruppens rad är generalrepetitionen i planens
+ * format och byggs av provrad(format) i src/lib/traning/rubrik.ts, samma
+ * hjälpare som hemvyns Provdagen-rad. Leverantörsnamnet kommer bara ur
+ * planens leverantör, aldrig ur en siffermatchning. Verbal- och
+ * numeriskprovens rader har inget leverantörsformat; talen läses ur provets
+ * konfiguration. "Ingår i Premium" står bara när raden är låst.
  */
 export const PROVRAD = {
-  titelLast: 'Provläge mot klockan',
+  titelLast: TITEL_LAST,
   titelOppen: 'Prov: mät var du står',
-  format: (namn: string) => `Samma format som ${namn}.`,
-  matt: (uppgifter: number, minuter: number) => `${uppgifter} uppgifter, ${minuter} minuter.`,
   ingar: `Ingår i ${paketKort()}.`,
-  /** Rad 2 som en mening: "Samma format som Matrigma. 35 uppgifter, 40 minuter. Ingår i Premium." */
-  rad2: (formatNamn: string | null, uppgifter: number, minuter: number, last: boolean) =>
-    [formatNamn ? `Samma format som ${formatNamn}.` : null, `${uppgifter} uppgifter, ${minuter} minuter.`, last ? `Ingår i ${paketKort()}.` : null]
+  /** Verbal och numerisk: "18 uppgifter, 25 minuter. Ingår i Premium." */
+  rad2: (uppgifter: number, minuter: number, last: boolean) =>
+    [`${uppgifter} uppgifter, ${minuter} minuter.`, last ? `Ingår i ${paketKort()}.` : null]
       .filter(Boolean)
       .join(' '),
-  /** "Provläge mot klockan. Samma format som Matrigma, 35 uppgifter, 40 minuter. Låst, ingår i Premium." */
-  aria: (formatNamn: string | null, uppgifter: number, minuter: number) =>
-    `Provläge mot klockan. ${formatNamn ? `Samma format som ${formatNamn}, ${uppgifter}` : `${uppgifter}`} uppgifter, ${minuter} minuter. Låst, ingår i ${paketKort()}.`,
+  /**
+   * Generalrepetitionen: "Samma format som Matrigma. Cirka 35 uppgifter, 40
+   * minuter, fast ordning. Ingår i Premium." Anmärkningen (SHL, Aon) står
+   * före "Ingår i".
+   */
+  rad2Format: (r: Provrad, last: boolean) =>
+    [`${r.titel}. ${r.format}`, r.anmarkning, last ? `Ingår i ${paketKort()}.` : null]
+      .filter(Boolean)
+      .join(' '),
+  /** "Provläge mot klockan. Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. Låst, ingår i Premium." */
+  ariaFormat: (r: Provrad) => `${TITEL_LAST}. ${provradLabel(r, `Låst, ingår i ${paketKort()}.`)}`,
+  /** Verbal och numerisk: "Provläge mot klockan. 18 uppgifter, 25 minuter. Låst, ingår i Premium." */
+  aria: (uppgifter: number, minuter: number) =>
+    `${TITEL_LAST}. ${uppgifter} uppgifter, ${minuter} minuter. Låst, ingår i ${paketKort()}.`,
 } as const
+
+/**
+ * Rad 2 och aria för en provrad. Generalrepetitionen (general) läser planens
+ * format, de andra provets antal och minuter.
+ */
+export function provradTexter(
+  prov: { general?: true; totalQuestions: number; minutes: number },
+  provformat: FormatNyckel,
+  last: boolean
+): { rad2: string; aria: string } {
+  if (prov.general) {
+    const r = provrad(PROVFORMAT[provformat] ?? PROVFORMAT.eget)
+    return { rad2: PROVRAD.rad2Format(r, last), aria: PROVRAD.ariaFormat(r) }
+  }
+  return {
+    rad2: PROVRAD.rad2(prov.totalQuestions, prov.minutes, last),
+    aria: PROVRAD.aria(prov.totalQuestions, prov.minutes),
+  }
+}
 
 export const PROV_SAKNAS = {
   eyebrow: 'Rekryteringstester',

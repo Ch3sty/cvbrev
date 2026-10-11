@@ -26,7 +26,7 @@ import GraValSheet from '@/components/paywall/GraValSheet';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { Feature, Scope } from '@/lib/access/features';
 import { scopeHasFeature } from '@/lib/access/features';
-import { paketKort, type PlanKey } from '@/lib/plans/plans';
+import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans';
 import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
 import { graEtikettTest, testHuvud } from '@/lib/onboarding/paket-rader';
 import Link from 'next/link';
@@ -40,6 +40,12 @@ import type { TesterHubData } from './getHubData';
 const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
   loading: () => <div className="min-h-[420px]" aria-hidden="true" />,
 });
+
+/**
+ * Gratisraden (spec-rummen 23.3): nivåmätningen en gång med genomgång och
+ * ett första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
+ */
+const GRATIS_RAD = `Gratis att prova: nivåmätningen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
 
 /** Samma dag i svensk tid? */
 function sammaDag(iso: string | null): boolean {
@@ -60,7 +66,7 @@ export default function TesterHubClient({
   const [tab, setTab] = useState<TesterTab>('tester');
   const [sparr, setSparr] = useState<Feature | null>(null);
 
-  const { perTest, aggregate, personality, provBestPercent, isPremium, hasHistory, scope } =
+  const { perTest, aggregate, personality, provBestPercent, provformat, isPremium, hasHistory, scope } =
     data;
 
   const bestTest = Object.entries(perTest)
@@ -78,7 +84,8 @@ export default function TesterHubClient({
   const huvud = testHuvud(scope);
   const graEtikett = graEtikettTest(scope);
 
-  // "1 kvar i dag" på grundnivån utanför Träningspaketet: en gång per typ och dygn.
+  // "1 kvar i dag" på grundnivån utan paket: räknaren speglar kvoten i
+  // quotaService (DAILY_LIMIT_TEST_SESSIONS) och är ingen gratisutfästelse.
   const dagRad = useCallback(
     (slug: string): string | null => {
       if (harAllaNivaer) return null;
@@ -142,10 +149,11 @@ export default function TesterHubClient({
         ) : null}
         {huvud.rubrik ? <p className="text-kort text-ink-1">{huvud.rubrik}</p> : null}
 
-        {/* Gratisrytmen sägs en gång, som rad, inte på varje rad. */}
+        {/* Vad som är gratis sägs en gång, som rad (spec-rummen 23.3 punkt
+            2 till 4): sant i båda gaterna, inga dygn, priset ur PLANS. */}
         {!isPremium && !huvud.ingress ? (
           <StatusRow tone="neutral" showDot>
-            Du gör varje test en gång per dag på gratisnivån.
+            {GRATIS_RAD}
           </StatusRow>
         ) : null}
 
@@ -176,6 +184,7 @@ export default function TesterHubClient({
                 provBestPercent={
                   group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
                 }
+                provformat={provformat}
                 scope={scope}
                 graEtikett={graEtikett}
                 onLocked={(feature) => setSparr(feature)}

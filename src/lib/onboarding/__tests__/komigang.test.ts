@@ -11,8 +11,9 @@ import {
   valkommenMedCv,
 } from '../komigang'
 import { brickorForTestType, harledProvade, sparadeNycklar, type ProvadeUnderlag } from '../komigang-server'
-import { menyFot, menyHuvud, menyRad, mellanskillnadKr, graEtikettTest } from '../paket-rader'
+import { menyFot, menyHuvud, menyRad, graEtikettTest } from '../paket-rader'
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
 
 const TOMT: ProvadeUnderlag = {
   sparade: [],
@@ -201,12 +202,6 @@ describe('menyn', () => {
     expect(menyRad('coach', allt).text).toBe('Utan tak')
   })
 
-  it('mellanskillnaden finns bara för befintliga spårkunder, mot Premium', () => {
-    expect(mellanskillnadKr('cv_week')).toBe(PLAN_BY_KEY.all_month.amount - PLAN_BY_KEY.cv_week.amount)
-    expect(mellanskillnadKr('all_week')).toBeNull()
-    expect(mellanskillnadKr(null)).toBeNull()
-  })
-
   it('gråa nivåer och gratismenyn säger Premium, inga spår och inget Dagspass', () => {
     expect(graEtikettTest('cv')).toBe('Ingår i Premium')
     expect(graEtikettTest(null)).toBe('Ingår i Premium')
@@ -240,5 +235,24 @@ describe('Kom igång för Dagspasset (köptestet 2026-09-24, Kvar)', () => {
     const { KOM_IGANG } = await import('../komigang')
     expect(KOM_IGANG.dygnRad).toContain('ett dygn')
     expect(KOM_IGANG.dygnRad).not.toMatch(/[—–]/)
+  })
+})
+
+describe('provlägets bricka (spec-rummen 19.6)', () => {
+  it('leder till generalrepetitionen, inte till det gamla logikprovet', () => {
+    for (const paket of ['tester', 'allt'] as const) {
+      expect(brickaText('provlage', paket).href).toBe(TRANING_RUTT.general)
+    }
+  })
+})
+
+describe('gratislöftena (spec-rummen 23.3 punkt 4)', () => {
+  it('lovar inga dygn och ingen evig gratisnivå', () => {
+    for (const paket of [null, 'cv', 'tester', 'allt'] as const) {
+      for (const key of ['matris_grund', 'provlage'] as const) {
+        const t = brickaText(key, paket, {}, true)
+        expect(`${t.titel} ${t.text}`).not.toMatch(/dygn|varje dag gratis|alltid gratis/i)
+      }
+    }
   })
 })

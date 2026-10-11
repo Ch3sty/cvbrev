@@ -38,7 +38,8 @@ export const TRANING_RUTT = {
   installningarSteg: (steg: 1 | 2 | 3) => `/dashboard/tester/installningar?steg=${steg}`,
   kurvan: KURVAN_HREF,
   alla: '/dashboard/tester/alla',
-  provlaget: '/dashboard/tester/matrislogik-prov',
+  /** Sidomenyns "Provläget": generalrepetitionen i planens format (spec 19.6). */
+  provlaget: passHref('general'),
   /** Passflödet (våg 3b): mätning, dagens pass, riktat pass och generalrepetition. */
   matning: passHref('matning'),
   pass: passHref('pass'),

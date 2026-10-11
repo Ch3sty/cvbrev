@@ -10,10 +10,16 @@
  * gjort test markeras med ink-kant och bästa resultatet. Nivåer som inte
  * ingår i paketet står i insunken med lås, som förut, och trycket öppnar
  * betalväggen för rätt paket.
+ *
+ * Logikgruppen har inget Prov-segment: dess prov är generalrepetitionen i
+ * planens format och står som provrad under nivåerna (spec-rummen 19.6).
  */
 
 import Link from 'next/link';
-import type { TestGroup } from './testCatalog';
+import { provLasSlug, type TestGroup } from './testCatalog';
+import ProvCard from './ProvCard';
+import { provradTexter } from '../prov/prov-copy';
+import type { FormatNyckel } from '@/lib/traning/tempo';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import { featureForSlug, testPaths } from '../testConfig';
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features';
@@ -23,6 +29,8 @@ interface Props {
   group: TestGroup;
   perTest: Record<TestSlug, PerTestStats>;
   provBestPercent?: number | null;
+  /** Planens provformat för generalrepetitionens rad, 'eget' utan plan. */
+  provformat?: FormatNyckel;
   scope?: Scope | null;
   /** Etiketten på gråa nivåer: "Ingår i Premium". */
   graEtikett?: string;
@@ -54,6 +62,7 @@ export default function TestKategori({
   group,
   perTest,
   provBestPercent = null,
+  provformat = 'eget',
   scope = null,
   graEtikett = '',
   onLocked,
@@ -105,7 +114,12 @@ export default function TestKategori({
     );
   };
 
-  const provSlug = group.prov?.href.split('/').pop() ?? '';
+  const provFeature = group.prov ? las(provLasSlug(group.prov)) : null;
+  // Logikgruppens prov är generalrepetitionen i planens format (spec-rummen
+  // 19.6). Meningen om formatet ryms inte i ett segment, så den står som
+  // provrad under nivåerna, samma rad och text som i TestGroup.
+  const general = group.prov?.general ? group.prov : null;
+  const generalText = general ? provradTexter(general, provformat, provFeature !== null) : null;
 
   return (
     <section
@@ -119,7 +133,7 @@ export default function TestKategori({
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{group.blurb}</p>
       <p className="mt-1 text-meta text-ink-3">{group.searchHint}</p>
 
-      <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <ul className={`mt-4 grid grid-cols-2 gap-2 ${general ? 'sm:grid-cols-3' : 'sm:grid-cols-4'}`}>
         {group.cognitive.map((t) => {
           const s = perTest[t.slug];
           const gjord = (s?.attempts ?? 0) > 0;
@@ -129,17 +143,30 @@ export default function TestKategori({
             : `${t.timeLabel} min${rad && t.levelLabel === 'Grund' ? ` · ${rad}` : ''}`;
           return segment(t.slug, testPaths.hub(t.slug), t.levelLabel, under, gjord, las(t.slug));
         })}
-        {group.prov
+        {group.prov && !general
           ? segment(
               'prov',
               group.prov.href,
               'Prov',
               provBestPercent !== null ? `Bäst ${provBestPercent} %` : `${group.prov.minutes} min, mot klockan`,
               provBestPercent !== null,
-              las(provSlug)
+              provFeature
             )
           : null}
       </ul>
+
+      {general && generalText ? (
+        <ul className="mt-4 [&_a]:px-0 [&_button]:px-0">
+          <ProvCard
+            href={general.href}
+            rad2={generalText.rad2}
+            aria={generalText.aria}
+            bestPercent={null}
+            locked={provFeature !== null}
+            onLocked={provFeature ? () => onLocked?.(provFeature) : undefined}
+          />
+        </ul>
+      ) : null}
     </section>
   );
 }

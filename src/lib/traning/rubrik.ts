@@ -196,7 +196,8 @@ export function provrad(format: Pick<Provformat, 'namn' | 'antal' | 'minuter' | 
 
 /** Låst rad i ett ord för skärmläsaren: "Samma format som Matrigma. 35 uppgifter, 40 minuter. Låst, ingår i X." */
 export function provradLabel(rad: Provrad, lastText: string | null): string {
-  return [rad.titel, rad.format, lastText].filter(Boolean).join(' ');
+  // Titeln saknar egen punkt ("Samma format som Matrigma"), så den får en här.
+  return [`${rad.titel}.`, rad.format, lastText].filter(Boolean).join(' ');
 }
 
 /** Veckodag med versal: "Lördag". */

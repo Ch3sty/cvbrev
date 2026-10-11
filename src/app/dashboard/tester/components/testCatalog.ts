@@ -1,6 +1,6 @@
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import { getTestConfig } from '../testConfig';
-import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo';
+import { TRANING_RUTT } from '@/lib/traning/rutter';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -66,17 +66,20 @@ export interface ProvDef {
   totalQuestions: number;
   minutes: number;
   /**
-   * Leverantörens format som provet efterliknar, för raden "Samma format
-   * som Matrigma" (copy-premium avsnitt 5). Meningen står bara när provets
-   * antal och minuter är formatets (provradFormat).
+   * Raden är generalrepetitionen i planens format (spec-rummen 19.6): texten
+   * byggs av provrad(PROVFORMAT[provformat]) och raden visar inget tal.
    */
-  formatNyckel?: FormatNyckel;
+  general?: true;
 }
 
-/** Formatnamnet för provraden, bara när provet har leverantörens antal och tid. */
-export function provradFormat(prov: Pick<ProvDef, 'formatNyckel' | 'totalQuestions' | 'minutes'>): string | null {
-  const f = prov.formatNyckel ? PROVFORMAT[prov.formatNyckel] : null;
-  return f && f.antal === prov.totalQuestions && f.minuter === prov.minutes ? f.namn : null;
+/**
+ * Sluggen vars requiresFeature låser raden. Generalrepetitionen har samma
+ * lås som det gamla logikprovet (test_exam_mode), och dess href är passets
+ * adress, inte en testsida, så sluggen går inte att läsa ur länken.
+ */
+export function provLasSlug(prov: Pick<ProvDef, 'href' | 'general'>): string {
+  if (prov.general) return 'matrislogik-prov';
+  return prov.href.split('/').pop() ?? '';
 }
 
 export interface TestGroup {
@@ -221,10 +224,13 @@ export const TEST_GROUPS: TestGroup[] = [
     cognitive: LOGIK_TESTS,
     personality: [],
     prov: {
-      href: '/dashboard/tester/matrislogik-prov',
+      // Generalrepetitionen i planens format (spec-rummen 19.6). Endpointen
+      // står kvar för att getHubData inte ska ändra sin typtabell; procenten
+      // används inte för den här raden.
+      href: TRANING_RUTT.general,
       sessionEndpoint: '/api/logicTestProv/session',
       ...provCounts('matrislogik-prov'),
-      formatNyckel: 'matrigma_klassisk',
+      general: true,
     },
   },
   {

@@ -12,6 +12,7 @@
 import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { SALD_PLAN, paketKort, paketNamn, paketNamnForScope } from '@/lib/plans/plans'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
 
 /**
  * Namnet i appen (copy-premium avsnitt 1): scope allt heter Premium, också
@@ -313,7 +314,7 @@ export function brickaText(
         text:
           paket === 'tester'
             ? 'Cirka 20 minuter, förklaring efter varje fråga'
-            : 'Ingår gratis, en gång per dygn',
+            : 'Gratis att prova, förklaring efter varje fråga',
         klarText:
           typeof fakta.matrisRatt === 'number' && typeof fakta.matrisAv === 'number'
             ? `${fakta.matrisRatt} av ${fakta.matrisAv} rätt`
@@ -346,10 +347,11 @@ export function brickaText(
       return {
         key,
         titel: 'Provläge mot klockan',
-        text: '25 till 40 min, automatisk inlämning',
+        text: 'Provets format och tid, automatisk inlämning',
         klarText: 'Ett prov inlämnat',
         kort: 'provläget',
-        href: '/dashboard/tester/matrislogik-prov',
+        // Generalrepetitionen i planens format (spec-rummen 19.6).
+        href: TRANING_RUTT.general,
         knapp: 'Starta provet',
       }
     case 'personlighet':
@@ -387,7 +389,7 @@ export function brickaText(
 
 /** Gratisvarianterna ur designfilens slutcopy ("Kom igång, gratis"). */
 const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>> = {
-  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Ingår gratis, en gång per dygn' },
+  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Gratis att prova, förklaring efter varje fråga' },
   personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
   intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
   analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },
