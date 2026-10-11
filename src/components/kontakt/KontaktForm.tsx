@@ -13,7 +13,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
-import { Send, CheckCircle, AlertTriangle } from 'lucide-react'
+import { Send, CheckCircle, AlertTriangle } from '@/components/illustrations/RumIkoner'
 import { IkonFel } from '@/components/illustrations/Ikoner'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 

@@ -8,7 +8,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import { KNAPP_PRIMAR } from '@/components/shell/knappar';

@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 interface ConsentModalProps {

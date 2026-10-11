@@ -8,7 +8,7 @@
 
 import { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 export interface LetterActionsProps {

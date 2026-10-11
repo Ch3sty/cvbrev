@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckSquare, Square } from 'lucide-react';
+import { CheckSquare, Square } from '@/components/illustrations/RumIkoner';
 import type { SelectCategory } from './CategorySegments';
 
 interface CategoryHeroProps {

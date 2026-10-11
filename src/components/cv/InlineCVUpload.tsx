@@ -2,7 +2,7 @@
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useCallback } from 'react';
-import { Upload, FileText, X } from 'lucide-react';
+import { Upload, FileText, X } from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
 

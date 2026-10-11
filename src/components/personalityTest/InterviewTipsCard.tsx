@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageSquareQuote } from 'lucide-react';
+import { MessageSquareQuote } from '@/components/illustrations/RumIkoner';
 import { interviewTips } from '@/lib/personalityTest/insights';
 import type { BigFiveScores } from '@/lib/personalityTest/types';
 

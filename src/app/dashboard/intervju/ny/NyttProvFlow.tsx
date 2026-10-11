@@ -13,7 +13,7 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { AlertTriangle, ArrowUp, Clock, PenLine } from 'lucide-react'
+import { AlertTriangle, ArrowUp, Clock, PenLine } from '@/components/illustrations/RumIkoner'
 import FlowShell from '@/components/shell/FlowShell'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import MarginPlate from '@/components/shell/MarginPlate'

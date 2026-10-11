@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 
-import { ChevronDown, ChevronUp, FileText } from 'lucide-react';
+import { ChevronDown, ChevronUp, FileText } from '@/components/illustrations/RumIkoner';
 import ReviewHeader from '../review/ReviewHeader';
 import ChangeLogList, { type ChangeLogData } from '../review/ChangeLogList';
 

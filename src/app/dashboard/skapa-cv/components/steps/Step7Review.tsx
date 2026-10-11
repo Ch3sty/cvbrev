@@ -5,7 +5,7 @@ import { kopstegHref } from '@/lib/onboarding/steps';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Camera, Linkedin, Check } from 'lucide-react';
+import { Camera, Linkedin, Check } from '@/components/illustrations/RumIkoner';
 import Link from 'next/link';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 

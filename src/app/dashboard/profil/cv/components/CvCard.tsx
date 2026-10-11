@@ -13,7 +13,7 @@
 
 import { KNAPP_SEKUNDAR_LAG } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
-import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from 'lucide-react';
+import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from '@/components/illustrations/RumIkoner';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 import dynamic from 'next/dynamic';
 

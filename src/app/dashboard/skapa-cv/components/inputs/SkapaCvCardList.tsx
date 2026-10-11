@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2 } from '@/components/illustrations/RumIkoner'
 
 interface CardItem {
   id: string

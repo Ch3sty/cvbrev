@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from '@/components/illustrations/RumIkoner';
 import { HighlightedText } from '../select/ImprovementCard';
 
 interface BeforeAfterFlowProps {

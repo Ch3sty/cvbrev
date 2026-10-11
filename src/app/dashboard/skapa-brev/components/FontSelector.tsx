@@ -12,7 +12,7 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 export type FontId =

@@ -1,7 +1,7 @@
 'use client';
 
 import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/illustrations/RumIkoner';
 import { IkonBrev, IkonCv } from '@/components/illustrations/Ikoner';
 import ChatTrustStrip from './ChatTrustStrip';
 

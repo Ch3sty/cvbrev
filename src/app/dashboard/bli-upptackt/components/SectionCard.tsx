@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from '@/components/illustrations/RumIkoner';
 import type { ReactNode } from 'react';
 
 /**

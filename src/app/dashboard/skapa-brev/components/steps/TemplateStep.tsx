@@ -12,7 +12,7 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import Sheet from '@/components/shell/Sheet';
 import { IkonMallar } from '@/components/illustrations/Ikoner';

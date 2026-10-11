@@ -18,7 +18,7 @@ import {
   Plus,
   Trash2,
   X,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import {
   CHANNEL_META,

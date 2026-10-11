@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import SectionCard, { type CollapseProps } from './SectionCard';
 
 const MAX_LENGTH = 280;

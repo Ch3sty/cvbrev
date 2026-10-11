@@ -1,6 +1,6 @@
 'use client';
 
-import { Award } from 'lucide-react';
+import { Award } from '@/components/illustrations/RumIkoner';
 import { RoundCheckbox } from './ImprovementCard';
 
 interface SkillSuggestion {

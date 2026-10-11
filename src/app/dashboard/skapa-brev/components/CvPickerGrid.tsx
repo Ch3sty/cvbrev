@@ -9,7 +9,7 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from '@/components/illustrations/RumIkoner';
 import ChoiceCard from '@/components/shell/ChoiceCard';
 import EmptyState from '@/components/shell/EmptyState';
 import { IkonCv } from '@/components/illustrations/Ikoner';

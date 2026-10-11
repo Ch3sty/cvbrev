@@ -18,7 +18,7 @@ import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search } from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
 import {

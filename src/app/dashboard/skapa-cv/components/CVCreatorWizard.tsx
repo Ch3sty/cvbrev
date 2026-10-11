@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';

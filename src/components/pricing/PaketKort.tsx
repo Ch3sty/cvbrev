@@ -19,7 +19,7 @@
  */
 
 import { useState } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight } from '@/components/illustrations/RumIkoner'
 
 import {
   IlluScenAllt,

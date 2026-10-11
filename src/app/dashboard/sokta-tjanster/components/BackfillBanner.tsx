@@ -10,7 +10,7 @@
 
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react';
-import { FileText, X } from 'lucide-react';
+import { FileText, X } from '@/components/illustrations/RumIkoner';
 
 /**
  * Snooze i 30 dagar, aldrig för alltid (planens avsnitt 5). Den som avfärdar

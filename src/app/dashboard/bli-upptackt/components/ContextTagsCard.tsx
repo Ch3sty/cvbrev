@@ -1,6 +1,6 @@
 'use client';
 
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import SectionCard from './SectionCard';
 
 interface ContextTagsCardProps {

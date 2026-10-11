@@ -1,7 +1,7 @@
 'use client';
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from '@/components/illustrations/RumIkoner';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface MallInfoCardProps {

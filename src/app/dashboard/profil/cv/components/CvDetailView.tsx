@@ -11,7 +11,7 @@ import {
   MapPin,
   Loader2,
   ChevronRight,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import type {
   ParsedCV,
   ParsedRole,

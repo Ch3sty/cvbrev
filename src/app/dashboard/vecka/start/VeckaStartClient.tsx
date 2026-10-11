@@ -20,7 +20,7 @@ import { KNAPP_PRIMAR as KNAPP_PRIMAR_BAS, KNAPP_SEKUNDAR as KNAPP_SEKUNDAR_BAS 
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { X } from 'lucide-react'
+import { X } from '@/components/illustrations/RumIkoner'
 import type { Scope } from '@/lib/access/features'
 import { useKomIgang } from '@/components/dashboard/KomIgangContext'
 import { IlluValkommenCv, IlluValkommenTest } from '@/components/illustrations/OnboardingScener'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { X } from 'lucide-react'
+import { X } from '@/components/illustrations/RumIkoner'
 import type { CVDraft } from '../CVCreatorWizard'
 import type { CVSkill } from '@/lib/cv/cv-metadata'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'

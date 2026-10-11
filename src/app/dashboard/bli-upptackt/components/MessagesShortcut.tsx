@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/illustrations/RumIkoner';
 import { IkonMeddelanden } from '@/components/illustrations/Ikoner';
 
 interface Props {

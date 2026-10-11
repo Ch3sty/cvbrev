@@ -2,7 +2,7 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useRef, useEffect } from 'react';
-import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from 'lucide-react';
+import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from '@/components/illustrations/RumIkoner';
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 

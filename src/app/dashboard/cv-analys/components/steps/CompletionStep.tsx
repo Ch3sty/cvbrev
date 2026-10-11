@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
-import { Download } from 'lucide-react';
+import { Download } from '@/components/illustrations/RumIkoner';
 
 import Confirmation from '@/components/shell/Confirmation';
 import { IlluBrevBekraftat } from '@/components/illustrations/TradenScener';

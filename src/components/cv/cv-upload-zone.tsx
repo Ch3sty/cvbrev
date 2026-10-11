@@ -10,7 +10,7 @@ import {
   Shield,
   Check,
   AlertCircle,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
 
 type UploadPhase = 'uploading' | 'vision';

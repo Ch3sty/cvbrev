@@ -16,8 +16,8 @@ import {
   CircleSlash,
   ChevronDown,
   ChevronUp,
-  type LucideIcon,
-} from 'lucide-react';
+  type IkonTyp as LucideIcon,
+} from '@/components/illustrations/RumIkoner';
 import { STATUS_META, type ApplicationEventType } from '@/lib/applications/status';
 import SheetShell from './SheetShell';
 

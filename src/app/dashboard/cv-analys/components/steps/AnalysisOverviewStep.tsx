@@ -9,7 +9,7 @@ import {
   Info,
   ChevronDown,
   ChevronUp,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import {
   Tooltip,
   TooltipContent,

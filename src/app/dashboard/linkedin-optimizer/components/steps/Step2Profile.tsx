@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown } from '@/components/illustrations/RumIkoner'
 import LinkedInProfileMockup, { type ProfileMockupData } from '../LinkedInProfileMockup'
 import SectionInput from '../SectionInput'
 import PasteHelper from '../PasteHelper'

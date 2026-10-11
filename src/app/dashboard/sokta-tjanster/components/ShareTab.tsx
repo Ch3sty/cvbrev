@@ -14,7 +14,7 @@ import {
   ClipboardCopy,
   Check,
   Trash2,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
 import type { ApplicationStats, JobApplication } from '@/lib/applications/status';

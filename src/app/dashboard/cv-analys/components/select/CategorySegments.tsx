@@ -1,6 +1,6 @@
 'use client';
 
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 
 export type SelectCategory = 'profile' | 'roles' | 'skills' | 'auto';
 

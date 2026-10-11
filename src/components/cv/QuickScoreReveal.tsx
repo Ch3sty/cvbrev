@@ -14,7 +14,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { KNAPP_PRIMAR, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
-import { Check } from 'lucide-react'
+import { Check } from '@/components/illustrations/RumIkoner'
 import { logUserActivity } from '@/lib/activity-logger'
 import { IlluCvPoang } from '@/components/illustrations/DashboardIllustrations'
 

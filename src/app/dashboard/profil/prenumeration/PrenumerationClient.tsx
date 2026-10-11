@@ -23,7 +23,7 @@
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, Slash, X } from 'lucide-react';
+import { ChevronRight, Slash, X } from '@/components/illustrations/RumIkoner';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import { RUBRIK } from '@/lib/rum/copy';

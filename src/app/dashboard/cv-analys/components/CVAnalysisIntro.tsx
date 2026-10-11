@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
+import { ArrowRight, Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';

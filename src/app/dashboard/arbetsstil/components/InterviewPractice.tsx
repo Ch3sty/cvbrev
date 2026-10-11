@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Ear } from 'lucide-react';
+import { Ear } from '@/components/illustrations/RumIkoner';
 import type { InterviewQuestion } from '@/lib/recruiter/workStyle';
 
 interface InterviewPracticeProps {

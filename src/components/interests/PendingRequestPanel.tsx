@@ -1,7 +1,7 @@
 'use client';
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from '@/components/illustrations/RumIkoner';
 import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaAnsokan } from '@/components/illustrations/TradenScener';
 import { type CandidateInterest } from './hubTypes';

@@ -3,7 +3,7 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
-import { Upload, Lock } from 'lucide-react';
+import { Upload, Lock } from '@/components/illustrations/RumIkoner';
 import { formatCVDate } from '@/lib/utils/date-formatter';
 
 import ChoiceCard from '@/components/shell/ChoiceCard';

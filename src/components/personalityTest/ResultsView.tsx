@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Home, RotateCcw } from 'lucide-react';
+import { Home, RotateCcw } from '@/components/illustrations/RumIkoner';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';

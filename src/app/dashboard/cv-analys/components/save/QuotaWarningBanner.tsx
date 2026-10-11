@@ -2,7 +2,7 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from '@/components/illustrations/RumIkoner';
 import CVQuotaManager from '../CVQuotaManager';
 
 interface QuotaWarningBannerProps {

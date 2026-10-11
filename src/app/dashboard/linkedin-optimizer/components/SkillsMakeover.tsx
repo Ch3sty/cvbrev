@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight } from '@/components/illustrations/RumIkoner'
 import { useMemo } from 'react'
 
 interface SkillSuggestion {

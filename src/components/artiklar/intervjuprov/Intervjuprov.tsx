@@ -19,7 +19,7 @@
 
 import { useEffect, useId, useRef, useState, type MutableRefObject } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Lock } from 'lucide-react'
+import { ArrowRight, Lock } from '@/components/illustrations/RumIkoner'
 import { capture } from '@/lib/analytics/events'
 import { storePendingIntervju } from '@/lib/letters/claim-draft-client'
 import { IlluBlurGate } from '@/components/illustrations/StartFlowIllustrations'

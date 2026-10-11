@@ -3,7 +3,7 @@
 // Kort i ansökningslistan: företag, tjänst, status-pill, tid sedan senaste
 // händelse och progress-dots. Hela kortet är klickbart och öppnar detaljvyn.
 
-import { Building2, MapPin, FileText } from 'lucide-react';
+import { Building2, MapPin, FileText } from '@/components/illustrations/RumIkoner';
 import {
   CHANNEL_META,
   shouldShowNoResponseNudge,

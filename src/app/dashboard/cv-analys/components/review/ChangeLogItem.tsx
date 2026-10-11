@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, User, Briefcase, Award, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, User, Briefcase, Award, CheckCircle2 } from '@/components/illustrations/RumIkoner';
 import BeforeAfterFlow from './BeforeAfterFlow';
 
 export type ChangeLogItemType = 'profile' | 'role' | 'skills' | 'auto';

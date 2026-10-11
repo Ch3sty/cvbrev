@@ -12,7 +12,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Info, HelpCircle, ArrowRight } from 'lucide-react'
+import { Mail, Info, HelpCircle, ArrowRight } from '@/components/illustrations/RumIkoner'
 import { IkonMeddelanden, IkonHjalp, IkonSkold } from '@/components/illustrations/Ikoner'
 
 interface KontaktInfoProps {

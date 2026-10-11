@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check } from 'lucide-react'
+import { Check } from '@/components/illustrations/RumIkoner'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import SkillsMakeover from './SkillsMakeover'

@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
-import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from 'lucide-react';
+import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from '@/components/illustrations/RumIkoner';
 
 interface Improvements {
   hasQuantification?: boolean;

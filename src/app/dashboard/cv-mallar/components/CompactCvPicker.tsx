@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { FileText, ChevronDown, Check, Plus } from 'lucide-react';
+import { FileText, ChevronDown, Check, Plus } from '@/components/illustrations/RumIkoner';
 import { formatCVDate } from '@/lib/utils/date-formatter';
 
 /** Maste matcha langden pa cvPickerOut nedan. */

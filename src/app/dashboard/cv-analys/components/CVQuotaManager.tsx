@@ -5,7 +5,7 @@ import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from '@/components/illustrations/RumIkoner';
 import { createClient } from '@/lib/supabase/client';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 

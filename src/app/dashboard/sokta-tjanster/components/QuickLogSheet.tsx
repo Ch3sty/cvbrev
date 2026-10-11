@@ -5,7 +5,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from '@/components/illustrations/RumIkoner';
 import {
   CHANNEL_META,
   type ApplicationChannel,

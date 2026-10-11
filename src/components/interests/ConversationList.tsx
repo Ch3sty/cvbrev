@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import ConversationListItem from './ConversationListItem';
 import type { CandidateInterest } from './hubTypes';
 

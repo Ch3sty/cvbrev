@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Crown, Lock } from 'lucide-react';
+import { Crown, Lock } from '@/components/illustrations/RumIkoner';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface TemplateSelectorProps {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown } from '@/components/illustrations/RumIkoner'
 
 const STEPS = [
   { title: 'Öppna LinkedIn', desc: 'Gå till din profilsida.' },

@@ -3,7 +3,7 @@
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import { CONTEXT_TAG_MICROCOPY } from '@/lib/recruiter/workStyle';
 import SectionCard, { type CollapseProps } from './SectionCard';
 import WorkStyleReportView from './WorkStyleReportView';

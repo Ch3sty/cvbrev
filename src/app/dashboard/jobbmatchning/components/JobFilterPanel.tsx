@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useMemo, useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 import { groupJobsByRegion, type RegionGroup } from '../data/job-filtering';
 

@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from '@/components/illustrations/RumIkoner';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 import { initialFor, type CandidateInterest } from './hubTypes';

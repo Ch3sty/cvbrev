@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Crown, ArrowRight, Eye } from 'lucide-react';
+import { Crown, ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
 
 import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
