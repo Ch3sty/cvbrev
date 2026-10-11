@@ -20,7 +20,7 @@ export type Lage = (typeof LAGEN)[number]
 export const LAGE_NAMN: Record<Lage, string> = {
   full: 'Allt, jämförelse visas',
   under25: 'Under 25, räknarna',
-  klassiska: 'Utan mätning, bara klassiska',
+  klassiska: 'Utan nivåkoll, bara klassiska',
   gratis: 'Gratisnivån, utan historik',
   tomt: 'Tomt läge',
 }

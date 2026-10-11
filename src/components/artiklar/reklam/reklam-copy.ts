@@ -66,7 +66,7 @@ export interface InlineCopy {
 export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, InlineCopy> = {
   test: {
     rubrik: 'Öva på frågorna innan de räknas',
-    text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Fem frågor gratis här. Mätning och första passet gratis med konto.',
+    text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Fem frågor gratis här. Nivåkollen och första passet gratis med konto.',
     knapp: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
     paketrad: `Alla nivåer, övningsprov mot klockan och fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
@@ -138,7 +138,7 @@ export const SIDO: Record<'cv' | 'test' | 'allt', SidoCopy> = {
     text: PLAN.beskrivning,
     belopp: `${PLAN.amount} kr`,
     under: `${PLAN.suffix}, ingen bindningstid`,
-    gratisrad: `Fem frågor gratis här. Mätning och första passet gratis med konto. Resten ingår i ${KORT}.`,
+    gratisrad: `Fem frågor gratis här. Nivåkollen och första passet gratis med konto. Resten ingår i ${KORT}.`,
   },
   cv: {
     etikett: NAMN,
@@ -229,7 +229,7 @@ export const GRATIS_KORT = {
     'En CV-analys med poäng och tyngsta fyndet',
     `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
     `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till Jobbcoachen`,
-    'En nivåmätning i testerna med genomgång, och ett första träningspass',
+    'En nivåkoll i testerna med genomgång, och ett första träningspass',
   ],
   knapp: 'Skapa konto gratis',
   href: '/register',

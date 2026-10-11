@@ -187,7 +187,7 @@ export const GRATIS = {
     { text: ', ' },
     { text: 'tio frågor', fet: true },
     { text: ' till Jobbcoachen, och ' },
-    { text: 'en nivåmätning i testerna', fet: true },
+    { text: 'en nivåkoll i testerna', fet: true },
     { text: ' med full genomgång och ett första träningspass samma dag.' },
   ],
   knapp: 'Skapa konto gratis',
@@ -252,7 +252,7 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: ingarGratis('en nivåmätning med genomgång och ett första träningspass.'),
+      sub: ingarGratis('en nivåkoll med genomgång och ett första träningspass.'),
       text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I övningsprovet går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
       steg: [
         'Diagnostest på grundnivå visar var du står per typ.',
@@ -346,7 +346,7 @@ export const FORTROENDE_RADER = FORTROENDE.map((f) => ({ key: f.key, text: f.rub
 export const SPARVAL = {
   primar: (_paket?: PaketId, _plan?: PlanKey) => kopKnapp(),
   sekundar: 'Börja gratis i stället',
-  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, en nivåmätning i testerna`,
+  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, en nivåkoll i testerna`,
 } as const
 
 /* ----------------------------------------------------------- köpsteget */

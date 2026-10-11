@@ -113,7 +113,7 @@ describe('reklamkortens texter', () => {
     for (const t of TEXTER) {
       expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/)
     }
-    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Mätning och första passet gratis med konto. Resten ingår i Premium.')
+    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Nivåkollen och första passet gratis med konto. Resten ingår i Premium.')
   })
 
   it('gratisbrevet är ett per brevfönster, aldrig ett om dagen', () => {

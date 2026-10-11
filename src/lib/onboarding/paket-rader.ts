@@ -152,7 +152,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'tester':
       return scopeHasFeature(s, 'tests_above_base')
         ? { text: 'Alla typer, alla nivåer, övningsprov mot klockan', ingar: true }
-        : { text: 'Nivåmätning och ett första pass', ingar: true }
+        : { text: 'Nivåkollen och ett första pass', ingar: true }
     case 'cv':
     case 'analys':
       return scopeHasFeature(s, 'cv_analysis_full')
@@ -221,7 +221,7 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
     return {
       statusrad: null,
       rubrik: null,
-      ingress: `En nivåmätning med genomgång och ett första träningspass ingår gratis. Att träna vidare, övningsprov och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
+      ingress: `En nivåkoll med genomgång och ett första träningspass ingår gratis. Att träna vidare, övningsprov och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
     }
   }
   return { statusrad: null, rubrik: null, ingress: null }

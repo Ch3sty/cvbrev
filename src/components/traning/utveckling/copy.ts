@@ -9,21 +9,21 @@ import { ordTal } from '@/lib/tester/resultat'
 
 export const UTV = {
   rubrik: 'Din utveckling',
-  rad: 'Passen flyttar nivån lite, nivåmätningen mer.',
+  rad: 'Passen flyttar nivån lite, nivåkollen mer.',
   radUtanKurva: 'Resultaten från de klassiska testerna, nivå för nivå.',
   kurvaHjalp: 'Vad är nivån?',
   stat: { idag: 'nivå i dag', matning: 'vid start', sikte: 'mål' },
   nivanUpp: 'Nivån upp',
-  legend: { pass: 'pass', matning: 'nivåmätning', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
+  legend: { pass: 'pass', matning: 'nivåkoll', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
   utanKurva: {
-    titel: 'Nivåkurvan börjar när du mätt din nivå.',
+    titel: 'Nivåkurvan börjar med din första nivåkoll.',
     text: 'Tolv uppgifter i logiktestet, från lätta till svåra. Sedan en punkt per pass.',
-    knapp: 'Mät din nivå',
+    knapp: 'Kolla min nivå, 8 min',
   },
   tomt: {
     titel: 'Här ritas din kurva',
     text: 'Gör ditt första test så ser du var du står, hur nivåerna ligger mot varandra och var tiden tar slut.',
-    knapp: 'Mät din nivå i logik',
+    knapp: 'Kolla min nivå i logik',
     lank: 'Alla tester',
   },
 
@@ -61,7 +61,7 @@ export const UTV = {
   tappar: {
     rubrik: 'Var du tappar',
     bara: 'Gäller logiktestet. För text och siffror räknar vi inte mönster än.',
-    tomt: 'Mönstren räknas när du gjort mätningen eller ett pass i logiktestet.',
+    tomt: 'Mönstren räknas när du gjort nivåkollen eller ett pass i logiktestet.',
     tomtTitel: 'Inga mönster än',
     inget: 'Inget tapp än',
     ingetText: 'Alla mönster med minst två frågor har gått rätt hittills.',

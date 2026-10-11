@@ -11,6 +11,8 @@
 //   node scripts/grep-rummen.mjs --vag 4 --noll  # våg 1b:s grindar plus grep-listan noll i inloggat
 //     utanför testrummets kataloger (våg 2/3b), alias, lucide, InkPanel/PageHeader/MarginPlate
 //     och CreateSheet (spec avsnitt 6, våg 4)
+//   node scripts/grep-rummen.mjs --vag tester-v2 --noll # ordbytet i Testerna v2: mätning,
+//     generalrepetition och provläge noll i strängar i src (kodnycklar och kommentarer undantagna)
 //   node scripts/grep-rummen.mjs --vag 1b --noll # grindarna efter våg 1b (spec 13.1 och 13.9):
 //     text-gray-, bg-white, bg-gray-, border-gray- är noll i allt som renderas
 //     i inloggat (rummen-omfang.mjs), utom src/components/ui, dokumentytorna
@@ -379,10 +381,84 @@ if (vag === '5') {
   }
 }
 
+// ------------------------------------------------------------ testerna v2
+// Ordbytet i Testerna v2 (riktlinjer-tester-v2 5.4 och ägarbeslutet
+// 2026-10-11): mätning, nivåmätning, ommätning, "mät igen", generalrepetition
+// och provläge är noll i strängar och JSX-text i hela src. Kommentarer och
+// identifierare räknas inte, inte heller strängar som är kodnycklar (inga
+// mellanslag, bara gemener, siffror, _ och -: händelsenamn, milstolpsnycklar
+// och test_type står kvar med flit). Undantag som i våg 5: admin, cron och
+// yrkestexterna där "mätning" betyder något annat.
+let grindV2 = 0
+if (vag === 'tester-v2') {
+  const UNDANTAGV2 = [
+    /^src\/app\/admin\//,
+    /^src\/app\/api\/admin\//,
+    /^src\/app\/api\/cron\//,
+    /^src\/lib\/admin\//,
+    /^src\/components\/admin\//,
+    /^src\/app\/\(public\)\/cv-exempel\//,
+    /^src\/app\/\(public\)\/personligt-brev-exempel\//,
+    /^src\/app\/\(public\)\/cv-mallar\/yrkesmall-content\.ts$/,
+    // CV-förslagens yrkestext ("resultatmätning") handlar inte om testerna.
+    /^src\/lib\/cv\//,
+    /__tests__\//,
+    /\.test\.tsx?$/,
+  ]
+  const ORD = /[Nn]ivåmätning|[Oo]mmätning|[Mm]ätning|[Mm]ät igen|[Gg]eneralrepetition|[Pp]rovläge/
+  const kodnyckel = (s) => /^['"`][a-z0-9_\-:.\/]*['"`]$/.test(s)
+  const strangarV2 = (rad) => {
+    const utan = rad.replace(/(^|\s)\/\/.*$/, '').replace(/\{\/\*.*?\*\/\}/g, '').replace(/\/\*.*?\*\//g, '')
+    const ut = []
+    for (const m of utan.matchAll(/'([^'\\]|\\.)*'|"([^"\\]|\\.)*"|`([^`\\]|\\.)*`|>[^<>{}=]+</g)) {
+      if (!kodnyckel(m[0])) ut.push(m[0])
+    }
+    return ut.join(' ')
+  }
+  const kodraderV2 = (text) => {
+    const ut = []
+    let iBlock = false
+    text.split(/\r?\n/).forEach((rad, i) => {
+      const t = rad.trim()
+      if (iBlock) {
+        if (t.includes('*/')) iBlock = false
+        return
+      }
+      if ((t.startsWith('/*') || t.startsWith('{/*')) && !t.includes('*/')) {
+        iBlock = true
+        return
+      }
+      if (/^(\/\/|\*|\/\*|\{\/\*)/.test(t) || t.endsWith('*/}')) return
+      ut.push([i + 1, rad])
+    })
+    return ut
+  }
+  const tsOchTsx = (dir) => {
+    const ut = []
+    for (const d of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, d.name)
+      if (d.isDirectory()) ut.push(...tsOchTsx(p))
+      else if (/\.(ts|tsx)$/.test(p)) ut.push(p)
+    }
+    return ut
+  }
+  const omfangV2 = tsOchTsx('src')
+    .map((f) => f.split(path.sep).join('/'))
+    .filter((f) => !UNDANTAGV2.some((u) => u.test(f)))
+  const traffar = []
+  for (const f of omfangV2) {
+    for (const [nr, r] of kodraderV2(fs.readFileSync(f, 'utf8'))) {
+      if (ORD.test(strangarV2(r))) traffar.push(`${f}:${nr}  ${r.trim().slice(0, 110)}`)
+    }
+  }
+  grindV2 = traffar.length
+  rader.push('', `## Testerna v2: gamla ord i strängar (${omfangV2.length} filer i src): ${traffar.length} träffar`, ...traffar.map((t) => `       ${t}`))
+}
+
 const text = rader.join('\n') + '\n'
 process.stdout.write(text)
 const i = process.argv.indexOf('--ut')
 if (i >= 0) fs.writeFileSync(process.argv[i + 1], text)
 if (process.argv.includes('--noll')) {
-  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : vag === '3b' ? grind3b > 0 : vag === '4' ? grind1b + grind4 > 0 : vag === '5' ? grind5 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
+  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : vag === '3b' ? grind3b > 0 : vag === '4' ? grind1b + grind4 > 0 : vag === '5' ? grind5 > 0 : vag === 'tester-v2' ? grindV2 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
 }
