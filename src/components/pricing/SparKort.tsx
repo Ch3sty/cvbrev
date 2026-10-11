@@ -16,11 +16,6 @@ import type { ComponentType } from 'react'
 
 export interface SparKortProps {
   Scen: ComponentType<{ className?: string }>
-  /**
-   * Ritar ingenting sedan kopparkanten togs bort (24.3 punkt 1). Står kvar
-   * så att anroparna (ForslagSteg) inte går sönder; kan tas bort där.
-   */
-  markerad?: boolean
   /** Etiketten över rubriken, till exempel "Förslag utifrån ditt val". */
   eyebrow?: string
   /** Etiketten i koppar-ink eller dämpad. */

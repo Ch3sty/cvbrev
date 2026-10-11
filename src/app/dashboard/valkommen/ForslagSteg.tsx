@@ -119,7 +119,6 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
         <div className="mt-4">
           <SparKort
             Scen={SCEN[intent]}
-            markerad
             eyebrow={STEG3.eyebrow}
             eyebrowTon="dampad"
             rubrik={copy.kortRubrik}
