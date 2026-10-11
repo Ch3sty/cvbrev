@@ -28,7 +28,7 @@
         "text": "Brukarna i kommunen är mer nöjda med hemtjänsten sedan schemaverktyget infördes.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten tar upp restid, stress och kontinuitet men säger inget om hur nöjda brukarna är. Påståendet kan varken bekräftas eller motsägas, så sant och falskt går inte att välja."
+        "explanation": "Texten tar upp restid, stress och kontinuitet men säger inget om hur nöjda brukarna är. Därför går det inte att avgöra om påståendet stämmer."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -77,10 +77,10 @@
     "text": "Sedan distansarbetet blev vanligt står många kontorsplatser tomma stora delar av veckan. Mätningar på flera myndigheter visar att beläggningen sällan når över hälften av platserna, och på fredagar är den ofta betydligt lägre. För en arbetsgivare som hyr lokaler är det en tydlig kostnad. Flera organisationer har därför sagt upp delar av sina hyresavtal och infört flexibla platser, där medarbetarna inte har ett eget skrivbord utan bokar en plats de dagar de kommer in. Ekonomiskt är resonemanget enkelt: mindre yta ger lägre hyra, och pengarna kan användas i verksamheten. Arbetsmiljöforskare ser däremot risker. När platserna inte räcker till på tisdagar och onsdagar, som är de mest populära dagarna, uppstår trängsel och irritation. Det blir också svårare för nyanställda att lära sig arbetet när de inte vet var kollegorna sitter. Vissa chefer beskriver att medarbetare som en gång mött ett fullt kontor väljer att stanna hemma nästa gång, vilket försvagar gemenskapen. Förespråkarna för mindre yta menar att problemen går att lösa med tydliga överenskommelser om vilka dagar olika grupper ska vara på plats. Kritikerna tvivlar på att sådana överenskommelser håller över tid.",
     "statements": [
       {
-        "text": "På de myndigheter som mätts används oftast mindre än hälften av kontorsplatserna.",
+        "text": "På de myndigheter som mätts används oftast högst hälften av kontorsplatserna.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att beläggningen sällan når över hälften av platserna. Att den sällan når över hälften betyder att den oftast ligger under, så påståendet är sant och inte obestämt."
+        "explanation": "Det står i texten att beläggningen sällan når över hälften av platserna. Att den sällan når över hälften betyder att den oftast ligger på hälften eller under, så påståendet är sant och inte obestämt."
       },
       {
         "text": "Den som har flexibel plats kan komma in en tisdag och upptäcka att det saknas lediga skrivbord.",
@@ -133,7 +133,7 @@
         "text": "Regioner med enhetstaxa har fått fler resenärer än regioner som behållit zonsystemet.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten återger förespråkarnas förhoppning om fler resenärer men redovisar inga jämförelser mellan regioner. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+        "explanation": "Texten återger förespråkarnas förhoppning om fler resenärer men redovisar inga jämförelser mellan regioner. En förhoppning är inget resultat, så påståendet går inte att avgöra."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -203,7 +203,7 @@
         "text": "Byggföretag som arbetar med återbruk har svårare att vinna kommunala upphandlingar.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten nämner att kommuner ställer krav på återbruk men säger inget om vilka företag som vinner upphandlingar. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+        "explanation": "Texten nämner att kommuner ställer krav på återbruk men säger inget om vilka företag som vinner upphandlingar. Svaret finns inte i texten."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -229,10 +229,10 @@
         "explanation": "Texten säger att de stora föreningarna varnar för att projektstöd gör ekonomin osäker, och att pengarna kan utebli nästa år. Det är motsatsen till förutsägbarhet, så påståendet är falskt och inte obestämt."
       },
       {
-        "text": "Små föreningar för schack eller folkdans når alltid grupper som annars står utanför föreningslivet.",
-        "correctAnswer": "cannot_say",
+        "text": "I samtliga kommuner räknas föreningsstödet ut efter antalet medlemmar.",
+        "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Texten säger att en liten förening kanske når grupper som annars står utanför. Kanske varken bekräftar eller motsäger att det alltid sker, så sant och falskt går inte att välja."
+        "explanation": "Texten säger att det vanligast är att stödet räknas ut efter antalet medlemmar eller aktiviteter, och att vissa kommuner också har ett projektstöd som bedöms efter syfte och målgrupp. Vanligast betyder att det finns kommuner som gör på annat sätt, så påståendet motsägs och är falskt."
       },
       {
         "text": "Projektstödet har lett till att fler ungdomar i utsatta bostadsområden blivit medlemmar i en förening.",
@@ -273,7 +273,7 @@
         "text": "Det är främst äldre patienter som får sina remisser återskickade från mottagningen.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten berättar att remisser skickas tillbaka men säger inget om vilka patienter det gäller. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+        "explanation": "Texten berättar att remisser skickas tillbaka men säger inget om vilka patienter det gäller. Om det gäller äldre eller yngre patienter framgår inte."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
