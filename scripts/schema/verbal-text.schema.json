@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobbcoach.ai/schema/verbal-text.schema.json",
+  "title": "Verbal text, avancerad",
+  "description": "En text med fyra påståenden, samma form som verbalTestV2/questionBank.json plus frivilliga fält. Dokumentation: valideringen görs i scripts/validate-verbal-bank.mjs.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "title", "difficulty", "topic", "text", "statements"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^va-\d{2}-[a-z0-9-]+$" },
+      "title": { "type": "string" },
+      "difficulty": { "type": "integer", "minimum": 1, "maximum": 3 },
+      "topic": { "enum": ["Arbetsliv", "Samhälle", "Hälsa", "Miljö", "Ekonomi", "Teknik", "Utbildning", "Kultur"] },
+      "text": { "type": "string", "description": "180 till 220 ord, två ståndpunkter" },
+      "statements": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "required": ["text", "correctAnswer", "explanation"],
+          "properties": {
+            "text": { "type": "string", "description": "högst 25 ord, inga åtta ord i följd ur texten" },
+            "correctAnswer": { "enum": ["true", "false", "cannot_say"] },
+            "typ": { "enum": ["direkt", "slutledning", "kvantor", "utanfor"] },
+            "explanation": { "type": "string", "description": "minst 15 ord, säger vad i texten som avgör" }
+          }
+        }
+      },
+      "kalla": { "type": "string" },
+      "p_prior": { "type": "number", "minimum": 0.05, "maximum": 0.95 }
+    }
+  }
+}
