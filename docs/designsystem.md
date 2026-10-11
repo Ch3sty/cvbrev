@@ -379,7 +379,23 @@ symbol, aldrig en bakgrundscirkel:
 
 `Ikoner.tsx` behålls för rader. Instrumenten är bilden i rummen; scenerna
 (`PriserScener`, `TradenScener`) används inte i inloggat efter våg 4.
-Aldrig Sparkles, aldrig emoji.
+Aldrig gnistikonen, aldrig emoji.
+
+Våg 4: lucide är ute ur inloggat. `src/components/illustrations/RumIkoner.tsx`
+är golvets ikonsats, egna ritningar i samma hand som `RumSymboler` (24,
+kontur 1,75, rundade ändar, ingen fyllning, ingen koppar) med namn som
+speglar de gamla så att bytet var en import. Nya vyer tar `RumSymboler` och
+`Ikoner` direkt.
+
+Tomma tillstånd (`EmptyState` och de tomma lägena i Bli upptäckt och
+Matchade jobb) står i `.tomt-symbol`: konturen i rummets `ton-ink`, ytorna
+genomskinliga, ingen kopparyta. Ikoner står aldrig på en färgad ruta;
+`MarginPlate` används inte i inloggat.
+
+Instrumenten i våg 4, alla serverrenderade SVG med `aria-label` som läser ut
+allt: `Spar` (Jobbsöket, spåret per sökt tjänst, mobil 380 och dator 420),
+`Poangring` (CV-rummet, 112 px, analysens läsbarhetspoäng) och `Veckorad`
+med egna celler för CV:ts väg och brevets träffar mot annonsen.
 
 ## 8. Rörelse
 
@@ -440,6 +456,14 @@ grep -rnE "—|Sparkles|bg-gradient|linear-gradient|animate-pulse|shadow-(sm|md|
 # Lucide i nav och rum (tillåts i FlowShell/PassShell för X och ChevronLeft till våg 1b)
 grep -rln "lucide-react" src/components/dashboard src/components/shell src/components/rum src/app/dashboard/DashboardShell.tsx
 ```
+
+Efter våg 4 är grinden `node scripts/grep-rummen.mjs --vag 4 --noll`: hela
+listan ovan plus lucide, Trådens alias (`bg-panel`, `bg-insunken`, `accent`
+och de andra), `InkPanel`, `PageHeader`, `MarginPlate` och `CreateSheet`, i
+allt som renderas i inloggat. Testrummets kataloger (`src/app/dashboard/tester`,
+`src/components/tests`, `src/components/traning`, `src/components/personalityTest`,
+`src/lib/logicTestV7`) räknas för sig tills våg 2 och 3b är klara; aliasen i
+`globals.css` står kvar bara för dem.
 
 Plus: inga engelska gränssnittsord, och `dark:`-klasser används inte alls
 (mörkt läge sker via variabler). Undantag som skrivs upp: `bg-white` i CV-
@@ -577,6 +601,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-11 (våg 4).** CV-rummet med poängringen, fynden med analysens egna plustal och dokumentets väg (C1), brevvyn med träffarna mot annonsens krav och "Spara som sökt tjänst" (B1), Jobbsökets hem med spåret, korsreferensen och Mer i Jobbsöket (J1, J2). `/dashboard` landar i senaste rummet. Lucide ute ur inloggat (`RumIkoner`), Trådens alias ute utanför testrummet, `MarginPlate` och `CreateSheet` borta, tomma tillstånd i `.tomt-symbol`, flikar och filterchips i rummets ton, `LANK_FEL` för destruktiva länkar.
 
 **v3, Rummen, 2026-10-11 (1b, granskning).** Lyftet tillbaka i alla vyer: väggen bär aldrig primärknappen, `RumHuvud handling` i stället för `action`, `LyftKort` först på golvet, h1 är undersidans namn, kategori-eyebrows borta, Kom igång-raden på papper med kopparring, kontoraden på två rader, `KNAPP_GLAS` i automatisk bredd, `KNAPP_SEKUNDAR_LAG`, `Dagsring` utan uppvärmning. Testrummets dörr heter Tester på mobil och Rekryteringstester på dator.
 
