@@ -166,7 +166,7 @@ export function provlageFormat(uppgifter: number, minuter: number): string {
 export const BLI_UPPTACKT = {
   rubrik: UNDERSIDA.bliUpptackt,
   radFore:
-    'Låt rekryterare hitta dig. Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen. Du är anonym tills du själv godkänner en kontakt.',
+    'Rekryterare som söker din bakgrund kan hitta dig i kandidatpoolen. Du är anonym tills du själv godkänner en kontakt.',
   radEfter: 'Profilen är anonym och visas för rekryterare.',
   /** Läggs efter radEfter när någon tittat. */
   tittat: (n: number) => (n === 1 ? 'En rekryterare har sett den.' : `${n} rekryterare har sett den.`),
@@ -188,7 +188,7 @@ export const LYFT = {
   },
   soktaTjanster: {
     eyebrow: 'Nytt',
-    titel: 'Logga ett sökt jobb',
+    titel: 'Logga en sökt tjänst',
     text: 'Företag, tjänst och datum räcker. Vi påminner när det är dags att följa upp.',
   },
   test: {
