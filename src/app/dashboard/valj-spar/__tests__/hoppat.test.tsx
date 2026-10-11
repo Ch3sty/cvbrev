@@ -8,14 +8,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { landningsgren, HOPPAT_PARAM, type SignupCookie } from '@/components/registrering/intent'
-import { SPARVAL } from '@/components/pricing/paket-copy'
+import { KOPSTEG, SPARVAL } from '@/components/pricing/paket-copy'
 import { SPARVAL_GRATIS } from '@/lib/onboarding/program'
 
 const push = vi.fn()
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push, replace: vi.fn() }), usePathname: () => '/dashboard/valj-spar' }))
 vi.mock('@/lib/analytics/events', () => ({ capture: vi.fn(), identifyUser: vi.fn() }))
 
-import ValjSparClient from '../ValjSparClient'
+import ValjSparClient, { kopSource } from '../ValjSparClient'
 
 // FlowShell mäter sin fot med ResizeObserver, som jsdom saknar.
 globalThis.ResizeObserver ??= class {
@@ -41,7 +41,7 @@ describe('landningen efter Hoppa över', () => {
   })
 })
 
-describe('Börja gratis i spårvalet', () => {
+describe('Börja gratis i köpsteget', () => {
   const fetchMock = vi.fn(async () => new Response(JSON.stringify({ ok: true }), { status: 200 }))
   beforeEach(() => {
     push.mockClear()
@@ -65,8 +65,69 @@ describe('Börja gratis i spårvalet', () => {
     expect(push).not.toHaveBeenCalled()
   })
 
-  it('med paket i adressen öppnas köpsteget direkt', () => {
-    render(<ValjSparClient initialTrack="cv" initialPlanKey="cv_week" oppnaKopsteg />)
-    expect(screen.getByText('Steg 2 av 2')).toBeTruthy()
+  it('med ett sparat spår går Börja gratis direkt till hemskärmen', async () => {
+    render(<ValjSparClient initialTrack="cv" />)
+    fireEvent.click(screen.getByRole('button', { name: SPARVAL.sekundar }))
+    await waitFor(() => expect(push).toHaveBeenCalledWith('/dashboard'))
+  })
+})
+
+// Spec-rummen våg 5: bara Jobbcoach Premium säljs. Köpsteget visas direkt,
+// utan spårval och utan längdval.
+describe('köpsteget', () => {
+  const fetchMock = vi.fn()
+  beforeEach(() => {
+    push.mockClear()
+    fetchMock.mockReset()
+    vi.stubGlobal('fetch', fetchMock)
+  })
+
+  const svar = (status: number, body: unknown) =>
+    new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
+
+  it('visar Premium direkt: fulla namnet i rubriken, prisraden i kort form', () => {
+    render(<ValjSparClient initialTrack={null} />)
+    expect(screen.getByRole('heading', { name: 'Jobbcoach Premium' })).toBeTruthy()
+    expect(screen.getByText(KOPSTEG.prisrad())).toBeTruthy()
+    expect(screen.queryByRole('radiogroup')).toBeNull()
+    expect(screen.getByRole('button', { name: KOPSTEG.primar() })).toBeTruthy()
+  })
+
+  it('skickar platsen som source till kassan', async () => {
+    fetchMock.mockImplementation(async (url: string) =>
+      url.includes('onboarding') ? svar(200, { ok: true }) : svar(200, { url: 'https://checkout.stripe.com/x' })
+    )
+    const href = vi.spyOn(window, 'location', 'get')
+    href.mockReturnValue({ href: '' } as Location)
+    render(<ValjSparClient initialTrack="allt" plats="matning" />)
+    fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.click(screen.getByRole('button', { name: KOPSTEG.primar() }))
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled())
+    const anrop = fetchMock.mock.calls.find(([u]) => String(u).includes('create-plan-session'))!
+    const kropp = JSON.parse((anrop[1] as RequestInit).body as string)
+    expect(kropp).toEqual({ plan: 'all_month', source: 'betalvagg:matning', consent: true })
+    href.mockRestore()
+  })
+
+  it('400 med saljs: false visas som fel, aldrig som klart', async () => {
+    fetchMock.mockImplementation(async (url: string) =>
+      url.includes('onboarding')
+        ? svar(200, { ok: true })
+        : svar(400, { error: 'Jobbcoach Premium är det vi säljer i dag.', saljs: false, plan: 'all_month' })
+    )
+    render(<ValjSparClient initialTrack="allt" />)
+    fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.click(screen.getByRole('button', { name: KOPSTEG.primar() }))
+    await waitFor(() => expect(screen.getByText(KOPSTEG.saljsInte)).toBeTruthy())
+  })
+})
+
+describe('kopSource', () => {
+  it('prissidan, registreringen och prenumerationen står för sig, resten är en betalvägg', () => {
+    expect(kopSource('priser')).toBe('priser')
+    expect(kopSource('registrering')).toBe('registrering')
+    expect(kopSource('prenumeration')).toBe('prenumeration')
+    expect(kopSource('matning')).toBe('betalvagg:matning')
+    expect(kopSource(null)).toBe('onboarding_paket')
   })
 })

@@ -116,7 +116,7 @@ export default function ValjSparClient({
         body: JSON.stringify({ track: valt }),
       })
       const json = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(json?.error || 'Kunde inte spara valet')
+      if (!res.ok) throw new Error(json?.error || KOPSTEG.sparaFel)
 
       if (valt) capture('track_selected', { track: valt, surface: 'onboarding', intent })
       const innan = (json?.previousTrack as Track | null) ?? null
@@ -126,7 +126,7 @@ export default function ValjSparClient({
       capture('onboarding_step_completed', { track: valt, step: 'track_choice', index: 0 })
       return true
     } catch (error: any) {
-      setFel(error?.message || 'Valet kunde inte sparas. Försök igen.')
+      setFel(error?.message || KOPSTEG.sparaFel)
       return false
     }
   }, [])
@@ -204,7 +204,7 @@ export default function ValjSparClient({
   }, [samtycke, busy, plan, plats, initialTrack, sparaSpar])
 
   const felBanner = fel ? (
-    <FlowError message={fel} onRetry={() => setFel(null)} retryLabel="Försök igen" />
+    <FlowError message={fel} onRetry={() => setFel(null)} retryLabel={KOPSTEG.forsokIgen} />
   ) : undefined
 
   /* ============================================================ gratisval */
@@ -212,7 +212,7 @@ export default function ValjSparClient({
   if (steg === 'gratisval') {
     return (
       <FlowShell
-        title="Kom igång"
+        title={KOPSTEG.topp}
         step={1}
         totalSteps={1}
         onBack={() => setSteg('kop')}
@@ -220,9 +220,9 @@ export default function ValjSparClient({
         primaryLabel={SPARVAL_GRATIS.primar}
         onPrimary={avslutaGratis}
         primaryDisabled={!gratisVal}
-        primaryBlockedReason="Välj vad du vill börja med."
+        primaryBlockedReason={KOPSTEG.gratisSparr}
         primaryBusy={busy}
-        busyLabel="Sparar"
+        busyLabel={KOPSTEG.sparar}
         banner={felBanner}
       >
         <p className="text-steg uppercase text-ink-3">{SPARVAL_GRATIS.steg}</p>
@@ -262,7 +262,7 @@ export default function ValjSparClient({
 
   return (
     <FlowShell
-      title="Kom igång"
+      title={KOPSTEG.topp}
       step={1}
       totalSteps={1}
       onExit={() => router.push('/dashboard')}

@@ -2,16 +2,15 @@
 import { describe, it, expect } from 'vitest'
 import {
   PAKET,
-  ALLT_LANGDER,
-  paketForTrack,
   PAKETSKARM,
+  FEL_SPAR,
   fornyelserad,
+  felSparKnapp,
   felSparRad,
   felSparText,
-  mellanskillnad,
   isTrack,
 } from '../program'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, kopKnapp } from '@/lib/plans/plans'
 import { requiredStepsForTrack, isTrackOnboardingComplete } from '../steps'
 
 describe('paketen', () => {
@@ -38,12 +37,14 @@ describe('paketen', () => {
     for (const paket of Object.values(PAKET)) expect(paket.ingar).toHaveLength(4)
   })
 
-  it('spåren har ingen längd att välja, Allt har fyra', () => {
-    expect(ALLT_LANGDER).toHaveLength(4)
-    expect(paketForTrack('cv').key).toBe('cv_week')
-    expect(paketForTrack('tester').key).toBe('test_week')
-    expect(paketForTrack('allt').key).toBe('all_week')
-    expect(paketForTrack('allt', 'all_month').key).toBe('all_month')
+  it('Premium per månad räknar upp det som ingår utan att nämna de gamla paketen', () => {
+    const rader = PAKET.all_month.ingar.join(' ')
+    expect(rader).not.toMatch(/CV-paketet|Träningspaketet|Hela paketet|fyra veckor/)
+    for (const p of Object.values(PAKET)) {
+      for (const r of [...p.ingar, p.ingarInte ?? '']) {
+        expect(r).not.toMatch(/Hela paketet|de andra paketen|allt i CV-paketet/i)
+      }
+    }
   })
 })
 
@@ -61,22 +62,28 @@ describe('kassans lagkravsrader', () => {
   })
 })
 
-describe('fel spår i taket', () => {
-  it('raden säger vad paketet ger, inte vad det saknar', () => {
+describe('fel spår i taket, för befintliga spårkunder', () => {
+  it('raden säger vad paketet ger och var resten ingår', () => {
     const rad = felSparRad('tester')
     expect(rad).toContain('Du har Träningspaketet')
-    expect(rad).not.toMatch(/ingår inte|saknas|låst/i)
+    expect(rad).toContain('ingår i Premium')
+    expect(rad).not.toMatch(/ingår inte|saknas|låst|CV-paketet/i)
+    expect(felSparRad('cv')).not.toContain('Träningspaketet')
   })
 
-  it('kortet pekar på Hela paketet för båda spåren', () => {
-    expect(felSparText('tester')).toContain('Hela paketet')
-    expect(felSparText('cv')).toContain('Hela paketet')
+  it('kortet pekar på Premium för båda spåren, aldrig i sidled', () => {
+    expect(felSparText('tester')).toContain('Premium')
+    expect(felSparText('cv')).toContain('Premium')
+    expect(felSparText('tester')).not.toContain('CV-paketet')
+    expect(felSparText('cv')).not.toContain('Träningspaketet')
   })
 
-  it('prisraden visar mellanskillnaden, aldrig hela paketpriset', () => {
-    expect(mellanskillnad(20)).toBe('Mellanskillnad, 20 kr')
-    expect(mellanskillnad(20)).not.toContain('99')
-    expect(mellanskillnad(null)).toBe('Bara mellanskillnaden')
+  it('knappen är köpknappen och prisraden bär fulla namnet med priset', () => {
+    expect(felSparKnapp()).toBe('Köp Premium, 149 kr i månaden')
+    expect(felSparKnapp(20)).toBe(kopKnapp())
+    expect(FEL_SPAR.prisrad).toBe('Jobbcoach Premium, 149 kr i månaden.')
+    expect(FEL_SPAR.proration).toContain('räknas av')
+    expect(FEL_SPAR.proration).not.toMatch(/Veckan fortsätter/)
   })
 })
 
@@ -105,16 +112,12 @@ describe('isTrack', () => {
   })
 })
 
-describe('dirigentens beslut D48b: dagläget mot löpande prenumeration', () => {
-  it('dagläget ligger kvar som längd, så raden ser likadan ut för alla', () => {
-    // Beslutet spärrar läget, det tar inte bort det. Fyra lägen alltid.
-    expect(ALLT_LANGDER).toContain('all_day')
-    expect(ALLT_LANGDER).toHaveLength(4)
-  })
-
-  it('en spärrad knapp har en mening som säger varför', () => {
-    expect(PAKETSKARM.dagSpärrad).toMatch(/engångsköp/)
-    expect(PAKETSKARM.dagSpärrad).toMatch(/prenumeration/)
+describe('ångerrättssamtycket i uppgraderingsrutten', () => {
+  it('står kvar ordagrant (lagkrav)', () => {
+    expect(PAKETSKARM.samtycke).toBe(
+      'Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påbörjats.'
+    )
+    expect(PAKETSKARM).not.toHaveProperty('bytPaket')
   })
 })
 
@@ -127,10 +130,7 @@ describe('?paket förväljer spår och längd', () => {
     }
   })
 
-  it('bara Allt-nycklarna är längder, så bara de får förvälja i segmentet', () => {
-    const langder = (Object.keys(PAKET) as Array<keyof typeof PAKET>).filter((k) =>
-      k.startsWith('all_')
-    )
-    expect(langder.sort()).toEqual([...ALLT_LANGDER].sort())
+  it('PAKET känner alla sex nycklar, så befintliga kunder beskrivs rätt', () => {
+    expect(Object.keys(PAKET).sort()).toEqual(Object.keys(PLAN_BY_KEY).sort())
   })
 })

@@ -208,7 +208,7 @@ export const PRISER_META = {
   title: `Priser: ${paketMedPris(SALD_PLAN)} | Jobbcoach.ai`,
   description: `${HELA} kostar ${PRIS}. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.`,
   keywords:
-    'jobbcoach premium, jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, jobbmatchning',
+    'Jobbcoach Premium, jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, jobbmatchning',
   ogTitle: paketMedPris(SALD_PLAN),
   ogEyebrow: 'Priser',
   ogSubtitle: `${PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp när du vill.`,

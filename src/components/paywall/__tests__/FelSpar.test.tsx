@@ -70,13 +70,15 @@ describe('FelSparRad', () => {
 describe('FelSpar, kortet i arket', () => {
   beforeEach(() => captureMock.mockClear())
 
-  it('visar mellanskillnaden och prorationen, aldrig hela paketpriset', () => {
+  it('visar Premium med fulla namnet och priset, och att dagarna räknas av', () => {
     render(
       <FelSpar feature="cv_templates_all" scope="tester" priceDeltaKr={20} open onClose={() => {}} />
     )
-    expect(screen.getByText('Mellanskillnad, 20 kr')).toBeTruthy()
+    expect(screen.getByText('Jobbcoach Premium, 149 kr i månaden.')).toBeTruthy()
     expect(screen.getByText(/räknas av/)).toBeTruthy()
-    expect(screen.queryByText(/99 kr/)).toBeNull()
+    // Ingen mellanskillnad per vecka och inget sidbyte till det andra spåret.
+    expect(screen.queryByText(/Mellanskillnad|99 kr|20 kr/)).toBeNull()
+    expect(screen.queryByText(/CV-paketet/)).toBeNull()
   })
 
   it('skjuter upgrade_shown för arket när det öppnas', () => {
@@ -86,9 +88,9 @@ describe('FelSpar, kortet i arket', () => {
     expect(visade[0][1]).toMatchObject({ surface: 'ark' })
   })
 
-  it('knappen säger att den leder till en betalning', () => {
+  it('knappen är köpknappen, samma som överallt', () => {
     render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
-    expect(screen.getByRole('button', { name: 'Byt till Hela paketet, 20 kr till i veckan' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Köp Premium, 149 kr i månaden' })).toBeTruthy()
   })
 })
 
@@ -106,24 +108,34 @@ describe('FelSpar, svaret på knappen', () => {
     )
 
   it('ett lyckat byte ger bekräftelsen och hämtar om sidan när arket stängs', async () => {
-    svara(200, { upgraded: true, planKey: 'all_week', scope: 'allt' })
+    const f = svara(200, { upgraded: true, planKey: 'all_month', scope: 'allt' })
     const onClose = vi.fn()
     render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={onClose} />)
-    fireEvent.click(screen.getByRole('button', { name: /Byt till Hela paketet/ }))
-    await waitFor(() => expect(screen.getByText('Du har nu Hela paketet')).toBeTruthy())
-    expect(screen.queryByRole('button', { name: /Byt till Hela paketet/ })).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: /Köp Premium/ }))
+    await waitFor(() => expect(screen.getByText('Du har nu Jobbcoach Premium')).toBeTruthy())
+    // Bytet går till Premium per månad, aldrig till veckan.
+    expect(JSON.parse((f.mock.calls[0][1] as RequestInit).body as string).planKey).toBe('all_month')
+    expect(screen.queryByRole('button', { name: /Köp Premium/ })).toBeNull()
     expect(refreshMock).not.toHaveBeenCalled()
     fireEvent.click(screen.getAllByRole('button', { name: /Stäng/ })[0])
     expect(onClose).toHaveBeenCalled()
     expect(refreshMock).toHaveBeenCalledTimes(1)
   })
 
+  it('400 med saljs: false säger vad som säljs, aldrig klart', async () => {
+    svara(400, { error: 'Det paketet säljs inte längre.', saljs: false })
+    render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
+    fireEvent.click(screen.getByRole('button', { name: /Köp Premium/ }))
+    await waitFor(() => expect(screen.getByText(/Det vi säljer är Jobbcoach Premium/)).toBeTruthy())
+    expect(screen.queryByText(/Du har nu/)).toBeNull()
+  })
+
   it('409 säger varför och länkar till prenumerationssidan', async () => {
     svara(409, { error: 'Du har redan en aktiv prenumeration.', alreadySubscribed: true })
     render(<FelSpar feature="cv_templates_all" scope="tester" open onClose={() => {}} />)
-    fireEvent.click(screen.getByRole('button', { name: /Byt till Hela paketet/ }))
+    fireEvent.click(screen.getByRole('button', { name: /Köp Premium/ }))
     await waitFor(() =>
-      expect(screen.getByText('Du har redan ett paket som löper. Byt paket från prenumerationssidan.')).toBeTruthy()
+      expect(screen.getByText('Du har redan Jobbcoach Premium.')).toBeTruthy()
     )
     const lank = screen.getByRole('link', { name: 'Till prenumerationen' })
     expect(lank.getAttribute('href')).toBe('/dashboard/profil/prenumeration')

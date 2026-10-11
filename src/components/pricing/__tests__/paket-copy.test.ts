@@ -1,103 +1,196 @@
 /**
- * Vakttester för prissidans strängar.
+ * Vakttester för prissidans, köpstegets och kontosidans strängar
+ * (copy-premium 2026-10-11, spec-rummen 17.3 och 17.4).
  *
- * De flesta rör tal: priserna, mallantalet, besparingarna och
- * mellanskillnaden. Alla ska räknas ur PLANS och TEMPLATE_COUNT och aldrig
- * stå som fasta tal i en sträng. Testerna finns för att ett prisbyte ska
- * bryta här och inte i produktion, där raden i stället hade ljugit tyst.
+ * Bara Jobbcoach Premium, 149 kr i månaden, säljs. Testerna vaktar tre
+ * saker: att inget val av ett osålt paket smiter in igen, att talen räknas
+ * ur PLANS och TEMPLATE_COUNT och aldrig står fasta, och skrivregeln
+ * (fulla namnet eller Premium, knappen "Köp Premium, 149 kr i månaden",
+ * inga förbjudna ord).
  */
 
 import { describe, expect, it } from 'vitest'
 
-import { PLANS, PLAN_BY_KEY, type PlanKey } from '@/lib/plans/plans'
-import { TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { PLANS, PLAN_BY_KEY, SALD_PLAN, kopKnapp, type PlanKey } from '@/lib/plans/plans'
 import { ALLA_FEATURES } from '@/lib/access/features'
 import {
+  ALLT_LANGDER,
   FEATURE_ETIKETT,
+  FORTROENDE,
   FUNKTIONER,
   GUIDE,
   HERO,
   INTERVALL_RAD,
+  KOPBEKRAFTELSE,
   KOPSTEG,
-  KOPSTEG_FAR,
+  KONTO,
+  PAKETBYTE,
   PAKET_IDS,
   PAKET_KORT,
   PAKET_PUNKTER,
   PAKET_RAD,
   PR_H1,
   SPARVAL,
-  alltPrisSub,
-  besparing,
+  UPPGRADERING_ARK,
   borjaKnapp,
   bytLangdKnapp,
+  forslagKnapp,
+  forslagRubrik,
   forslagSkal,
   gangerText,
   knappText,
   langdPrisRad,
-  mellanskillnad,
   planForLangd,
   statusRadText,
+  uppsagdStatusText,
 } from '../paket-copy'
+import {
+  COMPARISON,
+  JAMFORELSE_KOLUMNER,
+  PRISER_FAQ_ITEMS,
+  PRISER_FAQ_RUBRIK,
+  PRISER_META,
+} from '@/app/(public)/priser/components/priser-data'
+import { prisSchema } from '@/app/(public)/priser/components/priser-schema'
 
 const ALLA_NYCKLAR = PLANS.map((p) => p.key)
+const KNAPP = 'Köp Premium, 149 kr i månaden'
 
-describe('täckning', () => {
-  it('har en rad, tre punkter och en intervallrad per paket', () => {
-    for (const key of ALLA_NYCKLAR) {
-      expect(PAKET_RAD[key], key).toBeTruthy()
-      expect(PAKET_PUNKTER[key], key).toHaveLength(3)
-      expect(INTERVALL_RAD[key], key).toBeTruthy()
+describe('ett paket säljs', () => {
+  it('kortet, längderna och planen pekar alla på månaden', () => {
+    expect(PAKET_IDS).toEqual(['allt'])
+    expect(ALLT_LANGDER.map((l) => l.plan)).toEqual([SALD_PLAN])
+    for (const langd of ['dag', 'vecka', 'månad', 'kvartal'] as const) {
+      expect(planForLangd(langd), langd).toBe('all_month')
     }
   })
 
-  it('har en etikett per feature', () => {
-    for (const feature of ALLA_FEATURES) {
-      expect(FEATURE_ETIKETT[feature], feature).toBeTruthy()
-    }
+  it('kortet bär fulla namnet, förklaringsraden och det som ingår ur PLANS', () => {
+    const kort = PAKET_KORT.allt
+    expect(kort.namn).toBe('Jobbcoach Premium')
+    expect(kort.beskrivning).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(kort.ingar.length).toBeGreaterThanOrEqual(4)
+    for (const rad of kort.ingar) expect(PLAN_BY_KEY.all_month.highlights).toContain(rad)
+    expect(kort.prisrad).toBe('149 kr i månaden, säg upp när du vill.')
   })
 
-  it('har tre kort med etikett, värdemening, lista och knapp', () => {
-    for (const id of PAKET_IDS) {
-      const kort = PAKET_KORT[id]
-      expect(kort.tag, id).toBeTruthy()
-      expect(kort.varde, id).toBeTruthy()
-      expect(kort.rader.length, id).toBeGreaterThanOrEqual(3)
-      expect(kort.rader.filter((r) => r.mobil).length, `${id} mobilrader`).toBe(3)
-      expect(borjaKnapp(id), id).toMatch(/^Börja /)
-    }
-  })
-
-  it('har fyra "du får"-rader per kort i spårvalet och köpsteget', () => {
-    for (const kort of SPARVAL.kort) {
-      expect(kort.duFar, kort.paket).toHaveLength(4)
-    }
-    for (const id of PAKET_IDS) {
-      expect(KOPSTEG_FAR[id], id).toHaveLength(4)
-    }
-  })
-
-  it('har fem funktionskort och en guidelista per paket', () => {
+  it('alla funktionskort ingår i Premium och säger vad gratis ger', () => {
     expect(FUNKTIONER.kort).toHaveLength(5)
-    for (const id of PAKET_IDS) {
-      expect(GUIDE.listor[id].steg.length, id).toBeGreaterThanOrEqual(8)
+    for (const k of FUNKTIONER.kort) {
+      expect(k.ingar, k.id).toEqual(['allt'])
+      expect(k.sub, k.id).toMatch(/^Ingår i Premium\. Gratis: /)
+    }
+    // FunktionerSida slår upp korten per id; de får inte byta namn.
+    expect(FUNKTIONER.kort.map((k) => k.id)).toEqual([
+      'cv-analys',
+      'personliga-brev',
+      'rekryteringstester',
+      'matchade-jobb',
+      'jobbcoachen',
+    ])
+  })
+
+  it('har en guidelista och en etikett per feature', () => {
+    expect(GUIDE.listor.allt.steg.length).toBeGreaterThanOrEqual(8)
+    for (const feature of ALLA_FEATURES) expect(FEATURE_ETIKETT[feature], feature).toBeTruthy()
+  })
+})
+
+describe('prissidan', () => {
+  it('H1, förklaringsraden och ingressen enligt copy-premium', () => {
+    expect(HERO.h1).toBe('Jobbcoach Premium, 149 kr i månaden')
+    expect(PR_H1).toBe(HERO.h1)
+    expect(HERO.rad).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(HERO.ingress).toBe(
+      'Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.'
+    )
+  })
+
+  it('title och description håller on-page-standarden', () => {
+    expect(PRISER_META.title).toBe('Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai')
+    expect(PRISER_META.title.length).toBeLessThanOrEqual(60)
+    expect(PRISER_META.description).toBe(
+      'Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.'
+    )
+    expect(PRISER_META.description.length).toBe(148)
+    expect(PRISER_META.url).toBe('https://www.jobbcoach.ai/priser')
+  })
+
+  it('jämförelsen har två kolumner, gratis och Premium', () => {
+    expect(JAMFORELSE_KOLUMNER.gratis).toBe('Gratis')
+    expect(JAMFORELSE_KOLUMNER.premium).toBe('Premium')
+    for (const grupp of COMPARISON) {
+      for (const rad of grupp.rows) {
+        expect(Object.keys(rad).sort(), rad.label).toEqual(
+          ['free', 'label', 'premium', ...(rad.sub ? ['sub'] : [])].sort()
+        )
+      }
+    }
+  })
+
+  it('FAQ:n frågar inte om vecka, byte mellan paket eller mellanskillnad', () => {
+    expect(PRISER_FAQ_RUBRIK).toBe('Fler frågor om priset?')
+    for (const f of PRISER_FAQ_ITEMS) {
+      const t = `${f.q} ${f.a}`
+      expect(t, f.id).not.toMatch(/veck|mellanskillnad|byt(a|er)? paket|CV-paketet|Träningspaketet/i)
+    }
+  })
+
+  it('schemat: Product med AggregateOffer, ett erbjudande, inga betyg', () => {
+    const s = prisSchema()
+    expect(s['@type']).toBe('Product')
+    expect(s.name).toBe('Jobbcoach Premium')
+    expect(s.offers['@type']).toBe('AggregateOffer')
+    expect(s.offers.offerCount).toBe(1)
+    expect(s.offers.lowPrice).toBe(PLAN_BY_KEY.all_month.amount)
+    expect(s.offers.highPrice).toBe(PLAN_BY_KEY.all_month.amount)
+    expect(s.offers.priceCurrency).toBe('SEK')
+    expect(s.offers.offers).toHaveLength(1)
+    expect(s.offers.offers[0].price).toBe(PLAN_BY_KEY.all_month.amount)
+    expect(s.offers.offers[0].name).toBe('Jobbcoach Premium, en månad')
+    const json = JSON.stringify(s)
+    expect(json).not.toMatch(/aggregateRating|review/i)
+  })
+})
+
+describe('knapparna', () => {
+  it('säger "Köp Premium, 149 kr i månaden" överallt, under 30 tecken', () => {
+    const knappar = [
+      PAKET_KORT.allt.knapp,
+      borjaKnapp(),
+      borjaKnapp('allt', 'all_week'),
+      SPARVAL.primar('allt'),
+      KONTO.bytTillAllt,
+      KONTO.bytSpar('cv_week'),
+      KONTO.bytLangd('all_quarter'),
+      bytLangdKnapp('all_day'),
+      ...ALLA_NYCKLAR.map((k) => knappText(k as PlanKey)),
+      ...ALLA_NYCKLAR.map((k) => forslagKnapp(k as PlanKey)),
+    ]
+    for (const k of knappar) {
+      expect(k).toBe(KNAPP)
+      expect(k).toBe(kopKnapp())
+    }
+    expect(KNAPP.length).toBeLessThan(30)
+  })
+
+  it('köpstegets knapp bär beloppet ur PLANS', () => {
+    expect(KOPSTEG.primar()).toBe(`Till betalning, ${PLAN_BY_KEY.all_month.amount} kr`)
+    expect(KOPSTEG.primar('cv_week')).toBe(KOPSTEG.primar('all_month'))
+  })
+
+  it('förslagets rubrik bär fulla namnet med pris, bara det som säljs', () => {
+    for (const k of ALLA_NYCKLAR) {
+      expect(forslagRubrik(k as PlanKey)).toBe('Vi föreslår Jobbcoach Premium, 149 kr i månaden')
     }
   })
 })
 
-describe('talen räknas, de skrivs aldrig', () => {
-  it('mallantalet kommer ur TEMPLATE_COUNT', () => {
-    expect(PAKET_KORT.cv.rader[1].rubrik).toContain(String(TEMPLATE_COUNT))
-    expect(SPARVAL.kort[0].duFar[1].fet).toContain(String(TEMPLATE_COUNT))
-    expect(KOPSTEG_FAR.cv[1].fet).toContain(String(TEMPLATE_COUNT))
-  })
-
-  it('priserna i heron, spårvalet och köpsteget kommer ur PLANS', () => {
-    expect(HERO.bevis[1].tal).toBe(`${PLAN_BY_KEY.cv_week.amount} kr`)
-    expect(SPARVAL.kort[0].pris).toBe(`${PLAN_BY_KEY.cv_week.amount} kr / vecka`)
-    expect(SPARVAL.kort[2].prisText).toContain(String(PLAN_BY_KEY.all_quarter.amount))
-    expect(KOPSTEG.primar('cv_week')).toBe(`Till betalning, ${PLAN_BY_KEY.cv_week.amount} kr`)
-    expect(KOPSTEG.samtycke('cv_week')).toContain(`${PLAN_BY_KEY.cv_week.amount} kr`)
-    expect(alltPrisSub('all_week')).toContain(String(PLAN_BY_KEY.all_month.amount))
+describe('köpsteget', () => {
+  it('rubriken är fulla namnet, prisraden kort form', () => {
+    expect(KOPSTEG.rubrik()).toBe('Jobbcoach Premium')
+    expect(KOPSTEG.rubrik('cv_week')).toBe('Jobbcoach Premium')
+    expect(KOPSTEG.prisrad()).toBe('149 kr i månaden, säg upp när du vill.')
   })
 
   it('samtycket säger att innehållet startar direkt och att ångerrätten inte gäller', () => {
@@ -106,190 +199,181 @@ describe('talen räknas, de skrivs aldrig', () => {
       expect(text, key).toContain('startar direkt')
       expect(text, key).toContain('ångerrätten')
     }
-    expect(KOPSTEG.samtycke('all_day')).toContain('engångsköp')
-    expect(KOPSTEG.samtycke('all_week')).toContain('dras var sjunde dag')
-    expect(KOPSTEG.samtycke('all_month')).toContain('dras varje månad på samma datum')
+    expect(KOPSTEG.samtycke('all_month')).toContain(
+      `${PLAN_BY_KEY.all_month.amount} kr dras varje månad på samma datum`
+    )
   })
 
-  it('längdvalet leder till rätt paket', () => {
-    expect(planForLangd('dag')).toBe('all_day')
-    expect(planForLangd('vecka')).toBe('all_week')
-    expect(planForLangd('månad')).toBe('all_month')
-    expect(planForLangd('kvartal')).toBe('all_quarter')
+  it('ett osålt paket ger ett fel som säger vad som säljs', () => {
+    expect(KOPSTEG.saljsInte).toContain('Jobbcoach Premium, 149 kr i månaden')
+    expect(KOPSTEG.saljsInte).not.toMatch(/klart/i)
   })
 })
 
-describe('Dagspasset', () => {
-  it('säger att den inte förnyas, och det är kortets viktigaste rad', () => {
-    expect(INTERVALL_RAD.all_day).toContain('förnyas inte')
-    expect(alltPrisSub('all_day')).toContain('inget dras igen')
+describe('statusraderna på kontosidan', () => {
+  const nov = new Date('2026-11-11T10:00:00Z')
+
+  it('Premium per månad: namn, pris och nästa dragning', () => {
+    expect(statusRadText('all_month', nov)).toBe(
+      'Jobbcoach Premium, 149 kr i månaden. Nästa dragning 11 november.'
+    )
   })
 
-  it('bär prepositionen "för" och inte "i", eftersom den inte upprepas', () => {
-    expect(langdPrisRad('all_day')).toBe('49 kr för ett dygn')
+  it('uppsagt: gäller till datumet, förnyas inte', () => {
+    expect(uppsagdStatusText('all_month', nov)).toBe(
+      'Jobbcoach Premium, uppsagt. Gäller till 11 november, förnyas inte.'
+    )
   })
 
-  it('visar klockslag i statusraden, inte datum', () => {
+  it('befintliga vecko- och spårkunder får sitt paket rätt namngivet', () => {
+    const okt = new Date('2026-10-17T10:00:00Z')
+    expect(statusRadText('test_week', okt)).toBe('Träningspaketet, 79 kr i veckan, förnyas 17 oktober')
+    expect(statusRadText('cv_week', okt)).toMatch(/^CV-paketet, .*förnyas 17 oktober$/)
+    expect(statusRadText('all_week', okt)).toBe('Jobbcoach Premium, 99 kr i veckan. Nästa dragning 17 oktober.')
+    expect(uppsagdStatusText('cv_week', okt)).toBe('CV-paketet, uppsagt. Gäller till 17 oktober, förnyas inte.')
+  })
+
+  it('Dagspasset visar klockslag, inte datum', () => {
     const slut = new Date('2026-09-22T21:40:00+02:00')
-    expect(statusRadText('all_day', slut)).toContain('gäller till')
-    expect(statusRadText('all_day', slut)).toContain('i dag')
+    expect(statusRadText('all_day', slut)).toBe('Dagspasset, gäller till 21:40 i dag')
   })
 
-  it('får rubriken "från nu" i köpsteget, veckan "från i kväll"', () => {
-    expect(KOPSTEG.rubrik('all_day')).toBe('Dagspasset, från nu')
-    expect(KOPSTEG.rubrik('cv_week')).toBe('CV-paketet, från i kväll')
-    expect(KOPSTEG.rubrik('all_week')).toBe('Hela paketet, från i kväll')
-  })
-})
-
-describe('besparingen räknas, den skrivs aldrig', () => {
-  it('månaden mot fyra veckor', () => {
-    const vantat = PLAN_BY_KEY.all_week.amount * 4 - PLAN_BY_KEY.all_month.amount
-    expect(besparing('all_month')).toBe(`Sparar ${vantat} kr mot fyra veckor i rad`)
+  it('rubriken heter Prenumeration och kortet säger Du har Premium', () => {
+    expect(KONTO.paketRubrik).toBe('Prenumeration')
+    expect(KONTO.dittPaket).toBe('Du har Premium')
   })
 
-  it('kvartalet mot tretton veckor', () => {
-    const vantat = PLAN_BY_KEY.all_week.amount * 13 - PLAN_BY_KEY.all_quarter.amount
-    expect(besparing('all_quarter')).toBe(`Sparar ${vantat} kr mot tretton veckor i rad`)
-  })
-
-  it('visas inte för veckan och dagen, där den inte är sann', () => {
-    expect(besparing('all_week')).toBeNull()
-    expect(besparing('all_day')).toBeNull()
-    expect(besparing('cv_week')).toBeNull()
+  it('bytet för en spårkund säger vad som dras och att dagarna räknas av', () => {
+    expect(KONTO.bytRubrik).toBe('Jobbcoach Premium')
+    expect(KONTO.bytPrisrad).toMatch(/^149 kr i månaden\. Dagarna du redan betalat för räknas av/)
+    expect(KONTO.bytText('test_week')).toContain('CV-mallar')
+    expect(KONTO.bytText('cv_week')).toContain('rekryteringstester')
   })
 })
 
-describe('mellanskillnaden', () => {
-  it('är skillnaden mot Hela paketet, inte hela priset', () => {
-    const vantat = PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY.cv_week.amount
-    expect(mellanskillnad('cv_week')).toBe(vantat)
-    expect(mellanskillnad('test_week')).toBe(vantat)
-  })
-
-  it('blir aldrig negativ', () => {
-    expect(mellanskillnad('all_quarter')).toBe(0)
+describe('köpbekräftelsen', () => {
+  it('nästa dragning och beloppet', () => {
+    expect(KOPBEKRAFTELSE.lopande('all_month', '11 november')).toBe(
+      'Nästa dragning 11 november, 149 kr. Säg upp när du vill i ditt konto.'
+    )
   })
 })
 
-describe('antalsraden', () => {
-  it('förkortar korrekt på svenska', () => {
-    expect(gangerText(1)).toBe('1 gg')
-    expect(gangerText(2)).toBe('2 ggr')
-    expect(gangerText(11)).toBe('11 ggr')
+describe('bytet från betalväggen', () => {
+  it('klart namnger Premium, redan säger att kunden har det', () => {
+    expect(PAKETBYTE.klart('all_month')).toBe('Du har nu Jobbcoach Premium')
+    expect(PAKETBYTE.redanPaket).toBe('Du har redan Jobbcoach Premium.')
   })
 })
 
-describe('knapptexterna', () => {
-  it('betalväggarna säger Köp, namnger paketet och bär pris och period', () => {
-    for (const key of ALLA_NYCKLAR) {
-      expect(knappText(key as PlanKey)).toMatch(new RegExp(`^Köp ${PLAN_BY_KEY[key].name}, ${PLAN_BY_KEY[key].amount} kr`))
-    }
-    expect(knappText('cv_week')).toBe('Köp CV-paketet, 79 kr i veckan')
-  })
-
-  it('korten säger Börja med, namnet, pris och period', () => {
-    expect(borjaKnapp('cv')).toBe('Börja med CV-paketet, 79 kr i veckan')
-    expect(borjaKnapp('test')).toBe('Börja med Träningspaketet, 79 kr i veckan')
-    expect(borjaKnapp('allt')).toBe('Börja med Hela paketet, 99 kr i veckan')
-    expect(borjaKnapp('allt', 'all_month')).toBe('Börja med Hela paketet, 149 kr i månaden')
-  })
-
-  it('namnger målet i längdvalet, inte rubriken', () => {
-    expect(bytLangdKnapp('all_month')).toBe('Byt till Hela paketet, 149 kr i månaden')
-  })
-
-  it('spårvalets primär namnger paketet', () => {
-    expect(SPARVAL.primar('cv')).toBe('Fortsätt med CV-paketet, 79 kr i veckan')
-    expect(SPARVAL.primar('allt')).toBe('Fortsätt med Hela paketet, 99 kr i veckan')
-    expect(SPARVAL.primar('allt', 'all_month')).toBe('Fortsätt med Hela paketet, 149 kr i månaden')
-    expect(SPARVAL.primar('allt', 'all_day')).toBe('Fortsätt med Dagspasset, 49 kr, ett dygn')
-  })
-})
-
-describe('förslagets skäl', () => {
+describe('förslagets skäl (D28)', () => {
   it('räknar ur samma tal som listan och skriver ut små tal', () => {
-    const text = forslagSkal({ plan: 'cv_week', antal: 3, badaSparen: false, track: null })
+    const text = forslagSkal({ antal: 3, badaSparen: false, track: null })
     expect(text).toContain('tre gånger')
-    expect(text).toContain('CV-paketet')
+    expect(text).toContain('Premium')
   })
 
-  it('böjer singular rätt', () => {
-    const text = forslagSkal({ plan: 'cv_week', antal: 1, badaSparen: false, track: null })
-    expect(text).toContain('en gång')
-    expect(text).not.toContain('1 gånger')
+  it('böjer singular rätt och skriver tal över nio med siffra', () => {
+    expect(forslagSkal({ antal: 1, badaSparen: false, track: null })).toContain('en gång')
+    expect(forslagSkal({ antal: 12, badaSparen: false, track: null })).toContain('12 gånger')
   })
 
-  it('skriver tal över nio med siffra', () => {
-    const text = forslagSkal({ plan: 'test_week', antal: 12, badaSparen: false, track: null })
-    expect(text).toContain('12 gånger')
-  })
-
-  it('föreslår Hela paketet när blockeringarna spänner båda spåren', () => {
-    const text = forslagSkal({ plan: 'all_week', antal: 4, badaSparen: true, track: null })
-    expect(text).toContain('Hela paketet')
+  it('säger båda när blockeringarna spänner båda delarna', () => {
+    const text = forslagSkal({ antal: 4, badaSparen: true, track: null })
     expect(text).toContain('båda')
+    expect(text).toContain('Premium')
   })
 
   it('erkänner öppet att förslaget är en gissning utan underlag', () => {
-    const text = forslagSkal({ plan: 'all_week', antal: 0, badaSparen: false, track: null })
-    expect(text).toContain('Vi vet inte')
+    expect(forslagSkal({ antal: 0, badaSparen: false, track: null })).toContain('Vi vet inte')
   })
 })
 
-describe('copyreglerna', () => {
+describe('talen räknas, de skrivs aldrig', () => {
+  it('Dagspassets prisrad bär "för", längden står kvar för befintliga köp', () => {
+    expect(langdPrisRad('all_day')).toBe(`${PLAN_BY_KEY.all_day.amount} kr för ett dygn`)
+    expect(langdPrisRad('all_month')).toBe(`${PLAN_BY_KEY.all_month.amount} kr i månaden`)
+  })
+
+  it('antalsraden förkortar korrekt på svenska', () => {
+    expect(gangerText(1)).toBe('1 gg')
+    expect(gangerText(2)).toBe('2 ggr')
+  })
+
+  it('har en rad, tre punkter och en intervallrad per nyckel, sålda och osålda', () => {
+    for (const key of ALLA_NYCKLAR) {
+      expect(PAKET_RAD[key], key).toBeTruthy()
+      expect(PAKET_PUNKTER[key], key).toHaveLength(3)
+      expect(INTERVALL_RAD[key], key).toBeTruthy()
+    }
+  })
+})
+
+describe('skrivregeln (copy-premium avsnitt 2 och 7)', () => {
   const allaStrangar: string[] = [
-    PR_H1,
+    HERO.h1,
+    HERO.rad,
     HERO.ingress,
-    HERO.ingressFet,
-    HERO.ingressMobil,
+    HERO.scenAlt,
+    GUIDE.h2,
     GUIDE.ingress,
-    SPARVAL.fraga,
-    SPARVAL.under,
-    KOPSTEG.under,
+    ...GUIDE.listor.allt.steg,
+    ...FUNKTIONER.kort.flatMap((k) => [k.sub, k.text, k.rubrik, ...(k.steg ?? [])]),
+    ...FORTROENDE.flatMap((f) => [f.rubrik, f.text]),
+    ...Object.values(PAKET_KORT.allt).flat().filter((v): v is string => typeof v === 'string'),
     ...Object.values(PAKET_RAD),
+    ...Object.values(PAKET_PUNKTER).flat(),
     ...Object.values(INTERVALL_RAD),
     ...Object.values(FEATURE_ETIKETT),
-    ...Object.values(PAKET_PUNKTER).flat(),
-    ...PAKET_IDS.flatMap((id) => {
-      const k = PAKET_KORT[id]
-      return [
-        k.varde,
-        k.vardeMobil,
-        k.fordig,
-        k.fotnot,
-        ...k.rader.flatMap((r) => [r.rubrik, r.text, r.textMobil ?? '']),
-      ]
-    }),
-    ...FUNKTIONER.kort.flatMap((k) => [k.sub, k.text, ...(k.steg ?? [])]),
-    ...PAKET_IDS.flatMap((id) => [...GUIDE.listor[id].steg]),
-    ...SPARVAL.kort.flatMap((k) => [k.rubrik, ...k.duFar.map((d) => d.fet + d.text)]),
+    ...Object.values(UPPGRADERING_ARK),
+    KOPSTEG.rubrik(),
+    KOPSTEG.prisrad(),
+    KOPSTEG.under,
+    KOPSTEG.farEtikett,
+    KOPSTEG.saljsInte,
+    KOPSTEG.redan,
     ...ALLA_NYCKLAR.map((k) => KOPSTEG.samtycke(k)),
+    KONTO.paketRubrik,
+    KONTO.dittPaket,
+    KONTO.ingarIAllt,
+    KONTO.bytPrisrad,
+    KONTO.uppsagdNot,
+    KONTO.bytText('cv_week'),
+    KONTO.bytText('test_week'),
+    PAKETBYTE.arbetar,
+    PAKETBYTE.redanPaket,
+    PAKETBYTE.fel,
+    PAKETBYTE.saljsInte,
+    PAKETBYTE.vidFornyelse('nedgradering'),
+    PAKETBYTE.vidFornyelse('langd'),
+    KOPBEKRAFTELSE.lopande('all_month', '11 november'),
+    forslagSkal({ antal: 0, badaSparen: false, track: 'cv' }),
+    forslagSkal({ antal: 0, badaSparen: false, track: 'tester' }),
+    forslagSkal({ antal: 2, badaSparen: true, track: null }),
+    PRISER_META.title,
+    PRISER_META.description,
+    PRISER_META.ogSubtitle,
+    ...PRISER_FAQ_ITEMS.flatMap((f) => [f.q, f.a]),
   ]
 
-  it('innehåller inga talstreck', () => {
-    for (const s of allaStrangar) {
-      expect(s, s).not.toContain('—')
-      expect(s, s).not.toContain('–')
-    }
+  it('inga talstreck', () => {
+    for (const s of allaStrangar) expect(s, s).not.toMatch(/[—–]/)
   })
 
-  it('säger aldrig "Lås upp" eller "gratis för alltid"', () => {
-    for (const s of allaStrangar) {
-      expect(s.toLowerCase(), s).not.toContain('lås upp')
-      expect(s.toLowerCase(), s).not.toContain('gratis för alltid')
-    }
+  it('inga förbjudna ord om flera paket eller gamla namn', () => {
+    const forbjudet =
+      /Hela paketet|hela paketet|paketen|alla tre|Byt paket|ett paket|Uppgradera|Skaffa|Premiumpaketet|Premium-[a-zåäö]|Jobbcoachen Premium|Jobbcoach\.ai Premium|149 kr\/mån|per månad|Lås upp/
+    for (const s of allaStrangar) expect(s, s).not.toMatch(forbjudet)
   })
 
-  it('säger "personliga brev", aldrig bara "brev" som produktnamn i korten', () => {
-    for (const id of PAKET_IDS) {
-      for (const rad of PAKET_KORT[id].rader) {
-        expect(rad.rubrik, rad.rubrik).not.toMatch(/(?<!ersonlig[at] )\b[Bb]rev\b/)
-      }
-    }
+  it('Premium skrivs med stort P om produkten', () => {
+    for (const s of allaStrangar) expect(s, s).not.toMatch(/\bpremium\b/)
   })
 
-  it('har H1 enligt specen 2026-09-22', () => {
-    expect(PR_H1).toBe('En vecka som bär hela jobbsöket.')
+  it('fulla namnet står en gång i kortets egna rader', () => {
+    const kort = PAKET_KORT.allt
+    const rader = [kort.beskrivning, kort.listEtikett, kort.prisrad, kort.knapp, kort.fotnot, ...kort.ingar]
+    for (const r of rader) expect(r, r).not.toContain('Jobbcoach Premium')
+    expect(kort.namn).toBe('Jobbcoach Premium')
   })
 })

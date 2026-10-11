@@ -107,7 +107,8 @@ describe('kvittot', () => {
 
   it('månaden: dras varje månad på samma datum, nästa dragning är periodens slut', () => {
     const { html } = rendera('all_month', 149, '2026-09-24T07:20:23Z', '2026-10-24T07:20:23Z')
-    expect(html).toContain('dras sedan varje månad på samma datum med samma belopp')
+    // copy-premium avsnitt 3: "och dras sedan varje månad på samma datum, tills du säger upp".
+    expect(html).toContain('dras sedan varje månad på samma datum, tills du säger upp')
     expect(html).toContain('Nästa dragning: 24 oktober')
     expect(html).not.toMatch(/trettio/)
   })

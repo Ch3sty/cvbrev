@@ -415,6 +415,13 @@ export const KOPSTEG = {
   /** 409: kontot har redan en löpande prenumeration. */
   redan: `Du har redan ${HELA_NAMN}.`,
   felKassa: 'Kassan kunde inte öppnas just nu. Försök igen.',
+  /** Flödets namn i toppraden. */
+  topp: 'Kom igång',
+  forsokIgen: 'Försök igen',
+  sparar: 'Sparar',
+  sparaFel: 'Valet kunde inte sparas. Försök igen.',
+  /** Gratisfrågans spärrade knapp. */
+  gratisSparr: 'Välj vad du vill börja med.',
 } as const
 
 /**
