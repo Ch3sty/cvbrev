@@ -207,11 +207,6 @@ export default function SkapaCvSida() {
             lank: { text: 'Skapa ditt CV gratis', href: '/register?borja=cv' },
           },
         ]}
-        citat={{
-          text: 'Jag hade kämpat med Word i flera veckor och fick aldrig till det. Bytte till er CV-byggare och hade ett snyggt CV på en kvart. Skickade in tre ansökningar samma dag.',
-          namn: 'Marcus, 32, Göteborg',
-          roll: 'systemutvecklare, från veckor i Word till en kvart',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Skapa ditt CV gratis på minuter.',

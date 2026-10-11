@@ -210,11 +210,6 @@ export default function PersonligtBrevSida() {
             lank: { text: 'Skriv ditt första brev gratis', href: '/register?borja=brev' },
           },
         ]}
-        citat={{
-          text: 'Jag hade fått fjorton avslag på rad. Skrev om brevet med Jobbcoach.ai för en roll på Klarna och kallades till intervju samma vecka. Det var inte CV:t som var fel. Det var att jag inte talade rekryterarens språk.',
-          namn: 'Marcus, 34, Göteborg',
-          roll: 'backend-utvecklare, från 14 avslag till intervju',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Ditt nästa brev tar tre minuter, inte tre timmar.',

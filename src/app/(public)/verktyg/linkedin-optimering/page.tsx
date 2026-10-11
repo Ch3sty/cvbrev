@@ -201,11 +201,6 @@ export default function LinkedinOptimeringSida() {
             rader: LAGEN,
           },
         ]}
-        citat={{
-          text: 'Jag hade inte fått ett enda meddelande från en rekryterare på LinkedIn på två år. Jag optimerade rubriken och om mig-texten på en eftermiddag och fick åtta meddelanden de följande två veckorna. Två blev intervjuer.',
-          namn: 'Anna, 31, Göteborg',
-          roll: 'UX-designer inom B2B SaaS, från noll till åtta meddelanden på två veckor',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta vara osynlig. Börja synas i dag.',

@@ -226,11 +226,6 @@ export default function CVMallarSida() {
           rader: FUNKTIONER,
         }}
         fritt={<CVMallarGalleri mallar={GALLERI_MALLAR} paket={paketKort()} />}
-        citat={{
-          text: 'Jag hade suttit i två veckor och försökt få Word att se rätt ut. Jag bytte till en av era mallar, fyllde i mina uppgifter på tjugo minuter och hade tre intervjuer bokade veckan efter.',
-          namn: 'Anna, 28, Malmö',
-          roll: 'ekonomiassistent, nu på SEB, från två veckor till tjugo minuter',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Välj din mall och bygg ditt CV.',

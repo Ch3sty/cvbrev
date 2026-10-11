@@ -167,11 +167,6 @@ export default function JobbcoachenSida() {
             rader: KALLOR,
           },
         ]}
-        citat={{
-          text: 'Jag kollade marknadslön i Karriärguiden innan mitt lönesamtal och fick siffror direkt från SCB plus argument jag kunde använda. Gick in i samtalet med en kvarts förberedelse och kom ut med 8 000 kr mer i månaden.',
-          namn: 'Emma, 34, Malmö',
-          roll: 'marknadschef på ett medtechbolag',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta googla. Fråga någon som vet.',

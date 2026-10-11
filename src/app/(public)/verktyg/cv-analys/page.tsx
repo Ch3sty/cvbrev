@@ -163,11 +163,6 @@ export default function CVAnalysSida() {
             rader: SKRIVTIPS,
           },
         ]}
-        citat={{
-          text: 'Jag fick 64 i ATS-poäng på första analysen och insåg att jag inte hade kvantifierat något alls. Efter en eftermiddag med förslagen var jag uppe i 91. Tre veckor senare hade jag tre intervjuer.',
-          namn: 'Sara, 31, Stockholm',
-          roll: 'marknadsförare, från 64 till 91 i poäng',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Hela analysen, varje fynd med åtgärd.',
