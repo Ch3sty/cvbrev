@@ -13,7 +13,7 @@
 import { describe, expect, it } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
-import { PLANS, type PlanKey } from '@/lib/plans/plans'
+import { PLANS, SALD_PLAN, kopKnapp, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { INLINE, SIDO, SLUT, LISTA_SLUT } from '@/components/artiklar/reklam/reklam-copy'
 import {
   D_PRENUMERATION,
@@ -34,14 +34,17 @@ import type { LifecycleContext } from '@/lib/email/lifecycle/types'
 const NAMN = [...new Set(PLANS.map((p) => p.name))]
 const PRIS_ELLER_PERIOD = /\d+ kr|i veckan|i månaden|per kvartal|ett dygn|till \d/
 
+/** Namnen plus kortformen, för knappar och paketrader (copy-vag5 avsnitt 8). */
+const NAMN_MED_KORT = [...NAMN, 'Premium']
+
 /** Sant när strängen nämner ett paket men saknar pris och period. */
-function brytR1(text: string): boolean {
-  return NAMN.some((n) => text.includes(n)) && !PRIS_ELLER_PERIOD.test(text)
+function brytR1(text: string, namn: readonly string[] = NAMN): boolean {
+  return namn.some((n) => text.includes(n)) && !PRIS_ELLER_PERIOD.test(text)
 }
 
-function kontrollera(strangar: Record<string, string>) {
+function kontrollera(strangar: Record<string, string>, namn: readonly string[] = NAMN) {
   const fel = Object.entries(strangar)
-    .filter(([, t]) => brytR1(t))
+    .filter(([, t]) => brytR1(t, namn))
     .map(([var_, t]) => `${var_}: "${t}"`)
   expect(fel, `R1 bruten:\n${fel.join('\n')}`).toEqual([])
 }
@@ -50,10 +53,14 @@ const PLAN_KEYS = PLANS.map((p) => p.key) as PlanKey[]
 
 describe('R1 i reklamkorten', () => {
   it('inline-radens paketrad, slutkortets knapp och sekundärlänk', () => {
+    // Knapp och paketrad: även kortformen Premium kräver pris eller period.
+    const knappar: Record<string, string> = {}
+    for (const [k, v] of Object.entries(INLINE)) knappar[`INLINE.${k}.paketrad`] = v.paketrad
+    for (const [k, v] of Object.entries(SLUT)) knappar[`SLUT.${k}.knapp`] = v.knapp
+    kontrollera(knappar, NAMN_MED_KORT)
+
     const s: Record<string, string> = {}
-    for (const [k, v] of Object.entries(INLINE)) s[`INLINE.${k}.paketrad`] = v.paketrad
     for (const [k, v] of Object.entries(SLUT)) {
-      s[`SLUT.${k}.knapp`] = v.knapp
       s[`SLUT.${k}.sekundar`] = v.sekundar.text
       s[`SLUT.${k}.rubrik`] = v.rubrik
     }
@@ -64,22 +71,35 @@ describe('R1 i reklamkorten', () => {
   it('etiketterna har beloppet och perioden på raden under', () => {
     for (const v of Object.values(SIDO)) {
       expect(v.belopp).toMatch(/\d+ kr/)
-      expect(v.under).toMatch(/i veckan/)
+      expect(v.under).toMatch(/i månaden/)
     }
-    for (const p of LISTA_SLUT.paket) {
-      expect(p.pris).toMatch(/\d+ kr/)
-      expect(p.under).toMatch(/i veckan/)
-    }
+    expect(LISTA_SLUT.rader.length).toBeGreaterThan(0)
+    expect(LISTA_SLUT.text).toContain(prisPeriod(SALD_PLAN))
   })
 
-  it('ordningen är CV-paketet, Träningspaketet, Hela paketet', () => {
-    expect(LISTA_SLUT.paket.map((p) => p.namn)).toEqual(['CV-paketet', 'Träningspaketet', 'Hela paketet'])
-    // Hela paketets egna rader före hänvisningen till de andra två.
-    expect(SLUT.allt.rader[SLUT.allt.rader.length - 1]).toMatch(/CV-paketet och Träningspaketet/)
+  it('alla kort säljer Jobbcoach Premium med samma knapp', () => {
+    for (const v of Object.values(SLUT)) {
+      expect(v.etikett).toBe('Jobbcoach Premium')
+      expect(v.knapp).toBe(kopKnapp())
+    }
+    // Allt-kortets egna rader före CV-raden och testraden.
+    const r = SLUT.allt.rader
+    expect(r[r.length - 2]).toBe('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
+    expect(r[r.length - 1]).toBe('Alla rekryteringstester, provläget och personlighetstestet')
+    // Test- och CV-kortet säger att resten också ingår, med Dessutom (copy-vag5 avsnitt 1).
+    expect(SLUT.test.rader.some((rad) => rad.startsWith('Dessutom'))).toBe(true)
+    expect(SLUT.cv.rader.some((rad) => rad.startsWith('Dessutom'))).toBe(true)
   })
 })
 
 describe('R1 i paketcopyn', () => {
+  it('bara Jobbcoach Premium säljs, och alla knappar säger samma sak', () => {
+    expect(PAKET_IDS).toEqual(['allt'])
+    for (const id of PAKET_IDS) expect(PAKET_KORT[id].knapp).toBe('Köp Premium, 149 kr i månaden')
+    expect(knappText(SALD_PLAN)).toBe('Köp Premium, 149 kr i månaden')
+    expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
+  })
+
   it('knappar och rubriker på prissidan, spårvalet, köpsteget och kontosidan', () => {
     const s: Record<string, string> = {
       'KONTO.bytTillAllt': KONTO.bytTillAllt,
@@ -157,14 +177,14 @@ describe('R1 i betalväggarna', () => {
 })
 
 describe('R1 i mejlen', () => {
-  it('kvittots ämnesrad: namn, längd, belopp', () => {
+  it('kvittots ämnesrad: namnet och beloppet, längden står på raden Prenumeration', () => {
     const ctx = {
       userId: 'x',
       profile: { full_name: null },
       metadata: { planKey: 'all_month', amount: 149 },
     } as unknown as LifecycleContext
     const { subject } = kvittoMejl.render(ctx) as { subject: string }
-    expect(subject).toBe('Kvitto: Hela paketet, en månad, 149 kr')
+    expect(subject).toBe('Kvitto: Jobbcoach Premium, 149 kr')
   })
 
   it('ämnesrader som bär ett paketnamn bär också ett belopp', () => {
