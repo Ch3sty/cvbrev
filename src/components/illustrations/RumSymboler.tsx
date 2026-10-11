@@ -163,6 +163,17 @@ export function IkonInfo(p: IkonProps24) {
   )
 }
 
+/** Frågetecken i ring (skissen Provbladet, #i-fraga): hjälpraden. */
+export function IkonFraga(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M9.6 9.6a2.4 2.4 0 1 1 3.4 2.2c-.7.4-1 .8-1 1.6" />
+      <path d="M12 16.5v.3" />
+    </Ikon24>
+  )
+}
+
 /** Tillbaka, pil åt vänster (#i-tillbaka). */
 export function IkonTillbaka(p: IkonProps24) {
   return (

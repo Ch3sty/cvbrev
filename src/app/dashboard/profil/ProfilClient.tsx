@@ -29,6 +29,8 @@ import RumHuvud from '@/components/rum/RumHuvud';
 import { RUBRIK } from '@/lib/rum/copy';
 import Golv from '@/components/rum/Golv';
 import UtseendeSection from './components/UtseendeSection';
+import HjalpProfilRad from '@/components/hjalp/HjalpProfilRad';
+import { hjalpDoldUrProfil } from '@/lib/traning/hjalp';
 import { capture } from '@/lib/analytics/events';
 import { menyHuvud } from '@/lib/onboarding/paket-rader';
 import { arGiltigEpost, dokumentEpost } from '@/lib/profile/dokumentEpost';
@@ -444,6 +446,8 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
       />
 
       <UtseendeSection />
+
+      <HjalpProfilRad initialDold={hjalpDoldUrProfil(initialProfile)} />
 
       <KontoSection
         prenumerationRad={prenumerationRad}
