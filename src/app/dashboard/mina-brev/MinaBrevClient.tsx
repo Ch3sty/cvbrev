@@ -30,6 +30,7 @@ import { LYFT, RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomBrev } from '@/components/illustrations/EmptyStateIllustrations';
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
 
 // Syns inte i första vyn. Bekräftelsedialogen öppnas först vid borttagning och
 // notisen bara när något gått fel, så ingen av dem behöver ligga i den JS som
@@ -224,6 +225,12 @@ export default function MinaBrevClient({
       });
     }
   };
+
+  // Ett låst brevkort länkar till köpsteget med platsen kvot, och en länk
+  // från en låst funktion till köpsteget är en vägg (spec-rummen 23.8).
+  // Mäts per lista, inte per kort: fem låsta brev är en skärm, en exponering.
+  const harLastKort = !!letters?.some((l) => l.isLocked);
+  useBetalvaggVisad('kvot', harLastKort);
 
   const totalCount = letters?.length || 0;
   const harLasta =

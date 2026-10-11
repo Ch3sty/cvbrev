@@ -949,4 +949,11 @@ export const DATAKVALITET: DatakvalitetsNot[] = [
     rubrik: 'Köpvägens händelser har olika mätstarter',
     text: 'signup_completed mäts från 11 sep kl. 22.08, track_selected från att paketen släpptes 22 sep kl. 10.51, och purchase_step_viewed, checkout_started och gråa val från 22 sep kl. 19.02. Veckor och dagar före en mätstart visas som "mäts från", inte som 0. Nya konton räknas alltid ur profiles och köp alltid ur Stripe, så de har ingen mätstart.',
   },
+  {
+    // Spec-rummen 23.8: en länk från en låst funktion till köpsteget är en
+    // vägg. Täljare (köp med plats) och nämnare (betalvagg_visad med samma
+    // plats) ska komma från samma ställen.
+    rubrik: 'Betalväggarnas exponeringar har olika mätstarter per plats',
+    text: 'betalvagg_visad mäts per plats från att respektive vägg fick händelsen. cv_antal (CV-gränsen) mättes redan före Rummen. kvot (de låsta brevkorten i Mina brev, en exponering per lista och inte per kort) mäts från deployen av våg 5 i Rummen. Köp med plats kvot före den dagen räknas i intäkten men inte i kvoten vägg till köp, och en plats står aldrig i bara täljaren eller bara nämnaren.',
+  },
 ];
