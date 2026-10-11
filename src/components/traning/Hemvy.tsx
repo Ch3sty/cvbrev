@@ -151,29 +151,29 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
         }
         fot={l.fot}
       >
-        {l.rad ? <p className="mt-2 text-sm leading-[21px] text-ink-2">{l.rad}</p> : null}
         {l.tre ? (
           <div className="mt-3">
             <TreTal tal={l.tre} pa="golv" />
           </div>
         ) : null}
       </LyftKort>
-      {l.under ? <p className="mt-2.5 text-center text-meta text-ink-3 lg:text-left">{l.under}</p> : null}
     </div>
   )
 }
 
-function SektionFor({ s, forstaRad }: { s: Sektion; forstaRad: boolean }) {
+function SektionFor({ s, forstaRad, spann, statusBred }: { s: Sektion; forstaRad: boolean; spann?: boolean; statusBred?: boolean }) {
   // På dator står de första korten bredvid det lyfta kortet och lyfts med det
   // (W1); rubriken flyttar då in i kortet, eftersom golvets grå text inte
   // går att läsa mot väggen.
   // Allt utanför första raden står efter korten på dator (lg:order-2).
+  // Andra raden följer första (22.2 fråga 4): under ett tvåspaltskort spänner
+  // första kortet i andra raden också två spalter.
   const lyftDator = forstaRad
     ? 'lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:shadow-lyft lg:[&>section]:border-[color:var(--lyft-kant)]'
-    : 'lg:order-2'
+    : `lg:order-2${spann ? ' lg:col-span-2' : ''}`
   if (s.typ === 'status') {
     return (
-      <div className="lg:order-2 lg:self-start">
+      <div className={statusBred ? 'lg:order-3 lg:col-span-3' : 'lg:order-2 lg:self-start'}>
         <Statusrad text={s.text} ton={s.ton} lank={s.lank} />
       </div>
     )
@@ -277,6 +277,12 @@ export default function Hemvy({ m }: { m: HemModell }) {
     forstaRad.add(i)
     plats++
   })
+  // Andra raden på dator följer första (art-director 22.2 fråga 4): står ett
+  // tvåspaltskort i första raden spänner andra radens första kort två spalter
+  // (Provdagen i W3), nästa står i tredje, och statusraderna går i en tredje
+  // rad över hela bredden. En rad i en tredjedelsspalt bryter titeln på högst
+  // två rader.
+  const andraRadSpann = bredLyft ? m.sektioner.findIndex((s, i) => !forstaRad.has(i) && s.typ !== 'status') : -1
 
   return (
     <div data-tillstand={m.tillstand} data-ram={m.ram} className="flex flex-1 flex-col">
@@ -341,10 +347,16 @@ export default function Hemvy({ m }: { m: HemModell }) {
       <Golv lyft className="lg:grid lg:grid-cols-3 lg:items-start lg:gap-4">
         <Lyft l={m.lyft} bred={bredLyft} />
         {m.sektioner.map((s, i) => (
-          <SektionFor key={s.typ === 'tempo' ? 'tempo' : s.nyckel} s={s} forstaRad={forstaRad.has(i)} />
+          <SektionFor
+            key={s.typ === 'tempo' ? 'tempo' : s.nyckel}
+            s={s}
+            forstaRad={forstaRad.has(i)}
+            spann={i === andraRadSpann}
+            statusBred={bredLyft}
+          />
         ))}
         {m.taBortSvar ? (
-          <div className="px-1 lg:order-2 lg:col-span-3">
+          <div className="px-1 lg:order-3 lg:col-span-3">
             <TaBortSvar />
           </div>
         ) : null}

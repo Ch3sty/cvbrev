@@ -114,14 +114,10 @@ export interface LyftModell {
   eyebrowTon: 'koppar' | 'neutral';
   titel: string;
   text?: string;
-  /** En egen rad under texten (smakprovet i 1a och T1, 19.3 fråga 3). */
-  rad?: string;
   tre?: [Tal, Tal, Tal];
   handling?: Handling;
   sekundar?: { text: string; href: string };
-  /** Meta centrerad under knappen ("Gratis."). */
-  under?: string;
-  /** Meta under en linje (1f). */
+  /** Meta under en linje i kortet (1f, och 1a:s "Mätningen är gratis", 22.2). */
   fot?: string;
   alert?: boolean;
 }
@@ -290,11 +286,6 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   return delar.join(' ');
 }
 
-/** "22 och 23 oktober", eller "31 oktober och 1 november" över ett månadsskifte. */
-function tvaDatum(a: Dag, b: Dag): string {
-  return a.slice(0, 7) === b.slice(0, 7) ? `${Number(a.slice(8))} och ${datumText(b)}` : `${datumText(a)} och ${datumText(b)}`;
-}
-
 /* ------------------------------------------------------------ sektioner */
 
 function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer: boolean): Sektion {
@@ -392,13 +383,11 @@ function varDuTappar(s: Traningsstatus, betalande: boolean, iMatningen: boolean)
 function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
   const r = provrad(s.format);
   const prov = s.plan?.provdatum ?? null;
-  let meta = r.format;
+  // Raden heter Generalrepetitionen; formatet är metans första mening (22.2 fråga 4).
+  let meta = `${r.titel}. ${r.format}`;
   if (r.anmarkning) meta += ` ${r.anmarkning}`;
   if (prov) {
-    const g1 = laggTill(prov, -2);
-    meta += harProvlage
-      ? ` ${HEM.provdagen.oppnar(datumText(g1))}`
-      : ` ${HEM.provdagen.tvaDagar(tvaDatum(g1, laggTill(prov, -1)))}`;
+    meta += harProvlage ? ` ${HEM.provdagen.oppnar(datumText(laggTill(prov, -2)))}` : ` ${HEM.provdagen.dagenFore}`;
   } else {
     meta += ` ${HEM.utanDatum.provradMeta}`;
   }
@@ -413,10 +402,10 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
     rubrik: HEM.provdagen.rubrik,
     rader: [
       {
-        titel: r.titel,
+        titel: HEM.provdagen.radTitel,
         meta,
         hoger,
-        label: hoger.typ === 'las' ? `${r.titel}. ${r.format} Låst, ${ingarIPaketet().toLowerCase()}.` : undefined,
+        label: hoger.typ === 'las' ? `${HEM.provdagen.radTitel}. ${meta} Låst, ${ingarIPaketet().toLowerCase()}.` : undefined,
       },
     ],
   };
@@ -901,7 +890,7 @@ function kurvaRubrik(s: Traningsstatus): VaggModell['kurvaRubrik'] {
 }
 
 function matningLyft(betalande: boolean, smakprov: Traningsstatus['smakprov']): LyftModell {
-  // Smakprovet räknas in (19.3 fråga 3): raden under texten, minuterna på de nya.
+  // Smakprovet räknas in (19.3 fråga 3, 19.5 fråga 2): en text, minuterna på de nya.
   const n = smakprov && smakprov.antal > 0 && smakprov.antal < 12 ? smakprov.antal : 0;
   const m = n ? HEM.matning.smakprovMinuter(n) : null;
   return {
@@ -911,7 +900,8 @@ function matningLyft(betalande: boolean, smakprov: Traningsstatus['smakprov']): 
     titel: m ? HEM.matning.smakprovTitel(m) : HEM.matning.titel,
     text: n ? HEM.matning.smakprovText(n) : HEM.matning.text,
     handling: { typ: 'lank', text: m ? HEM.matning.smakprovKnapp(m) : HEM.matning.knapp, href: TRANING_RUTT.matning },
-    under: !betalande && GRATISNIVA.matningGratis ? HEM.matning.gratis : undefined,
+    // "Gratis." stod som lös rad på golvet; den är kortets fot (art-director 22.2).
+    fot: !betalande && GRATISNIVA.matningGratis ? HEM.matning.gratis : undefined,
   };
 }
 

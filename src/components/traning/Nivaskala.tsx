@@ -27,6 +27,7 @@
 
 import { useId } from 'react'
 import Link from 'next/link'
+import { LANK_VAGG } from '@/components/shell/knappar'
 
 export interface NivaskalaProps {
   /** Nivån nu, din punkt. */
@@ -39,8 +40,11 @@ export interface NivaskalaProps {
   etikettNu: string
   /** Axeltext under ringen: "5 · mätningen" | "från 5,4". Ersätter "5". */
   etikettFran?: string | null
-  /** Sikteetiketten blir en länk: "Sikte 6,5, ändra". */
-  siktLank?: { href: string; text: string } | null
+  /**
+   * Sikteetiketten med en länk: "Sikte 6,5, ändra". Bara verbet är länken
+   * (art-director 22.2 fråga 2); etiketten står som text.
+   */
+  siktLank?: { href: string; etikett: string; verb: string } | null
   /** Axeltext under din punkt (M1: decimalen, "5,9"). */
   etikettUnder?: string | null
   /**
@@ -58,6 +62,9 @@ export interface NivaskalaProps {
 }
 
 type Ankare = 'start' | 'mitt' | 'slut'
+
+/** Länken på golvet: samma form som LANK_VAGG, i golvets färger. */
+const LANK_GOLV = 'text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark'
 
 const MATT = {
   mobil: { w: 380, steg: 38.667 },
@@ -119,14 +126,17 @@ function Skala({
   const vagg = (p.pa ?? 'vagg') === 'vagg'
   const slut = w - 16
   const xNu = xFor(p.nu, bredd)
+  // Från-ringen utelämnas när den nästan täcks av punkten (22.2 fråga 6):
+  // axeltexten "från 5,2" bär talet.
   const xFran = p.fran != null ? xFor(p.fran, bredd) : null
+  const ritaFran = xFran != null && p.fran != null && Math.abs(p.nu - p.fran) >= 0.15
   const xSikte = p.sikte != null ? xFor(p.sikte, bredd) : null
   const xFem = xFor(5, bredd)
   const layout = p.layout ?? 'standard'
   // Krockregeln: siktet in i din etikett, sikttexten bort, triangeln kvar.
   const krock = layout === 'standard' && siktetKrockar(p.nu, p.sikte)
   const nuText = krock && p.sikte != null ? `${p.etikettNu} · ${sikteText(p.sikte).toLowerCase()}` : p.etikettNu
-  const nuLank = krock && p.siktLank ? { href: p.siktLank.href, text: `${p.etikettNu} · ${p.siktLank.text.charAt(0).toLowerCase()}${p.siktLank.text.slice(1)}` } : null
+  const nuLank = krock && p.siktLank ? { href: p.siktLank.href, text: `${p.etikettNu} · ${p.siktLank.etikett.charAt(0).toLowerCase()}${p.siktLank.etikett.slice(1)}, `, verb: p.siktLank.verb } : null
   // Decimalen under pricken; axelns tal viker när de står för nära.
   const under = layout === 'standard' && p.etikettUnder ? p.etikettUnder : null
   const nara = (n: number) => under != null && Math.abs(p.nu - n) < 0.9
@@ -192,7 +202,8 @@ function Skala({
             )
           })}
         </g>
-        {xFran != null ? <circle cx={xFran} cy={28} r={5} fill="none" stroke={farg.fran} strokeWidth={1.5} /> : null}
+        {/* Ringen före punkten, så att punkten täcker den (22.2 fråga 6). */}
+        {ritaFran && xFran != null ? <circle cx={xFran} cy={28} r={5} fill="none" stroke={farg.fran} strokeWidth={1.5} /> : null}
         {xSikte != null ? <path d={`M${xSikte} 15l-5-8h10z`} fill={farg.sik} /> : null}
         <circle cx={xNu} cy={28} r={7} fill="var(--koppar)" stroke={farg.duKant} strokeWidth={3} />
       </svg>
@@ -250,29 +261,34 @@ function Skala({
         ) : null}
       </div>
 
-      {/* Krock med siktLank: den sammanslagna etiketten är länken. */}
+      {/* Krock med siktLank: etiketten står som text, bara verbet är länken
+          (22.2 fråga 2), 44 px träffyta. */}
       {nuLank ? (
-        <Link
-          href={nuLank.href}
-          className={`absolute -top-3 whitespace-nowrap py-3 ${etikettLbl} ${txt.k} underline decoration-vagg-svag underline-offset-2`}
+        <span
+          className={`absolute top-0 whitespace-nowrap ${etikettLbl} ${txt.k}`}
           style={{ left: `${(nuX / w) * 100}%`, transform: nuAnkare === 'start' ? undefined : 'translateX(-100%)' }}
         >
-          {nuLank.text}
-        </Link>
+          <span aria-hidden="true">{nuLank.text}</span>
+          <Link href={nuLank.href} aria-label="Ändra siktet" className={`${vagg ? LANK_VAGG : LANK_GOLV} -mx-1 -my-2 px-1 py-2 !text-[13px] !leading-4`}>
+            {nuLank.verb}
+          </Link>
+        </span>
       ) : null}
 
       {/* Siktets länk är klickbar, så den står utanför den dolda etikettytan. */}
       {xSikte != null && p.sikte != null && p.siktLank && !krock ? (
-        <Link
-          href={p.siktLank.href}
-          className={`absolute -top-3 whitespace-nowrap py-3 text-[11px] font-medium leading-4 underline decoration-vagg-svag underline-offset-2 ${txt.sik}`}
+        <span
+          className={`absolute top-0 whitespace-nowrap text-[11px] font-medium leading-4 ${txt.sik}`}
           style={{
             left: `${(sikX / w) * 100}%`,
             transform: sikAnkare === 'start' ? undefined : 'translateX(-100%)',
           }}
         >
-          {p.siktLank.text}
-        </Link>
+          <span aria-hidden="true">{`${p.siktLank.etikett}, `}</span>
+          <Link href={p.siktLank.href} aria-label="Ändra siktet" className={`${vagg ? LANK_VAGG : LANK_GOLV} -mx-1 -my-2 px-1 py-2 !text-[11px] !leading-4`}>
+            {p.siktLank.verb}
+          </Link>
+        </span>
       ) : null}
     </div>
   )

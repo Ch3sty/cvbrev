@@ -104,7 +104,7 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
               sikte={vm.skala.sikte}
               etikettNu="Du"
               etikettUnder={nivaText(vm.skala.nu)}
-              siktLank={vm.skala.sikte != null ? { href: sikteHref, text: `Sikte ${String(vm.skala.sikte.toFixed(1)).replace('.', ',')}, ändra` } : null}
+              siktLank={vm.skala.sikte != null ? { href: sikteHref, etikett: `Sikte ${nivaText(vm.skala.sikte)}`, verb: 'ändra' } : null}
               aria={vm.skala.aria}
             />
             <TreTal tal={vm.tal} />

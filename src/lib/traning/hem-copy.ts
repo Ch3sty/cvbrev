@@ -54,7 +54,7 @@ export const HEM = {
     titel: 'Mät din nivå. Cirka 8 minuter.',
     text: 'Tolv figuruppgifter över hela svårighetsspannet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.',
     knapp: 'Mät min nivå, 8 min',
-    gratis: 'Gratis.',
+    gratis: 'Mätningen är gratis, med eller utan paket.',
     /**
      * Med smakprov (testansvarig 19.3 fråga 3): n frågor räknas in, minuterna
      * räknas på de nya (40 s per fråga, minst 3).
@@ -198,8 +198,10 @@ export const HEM = {
   },
   provdagen: {
     rubrik: 'Provdagen',
-    oppnar: (datum: string) => `Generalrepetitionen öppnar ${datum}.`,
-    tvaDagar: (datum: string) => `Generalrepetitionen ${datum}.`,
+    /** Radens namn (art-director 22.2 fråga 4); formatet står i metan. */
+    radTitel: 'Generalrepetitionen',
+    oppnar: (datum: string) => `Öppnar ${datum}.`,
+    dagenFore: 'Dagen före provet.',
     gorEnNu: 'Gör en nu',
     angeLeverantor: 'Ange leverantör',
   },

@@ -324,6 +324,13 @@ väggen, `bg-white/[.08]` med `border-vagg-kant`, alltid automatisk bredd),
 `LANK`, `LANK_VAGG`, `KNAPPRAD`. Exakt ett `KNAPP_PRIMAR` per vy, aldrig på
 väggen; det sekundära i en betalvägg är alltid `LANK`.
 
+**Rader i spalter på dator** (22.2 fråga 4): andra raden följer första. Står
+ett tvåspaltskort i första raden spänner andra radens första kort också två
+spalter, nästa står i tredje, och statusraderna går i en egen rad över hela
+bredden. **En rad i en tredjedelsspalt får bryta titeln på högst två rader;
+bryter den på tre är det spalten som är fel, inte texten.** En radtitel är ett
+namn ("Generalrepetitionen"), inte en mening; formatet står i metan.
+
 **`LyftKort`** (server) `{ eyebrow?, eyebrowTon?, titel?, text?, handling?, sekundar?, fot?, children?, label }`:
 papper, `shadow-lyft`, överlappar väggen 30 px, i mörkt läge `border-kant`.
 Tar rollen som vyns viktigaste handling från `InkPanel`.
@@ -337,9 +344,24 @@ lås), **`Dagsrad`**, **`Dagsring`** (SVG 56), **`Veckorad`**, **`Formord`**.
 (Jobbsöket), `Staplar` (tempo), `Plan`, `Marke`. Exakta mått och regler i
 spec avsnitt 4.4.
 
+Regler för instrumenten (art-director 22.2): **punktens tal vinner alltid
+över ett tickvärde.** På nivåskalan viker axelns 1, 5 och 10 när punkten står
+närmare än 0,9 nivåer; 1 och 10 viker bara då, och punktens tal står kvar vid
+kanten så att skalan alltid har ett tal i varje ände (samma prioritet som
+kurvans axel). **I en etikett med en handling är bara verbet länken**:
+"Sikte 6,5, ändra" och "Du · sikte 6,5, ändra" står som text, och `ändra`
+är ett `<a>` med `LANK_VAGG` och 44 px träffyta (`py-2 -my-2 px-1 -mx-1`).
+Nivån är det man ska läsa, inte en länk. **Från-ringen ritas före punkten**
+så att punkten täcker den, och utelämnas när |nu − från| < 0,15; axeltexten
+("från 5,2") bär talet.
+
 **Flödet**: `FlowShell` restylas i våg 1b (golv, kopparknapp `h-12`,
 progress 3 px), `PassShell` (våg 3b) lägger till tidsraden som aldrig räknar
-ner och aldrig byter färg. `PassFraga`, `Regelpanel` (`bg-ton`,
+ner och aldrig byter färg. **Luft under ett flöde är en konstant, aldrig ett
+mått på något annat element** (22.2 fråga 1): `PassShell`s kropp har
+`pb-4`, eftersom foten är ett eget barn under `main`. `--flow-footer-h`
+finns kvar för `FlowShell`, där foten ligger ovanpå kroppen, och för
+bannrarna. `PassFraga`, `Regelpanel` (`bg-ton`,
 `role="status"`), `Resultatvy`, `Kvitto`, `Ingang`.
 
 **Befintliga som behålls**: `StatusRow` (restylad i 1b: papper, punkt
@@ -577,6 +599,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-11 (klar-2, granskning).** Luften i passet, länken i skalan, Provdagen-raden: `PassShell` har `pb-4` (luft är en konstant, aldrig fotens höjd); i nivåskalan är bara "ändra" länk, med 44 px träffyta; från-ringen ritas före punkten och utelämnas under 0,15 nivåer; punktens tal vinner över axelns 1, 5 och 10; Provdagen-raden heter "Generalrepetitionen" med formatet i metan och spänner två spalter under W3:s tvåspaltskort; 1a:s "Mätningen är gratis" står i lyftkortets fot, inte lös på golvet. Knappkontrollen på 360 px (`scripts/qa-rummen-knappar-360.mjs`) kör på alla routes före merge.
 
 **v3, Rummen, 2026-10-11 (våg 2 + 3b, rättningen efter 19 och 20).** Instrumenten (`Kurva`, `Planbild`, `Nivaskala`) håller bara geometri i SVG; all text är HTML i procent ovanpå, aldrig skalad. Nivåskalans krockregel: siktet närmare än 1,2 nivåer skrivs in i din etikett ("Du 6,4 · sikte 6,5"), triangeln står kvar; M1 har decimalen under pricken. Kurvans axel har prioriteten i dag, start, slut, mittpunkt. `KNAPP_PRIMAR` är `whitespace-nowrap`: ryms inte texten ändras layouten, kortet spänner två kolumner. Hemvyns första rad på dator är bara lyfta kort; statusrader lyfts aldrig och står i andra raden. Väggens h1 upprepar aldrig toppradens brand ("Träna inför ditt rekryteringstest", "Ett pass om dagen"). En betalvägg bär alltid sin egen knapp, och en fast fot ligger aldrig ovanpå en betalvägg (M1 gratis har ingen fot). Passets innehållskolumn är 400 px på dator, topprad, tidsrad och fot 560. Regeln rullas fram till 12 px ovanför foten. Felstaplar är ihåliga (1,5 px kant), aldrig låg opacitet. Decimalkommat i tabellsiffror är proportionellt (`TalText`, `.tal-komma`). `.matrisyta` gäller hela inloggat, också det gamla testflödet och genomgången.
 

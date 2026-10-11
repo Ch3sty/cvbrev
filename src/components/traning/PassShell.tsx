@@ -162,7 +162,7 @@ export default function PassShell({
       ) : null}
 
       <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3.5 px-4 pb-[calc(16px+var(--flow-footer-h,0px))] pt-3 lg:max-w-[432px]">
+        <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3.5 px-4 pb-4 pt-3 lg:max-w-[432px]">
           {banner}
           {children}
         </div>

@@ -103,7 +103,13 @@ describe('tillstånden med konceptets exempeltal', () => {
     const i = modell('1i')
     expect(i.vagg.rubrik).toBe('14 dagar till logiktestet')
     const prov = i.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    expect(prov && prov.typ === 'rader' ? prov.rader[0].titel : null).toBe('Vårt provläge')
+    expect(prov && prov.typ === 'rader' ? prov.rader[0].titel : null).toBe('Generalrepetitionen')
+    expect(prov && prov.typ === 'rader' ? prov.rader[0].meta : null).toMatch(/^Vårt provläge. /)
+    // W3 (gratis, 22.2 fråga 4): "Samma format som Matrigma. … Dagen före provet."
+    const w = modell('W3')
+    const wp = w.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
+    expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Generalrepetitionen' })
+    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter.*Dagen före provet.$/)
   })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
@@ -141,11 +147,10 @@ describe('tillstånden med konceptets exempeltal', () => {
     const t = modell('T1s')
     expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
     expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.')
-    expect(t.lyft.rad).toBeUndefined()
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
     const a = modell('1as')
     expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
-    expect(a.lyft.rad).toBeUndefined()
+    expect(a.lyft.fot).toBe('Mätningen är gratis, med eller utan paket.')
     expect(modell('T1').lyft.text).toMatch(/^Tolv figuruppgifter/)
   })
   it('1t: bara siffror valt erbjuder siffertestet, aldrig matrismätningen (19.3 fråga 2)', () => {
