@@ -956,6 +956,17 @@ export async function slutforTraning(args: {
   });
   const nasta = meta.typ === 'pass' || meta.typ === 'riktat' ? nastaForPass(ratt, antal) : null;
 
+  // Kalibreringskontraktet (docs/design/tester-v2-2026-10-11/kontrakt-kalibrering.md),
+  // som omgång 1 bygger mot:
+  //   - meta.kalibrering = { q_id, index } när passet eller övningsprovet har en
+  //     kalibreringsfråga. Den står aldrig i meta.fragor eller meta.upprepade.
+  //   - Svarsraden har samma form som övriga plus kalibrering: true.
+  //   - Kalibreringssvaret räknas aldrig i nivaSvar, tempot eller familjerna,
+  //     men alltid här när sessionen är blandad, med typ: 'kalibrering'.
+  //     Ordinarie svar får typ = meta.typ (matning | pass | riktat | ommatning |
+  //     general). Svar på frågor i meta.upprepade skickas fortfarande inte.
+  //   - uppdatera_fraga_statistik räknar typ i fraga_statistik.per_typ
+  //     (migreringen 20261012090000_fraga_kalibrering.sql); saknas typ blir det 'okand'.
   const statistik = blandad
     ? svar
         .filter((s) => raknas.has(s.q_id))
