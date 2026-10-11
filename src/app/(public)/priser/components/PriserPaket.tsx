@@ -1,101 +1,61 @@
-'use client'
-
 /**
- * Tre paket (docs/design/spec-prissida-2026-09-22.html, .valjare och .paket).
+ * Kortet med Jobbcoach Premium (spec-rummen 17.3, copy-premium avsnitt 3).
  *
- * Desktop: rubrik och ingress centrerade, tre kort i rad där Hela paketet är något
- * bredare. Mobil: en eyebrow, korten numrerade "Paket 1 av 3" under
- * varandra, och en ankarrad till gratisnivån, funktionerna och hjälpredan.
+ * Bara ett paket säljs, så sidan har ett kort: vad som ingår till vänster
+ * (PLANS.all_month.highlights), prisraden i kort form och köpknappen till
+ * höger. Fulla namnet står i H1, så kortet säger Premium. På mobil står
+ * delarna under varandra och en ankarrad leder vidare till gratisnivån,
+ * funktionerna och hjälpredan.
  *
- * Knapparna: utloggad går till registreringen med paketet i adressen,
- * inloggad går till spårvalet med paketet förvalt. Inloggningen läses i
- * klienten och aldrig på servern, eftersom sidan är CDN-cachad ett dygn
- * (reference_vercel_env_saknas). Sidan ser likadan ut i båda lägena, det är
- * bara knappens destination som skiljer, så ingenting flyttar sig.
+ * Serverkomponent i Trådens utseende; bara knappen är klient.
  */
 
-import { useCallback, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { PAKET_KORT, VALJARE } from '@/components/pricing/paket-copy'
+import PriserKopKnapp from './PriserKopKnapp'
 
-import PaketKort from '@/components/pricing/PaketKort'
-import {
-  PAKET_IDS,
-  PAKET_PLAN,
-  VALJARE,
-  borjaKnapp,
-  planForLangd,
-  type PaketId,
-} from '@/components/pricing/paket-copy'
-import { capture } from '@/lib/analytics/events'
-import { useAuth } from '@/contexts/AuthContext'
-import type { PlanKey, PlanLength } from '@/lib/plans/plans'
-import { kopstegHref } from '@/lib/onboarding/steps'
+const kort = PAKET_KORT.allt
 
 export default function PriserPaket() {
-  const router = useRouter()
-  // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
-  // sessionscookie. Prissidan och startsidan betalade annars klienten för
-  // varje besökare.
-  const { user } = useAuth()
-  const inloggad = Boolean(user)
-  const [busy, setBusy] = useState<PlanKey | null>(null)
-  const [alltLangd, setAlltLangd] = useState<PlanLength>('vecka')
-
-  const valj = useCallback(
-    (plan: PlanKey) => {
-      capture('paywall_cta_clicked', {
-        variant: 'onboarding_paket',
-        surface: 'public_pricing',
-        plan,
-        cta: 'primary',
-      })
-      setBusy(plan)
-      // Ångerrättssamtycket lämnas på köpsteget, som bär både kryssrutan och
-      // knappen. Prissidan öppnar därför aldrig kassan själv.
-      router.push(
-        inloggad ? kopstegHref(plan) : `/register?paket=${plan}`
-      )
-    },
-    [inloggad, router]
-  )
-
-  const planFor = (paket: PaketId): PlanKey =>
-    paket === 'allt' ? planForLangd(alltLangd) : PAKET_PLAN[paket]
-
   return (
-    <section aria-labelledby="priser-paket" className="mt-8 lg:mt-[72px]">
-      <div className="text-center">
-        <p className="text-steg font-semibold uppercase tracking-[0.08em] text-ink-3 lg:hidden">
-          {VALJARE.eyebrowMobil}
-        </p>
-        <h2
-          id="priser-paket"
-          className="hidden font-display text-[40px] font-bold leading-[44px] tracking-[-0.025em] text-ink-1 [text-wrap:balance] lg:block"
-        >
-          {VALJARE.h2}
-        </h2>
-        <p className="mt-2 hidden text-base text-ink-2 lg:block">{VALJARE.ingress}</p>
-      </div>
+    <section id="premium" aria-labelledby="priser-paket" className="mt-8 scroll-mt-20 lg:mt-14">
+      <div className="grid gap-6 rounded-xl border border-kant-stark bg-panel p-4 sm:p-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-10 lg:p-8">
+        <div>
+          <h2
+            id="priser-paket"
+            className="font-display text-[26px] font-bold leading-[30px] tracking-[-0.025em] text-ink-1 lg:text-[30px] lg:leading-[34px]"
+          >
+            {kort.listEtikett}
+          </h2>
+          <ul className="mt-4 grid gap-3">
+            {kort.ingar.map((rad) => (
+              <li key={rad} className="flex items-start gap-3 text-base leading-6 text-ink-1">
+                <svg
+                  viewBox="0 0 20 20"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="mt-0.5 shrink-0 text-accent-ink"
+                  aria-hidden="true"
+                >
+                  <path d="M4 10.5l4 4 8-9" />
+                </svg>
+                <span>{rad}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div className="mt-3 grid gap-3 lg:mt-8 lg:grid-cols-[1fr_1fr_1.12fr] lg:items-stretch lg:gap-5">
-        {PAKET_IDS.map((paket, i) => (
-          <PaketKort
-            key={paket}
-            id={`paket-${paket}`}
-            paket={paket}
-            nummer={i + 1}
-            langd={paket === 'allt' ? alltLangd : undefined}
-            onLangd={(langd, plan) => {
-              setAlltLangd(langd)
-              capture('plan_length_changed', { plan, surface: 'public' })
-            }}
-            knapp={{
-              text: borjaKnapp(paket, planFor(paket)),
-              onClick: () => valj(planFor(paket)),
-              disabled: busy !== null,
-            }}
-          />
-        ))}
+        <div className="flex flex-col justify-center border-t border-kant pt-5 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+          <p className="text-sm leading-[22px] text-ink-2">{kort.prisrad}</p>
+          <div className="mt-3">
+            <PriserKopKnapp />
+          </div>
+          <p className="mt-2 text-xs text-ink-3">{kort.fotnot}</p>
+        </div>
       </div>
 
       <p className="mt-3 text-center text-[13px] text-ink-3 lg:hidden">

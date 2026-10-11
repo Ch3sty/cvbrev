@@ -1,19 +1,25 @@
 /**
  * Priser-data: serversäkra konstanter för /priser
- * (docs/design/spec-prissida-2026-09-22.html).
+ * (docs/design/spec-prissida-2026-09-22.html, ägarens beslut 2026-10-11 i
+ * spec-rummen 17.3: bara Jobbcoach Premium säljs).
  *
- * Prisstegen bor i src/lib/plans/plans.ts och all copy i
+ * Priset bor i src/lib/plans/plans.ts och kortets copy i
  * src/components/pricing/paket-copy.ts. Här ligger bara det som är sidans
  * eget: gratisnivån i listform, jämförelsetabellen och frågorna.
  *
- * Tabellen skriver ord i stället för prickar: "Alla 41", "Utan tak",
- * "Ingår inte". Ändras en gräns i quotaService måste raderna ändras i samma
- * omgång, annars säger sidan en sak och spärren en annan.
+ * Tabellen har två kolumner, gratis och Premium, och skriver ord i stället
+ * för prickar: "Alla 41", "Utan tak", "Ingår inte". Ändras en gräns i
+ * quotaService måste raderna ändras i samma omgång, annars säger sidan en
+ * sak och spärren en annan.
  */
 
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export const PREMIUM_CURRENCY = 'SEK'
+
+const PREMIUM = paketKort()
+const PRIS = prisPeriod(SALD_PLAN)
 
 // === Gratisnivån ===
 
@@ -23,7 +29,7 @@ export const FREE_HIGHLIGHTS = [
   'En CV-analys med poängen och det tyngsta fyndet',
   'Ett personligt brev att läsa, sedan ett i veckan',
   'Tre matchade jobb',
-  'Tio frågor till jobbcoachen',
+  'Tio frågor till Jobbcoachen',
   'Grundnivån i alla fyra testtyperna, en gång per typ och dygn',
 ] as const
 
@@ -45,9 +51,7 @@ export interface ComparisonRow {
   label: string
   sub?: string
   free: ComparisonCell
-  cv: ComparisonCell
-  test: ComparisonCell
-  allt: ComparisonCell
+  premium: ComparisonCell
 }
 
 export interface ComparisonGroup {
@@ -59,6 +63,14 @@ const ja = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'j
 const g = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'g' })
 const NEJ: ComparisonCell = { text: 'Ingår inte', ton: 'nej' }
 
+/** Tabellens kolumnhuvuden och skärmläsarens rubrik. */
+export const JAMFORELSE_KOLUMNER = {
+  caption: `Vad som ingår gratis och i ${PREMIUM}`,
+  funktion: 'Funktion',
+  gratis: 'Gratis',
+  premium: PREMIUM,
+} as const
+
 export const COMPARISON: ComparisonGroup[] = [
   {
     title: 'CV och personliga brev',
@@ -67,41 +79,31 @@ export const COMPARISON: ComparisonGroup[] = [
         label: 'CV-mallar',
         sub: 'som rekryteringssystem läser',
         free: g(`${FREE_TEMPLATE_COUNT} mallar`),
-        cv: ja(`Alla ${TEMPLATE_COUNT}`),
-        test: g(`${FREE_TEMPLATE_COUNT} mallar`),
-        allt: ja(`Alla ${TEMPLATE_COUNT}`),
+        premium: ja(`Alla ${TEMPLATE_COUNT}`),
       },
       {
         label: 'CV-analys',
         sub: 'poäng, fynd, nyckelord',
         free: g('Poäng och tyngsta fyndet', 'en gång'),
-        cv: ja('Hela rapporten', 'kör om utan tak'),
-        test: g('Poäng och tyngsta fyndet', 'en gång'),
-        allt: ja('Hela rapporten', 'kör om utan tak'),
+        premium: ja('Hela rapporten', 'kör om utan tak'),
       },
       {
         label: 'CV-nedladdning',
         sub: 'som PDF',
         free: g('1 gång'),
-        cv: ja('Utan tak'),
-        test: g('1 gång'),
-        allt: ja('Utan tak'),
+        premium: ja('Utan tak'),
       },
       {
         label: 'Personliga brev',
         sub: 'skrivna på annonsen',
         free: g('1, sedan 1 i veckan', 'läsa, inte ladda ned'),
-        cv: ja('Utan tak', 'nedladdning som PDF'),
-        test: g('1, sedan 1 i veckan', 'läsa, inte ladda ned'),
-        allt: ja('Utan tak', 'nedladdning som PDF'),
+        premium: ja('Utan tak', 'nedladdning som PDF'),
       },
       {
         label: 'LinkedIn-profilen',
         sub: 'rubrik och sammanfattning',
         free: NEJ,
-        cv: ja('Ingår'),
-        test: NEJ,
-        allt: ja('Ingår'),
+        premium: ja('Ingår'),
       },
     ],
   },
@@ -112,39 +114,29 @@ export const COMPARISON: ComparisonGroup[] = [
         label: 'Grundnivå',
         sub: 'matrislogik, verbalt, numeriskt, personlighet',
         free: g('1 per typ och dygn'),
-        cv: g('1 per typ och dygn'),
-        test: ja('Utan tak'),
-        allt: ja('Utan tak'),
+        premium: ja('Utan tak'),
       },
       {
         label: 'Avancerad och expertnivå',
         free: NEJ,
-        cv: NEJ,
-        test: ja('Ingår'),
-        allt: ja('Ingår'),
+        premium: ja('Ingår'),
       },
       {
         label: 'Tidsatt provläge',
         sub: '25 till 40 min, automatisk inlämning',
         free: NEJ,
-        cv: NEJ,
-        test: ja('Ingår'),
-        allt: ja('Ingår'),
+        premium: ja('Ingår'),
       },
       {
         label: 'Förklaring efter varje fråga',
         free: g('Grundnivå'),
-        cv: g('Grundnivå'),
-        test: ja('Alla nivåer'),
-        allt: ja('Alla nivåer'),
+        premium: ja('Alla nivåer'),
       },
       {
         label: 'Din utveckling',
         sub: 'alla sessioner i en kurva',
         free: g('Senaste sessionen'),
-        cv: g('Senaste sessionen'),
-        test: ja('Hela historiken'),
-        allt: ja('Hela historiken'),
+        premium: ja('Hela historiken'),
       },
     ],
   },
@@ -155,25 +147,19 @@ export const COMPARISON: ComparisonGroup[] = [
         label: 'Matchade jobb',
         sub: 'kompetens mot alla branscher',
         free: g('3 träffar'),
-        cv: g('3 träffar'),
-        test: g('3 träffar'),
-        allt: ja('25 träffar', 'med skälen utskrivna'),
+        premium: ja('25 träffar', 'med skälen utskrivna'),
       },
       {
         label: 'Jobbcoachen',
         sub: 'lön, intervju, avtal',
         free: g('10 meddelanden'),
-        cv: g('10 meddelanden'),
-        test: g('10 meddelanden'),
-        allt: ja('Utan tak'),
+        premium: ja('Utan tak'),
       },
       {
         label: 'Bli upptäckt',
         sub: 'rekryterare hittar dig, anonymt',
         free: NEJ,
-        cv: NEJ,
-        test: NEJ,
-        allt: ja('Ingår'),
+        premium: ja('Ingår'),
       },
     ],
   },
@@ -183,25 +169,48 @@ export const JAMFORELSE_RUBRIK = 'Vad som ingår, rad för rad'
 
 // === FAQ ===
 
+/** Rubriken ovanför frågorna (ersätter "Fler frågor om paketen?"). */
+export const PRISER_FAQ_RUBRIK = 'Fler frågor om priset?'
+
 export const PRISER_FAQ_ITEMS = [
   {
-    id: 'varfor-vecka',
-    q: 'Varför säljer ni veckor och inte månader?',
-    a: 'För att det mesta du behöver bygger du på en vecka: CV:t, de personliga breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Hela paketet per månad billigare per vecka, 149 kr i månaden, och det finns där när du vill ha det.',
+    id: 'vad-ingar',
+    q: `Vad ingår i ${PREMIUM}?`,
+    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med provläget och personlighetstestet, jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. ${PRIS}, och inget av det kostar extra.`,
   },
   {
-    id: 'nar-veckan-ar-slut',
-    q: 'Vad händer när veckan är slut?',
-    a: 'Den förnyas var sjunde dag tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.',
+    id: 'nar-manaden-ar-slut',
+    q: 'Vad händer när månaden är slut?',
+    a: 'Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen påminnelse i smyg.',
   },
   {
-    id: 'byta-spar',
-    q: 'Kan jag byta paket mitt i veckan?',
-    a: 'Ja. Från CV-paketet eller Träningspaketet till Hela paketet betalar du bara mellanskillnaden för dagarna som är kvar. Mellan CV-paketet och Träningspaketet byter du direkt, priset är detsamma och dragningsdagen står kvar. Från Hela paketet till ett av de andra byter du vid nästa förnyelse.',
+    id: 'borja-gratis',
+    q: 'Kan jag börja gratis?',
+    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och testerna fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
   },
   {
     id: 'saga-upp',
     q: 'Hur säger jag upp?',
-    a: 'I ditt konto, under Profil och prenumeration, ett klick. Lika enkelt som att köpa. Veckan du redan betalat gäller ut.',
+    a: 'I ditt konto, under Profil och Prenumeration, ett klick. Lika enkelt som att köpa. Månaden du redan betalat gäller ut.',
   },
 ] as const
+
+// === Metadata ===
+
+const HELA = paketNamn(SALD_PLAN)
+
+/**
+ * title, description, openGraph, twitter och OG-bilden (copy-premium
+ * avsnitt 3). Talen ur PLANS. Title 58 tecken, description 148.
+ */
+export const PRISER_META = {
+  url: 'https://www.jobbcoach.ai/priser',
+  title: `Priser: ${paketMedPris(SALD_PLAN)} | Jobbcoach.ai`,
+  description: `${HELA} kostar ${PRIS}. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.`,
+  keywords:
+    'jobbcoach premium, jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, jobbmatchning',
+  ogTitle: paketMedPris(SALD_PLAN),
+  ogEyebrow: 'Priser',
+  ogSubtitle: `${PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp när du vill.`,
+  ogAlt: `Priser för Jobbcoach.ai: ${paketMedPris(SALD_PLAN)}`,
+} as const
