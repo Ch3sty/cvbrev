@@ -1,6 +1,6 @@
 # Rummen: överlämning till ägaren
 
-2026-10-11. Branch `design/rummen-klar` (159 commits före `origin/main`, ingenting pushat). Allt nedan är byggt, typkontrollerat, testat och klicktestat i riktig Chrome mot ett lokalt produktionsbygge. Testrummet är klicktestat mot förhandsvisningar med fixturdata, inte mot riktig data, eftersom tre migreringar inte är körda i prod (punkt 2 i checklistan).
+2026-10-11. Branch `design/rummen-klar` (161 commits före `origin/main`, ingenting pushat). Allt nedan är byggt, typkontrollerat, testat och klicktestat i riktig Chrome mot ett lokalt produktionsbygge. Testrummet är klicktestat mot förhandsvisningar med fixturdata, inte mot riktig data, eftersom tre migreringar inte är körda i prod (punkt 2 i checklistan).
 
 ## Vad som är byggt
 
