@@ -29,6 +29,16 @@ export function kvittoHref(nyckel: string): string {
 }
 
 export const TRANING_HREF = '/dashboard/tester';
+
+/**
+ * Hemvyn efter ett pass eller en mätning. Sessionens id gör adressen unik, så
+ * routern aldrig visar en hemvy som förhämtats före passet (dörrarnas
+ * förhämtning står kvar i fem minuter), och resultatvyn kan förhämta den
+ * färska hemvyn medan resultatet läses. Hemvyn läser inte parametern.
+ */
+export function hemEfterHref(sessionId: string): string {
+  return `${TRANING_HREF}?efter=${encodeURIComponent(sessionId)}`;
+}
 export const KURVAN_HREF = '/dashboard/tester/kurvan';
 
 export const TRANING_RUTT = {

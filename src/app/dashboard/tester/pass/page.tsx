@@ -28,9 +28,16 @@ export default async function PassStartSida({
   const typ = forsta(sp.typ)
   const begard: Begard = TYPER.includes(typ as Begard) ? (typ as Begard) : 'pass'
   const { betalande } = await passSida()
+  const family = forsta(sp.family)
+  const format = forsta(sp.format)
+  // Nyckeln monterar om flödet när en ny start begärs från samma sida. Utan
+  // den återanvänder routern komponenten (mätningens resultat står kvar på
+  // /pass?typ=matning), startad-spärren hindrar en ny start och "Starta
+  // dagens pass" ser död ut (ägaren 2026-10-11).
   return (
     <PassFlode
-      start={{ typ: begard, family: forsta(sp.family), format: forsta(sp.format) }}
+      key={`${begard}|${family ?? ''}|${format ?? ''}`}
+      start={{ typ: begard, family, format }}
       betalande={betalande}
     />
   )

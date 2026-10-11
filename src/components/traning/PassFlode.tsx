@@ -37,6 +37,7 @@ import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/pla
 import type { BetalvaggPlats } from '@/lib/analytics/events'
 import {
   fetchPassApi,
+  hemEfterHref,
   passHref,
   sessionHref,
   TRANING_HREF,
@@ -275,6 +276,8 @@ export default function PassFlode({
         setFas({ typ: 'avslutfel' })
         return
       }
+      // Sessionen är avslutad: nästa start (Starta dagens pass) ska skapa en ny.
+      senasteStart = null
       const [vyEfter, status] = await Promise.all([api.session(aktuell.id), api.status()])
       setFas({ typ: 'resultat', data: { avslut: r.avslut, vy: vyEfter ?? aktuell, status } })
     },
@@ -381,7 +384,17 @@ export default function PassFlode({
     setFas({ typ: 'fraga' })
   }, [vy, fas, avsluta])
 
-  const tillbaka = useCallback(() => router.push(TRANING_HREF), [router])
+  // Tillbaka till hemvyn: med sessionens id i adressen, så att routern inte
+  // visar en hemvy förhämtad före passet. Resultatvyn förhämtar den färska
+  // hemvyn medan resultatet läses, så trycket går direkt (ägaren 2026-10-11:
+  // "Tillbaka till Rekryteringstester" laddade långsamt efter mätningen).
+  const hemHref = vy && !forhandsvisning ? hemEfterHref(vy.id) : TRANING_HREF
+  const tillbaka = useCallback(() => router.push(hemHref), [router, hemHref])
+  const visarResultat = fas.typ === 'resultat'
+  useEffect(() => {
+    if (!visarResultat || forhandsvisning) return
+    router.prefetch(hemHref, { kind: 'full' } as unknown as Parameters<typeof router.prefetch>[1])
+  }, [visarResultat, forhandsvisning, hemHref, router])
 
   /* ------------------------------ Genomgången ------------------------------ */
 

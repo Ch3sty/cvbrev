@@ -113,4 +113,4 @@ export const fetchPassApi: PassApi = {
 };
 
 /** Adresserna bor i rutter.ts, en källa för hemvyn och passflödet. */
-export { passHref, sessionHref, UPPVARMNING_HREF, kvittoHref, TRANING_HREF, KURVAN_HREF } from './rutter';
+export { passHref, sessionHref, hemEfterHref, UPPVARMNING_HREF, kvittoHref, TRANING_HREF, KURVAN_HREF } from './rutter';
