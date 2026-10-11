@@ -367,6 +367,6 @@ Ge betyg 1-10. Var konstruktiv.`;
 
     } catch (error: any) {
         console.error("Fel vid premium CV-analys:", error);
-        throw new Error(`Kunde inte utföra premium CV-analys: ${error.message}`);
+        throw new Error(`Kunde inte utföra den fulla CV-analysen: ${error.message}`);
     }
 }

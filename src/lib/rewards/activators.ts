@@ -135,7 +135,7 @@ export async function saveDiscountForLater(
   return {
     success: true,
     type: 'discount_saved',
-    message: `Din ${percentage}% rabattkod är sparad! Använd den när du blir premium.`,
+    message: `Din rabattkod på ${percentage} % är sparad. Använd den när du köper Premium.`,
     data: {
       promoCode: code,
       discountPercentage: percentage,

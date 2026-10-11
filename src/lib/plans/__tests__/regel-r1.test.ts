@@ -129,17 +129,20 @@ describe('R1 i betalväggarna', () => {
     'af-rapport',
   ]
 
-  it('rubrik och knapp i varje variant, för varje valt paket', () => {
-    const s: Record<string, string> = {}
+  // copy-premium avsnitt 1 och 8: fulla namnet står en gång per kort, i
+  // prisraden med pris och period (LinkedIn: i rubriken, och prisraden tar
+  // den korta formen). Knappen säger kortformen med pris och period.
+  it('fulla namnet en gång per kort, med pris och period på samma kort', () => {
     for (const variant of VARIANTER) {
       for (const track of [null, 'cv', 'tester', 'allt'] as const) {
         const c = getPaywallCopy(variant, { track, quotaFeature: 'chat_message' })
-        s[`${variant}/${track}.title`] = c.title
-        s[`${variant}/${track}.primary`] = c.primary
-        if (c.prisrad) s[`${variant}/${track}.prisrad`] = c.prisrad
+        const allt = [c.title, c.body, c.prisrad ?? '', c.primary].join(' | ')
+        const antal = allt.split('Jobbcoach Premium').length - 1
+        expect(antal, `${variant}/${track}: ${allt}`).toBe(1)
+        expect(c.primary, variant).toBe('Köp Premium, 149 kr i månaden')
+        expect(c.prisrad, variant).toMatch(/149 kr i månaden/)
       }
     }
-    kontrollera(s)
   })
 
   it('primärknappen säger Köp och beloppet när den säljer ett paket', () => {
