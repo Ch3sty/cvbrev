@@ -1,6 +1,6 @@
 'use client';
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,8 +18,6 @@ import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
 import { LYFT, RUBRIK } from '@/lib/rum/copy';
-import EmptyState from '@/components/shell/EmptyState';
-import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 // Syns aldrig i första vyn. Bekräftelsedialogen öppnas vid borttagning,
@@ -340,23 +338,11 @@ export default function MinaCvClient({
       ) : null}
     <div className="w-full max-w-5xl space-y-6">
 
-      {/* Tomt tillstand enligt sidmallen */}
+      {/* Tomt tillstånd: lyftkortet bär handlingen och uppladdningskortet är
+          dess mål. Ingen EmptyState, en handling på en plats (spec 18.3
+          punkt 3). Utan CV är gränsen aldrig nådd, så lyftkortet står alltid. */}
       {isEmpty && (
         <>
-          <EmptyState
-            illustration={IlluTomCv}
-            title="Inget CV än"
-            description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
-            action={
-              <a
-                href="#upload-zone"
-                className={KNAPP_SEKUNDAR_SMAL}
-              >
-                Ladda upp CV
-              </a>
-            }
-          />
-
           <div id="upload-zone" className="scroll-mt-6">
             <UploadCard>
               <CVUploadZone

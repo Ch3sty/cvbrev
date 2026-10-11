@@ -1054,6 +1054,12 @@ Efter (a) kan 1a + 1b gå till `main` i den gemensamma PR:en (avsnitt 13.1). Jag
 9. Brevvyn får B1 fullt ut (bekräftelsen i fyra steg, träffarna som veckorad, "Spara som sökt tjänst"); 16.3.2 ger den bara rätt skelett.
 10. Mina CV-korten (två 48-knappar per kort, papperskorg) blir `Rader` med chevron enligt C1:s "Mina CV".
 11. Ordet "ansökan/ansökningar" i Sökta tjänster (flik, chip "Sökt", statusrad) ses över med copywritern när modulen får J1:s rader; "Sökta tjänster" är namnet.
+12. `arbetsstil` (från 18.4): h1 är undersidans namn ("Din arbetsstil"), inte "Din rapport i ord, byggd på dig"; kortet "Gör dagens test" lyfts (det är vyns enda handling); knapptexten ses över av testansvarig mot gratisnivån i avsnitt 17.
+13. `meddelanden` (från 18.4): h1 "Meddelanden", det tomma tillståndet ("Inga meddelanden än", de tre stegen, kopparknappen) står på golvet som lyft kort, inte som h1 på väggen.
+14. `sokta-tjanster/[id]` (från 18.4): ikonerna i glasknappen "Redigera" och länken "Sökta tjänster" bort, "Ta bort" blir länk i `text-fel` vid metaraden som i brevvyn, "Lägg till händelse" utan plustecken, kortet lyfts.
+15. `cv-analys` (från 18.4): pilen i kopparknappen bort (ingen annan kopparknapp har ikon).
+
+**Våg 5 (paketen, från 18.4):** Kom igång-radens "med Hela paketet", sidomenyns "Från 49 kr", hubbens rad "Träningspaketet och Hela paketet", `GraValSheet`-texten och PaketKorten följer `paketNamn()` och avsnitt 17; inget av det rörs i 1b.
 
 ## 17. Ägarens beslut 2026-10-11 (efter saas-leads rekommendation)
 
@@ -1064,3 +1070,44 @@ Underlag: saas-leads bedömning på siffrorna i docs/rapporter/analys-utveckling
 3. **Paketen: bara Hela paketet 149 kr i månaden säljs.** Dagspasset, Hela paketet vecka och kvartal samt Träningspaketet och CV-paketet slutar säljas (`saljs: false` i PLANS och Stripe, inget raderas, befintliga prenumeranter löper vidare, webhooken känner fortfarande igen dem). Prissidan, betalväggarna, "Från"-badgen, AggregateOffer och registreringsförslaget visar bara månaden. Den med prov i morgon får månaden med provläget och generalrepetitionen öppna direkt; uppsägning med ett klick i portalen.
    **Återinförande av Dagspasset:** avläs vägg till köp efter 40 exponeringar eller sex veckor efter våg 5, vad som kommer först. Under 10 % återinförs Dagspasset 49 kr, men bara i betalväggen när provdatum ligger inom två dagar. Brytpunkt: vid 79 kr och 20 % gav varje exponering 15,8 kr; vid 149 kr krävs 10,6 %.
 4. **Paketnamnet.** "Hela paketet" byter namn till **Jobbcoach Premium**, eftersom det inte finns några andra paket kvar att skilja det från (ägaren 2026-10-11). Nyckeln all_month och priset 149 kr i månaden är oförändrade. PLANS.name i src/lib/plans/plans.ts är enda källan (paketNamn()); alla strängar som skriver "Hela paketet" i klartext, betalväggar, prissida, mejl, kvitton, AggregateOffer och produktnamnet i Stripe följer med i våg 5. Skrivreglerna från 2026-09-24 gäller i övrigt: namnet följs av pris eller period i knappar och säljrader ("Köp Jobbcoach Premium, 149 kr i månaden"), verbet Köp. svensk-ux-copywriter stresstestar namnet och skriver en kort regel för hur det skrivs (versaler, bestämd form, "Premium" ensamt) innan våg 5 startar. Låsta rader i appen säger "Ingår i Premium" eller copywriterns val.
+
+
+## 18. Slutgranskning 1b
+
+Datum 2026-10-11. Art-director efter skärmdumparna i `docs/qa/rummen/vag-1b/efter-granskning/` på branchen `design/rummen-1b` (commit f5dc9c39). Granskat på Pixel 7 och 1280, ljust och mörkt: `vyer/mycket-*` för dashboard, profil-cv, mina-brev, mina-brev-id, mina-brev-id-edit, sokta-tjanster, sokta-tjanster-id, tester, tester-slug, tester-provlaget, tester-personlighet, tester-resultat, cv-analys, cv-mallar, profil, prenumeration, intervju, jobbmatchning, jobbcoachen, bli-upptackt, arbetsstil, meddelanden, `vyer/gratis-*` för dashboard och profil-cv, `dorrar/`, `sidomeny/` och `komigang/`. Ingen kod är ändrad av mig.
+
+### 18.1 Omdömet
+
+Lyftet sitter. Mina CV, Mina brev, brevvyn, Sökta tjänster, testhubben, provläget, personligheten, resultatet och CV-analysen börjar nu med kortet som överlappar väggen, väggen bär bara glas eller länk, eyebrowen är borta överallt utom datumraden, Kom igång-raden är rummets material med kopparringen och sista raden i listan syns vid scrollbotten, kontoraden bryts på två rader, "Tester" står på dörren och "Rekryteringstester" i sidomenyn och toppraden. Det här är konceptet.
+
+### 18.2 Byggagentens egna beslut
+
+| Beslut | Omdöme |
+|---|---|
+| Lyftkort i 404-vyerna (`SaknasVy`, `ProvSaknasVy`) | Godkänt. Ett rum med en enda väg ut ska lyfta den. |
+| Lyftkort i hemmet B (CV men inget brev) | Godkänt i princip, men ingen skärmdump finns: alla tre konton stod i A eller C. Se 18.3 punkt 4. |
+| Lyftkort i brevredigeringen med Spara överst | **Rättas.** Ett formulär sparar i foten, inte i ett kort ovanför fälten. Se 18.3 punkt 1. |
+| "Ta bort" som röd länk vid "Skapad …" | Godkänt. Regel: `text-fel` får bära en destruktiv länk som bekräftas i dialog, aldrig en knappfyllnad. Samma mönster ersätter den röda "Ta bort"-knappen i ansökan i våg 4. |
+| `KNAPP_SEKUNDAR_LAG` som `replace` på `KNAPP_SEKUNDAR_SMAL` | Godkänt. |
+| 24 px överluft på golv utan lyftkort på dator (`pt-4 lg:pt-6`) | Godkänt, det är fråga 7. |
+
+### 18.3 Ska rättas före merge till `main`
+
+Godkänt för main: **nej**, tills de fyra punkterna är gjorda. Alla är utseende och strängar; samma grindar som 16.3 (a), skärmdump per ändrad vy i `efter-granskning/`.
+
+1. **Brevredigeringen** (`EditLetterClient.tsx`). Inget `LyftKort`, `Golv` utan `lyft`. Ordningen på golvet: kortet Brevinfo, raden "Redigera texten" och "Kopiera text", brevet (eller textarean), sedan `KNAPPRAD` sist med `KNAPP_PRIMAR` "Spara" och `LANK` "Avbryt" (till brevet). Väggen oförändrad (h1 "Redigera brevet", `LANK_VAGG` "Tillbaka till brevet"). Meningen "Tryck Spara överst för att spara brevet." tas bort; "Texten läggs tillbaka i mallen." räcker.
+2. **Hemmet A** (`DashboardHem.tsx`, inget CV, `gratis-pixel7-ljust-dashboard.png`). Det är det enda rumshemmet utan lyft, och det är vyn varje ny användare ser först. `forstaLyft` gäller även A, `tat={false}`, `Golv lyft`. Uppladdningskortet blir `LyftKort`: eyebrow "Börja här" (samma ton som "Nästa handling"), titel "Ladda upp ditt CV", text "PDF, Word eller text. Namn, telefon och adress maskas innan texten går vidare till någon AI.", `children` = `InlineCVUpload` och länken "Har du inget CV? Bygg ett här". Scenen `IlluArketLyfter` tas bort (fråga 8: scenerna är slut i inloggat, och ett lyft kort börjar med eyebrowen, inte med en bild). Länkarna "Träna på tester" och "Följ dina ansökningar" står kvar under kortet. Väggen oförändrad: h1 "Börja med ditt CV, Anna", raden, glasknappen "Logga sökt tjänst".
+3. **Mina CV utan CV** (`MinaCvClient.tsx`, `gratis-pixel7-ljust-profil-cv.png`). Tre ingångar till samma handling står staplade: lyftkortets kopparknapp, `EmptyState` "Inget CV än" med en sekundär "Ladda upp CV", och uppladdningskortet. `EmptyState` tas bort när lyftkortet står (en handling, en plats, fråga 14). Uppladdningskortet står kvar, det är målet för kortets handling.
+4. **Hemmet B, skärmdump.** Ladda upp ett CV på ett konto utan brev och ta `vyer/<konto>-{pixel7,desktop}-ljust-dashboard.png` i B. Kontroll: lyftkortet är brevet, väggen har h1 "Nästa steg: brevet", glasknappen och länken "Se hela CV-analysen" i automatisk bredd på en rad.
+
+Efter punkt 1 till 4 går 1a + 1b till `main` utan ny granskning från mig; byggagenten bifogar skärmdumparna i PR:en.
+
+### 18.4 Kan vänta, läggs till 16.4
+
+**Våg 4 (Jobbsöket):**
+1. `arbetsstil`: h1 är undersidans namn ("Din arbetsstil"), inte "Din rapport i ord, byggd på dig"; kortet "Gör dagens test" lyfts (det är vyns enda handling); knapptexten ses över av testansvarig mot gratisnivån i avsnitt 17.
+2. `meddelanden`: h1 "Meddelanden", det tomma tillståndet ("Inga meddelanden än", de tre stegen, kopparknappen) står på golvet som lyft kort, inte som h1 på väggen.
+3. `sokta-tjanster/[id]`: ikonerna i glasknappen "Redigera" och länken "Sökta tjänster" bort, "Ta bort" blir länk i `text-fel` vid metaraden som i brevvyn, "Lägg till händelse" utan plustecken, kortet lyfts.
+4. `cv-analys`: pilen i kopparknappen bort (ingen annan kopparknapp har ikon).
+
+**Våg 5 (paketen):** Kom igång-radens "med Hela paketet", sidomenyns "Från 49 kr", hubbens rad "Träningspaketet och Hela paketet", `GraValSheet`-texten och PaketKorten följer `paketNamn()` och avsnitt 17; inget av det rörs i 1b.

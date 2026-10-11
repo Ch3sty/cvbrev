@@ -3,8 +3,9 @@
 /**
  * Redigera ett sparat brev (docs/design/overlamning-opus.md).
  *
- * Väggen (RumHuvud) bär sidans enda h1 och länken tillbaka; Spara står i det
- * lyfta kortet först på golvet (spec 16.3.1: väggen bär aldrig kopparknappen). Brevinfon
+ * Väggen (RumHuvud) bär sidans enda h1 och länken tillbaka. Ett formulär sparar
+ * i foten: Spara och Avbryt står i KNAPPRAD sist på golvet, inget lyft kort
+ * (spec 18.3 punkt 1; väggen bär aldrig kopparknappen). Brevinfon
  * är fält enligt avsnitt 2, med hjälptext under titeln. Texten redigeras i
  * en insunken textarea, annars visas brevet på papper (bg-white, specens
  * enda tillåtna undantag). Fel via FlowError. Ingen rörelse, inga orange
@@ -12,7 +13,7 @@
  * använde dem.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_LAG, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_LAG, KNAPP_SEKUNDAR_SMAL, KNAPPRAD, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -21,12 +22,10 @@ import Link from 'next/link';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
-import LyftKort from '@/components/rum/LyftKort';
 import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
-import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 
@@ -228,37 +227,19 @@ export default function EditLetterClient({
     );
   }
 
-  const templateName =
-    currentLetter.template_id &&
-    DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES]
-      ? DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name
-      : null;
-
   const html = isTemplateHTML(formData.content);
 
   return (
     <>
       <RumHuvud
         title="Redigera brevet"
-        tat={false}
         handling={
           <Link href={`/dashboard/mina-brev/${id}`} className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
             Tillbaka till brevet
           </Link>
         }
       />
-    <Golv key="brev" lyft>
-      <LyftKort
-        className="w-full max-w-3xl"
-        label="Ändringarna i brevet"
-        titel="Ändringarna i brevet"
-        text={templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'}
-        handling={
-          <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
-            {isSaving ? 'Sparar' : 'Spara'}
-          </button>
-        }
-      />
+    <Golv key="brev">
     <div className="w-full max-w-3xl space-y-4">
 
       {saveError ? (
@@ -345,7 +326,7 @@ export default function EditLetterClient({
             </button>
           </div>
           <p className="mt-3 text-meta text-ink-3">
-            Texten läggs tillbaka i mallen. Tryck Spara överst för att spara brevet.
+            Texten läggs tillbaka i mallen.
           </p>
         </section>
       ) : (
@@ -382,6 +363,16 @@ export default function EditLetterClient({
           </div>
         </>
       )}
+
+      {/* Ett formulär sparar i foten (spec 18.3 punkt 1). */}
+      <div className={KNAPPRAD}>
+        <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
+          {isSaving ? 'Sparar' : 'Spara'}
+        </button>
+        <Link href={`/dashboard/mina-brev/${id}`} className={`lank ${LANK}`}>
+          Avbryt
+        </Link>
+      </div>
     </div>
     </Golv>
     </>

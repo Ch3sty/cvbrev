@@ -200,6 +200,13 @@ export const LYFT = {
     titel: (antal: number, minuter: number | string) => `${antal} frågor, cirka ${minuter} minuter, mot klockan`,
     text: 'Ingen förklaring under tiden. Genomgången kommer efter provet.',
   },
+  /** Jobbsökets hem i tillstånd A (inget CV), spec 18.3 punkt 2. Barnet är uppladdningen. */
+  jobbForstaCv: {
+    eyebrow: 'Börja här',
+    titel: 'Ladda upp ditt CV',
+    text: 'PDF, Word eller text. Namn, telefon och adress maskas innan texten går vidare till någon AI.',
+    byggLank: 'Har du inget CV? Bygg ett här',
+  },
   /** Jobbsökets hem i tillstånd B (CV finns, inget brev). Kopparknappen flyttad från väggen. */
   jobbForstaBrev: {
     titel: 'Ditt första personliga brev',

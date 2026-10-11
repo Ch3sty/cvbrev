@@ -4,12 +4,12 @@
  * DashboardHero i Tråden (docs/design/koncept-2026-09-13.md, ram 7).
  *
  * Tillståndet härleds ur cvCount och totalLetters:
- *   A  inget CV          → 240-scenen "arket lyfter ur mappen", h1, uppladdning
+ *   A  inget CV          → uppladdningen som lyft kort "Börja här" (spec 18.3
+ *                          punkt 2; scenen är borttagen, scenerna är slut i inloggat)
  *   B  CV men inget brev → panel med marginalplatta, vägen till första brevet
  *   C  aktiv             → ingen hero, jobbsöksöversikten är vyns startpunkt
  *
- * Scenen står ovanför texten på mobil och i egen kolumn till höger från lg.
- * Aldrig ovanpå text. En primär handling per vy, i ink.
+ * En primär handling per vy.
  */
 
 
@@ -17,7 +17,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import InlineCVUpload from '@/components/cv/InlineCVUpload'
 import QuickScoreReveal from '@/components/cv/QuickScoreReveal'
-import { IlluArketLyfter } from '@/components/illustrations/TradenScener'
+import LyftKort from '@/components/rum/LyftKort'
+import { LYFT } from '@/lib/rum/copy'
 
 export type DashboardState = 'A' | 'B' | 'C'
 
@@ -35,9 +36,11 @@ interface DashboardHeroProps {
   firstName?: string
   /** Anropas när ett CV laddats upp, så dashboarden kan hämta om sin data. */
   onCvUploaded?: () => void
+  /** Kortet överlappar inte väggen (kvittot efter köp står först). */
+  utanOverlapp?: boolean
 }
 
-export default function DashboardHero({ state, userId, onCvUploaded }: DashboardHeroProps) {
+export default function DashboardHero({ state, userId, onCvUploaded, utanOverlapp }: DashboardHeroProps) {
   const [uploadedCvId, setUploadedCvId] = useState<string | null>(null)
 
   // Rummen våg 1b: tillstånd B:s rubrik, rad och knappar står på väggen
@@ -55,38 +58,29 @@ export default function DashboardHero({ state, userId, onCvUploaded }: Dashboard
           nextLabel="Skapa ditt första brev"
         />
       ) : (
-        <div className="rounded-2xl border border-kant bg-papper p-4 sm:p-5">
-          <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-8">
-            <span className="mx-auto block w-fit text-ink-1 lg:order-2 lg:mx-0 lg:justify-self-end" aria-hidden="true">
-              <IlluArketLyfter size={220} className="lg:h-[240px] lg:w-[240px]" />
-            </span>
-
-            <div className="min-w-0 lg:order-1">
-              {/* Rubriken och raden står på väggen (DashboardHem). */}
-              <div>
-                <InlineCVUpload
-                  showCancel={false}
-                  hideHeader
-                  onComplete={(cv) => {
-                    setUploadedCvId(cv.id)
-                    onCvUploaded?.()
-                  }}
-                />
-              </div>
-
-              {/* Förtroenderaden står där filen lämnar användaren. Sann enligt
-                  src/lib/privacy/pii.ts, som maskar personuppgifter före varje
-                  AI-anrop. */}
-              <p className="mt-2 text-meta text-ink-3">
-                Namn, telefon och adress maskas innan texten går vidare till någon AI.
-              </p>
-
-              <Link href="/dashboard/skapa-cv" className={`${LINK} mt-2`}>
-                Har du inget CV? Bygg ett här
-              </Link>
-            </div>
+        <LyftKort
+          label={LYFT.jobbForstaCv.titel}
+          eyebrow={LYFT.jobbForstaCv.eyebrow}
+          titel={LYFT.jobbForstaCv.titel}
+          text={LYFT.jobbForstaCv.text}
+          utanOverlapp={utanOverlapp}
+        >
+          {/* Rubriken och raden står på väggen (DashboardHem). Förtroenderaden
+              är kortets text, sann enligt src/lib/privacy/pii.ts. */}
+          <div className="mt-3.5">
+            <InlineCVUpload
+              showCancel={false}
+              hideHeader
+              onComplete={(cv) => {
+                setUploadedCvId(cv.id)
+                onCvUploaded?.()
+              }}
+            />
           </div>
-        </div>
+          <Link href="/dashboard/skapa-cv" className={`${LINK} mt-2`}>
+            {LYFT.jobbForstaCv.byggLank}
+          </Link>
+        </LyftKort>
       )}
 
       {/* Inget annat konkurrerar i tillstånd A, bara två textlänkar. */}

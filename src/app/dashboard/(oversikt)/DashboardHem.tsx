@@ -321,8 +321,9 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
             };
 
   // Nästa handling överlappar väggen i träningsfokus och i tillstånd C, som
-  // konceptets lyfta kort (J1).
-  const forstaLyft = traningsFokus || state === 'B' || (state === 'C' && Boolean(nextAction));
+  // konceptets lyfta kort (J1). I A är uppladdningen det lyfta kortet (spec
+  // 18.3 punkt 2), i B brevet.
+  const forstaLyft = traningsFokus || state === 'A' || state === 'B' || (state === 'C' && Boolean(nextAction));
 
   return (
     // Ingen entré-animation här. Sidbytet tonas redan in en gång i
@@ -368,6 +369,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
           state={state}
           userId={stats.userId}
           onCvUploaded={handleCvUploaded}
+          utanOverlapp={purchasedPlan !== null}
         />
       )}
 
