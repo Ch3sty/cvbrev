@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* Ljust tema (hela applikationen) */
-  --foreground-rgb: 17, 24, 39; /* gray-900 */
-  --background-rgb: 255, 255, 255; /* white */
-
   /* ============================================================
-     TRÅDEN, designsystem v2 (docs/designsystem.md, docs/design/koncept-2026-09-13.md)
+     TRÅDEN, designsystem v2 (docs/designsystem.md avsnitt 12, koncept-2026-09-13)
+
+     Gäller sedan Rummen (v3, 2026-10-10) bara utanför inloggat: publika
+     sidor, auth, kassan och adminen. Inloggat skriver över de här värdena i
+     blocket RUMMEN längre ner, så länge sidan har ett rum ([data-rum]).
 
      Papper på ett bord och en orange linje som visar var du är. Tre toner
      som skiljer sig minst 1,2:1 per steg: mark (bordet), panel (papperet),
@@ -20,6 +20,11 @@
   --mark: #EDE8DF;
   --panel: #FFFFFF;
   --insunken: #ECE6DC;
+  /* Rummens papper utanför inloggat, för komponenter som delas med publika
+     sidor (våg 1b mappade bg-white till bg-papper). Samma ytor som Trådens
+     panel och insunken, så publika sidor ser ut som förut. */
+  --papper: var(--panel);
+  --papper-2: var(--insunken);
   --insunken-topp: #D6CDBF;
   --kant: #DBD2C4;
   --kant-stark: #C4B9A8;
@@ -48,11 +53,12 @@
   --test: #7C2D12;
   --test-mjuk: #F6E4D6;
   /* Spårfärgerna i adminens diagram (avsnitt 12, spec-admin-tydlighet
-     2026-09-22). Samma kulör som etiketterna ovan men som egen roll: en
-     serie i ett diagram, aldrig text. Allt ritas i --ink-1. CVD-avstånd
-     ΔE 29,7, alla tre över 3:1 mot panelen. */
-  --diagram-cv: #1D4ED8;
-  --diagram-test: #7C2D12;
+     2026-09-22). En serie i ett diagram, aldrig text. Allt ritas i --ink-1.
+     Rummen, beslut 2 (spec-rummen-2026-10-10): CV ritas i petrol och
+     Träningspaketet i indigo, samma kulör som rummen. Bara värdena byter;
+     reglerna i AdminChart står kvar tills adminen får sin egen omgång. */
+  --diagram-cv: #1E5F5F;
+  --diagram-test: #3B4790;
   /* Allt-kortet står i ink-1 med vit text. Tre toner till på den ytan:
      dämpad text, hårlinje och etiketten Rekommenderas. */
   --ink-1-mjuk: #CFC8BD;
@@ -79,6 +85,8 @@
      finns inget nav, så värdet nollställs på lg och i flerstegsflöden som
      döljer navet (då sätts --bottom-nav-h: 0px på flödets rot). */
   --bottom-nav-h: calc(56px + env(safe-area-inset-bottom, 0px));
+  /* Rummens sidomeny (spec-rummen avsnitt 3.2). Används från våg 1b. */
+  --sidomeny-b: 248px;
 }
 
 /* Desktop har ingen bottennavigation. */
@@ -88,12 +96,355 @@
   }
 }
 
+/* ============================================================
+   RUMMEN, designsystem v3 (docs/designsystem.md, spec-rummen-2026-10-10
+   avsnitt 3). Bara inloggat.
+
+   Ett hus med fyra rum: Träningen (indigo), CV (petrol), Personliga brev
+   (plommon), Jobbsöket (skog), och grafit för profil och konto. Varje rum
+   har en mörk vägg högst upp och ett golv under. Koppar är den enda accenten
+   och den enda linjen som går genom alla rum.
+
+   Var det gäller: där sidan har ett rum. DashboardShell sätter data-rum på
+   sin yttersta div redan i serverns HTML, och :root:has([data-rum]) lyfter
+   tokens till <html> så att även ark som renderas i en portal under <body>
+   (Sheet, UpgradeSheet) står i rummet. Publika sidor, kassan och adminen har
+   inget rum och behåller Tråden ovan (beslut 1: publika sidor ingår inte).
+
+   Specificitet: rot-blocket är (0,2,0), mörkt läge (0,3,0), och rummen står
+   på samma element som data-rum. Därför skrivs varje rums mörka värden inuti
+   båda formerna av mörkt läge, annars vinner det ljusa rummet.
+
+   Kontrasten per par står i docs/designsystem.md avsnitt 2 och kontrolleras
+   maskinellt med scripts/kontrast-rummen.mjs.
+   ============================================================ */
+:root:has([data-rum]) {
+  color-scheme: light;
+  /* koppar, samma i alla rum och lägen */
+  --koppar: #E07A2F;
+  --koppar-ink: #A8491A;
+  --koppar-djup: #C4621F;
+  --koppar-ljus: #F4B98A;
+  --koppar-text: #1A1206;
+  --koppar-mjuk: #FBE3D0;
+  /* text */
+  --ink-1: #1A1A1F;
+  --ink-2: #4A4A55;
+  --ink-3: #65656E;
+  --ink-hover: #2E2E36;
+  /* papper och kanter (rummet skriver över i mörkt läge) */
+  --papper: #FFFFFF;
+  --papper-2: #F4F3F0;
+  --kant: #E3E1DC;
+  --kant-stark: #C9C6BF;
+  /* semantik, alltid med ord, aldrig på en missad fråga */
+  --positiv: #2F7D5B;
+  --positiv-mjuk: #DCEFE5;
+  /* Specens #9A5B08 ger 4,49:1 mot varning-mjuk, alltså under 4,5. Ett
+     steg mörkare (#985A08) ger 4,6:1 med samma kulör. Fråga till
+     art-director i docs/qa/rummen/vag-1a/README.md. */
+  --varning: #985A08;
+  --varning-mjuk: #F7E8CF;
+  --fel: #B3382E;
+  --fel-mjuk: #F8E1DE;
+  --fel-kant: #F0C7C2;
+  --fel-morker: #7A2219;
+  /* fokus: koppar-ink på golv, papper och ton (4,9:1 mot golv, 4,4 till
+     4,7:1 mot ton); .vagg byter till koppar-ljus (spec 13.2) */
+  --fokus: var(--koppar-ink);
+  /* djup */
+  --lyft: 0 1px 2px rgba(20, 20, 40, 0.05), 0 10px 24px -14px rgba(20, 20, 40, 0.18);
+  /* det lyfta kortets kant: ingen i ljust läge, kant i mörkt (konceptets
+     .frame.morkt .kort.lyft) */
+  --lyft-kant: transparent;
+  /* dörrnavet: 72 px plus safe area (våg 1b, samma commit som Dorrnav) */
+  --bottom-nav-h: calc(72px + env(safe-area-inset-bottom, 0px));
+  --dimma: rgba(10, 12, 30, 0.55);
+  /* rummet, standard = Jobbsöket (skog); varje [data-rum] skriver över */
+  --golv: #E8EEE7;
+  --vagg: #1B3324;
+  --vagg-2: #2A4C37;
+  --vagg-3: #112219;
+  --vagg-ink: #F2F8F2;
+  --vagg-mjuk: #A9C9B1;
+  --vagg-svag: #6A9676;
+  --vagg-kant: rgba(255, 255, 255, 0.12);
+  --ljus: #8FD3A0;
+  --ton: #DCEBDD;
+  --ton-ink: #245C37;
+  --rum: #245C37;
+  /* spårens etiketter i inloggat följer rummen (beslut 2) */
+  --cv: #1E5F5F;
+  --cv-mjuk: #D7ECEA;
+  --test: #3B4790;
+  --test-mjuk: #DFE3F6;
+}
+
+/* Alias och illustrationsroller. var() löses där egenskapen deklareras, så
+   ett alias som bara står på <html> skulle ta rot-rummets värden även inne i
+   ett annat rum. De deklareras därför både på roten och på rummet. Aliasen
+   bär omigrerade sidor och tas bort i våg 4 när grep ger noll. */
+:root:has([data-rum]),
+[data-rum] {
+  --illu-fill: var(--papper);
+  --illu-accent: var(--koppar);
+  --illu-soft: var(--koppar-mjuk);
+  --illu-muted: var(--kant-stark);
+  --illu-on-accent: #FFFFFF;
+  --mark: var(--golv);
+  --panel: var(--papper);
+  --insunken: var(--papper-2);
+  --insunken-topp: var(--kant-stark);
+  --accent: var(--koppar);
+  --accent-ink: var(--koppar-ink);
+  --accent-mjuk: var(--koppar-mjuk);
+  --ink-1-mjuk: var(--vagg-mjuk);
+  --ink-1-kant: var(--vagg-kant);
+  --ink-1-accent: var(--koppar-ljus);
+}
+
+/* Rummen, ljust läge. Både elementet och roten, så att portaler under
+   <body> står i samma rum som sidan. */
+[data-rum="tran"], :root:has([data-rum="tran"]) {
+  --golv: #EBEDF6; --vagg: #1B2246; --vagg-2: #2B3470; --vagg-3: #121737; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; --vagg-svag: #6F78B0; --ljus: #93A0EC; --ton: #DFE3F6; --ton-ink: #3B4790; --rum: #3B4790;
+}
+[data-rum="cv"], :root:has([data-rum="cv"]) {
+  --golv: #E6EFEF; --vagg: #113538; --vagg-2: #1D4D51; --vagg-3: #0B2628; --vagg-ink: #F1F8F7; --vagg-mjuk: #A3C9C8; --vagg-svag: #5C918F; --ljus: #7FCFCA; --ton: #D7ECEA; --ton-ink: #1E5F5F; --rum: #1E5F5F;
+}
+[data-rum="brev"], :root:has([data-rum="brev"]) {
+  --golv: #F2EAEE; --vagg: #3A1930; --vagg-2: #56284A; --vagg-3: #280F22; --vagg-ink: #FBF3F8; --vagg-mjuk: #D6AFC8; --vagg-svag: #9C6A8C; --ljus: #E29DCB; --ton: #F0DCE8; --ton-ink: #6E2B59; --rum: #6E2B59;
+}
+[data-rum="jobb"], :root:has([data-rum="jobb"]) {
+  --golv: #E8EEE7; --vagg: #1B3324; --vagg-2: #2A4C37; --vagg-3: #112219; --vagg-ink: #F2F8F2; --vagg-mjuk: #A9C9B1; --vagg-svag: #6A9676; --ljus: #8FD3A0; --ton: #DCEBDD; --ton-ink: #245C37; --rum: #245C37;
+}
+[data-rum="neutral"], :root:has([data-rum="neutral"]) {
+  --golv: #ECEBE9; --vagg: #26262C; --vagg-2: #36363E; --vagg-3: #1A1A1F; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; --vagg-svag: #7C7B88; --ljus: #C9C8D2; --ton: #E2E1E6; --ton-ink: #3C3C46; --rum: #3C3C46;
+}
+
+/* Mörkt läge, båda formerna med samma innehåll: systemets läge när
+   användaren inte valt ljust, och data-theme="dark" när hen valt mörkt.
+   Mörkt läge byter golv och papper, aldrig väggen. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]) {
+    color-scheme: dark;
+    --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
+    --papper: #1A1C27; --papper-2: #20232F; --kant: #2B2F40; --kant-stark: #3E4357;
+    --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
+    --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
+    --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+    --golv: #0B140E; --ton: #1C3A27; --ton-ink: #B4DEBF;
+  }
+  :root:not([data-theme="light"]) [data-rum="tran"], :root:not([data-theme="light"]):has([data-rum="tran"]) {
+    --golv: #0E1120; --papper: #171B2E; --papper-2: #1D2238; --kant: #293050; --kant-stark: #3B4470; --ton: #232B55; --ton-ink: #B9C2F2;
+  }
+  :root:not([data-theme="light"]) [data-rum="cv"], :root:not([data-theme="light"]):has([data-rum="cv"]) {
+    --golv: #0B1516; --papper: #13201F; --papper-2: #182827; --kant: #223634; --kant-stark: #2F4A48; --ton: #163A3A; --ton-ink: #A9DAD6;
+  }
+  :root:not([data-theme="light"]) [data-rum="brev"], :root:not([data-theme="light"]):has([data-rum="brev"]) {
+    --golv: #160B13; --papper: #22141E; --papper-2: #2A1925; --kant: #3A2434; --kant-stark: #50334A; --ton: #3E1F35; --ton-ink: #E8B8D8;
+  }
+  :root:not([data-theme="light"]) [data-rum="jobb"], :root:not([data-theme="light"]):has([data-rum="jobb"]) {
+    --golv: #0B140E; --papper: #141E17; --papper-2: #19261D; --kant: #223A2A; --kant-stark: #2F4E3A; --ton: #1C3A27; --ton-ink: #B4DEBF;
+  }
+  :root:not([data-theme="light"]) [data-rum="neutral"], :root:not([data-theme="light"]):has([data-rum="neutral"]) {
+    --golv: #121318; --papper: #1B1C23; --papper-2: #22232B; --kant: #33343F; --kant-stark: #454654; --ton: #2A2A33; --ton-ink: #C9C8D2;
+  }
+}
+:root[data-theme="dark"]:has([data-rum]) {
+  color-scheme: dark;
+  --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
+  --papper: #1A1C27; --papper-2: #20232F; --kant: #2B2F40; --kant-stark: #3E4357;
+  --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
+  --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
+  --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+  --golv: #0B140E; --ton: #1C3A27; --ton-ink: #B4DEBF;
+}
+:root[data-theme="dark"] [data-rum="tran"], :root[data-theme="dark"]:has([data-rum="tran"]) {
+  --golv: #0E1120; --papper: #171B2E; --papper-2: #1D2238; --kant: #293050; --kant-stark: #3B4470; --ton: #232B55; --ton-ink: #B9C2F2;
+}
+:root[data-theme="dark"] [data-rum="cv"], :root[data-theme="dark"]:has([data-rum="cv"]) {
+  --golv: #0B1516; --papper: #13201F; --papper-2: #182827; --kant: #223634; --kant-stark: #2F4A48; --ton: #163A3A; --ton-ink: #A9DAD6;
+}
+:root[data-theme="dark"] [data-rum="brev"], :root[data-theme="dark"]:has([data-rum="brev"]) {
+  --golv: #160B13; --papper: #22141E; --papper-2: #2A1925; --kant: #3A2434; --kant-stark: #50334A; --ton: #3E1F35; --ton-ink: #E8B8D8;
+}
+:root[data-theme="dark"] [data-rum="jobb"], :root[data-theme="dark"]:has([data-rum="jobb"]) {
+  --golv: #0B140E; --papper: #141E17; --papper-2: #19261D; --kant: #223A2A; --kant-stark: #2F4E3A; --ton: #1C3A27; --ton-ink: #B4DEBF;
+}
+:root[data-theme="dark"] [data-rum="neutral"], :root[data-theme="dark"]:has([data-rum="neutral"]) {
+  --golv: #121318; --papper: #1B1C23; --papper-2: #22232B; --kant: #33343F; --kant-stark: #454654; --ton: #2A2A33; --ton-ink: #C9C8D2;
+}
+
+/* Det lyfta kortet får kant i mörkt läge, i rummets egen kantfärg. Skrivs
+   både på roten och på rummet, eftersom var(--kant) löses där den står. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]),
+  :root:not([data-theme="light"]) [data-rum] {
+    --lyft-kant: var(--kant);
+  }
+}
+:root[data-theme="dark"]:has([data-rum]),
+:root[data-theme="dark"] [data-rum] {
+  --lyft-kant: var(--kant);
+}
+/* Dörrnavet finns bara under lg. */
+@media (min-width: 1024px) {
+  :root:has([data-rum]) {
+    --bottom-nav-h: 0px;
+  }
+}
+
+/* Övergång i mörkt läge, våg 1a till 4. Trådens bläckytor med vit text
+   blir annars ljusa med vit text när ink-1 vänds i mörkt läge. Ytan får
+   väggens färg, dit aliasen ink-1-mjuk, ink-1-kant och ink-1-accent redan
+   pekar.
+
+   Våg 1b har tagit bort allt regeln täckte i det 1b restylar: knapparna är
+   KNAPP_PRIMAR och KNAPP_SEKUNDAR, InkPanel är LyftKort i rummen,
+   pakethuvudet är borta med Sidomeny, och valda lägen och bockar står i
+   text-papper som vänds med läget. Kvar under regeln är bara delade
+   komponenter som också visas på publika sidor och därför inte bytte i
+   1b: PaketKort och SparKort (prenumerationen och spårvalet) och
+   intervjuprovets artikelkomponent. Regeln och de sista ytorna tas bort i
+   våg 4 och 5. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]) .bg-ink-1.text-white {
+    background-color: var(--vagg);
+    border-color: var(--vagg);
+  }
+  :root:not([data-theme="light"]):has([data-rum]) .bg-ink-1.text-white.hover\:bg-ink-hover:hover,
+  :root:not([data-theme="light"]):has([data-rum]) .bg-ink-hover.text-white {
+    background-color: var(--vagg-2);
+  }
+}
+:root[data-theme="dark"]:has([data-rum]) .bg-ink-1.text-white {
+  background-color: var(--vagg);
+  border-color: var(--vagg);
+}
+:root[data-theme="dark"]:has([data-rum]) .bg-ink-1.text-white.hover\:bg-ink-hover:hover,
+:root[data-theme="dark"]:has([data-rum]) .bg-ink-hover.text-white {
+  background-color: var(--vagg-2);
+}
+
+/* Sidan bakom rummet. Body behåller Trådens bg-white för publika sidor;
+   i inloggat är det golvet, så ingen vit kant syns vid överrullning. */
+:root:has([data-rum]) body {
+  background-color: var(--golv);
+  color: var(--ink-1);
+}
+
+/* Väggen: rummets mörka del högst upp. Det enda ställe där toning får
+   finnas, tillsammans med primärknappen, kurvans yta och märkenas defs. */
+.vagg {
+  position: relative;
+  color: var(--vagg-ink);
+  background: linear-gradient(168deg, var(--vagg-2) 0%, var(--vagg) 48%, var(--vagg-3) 100%);
+  border-radius: 0 0 28px 28px;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+.vagg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 85% -10%, rgba(255, 255, 255, 0.08), transparent 60%);
+}
+.vagg > * {
+  position: relative;
+  z-index: 1;
+}
+/* Primärknappen: koppar med mörk text, 6,3:1, exakt en per vy (beslut 5). */
+.knapp-primar {
+  background: linear-gradient(180deg, #E8863B, var(--koppar) 60%, var(--koppar-djup));
+  color: var(--koppar-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 1px 2px rgba(120, 60, 10, 0.25);
+}
+/* Kurvans yta. Gradienten #g-yta ritas av Kurva-komponenten med useIlluId. */
+.kurva-yta {
+  fill: url(#g-yta);
+}
+.skelett-vagg {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+/* Dokumentet (brevet, mallförhandsvisningen) är vitt papper i båda lägena
+   (spec 13.1: mallförhandsvisningar ska vara vita). Inne i det står texten
+   alltid i ljusa lägets bläck, annars blir den ljus text på vitt i mörkt läge. */
+.dokument {
+  color-scheme: light;
+  color: #1A1A1F;
+  --ink-1: #1A1A1F;
+  --ink-2: #4A4A55;
+  --ink-3: #65656E;
+  --kant: #E3E1DC;
+  --kant-stark: #C9C6BF;
+  --papper: #FFFFFF;
+  --papper-2: #F4F3F0;
+}
+
+/* Väggen på dator: 40 px marginal och 32 px radie (konceptets .main .vagg). */
+@media (min-width: 1024px) {
+  .vagg {
+    border-radius: 0 0 32px 32px;
+  }
+}
+/* Fokusringen följer underlaget (spec 13.2, beslut 2): koppar-ink på golv,
+   papper och ton, koppar-ljus på väggen. Ren koppar mot golvet är 2,5:1 och
+   går inte. Offseten gör att ringen mäts mot underlaget, inte knappen.
+   Publika sidor har kvar Trådens ring nedan. */
+:root:has([data-rum]) :focus-visible {
+  outline: 2px solid var(--fokus);
+  outline-offset: 2px;
+}
+.vagg {
+  --fokus: var(--koppar-ljus);
+}
+/* Byte av rum: väggen och golvet tonar, inget glider. */
+[data-rum] {
+  transition: background-color 240ms ease;
+}
+
+/* Rörelsen när en ny punkt kommit sedan sist (konceptet .frame.motion).
+   Klassen .motion sätts bara när nyPunkt är sant (serverberäknat). */
+.motion .kurva .linje { stroke-dasharray: 700; stroke-dashoffset: 700; animation: rita 700ms ease-out 200ms forwards; }
+.motion .kurva .yta { opacity: 0; animation: tona 500ms ease-out 500ms forwards; }
+.motion .kurva .punkt.ny { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: tand 240ms ease-out 900ms forwards; }
+.motion .ring .fyll { stroke-dasharray: 151; stroke-dashoffset: 151; animation: fyll 500ms ease-out 300ms forwards; }
+.motion .steg { opacity: 0; transform: translateY(8px); animation: upp 260ms ease-out forwards; }
+.motion .steg.s1 { animation-delay: 120ms; }
+.motion .steg.s2 { animation-delay: 420ms; }
+.motion .steg.s3 { animation-delay: 720ms; }
+.motion .steg.s4 { animation-delay: 1020ms; }
+.motion .marke { transform: scale(0.92); opacity: 0; animation: marke 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 200ms forwards; }
+@keyframes rita { to { stroke-dashoffset: 0; } }
+@keyframes tona { to { opacity: 1; } }
+@keyframes tand { to { transform: scale(1); } }
+@keyframes fyll { to { stroke-dashoffset: 0; } }
+@keyframes upp { to { opacity: 1; transform: none; } }
+@keyframes marke { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-rum] { transition: none; }
+  .motion .kurva .linje,
+  .motion .kurva .yta,
+  .motion .kurva .punkt.ny,
+  .motion .ring .fyll,
+  .motion .steg,
+  .motion .marke {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Under ett flerstegsflöde äger FlowShell hela skärmen och har en egen fot
    med primärknappen. Bottennavet nollades tidigare bara som variabel, medan
    själva navet låg kvar fixed på z-40 och täckte nedersta 57 px. Där ligger
    exakt Fortsätt-knappen, så användaren kunde välja CV men inte gå vidare.
    Elementet måste alltså bort, inte bara dess höjd. */
-html[data-flow-active='true'] nav[aria-label='Huvudnavigation'] {
+html[data-flow-active='true'] nav[aria-label='Huvudnavigation'],
+html[data-flow-active='true'] nav[aria-label='Huvudmeny'] {
   display: none !important;
 }
 
@@ -103,6 +454,10 @@ html[data-flow-active='true'] nav[aria-label='Huvudnavigation'] {
    en yta som blev synlig så fort skalets bakgrund inte täckte hela bredden.
    Under ett flöde finns bara flödets egen topprad. */
 html[data-flow-active='true'] [data-dashboard-header] {
+  display: none !important;
+}
+/* Rummens topprad (våg 1b, spec 4.2) följer samma regel. */
+html[data-flow-active='true'] [data-topprad] {
   display: none !important;
 }
 
@@ -221,13 +576,6 @@ html[data-fri-sikt='true'] [data-sticky-mobil] {
   border: 1px solid var(--kant-stark);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
-  /* Smidigare scrollning */
-  scroll-behavior: smooth;
-}
-
 /* Befintliga animationer (Behåll) */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.98); } /* Lite mindre scale */
@@ -237,6 +585,9 @@ body {
   from { opacity: 0; transform: translateY(15px); } /* Lite mer translateY */
   to { opacity: 1; transform: translateY(0); }
 }
+/* Klassen animate-pulse-pink är borttagen (Rummen, spec 3.2). Nyckelrutorna
+   står kvar: de har samma namn som Tailwinds pulse och skriver över den, så
+   animate-pulse på publika sidor ser ut som i dag. Tas i publika omgången. */
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); } /* Något starkare start-glow */
   70% { box-shadow: 0 0 0 12px rgba(236, 72, 153, 0); } /* Lite större spridning */
@@ -248,30 +599,6 @@ body {
 .animate-slideUp {
   animation: slideUp 0.4s ease-out forwards; /* Något längre duration */
 }
-.animate-pulse-pink {
-  /* Tillämpas direkt i klassen för CTA-knappar */
-  animation: pulse 1.8s infinite cubic-bezier(0.66, 0, 0, 1); /* Annan timing function */
-}
-
-/* Shimmer animation for progress bars */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-.animate-shimmer {
-  animation: shimmer 2s infinite linear;
-}
-
-/* Card hover effects (Behåll och ev. finjustera) */
-/* Generell card hover (kan appliceras på funktionskort, prisplaner etc.) */
-.card-hover-effect {
-  @apply transition-all duration-300 ease-in-out;
-}
-.card-hover-effect:hover {
-   @apply transform -translate-y-1 shadow-lg;
-   /* Du kan lägga till specifika border-färger i komponentens klasser, t.ex. hover:border-pink-500 */
-}
-
 
 /* Elegant scrollbar (Behåll) */
 .elegant-scrollbar::-webkit-scrollbar {
@@ -364,10 +691,75 @@ body {
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
   }
+  /* ---- Rummen (spec-rummen avsnitt 3.3), bara inloggat ----
+     Rubriken på väggen är 34/36 på mobil i rummen; publika sidor och
+     adminen har kvar 32/35 (Tråden tills deras omgång). */
+  [data-rum] .text-h1 {
+    font-size: 34px;
+    line-height: 36px;
+  }
+  /* Rubrik i resultat, kvitto och CV-rummet: 28/31 mobil, 32/35 dator. */
+  .text-h1-liten {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 28px;
+    line-height: 31px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  /* Provdagens datum, mätningens nivå: 64/64 mobil, 72/72 dator. */
+  .text-tal-stor {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 64px;
+    line-height: 64px;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Dagsradens tre tal, 22/24. */
+  .text-tal-rad {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Resultatets tre tal, 28/30. */
+  .text-tal-tre {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Det lyfta kortets titel, 22/27. */
+  .text-kort-t {
+    font-family: var(--font-display), Inter, system-ui, sans-serif;
+    font-size: 22px;
+    line-height: 27px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  /* Eyebrow i Inter, 12/16 600, versaler. Storleken kommer ur
+     tailwind.config (text-ey), versalerna härifrån. */
+  .text-ey {
+    text-transform: uppercase;
+  }
   @media (min-width: 1024px) {
-    .text-h1 {
+    .text-h1,
+    [data-rum] .text-h1 {
       font-size: 44px;
       line-height: 46px;
+    }
+    .text-h1-liten {
+      font-size: 32px;
+      line-height: 35px;
+    }
+    .text-tal-stor {
+      font-size: 72px;
+      line-height: 72px;
     }
     .text-h1-pub {
       font-size: 60px;
@@ -608,17 +1000,8 @@ body {
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(236, 72, 153, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
-}
-
 .animate-bounceIn {
   animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-.animate-glow {
-  animation: glow 2s infinite ease-in-out;
 }
 
 /* ============================================
@@ -661,18 +1044,24 @@ html {
   padding-bottom: calc(var(--bottom-nav-h) + 1.5rem);
 }
 
-/* Hjälpredan Kom igång: den mörka raden ligger ovanför bottennavet på
-   hemskärmen (spec-onboarding 2026-09-22, sektion 2). Innehållet får
-   radens höjd plus avstånd som extra bottenpadding så sista kortet aldrig
-   hamnar bakom den. Attributet sätts av raden själv medan den syns. */
-html[data-komigang-rad] .dashboard-main-content {
-  padding-bottom: calc(var(--bottom-nav-h) + 1.5rem + 76px);
+/* Kom igång-raden flyter ovanför dörrnavet på mobil (spec-rummen 16.3.4).
+   Innehållet får radens höjd plus avstånd som extra bottenpadding, så
+   sista raden i listan aldrig hamnar bakom den. Regeln läser raden själv
+   (data-komigang-rad="flytande"), så den gäller redan i serverns HTML och
+   försvinner med raden. Bara under lg, där raden syns. */
+[data-rum] {
+  --komigang-h: 76px;
+}
+@media (max-width: 1023.98px) {
+  :root:has([data-komigang-rad='flytande']) .dashboard-main-content {
+    padding-bottom: calc(var(--bottom-nav-h) + var(--komigang-h) + 24px);
+  }
 }
 
-/* On desktop (lg+), restore normal padding */
+/* Dator: inget nav, golvets 40 px under sista kortet (konceptets .main .golv). */
 @media (min-width: 1024px) {
   .dashboard-main-content {
-    padding-bottom: 1.5rem;
+    padding-bottom: 40px;
   }
 }
 
@@ -777,11 +1166,6 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Better card touch feedback */
-.card-hover-effect:active {
-  transform: scale(0.98) translateY(0);
-  transition: transform 0.1s ease;
-}
 
 
 /* ---------------------------------------------------------------------------

@@ -11,6 +11,7 @@
  * för 20 kr till i veckan". Talen kommer ur mallregistret och prislistan.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -48,10 +49,6 @@ const CvGenerationOverlay = dynamic(
   { ssr: false }
 );
 
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
-const KNAPP_SEKUNDAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40';
 
 export default function CvMallarClient({
   initialCvs,
@@ -192,8 +189,9 @@ export default function CvMallarClient({
   };
 
   return (
+    <>
+    <CvMallarHero />
     <CvMallarLayout>
-      <CvMallarHero />
 
       {/* Paketets gräns: vad som ingår, var resten finns, och att gråa
           mallar går att förhandsvisa. Bara utanför CV-paketet och Allt. */}
@@ -257,12 +255,13 @@ export default function CvMallarClient({
 
       {/* Foten för kunden med Träningspaketet (sektion 3). */}
       {scope === 'tester' && bytUtfall?.typ !== 'bytt' ? (
-        <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
+        <div className="grid gap-2 rounded-2xl border border-kant bg-papper p-4">
+          {/* Förhandsvisningens nedladdning är vyns kopparknapp. */}
           <button
             type="button"
             onClick={() => uppgradera('cv_week')}
             disabled={busy !== null}
-            className={KNAPP_PRIMAR}
+            className={KNAPP_SEKUNDAR}
           >
             {busy === 'cv_week' ? PAKETBYTE.arbetar : laggTillKnapp('cv_week')}
           </button>
@@ -304,5 +303,6 @@ export default function CvMallarClient({
         />
       )}
     </CvMallarLayout>
+    </>
   );
 }

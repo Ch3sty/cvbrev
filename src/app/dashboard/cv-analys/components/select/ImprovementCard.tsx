@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from 'lucide-react';
 
@@ -213,7 +214,7 @@ export default function ImprovementCard({
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex h-11 items-center gap-1 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Spara
@@ -260,7 +261,7 @@ export function RoundCheckbox({
       }`}
     >
       {checked && (
-        <Check className="h-3.5 w-3.5 text-white" strokeWidth={2} aria-hidden="true" />
+        <Check className="h-3.5 w-3.5 text-papper" strokeWidth={2} aria-hidden="true" />
       )}
     </button>
   );

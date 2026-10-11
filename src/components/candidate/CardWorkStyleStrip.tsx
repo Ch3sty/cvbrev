@@ -27,10 +27,10 @@ function MiniSpectrum({ spectrum }: { spectrum: SpectrumView }) {
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 mb-1">
-        <span className={`text-[10.5px] leading-tight ${isLeft ? 'font-bold text-indigo-800' : 'text-slate-400'}`}>
+        <span className={`text-[10.5px] leading-tight ${isLeft ? 'font-bold text-indigo-800' : 'text-ink-3'}`}>
           {spectrum.leftLabel}
         </span>
-        <span className={`text-[10.5px] leading-tight text-right ${isRight ? 'font-bold text-indigo-800' : 'text-slate-400'}`}>
+        <span className={`text-[10.5px] leading-tight text-right ${isRight ? 'font-bold text-indigo-800' : 'text-ink-3'}`}>
           {spectrum.rightLabel}
         </span>
       </div>
@@ -96,7 +96,7 @@ export default function CardWorkStyleStrip({
       {data.thrivesWhen && (
         <div className="flex items-start gap-1.5 mt-2.5 pt-2.5 border-t border-indigo-100">
           <SproutIcon className="text-indigo-500 flex-shrink-0 mt-0.5" />
-          <span className="text-[11.5px] text-slate-600 leading-snug">
+          <span className="text-[11.5px] text-ink-2 leading-snug">
             <span className="font-bold text-indigo-800">{thrivesPrefix}</span> {data.thrivesWhen}
           </span>
         </div>

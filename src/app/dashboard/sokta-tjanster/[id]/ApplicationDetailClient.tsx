@@ -4,19 +4,19 @@
 // Tidslinjen är sanningskällan: händelser kan läggas till och tas bort,
 // aktuell status räknas alltid om av databasen.
 
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_VAGG } from '@/components/shell/knappar'
+import { IkonPenna, IkonTillbaka } from '@/components/illustrations/RumSymboler'
 import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ArrowLeft,
   Building2,
   MapPin,
   FileText,
   ExternalLink,
   Plus,
   Trash2,
-  Pencil,
   X,
 } from 'lucide-react';
 import { useNotification } from '@/context/notificationcontext';
@@ -29,7 +29,9 @@ import {
   type JobApplicationEvent,
 } from '@/lib/applications/status';
 import { StatusPill, formatDateLong, formatDateShort, daysSince } from '../components/StatusBits';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
@@ -193,11 +195,18 @@ export default function ApplicationDetailClient({
   };
 
   if (isLoading || !detail) {
+    // Egen nyckel på golvet, så att det byts i stället för att flyttas när
+    // ansökan landat (väggens höjd ändras då).
     return (
-      <div className="mx-auto max-w-3xl space-y-4">
-        <LoadingSkeleton variant="card" label="Läser in ansökan" />
-        <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
-      </div>
+      <>
+        <VaggLaddar label="Läser in ansökan" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4">
+            <LoadingSkeleton variant="card" label="Läser in ansökan" />
+            <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -211,33 +220,38 @@ export default function ApplicationDetailClient({
   );
 
   return (
-    <div className="relative">
-      <div className="max-w-3xl mx-auto pb-16 space-y-4 sm:space-y-5">
-        <Link
-          href="/dashboard/sokta-tjanster"
-          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
-        >
-          <ArrowLeft className="w-4 h-4" strokeWidth={1.75} />
-          Sökta tjänster
-        </Link>
-
-        {/* Sidans enda h1 ligger i sidhuvudet, inte inuti ett kort. */}
-        <PageHeader
-          title={detail.job_title}
-          description={
-            detail.location ? `${detail.company}, ${detail.location}` : detail.company
-          }
-          action={
+    <>
+      {/* Sidans enda h1 ligger på väggen. Tillbaka till listan står som
+          textlänk under rubriken, Redigera som glasknapp: händelsen är
+          vyns kopparknapp. */}
+      <RumHuvud
+        title={detail.job_title}
+        description={
+          detail.location ? `${detail.company}, ${detail.location}` : detail.company
+        }
+        handling={
+          <>
             <button
               type="button"
               onClick={() => setShowEdit(true)}
-              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+              className={`${KNAPP_GLAS} gap-1.5`}
             >
-              <Pencil className="h-4 w-4" strokeWidth={1.75} />
+              <IkonPenna size={16} />
               Redigera
             </button>
-          }
-        />
+            <Link
+              href="/dashboard/sokta-tjanster"
+              className={`${LANK_VAGG} inline-flex min-h-11 items-center gap-1.5`}
+            >
+              <IkonTillbaka size={16} />
+              Sökta tjänster
+            </Link>
+          </>
+        }
+      />
+    <Golv key="ansokan">
+    <div className="relative">
+      <div className="w-full max-w-3xl space-y-4 sm:space-y-5">
 
         {/* Fakta om ansökan */}
         <section className="rounded-xl border border-kant bg-panel p-4">
@@ -387,7 +401,7 @@ export default function ApplicationDetailClient({
           <button
             type="button"
             onClick={() => setShowAddEvent(true)}
-            className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+            className={`${KNAPP_PRIMAR} mt-5`}
           >
             <Plus className="w-4 h-4" strokeWidth={1.75} />
             Lägg till händelse
@@ -432,5 +446,7 @@ export default function ApplicationDetailClient({
         destructive
       />
     </div>
+    </Golv>
+    </>
   );
 }

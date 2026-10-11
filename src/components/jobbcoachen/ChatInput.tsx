@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
@@ -72,7 +73,10 @@ export default function ChatInput({
     loadDocCounts();
   }, [supabase]);
 
-  // Auto-resize textarea
+  // Auto-resize textarea. field-sizing: content (klassen på fältet) ger
+  // samma höjd redan i första målningen i Chrome, så platshållaren som
+  // bryts på två rader på mobil inte flyttar panelen när effekten körs
+  // (CLS 0,007 i perf-inloggat före våg 1b).
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -182,7 +186,7 @@ export default function ChatInput({
             placeholder={placeholder}
             rows={1}
             enterKeyHint="send"
-            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
+            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken [field-sizing:content] px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
             style={{ maxHeight: '120px' }}
           />
 
@@ -190,7 +194,7 @@ export default function ChatInput({
             type="button"
             onClick={handleSubmit}
             disabled={!canSend}
-            className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+            className={`${KNAPP_PRIMAR_SMAL} shrink-0`}
           >
             Skicka
           </button>

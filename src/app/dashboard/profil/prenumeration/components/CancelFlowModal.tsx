@@ -14,6 +14,7 @@
  * Ingen egen modal, ingen framer-motion.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import Sheet from '@/components/shell/Sheet';
 import ChoiceCard from '@/components/shell/ChoiceCard';
@@ -41,7 +42,7 @@ const REASONS: Array<{
 const PORTAL_URL = '/api/stripe/create-portal-session';
 
 const PRIMARY =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40';
+  KNAPP_PRIMAR;
 
 interface Props {
   open: boolean;

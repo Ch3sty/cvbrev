@@ -14,6 +14,7 @@
 // ingen hämtning för att måla sidan. Klientanropen som är kvar sker bara
 // efter en handling (logga, importera) eller när en tung flik väljs.
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -27,7 +28,10 @@ import {
   type ApplicationEventType,
   type JobApplication,
 } from '@/lib/applications/status';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { JOBBSOK, LYFT, RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
 import EmptyState from '@/components/shell/EmptyState';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -308,23 +312,31 @@ export default function SoktaTjansterClient({
     );
   };
 
-  const logButton = (
-    <button
-      type="button"
-      onClick={() => setShowQuickLog(true)}
-      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-    >
-      Logga ansökan
-    </button>
-  );
-
   return (
-    <div className="mx-auto max-w-5xl space-y-6 pb-16">
-      <PageHeader
-        title="Ansökningar"
+    <>
+      <RumHuvud
+        title={RUBRIK.soktaTjanster}
         description="Din statistik över jobbsöket: hur många du sökt, hur långt du kommer i processerna och var det tar stopp. Logga varje sökt jobb så ser du mönstret."
-        action={totalCount > 0 ? logButton : undefined}
-      >
+        tat={totalCount === 0}
+      />
+    <Golv lyft={totalCount > 0}>
+      {/* Det lyfta kortet står före flikarna (spec 16.3.1 punkt 4). Utan
+          poster bär det tomma läget handlingen i stället. */}
+      {totalCount > 0 ? (
+        <LyftKort
+          label={LYFT.soktaTjanster.titel}
+          eyebrow={LYFT.soktaTjanster.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.soktaTjanster.titel}
+          text={LYFT.soktaTjanster.text}
+          handling={
+            <button type="button" onClick={() => setShowQuickLog(true)} className={KNAPP_PRIMAR}>
+              {JOBBSOK.loggaSoktJobb}
+            </button>
+          }
+        />
+      ) : null}
+    <div className="w-full max-w-5xl space-y-6">
         <div
           className="flex items-center gap-1 rounded-lg border border-kant bg-panel p-1"
           role="tablist"
@@ -346,7 +358,6 @@ export default function SoktaTjansterClient({
             </button>
           ))}
         </div>
-      </PageHeader>
 
       {/* De fyra siffrorna. Beskrivande antal, ingen svarsfrekvens här: den
           bor i statistikfliken där man aktivt går för att analysera. */}
@@ -422,7 +433,7 @@ export default function SoktaTjansterClient({
                     setFilter('alla');
                     setSearchTerm('');
                   }}
-                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-2 transition-colors hover:border-kant-stark"
+                  className={KNAPP_SEKUNDAR_SMAL}
                 >
                   Rensa filter
                 </button>
@@ -464,6 +475,8 @@ export default function SoktaTjansterClient({
         <QuickLogSheet open={showQuickLog} onClose={() => setShowQuickLog(false)} onSubmit={handleCreate} />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 
@@ -520,7 +533,7 @@ function EmptyApplications({
         <button
           type="button"
           onClick={onLog}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`${KNAPP_PRIMAR} sm:w-auto`}
         >
           Logga din första ansökan
         </button>

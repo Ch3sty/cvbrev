@@ -15,13 +15,32 @@
  * vår egen /api/dashboard/summary. Ett HTTP-anrop till oss själva hade lagt
  * till en hel extra rundtur per sidladdning.
  */
-import { cookies } from 'next/headers';
+import type { Viewport } from 'next';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
 import { getDashboardSummary } from '@/lib/dashboard/getSummary';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
+import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
+
+/** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
+async function rumForRequest(): Promise<Rum> {
+  const h = await headers();
+  return rumForPath(h.get(PATHNAME_HEADER));
+}
+
+/**
+ * Systemets fält runt appen står i rummets vägg (spec-rummen 2.1 och 13,
+ * beslut 6): ett enda värde utan media-villkor, eftersom väggen är densamma
+ * i ljust och mörkt läge och statusfältet står över väggen, inte golvet.
+ * Vid klientnavigering mellan rum byter DashboardShell färgen.
+ */
+export async function generateViewport(): Promise<Viewport> {
+  return { themeColor: VAGG_FARG[await rumForRequest()] };
+}
 
 export default async function DashboardLayout({
   children,
@@ -46,8 +65,10 @@ export default async function DashboardLayout({
     console.error('Fel vid server-hämtning av dashboard-summary:', error);
   }
 
+  const rum = await rumForRequest();
+
   return (
-    <DashboardShell user={user} initialSummary={initialSummary}>
+    <DashboardShell user={user} initialSummary={initialSummary} rum={rum}>
       {children}
     </DashboardShell>
   );

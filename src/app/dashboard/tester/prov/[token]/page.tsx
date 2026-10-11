@@ -16,7 +16,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowRight } from 'lucide-react'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import MatrixQuestionReview from '@/components/tests/shared/reviews/MatrixQuestionReview'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { createServerClient } from '@/lib/supabase/server'
@@ -59,8 +61,10 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   const gratis = scope === null
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader eyebrow={PROVSIDA.eyebrow} title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
+    <>
+    <RumHuvud title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 
       <section className={PANEL} aria-labelledby="prov-resultat">
         <h2 id="prov-resultat" className="text-steg uppercase text-ink-3">
@@ -95,7 +99,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
           <Link
             href={GRUNDNIVA_HREF}
             data-cta="logiktestprov-grundniva"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+            className={`${KNAPP_PRIMAR} sm:w-auto`}
           >
             {PROVSIDA.knapp}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -113,5 +117,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         {gratis ? <p className="mt-2 text-meta text-ink-3">{PROVSIDA.traningText}</p> : null}
       </section>
     </div>
+    </Golv>
+    </>
   )
 }

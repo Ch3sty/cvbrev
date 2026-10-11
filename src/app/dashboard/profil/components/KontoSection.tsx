@@ -8,6 +8,7 @@
  * AccountSection: samma routes, samma bekräftelse med text.
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import Sheet from '@/components/shell/Sheet'
@@ -163,7 +164,7 @@ function MejlVaxel({ rad, optOut, onChange }: { rad: MejlRad; optOut: boolean; o
 }
 
 const BTN_SEKUNDAR =
-  'inline-flex h-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-60'
+  `${KNAPP_SEKUNDAR_SMAL} shrink-0`
 
 function RaderaKonto({
   harPaket,
@@ -235,7 +236,7 @@ function RaderaKonto({
           type="button"
           onClick={radera}
           disabled={!kan || raderar}
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-white transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-papper transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
         >
           {raderar ? 'Tar bort' : 'Radera permanent'}
         </button>

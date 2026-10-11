@@ -19,6 +19,7 @@
  * create-plan-session och händelser är kvar från förra versionen.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
@@ -464,7 +465,7 @@ export default function ValjSparClient({
             type="button"
             onClick={borjaGratis}
             disabled={busy}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+            className={`${KNAPP_SEKUNDAR} disabled:cursor-not-allowed sm:w-auto sm:min-w-[200px]`}
           >
             {SPARVAL.sekundar}
           </button>

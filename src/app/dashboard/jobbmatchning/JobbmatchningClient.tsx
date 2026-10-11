@@ -21,6 +21,7 @@
  * användaren ser och förstår, inte vad hon får se.
  */
 
+import { KNAPP_PRIMAR, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -38,7 +39,9 @@ import JobFilterPanel, {
 import RedactedJobCard from './components/RedactedJobCard';
 import MatchRow from './components/MatchRow';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -96,6 +99,9 @@ type AppliedState = 'idle' | 'saving' | 'done';
  * och då som ett tak neråt, aldrig som en rättighet uppåt.
  */
 const FREE_TIER_FALLBACK_LIMIT = 3;
+
+/** Raden under rubriken, samma i alla tillstånd. */
+const RUBRIK_RAD = 'Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig.';
 
 /**
  * Hur länge en lokalt sparad sökning får återanvändas.
@@ -876,16 +882,17 @@ export default function JobbmatchningClient({
   // omladdning visade CV:n igen.
   if (initialData.loadFailed) {
     return (
-      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
-        <PageHeader
-          title="Dina matchningar"
-          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-        />
-        <FlowError
-          message="Vi kunde inte läsa dina CV just nu. Ladda om sidan, så försöker vi igen."
-          onRetry={() => router.refresh()}
-        />
-      </div>
+      <>
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+        <Golv>
+          <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
+            <FlowError
+              message="Vi kunde inte läsa dina CV just nu. Ladda om sidan, så försöker vi igen."
+              onRetry={() => router.refresh()}
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -893,13 +900,14 @@ export default function JobbmatchningClient({
   // förklarar vad funktionen är i stället för att skicka iväg användaren.
   if (cvs.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
-        <PageHeader
-          title="Dina matchningar"
-          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-        />
-        <JobMatchingOnboarding />
-      </div>
+      <>
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+        <Golv>
+          <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
+            <JobMatchingOnboarding />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -980,14 +988,12 @@ export default function JobbmatchningClient({
     : jobPreferenceChips(prefs);
 
   return (
-    <div className="mx-auto w-full max-w-[720px] pb-16">
-      <PageHeader
-        title="Dina matchningar"
-        description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-      />
-
+    <>
+    <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+    <Golv>
+    <div className="w-full max-w-[720px]">
       {/* Kedjan: panelerna hänger ihop med tråden och läses som ett förlopp. */}
-      <div className="thread-chain mt-4 space-y-4 sm:mt-6 sm:space-y-6">
+      <div className="thread-chain space-y-4 sm:space-y-6">
         {/* 1. Ditt CV ------------------------------------------------------ */}
         <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
           <div className="flex items-start gap-3">
@@ -1168,7 +1174,7 @@ export default function JobbmatchningClient({
                     <button
                       type="button"
                       onClick={fetchJobs}
-                      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+                      className={KNAPP_PRIMAR_SMAL}
                     >
                       Sök igen
                     </button>
@@ -1201,7 +1207,7 @@ export default function JobbmatchningClient({
                   type="button"
                   onClick={fetchJobs}
                   disabled={!activeCV}
-                  className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                  className={`${KNAPP_PRIMAR_SMAL} mt-3`}
                 >
                   {laserCv ? 'Läser ditt CV' : 'Hitta jobb som passar'}
                 </button>
@@ -1441,7 +1447,7 @@ export default function JobbmatchningClient({
             type="button"
             onClick={savePreferences}
             disabled={prefsSaving}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+            className={KNAPP_PRIMAR}
           >
             {prefsSaving ? 'Sparar' : 'Spara'}
           </button>
@@ -1476,6 +1482,8 @@ export default function JobbmatchningClient({
         onClose={() => setSelectedJob(null)}
       />
     </div>
+    </Golv>
+    </>
   );
 }
 

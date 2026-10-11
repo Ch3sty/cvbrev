@@ -168,8 +168,8 @@ export default function UpgradeSheet({
     return (
       <li key={val}>
         <div
-          className={`rounded-lg border bg-panel p-3 transition-[border-color] duration-[120ms] ${
-            framhavd ? 'border-ink-1 shadow-val' : 'border-kant'
+          className={`rounded-[14px] border bg-papper p-3 transition-[border-color] duration-[120ms] ${
+            framhavd ? 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar)]' : 'border-kant'
           }`}
         >
           <button
@@ -218,7 +218,7 @@ export default function UpgradeSheet({
                     aria-checked={vald}
                     onClick={() => setAlltLangd(key)}
                     className={`${SEGMENT_KNAPP} ${
-                      vald ? 'bg-panel text-ink-1 shadow-val' : 'text-ink-2 hover:text-ink-1'
+                      vald ? 'bg-papper text-ink-1 shadow-val' : 'text-ink-2 hover:text-ink-1'
                     }`}
                   >
                     {langd.length === 'dag'
@@ -242,14 +242,14 @@ export default function UpgradeSheet({
     <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center">
       <button
         aria-label="Stäng"
-        className="absolute inset-0 bg-ink-1/40 motion-safe:animate-[fadeInPlace_200ms_ease-out]"
+        className="absolute inset-0 bg-[color:var(--dimma,rgba(10,12,30,.55))] motion-safe:animate-[fadeInPlace_200ms_ease-out]"
         onClick={onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="upgrade-sheet-title"
-        className="relative max-h-[90dvh] w-full overflow-y-auto rounded-t-xl border border-kant bg-panel p-4 shadow-svav motion-safe:animate-[sheetUp_240ms_ease-out] sm:max-w-lg sm:rounded-xl sm:p-6 sm:motion-safe:animate-[fadeInPlace_240ms_ease-out]"
+        className="relative max-h-[90dvh] w-full overflow-y-auto rounded-t-ark border border-kant bg-papper p-4 text-ink-1 shadow-svav motion-safe:animate-[sheetUp_240ms_ease-out] sm:max-w-lg sm:rounded-ark sm:p-6 sm:motion-safe:animate-[fadeInPlace_240ms_ease-out]"
       >
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>

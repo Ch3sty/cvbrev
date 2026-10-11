@@ -1,0 +1,98 @@
+(node:33424) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Konto: christiankarlssson@gmail.com
+Server: http://localhost:5240   Körningar per route: 3   Routes: 39
+Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)
+
+ÖVER dashboard                LCP  1512 ms (budget 1000)  CLS 0.001  rundturer  0  text 1811
+OK  profil                   LCP   912 ms (budget 1000)  CLS 0.001  rundturer  0  text 2390
+OK  profil/cv                LCP   888 ms (budget 1500)  CLS 0.001  rundturer  0  text 2221
+OK  prenumeration            LCP   956 ms (budget 1500)  CLS 0.001  rundturer  0  text 2144
+OK  sokta-tjanster           LCP   828 ms (budget 1500)  CLS 0.001  rundturer  0  text 2205
+OK  sokta-tjanster/[id]      LCP  1108 ms (budget 1500)  CLS 0.001  rundturer  0  text 476
+OK  mina-brev                LCP  1044 ms (budget 1500)  CLS 0.001  rundturer  0  text 1013
+OK  mina-brev/[id]           LCP  1028 ms (budget 1500)  CLS 0.001  rundturer  0  text 2125
+OK  mina-brev/[id]/edit      LCP   636 ms (budget 1500)  CLS 0.001  rundturer  0  text 2199
+OK  cv-mallar                LCP   960 ms (budget 1500)  CLS 0.001  rundturer  0  text 1031
+OK  cv-mallar (vald mall)    LCP   924 ms (budget 1500)  CLS 0.001  rundturer  0  text 1031
+OK  tester                   LCP   904 ms (budget 1500)  CLS 0.001  rundturer  0  text 1970
+OK  tester/[slug]            LCP   564 ms (budget 1500)  CLS 0.001  rundturer  0  text 1230
+OK  tester/personlighet      LCP   896 ms (budget 1500)  CLS 0.001  rundturer  2  text 652
+OK  intervju                 LCP   968 ms (budget 1500)  CLS 0.001  rundturer  0  text 849
+OK  bli-upptackt             LCP  1132 ms (budget 1500)  CLS 0.001  rundturer  1  text 3966
+OK  meddelanden              LCP   980 ms (budget 1500)  CLS 0.001  rundturer  0  text 427
+OK  kontakt                  LCP   800 ms (budget 1500)  CLS 0.001  rundturer  0  text 644
+ÖVER tester prov              LCP   996 ms (budget 2000)  CLS 0.068  rundturer  0  text 367
+OK  tester resultat          LCP   840 ms (budget 2000)  CLS 0.001  rundturer  0  text 1786
+OK  skapa-brev               LCP   856 ms (budget 2000)  CLS     0  rundturer  1  text 712
+OK  skapa-brev steg 2        LCP  1864 ms (budget 2000)  CLS     0  rundturer  0  text 712
+OK  skapa-brev steg 3        LCP   704 ms (budget 2000)  CLS     0  rundturer  0  text 712
+OK  skapa-brev steg 4        LCP   824 ms (budget 2000)  CLS     0  rundturer  0  text 712
+OK  skapa-brev steg 5        LCP   948 ms (budget 2000)  CLS     0  rundturer  0  text 712
+OK  skapa-brev steg 6        LCP   844 ms (budget 2000)  CLS     0  rundturer  0  text 712
+ÖVER skapa-cv                 LCP   652 ms (budget 2000)  CLS 0.011  rundturer  0  text 470
+OK  skapa-cv steg 2          LCP  1240 ms (budget 2000)  CLS     0  rundturer  6  text 481
+OK  skapa-cv steg 4          LCP  1172 ms (budget 2000)  CLS     0  rundturer  4  text 361
+OK  skapa-cv steg 7          LCP  1496 ms (budget 2000)  CLS     0  rundturer  1  text 1743
+OK  cv-analys                LCP   788 ms (budget 2000)  CLS     0  rundturer  0  text 964
+OK  cv-analys steg 2         LCP   696 ms (budget 2000)  CLS     0  rundturer  0  text 964
+OK  cv-analys steg 3         LCP   516 ms (budget 2000)  CLS     0  rundturer  0  text 964
+OK  jobbmatchning            LCP  1904 ms (budget 2000)  CLS 0.001  rundturer  0  text 671
+OK  jobbcoachen              LCP  1172 ms (budget 2000)  CLS 0.001  rundturer  0  text 655
+OK  linkedin-optimizer       LCP   816 ms (budget 2000)  CLS     0  rundturer  0  text 1095
+OK  linkedin steg 2          LCP   940 ms (budget 2000)  CLS     0  rundturer  1  text 819
+OK  linkedin steg 3          LCP   848 ms (budget 2000)  CLS     0  rundturer  0  text 111
+OK  arbetsstil               LCP   808 ms (budget 2000)  CLS 0.001  rundturer  0  text 3887
+
+
+SAMMANFATTNING
+sida                    budget        LCP     FCP     CLS  rundt.  förfr.  status
+--------------------------------------------------------------------------------
+dashboard               kritisk      1512    1512   0.001       0      68  ÖVER BUDGET
+profil                  kritisk       912     556   0.001       0      60  OK
+profil/cv               lista         888     504   0.001       0      61  OK
+prenumeration           lista         956     520   0.001       0      59  OK
+sokta-tjanster          lista         828     636   0.001       0      58  OK
+sokta-tjanster/[id]     lista        1108     552   0.001       0      61  OK
+mina-brev               lista        1044     508   0.001       0      66  OK
+mina-brev/[id]          lista        1028     736   0.001       0      64  OK
+mina-brev/[id]/edit     lista         636     504   0.001       0      62  OK
+cv-mallar               lista         960     628   0.001       0      67  OK
+cv-mallar (vald mall)   lista         924     580   0.001       0      67  OK
+tester                  lista         904     548   0.001       0      69  OK
+tester/[slug]           lista         564     564   0.001       0      71  OK
+tester/personlighet     lista         896     484   0.001       2      61  OK
+intervju                lista         968     628   0.001       0      65  OK
+bli-upptackt            lista        1132     544   0.001       1      65  OK
+meddelanden             lista         980     632   0.001       0      60  OK
+kontakt                 lista         800     548   0.001       0      59  OK
+tester prov             flode         996     564   0.068       0      52  ÖVER BUDGET
+tester resultat         flode         840     488   0.001       0      65  OK
+skapa-brev              flode         856     464       0       1      60  OK
+skapa-brev steg 2       flode        1864    1480       0       0      56  OK
+skapa-brev steg 3       flode         704     612       0       0      56  OK
+skapa-brev steg 4       flode         824     480       0       0      56  OK
+skapa-brev steg 5       flode         948     604       0       0      56  OK
+skapa-brev steg 6       flode         844     496       0       0      56  OK
+skapa-cv                flode         652     524   0.011       0      49  ÖVER BUDGET
+skapa-cv steg 2         flode        1240     480       0       6      45  OK
+skapa-cv steg 4         flode        1172     572       0       4      45  OK
+skapa-cv steg 7         flode        1496     736       0       1      55  OK
+cv-analys               flode         788     736       0       0      53  OK
+cv-analys steg 2        flode         696     480       0       0      53  OK
+cv-analys steg 3        flode         516     516       0       0      53  OK
+jobbmatchning           flode        1904    1904   0.001       0      61  OK
+jobbcoachen             flode        1172     864   0.001       0      63  OK
+linkedin-optimizer      flode         816     708       0       0      47  OK
+linkedin steg 2         flode         940     516       0       1      50  OK
+linkedin steg 3         flode         848     524       0       0      44  OK
+arbetsstil              flode         808     464   0.001       0      62  OK
+--------------------------------------------------------------------------------
+36 av 39 inom budget.
+Sparat till docs/qa/rummen/vag-1b/perf-fore.json
+
+FEL: 1 sida(or) over budget med mer an 20 procent:
+  dashboard                  1512 ms mot budget 1000 (plus 51 procent)
+
+Kor om pa en tyst maskin innan du drar slutsatser. Enskilda
+korningar svanger, medianen av minst tre ar det som raknas.

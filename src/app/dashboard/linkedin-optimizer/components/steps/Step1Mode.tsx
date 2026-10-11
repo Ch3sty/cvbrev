@@ -11,7 +11,7 @@ import {
   IkonMatchning,
   IkonSynlig,
 } from '@/components/illustrations/Ikoner'
-import CvSelectorList from '../CvSelectorList'
+import CvSelectorList, { type CvRad } from '../CvSelectorList'
 
 export type OptimizationMode = 'stand_out' | 'target_role'
 export type Language = 'sv' | 'en'
@@ -24,6 +24,8 @@ interface Props {
   sourceMode: SourceMode
   selectedCvId: string | null
   hasCvs: boolean
+  /** CV-listan, serverns rader i första renderingen (ingen hämtning i steg 1). */
+  cvs: CvRad[]
   /** Låsta CV enligt CV-kvoten, uträknade på servern. Regeln är oförändrad. */
   lockedCvIds: Set<string>
   onModeChange: (mode: OptimizationMode) => void
@@ -44,6 +46,7 @@ export default function Step1Mode({
   sourceMode,
   selectedCvId,
   hasCvs,
+  cvs,
   lockedCvIds,
   onModeChange,
   onTargetRoleChange,
@@ -98,6 +101,7 @@ export default function Step1Mode({
             Välj CV att utgå ifrån
           </h3>
           <CvSelectorList
+            cvs={cvs}
             selectedCvId={selectedCvId}
             onSelect={onCvSelect}
             lockedCvIds={lockedCvIds}

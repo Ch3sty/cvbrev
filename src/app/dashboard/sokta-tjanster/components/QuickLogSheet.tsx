@@ -3,6 +3,7 @@
 // Snabblogg av en ansökan: två obligatoriska fält plus datum och kanal-chips.
 // Målet är under 15 sekunder. Används även i redigeringsläge från detaljvyn.
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import {
@@ -12,6 +13,7 @@ import {
 } from '@/lib/applications/status';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
 import SheetShell from './SheetShell';
+import { JOBBSOK } from '@/lib/rum/copy';
 
 interface QuickLogSheetProps {
   open: boolean;
@@ -113,7 +115,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
     'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
   return (
-    <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera ansökan' : 'Logga ansökan'}>
+    <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera ansökan' : JOBBSOK.loggaSoktJobb}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="ql-title" className="mb-1 block text-sm font-medium text-ink-2">
@@ -309,9 +311,9 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
         <button
           type="submit"
           disabled={isSaving || !jobTitle.trim() || !company.trim()}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          className={KNAPP_PRIMAR}
         >
-          {isSaving ? 'Sparar…' : isEdit ? 'Spara ändringar' : 'Logga ansökan'}
+          {isSaving ? 'Sparar…' : isEdit ? 'Spara ändringar' : JOBBSOK.loggaSoktJobb}
         </button>
       </form>
     </SheetShell>

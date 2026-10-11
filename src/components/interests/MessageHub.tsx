@@ -1,8 +1,11 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -159,7 +162,14 @@ export default function MessageHub({
 
   // ---- Laddning / tomt läge ------------------------------------------------
   if (interests === null) {
-    return <LoadingSkeleton variant="list" count={4} label="Hämtar dina meddelanden" />;
+    return (
+      <>
+        <VaggLaddar label="Hämtar dina meddelanden" />
+        <Golv key="laddar">
+          <LoadingSkeleton variant="list" count={4} label="Hämtar dina meddelanden" />
+        </Golv>
+      </>
+    );
   }
 
   if (interests.length === 0) {
@@ -169,12 +179,14 @@ export default function MessageHub({
       'Ni chattar direkt här',
     ];
     return (
-      <div className="space-y-4">
+      <>
         {/* Tomma läget är hela sidan, så rubriken är sidans h1. */}
-        <PageHeader
+        <RumHuvud
           title="Inga meddelanden än"
           description="Här landar dina samtal med rekryterare som visat intresse."
         />
+      <Golv key="tomt">
+      <div className="w-full max-w-3xl space-y-4">
 
         <section className="rounded-xl border border-kant bg-panel p-4">
           <h2 className="text-sm font-medium text-ink-3">Så kommer de igång</h2>
@@ -189,12 +201,14 @@ export default function MessageHub({
 
           <Link
             href="/dashboard/bli-upptackt"
-            className="mt-4 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+            className={`${KNAPP_PRIMAR_SMAL} mt-4`}
           >
             Gå till Bli upptäckt
           </Link>
         </section>
       </div>
+      </Golv>
+      </>
     );
   }
 
@@ -221,11 +235,13 @@ export default function MessageHub({
   );
 
   return (
-    <div className="space-y-4">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Meddelanden"
         description="Rekryterare som vill nå dig, och era konversationer. Accepterar du delas ditt namn och din e-post, och chatten öppnas."
       />
+    <Golv key="lista">
+    <div className="w-full space-y-4">
 
       {(error || respondError) && (
         <StatusRow tone="warm" showDot label="Problem med meddelandena">
@@ -261,5 +277,7 @@ export default function MessageHub({
         </div>
       </div>
     </div>
+    </Golv>
+    </>
   );
 }

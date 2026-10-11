@@ -103,7 +103,7 @@ export default function ChoiceCard({
 
       <span
         aria-hidden="true"
-        className={`absolute right-3 top-3 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-white transition-opacity duration-[160ms] ease-out ${
+        className={`absolute right-3 top-3 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-papper transition-opacity duration-[160ms] ease-out ${
           selected ? 'opacity-100' : 'opacity-0'
         }`}
       >

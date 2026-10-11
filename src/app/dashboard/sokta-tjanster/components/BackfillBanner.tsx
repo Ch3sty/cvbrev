@@ -8,6 +8,7 @@
 // sidladdning. Importen sker fortfarande mot samma API-route, med samma
 // behörighetskontroll.
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react';
 import { FileText, X } from 'lucide-react';
 
@@ -111,7 +112,7 @@ export default function BackfillBanner({
         type="button"
         onClick={handleImport}
         disabled={isImporting}
-        className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40 sm:w-auto"
+        className={`${KNAPP_PRIMAR} sm:w-auto`}
       >
         {isImporting ? 'Lägger in' : label}
       </button>
@@ -141,7 +142,7 @@ export default function BackfillBanner({
           type="button"
           onClick={handleImport}
           disabled={isImporting}
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+          className={KNAPP_SEKUNDAR_SMAL}
         >
           {isImporting ? 'Lägger in' : 'Lägg in alla'}
         </button>

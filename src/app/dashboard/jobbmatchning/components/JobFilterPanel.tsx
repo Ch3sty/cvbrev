@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useMemo, useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import Sheet from '@/components/shell/Sheet';
@@ -210,7 +211,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken lg:hidden"
+        className={`${KNAPP_SEKUNDAR_SMAL} lg:hidden`}
       >
         Filter
         {activeCount > 0 && (
@@ -231,7 +232,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          className={`${KNAPP_PRIMAR} mt-5`}
         >
           Visa resultat
         </button>

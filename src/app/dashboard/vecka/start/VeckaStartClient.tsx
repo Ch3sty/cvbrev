@@ -16,6 +16,7 @@
  * bottennav. Lokalt i sidan, eftersom FlowShell alltid ritar räknaren.
  */
 
+import { KNAPP_PRIMAR as KNAPP_PRIMAR_BAS, KNAPP_SEKUNDAR as KNAPP_SEKUNDAR_BAS } from '@/components/shell/knappar'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -29,10 +30,8 @@ import { capture } from '@/lib/analytics/events'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto sm:min-w-[220px]'
-const KNAPP_SEKUNDAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken sm:w-auto sm:min-w-[220px]'
+const KNAPP_PRIMAR = `${KNAPP_PRIMAR_BAS} sm:w-auto sm:min-w-[220px]`
+const KNAPP_SEKUNDAR = `${KNAPP_SEKUNDAR_BAS} sm:w-auto sm:min-w-[220px]`
 
 export interface ValkommenClientProps {
   paket: Scope
@@ -86,7 +85,7 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dag
   const primarHref = medCv?.primarHref ?? bas.primarHref
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+    <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
       <header className="flex-shrink-0 border-b border-kant bg-panel">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
           <button

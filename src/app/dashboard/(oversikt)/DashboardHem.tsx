@@ -48,13 +48,18 @@ import SnabbAtgarder from './SnabbAtgarder';
 import JobbsokOversikt from './JobbsokOversikt';
 import PagarNu from './PagarNu';
 import NastaHandling from './NastaHandling';
-import HemHuvud, { sammanhangsrad } from './HemHuvud';
+import { dagensDatum, halsning, sammanhangsrad } from './HemHuvud';
 import ProvaOcksa from './ProvaOcksa';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 import { traningsHandling } from '@/lib/intervju/nasta';
 import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy';
-import { INK_LANK } from '@/components/shell/InkPanel';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar';
+import { JOBBSOK, LYFT } from '@/lib/rum/copy';
+import LyftKort from '@/components/rum/LyftKort';
 
 interface DashboardStats {
   totalLetters: number;
@@ -248,21 +253,90 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
   // möter först. Skelettet visar nu bara det som finns i varje tillstånd, och
   // ytan är reserverad med samma min-height i båda grenarna.
   if (loading) {
+    // Väggen med toppraden står även medan summeringen hämtas om. Golvet har
+    // egen nyckel, så när innehållet landar byts det i stället för att
+    // flyttas: väggens nya höjd räknas då inte som ett layoutskifte.
     return (
-      <div className="min-h-[420px] space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
-        <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
-        <LoadingSkeleton variant="card" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar Jobbsöket" />
+        <Golv key="laddar">
+          <div className="min-h-[420px] space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
+            <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
+            <LoadingSkeleton variant="card" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
+  // Väggen (Rummen våg 1b): Jobbsökets rubrik och rad, samma ord som
+  // hemskärmen hade förut, flyttade från HemHuvud och DashboardHero.
+  // "Logga sökt tjänst" står här som glasknapp i automatisk bredd, eftersom
+  // navets Skapa är borta. Väggen bär aldrig kopparknappen (spec 16.3.1).
+  const nu = new Date();
+  const halsningRubrik = (
+    <span suppressHydrationWarning>
+      {halsning(nu)}
+      {stats.firstName ? `, ${stats.firstName}.` : '.'}
+    </span>
+  );
+  const datumEtikett = <span suppressHydrationWarning>{dagensDatum(nu)}</span>;
+  const loggaSoktJobb = (
+    <Link href="/dashboard/sokta-tjanster?logga=1" className={KNAPP_GLAS}>
+      {JOBBSOK.loggaSoktJobb}
+    </Link>
+  );
+  const huvud: { eyebrow?: ReactNode; title: ReactNode; description?: ReactNode; handling: ReactNode } =
+    traningsFokus
+      ? { eyebrow: datumEtikett, title: halsningRubrik, description: traningsRad, handling: loggaSoktJobb }
+      : state === 'A'
+        ? {
+            title: stats.firstName ? `Börja med ditt CV, ${stats.firstName}` : 'Börja med ditt CV',
+            description:
+              'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder.',
+            handling: loggaSoktJobb,
+          }
+        : state === 'B'
+          ? {
+              title: 'Nästa steg: brevet',
+              // Brevet bär det lyfta kortet (forstaBrev nedan), väggen bara
+              // de sekundära handlingarna.
+              handling: (
+                <>
+                  {loggaSoktJobb}
+                  <Link href="/dashboard/cv-analys" className={`${LANK_VAGG} inline-flex min-h-11 items-center justify-center`}>
+                    Se hela CV-analysen
+                  </Link>
+                </>
+              ),
+            }
+          : {
+              eyebrow: datumEtikett,
+              title: halsningRubrik,
+              description: sammanhangsrad(
+                summary?.hem?.svarSenasteDygnet ?? 0,
+                summary?.hem?.nastaIntervju ?? null
+              ),
+              handling: loggaSoktJobb,
+            };
+
+  // Nästa handling överlappar väggen i träningsfokus och i tillstånd C, som
+  // konceptets lyfta kort (J1).
+  const forstaLyft = traningsFokus || state === 'B' || (state === 'C' && Boolean(nextAction));
+
   return (
-    // Ingen entré-animation här. threadEnter börjar på opacity 0 med
-    // translateY(8px), och LCP kan inte registreras på ett element som är
-    // helt genomskinligt: mätningen sköts fram tills animationen hunnit en
-    // bit, och de åtta pixlarna räknas dessutom som rörelse. Sidbytet tonas
-    // redan in en gång i DashboardShell (fadeInPlace, bara opacity), så den
-    // här var dubbelt arbete på den sida som har hårdast budget.
+    // Ingen entré-animation här. Sidbytet tonas redan in en gång i
+    // DashboardShell (fadeInPlace, bara opacity), och LCP kan inte
+    // registreras på ett element som är helt genomskinligt.
+    <>
+      <RumHuvud
+        eyebrow={huvud.eyebrow}
+        title={huvud.title}
+        description={huvud.description}
+        handling={huvud.handling}
+        tat={!forstaLyft}
+      />
+    <Golv key="hem" lyft={forstaLyft && purchasedPlan === null}>
     <div className="min-h-[420px] space-y-4 sm:space-y-6">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
@@ -277,12 +351,12 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {traningsFokus ? (
         <>
-          <HemHuvud fornamn={stats.firstName} rad={traningsRad} />
           <NastaHandling
             action={traningsHandling(summary?.intervju, valtVidStart === 'tester')}
             onDismiss={() => {}}
+            utanOverlapp={purchasedPlan !== null}
             secondary={
-              <Link href="/dashboard?cv=1" className={`${INK_LANK} inline-flex min-h-11 items-center`}>
+              <Link href="/dashboard?cv=1" className={`${LANK} inline-flex min-h-11 items-center justify-center sm:justify-start`}>
                 {HEM.traning.cvLank}
               </Link>
             }
@@ -293,18 +367,26 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
         <DashboardHero
           state={state}
           userId={stats.userId}
-          firstName={stats.firstName}
           onCvUploaded={handleCvUploaded}
         />
       )}
 
       {/* Kortet gör en egen rundtur till profiles efter att summeringen kommit,
-          så det landar drygt två sekunder in. Låg det över SnabbAtgarder sköt
-          det ner 426 px när det dök upp, alltså CLS 0,19 på dashboarden. Sist
-          i ordningen, precis som i tillstånd C, syns samma sena ankomst inte:
-          det finns inget under det att flytta. */}
+          så det landar drygt två sekunder in. Sist i ordningen syns den sena
+          ankomsten inte: det finns inget under det att flytta. */}
       {state === 'B' && (
         <>
+          <LyftKort
+            label={LYFT.jobbForstaBrev.titel}
+            titel={LYFT.jobbForstaBrev.titel}
+            text={LYFT.jobbForstaBrev.text}
+            utanOverlapp={purchasedPlan !== null}
+            handling={
+              <Link href="/dashboard/skapa-brev" className={KNAPP_PRIMAR}>
+                {LYFT.jobbForstaBrev.handling}
+              </Link>
+            }
+          />
           <SnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
           <ProfilKomplettering />
           {/* Prova också kommer efter idle (useUnusedFeatures). Sist, så att
@@ -317,22 +399,18 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {state === 'C' && (
         <>
-          <HemHuvud
-            fornamn={stats.firstName}
-            rad={sammanhangsrad(
-              summary?.hem?.svarSenasteDygnet ?? 0,
-              summary?.hem?.nastaIntervju ?? null
-            )}
-          />
-
-          {/* Mobil: Nästa handling först, sedan talet. Desktop: talet till
-              vänster och bläckytan till höger, som i skissen. En bläckyta
-              per vy (regel 3). */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start">
-            <div className="lg:order-2">
-              <NastaHandling action={nextAction} onDismiss={dismissNextAction} intent={valtVidStart} />
+          {/* Nästa handling först, sedan talet, på mobil och dator (J2:
+              det lyfta kortet till vänster). Hela raden överlappar väggen när
+              Nästa handling finns. */}
+          <div
+            className={`grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start ${
+              forstaLyft && purchasedPlan === null ? 'relative z-[2] -mt-[30px]' : ''
+            }`}
+          >
+            <div>
+              <NastaHandling action={nextAction} onDismiss={dismissNextAction} intent={valtVidStart} utanOverlapp />
             </div>
-            <div className="lg:order-1">
+            <div>
               <JobbsokOversikt summary={appSummary} fordelning={summary?.hem} />
             </div>
           </div>
@@ -350,5 +428,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
         </>
       )}
     </div>
+    </Golv>
+    </>
   );
 }

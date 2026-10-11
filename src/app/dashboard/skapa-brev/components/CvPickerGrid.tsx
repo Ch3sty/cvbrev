@@ -7,6 +7,7 @@
  * den primära handlingen ligger i skalets fot.
  */
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import ChoiceCard from '@/components/shell/ChoiceCard';
@@ -46,7 +47,7 @@ export default function CvPickerGrid({
         action={
           <Link
             href="/dashboard/profil/cv"
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Ladda upp CV
           </Link>

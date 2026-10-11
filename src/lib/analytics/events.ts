@@ -284,6 +284,14 @@ export interface AnalyticsEvents {
      ligger utanför det område hon valde vid registreringen. */
   next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
+  /* ---------------------------------------------- Rummen, våg 1b
+     spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller
+     vid landningen), sokta_tjanster_oppnad varje gång listan öppnas, så
+     öppningarna kan jämföras före och efter navbytet. tema_bytt när
+     Utseende ändras på profilen. */
+  rum_oppnat: { rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'; surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

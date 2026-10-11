@@ -15,6 +15,7 @@
 
 import { useState } from 'react'
 import Sheet from './Sheet'
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from './knappar'
 
 export interface ConfirmDialogProps {
   open: boolean
@@ -53,9 +54,12 @@ export default function ConfirmDialog({
     }
   }
 
+  // Rummen våg 1b: bekräftelsen är kopparknappen; den destruktiva står i
+  // fel-rött med text i papper, som vänds med läget (vit i ljust, mörk i
+  // mörkt) så kontrasten håller mot den ljusare röda i mörkt läge.
   const confirmClass = destructive
-    ? 'bg-fel text-white hover:bg-fel-morker'
-    : 'bg-ink-1 text-white hover:bg-ink-hover'
+    ? 'inline-flex h-11 items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors disabled:opacity-60 bg-fel text-papper hover:bg-fel-morker'
+    : `${KNAPP_PRIMAR_SMAL} disabled:opacity-60`
 
   return (
     <Sheet
@@ -72,7 +76,7 @@ export default function ConfirmDialog({
             disabled={busy}
             className={
               destructive
-                ? 'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-60'
+                ? KNAPP_SEKUNDAR_SMAL
                 : 'inline-flex h-11 items-center justify-center px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 transition-colors hover:text-ink-1 disabled:opacity-60'
             }
           >
@@ -83,7 +87,7 @@ export default function ConfirmDialog({
             type="button"
             onClick={confirm}
             disabled={busy}
-            className={`inline-flex h-11 items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors disabled:opacity-60 ${confirmClass}`}
+            className={confirmClass}
           >
             {busy ? 'Vänta' : confirmLabel}
           </button>

@@ -25,7 +25,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, Slash, X } from 'lucide-react';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import { RUBRIK } from '@/lib/rum/copy';
+import Golv from '@/components/rum/Golv';
 import StatusRow from '@/components/shell/StatusRow';
 import PaketKort, { type PaketKortProps } from '@/components/pricing/PaketKort';
 import { capture } from '@/lib/analytics/events';
@@ -281,8 +283,10 @@ export default function PrenumerationClient({
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-4 p-4 sm:space-y-6 sm:p-6">
-      <PageHeader eyebrow="Konto" title="Prenumeration" description={KONTO.ingress} />
+    <>
+    <RumHuvud title={RUBRIK.prenumeration} description={KONTO.ingress} />
+    <Golv>
+    <div className="w-full max-w-5xl space-y-4 sm:space-y-6">
 
       {fel ? (
         <div className="rounded-xl border border-fel-kant bg-fel-mjuk p-4">
@@ -430,5 +434,7 @@ export default function PrenumerationClient({
 
       <CancelFlowModal open={uppsagning} onClose={() => setUppsagning(false)} />
     </div>
+    </Golv>
+    </>
   );
 }

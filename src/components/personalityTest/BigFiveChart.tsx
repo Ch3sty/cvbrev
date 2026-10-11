@@ -28,7 +28,7 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: 0.1 }}
-      className="bg-white rounded-3xl border border-orange-100 overflow-hidden"
+      className="bg-papper rounded-3xl border border-orange-100 overflow-hidden"
       style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
     >
       <div
@@ -40,7 +40,7 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
             Översikt
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-ink-1 tracking-tight">
             Dina fem dimensioner
           </h2>
         </div>
@@ -59,7 +59,7 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
                 transition={{ duration: 0.3, delay: 0.15 + idx * 0.05 }}
               >
                 <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                  <h3 className="text-sm sm:text-base font-bold text-ink-1">
                     {meta.name}
                   </h3>
                   <div className="flex items-center gap-2">
@@ -68,19 +68,19 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
                         band === 'high'
                           ? 'bg-orange-100 text-orange-700 border border-orange-200'
                           : band === 'low'
-                          ? 'bg-slate-100 text-slate-600 border border-slate-200'
+                          ? 'bg-papper-2 text-ink-2 border border-kant'
                           : 'bg-amber-50 text-amber-700 border border-amber-200'
                       }`}
                     >
                       {BAND_LABELS[band]}
                     </span>
-                    <span className="text-lg font-bold text-slate-900 tabular-nums w-9 text-right">
+                    <span className="text-lg font-bold text-ink-1 tabular-nums w-9 text-right">
                       {score}
                     </span>
                   </div>
                 </div>
 
-                <div className="relative h-3 bg-slate-100 rounded-full overflow-hidden">
+                <div className="relative h-3 bg-papper-2 rounded-full overflow-hidden">
                   {/* Skala-markörer */}
                   <div className="absolute inset-0 flex pointer-events-none">
                     <div className="flex-1 border-r border-white/60" />
@@ -99,7 +99,7 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
                   />
                 </div>
 
-                <div className="flex items-center justify-between mt-1 text-[10px] text-slate-500">
+                <div className="flex items-center justify-between mt-1 text-[10px] text-ink-3">
                   <span>{meta.poles.low}</span>
                   <span>{meta.poles.high}</span>
                 </div>

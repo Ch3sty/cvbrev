@@ -2,67 +2,33 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { X } from 'lucide-react';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
 import { useUiFlag } from '@/hooks/useUiFlag';
-import { IkonMeddelanden, IkonSynlig } from '@/components/illustrations/Ikoner';
+import { IkonMeddelanden } from '@/components/illustrations/Ikoner';
+import { IkonX } from '@/components/illustrations/RumSymboler';
 
 /**
- * Rekryteringens ingång i toppraden. Anpassar sig efter läget:
- *   - INTE synlig: en lugn textlänk med naken ikon som leder till Bli
- *     upptäckt. Ingen meddelande-ikon, det finns inget att chatta om.
- *   - SYNLIG: statusmarkör (positiv) plus meddelande-ikon. Sköter bara
- *     konversationer, klockan sköter händelser.
- *   - VÄNTAR: statusmarkör i fel-ton och prick när ett svar väntar.
- * Första gången man blir synlig visas en engångspopover som förklarar ikonen.
- * Ingen orange: toppraden är neutral, orange betyder position.
+ * Meddelanden från rekryterare i toppraden (spec-rummen 4.2 och avsnitt 0).
+ *
+ * Ikonknappen står till vänster om avataren bara när något är oläst eller
+ * ett svar väntar. Annars syns den inte: Bli upptäckt nås från Jobbsöket.
+ * Toppraden har en fast höjd (60 px), så att knappen dyker upp sent flyttar
+ * ingenting i höjdled. Första gången man blivit synlig visas en
+ * engångspopover som förklarar ikonen, och då står knappen också.
  */
-export default function MessagesHeaderButton() {
+export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'golv' } = {}) {
   const { pending, unread, isVisible, loaded } = useCandidateInterests();
   const [popoverSeen, markPopoverSeen] = useUiFlag('header_messages_popover');
   const [popoverClosed, setPopoverClosed] = useState(false);
 
-  // Båda grenarna nedan renderar en 44 px hög yta i headerns flexrad. Att
-  // returnera null tills data landat gjorde att raden växte när knappen kom,
-  // vilket mättes som ett layoutskifte. Ytan reserveras i stället.
-  if (!loaded) {
-    return <div aria-hidden="true" className="hidden h-11 w-11 sm:block" />;
-  }
+  if (!loaded || !isVisible) return null;
 
-  // --- INTE synlig: inbjudan att göra sig synlig -----------------------------
-  if (!isVisible) {
-    return (
-      <Link
-        href="/dashboard/bli-upptackt"
-        className="hidden h-11 items-center gap-2 rounded-lg px-2 text-sm font-medium text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1 sm:inline-flex"
-        title="Bli hittad av rekryterare"
-      >
-        <IkonSynlig size={22} className="shrink-0" />
-        <span className="hidden md:inline">Bli hittad av rekryterare</span>
-      </Link>
-    );
-  }
-
-  // --- SYNLIG (och ev. väntande) --------------------------------------------
-  const waiting = pending > 0;
   const badge = pending + unread;
   const showPopover = !popoverSeen && !popoverClosed;
+  if (badge === 0 && !showPopover) return null;
 
   return (
-    <div className="relative flex items-center gap-1">
-      {/* Statusmarkör, dold på smala skärmar. */}
-      <span
-        className={`hidden items-center gap-2 pr-1 md:inline-flex ${waiting ? 'text-fel' : 'text-ink-3'}`}
-      >
-        <span
-          className={`h-2 w-2 rounded-full ${waiting ? 'bg-fel' : 'bg-positiv'}`}
-          aria-hidden="true"
-        />
-        <span className="whitespace-nowrap text-meta font-medium">
-          {waiting ? `${pending} rekryterare väntar` : 'Synlig för rekryterare'}
-        </span>
-      </span>
-
+    <div className="relative flex items-center">
       <Link
         href="/dashboard/meddelanden"
         aria-label={
@@ -71,13 +37,15 @@ export default function MessagesHeaderButton() {
             : 'Meddelanden från rekryterare'
         }
         title="Meddelanden från rekryterare"
-        className="relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
+        className={`relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-[10px] text-current transition-colors ${
+          pa === 'vagg' ? 'hover:bg-white/10' : 'hover:bg-papper-2'
+        }`}
       >
         <IkonMeddelanden size={22} />
         {badge > 0 && (
           <span
             aria-hidden="true"
-            className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ink-1 ring-2 ring-panel"
+            className={`absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-koppar ring-2 ${pa === 'vagg' ? 'ring-vagg' : 'ring-papper'}`}
           />
         )}
       </Link>
@@ -85,7 +53,7 @@ export default function MessagesHeaderButton() {
       {/* Engångspopover första gången man blivit synlig. Svävar, får skugga. */}
       {showPopover && (
         <div
-          className="absolute right-0 top-[52px] z-50 w-[264px] rounded-xl border border-kant bg-panel p-4 shadow-svav"
+          className="absolute right-0 top-[52px] z-50 w-[264px] rounded-2xl border border-kant bg-papper p-4 text-ink-1 shadow-svav [--fokus:var(--koppar-ink)]"
           role="dialog"
           aria-label="Om meddelanden"
         >
@@ -96,9 +64,9 @@ export default function MessagesHeaderButton() {
               markPopoverSeen();
             }}
             aria-label="Stäng"
-            className="absolute right-1 top-1 inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-3 hover:bg-insunken hover:text-ink-1"
+            className="absolute right-1 top-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px] text-ink-3 hover:bg-papper-2 hover:text-ink-1"
           >
-            <X className="h-4 w-4" strokeWidth={1.75} />
+            <IkonX size={16} />
           </button>
           <p className="text-steg uppercase text-ink-3">Nyhet</p>
           <p className="mt-1 text-sm font-semibold leading-5 text-ink-1">Här dyker rekryterare upp</p>
@@ -120,7 +88,7 @@ export default function MessagesHeaderButton() {
             <Link
               href="/dashboard/meddelanden"
               onClick={markPopoverSeen}
-              className="inline-flex h-11 items-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white hover:bg-ink-hover"
+              className="inline-flex h-11 items-center rounded-xl border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1"
             >
               Visa mig
             </Link>

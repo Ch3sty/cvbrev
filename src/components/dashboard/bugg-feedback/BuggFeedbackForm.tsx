@@ -7,8 +7,10 @@
  */
 'use client'
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, FormEvent } from 'react'
-import { CheckCircle, AlertTriangle } from 'lucide-react'
+import { IkonCheck } from '@/components/illustrations/RumSymboler'
+import { IkonFel } from '@/components/illustrations/Ikoner'
 import Segment from '@/components/shell/Segment'
 
 const FALT =
@@ -199,7 +201,7 @@ export default function BuggFeedbackForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                className={KNAPP_PRIMAR}
               >
                 {isSubmitting
                   ? 'Skickar…'
@@ -209,10 +211,7 @@ export default function BuggFeedbackForm() {
               {/* Success meddelande */}
               {submitStatus === 'success' && (
                 <div className="mt-4 flex items-start gap-3 rounded-xl border border-kant bg-panel p-4">
-                  <CheckCircle
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-positiv"
-                    strokeWidth={1.75}
-                  />
+                  <IkonCheck size={20} className="mt-0.5 flex-shrink-0 text-positiv" />
                   <div>
                     <p className="text-kort text-ink-1">
                       {reportType === 'bug' ? 'Buggrapporten är skickad' : 'Feedbacken är skickad'}
@@ -227,10 +226,7 @@ export default function BuggFeedbackForm() {
               {/* Error meddelande */}
               {submitStatus === 'error' && (
                 <div className="mt-4 flex items-start gap-3 rounded-xl border border-fel-kant bg-fel-mjuk p-4">
-                  <AlertTriangle
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-fel"
-                    strokeWidth={1.75}
-                  />
+                  <IkonFel size={20} className="mt-0.5 flex-shrink-0 text-fel" />
                   <div>
                     <p className="text-kort text-ink-1">Något gick fel</p>
                     <p className="mt-1 text-meta text-ink-3">

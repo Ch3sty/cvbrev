@@ -1,5 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -31,32 +34,21 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
   const { done, hasAdvancedTest, ownReport, workStyle } = data;
 
   return (
-    <div className="mx-auto py-4 sm:py-6 max-w-3xl">
+    <>
+    {/* Rubriken på väggen (Rummen våg 1b), resten av heron på golvet. */}
+    <RumHuvud
+      title={ownReport ? ownReport.archetype.title : 'Din rapport i ord, byggd på dig'}
+      description={
+        ownReport
+          ? ownReport.archetype.description
+          : 'Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i siffror, och den privata delen är bara din.'
+      }
+    />
+    <Golv>
+    <div className="w-full max-w-3xl">
       <div className="space-y-5 sm:space-y-6">
-        {/* Hero */}
-        <header className="rounded-xl border border-kant bg-panel p-5 sm:p-7">
-          <p className="mb-1 text-steg uppercase text-ink-3">Din arbetsstil</p>
-          {ownReport ? (
-            <>
-              <h1 className="text-h1 text-ink-1">
-                {ownReport.archetype.title}
-              </h1>
-              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
-                {ownReport.archetype.description}
-              </p>
-            </>
-          ) : (
-            <>
-              <h1 className="text-h1 text-ink-1">
-                Din rapport i ord, byggd på dig
-              </h1>
-              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
-                Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i
-                siffror, och den privata delen är bara din.
-              </p>
-            </>
-          )}
-          <p className="mt-3 text-meta text-ink-3">
+        <header className="rounded-2xl border border-kant bg-papper p-4 sm:p-5">
+          <p className="text-meta text-ink-3">
             Det här är din egen rapport i du-form. Vad rekryterare får se styr
             du själv under{' '}
             <Link
@@ -77,7 +69,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
             </p>
             <Link
               href="/dashboard/tester"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+              className={KNAPP_PRIMAR_SMAL}
             >
               Gör dagens test
             </Link>
@@ -138,7 +130,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 ))}
               </div>
               {ownReport.work.summary && (
-                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-ink-2 leading-relaxed mt-3">
                   {ownReport.work.summary}
                 </p>
               )}
@@ -162,7 +154,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 <WorkStyleSpectrum spectrum={ownReport.drive.spectrum} />
               )}
               {ownReport.drive.summary && (
-                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-ink-2 leading-relaxed mt-3">
                   {ownReport.drive.summary}
                 </p>
               )}
@@ -253,6 +245,8 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
         )}
       </div>
     </div>
+    </Golv>
+    </>
   );
 }
 

@@ -58,7 +58,7 @@ export default function TemplateSelector({
                 }`}
               >
                 {/* Papperet får vara vitt */}
-                <div className="relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">
+                <div className="dokument relative mb-2 aspect-[3/4] overflow-hidden rounded-lg border border-kant bg-white">
                   {template.imagePath && (
                     <Image
                       src={template.imagePath}
@@ -71,7 +71,7 @@ export default function TemplateSelector({
                   {isLocked && (
                     <span className="absolute inset-0 flex items-center justify-center bg-ink-1/60">
                       <Lock
-                        className="h-5 w-5 text-white"
+                        className="h-5 w-5 text-papper"
                         strokeWidth={1.75}
                         aria-hidden="true"
                       />
@@ -80,7 +80,7 @@ export default function TemplateSelector({
                   {isSelected && (
                     <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink-1">
                       <svg
-                        className="h-3.5 w-3.5 text-white"
+                        className="h-3.5 w-3.5 text-papper"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"

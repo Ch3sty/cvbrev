@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -13,9 +14,11 @@ import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvCard from './components/CvCard';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { LYFT, RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
-import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
@@ -304,30 +307,38 @@ export default function MinaCvClient({
   const isEmpty = cvCount === 0;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
-      <PageHeader
-        title="Mina CV"
-        description="Ladda upp ditt CV en gång, använd det i brev, analys och mallar."
-        action={
-          !limitReached ? (
-            <a
-              href="#upload-zone"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-            >
-              Ladda upp CV
-            </a>
-          ) : undefined
+    <>
+      {/* Väggen säger var du är (spec 16.3.2): statusradens text står i
+          raden, uppladdningen i det lyfta kortet. Aldrig oändlighetstecken. */}
+      <RumHuvud
+        title={RUBRIK.minaCv}
+        description={
+          cvCount > 0
+            ? isPremium
+              ? PAKETRADER.cvUtanGrans(cvCount)
+              : `${cvCount} av ${FREE_LIMIT} CV använda.`
+            : 'Ladda upp ditt CV en gång, använd det i brev, analys och mallar.'
         }
+        tat={limitReached}
       />
-
-      {/* Statusrad: antal av kvoten. Aldrig oandlighetstecken. */}
-      {cvCount > 0 && (
-        <StatusRow label="Antal CV">
-          {isPremium
-            ? PAKETRADER.cvUtanGrans(cvCount)
-            : `${cvCount} av ${FREE_LIMIT} CV använda.`}
-        </StatusRow>
-      )}
+    <Golv lyft={!limitReached}>
+      {!limitReached ? (
+        <LyftKort
+          label={LYFT.minaCv.titel}
+          eyebrow={LYFT.minaCv.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.minaCv.titel}
+          text={LYFT.minaCv.text}
+          handling={
+            // Snabbpoängen efter en uppladdning bär kopparknappen; då är
+            // uppladdningen sekundär (en kopparknapp per vy).
+            <a href="#upload-zone" className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+              {LYFT.minaCv.handling}
+            </a>
+          }
+        />
+      ) : null}
+    <div className="w-full max-w-5xl space-y-6">
 
       {/* Tomt tillstand enligt sidmallen */}
       {isEmpty && (
@@ -339,7 +350,7 @@ export default function MinaCvClient({
             action={
               <a
                 href="#upload-zone"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_SEKUNDAR_SMAL}
               >
                 Ladda upp CV
               </a>
@@ -450,6 +461,8 @@ export default function MinaCvClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 

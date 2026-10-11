@@ -1,5 +1,6 @@
 'use client'
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import LinkedInProfileMockup, {
@@ -135,7 +136,7 @@ export default function Step3Results({
       <button
         type="button"
         onClick={handleCopyAll}
-        className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
+        className={KNAPP_SEKUNDAR_SMAL}
       >
         {copiedAll ? 'Alla sektioner kopierade' : 'Kopiera alla sektioner'}
       </button>

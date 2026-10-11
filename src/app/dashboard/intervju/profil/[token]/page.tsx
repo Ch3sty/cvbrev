@@ -15,7 +15,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowRight } from 'lucide-react'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { IlluProfilPentagon } from '@/components/illustrations/TestIllustrations'
 import Segmentrad from '@/components/artiklar/personlighetsprov/Segmentrad'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
@@ -63,8 +65,10 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
   const n = konsekvens(rad.answers)
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader eyebrow={PROFILSIDA.eyebrow} title={PROFILSIDA.titel} description={PROFILSIDA.beskrivning} />
+    <>
+    <RumHuvud title={PROFILSIDA.titel} description={PROFILSIDA.beskrivning} />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 
       {/* 1. Profilen, som i provets resultat. */}
       <section className={PANEL} aria-labelledby="profil-rubrik">
@@ -173,7 +177,7 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
         <Link
           href={GRUNDTEST_HREF}
           data-cta="personlighetsprov-hela-testet"
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`${KNAPP_PRIMAR} sm:w-auto`}
         >
           {PROFILSIDA.knapp}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -186,5 +190,7 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
         </Link>
       </div>
     </div>
+    </Golv>
+    </>
   )
 }

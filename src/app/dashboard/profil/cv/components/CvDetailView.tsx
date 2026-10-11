@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import {
   Briefcase,
@@ -176,7 +177,7 @@ function UnstructuredPrompt({
       <button
         onClick={handleStructure}
         disabled={loading}
-        className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+        className={KNAPP_SEKUNDAR_SMAL}
       >
         {loading ? (
           <>

@@ -1,4 +1,5 @@
 'use client';
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useCallback } from 'react';
 import { Upload, FileText, X } from 'lucide-react';
@@ -178,7 +179,7 @@ export default function InlineCVUpload({
               <button
                 onClick={handleUpload}
                 disabled={!gdprAccepted || uploading}
-                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+                className={KNAPP_PRIMAR}
               >
                 {uploading ? 'Laddar upp...' : 'Ladda upp CV'}
               </button>

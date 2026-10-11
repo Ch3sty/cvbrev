@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import EmptyState from '@/components/shell/EmptyState';
@@ -257,7 +258,7 @@ export default function ConversationThread({
                       <div
                         className={`whitespace-pre-wrap break-words rounded-xl px-3.5 py-2 text-sm leading-[22px] ${
                           m.mine
-                            ? 'bg-ink-1 text-white'
+                            ? 'bg-ink-1 text-papper'
                             : 'border border-kant bg-insunken text-ink-2'
                         }`}
                       >
@@ -311,7 +312,7 @@ export default function ConversationThread({
           type="button"
           onClick={send}
           disabled={sending || !draft.trim()}
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          className={`${KNAPP_PRIMAR_SMAL} shrink-0`}
         >
           Skicka
         </button>

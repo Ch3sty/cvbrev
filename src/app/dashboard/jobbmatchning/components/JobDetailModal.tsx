@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sheet from '@/components/shell/Sheet';
@@ -141,7 +142,7 @@ export default function JobDetailModal({
               href={applicationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-center text-sm font-semibold text-white hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR} text-center`}
             >
               {applyButtonText}
             </a>

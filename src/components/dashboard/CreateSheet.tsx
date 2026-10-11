@@ -17,6 +17,7 @@
 
 import { useRouter } from 'next/navigation'
 import Sheet from '@/components/shell/Sheet'
+import { JOBBSOK } from '@/lib/rum/copy'
 import {
   IkonBrev,
   IkonCv,
@@ -61,7 +62,7 @@ export default function CreateSheet({ open, onClose, applicationCount, cvCount }
   }
   const rowAnsokan: Row = {
     id: 'ansokan',
-    label: 'Logga sökt jobb',
+    label: JOBBSOK.loggaSoktJobb,
     hint: 'Se hur långt du kommer i processerna',
     href: '/dashboard/sokta-tjanster?logga=1',
     Ikon: IkonAnsokningar,

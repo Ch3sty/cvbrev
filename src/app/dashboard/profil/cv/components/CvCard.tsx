@@ -11,6 +11,7 @@
  * ett talstreck i en title-attribut ingen ser på mobil.
  */
 
+import { KNAPP_SEKUNDAR_LAG } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from 'lucide-react';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
@@ -124,7 +125,7 @@ export default function CvCard({
           <button
             onClick={isLocked ? undefined : onToggleExpand}
             disabled={isLocked}
-            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+            className={KNAPP_SEKUNDAR_LAG}
           >
             {expanded ? (
               <>
@@ -142,7 +143,7 @@ export default function CvCard({
           <button
             onClick={isLocked ? undefined : onDownload}
             disabled={isLocked}
-            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40"
+            className={KNAPP_SEKUNDAR_LAG}
           >
             <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
             <span className="truncate">Välj mall</span>

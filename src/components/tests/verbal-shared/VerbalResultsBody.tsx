@@ -6,6 +6,7 @@
  * färgade kort. Ingen rörelse utöver att en rad viks ut.
  */
 
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -102,14 +103,14 @@ export default function VerbalResultsBody({
         <button
           type="button"
           onClick={() => router.push(restartPath)}
-          className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
         >
           Gör om testet
         </button>
         <button
           type="button"
           onClick={() => router.push('/dashboard/tester')}
-          className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+          className={`${KNAPP_SEKUNDAR_SMAL} flex-1 touch-manipulation`}
         >
           Tillbaka till tester
         </button>

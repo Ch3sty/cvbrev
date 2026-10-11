@@ -15,6 +15,7 @@
  * Sheet sköter fokus, Escape, body-lås och safe-area. Ingen egen modal.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import Sheet from './Sheet'
 
 interface InstallSheetProps {
@@ -94,7 +95,7 @@ export default function InstallSheet({ open, onClose, onDone }: InstallSheetProp
         <button
           type="button"
           onClick={onDone}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          className={KNAPP_PRIMAR}
         >
           Klart
         </button>

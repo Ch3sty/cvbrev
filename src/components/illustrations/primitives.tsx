@@ -7,8 +7,10 @@
  * Regler:
  * - Konturer i currentColor. Fyllningar via CSS-variablerna --illu-fill,
  *   --illu-accent, --illu-soft och --illu-muted, som i globals.css pekar på
- *   Trådens tokens (panel, accent, accent-mjuk, kant-stark).
- * - Linjetjocklek per viewBox: 24 → 1.75, 48 → 2, 96 → 3, 240 → 6.
+ *   Trådens tokens (panel, accent, accent-mjuk, kant-stark) och i inloggat på
+ *   Rummens (papper, koppar, koppar-mjuk, kant-stark).
+ * - Linjetjocklek per viewBox: 24 → 1.75, 48 → 2, 96 → 3, 120 → 3 (Rummens
+ *   märken), 240 → 6.
  * - Hörnradie 8 procent av viewBox.
  * - En accentform per illustration, fylld och liten, högst en tiondel av
  *   motivet. Aldrig som bakgrundscirkel, aldrig på en kontur.
@@ -29,8 +31,8 @@ export interface IlluProps {
 }
 
 export const ILLU = {
-  stroke: { 24: 1.75, 48: 2, 96: 3, 240: 6 } as const,
-  radius: { 24: 2, 48: 4, 96: 8, 240: 20 } as const,
+  stroke: { 24: 1.75, 48: 2, 96: 3, 120: 3, 240: 6 } as const,
+  radius: { 24: 2, 48: 4, 96: 8, 120: 10, 240: 20 } as const,
   fill: 'var(--illu-fill, #FFFFFF)',
   accent: 'var(--illu-accent, #D9480F)',
   soft: 'var(--illu-soft, #FBE7D3)',

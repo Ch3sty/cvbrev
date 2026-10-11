@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import VaggLaddar from '@/components/rum/VaggLaddar';
+import Golv from '@/components/rum/Golv';
 import ResultsView from '@/components/personalityTest/ResultsView';
 
 interface PageProps {
@@ -17,9 +19,14 @@ export default function PersonlighetGrundResultsPage({ params }: PageProps) {
 
   if (!sessionId) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-6">
-        <LoadingSkeleton variant="card" label="Resultatet laddas" />
-      </div>
+      <>
+        <VaggLaddar label="Resultatet laddas" />
+        <Golv>
+          <div className="w-full max-w-3xl">
+            <LoadingSkeleton variant="card" label="Resultatet laddas" />
+          </div>
+        </Golv>
+      </>
     );
   }
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Crown, ArrowRight, Eye } from 'lucide-react';
 
@@ -461,7 +462,7 @@ function GenerateButton({
       <button
         type="button"
         onClick={onUpgrade}
-        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+        className={KNAPP_PRIMAR}
       >
         <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         {`Ladda ned med ${paketMedPris('cv_week')}`}
@@ -474,13 +475,13 @@ function GenerateButton({
       type="button"
       onClick={onGenerate}
       disabled={!canGenerate}
-      className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+      className={KNAPP_PRIMAR}
     >
       {isGenerating ? (
         <>
           <span
             aria-hidden="true"
-            className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+            className="h-4 w-4 animate-spin rounded-full border-2 border-koppar-text/30 border-t-koppar-text"
           />
           Skapar PDF
         </>

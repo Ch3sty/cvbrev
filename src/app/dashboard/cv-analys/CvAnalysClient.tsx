@@ -22,6 +22,9 @@ import { useRouter } from 'next/navigation';
 import CVAnalysisIntro from './components/CVAnalysisIntro';
 import OnboardingNextStep from '@/components/dashboard/OnboardingNextStep';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { RUBRIK } from '@/lib/rum/copy';
 
 import { logUserActivity } from '@/lib/activity-logger';
 import { lockedCvIds, type CvAnalysData } from './getCvAnalysData';
@@ -155,15 +158,21 @@ export default function CvAnalysClient({ data }: { data: CvAnalysData }) {
 
   if (hasReachedLimit) {
     return (
-      <div className="min-h-[calc(100dvh-200px)] flex items-center justify-center px-4 py-12">
-        {/* Analysen är en kontokvot, inte ett dygnsfönster: ingen
-            påminnelse imorgon, utan betalväggen för omkörningen. */}
-        <PaywallCard
-          variant="analys-omkorning"
-          feature="cv_analysis_full"
-          className="max-w-md w-full"
+      <>
+        <RumHuvud
+          title={RUBRIK.analyseraCv}
+          description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
         />
-      </div>
+        <Golv>
+          {/* Analysen är en kontokvot, inte ett dygnsfönster: ingen
+              påminnelse imorgon, utan betalväggen för omkörningen. */}
+          <PaywallCard
+            variant="analys-omkorning"
+            feature="cv_analysis_full"
+            className="w-full max-w-md"
+          />
+        </Golv>
+      </>
     );
   }
 

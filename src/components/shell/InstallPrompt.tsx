@@ -23,7 +23,7 @@
 
 import { useEffect, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
-import { X } from 'lucide-react'
+import { IkonX } from '@/components/illustrations/RumSymboler'
 import { capture } from '@/lib/analytics/events'
 import {
   avfarda,
@@ -116,7 +116,7 @@ export default function InstallPrompt() {
             aria-label="Stäng"
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-insunken"
           >
-            <X className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
+            <IkonX size={16} className="text-ink-3" />
           </button>
         </div>
       </div>

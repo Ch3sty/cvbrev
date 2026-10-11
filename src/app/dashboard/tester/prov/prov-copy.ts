@@ -32,5 +32,7 @@ export const PROV_SAKNAS = {
   titel: 'Det här provet finns inte',
   text: 'Länken leder till ett prov som har tagits bort, gått ut eller hör till ett annat konto.',
   lankHubb: 'Till rekryteringstesterna',
+  /** Det lyfta kortets titel: knappens mål (spec 16.3.2, sista raden). */
+  kortTitel: 'Rekryteringstesterna',
   lankHem: 'Till hemskärmen',
 } as const

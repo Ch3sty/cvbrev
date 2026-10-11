@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Check } from 'lucide-react';
 import Sheet from '@/components/shell/Sheet';
@@ -72,7 +73,7 @@ export default function ConsentModal({
               onConfirm(personalityConsent, personalityConsent && fullWorkstyleConsent)
             }
             disabled={!mainConsent || saving}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+            className={KNAPP_PRIMAR}
           >
             {saving ? 'Aktiverar' : 'Aktivera synlighet'}
           </button>
@@ -186,7 +187,7 @@ function ConsentRow({
         }`}
         aria-hidden="true"
       >
-        {checked && <Check className="h-3.5 w-3.5 text-white" strokeWidth={2.25} />}
+        {checked && <Check className="h-3.5 w-3.5 text-papper" strokeWidth={2.25} />}
       </span>
       <span className="text-sm font-medium leading-[22px] text-ink-2">
         {children}

@@ -3,7 +3,8 @@
 /**
  * Redigera ett sparat brev (docs/design/overlamning-opus.md).
  *
- * PageHeader är sidans enda h1 och bär Spara som primärhandling. Brevinfon
+ * Väggen (RumHuvud) bär sidans enda h1 och länken tillbaka; Spara står i det
+ * lyfta kortet först på golvet (spec 16.3.1: väggen bär aldrig kopparknappen). Brevinfon
  * är fält enligt avsnitt 2, med hjälptext under titeln. Texten redigeras i
  * en insunken textarea, annars visas brevet på papper (bg-white, specens
  * enda tillåtna undantag). Fel via FlowError. Ingen rörelse, inga orange
@@ -11,13 +12,17 @@
  * använde dem.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_LAG, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
@@ -25,10 +30,11 @@ import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
+const PRIMARY = `${KNAPP_PRIMAR} disabled:cursor-not-allowed`;
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
+/** Två sekundära i rad: 40 px (spec 16.2 fråga 17). */
+const SECONDARY_LAG = `${KNAPP_SEKUNDAR_LAG} disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 const FALT =
@@ -186,28 +192,39 @@ export default function EditLetterClient({
 
   /* Identiskt med loading.tsx, så bytet inte flyttar något. */
   if (!currentLetter && (!harForsokt || isLoading)) {
+    // Egen nyckel på golvet: när brevet landat byts golvet i stället för att
+    // flyttas, så väggens nya höjd inte räknas som ett layoutskifte.
     return (
-      <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-        <div className="h-8 w-48 rounded bg-insunken" />
-        <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
-        <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar brev" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+            <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+            <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
   if (error || !currentLetter) {
     return (
-      <div className="mx-auto max-w-lg">
-        <FlowError
-          title="Brevet kunde inte hittas"
-          message={error || 'Brevet finns inte eller har tagits bort.'}
-          secondaryAction={
-            <Link href="/dashboard/mina-brev" className={LINK}>
-              Tillbaka till mina brev
-            </Link>
-          }
-        />
-      </div>
+      <>
+        <RumHuvud title="Brevet kunde inte hittas" />
+        <Golv key="fel">
+          <div className="w-full max-w-lg">
+            <FlowError
+              title="Brevet kunde inte hittas"
+              message={error || 'Brevet finns inte eller har tagits bort.'}
+              secondaryAction={
+                <Link href="/dashboard/mina-brev" className={LINK}>
+                  Tillbaka till mina brev
+                </Link>
+              }
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -220,22 +237,29 @@ export default function EditLetterClient({
   const html = isTemplateHTML(formData.content);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 pb-16">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Redigera brevet"
-        description={
-          templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'
+        tat={false}
+        handling={
+          <Link href={`/dashboard/mina-brev/${id}`} className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
+            Tillbaka till brevet
+          </Link>
         }
-        action={
+      />
+    <Golv key="brev" lyft>
+      <LyftKort
+        className="w-full max-w-3xl"
+        label="Ändringarna i brevet"
+        titel="Ändringarna i brevet"
+        text={templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'}
+        handling={
           <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
             {isSaving ? 'Sparar' : 'Spara'}
           </button>
         }
-      >
-        <Link href={`/dashboard/mina-brev/${id}`} className={`${LINK} mt-2`}>
-          Tillbaka till brevet
-        </Link>
-      </PageHeader>
+      />
+    <div className="w-full max-w-3xl space-y-4">
 
       {saveError ? (
         <FlowError title="Brevet kunde inte sparas" message={saveError} onRetry={handleSave} />
@@ -321,22 +345,22 @@ export default function EditLetterClient({
             </button>
           </div>
           <p className="mt-3 text-meta text-ink-3">
-            Texten läggs tillbaka i mallen. Tryck Spara i sidhuvudet för att spara brevet.
+            Texten läggs tillbaka i mallen. Tryck Spara överst för att spara brevet.
           </p>
         </section>
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-            <button type="button" onClick={handleStartEdit} className={SECONDARY}>
+            <button type="button" onClick={handleStartEdit} className={SECONDARY_LAG}>
               Redigera texten
             </button>
-            <button type="button" onClick={handleCopy} className={SECONDARY}>
+            <button type="button" onClick={handleCopy} className={SECONDARY_LAG}>
               {copied ? 'Kopierat' : 'Kopiera text'}
             </button>
           </div>
 
           {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
-          <div className="overflow-hidden rounded-xl border border-kant bg-white">
+          <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
             {html ? (
               <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
                 {/* Scopat: mallens egen `body`-regel får inte sätta padding
@@ -359,5 +383,7 @@ export default function EditLetterClient({
         </>
       )}
     </div>
+    </Golv>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
@@ -43,7 +44,7 @@ const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1';
 
 const BUTTON_PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-6 text-sm font-medium text-white transition-colors hover:bg-ink-hover';
+  KNAPP_PRIMAR_SMAL;
 
 // Bekräftelsevy efter spara/nedladdning
 interface ConfirmationViewProps {
@@ -376,7 +377,7 @@ export default function Step7Review({
                     {isSelected && (
                       <span
                         aria-hidden="true"
-                        className="absolute right-2 top-2 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-white"
+                        className="absolute right-2 top-2 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-papper"
                       >
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 10.5l4 4 8-9" />

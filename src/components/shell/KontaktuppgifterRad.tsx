@@ -11,6 +11,10 @@
  * dokumentKontakt.ts): i ett brev profilens värden, i ett CV det som står i
  * CV:t med profilen som reserv för tomma fält och platshållare.
  *
+ * I rummens material (spec-rummen 13.1 och 16): stängd är raden en
+ * StatusRow, öppen ett kort på papper med radie 16 och rummets
+ * sekundärknapp.
+ *
  * Sparas via /api/profile/contact. Bara fält som ändrats skickas. I CV-läget
  * skickas cv_id med, så att CV:ts egna uppgifter byts och PDF:en följer med.
  * Efter sparningen hämtas dashboardens delade data om och onSparad får de
@@ -18,6 +22,7 @@
  */
 
 import { useState } from 'react'
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import StatusRow from '@/components/shell/StatusRow'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { arGiltigEpost, kontoEpost, EPOST_MAX } from '@/lib/profile/dokumentEpost'
@@ -235,7 +240,7 @@ export default function KontaktuppgifterRad({
   )
 
   return (
-    <div className={`rounded-lg border border-kant bg-panel p-3 ${className ?? ''}`}>
+    <div className={`rounded-2xl border border-kant bg-papper p-4 ${className ?? ''}`}>
       <p className="text-sm font-medium text-ink-1">{DOKUMENT_KONTAKT.rubrik}</p>
       <p className="mt-0.5 text-meta text-ink-3">
         {dokument === 'cv' ? DOKUMENT_KONTAKT.forklaringCv : DOKUMENT_KONTAKT.forklaringBrev}
@@ -275,7 +280,7 @@ export default function KontaktuppgifterRad({
           type="button"
           onClick={() => void spara()}
           disabled={sparar}
-          className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40"
+          className={`${KNAPP_SEKUNDAR_SMAL} disabled:opacity-40`}
         >
           {sparar ? DOKUMENT_KONTAKT.sparar : DOKUMENT_KONTAKT.spara}
         </button>

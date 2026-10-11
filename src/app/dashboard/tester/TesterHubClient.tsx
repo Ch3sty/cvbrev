@@ -17,7 +17,11 @@
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { TRAN_RAD } from '@/lib/rum/copy';
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
@@ -30,8 +34,6 @@ import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
 import PaketBytesRad from '@/components/paywall/PaketBytesRad';
 import { PAKETBYTE } from '@/components/pricing/paket-copy';
 import Link from 'next/link';
-import InkPanel, { INK_KNAPP } from '@/components/shell/InkPanel';
-import { IlluScenMatris } from '@/components/illustrations/PriserScener';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestGroup from './components/TestGroup';
 import TestKategori from './components/TestKategori';
@@ -42,11 +44,6 @@ import type { TesterHubData } from './getHubData';
 const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
   loading: () => <div className="min-h-[420px]" aria-hidden="true" />,
 });
-
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
-const KNAPP_SEKUNDAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40';
 
 /** Samma dag i svensk tid? */
 function sammaDag(iso: string | null): boolean {
@@ -145,23 +142,22 @@ export default function TesterHubClient({
   })();
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
+    <>
+      <RumHuvud
+        title="Känn igen uppgiften innan provdagen."
+        description={`${TRAN_RAD} ${
+          huvud.ingress ??
+          'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
+        }`}
+      />
+    <Golv>
+    <div className="w-full max-w-3xl">
       <div className="space-y-4 sm:space-y-6">
-        <PageHeader
-          eyebrow="Rekryteringstester"
-          title="Känn igen uppgiften innan provdagen."
-          description={
-            huvud.ingress ??
-            'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
-          }
-          scene={<IlluScenMatris className="h-auto w-full" />}
-        >
-          <TesterTabs
-            active={tab}
-            onChange={setTab}
-            completedCount={aggregate.totalCompleted}
-          />
-        </PageHeader>
+        <TesterTabs
+          active={tab}
+          onChange={setTab}
+          completedCount={aggregate.totalCompleted}
+        />
 
         {/* kunden med CV-paketet: paketet, och var resten finns. */}
         {huvud.statusrad ? (
@@ -181,12 +177,14 @@ export default function TesterHubClient({
         {tab === 'tester' ? (
           <div key="tester" className="space-y-4 sm:space-y-6">
             {rekommendation ? (
-              <InkPanel
+              <LyftKort
+                utanOverlapp
+                label={rekommendation.title}
                 eyebrow={rekommendation.eyebrow}
-                title={rekommendation.title}
+                titel={rekommendation.title}
                 text={rekommendation.text}
-                action={
-                  <Link href={rekommendation.href} className={INK_KNAPP}>
+                handling={
+                  <Link href={rekommendation.href} className={`${KNAPP_PRIMAR} sm:w-auto`}>
                     {rekommendation.knapp}
                   </Link>
                 }
@@ -231,12 +229,12 @@ export default function TesterHubClient({
 
             {/* Foten för kunden med CV-paketet (sektion 3). */}
             {scope === 'cv' && bytUtfall?.typ !== 'bytt' ? (
-              <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
+              <div className="grid gap-2 rounded-2xl border border-kant bg-papper p-4">
                 <button
                   type="button"
                   onClick={() => uppgradera('test_week')}
                   disabled={busy !== null}
-                  className={KNAPP_PRIMAR}
+                  className={rekommendation ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}
                 >
                   {busy === 'test_week' ? PAKETBYTE.arbetar : laggTillKnapp('test_week')}
                 </button>
@@ -271,5 +269,7 @@ export default function TesterHubClient({
         />
       ) : null}
     </div>
+    </Golv>
+    </>
   );
 }
