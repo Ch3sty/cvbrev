@@ -35,16 +35,16 @@ export function daysSince(iso: string | null | undefined, now: Date = new Date()
  * lägen bär ink, ett avslut bär fel och ett erbjudande bär positiv.
  */
 const PILL_TONE: Partial<Record<ApplicationEventType, string>> = {
-  offer_received: 'border-kant bg-panel text-positiv',
-  accepted: 'border-kant bg-panel text-positiv',
-  rejected: 'border-kant bg-panel text-ink-3',
-  declined: 'border-kant bg-panel text-ink-3',
-  no_response: 'border-kant bg-panel text-ink-3',
+  offer_received: 'border-kant bg-papper text-positiv',
+  accepted: 'border-kant bg-papper text-positiv',
+  rejected: 'border-kant bg-papper text-ink-3',
+  declined: 'border-kant bg-papper text-ink-3',
+  no_response: 'border-kant bg-papper text-ink-3',
 };
 
 export function StatusPill({ status }: { status: ApplicationEventType | null }) {
   const meta = STATUS_META[status ?? 'applied'];
-  const tone = (status && PILL_TONE[status]) ?? 'border-kant bg-panel text-ink-2';
+  const tone = (status && PILL_TONE[status]) ?? 'border-kant bg-papper text-ink-2';
   return (
     <span
       className={`inline-flex items-center whitespace-nowrap rounded-md border px-2 py-0.5 text-meta font-medium ${tone}`}

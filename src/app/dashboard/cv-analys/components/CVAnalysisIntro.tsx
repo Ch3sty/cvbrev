@@ -112,7 +112,7 @@ export default function CVAnalysisIntro({
         </StatusRow>
       )}
 
-      <section className="rounded-xl border border-kant bg-panel">
+      <section className="rounded-xl border border-kant bg-papper">
         <h2 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">
           Så fungerar analysen
         </h2>

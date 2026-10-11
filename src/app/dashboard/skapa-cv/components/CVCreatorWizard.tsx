@@ -117,8 +117,8 @@ const TEST_CV_DATA: CVDraft = {
 /** Stegets skelett: samma form som ett steg, stillastående, tråden rör sig. */
 const StepSkeleton = () => (
   <div className="space-y-4">
-    <div aria-hidden="true" className="h-3 w-24 rounded bg-insunken" />
-    <div aria-hidden="true" className="h-7 w-3/4 rounded bg-insunken" />
+    <div aria-hidden="true" className="h-3 w-24 rounded bg-papper-2" />
+    <div aria-hidden="true" className="h-7 w-3/4 rounded bg-papper-2" />
     <LoadingSkeleton variant="card" label="Laddar steget" />
   </div>
 );
@@ -629,7 +629,7 @@ export default function CVCreatorWizard({
                 <button
                   type="button"
                   onClick={() => setMobilePreviewOpen(!mobilePreviewOpen)}
-                  className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 text-left transition-colors hover:border-kant-stark"
+                  className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-papper px-3 text-left transition-colors hover:border-kant-stark"
                   aria-expanded={mobilePreviewOpen}
                 >
                   <span className="text-sm font-medium text-ink-1">

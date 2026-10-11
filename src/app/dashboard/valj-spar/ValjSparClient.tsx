@@ -351,7 +351,7 @@ export default function ValjSparClient({
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{KOPSTEG.under}</p>
 
         {/* Kvittot. */}
-        <section className="mt-4 rounded-xl border border-kant-stark bg-panel p-4" aria-label="Kvitto">
+        <section className="mt-4 rounded-xl border border-kant-stark bg-papper p-4" aria-label="Kvitto">
           <div className="flex items-baseline justify-between gap-3">
             <p className="font-display text-xl font-bold tracking-[-0.025em] text-ink-1">
               {paketNamn(plan)}
@@ -397,7 +397,7 @@ export default function ValjSparClient({
             </div>
           </dl>
 
-          <div className="mt-3 flex items-center gap-3 rounded-lg bg-insunken p-3 text-ink-1">
+          <div className="mt-3 flex items-center gap-3 rounded-lg bg-papper-2 p-3 text-ink-1">
             <ForstaScen className="h-11 w-11 shrink-0" />
             <div>
               <p className="text-sm font-semibold leading-[19px] text-ink-1">{forsta.rubrik}</p>
@@ -407,7 +407,7 @@ export default function ValjSparClient({
         </section>
 
         {/* Hela paketet i stället, eller längden på Hela paketet. */}
-        <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3">
+        <section className="mt-3 rounded-xl border border-kant bg-papper px-4 py-3">
           <p className="text-steg uppercase text-ink-3">
             {paket === 'allt' ? KOPSTEG.alltLangd : KOPSTEG.alltIStallet}
           </p>

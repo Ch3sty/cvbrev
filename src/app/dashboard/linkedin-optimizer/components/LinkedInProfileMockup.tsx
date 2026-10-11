@@ -203,8 +203,8 @@ function SectionWrapper({
       type={isClickable ? 'button' : undefined}
       aria-pressed={isClickable ? isActive : undefined}
       className={`-mx-2 w-[calc(100%+16px)] rounded-lg border-l-2 px-2 py-1.5 text-left transition-[border-color,background-color] duration-[120ms] ${
-        isClickable ? 'cursor-pointer hover:bg-panel' : ''
-      } ${isActive ? 'border-ink-1 bg-panel' : 'border-transparent'}`}
+        isClickable ? 'cursor-pointer hover:bg-papper' : ''
+      } ${isActive ? 'border-ink-1 bg-papper' : 'border-transparent'}`}
     >
       {children}
     </Component>
@@ -249,7 +249,7 @@ export default function LinkedInProfileMockup({
       {badge && <p className="mb-2 text-sm font-medium text-ink-3">{badge}</p>}
 
       <div
-        className={`overflow-hidden rounded-xl border border-kant bg-insunken ${
+        className={`overflow-hidden rounded-xl border border-kant bg-papper-2 ${
           isSkeleton ? 'opacity-80' : ''
         }`}
       >
@@ -259,7 +259,7 @@ export default function LinkedInProfileMockup({
         {/* Namn-block */}
         <div className="flex items-center gap-3 px-4 pb-4 pt-4">
           <span
-            className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-kant bg-panel text-base font-semibold ${
+            className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-kant bg-papper text-base font-semibold ${
               hasName ? 'text-ink-1' : 'text-ink-3'
             }`}
             aria-hidden="true"
@@ -324,7 +324,7 @@ export default function LinkedInProfileMockup({
                 {experiences.map((exp, i) => (
                   <div key={i} className="flex gap-3">
                     <span
-                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-meta font-medium text-ink-2"
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper text-meta font-medium text-ink-2"
                       aria-hidden="true"
                     >
                       {(exp.meta || exp.title).slice(0, 2).toUpperCase()}
@@ -343,7 +343,7 @@ export default function LinkedInProfileMockup({
               <div className="space-y-2">
                 {[1, 2].map((i) => (
                   <div key={i} className="flex gap-3" aria-hidden="true">
-                    <div className="h-8 w-8 shrink-0 rounded-lg border border-kant bg-panel" />
+                    <div className="h-8 w-8 shrink-0 rounded-lg border border-kant bg-papper" />
                     <div className="flex-1 space-y-2 pt-1">
                       <div className="h-2 w-2/3 rounded bg-kant" />
                       <div className="h-2 w-1/2 rounded bg-kant" />
@@ -394,7 +394,7 @@ export default function LinkedInProfileMockup({
                 {skills.map((skill, i) => (
                   <span
                     key={`${skill}-${i}`}
-                    className="inline-flex min-h-7 items-center rounded-lg border border-kant bg-panel px-2 text-meta text-ink-2"
+                    className="inline-flex min-h-7 items-center rounded-lg border border-kant bg-papper px-2 text-meta text-ink-2"
                   >
                     {skill}
                   </span>
@@ -403,7 +403,7 @@ export default function LinkedInProfileMockup({
             ) : (
               <div className="flex flex-wrap gap-2" aria-hidden="true">
                 {[1, 2, 3].map((i) => (
-                  <span key={i} className="inline-flex h-7 w-16 rounded-lg border border-kant bg-panel" />
+                  <span key={i} className="inline-flex h-7 w-16 rounded-lg border border-kant bg-papper" />
                 ))}
               </div>
             )}

@@ -187,7 +187,7 @@ export default function CancelFlowModal({ open, onClose }: Props) {
                 autoComplete="off"
                 rows={3}
                 maxLength={300}
-                className="w-full resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                className="w-full resize-none rounded-lg border border-kant bg-papper-2 px-3 py-2 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
               />
               <span className="mt-1 block text-meta tabular-nums text-ink-3">
                 {freeText.length} av 300

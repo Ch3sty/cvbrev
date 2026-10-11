@@ -263,7 +263,7 @@ export default function Intervjuprov({
     </p>
   )
   const citat = (
-    <blockquote className="mt-4 border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
+    <blockquote className="mt-4 border-l-[3px] border-koppar py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
       {COPY.fraga(f.text)}
     </blockquote>
   )
@@ -274,7 +274,7 @@ export default function Intervjuprov({
     return (
       <Ram
         ref={sparrRef as React.RefObject<HTMLDivElement>}
-        className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+        className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6'}
         aria-labelledby={flode ? undefined : rubrikId}
       >
         {flode ? null : eyebrow}
@@ -326,7 +326,7 @@ export default function Intervjuprov({
     return (
       <>
         <aside
-          className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6"
+          className="not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6"
           aria-labelledby={rubrikId}
           aria-live="polite"
         >
@@ -344,7 +344,7 @@ export default function Intervjuprov({
           </div>
           <div className="mt-2.5 grid grid-cols-5 gap-1" aria-hidden="true">
             {[1, 2, 3, 4, 5].map((n) => (
-              <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-insunken'}`} />
+              <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-papper-2'}`} />
             ))}
           </div>
           <p className="mt-2.5 text-varde text-ink-1">
@@ -383,7 +383,7 @@ export default function Intervjuprov({
           {inloggad ? null : <p className="sr-only">{COPY.last.sr}</p>}
         </aside>
 
-        <section ref={sparrRef} className="mt-6 mb-8 rounded-xl border border-kant-stark bg-panel p-4 not-prose sm:p-6">
+        <section ref={sparrRef} className="mt-6 mb-8 rounded-xl border border-kant-stark bg-papper p-4 not-prose sm:p-6">
           <div className="sm:flex sm:items-start sm:gap-5">
             <IlluBlurGate size={96} className="hidden shrink-0 text-ink-1 sm:block" />
             <div className="min-w-0 flex-1">
@@ -435,7 +435,7 @@ export default function Intervjuprov({
   const Panel = flode ? 'div' : 'aside'
   return (
     <Panel
-      className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+      className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6'}
       aria-labelledby={flode ? undefined : rubrikId}
     >
       {flode ? null : eyebrow}
@@ -456,7 +456,7 @@ export default function Intervjuprov({
           placeholder={f.platshallare}
           aria-invalid={faltFel || undefined}
           aria-describedby={hjalpId}
-          className={`block min-h-[152px] w-full resize-y rounded-lg border bg-insunken p-3 text-base leading-6 shadow-insunken placeholder:text-ink-3 ${
+          className={`block min-h-[152px] w-full resize-y rounded-lg border bg-papper-2 p-3 text-base leading-6  placeholder:text-ink-3 ${
             faltFel ? 'border-fel' : 'border-kant focus:border-ink-1'
           } ${laddar ? 'text-ink-3' : 'text-ink-1'}`}
         />
@@ -485,7 +485,7 @@ export default function Intervjuprov({
             ? STAR_DELAR.map((del) => (
                 <span
                   key={del}
-                  className="inline-flex h-6 items-center rounded-md bg-insunken px-2 text-xs font-medium text-ink-2"
+                  className="inline-flex h-6 items-center rounded-md bg-papper-2 px-2 text-xs font-medium text-ink-2"
                 >
                   {del}
                 </span>

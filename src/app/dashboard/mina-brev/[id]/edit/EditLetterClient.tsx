@@ -37,7 +37,7 @@ const SECONDARY_LAG = `${KNAPP_SEKUNDAR_LAG} disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 const FALT =
-  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
+  'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
 export default function EditLetterClient({
   id,
@@ -198,7 +198,7 @@ export default function EditLetterClient({
         <VaggLaddar label="Laddar brev" />
         <Golv key="laddar">
           <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-            <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+            <div className="h-11 w-full rounded-lg bg-papper-2 sm:w-64" />
             <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
           </div>
         </Golv>
@@ -253,7 +253,7 @@ export default function EditLetterClient({
       ) : null}
 
       {/* Brevinfo: fälten som följer med brevet till Sökta tjänster. */}
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-kort text-ink-1">Brevinfo</h2>
         <div className="mt-3 space-y-4">
           <label className="block">
@@ -305,7 +305,7 @@ export default function EditLetterClient({
       </section>
 
       {isEditing ? (
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <label htmlFor="letter-editor" className="text-kort text-ink-1">
             Redigera texten
           </label>
@@ -313,7 +313,7 @@ export default function EditLetterClient({
             id="letter-editor"
             value={editableText}
             onChange={(e) => setEditableText(e.target.value)}
-            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-insunken p-4 text-base leading-7 text-ink-1 shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-papper-2 p-4 text-base leading-7 text-ink-1  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
             style={{ fontFamily: 'Georgia, serif' }}
             placeholder="Skriv ditt brev här"
           />

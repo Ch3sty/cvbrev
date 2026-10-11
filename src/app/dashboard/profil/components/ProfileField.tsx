@@ -15,7 +15,7 @@ import { useId, type ReactNode } from 'react'
 import type { FieldSaveState } from './useFieldSave'
 
 export const INPUT_CLASS =
-  'mt-2 block h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:text-ink-3 aria-[invalid=true]:border-fel-kant aria-[invalid=true]:bg-panel'
+  'mt-2 block h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40 disabled:cursor-not-allowed disabled:text-ink-3 aria-[invalid=true]:border-fel-kant aria-[invalid=true]:bg-papper'
 
 /* ------------------------------------------------------------------ etikett */
 
@@ -201,12 +201,12 @@ export function ToggleSwitch({
       aria-label={label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-[160ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-60 ${
+      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-[160ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink focus-visible:ring-offset-2 disabled:opacity-60 ${
         checked ? 'bg-ink-1' : 'bg-kant-stark'
       }`}
     >
       <span
-        className={`inline-block h-4 w-4 rounded-full bg-panel transition-transform duration-[160ms] ${
+        className={`inline-block h-4 w-4 rounded-full bg-papper transition-transform duration-[160ms] ${
           checked ? 'translate-x-6' : 'translate-x-1'
         }`}
       />
@@ -240,7 +240,7 @@ export function ProfileCard({
   return (
     <section
       id={id}
-      className={`scroll-mt-24 rounded-xl border border-kant bg-panel ${active ? 'thread-head' : ''}`}
+      className={`scroll-mt-24 rounded-xl border border-kant bg-papper ${active ? 'thread-head' : ''}`}
     >
       <div className={`flex items-start gap-3 p-4 sm:p-5 ${active ? 'thread-head-block' : ''}`}>
         {plate}

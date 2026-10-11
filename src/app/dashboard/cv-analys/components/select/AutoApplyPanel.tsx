@@ -20,7 +20,7 @@ interface AutoApplyPanelProps {
 export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
   return (
     <div className="space-y-3">
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <h4 className="text-kort text-ink-1">Vi tar hand om resten åt dig</h4>
         <p className="mt-1 text-sm leading-relaxed text-ink-2">
           De här förbättringarna är allmänna och tillämpas automatiskt när du
@@ -28,7 +28,7 @@ export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
         </p>
       </section>
 
-      <section className="rounded-xl border border-kant bg-panel">
+      <section className="rounded-xl border border-kant bg-papper">
         <ul className="divide-y divide-kant">
           {improvements.map((improvement, index) => (
             <li key={index} className="px-4 py-3">
@@ -46,7 +46,7 @@ export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
                 </p>
               )}
               {improvement.category && !improvement.example && (
-                <span className="mt-1.5 inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+                <span className="mt-1.5 inline-flex items-center rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-2">
                   {improvement.category}
                 </span>
               )}

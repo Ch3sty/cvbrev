@@ -51,12 +51,12 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
   return (
     <div
       id={`changelog-${id}`}
-      className="overflow-hidden rounded-xl border border-kant bg-panel"
+      className="overflow-hidden rounded-xl border border-kant bg-papper"
     >
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="flex w-full items-start gap-3 p-4 text-left transition-colors hover:bg-insunken sm:gap-4 sm:p-5"
+        className="flex w-full items-start gap-3 p-4 text-left transition-colors hover:bg-papper-2 sm:gap-4 sm:p-5"
         aria-expanded={isOpen}
       >
         <Icon
@@ -133,7 +133,7 @@ export default function ChangeLogItem(props: ChangeLogItemProps) {
 
 function Tag({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+    <span className="inline-flex items-center rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-2">
       {label}
     </span>
   );
@@ -141,7 +141,7 @@ function Tag({ label }: { label: string }) {
 
 function SkillChip({ skill }: { skill: string; relevance: 'high' | 'medium' | 'low' }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-3 py-1.5 text-sm font-medium text-ink-2">
+    <span className="inline-flex items-center rounded-md border border-kant bg-papper-2 px-3 py-1.5 text-sm font-medium text-ink-2">
       {skill}
     </span>
   );

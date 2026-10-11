@@ -38,7 +38,7 @@ function pct(numerator: number, denominator: number): string {
  */
 function KpiCard({ value, label }: { value: string; label: string }) {
   return (
-    <div className="min-h-[6rem] rounded-xl border border-kant bg-panel p-4">
+    <div className="min-h-[6rem] rounded-xl border border-kant bg-papper p-4">
       <div className="text-tal tabular-nums text-ink-1">{value}</div>
       <div className="mt-1 text-meta text-ink-3">{label}</div>
     </div>
@@ -47,7 +47,7 @@ function KpiCard({ value, label }: { value: string; label: string }) {
 
 function SectionBox({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-kant bg-panel p-4">
+    <div className="rounded-xl border border-kant bg-papper p-4">
       <div className="flex items-center justify-between gap-3 mb-4">
         <h3 className="text-kort text-ink-1">{title}</h3>
         {action}
@@ -75,7 +75,7 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
       <div className="space-y-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 rounded-xl border border-kant bg-insunken" />
+            <div key={i} className="h-24 rounded-xl border border-kant bg-papper-2" />
           ))}
         </div>
         <LoadingSkeleton variant="card" label="Läser in statistiken" />
@@ -105,14 +105,14 @@ export default function StatsTab({ totalCount, applications, isLoading }: StatsT
       <SectionBox
         title="Aktivitet över tid"
         action={
-          <div className="flex items-center gap-0.5 rounded-lg border border-kant bg-insunken p-0.5 shadow-insunken">
+          <div className="flex items-center gap-0.5 rounded-lg border border-kant bg-papper-2 p-0.5 ">
             {(['week', 'month'] as Granularity[]).map((g) => (
               <button
                 key={g}
                 type="button"
                 onClick={() => setGranularity(g)}
                 className={`px-3 py-1.5 min-h-[44px] rounded-md text-xs font-medium transition-colors ${
-                  granularity === g ? 'bg-panel text-ink-1' : 'text-ink-3'
+                  granularity === g ? 'bg-papper text-ink-1' : 'text-ink-3'
                 }`}
               >
                 {g === 'week' ? 'Vecka' : 'Månad'}

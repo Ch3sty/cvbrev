@@ -119,7 +119,7 @@ export default function Step2Profile({
         </div>
 
         {isFromCv && (
-          <section className="rounded-xl border border-kant bg-panel p-4">
+          <section className="rounded-xl border border-kant bg-papper p-4">
             <p className="text-kort text-ink-1">
               Förslag från ditt CV
               {cvFileName && <span className="font-normal text-ink-3">{' · '}{cvFileName}</span>}
@@ -135,7 +135,7 @@ export default function Step2Profile({
           <button
             type="button"
             onClick={() => setPreviewOpen(!previewOpen)}
-            className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-4 text-left hover:bg-insunken"
+            className="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-kant bg-papper px-4 text-left hover:bg-papper-2"
             aria-expanded={previewOpen}
           >
             <span className="text-sm font-medium text-ink-1">

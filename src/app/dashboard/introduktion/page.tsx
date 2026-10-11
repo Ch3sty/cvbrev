@@ -147,7 +147,7 @@ export default function IntroduktionPage() {
 
       <section
         aria-label="Kom igång"
-        className="rounded-xl border border-kant-stark bg-panel p-4 sm:p-5"
+        className="rounded-xl border border-kant-stark bg-papper p-4 sm:p-5"
       >
         <h2 className="text-kort text-ink-1">Redo att komma igång?</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
@@ -172,7 +172,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
   const Icon = feature.icon;
 
   return (
-    <article className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <article className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="flex items-start gap-3">
         <span className="mt-0.5 shrink-0 text-ink-2" aria-hidden="true">
           <Icon size={24} />

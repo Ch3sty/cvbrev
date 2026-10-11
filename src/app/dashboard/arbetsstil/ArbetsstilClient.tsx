@@ -96,7 +96,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
               stället, den är ärligare.
             </p>
             {workStyle && (
-              <div className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+              <div className="rounded-lg border border-kant bg-papper-2 p-4 ">
                 <p className="text-kort text-ink-1">{workStyle.archetype.title}</p>
                 <p className="mt-1 text-sm leading-[22px] text-ink-2">
                   {workStyle.archetype.description}
@@ -178,7 +178,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                   {ownReport.thrives.map((card) => (
                     <div
                       key={card.thrivesWhen}
-                      className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken"
+                      className="rounded-lg border border-kant bg-papper-2 p-3.5 "
                     >
                       <p className="text-sm leading-[22px] text-ink-2">
                         <span className="font-medium text-ink-1">Du trivs när</span>{' '}
@@ -219,7 +219,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                   {ownReport.energyBudget.map((item) => (
                     <li
                       key={item}
-                      className="rounded-lg border border-kant bg-insunken p-3 text-sm leading-[22px] text-ink-2 shadow-insunken"
+                      className="rounded-lg border border-kant bg-papper-2 p-3 text-sm leading-[22px] text-ink-2 "
                     >
                       {item}
                     </li>

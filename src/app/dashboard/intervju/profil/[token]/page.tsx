@@ -40,7 +40,7 @@ export const metadata = { title: 'Din profil, hela tolkningen' }
 export const dynamic = 'force-dynamic'
 
 const PENTAGON: readonly Faktor[] = ['conscientiousness', 'extraversion', 'stability', 'agreeableness', 'openness']
-const PANEL = 'rounded-xl border border-kant bg-panel p-4 sm:p-6'
+const PANEL = 'rounded-xl border border-kant bg-papper p-4 sm:p-6'
 const LASTEXT = 'text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]'
 
 function svensktDatum(iso: string): string {

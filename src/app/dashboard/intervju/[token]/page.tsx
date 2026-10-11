@@ -44,7 +44,7 @@ function svensktDatum(iso: string): string {
 function medPlatshallare(text: string) {
   return text.split(/(\[[^\]]{1,80}\])/g).map((del, i) =>
     /^\[[^\]]+\]$/.test(del) ? (
-      <mark key={i} className="rounded bg-panel px-0.5 text-ink-1 outline outline-1 outline-kant-stark">
+      <mark key={i} className="rounded bg-papper px-0.5 text-ink-1 outline outline-1 outline-kant-stark">
         {del}
       </mark>
     ) : (
@@ -76,13 +76,13 @@ export default async function IntervjuSvarPage({
     <Golv>
     <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
-        <blockquote className="border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
+      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
+        <blockquote className="border-l-[3px] border-koppar py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
           {COPY.fraga(fraga.text)}
         </blockquote>
 
         <h2 className="mt-4 text-sm font-medium text-ink-2">{S.dittSvar}</h2>
-        <p className="mt-1 whitespace-pre-line rounded-lg border border-kant bg-insunken p-3 text-base leading-6 text-ink-1 shadow-insunken">
+        <p className="mt-1 whitespace-pre-line rounded-lg border border-kant bg-papper-2 p-3 text-base leading-6 text-ink-1 ">
           {rad.answer}
         </p>
 
@@ -93,7 +93,7 @@ export default async function IntervjuSvarPage({
         </div>
         <div className="mt-2.5 grid grid-cols-5 gap-1" aria-hidden="true">
           {[1, 2, 3, 4, 5].map((n) => (
-            <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-insunken'}`} />
+            <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-papper-2'}`} />
           ))}
         </div>
         <p className="mt-2.5 text-varde text-ink-1">
@@ -118,7 +118,7 @@ export default async function IntervjuSvarPage({
         </ul>
       </section>
 
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
         <h2 className="text-kort text-ink-1">{fraga.starChips ? S.aterkopplingStar : S.aterkoppling}</h2>
         <ol className="mt-3 grid gap-4">
           {punkter.map((p, i) => (
@@ -133,10 +133,10 @@ export default async function IntervjuSvarPage({
         </ol>
       </section>
 
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
         <h2 className="text-kort text-ink-1">{S.omskrivet}</h2>
         {rad.improved_why ? <p className="mt-1 text-sm leading-[22px] text-ink-2">{rad.improved_why}</p> : null}
-        <p className="mt-3 whitespace-pre-line rounded-lg border border-kant bg-insunken p-3 text-base leading-6 text-ink-1 shadow-insunken">
+        <p className="mt-3 whitespace-pre-line rounded-lg border border-kant bg-papper-2 p-3 text-base leading-6 text-ink-1 ">
           {medPlatshallare(rad.improved_answer)}
         </p>
         <p className="mt-2 text-meta text-ink-3">

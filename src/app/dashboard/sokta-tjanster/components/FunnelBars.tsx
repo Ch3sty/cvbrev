@@ -43,7 +43,7 @@ export default function FunnelBars({ stats, ghost = false }: FunnelBarsProps) {
               {step.label}
             </div>
             <div className="flex-1 flex items-center gap-2 min-w-0">
-              <div className="h-6 flex-1 overflow-hidden rounded-md bg-insunken shadow-insunken">
+              <div className="h-6 flex-1 overflow-hidden rounded-md bg-papper-2 ">
                 {step.value > 0 && (
                   <div
                     className={`h-full rounded-md ${STEP_TONE[i]}`}

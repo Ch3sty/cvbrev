@@ -188,7 +188,7 @@ export default function MessageHub({
       <Golv key="tomt">
       <div className="w-full max-w-3xl space-y-4">
 
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <h2 className="text-sm font-medium text-ink-3">Så kommer de igång</h2>
           <ol className="mt-2 divide-y divide-kant border-t border-kant">
             {STEPS.map((step, i) => (
@@ -249,7 +249,7 @@ export default function MessageHub({
         </StatusRow>
       )}
 
-      <div className="h-[640px] overflow-hidden rounded-xl border border-kant bg-panel">
+      <div className="h-[640px] overflow-hidden rounded-xl border border-kant bg-papper">
         <div className="flex h-full">
           {/* Vänster: lista. Mobil döljs när en tråd är öppen. */}
           <div

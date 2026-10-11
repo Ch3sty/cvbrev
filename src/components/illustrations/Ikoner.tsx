@@ -7,7 +7,7 @@
  * på CV:t, plusset i nedre högra hörnet på Skapa.
  *
  * Accentformen (elementet med fill var(--ia)) är tom överallt utom på
- * marginalplattan, där MarginPlate sätter --ia: var(--accent). Samma symbol,
+ * marginalplattan, där MarginPlate sätter --ia: var(--koppar). Samma symbol,
  * två lägen, ingen extra fil.
  *
  * Lucide används fortfarande för pil, kryss, chevron och meny. Aldrig

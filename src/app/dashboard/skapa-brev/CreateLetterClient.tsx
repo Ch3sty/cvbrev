@@ -65,7 +65,7 @@ export interface InitialCv {
 function StepSkeleton() {
   return (
     <div
-      className="loading-thread rounded-xl border border-kant bg-panel p-4"
+      className="loading-thread rounded-xl border border-kant bg-papper p-4"
       style={{ minHeight: 320 }}
       aria-hidden="true"
     />

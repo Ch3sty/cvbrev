@@ -86,7 +86,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
 
   if (success) {
     return (
-      <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
+      <div className="mb-6 rounded-xl border border-kant bg-papper p-4">
         <div className="flex items-center gap-3">
           <IkonCheck className="flex-shrink-0 text-positiv" />
           <div className="flex-1">
@@ -99,7 +99,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
   }
 
   return (
-    <div className="mb-6 rounded-xl border border-kant bg-panel p-4">
+    <div className="mb-6 rounded-xl border border-kant bg-papper p-4">
       <div className="flex items-start gap-3">
         <IkonLas className="mt-1 flex-shrink-0 text-ink-2" />
         <div className="flex-1">
@@ -144,7 +144,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-11 w-full rounded-lg border border-kant bg-insunken pl-3 pr-16 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                    className="h-11 w-full rounded-lg border border-kant bg-papper-2 pl-3 pr-16 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                     placeholder="Minst 8 tecken"
                     required
                     minLength={8}
@@ -170,7 +170,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                  className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                   placeholder="Upprepa lösenordet"
                   required
                   minLength={8}

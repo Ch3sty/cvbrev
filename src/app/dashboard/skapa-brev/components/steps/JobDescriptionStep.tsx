@@ -79,7 +79,7 @@ export default function JobDescriptionStep({
           inputMode="text"
           autoComplete="off"
           placeholder="Klistra in hela annonsen. Vi läser ut kravprofilen, skall-krav och meriterande, och skriver brevet mot den."
-          className="min-h-[220px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base leading-6 text-ink-1 shadow-insunken transition-colors placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:min-h-[260px]"
+          className="min-h-[220px] w-full resize-y rounded-lg border border-kant bg-papper-2 p-3 text-base leading-6 text-ink-1  transition-colors placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink sm:min-h-[260px]"
         />
         <p className="mt-1 text-right text-meta tabular-nums text-ink-3">
           {jobDescription.length} tecken
@@ -93,7 +93,7 @@ export default function JobDescriptionStep({
             {detectedKeywords.map((kw) => (
               <li
                 key={kw}
-                className="rounded-lg border border-kant bg-insunken px-2 py-0.5 text-meta text-ink-2"
+                className="rounded-lg border border-kant bg-papper-2 px-2 py-0.5 text-meta text-ink-2"
               >
                 {kw}
               </li>

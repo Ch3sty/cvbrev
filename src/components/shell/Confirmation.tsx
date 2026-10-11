@@ -43,7 +43,7 @@ export default function Confirmation({
     <section
       role="status"
       aria-live="polite"
-      className={`confirm-panel rounded-xl border border-kant bg-panel px-4 pb-5 pt-7 text-center ${className ?? ''}`}
+      className={`confirm-panel rounded-xl border border-kant bg-papper px-4 pb-5 pt-7 text-center ${className ?? ''}`}
     >
       <span className="mx-auto mb-3 block w-fit text-ink-1" aria-hidden="true">
         <Illu size={96} />

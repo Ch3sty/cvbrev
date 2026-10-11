@@ -460,7 +460,7 @@ function UploadCard({
   subdued?: boolean;
 }) {
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-kort text-ink-1">
           {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV'}

@@ -31,7 +31,7 @@ export default function PrefillBadgeCard({
   return (
     <section
       aria-label="Förifyllt från jobbmatchningen"
-      className="mb-4 rounded-xl border border-kant-stark bg-panel p-4"
+      className="mb-4 rounded-xl border border-kant-stark bg-papper p-4"
     >
       <div className="flex items-start gap-3">
         <MarginPlate>

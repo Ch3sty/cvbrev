@@ -25,7 +25,7 @@ export default function ApplicationCard({ application, onOpen }: ApplicationCard
     <button
       type="button"
       onClick={() => onOpen(application.id)}
-      className="w-full rounded-xl border border-kant bg-panel px-4 py-3 text-left transition-[border-color] hover:border-kant-stark"
+      className="w-full rounded-xl border border-kant bg-papper px-4 py-3 text-left transition-[border-color] hover:border-kant-stark"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
@@ -67,7 +67,7 @@ export default function ApplicationCard({ application, onOpen }: ApplicationCard
       </div>
 
       {showNudge && silentDays !== null && (
-        <div className="mt-2 rounded-lg border border-kant bg-insunken px-2.5 py-1.5 text-meta text-ink-2 shadow-insunken">
+        <div className="mt-2 rounded-lg border border-kant bg-papper-2 px-2.5 py-1.5 text-meta text-ink-2 ">
           Inget hört på {silentDays} dagar. Öppna för att uppdatera status.
         </div>
       )}

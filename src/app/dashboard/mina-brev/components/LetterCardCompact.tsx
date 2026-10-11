@@ -53,11 +53,11 @@ export default function LetterCardCompact({
   const meta = [tonalityDisplay, templateName].filter(Boolean).join(' · ');
 
   return (
-    <div className="group relative rounded-xl border border-kant bg-panel transition-[border-color] duration-[120ms] hover:border-kant-stark">
+    <div className="group relative rounded-xl border border-kant bg-papper transition-[border-color] duration-[120ms] hover:border-kant-stark">
       <button
         type="button"
         onClick={() => onView(letter.id)}
-        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink"
         aria-label={`Visa brev till ${primary}`}
       />
 

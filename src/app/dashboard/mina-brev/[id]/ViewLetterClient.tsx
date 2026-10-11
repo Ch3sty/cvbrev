@@ -187,7 +187,7 @@ export default function ViewLetterClient({
         <VaggLaddar label="Laddar brev" />
         <Golv key="laddar">
           <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-            <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+            <div className="h-11 w-full rounded-lg bg-papper-2 sm:w-64" />
             <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
           </div>
         </Golv>

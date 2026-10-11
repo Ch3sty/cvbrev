@@ -75,7 +75,7 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
     return (
       <Link
         href="/dashboard/profil/cv"
-        className="flex items-center gap-3 rounded-xl border border-dashed border-kant-stark bg-insunken p-4 shadow-insunken transition-colors hover:border-ink-1"
+        className="flex items-center gap-3 rounded-xl border border-dashed border-kant-stark bg-papper-2 p-4  transition-colors hover:border-ink-1"
       >
         <Plus className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
         <span className="min-w-0 flex-1">
@@ -98,7 +98,7 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-3 rounded-xl border border-kant bg-panel p-3 text-left transition-colors hover:border-kant-stark"
+        className="flex w-full items-center gap-3 rounded-xl border border-kant bg-papper p-3 text-left transition-colors hover:border-kant-stark"
       >
         <FileText
           className="h-6 w-6 flex-shrink-0 text-ink-2"
@@ -140,7 +140,7 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
             }}
           />
           <div
-            className={`absolute left-0 right-0 top-full z-30 mt-2 max-h-[360px] overflow-y-auto rounded-xl border border-kant bg-panel ${
+            className={`absolute left-0 right-0 top-full z-30 mt-2 max-h-[360px] overflow-y-auto rounded-xl border border-kant bg-papper ${
               leaving ? 'cv-picker-leave' : 'cv-picker-enter'
             }`}
           >
@@ -156,8 +156,8 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
                         onCVSelect(cv.id);
                         setIsOpen(false);
                       }}
-                      className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-insunken ${
-                        isSelected ? 'bg-insunken' : ''
+                      className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-papper-2 ${
+                        isSelected ? 'bg-papper-2' : ''
                       }`}
                     >
                       <FileText
@@ -184,7 +184,7 @@ export default function CompactCvPicker({ cvs, selectedCV, onCVSelect }: Compact
             <div className="border-t border-kant">
               <Link
                 href="/dashboard/profil/cv"
-                className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+                className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
               >
                 <Plus className="h-5 w-5 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
                 Ladda upp ett nytt CV

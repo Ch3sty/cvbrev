@@ -181,7 +181,7 @@ export default function Step3Results({
               role="radio"
               aria-checked={active}
               onClick={() => setActiveSection(s.key)}
-              className={`inline-flex h-11 items-center rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+              className={`inline-flex h-11 items-center rounded-md border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                 active ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >

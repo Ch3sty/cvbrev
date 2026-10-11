@@ -20,7 +20,7 @@ import { IlluDoldTraff } from '@/components/illustrations/JobbmatchningIllustrat
 export default function RedactedJobCard({ job }: { job: RedactedJob }) {
   return (
     <div
-      className="flex min-h-14 select-none items-center gap-3 bg-insunken px-4 py-3"
+      className="flex min-h-14 select-none items-center gap-3 bg-papper-2 px-4 py-3"
       aria-label={
         job.relevance !== null
           ? `Dold träff, matchar ditt CV till ${job.relevance} procent`

@@ -39,13 +39,13 @@ const PUBLIC = {
 }
 
 const DASHBOARD = {
-  wrap: 'rounded-xl border border-kant bg-panel p-4 sm:p-5',
+  wrap: 'rounded-xl border border-kant bg-papper p-4 sm:p-5',
   label: 'block text-sm font-medium text-ink-1 mb-1.5',
   required: 'text-ink-3 ml-1',
   field:
-    'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent',
+    'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus:ring-2 focus:ring-koppar-ink',
   textarea:
-    'w-full rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 resize-none focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent',
+    'w-full rounded-lg border border-kant bg-papper-2 px-3 py-2.5 text-base text-ink-1  placeholder:text-ink-3 resize-none focus:border-kant-stark focus:bg-papper focus:outline-none focus:ring-2 focus:ring-koppar-ink',
   // Rummen våg 1b: dashboardvarianten har kopparknappen.
   button: () => `${KNAPP_PRIMAR} disabled:cursor-not-allowed sm:w-auto`,
 }

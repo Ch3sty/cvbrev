@@ -26,7 +26,7 @@ function DashboardInfo() {
   return (
     <section aria-label="Kontaktvägar">
       <h2 className="mb-2 text-sm font-medium text-ink-3">Andra vägar</h2>
-      <div className="divide-y divide-kant rounded-xl border border-kant bg-panel">
+      <div className="divide-y divide-kant rounded-xl border border-kant bg-papper">
         <div className="flex items-start gap-3 p-4">
           <span className="mt-0.5 shrink-0 text-ink-2" aria-hidden="true">
             <IkonMeddelanden size={24} />

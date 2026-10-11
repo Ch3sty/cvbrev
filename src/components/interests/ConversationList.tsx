@@ -48,7 +48,7 @@ export default function ConversationList({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Sök företag"
-          className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
+          className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus:ring-2 focus:ring-koppar-ink"
         />
       </div>
 

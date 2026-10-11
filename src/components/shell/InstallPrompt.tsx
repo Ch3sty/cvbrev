@@ -92,7 +92,7 @@ export default function InstallPrompt() {
           lg:hidden: desktop får ingen egen fråga, webbläsarens ikon i
           adressfältet räcker (planen, avsnitt 3). */}
       <div
-        className="fixed inset-x-0 z-30 border-t border-kant bg-panel lg:hidden"
+        className="fixed inset-x-0 z-30 border-t border-kant bg-papper lg:hidden"
         style={{
           bottom: 'calc(var(--bottom-nav-h, 0px) + var(--flow-footer-h, 0px))',
         }}
@@ -114,7 +114,7 @@ export default function InstallPrompt() {
             type="button"
             onClick={stang}
             aria-label="Stäng"
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-insunken"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-papper-2"
           >
             <IkonX size={16} className="text-ink-3" />
           </button>

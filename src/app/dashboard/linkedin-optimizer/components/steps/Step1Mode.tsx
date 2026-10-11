@@ -96,7 +96,7 @@ export default function Step1Mode({
       </div>
 
       {sourceMode === 'cv' && hasCvs && (
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <h3 className="mb-2 text-sm font-medium text-ink-3">
             Välj CV att utgå ifrån
           </h3>
@@ -110,7 +110,7 @@ export default function Step1Mode({
       )}
 
       {sourceMode === 'cv' && !hasCvs && (
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <div className="flex items-start gap-3">
             <IkonCv className="mt-0.5 shrink-0 text-ink-2" />
             <div className="min-w-0">
@@ -165,7 +165,7 @@ export default function Step1Mode({
             autoComplete="organization-title"
             onChange={(e) => onTargetRoleChange(e.target.value)}
             placeholder="Senior Product Manager"
-            className={`h-11 w-full rounded-lg border bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 ${
+            className={`h-11 w-full rounded-lg border bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 ${
               roleTooShort ? 'border-fel' : 'border-kant'
             }`}
           />

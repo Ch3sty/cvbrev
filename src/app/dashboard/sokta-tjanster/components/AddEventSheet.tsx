@@ -95,8 +95,8 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
                 onClick={() => setSelected(type)}
                 className={`flex min-h-[52px] items-center gap-2.5 rounded-lg border px-3 py-3 text-left text-sm font-medium transition-[border-color,background-color] ${
                   isActive
-                    ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
-                    : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
+                    ? 'border-ink-1 bg-papper text-ink-1 shadow-val'
+                    : 'border-kant bg-papper text-ink-2 hover:border-kant-stark'
                 }`}
               >
                 <Icon className="h-5 w-5 shrink-0 text-ink-2" strokeWidth={1.75} />
@@ -118,7 +118,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
             onChange={(e) => setOccurredAt(e.target.value)}
 
             enterKeyHint="next"
-            className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+            className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
           />
         </div>
 
@@ -148,7 +148,7 @@ export default function AddEventSheet({ open, onClose, onSubmit, completedInterv
             placeholder="T.ex. vem du träffade eller vad som sades..."
             maxLength={2000}
             rows={3}
-            className="w-full resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+            className="w-full resize-none rounded-lg border border-kant bg-papper-2 px-3 py-2 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
           />
         )}
 

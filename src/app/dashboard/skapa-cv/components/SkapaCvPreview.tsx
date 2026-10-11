@@ -45,7 +45,7 @@ function SectionWrapper({
     <div className="relative">
       {isActive && (
         <span
-          className="absolute -left-4 top-0 bottom-0 w-[3px] rounded-r bg-accent sm:-left-5"
+          className="absolute -left-4 top-0 bottom-0 w-[3px] rounded-r bg-koppar sm:-left-5"
           aria-hidden="true"
         />
       )}
@@ -59,7 +59,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const CHIP =
-  'inline-flex items-center rounded-lg border border-kant bg-insunken px-2 py-0.5 text-meta text-ink-2'
+  'inline-flex items-center rounded-lg border border-kant bg-papper-2 px-2 py-0.5 text-meta text-ink-2'
 
 export default function SkapaCvPreview({ data, activeSection, className = '' }: Props) {
   const fullName = data.personalInfo.fullName?.trim() || ''
@@ -86,7 +86,7 @@ export default function SkapaCvPreview({ data, activeSection, className = '' }: 
   return (
     <div className={`relative w-full ${className}`}>
       <div
-        className="overflow-hidden rounded-xl border border-kant bg-panel"
+        className="overflow-hidden rounded-xl border border-kant bg-papper"
         role="img"
         aria-label="Förhandsvisning av ditt CV"
       >
@@ -96,7 +96,7 @@ export default function SkapaCvPreview({ data, activeSection, className = '' }: 
             <div className="mb-3 flex items-start gap-3">
               <div
                 className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg text-base font-semibold ${
-                  hasName ? 'bg-insunken text-ink-1' : 'bg-insunken text-ink-3'
+                  hasName ? 'bg-papper-2 text-ink-1' : 'bg-papper-2 text-ink-3'
                 }`}
               >
                 {initials}
@@ -149,7 +149,7 @@ export default function SkapaCvPreview({ data, activeSection, className = '' }: 
                       .join(' till ')
                     return (
                       <div key={i} className="flex gap-3">
-                        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-insunken text-meta font-medium text-ink-2">
+                        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-papper-2 text-meta font-medium text-ink-2">
                           {(exp.company ?? exp.position ?? 'XX').slice(0, 2).toUpperCase()}
                         </div>
                         <div className="min-w-0 flex-1">
@@ -175,10 +175,10 @@ export default function SkapaCvPreview({ data, activeSection, className = '' }: 
                 <div className="space-y-2" aria-hidden="true">
                   {[1, 2].map((i) => (
                     <div key={i} className="flex gap-3">
-                      <div className="h-9 w-9 flex-shrink-0 rounded-lg bg-insunken" />
+                      <div className="h-9 w-9 flex-shrink-0 rounded-lg bg-papper-2" />
                       <div className="flex-1 space-y-1.5 pt-1">
-                        <div className="h-2.5 w-2/3 rounded bg-insunken" />
-                        <div className="h-2 w-1/2 rounded bg-insunken" />
+                        <div className="h-2.5 w-2/3 rounded bg-papper-2" />
+                        <div className="h-2 w-1/2 rounded bg-papper-2" />
                       </div>
                     </div>
                   ))}
@@ -235,7 +235,7 @@ export default function SkapaCvPreview({ data, activeSection, className = '' }: 
               ) : (
                 <div className="flex flex-wrap gap-1.5" aria-hidden="true">
                   {[1, 2, 3].map((i) => (
-                    <span key={i} className="inline-flex h-6 w-16 rounded-lg bg-insunken" />
+                    <span key={i} className="inline-flex h-6 w-16 rounded-lg bg-papper-2" />
                   ))}
                 </div>
               )}

@@ -78,7 +78,7 @@ export default function InlineCVUpload({
   }
 
   return (
-    <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className={`flex items-start justify-between ${hideHeader ? '' : 'mb-4'}`}>
         {hideHeader ? (
           <span />
@@ -94,7 +94,7 @@ export default function InlineCVUpload({
           <button
             onClick={onCancel}
             aria-label="Avbryt"
-            className="rounded-lg p-2 text-ink-2 transition-colors hover:bg-insunken"
+            className="rounded-lg p-2 text-ink-2 transition-colors hover:bg-papper-2"
             disabled={uploading}
           >
             <X className="h-5 w-5" strokeWidth={1.75} />
@@ -114,8 +114,8 @@ export default function InlineCVUpload({
               {...getRootProps()}
               className={`cursor-pointer rounded-lg border border-dashed p-6 text-center transition-colors ${
                 isDragActive
-                  ? 'border-ink-1 bg-insunken'
-                  : 'border-kant-stark bg-insunken shadow-insunken hover:border-ink-1'
+                  ? 'border-ink-1 bg-papper-2'
+                  : 'border-kant-stark bg-papper-2  hover:border-ink-1'
               }`}
             >
               <input {...getInputProps()} />
@@ -130,7 +130,7 @@ export default function InlineCVUpload({
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex items-center gap-3 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+              <div className="flex items-center gap-3 rounded-lg border border-kant bg-papper-2 p-3 ">
                 <FileText className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-ink-1">{selectedFile.name}</p>
@@ -140,14 +140,14 @@ export default function InlineCVUpload({
                   <button
                     onClick={() => setSelectedFile(null)}
                     aria-label="Ta bort filen"
-                    className="flex-shrink-0 rounded-lg p-2 text-ink-2 transition-colors hover:bg-panel"
+                    className="flex-shrink-0 rounded-lg p-2 text-ink-2 transition-colors hover:bg-papper"
                   >
                     <X className="h-4 w-4" strokeWidth={1.75} />
                   </button>
                 )}
               </div>
 
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-kant bg-panel p-3">
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-kant bg-papper p-3">
                 <input
                   type="checkbox"
                   checked={gdprAccepted}

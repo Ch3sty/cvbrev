@@ -69,8 +69,8 @@ export default function CvCard({
       style={{ animationDelay: `${index * 30}ms` }}
       className={`flex flex-col rounded-xl border transition-colors motion-safe:animate-[fadeInPlace_200ms_ease-out_both] ${
         isLocked
-          ? 'border-kant bg-insunken'
-          : 'border-kant bg-panel hover:border-kant-stark'
+          ? 'border-kant bg-papper-2'
+          : 'border-kant bg-papper hover:border-kant-stark'
       }`}
     >
       {/* Huvud: filnamn, ålder, radera */}
@@ -81,7 +81,7 @@ export default function CvCard({
               {cv.file_name}
             </h3>
             {isLocked ? (
-              <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-kant bg-panel px-2 py-1 text-meta font-medium text-ink-2">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-kant bg-papper px-2 py-1 text-meta font-medium text-ink-2">
                 <Lock className="h-3 w-3" aria-hidden="true" />
                 Låst
               </span>

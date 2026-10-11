@@ -54,7 +54,7 @@ export interface PersonligaBrevSectionProps {
 
 export default function PersonligaBrevSection(p: PersonligaBrevSectionProps) {
   return (
-    <section id="personliga-brev" className="scroll-mt-24 rounded-xl border border-kant bg-panel">
+    <section id="personliga-brev" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
       <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{BREV_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{BREV_SEKTION.under}</p>
@@ -120,8 +120,8 @@ export default function PersonligaBrevSection(p: PersonligaBrevSectionProps) {
             />
           </div>
 
-          <figure className="mt-3 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
-            <div className="rounded-md border border-kant bg-panel p-3">
+          <figure className="mt-3 rounded-lg border border-kant bg-papper-2 p-3 ">
+            <div className="rounded-md border border-kant bg-papper p-3">
               <BrevhuvudPreview
                 fullName={p.fullName}
                 phone={p.phone}

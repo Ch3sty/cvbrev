@@ -50,7 +50,7 @@ export default function SkapaCvCardList({
         return (
           <div
             key={item.id}
-            className={`rounded-xl border bg-panel transition-[border-color] duration-[120ms] ${
+            className={`rounded-xl border bg-papper transition-[border-color] duration-[120ms] ${
               isExpanded ? 'border-kant-stark' : 'border-kant hover:border-kant-stark'
             }`}
           >
@@ -90,7 +90,7 @@ export default function SkapaCvCardList({
       })}
 
       {items.length === 0 && (
-        <div className="rounded-lg bg-insunken px-4 py-5 text-center shadow-insunken">
+        <div className="rounded-lg bg-papper-2 px-4 py-5 text-center ">
           <p className="text-sm font-medium text-ink-1">{emptyTitle}</p>
           <p className="mt-0.5 text-meta text-ink-3">{emptyDescription}</p>
         </div>
@@ -99,7 +99,7 @@ export default function SkapaCvCardList({
       <button
         type="button"
         onClick={onAdd}
-        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-dashed border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-dashed border-kant-stark bg-papper px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
       >
         <Plus className="h-5 w-5" strokeWidth={1.75} />
         {addLabel}

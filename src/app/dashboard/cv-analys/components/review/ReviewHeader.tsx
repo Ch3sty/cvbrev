@@ -30,7 +30,7 @@ export default function ReviewHeader({
   onDotClick,
 }: ReviewHeaderProps) {
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="grid grid-cols-1 items-center gap-5 sm:grid-cols-[180px,1fr] sm:gap-6">
         {/* CV-thumbnail */}
         <div className="flex justify-center sm:justify-start">

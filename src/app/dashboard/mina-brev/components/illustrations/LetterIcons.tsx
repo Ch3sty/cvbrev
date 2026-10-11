@@ -24,7 +24,7 @@ export function LetterPaperThumbnail({ seed = '', className = 'w-28 h-36' }: Pap
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <rect x="2" y="2" width="76" height="96" rx="3" fill="var(--panel)" stroke="var(--kant-stark)" />
+      <rect x="2" y="2" width="76" height="96" rx="3" fill="var(--papper)" stroke="var(--kant-stark)" />
 
       {/* Brevhuvudet: namn i ink, kontaktrad i kant. */}
       <line x1="8" y1="12" x2="36" y2="12" stroke="var(--ink-1)" strokeWidth="1.8" strokeLinecap="round" />

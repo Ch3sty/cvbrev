@@ -70,7 +70,7 @@ export default function MatchRow({
       <button
         type="button"
         onClick={() => onOpen(job)}
-        className="-mx-2 block w-[calc(100%+1rem)] rounded-lg px-2 py-1 text-left hover:bg-insunken"
+        className="-mx-2 block w-[calc(100%+1rem)] rounded-lg px-2 py-1 text-left hover:bg-papper-2"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">

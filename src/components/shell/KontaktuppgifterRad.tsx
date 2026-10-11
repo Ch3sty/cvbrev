@@ -40,7 +40,7 @@ import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
 
 const FALT =
-  'block h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 aria-[invalid=true]:border-fel-kant'
+  'block h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40 aria-[invalid=true]:border-fel-kant'
 const LANK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:opacity-40'
 

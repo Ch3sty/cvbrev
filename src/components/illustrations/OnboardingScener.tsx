@@ -24,10 +24,10 @@ const ILLU = {
   onAccent: 'var(--illu-on-accent, #FFFFFF)',
 } as const
 
-const INSUNKEN = 'var(--insunken)'
+const INSUNKEN = 'var(--papper-2)'
 const INK_3 = 'var(--ink-3)'
 const INK_2 = 'var(--ink-2)'
-const ACCENT_INK = 'var(--accent-ink)'
+const ACCENT_INK = 'var(--koppar-ink)'
 const DISPLAY = 'var(--font-display), Inter, system-ui, sans-serif'
 const BODY = 'Inter, system-ui, sans-serif'
 

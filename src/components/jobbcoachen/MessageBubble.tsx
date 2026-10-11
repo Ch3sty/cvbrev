@@ -61,7 +61,7 @@ function CitationBadge({
       type="button"
       onClick={onClick}
       title={title}
-      className="mx-0.5 inline-flex items-baseline rounded px-1 align-baseline text-meta font-medium text-accent-ink underline decoration-kant-stark underline-offset-2 hover:decoration-accent-ink"
+      className="mx-0.5 inline-flex items-baseline rounded px-1 align-baseline text-meta font-medium text-koppar-ink underline decoration-kant-stark underline-offset-2 hover:decoration-koppar-ink"
       aria-label={`Källa ${n}: ${title}`}
     >
       <sup className="leading-none">{n}</sup>
@@ -169,7 +169,7 @@ export default function MessageBubble({
                   href={attachment.public_url || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex max-w-[260px] items-center gap-2 rounded-lg border border-kant bg-panel px-3 py-2 hover:bg-insunken"
+                  className="flex max-w-[260px] items-center gap-2 rounded-lg border border-kant bg-papper px-3 py-2 hover:bg-papper-2"
                 >
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium text-ink-1">
@@ -201,7 +201,7 @@ export default function MessageBubble({
   return (
     <div className="mb-4 flex justify-start">
       <div className="w-full min-w-0 max-w-[85%] sm:max-w-[75%]">
-        <section className="rounded-xl border border-kant bg-panel px-4 py-3">
+        <section className="rounded-xl border border-kant bg-papper px-4 py-3">
           <div className="max-w-none">
             <ReactMarkdown
               components={{
@@ -299,7 +299,7 @@ export default function MessageBubble({
                 );
 
                 const baseClass = `flex items-center gap-2 rounded-lg border px-2.5 py-1.5 transition-[border-color] duration-[120ms] ${
-                  isHighlighted ? 'border-ink-1 bg-panel' : 'border-kant bg-panel'
+                  isHighlighted ? 'border-ink-1 bg-papper' : 'border-kant bg-papper'
                 }`;
 
                 return (

@@ -80,18 +80,18 @@ export default function PreviewComparisonStep({
       {changeLog ? (
         <ChangeLogList data={changeLog} />
       ) : (
-        <div className="rounded-xl border border-kant bg-panel p-5 text-sm text-ink-2">
+        <div className="rounded-xl border border-kant bg-papper p-5 text-sm text-ink-2">
           Vi kunde inte bygga en strukturerad ändringslogg för den här analysen. Använd
           fullt CV-läge nedan för att granska.
         </div>
       )}
 
       {/* Toggle - visa fullt CV-text */}
-      <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+      <div className="overflow-hidden rounded-xl border border-kant bg-papper">
         <button
           type="button"
           onClick={() => setShowFullText((v) => !v)}
-          className="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-insunken sm:px-5"
+          className="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-papper-2 sm:px-5"
           aria-expanded={showFullText}
         >
           <div className="flex items-center gap-2.5 min-w-0">
@@ -122,7 +122,7 @@ export default function PreviewComparisonStep({
                   <div
                     role="tablist"
                     aria-label="Jämför före och efter"
-                    className="inline-flex rounded-lg border border-kant bg-insunken p-1"
+                    className="inline-flex rounded-lg border border-kant bg-papper-2 p-1"
                   >
                     {(['before', 'after'] as const).map((side) => (
                       <button
@@ -133,7 +133,7 @@ export default function PreviewComparisonStep({
                         onClick={() => setCompareSide(side)}
                         className={`inline-flex h-11 min-w-[110px] items-center justify-center rounded-lg px-4 text-sm font-medium transition-colors ${
                           compareSide === side
-                            ? 'bg-panel text-ink-1'
+                            ? 'bg-papper text-ink-1'
                             : 'text-ink-3 hover:text-ink-1'
                         }`}
                       >
@@ -161,7 +161,7 @@ export default function PreviewComparisonStep({
       </div>
 
       {/* Info-bottom */}
-      <p className="rounded-xl border border-kant bg-panel px-4 py-3 text-center text-sm text-ink-2">
+      <p className="rounded-xl border border-kant bg-papper px-4 py-3 text-center text-sm text-ink-2">
         Vill du justera något? Gå tillbaka. Ser allt bra ut? Gå vidare för att
         välja mall och spara.
       </p>
@@ -171,7 +171,7 @@ export default function PreviewComparisonStep({
 
 function FullCVPanel({ title, text }: { title: string; text: string }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+    <div className="overflow-hidden rounded-xl border border-kant bg-papper">
       <div className="border-b border-kant px-3 py-2 text-steg uppercase text-ink-3">
         {title}
       </div>

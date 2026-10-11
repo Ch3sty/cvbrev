@@ -34,7 +34,7 @@ export interface LoadingSkeletonProps {
   className?: string
 }
 
-const BLOCK = 'rounded bg-insunken'
+const BLOCK = 'rounded bg-papper-2'
 
 export default function LoadingSkeleton({
   variant = 'row',

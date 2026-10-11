@@ -114,10 +114,10 @@ function OptionChip({
       aria-pressed={isActive}
       className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-md border px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed ${
         isActive
-          ? 'border-ink-1 bg-panel text-ink-1'
+          ? 'border-ink-1 bg-papper text-ink-1'
           : !available
-            ? 'border-dashed border-kant-stark bg-insunken text-ink-3'
-            : 'border-kant-stark bg-panel text-ink-1 hover:bg-insunken'
+            ? 'border-dashed border-kant-stark bg-papper-2 text-ink-3'
+            : 'border-kant-stark bg-papper text-ink-1 hover:bg-papper-2'
       }`}
     >
       {isActive ? (

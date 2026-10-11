@@ -87,7 +87,7 @@ const SCEN_ALT: Record<PaketId, string> = {
 const TAG: Record<PaketId, string> = {
   cv: 'bg-cv-mjuk text-cv',
   test: 'bg-test-mjuk text-test',
-  allt: 'bg-panel text-ink-1',
+  allt: 'bg-papper text-ink-1',
 }
 
 export default function PaketKort({
@@ -125,16 +125,16 @@ export default function PaketKort({
   const fot = fotnot === undefined ? copy.fotnot : fotnot
 
   const yta = allt ? 'text-white' : 'text-ink-1'
-  const damp = allt ? 'text-ink-1-mjuk' : 'text-ink-2'
-  const meta = allt ? 'text-ink-1-mjuk' : 'text-ink-3'
-  const linje = allt ? 'border-ink-1-kant' : 'border-kant'
+  const damp = allt ? 'text-vagg-mjuk' : 'text-ink-2'
+  const meta = allt ? 'text-vagg-mjuk' : 'text-ink-3'
+  const linje = allt ? 'border-vagg-kant' : 'border-kant'
 
   return (
     <section
       id={id}
       aria-label={copy.namn}
       className={`flex flex-col overflow-hidden rounded-xl border ${
-        allt ? 'border-ink-1 bg-ink-1' : 'border-kant bg-panel'
+        allt ? 'border-ink-1 bg-ink-1' : 'border-kant bg-papper'
       } ${yta} ${className ?? ''}`}
     >
       {/* Topp: nummer på mobil, färgetikett, Rekommenderas. */}
@@ -150,7 +150,7 @@ export default function PaketKort({
           {copy.tag}
         </span>
         {allt ? (
-          <span className="ml-auto py-1 text-steg font-semibold uppercase text-ink-1-accent">
+          <span className="ml-auto py-1 text-steg font-semibold uppercase text-koppar-ljus">
             {VALJARE.rekommenderas}
           </span>
         ) : null}
@@ -240,7 +240,7 @@ export default function PaketKort({
               >
                 <span
                   className={`grid h-7 w-7 place-items-center rounded-lg ${
-                    allt ? 'bg-ink-hover text-white' : 'bg-insunken text-ink-1'
+                    allt ? 'bg-ink-hover text-white' : 'bg-papper-2 text-ink-1'
                   }`}
                   aria-hidden="true"
                 >
@@ -277,7 +277,7 @@ export default function PaketKort({
           {status ? (
             <p
               className={`flex h-[52px] items-center justify-center rounded-lg border text-base font-semibold ${
-                allt ? 'border-ink-1-kant' : 'border-kant-stark'
+                allt ? 'border-vagg-kant' : 'border-kant-stark'
               }`}
               role="status"
             >
@@ -290,7 +290,7 @@ export default function PaketKort({
               disabled={knappen.disabled}
               className={`flex h-auto min-h-[52px] w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-center text-base font-semibold leading-5 transition-colors disabled:opacity-40 ${
                 allt
-                  ? 'bg-panel text-ink-1 hover:bg-mark'
+                  ? 'bg-papper text-ink-1 hover:bg-golv'
                   : 'bg-ink-1 text-white hover:bg-ink-hover'
               }`}
             >
@@ -304,7 +304,7 @@ export default function PaketKort({
               type="button"
               onClick={lank.onClick}
               className={`mt-2 block w-full text-center text-sm font-medium underline underline-offset-4 ${
-                allt ? 'decoration-ink-1-kant text-white' : 'decoration-kant-stark text-ink-1'
+                allt ? 'decoration-vagg-kant text-white' : 'decoration-kant-stark text-ink-1'
               }`}
             >
               {lank.text}

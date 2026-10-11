@@ -128,7 +128,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
           />
         </div>
 
-        <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3" aria-label={STEG3.gratisEtikett}>
+        <section className="mt-3 rounded-xl border border-kant bg-papper px-4 py-3" aria-label={STEG3.gratisEtikett}>
           <p className="text-steg uppercase text-ink-3">{STEG3.gratisEtikett}</p>
           <ul className="mt-1.5 grid gap-1 text-[13px] leading-[18px] text-ink-2">
             {copy.gratis.map((rad) => (

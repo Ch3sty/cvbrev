@@ -99,7 +99,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
             {strong.map((skill) => (
               <li
                 key={skill}
-                className="inline-flex min-h-8 items-center rounded-lg border border-kant bg-panel px-2 text-sm text-ink-1"
+                className="inline-flex min-h-8 items-center rounded-lg border border-kant bg-papper px-2 text-sm text-ink-1"
               >
                 {skill}
               </li>
@@ -116,7 +116,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
         {weak.length > 0 ? (
           <ul className="mt-2 space-y-2">
             {weak.map((s) => (
-              <li key={s.skill} className="rounded-lg border border-kant bg-panel px-3 py-2">
+              <li key={s.skill} className="rounded-lg border border-kant bg-papper px-3 py-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm text-ink-3 line-through">{s.skill}</span>
                   {s.replace_with && (
@@ -145,7 +145,7 @@ export default function SkillsMakeover({ rawJson }: Props) {
         {suggested.length > 0 ? (
           <ul className="mt-2 space-y-2">
             {suggested.map((s) => (
-              <li key={s.skill} className="rounded-lg border border-kant bg-panel px-3 py-2">
+              <li key={s.skill} className="rounded-lg border border-kant bg-papper px-3 py-2">
                 <p className="text-sm font-medium text-ink-1">{s.skill}</p>
                 {s.reason && <p className="mt-1 text-meta text-ink-3">{s.reason}</p>}
               </li>

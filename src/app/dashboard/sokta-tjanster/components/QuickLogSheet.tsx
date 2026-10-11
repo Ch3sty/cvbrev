@@ -112,7 +112,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
   };
 
   const inputClass =
-    'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
+    'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
   return (
     <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera ansökan' : JOBBSOK.loggaSoktJobb}>
@@ -188,8 +188,8 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
                 onClick={() => setChannel(value)}
                 className={`min-h-11 rounded-lg border px-3 text-sm font-medium transition-[border-color,background-color] ${
                   channel === value
-                    ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
-                    : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
+                    ? 'border-ink-1 bg-papper text-ink-1 shadow-val'
+                    : 'border-kant bg-papper text-ink-2 hover:border-kant-stark'
                 }`}
               >
                 {CHANNEL_META[value].label}

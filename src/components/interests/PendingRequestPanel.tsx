@@ -23,13 +23,13 @@ export default function PendingRequestPanel({
   onBack?: () => void;
 }) {
   return (
-    <div className="flex h-full flex-col bg-panel">
+    <div className="flex h-full flex-col bg-papper">
       {onBack && (
         <div className="flex items-center gap-2 border-b border-kant px-4 py-3 lg:hidden">
           <button
             type="button"
             onClick={onBack}
-            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1"
+            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-papper-2 hover:text-ink-1"
             aria-label="Tillbaka till listan"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
@@ -52,7 +52,7 @@ export default function PendingRequestPanel({
           )}
 
           {interest.message && (
-            <p className="mt-4 rounded-lg border border-kant bg-insunken px-4 py-3 text-sm leading-[22px] text-ink-2 shadow-insunken">
+            <p className="mt-4 rounded-lg border border-kant bg-papper-2 px-4 py-3 text-sm leading-[22px] text-ink-2 ">
               {interest.message}
             </p>
           )}

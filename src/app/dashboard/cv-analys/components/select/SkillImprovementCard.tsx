@@ -35,7 +35,7 @@ export default function SkillImprovementCard({
 
   return (
     <div
-      className={`overflow-hidden rounded-xl bg-panel transition-colors ${
+      className={`overflow-hidden rounded-xl bg-papper transition-colors ${
         selected ? 'border border-ink-1' : 'border border-kant'
       }`}
     >
@@ -56,13 +56,13 @@ export default function SkillImprovementCard({
                 aria-hidden="true"
               />
               <h5 className="text-kort text-ink-1">{suggestion.skill}</h5>
-              <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+              <span className="inline-flex items-center rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-2">
                 {RELEVANCE_LABELS[relevance]}
               </span>
             </div>
 
             {/* Källa + motivering */}
-            <div className="rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+            <div className="rounded-lg border border-kant bg-papper-2 p-3 ">
               <p className="text-steg uppercase text-ink-3">Från ditt CV</p>
               <p className="mt-0.5 text-meta text-ink-2">
                 {suggestion.source || 'Din tidigare erfarenhet'}

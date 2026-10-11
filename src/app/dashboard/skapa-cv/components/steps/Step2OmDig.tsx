@@ -29,7 +29,7 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5 space-y-4">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5 space-y-4">
         <SkapaCvTextarea
           id="summary"
           label="Om dig"
@@ -47,7 +47,7 @@ export default function Step2OmDig({ cvData, updateCVData }: Props) {
         </div>
 
         {/* Tips: insunket i papperet, ingen platta, ingen ikon. */}
-        <div className="rounded-lg bg-insunken p-4 shadow-insunken">
+        <div className="rounded-lg bg-papper-2 p-4 ">
           <p className="text-sm font-medium text-ink-3">Ta med</p>
           <ul className="mt-1.5 space-y-1">
             {TIPS.map((tip) => (

@@ -42,7 +42,7 @@ export default function Segment<T extends string>({
             aria-checked={on}
             disabled={option.disabled}
             onClick={() => onChange(option.value)}
-            className={`h-11 flex-1 rounded-lg border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+            className={`h-11 flex-1 rounded-lg border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
               on ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
             }`}
           >

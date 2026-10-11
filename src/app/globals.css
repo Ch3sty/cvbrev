@@ -25,6 +25,17 @@
      panel och insunken, så publika sidor ser ut som förut. */
   --papper: var(--panel);
   --papper-2: var(--insunken);
+  /* Samma sak för koppar, golv och väggens toner (våg 4): komponenter som
+     delas med publika sidor bytte till rummens klasser (bg-koppar,
+     text-vagg-mjuk), och utanför inloggat ska de se ut som förut. Inloggat
+     skriver över dem i blocket RUMMEN. */
+  --golv: var(--mark);
+  --koppar: var(--accent);
+  --koppar-ink: var(--accent-ink);
+  --koppar-mjuk: var(--accent-mjuk);
+  --koppar-ljus: var(--ink-1-accent);
+  --vagg-mjuk: var(--ink-1-mjuk);
+  --vagg-kant: var(--ink-1-kant);
   --insunken-topp: #D6CDBF;
   --kant: #DBD2C4;
   --kant-stark: #C4B9A8;
@@ -182,8 +193,14 @@
 
 /* Alias och illustrationsroller. var() löses där egenskapen deklareras, så
    ett alias som bara står på <html> skulle ta rot-rummets värden även inne i
-   ett annat rum. De deklareras därför både på roten och på rummet. Aliasen
-   bär omigrerade sidor och tas bort i våg 4 när grep ger noll. */
+   ett annat rum. De deklareras därför både på roten och på rummet.
+
+   Våg 4: allt i inloggat utom testrummets filer (src/app/dashboard/tester
+   och src/components/tests, som våg 2 och 3b bygger om parallellt) har bytt
+   till rummens klasser. Aliasen (mark, panel, insunken, accent,
+   ink-1-mjuk/-kant/-accent) står kvar bara för de filerna och tas bort när
+   scripts/grep-rummen.mjs --vag 4 ger noll även där. Illustrationsrollerna
+   står kvar för gott. */
 :root:has([data-rum]),
 [data-rum] {
   --illu-fill: var(--papper);

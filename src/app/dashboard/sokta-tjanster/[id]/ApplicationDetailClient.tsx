@@ -254,7 +254,7 @@ export default function ApplicationDetailClient({
       <div className="w-full max-w-3xl space-y-4 sm:space-y-5">
 
         {/* Fakta om ansökan */}
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 text-meta text-ink-2">
               <span className="inline-flex items-center gap-1.5">
@@ -306,7 +306,7 @@ export default function ApplicationDetailClient({
           </div>
 
           {detail.notes && (
-            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
+            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
               {detail.notes}
             </div>
           )}
@@ -315,7 +315,7 @@ export default function ApplicationDetailClient({
             <button
               type="button"
               onClick={() => setConfirmDeleteApplication(true)}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-fel-kant bg-papper px-4 text-sm font-medium text-fel transition-colors hover:bg-papper-2"
             >
               <Trash2 className="h-4 w-4" strokeWidth={1.75} />
               Ta bort
@@ -324,7 +324,7 @@ export default function ApplicationDetailClient({
         </section>
 
         {/* Tidslinje */}
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <h2 className="mb-4 text-kort text-ink-1">Händelser</h2>
 
           <ol className="relative space-y-0">
@@ -353,7 +353,7 @@ export default function ApplicationDetailClient({
                           {formatDateShort(event.occurred_at)}
                         </div>
                         {event.note && (
-                          <div className="mt-1.5 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
+                          <div className="mt-1.5 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
                             {event.note}
                           </div>
                         )}
@@ -366,7 +366,7 @@ export default function ApplicationDetailClient({
                         onClick={() => setEventToDelete(event.id)}
                         disabled={deletingEventId === event.id}
                         aria-label={`Ta bort händelsen ${label}`}
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-insunken hover:text-ink-1 disabled:opacity-60"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-papper-2 hover:text-ink-1 disabled:opacity-60"
                       >
                         <X className="h-4 w-4" strokeWidth={1.75} />
                       </button>
@@ -380,7 +380,7 @@ export default function ApplicationDetailClient({
             {showNudge && silentDays !== null && (
               <li className="relative flex gap-3.5">
                 <div className="flex flex-col items-center">
-                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-kant-stark bg-panel" />
+                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-kant-stark bg-papper" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-sm text-ink-3">

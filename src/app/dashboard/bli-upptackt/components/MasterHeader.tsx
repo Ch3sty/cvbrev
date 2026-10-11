@@ -35,7 +35,7 @@ export default function MasterHeader({ visibility, saving, onToggle }: MasterHea
           aria-label="Synlig för rekryterare"
           disabled={saving}
           onClick={onToggle}
-          className={`relative inline-flex h-11 w-14 shrink-0 items-center justify-center touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+          className={`relative inline-flex h-11 w-14 shrink-0 items-center justify-center touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink focus-visible:ring-offset-2 ${
             saving ? 'opacity-60' : ''
           }`}
         >
@@ -46,7 +46,7 @@ export default function MasterHeader({ visibility, saving, onToggle }: MasterHea
             aria-hidden="true"
           >
             <span
-              className={`absolute top-0.5 h-5 w-5 rounded-full bg-panel transition-[left] duration-200 ${
+              className={`absolute top-0.5 h-5 w-5 rounded-full bg-papper transition-[left] duration-200 ${
                 isOn ? 'left-[22px]' : 'left-0.5'
               }`}
             />

@@ -34,7 +34,7 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
       {cvs.length === 0 ? (
         <Link
           href="/dashboard/profil/cv"
-          className="flex min-h-[56px] items-center gap-3 rounded-lg border border-dashed border-kant-stark bg-insunken p-4 text-sm font-medium text-ink-1 shadow-insunken hover:bg-panel"
+          className="flex min-h-[56px] items-center gap-3 rounded-lg border border-dashed border-kant-stark bg-papper-2 p-4 text-sm font-medium text-ink-1  hover:bg-papper"
         >
           Du har inget CV ännu. Ladda upp ett för att komma igång.
         </Link>
@@ -50,7 +50,7 @@ export default function CvPickerCard({ cvs, selectedId, onSelect, collapse }: Cv
                 aria-checked={selected}
                 disabled={cv.isLocked}
                 onClick={() => onSelect(cv.id)}
-                className={`flex min-h-[56px] items-center gap-3 rounded-lg border bg-panel p-3.5 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+                className={`flex min-h-[56px] items-center gap-3 rounded-lg border bg-papper p-3.5 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
                   selected ? 'border-ink-1 shadow-val' : 'border-kant'
                 }`}
               >

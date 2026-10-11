@@ -22,7 +22,7 @@ export type StatusTone = 'neutral' | 'warm' | 'positive'
 
 const TONE: Record<StatusTone, { text: string; dot: string }> = {
   neutral: { text: 'text-ink-1', dot: 'bg-ink-3' },
-  warm: { text: 'text-accent-ink', dot: 'bg-accent' },
+  warm: { text: 'text-koppar-ink', dot: 'bg-koppar' },
   positive: { text: 'text-ink-1', dot: 'bg-positiv' },
 }
 

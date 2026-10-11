@@ -17,14 +17,14 @@ export interface MarginPlateProps {
   className?: string
 }
 
-const TAND: CSSProperties = { ['--ia' as string]: 'var(--accent)' }
+const TAND: CSSProperties = { ['--ia' as string]: 'var(--koppar)' }
 
 export default function MarginPlate({ children, className }: MarginPlateProps) {
   return (
     <span
       aria-hidden="true"
       style={TAND}
-      className={`inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-kant bg-accent-mjuk text-ink-1 [&>svg]:block ${className ?? ''}`}
+      className={`inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-kant bg-koppar-mjuk text-ink-1 [&>svg]:block ${className ?? ''}`}
     >
       {children}
     </span>

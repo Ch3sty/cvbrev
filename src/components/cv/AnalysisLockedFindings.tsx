@@ -66,7 +66,7 @@ export default function AnalysisLockedFindings({
         {findings.map((finding) => (
           <li
             key={finding.id}
-            className="rounded-xl border border-kant bg-panel px-4 py-3"
+            className="rounded-xl border border-kant bg-papper px-4 py-3"
           >
             <div className="flex items-center gap-2">
               <span

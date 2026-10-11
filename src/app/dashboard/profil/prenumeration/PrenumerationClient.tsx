@@ -62,7 +62,7 @@ import { kopstegHref } from '@/lib/onboarding/steps';
 const PORTAL = '/api/stripe/create-portal-session';
 
 const RAD =
-  'flex min-h-11 items-center justify-between gap-3 px-4 py-3 text-sm text-ink-1 hover:bg-insunken';
+  'flex min-h-11 items-center justify-between gap-3 px-4 py-3 text-sm text-ink-1 hover:bg-papper-2';
 
 export interface PrenumerationClientProps {
   tillstand: 'free' | 'track' | 'all';
@@ -322,7 +322,7 @@ export default function PrenumerationClient({
       {tillstand !== 'all' && rader.length > 0 ? (
         <section>
           <h2 className="text-sm font-medium text-ink-3">{KONTO.stoppRubrik}</h2>
-          <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-panel">
+          <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-papper">
             {rader.map((rad) => (
               <li
                 key={rad.feature}
@@ -373,7 +373,7 @@ export default function PrenumerationClient({
       {tillstand !== 'free' && harStripePrenumeration ? (
         <section>
           <h2 className="text-sm font-medium text-ink-3">{KONTO.hantera}</h2>
-          <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-panel">
+          <ul className="mt-2 divide-y divide-kant rounded-xl border border-kant bg-papper">
             <li>
               <a href={PORTAL} className={RAD}>
                 {KONTO.bytKort}
@@ -420,7 +420,7 @@ export default function PrenumerationClient({
       ) : null}
 
       {tillstand === 'free' ? (
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <h2 className="text-sm font-medium text-ink-3">{KONTO.gratisRubrik}</h2>
           <ul className="mt-3 space-y-2">
             {FREE_HIGHLIGHTS.map((rad) => (

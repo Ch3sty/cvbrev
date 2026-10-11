@@ -14,7 +14,7 @@ import { IkonFel } from '@/components/illustrations/Ikoner'
 import Segment from '@/components/shell/Segment'
 
 const FALT =
-  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1'
+  'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1'
 const ETIKETT = 'mb-1 block text-sm font-medium text-ink-2'
 
 type ReportType = 'bug' | 'feedback'
@@ -112,7 +112,7 @@ export default function BuggFeedbackForm() {
         ]}
       />
 
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           <div className="space-y-4">
             {/* Rubrik */}
@@ -210,7 +210,7 @@ export default function BuggFeedbackForm() {
 
               {/* Success meddelande */}
               {submitStatus === 'success' && (
-                <div className="mt-4 flex items-start gap-3 rounded-xl border border-kant bg-panel p-4">
+                <div className="mt-4 flex items-start gap-3 rounded-xl border border-kant bg-papper p-4">
                   <IkonCheck size={20} className="mt-0.5 flex-shrink-0 text-positiv" />
                   <div>
                     <p className="text-kort text-ink-1">

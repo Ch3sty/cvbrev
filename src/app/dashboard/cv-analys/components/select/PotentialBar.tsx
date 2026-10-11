@@ -23,7 +23,7 @@ export default function PotentialBar({
   const atsIncrease = Math.round(dynamicPotentialScore - currentAtsScore);
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4">
+    <section className="rounded-xl border border-kant bg-papper p-4">
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="text-steg uppercase text-ink-3">Potential med dina val</p>

@@ -26,11 +26,11 @@ export default function QuotaWarningBanner({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="overflow-hidden rounded-xl border border-kant bg-panel">
+    <section className="overflow-hidden rounded-xl border border-kant bg-papper">
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="flex min-h-[44px] w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-insunken sm:px-5"
+        className="flex min-h-[44px] w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-papper-2 sm:px-5"
         aria-expanded={isOpen}
       >
         <div className="min-w-0 flex-1">

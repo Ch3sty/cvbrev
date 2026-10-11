@@ -100,7 +100,7 @@ export default function LetterFlowSummary({
   ];
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <ul className="divide-y divide-kant">
         {rows.map((row) => {
           const Icon = row.icon;

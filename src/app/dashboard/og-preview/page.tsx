@@ -147,7 +147,7 @@ export default function OgPreviewPage() {
         {CUSTOM_VARIANTS.map((v) => (
           <section key={v.label}>
             <div className="mb-3 flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2">
+              <span className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta text-ink-2">
                 {v.category}
               </span>
               <h3 className="text-kort text-ink-1">
@@ -156,7 +156,7 @@ export default function OgPreviewPage() {
               <span className="text-meta tabular-nums text-ink-3">1200 × 630</span>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-kant bg-insunken">
+            <div className="overflow-x-auto rounded-xl border border-kant bg-papper-2">
               <div
                 style={{
                   width: 1200,
@@ -185,7 +185,7 @@ export default function OgPreviewPage() {
         {LEGACY_VARIANTS.map((v) => (
           <section key={v.label}>
             <div className="mb-3 flex items-center gap-2">
-              <span className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2">
+              <span className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta text-ink-2">
                 {v.variant === 'letter' ? 'Brev' : 'CV'}
               </span>
               <h3 className="text-kort text-ink-1">
@@ -194,7 +194,7 @@ export default function OgPreviewPage() {
               <span className="text-meta tabular-nums text-ink-3">1200 × 630</span>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-kant bg-insunken">
+            <div className="overflow-x-auto rounded-xl border border-kant bg-papper-2">
               <div
                 style={{
                   width: 1200,
@@ -210,11 +210,11 @@ export default function OgPreviewPage() {
         ))}
       </div>
 
-      <div className="mt-8 rounded-xl border border-kant bg-panel p-4 text-sm leading-[22px] text-ink-2">
+      <div className="mt-8 rounded-xl border border-kant bg-papper p-4 text-sm leading-[22px] text-ink-2">
         <strong className="font-semibold text-ink-1">Notering:</strong>{' '}
         Bilderna ovan visar exakt vad sociala medier (LinkedIn, X, Facebook) och
         Google ser när någon delar en länk. Bilderna genereras dynamiskt vid
-        request via Next.js <code className="mx-1 rounded border border-kant bg-insunken px-1.5 py-0.5 text-meta">opengraph-image.tsx</code>
+        request via Next.js <code className="mx-1 rounded border border-kant bg-papper-2 px-1.5 py-0.5 text-meta">opengraph-image.tsx</code>
         per route, inga manuella PNG-filer.
       </div>
     </div>

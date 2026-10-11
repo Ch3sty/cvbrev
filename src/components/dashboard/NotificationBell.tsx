@@ -172,8 +172,8 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
               items.map((n) => {
                 const inner = (
                   <div
-                    className={`flex items-start gap-2.5 border-b border-kant px-4 py-3 transition-colors hover:bg-insunken/60 ${
-                      n.read ? '' : 'bg-insunken/40'
+                    className={`flex items-start gap-2.5 border-b border-kant px-4 py-3 transition-colors hover:bg-papper-2/60 ${
+                      n.read ? '' : 'bg-papper-2/40'
                     }`}
                   >
                     <span

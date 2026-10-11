@@ -43,7 +43,7 @@ export default function EmptyState({
   bare,
   className,
 }: EmptyStateProps) {
-  const frame = bare ? '' : 'rounded-xl border border-kant bg-panel'
+  const frame = bare ? '' : 'rounded-xl border border-kant bg-papper'
 
   return (
     <section className={`${frame} px-4 py-8 text-center sm:px-6 ${className ?? ''}`} aria-label={title}>

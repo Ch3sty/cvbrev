@@ -52,7 +52,7 @@ export default function PremiumGateModal({ feature, onClose }: PremiumGateModalP
           <IlluPlattaSmartTon size={48} />
         </MarginPlate>
         <div className="min-w-0 flex-1">
-          <p className="text-steg uppercase text-accent-ink">{SMART_VAL.eyebrow}</p>
+          <p className="text-steg uppercase text-koppar-ink">{SMART_VAL.eyebrow}</p>
           <p className="mt-1 text-sm leading-[22px] text-ink-2">{SMART_VAL.text}</p>
           <ul className="mt-3 space-y-1.5">
             {SMART_VAL.rader.map((rad) => (

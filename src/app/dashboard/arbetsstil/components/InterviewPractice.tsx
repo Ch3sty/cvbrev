@@ -68,7 +68,7 @@ export default function InterviewPractice({ questions }: InterviewPracticeProps)
         return (
           <div
             key={q.question}
-            className="rounded-xl border border-kant bg-panel p-4 sm:p-5"
+            className="rounded-xl border border-kant bg-papper p-4 sm:p-5"
           >
             <p className="mb-1 text-steg uppercase text-ink-3">
               Fråga {index + 1} · {q.basedOn}
@@ -76,7 +76,7 @@ export default function InterviewPractice({ questions }: InterviewPracticeProps)
             <p className="text-kort text-ink-1">{q.question}</p>
 
             {/* Det rekryteraren lyssnar efter, träna mot facit */}
-            <div className="mt-3 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+            <div className="mt-3 rounded-lg border border-kant bg-papper-2 p-3 ">
               <p className="mb-1.5 text-steg uppercase text-ink-3">
                 Det här lyssnar rekryteraren efter
               </p>
@@ -106,7 +106,7 @@ export default function InterviewPractice({ questions }: InterviewPracticeProps)
                     onChange={(e) => update(q.question, field.key, e.target.value)}
                     placeholder={field.hint}
                     rows={3}
-                    className="w-full resize-y rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                    className="w-full resize-y rounded-lg border border-kant bg-papper-2 px-3 py-2.5 text-base leading-[22px] text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                   />
                 </label>
               ))}
