@@ -1,0 +1,228 @@
+# SEO-diff
+
+Före: seo-fore.json  
+Efter: seo-efter.json  
+Sidor: 50  
+Fel: 46
+
+### /artiklar/logiska-tester
+- oförändrad
+
+### /artiklar/styrkor-svagheter-intervju
+- oförändrad
+
+### /artiklar/kompetensbaserad-intervju-star-metoden
+- oförändrad
+
+### /artiklar/motivationsbrev-exempel
+- oförändrad
+
+### /artiklar/kompetensbaserade-intervjufragor
+- oförändrad
+
+### /artiklar/angest-infor-nytt-jobb
+- oförändrad
+
+### /artiklar/hur-ofta-byta-jobb
+- oförändrad
+
+### /artiklar/ljuga-i-cv
+- oförändrad
+
+### /artiklar/personligt-brev-butik
+- oförändrad
+
+### /artiklar/rotation-test-guide
+- oförändrad
+
+### /artiklar/arbetsgivarintyg-tjanstgoringsbetyg
+- oförändrad
+
+### /artiklar/numeriskt-test-guide
+- oförändrad
+
+### /artiklar/personlighetstest-jobb-guide
+- oförändrad
+
+### /artiklar/personligt-brev-kompetenser-egenskaper
+- oförändrad
+
+### /artiklar/soka-jobb-via-mail
+- oförändrad
+
+### /artiklar/ats-vanligt-cv
+- oförändrad
+
+### /artiklar/personligt-brev-avslutning-exempel
+- oförändrad
+
+### /artiklar/personligt-brev-folkhogskola
+- oförändrad
+
+### /artiklar/cover-letter-sverige
+- oförändrad
+
+### /artiklar/cv-exempel-student-nyexaminerad
+- oförändrad
+
+### /
+- FEL: ogImage: "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc" → "https://www.jobbcoach.ai/opengraph-image"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 4, nya 1
+- FEL: interna länkar borta från sidan: ["/verktyg/personlighetstest"]
+
+### /artiklar
+- FEL: ogImage: "https://www.jobbcoach.ai/artiklar/opengraph-image-1fnlzm?e7192ce2b8ab4831" → "https://www.jobbcoach.ai/artiklar/opengraph-image-1fnlzm?afa8dcf5d16f973b"
+
+### /funktioner
+- FEL: ogImage: "https://www.jobbcoach.ai/funktioner/opengraph-image-12m5h9?abbf765410073a9a" → "https://www.jobbcoach.ai/funktioner/opengraph-image-12m5h9?164f8d8f59fd7228"
+
+### /om-oss
+- FEL: ogImage: "https://www.jobbcoach.ai/om-oss/opengraph-image-t6s9ht?dc556b01a1b5542a" → "https://www.jobbcoach.ai/om-oss/opengraph-image-t6s9ht?3728f0a01fe20abf"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+
+### /priser
+- FEL: title: "Priser: en vecka som bär hela jobbsöket | Jobbcoach.ai" → "Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai"
+- FEL: description: "CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Allt öppet direkt, ingen bindningstid, säg upp med ett klick. Gratisnivån ligger kvar." → "Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill."
+- FEL: ogImage: "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?3b7a7305d926df32" → "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?54a5f7a4598cd380"
+- FEL: h1: ["En vecka som bär hela jobbsöket."] → ["Jobbcoach Premium, 149 kr i månaden"]
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 8, nya 3
+- FEL: JSON-LD ändrad: 2 block borta, 2 nya
+    före: {"@context":"https://schema.org","@type":"AggregateOffer","availability":"https://schema.org/InStock","highPrice":299,"lowPrice":49,"name":"Jobbcoach.ai","offerCount":6,"offers":[{"@type":"Offer","availability":"https://schema.org/InStock","description":"Få CV:t genom rekryteringssystemet och skriv 
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"För att det mesta du behöver bygger du på en vecka: CV:t, de personliga breven, träningen inför testet. Sedan använder du det i varje ansökan. Söker du länge är Hela pakete
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med provläget och personlighetstestet, jobbmatchning varje natt, Jobbcoachen
+    efter: {"@context":"https://schema.org","@type":"Product","brand":{"@type":"Brand","name":"Jobbcoach.ai"},"description":"CV, personliga brev, tester, jobbmatchning och Jobbcoachen","name":"Jobbcoach Premium","offers":{"@type":"AggregateOffer","availability":"https://schema.org/InStock","highPrice":149,"low
+
+### /kontakt
+- FEL: ogImage: "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc" → "https://www.jobbcoach.ai/opengraph-image"
+
+### /integritetspolicy
+- FEL: ogImage: "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc" → "https://www.jobbcoach.ai/opengraph-image"
+
+### /anvandarvillkor
+- FEL: ogImage: "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc" → "https://www.jobbcoach.ai/opengraph-image"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+
+### /verktyg/cv-analys
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/cv-analys/opengraph-image-j3dyn0?2dfa9759d4e863d4" → "https://www.jobbcoach.ai/verktyg/cv-analys/opengraph-image-j3dyn0?e9c165f01f2c5df8"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Mellan 30 och 60 sekunder från att du klickat på \"Analysera\". Vi läser igenom hela CV:t, kontrollerar struktur, språk, nyckelord och kvantifiering, och returnerar en ATS-
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Mellan 30 och 60 sekunder från att du klickat på \"Analysera\". Vi läser igenom hela CV:t, kontrollerar struktur, språk, nyckelord och kvantifiering, och returnerar en ATS-
+
+### /verktyg/cv-mallar
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/cv-mallar/opengraph-image-qm1nzh?389ab16031a1aad7" → "https://www.jobbcoach.ai/verktyg/cv-mallar/opengraph-image-qm1nzh?f5164691aa0f9cbe"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja. Alla våra mallar är skrivna med svenska Applicant Tracking Systems i åtanke. Vi använder rena rubriker, vanlig text utan komplicerad formattering och ett strukturerat u
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja. Alla våra mallar är skrivna med svenska Applicant Tracking Systems i åtanke. Vi använder rena rubriker, vanlig text utan komplicerad formattering och ett strukturerat u
+
+### /verktyg/skapa-cv
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/skapa-cv/opengraph-image-hksbes?d3f081c3b780cad2" → "https://www.jobbcoach.ai/verktyg/skapa-cv/opengraph-image-hksbes?806913400b5c65ef"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser
+
+### /verktyg/personligt-brev
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/personligt-brev/opengraph-image-t4ad01?fdb3c43ea4c94bfd" → "https://www.jobbcoach.ai/verktyg/personligt-brev/opengraph-image-t4ad01?fbf17f449cd3288b"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Från start till färdig PDF tar det två till fyra minuter. Du laddar upp ditt CV (eller väljer ett du sparat), klistrar in jobbannonsen och väljer mall och ton. Vi sätter ih
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Från start till färdig PDF tar det två till fyra minuter. Du laddar upp ditt CV (eller väljer ett du sparat), klistrar in jobbannonsen och väljer mall och ton. Vi sätter ih
+
+### /verktyg/jobbmatchning
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/jobbmatchning/opengraph-image-vvryjo?200f9030d46c7205" → "https://www.jobbcoach.ai/verktyg/jobbmatchning/opengraph-image-vvryjo?e698fc03afbb1b8a"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din u
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din u
+
+### /verktyg/jobbcoachen
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/jobbcoachen/opengraph-image-99okik?77986a55b18d249a" → "https://www.jobbcoach.ai/verktyg/jobbcoachen/opengraph-image-99okik?9e60912b88e4da7f"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Karriärguiden söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Karriärguiden söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett
+
+### /verktyg/rekryteringstester
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/rekryteringstester/opengraph-image-1ge1s0?dad2d8dd348340c2" → "https://www.jobbcoach.ai/verktyg/rekryteringstester/opengraph-image-1ge1s0?88883e5399ff91a9"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 2, nya 2
+- FEL: JSON-LD ändrad: 3 block borta, 3 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Rekryteringstester är standardiserade prov som mäter logiskt tänkande, språkförståelse och sifferanalys. Arbetsgivare använder dem för att jämföra kandidater på samma villk
+    före: {"@context":"https://schema.org","@type":"HowTo","description":"Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.","estimatedCost":{"@type":"MonetaryAmount","currency":"SEK","value":"0"},"name":"Så tränar du på rekryteringst
+    före: {"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"EducationalApplication","description":"Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighet
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Rekryteringstester är standardiserade prov som mäter logiskt tänkande, språkförståelse och sifferanalys. Arbetsgivare använder dem för att jämföra kandidater på samma villk
+    efter: {"@context":"https://schema.org","@type":"HowTo","description":"Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.","estimatedCost":{"@type":"MonetaryAmount","currency":"SEK","value":"0"},"name":"Så tränar du på rekryteringst
+    efter: {"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"EducationalApplication","description":"Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighet
+
+### /verktyg/linkedin-optimering
+- baslinjen omtagen 2026-09-23: Ägarbeslut: LinkedIn-optimeringen ingår i CV-veckan och Allt, gratisnivån har ingen optimering. WebApplication-schemats offer, HowTo-schemats estimatedCost och FAQPage-svaret om kostnaden sa "en gratis optimering i veckan". Omtagen igen 2026-09-23 (Räkna ut-omgången, del 1): WebApplication- och HowTo-schemat hade det gamla produktnamnet "Karriärguidens AI" och anglicismerna Split-view, branschkeywords, score-rapport och copy-paste, och FAQ-frågan hette "Vad är ATS-keywords på LinkedIn?". Bytt till Jobbcoach.ai och svenska facktermer (rekryteringssystem (ATS), nyckelord, delad vy). h1, title, description och canonical oförändrade.
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/linkedin-optimering/opengraph-image-1ou6pi?6120ba6473693173" → "https://www.jobbcoach.ai/verktyg/linkedin-optimering/opengraph-image-1ou6pi?8887ee2fbee65a43"
+- FEL: JSON-LD ändrad: 3 block borta, 3 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \"Marknadsförare\" och din om-mig-text är generisk, så matchar du inte
+    före: {"@context":"https://schema.org","@type":"HowTo","description":"Fem steg från din nuvarande profiltext till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.","estimatedCost":{"@type":
+    före: {"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"BusinessApplication","description":"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du klistrar in din text och får en optimerad v
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \"Marknadsförare\" och din om-mig-text är generisk, så matchar du inte
+    efter: {"@context":"https://schema.org","@type":"HowTo","description":"Fem steg från din nuvarande profiltext till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.","estimatedCost":{"@type":
+    efter: {"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"BusinessApplication","description":"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du klistrar in din text och får en optimerad v
+
+### /verktyg/bli-upptackt
+- baslinjen omtagen 2026-09-23: Ägarbeslut: synligheten för rekryterare ingår i Allt, och texten ska säga det. Service-schemat (price 0, "Gratis att synas") och FAQPage-schemat fick en fråga om vad det kostar. h1, title, description och canonical oförändrade.
+- FEL: description: "Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Anonym tills du själv tackar ja. Ingår i Hela paketet, 99 kr i veckan." → "Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Anonym tills du själv tackar ja. Ingår i Jobbcoach Premium, 149 kr i månaden."
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/opengraph-image-17fsq3?555174661af46bae" → ""
+- FEL: JSON-LD ändrad: 2 block borta, 2 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen."},"name":"Kan min nuva
+    före: {"@context":"https://schema.org","@type":"Service","areaServed":{"@type":"Country","name":"Sverige"},"description":"Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säge
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen."},"name":"Kan min nuva
+    efter: {"@context":"https://schema.org","@type":"Service","areaServed":{"@type":"Country","name":"Sverige"},"description":"Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säge
+
+### /verktyg/personlighetstest
+- FEL: ogImage: "https://www.jobbcoach.ai/verktyg/opengraph-image-17fsq3?555174661af46bae" → ""
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja. Provet med tjugo påståenden kräver inget konto. Med ett gratiskonto sparar du profilen och får hela tolkningen, och hela testet med femtio påståenden ingår också gratis
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja. Provet med tjugo påståenden kräver inget konto. Med ett gratiskonto sparar du profilen och får hela tolkningen, och hela testet med femtio påståenden ingår också gratis
+
+### /cv-mallar
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?2370b6d3636e0ce4" → "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?c719c707cb569484"
+- FEL: h1: ["CV-mallar för svenska yrken gratis och premium"] → ["CV-mallar för svenska yrken gratis eller i Premium"]
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja, 3 av våra 41 CV-mallar är gratis att ladda ner. De övriga 38 ingår i CV-paketet och i Hela paketet. Alla gratismallar är ATS-säkra och fungerar i de flesta svenska rekr
+    efter: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Ja, 3 av våra 41 CV-mallar är gratis att ladda ner. De övriga 38 ingår i Premium. Alla gratismallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. De mal
+
+### /cv-mallar/sjukskoterska
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-mallar/sjukskoterska/opengraph-image-h89e50?560cdc15b32792c0" → "https://www.jobbcoach.ai/cv-mallar/sjukskoterska/opengraph-image-h89e50?bc936e2dbf3b9e98"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+
+### /cv-mallar/larare
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-mallar/larare/opengraph-image-h89e50?560cdc15b32792c0" → "https://www.jobbcoach.ai/cv-mallar/larare/opengraph-image-h89e50?bc936e2dbf3b9e98"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+
+### /cv-mallar/ekonomiassistent
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-mallar/ekonomiassistent/opengraph-image-h89e50?560cdc15b32792c0" → "https://www.jobbcoach.ai/cv-mallar/ekonomiassistent/opengraph-image-h89e50?bc936e2dbf3b9e98"
+- ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 1
+
+### /cv-mallar/start
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?2370b6d3636e0ce4" → "https://www.jobbcoach.ai/cv-mallar/opengraph-image-k7v1yq?c719c707cb569484"
+
+### /skapa-brev/start
+- FEL: ogImage: "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc" → "https://www.jobbcoach.ai/opengraph-image"
+
+### /cv-exempel/sjukskoterska
+- FEL: ogImage: "https://www.jobbcoach.ai/cv-exempel/sjukskoterska/opengraph-image-15bi9z?e4553b4fb0a3e5b3" → "https://www.jobbcoach.ai/cv-exempel/sjukskoterska/opengraph-image-15bi9z?253fb0d849103a32"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"Article","about":{"@type":"Occupation","description":"CV-guide och exempel för Sjuksköterska","name":"Sjuksköterska"},"articleBody":"Specialistsjuksköterska med 8+ års erfarenhet från högspecialiserad vård inom IVA, anestesi och akutsjukvård. Specialist inom
+    efter: {"@context":"https://schema.org","@type":"Article","about":{"@type":"Occupation","description":"CV-guide och exempel för Sjuksköterska","name":"Sjuksköterska"},"articleBody":"Specialistsjuksköterska med 8+ års erfarenhet från högspecialiserad vård inom IVA, anestesi och akutsjukvård. Specialist inom
+
+### /personligt-brev-exempel/sjukskoterska
+- FEL: ogImage: "https://www.jobbcoach.ai/personligt-brev-exempel/sjukskoterska/opengraph-image-6011lh?f4e839b23dfa2479" → "https://www.jobbcoach.ai/personligt-brev-exempel/sjukskoterska/opengraph-image-6011lh?6f7d0d512e1c7498"
+- FEL: JSON-LD ändrad: 1 block borta, 1 nya
+    före: {"@context":"https://schema.org","@type":"Article","about":{"@type":"Occupation","description":"Karriärguide och personligt brev-exempel för Sjuksköterska","name":"Sjuksköterska"},"articleBody":"Hej,\n\nJag söker tjänsten som sjuksköterska på akutmottagningen på Danderyds sjukhus. Med fyra års erfar
+    efter: {"@context":"https://schema.org","@type":"Article","about":{"@type":"Occupation","description":"Karriärguide och personligt brev-exempel för Sjuksköterska","name":"Sjuksköterska"},"articleBody":"Hej,\n\nJag söker tjänsten som sjuksköterska på akutmottagningen på Danderyds sjukhus. Med fyra års erfar
+
+### /rakna-ut
+- oförändrad
+
+### /artiklar/matrislogik-test-guide
+- oförändrad
+
+### /artiklar/verbalt-test-guide
+- oförändrad
+
+### /artiklar/alva-labs-logiktest
+- oförändrad
+
