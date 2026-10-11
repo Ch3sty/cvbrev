@@ -309,7 +309,9 @@ export default function ViewLetterClient({
       className="mt-0"
     />
   ) : null;
-  const vaggRad = [klart ? null : beskrivning || null, traffRad].filter(Boolean).join(' ') || undefined;
+  // Träffarna säger mer än metaraden (företag och tjänst står redan i
+  // rubriken); utan träffar står metaraden kvar som förut.
+  const vaggRad = traffRad ?? (klart ? undefined : beskrivning || undefined);
 
   return (
     <>

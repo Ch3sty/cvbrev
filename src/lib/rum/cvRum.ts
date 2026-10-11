@@ -95,20 +95,21 @@ export function poangUrAnalys(a: AnalysUnderlag | null): number | null {
 /**
  * Dokumentets väg (konceptets C1): utkast, analyserat, åtgärdat, nedladdat.
  * Utkast är klart när CV:t finns. Analyserat när en analys av just det CV:t
- * är klar. Åtgärdat när CV:t ändrats efter analysen. Nedladdat när en
- * mall laddats ner efter senaste ändringen. Nästa ej klara steg är "nu".
+ * är klar. Åtgärdat när analysens förbättrade CV sparats (analysflödet
+ * sparar det som ett nytt CV, /api/cv/save-improved). Nedladdat när en mall
+ * laddats ner efter senaste steget. Nästa ej klara steg är "nu".
  */
 export function dokumentVag(a: {
   harCv: boolean
   analyseradAt: string | null
-  cvAndradAt: string | null
+  /** När det förbättrade CV:t sparades, null om det inte gjorts. */
+  atgardadAt: string | null
   nedladdatAt: string | null
 }): VeckoCell[] {
   const t = (s: string | null) => (s ? new Date(s).getTime() : NaN)
   const analyserad = a.harCv && Boolean(a.analyseradAt)
-  // En minuts marginal: analysen själv kan röra raden i samma ögonblick.
-  const atgardad = analyserad && t(a.cvAndradAt) > t(a.analyseradAt) + 60_000
-  const senasteAndring = Math.max(t(a.analyseradAt) || 0, atgardad ? t(a.cvAndradAt) : 0)
+  const atgardad = analyserad && Boolean(a.atgardadAt)
+  const senasteAndring = Math.max(t(a.analyseradAt) || 0, atgardad ? t(a.atgardadAt) || 0 : 0)
   const nedladdad = a.harCv && Number.isFinite(t(a.nedladdatAt)) && t(a.nedladdatAt) >= senasteAndring
   const klara = [a.harCv, analyserad, atgardad, nedladdad]
   const forstaEjKlar = klara.findIndex((k) => !k)

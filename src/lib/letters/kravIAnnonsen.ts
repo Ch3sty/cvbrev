@@ -36,14 +36,26 @@ function escape(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')
 }
 
+/**
+ * Svenska former som räknas som samma krav i brevet ("agila team" möter
+ * kravet Agile). Bara där ordet faktiskt böjs eller skrivs isär på svenska.
+ */
+const SVENSKA_FORMER: Record<string, string[]> = {
+  agile: ['agil', 'agila', 'agilt'],
+  fullstack: ['full stack', 'full-stack'],
+}
+
 /** Vilka krav brevet nämner och vilka det inte nämner. */
 export function kravTraffar(krav: string[], brev: string | null | undefined): { moter: string[]; saknas: string[] } {
   const text = utanHtml(brev ?? '')
   const moter: string[] = []
   const saknas: string[] = []
   for (const k of krav) {
-    const re = new RegExp(`(^|[^\\p{L}\\p{N}])${escape(k)}(?=$|[^\\p{L}\\p{N}])`, 'iu')
-    ;(re.test(text) ? moter : saknas).push(k)
+    const former = [k, ...(SVENSKA_FORMER[k.toLowerCase()] ?? [])]
+    const traff = former.some((ord) =>
+      new RegExp(`(^|[^\\p{L}\\p{N}])${escape(ord)}(?=$|[^\\p{L}\\p{N}])`, 'iu').test(text)
+    )
+    ;(traff ? moter : saknas).push(k)
   }
   return { moter, saknas }
 }

@@ -45,15 +45,15 @@ describe('fynden', () => {
 
 describe('dokumentets väg', () => {
   it('utkast och analyserat klart, åtgärdat nästa', () => {
-    const v = dokumentVag({ harCv: true, analyseradAt: '2026-10-10T10:00:00Z', cvAndradAt: '2026-10-10T10:00:30Z', nedladdatAt: null })
+    const v = dokumentVag({ harCv: true, analyseradAt: '2026-10-10T10:00:00Z', atgardadAt: null, nedladdatAt: null })
     expect(v.map((c) => c.status)).toEqual(['gjord', 'gjord', 'nu', 'kvar'])
   })
 
-  it('åtgärdat när CV:t ändrats efter analysen, nedladdat efter ändringen', () => {
+  it('åtgärdat när det förbättrade CV:t sparats, nedladdat efter det', () => {
     const v = dokumentVag({
       harCv: true,
       analyseradAt: '2026-10-10T10:00:00Z',
-      cvAndradAt: '2026-10-10T12:00:00Z',
+      atgardadAt: '2026-10-10T12:00:00Z',
       nedladdatAt: '2026-10-10T13:00:00Z',
     })
     expect(v.map((c) => c.status)).toEqual(['gjord', 'gjord', 'gjord', 'gjord'])
@@ -63,7 +63,7 @@ describe('dokumentets väg', () => {
     const v = dokumentVag({
       harCv: true,
       analyseradAt: '2026-10-10T10:00:00Z',
-      cvAndradAt: '2026-10-10T12:00:00Z',
+      atgardadAt: '2026-10-10T12:00:00Z',
       nedladdatAt: '2026-10-10T11:00:00Z',
     })
     expect(v[3].status).toBe('nu')

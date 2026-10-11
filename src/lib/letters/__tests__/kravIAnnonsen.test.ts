@@ -14,6 +14,10 @@ describe('kraven i annonsen', () => {
     expect(kravIAnnonsen(null)).toEqual([])
   })
 
+  it('svenska former räknas: agila team möter Agile', () => {
+    expect(kravTraffar(['Agile', 'Scrum'], 'Jag har lett agila team.')).toEqual({ moter: ['Agile'], saknas: ['Scrum'] })
+  })
+
   it('träffar är ord som står i brevet, inte delar av ord', () => {
     const brev = '<p>Jag har byggt i <b>React</b> och TypeScript, och driftat på AWS.</p><p>SQLite har jag också använt.</p>'
     expect(kravTraffar(['React', 'TypeScript', 'AWS', 'Docker', 'SQL'], brev)).toEqual({

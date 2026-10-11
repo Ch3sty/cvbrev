@@ -335,7 +335,11 @@ export default function MinaCvClient({
     ? dokumentVag({
         harCv: true,
         analyseradAt: underlag?.klar ?? null,
-        cvAndradAt: analyseratCv.updated_at ?? analyseratCv.created_at,
+        // Det förbättrade CV:t sparas som ett nytt CV med filvägen + "-improved"
+        // (/api/cv/save-improved); det analyserade kan också vara det.
+        atgardadAt: analyseratCv.original_file_path?.endsWith('-improved')
+          ? analyseratCv.created_at
+          : cvs.find((c) => c.original_file_path === `${analyseratCv.original_file_path}-improved`)?.created_at ?? null,
         nedladdatAt: cvRum.nedladdatAt,
       })
     : null;

@@ -3,7 +3,7 @@
  * väggen. En rad per sökt tjänst och fyra stationer, Sökt, Svar, Intervju
  * och Erbjudande. Kopparlinjen går fram till den station tjänsten nått, den
  * aktuella punkten är r 6,5 med lyster, en tyst tjänst står som ihålig
- * kopparring vid Sökt med antalet dagar bredvid.
+ * kopparring vid Sökt med antalet dagar under.
  *
  * Två viewBoxar i stället för skalad text (W1-kravet): mobil 380 bred,
  * dator 420. 40 px per rad. Text i SVG bara 11 och 13 px, och hela läget
@@ -90,22 +90,18 @@ export default function Spar({ rader, bredd, ariaLabel, className }: SparProps) 
                 )
               })}
               {r.etikett ? (
-                r.tyst ? (
-                  <text x={xNu + 16} y={y + 4} fontSize={11} fontWeight={500} fill="var(--vagg-mjuk)">
-                    {r.etikett}
-                  </text>
-                ) : (
-                  <text
-                    x={xNu}
-                    y={y + 22}
-                    textAnchor={r.station === 3 ? 'end' : 'middle'}
-                    fontSize={11}
-                    fontWeight={r.station === 2 ? 600 : 500}
-                    fill={r.station === 2 ? 'var(--koppar-ljus)' : 'var(--vagg-mjuk)'}
-                  >
-                    {r.etikett}
-                  </text>
-                )
+                // Etiketten under stationen; den tysta ringen står vid Sökt, så
+                // dess dagar läses från ringen och åt höger, under linjen.
+                <text
+                  x={r.tyst ? xNu - 6.5 : xNu}
+                  y={y + 22}
+                  textAnchor={r.tyst ? 'start' : r.station === 3 ? 'end' : 'middle'}
+                  fontSize={11}
+                  fontWeight={r.station === 2 ? 600 : 500}
+                  fill={r.station === 2 ? 'var(--koppar-ljus)' : 'var(--vagg-mjuk)'}
+                >
+                  {r.etikett}
+                </text>
               ) : null}
             </g>
           )
