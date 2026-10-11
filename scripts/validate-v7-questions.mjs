@@ -42,6 +42,9 @@ const symNorm = (cell) => {
 
 const errors = [];
 const seen = new Set();
+// p_prior per nivå för fran_version 3 (tillägget om variation 1.1): ingen
+// grundfråga under 0,60, ingen expertfråga över 0,50.
+const P_PRIOR_SPANN = { grund: [0.6, 0.95], avancerad: [0.45, 0.72], expert: [0.2, 0.5] };
 
 // Pensionerade frågor (spec-rummen avsnitt 15) ligger kvar i filen för gamla
 // sessioner men väljs aldrig till något nytt. De hoppas över i kontrollerna
@@ -127,6 +130,19 @@ for (const q of bank) {
   // Bandet "svår plus" (beställningen "svarare frågor", 1.1): band bara
   // "plus", mekanism en sträng. Båda frivilliga.
   if (q.band !== undefined && q.band !== 'plus') errors.push(`${tag} band får bara vara "plus" (är ${q.band})`);
+  // Bank_version 3 (plan-facit-genvag A2, tillägget om variation 1.1 och
+  // 2.1): fran_version och pensionerad_fran är heltal; en fråga med
+  // fran_version 3 har p_prior inom nivåns spann och recept (mallens namn).
+  if (q.fran_version !== undefined && !(Number.isInteger(q.fran_version) && q.fran_version >= 1)) errors.push(`${tag} fran_version ska vara ett heltal >= 1 (är ${q.fran_version})`);
+  if (q.pensionerad_fran !== undefined && !(Number.isInteger(q.pensionerad_fran) && q.pensionerad_fran >= 2)) errors.push(`${tag} pensionerad_fran ska vara ett heltal >= 2 (är ${q.pensionerad_fran})`);
+  if (q.fran_version >= 3) {
+    const niva = q.band === 'plus' ? 'expert' : { g: 'grund', a: 'avancerad', e: 'expert' }[/^v7([gae])-/.exec(q.id ?? '')?.[1]];
+    const spann = P_PRIOR_SPANN[niva];
+    if (typeof q.p_prior !== 'number') errors.push(`${tag} fran_version 3 kräver p_prior ur mallen`);
+    else if (spann && !(q.p_prior >= spann[0] - 1e-9 && q.p_prior <= spann[1] + 1e-9)) errors.push(`${tag} p_prior ${q.p_prior} utanför spannet för ${niva} (${spann[0]} till ${spann[1]})`);
+    if (typeof q.recept !== 'string' || !q.recept) errors.push(`${tag} fran_version 3 kräver recept (mallens namn)`);
+    if (!spann) errors.push(`${tag} nivån går inte att läsa ur id:t`);
+  }
   if (q.mekanism !== undefined && (typeof q.mekanism !== 'string' || !q.mekanism)) errors.push(`${tag} mekanism ska vara en sträng`);
   if (!Array.isArray(q.misstag) || q.misstag.length !== q.options?.length) {
     errors.push(`${tag} misstag ska ha en post per alternativ`);
@@ -205,7 +221,8 @@ for (const q of bank) {
 // Banken får ha rätt svar var som helst; det som visas ska ändå fördela sig
 // jämnt. 1 000 slumpade sessioner, varje position ska hamna inom en sjättedel
 // ± 2 procentenheter. Bankens egen fördelning skrivs ut som upplysning.
-{
+// En tom bank (version 3 före befordran) har ingen fördelning.
+if (bank.length > 0) {
   const SESSIONER = 1000;
   const n = 6;
   const ra = Array(n).fill(0);
