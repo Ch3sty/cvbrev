@@ -75,7 +75,7 @@ async function skapa() {
   const ut = fs.existsSync(FIL) ? JSON.parse(fs.readFileSync(FIL, 'utf8')) : {}
   for (const k of KONTON) {
     if (ut[k.namn]) continue
-    const email = `qa-epost-${k.namn}-2026-10-10@jobbcoach-qa.test`
+    const email = `qa-epost-${k.namn}-${Date.now()}@jobbcoach-qa.test`
     const { data, error } = await admin.auth.admin.createUser({
       email,
       password: LOSEN,

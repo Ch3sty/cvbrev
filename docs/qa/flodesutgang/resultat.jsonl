@@ -1,0 +1,35 @@
+{"tid":"2026-10-11T19:45:05.422Z","floede":"flodesutgang","vy":"pixel7","steg":"flöde: bakåt mitt i flödet backar ett steg","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-11T19:45:08.369Z","floede":"flodesutgang","vy":"pixel7","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"I brevet: QA Epost allt · 070 123 45 67 · qa-epost-allt-1791747467439@jobbcoach-qa.test · Örebro","primarIBild":true}
+{"tid":"2026-10-11T19:45:21.122Z","floede":"flodesutgang","vy":"pixel7","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-epost-allt-1791747467439@jobbcoach-qa.test"}
+{"tid":"2026-10-11T19:45:21.805Z","floede":"flodesutgang","vy":"pixel7","steg":"steg 6: pappret är vitt med mörk text","ok":true,"bakgrund":"rgb(255, 255, 255)","text":"rgb(0, 0, 0)","morkt":true}
+{"tid":"2026-10-11T19:45:21.873Z","floede":"flodesutgang","vy":"pixel7","steg":"steg 6: dörrarna syns","ok":true,"navSyns":true,"navTopp":843,"knappTopp":783,"knappBotten":831,"vh":915}
+{"tid":"2026-10-11T19:45:21.874Z","floede":"flodesutgang","vy":"pixel7","steg":"steg 6: Spara brevet ovanför dörrarna","ok":true,"navSyns":true,"navTopp":843,"knappTopp":783,"knappBotten":831,"vh":915}
+{"tid":"2026-10-11T19:45:27.177Z","floede":"flodesutgang","vy":"pixel7","steg":"spara: historiken krympt till en post","ok":true,"url":"/dashboard/skapa-brev?steg=6","djup":0}
+{"tid":"2026-10-11T19:45:30.918Z","floede":"flodesutgang","vy":"pixel7","steg":"klart brev: en bakåtgest lämnar till rummet","ok":true,"brevUrl":"/dashboard/mina-brev/a3fb2d6f-b77c-4cbd-81f1-284656ad540c?klart=1","efterBakat":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:45:41.300Z","floede":"flodesutgang","vy":"pixel7","steg":"brev-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/mina-brev","rum":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:45:50.209Z","floede":"flodesutgang","vy":"pixel7","steg":"cv-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/profil/cv","rum":"/dashboard/profil/cv"}
+{"tid":"2026-10-11T19:45:50.209Z","floede":"flodesutgang","vy":"pixel7","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-11T19:45:50.210Z","floede":"flodesutgang","vy":"pixel7","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-11T19:46:05.934Z","floede":"flodesutgang","vy":"smal360","steg":"flöde: bakåt mitt i flödet backar ett steg","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-11T19:46:08.896Z","floede":"flodesutgang","vy":"smal360","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"I brevet: QA Epost allt · 070 123 45 67 · qa-epost-allt-1791747467439@jobbcoach-qa.test · Örebro","primarIBild":true}
+{"tid":"2026-10-11T19:46:20.758Z","floede":"flodesutgang","vy":"smal360","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-epost-allt-1791747467439@jobbcoach-qa.test"}
+{"tid":"2026-10-11T19:46:21.449Z","floede":"flodesutgang","vy":"smal360","steg":"steg 6: pappret är vitt med mörk text","ok":true,"bakgrund":"rgb(255, 255, 255)","text":"rgb(0, 0, 0)","morkt":true}
+{"tid":"2026-10-11T19:46:21.523Z","floede":"flodesutgang","vy":"smal360","steg":"steg 6: dörrarna syns","ok":true,"navSyns":true,"navTopp":668,"knappTopp":608,"knappBotten":656,"vh":740}
+{"tid":"2026-10-11T19:46:21.524Z","floede":"flodesutgang","vy":"smal360","steg":"steg 6: Spara brevet ovanför dörrarna","ok":true,"navSyns":true,"navTopp":668,"knappTopp":608,"knappBotten":656,"vh":740}
+{"tid":"2026-10-11T19:46:26.375Z","floede":"flodesutgang","vy":"smal360","steg":"spara: historiken krympt till en post","ok":true,"url":"/dashboard/skapa-brev?steg=6","djup":0}
+{"tid":"2026-10-11T19:46:30.102Z","floede":"flodesutgang","vy":"smal360","steg":"klart brev: en bakåtgest lämnar till rummet","ok":true,"brevUrl":"/dashboard/mina-brev/13d480ee-f167-4ee2-8776-323d1a65e0f7?klart=1","efterBakat":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:46:40.052Z","floede":"flodesutgang","vy":"smal360","steg":"brev-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/mina-brev","rum":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:46:48.600Z","floede":"flodesutgang","vy":"smal360","steg":"cv-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/profil/cv","rum":"/dashboard/profil/cv"}
+{"tid":"2026-10-11T19:46:48.601Z","floede":"flodesutgang","vy":"smal360","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-11T19:46:48.601Z","floede":"flodesutgang","vy":"smal360","steg":"nätverksfel","ok":true,"natfel":[]}
+{"tid":"2026-10-11T19:47:04.106Z","floede":"flodesutgang","vy":"desktop","steg":"flöde: bakåt mitt i flödet backar ett steg","ok":true,"url":"/dashboard/skapa-brev?steg=2"}
+{"tid":"2026-10-11T19:47:07.023Z","floede":"flodesutgang","vy":"desktop","steg":"brev: raden vid Skapa mitt brev","ok":true,"radText":"I brevet: QA Epost allt · 070 123 45 67 · qa-epost-allt-1791747467439@jobbcoach-qa.test · Örebro","primarIBild":true}
+{"tid":"2026-10-11T19:47:23.093Z","floede":"flodesutgang","vy":"desktop","steg":"brev: adressen i det genererade brevet","ok":true,"epostVantad":"qa-epost-allt-1791747467439@jobbcoach-qa.test"}
+{"tid":"2026-10-11T19:47:23.745Z","floede":"flodesutgang","vy":"desktop","steg":"steg 6: pappret är vitt med mörk text","ok":true,"bakgrund":"rgb(255, 255, 255)","text":"rgb(0, 0, 0)","morkt":true}
+{"tid":"2026-10-11T19:47:23.794Z","floede":"flodesutgang","vy":"desktop","steg":"steg 6: desktop har sidomenyn, inga dörrar","ok":true,"navSyns":false,"navTopp":0,"knappTopp":740,"knappBotten":788,"vh":800}
+{"tid":"2026-10-11T19:47:29.037Z","floede":"flodesutgang","vy":"desktop","steg":"spara: historiken krympt till en post","ok":true,"url":"/dashboard/skapa-brev?steg=6","djup":0}
+{"tid":"2026-10-11T19:47:32.708Z","floede":"flodesutgang","vy":"desktop","steg":"klart brev: en bakåtgest lämnar till rummet","ok":true,"brevUrl":"/dashboard/mina-brev/8fd1cbd7-2dbf-4639-a725-1c93a6523061?klart=1","efterBakat":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:47:43.325Z","floede":"flodesutgang","vy":"desktop","steg":"brev-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/mina-brev","rum":"/dashboard/mina-brev"}
+{"tid":"2026-10-11T19:47:52.822Z","floede":"flodesutgang","vy":"desktop","steg":"cv-kryss: krysset i steg 2 går till rummet","ok":true,"dar":"/dashboard/profil/cv","rum":"/dashboard/profil/cv"}
+{"tid":"2026-10-11T19:47:52.823Z","floede":"flodesutgang","vy":"desktop","steg":"konsolfel","ok":true,"fel":[]}
+{"tid":"2026-10-11T19:47:52.823Z","floede":"flodesutgang","vy":"desktop","steg":"nätverksfel","ok":true,"natfel":[]}

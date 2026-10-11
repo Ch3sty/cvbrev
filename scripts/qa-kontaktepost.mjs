@@ -5,6 +5,11 @@
 //
 //   SCRATCH=<tmp> BAS=http://localhost:3482 node scripts/qa-kontaktepost.mjs epost pixel7
 //   SCRATCH=<tmp> BAS=http://localhost:3482 node scripts/qa-kontaktepost.mjs numerisk pixel7 gratis
+//   SCRATCH=<tmp> QA_UT=docs/qa/flodesutgang MORKT=1 node scripts/qa-kontaktepost.mjs flodesutgang pixel7
+//
+// flodesutgang (2026-10-11): brevet från Personliga brev genom alla steg,
+// bakåt mitt i flödet, dörrarna och pappret på steg 6, Spara, Klar och EN
+// bakåtgest ut till rummet; krysset i brevet och i Bygg ditt CV.
 //
 // Kontona skapas och raderas med scripts/qa-kontaktepost-konton.mjs.
 // Skärmdumpar och PDF:er hamnar i docs/qa/kontaktepost/.
@@ -21,7 +26,7 @@ const pdfParse = require('pdf-parse')
 const BAS = process.env.BAS || 'http://localhost:3482'
 const SCRATCH = process.env.SCRATCH
 if (!SCRATCH) throw new Error('Sätt SCRATCH')
-const UT = 'docs/qa/kontaktepost'
+const UT = process.env.QA_UT || 'docs/qa/kontaktepost'
 fs.mkdirSync(UT, { recursive: true })
 const RESULTAT = `${UT}/resultat.jsonl`
 
@@ -48,6 +53,7 @@ const UA_DESKTOP =
 const VY = {
   pixel7: { viewport: { width: 412, height: 915, deviceScaleFactor: 2, isMobile: true, hasTouch: true }, ua: UA_MOBIL },
   desktop: { viewport: { width: 1280, height: 800, deviceScaleFactor: 1 }, ua: UA_DESKTOP },
+  smal360: { viewport: { width: 360, height: 740, deviceScaleFactor: 2, isMobile: true, hasTouch: true }, ua: UA_MOBIL },
 }
 
 const [floede, vy, kontoNamn = 'allt'] = process.argv.slice(2)
@@ -179,33 +185,80 @@ async function profilEpost(p, varde) {
   return { falt, db: data?.contact_email ?? null }
 }
 
-async function brevFlode(p, epostVantad) {
-  await ga(p, '/dashboard/skapa-brev')
+/** Väntar på räknaren i flödets topprad, till exempel "3 / 6". */
+async function vantaSteg(p, n, tot, timeout = 30000) {
+  await p.waitForFunction(
+    (t) => [...document.querySelectorAll('header span')].some((e) => e.innerText.trim() === t),
+    { timeout },
+    `${n} / ${tot}`
+  )
+  await vanta(300)
+}
+
+/** Ett steg framåt: Fortsätt och vänta tills räknaren visar nästa steg. */
+async function fortsatt(p, till, tot) {
+  await klickaText(p, /^Fortsätt$/)
+  await vantaSteg(p, till, tot)
+}
+
+async function sokvag(p) {
+  return p.evaluate(() => location.pathname + location.search)
+}
+
+/** Utkast från förra varvet skulle annars ge återkomstvalet i stället för steg 1. */
+async function rensaUtkast(p) {
+  await p.evaluate(() => {
+    for (const k of Object.keys(localStorage)) if (/^flow:|jobbcoach_cv_draft/.test(k)) localStorage.removeItem(k)
+  })
+}
+
+async function valjCvOchAnnons(p) {
   await vantaText(p, /QA-CV/)
   await klickaText(p, /QA-CV/, 'button, [role="radio"], label, div[role="button"]').catch(async () => {
     await klickaText(p, /QA-CV/, '*')
   })
   await bild(p, 'brev-steg1')
-  await klickaText(p, /^Fortsätt$/)
+  await fortsatt(p, 2, 6)
   await p.waitForSelector('textarea')
   await p.type(
     'textarea',
     'Lagerarbetare till Nordlager i Örebro. Vi söker dig med truckkort A och B och erfarenhet av plock och inventering. Du är noggrann, gillar ordning och reda och har ett gott säkerhetstänk. Heltid, dagtid, tillsvidare med inledande provanställning.'
   )
   await bild(p, 'brev-steg2')
-  await klickaText(p, /^Fortsätt$/)
-  await vanta(800)
-  await klickaText(p, /^Fortsätt$/)
-  await vanta(800)
-  await klickaText(p, /^Fortsätt$/)
-  await vantaText(p, /E-post i brevet/)
+}
+
+async function brevFlode(p, epostVantad, { franRum = false, bakatMitt = false } = {}) {
+  if (franRum) {
+    // Från rummet med en riktig klientnavigering, som när användaren trycker.
+    await ga(p, '/dashboard/mina-brev')
+    await rensaUtkast(p)
+    await bild(p, 'rummet-personliga-brev')
+    await klickaText(p, /./, 'a[href="/dashboard/skapa-brev"]')
+    await vantaSteg(p, 1, 6)
+  } else {
+    await ga(p, '/dashboard/skapa-brev')
+  }
+  await valjCvOchAnnons(p)
+  await fortsatt(p, 3, 6)
+  if (bakatMitt) {
+    // Bakåtgesten mitt i flödet ska backa ett steg, inte lämna flödet.
+    await p.goBack({ waitUntil: 'networkidle2' }).catch(() => {})
+    await vanta(800)
+    const steg2 = await p.evaluate(() => [...document.querySelectorAll('header span')].some((e) => e.innerText.trim() === '2 / 6'))
+    await bild(p, 'bakat-mitt-i-flodet')
+    logg('flöde: bakåt mitt i flödet backar ett steg', steg2 && (await sokvag(p)).startsWith('/dashboard/skapa-brev'), { url: await sokvag(p) })
+    await fortsatt(p, 3, 6)
+  }
+  await fortsatt(p, 4, 6)
+  await fortsatt(p, 5, 6)
+  await p.waitForSelector('[data-kontaktrad="brev"]', { timeout: 60000 })
   await p.evaluate(() => {
-    const el = [...document.querySelectorAll('span')].find((e) => /E-post i brevet/.test(e.innerText))
+    const el = document.querySelector('[data-kontaktrad="brev"]')
     el?.scrollIntoView({ block: 'center' })
   })
   await vanta(400)
   await bild(p, 'brev-steg5-rad')
-  const radText = await p.evaluate(() => [...document.querySelectorAll('span')].find((e) => /^E-post i brevet/.test(e.innerText))?.innerText ?? '')
+  const radText = await p.evaluate(() => document.querySelector('[data-kontaktrad="brev"]')?.innerText ?? '')
   logg('brev: raden vid Skapa mitt brev', radText.includes(epostVantad), { radText, primarIBild: await iBild(p, /^Skapa mitt brev$/) })
 
   await klickaText(p, /^Skapa mitt brev$/)
@@ -214,6 +267,7 @@ async function brevFlode(p, epostVantad) {
   await bild(p, 'brev-steg6')
   const brevHtml = await p.evaluate(() => document.body.innerText)
   logg('brev: adressen i det genererade brevet', brevHtml.includes(epostVantad), { epostVantad })
+  if (franRum) return klartBrev(p)
 
   const pdfLofte = fangaPdf(p, '/api/letters/download')
   await klickaText(p, /^Ladda ner PDF$/)
@@ -221,7 +275,7 @@ async function brevFlode(p, epostVantad) {
   logg('brev: adressen i PDF:en', pdf.status === 200 && pdf.text.includes(epostVantad), { status: pdf.status, fil: pdf.fil })
   await vanta(800)
   await p.evaluate(() => {
-    const el = [...document.querySelectorAll('span')].find((e) => /^E-post i brevet/.test(e.innerText))
+    const el = document.querySelector('[data-kontaktrad="brev"]')
     el?.scrollIntoView({ block: 'center' })
   })
   await bild(p, 'brev-nedladdat')
@@ -236,6 +290,109 @@ async function brevFlode(p, epostVantad) {
     .order('created_at', { ascending: false })
     .limit(1)
   return brev?.[0]?.id ?? null
+}
+
+/** Steg 6: pappret, dörrarna, Spara, Klar och en bakåtgest ut. */
+async function klartBrev(p) {
+  const mobil = vy !== 'desktop'
+  // Pappret: vitt även i mörkt läge, mörk text.
+  await p.evaluate(() => document.querySelector('.dokument')?.scrollIntoView({ block: 'start' }))
+  await vanta(600)
+  const papper = await p.evaluate(() => {
+    const el = document.querySelector('.dokument')
+    if (!el) return null
+    const cs = getComputedStyle(el)
+    const text = el.querySelector('p') ?? el
+    return {
+      bakgrund: cs.backgroundColor,
+      text: getComputedStyle(text).color,
+      morkt: matchMedia('(prefers-color-scheme: dark)').matches,
+    }
+  })
+  await bild(p, 'steg6-papper')
+  const vitt = /rgb\(255, 255, 255\)/.test(papper?.bakgrund ?? '')
+  const ljus = (c) => {
+    const m = (c || '').match(/\d+/g)?.map(Number) ?? [255, 255, 255]
+    return (m[0] + m[1] + m[2]) / 3
+  }
+  logg('steg 6: pappret är vitt med mörk text', vitt && ljus(papper?.text) < 110, papper ?? {})
+
+  // Dörrarna: syns på mobil, och Spara brevet ligger ovanför dem.
+  const lage = await p.evaluate(() => {
+    const nav = document.querySelector('nav[aria-label="Huvudmeny"]')
+    const knapp = [...document.querySelectorAll('button')].find((b) => b.innerText.trim() === 'Spara brevet')
+    const nb = nav?.getBoundingClientRect()
+    const kb = knapp?.getBoundingClientRect()
+    return {
+      navSyns: !!nav && getComputedStyle(nav).display !== 'none' && nb.height > 0,
+      navTopp: nb ? Math.round(nb.top) : null,
+      knappTopp: kb ? Math.round(kb.top) : null,
+      knappBotten: kb ? Math.round(kb.bottom) : null,
+      vh: window.innerHeight,
+    }
+  })
+  await bild(p, 'steg6-dorrar')
+  if (mobil) {
+    logg('steg 6: dörrarna syns', lage.navSyns, lage)
+    logg('steg 6: Spara brevet ovanför dörrarna', lage.knappBotten !== null && lage.knappBotten <= lage.navTopp, lage)
+  } else {
+    logg('steg 6: desktop har sidomenyn, inga dörrar', !lage.navSyns, lage)
+  }
+
+  await klickaText(p, /^Spara brevet$/)
+  await p.waitForFunction(() => [...document.querySelectorAll('button')].some((b) => b.innerText.trim() === 'Klar'), { timeout: 30000 })
+  await vanta(2500)
+  const efterSpar = await p.evaluate(() => ({ url: location.pathname + location.search, djup: history.state?.flodesdjup ?? null }))
+  await bild(p, 'sparat')
+  logg('spara: historiken krympt till en post', efterSpar.djup === 0 && /steg=6/.test(efterSpar.url), efterSpar)
+
+  await klickaText(p, /^Klar$/)
+  await p.waitForFunction(() => /^\/dashboard\/mina-brev\/[^/]+/.test(location.pathname), { timeout: 30000 })
+  await vanta(1500)
+  const brevUrl = await sokvag(p)
+  await bild(p, 'mina-brev-brevet')
+  await p.goBack({ waitUntil: 'networkidle2' }).catch(() => {})
+  await vanta(1500)
+  const efterBakat = await sokvag(p)
+  await bild(p, 'en-bakatgest')
+  logg('klart brev: en bakåtgest lämnar till rummet', efterBakat === '/dashboard/mina-brev', { brevUrl, efterBakat })
+  return brevUrl.split('/').pop().split('?')[0]
+}
+
+/** Krysset i steg 2 ska gå till rummet man kom från. */
+async function krysset(p, rum, start, tot, namn, forbered) {
+  await ga(p, rum)
+  await rensaUtkast(p)
+  await ga(p, rum)
+  if (start.startsWith('router:')) {
+    // Rummet saknar egen länk till flödet: samma klientnavigering som en Link.
+    await p.evaluate((u) => window.next.router.push(u), start.slice(7))
+  } else {
+    await klickaText(p, /./, `a[href="${start}"]`)
+  }
+  await vantaSteg(p, 1, tot)
+  await forbered()
+  await bild(p, `${namn}-steg2`)
+  await klickaText(p, /^Stäng$/, 'button[aria-label="Stäng"]')
+  await p.waitForFunction((r) => location.pathname === r, { timeout: 20000 }, rum).catch(() => {})
+  await vanta(1200)
+  const dar = await sokvag(p)
+  await bild(p, `${namn}-efter-kryss`)
+  logg(`${namn}: krysset i steg 2 går till rummet`, dar === rum, { dar, rum })
+}
+
+async function flodesutgang(p) {
+  await loggaIn(p)
+  // (a) och (d): brevet från Personliga brev, bakåt mitt i, klart, en bakåtgest ut.
+  await brevFlode(p, konto.email, { franRum: true, bakatMitt: true })
+  // (b) krysset i brevet.
+  await krysset(p, '/dashboard/mina-brev', '/dashboard/skapa-brev', 6, 'brev-kryss', async () => {
+    await valjCvOchAnnons(p)
+  })
+  // (c) krysset i Bygg ditt CV, från CV-rummet.
+  await krysset(p, '/dashboard/profil/cv', 'router:/dashboard/skapa-cv', 7, 'cv-kryss', async () => {
+    await fortsatt(p, 2, 7)
+  })
 }
 
 async function cvMall(p, epostVantad, etikett) {
@@ -264,9 +421,9 @@ async function cvMall(p, epostVantad, etikett) {
 async function brevIgen(p, brevId, epostVantad) {
   if (!brevId) return logg('mina brev: inget sparat brev', false)
   await ga(p, `/dashboard/mina-brev/${brevId}`)
-  await vantaText(p, /E-post i brevet/)
+  await p.waitForSelector('[data-kontaktrad="brev"]', { timeout: 60000 })
   await p.evaluate(() => {
-    const el = [...document.querySelectorAll('span')].find((e) => /^E-post i brevet/.test(e.innerText))
+    const el = document.querySelector('[data-kontaktrad="brev"]')
     el?.scrollIntoView({ block: 'center' })
   })
   await bild(p, 'mina-brev-rad')
@@ -389,6 +546,8 @@ try {
   p.setDefaultNavigationTimeout(90000)
   await p.setViewport(VY[vy].viewport)
   await p.setUserAgent(VY[vy].ua)
+  // MORKT=1: mörkt läge, för brevets pappersyta (2026-10-11).
+  if (process.env.MORKT) await p.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }])
   await p.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS })
   p.on('console', (m) => {
     if (m.type() === 'error' && !/posthog|gtm|googletag|ERR_BLOCKED|Failed to load resource/i.test(m.text())) fel.push(m.text().slice(0, 200))
@@ -404,6 +563,8 @@ try {
   })
   if (floede === 'epost') await epostFlode(p)
   else if (floede === 'numerisk') await numeriskFlode(p)
+  else if (floede === 'brev') { await loggaIn(p); await brevFlode(p, konto.email) }
+  else if (floede === 'flodesutgang') await flodesutgang(p)
   else throw new Error('okänt flöde')
 } catch (e) {
   logg('avbrott', false, { fel: String(e?.message ?? e).slice(0, 300) })
