@@ -386,6 +386,14 @@
   position: relative;
   z-index: 1;
 }
+/* Toppradens menyer (konto, notiser, meddelanden) hänger ner över golvet.
+   Väggens innehåll är en egen stapling på z-index 1, så menyerna hamnade
+   bakom de lyfta korten (z-index 2) som går upp i väggens nederkant. Det
+   innehåll som bär toppraden lyfts över korten; det slutar ovanför väggens
+   bottenpadding, så inget av väggens innehåll täcker korten. */
+.vagg > *:has([data-topprad]) {
+  z-index: 40;
+}
 /* Primärknappen: koppar med mörk text, 6,3:1, exakt en per vy (beslut 5). */
 .knapp-primar {
   background: linear-gradient(180deg, #E8863B, var(--koppar) 60%, var(--koppar-djup));

@@ -6,6 +6,7 @@
 //
 //   node scripts/qa-tester-lyft-helhet.mjs --port 5262
 //   node scripts/qa-tester-lyft-helhet.mjs --knappar --port 5262  # knappkontrollen på 360 med kontona
+//   node scripts/qa-tester-lyft-helhet.mjs --meny --port 5262     # kontomenyn och notiserna överst
 //   node scripts/qa-tester-lyft-helhet.mjs --radera
 //
 // Tre roller (feedback_riktig_webblasartest): ny (inget gjort), nagra (några
@@ -483,8 +484,94 @@ async function knappar() {
   }
 }
 
+/**
+ * Kontomenyn och notismenyn ska ligga överst, ovanför väggens lyfta kort
+ * (ägarens grind 2026-10-11). Ett konto med ett gjort test och en oläst
+ * notis; menyn öppnas på varje sida och elementFromPoint över hela menyns
+ * yta ska träffa menyn själv.
+ */
+async function meny() {
+  const k = await skapa('meny', 'alla')
+  const { data: sess } = await sb
+    .from('logic_test_v4_sessions')
+    .insert({ user_id: k.userId, test_type: 'matrislogik', answers: [], score: 9, time_spent: 600, completed_at: new Date().toISOString() })
+    .select('id')
+    .single()
+  const { error: nErr } = await sb
+    .from('notifications')
+    .insert({ user_id: k.userId, type: 'qa', title: 'QA-notis', message: 'Kontroll av menyns stapling.', read: false })
+  if (nErr) console.log('notis ej skapad:', nErr.message)
+  const sidor = [
+    ['alla', '/dashboard/tester/alla'],
+    ['utveckling', '/dashboard/tester/alla?flik=utveckling'],
+    ['testsida', '/dashboard/tester/matrislogik-grund'],
+    ['resultat', `/dashboard/tester/matrislogik-grund/test/${sess.id}/results`],
+    ['hemvy', '/dashboard/tester'],
+    ['brev', '/dashboard/mina-brev'],
+    ['cv', '/dashboard/profil/cv'],
+  ]
+  const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox'] })
+  const ut = []
+  try {
+    for (const form of ['m360', 'desktop']) {
+      const { page, ctx, logg } = await nySida(browser, form, k.email)
+      for (const [namn, url] of sidor) {
+        await ga(page, url, '[data-topprad]')
+        for (const [vad, knapp, panel] of [
+          ['konto', '[data-topprad] button[aria-haspopup="menu"]', '[data-topprad] [role="menu"]'],
+          ['notiser', '[data-topprad] button[aria-label^="Notiser"]', '[data-topprad] button[aria-label^="Notiser"] + div'],
+        ]) {
+          const finns = await page.$(knapp)
+          if (!finns) {
+            ut.push({ form, sida: namn, meny: vad, saknas: true })
+            continue
+          }
+          await page.evaluate((s) => document.querySelector(s).click(), knapp)
+          await vanta(500)
+          const r = await page.evaluate((s) => {
+            const m = document.querySelector(s)
+            if (!m) return { oppen: false }
+            const b = m.getBoundingClientRect()
+            let traff = 0
+            let totalt = 0
+            const missar = []
+            for (let fx = 0.1; fx < 1; fx += 0.2) {
+              for (let fy = 0.1; fy < 1; fy += 0.2) {
+                const x = b.left + b.width * fx
+                const y = b.top + b.height * fy
+                if (y > innerHeight || x > innerWidth) continue
+                totalt++
+                const el = document.elementFromPoint(x, y)
+                if (el && m.contains(el)) traff++
+                else if (el) missar.push((el.closest('section,[data-lyft],[data-testkort]')?.getAttribute('aria-label') ?? el.tagName).slice(0, 40))
+              }
+            }
+            return { oppen: true, traff, totalt, missar: [...new Set(missar)] }
+          }, panel)
+          const rad = { form, sida: namn, meny: vad, ...r, overst: r.oppen && r.traff === r.totalt }
+          ut.push(rad)
+          console.log(JSON.stringify(rad))
+          await page.screenshot({ path: path.join(UT, `meny-${form}-${namn}-${vad}.png`) })
+          await page.keyboard.press('Escape')
+          await page.evaluate((s) => {
+            const m = document.querySelector(s)
+            if (m) document.querySelector('main')?.click()
+          }, panel)
+          await vanta(300)
+        }
+      }
+      ut.push({ form, konsol: logg.konsol, http: logg.http })
+      await ctx.close()
+    }
+  } finally {
+    await browser.close()
+    fs.writeFileSync(path.join(UT, 'meny.json'), JSON.stringify(ut, null, 2))
+  }
+}
+
 async function main() {
   if (process.argv.includes('--radera')) return radera()
+  if (process.argv.includes('--meny')) return meny()
   if (process.argv.includes('--knappar')) return knappar()
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox'] })
   const ut = []
