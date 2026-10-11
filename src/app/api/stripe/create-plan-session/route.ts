@@ -16,7 +16,7 @@ import {
   alreadySubscribedResponse,
   blocksAsDuplicate,
 } from '@/lib/stripe/guard-existing-subscription'
-import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
 import { samtyckeVidKop } from '@/components/pricing/paket-copy'
@@ -42,6 +42,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Okänt produktval' }, { status: 400 })
     }
     const selected = PLAN_BY_KEY[plan]
+
+    // Bara Jobbcoach Premium säljs (spec-rummen 17.3). De osålda paketen
+    // står kvar i PLANS för befintliga prenumeranter, men nya köp avvisas.
+    if (!selected.saljs) {
+      return NextResponse.json(
+        {
+          error: `${PLAN_BY_KEY[SALD_PLAN].name} är det vi säljer i dag. Välj det i stället.`,
+          saljs: false,
+          plan: SALD_PLAN,
+        },
+        { status: 400 }
+      )
+    }
 
     // Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
     // Undantaget från ångerrätten på fjorton dagar gäller bara om samtycket
@@ -106,7 +119,7 @@ export async function POST(request: NextRequest) {
       if (existing) {
         return NextResponse.json(
           {
-            error: 'Du har redan ett paket. Byt paket i stället för att teckna ett till.',
+            error: `Du har redan ${PLAN_BY_KEY[SALD_PLAN].name}.`,
             upgradeAvailable: true,
             upgradeUrl: '/api/stripe/create-upgrade-session',
             currentScope: existing.scope,

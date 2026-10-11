@@ -7,6 +7,7 @@
 // gratisnivåns definition och som fallback när spåret är okänt.
 
 import type { Track } from './program'
+import { saljbarPlan } from '@/lib/plans/plans'
 
 export const REQUIRED_STEPS = ['upload_cv'] as const
 
@@ -29,8 +30,14 @@ export const TRACK_CHOICE_PATH = '/dashboard/valj-spar'
  * redan namngett paket och pris går hit direkt, aldrig via produktvalet eller
  * spårvalet. Samtycket och Till betalning står på köpsteget.
  */
-export function kopstegHref(plan: string): string {
-  return `${TRACK_CHOICE_PATH}?paket=${encodeURIComponent(plan)}&steg=kop`
+export function kopstegHref(plan: string, plats?: string | null): string {
+  // Bara Jobbcoach Premium säljs (spec-rummen 17.3). Ett osålt paket i en
+  // gammal knapp eller länk leder ändå till det som säljs.
+  const p = saljbarPlan(plan)
+  // Platsen följer med till kassans metadata, så att köp kan räknas per
+  // betalväggsexponering (avsnitt 7, betalvagg_visad och subscription_paid).
+  const platsDel = plats ? `&plats=${encodeURIComponent(plats)}` : ''
+  return `${TRACK_CHOICE_PATH}?paket=${encodeURIComponent(p)}&steg=kop${platsDel}`
 }
 
 /**

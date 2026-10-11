@@ -87,6 +87,13 @@ export async function POST(request: NextRequest) {
     const requestedPlanKey = isPlanKey(planKey) ? planKey : priceIdToPlanKey(priceId)
     const requestedScope = requestedPlanKey ? PLAN_BY_KEY[requestedPlanKey].scope : null
 
+    // Bara Jobbcoach Premium säljs (spec-rummen 17.3): ett byte till ett
+    // osålt paket (sidbyte mellan spåren, Premium per vecka eller kvartal)
+    // avvisas. Uppgraderingen från ett spår till Premium går som förut.
+    if (!requestedPlanKey || !PLAN_BY_KEY[requestedPlanKey].saljs) {
+      return NextResponse.json({ error: 'Det paketet säljs inte längre.', saljs: false }, { status: 400 })
+    }
+
     console.log(`[CREATE UPGRADE SESSION] Creating upgrade session for user: ${user.id}`)
 
     // Get or create Stripe customer

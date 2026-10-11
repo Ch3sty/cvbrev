@@ -84,23 +84,17 @@ export type PlanKeyNamn =
 /**
  * Vilket paket betalväggen ska föreslå när en feature tar i taket.
  *
- * Två regler, i den ordningen. Har hon valt spåret Hela paketet föreslår vi alltid
- * Hela paketet: en Allt-köpare ska aldrig skickas tillbaka till ett spår.
- * Annars föreslår vi det spår som faktiskt innehåller funktionen, alltså
- * CV-paketet för CV-funktioner och Träningspaketet för testfunktioner. Funktioner
- * som bara Allt ger föreslår Hela paketet.
+ * Sedan 2026-10-11 säljs bara Jobbcoach Premium, 149 kr i månaden
+ * (spec-rummen 17.3), så svaret är alltid all_month, oavsett feature och
+ * spår. Parametrarna står kvar för att anroparna inte ska behöva ändras, och
+ * för den dag fler paket säljs igen.
  *
  * Ren funktion med flit: den anropas i renderingen av varje betalvägg, och
  * förslaget ska gå att testa utan en databas.
  */
 export function suggestPlan(
-  feature: Feature,
-  onboardingTrack?: Scope | null
+  _feature: Feature,
+  _onboardingTrack?: Scope | null
 ): PlanKeyNamn {
-  if (onboardingTrack === 'allt') return 'all_week'
-
-  const scopes = FEATURES[feature]
-  if (scopes.includes('cv')) return 'cv_week'
-  if (scopes.includes('tester')) return 'test_week'
-  return 'all_week'
+  return 'all_month'
 }
