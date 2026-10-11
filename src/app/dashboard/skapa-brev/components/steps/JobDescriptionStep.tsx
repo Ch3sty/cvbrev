@@ -9,6 +9,7 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
+import { kravIAnnonsen } from '@/lib/letters/kravIAnnonsen';
 
 interface JobDescriptionStepProps {
   jobDescription: string;
@@ -21,7 +22,6 @@ interface JobDescriptionStepProps {
   prefillJobTitle?: string | null;
 }
 
-const KEYWORD_REGEX = /\b(React|TypeScript|JavaScript|Python|Java|C\+\+|SQL|AWS|Azure|Docker|Kubernetes|Git|Agile|Scrum|Node|Angular|Vue|AI|ML|DevOps|Backend|Frontend|Fullstack|UX|UI|Figma|REST|GraphQL|Linux|CI\/CD)\b/gi;
 
 export default function JobDescriptionStep({
   jobDescription,
@@ -39,11 +39,8 @@ export default function JobDescriptionStep({
   // snabb inmatning (inklistring tecken för tecken, snabbskrivning, puppeteer)
   // räknade React därför femtio commits i rad med väntande arbete och kastade
   // fel #185, maximalt uppdateringsdjup.
-  const detectedKeywords = useMemo(() => {
-    if (jobDescription.length <= 50) return [];
-    const matches = jobDescription.match(KEYWORD_REGEX) || [];
-    return matches.filter((v, i, a) => a.indexOf(v) === i).slice(0, 8);
-  }, [jobDescription]);
+  // Samma lista som brevvyns träffar (src/lib/letters/kravIAnnonsen.ts).
+  const detectedKeywords = useMemo(() => kravIAnnonsen(jobDescription), [jobDescription]);
   const [hasMarkedDone, setHasMarkedDone] = useState(startCollapsed);
 
   // Markeras som klart första gången texten passerar 50 tecken.

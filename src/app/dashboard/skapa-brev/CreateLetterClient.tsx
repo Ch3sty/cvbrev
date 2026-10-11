@@ -850,7 +850,10 @@ export default function CreateLetterClient({
       if (isLetterSaved) {
         return {
           label: 'Klar',
-          onClick: () => router.push('/dashboard/mina-brev'),
+          // Brevet klart (spec-rummen våg 4, B1): brevvyn med bekräftelsen
+          // och träffarna på väggen. Utan id, som förut, listan.
+          onClick: () =>
+            router.push(letterData?.id ? `/dashboard/mina-brev/${letterData.id}?klart=1` : '/dashboard/mina-brev'),
           disabled: false,
         };
       }

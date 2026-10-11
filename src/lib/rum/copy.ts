@@ -388,5 +388,8 @@ export const BREV_RUM = {
   sparadLank: 'Öppna',
   sparaFel: 'Det gick inte att spara. Försök igen.',
   redanSparad: 'Brevet ligger redan i Sökta tjänster.',
+  sparar: 'Sparar',
+  laggTill: (krav: string) => `Lägg till ${krav}`,
+  laggTillMeta: 'Kravet står i annonsen men inte i brevet. Nämn det med ett exempel ur ditt CV.',
   gratis: 'Ett personligt brev om dagen ingår gratis. Nästa i morgon.',
 } as const
