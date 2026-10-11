@@ -12,6 +12,7 @@
 'use client'
 
 import Link from 'next/link'
+import { paketKort } from '@/lib/plans/plans'
 import { Mail, Info, HelpCircle, ArrowRight } from 'lucide-react'
 import { IkonMeddelanden, IkonHjalp, IkonSkold } from '@/components/illustrations/Ikoner'
 
@@ -47,7 +48,7 @@ function DashboardInfo() {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-ink-1">Konto och support</p>
             <p className="mt-0.5 text-meta text-ink-3">
-              Inloggning, betalning eller ditt paket. Har du ett paket får du svar först.
+              Inloggning, betalning eller din prenumeration. Har du {paketKort()} får du svar först.
             </p>
             <a href="mailto:support@jobbcoach.ai" className={LINK}>
               support@jobbcoach.ai
@@ -118,7 +119,7 @@ export default function KontaktInfoPublik({ variant = 'public' }: KontaktInfoPro
           </div>
 
           <p className="text-slate-600 mb-3 text-xs sm:text-sm">
-            Problem med inloggning, betalning eller ditt paket? Kontakta:
+            Problem med inloggning, betalning eller din prenumeration? Kontakta:
           </p>
 
           <a
@@ -132,7 +133,7 @@ export default function KontaktInfoPublik({ variant = 'public' }: KontaktInfoPro
           <div className="pt-3 border-t border-blue-200/50">
             <p className="text-xs text-slate-600 flex items-center gap-1">
               <Info className="w-3 h-3 flex-shrink-0" />
-              Har du ett paket hanteras ditt ärende först
+              Har du {paketKort()} får du svar först
             </p>
           </div>
         </div>

@@ -165,7 +165,7 @@ export default function KontaktFormPublik({ variant = 'public', onSubmitSuccess 
               value={formData.subject}
               onChange={handleInputChange}
               className={s.field}
-              placeholder="Till exempel en fråga om ditt paket"
+              placeholder="En fråga om din prenumeration"
             />
           </div>
 

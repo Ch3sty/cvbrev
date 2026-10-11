@@ -2,8 +2,9 @@
  * Fil: src/components/kontakt/KontaktForm.tsx
  *
  * Beskrivning:
- * Återanvändbart kontaktformulär för den publika sidan och dashboarden.
- * Hanterar state, validering och submission.
+ * Kontaktformuläret i inloggat läge (/dashboard/kontakt).
+ * Hanterar state, validering och submission. Skickar till /api/contact,
+ * som mejlar supporten; Tack visas bara när routen svarat 2xx.
  *
  * Inloggat (rum-neutral): papper, fält i papper-2, kopparknappen,
  * bekräftelse och fel som rader utan rörelse. Den publika sidan har sin
@@ -20,6 +21,8 @@ interface KontaktFormProps {
   variant?: 'dashboard'
   onSubmitSuccess?: () => void
 }
+
+const FEL_STANDARD = 'Vi nådde inte fram. Fälten står kvar, tryck Skicka igen, eller maila support@jobbcoach.ai.'
 
 const DASHBOARD = {
   wrap: 'rounded-xl border border-kant bg-papper p-4 sm:p-5',
@@ -52,27 +55,41 @@ export default function KontaktForm({ onSubmitSuccess }: KontaktFormProps) {
     setSubmitStatus('idle')
     setErrorMessage('')
 
+    // Enkel validering före nätverket; routen kontrollerar samma sak.
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setSubmitStatus('error')
+      setErrorMessage('Fyll i alla fält.')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      console.log("Skickar formulär:", formData)
-      // Simulera API-anrop
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      // Enkel validering
-      if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-        throw new Error("Alla fält måste fyllas i.")
+      // /api/contact mejlar supporten via Resend. Tack visas bara på 2xx;
+      // allt annat, nätverksfel inräknat, är ett fel och fälten står kvar.
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      if (!response.ok) {
+        let meddelande = ''
+        try {
+          const json = await response.json()
+          meddelande = typeof json?.message === 'string' ? json.message : ''
+        } catch {
+          meddelande = ''
+        }
+        throw new Error(meddelande || FEL_STANDARD)
       }
-
-      // -- HÄR SKICKAS DATAN TILL DIN BACKEND --
-      // const response = await fetch('/api/contact', { method: 'POST', ... });
-      // if (!response.ok) throw new Error('Något gick fel.');
 
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
       onSubmitSuccess?.()
-    } catch (error: any) {
-      console.error("Fel vid skickande:", error)
+    } catch (error: unknown) {
       setSubmitStatus('error')
-      setErrorMessage(error.message || 'Ett oväntat fel inträffade. Försök igen senare.')
+      // Ett nätverksfel (TypeError från fetch) får standardtexten, inte webbläsarens.
+      const text = error instanceof Error && !(error instanceof TypeError) ? error.message : ''
+      setErrorMessage(text || FEL_STANDARD)
     } finally {
       setIsSubmitting(false)
     }
@@ -134,7 +151,7 @@ export default function KontaktForm({ onSubmitSuccess }: KontaktFormProps) {
               value={formData.subject}
               onChange={handleInputChange}
               className={s.field}
-              placeholder="Till exempel en fråga om ditt paket"
+              placeholder="En fråga om din prenumeration"
             />
           </div>
 
