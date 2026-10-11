@@ -7,10 +7,17 @@
 // - Id-lås: finns filen redan måste varje incheckat id få exakt samma
 //   innehåll, annars avbryts körningen. Nya recept läggs till sist.
 // - Inget rutnät får förekomma två gånger i någon bank.
+//
+// Kandidatläget (genereraKandidater) skriver en kandidatfil under
+// src/lib/logicTestV7/kandidater/ som testansvarig granskar. Inget id-lås
+// (filen får skrivas om tills den är godkänd), men inget rutnät får finnas
+// i de sex bankerna eller i någon annan kandidatfil, och inom partiet får
+// två frågor inte ha samma mönster med andra former (mjukNyckel).
 // =============================================================================
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { bygg, key } from './generera.mjs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
+import path from 'node:path';
+import { bygg, key, mjukNyckel } from './generera.mjs';
 import { NIVAER } from './recept.mjs';
 
 const las = (p) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null);
@@ -51,3 +58,45 @@ export function genereraNiva(niva) {
   console.log('  ' + Object.entries(perFamilj).map(([f, n]) => `${f} ${n}`).join(', '));
   return ny;
 }
+
+export const KANDIDATER = 'src/lib/logicTestV7/kandidater';
+
+/** Alla rutnät i de sex bankerna och i kandidatfilerna utom `ut`. */
+export function upptagnaRutnat(ut) {
+  const upptagna = new Set();
+  for (const n of Object.values(NIVAER)) for (const f of [n.original, n.ut]) for (const q of las(f) ?? []) upptagna.add(key(q.grid));
+  if (existsSync(KANDIDATER)) {
+    for (const f of readdirSync(KANDIDATER).filter((x) => x.endsWith('.json'))) {
+      const fil = path.posix.join(KANDIDATER, f);
+      if (path.resolve(fil) === path.resolve(ut)) continue;
+      for (const q of las(fil) ?? []) upptagna.add(key(q.grid));
+    }
+  }
+  return upptagna;
+}
+
+export function genereraKandidater(recept, ut, { upptagna = upptagnaRutnat(ut) } = {}) {
+  const mjuka = new Set();
+  const ny = [];
+  const fel = [];
+  const forsok = {};
+  for (const rc of recept) {
+    try {
+      const q = bygg(rc, upptagna, { mjuka });
+      forsok[q.id] = q.forsok;
+      ny.push(q);
+    } catch (e) {
+      fel.push(e.message);
+    }
+  }
+  if (fel.length) {
+    console.error(`✗ kandidater: ${fel.length} problem\n` + fel.map((x) => '  - ' + x).join('\n'));
+    process.exitCode = 1;
+    return null;
+  }
+  mkdirSync(path.dirname(ut), { recursive: true });
+  writeFileSync(ut, JSON.stringify(ny, null, 2) + '\n');
+  return { fragor: ny, forsok };
+}
+
+export { mjukNyckel };

@@ -16,6 +16,7 @@ import { stable, tile as T, sektor, ray as RAY, lattice as LAT, LAT_MEDURS, mod 
 import { kontrollera } from './kontroll.mjs';
 import { misstagFor, urvalsText } from './misstag.mjs';
 import { tolka, familjFor } from './tolka.mjs';
+import { analysera, plusFel } from './distraktorer.mjs';
 
 export const key = (c) => stable(c);
 const sortNum = (a) => [...a].sort((x, y) => x - y);
@@ -611,17 +612,222 @@ export function antalSumma(r, p) {
 }
 
 // =============================================================================
-// Bygg en färdig fråga ur ett recept.
+// Bandet "svår plus" (beställningen "svarare frågor", 1.2). Svårigheten
+// kommer av regler som är kopplade över hela rutnätet (latinsk kvadrat,
+// diagonal, schackmönster, överlagring med vridning), aldrig av fler
+// sekvenser i läsordning. Distraktorerna kommer i ordningen "fel i en regel"
+// först, så att urvalet i bygg() tar nära missar.
 // =============================================================================
-const BYGGARE = { pilVridning, stralVridning, tileRotation, sektorRotation, latticeMonster, latticeVandring, orbitalVandring, pilMedByte, orbitalMedByte, latticeTvaVandrare, balansRegel, latinAntal, latinForm, latinFlera, overlagring, spegling, antalSekvens, antalSumma };
+
+const BAS_NAMN = { circle: 'cirkel', square: 'kvadrat', triangle: 'triangel', diamond: 'romb' };
+const SYM_NAMN = { plus: 'plus', minus: 'minus', dot: 'prick', cross: 'kryss', ring: 'ring' };
+const DIAG = (rr, cc) => rr === cc;
+const SCHACK = (rr, cc) => (rr + cc) % 2 === 0;
+
+// Två latinska kvadrater med nio olika kombinationer (ortogonala).
+function ortogonaltPar(r) {
+  const A = valj(r, LATIN);
+  const B = blanda(r, LATIN.filter((L) => new Set([0, 1, 2].flatMap((rr) => [0, 1, 2].map((cc) => `${A[rr][cc]}${L[rr][cc]}`))).size === 9))[0];
+  return [A, B];
+}
+const diagOlika = (L) => new Set([L[0][0], L[1][1], L[2][2]]).size >= 2;
+
+/** Kandidater med fel i en dimension först, sedan i två. Aldrig en kopia av en synlig ruta. */
+function felKandidater(grid, facit, dims) {
+  const synliga = new Set(grid.flat().filter(Boolean).map(key));
+  const ett = []; const tva = [];
+  dims.forEach((d, i) => {
+    for (const v of d.varden) if (v !== facit[d.falt]) ett.push({ ...facit, [d.falt]: v });
+    dims.slice(i + 1).forEach((e) => {
+      for (const v of d.varden) for (const w of e.varden) if (v !== facit[d.falt] && w !== facit[e.falt]) tva.push({ ...facit, [d.falt]: v, [e.falt]: w });
+    });
+  });
+  return { ett: ett.filter((c) => !synliga.has(key(c))), tva: tva.filter((c) => !synliga.has(key(c))) };
+}
 
 /**
- * recept: { id, byggare, p, difficulty }
- * Returnerar frågan (med family, misstag, difficulty) eller kastar med skälen.
+ * Ordningen på kandidaterna: fel i en regel med värden ur rutnätet, sedan ett
+ * värde utanför rutnätet för varje regel som annars inte bryts av någon nära
+ * miss (när alla värden ur rutnätet ger kopior av synliga rutor), sedan fel i
+ * två regler, sist övriga värden utanför. Ett värde som inte finns i
+ * rutnätet är lättare att utesluta, så det används bara när det behövs.
  */
-export function bygg(recept, upptagna = new Set()) {
+function ordna(facit, ett, utanfor, tva, falt) {
+  const bruten = new Set(ett.flatMap((c) => falt.filter((f) => c[f] !== facit[f])));
+  const forst = [];
+  for (const f of falt) {
+    if (bruten.has(f)) continue;
+    const u = utanfor.find((c) => c[f] !== facit[f]);
+    if (u) forst.push(u);
+  }
+  return [...ett, ...forst, ...tva, ...utanfor.filter((c) => !forst.includes(c))];
+}
+
+const ALLA_BASER = ['circle', 'square', 'triangle', 'diamond'];
+const ALLA_SYMBOLER = ['plus', 'minus', 'dot', 'cross', 'ring'];
+const utanforVarden = (alla, anvanda) => alla.filter((x) => !anvanda.includes(x));
+
+// P1 och P2.
+//
+// P2: grundform och symbol i var sin latinsk kvadrat (ortogonala, nio
+// kombinationer), fyllningen i schackmönster.
+//
+// P1: grundform i latinsk kvadrat, symbolen växlar i schackmönster,
+// fyllningen grå på diagonalen. Beställningen ville ha två latinska
+// kvadrater och fyllning på diagonalen, men två ortogonala latinska
+// kvadrater av ordning 3 har alltid en som är konstant på huvuddiagonalen
+// (skriv kvadraterna som a·rad + b·kolumn mod 3; ortogonala par har en med
+// a = b och en med a = -b, och den senare är konstant på diagonalen). Då är
+// fyllningen en omdöpning av den kvadraten och oberoendekravet fäller
+// frågan. Symbolen tar därför schackmönstret.
+//
+// Distraktorer: fel i en regel med värden ur rutnätet, sedan fel i en regel
+// med en form eller symbol som inte finns i rutnätet (de är aldrig kopior
+// av en synlig ruta), sedan fel i två regler.
+export function latinTrippelStack(r, p) {
+  const baser = p.baser;
+  const diag = p.fyll === 'diagonal';
+  const symboler = diag ? p.symboler.slice(0, 2) : p.symboler;
+  let A; let B;
+  if (diag) { A = valj(r, LATIN); if (!diagOlika(A)) return null; } else [A, B] = ortogonaltPar(r);
+  const PA = blanda(r, [0, 1, 2]); const PB = blanda(r, [0, 1, 2]);
+  const s0 = valj(r, [0, 1]);
+  const start = valj(r, ['none', 'gray']);
+  const andra = start === 'none' ? 'gray' : 'none';
+  const sym = (rr, cc) => (diag ? symboler[SCHACK(rr, cc) ? s0 : 1 - s0] : symboler[PB[B[rr][cc]]]);
+  const fyll = (rr, cc) => (diag ? (DIAG(rr, cc) ? 'gray' : 'none') : (SCHACK(rr, cc) ? start : andra));
+  const { grid, facit } = rutnat((rr, cc) => stack(baser[PA[A[rr][cc]]], sym(rr, cc), fyll(rr, cc)));
+  const { ett, tva } = felKandidater(grid, facit, [
+    { falt: 'base', varden: baser },
+    { falt: 'symbol', varden: symboler },
+    { falt: 'baseFill', varden: ['none', 'gray'] },
+  ]);
+  const utanfor = [
+    ...utanforVarden(ALLA_BASER, baser).map((v) => ({ ...facit, base: v })),
+    ...utanforVarden(ALLA_SYMBOLER, symboler).map((v) => ({ ...facit, symbol: v })),
+  ];
+  const b = baser.map((x) => `en ${BAS_NAMN[x]}`);
+  let rule; let title;
+  if (diag) {
+    rule = `Varje rad och varje kolumn har exakt ${b[0]}, ${b[1]} och ${b[2]}. Symbolen växlar mellan ${SYM_NAMN[symboler[0]]} och ${SYM_NAMN[symboler[1]]} som ett schackmönster: varannan ruta i läsordning. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är grå, de andra ofyllda.`;
+    title = 'Form, symbol och en grå diagonal';
+  } else {
+    const s = symboler.map((x) => `en med ${SYM_NAMN[x]}`);
+    rule = `Varje rad och varje kolumn har exakt ${b[0]}, ${b[1]} och ${b[2]}, och exakt ${s[0]}, ${s[1]} och ${s[2]}. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster: varannan ruta i läsordning.`;
+    title = 'Form, symbol och schackmönster';
+  }
+  return { family: 'latin-flera', title, rule, grid, facit, kandidater: ordna(facit, ett, utanfor, tva, ['base', 'symbol', 'baseFill']) };
+}
+
+// P3: pilens riktning i latinsk kvadrat, längden i schackmönster, spetsen på diagonalen.
+export function latinTrippelPil(r, p) {
+  const vinklar = p.vinklar.map((x) => x * 45);
+  const A = valj(r, LATIN);
+  if (!diagOlika(A)) return null;
+  const PA = blanda(r, [0, 1, 2]);
+  const l0 = valj(r, ['long', 'short']);
+  const l1 = l0 === 'long' ? 'short' : 'long';
+  const diagSpets = p.spetsDiag; const ovrSpets = diagSpets === 'open' ? 'filled' : 'open';
+  const { grid, facit } = rutnat((rr, cc) => vec(vinklar[PA[A[rr][cc]]], SCHACK(rr, cc) ? l0 : l1, DIAG(rr, cc) ? diagSpets : ovrSpets));
+  const { ett, tva } = felKandidater(grid, facit, [
+    { falt: 'angle', varden: vinklar },
+    { falt: 'length', varden: ['long', 'short'] },
+    { falt: 'head', varden: ['open', 'filled'] },
+  ]);
+  // Riktningar som inte finns i rutnätet: fel i en regel, men lättare att se.
+  const utanfor = [0, 45, 90, 135, 180, 225, 270, 315].filter((v) => !vinklar.includes(v)).map((v) => ({ ...facit, angle: v }));
+  const spets = diagSpets === 'open' ? 'Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.' : 'Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.';
+  const rule = `Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. ${spets}`;
+  return { family: 'latin-flera', title: 'Riktning, längd och spets', rule, grid, facit, kandidater: ordna(facit, ett, utanfor, tva, ['angle', 'length', 'head']) };
+}
+
+// P4 (sektorhjul) och P5 (streck från mitten): överlagring och vridning.
+const VRID = (k) => `${(k <= 4 ? k : 8 - k) * 45} grader ${k <= 4 ? 'medurs' : 'moturs'}`;
+const PLUS_OPS = { ...OPF, 'diff-ba': (a, b) => new Set([...b].filter((x) => !a.has(x))) };
+export function overlagringVriden(r, p) {
+  const { format, op, axel, k } = p;
+  const mk = format === 'ray' ? (s) => rays([...s]) : (s) => hjul([...s]);
+  const monster = (format === 'ray' ? STRALMONSTER : SEKTORMONSTER).filter((m) => m.length >= 2 && m.length <= 3);
+  const maxC = format === 'ray' ? 4 : 5;
+  const lagen = (s) => new Set([0, 1, 2, 3, 4, 5, 6, 7].map((j) => key(sortNum([...s].map((x) => mod(x + j, 8)))))).size;
+  const slump = () => { const m = valj(r, monster); const j = valj(r, [0, 1, 2, 3, 4, 5, 6, 7]); return new Set(m.map((x) => mod(x + j, 8))); };
+  const vrid = (s, j) => new Set([...s].map((x) => mod(Number(x) + j, 8)));
+  const lika = (s, t) => key(sortNum([...s])) === key(sortNum([...t]));
+  const trip = [];
+  for (let i = 0; i < 3; i++) {
+    let a; let b; let c0; let ok = false; let tries = 0;
+    do {
+      a = slump(); b = slump(); c0 = OPF[op](a, b); tries++;
+      ok = !lika(a, b) && c0.size >= 1 && c0.size <= maxC && !lika(c0, a) && !lika(c0, b) && lagen(c0) === 8;
+    } while (!ok && tries < 100);
+    if (!ok) return null;
+    trip.push([a, b, vrid(c0, k)]);
+  }
+  const g = axel === 'kolumn' ? trip.map((t) => t.map(mk)) : [0, 1, 2].map((rr) => trip.map((t) => mk(t[rr])));
+  const facit = g[2][2]; g[2][2] = null;
+  const [A, B] = trip[2];
+  const C = OPF[op](A, B);
+  const F = vrid(C, k);
+  const tom = [0, 1, 2, 3, 4, 5, 6, 7].filter((x) => !F.has(x));
+  const kand = [mk(C), mk(vrid(C, -k)), mk(vrid(C, k + 4))];
+  for (const o of Object.keys(PLUS_OPS)) if (o !== op) kand.push(mk(vrid(PLUS_OPS[o](A, B), k)));
+  kand.push(mk(vrid(A, k)), mk(vrid(B, k)));
+  for (const x of tom) kand.push(mk(new Set([...F, x])));
+  for (const x of F) kand.push(mk(new Set([...F].filter((y) => y !== x))));
+  const [t, fa, fb] = axel === 'kolumn' ? ['Den tredje rutan i varje rad', 'den första', 'den andra'] : ['Den nedersta rutan i varje kolumn', 'den översta', 'den mittersta'];
+  const vad = op === 'xor'
+    ? `visar det som finns i bara en av ${fa} och ${fb} (det gemensamma försvinner)`
+    : `visar det som finns i ${fa} men inte i ${fb}`;
+  const rule = `${t} ${vad}, vridet ${VRID(k)}.`;
+  const title = op === 'xor' ? 'Bara det som skiljer, vridet' : 'Det som blir kvar, vridet';
+  return { family: 'overlagring', title, rule, grid: g, facit, kandidater: kand };
+}
+
+/**
+ * Mjuk dubblettnyckel för bandet "svår plus": mekanismen och varje
+ * dimensions mönster över rutnätet (facit isatt), med värdena ersatta av
+ * ordningstal efter första förekomst, plus mängden värden dimensionen tar.
+ * Två frågor med samma nyckel är samma fråga med värdena omkastade.
+ *
+ * Mängden värden är med för att latinska kvadrater av ordning 3 bara har
+ * två mönster upp till omdöpning (a·rad + b·kolumn med a = b eller a = -b).
+ * Utan den skulle en mekanism med en latinsk kvadrat rymma högst två frågor.
+ * `strukturNyckel` är nyckeln utan värdemängderna; generatorn skriver hur
+ * många olika sådana partiet har per mekanism, som upplysning.
+ */
+export function strukturNyckel(q) { return mjukNyckel(q, false); }
+export function mjukNyckel(q, medVarden = true) {
+  const full = q.grid.map((rad) => rad.slice());
+  full[2][2] = q.options[q.correctAnswer];
+  const t = tolka(q);
+  if (!t.ok) return null;
+  const delar = Object.keys(t.regel).map((id) => {
+    const ord = new Map();
+    const monster = full.flat().map((c) => { const v = key(t.dimsVy(c).find((d) => d.id === id).varde); if (!ord.has(v)) ord.set(v, ord.size); return ord.get(v); }).join('');
+    return medVarden ? `${monster}{${[...ord.keys()].sort().join(',')}}` : monster;
+  });
+  return `${q.mekanism ?? ''}:${delar.join('/')}`;
+}
+
+// =============================================================================
+// Bygg en färdig fråga ur ett recept.
+// =============================================================================
+const BYGGARE = { pilVridning, stralVridning, tileRotation, sektorRotation, latticeMonster, latticeVandring, orbitalVandring, pilMedByte, orbitalMedByte, latticeTvaVandrare, balansRegel, latinAntal, latinForm, latinFlera, overlagring, spegling, antalSekvens, antalSumma, latinTrippelStack, latinTrippelPil, overlagringVriden };
+
+/**
+ * recept: { id, byggare, p, difficulty } och för bandet "svår plus" även
+ * { band: 'plus', mekanism, p_prior }.
+ * Returnerar frågan (med family, misstag, difficulty) eller kastar med skälen.
+ *
+ * För plus-recept tas tomma distraktorer, tomma figurer och kopior av
+ * synliga rutor bort före urvalet, och urvalet ska klara distraktorkraven
+ * (distraktorer.mjs) innan kontrollen körs. Taket är 200 försök. `mjuka`
+ * är en mängd mjuka dubblettnycklar (mjukNyckel) som inte får återkomma.
+ */
+export function bygg(recept, upptagna = new Set(), { mjuka = null } = {}) {
   const fel = [];
-  for (let forsok = 0; forsok < 60; forsok++) {
+  const plus = recept.band === 'plus';
+  for (let forsok = 0; forsok < (plus ? 200 : 60); forsok++) {
     const r = rng(`${recept.id}#${forsok}`);
     const b = BYGGARE[recept.byggare](r, recept.p);
     if (!b) continue;
@@ -648,8 +854,17 @@ export function bygg(recept, upptagna = new Set()) {
     const prov = { id: recept.id, title: b.title, rule: b.rule, grid: b.grid, options: [b.facit, ...kand], correctAnswer: 0 };
     const t = tolka(prov);
     if (!t.ok || t.tvetydig.length) { fel.push(`försök ${forsok}: ${t.ok ? 'tvetydig' : 'ingen regel'}`); continue; }
-    const m = (() => { try { return misstagFor(prov, t); } catch (e) { return null; } })();
+    let m = (() => { try { return misstagFor(prov, t); } catch (e) { return null; } })();
     if (!m) { fel.push(`försök ${forsok}: misstag kastade`); continue; }
+    if (plus) {
+      // bara alternativ som stämmer på minst en regel och inte är en synlig ruta
+      // i byggarens ordning, som har nära missar först
+      const an = analysera(prov, t);
+      const rader = kand.map((c, i) => ({ c, m: m[i + 1], a: an.alternativ[i + 1] }))
+        .filter((x) => !x.a.tomt && !x.a.tomFigur && x.a.kopia === null);
+      kand.splice(0, kand.length, ...rader.map((x) => x.c));
+      m = [m[0], ...rader.map((x) => x.m)];
+    }
     // välj fem med olika texter först, i byggarens ordning
     const valda = []; const texter = new Set();
     kand.forEach((c, i) => { const x = urvalsText(m[i + 1]); if (x && !texter.has(x) && valda.length < 5) { valda.push(c); texter.add(x); } });
@@ -659,12 +874,21 @@ export function bygg(recept, upptagna = new Set()) {
     const pos = Math.floor(r() * 6);
     const options = [...valda]; options.splice(pos, 0, b.facit);
     const q = { id: recept.id, title: b.title, rule: b.rule, difficulty: recept.difficulty, family: b.family, grid: b.grid, options, correctAnswer: pos };
+    if (plus) Object.assign(q, { band: 'plus', mekanism: recept.mekanism, p_prior: recept.p_prior });
     const sig = key(q.grid);
     if (upptagna.has(sig)) { fel.push(`försök ${forsok}: samma rutnät som en annan fråga`); continue; }
+    const mjuk = mjuka ? mjukNyckel(q) : null;
+    if (mjuk && mjuka.has(mjuk)) { fel.push(`försök ${forsok}: samma mönster som en annan fråga i partiet`); continue; }
+    if (plus) {
+      const df = plusFel(analysera(q));
+      if (df.length) { fel.push(`försök ${forsok}: ${df.join('; ')}`); continue; }
+    }
     const kf = kontrollera(q, { strikt: true, familj: b.family });
     if (kf.length) { fel.push(`försök ${forsok}: ${kf.join('; ')}`); continue; }
     q.misstag = misstagFor(q);
     upptagna.add(sig);
+    if (mjuk) mjuka.add(mjuk);
+    Object.defineProperty(q, 'forsok', { value: forsok, enumerable: false });
     return q;
   }
   throw new Error(`${recept.id} gick inte att bygga:\n  ${fel.slice(-6).join('\n  ')}`);

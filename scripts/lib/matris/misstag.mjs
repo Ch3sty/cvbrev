@@ -154,7 +154,7 @@ function textPeriodisk(q, t, R, F, regel) {
     if (lika(F, seq[6])) return `${stor(dim.namn)} har ändrats åt fel håll.`;
     return null;
   }
-  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.', basfyll: 'Fyllningen har inte växlat mellan ofylld och grå.' };
+  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.', basfyll: 'Fyllningen har inte växlat mellan ofylld och grå.', symbol: 'Symbolen har inte växlat.' };
   if (lika(F, seq[7])) return regel.info.p === 2 ? (VAXLAR[dim.id] ?? `${stor(dim.namn)} har inte bytt.`) : `${stor(dim.namn)} har inte ändrats sista steget.`;
   if (!seq.some((v) => lika(v, F))) {
     const n = vardeNamn(cellMed(q, t, dim.id, F), dim.id);
@@ -284,7 +284,8 @@ function textOverlagringVriden(q, t, R, F, regel) {
   for (const o of Object.keys(OPS)) {
     if (o === op) continue;
     const D = opv(o);
-    if (lika(D, C) || !lika(F, rot(D, k))) continue;
+    // blir operationen bara den ena rutan säger punkt 5 det tydligare
+    if (lika(D, C) || lika(D, A) || lika(D, B) || !lika(F, rot(D, k))) continue;
     const x = textOverlagring(q, t, C, D, { ...regel, regel: 'overlagring', info: { op, axel } });
     if (x) return `Vridningen stämmer, men ${liten(x)}`;
   }

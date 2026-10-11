@@ -124,6 +124,10 @@ for (const q of bank) {
   if (q.p_prior !== undefined && (typeof q.p_prior !== 'number' || !(q.p_prior >= 0.05 && q.p_prior <= 0.95))) {
     errors.push(`${tag} p_prior ska vara ett tal i [0,05, 0,95] (är ${q.p_prior})`);
   }
+  // Bandet "svår plus" (beställningen "svarare frågor", 1.1): band bara
+  // "plus", mekanism en sträng. Båda frivilliga.
+  if (q.band !== undefined && q.band !== 'plus') errors.push(`${tag} band får bara vara "plus" (är ${q.band})`);
+  if (q.mekanism !== undefined && (typeof q.mekanism !== 'string' || !q.mekanism)) errors.push(`${tag} mekanism ska vara en sträng`);
   if (!Array.isArray(q.misstag) || q.misstag.length !== q.options?.length) {
     errors.push(`${tag} misstag ska ha en post per alternativ`);
   } else {
