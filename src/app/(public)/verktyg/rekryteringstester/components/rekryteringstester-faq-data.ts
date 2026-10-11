@@ -50,7 +50,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du en nivåmätning med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du en nivåkoll med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

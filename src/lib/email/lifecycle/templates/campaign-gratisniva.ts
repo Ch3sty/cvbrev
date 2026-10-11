@@ -46,7 +46,7 @@ export const gratisnivaAndras: LifecycleEmail = {
             'CV-mallar: tre fria mallar, resten förhandsvisas i full storlek',
             'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
             `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketKort()}`,
-            'Rekryteringstester: en nivåmätning med genomgång och ett första träningspass',
+            'Rekryteringstester: en nivåkoll med genomgång och ett första träningspass',
             'Jobbcoachen: tio meddelanden per konto',
           ]) +
           '<p style="margin:12px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#9A3412;">Allt du redan skapat ligger kvar och går att läsa och kopiera som vanligt.</p>',

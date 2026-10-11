@@ -63,7 +63,7 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, ett personligt brev och en nivåmätning och ett första träningspass i testerna. Vill du ha mer ingår allt i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, ett personligt brev, och i testerna en nivåkoll och ett första träningspass. Vill du ha mer ingår allt i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
 ] as const
 

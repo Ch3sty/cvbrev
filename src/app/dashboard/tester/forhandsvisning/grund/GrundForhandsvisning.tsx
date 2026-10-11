@@ -23,7 +23,7 @@ const BILDER: { namn: string; K: ComponentType<IlluProvbladProps> }[] = [
   { namn: 'Verbalt', K: IlluVerbalt },
   { namn: 'Numeriskt', K: IlluNumeriskt },
   { namn: 'Personlighet', K: IlluPersonlighet },
-  { namn: 'Provläge', K: IlluProvlage },
+  { namn: 'Övningsprov', K: IlluProvlage },
   { namn: 'Tomt, Din utveckling', K: IlluTomtUtveckling },
 ]
 

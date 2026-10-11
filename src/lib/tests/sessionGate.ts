@@ -18,6 +18,7 @@ import { suggestPlan, type Feature, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
 import { TEST_CONFIGS, examLimitMs } from '@/app/dashboard/tester/testConfig';
 import { arTraningsTestTyp, featureForTraningsTyp } from '@/lib/traning/tillgang';
+import { arOvningsprovTestTyp } from '@/lib/ovningsprov/typer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -53,6 +54,8 @@ export function featureForTestType(testType: string): Feature | null {
   // feature; mätning och pass avgörs av src/lib/traning/tillgang.ts med
   // gratisnivån (src/lib/traning/gratisniva.ts).
   if (arTraningsTestTyp(testType)) return featureForTraningsTyp(testType);
+  // Övningsprovet mot klockan i verbalt och numeriskt (Testerna v2 1.9).
+  if (arOvningsprovTestTyp(testType)) return 'test_exam_mode';
   const nyckel = ALIAS[testType] ?? testType;
   return FEATURE_BY_TEST_TYPE[nyckel] ?? null;
 }

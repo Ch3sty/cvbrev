@@ -18,7 +18,7 @@
  * Ingen rättning, ingen slumpning och ingen frågelogik finns här. Filen läser
  * bara färdiga sessionsrader och räknar exakt som hookarna räknade.
  */
-import { getTestConfig } from './testConfig';
+import { getTestConfig, totalForSession } from './testConfig';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { BigFiveScores, PersonalityTestType } from '@/lib/personalityTest/types';
 import type { Scope } from '@/lib/access/features';
@@ -58,6 +58,9 @@ export const PROV_TEST_TYPE_BY_ENDPOINT: Record<string, string> = {
   '/api/verbalTestProv/session': 'verbal-resonemang-prov',
   '/api/numericalTestProv/session': 'numerical-reasoning-prov',
 };
+
+/** Nivåkollens sessioner (testmotorns test_type för mätning och ny nivåkoll). */
+const NIVAKOLL_TEST_TYPE = 'matrislogik-matning';
 
 export interface TestAttempt {
   score: number;
@@ -105,6 +108,10 @@ export interface TesterHubData {
    * eller vid fel. Nyckeln skickas, klienten slår upp PROVFORMAT[nyckel].
    */
   provformat: FormatNyckel;
+  /** Planens leverantör och variant för provraden, null utan plan eller vid fel. */
+  plan: { leverantor: string | null; variant: string | null } | null;
+  /** Har kontot gjort Nivåkollen? Styr raden längst ner i Alla tester. */
+  harNivakoll: boolean;
   isPremium: boolean;
   /**
    * Sann när kontot har featuren test_history, alltså Träningspaketet eller Premium.
@@ -144,6 +151,7 @@ interface SessionRow {
   score: number | null;
   time_spent: number | null;
   completed_at: string | null;
+  meta?: unknown;
 }
 
 /** Speglar totalQuestionsFor i use-all-test-stats.ts. */
@@ -155,15 +163,18 @@ function totalQuestionsFor(slug: string): number {
  * Identisk med summarizeSessions i src/hooks/use-all-test-stats.ts.
  * Ändras räkningen där ska den ändras här också.
  */
-function summarizeSessions(sessions: SessionRow[], totalQuestions: number): PerTestStats {
+function summarizeSessions(sessions: SessionRow[], totalQuestions: number, slug?: string): PerTestStats {
   const completed = sessions.filter((s) => s.completed_at);
   if (completed.length === 0) return EMPTY_STATS;
 
-  const bestScore = Math.max(...completed.map((s) => s.score ?? 0));
-  const bestPercentage = Math.max(
-    0,
-    Math.min(100, Math.round((bestScore / totalQuestions) * 100))
-  );
+  // Varje session räknas mot sitt eget antal (meta.antal), så att de kortade
+  // testen (2026-10-11) inte gör ett gammalt 50 av 60 till 100 procent.
+  const totalFor = (s: SessionRow) => (slug ? totalForSession(slug, s.meta) : totalQuestions) || totalQuestions;
+  const procent = (s: SessionRow) =>
+    Math.max(0, Math.min(100, Math.round(((s.score ?? 0) / totalFor(s)) * 100)));
+  const bast = completed.reduce((a, b) => (procent(b) > procent(a) ? b : a));
+  const bestScore = bast.score ?? 0;
+  const bestPercentage = procent(bast);
   const totalTimeSeconds = completed.reduce((acc, s) => acc + (s.time_spent ?? 0), 0);
 
   const sortedByDate = [...completed].sort(
@@ -176,7 +187,7 @@ function summarizeSessions(sessions: SessionRow[], totalQuestions: number): PerT
       const score = s.score ?? 0;
       return {
         score,
-        percentage: Math.max(0, Math.min(100, Math.round((score / totalQuestions) * 100))),
+        percentage: procent(s),
         timeSpent: s.time_spent ?? 0,
         completedAt: s.completed_at!,
       };
@@ -248,6 +259,8 @@ export function emptyHubData(
     personality: { grund: EMPTY_PERSONALITY, avancerad: EMPTY_PERSONALITY },
     provBestPercent: {},
     provformat: 'eget',
+    plan: null,
+    harNivakoll: false,
     isPremium,
     hasHistory,
     scope,
@@ -283,12 +296,12 @@ export async function getTesterHubData(
   scope: Scope | null = null
 ): Promise<TesterHubData> {
   const provTypes = Object.values(PROV_TEST_TYPE_BY_ENDPOINT);
-  const allCognitiveTypes = [...Object.values(COGNITIVE_TEST_TYPE), ...provTypes];
+  const allCognitiveTypes = [...Object.values(COGNITIVE_TEST_TYPE), ...provTypes, NIVAKOLL_TEST_TYPE];
 
   const [cognitiveRes, personalityRes, planRes] = await Promise.all([
     supabase
       .from('logic_test_v4_sessions')
-      .select('id, test_type, score, time_spent, completed_at')
+      .select('id, test_type, score, time_spent, completed_at, meta')
       .eq('user_id', userId)
       .in('test_type', allCognitiveTypes)
       .order('created_at', { ascending: false }),
@@ -338,7 +351,8 @@ export async function getTesterHubData(
     (acc, slug) => {
       acc[slug] = summarizeSessions(
         byType.get(COGNITIVE_TEST_TYPE[slug]) ?? [],
-        totalQuestionsFor(slug)
+        totalQuestionsFor(slug),
+        slug
       );
       return acc;
     },
@@ -408,6 +422,8 @@ export async function getTesterHubData(
     },
     provBestPercent,
     provformat,
+    plan: plan ? { leverantor: plan.leverantor ?? null, variant: plan.variant ?? null } : null,
+    harNivakoll: (byType.get(NIVAKOLL_TEST_TYPE) ?? []).some((s) => s.completed_at),
     isPremium,
     hasHistory,
     scope,

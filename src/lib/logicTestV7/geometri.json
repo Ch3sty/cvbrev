@@ -1,0 +1,117 @@
+{
+  "_om": "Renderarens mått och färger (renderers.v7.tsx) och gränserna för G1 till G12 (docs/design/tester-v2-2026-10-11/granskning-figurer.md). Läses av renderaren via geometri.ts och av scripts/v7-geometri-check.mjs direkt, så att ritning och kontroll inte kan glida isär. Enhet: viewBox 0 till 100 per cell.",
+  "regler": {
+    "inre": [14, 86],
+    "ram": [10, 90],
+    "minGap": 4,
+    "minAndpunktTillCentrum": 6,
+    "minLagen": 4,
+    "minPeriodFigurserie": 6
+  },
+  "skala360": {
+    "rutnat": 0.84,
+    "alternativ": 0.56
+  },
+  "g5": {
+    "minFigurRutnatPx": 56,
+    "minFigurAlternativPx": 48,
+    "minKonturPx": 2,
+    "minAvstandPx": 3,
+    "minPrickPx": 6,
+    "minLangdskillnadPx": 10
+  },
+  "g10": {
+    "information": 4.5,
+    "referensram": 3
+  },
+  "farger": {
+    "bakgrund": "#FFFFFF",
+    "stroke": "#020617",
+    "fillBlack": "#020617",
+    "fillGray": "#CBD5E1",
+    "vit": "#FFFFFF",
+    "orbitalBana": "#64748B"
+  },
+  "kontur": {
+    "sw": 3,
+    "swThin": 2
+  },
+  "glyph": {
+    "lambda": "M 50 18 L 30 82 L 42 82 L 50 50 L 58 82 L 70 82 L 50 18 Z",
+    "sigma": "M 78 22 L 22 22 L 50 50 L 22 78 L 78 78 L 78 68 L 38 68 L 58 50 L 38 32 L 78 32 Z",
+    "omega": "M 22 78 L 32 78 L 32 60 Q 32 28 50 28 Q 68 28 68 60 L 68 78 L 78 78 L 78 60 Q 78 18 50 18 Q 22 18 22 60 Z",
+    "theta": { "cx": 50, "cy": 50, "rx": 22, "ry": 32, "linje": [32, 50, 68, 50] },
+    "phi": { "cx": 50, "cy": 46, "rx": 16, "ry": 18, "linje": [50, 18, 50, 82] },
+    "pi": "M 22 26 L 78 26 L 78 36 L 70 36 L 70 82 L 60 82 L 60 36 L 40 36 L 40 82 L 30 82 L 30 36 L 22 36 Z"
+  },
+  "orbital": {
+    "banaR": 26,
+    "banaSw": 2,
+    "banaStreck": "2 3",
+    "mittR": 6,
+    "satellitR": 5
+  },
+  "stack": {
+    "cirkelR": 28,
+    "kvadrat": { "x": 22, "y": 22, "bredd": 56, "rx": 3 },
+    "triangel": [[50, 18], [80, 78], [20, 78]],
+    "romb": [[50, 18], [82, 50], [50, 82], [18, 50]],
+    "plus": [[42, 50, 58, 50], [50, 42, 50, 58]],
+    "minus": [[42, 50, 58, 50]],
+    "kryss": [[43, 43, 57, 57], [43, 57, 57, 43]],
+    "prickR": 4,
+    "ringR": 6
+  },
+  "lattice": {
+    "ruta": 30,
+    "gap": 4,
+    "start": 18,
+    "rx": 2,
+    "prickR": 4,
+    "kryssInsats": 7
+  },
+  "ray": {
+    "mittR": 4,
+    "langd": 28
+  },
+  "tally": {
+    "langd": 44,
+    "gap": 7,
+    "diagonalUtstick": 4
+  },
+  "ring": {
+    "radier": { "1": [28], "2": [28, 18], "3": [30, 22, 14] },
+    "skiljelinje": 2
+  },
+  "vector": {
+    "lang": { "spets": 22, "svans": 78 },
+    "kort": { "spets": 30, "svans": 70 },
+    "huvud": 9
+  },
+  "poly": {
+    "radie": 30
+  },
+  "tile": {
+    "ruta": 18,
+    "gap": 2,
+    "start": 21,
+    "rx": 1.5
+  },
+  "sectorwheel": {
+    "radie": 32
+  },
+  "dotsorbit": {
+    "banaR": 30,
+    "prickR": 6
+  },
+  "balanceline": {
+    "linjeY": 50,
+    "linjeX": [12, 88],
+    "xs": [27, 50, 73],
+    "ovanY": 31,
+    "underY": 69,
+    "halvbredd": 8,
+    "avdelareX": [38.5, 61.5],
+    "avdelareY": [47, 53]
+  }
+}

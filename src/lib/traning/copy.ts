@@ -12,7 +12,7 @@ export const TRANING_COPY = {
     nyFamilj: 'nytt mönster',
     pass: 'nästa pass',
     grundpass: 'nästa grundpass',
-    ommatning: 'mät din nivå igen, 8 minuter',
+    ommatning: 'ny nivåkoll, 8 minuter',
     general: 'övningsprov',
     prov: 'provet. Bara tre uppvärmningsfrågor.',
     vila: (veckodag: string) => `${versal(veckodag)} är vilodag.`,
@@ -25,7 +25,7 @@ export const TRANING_COPY = {
     blandat: 'Blandade mönster',
   },
   milstolpar: {
-    forsta_matningen: 'Första nivåmätningen',
+    forsta_matningen: 'Första nivåkollen',
     forsta_veckan: 'Första veckan',
     nivan_upp: 'Nivån upp',
     generalrepetitionen: 'Övningsprovet',

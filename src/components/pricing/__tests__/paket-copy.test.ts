@@ -139,12 +139,12 @@ describe('prissidan', () => {
   })
 
   it('gratisnivån lovar bara det som är sant i båda gaterna (spec-rummen 23.3, 23.7 b)', () => {
-    expect(FREE_HIGHLIGHTS).toContain('En nivåmätning i testerna med genomgång, och ett första träningspass')
+    expect(FREE_HIGHLIGHTS).toContain('En nivåkoll i testerna med genomgång, och ett första träningspass')
     expect(GRATIS_RAD).toBe(
-      '3 mallar, en CV-analys, ett personligt brev och en nivåmätning i testerna ingår utan att betala.'
+      '3 mallar, en CV-analys, ett personligt brev och en nivåkoll i testerna ingår utan att betala.'
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
-    const matning = tester.rows.find((r) => r.label === 'Nivåmätning och första passet')!
+    const matning = tester.rows.find((r) => r.label === 'Nivåkollen och första passet')!
     expect(matning.sub).toBe('matrislogik, verbalt, numeriskt, personlighet')
     expect(matning.free.text).toBe('En gång, med genomgång')
     expect(matning.premium.text).toBe('Pass varje dag, utan tak')
@@ -153,7 +153,7 @@ describe('prissidan', () => {
     expect(sist.label).toBe('Extrapass och övningsprov')
     expect(sist.free.ton).toBe('nej')
     expect(sist.premium.text).toBe('Ingår')
-    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och testernas nivåmätning fungerar')
+    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och testernas nivåkoll fungerar')
     const texter = [
       ...FREE_HIGHLIGHTS,
       GRATIS_RAD,

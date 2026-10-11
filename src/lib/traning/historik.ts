@@ -61,6 +61,12 @@ export interface TraningsMeta {
    */
   upprepade: string[];
   /**
+   * Kalibreringsfrågan (riktlinjer-tester-v2 2.4): en fråga med färre än 30
+   * svar som står i passet som alla andra men inte räknas i nivån, tempot
+   * eller familjerna. Saknas i sessioner utan en.
+   */
+  kalibrering?: string | null;
+  /**
    * Bara den första mätningen: smakprovets svar som räknas in (spec 14.5).
    * De spelas upp före mätningens egna svar i det adaptiva urvalet.
    */

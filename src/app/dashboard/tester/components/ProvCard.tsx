@@ -1,29 +1,30 @@
 'use client';
 
 /**
- * Provraden sist på logikkortet (skiss Provbladet, version 3): symbolen för
- * provläget, en rad om vad det är och en rad om formatet, under en hårlinje.
- * "Träna ovan, pröva här."
+ * Provraden sist på testkortet (skiss Testerna v2, skiss 1, riktlinjerna 1.5
+ * och 5.3): provsymbolen, rad 1 "Övningsprov mot klockan", rad 2 formatet ur
+ * planens leverantör och, när tabellen har en, anmärkningen under. Höger pil
+ * eller lås. Inget tal på raden: resultatet bor på kurvan.
  *
- * Logikgruppens prov är generalrepetitionen i planens format (spec-rummen
- * 19.6), och raden säger formatet i ord ur PROVRAD (copy-premium avsnitt 5).
- * Provläget ingår i Premium: på gratisnivån är raden dämpad med lås och
- * trycket öppnar betalväggen.
+ * Övningsprovet ingår i Premium på alla tre testtyper. Låst rad är dämpad men
+ * läsbar, formatet står kvar i klartext, för det är det som säljer.
  */
 
 import Link from 'next/link';
 import { IkonChev, IkonLas } from '@/components/illustrations/RumSymboler';
-import { PROVRAD } from '../prov/prov-copy';
+import { PROVRAD_TITEL } from '@/lib/ovningsprov/format';
 import SymProv from './SymProv';
 
 interface Props {
-  /** Startsidan för provet: generalrepetitionen eller provets testsida. */
+  /** Startarket för övningsprovet. */
   href: string;
-  /** Rad 2, färdig mening ur PROVRAD.rad2 eller PROVRAD.rad2Format. */
+  /** Rad 2: "Samma format som Matrigma: cirka 35 uppgifter på 40 minuter." */
   rad2: string;
-  /** Skärmläsarens text för den låsta raden, ur PROVRAD.aria eller PROVRAD.ariaFormat. */
+  /** Anmärkningen under rad 2, eller null. */
+  anm?: string | null;
+  /** Skärmläsarens text för hela raden. */
   aria: string;
-  /** Sann när provläget inte ingår: raden är dämpad och öppnar betalväggen. */
+  /** Sann när övningsprovet inte ingår: raden är dämpad och öppnar betalväggen. */
   locked?: boolean;
   onLocked?: () => void;
 }
@@ -31,27 +32,33 @@ interface Props {
 const RAD =
   'mt-3 flex min-h-14 w-full items-center gap-3 border-t border-kant pt-3 text-left no-underline';
 
-export default function ProvCard({ href, rad2, aria, locked, onLocked }: Props) {
+export default function ProvCard({ href, rad2, anm, aria, locked, onLocked }: Props) {
+  const text = (
+    <span className="min-w-0 flex-1">
+      <b className={`block text-sm leading-[19px] ${locked ? 'font-medium text-ink-3' : 'font-semibold text-ink-1'}`}>
+        {PROVRAD_TITEL}
+      </b>
+      <span className="block text-meta text-ink-3">{rad2}</span>
+      {anm ? <span className="mt-0.5 block text-[12px] leading-4 text-ink-3">{anm}</span> : null}
+    </span>
+  );
+
+  // Låst: raden öppnar startarket, vars betalvägg säger formatet och datumet
+  // (riktlinjerna 1.7). Exponeringen mäts där med kalla 'provrad' (1.8).
   if (locked) {
     return (
-      <button type="button" onClick={onLocked} aria-label={aria} className={RAD} data-provrad="last">
+      <Link href={`${href}?fran=provrad`} aria-label={aria} className={RAD} data-provrad="last" onClick={onLocked}>
         <SymProv size={36} className="shrink-0 text-ink-3" />
-        <span className="min-w-0 flex-1">
-          <b className="block text-sm font-semibold leading-[19px] text-ink-3">{PROVRAD.titelLast}</b>
-          <span className="block text-meta text-ink-3">{rad2}</span>
-        </span>
+        {text}
         <IkonLas size={20} className="shrink-0 text-ink-3" />
-      </button>
+      </Link>
     );
   }
 
   return (
-    <Link href={href} className={RAD} data-provrad="oppen">
+    <Link href={href} aria-label={aria} className={RAD} data-provrad="oppen">
       <SymProv size={36} className="shrink-0 text-ton-ink" />
-      <span className="min-w-0 flex-1">
-        <b className="block text-sm font-semibold leading-[19px] text-ink-1">{PROVRAD.titelOppen}</b>
-        <span className="block text-meta text-ink-3">{rad2}</span>
-      </span>
+      {text}
       <IkonChev size={20} className="shrink-0 text-ink-3" />
     </Link>
   );

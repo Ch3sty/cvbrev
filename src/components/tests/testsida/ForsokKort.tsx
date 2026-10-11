@@ -11,7 +11,7 @@
 
 import Link from 'next/link'
 import { IkonChev } from '@/components/illustrations/RumSymboler'
-import { testPaths } from '@/app/dashboard/tester/testConfig'
+import { testPaths, totalForSession } from '@/app/dashboard/tester/testConfig'
 import { TESTSIDA } from '@/lib/tester/copy'
 import { minSek } from '@/lib/tester/resultat'
 
@@ -20,6 +20,8 @@ export interface ForsokRad {
   score: number | null
   time_spent: number | null
   completed_at: string | null
+  /** meta.antal: sessionens antal frågor (testConfig.totalForSession). */
+  meta?: unknown
 }
 
 export interface ForsokKortProps {
@@ -41,7 +43,7 @@ function datum(iso: string | null): string {
 }
 
 export default function ForsokKort({ slug, forsok, totalt, className }: ForsokKortProps) {
-  const pct = (s: ForsokRad) => Math.min(100, Math.round(((s.score ?? 0) / totalt) * 100))
+  const pct = (s: ForsokRad) => Math.min(100, Math.round(((s.score ?? 0) / (totalForSession(slug, s.meta) || totalt)) * 100))
   const serie = forsok.slice(0, SERIE).reverse()
   const n = serie.length
   const punkter = serie.map((s, i) => ({

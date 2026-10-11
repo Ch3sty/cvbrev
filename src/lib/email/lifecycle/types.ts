@@ -36,6 +36,11 @@ export interface RenderedEmail {
   subject: string;
   preheader: string;
   html: string;
+  /**
+   * Tidpunkten mejlet ska landa (ISO). Runnern skickar den till Resend som
+   * scheduledAt; ligger den redan passerad går mejlet direkt.
+   */
+  skickaVid?: string;
 }
 
 export interface LifecycleEmail {

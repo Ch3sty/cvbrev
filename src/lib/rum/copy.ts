@@ -371,7 +371,7 @@ export const KORS = {
   dagarTill: (dagar: number, till: string) =>
     dagar === 0 ? `I dag: ${till}.` : dagar === 1 ? `I morgon: ${till}.` : `${dagar} dagar till ${till}.`,
   aldrigMattFraga: 'Har du ett rekryteringstest på gång?',
-  aldrigMattTitel: 'Mät din nivå, 8 minuter.',
+  aldrigMattTitel: 'Kolla din nivå, 8 minuter.',
   aldrigMattText: 'Gratis. Sedan ett pass om dagen fram till provet, i samma format som leverantören.',
   lank: 'Till Rekryteringstester',
   /** Typen i nivåraden ("i figurer och mönster"). */

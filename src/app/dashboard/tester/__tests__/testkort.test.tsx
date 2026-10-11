@@ -49,11 +49,16 @@ describe('testkortets nivåsegment (skiss version 3)', () => {
     expect(container.textContent).not.toContain('·')
     // talet förklaras under rutnätet när något är gjort
     expect(container.textContent).toContain('Bästa resultat per nivå')
-    // inte gjord: minuterna och "inte gjord"
+    // inte gjord: minuterna och vad nivån gör, aldrig "lätt"
     const ny = container.querySelectorAll('[data-niva="ny"]')
-    expect(ny.length).toBeGreaterThan(0)
+    expect(ny.length).toBe(2)
     expect(ny[0].textContent).toMatch(/\d+ min/)
-    expect(ny[0].textContent).toContain('inte gjord')
+    expect(ny[0].textContent).toContain('två regler')
+    expect(ny[1].textContent).toContain('tre regler')
+    expect(container.textContent).not.toMatch(/lätt/i)
+    // grund sitter (93 procent): Nästa på avancerad, bara där
+    expect(container.querySelectorAll('[data-nasta]').length).toBe(1)
+    expect(ny[0].getAttribute('data-nasta')).toBe('ja')
   })
 
   it('låsta nivåer har lås och "Premium" och är knappar', () => {
@@ -70,7 +75,7 @@ describe('testkortets nivåsegment (skiss version 3)', () => {
     expect(container.textContent).not.toContain('Bästa resultat per nivå')
   })
 
-  it('logiken har tre nivåsegment och provraden, verbalt fyra segment och ingen provrad', () => {
+  it('alla tre kognitiva kort har tre nivåsegment och provraden (Testerna v2, skiss 1)', () => {
     const data = emptyHubData(true, true, 'allt')
     const logikKort = render(
       <HjalpProvider dold={null} forsta={false}>
@@ -85,8 +90,10 @@ describe('testkortets nivåsegment (skiss version 3)', () => {
         <TestKategori group={verbal} perTest={data.perTest} scope="allt" />
       </HjalpProvider>,
     ).container
-    expect(verbalKort.querySelectorAll('[data-niva]').length).toBe(4)
-    expect(verbalKort.querySelectorAll('[data-provrad]').length).toBe(0)
+    expect(verbalKort.querySelectorAll('[data-niva]').length).toBe(3)
+    expect(verbalKort.querySelectorAll('[data-provrad]').length).toBe(1)
+    expect(verbalKort.textContent).toContain('Vårt format: 32 påståenden på 20 minuter.')
+    expect(verbalKort.textContent).not.toContain('Prov ')
   })
 
   it('har en i-knapp per kort och rubriken som fråga', () => {

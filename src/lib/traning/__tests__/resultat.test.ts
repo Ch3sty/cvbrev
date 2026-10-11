@@ -104,7 +104,7 @@ describe('P4: passet klart, 10 oktober', () => {
 
   it('"I morgon" byts mot veckodagen före vilan (lördagsexemplet)', () => {
     expect(r.status).toBe('Fem dagar i rad. Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
-    expect(r.mening).toContain('Nivåmätningen tisdag flyttar den mer')
+    expect(r.mening).toContain('Nivåkollen tisdag flyttar den mer')
     // 19.2 fråga 4: jämförelsen med förra gången i mönstret.
     expect(r.mening).toMatch(/^Vrider sig och byter utseende: fem av sex rätt i dag, mot två av tre förra gången. /)
   })
@@ -161,10 +161,10 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.skala.aria).not.toMatch(/[Ss]ikte/)
     expect(r.planRubrik).toBe('Planen fram till 24 oktober')
     expect(r.plan.map((p) => p.titel)).toEqual([
-      'I dag: nivåmätningen',
+      'I dag: Nivåkollen',
       'I dag: ett grundpass',
       '7 okt och varje dag: passet på din nivå',
-      '13 och 20 okt: mät din nivå igen',
+      '13 och 20 okt: ny nivåkoll',
       '22 och 23 okt: övningsprov',
       '24 okt: provdagen',
     ])
@@ -209,7 +209,7 @@ describe('O1: veckans ommätning', () => {
     expect(r.skala).toMatchObject({ nu: 5.8, fran: 5.0, franEtikett: '6 okt 5' })
     expect(r.tal.map((t) => t.varde)).toEqual(['10 av 12', '+0,8', '1 av 12'])
     expect(r.tal[1].etikett).toBe('på en vecka')
-    expect(r.status.startsWith('Nästa nivåmätning tisdag 20 oktober.')).toBe(true)
+    expect(r.status.startsWith('Nästa nivåkoll tisdag 20 oktober.')).toBe(true)
     expect(r.milstolpe?.namn).toBe('Första veckan')
   })
   it('utan milstolpe: Var du tappar nu med "mot 6 okt" (20.2 fråga 8)', () => {

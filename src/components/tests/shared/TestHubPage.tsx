@@ -34,7 +34,7 @@ import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
-import { testPaths, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
+import { testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
 import { IlluMatris, IlluNumeriskt, IlluProvlage, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
@@ -198,7 +198,9 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
   const tak: QuotaLock | null =
     quotaLock ?? (kvotAnvand ? { feature: config.quotaFeature, nextResetAt: nextMidnightISO() } : null)
 
-  const bast = sessions.reduce<ForsokRad | null>((b, s) => (!b || (s.score ?? 0) > (b.score ?? 0) ? s : b), null)
+  // Bäst räknat i andel, mot varje sessions eget antal (de kortade testen 2026-10-11).
+  const andel = (s: ForsokRad) => (s.score ?? 0) / (totalForSession(config.slug, s.meta) || config.totalQuestions)
+  const bast = sessions.reduce<ForsokRad | null>((b, s) => (!b || andel(s) > andel(b) ? s : b), null)
   const bastPoang = bast?.score ?? 0
   const harForsok = sessions.length > 0
 
@@ -285,7 +287,7 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
             </div>
           ) : harForsok && bast ? (
             <div className="grid items-start gap-4 sm:grid-cols-2" data-testsida-resultat>
-              <BastaKort ratt={bastPoang} totalt={config.totalQuestions} href={testPaths.results(config.slug, bast.id)} />
+              <BastaKort ratt={bastPoang} totalt={totalForSession(config.slug, bast.meta)} href={testPaths.results(config.slug, bast.id)} />
               <ForsokKort slug={config.slug} forsok={sessions} totalt={config.totalQuestions} />
             </div>
           ) : null}

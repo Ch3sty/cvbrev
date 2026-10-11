@@ -123,7 +123,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'B8',
     grupp: 'B',
     rubrik: 'Övningsprovet: vad är skillnaden mot ett pass?',
-    text: 'I passen får du förklaring efter varje fråga och kan ta den tid du behöver. I övningsprovet (det vi förr kallade provläget) går klockan, du får inga förklaringar under tiden och provet lämnas in när tiden är ute, precis som hos en rekryterare. Logikprovet är 18 uppgifter på 25 minuter, det verbala 48 på 40 minuter och det numeriska 36 på 40 minuter.',
+    text: 'I passen får du förklaring efter varje fråga och kan ta den tid du behöver. I övningsprovet mot klockan går tiden, du får inga förklaringar under tiden och provet lämnas in när tiden är ute, precis som hos en rekryterare. Formatet följer leverantören du angett, annars vårt eget, och det står på provraden under varje test.',
   },
   B9: {
     id: 'B9',
@@ -142,7 +142,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'C2',
     grupp: 'C',
     rubrik: 'Vad är nivån 1 till 10?',
-    text: 'Nivån är vårt mått på hur svåra uppgifter du klarar, oavsett vilket test du gjort. En fråga som de flesta klarar ligger lågt på skalan, en fråga som få klarar ligger högt, och din nivå är där du klarar ungefär hälften. Vi mäter den med tolv frågor som anpassar sig efter dina svar. Sedan flyttar varje pass den högst ett halvt steg åt gången, så att en dålig dag inte raderar en bra vecka.',
+    text: 'Nivån är vårt mått på hur svåra uppgifter du klarar, oavsett vilket test du gjort. En fråga som de flesta klarar ligger lågt på skalan, en fråga som få klarar ligger högt, och din nivå är där du klarar ungefär hälften. Nivåkollen tar fram den med tolv frågor som anpassar sig efter dina svar. Sedan flyttar varje pass den högst ett halvt steg åt gången, så att en dålig dag inte raderar en bra vecka. En fråga i varje pass är ny och räknas inte i nivån. Så håller vi svårigheten rätt.',
   },
   C3: {
     id: 'C3',

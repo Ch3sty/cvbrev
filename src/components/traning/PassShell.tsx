@@ -52,6 +52,10 @@ export interface PassShellProps {
   banner?: ReactNode
   /** Byts nyckeln (ny fråga) rullas mitten till toppen. */
   nyckel?: string
+  /** Övningsprovet: klockan i toppradens högra hörn i stället för räknaren. */
+  hoger?: ReactNode
+  /** Övningsprovet: segmentstapeln under toppraden i stället för tidsraden. */
+  underTopp?: ReactNode
   children: ReactNode
 }
 
@@ -123,6 +127,8 @@ export default function PassShell({
   fot,
   banner,
   nyckel,
+  hoger,
+  underTopp,
   children,
 }: PassShellProps) {
   const footerRef = useRef<HTMLElement | null>(null)
@@ -148,14 +154,16 @@ export default function PassShell({
             <span className="block truncate text-sm font-semibold leading-5 text-ink-1">{titel}</span>
             <span className="block truncate text-xs font-medium leading-4 text-ink-3">{undertitel}</span>
           </p>
-          {fraga != null && antal != null ? (
+          {hoger ?? null}
+          {!hoger && fraga != null && antal != null ? (
             <span className="flex-shrink-0 pr-2 text-[13px] tabular-nums text-ink-3" aria-label={`Fråga ${fraga} av ${antal}`}>
               {fraga} / {antal}
             </span>
           ) : null}
         </div>
       </header>
-      {tid ? (
+      {underTopp ? <div className="flex-shrink-0">{underTopp}</div> : null}
+      {tid && !underTopp ? (
         <div className="flex-shrink-0">
           <Tidsrad sekunder={tid.sekunder} budget={tid.budget} />
         </div>

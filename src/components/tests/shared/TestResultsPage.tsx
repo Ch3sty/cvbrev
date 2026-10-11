@@ -31,7 +31,7 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { KIND_LABEL, LEVEL_LABEL, TEST_CONFIGS, testPaths, type TestConfig, type TestLevel } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, LEVEL_LABEL, TEST_CONFIGS, testPaths, totalForSession, type TestConfig, type TestLevel } from '@/app/dashboard/tester/testConfig'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature, type Scope } from '@/lib/access/features'
 import { logUserActivity } from '@/lib/activity-logger'
@@ -65,6 +65,8 @@ interface SessionData {
   completed_at: string | null
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answers?: any
+  /** meta.antal: sessionens antal frågor (testConfig.totalForSession). */
+  meta?: unknown
   /** Matrislogikens genomgång, byggd på servern. */
   genomgang?: GenomgangsFraga[] | null
 }
@@ -237,7 +239,7 @@ export default function TestResultsPage({
     )
   }
 
-  const total = config.totalQuestions
+  const total = totalForSession(config.slug, session.meta)
   const score = session.score ?? 0
   const pct = Math.min(100, Math.round((score / total) * 100))
   const timeSpent = session.time_spent ?? 0

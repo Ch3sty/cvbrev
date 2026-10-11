@@ -223,7 +223,7 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Mätningen och första passet är gratis med kontot. Resten ingår i ${PREMIUM}.`,
+      under: `Nivåkollen och första passet är gratis med kontot. Resten ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
@@ -231,7 +231,7 @@ export const STEG3 = {
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,
-      gratis: ['En nivåmätning i testerna med genomgång, och ett första träningspass', 'Personlighetstestet med 50 påståenden'],
+      gratis: ['En nivåkoll i testerna med genomgång, och ett första träningspass', 'Personlighetstestet med 50 påståenden'],
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),

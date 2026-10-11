@@ -6,6 +6,8 @@ import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { paketKort } from '@/lib/plans/plans';
+// meta.antal: sessionens antal frågor, så att procenten räknas rätt när testet kortas (testConfig.totalForSession).
+import { TOTAL_QUESTIONS as ANTAL } from '@/lib/numericalTestExpert/selectPassages';
 
 const TEST_TYPE = 'numerical-reasoning-expert';
 const QUOTA_MESSAGE =
@@ -44,7 +46,7 @@ export async function POST() {
 
     const { data: session, error: createError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
-      .insert({ user_id: user.id, test_type: TEST_TYPE, answers: [] })
+      .insert({ user_id: user.id, test_type: TEST_TYPE, answers: [], meta: { antal: ANTAL } })
       .select()
       .single();
 

@@ -7,7 +7,7 @@ import type { Question } from './types.v2';
 
 export const POOL = questionBank as Question[];
 
-export const PASSAGES_PER_SESSION = 15;
+export const PASSAGES_PER_SESSION = 10; // Kortat 2026-10-11 (riktlinjer-tester-v2 2.5).
 export const STATEMENTS_PER_PASSAGE = 4;
 export const TOTAL_STATEMENTS = PASSAGES_PER_SESSION * STATEMENTS_PER_PASSAGE;
 

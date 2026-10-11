@@ -158,7 +158,7 @@ export default async function AllaTesterPage({
   }));
 
   const gjortNagot =
-    data.aggregate.hasAnyData || data.personality.grund.hasProfile || data.personality.avancerad.hasProfile;
+    data.aggregate.hasAnyData || data.harNivakoll || data.personality.grund.hasProfile || data.personality.avancerad.hasProfile;
   // Hjälpen och "Så går det till" (skiss Provbladet, avsnitt 1 och 4) är
   // öppna så länge inget test är gjort. traning_sedd_at sätts bara av hemvyn
   // efter mätningen och mäter inte det vi vill veta (testansvarig

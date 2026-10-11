@@ -6,7 +6,7 @@ import { getAllPassages } from './validator';
 import type { Passage } from './types';
 import { blandaPassagernasAlternativ } from '@/lib/numericalTest/blandaAlternativ';
 
-export const PASSAGES_PER_SESSION = 8;
+export const PASSAGES_PER_SESSION = 5; // Kortat 2026-10-11 (riktlinjer-tester-v2 2.5).
 export const QUESTIONS_PER_PASSAGE = 4;
 export const TOTAL_QUESTIONS = PASSAGES_PER_SESSION * QUESTIONS_PER_PASSAGE;
 

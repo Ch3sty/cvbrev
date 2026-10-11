@@ -76,8 +76,9 @@ import {
   type NastaFraga,
 } from './passgenerator';
 import { byggPlan, type PlanDag } from './plan';
+import { placeraKalibrering, valjKalibrering } from './kalibrering';
 import { raknaSerie, type Serie } from './serie';
-import { fragaEfterProvet } from './testplan';
+import { arPassTid, fragaEfterProvet, type PassTid } from './testplan';
 import type { FragaStatistik } from './svarighet';
 import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
@@ -112,6 +113,8 @@ export interface Testplan {
   utfall: string | null;
   utfall_svarat_at: string | null;
   utfall_fraga_igen_at: Dag | null;
+  /** Vald tidpunkt för passet, null utan val eller före migreringen 20261012090000. */
+  pass_tid?: PassTid | null;
 }
 
 export interface Lage {
@@ -167,6 +170,7 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
         utfall: (planRad.utfall as string | null) ?? null,
         utfall_svarat_at: (planRad.utfall_svarat_at as string | null) ?? null,
         utfall_fraga_igen_at: arGiltigDag(planRad.utfall_fraga_igen_at) ? planRad.utfall_fraga_igen_at : null,
+        pass_tid: arPassTid(planRad.pass_tid) ? planRad.pass_tid : null,
       }
     : null;
 
@@ -494,6 +498,20 @@ export async function skapaTraningssession(args: {
     upprepade: [] as string[],
   };
 
+  // Kalibreringsfrågan (riktlinjer-tester-v2 2.4): en fråga med färre än 30
+  // svar ersätter en av frågorna, bara för Premium.
+  const kalibrera = (fragor: string[]): { fragor: string[]; kalibrering: string | null } => {
+    if (!beh.harOvanGrund) return { fragor, kalibrering: null };
+    const id = valjKalibrering({
+      bank: lage.bank,
+      statistik: lage.statistik,
+      utesluten: new Set(fragor),
+      sedda: new Set(sedda.map((s) => s.id)),
+      seed,
+    });
+    return id ? { fragor: placeraKalibrering(fragor, id, seed), kalibrering: id } : { fragor, kalibrering: null };
+  };
+
   let meta: TraningsMeta;
   switch (beslut.typ) {
     case 'matning':
@@ -517,6 +535,7 @@ export async function skapaTraningssession(args: {
     }
     case 'pass': {
       const forra = forraPasset(lage.slutforda);
+      // Kalibreringsfrågan bara i passet på din nivå (Premium), aldrig i grundpasset.
       const tema = valjTema({
         bank: lage.bank,
         sedda,
@@ -539,11 +558,13 @@ export async function skapaTraningssession(args: {
         endastGrund: beslut.variant === 'grund',
       });
       if (urval.fragor.length === 0) return { ok: false, status: 422, fel: 'banken_tom' };
+      const k = beslut.variant === 'niva' ? kalibrera(urval.fragor) : { fragor: urval.fragor, kalibrering: null };
       meta = {
         ...bas,
-        antal: urval.fragor.length,
+        antal: k.fragor.length,
         adaptiv: false,
-        fragor: urval.fragor,
+        fragor: k.fragor,
+        kalibrering: k.kalibrering,
         tema: urval.tema,
         sammansattning: urval.sammansattning,
         malniva: urval.malniva,
@@ -589,7 +610,8 @@ export async function skapaTraningssession(args: {
         meta = { ...bas, antal, adaptiv: true, pooler, upprepade, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
       } else {
         const { fragor, upprepade } = valjGeneral({ bank: lage.bank, antal: format.antal, sedda, idag, seed });
-        meta = { ...bas, antal: fragor.length, adaptiv: false, fragor, upprepade, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
+        const k = kalibrera(fragor);
+        meta = { ...bas, antal: k.fragor.length, adaptiv: false, fragor: k.fragor, kalibrering: k.kalibrering, upprepade, tidsgrans_s, tema: null, sammansattning: null, malniva: null };
       }
       break;
     }
@@ -660,8 +682,12 @@ export async function svaraTraning(args: {
     }
   }
 
-  const svar = unikaSvar(lasSvar(rad.answers), SVARSNYCKLAR.matris);
-  if (svar.some((s) => s.q_id === args.questionId)) return { ok: false, status: 409, fel: 'redan_besvarad' };
+  const allaSvar = unikaSvar(lasSvar(rad.answers), SVARSNYCKLAR.matris);
+  // Övningsprovet i fast format (riktlinjer-tester-v2 1.3): bakåt tillåtet,
+  // svaret kan bytas så länge provet pågår. Allt annat svaras en gång.
+  const andringsbar = meta.typ === 'general' && !meta.adaptiv;
+  if (!andringsbar && allaSvar.some((s) => s.q_id === args.questionId)) return { ok: false, status: 409, fel: 'redan_besvarad' };
+  const svar = andringsbar ? allaSvar.filter((s) => s.q_id !== args.questionId) : allaSvar;
 
   const { ids, nasta } = sessionensFragor(meta, svar);
   if (meta.adaptiv) {
@@ -701,6 +727,9 @@ export async function svaraTraning(args: {
     svar: { ...sparat },
   });
   if (antalSparade === null) return { ok: false, status: 409, fel: 'avslutad' };
+  if (meta.kalibrering && q.id === meta.kalibrering) {
+    void captureServer('kalibreringsfraga_svarad', args.userId, { fraga_id: q.id, typ: meta.typ, correct: sparat.correct });
+  }
 
   const efter = [...svar, sparat];
   let nastaVisad: VisadFraga | null = null;
@@ -766,6 +795,10 @@ export interface Avslut {
   sikte: number | null;
   /** Tid på sessionen, sekunder (summan av svarens tid). */
   tid_s: number;
+  /** Övningsprovet: obesvarade, räknade som fel (riktlinjer-tester-v2 1.3). */
+  obesvarade?: number;
+  /** Övningsprovet: väggklocka från start till inlämning, högst provets tid. */
+  tid_vagg_s?: number | null;
 }
 
 /** Svaren i alla slutförda träningssessioner, för "Var du tappar" ackumulerat. */
@@ -841,7 +874,8 @@ export async function slutforTraning(args: {
   if (rad.completed_at) return { ok: false, status: 409, fel: 'redan_avslutad' };
 
   const svar = unikaSvar(lasSvar(rad.answers), SVARSNYCKLAR.matris);
-  if (svar.length === 0) return { ok: false, status: 400, fel: 'inga_svar' };
+  // Ett övningsprov som klockan lämnade in utan ett enda svar avslutas ändå: allt räknas som fel.
+  if (svar.length === 0 && meta.typ !== 'general') return { ok: false, status: 400, fel: 'inga_svar' };
 
   const lage = await lasLage(args.admin, args.userId, idag);
   const blandad = arBlandad(rad.meta);
@@ -853,13 +887,34 @@ export async function slutforTraning(args: {
   const upprepade = new Set(meta.upprepade ?? []);
   const raknas = new Set(svar.map((s) => s.q_id).filter((id) => !upprepade.has(id)));
 
+  // Kalibreringsfrågan räknas i frågestatistiken men inte i nivån, tempot
+  // eller familjerna (riktlinjer-tester-v2 2.4).
+  const kalibrering = meta.kalibrering ?? null;
   const nivaSvar: (NivaSvar & { tid_s: number; prior: BankFragaInfo['prior']; family: string | null })[] = [];
   for (const s of svar) {
-    if (!raknas.has(s.q_id)) continue;
+    if (!raknas.has(s.q_id) || s.q_id === kalibrering) continue;
     const info = perId.get(s.q_id);
     if (!info) continue;
     nivaSvar.push({ p: info.p, correct: s.correct, tid_s: s.time_spent, prior: info.prior, family: info.family });
   }
+
+  // Övningsprovet (riktlinjerna 1.3): obesvarade räknas som fel, också i
+  // nivån och i var du tappade. I fast format vet vi vilka de var; i
+  // adaptivt räknas bara antalet.
+  const besvaradeIds = new Set(svar.map((s) => s.q_id));
+  const obesvaradeIds =
+    meta.typ === 'general' && !meta.adaptiv ? (meta.fragor ?? []).filter((id) => !besvaradeIds.has(id)) : [];
+  const obesvarade = meta.typ === 'general' ? Math.max(0, meta.antal - svar.length) : 0;
+  for (const id of obesvaradeIds) {
+    if (upprepade.has(id) || id === kalibrering) continue;
+    const info = perId.get(id);
+    if (info) nivaSvar.push({ p: info.p, correct: false, tid_s: 0, prior: info.prior, family: info.family });
+  }
+  const startMs = new Date(rad.started_at ?? rad.created_at).getTime();
+  const tid_vagg_s =
+    meta.typ === 'general' && meta.tidsgrans_s != null
+      ? Math.max(0, Math.min(meta.tidsgrans_s, Math.round((Date.now() - startMs) / 1000)))
+      : null;
 
   // Smakprovets svar (bara den första mätningen, 14.5): med bankens p och
   // tid 0, i nivån och i "rätt av antal", aldrig i tempot eller i
@@ -874,7 +929,7 @@ export async function slutforTraning(args: {
   nivaSvar.unshift(...smakprovNiva);
 
   const ratt = rattaMatrisSvar(svar.filter((s) => s.selected >= 0)) + smakprov.filter((s) => s.correct).length;
-  const antal = svar.length + smakprov.length;
+  const antal = svar.length + smakprov.length + obesvarade;
   const tid_s = svar.reduce((sum, s) => sum + s.time_spent, 0);
 
   // Nivån: bara för blandade sessioner (12.5). Pass utan mätning ger ingen
@@ -985,6 +1040,7 @@ export async function slutforTraning(args: {
       over_budget,
       snitt_s: tempo.snitt_s,
       nasta,
+      ...(meta.typ === 'general' ? { obesvarade, tid_vagg_s } : {}),
     },
     p_nivapunkt: nyPunkt && blandad ? { test_kind: 'matris', ...nyPunkt } : null,
     p_statistik: statistik,
@@ -1044,7 +1100,7 @@ export async function slutforTraning(args: {
       band_ratt,
     });
   } else if (meta.typ === 'general') {
-    void captureServer('generalrepetition_klar', args.userId, { format: meta.format, ratt, antal });
+    void captureServer('generalrepetition_klar', args.userId, { test_kind: 'logik', format: meta.format, ratt, antal, obesvarade, fran: null });
   }
   for (const nyckel of milOrdnade) void captureServer('milstolpe_nadd', args.userId, { nyckel });
 
@@ -1073,6 +1129,7 @@ export async function slutforTraning(args: {
       milstolpar: milOrdnade,
       sikte,
       tid_s,
+      ...(meta.typ === 'general' ? { obesvarade, tid_vagg_s } : {}),
     },
   };
 }

@@ -6,6 +6,8 @@ import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { paketKort } from '@/lib/plans/plans';
+// meta.antal: sessionens antal frågor, så att procenten räknas rätt när testet kortas (testConfig.totalForSession).
+import { TOTAL_QUESTIONS as ANTAL } from '@/lib/numericalTestV2/selectPassages';
 
 const TEST_TYPE = 'numerical-reasoning-v2';
 const QUOTA_MESSAGE =
@@ -53,7 +55,7 @@ export async function POST() {
       .insert({
         user_id: user.id,
         test_type: TEST_TYPE,
-        answers: [],
+        answers: [], meta: { antal: ANTAL },
       })
       .select()
       .single();

@@ -136,7 +136,7 @@ describe('I morgon', () => {
 
   it('före ommätningen tar veckodagen över', () => {
     const r = imorgonRad({ idag: '2026-10-12', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 })
-    expect(r.text).toBe('Tisdag: mät din nivå igen, 8 minuter.')
+    expect(r.text).toBe('Tisdag: ny nivåkoll, 8 minuter.')
   })
 
   it('vanlig dag, generalrepetition, provet, grundpass', () => {

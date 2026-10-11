@@ -8,7 +8,7 @@ import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-s
 import { generateQuotaBackEmail } from '@/lib/email/quota-back';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
-import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests, scheduleKomIgangMejl } from '@/lib/email/lifecycle/runner';
+import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests, scheduleKomIgangMejl, scheduleTraningsmejl } from '@/lib/email/lifecycle/runner';
 import { onOnetimeExpired } from '@/lib/email/lifecycle/hooks';
 import { createFollowUpNotifications } from '@/lib/notifications/followUp';
 import { cleanupExpiredPublicDrafts } from '@/lib/letters/public-draft';
@@ -444,8 +444,19 @@ export async function GET(request: NextRequest) {
       // Hjälpredans mejl: ett om dagen om nästa bricka till den som betalar,
       // och förnyas i morgon dagen före dragningen. Schemaläggs till nu och
       // skickas i samma körning av runnern nedan.
+      // Träningsmejlen först (ägarbeslut 2026-10-11 kväll): den som får ett
+      // i dag får ingen komigang samma dag, ett mejl om dagen.
+      let traningIdag: string[] = [];
       try {
-        results.komIgangMejl = await scheduleKomIgangMejl(supabaseAdmin, now);
+        results.traningsmejl = await scheduleTraningsmejl(supabaseAdmin, now);
+        traningIdag = results.traningsmejl.anvandare;
+      } catch (error: any) {
+        console.error('[Lifecycle] Träningsmejlens urval:', error);
+        results.traningsmejl = { success: false, error: error.message };
+      }
+
+      try {
+        results.komIgangMejl = await scheduleKomIgangMejl(supabaseAdmin, now, traningIdag);
       } catch (error: any) {
         console.error('[Lifecycle] Kom igång-urvalet:', error);
         results.komIgangMejl = { success: false, error: error.message };

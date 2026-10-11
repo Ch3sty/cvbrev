@@ -15,6 +15,21 @@ export const UTFALL = ['vidare', 'vet_inte', 'inte_vidare'] as const;
 
 export type Utfall = (typeof UTFALL)[number];
 
+/** Tidpunkten för passet (riktlinjer-tester-v2 4.2): styr påminnelsemejlet. */
+export const PASS_TIDER = ['morgon', 'lunch', 'kvall'] as const;
+export type PassTid = (typeof PASS_TIDER)[number];
+
+export function arPassTid(v: unknown): v is PassTid {
+  return (PASS_TIDER as readonly unknown[]).includes(v);
+}
+
+/** Validerar POST /api/traning/pass-tid: en av de tre, eller null för att ta bort valet. */
+export function validerPassTid(body: unknown): Validering<PassTid | null> {
+  const v = (body as Record<string, unknown> | null)?.pass_tid;
+  if (v === null) return { ok: true, data: null };
+  return arPassTid(v) ? { ok: true, data: v } : { ok: false, fel: 'ogiltig_tid' };
+}
+
 /** Längsta tid framåt ett provdatum får sättas. */
 export const PROVDATUM_MAX_DAGAR = 366;
 /** Dagar innan "Hur gick det?" ställs igen efter "vet inte än". */
