@@ -294,6 +294,8 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
     const andraMening = vy.variant === 'grund' ? R.grundpass : R.passFlyttar(ommatningDag);
     mening = `${forsta}${andraMening}`;
   }
+  // Sträckregeln: säg att passet var ett steg svårare (tillägget 1.3).
+  if (vy.strack && !riktat) mening = mening ? `${R.strackRad} ${mening}` : R.strackRad;
 
   // Kortet: tempot (P4), eller vad som hände när nivån sjönk (S1).
   let kort: PassResultat['kort'];

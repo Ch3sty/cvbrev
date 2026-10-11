@@ -27,6 +27,10 @@ import {
   GRUND_3C,
   AVANCERAD_3C,
   EXPERT_3C,
+  GRUND_V3,
+  AVANCERAD_V3,
+  EXPERT_V3,
+  EXPERT_PLUS,
   BANK_VERSION_META,
   bankVersion,
   type BankVersion,
@@ -132,6 +136,10 @@ const E = EXPERT_POOL as unknown as BankFraga[];
 const G3 = GRUND_3C as unknown as BankFraga[];
 const A3 = AVANCERAD_3C as unknown as BankFraga[];
 const E3 = EXPERT_3C as unknown as BankFraga[];
+// Bank_version 3: nya filer och plus-bandet rättas på samma sätt.
+const GV3 = GRUND_V3 as unknown as BankFraga[];
+const AV3 = AVANCERAD_V3 as unknown as BankFraga[];
+const EV3 = [...EXPERT_V3, ...EXPERT_PLUS] as unknown as BankFraga[];
 
 /**
  * Bankerna varje svar-rutt slår upp facit i. V5 ligger kvar för sessioner
@@ -139,11 +147,11 @@ const E3 = EXPERT_3C as unknown as BankFraga[];
  */
 export const BANK_FOR_RUTT = {
   /** /api/logicTestV4/answer: grund och expert (plus V5). */
-  v4: [...V5, ...G, ...E, ...G3, ...E3],
+  v4: [...V5, ...G, ...E, ...G3, ...E3, ...GV3, ...EV3],
   /** /api/logicTestV6/answer: avancerad. */
-  v6: [...A, ...A3],
+  v6: [...A, ...A3, ...AV3],
   /** /api/logicTestProv/answer: alla nivåer. */
-  prov: [...V5, ...G, ...A, ...E, ...G3, ...A3, ...E3],
+  prov: [...V5, ...G, ...A, ...E, ...G3, ...A3, ...E3, ...GV3, ...AV3, ...EV3],
 } as const;
 
 export function hittaFraga(
@@ -203,13 +211,14 @@ export function rattaMatrisSvar(answers: readonly unknown[]): number {
 /**
  * Begränsar en percentilfråga mot logic_test_v4_sessions till sessionens
  * bankversion (spec-rummen 15): ett 15-frågorstest ur 90 frågor jämförs inte
- * med ett ur 28. Version 2: meta.bank_version = 2. Version 1: fältet saknas.
+ * med ett ur 28. Version 2 och 3: meta.bank_version = 2 respektive 3.
+ * Version 1: fältet saknas.
  * Regeln om minst 25 sessioner gäller per version, så percentilen börjar om
  * på version 2.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function medBankversion<Q extends { eq: any; is: any }>(fraga: Q, version: BankVersion): Q {
-  return version === 2 ? fraga.eq('meta->>bank_version', '2') : fraga.is('meta->>bank_version', null);
+  return version === 1 ? fraga.is('meta->>bank_version', null) : fraga.eq('meta->>bank_version', String(version));
 }
 
 export { bankVersion };

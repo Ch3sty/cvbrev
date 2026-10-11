@@ -67,6 +67,11 @@ export interface TraningsMeta {
    */
   kalibrering?: string | null;
   /**
+   * Sträckregeln (tillägget om variation 1.3, strack.ts): passet riktades ett
+   * steg över nivån efter två pass i rad med minst 8 av 9. Saknas annars.
+   */
+  strack?: boolean;
+  /**
    * Bara den första mätningen: smakprovets svar som räknas in (spec 14.5).
    * De spelas upp före mätningens egna svar i det adaptiva urvalet.
    */

@@ -15,6 +15,17 @@
 //   BANK_RACKER_30_DAGAR), sedan en som inte visats förra veckan (8 dagar),
 //   sist en som visats för minst två dagar sedan. Varje steg används bara när
 //   det förra inte räcker, och urvalet säger hur många som återanvändes.
+//
+// Exponeringsreglerna i bank_version 3 (tillägget om variation 2.1), för
+// pass och riktat pass:
+// - 30 dagar är ett löfte, inte ett helst: så länge banken har minst så
+//   många osedda (eller sedda för mer än 30 dagar sedan) frågor inom ±0,30
+//   i p som passet behöver, väljs inga andra;
+// - ingen mall två gånger i rad: efter sorteringen byts grannar så att två
+//   intilliggande frågor aldrig delar recept (saknas recept: familjen);
+// - högst två frågor per familj och högst två per primitiv i passet
+//   (riktade pass undantagna från familjeregeln, eftersom de är en familj).
+// Mätning, ommätning och övningsprov behåller dagens regler.
 // =============================================================================
 
 import { dagarMellan, type Dag } from './datum';
@@ -31,6 +42,10 @@ export interface BankFragaInfo {
   prior: Prior;
   family: string | null;
   kalla: Bankkalla;
+  /** Mallen (bank_version 3); saknas den räknas familjen. */
+  recept?: string | null;
+  /** Primitivgruppen ur första cellen (pil, orbital, strålar ...). */
+  primitiv?: string | null;
 }
 
 export interface Sedd {
@@ -126,6 +141,40 @@ function lattastForst(a: BankFragaInfo, b: BankFragaInfo): number {
   return b.p - a.p || a.id.localeCompare(b.id);
 }
 
+/** Löftesfönstret: osedda frågor inom så här långt från nivåns p räknas. */
+export const LOFTE_P = 0.3;
+/** Högst så många frågor per familj och per primitiv i ett pass. */
+export const MAX_PER_FAMILJ = 2;
+export const MAX_PER_PRIMITIV = 2;
+
+const receptFor = (q: BankFragaInfo): string => q.recept ?? q.family ?? q.id;
+
+/**
+ * Löftet om 30 dagar (tillägget 2.1 punkt 1): räcker de friska frågorna
+ * (friskhet 0 eller 1) inom ±LOFTE_P från nivån till passet, får inga andra
+ * väljas. Annars dagens stegvisa nedsläpp.
+ */
+function hallLoftet(alla: readonly Kandidat[], antal: number, pNiva: number): Kandidat[] {
+  const friska = alla.filter((k) => k.friskhet <= 1);
+  const inomFonstret = friska.filter((k) => Math.abs(k.q.p - pNiva) <= LOFTE_P + 1e-9);
+  return inomFonstret.length >= antal ? friska : [...alla];
+}
+
+/**
+ * Ingen mall två gånger i rad (tillägget 2.1 punkt 2): en fråga som delar
+ * recept med frågan före byts mot närmaste senare fråga med ett annat
+ * recept. Ordningen lättast först rubbas så lite som möjligt.
+ */
+export function utanMallIRad(fragor: readonly BankFragaInfo[]): BankFragaInfo[] {
+  const ut = [...fragor];
+  for (let i = 1; i < ut.length; i++) {
+    if (receptFor(ut[i]) !== receptFor(ut[i - 1])) continue;
+    const j = ut.findIndex((q, x) => x > i && receptFor(q) !== receptFor(ut[i - 1]));
+    if (j > i) [ut[i], ut[j]] = [ut[j], ut[i]];
+  }
+  return ut;
+}
+
 export interface Sammansattning {
   nara: number;
   under: number;
@@ -163,11 +212,11 @@ export interface Urval {
 
 export type PassBand = keyof Sammansattning;
 
-function lagg(ut: Kandidat[], fran: Kandidat[], n: number, tagna: Set<string>): number {
+function lagg(ut: Kandidat[], fran: Kandidat[], n: number, tagna: Set<string>, ryms: (k: Kandidat) => boolean = () => true): number {
   let lagt = 0;
   for (const k of fran) {
     if (lagt >= n) break;
-    if (tagna.has(k.q.id)) continue;
+    if (tagna.has(k.q.id) || !ryms(k)) continue;
     tagna.add(k.q.id);
     ut.push(k);
     lagt++;
@@ -190,6 +239,13 @@ export function valjPass(inp: {
   antal?: number;
   tema?: string | null;
   endastGrund?: boolean;
+  /**
+   * Sträckregeln (tillägget 1.3): nivån är redan höjd av motorn, och
+   * över-bandet dras bara ur frågor med p minst 0,25 under nivåns p.
+   */
+  strack?: boolean;
+  /** Golvregeln: under-bandet får tre frågor. */
+  golv?: boolean;
 }): Urval {
   const antal = inp.antal ?? 9;
   const bank = inp.endastGrund ? inp.bank.filter((q) => q.kalla === 'grund') : inp.bank;
@@ -198,9 +254,14 @@ export function valjPass(inp: {
     ? Math.min(inp.niva, Math.max(...bank.map((q) => nivaForP(q.p)), 1))
     : inp.niva;
   const pNiva = pForNiva(malniva);
-  const { sakra, pool } = delaEfterFriskhet(kandidater(bank, inp.sedda, inp.idag, inp.seed), antal);
+  const { sakra, pool } = delaEfterFriskhet(hallLoftet(kandidater(bank, inp.sedda, inp.idag, inp.seed), antal, pNiva), antal);
   const mal = fordelning(antal);
   const tema = inp.tema ?? null;
+  if (inp.golv) {
+    mal.under = Math.min(3, antal);
+    mal.over = Math.min(mal.over, Math.max(0, antal - mal.under));
+    mal.nara = Math.max(0, antal - mal.under - mal.over);
+  }
   const fack = (k: Kandidat): keyof Sammansattning => {
     const d = k.q.p - pNiva;
     return Math.abs(d) <= NARA_NIVAN_P + 1e-9 ? 'nara' : d > 0 ? 'under' : 'over';
@@ -209,8 +270,15 @@ export function valjPass(inp: {
   const tagna = new Set<string>();
   const valda: Kandidat[] = [];
   const faktiskt: Sammansattning = { nara: 0, under: 0, over: 0 };
+  // Högst två per familj och per primitiv (tillägget 2.1 punkt 3). Passets
+  // tema är valt med avsikt och räknas inte mot familjetaket.
+  const ryms = (k: Kandidat): boolean =>
+    (!k.q.family || k.q.family === tema || valda.filter((v) => v.q.family === k.q.family).length < MAX_PER_FAMILJ) &&
+    (!k.q.primitiv || valda.filter((v) => v.q.primitiv === k.q.primitiv).length < MAX_PER_PRIMITIV);
   // De friskare frågorna tas med först, sedan sammansättningen ur poolen.
-  for (const k of sakra.slice(0, antal)) {
+  for (const k of sakra) {
+    if (valda.length >= antal) break;
+    if (!ryms(k)) continue;
     tagna.add(k.q.id);
     valda.push(k);
     faktiskt[fack(k)]++;
@@ -222,27 +290,33 @@ export function valjPass(inp: {
         (tema ? Number(a.q.family !== tema) - Number(b.q.family !== tema) : 0) || efterFriskhet(a, b)
     );
   const under = pool.filter((k) => fack(k) === 'under').sort(efterFriskhet);
-  const over = pool.filter((k) => fack(k) === 'over').sort(efterFriskhet);
+  const over = pool
+    .filter((k) => fack(k) === 'over' && (!inp.strack || k.q.p <= pNiva - 0.25 + 1e-9))
+    .sort(efterFriskhet);
   const plats = () => antal - valda.length;
-  faktiskt.nara += lagg(valda, nara, Math.min(plats(), Math.max(0, mal.nara - faktiskt.nara)), tagna);
-  faktiskt.under += lagg(valda, under, Math.min(plats(), Math.max(0, mal.under - faktiskt.under)), tagna);
-  faktiskt.over += lagg(valda, over, Math.min(plats(), Math.max(0, mal.over - faktiskt.over)), tagna);
+  faktiskt.nara += lagg(valda, nara, Math.min(plats(), Math.max(0, mal.nara - faktiskt.nara)), tagna, ryms);
+  faktiskt.under += lagg(valda, under, Math.min(plats(), Math.max(0, mal.under - faktiskt.under)), tagna, ryms);
+  faktiskt.over += lagg(valda, over, Math.min(plats(), Math.max(0, mal.over - faktiskt.over)), tagna, ryms);
 
   // Fyll upp med de närmaste frågorna i övrigt.
   if (valda.length < antal) {
-    const rest = pool
+    const rest = [...sakra, ...pool]
       .filter((k) => !tagna.has(k.q.id))
-      .sort((a, b) => Math.abs(a.q.p - pNiva) - Math.abs(b.q.p - pNiva) || a.slump - b.slump);
-    for (const k of rest) {
-      if (valda.length >= antal) break;
-      tagna.add(k.q.id);
-      valda.push(k);
-      faktiskt[fack(k)]++;
+      .sort((a, b) => a.friskhet - b.friskhet || Math.abs(a.q.p - pNiva) - Math.abs(b.q.p - pNiva) || a.slump - b.slump);
+    // Först med familje- och primitivregeln, sedan utan när banken inte räcker.
+    for (const strikt of [true, false]) {
+      for (const k of rest) {
+        if (valda.length >= antal) break;
+        if (tagna.has(k.q.id) || (strikt && !ryms(k))) continue;
+        tagna.add(k.q.id);
+        valda.push(k);
+        faktiskt[fack(k)]++;
+      }
     }
   }
 
   return {
-    fragor: valda.map((k) => k.q).sort(lattastForst).map((q) => q.id),
+    fragor: utanMallIRad(valda.map((k) => k.q).sort(lattastForst)).map((q) => q.id),
     sammansattning: faktiskt,
     tema: tema && valda.some((k) => k.q.family === tema) ? tema : null,
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,
@@ -304,12 +378,12 @@ export function valjRiktat(inp: {
 }): Urval {
   const antal = inp.antal ?? 9;
   const pNiva = pForNiva(inp.niva);
-  const alla = kandidater(
+  const alla = hallLoftet(kandidater(
     inp.bank.filter((q) => q.family === inp.family),
     inp.sedda,
     inp.idag,
     inp.seed
-  ).sort(
+  ), antal, pNiva).sort(
     (a, b) => a.friskhet - b.friskhet || Math.abs(a.q.p - pNiva) - Math.abs(b.q.p - pNiva) || a.slump - b.slump
   );
   const valda = alla.slice(0, antal);
@@ -324,7 +398,7 @@ export function valjRiktat(inp: {
     else s.over++;
   }
   return {
-    fragor: valda.map((k) => k.q).sort(lattastForst).map((q) => q.id),
+    fragor: utanMallIRad(valda.map((k) => k.q).sort(lattastForst)).map((q) => q.id),
     sammansattning: s,
     tema: inp.family,
     ateranvanda: valda.filter((k) => k.friskhet > 0).length,

@@ -1,0 +1,1138 @@
+{
+  "v1:grund": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7g-q3-vector-rotation",
+      "v7g-q4-stack-latin",
+      "v7g-q25-poly-rotate-walk",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q24-ray-add"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7g-q3-vector-rotation",
+      "v7g-q17-poly-sides-latin",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q10-poly-fill-latin",
+      "v7g-q28-vector-len-walk"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7g-q26-orbital-fill-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q5-tally-latin",
+      "v7g-q4-stack-latin",
+      "v7g-q28-vector-len-walk"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7g-q8-lattice-rotate",
+      "v7g-q21-orbital-ccw",
+      "v7g-q9-vector-rotate-ccw",
+      "v7g-q24-ray-add",
+      "v7g-q19-ring-innerfill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7g-q17-poly-sides-latin",
+      "v7g-q21-orbital-ccw",
+      "v7g-q20-lattice-graycell-walk",
+      "v7g-q27-lattice-fill-cycle",
+      "v7g-q11-ring-fill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7g-q2-ring-count-fill",
+      "v7g-q27-lattice-fill-cycle",
+      "v7g-q4-stack-latin",
+      "v7g-q23-tally-walk-count",
+      "v7g-q19-ring-innerfill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7g-q17-poly-sides-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q16-ray-rotate-walk",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q24-ray-add"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7g-q6-orbital-walk",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q14-stack-base-latin",
+      "v7g-q15-lattice-ccw",
+      "v7g-q7-ray-count-latin"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7g-q17-poly-sides-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q21-orbital-ccw",
+      "v7g-q7-ray-count-latin",
+      "v7g-q4-stack-latin"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7g-q2-ring-count-fill",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q18-vector-walk-half",
+      "v7g-q14-stack-base-latin",
+      "v7g-q7-ray-count-latin"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7g-q24-ray-add",
+      "v7g-q20-lattice-graycell-walk",
+      "v7g-q22-stack-symbol-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q2-ring-count-fill"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7g-q10-poly-fill-latin",
+      "v7g-q28-vector-len-walk",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q3-vector-rotation",
+      "v7g-q6-orbital-walk"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7g-q24-ray-add",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q26-orbital-fill-latin",
+      "v7g-q21-orbital-ccw",
+      "v7g-q25-poly-rotate-walk"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7g-q20-lattice-graycell-walk",
+      "v7g-q16-ray-rotate-walk",
+      "v7g-q18-vector-walk-half",
+      "v7g-q25-poly-rotate-walk",
+      "v7g-q12-tally-count-latin"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7g-q11-ring-fill-latin",
+      "v7g-q15-lattice-ccw",
+      "v7g-q20-lattice-graycell-walk",
+      "v7g-q9-vector-rotate-ccw",
+      "v7g-q3-vector-rotation"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7g-q2-ring-count-fill",
+      "v7g-q10-poly-fill-latin",
+      "v7g-q28-vector-len-walk",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q25-poly-rotate-walk"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7g-q2-ring-count-fill",
+      "v7g-q27-lattice-fill-cycle",
+      "v7g-q26-orbital-fill-latin",
+      "v7g-q20-lattice-graycell-walk",
+      "v7g-q28-vector-len-walk"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7g-q7-ray-count-latin",
+      "v7g-q28-vector-len-walk",
+      "v7g-q16-ray-rotate-walk",
+      "v7g-q26-orbital-fill-latin",
+      "v7g-q12-tally-count-latin"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7g-q5-tally-latin",
+      "v7g-q25-poly-rotate-walk",
+      "v7g-q1-poly-latin",
+      "v7g-q26-orbital-fill-latin",
+      "v7g-q6-orbital-walk"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7g-q25-poly-rotate-walk",
+      "v7g-q15-lattice-ccw",
+      "v7g-q3-vector-rotation",
+      "v7g-q5-tally-latin",
+      "v7g-q27-lattice-fill-cycle"
+    ]
+  },
+  "v1:avancerad": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7-q8-stack-latin",
+      "v7-q11-ring-xor",
+      "v7-a-ring-latin3",
+      "v7-a-tile-L",
+      "v7-a-stack-base2"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7-q8-stack-latin",
+      "v7-a-vector-90",
+      "v7-a-tile-L",
+      "v7-a-poly-latin",
+      "v7-a-tile-vinkel"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7-a-poly-latin3",
+      "v7-a-vector-ccw",
+      "v7-q12-triple-stack",
+      "v7-q11-ring-xor",
+      "v7-a-tile-vinkel"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7-a-ring-latin",
+      "v7-a-poly-fill",
+      "v7-a-tally-latin",
+      "v7-a-stack-base2",
+      "v7-a-ring-latin2"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7-a-vector-90",
+      "v7-a-poly-fill",
+      "v7-a-poly-latin2",
+      "v7-a-vector-ccw90",
+      "v7-a-vector-ccw"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7-q5-lattice-xor",
+      "v7-a-vector-ccw90",
+      "v7-q11-ring-xor",
+      "v7-a-stack-base",
+      "v7-a-ring-latin2"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7-a-vector-90",
+      "v7-a-vector-ccw",
+      "v7-a-tile-corner",
+      "v7-a-tile-L",
+      "v7-a-stack-base2"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7-q13-tile-mirror",
+      "v7-a-vector-ccw",
+      "v7-a-tile-T",
+      "v7-a-tile-Z-ccw",
+      "v7-q15-tile-xor"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7-a-vector-90",
+      "v7-a-vector-ccw",
+      "v7-a-poly-fill",
+      "v7-q15-tile-xor",
+      "v7-q11-ring-xor"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7-q5-lattice-xor",
+      "v7-a-vector-ccw",
+      "v7-a-vector-cw45",
+      "v7-a-tile-T",
+      "v7-q15-tile-xor"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7-a-stack-base2",
+      "v7-a-poly-latin2",
+      "v7-a-poly-fill2",
+      "v7-a-vector-ccw",
+      "v7-q5-lattice-xor"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7-a-poly-latin",
+      "v7-a-tile-vinkel",
+      "v7-a-tile-L",
+      "v7-q8-stack-latin",
+      "v7-q13-tile-mirror"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7-a-stack-base2",
+      "v7-a-vector-ccw",
+      "v7-a-poly-latin3",
+      "v7-a-poly-fill",
+      "v7-a-ring-latin3"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7-a-poly-latin2",
+      "v7-a-tile-corner",
+      "v7-a-vector-cw45",
+      "v7-a-ring-latin3",
+      "v7-a-stack-symbol"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7-a-vector-ccw",
+      "v7-a-tile-Z-ccw",
+      "v7-a-poly-latin2",
+      "v7-a-tally-latin",
+      "v7-q8-stack-latin"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7-q5-lattice-xor",
+      "v7-a-poly-latin",
+      "v7-a-tile-vinkel",
+      "v7-a-tile-L",
+      "v7-a-ring-latin3"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7-q5-lattice-xor",
+      "v7-a-vector-ccw90",
+      "v7-a-poly-latin3",
+      "v7-a-poly-latin2",
+      "v7-a-tile-vinkel"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7-q15-tile-xor",
+      "v7-a-tile-vinkel",
+      "v7-a-tile-corner",
+      "v7-a-poly-latin3",
+      "v7-a-stack-symbol"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7-q12-triple-stack",
+      "v7-a-ring-latin3",
+      "v7-q4-vector-rotation",
+      "v7-a-poly-latin3",
+      "v7-q13-tile-mirror"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7-a-ring-latin3",
+      "v7-a-tile-Z-ccw",
+      "v7-q8-stack-latin",
+      "v7-q12-triple-stack",
+      "v7-a-vector-ccw90"
+    ]
+  },
+  "v1:expert": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7e-w3",
+      "v7e-w4",
+      "v7e-b3",
+      "v7e-t2",
+      "v7e-b2"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7e-w3",
+      "v7e-t6",
+      "v7e-t2",
+      "v7e-w10",
+      "v7e-b6"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7e-b4",
+      "v7e-w11",
+      "v7e-w5",
+      "v7e-w4",
+      "v7e-b6"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7e-w8",
+      "v7e-t10",
+      "v7e-w9",
+      "v7e-b2",
+      "v7e-t8"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7e-t6",
+      "v7e-t10",
+      "v7e-t9",
+      "v7e-b5",
+      "v7e-w11"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7e-w2",
+      "v7e-b5",
+      "v7e-w4",
+      "v7e-b1",
+      "v7e-t8"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7e-t6",
+      "v7e-w11",
+      "v7e-t5",
+      "v7e-t2",
+      "v7e-b2"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7e-w6",
+      "v7e-w11",
+      "v7e-t3",
+      "v7e-t4",
+      "v7e-w7"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7e-t6",
+      "v7e-w11",
+      "v7e-t10",
+      "v7e-w7",
+      "v7e-w4"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7e-w2",
+      "v7e-w11",
+      "v7e-t7",
+      "v7e-t3",
+      "v7e-w7"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7e-b2",
+      "v7e-t9",
+      "v7e-t11",
+      "v7e-w11",
+      "v7e-w2"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7e-w10",
+      "v7e-b6",
+      "v7e-t2",
+      "v7e-w3",
+      "v7e-w6"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7e-b2",
+      "v7e-w11",
+      "v7e-b4",
+      "v7e-t10",
+      "v7e-b3"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7e-t9",
+      "v7e-t5",
+      "v7e-t7",
+      "v7e-b3",
+      "v7e-t1"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7e-w11",
+      "v7e-t4",
+      "v7e-t9",
+      "v7e-w9",
+      "v7e-w3"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7e-w2",
+      "v7e-w10",
+      "v7e-b6",
+      "v7e-t2",
+      "v7e-b3"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7e-w2",
+      "v7e-b5",
+      "v7e-b4",
+      "v7e-t9",
+      "v7e-b6"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7e-w7",
+      "v7e-b6",
+      "v7e-t5",
+      "v7e-b4",
+      "v7e-t1"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7e-w5",
+      "v7e-b3",
+      "v7e-w1",
+      "v7e-b4",
+      "v7e-w6"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7e-b3",
+      "v7e-t4",
+      "v7e-w3",
+      "v7e-w5",
+      "v7e-b5"
+    ]
+  },
+  "v1:prov": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7-a-ring-latin2",
+      "v7-q4-vector-rotation",
+      "v7g-q19-ring-innerfill-latin",
+      "v7g-q13-orbital-walk-3",
+      "v7g-q3-vector-rotation"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7g-q13-orbital-walk-3",
+      "v7-a-vector-ccw90",
+      "v7g-q22-stack-symbol-latin",
+      "v7g-q28-vector-len-walk",
+      "v7e-t4"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7e-t11",
+      "v7e-b6",
+      "v7g-q27-lattice-fill-cycle",
+      "v7g-q5-tally-latin",
+      "v7g-q4-stack-latin"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7e-b2",
+      "v7g-q21-orbital-ccw",
+      "v7g-q9-vector-rotate-ccw",
+      "v7e-w8",
+      "v7-a-vector-ccw"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7e-b2",
+      "v7-a-poly-latin",
+      "v7e-w10",
+      "v7-a-vector-ccw",
+      "v7-a-tally-latin"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7-q5-lattice-xor",
+      "v7e-b4",
+      "v7g-q27-lattice-fill-cycle",
+      "v7-q8-stack-latin",
+      "v7g-q2-ring-count-fill"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7e-b1",
+      "v7-a-stack-base2",
+      "v7-a-tally-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7g-q22-stack-symbol-latin"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7e-w5",
+      "v7-a-vector-ccw90",
+      "v7g-q15-lattice-ccw",
+      "v7g-q14-stack-base-latin",
+      "v7e-t4"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7e-t2",
+      "v7-a-tile-corner",
+      "v7-q15-tile-xor",
+      "v7e-t1",
+      "v7-a-stack-base2"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7-a-stack-base",
+      "v7-a-tally-latin",
+      "v7g-q11-ring-fill-latin",
+      "v7e-t1",
+      "v7e-w3"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7g-q20-lattice-graycell-walk",
+      "v7e-w6",
+      "v7-a-poly-latin",
+      "v7e-b5",
+      "v7g-q24-ray-add"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7-a-poly-fill",
+      "v7-a-ring-latin3",
+      "v7g-q3-vector-rotation",
+      "v7g-q26-orbital-fill-latin",
+      "v7-a-tile-Z-ccw"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7g-q8-lattice-rotate",
+      "v7g-q25-poly-rotate-walk",
+      "v7-q13-tile-mirror",
+      "v7-a-tally-latin",
+      "v7-a-tile-corner"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7e-w3",
+      "v7-a-poly-fill",
+      "v7g-q22-stack-symbol-latin",
+      "v7g-q16-ray-rotate-walk",
+      "v7e-t1"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7e-w2",
+      "v7g-q20-lattice-graycell-walk",
+      "v7e-t1",
+      "v7-a-vector-cw45",
+      "v7g-q11-ring-fill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7e-t4",
+      "v7-a-vector-90",
+      "v7g-q10-poly-fill-latin",
+      "v7-a-vector-ccw",
+      "v7g-q16-ray-rotate-walk"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7-a-stack-symbol",
+      "v7g-q27-lattice-fill-cycle",
+      "v7-a-vector-ccw",
+      "v7e-w5",
+      "v7g-q28-vector-len-walk"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7e-t5",
+      "v7e-b4",
+      "v7g-q12-tally-count-latin",
+      "v7g-q16-ray-rotate-walk",
+      "v7g-q26-orbital-fill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7g-q26-orbital-fill-latin",
+      "v7e-t7",
+      "v7-a-poly-fill",
+      "v7e-w6",
+      "v7g-q21-orbital-ccw"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7e-w6",
+      "v7e-w11",
+      "v7e-t9",
+      "v7-a-tile-vinkel",
+      "v7-a-ring-latin2"
+    ]
+  },
+  "v2:grund": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7g-q24-ray-add",
+      "v7g-3c-vrid-03",
+      "v7g-3c-lform-05",
+      "v7g-3c-over-05",
+      "v7g-3c-lform-01"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7g-3c-rot-05",
+      "v7g-q22-stack-symbol-latin",
+      "v7g-q23-tally-walk-count",
+      "v7g-3c-vand-05",
+      "v7g-3c-vrid-02"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7g-3c-tva-01",
+      "v7g-3c-rot-06",
+      "v7g-3c-vand-06",
+      "v7g-3c-lfler-02",
+      "v7g-q27-lattice-fill-cycle"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7g-3c-vand-05",
+      "v7g-q21-orbital-ccw",
+      "v7g-3c-byte-05",
+      "v7g-3c-over-05",
+      "v7g-q19-ring-innerfill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7g-3c-rot-06",
+      "v7g-3c-antal-04",
+      "v7g-q16-ray-rotate-walk",
+      "v7g-3c-byte-03",
+      "v7g-q15-lattice-ccw"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7g-3c-lant-01",
+      "v7g-q8-lattice-rotate",
+      "v7g-q9-vector-rotate-ccw",
+      "v7g-3c-over-05",
+      "v7g-3c-vand-02"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7g-3c-rot-05",
+      "v7g-q3-vector-rotation",
+      "v7g-3c-lform-02",
+      "v7g-3c-speg-04",
+      "v7g-q5-tally-latin"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7g-3c-rot-01",
+      "v7g-3c-vrid-06",
+      "v7g-3c-vrid-02",
+      "v7g-q19-ring-innerfill-latin",
+      "v7g-3c-lant-06"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7g-3c-vand-03",
+      "v7g-3c-lfler-02",
+      "v7g-3c-rot-05",
+      "v7g-q19-ring-innerfill-latin",
+      "v7g-3c-over-06"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7g-q13-orbital-walk-3",
+      "v7g-3c-byte-03",
+      "v7g-3c-byte-05",
+      "v7g-q14-stack-base-latin",
+      "v7g-3c-vand-06"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7g-3c-lfler-03",
+      "v7g-q9-vector-rotate-ccw",
+      "v7g-3c-rot-05",
+      "v7g-3c-lform-04",
+      "v7g-3c-vand-01"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7g-3c-lform-03",
+      "v7g-3c-speg-03",
+      "v7g-3c-byte-01",
+      "v7g-3c-lant-02",
+      "v7g-3c-lfler-01"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7g-3c-rot-02",
+      "v7g-3c-over-05",
+      "v7g-3c-byte-01",
+      "v7g-3c-speg-01",
+      "v7g-3c-byte-02"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7g-q23-tally-walk-count",
+      "v7g-q11-ring-fill-latin",
+      "v7g-3c-vrid-07",
+      "v7g-q25-poly-rotate-walk",
+      "v7g-3c-speg-02"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7g-3c-lfler-03",
+      "v7g-3c-tva-01",
+      "v7g-3c-antal-02",
+      "v7g-q28-vector-len-walk",
+      "v7g-q4-stack-latin"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7g-q9-vector-rotate-ccw",
+      "v7g-3c-lant-07",
+      "v7g-3c-tva-04",
+      "v7g-3c-rot-01",
+      "v7g-3c-tva-03"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7g-q1-poly-latin",
+      "v7g-3c-lant-06",
+      "v7g-3c-lfler-02",
+      "v7g-3c-vrid-01",
+      "v7g-3c-rot-03"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7g-q24-ray-add",
+      "v7g-3c-vrid-01",
+      "v7g-3c-lant-03",
+      "v7g-q28-vector-len-walk",
+      "v7g-3c-antal-01"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7g-3c-lant-01",
+      "v7g-q23-tally-walk-count",
+      "v7g-3c-over-01",
+      "v7g-q7-ray-count-latin",
+      "v7g-3c-antal-04"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7g-q16-ray-rotate-walk",
+      "v7g-3c-tva-03",
+      "v7g-3c-vrid-07",
+      "v7g-q15-lattice-ccw",
+      "v7g-3c-byte-03"
+    ]
+  },
+  "v2:avancerad": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7a-3c-lfler-03",
+      "v7a-3c-byte-07",
+      "v7-a-ring-latin3",
+      "v7a-3c-byte-05",
+      "v7-q8-stack-latin"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7a-3c-over-03",
+      "v7-a-ring-latin2",
+      "v7a-3c-tva-06",
+      "v7a-3c-lfler-06",
+      "v7a-3c-tva-01"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7a-3c-lfler-03",
+      "v7-a-vector-ccw90",
+      "v7-a-tile-Z-ccw",
+      "v7a-3c-lform-02",
+      "v7a-3c-over-04"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7a-3c-vand-04",
+      "v7-a-poly-latin",
+      "v7a-3c-rot-03",
+      "v7a-3c-over-04",
+      "v7a-3c-vrid-04"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7-a-tile-L",
+      "v7a-3c-over-03",
+      "v7a-3c-vrid-04",
+      "v7a-3c-byte-05",
+      "v7a-3c-speg-06"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7a-3c-vand-03",
+      "v7a-3c-speg-01",
+      "v7a-3c-over-05",
+      "v7a-3c-byte-07",
+      "v7-a-poly-fill2"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7a-3c-vrid-03",
+      "v7a-3c-lform-04",
+      "v7a-3c-over-02",
+      "v7a-3c-rot-01",
+      "v7a-3c-tva-06"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7a-3c-tva-05",
+      "v7a-3c-tva-04",
+      "v7a-3c-over-01",
+      "v7a-3c-lform-02",
+      "v7a-3c-vrid-04"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7a-3c-lform-01",
+      "v7-a-tile-T",
+      "v7a-3c-speg-03",
+      "v7a-3c-vand-04",
+      "v7a-3c-speg-06"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7a-3c-over-03",
+      "v7a-3c-lform-01",
+      "v7-a-tile-Z-ccw",
+      "v7-q11-ring-xor",
+      "v7-a-ring-latin2"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7a-3c-vand-03",
+      "v7a-3c-byte-04",
+      "v7-q15-tile-xor",
+      "v7-a-poly-latin",
+      "v7a-3c-tva-04"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7-q15-tile-xor",
+      "v7a-3c-byte-05",
+      "v7a-3c-vrid-04",
+      "v7-a-poly-latin",
+      "v7a-3c-speg-02"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7a-3c-byte-04",
+      "v7a-3c-speg-06",
+      "v7a-3c-speg-04",
+      "v7a-3c-antal-01",
+      "v7-a-poly-latin"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7-a-poly-latin",
+      "v7a-3c-lant-01",
+      "v7a-3c-rot-07",
+      "v7a-3c-byte-01",
+      "v7-a-tile-T"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7a-3c-tva-05",
+      "v7-a-tile-corner",
+      "v7a-3c-lant-02",
+      "v7-q8-stack-latin",
+      "v7-a-tile-L"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7a-3c-lant-01",
+      "v7a-3c-over-02",
+      "v7-a-tile-L",
+      "v7a-3c-lfler-05",
+      "v7a-3c-lfler-04"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7a-3c-antal-03",
+      "v7a-3c-byte-02",
+      "v7a-3c-vrid-05",
+      "v7a-3c-over-08",
+      "v7a-3c-lform-04"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7a-3c-lfler-04",
+      "v7a-3c-over-01",
+      "v7-a-ring-latin2",
+      "v7a-3c-rot-04",
+      "v7a-3c-lfler-05"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7-q15-tile-xor",
+      "v7a-3c-lant-03",
+      "v7a-3c-byte-07",
+      "v7a-3c-speg-02",
+      "v7-q11-ring-xor"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7-q11-ring-xor",
+      "v7a-3c-rot-07",
+      "v7-q15-tile-xor",
+      "v7a-3c-rot-04",
+      "v7a-3c-lant-01"
+    ]
+  },
+  "v2:expert": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7e-3c-vand-03",
+      "v7e-t6",
+      "v7e-t11",
+      "v7e-3c-antal-02",
+      "v7e-3c-byte-01"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7e-3c-over-05",
+      "v7e-3c-vand-04",
+      "v7e-3c-byte-03",
+      "v7e-t4",
+      "v7e-3c-lfler-04"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7e-t8",
+      "v7e-3c-lfler-07",
+      "v7e-3c-over-08",
+      "v7e-3c-tva-03",
+      "v7e-b2"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7e-3c-over-08",
+      "v7e-3c-lfler-01",
+      "v7e-3c-rot-04",
+      "v7e-t7",
+      "v7e-3c-lfler-07"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7e-3c-rot-03",
+      "v7e-w10",
+      "v7e-w11",
+      "v7e-3c-lfler-05",
+      "v7e-3c-byte-02"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7e-3c-lfler-06",
+      "v7e-3c-speg-05",
+      "v7e-3c-lfler-02",
+      "v7e-t8",
+      "v7e-3c-tva-02"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7e-3c-rot-05",
+      "v7e-3c-over-04",
+      "v7e-3c-byte-06",
+      "v7e-3c-lfler-06",
+      "v7e-3c-lfler-05"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7e-3c-vand-03",
+      "v7e-3c-vrid-04",
+      "v7e-3c-rot-04",
+      "v7e-b6",
+      "v7e-3c-antal-05"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7e-3c-lant-01",
+      "v7e-3c-over-05",
+      "v7e-3c-antal-02",
+      "v7e-b2",
+      "v7e-3c-over-03"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7e-w11",
+      "v7e-3c-tva-01",
+      "v7e-3c-vand-01",
+      "v7e-w3",
+      "v7e-3c-lfler-03"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7e-b2",
+      "v7e-3c-tva-07",
+      "v7e-w6",
+      "v7e-w7",
+      "v7e-3c-byte-01"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7e-3c-tva-03",
+      "v7e-w7",
+      "v7e-3c-antal-02",
+      "v7e-3c-lfler-02",
+      "v7e-w4"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7e-3c-byte-05",
+      "v7e-3c-over-02",
+      "v7e-3c-antal-02",
+      "v7e-b1",
+      "v7e-3c-vrid-03"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7e-3c-over-01",
+      "v7e-t6",
+      "v7e-3c-vand-01",
+      "v7e-3c-lant-02",
+      "v7e-3c-vand-02"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7e-w8",
+      "v7e-w2",
+      "v7e-w3",
+      "v7e-3c-rot-03",
+      "v7e-3c-antal-05"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7e-3c-speg-05",
+      "v7e-3c-antal-03",
+      "v7e-3c-vand-01",
+      "v7e-3c-speg-01",
+      "v7e-3c-over-05"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7e-w5",
+      "v7e-3c-byte-04",
+      "v7e-3c-over-02",
+      "v7e-3c-vand-02",
+      "v7e-3c-tva-08"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7e-3c-lfler-08",
+      "v7e-t10",
+      "v7e-w2",
+      "v7e-3c-vrid-03",
+      "v7e-3c-vand-04"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7e-w7",
+      "v7e-3c-antal-01",
+      "v7e-3c-speg-04",
+      "v7e-w11",
+      "v7e-3c-speg-03"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7e-3c-antal-04",
+      "v7e-3c-vrid-04",
+      "v7e-3c-speg-04",
+      "v7e-t7",
+      "v7e-3c-antal-03"
+    ]
+  },
+  "v2:prov": {
+    "00000000-0000-4000-8000-000000000001": [
+      "v7a-3c-lant-02",
+      "v7a-3c-over-07",
+      "v7g-q22-stack-symbol-latin",
+      "v7g-3c-over-05",
+      "v7g-q24-ray-add"
+    ],
+    "00000000-0000-4000-8000-000000000002": [
+      "v7g-q23-tally-walk-count",
+      "v7a-3c-vand-01",
+      "v7g-3c-lfler-04",
+      "v7g-3c-vrid-02",
+      "v7e-w1"
+    ],
+    "00000000-0000-4000-8000-000000000003": [
+      "v7e-3c-speg-01",
+      "v7e-w7",
+      "v7g-3c-lfler-01",
+      "v7g-3c-vand-06",
+      "v7g-3c-lfler-02"
+    ],
+    "00000000-0000-4000-8000-000000000004": [
+      "v7e-3c-tva-03",
+      "v7g-q21-orbital-ccw",
+      "v7g-3c-byte-05",
+      "v7e-3c-over-03",
+      "v7a-3c-vrid-03"
+    ],
+    "00000000-0000-4000-8000-000000000005": [
+      "v7e-b2",
+      "v7a-3c-lant-02",
+      "v7e-3c-vand-03",
+      "v7a-3c-tva-03",
+      "v7a-3c-over-01"
+    ],
+    "00000000-0000-4000-8000-000000000006": [
+      "v7a-3c-speg-01",
+      "v7e-w9",
+      "v7g-q8-lattice-rotate",
+      "v7a-3c-over-08",
+      "v7g-3c-lant-01"
+    ],
+    "00000000-0000-4000-8000-000000000007": [
+      "v7e-3c-lant-02",
+      "v7a-3c-byte-04",
+      "v7a-3c-rot-04",
+      "v7g-q3-vector-rotation",
+      "v7g-q26-orbital-fill-latin"
+    ],
+    "00000000-0000-4000-8000-000000000008": [
+      "v7e-3c-tva-05",
+      "v7a-3c-lform-01",
+      "v7g-q19-ring-innerfill-latin",
+      "v7g-3c-vrid-02",
+      "v7e-w9"
+    ],
+    "00000000-0000-4000-8000-000000000009": [
+      "v7e-3c-byte-03",
+      "v7-q13-tile-mirror",
+      "v7a-3c-rot-01",
+      "v7e-3c-speg-02",
+      "v7a-3c-over-01"
+    ],
+    "00000000-0000-4000-8000-000000000010": [
+      "v7a-3c-tva-01",
+      "v7a-3c-antal-02",
+      "v7g-3c-byte-03",
+      "v7e-3c-over-01",
+      "v7e-3c-over-03"
+    ],
+    "00000000-0000-4000-8000-000000000011": [
+      "v7g-q9-vector-rotate-ccw",
+      "v7e-t7",
+      "v7a-3c-lfler-06",
+      "v7e-3c-byte-05",
+      "v7g-3c-lfler-03"
+    ],
+    "00000000-0000-4000-8000-000000000012": [
+      "v7a-3c-antal-01",
+      "v7a-3c-byte-06",
+      "v7g-3c-lant-02",
+      "v7g-q11-ring-fill-latin",
+      "v7a-3c-lform-02"
+    ],
+    "00000000-0000-4000-8000-000000000013": [
+      "v7g-3c-lfler-05",
+      "v7g-3c-byte-02",
+      "v7-a-tile-corner",
+      "v7a-3c-vrid-03",
+      "v7a-3c-vand-03"
+    ],
+    "00000000-0000-4000-8000-000000000014": [
+      "v7e-3c-speg-06",
+      "v7a-3c-lfler-03",
+      "v7g-q24-ray-add",
+      "v7g-q11-ring-fill-latin",
+      "v7e-3c-byte-06"
+    ],
+    "00000000-0000-4000-8000-000000000015": [
+      "v7e-3c-lfler-02",
+      "v7g-3c-antal-02",
+      "v7e-3c-speg-04",
+      "v7a-3c-speg-04",
+      "v7g-3c-lfler-03"
+    ],
+    "00000000-0000-4000-8000-000000000016": [
+      "v7e-3c-speg-02",
+      "v7a-3c-over-06",
+      "v7g-3c-lant-07",
+      "v7-a-tile-corner",
+      "v7g-3c-vrid-07"
+    ],
+    "00000000-0000-4000-8000-000000000017": [
+      "v7a-3c-vrid-05",
+      "v7g-3c-lant-06",
+      "v7a-3c-tva-03",
+      "v7e-3c-vrid-01",
+      "v7g-3c-rot-03"
+    ],
+    "00000000-0000-4000-8000-000000000018": [
+      "v7e-3c-byte-05",
+      "v7e-3c-lant-01",
+      "v7g-3c-antal-01",
+      "v7g-3c-lant-03",
+      "v7g-q28-vector-len-walk"
+    ],
+    "00000000-0000-4000-8000-000000000019": [
+      "v7g-q7-ray-count-latin",
+      "v7e-3c-over-07",
+      "v7a-3c-antal-03",
+      "v7e-3c-lfler-07",
+      "v7g-3c-vrid-06"
+    ],
+    "00000000-0000-4000-8000-000000000020": [
+      "v7e-3c-over-06",
+      "v7e-3c-over-04",
+      "v7e-w2",
+      "v7-a-poly-fill2",
+      "v7a-3c-speg-02"
+    ]
+  }
+}

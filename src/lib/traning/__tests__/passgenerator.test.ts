@@ -22,15 +22,21 @@ import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda'
 
 const IDAG = '2026-10-10'
 
-/** En syntetisk bank med familjer, 120 frågor jämnt över p 0,2 till 0,9. */
+/**
+ * En syntetisk bank med familjer, 120 frågor jämnt över p 0,2 till 0,9. Sex
+ * familjer och nio primitiver, så att taken (högst två per familj och per
+ * primitiv) inte styr urvalet; varje fråga har eget recept.
+ */
 function synt(n = 120): BankFragaInfo[] {
-  const fam = ['Rotation', 'Latinsk kvadrat', 'Spegling', 'Antal']
+  const fam = ['Rotation', 'Latinsk kvadrat', 'Spegling', 'Antal', 'Överlagring', 'Vandring']
   return Array.from({ length: n }, (_, i) => ({
     id: `q${i}`,
     p: 0.2 + (0.7 * i) / (n - 1),
     prior: 3,
     family: fam[i % fam.length],
     kalla: i < n / 3 ? 'expert' : i < (2 * n) / 3 ? 'avancerad' : 'grund',
+    recept: `r${i}`,
+    primitiv: `p${i % 9}`,
   }))
 }
 
@@ -122,7 +128,7 @@ describe('återanvändningen', () => {
   })
 
   it('upprepade: riktat pass, generalrepetition och mätningens pooler fyller fältet', () => {
-    const bank = synt(40)
+    const bank = synt(60)
     const sedda: Sedd[] = bank.map((q) => ({ id: q.id, dag: laggTill(IDAG, -5) }))
     expect(valjRiktat({ bank, family: 'Rotation', niva: 5, sedda, idag: IDAG, seed: 'r' }).upprepade).toHaveLength(9)
     const g = valjGeneral({ bank, antal: 18, sedda, idag: IDAG, seed: 'g' })

@@ -219,6 +219,8 @@ export const PASS_COPY = {
     rubrikStill: (ratt: number, antal: number, niva: number) => `${ratt} av ${antal} rätt. Nivån står kvar på ${nivaKort(niva)}.`,
     rubrikUtanNiva: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
     riktatRad: 'Ett extrapass övar ett mönster. Det ändrar inte din nivå.',
+    /** Sträckregeln (tillägget om variation 1.3); copywriter putsar. */
+    strackRad: 'Två pass i rad med nästan allt rätt. Det här var ett steg svårare.',
     tal: {
       ratt: 'rätt',
       nivaFran: (fore: number) => `nivå, från ${nivaKort(fore)}`,

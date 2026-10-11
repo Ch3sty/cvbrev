@@ -7,7 +7,8 @@
 // - Bara sessioner med meta.alternativ_blandade jämförs, i täljare och
 //   nämnare. En oblandad session får ingen percentil alls.
 // - Jämförelsen görs per bankversion (meta.bank_version): version 2 bara mot
-//   version 2, sessioner utan fältet bara mot varandra.
+//   version 2, version 3 bara mot version 3, sessioner utan fältet bara mot
+//   varandra. Percentilen börjar om vid 25 sessioner på varje version.
 // - Golvet på 25 sessioner (MIN_PERCENTILE_SAMPLE) ligger hos anroparen.
 //
 // Verbalt och numeriskt blandas inte och har ingen bankversion; deras
@@ -26,8 +27,9 @@ export function arMatrisTyp(testType: string | null | undefined): boolean {
 }
 
 /** Bankversionen ur meta, som bankVersion i selectQuestions.v7 (utan att dra in bankerna). */
-export function underlagsVersion(meta: unknown): 1 | 2 {
-  return !!meta && typeof meta === 'object' && (meta as Record<string, unknown>).bank_version === 2 ? 2 : 1;
+export function underlagsVersion(meta: unknown): 1 | 2 | 3 {
+  const v = !!meta && typeof meta === 'object' ? (meta as Record<string, unknown>).bank_version : undefined;
+  return v === 3 ? 3 : v === 2 ? 2 : 1;
 }
 
 /**
@@ -36,7 +38,7 @@ export function underlagsVersion(meta: unknown): 1 | 2 {
  */
 export type Underlag =
   | { matris: false; nyckel: string }
-  | { matris: true; version: 1 | 2; nyckel: string };
+  | { matris: true; version: 1 | 2 | 3; nyckel: string };
 
 export function percentilUnderlag(testType: string, meta: unknown): Underlag | null {
   if (!arMatrisTyp(testType)) return { matris: false, nyckel: testType };
@@ -50,7 +52,7 @@ export function percentilUnderlag(testType: string, meta: unknown): Underlag | n
 export function begransaTillUnderlag<Q extends { eq: any; is: any }>(fraga: Q, underlag: Underlag): Q {
   if (!underlag.matris) return fraga;
   const blandad = fraga.eq('meta->>alternativ_blandade', 'true') as Q;
-  return underlag.version === 2
-    ? (blandad.eq('meta->>bank_version', '2') as Q)
-    : (blandad.is('meta->>bank_version', null) as Q);
+  return underlag.version === 1
+    ? (blandad.is('meta->>bank_version', null) as Q)
+    : (blandad.eq('meta->>bank_version', String(underlag.version)) as Q);
 }

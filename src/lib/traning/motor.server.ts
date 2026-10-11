@@ -65,6 +65,8 @@ import {
   type Nivapunkt,
 } from './milstolpar';
 import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, STEG_UPP, type NivaSvar } from './niva';
+import { strackEllerGolv } from './strack';
+import { nivaTak } from './flaggor';
 import {
   nastaAdaptivaFraga,
   valjGeneral,
@@ -274,6 +276,8 @@ export interface Sessionsvy {
   adaptiv: boolean;
   tema: string | null;
   family: string | null;
+  /** Passet riktades ett steg upp av sträckregeln (strack.ts). */
+  strack: boolean;
   format: TraningsMeta['format'];
   budget_s: number;
   tidsgrans_s: number | null;
@@ -357,6 +361,7 @@ export function sessionsvy(rad: SessionRad & { started_at?: string | null }): Se
     adaptiv: meta.adaptiv,
     tema: meta.tema,
     family: meta.family,
+    strack: meta.strack === true,
     format: meta.format,
     budget_s: meta.budget_s,
     tidsgrans_s: meta.tidsgrans_s,
@@ -547,9 +552,17 @@ export async function skapaTraningssession(args: {
       // passet lovade det och temat är detsamma.
       const upp = forra?.nasta === 'familj_upp' && tema && forra.tema === tema;
       const bas_niva = niva ?? STARTNIVA_UTAN_MATNING;
+      // Sträck- och golvregeln (tillägget om variation 1.3, strack.ts): två
+      // pass i rad med minst 8 av 9 ger ett steg upp oavsett tema, ett pass
+      // med högst 3 av 9 ett steg ned. Taket gäller.
+      const sg = niva != null ? strackEllerGolv(lage.slutforda, lage.rader) : null;
+      const malNiva =
+        sg === 'strack' ? Math.min(nivaTak(), bas_niva + STEG_UPP) : sg === 'golv' ? Math.max(1, bas_niva - STEG_UPP) : upp ? bas_niva + STEG_UPP : bas_niva;
       const urval = valjPass({
         bank: lage.bank,
-        niva: upp ? bas_niva + STEG_UPP : bas_niva,
+        niva: malNiva,
+        strack: sg === 'strack',
+        golv: sg === 'golv',
         sedda,
         idag,
         seed,
@@ -571,6 +584,7 @@ export async function skapaTraningssession(args: {
         ateranvanda: urval.ateranvanda,
         upprepade: urval.upprepade,
         band: urval.band,
+        ...(sg === 'strack' ? { strack: true } : {}),
       };
       break;
     }
