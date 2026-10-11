@@ -13,7 +13,7 @@
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_FEL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -468,7 +468,7 @@ export default function ViewLetterClient({
           type="button"
           onClick={() => setShowDeleteConfirm(true)}
           disabled={isDeleting}
-          className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-fel decoration-fel/40 disabled:cursor-not-allowed disabled:opacity-40`}
+          className={`${LANK_FEL} inline-flex min-h-11 shrink-0 items-center disabled:cursor-not-allowed disabled:opacity-40`}
         >
           {isDeleting ? 'Tar bort' : BREVVY.taBort}
         </button>

@@ -13,7 +13,7 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { DorrCv, IkonChev, IkonLas } from '@/components/illustrations/RumSymboler';
-import { LANK } from '@/components/shell/knappar';
+import { LANK, LANK_FEL } from '@/components/shell/knappar';
 import { CV_RUM } from '@/lib/rum/copy';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 import dynamic from 'next/dynamic';
@@ -121,7 +121,7 @@ export default function CvCard({
               type="button"
               onClick={onDelete}
               disabled={isDeleting}
-              className={`${RADLANK} ml-auto text-fel decoration-fel/40 disabled:opacity-60`}
+              className={`${LANK_FEL} ml-auto inline-flex min-h-11 items-center disabled:opacity-60`}
             >
               {isDeleting ? 'Tar bort' : 'Ta bort'}
             </button>

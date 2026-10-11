@@ -4,7 +4,7 @@
 // Tidslinjen är sanningskällan: händelser kan läggas till och tas bort,
 // aktuell status räknas alltid om av databasen.
 
-import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_FEL, LANK_VAGG } from '@/components/shell/knappar'
 import LyftKort from '@/components/rum/LyftKort'
 import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -390,7 +390,7 @@ export default function ApplicationDetailClient({
             <button
               type="button"
               onClick={() => setConfirmDeleteApplication(true)}
-              className={`${LANK} ml-auto inline-flex min-h-11 items-center text-fel decoration-fel/40`}
+              className={`${LANK_FEL} ml-auto inline-flex min-h-11 items-center`}
             >
               Ta bort
             </button>

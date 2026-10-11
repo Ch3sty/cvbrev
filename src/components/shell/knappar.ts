@@ -38,6 +38,8 @@ export const KNAPP_GLAS =
   'inline-flex h-12 w-auto self-start items-center justify-center gap-2 rounded-xl border border-vagg-kant bg-white/[.08] px-[18px] text-[15px] font-semibold text-vagg-ink'
 
 export const LANK = 'text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark'
+/** Destruktiv länk som bekräftas i dialog (spec 18.2): röd text, aldrig en knappfyllnad. */
+export const LANK_FEL = 'text-sm font-medium text-fel underline underline-offset-4 decoration-fel/40'
 
 export const LANK_VAGG = 'text-sm font-medium text-vagg-ink underline underline-offset-4 decoration-vagg-svag'
 
