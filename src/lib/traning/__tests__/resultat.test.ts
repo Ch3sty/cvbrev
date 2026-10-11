@@ -5,9 +5,7 @@
 // passet, och spec-rummens exempeltal (bilaga 11). Plus fixtur-API:t som
 // förhandsvisningen spelar upp passet mot.
 
-import { describe, expect, it, vi } from 'vitest'
-
-vi.mock('server-only', () => ({}))
+import { describe, expect, it } from 'vitest'
 
 const { byggForhandsdata } = await import('@/app/dashboard/tester/forhandsvisning-pass/fixturer.server')
 import { fixturApi } from '../fixturApi'

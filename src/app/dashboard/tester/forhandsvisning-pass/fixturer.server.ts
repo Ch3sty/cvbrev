@@ -1,4 +1,6 @@
 // Fixturerna för förhandsvisningen av våg 3b (bara utvecklare, se page.tsx).
+// Bara server: läser bankerna med facit. Importeras bara av page.tsx (och
+// testerna); klientdelen tar bara typerna.
 //
 // Riktiga V7-frågor ur banken, blandade med samma funktion som i passet
 // (permutationForSession) och vända till klientens form med motorns egen
@@ -8,7 +10,6 @@
 // 5,6; ommätning tisdag 13 oktober 5,8 (Första veckan); prov lördag 24
 // oktober, sikte 6,5, Matrigma klassisk (68 s per uppgift).
 
-import 'server-only'
 import { permutationForSession, tillVisat } from '@/lib/logicTestV7/blanda'
 import { visaFraga } from '@/lib/logicTestV7/visning'
 import type { VisadFraga } from '@/lib/logicTestV7/layered.v7'
