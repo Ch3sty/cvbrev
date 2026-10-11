@@ -11,7 +11,7 @@ import type { LifecycleProfile, LifecycleContext } from './types';
 import { lifecycleTags } from './types';
 import { LIFECYCLE_EMAILS } from './registry';
 import { LIFECYCLE_FROM, sendScheduledRowNow } from './runner';
-import { scheduleEmail, scheduleMany, cancelScheduled, sendAfterStockholm, isoWeekKey } from './schedule';
+import { scheduleEmail, scheduleMany, cancelScheduled, isoWeekKey } from './schedule';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -206,14 +206,19 @@ export async function onPaketEnded(admin: AnySupabase, userId: string): Promise<
   }
 }
 
-/** Prenumeration avslutad: bekräftelse direkt, erbjudande om tre dagar. */
+/**
+ * Prenumeration avslutad: bekräftelse direkt.
+ *
+ * cancel_followup schemaläggs inte längre (spec-rummen 23.2). Mejlet lovade
+ * 49 kr i månaden, men ingen kod ger rabatten efter att prenumerationen är
+ * borttagen. Mallen och typen står kvar för historiken i adminens Mejl.
+ */
 export async function onSubscriptionDeleted(admin: AnySupabase, userId: string): Promise<void> {
   try {
     await cancelScheduled(admin, userId, ['trial_'], 'subscription_deleted');
     // Hjälpredans mejl ska inte fortsätta till någon som sagt upp.
     await onPaketEnded(admin, userId);
     await sendLifecycleNow(admin, userId, 'cancel_immediate');
-    await scheduleEmail(admin, userId, 'cancel_followup', sendAfterStockholm(3));
   } catch (error: any) {
     console.error('[lifecycle] onSubscriptionDeleted misslyckades:', error?.message);
   }
