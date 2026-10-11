@@ -25,7 +25,7 @@
 // (render-matris-granskning.tsx) använder samma funktioner.
 // =============================================================================
 
-import { stable, vKey, rotera } from './celler.mjs';
+import { stable, vKey, rotera, dimsFor } from './celler.mjs';
 import { tolka, OPS, POS } from './tolka.mjs';
 
 const lika = (a, b) => vKey(a) === vKey(b);
@@ -153,6 +153,51 @@ export function plusFel(a) {
   }
   dist.filter((x) => x.tomFigur).forEach((x) => fel.push(`${a.id}: alternativ ${x.bokstav} är en tom figur`));
   return fel;
+}
+
+// ---------------------------------------------------------------- S5 och S6
+// Spärrarna mot att svara utan att läsa regeln (plan-facit-genvag avsnitt
+// 3), per dimension över de sex alternativen.
+//
+//   S5 facit_udda   facit är ensamt om sitt värde i en dimension medan minst
+//                   två distraktorer delar ett värde där ("den som sticker ut")
+//   S6 eliminerbar  en distraktor är ensam om sitt värde i en dimension där
+//                   facit delar värde med minst en annan (den kan strykas
+//                   genom att räkna majoritet)
+
+function vardenPerDim(q) {
+  const per = new Map();
+  q.options.forEach((o, i) => {
+    for (const d of dimsFor(o) ?? []) {
+      if (!per.has(d.id)) per.set(d.id, []);
+      per.get(d.id)[i] = vKey(d.varde);
+    }
+  });
+  return per;
+}
+const raknaVarden = (v) => { const m = new Map(); v.forEach((x) => m.set(x, (m.get(x) ?? 0) + 1)); return m; };
+
+/** Dimensionerna där facit sticker ut (S5). */
+export function facitUdda(q) {
+  const ut = [];
+  for (const [id, v] of vardenPerDim(q)) {
+    const n = raknaVarden(v);
+    if (n.get(v[q.correctAnswer]) !== 1) continue;
+    const dist = raknaVarden(v.filter((_, i) => i !== q.correctAnswer));
+    if ([...dist.values()].some((x) => x >= 2)) ut.push(id);
+  }
+  return ut;
+}
+
+/** Distraktorerna (bokstäver) som kan strykas genom majoritet (S6). */
+export function eliminerbara(q) {
+  const ut = new Set();
+  for (const [, v] of vardenPerDim(q)) {
+    const n = raknaVarden(v);
+    if ((n.get(v[q.correctAnswer]) ?? 0) < 2) continue;
+    v.forEach((x, i) => { if (i !== q.correctAnswer && n.get(x) === 1) ut.add(BOKSTAV[i]); });
+  }
+  return [...ut].sort();
 }
 
 /** Kort rad per alternativ för granskningssidan: "A bryter: symbol", "F: kopia av ruta 5". */

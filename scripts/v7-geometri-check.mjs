@@ -38,11 +38,15 @@
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import { tolka } from './lib/matris/tolka.mjs';
 import { rotera, spegelbilder, vKey, stable } from './lib/matris/celler.mjs';
 
-const G = JSON.parse(readFileSync(new URL('../src/lib/logicTestV7/geometri.json', import.meta.url), 'utf8'));
-const GLOBALS_CSS = new URL('../src/app/globals.css', import.meta.url);
+// Sökvägarna gäller från repots rot, som bankerna nedan (under vitest pekar
+// import.meta.url inte på filen).
+const fran = (rel) => rel;
+const G = JSON.parse(readFileSync(fran('src/lib/logicTestV7/geometri.json'), 'utf8'));
+const GLOBALS_CSS = fran('src/app/globals.css');
 
 const ALLA = [
   'src/lib/logicTestV7/questionBankGrund.v7.json',
@@ -406,12 +410,12 @@ function g6(q, t) {
   const fel = [];
   const fynd = [];
   for (const r of Object.values(t.regel)) {
-    if (r.dim.typ !== 'rot' || !['rot-steg', 'rot-kumulativ'].includes(r.regel)) continue;
+    if (r.dim.typ !== 'rot' || !['rot-steg', 'rot-kumulativ', 'rad-steg'].includes(r.regel)) continue;
     const v0 = t.dimsVy(q.grid[0][0]).find((d) => d.id === r.dim.id).varde;
     if (v0 === null || v0 === undefined || (Array.isArray(v0) && v0.length === 0) || v0 === 0 && r.dim.tile) continue;
     const n = r.dim.n;
     let k;
-    if (r.regel === 'rot-steg') k = sgd(n, mod(r.info.k, n));
+    if (r.regel === 'rot-steg' || r.regel === 'rad-steg') k = sgd(n, mod(r.info.k, n));
     else { k = n; for (let i = 0; i < 8; i++) k = sgd(k, mod(r.info.a + r.info.b * i, n)); }
     const lagen = new Set();
     for (let j = 0; j < n; j++) lagen.add(vKey(rotera(r.dim, v0, j * k)));
@@ -552,7 +556,41 @@ function g10() {
   return rader.map(([n, a, b, min]) => ({ n, kvot: kontrast(a, b), min, ok: kontrast(a, b) >= min }));
 }
 
+// ---------------------------------------------------------------- en fråga
+/**
+ * Geometrifelen för en fråga, utan kända undantag: det generatorn
+ * (scripts/lib/matris/generera.mjs, bygg) och spärren S7 i
+ * scripts/lib/matris/sparrar.mjs anropar för nya frågor. G1, G2 och G4 på
+ * varje visad cell, G6, G7, G8, G11 (tomma figurer i rutnätet, fler än ett
+ * tomt alternativ, och med `strikt` vilket tomt alternativ som helst) och
+ * G12. Konstanterna (G3, G5, G10) räknas bara i skriptet.
+ */
+export function geometriFraga(q, { expert = false, strikt = true } = {}) {
+  const fel = [];
+  const alla = [...q.grid.flat(), ...q.options].filter((c) => c !== null);
+  if (alla.some((c) => Array.isArray(c))) return ['G12: lagerceller'];
+  for (const c of alla) {
+    const k = kontrolleraCell(c);
+    if (k.okand) { fel.push(`okänd celltyp ${c.kind}`); continue; }
+    for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`${g.toUpperCase()}: ${x}`));
+  }
+  if (q.grid.flat().some((c) => c !== null && tom(c))) fel.push('G11: tom figur i rutnätet');
+  const tommaAlt = q.options.map((o, i) => (tom(o) ? i + 1 : 0)).filter(Boolean);
+  if (tommaAlt.length > 1 || (tommaAlt.length && (expert || strikt))) fel.push(`G11: tomt alternativ ${tommaAlt.join(', ')}`);
+  const t = tolka(q);
+  if (t.ok) {
+    g6(q, t).fel.forEach((x) => fel.push(`G6: ${x}`));
+    g7(q).forEach((x) => fel.push(`G7: ${x}`));
+    g8(q, t).fel.forEach((x) => fel.push(`G8: ${x}`));
+  }
+  return fel;
+}
+
 // ---------------------------------------------------------------- körning
+// Bara när skriptet körs direkt; generatorn importerar geometriFraga.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
+
+function main() {
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
 const fel = [];
 const kanda = [];
@@ -687,3 +725,4 @@ if (fel.length === 0) {
 console.log(`\n✗ ${fel.length} fel:\n`);
 fel.forEach((x) => console.log('  - ' + x));
 process.exit(1);
+}

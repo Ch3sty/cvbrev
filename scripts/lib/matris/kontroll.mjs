@@ -25,6 +25,7 @@
 import { stable, tile } from './celler.mjs';
 import { tolka, familjFor, POS, LASORDNING } from './tolka.mjs';
 import { misstagFor } from './misstag.mjs';
+import { lasordningsDimensioner } from './sparrar.mjs';
 
 const norm = (c) => (c === null ? 'null' : stable(c));
 const SYM_RE = /spegl|schack|symmetr|180|motsatt/i;
@@ -69,7 +70,7 @@ function attribut(cell, strikt) {
 // dimension, inte fyra. Två lat-dimensioner med samma vridning jämförs
 // därför inte. Två vandrare med olika steg (två rörelser) jämförs som förut.
 const SAMMA_MANGD = new Set(['ringantal', 'ringsvart', 'ringgra', 'lat-hel']);
-const sammaMonster = (rx, ry, X, Y) => X.startsWith('lat-') && Y.startsWith('lat-') && rx.regel === 'rot-steg' && ry.regel === 'rot-steg' && rx.info?.k === ry.info?.k;
+const sammaMonster = (rx, ry, X, Y) => X.startsWith('lat-') && Y.startsWith('lat-') && ['rot-steg', 'rad-steg'].includes(rx.regel) && ry.regel === rx.regel && rx.info?.k === ry.info?.k && rx.info?.vaxlar === ry.info?.vaxlar;
 
 export function oberoende(q, t = tolka(q)) {
   if (!t || !t.ok) return [];
@@ -153,7 +154,9 @@ export function lasordningsCykel(q, t = tolka(q)) {
  */
 export function kandidatKrav(q, t = tolka(q)) {
   const fel = [];
-  if (facitRuta0(q)) fel.push(`${q.id}: facit är identiskt med rutan uppe till vänster`);
+  // Latinska kvadrater med en egenskap har facit lika ruta 0 eller ruta 1
+  // av konstruktion (plan-facit-genvag 1.3); där gäller bankkvoten S1b.
+  if (facitRuta0(q) && !['latin-antal', 'latin-form'].includes(q.family)) fel.push(`${q.id}: facit är identiskt med rutan uppe till vänster`);
   else {
     const kopior = facitKopior(q);
     if (kopior.length) {
@@ -163,9 +166,11 @@ export function kandidatKrav(q, t = tolka(q)) {
     }
   }
   const niva = nivaFor(q);
-  if (niva && niva !== 'grund') {
-    const { ren, slutna } = lasordningsCykel(q, t);
-    if (ren) fel.push(`${q.id}: ren rörelse i läsordning${slutna.length ? ` som sluter sig efter åtta steg (${slutna.join(', ')})` : ''}, genereras bara för grund`);
+  // Läsordningen avgörs av reglerna (spärren S9), inte av familjen: radvisa
+  // rörelser (bank_version 3) bär samma familjenamn som läsordningens.
+  if (niva && niva !== 'grund' && lasordningsDimensioner(q, t).length) {
+    const { slutna } = lasordningsCykel(q, t);
+    fel.push(`${q.id}: ren rörelse i läsordning${slutna.length ? ` som sluter sig efter åtta steg (${slutna.join(', ')})` : ''}, genereras bara för grund`);
   }
   return fel;
 }
@@ -173,8 +178,14 @@ export function kandidatKrav(q, t = tolka(q)) {
 // Antal regler att hålla i huvudet. Överlagring med vridning räknas som två
 // (operationen och vridningen).
 export const KOPPLADE = new Set(['latin', 'diagonal', 'overlagring', 'overlagring-vriden']);
+// Dubbel överlagring (P8): samma operation både per rad och per kolumn
+// räknas som två regler, eftersom luckan ska stämma åt båda hållen.
+export const arDubbelOverlagring = (t, id) => {
+  const o = (t.allaRegler?.[id] ?? []).filter((f) => f.regel === 'overlagring');
+  return o.some((a) => a.info.axel === 'kolumn' && o.some((b) => b.info.axel === 'rad' && b.info.op === a.info.op));
+};
 export function antalRegler(t) {
-  return Object.values(t.regel).filter((r) => r.regel !== 'konstant').reduce((n, r) => n + (r.regel === 'overlagring-vriden' ? 2 : 1), 0);
+  return Object.entries(t.regel).filter(([, r]) => r.regel !== 'konstant').reduce((n, [id, r]) => n + (r.regel === 'overlagring-vriden' || (r.regel === 'overlagring' && arDubbelOverlagring(t, id)) ? 2 : 1), 0);
 }
 
 /**
@@ -189,7 +200,7 @@ export function plusKrav(q, t = tolka(q)) {
   const fel = [];
   const regler = Object.values(t.regel).map((r) => r.regel);
   const n = antalRegler(t);
-  const vriden = regler.includes('overlagring-vriden');
+  const vriden = regler.includes('overlagring-vriden') || Object.keys(t.regel).some((id) => t.regel[id].regel === 'overlagring' && arDubbelOverlagring(t, id));
   if (n < 3 && !vriden) fel.push(`${q.id}: bara ${n} regler, bandet kräver minst tre`);
   if (!regler.some((r) => KOPPLADE.has(r))) fel.push(`${q.id}: ingen regel är kopplad över hela rutnätet`);
   return fel;
@@ -267,7 +278,7 @@ export function kontrollera(q, { strikt = true, familj = null, kandidat = false 
     if (strikt) {
       // rotationssymmetri för mängder som vrids: synlig vridning kräver olika lägen
       for (const r of Object.values(t.regel)) {
-        if (r.regel === 'rot-steg' && r.dim.mangd) {
+        if ((r.regel === 'rot-steg' || r.regel === 'rad-steg') && r.dim.mangd) {
           const v0 = t.dimsVy(q.grid[0][0]).find((d) => d.id === r.dim.id).varde;
           const lagen = new Set();
           for (let j = 0; j < r.dim.n; j++) lagen.add(stable(v0.map((s) => (((s + j * r.info.k) % r.dim.n) + r.dim.n) % r.dim.n).sort((x, y) => x - y)));

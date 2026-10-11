@@ -180,6 +180,9 @@ function dimsBalans(c) {
     out.push({ id: 'pos-' + shape, typ: 'kat', balans: shape, varde: it ? it.posX : null, namn: FORM_NAMN[shape].toLowerCase(), subj: FORM_NAMN[shape] });
     out.push({ id: 'sida-' + shape, typ: 'kat', balans: shape, sida: true, varde: it ? it.side : null, namn: FORM_NAMN[shape].toLowerCase(), subj: FORM_NAMN[shape] });
   }
+  // Kvadratens fyllning (bank_version 3, P6). Saknas fältet är den ofylld.
+  const kv = c.items.find((i) => i.shape === 'square');
+  out.push({ id: 'fyll-square', typ: 'kat', varde: kv ? (kv.fill ?? 'none') : null, namn: 'kvadratens fyllning', subj: 'Kvadraten' });
   return out;
 }
 
@@ -246,7 +249,7 @@ export function vardeNamn(cell, dimId) {
   if (!d) return null;
   const v = d.varde;
   switch (dimId) {
-    case 'fyllning': case 'basfyll': case 'inre': return FYLL[v] ?? null;
+    case 'fyllning': case 'basfyll': case 'inre': case 'fyll-square': return FYLL[v] ?? null;
     case 'sidor': return SIDOR[v] ?? null;
     case 'bas': return BAS[v] ?? null;
     case 'symbol': return SYMBOL[v] ?? null;
@@ -280,6 +283,7 @@ export function konstantText(cell, dimId, kind) {
     case 'sidor': return `Alla figurer är ${SIDOR[v].pl}.`;
     case 'polyrot': return v === 0 ? 'Ingen figur är vriden.' : `Alla figurer är vridna ${v} grader.`;
     case 'fyllning': case 'basfyll': return `Alla figurer är ${FYLL[v].pl}.`;
+    case 'fyll-square': return v === null ? null : `Kvadraten är ${FYLL[v].adj} i alla rutor.`;
     case 'bas': return `Grundformen är alltid ${BAS[v].en}.`;
     case 'symbol': return v === 'none' ? 'Ingen figur har en symbol.' : `Alla figurer har ${SYMBOL[v].en}.`;
     case 'antal': return `Alla figurer har ${medAntal(v, 'streck', 'streck')}.`;
@@ -302,4 +306,19 @@ export function saknasText(dim, felV, ratt) {
 }
 
 export const SIDA = { above: 'ovanför', below: 'under' };
+
+// ---------------------------------------------------------------- primitiv
+// Primitivgruppen en fråga ritas med, läst ur första cellen. Passets
+// exponeringsregel (högst två frågor per primitiv och pass, tillägget om
+// variation 2.1 punkt 3) och spärren S10 läser den. Samma tabell finns i
+// src/lib/traning/bank.server.ts (PRIMITIV), som inte får importera hit.
+export const PRIMITIV = {
+  vector: 'pil', orbital: 'orbital', ray: 'stralar', sectorwheel: 'sektorhjul', tile: 'block3x3', lattice: 'ruta2x2',
+  stack: 'grundform', poly: 'grundform', ring: 'ringar', balanceline: 'balanslinje', tally: 'rakning', dotsorbit: 'orbital',
+};
+export function primitivFor(q) {
+  const c = q?.grid?.[0]?.[0];
+  if (!c || Array.isArray(c)) return 'lager';
+  return PRIMITIV[c.kind] ?? c.kind;
+}
 export { LAGE4, LAGE8, FYLL, SIDOR, BAS, SYMBOL, LAT_NAMN };

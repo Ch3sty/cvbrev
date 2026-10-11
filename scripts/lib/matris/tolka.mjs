@@ -19,7 +19,7 @@
 
 import { dimsFor, rotera, spegelbilder, element, vKey, mod, tile, LAT_MEDURS } from './celler.mjs';
 
-const ORDNING = ['konstant', 'spegling', 'overlagring', 'overlagring-vriden', 'rot-steg', 'rot-kumulativ', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'antal-steg', 'periodisk'];
+const ORDNING = ['konstant', 'spegling', 'overlagring', 'overlagring-vriden', 'rot-steg', 'rot-kumulativ', 'rad-steg', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'rad-aritm', 'antal-steg', 'periodisk'];
 const LASORDNING = ['rot-steg', 'rot-kumulativ', 'periodisk', 'antal-steg'];
 
 // Ringar kan läsas på två sätt: antal + innersta + yttre, eller som en
@@ -85,6 +85,41 @@ function reglerFor(dim, V, seq, kind) {
       }
     }
   }
+  // radvis rörelse (bank_version 3, mallarna M1 till M4): inom varje rad tar
+  // dimensionen k steg per kolumn, och raden börjar var som helst. Samma sak
+  // kolumnvis (transponerat rutnät, info.axel = 'kolumn'). Med egen riktning
+  // per rad (M4, info.vaxlar) går rad 1 och 3 k steg och rad 2 lika många åt
+  // andra hållet. Läsordningen är specialfallet där varje rad börjar 3k
+  // längre fram; då väljs rot-steg ovan (ORDNING), och förutsägelsen är
+  // densamma, så ingen fryst fråga blir tvetydig.
+  if (dim.typ === 'rot' && !harNull) {
+    for (const axel of ['rad', 'kolumn']) {
+      const at = (i, j) => (axel === 'rad' ? V[i][j] : V[j][i]);
+      const linje = (i, kk, n) => lika(rotera(dim, at(i, 0), kk), at(i, 1)) && (n === 2 || lika(rotera(dim, at(i, 1), kk), at(i, 2)));
+      for (let k = 1; k < dim.n; k++) {
+        for (const vaxlar of [false, true]) {
+          const k1 = vaxlar ? mod(-k, dim.n) : k;
+          if (vaxlar && k1 === k) continue;
+          if (linje(0, k, 3) && linje(1, k1, 3) && linje(2, k, 2)) add('rad-steg', rotera(dim, at(2, 1), k), { k, axel, vaxlar });
+        }
+      }
+    }
+  }
+  // radvis räkning (bank_version 3): antalet ändras lika mycket för varje
+  // steg åt höger i raden; rad 1 och 3 med d, rad 2 med d eller med -d
+  // (egen riktning per rad).
+  if (dim.antal && !harNull && alla.every((v) => typeof v === 'number')) {
+    for (const axel of ['rad', 'kolumn']) {
+      const at = (i, j) => (axel === 'rad' ? V[i][j] : V[j][i]);
+      const d = at(0, 1) - at(0, 0);
+      if (d === 0) continue;
+      const linje = (i, dd, n) => at(i, 1) - at(i, 0) === dd && (n === 2 || at(i, 2) - at(i, 1) === dd);
+      for (const vaxlar of [false, true]) {
+        if (linje(0, d, 3) && linje(1, vaxlar ? -d : d, 3) && linje(2, d, 2)) add('rad-aritm', at(2, 1) + d, { d, axel, vaxlar });
+      }
+    }
+  }
+
   // läsordning: period 2-4
   for (let p = 2; p <= 4; p++) {
     let ok = true;
@@ -254,7 +289,29 @@ export function tolkaVy(q, kind, vy) {
 }
 
 // ---------------------------------------------------------------- familj
-const RORELSE_REGLER = new Set(['rot-steg', 'rot-kumulativ']);
+const RORELSE_REGLER = new Set(['rot-steg', 'rot-kumulativ', 'rad-steg']);
+
+/**
+ * Familjen för en fråga som bärs av radvis rörelse (bank_version 3). Två
+ * element som rör sig med olika steg: två rörelser. Flera fyllningar i 2×2
+ * som vrids lika: mönsterrotation. En växling i schackmönster bredvid
+ * rörelsen: rotation med byte. Annars efter primitiven, som i läsordningen.
+ */
+function familjRadvis(q, t, aktiva) {
+  const rs = aktiva.filter((r) => r.regel === 'rad-steg');
+  const ovr = aktiva.filter((r) => r.regel !== 'rad-steg');
+  const sammaSteg = rs.every((r) => r.info.k === rs[0].info.k && r.info.vaxlar === rs[0].info.vaxlar);
+  if (t.kind === 'lattice' && rs.length >= 2 && sammaSteg) return 'monsterrotation';
+  if (rs.length >= 2) return 'tva-rorelser';
+  if (ovr.some((r) => r.regel === 'periodisk')) return 'rotation-med-byte';
+  if (t.kind === 'vector' || t.kind === 'ray' || t.kind === 'poly') return 'vridning';
+  if (t.kind === 'orbital') return 'vandring';
+  if (t.kind === 'lattice' || t.kind === 'tile') {
+    const v = t.dimsVy(q.grid[0][0]).find((d) => d.id === rs[0].dim.id).varde;
+    return (rs[0].dim.tile ? tile.antal(v) : v.length) === 1 ? 'vandring' : 'monsterrotation';
+  }
+  return 'monsterrotation';
+}
 
 export function familjFor(q, t = tolka(q)) {
   if (!t.ok) return null;
@@ -262,8 +319,9 @@ export function familjFor(q, t = tolka(q)) {
   const regler = new Set(aktiva.map((r) => r.regel));
   if (regler.has('spegling')) return 'spegling';
   if (regler.has('overlagring') || regler.has('overlagring-vriden')) return 'overlagring';
-  if (regler.has('summa')) return 'antal-andras';
+  if (regler.has('summa') || regler.has('rad-aritm')) return 'antal-andras';
   if (t.kind === 'balanceline') return 'tva-rorelser';
+  if (regler.has('rad-steg')) return familjRadvis(q, t, aktiva);
   // Minst två regler varav en latinsk kvadrat, och de övriga är latinska
   // kvadrater, diagonaler eller växlingar i läsordning (schackmönster):
   // latin-flera (bandet "svår plus", P1 till P3).

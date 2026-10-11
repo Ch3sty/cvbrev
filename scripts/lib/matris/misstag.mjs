@@ -57,10 +57,16 @@ function textRotation(q, t, R, F, regel) {
   const subj = dim.subj;
   const verb = dim.verb ?? 'flyttat';
   if (F === null || F === undefined) return saknasText(dim, F, R);
-  if (lika(F, seq[7])) return `${subj} har inte ${verb} sista steget.`;
-  if (regel.regel === 'rot-steg' && lika(F, rotera(dim, R, regel.info.k))) return `${subj} har ${verb} ett steg för långt.`;
+  // Radvis rörelse (bank_version 3): referenserna är rutorna före luckan i
+  // raden, eller i kolumnen när regeln går kolumnvis.
+  const kol = regel.regel === 'rad-steg' && regel.info.axel === 'kolumn';
+  const senast = kol ? gridV(q, t, dim.id)[1][2] : seq[7];
+  const forra = kol ? gridV(q, t, dim.id)[0][2] : seq[6];
+  const steg = regel.regel === 'rot-steg' || regel.regel === 'rad-steg';
+  if (lika(F, senast)) return `${subj} har inte ${verb} sista steget.`;
+  if (steg && lika(F, rotera(dim, R, regel.info.k))) return `${subj} har ${verb} ett steg för långt.`;
   if (regel.regel === 'rot-kumulativ' && lika(F, rotera(dim, seq[7], regel.info.a + regel.info.b * 6))) return `${subj} har ${verb} lika långt som förra steget. Steget ska bli längre varje gång.`;
-  if (lika(F, seq[6]) && regel.regel === 'rot-steg') return `${subj} har ${verb} åt fel håll.`;
+  if (lika(F, forra) && steg) return regel.info.vaxlar ? `${subj} har ${verb} åt samma håll som i mittraden. Raderna växlar riktning.` : `${subj} har ${verb} åt fel håll.`;
   // vriden j steg från rätt läge
   for (let j = 1; j < dim.n; j++) {
     if (!lika(rotera(dim, R, j), F)) continue;
@@ -353,7 +359,18 @@ function textFor(q, t, dimId, F) {
   }
   switch (regel.regel) {
     case 'konstant': return textKonstant(q, t, R, F, regel);
-    case 'rot-steg': case 'rot-kumulativ': return textRotation(q, t, R, F, regel);
+    case 'rot-steg': case 'rot-kumulativ': case 'rad-steg': return textRotation(q, t, R, F, regel);
+    case 'rad-aritm': {
+      const el = dim.id === 'ringantal' ? 'ring' : 'streck';
+      const V = gridV(q, t, dim.id);
+      const kol = regel.info.axel === 'kolumn';
+      const senast = kol ? V[1][2] : V[2][1];
+      if (F === senast) return `${stor(dim.namn)} har inte ändrats sista steget.`;
+      if (F === R + 1) return `${artikel(el)} ${el} för mycket.`;
+      if (F === R - 1) return `${artikel(el)} ${el} för lite.`;
+      if (F === senast - regel.info.d) return regel.info.vaxlar ? `${stor(dim.namn)} har ändrats åt samma håll som i mittraden. Raderna växlar riktning.` : `${stor(dim.namn)} har ändrats åt fel håll.`;
+      return null;
+    }
     case 'periodisk':
       if (dim.balans && dim.sida) return textBalansSida(q, t, R, F, regel);
       return textPeriodisk(q, t, R, F, regel);
@@ -439,13 +456,15 @@ function misstagMaskinellt(q, t) {
   if (!t.ok) return q.options.map((_, i) => (i === q.correctAnswer ? '' : null));
   // 2×2 där flera fyllningar vrids tillsammans: beskriv hela mönstret
   const latRot = Object.values(t.regel).filter((x) => x.regel !== 'konstant');
-  const helaMonstret = t.kind === 'lattice' && latRot.length >= 2 && latRot.every((x) => x.regel === 'rot-steg' && x.info.k === latRot[0].info.k);
+  const helaMonstret = t.kind === 'lattice' && latRot.length >= 2 && latRot.every((x) => ['rot-steg', 'rad-steg'].includes(x.regel) && x.regel === latRot[0].regel && x.info.k === latRot[0].info.k && x.info.vaxlar === latRot[0].info.vaxlar);
   const tHel = helaMonstret ? tolkaVy(q, 'lattice', 1) : null;
   const aktiva = Object.entries(t.regel).filter(([, r]) => r.regel !== 'konstant').map(([id]) => id);
   return q.options.map((opt, i) => {
     if (i === q.correctAnswer) return '';
     const dimsO = t.dimsVy(opt);
     let fel = dimsO.filter((d) => !lika(d.varde, t.pred[d.id])).map((d) => d.id);
+    // Kvadratens fyllning när kvadraten saknas eller inte ska finnas: läget säger det.
+    fel = fel.filter((id) => !(id === 'fyll-square' && (t.pred[id] === null || dimsO.find((d) => d.id === id).varde === null)));
     if (fel.length === 0) return null; // ska inte hända: två rätta
     if (tHel && tHel.ok && tHel.regel['lat-hel']) {
       const R = q.options[q.correctAnswer].cells;
