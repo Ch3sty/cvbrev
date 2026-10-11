@@ -58,6 +58,12 @@ interface RouteDef {
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
   dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult';
+  /**
+   * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
+   * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
+   * --forhandsvisning.
+   */
+  forhandsvisning?: boolean;
 }
 
 const ROUTES: RouteDef[] = [
@@ -107,6 +113,14 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/linkedin-optimizer?steg=2', namn: 'linkedin steg 2', budget: 'flode' },
   { path: '/dashboard/linkedin-optimizer?steg=3', namn: 'linkedin steg 3', budget: 'flode' },
   { path: '/dashboard/arbetsstil', namn: 'arbetsstil', budget: 'flode' },
+
+  // Våg 3b: passet och resultaten i förhandsvisningen. När testmotorns
+  // migreringar körts i prod mäts /dashboard/tester/pass/<id> på riktigt.
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=P1', namn: '3b passets fråga', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=P4', namn: '3b resultatet P4', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=M1', namn: '3b mätningen M1', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=O1', namn: '3b ommätningen O1', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=uppvarmning', namn: '3b uppvärmningen', budget: 'flode', forhandsvisning: true },
 ];
 
 function arg(namn: string, fallback?: string): string | undefined {
@@ -313,7 +327,8 @@ async function main() {
     }
   }
 
-  const valda = ROUTES.filter((r) => !filter || (filter.startsWith('=') ? r.namn === filter.slice(1) : r.namn.includes(filter) || r.path.includes(filter)));
+  const medForhandsvisning = process.argv.includes('--forhandsvisning');
+  const valda = ROUTES.filter((r) => (!r.forhandsvisning || medForhandsvisning) && (!filter || (filter.startsWith('=') ? r.namn === filter.slice(1) : r.namn.includes(filter) || r.path.includes(filter))));
   console.log(`Konto: ${epost}`);
   console.log(`Server: ${bas}   Körningar per route: ${korningar}   Routes: ${valda.length}`);
   console.log('Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)\n');

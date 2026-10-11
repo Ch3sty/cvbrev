@@ -59,7 +59,7 @@ const PORT = arg('port', '5233')
 const BAS = `http://localhost:${PORT}`
 const BARA = arg('bara') ? arg('bara').split(',') : null
 const UT = path.resolve(arg('ut', 'docs/qa/rummen/vag-3b'))
-const KONTOFIL = path.resolve('scripts/.qa-rummen-3b-konto.json')
+const KONTOFIL = path.resolve('scripts/.qa-rummen-3b-konton.json')
 fs.mkdirSync(UT, { recursive: true })
 const kor = (del) => !BARA || BARA.includes(del)
 
