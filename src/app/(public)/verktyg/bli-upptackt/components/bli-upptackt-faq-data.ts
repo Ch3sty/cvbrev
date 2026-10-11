@@ -1,4 +1,4 @@
-import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 export type FaqItem = { q: string; a: string }
 
@@ -23,7 +23,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar det att synas för rekryterare?',
-    a: `Synligheten ingår i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}, och du säger upp när du vill. Utan ${PREMIUM} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${PREMIUM} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill, alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.`,
+    a: `Synligheten ingår i ${paketMedPris(SALD_PLAN)}, och du säger upp när du vill. Utan ${PREMIUM} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${PREMIUM} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill, alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.`,
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',
