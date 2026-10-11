@@ -21,9 +21,12 @@
  * låsta nivåer har lås och "Premium", och ett tryck öppnar betalväggen.
  */
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
+import { Suspense, lazy, use, useState, type ReactNode } from 'react';
 import Golv from '@/components/rum/Golv';
+import Vagg from '@/components/rum/Vagg';
+import Topprad from '@/components/rum/Topprad';
+import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import type { DinUtvecklingData } from '@/components/traning/utveckling/typer';
 import { TRAN_RAD, UNDERSIDA } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
@@ -43,9 +46,33 @@ import { IlluMatris } from '@/components/traning/illu';
 import { featureForSlug, testPaths } from './testConfig';
 import type { TesterHubData } from './getHubData';
 
-const DinUtveckling = dynamic(() => import('@/components/traning/utveckling/DinUtveckling'), {
-  loading: () => <div className="min-h-[420px]" aria-hidden="true" />,
-});
+// lazy, inte next/dynamic: både koden och datan väntas in bakom samma
+// Suspense, så flikarna står kvar och går att trycka på medan fliken laddar.
+const DinUtveckling = lazy(() => import('@/components/traning/utveckling/DinUtveckling'));
+
+/** Fliken Din utveckling när datan strömmat in från alla/page.tsx. */
+function UtvecklingFlik({ las, flikar }: { las: Promise<DinUtvecklingData>; flikar: ReactNode }) {
+  const data = use(las);
+  return <DinUtveckling data={data} topprad={<Topprad />} flikar={flikar} />;
+}
+
+/** Medan Din utveckling laddar: väggen i rätt höjd och flikarna på golvet. */
+function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
+  return (
+    <div className="flex flex-1 flex-col" aria-busy="true">
+      <Vagg>
+        <Topprad />
+        <LoadingSkeleton variant="vagg" label="Laddar din utveckling" />
+      </Vagg>
+      <Golv>
+        <div className="flex flex-col gap-4">
+          <div className="lg:max-w-[420px]">{flikar}</div>
+          <div className="min-h-[420px]" aria-hidden="true" />
+        </div>
+      </Golv>
+    </div>
+  );
+}
 
 /**
  * Gratisraden (spec-rummen 23.3): nivåmätningen en gång med genomgång och
@@ -71,12 +98,15 @@ export default function TesterHubClient({
   planKey = null,
   hjalp = { dold: null, forsta: false },
   startflik = 'tester',
+  utveckling,
 }: {
   data: TesterHubData;
   track?: Scope | null;
   planKey?: PlanKey | null;
   hjalp?: HjalpLageProps;
   startflik?: TesterTab;
+  /** Din utvecklings data, strömmad från servern (alla/page.tsx). */
+  utveckling: Promise<DinUtvecklingData>;
 }) {
   const [tab, setTab] = useState<TesterTab>(startflik);
   const [sparr, setSparr] = useState<Feature | null>(null);
@@ -146,7 +176,9 @@ export default function TesterHubClient({
   return (
     <HjalpProvider dold={hjalp.dold} forsta={hjalp.forsta}>
       {tab === 'utveckling' ? (
-        <DinUtveckling data={data} flikar={flikar} />
+        <Suspense fallback={<UtvecklingLaddar flikar={flikar} />}>
+          <UtvecklingFlik las={utveckling} flikar={flikar} />
+        </Suspense>
       ) : (
         <>
           <AllaTesterVagg titel={UNDERSIDA.allaTester} beskrivning={beskrivning} steg={steg} tat={!nasta} />

@@ -33,6 +33,47 @@ import type { PlanKey } from '@/lib/plans/plans';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { hjalpDoldUrProfil } from '@/lib/traning/hjalp';
 import type { TesterTab } from '../components/TesterTabs';
+import { testSkrivKlient } from '@/lib/tests/skrivKlient';
+import { dagSthlm } from '@/lib/traning/datum';
+import { hamtaTraningsstatus } from '@/lib/traning/motor.server';
+import { kurvaUrStatus, type DinUtvecklingData } from '@/components/traning/utveckling';
+import { hamtaMotordata, hamtaVarDuStar } from '@/components/traning/utveckling/data.server';
+
+type Utvecklingsdelar = Pick<DinUtvecklingData, 'kurva' | 'varDuStar' | 'familjer' | 'tempo'>;
+
+/**
+ * Din utvecklings egna läsningar: motorns status (kurvan), Var du står och
+ * motorns familjer och tempo. Fördelningen i Var du står läser många rader,
+ * så sidan väntar inte på den här delen: löftet skickas till klienten och
+ * fliken strömmas in (React use() bakom Suspense) medan fliken Tester ritas
+ * direkt. Varje del faller för sig; ett fel ger ett tomt kort, aldrig en
+ * trasig flik.
+ */
+async function lasUtvecklingsdelar(
+  supabase: ReturnType<typeof createServerClient>,
+  userId: string,
+  sedd: Promise<string | null>
+): Promise<Utvecklingsdelar> {
+  const admin = testSkrivKlient();
+  const idag = dagSthlm();
+  const [status, varDuStar, motor] = await Promise.all([
+    sedd
+      .then((sedd_at) => hamtaTraningsstatus({ supabase: supabase as never, admin, userId, idag, sedd_at }))
+      .catch((e) => {
+        console.error('Din utveckling: motorns status', e);
+        return null;
+      }),
+    hamtaVarDuStar(admin, userId).catch((e) => {
+      console.error('Din utveckling: Var du står', e);
+      return [];
+    }),
+    hamtaMotordata(admin, userId).catch((e) => {
+      console.error('Din utveckling: motordata', e);
+      return { familjer: null, tempo: null };
+    }),
+  ]);
+  return { kurva: kurvaUrStatus(status), varDuStar, ...motor };
+}
 
 function lasTrack(v: unknown): Scope | null {
   return v === 'cv' || v === 'tester' || v === 'allt' ? v : null;
@@ -61,6 +102,14 @@ export default async function AllaTesterPage({
   // första gången, alltså när traning_sedd_at saknas eller inget test är gjort.
   let seddAt: string | null = null;
   let hjalpDold: boolean | null = null;
+
+  // Din utveckling startar här, parallellt med allt nedan, men sidan väntar
+  // inte på den. Motorns status behöver bara traning_sedd_at ur profilen.
+  let seddKlar: (v: string | null) => void = () => {};
+  const sedd = new Promise<string | null>((r) => {
+    seddKlar = r;
+  });
+  const delar = lasUtvecklingsdelar(supabase, user.id, sedd);
 
   try {
     // Scopet påverkar bara presentationen, inte vilka rader vi läser, så det
@@ -95,6 +144,7 @@ export default async function AllaTesterPage({
       traning_sedd_at?: string | null;
     } | null;
     seddAt = profil?.traning_sedd_at ?? null;
+    seddKlar(seddAt);
     track = lasTrack(profil?.onboarding_track);
     planKey = harPaket(scope, profil?.premium_until ? new Date(profil.premium_until) : null, new Date(), {
       priceId: profil?.price_id,
@@ -109,6 +159,15 @@ export default async function AllaTesterPage({
     console.error('Testhubben: kunde inte hämta statistiken', error);
     data = emptyHubData(false, false);
   }
+  // Läste profilen aldrig klart (felet ovan) får motorn gå utan sedd_at.
+  seddKlar(seddAt);
+
+  const utveckling: Promise<DinUtvecklingData> = delar.then((d) => ({
+    ...d,
+    idag: dagSthlm(),
+    perTest: data.perTest,
+    hasHistory: data.hasHistory,
+  }));
 
   const gjortNagot =
     data.aggregate.hasAnyData || data.personality.grund.hasProfile || data.personality.avancerad.hasProfile;
@@ -121,6 +180,7 @@ export default async function AllaTesterPage({
       planKey={planKey}
       hjalp={{ dold: hjalpDold, forsta }}
       startflik={startflik}
+      utveckling={utveckling}
     />
   );
 }
