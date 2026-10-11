@@ -73,7 +73,7 @@ function RubrikMedHjalp({ rad }: { rad: string }) {
         titel={UTV.rubrik}
         liten
         rad={
-          <span className="inline-flex items-center gap-1">
+          <span data-lopt className="inline-flex items-center gap-1">
             {rad}
             <HjalpKnapp id="C2" etikett={UTV.kurvaHjalp} className="text-vagg-mjuk hover:text-vagg-ink" />
           </span>
@@ -89,7 +89,7 @@ function Tomt({ topprad, flikar }: { topprad?: ReactNode; flikar?: ReactNode }) 
       <Vagg>
         {topprad}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <Rubrik titel={UTV.rubrik} liten rad={UTV.tomt.text} />
+          <Rubrik titel={UTV.rubrik} liten rad={<span data-lopt>{UTV.tomt.text}</span>} />
           <div className="illu-vagg mx-auto w-full max-w-[200px] text-vagg-ink lg:mx-0 lg:w-60 lg:max-w-none">
             <IlluTomtUtveckling className="h-24 w-full lg:h-auto" />
           </div>
@@ -126,7 +126,7 @@ export default function DinUtveckling({ data, topprad, flikar }: DinUtvecklingPr
           <Nivavagg k={k} idag={data.idag} />
         ) : (
           <div className="mt-5 flex flex-col gap-2 rounded-2xl border border-vagg-kant bg-white/5 p-3.5 lg:max-w-[640px]">
-            <p className="text-sm leading-[21px] text-vagg-mjuk">
+            <p data-lopt className="text-sm leading-[21px] text-vagg-mjuk">
               <b className="font-semibold text-vagg-ink">{UTV.utanKurva.titel}</b> {UTV.utanKurva.text}
             </p>
             <Link href={TRANING_RUTT.matning} className={`${LANK_VAGG} inline-flex min-h-11 items-center self-start`}>

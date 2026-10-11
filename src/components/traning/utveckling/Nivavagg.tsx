@@ -9,7 +9,7 @@
  */
 
 import Kurva, { kurvansGeometri } from '@/components/traning/Kurva'
-import { MarkeNiva } from '@/components/illustrations/RumSymboler'
+import MarkeNiva from './MarkeNivaLiten'
 import { kurvansLabel } from '@/lib/traning/hemvy'
 import { KURVAN } from '@/lib/traning/kurvan-copy'
 import type { Dag } from '@/lib/traning/datum'
@@ -17,11 +17,24 @@ import { markePunkt } from './berakna'
 import { UTV, decimal } from './copy'
 import type { UtvecklingKurva } from './typer'
 
+/** Decimalkommat med egen bredd i tabulära tal (.tal-komma i globals.css). */
+function TalKomma({ varde }: { varde: string }) {
+  const [hel, dec] = varde.split(',')
+  if (dec == null) return <>{varde}</>
+  return (
+    <>
+      {hel}
+      <span className="tal-komma">,</span>
+      {dec}
+    </>
+  )
+}
+
 function VaggTal({ varde, etikett, koppar }: { varde: string; etikett: string; koppar?: boolean }) {
   return (
     <div className="min-w-0">
       <p className={`font-display text-[28px] font-extrabold leading-[30px] tracking-[-0.025em] tabular-nums lg:text-[34px] lg:leading-9 ${koppar ? 'text-koppar-ljus' : 'text-vagg-ink'}`}>
-        {varde}
+        <TalKomma varde={varde} />
       </p>
       <p className="mt-0.5 text-meta text-vagg-mjuk">{etikett}</p>
     </div>
@@ -38,12 +51,11 @@ function Markeoverlagg({ k, idag, bredd }: { k: UtvecklingKurva; idag: Dag; bred
   const hoger = xp > 62
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-2" style={{ aspectRatio: `${W} / ${H}` }} data-marke="nivan_upp">
-      <span className="absolute h-4 border-l-[1.5px] border-dashed border-koppar-ljus" style={{ left: `${xp}%`, top: `calc(${yp}% - 38px)` }} />
       <span
         className="absolute flex items-center gap-1.5 whitespace-nowrap text-[11px] font-medium leading-[14px] text-vagg-mjuk"
         style={{
           left: `${xp}%`,
-          top: `calc(${yp}% - 42px)`,
+          top: `calc(${yp}% - 30px)`,
           transform: hoger ? 'translate(calc(-100% + 10px), -100%)' : 'translate(-10px, -100%)',
           flexDirection: hoger ? 'row-reverse' : 'row',
         }}

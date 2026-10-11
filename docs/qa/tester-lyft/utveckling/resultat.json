@@ -1,0 +1,808 @@
+[
+  {
+    "vy": "360-ljust",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 294
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [
+      "%c%s%c C:\\Users\\chris\\cvbrev\\.claude\\worktrees\\lyft-utveckling\\.next-lu\\dev\\server\\chunks\\ssr\\[root-of-the-server]__2f8fc825._.js: Invalid source map. Only conformant source maps can be used to filter stack frames. Cause: TypeError [ERR_INVALID_ARG_TYPE]: The \"payload\" argument must be of type objec"
+    ],
+    "http": []
+  },
+  {
+    "vy": "360-morkt",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 294
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "412-ljust",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 346
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "412-morkt",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 346
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "1280-ljust",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 320
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "1280-morkt",
+    "steg": [
+      {
+        "steg": "01-full",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "02-under25",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "03-klassiska",
+        "lage": "klassiska",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": false,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "04-gratis",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 5,
+        "battreAn": false,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "05-tomt",
+        "lage": "tomt",
+        "horisontellScroll": false,
+        "kort": [
+          "tomt"
+        ],
+        "iKnappar": 0,
+        "marke": false,
+        "raknare": 0,
+        "battreAn": false,
+        "tempoStaplar": 0,
+        "overStaplar": 0,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 0
+      },
+      {
+        "steg": "06-popover",
+        "lage": "kurva",
+        "horisontellScroll": false,
+        "kort": [
+          "star",
+          "nivaer",
+          "tappar",
+          "tempo",
+          "multi"
+        ],
+        "iKnappar": 5,
+        "marke": true,
+        "raknare": 2,
+        "battreAn": true,
+        "tempoStaplar": 9,
+        "overStaplar": 3,
+        "siffrorILopt": [],
+        "utanforKort": [],
+        "popover": 320
+      },
+      {
+        "steg": "07-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Hur räknas jämförelsen?"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  }
+]

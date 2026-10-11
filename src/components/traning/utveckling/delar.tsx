@@ -50,7 +50,7 @@ export function T2({ children, as = 'h3' }: { children: ReactNode; as?: 'h2' | '
 }
 
 export function Brodtext({ children }: { children: ReactNode }) {
-  return <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{children}</p>
+  return <p data-lopt className="mt-1.5 text-sm leading-[21px] text-ink-2">{children}</p>
 }
 
 /** En rad i en legend: en ritad ruta och ordet. */

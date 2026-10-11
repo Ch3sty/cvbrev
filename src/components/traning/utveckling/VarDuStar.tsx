@@ -80,7 +80,7 @@ function OvrigRad({ r }: { r: Rad }) {
   }
   if (j.lage === 'utanEget') {
     return (
-      <li className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3">
+      <li className="flex flex-col gap-0.5" data-utan-eget={r.niva.slug}>
         <span className="text-[13px] font-medium leading-[18px] text-ink-2">{r.namn}</span>
         <span className="text-meta text-ink-3">{S.utanEget}</span>
       </li>
@@ -116,7 +116,7 @@ export default function VarDuStar({ nivaer, className }: { nivaer: readonly VarD
               <span className="font-display text-[18px] font-bold leading-[23px]">{S.pa(huvud.namn)}</span>
             </span>
           </h2>
-          <p className="mt-2 text-sm leading-[21px] text-ink-2">{S.text}</p>
+          <p data-lopt className="mt-2 text-sm leading-[21px] text-ink-2">{S.text}</p>
           <Fordelningsbild f={huvud.niva.fordelning} egenPoang={huvud.niva.egenPoang} namn={huvud.namn} percentil={huvud.j.percentil} />
           <p className="mt-2 text-meta text-ink-3">
             <b className="font-semibold tabular-nums text-ink-1">{huvud.j.antal}</b> {S.underlag}
@@ -125,7 +125,7 @@ export default function VarDuStar({ nivaer, className }: { nivaer: readonly VarD
       ) : (
         <>
           <h2 className="mt-1 text-kort-t text-ink-1">{S.vantar}</h2>
-          <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{S.vantarText}</p>
+          <p data-lopt className="mt-1.5 text-sm leading-[21px] text-ink-2">{S.vantarText}</p>
         </>
       )}
       {ovriga.length ? (

@@ -17,8 +17,8 @@ import { Eyebrow, Legend, LegendPost, UKort } from './delar'
 const M = UTV.multi
 const W = 300
 const H = 120
-const X0 = 6
-const XW = W - 12
+const X0 = 36
+const XW = W - 42
 const Y0 = 10
 const YH = 96
 
@@ -51,7 +51,7 @@ export default function SmaMultiplar({ perTest, className }: { perTest: Record<T
   return (
     <UKort label={M.rubrik} className={className} data="multi">
       <Eyebrow hjalp="D1">{M.rubrik}</Eyebrow>
-      <p className="mt-1 text-sm leading-[21px] text-ink-2">{M.text}</p>
+      <p data-lopt className="mt-1 text-sm leading-[21px] text-ink-2">{M.text}</p>
       <Legend>
         <LegendPost ruta={<circle cx="7" cy="7" r="3.5" fill="var(--papper)" stroke="var(--ton-ink)" strokeWidth="1.75" />}>{M.legend.grund}</LegendPost>
         <LegendPost ruta={<circle cx="7" cy="7" r="4" fill="var(--ton-ink)" />}>{M.legend.avancerad}</LegendPost>
@@ -105,8 +105,8 @@ export default function SmaMultiplar({ perTest, className }: { perTest: Record<T
                   ))}
                 </svg>
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 text-ax text-ink-3">
-                  <span className="absolute left-0 -translate-y-full" style={{ top: `${(y(100) / H) * 100}%` }}>100 %</span>
-                  <span className="absolute left-0 -translate-y-full" style={{ top: `${(y(50) / H) * 100}%` }}>50 %</span>
+                  <span className="absolute left-0 -translate-y-1/2" style={{ top: `${(y(100) / H) * 100}%` }}>100 %</span>
+                  <span className="absolute left-0 -translate-y-1/2" style={{ top: `${(y(50) / H) * 100}%` }}>50 %</span>
                 </div>
               </div>
               <div aria-hidden="true" className="mt-1 flex justify-between text-ax text-ink-3">

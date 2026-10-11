@@ -82,7 +82,7 @@ export default function Nivaerna({
               className="block min-w-0 rounded-xl border border-kant bg-papper px-3 py-2.5 hover:border-kant-stark"
               data-bricka={t.slug}
             >
-              <b className="block truncate text-xs font-semibold leading-4 tracking-[.02em] text-ink-2">{t.namn}</b>
+              <b className="block text-xs font-semibold leading-4 tracking-[.02em] text-ink-2">{t.namn}</b>
               {gjord ? (
                 <span className="mt-1 block font-display text-[22px] font-bold leading-[26px] tracking-[-0.02em] tabular-nums text-ink-1">
                   {s.bestPercentage} %

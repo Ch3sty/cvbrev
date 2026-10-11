@@ -38,7 +38,7 @@ export const UTV = {
     raknareAria: (namn: string, antal: number, mal: number) => `${namn}: ${antal} av ${mal} slutförda test, jämförelsen visas vid ${mal}`,
     utanEget: 'Gör nivån en gång till så kommer du med',
     du: 'Du',
-    axel: { noll: '0', halften: 'hälften', hundra: '100 %' },
+    axel: { noll: '0', halften: 'hälften rätt', hundra: '100 %' },
     fordelningAria: (namn: string, p: number) => `Fördelningen av resultat på ${namn.toLowerCase()}. Din linje vid ${p} procent.`,
     ovriga: 'Övriga nivåer',
   },
@@ -87,7 +87,7 @@ export const UTV = {
     stapelTitel: (n: number, s: number, ratt: boolean) => `Fråga ${n}: ${s} s, ${ratt ? 'rätt' : 'fel'}`,
     legend: { ratt: 'rätt', fel: 'fel', over: 'över provets tid' },
     perPass: 'Snitt per pass',
-    perPassMeta: 'Frågorna nära din nivå, de senaste passen.',
+    perPassMeta: 'Frågorna nära din nivå, de senaste passen. Strecket är provets tid.',
     passTitel: (datum: string, s: number | null) => (s == null ? `${datum}: inget sparat snitt` : `${datum}: ${s} s per fråga`),
     sek: (s: number) => `${s} s`,
     aria: (over: number, antal: number, snitt: number, budget: number) =>
