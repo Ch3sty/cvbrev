@@ -319,6 +319,20 @@ export interface AnalyticsEvents {
   rum_oppnat: { rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'; surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
   sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
   tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
+  /* ---------------------------------------------- Rummen, våg 3b
+     spec-rummen-2026-10-10 avsnitt 7. Klientens del: starten av mätningen
+     och passet (slutet skjuts från servern i pass/complete), "Vet inte",
+     kvittot och betalväggen. betalvagg_visad skickas när M1:s betalvägg
+     visas (plats matning) och när ett pass spärras vid start (dag2, riktat,
+     provlage, ommatning). */
+  nivamatning_startad: { ommatning: boolean; smakprov: number }
+  pass_startat: { typ: 'pass' | 'riktat' | 'general'; variant: 'grund' | 'niva' }
+  vet_inte_tryckt: { fraga_index: number }
+  milstolpe_kvitto_visat: { nyckel: string }
+  betalvagg_visad: {
+    plats: 'matning' | 'dag2' | 'riktat' | 'provlage' | 'ommatning' | 'kurva' | 'infor_prov' | 'sidomeny'
+    dagar_kvar: number | null
+  }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

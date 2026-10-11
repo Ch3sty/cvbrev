@@ -287,6 +287,19 @@
 :root[data-theme="dark"] [data-rum] {
   --lyft-kant: var(--kant);
 }
+/* Regeln i passets regelpanel: bläck på ton, ton-ink i mörkt läge
+   (konceptets .frame.morkt .regel b). */
+.regelpanel-regel {
+  color: var(--ink-1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .regelpanel-regel {
+    color: var(--ton-ink);
+  }
+}
+:root[data-theme="dark"] .regelpanel-regel {
+  color: var(--ton-ink);
+}
 /* Dörrnavet finns bara under lg. */
 @media (min-width: 1024px) {
   :root:has([data-rum]) {
@@ -436,6 +449,28 @@
     transform: none;
     stroke-dashoffset: 0;
   }
+}
+
+/* Matrisfigurerna i passet (våg 3b). V7-renderarna ritar i fasta färger
+   (#020617, #CBD5E1, vitt), som blir svart på mörkt papper i mörkt läge.
+   Inne i .matrisyta följer de bläcket och papperet i stället, som
+   konceptets .mcell och .mfill: svart blir ink-1, vitt blir papperet, grått
+   kant-stark. Rätt svar i den tomma rutan efter svaret står i koppar (P2). */
+.matrisyta {
+  --m-ink: var(--ink-1);
+  --m-gra: var(--kant-stark);
+  --m-vit: var(--papper);
+}
+.matrisyta [fill="#020617"] { fill: var(--m-ink); }
+.matrisyta [stroke="#020617"] { stroke: var(--m-ink); }
+.matrisyta [fill="#CBD5E1"] { fill: var(--m-gra); }
+.matrisyta [fill="white"],
+.matrisyta [fill="#FFFFFF"] { fill: var(--m-vit); }
+.matrisyta [stroke="white"],
+.matrisyta [stroke="#FFFFFF"] { stroke: var(--m-vit); }
+.matrisyta .ratt-fylld {
+  --m-ink: var(--koppar);
+  --m-gra: var(--koppar-mjuk);
 }
 
 /* Under ett flerstegsflöde äger FlowShell hela skärmen och har en egen fot
