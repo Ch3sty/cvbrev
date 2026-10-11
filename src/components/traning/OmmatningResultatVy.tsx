@@ -94,7 +94,7 @@ export default function OmmatningResultatVy({ vm, status, antal, onTillbaka, mot
               <MilstolpeKortVy m={vm.milstolpe} lyft />
             </div>
           ) : (
-            <VarDuTapparKort eyebrow={O.varDuTapparNu} familjer={vm.familjer} className="steg s4" />
+            <VarDuTapparKort eyebrow={vm.familjerEyebrow} familjer={vm.familjer} className="steg s4" />
           )}
           <div className="steg s4">
             <StatusRow tone="warm" showDot wrap>

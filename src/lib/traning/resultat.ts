@@ -405,7 +405,11 @@ export function planRader(
   return rader;
 }
 
-export function matningResultat(avslut: Avslut, status: Traningsstatus | null, betalande: boolean): MatningResultat {
+/**
+ * M1. `smakprov` = antal frågor ur smakprovet som räknades in (Sessionsvy.smakprov).
+ * De har ingen tid, så tredje talets nämnare är frågorna med tid (19.5 fråga 3).
+ */
+export function matningResultat(avslut: Avslut, status: Traningsstatus | null, betalande: boolean, smakprov = 0): MatningResultat {
   const niva = avslut.niva_efter ?? 0;
   const heltal = nivaHeltal(niva);
   const svagaste = avslut.familjer.svagaste;
@@ -443,7 +447,7 @@ export function matningResultat(avslut: Avslut, status: Traningsstatus | null, b
     skala: { nu: niva, sikte, aria: PASS_COPY.matning.skalaAria(niva, sikte) },
     tal: [
       { varde: PASS_COPY.matning.ratt(avslut.ratt, avslut.antal), etikett: R.tal.ratt },
-      { varde: R.tal.av(overBudget(avslut, null), avslut.antal), etikett: R.tal.overTid },
+      { varde: R.tal.av(overBudget(avslut, null), Math.max(1, avslut.antal - Math.max(0, smakprov))), etikett: R.tal.overTid },
       avslut.snitt_s != null
         ? { varde: R.tal.sekunder(avslut.snitt_s), etikett: R.tal.snitt(avslut.budget_s) }
         : { varde: R.tal.sekunder(Math.round(avslut.tid_s / Math.max(1, avslut.antal))), etikett: R.tal.snitt(avslut.budget_s) },
@@ -482,7 +486,15 @@ export interface OmmatningResultat {
    * 6 okt" där familjen fanns i mätningen. Lyfts när milstolpe saknas.
    */
   familjer: MatningResultat['familjer'];
+  /**
+   * Kortets eyebrow: "Var du tappar nu" när någon familj hade minst två frågor
+   * i ommätningen, annars det ackumulerade "Var du tappar" (19.5 fråga 5).
+   */
+  familjerEyebrow: string;
 }
+
+/** Minsta antal frågor i en familj för att den ska visas eller jämföras (19.5 fråga 5). */
+export const FAMILJ_TROSKEL = 2;
 
 export function forstaMatningPunkt(punkter: readonly Nivapunkt[]): Nivapunkt | null {
   return [...punkter].filter((p) => p.typ === 'matning').sort((a, b) => (a.dag < b.dag ? -1 : 1))[0] ?? null;
@@ -524,17 +536,44 @@ export function ommatningResultat(avslut: Avslut, status: Traningsstatus | null)
     forsta,
     status: statusText,
     milstolpe: milstolpeKort(avslut.milstolpe),
-    familjer: svagasteFamiljer(avslut.familjer.passet).map((f, i) => {
-      const iMatningen = avslut.familjer.matningen?.familjer.find((m) => m.family === f.family) ?? null;
-      return {
-        titel: familjText(f.family) ?? f.family,
-        meta: iMatningen
-          ? PASS_COPY.ommatning.familjMot(f.ratt, f.antal, iMatningen.ratt, iMatningen.antal, datumKort(avslut.familjer.matningen!.dag))
-          : PASS_COPY.matning.familjMeta(f.ratt, f.antal),
-        andel: f.andel,
-        ton: i === 0 ? ('koppar' as const) : ('ton' as const),
-      };
-    }),
+    ...ommatningFamiljer(avslut),
+  };
+}
+
+/**
+ * O1:s "Var du tappar nu" (19.5 fråga 5): en familj visas bara om den hade
+ * minst två frågor i ommätningen, jämförelsen bara om mätningen hade minst två
+ * i samma familj. Når ingen familj tröskeln visas det ackumulerade som i M1.
+ */
+function ommatningFamiljer(avslut: Avslut): Pick<OmmatningResultat, 'familjer' | 'familjerEyebrow'> {
+  const iPasset = avslut.familjer.passet.filter((f) => f.antal >= FAMILJ_TROSKEL);
+  const nu = svagasteFamiljer(iPasset);
+  if (nu.length) {
+    const matningen = avslut.familjer.matningen ?? null;
+    return {
+      familjerEyebrow: PASS_COPY.ommatning.varDuTapparNu,
+      familjer: nu.map((f, i) => {
+        const iMatningen = matningen?.familjer.find((m) => m.family === f.family && m.antal >= FAMILJ_TROSKEL) ?? null;
+        return {
+          titel: familjText(f.family) ?? f.family,
+          meta:
+            iMatningen && matningen
+              ? PASS_COPY.ommatning.familjMot(f.ratt, f.antal, iMatningen.ratt, iMatningen.antal, datumKort(matningen.dag))
+              : PASS_COPY.matning.familjMeta(f.ratt, f.antal),
+          andel: f.andel,
+          ton: i === 0 ? ('koppar' as const) : ('ton' as const),
+        };
+      }),
+    };
+  }
+  return {
+    familjerEyebrow: PASS_COPY.matning.varDuTappar,
+    familjer: avslut.familjer.svagaste.map((f, i) => ({
+      titel: familjText(f.family) ?? f.family,
+      meta: PASS_COPY.ommatning.familjHittills(f.ratt, f.antal),
+      andel: f.andel,
+      ton: i === 0 ? ('koppar' as const) : ('ton' as const),
+    })),
   };
 }
 

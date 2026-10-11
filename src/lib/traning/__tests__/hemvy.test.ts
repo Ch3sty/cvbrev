@@ -137,14 +137,16 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(x.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
     expect(x.vagg.rad).toBe('')
   })
-  it('smakprovet räknas in i 1a och T1 (19.3 fråga 3)', () => {
+  it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
     expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
-    expect(t.lyft.rad).toBe('Fem frågor från smakprovet räknas in, så du svarar på sju nya.')
+    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.')
+    expect(t.lyft.rad).toBeUndefined()
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
     const a = modell('1as')
-    expect(a.lyft.rad).toBe('Fem frågor från smakprovet räknas in, så du svarar på sju nya.')
-    expect(modell('T1').lyft.rad).toBeUndefined()
+    expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
+    expect(a.lyft.rad).toBeUndefined()
+    expect(modell('T1').lyft.text).toMatch(/^Tolv figuruppgifter/)
   })
   it('1t: bara siffror valt erbjuder siffertestet, aldrig matrismätningen (19.3 fråga 2)', () => {
     const m = modell('1t')

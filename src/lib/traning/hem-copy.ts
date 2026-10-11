@@ -62,7 +62,9 @@ export const HEM = {
     smakprovMinuter: (n: number) => Math.max(3, Math.round(((12 - n) * 40) / 60)),
     smakprovTitel: (m: number) => `Mät din nivå. Cirka ${m} minuter.`,
     smakprovKnapp: (m: number) => `Mät min nivå, ${m} min`,
-    smakprovRad: (n: number) => `${versal(talord(n))} frågor från smakprovet räknas in, så du svarar på ${talord(12 - n)} nya.`,
+    /** 1as/T1s (testansvarig 19.5 fråga 2): en text, inte två. Ersätter `text` när smakprov finns. */
+    smakprovText: (n: number) =>
+      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.`,
   },
   /**
    * 1t (19.3 fråga 2): bara siffror eller bara text valt. Passen finns i dag

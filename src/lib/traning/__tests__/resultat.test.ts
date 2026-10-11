@@ -174,6 +174,13 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.familjer.map((f) => f.titel)).toEqual(['Rotation med byte', 'Antal i rad och kolumn', 'Rätt men långsamma: speglingar'])
   })
 
+  it('nämnaren i över provets tid är frågorna med tid (19.5 fråga 3)', () => {
+    const { avslut, status } = resultatdata('M1')
+    const r = matningResultat(avslut, status, false, 5)
+    expect(r.tal[0].varde).toBe('9 av 12')
+    expect(r.tal[1]).toMatchObject({ varde: '3 av 7', etikett: 'över provets tid' })
+  })
+
   it('betalande: ingen betalvägg, inga lås', () => {
     const { avslut, status } = resultatdata('M1', { betalande: true })
     const r = matningResultat(avslut, status, true)
@@ -200,9 +207,36 @@ describe('O1: veckans ommätning', () => {
     const r = ommatningResultat(d.resultat.avslut, d.resultat.status)
     expect(r.milstolpe).toBeNull()
     expect(r.familjer.map((f) => `${f.titel}: ${f.meta}`)).toEqual([
-      'Antal i rad och kolumn: 1 av 2 rätt, mot 2 av 4 6 okt.',
-      'Rotation med byte: 2 av 3 rätt, mot 1 av 3 6 okt.',
+      'Antal i rad och kolumn: 1 av 2 rätt, mot 2 av 4 den 6 okt.',
+      'Rotation med byte: 2 av 3 rätt, mot 1 av 3 den 6 okt.',
     ])
+    expect(r.familjerEyebrow).toBe('Var du tappar nu')
+  })
+  it('trösklarna (19.5 fråga 5): en fråga i familjen visas inte, jämförelsen kräver två i mätningen, annars det ackumulerade', () => {
+    const d = byggForhandsdata('O1', { utanMilstolpe: true })
+    if (!('resultat' in d)) throw new Error('ingen resultatram')
+    const { avslut, status } = d.resultat
+    const fam = avslut.familjer.passet.map((x) => x.family)
+    const f = (family: string, ratt: number, antal: number) => ({ family, ratt, antal, andel: ratt / antal, ratt_men_langsamma: 0 })
+    const tunn = ommatningResultat(
+      {
+        ...avslut,
+        familjer: {
+          ...avslut.familjer,
+          passet: [f(fam[0], 1, 3), f(fam[1], 0, 1)],
+          matningen: { dag: '2026-10-06', familjer: [f(fam[0], 1, 1)] },
+        },
+      },
+      status
+    )
+    expect(tunn.familjerEyebrow).toBe('Var du tappar nu')
+    expect(tunn.familjer).toHaveLength(1)
+    expect(tunn.familjer[0].meta).toBe('1 av 3 rätt.')
+    const ingen = ommatningResultat({ ...avslut, familjer: { ...avslut.familjer, passet: [f(fam[0], 0, 1), f(fam[1], 0, 1)] } }, status)
+    expect(ingen.familjerEyebrow).toBe('Var du tappar')
+    expect(ingen.familjer.length).toBe(avslut.familjer.svagaste.length)
+    expect(ingen.familjer.length).toBeGreaterThan(0)
+    expect(ingen.familjer.every((x) => / av \d+ rätt hittills\.$/.test(x.meta))).toBe(true)
   })
 })
 

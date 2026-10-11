@@ -340,7 +340,10 @@ export const PASS_COPY = {
     kurvaRubrik: 'Kurvan med den nya punkten',
     /** O1 utan milstolpe: "Var du tappar nu" (art-director 20.2 fråga 8). */
     varDuTapparNu: 'Var du tappar nu',
-    familjMot: (ratt: number, antal: number, r: number, a: number, dag: string) => `${ratt} av ${antal} rätt, mot ${r} av ${a} ${dag}.`,
+    /** "mot 2 av 4 den 6 okt" (19.5 fråga 5). */
+    familjMot: (ratt: number, antal: number, r: number, a: number, dag: string) => `${ratt} av ${antal} rätt, mot ${r} av ${a} den ${dag}.`,
+    /** Ingen familj nådde tröskeln: det ackumulerade (19.5 fråga 5). */
+    familjHittills: (ratt: number, antal: number) => `${ratt} av ${antal} rätt hittills.`,
     nastaOmmatning: (dag: string) => `Nästa ommätning ${datumMedVeckodag(dag)}.`,
   },
   kvitto: {

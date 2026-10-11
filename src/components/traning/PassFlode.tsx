@@ -394,7 +394,7 @@ export default function PassFlode({
   if (fas.typ === 'resultat') {
     const { avslut, vy: vyEfter, status } = fas.data
     if (avslut.typ === 'matning') {
-      return <MatningResultatVy vm={matningResultat(avslut, status, betalande)} antal={avslut.antal} onTillbaka={tillbaka} />
+      return <MatningResultatVy vm={matningResultat(avslut, status, betalande, vyEfter?.smakprov ?? 0)} antal={avslut.antal} onTillbaka={tillbaka} />
     }
     if (avslut.typ === 'ommatning') {
       return <OmmatningResultatVy vm={ommatningResultat(avslut, status)} status={status} antal={avslut.antal} onTillbaka={tillbaka} />

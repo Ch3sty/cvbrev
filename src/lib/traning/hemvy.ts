@@ -909,8 +909,7 @@ function matningLyft(betalande: boolean, smakprov: Traningsstatus['smakprov']): 
     eyebrow: HEM.matning.eyebrow,
     eyebrowTon: 'koppar',
     titel: m ? HEM.matning.smakprovTitel(m) : HEM.matning.titel,
-    text: HEM.matning.text,
-    rad: n ? HEM.matning.smakprovRad(n) : undefined,
+    text: n ? HEM.matning.smakprovText(n) : HEM.matning.text,
     handling: { typ: 'lank', text: m ? HEM.matning.smakprovKnapp(m) : HEM.matning.knapp, href: TRANING_RUTT.matning },
     under: !betalande && GRATISNIVA.matningGratis ? HEM.matning.gratis : undefined,
   };
