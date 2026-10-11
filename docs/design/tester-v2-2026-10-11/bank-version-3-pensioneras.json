@@ -1,0 +1,440 @@
+{
+  "beskrivning": "Expertfrågor som pensioneras i bank_version 3 (granskningen av parti 01, avsnitt 6 punkt 4). Inte påslaget: BANK_VERSION är 2.",
+  "antal": 53,
+  "per_familj": {
+    "monsterrotation": 24,
+    "tva-rorelser": 11,
+    "vridning": 4,
+    "vandring": 4,
+    "rotation-med-byte": 7,
+    "antal-andras": 3
+  },
+  "ids": [
+    "v7e-w1",
+    "v7e-w2",
+    "v7e-w3",
+    "v7e-w4",
+    "v7e-w5",
+    "v7e-w6",
+    "v7e-w7",
+    "v7e-w8",
+    "v7e-w9",
+    "v7e-w10",
+    "v7e-w11",
+    "v7e-t1",
+    "v7e-t4",
+    "v7e-t6",
+    "v7e-t7",
+    "v7e-t8",
+    "v7e-t10",
+    "v7e-t11",
+    "v7e-b1",
+    "v7e-b2",
+    "v7e-b6",
+    "v7e-3c-vrid-01",
+    "v7e-3c-vrid-02",
+    "v7e-3c-vrid-03",
+    "v7e-3c-vrid-04",
+    "v7e-3c-rot-01",
+    "v7e-3c-rot-02",
+    "v7e-3c-rot-03",
+    "v7e-3c-rot-04",
+    "v7e-3c-rot-05",
+    "v7e-3c-rot-06",
+    "v7e-3c-vand-01",
+    "v7e-3c-vand-02",
+    "v7e-3c-vand-03",
+    "v7e-3c-vand-04",
+    "v7e-3c-byte-01",
+    "v7e-3c-byte-02",
+    "v7e-3c-byte-03",
+    "v7e-3c-byte-04",
+    "v7e-3c-byte-05",
+    "v7e-3c-byte-06",
+    "v7e-3c-byte-07",
+    "v7e-3c-tva-01",
+    "v7e-3c-tva-02",
+    "v7e-3c-tva-03",
+    "v7e-3c-tva-04",
+    "v7e-3c-tva-05",
+    "v7e-3c-tva-06",
+    "v7e-3c-tva-07",
+    "v7e-3c-tva-08",
+    "v7e-3c-antal-01",
+    "v7e-3c-antal-04",
+    "v7e-3c-antal-05"
+  ],
+  "fragor": [
+    {
+      "id": "v7e-w1",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w2",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w3",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w4",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w5",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w6",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w7",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w8",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w9",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w10",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-w11",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t1",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t4",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t6",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t7",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t8",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t10",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-t11",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-b1",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": false
+    },
+    {
+      "id": "v7e-b2",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": false
+    },
+    {
+      "id": "v7e-b6",
+      "fil": "src/lib/logicTestV7/questionBankExpert.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": false
+    },
+    {
+      "id": "v7e-3c-vrid-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vridning",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vrid-02",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vridning",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vrid-03",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vridning",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vrid-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vridning",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-02",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-03",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-05",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-rot-06",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "monsterrotation",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vand-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vandring",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vand-02",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vandring",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vand-03",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vandring",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-vand-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "vandring",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-02",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-03",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-05",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-06",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-byte-07",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "rotation-med-byte",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-02",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-03",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-05",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-06",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-07",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-tva-08",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "tva-rorelser",
+      "facit_ruta0": false,
+      "sluter_sig": false
+    },
+    {
+      "id": "v7e-3c-antal-01",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "antal-andras",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-antal-04",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "antal-andras",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    },
+    {
+      "id": "v7e-3c-antal-05",
+      "fil": "src/lib/logicTestV7/questionBankExpert3c.v7.json",
+      "family": "antal-andras",
+      "facit_ruta0": true,
+      "sluter_sig": true
+    }
+  ]
+}
