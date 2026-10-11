@@ -73,10 +73,10 @@ export default function SectionCard({
       <h2 className="mb-2 text-sm font-medium text-ink-3">{title}</h2>
 
       <section
-        className={`rounded-xl border border-kant bg-papper p-4 sm:p-5 ${active ? 'thread-head' : ''}`}
+        className={`rounded-xl border border-kant bg-papper p-4 sm:p-5`}
       >
         {hasHead && (
-          <div className={`flex items-start justify-between gap-3 ${active ? 'thread-head-block' : ''}`}>
+          <div className={`flex items-start justify-between gap-3`}>
             <div className="flex min-w-0 items-start gap-3">
               {plate}
               {showSummary ? (

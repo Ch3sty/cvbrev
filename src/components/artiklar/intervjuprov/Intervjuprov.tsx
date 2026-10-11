@@ -19,6 +19,7 @@
 
 import { useEffect, useId, useRef, useState, type MutableRefObject } from 'react'
 import Link from 'next/link'
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { ArrowRight, Lock } from '@/components/illustrations/RumIkoner'
 import { capture } from '@/lib/analytics/events'
 import { storePendingIntervju } from '@/lib/letters/claim-draft-client'
@@ -103,6 +104,10 @@ export default function Intervjuprov({
 }: IntervjuprovProps) {
   const f = FRAGOR[fraga]
   const flode = laege === 'flode'
+  // I inloggat (flödesläget) står knappen i rummets koppar och klarar mörkt
+  // läge utan övergångsregeln (spec-rummen 16.4 (b) punkt 7). Artikeln
+  // behåller Trådens bläckknapp.
+  const knapp = flode ? KNAPP_PRIMAR_SMAL : KNAPP
   const rubrikId = useId()
   const hjalpId = useId()
 
@@ -301,7 +306,7 @@ export default function Intervjuprov({
               href={kvot.registerHref}
               data-cta="intervjuprov-gate"
               onClick={() => capture('signup_started', { cluster: 'interview', source_page: kallsida })}
-              className={`mt-4 ${KNAPP}`}
+              className={`mt-4 ${knapp}`}
             >
               {COPY.sparr.knapp}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -392,7 +397,7 @@ export default function Intervjuprov({
                 {inloggad ? COPY.inloggad.text : COPY.sparr.text(fraga)}
               </p>
               {inloggad ? (
-                <Link href={resultat.href!} data-cta="intervjuprov-konto" className={`mt-4 ${KNAPP}`}>
+                <Link href={resultat.href!} data-cta="intervjuprov-konto" className={`mt-4 ${knapp}`}>
                   {COPY.inloggad.knapp}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -401,7 +406,7 @@ export default function Intervjuprov({
                   href={registerHref}
                   data-cta="intervjuprov-gate"
                   onClick={() => capture('signup_started', { cluster: 'interview', source_page: kallsida })}
-                  className={`mt-4 ${KNAPP}`}
+                  className={`mt-4 ${knapp}`}
                 >
                   {COPY.sparr.knapp}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -511,7 +516,7 @@ export default function Intervjuprov({
           />
         </div>
       ) : flode ? null : (
-        <button type="button" onClick={bedom} data-cta="intervjuprov-bedom" className={`mt-4 ${KNAPP}`}>
+        <button type="button" onClick={bedom} data-cta="intervjuprov-bedom" className={`mt-4 ${knapp}`}>
           {COPY.knapp.bedom}
         </button>
       )}

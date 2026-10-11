@@ -240,9 +240,9 @@ export function ProfileCard({
   return (
     <section
       id={id}
-      className={`scroll-mt-24 rounded-xl border border-kant bg-papper ${active ? 'thread-head' : ''}`}
+      className={`scroll-mt-24 rounded-xl border border-kant bg-papper`}
     >
-      <div className={`flex items-start gap-3 p-4 sm:p-5 ${active ? 'thread-head-block' : ''}`}>
+      <div className={`flex items-start gap-3 p-4 sm:p-5`}>
         {plate}
         <div className="min-w-0 flex-1">
           <h2 className="text-kort text-ink-1">{title}</h2>

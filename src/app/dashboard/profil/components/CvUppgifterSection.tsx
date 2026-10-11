@@ -54,8 +54,8 @@ export default function CvUppgifterSection(props: CvUppgifterSectionProps) {
   const [integritet, setIntegritet] = useState(false)
 
   return (
-    <section id="cv" className="thread-head scroll-mt-24 rounded-xl border border-kant-stark bg-papper">
-      <div className="thread-head-block p-4 sm:p-5">
+    <section id="cv" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
+      <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{CV_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{CV_SEKTION.under}</p>
       </div>

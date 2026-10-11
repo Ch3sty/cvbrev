@@ -22,8 +22,9 @@ export default function ViewToggle({ value, onChange }: ViewToggleProps) {
         aria-checked={on}
         aria-label={label}
         onClick={() => onChange(mode)}
-        className={`inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-papper transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
-          on ? 'border-ink-1 text-ink-1 shadow-val' : 'border-kant text-ink-2'
+        className={`inline-flex h-11 w-11 items-center justify-center rounded-lg border transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
+          // Vyväxlaren är navigation: aktiv i rummets ton (spec 16.4 (b) punkt 4).
+          on ? 'border-transparent bg-ton text-ton-ink' : 'border-kant bg-papper text-ink-2'
         }`}
       >
         {icon}

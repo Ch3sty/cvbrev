@@ -1075,6 +1075,13 @@ html {
   }
 }
 
+/* Jobbcoachen är ett läge som fyller resten av skärmen (spec 16.2 fråga 16):
+   sidans kolumn får main:s höjd i stället för min-höjd, så att panelen kan
+   vara flex-1 min-h-0 och rulla inuti utan att väggen mäts. */
+.dashboard-main-content:has([data-jobbcoachen]) > div {
+  height: 100%;
+}
+
 /* Dator: inget nav, golvets 40 px under sista kortet (konceptets .main .golv). */
 @media (min-width: 1024px) {
   .dashboard-main-content {
@@ -1348,6 +1355,21 @@ html {
 
 /* Laddning: skelettet står stilla, bara tråden rör sig längs panelens
    överkant. 2 px, 40 procent bredd, 1200 ms. */
+/* Tomt tillstånd i rummen (spec-rummen 16.4 (b) punkt 3, konceptets .tomt):
+   symbolen står naken i rummets ton, utan ytor. Scenerna ritar sina ytor i
+   --illu-fill, --illu-soft och --illu-accent; här blir de genomskinliga och
+   konturen tar rummets ton-ink, så ingen tecknad scen med kopparytor står
+   kvar i ett tomt tillstånd. */
+.tomt-symbol {
+  color: var(--ton-ink);
+  --illu-fill: transparent;
+  --illu-soft: transparent;
+  --illu-accent: currentColor;
+  --illu-muted: currentColor;
+  --illu-on-accent: transparent;
+  --ia: none;
+}
+
 .loading-thread {
   position: relative;
   overflow: hidden;

@@ -350,7 +350,7 @@ export default function SoktaTjansterClient({
               onClick={() => setActiveTab(tab.id)}
               className={`min-h-11 flex-1 rounded-lg px-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
-                  ? 'bg-papper-2 text-ink-1 '
+                  ? 'bg-ton text-ton-ink'
                   : 'text-ink-2 hover:text-ink-1'
               }`}
             >
@@ -404,8 +404,10 @@ export default function SoktaTjansterClient({
                     onClick={() => setFilter(f.id)}
                     aria-pressed={filter === f.id}
                     className={`min-h-11 shrink-0 rounded-lg border px-3 text-sm font-medium transition-colors ${
+                      // Navigation i en lista, inte ett val i ett formulär:
+                      // aktiv i rummets ton (spec 16.4 (b) punkt 4).
                       filter === f.id
-                        ? 'border-ink-1 bg-papper text-ink-1 shadow-val'
+                        ? 'border-transparent bg-ton text-ton-ink'
                         : 'border-kant bg-papper text-ink-2 hover:border-kant-stark'
                     }`}
                   >

@@ -47,7 +47,7 @@ export default function EmptyState({
 
   return (
     <section className={`${frame} px-4 py-8 text-center sm:px-6 ${className ?? ''}`} aria-label={title}>
-      <span className="mx-auto mb-3 block w-fit text-ink-1" aria-hidden="true">
+      <span className="tomt-symbol mx-auto mb-3 block w-fit" aria-hidden="true">
         <Illu size={96} />
       </span>
 

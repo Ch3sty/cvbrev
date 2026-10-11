@@ -1192,7 +1192,7 @@ export default function JobbmatchningClient({
                scroll. Bredvid varandra ryms både scenen och knappen. */
             <div className="mt-3 flex items-center gap-4">
               <span
-                className="shrink-0 text-ink-1"
+                className="tomt-symbol shrink-0"
                 aria-hidden="true"
               >
                 <IlluCvMotAnnonser size={104} />

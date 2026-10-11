@@ -105,6 +105,9 @@ export default function Sidomeny() {
   const cvAntal = summary?.sidomeny?.cv ?? summary?.cv.count ?? null
   const brevAntal = summary?.sidomeny?.brev ?? null
   const ansokningar = summary?.sidomeny?.ansokningar ?? null
+  // "N nya" på Matchade jobb (spec 16.2 fråga 3): bara när funktionen
+  // matchningar_nya() finns och svarar mer än noll.
+  const nyaMatchningar = summary?.jobbsok?.matchningarNya ?? null
 
   // Talen hålls levande: ändras CV, brev eller ansökningar i en annan flik
   // eller i ett flöde hämtas summeringen om, en gång per skur. Kanalerna
@@ -178,7 +181,11 @@ export default function Sidomeny() {
         etikett: UNDERSIDA.inforIntervjun,
         chip: Date.now() < NYHET_INFOR_INTERVJUN_TILL ? <Chip liten ton>{CHIP.nyhet}</Chip> : undefined,
       },
-      { href: '/dashboard/jobbmatchning', etikett: UNDERSIDA.matchadeJobb },
+      {
+        href: '/dashboard/jobbmatchning',
+        etikett: UNDERSIDA.matchadeJobb,
+        chip: nyaMatchningar !== null && nyaMatchningar > 0 ? <Chip liten ton>{CHIP.nya(nyaMatchningar)}</Chip> : undefined,
+      },
       { href: '/dashboard/jobbcoachen', etikett: UNDERSIDA.jobbcoachen },
       {
         href: '/dashboard/bli-upptackt',
