@@ -1,0 +1,1506 @@
+{
+  "datum": "2026-10-11T04:29:56.058Z",
+  "bas": "http://localhost:5246",
+  "ramar": [
+    {
+      "ram": "P1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P1-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P2",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P2-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Nästa fråga",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P3",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P3-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Visa resultatet",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P4",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P4-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-P4-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de två missarna",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "S1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-S1-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-S1-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de fyra missarna",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M0",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M0-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1542
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 betalande=1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Starta dagens pass",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 grundgjort=1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1542
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1 milstolpe=0",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-pixel7-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-pixel7-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "K1",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-K1-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 15,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "uppvarmning",
+      "form": "pixel7",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-uppvarmning-pixel7-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P1-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P2",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P2-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Nästa fråga",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P3",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P3-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Visa resultatet",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P4",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P4-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-P4-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de två missarna",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "S1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-S1-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-S1-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de fyra missarna",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M0",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M0-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1542
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 betalande=1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Starta dagens pass",
+          "inomViewport": true,
+          "bottom": 807
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 grundgjort=1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1542
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1 milstolpe=0",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-pixel7-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-pixel7-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 847
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "K1",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-K1-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 15,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "uppvarmning",
+      "form": "pixel7",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-uppvarmning-pixel7-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P1-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "passKolumn": {
+        "matrisBredd": 400,
+        "allaIBild": true,
+        "sistaAlt": 804
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P2",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P2-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Nästa fråga",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P3",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P3-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Visa resultatet",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P4",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P4-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-P4-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de två missarna",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "S1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-S1-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-S1-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de fyra missarna",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M0",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M0-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "passKolumn": {
+        "matrisBredd": 400,
+        "allaIBild": true,
+        "sistaAlt": 804
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1375
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 betalande=1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Starta dagens pass",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 grundgjort=1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1375
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1 milstolpe=0",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-desktop-ljust.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-desktop-ljust-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "K1",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-K1-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 15,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "uppvarmning",
+      "form": "desktop",
+      "system": "light",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-uppvarmning-desktop-ljust.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P1-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "passKolumn": {
+        "matrisBredd": 400,
+        "allaIBild": true,
+        "sistaAlt": 804
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P2",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P2-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Nästa fråga",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P3",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P3-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [
+        {
+          "text": "Visa resultatet",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "P4",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-P4-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-P4-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de två missarna",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "S1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-S1-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-S1-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Gå igenom de fyra missarna",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M0",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M0-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": "rgb(224, 122, 47)",
+      "horisontellScroll": false,
+      "passKolumn": {
+        "matrisBredd": 400,
+        "allaIBild": true,
+        "sistaAlt": 804
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1375
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 betalande=1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-betalande-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Starta dagens pass",
+          "inomViewport": true,
+          "bottom": 848
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "M1 grundgjort=1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-M1-grundgjort-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Köp Hela paketet, 149 kr i månaden",
+          "inomViewport": false,
+          "bottom": 1375
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "m1Botten": {
+        "iBild": true,
+        "fot": false,
+        "iKortet": true
+      },
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "O1 milstolpe=0",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-desktop-morkt.png",
+      "filBotten": "docs/qa/rummen/klar-3/pass/ram-O1-utan-milstolpe-desktop-morkt-botten.png",
+      "primar": [
+        {
+          "text": "Tillbaka till Rekryteringstester",
+          "inomViewport": true,
+          "bottom": 888
+        }
+      ],
+      "antalPrimar": 1,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 11,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "K1",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-K1-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": 15,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "ram": "uppvarmning",
+      "form": "desktop",
+      "system": "dark",
+      "fil": "docs/qa/rummen/klar-3/pass/ram-uppvarmning-desktop-morkt.png",
+      "filBotten": null,
+      "primar": [],
+      "antalPrimar": 0,
+      "rott": 0,
+      "kopparTextPaVagg": 0,
+      "minstaText": null,
+      "tidsradFarg": null,
+      "horisontellScroll": false,
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "klick": [
+    {
+      "flode": "pass",
+      "system": "light",
+      "steg": [
+        {
+          "namn": "p1-fraga-3",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-01-p1-fraga-3.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p2-regeln",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-02-p2-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "dim": 4,
+          "alla": 6,
+          "rad": "Inte den här · 38 s",
+          "regelLuft": 12
+        },
+        {
+          "namn": "fraga-4",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-03-fraga-4.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "vet-inte-regeln",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-04-vet-inte-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "rad": "Vet inte · 0 s"
+        },
+        {
+          "namn": "p3-sista-fragan",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-05-p3-sista-fragan.png",
+          "primar": [
+            {
+              "text": "Visa resultatet",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-06-p4-resultatet.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet-botten",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-07-p4-resultatet-botten.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "genomgangen",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-08-genomgangen.png",
+          "primar": [
+            {
+              "text": "Nästa",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "knapp": "Gå igenom de sju missarna",
+          "raknare": "1 / 7"
+        },
+        {
+          "namn": "genomgangen-sista-missen",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-ljust-09-genomgangen-sista-missen.png",
+          "primar": [
+            {
+              "text": "Tillbaka till resultatet",
+              "inomViewport": true,
+              "bottom": 803
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "fortsatt": "Fortsätt med de två rätta"
+        }
+      ],
+      "navigeringar": 0,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "pass",
+      "system": "dark",
+      "steg": [
+        {
+          "namn": "p1-fraga-3",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-01-p1-fraga-3.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p2-regeln",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-02-p2-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "dim": 4,
+          "alla": 6,
+          "rad": "Inte den här · 38 s",
+          "regelLuft": 12
+        },
+        {
+          "namn": "fraga-4",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-03-fraga-4.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "vet-inte-regeln",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-04-vet-inte-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "rad": "Vet inte · 0 s"
+        },
+        {
+          "namn": "p3-sista-fragan",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-05-p3-sista-fragan.png",
+          "primar": [
+            {
+              "text": "Visa resultatet",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-06-p4-resultatet.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet-botten",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-07-p4-resultatet-botten.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "genomgangen",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-08-genomgangen.png",
+          "primar": [
+            {
+              "text": "Nästa",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "knapp": "Gå igenom de sju missarna",
+          "raknare": "1 / 7"
+        },
+        {
+          "namn": "genomgangen-sista-missen",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-pass-morkt-09-genomgangen-sista-missen.png",
+          "primar": [
+            {
+              "text": "Tillbaka till resultatet",
+              "inomViewport": true,
+              "bottom": 803
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "fortsatt": "Fortsätt med de två rätta"
+        }
+      ],
+      "navigeringar": 0,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "matning",
+      "steg": [
+        {
+          "namn": "m0-fraga-1",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-matning-01-fraga-1.png"
+        },
+        {
+          "namn": "m0-fraga-2",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-matning-02-fraga-2.png"
+        },
+        {
+          "namn": "m1",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-matning-03-m1.png",
+          "primar": [
+            {
+              "text": "Köp Hela paketet, 149 kr i månaden",
+              "inomViewport": false,
+              "bottom": 1542
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        }
+      ],
+      "regelUnderTiden": 0,
+      "navigeringar": 1,
+      "konsol": []
+    },
+    {
+      "flode": "uppvarmning",
+      "steg": [
+        {
+          "namn": "fraga-1",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-uppvarmning-01-fraga-1.png",
+          "tidsrad": false
+        },
+        {
+          "namn": "svar-1",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-uppvarmning-02-svar-1.png"
+        },
+        {
+          "namn": "svar-2",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-uppvarmning-03-svar-2.png"
+        },
+        {
+          "namn": "svar-3",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-uppvarmning-04-svar-3.png"
+        },
+        {
+          "namn": "klar",
+          "fil": "docs/qa/rummen/klar-3/pass/klick-uppvarmning-05-klar.png"
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "flode": "reducerad",
+      "fil": "docs/qa/rummen/klar-3/pass/reducerad-rorelse-P4.png",
+      "opacitet": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    }
+  ],
+  "fel": []
+}

@@ -1,11 +1,6 @@
 {
   "datum": "2026-10-11T04:15:35.739Z",
-  "fel": [
-    "klart-pixel7-ljust: eyebrow Brevet klart saknas",
-    "klart-pixel7-morkt: eyebrow Brevet klart saknas",
-    "klart-desktop-ljust: eyebrow Brevet klart saknas",
-    "klart-desktop-morkt: eyebrow Brevet klart saknas"
-  ],
+  "fel": [],
   "tomtcv": [
     {
       "form": "pixel7",
@@ -48,65 +43,6 @@
       "http": []
     }
   ],
-  "klart": [
-    {
-      "form": "pixel7",
-      "system": "light",
-      "h1": "Ditt brev till Klarna",
-      "eyebrow": false,
-      "traffar": true,
-      "saknas": true,
-      "laggTill": true,
-      "sparaSokt": true,
-      "steg": [],
-      "konsol": [],
-      "http": []
-    },
-    {
-      "form": "pixel7",
-      "system": "dark",
-      "h1": "Ditt brev till Klarna",
-      "eyebrow": false,
-      "traffar": true,
-      "saknas": true,
-      "laggTill": true,
-      "sparaSokt": true,
-      "steg": [],
-      "konsol": [],
-      "http": []
-    },
-    {
-      "form": "desktop",
-      "system": "light",
-      "h1": "Ditt brev till Klarna",
-      "eyebrow": false,
-      "traffar": true,
-      "saknas": true,
-      "laggTill": true,
-      "sparaSokt": true,
-      "steg": [],
-      "konsol": [],
-      "http": []
-    },
-    {
-      "form": "desktop",
-      "system": "dark",
-      "h1": "Ditt brev till Klarna",
-      "eyebrow": false,
-      "traffar": true,
-      "saknas": true,
-      "laggTill": true,
-      "sparaSokt": true,
-      "steg": [],
-      "konsol": [],
-      "http": []
-    }
-  ],
-  "klartReducerad": [],
-  "utanKlart": {
-    "steg": 0,
-    "eyebrow": false
-  },
   "forstarad": [
     {
       "system": "light",
@@ -203,5 +139,6 @@
       "konsol": [],
       "http": []
     }
-  ]
+  ],
+  "anm": "klart kördes om efter rättningen, se ../klar3b/"
 }

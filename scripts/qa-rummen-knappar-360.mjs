@@ -130,7 +130,7 @@ if (arHuvud) {
   async function payloadFor(email) {
     const { data: link, error: lErr } = await sb.auth.admin.generateLink({ type: 'magiclink', email })
     if (lErr) throw new Error('länk: ' + lErr.message)
-    const { data: s, error } = await sb.auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
+    const { data: s, error } = await createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, { auth: { autoRefreshToken: false, persistSession: false } }).auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
     if (error || !s?.session) throw new Error('session: ' + error?.message)
     const { access_token, refresh_token, expires_at, expires_in, user } = s.session
     return 'base64-' + Buffer.from(JSON.stringify({ access_token, refresh_token, expires_at, expires_in, token_type: 'bearer', user })).toString('base64')

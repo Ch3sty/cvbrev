@@ -39,9 +39,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next-klar2/types/**/*.ts",
-    ".next-klar2/dev/types/**/*.ts",
-    ".next-klar3/types/**/*.ts",
-    ".next-klar3/dev/types/**/*.ts"
+    ".next-klar2/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

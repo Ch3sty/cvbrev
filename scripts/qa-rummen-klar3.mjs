@@ -59,6 +59,7 @@ for (const k of Object.values(KONTON)) {
 const sb = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false },
 })
+const inloggning = () => createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? env.SUPABASE_SERVICE_ROLE_KEY, { auth: { autoRefreshToken: false, persistSession: false } })
 const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'].find((p) => fs.existsSync(p))
 const PIXEL = {
   viewport: { width: 412, height: 915, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -77,7 +78,9 @@ const fel = (t) => {
 async function payloadFor(email) {
   const { data: link, error: lErr } = await sb.auth.admin.generateLink({ type: 'magiclink', email })
   if (lErr) throw new Error(lErr.message)
-  const { data: s, error } = await sb.auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
+  // Egen klient för inloggningen: verifyOtp sparar sessionen på klienten, och
+  // då hade service-klientens frågor gått som QA-användaren (RLS) efteråt.
+  const { data: s, error } = await inloggning().auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
   if (error || !s?.session) throw new Error('session: ' + error?.message)
   const { access_token, refresh_token, expires_at, expires_in, user } = s.session
   return 'base64-' + Buffer.from(JSON.stringify({ access_token, refresh_token, expires_at, expires_in, token_type: 'bearer', user })).toString('base64')
@@ -124,7 +127,10 @@ const bild = (page, namn, full = false) => page.screenshot({ path: path.join(UT,
 const sys = (s) => (s === 'light' ? 'ljust' : 'morkt')
 
 async function rakna(userId) {
-  const { count } = await sb.from('cv_analysis_jobs').select('*', { count: 'exact', head: true }).eq('user_id', userId)
+  // Räknar med en vanlig select: head-räkningen gav ibland null (0) i körningen 2026-10-11.
+  const { data: rader, error } = await sb.from('cv_analysis_jobs').select('id').eq('user_id', userId)
+  if (error) throw new Error('räkning: ' + error.message)
+  const count = rader.length
   const { data: p } = await sb.from('profiles').select('weekly_analysis_count').eq('id', userId).maybeSingle()
   return { rader: count ?? 0, raknare: p?.weekly_analysis_count ?? null }
 }
@@ -227,14 +233,14 @@ async function delAterupptagning(browser) {
   } finally {
     // Bara de egna raderna, med id, räknade före delete.
     if (skapat.jobb) {
-      const { count } = await sb.from('cv_analysis_jobs').select('*', { count: 'exact', head: true }).eq('id', skapat.jobb)
-      await sb.from('cv_analysis_jobs').delete().eq('id', skapat.jobb)
-      console.log(`  raderade cv_analysis_jobs ${skapat.jobb}: ${count}`)
+      const { data: fore } = await sb.from('cv_analysis_jobs').select('id').eq('id', skapat.jobb)
+      const { data: bort, error: dErr } = await sb.from('cv_analysis_jobs').delete().eq('id', skapat.jobb).select('id')
+      console.log(`  cv_analysis_jobs ${skapat.jobb}: ${fore?.length ?? 0} före, ${bort?.length ?? 0} raderade${dErr ? " FEL " + dErr.message : ""}`)
     }
     if (skapat.cv) {
-      const { count } = await sb.from('cv_texts').select('*', { count: 'exact', head: true }).eq('id', skapat.cv)
-      await sb.from('cv_texts').delete().eq('id', skapat.cv)
-      console.log(`  raderade cv_texts ${skapat.cv}: ${count}`)
+      const { data: fore } = await sb.from('cv_texts').select('id').eq('id', skapat.cv)
+      const { data: bort, error: dErr } = await sb.from('cv_texts').delete().eq('id', skapat.cv).select('id')
+      console.log(`  cv_texts ${skapat.cv}: ${fore?.length ?? 0} före, ${bort?.length ?? 0} raderade${dErr ? " FEL " + dErr.message : ""}`)
     }
   }
 }

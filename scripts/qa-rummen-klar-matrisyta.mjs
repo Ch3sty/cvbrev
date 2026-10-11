@@ -49,7 +49,7 @@ const COOKIE = `sb-${env.NEXT_PUBLIC_SUPABASE_URL.split('//')[1].split('.')[0]}-
 
 async function payload(email) {
   const { data: link } = await sb.auth.admin.generateLink({ type: 'magiclink', email })
-  const { data: s, error } = await sb.auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
+  const { data: s, error } = await createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, { auth: { autoRefreshToken: false, persistSession: false } }).auth.verifyOtp({ type: 'magiclink', token_hash: link.properties.hashed_token })
   if (error || !s?.session) throw new Error('session: ' + error?.message)
   const { access_token, refresh_token, expires_at, expires_in, user } = s.session
   return 'base64-' + Buffer.from(JSON.stringify({ access_token, refresh_token, expires_at, expires_in, token_type: 'bearer', user })).toString('base64')
