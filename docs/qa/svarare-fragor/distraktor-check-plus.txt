@@ -1,13 +1,13 @@
 
 src/lib/logicTestV7/kandidater/expert-plus-parti-01.v7.json
-  v7e-plus-p1-01: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-02: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-03: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-04: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-05: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-06: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-07: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
-  v7e-plus-p1-08: |R| 3 (bas, symbol, basfyll), nära miss 3 (bryter symbol, basfyll, bas), tomma 0, kopior 0
+  v7e-plus-p1-09: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter basfyll, bas, bas, symbol), tomma 0, kopior 1
+  v7e-plus-p1-10: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, basfyll, basfyll, bas), tomma 0, kopior 0
+  v7e-plus-p1-11: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter basfyll, bas, bas, symbol), tomma 0, kopior 1
+  v7e-plus-p1-12: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, basfyll, basfyll, bas), tomma 0, kopior 0
+  v7e-plus-p1-13: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, basfyll, basfyll, bas), tomma 0, kopior 0
+  v7e-plus-p1-14: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter basfyll, bas, bas, symbol), tomma 0, kopior 1
+  v7e-plus-p1-15: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, basfyll, basfyll, bas), tomma 0, kopior 0
+  v7e-plus-p1-16: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter basfyll, bas, bas, symbol), tomma 0, kopior 1
   v7e-plus-p2-01: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, symbol, basfyll, bas), tomma 0, kopior 0
   v7e-plus-p2-02: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter symbol, symbol, basfyll, bas), tomma 0, kopior 0
   v7e-plus-p2-03: |R| 3 (bas, symbol, basfyll), nära miss 4 (bryter bas, bas, basfyll, symbol), tomma 0, kopior 0
@@ -24,23 +24,23 @@ src/lib/logicTestV7/kandidater/expert-plus-parti-01.v7.json
   v7e-plus-p3-06: |R| 3 (vinkel, langd, spets), nära miss 3 (bryter langd, spets, vinkel), tomma 0, kopior 0
   v7e-plus-p3-07: |R| 3 (vinkel, langd, spets), nära miss 3 (bryter langd, spets, vinkel), tomma 0, kopior 0
   v7e-plus-p3-08: |R| 3 (vinkel, langd, spets), nära miss 3 (bryter langd, spets, vinkel), tomma 0, kopior 0
-  v7e-plus-over-01: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
-  v7e-plus-over-02: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-03: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-04: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-05: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
-  v7e-plus-over-06: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-07: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
-  v7e-plus-over-08: |R| 2 (op, vrid), nära miss 3 (bryter vrid, op, op), tomma 0, kopior 0
+  v7e-plus-over-17: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
+  v7e-plus-over-18: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, op, op, op), tomma 0, kopior 0
+  v7e-plus-over-19: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
+  v7e-plus-over-20: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, op, op, op), tomma 0, kopior 0
   v7e-plus-over-09: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-10: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-11: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, op, op, op), tomma 0, kopior 0
   v7e-plus-over-12: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-13: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
   v7e-plus-over-14: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
-  v7e-plus-over-15: |R| 2 (op, vrid), nära miss 4 (bryter vrid, vrid, op, op), tomma 0, kopior 0
+  v7e-plus-over-15: |R| 2 (op, vrid), nära miss 4 (bryter vrid, vrid, op, op), tomma 0, kopior 0, dubbel diagnos (op eller vrid) 1
   v7e-plus-over-16: |R| 2 (op, vrid), nära miss 5 (bryter vrid, vrid, vrid, op, op), tomma 0, kopior 0
-  Fördelning, antal nära miss per fråga: 0: 0, 1: 0, 2: 0, 3: 17, 4: 9, 5: 14
+  Fördelning, antal nära miss per fråga: 0: 0, 1: 0, 2: 0, 3: 8, 4: 17, 5: 15
 
 Distraktorkontroll: 40 frågor i 1 filer, krav plus
 ✓ Alla frågor klarar kraven: minst tre nära miss, varje regel bruten, inga tomma, högst en kopia, inga tomma figurer.
