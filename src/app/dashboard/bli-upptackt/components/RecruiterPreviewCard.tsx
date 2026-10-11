@@ -105,14 +105,14 @@ export default function RecruiterPreviewCard({
       }
     >
       <div
-        className={`w-full rounded-lg border border-kant bg-insunken p-4 shadow-insunken sm:p-5 ${
+        className={`w-full rounded-lg border border-kant bg-papper-2 p-4  sm:p-5 ${
           !isOn ? 'opacity-70' : ''
         }`}
       >
         {/* Huvud */}
         <div className="mb-3 flex items-center gap-3">
           <span
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-base font-semibold text-ink-2"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper text-base font-semibold text-ink-2"
             aria-hidden="true"
           >
             {avatarInitial}
@@ -152,7 +152,7 @@ export default function RecruiterPreviewCard({
             {profile.context_tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-0.5 text-meta text-ink-2"
+                className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-0.5 text-meta text-ink-2"
               >
                 {tag}
               </span>
@@ -166,7 +166,7 @@ export default function RecruiterPreviewCard({
             {testBadges.map((badge) => (
               <span
                 key={badge.key}
-                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta font-medium text-ink-1"
+                className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta font-medium text-ink-1"
               >
                 {badge.label}
               </span>
@@ -174,7 +174,7 @@ export default function RecruiterPreviewCard({
             {personalityChips.map((chip) => (
               <span
                 key={chip}
-                className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
+                className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta text-ink-2"
               >
                 {chip}
               </span>
@@ -184,7 +184,7 @@ export default function RecruiterPreviewCard({
 
         {/* Arbetsstil: exakt det rekryteraren ser, arketyp + två spektra + trivs-rad */}
         {workStyle && (
-          <div className="mb-2.5 rounded-lg border border-kant bg-panel px-3 py-2.5">
+          <div className="mb-2.5 rounded-lg border border-kant bg-papper px-3 py-2.5">
             <p className="text-sm font-medium text-ink-1">{workStyle.archetype.title}</p>
             {cardWorkStyle ? (
               <div className="mt-2">
@@ -214,7 +214,7 @@ export default function RecruiterPreviewCard({
           {skillChips.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
+              className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta text-ink-2"
             >
               {skill}
             </span>

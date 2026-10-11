@@ -74,7 +74,7 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
   const config = NEXT_STEP_CONFIG[stepCompleted]
 
   return (
-    <section className="flex flex-col gap-3 rounded-xl border border-kant bg-panel p-4 sm:flex-row sm:items-center sm:gap-4">
+    <section className="flex flex-col gap-3 rounded-xl border border-kant bg-papper p-4 sm:flex-row sm:items-center sm:gap-4">
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <IkonCheck className="flex-shrink-0 text-positiv" />
         <div className="min-w-0 flex-1">

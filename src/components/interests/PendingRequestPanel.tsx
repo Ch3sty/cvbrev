@@ -1,8 +1,7 @@
 'use client';
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
-import { ChevronLeft } from 'lucide-react';
-import MarginPlate from '@/components/shell/MarginPlate';
+import { ChevronLeft } from '@/components/illustrations/RumIkoner';
 import { IlluPlattaAnsokan } from '@/components/illustrations/TradenScener';
 import { type CandidateInterest } from './hubTypes';
 
@@ -23,13 +22,13 @@ export default function PendingRequestPanel({
   onBack?: () => void;
 }) {
   return (
-    <div className="flex h-full flex-col bg-panel">
+    <div className="flex h-full flex-col bg-papper">
       {onBack && (
         <div className="flex items-center gap-2 border-b border-kant px-4 py-3 lg:hidden">
           <button
             type="button"
             onClick={onBack}
-            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1"
+            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-papper-2 hover:text-ink-1"
             aria-label="Tillbaka till listan"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
@@ -40,9 +39,9 @@ export default function PendingRequestPanel({
 
       <div className="flex flex-1 items-center justify-center overflow-y-auto p-6">
         <div className="w-full max-w-md">
-          <MarginPlate className="mb-4">
+          <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block mb-4">
             <IlluPlattaAnsokan size={48} />
-          </MarginPlate>
+          </span>
 
           <h2 className="text-fraga text-ink-1">
             {interest.companyName} vill komma i kontakt
@@ -52,7 +51,7 @@ export default function PendingRequestPanel({
           )}
 
           {interest.message && (
-            <p className="mt-4 rounded-lg border border-kant bg-insunken px-4 py-3 text-sm leading-[22px] text-ink-2 shadow-insunken">
+            <p className="mt-4 rounded-lg border border-kant bg-papper-2 px-4 py-3 text-sm leading-[22px] text-ink-2 ">
               {interest.message}
             </p>
           )}

@@ -3,7 +3,7 @@
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import { CONTEXT_TAG_MICROCOPY } from '@/lib/recruiter/workStyle';
 import SectionCard, { type CollapseProps } from './SectionCard';
 import WorkStyleReportView from './WorkStyleReportView';
@@ -129,7 +129,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
 
       {/* Delningsnivåerna: bara för avancerad-testare med kvalificerad rapport */}
       {personality?.done && canShareFullReport && (
-        <div className="mt-4 rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+        <div className="mt-4 rounded-lg border border-kant bg-papper-2 p-4 ">
           <h3 className="text-kort text-ink-1">Din arbetsstilsrapport</h3>
           <p className="mt-1 text-sm leading-[22px] text-ink-2">
             Det här är du, i klartext. Testet ringar in hur du faktiskt jobbar,
@@ -184,7 +184,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
                     Det här är exakt rapporten rekryteraren ser, byggd ur samma
                     härledning. Inget mer, inget annat.
                   </p>
-                  <div className="rounded-lg border border-kant bg-panel p-4">
+                  <div className="rounded-lg border border-kant bg-papper p-4">
                     <WorkStyleReportView
                       report={workStyleReport}
                       contextTags={profile.context_tags}
@@ -211,7 +211,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
       {personality?.done && !personality.hasAdvancedTest && (
         <Link
           href="/dashboard/arbetsstil"
-          className="mt-3 block rounded-lg border border-kant bg-insunken p-4 shadow-insunken hover:bg-panel"
+          className="mt-3 block rounded-lg border border-kant bg-papper-2 p-4  hover:bg-papper"
         >
           <p className="text-sm leading-[22px] text-ink-2">
             120 frågor senare vet du lite mer om dig själv: hur du fungerar bäst,
@@ -259,12 +259,12 @@ function ToggleRow({
       </span>
       <span
         className={`mt-0.5 h-6 w-11 shrink-0 rounded-full border transition-colors duration-[120ms] ${
-          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-insunken'
+          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-papper-2'
         }`}
         aria-hidden="true"
       >
         <span
-          className={`relative block h-4 w-4 translate-y-0.5 rounded-full border border-kant bg-panel transition-transform duration-[120ms] ${
+          className={`relative block h-4 w-4 translate-y-0.5 rounded-full border border-kant bg-papper transition-transform duration-[120ms] ${
             checked ? 'translate-x-[22px]' : 'translate-x-0.5'
           }`}
         />
@@ -285,7 +285,7 @@ function ResultTile({
   return (
     <div
       className={`rounded-lg border p-3.5 ${
-        todo ? 'border-dashed border-kant-stark bg-insunken' : 'border-kant bg-panel'
+        todo ? 'border-dashed border-kant-stark bg-papper-2' : 'border-kant bg-papper'
       }`}
     >
       <p className="mb-1 text-steg uppercase text-ink-3">{label}</p>

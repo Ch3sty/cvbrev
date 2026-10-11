@@ -54,8 +54,8 @@ export default function CvUppgifterSection(props: CvUppgifterSectionProps) {
   const [integritet, setIntegritet] = useState(false)
 
   return (
-    <section id="cv" className="thread-head scroll-mt-24 rounded-xl border border-kant-stark bg-panel">
-      <div className="thread-head-block p-4 sm:p-5">
+    <section id="cv" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
+      <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{CV_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{CV_SEKTION.under}</p>
       </div>
@@ -204,10 +204,10 @@ export function CvHuvudPreview({ namn, ort, telefon, foto }: { namn: string; ort
   const rad = [ort.trim(), telefon.trim()].filter(Boolean).join(' · ')
   return (
     <figure className="sticky top-24 m-0 hidden lg:block">
-      <div className="rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
-        <div className="rounded-md border border-kant bg-panel p-3">
+      <div className="rounded-lg border border-kant bg-papper-2 p-3 ">
+        <div className="rounded-md border border-kant bg-papper p-3">
           <div className="flex items-center gap-2.5">
-            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-kant bg-insunken">
+            <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-kant bg-papper-2">
               {foto ? <Image src={foto} alt="" width={40} height={40} className="h-full w-full object-cover" /> : null}
             </span>
             <span className="min-w-0">

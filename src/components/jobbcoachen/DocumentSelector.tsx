@@ -137,7 +137,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
                     role="option"
                     aria-selected={selected}
                     onClick={() => handleSelect(doc)}
-                    className={`w-full rounded-lg border bg-panel p-3 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                    className={`w-full rounded-lg border bg-papper p-3 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                       selected ? 'border-ink-1 shadow-val' : 'border-kant'
                     }`}
                   >

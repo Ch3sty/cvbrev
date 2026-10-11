@@ -2,14 +2,13 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
+import { Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
 
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
 import { RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaCvPoang } from '@/components/illustrations/TradenScener';
 
 interface CVAnalysisIntroProps {
@@ -75,14 +74,13 @@ export default function CVAnalysisIntro({
         handling={
           <button type="button" onClick={onStartAnalysis} className={KNAPP_PRIMAR}>
             Analysera mitt CV
-            <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
           </button>
         }
       >
         <div className="flex items-start gap-4">
-          <MarginPlate>
+          <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
             <IlluPlattaCvPoang size={48} />
-          </MarginPlate>
+          </span>
           <div className="min-w-0 flex-1">
             <h2 className="text-kort text-ink-1">En komplett bild av ditt CV</h2>
             <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
@@ -112,7 +110,7 @@ export default function CVAnalysisIntro({
         </StatusRow>
       )}
 
-      <section className="rounded-xl border border-kant bg-panel">
+      <section className="rounded-xl border border-kant bg-papper">
         <h2 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">
           Så fungerar analysen
         </h2>

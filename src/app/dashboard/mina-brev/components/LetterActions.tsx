@@ -8,7 +8,7 @@
 
 import { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 export interface LetterActionsProps {
@@ -72,8 +72,8 @@ export default function LetterActions({
 
   const trigger =
     variant === 'panel'
-      ? 'inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-[border-color] duration-[120ms] hover:border-kant-stark hover:text-ink-1'
-      : 'inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1';
+      ? 'inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-[border-color] duration-[120ms] hover:border-kant-stark hover:text-ink-1'
+      : 'inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1';
 
   const run = (item: Item) => {
     close();
@@ -99,7 +99,7 @@ export default function LetterActions({
             <Popover.Content
               align="end"
               sideOffset={8}
-              className="z-50 min-w-[200px] rounded-xl border border-kant bg-panel py-1.5 shadow-svav"
+              className="z-50 min-w-[200px] rounded-xl border border-kant bg-papper py-1.5 shadow-svav"
             >
               {items
                 .filter((item) => !item.mobileOnly)
@@ -112,7 +112,7 @@ export default function LetterActions({
                       type="button"
                       disabled={item.disabled}
                       onClick={() => run(item)}
-                      className={`flex min-h-11 w-full items-center px-3 text-left text-sm transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent ${
+                      className={`flex min-h-11 w-full items-center px-3 text-left text-sm transition-colors hover:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent ${
                         item.tone === 'fel' ? 'text-fel' : 'text-ink-1'
                       }`}
                     >
@@ -146,7 +146,7 @@ export default function LetterActions({
                 type="button"
                 disabled={item.disabled}
                 onClick={() => run(item)}
-                className={`flex h-14 w-full items-center px-4 text-left text-sm font-medium transition-colors active:bg-insunken disabled:cursor-not-allowed disabled:opacity-40 ${
+                className={`flex h-14 w-full items-center px-4 text-left text-sm font-medium transition-colors active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-40 ${
                   item.tone === 'fel' ? 'text-fel' : 'text-ink-1'
                 }`}
               >

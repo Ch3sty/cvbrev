@@ -1,26 +1,24 @@
 'use client';
 
 /**
- * CvCard i designsystemet (docs/plan-inloggat-omdesign.md, punkt 18).
+ * Ett CV i Mina CV, som rad (spec-rummen 16.4 (b) punkt 10, konceptets C1
+ * "Mina CV"): symbol, namn, metaraden med analysens poäng och när det
+ * ändrades, chevron till höger. Raden fäller ut detaljvyn; handlingarna står
+ * där som textlänkar, och "Ta bort" är en röd länk som bekräftas i dialog
+ * (spec 18.2), aldrig en knappfyllnad.
  *
- * Bort: gradientruta runt ikonen, orange toppstreck, skuggor på ett
- * stillastående kort, dekorativt bakgrundsmönster och gradientknappar.
- * Kvar: allt beteende, men i kortformen border plus rounded-xl.
- *
- * Knapparna är h-11 hela vägen. Låst läge förklaras i klartext, inte med
- * ett talstreck i en title-attribut ingen ser på mobil.
+ * Allt beteende från kortet är kvar: visa och dölj, välj mall, öppna
+ * råtexten, ta bort, och låst läge i klartext.
  */
 
-import { KNAPP_SEKUNDAR_LAG } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
-import { Clock, Trash2, Eye, EyeOff, Download, ExternalLink, Lock } from 'lucide-react';
+import { DorrCv, IkonChev, IkonLas } from '@/components/illustrations/RumSymboler';
+import { LANK, LANK_FEL } from '@/components/shell/knappar';
+import { CV_RUM } from '@/lib/rum/copy';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 import dynamic from 'next/dynamic';
 
-// Detaljvyn är 423 rader och visas bara när ett kort expanderas, men den
-// importerades statiskt i varje kort. Med åtta CV drog listan in åtta
-// kopior av kedjan vid hydrering, vilket syntes som sju långa uppgifter på
-// huvudtråden och sköt LCP till 2,4 sekunder.
+// Detaljvyn visas bara när en rad fälls ut; den laddas inte med listan.
 const CvDetailView = dynamic(() => import('./CvDetailView'), { ssr: false });
 
 interface CvCardProps {
@@ -28,6 +26,7 @@ interface CvCardProps {
     id: string;
     file_name: string;
     created_at: string;
+    updated_at?: string | null;
     structured_data: ParsedCV | null;
   };
   index?: number;
@@ -43,13 +42,14 @@ interface CvCardProps {
   formatDate: (iso: string) => string;
   /** Sant om CV:t är låst (gratisanvändare med fler CV än kvoten) */
   isLocked?: boolean;
+  /** Senaste analysens läsbarhetspoäng för just det här CV:t, om någon. */
+  poang?: number | null;
 }
 
-const LOCKED_HINT = PAKETRADER.lastCv;
+const RADLANK = `${LANK} inline-flex min-h-11 items-center`;
 
 export default function CvCard({
   cv,
-  index = 0,
   isDeleting,
   expanded,
   onToggleExpand,
@@ -61,122 +61,73 @@ export default function CvCard({
   formatDate,
   isLocked = false,
   userContact,
-  // Ren opacity, ingen förflyttning: ett element som tonar in sent och
-  // samtidigt flyttar sig räknas som layoutskifte.
+  poang = null,
 }: CvCardProps) {
+  const andrad = cv.updated_at ?? cv.created_at;
+  const meta = isLocked
+    ? PAKETRADER.lastCv
+    : [
+        poang !== null ? CV_RUM.cvMeta.poang(poang) : CV_RUM.cvMeta.inteAnalyserat,
+        CV_RUM.cvMeta.andrat(formatDate(andrad).toLowerCase()),
+      ].join(' ');
+  const panelId = `cv-${cv.id}-detalj`;
+
   return (
-    <div
-      style={{ animationDelay: `${index * 30}ms` }}
-      className={`flex flex-col rounded-xl border transition-colors motion-safe:animate-[fadeInPlace_200ms_ease-out_both] ${
-        isLocked
-          ? 'border-kant bg-insunken'
-          : 'border-kant bg-panel hover:border-kant-stark'
-      }`}
-    >
-      {/* Huvud: filnamn, ålder, radera */}
-      <div className="flex items-start gap-3 border-b border-kant p-4">
-        <span className="min-w-0 flex-1">
-          <span className="flex items-center gap-2">
-            <h3 className="truncate text-kort text-ink-1">
-              {cv.file_name}
-            </h3>
-            {isLocked ? (
-              <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-kant bg-panel px-2 py-1 text-meta font-medium text-ink-2">
-                <Lock className="h-3 w-3" aria-hidden="true" />
-                Låst
-              </span>
-            ) : null}
-          </span>
-          <span className="mt-1 flex items-center gap-1.5 text-meta text-ink-3">
-            <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-            {formatDate(cv.created_at)}
-          </span>
+    <div>
+      <button
+        type="button"
+        onClick={isLocked ? undefined : onToggleExpand}
+        aria-expanded={isLocked ? undefined : expanded}
+        aria-controls={isLocked ? undefined : panelId}
+        aria-disabled={isLocked || undefined}
+        className={`flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left ${isLocked ? 'cursor-default' : ''}`}
+      >
+        <span className={`h-10 w-10 shrink-0 ${isLocked || poang === null ? 'text-ink-3' : 'text-ton-ink'}`} aria-hidden="true">
+          <DorrCv size={40} />
         </span>
-
-        <button
-          onClick={onDelete}
-          disabled={isDeleting}
-          aria-label={`Ta bort ${cv.file_name}`}
-          className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-fel-mjuk hover:text-fel disabled:opacity-60"
-        >
-          {isDeleting ? (
-            <span
-              className="h-4 w-4 animate-spin rounded-full border-2 border-kant border-t-ink-2"
-              aria-hidden="true"
-            />
-          ) : (
-            <Trash2 className="h-4 w-4" aria-hidden="true" />
-          )}
-        </button>
-      </div>
-
-      <div className="flex flex-1 flex-col p-4">
-        {!expanded && (
-          <p className="mb-4 line-clamp-3 min-h-[60px] text-sm leading-relaxed text-ink-2">
-            {preview}
-          </p>
-        )}
-
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[15px] font-semibold leading-5 text-ink-1">{cv.file_name}</span>
+          <span className="mt-0.5 block text-meta text-ink-3">{meta}</span>
+        </span>
         {isLocked ? (
-          <p className="mb-3 text-sm text-ink-2">{LOCKED_HINT}</p>
-        ) : null}
-
-        <div className="mt-auto grid grid-cols-2 gap-2">
-          <button
-            onClick={isLocked ? undefined : onToggleExpand}
-            disabled={isLocked}
-            className={KNAPP_SEKUNDAR_LAG}
-          >
-            {expanded ? (
-              <>
-                <EyeOff className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span className="truncate">Dölj</span>
-              </>
-            ) : (
-              <>
-                <Eye className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span className="truncate">Visa</span>
-              </>
-            )}
-          </button>
-
-          <button
-            onClick={isLocked ? undefined : onDownload}
-            disabled={isLocked}
-            className={KNAPP_SEKUNDAR_LAG}
-          >
-            <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
-            <span className="truncate">Välj mall</span>
-          </button>
-        </div>
-
-        {/* Höjden animeras med grid-template-rows i stället för height: auto.
-            Expansionen sker bara på klick, aldrig vid inladdning. */}
-        {expanded && (
-          <div className="grid grid-rows-[1fr] motion-safe:animate-[cvDetailIn_200ms_ease-out_both]">
-            <div className="overflow-hidden">
-              <div className="mt-5 space-y-5 border-t border-kant pt-5">
-                <CvDetailView
-                  cvId={cv.id}
-                  structuredData={cv.structured_data}
-                  onStructured={onStructured}
-                  userContact={userContact}
-                />
-
-                <div className="flex justify-end">
-                  <button
-                    onClick={onOpenInNewWindow}
-                    className="inline-flex h-11 items-center gap-1.5 px-2 text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    Öppna råtext i nytt fönster
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <IkonLas size={20} className="shrink-0 text-ink-3" />
+        ) : (
+          <IkonChev
+            size={20}
+            className={`shrink-0 text-ink-3 transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}
+          />
         )}
-      </div>
+      </button>
+
+      {expanded && !isLocked ? (
+        <div id={panelId} className="border-t border-kant px-4 pb-4 pt-4">
+          <p className="line-clamp-3 text-sm leading-[21px] text-ink-2">{preview}</p>
+          <div className="mt-4">
+            <CvDetailView
+              cvId={cv.id}
+              structuredData={cv.structured_data}
+              onStructured={onStructured}
+              userContact={userContact}
+            />
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 border-t border-kant pt-2">
+            <button type="button" onClick={onDownload} className={RADLANK}>
+              Välj mall och ladda ner
+            </button>
+            <button type="button" onClick={onOpenInNewWindow} className={RADLANK}>
+              Öppna råtext i nytt fönster
+            </button>
+            <button
+              type="button"
+              onClick={onDelete}
+              disabled={isDeleting}
+              className={`${LANK_FEL} ml-auto inline-flex min-h-11 items-center disabled:opacity-60`}
+            >
+              {isDeleting ? 'Tar bort' : 'Ta bort'}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

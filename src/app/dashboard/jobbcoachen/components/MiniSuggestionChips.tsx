@@ -19,7 +19,7 @@ export default function MiniSuggestionChips({ onPick }: MiniSuggestionChipsProps
           key={s}
           type="button"
           onClick={() => onPick(s)}
-          className="inline-flex min-h-11 items-center rounded-lg border border-kant bg-panel px-3 text-sm text-ink-1 transition-colors hover:border-kant-stark"
+          className="inline-flex min-h-11 items-center rounded-lg border border-kant bg-papper px-3 text-sm text-ink-1 transition-colors hover:border-kant-stark"
         >
           {s}
         </button>

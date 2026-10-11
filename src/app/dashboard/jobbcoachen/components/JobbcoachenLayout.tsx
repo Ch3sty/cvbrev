@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
 import Rubrik from '@/components/rum/Rubrik';
-import Golv from '@/components/rum/Golv';
 
 interface JobbcoachenLayoutProps {
   /** Scrollbart innehåll (välkomst eller meddelanden) */
@@ -19,11 +18,10 @@ interface JobbcoachenLayoutProps {
  * skärmen: en panel med scroll inuti, så inmatningen står i bild utan att
  * sidan rullar.
  *
- * Panelens höjd räknas mot väggen, som här har fast höjd: topprad (60 px,
- * 72 på dator), rubriken på en rad (36 px, 46 på dator), 8 px luft och 24 px
- * botten. Därtill golvets 16 px överluft och skalets bottenluft (24 px över
- * navet på mobil, 40 px på dator). 100dvh, inte 100vh: på iOS Safari krymper
- * inte 100vh när adressfältet fälls in.
+ * Höjden följer golvets kolumn (spec 16.2 fråga 16): sidan står i en
+ * kolumn med main:s höjd (globals.css, [data-jobbcoachen]) och panelen är
+ * flex-1 min-h-0, så den fyller det som blir kvar under väggen utan att
+ * väggen mäts. Under 360 px höjd rullar sidan i stället.
  *
  * Ingen animate-thread-enter här: LCP kan inte registreras på ett helt
  * genomskinligt element. Sidbytet tonas redan in en gång i DashboardShell.
@@ -33,15 +31,15 @@ export default function JobbcoachenLayout({
   inputArea,
 }: JobbcoachenLayoutProps) {
   return (
-    <>
+    <div data-jobbcoachen className="flex min-h-0 flex-1 flex-col">
       <Vagg tat>
         <Topprad />
         <Rubrik titel="Jobbcoachen" />
       </Vagg>
-      <Golv>
-        <div className="flex h-[calc(100dvh-var(--bottom-nav-h)-168px)] min-h-[360px] flex-col overflow-hidden rounded-2xl border border-kant bg-papper lg:h-[calc(100dvh-206px)]">
+      <div className="flex min-h-0 flex-1 flex-col px-4 pt-4 lg:px-10 lg:pt-6">
+        <div className="mx-auto flex min-h-[360px] w-full max-w-[1120px] flex-1 flex-col overflow-hidden rounded-2xl border border-kant bg-papper">
           {/* Scrollbar mitt */}
-          <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6">
+          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6">
             <div className="mx-auto flex min-h-full max-w-3xl flex-col space-y-4 sm:space-y-6">
               {children}
             </div>
@@ -54,7 +52,7 @@ export default function JobbcoachenLayout({
             </div>
           </div>
         </div>
-      </Golv>
-    </>
+      </div>
+    </div>
   );
 }

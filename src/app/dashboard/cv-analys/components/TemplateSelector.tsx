@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Crown, Lock } from 'lucide-react';
+import { Crown, Lock } from '@/components/illustrations/RumIkoner';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface TemplateSelectorProps {
@@ -53,8 +53,8 @@ export default function TemplateSelector({
                 aria-pressed={isSelected}
                 className={`w-full rounded-xl border p-2 text-left transition-colors ${
                   isSelected
-                    ? 'border-ink-1 bg-panel'
-                    : 'border-kant bg-panel hover:border-kant-stark'
+                    ? 'border-ink-1 bg-papper'
+                    : 'border-kant bg-papper hover:border-kant-stark'
                 }`}
               >
                 {/* Papperet får vara vitt */}

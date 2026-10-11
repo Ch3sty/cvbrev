@@ -37,12 +37,12 @@ export function SkeletonBlock({
 
 /** Ett block i insunken, för rader inuti en panel. */
 export function SkeletonLine({ width = '100%', height = 12 }: { width?: string; height?: number }) {
-  return <div aria-hidden="true" className="rounded bg-insunken" style={{ width, height }} />
+  return <div aria-hidden="true" className="rounded bg-papper-2" style={{ width, height }} />
 }
 
 export function SkeletonHero() {
   return (
-    <div aria-hidden="true" className="loading-thread rounded-xl border border-kant bg-panel p-4">
+    <div aria-hidden="true" className="loading-thread rounded-xl border border-kant bg-papper p-4">
       <SkeletonLine width="45%" height={18} />
       <div className="mt-4 grid grid-cols-4 gap-3">
         <div><SkeletonLine width="44px" height={40} /><div className="mt-1.5"><SkeletonLine width="40px" /></div></div>
@@ -70,9 +70,9 @@ export function SkeletonIntro() {
       <SkeletonBlock height={44} rounded="rounded-xl" thread />
 
       {/* Handlingskortet: platta 56, rubrik och brödtext, lista, knapp. */}
-      <div aria-hidden="true" className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div aria-hidden="true" className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <div className="flex items-start gap-4">
-          <div className="h-14 w-14 shrink-0 rounded-lg bg-insunken" />
+          <div className="h-14 w-14 shrink-0 rounded-lg bg-papper-2" />
           <div className="min-w-0 flex-1 space-y-2">
             <SkeletonLine width="58%" height={16} />
             <SkeletonLine width="100%" />
@@ -92,14 +92,14 @@ export function SkeletonIntro() {
       </div>
 
       {/* Panel med sektionsrubrik och tre rader med ikon. */}
-      <div aria-hidden="true" className="rounded-xl border border-kant bg-panel">
+      <div aria-hidden="true" className="rounded-xl border border-kant bg-papper">
         <div className="border-b border-kant px-4 py-3">
           <SkeletonLine width="42%" />
         </div>
         <div className="divide-y divide-kant">
           {['a', 'b', 'c'].map((rad) => (
             <div key={rad} className="flex items-start gap-3 px-4 py-3">
-              <div className="mt-0.5 h-6 w-6 shrink-0 rounded bg-insunken" />
+              <div className="mt-0.5 h-6 w-6 shrink-0 rounded bg-papper-2" />
               <div className="min-w-0 flex-1 space-y-2">
                 <SkeletonLine width="46%" height={16} />
                 <SkeletonLine width="88%" />

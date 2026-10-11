@@ -40,7 +40,7 @@ export default function JobbsokOversikt({ summary, fordelning }: JobbsokOversikt
         : `${summary.weekCount} ansökningar den här veckan.`
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-label="Ditt jobbsök">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6" aria-label="Ditt jobbsök">
       <Fordelning
         total={summary.total}
         unit={`sökta i ${manad(new Date())}`}

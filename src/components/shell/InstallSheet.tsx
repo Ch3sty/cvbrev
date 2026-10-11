@@ -77,7 +77,7 @@ function Nummer({ children }: { children: React.ReactNode }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-kant bg-insunken text-meta font-medium text-ink-2 shadow-insunken"
+      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper-2 text-meta font-medium text-ink-2 "
     >
       {children}
     </span>

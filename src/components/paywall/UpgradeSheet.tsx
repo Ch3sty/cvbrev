@@ -205,7 +205,7 @@ export default function UpgradeSheet({
             <div
               role="radiogroup"
               aria-label="Hur länge"
-              className="mt-3 flex gap-1 rounded-lg border border-kant bg-insunken p-1 shadow-insunken"
+              className="mt-3 flex gap-1 rounded-lg border border-kant bg-papper-2 p-1 "
             >
               {ALLT_LANGDER.map((key) => {
                 const langd = PLAN_BY_KEY[key]
@@ -265,7 +265,7 @@ export default function UpgradeSheet({
               if (variant) capture('paywall_cta_clicked', { variant, surface, cta: 'secondary' })
               onClose()
             }}
-            className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1"
+            className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-papper-2 hover:text-ink-1"
             aria-label="Stäng"
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -275,7 +275,7 @@ export default function UpgradeSheet({
         {/* Vad gratisnivån ger, rangordnat efter vad hon faktiskt använt
             under perioden. Raden hon använt mest står först. */}
         {showLossSummary && losses && losses.length > 0 ? (
-          <div className="mb-4 rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+          <div className="mb-4 rounded-lg border border-kant bg-papper-2 p-3 ">
             <p className="text-sm font-medium text-ink-1">Så här blir det på gratisnivån</p>
             <ul className="mt-2 space-y-1.5">
               {losses.map((loss) => (

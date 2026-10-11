@@ -101,7 +101,7 @@ export default function KomIgangArk() {
             type="button"
             onClick={stang}
             aria-label="Stäng"
-            className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+            className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />
@@ -196,11 +196,12 @@ function Bricka({
   const under = klar ? (t.klarText ?? t.text) : t.text
 
   const ram = klar
-    ? 'border-transparent bg-insunken'
+    ? 'border-transparent bg-papper-2'
     : nasta
-      ? 'border-ink-1 bg-panel shadow-val'
-      : 'border-kant bg-panel'
-  const ikonYta = klar ? 'bg-panel' : nasta ? 'bg-accent-mjuk' : 'bg-insunken'
+      ? 'border-ink-1 bg-papper shadow-val'
+      : 'border-kant bg-papper'
+  // Ikonen står naken i rummets ton, aldrig på en färgad ruta (spec 16.4 (b) 2).
+  const ikonFarg = klar ? 'text-ink-3' : 'text-ton-ink'
 
   return (
     <li>
@@ -220,14 +221,14 @@ function Bricka({
       >
         <span
           aria-hidden="true"
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-1 ${ikonYta}`}
+          className={`inline-flex h-11 w-11 items-center justify-center ${ikonFarg}`}
         >
           <Ikon className="h-[30px] w-[30px]" />
         </span>
 
         <span className="min-w-0">
           {nasta ? (
-            <span className="block text-steg uppercase text-accent-ink">{KOM_IGANG.nastaEtikett}</span>
+            <span className="block text-steg uppercase text-koppar-ink">{KOM_IGANG.nastaEtikett}</span>
           ) : null}
           <span className="block text-sm font-semibold leading-[19px] text-ink-1">{t.titel}</span>
           <span className="block text-xs leading-[17px] text-ink-3">{under}</span>
@@ -244,7 +245,7 @@ function Bricka({
               <path d="M4 10.5l4 4 8-9" />
             </svg>
           ) : nasta ? (
-            <span className="h-2 w-2 rounded-full bg-accent" />
+            <span className="h-2 w-2 rounded-full bg-koppar" />
           ) : null}
         </span>
       </Link>

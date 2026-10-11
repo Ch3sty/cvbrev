@@ -38,7 +38,7 @@ export default function FlowResumeBanner({
     <>
       <section
         aria-label="Påbörjat utkast"
-        className="rounded-xl border border-kant-stark bg-panel p-4"
+        className="rounded-xl border border-kant-stark bg-papper p-4"
       >
         <h2 className="text-kort text-ink-1">Du har ett påbörjat utkast</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">

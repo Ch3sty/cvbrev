@@ -208,7 +208,7 @@ export default function BliUpptacktClient({
       <Golv>
       <div className="w-full max-w-3xl">
         <section className="rounded-2xl border border-kant bg-papper p-6 text-center sm:p-8">
-          <span className="inline-block text-ink-1" aria-hidden="true">
+          <span className="tomt-symbol inline-block" aria-hidden="true">
             <IlluBliUpptackt size={96} />
           </span>
           <button

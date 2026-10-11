@@ -33,7 +33,7 @@ function artikelUrval() {
 export default function MallMiniatyrer() {
   const urval = artikelUrval()
   return (
-    <aside className="not-prose my-10 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-label="Mallar ur registret">
+    <aside className="not-prose my-10 rounded-xl border border-kant bg-papper p-4 sm:p-6" aria-label="Mallar ur registret">
       <p className="text-steg uppercase text-ink-3">
         {urval.length} av {TEMPLATE_COUNT} mallar
       </p>

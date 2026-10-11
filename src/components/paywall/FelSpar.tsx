@@ -26,7 +26,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Sheet from '@/components/shell/Sheet'
 import StatusRow from '@/components/shell/StatusRow'
-import MarginPlate from '@/components/shell/MarginPlate'
 import { IlluPlattaNedladdning } from '@/components/illustrations/TradenScener'
 import { capture } from '@/lib/analytics/events'
 import {
@@ -178,9 +177,9 @@ export default function FelSpar({
     <Sheet open={open} onClose={stang} bare className={className}>
       <div className="p-4">
         <div className="flex items-start gap-3">
-          <MarginPlate>
+          <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
             <IlluPlattaNedladdning size={48} />
-          </MarginPlate>
+          </span>
           <div className="min-w-0 flex-1">
             <p className="text-kort text-ink-1">{felSparRubrik(feature)}</p>
             <p className="mt-1 text-sm leading-[22px] text-ink-2">{felSparText(scope)}</p>

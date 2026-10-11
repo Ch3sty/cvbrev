@@ -20,7 +20,7 @@ import { KNAPP_PRIMAR as KNAPP_PRIMAR_BAS, KNAPP_SEKUNDAR as KNAPP_SEKUNDAR_BAS 
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { X } from 'lucide-react'
+import { X } from '@/components/illustrations/RumIkoner'
 import type { Scope } from '@/lib/access/features'
 import { useKomIgang } from '@/components/dashboard/KomIgangContext'
 import { IlluValkommenCv, IlluValkommenTest } from '@/components/illustrations/OnboardingScener'
@@ -86,13 +86,13 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dag
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
-      <header className="flex-shrink-0 border-b border-kant bg-panel">
+      <header className="flex-shrink-0 border-b border-kant bg-papper">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
           <button
             type="button"
             onClick={() => router.push('/dashboard')}
             aria-label="Till hemskärmen"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
           >
             <X className="h-6 w-6" strokeWidth={1.75} />
           </button>
@@ -112,10 +112,10 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dag
           {medCv ? (
             /* Det liggande CV:t som en rad: namnet, när det kom, poängen. */
             <section
-              className="mt-4 flex items-center gap-3 rounded-xl border border-kant bg-panel p-4"
+              className="mt-4 flex items-center gap-3 rounded-xl border border-kant bg-papper p-4"
               aria-label="Ditt CV"
             >
-              <span aria-hidden="true" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-insunken text-ink-2">
+              <span aria-hidden="true" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-papper-2 text-ink-2">
                 <IkonCv size={24} />
               </span>
               <span className="min-w-0 flex-1">
@@ -124,7 +124,7 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dag
               </span>
             </section>
           ) : (
-            <div className="mt-4 rounded-xl border border-kant bg-panel p-4 text-ink-1">
+            <div className="mt-4 rounded-xl border border-kant bg-papper p-4 text-ink-1">
               <Scen className="h-auto w-full" title={scenTitel} />
             </div>
           )}
@@ -146,7 +146,7 @@ export default function ValkommenClient({ paket, cvNamn, cvUppladdat, poang, dag
       </main>
 
       <footer
-        className="flex-shrink-0 border-t border-kant bg-panel"
+        className="flex-shrink-0 border-t border-kant bg-papper"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center">

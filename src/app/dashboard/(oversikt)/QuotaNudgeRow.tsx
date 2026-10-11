@@ -63,7 +63,7 @@ export default function QuotaNudgeRow({ isPremium, className }: QuotaNudgeRowPro
 
   return (
     <section
-      className={`flex min-h-11 flex-col gap-2 rounded-lg border border-kant bg-panel px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 ${className ?? ''}`}
+      className={`flex min-h-11 flex-col gap-2 rounded-lg border border-kant bg-papper px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 ${className ?? ''}`}
       aria-label="Din kvot idag"
     >
       <dl className="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-1">

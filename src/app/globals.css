@@ -25,6 +25,17 @@
      panel och insunken, så publika sidor ser ut som förut. */
   --papper: var(--panel);
   --papper-2: var(--insunken);
+  /* Samma sak för koppar, golv och väggens toner (våg 4): komponenter som
+     delas med publika sidor bytte till rummens klasser (bg-koppar,
+     text-vagg-mjuk), och utanför inloggat ska de se ut som förut. Inloggat
+     skriver över dem i blocket RUMMEN. */
+  --golv: var(--mark);
+  --koppar: var(--accent);
+  --koppar-ink: var(--accent-ink);
+  --koppar-mjuk: var(--accent-mjuk);
+  --koppar-ljus: var(--ink-1-accent);
+  --vagg-mjuk: var(--ink-1-mjuk);
+  --vagg-kant: var(--ink-1-kant);
   --insunken-topp: #D6CDBF;
   --kant: #DBD2C4;
   --kant-stark: #C4B9A8;
@@ -182,8 +193,14 @@
 
 /* Alias och illustrationsroller. var() löses där egenskapen deklareras, så
    ett alias som bara står på <html> skulle ta rot-rummets värden även inne i
-   ett annat rum. De deklareras därför både på roten och på rummet. Aliasen
-   bär omigrerade sidor och tas bort i våg 4 när grep ger noll. */
+   ett annat rum. De deklareras därför både på roten och på rummet.
+
+   Våg 4: allt i inloggat utom testrummets filer (src/app/dashboard/tester
+   och src/components/tests, som våg 2 och 3b bygger om parallellt) har bytt
+   till rummens klasser. Aliasen (mark, panel, insunken, accent,
+   ink-1-mjuk/-kant/-accent) står kvar bara för de filerna och tas bort när
+   scripts/grep-rummen.mjs --vag 4 ger noll även där. Illustrationsrollerna
+   står kvar för gott. */
 :root:has([data-rum]),
 [data-rum] {
   --illu-fill: var(--papper);
@@ -1131,6 +1148,13 @@ html {
   }
 }
 
+/* Jobbcoachen är ett läge som fyller resten av skärmen (spec 16.2 fråga 16):
+   sidans kolumn får main:s höjd i stället för min-höjd, så att panelen kan
+   vara flex-1 min-h-0 och rulla inuti utan att väggen mäts. */
+.dashboard-main-content:has([data-jobbcoachen]) > div {
+  height: 100%;
+}
+
 /* Dator: inget nav, golvets 40 px under sista kortet (konceptets .main .golv). */
 @media (min-width: 1024px) {
   .dashboard-main-content {
@@ -1353,7 +1377,7 @@ html {
   top: 16px;
   bottom: 16px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 0 2px 2px 0;
 }
 
@@ -1369,7 +1393,7 @@ html {
   top: 8px;
   bottom: 8px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 0 2px 2px 0;
 }
 
@@ -1391,7 +1415,7 @@ html {
   top: 24px;
   bottom: 24px;
   width: 3px;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 2px;
 }
 /* På smala skärmar finns ingen marginal att lägga linjen i, så kedjan
@@ -1404,6 +1428,21 @@ html {
 
 /* Laddning: skelettet står stilla, bara tråden rör sig längs panelens
    överkant. 2 px, 40 procent bredd, 1200 ms. */
+/* Tomt tillstånd i rummen (spec-rummen 16.4 (b) punkt 3, konceptets .tomt):
+   symbolen står naken i rummets ton, utan ytor. Scenerna ritar sina ytor i
+   --illu-fill, --illu-soft och --illu-accent; här blir de genomskinliga och
+   konturen tar rummets ton-ink, så ingen tecknad scen med kopparytor står
+   kvar i ett tomt tillstånd. */
+.tomt-symbol {
+  color: var(--ton-ink);
+  --illu-fill: transparent;
+  --illu-soft: transparent;
+  --illu-accent: currentColor;
+  --illu-muted: currentColor;
+  --illu-on-accent: transparent;
+  --ia: none;
+}
+
 .loading-thread {
   position: relative;
   overflow: hidden;
@@ -1415,7 +1454,7 @@ html {
   left: 0;
   height: 2px;
   width: 40%;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 2px;
   animation: threadRun 1200ms ease-in-out infinite;
 }
@@ -1471,7 +1510,7 @@ html {
   left: -1px;
   height: 3px;
   width: 66%;
-  background: var(--accent);
+  background: var(--koppar);
   border-radius: 12px 0 0 0;
   animation: threadToFull 200ms ease-out 240ms forwards;
 }

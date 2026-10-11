@@ -285,7 +285,7 @@ export default function MinaBrevClient({
               placeholder="Sök på företag eller tjänst"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-sm text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+              className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-sm text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
             />
           </label>
           <ViewToggle value={viewMode} onChange={handleViewModeChange} />

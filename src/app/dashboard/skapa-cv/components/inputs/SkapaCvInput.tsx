@@ -12,10 +12,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 /** Fält i Tråden: insunket i papperet, panel och stark kant vid fokus. */
 export const FIELD =
-  'block w-full h-11 rounded-lg border bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 transition-colors focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-60'
+  'block w-full h-11 rounded-lg border bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 transition-colors focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink disabled:cursor-not-allowed disabled:opacity-60'
 
 export const FIELD_OK = 'border-kant focus:border-kant-stark'
-export const FIELD_ERR = 'border-fel bg-panel focus:border-fel'
+export const FIELD_ERR = 'border-fel bg-papper focus:border-fel'
 
 export const LABEL = 'mb-1.5 block text-sm font-medium text-ink-1'
 

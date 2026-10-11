@@ -362,6 +362,22 @@ export interface AnalyticsEvents {
     plats: 'matning' | 'dag2' | 'riktat' | 'provlage' | 'ommatning' | 'kurva' | 'infor_prov' | 'sidomeny'
     dagar_kvar: number | null
   }
+  /* ---------------------------------------------- Rummen, våg 4
+     rum_bytt vid varje byte mellan två rum (inte landningen), med varifrån
+     bytet kom. korsreferens_klick när en rad i ett rum leder till ett annat.
+     sokta_tjanst_oppnad när en enskild sökt tjänst öppnas, så att
+     öppningarna av Sökta tjänster kan läsas både som lista och per tjänst. */
+  rum_bytt: {
+    fran: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    till: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+  }
+  korsreferens_klick: {
+    fran: 'tran' | 'cv' | 'brev' | 'jobb'
+    till: 'tran' | 'cv' | 'brev' | 'jobb'
+    variant: 'niva' | 'aldrig_matt' | 'intervju' | 'spara_sokt'
+  }
+  sokta_tjanst_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

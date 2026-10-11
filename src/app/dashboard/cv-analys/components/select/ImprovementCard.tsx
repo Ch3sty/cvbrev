@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
-import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from 'lucide-react';
+import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from '@/components/illustrations/RumIkoner';
 
 interface Improvements {
   hasQuantification?: boolean;
@@ -60,7 +60,7 @@ export default function ImprovementCard({
 
   return (
     <div
-      className={`overflow-hidden rounded-xl bg-panel transition-colors ${
+      className={`overflow-hidden rounded-xl bg-papper transition-colors ${
         selected ? 'border border-ink-1' : 'border border-kant'
       }`}
     >
@@ -116,7 +116,7 @@ export default function ImprovementCard({
 
         {/* Flödes-vy */}
         {!isEditing ? (
-          <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
+          <div className="rounded-lg border border-kant bg-papper-2 p-3.5  sm:p-4">
             {/* Mode-toggle */}
             <div className="mb-2.5 flex items-center justify-between gap-2">
               <span className="text-steg uppercase text-ink-3">
@@ -189,7 +189,7 @@ export default function ImprovementCard({
               <textarea
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-papper-2 p-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 rows={6}
 
                 enterKeyHint="enter"
@@ -206,7 +206,7 @@ export default function ImprovementCard({
                   setEditedText(suggestedText);
                   setIsEditing(false);
                 }}
-                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-papper px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
               >
                 <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Avbryt
@@ -229,7 +229,7 @@ export default function ImprovementCard({
 
 function Tag({ icon, label }: { icon?: React.ReactNode; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+    <span className="inline-flex items-center gap-1 rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-2">
       {icon ? <span aria-hidden="true">{icon}</span> : null}
       {label}
     </span>
@@ -257,7 +257,7 @@ export function RoundCheckbox({
       className={`mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ink-1 ${
         checked
           ? 'border-ink-1 bg-ink-1'
-          : 'border-kant-stark bg-panel hover:border-ink-1'
+          : 'border-kant-stark bg-papper hover:border-ink-1'
       }`}
     >
       {checked && (

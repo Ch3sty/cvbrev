@@ -61,7 +61,7 @@ export default function FlowProgress({
     <section
       aria-live="polite"
       aria-busy="true"
-      className="relative overflow-hidden rounded-xl border border-kant bg-panel p-4 sm:p-5"
+      className="relative overflow-hidden rounded-xl border border-kant bg-papper p-4 sm:p-5"
     >
       {/* Tråden längs överkanten: här är vi i arbetet. */}
       <div
@@ -73,7 +73,7 @@ export default function FlowProgress({
         className="absolute inset-x-0 top-0 h-0.5 bg-kant"
       >
         <div
-          className="h-full bg-accent transition-[width] duration-500 ease-out motion-reduce:transition-none"
+          className="h-full bg-koppar transition-[width] duration-500 ease-out motion-reduce:transition-none"
           style={{ width: `${pct}%` }}
         />
       </div>

@@ -25,7 +25,7 @@ function relativeTime(iso: string): string {
  *
  * Rad = 32 px cirkel i insunken med initial, namn, senaste raden, tid till
  * höger. Olästa markeras med en punkt i ink-1 och vikt 500, aldrig orange.
- * Vald rad = bg-insunken. Status skrivs som text: väntar i varning, avböjd i
+ * Vald rad = bg-papper-2. Status skrivs som text: väntar i varning, avböjd i
  * ink-3. Inga piller, inga knappar i raden: acceptera/avböj bor i
  * PendingRequestPanel så att vyn har en primär handling.
  */
@@ -56,11 +56,11 @@ export default function ConversationListItem({
       aria-current={selected ? 'true' : undefined}
       aria-busy={busy || undefined}
       className={`flex w-full min-h-14 items-center gap-3 px-4 py-3 text-left transition-colors ${
-        selected ? 'bg-insunken' : 'hover:bg-insunken'
+        selected ? 'bg-papper-2' : 'hover:bg-papper-2'
       } ${isDeclined ? 'text-ink-3' : ''}`}
     >
       <span
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-insunken text-meta font-medium text-ink-2"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-papper-2 text-meta font-medium text-ink-2"
         aria-hidden="true"
       >
         {initialFor(interest.companyName)}

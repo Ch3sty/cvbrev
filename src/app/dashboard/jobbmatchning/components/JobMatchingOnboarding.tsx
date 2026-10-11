@@ -49,7 +49,7 @@ export default function JobMatchingOnboarding() {
         }
       />
 
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-sm font-medium text-ink-3">Så fungerar det</h2>
         <ol className="mt-2 divide-y divide-kant border-t border-kant">
           {STEG.map((s, i) => (
@@ -64,7 +64,7 @@ export default function JobMatchingOnboarding() {
         </ol>
       </section>
 
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-sm font-medium text-ink-3">Så kommer dina träffar att se ut</h2>
         <ul className="mt-2 divide-y divide-kant border-t border-kant" aria-hidden="true">
           {EXEMPEL.map((e) => (

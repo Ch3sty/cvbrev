@@ -13,7 +13,7 @@
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
-import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_VAGG } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_FEL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
@@ -22,7 +22,11 @@ import Link from 'next/link';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
-import { BREVVY } from '@/lib/rum/copy';
+import { BREVVY, BREV_RUM } from '@/lib/rum/copy';
+import Veckorad from '@/components/rum/Veckorad';
+import Rader, { Rad } from '@/components/rum/Rader';
+import { kravIAnnonsen, kravTraffar, KRAV_MIN_FOR_INSTRUMENT } from '@/lib/letters/kravIAnnonsen';
+import { capture } from '@/lib/analytics/events';
 import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
@@ -43,8 +47,14 @@ const LINK =
 export default function ViewLetterClient({
   id,
   initialLetter,
+  soktId: initialSoktId = null,
+  klart = false,
 }: {
   id: string;
+  /** Den sökta tjänst brevet redan ligger i, om någon (B1). */
+  soktId?: string | null;
+  /** Kom direkt från brevflödet: väggen säger "Brevet klart". */
+  klart?: boolean;
   /** Serverhämtat brev. Är det satt står hela brevet i första HTML och
       klienten gör ingen rundtur före första målningen. */
   initialLetter: Letter | null;
@@ -78,6 +88,11 @@ export default function ViewLetterClient({
   const [downloadGate, setDownloadGate] = useState(false);
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  // B1: "Spara som sökt tjänst". Samma idempotenta POST /api/applications
+  // som brevflödets "Markera som sökt"; UI:t säger aldrig sparat på fel.
+  const [soktId, setSoktId] = useState<string | null>(initialSoktId);
+  const [sparar, setSparar] = useState(false);
+  const [sparaFel, setSparaFel] = useState(false);
 
   const initialLoadRef = useRef(false);
   /** Sant först när ett brev finns, eller när en hämtning har avslutats.
@@ -156,6 +171,32 @@ export default function ViewLetterClient({
     }
   };
 
+  const sparaSomSokt = async () => {
+    if (!currentLetter || sparar || soktId) return;
+    setSparar(true);
+    setSparaFel(false);
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: currentLetter.job_title || currentLetter.title || 'Okänd tjänst',
+          company: currentLetter.company || 'Okänd arbetsgivare',
+          application_channel: 'ad',
+          letter_id: currentLetter.id,
+        }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success || !json?.data?.id) throw new Error('fel');
+      setSoktId(json.data.id as string);
+      capture('korsreferens_klick', { fran: 'brev', till: 'jobb', variant: 'spara_sokt' });
+    } catch {
+      setSparaFel(true);
+    } finally {
+      setSparar(false);
+    }
+  };
+
   const isTemplateHTML = (content: string) =>
     content.includes('<div') || content.includes('<style');
 
@@ -187,7 +228,7 @@ export default function ViewLetterClient({
         <VaggLaddar label="Laddar brev" />
         <Golv key="laddar">
           <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-            <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
+            <div className="h-11 w-full rounded-lg bg-papper-2 sm:w-64" />
             <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
           </div>
         </Golv>
@@ -249,13 +290,38 @@ export default function ViewLetterClient({
 
   const html = isTemplateHTML(currentLetter.content || '');
 
+  // B1: kraven vi läste ut ur annonsen och vilka brevet nämner. Bara när
+  // annonsen finns och gav minst tre krav; annars visar väggen metaraden
+  // som förut och ingen veckorad (spec: degradera, aldrig gissa).
+  const krav = kravIAnnonsen(currentLetter.job_description);
+  const traff = kravTraffar(krav, currentLetter.content);
+  const medTraffar = krav.length >= KRAV_MIN_FOR_INSTRUMENT;
+  const traffRad = medTraffar
+    ? [BREV_RUM.traffar(traff.moter.length, krav.length), traff.saknas[0] ? BREV_RUM.saknas(traff.saknas[0]) : null]
+        .filter(Boolean)
+        .join(' ')
+    : null;
+  const kortEtikett = (k: string) => (k.length > 8 ? `${k.slice(0, 7)}…` : k);
+  const instrument = medTraffar ? (
+    <Veckorad
+      celler={krav.slice(0, 7).map((k) => ({ etikett: kortEtikett(k), status: traff.moter.includes(k) ? 'gjord' : 'kvar' }))}
+      label={BREV_RUM.traffarAria(traff.moter, traff.saknas)}
+      className="mt-0"
+    />
+  ) : null;
+  // Träffarna säger mer än metaraden (företag och tjänst står redan i
+  // rubriken); utan träffar står metaraden kvar som förut.
+  const vaggRad = traffRad ?? (klart ? undefined : beskrivning || undefined);
+
   return (
     <>
       {/* Väggen säger var du är (spec 16.3.2, B1): rubriken, metaraden och
           länken tillbaka. Brevet är det lyfta kortet. */}
       <RumHuvud
-        title={currentLetter.title || 'Ansökningsbrev'}
-        description={beskrivning || undefined}
+        eyebrow={klart ? BREV_RUM.ey : undefined}
+        title={klart ? BREV_RUM.titel(currentLetter.company || null) : currentLetter.title || 'Ansökningsbrev'}
+        description={vaggRad}
+        instrument={instrument}
         tat={false}
         handling={
           <Link href="/dashboard/mina-brev" className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
@@ -314,6 +380,58 @@ export default function ViewLetterClient({
       </LyftKort>
     <div className="w-full max-w-3xl space-y-4">
 
+      {/* B1: nästa steg som rader. Den saknade kravet först, sedan brevet
+          som sökt tjänst i Jobbsöket. */}
+      <Rader label="Nästa">
+        {traff.saknas[0] && medTraffar ? (
+          <Rad
+            titel={BREV_RUM.laggTill(traff.saknas[0])}
+            meta={BREV_RUM.laggTillMeta}
+            hoger={
+              <Link href={`/dashboard/mina-brev/${id}/edit`} className={`${LANK} inline-flex min-h-11 items-center`}>
+                {BREVVY.redigera}
+              </Link>
+            }
+          />
+        ) : null}
+        <Rad
+          titel={BREV_RUM.sparaSokt}
+          meta={
+            soktId ? (
+              BREV_RUM.redanSparad
+            ) : sparaFel ? (
+              <span className="text-fel" role="alert">
+                {BREV_RUM.sparaFel}
+              </span>
+            ) : (
+              BREV_RUM.sparaSoktMeta
+            )
+          }
+          hoger={
+            soktId ? (
+              <Link href={`/dashboard/sokta-tjanster/${soktId}`} className={`${LANK} inline-flex min-h-11 items-center`}>
+                {BREV_RUM.sparadLank}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={sparaSomSokt}
+                disabled={sparar}
+                className={`${LANK} inline-flex min-h-11 items-center disabled:opacity-40`}
+              >
+                {sparar ? BREV_RUM.sparar : BREV_RUM.sparaKnapp}
+              </button>
+            )
+          }
+        />
+      </Rader>
+
+      {summary?.paket && summary.paket.lettersLimit !== null && summary.paket.lettersUsed >= summary.paket.lettersLimit ? (
+        <StatusRow showDot wrap label={BREV_RUM.gratis}>
+          {BREV_RUM.gratis}
+        </StatusRow>
+      ) : null}
+
       {copied ? (
         <StatusRow tone="positive" showDot label="Texten är kopierad">
           Texten är kopierad.
@@ -350,7 +468,7 @@ export default function ViewLetterClient({
           type="button"
           onClick={() => setShowDeleteConfirm(true)}
           disabled={isDeleting}
-          className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-fel decoration-fel/40 disabled:cursor-not-allowed disabled:opacity-40`}
+          className={`${LANK_FEL} inline-flex min-h-11 shrink-0 items-center disabled:cursor-not-allowed disabled:opacity-40`}
         >
           {isDeleting ? 'Tar bort' : BREVVY.taBort}
         </button>

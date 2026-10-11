@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import ChoiceCard from '@/components/shell/ChoiceCard';
 import Segment from '@/components/shell/Segment';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaSmartTon } from '@/components/illustrations/TradenScener';
 import {
   IkonProfessionell,
@@ -126,9 +125,9 @@ export default function TonalityLanguageStep({
           description="Vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder."
           meta={isPremium ? 'Läser kraven · Branschens ton' : BREV_SEKTION.smartMeta}
           leading={
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaSmartTon size={48} />
-            </MarginPlate>
+            </span>
           }
         />
 

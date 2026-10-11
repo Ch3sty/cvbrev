@@ -5,7 +5,7 @@ import { kopstegHref } from '@/lib/onboarding/steps';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
@@ -321,7 +321,7 @@ export default function Step7Review({
               onClick={() => setTemplateScrollIndex(Math.max(0, templateScrollIndex - 1))}
               disabled={templateScrollIndex === 0}
               aria-label="Föregående mallar"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
             </button>
@@ -330,7 +330,7 @@ export default function Step7Review({
               onClick={() => setTemplateScrollIndex(Math.min(maxScrollIndex, templateScrollIndex + 1))}
               disabled={templateScrollIndex >= maxScrollIndex}
               aria-label="Nästa mallar"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
             >
               <ChevronRight className="h-5 w-5" strokeWidth={1.75} />
             </button>
@@ -353,14 +353,14 @@ export default function Step7Review({
                   role="radio"
                   aria-checked={isSelected}
                   onClick={() => handleTemplateSelect(template.id)}
-                  className={`relative w-[140px] flex-shrink-0 overflow-hidden rounded-xl border bg-panel text-left transition-[border-color] duration-[160ms] ${
+                  className={`relative w-[140px] flex-shrink-0 overflow-hidden rounded-xl border bg-papper text-left transition-[border-color] duration-[160ms] ${
                     isSelected ? 'border-ink-1 shadow-val' : 'border-kant hover:border-kant-stark'
                   }`}
                 >
                   {/* Mallens förhandsbild. De fyra första laddas ivrigt eftersom
                       de syns direkt, resten när de scrollas fram. Rutan har fast
                       proportion, så inget hoppar när bilderna landar. */}
-                  <div className="relative aspect-[3/4] bg-insunken">
+                  <div className="relative aspect-[3/4] bg-papper-2">
                     <img
                       src={template.imagePath}
                       alt={template.name}
@@ -412,7 +412,7 @@ export default function Step7Review({
             wrap
             label={PAKETRADER.mallIngar}
             action={
-              <Link href={kopstegHref('cv_week')} className="inline-flex min-h-11 items-center text-sm font-medium text-accent-ink underline decoration-kant-stark underline-offset-4">
+              <Link href={kopstegHref('cv_week')} className="inline-flex min-h-11 items-center text-sm font-medium text-koppar-ink underline decoration-kant-stark underline-offset-4">
                 {PAKETRADER.kopCv}
               </Link>
             }
@@ -425,7 +425,7 @@ export default function Step7Review({
       {/* Innehåll och förhandsvisning */}
       <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-5">
         <div className="space-y-4 lg:col-span-2">
-          <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
             <p className="text-sm font-medium text-ink-3">Innehåll</p>
             <ul className="mt-3 divide-y divide-kant">
               {sections.map((section) => (
@@ -433,7 +433,7 @@ export default function Step7Review({
                   <span
                     aria-hidden="true"
                     className={`inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
-                      section.isComplete ? 'bg-positiv-mjuk text-positiv' : 'bg-insunken text-ink-3'
+                      section.isComplete ? 'bg-positiv-mjuk text-positiv' : 'bg-papper-2 text-ink-3'
                     }`}
                   >
                     {section.isComplete ? (
@@ -458,7 +458,7 @@ export default function Step7Review({
             </ul>
           </section>
 
-          <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
             <label htmlFor="cvName" className={LABEL}>
               CV-namn
             </label>
@@ -477,8 +477,8 @@ export default function Step7Review({
         </div>
 
         <section className="lg:col-span-3">
-          <div className="overflow-hidden rounded-xl border border-kant bg-panel">
-            <div className="flex items-center justify-between border-b border-kant bg-insunken px-4 py-2">
+          <div className="overflow-hidden rounded-xl border border-kant bg-papper">
+            <div className="flex items-center justify-between border-b border-kant bg-papper-2 px-4 py-2">
               <span className="text-sm font-medium text-ink-1">
                 {selectedTemplateData?.name || 'Modern Minimal'}
               </span>
@@ -497,7 +497,7 @@ export default function Step7Review({
               aria-busy={isGeneratingPreview}
             >
               {isGeneratingPreview ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-panel" role="status">
+                <div className="absolute inset-0 flex items-center justify-center bg-papper" role="status">
                   <span className="text-sm text-ink-2">Ritar förhandsvisningen</span>
                 </div>
               ) : previewHTML ? (

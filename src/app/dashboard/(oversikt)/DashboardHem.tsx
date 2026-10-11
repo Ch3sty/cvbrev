@@ -45,10 +45,11 @@ import QuotaNudgeRow from './QuotaNudgeRow';
 import ProfilKomplettering from './ProfilKomplettering';
 import DashboardHero, { deriveDashboardState } from './DashboardHero';
 import SnabbAtgarder from './SnabbAtgarder';
-import JobbsokOversikt from './JobbsokOversikt';
-import PagarNu from './PagarNu';
 import NastaHandling from './NastaHandling';
-import { dagensDatum, halsning, sammanhangsrad } from './HemHuvud';
+import { dagensDatum, halsning } from './HemHuvud';
+import { SoktaTjansterRader, Korsreferens, MerIJobbsoket } from './JobbsokGolv';
+import Spar from '@/components/rum/Spar';
+import { sparRader, type SoktTjanst } from '@/lib/rum/jobbsok';
 import ProvaOcksa from './ProvaOcksa';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
@@ -58,7 +59,7 @@ import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import VaggLaddar from '@/components/rum/VaggLaddar';
 import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar';
-import { JOBBSOK, LYFT } from '@/lib/rum/copy';
+import { JOBBSOK, JOBBSOK_HEM, LYFT, SPAR } from '@/lib/rum/copy';
 import LyftKort from '@/components/rum/LyftKort';
 
 interface DashboardStats {
@@ -269,6 +270,14 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
     );
   }
 
+  // Sökta tjänster ur summeringen (öppna, mest tidskänsliga först).
+  const tjanster = (summary?.applications.pipeline ?? []) as SoktTjanst[];
+  const tystastDagar = tjanster
+    .filter((t) => t.needsFollowUp)
+    .reduce<number | null>((m, t) => (m === null || t.days > m ? t.days : m), null);
+  const idag = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(new Date());
+  const jobbsok = summary?.jobbsok;
+
   // Väggen (Rummen våg 1b): Jobbsökets rubrik och rad, samma ord som
   // hemskärmen hade förut, flyttade från HemHuvud och DashboardHero.
   // "Logga sökt tjänst" står här som glasknapp i automatisk bredd, eftersom
@@ -313,12 +322,29 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
           : {
               eyebrow: datumEtikett,
               title: halsningRubrik,
-              description: sammanhangsrad(
-                summary?.hem?.svarSenasteDygnet ?? 0,
-                summary?.hem?.nastaIntervju ?? null
-              ),
+              description: JOBBSOK_HEM.rad({
+                oppna: appSummary.total,
+                svarIGar: summary?.hem?.svarSenasteDygnet ?? 0,
+                intervju: summary?.hem?.nastaIntervju ?? null,
+                tysta: summary?.hem?.tysta ?? 0,
+                tystastDagar: tystastDagar,
+              }),
               handling: loggaSoktJobb,
             };
+
+  // Spåret (våg 4, J1 och J2): bara i tillstånd C och bara när något
+  // söks. Raderna och talen ur summeringens pipeline.
+  const spar = state === 'C' && !traningsFokus ? sparRader(tjanster, 3) : { rader: [], ovriga: 0 };
+  const instrument =
+    spar.rader.length > 0 ? (
+      <>
+        <Spar rader={spar.rader} bredd="mobil" ariaLabel={SPAR.aria(spar.rader.map((r) => r.aria))} className="lg:hidden" />
+        <Spar rader={spar.rader} bredd="dator" ariaLabel={SPAR.aria(spar.rader.map((r) => r.aria))} className="hidden lg:block" />
+        {spar.ovriga > 0 ? (
+          <p className="mt-2 text-[13px] leading-[18px] text-vagg-mjuk">{JOBBSOK_HEM.ochFler(spar.ovriga)}</p>
+        ) : null}
+      </>
+    ) : null;
 
   // Nästa handling överlappar väggen i träningsfokus och i tillstånd C, som
   // konceptets lyfta kort (J1). I A är uppladdningen det lyfta kortet (spec
@@ -335,6 +361,7 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
         title={huvud.title}
         description={huvud.description}
         handling={huvud.handling}
+        instrument={instrument}
         tat={!forstaLyft}
       />
     <Golv key="hem" lyft={forstaLyft && purchasedPlan === null}>
@@ -401,29 +428,33 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {state === 'C' && (
         <>
-          {/* Nästa handling först, sedan talet, på mobil och dator (J2:
-              det lyfta kortet till vänster). Hela raden överlappar väggen när
-              Nästa handling finns. */}
-          <div
-            className={`grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start ${
-              forstaLyft && purchasedPlan === null ? 'relative z-[2] -mt-[30px]' : ''
-            }`}
-          >
-            <div>
-              <NastaHandling action={nextAction} onDismiss={dismissNextAction} intent={valtVidStart} utanOverlapp />
-            </div>
-            <div>
-              <JobbsokOversikt summary={appSummary} fordelning={summary?.hem} />
-            </div>
+          {/* J1 och J2 (våg 4): Nästa handling som lyft kort, sedan de
+              sökta tjänsterna som rader och korsreferensen till
+              Rekryteringstester. På dator tre spalter; bara Nästa handling
+              överlappar väggen, så att rubrikerna i de andra spalterna
+              aldrig hamnar på väggen. */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start lg:gap-6">
+            {nextAction ? (
+              <NastaHandling
+                action={nextAction}
+                onDismiss={dismissNextAction}
+                intent={valtVidStart}
+                utanOverlapp={purchasedPlan !== null}
+              />
+            ) : null}
+            <SoktaTjansterRader tjanster={tjanster} antal={summary?.sidomeny?.ansokningar ?? appSummary.total} />
+            <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} />
           </div>
 
           {/* Kvoterna som en rad. Premium får null. */}
           <QuotaNudgeRow isPremium={isPremium} />
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <PagarNu items={appSummary.pipeline} total={appSummary.total} letterCount={totalLetters} />
-            {aktivitet}
-          </div>
+          <MerIJobbsoket
+            matchningarNya={jobbsok?.matchningarNya ?? null}
+            bliUpptacktSynlig={jobbsok?.bliUpptacktSynlig ?? false}
+          />
+
+          {aktivitet}
 
           {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
           <ProfilKomplettering />

@@ -5,7 +5,7 @@ import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useEffect } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from '@/components/illustrations/RumIkoner';
 import { createClient } from '@/lib/supabase/client';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 
@@ -124,8 +124,8 @@ export default function CVQuotaManager({
                 <label
                   className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors ${
                     selectedCV === cv.id
-                      ? 'border-ink-1 bg-panel'
-                      : 'border-kant bg-panel hover:border-kant-stark'
+                      ? 'border-ink-1 bg-papper'
+                      : 'border-kant bg-papper hover:border-kant-stark'
                   }`}
                 >
                   <input
@@ -151,7 +151,7 @@ export default function CVQuotaManager({
             type="button"
             onClick={handleDelete}
             disabled={!selectedCV || isDeleting}
-            className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:opacity-40"
+            className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-fel-kant bg-papper px-4 text-sm font-medium text-fel transition-colors hover:bg-papper-2 disabled:opacity-40"
           >
             <Trash2 className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
             {isDeleting ? 'Raderar' : 'Radera valt CV'}

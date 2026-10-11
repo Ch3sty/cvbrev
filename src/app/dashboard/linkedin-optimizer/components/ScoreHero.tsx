@@ -14,7 +14,7 @@ export default function ScoreHero({ scoreBefore, scoreAfter }: Props) {
   const clampedAfter = Math.max(0, Math.min(100, scoreAfter))
 
   return (
-    <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="grid grid-cols-3 gap-3">
         <div>
           <p className="text-tal tabular-nums text-ink-3">{scoreBefore}</p>
@@ -42,7 +42,7 @@ export default function ScoreHero({ scoreBefore, scoreAfter }: Props) {
         aria-label={`Profilpoäng ${scoreAfter} av 100`}
       >
         <div
-          className="h-full bg-accent transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
+          className="h-full bg-koppar transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
           style={{ width: `${clampedAfter}%` }}
         />
       </div>

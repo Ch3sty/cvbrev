@@ -170,7 +170,7 @@ export default function FotoFalt({ url, franGoogle, onUppladdad, onBorttagen, st
       <div className="mt-2 flex items-center gap-4" data-foto-falt>
         <div
           className={`relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-xl border sm:h-24 sm:w-24 ${
-            dra ? 'border-ink-1' : visad ? 'border-kant' : 'border-kant bg-insunken'
+            dra ? 'border-ink-1' : visad ? 'border-kant' : 'border-kant bg-papper-2'
           }`}
         >
           {visad ? (

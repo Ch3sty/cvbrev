@@ -309,7 +309,9 @@ async function main() {
   async function mat(url: string): Promise<Matning> {
     const page = await nySida();
     try {
-      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+      // Referensen inne i appen: /dashboard landar annars i kontots senaste
+      // rum (spec-rummen våg 4) och mätningen hade gällt en annan vy.
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000, referer: `${bas}/dashboard/profil` });
       await new Promise((r) => setTimeout(r, 2000));
       return await page.evaluate(() => {
         const lcp = (window as any).__lcp || 0;

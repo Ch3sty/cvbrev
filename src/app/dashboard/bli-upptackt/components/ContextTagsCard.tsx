@@ -1,6 +1,6 @@
 'use client';
 
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import SectionCard from './SectionCard';
 
 interface ContextTagsCardProps {
@@ -50,7 +50,7 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
               aria-checked={isSelected}
               onClick={() => toggle(tag)}
               disabled={isDisabled}
-              className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-panel px-3.5 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+              className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-papper px-3.5 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
                 isSelected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >

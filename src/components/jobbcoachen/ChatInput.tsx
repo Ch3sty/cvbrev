@@ -153,7 +153,7 @@ export default function ChatInput({
             {selectedDocs.map((doc) => (
               <li
                 key={`${doc.type}-${doc.id}`}
-                className="flex items-center gap-2 rounded-lg border border-kant bg-panel px-3 py-2"
+                className="flex items-center gap-2 rounded-lg border border-kant bg-papper px-3 py-2"
               >
                 <span className="min-w-0">
                   <span className="block max-w-[200px] truncate text-sm font-medium text-ink-1">
@@ -166,7 +166,7 @@ export default function ChatInput({
                 <button
                   type="button"
                   onClick={() => handleRemoveDoc(doc.id, doc.type)}
-                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-medium text-ink-2 hover:bg-insunken hover:text-ink-1"
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-medium text-ink-2 hover:bg-papper-2 hover:text-ink-1"
                   aria-label={`Ta bort ${doc.file_name}`}
                 >
                   Ta bort
@@ -186,7 +186,7 @@ export default function ChatInput({
             placeholder={placeholder}
             rows={1}
             enterKeyHint="send"
-            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-insunken [field-sizing:content] px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
+            className="min-h-11 w-full flex-1 resize-none rounded-lg border border-kant bg-papper-2 [field-sizing:content] px-3 py-2.5 text-base leading-[22px] text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 disabled:opacity-60"
             style={{ maxHeight: '120px' }}
           />
 

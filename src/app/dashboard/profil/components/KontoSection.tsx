@@ -78,7 +78,7 @@ export default function KontoSection(p: KontoSectionProps) {
   })
 
   return (
-    <section id="konto" className="scroll-mt-24 rounded-xl border border-kant bg-panel">
+    <section id="konto" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
       <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{KONTO_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{KONTO_SEKTION.under}</p>

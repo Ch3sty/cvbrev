@@ -109,7 +109,7 @@ export default function Step6Sprak({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <SkapaCvCardList
           items={items}
           emptyTitle="Inga språk tillagda"

@@ -39,7 +39,7 @@ export default function LangdVal({
   className,
 }: LangdValProps) {
   const ram =
-    yta === 'ink' ? 'border-ink-1-kant' : 'border-kant-stark'
+    yta === 'ink' ? 'border-vagg-kant' : 'border-kant-stark'
 
   return (
     <div
@@ -58,9 +58,9 @@ export default function LangdVal({
         const textFarg = on
           ? 'text-ink-3'
           : yta === 'ink'
-            ? 'text-ink-1-mjuk'
+            ? 'text-vagg-mjuk'
             : 'text-ink-3'
-        const bakgrund = on ? (yta === 'ink' ? 'bg-panel' : 'bg-insunken shadow-val') : ''
+        const bakgrund = on ? (yta === 'ink' ? 'bg-papper' : 'bg-papper-2 shadow-val') : ''
         return (
           <button
             key={l.length}

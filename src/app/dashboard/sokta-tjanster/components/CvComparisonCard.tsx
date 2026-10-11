@@ -65,7 +65,7 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
   }
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4">
+    <section className="rounded-xl border border-kant bg-papper p-4">
       <h3 className="text-kort text-ink-1">
         Svar per CV
       </h3>
@@ -89,7 +89,7 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
             {/* Stapeln är jämförelsen. Bara den bästa raden får full ink,
                 så ögat hittar svaret utan att vi skriver ut det. */}
             <div
-              className="mt-1.5 h-2 overflow-hidden rounded-full bg-insunken shadow-insunken"
+              className="mt-1.5 h-2 overflow-hidden rounded-full bg-papper-2 "
               role="presentation"
             >
               <div

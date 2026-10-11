@@ -1,7 +1,7 @@
 'use client';
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from '@/components/illustrations/RumIkoner';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface MallInfoCardProps {
@@ -24,7 +24,7 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
   const strengths = template.metadata?.strengths ?? [];
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       {/* Topp-rad: ATS + foto + LinkedIn-badges */}
       <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-kant pb-4">
         {isAtsSafe ? (
@@ -64,7 +64,7 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
             {suitableFor.map(item => (
               <li
                 key={item}
-                className="inline-flex items-center rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2"
+                className="inline-flex items-center rounded-md border border-kant bg-papper-2 px-2.5 py-1 text-meta font-medium text-ink-2"
               >
                 {item}
               </li>
@@ -117,7 +117,7 @@ function Badge({
   }[tone];
 
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2">
+    <span className="inline-flex items-center gap-1.5 rounded-md border border-kant bg-papper-2 px-2.5 py-1 text-meta font-medium text-ink-2">
       <span className={ikon} aria-hidden="true">
         {icon}
       </span>

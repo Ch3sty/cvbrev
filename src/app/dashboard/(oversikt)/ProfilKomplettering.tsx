@@ -52,7 +52,7 @@ function isMissing(value: unknown): boolean {
 }
 
 const INPUT =
-  'h-11 w-full min-w-0 flex-1 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40'
+  'h-11 w-full min-w-0 flex-1 rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40'
 const LINK = 'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1'
 
 interface ProfilKompletteringProps {
@@ -187,7 +187,7 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
         : 'Tre uppgifter saknas i brevhuvudet'
 
   return (
-    <section className={`rounded-xl border border-kant bg-panel p-4 sm:p-5 ${className ?? ''}`} aria-label={heading}>
+    <section className={`rounded-xl border border-kant bg-papper p-4 sm:p-5 ${className ?? ''}`} aria-label={heading}>
       <h2 className="text-kort text-ink-1">{heading}</h2>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">
         Brev och CV ser mer genomarbetade ut med fullständiga kontaktuppgifter. Rekryterare ska

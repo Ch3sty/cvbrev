@@ -30,7 +30,6 @@ import { kopstegHref } from '@/lib/onboarding/steps'
 import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import FelSpar from './FelSpar'
-import MarginPlate from '@/components/shell/MarginPlate'
 import {
   IlluPlattaNedladdning,
   IlluPlattaCvPoang,
@@ -365,9 +364,9 @@ export default function PaywallCard({
       aria-label={copy.title}
     >
       <div className="flex items-start gap-3">
-        <MarginPlate>
+        <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
           <Illu size={48} />
-        </MarginPlate>
+        </span>
         <div className="min-w-0 flex-1">{innehall}</div>
       </div>
       {arket}

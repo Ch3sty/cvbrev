@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 interface ConsentModalProps {
@@ -89,7 +89,7 @@ export default function ConsentModal({
       }
     >
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <section className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+        <section className="rounded-lg border border-kant bg-papper-2 p-4 ">
           <h3 className="mb-2 text-sm font-medium text-ink-1">Det här visas</h3>
           <ul className="space-y-1.5">
             {SHOWN_ITEMS.map((item) => (
@@ -99,7 +99,7 @@ export default function ConsentModal({
             ))}
           </ul>
         </section>
-        <section className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+        <section className="rounded-lg border border-kant bg-papper-2 p-4 ">
           <h3 className="mb-2 text-sm font-medium text-ink-1">Det här visas aldrig</h3>
           <ul className="space-y-1.5">
             {HIDDEN_ITEMS.map((item) => (
@@ -177,13 +177,13 @@ function ConsentRow({
       aria-checked={checked}
       onClick={onToggle}
       disabled={disabled}
-      className={`mt-3 flex w-full items-start gap-3 rounded-lg border bg-panel p-3.5 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+      className={`mt-3 flex w-full items-start gap-3 rounded-lg border bg-papper p-3.5 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
         checked ? 'border-ink-1 shadow-val' : 'border-kant'
       }`}
     >
       <span
         className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-[120ms] ${
-          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-insunken'
+          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-papper-2'
         }`}
         aria-hidden="true"
       >
@@ -192,7 +192,7 @@ function ConsentRow({
       <span className="text-sm font-medium leading-[22px] text-ink-2">
         {children}
         {required && !checked && (
-          <span className="mt-1 block text-meta font-normal text-accent-ink">
+          <span className="mt-1 block text-meta font-normal text-koppar-ink">
             Krävs för att aktivera synligheten
           </span>
         )}

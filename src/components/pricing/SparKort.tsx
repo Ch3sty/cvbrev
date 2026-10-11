@@ -46,13 +46,13 @@ export default function SparKort({
   selected = false,
   onSelect,
 }: SparKortProps) {
-  const damp = ink ? 'text-ink-1-mjuk' : 'text-ink-2'
-  const meta = ink ? 'text-ink-1-mjuk' : 'text-ink-3'
+  const damp = ink ? 'text-vagg-mjuk' : 'text-ink-2'
+  const meta = ink ? 'text-vagg-mjuk' : 'text-ink-3'
   const valbar = Boolean(onSelect)
   const kant = valbar
     ? selected
       ? ink
-        ? 'border-ink-1 shadow-[0_0_0_2px_var(--mark),0_0_0_4px_var(--ink-1)]'
+        ? 'border-ink-1 shadow-[0_0_0_2px_var(--golv),0_0_0_4px_var(--ink-1)]'
         : 'border-ink-1 shadow-val'
       : ink
         ? 'border-ink-1'
@@ -61,12 +61,12 @@ export default function SparKort({
       ? 'border-ink-1'
       : 'border-kant-stark'
   const eyebrowFarg =
-    eyebrowTon === 'accent' ? 'text-ink-1-accent' : ink ? 'text-ink-1-mjuk' : 'text-ink-3'
+    eyebrowTon === 'accent' ? 'text-koppar-ljus' : ink ? 'text-vagg-mjuk' : 'text-ink-3'
 
   const innehall = (
     <>
       <span
-        className={`grid h-14 w-14 place-items-center rounded-lg ${ink ? 'bg-ink-hover' : 'bg-insunken'}`}
+        className={`grid h-14 w-14 place-items-center rounded-lg ${ink ? 'bg-ink-hover' : 'bg-papper-2'}`}
         aria-hidden="true"
       >
         <Scen className="h-11 w-11" />
@@ -83,13 +83,13 @@ export default function SparKort({
 
       <ul
         className={`col-span-2 mt-0.5 grid gap-1 border-t pt-2 text-[13px] leading-[18px] ${damp} ${
-          ink ? 'border-ink-1-kant' : 'border-kant'
+          ink ? 'border-vagg-kant' : 'border-kant'
         }`}
       >
         {duFar.map((rad) => (
           <li key={rad.fet} className="flex gap-2">
             <span
-              className={`mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full ${ink ? 'bg-panel' : 'bg-ink-1'}`}
+              className={`mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full ${ink ? 'bg-papper' : 'bg-ink-1'}`}
               aria-hidden="true"
             />
             <span>
@@ -110,7 +110,7 @@ export default function SparKort({
   )
 
   const klass = `grid w-full grid-cols-[56px_1fr] items-start gap-3 rounded-xl border p-4 text-left transition-[border-color,box-shadow] duration-[160ms] ease-out ${
-    ink ? 'bg-ink-1 text-white' : 'bg-panel text-ink-1'
+    ink ? 'bg-ink-1 text-white' : 'bg-papper text-ink-1'
   } ${kant}`
 
   if (valbar) {

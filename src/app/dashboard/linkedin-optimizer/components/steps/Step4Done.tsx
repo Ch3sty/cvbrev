@@ -141,7 +141,7 @@ export default function Step4Done({
 
         {saveError && !quotaExceeded && <FlowError message={saveError} />}
 
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <h3 className="text-sm font-medium text-ink-3">Så uppdaterar du på LinkedIn</h3>
           <ol className="mt-2 divide-y divide-kant">
             {HOW_TO_STEPS.map((s, i) => (

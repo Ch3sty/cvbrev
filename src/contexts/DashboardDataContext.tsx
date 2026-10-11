@@ -28,6 +28,7 @@ import {
 } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import type { IntervjuHem } from '@/lib/intervju/nasta';
+import type { TraningKors } from '@/lib/rum/jobbsok';
 
 export interface DashboardSummaryPipelineItem {
   id: string;
@@ -36,6 +37,9 @@ export interface DashboardSummaryPipelineItem {
   status: string | null;
   days: number;
   needsFollowUp: boolean;
+  /** Spåret (våg 4). Saknas i äldre cachade svar. */
+  appliedAt?: string | null;
+  statusAt?: string | null;
 }
 
 export interface DashboardSummary {
@@ -131,6 +135,12 @@ export interface DashboardSummary {
   arAdmin?: boolean;
   /** Inför intervjun: underlaget för hemskärmens två nya steg (rod-trad-prov-spec). */
   intervju?: IntervjuHem;
+  /** Jobbsökets hem i rummen (våg 4). Saknas i äldre cachade svar. */
+  jobbsok?: {
+    traning: TraningKors | null;
+    matchningarNya: number | null;
+    bliUpptacktSynlig: boolean;
+  };
 }
 
 interface DashboardDataContextValue {

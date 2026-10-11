@@ -14,7 +14,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { KNAPP_PRIMAR, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
-import { Check } from 'lucide-react'
+import { Check } from '@/components/illustrations/RumIkoner'
 import { logUserActivity } from '@/lib/activity-logger'
 import { IlluCvPoang } from '@/components/illustrations/DashboardIllustrations'
 
@@ -128,10 +128,10 @@ export default function QuickScoreReveal({
     return (
       <section className="bg-papper rounded-xl border border-kant p-5" aria-busy="true">
         <div className="flex items-center gap-5">
-          <div className="w-24 h-24 rounded-full bg-papper-2 animate-pulse shrink-0" />
+          <div className="w-24 h-24 rounded-full bg-papper-2 shrink-0" />
           <div className="flex-1 space-y-2.5">
-            <div className="h-5 w-2/3 rounded bg-papper-2 animate-pulse" />
-            <div className="h-4 w-full rounded bg-papper-2 animate-pulse" />
+            <div className="h-5 w-2/3 rounded bg-papper-2" />
+            <div className="h-4 w-full rounded bg-papper-2" />
             <p className="text-sm text-ink-3 pt-1">Vi läser igenom ditt CV…</p>
           </div>
         </div>

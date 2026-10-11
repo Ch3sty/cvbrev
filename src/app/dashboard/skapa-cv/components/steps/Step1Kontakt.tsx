@@ -27,7 +27,7 @@ export default function Step1Kontakt({ cvData, updateCVData }: Props) {
         description="Det här syns högst upp på ditt CV. Ge rekryteraren ett enkelt sätt att höra av sig."
       />
 
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5 space-y-4">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5 space-y-4">
         <SkapaCvInput
           id="fullName"
           label="Fullständigt namn"

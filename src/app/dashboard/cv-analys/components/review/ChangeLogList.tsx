@@ -47,7 +47,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
   if (!hasAnything) {
     return (
       <div
-        className="rounded-xl border border-dashed border-kant-stark bg-insunken p-6 text-center shadow-insunken"
+        className="rounded-xl border border-dashed border-kant-stark bg-papper-2 p-6 text-center "
       >
         <p className="text-sm text-ink-2">
           Du har inte valt några förbättringar att tillämpa. Gå tillbaka till

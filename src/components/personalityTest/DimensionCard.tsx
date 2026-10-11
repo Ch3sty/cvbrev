@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, AlertTriangle, Briefcase } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Briefcase } from '@/components/illustrations/RumIkoner';
 import {
   DIMENSION_META,
   DIMENSION_TEXTS,

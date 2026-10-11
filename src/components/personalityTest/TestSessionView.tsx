@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Flag, AlertCircle } from '@/components/illustrations/RumIkoner';
 
 import LikertScale from './LikertScale';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';

@@ -96,7 +96,7 @@ export default function Topprad({ brand, kontext, stang, pa = 'vagg' }: ToppradP
             pavagg ? 'text-vagg-mjuk' : 'text-ink-3'
           }`}
         >
-          <b className={`font-bold ${pavagg ? 'text-vagg-ink' : 'text-ink-1'}`}>{namnText}</b>
+          <b className={`font-display font-bold ${pavagg ? 'text-vagg-ink' : 'text-ink-1'}`}>{namnText}</b>
         </span>
       )}
       {stang ? <span className="flex-1" /> : null}

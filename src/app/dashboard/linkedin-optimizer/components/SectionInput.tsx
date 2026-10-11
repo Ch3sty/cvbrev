@@ -54,7 +54,7 @@ export default function SectionInput({
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
         placeholder={placeholder}
-        className="block w-full resize-y rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus:ring-2 focus:ring-accent"
+        className="block w-full resize-y rounded-lg border border-kant bg-papper-2 px-3 py-2.5 text-base leading-[22px] text-ink-1  placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus:ring-2 focus:ring-koppar-ink"
       />
 
       {showStrength && value.trim().length > 0 && (

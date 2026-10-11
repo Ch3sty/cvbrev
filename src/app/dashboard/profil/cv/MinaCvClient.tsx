@@ -17,7 +17,15 @@ import PaywallCard from '@/components/paywall/PaywallCard';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
-import { LYFT, RUBRIK } from '@/lib/rum/copy';
+import { CV_RUM, LYFT, RUBRIK, kortDatum } from '@/lib/rum/copy';
+import Link from 'next/link';
+import Poangring from '@/components/rum/Poangring';
+import Veckorad from '@/components/rum/Veckorad';
+import Rader from '@/components/rum/Rader';
+import Kort from '@/components/rum/Kort';
+import Chip from '@/components/rum/Chip';
+import SektRubrik from '@/components/rum/SektRubrik';
+import { dokumentVag, fyndUrAnalys, poangUrAnalys, type AnalysUnderlag } from '@/lib/rum/cvRum';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 // Syns aldrig i första vyn. Bekräftelsedialogen öppnas vid borttagning,
@@ -36,7 +44,16 @@ export interface InitialCv {
   original_file_path: string;
   cv_text: string | null;
   created_at: string;
+  updated_at?: string | null;
   structured_data: ParsedCV | null;
+}
+
+/** CV-rummets underlag (våg 4, C1), läst på servern. */
+export interface CvRumData {
+  underlag: AnalysUnderlag | null;
+  /** Senaste analysens poäng per CV-id. */
+  poangPerCv: Record<string, number>;
+  nedladdatAt: string | null;
 }
 
 const FREE_LIMIT = 2;
@@ -84,10 +101,12 @@ export default function MinaCvClient({
   initialCvs,
   initialIsPremium,
   initialLockedCvIds,
+  cvRum = { underlag: null, poangPerCv: {}, nedladdatAt: null },
 }: {
   initialCvs: InitialCv[];
   initialIsPremium: boolean;
   initialLockedCvIds: string[];
+  cvRum?: CvRumData;
 }) {
   const router = useRouter();
   const { fetchCVs } = useCVStore();
@@ -304,6 +323,50 @@ export default function MinaCvClient({
   // populated-läget avgörs av serverns svar och kan inte flasha förbi.
   const isEmpty = cvCount === 0;
 
+  // CV-rummet (våg 4, C1): poängringen, vad som drar ner och dokumentets
+  // väg, ur den senaste analysen av ett CV som finns kvar i listan. Plustalen
+  // är analysens egna atsImpact (cvRum.ts), aldrig uppskattningar.
+  const analyseratCv = cvRum.underlag ? cvs.find((cv) => cv.id === cvRum.underlag?.cvId) ?? null : null;
+  const underlag = analyseratCv ? cvRum.underlag : null;
+  const poang = poangUrAnalys(underlag);
+  const fynd = fyndUrAnalys(underlag);
+  const atgardaForst = fynd[0] ?? null;
+  const vag = analyseratCv
+    ? dokumentVag({
+        harCv: true,
+        analyseradAt: underlag?.klar ?? null,
+        // Det förbättrade CV:t sparas som ett nytt CV med filvägen + "-improved"
+        // (/api/cv/save-improved); det analyserade kan också vara det.
+        atgardadAt: analyseratCv.original_file_path?.endsWith('-improved')
+          ? analyseratCv.created_at
+          : cvs.find((c) => c.original_file_path === `${analyseratCv.original_file_path}-improved`)?.created_at ?? null,
+        nedladdatAt: cvRum.nedladdatAt,
+      })
+    : null;
+  const instrument =
+    poang !== null && vag ? (
+      <>
+        <Poangring
+          poang={poang}
+          rubrik={CV_RUM.drarNer(fynd.length)}
+          rad={
+            underlag?.klar
+              ? CV_RUM.senaste(underlag.namn ?? analyseratCv?.file_name ?? '', kortDatum(underlag.klar))
+              : null
+          }
+        />
+        <Veckorad
+          celler={vag}
+          label={CV_RUM.vagenAria(
+            vag.filter((c) => c.status === 'gjord').map((c) => c.etikett),
+            vag.find((c) => c.status === 'nu')?.etikett ?? null
+          )}
+          className="mt-5"
+        />
+      </>
+    ) : null;
+  const liftAtgarda = atgardaForst !== null;
+
   return (
     <>
       {/* Väggen säger var du är (spec 16.3.2): statusradens text står i
@@ -317,10 +380,45 @@ export default function MinaCvClient({
               : `${cvCount} av ${FREE_LIMIT} CV använda.`
             : 'Ladda upp ditt CV en gång, använd det i brev, analys och mallar.'
         }
-        tat={limitReached}
+        instrument={instrument}
+        tat={limitReached && !liftAtgarda}
       />
-    <Golv lyft={!limitReached}>
-      {!limitReached ? (
+    <Golv lyft={!limitReached || liftAtgarda}>
+      {liftAtgarda && atgardaForst ? (
+        <>
+          <LyftKort
+            label={CV_RUM.atgardaForst}
+            eyebrow={CV_RUM.atgardaForst}
+            titel={atgardaForst.titel}
+            text={atgardaForst.meta}
+            handling={
+              <Link href="/dashboard/cv-analys" className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+                {CV_RUM.atgardaKnapp}
+              </Link>
+            }
+          />
+          <Kort label={CV_RUM.fyndRubrik}>
+            <h2 className="text-ey text-ink-3">{CV_RUM.fyndRubrik}</h2>
+            <ol className="mt-1" aria-label={CV_RUM.fyndAria(fynd.length)}>
+              {fynd.slice(0, 5).map((f, i) => (
+                <li
+                  key={f.nyckel}
+                  className="grid grid-cols-[28px_1fr_auto] items-center gap-3 py-3 [&+&]:border-t [&+&]:border-kant"
+                >
+                  <span className="font-display text-xl font-bold tabular-nums text-koppar-ink">{i + 1}</span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold leading-[19px] text-ink-1">{f.titel}</span>
+                    {f.meta ? <span className="mt-0.5 block text-meta text-ink-3">{f.meta}</span> : null}
+                  </span>
+                  <Chip ton label={CV_RUM.plusAria(f.plus)}>
+                    {CV_RUM.plus(f.plus)}
+                  </Chip>
+                </li>
+              ))}
+            </ol>
+          </Kort>
+        </>
+      ) : !limitReached ? (
         <LyftKort
           label={LYFT.minaCv.titel}
           eyebrow={LYFT.minaCv.eyebrow}
@@ -375,9 +473,9 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <h2 className="mb-2 text-sm font-medium text-ink-3">Dina CV</h2>
+            <SektRubrik>Dina CV</SektRubrik>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Rader label="Dina CV" className="mt-4">
               {cvs.map((cv, i) => {
                 const structured =
                   structuredOverrides[cv.id] ?? cv.structured_data ?? null;
@@ -406,6 +504,7 @@ export default function MinaCvClient({
                     preview={previews.get(cv.id) ?? ""}
                     formatDate={formatDate}
                     isLocked={lockedCvIds.has(cv.id)}
+                    poang={cvRum.poangPerCv[cv.id] ?? null}
                     userContact={{
                       full_name: profile?.full_name ?? '',
                       email: dokumentEpost(profile),
@@ -415,7 +514,7 @@ export default function MinaCvClient({
                   />
                 );
               })}
-            </div>
+            </Rader>
           </section>
 
           {!limitReached && (
@@ -460,7 +559,7 @@ function UploadCard({
   subdued?: boolean;
 }) {
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-kort text-ink-1">
           {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV'}

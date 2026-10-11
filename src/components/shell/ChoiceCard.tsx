@@ -63,7 +63,7 @@ export default function ChoiceCard({
       aria-checked={selected}
       onClick={onSelect}
       disabled={disabled}
-      className={`relative flex w-full items-start gap-3 rounded-xl border bg-panel text-left transition-[border-color,background-color] duration-[160ms] ease-out hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${pad} ${
+      className={`relative flex w-full items-start gap-3 rounded-xl border bg-papper text-left transition-[border-color,background-color] duration-[160ms] ease-out hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${pad} ${
         selected ? 'border-ink-1 shadow-val' : 'border-kant'
       } ${className ?? ''}`}
       {...rest}
@@ -83,7 +83,7 @@ export default function ChoiceCard({
 
       <span className="flex min-w-0 flex-1 flex-col">
         {eyebrow ? (
-          <span className="text-steg uppercase text-accent-ink">{eyebrow}</span>
+          <span className="text-steg uppercase text-koppar-ink">{eyebrow}</span>
         ) : null}
         <span
           className={

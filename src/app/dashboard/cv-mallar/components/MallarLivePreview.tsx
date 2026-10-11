@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Crown, ArrowRight, Eye } from 'lucide-react';
+import { Crown, ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
 
 import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
@@ -286,7 +286,7 @@ function PreviewContainer({
   fontId: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+    <div className="overflow-hidden rounded-xl border border-kant bg-papper">
       {/* Topp-rad: Live-preview-rubrik */}
       <div className="flex items-center justify-between gap-3 border-b border-kant px-4 py-3">
         <div className="flex items-center gap-2">
@@ -313,7 +313,7 @@ function PreviewContainer({
           förhandsvisningen kom, och allt under den flyttades: sidans hela
           CLS på 0,06. Alla fyra tillstånd bor nu i samma låda, som aldrig
           byter storlek, och innehållet scrollar inuti den. */}
-      <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken sm:h-[850px]">
+      <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-papper-2  sm:h-[850px]">
         {/* Förhandsvisningen är aldrig tom (analysen 22 september, avsnitt 4):
             utan valt CV visas mallen med exempeltext, samma serverrenderade
             dokument som artiklarnas mallvisning. */}
@@ -324,7 +324,7 @@ function PreviewContainer({
               key={`${templateId}-${fontId}`}
               src={`/api/public/exempel/cv?mall=${encodeURIComponent(templateId)}&typsnitt=${encodeURIComponent(fontId)}`}
               title={`Exempel i mallen ${templateName ?? ''}`}
-              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-panel"
+              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-papper"
             />
           </div>
         )}
@@ -403,7 +403,7 @@ function ScaledPreview({ html }: { html: string }) {
             const h = doc?.documentElement?.scrollHeight ?? 0
             if (h > 0) setContentHeight(Math.max(h, A4_HEIGHT_PX))
           }}
-          className="block border-0 bg-panel"
+          className="block border-0 bg-papper"
           style={{
             width: A4_WIDTH_PX + "px",
             height: contentHeight + "px",

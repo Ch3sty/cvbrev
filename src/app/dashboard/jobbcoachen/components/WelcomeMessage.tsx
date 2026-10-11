@@ -1,7 +1,7 @@
 'use client';
 
 import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/illustrations/RumIkoner';
 import { IkonBrev, IkonCv } from '@/components/illustrations/Ikoner';
 import ChatTrustStrip from './ChatTrustStrip';
 
@@ -31,7 +31,7 @@ export default function WelcomeMessage({
       <ChatTrustStrip />
 
       {/* Dokumentdelning */}
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <div className="flex items-start gap-3">
           <span className="mt-px inline-flex shrink-0 items-center gap-1 text-ink-2" aria-hidden="true">
             <IkonCv size={24} />

@@ -199,7 +199,7 @@ function EditDot({
       className="absolute focus:outline-none"
       style={{ left, top, transform: 'translate(-50%, -50%)' }}
     >
-      <span className="block h-3 w-3 rounded-full border-2 border-panel bg-ink-1" />
+      <span className="block h-3 w-3 rounded-full border-2 border-papper bg-ink-1" />
     </button>
   );
 }

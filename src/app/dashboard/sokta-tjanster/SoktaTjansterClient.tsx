@@ -18,7 +18,7 @@ import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search } from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
 import {
@@ -56,7 +56,7 @@ const StatsTabPlaceholder = () => (
   <div className="space-y-4">
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="h-24 rounded-xl border border-kant bg-insunken" />
+        <div key={i} className="h-24 rounded-xl border border-kant bg-papper-2" />
       ))}
     </div>
     <LoadingSkeleton variant="card" label="Läser in statistiken" />
@@ -80,9 +80,9 @@ const ShareTabPlaceholder = () => (
   <div className="space-y-4">
     <LoadingSkeleton variant="statusRow" label="Läser in rapporten" />
     <div className="flex items-center justify-center gap-2">
-      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
-      <div className="h-11 min-w-[160px] rounded-lg bg-insunken" />
-      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-papper-2" />
+      <div className="h-11 min-w-[160px] rounded-lg bg-papper-2" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-papper-2" />
     </div>
     <LoadingSkeleton variant="card" label="Läser in rapporten" />
   </div>
@@ -338,7 +338,7 @@ export default function SoktaTjansterClient({
       ) : null}
     <div className="w-full max-w-5xl space-y-6">
         <div
-          className="flex items-center gap-1 rounded-lg border border-kant bg-panel p-1"
+          className="flex items-center gap-1 rounded-lg border border-kant bg-papper p-1"
           role="tablist"
         >
           {TABS.map((tab) => (
@@ -350,7 +350,7 @@ export default function SoktaTjansterClient({
               onClick={() => setActiveTab(tab.id)}
               className={`min-h-11 flex-1 rounded-lg px-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
-                  ? 'bg-insunken text-ink-1 shadow-insunken'
+                  ? 'bg-ton text-ton-ink'
                   : 'text-ink-2 hover:text-ink-1'
               }`}
             >
@@ -392,7 +392,7 @@ export default function SoktaTjansterClient({
                   onChange={(e) => setSearchTerm(e.target.value)}
                   autoComplete="off"
                   aria-label="Sök bland dina ansökningar"
-                  className="h-11 w-full rounded-lg border border-kant bg-panel pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                  className="h-11 w-full rounded-lg border border-kant bg-papper pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 />
               </div>
 
@@ -404,9 +404,11 @@ export default function SoktaTjansterClient({
                     onClick={() => setFilter(f.id)}
                     aria-pressed={filter === f.id}
                     className={`min-h-11 shrink-0 rounded-lg border px-3 text-sm font-medium transition-colors ${
+                      // Navigation i en lista, inte ett val i ett formulär:
+                      // aktiv i rummets ton (spec 16.4 (b) punkt 4).
                       filter === f.id
-                        ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
-                        : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
+                        ? 'border-transparent bg-ton text-ton-ink'
+                        : 'border-kant bg-papper text-ink-2 hover:border-kant-stark'
                     }`}
                   >
                     {f.label}

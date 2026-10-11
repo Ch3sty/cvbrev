@@ -68,12 +68,12 @@ const DISPLAY = 'var(--font-display), Inter, system-ui, sans-serif'
 const BODY = 'Inter, system-ui, sans-serif'
 
 /* Toner som scenerna lånar av systemet utöver ILLU. */
-const INSUNKEN = 'var(--insunken)'
+const INSUNKEN = 'var(--papper-2)'
 const INK_2 = 'var(--ink-2)'
 const INK_3 = 'var(--ink-3)'
-const ACCENT_INK = 'var(--accent-ink)'
+const ACCENT_INK = 'var(--koppar-ink)'
 const INK_HOVER = 'var(--ink-hover)'
-const INK_1_MJUK = 'var(--ink-1-mjuk)'
+const INK_1_MJUK = 'var(--vagg-mjuk)'
 
 /* ======================================================= scener 240 × 200 */
 

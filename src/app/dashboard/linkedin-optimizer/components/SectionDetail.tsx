@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Check } from 'lucide-react'
+import { Check } from '@/components/illustrations/RumIkoner'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import SkillsMakeover from './SkillsMakeover'
@@ -45,7 +45,7 @@ export default function SectionDetail({
   const clampedAfter = Math.max(0, Math.min(100, scoreAfter))
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5" aria-label={title}>
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5" aria-label={title}>
       <p className="text-sm font-medium text-ink-3">Optimerad sektion</p>
 
       <div className="mt-1 flex items-start justify-between gap-3">

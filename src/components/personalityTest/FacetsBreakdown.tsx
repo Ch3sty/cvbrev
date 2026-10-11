@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Microscope, TrendingUp, TrendingDown } from 'lucide-react';
+import { Microscope, TrendingUp, TrendingDown } from '@/components/illustrations/RumIkoner';
 import {
   DIMENSION_META,
   FACET_META,

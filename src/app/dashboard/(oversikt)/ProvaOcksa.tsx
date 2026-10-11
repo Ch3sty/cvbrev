@@ -22,7 +22,7 @@ export default function ProvaOcksa({ slug, intent }: { slug: FeatureSlug['slug']
   return (
     <section aria-label={PROVA_OCKSA.etikett}>
       <p className="mb-2 text-sm font-medium leading-5 text-ink-3">{PROVA_OCKSA.etikett}</p>
-      <div className="flex items-center justify-between gap-4 rounded-xl border border-kant bg-panel px-4 py-3">
+      <div className="flex items-center justify-between gap-4 rounded-xl border border-kant bg-papper px-4 py-3">
         <span className="min-w-0">
           <b className="block text-sm font-semibold leading-5 text-ink-1">{c.rubrik}</b>
           <small className="mt-0.5 block text-[13px] leading-[18px] text-ink-3">{c.text}</small>

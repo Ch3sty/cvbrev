@@ -22,7 +22,7 @@ import Segment from '@/components/shell/Segment'
 import type { JobPreferences, JobExtent } from '@/types/user.types'
 
 const INPUT_CLASS =
-  'block h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40'
+  'block h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40'
 
 /** Vad som står bredvid lönefältet. Ett ställe, så texten inte glider isär. */
 export const SALARY_HELP =
@@ -88,7 +88,7 @@ export default function JobPreferencesFields({
                   type="button"
                   onClick={() => removeOrt(ort)}
                   aria-label={`Ta bort ${ort}`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-panel px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-insunken"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-papper px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-papper-2"
                 >
                   {ort}
                   <span aria-hidden="true" className="text-ink-3">
@@ -124,7 +124,7 @@ export default function JobPreferencesFields({
             type="button"
             onClick={addOrt}
             disabled={!ortDraft.trim()}
-            className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken disabled:opacity-40"
+            className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg border border-kant-stark bg-papper px-4 text-sm font-medium text-ink-1 hover:bg-papper-2 disabled:opacity-40"
           >
             Lägg till
           </button>

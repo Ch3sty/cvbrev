@@ -2,7 +2,7 @@
 
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useMemo, useState } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 import { groupJobsByRegion, type RegionGroup } from '../data/job-filtering';
 
@@ -148,7 +148,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                   <button
                     type="button"
                     onClick={() => setExpandedRegion(isExpanded ? null : region.code)}
-                    className="flex min-h-11 w-full items-center justify-between gap-2 px-3 text-left hover:bg-insunken"
+                    className="flex min-h-11 w-full items-center justify-between gap-2 px-3 text-left hover:bg-papper-2"
                   >
                     <span className="flex items-center gap-2 min-w-0">
                       <span className="truncate text-sm font-medium text-ink-1">{region.name}</span>
@@ -172,7 +172,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
                             type="button"
                             onClick={() => toggleMuni(m.code)}
                             aria-pressed={selected}
-                            className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                            className={`inline-flex min-h-11 items-center gap-1.5 rounded-md border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                               selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
                             }`}
                           >
@@ -221,7 +221,7 @@ export default function JobFilterPanel({ filters, onChange, userLocation, jobs =
 
       {/* Desktop: panelen i vänsterspalten */}
       <aside className="hidden w-full lg:block">
-        <div className="sticky top-4 rounded-xl border border-kant bg-panel p-4">
+        <div className="sticky top-4 rounded-xl border border-kant bg-papper p-4">
           <h2 className="mb-4 text-sm font-medium text-ink-3">Filter</h2>
           {body}
         </div>
@@ -266,11 +266,11 @@ function ToggleRow({
       </span>
       <span
         className={`relative h-6 w-11 shrink-0 rounded-full border transition-colors duration-[120ms] ${
-          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-insunken'
+          checked ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-papper-2'
         }`}
       >
         <span
-          className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full border border-kant bg-panel transition-transform duration-[120ms] ${
+          className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full border border-kant bg-papper transition-transform duration-[120ms] ${
             checked ? 'translate-x-5' : 'translate-x-0'
           }`}
         />
@@ -303,7 +303,7 @@ function FilterSegment<T extends string | number>({
               onClick={() => onSelect(opt.value)}
               role="radio"
               aria-checked={active}
-              className={`inline-flex min-h-11 items-center rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+              className={`inline-flex min-h-11 items-center rounded-md border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                 active ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >
