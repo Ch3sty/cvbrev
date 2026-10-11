@@ -7,6 +7,8 @@
 //      node scripts/validate-verbal-bank.mjs <fil.json>            (upplysning, exit 0)
 //      node scripts/validate-verbal-bank.mjs <fil.json> --niva=avancerad
 //                                                                  (krav, exit 1 vid fel)
+//      node scripts/validate-verbal-bank.mjs <fil.json> --niva=grund
+//                                                                  (grundformatet, exit 1 vid fel)
 //
 // Regler (numren står i varje rad):
 //   1  fälten, exakt fyra påståenden, facit true/false/cannot_say, förklaring
@@ -23,6 +25,11 @@
 //   9  inga tankstreck, inga engelska gränssnittsord
 //   10 förklaringen säger vad i texten som avgör (varning)
 //   11 ämne ur den fasta listan
+//
+// Grund (--niva=grund, tillägg-variation 4): mönstret vg-NN-namn, 120 till
+// 160 ord, minst ett true och ett false per text, 20 till 30 procent
+// cannot_say i filen, inget kvantorkrav och ingen varning om en ståndpunkt.
+// Övriga regler som avancerad.
 // =============================================================================
 
 import { TANKSTRECK, ENGELSKA, ord, nyRapport, idIBank, lasBank, skrivRapport } from './lib/bank-text.mjs';
@@ -37,12 +44,21 @@ export const BANKER = ['src/lib/verbalTestV1/questionBank.json', 'src/lib/verbal
 const smaOrd = (s) => ord(String(s).toLowerCase().replace(/[.,;:!?"()]/g, ' '));
 const harOrd = (s, w) => new RegExp(`(^|[^a-zåäö])${w}([^a-zåäö]|$)`, 'i').test(s);
 
+export const NIVAER = {
+  avancerad: { idMonster: /^va-\d{2}-[a-z0-9-]+$/, idNamn: 'va-NN-namn', ord: [180, 220], cs: [0.3, 0.4], facitPerText: FACIT, kvantorKrav: true, standpunkter: true },
+  grund: { idMonster: /^vg-\d{2}-[a-z0-9-]+$/, idNamn: 'vg-NN-namn', ord: [120, 160], cs: [0.2, 0.3], facitPerText: ['true', 'false'], kvantorKrav: false, standpunkter: false },
+};
+// Utan niva: upplysning med avancerads mått för facit, kvantor och ståndpunkter, som förut.
+const UTAN_NIVA = { idMonster: null, ord: null, cs: [0.3, 0.4], facitPerText: FACIT, kvantorKrav: true, standpunkter: true };
+
 /**
- * texter: array enligt schemat. niva: 'avancerad' eller null. andraIds: id
+ * texter: array enligt schemat. niva: 'avancerad', 'grund' eller null. andraIds: id
  * i de andra bankerna. Returnerar { fel, varningar } med { regel, id, text }.
  */
 export function validera(texter, { niva = null, andraIds = new Set() } = {}) {
   const r = nyRapport();
+  const krav = niva ? NIVAER[niva] : UTAN_NIVA;
+  if (!krav) throw new Error(`okänd nivå ${niva}, välj avancerad eller grund`);
   const sett = new Set();
   let antalCs = 0; let antalP = 0;
   for (const t of texter) {
@@ -60,16 +76,16 @@ export function validera(texter, { niva = null, andraIds = new Set() } = {}) {
     if (sett.has(id)) r.f(2, id, 'id finns två gånger i filen');
     sett.add(id);
     if (andraIds.has(id)) r.f(2, id, 'id finns redan i en annan verbal bank');
-    if (niva === 'avancerad' && !/^va-\d{2}-[a-z0-9-]+$/.test(id)) r.f(2, id, 'id följer inte mönstret va-NN-namn');
+    if (krav.idMonster && !krav.idMonster.test(id)) r.f(2, id, `id följer inte mönstret ${krav.idNamn}`);
     // 3
     const n = ord(t.text).length;
-    if (niva === 'avancerad' && (n < 180 || n > 220)) r.f(3, id, `texten har ${n} ord, 180 till 220 krävs`);
+    if (krav.ord && (n < krav.ord[0] || n > krav.ord[1])) r.f(3, id, `texten har ${n} ord, ${krav.ord[0]} till ${krav.ord[1]} krävs`);
     // 4
-    for (const f of FACIT) if (!st.some((s) => s.correctAnswer === f)) r.f(4, id, `inget påstående med facit ${f}`);
+    for (const f of krav.facitPerText) if (!st.some((s) => s.correctAnswer === f)) r.f(4, id, `inget påstående med facit ${f}`);
     antalCs += st.filter((s) => s.correctAnswer === 'cannot_say').length; antalP += st.length;
     // 5
     const kv = st.filter((s) => s.typ === 'kvantor');
-    if (!kv.length) r.f(5, id, 'inget påstående med typ kvantor');
+    if (krav.kvantorKrav && !kv.length) r.f(5, id, 'inget påstående med typ kvantor');
     kv.forEach((s) => {
       const w = KVANTORER.filter((x) => harOrd(s.text, x));
       if (!w.length) r.f(5, id, `kvantorpåståendet saknar kvantorord: "${s.text}"`);
@@ -79,7 +95,7 @@ export function validera(texter, { niva = null, andraIds = new Set() } = {}) {
       }
     });
     // 6
-    if (!STANDPUNKT.some((x) => harOrd(t.text, x))) r.v(6, id, 'texten har inget tecken på en andra ståndpunkt (men, däremot, kritiker ...)');
+    if (krav.standpunkter && !STANDPUNKT.some((x) => harOrd(t.text, x))) r.v(6, id, 'texten har inget tecken på en andra ståndpunkt (men, däremot, kritiker ...)');
     // 7
     const tOrd = smaOrd(t.text).join(' ');
     st.forEach((s, i) => {
@@ -113,7 +129,7 @@ export function validera(texter, { niva = null, andraIds = new Set() } = {}) {
   // 4 över filen
   if (antalP) {
     const andel = antalCs / antalP;
-    if (andel < 0.3 || andel > 0.4) r.f(4, 'filen', `${antalCs} av ${antalP} påståenden (${Math.round(andel * 100)} procent) är cannot_say, 30 till 40 procent krävs`);
+    if (andel < krav.cs[0] || andel > krav.cs[1]) r.f(4, 'filen', `${antalCs} av ${antalP} påståenden (${Math.round(andel * 100)} procent) är cannot_say, ${Math.round(krav.cs[0] * 100)} till ${Math.round(krav.cs[1] * 100)} procent krävs`);
   }
   return r;
 }

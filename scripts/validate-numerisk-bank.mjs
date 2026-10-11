@@ -6,6 +6,7 @@
 // Kör: node scripts/validate-numerisk-bank.mjs                       (de tre bankerna, upplysning)
 //      node scripts/validate-numerisk-bank.mjs <fil.json>            (upplysning, exit 0)
 //      node scripts/validate-numerisk-bank.mjs <fil.json> --niva=avancerad
+//      node scripts/validate-numerisk-bank.mjs <fil.json> --niva=grund
 //                                                                    (krav, exit 1 vid fel)
 //
 // Regler (numren står i varje rad):
@@ -19,14 +20,20 @@
 //      (100 och 1 000 är omräkningsfaktorer och undantas)
 //   5  varje fel alternativ har misstag med typ, uttryck och värde som stämmer;
 //      alternativen skiljer sig minst 3 procent eller en visningsenhet
-//   6  avancerad: två eller tre steg på minst tre av fyra frågor
+//   6  avancerad: två eller tre steg på minst tre av fyra frågor;
+//      grund: ett eller två steg, minst två av fyra frågor har två
 //   7  ovanvant: minst en rad eller kolumn, och inget tal ur den i något steg
+//      (grund: frivilligt, men finns fältet gäller samma kontroll)
 //   8  enhetsbyte: fältet finns, båda enheterna nämns
+//      (grund: frivilligt, men finns fältet ska båda enheterna nämnas)
 //   9  svensk talform: decimalkomma, mellanslag som tusentalsavgränsare och
 //      före enhet
 //   10 "cirka" bara när svaret är avrundat (varning)
 //   11 inga tankstreck, inga engelska ord
 //   12 type table eller graph med dataTable respektive chartData
+//
+// Id-mönster: avancerad na-NN-namn och na-NN-q0N, grund ng-NN-namn och
+// ng-NN-q0N.
 // =============================================================================
 
 import { TANKSTRECK, ENGELSKA, nyRapport, idIBank, lasBank, skrivRapport } from './lib/bank-text.mjs';
@@ -95,6 +102,10 @@ function svenskForm(text) {
 export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
   const r = nyRapport();
   const sett = new Set();
+  const grund = niva === 'grund';
+  const pre = grund ? 'ng' : 'na';
+  const idMonster = grund ? /^ng-\d{2}-[a-z0-9-]+$/ : /^na-\d{2}-[a-z0-9-]+$/;
+  const qIdMonster = grund ? /^ng-\d{2}-q0[1-4]$/ : /^na-\d{2}-q0[1-4]$/;
   for (const p of underlag) {
     const id = p.id ?? '(utan id)';
     // 1
@@ -106,7 +117,7 @@ export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
       sett.add(x);
       if (andraIds.has(x)) r.f(1, id, `id ${x} finns redan i en annan numerisk bank`);
     }
-    if (niva && !/^na-\d{2}-[a-z0-9-]+$/.test(id)) r.f(1, id, 'id följer inte mönstret na-NN-namn');
+    if (niva && !idMonster.test(id)) r.f(1, id, `id följer inte mönstret ${pre}-NN-namn`);
     // 12
     if (!['table', 'graph'].includes(p.type)) r.f(12, id, `type ${p.type}, bara table och graph är beställda`);
     if (p.type === 'table' && !p.dataTable) r.f(12, id, 'table kräver dataTable');
@@ -119,9 +130,10 @@ export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
     const kall = kallText(p);
     const kallTal = allaTal(kall);
     let flerSteg = 0;
+    let tvaSteg = 0;
     qs.forEach((q, qi) => {
       const qid = q.id ?? `${id} fråga ${qi + 1}`;
-      if (niva && !/^na-\d{2}-q0[1-4]$/.test(q.id ?? '')) r.f(1, qid, 'id följer inte mönstret na-NN-q0N');
+      if (niva && !qIdMonster.test(q.id ?? '')) r.f(1, qid, `id följer inte mönstret ${pre}-NN-q0N`);
       const opts = Array.isArray(q.options) ? q.options : [];
       if (opts.length !== 4) r.f(1, qid, `${opts.length} alternativ, exakt fyra krävs`);
       const ratta = opts.filter((o) => o.isCorrect === true);
@@ -149,6 +161,8 @@ export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
         tidigare.push(s.varde);
       }
       if (steg.length >= 2 && steg.length <= 3) flerSteg++;
+      if (steg.length === 2) tvaSteg++;
+      if (grund && steg.length > 2) r.f(6, qid, `${steg.length} steg, grund tillåter högst två`);
       const sista = steg[steg.length - 1]?.varde;
       const rattTal = ratta[0] ? parsaSvensktTal(ratta[0].text) : null;
       if (ok && typeof sista === 'number') {
@@ -185,9 +199,10 @@ export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
     });
     // 6
     if (niva === 'avancerad' && flerSteg < 3) r.f(6, id, `${flerSteg} av ${qs.length} frågor har två eller tre steg, minst tre krävs`);
+    if (grund && tvaSteg < 2) r.f(6, id, `${tvaSteg} av ${qs.length} frågor har två steg, minst två krävs`);
     // 7
     const ov = Array.isArray(p.ovanvant) ? p.ovanvant : [];
-    if (niva && !ov.length) r.f(7, id, 'ovanvant saknas');
+    if (niva && !grund && !ov.length) r.f(7, id, 'ovanvant saknas');
     for (const post of ov) {
       const t = ovanvantTal(p, post);
       if (t === null) { r.f(7, id, `ovanvant "${post}" finns inte i underlaget`); continue; }
@@ -198,7 +213,7 @@ export function validera(underlag, { niva = null, andraIds = new Set() } = {}) {
       }
     }
     // 8
-    if (niva && !p.enhetsbyte) r.f(8, id, 'enhetsbyte saknas');
+    if (niva && !grund && !p.enhetsbyte) r.f(8, id, 'enhetsbyte saknas');
     if (p.enhetsbyte) {
       const [a, b] = String(p.enhetsbyte).split(/\s+till\s+/);
       const text = [p.contextText, ...qs.map((q) => q.questionText)].join(' ').toLowerCase();

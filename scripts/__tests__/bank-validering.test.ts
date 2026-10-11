@@ -9,6 +9,7 @@ type Rapport = { fel: Rad[]; varningar: Rad[] }
 const regler = (r: Rapport) => r.fel.map((x) => x.regel)
 const varn = (r: Rapport) => r.varningar.map((x) => x.regel)
 const V = (data: unknown): Rapport => verbal(data, { niva: 'avancerad' })
+const G = (data: unknown): Rapport => verbal(data, { niva: 'grund' })
 const N = (data: unknown): Rapport => numerisk(data, { niva: 'avancerad' })
 
 describe('räknaren', () => {
@@ -58,6 +59,49 @@ describe('verbal validering, regel för regel', () => {
       andra(d)
       const r = V(d)
       expect(typ === 'fel' ? regler(r) : varn(r)).toContain(regel)
+    })
+  }
+})
+
+describe('verbal validering, grundnivå', () => {
+  it('fixturen klarar allt', () => {
+    const r = G(fx.verbalGrund())
+    expect(r.fel).toEqual([])
+    expect(r.varningar).toEqual([])
+  })
+  it('en ståndpunkt och inget kvantorpåstående är inget fel och ingen varning', () => {
+    const r = G(fx.verbalGrund())
+    expect(regler(r)).not.toContain(5)
+    expect(varn(r)).not.toContain(6)
+  })
+  it('samma fixtur fälls som avancerad (ord, id, kvantor)', () => {
+    const r = V(fx.verbalGrund())
+    expect(regler(r)).toEqual(expect.arrayContaining([2, 3, 5]))
+  })
+  it('en text utan cannot_say är tillåten om filen håller andelen', () => {
+    const d = fx.verbalGrund()
+    d.push(...fx.verbalGrund().map((t: any, i: number) => ({ ...t, id: `vg-9${i + 2}-fixtur-extra` })))
+    d[0].statements[2].correctAnswer = 'false'
+    d[1].statements[3].correctAnswer = 'cannot_say'
+    expect(regler(G(d))).not.toContain(4)
+  })
+  const fall: [number, (d: any) => void][] = [
+    [2, (d) => { d[0].id = 'va-90-fixtur-ett' }],
+    [3, (d) => { d[0].text = d[0].text + ' ' + d[0].text }],
+    [3, (d) => { d[0].text = d[0].text.split(' ').slice(0, 110).join(' ') }],
+    [4, (d) => { d[0].statements[1].correctAnswer = 'cannot_say' }],
+    [4, (d) => { d[0].statements[0].correctAnswer = 'false'; d[0].statements[3].correctAnswer = 'false' }],
+    [5, (d) => { d[0].statements[1] = { ...d[0].statements[1], typ: 'kvantor', text: 'Avsnitten handlar om helt andra saker.' } }],
+    [7, (d) => { d[0].statements[0].text = 'Om schemat beskriver hur arbetet fungerar i praktiken.' }],
+    [9, (d) => { d[0].title = 'Fixtur – ett' }],
+    [9, (d) => { d[0].statements[0].text = 'Texten är en passage om arbetet.' }],
+    [11, (d) => { d[0].topic = 'HR Policy' }],
+  ]
+  for (const [regel, andra] of fall) {
+    it(`regel ${regel} fäller`, () => {
+      const d = fx.verbalGrund()
+      andra(d)
+      expect(regler(G(d))).toContain(regel)
     })
   }
 })

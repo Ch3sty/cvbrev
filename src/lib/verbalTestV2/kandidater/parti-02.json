@@ -1,0 +1,282 @@
+[
+  {
+    "id": "va-09-bemanningsforetag",
+    "title": "Inhyrd personal i industrin",
+    "difficulty": 2,
+    "topic": "Arbetsliv",
+    "text": "När en industri får fler order än vanligt hyr den ofta in personal från ett bemanningsföretag. De inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kundföretaget, som betalar ett timpris för deras tid. Arbetsgivarorganisationerna framhåller att upplägget ger företagen möjlighet att klara toppar utan att binda sig vid fasta anställningar som kanske inte behövs om ett halvår. De pekar också på att många som börjar som inhyrda senare får en tillsvidareanställning hos kunden, och att bemanning därmed fungerar som en väg in på arbetsmarknaden för den som saknar kontakter. Fackförbunden ser det annorlunda. De menar att vissa företag använder inhyrd personal år efter år för arbetsuppgifter som i praktiken är permanenta. Den inhyrde vet då sällan hur länge uppdraget varar och får svårare att planera sin ekonomi, till exempel inför ett bolån. Förbunden påpekar dessutom att inhyrda sällan deltar i de arbetsplatsträffar där skyddsfrågor tas upp, vilket kan göra det svårare att säga ifrån om risker. I en del kollektivavtal, men inte i alla, finns i dag regler om att inhyrda ska erbjudas anställning hos kunden efter en viss tid. Hur ofta de reglerna faktiskt leder till en anställning är omdiskuterat.",
+    "statements": [
+      {
+        "text": "De inhyrda har bemanningsföretaget och inte kundföretaget som arbetsgivare.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Andra meningen avgör: de inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kunden. Påståendet säger samma sak, och varken falskt eller går inte att avgöra passar."
+      },
+      {
+        "text": "Enligt fackförbunden kan inhyrda få svårare att påtala risker, eftersom de ofta saknas när skyddsfrågor diskuteras.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att inhyrda sällan deltar i arbetsplatsträffar där skyddsfrågor tas upp, och att det kan göra det svårare att säga ifrån om risker. Sätter man ihop de två leden får man påståendet."
+      },
+      {
+        "text": "Samtliga kollektivavtal har bestämmelser om att den inhyrde efter en tid ska få erbjudande om anställning hos kunden.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Det står att sådana regler finns i en del kollektivavtal men inte i alla. Det är ett direkt motexempel mot ordet samtliga, så påståendet är falskt och inte oavgörbart."
+      },
+      {
+        "text": "Kundföretaget betalar mer per timme för en inhyrd än vad en egen anställd skulle kosta.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten nämner att kunden betalar ett timpris, men jämför aldrig priset med kostnaden för en egen anställd. Underlaget räcker inte för att säga att påståendet stämmer, och inte heller för att avfärda det."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-10-provanstallning",
+    "title": "Provanställningens halvår",
+    "difficulty": 3,
+    "topic": "Arbetsliv",
+    "text": "En provanställning får enligt lagen om anställningsskydd pågå i högst sex månader. Under den tiden kan arbetsgivaren avbryta anställningen utan att ange något skäl, så länge besked lämnas i tid. Om ingen av parterna säger något övergår provanställningen automatiskt i en tillsvidareanställning. För arbetsgivaren är poängen tydlig: det är svårt att bedöma en person efter två intervjuer och ett arbetsprov, och ett halvår ger tid att se hur den nyanställde fungerar i vardagen. Många chefer säger att de hellre anställer någon med en ojämn bakgrund om de vet att de har en prövotid att luta sig mot. Kritiker invänder att osäkerheten slår hårdast mot den som redan står svagt. Den som är provanställd tvekar ofta att ta upp brister i arbetsmiljön eller att tacka nej till extra pass, av rädsla för att inte få stanna. Några fackliga företrädare föreslår därför att arbetsgivaren ska vara skyldig att ge ett skriftligt besked halvvägs, så att den anställde vet var hon står. Arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till och att ett vanligt samtal fyller samma funktion. Hur vanligt det är att provanställningar avbryts finns det ingen samlad statistik över.",
+    "statements": [
+      {
+        "text": "Arbetsgivarsidan ställer sig bakom förslaget om ett skriftligt besked mitt i prövotiden.",
+        "correctAnswer": "false",
+        "typ": "direkt",
+        "explanation": "Texten säger att arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till. De stöder alltså inte förslaget, och påståendet är falskt snarare än oavgörbart."
+      },
+      {
+        "text": "En provanställd som inte har fått något besked när prövotiden löper ut har därefter en tillsvidareanställning.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Två uppgifter i texten hänger ihop här: prövotiden får vara högst sex månader, och utan besked övergår den automatiskt i en tillsvidareanställning. Av det följer påståendet, så det är sant."
+      },
+      {
+        "text": "Det är bara i undantagsfall som en provanställning avbryts innan den blir en fast anställning.",
+        "correctAnswer": "cannot_say",
+        "typ": "kvantor",
+        "explanation": "Sista meningen avgör: det finns ingen samlad statistik över hur vanligt det är att provanställningar avbryts. Texten ger alltså varken stöd eller motexempel, och frågan om undantagsfall lämnas öppen."
+      },
+      {
+        "text": "Provanställda har lägre lön än tillsvidareanställda med samma arbetsuppgifter.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Lönen nämns inte någonstans i texten, som handlar om prövotid, besked och osäkerhet. Därför går påståendet varken att bekräfta eller att avfärda."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-11-arbetsmiljoverkets-inspektioner",
+    "title": "Arbetsmiljöverkets inspektioner",
+    "difficulty": 2,
+    "topic": "Samhälle",
+    "text": "Arbetsmiljöverket inspekterar varje år tusentals arbetsplatser. Besöket kan vara aviserat i förväg eller ske helt utan förvarning. Vid en inspektion går inspektören igenom hur arbetsgivaren undersöker risker, vilka åtgärder som vidtagits och hur skyddsombudet har varit delaktigt. Hittar inspektören brister skrivs ett inspektionsmeddelande med krav på åtgärder. Om arbetsgivaren inte rättar till bristerna kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Under senare år har myndigheten valt att lägga en större del av inspektionerna på branscher där olyckor och ohälsa är vanliga, som bygg, transport och vård. Myndigheten menar att det ger mer skydd för varje inspektion, eftersom det är där riskerna är störst. Företrädare för mindre företag i andra branscher har däremot en invändning. De menar att små arbetsgivare utan egen personalavdelning sällan vet vilka regler som gäller, och att ett besök från myndigheten för många av dem är det enda tillfälle då någon går igenom arbetsmiljön på riktigt. När inspektionerna koncentreras uteblir det tillfället. Myndigheten svarar att den i stället satsar på vägledning på sin webbplats och på informationsträffar. Om små arbetsgivare faktiskt tar del av den vägledningen har ännu inte utvärderats.",
+    "statements": [
+      {
+        "text": "Myndigheten har flyttat inspektioner från bygg, transport och vård till andra branscher.",
+        "correctAnswer": "false",
+        "typ": "direkt",
+        "explanation": "Enligt texten läggs tvärtom en större del av inspektionerna på bygg, transport och vård. Påståendet beskriver den motsatta förändringen, och därför är falskt det enda rimliga svaret."
+      },
+      {
+        "text": "En arbetsgivare som låter bli att åtgärda påtalade brister kan till slut behöva betala vite.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Två meningar räcker. Brister leder till ett inspektionsmeddelande, och åtgärdas de inte kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Påståendet följer av dem och är sant."
+      },
+      {
+        "text": "Små arbetsgivare tar aldrig del av den vägledning som myndigheten lägger ut på sin webbplats.",
+        "correctAnswer": "cannot_say",
+        "typ": "kvantor",
+        "explanation": "Det står i sista meningen att det ännu inte är utvärderat om små arbetsgivare tar del av vägledningen. Texten säger alltså ingenting om hur ofta det sker, varken åt det ena eller det andra hållet."
+      },
+      {
+        "text": "Olyckorna i byggbranschen har blivit färre sedan inspektionerna där ökade.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten förklarar varför myndigheten valt att prioritera bygg, men den redovisar inga resultat av prioriteringen. Om olyckorna har minskat framgår inte, så sant och falskt faller båda bort."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-12-regional-kompetensforsorjning",
+    "title": "Kompetensförsörjning i inlandet",
+    "difficulty": 3,
+    "topic": "Ekonomi",
+    "text": "I flera inlandskommuner har arbetsgivarna svårt att hitta personal med rätt utbildning. Det gäller inte bara vården och skolan utan också industriföretag som behöver svetsare, elektriker och underhållstekniker. Regionerna har ett uppdrag att samordna kompetensförsörjningen, och ett vanligt grepp är att lokala arbetsgivare, kommunen och utbildningsanordnare tillsammans tar fram korta yrkesutbildningar för människor som redan bor på orten. Förespråkarna menar att den som har familj och hus på orten stannar kvar efter utbildningen, medan den som flyttar in för ett jobb oftare flyttar igen inom några år. Andra är mer tveksamma. Nationalekonomer har påpekat att korta lokala utbildningar riskerar att binda människor vid ett enda företag eller en enda bransch. Om den stora arbetsgivaren på orten drar ner, står de som utbildats med kunskaper som ingen annan efterfrågar. Kritikerna förordar i stället bredare utbildningar och bättre möjligheter att pendla, så att arbetsmarknaden blir större än den egna kommunen. Regionerna själva framhåller att båda vägarna behövs, men att pendling sällan är ett realistiskt alternativ där avstånden är långa och kollektivtrafiken gles. Hur många som stannar på orten efter en lokal utbildning följs inte upp på ett enhetligt sätt.",
+    "statements": [
+      {
+        "text": "Personalbristen i inlandskommunerna berör även industriföretag.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Texten säger att bristen inte bara gäller vården och skolan utan också industriföretag som behöver svetsare och elektriker. Påståendet stämmer därmed rakt av."
+      },
+      {
+        "text": "Kritikerna anser att lokala yrkesutbildningar gör de utbildade mindre sårbara när ortens största arbetsgivare minskar personalen.",
+        "correctAnswer": "false",
+        "typ": "slutledning",
+        "explanation": "Enligt texten riskerar korta lokala utbildningar att binda människor vid ett företag, och om den arbetsgivaren drar ner står de utbildade utan efterfrågade kunskaper. Kritikernas slutsats är den motsatta, så påståendet är falskt."
+      },
+      {
+        "text": "Regionerna anser att pendling alltid är ett realistiskt alternativ till lokala utbildningar.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Regionerna säger i texten att pendling sällan är realistisk där avstånden är långa och kollektivtrafiken gles. Det är ett tydligt undantag, och därmed faller ordet alltid."
+      },
+      {
+        "text": "De korta yrkesutbildningarna betalas till största delen av de lokala arbetsgivarna.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten beskriver vilka som tar fram utbildningarna, men inte vem som betalar dem. Finansieringen kan därför inte bedömas utifrån det som står."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-13-kommunal-matlagning",
+    "title": "Tillagningskök eller mottagningskök",
+    "difficulty": 2,
+    "topic": "Hälsa",
+    "text": "I många kommuner lagas maten till skolor och äldreboenden i ett centralt kök och körs sedan ut varm eller kyld till mottagningskök, där den värms och serveras. Andra kommuner har valt att bygga om mottagningsköken till tillagningskök, så att maten lagas på plats av egen personal. Förespråkarna för tillagningskök menar att maten blir godare och att näringsvärdet bevaras bättre när potatisen inte står varmhållen i flera timmar. De pekar också på att det går lättare att anpassa portionerna efter hur mycket som faktiskt äts, vilket kan minska svinnet. På äldreboenden lyfts doften av mat som lagas i huset fram som något som väcker aptiten hos boende som annars äter dåligt. Ekonomerna i kommunerna är däremot mer försiktiga. Ett tillagningskök kräver investeringar i ugnar, ventilation och kylrum, och personalen behöver kockutbildning snarare än erfarenhet av servering. Ett centralkök kan dessutom köpa in råvaror i större mängder och planera produktionen jämnare över veckan. Flera kommuner har därför valt en blandning, där äldreboendena får tillagningskök medan skolorna fortsätter att få mat från centralköket. Hur stor skillnaden i kostnad per portion blir varierar mellan kommunerna och beror bland annat på lokalernas skick.",
+    "statements": [
+      {
+        "text": "I ett mottagningskök värms maten upp innan den serveras.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Första meningen beskriver hur maten körs ut till mottagningskök, där den värms och serveras. Påståendet återger just det och är sant."
+      },
+      {
+        "text": "I kommuner som har valt en blandning lagas skolmaten inte på skolan.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att skolorna i de blandade lösningarna fortsätter att få mat från centralköket. Eftersom centralkökets mat lagas på ett annat ställe och körs ut, följer det att den inte lagas på skolan."
+      },
+      {
+        "text": "Samtliga kommuner har byggt om sina mottagningskök till tillagningskök.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Det står att många kommuner lagar maten i ett centralt kök och att skolorna i flera kommuner får mat därifrån. Båda uppgifterna motsäger ordet samtliga, så påståendet är falskt."
+      },
+      {
+        "text": "Boende på äldreboenden med tillagningskök har gått upp i vikt.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten nämner att doften kan väcka aptiten, men redovisar inga mätningar av hur de boende mår eller väger. Om de har gått upp i vikt får läsaren inte veta."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-14-larlingsutbildning",
+    "title": "Lärling på gymnasiet",
+    "difficulty": 2,
+    "topic": "Utbildning",
+    "text": "På flera av gymnasieskolans yrkesprogram kan eleven välja att gå som lärling. Då förläggs minst hälften av utbildningen på en arbetsplats, där en handledare ansvarar för att eleven lär sig yrket i praktiken. Resten av tiden läser eleven teori och gymnasiegemensamma ämnen på skolan. Anhängare av lärlingsformen menar att elever som tröttnat på klassrummet får en ny chans att lyckas, och att de knyter kontakter som kan leda till ett jobb direkt efter studenten. Arbetsgivarna får samtidigt möjlighet att lära känna en blivande medarbetare under lång tid. Lärare och skolledare lyfter dock andra sidor. Kvaliteten på utbildningen avgörs till stor del av handledaren, och handledarna har mycket olika förutsättningar. På en del arbetsplatser får handledaren avsatt tid och utbildning för uppdraget, på andra ska handledningen ske vid sidan av ordinarie arbete. Skolan har dessutom svårt att följa upp vad eleven faktiskt gör under dagarna ute. Lärlingsformen har funnits i flera decennier i olika versioner, men andelen elever som väljer den är fortfarande liten jämfört med länder där lärlingssystemet är en självklar del av utbildningen. Varför intresset är så lågt finns det flera förklaringar till, men ingen som alla är överens om.",
+    "statements": [
+      {
+        "text": "Lärare och skolledare beskriver handledarnas förutsättningar som likvärdiga mellan arbetsplatserna.",
+        "correctAnswer": "false",
+        "typ": "direkt",
+        "explanation": "Texten säger att handledarna har mycket olika förutsättningar och ger exempel på arbetsplatser med och utan avsatt tid. Påståendet säger motsatsen och kan inte vara sant."
+      },
+      {
+        "text": "En lärlingselev tillbringar högst hälften av sin utbildning på skolan.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Enligt texten förläggs minst hälften av utbildningen på en arbetsplats och resten på skolan. Då kan skoltiden vara högst hälften, och påståendet följer säkert."
+      },
+      {
+        "text": "På varje arbetsplats har handledaren fått tid avsatt för att handleda lärlingen.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Texten skiljer på arbetsplatser där handledaren får avsatt tid och andra där handledningen sker vid sidan av ordinarie arbete. De senare är motexempel, så påståendet om varje arbetsplats är falskt."
+      },
+      {
+        "text": "Lärlingselever avbryter sin gymnasieutbildning mer sällan än andra elever på yrkesprogrammen.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Avbrott i utbildningen tas inte upp. Anhängarna talar om en ny chans att lyckas, men texten innehåller ingen jämförelse som skulle göra det möjligt att pröva påståendet."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-15-cykelinfrastruktur",
+    "title": "Cykelbanor året runt",
+    "difficulty": 3,
+    "topic": "Miljö",
+    "text": "Många svenska städer har som mål att fler ska cykla till arbete och skola. Det vanligaste verktyget är att bygga separata cykelbanor, så att cyklisterna slipper dela utrymme med bilar och fotgängare. Trafikplanerare menar att det är tryggheten som avgör om människor väljer cykeln. En cykelbana som är skild från biltrafiken lockar även dem som aldrig skulle cykla i blandtrafik, till exempel föräldrar med små barn. På sträckor där sådana banor byggts har antalet cyklister också ökat, även om det är svårt att veta hur många som annars hade tagit bilen och hur många som tidigare gick eller åkte buss. Andra lyfter fram driften. Cykelorganisationer och driftansvariga i kommunerna påpekar att en cykelbana bara gör nytta om den hålls snöfri och halkbekämpad. I flera kommuner plogas cykelbanorna först efter bilvägarna, och då står cyklisterna utan framkomlig väg på morgonen. Ett antal städer har därför börjat sopa cykelbanorna före gatorna i centrum och samtidigt sprida saltlösning, en metod som kallas sopsaltning. Metoden kostar mer per kilometer än vanlig plogning. Om den ökade vintercyklingen motiverar kostnaden är en fråga där kommunerna har landat olika.",
+    "statements": [
+      {
+        "text": "Trafikplanerarna anser att känslan av trygghet styr om människor börjar cykla.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att trafikplanerare menar att tryggheten avgör om människor väljer cykeln. Påståendet är samma tanke med andra ord och därmed sant."
+      },
+      {
+        "text": "Fler cyklister på de nya banorna har lett till färre bilresor i städerna.",
+        "correctAnswer": "cannot_say",
+        "typ": "slutledning",
+        "explanation": "Texten säger att antalet cyklister har ökat, men också att det är svårt att veta hur många som annars hade tagit bilen. Därför går det inte att sluta sig till att bilresorna blivit färre, och inte heller att de inte blivit det."
+      },
+      {
+        "text": "I samtliga kommuner plogas cykelbanorna före bilvägarna.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Texten nämner flera kommuner där cykelbanorna plogas först efter bilvägarna. Det räcker som motexempel, och påståendet om samtliga kommuner är falskt."
+      },
+      {
+        "text": "Sopsaltning minskar antalet halkolyckor bland cyklister.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Om olyckor säger texten ingenting. Den beskriver metoden och vad den kostar, så påståendet om halkolyckor kan varken bekräftas eller motsägas."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-16-digital-journalforing",
+    "title": "Journalanteckningar som skrivs av ett program",
+    "difficulty": 3,
+    "topic": "Teknik",
+    "text": "Läkare och sjuksköterskor lägger en stor del av arbetsdagen på att dokumentera i patientjournalen. Flera regioner prövar därför program som lyssnar på samtalet mellan vårdpersonal och patient och föreslår en journalanteckning, som den ansvarige sedan läser igenom och godkänner. I de första försöken uppger läkarna att tiden för dokumentation har minskat, och flera säger att de kan titta på patienten i stället för på skärmen under besöket. Regionerna ser också en möjlighet att korta köerna om varje läkare hinner med fler besök. Kritiska röster finns dock både bland vårdpersonal och bland jurister. De pekar på att en journal är en rättslig handling, och att ansvaret för innehållet ligger kvar hos den som signerar. Om programmet missar en nyans i det patienten berättar, eller skriver något som inte sades, är det läkaren som får stå för felet. Risken är att stressad personal godkänner förslagen utan att läsa dem noga. Det finns också frågor om var ljudupptagningarna lagras och vem som har tillgång till dem. Regionerna svarar att ljudet raderas när anteckningen är godkänd och att patienten tillfrågas innan programmet slås på. Några större utvärderingar av hur ofta förslagen innehåller fel har ännu inte publicerats.",
+    "statements": [
+      {
+        "text": "Programmet signerar journalanteckningen på egen hand när samtalet är avslutat.",
+        "correctAnswer": "false",
+        "typ": "direkt",
+        "explanation": "Texten säger att programmet föreslår en anteckning som den ansvarige läser igenom och godkänner. Påståendet strider mot det, så det är falskt och inte en öppen fråga."
+      },
+      {
+        "text": "Om en godkänd anteckning innehåller något patienten aldrig sa, är det den signerande läkaren som bär ansvaret.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Det följer av två meningar: ansvaret ligger kvar hos den som signerar, och läkaren får stå för felet om programmet skriver något som inte sades. Påståendet sammanfattar det och är sant."
+      },
+      {
+        "text": "Programmets förslag innehåller alltid minst ett fel som läkaren måste rätta.",
+        "correctAnswer": "cannot_say",
+        "typ": "kvantor",
+        "explanation": "Sista meningen säger att inga större utvärderingar av hur ofta förslagen innehåller fel har publicerats. Utan sådana uppgifter finns inget i texten att pröva ordet alltid mot."
+      },
+      {
+        "text": "Patienterna föredrar besök där programmet används framför vanliga besök.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten återger läkarnas, juristernas och regionernas syn men inte patienternas. Vad patienterna föredrar står det inget om, och påståendet blir därför oavgörbart."
+      }
+    ],
+    "kalla": "skriven 2026-10-12, parti 02",
+    "p_prior": 0.6
+  }
+]

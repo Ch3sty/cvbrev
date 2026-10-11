@@ -23,6 +23,21 @@ export function verbal() {
   ];
 }
 
+// Grundformatet: 13 meningar om 10 ord, 130 ord, en ståndpunkt, inget
+// kvantorpåstående, ett cannot_say per text (25 procent i filen).
+export function verbalGrund() {
+  const st = () => [
+    { text: 'Texten beskriver hur arbetet fungerar enligt författaren.', correctAnswer: 'true', typ: 'direkt', explanation: 'Det står i texten att avsnitten beskriver hur arbetet fungerar, så påståendet följer direkt av den.' },
+    { text: 'Avsnitten handlar om något helt annat än arbetet.', correctAnswer: 'false', typ: 'direkt', explanation: 'Texten säger om avsnitt efter avsnitt att de beskriver hur arbetet fungerar, så påståendet motsägs och är falskt.' },
+    { text: 'Ordningen infördes efter ett politiskt beslut i kommunen.', correctAnswer: 'cannot_say', typ: 'utanfor', explanation: 'Texten säger ingenting om hur ordningen infördes, så det går varken att bekräfta eller motsäga påståendet.' },
+    { text: 'Arbetet beskrivs i mer än ett avsnitt.', correctAnswer: 'true', typ: 'slutledning', explanation: 'Texten har flera numrerade avsnitt som tar upp arbetet, och därav följer att det beskrivs i mer än ett.' },
+  ];
+  return [
+    { id: 'vg-90-fixtur-ett', title: 'Fixtur ett', difficulty: 1, topic: 'Arbetsliv', text: meningar('schemat', 13), statements: st() },
+    { id: 'vg-91-fixtur-tva', title: 'Fixtur två', difficulty: 1, topic: 'Samhälle', text: meningar('taxan', 13), statements: st() },
+  ];
+}
+
 const opt = (id, text, isCorrect, misstag) => (misstag ? { id, text, isCorrect, misstag } : { id, text, isCorrect });
 
 export function numerisk() {

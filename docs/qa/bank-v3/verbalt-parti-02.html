@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verbalt parti 02</title>
+<style>
+  :root { --bg: #fafaf9; --kort: #ffffff; --text: #1c1917; --dampad: #57534e; --linje: #e7e5e4; --accent: #ea580c;
+    --sant: #15803d; --sant-bg: #dcfce7; --falskt: #b91c1c; --falskt-bg: #fee2e2; --oppen: #92400e; --oppen-bg: #fef3c7; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0c0a09; --kort: #1c1917; --text: #f5f5f4; --dampad: #a8a29e; --linje: #292524; --accent: #fb923c;
+      --sant: #86efac; --sant-bg: #14532d; --falskt: #fca5a5; --falskt-bg: #7f1d1d; --oppen: #fde68a; --oppen-bg: #78350f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.3rem; margin: 40px 0 4px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+  h3 { font-size: 1.15rem; margin: 2px 0; }
+  .ingress, .sammanfattning, .meta { color: var(--dampad); }
+  .sammanfattning { font-size: .92rem; }
+  code { font-size: .85em; overflow-wrap: anywhere; }
+  .innehall { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 8px; }
+  .innehall a { font-size: .8rem; color: var(--dampad); text-decoration: none; border: 1px solid var(--linje); border-radius: 999px; padding: 2px 10px; }
+  .text { background: var(--kort); border: 1px solid var(--linje); border-radius: 12px; padding: 18px 16px; margin: 20px 0; }
+  .id { font: 600 .78rem/1.2 ui-monospace, Consolas, monospace; color: var(--accent); margin: 0; overflow-wrap: anywhere; }
+  .meta { margin: 0; font-size: .88rem; }
+  .brodtext { margin: 14px 0 6px; padding: 14px; border-left: 3px solid var(--linje); background: var(--bg); border-radius: 6px; }
+  .pstlista { list-style: none; padding: 0; margin: 12px 0 0; }
+  .pst { border-top: 1px solid var(--linje); padding: 12px 0 4px; }
+  .pst-text { margin: 0; font-weight: 600; }
+  .nr { display: inline-block; min-width: 1.6em; color: var(--dampad); }
+  .etiketter { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .typ, .facit { font-size: .78rem; border-radius: 999px; padding: 1px 10px; }
+  .typ { border: 1px solid var(--linje); color: var(--dampad); }
+  .facit-true { background: var(--sant-bg); color: var(--sant); }
+  .facit-false { background: var(--falskt-bg); color: var(--falskt); }
+  .facit-cannot_say { background: var(--oppen-bg); color: var(--oppen); }
+  .forklaring { margin: 0 0 8px; font-size: .94rem; color: var(--dampad); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Verbalt parti 02</h1>
+  <p class="ingress">Kandidattexter för granskning, skrivna 2026-10-12. Inget här ligger i de skarpa bankerna. Per text: id, ämne, antal ord, texten och påståendena med typ, facit och förklaring.</p>
+  
+  <section>
+    <h2>Avancerad</h2>
+    <p class="sammanfattning">8 texter, 32 påståenden, 12 går inte att avgöra (38 procent), 182 till 193 ord. Källa: <code>src/lib/verbalTestV2/kandidater/parti-02.json</code></p>
+    <nav class="innehall"><a href="#va-09-bemanningsforetag">va-09-bemanningsforetag</a><a href="#va-10-provanstallning">va-10-provanstallning</a><a href="#va-11-arbetsmiljoverkets-inspektioner">va-11-arbetsmiljoverkets-inspektioner</a><a href="#va-12-regional-kompetensforsorjning">va-12-regional-kompetensforsorjning</a><a href="#va-13-kommunal-matlagning">va-13-kommunal-matlagning</a><a href="#va-14-larlingsutbildning">va-14-larlingsutbildning</a><a href="#va-15-cykelinfrastruktur">va-15-cykelinfrastruktur</a><a href="#va-16-digital-journalforing">va-16-digital-journalforing</a></nav>
+    
+    <article class="text" id="va-09-bemanningsforetag">
+      <header>
+        <p class="id">va-09-bemanningsforetag</p>
+        <h3>Inhyrd personal i industrin</h3>
+        <p class="meta">Arbetsliv · 193 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">När en industri får fler order än vanligt hyr den ofta in personal från ett bemanningsföretag. De inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kundföretaget, som betalar ett timpris för deras tid. Arbetsgivarorganisationerna framhåller att upplägget ger företagen möjlighet att klara toppar utan att binda sig vid fasta anställningar som kanske inte behövs om ett halvår. De pekar också på att många som börjar som inhyrda senare får en tillsvidareanställning hos kunden, och att bemanning därmed fungerar som en väg in på arbetsmarknaden för den som saknar kontakter. Fackförbunden ser det annorlunda. De menar att vissa företag använder inhyrd personal år efter år för arbetsuppgifter som i praktiken är permanenta. Den inhyrde vet då sällan hur länge uppdraget varar och får svårare att planera sin ekonomi, till exempel inför ett bolån. Förbunden påpekar dessutom att inhyrda sällan deltar i de arbetsplatsträffar där skyddsfrågor tas upp, vilket kan göra det svårare att säga ifrån om risker. I en del kollektivavtal, men inte i alla, finns i dag regler om att inhyrda ska erbjudas anställning hos kunden efter en viss tid. Hur ofta de reglerna faktiskt leder till en anställning är omdiskuterat.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>De inhyrda har bemanningsföretaget och inte kundföretaget som arbetsgivare.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Andra meningen avgör: de inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kunden. Påståendet säger samma sak, och varken falskt eller går inte att avgöra passar.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Enligt fackförbunden kan inhyrda få svårare att påtala risker, eftersom de ofta saknas när skyddsfrågor diskuteras.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att inhyrda sällan deltar i arbetsplatsträffar där skyddsfrågor tas upp, och att det kan göra det svårare att säga ifrån om risker. Sätter man ihop de två leden får man påståendet.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Samtliga kollektivavtal har bestämmelser om att den inhyrde efter en tid ska få erbjudande om anställning hos kunden.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att sådana regler finns i en del kollektivavtal men inte i alla. Det är ett direkt motexempel mot ordet samtliga, så påståendet är falskt och inte oavgörbart.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Kundföretaget betalar mer per timme för en inhyrd än vad en egen anställd skulle kosta.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten nämner att kunden betalar ett timpris, men jämför aldrig priset med kostnaden för en egen anställd. Underlaget räcker inte för att säga att påståendet stämmer, och inte heller för att avfärda det.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-10-provanstallning">
+      <header>
+        <p class="id">va-10-provanstallning</p>
+        <h3>Provanställningens halvår</h3>
+        <p class="meta">Arbetsliv · 192 ord · svårighet 3</p>
+      </header>
+      <div class="brodtext">En provanställning får enligt lagen om anställningsskydd pågå i högst sex månader. Under den tiden kan arbetsgivaren avbryta anställningen utan att ange något skäl, så länge besked lämnas i tid. Om ingen av parterna säger något övergår provanställningen automatiskt i en tillsvidareanställning. För arbetsgivaren är poängen tydlig: det är svårt att bedöma en person efter två intervjuer och ett arbetsprov, och ett halvår ger tid att se hur den nyanställde fungerar i vardagen. Många chefer säger att de hellre anställer någon med en ojämn bakgrund om de vet att de har en prövotid att luta sig mot. Kritiker invänder att osäkerheten slår hårdast mot den som redan står svagt. Den som är provanställd tvekar ofta att ta upp brister i arbetsmiljön eller att tacka nej till extra pass, av rädsla för att inte få stanna. Några fackliga företrädare föreslår därför att arbetsgivaren ska vara skyldig att ge ett skriftligt besked halvvägs, så att den anställde vet var hon står. Arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till och att ett vanligt samtal fyller samma funktion. Hur vanligt det är att provanställningar avbryts finns det ingen samlad statistik över.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Arbetsgivarsidan ställer sig bakom förslaget om ett skriftligt besked mitt i prövotiden.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till. De stöder alltså inte förslaget, och påståendet är falskt snarare än oavgörbart.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En provanställd som inte har fått något besked när prövotiden löper ut har därefter en tillsvidareanställning.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Två uppgifter i texten hänger ihop här: prövotiden får vara högst sex månader, och utan besked övergår den automatiskt i en tillsvidareanställning. Av det följer påståendet, så det är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Det är bara i undantagsfall som en provanställning avbryts innan den blir en fast anställning.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Sista meningen avgör: det finns ingen samlad statistik över hur vanligt det är att provanställningar avbryts. Texten ger alltså varken stöd eller motexempel, och frågan om undantagsfall lämnas öppen.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Provanställda har lägre lön än tillsvidareanställda med samma arbetsuppgifter.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Lönen nämns inte någonstans i texten, som handlar om prövotid, besked och osäkerhet. Därför går påståendet varken att bekräfta eller att avfärda.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-11-arbetsmiljoverkets-inspektioner">
+      <header>
+        <p class="id">va-11-arbetsmiljoverkets-inspektioner</p>
+        <h3>Arbetsmiljöverkets inspektioner</h3>
+        <p class="meta">Samhälle · 187 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">Arbetsmiljöverket inspekterar varje år tusentals arbetsplatser. Besöket kan vara aviserat i förväg eller ske helt utan förvarning. Vid en inspektion går inspektören igenom hur arbetsgivaren undersöker risker, vilka åtgärder som vidtagits och hur skyddsombudet har varit delaktigt. Hittar inspektören brister skrivs ett inspektionsmeddelande med krav på åtgärder. Om arbetsgivaren inte rättar till bristerna kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Under senare år har myndigheten valt att lägga en större del av inspektionerna på branscher där olyckor och ohälsa är vanliga, som bygg, transport och vård. Myndigheten menar att det ger mer skydd för varje inspektion, eftersom det är där riskerna är störst. Företrädare för mindre företag i andra branscher har däremot en invändning. De menar att små arbetsgivare utan egen personalavdelning sällan vet vilka regler som gäller, och att ett besök från myndigheten för många av dem är det enda tillfälle då någon går igenom arbetsmiljön på riktigt. När inspektionerna koncentreras uteblir det tillfället. Myndigheten svarar att den i stället satsar på vägledning på sin webbplats och på informationsträffar. Om små arbetsgivare faktiskt tar del av den vägledningen har ännu inte utvärderats.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Myndigheten har flyttat inspektioner från bygg, transport och vård till andra branscher.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Enligt texten läggs tvärtom en större del av inspektionerna på bygg, transport och vård. Påståendet beskriver den motsatta förändringen, och därför är falskt det enda rimliga svaret.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En arbetsgivare som låter bli att åtgärda påtalade brister kan till slut behöva betala vite.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Två meningar räcker. Brister leder till ett inspektionsmeddelande, och åtgärdas de inte kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Påståendet följer av dem och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Små arbetsgivare tar aldrig del av den vägledning som myndigheten lägger ut på sin webbplats.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Det står i sista meningen att det ännu inte är utvärderat om små arbetsgivare tar del av vägledningen. Texten säger alltså ingenting om hur ofta det sker, varken åt det ena eller det andra hållet.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Olyckorna i byggbranschen har blivit färre sedan inspektionerna där ökade.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten förklarar varför myndigheten valt att prioritera bygg, men den redovisar inga resultat av prioriteringen. Om olyckorna har minskat framgår inte, så sant och falskt faller båda bort.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-12-regional-kompetensforsorjning">
+      <header>
+        <p class="id">va-12-regional-kompetensforsorjning</p>
+        <h3>Kompetensförsörjning i inlandet</h3>
+        <p class="meta">Ekonomi · 187 ord · svårighet 3</p>
+      </header>
+      <div class="brodtext">I flera inlandskommuner har arbetsgivarna svårt att hitta personal med rätt utbildning. Det gäller inte bara vården och skolan utan också industriföretag som behöver svetsare, elektriker och underhållstekniker. Regionerna har ett uppdrag att samordna kompetensförsörjningen, och ett vanligt grepp är att lokala arbetsgivare, kommunen och utbildningsanordnare tillsammans tar fram korta yrkesutbildningar för människor som redan bor på orten. Förespråkarna menar att den som har familj och hus på orten stannar kvar efter utbildningen, medan den som flyttar in för ett jobb oftare flyttar igen inom några år. Andra är mer tveksamma. Nationalekonomer har påpekat att korta lokala utbildningar riskerar att binda människor vid ett enda företag eller en enda bransch. Om den stora arbetsgivaren på orten drar ner, står de som utbildats med kunskaper som ingen annan efterfrågar. Kritikerna förordar i stället bredare utbildningar och bättre möjligheter att pendla, så att arbetsmarknaden blir större än den egna kommunen. Regionerna själva framhåller att båda vägarna behövs, men att pendling sällan är ett realistiskt alternativ där avstånden är långa och kollektivtrafiken gles. Hur många som stannar på orten efter en lokal utbildning följs inte upp på ett enhetligt sätt.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Personalbristen i inlandskommunerna berör även industriföretag.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att bristen inte bara gäller vården och skolan utan också industriföretag som behöver svetsare och elektriker. Påståendet stämmer därmed rakt av.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Kritikerna anser att lokala yrkesutbildningar gör de utbildade mindre sårbara när ortens största arbetsgivare minskar personalen.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Enligt texten riskerar korta lokala utbildningar att binda människor vid ett företag, och om den arbetsgivaren drar ner står de utbildade utan efterfrågade kunskaper. Kritikernas slutsats är den motsatta, så påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Regionerna anser att pendling alltid är ett realistiskt alternativ till lokala utbildningar.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Regionerna säger i texten att pendling sällan är realistisk där avstånden är långa och kollektivtrafiken gles. Det är ett tydligt undantag, och därmed faller ordet alltid.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>De korta yrkesutbildningarna betalas till största delen av de lokala arbetsgivarna.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten beskriver vilka som tar fram utbildningarna, men inte vem som betalar dem. Finansieringen kan därför inte bedömas utifrån det som står.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-13-kommunal-matlagning">
+      <header>
+        <p class="id">va-13-kommunal-matlagning</p>
+        <h3>Tillagningskök eller mottagningskök</h3>
+        <p class="meta">Hälsa · 188 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">I många kommuner lagas maten till skolor och äldreboenden i ett centralt kök och körs sedan ut varm eller kyld till mottagningskök, där den värms och serveras. Andra kommuner har valt att bygga om mottagningsköken till tillagningskök, så att maten lagas på plats av egen personal. Förespråkarna för tillagningskök menar att maten blir godare och att näringsvärdet bevaras bättre när potatisen inte står varmhållen i flera timmar. De pekar också på att det går lättare att anpassa portionerna efter hur mycket som faktiskt äts, vilket kan minska svinnet. På äldreboenden lyfts doften av mat som lagas i huset fram som något som väcker aptiten hos boende som annars äter dåligt. Ekonomerna i kommunerna är däremot mer försiktiga. Ett tillagningskök kräver investeringar i ugnar, ventilation och kylrum, och personalen behöver kockutbildning snarare än erfarenhet av servering. Ett centralkök kan dessutom köpa in råvaror i större mängder och planera produktionen jämnare över veckan. Flera kommuner har därför valt en blandning, där äldreboendena får tillagningskök medan skolorna fortsätter att få mat från centralköket. Hur stor skillnaden i kostnad per portion blir varierar mellan kommunerna och beror bland annat på lokalernas skick.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>I ett mottagningskök värms maten upp innan den serveras.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Första meningen beskriver hur maten körs ut till mottagningskök, där den värms och serveras. Påståendet återger just det och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>I kommuner som har valt en blandning lagas skolmaten inte på skolan.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att skolorna i de blandade lösningarna fortsätter att få mat från centralköket. Eftersom centralkökets mat lagas på ett annat ställe och körs ut, följer det att den inte lagas på skolan.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Samtliga kommuner har byggt om sina mottagningskök till tillagningskök.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att många kommuner lagar maten i ett centralt kök och att skolorna i flera kommuner får mat därifrån. Båda uppgifterna motsäger ordet samtliga, så påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Boende på äldreboenden med tillagningskök har gått upp i vikt.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten nämner att doften kan väcka aptiten, men redovisar inga mätningar av hur de boende mår eller väger. Om de har gått upp i vikt får läsaren inte veta.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-14-larlingsutbildning">
+      <header>
+        <p class="id">va-14-larlingsutbildning</p>
+        <h3>Lärling på gymnasiet</h3>
+        <p class="meta">Utbildning · 191 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">På flera av gymnasieskolans yrkesprogram kan eleven välja att gå som lärling. Då förläggs minst hälften av utbildningen på en arbetsplats, där en handledare ansvarar för att eleven lär sig yrket i praktiken. Resten av tiden läser eleven teori och gymnasiegemensamma ämnen på skolan. Anhängare av lärlingsformen menar att elever som tröttnat på klassrummet får en ny chans att lyckas, och att de knyter kontakter som kan leda till ett jobb direkt efter studenten. Arbetsgivarna får samtidigt möjlighet att lära känna en blivande medarbetare under lång tid. Lärare och skolledare lyfter dock andra sidor. Kvaliteten på utbildningen avgörs till stor del av handledaren, och handledarna har mycket olika förutsättningar. På en del arbetsplatser får handledaren avsatt tid och utbildning för uppdraget, på andra ska handledningen ske vid sidan av ordinarie arbete. Skolan har dessutom svårt att följa upp vad eleven faktiskt gör under dagarna ute. Lärlingsformen har funnits i flera decennier i olika versioner, men andelen elever som väljer den är fortfarande liten jämfört med länder där lärlingssystemet är en självklar del av utbildningen. Varför intresset är så lågt finns det flera förklaringar till, men ingen som alla är överens om.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Lärare och skolledare beskriver handledarnas förutsättningar som likvärdiga mellan arbetsplatserna.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att handledarna har mycket olika förutsättningar och ger exempel på arbetsplatser med och utan avsatt tid. Påståendet säger motsatsen och kan inte vara sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En lärlingselev tillbringar högst hälften av sin utbildning på skolan.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Enligt texten förläggs minst hälften av utbildningen på en arbetsplats och resten på skolan. Då kan skoltiden vara högst hälften, och påståendet följer säkert.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>På varje arbetsplats har handledaren fått tid avsatt för att handleda lärlingen.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten skiljer på arbetsplatser där handledaren får avsatt tid och andra där handledningen sker vid sidan av ordinarie arbete. De senare är motexempel, så påståendet om varje arbetsplats är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Lärlingselever avbryter sin gymnasieutbildning mer sällan än andra elever på yrkesprogrammen.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Avbrott i utbildningen tas inte upp. Anhängarna talar om en ny chans att lyckas, men texten innehåller ingen jämförelse som skulle göra det möjligt att pröva påståendet.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-15-cykelinfrastruktur">
+      <header>
+        <p class="id">va-15-cykelinfrastruktur</p>
+        <h3>Cykelbanor året runt</h3>
+        <p class="meta">Miljö · 182 ord · svårighet 3</p>
+      </header>
+      <div class="brodtext">Många svenska städer har som mål att fler ska cykla till arbete och skola. Det vanligaste verktyget är att bygga separata cykelbanor, så att cyklisterna slipper dela utrymme med bilar och fotgängare. Trafikplanerare menar att det är tryggheten som avgör om människor väljer cykeln. En cykelbana som är skild från biltrafiken lockar även dem som aldrig skulle cykla i blandtrafik, till exempel föräldrar med små barn. På sträckor där sådana banor byggts har antalet cyklister också ökat, även om det är svårt att veta hur många som annars hade tagit bilen och hur många som tidigare gick eller åkte buss. Andra lyfter fram driften. Cykelorganisationer och driftansvariga i kommunerna påpekar att en cykelbana bara gör nytta om den hålls snöfri och halkbekämpad. I flera kommuner plogas cykelbanorna först efter bilvägarna, och då står cyklisterna utan framkomlig väg på morgonen. Ett antal städer har därför börjat sopa cykelbanorna före gatorna i centrum och samtidigt sprida saltlösning, en metod som kallas sopsaltning. Metoden kostar mer per kilometer än vanlig plogning. Om den ökade vintercyklingen motiverar kostnaden är en fråga där kommunerna har landat olika.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Trafikplanerarna anser att känslan av trygghet styr om människor börjar cykla.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det står i texten att trafikplanerare menar att tryggheten avgör om människor väljer cykeln. Påståendet är samma tanke med andra ord och därmed sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Fler cyklister på de nya banorna har lett till färre bilresor i städerna.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten säger att antalet cyklister har ökat, men också att det är svårt att veta hur många som annars hade tagit bilen. Därför går det inte att sluta sig till att bilresorna blivit färre, och inte heller att de inte blivit det.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>I samtliga kommuner plogas cykelbanorna före bilvägarna.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten nämner flera kommuner där cykelbanorna plogas först efter bilvägarna. Det räcker som motexempel, och påståendet om samtliga kommuner är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Sopsaltning minskar antalet halkolyckor bland cyklister.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Om olyckor säger texten ingenting. Den beskriver metoden och vad den kostar, så påståendet om halkolyckor kan varken bekräftas eller motsägas.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="va-16-digital-journalforing">
+      <header>
+        <p class="id">va-16-digital-journalforing</p>
+        <h3>Journalanteckningar som skrivs av ett program</h3>
+        <p class="meta">Teknik · 193 ord · svårighet 3</p>
+      </header>
+      <div class="brodtext">Läkare och sjuksköterskor lägger en stor del av arbetsdagen på att dokumentera i patientjournalen. Flera regioner prövar därför program som lyssnar på samtalet mellan vårdpersonal och patient och föreslår en journalanteckning, som den ansvarige sedan läser igenom och godkänner. I de första försöken uppger läkarna att tiden för dokumentation har minskat, och flera säger att de kan titta på patienten i stället för på skärmen under besöket. Regionerna ser också en möjlighet att korta köerna om varje läkare hinner med fler besök. Kritiska röster finns dock både bland vårdpersonal och bland jurister. De pekar på att en journal är en rättslig handling, och att ansvaret för innehållet ligger kvar hos den som signerar. Om programmet missar en nyans i det patienten berättar, eller skriver något som inte sades, är det läkaren som får stå för felet. Risken är att stressad personal godkänner förslagen utan att läsa dem noga. Det finns också frågor om var ljudupptagningarna lagras och vem som har tillgång till dem. Regionerna svarar att ljudet raderas när anteckningen är godkänd och att patienten tillfrågas innan programmet slås på. Några större utvärderingar av hur ofta förslagen innehåller fel har ännu inte publicerats.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Programmet signerar journalanteckningen på egen hand när samtalet är avslutat.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att programmet föreslår en anteckning som den ansvarige läser igenom och godkänner. Påståendet strider mot det, så det är falskt och inte en öppen fråga.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Om en godkänd anteckning innehåller något patienten aldrig sa, är det den signerande läkaren som bär ansvaret.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det följer av två meningar: ansvaret ligger kvar hos den som signerar, och läkaren får stå för felet om programmet skriver något som inte sades. Påståendet sammanfattar det och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Programmets förslag innehåller alltid minst ett fel som läkaren måste rätta.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Sista meningen säger att inga större utvärderingar av hur ofta förslagen innehåller fel har publicerats. Utan sådana uppgifter finns inget i texten att pröva ordet alltid mot.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Patienterna föredrar besök där programmet används framför vanliga besök.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten återger läkarnas, juristernas och regionernas syn men inte patienternas. Vad patienterna föredrar står det inget om, och påståendet blir därför oavgörbart.</p>
+        </li>
+      </ol>
+    </article>
+  </section>
+  <section>
+    <h2>Grund</h2>
+    <p class="sammanfattning">12 texter, 48 påståenden, 12 går inte att avgöra (25 procent), 127 till 142 ord. Källa: <code>src/lib/verbalTestV2/kandidater/parti-02-grund.json</code></p>
+    <nav class="innehall"><a href="#vg-01-friskvardsbidrag">vg-01-friskvardsbidrag</a><a href="#vg-02-arbetsplatstraffar">vg-02-arbetsplatstraffar</a><a href="#vg-03-meroppna-bibliotek">vg-03-meroppna-bibliotek</a><a href="#vg-04-skolskjuts">vg-04-skolskjuts</a><a href="#vg-05-matavfall">vg-05-matavfall</a><a href="#vg-06-folkhogskola">vg-06-folkhogskola</a><a href="#vg-07-elsparkcyklar">vg-07-elsparkcyklar</a><a href="#vg-08-sjukanmalan">vg-08-sjukanmalan</a><a href="#vg-09-hushallsbudget">vg-09-hushallsbudget</a><a href="#vg-10-e-legitimation">vg-10-e-legitimation</a><a href="#vg-11-allemansratten">vg-11-allemansratten</a><a href="#vg-12-ideellt-arbete">vg-12-ideellt-arbete</a></nav>
+    
+    <article class="text" id="vg-01-friskvardsbidrag">
+      <header>
+        <p class="id">vg-01-friskvardsbidrag</p>
+        <h3>Friskvårdsbidraget</h3>
+        <p class="meta">Hälsa · 142 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Många arbetsgivare erbjuder sina anställda ett friskvårdsbidrag. Bidraget kan användas till motion och annan friskvård, till exempel gymkort, simhall eller en kurs i yoga. Om arbetsgivaren följer Skatteverkets regler behöver den anställde inte betala skatt på bidraget. För att bidraget ska vara skattefritt måste det erbjudas alla anställda på samma villkor. Arbetsgivaren kan alltså inte välja att ge bidraget till vissa avdelningar och inte till andra. Den anställde betalar oftast själv först och lämnar sedan in kvittot för att få pengarna tillbaka. Kvittot ska visa vad som har köpts och vem som har betalat. Vissa saker räknas inte som friskvård, till exempel utrustning som skor och kläder eller ett medlemskap i en golfklubb. Arbetsgivare som erbjuder bidraget beskriver det ofta som ett enkelt sätt att visa att de bryr sig om personalens hälsa. Bidraget nämns dessutom ofta i platsannonser som en förmån.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Friskvårdsbidraget kan användas till ett kort på ett gym.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten nämner gymkort som ett av exemplen på vad bidraget kan användas till. Påståendet stämmer alltså med det som står.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En arbetsgivare kan ge skattefritt friskvårdsbidrag enbart till säljavdelningen.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att bidraget måste erbjudas alla anställda på samma villkor för att vara skattefritt. Att ge det till en enda avdelning går därför inte, och påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Ett par nya löparskor kan betalas med friskvårdsbidraget.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten räknar upp skor och kläder bland det som inte räknas som friskvård. Löparskor är skor, så påståendet går emot texten.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>De flesta anställda använder hela sitt friskvårdsbidrag under året.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Hur mycket av bidraget de anställda faktiskt använder står det inget om. Påståendet går därför varken att bekräfta eller att säga emot med hjälp av texten.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-02-arbetsplatstraffar">
+      <header>
+        <p class="id">vg-02-arbetsplatstraffar</p>
+        <h3>Arbetsplatsträffen</h3>
+        <p class="meta">Arbetsliv · 134 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">På många arbetsplatser samlas personalen regelbundet till en arbetsplatsträff. Träffen är ett tillfälle för chefen att informera om förändringar och för medarbetarna att ta upp frågor om arbetet. På en arbetsplatsträff brukar man också gå igenom arbetsmiljön, till exempel om någon har varit nära att skada sig eller om arbetsbelastningen har blivit för hög. Skyddsombudet deltar ofta och kan föra frågor vidare om de inte löses direkt. Hur ofta träffarna hålls bestäms på varje arbetsplats, men en gång i månaden är vanligt. En träff fungerar bäst när dagordningen skickas ut i förväg, så att alla hinner fundera på vad de vill ta upp. Det är också viktigt att någon skriver minnesanteckningar. Då kan den som var ledig läsa vad som sades, och gruppen kan i efterhand se om det som bestämdes faktiskt blev gjort.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Medarbetarna kan lyfta frågor om sitt arbete på en arbetsplatsträff.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Andra meningen säger att träffen är ett tillfälle för medarbetarna att ta upp frågor om arbetet. Påståendet säger samma sak med andra ord.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Hur ofta träffarna hålls bestäms av en gemensam regel för hela landet.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att det bestäms på varje arbetsplats hur ofta träffarna hålls. En gemensam regel för hela landet stämmer inte med det, så svaret är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>En arbetsmiljöfråga som inte löses på träffen kan gå vidare via skyddsombudet.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Enligt texten gås arbetsmiljön igenom på träffen, och skyddsombudet kan föra frågor vidare om de inte löses direkt. Tillsammans ger de två uppgifterna påståendet.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>De flesta medarbetare tycker att arbetsplatsträffarna är meningsfulla.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten beskriver hur en träff går till och vad som gör den bra, men inte vad medarbetarna tycker om den. Det finns alltså inget att stödja ett svar på.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-03-meroppna-bibliotek">
+      <header>
+        <p class="id">vg-03-meroppna-bibliotek</p>
+        <h3>Meröppet bibliotek</h3>
+        <p class="meta">Kultur · 137 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Allt fler bibliotek på mindre orter har infört det som kallas meröppet. Det innebär att besökarna kan gå in i biblioteket även när ingen personal är på plats, till exempel tidigt på morgonen eller på kvällen. För att komma in behöver man ett lånekort och en kod, och man måste först ha skrivit på ett avtal med biblioteket. Under de obemannade timmarna lånar besökarna själva i en automat. Det går också att läsa tidningar, använda datorerna och studera vid borden. Lokalen övervakas ofta med kameror, och personalen ser till att allt är i ordning när de kommer tillbaka. Kommunerna som har infört meröppet säger att biblioteket blivit tillgängligt för fler, särskilt för dem som arbetar på dagtid. Biblioteket kan på så sätt hålla öppet många fler timmar i veckan utan att kostnaden för personal ökar lika mycket.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Meröppet innebär att det alltid finns personal på plats när biblioteket är öppet.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att besökarna kan gå in även när ingen personal är på plats. Det är ett motexempel mot ordet alltid, och påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>När ingen personal finns i lokalen sköter besökarna sina lån med hjälp av en automat.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det står att besökarna under de obemannade timmarna lånar själva i en automat. Påståendet återger det och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Det räcker med ett lånekort för att komma in under de obemannade timmarna.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att man behöver både lånekort och kod, och att man först måste ha skrivit på ett avtal. Lånekortet ensamt räcker alltså inte.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Utlåningen av böcker har ökat sedan meröppet infördes.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten säger att biblioteket blivit tillgängligt för fler, men inget om hur många böcker som lånas. Om utlåningen har ökat kan läsaren därför inte veta.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-04-skolskjuts">
+      <header>
+        <p class="id">vg-04-skolskjuts</p>
+        <h3>Skolskjuts</h3>
+        <p class="meta">Samhälle · 127 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Kommunen ansvarar för att elever i grundskolan får skolskjuts när det behövs. Rätten gäller i första hand den skola som kommunen har placerat eleven i. Om avståndet mellan hemmet och skolan är långt, eller om vägen är farlig att gå eller cykla, kan eleven få åka buss eller taxi utan kostnad. Varje kommun bestämmer själv vilka avstånd som räknas som långa, och reglerna skiljer sig därför åt i landet. Ofta är gränsen kortare för de yngsta eleverna än för de äldre. Den som väljer en annan skola än den kommunen erbjuder har inte alltid rätt till skolskjuts. Föräldrar som är missnöjda med kommunens beslut kan överklaga det. Ansökan görs vanligen på kommunens webbplats, och beslutet gäller oftast ett läsår i taget. Därefter behöver familjen ansöka på nytt.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Familjen behöver inte betala för den skolskjuts som kommunen beviljar.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att eleven kan få åka buss eller taxi utan kostnad. Påståendet säger samma sak och är därför sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En elev i lågstadiet kan ha rätt till skolskjuts på ett avstånd där en äldre elev i samma kommun inte har det.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det står att gränsen ofta är kortare för de yngsta eleverna än för de äldre. Då kan samma avstånd ge skjuts åt en yngre elev men inte åt en äldre, och påståendet stämmer.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Alla kommuner i landet använder samma avståndsgräns för skolskjuts.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Enligt texten bestämmer varje kommun själv vilka avstånd som räknas som långa, och reglerna skiljer sig åt. Påståendet motsägs därmed och är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>De flesta elever med skolskjuts åker taxi till skolan.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten nämner buss och taxi men säger inget om hur många som åker med vardera. Därför går det inte att avgöra om påståendet är sant eller falskt.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-05-matavfall">
+      <header>
+        <p class="id">vg-05-matavfall</p>
+        <h3>Matavfallet i soprummet</h3>
+        <p class="meta">Miljö · 133 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Sedan några år ska alla hushåll i Sverige kunna sortera ut sitt matavfall. I många bostadsområden finns en egen behållare för matavfall i soprummet, och hushållen får papperspåsar att samla avfallet i. Matavfallet blir sedan biogas, som kan driva bussar och sopbilar, och det som blir kvar kan användas som gödsel på åkrarna. Det är viktigt att påsen inte innehåller plast, eftersom plasten är svår att sortera bort i anläggningen. Kaffefilter och hushållspapper går däremot bra att lägga i påsen. Påsen ska inte fyllas så mycket att den går sönder, och den bör få torka lite i en luftig hållare innan den knyts ihop. På så sätt luktar det mindre och påsen håller bättre. Den som är osäker på vad som räknas som matavfall kan oftast hitta en lista hos kommunen eller fastighetsägaren.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Matavfall kan bli bränsle till fordon.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att matavfallet blir biogas som kan driva bussar och sopbilar. Bussar och sopbilar är fordon, så påståendet är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Matavfallet kan gärna samlas i en vanlig plastpåse.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att påsen inte får innehålla plast, eftersom plasten är svår att sortera bort. Påståendet säger motsatsen och är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Ett använt kaffefilter kan följa med matresterna till biogasanläggningen.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Kaffefilter går enligt texten bra att lägga i påsen, och innehållet i påsen blir biogas. Av de två uppgifterna följer att filtret kan följa med.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Mängden mat som slängs i hushållen har minskat sedan sorteringen infördes.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten handlar om hur matavfallet sorteras och vad det blir, men inte om hur mycket mat som slängs. Påståendet kan därför inte prövas mot texten.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-06-folkhogskola">
+      <header>
+        <p class="id">vg-06-folkhogskola</p>
+        <h3>Folkhögskolan</h3>
+        <p class="meta">Utbildning · 129 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Folkhögskolor finns över hela landet och drivs antingen av regioner eller av föreningar, kyrkor och folkrörelser. Den som inte har gått klart gymnasiet kan läsa på allmän kurs och bli behörig till högskolan. Undervisningen är ofta friare än i gymnasieskolan, med färre prov och mer arbete i grupp. Många skolor erbjuder också boende på internat, vilket gör det möjligt att studera på en annan ort. Utöver den allmänna kursen finns särskilda kurser inom till exempel musik, konst, journalistik och friluftsliv. En del av dem leder till ett yrke, som fritidsledare eller behandlingspedagog. Själva undervisningen är avgiftsfri, men eleven får ofta betala för material, resor och kost. Under studietiden kan man söka studiemedel från CSN. Folkhögskolan beskrivs ofta som en andra chans för den som inte trivdes i skolan tidigare.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Den som saknar en fullständig gymnasieutbildning kan bli behörig till högskolan via folkhögskolan.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det står att den som inte har gått klart gymnasiet kan läsa på allmän kurs och bli behörig till högskolan. Påståendet stämmer därmed.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Eleverna betalar en avgift för själva undervisningen.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Texten säger att själva undervisningen är avgiftsfri. Kostnader nämns bara för material, resor och kost, så påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>En elev som läser en avgiftsfri kurs kan ändå få utgifter för maten.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Undervisningen kostar enligt texten ingenting, men eleven får ofta betala för kost. Kost är mat, och därför kan eleven ha utgifter för den trots att kursen är avgiftsfri.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Folkhögskolor som drivs av regioner har fler elever än de som drivs av folkrörelser.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten nämner vilka som driver folkhögskolorna men säger inget om hur många elever de har. Det finns därför inget att jämföra med.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-07-elsparkcyklar">
+      <header>
+        <p class="id">vg-07-elsparkcyklar</p>
+        <h3>Elsparkcyklar i stan</h3>
+        <p class="meta">Samhälle · 129 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">I många större städer går det att hyra elsparkcyklar via mobilen. Sedan 2022 gäller särskilda regler för var de får ställas, och en elsparkcykel får inte parkeras så att den hindrar dem som går. Elsparkcyklar räknas som cyklar i trafiken. Den som kör ska därför använda cykelbanan om det finns en, och det är inte tillåtet att köra på trottoaren. Barn under femton år måste ha cykelhjälm, precis som när de cyklar. Det är inte heller tillåtet att vara två på samma elsparkcykel. Flera kommuner har infört särskilda platser där hyrfordonen ska parkeras, och vissa har begränsat hur många fordon varje företag får ha ute på gatorna. Syftet är att det ska bli lättare att ta sig fram för den som går, särskilt för personer med synnedsättning eller rullstol.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Den som kör elsparkcykel ska välja cykelbanan när en sådan finns.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att elsparkcyklar räknas som cyklar och att den som kör därför ska använda cykelbanan om det finns en. Påståendet är alltså sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>En tolvåring får köra elsparkcykel utan hjälm.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Enligt texten måste barn under femton år ha cykelhjälm. En tolvåring är under femton år, så påståendet strider mot regeln och är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Två personer får dela på en elsparkcykel om båda bär hjälm.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att det inte är tillåtet att vara två på samma elsparkcykel. Texten gör inget undantag för hjälm, och påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Olyckorna med elsparkcyklar har blivit färre sedan reglerna ändrades.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten beskriver reglerna och syftet med dem men nämner inga olyckor. Om de har blivit färre går inte att avgöra utifrån det som står.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-08-sjukanmalan">
+      <header>
+        <p class="id">vg-08-sjukanmalan</p>
+        <h3>Sjukanmälan och sjuklön</h3>
+        <p class="meta">Arbetsliv · 129 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">Den som blir sjuk och inte kan arbeta ska anmäla det till sin arbetsgivare så tidigt som möjligt, helst innan arbetsdagen börjar. Under de första fjorton dagarna betalar arbetsgivaren sjuklön. Sjuklönen är ungefär åtta tiondelar av den vanliga lönen. Från den första sjukdagen görs ett karensavdrag, som motsvarar en femtedel av en genomsnittlig veckas sjuklön. Om den anställde är sjuk mer än sju kalenderdagar behöver arbetsgivaren få ett läkarintyg. Är sjukdomen längre än fjorton dagar tar Försäkringskassan över och betalar sjukpenning, och då måste den anställde själv ansöka. Många arbetsplatser har dessutom egna rutiner för sjukanmälan, till exempel att man ska ringa sin chef och inte bara skicka ett meddelande. Det är därför klokt att ta reda på vad som gäller på den egna arbetsplatsen innan man blir sjuk.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Arbetsgivaren står för ersättningen under de två första sjukveckorna.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att arbetsgivaren betalar sjuklön under de första fjorton dagarna. Fjorton dagar är två veckor, så påståendet stämmer.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Den som är sjuk i fem dagar måste lämna läkarintyg till arbetsgivaren.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Läkarintyg behövs enligt texten först när den anställde är sjuk mer än sju kalenderdagar. Fem dagar är färre än så, och därför är påståendet falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>En anställd som är sjuk i tre veckor får under en del av tiden ersättning från Försäkringskassan.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Det står att Försäkringskassan tar över när sjukdomen är längre än fjorton dagar. Tre veckor är längre, så den sista veckan betalar Försäkringskassan och påståendet är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Arbetsgivare brukar ringa upp sjuka medarbetare för att höra hur de mår.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten beskriver hur den anställde ska anmäla sig, men inte vad arbetsgivaren gör under sjukdomen. Påståendet varken stöds eller motsägs.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-09-hushallsbudget">
+      <header>
+        <p class="id">vg-09-hushallsbudget</p>
+        <h3>Hushållets budget</h3>
+        <p class="meta">Ekonomi · 140 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Att göra en budget för hushållet är ett enkelt sätt att få överblick över ekonomin. Man börjar med att skriva ner alla inkomster efter skatt under en månad. Därefter listar man de fasta utgifterna, som hyra, el, försäkringar och lån. Sedan kommer de rörliga utgifterna, till exempel mat, kläder och nöjen, som ofta är svårare att uppskatta. Ett tips är att spara kvitton eller titta på kontoutdragen under ett par månader för att se vart pengarna faktiskt tar vägen. När inkomster och utgifter är uppskrivna syns det om pengarna räcker. Blir det pengar över kan en del sparas till en buffert för oväntade utgifter, som en trasig tvättmaskin eller en tandläkarräkning. Konsumentverket har räknat fram vad olika hushåll i genomsnitt behöver för vanliga utgifter, och de siffrorna kan vara ett stöd för den som inte vet var man ska börja.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Hyra och försäkringar räknas som fasta utgifter i budgeten.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten räknar upp hyra, el, försäkringar och lån som fasta utgifter. Påståendet tar två av dem och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Inkomsterna ska föras in i budgeten innan skatten har dragits.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att man skriver ner alla inkomster efter skatt. Påståendet säger det omvända och är därför falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Kontoutdrag kan hjälpa den som har svårt att uppskatta sina rörliga utgifter.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att de rörliga utgifterna är svårare att uppskatta, och att kontoutdragen visar vart pengarna tar vägen. Av de två meningarna följer påståendet.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>De flesta hushåll som gör en budget lyckas spara pengar.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten förklarar hur man gör en budget, men inte hur det brukar gå för dem som gör en. Om de flesta lyckas spara går inte att utläsa.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-10-e-legitimation">
+      <header>
+        <p class="id">vg-10-e-legitimation</p>
+        <h3>Legitimera sig digitalt</h3>
+        <p class="meta">Teknik · 139 ord · svårighet 2</p>
+      </header>
+      <div class="brodtext">Med en e-legitimation kan man visa vem man är på internet, ungefär som med ett id-kort i en butik. Den används för att logga in hos myndigheter, banker och vårdgivare och för att skriva under avtal. Den vanligaste formen i Sverige är en legitimation i mobilen som man får via sin bank. För att den ska fungera krävs ett svenskt personnummer. Den som saknar en sådan legitimation kan ofta få hjälp på ett servicekontor eller beställa en legitimation på kort med en kortläsare. Polisen och bankerna varnar för bedragare som ringer och ber personen att legitimera sig, ofta med en historia om att ett konto är i fara. En bank eller myndighet ber aldrig någon att legitimera sig i ett samtal som de själva har ringt. Den som blir osäker bör lägga på och själv ringa företagets vanliga nummer.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>En e-legitimation kan användas för att skriva under ett avtal.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att e-legitimationen används för att logga in och för att skriva under avtal. Påståendet är därför sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Om banken själv ringer upp och ber kunden legitimera sig är det tryggt att göra det.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att en bank aldrig ber någon legitimera sig i ett samtal som banken själv har ringt. Ett sådant samtal är alltså ett varningstecken, och påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Den som saknar svenskt personnummer kan inte använda legitimationen i mobilen.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten beskriver legitimationen i mobilen och säger att den kräver ett svenskt personnummer. Utan personnummer fungerar den alltså inte.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Äldre personer blir oftare lurade av bedragare i telefon än yngre.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten varnar för bedragare som ringer, men säger inget om vilka åldrar som drabbas. Det går därför inte att avgöra om påståendet stämmer.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-11-allemansratten">
+      <header>
+        <p class="id">vg-11-allemansratten</p>
+        <h3>Allemansrätten</h3>
+        <p class="meta">Miljö · 141 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">Allemansrätten ger alla som vistas i Sverige möjlighet att röra sig fritt i naturen, även på mark som någon annan äger. Man får gå, cykla och rida, och man får plocka bär, svamp och blommor som inte är fridlysta. Det är också tillåtet att tälta en natt eller två på samma plats, så länge det inte är nära ett bostadshus eller på åkermark. Rätten kommer med ett ansvar. Den som är ute i naturen ska inte störa djur eller människor och inte förstöra något. Det är inte tillåtet att bryta grenar från levande träd eller att gå över en tomt som hör till ett hus. Eld får göras bara när det är säkert, och under torra perioder kan kommunen eller länsstyrelsen förbjuda eldning helt. Skräp ska tas med hem. En enkel regel att minnas är att inte störa och inte förstöra.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Det är tillåtet att plocka svamp på mark som tillhör någon annan.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten säger att man får röra sig även på mark som någon annan äger och att man får plocka svamp. Påståendet följer direkt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Den som tältar får sätta upp tältet på en åker om ingen bor i närheten.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Enligt texten är det inte tillåtet att tälta på åkermark. Regeln gäller oavsett om någon bor i närheten, så påståendet är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Allemansrätten gör att det alltid är tillåtet att göra upp eld i skogen.</p>
+          <p class="etiketter"><span class="typ">Kvantor</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Det står att eld bara får göras när det är säkert, och att eldning kan förbjudas helt under torra perioder. Det motsäger ordet alltid.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Allt fler svenskar tältar i naturen under sommaren.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten beskriver vad som är tillåtet, men inte hur många som tältar eller hur det har förändrats. Påståendet kan därför inte avgöras.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="vg-12-ideellt-arbete">
+      <header>
+        <p class="id">vg-12-ideellt-arbete</p>
+        <h3>Ideella uppdrag i cv:t</h3>
+        <p class="meta">Samhälle · 141 ord · svårighet 1</p>
+      </header>
+      <div class="brodtext">En stor del av föreningslivet i Sverige bygger på människor som arbetar ideellt, alltså utan lön. Det kan handla om att träna ett barnlag i fotboll, sitta i styrelsen för en bostadsrättsförening eller hjälpa till på en loppis för en hjälporganisation. Många som engagerar sig säger att de gör det för att det är roligt och för att de vill göra något för andra. Ideellt arbete kan också ge erfarenheter som är värdefulla i arbetslivet, till exempel att leda en grupp, planera ett arrangemang eller sköta en budget. Därför kan det vara klokt att skriva in uppdragen i sitt cv, särskilt för den som har kort arbetslivserfarenhet. Det som räknas är vad man har gjort och vad man har lärt sig. En rad som bara säger att man har varit medlem i en förening säger däremot inte mycket för en rekryterare.</div>
+      <ol class="pstlista">
+        <li class="pst">
+          <p class="pst-text"><span class="nr">1</span>Den som arbetar ideellt får ingen lön för sitt arbete.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Första meningen i texten förklarar att ideellt arbete betyder arbete utan lön. Påståendet säger samma sak och är sant.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">2</span>Att ha tränat ett fotbollslag för barn kan vara en merit när man söker jobb.</p>
+          <p class="etiketter"><span class="typ">Slutledning</span><span class="facit facit-true">Sant</span></p>
+          <p class="forklaring">Texten ger barnlag i fotboll som exempel på ideellt arbete och säger att sådant arbete kan ge erfarenheter som är värdefulla i arbetslivet, som att leda en grupp. Därav följer påståendet.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">3</span>Ett medlemskap i en förening räcker som rad i cv:t för att väcka en rekryterares intresse.</p>
+          <p class="etiketter"><span class="typ">Direkt</span><span class="facit facit-false">Falskt</span></p>
+          <p class="forklaring">Sista meningen säger att en rad om att man varit medlem inte säger mycket för en rekryterare. Påståendet går emot det och är falskt.</p>
+        </li>
+        <li class="pst">
+          <p class="pst-text"><span class="nr">4</span>Kvinnor arbetar ideellt i större utsträckning än män.</p>
+          <p class="etiketter"><span class="typ">Utanför texten</span><span class="facit facit-cannot_say">Går inte att avgöra</span></p>
+          <p class="forklaring">Texten säger ingenting om skillnader mellan kvinnor och män. Påståendet kan därför varken bekräftas eller avfärdas utifrån det som står.</p>
+        </li>
+      </ol>
+    </article>
+  </section>
+</main>
+</body>
+</html>
