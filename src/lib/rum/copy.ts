@@ -246,6 +246,38 @@ export const BREVVY = {
 
 /* ------------------------------------------------------------ våg 4 */
 
+const TALORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'] as const
+
+/**
+ * Tal i löpande mening (copywriterns regel, copy-rummen-vag4): bokstäver till
+ * och med tolv, siffror därefter. `ett` ger neutrum för ett. Instrumenten
+ * (ringen, chippen, "Alla 5", spårets dagar) behåller siffror.
+ */
+export function talord(n: number, ett = false): string {
+  if (Number.isInteger(n) && n >= 0 && n <= 12) return n === 1 && ett ? 'ett' : TALORD[n]
+  return String(n)
+}
+
+/** Talordet med versal, för meningens början. */
+export function Talord(n: number, ett = false): string {
+  const t = talord(n, ett)
+  return t.charAt(0).toUpperCase() + t.slice(1)
+}
+
+/**
+ * Nästa handling: uppföljningen (art-director 21.3 punkt 5, copywriterns
+ * punkt 8). En tyst tjänst som finns i hemmets lista namnges; annars heter
+ * posten "sökt tjänst", aldrig "ansökan".
+ */
+export const NASTA_FOLJ_UPP = {
+  namnTitel: (foretag: string) => `Följ upp ${foretag}`,
+  namnText: (dagar: number) => `Sökt för ${dagar} dagar sedan, inget svar. Ett kort mejl brukar ge besked. Vi skriver utkastet.`,
+  titel: (n: number) => (n === 1 ? 'Följ upp en sökt tjänst' : `Följ upp ${talord(n)} sökta tjänster`),
+  textEn: 'Den har inte svarat på över tolv dagar. Ett kort mejl brukar räcka, och vi skriver utkastet åt dig.',
+  textFlera: 'De har inte svarat på över tolv dagar. Ett kort mejl brukar räcka, och vi skriver utkasten åt dig.',
+  knapp: 'Följ upp',
+} as const
+
 /** Svenska datum: "15 okt" och "torsdag 15 oktober" (spec 8). */
 const KORT_DATUM = new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short', timeZone: 'Europe/Stockholm' })
 export function kortDatum(iso: string | Date): string {
@@ -378,6 +410,8 @@ export const CV_RUM = {
       namn.length ? `Saknas i CV:t: ${namn.slice(0, 3).join(', ')}${namn.length > 3 ? ' med flera' : ''}.` : 'Efterfrågade kompetenser saknas i CV:t.',
   },
   minaCvRubrik: UNDERSIDA.minaCv,
+  /** Listan på Mina CV (21.2 fråga 1): samma ord som väggens "4 sparade CV". */
+  sparadeRubrik: 'Sparade CV',
   cvMeta: {
     poang: (p: number) => `${p} av 100.`,
     inteAnalyserat: 'Inte analyserat.',

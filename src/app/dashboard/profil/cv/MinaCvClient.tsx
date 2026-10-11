@@ -10,6 +10,8 @@ import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
+import InlineCVUpload from '@/components/cv/InlineCVUpload';
+import { formatCVDate } from '@/lib/utils/date-formatter';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvCard from './components/CvCard';
@@ -229,18 +231,9 @@ export default function MinaCvClient({
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffDays = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    if (diffDays === 0) return 'Idag';
-    if (diffDays === 1) return 'Igår';
-    if (diffDays < 7) return `${diffDays} dagar sedan`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} veckor sedan`;
-    return date.toLocaleDateString('sv-SE');
-  };
+  // Samma relativa datum som brevflödets och LinkedIn-flödets CV-val
+  // ("1 vecka sedan", 21.3 punkt 8).
+  const formatDate = formatCVDate;
 
 
   const openCVInNewWindow = (cv: InitialCv) => {
@@ -418,6 +411,27 @@ export default function MinaCvClient({
             </ol>
           </Kort>
         </>
+      ) : isEmpty ? (
+        // Utan CV (21.3 punkt 6, samma mönster som hemmet A i 18.3.2):
+        // uppladdningsytan står i det lyfta kortet och är handlingen själv.
+        <LyftKort
+          label={LYFT.minaCv.titel}
+          eyebrow={LYFT.minaCv.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.minaCv.titel}
+          text={LYFT.minaCv.text}
+        >
+          <div id="upload-zone" className="mt-3.5 scroll-mt-6">
+            <InlineCVUpload
+              showCancel={false}
+              hideHeader
+              onComplete={(cv) => {
+                setQuickScoreCvId(cv.id);
+                void refreshCvs();
+              }}
+            />
+          </div>
+        </LyftKort>
       ) : !limitReached ? (
         <LyftKort
           label={LYFT.minaCv.titel}
@@ -436,26 +450,6 @@ export default function MinaCvClient({
       ) : null}
     <div className="w-full max-w-5xl space-y-6">
 
-      {/* Tomt tillstånd: lyftkortet bär handlingen och uppladdningskortet är
-          dess mål. Ingen EmptyState, en handling på en plats (spec 18.3
-          punkt 3). Utan CV är gränsen aldrig nådd, så lyftkortet står alltid. */}
-      {isEmpty && (
-        <>
-          <div id="upload-zone" className="scroll-mt-6">
-            <UploadCard>
-              <CVUploadZone
-                onUpload={handleUpload}
-                onGdprChange={setGdprConsent}
-                disabled={isUploading}
-                maxSizeMB={10}
-              />
-            </UploadCard>
-          </div>
-
-          <TrustChips />
-        </>
-      )}
-
       {/* Med CV */}
       {cvCount > 0 && (
         <>
@@ -473,9 +467,9 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <SektRubrik>Dina CV</SektRubrik>
+            <SektRubrik>{CV_RUM.sparadeRubrik}</SektRubrik>
 
-            <Rader label="Dina CV" className="mt-4">
+            <Rader label={CV_RUM.sparadeRubrik} className="mt-4">
               {cvs.map((cv, i) => {
                 const structured =
                   structuredOverrides[cv.id] ?? cv.structured_data ?? null;
@@ -571,20 +565,3 @@ function UploadCard({
   );
 }
 
-function TrustChips() {
-  const items = [
-    'Tar 30 sekunder',
-    'GDPR-säkert, radera när du vill',
-    'Krypterat och privat',
-  ];
-  return (
-    <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-1 text-meta text-ink-3">
-      {items.map((label) => (
-        <li key={label} className="inline-flex items-center gap-1.5">
-          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink-3" />
-          {label}
-        </li>
-      ))}
-    </ul>
-  );
-}

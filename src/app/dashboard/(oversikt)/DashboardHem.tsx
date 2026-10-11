@@ -442,6 +442,7 @@ export default function DashboardHem() {
                 onDismiss={dismissNextAction}
                 intent={valtVidStart}
                 utanOverlapp={purchasedPlan !== null}
+                tjanster={tjanster}
               />
             ) : null}
             <SoktaTjansterRader

@@ -21,6 +21,8 @@ import { featureUtanforVal } from '@/hooks/useUnusedFeatures'
 import type { SignupIntent } from '@/components/registrering/intent'
 import LyftKort from '@/components/rum/LyftKort'
 import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { NASTA_FOLJ_UPP } from '@/lib/rum/copy'
+import type { SoktTjanst } from '@/lib/rum/jobbsok'
 
 interface NastaHandlingProps {
   action: NextBestAction
@@ -31,20 +33,38 @@ interface NastaHandlingProps {
   intent?: SignupIntent | null
   /** Kortet står inte direkt under väggen (eller en förälder överlappar). */
   utanOverlapp?: boolean
+  /** Hemmets sökta tjänster (spåret), så att en ensam tyst tjänst kan namnges. */
+  tjanster?: SoktTjanst[]
 }
 
-function copyFor(action: NonNullable<NextBestAction>) {
+/** Dagar sedan tjänsten söktes, i svensk tid; annars dagar sedan senaste händelsen. */
+function dagarSedanSokt(t: SoktTjanst): number {
+  if (!t.appliedAt) return t.days
+  const dag = (d: Date) => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(d)
+  const ms = Date.parse(dag(new Date())) - Date.parse(dag(new Date(t.appliedAt)))
+  return Number.isFinite(ms) ? Math.max(0, Math.round(ms / 86400000)) : t.days
+}
+
+function copyFor(action: NonNullable<NextBestAction>, tjanster: SoktTjanst[] = []) {
   switch (action.kind) {
-    case 'follow-up':
-      return {
-        title: action.count === 1 ? 'Följ upp en ansökan' : `Följ upp ${action.count} ansökningar`,
-        text:
-          action.count === 1
-            ? 'Den har varit tyst i över två veckor. Ett kort mejl brukar räcka, och vi skriver utkastet från din ansökan.'
-            : 'De har varit tysta i över två veckor. Ett kort mejl brukar räcka, och vi skriver utkastet från din ansökan.',
-        href: '/dashboard/sokta-tjanster?filter=uppfoljning',
-        cta: 'Följ upp',
+    case 'follow-up': {
+      // En tyst tjänst som spåret redan ritar namnges (J2, 21.3 punkt 5).
+      const tyst = action.count === 1 ? tjanster.filter((t) => t.needsFollowUp) : []
+      if (tyst.length === 1) {
+        return {
+          title: NASTA_FOLJ_UPP.namnTitel(tyst[0].company),
+          text: NASTA_FOLJ_UPP.namnText(dagarSedanSokt(tyst[0])),
+          href: `/dashboard/sokta-tjanster/${tyst[0].id}`,
+          cta: NASTA_FOLJ_UPP.knapp,
+        }
       }
+      return {
+        title: NASTA_FOLJ_UPP.titel(action.count),
+        text: action.count === 1 ? NASTA_FOLJ_UPP.textEn : NASTA_FOLJ_UPP.textFlera,
+        href: '/dashboard/sokta-tjanster?filter=uppfoljning',
+        cta: NASTA_FOLJ_UPP.knapp,
+      }
+    }
     case 'af-report':
       return {
         title: `Rapporten för ${action.monthLabel}`,
@@ -92,14 +112,14 @@ function copyFor(action: NonNullable<NextBestAction>) {
   }
 }
 
-export default function NastaHandling({ action, onDismiss, secondary, intent = null, utanOverlapp }: NastaHandlingProps) {
+export default function NastaHandling({ action, onDismiss, secondary, intent = null, utanOverlapp, tjanster }: NastaHandlingProps) {
   const kind = action?.kind ?? null
   // Mätningen av de nya stegen (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 4).
   useEffect(() => {
     if (kind) capture('next_action_shown', { kind, surface: 'hem' })
   }, [kind])
   if (!action) return null
-  const copy = copyFor(action)
+  const copy = copyFor(action, tjanster)
   return (
     <LyftKort
       utanOverlapp={utanOverlapp}
