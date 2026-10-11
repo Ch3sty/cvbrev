@@ -21,6 +21,42 @@ export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
 /** Varifrån hjälpredan Kom igång öppnades. */
 export type KomIgangSurface = 'rad' | 'profilmeny' | 'valkomst'
 
+/**
+ * Var en betalvägg visades (spec-rummen avsnitt 7, våg 5). Samma värde går
+ * med köpknappen till köpsteget (kopstegHref) och därifrån till kassans
+ * metadata, så att subscription_paid kan räknas per exponering.
+ * Träningen: matning (M1), dag2 (1f och W3, dagens pass låst), riktat,
+ * provlage, ommatning, kurva, infor_prov, generalrepetition. Övriga rum:
+ * en plats per betalväggsvariant (mall, analys, nedladdning och så vidare),
+ * sidomeny för ett grått val i menyn.
+ */
+export type BetalvaggPlats =
+  | 'matning'
+  | 'dag2'
+  | 'riktat'
+  | 'provlage'
+  | 'ommatning'
+  | 'kurva'
+  | 'infor_prov'
+  | 'generalrepetition'
+  | 'sidomeny'
+  | 'mall'
+  | 'testniva'
+  | 'analys'
+  | 'nedladdning'
+  | 'cv_export'
+  | 'jobbtraffar'
+  | 'chatt'
+  | 'historik'
+  | 'linkedin'
+  | 'bli_upptackt'
+  | 'kvot'
+  | 'test_tak'
+  | 'cv_antal'
+  | 'af_rapport'
+  | 'nedgraderad'
+  | 'prenumeration'
+
 /** Varför prissidan öppnades. */
 export type PricingTrigger = 'quota_lock' | 'nav' | 'cta' | 'paywall'
 
@@ -185,6 +221,8 @@ export interface AnalyticsEvents {
     plan?: PlanKey
     /** Ink-knappen eller textlänken under den. */
     cta: 'primary' | 'secondary'
+    /** Exponeringen knappen satt i, samma värde som i betalvagg_visad. */
+    plats?: BetalvaggPlats
   }
   /* Prissidan finns på två ytor: den publika /priser och den inloggade
      prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
@@ -359,7 +397,7 @@ export interface AnalyticsEvents {
   vet_inte_tryckt: { fraga_index: number }
   milstolpe_kvitto_visat: { nyckel: string }
   betalvagg_visad: {
-    plats: 'matning' | 'dag2' | 'riktat' | 'provlage' | 'ommatning' | 'kurva' | 'infor_prov' | 'sidomeny'
+    plats: BetalvaggPlats
     dagar_kvar: number | null
   }
   /* ---------------------------------------------- Rummen, våg 4

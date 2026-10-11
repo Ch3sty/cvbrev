@@ -1,48 +1,65 @@
 'use client'
 
 /**
- * Gemensam betalvägg (docs/designsystem.md, "Betalväggar", och
- * docs/plan-paket-och-onboarding.md Fas 2B avsnitt 4).
+ * Gemensam betalvägg (spec-rummen våg 5, docs/design/copy-premium-2026-10-11.md).
  *
- * Kortet är papper med stark kant: det är inte en position, det är ett
- * erbjudande. Marginalplattan bär vyns enda illustration, handlingen är
- * kopparknappen (KNAPP_PRIMAR, Rummen våg 1b), det sekundära alltid en
- * textlänk. Värdet visas alltid före
- * spärren: brevet syns i sin helhet ovanför, fynden står ovanför kortet.
+ * Bara Jobbcoach Premium säljs. Kortet är papper med kant, rubriken säger
+ * Premium ("Mallen ingår i Premium"), brödtexten vad som ingår, prisraden
+ * fulla namnet med pris ("Jobbcoach Premium, 149 kr i månaden. Säg upp när
+ * du vill."), kopparknappen "Köp Premium, 149 kr i månaden" (kopKnapp via
+ * paywall-copy) och det sekundära alltid en textlänk. Värdet visas alltid
+ * före spärren: brevet syns i sin helhet ovanför, fynden står ovanför kortet.
  *
- * Efter paketomgången bär kortet feature och scope. Knappen leder till
- * köpsteget för paketet i knappen, och varje visning skjuter både paywall_shown och feature_blocked
- * så att vi ser var fel spår tar i taket.
+ * En betalvägg bär alltid sin egen knapp, och en fast fot ligger aldrig
+ * ovanpå en betalvägg (art-director 20.2 fråga 1).
  *
- * Har användaren ett betalt spår som inte räcker är det inte en betalvägg
- * utan en uppgradering, och då renderas FelSpar i stället.
+ * Mätning, en gång per montering: paywall_shown, feature_blocked och
+ * betalvagg_visad (spec-rummen avsnitt 7) med platsen. Köpknappen skickar
+ * platsen vidare till köpsteget (kopstegHref), så att köpet kan räknas per
+ * exponering.
+ *
+ * Har användaren ett betalt spår som inte räcker (befintlig kund med
+ * CV-paketet eller Träningspaketet) renderas FelSpar i stället.
  */
 
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { capture } from '@/lib/analytics/events'
-import { getPaywallCopy, planForPaywall, VARIANT_FEATURE, type PaywallVariant } from './paywall-copy'
+import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
+import { getPaywallCopy, planForPaywall, PAKETRADER, VARIANT_FEATURE, type PaywallVariant } from './paywall-copy'
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
-import type { PlanKey } from '@/lib/plans/plans'
-import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
+import { SALD_PLAN, saljbarPlan, type PlanKey } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import UpgradeSheet, { type PlanOrder } from './UpgradeSheet'
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import FelSpar from './FelSpar'
-import {
-  IlluPlattaNedladdning,
-  IlluPlattaCvPoang,
-  IlluPlattaPremium,
-  IlluPlattaTest,
-  IlluPlattaAnsokan,
-  IlluPlattaPresentation,
-} from '@/components/illustrations/TradenScener'
-import { IlluDagensBrev, IlluAnalysDelvis, IlluNedgraderad } from '@/components/illustrations/PaywallIllustrations'
-import { IlluDoldTraff } from '@/components/illustrations/JobbmatchningIllustrations'
 
-/** Spårvalet. Knappen går hit med paketet förvalt (B3:s flöde 1). */
-export const SPARVAL_HREF = '/dashboard/valj-spar'
+/** Prissidan. Den sekundära länken "Se vad som ingår" går hit. */
+export const PRISER_HREF = '/priser'
+
+/** Platsen för mätningen, per variant (spec-rummen avsnitt 7). */
+export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {
+  mall: 'mall',
+  testniva: 'testniva',
+  analys: 'analys',
+  'analys-omkorning': 'analys',
+  nedladdning: 'nedladdning',
+  'cv-export': 'cv_export',
+  jobbtraffar: 'jobbtraffar',
+  chatt: 'chatt',
+  historik: 'historik',
+  linkedin: 'linkedin',
+  'bli-upptackt': 'bli_upptackt',
+  kvot: 'kvot',
+  'test-tak': 'test_tak',
+  nedgraderad: 'nedgraderad',
+  'cv-antal': 'cv_antal',
+  'af-rapport': 'af_rapport',
+}
+
+/** Sekundära texter som betyder prissidan, inte en handling i vyn. */
+function arPrisText(text: string): boolean {
+  return text === PAKETRADER.jamfor || text === 'Se priset'
+}
 
 export interface PaywallCardProps {
   variant: PaywallVariant
@@ -53,7 +70,7 @@ export interface PaywallCardProps {
   feature?: Feature
   /** Användarens betalda paket, eller null på gratisnivån. */
   scope?: Scope | null
-  /** Spåret hon valde i onboardingen. Styr vilket paket som föreslås. */
+  /** Spåret hon valde i onboardingen. Styr inte längre förslaget. */
   track?: Scope | null
   /** Sann när kontot redan har funktionen. Kortet ritas då inte alls. */
   isPremium?: boolean
@@ -68,46 +85,26 @@ export interface PaywallCardProps {
   /** Variant nedgraderad: sekundär handling stänger kortet */
   onDismiss?: () => void
   /**
-   * Generisk sekundär handling. Ersätter standardlänken i de varianter som
-   * annars pekar på prenumerationssidan.
+   * Generisk sekundär handling. Ersätter länken till prissidan med en knapp
+   * som bär variantens egen text ("Välj bland de 3 fria", "Inte nu").
    */
   onSecondary?: () => void
   /**
-   * Mellanskillnaden i kronor vid en uppgradering. Skickas vidare till
-   * FelSpar, som är den enda yta där beloppet är sant (2A).
+   * Mellanskillnaden i kronor för en befintlig spårkund. Skickas vidare till
+   * FelSpar; gratiskonton ser den aldrig.
    */
   priceDeltaKr?: number | null
   /**
-   * Utan panel och illustration: bara text och handling. För de vyer som
-   * redan har en egen ram runt betalväggen (2A).
+   * Utan panel: bara text och handling. För de vyer som redan har en egen
+   * ram runt betalväggen.
    */
   bare?: boolean
-  /** Ordning i produktvalet. */
-  planOrder?: PlanOrder
+  /** Platsen för betalvagg_visad. Utelämnas den följer den varianten. */
+  plats?: BetalvaggPlats
+  /** Dagar kvar till provdatum, för mätningen. null där det saknas. */
+  dagarKvar?: number | null
   className?: string
 }
-
-const ILLU: Record<PaywallVariant, React.ComponentType<{ size?: number; className?: string }>> = {
-  mall: IlluPlattaPremium,
-  testniva: IlluPlattaTest,
-  analys: IlluAnalysDelvis,
-  'analys-omkorning': IlluAnalysDelvis,
-  nedladdning: IlluPlattaNedladdning,
-  'cv-export': IlluPlattaNedladdning,
-  jobbtraffar: IlluDoldTraff,
-  chatt: IlluPlattaPremium,
-  historik: IlluPlattaTest,
-  kvot: IlluDagensBrev,
-  'test-tak': IlluPlattaTest,
-  nedgraderad: IlluNedgraderad,
-  'cv-antal': IlluPlattaCvPoang,
-  'af-rapport': IlluPlattaAnsokan,
-  linkedin: IlluPlattaPresentation,
-  'bli-upptackt': IlluPlattaPremium,
-}
-
-const LINK =
-  'inline-flex min-h-[44px] items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1'
 
 export default function PaywallCard({
   variant,
@@ -123,10 +120,10 @@ export default function PaywallCard({
   onSecondary,
   priceDeltaKr,
   bare,
-  planOrder = 'month-first',
+  plats,
+  dagarKvar = null,
   className,
 }: PaywallCardProps) {
-  const [sheetOpen, setSheetOpen] = useState(false)
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [copied, setCopied] = useState(false)
   const pathname = usePathname()
@@ -134,10 +131,11 @@ export default function PaywallCard({
 
   const sparradFeature = feature ?? VARIANT_FEATURE[variant] ?? null
   const suggestedPlan = planForPaywall(variant, { feature: sparradFeature ?? undefined, track })
+  const knappPlan: PlanKey = saljbarPlan(suggestedPlan ?? SALD_PLAN)
+  const platsen: BetalvaggPlats = plats ?? PLATS_FOR_VARIANT[variant]
 
   // Har hon ett betalt spår som inte täcker funktionen är det fel spår i
-  // taket, alltså en uppgradering och inte en spärr. FelSpar äger den ytan
-  // och skjuter sina egna händelser.
+  // taket. FelSpar äger den ytan och skjuter sina egna händelser.
   const felSpar =
     !isPremium && scope !== null && sparradFeature !== null && !scopeHasFeature(scope, sparradFeature)
 
@@ -151,24 +149,18 @@ export default function PaywallCard({
       variant,
       surface,
       ...(sparradFeature ? { feature: sparradFeature } : {}),
-      ...(suggestedPlan ? { suggestedPlan: suggestedPlan as PlanKey } : {}),
-      // Från paketnamnsbytet 2026-09-24 bär kortet pris i knappen och en
-      // prisrad, så avläsningen kan skilja före och efter.
+      suggestedPlan: knappPlan,
       price_shown: true,
     })
+    capture('betalvagg_visad', { plats: platsen, dagar_kvar: dagarKvar })
     // Var fel spår tar i taket. Skjuts en gång per montering, samma som ovan.
     if (sparradFeature) {
       capture('feature_blocked', { feature: sparradFeature, scope, surface })
     }
-  }, [isPremium, felSpar, variant, surface, sparradFeature, suggestedPlan, scope])
+  }, [isPremium, felSpar, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar])
 
   const ctaClicked = (cta: 'primary' | 'secondary') =>
-    capture('paywall_cta_clicked', {
-      variant,
-      surface,
-      cta,
-      ...(suggestedPlan ? { plan: suggestedPlan as PlanKey } : {}),
-    })
+    capture('paywall_cta_clicked', { variant, surface, cta, plan: knappPlan, plats: platsen })
 
   // Kontot har redan funktionen. Ingen betalvägg.
   if (isPremium) return null
@@ -178,7 +170,7 @@ export default function PaywallCard({
       <FelSpar
         feature={sparradFeature}
         scope={scope as Exclude<Scope, never>}
-        priceDeltaKr={priceDeltaKr ?? 20}
+        priceDeltaKr={priceDeltaKr ?? null}
         open
         onClose={() => undefined}
         returnPath={surface}
@@ -192,9 +184,8 @@ export default function PaywallCard({
     hiddenCount,
     quotaFeature: quota?.feature,
     track,
-    plan: (suggestedPlan as PlanKey | null) ?? undefined,
+    plan: knappPlan,
   })
-  const Illu = ILLU[variant] ?? IlluPlattaPremium
 
   const remind = async () => {
     if (!quota || reminder === 'saving' || reminder === 'saved') return
@@ -211,25 +202,22 @@ export default function PaywallCard({
     }
   }
 
-  /**
-   * Knappen har redan namngett paket och pris, så den går direkt till
-   * köpsteget för det paketet (QA 2026-09-24, iakttagelse 1), aldrig via
-   * produktvalet eller spårvalet. Bara när knappen saknar paket väljs det:
-   * med sparat spår i produktvalet, annars i spårvalet.
-   */
-  const knappPlan: PlanKey | null = copy.plan ?? (suggestedPlan as PlanKey | null) ?? null
+  /** Knappen har namngett paket och pris, så den går direkt till köpsteget. */
   const primarHandling = () => {
     ctaClicked('primary')
-    if (knappPlan) {
-      window.location.href = kopstegHref(knappPlan)
-      return
-    }
-    if (track) {
-      setSheetOpen(true)
-      return
-    }
-    window.location.href = SPARVAL_HREF
+    window.location.href = kopstegHref(copy.plan ?? knappPlan, platsen)
   }
+
+  const lank = `${LANK} inline-flex min-h-11 items-center justify-center self-center`
+
+  // Länken till prissidan: "Se priset" där copyn säger det, annars "Se vad
+  // som ingår". En variants egen sekundära text ("Inte nu", "Kör
+  // grundnivån igen") hör till en knapp med onSecondary, aldrig till länken.
+  const prisLank = (
+    <Link href={PRISER_HREF} className={lank} onClick={() => ctaClicked('secondary')}>
+      {copy.secondary === 'Se priset' ? copy.secondary : PAKETRADER.jamfor}
+    </Link>
+  )
 
   const secondary = (() => {
     switch (variant) {
@@ -237,7 +225,7 @@ export default function PaywallCard({
         return (
           <button
             type="button"
-            className={LINK}
+            className={lank}
             onClick={() => {
               ctaClicked('secondary')
               onCopy?.()
@@ -250,23 +238,18 @@ export default function PaywallCard({
         )
       case 'kvot':
       case 'test-tak':
-        if (!quota)
-          return (
-            <Link href={PREMIUM_HREF} className={LINK} onClick={() => ctaClicked('secondary')}>
-              Jämför paketen
-            </Link>
-          )
+        if (!quota) return prisLank
         if (reminder === 'saved')
           return (
-            <span className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-positiv">
+            <span className="inline-flex min-h-11 items-center justify-center gap-1.5 text-sm font-medium text-positiv">
               <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6" /></svg>
-              Vi mailar dig när den öppnar
+              Vi mejlar dig när den öppnar
             </span>
           )
         return (
           <button
             type="button"
-            className={LINK}
+            className={lank}
             onClick={() => {
               ctaClicked('secondary')
               void remind()
@@ -280,7 +263,7 @@ export default function PaywallCard({
         return (
           <button
             type="button"
-            className={LINK}
+            className={lank}
             onClick={() => {
               ctaClicked('secondary')
               onDismiss?.()
@@ -291,12 +274,13 @@ export default function PaywallCard({
         )
       default:
         // En sekundär handling som hör hemma i vyn (till exempel "Ta bort ett
-        // gammalt CV") vinner över den generiska länken till prissidan.
-        if (onSecondary)
+        // gammalt CV") vinner över länken till prissidan. Säger copyn "Se
+        // vad som ingår" eller "Se priset" är det länken ändå.
+        if (onSecondary && !arPrisText(copy.secondary))
           return (
             <button
               type="button"
-              className={LINK}
+              className={lank}
               onClick={() => {
                 ctaClicked('secondary')
                 onSecondary()
@@ -305,11 +289,7 @@ export default function PaywallCard({
               {copy.secondary}
             </button>
           )
-        return (
-          <Link href={PREMIUM_HREF} className={LINK} onClick={() => ctaClicked('secondary')}>
-            {copy.secondary}
-          </Link>
-        )
+        return prisLank
     }
   })()
 
@@ -317,59 +297,29 @@ export default function PaywallCard({
     <>
       <h3 className="text-kort text-ink-1">{copy.title}</h3>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
-      {copy.prisrad ? (
-        <p className="mt-2 text-sm font-medium text-ink-1">{copy.prisrad}</p>
-      ) : null}
-      <div className="mt-4">
-        <button
-          type="button"
-          onClick={primarHandling}
-          className={`${KNAPP_PRIMAR.replace('h-12', 'min-h-12')} py-2 text-center sm:w-auto`}
-        >
+      {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{copy.prisrad}</p> : null}
+      <div className={KNAPPRAD}>
+        <button type="button" onClick={primarHandling} className={KNAPP_PRIMAR}>
           {copy.primary}
         </button>
+        {secondary}
       </div>
-      <div className="mt-1">{secondary}</div>
       {reminder === 'error' ? (
         <p className="mt-1 text-meta text-fel">Kunde inte spara påminnelsen. Försök igen.</p>
       ) : null}
     </>
   )
 
-  const arket = (
-    <UpgradeSheet
-      open={sheetOpen}
-      onClose={() => setSheetOpen(false)}
-      order={planOrder}
-      source={`paywall:${variant}`}
-      variant={variant}
-      suggestedPlan={(suggestedPlan as PlanKey | null) ?? undefined}
-    />
-  )
-
   // Utan panel: vyn har redan en egen ram, och två ramar i varandra läser
   // som en bugg.
-  if (bare) {
-    return (
-      <div className={className}>
-        {innehall}
-        {arket}
-      </div>
-    )
-  }
+  if (bare) return <div className={className}>{innehall}</div>
 
   return (
     <section
-      className={`rounded-2xl border border-kant-stark bg-papper p-4 ${className ?? ''}`}
+      className={`rounded-2xl border border-kant bg-papper p-4 ${className ?? ''}`}
       aria-label={copy.title}
     >
-      <div className="flex items-start gap-3">
-        <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
-          <Illu size={48} />
-        </span>
-        <div className="min-w-0 flex-1">{innehall}</div>
-      </div>
-      {arket}
+      {innehall}
     </section>
   )
 }

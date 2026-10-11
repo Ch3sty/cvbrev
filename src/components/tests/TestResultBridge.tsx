@@ -86,7 +86,7 @@ export default function TestResultBridge({
   // Variant 2b: gratisanvändare som kört tre omgångar möter taket i stället.
   if (variant === '2b') {
     return (
-      <PaywallCard variant="test-tak" quota={quota} planOrder="daypass-first" />
+      <PaywallCard variant="test-tak" quota={quota} />
     )
   }
 
