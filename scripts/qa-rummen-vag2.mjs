@@ -171,8 +171,8 @@ function spara() {
   fs.writeFileSync(RESULTATFIL, JSON.stringify(resultat, null, 2))
 }
 
-const MOBIL = ['T1', '1a', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1']
-const DATORLISTA = ['W1', 'W2', 'W3', 'W4', 'T1', '1c', '1e', '1g', '1h', '1i', '1p', 'X1', 'L1']
+const MOBIL = ['T1', '1a', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
+const DATORLISTA = ['W1', 'W2', 'W3', 'W4', 'T1', '1c', '1e', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
 const FILTER = arg('tillstand') ? arg('tillstand').split(',') : null
 const SYSTEM = arg('system') ? arg('system').split(',') : ['light', 'dark']
 const FORMER = arg('former') ? arg('former').split(',') : ['pixel7', 'desktop']
@@ -212,7 +212,7 @@ async function delHem(browser) {
         const { page, logg } = await nySida(browser, { form, system, email: KONTON.mycket.email })
         const fil = `${t}-${form}-${system === 'dark' ? 'morkt' : 'ljust'}.png`
         try {
-          await besok(page, `/dashboard/tester/forhandsvisning?tillstand=${t}`)
+          await besok(page, t === 'F1' ? '/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan' : `/dashboard/tester/forhandsvisning?tillstand=${t}`)
           const k = await kontroll(page, form)
           await page.screenshot({ path: path.join(mapp, fil) })
           await helBild(page, path.join(mapp, fil.replace('.png', '-hela.png')))

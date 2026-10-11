@@ -47,25 +47,29 @@ export async function getTraningSummary(userId: string): Promise<TraningSummary>
   const admin = testSkrivKlient();
   const idag = dagSthlm();
 
-  const [summering, profilRes, hub] = await Promise.all([
-    hamtaSummering(userId),
-    supabase.from('profiles').select('traning_sedd_at').eq('id', userId).maybeSingle(),
-    getTesterHubData(supabase, userId, false, false, null).catch(() => null),
-  ]);
+  // Motorns status väntar bara på profilens traning_sedd_at, inte på
+  // summeringen eller testerna: allt går i samma parallella omgång.
+  const statusLas = (async (): Promise<Traningsstatus | null> => {
+    try {
+      const { data } = await supabase.from('profiles').select('traning_sedd_at').eq('id', userId).maybeSingle();
+      return await hamtaTraningsstatus({
+        supabase: supabase as never,
+        admin,
+        userId,
+        idag,
+        sedd_at: (data as { traning_sedd_at?: string | null } | null)?.traning_sedd_at ?? null,
+      });
+    } catch (e) {
+      console.error('[traning] hemvyns status:', e);
+      return null;
+    }
+  })();
 
-  let status: Traningsstatus | null = null;
-  try {
-    status = await hamtaTraningsstatus({
-      supabase: supabase as never,
-      admin,
-      userId,
-      idag,
-      sedd_at: (profilRes.data as { traning_sedd_at?: string | null } | null)?.traning_sedd_at ?? null,
-    });
-  } catch (e) {
-    console.error('[traning] hemvyns status:', e);
-    status = null;
-  }
+  const [summering, hub, status] = await Promise.all([
+    hamtaSummering(userId),
+    getTesterHubData(supabase, userId, false, false, null).catch(() => null),
+    statusLas,
+  ]);
 
   const per = hub?.perTest ?? null;
   const intent = summering?.komIgang?.intent ?? null;
