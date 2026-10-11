@@ -64,7 +64,7 @@ function Scen({ w, h, className, title, children }: ScenSvgProps) {
 
 /* ================================================ välkomstscener 380 × 220 */
 
-/** Två CV och en uppladdningspil på tråden (CV-paketet och Hela paketet). */
+/** Två CV och en uppladdningspil på tråden (CV-paketet och Premium). */
 export function IlluValkommenCv({ className, title }: ScenProps) {
   return (
     <Scen w={380} h={220} className={className} title={title}>

@@ -18,6 +18,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { komIgangLage, type BrickaFakta, type KomIgangLage, type Paket } from '@/lib/onboarding/komigang'
 import { capture, type KomIgangSurface } from '@/lib/analytics/events'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
 
 const DOLD_NYCKEL = 'jc_komigang_dold'
 
@@ -76,7 +77,7 @@ export function KomIgangProvider({ children }: { children: ReactNode }) {
     // Valet i registreringen ordnar gratislistan. Betalande får paketets
     // lista oavsett val.
     const intent = paket ? null : (summary.komIgang.intent ?? null)
-    return komIgangLage(paket, summary.komIgang.provade, summary.paket.planKey === 'all_day', intent)
+    return komIgangLage(paket, summary.komIgang.provade, Boolean(summary.paket.dayPassOnly || (summary.paket.planKey && PLAN_BY_KEY[summary.paket.planKey]?.mode === 'payment')), intent)
   }, [summary])
 
   const fakta = summary?.komIgang?.fakta ?? {}

@@ -60,7 +60,7 @@ export function featureForTraningsTyp(
 
 export interface TillgangIn {
   begard: Begard;
-  /** tests_above_base (Hela paketet, Dagspasset, eller äldre paket med tester). */
+  /** tests_above_base (Premium, Dagspasset, eller äldre paket med tester). */
   harOvanGrund: boolean;
   /** test_exam_mode. */
   harProvlage: boolean;

@@ -4,7 +4,7 @@
  * Raden för ett personlighetstest på hubben.
  *
  * Grundnivån öppnar alltid testets sida. Tolkningen (avancerad nivå) ingår
- * i Träningspaketet och Hela paketet; i andra paket är raden grå med lås och paketets
+ * i Träningspaketet och Premium; i andra paket är raden grå med lås och paketets
  * namn, och trycket öppnar betalväggen (spec-onboarding 2026-09-22,
  * sektion 3).
  */

@@ -8,8 +8,8 @@
  * decimalen bara på kurvan) på instrumentet, meningen i provets termer, tre
  * tal, var du tappar, och planen till datumet. Gratis: dagens grundpass står
  * först och är gratis, allt efter i dag står låst med "Ingår i Premium", och
- * betalväggen sist på golvet bär vyns enda kopparknapp ("Köp Premium, 149 kr
- * i månaden") under prisraden med fulla namnet, och en textlänk under. Ingen fot för gratis (art-director 20.2 fråga 1: en fast
+ * betalväggen sist på golvet bär vyns enda kopparknapp (kopKnapp) under
+ * prisraden med fulla namnet, och en textlänk under. Ingen fot för gratis (art-director 20.2 fråga 1: en fast
  * fot ligger aldrig ovanpå en betalvägg). Betalande: ingen betalvägg,
  * kopparknappen i foten.
  *

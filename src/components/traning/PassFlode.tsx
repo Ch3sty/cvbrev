@@ -91,7 +91,7 @@ export interface PassFlodeProps {
   start?: { typ: Begard; family?: string | null; format?: string | null }
   /** En befintlig session, läst på servern. */
   vy?: Sessionsvy | null
-  /** Hela paketet (tests_above_base): styr M1:s betalvägg. */
+  /** Premium (tests_above_base): styr M1:s betalvägg. */
   betalande: boolean
   /** Förhandsvisningen: starttillstånd och fryst tid. */
   initial?: PassFlodeInitial

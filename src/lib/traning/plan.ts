@@ -39,7 +39,7 @@ export interface PlanIn {
   idag: Dag;
   /** Dagar med något slutfört (mätning, pass, ommätning, generalrepetition). */
   aktivaDagar?: readonly Dag[];
-  /** Har användaren Hela paketet (eller Dagspasset)? Styr "last". */
+  /** Har användaren Premium (eller Dagspasset)? Styr "last". */
   betalande?: boolean;
   /** Gratisnivån, för tester. */
   gratis?: { ommatningGratis: boolean; provlageGratis: boolean; grundpassVarjeDag?: boolean };

@@ -86,7 +86,8 @@ export default async function ValkommenPage({
   if (!paket) redirect('/dashboard')
 
   // Dagspasset ger scopet allt men har sitt eget namn på skärmen.
-  const dagspass = planParam === 'all_day' && paket === 'allt'
+  // Engångsköpet (en befintlig Dagspass-kund): scopet allt i ett dygn.
+  const dagspass = isPlanKey(planParam) && PLAN_BY_KEY[planParam].mode === 'payment' && paket === 'allt'
 
   return (
     <ValkommenClient

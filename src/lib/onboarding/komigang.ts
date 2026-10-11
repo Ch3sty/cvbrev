@@ -412,7 +412,7 @@ export interface KomIgangLage {
   antalProvade: number
   antalTotalt: number
   klar: boolean
-  /** Dagspasset: samma lista som Hela paketet, men ett dygn och eget namn. */
+  /** Dagspasset: samma lista som Premium, men ett dygn och eget namn. */
   dagspass: boolean
   /** Valet i registreringen. Styr bara ordningen, och bara på gratisnivån. */
   intent: SignupIntent | null

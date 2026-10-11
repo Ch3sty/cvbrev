@@ -3,7 +3,7 @@
 /**
  * Luckan för Smart val på gratisnivån (profil-registrering 2026-09-24,
  * Del A), en betalvägg: rubriken säger Premium, prisraden fulla namnet och
- * kopparknappen "Köp Premium, 149 kr i månaden" går direkt till köpsteget
+ * kopparknappen ur kopKnapp() går direkt till köpsteget
  * med platsen. Det sekundära är en textlänk. betalvagg_visad en gång per
  * öppning. Bygger på shell/Sheet.
  */

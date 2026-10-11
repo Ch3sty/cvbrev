@@ -6,7 +6,7 @@
 // Gratis är smakprovet (anonymt, fem frågor), nivåmätningen en gång per konto
 // med full genomgång och ett grundpass samma dag som mätningen (dag 0).
 // Därefter betalvägg på allt: dagens pass, riktade pass, ommätning, kurvans
-// historik, provläget och generalrepetitionen ingår i Hela paketet. Resultat
+// historik, provläget och generalrepetitionen ingår i Premium. Resultat
 // och genomgång av det man redan gjort är alltid öppna.
 //
 // Läses av sessionGate (featureForTestType), quotaService
@@ -20,7 +20,7 @@ export const GRATISNIVA = {
   grundpassPerDag: 1,
   /**
    * Grundpasset gratis varje dag. false = bara den första träningsdagen
-   * (mätningens dag, dag 0); från dag 1 kräver passet Hela paketet (17.2).
+   * (mätningens dag, dag 0); från dag 1 kräver passet Premium (17.2).
    */
   grundpassVarjeDag: false,
   /** Nivåmätningen, en gång. */

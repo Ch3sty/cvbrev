@@ -75,8 +75,8 @@ export interface Undersida {
 
 /**
  * Kort status bredvid Prenumeration (copy-premium avsnitt 3): "Premium" för
- * den som betalar, "5 dagar kvar" för en tidsbegränsad period och "149 kr i
- * månaden" på gratisnivån. En befintlig spårkund ser sitt paket.
+ * den som betalar, "5 dagar kvar" för en tidsbegränsad period och priset med
+ * period (prisPeriod) på gratisnivån. En befintlig spårkund ser sitt paket.
  */
 function prenumerationsEtikett(profil: Record<string, unknown> | null, paket: PaketLage): string | null {
   if (!profil) return null

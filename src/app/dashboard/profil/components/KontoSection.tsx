@@ -41,7 +41,7 @@ const MEJL: MejlRad[] = [
 ]
 
 export interface KontoSectionProps {
-  /** Prenumerationsradens undertext, till exempel "Gratisnivån · tre paket, från 49 kr". */
+  /** Prenumerationsradens undertext, till exempel "Gratisnivån · Premium, {pris i månaden}". */
   prenumerationRad: string
   harPaket: boolean
   initialDigestOptOut: boolean

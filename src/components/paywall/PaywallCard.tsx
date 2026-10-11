@@ -5,10 +5,10 @@
  *
  * Bara Jobbcoach Premium säljs. Kortet är papper med kant, rubriken säger
  * Premium ("Mallen ingår i Premium"), brödtexten vad som ingår, prisraden
- * fulla namnet med pris ("Jobbcoach Premium, 149 kr i månaden. Säg upp när
- * du vill."), kopparknappen "Köp Premium, 149 kr i månaden" (kopKnapp via
- * paywall-copy) och det sekundära alltid en textlänk. Värdet visas alltid
- * före spärren: brevet syns i sin helhet ovanför, fynden står ovanför kortet.
+ * fulla namnet med pris och period (paywallPrisrad), kopparknappen
+ * "Köp Premium, {pris i månaden}" (kopKnapp via paywall-copy) och det
+ * sekundära alltid en textlänk. Värdet visas alltid före spärren: brevet
+ * syns i sin helhet ovanför, fynden står ovanför kortet.
  *
  * En betalvägg bär alltid sin egen knapp, och en fast fot ligger aldrig
  * ovanpå en betalvägg (art-director 20.2 fråga 1).
