@@ -182,9 +182,14 @@ async function nySida(browser, { form, system, email }) {
     req.continue()
   })
   const logg = { konsol: [], http: [] }
-  page.on('console', (m) => {
+  page.on('console', async (m) => {
     if (m.type() === 'error') {
-      const t = m.text()
+      let t = m.text()
+      // Felobjekt skrivs som JSHandle: läs ut meddelandet och var sidan stod.
+      if (/JSHandle/.test(t)) {
+        const delar = await Promise.all(m.args().map((a) => a.evaluate((v) => (v instanceof Error ? v.message : typeof v === 'object' ? JSON.stringify(v) : String(v))).catch(() => '?')))
+        t = `${delar.join(' ')} (${page.url().replace(BAS, '')})`
+      }
       if (!BRUS.some((r) => r.test(t))) logg.konsol.push(t.slice(0, 300))
     }
   })
@@ -230,7 +235,8 @@ async function vy(page, namn, { kopparKravs = true } = {}) {
       gamlaOrd: (text.match(/generalrepetition|provläge|nivåmätning|ommätning|mät igen/gi) ?? []).slice(0, 5),
       talstreck: text.includes('—'),
       latt: /\blätt(a)?\b/i.test(text),
-      percentil: /percentil/i.test(text),
+      // Aldrig percentil på övningsprovet (granskningen 6.6); nivåtestens hjälp får nämna den.
+      percentil: !!document.querySelector('[data-ovningsprov-rubrik]') && /percentil/i.test(text),
     }
   })
   const rad = { namn, fil: path.relative(process.cwd(), fil).split(path.sep).join('/'), ...k }

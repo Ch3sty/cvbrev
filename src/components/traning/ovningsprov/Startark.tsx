@@ -124,9 +124,9 @@ export default function Startark({ typ, format, dagarKvar, last, pagaende = null
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-startark={typ}>
       <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="vagg px-4 pb-11 lg:px-10">
+        <div className="vagg px-4 pb-10 lg:px-10">
           <div className="mx-auto w-full max-w-[560px]">
-            <div className="-mx-1 flex h-[60px] items-center gap-2 text-vagg-ink">
+            <div className="-mx-1 flex h-14 items-center gap-2 text-vagg-ink">
               <Link href={tillbakaHref} aria-label={START.tillbaka} className="-ml-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px]">
                 <IkonTillbaka />
               </Link>
@@ -135,9 +135,9 @@ export default function Startark({ typ, format, dagarKvar, last, pagaende = null
             </div>
             <p className="text-ey uppercase text-koppar-ljus">{START.eyebrow(typ, dagarKvar)}</p>
             <h1 className="text-h1-liten mt-1 text-vagg-ink">{START.rubrik}</h1>
-            <div className="mt-3.5 flex items-center gap-3.5">
-              <div className="illu-vagg w-[88px] flex-shrink-0" aria-hidden="true">
-                <IlluProvlage className="block h-[66px] w-[88px]" />
+            <div className="mt-3 flex items-center gap-3.5">
+              <div className="illu-vagg w-[80px] flex-shrink-0" aria-hidden="true">
+                <IlluProvlage className="block h-[60px] w-[80px]" />
               </div>
               <div className="min-w-0">
                 <b className="block font-display text-[17px] font-bold leading-[22px] tracking-[-.015em] text-vagg-ink">
@@ -151,7 +151,7 @@ export default function Startark({ typ, format, dagarKvar, last, pagaende = null
             {format.anmarkning ? <p className="mt-2.5 text-[12px] leading-4 text-vagg-mjuk">{format.anmarkning}</p> : null}
             <ul aria-label={START.reglerAria} className="mt-3.5 list-none overflow-hidden rounded-[14px] border border-vagg-kant bg-white/[.05] p-0">
               {START.regler.map((r, i) => (
-                <li key={r.titel} className={`flex min-h-[48px] items-center gap-3 px-3.5 py-2 ${i ? 'border-t border-vagg-kant' : ''}`}>
+                <li key={r.titel} className={`flex min-h-[44px] items-center gap-3 px-3.5 py-1.5 ${i ? 'border-t border-vagg-kant' : ''}`}>
                   <Symbol i={i} />
                   <span className="min-w-0">
                     <b className="block text-sm font-semibold leading-[19px] text-vagg-ink">{r.titel}</b>
@@ -168,7 +168,7 @@ export default function Startark({ typ, format, dagarKvar, last, pagaende = null
           <div className="mx-auto w-full max-w-[560px]">
             {last ? (
               <section aria-label={B.eyebrow} className={lyft}>
-                <p className="text-sm leading-5 text-ink-2">{B.text(format, dagarKvar)}</p>
+                <p className="text-[13px] leading-[19px] text-ink-2">{B.text(format, dagarKvar)}</p>
                 <p className="mt-1 text-[13px] font-medium text-ink-1">{B.prisrad}</p>
                 <div className={KNAPPRAD}>
                   <Link
