@@ -125,7 +125,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Olika sjukhus letar efter olika kompetensprofiler. Vi har en taggrad där du listar diagnosspektra och utredningstyper du behärskar i klartext, vilket både rekryterare och ATS kan parsa.',
       },
       {
-        title: 'Mallen i Premium lägger CME-block',
+        title: 'Klinik med CME-block ingår i Premium',
         description: 'För specialist- och överläkarroller väger vidareutbildning tungt. Mallen i Premium har ett dedikerat block för CME-poäng, kongressbidrag och fortbildning som inte tar plats från klinisk tjänstgöring.',
       },
       {
@@ -380,7 +380,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter, alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Använd vanlig listformatering för publikationer så systemet kan parsa författare, titel och år. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare ofta filtrerar exakta termer från jobbannonsen.',
+      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter, alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Använd vanlig listformatering för publikationer så systemet kan parsa författare, titel och år. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare ofta filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -477,8 +477,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'A-HLR, ATLS, CMP, sterilteknik och förskrivningsrätt har egen sektion. Vi har sett att vårdchefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Mallen i Premium lägger till foto',
-        description: 'För distrikt, hemsjukvård och primärvård där relationer värderas, lägger premium-varianten till foto och LinkedIn. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+        title: 'Vården med foto ingår i Premium',
+        description: 'För distrikt, hemsjukvård och primärvård där relationer värderas, lägger mallen i Premium till foto och LinkedIn. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
         title: 'Sober färgsättning för vårdsektorn',
@@ -724,7 +724,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit, båda läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit, båda läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -821,8 +821,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, Akta Ryggen, basala hygienrutiner, BPSD och nutrition har egen sektion med utgångsdatum. Vi har sett att enhetschefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Mallen i Premium lägger till foto',
-        description: 'För hemtjänst och kundnära roller där relationer värderas, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+        title: 'Vården med foto ingår i Premium',
+        description: 'För hemtjänst och kundnära roller där relationer värderas, lägger mallen i Premium till foto och språkkunskaper i sidopanelen. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
         title: 'Sober färgsättning för vårdsektorn',
@@ -1069,7 +1069,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt. Inkludera systemnamnen (Cosmic, Procapita) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt. Inkludera systemnamnen (Cosmic, Procapita) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -1090,7 +1090,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Ska jag ha med foto på undersköterska-CV?',
-        a: 'Inte obligatoriskt men vanligt i Sverige inom vården. Vår premium-mall Vården har stöd för foto i sidopanelen. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker.',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom vården. Vården, som ingår i Premium, har stöd för foto i sidopanelen. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker.',
       },
       {
         q: 'Hur lyfter jag mina språkkunskaper på CV:t?',
@@ -1158,7 +1158,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Nyckelresultat överst i sidopanelen',
-        description: 'Vår premium-mall Aurora har en dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder utan att läsa hela CV:t.',
+        description: 'Aurora, som ingår i Premium, har en dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder utan att läsa hela CV:t.',
       },
       {
         title: 'Erfarenhet med procent-fokus',
@@ -1418,7 +1418,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Aurora är ATS-säkra. Aurora har en "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal, alla läser Aurora korrekt. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Aurora, som ingår i Premium, läser rekryteringssystemen rätt. Aurora har en "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal, alla läser Aurora korrekt. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -1515,8 +1515,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Säljutbildningar (intern eller extern), kassansvar-certifikat och kundbemötande-utbildningar har egen rad. Visar att du har strukturerad utveckling utöver bara "tid i butik".',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
-        description: 'För senior-roller (butikschef, avdelningschef, flagship-butiker) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla utan att kompromissa med ATS-läsbarhet.',
+        title: 'Disk Plus med foto ingår i Premium',
+        description: 'För senior-roller (butikschef, avdelningschef, flagship-butiker) lägger Disk Plus till foto och citat från kunder. Skapar tidningskänsla utan att kompromissa med ATS-läsbarhet.',
       },
       {
         title: 'Energisk emerald-accent för handel',
@@ -1763,7 +1763,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem". Skriv också ut varugrupper och butikskedjor i klartext.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem". Skriv också ut varugrupper och butikskedjor i klartext.',
 
     faqItems: [
       {
@@ -1792,7 +1792,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Ska jag ha med foto på butiksbiträde-CV?',
-        a: 'Inte obligatoriskt men vanligt i Sverige inom detaljhandel. Vår premium-mall Disk Plus har stöd för foto. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker. För flagship-butiker och premium-segment är foto ett plus.',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom detaljhandel. Disk Plus, som ingår i Premium, har stöd för foto. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker. För flagship-butiker och premium-segment är foto ett plus.',
       },
       {
         q: 'Behöver jag personligt brev till butiks-tjänster?',
@@ -1867,7 +1867,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt Roboto Condensed med cyan-accent och kondenserad layout som signalerar industri och produktion. Ingen klick-baitig design som drar fokus från meriterna.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
+        title: 'Logistik Plus med foto ingår i Premium',
         description: 'För senior-roller (lagerchef, terminalansvarig) lägger Logistik Plus till foto, mörkt grafit-band och tabellär arbetslivshistorik. Skapar en mer professionell first impression utan att kompromissa med ATS.',
       },
       {
@@ -2117,7 +2117,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut WMS-systemnamn (SAP WMS, Manhattan) i klartext.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut WMS-systemnamn (SAP WMS, Manhattan) i klartext.',
 
     faqItems: [
       {
@@ -2217,8 +2217,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Vi har sett att rektorer letar specifikt efter metoder de redan använder på skolan.',
       },
       {
-        title: 'Mallen i Premium lägger till foto',
-        description: 'I lärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
+        title: 'Pedagog med foto ingår i Premium',
+        description: 'I lärarrollen där relationer värderas, lägger mallen i Premium till foto och språkkunskaper. Skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
       },
       {
         title: 'Salviegrön ton för pedagogisk identitet',
@@ -2465,7 +2465,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen, eftersom det är exakta sökord rekryterare filtrerar på. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) så ATS kan parsa dem.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen, eftersom det är exakta sökord rekryterare filtrerar på. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) så ATS kan parsa dem.',
 
     faqItems: [
       {
@@ -2562,8 +2562,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Reggio Emilia, Montessori, NPF-kompetens, språkstöd, TAKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter pedagogik som matchar deras förskola.',
       },
       {
-        title: 'Mallen i Premium lägger till foto',
-        description: 'I förskollärarrollen där relationer värderas, lägger premium-varianten till foto och språkkunskaper. Skapar ett mer personligt intryck som passar pedagogiskt yrke utan att kompromissa med ATS.',
+        title: 'Pedagog med foto ingår i Premium',
+        description: 'I förskollärarrollen där relationer värderas, lägger mallen i Premium till foto och språkkunskaper. Skapar ett mer personligt intryck som passar pedagogiskt yrke utan att kompromissa med ATS.',
       },
       {
         title: 'Salviegrön ton för pedagogisk identitet',
@@ -2810,7 +2810,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "förskollärarlegitimation" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "förskollärarlegitimation" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -2907,8 +2907,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Körkort B, anpassade fordon, lyfthjälpmedel och AKK har egen rad. Många brukare behöver specifika kompetenser och vår mall låter dem syns utan att blanda in i generisk text.',
       },
       {
-        title: 'Mallen i Premium lägger till foto',
-        description: 'I assistansrollen där relationer värderas mest, lägger premium-varianten till foto och språkkunskaper i sidopanelen. Skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
+        title: 'Vården med foto ingår i Premium',
+        description: 'I assistansrollen där relationer värderas mest, lägger mallen i Premium till foto och språkkunskaper i sidopanelen. Skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
       },
       {
         title: 'Sober färgsättning för omsorgssektorn',
@@ -3155,7 +3155,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Anordnare som Frösunda, Humana och Nytida använder oftast Visma Recruit eller Workday. Skriv ut funktionsvariationer (autism, ALS, CP, NPF), hjälpmedel (personlift, AKK) och delegeringar i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Anordnare som Frösunda, Humana och Nytida använder oftast Visma Recruit eller Workday. Skriv ut funktionsvariationer (autism, ALS, CP, NPF), hjälpmedel (personlift, AKK) och delegeringar i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -3252,8 +3252,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HACCP, livsmedelshygien, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
       },
       {
-        title: 'I Premium: Servering med foto',
-        description: 'För senior-roller (sous chef, köksmästare, executive chef) lägger Servering till foto och magazine-känsla. Skapar en professionell first impression som passar premium-restauranger.',
+        title: 'Servering med foto ingår i Premium',
+        description: 'För senior-roller (sous chef, köksmästare, executive chef) lägger Servering till foto och tidningskänsla. Skapar en professionell first impression som passar premium-restauranger.',
       },
       {
         title: 'Plats för stilar och referenser',
@@ -3500,7 +3500,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack-developer och premium-varianten Servering är ATS-säkra. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut köksposition (chef de partie, sous chef), specialisering (garde manger, saucier) och hygien-certifikat (HACCP) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår mall Stack-developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut köksposition (chef de partie, sous chef), specialisering (garde manger, saucier) och hygien-certifikat (HACCP) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -3601,7 +3601,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Ingen klick-baitig design som drar fokus från behörigheter och meriter.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
+        title: 'Logistik Plus med foto ingår i Premium',
         description: 'För senior-roller (truckchef, lagerförman) lägger Logistik Plus till foto och dark header. Skapar en mer professionell first impression utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -3846,7 +3846,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1, B2" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut körkort (B, BE, C) och ADR i klartext.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1, B2" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut körkort (B, BE, C) och ADR i klartext.',
 
     faqItems: [
       {
@@ -3947,7 +3947,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'I Premium: Konto Plus med snabbfakta',
+        title: 'Konto Plus med snabbfakta ingår i Premium',
         description: 'För senior-roller (senior ekonomiassistent, redovisningsassistent) lägger Konto Plus till tre-kolumns header med snabbfakta och navy-emerald gradient. Skapar en mer professionell first impression.',
       },
       {
@@ -4191,7 +4191,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Ekonomi- och redovisningsbolag använder oftast Workday eller egna ATS. Skriv ut system-namn (Fortnox, Visma, SAP, Hogia) i klartext eftersom rekryterare filtrerar exakta termer. Excel-funktioner (PivotTable, VLOOKUP) ska också skrivas ut.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Ekonomi- och redovisningsbolag använder oftast Workday eller egna ATS. Skriv ut system-namn (Fortnox, Visma, SAP, Hogia) i klartext eftersom rekryterare filtrerar exakta termer. Excel-funktioner (PivotTable, VLOOKUP) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -4288,8 +4288,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, basala hygienrutiner, Akta Ryggen, BPSD-utbildning, eventuella delegeringar. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'I Premium: Vården med foto',
-        description: 'I omsorgssektorn där relationer värderas, lägger premium-varianten Vården till foto och språkblock i sidopanelen. Skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
+        title: 'Vården med foto ingår i Premium',
+        description: 'I omsorgssektorn där relationer värderas, lägger Vården, som ingår i Premium, till foto och språkblock i sidopanelen. Skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
       },
       {
         title: 'Sober färgsättning för omsorgssektorn',
@@ -4536,7 +4536,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Privata utförare som Attendo och Humana använder Workday eller Teamtailor. Skriv ut systemnamn (Procapita, Lifecare), brukargrupper (demens, LSS) och certifikat (HLR, BPSD) i klartext.',
+      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Privata utförare som Attendo och Humana använder Workday eller Teamtailor. Skriv ut systemnamn (Procapita, Lifecare), brukargrupper (demens, LSS) och certifikat (HLR, BPSD) i klartext.',
 
     faqItems: [
       {
@@ -4633,8 +4633,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HLR, basala hygienrutiner, Akta Ryggen, eventuella medicindelegeringar har egen rad med utgångsdatum. Mallen lyfter formell kompetens utan att blanda med löpande text.',
       },
       {
-        title: 'I Premium: Vården med foto',
-        description: 'I hemtjänsten där relationer värderas, lägger premium-varianten Vården till foto. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
+        title: 'Vården med foto ingår i Premium',
+        description: 'I hemtjänsten där relationer värderas, lägger Vården, som ingår i Premium, till foto. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
       },
       {
         title: 'Schema-block i sidopanelen',
@@ -4881,7 +4881,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården är ATS-säkra. Kommunala arbetsgivare använder oftast Visma Recruit. Privata utförare som Attendo, Vardaga och Humana använder Workday eller Teamtailor. Skriv ut körkort B, system (Tunstall, Phoniro), brukargrupper (demens, palliativ) och certifikat (HLR) i klartext.',
+      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit. Privata utförare som Attendo, Vardaga och Humana använder Workday eller Teamtailor. Skriv ut körkort B, system (Tunstall, Phoniro), brukargrupper (demens, palliativ) och certifikat (HLR) i klartext.',
 
     faqItems: [
       {
@@ -4986,7 +4986,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
       },
       {
-        title: 'I Premium: Klinik med foto',
+        title: 'Klinik med foto ingår i Premium',
         description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar en mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
       },
     ],
@@ -5226,7 +5226,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut behandlingsmetoder (OMT, McKenzie, Mulligan), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut behandlingsmetoder (OMT, McKenzie, Mulligan), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -5323,7 +5323,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'I förskolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett mer personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -5571,7 +5571,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "barnskötarutbildning" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "barnskötarutbildning" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -5672,7 +5672,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för samverkan med specialpedagog, kurator och elevhälsoteam. Visar att du tar ansvar bortom enskild eleven och kan arbeta strukturerat.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'I skolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -5916,7 +5916,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut diagnoser (autism, ADHD), pedagogiska metoder (lågaffektivt bemötande, TEACCH) och digitala system (Schoolsoft) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut diagnoser (autism, ADHD), pedagogiska metoder (lågaffektivt bemötande, TEACCH) och digitala system (Schoolsoft) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -6017,8 +6017,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
-        description: 'För senior-roller (huvudkassör, kassansvarig, supervisor) lägger Disk Plus till foto och customer-voice-blockquote. Skapar magazine-känsla som passar premium-retail.',
+        title: 'Disk Plus med foto ingår i Premium',
+        description: 'För senior-roller (huvudkassör, kassansvarig, supervisor) lägger Disk Plus till foto och citat från kunder. Skapar tidningskänsla som passar premium-retail.',
       },
       {
         title: 'Plats för säljkampanjer',
@@ -6261,7 +6261,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem ("ICA-kassan", "NCR", "Sitoo") i klartext eftersom rekryterare filtrerar exakta termer. Butikskedjor och varugrupper ska också skrivas ut.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem ("ICA-kassan", "NCR", "Sitoo") i klartext eftersom rekryterare filtrerar exakta termer. Butikskedjor och varugrupper ska också skrivas ut.',
 
     faqItems: [
       {
@@ -6358,7 +6358,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Opera PMS, Mews, Visma Reception, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
+        title: 'Disk Plus med foto ingår i Premium',
         description: 'För senior-roller eller premium-segment lägger Disk Plus till foto. För hotellbranschen där förstaintrycket räknas är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -6606,7 +6606,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Kontorsbolag och advokatbyråer använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Kontorsbolag och advokatbyråer använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -6704,7 +6704,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         title: 'Stack-developer-mallen för tech-DNA',
-        description: 'Vår premium-mall Stack-developer har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli avantgardistisk för konsultsegmentet.',
+        description: 'Stack-developer, som ingår i Premium, har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli avantgardistisk för konsultsegmentet.',
       },
       {
         title: 'Kompakt typografi för senior-roller',
@@ -7052,7 +7052,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'I Premium: Konto Plus med snabbfakta',
+        title: 'Konto Plus med snabbfakta ingår i Premium',
         description: 'För senior-roller (group controller, head of FP&A) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar professionell first impression.',
       },
       {
@@ -7296,7 +7296,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Storbolag och scale-ups använder oftast Workday eller egna ATS. Konsultbyråer (PwC, EY, KPMG) använder Workday eller Oracle Recruiting. Skriv ut system-namn (Power BI, Tableau, SAP S/4HANA) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder oftast Workday eller egna ATS. Konsultbyråer (PwC, EY, KPMG) använder Workday eller Oracle Recruiting. Skriv ut system-namn (Power BI, Tableau, SAP S/4HANA) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -7393,7 +7393,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'I Premium: Myndighet Plus med guld-accent',
+        title: 'Myndighet Plus med guldaccent ingår i Premium',
         description: 'För senior-roller (förstesocialsekreterare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla.',
       },
       {
@@ -7641,7 +7641,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (SoL, LVU, LVM, BBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (SoL, LVU, LVM, BBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -7738,7 +7738,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Microsoft Project, Jira, Asana, Monday, Smartsheet, Confluence. Mallen separerar verktygen från generiska kompetenser så rekryterare ser specifik systemvana direkt.',
       },
       {
-        title: 'I Premium: Aspekt med fokusområden',
+        title: 'Aspekt med fokusområden ingår i Premium',
         description: 'För senior projektledare och program manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression utan att bli flashig för konsultsegmentet.',
       },
       {
@@ -7986,7 +7986,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Aspekt är ATS-säkra. Konsultbolag och scale-ups använder Workday eller Teamtailor. Storbolag och offentlig sektor använder egna ATS. Skriv ut certifieringar (PMP, PRINCE2, IPMA), verktyg (Microsoft Project, Jira) och metodiker (Scrum, SAFe) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag och scale-ups använder Workday eller Teamtailor. Storbolag och offentlig sektor använder egna ATS. Skriv ut certifieringar (PMP, PRINCE2, IPMA), verktyg (Microsoft Project, Jira) och metodiker (Scrum, SAFe) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8083,7 +8083,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Workday, SuccessFactors, BambooHR, CIPD-cert. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'I Premium: Aspekt med fokusområden',
+        title: 'Aspekt med fokusområden ingår i Premium',
         description: 'För senior HR-roller och HRBP lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression som passar HR-chefer.',
       },
       {
@@ -8331,7 +8331,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Aspekt är ATS-säkra. Storbolag och scale-ups använder Workday eller egna ATS. Konsultbolag använder Workday eller Oracle Recruiting. Skriv ut HRIS-system (Workday, SuccessFactors), specialiseringar (talent acquisition, comp&ben) och certifieringar (CIPD, SHRM) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Konto och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller egna ATS. Konsultbolag använder Workday eller Oracle Recruiting. Skriv ut HRIS-system (Workday, SuccessFactors), specialiseringar (talent acquisition, comp&ben) och certifieringar (CIPD, SHRM) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8428,7 +8428,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SolidWorks, Catia, AutoCAD, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
       },
       {
-        title: 'I Premium: Verkstad Plus med blueprint-grid',
+        title: 'Verkstad Plus med ritningsraster ingår i Premium',
         description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar en designresonemang som passar konstruktörer och senior-ingenjörer.',
       },
       {
@@ -8676,7 +8676,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia), standarder (ISO 9001, CE) och specialiseringar (mekanikkonstruktion, automation) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia), standarder (ISO 9001, CE) och specialiseringar (mekanikkonstruktion, automation) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8773,7 +8773,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'UGL, IFL, Mind-Lab, eventuella certifieringar. Mallen lyfter ledarskaps-utveckling som eget block med datum.',
       },
       {
-        title: 'I Premium: Aspekt med fokusområden',
+        title: 'Aspekt med fokusområden ingår i Premium',
         description: 'För avancemang till avdelningschef lägger Aspekt till "Fokusområden"-pills. Skapar professionell first impression som passar nästa karriärsteg.',
       },
       {
@@ -9021,7 +9021,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Aspekt är ATS-säkra. Storbolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut ledarskaps-utbildning (UGL, IFL), arbetsrätt (LAS, MBL) och teamomfattning i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut ledarskaps-utbildning (UGL, IFL), arbetsrätt (LAS, MBL) och teamomfattning i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9118,7 +9118,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'MBA från Handels, INSEAD, IESE. Executive Education från SSE, Harvard. Mallen lyfter formell utbildning som eget block med datum.',
       },
       {
-        title: 'I Premium: Atlas eller Tidlös Plus',
+        title: 'Atlas eller Tidlös Plus ingår i Premium',
         description: 'För C-suite och senior chef-roller lägger Atlas till centrerad serif-header med Playfair Display och guld-accent. Tidlös Plus har Garamond serif och burgundy-accent. Båda signalerar prestige.',
       },
       {
@@ -9366,7 +9366,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Atlas är ATS-säkra. Executive search-bolag (Egon Zehnder, Korn Ferry, Heidrick & Struggles) använder oftast egna ATS. Storbolag använder Workday. Skriv ut ledarroll-titlar (CEO, CFO, COO), affärsmått (P&L, EBITDA, ROCE) och utbildning (MBA, EMBA) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Tidlös och Atlas, som ingår i Premium, läser rekryteringssystemen rätt. Executive search-bolag (Egon Zehnder, Korn Ferry, Heidrick & Struggles) använder oftast egna ATS. Storbolag använder Workday. Skriv ut ledarroll-titlar (CEO, CFO, COO), affärsmått (P&L, EBITDA, ROCE) och utbildning (MBA, EMBA) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9463,7 +9463,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell licentiat eller disputation. Mallen har dedikerat block som passar regionalanknutna och universitetstjänster.',
       },
       {
-        title: 'I Premium: Klinik med sidopanel för meriter',
+        title: 'Klinik med sidopanel för meriter ingår i Premium',
         description: 'Klinik-mallen har specialistuppdelning, kompetensområden och publikationer i högerpanel. Skapar formell prestige som passar specialistroller och senior-tjänster.',
       },
       {
@@ -9711,7 +9711,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut specialistinriktning (anestesi, IVA, akut), certifikat (A-HLR, ATLS, ALS) och journalsystem (Cosmic, TakeCare) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut specialistinriktning (anestesi, IVA, akut), certifikat (A-HLR, ATLS, ALS) och journalsystem (Cosmic, TakeCare) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9808,7 +9808,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Rektorer letar specifikt efter metoder de redan använder.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'I lärarrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
@@ -10056,7 +10056,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) i klartext.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) i klartext.',
 
     faqItems: [
       {
@@ -10401,7 +10401,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Disk är ATS-säkra. Stora städbolag som ISS, Sodexo och Förenade Service använder oftast Workday eller Teamtailor. Skriv ut lokaltyper (vårdstädning, kontorsstädning), specialiseringar (vårdhygien, fönsterputs) och certifikat i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Disk, som ingår i Premium, läser rekryteringssystemen rätt. Stora städbolag som ISS, Sodexo och Förenade Service använder oftast Workday eller Teamtailor. Skriv ut lokaltyper (vårdstädning, kontorsstädning), specialiseringar (vårdhygien, fönsterputs) och certifikat i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -10498,7 +10498,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SAP, Manhattan, Lean, Six Sigma. Mallen separerar system och metodik från generiska kompetenser så logistikchefer ser specifik nivå direkt.',
       },
       {
-        title: 'I Premium: Aspekt med fokusområden',
+        title: 'Aspekt med fokusområden ingår i Premium',
         description: 'För senior logistik-roller och supply chain manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression.',
       },
       {
@@ -10746,7 +10746,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Storbolag som DB Schenker och PostNord använder oftast Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut affärssystem (SAP, Microsoft Dynamics), WMS (Manhattan, Pyramid) och metodik (Lean, Six Sigma, S&OP) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder oftast Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut affärssystem (SAP, Microsoft Dynamics), WMS (Manhattan, Pyramid) och metodik (Lean, Six Sigma, S&OP) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -10843,7 +10843,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Opera PMS, Mews, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
+        title: 'Disk Plus med foto ingår i Premium',
         description: 'För premium-hotell där förstaintrycket räknas, lägger Disk Plus till foto. För hotellbranschen är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -11091,7 +11091,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Internationella kedjor (Marriott, Hilton) använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Internationella kedjor (Marriott, Hilton) använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -11196,7 +11196,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
       },
       {
-        title: 'I Premium: Klinik med foto',
+        title: 'Klinik med foto ingår i Premium',
         description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
       },
     ],
@@ -11436,7 +11436,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut terapeutiska metoder (KBT, PDT, ACT, EMDR), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut terapeutiska metoder (KBT, PDT, ACT, EMDR), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -11533,7 +11533,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'I Premium: Myndighet Plus med guld-accent',
+        title: 'Myndighet Plus med guldaccent ingår i Premium',
         description: 'För senior-roller (1:e-handläggare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -11781,7 +11781,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, OSL) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, OSL) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -11878,7 +11878,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'TEACCH, AKK, bildstöd, Bornholm, lågaffektivt bemötande. Mallen lyfter pedagogiska metoder som eget block så rektorer letar specifikt efter metoder de redan använder.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'I specialpedagogrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar mer personligt intryck för elevhälsochefer.',
       },
       {
@@ -12126,7 +12126,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommunala skolor använder Visma Recruit, fristående koncerner Workday eller Teamtailor. Skriv ut examen (specialpedagogexamen), pedagogiska metoder (TEACCH, lågaffektivt bemötande) och målgrupp (NPF, autism, ADHD) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder Visma Recruit, fristående koncerner Workday eller Teamtailor. Skriv ut examen (specialpedagogexamen), pedagogiska metoder (TEACCH, lågaffektivt bemötande) och målgrupp (NPF, autism, ADHD) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12212,7 +12212,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Nyckelresultat överst i sidopanelen',
-        description: 'Vår premium-mall Aurora har dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder.',
+        description: 'Aurora, som ingår i Premium, har dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder.',
       },
       {
         title: 'Erfarenhet med procent-fokus',
@@ -12471,7 +12471,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Aurora är ATS-säkra. Aurora har "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Aurora, som ingår i Premium, läser rekryteringssystemen rätt. Aurora har "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12568,7 +12568,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Jira, Productboard, CSPO-cert, SAFe POPM. Mallen lyfter formell kompetens som eget block med datum.',
       },
       {
-        title: 'I Premium: Magasin med editorial-känsla',
+        title: 'Magasin med tidningskänsla ingår i Premium',
         description: 'För senior produktchefer och chief product officer lägger Magasin till asymmetrisk grid och plats för "tankeledare-citat". Skapar visuell tyngd som passar SaaS- och fintech-bolag.',
       },
       {
@@ -12816,7 +12816,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och premium-varianten Magasin är ATS-säkra. Tech-bolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut metodiker (Scrum, SAFe), verktyg (Jira, Productboard) och KPI:er (DAU, ARR, NPS) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Linje och Magasin, som ingår i Premium, läser rekryteringssystemen rätt. Tech-bolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut metodiker (Scrum, SAFe), verktyg (Jira, Productboard) och KPI:er (DAU, ARR, NPS) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12913,8 +12913,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'UGL, IFL, kedje-specifika program. Mallen lyfter ledarskap-utveckling som eget block med datum.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
-        description: 'För senior butikschefer och regional manager lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression som passar premium-retail.',
+        title: 'Disk Plus med foto ingår i Premium',
+        description: 'För senior butikschefer och regional manager lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression som passar premium-retail.',
       },
       {
         title: 'Plats för P&L och KPI:er',
@@ -13161,7 +13161,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor och KPI:er (snittnota, UPT) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor och KPI:er (snittnota, UPT) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13258,7 +13258,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Telefon, mejl, chat, system. Mallen lyfter kanaler och system som eget block så team leaders ser specifik kompetens direkt.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
+        title: 'Disk Plus med foto ingår i Premium',
         description: 'För senior kundtjänst-roller och team leader lägger Disk Plus till foto. Skapar mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -13506,7 +13506,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora bolag använder Workday eller Teamtailor. BPO-bolag har ofta egna ATS. Skriv ut kundtjänstsystem (Zendesk, Salesforce), KPI:er (NPS, FCR, AHT) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora bolag använder Workday eller Teamtailor. BPO-bolag har ofta egna ATS. Skriv ut kundtjänstsystem (Zendesk, Salesforce), KPI:er (NPS, FCR, AHT) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13603,8 +13603,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'HACCP, alkohollagen, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
       },
       {
-        title: 'I Premium: Servering med foto',
-        description: 'För senior-roller (bar manager, bar chef, executive bartender) lägger Servering till foto och magazine-känsla. Skapar professionell first impression som passar premium-barer.',
+        title: 'Servering med foto ingår i Premium',
+        description: 'För senior-roller (bar manager, bar chef, executive bartender) lägger Servering till foto och tidningskänsla. Skapar professionell first impression som passar premium-barer.',
       },
       {
         title: 'Plats för stilar och referenser',
@@ -13851,7 +13851,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack-developer och premium-varianten Servering är ATS-säkra. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut bar-koncept (cocktail-bar, hotellbar), drink-kategorier (klassisk mixology, modern) och hygien-certifikat (HACCP, ansvarsfull alkoholservering) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack-developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut bar-koncept (cocktail-bar, hotellbar), drink-kategorier (klassisk mixology, modern) och hygien-certifikat (HACCP, ansvarsfull alkoholservering) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13948,7 +13948,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SolidWorks, Catia, Inventor, NX, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
       },
       {
-        title: 'I Premium: Verkstad Plus med blueprint-grid',
+        title: 'Verkstad Plus med ritningsraster ingår i Premium',
         description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar designresonemang som passar konstruktörer.',
       },
       {
@@ -14196,7 +14196,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia, NX), standarder (ISO 9001, CE, ASME) och specialiseringar (mekanikkonstruktion, plastdetaljer) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia, NX), standarder (ISO 9001, CE, ASME) och specialiseringar (mekanikkonstruktion, plastdetaljer) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14293,7 +14293,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'SAP WMS, Manhattan, Lean, Six Sigma. Mallen lyfter system och metodik som eget block så distriktschefer ser specifik nivå direkt.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
+        title: 'Logistik Plus med foto ingår i Premium',
         description: 'För senior lagerchef-roller och regional manager lägger Logistik Plus till foto, dark header och tabellär layout. Skapar professionell first impression.',
       },
       {
@@ -14541,7 +14541,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Storbolag som DB Schenker och PostNord använder Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut WMS-system (SAP WMS, Manhattan), metodik (Lean, Six Sigma) och KPI:er (OTIF, plockhastighet) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut WMS-system (SAP WMS, Manhattan), metodik (Lean, Six Sigma) och KPI:er (OTIF, plockhastighet) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14638,7 +14638,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter målgrupp (barn, ungdom, vuxna) per uppdragsgivare. Skolkurator-erfarenhet och sjukvårdskurator-erfarenhet konkurrerar inte.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'För senior kurator inom skola eller habilitering lägger Pedagog till foto och varm färgton. Skapar trygghet och passar verksamheter där personlig kontakt är central.',
       },
       {
@@ -14886,7 +14886,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommuner och regioner använder Visma Recruit, Heroma och egna ATS. Skriv ut socionomexamen, steg 1, samtalsmetodik (KBT, MI, ACT), system (Procapita, Take Care) och lagstiftning (SoL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och regioner använder Visma Recruit, Heroma och egna ATS. Skriv ut socionomexamen, steg 1, samtalsmetodik (KBT, MI, ACT), system (Procapita, Take Care) och lagstiftning (SoL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14983,7 +14983,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetsområde (kirurgi, ortopedi, primärvård, BUP). Specialisering är CV-kritisk inom vård.',
       },
       {
-        title: 'I Premium: Konto Plus med foto',
+        title: 'Konto Plus med foto ingår i Premium',
         description: 'För senior vårdadministratör eller koordinator lägger Konto Plus till foto och ren design. Skapar trygghet vilket passar verksamheter där noggrannhet värderas.',
       },
       {
@@ -15231,7 +15231,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut journalsystem (Take Care, Cosmic, Melior), kodningssystem (ICD-10, KVÅ) och lagstiftning (PDL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut journalsystem (Take Care, Cosmic, Melior), kodningssystem (ICD-10, KVÅ) och lagstiftning (PDL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -15328,7 +15328,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för åldersgrupp per uppdragsgivare. Erfarenhet från F-klass och 4-6 konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'För senior fritidspedagog eller arbetslagsledare lägger Pedagog till foto och varm färgton. Skapar trygghet och passar skolverksamhet där personlig kontakt är central.',
       },
       {
@@ -15576,7 +15576,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommuner och friskolor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut lärarexamen mot fritidshem, Lgr22 kapitel 4, system (Schoolsoft, Vklass) och pedagogiska metoder (lågaffektivt bemötande, tydliggörande pedagogik) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och friskolor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut lärarexamen mot fritidshem, Lgr22 kapitel 4, system (Schoolsoft, Vklass) och pedagogiska metoder (lågaffektivt bemötande, tydliggörande pedagogik) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -15673,8 +15673,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Ansvarsfull försäljning, säljutbildningar (Mystery Shopper, NPS), kedje-specifika program lyfts som eget block.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
-        description: 'För butikssäljare som söker premium-roller eller butikschefsambition lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression.',
+        title: 'Disk Plus med foto ingår i Premium',
+        description: 'För butikssäljare som söker premium-roller eller butikschefsambition lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression.',
       },
       {
         title: 'Plats för KPI:er och resultat',
@@ -15921,7 +15921,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Stora kedjor som ICA, H&M, Stadium använder Teamtailor och Workday. Skriv ut kassasystem (ICA-kassan, Sitoo, NCR), kedjor och KPI:er (snittnota, UPT, mersälj) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, H&M, Stadium använder Teamtailor och Workday. Skriv ut kassasystem (ICA-kassan, Sitoo, NCR), kedjor och KPI:er (snittnota, UPT, mersälj) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -16018,7 +16018,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen separerar bolag och kundsegment (privat, företag, premium). Erfarenhet inom olika segment konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Norrsken Plus med foto',
+        title: 'Norrsken Plus med foto ingår i Premium',
         description: 'Bank- och försäkringsbranschen värderar personlig kontakt. Norrsken Plus lägger till foto och varm färgton som passar relationsbyggande roller.',
       },
       {
@@ -16266,7 +16266,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Norrsken Plus är ATS-säkra. Banker använder Workday, Teamtailor och egna ATS. Skriv ut licenser (Swedsec, IDD, EFPA), regelverk (MiFID II, PTL, IDD) och produktområde (bolån, pension, ISK) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Norrsken Plus, som ingår i Premium, läser rekryteringssystemen rätt. Banker använder Workday, Teamtailor och egna ATS. Skriv ut licenser (Swedsec, IDD, EFPA), regelverk (MiFID II, PTL, IDD) och produktområde (bolån, pension, ISK) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -16363,7 +16363,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för produktområde per uppdragsgivare. Erfarenhet från premium-konditori och industri-bageri konkurrerar inte.',
       },
       {
-        title: 'I Premium: Servering med foto',
+        title: 'Servering med foto ingår i Premium',
         description: 'För senior konditor eller chefskonditor lägger Servering till foto och varm färgton. Skapar professionell first impression som passar premium-segment.',
       },
       {
@@ -16611,7 +16611,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Hotellkedjor och industri-bagerier använder Workday och Teamtailor. Skriv ut gesäll- eller mästarbrev, hygiencertifiering (HACCP, EHEDG), produktområden (viennoiserie, sockerkonst, choklad) och eventuella tävlingsplaceringar i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor och industri-bagerier använder Workday och Teamtailor. Skriv ut gesäll- eller mästarbrev, hygiencertifiering (HACCP, EHEDG), produktområden (viennoiserie, sockerkonst, choklad) och eventuella tävlingsplaceringar i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -16708,7 +16708,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Bank, försäkring, retail, offentlig sektor lyfts som eget kompetensblock. Differentierar dig från konsulter med bara teknisk bredd.',
       },
       {
-        title: 'I Premium: Stack Plus med foto',
+        title: 'Stack Plus med foto ingår i Premium',
         description: 'För senior IT-konsult eller tech lead lägger Stack Plus till foto och ren design. Skapar professionell first impression som passar konsultbranschen där relation värderas.',
       },
       {
@@ -16956,7 +16956,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och premium-varianten Stack Plus är ATS-säkra. Konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut teknisk stack med versioner (.NET 8, Java 17, React 18), cloud-plattformar (AWS, Azure, GCP) och certifieringar (AWS Solutions Architect, Azure Expert) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack Developer och Stack Plus, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut teknisk stack med versioner (.NET 8, Java 17, React 18), cloud-plattformar (AWS, Azure, GCP) och certifieringar (AWS Solutions Architect, Azure Expert) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -17053,7 +17053,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för teamtyp och teknisk kontext per uppdragsgivare. Erfarenhet från frontend-team och plattformsteam konkurrerar inte.',
       },
       {
-        title: 'I Premium: Aspekt med foto',
+        title: 'Aspekt med foto ingår i Premium',
         description: 'För senior Scrum Master eller agile coach lägger Aspekt till foto och premium-känsla. Skapar professionell first impression som passar coaching-roller.',
       },
       {
@@ -17301,7 +17301,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och premium-varianten Aspekt är ATS-säkra. Konsultbolag, scale-ups och storbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut certifieringar (PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC), metodik (Scrum, Kanban, XP, Lean) och DORA-mått i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Linje och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, scale-ups och storbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut certifieringar (PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC), metodik (Scrum, Kanban, XP, Lean) och DORA-mått i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -17398,7 +17398,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och bolagsstorlek per uppdragsgivare. Erfarenhet från industri och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Konto Plus med foto',
+        title: 'Konto Plus med foto ingår i Premium',
         description: 'För senior ekonom eller controller lägger Konto Plus till foto och ren design. Skapar professionell first impression som passar ekonomi-branschen.',
       },
       {
@@ -17646,7 +17646,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Industri- och tech-bolag använder Workday, Teamtailor, SAP SuccessFactors och Oracle. Skriv ut regelverk (K2, K3, IFRS, US GAAP), system (SAP, Oracle, Visma, Fortnox) och specialisering (FP&A, treasury, M&A) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Industri- och tech-bolag använder Workday, Teamtailor, SAP SuccessFactors och Oracle. Skriv ut regelverk (K2, K3, IFRS, US GAAP), system (SAP, Oracle, Visma, Fortnox) och specialisering (FP&A, treasury, M&A) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -17743,7 +17743,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhet och specialisering per uppdragsgivare. Förlossning och MVC konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Klinik med foto',
+        title: 'Klinik med foto ingår i Premium',
         description: 'Premium-segmentet (Sophiahemmet, BB Stockholm) värderar personlig kontakt. Klinik lägger till foto och formell färgton som passar barnmorskerollen.',
       },
       {
@@ -17991,7 +17991,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Klinik är ATS-säkra. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut legitimationer, magisterexamen 90 hp, system (Take Care, Cosmic, Obstetrix) och lagstiftning (HSL, PDL, abortlagen) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut legitimationer, magisterexamen 90 hp, system (Take Care, Cosmic, Obstetrix) och lagstiftning (HSL, PDL, abortlagen) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18088,7 +18088,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för målgrupp och kontext per uppdragsgivare. Erfarenhet från psykisk ohälsa och autism konkurrerar inte.',
       },
       {
-        title: 'I Premium: Vården & Omsorg med foto',
+        title: 'Vården & Omsorg med foto ingår i Premium',
         description: 'För senior boendestöd eller samordnare lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
       },
       {
@@ -18336,7 +18336,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården & Omsorg är ATS-säkra. Kommuner och LSS-bolag använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut utbildning, målgrupp, lagstiftning (SoL, LSS, OSL), pedagogisk metodik (lågaffektivt bemötande, MI, ESL) och system (Procapita, Treserva) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Vården & Omsorg, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och LSS-bolag använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut utbildning, målgrupp, lagstiftning (SoL, LSS, OSL), pedagogisk metodik (lågaffektivt bemötande, MI, ESL) och system (Procapita, Treserva) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18433,7 +18433,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för åldersgrupp och kontext per uppdragsgivare. Erfarenhet från mellanstadium och gymnasium konkurrerar inte.',
       },
       {
-        title: 'I Premium: Pedagog med foto',
+        title: 'Pedagog med foto ingår i Premium',
         description: 'För senior fritidsledare eller verksamhetsledare lägger Pedagog till foto och varm färgton. Skapar trygghet som passar ungdomsverksamhet.',
       },
       {
@@ -18681,7 +18681,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Pedagog är ATS-säkra. Kommuner och idéburen sektor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut YH-utbildning, målgrupp, pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning, MI), lagstiftning (skollagen, SoL, OSL) och förebyggande arbete (ANDT) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och idéburen sektor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut YH-utbildning, målgrupp, pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning, MI), lagstiftning (skollagen, SoL, OSL) och förebyggande arbete (ANDT) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18778,8 +18778,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och produkt per uppdragsgivare. Telecom-erfarenhet och bank-erfarenhet konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Disk Plus med foto',
-        description: 'För senior kundtjänst eller team lead-ambition lägger Disk Plus till foto och magazine-känsla. Skapar professionell first impression.',
+        title: 'Disk Plus med foto ingår i Premium',
+        description: 'För senior kundtjänst eller team lead-ambition lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression.',
       },
       {
         title: 'Plats för språk och nivå',
@@ -19026,7 +19026,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och premium-varianten Disk Plus är ATS-säkra. Telecom, bank och scale-ups använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (Zendesk, Salesforce, Freshdesk, Puzzel, Genesys), KPI:er (NPS, FCR, AHT) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Telecom, bank och scale-ups använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (Zendesk, Salesforce, Freshdesk, Puzzel, Genesys), KPI:er (NPS, FCR, AHT) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19123,7 +19123,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för fastighetsbestånd och ansvarsområde per uppdragsgivare. Erfarenhet från bostadshus och kommersiella fastigheter konkurrerar inte.',
       },
       {
-        title: 'I Premium: Hantverkare Plus med foto',
+        title: 'Hantverkare Plus med foto ingår i Premium',
         description: 'För senior fastighetsskötare eller arbetsledare lägger Hantverkare Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -19371,7 +19371,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Bygg och premium-varianten Hantverkare Plus är ATS-säkra. Bostadsbolag och fastighetsbolag använder Workday, Visma Recruit, Teamtailor och egna ATS. Skriv ut certifieringar (heta arbeten, fallskydd, ESA, KMA), tekniska områden (VVS, el, ventilation), system (Vitec, Pondus, AdminControl) och kontroller (OVK, SBA, energideklaration) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Bygg och Hantverkare Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bostadsbolag och fastighetsbolag använder Workday, Visma Recruit, Teamtailor och egna ATS. Skriv ut certifieringar (heta arbeten, fallskydd, ESA, KMA), tekniska områden (VVS, el, ventilation), system (Vitec, Pondus, AdminControl) och kontroller (OVK, SBA, energideklaration) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19468,7 +19468,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för kafétyp (specialty, kedja, hotell, restaurang) per uppdragsgivare. Erfarenhet från specialty och kedja konkurrerar inte.',
       },
       {
-        title: 'I Premium: Servering med foto',
+        title: 'Servering med foto ingår i Premium',
         description: 'För senior barista eller chef-barista lägger Servering till foto och varm färgton. Skapar professionell first impression som passar specialty-segmentet.',
       },
       {
@@ -19716,7 +19716,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Kedjor som Espresso House och Starbucks använder Teamtailor och Workday. Skriv ut espressomaskiner (La Marzocco, Synesso, Sanremo), bryggmetoder (V60, Aeropress, Chemex), SCA-certifieringar och produktkunskap (arabica, washed, natural) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Kedjor som Espresso House och Starbucks använder Teamtailor och Workday. Skriv ut espressomaskiner (La Marzocco, Synesso, Sanremo), bryggmetoder (V60, Aeropress, Chemex), SCA-certifieringar och produktkunskap (arabica, washed, natural) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19813,7 +19813,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från bank och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Aspekt med foto',
+        title: 'Aspekt med foto ingår i Premium',
         description: 'För senior IT-projektledare eller program manager lägger Aspekt till foto och premium-känsla. Skapar professionell first impression.',
       },
       {
@@ -20061,7 +20061,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och premium-varianten Aspekt är ATS-säkra. Konsultbolag, banker och offentlig sektor använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut certifieringar (PMP, PRINCE2, SAFe, Scrum Master), metodik (vattenfall, agile, SAFe), verktyg (Jira, MS Project, Azure DevOps) och teknisk stack (AWS, Azure, SAP, Salesforce) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Linje och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, banker och offentlig sektor använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut certifieringar (PMP, PRINCE2, SAFe, Scrum Master), metodik (vattenfall, agile, SAFe), verktyg (Jira, MS Project, Azure DevOps) och teknisk stack (AWS, Azure, SAP, Salesforce) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20158,7 +20158,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Konto Plus med foto',
+        title: 'Konto Plus med foto ingår i Premium',
         description: 'För senior administrativ assistent eller VD-assistent lägger Konto Plus till foto och ren design. Skapar professionell first impression.',
       },
       {
@@ -20406,7 +20406,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox, Salesforce, Dynamics), Excel-färdigheter (Power Query, pivot, makron) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox, Salesforce, Dynamics), Excel-färdigheter (Power Query, pivot, makron) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20503,7 +20503,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för myndighet och ärendetyp per uppdragsgivare. Erfarenhet från Skatteverket och kommun konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Myndighet Plus med foto',
+        title: 'Myndighet Plus med foto ingår i Premium',
         description: 'För senior administratör eller verksamhetsassistent lägger Myndighet Plus till foto och formell färgton. Skapar förtroende som passar offentlig sektor.',
       },
       {
@@ -20751,7 +20751,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Myndigheter, kommuner och regioner använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut verksamhetssystem (Public 360, Lex, W3D3, Ciceron), regelverk (förvaltningslagen, OSL, GDPR, arkivlagen) och ärendetyper (registrering, diarieföring, utlämnande, menprövning) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Myndigheter, kommuner och regioner använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut verksamhetssystem (Public 360, Lex, W3D3, Ciceron), regelverk (förvaltningslagen, OSL, GDPR, arkivlagen) och ärendetyper (registrering, diarieföring, utlämnande, menprövning) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20848,7 +20848,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetsområde och teamstorlek per uppdragsgivare. Erfarenhet från vård och socialtjänst konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Tidlös Plus med foto',
+        title: 'Tidlös Plus med foto ingår i Premium',
         description: 'För senior enhetschef eller verksamhetschef lägger Tidlös Plus till foto och premium-känsla. Skapar förtroende som passar chefsroller.',
       },
       {
@@ -21096,7 +21096,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och premium-varianten Tidlös Plus är ATS-säkra. Kommuner, regioner och privata vårdgivare använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut ledarutbildningar (UGL, IFL, IHM, UL), arbetsrätt (LAS, MBL, AML, SAM), system (Heroma, Aditro, Hypergene, Stratsys) och konkreta resultat (sjukfrånvaro, NMI) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Tidlös och Tidlös Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner, regioner och privata vårdgivare använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut ledarutbildningar (UGL, IFL, IHM, UL), arbetsrätt (LAS, MBL, AML, SAM), system (Heroma, Aditro, Hypergene, Stratsys) och konkreta resultat (sjukfrånvaro, NMI) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21193,7 +21193,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för brukargrupp och kontext per uppdragsgivare. Erfarenhet från demensvård och palliativ vård konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Vården & Omsorg med foto',
+        title: 'Vården & Omsorg med foto ingår i Premium',
         description: 'För senior hemtjänstpersonal eller kontaktperson lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
       },
       {
@@ -21441,7 +21441,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och premium-varianten Vården & Omsorg är ATS-säkra. Kommuner och privata utförare använder Visma Recruit, Heroma och egna ATS. Skriv ut utbildning, HSL-delegation (medicin, insulin, blodsocker), system (Procapita, Treserva, Phoniro Care, TES) och B-körkort i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Norrsken och Vården & Omsorg, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och privata utförare använder Visma Recruit, Heroma och egna ATS. Skriv ut utbildning, HSL-delegation (medicin, insulin, blodsocker), system (Procapita, Treserva, Phoniro Care, TES) och B-körkort i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21538,8 +21538,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter både relevant och icke-relevant arbete på samma sätt. Sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'I Premium: Student Plus med foto',
-        description: 'För trainee-program eller premium-praktik lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
+        title: 'Student Plus med foto ingår i Premium',
+        description: 'För trainee-program eller premium-praktik lägger Student Plus till foto och tidningskänsla. Skapar professionell first impression.',
       },
       {
         title: 'Plats för engagemang',
@@ -21786,7 +21786,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Student Startup och premium-varianten Student Plus är ATS-säkra. Trainee-program och konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut program, lärosäte, relevanta kurser, programmeringsspråk (Python, R, SQL), Excel-nivå och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Student Startup och Student Plus, som ingår i Premium, läser rekryteringssystemen rätt. Trainee-program och konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut program, lärosäte, relevanta kurser, programmeringsspråk (Python, R, SQL), Excel-nivå och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21883,7 +21883,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för terminaltyp och ansvarsområde per uppdragsgivare. Erfarenhet från pakettransport och industrilager konkurrerar inte.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
+        title: 'Logistik Plus med foto ingår i Premium',
         description: 'För senior terminalarbetare eller lagerförman lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -22131,7 +22131,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Stora logistikbolag som PostNord och DHL använder Workday, Teamtailor och egna ATS. Skriv ut truckkort (TLP A, B, C, D), ADR, WMS-system (Astro, Movex, SAP EWM) och skiftvana i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora logistikbolag som PostNord och DHL använder Workday, Teamtailor och egna ATS. Skriv ut truckkort (TLP A, B, C, D), ADR, WMS-system (Astro, Movex, SAP EWM) och skiftvana i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22228,7 +22228,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och processområde per uppdragsgivare. Erfarenhet från 3PL och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
+        title: 'Logistik Plus med foto ingår i Premium',
         description: 'För senior logistikassistent eller logistikkoordinator lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -22476,7 +22476,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. 3PL, industri och e-handel använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (WMS, TMS, SAP, Movex), processer (inköp, lagerstyrning, distribution, tull), KPI:er (OTIF, lead time, leveransprecision) och certifieringar (PLAN, APICS) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. 3PL, industri och e-handel använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (WMS, TMS, SAP, Movex), processer (inköp, lagerstyrning, distribution, tull), KPI:er (OTIF, lead time, leveransprecision) och certifieringar (PLAN, APICS) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22573,8 +22573,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för verksamhetstyp och kontext per uppdragsgivare. Erfarenhet från hotell och fastighet konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Logistik Plus med foto',
-        description: 'För senior servicemedarbetare eller koordinator lägger Logistik Plus till foto och magazine-känsla. Skapar professionell first impression.',
+        title: 'Logistik Plus med foto ingår i Premium',
+        description: 'För senior servicemedarbetare eller koordinator lägger Logistik Plus till foto och tidningskänsla. Skapar professionell first impression.',
       },
       {
         title: 'Plats för servicevana',
@@ -22821,7 +22821,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och premium-varianten Logistik Plus är ATS-säkra. Hotell, fastighet och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut bransch (hotell, fastighet, kontor, konferens), certifieringar (HACCP, första hjälpen, brandskydd, heta arbeten) och system (Opera, Mews, Office 365) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotell, fastighet och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut bransch (hotell, fastighet, kontor, konferens), certifieringar (HACCP, första hjälpen, brandskydd, heta arbeten) och system (Opera, Mews, Office 365) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22918,7 +22918,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för restaurangkoncept per uppdragsgivare. Erfarenhet från fine dining och snabbmat konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Servering med foto',
+        title: 'Servering med foto ingår i Premium',
         description: 'För senior servitris eller premium-restaurang lägger Servering till foto och varm färgton. Skapar professionell first impression.',
       },
       {
@@ -23166,7 +23166,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Restauranger och hotell använder Workday, Teamtailor och egna ATS. Skriv ut kassasystem (Caspeco, Sitoo, Eat&Drink, Lightspeed), certifieringar (HACCP, ansvarsfull alkoholservering, WSET) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger och hotell använder Workday, Teamtailor och egna ATS. Skriv ut kassasystem (Caspeco, Sitoo, Eat&Drink, Lightspeed), certifieringar (HACCP, ansvarsfull alkoholservering, WSET) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23263,7 +23263,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för kökstyp per uppdragsgivare. Erfarenhet från restaurang och skolkök konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Servering med foto',
+        title: 'Servering med foto ingår i Premium',
         description: 'För senior köksbiträde eller kock-aspirant lägger Servering till foto och varm färgton. Skapar professionell first impression.',
       },
       {
@@ -23511,7 +23511,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och premium-varianten Servering är ATS-säkra. Restauranger, catering och offentliga kök använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut HACCP, allergenhantering, kökstekniker (mise en place, kallskänka) och kökstyp i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger, catering och offentliga kök använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut HACCP, allergenhantering, kökstekniker (mise en place, kallskänka) och kökstyp i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23608,8 +23608,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen lyfter både relevant och icke-relevant arbete. Tidigare sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'I Premium: Student Plus med foto',
-        description: 'För premium-sommarjobb eller trainee-program lägger Student Plus till foto och magazine-känsla. Skapar professionell first impression.',
+        title: 'Student Plus med foto ingår i Premium',
+        description: 'För premium-sommarjobb eller trainee-program lägger Student Plus till foto och tidningskänsla. Skapar professionell first impression.',
       },
       {
         title: 'Plats för certifieringar',
@@ -23856,7 +23856,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Student Startup och premium-varianten Student Plus är ATS-säkra. Sommarjobb-givare som industri, vård, retail och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut körkort, certifieringar (HACCP, truckkort, första hjälpen), språk och tillgänglighetsdatum i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Student Startup och Student Plus, som ingår i Premium, läser rekryteringssystemen rätt. Sommarjobb-givare som industri, vård, retail och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut körkort, certifieringar (HACCP, truckkort, första hjälpen), språk och tillgänglighetsdatum i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23953,7 +23953,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från fordon och livsmedel konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Verkstad Plus med foto',
+        title: 'Verkstad Plus med foto ingår i Premium',
         description: 'För senior automationsingenjör eller systemansvarig lägger Verkstad Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
       },
       {
@@ -24201,7 +24201,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och premium-varianten Verkstad Plus är ATS-säkra. Industribolag, automationsbolag och konsultbolag använder Workday, Teamtailor, Cinode och egna ATS. Skriv ut PLC-stack (Siemens S7, TIA Portal, Beckhoff TwinCAT, Studio 5000), robotmärken (ABB, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect), kommunikation (Profinet, EtherCAT, OPC UA) och säkerhet (EN ISO 13849, CE) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Industribolag, automationsbolag och konsultbolag använder Workday, Teamtailor, Cinode och egna ATS. Skriv ut PLC-stack (Siemens S7, TIA Portal, Beckhoff TwinCAT, Studio 5000), robotmärken (ABB, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect), kommunikation (Profinet, EtherCAT, OPC UA) och säkerhet (EN ISO 13849, CE) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -24298,7 +24298,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'I Premium: Myndighet Plus med foto',
+        title: 'Myndighet Plus med foto ingår i Premium',
         description: 'För senior kontorsassistent eller office manager lägger Myndighet Plus till foto och formell färgton. Skapar professionell first impression.',
       },
       {
@@ -24546,7 +24546,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox), Excel-färdigheter och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox), Excel-färdigheter och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -24650,7 +24650,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och regelverken.',
       },
       {
-        title: 'I Premium: Konto Plus med snabbfakta',
+        title: 'Konto Plus med snabbfakta ingår i Premium',
         description: 'För senior-roller (controller, redovisningschef) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar en mer professionell first impression.',
       },
       {
@@ -24894,7 +24894,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och premium-varianten Konto Plus är ATS-säkra. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox", "Visma" och "SAP" istället för "redovisningssystem" eftersom de filtreras på. Auktorisation (FAR) ska skrivas i klartext.',
+      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox", "Visma" och "SAP" istället för "redovisningssystem" eftersom de filtreras på. Auktorisation (FAR) ska skrivas i klartext.',
 
     faqItems: [
       {
@@ -24995,7 +24995,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         title: 'Stack-developer-mallen för tech-DNA',
-        description: 'Vår premium-mall Stack-developer har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli för avantgardistisk för konsultsegmentet.',
+        description: 'Stack-developer, som ingår i Premium, har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli för avantgardistisk för konsultsegmentet.',
       },
       {
         title: 'Kompakt typografi för senior-roller',
@@ -25342,7 +25342,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
       },
       {
-        title: 'I Premium: Myndighet Plus med guld-accent',
+        title: 'Myndighet Plus med guldaccent ingår i Premium',
         description: 'För senior-roller (enhetschef, förvaltningschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
       },
       {
@@ -25590,7 +25590,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och premium-varianten Myndighet Plus är ATS-säkra. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (LSS, SoL, BBIC, IBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (LSS, SoL, BBIC, IBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -25811,7 +25811,7 @@ export const HERO_INGRESS: Record<string, string> = {
 
   // ===================== SERVICE — butik/frontline (8+1) =====================
   'butiksbitrade':
-    'Butiksbiträden söker tjänster där servicekänsla, kassasystem-vana och förmåga att jobba i tempo värderas högst. Disk är en energisk ATS-säker CV-mall som lyfter försäljningsresultat och kassasystem som Sitoo, Iiko och NCR. Disk Plus ger dig en magazine-känsla med foto-banner och customer-voice-blockquote som signalerar att du investerar i din ansökan.',
+    'Butiksbiträden söker tjänster där servicekänsla, kassasystem-vana och förmåga att jobba i tempo värderas högst. Disk är en energisk ATS-säker CV-mall som lyfter försäljningsresultat och kassasystem som Sitoo, Iiko och NCR. Disk Plus ger dig en tidningskänsla med foto-banner och citat från kunder som signalerar att du investerar i din ansökan.',
   'butikssaljare':
     'Som butikssäljare bedöms du på säljsiffror, kundbemötande och din förmåga att stänga affärer i butiksmiljö. Disk lyfter konkreta resultat (omsättning, snittnota, mersälj) i en banner överst på CV:t. Disk Plus passar dig som söker chefsroller eller flagship-butiker där visuell signal är värd något — foto-banner och customer-voice-block ger en helt annan tyngd.',
   'butikschef':
@@ -25823,7 +25823,7 @@ export const HERO_INGRESS: Record<string, string> = {
   'kundtjanst':
     'Som kundtjänstmedarbetare avgörs din ansökan av språk, system och hur du hanterar arga kunder lugnt. Disk är en kompakt CV-mall där system och resultat lyfts i en banner överst. Disk Plus signalerar mer professionalism med foto-banner och customer-voice — passar dig som söker B2B-kundtjänst eller account-management-roller där relationsbyggande väger tungt.',
   'hotellvard':
-    'Hotellvärdar bedöms på språk, multitasking och hur du hanterar både check-in-rusning och svåra gäster utan att tappa charmen. Disk är en lugn gratis-CV-mall där PMS-system, språk och servicekänsla lyfts. Disk Plus är ofta starkare för hotellbranschen där foto är norm — magazine-känslan i designen matchar premium-hotell-segmentet och boutique-kedjor.',
+    'Hotellvärdar bedöms på språk, multitasking och hur du hanterar både check-in-rusning och svåra gäster utan att tappa charmen. Disk är en lugn gratis-CV-mall där PMS-system, språk och servicekänsla lyfts. Disk Plus är ofta starkare för hotellbranschen där foto är norm — tidningskänslan i designen matchar premium-hotell-segmentet och boutique-kedjor.',
   'receptionist':
     'Receptionister är ofta ansiktet utåt och bedöms på språk, system-vana och hur du hanterar både telefon, besökare och back-office samtidigt. Disk lyfter PBX-system, språk och multitasking i en kompakt CV-design. Disk Plus passar receptionsroller på advokat-, läkar- och tech-bolag där foto är förväntat och visuell signal blir en del av varumärket.',
   'kundradgivare':
@@ -25851,15 +25851,15 @@ export const HERO_INGRESS: Record<string, string> = {
 
   // ===================== SERVICE — gastro (6) =====================
   'kock':
-    'Kockar bedöms på kök-erfarenhet, certifikat (HACCP, livsmedelshygien) och förmåga att klara tempo i serviceläge. Stack-developer ger en oväntat ren ATS-säker CV-mall där meritlistor lyfts strukturerat. Servering är en visuellt rikare premium-mall som passar dig som söker chefroller på fine-dining-restauranger där creativ profil och meriter behöver kommuniceras tydligt.',
+    'Kockar bedöms på kök-erfarenhet, certifikat (HACCP, livsmedelshygien) och förmåga att klara tempo i serviceläge. Stack-developer ger en oväntat ren ATS-säker CV-mall där meritlistor lyfts strukturerat. Servering är en visuellt rikare mall i Premium som passar dig som söker chefroller på fine-dining-restauranger där creativ profil och meriter behöver kommuniceras tydligt.',
   'bartender':
-    'Bartenders bedöms på drink-portfölj, gästkontakt och förmåga att hålla huvudet kallt i fredagsrush. Stack-developer ger en strukturerad gratis-CV-mall som funkar i alla restaurangbolags ATS. Servering är en premium-variant där foto, drink-portfölj och tidigare arbetsplatser blir visuellt tunga — passar dig som söker chefroller på cocktail-barer eller hotellbarer.',
+    'Bartenders bedöms på drink-portfölj, gästkontakt och förmåga att hålla huvudet kallt i fredagsrush. Stack-developer ger en strukturerad gratis-CV-mall som funkar i alla restaurangbolags ATS. Servering är en variant i Premium där foto, drink-portfölj och tidigare arbetsplatser blir visuellt tunga. Den passar dig som söker chefroller på cocktail-barer eller hotellbarer.',
   'konditor':
     'Konditorer söker tjänster där bakteknik, dekoration och tidsplanering i produktion bedöms. Stack-developer ger en lugn ATS-säker CV-mall där utbildning och erfarenhet lyfts. Servering passar dig som söker roller på premium-bagerier eller hotell-konditorier där portfölj och visuell estetik är en del av meritbilden.',
   'barista':
-    'Baristas söker tjänster där espresso-kunskap, latte-art och mjölkrutiner avgör. Stack-developer är en kompakt gratis-CV-mall som funkar i specialty-coffee-segmentet. Servering är en premium-variant med foto och plats för portfölj — passar dig som söker chefroller på third-wave-coffee-shops eller hotellrestauranger där baristan är synlig.',
+    'Baristas söker tjänster där espresso-kunskap, latte-art och mjölkrutiner avgör. Stack-developer är en kompakt gratis-CV-mall som funkar i specialty-coffee-segmentet. Servering är en variant i Premium med foto och plats för portfölj. Den passar dig som söker chefroller på third-wave-coffee-shops eller hotellrestauranger där baristan är synlig.',
   'servitris-restaurangbitrade':
-    'Servitriser och restaurangbiträden bedöms på språk, kassasystem och om du klarar tempo i en hektisk service. Stack-developer ger en ren CV-mall där erfarenhet lyfts. Servering är en premium-mall med foto och visuell tyngd som passar dig som söker positioner på finare restauranger där förstaintrycket räknas mer än bara CV-strukturen.',
+    'Servitriser och restaurangbiträden bedöms på språk, kassasystem och om du klarar tempo i en hektisk service. Stack-developer ger en ren CV-mall där erfarenhet lyfts. Servering är en mall i Premium med foto och visuell tyngd som passar dig som söker positioner på finare restauranger där förstaintrycket räknas mer än bara CV-strukturen.',
   'koksbitrade':
     'Som köksbiträde stöttar du kockar i förberedelser, diskning och städning där pålitlighet och hygienarbete väger tungt. Stack-developer är en kompakt gratis-CV-mall som funkar i alla restaurangkedjors ATS. Servering ger en mer ambitiös first impression om du söker tjänster i finare restauranger eller har siktet inställt på att utvecklas till kock.',
 
@@ -25867,7 +25867,7 @@ export const HERO_INGRESS: Record<string, string> = {
   'saljare':
     'Som säljare bedöms du framför allt på kvantifierade resultat (omsättning, marginal, pipeline). Norrsken är en ren ATS-säker baseline där siffror får plats utan distraktion. Aurora är en premium CV-mall där en "Nyckelresultat"-panel överst lyfter dina kvantifierade siffror och en emerald-orange gradient signalerar tillväxt — passar dig som söker B2B-, key-account- eller nya marknad-roller.',
   'account-manager':
-    'Account managers bedöms på portfolio, kund-renewal och förmåga att utveckla befintliga konton. Norrsken är en lugn gratis-CV-mall där kund-resultat lyfts klart. Aurora är en premium-variant med "Nyckelresultat"-panel och foto-stöd som signalerar att du investerar i ditt personliga varumärke — viktigt i roller där relationsbyggande är hela jobbet.',
+    'Account managers bedöms på portfolio, kund-renewal och förmåga att utveckla befintliga konton. Norrsken är en lugn gratis-CV-mall där kund-resultat lyfts klart. Aurora är en variant i Premium med "Nyckelresultat"-panel och foto-stöd som signalerar att du investerar i ditt personliga varumärke, vilket är viktigt i roller där relationsbyggande är hela jobbet.',
   'sommarjobb':
     'Söker du ditt första sommarjobb behöver CV:t visa engagemang, lärande och pålitlighet — inte 10 års erfarenhet. Student-startup ger en ren CV-mall där utbildning, projekt och engagemang får plats. Student Plus lyfter drömjobbet i en eyebrow-pill, har plats för foto och en serif-design som ger ungdomlig statement utan att bli barnslig.',
 
@@ -25877,15 +25877,15 @@ export const HERO_INGRESS: Record<string, string> = {
   'devops-engineer':
     'DevOps-engineers söker roller där CI/CD, IaC, observability och cloud-vana avgör. Stack-developer är en ren gratis-CV-mall som lyfter teknik-stack tydligt. Stack Plus signalerar senior-status med foto, "Stack //"-pill-banner med Kubernetes, Terraform, Datadog och en sidopanel där on-call-erfarenhet och certifikat (AWS, GCP) blir visuellt tunga.',
   'it-konsult':
-    'IT-konsulter bedöms på leveransbredd, kund-portfölj och hur snabbt du producerar värde i nya uppdrag. Stack-developer är en strukturerad gratis-CV-mall där projekt och stack lyfts. Stack Plus är en premium-variant där foto, LinkedIn och en kompakt sidopanel med "Verktyg & övrigt" gör en starkare first impression i konsultsegmentet där förtroende ska byggas snabbt.',
+    'IT-konsulter bedöms på leveransbredd, kund-portfölj och hur snabbt du producerar värde i nya uppdrag. Stack-developer är en strukturerad gratis-CV-mall där projekt och stack lyfts. Stack Plus är en variant i Premium där foto, LinkedIn och en kompakt sidopanel med "Verktyg & övrigt" gör en starkare first impression i konsultsegmentet där förtroende ska byggas snabbt.',
 
   // ===================== TEKNIK — produkt/strategi (3) =====================
   'projektledare-it':
-    'IT-projektledare bedöms på metodik (Scrum, SAFe, PRINCE2), leveransbredd och förmåga att hålla scope. Linje är en strukturerad CV-mall där projekt och resultat lyfts klart. Aspekt är en bredare premium-mall med "Fokusområden"-pills där dina kärnkompetenser blir visuellt tunga och slate-blå accent signalerar trygghet — passar senior-PM-roller där tradition möter modernitet.',
+    'IT-projektledare bedöms på metodik (Scrum, SAFe, PRINCE2), leveransbredd och förmåga att hålla scope. Linje är en strukturerad CV-mall där projekt och resultat lyfts klart. Aspekt är en bredare mall i Premium med "Fokusområden"-pills där dina kärnkompetenser blir visuellt tunga och slate-blå accent signalerar trygghet — passar senior-PM-roller där tradition möter modernitet.',
   'scrum-master':
-    'Scrum masters söker roller där teamfacilitering, hinder-borttagning och agile coaching bedöms. Linje är en ren gratis-CV-mall som funkar i alla tech-bolags ATS. Aspekt är en bredare premium-variant där "Fokusområden"-pills lyfter dina coaching-områden och slate-blå accent ger lugn auktoritet — passar senior-Scrum master- eller agile coach-roller.',
+    'Scrum masters söker roller där teamfacilitering, hinder-borttagning och agile coaching bedöms. Linje är en ren gratis-CV-mall som funkar i alla tech-bolags ATS. Aspekt är en bredare variant i Premium där "Fokusområden"-pills lyfter dina coaching-områden och slate-blå accent ger lugn auktoritet. Den passar senior-Scrum master- eller agile coach-roller.',
   'produktchef':
-    'Som produktchef bedöms du på discovery, prioritering och hur du leder en roadmap mot tillväxt. Linje är en lugn ATS-säker CV-mall där kvantifierade resultat lyfts. Magasin är en premium-variant där editorial-känslan, asymmetrisk grid och plats för "tankeledare-citat" ger en visuell tyngd som passar senior-PM-roller på SaaS- och fintech-bolag.',
+    'Som produktchef bedöms du på discovery, prioritering och hur du leder en roadmap mot tillväxt. Linje är en lugn ATS-säker CV-mall där kvantifierade resultat lyfts. Magasin är en variant i Premium där editorial-känslan, asymmetrisk grid och plats för "tankeledare-citat" ger en visuell tyngd som passar senior-PM-roller på SaaS- och fintech-bolag.',
 
   // ===================== TEKNIK — industri (3) =====================
   'ingenjor':
@@ -25893,7 +25893,7 @@ export const HERO_INGRESS: Record<string, string> = {
   'automationsingenior':
     'Automationsingenjörer bedöms på PLC-programmering (Siemens TIA, Beckhoff), SCADA, robotcell-integration och industristandarder. Verkstad är en lugn gratis-CV-mall där system och certifikat lyfts. Verkstad Plus signalerar en mer ambitiös ansökan med blueprint-header, foto och en strukturerad sidopanel där dina specifika system och projekt blir visuellt tydliga.',
   'konstruktor':
-    'Konstruktörer söker tjänster där CAD-vana, ritningsläsning och materialkunskap avgör. Verkstad är en kompakt ATS-säker CV-mall med plats för standarder (CE, EN, ISO). Verkstad Plus är en premium-variant med blueprint-grid-bakgrund i header, rektangulärt foto och en sidopanel för verktygsstack — designvalen signalerar konstruktions-DNA utan att bli prålig.',
+    'Konstruktörer söker tjänster där CAD-vana, ritningsläsning och materialkunskap avgör. Verkstad är en kompakt ATS-säker CV-mall med plats för standarder (CE, EN, ISO). Verkstad Plus är en variant i Premium med blueprint-grid-bakgrund i header, rektangulärt foto och en sidopanel för verktygsstack. Designvalen signalerar konstruktions-DNA utan att bli prålig.',
 
   // ===================== EKONOMI (6) =====================
   'ekonomiassistent':
@@ -25905,7 +25905,7 @@ export const HERO_INGRESS: Record<string, string> = {
   'controller':
     'Controllers söker roller där analyskompetens, BI-vana (Power BI, Tableau, Cognos) och förmåga att översätta siffror till beslut bedöms. Konto är en mörkblå CV-mall som signalerar finans-DNA. Konto Plus ger en tre-kolumns header med nyckeltal-snabbfakta och navy-emerald gradient som passar senior-controller- eller business-controller-roller där visuell tyngd ger förtroende.',
   'ekonom':
-    'Ekonomer söker tjänster där förståelse för helheten — bokföring, prognos, analys — väger tyngst. Konto är en strukturerad gratis-CV-mall med tabular-nums och mono-font på datum. Konto Plus är en premium-variant där snabbfakta lyfts överst och en navy-emerald gradient ger growth-DNA — passar dig som söker tillväxtfas-roller på SaaS- eller fintech-bolag.',
+    'Ekonomer söker tjänster där förståelse för helheten — bokföring, prognos, analys — väger tyngst. Konto är en strukturerad gratis-CV-mall med tabular-nums och mono-font på datum. Konto Plus är en variant i Premium där snabbfakta lyfts överst och en navy-emerald gradient ger growth-DNA. Den passar dig som söker tillväxtfas-roller på SaaS- eller fintech-bolag.',
   'hr-specialist':
     'HR-specialister bedöms på arbetsrätt, kollektivavtal och vana med HRIS-system (Heroma, Visma Lön, Workday). Konto ger en ren ATS-säker CV-mall där system och utbildning lyfts. Konto Plus passar dig som söker senior-HR- eller HR-chef-roller där snabbfakta (HR-volym, organisation) blir visuellt tunga och first impression bär hela ansökan.',
 
