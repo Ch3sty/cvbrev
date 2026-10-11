@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title:
       'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
     description:
-      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i Jobbcoach Premium.',
+      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i Jobbcoach Premium, ingen LinkedIn-inloggning.',
   },
   robots: {
     index: true,
