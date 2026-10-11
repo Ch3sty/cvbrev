@@ -8,7 +8,7 @@ import CVAnalysMini from './components/CVAnalysMini'
 import { CV_ANALYS_FAQ_ITEMS } from './components/cv-analys-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenCv } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 const KATEGORIER = [
   { rubrik: 'Läsbarhet för rekryteringssystem', text: 'Att rubriker, formatering och filstruktur fungerar i de system svenska arbetsgivare sorterar med. Inga kolumner som förvirrar maskinen.' },
@@ -169,9 +169,9 @@ export default function CVAnalysSida() {
           roll: 'marknadsförare, från 64 till 91 i poäng',
         }}
         slut={{
-          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan`,
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Hela analysen, varje fynd med åtgärd.',
-          text: `Poängen och det tyngsta fyndet är gratis. Hela analysen, alla mallar och personliga brev utan tak ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan.`,
+          text: `Poängen och det tyngsta fyndet är gratis. Hela analysen, alla mallar och personliga brev utan tak ingår i ${paketKort()}.`,
           knapp: { text: 'Analysera mitt CV gratis', href: '#mini-analys' },
           sekundar: { text: 'Se CV-exempel först', href: '/exempel' },
         }}

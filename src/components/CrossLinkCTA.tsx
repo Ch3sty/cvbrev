@@ -53,7 +53,7 @@ export default function CrossLinkCTA({ currentType, yrke, slug }: CrossLinkCTAPr
             Komplettera ansökan
           </div>
           <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
-            Hela paketet
+            CV och brev som hör ihop
           </h3>
         </div>
       </div>

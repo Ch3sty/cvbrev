@@ -14,7 +14,7 @@ import { IlluScenIntervju } from '@/components/illustrations/PriserScener'
 import { Personlighetsprov } from '@/components/artiklar/mdx-klient'
 import { SIDA } from '@/components/artiklar/personlighetsprov/personlighetsprov-copy'
 import { GRUNDTEST_HREF } from '@/lib/intervju/lankar'
-import { PLAN_BY_KEY, paketMedPris } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 
 const URL = 'https://www.jobbcoach.ai/verktyg/personlighetstest'
 
@@ -68,7 +68,7 @@ const FAQ = [
   },
   {
     q: 'Vad ingår om jag betalar?',
-    a: `Grundtestet med femtio påståenden är gratis. Med ${paketMedPris('test_week')} eller ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan, ingår det fördjupade testet med 120 påståenden och 30 delfaktorer, och intervjuprovet utan tak.`,
+    a: `Grundtestet med femtio påståenden är gratis. Med ${paketKort()}, ${prisPeriod(SALD_PLAN)}, ingår det fördjupade testet med 120 påståenden och 30 delfaktorer, och intervjuprovet utan tak.`,
   },
 ]
 

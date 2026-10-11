@@ -22,7 +22,7 @@ import {
   IlluScenMatris,
   IlluScenSallet,
 } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketMedPris } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
@@ -33,10 +33,6 @@ const LANK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
 const SEKTION = 'mt-16 lg:mt-[88px]'
 
-const CV = PLAN_BY_KEY.cv_week.amount
-const TEST = PLAN_BY_KEY.test_week.amount
-const ALLT = PLAN_BY_KEY.all_week.amount
-const ALLT_MANAD = PLAN_BY_KEY.all_month.amount
 
 /* ------------------------------------------------------------------ hero */
 
@@ -300,7 +296,7 @@ export const START_FAQ = [
   },
   {
     q: 'Vad kostar det, och vad får jag utan att betala?',
-    a: `Gratisnivån kräver inget kort: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och tyngsta fyndet, ett personligt brev på en annons, ${FREE_TIER_JOB_LIMIT} matchade jobb, ${FREE_CHAT_MESSAGES_PER_ACCOUNT} frågor till Jobbcoachen och grundnivån i varje testtyp. Söker du på allvar väljer du paketet som passar: CV-paketet och Träningspaketet kostar ${CV} respektive ${TEST} kr i veckan, Hela paketet ${ALLT} kr i veckan eller ${ALLT_MANAD} kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.`,
+    a: `Gratisnivån kräver inget kort: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och tyngsta fyndet, ett personligt brev på en annons, ${FREE_TIER_JOB_LIMIT} matchade jobb, ${FREE_CHAT_MESSAGES_PER_ACCOUNT} frågor till Jobbcoachen och grundnivån i varje testtyp. Söker du på allvar ingår allt i ${paketMedPris(SALD_PLAN)}. Ingen bindningstid, och du säger upp i ditt konto.`,
   },
 ] as const
 
@@ -327,7 +323,7 @@ export function StartFaq() {
         ))}
       </div>
       <p className="mt-6 text-sm text-ink-2">
-        Fler frågor om paketen?{' '}
+        Fler frågor om priset?{' '}
         <Link href="/priser" className={LANK}>
           Se priserna
         </Link>

@@ -101,11 +101,13 @@ export function clusterHasProductCta(cluster: CtaCluster): boolean {
 /* ----------------------------------------------------- paketet per kluster */
 
 /**
- * Paketet som reklamkorten i en artikel föreslår
+ * Vinkeln som reklamkorten i en artikel tar
  * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6, klusterregeln).
+ * Sedan 2026-10-11 säljer alla kort Jobbcoach Premium (spec-rummen 17.3);
+ * nyckeln väljer bara rubrik, rader och mätvariant.
  *
- *   test       → Träningspaketet
- *   cv, letter → CV-paketet
+ *   test       → testvinkeln
+ *   cv, letter → CV- och brevvinkeln
  *   interview  → Allt
  *   career     → Allt när taggarna handlar om lön, uppsägning, byta jobb
  *                eller arbetsgivarintyg; annars inget paket alls
@@ -115,7 +117,7 @@ export function clusterHasProductCta(cluster: CtaCluster): boolean {
  */
 export type ArtikelPaket = 'cv' | 'test' | 'allt' | 'gratis'
 
-/** Karriärtaggar som gör att en karriärartikel föreslår Hela paketet. */
+/** Karriärtaggar som gör att en karriärartikel får Allt-vinkeln. */
 const CAREER_ALLT: readonly string[] = [
   'lön',
   'lon',

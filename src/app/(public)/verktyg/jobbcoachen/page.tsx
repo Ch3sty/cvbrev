@@ -8,7 +8,7 @@ import JobbcoachenLiveDemo from './components/JobbcoachenLiveDemo'
 import { JOBBCOACHEN_FAQ_ITEMS } from './components/jobbcoachen-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenCoach } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 
 const AMNEN = [
@@ -173,9 +173,9 @@ export default function JobbcoachenSida() {
           roll: 'marknadschef på ett medtechbolag',
         }}
         slut={{
-          eyebrow: 'Allt-paketet',
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta googla. Fråga någon som vet.',
-          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill, med ditt CV i samtalet, ingår i ${PLAN_BY_KEY.all_week.name}: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden.`,
+          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill, med ditt CV i samtalet, ingår i ${paketKort()}.`,
           knapp: { text: 'Fråga Karriärguiden gratis', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

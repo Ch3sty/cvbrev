@@ -26,7 +26,7 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 
 import Logo from '@/components/Logo'
 import { IlluScenAllt } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY, paketMedPris } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketMedPris } from '@/lib/plans/plans'
 import NavIkon from './NavIkon'
 import { GRUPPER, HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
 import { ENTRY_STORAGE_KEY } from '@/components/registrering/intent'
@@ -192,15 +192,15 @@ export default function LandingNavbar() {
                     <div className="w-[120px] text-ink-1" style={SCEN_PA_PAPPER}>
                       <IlluScenAllt className="h-auto w-full" />
                     </div>
-                    <p className="mt-3 text-varde text-ink-1">{paketMedPris('all_week')}</p>
+                    <p className="mt-3 text-varde text-ink-1">{paketMedPris(SALD_PLAN)}</p>
                     <p className="mt-2 text-sm leading-[22px] text-ink-2">
-                      {PLAN_BY_KEY.all_week.beskrivning}. Säg upp med ett klick.
+                      {PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp med ett klick.
                     </p>
                     <Link
                       href="/priser"
                       className="mt-3 inline-block text-sm font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
                     >
-                      Se alla tre paketen
+                      Se vad som ingår
                     </Link>
                   </div>
                 </div>

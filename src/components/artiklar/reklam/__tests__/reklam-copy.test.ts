@@ -9,7 +9,7 @@
  */
 import { describe, expect, it } from 'vitest'
 
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import {
@@ -50,50 +50,47 @@ describe('reklamkortens texter', () => {
     expect(INLINE.test.rubrik).toBe('Öva på frågorna innan de räknas')
   })
 
-  it('priserna kommer ur PLANS', () => {
-    expect(SIDO.cv.belopp).toBe(`${PLAN_BY_KEY.cv_week.amount} kr`)
-    expect(SIDO.test.belopp).toBe(`${PLAN_BY_KEY.test_week.amount} kr`)
-    expect(SIDO.allt.belopp).toBe(`${PLAN_BY_KEY.all_week.amount} kr`)
-    expect(SIDO.allt.under).toContain(`${PLAN_BY_KEY.all_month.amount} kr`)
-    expect(SLUT.cv.prisrad).toContain(`${PLAN_BY_KEY.cv_week.amount} kr`)
-    expect(SLUT.test.prisrad).toContain(`${PLAN_BY_KEY.test_week.amount} kr`)
-    expect(SLUT.allt.prisrad).toContain(`${PLAN_BY_KEY.all_week.amount} kr`)
-    expect(SLUT.allt.prisrad).toContain(`${PLAN_BY_KEY.all_month.amount} kr`)
-    expect(LISTA_SLUT.paket.map((p) => p.pris)).toEqual([
-      `${PLAN_BY_KEY.cv_week.amount} kr`,
-      `${PLAN_BY_KEY.test_week.amount} kr`,
-      `${PLAN_BY_KEY.all_week.amount} kr`,
-    ])
-    // Inga andra belopp än paketens får stå i texterna.
-    const tillatna = new Set(
-      [PLAN_BY_KEY.cv_week, PLAN_BY_KEY.test_week, PLAN_BY_KEY.all_week, PLAN_BY_KEY.all_month].map((p) =>
-        String(p.amount)
-      )
-    )
+  it('priserna kommer ur PLANS, och bara det sålda priset står', () => {
+    const plan = PLAN_BY_KEY[SALD_PLAN]
+    for (const k of ['cv', 'test', 'allt'] as const) {
+      expect(SIDO[k].belopp).toBe(`${plan.amount} kr`)
+      expect(SIDO[k].under).toContain(plan.suffix)
+      expect(SLUT[k].prisrad).toBe(`${prisPeriod(SALD_PLAN)}, säg upp när du vill.`)
+    }
+    expect(LISTA_SLUT.text).toContain(prisPeriod(SALD_PLAN))
+    // Inga andra belopp än det sålda får stå i texterna.
     for (const t of TEXTER) {
-      for (const m of t.matchAll(/(\d+) kr/g)) expect(tillatna.has(m[1]), t).toBe(true)
+      for (const m of t.matchAll(/(d+) kr/g)) expect(m[1], t).toBe(String(plan.amount))
     }
   })
 
-  it('rätt paket per kluster: test till Träningspaketet, CV och brev till CV-paketet, intervju och lön till Hela paketet', () => {
-    expect(SLUT.test.href).toContain('paket=test_week')
-    expect(SLUT.cv.href).toContain('paket=cv_week')
-    expect(SLUT.allt.href).toContain('paket=all_week')
-    expect(SIDO.test.etikett).toBe(PLAN_BY_KEY.test_week.name)
-    expect(SIDO.cv.etikett).toBe(PLAN_BY_KEY.cv_week.name)
-    expect(INLINE.test.paketrad).toContain(PLAN_BY_KEY.test_week.name)
-    expect(INLINE.mallar.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
-    expect(INLINE.analys.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
-    expect(INLINE.brev.paketrad).toContain(PLAN_BY_KEY.cv_week.name)
-    expect(INLINE.coach.paketrad).toContain(PLAN_BY_KEY.all_week.name)
-    // Perioden står i varje paketrad (R1), aldrig bara "79 kr".
-    for (const v of Object.values(INLINE)) expect(v.paketrad).toMatch(/kr i veckan/)
+  it('varje kort säljer Jobbcoach Premium (spec-rummen 17.3)', () => {
+    for (const k of ['cv', 'test', 'allt'] as const) {
+      expect(SIDO[k].etikett).toBe(paketNamn(SALD_PLAN))
+      expect(SLUT[k].etikett).toBe(paketNamn(SALD_PLAN))
+      expect(SLUT[k].href).toBe(`/register?paket=${SALD_PLAN}`)
+      expect(SLUT[k].knapp).toBe('Köp Premium, 149 kr i månaden')
+      expect(SLUT[k].sekundar.text).toBe('Se vad som ingår')
+    }
+    expect(LISTA_SLUT.etikett).toBe(paketNamn(SALD_PLAN))
+    for (const v of Object.values(INLINE)) expect(v.paketrad).toContain(`Premium, ${prisPeriod(SALD_PLAN)}`)
+    // Jobbcoachen-raden har kortformen, aldrig "Jobbcoach" två gånger (copy-premium krock 3).
+    expect(INLINE.coach.paketrad).not.toContain('Jobbcoach Premium')
+  })
+
+  it('inga osålda paket och inga förbjudna ord (copy-premium avsnitt 2 och 7)', () => {
+    for (const t of TEXTER) {
+      expect(t, t).not.toMatch(/CV-paketet|Träningspaketet|Dagspasset|Hela paketet|hela paketet/)
+      expect(t, t).not.toMatch(/paketen|alla tre|Byt paket|ett paket|Uppgradera|Skaffa/)
+      expect(t, t).not.toMatch(/Premium-|Premiumpaket|Jobbcoachen Premium|premium[ .]/)
+      expect(t, t).not.toMatch(/i veckan|kr\/mån|per månad/)
+    }
   })
 
   it('mallantalen kommer ur konstanterna', () => {
     expect(INLINE.mallar.paketrad).toContain(`Alla ${TEMPLATE_COUNT} mallar`)
     // Sidokortets text är förklaringsraden ur PLANS (R2).
-    expect(SIDO.cv.text).toBe(PLAN_BY_KEY.cv_week.beskrivning)
+    expect(SIDO.cv.text).toBe(PLAN_BY_KEY[SALD_PLAN].beskrivning)
     expect(SLUT.cv.rader.join(' ')).toContain(`${TEMPLATE_COUNT}`)
     expect(FREE_TEMPLATE_COUNT).toBe(3)
     expect(INLINE.mallar.text.startsWith('Tre mallar')).toBe(true)

@@ -544,7 +544,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* Slutkortet: paketet för klustret, i bläck. */}
+                {/* Slutkortet: Premium med klustrets vinkel, i bläck. */}
                 {paket ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
             </ArtikelRam>
 

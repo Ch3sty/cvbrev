@@ -28,11 +28,9 @@ import CVMallarGalleri from './components/CVMallarGalleri'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMallar } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY, paketMedPris, paketNamn } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { isValidTemplateId } from '@/lib/cv/templates'
 import { FONTS } from '@/lib/cv/preview-utils'
-
-const CV_VECKAN = PLAN_BY_KEY.cv_week
 
 /** Registrets beskrivningar har tankstreck; i löptexten blir de komma. Schemat läser registret orört. */
 const lopText = (t: string) => t.replace(/\s+—\s+/g, ', ')
@@ -66,8 +64,8 @@ const STEG = [
 const FUNKTIONER = [
   { rubrik: 'Byggda för rekryteringssystem', text: 'Alla mallar är gjorda för de rekryteringssystem svenska arbetsgivare sorterar med. Rena rubriker, vanlig text och ingen formatering som förvirrar systemet.' },
   { rubrik: 'PDF och Word', text: 'Ladda ner ditt CV i båda formaten. PDF för de flesta ansökningar, Word när annonsen ber om ett redigerbart format.' },
-  { rubrik: 'Profilbild där det passar', text: 'Vissa av mallarna i CV-paketet har plats för profilbild. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.' },
-  { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'I flera av mallarna i CV-paketet syns din LinkedIn-profil tydligt. Då kan rekryteraren enkelt kontrollera dina meriter.' },
+  { rubrik: 'Profilbild där det passar', text: 'Vissa av mallarna i Premium har plats för profilbild. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.' },
+  { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'I flera av mallarna i Jobbcoach Premium syns din LinkedIn-profil tydligt. Då kan rekryteraren enkelt kontrollera dina meriter.' },
   { rubrik: 'Redigera när du vill', text: 'Allt sparas i ditt konto. Kom tillbaka, lägg till ett nytt jobb eller byt mall utan att börja om.' },
   { rubrik: 'Fungerar i mobilen', text: 'Hela CV-byggaren fungerar lika bra i telefonen som på datorn. Börja på bussen och fortsätt hemma vid skrivbordet.' },
 ]
@@ -209,8 +207,8 @@ export default function CVMallarSida() {
           <CVMallarLiveDemo
             mallar={DEMO_MALLAR}
             typsnitt={DEMO_TYPSNITT}
-            paketGrupp={`I ${paketNamn('cv_week')}`}
-            paketRad={`Ingår i ${paketMedPris('cv_week')}`}
+            paketGrupp={`I ${paketKort()}`}
+            paketRad={`Ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}`}
           />
         }
         handlingId="valj-mall"
@@ -227,16 +225,16 @@ export default function CVMallarSida() {
           ingress: 'Varje mall hjälper dig genom hela ansökan, inte bara med hur sidan ser ut.',
           rader: FUNKTIONER,
         }}
-        fritt={<CVMallarGalleri mallar={GALLERI_MALLAR} paket={paketNamn('cv_week')} />}
+        fritt={<CVMallarGalleri mallar={GALLERI_MALLAR} paket={paketKort()} />}
         citat={{
           text: 'Jag hade suttit i två veckor och försökt få Word att se rätt ut. Jag bytte till en av era mallar, fyllde i mina uppgifter på tjugo minuter och hade tre intervjuer bokade veckan efter.',
           namn: 'Anna, 28, Malmö',
           roll: 'ekonomiassistent, nu på SEB, från två veckor till tjugo minuter',
         }}
         slut={{
-          eyebrow: CV_VECKAN.name,
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Välj din mall och bygg ditt CV.',
-          text: `Tjugo minuter från val till färdig PDF. ${FREE_TEMPLATE_COUNT} mallar är gratis, utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, hela CV-analysen och nedladdning i Word och PDF ingår i ${CV_VECKAN.name}, ${CV_VECKAN.amount} kr i veckan.`,
+          text: `Tjugo minuter från val till färdig PDF. ${FREE_TEMPLATE_COUNT} mallar är gratis, utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, hela CV-analysen och nedladdning i Word och PDF ingår i ${paketNamn(SALD_PLAN)}.`,
           knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

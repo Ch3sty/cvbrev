@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
 import { storePendingDraft } from '@/lib/letters/claim-draft-client'
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import {
   IlluBlurGate,
   IlluUtkastKlart,
@@ -299,7 +300,7 @@ function DraftGate({ draft, yrkeLabel }: { draft: DraftResult; yrkeLabel: string
             </h2>
             <p className="text-sm leading-relaxed text-neutral-600 mb-4">
               Skapa ett gratiskonto så får du hela brevet, och vi sparar det åt dig.
-              Vill du ladda ner det som PDF eller Word ingår det i CV-paketet, 79 kr i veckan.
+              Vill du ladda ner det som PDF eller Word ingår det i {paketKort()}, {prisPeriod(SALD_PLAN)}.
             </p>
             <Link
               href={registerHref}

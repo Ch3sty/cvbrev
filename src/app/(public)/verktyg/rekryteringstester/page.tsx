@@ -9,9 +9,7 @@ import RekryteringstesterProvaKort from './components/RekryteringstesterProvaKor
 import { REKRYTERINGSTESTER_FAQ_ITEMS } from './components/rekryteringstester-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMatris } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
-
-const TRANINGSPAKETET = PLAN_BY_KEY.test_week
+import { SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 const STEG = [
   { rubrik: 'Välj test', text: 'Plocka ett av de tre gratistesterna. Grundnivån går att köra en gång per dygn och testtyp, och frågorna byts ut varje gång.' },
@@ -46,7 +44,7 @@ const BIG_FIVE = [
 const INGAR = [
   { rubrik: 'Grundnivån är gratis', text: 'En gång per dygn och testtyp. Ingen kortuppgift, du börjar direkt.' },
   { rubrik: 'Rapport efter varje pass', text: 'Resultat, tid och en genomgång fråga för fråga med rätt svar.' },
-  { rubrik: `${TRANINGSPAKETET.name} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${TRANINGSPAKETET.amount} kr i veckan.` },
+  { rubrik: `${paketKort()} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${prisPeriod(SALD_PLAN)}.` },
 ]
 
 // Förberedelserna och guidelänkarna flyttades hit från /artiklar/rekryteringstester-guide
@@ -105,7 +103,7 @@ export default function RekryteringstesterSida() {
       description: 'Alla grundnivåtester gratis, en gång per dag, utan kortuppgift',
     },
     featureList:
-      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med Träningspaketet',
+      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med ' + paketNamn(SALD_PLAN),
   }
 
   const howToSchema = {
@@ -222,14 +220,14 @@ export default function RekryteringstesterSida() {
             id: 'testtyper',
             eyebrow: 'Kognitiva tester',
             rubrik: 'Tre testtyper, alla gratis att börja',
-            ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${TRANINGSPAKETET.name} för ${TRANINGSPAKETET.amount} kr i veckan.`,
+            ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
             rader: TESTTYPER,
             lank: { text: 'Starta gratis test', href: '/register?borja=tester' },
           },
           {
             eyebrow: 'Personlighetsprofil',
             rubrik: 'Ta reda på vad rekryteraren ser i dig',
-            ingress: `De flesta arbetsgivare utgår från Big Five när de mäter personlighet i rekrytering. Bygg din egen profil och se var du hamnar på de fem dimensionerna. Det finns inga rätta svar, och resultatet kan du använda inför intervjun. Gratis: 50 frågor, cirka 10 minuter. Med ${TRANINGSPAKETET.name} eller ${PLAN_BY_KEY.all_week.name}: det fördjupade testet, 120 påståenden och 30 delfaktorer, cirka 25 minuter.`,
+            ingress: `De flesta arbetsgivare utgår från Big Five när de mäter personlighet i rekrytering. Bygg din egen profil och se var du hamnar på de fem dimensionerna. Det finns inga rätta svar, och resultatet kan du använda inför intervjun. Gratis: 50 frågor, cirka 10 minuter. Med ${paketKort()}: det fördjupade testet, 120 påståenden och 30 delfaktorer, cirka 25 minuter.`,
             rader: BIG_FIVE,
             lank: { text: 'Gör personlighetsprovet, tjugo påståenden utan konto', href: '/verktyg/personlighetstest' },
           },
@@ -259,9 +257,9 @@ export default function RekryteringstesterSida() {
           roll: 'Junior Data Analyst på Klarna, klarade urvalstestet efter två veckor',
         }}
         slut={{
-          eyebrow: `${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan`,
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Träna nu. Kom förberedd sen.',
-          text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${TRANINGSPAKETET.name}, ${TRANINGSPAKETET.amount} kr i veckan.`,
+          text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${paketKort()}.`,
           knapp: { text: 'Starta gratis test', href: '/register?borja=tester' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

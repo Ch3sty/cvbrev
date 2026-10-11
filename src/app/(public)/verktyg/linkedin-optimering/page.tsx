@@ -8,7 +8,7 @@ import LinkedinOptimeringLiveDemo from './components/LinkedinOptimeringLiveDemo'
 import { LINKEDIN_OPTIMERING_FAQ_ITEMS } from './components/linkedin-optimering-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenLinkedin } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketMedPris, paketNamn } from '@/lib/plans/plans'
 
 /** Stegtexterna på sidan. Schemats HowTo-text ligger kvar oförändrad nedan. */
 const STEG_TEXT = [
@@ -60,9 +60,9 @@ export default function LinkedinOptimeringSida() {
     operatingSystem: 'Web browser',
     offers: {
       '@type': 'Offer',
-      price: String(PLAN_BY_KEY.cv_week.amount),
+      price: String(PLAN_BY_KEY[SALD_PLAN].amount),
       priceCurrency: 'SEK',
-      description: `Ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden`,
+      description: `Ingår i ${paketMedPris(SALD_PLAN)}`,
     },
     featureList:
       'Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, poäng före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, kopiera och klistra in utan LinkedIn-inloggning, STAR-format på erfarenhet, anpassning för rekryteringssystem (ATS) med branschens nyckelord',
@@ -78,7 +78,7 @@ export default function LinkedinOptimeringSida() {
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
-      value: String(PLAN_BY_KEY.cv_week.amount),
+      value: String(PLAN_BY_KEY[SALD_PLAN].amount),
     },
     step: [
       {
@@ -207,9 +207,9 @@ export default function LinkedinOptimeringSida() {
           roll: 'UX-designer inom B2B SaaS, från noll till åtta meddelanden på två veckor',
         }}
         slut={{
-          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan`,
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta vara osynlig. Börja synas i dag.',
-          text: `LinkedIn-optimeringen ingår i ${PLAN_BY_KEY.cv_week.name}, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i ${PLAN_BY_KEY.all_week.name}, ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
+          text: `LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}, tillsammans med alla CV-mallar, hela CV-analysen, personliga brev utan tak och rekryteringstesterna. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
           knapp: { text: 'Optimera min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

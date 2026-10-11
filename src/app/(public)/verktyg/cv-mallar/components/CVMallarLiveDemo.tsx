@@ -36,9 +36,9 @@ export interface DemoTypsnitt {
 interface CVMallarLiveDemoProps {
   mallar: readonly DemoMall[]
   typsnitt: readonly DemoTypsnitt[]
-  /** Optgruppens namn för de betalda mallarna: "I CV-paketet". */
+  /** Optgruppens namn för de betalda mallarna: "I Premium". */
   paketGrupp: string
-  /** Etiketten för en betald mall: "Ingår i CV-paketet, 79 kr i veckan". */
+  /** Etiketten för en betald mall: "Ingår i Premium, 149 kr i månaden". */
   paketRad: string
 }
 

@@ -8,7 +8,7 @@
  *   2. Lönesidan: Lön efter skatt som upphöjd panel med ett räknat exempel,
  *      sedan tre kort.
  *   3. Sidans enda bläckyta: löneförhandlingens värde och jobbcoachen, som
- *      ingår i Hela paketet.
+ *      ingår i Premium.
  *   4. Rekryterarsidan: Vad kostar en anställd som rad på mark med ett
  *      räknat exempel, tre kort, och länken till insikterna för rekryterare
  *      (inget paket).
@@ -21,7 +21,7 @@ import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
 import { IlluScenKalkylator } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { TABELLER } from '@/lib/rakna/sammanfattning'
 import { LON_STANDARD, beraknaLon } from '@/lib/rakna/lonEfterSkatt'
 import { FORHANDLING_STANDARD, beraknaForhandling } from '@/lib/rakna/loneforhandling'
@@ -109,8 +109,6 @@ export default function Page() {
   const lon = beraknaLon(LON_STANDARD, TABELLER)
   const forhandling = beraknaForhandling(FORHANDLING_STANDARD)
   const anstalld = beraknaAnstalld(ANSTALLD_STANDARD)
-  const vecka = PLAN_BY_KEY.all_week
-  const manad = PLAN_BY_KEY.all_month
 
   return (
     <main className="min-h-screen bg-mark">
@@ -207,13 +205,13 @@ export default function Page() {
         {/* 3. Bläckytan */}
         <div className={SEKTION}>
           <InkPanel
-            eyebrow={`Ingår i Hela paketet, ${vecka.amount} kr i veckan`}
+            eyebrow={`Ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}`}
             title={`${kr(FORHANDLING_STANDARD.hojning)} mer i månaden är värt ${krTecken(forhandling.ar10)} på tio år`}
             text={
               <>
                 Löneförhandlingens värde räknar ut vad en höjning blir när varje revision läggs ovanpå den. Jobbcoachen
                 hjälper dig få den: marknadslön och argument ur SCB och fackens statistik, med källa till varje svar.
-                Jobbcoachen, så mycket du vill, ingår i Hela paketet, {vecka.amount} kr i veckan eller {manad.amount} kr i månaden.
+                Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
               </>
             }
             action={

@@ -12,7 +12,7 @@ export default async function Image() {
       <OgFrame
         eyebrow="CV-mallar"
         title="Mallar för alla yrken"
-        subtitle="25 designer · ATS-säkra · gratis och premium"
+        subtitle="25 designer · ATS-säkra · gratis eller i Premium"
         illustration={<OgCvMallarIllustration />}
       />
     ),

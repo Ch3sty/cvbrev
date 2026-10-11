@@ -77,7 +77,7 @@ interface Kvot {
   text: string
   /** Kontoknappen för besökare utan konto. */
   registerHref?: string
-  /** Textlänken till paketen för inloggade. */
+  /** Textlänken till prissidan för inloggade. */
   upgradeHref?: string
 }
 
