@@ -8,7 +8,7 @@
  *
  *   hard   LCP vid en hård laddning (goto), som perf-inloggat.
  *   klient tiden från router.push i en annan dörr (CV-rummet, /dashboard/profil/cv)
- *          tills målets innehåll står: rätt adress, en rubrik i main och
+ *          tills målets innehåll står: rätt adress, målets eget element och
  *          inget laddskelett kvar (aria-busy eller .loading-thread).
  *
  * Kräver ett produktionsbygge som kör på porten. Skriver inget i databasen.
@@ -28,8 +28,9 @@ const bas = `http://localhost:${arg('port', '5264')}`
 const KORNINGAR = Number(arg('korningar', '5'))
 const START = '/dashboard/profil/cv'
 const MAL: { url: string; klar: string }[] = [
-  { url: '/dashboard/tester', klar: 'main h1' },
-  { url: '/dashboard/tester/alla', klar: '[data-testkort="logik"]' },
+  { url: '/dashboard/tester', klar: '[data-tillstand]' },
+  // Finns både före och efter lyftet: länken till logiktestets grundnivå.
+  { url: '/dashboard/tester/alla', klar: 'main a[href="/dashboard/tester/matrislogik-grund"]' },
 ]
 const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'].find((p) => fs.existsSync(p))!
 
@@ -70,10 +71,16 @@ async function nySida(browser: Browser, payload: string): Promise<Page> {
   const ref = process.env.NEXT_PUBLIC_SUPABASE_URL!.split('//')[1].split('.')[0]
   for (let i = 0, n = 0; i < payload.length; i += 3200, n++) await page.setCookie({ name: `sb-${ref}-auth-token.${n}`, value: payload.slice(i, i + 3200), url: bas, path: '/' })
   await page.setCookie({ name: 'cvBrevCookieConsent', value: 'false', url: bas, path: '/' })
+  // tsx (esbuild keepNames) lägger __name runt namngivna funktioner i evaluate.
+  await page.evaluateOnNewDocument('globalThis.__name = (f) => f')
   await page.evaluateOnNewDocument(() => {
     ;(window as any).__lcp = 0
     new PerformanceObserver((l) => {
-      for (const e of l.getEntries()) (window as any).__lcp = e.startTime
+      for (const e of l.getEntries()) {
+        ;(window as any).__lcp = e.startTime
+        const el = (e as any).element as Element | null
+        ;(window as any).__lcpEl = el ? `${el.tagName.toLowerCase()} ${(el.textContent ?? '').trim().slice(0, 40)}` : ''
+      }
     }).observe({ type: 'largest-contentful-paint', buffered: true })
   })
   return page
@@ -97,6 +104,7 @@ async function main() {
         await page.goto(bas + m.url, { waitUntil: 'networkidle0', timeout: 90000, referer: `${bas}/dashboard/profil` })
         await new Promise((r) => setTimeout(r, 1500))
         ut[m.url].hard.push(Math.round(await page.evaluate(() => (window as any).__lcp as number)))
+        if (process.argv.includes('--element')) console.log('  LCP-element:', await page.evaluate(() => (window as any).__lcpEl), 'FCP', await page.evaluate(() => Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0)), 'nav', await page.evaluate(() => { const n = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming; const css = performance.getEntriesByType('resource').filter((r) => r.name.endsWith('.css')).reduce((a, r) => a + (r as PerformanceResourceTiming).transferSize, 0); return { ttfb: Math.round(n.responseStart), html: n.transferSize, htmlSlut: Math.round(n.responseEnd), css } }))
         await page.close()
 
         // Klientnavigering från CV-rummet.

@@ -47,7 +47,7 @@ const arg = (n, f) => {
 }
 const PORT = arg('port', '5262')
 const BAS = `http://localhost:${PORT}`
-const UT = path.resolve('docs/qa/tester-lyft/helhet')
+const UT = process.env.QA_UT ?? path.resolve('docs/qa/tester-lyft/helhet')
 const SCRATCH = process.env.QA_SCRATCH ?? os.tmpdir()
 const KONTOFIL = path.join(SCRATCH, 'qa-lyft-helhet-konton.json')
 fs.mkdirSync(UT, { recursive: true })

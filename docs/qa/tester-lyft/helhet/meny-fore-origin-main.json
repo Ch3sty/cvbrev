@@ -1,0 +1,349 @@
+[
+  {
+    "form": "m360",
+    "sida": "alla",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "alla",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "utveckling",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "utveckling",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "testsida",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "15 frågor, cirka 20 minuter"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "testsida",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "15 frågor, cirka 20 minuter"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "resultat",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 5,
+    "totalt": 25,
+    "missar": [
+      "Din poäng"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "resultat",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 6,
+    "totalt": 25,
+    "missar": [
+      "Din poäng"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "hemvy",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Första passet"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "hemvy",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Första passet"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "brev",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Skriv ett brev mot en annons"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "brev",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Skriv ett brev mot en annons"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "cv",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Ladda upp ett CV"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "sida": "cv",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Ladda upp ett CV"
+    ],
+    "overst": false
+  },
+  {
+    "form": "m360",
+    "konsol": [],
+    "http": []
+  },
+  {
+    "form": "desktop",
+    "sida": "alla",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 23,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "alla",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 22,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "utveckling",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 23,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "utveckling",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 22,
+    "totalt": 25,
+    "missar": [
+      "Verbalt resonemang, grund"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "testsida",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 21,
+    "totalt": 25,
+    "missar": [
+      "15 frågor, cirka 20 minuter"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "testsida",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 19,
+    "totalt": 25,
+    "missar": [
+      "15 frågor, cirka 20 minuter"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "resultat",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 19,
+    "totalt": 25,
+    "missar": [
+      "Din poäng"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "resultat",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 16,
+    "totalt": 25,
+    "missar": [
+      "Din poäng"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "hemvy",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 15,
+    "totalt": 25,
+    "missar": [
+      "Fler tester"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "hemvy",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 20,
+    "totalt": 25,
+    "missar": [
+      "Första passet",
+      "Fler tester"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "brev",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 15,
+    "totalt": 25,
+    "missar": [
+      "Skriv ett brev mot en annons"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "brev",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 15,
+    "totalt": 25,
+    "missar": [
+      "Skriv ett brev mot en annons"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "cv",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Ladda upp ett CV"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "sida": "cv",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 10,
+    "totalt": 25,
+    "missar": [
+      "Ladda upp ett CV"
+    ],
+    "overst": false
+  },
+  {
+    "form": "desktop",
+    "konsol": [],
+    "http": []
+  }
+]

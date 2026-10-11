@@ -1,0 +1,292 @@
+[
+  {
+    "form": "m360",
+    "sida": "alla",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "alla",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "utveckling",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "utveckling",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "testsida",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "testsida",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "resultat",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "resultat",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "hemvy",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "hemvy",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "brev",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "brev",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "cv",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "sida": "cv",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "m360",
+    "konsol": [],
+    "http": []
+  },
+  {
+    "form": "desktop",
+    "sida": "alla",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "alla",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "utveckling",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "utveckling",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "testsida",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "testsida",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "resultat",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "resultat",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "hemvy",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "hemvy",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "brev",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "brev",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "cv",
+    "meny": "konto",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "sida": "cv",
+    "meny": "notiser",
+    "oppen": true,
+    "traff": 25,
+    "totalt": 25,
+    "missar": [],
+    "overst": true
+  },
+  {
+    "form": "desktop",
+    "konsol": [],
+    "http": []
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "tid": "2026-10-11T15:28:21.984Z",
+  "konton": [
+    {
+      "nyckel": "meny-alla",
+      "email": "qa-lyft-helhet-meny-alla-1791729982651@jobbcoach-qa.test",
+      "id": "e2eff682-4514-47e0-9697-b242719d70a5",
+      "rader": {
+        "user_activities": 39,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "notifications": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}
