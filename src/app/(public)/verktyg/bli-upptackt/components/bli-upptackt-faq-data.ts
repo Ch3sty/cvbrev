@@ -1,11 +1,8 @@
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 export type FaqItem = { q: string; a: string }
 
-const ALLT_VECKA = PLAN_BY_KEY.all_week
-const ALLT_MANAD = PLAN_BY_KEY.all_month
-const CV_VECKA = PLAN_BY_KEY.cv_week
-const TEST_VECKA = PLAN_BY_KEY.test_week
+const PREMIUM = paketKort()
 
 export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   {
@@ -26,7 +23,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar det att synas för rekryterare?',
-    a: `Synligheten ingår i ${ALLT_VECKA.name}, ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.amount} kr i månaden, och du säger upp när du vill. Utan ${ALLT_VECKA.name} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${ALLT_VECKA.name} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill och allt i ${CV_VECKA.name} och ${TEST_VECKA.name}.`,
+    a: `Synligheten ingår i ${paketMedPris(SALD_PLAN)}, och du säger upp när du vill. Utan ${PREMIUM} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${PREMIUM} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill, alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.`,
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',

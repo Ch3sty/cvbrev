@@ -46,9 +46,9 @@ export interface FordelningProps {
 const TON: Record<FordelningTon, string> = {
   ink: 'bg-ink-1',
   stark: 'bg-kant-stark',
-  mjuk: 'bg-insunken shadow-[inset_0_0_0_1px_var(--kant-stark)]',
+  mjuk: 'bg-papper-2 shadow-[inset_0_0_0_1px_var(--kant-stark)]',
   positiv: 'bg-positiv',
-  accent: 'bg-accent',
+  accent: 'bg-koppar',
 }
 
 export default function Fordelning({

@@ -16,7 +16,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowRight } from 'lucide-react'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import MatrixQuestionReview from '@/components/tests/shared/reviews/MatrixQuestionReview'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { createServerClient } from '@/lib/supabase/server'
@@ -25,7 +27,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprakProv, provGenomgang } from '@/lib/tests/prov-rad'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
-import { kopstegHref } from '@/lib/onboarding/steps'
+import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { PROVSIDA } from '../prov-copy'
 
 export const metadata = { title: 'Ditt logiktestprov', robots: { index: false, follow: false } }
@@ -55,12 +57,14 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   ])
   if (!rad) notFound()
 
-  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta))
+  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
   const gratis = scope === null
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader eyebrow={PROVSIDA.eyebrow} title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
+    <>
+    <RumHuvud title={PROVSIDA.titel} description={PROVSIDA.beskrivning} />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
 
       <section className={PANEL} aria-labelledby="prov-resultat">
         <h2 id="prov-resultat" className="text-steg uppercase text-ink-3">
@@ -89,19 +93,19 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         allaOppna
       />
 
-      {/* Vidare: grundnivån först, Träningspaketet bara för gratis. */}
+      {/* Vidare: grundnivån först, vad som ingår i Premium bara för gratis. */}
       <section className={PANEL} aria-label={PROVSIDA.knapp}>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
           <Link
             href={GRUNDNIVA_HREF}
             data-cta="logiktestprov-grundniva"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+            className={`${KNAPP_PRIMAR} sm:w-auto`}
           >
             {PROVSIDA.knapp}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           {gratis ? (
-            <Link href={kopstegHref('test_week')} data-cta="logiktestprov-traningspaketet" className={TEXTLANK}>
+            <Link href="/priser" data-cta="logiktestprov-premium" className={TEXTLANK}>
               {PROVSIDA.traning}
             </Link>
           ) : (
@@ -113,5 +117,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         {gratis ? <p className="mt-2 text-meta text-ink-3">{PROVSIDA.traningText}</p> : null}
       </section>
     </div>
+    </Golv>
+    </>
   )
 }

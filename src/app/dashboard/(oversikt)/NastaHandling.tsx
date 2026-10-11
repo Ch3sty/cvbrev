@@ -1,9 +1,9 @@
 'use client'
 
 /**
- * Nästa handling: hemskärmens enda bläckyta (regel 3 i
- * docs/design/analys-visuell-linje-2026-09-22.html). InkPanel med scen,
- * etikett, rubrik, en mening, knappen och "Senare" som textlänk.
+ * Nästa handling: Jobbsökets lyfta kort (Rummen våg 1b, konceptets J1):
+ * etikett, rubrik, en mening, vyns kopparknapp och "Senare" som textlänk.
+ * Ersätter InkPanel, som var hemskärmens enda bläckyta i Tråden.
  *
  * Rankningen kommer från useNextBestAction och rörs inte: uppföljning först,
  * sedan AF-fönstret, sedan exakt en oprövad funktion i taget.
@@ -19,8 +19,10 @@ import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import type { NextBestAction } from '@/hooks/useNextBestAction'
 import { featureUtanforVal } from '@/hooks/useUnusedFeatures'
 import type { SignupIntent } from '@/components/registrering/intent'
-import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
-import { IlluScenBrev, IlluScenCv, IlluScenIntervju, IlluScenMatris, IlluScenUppfoljning } from '@/components/illustrations/PriserScener'
+import LyftKort from '@/components/rum/LyftKort'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { NASTA_FOLJ_UPP } from '@/lib/rum/copy'
+import type { SoktTjanst } from '@/lib/rum/jobbsok'
 
 interface NastaHandlingProps {
   action: NextBestAction
@@ -29,28 +31,46 @@ interface NastaHandlingProps {
   secondary?: ReactNode
   /** Valet i registreringen, för mätningen outside_intent (bredden). */
   intent?: SignupIntent | null
+  /** Kortet står inte direkt under väggen (eller en förälder överlappar). */
+  utanOverlapp?: boolean
+  /** Hemmets sökta tjänster (spåret), så att en ensam tyst tjänst kan namnges. */
+  tjanster?: SoktTjanst[]
 }
 
-function copyFor(action: NonNullable<NextBestAction>) {
+/** Dagar sedan tjänsten söktes, i svensk tid; annars dagar sedan senaste händelsen. */
+function dagarSedanSokt(t: SoktTjanst): number {
+  if (!t.appliedAt) return t.days
+  const dag = (d: Date) => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(d)
+  const ms = Date.parse(dag(new Date())) - Date.parse(dag(new Date(t.appliedAt)))
+  return Number.isFinite(ms) ? Math.max(0, Math.round(ms / 86400000)) : t.days
+}
+
+function copyFor(action: NonNullable<NextBestAction>, tjanster: SoktTjanst[] = []) {
   switch (action.kind) {
-    case 'follow-up':
-      return {
-        title: action.count === 1 ? 'Följ upp en ansökan' : `Följ upp ${action.count} ansökningar`,
-        text:
-          action.count === 1
-            ? 'Den har varit tyst i över två veckor. Ett kort mejl brukar räcka, och vi skriver utkastet från din ansökan.'
-            : 'De har varit tysta i över två veckor. Ett kort mejl brukar räcka, och vi skriver utkastet från din ansökan.',
-        href: '/dashboard/sokta-tjanster?filter=uppfoljning',
-        cta: 'Följ upp',
-        Scen: IlluScenUppfoljning,
+    case 'follow-up': {
+      // En tyst tjänst som spåret redan ritar namnges (J2, 21.3 punkt 5).
+      const tyst = action.count === 1 ? tjanster.filter((t) => t.needsFollowUp) : []
+      if (tyst.length === 1) {
+        return {
+          title: NASTA_FOLJ_UPP.namnTitel(tyst[0].company),
+          text: NASTA_FOLJ_UPP.namnText(dagarSedanSokt(tyst[0])),
+          href: `/dashboard/sokta-tjanster/${tyst[0].id}`,
+          cta: NASTA_FOLJ_UPP.knapp,
+        }
       }
+      return {
+        title: NASTA_FOLJ_UPP.titel(action.count),
+        text: action.count === 1 ? NASTA_FOLJ_UPP.textEn : NASTA_FOLJ_UPP.textFlera,
+        href: '/dashboard/sokta-tjanster?filter=uppfoljning',
+        cta: NASTA_FOLJ_UPP.knapp,
+      }
+    }
     case 'af-report':
       return {
         title: `Rapporten för ${action.monthLabel}`,
         text: `${action.count} sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.`,
         href: '/dashboard/sokta-tjanster?rapport=1',
         cta: 'Öppna rapporten',
-        Scen: IlluScenBrev,
       }
     case 'interview-rewrite':
       return {
@@ -58,7 +78,6 @@ function copyFor(action: NonNullable<NextBestAction>) {
         text: HEM.omskrivning.text(action.prov.level, nar(action.prov.createdAt), action.prov.missingKind, action.prov.question),
         href: nyttProvHref(action.prov.question),
         cta: HEM.omskrivning.knapp,
-        Scen: IlluScenIntervju,
       }
     case 'personality-full':
       return {
@@ -66,7 +85,6 @@ function copyFor(action: NonNullable<NextBestAction>) {
         text: HEM.helaTestet.text,
         href: GRUNDTEST_HREF,
         cta: HEM.helaTestet.knapp,
-        Scen: IlluScenIntervju,
       }
     case 'interview-new':
       return {
@@ -74,7 +92,6 @@ function copyFor(action: NonNullable<NextBestAction>) {
         text: HEM.traning.nyFraga.text(action.fraga),
         href: nyttProvHref(action.fraga),
         cta: HEM.traning.nyFraga.knapp,
-        Scen: IlluScenIntervju,
       }
     case 'test-next': {
       const titel = getTestConfig(action.slug)?.title ?? ''
@@ -83,7 +100,6 @@ function copyFor(action: NonNullable<NextBestAction>) {
         text: action.forsta ? HEM.traning.test.forstaText : HEM.traning.test.text,
         href: testPaths.hub(action.slug),
         cta: HEM.traning.test.knapp,
-        Scen: IlluScenMatris,
       }
     }
     case 'feature':
@@ -92,29 +108,29 @@ function copyFor(action: NonNullable<NextBestAction>) {
         text: action.feature.description,
         href: action.feature.href,
         cta: action.feature.cta,
-        Scen: IlluScenCv,
       }
   }
 }
 
-export default function NastaHandling({ action, onDismiss, secondary, intent = null }: NastaHandlingProps) {
+export default function NastaHandling({ action, onDismiss, secondary, intent = null, utanOverlapp, tjanster }: NastaHandlingProps) {
   const kind = action?.kind ?? null
   // Mätningen av de nya stegen (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 4).
   useEffect(() => {
     if (kind) capture('next_action_shown', { kind, surface: 'hem' })
   }, [kind])
   if (!action) return null
-  const copy = copyFor(action)
+  const copy = copyFor(action, tjanster)
   return (
-    <InkPanel
+    <LyftKort
+      utanOverlapp={utanOverlapp}
+      label="Nästa handling"
       eyebrow="Nästa handling"
-      title={copy.title}
+      titel={copy.title}
       text={copy.text}
-      scene={<copy.Scen className="h-auto w-full" />}
-      action={
+      handling={
         <Link
           href={copy.href}
-          className={INK_KNAPP}
+          className={`${KNAPP_PRIMAR} sm:w-auto`}
           onClick={() =>
             capture('next_action_clicked', {
               kind: action.kind,
@@ -127,9 +143,9 @@ export default function NastaHandling({ action, onDismiss, secondary, intent = n
           {copy.cta}
         </Link>
       }
-      secondary={
+      sekundar={
         secondary ?? (
-          <button type="button" onClick={onDismiss} className={`${INK_LANK} inline-flex min-h-11 items-center`}>
+          <button type="button" onClick={onDismiss} className={`${LANK} inline-flex min-h-11 items-center justify-center sm:justify-start`}>
             Senare
           </button>
         )

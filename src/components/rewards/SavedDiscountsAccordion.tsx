@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Gift, Copy, Check, Calendar, Tag, ChevronDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { paketKort } from '@/lib/plans/plans';
 
 interface DiscountCode {
   id: string;
@@ -210,7 +211,7 @@ export default function SavedDiscountsAccordion() {
               {/* Info och CTA */}
               <div className="pt-3 border-t border-slate-100">
                 <p className="text-xs text-slate-500 mb-3">
-                  Rabattkoder dras automatiskt vid betalning när du har ett paket.
+                  {`Rabattkoder dras automatiskt vid betalning när du har ${paketKort()}.`}
                 </p>
                 <Link
                   href="/dashboard/profil/prenumeration"

@@ -1,7 +1,14 @@
 'use client';
 
+/**
+ * Uppladdningen av ett CV (Mina CV, Jobbsökets hem i läge A, analysens
+ * första steg). Rummens material (våg 4): streckad kant på papper-2, ikonen
+ * utan ruta bakom, chipen som rummets Chip, samtycket som ett val med
+ * bläckkant och kopparknappen först när en fil är vald. Ingen rörelse utom
+ * spinnern under uppladdningen.
+ */
+
 import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload,
   X,
@@ -10,8 +17,9 @@ import {
   Shield,
   Check,
   AlertCircle,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
+import { KNAPP_PRIMAR } from '@/components/shell/knappar';
 
 type UploadPhase = 'uploading' | 'vision';
 
@@ -111,313 +119,144 @@ export default function CVUploadZone({
 
   return (
     <div className={className}>
-      {/* Step 1: Dropzone */}
+      {/* Steg 1: släppytan */}
       {!selectedFile && (
         <div
           {...getRootProps()}
-          className={`relative overflow-hidden rounded-xl border-2 border-dashed cursor-pointer transition-all duration-300 ${
+          className={`relative cursor-pointer rounded-xl border-2 border-dashed transition-colors duration-200 ${
             isDragActive
-              ? 'border-orange-500 bg-orange-50/60 scale-[1.01]'
+              ? 'border-koppar bg-papper-2'
               : disabled || isUploading
-              ? 'border-neutral-200 bg-neutral-50 cursor-not-allowed opacity-60'
-              : 'border-orange-300/70 bg-orange-50/20 hover:border-orange-400 hover:bg-orange-50/40'
+              ? 'cursor-not-allowed border-kant bg-papper-2 opacity-60'
+              : 'border-kant-stark bg-papper-2 hover:border-ink-3'
           }`}
         >
           <input {...getInputProps()} />
-
-          <DotPatternBg />
-
-          <div className="relative px-6 py-10 sm:py-12 text-center">
-            <AnimatePresence mode="wait">
-              {isDragActive ? (
-                <motion.div
-                  key="active"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <motion.div
-                    className="w-16 h-16 rounded-xl flex items-center justify-center text-white"
-                    style={{
-                      background:
-                        '#EA580C',
-                    }}
-                    animate={{ scale: [1, 1.08, 1] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                  >
-                    <Upload className="w-7 h-7" strokeWidth={2.5} />
-                  </motion.div>
-                  <p className="text-base sm:text-lg font-semibold text-neutral-900">
-                    Släpp så börjar vi
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="idle"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <div
-                    className="w-16 h-16 rounded-xl flex items-center justify-center text-white"
-                    style={{
-                      background:
-                        '#EA580C',
-                    }}
-                  >
-                    <Upload className="w-7 h-7" strokeWidth={2.25} />
-                  </div>
-                  <div>
-                    <p className="text-base sm:text-lg font-semibold text-neutral-900 mb-1">
-                      Dra och släpp ditt CV här
-                    </p>
-                    <p className="text-sm text-neutral-600">
-                      eller klicka för att välja fil
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 justify-center mt-1">
-                    {['PDF', 'Word', 'Text', `Max ${maxSizeMB} MB`].map((label) => (
-                      <span
-                        key={label}
-                        className="px-2.5 py-1 rounded-full bg-white border border-orange-200/70 text-xs font-semibold text-orange-700"
-                      >
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="flex flex-col items-center gap-3 px-6 py-9 text-center sm:py-11">
+            <Upload className="h-10 w-10 text-ton-ink" />
+            {isDragActive ? (
+              <p className="text-base font-semibold text-ink-1">Släpp så börjar vi</p>
+            ) : (
+              <>
+                <div>
+                  <p className="text-base font-semibold text-ink-1">Dra och släpp ditt CV här</p>
+                  <p className="mt-0.5 text-sm text-ink-2">eller klicka för att välja fil</p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-1.5">
+                  {['PDF', 'Word', 'Text', `Max ${maxSizeMB} MB`].map((label) => (
+                    <span
+                      key={label}
+                      className="inline-flex h-7 items-center rounded-lg border border-kant bg-papper px-2.5 text-xs font-medium text-ink-2"
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
 
-      {/* Step 2: File preview */}
+      {/* Steg 2: vald fil */}
       {selectedFile && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl border border-orange-200/70 p-4 sm:p-5"
-          style={{
-            background:
-              'transparent',
-          }}
-        >
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div
-              className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-white"
-              style={{
-                background: '#EA580C',
-              }}
-            >
-              <FileText className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.25} />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-neutral-900 text-sm sm:text-base truncate">
-                {selectedFile.name}
-              </h3>
-              <div className="flex items-center gap-2 mt-1">
-                <p className="text-xs text-neutral-600">
-                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                </p>
-                <span className="text-neutral-300">·</span>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-700">
-                  <Check className="w-3 h-3" strokeWidth={3} />
-                  Klart att laddas upp
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={handleRemoveFile}
-              disabled={isUploading}
-              className="flex-shrink-0 p-2 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
-              aria-label="Ta bort fil"
-            >
-              <X className="w-5 h-5" strokeWidth={2.25} />
-            </button>
+        <div className="flex items-center gap-3 rounded-xl border border-kant bg-papper p-4">
+          <FileText className="h-10 w-10 shrink-0 text-ton-ink" />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[15px] font-semibold leading-5 text-ink-1">{selectedFile.name}</p>
+            <p className="mt-0.5 text-meta text-ink-3">
+              {(selectedFile.size / 1024 / 1024).toFixed(2)} MB · Klart att laddas upp
+            </p>
           </div>
-        </motion.div>
+          <button
+            type="button"
+            onClick={handleRemoveFile}
+            disabled={isUploading}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-papper-2 hover:text-ink-1"
+            aria-label="Ta bort fil"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
       )}
 
-      {/* Step 3: GDPR consent */}
+      {/* Steg 3: samtycket, ett val i formuläret (bläckkant när det är valt) */}
       {selectedFile && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className={`mt-4 rounded-xl border p-4 sm:p-5 transition-all ${
-            gdprAccepted
-              ? 'border-emerald-200 bg-emerald-50/60'
-              : 'border-neutral-200 bg-white'
-          }`}
+        <label
+          className={`mt-3 flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition-colors ${
+            gdprAccepted ? 'border-ink-1 shadow-val' : 'border-kant'
+          } bg-papper`}
         >
-          <label className="flex items-start gap-3 cursor-pointer group">
-            <div className="relative flex-shrink-0 mt-0.5">
-              <input
-                type="checkbox"
-                checked={gdprAccepted}
-                onChange={(e) => handleGdprChange(e.target.checked)}
-                className="peer sr-only"
-                disabled={isUploading}
-              />
-              <motion.div
-                className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${
-                  gdprAccepted
-                    ? 'border-emerald-500'
-                    : 'border-neutral-300 group-hover:border-orange-400'
-                }`}
-                style={
-                  gdprAccepted
-                    ? {
-                        background:
-                          '#059669',
-                      }
-                    : { background: 'white' }
-                }
-                whileTap={{ scale: 0.92 }}
+          <input
+            type="checkbox"
+            checked={gdprAccepted}
+            onChange={(e) => handleGdprChange(e.target.checked)}
+            className="peer sr-only"
+            disabled={isUploading}
+          />
+          <span
+            aria-hidden="true"
+            className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[color:var(--fokus)] ${
+              gdprAccepted ? 'border-ink-1 bg-ink-1 text-papper' : 'border-kant-stark bg-papper'
+            }`}
+          >
+            {gdprAccepted ? <Check className="h-4 w-4" strokeWidth={2.5} /> : null}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2">
+              <Shield className="h-4 w-4 shrink-0 text-ink-3" />
+              <span className="text-[15px] font-semibold leading-5 text-ink-1">GDPR-samtycke krävs</span>
+            </span>
+            <span className="mt-1 block text-sm leading-[21px] text-ink-2">
+              Jag godkänner att mitt CV behandlas enligt GDPR och Jobbcoach.ai:s{' '}
+              <a
+                href="/integritetspolicy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+                onClick={(e) => e.stopPropagation()}
               >
-                <AnimatePresence>
-                  {gdprAccepted && (
-                    <motion.div
-                      initial={{ scale: 0, rotate: -90 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      exit={{ scale: 0 }}
-                      transition={{ type: 'spring', stiffness: 320 }}
-                    >
-                      <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Shield
-                  className={`w-4 h-4 ${
-                    gdprAccepted ? 'text-emerald-600' : 'text-orange-600'
-                  }`}
-                  strokeWidth={2.25}
-                />
-                <p className="font-semibold text-neutral-900 text-sm sm:text-base">
-                  GDPR-samtycke krävs
-                </p>
-                {!gdprAccepted && (
-                  <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">
-                    Krävs
-                  </span>
-                )}
-              </div>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Jag godkänner att mitt CV behandlas enligt GDPR och Jobbcoach.ai:s{' '}
-                <a
-                  href="/integritetspolicy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-orange-700 hover:text-orange-800 underline font-semibold"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  integritetspolicy
-                </a>
-                . Dina personuppgifter hanteras säkert och används endast för
-                att förbättra din jobbsökning.
-              </p>
-            </div>
-          </label>
-        </motion.div>
+                integritetspolicy
+              </a>
+              . Dina personuppgifter hanteras säkert och används endast för att förbättra din jobbsökning.
+            </span>
+          </span>
+        </label>
       )}
 
-      {/* Step 4: Upload button */}
+      {/* Steg 4: uppladdningen */}
       {selectedFile && (
-        <motion.button
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <button
+          type="button"
           onClick={handleUploadClick}
           disabled={!gdprAccepted || isUploading}
-          whileHover={!gdprAccepted || isUploading ? {} : { y: -2 }}
-          whileTap={!gdprAccepted || isUploading ? {} : { scale: 0.98 }}
-          className={`mt-4 w-full py-3.5 sm:py-4 px-5 rounded-xl font-bold text-white text-sm sm:text-base flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[52px] ${
-            !gdprAccepted ? 'cursor-not-allowed' : 'cursor-pointer'
-          }`}
-          style={
-            !gdprAccepted
-              ? { background: '#D4D4D4' }
-              : {
-                  background: '#EA580C',
-                }
-          }
+          className={`${KNAPP_PRIMAR} mt-3 h-auto min-h-12 py-3 text-center disabled:cursor-not-allowed`}
         >
           {isUploading ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin flex-shrink-0" />
-              <span className="text-center leading-tight">
-                {PHASE_LABELS[phase]}
-              </span>
+              <Loader2 className="h-5 w-5 shrink-0 animate-spin" />
+              <span className="leading-tight">{PHASE_LABELS[phase]}</span>
             </>
           ) : (
-            <>
-              <Upload className="w-5 h-5" strokeWidth={2.5} />
-              <span>Ladda upp CV</span>
-            </>
+            <span>Ladda upp CV</span>
           )}
-        </motion.button>
+        </button>
       )}
 
       {selectedFile && !gdprAccepted && !isUploading && (
-        <p className="mt-2 text-center text-xs text-neutral-500">
-          Kryssa i GDPR-rutan för att fortsätta
-        </p>
+        <p className="mt-2 text-center text-meta text-ink-3">Kryssa i GDPR-rutan för att fortsätta</p>
       )}
 
-      {/* Error */}
-      <AnimatePresence>
-        {uploadError && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-4 rounded-xl border border-red-200 bg-red-50/80 p-4 flex items-start gap-3"
-          >
-            <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-red-100 flex items-center justify-center text-red-600">
-              <AlertCircle className="w-5 h-5" strokeWidth={2.25} />
-            </div>
-            <div className="flex-1">
-              <p className="font-semibold text-red-900 text-sm mb-0.5">
-                Uppladdningen misslyckades
-              </p>
-              <p className="text-xs sm:text-sm text-red-700 leading-snug">
-                {uploadError}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Fel */}
+      {uploadError && (
+        <div role="alert" className="mt-3 flex items-start gap-2.5 rounded-xl border border-fel-kant bg-fel-mjuk p-3 text-fel">
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold">Uppladdningen misslyckades</p>
+            <p className="mt-0.5 text-sm leading-[21px] text-fel-morker">{uploadError}</p>
+          </div>
+        </div>
+      )}
     </div>
-  );
-}
-
-function DotPatternBg() {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
-      aria-hidden="true"
-    >
-      <pattern
-        id="upload-zone-dots"
-        x="0"
-        y="0"
-        width="32"
-        height="32"
-        patternUnits="userSpaceOnUse"
-      >
-        <circle cx="16" cy="16" r="1" fill="#FB923C" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#upload-zone-dots)" opacity="0.4" />
-    </svg>
   );
 }

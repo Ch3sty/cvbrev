@@ -5,7 +5,7 @@
  * Platsen där proven, profilen och nästa övning bor. Serverrenderad i en
  * hämtning (getInforIntervjunData), i sidmallens ordning:
  *
- *   1. PageHeader med "Nytt intervjuprov"
+ *   1. Väggen (RumHuvud) med "Nytt intervjuprov"
  *   2. Nästa handling, vyns enda bläckyta
  *   3. Dina intervjuprov, rader på mark (eller EmptyState), och kvotraden
  *      bara utan interview_unlimited
@@ -20,15 +20,18 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import PageHeader from '@/components/shell/PageHeader'
-import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import StatusRow from '@/components/shell/StatusRow'
 import EmptyState from '@/components/shell/EmptyState'
-import { IlluScenIntervju } from '@/components/illustrations/PriserScener'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
-import { GRUNDTEST_HREF, TRANINGSPAKET_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
+import { GRUNDTEST_HREF, nyttProvHref, provHref } from '@/lib/intervju/lankar'
+
+import { PRISER_HREF } from '@/lib/onboarding/steps'
 import { nar, type HubbHandling } from '@/lib/intervju/nasta'
 import { getInforIntervjunData } from './getInforIntervjunData'
 import InforIntervjunClient from './InforIntervjunClient'
@@ -41,9 +44,6 @@ export const dynamic = 'force-dynamic'
 
 /** Textlänken utan display, så att hidden och sm:inline-flex inte krockar. */
 const LANK_UTAN_DISPLAY = TEXTLANK.replace('inline-flex ', '')
-
-const PRIMAR =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover'
 
 function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date) {
   switch (h.kind) {
@@ -108,7 +108,7 @@ export default async function InforIntervjunPage() {
   const kvotSlut = !data.utanTak && !data.kvotKvar
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 sm:space-y-8">
+    <>
       <InforIntervjunClient
         provCount={data.prov.length}
         hasProfile={data.profil ? 'full' : data.smakprov ? 'sample' : 'none'}
@@ -117,29 +117,33 @@ export default async function InforIntervjunPage() {
         kvotSlut={kvotSlut}
       />
 
-      <PageHeader
-        eyebrow={SIDA.eyebrow}
+      {/* Rummen våg 1b: väggen bär rubriken och Nytt prov som glasknapp, det
+          lyfta kortet bär vyns enda kopparknapp (Nästa handling). */}
+      <RumHuvud
         title={SIDA.titel}
         description={beskrivning}
-        action={
-          <Link href={nyttProvHref()} className={PRIMAR}>
+        tat={false}
+        handling={
+          <Link href={nyttProvHref()} className={KNAPP_GLAS}>
             {SIDA.knapp}
           </Link>
         }
       />
 
-      <InkPanel
+      <Golv lyft>
+      <div className="w-full max-w-3xl space-y-6 sm:space-y-8">
+      <LyftKort
+        label={c.rubrik}
         eyebrow={c.eyebrow}
-        title={c.rubrik}
+        titel={c.rubrik}
         text={c.text}
-        scene={<IlluScenIntervju className="h-auto w-full" />}
-        action={
-          <Link href={c.href} className={INK_KNAPP}>
+        handling={
+          <Link href={c.href} className={KNAPP_PRIMAR}>
             {c.knapp}
           </Link>
         }
-        secondary={
-          <Link href={nyttProvHref()} className={`${INK_LANK} inline-flex min-h-11 items-center`}>
+        sekundar={
+          <Link href={nyttProvHref()} className={`${LANK} inline-flex min-h-11 items-center justify-center`}>
             {NASTA.sekundar}
           </Link>
         }
@@ -163,7 +167,7 @@ export default async function InforIntervjunPage() {
             wrap
             className="mt-4"
             action={
-              <Link href={TRANINGSPAKET_HREF} className={`hidden sm:inline-flex ${LANK_UTAN_DISPLAY}`}>
+              <Link href={PRISER_HREF} className={`hidden sm:inline-flex ${LANK_UTAN_DISPLAY}`}>
                 {KVOT.lank}
               </Link>
             }
@@ -173,7 +177,7 @@ export default async function InforIntervjunPage() {
         )}
         {/* På mobil står länken under raden: namnet med pris ryms inte bredvid texten. */}
         {data.utanTak ? null : (
-          <Link href={TRANINGSPAKET_HREF} className={`mt-1 flex w-fit sm:hidden ${LANK_UTAN_DISPLAY}`}>
+          <Link href={PRISER_HREF} className={`mt-1 flex w-fit sm:hidden ${LANK_UTAN_DISPLAY}`}>
             {KVOT.lank}
           </Link>
         )}
@@ -183,6 +187,8 @@ export default async function InforIntervjunPage() {
         <Etikett>{PROFIL.etikett}</Etikett>
         <ProfilPanel profil={data.profil} smakprov={data.smakprov} harFordjupat={data.harFordjupat} />
       </section>
-    </div>
+      </div>
+      </Golv>
+    </>
   )
 }

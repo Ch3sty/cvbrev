@@ -1,0 +1,409 @@
+{
+  "datum": "2026-10-11T08:21:16.377Z",
+  "bredd": 360,
+  "rutter": [
+    {
+      "roll": "ut",
+      "url": "/priser",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "ut",
+      "url": "/kontakt",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "ut",
+      "url": "/register",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester",
+      "knappar": [
+        "Försök igen (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard/tester",
+      "knappar": [
+        "Försök igen (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "mycket",
+      "url": "/dashboard/tester",
+      "knappar": [
+        "Försök igen (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/profil/cv",
+      "knappar": [
+        "Ladda upp CV (12)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard/profil/cv",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "mycket",
+      "url": "/dashboard/profil/cv",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/mina-brev",
+      "knappar": [
+        "Skapa nytt brev (15)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard/mina-brev",
+      "knappar": [
+        "Skapa nytt brev (15)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "mycket",
+      "url": "/dashboard/mina-brev",
+      "knappar": [
+        "Skapa nytt brev (15)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard",
+      "knappar": [
+        "Försök igen (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "mycket",
+      "url": "/dashboard",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/profil",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard/profil",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "mycket",
+      "url": "/dashboard/profil",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/profil/prenumeration",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "premium",
+      "url": "/dashboard/profil/prenumeration",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "spar",
+      "url": "/dashboard/profil/prenumeration",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/valj-spar?paket=all_month&steg=kop",
+      "knappar": [
+        "Till betalning, 149 kr (22)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/cv-mallar",
+      "knappar": [
+        "Skapa CV-PDF (12)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/linkedin-optimizer",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/bli-upptackt",
+      "knappar": [
+        "Kom igång (9)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/jobbmatchning",
+      "knappar": [
+        "Hitta jobb som passar (21)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/alla",
+      "knappar": [
+        "Starta första testet (20)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/kontakt",
+      "knappar": [
+        "Skicka (6)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=T1",
+      "knappar": [
+        "Mät min nivå, 8 min (19)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+      "knappar": [
+        "Mät min nivå, 5 min (19)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1a",
+      "knappar": [
+        "Mät min nivå, 8 min (19)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1as",
+      "knappar": [
+        "Mät min nivå, 5 min (19)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1t",
+      "knappar": [
+        "Starta siffertestet (19)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1b",
+      "knappar": [
+        "Starta dagens pass (18)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1c",
+      "knappar": [
+        "Starta generalrepetitionen (26)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1d",
+      "knappar": [
+        "Värm upp, 2 min (15)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1e",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1f",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1g",
+      "knappar": [
+        "Visa genomgången (16)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1h",
+      "knappar": [
+        "Starta dagens pass (18)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1i",
+      "knappar": [
+        "Starta dagens pass (18)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=1p",
+      "knappar": [
+        "Gör profilen, 10 min (20)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=X1",
+      "knappar": [
+        "Försök igen (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning?tillstand=L1",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+      "knappar": [
+        "Nästa fråga (11)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+      "knappar": [
+        "Visa resultatet (15)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+      "knappar": [
+        "Gå igenom de två missarna (25)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+      "knappar": [
+        "Gå igenom de fyra missarna (26)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+      "knappar": [
+        "Köp Premium, 149 kr i månaden (29)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+      "knappar": [
+        "Tillbaka till Rekryteringstester (32)"
+      ],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+      "knappar": [],
+      "rott": []
+    },
+    {
+      "roll": "gratis",
+      "url": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+      "knappar": [],
+      "rott": []
+    }
+  ],
+  "rott": []
+}

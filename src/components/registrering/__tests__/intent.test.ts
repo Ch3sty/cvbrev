@@ -94,13 +94,15 @@ describe('landningstabellen för /register', () => {
 })
 
 describe('valen', () => {
-  it('fem val med spår, paket och landning enligt designfilens tabell', () => {
+  it('fem val med spår och landning enligt designfilens tabell, förslaget alltid Premium per månad', () => {
+    // Spec-rummen 17.3: bara Jobbcoach Premium säljs. Valet styr spåret,
+    // landningen och förslagets text, aldrig paketet.
     expect(INTENTS).toEqual({
-      cv: { track: 'cv', plan: 'cv_week', landning: '/dashboard/skapa-cv', ikon: 'cv' },
-      brev: { track: 'cv', plan: 'cv_week', landning: '/dashboard/skapa-brev', ikon: 'brev' },
-      tester: { track: 'tester', plan: 'test_week', landning: '/dashboard/tester', ikon: 'test' },
-      intervju: { track: 'tester', plan: 'test_week', landning: '/dashboard/intervju', ikon: 'intervju' },
-      jobb: { track: 'allt', plan: 'all_week', landning: '/dashboard/jobbmatchning', ikon: 'jobb' },
+      cv: { track: 'cv', plan: 'all_month', landning: '/dashboard/skapa-cv', ikon: 'cv' },
+      brev: { track: 'cv', plan: 'all_month', landning: '/dashboard/skapa-brev', ikon: 'brev' },
+      tester: { track: 'tester', plan: 'all_month', landning: '/dashboard/tester', ikon: 'test' },
+      intervju: { track: 'tester', plan: 'all_month', landning: '/dashboard/intervju', ikon: 'intervju' },
+      jobb: { track: 'allt', plan: 'all_month', landning: '/dashboard/jobbmatchning', ikon: 'jobb' },
     })
   })
 })
@@ -140,11 +142,11 @@ describe('Google-vägen, simulerad från knapp till landning', () => {
 
   const bas: SignupCookie = { intent: null, entry: 'header', skipped: false, smakprov: null, paket: null, redirect: null }
 
-  it('nytt konto med valet Skriva CV landar på förslaget med CV-paketet', () => {
+  it('nytt konto med valet Skriva CV landar på förslaget med Premium', () => {
     const { mal, gren } = genomGoogle({ ...bas, intent: 'cv' }, true)
     expect(mal).toBe(VALKOMMEN)
     expect(gren).toEqual({ via: 'forslag', intent: 'cv' })
-    expect(INTENTS.cv.plan).toBe('cv_week')
+    expect(INTENTS.cv.plan).toBe('all_month')
   })
 
   it('nytt konto från testprovet kör hämtkedjan på valkommen (smakprovet i cookien)', () => {
@@ -165,9 +167,14 @@ describe('Google-vägen, simulerad från knapp till landning', () => {
     }
   })
 
-  it('?paket=all_month landar på köpsteget med paketet', () => {
+  it('?paket=all_month landar på köpsteget med paketet och platsen priser', () => {
     const { gren } = genomGoogle({ ...bas, entry: 'pris', paket: 'all_month' }, true)
-    expect(gren).toEqual({ via: 'paket', destination: `${SPARVAL}?paket=all_month&steg=kop` })
+    expect(gren).toEqual({ via: 'paket', destination: `${SPARVAL}?paket=all_month&steg=kop&plats=priser` })
+  })
+
+  it('ett osålt paket i en gammal länk landar på Premium, platsen registrering', () => {
+    const { gren } = genomGoogle({ ...bas, paket: 'cv_week' }, true)
+    expect(gren).toEqual({ via: 'paket', destination: `${SPARVAL}?paket=all_month&steg=kop&plats=registrering` })
   })
 
   it('?redirect= går före paketet', () => {

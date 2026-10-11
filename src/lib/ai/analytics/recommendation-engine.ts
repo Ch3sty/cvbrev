@@ -4,6 +4,8 @@
  */
 
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { SALD_PLAN, kopKnapp, paketKort, paketMedPris } from '@/lib/plans/plans';
+import { kopstegHref } from '@/lib/onboarding/steps';
 
 // Types for recommendations
 export interface UserRecommendation {
@@ -212,10 +214,11 @@ export class UserRecommender {
       return {
         user_id: user.id,
         type: 'upgrade_prompt',
-        title: 'Välj ett paket',
+        // Bara Jobbcoach Premium säljs (spec-rummen 17.3). Namn och pris ur PLANS.
+        title: `Personliga brev utan tak ingår i ${paketKort()}`,
         description: isHittingLimits
-          ? 'Du närmar dig veckans gräns. CV-paketet, 79 kr i veckan, ger personliga brev utan tak.'
-          : 'CV-paketet, 79 kr i veckan, samlar mallarna, de personliga breven och den fulla analysen',
+          ? `Du närmar dig veckans gräns. I ${paketKort()} skriver du personliga brev utan tak.`
+          : `${paketMedPris(SALD_PLAN)}: alla mallar, personliga brev utan tak och hela CV-analysen.`,
         priority: 'high',
         expected_impact: {
           user_value: 90,
@@ -224,9 +227,9 @@ export class UserRecommender {
         },
         action_items: [{
           id: 'upgrade_premium',
-          description: 'Uppgradera för endast 149 kr/månad',
-          cta_text: 'Uppgradera nu',
-          url: '/prenumeration',
+          description: paketMedPris(SALD_PLAN),
+          cta_text: kopKnapp(SALD_PLAN),
+          url: kopstegHref(SALD_PLAN),
           tracking_event: 'recommendation_upgrade_clicked'
         }],
         personalization_score: isHittingLimits ? 1.0 : 0.7,

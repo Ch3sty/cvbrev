@@ -13,8 +13,7 @@
  *
  * Träningsfokus (ägarens beslut 2026-09-24): med Träningspaketet (scope
  * tester) och inget CV ersätts A av hälsningen, Nästa handling ur
- * traningsHandling som enda bläckyta, CV:t som textlänk under och
- * aktiviteten. ?cv=1 (textlänken) visar A som vanligt.
+ * traningsHandling som enda bläckyta och CV:t som textlänk under. ?cv=1 (textlänken) visar A som vanligt.
  *
  * Bredden (profil-registrering 2026-09-24): träningsfokus gäller också ett
  * gratiskonto som valde testerna eller intervjun vid registreringen. Valet
@@ -45,16 +44,22 @@ import QuotaNudgeRow from './QuotaNudgeRow';
 import ProfilKomplettering from './ProfilKomplettering';
 import DashboardHero, { deriveDashboardState } from './DashboardHero';
 import SnabbAtgarder from './SnabbAtgarder';
-import JobbsokOversikt from './JobbsokOversikt';
-import PagarNu from './PagarNu';
 import NastaHandling from './NastaHandling';
-import HemHuvud, { sammanhangsrad } from './HemHuvud';
+import { dagensDatum, halsning } from './HemHuvud';
+import { SoktaTjansterRader, Korsreferens, MerIJobbsoket, korsreferensArStatusrad } from './JobbsokGolv';
+import Spar from '@/components/rum/Spar';
+import { sparRader, type SoktTjanst } from '@/lib/rum/jobbsok';
 import ProvaOcksa from './ProvaOcksa';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useNextBestAction } from '@/hooks/useNextBestAction';
 import { traningsHandling } from '@/lib/intervju/nasta';
 import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy';
-import { INK_LANK } from '@/components/shell/InkPanel';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar';
+import { JOBBSOK, JOBBSOK_HEM, LYFT, SPAR } from '@/lib/rum/copy';
+import LyftKort from '@/components/rum/LyftKort';
 
 interface DashboardStats {
   totalLetters: number;
@@ -79,7 +84,7 @@ interface DashboardStats {
   userId?: string;
 }
 
-export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
+export default function DashboardHem() {
   const searchParams = useSearchParams();
   const { successWithMascotAndActivity } = useNotification();
   const { completedSteps, rewardClaimed } = useOnboarding();
@@ -248,21 +253,120 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
   // möter först. Skelettet visar nu bara det som finns i varje tillstånd, och
   // ytan är reserverad med samma min-height i båda grenarna.
   if (loading) {
+    // Väggen med toppraden står även medan summeringen hämtas om. Golvet har
+    // egen nyckel, så när innehållet landar byts det i stället för att
+    // flyttas: väggens nya höjd räknas då inte som ett layoutskifte.
     return (
-      <div className="min-h-[420px] space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
-        <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
-        <LoadingSkeleton variant="card" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar Jobbsöket" />
+        <Golv key="laddar">
+          <div className="min-h-[420px] space-y-4 sm:space-y-6" aria-label="Laddar dashboard">
+            <LoadingSkeleton variant="statusRow" label="Laddar dashboard" />
+            <LoadingSkeleton variant="card" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
+  // Sökta tjänster ur summeringen (öppna, mest tidskänsliga först).
+  const tjanster = (summary?.applications.pipeline ?? []) as SoktTjanst[];
+  const tystastDagar = tjanster
+    .filter((t) => t.needsFollowUp)
+    .reduce<number | null>((m, t) => (m === null || t.days > m ? t.days : m), null);
+  const idag = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(new Date());
+  const jobbsok = summary?.jobbsok;
+
+  // Väggen (Rummen våg 1b): Jobbsökets rubrik och rad, samma ord som
+  // hemskärmen hade förut, flyttade från HemHuvud och DashboardHero.
+  // "Logga sökt tjänst" står här som glasknapp i automatisk bredd, eftersom
+  // navets Skapa är borta. Väggen bär aldrig kopparknappen (spec 16.3.1).
+  const nu = new Date();
+  const halsningRubrik = (
+    <span suppressHydrationWarning>
+      {halsning(nu)}
+      {stats.firstName ? `, ${stats.firstName}.` : '.'}
+    </span>
+  );
+  const datumEtikett = <span suppressHydrationWarning>{dagensDatum(nu)}</span>;
+  const loggaSoktJobb = (
+    <Link href="/dashboard/sokta-tjanster?logga=1" className={KNAPP_GLAS}>
+      {JOBBSOK.loggaSoktJobb}
+    </Link>
+  );
+  const huvud: { eyebrow?: ReactNode; title: ReactNode; description?: ReactNode; handling: ReactNode } =
+    traningsFokus
+      ? { eyebrow: datumEtikett, title: halsningRubrik, description: traningsRad, handling: loggaSoktJobb }
+      : state === 'A'
+        ? {
+            title: stats.firstName ? `Börja med ditt CV, ${stats.firstName}` : 'Börja med ditt CV',
+            description:
+              'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder.',
+            handling: loggaSoktJobb,
+          }
+        : state === 'B'
+          ? {
+              title: 'Nästa steg: brevet',
+              // Brevet bär det lyfta kortet (forstaBrev nedan), väggen bara
+              // de sekundära handlingarna.
+              handling: (
+                <>
+                  {loggaSoktJobb}
+                  <Link href="/dashboard/cv-analys" className={`${LANK_VAGG} inline-flex min-h-11 items-center justify-center`}>
+                    Se hela CV-analysen
+                  </Link>
+                </>
+              ),
+            }
+          : {
+              eyebrow: datumEtikett,
+              title: halsningRubrik,
+              description: JOBBSOK_HEM.rad({
+                oppna: appSummary.total,
+                svarIGar: summary?.hem?.svarSenasteDygnet ?? 0,
+                intervju: summary?.hem?.nastaIntervju ?? null,
+                tysta: summary?.hem?.tysta ?? 0,
+                tystastDagar: tystastDagar,
+              }),
+              handling: loggaSoktJobb,
+            };
+
+  // Spåret (våg 4, J1 och J2): bara i tillstånd C och bara när något
+  // söks. Raderna och talen ur summeringens pipeline.
+  const spar = state === 'C' && !traningsFokus ? sparRader(tjanster, 3) : { rader: [], ovriga: 0 };
+  const instrument =
+    spar.rader.length > 0 ? (
+      <>
+        <Spar rader={spar.rader} bredd="mobil" ariaLabel={SPAR.aria(spar.rader.map((r) => r.aria))} className="lg:hidden" />
+        <Spar rader={spar.rader} bredd="dator" ariaLabel={SPAR.aria(spar.rader.map((r) => r.aria))} className="hidden lg:block" />
+        {spar.ovriga > 0 ? (
+          <p className="mt-2 text-[13px] leading-[18px] text-vagg-mjuk">{JOBBSOK_HEM.ochFler(spar.ovriga)}</p>
+        ) : null}
+      </>
+    ) : null;
+
+  // Nästa handling överlappar väggen i träningsfokus och i tillstånd C, som
+  // konceptets lyfta kort (J1). I A är uppladdningen det lyfta kortet (spec
+  // 18.3 punkt 2), i B brevet.
+  const forstaLyft = traningsFokus || state === 'A' || state === 'B' || (state === 'C' && Boolean(nextAction));
+  // Dator: korten bredvid Nästa handling lyfts med den (21.3 punkt 1).
+  const forstaRadLyft = state === 'C' && Boolean(nextAction) && purchasedPlan === null;
+  const korsStatus = korsreferensArStatusrad(jobbsok?.traning ?? null, idag);
+
   return (
-    // Ingen entré-animation här. threadEnter börjar på opacity 0 med
-    // translateY(8px), och LCP kan inte registreras på ett element som är
-    // helt genomskinligt: mätningen sköts fram tills animationen hunnit en
-    // bit, och de åtta pixlarna räknas dessutom som rörelse. Sidbytet tonas
-    // redan in en gång i DashboardShell (fadeInPlace, bara opacity), så den
-    // här var dubbelt arbete på den sida som har hårdast budget.
+    // Ingen entré-animation här. Sidbytet tonas redan in en gång i
+    // DashboardShell (fadeInPlace, bara opacity), och LCP kan inte
+    // registreras på ett element som är helt genomskinligt.
+    <>
+      <RumHuvud
+        eyebrow={huvud.eyebrow}
+        title={huvud.title}
+        description={huvud.description}
+        handling={huvud.handling}
+        instrument={instrument}
+        tat={!forstaLyft}
+      />
+    <Golv key="hem" lyft={forstaLyft && purchasedPlan === null}>
     <div className="min-h-[420px] space-y-4 sm:space-y-6">
       {/* Kvitto efter köp, sedan trial och nedgradering. */}
       {purchasedPlan !== null && (
@@ -277,34 +381,42 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {traningsFokus ? (
         <>
-          <HemHuvud fornamn={stats.firstName} rad={traningsRad} />
           <NastaHandling
             action={traningsHandling(summary?.intervju, valtVidStart === 'tester')}
             onDismiss={() => {}}
+            utanOverlapp={purchasedPlan !== null}
             secondary={
-              <Link href="/dashboard?cv=1" className={`${INK_LANK} inline-flex min-h-11 items-center`}>
+              <Link href="/dashboard?cv=1" className={`${LANK} inline-flex min-h-11 items-center justify-center sm:justify-start`}>
                 {HEM.traning.cvLank}
               </Link>
             }
           />
-          {aktivitet}
         </>
       ) : (
         <DashboardHero
           state={state}
           userId={stats.userId}
-          firstName={stats.firstName}
           onCvUploaded={handleCvUploaded}
+          utanOverlapp={purchasedPlan !== null}
         />
       )}
 
       {/* Kortet gör en egen rundtur till profiles efter att summeringen kommit,
-          så det landar drygt två sekunder in. Låg det över SnabbAtgarder sköt
-          det ner 426 px när det dök upp, alltså CLS 0,19 på dashboarden. Sist
-          i ordningen, precis som i tillstånd C, syns samma sena ankomst inte:
-          det finns inget under det att flytta. */}
+          så det landar drygt två sekunder in. Sist i ordningen syns den sena
+          ankomsten inte: det finns inget under det att flytta. */}
       {state === 'B' && (
         <>
+          <LyftKort
+            label={LYFT.jobbForstaBrev.titel}
+            titel={LYFT.jobbForstaBrev.titel}
+            text={LYFT.jobbForstaBrev.text}
+            utanOverlapp={purchasedPlan !== null}
+            handling={
+              <Link href="/dashboard/skapa-brev" className={KNAPP_PRIMAR}>
+                {LYFT.jobbForstaBrev.handling}
+              </Link>
+            }
+          />
           <SnabbAtgarder cvCount={cvCount} recommendedSlug={recommendedSlug} />
           <ProfilKomplettering />
           {/* Prova också kommer efter idle (useUnusedFeatures). Sist, så att
@@ -317,38 +429,45 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
 
       {state === 'C' && (
         <>
-          <HemHuvud
-            fornamn={stats.firstName}
-            rad={sammanhangsrad(
-              summary?.hem?.svarSenasteDygnet ?? 0,
-              summary?.hem?.nastaIntervju ?? null
-            )}
-          />
-
-          {/* Mobil: Nästa handling först, sedan talet. Desktop: talet till
-              vänster och bläckytan till höger, som i skissen. En bläckyta
-              per vy (regel 3). */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start">
-            <div className="lg:order-2">
-              <NastaHandling action={nextAction} onDismiss={dismissNextAction} intent={valtVidStart} />
-            </div>
-            <div className="lg:order-1">
-              <JobbsokOversikt summary={appSummary} fordelning={summary?.hem} />
-            </div>
+          {/* J1 och J2 (våg 4): Nästa handling som lyft kort, sedan de
+              sökta tjänsterna och korsreferensen till Rekryteringstester.
+              På dator (21.2 fråga 3): första raden består bara av lyfta
+              kort med samma överkant; rubriken flyttar in i kortet som
+              eyebrow. Är korsreferensen en statusrad står den i andra raden
+              över hela bredden. Mobilen ändras inte. */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start lg:gap-6">
+            {nextAction ? (
+              <NastaHandling
+                action={nextAction}
+                onDismiss={dismissNextAction}
+                intent={valtVidStart}
+                utanOverlapp={purchasedPlan !== null}
+                tjanster={tjanster}
+              />
+            ) : null}
+            <SoktaTjansterRader
+              tjanster={tjanster}
+              antal={summary?.sidomeny?.ansokningar ?? appSummary.total}
+              lyftDator={forstaRadLyft}
+            />
+            {korsStatus ? null : <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} lyftDator={forstaRadLyft} />}
           </div>
+          {korsStatus ? <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} /> : null}
 
           {/* Kvoterna som en rad. Premium får null. */}
           <QuotaNudgeRow isPremium={isPremium} />
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <PagarNu items={appSummary.pipeline} total={appSummary.total} letterCount={totalLetters} />
-            {aktivitet}
-          </div>
+          <MerIJobbsoket
+            matchningarNya={jobbsok?.matchningarNya ?? null}
+            bliUpptacktSynlig={jobbsok?.bliUpptacktSynlig ?? false}
+          />
 
           {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
           <ProfilKomplettering />
         </>
       )}
     </div>
+    </Golv>
+    </>
   );
 }

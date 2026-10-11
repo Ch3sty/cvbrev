@@ -29,7 +29,7 @@ export default function WorkStyleReportView({
   return (
     <div className="space-y-5">
       {/* Rapporthuvud: arketyp + styrkedeklaration */}
-      <div className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+      <div className="rounded-lg border border-kant bg-papper-2 p-4 ">
         <p className="mb-1 text-steg uppercase text-ink-3">Arbetsstilsrapport</p>
         <h3 className="text-kort leading-snug text-ink-1">{report.archetype.title}</h3>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
@@ -43,7 +43,7 @@ export default function WorkStyleReportView({
               {contextTags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2.5 py-1 text-meta text-ink-2"
+                  className="inline-flex items-center rounded-md border border-kant bg-papper px-2.5 py-1 text-meta text-ink-2"
                 >
                   {tag}
                 </span>
@@ -111,7 +111,7 @@ export default function WorkStyleReportView({
             {report.thrives.map((card) => (
               <div
                 key={card.thrivesWhen}
-                className="rounded-lg border border-kant bg-panel p-3"
+                className="rounded-lg border border-kant bg-papper p-3"
               >
                 <p className="text-meta leading-snug text-ink-2">
                   <span className="font-medium text-ink-1">Trivs när</span>{' '}
@@ -163,7 +163,7 @@ export default function WorkStyleReportView({
         {report.interviewGuide && report.interviewGuide.length > 0 ? (
           <div className="space-y-2.5">
             {report.interviewGuide.map((q) => (
-              <div key={q.question} className="rounded-lg border border-kant bg-panel p-3">
+              <div key={q.question} className="rounded-lg border border-kant bg-papper p-3">
                 <p className="mb-1 text-steg uppercase text-ink-3">{q.basedOn}</p>
                 <p className="text-sm font-medium leading-[22px] text-ink-1">{q.question}</p>
                 <p className="mb-1 mt-2 text-steg uppercase text-ink-3">Lyssna efter</p>

@@ -1,744 +1,732 @@
-# Designsystem: Tråden (v2.1, en linje)
+# Designsystem: Rummen (v3)
 
-> Gäller hela Jobbcoach: dashboard, flöden, betalväggar, auth och de publika
-> sidorna (avsnitt 12). Artikelbilder 1200×630 följer
-> `reference_article_image_standard` och berörs inte. De tio reglerna för
-> en linje kommer ur `docs/design/analys-visuell-linje-2026-09-22.html`
-> avsnitt 2 och står inarbetade i avsnitt 3, 4, 6, 7, 9, 12 och 13.
+> Gäller inloggat: dashboarden, flödena, betalväggarna och arken i
+> `/dashboard`. Publika sidor, auth, kassan, mejl och adminen följer Tråden
+> v2.1 tills deras egen omgång (avsnitt 12). Artikelbilder 1200×630 följer
+> `reference_article_image_standard` och berörs inte.
 >
-> Motiv och beslut: `docs/design/koncept-2026-09-13.md`. Tokenvärdena bor i
-> `src/app/globals.css`, klassnamnen i `tailwind.config.js`.
+> Beslut och byggordning: `docs/design/spec-rummen-2026-10-10.md` (godkänd
+> av testansvarig 2026-10-10). Utseendet: `docs/design/koncept-testvy-2026-10-10.html`.
+> Tokenvärdena bor i `src/app/globals.css`, klassnamnen i `tailwind.config.js`.
+> Kontrasten räknas maskinellt med `node scripts/kontrast-rummen.mjs`.
 
 ## 1. Principer
 
-Jobbcoach är papper på ett bord och en orange linje som visar var du är.
-Hierarki byggs av toner, kanter och typografi, aldrig av skuggor eller
-gradienter. Orange är linje eller bläck, aldrig en yta, och handlingen är
-svart. En vy har en primär handling, en illustration och högst tre orange
-inslag. Status är en rad, innehåll är ett kort.
+Jobbcoach är ett hus med fyra rum: Träningen, CV, Personliga brev och
+Jobbsöket. Rummen delar typografi, djup, illustrationsspråk, rörelse och nav.
+De skiljer sig i väggfärg, i instrumentet på väggen och i vad "framåt"
+betyder. Profil och konto står i ett grafitgrått rum utan eget instrument.
 
-## 2. Toner och färg
+Varje vy har en mörk **vägg** högst upp, i rummets kulör, med rubriken och
+rummets instrument (kurvan, poängringen, spåret). Under den ligger **golvet**
+med kort i **papper**. Väggen är mörk även i ljust läge: det är den som ger
+djupet och som gör ljust och mörkt läge till samma produkt.
 
-Alla värden ligger som CSS-variabler under `:root` i `globals.css` och har
-Tailwind-namn i `tailwind.config.js`. Hex skrivs aldrig i en komponent.
+**Koppar `#E07A2F` är den enda accenten.** Den är knappen, kurvan, märkena,
+fokusringen och "här är du". Kopparfärgad text på väggen är alltid
+koppar-ljus, på papper alltid koppar-ink. Ren koppar bär aldrig text.
 
-| Variabel | Värde | Tailwind | Roll |
-|---|---|---|---|
-| `--mark` | `#EDE8DF` | `bg-mark` | Sidbakgrund. Skalet sätter den, sidan aldrig. |
-| `--panel` | `#FFFFFF` | `bg-panel` | Kort, sektioner, sidomeny, topprad, nav |
-| `--insunken` | `#ECE6DC` | `bg-insunken` | Fält, skelett, aside. Alltid inuti en panel. |
-| `--insunken-topp` | `#D6CDBF` | `bg-insunken-topp` | Inre överkant, via `shadow-insunken` |
-| `--kant` | `#DBD2C4` | `border-kant` | Hårlinje |
-| `--kant-stark` | `#C4B9A8` | `border-kant-stark` | Upphöjd panel, hover, understruken länk |
-| `--ink-1` | `#1C1917` | `text-ink-1`, `bg-ink-1` | Rubriker, värden, primärknapp, val |
-| `--ink-2` | `#57534E` | `text-ink-2` | Brödtext, ikoner |
-| `--ink-3` | `#6B645E` | `text-ink-3` | Metadata, sektionsetiketter |
-| `--ink-hover` | `#2C2724` | `hover:bg-ink-hover` | Primärknappens hover |
-| `--accent` | `#D9480F` | `bg-accent` | Tråden, framstegslinje, fokusring, punkt i varm statusrad. Aldrig text, aldrig yta. |
-| `--accent-ink` | `#9A3412` | `text-accent-ink` | Orange som text |
-| `--accent-mjuk` | `#FBE7D3` | `bg-accent-mjuk` | Marginalplattans fyllning |
-| `--positiv` / `--positiv-mjuk` | `#047857` / `#D9F2E6` | `text-positiv`, `bg-positiv-mjuk` | Sparat, intervju |
-| `--varning` / `--varning-mjuk` | `#A14A05` / `#FBEBD0` | `text-varning`, `bg-varning-mjuk` | Kvot, trial dag 4 till 5 |
-| `--fel` / `--fel-mjuk` / `--fel-kant` / `--fel-morker` | `#B91C1C` / `#FBE3E3` / `#F2C4C4` / `#7F1D1D` | `text-fel`, `bg-fel-mjuk`, `border-fel-kant`, `text-fel-morker` | Feltext, felram, felrad |
+En vy har exakt en primärknapp, och den är koppar med mörk text. Status är en
+rad, innehåll är ett kort, ett tal står aldrig ensamt.
 
-Illustrationsvariablerna pekar om: `--illu-fill: var(--panel)`,
-`--illu-accent: var(--accent)`, `--illu-soft: var(--accent-mjuk)`,
-`--illu-muted: var(--kant-stark)`. `--ia` är `none` som standard och tänds
-bara av `MarginPlate`.
+## 2. Tokens
+
+Alla värden ligger som CSS-variabler i `globals.css` och har Tailwind-namn i
+`tailwind.config.js`. Hex skrivs aldrig i en komponent.
+
+**Var de gäller.** `DashboardShell` sätter `data-rum` på sin yttersta div i
+serverns HTML. Rummens block står under `:root:has([data-rum])` och
+`[data-rum="…"]`, så tokens lyfts till `<html>` och även ark i en portal
+(`Sheet`, `UpgradeSheet`) står i rummet. Utan rum gäller Trådens värden.
+Våg 1a sätter `data-rum="jobb"` på hela inloggat; `rumForPath` per route
+kommer i våg 1b (spec avsnitt 5).
+
+### Gemensamt för alla rum
+
+| Variabel | Ljust | Mörkt | Tailwind | Roll |
+|---|---|---|---|---|
+| `--koppar` | `#E07A2F` | samma | `bg-koppar` | Linje, punkt, knapp, fokusring. Aldrig text. |
+| `--koppar-ink` | `#A8491A` | `#F2A368` | `text-koppar-ink` | Koppar som text på papper och golv |
+| `--koppar-djup` | `#C4621F` | samma | `bg-koppar-djup` | Knappens toning, mörka änden |
+| `--koppar-ljus` | `#F4B98A` | samma | `text-koppar-ljus` | All kopparfärgad text på väggen |
+| `--koppar-text` | `#1A1206` | samma | `text-koppar-text` | Text på kopparknappen |
+| `--koppar-mjuk` | `#FBE3D0` | koppar 18 % | `bg-koppar-mjuk` | Illustrationernas mjuka yta |
+| `--ink-1` / `--ink-2` / `--ink-3` | `#1A1A1F` / `#4A4A55` / `#65656E` | `#F3F2F7` / `#C7C6D0` / `#9391A1` | `text-ink-1` … | Rubrik, brödtext, metadata |
+| `--ink-hover` | `#2E2E36` | `#E4E3EC` | `hover:bg-ink-hover` | Hover på bläck |
+| `--papper` / `--papper-2` | `#FFFFFF` / `#F4F3F0` | per rum | `bg-papper`, `bg-papper-2` | Kort, fält |
+| `--kant` / `--kant-stark` | `#E3E1DC` / `#C9C6BF` | per rum | `border-kant`, `border-kant-stark` | Hårlinje, upphöjd kant |
+| `--positiv` / `--positiv-mjuk` | `#2F7D5B` / `#DCEFE5` | `#6CC79A` / `#1C3A2D` | `text-positiv` | Sparat, intervju |
+| `--varning` / `--varning-mjuk` | `#985A08` / `#F7E8CF` | `#E3A85A` / `#3A2B14` | `text-varning` | Kvot. Se not nedan. |
+| `--fel` / `--fel-mjuk` / `--fel-kant` / `--fel-morker` | `#B3382E` / `#F8E1DE` / `#F0C7C2` / `#7A2219` | `#E57F74` / `#3F1F1C` / `#5A2D29` / `#F3B3AB` | `text-fel` … | Feltext, felrad |
+| `--lyft` | två skuggor, ljus | två skuggor, mörk | `shadow-lyft` | Det lyfta kortet |
+| `--dimma` | `rgba(10,12,30,.55)` | samma | | Arkets bakgrund |
+
+Not om varning: specen anger `#9A5B08`, som ger 4,49:1 mot varning-mjuk.
+Bygget använder ett steg mörkare, `#985A08` (4,6:1), med samma kulör. Frågan
+ligger hos art-director (`docs/qa/rummen/vag-1a/README.md`).
+
+### Rummen
+
+Väggen (`--vagg`, `--vagg-2`, `--vagg-3`, `--vagg-ink`, `--vagg-mjuk`,
+`--vagg-svag`, `--vagg-kant`), golvet (`--golv`), tonen (`--ton`,
+`--ton-ink`), ljuset (`--ljus`, siktet) och rummets färg (`--rum`).
+Tailwind: `bg-vagg`, `text-vagg-ink`, `text-vagg-mjuk`, `border-vagg-kant`,
+`bg-golv`, `bg-ton`, `text-ton-ink`, `text-ljus`, `bg-rum`.
+
+| Rum | `data-rum` | vagg / vagg-2 / vagg-3 | vagg-ink / mjuk / svag | golv | ton / ton-ink | ljus |
+|---|---|---|---|---|---|---|
+| Träningen (indigo) | `tran` | `#1B2246` / `#2B3470` / `#121737` | `#F5F6FC` / `#AEB4DA` / `#6F78B0` | `#EBEDF6` | `#DFE3F6` / `#3B4790` | `#93A0EC` |
+| CV (petrol) | `cv` | `#113538` / `#1D4D51` / `#0B2628` | `#F1F8F7` / `#A3C9C8` / `#5C918F` | `#E6EFEF` | `#D7ECEA` / `#1E5F5F` | `#7FCFCA` |
+| Personliga brev (plommon) | `brev` | `#3A1930` / `#56284A` / `#280F22` | `#FBF3F8` / `#D6AFC8` / `#9C6A8C` | `#F2EAEE` | `#F0DCE8` / `#6E2B59` | `#E29DCB` |
+| Jobbsöket (skog), standard | `jobb` | `#1B3324` / `#2A4C37` / `#112219` | `#F2F8F2` / `#A9C9B1` / `#6A9676` | `#E8EEE7` | `#DCEBDD` / `#245C37` | `#8FD3A0` |
+| Konto (grafit) | `neutral` | `#26262C` / `#36363E` / `#1A1A1F` | `#F5F4F7` / `#B9B8C2` / `#7C7B88` | `#ECEBE9` | `#E2E1E6` / `#3C3C46` | `#C9C8D2` |
+
+`--vagg-kant` är `rgba(255,255,255,.12)` i alla rum. `--rum` är samma som
+`--ton-ink` i ljust läge.
+
+### Alias under övergången
+
+Omigrerade sidor bär Trådens klassnamn. I inloggat pekar de på Rummen och
+tas bort i våg 4 när grep ger noll:
+
+| Tråden | Rummen |
+|---|---|
+| `--mark` | `--golv` |
+| `--panel` | `--papper` |
+| `--insunken` / `--insunken-topp` | `--papper-2` / `--kant-stark` |
+| `--accent` / `--accent-ink` / `--accent-mjuk` | `--koppar` / `--koppar-ink` / `--koppar-mjuk` |
+| `--ink-1-mjuk` / `--ink-1-kant` / `--ink-1-accent` | `--vagg-mjuk` / `--vagg-kant` / `--koppar-ljus` |
+| `--cv` / `--test` | petrol `#1E5F5F` / indigo `#3B4790` |
+
+Aliasen deklareras både på roten och på `[data-rum]`: `var()` löses där
+egenskapen står, så ett alias bara på `<html>` hade tagit rotens rum även
+inne i ett annat.
+
+### Adminens spårfärger
+
+`--diagram-cv` är petrol `#1E5F5F` och `--diagram-test` indigo `#3B4790`
+sedan våg 1a (beslut 2). Bara värdena bytte; reglerna i `AdminChart` står
+kvar och `--diagram-allt` är fortfarande ink-1. Orange markerar i adminen
+bara ett enskilt värde tills adminen får sin egen omgång.
 
 ### Kontrast
 
-Mätt per par som faktiskt förekommer (WCAG 2.x, konceptet avsnitt 13).
+Räknad ur `globals.css` med WCAG 2.x-formeln av `scripts/kontrast-rummen.mjs`,
+som också kontrollerar att tabellen här stämmer, att mörkt läge står
+likadant i båda formerna och att inget textpar ligger under 4,5:1. Kör den
+efter varje tokenändring; `--skriv` skriver om tabellerna nedan.
 
-| Par | Kvot | Krav |
-|---|---|---|
-| panel / mark | 1,22 | tonsteg ≥ 1,2 |
-| panel / insunken | 1,25 | tonsteg ≥ 1,2 |
-| vit på ink-1 | 17,5 | AA |
-| ink-3 på mark | 5,0 | AA, gäller ner till 12 px |
-| ink-3 på insunken | 4,7 | AA |
-| accent-ink på mark | 6,4 | AA |
-| accent på mark | 3,9 | UI-grafik 3:1 |
-| accent på panel | 4,6 | UI-grafik 3:1 |
-| positiv på panel | 5,5 | AA |
-| varning på varning-mjuk | 5,1 | AA |
-| fel på fel-mjuk | 5,3 | AA |
-| kant-stark på panel | 2,0 | inget: en kant är aldrig ensam gräns |
+<!-- kontrast:start -->
 
-### Två räkneregler
+### Ljust läge
 
-**Orange högst tre gånger per skärm på 375 px.** Räkna tråden, prickenden i
-`StatusRow tone="warm"`, text i `text-accent-ink` och marginalplattan som en
-träff var. Blir det fler, ta bort accenten från det minst viktiga.
+| Par | Träningen | CV | Personliga brev | Jobbsöket | Konto | Krav | Roll |
+|---|---:|---:|---:|---:|---:|---|---|
+| `vagg-ink` på `vagg` | 14,3 | 12,3 | 14,2 | 12,6 | 13,7 | AA, minst 4,5 | Rubrik och brödtext på väggen |
+| `vagg-mjuk` på `vagg` | 7,6 | 7,4 | 8,0 | 7,6 | 7,7 | AA, minst 4,5 | Dämpad text på väggen, ner till 11 px |
+| `vagg-mjuk` på `vagg-2` | 5,7 | 5,3 | 6,0 | 5,3 | 6,1 | AA, minst 4,5 | Dämpad text på väggens ljusa del |
+| `vagg-ink` på `vagg-2` | 10,7 | 8,7 | 10,7 | 8,9 | 10,9 | AA, minst 4,5 | Text på väggens ljusa del |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | AA, minst 4,5 | Kopparfärgad text på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | AA, minst 4,5 | Kopparfärgad text på väggens ljusa del |
+| `ljus` på `vagg` | 6,2 | 7,3 | 7,3 | 7,8 | 9,1 | AA, minst 4,5 | Siktets etikett |
+| `koppar` på `vagg` | 5,1 | 4,4 | 5,1 | 4,5 | 5,0 | grafik, minst 3 | Linje, punkt, knapp på väggen |
+| `koppar` på `vagg-2` | 3,8 | 3,1 | 3,9 | 3,2 | 4,0 | aldrig text | Därför aldrig koppar som text på väggen |
+| `vagg-svag` på `vagg` | 3,7 | 3,7 | 3,6 | 4,0 | 3,6 | aldrig text | Streck och ihåliga märken, aldrig text |
+| `koppar-text` på `koppar` | 6,2 | 6,2 | 6,2 | 6,2 | 6,2 | AA, minst 4,5 | Primärknappen |
+| `koppar-text` på `koppar-djup` | 4,5 | 4,5 | 4,5 | 4,5 | 4,5 | AA, minst 4,5 | Primärknappen, toningens mörka ände |
+| `ink-1` på `golv` | 14,8 | 14,8 | 14,7 | 14,7 | 14,5 | AA, minst 4,5 | Text direkt på golvet |
+| `ink-2` på `golv` | 7,5 | 7,5 | 7,4 | 7,4 | 7,3 | AA, minst 4,5 | Brödtext på golvet |
+| `ink-3` på `golv` | 4,9 | 4,9 | 4,9 | 4,9 | 4,8 | AA, minst 4,5 | Metadata på golvet |
+| `ink-1` på `papper` | 17,3 | 17,3 | 17,3 | 17,3 | 17,3 | AA, minst 4,5 | Text på kort |
+| `ink-2` på `papper` | 8,7 | 8,7 | 8,7 | 8,7 | 8,7 | AA, minst 4,5 | Brödtext på kort |
+| `ink-3` på `papper` | 5,8 | 5,8 | 5,8 | 5,8 | 5,8 | AA, minst 4,5 | Metadata på kort |
+| `ink-3` på `papper-2` | 5,2 | 5,2 | 5,2 | 5,2 | 5,2 | AA, minst 4,5 | Metadata i fält |
+| `ton-ink` på `ton` | 6,6 | 6,0 | 7,5 | 6,4 | 8,4 | AA, minst 4,5 | Aktiv dörr, chip, regelpanel |
+| `ton-ink` på `papper` | 8,4 | 7,3 | 9,8 | 7,9 | 10,9 | AA, minst 4,5 | Rummets ton som text på kort |
+| `koppar-ink` på `papper` | 5,8 | 5,8 | 5,8 | 5,8 | 5,8 | AA, minst 4,5 | Koppar som text på kort |
+| `koppar-ink` på `golv` | 4,9 | 4,9 | 4,9 | 4,9 | 4,9 | AA, minst 4,5 | Koppar som text på golvet |
+| `positiv` på `papper` | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 | AA, minst 4,5 | Sparat |
+| `varning` på `varning-mjuk` | 4,6 | 4,6 | 4,6 | 4,6 | 4,6 | AA, minst 4,5 | Varningsrad |
+| `fel` på `papper` | 6,0 | 6,0 | 6,0 | 6,0 | 6,0 | AA, minst 4,5 | Feltext |
+| `fel` på `fel-mjuk` | 4,8 | 4,8 | 4,8 | 4,8 | 4,8 | AA, minst 4,5 | Felrad |
+| `koppar` på `papper` | 3,0 | 3,0 | 3,0 | 3,0 | 3,0 | grafik, minst 3 | Kopparlinje på kort och i sidomenyn |
+| `koppar` på `golv` | 2,6 | 2,6 | 2,5 | 2,5 | 2,5 | aldrig text | Ren koppar mot golvet: därför är fokusringen koppar-ink (13.2) |
+| `fokus` på `golv` | 4,9 | 4,9 | 4,9 | 4,9 | 4,9 | grafik, minst 3 | Fokusringen på golvet |
+| `fokus` på `papper` | 5,8 | 5,8 | 5,8 | 5,8 | 5,8 | grafik, minst 3 | Fokusringen på kort |
+| `fokus` på `ton` | 4,5 | 4,7 | 4,4 | 4,7 | 4,4 | grafik, minst 3 | Fokusringen på ton (aktiv rad, chip) |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | grafik, minst 3 | Fokusringen på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | grafik, minst 3 | Fokusringen på väggens ljusa del |
+| `papper` på `golv` | 1,2 | 1,2 | 1,2 | 1,2 | 1,2 | tonsteg | Tonsteg papper mot golv |
+| `vit` på `rum` | 8,4 | 7,3 | 9,8 | 7,9 | 10,9 | grafik, minst 3 | Aktiv dörr i sidomenyn (ikon) |
 
-**En marginalplatta per vy.** Plattan sitter på vyns framhävda element:
-rekommenderat valkort, aktiv sektion, Nästa handling, betalväggen. Allt annat
-får naken ikon i 24.
+### Mörkt läge
 
-Toggles, bockar och aktiv flik i navigationen är ink-1 och räknas inte.
+Väggen byter aldrig, så väggparen är desamma som i ljust läge.
+
+| Par | Träningen | CV | Personliga brev | Jobbsöket | Konto | Krav | Roll |
+|---|---:|---:|---:|---:|---:|---|---|
+| `vagg-ink` på `vagg` | 14,3 | 12,3 | 14,2 | 12,6 | 13,7 | AA, minst 4,5 | Rubrik och brödtext på väggen |
+| `vagg-mjuk` på `vagg` | 7,6 | 7,4 | 8,0 | 7,6 | 7,7 | AA, minst 4,5 | Dämpad text på väggen, ner till 11 px |
+| `vagg-mjuk` på `vagg-2` | 5,7 | 5,3 | 6,0 | 5,3 | 6,1 | AA, minst 4,5 | Dämpad text på väggens ljusa del |
+| `vagg-ink` på `vagg-2` | 10,7 | 8,7 | 10,7 | 8,9 | 10,9 | AA, minst 4,5 | Text på väggens ljusa del |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | AA, minst 4,5 | Kopparfärgad text på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | AA, minst 4,5 | Kopparfärgad text på väggens ljusa del |
+| `ljus` på `vagg` | 6,2 | 7,3 | 7,3 | 7,8 | 9,1 | AA, minst 4,5 | Siktets etikett |
+| `koppar` på `vagg` | 5,1 | 4,4 | 5,1 | 4,5 | 5,0 | grafik, minst 3 | Linje, punkt, knapp på väggen |
+| `koppar` på `vagg-2` | 3,8 | 3,1 | 3,9 | 3,2 | 4,0 | aldrig text | Därför aldrig koppar som text på väggen |
+| `vagg-svag` på `vagg` | 3,7 | 3,7 | 3,6 | 4,0 | 3,6 | aldrig text | Streck och ihåliga märken, aldrig text |
+| `koppar-text` på `koppar` | 6,2 | 6,2 | 6,2 | 6,2 | 6,2 | AA, minst 4,5 | Primärknappen |
+| `koppar-text` på `koppar-djup` | 4,5 | 4,5 | 4,5 | 4,5 | 4,5 | AA, minst 4,5 | Primärknappen, toningens mörka ände |
+| `ink-1` på `golv` | 16,8 | 16,6 | 17,3 | 16,8 | 16,7 | AA, minst 4,5 | Text direkt på golvet |
+| `ink-2` på `golv` | 11,1 | 11,0 | 11,4 | 11,1 | 11,0 | AA, minst 4,5 | Brödtext på golvet |
+| `ink-3` på `golv` | 6,1 | 6,0 | 6,2 | 6,1 | 6,0 | AA, minst 4,5 | Metadata på golvet |
+| `ink-1` på `papper` | 15,3 | 15,0 | 15,9 | 15,4 | 15,2 | AA, minst 4,5 | Text på kort |
+| `ink-2` på `papper` | 10,1 | 9,9 | 10,5 | 10,1 | 10,0 | AA, minst 4,5 | Brödtext på kort |
+| `ink-3` på `papper` | 5,5 | 5,4 | 5,7 | 5,5 | 5,5 | AA, minst 4,5 | Metadata på kort |
+| `ink-3` på `papper-2` | 5,1 | 5,0 | 5,4 | 5,1 | 5,1 | AA, minst 4,5 | Metadata i fält |
+| `ton-ink` på `ton` | 7,8 | 8,0 | 8,5 | 8,4 | 8,6 | AA, minst 4,5 | Aktiv dörr, chip, regelpanel |
+| `ton-ink` på `papper` | 9,8 | 10,9 | 10,3 | 11,5 | 10,2 | AA, minst 4,5 | Rummets ton som text på kort |
+| `koppar-ink` på `papper` | 8,3 | 8,1 | 8,6 | 8,3 | 8,3 | AA, minst 4,5 | Koppar som text på kort |
+| `koppar-ink` på `golv` | 9,1 | 9,0 | 9,4 | 9,1 | 9,0 | AA, minst 4,5 | Koppar som text på golvet |
+| `positiv` på `papper` | 8,3 | 8,2 | 8,7 | 8,4 | 8,3 | AA, minst 4,5 | Sparat |
+| `varning` på `varning-mjuk` | 6,5 | 6,5 | 6,5 | 6,5 | 6,5 | AA, minst 4,5 | Varningsrad |
+| `fel` på `papper` | 6,2 | 6,1 | 6,4 | 6,2 | 6,2 | AA, minst 4,5 | Feltext |
+| `fel` på `fel-mjuk` | 5,4 | 5,4 | 5,4 | 5,4 | 5,4 | AA, minst 4,5 | Felrad |
+| `koppar` på `papper` | 5,7 | 5,6 | 5,9 | 5,7 | 5,7 | grafik, minst 3 | Kopparlinje på kort och i sidomenyn |
+| `koppar` på `golv` | 6,2 | 6,2 | 6,4 | 6,2 | 6,2 | aldrig text | Ren koppar mot golvet: därför är fokusringen koppar-ink (13.2) |
+| `fokus` på `golv` | 9,1 | 9,0 | 9,4 | 9,1 | 9,0 | grafik, minst 3 | Fokusringen på golvet |
+| `fokus` på `papper` | 8,3 | 8,1 | 8,6 | 8,3 | 8,3 | grafik, minst 3 | Fokusringen på kort |
+| `fokus` på `ton` | 6,6 | 6,0 | 7,0 | 6,1 | 6,9 | grafik, minst 3 | Fokusringen på ton (aktiv rad, chip) |
+| `koppar-ljus` på `vagg` | 8,9 | 7,6 | 8,9 | 7,9 | 8,7 | grafik, minst 3 | Fokusringen på väggen |
+| `koppar-ljus` på `vagg-2` | 6,6 | 5,4 | 6,8 | 5,6 | 6,9 | grafik, minst 3 | Fokusringen på väggens ljusa del |
+| `papper` på `golv` | 1,1 | 1,1 | 1,1 | 1,1 | 1,1 | tonsteg | Tonsteg papper mot golv |
+
+### Adminens spårfärger (Tråden, panel `#FFFFFF`)
+
+| Serie | Värde | Mot panel | Krav |
+|---|---|---:|---|
+| `--diagram-cv` (CV-paketet) | `#1E5F5F` | 7,3 | grafik, minst 3 |
+| `--diagram-test` (Träningspaketet) | `#3B4790` | 8,4 | grafik, minst 3 |
+| `--ink-1` (Hela paketet) | `#1C1917` | 17,5 | grafik, minst 3 |
+
+Avstånd i CIELAB (ΔE76): petrol mot indigo 52,6, petrol mot ink-1 35,5, indigo mot ink-1 52,9. Med deuteranopi (Machado 2009): petrol mot indigo 36,1. Varje serie har direktetikett vid slutpunkten, så färgen är aldrig ensam bärare.
+
+<!-- kontrast:slut -->
 
 ## 3. Typskala
 
-Två familjer. Schibsted Grotesk (`font-display`) bär varje sidrubrik, stora
-tal och värdemeningar. Inter bär allt annat: etiketter, brödtext, knappar och
-menyn, i vikterna 400, 500 och 600. Klassen bär hela stilen: display-klasserna
-ligger i `globals.css` (de byter storlek vid `lg` och sätter familjen), övriga
-i `tailwind.config.js` under `fontSize`.
+Två familjer. Schibsted Grotesk (`font-display`) bär rubriker och tal. Inter
+bär etiketter, brödtext, knappar och menyn. Display-klasserna ligger i
+`globals.css` under `@layer utilities` (de byter storlek vid `lg` och sätter
+familjen), övriga i `tailwind.config.js` under `fontSize`.
 
-**Regel 1: display-snittet bär varje sidrubrik.** Varje vy har exakt en h1
-i Schibsted Grotesk 800. Ingen annan text tar display-snittet utom stora tal
-och värdemeningar.
+| Klass | Mobil | Dator (lg) | Vikt | Användning |
+|---|---|---|---|---|
+| `.text-h1` | 34/36 i rummen (32/35 utanför) | 44/46 | 800, -0.025em | Rubriken på väggen, en per vy |
+| `.text-h1-liten` | 28/31 | 32/35 | 800 | Rubrik i resultat, kvitto, CV-rummet |
+| `.text-tal-stor` | 64/64 | 72/72 | 800, -0.035em, tabulära siffror | Provdagens datum, mätningens nivå |
+| `.text-tal-rad` | 22/24 | 22/24 | 700, tabulära | Dagsradens tre tal |
+| `.text-tal-tre` | 28/30 | 28/30 | 700, tabulära | Resultatets tre tal |
+| `.text-kort-t` | 22/27 | 22/27 | 700, -0.02em | Det lyfta kortets titel |
+| `.text-ey` | 12/16 | 12/16 | 600, .08em, versaler | Eyebrow (Inter) |
+| `.text-meta` | 13/18 | 13/18 | 400 | Metadata (Inter) |
+| `.text-ax` | 11/16 | 11/16 | 500 | Bara i SVG-axlar och `.axel` (Inter) |
 
-| Roll | Klass | Storlek / radavstånd / vikt |
-|---|---|---|
-| Sidrubrik (h1), inloggat | `text-h1` | display, 32 / 35 / 800 mobil, 44 / 46 / 800 från lg, -0.025em |
-| Sidrubrik (h1), publikt | `text-h1-pub` | display, 32 / 35 / 800 mobil, 60 / 60 / 800 från lg |
-| Sektionsrubrik, publikt | `text-h2-pub` | display, 28 / 32 / 700 mobil, 40 / 44 / 700 från lg |
-| Värdemening | `text-varde` | display, 18 / 24 / 600 |
-| Stort tal med mening | `text-tal-display` | display, 40 / 40 / 800 mobil, 48 / 48 från lg, tabulära siffror |
-| Flödesfråga | `text-fraga` | 22 / 28 / 600, -0.02em |
-| Stort tal | `text-tal tabular-nums` | 40 / 40 / 500, -0.02em |
-| Kortrubrik | `text-kort` | 16 / 22 / 600, -0.01em |
-| Metadata | `text-meta text-ink-3` | 13 / 18 / 400 |
-| Stegetikett | `text-steg uppercase text-ink-3` | 12 / 16 / 500, 0.06em |
-| Sektionsetikett | `text-sm font-medium text-ink-3` | 14 / 20 / 500 |
-| Brödtext | `text-sm leading-[22px] text-ink-2` | 14 / 22 / 400 |
+Brödtext 14/21 på kort, 15/22 på vägg. Vikterna 700 och 800 finns bara
+tillsammans med `font-display`. Minsta text är 12 px; 11 px bara i SVG-axlar
+med `aria-label` som läser ut talen. Trådens `text-fraga`, `text-tal`,
+`text-kort`, `text-steg`, `text-varde` och `text-tal-display` finns kvar för
+omigrerade sidor.
 
-Sektionsrubriker i inloggat läge ("Pågår nu", "Det här gjorde du förra
-veckan") är etiketter i ink-3, inte h2 i 18/600. Då blir kortrubriken 16/600
-den tyngsta texten i innehållet och sidrubriken den enda som är större.
-`text-steg` i `text-accent-ink` används bara för "Rekommenderas". Vikterna
-700 och 800 finns bara tillsammans med `font-display`.
-
-Minsta textstorlek är 12 px. `text-[10px]` och `text-[11px]` används inte.
-
-## 4. Djup utan skugga
+## 4. Djup: vägg, papper, ton
 
 ```
-Mark      #EDE8DF                                    nivå 0
- └ Panel  #FFFFFF, border-kant, rounded-xl           nivå 1
-    ├ Insunken #ECE6DC, border-kant, shadow-insunken nivå 1 minus
-    └ Upphöjd  #FFFFFF, border-kant-stark            nivå 2
-       └ Vald  #FFFFFF, border-ink-1, shadow-val     val
+Vägg     rummets toning vagg-2 → vagg → vagg-3, ljuskant uppe till höger   mörk, högst upp
+ └ Golv  golv, rummets ljusa ton                                            nivå 0
+    ├ Kort       papper, border-kant, rounded-2xl                          nivå 1
+    ├ LyftKort   papper, shadow-lyft, överlappar väggen 30 px              nivå 2
+    ├ Fält       papper-2                                                  nivå 1 minus
+    └ Ton        ton med ton-ink (aktiv dörr, chip, regelpanel)            markering
 ```
 
-Spacing: bara 4 / 8 / 12 / 16 / 24 / 32 / 48 px, alltså Tailwind `1 2 3 4 6 8
-12`. Inga `gap-2.5`, `p-3.5`, `py-0.5`. Sidor `space-y-4` på mobil och
-`sm:space-y-6`. Kort `p-4`, `sm:p-5`.
+Väggen: `.vagg` i `globals.css`, radie 0 0 28 28, padding 16 (mobil) och 40
+(dator) i sidled, 44 under (24 med `tat`). Golvet: 16 px mobil, 40 px dator,
+max-bredd 1120 px. Radier: `rounded-lg` 8 för kontroller, `rounded-xl` 12 för
+knappar, `rounded-2xl` 16 för kort, `rounded-vagg` 28 för väggen,
+`rounded-ark` 24 för arkets överkant. Skuggor: bara `shadow-lyft` (det lyfta
+kortet) och skuggan på svävande ark. Toningar finns bara i `globals.css`
+under `.vagg`, `.knapp-primar`, `.kurva-yta` och i märkenas `<defs>`.
 
-Radier: `rounded-lg` (8) för kontroller, fält, plattor och menyrader,
-`rounded-xl` (12) för kort, paneler och ark, `rounded-md` för chips.
-`rounded-2xl` och `rounded-3xl` används inte.
+## 5. Koppar
 
-Tre skuggtokens, inga andra:
+En linje genom alla rum. Den betyder **här är du** och **det här rör sig**.
 
-| Token | Värde | Var |
-|---|---|---|
-| `shadow-insunken` | `inset 0 1px 0 var(--insunken-topp)` | Fält och insunkna ytor. Ljuset kommer uppifrån, överkanten ligger i skugga. |
-| `shadow-val` | `inset 0 0 0 1px var(--ink-1)` | Valt alternativ, tillsammans med `border-ink-1` |
-| `shadow-svav` | `0 8px 24px rgba(28,25,23,.12), 0 1px 2px rgba(28,25,23,.08)` | Bara element som svävar: sheet, dropdown, toast, sticky fot |
+| Var | Hur |
+|---|---|
+| Primärknappen | `.knapp-primar` (toning `#E8863B` → koppar → koppar-djup), text koppar-text, 48 px, radie 12, exakt en per vy |
+| Kurvan och nivåskalan | linje 2,25 px, punkter med `stroke: vagg`, yta `#g-yta` 0,38 → 0 |
+| Aktiv undersida i sidomenyn | `shadow-[inset_3px_0_0_var(--koppar)]` |
+| Märken | exakt en kopparyta per symbol |
+| Fokusring | `outline: 2px solid var(--fokus); outline-offset: 2px` på `:focus-visible`; `--fokus` är koppar-ink på golv, papper och ton och koppar-ljus på väggen (13.2) |
+| Text | koppar-ljus på väggen, koppar-ink på papper och golv, aldrig ren koppar |
 
-`shadow-sm/md/lg/xl` och `drop-shadow-*` används inte. Inga gradienter,
-varken inloggat eller publikt.
-
-### Följd
-
-**Regel 4: aldrig fler än tre ytor i samma vikt i följd.** Tre paneler med
-samma fyllning, kant och radie får följa på varandra. Den fjärde byter form:
-en lista direkt på mark, en statusrad, en bläckyta, en scen eller text utan
-ram. Det gäller kort i ett rutnät lika mycket som paneler i en kolumn.
-Grep-kontroll: fyra `rounded-xl border border-kant bg-panel` som syskon i
-följd är en träff.
-
-## 5. Tråden
-
-En orange linje som betyder en sak: **här är du.** Den markerar aldrig val.
-Allt nedan är ren CSS i `globals.css`, ingen JS.
-
-| Var | Klass | Hur |
-|---|---|---|
-| Aktiv rad i sidomenyn | `.thread-row` | 3 px vid radens vänsterkant, 12 px utanför raden, 8 px indrag i höjd |
-| Aktiv sektion på en lång sida | `.thread-head` på panelen, `.thread-head-block` på huvudet | 3 px längs sektionshuvudet, 16 px indrag. Panelen får `border-kant-stark`. |
-| Aktivt steg i ett flöde | `FlowShell` | 2 px framstegslinje under toppraden |
-| Laddning | `.loading-thread` | 2 px, 40 procent bredd, löper längs panelens överkant i 1200 ms |
-| Bekräftelse | `.confirm-panel` | Linjen går till 100 procent och stannar som panelens 3 px överkant |
-| Fokus | `outline: 2px solid var(--accent)` på `:focus-visible` | Fokusringen är tråden |
-
-Val markeras i stället med `border-ink-1 shadow-val` plus en fylld bock i
-ink-1, 22 px, i övre högra hörnet. Toggles är ink-1. Valt segment får
-`border-ink-1` och vikt 500. Så finns det bara en orange linje i systemet,
-och den är igenkännbar för att den är ensam.
+Val markeras med `border-ink-1` och en bock, inte med koppar.
 
 ## 6. Komponenter
 
-Allt i `src/components/shell/` om inget annat sägs. Bygg aldrig om dem per
-sida. Saknas en prop: lös det lokalt i sidan och skriv upp det.
+Nya komponenter i `src/components/rum/` om inget annat sägs. Server
+components där inga hooks behövs (vägg, golv, kurva, skala, rader), klient
+bara för interaktion. Status per komponent: vilken våg den byggs i.
 
-**`PageHeader { title, description?, eyebrow?, action?, scene?, children?, className? }`**
-Sidans enda h1 (`text-h1`, display). Rubriken säger vad användaren får,
-`description` vad sidan gör. `scene` är en scen i 240 × 200 och ritas i egen
-kolumn till höger från `lg`; på mobil faller den bort så att vyns primära
-handling ligger inom första skärmhöjden. `action` blir full bredd på mobil,
-auto från `sm`.
+**Rummet** (`src/lib/rum/rum.ts`, våg 1b): `type Rum = 'tran'|'cv'|'brev'|'jobb'|'neutral'`,
+`rumForPath(pathname)`, `RUM_NAMN`, `DORRAR`. `DashboardShell` sätter
+`data-rum` ur props (server) och följer `usePathname` (klient).
 
-**`InkPanel { eyebrow?, title, titleAs?, text?, action?, secondary?, scene?, children? }`**
-Regel 3: exakt en fylld ink-1-yta per vy, och den bär vyns viktigaste
-handling eller erbjudande (Nästa handling på hemskärmen, rekommendationen i en
-hubb, mediebevisen på startsidan, paketet i en artikel). Tonerna är
-Allt-kortets: vit text, `text-ink-1-mjuk`, `border-ink-1-kant`,
-`text-ink-1-accent` för etiketten. Knappen är vit på bläck (`INK_KNAPP`), det
-sekundära en textlänk (`INK_LANK`). Scenen får papper i `ink-hover` genom att
-panelen pekar om `--illu-fill`. `titleAs="p"` där rubriken inte får hamna i
-rubrikträdet (reklamkort i artiklar). Två bläckytor på samma skärm är ett fel,
-oavsett skärmstorlek.
+**`Vagg`** (server, våg 1b) `{ children, className?, tat? }`. **`Golv`**
+(server): `px-4 pb-[calc(var(--bottom-nav-h)+24px)] lg:px-10 lg:pb-10 flex flex-col gap-4 flex-1`.
+**`Topprad`** (klient) `{ brand, kontext?, stang? }`: 60 px (72 dator),
+brand i display 15/700, avatar 34 px, notiser och meddelanden bara när de har
+något, alla knappar 44 px, `data-topprad`. **`Rubrik`** (server)
+`{ titel, rad?, liten?, as? }`. **`RumHuvud`** (server) `{ title, description?,
+eyebrow?, handling?, tat? }`: h1 är undersidans namn (`RUBRIK` i
+`src/lib/rum/copy.ts`), eyebrow bara för data (datumraden), `handling` bara
+`LANK_VAGG` eller `KNAPP_GLAS`.
 
-**`Fordelning { total, unit, mening, segments, action? }`**
-Regel 5: ett tal står aldrig ensamt. Talet i `text-tal-display`, en mening som
-säger vad det betyder, en segmentrad och en legend som skriver ut varje
-segments tal och innebörd. Tonerna `ink`, `stark`, `mjuk`, `positiv` och
-`accent` (räknas mot taket på tre orange). `total` får vara en sträng och
-varje segment en `visa`-text när talet behöver format ("26 912 kr").
-På bläck pekas tonerna om med `PA_BLACK` i `src/components/rakna/ui.tsx`.
+**Regeln: väggen säger var du är, det lyfta kortet vad du gör.** Väggen bär
+aldrig primärknappen. Vyns primära handling står i ett `LyftKort` först på
+golvet (`Golv lyft`, `RumHuvud tat={false}`), som överlappar väggen 30 px.
+Ordningen på golvet är alltid lyft kort, sedan statusrad eller flikar, sedan
+listor. `scripts/grep-rummen.mjs --vag 1b --noll` stoppar `KNAPP_PRIMAR` på
+väggen.
 
-**`StatusRow { children, tone?, showDot?, action?, label?, className? }`**
-Alltid en rad i panel med `border-kant`, aldrig ett kort, aldrig en fylld yta.
-Tonen byter bara text och punkt: `neutral` (`text-ink-1`, punkt `bg-ink-3`),
-`warm` (`text-accent-ink`, punkt `bg-accent`), `positive` (`text-ink-1`, punkt
-`bg-positiv`). Trialrad `tone="warm"`, kvotrad `tone="neutral"`. Högst en
-`warm` per vy.
+| Står på väggen | Står på golvet |
+|---|---|
+| Topprad (rummets namn, konto, notiser) | Lyft kort (vyns enda kopparknapp) |
+| Rubrik (undersidans namn) och en rad status | Kort |
+| Instrument (dagsrad, nivåskala, kurva) | Rader |
+| Glasknapp i automatisk bredd eller vägglänk | Statusrad, flikar, sök och filter |
 
-**`ChoiceCard { selected, onSelect, title, description?, meta?, eyebrow?, leading?, variant?, children?, className? }`**
-`role="radio"`. Rekommenderat val: `variant="featured"`,
-`eyebrow="Rekommenderas"`, `leading={<MarginPlate><IlluPlattaSmartTon size={48} /></MarginPlate>}`.
-Övriga: `variant="plain" leading={<IkonProfessionell />}` (naken ikon 24 i
-ink-2). Det valda tillståndet ritas av komponenten, skicka aldrig egna klasser
-för det.
+**`Dorrnav`** (klient, våg 1b, ersätter `MobileBottomNav`): `nav aria-label="Huvudmeny"`,
+fyra dörrar Tester, CV, Personliga brev, Jobbsöket (`DORR_ETIKETT.mobil`;
+på dator heter testdörren Rekryteringstester, `DORR_ETIKETT.dator`), 72 px plus safe
+area, aktiv dörr `bg-ton text-ton-ink`, etikett aktiv `text-ink-1` 600,
+`aria-current="page"`. **`Sidomeny`** (klient, våg 1b, ersätter `Sidebar`):
+248 px, fyra rumsrader 48 px, aktiv dörr `bg-rum text-white`, grupprubrik
+med rummets namn och undersidor 40 px med kopparlinje på aktiv, kontot
+längst ner på två rader (namn 13/500, paket 12).
+Inga realtidskanaler i kritisk väg.
 
-**`Segment { value, onChange, options, label, className? }`**
-Två till fyra lika alternativ, till exempel språk. Lika breda knappar på 44 px
-i `role="radiogroup"`. Valt: `border-ink-1 shadow-val`, vikt 500.
+**Knappar** (`src/components/shell/knappar.ts`, våg 1b, ersätter
+`INK_KNAPP`/`INK_LANK`): `KNAPP_PRIMAR` (koppar, 48 px, radie 12),
+`KNAPP_SEKUNDAR` (papper med `border-kant-stark`; `KNAPP_SEKUNDAR_LAG`, 40 px
+och 14 px text, när två eller fler sekundära står i rad), `KNAPP_GLAS` (på
+väggen, `bg-white/[.08]` med `border-vagg-kant`, alltid automatisk bredd),
+`LANK`, `LANK_VAGG`, `KNAPPRAD`. Exakt ett `KNAPP_PRIMAR` per vy, aldrig på
+väggen; det sekundära i en betalvägg är alltid `LANK`.
 
-**`MarginPlate { children, className? }`**
-56 px, `bg-accent-mjuk border border-kant rounded-lg`. Sätter `--ia:
-var(--accent)` och är därmed det enda stället där ikonernas accentform tänds.
-En per vy.
+**Ett lyft kort som pekar på sparad data öppnar den datan; en knapp som
+kostar kvot säger det i kortet** (art-director 21.2 fråga 2). "Åtgärda i
+CV:t" öppnar den sparade analysen (`/dashboard/cv-analys?job=<id>`) i
+granskningen, utan AI-anrop, utan kvot och utan ny rad i
+`cv_analysis_jobs`. Går datan inte att öppna lyfts inte kortet.
 
-**`EmptyState { illustration?, title, description?, action?, secondaryAction?, bare?, className? }`**
-Scen i 96 (standard `IlluTomMapp`), kortrubrik, en mening, en knapp. `bare`
-tar bort panelramen, används för dashboardens tillstånd A med
-`IlluArketLyfter`. Ett skelett får aldrig ligga kvar: vid noll rader visas
-`EmptyState`, vid fel ett felmeddelande.
+**Rader i spalter på dator** (22.2 fråga 4): andra raden följer första. Står
+ett tvåspaltskort i första raden spänner andra radens första kort också två
+spalter, nästa står i tredje, och statusraderna går i en egen rad över hela
+bredden. **En rad i en tredjedelsspalt får bryta titeln på högst två rader;
+bryter den på tre är det spalten som är fel, inte texten.** En radtitel är ett
+namn ("Generalrepetitionen"), inte en mening; formatet står i metan.
 
-**`LoadingSkeleton { variant?, count?, label?, meta?, className? }`**
-Varianter `row | card | list | text | statusRow | writing`. Skelettblocken
-står stilla i `bg-insunken`, bara tråden rör sig. `role="status"`,
-`aria-busy`, `aria-live="polite"`. Generering:
-`variant="writing" label="Brevet skrivs" meta="Brukar ta 20 sekunder"`. Ingen
-spinner, ingen pulserande yta.
+**`LyftKort`** (server) `{ eyebrow?, eyebrowTon?, titel?, text?, handling?, sekundar?, fot?, children?, label }`:
+papper, `shadow-lyft`, överlappar väggen 30 px, i mörkt läge `border-kant`.
+Tar rollen som vyns viktigaste handling från `InkPanel`.
+**`Kort`**, **`Rader`** (rader 56 px, `border-t border-kant` mellan),
+**`SektRubrik`** (13/600 `text-ink-3`), **`Chip`** (28 px, radie 8; ton och
+lås), **`Dagsrad`**, **`Dagsring`** (SVG 56), **`Veckorad`**, **`Formord`**.
 
-**`Confirmation { title, description?, action?, secondaryAction?, illustration?, children?, className? }`**
-`role="status" aria-live="polite"`. Titeln säger vad som skapades: "Ditt brev
-till Klarna är klart", aldrig "Klart!". Komponenten sköter animeringen
-(`.confirm-panel`, `.confirm-rise`, `.confirm-draw`), lägg inte till egen.
-Ingen konfetti, ingen maskot.
+**Instrument** (server-renderade SVG, våg 2 och 3b): `Kurva` (viewBox
+380×150 mobil, 840×170 dator, två viewBoxar så text aldrig skalas),
+`Nivaskala` (380×56 / 840×56), `Poangring` (CV-rummet, 112 px), `Spar`
+(Jobbsöket), `Staplar` (tempo), `Plan`, `Marke`. Exakta mått och regler i
+spec avsnitt 4.4.
 
-**`FlowShell { title, step, totalSteps, onBack?, onExit?, exitLabel?, primaryLabel?, onPrimary?, primaryDisabled?, primaryBlockedReason?, primaryBusy?, busyLabel?, footerSecondary?, banner?, children }`**
-Mark, topprad i panel, 2 px framstegslinje, sticky fot. Fortsätt-knappen
-ligger alltid i foten. Steget börjar så här:
+Regler för instrumenten (art-director 22.2): **punktens tal vinner alltid
+över ett tickvärde.** På nivåskalan viker axelns 1, 5 och 10 när punkten står
+närmare än 0,9 nivåer; 1 och 10 viker bara då, och punktens tal står kvar vid
+kanten så att skalan alltid har ett tal i varje ände (samma prioritet som
+kurvans axel). **I en etikett med en handling är bara verbet länken**:
+"Sikte 6,5, ändra" och "Du · sikte 6,5, ändra" står som text, och `ändra`
+är ett `<a>` med `LANK_VAGG` och 44 px träffyta (`py-2 -my-2 px-1 -mx-1`).
+Nivån är det man ska läsa, inte en länk. **Från-ringen ritas före punkten**
+så att punkten täcker den, och utelämnas när |nu − från| < 0,15; axeltexten
+("från 5,2") bär talet.
 
-```tsx
-<p className="text-steg uppercase text-ink-3">Steg 4 av 6</p>
-<h2 className="text-fraga text-ink-1">Hur ska brevet låta?</h2>
-```
+**Flödet**: `FlowShell` restylas i våg 1b (golv, kopparknapp `h-12`,
+progress 3 px), `PassShell` (våg 3b) lägger till tidsraden som aldrig räknar
+ner och aldrig byter färg. **Luft under ett flöde är en konstant, aldrig ett
+mått på något annat element** (22.2 fråga 1): `PassShell`s kropp har
+`pb-4`, eftersom foten är ett eget barn under `main`. `--flow-footer-h`
+finns kvar för `FlowShell`, där foten ligger ovanpå kroppen, och för
+bannrarna. `PassFraga`, `Regelpanel` (`bg-ton`,
+`role="status"`), `Resultatvy`, `Kvitto`, `Ingang`.
 
-**`FlowProgress { progress, estimatedTimeRemaining?, stages, onCancel?, cancelLabel? }`**
-Långa väntor. `role="progressbar"` med `aria-valuenow`.
+**Befintliga som behålls**: `StatusRow` (restylad i 1b: papper, punkt
+`bg-ink-3`, `warm` ger koppar; på väggen `bg-white/5`), `Fordelning`
+(Jobbsöket, segmentton `accent` blir koppar), `LoadingSkeleton` (får
+varianten `vagg`), `Sheet` (radie 24 upptill, papper, `--dimma`).
+`PageHeader` och `InkPanel` står kvar för publika sidor.
 
-**`FlowError { message, title?, onRetry?, retryLabel?, secondaryAction?, className? }`**
-`role="alert"`. Ingen rörelse, ingen röd yta bakom rubriken, rött aldrig på
-hela kortet.
+**Betalväggen** (`PaywallCard`, `GraValSheet`, lyftkorten i 1f, W3 och M1,
+art-director 24.2 fråga 1, 3 och 4). En anatomi för alla betalväggar:
+eyebrow i `text-ey text-koppar-ink` (valfri), rubrik i `text-kort-t`, text
+14/21 i ink-2, prisrad `text-sm font-medium text-ink-1`, `KNAPPRAD` med
+`KNAPP_PRIMAR` och exakt en `LANK`, fot i meta under hårlinje (valfri).
+Papper, `border-kant`, radie 16; `shadow-lyft` och `--lyft-kant` bara när
+den är vyns lyftkort. Ingen illustration, inget produktval. Reglerna:
 
-**`Sheet { open, onClose, title?, description?, children, footer?, size?, bare?, className? }`** och
-**`ConfirmDialog { open, onCancel, onConfirm, title, description?, confirmLabel?, cancelLabel?, destructive? }`**
-Panel med `shadow-svav`, 240 ms. Inga egna modaler, ingen `window.confirm`.
+- **Ett lyftkort som är en betalvägg är betalväggen.** Det bär sin egen
+  knapp och öppnar inget ark.
+- **Arket öppnas bara från ett låschip eller en låst rad**, aldrig från en
+  kopparknapp. Arket är papperet och kortet innehållet: `GraValSheet` lägger
+  `PaywallCard bare` i `Sheet bare`, aldrig en ram i en ram. Arkets rubrik
+  namnger det hon tryckte på ("Riktade pass ingår i Premium") och det
+  sekundära är länken "Se vad som ingår".
+- **Samma knapp står aldrig två gånger i rad** i ett flöde.
+- **Ingen kopparkant.** Kopparn i en betalvägg är knappen. En betalvägg
+  känns igen på innehållet, prisraden med fulla namnet och kopparknappen,
+  inte på kanten. Samma sak på prenumerationssidan: inget kort med
+  kopparkant och ingen statusplatta; för gratis och spårkund är
+  Premium-kortet `LyftKort` först på golvet, för den som har Premium står
+  statusen på väggen och golvet börjar med Hantera.
 
-**`PaywallCard { variant, isPremium?, findingsTotal?, hiddenCount?, quota?, onCopy?, onDismiss?, onSecondary?, planOrder?, className? }`**
-i `src/components/paywall/`. Varianter: `nedladdning`, `cv-export`, `kvot`,
-`analys`, `test-tak`, `nedgraderad`, `cv-antal`, `jobbtraffar`, `af-rapport`.
-Copy ordagrant från `paywall-copy.ts`. Premium får `null`. Kortet är en
-upphöjd panel med `border-kant-stark`: det är inte en position, det är ett
-erbjudande, alltså ingen tråd. Värdet visas alltid före spärren, brevet i sin
-helhet ovanför. En ink-knapp, det sekundära alltid en textlänk. Aldrig en egen
-betalvägg i en sida. Produktvalet är `UpgradeSheet`, dagspass först i
-betalväggar, månad först på prissidan.
+## 7. Illustrationer, ikoner och symboler
 
-### Panel, lista och sektionsrubrik
+Primitiverna i `src/components/illustrations/primitives.tsx`: konturer i
+`currentColor`, fyllning via `--illu-fill` (papper), accent via
+`--illu-accent` (koppar), unika id via `useIlluId()`, `aria-hidden`, inga
+animationer i SVG, aldrig hårdkodat vitt.
 
-```tsx
-<div className="mb-2 flex items-center justify-between">
-  <h2 className="text-sm font-medium text-ink-3">Pågår nu</h2>
-  <Link className="text-sm text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1">
-    Alla 11
-  </Link>
-</div>
-<section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">…</section>
-```
+| viewBox | Stroke | Radie | Var |
+|---|---|---|---|
+| 24 | 1,75 | 2 | Ikoner, dörrar |
+| 48 | 2 | 4 | Testtypernas symboler |
+| 96 | 3 | 8 | Tomt tillstånd (`SymPlan`) |
+| 120 | 3 | 10 | Märkena (Rummen) |
+| 240 | 6 | 20 | Publika scener |
 
-Lista i panel: rader med `divide-y divide-kant`, varje rad `px-4 py-3`, titel
-`text-kort text-ink-1`, undertext `text-meta text-ink-3`.
+Symbolbiblioteket `src/components/illustrations/RumSymboler.tsx` (våg 1b),
+koordinaterna ordagrant ur konceptets `<defs>`, exakt en kopparyta per
+symbol, aldrig en bakgrundscirkel:
 
-**Regel 6: rader är innehåll, inte loggar.** En rad säger vad som hände i
-användarens ord, med subjekt och verb, och erbjuder nästa steg: "Sökt för 54
-dagar sedan, inget svar än. Följ upp." Systemets etiketter ("CV-analys: … ×
-4", "Matrislogik: 3 % rätt") är förbjudna som radtext. Händelser grupperas per
-ärende eller per dag, aldrig per händelsetyp.
-
-### Knappar
-
-Höjd 44 px (`h-11`), full bredd på mobil och auto från `sm`. Exakt en primär
-per vy, en sida får sakna den.
-
-- Primär: `inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:opacity-40`
-- Sekundär: `inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken`
-- Text och länk: `text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark hover:decoration-ink-1`
-- Destruktiv: som sekundär med `text-fel border-fel-kant`. Aldrig fylld röd.
-
-En sekundär handling i en betalvägg är alltid en textlänk, aldrig en andra
-knapp.
-
-### Fält
-
-```tsx
-<label className="block">
-  <span className="mb-1 block text-sm font-medium text-ink-2">Telefon</span>
-  <input className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1" />
-  <span className="mt-1 block text-meta text-ink-3">Används bara när du väljer att bli kontaktad.</span>
-</label>
-```
-
-Fel: `border-fel` på fältet och hjälptexten i `text-fel`. Sparat: hjälptexten
-i `text-positiv` med ordet "Sparat".
-
-### Stort tal
-
-Ett stort tal bär alltid en mening som säger vad det betyder: "11 sökta i
-september. 10 väntar svar, 9 av dem tysta i över två veckor." Fyra tal i rad
-med varsin etikett är förbjudet. Finns en fördelning ritas den med
-`Fordelning`.
-
-```tsx
-<Fordelning
-  total={11}
-  unit="sökta i september"
-  mening="3 svar hittills. Du har inte sökt något jobb den här veckan än."
-  segments={[
-    { label: 'tysta över två veckor', value: 9, tone: 'ink' },
-    { label: 'väntar svar', value: 1, tone: 'stark' },
-    { label: 'intervju', value: 1, tone: 'positiv' },
-  ]}
-/>
-```
-
-## 7. Illustrationer och ikoner
-
-Primitiverna ligger i `src/components/illustrations/primitives.tsx`: konturer
-i `currentColor`, fyllning via `--illu-fill`, unika id via `useIlluId()`,
-`aria-hidden`, `focusable="false"`, inga animationer i SVG, aldrig hårdkodat
-`fill="white"`. Linjetjocklek och hörnradie per viewBox ligger i `ILLU`:
-
-| viewBox | Stroke | Radie |
+| Export | Storlek | Används |
 |---|---|---|
-| 24 | 1,75 | 2 |
-| 48 | 2 | 4 |
-| 96 | 3 | 8 |
-| 240 | 6 | 20 |
+| `SymMatris`, `SymSiffror`, `SymOrd`, `SymPerson`, `SymVetInte` | 48 | Ingången, Fler tester, passets topp, kurvans små multiplar |
+| `DorrTran`, `DorrCv`, `DorrBrev`, `DorrJobb`, `DorrProfil` | 24 | Dörrnav, sidomeny |
+| `IkonX`, `IkonChev`, `IkonPil`, `IkonLas`, `IkonKalender`, `IkonCheck`, `IkonInfo`, `IkonTillbaka`, `IkonPenna` | 24 | Ersätter lucide i skalet |
+| `MarkeMatning`, `MarkeVecka`, `MarkeNiva`, `MarkeGeneral`, `MarkeProv` | 120 | Kvitto 132, ommätning 48, legend 24 |
+| `SymPlan` | 96 | Tomt tillstånd |
+| `Gradienter` | defs | `#g-koppar-h`, `#g-yta`, `#g-lyster` för `Kurva` och `Nivaskala` |
 
-### Ikoner, 24 px
+`Ikoner.tsx` behålls för rader. Instrumenten är bilden i rummen; scenerna
+(`PriserScener`, `TradenScener`) används inte i inloggat efter våg 4.
+Aldrig gnistikonen, aldrig emoji.
 
-`src/components/illustrations/Ikoner.tsx`. 24 px, stroke 1,75,
-`currentColor`, normalt i `text-ink-2`. Bredare proportioner än Lucide och en
-avsiktlig asymmetri per motiv: dörren till höger på huset, fotot till vänster
-på CV:t, plusset i nedre högra hörnet på Skapa.
+Våg 4: lucide är ute ur inloggat. `src/components/illustrations/RumIkoner.tsx`
+är golvets ikonsats, egna ritningar i samma hand som `RumSymboler` (24,
+kontur 1,75, rundade ändar, ingen fyllning, ingen koppar) med namn som
+speglar de gamla så att bytet var en import. Nya vyer tar `RumSymboler` och
+`Ikoner` direkt.
 
-De tolv motiven i kartan `IKONER`: Hem, Ansökningar, Skapa, Profil, Brev, CV,
-Analys, Professionell, Entusiastisk, Kreativ, Självsäker, Balanserad. Filen
-har dessutom gränssnittsmotiven Klocka, Meddelanden, Hjälp, Fel, Sköld, Krona,
-LaddaNer, Länk, Matchning, Mallar, Synlig och Bugg.
+**`RumIkoner` är ett övergångslager för befintliga vyer** (art-director 21.2
+fråga 5). Ritningarna står kvar och namnen döps inte om: de är
+kodidentifierare, inte gränssnittsord. Nya vyer importerar `Ikoner` eller
+`RumSymboler`, och när en ikon får en svensk motsvarighet i `Ikoner.tsx`
+tas lucide-namnet bort ur `RumIkoner`. `grep-rummen --vag 4` varnar (stoppar
+inte) för importer av `RumIkoner` utanför filerna i
+`scripts/rumikoner-baslinje.json` (67 filer, 2026-10-11).
 
-Accentformen är en fylld form med `fill: var(--ia, none)`. Den tänds bara
-inuti `MarginPlate`, aldrig i navigation eller listor. Samma symbol, två
-lägen, ingen extra fil.
+Tomma tillstånd (`EmptyState` och de tomma lägena i Bli upptäckt och
+Matchade jobb) står i `.tomt-symbol`: konturen i rummets `ton-ink`, ytorna
+genomskinliga, ingen kopparyta. Ikoner står aldrig på en färgad ruta;
+`MarginPlate` används inte i inloggat.
 
-Lucide får finnas kvar för generiska handlingar: pil, kryss, chevron, meny,
-Check, Copy, Download, i 20 px och `strokeWidth 1.75`. Aldrig Sparkles.
-Aldrig emoji. Aldrig en ikon i en egen rundad ruta utöver marginalplattan.
-
-### Fyra storlekar
-
-| Storlek | Var | Komponent |
-|---|---|---|
-| 24, naken | Listrad, navigation, megamenyn, manuella val | `Ikoner.tsx` |
-| 48 på platta 56 | Listrader och betalväggar | `IlluPlatta*` i `MarginPlate` |
-| 96 | Tomt tillstånd, bekräftelse | `IlluTomMapp`, `IlluTomSokning`, `IlluBrevBekraftat` |
-| 240 × 200 (scen) | Sidhuvud, bläckyta, framhävt element | `PriserScener.tsx` |
-| 520 × 400 (hero) | Publik hero | `IlluScenHero`, `IlluScenSallet` |
-
-**Regel 2: en scen per vy, som visar produkten.** Varje vy med sidhuvud
-eller framhävt element får en scen i 240 × 200 ur PriserScener-familjen
-(`src/components/illustrations/PriserScener.tsx`, som är systemets
-scenfamilj och inte bara prissidans). Scenen visar vad verktyget gör med
-användarens material: ett CV med poäng, en matris, ett brev som möter
-annonsen. Aldrig en ikon i ruta, aldrig två scener, aldrig ovanpå text.
-Tomt tillstånd behåller 96, marginalplattan 48 behålls bara i listrader och
-betalväggar. `IlluArketLyfter` står kvar i dashboardens tillstånd A.
-
-Scenerna i familjen: `IlluScenCv`, `IlluScenMatris`, `IlluScenBrev`,
-`IlluScenMatch`, `IlluScenCoach`, `IlluScenAllt`, `IlluScenUppfoljning`,
-`IlluScenMallar`, `IlluScenBibliotek`, `IlluScenLinkedin`,
-`IlluScenUpptackt`, `IlluScenSkapaCv`, `IlluScenSkrivbordet`, `IlluScenIntervju`,
-`IlluScenKalkylator` (Räkna ut: räknare med resultatet i orange) i 240 × 200,
-`IlluScenHero` och `IlluScenSallet` i 520 × 400. Språket: konturer i
-`currentColor` (stroke 4 i 240, 5 i 520), papper i `--illu-fill`, en
-accentyta högst en tiondel av motivet, ett rörligt element lutat 4 till 8
-grader, inga bakgrundscirklar, aldrig hex, aldrig gradient.
-
-Plattmotiven i `src/components/illustrations/TradenScener.tsx`:
-`IlluPlattaUppfoljning`, `IlluPlattaPresentation`, `IlluPlattaSmartTon`,
-`IlluPlattaNedladdning`, `IlluPlattaCvPoang`, `IlluPlattaAnsokan`,
-`IlluPlattaTest`, `IlluPlattaPremium`. Ytspecifika motiv ligger kvar i sina
-egna filer (`PaywallIllustrations`, `JobbmatchningIllustrations` med flera).
-
-### Scenregler för 96 och 240
-
-1. En scen berättar ett ögonblick, inte en kategori. Tomt tillstånd för
-   ansökningar är inte "en mapp", det är en öppen mapp som väntar på sitt
-   första ark.
-2. Högst tre element: ett bärande, ett rörligt, ett accentelement. Ingen mark,
-   ingen horisont, ingen bakgrundscirkel.
-3. Det rörliga elementet lutar 4 till 8 grader.
-4. Accentformen är fylld och liten, högst en tiondel av motivet.
-5. Aldrig ovanpå text. På mobil står scenen ovanför texten, på desktop i egen
-   kolumn till höger.
-
-En illustration per vy, aldrig två. Mail använder aldrig inline-SVG, headern
-är PNG i `public/email/`.
+Instrumenten i våg 4, alla serverrenderade SVG med `aria-label` som läser ut
+allt: `Spar` (Jobbsöket, spåret per sökt tjänst, mobil 380 och dator 420),
+`Poangring` (CV-rummet, 112 px, analysens läsbarhetspoäng) och `Veckorad`
+med egna celler för CV:ts väg och brevets träffar mot annonsen.
 
 ## 8. Rörelse
 
-CSS-transitions och keyframes, inte framer-motion. Ingen skalning på kort,
-ingen fjäder, ingen konfetti. Rörelsen är tråden.
+CSS, inte framer-motion. Allt under `prefers-reduced-motion: reduce` visar
+sluttillståndet direkt.
 
-| Vad | Tid | Kurva | Var |
+| Vad | Tid | Kurva | Klass |
 |---|---|---|---|
-| Sidentré | 200 ms, y 8 → 0 | ease-out | `animate-thread-enter` |
-| Statusrad, dropdown, toast | 200 ms, y -4 → 0 | ease-out | `animate-thread-drop` |
-| Laddningstråd | 1200 ms loop | ease-in-out | `.loading-thread` |
-| Lång väntan, tre rader | 1800 ms loop, 600 ms förskjutning | ease-out | `.writing-lines` |
-| Bekräftelse | panel 240, linje 200 från 240, bock 480 från 440, rubrik 200 från 560 | ease-out | `.confirm-panel`, `.confirm-draw`, `.confirm-rise` |
-| Framstegslinje vid stegbyte | 240 ms, `transition-[width]` | ease-out | `FlowShell` |
-| Val | 160 ms | ease-out | `ChoiceCard` |
-| Hover på kant | 120 ms | linear | `Segment`, panelhover |
-| Tryck | 80 ms, bakgrund till insunken | linear | `active:bg-insunken` |
-| Ark | 240 ms, upp från botten på mobil | ease-out | `@keyframes sheetUp` |
-| Fel | 0 | | `FlowError` |
+| Byte av rum, väggens och golvets färg | 240 ms | ease | `[data-rum]` |
+| Kurvans linje ritas | 700 ms från 200 | ease-out | `.motion .kurva .linje` (`rita`) |
+| Ytan under kurvan tonar in | 500 ms från 500 | ease-out | `.motion .kurva .yta` (`tona`) |
+| Ny punkt tänds | 240 ms från 900 | ease-out | `.motion .kurva .punkt.ny` (`tand`) |
+| Dagsringen fylls | 500 ms från 300 | ease-out | `.motion .ring .fyll` (`fyll`) |
+| Resultatets fyra steg | 260 ms vardera, start 120 / 420 / 720 / 1020 | ease-out | `.motion .steg.s1` … `.s4` (`upp`) |
+| Märket i kvittot | 600 ms från 200 | `cubic-bezier(.2,.7,.2,1)` | `.motion .marke` (`marke`) |
+| Laddning | 1200 ms loop | ease-in-out | `.loading-thread` |
+| Lång väntan, tre rader | 1800 ms loop | ease-out | `.writing-lines` |
+| Bekräftelse | panel 240, linje 200, bock 480, rubrik 200 | ease-out | `.confirm-*` |
+| Ark | 240 ms upp från botten | ease-out | `sheetUp` |
 
-Bekräftelsen är det enda tillfället då tempot skiljer sig, och det är
-kontrollerat: ingenting nytt dyker upp, det är samma linje som äntligen kommer
-fram.
-
-`@media (prefers-reduced-motion: reduce)` nollar `.loading-thread`,
-`.writing-lines`, `.confirm-panel`, `.confirm-draw` och `.confirm-rise` till
-sina sluttillstånd. Rörelse som startar vid inladdning ligger bakom
-`motion-safe:`.
+`.motion` sätts bara när `nyPunkt` är sant (serverberäknat: senaste
+nivåpunkt nyare än `profiles.traning_sedd_at`). Inget sidledsglid vid byte av
+rum, ingen skalning på kort, ingen konfetti.
 
 ## 9. Tillgänglighet
 
-- Fokusringen är tråden: `outline: 2px solid var(--accent)` med 2 px offset på
-  `:focus-visible`. Aldrig borttagen, aldrig ersatt.
-- Minsta träffyta 44 px, och 48 px i navigation. `py-2` ger cirka 34 px och är
-  för litet. Gäller även stängknappar, ikonknappar och filterpiller.
-- Regel 8: navigation har vikt och grupper. Högst fem navigationsval i samma
-  vikt. Sidomenyn har fyra tunga val med antal (Mitt jobbsök, Sökta tjänster,
-  Mina CV, Personliga brev), sedan verktygen i tre namngivna grupper (Skriv och
-  förbättra, Hitta jobb, Träna) i lättare vikt, sedan Konto. Varje grupp har en
-  rubrik. Inga underrader i menyn: vad som ingår står i sidhuvudet och i "Vad
-  ingår?". Publik header: fem val i Inter 15/500, det aktiva i insunken yta,
-  en bläckknapp.
-- Exakt ett `h1` per sida, alltid synligt, alltid `PageHeader`.
-- Laddning: `role="status" aria-busy aria-live="polite"`. Framsteg:
-  `role="progressbar"` med `aria-valuenow`. Fel: `role="alert"`.
-  Bekräftelse: `role="status" aria-live="polite"`.
-- Val: `role="radio"` med `aria-checked`, grupper `role="radiogroup"` med
-  `aria-label`. Aktiv navigationsrad `aria-current="page"`.
-- Illustrationer och ikoner utan namn är `aria-hidden="true"`. Betydelsebärande
-  ikoner får `title`.
-- Ingen färg är ensam informationsbärare: en punkt följs alltid av text.
-- Minsta textstorlek 12 px, metadata 13 px.
+- Kontrast AA enligt tabellen i avsnitt 2: inget textpar under 4,5:1.
+- Träffytor 44 px, 48 px i navigation.
+- Minsta text 12 px; 11 px bara i SVG-axlar med `aria-label` som läser ut talen.
+- Fokusring 2 px med 2 px offset, aldrig borttagen: koppar-ink på golv, papper och ton, koppar-ljus på väggen (`--fokus`, raderna i avsnitt 2).
+- `prefers-reduced-motion` ger sluttillstånd direkt.
+- Exakt ett `h1` per vy, på väggen.
+- Laddning `role="status" aria-busy aria-live="polite"`, framsteg
+  `role="progressbar"`, fel `role="alert"`, regelpanelen `role="status"`.
+- Aktiv dörr och aktiv rad `aria-current="page"`.
+- Ingen färg är ensam informationsbärare: en punkt följs alltid av text, och
+  adminens serier har direktetikett.
 
 ### Mobil, safe areas och z-index
 
-375 px först. Ingen horisontell body-scroll, breda tabeller får egen
-`overflow-x-auto`. Allt sticky respekterar `env(safe-area-inset-bottom)`.
-Bottennavets höjd är en sanning, `--bottom-nav-h`, som alla sticky element och
-`.dashboard-main-content` räknar mot. Inga hårdkodade offsets.
+375 px först. `--bottom-nav-h` är en sanning; i våg 1b blir den
+`calc(72px + env(safe-area-inset-bottom))` med dörrnavet, till dess 56 px.
+Skalet är `h-dvh` med låst body och bara `main` rullar. Lager: innehåll 0,
+sticky 30, navigation 40, ark 50, modal 60, toast 70.
 
-Flerstegsflöden sätter `--bottom-nav-h: 0` medan flödet är öppet, och foten
-använder `position: sticky` i en `100dvh`-kolumn, aldrig `position: fixed`,
-eftersom iOS lägger tangentbordet över fixed-element. Använd `100dvh`, aldrig
-`100vh`.
+## 10. Grep-listan
 
-| Lager | z-index |
-|---|---|
-| Innehåll | 0 |
-| Sticky element | 30 |
-| Navigation | 40 |
-| Sheet och bottenark | 50 |
-| Modal och dialog | 60 |
-| Toast | 70 |
-
-## 10. Förbjudna mönster
-
-| Gammalt | Nytt |
-|---|---|
-| `bg-white`, `bg-gray-50` som sidbakgrund | inget, skalet ger `bg-mark` |
-| `bg-white` på kort | `bg-panel` |
-| `bg-gray-50`, `bg-gray-100` inuti panel | `bg-insunken shadow-insunken` |
-| `border-gray-*`, `border-slate-*` | `border-kant`, `border-kant-stark` |
-| `text-gray-900`, `text-black` | `text-ink-1` |
-| `text-gray-700`, `text-gray-600` | `text-ink-2` |
-| `text-gray-500`, `text-gray-400` | `text-ink-3` |
-| `text-orange-*` | `text-accent-ink` |
-| `bg-orange-*`, `bg-amber-*` som yta | bort, `bg-panel` |
-| `bg-orange-500/600` primärknapp | `bg-ink-1 text-white hover:bg-ink-hover` |
-| `border-orange-*`, `ring-orange-*` på valt kort | `ChoiceCard selected` |
-| `bg-gradient-*`, `from-*`, `via-*`, `to-*` | bort |
-| `shadow-sm/md/lg/xl`, `drop-shadow-*` | `border border-kant`, annars `shadow-svav` |
-| `rounded-2xl`, `rounded-3xl` | `rounded-xl` |
-| `font-bold`, `font-extrabold`, `font-black` | `font-semibold` |
-| `text-green-600` | `text-positiv` |
-| `text-red-600`, `bg-red-50` | `text-fel`, `bg-fel-mjuk border-fel-kant` |
-| `text-amber-600`, `text-yellow-600` | `text-varning` |
-| `text-3xl`, `text-4xl` för stora tal | `text-tal tabular-nums` |
-| `text-2xl` sidrubrik | `text-h1` |
-| `animate-pulse`, `animate-shimmer`, `card-hover-effect` | `.loading-thread` |
-| `framer-motion` | CSS-klasserna i avsnitt 8 |
-| `Sparkles` från lucide | bort, alltid |
-| Lucide för navigation och tonaliteter | `Ikoner.tsx` |
-| em-dash i copy | bort, alltid |
-
-Kör efter varje sida, förväntat: inga träffar i dina filer. Sedan v2.1
-gäller listan även de publika ytorna som ritats om i linjen: headern,
-footern, startsidan, artikelramen och artikellistan, verktygssidorna,
-Funktioner och Om oss.
+Ger noll träffar i `src/app/dashboard` och `src/components` (utanför
+`src/components/ui` och mallförhandsvisningarna) när Rummen är byggt. Våg 1a
+tar inte bort något; träffarna listas per våg i QA-rapporten.
 
 ```bash
-grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|linear-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/app/dashboard src/components/tests src/components/interests src/components/jobbcoachen src/components/kontakt src/components/landing src/components/Footer.tsx src/components/artiklar src/components/verktyg "src/app/(public)/page.tsx" "src/app/(public)/artiklar" "src/app/(public)/verktyg" "src/app/(public)/funktioner" "src/app/(public)/om-oss" --include=*.tsx | grep -v "font-display"
+# Förbjudna mönster (font-display-raden undantas för vikterna)
+grep -rnE "—|Sparkles|bg-gradient|linear-gradient|animate-pulse|shadow-(sm|md|lg|xl)\b|text-gray-|bg-white\b|rounded-3xl|font-(bold|extrabold|black)|(^|[\" '\`])dark:" \
+  src/app/dashboard src/components --include=*.tsx \
+  | grep -v "^src/components/ui/" | grep -v "font-display"
+
+# Lucide i nav och rum (tillåts i FlowShell/PassShell för X och ChevronLeft till våg 1b)
+grep -rln "lucide-react" src/components/dashboard src/components/shell src/components/rum src/app/dashboard/DashboardShell.tsx
 ```
 
-Filtret `grep -v "font-display"` är avsnitt 12:s undantag: `font-bold` och `font-extrabold` får bara stå på samma rad som `font-display` (rubriker i Schibsted Grotesk i spårvalet, köpsteget och prissidan). En vikt utan `font-display` på raden är fortfarande ett fel.
+Efter våg 4 är grinden `node scripts/grep-rummen.mjs --vag 4 --noll`: hela
+listan ovan plus lucide, Trådens alias (`bg-panel`, `bg-insunken`, `accent`
+och de andra), `InkPanel`, `PageHeader`, `MarginPlate` och `CreateSheet`, i
+allt som renderas i inloggat. Testrummets kataloger (`src/app/dashboard/tester`,
+`src/components/tests`, `src/components/traning`, `src/components/personalityTest`,
+`src/lib/logicTestV7`) räknas för sig tills våg 2 och 3b är klara; aliasen i
+`globals.css` står kvar bara för dem.
 
-Två undantag får finnas, och varje förekomst skrivs upp i rapporten:
-`bg-white` i brevmallars och CV-mallars förhandsvisning (dokumentet är papper),
-och `animate-spin` inuti en knapp i busy-läge.
+Plus: inga engelska gränssnittsord, och `dark:`-klasser används inte alls
+(mörkt läge sker via variabler). Undantag som skrivs upp: `bg-white` i CV-
+och brevmallarnas förhandsvisning (dokumentet är papper).
 
 ## 11. Mörkt läge
 
-Inte byggt. Principen är tokenprincip: samma roller, omvänd stege, och inga
-värden får väljas som omöjliggör den.
+**Byggt (våg 1a).** Samma roller, mörka golv och papper per rum, väggen
+byter aldrig. Två former med samma innehåll, båda i `globals.css`:
 
-| Roll | Mörkt värde |
-|---|---|
-| mark | `#1A1714` |
-| panel | `#232019`, ljusare än mark: papperet ligger fortfarande på bordet |
-| insunken | `#15120E`, mörkare än panel: fortfarande lägre |
-| kant | `#3A342C` |
-| kant-stark | `#554D42` |
-| ink-1 / ink-2 / ink-3 | `#F3EEE6` / `#C9C1B6` / `#9A918A` |
-| accent | oförändrad `#D9480F` (5,2:1 mot mörk mark) |
-| accent-ink | `#F4A575` |
-| accent-mjuk | accent på 18 procent |
+```css
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):has([data-rum]) { … } }
+:root[data-theme="dark"]:has([data-rum]) { … }
+```
 
-Primärknappen inverteras till ink-1 med mörk text. Illustrationerna behöver
-inget nytt: konturerna följer `currentColor` och fyllningen `--illu-fill`.
-Därför skrivs aldrig hex i en komponent.
+Varje rums mörka värden står inuti båda formerna som
+`:root[data-theme="dark"] [data-rum="tran"]`, annars vinner det ljusa rummet
+på specificitet. Kontrastskriptet kontrollerar att formerna är identiska.
 
-## 12. Publika sidor: samma system
+Valet: `localStorage.tema` är `'ljust'`, `'morkt'` eller `'system'`. Ett
+inline-skript i `<head>` (`src/app/layout.tsx`) sätter `data-theme` före
+första målningen, så ingen vy blinkar. Väljaren "Utseende: Följer systemet,
+Ljust, Mörkt" byggs i profilen i våg 1b. Tailwind har inget `darkMode`, och
+`dark:`-klasser används inte.
 
-Publikt och inloggat är ett system. Samma tokens, samma knappar i bläck,
-samma scener, samma räkneregel för orange (högst tre per skärm). Ingen
-gradient någonstans, inte i knappar, rubrikord, bakgrunder eller delare.
-Logotypens `#F97316` är det enda undantaget och byts inte. Färgetiketterna
-`cv` och `test` står bara där paketen nämns. `--jc-gradient-*` är borttagna
-ur `globals.css` (2026-09-23). `navy` och `pink` ligger kvar i
-`tailwind.config.js` så länge äldre ytor utanför linjen använder dem
-(juridiska sidor, CV-analysens gamla steg); de används aldrig i något som
-ritats om.
+| Rum | golv | papper / papper-2 | kant / kant-stark | ton / ton-ink |
+|---|---|---|---|---|
+| Träningen | `#0E1120` | `#171B2E` / `#1D2238` | `#293050` / `#3B4470` | `#232B55` / `#B9C2F2` |
+| CV | `#0B1516` | `#13201F` / `#182827` | `#223634` / `#2F4A48` | `#163A3A` / `#A9DAD6` |
+| Personliga brev | `#160B13` | `#22141E` / `#2A1925` | `#3A2434` / `#50334A` | `#3E1F35` / `#E8B8D8` |
+| Jobbsöket | `#0B140E` | `#141E17` / `#19261D` | `#223A2A` / `#2F4E3A` | `#1C3A27` / `#B4DEBF` |
+| Konto | `#121318` | `#1B1C23` / `#22232B` | `#33343F` / `#454654` | `#2A2A33` / `#C9C8D2` |
 
-**Regel 9: rytm, växla yta, bredd och höjd.** Två sektioner i följd får inte
-ha samma form. Mark, panel, bläck, mark. Bred, tvåkolumn, smal. Publika sidor
-följer sektionsföljden:
+Systemfältet (`themeColor` i `src/app/dashboard/layout.tsx`) är indigoväggens
+`#1B2246` i ljust läge och `#0E1120` i mörkt.
 
-1. Hero på mark med scen (h1 i `text-h1-pub`, eyebrow, ingress med en fetad
-   mening, bläckknapp plus textlänk, bevis i display-tal).
-2. En panel med produktbild eller scen.
-3. En bläckyta (`InkPanel`), sidans enda.
-4. Kort, högst tre.
-5. En lista.
-6. FAQ på mark som `details` och `summary`.
+**Övergången (våg 1a till det gamla testflödets omgång).** Trådens
+bläckytor med vit text (`bg-ink-1 text-white`) hade blivit ljusa med vit
+text när ink-1 vänds. I mörkt läge får de därför väggens färg (`--vagg`,
+hover `--vagg-2`), vilket är den roll aliasen `ink-1-mjuk`, `ink-1-kant`
+och `ink-1-accent` redan pekar på. Regeln står kvar i `globals.css` i båda
+formerna av ett enda skäl: tre knappar i det gamla testflödet,
+`Intervjuprov.tsx`, `MatrixTestSession.tsx` och `MatrisProvSession.tsx`.
+`PaketKort` och `SparKort` lämnade den i våg 5. Regeln tas bort när
+knapparna blivit `KNAPP_PRIMAR`. Hårdkodade `text-gray-*`
+och `bg-white` (grep-listan) är fortfarande fel i mörkt läge tills sidan
+migrerats; se QA-rapporten för våg 1a.
 
-Inga glödar, prickmönster, vågor eller bakgrundscirklar bakom någon sektion.
-Ingen framer-motion. Serverkomponenter där inget behöver JavaScript.
+## 12. Publika sidor: Tråden tills vidare
 
-**Header och megameny.** Fem val i Inter 15/500, det aktiva i insunken yta,
-"Skapa konto" som bläckknapp. Megamenyn är en panel med tre namngivna
-grupper (Skriv och förbättra, Hitta jobb, Träna), nakna ikoner i 24 ur
-`Ikoner.tsx` utan rutor, och en sidokolumn i insunken med `IlluScenAllt` och
-paketets värdemening. Mobilmenyn: fyra huvudval, tre grupper med 44 px rader
-utan ikoner, ingen blur. **Footer** på mark med hårlinje, fyra kolumner med
-samma grupper som menyn plus Läs.
+Publika sidor, auth, kassan, mejlen och adminen följer Tråden v2.1 tills
+saas-lead och ägaren tar deras omgång, med SEO-diff som grind. Koppar,
+vägg och kopparknapp gäller **inte** där. Trådens värden står i `:root` i
+`globals.css` och gäller allt utan `data-rum`.
 
-### Prissidan och köpvägen (godkänd spec 2026-09-22)
+### Principer
 
-`docs/design/spec-prissida-2026-09-22.html` utökar systemet på tre punkter.
-De gällde först `/priser`, `/dashboard/valj-spar`,
-`/dashboard/profil/prenumeration` och `src/components/pricing/`. Sedan v2.1
-gäller punkt 1 (display-snittet) och punkt 2 (ink-tonerna, nu i `InkPanel`)
-hela systemet; punkt 3 (färgetiketterna) gäller där paketen nämns.
+Papper på ett bord och en orange linje som visar var du är. Hierarki av
+toner, kanter och typografi, aldrig av skuggor eller gradienter. Orange är
+linje eller bläck, aldrig en yta, och handlingen är svart. En vy har en
+primär handling, en illustration och högst tre orange inslag.
 
-**1. Rubriker i Schibsted Grotesk.** Laddas via `next/font/google` i
-`src/app/layout.tsx` som variabeln `--font-display`, med Inter som
-reserv. Bara klassen `font-display` tar den: H1 (`text-[60px]` desktop,
-`text-[32px]` mobil, vikt 800), sektionsrubriker (`text-[40px]`, 700),
-kortnamn (`text-[30px]`, 700), värdemeningar (`text-[18px]`, 600), belopp
-(`text-[48px]`, 700, `tabular-nums`) och flödesfrågan i köpvägen
-(`text-[26px]`, 700). Vikterna 700 och 800 finns alltså, men bara
-tillsammans med `font-display`. Brödtext, etiketter och knappar är Inter som
-förr.
-
-**2. Allt-kortet i ink-1 med vit text.** Det rekommenderade paketet är det
-enda kortet som får fylld ink-yta. Tre toner till på den ytan:
+### Toner
 
 | Variabel | Värde | Tailwind | Roll |
 |---|---|---|---|
-| `--ink-1-mjuk` | `#CFC8BD` | `text-ink-1-mjuk` | Dämpad text på ink, 11:1 |
-| `--ink-1-kant` | `#3A3531` | `border-ink-1-kant` | Hårlinje på ink |
-| `--ink-1-accent` | `#FBB98A` | `text-ink-1-accent` | Etiketten Rekommenderas på ink, 9:1 |
+| `--mark` | `#EDE8DF` | `bg-mark` | Sidbakgrund |
+| `--panel` | `#FFFFFF` | `bg-panel` | Kort, sektioner, nav |
+| `--insunken` / `--insunken-topp` | `#ECE6DC` / `#D6CDBF` | `bg-insunken`, `shadow-insunken` | Fält, skelett |
+| `--kant` / `--kant-stark` | `#DBD2C4` / `#C4B9A8` | `border-kant` | Hårlinje, upphöjd panel |
+| `--ink-1` / `--ink-2` / `--ink-3` | `#1C1917` / `#57534E` / `#6B645E` | `text-ink-1` … | Rubrik, brödtext, metadata |
+| `--ink-hover` | `#2C2724` | `hover:bg-ink-hover` | Primärknappens hover |
+| `--accent` / `--accent-ink` / `--accent-mjuk` | `#D9480F` / `#9A3412` / `#FBE7D3` | `bg-accent`, `text-accent-ink` | Tråden, orange som text, plattan |
+| `--positiv` / `--varning` / `--fel` | `#047857` / `#A14A05` / `#B91C1C` | `text-positiv` … | Status |
+| `--ink-1-mjuk` / `--ink-1-kant` / `--ink-1-accent` | `#CFC8BD` / `#3A3531` / `#FBB98A` | | Tonerna på bläckytan (InkPanel, jämförelsetabellens huvud) |
+| `--cv` / `--cv-mjuk` | `#1D4ED8` / `#DCE6FB` | `text-cv`, `bg-cv-mjuk` | Spåretikett CV, 6,3:1 |
+| `--test` / `--test-mjuk` | `#7C2D12` / `#F6E4D6` | `text-test`, `bg-test-mjuk` | Spåretikett tester, 8,6:1 |
 
-Illustrationen på kortet tar `currentColor` (vitt) för konturer och
-`--ink-hover` för papperen, så samma symbol fungerar på papper och på ink.
-Längdvalet (`LangdVal`) inverteras: valt läge blir vitt med ink-text på ink,
-och ink-kant med `shadow-val` på papper.
+Kontrast (v2.1): panel mot mark 1,22, ink-3 på mark 5,0, accent-ink på mark
+6,4, accent på panel 4,6, varning på varning-mjuk 5,1, fel på fel-mjuk 5,3.
 
-**3. Färgetiketter för spåren.**
+### Typografi, knappar och komponenter
 
-| Variabel | Värde | Tailwind | Roll |
-|---|---|---|---|
-| `--cv` / `--cv-mjuk` | `#1D4ED8` / `#DCE6FB` | `text-cv`, `bg-cv-mjuk` | CV och personliga brev, 6,3:1 på mjuk |
-| `--test` / `--test-mjuk` | `#7C2D12` / `#F6E4D6` | `text-test`, `bg-test-mjuk` | Rekryteringstester, 8,6:1 på mjuk |
+Sidrubrik `text-h1-pub` (display 32/35 mobil, 60/60 dator), sektionsrubrik
+`text-h2-pub` (28/32, 40/44), värdemening `text-varde` (18/24/600), stort tal
+`text-tal-display`. Inloggade rubriker utanför rummen (adminen) har kvar
+`text-h1` 32/35. Primärknapp `bg-ink-1 text-white hover:bg-ink-hover` 44 px,
+sekundär `border-kant-stark bg-panel`, länk understruken i `decoration-kant-stark`.
+`PageHeader`, `InkPanel` (exakt en bläckyta per vy), `Fordelning`,
+`StatusRow`, `ChoiceCard`, `Segment`, `MarginPlate`, `EmptyState`,
+`Confirmation`, `Sheet` som i v2.1. (`PaywallCard` är inloggat sedan 1b,
+avsnitt 6.) Fokusringen är tråden:
+`outline: 2px solid var(--accent)`.
 
-Etiketten står alltid som mörk text på sin mjuka yta (`.tag` och `.pill`),
-i tabellhuvudet som text på insunken. Aldrig som yta bakom annan text,
-aldrig som knapp. Allt har ingen färg utöver ink.
+### Rytm och sektionsföljd
 
-### Spårfärgerna i adminens diagram (godkänd 2026-09-22)
+Två sektioner i följd får inte ha samma form. Hero på mark med scen, en panel
+med produktbild, en bläckyta, högst tre kort, en lista, FAQ på mark. Inga
+glödar, prickmönster, vågor eller bakgrundscirklar. Header med fem val i
+Inter 15/500 och "Skapa konto" som bläckknapp; megamenyn i tre grupper
+(Skriv och förbättra, Hitta jobb, Träna); footern på mark med fyra kolumner.
+Logotypens `#F97316` är det enda undantaget från tokens och byts inte.
 
-`docs/design/spec-admin-tydlighet-2026-09-22.html`, punkt 7. Paketen ritas
-med samma kulör som spåretiketterna, men som egna tokens så att en serie
-aldrig lånar en textroll.
+### Prissidan och köpvägen
 
-| Variabel | Värde | Tailwind | Roll i `AdminChart` |
-|---|---|---|---|
-| `--diagram-cv` | `#1D4ED8` | `bg-diagram-cv` | `cv`: CV-veckan |
-| `--diagram-test` | `#7C2D12` | `bg-diagram-test` | `test`: Testveckan |
-| `--ink-1` | `#1C1917` | `bg-diagram-allt` | `allt`: Allt-dagen, -veckan, -månaden, -kvartalet |
+`docs/design/spec-prissida-2026-09-22.html` med rubriker i Schibsted
+Grotesk. `/priser` har ett kort, Trådens upphöjda panel
+(`border-kant-stark bg-panel`) med bläckknapp (`PriserPaket`); bockarna i
+listan är bläck (`text-ink-1`) och räknas inte bland de tre orange. Det
+finns inget rekommenderat kort och ingen `InkPanel` på sidan.
+`--ink-1-mjuk/-kant/-accent` står kvar för `InkPanel` på övriga publika
+sidor och för jämförelsetabellens huvud. Färgetiketterna `cv` och `test` är
+ur bruk (ett paket har inga spår); deras tokens tas bort ur
+`tailwind.config.js` när grep i `src` visar noll. Koppar och `PaketKort` på
+`/priser` kommer med publika sidors omgång (saas-lead och ägaren, SEO-diff
+som grind).
 
-Validerat: CVD-avstånd ΔE 29,7 mellan blå och brun, alla tre över 3:1 mot
-panelen. Ink saknar kulör, så varje paketserie har direktetikett vid sin
-slutpunkt och förklaringen står ovanför diagrammet. Orange används i
-adminens diagram bara för att markera ett enskilt värde (till exempel ett
-engångsköp), aldrig för ett paket.
+### Adminens diagram
 
-Diagramregeln i adminen, samma omgång:
+`docs/design/spec-admin-tydlighet-2026-09-22.html`: axlar alltid med enhet,
+senaste värdet utskrivet vid slutpunkten, färre än sju punkter blir en
+mening, dagar före mätstart som grå zon i `--insunken` märkt "mäts från …".
+Spårfärgerna: se avsnitt 2.
 
-1. Axlar alltid. Y-axeln bär enheten (kr, st, %), x-axeln visar datum i
-   början, mitten och slutet. Rutnätet är hårlinjer i `--kant`.
-2. Senaste värdet står utskrivet vid seriens slutpunkt, så diagrammet går
-   att läsa utan hovring.
-3. Färre än sju punkter med data blir inget diagram utan en mening med
-   värdena.
-4. Dagar före mätstart ritas inte som noll. De får en grå zon i
-   `--insunken` märkt "mäts från …". Samma zon markerar dagar som en källa
-   ännu inte levererat (Google ligger två till tre dagar efter).
+### Förbjudna mönster, publikt
 
-Scenerna för de här ytorna ligger i
-`src/components/illustrations/PriserScener.tsx`: sju scener i 240 × 200,
-hero-scenen i 520 × 400, gratispapperet i 56, tre förtroendeikoner i 40 och
-radikonerna i 16 (`RadIkon`). Radikonen står på en 28-platta i insunken
-(`bg-ink-hover` på ink), vilket är det enda undantaget från regeln om ikon i
-egen ruta, eftersom listan "Så här fungerar det" är kortets kärna.
+`bg-gradient`, `shadow-sm/md/lg/xl`, `rounded-2xl/3xl`, `font-bold` utan
+`font-display`, `text-gray-*`, `bg-white` som sidbakgrund, `animate-pulse`,
+`framer-motion`, Sparkles och em-dash. Grep-kommandot för de omritade
+publika ytorna:
+
+```bash
+grep -rnE "bg-orange-|bg-amber-|from-orange|to-orange|bg-gradient|linear-gradient|shadow-(sm|md|lg|xl|2xl)|drop-shadow|rounded-(2xl|3xl)|font-(bold|extrabold|black)|framer-motion|Sparkles|text-orange-[0-9]|border-orange|ring-orange|bg-white\b|bg-gray-|text-gray-|border-gray-|text-slate|bg-slate|border-slate|animate-pulse|animate-spin|—" src/components/landing src/components/Footer.tsx src/components/artiklar src/components/verktyg "src/app/(public)/page.tsx" "src/app/(public)/artiklar" "src/app/(public)/verktyg" "src/app/(public)/funktioner" "src/app/(public)/om-oss" --include=*.tsx | grep -v "font-display"
+```
 
 ## 13. Copy
 
-Svenska. Inga em-dash. Inga AI-klichéer. Aktiv form. Flöden ställer frågor.
-Knappen säger exakt vad som händer. Bekräftelsen säger vad som skapades och
-var det finns. Felet säger vad som gick fel och hur man går vidare.
-Gratisnivån är alltid "ett brev om dagen". Sidhuvudets underrad säger vad
-sidan gör, inte vad den heter.
-
-**Regel 7: värde före funktion.** Rubriken säger vad användaren får,
-underraden vad sidan gör: "Känn igen uppgiften innan provdagen" över
-"Rekryteringstester", inte tvärtom. Gäller hubbar, verktygssidor, megamenyns
-grupper och footerns kolumner. Publika h1, title och description som rankar
-byts aldrig i en omritning; där gäller regeln eyebrow och ingress.
-
-**En rad har subjekt, verb och nästa steg** (regel 6). "Du gjorde logiktestet
-på grundnivå, 3 procent rätt. Kör det igen med tid kvar."
+Svenska, vi-form, svenska facktermer. Inga em-dash, inga AI-klichéer, aktiv
+form. Alla användartexter i rummen bor i `src/lib/traning/copy.ts`,
+`src/lib/rum/copy.ts` och befintliga `*-copy.ts`, aldrig i JSX. Paketnamn och
+priser ur `PLANS`, pris efter namnet, verbet Köp. "Samma format som", aldrig
+"samma test". Knappen säger exakt vad som händer. Bekräftelsen säger vad som
+skapades och var det finns. Felet säger vad som gick fel och hur man går
+vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
 
-**v2.1, en linje, 2026-09-22.** Godkänd analys
-`docs/design/analys-visuell-linje-2026-09-22.html` och artikelanalysen
-`docs/design/analys-artiklar-2026-09-23.html`, med ägarens justeringar
-2026-09-23. Vad som ändrades:
+**v3, Rummen, 2026-10-11 (våg 5, granskning).** En anatomi för alla betalväggar (avsnitt 6): ett lyftkort som är en betalvägg är betalväggen, arket öppnas bara från ett låschip eller en låst rad och ritar `PaywallCard bare`, samma knapp aldrig två gånger i rad, ingen kopparkant (`PaketKort` utan `markerad`). `PaywallCard` i `text-kort-t`. Prenumerationssidan följer golvregeln: statusen är väggens rad, Premium-kortet är `LyftKort` för gratis och spårkund, Premium har Hantera först och "Allt i Premium" som rader. `FelSpar` och `UpgradeSheet` borta; en spårkund får den vanliga väggen och knappen går till prenumerationssidan. `/priser`: bockarna i bläck, inget rekommenderat kort, `cv`/`test` ur bruk. Övergångsregeln i avsnitt 11 gäller bara det gamla testflödets tre knappar.
 
-- Tio regler: display-snittet bär varje sidrubrik, en scen per vy, en
-  bläckyta för nästa handling, högst tre ytor i samma vikt i följd, ett tal
-  står aldrig ensamt, rader är innehåll, värde före funktion, navigation har
-  vikt och grupper, rytm mellan sektioner, orange är linje och bläck
-  överallt.
-- `text-h1` blev display 32/35/800 mobil och 44/46/800 desktop. Nya
-  `text-h1-pub` (60/60), `text-h2-pub` (40/44), `text-varde` (18/24/600) och
-  `text-tal-display`.
-- Nya komponenter `InkPanel` och `Fordelning`. `PageHeader` fick `scene` och
-  `eyebrow`.
-- Illustrationerna fick fyra storlekar; PriserScener blev systemets
-  scenfamilj.
-- Avsnitt 12 skrevs om från "tas senare" till "samma system", med
-  sektionsföljden. `--jc-gradient-*` togs bort.
+**v3, Rummen, 2026-10-11 (4, granskning).** Första raden på dator, återupptagen analys, kopparlinjen och aktiviteten bort: Jobbsökets första rad på dator är bara lyfta kort med samma överkant (Nästa handling, Sökta tjänster med eyebrow och "Alla N" i foten, korsreferensens kort), statusraden i andra raden; "Åtgärda i CV:t" öppnar den sparade analysen; `.thread-chain` är borta ur `globals.css` och Jobbmatchningen; "Det här har du gjort" är borta från hemmet; Nästa handling namnger den tysta tjänsten; Mina CV utan CV har uppladdningen i lyftkortet; "Sparade CV"; `RumIkoner` är ett övergångslager. Våg 4 ärver `whitespace-nowrap` på `KNAPP_PRIMAR` och knappkontrollen på 360 px.
 
-**2026-09-22, admin utan streck.** Två tokens för adminens diagram,
-`--diagram-cv` (`#1D4ED8`) och `--diagram-test` (`#7C2D12`), med Allt i
-`--ink-1`, och diagramregeln i avsnitt 12. Gäller bara `/admin`.
+**v3, Rummen, 2026-10-11 (våg 4).** CV-rummet med poängringen, fynden med analysens egna plustal och dokumentets väg (C1), brevvyn med träffarna mot annonsens krav och "Spara som sökt tjänst" (B1), Jobbsökets hem med spåret, korsreferensen och Mer i Jobbsöket (J1, J2). `/dashboard` landar i senaste rummet. Lucide ute ur inloggat (`RumIkoner`), Trådens alias ute utanför testrummet, `MarginPlate` och `CreateSheet` borta, tomma tillstånd i `.tomt-symbol`, flikar och filterchips i rummets ton, `LANK_FEL` för destruktiva länkar.
 
-**v2, Tråden, 2026-09-13.** Ersätter v1. Vad som ändrades:
+**v3, Rummen, 2026-10-11 (klar-2, granskning).** Luften i passet, länken i skalan, Provdagen-raden: `PassShell` har `pb-4` (luft är en konstant, aldrig fotens höjd); i nivåskalan är bara "ändra" länk, med 44 px träffyta; från-ringen ritas före punkten och utelämnas under 0,15 nivåer; punktens tal vinner över axelns 1, 5 och 10; Provdagen-raden heter "Generalrepetitionen" med formatet i metan och spänner två spalter under W3:s tvåspaltskort; 1a:s "Mätningen är gratis" står i lyftkortets fot, inte lös på golvet. Knappkontrollen på 360 px (`scripts/qa-rummen-knappar-360.mjs`) kör på alla routes före merge.
 
-- Färgsystemet gick från Tailwinds neutral- och orangeskalor till egna tokens
-  (`mark`, `panel`, `insunken`, `kant`, `ink-1..3`, `accent`) med mätt
-  kontrast per par.
-- Primärknappen är ink-1, inte orange. Orange är linje och bläck, aldrig yta,
-  och räknas: högst tre per skärm, en platta per vy.
-- Tråden infördes som enda betydelsebärande linje: position.
-- Djup byggs av tre toner plus `shadow-insunken` och `shadow-val`. Skugga bara
-  på det som svävar (`shadow-svav`).
-- Typskalan flyttade in i `tailwind.config.js` som `text-h1`, `text-fraga`,
-  `text-tal`, `text-kort`, `text-meta`, `text-steg`. Sektionsrubriker blev
-  etiketter i 14/500 ink-3.
-- Nya komponenter: `MarginPlate`, `ChoiceCard`, `Segment`, `Confirmation`,
-  `FlowShell`, `FlowProgress`, `FlowError`, `FlowResumeBanner`.
-- Ikonerna blev egna, tolv motiv i `Ikoner.tsx`, med scenerna i
-  `TradenScener.tsx` i 48, 96 och 240.
-- Rörelsen gick från framer-motion till CSS med `prefers-reduced-motion`.
-- Mörkt läge och publika sidor beskrivs som princip, inte som byggt.
+**v3, Rummen, 2026-10-11 (våg 2 + 3b, rättningen efter 19 och 20).** Instrumenten (`Kurva`, `Planbild`, `Nivaskala`) håller bara geometri i SVG; all text är HTML i procent ovanpå, aldrig skalad. Nivåskalans krockregel: siktet närmare än 1,2 nivåer skrivs in i din etikett ("Du 6,4 · sikte 6,5"), triangeln står kvar; M1 har decimalen under pricken. Kurvans axel har prioriteten i dag, start, slut, mittpunkt. `KNAPP_PRIMAR` är `whitespace-nowrap`: ryms inte texten ändras layouten, kortet spänner två kolumner. Hemvyns första rad på dator är bara lyfta kort; statusrader lyfts aldrig och står i andra raden. Väggens h1 upprepar aldrig toppradens brand ("Träna inför ditt rekryteringstest", "Ett pass om dagen"). En betalvägg bär alltid sin egen knapp, och en fast fot ligger aldrig ovanpå en betalvägg (M1 gratis har ingen fot). Passets innehållskolumn är 400 px på dator, topprad, tidsrad och fot 560. Regeln rullas fram till 12 px ovanför foten. Felstaplar är ihåliga (1,5 px kant), aldrig låg opacitet. Decimalkommat i tabellsiffror är proportionellt (`TalText`, `.tal-komma`). `.matrisyta` gäller hela inloggat, också det gamla testflödet och genomgången.
+
+**v3, Rummen, 2026-10-11 (våg 3b, passet).** Passflödet och resultatskärmarna i `src/components/traning/`: `PassShell` (helskärm, tidsraden som fylls mot provets tid per uppgift och aldrig räknar ner eller byter färg), `PassFraga` (matrisen och sex alternativ; valt i bläck, rätt i koppar, övriga 0,38, aldrig rött), `Regelpanel` (regeln ur bankens `rule`, misstaget ur `misstag`, rullas in i bild efter svaret), `ResultatSkal` (väggen med passets egen topprad, kopparknappen i foten), P4/S1, M1, O1, `Kvitto` (K1), `GenomgangVy`, uppvärmningen, `Nivaskala` (två viewBoxar, texten i HTML så den aldrig skalas), `Staplar`, `Plan`, `Marke`. `.matrisyta` i `globals.css` byter V7-renderarnas fasta svart och vitt mot bläck och papper, så figurerna syns i mörkt läge. `Dagsring` heter `.dagsring` (Tailwinds `ring` gav en blå skugga). M1 för gratis: knappen i paketkortet, ingen fot (art-director 20.2 fråga 1).
+
+**v3, Rummen, 2026-10-11 (1b, granskning).** Lyftet tillbaka i alla vyer: väggen bär aldrig primärknappen, `RumHuvud handling` i stället för `action`, `LyftKort` först på golvet, h1 är undersidans namn, kategori-eyebrows borta, Kom igång-raden på papper med kopparring, kontoraden på två rader, `KNAPP_GLAS` i automatisk bredd, `KNAPP_SEKUNDAR_LAG`, `Dagsring` utan uppvärmning. Testrummets dörr heter Tester på mobil och Rekryteringstester på dator.
+
+**v3, Rummen, 2026-10-10 (våg 1b).** Skalet byggt: `data-rum` per route (`rumForPath`), vägg, golv och topprad, dörrnavet med fyra rum, sidomenyn med undersidor per rum, profilen i toppraden och Skapa borttagen. `KNAPP_PRIMAR` i koppar, `LyftKort`, `Kort`, `Rader`, `Chip`, `Dagsrad`, `Dagsring`, `Veckorad`, `RumSymboler`. FlowShell, ark och betalväggar i rummens material. Utseende-väljaren på profilen, `theme-color` i väggens kulör, `--fokus` med egna kontrastrader, `.dokument` håller brev ljusa i mörkt läge. Grå Tailwind-klasser borta ur inloggat.
+
+**v3, Rummen, 2026-10-10 (våg 1a).** Spec `docs/design/spec-rummen-2026-10-10.md`,
+godkänd av testansvarig. Vad som ändrades:
+
+- Inloggat blev ett hus med fyra rum och ett grafitrum: mörk vägg högst upp i
+  rummets kulör, golv och papper under. "Papper på ett bord" gäller inte
+  längre i inloggat.
+- Koppar `#E07A2F` ersätter orange som enda accent i inloggat, med
+  koppar-ljus för text på väggen och koppar-ink på papper. Primärknappen blir
+  koppar med mörk text (byggs i våg 1b).
+- Tokens för fem rum, mörkt läge i båda formerna (system och `data-theme`),
+  Tailwind-namnen `golv`, `papper`, `vagg`, `ton`, `rum`, `koppar`, `ljus`,
+  radierna `vagg` och `ark`, skuggan `lyft`, typklasserna `text-h1-liten`,
+  `text-tal-stor`, `text-tal-rad`, `text-tal-tre`, `text-kort-t`, `text-ey`,
+  `text-ax`. `text-h1` blev 34/36 på mobil i rummen.
+- Tokens gäller där sidan har ett rum (`:root:has([data-rum])`); Trådens
+  värden står kvar för publika sidor och adminen. Alias från Tråden till
+  Rummen tills våg 4.
+- Adminens `--diagram-cv` och `--diagram-test` blev petrol och indigo; bara
+  värdena.
+- `primitives.tsx` fick storlek 120 för märkena.
+- Kontrasten räknas maskinellt (`scripts/kontrast-rummen.mjs`) för alla fem
+  rum i båda lägena. `--varning` blev `#985A08` i stället för specens
+  `#9A5B08` (4,49:1), fråga till art-director.
+- Borttaget ur `globals.css`: `.animate-shimmer`, `.card-hover-effect`,
+  `.animate-pulse-pink`, `.animate-glow` och body-regeln med
+  `--foreground-rgb`. Nyckelrutorna `pulse` står kvar eftersom de skriver
+  över Tailwinds `animate-pulse` på publika sidor.
+
+**v2.1, en linje, 2026-09-22.** Tio regler för en linje (display-snittet bär
+varje sidrubrik, en scen per vy, en bläckyta, högst tre ytor i samma vikt i
+följd, ett tal står aldrig ensamt, rader är innehåll, värde före funktion,
+navigation med vikt och grupper, rytm mellan sektioner, orange är linje och
+bläck). `text-h1` 32/35 och 44/46, `text-h1-pub`, `text-h2-pub`,
+`text-varde`, `text-tal-display`. `InkPanel` och `Fordelning`. Gäller nu
+publika sidor (avsnitt 12).
+
+**2026-09-22, admin utan streck.** `--diagram-cv` och `--diagram-test` med
+Allt i `--ink-1` och diagramregeln.
+
+**v2, Tråden, 2026-09-13.** Egna tokens (`mark`, `panel`, `insunken`, `kant`,
+`ink-1..3`, `accent`) med mätt kontrast, primärknappen i ink-1, tråden som
+enda betydelsebärande linje, egna ikoner, CSS-rörelse.
 
 **v1, 2026-09-11.** Linear/Vercel-uttryck på Tailwinds neutralskala, orange
-primärknapp, `docs/plan-konvertering.md` spår E.
+primärknapp.

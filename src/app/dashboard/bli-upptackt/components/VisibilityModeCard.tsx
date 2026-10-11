@@ -84,12 +84,12 @@ function ModeOption({
       aria-checked={selected}
       disabled={disabled}
       onClick={onClick}
-      className={`min-h-[72px] rounded-xl border bg-panel p-4 text-left transition-[border-color,background-color] duration-[160ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed ${
+      className={`min-h-[72px] rounded-xl border bg-papper p-4 text-left transition-[border-color,background-color] duration-[160ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed ${
         selected ? 'border-ink-1 shadow-val' : 'border-kant'
       }`}
     >
       {recommended && (
-        <span className="mb-1 block text-steg uppercase text-accent-ink">Rekommenderas</span>
+        <span className="mb-1 block text-steg uppercase text-koppar-ink">Rekommenderas</span>
       )}
       <span className="block text-kort text-ink-1">{title}</span>
       <span className="mt-1 block text-meta text-ink-3">{description}</span>

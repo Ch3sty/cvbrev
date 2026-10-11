@@ -1,7 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
-import { Edit3, X, Eye, EyeOff, User, Check } from 'lucide-react';
+import { Edit3, X, Eye, EyeOff, User, Check } from '@/components/illustrations/RumIkoner';
 import { RoundCheckbox, HighlightedText } from './ImprovementCard';
 
 interface ProfileImprovementCardProps {
@@ -43,7 +44,7 @@ export default function ProfileImprovementCard({
 
   return (
     <div
-      className={`overflow-hidden rounded-xl bg-panel transition-colors ${
+      className={`overflow-hidden rounded-xl bg-papper transition-colors ${
         selected ? 'border border-ink-1' : 'border border-kant'
       }`}
     >
@@ -64,7 +65,7 @@ export default function ProfileImprovementCard({
               />
               <h4 className="text-kort text-ink-1">Personbeskrivning</h4>
               {atsImpact > 0 && (
-                <span className="inline-flex items-center rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-2">
+                <span className="inline-flex items-center rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-2">
                   +{atsImpact} läsbarhet
                 </span>
               )}
@@ -77,7 +78,7 @@ export default function ProfileImprovementCard({
 
         {/* Flödes-vy */}
         {!isEditing ? (
-          <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
+          <div className="rounded-lg border border-kant bg-papper-2 p-3.5  sm:p-4">
             <div className="mb-2.5 flex items-center justify-between gap-2">
               <span className="text-steg uppercase text-ink-3">
                 {showOriginal ? 'Nuvarande text' : 'Vårt förslag'}
@@ -152,7 +153,7 @@ export default function ProfileImprovementCard({
               <textarea
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-insunken p-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                className="block min-h-[140px] w-full resize-y rounded-lg border border-kant bg-papper-2 p-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 rows={6}
                 enterKeyHint="enter"
                 inputMode="text"
@@ -166,7 +167,7 @@ export default function ProfileImprovementCard({
                   setEditedText(improvedText);
                   setIsEditing(false);
                 }}
-                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+                className="inline-flex h-11 items-center gap-1 rounded-lg border border-kant-stark bg-papper px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
               >
                 <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Avbryt
@@ -174,7 +175,7 @@ export default function ProfileImprovementCard({
               <button
                 type="button"
                 onClick={handleSave}
-                className="inline-flex h-11 items-center gap-1 rounded-lg bg-ink-1 px-3 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                 Spara

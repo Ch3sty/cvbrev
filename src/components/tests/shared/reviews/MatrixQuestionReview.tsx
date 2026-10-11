@@ -14,6 +14,7 @@ import { ChevronDown } from 'lucide-react'
 import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
 import type { GenomgangsFraga, LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { visatForSvar } from '@/lib/logicTestV7/blanda'
+import { familjNamn } from '@/lib/logicTestV7/familjer'
 
 export interface MatrixSavedAnswer {
   q_id: string
@@ -44,7 +45,13 @@ const AVANCERAD_CATEGORIES: Record<string, string> = {
   'v7-q15-tile-xor': 'Set-operationer',
 }
 
-function categoryFor(slug: string, id: string): string {
+/**
+ * Mönstertypen: familjens namn ur banken (spec-rummen avsnitt 2, våg 3a).
+ * Regexen på id:t står kvar som fallback för V5-frågor utan familj.
+ */
+function categoryFor(slug: string, id: string, family?: string | null): string {
+  const namn = familjNamn(family)
+  if (namn) return namn
   if (slug === 'matrislogik-avancerad') {
     return AVANCERAD_CATEGORIES[id] ?? 'Övrigt'
   }
@@ -121,7 +128,7 @@ export default function MatrixQuestionReview({
   /* Styrkor och svagheter per kategori. */
   const byCategory: Record<string, { correct: number; total: number }> = {}
   questions.forEach((q) => {
-    const cat = categoryFor(slug, q.id)
+    const cat = categoryFor(slug, q.id, q.family)
     byCategory[cat] ??= { correct: 0, total: 0 }
     byCategory[cat].total += 1
     if (answers.find((a) => a.q_id === q.id)?.correct) byCategory[cat].correct += 1
@@ -180,11 +187,13 @@ export default function MatrixQuestionReview({
                       {q.title.replace(/^FRÅGA\s+\d+\s*[-]\s*/i, '')}
                     </span>
                     <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
+                      {/* Spec-rummen 15.9: familjens namn i stället för svårigheten, som
+                          är en prior och inte ett faktum. Utan familj (V5) bara tiden. */}
                       {!answer
                         ? 'Inte besvarad'
-                        : utanTid
-                          ? `Svårighet ${q.difficulty} av 3`
-                          : `${formatShort(answer.time_spent)} · svårighet ${q.difficulty} av 3`}
+                        : [utanTid ? null : formatShort(answer.time_spent), familjNamn(q.family)]
+                            .filter(Boolean)
+                            .join(' · ')}
                     </span>
                   </span>
                   <span
@@ -250,7 +259,7 @@ function ReviewCell({
       <p className={`text-meta font-medium ${wrong ? 'text-fel' : 'text-positiv'}`}>
         {label}
       </p>
-      <div className="mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
+      <div className="matrisyta mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
         <svg
           viewBox="0 0 100 100"
           className="h-full w-full"

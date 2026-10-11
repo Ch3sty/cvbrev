@@ -1,28 +1,44 @@
 'use client';
 
 /**
- * Klientdelen av dashboard-layouten.
+ * Klientdelen av dashboard-layouten (Rummen, spec-rummen 2.1 och 4).
  *
- * Allt interaktivt bor här: mobilmenyns state, lösenordsprompten,
- * sidbytesintoningen, sidomenyn, headern och bottennavet. Det som INTE bor
- * här är beslutet om något får renderas. Layouten (en server component) har
- * redan verifierat sessionen mot Supabase, så user kommer in som prop och
- * första HTML från servern innehåller riktigt innehåll i stället för ett tomt
- * skal. Det får alltså inte finnas något return null som väntar på hydrering.
+ * Allt interaktivt bor här: lösenordsprompten, sidbytesintoningen,
+ * sidomenyn och dörrnavet. Det som INTE bor här är beslutet om något får
+ * renderas. Layouten (en server component) har redan verifierat sessionen,
+ * så user kommer in som prop och första HTML från servern innehåller
+ * riktigt innehåll. Det får inte finnas något return null som väntar på
+ * hydrering.
  *
- * Tråden (docs/designsystem.md): marken är mark, sidomeny och topprad är
- * panel, innehållet står i en kolumn på max 960 px med 32 px marginal på
- * desktop. Sidbytet är en ren intoning (fadeInPlace): en förflyttning räknas
- * som layoutskifte när innehållet kommer in sent.
+ * Rummet: yttersta diven bär data-rum, som tänder rummets tokens i
+ * globals.css. Värdet räknas av rumForPath på servern (layouten läser
+ * x-pathname) och följer usePathname här, så ingen vy blinkar i fel rum vid
+ * en hård omladdning och väggfärgen tonar 240 ms vid byte av rum.
+ *
+ * Skelettet är detsamma som förut (lärdomen 2026-09-14): h-dvh, låst body,
+ * bara main rullar. Headern finns inte längre som egen rad: toppraden ligger
+ * inne på väggen i varje vy (Topprad). Mobilens sidomeny som lager är borta,
+ * navet är dörrarna och rummets undersidor nås från golvet. main har ingen
+ * egen padding; vägg och golv sätter sina marginaler.
  */
 
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import type { User } from '@supabase/supabase-js';
-import DashboardSidebar from '@/components/dashboard/Sidebar';
-import DashboardHeader from '@/components/dashboard/header';
-import MobileBottomNav from '@/components/dashboard/MobileBottomNav';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
+import NavigationProgress from '@/components/ui/NavigationProgress';
+import { KomIgangProvider } from '@/components/dashboard/KomIgangContext';
+import KomIgangRad from '@/components/dashboard/KomIgangRad';
+import KomIgangArk from '@/components/dashboard/KomIgangArk';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
+import { DashboardDataProvider, type DashboardSummary } from '@/contexts/DashboardDataContext';
+import Sidomeny from '@/components/rum/Sidomeny';
+import Dorrnav from '@/components/rum/Dorrnav';
+import { RumKontextProvider } from '@/components/rum/RumKontext';
+import { tagRumYta } from '@/components/rum/rumMatning';
+import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
+import { capture } from '@/lib/analytics/events';
 
 /** Rutter som körs i FlowShell och därför äger hela skärmen själva. */
 const FLOW_ROUTES = [
@@ -35,7 +51,6 @@ const FLOW_ROUTES = [
   // Nytt intervjuprov (docs/design/rod-trad-prov-spec-2026-09-24.md).
   '/dashboard/intervju/ny',
 ];
-import dynamic from 'next/dynamic';
 
 // Visas bara för konton som saknar lösenord, alltså en minoritet, och först
 // efter att user-objektet lästs. Ingen anledning att ladda den med skalet.
@@ -45,96 +60,77 @@ const SetPasswordPrompt = dynamic(
 );
 
 // Frågan om hemskärmen (docs/plan-pwa.md). Den ligger tyst tills ett av de
-// fyra triggerställena anropar requestInstallPrompt, så den ska inte kosta
-// något i skalets paket heller.
+// fyra triggerställena anropar requestInstallPrompt.
 const InstallPrompt = dynamic(
   () => import('@/components/shell/InstallPrompt'),
   { ssr: false }
 );
-import NavigationProgress from '@/components/ui/NavigationProgress';
-import { KomIgangProvider } from '@/components/dashboard/KomIgangContext';
-import KomIgangRad from '@/components/dashboard/KomIgangRad';
-import KomIgangArk from '@/components/dashboard/KomIgangArk';
-import { OnboardingProvider } from '@/contexts/OnboardingContext';
-import {
-  DashboardDataProvider,
-  useDashboardData,
-  type DashboardSummary,
-} from '@/contexts/DashboardDataContext';
 
-function MobileBottomNavWrapper() {
-  // Tidigare gjorde den här komponenten två egna rundturer: auth.getUser()
-  // följt av en count(*) mot job_applications. Båda värdena finns redan i den
-  // delade summaryn, så navet kostar numera ingenting extra.
-  const { summary } = useDashboardData();
-
-  return (
-    <MobileBottomNav
-      cvCount={summary?.cv.count ?? 0}
-      applicationCount={
-        summary
-          ? summary.applications.waitingCount + summary.applications.interviewCount
-          : 0
-      }
-    />
-  );
+/**
+ * Sparar rummet för nästa landning (POST /api/rum/senaste) när webbläsaren
+ * har tid över, aldrig i den kritiska vägen. Ett fel syns inte för
+ * användaren; nästa byte försöker igen.
+ */
+function minnsRummet(rum: Exclude<Rum, 'neutral'>) {
+  const skicka = () => {
+    void fetch('/api/rum/senaste', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rum }),
+      keepalive: true,
+    }).catch(() => {});
+  };
+  const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+  if (w.requestIdleCallback) w.requestIdleCallback(skicka, { timeout: 4000 });
+  else window.setTimeout(skicka, 1500);
 }
 
 export default function DashboardShell({
   children,
   user,
   initialSummary,
+  rum: serverRum,
 }: {
   children: React.ReactNode;
   user: User;
   initialSummary: DashboardSummary | null;
+  /** Rummet ur rumForPath på servern (spec 4.1). */
+  rum: Rum;
 }) {
   const pathname = usePathname();
+  const rum: Rum = pathname ? rumForPath(pathname) : serverRum;
 
   // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
-  // topprad och fot. E-postbannern renderades ändå på servern och togs bort
-  // först när FlowShell hydrerat, drygt 1,5 sekunder in på en vanlig mobil.
-  // Sidan hoppade då 57 px uppåt mitt i frågan, alltså CLS 0,083 på varje
-  // flödessteg. Vi hoppar över den direkt i stället: pathname är känd redan
-  // vid första render, så det finns ingen bild där bannern syns.
-  const isFlowRoute = FLOW_ROUTES.some((r) => pathname?.startsWith(r));
+  // topprad och fot. E-postbannern hoppas över direkt, pathname är känd
+  // redan vid första render, så det finns ingen bild där bannern syns.
+  // Testpassen (/tester/<test>/test/<id>) är också ett läge: TestFlowShell
+  // täcker skärmen. Bannern under den syntes aldrig men målades ändå och blev
+  // vyns LCP-element när profilen landat (perf-inloggat, tester prov).
+  const isFlowRoute =
+    FLOW_ROUTES.some((r) => pathname?.startsWith(r)) ||
+    /^\/dashboard\/tester\/[^/]+\/test\/[^/]+\/?$/.test(pathname ?? '');
 
-  // Sidbytets intoning hör till sidbyten, inte till första laddningen. På
-  // den första målningen startade innehållet på opacitet 0, och webbläsaren
-  // räknar inte ett osynligt element som målat: hemskärmens största element
-  // (Nästa handling) registrerades därför först när intoningen hunnit en bit,
-  // efter att resten av skalet redan stod där. Serverns HTML visas nu direkt,
-  // och intoningen tar vid från första klientnavigeringen.
-  // En gång navigerat alltid navigerat, även tillbaka till första sidan.
+  // Sidbytets intoning hör till sidbyten, inte till första laddningen
+  // (LCP registreras inte på ett osynligt element).
   const forstaSokvag = useRef(pathname);
   const navigerat = useRef(false);
   if (pathname !== forstaSokvag.current) navigerat.current = true;
   const harNavigerat = navigerat.current;
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
-  // Check if user needs to set password (trial users)
   useEffect(() => {
     if (user) {
       const passwordSet = user.user_metadata?.password_set;
       const dismissedThisSession = localStorage.getItem('password_prompt_dismissed') === 'true';
-
       if (passwordSet === false && !dismissedThisSession) {
         setShowPasswordPrompt(true);
       }
     }
   }, [user]);
 
-  // Skalet äger hela skärmen: main rullar, body gör det aldrig.
-  //
-  // 100vh på mobil Chrome räknar med adressfältet dolt, så rotelementet stack
-  // ut under den synliga ytan och body blev rullbar med exakt adressfältets
-  // höjd. Headern ligger utanför main, i en förälder med overflow-hidden, så
-  // sticky hjälpte inte: rullade body (scroll chaining från main, eller
-  // scrollåterställning vid navigering, särskilt direkt efter inloggning)
-  // åkte headern ur bild medan det fixerade bottennavet låg kvar. h-dvh tar
-  // bort överskottet och den här låsningen tar bort möjligheten helt.
+  // Skalet äger hela skärmen: main rullar, body gör det aldrig (h-dvh och
+  // låst body, annars rullar toppraden ur bild när adressfältet syns).
   useEffect(() => {
     const { documentElement, body } = document;
     const prevHtmlOverflow = documentElement.style.overflow;
@@ -147,118 +143,111 @@ export default function DashboardShell({
     };
   }, []);
 
-  // Mobilmenyn stängs med Escape, som alla andra lager.
+  // Statusfältet står i rummets vägg (beslut 6). generateViewport sätter
+  // värdet i serverns HTML; vid klientnavigering mellan rum byts det här.
   useEffect(() => {
-    if (!isMobileMenuOpen) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsMobileMenuOpen(false);
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [isMobileMenuOpen]);
+    const farg = VAGG_FARG[rum];
+    const metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+    if (metas.length === 0) {
+      const m = document.createElement('meta');
+      m.name = 'theme-color';
+      m.content = farg;
+      document.head.appendChild(m);
+      return;
+    }
+    metas.forEach((m) => {
+      m.removeAttribute('media');
+      m.content = farg;
+    });
+  }, [rum]);
+
+  // Mätpunkterna (spec avsnitt 7): rum_oppnat när rummet byts eller vid
+  // landningen, sokta_tjanster_oppnad varje gång listan öppnas.
+  const valIRegistreringen = initialSummary?.komIgang?.intent ?? null;
+  const senasteRum = useRef<Rum | null>(null);
+  const senasteSida = useRef<string | null>(null);
+  useEffect(() => {
+    if (!pathname || pathname === senasteSida.current) return;
+    const forsta = senasteSida.current === null;
+    senasteSida.current = pathname;
+    const yta = tagRumYta(forsta);
+    if (rum !== senasteRum.current) {
+      const fran = senasteRum.current;
+      senasteRum.current = rum;
+      // Registreringens val följer med som egenskap, bara för mätningen
+      // (copywriterns önskemål om dörren Tester); menyn läser det aldrig.
+      capture('rum_oppnat', { rum, surface: yta, intent: valIRegistreringen });
+      // Våg 4: bytet mellan två rum, och rummet /dashboard ska öppna nästa
+      // gång (profiles.senaste_rum). Kontot är inget rum man landar i.
+      if (fran) capture('rum_bytt', { fran, till: rum, surface: yta });
+      if (rum !== 'neutral') minnsRummet(rum);
+    }
+    if (pathname === '/dashboard/sokta-tjanster') {
+      capture('sokta_tjanster_oppnad', { surface: yta });
+    } else if (/^\/dashboard\/sokta-tjanster\/[^/]+$/.test(pathname)) {
+      capture('sokta_tjanst_oppnad', { surface: yta });
+    }
+  }, [pathname, rum, valIRegistreringen]);
 
   return (
     <DashboardDataProvider initialSummary={initialSummary}>
       <OnboardingProvider>
       <KomIgangProvider>
+      <RumKontextProvider rum={rum} user={user}>
       {/* Tråden längs skärmens överkant vid sidbyten. */}
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>
 
-      <div className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-mark">
+      <div data-rum={rum} className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-golv">
         <div className="flex h-screen supports-[height:100dvh]:h-dvh flex-col lg:flex-row">
-        {/* Sidomeny, desktop (alltid synlig) */}
-        <div className="hidden lg:block lg:relative lg:z-20">
-          <DashboardSidebar
-            onClose={() => setIsMobileMenuOpen(false)}
-            isMobile={false}
-          />
-        </div>
-
-        {/* Sidomeny, mobil (helskärmslager) */}
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
-            <button
-              type="button"
-              aria-label="Stäng meny"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute inset-0 bg-ink-1/40 motion-safe:animate-[fadeInPlace_200ms_ease-out]"
-            />
-            <div className="relative h-full w-[min(100%,320px)] motion-safe:animate-[sidebarIn_240ms_ease-out]">
-              <DashboardSidebar
-                onClose={() => setIsMobileMenuOpen(false)}
-                isMobile={true}
-              />
-            </div>
+          {/* Sidomenyn, bara på dator. */}
+          <div className="hidden lg:relative lg:z-20 lg:block">
+            <Sidomeny />
           </div>
-        )}
 
-        {/* Innehåll */}
-        <div className="flex-1 flex flex-col overflow-hidden relative z-10">
-          {/* Toppraden, med meny på mobil.
-              z-40 så notisdrawern lägger sig ovanför verifieringsbannern. */}
-          {/* Headern hör inte till ett flöde. globals.css döljer den redan via
-              data-flow-active, men det attributet sätts först när FlowShell
-              hydrerat. skapa-brev har dessutom en loading.tsx som ritar ett
-              helskärmsskelett innan dess, så headerns 57 px hann målas och
-              försvinna igen: CLS 0,083 innan användaren gjort något. Vi vet
-              redan av pathname att det är ett flöde, så vi hoppar över den. */}
-          {!isFlowRoute && (
-            <div className="relative z-40">
-              <DashboardHeader
-                user={user}
-                onMenuClick={() => setIsMobileMenuOpen(true)}
-              />
-            </div>
-          )}
+          {/* Innehåll */}
+          <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
+            {!isFlowRoute && <EmailVerificationBanner />}
 
-          {!isFlowRoute && <EmailVerificationBanner />}
-
-          {showPasswordPrompt && user && (
-            <div className="px-4 pt-4 sm:px-6 lg:px-8">
-              <div className="mx-auto max-w-[960px]">
-                <SetPasswordPrompt
-                  userId={user.id}
-                  onDismiss={() => setShowPasswordPrompt(false)}
-                  onPasswordSet={() => setShowPasswordPrompt(false)}
-                />
+            {showPasswordPrompt && user && (
+              <div className="bg-vagg-2 px-4 pt-4 lg:px-10">
+                <div className="mx-auto max-w-[1120px]">
+                  <SetPasswordPrompt
+                    userId={user.id}
+                    onDismiss={() => setShowPasswordPrompt(false)}
+                    onPasswordSet={() => setShowPasswordPrompt(false)}
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
-              --bottom-nav-h. Ingen pb-klass här: två sanningar om samma
-              avstånd var precis det som gjorde att något alltid låg fel. */}
-          <main className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-6 lg:px-8 lg:py-6 dashboard-main-content relative bg-mark">
-            <div className="mx-auto max-w-[960px] relative">
+            {/* Bottenpaddingen ligger i .dashboard-main-content och räknas mot
+                --bottom-nav-h. Väggen och golvet sätter sina egna marginaler. */}
+            <main className="dashboard-main-content relative flex-1 overflow-y-auto overscroll-contain bg-golv p-0">
               <div
                 key={pathname}
-                className={harNavigerat ? 'motion-safe:animate-[fadeInPlace_150ms_ease-out]' : undefined}
+                className={`flex min-h-full flex-col ${harNavigerat ? 'motion-safe:animate-[fadeInPlace_150ms_ease-out]' : ''}`}
               >
                 {children}
               </div>
-            </div>
-          </main>
+            </main>
+          </div>
         </div>
+
+        {/* Frågan om hemskärmen, en rad direkt ovanför den fot som råkar
+            finnas. Den måste ligga kvar även i ett flöde. */}
+        <InstallPrompt />
+
+        {/* Hjälpredan Kom igång: raden ovanför dörrarna på Jobbsökets
+            hemvy, och arket som båda raderna öppnar. */}
+        {pathname === '/dashboard' ? <KomIgangRad variant="flytande" /> : null}
+        <KomIgangArk />
+
+        {/* Dörrarna, bara på mobil (lg:hidden i komponenten). */}
+        <Dorrnav />
       </div>
-
-      {/* Frågan om hemskärmen, en rad direkt ovanför den fot som råkar
-          finnas. Den renderar null tills en trigger öppnat den. Den måste
-          ligga kvar även i ett flöde: brevet sparas i skapa-brev, som är ett
-          flöde, och det är efter just den bekräftelsen frågan ska komma. */}
-      <InstallPrompt />
-
-      {/* Hjälpredan Kom igång: den mörka raden ovanför bottennavigeringen på
-          hemskärmen, och arket som båda raderna (den här och sidomenyns)
-          öppnar. Raden ligger bara på hemskärmen (sektion 2), arket överallt
-          så välkomstskärmens Visa allt som ingår kan öppna det. */}
-      {pathname === '/dashboard' ? <KomIgangRad variant="flytande" /> : null}
-      <KomIgangArk />
-
-      {/* Mobil bottennavigation (lg:hidden inuti komponenten) */}
-      <MobileBottomNavWrapper />
-      </div>
+      </RumKontextProvider>
       </KomIgangProvider>
       </OnboardingProvider>
     </DashboardDataProvider>

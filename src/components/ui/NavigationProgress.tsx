@@ -137,7 +137,7 @@ export default function NavigationProgress() {
     >
       {/* Tråden: samma linje som visar var du är, här på väg någonstans. */}
       <div
-        className="h-full bg-accent transition-[width] duration-200 ease-out"
+        className="h-full bg-koppar transition-[width] duration-200 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

@@ -11,6 +11,10 @@
  * dokumentKontakt.ts): i ett brev profilens värden, i ett CV det som står i
  * CV:t med profilen som reserv för tomma fält och platshållare.
  *
+ * I rummens material (spec-rummen 13.1 och 16): stängd är raden en
+ * StatusRow, öppen ett kort på papper med radie 16 och rummets
+ * sekundärknapp.
+ *
  * Sparas via /api/profile/contact. Bara fält som ändrats skickas. I CV-läget
  * skickas cv_id med, så att CV:ts egna uppgifter byts och PDF:en följer med.
  * Efter sparningen hämtas dashboardens delade data om och onSparad får de
@@ -18,6 +22,7 @@
  */
 
 import { useState } from 'react'
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import StatusRow from '@/components/shell/StatusRow'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { arGiltigEpost, kontoEpost, EPOST_MAX } from '@/lib/profile/dokumentEpost'
@@ -35,7 +40,7 @@ import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
 
 const FALT =
-  'block h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 aria-[invalid=true]:border-fel-kant'
+  'block h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40 aria-[invalid=true]:border-fel-kant'
 const LANK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1 disabled:opacity-40'
 
@@ -235,7 +240,7 @@ export default function KontaktuppgifterRad({
   )
 
   return (
-    <div className={`rounded-lg border border-kant bg-panel p-3 ${className ?? ''}`}>
+    <div className={`rounded-2xl border border-kant bg-papper p-4 ${className ?? ''}`}>
       <p className="text-sm font-medium text-ink-1">{DOKUMENT_KONTAKT.rubrik}</p>
       <p className="mt-0.5 text-meta text-ink-3">
         {dokument === 'cv' ? DOKUMENT_KONTAKT.forklaringCv : DOKUMENT_KONTAKT.forklaringBrev}
@@ -275,7 +280,7 @@ export default function KontaktuppgifterRad({
           type="button"
           onClick={() => void spara()}
           disabled={sparar}
-          className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40"
+          className={`${KNAPP_SEKUNDAR_SMAL} disabled:opacity-40`}
         >
           {sparar ? DOKUMENT_KONTAKT.sparar : DOKUMENT_KONTAKT.spara}
         </button>

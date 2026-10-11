@@ -57,7 +57,7 @@ export default function SaveAndTemplateStep({
   return (
     <div className="space-y-5">
       {/* MALL ÖVERST - huvudfokus */}
-      <section className="overflow-hidden rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <section className="overflow-hidden rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <TemplateSelector
           selectedTemplateId={selectedTemplate}
           onSelectTemplate={onTemplateChange}

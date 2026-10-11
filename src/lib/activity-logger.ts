@@ -28,7 +28,7 @@ export type ActivityType =
   | 'cv_deleted'                // CV togs bort
   | 'cv_analysis_started'       // CV-analys startades
   | 'cv_analysis_completed'     // CV-analys slutfördes framgångsrikt
-  | 'subscription_upgraded'     // Uppgraderade till premium
+  | 'subscription_upgraded'     // Köpte Premium
   | 'subscription_downgraded'   // Nedgraderade från premium
   | 'password_reset'            // Återställning av lösenord
   | 'profile_updated'           // Profiluppdatering
@@ -59,7 +59,7 @@ export type ActivityType =
   | 'feature_explored'              // Användaren utforskade en funktion/feature
   | 'pricing_viewed'                // Användaren tittade på prissidan
   | 'application_logged'            // Loggade en sökt tjänst
-  | 'application_event_added'       // La till en händelse på en ansökan
+  | 'application_event_added'       // La till en händelse på en sökt tjänst
   | 'application_shared'            // Skapade delningslänk för sökstatistiken
   // Aktiveringstratten (docs/plan-konvertering.md, B7)
   | 'quick_score_shown'             // Snabb-poängen visades efter uppladdning

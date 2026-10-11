@@ -97,12 +97,14 @@ async function logik(browser) {
   logg(D, 'landar på resultatsidan under /dashboard/tester', url(p) === `/dashboard/tester/prov/${token}`, { id, url: url(p) })
   logg(D, 'fem frågor med rätt eller fel', markeringar.length === 5, { markeringar })
   logg(D, 'förklaring per fråga (regeln), öppen från start', regler.length === 5 && regler.every((r) => r.length > 20), { forsta: regler[0]?.slice(0, 120) })
-  logg(D, 'vägen vidare: Gör grundnivån och Se Träningspaketet, 79 kr i veckan', /Gör grundnivån/.test(t) && /Se Träningspaketet, 79 kr i veckan/.test(t), {
-    rader: rader(t, /Gör grundnivån|Träningspaketet|rätt av/),
+  // Våg 5 (copy-premium): bara Jobbcoach Premium säljs. Vägen vidare nämner
+  // Premium, aldrig Träningspaketet, och köplänken går till Premium.
+  logg(D, 'vägen vidare: Gör grundnivån och Premium', /Gör grundnivån/.test(t) && /Premium/.test(t) && !/Träningspaketet/.test(t), {
+    rader: rader(t, /Gör grundnivån|Premium|Träningspaketet|rätt av/),
   })
-  const traning = await p.evaluate(() => document.querySelector('a[data-cta="logiktestprov-traningspaketet"]')?.getAttribute('href'))
-  logg(D, 'Träningspaketet-länken går till köpsteget', traning === '/dashboard/valj-spar?paket=test_week&steg=kop', { traning })
-  logg(D, 'inga talstreck eller Premium på sidan', !/—|Premium/.test(t), {})
+  const kop = await p.evaluate(() => [...document.querySelectorAll('a')].map((a) => a.getAttribute('href') || '').find((h) => h.startsWith('/dashboard/valj-spar?paket=')))
+  logg(D, 'Premium-länken går till köpsteget', (kop || '').startsWith('/dashboard/valj-spar?paket=all_month&steg=kop'), { kop })
+  logg(D, 'inga talstreck, Hela paketet eller paketen på sidan', !/—|Hela paketet|paketen|Uppgradera/.test(t), {})
   // Omladdning: samma sida, ingen ny aktivitet.
   await ga(p, `/dashboard/tester/prov/${token}`)
   logg(D, 'omladdning visar samma resultat', /rätt av 5/.test(await text(p)), {})
@@ -155,18 +157,19 @@ async function mallSteg7(p) {
   await ga(p, '/dashboard/skapa-cv?steg=7&mall=disk-plus')
   await vanta(2500)
   await p.evaluate(() => {
-    const rad = [...document.querySelectorAll('[role="status"], section')].find((e) => /Ingår när du har ett paket/.test(e.innerText))
+    const rad = [...document.querySelectorAll('[role="status"], section')].find((e) => /Ingår i Premium|Mallen ingår i Premium/.test(e.innerText))
     rad?.scrollIntoView({ block: 'center' })
   })
   await vanta(600)
   const m = await text(p)
   await dump(p, 'mall-1-steg7-last')
-  logg('mall', 'steg 7: låst mall utan Premium', /Ingår när du har ett paket/.test(m) && /Köp CV-paketet, 79 kr i veckan/.test(m) && !/Premium/.test(m), {
+  // Våg 5 (copy-premium krock 1): ordet Premium är tillbaka, vänt test.
+  logg('mall', 'steg 7: låst mall säger Premium', /Ingår i Premium|ingår i Premium/.test(m) && /Köp Premium, 149 kr i månaden/.test(m) && !/CV-paketet|Hela paketet|ett paket/.test(m), {
     rader: rader(m, /Ingår|CV-paketet|Premium|Mallen/).slice(0, 8),
   })
   await dump(p, 'mall-2-steg7-helsida', true)
-  const kopLank = await p.evaluate(() => [...document.querySelectorAll('a')].find((a) => /^Köp CV-paketet/.test(a.innerText.trim()))?.getAttribute('href'))
-  logg('mall', 'Köp-länken går till köpsteget', kopLank === '/dashboard/valj-spar?paket=cv_week&steg=kop', { kopLank })
+  const kopLank = await p.evaluate(() => [...document.querySelectorAll('a')].find((a) => /^Köp Premium/.test(a.innerText.trim()))?.getAttribute('href'))
+  logg('mall', 'Köp-länken går till köpsteget för Premium', (kopLank || '').startsWith('/dashboard/valj-spar?paket=all_month&steg=kop'), { kopLank })
 }
 
 /** Bara steg 7, med gratiskontot från hoppa-delen. */

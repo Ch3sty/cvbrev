@@ -15,6 +15,7 @@
 // - Avsluta-bekräftelse med felvisning och spärrad knapp under avslut.
 // =============================================================================
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -474,7 +475,7 @@ export function NumericalTestSession({
         <button
           onClick={handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting || isNavigating}
-          className="inline-flex h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
+          className={`${KNAPP_PRIMAR} touch-manipulation disabled:cursor-not-allowed`}
         >
           {isSubmitting ? (
             'Sparar svar…'

@@ -1,11 +1,10 @@
 /**
- * Prenumeration: en vy, tre tillstånd
- * (docs/plan-paket-och-onboarding.md, Fas 2D avsnitt 3).
+ * Prenumeration: en vy, tre tillstånd (spec-rummen våg 5).
  *
- * Gratis, spår och Hela paketet. Skelettet är detsamma i alla tre: sidhuvud, en
- * statusrad som säger läget, en panel som säger vad hon har, noll till en
- * panel som föreslår nästa steg, och en hanteringslista. Skillnaden ligger i
- * panelernas innehåll, inte i hur sidan är byggd.
+ * Gratis, spår (ett osålt veckopaket som löper ut) och Jobbcoach Premium.
+ * Skelettet är detsamma i alla tre: väggen med rubriken, en statusrad som
+ * säger läget, kortet för Premium och en hanteringslista. Skillnaden ligger
+ * i kortets innehåll, inte i hur sidan är byggd.
  *
  * Allt kommer serverrenderat, blockeringslistan likaså. Ingen panel hämtar
  * sig själv efter mount, eftersom LCP-budgeten är 1,0 s och ett kort som
@@ -100,8 +99,8 @@ export default async function PrenumerationPage() {
     status: profile?.subscription_status ?? null,
   });
 
-  // Admin och tidsbegränsad premium är varianter av tillstånd Allt med en
-  // annan statusrad och utan längdval (Fas 2D). Ingen egen skiss behövs.
+  // Admin och tidsbegränsad Premium är varianter av tillstånd Allt med en
+  // annan statusrad och utan hanteringslista. Ingen egen skiss behövs.
   const premiumSource = profile?.premium_source ?? null;
   const subscriptionId = profile?.subscription_id ?? null;
   const harStripePrenumeration =

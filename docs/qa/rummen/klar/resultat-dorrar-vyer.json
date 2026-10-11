@@ -1,0 +1,1818 @@
+{
+  "bas": "http://localhost:5241",
+  "tid": "2026-10-11T00:57:51.078Z",
+  "vyer": [
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/mycket-pixel7-ljust-dashboard.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "God natt, Anna.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Öppna rapporten"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/mycket-pixel7-ljust-profil-cv.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "mina-brev-id-edit",
+      "url": "/dashboard/mina-brev/b29533ea-bf37-4275-9f59-066e6ec99978/edit",
+      "fil": "vyer/mycket-pixel7-ljust-mina-brev-id-edit.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Redigera brevet",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "brev",
+      "themeColor": "#3a1930",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Spara"
+      ],
+      "kopparIBild": false,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/mycket-pixel7-ljust-tester.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/mycket-pixel7-ljust-tester-slug.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "light",
+      "route": "tester-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/a52cbd59-e64c-4b10-bbf8-d19077737d65/results",
+      "fil": "vyer/mycket-pixel7-ljust-tester-resultat.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Ditt resultat",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/mycket-pixel7-morkt-dashboard.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "God natt, Anna.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Öppna rapporten"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/mycket-pixel7-morkt-profil-cv.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "mina-brev-id-edit",
+      "url": "/dashboard/mina-brev/b29533ea-bf37-4275-9f59-066e6ec99978/edit",
+      "fil": "vyer/mycket-pixel7-morkt-mina-brev-id-edit.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Redigera brevet",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "brev",
+      "themeColor": "#3a1930",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Spara"
+      ],
+      "kopparIBild": false,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/mycket-pixel7-morkt-tester.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/mycket-pixel7-morkt-tester-slug.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "tester-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/a52cbd59-e64c-4b10-bbf8-d19077737d65/results",
+      "fil": "vyer/mycket-pixel7-morkt-tester-resultat.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Ditt resultat",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/mycket-desktop-ljust-dashboard.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "God natt, Anna.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Öppna rapporten"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/mycket-desktop-ljust-profil-cv.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "mina-brev-id-edit",
+      "url": "/dashboard/mina-brev/b29533ea-bf37-4275-9f59-066e6ec99978/edit",
+      "fil": "vyer/mycket-desktop-ljust-mina-brev-id-edit.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Redigera brevet",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "brev",
+      "themeColor": "#3a1930",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Spara"
+      ],
+      "kopparIBild": false,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/mycket-desktop-ljust-tester.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/mycket-desktop-ljust-tester-slug.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "light",
+      "route": "tester-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/a52cbd59-e64c-4b10-bbf8-d19077737d65/results",
+      "fil": "vyer/mycket-desktop-ljust-tester-resultat.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Ditt resultat",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/mycket-desktop-morkt-dashboard.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "God natt, Anna.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Öppna rapporten"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/mycket-desktop-morkt-profil-cv.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "mina-brev-id-edit",
+      "url": "/dashboard/mina-brev/b29533ea-bf37-4275-9f59-066e6ec99978/edit",
+      "fil": "vyer/mycket-desktop-morkt-mina-brev-id-edit.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Redigera brevet",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "brev",
+      "themeColor": "#3a1930",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Spara"
+      ],
+      "kopparIBild": false,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/mycket-desktop-morkt-tester.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/mycket-desktop-morkt-tester-slug.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "mycket",
+      "form": "desktop",
+      "system": "dark",
+      "route": "tester-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/a52cbd59-e64c-4b10-bbf8-d19077737d65/results",
+      "fil": "vyer/mycket-desktop-morkt-tester-resultat.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Ditt resultat",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Gör om testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "light",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/gratis-pixel7-ljust-dashboard.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Börja med ditt CV, Anna",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "light",
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "light",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/gratis-pixel7-ljust-profil-cv.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "light",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/gratis-pixel7-ljust-tester.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta första testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "light",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/gratis-pixel7-ljust-tester-slug.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/gratis-pixel7-morkt-dashboard.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Börja med ditt CV, Anna",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "dark",
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/gratis-pixel7-morkt-profil-cv.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/gratis-pixel7-morkt-tester.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta första testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "pixel7",
+      "system": "dark",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/gratis-pixel7-morkt-tester-slug.png",
+      "topprad": true,
+      "nav": true,
+      "sidomeny": null,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": false,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "light",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/gratis-desktop-ljust-dashboard.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Börja med ditt CV, Anna",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "light",
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "light",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/gratis-desktop-ljust-profil-cv.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "light",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/gratis-desktop-ljust-tester.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta första testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "light",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/gratis-desktop-ljust-tester-slug.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "light",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "dark",
+      "route": "dashboard",
+      "url": "/dashboard",
+      "fil": "vyer/gratis-desktop-morkt-dashboard.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Börja med ditt CV, Anna",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "jobb",
+      "themeColor": "#1b3324",
+      "colorScheme": "dark",
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "dark",
+      "route": "profil-cv",
+      "url": "/dashboard/profil/cv",
+      "fil": "vyer/gratis-desktop-morkt-profil-cv.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Mina CV",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "cv",
+      "themeColor": "#113538",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Ladda upp CV"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "dark",
+      "route": "tester",
+      "url": "/dashboard/tester",
+      "fil": "vyer/gratis-desktop-morkt-tester.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Känn igen uppgiften innan provdagen.",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta första testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    },
+    {
+      "konto": "gratis",
+      "form": "desktop",
+      "system": "dark",
+      "route": "tester-slug",
+      "url": "/dashboard/tester/matrislogik-grund",
+      "fil": "vyer/gratis-desktop-morkt-tester-slug.png",
+      "topprad": true,
+      "nav": null,
+      "sidomeny": true,
+      "flodeHuvud": false,
+      "h1": true,
+      "h1Text": "Logiktest, grundnivå",
+      "horisontellScroll": false,
+      "dataTheme": null,
+      "dataRum": "tran",
+      "themeColor": "#1b2246",
+      "colorScheme": "dark",
+      "kopparknappar": 1,
+      "kopparTexter": [
+        "Starta testet"
+      ],
+      "kopparIBild": true,
+      "vitaYtor": [],
+      "antalVitaYtor": 0,
+      "lagKontrast": [],
+      "antalLagKontrast": 0,
+      "bodyRullar": null,
+      "konsol": [],
+      "http": [],
+      "anm": []
+    }
+  ],
+  "ssr": [],
+  "dorrar": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Tester",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Tester",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Tester",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Tester",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Tester",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "byte": [
+        {
+          "dorr": "Tester",
+          "fore": "jobb",
+          "rum": "tran",
+          "transition": "background-color 0.24s",
+          "theme": "#1B2246",
+          "url": "/dashboard/tester"
+        },
+        {
+          "dorr": "CV",
+          "fore": "tran",
+          "rum": "cv",
+          "transition": "background-color 0.24s",
+          "theme": "#113538",
+          "url": "/dashboard/profil/cv"
+        },
+        {
+          "dorr": "Personliga brev",
+          "fore": "cv",
+          "rum": "brev",
+          "transition": "background-color 0.24s",
+          "theme": "#3A1930",
+          "url": "/dashboard/mina-brev"
+        },
+        {
+          "dorr": "Jobbsöket",
+          "fore": "brev",
+          "rum": "jobb",
+          "transition": "background-color 0.24s",
+          "theme": "#1B3324",
+          "url": "/dashboard"
+        }
+      ]
+    }
+  ],
+  "sidomeny": [],
+  "fokus": [],
+  "floden": [],
+  "natfel": [],
+  "tema": []
+}

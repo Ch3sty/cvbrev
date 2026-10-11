@@ -12,6 +12,7 @@ import Link from 'next/link'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
 import { IlluScenSkrivbordet } from '@/components/illustrations/PriserScener'
 import Breadcrumb from '@/components/Breadcrumb'
+import { paketKort } from '@/lib/plans/plans'
 
 const KNAPP =
   'inline-flex h-12 w-full items-center justify-center rounded-lg bg-ink-1 px-5 text-base font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto'
@@ -53,8 +54,8 @@ const LOFTEN = [
     text: 'Svaren bygger på Arbetsförmedlingen, SCB, fackförbunden, Försäkringskassan, CSN och Skatteverket. Vi gissar inte, vi hänvisar, och varje siffra går att följa till källan.',
   },
   {
-    rubrik: 'Du betalar för veckorna du söker',
-    text: 'Du provar varje verktyg utan kortuppgifter. Behöver du mer väljer du paketet som passar det du söker och betalar en vecka i taget, och säger upp i ditt konto utan att uppge skäl.',
+    rubrik: 'Du betalar bara när du behöver mer',
+    text: `Du provar varje verktyg utan kortuppgifter. Behöver du mer finns allt i ${paketKort()}, en månad i taget, och du säger upp i ditt konto utan att uppge skäl.`,
   },
 ]
 

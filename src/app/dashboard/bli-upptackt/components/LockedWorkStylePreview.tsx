@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
 
 /**
@@ -25,7 +26,7 @@ export default function LockedWorkStylePreview() {
         {LOCKED_SECTIONS.map((section) => (
           <div
             key={section.title}
-            className="relative overflow-hidden rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken"
+            className="relative overflow-hidden rounded-lg border border-kant bg-papper-2 p-3.5 "
           >
             <div className="mb-2.5 flex items-center justify-between gap-2">
               <h4 className="text-sm font-medium text-ink-1">{section.title}</h4>
@@ -44,7 +45,7 @@ export default function LockedWorkStylePreview() {
         ))}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-kant bg-panel px-4 py-3.5">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2.5 rounded-xl border border-kant bg-papper px-4 py-3.5">
         <p className="min-w-0 flex-1 basis-64 text-sm leading-[22px] text-ink-2">
           Det fördjupade testet ger dig hela din arbetsstilsrapport: hur du
           arbetar, samarbetar och drivs, din privata energibudget och
@@ -52,7 +53,7 @@ export default function LockedWorkStylePreview() {
         </p>
         <Link
           href="/dashboard/tester/personlighet-avancerad"
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          className={`${KNAPP_SEKUNDAR_SMAL} shrink-0`}
         >
           Gör det fördjupade testet, 120 frågor
         </Link>

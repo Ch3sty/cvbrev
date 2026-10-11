@@ -4,21 +4,19 @@
 // Tidslinjen är sanningskällan: händelser kan läggas till och tas bort,
 // aktuell status räknas alltid om av databasen.
 
+import { KNAPP_GLAS, KNAPP_PRIMAR, LANK_FEL, LANK_VAGG } from '@/components/shell/knappar'
+import LyftKort from '@/components/rum/LyftKort'
 import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ArrowLeft,
   Building2,
   MapPin,
   FileText,
   ExternalLink,
-  Plus,
-  Trash2,
-  Pencil,
   X,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import {
   CHANNEL_META,
@@ -29,7 +27,9 @@ import {
   type JobApplicationEvent,
 } from '@/lib/applications/status';
 import { StatusPill, formatDateLong, formatDateShort, daysSince } from '../components/StatusBits';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
@@ -178,10 +178,10 @@ export default function ApplicationDetailClient({
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte uppdatera ansökan');
+      throw new Error(json.error || 'Kunde inte uppdatera den sökta tjänsten');
     }
     await load();
-    success('Ansökan uppdaterad.', 2500);
+    success('Sparat.', 2500);
   };
 
   const handleDeleteApplication = async () => {
@@ -193,11 +193,18 @@ export default function ApplicationDetailClient({
   };
 
   if (isLoading || !detail) {
+    // Egen nyckel på golvet, så att det byts i stället för att flyttas när
+    // ansökan landat (väggens höjd ändras då).
     return (
-      <div className="mx-auto max-w-3xl space-y-4">
-        <LoadingSkeleton variant="card" label="Läser in ansökan" />
-        <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
-      </div>
+      <>
+        <VaggLaddar label="Läser in tjänsten" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4">
+            <LoadingSkeleton variant="card" label="Läser in tjänsten" />
+            <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -211,36 +218,125 @@ export default function ApplicationDetailClient({
   );
 
   return (
-    <div className="relative">
-      <div className="max-w-3xl mx-auto pb-16 space-y-4 sm:space-y-5">
-        <Link
-          href="/dashboard/sokta-tjanster"
-          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-ink-1"
-        >
-          <ArrowLeft className="w-4 h-4" strokeWidth={1.75} />
-          Sökta tjänster
-        </Link>
-
-        {/* Sidans enda h1 ligger i sidhuvudet, inte inuti ett kort. */}
-        <PageHeader
-          title={detail.job_title}
-          description={
-            detail.location ? `${detail.company}, ${detail.location}` : detail.company
-          }
-          action={
+    <>
+      {/* Sidans enda h1 ligger på väggen. Tillbaka till listan står som
+          textlänk under rubriken, Redigera som glasknapp: händelsen är
+          vyns kopparknapp. */}
+      <RumHuvud
+        title={detail.job_title}
+        description={
+          detail.location ? `${detail.company}, ${detail.location}` : detail.company
+        }
+        handling={
+          <>
             <button
               type="button"
               onClick={() => setShowEdit(true)}
-              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+              className={KNAPP_GLAS}
             >
-              <Pencil className="h-4 w-4" strokeWidth={1.75} />
               Redigera
             </button>
-          }
-        />
+            <Link
+              href="/dashboard/sokta-tjanster"
+              className={`${LANK_VAGG} inline-flex min-h-11 items-center`}
+            >
+              Sökta tjänster
+            </Link>
+          </>
+        }
+        tat={false}
+      />
+    <Golv key="ansokan" lyft>
+    <div className="relative">
+      <div className="w-full max-w-3xl space-y-4 sm:space-y-5">
+
+        {/* Tidslinjen är det lyfta kortet: den bär vyns handling,
+            Lägg till händelse (spec 16.3.1 och 18.4 punkt 3). */}
+        <LyftKort label="Händelser" titel="Händelser">
+          <div className="mt-4" />
+
+          <ol className="relative space-y-0">
+            {sortedEvents.map((event, index) => {
+              const meta = STATUS_META[event.event_type];
+              const isLast = index === sortedEvents.length - 1 && !showNudge;
+              const label =
+                event.event_type === 'interview_completed' && event.interview_round && event.interview_round > 1
+                  ? `Genomförde intervju ${event.interview_round}`
+                  : meta.timelineLabel;
+              return (
+                <li key={event.id} className="relative flex gap-3.5 group">
+                  <div className="flex flex-col items-center">
+                    <span
+                      className={`mt-1 h-3 w-3 shrink-0 rounded-full ${
+                        DOT_TONE[event.event_type] ?? 'bg-ink-2'
+                      }`}
+                    />
+                    {!isLast && <span className="my-1 w-px flex-1 bg-kant" />}
+                  </div>
+                  <div className={`min-w-0 flex-1 ${isLast ? '' : 'pb-5'}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="text-sm font-medium leading-snug text-ink-1">{label}</div>
+                        <div className="mt-0.5 text-meta text-ink-3">
+                          {formatDateShort(event.occurred_at)}
+                        </div>
+                        {event.note && (
+                          <div className="mt-1.5 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
+                            {event.note}
+                          </div>
+                        )}
+                      </div>
+                      {/* Alltid synlig och 44 px: en handling som bara finns
+                          vid hover existerar inte på en pekskärm, och halva
+                          trafiken är mobil. */}
+                      <button
+                        type="button"
+                        onClick={() => setEventToDelete(event.id)}
+                        disabled={deletingEventId === event.id}
+                        aria-label={`Ta bort händelsen ${label}`}
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-papper-2 hover:text-ink-1 disabled:opacity-60"
+                      >
+                        <X className="h-4 w-4" strokeWidth={1.75} />
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+
+            {/* Ambient nudge: beräknat tillstånd, ingen lagrad händelse */}
+            {showNudge && silentDays !== null && (
+              <li className="relative flex gap-3.5">
+                <div className="flex flex-col items-center">
+                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-kant-stark bg-papper" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm text-ink-3">
+                    Inget hört på {silentDays} dagar. Vill du uppdatera status?
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddEvent(true)}
+                    className="mt-1.5 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+                  >
+                    Uppdatera
+                  </button>
+                </div>
+              </li>
+            )}
+          </ol>
+
+          <button
+            type="button"
+            onClick={() => setShowAddEvent(true)}
+            className={`${KNAPP_PRIMAR} mt-5`}
+          >
+            Lägg till händelse
+          </button>
+        </LyftKort>
 
         {/* Fakta om ansökan */}
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 text-meta text-ink-2">
               <span className="inline-flex items-center gap-1.5">
@@ -258,6 +354,8 @@ export default function ApplicationDetailClient({
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-kant pt-4 text-meta text-ink-2">
+            {/* Ta bort är en röd länk vid metaraden som bekräftas i dialog
+                (spec 18.2 och 18.4 punkt 3), aldrig en knappfyllnad. */}
             <span>
               Sökt <span className="font-medium text-ink-1">{formatDateLong(detail.applied_at)}</span>
             </span>
@@ -289,110 +387,23 @@ export default function ApplicationDetailClient({
                 </a>
               </>
             )}
+            <button
+              type="button"
+              onClick={() => setConfirmDeleteApplication(true)}
+              className={`${LANK_FEL} ml-auto inline-flex min-h-11 items-center`}
+            >
+              Ta bort
+            </button>
           </div>
 
           {detail.notes && (
-            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
+            <div className="mt-3 whitespace-pre-wrap rounded-lg border border-kant bg-papper-2 px-3 py-2 text-meta text-ink-2 ">
               {detail.notes}
             </div>
           )}
 
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => setConfirmDeleteApplication(true)}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken"
-            >
-              <Trash2 className="h-4 w-4" strokeWidth={1.75} />
-              Ta bort
-            </button>
-          </div>
         </section>
 
-        {/* Tidslinje */}
-        <section className="rounded-xl border border-kant bg-panel p-4">
-          <h2 className="mb-4 text-kort text-ink-1">Händelser</h2>
-
-          <ol className="relative space-y-0">
-            {sortedEvents.map((event, index) => {
-              const meta = STATUS_META[event.event_type];
-              const isLast = index === sortedEvents.length - 1 && !showNudge;
-              const label =
-                event.event_type === 'interview_completed' && event.interview_round && event.interview_round > 1
-                  ? `Genomförde intervju ${event.interview_round}`
-                  : meta.timelineLabel;
-              return (
-                <li key={event.id} className="relative flex gap-3.5 group">
-                  <div className="flex flex-col items-center">
-                    <span
-                      className={`mt-1 h-3 w-3 shrink-0 rounded-full ${
-                        DOT_TONE[event.event_type] ?? 'bg-ink-2'
-                      }`}
-                    />
-                    {!isLast && <span className="my-1 w-px flex-1 bg-kant" />}
-                  </div>
-                  <div className={`min-w-0 flex-1 ${isLast ? '' : 'pb-5'}`}>
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="text-sm font-medium leading-snug text-ink-1">{label}</div>
-                        <div className="mt-0.5 text-meta text-ink-3">
-                          {formatDateShort(event.occurred_at)}
-                        </div>
-                        {event.note && (
-                          <div className="mt-1.5 whitespace-pre-wrap rounded-lg border border-kant bg-insunken px-3 py-2 text-meta text-ink-2 shadow-insunken">
-                            {event.note}
-                          </div>
-                        )}
-                      </div>
-                      {/* Alltid synlig och 44 px: en handling som bara finns
-                          vid hover existerar inte på en pekskärm, och halva
-                          trafiken är mobil. */}
-                      <button
-                        type="button"
-                        onClick={() => setEventToDelete(event.id)}
-                        disabled={deletingEventId === event.id}
-                        aria-label={`Ta bort händelsen ${label}`}
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-3 transition-colors hover:bg-insunken hover:text-ink-1 disabled:opacity-60"
-                      >
-                        <X className="h-4 w-4" strokeWidth={1.75} />
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-
-            {/* Ambient nudge: beräknat tillstånd, ingen lagrad händelse */}
-            {showNudge && silentDays !== null && (
-              <li className="relative flex gap-3.5">
-                <div className="flex flex-col items-center">
-                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full border-2 border-kant-stark bg-panel" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-sm text-ink-3">
-                    Inget hört på {silentDays} dagar. Vill du uppdatera status?
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowAddEvent(true)}
-                    className="mt-1.5 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-                  >
-                    Uppdatera
-                  </button>
-                </div>
-              </li>
-            )}
-          </ol>
-
-          <button
-            type="button"
-            onClick={() => setShowAddEvent(true)}
-            className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-          >
-            <Plus className="w-4 h-4" strokeWidth={1.75} />
-            Lägg till händelse
-          </button>
-        </section>
       </div>
 
       {addEventMounted && (
@@ -417,7 +428,7 @@ export default function ApplicationDetailClient({
         onCancel={() => setEventToDelete(null)}
         onConfirm={() => (eventToDelete ? handleDeleteEvent(eventToDelete) : undefined)}
         title="Ta bort händelsen?"
-        description="Statusen räknas om från de händelser som är kvar. Själva ansökan ligger kvar."
+        description="Statusen räknas om från de händelser som är kvar. Tjänsten ligger kvar."
         confirmLabel="Ta bort händelsen"
         destructive
       />
@@ -426,11 +437,13 @@ export default function ApplicationDetailClient({
         open={confirmDeleteApplication}
         onCancel={() => setConfirmDeleteApplication(false)}
         onConfirm={handleDeleteApplication}
-        title="Ta bort hela ansökan?"
-        description="Ansökan och hela dess historik försvinner, och den räknas inte längre med i din statistik eller i aktivitetsrapporten. Det går inte att ångra."
-        confirmLabel="Ta bort ansökan"
+        title="Ta bort tjänsten ur Sökta tjänster?"
+        description="Tjänsten och hela dess historik försvinner, och den räknas inte längre med i statistiken eller i aktivitetsrapporten. Det går inte att ångra."
+        confirmLabel="Ta bort"
         destructive
       />
     </div>
+    </Golv>
+    </>
   );
 }

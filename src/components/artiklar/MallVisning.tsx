@@ -17,6 +17,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { paketKort } from '@/lib/plans/plans'
 
 export interface MallVal {
   id: string
@@ -62,7 +63,7 @@ export default function MallVisning({ typ, mallar, typsnitt, fotrad, lank }: Mal
                   </option>
                 ))}
             </optgroup>
-            <optgroup label="I CV-paketet">
+            <optgroup label={`I ${paketKort()}`}>
               {mallar
                 .filter((m) => m.tier === 'premium')
                 .map((m) => (

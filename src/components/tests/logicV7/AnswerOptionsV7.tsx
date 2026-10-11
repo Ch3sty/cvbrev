@@ -22,7 +22,7 @@ export function AnswerOptionsV7({
   disabled = false,
 }: Props) {
   return (
-    <div className="mx-auto grid max-w-md grid-cols-2 gap-3 sm:max-w-lg sm:grid-cols-3 sm:gap-4">
+    <div className="matrisyta mx-auto grid max-w-md grid-cols-2 gap-3 sm:max-w-lg sm:grid-cols-3 sm:gap-4">
       {options.map((option, i) => {
         const letter = String.fromCharCode(65 + i);
         const isSelected = selectedIndex === i;
@@ -44,7 +44,7 @@ export function AnswerOptionsV7({
             <span
               className={cn(
                 'absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium',
-                isSelected ? 'bg-ink-1 text-white' : 'border border-kant bg-panel text-ink-3'
+                isSelected ? 'bg-ink-1 text-papper' : 'border border-kant bg-panel text-ink-3'
               )}
               aria-hidden="true"
             >

@@ -13,6 +13,7 @@
 //   vid navigering samt innan testet slutförs.
 // =============================================================================
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -503,7 +504,7 @@ export function MatrixTestSession({
                 setFinishError(null);
                 setShowFinishConfirm(true);
               }}
-              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
             >
               Lämna in
             </button>
@@ -511,7 +512,7 @@ export function MatrixTestSession({
             <button
               onClick={handleNext}
               disabled={isNavigating}
-              className="inline-flex h-11 flex-1 touch-manipulation items-center justify-center gap-1.5 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
+              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation disabled:cursor-not-allowed`}
             >
               Nästa
               <ChevronRight className="h-4 w-4" strokeWidth={1.75} />
@@ -635,7 +636,16 @@ function QuestionHeader({
       {!ready ? (
         // Höjden på skarpt läge, reserverad. Vet vi ännu inte vilket läge som
         // gäller målar vi ingetdera, i stället för att måla fel och byta.
-        <div className="h-[18px] mb-1" aria-hidden="true" />
+        // Platshållaren är samma markup som skarpt läge, osynlig: en fast
+        // höjd (18 px) missade radhöjden runt inline-flex och gav 8 px skifte.
+        <div className="invisible mb-1 inline-flex items-center gap-2" aria-hidden="true">
+          <span className="text-steg uppercase text-ink-3">Svårighet</span>
+          <div className="flex items-center gap-1">
+            {levels.map((level) => (
+              <div key={level} className="h-1.5 w-1.5 rounded-full" />
+            ))}
+          </div>
+        </div>
       ) : showHint ? (
         <>
           <h2 className="mb-3 text-fraga text-ink-1">{cleanTitle}</h2>

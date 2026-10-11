@@ -12,8 +12,9 @@
  *   3. Annonser vi läst, med antal och färskhet
  *   4. Träffarna, var och en med matchgrad och två till tre skäl
  *
- * Panelerna binds ihop av tråden (.thread-chain) så att de läses som ett
- * förlopp, inte som fem fristående kort.
+ * Panelerna står i en kolumn med 16 px mellanrum som i alla andra rum.
+ * Trådens kopparlinje (.thread-chain) är borta (art-director 21.2 fråga 6):
+ * koppar är aldrig dekor.
  *
  * Matchningens motor är oförändrad. Jobben hämtas fortfarande av
  * edge-funktionen match-jobs, och vad gratisnivån får se avgörs fortfarande
@@ -21,6 +22,7 @@
  * användaren ser och förstår, inte vad hon får se.
  */
 
+import { KNAPP_PRIMAR, KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -38,13 +40,14 @@ import JobFilterPanel, {
 import RedactedJobCard from './components/RedactedJobCard';
 import MatchRow from './components/MatchRow';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import Sheet from '@/components/shell/Sheet';
 import ChoiceCard from '@/components/shell/ChoiceCard';
-import MarginPlate from '@/components/shell/MarginPlate';
 import JobPreferencesFields, {
   jobPreferenceChips,
   jobPreferenceLocationChipCount,
@@ -96,6 +99,9 @@ type AppliedState = 'idle' | 'saving' | 'done';
  * och då som ett tak neråt, aldrig som en rättighet uppåt.
  */
 const FREE_TIER_FALLBACK_LIMIT = 3;
+
+/** Raden under rubriken, samma i alla tillstånd. */
+const RUBRIK_RAD = 'Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig.';
 
 /**
  * Hur länge en lokalt sparad sökning får återanvändas.
@@ -659,6 +665,9 @@ export default function JobbmatchningClient({
         const funna = data.jobs || [];
         setJobs(funna);
         setHasMore(data.hasMore || false);
+        // Träffarna är sedda: de ska inte räknas som "nya" på Jobbsökets
+        // hem (spec-rummen 16.2 fråga 3). Tyst om det inte går.
+        void fetch('/api/rum/matchningar-sedda', { method: 'POST' }).catch(() => {});
 
         // Hur många annonser vi faktiskt läst igenom. Edge-funktionen svarar
         // med olika fält beroende på om svaret kom ur cachen eller inte, så
@@ -876,16 +885,17 @@ export default function JobbmatchningClient({
   // omladdning visade CV:n igen.
   if (initialData.loadFailed) {
     return (
-      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
-        <PageHeader
-          title="Dina matchningar"
-          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-        />
-        <FlowError
-          message="Vi kunde inte läsa dina CV just nu. Ladda om sidan, så försöker vi igen."
-          onRetry={() => router.refresh()}
-        />
-      </div>
+      <>
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+        <Golv>
+          <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
+            <FlowError
+              message="Vi kunde inte läsa dina CV just nu. Ladda om sidan, så försöker vi igen."
+              onRetry={() => router.refresh()}
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -893,13 +903,14 @@ export default function JobbmatchningClient({
   // förklarar vad funktionen är i stället för att skicka iväg användaren.
   if (cvs.length === 0) {
     return (
-      <div className="mx-auto w-full max-w-[720px] space-y-4 pb-16 sm:space-y-6">
-        <PageHeader
-          title="Dina matchningar"
-          description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-        />
-        <JobMatchingOnboarding />
-      </div>
+      <>
+        <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+        <Golv>
+          <div className="w-full max-w-[720px] space-y-4 sm:space-y-6">
+            <JobMatchingOnboarding />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -980,20 +991,18 @@ export default function JobbmatchningClient({
     : jobPreferenceChips(prefs);
 
   return (
-    <div className="mx-auto w-full max-w-[720px] pb-16">
-      <PageHeader
-        title="Dina matchningar"
-        description="Vi läser ditt CV och letar bland Arbetsförmedlingens annonser efter jobb som passar dig."
-      />
-
+    <>
+    <RumHuvud title={RUBRIK.matchadeJobb} description={RUBRIK_RAD} />
+    <Golv>
+    <div className="w-full max-w-[720px]">
       {/* Kedjan: panelerna hänger ihop med tråden och läses som ett förlopp. */}
-      <div className="thread-chain mt-4 space-y-4 sm:mt-6 sm:space-y-6">
+      <div className="space-y-4">
         {/* 1. Ditt CV ------------------------------------------------------ */}
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <div className="flex items-start gap-3">
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaCvPoang size={48} />
-            </MarginPlate>
+            </span>
             <div className="min-w-0 flex-1">
               <h2 className="text-kort text-ink-1">Ditt CV</h2>
               <p className="mt-0.5 truncate text-meta text-ink-3">{cvName}</p>
@@ -1069,7 +1078,7 @@ export default function JobbmatchningClient({
         </section>
 
         {/* 2. Så söker vi åt dig -------------------------------------------- */}
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <h2 className="text-kort text-ink-1">Så söker vi åt dig</h2>
@@ -1090,7 +1099,7 @@ export default function JobbmatchningClient({
             {chips.map((chip) => (
               <li
                 key={chip}
-                className="rounded-md border border-kant bg-panel px-3 py-1.5 text-sm text-ink-1"
+                className="rounded-md border border-kant bg-papper px-3 py-1.5 text-sm text-ink-1"
               >
                 {chip}
               </li>
@@ -1099,7 +1108,7 @@ export default function JobbmatchningClient({
         </section>
 
         {/* 3. Annonser vi läst ---------------------------------------------- */}
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <h2 className="text-kort text-ink-1">Annonser vi läst</h2>
 
           {/* Panelen har två lägen: "vi har inte letat än" med scen och knapp,
@@ -1168,7 +1177,7 @@ export default function JobbmatchningClient({
                     <button
                       type="button"
                       onClick={fetchJobs}
-                      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+                      className={KNAPP_PRIMAR_SMAL}
                     >
                       Sök igen
                     </button>
@@ -1184,7 +1193,7 @@ export default function JobbmatchningClient({
                scroll. Bredvid varandra ryms både scenen och knappen. */
             <div className="mt-3 flex items-center gap-4">
               <span
-                className="shrink-0 text-ink-1"
+                className="tomt-symbol shrink-0"
                 aria-hidden="true"
               >
                 <IlluCvMotAnnonser size={104} />
@@ -1201,7 +1210,7 @@ export default function JobbmatchningClient({
                   type="button"
                   onClick={fetchJobs}
                   disabled={!activeCV}
-                  className="mt-3 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+                  className={`${KNAPP_PRIMAR_SMAL} mt-3`}
                 >
                   {laserCv ? 'Läser ditt CV' : 'Hitta jobb som passar'}
                 </button>
@@ -1217,7 +1226,7 @@ export default function JobbmatchningClient({
 
         {/* 4. Träfflistan ---------------------------------------------------- */}
         {!isLoading && hasSearched && ranked.length > 0 && (
-          <section className="rounded-xl border border-kant bg-panel">
+          <section className="rounded-xl border border-kant bg-papper">
             <div className="flex items-center justify-between gap-4 border-b border-kant px-4 py-3">
               <p className="text-sm font-medium text-ink-3">
                 <span className="tabular-nums">{ranked.length}</span> bästa
@@ -1264,10 +1273,10 @@ export default function JobbmatchningClient({
               <div className="divide-y divide-kant" aria-hidden="true">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="min-h-[148px] px-4 py-4">
-                    <div className="h-4 w-2/3 rounded bg-insunken" />
-                    <div className="mt-2 h-3 w-1/2 rounded bg-insunken" />
-                    <div className="mt-3 h-3 w-1/3 rounded bg-insunken" />
-                    <div className="mt-4 h-11 w-28 rounded-lg bg-insunken" />
+                    <div className="h-4 w-2/3 rounded bg-papper-2" />
+                    <div className="mt-2 h-3 w-1/2 rounded bg-papper-2" />
+                    <div className="mt-3 h-3 w-1/3 rounded bg-papper-2" />
+                    <div className="mt-4 h-11 w-28 rounded-lg bg-papper-2" />
                   </div>
                 ))}
               </div>
@@ -1372,7 +1381,7 @@ export default function JobbmatchningClient({
                         setDroppedRoles((prev) => [...prev, role.normalized])
                       }
                       aria-label={`Ta bort ${role.normalized}`}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-panel px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-insunken"
+                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-papper px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-papper-2"
                     >
                       {role.normalized}
                       <span aria-hidden="true" className="text-ink-3">
@@ -1401,7 +1410,7 @@ export default function JobbmatchningClient({
                         setDroppedSkills((prev) => [...prev, skill])
                       }
                       aria-label={`Ta bort ${skill}`}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-panel px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-insunken"
+                      className="inline-flex min-h-11 items-center gap-2 rounded-md border border-kant bg-papper px-3 text-sm text-ink-1 hover:border-kant-stark hover:bg-papper-2"
                     >
                       {skill}
                       <span aria-hidden="true" className="text-ink-3">
@@ -1441,7 +1450,7 @@ export default function JobbmatchningClient({
             type="button"
             onClick={savePreferences}
             disabled={prefsSaving}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+            className={KNAPP_PRIMAR}
           >
             {prefsSaving ? 'Sparar' : 'Spara'}
           </button>
@@ -1476,6 +1485,8 @@ export default function JobbmatchningClient({
         onClose={() => setSelectedJob(null)}
       />
     </div>
+    </Golv>
+    </>
   );
 }
 

@@ -1,147 +1,101 @@
 'use client'
 
 /**
- * Spårvalet och köpsteget (docs/design/spec-prissida-2026-09-22.html,
- * sektion 2, mittersta och högra telefonen).
+ * Köpsteget (spec-rummen våg 5, copy-premium avsnitt 3).
  *
- *   1.1   "Vad ska du göra den här veckan?", tre kort med illustration,
- *         värderubrik, fyra "du får"-rader och prisrad. Primär "Fortsätt med
- *         <paket>", sekundär "Börja gratis i stället".
- *   1.2   "<Paket>, från i kväll": kvittot med fyra rader, villkorsraderna,
- *         första steget, "Vill du ha allt i stället?" med längdvalet,
- *         samtyckesrutan och "Till betalning, 79 kr".
- *   1.1b  gratisanvändarens spårfråga, utan priser. Nås bara om inget spår
- *         är valt och hon trycker Börja gratis, och aldrig för den som
- *         hoppade över samma fråga i registreringen (utanGratisfraga).
+ * Bara Jobbcoach Premium, 149 kr i månaden, säljs, så steget har inget
+ * spårval och inget längdval längre. Det visar Premium direkt:
  *
- * Skärmarna är steg i ett flöde, inte tre sidor: tillbaka går till
- * föregående steg, och framstegslinjen är tråden. All logik för samtycke,
- * create-plan-session och händelser är kvar från förra versionen.
+ *   kop        Rubriken "Jobbcoach Premium" (fulla namnet en gång), prisraden
+ *              i kort form, vad som ingår, villkorsraderna, första steget,
+ *              ångerrättssamtycket (lagkrav, oförändrat) och knappen "Till
+ *              betalning, 149 kr". Foten har "Börja gratis i stället".
+ *   gratisval  gratisanvändarens fråga "Vad vill du börja med?", utan
+ *              priser. Nås bara via Börja gratis när inget spår är sparat,
+ *              och aldrig för den som hoppade över samma fråga i
+ *              registreringen (utanGratisfraga).
+ *
+ * Platsen (?plats=) följer med till create-plan-session som source, så att
+ * köpet kan räknas per betalvägg (spec-rummen avsnitt 7). Ett 400 med
+ * saljs: false (gammal klient, osålt paket) visas som ett fel, aldrig som
+ * klart.
  */
 
+import { LANK } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import FlowError from '@/components/shell/FlowError'
-import LangdVal from '@/components/pricing/LangdVal'
-import SparKort from '@/components/pricing/SparKort'
+import { Check } from '@/components/illustrations/RumIkoner'
 import { IkonCv, IkonAnalys, IkonHem } from '@/components/illustrations/Ikoner'
-import {
-  IlluScenAllt,
-  IlluScenCv,
-  IlluScenMatris,
-} from '@/components/illustrations/PriserScener'
+import { IlluScenCv } from '@/components/illustrations/PriserScener'
 import { capture } from '@/lib/analytics/events'
-import { SPARVAL_GRATIS, type PlanKeyPaket, type Track } from '@/lib/onboarding/program'
-import { PLAN_BY_KEY, paketNamn, type PlanKey, type PlanLength } from '@/lib/plans/plans'
+import { SPARVAL_GRATIS, type Track } from '@/lib/onboarding/program'
+import { PLAN_BY_KEY, SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
 import {
   KOPSTEG,
-  KOPSTEG_FAR,
-  PAKET_PLAN,
+  PAKET_KORT,
   SPARVAL,
   nastaDragningText,
-  planForLangd,
   samtyckeVidKop,
-  type PaketId,
 } from '@/components/pricing/paket-copy'
 
-type Steg = 'val' | 'paket' | 'gratisval'
-
-const TRACK_FOR: Record<PaketId, Track> = { cv: 'cv', test: 'tester', allt: 'allt' }
-const PAKET_FOR: Record<Track, PaketId> = { cv: 'cv', tester: 'test', allt: 'allt' }
-
-const SCEN = { cv: IlluScenCv, test: IlluScenMatris, allt: IlluScenAllt } as const
+type Steg = 'kop' | 'gratisval'
 
 /**
- * Nästa dragning, svensk tid, i formen "29 september". Räknad som Stripe
- * räknar den från köpet: samma datum nästa månad, inte trettio dagar.
+ * Köpets ursprung som source i sessionens metadata. Prissidan,
+ * registreringen och prenumerationssidan står för sig själva, allt annat är en betalvägg
+ * ("betalvagg:matning"), och utan plats är det köpsteget självt.
  */
-function nastaDragning(plan: PlanKey): string {
-  return nastaDragningText(plan)
-}
-
-/** Sluttid för Dagspasset: klockslag, inte datum. */
-function dygnSlutar(): string {
-  const d = new Date(Date.now() + 24 * 60 * 60 * 1000)
-  return new Intl.DateTimeFormat('sv-SE', {
-    weekday: 'long',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'Europe/Stockholm',
-  }).format(d)
+export function kopSource(plats: string | null | undefined): string {
+  if (!plats) return 'onboarding_paket'
+  if (plats === 'priser' || plats === 'registrering' || plats === 'prenumeration') return plats
+  return `betalvagg:${plats}`
 }
 
 export interface ValjSparClientProps {
+  /** Spåret som redan är sparat i profilen, om något. */
   initialTrack: Track | null
-  /** Paketet ur ?paket, om länken bar med sig ett. Förväljer även längden. */
-  initialPlanKey?: PlanKeyPaket | null
-  /**
-   * Kontot har en löpande prenumeration. Dagläget är då inaktivt i
-   * längdvalet (D48b): bytet nedåt vore en uppsägning plus ett engångsköp.
-   */
-  harLopandePrenumeration?: boolean
-  /**
-   * ?steg=kop: öppna köpsteget direkt. Registreringens förslag (steg 3) och
-   * prissidans ?paket= landar här, efter att paketet redan valts.
-   */
-  oppnaKopsteg?: boolean
+  /** Paketet som säljs. Sidan normaliserar ?paket= med saljbarPlan. */
+  plan?: PlanKey
+  /** ?plats=, betalväggen eller ytan köpet startade på. */
+  plats?: string | null
   /**
    * Hon hoppade över "Vad vill du börja med?" i registreringen. Börja gratis
-   * utan valt kort går då direkt till hemskärmen: frågan ställs högst en gång
-   * (QA 2026-09-24, iakttagelse 2).
+   * utan sparat spår går då direkt till hemskärmen: frågan ställs högst en
+   * gång (QA 2026-09-24, iakttagelse 2).
    */
   utanGratisfraga?: boolean
 }
 
 export default function ValjSparClient({
   initialTrack,
-  initialPlanKey = null,
-  harLopandePrenumeration = false,
-  oppnaKopsteg = false,
+  plan = SALD_PLAN,
+  plats = null,
   utanGratisfraga = false,
 }: ValjSparClientProps) {
   const router = useRouter()
-  const [steg, setSteg] = useState<Steg>(oppnaKopsteg && initialTrack ? 'paket' : 'val')
-  // Inget förval (profil-registrering 2026-09-24, kriterium 8): utan ?paket
-  // och utan sparat spår är inget kort valt, och primären är spärrad med sin
-  // orsak utskriven tills ett kort är valt. Förvalet gav fel spår åt alla
-  // som kom från testsidan.
-  const [track, setTrack] = useState<Track | null>(initialTrack)
-  const sparatTrack = useRef<Track | null>(null)
+  const [steg, setSteg] = useState<Steg>('kop')
   const [gratisVal, setGratisVal] = useState<'cv' | 'tester' | 'ingen' | null>(null)
-  const [langd, setLangd] = useState<PlanLength>(() => {
-    if (!initialPlanKey || !initialPlanKey.startsWith('all_')) return 'vecka'
-    const l = PLAN_BY_KEY[initialPlanKey].length
-    if (l === 'dag' && harLopandePrenumeration) return 'vecka'
-    return l
-  })
   const [samtycke, setSamtycke] = useState(false)
   const [busy, setBusy] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
-
-  const paket: PaketId = PAKET_FOR[track ?? 'cv']
-  const plan: PlanKey = paket === 'allt' ? planForLangd(langd) : PAKET_PLAN[paket]
+  // Spårkunden (409 med upgradeAvailable) byter på prenumerationssidan, inte i
+  // en ny kassa. Då leder felraden dit i stället för "Försök igen".
+  const [tillByte, setTillByte] = useState<string | null>(null)
   const engangs = PLAN_BY_KEY[plan].mode === 'payment'
 
-  // pricing_viewed en gång per montering, aldrig per omritning.
+  // pricing_viewed, paywall_shown och purchase_step_viewed en gång per
+  // montering. purchase_step_viewed är trattens fjärde steg.
   const sagt = useRef(false)
   useEffect(() => {
     if (sagt.current) return
     sagt.current = true
     capture('pricing_viewed', { trigger: 'cta' })
-  }, [])
-
-  // paywall_shown och purchase_step_viewed när köpsteget visas, en gång per
-  // besök på steget. purchase_step_viewed är trattens fjärde steg och bär
-  // planen som stod på kvittot när steget öppnades.
-  const visatPaket = useRef(false)
-  useEffect(() => {
-    if (steg !== 'paket' || visatPaket.current) return
-    visatPaket.current = true
     capture('paywall_shown', { variant: 'onboarding_paket', surface: '/dashboard/valj-spar' })
     capture('purchase_step_viewed', { plan, surface: '/dashboard/valj-spar' })
-  }, [steg, plan])
+  }, [plan])
 
   // consent_checked första gången rutan kryssas i. Skiljer "läste och
   // tvekade vid kryssrutan" från "tryckte Till betalning och kom inte fram".
@@ -157,60 +111,43 @@ export default function ValjSparClient({
     [plan]
   )
 
-  const sparaSpar = useCallback(
-    async (valt: Track | null, intent: 'purchase' | 'free') => {
-      try {
-        const res = await fetch('/api/onboarding/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ track: valt }),
-        })
-        const json = await res.json().catch(() => ({}))
-        if (!res.ok) throw new Error(json?.error || 'Kunde inte spara valet')
+  const sparaSpar = useCallback(async (valt: Track | null, intent: 'purchase' | 'free') => {
+    try {
+      const res = await fetch('/api/onboarding/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ track: valt }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json?.error || KOPSTEG.sparaFel)
 
-        if (valt) capture('track_selected', { track: valt, surface: 'onboarding', intent })
-        const innan = (json?.previousTrack as Track | null) ?? null
-        if (innan && valt && innan !== valt) {
-          capture('track_changed', { from: innan, to: valt, surface: 'onboarding' })
-        }
-        capture('onboarding_step_completed', { track: valt, step: 'track_choice', index: 0 })
-        sparatTrack.current = valt
-        return true
-      } catch (error: any) {
-        setFel(error?.message || 'Valet kunde inte sparas. Försök igen.')
-        return false
+      if (valt) capture('track_selected', { track: valt, surface: 'onboarding', intent })
+      const innan = (json?.previousTrack as Track | null) ?? null
+      if (innan && valt && innan !== valt) {
+        capture('track_changed', { from: innan, to: valt, surface: 'onboarding' })
       }
-    },
-    []
-  )
+      capture('onboarding_step_completed', { track: valt, step: 'track_choice', index: 0 })
+      return true
+    } catch (error: any) {
+      setFel(error?.message || KOPSTEG.sparaFel)
+      return false
+    }
+  }, [])
 
-  /* -------------------------------------------------- 1.1: vidare till köpsteget */
-
-  const vidareTillPaket = useCallback(async () => {
-    if (!track || busy) return
-    setBusy(true)
-    setFel(null)
-    const ok = await sparaSpar(track, 'purchase')
-    setBusy(false)
-    if (ok) setSteg('paket')
-  }, [track, busy, sparaSpar])
-
-  /* ------------------------------------------- 1.1: Börja gratis, fullvärdigt val */
+  /* ------------------------------------------------------- Börja gratis */
 
   const borjaGratis = useCallback(async () => {
     if (busy) return
-    if (!track && !utanGratisfraga) {
+    if (!initialTrack && !utanGratisfraga) {
       setSteg('gratisval')
       return
     }
     setBusy(true)
     setFel(null)
-    const ok = await sparaSpar(track, 'free')
+    const ok = await sparaSpar(initialTrack, 'free')
     setBusy(false)
     if (ok) router.push('/dashboard')
-  }, [track, busy, utanGratisfraga, sparaSpar, router])
-
-  /* ------------------------------------------------------- 1.1b: gratisanvändaren */
+  }, [initialTrack, busy, utanGratisfraga, sparaSpar, router])
 
   const avslutaGratis = useCallback(async () => {
     if (!gratisVal || busy) return
@@ -222,22 +159,23 @@ export default function ValjSparClient({
     if (ok) router.push('/dashboard')
   }, [gratisVal, busy, sparaSpar, router])
 
-  /* ------------------------------------------------------------ 1.2: till kassan */
+  /* ------------------------------------------------------- till kassan */
 
   const tillKassan = useCallback(async () => {
     if (!samtycke || busy) return
     setBusy(true)
     setFel(null)
+    setTillByte(null)
     capture('paywall_cta_clicked', {
       variant: 'onboarding_paket',
       surface: '/dashboard/valj-spar',
       plan,
       cta: 'primary',
     })
-    // Bytte hon till Hela paketet i köpsteget ska spåret följa med, annars
-    // säger profilen CV och kvittot Hela paketet.
-    if (track && sparatTrack.current !== track) {
-      const ok = await sparaSpar(track, 'purchase')
+    // Premium ger allt, så spåret blir allt. Annars säger profilen CV och
+    // kvittot Premium, och hemskärmen ordnas efter fel spår.
+    if (initialTrack !== 'allt') {
+      const ok = await sparaSpar('allt', 'purchase')
       if (!ok) {
         setBusy(false)
         return
@@ -247,45 +185,62 @@ export default function ValjSparClient({
       const res = await fetch('/api/stripe/create-plan-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Rutten läser fältet `plan`, inte `planKey`. consent är
-        // ångerrättssamtycket: rutten svarar 400 utan det, och kryssrutan
-        // spärrar redan knappen, så fältet är alltid true här. Det är
-        // beviskedjan: kryssrutan blir ett fält i kroppen som blir metadata
-        // på sessionen.
-        body: JSON.stringify({ plan, source: 'onboarding_paket', consent: samtycke }),
+        // Rutten läser fältet `plan`. consent är ångerrättssamtycket:
+        // rutten svarar 400 utan det, och kryssrutan spärrar redan knappen,
+        // så fältet är alltid true här. Det är beviskedjan: kryssrutan blir
+        // ett fält i kroppen som blir metadata på sessionen.
+        body: JSON.stringify({ plan, source: kopSource(plats), consent: samtycke }),
       })
       const json = await res.json().catch(() => ({}))
-      if (!res.ok || !json?.url) throw new Error(json?.error || 'Kassan kunde inte öppnas')
+      // 400 med saljs: false betyder att paketet inte säljs. Det är ett fel
+      // med en förklaring, aldrig ett tyst "klart".
+      if (res.status === 400 && json?.saljs === false) throw new Error(KOPSTEG.saljsInte)
+      if (res.status === 409 && json?.upgradeAvailable) {
+        setBusy(false)
+        setTillByte(typeof json?.bytUrl === 'string' ? json.bytUrl : KOPSTEG.prenumerationHref)
+        setFel(json?.error || KOPSTEG.redan)
+        return
+      }
+      if (res.status === 409) throw new Error(json?.error || KOPSTEG.redan)
+      if (!res.ok || !json?.url) throw new Error(json?.error || KOPSTEG.felKassa)
       // Omdirigeringen till Stripe är trattens femte steg. Skjuts precis
       // före hoppet: efter det finns ingen sida kvar som kan skicka något.
       capture('checkout_started', { plan, length: PLAN_BY_KEY[plan].length })
       window.location.href = json.url as string
     } catch (error: any) {
       setBusy(false)
-      setFel(error?.message || 'Kassan kunde inte öppnas just nu. Försök igen.')
+      setFel(error?.message || KOPSTEG.felKassa)
     }
-  }, [samtycke, busy, plan, track, sparaSpar])
+  }, [samtycke, busy, plan, plats, initialTrack, sparaSpar])
 
   const felBanner = fel ? (
-    <FlowError message={fel} onRetry={() => setFel(null)} retryLabel="Försök igen" />
+    tillByte ? (
+      <FlowError
+        message={fel}
+        onRetry={() => router.push(tillByte)}
+        retryLabel={KOPSTEG.tillPrenumeration}
+      />
+    ) : (
+      <FlowError message={fel} onRetry={() => setFel(null)} retryLabel={KOPSTEG.forsokIgen} />
+    )
   ) : undefined
 
-  /* ============================================================ skärm 1.1b */
+  /* ============================================================ gratisval */
 
   if (steg === 'gratisval') {
     return (
       <FlowShell
-        title="Kom igång"
-        step={2}
-        totalSteps={2}
-        onBack={() => setSteg('val')}
+        title={KOPSTEG.topp}
+        step={1}
+        totalSteps={1}
+        onBack={() => setSteg('kop')}
         onExit={() => router.push('/dashboard')}
         primaryLabel={SPARVAL_GRATIS.primar}
         onPrimary={avslutaGratis}
         primaryDisabled={!gratisVal}
-        primaryBlockedReason="Välj vad du vill börja med."
+        primaryBlockedReason={KOPSTEG.gratisSparr}
         primaryBusy={busy}
-        busyLabel="Sparar"
+        busyLabel={KOPSTEG.sparar}
         banner={felBanner}
       >
         <p className="text-steg uppercase text-ink-3">{SPARVAL_GRATIS.steg}</p>
@@ -319,182 +274,86 @@ export default function ValjSparClient({
     )
   }
 
-  /* ============================================================= skärm 1.2 */
+  /* ============================================================ köpsteget */
 
-  if (steg === 'paket') {
-    const datum = engangs ? dygnSlutar() : nastaDragning(plan)
-    const forsta = KOPSTEG.forstaSteg[paket]
-    const ForstaScen = paket === 'test' ? IlluScenMatris : IlluScenCv
-    const inaktiva: PlanLength[] = harLopandePrenumeration ? ['dag'] : []
-
-    return (
-      <FlowShell
-        title="Kom igång"
-        step={2}
-        totalSteps={2}
-        onBack={() => setSteg('val')}
-        onExit={() => router.push('/dashboard')}
-        primaryLabel={KOPSTEG.primar(plan)}
-        onPrimary={tillKassan}
-        primaryDisabled={!samtycke}
-        primaryBlockedReason={KOPSTEG.samtyckeSparr}
-        primaryBusy={busy}
-        busyLabel="Öppnar kassan"
-        banner={felBanner}
-        footerSecondary={<p className="text-center text-meta text-ink-3 sm:text-left">{KOPSTEG.fotnot}</p>}
-      >
-        <p className="text-steg uppercase text-ink-3">Steg 2 av 2</p>
-        <h2 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
-          {KOPSTEG.rubrik(plan)}
-        </h2>
-        <p className="mt-1 text-sm leading-[22px] text-ink-2">{KOPSTEG.under}</p>
-
-        {/* Kvittot. */}
-        <section className="mt-4 rounded-xl border border-kant-stark bg-panel p-4" aria-label="Kvitto">
-          <div className="flex items-baseline justify-between gap-3">
-            <p className="font-display text-xl font-bold tracking-[-0.025em] text-ink-1">
-              {paketNamn(plan)}
-            </p>
-            <p className="font-display text-[26px] font-bold tabular-nums tracking-[-0.025em] text-ink-1">
-              {PLAN_BY_KEY[plan].amount} kr{' '}
-              <span className="font-sans text-xs font-normal text-ink-3">
-                {KOPSTEG.prisEnhet(plan)}
-              </span>
-            </p>
-          </div>
-
-          <p className="mt-3 text-steg uppercase text-ink-3">{KOPSTEG.farEtikett(plan)}</p>
-          <ul className="mt-2 grid gap-1 text-[13px] leading-[18px] text-ink-2">
-            {KOPSTEG_FAR[paket].map((rad) => (
-              <li key={rad.fet} className="flex gap-2">
-                <span
-                  className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-ink-1"
-                  aria-hidden="true"
-                />
-                <span>
-                  <b className="font-semibold text-ink-1">{rad.fet}</b>
-                  {rad.text}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <dl className="mt-3 grid gap-1 border-t border-kant pt-3 text-[13px]">
-            <div className="flex justify-between gap-3">
-              <dt className="text-ink-3">{engangs ? KOPSTEG.villkor.galler : KOPSTEG.villkor.fornyas}</dt>
-              <dd className="text-right font-medium text-ink-1">{KOPSTEG.fornyasVarde(plan, datum)}</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-ink-3">{KOPSTEG.villkor.uppsagning}</dt>
-              <dd className="text-right font-medium text-ink-1">
-                {engangs ? 'behövs inte, inget dras igen' : KOPSTEG.villkor.uppsagningVarde}
-              </dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-ink-3">{KOPSTEG.villkor.angerratt}</dt>
-              <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.angerrattVarde}</dd>
-            </div>
-          </dl>
-
-          <div className="mt-3 flex items-center gap-3 rounded-lg bg-insunken p-3 text-ink-1">
-            <ForstaScen className="h-11 w-11 shrink-0" />
-            <div>
-              <p className="text-sm font-semibold leading-[19px] text-ink-1">{forsta.rubrik}</p>
-              <p className="text-xs text-ink-3">{forsta.text}</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Hela paketet i stället, eller längden på Hela paketet. */}
-        <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3">
-          <p className="text-steg uppercase text-ink-3">
-            {paket === 'allt' ? KOPSTEG.alltLangd : KOPSTEG.alltIStallet}
-          </p>
-          <LangdVal
-            className="mt-2"
-            label={KOPSTEG.alltLangd}
-            yta="papper"
-            value={paket === 'allt' ? langd : null}
-            inaktiva={inaktiva}
-            onChange={(ny) => {
-              setLangd(ny)
-              if (track !== 'allt') setTrack('allt')
-              capture('plan_length_changed', { plan: planForLangd(ny), surface: '/dashboard/valj-spar' })
-            }}
-          />
-          {harLopandePrenumeration ? (
-            <p className="mt-2 text-meta text-ink-3">{KOPSTEG.dagSparrad}</p>
-          ) : null}
-        </section>
-
-        <label className="mt-3 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
-          <input
-            type="checkbox"
-            checked={samtycke}
-            onChange={(e) => bockaSamtycke(e.target.checked)}
-            // accent-color, inte text-*: webbläsaren ritar rutans fyllning
-            // själv och den var annars systemblå.
-            style={{ accentColor: 'var(--ink-1)' }}
-            className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
-          />
-          <span>{samtyckeVidKop(plan)}</span>
-        </label>
-      </FlowShell>
-    )
-  }
-
-  /* ============================================================= skärm 1.1 */
+  const datum = nastaDragningText(plan)
 
   return (
     <FlowShell
-      title="Kom igång"
+      title={KOPSTEG.topp}
       step={1}
-      totalSteps={2}
+      totalSteps={1}
       onExit={() => router.push('/dashboard')}
-      primaryLabel={SPARVAL.primar(paket, plan)}
-      onPrimary={vidareTillPaket}
-      primaryDisabled={!track}
-      primaryBlockedReason="Välj ett av de tre korten först."
+      primaryLabel={KOPSTEG.primar(plan)}
+      onPrimary={tillKassan}
+      primaryDisabled={!samtycke}
+      primaryBlockedReason={KOPSTEG.samtyckeSparr}
       primaryBusy={busy}
-      busyLabel="Sparar"
+      busyLabel={KOPSTEG.busy}
       banner={felBanner}
       footerSecondary={
-        <div>
-          <button
-            type="button"
-            onClick={borjaGratis}
-            disabled={busy}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
-          >
+        <div className="flex flex-col items-center gap-1 sm:items-start">
+          <button type="button" onClick={borjaGratis} disabled={busy} className={`${LANK} min-h-11 disabled:opacity-50`}>
             {SPARVAL.sekundar}
           </button>
-          <p className="mt-2 text-center text-xs text-ink-3 sm:text-left">{SPARVAL.fotnot}</p>
+          <p className="text-center text-meta text-ink-3 sm:text-left">{KOPSTEG.fotnot}</p>
         </div>
       }
     >
-      <p className="text-steg uppercase text-ink-3">Steg 1 av 2</p>
-      <h2 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
-        {SPARVAL.fraga}
-      </h2>
-      <p className="mt-1 text-sm leading-[22px] text-ink-2">{SPARVAL.under}</p>
+      <h2 className="text-kort-t text-ink-1">{KOPSTEG.rubrik(plan)}</h2>
+      <p className="mt-1 text-sm leading-[21px] text-ink-2">{KOPSTEG.prisrad(plan)}</p>
+      <p className="mt-0.5 text-meta text-ink-3">{KOPSTEG.under}</p>
 
-      <div role="radiogroup" aria-label={SPARVAL.fraga} className="mt-4 grid gap-3">
-        {SPARVAL.kort.map((kort) => (
-          <SparKort
-            key={kort.paket}
-            Scen={SCEN[kort.paket]}
-            ink={kort.paket === 'allt'}
-            eyebrow={kort.paket === 'allt' ? 'Rekommenderas' : undefined}
-            rubrik={kort.rubrik}
-            namn={kort.namn}
-            duFar={kort.duFar}
-            prisText={kort.prisText}
-            pris={kort.pris}
-            selected={track === TRACK_FOR[kort.paket]}
-            onSelect={() => setTrack(TRACK_FOR[kort.paket])}
-          />
-        ))}
-      </div>
+      <section
+        className="mt-4 rounded-2xl border border-kant bg-papper p-4"
+        aria-label={KOPSTEG.farEtikett}
+      >
+        <p className="text-ey text-ink-3">{KOPSTEG.farEtikett}</p>
+        <ul className="mt-2 grid gap-2">
+          {PAKET_KORT.allt.ingar.map((rad) => (
+            <li key={rad} className="flex items-start gap-2.5 text-sm leading-5 text-ink-1">
+              <Check className="mt-px h-[18px] w-[18px] shrink-0 text-ton-ink" strokeWidth={2} aria-hidden="true" />
+              <span>{rad}</span>
+            </li>
+          ))}
+        </ul>
+
+        <dl className="mt-4 grid gap-1 border-t border-kant pt-3 text-[13px]">
+          <div className="flex justify-between gap-3">
+            <dt className="text-ink-3">{engangs ? KOPSTEG.villkor.galler : KOPSTEG.villkor.fornyas}</dt>
+            <dd className="text-right font-medium text-ink-1">{KOPSTEG.fornyasVarde(plan, datum)}</dd>
+          </div>
+          <div className="flex justify-between gap-3">
+            <dt className="text-ink-3">{KOPSTEG.villkor.uppsagning}</dt>
+            <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.uppsagningVarde}</dd>
+          </div>
+          <div className="flex justify-between gap-3">
+            <dt className="text-ink-3">{KOPSTEG.villkor.angerratt}</dt>
+            <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.angerrattVarde}</dd>
+          </div>
+        </dl>
+
+        <div className="mt-3 flex items-center gap-3 rounded-lg bg-papper-2 p-3 text-ink-1">
+          <IlluScenCv className="h-11 w-11 shrink-0" />
+          <div>
+            <p className="text-sm font-semibold leading-[19px] text-ink-1">{KOPSTEG.forstaSteg.rubrik}</p>
+            <p className="text-meta text-ink-3">{KOPSTEG.forstaSteg.text}</p>
+          </div>
+        </div>
+      </section>
+
+      <label className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
+        <input
+          type="checkbox"
+          checked={samtycke}
+          onChange={(e) => bockaSamtycke(e.target.checked)}
+          // accent-color, inte text-*: webbläsaren ritar rutans fyllning
+          // själv och den var annars systemblå.
+          style={{ accentColor: 'var(--ink-1)' }}
+          className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
+        />
+        <span>{samtyckeVidKop(plan)}</span>
+      </label>
     </FlowShell>
   )
 }

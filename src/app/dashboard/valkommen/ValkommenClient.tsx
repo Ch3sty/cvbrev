@@ -90,10 +90,8 @@ export default function ValkommenClient({ signup, fornamn }: ValkommenClientProp
   if (forslag) return <ForslagSteg intent={forslag} fornamn={fornamn} entry={signup?.entry} />
 
   return (
-    <div className="fixed inset-0 z-50 bg-mark lg:left-64" aria-busy="true" aria-label="Laddar">
-      <div className="h-0.5 w-full overflow-hidden bg-kant">
-        <div className="h-full w-1/3 animate-pulse bg-accent" />
-      </div>
+    <div className="fixed inset-0 z-50 bg-golv lg:left-[248px]" aria-busy="true" aria-label="Laddar">
+      <div className="loading-thread h-0.5 w-full bg-kant" />
     </div>
   )
 }

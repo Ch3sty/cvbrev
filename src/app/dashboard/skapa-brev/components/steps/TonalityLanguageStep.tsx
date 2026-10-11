@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import ChoiceCard from '@/components/shell/ChoiceCard';
 import Segment from '@/components/shell/Segment';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaSmartTon } from '@/components/illustrations/TradenScener';
 import {
   IkonProfessionell,
@@ -23,9 +22,9 @@ import {
   IkonBalanserad,
   type IkonProps,
 } from '@/components/illustrations/Ikoner';
-import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
 import { ANDRA_FORVALD_TON, BREV_SEKTION } from '@/app/dashboard/profil/profil-copy';
-import { paketMedPris } from '@/lib/plans/plans';
+import { paketKort } from '@/lib/plans/plans';
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
 
 type Tonality =
   | 'professional'
@@ -126,20 +125,20 @@ export default function TonalityLanguageStep({
           description="Vi läser annonsens språk och bransch och skriver brevet i den ton arbetsgivaren själv använder."
           meta={isPremium ? 'Läser kraven · Branschens ton' : BREV_SEKTION.smartMeta}
           leading={
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaSmartTon size={48} />
-            </MarginPlate>
+            </span>
           }
         />
 
         {!isPremium ? (
           <p className="text-meta text-ink-3">
-            Automatiskt tonval ingår i alla tre paketen.{' '}
+            {`Automatiskt tonval ingår i ${paketKort()}.`}{' '}
             <Link
-              href={PREMIUM_HREF}
+              href="/priser"
               className="font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
-              Se {paketMedPris('cv_week')}
+              {PAKETRADER.jamfor}
             </Link>
           </p>
         ) : null}

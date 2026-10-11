@@ -21,6 +21,45 @@ export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
 /** Varifrån hjälpredan Kom igång öppnades. */
 export type KomIgangSurface = 'rad' | 'profilmeny' | 'valkomst'
 
+/**
+ * Var en betalvägg visades (spec-rummen avsnitt 7, våg 5). Samma värde går
+ * med köpknappen till köpsteget (kopstegHref) och därifrån till kassans
+ * metadata, så att subscription_paid kan räknas per exponering.
+ * Träningen: matning (M1), dag2 (1f och W3, dagens pass låst), riktat,
+ * provlage, ommatning, kurva, infor_prov, generalrepetition. Övriga rum:
+ * en plats per betalväggsvariant (mall, analys, nedladdning och så vidare),
+ * sidomeny för ett grått val i menyn.
+ */
+export type BetalvaggPlats =
+  | 'matning'
+  | 'dag2'
+  | 'riktat'
+  | 'provlage'
+  | 'ommatning'
+  | 'kurva'
+  | 'infor_prov'
+  | 'generalrepetition'
+  | 'sidomeny'
+  | 'mall'
+  | 'testniva'
+  | 'analys'
+  | 'nedladdning'
+  | 'cv_export'
+  | 'jobbtraffar'
+  | 'chatt'
+  | 'historik'
+  | 'linkedin'
+  | 'bli_upptackt'
+  | 'kvot'
+  | 'test_tak'
+  | 'cv_antal'
+  | 'af_rapport'
+  | 'nedgraderad'
+  | 'prenumeration'
+  | 'smart_ton'
+  /** Intervjuprovet i artiklarna, när den inloggade kvoten är slut. */
+  | 'intervjuprov'
+
 /** Varför prissidan öppnades. */
 export type PricingTrigger = 'quota_lock' | 'nav' | 'cta' | 'paywall'
 
@@ -185,6 +224,8 @@ export interface AnalyticsEvents {
     plan?: PlanKey
     /** Ink-knappen eller textlänken under den. */
     cta: 'primary' | 'secondary'
+    /** Exponeringen knappen satt i, samma värde som i betalvagg_visad. */
+    plats?: BetalvaggPlats
   }
   /* Prissidan finns på två ytor: den publika /priser och den inloggade
      prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
@@ -283,7 +324,101 @@ export interface AnalyticsEvents {
      handling eller raden Prova också. outside_intent är sant när funktionen
      ligger utanför det område hon valde vid registreringen. */
   next_action_clicked: { kind: string; surface: 'hem'; slug?: string; outside_intent: boolean }
+  /* Testmotorn, våg 3a av Rummen (spec-rummen avsnitt 7). Skjuts från
+     servern i /api/traning/pass/complete. */
+  nivamatning_klar: {
+    niva: number
+    over_tid: number
+    familjer: string[]
+    tid_s: number
+    /** Antal frågor ur smakprovet som räknades in i mätningen (spec 14.5). */
+    smakprov: number
+  }
+  pass_klart: {
+    typ: 'pass' | 'riktat'
+    variant: 'grund' | 'niva'
+    niva_fore: number | null
+    niva_efter: number | null
+    ratt: number
+    antal: number
+    over_tid: number
+    tid_s: number
+    /** Frågor hon sett förut (friskhet 1 till 3), ur sessionens meta. */
+    ateranvanda: number
+    /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
+    raknade: number
+    /**
+     * Antal rätt per band ur urvalet (spec 19.4 punkt 5): ger 60/20/20 väntat
+     * 4 till 5 av 9 på egen nivå? Null i sessioner utan band.
+     */
+    band_ratt: { under: number; nara: number; over: number } | null
+  }
+  ommatning_klar: { niva: number; delta: number }
+  generalrepetition_klar: { format: string; ratt: number; antal: number }
+  milstolpe_nadd: { nyckel: string }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
+  /* ---------------------------------------------- Rummen, våg 1b
+     spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller
+     vid landningen), sokta_tjanster_oppnad varje gång listan öppnas, så
+     öppningarna kan jämföras före och efter navbytet. tema_bytt när
+     Utseende ändras på profilen. */
+  rum_oppnat: {
+    rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+    /**
+     * Registreringens val (copywriterns önskemål 2026-10-11): vilka som
+     * trycker på Tester utan att ha valt tester, och om de lämnar rummet.
+     * Bara mätning, styr aldrig menyn (kriterium 14).
+     */
+    intent?: SignupIntent | null
+  }
+  sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
+  /* ---------------------------------------------- Rummen, våg 2
+     spec-rummen avsnitt 7. Ingången (E1 till E3), provdatumet och hemvyn i
+     Rekryteringstester. */
+  ingang_steg: { steg: 1 | 2 | 3; val: string; forsta: boolean }
+  provdatum_satt: {
+    dagar_kvar: number
+    leverantor: string | null
+    typer: string[]
+    surface: 'ingang' | 'installningar'
+  }
+  provdatum_hoppat_over: { steg: 2 | 3 }
+  traning_hem_visad: {
+    tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel'
+  }
+  efter_provet_svar: { svar: 'vidare' | 'vet_inte' | 'inte_vidare' }
+  /* ---------------------------------------------- Rummen, våg 3b
+     spec-rummen-2026-10-10 avsnitt 7. Klientens del: starten av mätningen
+     och passet (slutet skjuts från servern i pass/complete), "Vet inte",
+     kvittot och betalväggen. betalvagg_visad skickas när M1:s betalvägg
+     visas (plats matning) och när ett pass spärras vid start (dag2, riktat,
+     provlage, ommatning). */
+  nivamatning_startad: { ommatning: boolean; smakprov: number }
+  pass_startat: { typ: 'pass' | 'riktat' | 'general'; variant: 'grund' | 'niva' }
+  vet_inte_tryckt: { fraga_index: number }
+  milstolpe_kvitto_visat: { nyckel: string }
+  betalvagg_visad: {
+    plats: BetalvaggPlats
+    dagar_kvar: number | null
+  }
+  /* ---------------------------------------------- Rummen, våg 4
+     rum_bytt vid varje byte mellan två rum (inte landningen), med varifrån
+     bytet kom. korsreferens_klick när en rad i ett rum leder till ett annat.
+     sokta_tjanst_oppnad när en enskild sökt tjänst öppnas, så att
+     öppningarna av Sökta tjänster kan läsas både som lista och per tjänst. */
+  rum_bytt: {
+    fran: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    till: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+  }
+  korsreferens_klick: {
+    fran: 'tran' | 'cv' | 'brev' | 'jobb'
+    till: 'tran' | 'cv' | 'brev' | 'jobb'
+    variant: 'niva' | 'aldrig_matt' | 'intervju' | 'spara_sokt'
+  }
+  sokta_tjanst_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

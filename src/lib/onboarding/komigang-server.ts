@@ -102,7 +102,10 @@ export async function markeraBricka(userId: string, key: BrickaKey): Promise<voi
 export function brickorForTestType(testType: string | null | undefined): Array<BrickaKey | 'verbalt_grund' | 'numeriskt_grund'> {
   const t = testType ?? 'matrislogik'
   if (t.endsWith('-prov')) return ['provlage']
-  if (t === 'matrislogik') return ['matris_grund']
+  // Träningens generalrepetition är provläget i rummet (spec 19.6).
+  if (t === 'matrislogik-general') return ['provlage']
+  // Träningens nivåmätning står för "Mät din nivå", som grundtestet.
+  if (t === 'matrislogik' || t === 'matrislogik-matning') return ['matris_grund']
   if (t === 'matrislogik-avancerad' || t === 'matrislogik-expert') return ['matris_avancerad']
   if (t === 'verbal-resonemang') return ['verbalt_grund']
   if (t === 'numerical-reasoning') return ['numeriskt_grund']

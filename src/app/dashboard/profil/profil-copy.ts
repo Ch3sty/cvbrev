@@ -5,7 +5,7 @@
  */
 
 
-import { PLAN_BY_KEY, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { DOKUMENT_EPOST } from '@/lib/profile/dokumentEpost-copy'
 import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 
@@ -75,7 +75,7 @@ export const BREV_SEKTION = {
   under: 'Gäller bara dina personliga brev. Ditt CV påverkas inte.',
   ton: 'Förvald ton',
   tonText: 'Tonen vi börjar med när du skapar ett nytt brev. Du kan alltid byta i själva brevet.',
-  smartMeta: 'Ingår när du har ett paket',
+  smartMeta: `Ingår i ${paketKort()}`,
   huvud: 'Brevhuvudet',
   huvudText: 'Vad som står under ditt namn överst i brevet.',
   telefon: { etikett: 'Telefon i brevhuvudet', text: 'Av om du hellre blir kontaktad på mejl.' },
@@ -100,9 +100,9 @@ export const JOBBSOK_SEKTION = {
 
 export const KONTO_SEKTION = {
   rubrik: 'Konto',
-  under: 'Paket, mejl från oss, utloggning och radering.',
+  under: 'Prenumeration, mejl från oss, utloggning och radering.',
   prenumeration: 'Prenumeration',
-  gratis: `Gratisnivån · tre paket, från ${PLAN_BY_KEY.all_day.amount} kr`,
+  gratis: `Gratisnivån · ${paketKort()} kostar ${prisPeriod(SALD_PLAN)}`,
   mejl: 'Mejl från oss',
   mejlStatus: (vecka: boolean, paminnelser: boolean) =>
     `Veckosammanfattning ${vecka ? 'på' : 'av'}, påminnelser ${paminnelser ? 'på' : 'av'}`,
@@ -113,18 +113,21 @@ export const KONTO_SEKTION = {
   raderaText: 'All data tas bort och kan inte återställas',
 } as const
 
-/** Smart val på gratisnivån (PremiumGateModal). Paketnamnen med pris, R1. */
+/**
+ * Smart val på gratisnivån (PremiumGateModal), en betalvägg: rubriken säger
+ * Premium, prisraden fulla namnet, knappen kopKnapp (copy-premium 3 och 8).
+ */
 export const SMART_VAL = {
-  rubrik: 'Smart val ingår när du har ett paket',
-  eyebrow: 'Ingår i alla tre paketen',
+  rubrik: `Smart val ingår i ${paketKort()}`,
+  eyebrow: 'Personliga brev',
   text: 'Vi läser annonsens språk och bransch och väljer tonen åt dig, brev för brev.',
   rader: [
     'Vi läser tonen i varje annons',
     'Du slipper välja manuellt för varje brev',
     'Samma ton som arbetsgivaren använder i annonsen',
   ],
-  pris: `${paketNamn('cv_week')} och ${paketNamn('test_week')} kostar ${prisPeriod('cv_week')}, ${paketNamn('all_week')} ${prisPeriod('all_week')}.`,
-  knapp: 'Jämför paketen',
+  pris: `${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`,
+  knapp: kopKnapp(SALD_PLAN),
   senare: 'Kanske senare',
 } as const
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckSquare, Square } from 'lucide-react';
+import { CheckSquare, Square } from '@/components/illustrations/RumIkoner';
 import type { SelectCategory } from './CategorySegments';
 
 interface CategoryHeroProps {
@@ -35,7 +35,7 @@ export default function CategoryHero({
   const showSelectButton = !autoMode && totalCount > 1;
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <p className="text-steg uppercase text-ink-3">
         {autoMode ? 'Tillämpas automatiskt' : 'Du väljer'}
       </p>
@@ -53,7 +53,7 @@ export default function CategoryHero({
           <button
             type="button"
             onClick={() => (allSelected ? onDeselectAll?.() : onSelectAll?.())}
-            className="inline-flex h-11 items-center gap-1.5 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+            className="inline-flex h-11 items-center gap-1.5 rounded-lg border border-kant-stark bg-papper px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
           >
             {allSelected ? (
               <>

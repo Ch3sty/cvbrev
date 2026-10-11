@@ -1,6 +1,7 @@
 'use client';
 
 import ChangeLogItem from './ChangeLogItem';
+import { antal } from '@/lib/rum/antal';
 
 export interface ChangeLogData {
   /** Personbeskrivning ändrad */
@@ -47,7 +48,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
   if (!hasAnything) {
     return (
       <div
-        className="rounded-xl border border-dashed border-kant-stark bg-insunken p-6 text-center shadow-insunken"
+        className="rounded-xl border border-dashed border-kant-stark bg-papper-2 p-6 text-center "
       >
         <p className="text-sm text-ink-2">
           Du har inte valt några förbättringar att tillämpa. Gå tillbaka till
@@ -71,7 +72,7 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
             ...(data.profile.changes.length > 0
               ? [
                   {
-                    label: `${data.profile.changes.length} förbättringar`,
+                    label: antal(data.profile.changes.length, 'förbättring', 'förbättringar'),
                     tone: 'orange' as const,
                   },
                 ]

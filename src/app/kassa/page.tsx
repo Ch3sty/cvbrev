@@ -1,18 +1,18 @@
 'use client'
 
 /**
- * /kassa?plan=daypass|week|month|quarter
+ * /kassa?plan=<planKey>
  *
- * Startar Stripe Checkout för vald produkt. Används som mål efter
- * registrering och inloggning från prissidan, så att köpet inte tappas
- * bort på vägen. Utloggade skickas till inloggning med denna sida som
- * redirect.
+ * Gammal ingång efter registrering och inloggning från prissidan. Bär köpet
+ * vidare till köpsteget, så att det inte tappas bort på vägen. Bara
+ * Jobbcoach Premium säljs (spec-rummen 17.3): ett osålt paket i en gammal
+ * länk leder till Premium (kopstegHref normaliserar med saljbarPlan).
  */
 
 import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { isPlanKey, paketMedPris, saljbarPlan } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 
 function KassaInner() {
@@ -32,10 +32,11 @@ function KassaInner() {
     // montering, så den kan inte längre öppna kassan själv. Den bär i stället
     // paketet till köpsteget, som har både rutan och knappen. Utloggade
     // skickas dit via inloggningen av sidan själv.
-    router.replace(kopstegHref(planParam))
+    router.replace(kopstegHref(planParam, 'priser'))
   }, [planParam, router, attempt])
 
-  const plan = isPlanKey(planParam) ? PLAN_BY_KEY[planParam] : null
+  // Det som säljs, inte det som stod i länken: "Jobbcoach Premium, 149 kr i månaden".
+  const plan = isPlanKey(planParam) ? paketMedPris(saljbarPlan(planParam)) : null
 
   return (
     <main className="min-h-screen bg-white flex items-center justify-center px-4">
@@ -71,7 +72,7 @@ function KassaInner() {
             />
             <h1 className="text-lg font-semibold text-neutral-900 tracking-tight mt-4">Öppnar kassan</h1>
             <p className="text-sm text-neutral-600 mt-1">
-              {plan ? `${plan.name}, ${plan.amount} kr ${plan.suffix}.` : ''} Du skickas till Stripe om ett ögonblick.
+              {plan ? `${plan}.` : ''} Du skickas till Stripe om ett ögonblick.
             </p>
           </>
         )}

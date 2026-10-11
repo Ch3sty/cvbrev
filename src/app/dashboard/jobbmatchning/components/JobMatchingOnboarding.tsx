@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomSokning } from '@/components/illustrations/TradenScener';
@@ -41,14 +42,14 @@ export default function JobMatchingOnboarding() {
         action={
           <Link
             href="/dashboard/profil/cv"
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Ladda upp ditt första CV
           </Link>
         }
       />
 
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-sm font-medium text-ink-3">Så fungerar det</h2>
         <ol className="mt-2 divide-y divide-kant border-t border-kant">
           {STEG.map((s, i) => (
@@ -63,7 +64,7 @@ export default function JobMatchingOnboarding() {
         </ol>
       </section>
 
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-sm font-medium text-ink-3">Så kommer dina träffar att se ut</h2>
         <ul className="mt-2 divide-y divide-kant border-t border-kant" aria-hidden="true">
           {EXEMPEL.map((e) => (

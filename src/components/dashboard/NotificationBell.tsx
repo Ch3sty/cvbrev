@@ -35,7 +35,7 @@ function relativeTime(iso: string): string {
  * badge och en dropdown. Klick på en notis markerar den läst och navigerar till
  * dess action_url (t.ex. rekryterarintresset till Bli upptäckt).
  */
-export default function NotificationBell() {
+export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv' } = {}) {
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [unread, setUnread] = useState(0);
   const [open, setOpen] = useState(false);
@@ -115,28 +115,32 @@ export default function NotificationBell() {
     }
   };
 
+  // Rummen (spec 4.2 och avsnitt 0): klockan står i toppraden bara när det
+  // finns något oläst. En öppen meny stängs inte för att allt blivit läst.
+  if (unread === 0 && !open) return null;
+
   return (
     <div className="relative" ref={ref}>
       <button
         type="button"
-        className="relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
+        className={`relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-[10px] text-current transition-colors ${pa === 'vagg' ? 'hover:bg-white/10' : 'hover:bg-papper-2'}`}
         onClick={() => setOpen((v) => !v)}
         aria-label={unread > 0 ? `Notiser, ${unread} olästa` : 'Notiser'}
       >
         <IkonKlocka size={22} />
         {/* Diskret prick i stället för sifferbadge: antalet olästa är inte
             en siffra användaren agerar på, bara ett tecken på att något nytt
-            finns. Pricken är ink, inte orange: orange betyder position. */}
+            finns. I Rummen står pricken i koppar, som allt som markerar. */}
         {unread > 0 && (
           <span
             aria-hidden="true"
-            className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-ink-1 ring-2 ring-panel"
+            className={`absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-koppar ring-2 ${pa === 'vagg' ? 'ring-vagg' : 'ring-papper'}`}
           />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 z-50 mt-2 w-[320px] max-w-[calc(100vw-24px)] overflow-hidden rounded-xl border border-kant bg-panel shadow-svav motion-safe:animate-thread-drop">
+        <div className="absolute right-0 z-50 mt-2 w-[320px] max-w-[calc(100vw-24px)] overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop">
           <div className="flex min-h-[44px] items-center justify-between border-b border-kant px-4">
             <span className="text-sm font-medium text-ink-1">Notiser</span>
             {unread > 0 && (
@@ -168,8 +172,8 @@ export default function NotificationBell() {
               items.map((n) => {
                 const inner = (
                   <div
-                    className={`flex items-start gap-2.5 border-b border-kant px-4 py-3 transition-colors hover:bg-insunken/60 ${
-                      n.read ? '' : 'bg-insunken/40'
+                    className={`flex items-start gap-2.5 border-b border-kant px-4 py-3 transition-colors hover:bg-papper-2/60 ${
+                      n.read ? '' : 'bg-papper-2/40'
                     }`}
                   >
                     <span

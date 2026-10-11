@@ -34,7 +34,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
     if (!(await requireOwnedApplication(supabase, id, user.id))) {
-      return NextResponse.json({ error: 'Ansökan hittades inte' }, { status: 404 });
+      return NextResponse.json({ error: 'Den sökta tjänsten hittades inte' }, { status: 404 });
     }
 
     let body: Record<string, unknown>;
@@ -89,7 +89,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
     if (!(await requireOwnedApplication(supabase, id, user.id))) {
-      return NextResponse.json({ error: 'Ansökan hittades inte' }, { status: 404 });
+      return NextResponse.json({ error: 'Den sökta tjänsten hittades inte' }, { status: 404 });
     }
 
     const { error } = await supabase

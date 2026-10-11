@@ -1,0 +1,851 @@
+{
+  "bas": "http://localhost:5232",
+  "tid": "2026-10-10T22:04:57.287Z",
+  "vyer": [],
+  "ssr": [],
+  "dorrar": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-pixel7-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-pixel7-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-pixel7-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-pixel7-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-ljust-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-ljust-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-ljust-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "light",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-ljust-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "tran",
+      "fil": "dorrar/N-smal-morkt-tran.png",
+      "hojd": 72,
+      "aktiv": "Testträning",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "cv",
+      "fil": "dorrar/N-smal-morkt-cv.png",
+      "hojd": 72,
+      "aktiv": "CV",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "brev",
+      "fil": "dorrar/N-smal-morkt-brev.png",
+      "hojd": 72,
+      "aktiv": "Personliga brev",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "form": "smal",
+      "system": "dark",
+      "rum": "jobb",
+      "fil": "dorrar/N-smal-morkt-jobb.png",
+      "hojd": 72,
+      "aktiv": "Jobbsöket",
+      "etiketter": [
+        {
+          "text": "Testträning",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "CV",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Personliga brev",
+          "rader": 1,
+          "klippt": false
+        },
+        {
+          "text": "Jobbsöket",
+          "rader": 1,
+          "klippt": false
+        }
+      ],
+      "konsol": []
+    },
+    {
+      "byte": [
+        {
+          "dorr": "Testträning",
+          "fore": "jobb",
+          "rum": "tran",
+          "transition": "background-color 0.24s",
+          "theme": "#1B2246",
+          "url": "/dashboard/tester"
+        },
+        {
+          "dorr": "CV",
+          "fore": "tran",
+          "rum": "cv",
+          "transition": "background-color 0.24s",
+          "theme": "#113538",
+          "url": "/dashboard/profil/cv"
+        },
+        {
+          "dorr": "Personliga brev",
+          "fore": "cv",
+          "rum": "brev",
+          "transition": "background-color 0.24s",
+          "theme": "#3A1930",
+          "url": "/dashboard/mina-brev"
+        },
+        {
+          "dorr": "Jobbsöket",
+          "fore": "brev",
+          "rum": "jobb",
+          "transition": "background-color 0.24s",
+          "theme": "#1B3324",
+          "url": "/dashboard"
+        }
+      ]
+    }
+  ],
+  "sidomeny": [],
+  "fokus": [
+    {
+      "underlag": "vagg",
+      "system": "light",
+      "fil": "fokus/fokus-vagg-ljust.png",
+      "outline": "2px solid rgb(244, 185, 138)",
+      "offset": "2px",
+      "fokus": "#f4b98a"
+    },
+    {
+      "underlag": "golv",
+      "system": "light",
+      "fil": "fokus/fokus-golv-ljust.png",
+      "outline": "2px solid rgb(168, 73, 26)",
+      "offset": "2px",
+      "fokus": "#a8491a"
+    },
+    {
+      "underlag": "papper",
+      "system": "light",
+      "fil": "fokus/fokus-papper-ljust.png",
+      "outline": "2px solid rgb(168, 73, 26)",
+      "offset": "2px",
+      "fokus": "#a8491a"
+    },
+    {
+      "underlag": "ton",
+      "system": "light",
+      "fil": "fokus/fokus-ton-ljust.png",
+      "outline": "2px solid rgb(168, 73, 26)",
+      "offset": "2px",
+      "fokus": "#a8491a"
+    },
+    {
+      "underlag": "vagg",
+      "system": "dark",
+      "fil": "fokus/fokus-vagg-morkt.png",
+      "outline": "2px solid rgb(244, 185, 138)",
+      "offset": "2px",
+      "fokus": "#f4b98a"
+    },
+    {
+      "underlag": "golv",
+      "system": "dark",
+      "fil": "fokus/fokus-golv-morkt.png",
+      "outline": "2px solid rgb(242, 163, 104)",
+      "offset": "2px",
+      "fokus": "#f2a368"
+    },
+    {
+      "underlag": "papper",
+      "system": "dark",
+      "fil": "fokus/fokus-papper-morkt.png",
+      "outline": "2px solid rgb(242, 163, 104)",
+      "offset": "2px",
+      "fokus": "#f2a368"
+    },
+    {
+      "underlag": "ton",
+      "system": "dark",
+      "fil": "fokus/fokus-ton-morkt.png",
+      "outline": "2px solid rgb(242, 163, 104)",
+      "offset": "2px",
+      "fokus": "#f2a368"
+    }
+  ],
+  "floden": [
+    {
+      "flode": "brev",
+      "system": "light",
+      "steg": 1,
+      "fil": "floden/brev-ljust-steg1.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "light",
+      "steg": 2,
+      "fil": "floden/brev-ljust-steg2.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "light",
+      "steg": 3,
+      "fil": "floden/brev-ljust-steg3.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "light",
+      "steg": 4,
+      "fil": "floden/brev-ljust-steg4.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "light",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "brev",
+      "system": "dark",
+      "steg": 1,
+      "fil": "floden/brev-morkt-steg1.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "dark",
+      "steg": 2,
+      "fil": "floden/brev-morkt-steg2.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "dark",
+      "steg": 3,
+      "fil": "floden/brev-morkt-steg3.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "dark",
+      "steg": 4,
+      "fil": "floden/brev-morkt-steg4.png",
+      "knapp": "Fortsätt",
+      "koppar": true,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "brev",
+      "system": "dark",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "cv",
+      "system": "light",
+      "steg": 1,
+      "fil": "floden/cv-ljust-steg1.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "light",
+      "steg": 2,
+      "fil": "floden/cv-ljust-steg2.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "light",
+      "steg": 3,
+      "fil": "floden/cv-ljust-steg3.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "light",
+      "steg": 4,
+      "fil": "floden/cv-ljust-steg4.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "light",
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "cv",
+      "system": "dark",
+      "steg": 1,
+      "fil": "floden/cv-morkt-steg1.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "dark",
+      "steg": 2,
+      "fil": "floden/cv-morkt-steg2.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "dark",
+      "steg": 3,
+      "fil": "floden/cv-morkt-steg3.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "dark",
+      "steg": 4,
+      "fil": "floden/cv-morkt-steg4.png",
+      "knapp": null,
+      "koppar": false,
+      "iBildMedAdressfalt": false,
+      "utgang": true
+    },
+    {
+      "flode": "cv",
+      "system": "dark",
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "natfel": [
+    {
+      "var": "profilens autospara",
+      "avbrutna": 1,
+      "sparatSyns": false,
+      "felSyns": true
+    },
+    {
+      "var": "brevflödet, skapa brevet",
+      "steg": [
+        {
+          "steg": 1,
+          "vidare": true
+        },
+        {
+          "steg": 2,
+          "vidare": true
+        },
+        {
+          "steg": 3,
+          "vidare": true
+        },
+        {
+          "steg": 4,
+          "vidare": true
+        }
+      ],
+      "skapaText": "Skapa mitt brev",
+      "avbrutna": 1,
+      "sparatSyns": false,
+      "felSyns": true
+    }
+  ],
+  "tema": [
+    {
+      "steg": [
+        {
+          "val": "Mörkt",
+          "dataTheme": "dark",
+          "lagrat": "morkt",
+          "golv": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "val": "Ljust",
+          "dataTheme": "light",
+          "lagrat": "ljust",
+          "golv": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "val": "Följer systemet",
+          "dataTheme": null,
+          "lagrat": null,
+          "golv": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "efterOmladdning": null
+    }
+  ]
+}

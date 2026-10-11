@@ -12,8 +12,16 @@
  *
  * Ramen är Sheet, så scroll-lås, Escape, safe area och fokus följer med.
  * Ingen egen modal, ingen framer-motion.
+ *
+ * Rabatten (kupongen retention_49_2m) visas bara när kundens paket är
+ * Jobbcoach Premium per månad (spec-rummen 23.7 a): kupongen dras på vad
+ * prenumerationen än kostar, så för en veckokund vore "i månaden" fel i
+ * sak. Övriga paket får pausen (vid "Jag fick jobb") och frågan. Priset
+ * efter rabatten läses ur PLANS.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { PLAN_BY_KEY, SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
 import { useState } from 'react';
 import Sheet from '@/components/shell/Sheet';
 import ChoiceCard from '@/components/shell/ChoiceCard';
@@ -41,14 +49,19 @@ const REASONS: Array<{
 const PORTAL_URL = '/api/stripe/create-portal-session';
 
 const PRIMARY =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40';
+  KNAPP_PRIMAR;
+
+/** Det ordinarie priset efter rabatten: "149 kr". */
+const ORDINARIE = `${PLAN_BY_KEY[SALD_PLAN].amount} kr`;
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  /** Kundens paket. Rabatten erbjuds bara på all_month. */
+  paket?: PlanKey | null;
 }
 
-export default function CancelFlowModal({ open, onClose }: Props) {
+export default function CancelFlowModal({ open, onClose, paket = null }: Props) {
   const [step, setStep] = useState<1 | 2>(1);
   const [reason, setReason] = useState<Reason | null>(null);
   const [freeText, setFreeText] = useState('');
@@ -186,7 +199,7 @@ export default function CancelFlowModal({ open, onClose }: Props) {
                 autoComplete="off"
                 rows={3}
                 maxLength={300}
-                className="w-full resize-none rounded-lg border border-kant bg-insunken px-3 py-2 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                className="w-full resize-none rounded-lg border border-kant bg-papper-2 px-3 py-2 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
               />
               <span className="mt-1 block text-meta tabular-nums text-ink-3">
                 {freeText.length} av 300
@@ -204,7 +217,13 @@ export default function CancelFlowModal({ open, onClose }: Props) {
           </button>
         </>
       ) : (
-        <OfferStep reason={reason} loading={offerLoading} error={error} onAccept={acceptOffer} />
+        <OfferStep
+          reason={reason}
+          rabatt={paket === SALD_PLAN}
+          loading={offerLoading}
+          error={error}
+          onAccept={acceptOffer}
+        />
       )}
     </Sheet>
   );
@@ -212,11 +231,14 @@ export default function CancelFlowModal({ open, onClose }: Props) {
 
 function OfferStep({
   reason,
+  rabatt,
   loading,
   error,
   onAccept,
 }: {
   reason: Reason | null;
+  /** Rabatten finns bara för Premium per månad. */
+  rabatt: boolean;
   loading: boolean;
   error: string | null;
   onAccept: (offer: 'pause' | 'discount') => void;
@@ -247,13 +269,15 @@ function OfferStep({
     );
   }
 
-  if (reason === 'for_dyrt') {
+  // Utan Premium per månad finns ingen rabatt att erbjuda: svaret tas emot
+  // som de andra skälen, och "Avsluta ändå" står kvar i foten.
+  if (reason === 'for_dyrt' && rabatt) {
     return (
       <div>
         <h3 className="text-kort text-ink-1">Om det var priset</h3>
         <p className="mb-3 mt-1 text-sm text-ink-2">
-          Vi kan möta dig halvvägs: 49 kr i månaden i två månader, sedan ordinarie 149 kr. Du kan
-          avsluta när du vill.
+          Vi kan möta dig halvvägs: 49 kr i månaden i två månader, sedan ordinarie {ORDINARIE}. Du
+          kan avsluta när du vill.
         </p>
         {error && <p className="mb-2 text-sm text-fel">{error}</p>}
         <button

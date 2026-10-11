@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
+import { ArrowRight } from '@/components/illustrations/RumIkoner';
 import { IkonBrev, IkonCv } from '@/components/illustrations/Ikoner';
 import ChatTrustStrip from './ChatTrustStrip';
 
@@ -20,10 +21,9 @@ export default function WelcomeMessage({
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Vyns enda rubrik. */}
+      {/* Vyns rubrik står på väggen (JobbcoachenLayout); raden står kvar här. */}
       <div>
-        <h1 className="text-h1 text-ink-1">Jobbcoachen</h1>
-        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
+        <p className="text-sm leading-[22px] text-ink-2">
           Fråga om lön, intervjuer, arbetsrätt eller ditt CV. Vi svarar med källor du kan kolla själv.
         </p>
       </div>
@@ -31,7 +31,7 @@ export default function WelcomeMessage({
       <ChatTrustStrip />
 
       {/* Dokumentdelning */}
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <div className="flex items-start gap-3">
           <span className="mt-px inline-flex shrink-0 items-center gap-1 text-ink-2" aria-hidden="true">
             <IkonCv size={24} />
@@ -58,7 +58,7 @@ export default function WelcomeMessage({
               <button
                 type="button"
                 onClick={onOpenSelector}
-                className="mt-3 inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark"
+                className={`${KNAPP_SEKUNDAR_SMAL} mt-3`}
               >
                 Välj dokument att dela
                 <ArrowRight size={20} strokeWidth={1.75} className="text-ink-3" />

@@ -2,7 +2,12 @@
  * FAQ-data for /verktyg/jobbcoachen landningssidan.
  * 8 fragor optimerade for long-tail-keywords kring "karriarradgivning",
  * "lonestatistik", "arbetsratt fragor" och "intervjutips".
+ * Priset ur PLANS, aldrig som fast tal.
  */
+
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+
+const PREMIUM_PRIS = `${paketKort()}, ${prisPeriod(SALD_PLAN)}`
 
 export interface FaqItem {
   q: string
@@ -32,7 +37,7 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att använda Karriärguiden?',
-    a: 'Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter. Vill du ställa fler frågor, spara dina samtal eller bifoga ditt CV ingår Jobbcoachen, så mycket du vill, i Hela paketet för 99 kr i veckan eller 149 kr i månaden.',
+    a: `Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter. Vill du ställa fler frågor, spara dina samtal eller bifoga ditt CV ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}.`,
   },
   {
     q: 'Kan jag dela mitt CV med Karriärguiden?',
@@ -40,6 +45,6 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad händer när mina tio meddelanden är slut?',
-    a: 'Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen, så mycket du vill, i Hela paketet, 99 kr i veckan, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: tre CV-mallar, en CV-analys, ett personligt brev och grundnivån i testerna.',
+    a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: tre CV-mallar, en CV-analys, ett personligt brev och grundnivån i testerna.`,
   },
 ]

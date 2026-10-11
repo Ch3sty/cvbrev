@@ -181,10 +181,10 @@ describe('paketEtikett', () => {
   it('namnger lopande prenumerationer ur priset', () => {
     expect(
       paketEtikett(rad({ subscription_status: 'active', planKey: 'all_month', premium_scope: 'allt' }), NU)
-    ).toMatchObject({ grupp: 'betalande', namn: 'Hela paketet, en månad', lopande: true });
+    ).toMatchObject({ grupp: 'betalande', namn: 'Jobbcoach Premium, en månad', lopande: true });
     expect(
       paketEtikett(rad({ subscription_status: 'active', planKey: 'all_quarter' }), NU).namn
-    ).toBe('Hela paketet, ett kvartal');
+    ).toBe('Jobbcoach Premium, ett kvartal');
     expect(paketEtikett(rad({ subscription_status: 'past_due', planKey: 'all_week' }), NU).grupp).toBe(
       'betalande'
     );
@@ -198,7 +198,7 @@ describe('paketEtikett', () => {
       'Träningspaketet'
     );
     expect(paketEtikett(rad({ subscription_status: 'active', premium_scope: 'allt' }), NU).namn).toBe(
-      'Hela paketet, okänd längd'
+      'Jobbcoach Premium, okänd längd'
     );
   });
 
@@ -222,7 +222,7 @@ describe('paketEtikett', () => {
   it('en betald prenumeration vinner over en gammal provperiodskalla', () => {
     expect(
       paketEtikett(rad({ subscription_status: 'active', premium_source: 'signup_trial', planKey: 'all_week' }), NU)
-    ).toMatchObject({ grupp: 'betalande', namn: 'Hela paketet, en vecka' });
+    ).toMatchObject({ grupp: 'betalande', namn: 'Jobbcoach Premium, en vecka' });
   });
 
   it('premium fran admin ar tilldelad, inte betalande', () => {

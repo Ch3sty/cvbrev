@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageSquareQuote } from 'lucide-react';
+import { MessageSquareQuote } from '@/components/illustrations/RumIkoner';
 import { interviewTips } from '@/lib/personalityTest/insights';
 import type { BigFiveScores } from '@/lib/personalityTest/types';
 
@@ -13,7 +13,7 @@ export default function InterviewTipsCard({ scores }: { scores: BigFiveScores })
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.3 }}
-      className="bg-white rounded-3xl border border-orange-100 overflow-hidden"
+      className="bg-papper rounded-3xl border border-orange-100 overflow-hidden"
       style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.18)' }}
     >
       <div className="p-5 sm:p-7">
@@ -31,7 +31,7 @@ export default function InterviewTipsCard({ scores }: { scores: BigFiveScores })
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
               Intervjutips för din profil
             </div>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+            <h2 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
               Så här kan du prata om din personlighet
             </h2>
           </div>
@@ -44,7 +44,7 @@ export default function InterviewTipsCard({ scores }: { scores: BigFiveScores })
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.35 + i * 0.06 }}
-              className="flex items-start gap-2 text-sm sm:text-base text-slate-700 leading-relaxed bg-slate-50 rounded-2xl p-3"
+              className="flex items-start gap-2 text-sm sm:text-base text-ink-2 leading-relaxed bg-papper-2 rounded-2xl p-3"
             >
               <span className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center mt-0.5 tabular-nums">
                 {i + 1}

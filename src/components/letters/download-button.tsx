@@ -114,7 +114,7 @@ export default function DownloadButton({
 
       if (!response.ok) {
         console.error(`Download failed with status: ${response.status}`);
-        let errorMessage = `Kunde inte ladda ned som ${format.toUpperCase()}`;
+        let errorMessage = `Kunde inte ladda ner som ${format.toUpperCase()}`;
         
         try {
           const errorData = await response.json();
@@ -153,11 +153,11 @@ export default function DownloadButton({
       }
     } catch (error: any) {
       console.error(`${format.toUpperCase()} download error:`, error);
-      setError(error.message || `Kunde inte ladda ned som ${format.toUpperCase()}`);
+      setError(error.message || `Kunde inte ladda ner som ${format.toUpperCase()}`);
       
       // Notifiera parent om fel
       if (onLoadingChange) {
-        onLoadingChange(false, error.message || `Kunde inte ladda ned som ${format.toUpperCase()}`);
+        onLoadingChange(false, error.message || `Kunde inte ladda ner som ${format.toUpperCase()}`);
       }
       
       // Visa felmeddelandet i 5 sekunder
@@ -337,7 +337,7 @@ export default function DownloadButton({
           ) : (
             <>
               <Download className="w-4 h-4 mr-2" />
-              {format === 'pdf' ? 'Ladda ned PDF' : 'Ladda ned DOCX'}
+              {format === 'pdf' ? 'Ladda ner PDF' : 'Ladda ner DOCX'}
             </>
           )}
         </button>
@@ -414,7 +414,7 @@ export default function DownloadButton({
                   className="px-4 py-2 min-h-[44px] bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors flex items-center border border-pink-700"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Ladda ned PDF
+                  Ladda ner PDF
                 </button>
               </div>
             </div>

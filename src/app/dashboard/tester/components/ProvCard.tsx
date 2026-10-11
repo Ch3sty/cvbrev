@@ -7,45 +7,47 @@
  * formulering, men samma radform som testen. Ingen fylld yta: raden skiljs
  * från träningstesten med en starkare hårlinje ovanför.
  *
- * Provläget ingår i Träningspaketet och Hela paketet. I andra paket är raden grå med
- * lås och paketets namn (spec-onboarding 2026-09-22, sektion 3).
+ * Provläget ingår i Premium. På gratisnivån är raden grå med lås
+ * (copy-premium-2026-10-11 avsnitt 5): rad 1 "Provläge mot klockan", rad 2
+ * byggd av den som ritar raden (PROVRAD i prov-copy.ts). I logikgruppen är
+ * raden generalrepetitionen och rad 2 säger planens format; i de andra
+ * grupperna provets antal och tid ur konfigurationen. Öppen rad: rad 1
+ * "Prov: mät var du står" och rad 2 utan "Ingår i Premium".
  */
 
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { IlluProv } from '@/components/illustrations/TestIllustrations';
+import { PROVRAD } from '../prov/prov-copy';
 import { HUB_ROW, HUB_ROW_LOCKED, LasIkon } from './TestCard';
 
 interface Props {
-  /** Startsidan för provet, till exempel /dashboard/tester/matrislogik-prov. */
+  /** Startsidan för provet: generalrepetitionen eller provets testsida. */
   href: string;
-  totalQuestions: number;
-  minutes: number;
-  /** Bästa provresultat i procent, eller null när provet aldrig gjorts. */
+  /** Rad 2, färdig mening ur PROVRAD.rad2 eller PROVRAD.rad2Format. */
+  rad2: string;
+  /** Skärmläsarens text för den låsta raden, ur PROVRAD.aria eller PROVRAD.ariaFormat. */
+  aria: string;
+  /** Bästa provresultat i procent. Null döljer talet. */
   bestPercent: number | null;
-  /** Provläget ingår inte i paketet: etiketten säger var det finns. */
-  locked?: string | null;
+  /** Sann när provläget inte ingår: raden är grå och öppnar betalväggen. */
+  locked?: boolean;
   onLocked?: () => void;
 }
 
-export default function ProvCard({ href, totalQuestions, minutes, bestPercent, locked, onLocked }: Props) {
+export default function ProvCard({ href, rad2, aria, bestPercent, locked, onLocked }: Props) {
   const pct = bestPercent;
 
   if (locked) {
     return (
       <li className="border-t border-kant-stark">
-        <button
-          type="button"
-          onClick={onLocked}
-          aria-label={`Provläge mot klockan, ${minutes} min. Ingår inte. ${locked}`}
-          className={HUB_ROW_LOCKED}
-        >
+        <button type="button" onClick={onLocked} aria-label={aria} className={HUB_ROW_LOCKED}>
           <span aria-hidden="true" className="shrink-0 text-kant-stark">
             <IlluProv size={24} />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block text-sm font-medium text-ink-3">Provläge mot klockan, {minutes} min</span>
-            <span className="mt-0.5 block text-meta text-ink-3">{locked}</span>
+            <span className="block text-sm font-medium text-ink-3">{PROVRAD.titelLast}</span>
+            <span className="mt-0.5 block text-meta text-ink-3">{rad2}</span>
           </span>
           <LasIkon />
         </button>
@@ -61,10 +63,8 @@ export default function ProvCard({ href, totalQuestions, minutes, bestPercent, l
         </span>
 
         <span className="min-w-0 flex-1">
-          <span className="block text-sm font-medium text-ink-1">Prov: mät var du står</span>
-          <span className="mt-0.5 block text-meta tabular-nums text-ink-3">
-            {totalQuestions} frågor · ca {minutes} min · alla nivåer blandade, utan hjälp
-          </span>
+          <span className="block text-sm font-medium text-ink-1">{PROVRAD.titelOppen}</span>
+          <span className="mt-0.5 block text-meta tabular-nums text-ink-3">{rad2}</span>
         </span>
 
         {pct != null ? (

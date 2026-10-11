@@ -30,6 +30,8 @@ import LetterFlowSummary from './components/LetterFlowSummary';
 import type { SparadKontakt } from '@/components/shell/KontaktuppgifterRad';
 import { bytKontaktIBrev } from '@/lib/profile/dokumentKontakt';
 import FlowShell from '@/components/shell/FlowShell';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import FlowError from '@/components/shell/FlowError';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -63,7 +65,7 @@ export interface InitialCv {
 function StepSkeleton() {
   return (
     <div
-      className="loading-thread rounded-xl border border-kant bg-panel p-4"
+      className="loading-thread rounded-xl border border-kant bg-papper p-4"
       style={{ minHeight: 320 }}
       aria-hidden="true"
     />
@@ -667,7 +669,7 @@ export default function CreateLetterClient({
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte logga ansökan');
+      throw new Error(json.error || 'Kunde inte spara den sökta tjänsten');
     }
     logActivity(
       'application_logged',
@@ -771,7 +773,12 @@ export default function CreateLetterClient({
   // i stället för flödet. Ett redan genererat brev visas fortfarande under
   // spärren så att det kan sparas/laddas ned.
   if (quotaLock) {
+    // Spärrvyn är en sida, inte ett flödessteg: den står i brevrummet med
+    // väggen och toppraden (Rummen våg 1b).
     return (
+      <>
+      <RumHuvud title="Skriv nytt brev" />
+      <Golv>
       <LetterFlowLayout>
         <PaywallCard
           variant="kvot"
@@ -806,6 +813,8 @@ export default function CreateLetterClient({
           />
         )}
       </LetterFlowLayout>
+      </Golv>
+      </>
     );
   }
 
@@ -841,7 +850,10 @@ export default function CreateLetterClient({
       if (isLetterSaved) {
         return {
           label: 'Klar',
-          onClick: () => router.push('/dashboard/mina-brev'),
+          // Brevet klart (spec-rummen våg 4, B1): brevvyn med bekräftelsen
+          // och träffarna på väggen. Utan id, som förut, listan.
+          onClick: () =>
+            router.push(letterData?.id ? `/dashboard/mina-brev/${letterData.id}?klart=1` : '/dashboard/mina-brev'),
           disabled: false,
         };
       }

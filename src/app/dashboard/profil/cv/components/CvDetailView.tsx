@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import {
   Briefcase,
@@ -10,7 +11,7 @@ import {
   MapPin,
   Loader2,
   ChevronRight,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import type {
   ParsedCV,
   ParsedRole,
@@ -127,7 +128,7 @@ export default function CvDetailView({
       )}
 
       {!hasRoles && !hasEducation && !hasSkills && !profile && !hasContact && (
-        <p className="rounded-xl border border-kant bg-panel p-4 text-sm leading-snug text-ink-2">
+        <p className="rounded-xl border border-kant bg-papper p-4 text-sm leading-snug text-ink-2">
           Vi kunde inte tolka detta CV strukturerat. Kontrollera att råtexten
           ser rimlig ut, eller ladda upp en ny version.
         </p>
@@ -168,7 +169,7 @@ function UnstructuredPrompt({
   };
 
   return (
-    <div className="rounded-xl border border-kant bg-panel p-4 text-center sm:p-5">
+    <div className="rounded-xl border border-kant bg-papper p-4 text-center sm:p-5">
       <p className="mb-4 text-sm leading-relaxed text-ink-2">
         Vi har inte tolkat det här CV:t än. Strukturera det så visar vi
         erfarenhet, utbildning och kompetenser var för sig.
@@ -176,7 +177,7 @@ function UnstructuredPrompt({
       <button
         onClick={handleStructure}
         disabled={loading}
-        className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+        className={KNAPP_SEKUNDAR_SMAL}
       >
         {loading ? (
           <>
@@ -241,7 +242,7 @@ function RoleItem({ role }: { role: ParsedRole }) {
           {responsibilities.map((r, i) => (
             <li
               key={i}
-              className="rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta text-ink-2"
+              className="rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta text-ink-2"
             >
               {r}
             </li>
@@ -254,7 +255,7 @@ function RoleItem({ role }: { role: ParsedRole }) {
 
 function EducationItem({ education }: { education: ParsedEducation }) {
   return (
-    <li className="flex items-start gap-3 rounded-xl border border-kant bg-panel p-3">
+    <li className="flex items-start gap-3 rounded-xl border border-kant bg-papper p-3">
       <GraduationCap
         className="mt-0.5 h-5 w-5 flex-shrink-0 text-ink-3"
         strokeWidth={1.75}
@@ -296,7 +297,7 @@ function SkillCloud({ skills }: { skills: (string | { category?: string; skills?
       {cleaned.map((skill, i) => (
         <li
           key={`${skill}-${i}`}
-          className="rounded-md border border-kant bg-insunken px-2.5 py-1 text-meta font-medium text-ink-2"
+          className="rounded-md border border-kant bg-papper-2 px-2.5 py-1 text-meta font-medium text-ink-2"
         >
           {skill}
         </li>

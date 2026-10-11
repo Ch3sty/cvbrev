@@ -30,7 +30,7 @@ export default function TypingIndicator() {
         role="status"
         aria-busy="true"
         aria-live="polite"
-        className="w-full max-w-[85%] rounded-xl border border-kant bg-panel p-4 sm:max-w-[75%]"
+        className="w-full max-w-[85%] rounded-xl border border-kant bg-papper p-4 sm:max-w-[75%]"
       >
         <p className="mb-3 text-meta text-ink-3">{LOADING_MESSAGES[messageIndex]}</p>
         <div className="writing-lines" aria-hidden="true">

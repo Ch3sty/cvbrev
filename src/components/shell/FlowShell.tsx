@@ -5,9 +5,11 @@
  * (docs/designsystem.md, "Komponenter"; docs/plan-inloggat-omdesign.md, avsnitt 6).
  *
  * Ett flöde är ett läge, inte en sida. Därför tar skalet hela skärmen, döljer
- * bottennavet och lägger sin egen fot där navet annars hade legat. Marken är
- * mark, toppraden och foten är panel, och tråden är den 2 px framstegslinjen
- * under toppraden: här är du i flödet.
+ * dörrnavet och lägger sin egen fot där navet annars hade legat. Bakgrunden
+ * är rummets golv, toppraden och foten är papper, och framstegslinjen är
+ * 3 px koppar under toppraden. Rubriken står i display 15/600, knappen är
+ * kopparknappen (KNAPP_PRIMAR), ikonerna kommer ur RumSymboler
+ * (spec-rummen 2.1, våg 1b).
  *
  * Tangentbordet är mobilflödets verkliga fiende. På iOS lägger sig det
  * virtuella tangentbordet ÖVER fixed-positionerade element, så en fixed fot
@@ -16,12 +18,12 @@
  * desktop) som flex-kolumn där mitten scrollar och foten är sticky.
  *
  *   +------------------------------+
- *   | <  Personligt brev     2/5   |  topprad, 56 px, panel
- *   |  ============------------    |  tråden, 2 px
+ *   | <  Personligt brev     2/5   |  topprad, 56 px, papper
+ *   |  ============------------    |  framsteg, 3 px koppar
  *   +------------------------------+
- *   |  Ett steg, en fråga          |  enda scrollytan, mark
+ *   |  Ett steg, en fråga          |  enda scrollytan, golv
  *   +------------------------------+
- *   |  [ Fortsätt            ]     |  sticky fot, ink-knapp
+ *   |  [ Fortsätt            ]     |  sticky fot, kopparknapp
  *   +------------------------------+
  */
 
@@ -30,7 +32,8 @@ import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 /** useLayoutEffect på klienten, useEffect vid serverrendering (varnar annars). */
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 import { useRouter } from 'next/navigation'
-import { ChevronLeft, X } from 'lucide-react'
+import { IkonTillbaka, IkonX } from '@/components/illustrations/RumSymboler'
+import { KNAPP_PRIMAR } from './knappar'
 
 export interface FlowShellProps {
   /** Flödets namn i toppraden, till exempel "Personligt brev". */
@@ -165,24 +168,24 @@ export default function FlowShell({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-mark lg:left-64">
+    <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
       {/* Topp: tillbaka, titel, räknare, tråden. */}
-      <header className="flex-shrink-0 border-b border-kant bg-panel">
+      <header className="flex-shrink-0 border-b border-kant bg-papper">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
           {backButton ? (
             <button
               type="button"
               onClick={backButton}
               aria-label={backLabel}
-              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
+              className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 transition-colors hover:bg-papper-2"
             >
-              <ChevronLeft className="h-6 w-6" strokeWidth={1.75} />
+              <IkonTillbaka />
             </button>
           ) : (
             <span className="h-11 w-11 flex-shrink-0" aria-hidden="true" />
           )}
 
-          <h1 className="min-w-0 flex-1 truncate text-base font-semibold tracking-[-0.01em] text-ink-1">
+          <h1 className="min-w-0 flex-1 truncate font-display text-[15px] font-semibold tracking-[-0.01em] text-ink-1">
             {title}
           </h1>
 
@@ -194,23 +197,23 @@ export default function FlowShell({
             type="button"
             onClick={exit}
             aria-label="Stäng"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
           >
-            <X className="h-6 w-6" strokeWidth={1.75} />
+            <IkonX />
           </button>
         </div>
 
-        {/* Tråden: aktivt steg i flödet. */}
+        {/* Framsteget i flödet, 3 px koppar. */}
         <div
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={totalSteps}
           aria-valuenow={Math.min(step, totalSteps)}
           aria-label={`Steg ${Math.min(step, totalSteps)} av ${totalSteps}`}
-          className="h-0.5 w-full bg-kant"
+          className="h-[3px] w-full bg-papper-2"
         >
           <div
-            className="h-full bg-accent transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
+            className="h-full rounded-r-[2px] bg-koppar transition-[width] duration-[240ms] ease-out motion-reduce:transition-none"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -229,7 +232,7 @@ export default function FlowShell({
       {showFooter ? (
         <footer
           ref={footerRef}
-          className="flex-shrink-0 border-t border-kant bg-panel"
+          className="flex-shrink-0 border-t border-kant bg-papper"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className={`mx-auto w-full ${smal ? 'max-w-[560px]' : 'max-w-3xl'} px-4 py-3`}>
@@ -244,7 +247,7 @@ export default function FlowShell({
                 type="button"
                 onClick={onPrimary}
                 disabled={primaryDisabled || primaryBusy}
-                className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+                className={`${KNAPP_PRIMAR} disabled:cursor-not-allowed sm:w-auto sm:min-w-[200px]`}
               >
                 {primaryBusy ? busyLabel : primaryLabel}
               </button>

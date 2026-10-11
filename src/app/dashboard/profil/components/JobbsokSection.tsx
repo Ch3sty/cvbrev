@@ -7,6 +7,7 @@
  * står i CV:t eller breven, och sektionen säger det.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react'
 import Link from 'next/link'
 import Sheet from '@/components/shell/Sheet'
@@ -47,7 +48,7 @@ export default function JobbsokSection(p: JobbsokSectionProps) {
   const synlig = loaded ? hookVisible : p.initialVisible
 
   return (
-    <section id="jobbsok" className="scroll-mt-24 rounded-xl border border-kant bg-panel">
+    <section id="jobbsok" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
       <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{JOBBSOK_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{JOBBSOK_SEKTION.under}</p>
@@ -122,7 +123,7 @@ export default function JobbsokSection(p: JobbsokSectionProps) {
           <button
             type="button"
             onClick={() => setArk(false)}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white hover:bg-ink-hover"
+            className={KNAPP_PRIMAR}
           >
             {JOBBSOK_SEKTION.klar}
           </button>

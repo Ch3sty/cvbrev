@@ -22,7 +22,7 @@ export default function PendingInterestAlert({ pending }: { pending: number }) {
       action={
         <Link
           href="/dashboard/meddelanden"
-          className="inline-flex min-h-11 items-center text-sm font-medium text-accent-ink underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-koppar-ink underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
         >
           Svara
         </Link>

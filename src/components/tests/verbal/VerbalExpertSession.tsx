@@ -6,6 +6,7 @@
 // samma: rehydrering vid mount, svarssparning med omförsök + banner, flush
 // innan testet slutförs och synliga fel i stället för tysta.
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -333,7 +334,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
         <button
           onClick={handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting}
-          className="inline-flex h-11 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40"
+          className={`${KNAPP_PRIMAR} touch-manipulation disabled:cursor-not-allowed`}
         >
           {isSubmitting ? (
             'Avslutar…'

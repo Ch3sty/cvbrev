@@ -8,6 +8,7 @@
  * över dokumentet. Ingen rörelse.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
@@ -48,9 +49,9 @@ interface PreviewStepProps {
 }
 
 const PRIMARY =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto';
+  `${KNAPP_PRIMAR} disabled:cursor-not-allowed sm:w-auto`;
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark disabled:cursor-not-allowed disabled:opacity-60';
+  `${KNAPP_SEKUNDAR_SMAL} transition-[border-color] duration-[120ms] disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1';
 
@@ -258,7 +259,7 @@ export default function PreviewStep({
       ) : null}
 
       {isEditing ? (
-        <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <label htmlFor="letter-editor" className="text-kort text-ink-1">
             Redigera texten
           </label>
@@ -266,7 +267,7 @@ export default function PreviewStep({
             id="letter-editor"
             value={editableText}
             onChange={(e) => setEditableText(e.target.value)}
-            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-insunken p-4 text-base leading-7 text-ink-1 shadow-insunken transition-colors focus:border-kant-stark focus:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-papper-2 p-4 text-base leading-7 text-ink-1  transition-colors focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink"
             style={{ fontFamily: selectedFontData.fallback }}
             placeholder="Skriv ditt brev här"
           />
@@ -335,7 +336,7 @@ export default function PreviewStep({
 
           <FontSelector selectedFont={selectedFont} onFontChange={onFontChange} isPremium={isPremium} />
 
-          <div className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
+          <div className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
             {isRegeneratingTemplate ? (
               <LoadingSkeleton
                 variant="writing"

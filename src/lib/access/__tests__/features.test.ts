@@ -81,41 +81,15 @@ describe('scopeHasFeature', () => {
 })
 
 describe('suggestPlan', () => {
-  it('föreslår CV-paketet för CV-funktionerna', () => {
-    const cvFeatures: Feature[] = [
-      'cv_templates_all',
-      'cv_export',
-      'cv_analysis_full',
-      'letter_download',
-    ]
-    for (const feature of cvFeatures) {
-      expect(suggestPlan(feature)).toBe('cv_week')
-    }
-  })
-
-  it('föreslår Träningspaketet för testfunktionerna', () => {
-    const testFeatures: Feature[] = ['tests_above_base', 'test_exam_mode', 'test_history']
-    for (const feature of testFeatures) {
-      expect(suggestPlan(feature)).toBe('test_week')
-    }
-  })
-
-  it('föreslår Hela paketet för det bara Allt ger', () => {
-    expect(suggestPlan('chat_unlimited')).toBe('all_week')
-    expect(suggestPlan('job_matches_all')).toBe('all_week')
-    expect(suggestPlan('bli_upptackt')).toBe('all_week')
-  })
-
-  it('föreslår alltid Hela paketet när spåret är allt', () => {
+  // Bara Jobbcoach Premium säljs sedan 2026-10-11 (spec-rummen 17.3): varje
+  // betalvägg föreslår all_month, oavsett funktion och spår.
+  it('föreslår alltid Jobbcoach Premium, 149 kr i månaden', () => {
     for (const feature of ALLA_FEATURES) {
-      expect(suggestPlan(feature, 'allt')).toBe('all_week')
+      expect(suggestPlan(feature), feature).toBe('all_month')
+      for (const spar of ['cv', 'tester', 'allt'] as const) {
+        expect(suggestPlan(feature, spar), `${feature}/${spar}`).toBe('all_month')
+      }
     }
-  })
-
-  it('låter spåren cv och tester falla tillbaka på funktionens eget spår', () => {
-    expect(suggestPlan('tests_above_base', 'cv')).toBe('test_week')
-    expect(suggestPlan('cv_export', 'tester')).toBe('cv_week')
-    expect(suggestPlan('bli_upptackt', 'cv')).toBe('all_week')
   })
 
   it('beter sig likadant utan spår som med null', () => {

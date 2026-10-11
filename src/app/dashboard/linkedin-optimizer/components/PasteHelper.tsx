@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown } from '@/components/illustrations/RumIkoner'
 
 const STEPS = [
   { title: 'Öppna LinkedIn', desc: 'Gå till din profilsida.' },
@@ -18,11 +18,11 @@ export default function PasteHelper() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="rounded-xl border border-kant bg-panel">
+    <div className="rounded-xl border border-kant bg-papper">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex min-h-11 w-full items-center justify-between gap-3 px-4 text-left hover:bg-insunken"
+        className="flex min-h-11 w-full items-center justify-between gap-3 px-4 text-left hover:bg-papper-2"
         aria-expanded={open}
         aria-controls="paste-helper-steps"
       >

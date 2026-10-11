@@ -11,8 +11,9 @@ import {
   valkommenMedCv,
 } from '../komigang'
 import { brickorForTestType, harledProvade, sparadeNycklar, type ProvadeUnderlag } from '../komigang-server'
-import { menyHuvud, menyRad, mellanskillnadKr, ellerAlltKnapp, graEtikettTest } from '../paket-rader'
+import { menyFot, menyHuvud, menyRad, graEtikettTest } from '../paket-rader'
 import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
 
 const TOMT: ProvadeUnderlag = {
   sparade: [],
@@ -94,7 +95,7 @@ describe('läget', () => {
   it('rubriken följer paketet', () => {
     expect(komIgangRubrik('cv')).toBe('Kom igång med CV-paketet')
     expect(komIgangRubrik('tester')).toBe('Kom igång med Träningspaketet')
-    expect(komIgangRubrik('allt')).toBe('Kom igång med Hela paketet')
+    expect(komIgangRubrik('allt')).toBe('Kom igång med Premium')
     expect(komIgangRubrik(null)).toBe('Kom igång')
   })
 })
@@ -141,6 +142,12 @@ describe('kvitteringen ur tabellerna', () => {
     expect(brickorForTestType(null)).toEqual(['matris_grund'])
     expect(brickorForTestType('matrislogik-expert')).toEqual(['matris_avancerad'])
     expect(brickorForTestType('personlighet-grund')).toEqual(['personlighet'])
+  })
+
+  it('Träningens generalrepetition kvitterar provläget, mätningen matris grund', () => {
+    expect(brickorForTestType('matrislogik-general')).toEqual(['provlage'])
+    expect(brickorForTestType('matrislogik-matning')).toEqual(['matris_grund'])
+    expect(brickorForTestType('matrislogik-pass')).toEqual([])
   })
 
   it('tål skräp i onboarding_steps', () => {
@@ -190,8 +197,9 @@ describe('menyn', () => {
     expect(menyRad('brev', tester).text).toBe('Ett personligt brev i veckan att läsa')
     expect(menyRad('matchning', tester).text).toBe('Tre träffar per natt')
     expect(menyRad('coach', tester).text).toBe('7 av 10 meddelanden kvar')
-    expect(menyRad('linkedin', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i CV-paketet och Hela paketet.' })
-    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: false, text: 'Ingår inte. Finns i Hela paketet.' })
+    // copy-premium avsnitt 3 och krock 2: LinkedIn-raden skriver fulla namnet.
+    expect(menyRad('linkedin', tester)).toMatchObject({ ingar: false, text: 'LinkedIn-optimeringen ingår i Jobbcoach Premium' })
+    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: false, text: 'Ingår i Premium' })
     expect(menyRad('sokta', tester).text).toBe('Alltid gratis')
 
     const allt = { ...bas, scope: 'allt' as const, planKey: 'all_week' as const, chatLimit: null }
@@ -200,21 +208,27 @@ describe('menyn', () => {
     expect(menyRad('coach', allt).text).toBe('Utan tak')
   })
 
-  it('mellanskillnaden räknas ur prislistan', () => {
-    expect(mellanskillnadKr('cv_week')).toBe(PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY.cv_week.amount)
-    expect(mellanskillnadKr('all_week')).toBeNull()
-    expect(ellerAlltKnapp('test_week')).toBe('Eller Hela paketet för 20 kr till i veckan')
-    expect(graEtikettTest('cv')).toBe('Träningspaketet, 79 kr i veckan, eller Hela paketet')
-    expect(graEtikettTest(null)).toBe('Träningspaketet, 79 kr i veckan')
+  it('gråa nivåer och gratismenyn säger Premium, inga spår och inget Dagspass', () => {
+    expect(graEtikettTest('cv')).toBe('Ingår i Premium')
+    expect(graEtikettTest(null)).toBe('Ingår i Premium')
+    const gratis = menyHuvud({ ...bas, scope: null, planKey: null })
+    expect(gratis.under).toBe('Premium, 149 kr i månaden')
+    expect(JSON.stringify(gratis)).not.toMatch(/Dagspass|Tre paket|49 kr,|Från/)
+    expect(menyHuvud({ ...bas, scope: 'allt', planKey: 'all_month' }).rubrik).toBe('Du har Premium')
+  })
+
+  it('menyns fot för en befintlig spårkund säger Premium, ingen mellanskillnad', () => {
+    const fot = menyFot({ ...bas, scope: 'cv', planKey: 'cv_week' })
+    expect(fot).toBe('Testerna och allt grått ingår i Premium, 149 kr i månaden.')
+    expect(menyFot({ ...bas, scope: null, planKey: null })).toBeNull()
   })
 })
 
 describe('Kom igång för Dagspasset (köptestet 2026-09-24, Kvar)', () => {
-  it('rubriken säger Dagspasset, inte Hela paketet', async () => {
+  it('Dagspasset visas aldrig: en befintlig Dagspass-kund får Premium i rubriken', async () => {
     const { komIgangRubrik, komIgangLage } = await import('../komigang')
-    const { paketNamn } = await import('@/lib/plans/plans')
-    expect(komIgangRubrik('allt', true)).toBe(`Kom igång med ${paketNamn('all_day')}`)
-    expect(komIgangRubrik('allt')).toBe('Kom igång med Hela paketet')
+    expect(komIgangRubrik('allt', true)).toBe('Kom igång med Premium')
+    expect(komIgangRubrik('allt')).toBe('Kom igång med Premium')
     // Flaggan betyder bara något för scopet allt.
     expect(komIgangRubrik('cv', true)).toBe('Kom igång med CV-paketet')
     expect(komIgangLage('allt', [], true).dagspass).toBe(true)
@@ -227,5 +241,24 @@ describe('Kom igång för Dagspasset (köptestet 2026-09-24, Kvar)', () => {
     const { KOM_IGANG } = await import('../komigang')
     expect(KOM_IGANG.dygnRad).toContain('ett dygn')
     expect(KOM_IGANG.dygnRad).not.toMatch(/[—–]/)
+  })
+})
+
+describe('provlägets bricka (spec-rummen 19.6)', () => {
+  it('leder till generalrepetitionen, inte till det gamla logikprovet', () => {
+    for (const paket of ['tester', 'allt'] as const) {
+      expect(brickaText('provlage', paket).href).toBe(TRANING_RUTT.general)
+    }
+  })
+})
+
+describe('gratislöftena (spec-rummen 23.3 punkt 4)', () => {
+  it('lovar inga dygn och ingen evig gratisnivå', () => {
+    for (const paket of [null, 'cv', 'tester', 'allt'] as const) {
+      for (const key of ['matris_grund', 'provlage'] as const) {
+        const t = brickaText(key, paket, {}, true)
+        expect(`${t.titel} ${t.text}`).not.toMatch(/dygn|varje dag gratis|alltid gratis/i)
+      }
+    }
   })
 })

@@ -14,7 +14,9 @@ import TestCard from './TestCard';
 import PersonalityTestCard from './PersonalityTestCard';
 import PersonalityResultCard from './PersonalityResultCard';
 import ProvCard from './ProvCard';
-import type { TestGroup as TestGroupType } from './testCatalog';
+import { provLasSlug, type TestGroup as TestGroupType } from './testCatalog';
+import { provradTexter } from '../prov/prov-copy';
+import type { FormatNyckel } from '@/lib/traning/tempo';
 import type { PerTestStats, TestSlug } from '@/hooks/use-all-test-stats';
 import type { PersonalityTestStats } from '@/hooks/use-personality-test-stats';
 import { featureForSlug } from '../testConfig';
@@ -30,10 +32,12 @@ interface Props {
   bestTest?: TestSlug;
   /** Bästa provresultat i procent för gruppens prov, null om inget gjorts. */
   provBestPercent?: number | null;
+  /** Planens provformat för generalrepetitionens rad, 'eget' utan plan. */
+  provformat?: FormatNyckel;
   recommendSlug?: TestSlug;
   /** Paketet. Null är gratisnivån. */
   scope?: Scope | null;
-  /** Etiketten på gråa rader: "Träningspaketet 79 kr, eller Hela paketet". */
+  /** Etiketten på gråa rader: "Ingår i Premium". */
   graEtikett?: string;
   /** Ett grått val tryckt. Featuren säger vad som spärrade. */
   onLocked?: (feature: Feature) => void;
@@ -51,6 +55,7 @@ export default function TestGroup({
   personality,
   bestTest,
   provBestPercent = null,
+  provformat = 'eget',
   recommendSlug,
   scope = null,
   graEtikett = '',
@@ -66,8 +71,10 @@ export default function TestGroup({
     if (!feature || scopeHasFeature(scope, feature)) return null;
     return { label: graEtikett, feature };
   };
-  const provSlug = group.prov?.href.split('/').pop() ?? '';
-  const provLas = group.prov ? las(provSlug) : null;
+  const provLas = group.prov ? las(provLasSlug(group.prov)) : null;
+  // Generalrepetitionen ur planens format och utan tal (spec 19.6), de andra
+  // proven med antal, minuter och procenten som förut.
+  const provText = group.prov ? provradTexter(group.prov, provformat, provLas !== null) : null;
 
   return (
     <section className="space-y-2" aria-labelledby={`testgrupp-${group.key}`}>
@@ -148,13 +155,13 @@ export default function TestGroup({
         ) : null}
 
         {/* Provet sist i samma panel: "träna ovan, pröva här". */}
-        {group.prov ? (
+        {group.prov && provText ? (
           <ProvCard
             href={group.prov.href}
-            totalQuestions={group.prov.totalQuestions}
-            minutes={group.prov.minutes}
-            bestPercent={provBestPercent}
-            locked={provLas?.label ?? null}
+            rad2={provText.rad2}
+            aria={provText.aria}
+            bestPercent={group.prov.general ? null : provBestPercent}
+            locked={provLas !== null}
             onLocked={provLas ? () => onLocked?.(provLas.feature) : undefined}
           />
         ) : null}

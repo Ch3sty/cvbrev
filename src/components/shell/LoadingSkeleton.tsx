@@ -16,7 +16,12 @@
  * tre rader fylls i tur och ordning, meta säger hur länge.
  */
 
-export type SkeletonVariant = 'row' | 'card' | 'list' | 'text' | 'statusRow' | 'writing'
+/**
+ * Varianten vagg (Rummen, L1 i konceptet) står på väggen: väggens eget ljus,
+ * vitt 8 procent (.skelett-vagg), i samma höjd som rubriken och raden som
+ * kommer, så inget hoppar när innehållet landar.
+ */
+export type SkeletonVariant = 'row' | 'card' | 'list' | 'text' | 'statusRow' | 'writing' | 'vagg'
 
 export interface LoadingSkeletonProps {
   variant?: SkeletonVariant
@@ -29,7 +34,7 @@ export interface LoadingSkeletonProps {
   className?: string
 }
 
-const BLOCK = 'rounded bg-insunken'
+const BLOCK = 'rounded bg-papper-2'
 
 export default function LoadingSkeleton({
   variant = 'row',
@@ -44,7 +49,7 @@ export default function LoadingSkeleton({
         role="status"
         aria-busy="true"
         aria-live="polite"
-        className={`loading-thread rounded-xl border border-kant bg-panel p-4 ${className ?? ''}`}
+        className={`loading-thread rounded-2xl border border-kant bg-papper p-4 ${className ?? ''}`}
       >
         <p className="text-sm font-medium text-ink-1">{label}</p>
         <div className="writing-lines mt-3" aria-hidden="true">
@@ -67,8 +72,17 @@ export default function LoadingSkeleton({
 
 function render(variant: SkeletonVariant, count: number) {
   switch (variant) {
+    case 'vagg':
+      // Rubrikens rad (36 px) och raden under (21 px), med samma luft som Rubrik.
+      return (
+        <div className="mt-2" aria-hidden="true">
+          <div className="skelett-vagg h-9 w-3/5" />
+          <div className="skelett-vagg mt-2 h-[14px] w-4/5" />
+        </div>
+      )
+
     case 'statusRow':
-      return <div className={`${BLOCK} h-11 rounded-lg`} />
+      return <div className={`${BLOCK} h-11 rounded-xl`} />
 
     case 'text':
       return (
@@ -104,7 +118,7 @@ function render(variant: SkeletonVariant, count: number) {
 function SkeletonRow({ thread }: { thread?: boolean }) {
   return (
     <div
-      className={`flex items-center gap-3 rounded-xl border border-kant bg-panel p-4 ${
+      className={`flex items-center gap-3 rounded-2xl border border-kant bg-papper p-4 ${
         thread ? 'loading-thread' : ''
       }`}
     >
@@ -119,7 +133,7 @@ function SkeletonRow({ thread }: { thread?: boolean }) {
 
 function SkeletonCard() {
   return (
-    <div className="loading-thread rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <div className="loading-thread rounded-2xl border border-kant bg-papper p-4 sm:p-5">
       <div className={`${BLOCK} h-4 w-1/3`} />
       <div className={`${BLOCK} mt-3 h-3 w-full`} />
       <div className={`${BLOCK} mt-2 h-3 w-4/5`} />

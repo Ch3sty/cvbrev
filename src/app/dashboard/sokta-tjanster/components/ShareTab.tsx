@@ -4,6 +4,7 @@
 // utskrift/PDF, kopierbar textsammanfattning för AF:s webbformulär,
 // delningslänk utan inloggning samt Sankey-diagram på större skärmar.
 
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ChevronLeft,
@@ -13,7 +14,7 @@ import {
   ClipboardCopy,
   Check,
   Trash2,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
 import type { ApplicationStats, JobApplication } from '@/lib/applications/status';
@@ -285,7 +286,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
           type="button"
           onClick={() => setMonth((m) => shiftMonth(m, -1))}
           aria-label="Föregående månad"
-          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-colors hover:border-kant-stark"
         >
           <ChevronLeft className="w-[18px] h-[18px]" strokeWidth={1.75} />
         </button>
@@ -297,14 +298,14 @@ export default function ShareTab({ applications }: ShareTabProps) {
           onClick={() => setMonth((m) => shiftMonth(m, 1))}
           disabled={month >= currentMonth}
           aria-label="Nästa månad"
-          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark disabled:opacity-40"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-colors hover:border-kant-stark disabled:opacity-40"
         >
           <ChevronRight className="w-[18px] h-[18px]" strokeWidth={1.75} />
         </button>
       </div>
 
       {/* Rapporten (det som skrivs ut) */}
-      <div className="tracker-report rounded-xl border border-kant bg-panel p-4 sm:p-6">
+      <div className="tracker-report rounded-xl border border-kant bg-papper p-4 sm:p-6">
         <div className="mb-5 border-b border-kant pb-4">
           <div className="text-steg uppercase text-ink-3">
             Aktivitetsöversikt
@@ -383,7 +384,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+            className={KNAPP_SEKUNDAR_SMAL}
           >
             <Printer className="h-4 w-4" strokeWidth={1.75} />
             Skriv ut eller spara som PDF
@@ -392,7 +393,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
             type="button"
             onClick={handleCopySummary}
             disabled={!report}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:opacity-50"
+            className={KNAPP_SEKUNDAR_SMAL}
           >
             {copied ? (
               <Check className="h-4 w-4 text-positiv" strokeWidth={1.75} />
@@ -405,7 +406,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
       )}
 
       {/* Delningslänk */}
-      <div className="rounded-xl border border-kant bg-panel p-4">
+      <div className="rounded-xl border border-kant bg-papper p-4">
         <h3 className="text-kort text-ink-1">Dela med en länk</h3>
         <p className="mt-1 text-sm text-ink-2">
           Den som får länken ser din statistik utan att logga in. Länken gäller i 30 dagar och du
@@ -415,7 +416,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
         {shareUrl ? (
           <div className="mt-3 space-y-2.5">
             <div className="flex items-center gap-2">
-              <div className="min-w-0 flex-1 truncate rounded-lg border border-kant bg-insunken px-3 py-2 font-mono text-meta text-ink-2 shadow-insunken">
+              <div className="min-w-0 flex-1 truncate rounded-lg border border-kant bg-papper-2 px-3 py-2 font-mono text-meta text-ink-2 ">
                 {shareUrl}
               </div>
               <button
@@ -424,7 +425,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
                   navigator.clipboard.writeText(shareUrl).then(() => success('Länken är kopierad.', 2500));
                 }}
                 aria-label="Kopiera länken"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel text-ink-2 transition-colors hover:border-kant-stark"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-colors hover:border-kant-stark"
               >
                 <ClipboardCopy className="w-4 h-4" strokeWidth={1.75} />
               </button>
@@ -453,7 +454,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
               type="button"
               onClick={handleCreateShareLink}
               disabled={isSharing}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+              className={KNAPP_PRIMAR_SMAL}
             >
               <Link2 className="w-4 h-4" strokeWidth={1.75} />
               {isSharing ? 'Skapar' : 'Skapa delningslänk'}
@@ -464,7 +465,7 @@ export default function ShareTab({ applications }: ShareTabProps) {
 
       {/* Sankey: bara på större skärmar, mobilen har trattvyn */}
       {stats && stats.totalApplications > 0 && (
-        <div className="hidden rounded-xl border border-kant bg-panel p-4 md:block">
+        <div className="hidden rounded-xl border border-kant bg-papper p-4 md:block">
           <h3 className="mb-1 text-kort text-ink-1">Flödesdiagram över din sökning</h3>
           <p className="mb-4 text-sm text-ink-2">
             Varje flöde är proportionellt mot antalet ansökningar. Följer med på utskriften av

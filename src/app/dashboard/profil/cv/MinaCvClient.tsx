@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -9,14 +10,24 @@ import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import CVUploadZone from '@/components/cv/cv-upload-zone';
+import InlineCVUpload from '@/components/cv/InlineCVUpload';
+import { formatCVDate } from '@/lib/utils/date-formatter';
 import type { ParsedCV } from '@/lib/cv/cv-parser';
 
 import CvCard from './components/CvCard';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import PageHeader from '@/components/shell/PageHeader';
-import EmptyState from '@/components/shell/EmptyState';
-import StatusRow from '@/components/shell/StatusRow';
-import { IlluTomCv } from '@/components/illustrations/EmptyStateIllustrations';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { CV_RUM, LYFT, RUBRIK, kortDatum } from '@/lib/rum/copy';
+import Link from 'next/link';
+import Poangring from '@/components/rum/Poangring';
+import Veckorad from '@/components/rum/Veckorad';
+import Rader from '@/components/rum/Rader';
+import Kort from '@/components/rum/Kort';
+import Chip from '@/components/rum/Chip';
+import SektRubrik from '@/components/rum/SektRubrik';
+import { dokumentVag, fyndUrAnalys, poangUrAnalys, type AnalysUnderlag } from '@/lib/rum/cvRum';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 // Syns aldrig i första vyn. Bekräftelsedialogen öppnas vid borttagning,
@@ -35,7 +46,16 @@ export interface InitialCv {
   original_file_path: string;
   cv_text: string | null;
   created_at: string;
+  updated_at?: string | null;
   structured_data: ParsedCV | null;
+}
+
+/** CV-rummets underlag (våg 4, C1), läst på servern. */
+export interface CvRumData {
+  underlag: AnalysUnderlag | null;
+  /** Senaste analysens poäng per CV-id. */
+  poangPerCv: Record<string, number>;
+  nedladdatAt: string | null;
 }
 
 const FREE_LIMIT = 2;
@@ -83,10 +103,12 @@ export default function MinaCvClient({
   initialCvs,
   initialIsPremium,
   initialLockedCvIds,
+  cvRum = { underlag: null, poangPerCv: {}, nedladdatAt: null },
 }: {
   initialCvs: InitialCv[];
   initialIsPremium: boolean;
   initialLockedCvIds: string[];
+  cvRum?: CvRumData;
 }) {
   const router = useRouter();
   const { fetchCVs } = useCVStore();
@@ -209,18 +231,9 @@ export default function MinaCvClient({
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffDays = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    if (diffDays === 0) return 'Idag';
-    if (diffDays === 1) return 'Igår';
-    if (diffDays < 7) return `${diffDays} dagar sedan`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} veckor sedan`;
-    return date.toLocaleDateString('sv-SE');
-  };
+  // Samma relativa datum som brevflödets och LinkedIn-flödets CV-val
+  // ("1 vecka sedan", 21.3 punkt 8).
+  const formatDate = formatCVDate;
 
 
   const openCVInNewWindow = (cv: InitialCv) => {
@@ -303,63 +316,143 @@ export default function MinaCvClient({
   // populated-läget avgörs av serverns svar och kan inte flasha förbi.
   const isEmpty = cvCount === 0;
 
+  // CV-rummet (våg 4, C1): poängringen, vad som drar ner och dokumentets
+  // väg, ur den senaste analysen av ett CV som finns kvar i listan. Plustalen
+  // är analysens egna atsImpact (cvRum.ts), aldrig uppskattningar.
+  const analyseratCv = cvRum.underlag ? cvs.find((cv) => cv.id === cvRum.underlag?.cvId) ?? null : null;
+  const underlag = analyseratCv ? cvRum.underlag : null;
+  const poang = poangUrAnalys(underlag);
+  const fynd = fyndUrAnalys(underlag);
+  // Ett lyft kort som pekar på sparad data öppnar den datan (21.2 fråga 2):
+  // "Åtgärda i CV:t" öppnar analysen med ?job=<id>, utan ny analys och utan
+  // kvot. Går den inte att öppna lyfts inte "Åtgärda först".
+  const atgardaHref = underlag?.jobbId ? `/dashboard/cv-analys?job=${encodeURIComponent(underlag.jobbId)}` : null;
+  const atgardaForst = atgardaHref ? fynd[0] ?? null : null;
+  const vag = analyseratCv
+    ? dokumentVag({
+        harCv: true,
+        analyseradAt: underlag?.klar ?? null,
+        // Det förbättrade CV:t sparas som ett nytt CV med filvägen + "-improved"
+        // (/api/cv/save-improved); det analyserade kan också vara det.
+        atgardadAt: analyseratCv.original_file_path?.endsWith('-improved')
+          ? analyseratCv.created_at
+          : cvs.find((c) => c.original_file_path === `${analyseratCv.original_file_path}-improved`)?.created_at ?? null,
+        nedladdatAt: cvRum.nedladdatAt,
+      })
+    : null;
+  const instrument =
+    poang !== null && vag ? (
+      <>
+        <Poangring
+          poang={poang}
+          rubrik={CV_RUM.drarNer(fynd.length)}
+          rad={
+            underlag?.klar
+              ? CV_RUM.senaste(underlag.namn ?? analyseratCv?.file_name ?? '', kortDatum(underlag.klar))
+              : null
+          }
+        />
+        <Veckorad
+          celler={vag}
+          label={CV_RUM.vagenAria(
+            vag.filter((c) => c.status === 'gjord').map((c) => c.etikett),
+            vag.find((c) => c.status === 'nu')?.etikett ?? null
+          )}
+          className="mt-5"
+        />
+      </>
+    ) : null;
+  const liftAtgarda = atgardaForst !== null;
+
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 sm:p-6">
-      <PageHeader
-        title="Mina CV"
-        description="Ladda upp ditt CV en gång, använd det i brev, analys och mallar."
-        action={
-          !limitReached ? (
-            <a
-              href="#upload-zone"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-            >
-              Ladda upp CV
-            </a>
-          ) : undefined
+    <>
+      {/* Väggen säger var du är (spec 16.3.2): statusradens text står i
+          raden, uppladdningen i det lyfta kortet. Aldrig oändlighetstecken. */}
+      <RumHuvud
+        title={RUBRIK.minaCv}
+        description={
+          cvCount > 0
+            ? isPremium
+              ? PAKETRADER.cvUtanGrans(cvCount)
+              : `${cvCount} av ${FREE_LIMIT} CV använda.`
+            : 'Ladda upp ditt CV en gång, använd det i brev, analys och mallar.'
         }
+        instrument={instrument}
+        tat={limitReached && !liftAtgarda}
       />
-
-      {/* Statusrad: antal av kvoten. Aldrig oandlighetstecken. */}
-      {cvCount > 0 && (
-        <StatusRow label="Antal CV">
-          {isPremium
-            ? PAKETRADER.cvUtanGrans(cvCount)
-            : `${cvCount} av ${FREE_LIMIT} CV använda.`}
-        </StatusRow>
-      )}
-
-      {/* Tomt tillstand enligt sidmallen */}
-      {isEmpty && (
+    <Golv lyft={!limitReached || liftAtgarda}>
+      {liftAtgarda && atgardaForst ? (
         <>
-          <EmptyState
-            illustration={IlluTomCv}
-            title="Inget CV än"
-            description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
-            action={
-              <a
-                href="#upload-zone"
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-              >
-                Ladda upp CV
-              </a>
+          <LyftKort
+            label={CV_RUM.atgardaForst}
+            eyebrow={CV_RUM.atgardaForst}
+            titel={atgardaForst.titel}
+            text={atgardaForst.meta}
+            handling={
+              <Link href={atgardaHref ?? '/dashboard/cv-analys'} className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+                {CV_RUM.atgardaKnapp}
+              </Link>
             }
           />
-
-          <div id="upload-zone" className="scroll-mt-6">
-            <UploadCard>
-              <CVUploadZone
-                onUpload={handleUpload}
-                onGdprChange={setGdprConsent}
-                disabled={isUploading}
-                maxSizeMB={10}
-              />
-            </UploadCard>
-          </div>
-
-          <TrustChips />
+          <Kort label={CV_RUM.fyndRubrik}>
+            <h2 className="text-ey text-ink-3">{CV_RUM.fyndRubrik}</h2>
+            <ol className="mt-1" aria-label={CV_RUM.fyndAria(fynd.length)}>
+              {fynd.slice(0, 5).map((f, i) => (
+                <li
+                  key={f.nyckel}
+                  className="grid grid-cols-[28px_1fr_auto] items-center gap-3 py-3 [&+&]:border-t [&+&]:border-kant"
+                >
+                  <span className="font-display text-xl font-bold tabular-nums text-koppar-ink">{i + 1}</span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold leading-[19px] text-ink-1">{f.titel}</span>
+                    {f.meta ? <span className="mt-0.5 block text-meta text-ink-3">{f.meta}</span> : null}
+                  </span>
+                  <Chip ton label={CV_RUM.plusAria(f.plus)}>
+                    {CV_RUM.plus(f.plus)}
+                  </Chip>
+                </li>
+              ))}
+            </ol>
+          </Kort>
         </>
-      )}
+      ) : isEmpty ? (
+        // Utan CV (21.3 punkt 6, samma mönster som hemmet A i 18.3.2):
+        // uppladdningsytan står i det lyfta kortet och är handlingen själv.
+        <LyftKort
+          label={LYFT.minaCv.titel}
+          eyebrow={LYFT.minaCv.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.minaCv.titel}
+          text={LYFT.minaCv.text}
+        >
+          <div id="upload-zone" className="mt-3.5 scroll-mt-6">
+            <InlineCVUpload
+              showCancel={false}
+              hideHeader
+              onComplete={(cv) => {
+                setQuickScoreCvId(cv.id);
+                void refreshCvs();
+              }}
+            />
+          </div>
+        </LyftKort>
+      ) : !limitReached ? (
+        <LyftKort
+          label={LYFT.minaCv.titel}
+          eyebrow={LYFT.minaCv.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.minaCv.titel}
+          text={LYFT.minaCv.text}
+          handling={
+            // Snabbpoängen efter en uppladdning bär kopparknappen; då är
+            // uppladdningen sekundär (en kopparknapp per vy).
+            <a href="#upload-zone" className={quickScoreCvId ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+              {LYFT.minaCv.handling}
+            </a>
+          }
+        />
+      ) : null}
+    <div className="w-full max-w-5xl space-y-6">
 
       {/* Med CV */}
       {cvCount > 0 && (
@@ -378,9 +471,9 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <h2 className="mb-2 text-sm font-medium text-ink-3">Dina CV</h2>
+            <SektRubrik>{CV_RUM.sparadeRubrik}</SektRubrik>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Rader label={CV_RUM.sparadeRubrik} className="mt-4">
               {cvs.map((cv, i) => {
                 const structured =
                   structuredOverrides[cv.id] ?? cv.structured_data ?? null;
@@ -409,6 +502,7 @@ export default function MinaCvClient({
                     preview={previews.get(cv.id) ?? ""}
                     formatDate={formatDate}
                     isLocked={lockedCvIds.has(cv.id)}
+                    poang={cvRum.poangPerCv[cv.id] ?? null}
                     userContact={{
                       full_name: profile?.full_name ?? '',
                       email: dokumentEpost(profile),
@@ -418,7 +512,7 @@ export default function MinaCvClient({
                   />
                 );
               })}
-            </div>
+            </Rader>
           </section>
 
           {!limitReached && (
@@ -450,6 +544,8 @@ export default function MinaCvClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 
@@ -461,7 +557,7 @@ function UploadCard({
   subdued?: boolean;
 }) {
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-kort text-ink-1">
           {subdued ? 'Ladda upp ytterligare CV' : 'Ladda upp ditt CV'}
@@ -473,20 +569,3 @@ function UploadCard({
   );
 }
 
-function TrustChips() {
-  const items = [
-    'Tar 30 sekunder',
-    'GDPR-säkert, radera när du vill',
-    'Krypterat och privat',
-  ];
-  return (
-    <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-1 text-meta text-ink-3">
-      {items.map((label) => (
-        <li key={label} className="inline-flex items-center gap-1.5">
-          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink-3" />
-          {label}
-        </li>
-      ))}
-    </ul>
-  );
-}

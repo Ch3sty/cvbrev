@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     }
 
     // Våg 1 punkt 4: ett genomfört test på den låsta nivån är premiumanvändning
-    // och ska kunna rangordna förlustraderna i UpgradeSheet dag 4 till 5.
+    // och loggas som sådan.
     if (session.test_type === PREMIUM_LOCKED_TEST) {
       logPremiumUsage(user.id, 'test_session', { testType: session.test_type });
     }

@@ -4,6 +4,7 @@
     "title": "Form och färg varierar i rader och kolumner",
     "rule": "Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Varje rad och varje kolumn har också exakt en ofylld, en grå och en svart figur. Ingen form och ingen fyllning upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-flera",
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
       [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }],
@@ -17,13 +18,23 @@
       { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
       { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Formen stämmer, men tredje raden och tredje kolumnen har redan en grå.",
+      "Fyllningen stämmer, men tredje raden och tredje kolumnen har redan en åttahörning.",
+      "Fyllningen stämmer, men tredje raden och tredje kolumnen har redan en femhörning.",
+      "Formen stämmer, men tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en åttahörning och en grå."
+    ]
   },
   {
     "id": "v7g-q2-ring-count-fill",
+    "pensionerad": true,
     "title": "Antal ringar per kolumn, innersta färg per rad",
     "rule": "Antalet ringar inuti varandra ökar med en för varje kolumn (en, två, tre). Raden bestämmer färgen på den innersta ringen: rad 1 svart, rad 2 grå, rad 3 ofylld. De yttre ringarna är alltid ofyllda.",
     "difficulty": 2,
+    "family": "latin-flera",
     "grid": [
       [{ "kind": "ring", "rings": ["black"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
       [{ "kind": "ring", "rings": ["gray"] }, { "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "gray"] }],
@@ -37,13 +48,22 @@
       { "kind": "ring", "rings": ["black", "black", "black"] },
       { "kind": "ring", "rings": ["gray", "none", "none"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Antalet ringar stämmer, men i tredje raden är den innersta ringen alltid ofylld.",
+      "Antalet ringar stämmer, men i tredje raden är den innersta ringen alltid ofylld.",
+      "I tredje kolumnen har alla tre ringar. I tredje raden är den innersta ringen alltid ofylld.",
+      "I tredje raden är den innersta ringen alltid ofylld. De yttre ringarna är alltid ofyllda.",
+      "Antalet ringar stämmer, men de yttre ringarna är alltid ofyllda."
+    ]
   },
   {
     "id": "v7g-q3-vector-rotation",
     "title": "Pilen vrider sig",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
+    "family": "vridning",
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
       [{ "kind": "vector", "angle": 135, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
@@ -57,13 +77,22 @@
       { "kind": "vector", "angle": 0, "length": "long", "head": "open" },
       { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har vridit sig ett steg för långt.",
+      "Pilen har inte vridit sig sista steget.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Pilen pekar åt motsatt håll."
+    ]
   },
   {
     "id": "v7g-q4-stack-latin",
     "title": "Form och symbol varierar i rader och kolumner",
     "rule": "Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en triangel som grundform. Varje rad och varje kolumn har också exakt en med plus, en med minus och en med prick. Inget upprepas i samma rad eller kolumn. Formerna är ofyllda.",
     "difficulty": 3,
+    "family": "latin-flera",
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "dot", "baseFill": "none" }],
       [{ "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "triangle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }],
@@ -77,13 +106,22 @@
       { "kind": "stack", "base": "square", "symbol": "minus", "baseFill": "none" },
       { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "black" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en cirkel.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan ett minus.",
+      "Grundformen stämmer, men alla figurer är ofyllda."
+    ]
   },
   {
     "id": "v7g-q5-tally-latin",
     "title": "Antal streck varierar i rader och kolumner",
     "rule": "Strecken står alltid upprätt. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-antal",
     "grid": [
       [{ "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }],
       [{ "kind": "tally", "count": 3, "orientation": "vertical" }, { "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
@@ -97,13 +135,22 @@
       { "kind": "tally", "count": 1, "orientation": "vertical" },
       { "kind": "tally", "count": 4, "orientation": "horizontal" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en med två streck.",
+      "Tredje raden och tredje kolumnen har redan en med fyra streck.",
+      "Antalet streck stämmer, men strecken står alltid upprätt.",
+      "Matrisen har ingen med ett streck.",
+      "Tredje raden och tredje kolumnen har redan en med fyra streck. Strecken står alltid upprätt."
+    ]
   },
   {
     "id": "v7g-q6-orbital-walk",
     "title": "Pricken vandrar runt cirkeln",
     "rule": "Pricken flyttar sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld hela vägen.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 2 }, { "kind": "orbital", "center": "filled", "satellite": 4 }],
       [{ "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 2 }],
@@ -117,13 +164,22 @@
       { "kind": "orbital", "center": "open", "satellite": 0 },
       { "kind": "orbital", "center": "filled", "satellite": null }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pricken har flyttat ett steg för långt.",
+      "Pricken har flyttat åt fel håll.",
+      "Pricken har inte flyttat sista steget.",
+      "Läget stämmer, men mittpunkten är fylld i alla rutor.",
+      "Pricken saknas."
+    ]
   },
   {
     "id": "v7g-q7-ray-count-latin",
     "title": "Antal streck från mitten varierar",
     "rule": "Strecken går ut från mitten. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-antal",
     "grid": [
       [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [0, 2, 4, 6] }],
       [{ "kind": "ray", "rays": [0, 2, 4] }, { "kind": "ray", "rays": [0, 2, 4, 6] }, { "kind": "ray", "rays": [0, 4] }],
@@ -137,13 +193,22 @@
       { "kind": "ray", "rays": [0, 1, 2, 3, 4] },
       { "kind": "ray", "rays": [0] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en med två streck.",
+      "Tredje raden och tredje kolumnen har redan en med fyra streck.",
+      "Tredje raden och tredje kolumnen har redan en med två streck. Strecken sitter dessutom på andra platser än i matrisen.",
+      "Matrisen har ingen med fem streck.",
+      "Matrisen har ingen med ett streck."
+    ]
   },
   {
     "id": "v7g-q8-lattice-rotate",
     "title": "Den svarta rutan vandrar runt",
     "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
       [{ "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }],
@@ -157,13 +222,22 @@
       { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "fill_black"] },
       { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Den svarta rutan har flyttat ett steg för långt.",
+      "Den svarta rutan har flyttat åt fel håll.",
+      "Den svarta rutan har inte flyttat sista steget.",
+      "Rutan nere till höger är fylld fast den inte ska vara det.",
+      "Rutan uppe till vänster saknas."
+    ]
   },
   {
     "id": "v7g-q9-vector-rotate-ccw",
     "title": "Pilen vrider sig moturs",
     "rule": "Pilen vrider sig 45 grader moturs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
+    "family": "vridning",
     "grid": [
       [{ "kind": "vector", "angle": 315, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "long", "head": "filled" }],
       [{ "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 135, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
@@ -177,13 +251,22 @@
       { "kind": "vector", "angle": 315, "length": "short", "head": "filled" },
       { "kind": "vector", "angle": 315, "length": "long", "head": "open" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har vridit sig åt fel håll.",
+      "Pilen har inte vridit sig sista steget.",
+      "Pilen har vridit sig ett steg för långt.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen."
+    ]
   },
   {
     "id": "v7g-q10-poly-fill-latin",
     "title": "Färgen varierar i rader och kolumner",
     "rule": "Alla figurer är sexhörningar. Varje rad och varje kolumn innehåller exakt en ofylld, en grå och en svart figur. Ingen färg upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
       [{ "kind": "poly", "sides": 6, "rotation": 0, "fill": "gray" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }],
@@ -197,13 +280,22 @@
       { "kind": "poly", "sides": 8, "rotation": 0, "fill": "gray" },
       { "kind": "poly", "sides": 6, "rotation": 30, "fill": "gray" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Fyllningen stämmer, men alla figurer är sexhörningar.",
+      "Fyllningen stämmer, men alla figurer är sexhörningar.",
+      "Fyllningen stämmer, men ingen figur är vriden."
+    ]
   },
   {
     "id": "v7g-q11-ring-fill-latin",
     "title": "Innersta ringens färg varierar",
     "rule": "Alla figurer har två ringar inuti varandra. Varje rad och varje kolumn har exakt en ofylld, en grå och en svart innerring. Den yttre ringen är alltid ofylld.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "ring", "rings": ["none", "none"] }, { "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "black"] }],
       [{ "kind": "ring", "rings": ["none", "gray"] }, { "kind": "ring", "rings": ["none", "black"] }, { "kind": "ring", "rings": ["none", "none"] }],
@@ -217,13 +309,22 @@
       { "kind": "ring", "rings": ["none", "none", "gray"] },
       { "kind": "ring", "rings": ["black", "gray"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Den innersta ringen stämmer, men de yttre ringarna är alltid ofyllda.",
+      "Den innersta ringen stämmer, men alla figurer har två ringar.",
+      "Den innersta ringen stämmer, men de yttre ringarna är alltid ofyllda."
+    ]
   },
   {
     "id": "v7g-q12-tally-count-latin",
     "title": "Antal liggande streck varierar",
     "rule": "Strecken ligger alltid på tvären. Varje rad och varje kolumn innehåller exakt en figur med två streck, en med tre och en med fyra. Inget antal upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-antal",
     "grid": [
       [{ "kind": "tally", "count": 2, "orientation": "horizontal" }, { "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 4, "orientation": "horizontal" }],
       [{ "kind": "tally", "count": 3, "orientation": "horizontal" }, { "kind": "tally", "count": 4, "orientation": "horizontal" }, { "kind": "tally", "count": 2, "orientation": "horizontal" }],
@@ -237,13 +338,22 @@
       { "kind": "tally", "count": 1, "orientation": "horizontal" },
       { "kind": "tally", "count": 2, "orientation": "vertical" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en med två streck.",
+      "Tredje raden och tredje kolumnen har redan en med fyra streck.",
+      "Antalet streck stämmer, men strecken ligger alltid ner.",
+      "Matrisen har ingen med ett streck.",
+      "Tredje raden och tredje kolumnen har redan en med två streck. Strecken ligger alltid ner."
+    ]
   },
   {
     "id": "v7g-q13-orbital-walk-3",
     "title": "Pricken hoppar tre steg",
     "rule": "Pricken flyttar tre steg medurs (135 grader) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är ofylld hela vägen.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "orbital", "center": "open", "satellite": 0 }, { "kind": "orbital", "center": "open", "satellite": 3 }, { "kind": "orbital", "center": "open", "satellite": 6 }],
       [{ "kind": "orbital", "center": "open", "satellite": 1 }, { "kind": "orbital", "center": "open", "satellite": 4 }, { "kind": "orbital", "center": "open", "satellite": 7 }],
@@ -257,13 +367,22 @@
       { "kind": "orbital", "center": "open", "satellite": 1 },
       { "kind": "orbital", "center": "open", "satellite": null }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pricken har inte flyttat sista steget.",
+      "Pricken har flyttat åt fel håll.",
+      "Läget stämmer, men mittpunkten är ofylld i alla rutor.",
+      "Pricken hamnar 45 grader för långt.",
+      "Pricken saknas."
+    ]
   },
   {
     "id": "v7g-q14-stack-base-latin",
     "title": "Grundformen varierar i rader och kolumner",
     "rule": "Alla figurer är ofyllda och har en prick. Varje rad och varje kolumn innehåller exakt en cirkel, en kvadrat och en romb. Ingen form upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }],
       [{ "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "diamond", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
@@ -277,13 +396,22 @@
       { "kind": "stack", "base": "square", "symbol": "plus", "baseFill": "none" },
       { "kind": "stack", "base": "square", "symbol": "dot", "baseFill": "black" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en cirkel.",
+      "Tredje raden och tredje kolumnen har redan en romb.",
+      "Matrisen har ingen triangel.",
+      "Grundformen stämmer, men alla figurer har en prick.",
+      "Grundformen stämmer, men alla figurer är ofyllda."
+    ]
   },
   {
     "id": "v7g-q15-lattice-ccw",
     "title": "Den svarta rutan vandrar moturs",
     "rule": "Exakt en av de fyra rutorna är svart. Den svarta rutan flyttar sig ett steg moturs (uppe vänster, nere vänster, nere höger, uppe höger) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_black"] }],
       [{ "kind": "lattice", "cells": ["empty", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "empty"] }],
@@ -297,13 +425,22 @@
       { "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] },
       { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Den svarta rutan har flyttat ett steg för långt.",
+      "Den svarta rutan har flyttat åt fel håll.",
+      "Den svarta rutan har inte flyttat sista steget.",
+      "Rätt plats, men rutan ska vara svart.",
+      "Rutan uppe till vänster saknas."
+    ]
   },
   {
     "id": "v7g-q16-ray-rotate-walk",
     "title": "Strecken vrider sig",
     "rule": "Två streck som pekar åt motsatt håll vrider sig 45 grader medurs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
+    "family": "vridning",
     "grid": [
       [{ "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [1, 5] }, { "kind": "ray", "rays": [2, 6] }],
       [{ "kind": "ray", "rays": [3, 7] }, { "kind": "ray", "rays": [0, 4] }, { "kind": "ray", "rays": [1, 5] }],
@@ -317,13 +454,22 @@
       { "kind": "ray", "rays": [0, 2, 4, 6] },
       { "kind": "ray", "rays": [0] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Strecken har vridit sig ett steg för långt.",
+      "Strecken har vridit sig åt fel håll.",
+      "Strecken har inte vridit sig sista steget.",
+      "Antalet streck ändras aldrig.",
+      "Ett streck saknas."
+    ]
   },
   {
     "id": "v7g-q17-poly-sides-latin",
     "title": "Antal sidor varierar i rader och kolumner",
     "rule": "Alla figurer är svarta. Varje rad och varje kolumn innehåller exakt en femhörning, en sexhörning och en åttahörning. Ingen form upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }],
       [{ "kind": "poly", "sides": 8, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" }],
@@ -337,13 +483,22 @@
       { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" },
       { "kind": "poly", "sides": 6, "rotation": 0, "fill": "none" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en sexhörning.",
+      "Tredje raden och tredje kolumnen har redan en åttahörning.",
+      "Formen stämmer, men alla figurer är svarta.",
+      "Formen stämmer, men ingen figur är vriden.",
+      "Tredje raden och tredje kolumnen har redan en sexhörning. Alla figurer är svarta."
+    ]
   },
   {
     "id": "v7g-q18-vector-walk-half",
     "title": "Pilen vrider sig ett kvarts varv per steg",
     "rule": "Pilen vrider sig 90 grader medurs (två steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Pilens längd och spets är likadana hela vägen.",
     "difficulty": 2,
+    "family": "vridning",
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }],
       [{ "kind": "vector", "angle": 270, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
@@ -357,13 +512,22 @@
       { "kind": "vector", "angle": 0, "length": "short", "head": "filled" },
       { "kind": "vector", "angle": 0, "length": "long", "head": "open" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pilen har vridit sig ett steg för långt.",
+      "Pilen har vridit sig åt fel håll.",
+      "Pilen har inte vridit sig sista steget.",
+      "Vridningen stämmer, men pilen är lång hela vägen.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen."
+    ]
   },
   {
     "id": "v7g-q19-ring-innerfill-latin",
     "title": "Innersta ringens färg varierar",
     "rule": "Alla figurer har tre ringar inuti varandra där de två yttre är ofyllda. Varje rad och varje kolumn har exakt en ofylld, en grå och en svart innerring. Ingen färg upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "ring", "rings": ["none", "none", "none"] }, { "kind": "ring", "rings": ["none", "none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "black"] }],
       [{ "kind": "ring", "rings": ["none", "none", "gray"] }, { "kind": "ring", "rings": ["none", "none", "black"] }, { "kind": "ring", "rings": ["none", "none", "none"] }],
@@ -377,13 +541,22 @@
       { "kind": "ring", "rings": ["gray", "none", "gray"] },
       { "kind": "ring", "rings": ["none", "black"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en svart.",
+      "Den innersta ringen stämmer, men de yttre ringarna är alltid ofyllda.",
+      "Den innersta ringen stämmer, men de yttre ringarna är alltid ofyllda.",
+      "Alla figurer har tre ringar. Tredje raden och tredje kolumnen har redan en svart."
+    ]
   },
   {
     "id": "v7g-q20-lattice-graycell-walk",
     "title": "Den grå rutan vandrar medurs",
     "rule": "Exakt en av de fyra rutorna är grå. Den grå rutan flyttar sig ett steg medurs (uppe vänster, uppe höger, nere höger, nere vänster) för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "empty", "empty", "fill_gray"] }],
       [{ "kind": "lattice", "cells": ["empty", "empty", "fill_gray", "empty"] }, { "kind": "lattice", "cells": ["fill_gray", "empty", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_gray", "empty", "empty"] }],
@@ -397,13 +570,22 @@
       { "kind": "lattice", "cells": ["fill_black", "empty", "empty", "empty"] },
       { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Den grå rutan har flyttat ett steg för långt.",
+      "Den grå rutan har flyttat åt fel håll.",
+      "Den grå rutan har inte flyttat sista steget.",
+      "Rätt plats, men rutan ska vara grå.",
+      "En grå ruta saknas."
+    ]
   },
   {
     "id": "v7g-q21-orbital-ccw",
     "title": "Pricken vandrar moturs",
     "rule": "Pricken flyttar sig 45 grader moturs (ett steg) för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Mittpunkten är fylld.",
     "difficulty": 2,
+    "family": "vandring",
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 7 }, { "kind": "orbital", "center": "filled", "satellite": 6 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
       [{ "kind": "orbital", "center": "filled", "satellite": 4 }, { "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 2 }],
@@ -417,13 +599,22 @@
       { "kind": "orbital", "center": "filled", "satellite": 6 },
       { "kind": "orbital", "center": "filled", "satellite": null }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Pricken har inte flyttat sista steget.",
+      "Pricken har flyttat åt fel håll.",
+      "Läget stämmer, men mittpunkten är fylld i alla rutor.",
+      "Pricken har flyttat ett steg för långt.",
+      "Pricken saknas."
+    ]
   },
   {
     "id": "v7g-q22-stack-symbol-latin",
     "title": "Symbolen varierar i rader och kolumner",
     "rule": "Alla figurer har en ofylld cirkel som grundform. Varje rad och varje kolumn innehåller exakt en med plus, en med minus och en med prick. Ingen symbol upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }],
       [{ "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "dot", "baseFill": "none" }, { "kind": "stack", "base": "circle", "symbol": "plus", "baseFill": "none" }],
@@ -437,13 +628,22 @@
       { "kind": "stack", "base": "circle", "symbol": "minus", "baseFill": "black" },
       { "kind": "stack", "base": "circle", "symbol": "ring", "baseFill": "none" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan ett plus.",
+      "Tredje raden och tredje kolumnen har redan en prick.",
+      "Symbolen stämmer, men grundformen är alltid en cirkel.",
+      "Symbolen stämmer, men alla figurer är ofyllda.",
+      "Matrisen har ingen ring."
+    ]
   },
   {
     "id": "v7g-q23-tally-walk-count",
     "title": "Strecken blir fler ruta för ruta",
     "rule": "Strecken står alltid upprätt. Antalet ökar med ett för varje ruta (1, 2, 3, 4) och börjar sedan om på 1. Läs rutorna som en lång rad, uppifrån och ner.",
     "difficulty": 2,
+    "family": "antal-andras",
     "grid": [
       [{ "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }, { "kind": "tally", "count": 3, "orientation": "vertical" }],
       [{ "kind": "tally", "count": 4, "orientation": "vertical" }, { "kind": "tally", "count": 1, "orientation": "vertical" }, { "kind": "tally", "count": 2, "orientation": "vertical" }],
@@ -457,13 +657,22 @@
       { "kind": "tally", "count": 4, "orientation": "horizontal" },
       { "kind": "tally", "count": 2, "orientation": "horizontal" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Antalet streck har ändrats åt fel håll.",
+      "Ett streck för mycket.",
+      "Antalet streck har inte ändrats sista steget.",
+      "Antalet streck har inte ändrats sista steget. Strecken står alltid upprätt.",
+      "Ett streck för mycket. Strecken står alltid upprätt."
+    ]
   },
   {
     "id": "v7g-q24-ray-add",
     "title": "Strecken slås samman",
     "rule": "Strecken i kolumn 3 är alla streck från kolumn 1 och kolumn 2 tillsammans. Ett streck som finns i någon av de två första kolumnerna visas i den tredje.",
     "difficulty": 3,
+    "family": "overlagring",
     "grid": [
       [{ "kind": "ray", "rays": [0] }, { "kind": "ray", "rays": [4] }, { "kind": "ray", "rays": [0, 4] }],
       [{ "kind": "ray", "rays": [2] }, { "kind": "ray", "rays": [6] }, { "kind": "ray", "rays": [2, 6] }],
@@ -477,13 +686,22 @@
       { "kind": "ray", "rays": [0, 2, 4, 6] },
       { "kind": "ray", "rays": [2, 4] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Ett streck saknas.",
+      "Ett streck för mycket.",
+      "Ett streck saknas."
+    ]
   },
   {
     "id": "v7g-q25-poly-rotate-walk",
     "title": "Femhörningen vrider sig stegvis",
-    "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta (0, 30, 60, 90 grader och så vidare). Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
+    "rule": "Den svarta femhörningen vrider sig 30 grader medurs för varje ruta och börjar om efter fyra lägen: 0, 30, 60, 90, 0, 30 och så vidare. Läs rutorna som en lång rad, uppifrån och ner. Antalet sidor är detsamma hela vägen.",
     "difficulty": 2,
+    "family": "vridning",
     "grid": [
       [{ "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 60, "fill": "black" }],
       [{ "kind": "poly", "sides": 5, "rotation": 90, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 0, "fill": "black" }, { "kind": "poly", "sides": 5, "rotation": 30, "fill": "black" }],
@@ -497,13 +715,22 @@
       { "kind": "poly", "sides": 6, "rotation": 0, "fill": "black" },
       { "kind": "poly", "sides": 5, "rotation": 0, "fill": "gray" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Samma som rutan ovanför.",
+      "Fel läge i vridningen. Efter 90 grader börjar den om på 0.",
+      "Samma som rutan till vänster. Vridningen har inte tagit sista steget.",
+      "Vridningen stämmer, men alla figurer är femhörningar.",
+      "Vridningen stämmer, men alla figurer är svarta."
+    ]
   },
   {
     "id": "v7g-q26-orbital-fill-latin",
     "title": "Prickens läge varierar i rader och kolumner",
     "rule": "Mittpunkten är fylld i alla. Pricken kan sitta på tre ställen (uppe, nere till höger, nere till vänster). Varje rad och varje kolumn har exakt ett av varje läge. Inget läge upprepas i samma rad eller kolumn.",
     "difficulty": 3,
+    "family": "latin-form",
     "grid": [
       [{ "kind": "orbital", "center": "filled", "satellite": 0 }, { "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 5 }],
       [{ "kind": "orbital", "center": "filled", "satellite": 3 }, { "kind": "orbital", "center": "filled", "satellite": 5 }, { "kind": "orbital", "center": "filled", "satellite": 0 }],
@@ -517,13 +744,22 @@
       { "kind": "orbital", "center": "filled", "satellite": 2 },
       { "kind": "orbital", "center": "filled", "satellite": null }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Tredje raden och tredje kolumnen har redan en med pricken uppe.",
+      "Tredje raden och tredje kolumnen har redan en med pricken nere till vänster.",
+      "Läget stämmer, men mittpunkten är fylld i alla rutor.",
+      "Matrisen har ingen med pricken till höger.",
+      "Matrisen har ingen utan prick."
+    ]
   },
   {
     "id": "v7g-q27-lattice-fill-cycle",
     "title": "Rutmönstret roterar ett kvarts varv",
     "rule": "Mönstret i de fyra rutorna roterar ett kvarts varv medurs för varje ruta. Läs rutmönstren som en lång rad, uppifrån och ner. Antalet svarta rutor förändras aldrig.",
     "difficulty": 3,
+    "family": "monsterrotation",
     "grid": [
       [{ "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }, { "kind": "lattice", "cells": ["empty", "empty", "fill_black", "fill_black"] }],
       [{ "kind": "lattice", "cells": ["fill_black", "empty", "fill_black", "empty"] }, { "kind": "lattice", "cells": ["fill_black", "fill_black", "empty", "empty"] }, { "kind": "lattice", "cells": ["empty", "fill_black", "empty", "fill_black"] }],
@@ -537,13 +773,22 @@
       { "kind": "lattice", "cells": ["fill_black", "fill_black", "fill_black", "fill_black"] },
       { "kind": "lattice", "cells": ["empty", "empty", "empty", "empty"] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "De svarta rutorna har flyttat åt fel håll.",
+      "De svarta rutorna har flyttat ett steg för långt.",
+      "De svarta rutorna har inte flyttat sista steget.",
+      "Antalet svarta rutor ändras aldrig.",
+      "Antalet svarta rutor ändras aldrig."
+    ]
   },
   {
     "id": "v7g-q28-vector-len-walk",
     "title": "Pilen vrider sig och byter längd",
     "rule": "Pilen vrider sig 45 grader medurs för varje ruta. Läs rutorna som en lång rad, uppifrån och ner. Längden växlar mellan lång och kort för varje ruta, och börjar med lång.",
     "difficulty": 3,
+    "family": "rotation-med-byte",
     "grid": [
       [{ "kind": "vector", "angle": 0, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 45, "length": "short", "head": "filled" }, { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }],
       [{ "kind": "vector", "angle": 135, "length": "short", "head": "filled" }, { "kind": "vector", "angle": 180, "length": "long", "head": "filled" }, { "kind": "vector", "angle": 225, "length": "short", "head": "filled" }],
@@ -557,6 +802,14 @@
       { "kind": "vector", "angle": 0, "length": "long", "head": "open" },
       { "kind": "vector", "angle": 90, "length": "long", "head": "filled" }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "misstag": [
+      "",
+      "Vridningen stämmer, men längden har inte växlat mellan lång och kort.",
+      "Längden stämmer, men pilen har inte vridit sig sista steget.",
+      "Längden stämmer, men pilen har vridit sig ett steg för långt.",
+      "Vridningen stämmer, men spetsen är fylld hela vägen.",
+      "Längden stämmer, men pilen hamnar 90 grader för långt."
+    ]
   }
 ]

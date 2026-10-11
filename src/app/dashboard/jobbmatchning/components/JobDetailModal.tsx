@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sheet from '@/components/shell/Sheet';
@@ -141,7 +142,7 @@ export default function JobDetailModal({
               href={applicationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-center text-sm font-semibold text-white hover:bg-ink-hover"
+              className={`${KNAPP_PRIMAR} text-center`}
             >
               {applyButtonText}
             </a>
@@ -202,7 +203,7 @@ export default function JobDetailModal({
           {meta.length > 0 && <p className="text-meta text-ink-3">{meta.join(' · ')}</p>}
 
           {krav.length > 0 && (
-            <section className="rounded-lg border border-kant bg-insunken p-3 shadow-insunken">
+            <section className="rounded-lg border border-kant bg-papper-2 p-3 ">
               <h3 className="text-sm font-medium text-ink-1">Viktiga krav</h3>
               <ul className="mt-1.5 space-y-1">
                 {krav.map((k) => (
@@ -440,7 +441,7 @@ function RequirementsBlock({ job }: { job: any }) {
 
   return (
     <div
-      className={`gap-5 rounded-lg border border-kant bg-insunken p-3 shadow-insunken ${
+      className={`gap-5 rounded-lg border border-kant bg-papper-2 p-3  ${
         hasMustHave && hasNiceToHave ? 'grid sm:grid-cols-2' : ''
       }`}
     >
@@ -461,7 +462,7 @@ function ReqColumn({ data, title }: { data: any; title: string }) {
               {data.skills.map((skill: any, i: number) => (
                 <span
                   key={i}
-                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2 py-0.5 text-meta text-ink-2"
+                  className="inline-flex items-center rounded-md border border-kant bg-papper px-2 py-0.5 text-meta text-ink-2"
                 >
                   {skill.label}
                 </span>
@@ -475,7 +476,7 @@ function ReqColumn({ data, title }: { data: any; title: string }) {
               {data.languages.map((lang: any, i: number) => (
                 <span
                   key={i}
-                  className="inline-flex items-center rounded-md border border-kant bg-panel px-2 py-0.5 text-meta text-ink-2"
+                  className="inline-flex items-center rounded-md border border-kant bg-papper px-2 py-0.5 text-meta text-ink-2"
                 >
                   {lang.label}
                 </span>

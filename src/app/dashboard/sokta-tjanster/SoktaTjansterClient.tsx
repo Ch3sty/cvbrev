@@ -14,10 +14,11 @@
 // ingen hämtning för att måla sidan. Klientanropen som är kvar sker bara
 // efter en handling (logga, importera) eller när en tung flik väljs.
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search } from '@/components/illustrations/RumIkoner';
 import { useNotification } from '@/context/notificationcontext';
 import type { CreateApplicationInput } from '@/hooks/use-applications';
 import {
@@ -27,7 +28,10 @@ import {
   type ApplicationEventType,
   type JobApplication,
 } from '@/lib/applications/status';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { JOBBSOK, LYFT, RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
 import EmptyState from '@/components/shell/EmptyState';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -52,7 +56,7 @@ const StatsTabPlaceholder = () => (
   <div className="space-y-4">
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="h-24 rounded-xl border border-kant bg-insunken" />
+        <div key={i} className="h-24 rounded-xl border border-kant bg-papper-2" />
       ))}
     </div>
     <LoadingSkeleton variant="card" label="Läser in statistiken" />
@@ -76,9 +80,9 @@ const ShareTabPlaceholder = () => (
   <div className="space-y-4">
     <LoadingSkeleton variant="statusRow" label="Läser in rapporten" />
     <div className="flex items-center justify-center gap-2">
-      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
-      <div className="h-11 min-w-[160px] rounded-lg bg-insunken" />
-      <div className="h-11 w-11 rounded-lg border border-kant bg-insunken" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-papper-2" />
+      <div className="h-11 min-w-[160px] rounded-lg bg-papper-2" />
+      <div className="h-11 w-11 rounded-lg border border-kant bg-papper-2" />
     </div>
     <LoadingSkeleton variant="card" label="Läser in rapporten" />
   </div>
@@ -120,7 +124,7 @@ type TabId = 'ansokningar' | 'statistik' | 'rapport';
 type FilterId = 'alla' | 'vantar' | 'intervju' | 'erbjudande' | 'avslutade';
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: 'ansokningar', label: 'Ansökningar' },
+  { id: 'ansokningar', label: 'Lista' },
   { id: 'statistik', label: 'Statistik' },
   { id: 'rapport', label: 'Rapport' },
 ];
@@ -235,7 +239,7 @@ export default function SoktaTjansterClient({
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.error || 'Kunde inte logga ansökan');
+        throw new Error(json.error || 'Kunde inte spara den sökta tjänsten');
       }
       const created = json.data as JobApplication;
       setApplications((prev) => [created, ...prev.filter((a) => a.id !== created.id)]);
@@ -287,9 +291,9 @@ export default function SoktaTjansterClient({
   const handleCreate = async (input: CreateApplicationInput) => {
     const created = await createApplication(input);
     successWithActivity(
-      'Ansökan loggad.',
+      'Sparad i Sökta tjänster.',
       'application_logged',
-      `Loggade ansökan: ${created.job_title} hos ${created.company}`,
+      `Loggade en sökt tjänst: ${created.job_title} hos ${created.company}`,
       { applicationId: created.id, channel: created.application_channel },
       3000
     );
@@ -308,25 +312,33 @@ export default function SoktaTjansterClient({
     );
   };
 
-  const logButton = (
-    <button
-      type="button"
-      onClick={() => setShowQuickLog(true)}
-      className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-    >
-      Logga ansökan
-    </button>
-  );
-
   return (
-    <div className="mx-auto max-w-5xl space-y-6 pb-16">
-      <PageHeader
-        title="Ansökningar"
+    <>
+      <RumHuvud
+        title={RUBRIK.soktaTjanster}
         description="Din statistik över jobbsöket: hur många du sökt, hur långt du kommer i processerna och var det tar stopp. Logga varje sökt jobb så ser du mönstret."
-        action={totalCount > 0 ? logButton : undefined}
-      >
+        tat={totalCount === 0}
+      />
+    <Golv lyft={totalCount > 0}>
+      {/* Det lyfta kortet står före flikarna (spec 16.3.1 punkt 4). Utan
+          poster bär det tomma läget handlingen i stället. */}
+      {totalCount > 0 ? (
+        <LyftKort
+          label={LYFT.soktaTjanster.titel}
+          eyebrow={LYFT.soktaTjanster.eyebrow}
+          eyebrowTon="neutral"
+          titel={LYFT.soktaTjanster.titel}
+          text={LYFT.soktaTjanster.text}
+          handling={
+            <button type="button" onClick={() => setShowQuickLog(true)} className={KNAPP_PRIMAR}>
+              {JOBBSOK.loggaSoktJobb}
+            </button>
+          }
+        />
+      ) : null}
+    <div className="w-full max-w-5xl space-y-6">
         <div
-          className="flex items-center gap-1 rounded-lg border border-kant bg-panel p-1"
+          className="flex items-center gap-1 rounded-lg border border-kant bg-papper p-1"
           role="tablist"
         >
           {TABS.map((tab) => (
@@ -338,7 +350,7 @@ export default function SoktaTjansterClient({
               onClick={() => setActiveTab(tab.id)}
               className={`min-h-11 flex-1 rounded-lg px-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
-                  ? 'bg-insunken text-ink-1 shadow-insunken'
+                  ? 'bg-ton text-ton-ink'
                   : 'text-ink-2 hover:text-ink-1'
               }`}
             >
@@ -346,7 +358,6 @@ export default function SoktaTjansterClient({
             </button>
           ))}
         </div>
-      </PageHeader>
 
       {/* De fyra siffrorna. Beskrivande antal, ingen svarsfrekvens här: den
           bor i statistikfliken där man aktivt går för att analysera. */}
@@ -380,8 +391,8 @@ export default function SoktaTjansterClient({
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   autoComplete="off"
-                  aria-label="Sök bland dina ansökningar"
-                  className="h-11 w-full rounded-lg border border-kant bg-panel pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+                  aria-label="Sök på företag eller tjänst"
+                  className="h-11 w-full rounded-lg border border-kant bg-papper pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 />
               </div>
 
@@ -393,9 +404,11 @@ export default function SoktaTjansterClient({
                     onClick={() => setFilter(f.id)}
                     aria-pressed={filter === f.id}
                     className={`min-h-11 shrink-0 rounded-lg border px-3 text-sm font-medium transition-colors ${
+                      // Navigation i en lista, inte ett val i ett formulär:
+                      // aktiv i rummets ton (spec 16.4 (b) punkt 4).
                       filter === f.id
-                        ? 'border-ink-1 bg-panel text-ink-1 shadow-val'
-                        : 'border-kant bg-panel text-ink-2 hover:border-kant-stark'
+                        ? 'border-transparent bg-ton text-ton-ink'
+                        : 'border-kant bg-papper text-ink-2 hover:border-kant-stark'
                     }`}
                   >
                     {f.label}
@@ -413,7 +426,7 @@ export default function SoktaTjansterClient({
             />
           ) : filteredApplications.length === 0 ? (
             <EmptyState
-              title="Inga ansökningar matchar filtret"
+              title="Inga sökta tjänster matchar filtret"
               description="Prova ett annat filter eller rensa sökningen."
               action={
                 <button
@@ -422,7 +435,7 @@ export default function SoktaTjansterClient({
                     setFilter('alla');
                     setSearchTerm('');
                   }}
-                  className="inline-flex h-11 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-2 transition-colors hover:border-kant-stark"
+                  className={KNAPP_SEKUNDAR_SMAL}
                 >
                   Rensa filter
                 </button>
@@ -464,6 +477,8 @@ export default function SoktaTjansterClient({
         <QuickLogSheet open={showQuickLog} onClose={() => setShowQuickLog(false)} onSubmit={handleCreate} />
       )}
     </div>
+    </Golv>
+    </>
   );
 }
 
@@ -494,7 +509,7 @@ function EmptyApplications({
             ? 'Vi hittade 1 brev du kan lägga in'
             : `Vi hittade ${candidates.length} brev du kan lägga in`
         }
-        description="Du har redan skrivit dem här. Lägg in dem som ansökningar, så har du en komplett historik från start och slipper skriva in allt på nytt."
+        description="Du har redan skrivit dem här. Lägg in dem som sökta tjänster, så har du hela historiken från start."
         action={
           <BackfillBanner variant="inline" candidates={candidates} onImported={onImported} />
         }
@@ -504,7 +519,7 @@ function EmptyApplications({
             onClick={onLog}
             className="text-sm font-medium text-ink-2 underline-offset-4 transition-colors hover:text-ink-1 hover:underline"
           >
-            Logga en ansökan manuellt
+            Logga en sökt tjänst själv
           </button>
         }
       />
@@ -514,15 +529,15 @@ function EmptyApplications({
   return (
     <EmptyState
       illustration={IlluIngaAnsokningar}
-      title="Inga ansökningar än"
+      title="Inga sökta tjänster än"
       description="Logga den första så håller vi koll på svaren, räknar din statistik och sammanställer månaden åt Arbetsförmedlingen."
       action={
         <button
           type="button"
           onClick={onLog}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
+          className={`${KNAPP_PRIMAR} sm:w-auto`}
         >
-          Logga din första ansökan
+          Logga din första sökta tjänst
         </button>
       }
     />

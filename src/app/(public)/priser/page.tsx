@@ -1,17 +1,19 @@
 /**
- * /priser (docs/design/spec-prissida-2026-09-22.html, sektion 1 och 2).
+ * /priser (spec-rummen 17.3 och 17.4, copy-premium avsnitt 3).
  *
- * Ordningen är argumentet: hero med löftena, tre paket, gratisraden,
- * funktionerna en och en, hjälpredan per paket, förtroendekorten, tabellen
- * rad för rad och frågorna.
+ * Bara Jobbcoach Premium, 149 kr i månaden, säljs. Ordningen är argumentet:
+ * hero med namnet och priset, kortet med vad som ingår och köpknappen,
+ * gratisraden, funktionerna en och en, hjälpredan, förtroendekorten,
+ * tabellen gratis mot Premium och frågorna.
  *
- * Serverrenderad rakt igenom. Knapparna och Hela paketets längdval är det
- * enda som behöver JavaScript, och utan det visar Hela paketets kort sitt
- * veckoläge, som är förvalt. Korten, tabellen, alla fyra FAQ-svaren och
- * förtroendekorten står i HTML.
+ * Serverrenderad rakt igenom. Köpknappen är det enda som behöver
+ * JavaScript; den ser likadan ut för in- och utloggade, så inget flyttar
+ * sig. Kortet, tabellen, alla FAQ-svar och förtroendekorten står i HTML.
+ * Trådens utseende: sidan är publik och har inget rum.
  *
- * SEO: FAQPage och AggregateOffer, med samma priser som korten eftersom
- * båda läser PLANS.
+ * SEO: Product med AggregateOffer och FAQPage. Bara säljbara planer
+ * (SALJBARA_PLANER), så schemat och kortet läser samma rad i PLANS. Inga
+ * betyg och inga citat (ägarens beslut).
  */
 
 import PriserHero from './components/PriserHero'
@@ -23,58 +25,22 @@ import PriserFortroende from './components/PriserFortroende'
 import PriserJamforelse from './components/PriserJamforelse'
 import PriserFAQ from './components/PriserFAQ'
 import PriserMatning from './components/PriserMatning'
-import { PRISER_FAQ_ITEMS, PREMIUM_CURRENCY } from './components/priser-data'
-import { PLANS, paketMedLangd } from '@/lib/plans/plans'
-import { PAKET_RAD } from '@/components/pricing/paket-copy'
+import { faqSchema, prisSchema } from './components/priser-schema'
 
-// Samma dygn som resten av (public). Sidan har ingen besökarspecifik data:
+// Samma 24 timmar som resten av (public). Sidan har ingen besökarspecifik data:
 // inloggningen läses i klienten, så CDN:et får behålla svaret.
 export const revalidate = 86400
 
-const URL = 'https://www.jobbcoach.ai/priser'
-
 export default function PriserSida() {
-  const offerSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'AggregateOffer',
-    name: 'Jobbcoach.ai',
-    url: URL,
-    priceCurrency: PREMIUM_CURRENCY,
-    lowPrice: Math.min(...PLANS.map((p) => p.amount)),
-    highPrice: Math.max(...PLANS.map((p) => p.amount)),
-    offerCount: PLANS.length,
-    availability: 'https://schema.org/InStock',
-    offers: PLANS.map((plan) => ({
-      '@type': 'Offer',
-      name: paketMedLangd(plan.key),
-      description: PAKET_RAD[plan.key],
-      price: plan.amount,
-      priceCurrency: PREMIUM_CURRENCY,
-      url: URL,
-      availability: 'https://schema.org/InStock',
-      seller: { '@type': 'Organization', name: 'Jobbcoach.ai' },
-    })),
-  }
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: PRISER_FAQ_ITEMS.map((item) => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    })),
-  }
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(prisSchema()) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema()) }}
       />
 
       <main className="min-h-screen bg-mark">

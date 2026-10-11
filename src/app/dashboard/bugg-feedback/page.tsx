@@ -1,23 +1,27 @@
 /**
  * Fil: src/app/dashboard/bugg-feedback/page.tsx
  *
- * Dashboard-sida för att rapportera buggar och skicka feedback. Sidhuvud
- * enligt sidmallen, formuläret nedanför.
+ * Dashboard-sida för att rapportera buggar och skicka feedback. Rubriken
+ * på kontots vägg (Rummen våg 1b), formuläret på golvet.
  */
 'use client'
 
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
 import BuggFeedbackForm from '@/components/dashboard/bugg-feedback/BuggFeedbackForm'
 
 export default function BuggFeedbackPage() {
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Buggar och feedback"
         description="Berätta vad som gick fel eller vad vi borde göra bättre. Vi läser allt."
       />
-
-      <BuggFeedbackForm />
-    </div>
+      <Golv>
+        <div className="w-full max-w-3xl">
+          <BuggFeedbackForm />
+        </div>
+      </Golv>
+    </>
   )
 }

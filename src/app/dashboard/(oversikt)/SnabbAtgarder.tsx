@@ -47,7 +47,7 @@ const ACTIONS: SnabbAtgard[] = [
   {
     slug: 'sokta-tjanster',
     Icon: IkonAnsokningar,
-    title: 'Följ dina ansökningar',
+    title: 'Dina sökta tjänster',
     body: 'Hur många du sökt, hur långt du kommer och var det tar stopp.',
     href: '/dashboard/sokta-tjanster',
     requiresCV: false,
@@ -94,7 +94,7 @@ export default function SnabbAtgarder({ cvCount, recommendedSlug }: SnabbAtgarde
     <section aria-label="Vad vill du göra härnäst">
       <h2 className="mb-2 text-sm font-medium text-ink-3">Vad vill du göra härnäst</h2>
 
-      <ul className="rounded-xl border border-kant bg-panel">
+      <ul className="rounded-xl border border-kant bg-papper">
         {ACTIONS.map((action) => {
           const { slug, Icon, title, body, href, requiresCV, isNew } = action
           const locked = requiresCV && hasNoCV
@@ -104,7 +104,7 @@ export default function SnabbAtgarder({ cvCount, recommendedSlug }: SnabbAtgarde
           const tag = locked ? (
             <span className="shrink-0 text-meta text-ink-3">Kräver CV</span>
           ) : recommended ? (
-            <span className="shrink-0 text-meta font-medium text-accent-ink">Rekommenderas</span>
+            <span className="shrink-0 text-meta font-medium text-koppar-ink">Rekommenderas</span>
           ) : isNew ? (
             <span className="shrink-0 text-meta text-ink-3">Nyhet</span>
           ) : null
@@ -114,7 +114,7 @@ export default function SnabbAtgarder({ cvCount, recommendedSlug }: SnabbAtgarde
               <Link
                 href={targetHref}
                 aria-label={locked ? `${title} (kräver CV)` : title}
-                className="flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-insunken/60"
+                className="flex min-h-14 items-center gap-3 px-4 py-3 transition-colors hover:bg-papper-2/60"
               >
                 <Icon size={24} className="shrink-0 text-ink-2" />
                 <span className="min-w-0 flex-1">

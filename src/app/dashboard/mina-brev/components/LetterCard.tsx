@@ -8,6 +8,7 @@
  */
 
 import { kopstegHref } from '@/lib/onboarding/steps'
+import { SALD_PLAN } from '@/lib/plans/plans'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
@@ -56,16 +57,16 @@ export default function LetterCard({
   const meta = [tonalityDisplay, templateName].filter(Boolean).join(' · ');
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-kant bg-panel transition-[border-color] duration-[120ms] hover:border-kant-stark">
+    <article className="group relative overflow-hidden rounded-xl border border-kant bg-papper transition-[border-color] duration-[120ms] hover:border-kant-stark">
       {/* Hela kortet är klickbart till visa-sidan. Ligger under menyn. */}
       <button
         type="button"
         onClick={() => onView(letter.id)}
-        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="absolute inset-0 z-10 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink"
         aria-label={`Visa brev till ${primary}`}
       />
 
-      <div className="relative flex h-40 items-center justify-center border-b border-kant bg-insunken shadow-insunken">
+      <div className="relative flex h-40 items-center justify-center border-b border-kant bg-papper-2 ">
         <LetterPaperThumbnail
           seed={letter.id || primary}
           className={`h-28 w-[90px] ${isLocked ? 'opacity-50' : ''}`}
@@ -106,7 +107,7 @@ export default function LetterCard({
 
         {isLocked ? (
           <Link
-            href={kopstegHref('cv_week')}
+            href={kopstegHref(SALD_PLAN, 'kvot')}
             onClick={(e) => e.stopPropagation()}
             className="relative z-20 mt-1 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
           >

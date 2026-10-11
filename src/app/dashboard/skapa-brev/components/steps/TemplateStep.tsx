@@ -9,9 +9,10 @@
  * ingen orange yta.
  */
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import Sheet from '@/components/shell/Sheet';
 import { IkonMallar } from '@/components/illustrations/Ikoner';
@@ -75,13 +76,13 @@ function TemplateCard({
       aria-checked={isSelected}
       disabled={isLocked}
       onClick={onSelect}
-      className={`relative w-full rounded-xl border bg-panel p-3 text-left transition-[border-color] duration-[160ms] ease-out disabled:cursor-not-allowed disabled:opacity-60 ${
+      className={`relative w-full rounded-xl border bg-papper p-3 text-left transition-[border-color] duration-[160ms] ease-out disabled:cursor-not-allowed disabled:opacity-60 ${
         isSelected ? 'border-ink-1 shadow-val' : 'border-kant hover:border-kant-stark'
       }`}
     >
       <span
         aria-hidden="true"
-        className={`absolute right-5 top-5 z-10 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-white transition-opacity duration-[160ms] ${
+        className={`absolute right-5 top-5 z-10 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-papper transition-opacity duration-[160ms] ${
           isSelected ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -96,7 +97,7 @@ function TemplateCard({
           stilla. En fast h-44 gav rätt höjd men fel form, och formen
           ändrades när kortets bredd gjorde det. */}
       <div
-        className="relative w-full overflow-hidden rounded-lg border border-kant bg-insunken shadow-insunken"
+        className="relative w-full overflow-hidden rounded-lg border border-kant bg-papper-2 "
         style={{ aspectRatio: '210 / 297' }}
         onClick={(e) => {
           e.stopPropagation();
@@ -121,7 +122,7 @@ function TemplateCard({
             <IkonMallar size={24} />
           </div>
         )}
-        <span className="absolute bottom-2 right-2 rounded-lg border border-kant bg-panel px-2 py-0.5 text-meta text-ink-2">
+        <span className="absolute bottom-2 right-2 rounded-lg border border-kant bg-papper px-2 py-0.5 text-meta text-ink-2">
           Visa större
         </span>
       </div>
@@ -183,7 +184,7 @@ export default function TemplateStep({
   const previewLocked = !!previewTemplate && previewTemplate.tier === 'premium' && !isPremium;
 
   const ARROW =
-    'absolute top-24 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-kant bg-panel text-ink-1 shadow-svav';
+    'absolute top-24 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-kant bg-papper text-ink-1 shadow-svav';
 
   return (
     <section ref={registerRef} data-flow-section="template">
@@ -295,7 +296,7 @@ export default function TemplateStep({
                   if (previewTemplateId) onTemplateChange(previewTemplateId);
                   setPreviewTemplateId(null);
                 }}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+                className={KNAPP_PRIMAR_SMAL}
               >
                 Välj denna mall
               </button>
@@ -305,7 +306,7 @@ export default function TemplateStep({
       >
         {previewTemplateId ? (
           /* A4-proportionen via aspect-ratio i stället för en fast höjd. */
-          <div className="mx-auto w-full max-w-[21cm] overflow-hidden rounded-lg border border-kant bg-panel">
+          <div className="mx-auto w-full max-w-[21cm] overflow-hidden rounded-lg border border-kant bg-papper">
             <iframe
               src={`/images/templates/${previewTemplateId}-preview.html`}
               className="w-full border-0"

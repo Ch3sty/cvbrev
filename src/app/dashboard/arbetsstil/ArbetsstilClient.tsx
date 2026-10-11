@@ -1,5 +1,15 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { ARBETSSTIL, RUBRIK } from '@/lib/rum/copy'
+import { getTestConfig } from '@/app/dashboard/tester/testConfig'
+
+// Talen i kortet ur TEST_CONFIGS (copywriterns våg 4 punkt 7), aldrig fasta.
+const GRUND = getTestConfig('personlighet-grund')
+const FORDJUPAT = getTestConfig('personlighet-avancerad')
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -31,32 +41,38 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
   const { done, hasAdvancedTest, ownReport, workStyle } = data;
 
   return (
-    <div className="mx-auto py-4 sm:py-6 max-w-3xl">
+    <>
+    {/* h1 är undersidans namn (spec 18.4 punkt 1). Arketypen står i raden;
+        utan test lyfts vyns enda handling i ett kort. */}
+    <RumHuvud
+      title={RUBRIK.arbetsstil}
+      description={ownReport ? ownReport.archetype.title : ARBETSSTIL.rad}
+      tat={done}
+    />
+    <Golv lyft={!done}>
+    {!done ? (
+      <LyftKort
+        label={ARBETSSTIL.forstTitel}
+        titel={ARBETSSTIL.forstTitel}
+        text={ARBETSSTIL.forstText(
+          { antal: GRUND?.totalQuestions ?? 50, minuter: GRUND?.minutes ?? 10 },
+          FORDJUPAT?.totalQuestions ?? 120
+        )}
+        className="w-full max-w-3xl"
+        handling={
+          <Link href="/dashboard/tester/personlighet-grund" className={`${KNAPP_PRIMAR} sm:w-auto`}>
+            {ARBETSSTIL.forstKnapp}
+          </Link>
+        }
+      />
+    ) : null}
+    <div className="w-full max-w-3xl">
       <div className="space-y-5 sm:space-y-6">
-        {/* Hero */}
-        <header className="rounded-xl border border-kant bg-panel p-5 sm:p-7">
-          <p className="mb-1 text-steg uppercase text-ink-3">Din arbetsstil</p>
-          {ownReport ? (
-            <>
-              <h1 className="text-h1 text-ink-1">
-                {ownReport.archetype.title}
-              </h1>
-              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
-                {ownReport.archetype.description}
-              </p>
-            </>
-          ) : (
-            <>
-              <h1 className="text-h1 text-ink-1">
-                Din rapport i ord, byggd på dig
-              </h1>
-              <p className="mt-2 max-w-xl text-sm leading-[22px] text-ink-2">
-                Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i
-                siffror, och den privata delen är bara din.
-              </p>
-            </>
-          )}
-          <p className="mt-3 text-meta text-ink-3">
+        {ownReport ? (
+          <p className="text-sm leading-[22px] text-ink-2">{ownReport.archetype.description}</p>
+        ) : null}
+        <header className="rounded-2xl border border-kant bg-papper p-4 sm:p-5">
+          <p className="text-meta text-ink-3">
             Det här är din egen rapport i du-form. Vad rekryterare får se styr
             du själv under{' '}
             <Link
@@ -68,21 +84,6 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
             .
           </p>
         </header>
-
-        {!done && (
-          <SectionCard title="Gör personlighetstestet först" delay={0.1}>
-            <p className="mb-3 text-sm leading-[22px] text-ink-2">
-              Din arbetsstilsrapport byggs på ditt personlighetstest. Börja med
-              dagens test, det tar bara några minuter.
-            </p>
-            <Link
-              href="/dashboard/tester"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
-            >
-              Gör dagens test
-            </Link>
-          </SectionCard>
-        )}
 
         {/* Grundtestare: låst vy med skarpa rubriker */}
         {done && !ownReport && !hasAdvancedTest && (
@@ -104,7 +105,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
               stället, den är ärligare.
             </p>
             {workStyle && (
-              <div className="rounded-lg border border-kant bg-insunken p-4 shadow-insunken">
+              <div className="rounded-lg border border-kant bg-papper-2 p-4 ">
                 <p className="text-kort text-ink-1">{workStyle.archetype.title}</p>
                 <p className="mt-1 text-sm leading-[22px] text-ink-2">
                   {workStyle.archetype.description}
@@ -138,7 +139,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 ))}
               </div>
               {ownReport.work.summary && (
-                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-ink-2 leading-relaxed mt-3">
                   {ownReport.work.summary}
                 </p>
               )}
@@ -162,7 +163,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                 <WorkStyleSpectrum spectrum={ownReport.drive.spectrum} />
               )}
               {ownReport.drive.summary && (
-                <p className="text-[13.5px] text-neutral-700 leading-relaxed mt-3">
+                <p className="text-[13.5px] text-ink-2 leading-relaxed mt-3">
                   {ownReport.drive.summary}
                 </p>
               )}
@@ -186,7 +187,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                   {ownReport.thrives.map((card) => (
                     <div
                       key={card.thrivesWhen}
-                      className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken"
+                      className="rounded-lg border border-kant bg-papper-2 p-3.5 "
                     >
                       <p className="text-sm leading-[22px] text-ink-2">
                         <span className="font-medium text-ink-1">Du trivs när</span>{' '}
@@ -227,7 +228,7 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
                   {ownReport.energyBudget.map((item) => (
                     <li
                       key={item}
-                      className="rounded-lg border border-kant bg-insunken p-3 text-sm leading-[22px] text-ink-2 shadow-insunken"
+                      className="rounded-lg border border-kant bg-papper-2 p-3 text-sm leading-[22px] text-ink-2 "
                     >
                       {item}
                     </li>
@@ -253,6 +254,8 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
         )}
       </div>
     </div>
+    </Golv>
+    </>
   );
 }
 

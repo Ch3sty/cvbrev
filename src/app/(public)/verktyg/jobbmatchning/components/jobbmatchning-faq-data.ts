@@ -1,7 +1,10 @@
 /**
  * FAQ-data for /verktyg/jobbmatchning landningssidan.
  * 8 fragor optimerade for long-tail-keywords kring "soka jobb" och "hitta jobb".
+ * Priset ur PLANS, aldrig som fast tal.
  */
+
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 
 export interface FaqItem {
   q: string
@@ -31,7 +34,7 @@ export const JOBBMATCHNING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att söka jobb online hos er?',
-    a: 'Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i Hela paketet för 99 kr i veckan eller 149 kr i månaden.',
+    a: `Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Funkar jobbmatchning för alla yrken?',

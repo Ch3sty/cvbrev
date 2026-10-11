@@ -8,6 +8,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { paketKort } from '@/lib/plans/plans';
 // Importera GenerateLetterResult typen och funktionerna
 import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib/openai/api';
 // *** NY IMPORT FÖR AKTIVITETSLOGGNING ***
@@ -112,7 +113,7 @@ export async function POST(request: Request) {
             limit: DAILY_LIMIT_LETTERS,
             nextResetAt: resetAt.toISOString(),
           },
-          'Du har använt dagens två brev. Ny kvot i morgon, eller uppgradera för obegränsat.'
+          `Du har använt dagens två brev. Ny kvot i morgon, eller köp ${paketKort()} för obegränsat.`
         ),
         { status: 429 }
       );

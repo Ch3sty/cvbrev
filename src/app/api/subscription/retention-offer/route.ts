@@ -13,6 +13,8 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { stripe } from '@/lib/stripe/server';
+import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
+import { SALD_PLAN } from '@/lib/plans/plans';
 
 const RETENTION_COUPON = 'retention_49_2m';
 const PAUSE_MONTHS = 3;
@@ -51,7 +53,7 @@ export async function POST(request: Request) {
 
     const { data: profile } = await admin
       .from('profiles')
-      .select('subscription_id, subscription_status')
+      .select('subscription_id, subscription_status, price_id')
       .eq('id', user.id)
       .maybeSingle();
 
@@ -61,6 +63,17 @@ export async function POST(request: Request) {
     }
     if (!['active', 'trialing', 'past_due'].includes(profile?.subscription_status ?? '')) {
       return NextResponse.json({ error: 'Prenumerationen är inte aktiv' }, { status: 400 });
+    }
+
+    // Rabatten gäller bara Jobbcoach Premium per månad (spec-rummen 23.7 a).
+    // Kupongen dras på vad prenumerationen än kostar, så på ett veckopris
+    // vore "49 kr i månaden" fel i sak. Uppsägningsflödet visar den inte
+    // heller för andra paket.
+    if (offer === 'discount' && priceIdToPlanKey(profile?.price_id ?? '') !== SALD_PLAN) {
+      return NextResponse.json(
+        { error: 'not_eligible', message: 'Erbjudandet gäller inte ditt paket.' },
+        { status: 400 }
+      );
     }
 
     if (offer === 'pause') {

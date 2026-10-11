@@ -8,30 +8,28 @@
  * betalväggen. Inga fetchanrop för att rita, ingen laddningsvy: första HTML
  * innehåller redan raderna med användarens riktiga resultat.
  *
- * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
- * 3 och 5): nivåer som inte ingår är gråa med lås och paketets namn, huvudet
- * säger vad som ingår, och kunden med CV-paketet får fotknapparna "Byt till
- * Träningspaketet" och "Eller Allt för 20 kr till i veckan".
+ * Gränsen syns här, där den är (spec-onboarding 2026-09-22, sektion 3 och 5,
+ * med ägarens beslut 2026-10-11): nivåer som inte ingår är gråa med lås och
+ * "Ingår i Premium", huvudet säger vad som ingår, och ett tryck på en grå
+ * nivå öppnar betalväggen för Premium. Inga spår och inga sidbyten säljs.
  */
 
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { TRAN_RAD, UNDERSIDA } from '@/lib/rum/copy';
+import { KNAPP_PRIMAR } from '@/components/shell/knappar';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { Feature, Scope } from '@/lib/access/features';
 import { scopeHasFeature } from '@/lib/access/features';
-import type { PlanKey } from '@/lib/plans/plans';
+import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans';
 import { DAILY_LIMIT_TEST_SESSIONS } from '@/lib/quota/quotaService';
-import { ellerAlltKnapp, graEtikettTest, laggTillKnapp, testHuvud } from '@/lib/onboarding/paket-rader';
-import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
-import PaketBytesRad from '@/components/paywall/PaketBytesRad';
-import { PAKETBYTE } from '@/components/pricing/paket-copy';
+import { graEtikettTest, testHuvud } from '@/lib/onboarding/paket-rader';
 import Link from 'next/link';
-import InkPanel, { INK_KNAPP } from '@/components/shell/InkPanel';
-import { IlluScenMatris } from '@/components/illustrations/PriserScener';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestGroup from './components/TestGroup';
 import TestKategori from './components/TestKategori';
@@ -43,10 +41,11 @@ const DevelopmentView = dynamic(() => import('./components/DevelopmentView'), {
   loading: () => <div className="min-h-[420px]" aria-hidden="true" />,
 });
 
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
-const KNAPP_SEKUNDAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40';
+/**
+ * Gratisraden (spec-rummen 23.3): nivåmätningen en gång med genomgång och
+ * ett första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
+ */
+const GRATIS_RAD = `Gratis att prova: nivåmätningen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
 
 /** Samma dag i svensk tid? */
 function sammaDag(iso: string | null): boolean {
@@ -66,11 +65,8 @@ export default function TesterHubClient({
 }) {
   const [tab, setTab] = useState<TesterTab>('tester');
   const [sparr, setSparr] = useState<Feature | null>(null);
-  const [busy, setBusy] = useState<PlanKey | null>(null);
-  const [bytUtfall, setBytUtfall] = useState<BytUtfall | null>(null);
-  const router = useRouter();
 
-  const { perTest, aggregate, personality, provBestPercent, isPremium, hasHistory, scope } =
+  const { perTest, aggregate, personality, provBestPercent, provformat, isPremium, hasHistory, scope } =
     data;
 
   const bestTest = Object.entries(perTest)
@@ -88,7 +84,8 @@ export default function TesterHubClient({
   const huvud = testHuvud(scope);
   const graEtikett = graEtikettTest(scope);
 
-  // "1 kvar i dag" på grundnivån utanför Träningspaketet: en gång per typ och dygn.
+  // "1 kvar i dag" på grundnivån utan paket: räknaren speglar kvoten i
+  // quotaService (DAILY_LIMIT_TEST_SESSIONS) och är ingen gratisutfästelse.
   const dagRad = useCallback(
     (slug: string): string | null => {
       if (harAllaNivaer) return null;
@@ -98,24 +95,6 @@ export default function TesterHubClient({
     },
     [harAllaNivaer, perTest]
   );
-
-  // Fotknapparna för kunden med CV-paketet: sidbyte och Hela paketet går båda via
-  // uppgraderingsrutten, som byter pris på prenumerationen direkt. Sidbytet
-  // till Träningspaketet utan proration, Hela paketet med mellanskillnaden.
-  const uppgradera = async (plan: PlanKey) => {
-    if (busy) return;
-    setBusy(plan);
-    setBytUtfall(null);
-    const utfall = await bytPaket(plan, '/dashboard/tester');
-    if (utfall.typ === 'kassa') {
-      window.location.href = utfall.url;
-      return;
-    }
-    setBytUtfall(utfall);
-    setBusy(null);
-    if (utfall.typ === 'bytt') router.refresh();
-  };
-  const alltKnapp = ellerAlltKnapp(planKey);
 
   // Rekommendationen i bläck (analysen 22 september, avsnitt 4): logiktestet
   // på grundnivå för den som inte gjort något, annars det första test som
@@ -145,23 +124,22 @@ export default function TesterHubClient({
   })();
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
+    <>
+      <RumHuvud
+        title={UNDERSIDA.allaTester}
+        description={`${TRAN_RAD} ${
+          huvud.ingress ??
+          `Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL.${harAllaNivaer ? '' : ` Alla nivåer ingår i ${paketKort()}.`}`
+        }`}
+      />
+    <Golv>
+    <div className="w-full max-w-3xl">
       <div className="space-y-4 sm:space-y-6">
-        <PageHeader
-          eyebrow="Rekryteringstester"
-          title="Känn igen uppgiften innan provdagen."
-          description={
-            huvud.ingress ??
-            'Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL. Alla nivåer ingår i Träningspaketet och Hela paketet.'
-          }
-          scene={<IlluScenMatris className="h-auto w-full" />}
-        >
-          <TesterTabs
-            active={tab}
-            onChange={setTab}
-            completedCount={aggregate.totalCompleted}
-          />
-        </PageHeader>
+        <TesterTabs
+          active={tab}
+          onChange={setTab}
+          completedCount={aggregate.totalCompleted}
+        />
 
         {/* kunden med CV-paketet: paketet, och var resten finns. */}
         {huvud.statusrad ? (
@@ -171,22 +149,25 @@ export default function TesterHubClient({
         ) : null}
         {huvud.rubrik ? <p className="text-kort text-ink-1">{huvud.rubrik}</p> : null}
 
-        {/* Gratisrytmen sägs en gång, som rad, inte på varje rad. */}
+        {/* Vad som är gratis sägs en gång, som rad (spec-rummen 23.3 punkt
+            2 till 4): sant i båda gaterna, inga dygn, priset ur PLANS. */}
         {!isPremium && !huvud.ingress ? (
           <StatusRow tone="neutral" showDot>
-            Du gör varje test en gång per dag på gratisnivån.
+            {GRATIS_RAD}
           </StatusRow>
         ) : null}
 
         {tab === 'tester' ? (
           <div key="tester" className="space-y-4 sm:space-y-6">
             {rekommendation ? (
-              <InkPanel
+              <LyftKort
+                utanOverlapp
+                label={rekommendation.title}
                 eyebrow={rekommendation.eyebrow}
-                title={rekommendation.title}
+                titel={rekommendation.title}
                 text={rekommendation.text}
-                action={
-                  <Link href={rekommendation.href} className={INK_KNAPP}>
+                handling={
+                  <Link href={rekommendation.href} className={`${KNAPP_PRIMAR} sm:w-auto`}>
                     {rekommendation.knapp}
                   </Link>
                 }
@@ -203,6 +184,7 @@ export default function TesterHubClient({
                 provBestPercent={
                   group.prov ? provBestPercent[group.prov.sessionEndpoint] ?? null : null
                 }
+                provformat={provformat}
                 scope={scope}
                 graEtikett={graEtikett}
                 onLocked={(feature) => setSparr(feature)}
@@ -227,31 +209,6 @@ export default function TesterHubClient({
               />
             ))}
 
-            <PaketBytesRad utfall={bytUtfall} />
-
-            {/* Foten för kunden med CV-paketet (sektion 3). */}
-            {scope === 'cv' && bytUtfall?.typ !== 'bytt' ? (
-              <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
-                <button
-                  type="button"
-                  onClick={() => uppgradera('test_week')}
-                  disabled={busy !== null}
-                  className={KNAPP_PRIMAR}
-                >
-                  {busy === 'test_week' ? PAKETBYTE.arbetar : laggTillKnapp('test_week')}
-                </button>
-                {alltKnapp ? (
-                  <button
-                    type="button"
-                    onClick={() => uppgradera('all_week')}
-                    disabled={busy !== null}
-                    className={KNAPP_SEKUNDAR}
-                  >
-                    {busy === 'all_week' ? PAKETBYTE.arbetar : alltKnapp}
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
           </div>
         ) : (
           <DevelopmentView perTest={perTest} hasHistory={hasHistory} scope={scope} />
@@ -268,8 +225,11 @@ export default function TesterHubClient({
           track={track}
           planKey={planKey}
           surface="/dashboard/tester"
+          plats={sparr === 'test_exam_mode' ? 'provlage' : 'testniva'}
         />
       ) : null}
     </div>
+    </Golv>
+    </>
   );
 }

@@ -125,7 +125,7 @@ export default function CvMallarPageContent({
                 backgroundClip: 'text',
               }}
             >
-              gratis och premium
+              gratis eller i {PAKETRADER.bricka}
             </span>
           </h1>
 

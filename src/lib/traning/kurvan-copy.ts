@@ -1,0 +1,33 @@
+// src/lib/traning/kurvan-copy.ts
+// Texterna på Hela kurvan (konceptets F1). Utkast ur konceptet; copywritern
+// har sista ordet (spec-rummen avsnitt 9, våg 3b-listan: legendens fyra
+// rader, "Pass flyttar nivån lite i taget, ommätningar mer.",
+// "Personlighetstestet har ingen kurva.").
+
+export const KURVAN = {
+  brand: 'Hela kurvan',
+  kontext: 'Test och datum',
+  rubrik: 'Hela kurvan',
+  figurer: 'Figurer och mönster',
+  tomRad: 'Kurvan börjar med mätningen. Sedan en punkt per pass och en tyngre punkt vid varje ommätning.',
+  passFlyttar: 'Pass flyttar nivån lite i taget, ommätningar mer.',
+  legend: {
+    rubrik: 'Så läser du kurvan',
+    pass: 'Pass',
+    passMeta: 'En punkt per dag. Flyttar nivån högst 0,5.',
+    matning: 'Mätning och ommätning',
+    matningMeta: 'Tolv adaptiva uppgifter, tyngre punkt. Var sjunde dag.',
+    sikte: 'Siktet',
+    sikteMeta: 'Ditt mål före provdagen. Vårt förslag, ändringsbart. Aldrig arbetsgivarens krav.',
+    plan: 'Planerade dagar',
+    planMeta: 'Ihåliga märken längst ner. Söndag är vilodag och lämnar en lucka utan att bryta serien.',
+  },
+  flerKurvor: 'Fler kurvor',
+  ingenKurva: (senast: string | null) =>
+    senast ? `Ingen kurva än: nivån mäts bara i figurer och mönster. Senast gjort ${senast}.` : 'Ingen kurva än: nivån mäts bara i figurer och mönster.',
+  personlighet: (datum: string | null) =>
+    datum ? `Personlighetstestet har ingen kurva. Profil klar ${datum}.` : 'Personlighetstestet har ingen kurva. Inga rätta svar.',
+  visaProfilen: 'Visa profilen',
+  gorProfilen: 'Gör profilen',
+  historikLast: 'Kurvans historik visar bara den senaste punkten.',
+} as const

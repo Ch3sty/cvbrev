@@ -12,7 +12,7 @@ export default function Segmentrad({ n, className = 'mt-2' }: { n: number; class
         <span
           key={i}
           className={`h-full flex-1 first:rounded-l-full last:rounded-r-full ${
-            i <= n ? 'bg-ink-1' : 'bg-insunken shadow-[inset_0_0_0_1px_var(--kant-stark)]'
+            i <= n ? 'bg-ink-1' : 'bg-papper-2 shadow-[inset_0_0_0_1px_var(--kant-stark)]'
           }`}
         />
       ))}

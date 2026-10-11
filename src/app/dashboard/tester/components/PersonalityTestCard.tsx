@@ -4,7 +4,7 @@
  * Raden för ett personlighetstest på hubben.
  *
  * Grundnivån öppnar alltid testets sida. Tolkningen (avancerad nivå) ingår
- * i Träningspaketet och Hela paketet; i andra paket är raden grå med lås och paketets
+ * i Träningspaketet och Premium; i andra paket är raden grå med lås och paketets
  * namn, och trycket öppnar betalväggen (spec-onboarding 2026-09-22,
  * sektion 3).
  */
@@ -14,6 +14,7 @@ import { ChevronRight } from 'lucide-react';
 import TestLevelBadge from '@/components/tests/shared/TestLevelBadge';
 import { testPaths } from '../testConfig';
 import { HUB_ROW, HUB_ROW_LOCKED, LasIkon, type TestLevelLabel } from './TestCard';
+import { lastAria } from '@/lib/traning/hem-copy';
 
 export type PersonalityCardVariant = 'personality-grund' | 'personality-avancerad';
 
@@ -34,7 +35,7 @@ interface Props {
   isUserPremium: boolean;
   stats: PersonalityCardStats;
   index?: number;
-  /** Nivån ingår inte i paketet: etiketten säger var den finns. */
+  /** Nivån ingår inte: etiketten "Ingår i Premium". */
   locked?: string | null;
   onLocked?: () => void;
   /** Underraden på grundnivån utanför Träningspaketet: "Resultatet utan tolkning". */
@@ -62,7 +63,7 @@ export default function PersonalityTestCard({
         <button
           type="button"
           onClick={onLocked}
-          aria-label={`${titel}. Ingår inte. ${locked}`}
+          aria-label={`${titel}. ${lastAria()}`}
           className={HUB_ROW_LOCKED}
         >
           <span className="text-kant-stark">

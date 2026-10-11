@@ -14,6 +14,7 @@ import { PLAN_BY_KEY, isPlanKey, type PlanKey, type PlanScope } from '@/lib/plan
 import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
 import { captureServer } from '@/lib/analytics/server';
 import { scopeFromSubscription } from '@/lib/stripe/subscriptionScope';
+import { platsUrSource } from '@/lib/stripe/plats';
 import type { Database } from '@/types/database.types';
 import {
   onPaymentFailed,
@@ -90,11 +91,16 @@ const capturePaidServerside = (params: {
     plan: string;
     scope: string;
     amountSek?: number;
+    /** metadata.source på sessionen eller prenumerationen (spec-rummen avsnitt 7). */
+    source?: unknown;
 }): void => {
+    // "betalvagg:matning" blir plats "matning"; annan source står som den är.
+    const plats = platsUrSource(params.source);
     captureServer('subscription_paid', params.userId, {
         plan: params.plan,
         scope: params.scope,
         amount_sek: params.amountSek,
+        ...(plats ? { plats } : {}),
     });
 };
 
@@ -381,6 +387,7 @@ export async function POST(request: Request) {
                              plan: plan ?? 'okant',
                              scope: updated.scope ?? 'allt',
                              amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
+                             source: fullSubscription.metadata?.source,
                          });
                      }
 
@@ -476,6 +483,7 @@ export async function POST(request: Request) {
                        plan: kvittoPlan,
                        scope: 'allt',
                        amountSek: belopp,
+                       source: eventData.metadata?.source,
                      });
 
                      // Kvittot. grantPremiumDays har redan spärrat omsända

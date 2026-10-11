@@ -49,7 +49,7 @@ function egenskaper(tpl: GalleriMall) {
 
 interface CVMallarGalleriProps {
   mallar: readonly GalleriMall[]
-  /** Paketets namn för de betalda mallarna: "CV-paketet". */
+  /** Kortformen för de betalda mallarna: "Premium". */
   paket: string
 }
 

@@ -1,8 +1,13 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import LyftKort from '@/components/rum/LyftKort';
+import { RUBRIK } from '@/lib/rum/copy';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import EmptyState from '@/components/shell/EmptyState';
 import StatusRow from '@/components/shell/StatusRow';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
@@ -159,7 +164,14 @@ export default function MessageHub({
 
   // ---- Laddning / tomt läge ------------------------------------------------
   if (interests === null) {
-    return <LoadingSkeleton variant="list" count={4} label="Hämtar dina meddelanden" />;
+    return (
+      <>
+        <VaggLaddar label="Hämtar dina meddelanden" />
+        <Golv key="laddar">
+          <LoadingSkeleton variant="list" count={4} label="Hämtar dina meddelanden" />
+        </Golv>
+      </>
+    );
   }
 
   if (interests.length === 0) {
@@ -169,15 +181,17 @@ export default function MessageHub({
       'Ni chattar direkt här',
     ];
     return (
-      <div className="space-y-4">
-        {/* Tomma läget är hela sidan, så rubriken är sidans h1. */}
-        <PageHeader
-          title="Inga meddelanden än"
+      <>
+        {/* h1 är undersidans namn (spec 18.4 punkt 2); det tomma läget är
+            ett lyft kort på golvet, inte rubriken på väggen. */}
+        <RumHuvud
+          title={RUBRIK.meddelanden}
           description="Här landar dina samtal med rekryterare som visat intresse."
+          tat={false}
         />
-
-        <section className="rounded-xl border border-kant bg-panel p-4">
-          <h2 className="text-sm font-medium text-ink-3">Så kommer de igång</h2>
+      <Golv key="tomt" lyft>
+        <LyftKort label="Inga meddelanden än" titel="Inga meddelanden än" className="w-full max-w-3xl">
+          <h3 className="mt-3 text-sm font-medium text-ink-3">Så kommer de igång</h3>
           <ol className="mt-2 divide-y divide-kant border-t border-kant">
             {STEPS.map((step, i) => (
               <li key={step} className="flex items-center gap-3 py-3">
@@ -187,14 +201,12 @@ export default function MessageHub({
             ))}
           </ol>
 
-          <Link
-            href="/dashboard/bli-upptackt"
-            className="mt-4 inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
-          >
+          <Link href="/dashboard/bli-upptackt" className={`${KNAPP_PRIMAR} mt-4 sm:w-auto`}>
             Gå till Bli upptäckt
           </Link>
-        </section>
-      </div>
+        </LyftKort>
+      </Golv>
+      </>
     );
   }
 
@@ -221,11 +233,13 @@ export default function MessageHub({
   );
 
   return (
-    <div className="space-y-4">
-      <PageHeader
-        title="Meddelanden"
+    <>
+      <RumHuvud
+        title={RUBRIK.meddelanden}
         description="Rekryterare som vill nå dig, och era konversationer. Accepterar du delas ditt namn och din e-post, och chatten öppnas."
       />
+    <Golv key="lista">
+    <div className="w-full space-y-4">
 
       {(error || respondError) && (
         <StatusRow tone="warm" showDot label="Problem med meddelandena">
@@ -233,7 +247,7 @@ export default function MessageHub({
         </StatusRow>
       )}
 
-      <div className="h-[640px] overflow-hidden rounded-xl border border-kant bg-panel">
+      <div className="h-[640px] overflow-hidden rounded-xl border border-kant bg-papper">
         <div className="flex h-full">
           {/* Vänster: lista. Mobil döljs när en tråd är öppen. */}
           <div
@@ -261,5 +275,7 @@ export default function MessageHub({
         </div>
       </div>
     </div>
+    </Golv>
+    </>
   );
 }

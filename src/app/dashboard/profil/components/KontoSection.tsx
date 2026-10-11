@@ -8,6 +8,7 @@
  * AccountSection: samma routes, samma bekräftelse med text.
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import Sheet from '@/components/shell/Sheet'
@@ -27,7 +28,7 @@ const MEJL: MejlRad[] = [
     key: 'digest',
     endpoint: '/api/email/digest-preference',
     title: 'Veckosammanfattning',
-    body: 'En gång i veckan: hur många jobb du sökte, vad som väntar på svar och vilka ansökningar som är värda en påminnelse. Skickas bara när du har ansökningar igång.',
+    body: 'En gång i veckan: hur många jobb du sökte, vad som väntar på svar och vilka sökta tjänster som är värda en påminnelse. Skickas bara när du har sökta tjänster igång.',
     ariaLabel: 'Veckosammanfattning via mejl',
   },
   {
@@ -40,7 +41,7 @@ const MEJL: MejlRad[] = [
 ]
 
 export interface KontoSectionProps {
-  /** Prenumerationsradens undertext, till exempel "Gratisnivån · tre paket, från 49 kr". */
+  /** Prenumerationsradens undertext, till exempel "Gratisnivån · Premium, {pris i månaden}". */
   prenumerationRad: string
   harPaket: boolean
   initialDigestOptOut: boolean
@@ -77,7 +78,7 @@ export default function KontoSection(p: KontoSectionProps) {
   })
 
   return (
-    <section id="konto" className="scroll-mt-24 rounded-xl border border-kant bg-panel">
+    <section id="konto" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
       <div className="p-4 sm:p-5">
         <h2 className="text-kort text-ink-1">{KONTO_SEKTION.rubrik}</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{KONTO_SEKTION.under}</p>
@@ -163,7 +164,7 @@ function MejlVaxel({ rad, optOut, onChange }: { rad: MejlRad; optOut: boolean; o
 }
 
 const BTN_SEKUNDAR =
-  'inline-flex h-11 shrink-0 items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-60'
+  `${KNAPP_SEKUNDAR_SMAL} shrink-0`
 
 function RaderaKonto({
   harPaket,
@@ -235,7 +236,7 @@ function RaderaKonto({
           type="button"
           onClick={radera}
           disabled={!kan || raderar}
-          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-white transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex h-11 items-center justify-center rounded-lg bg-fel px-4 text-sm font-medium text-papper transition-colors hover:bg-fel-morker disabled:cursor-not-allowed disabled:opacity-40"
         >
           {raderar ? 'Tar bort' : 'Radera permanent'}
         </button>

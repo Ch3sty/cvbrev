@@ -3,14 +3,16 @@
 /**
  * Jämförelsetabellen (docs/design/spec-prissida-2026-09-22.html, .jamf).
  *
- * Fem kolumner: funktion, gratis, CV-paketet, Träningspaketet, Hela paketet. JSX-tabell,
- * aldrig markdown (reference_table_markup). Ord i stället för prickar:
- * "Alla 41", "Hela rapporten", "Ingår inte". Tabellen scrollar i sin egen
- * behållare, sidans body scrollar aldrig i sidled, och första kolumnen
+ * Tre kolumner: funktion, gratis och Premium (spec-rummen 17.3, bara
+ * Jobbcoach Premium säljs). JSX-tabell, aldrig markdown
+ * (reference_table_markup). Ord i stället för prickar: "Alla 41", "Hela
+ * rapporten", "Ingår inte". Tabellen scrollar i sin egen behållare om den
+ * inte ryms, sidans body scrollar aldrig i sidled, och första kolumnen
  * ligger kvar på mobil.
  *
- * Kolumnhuvudena bär spårens färgetiketter, Allt-kolumnen står i ink-1 med
- * vit text, precis som kortet. Gruppraderna är sektionsetiketter på mark.
+ * Publik komponent i Trådens utseende: Premiumkolumnens huvud står i ink-1
+ * med vit text, gruppraderna är sektionsetiketter på mark. Rubrikerna
+ * kommer ur priser-data.ts.
  *
  * pricing_comparison_viewed skjuts när halva tabellen är i bild, en gång.
  */
@@ -20,6 +22,7 @@ import { useEffect, useRef } from 'react'
 import { capture } from '@/lib/analytics/events'
 import {
   COMPARISON,
+  JAMFORELSE_KOLUMNER,
   type ComparisonCell,
   type ComparisonGroup,
 } from '@/app/(public)/priser/components/priser-data'
@@ -32,8 +35,7 @@ export interface JamforelseTabellProps {
 }
 
 function Cell({ cell }: { cell: ComparisonCell }) {
-  const ton =
-    cell.ton === 'ja' ? 'font-semibold text-ink-1' : 'text-ink-3'
+  const ton = cell.ton === 'ja' ? 'font-semibold text-ink-1' : 'text-ink-3'
   return (
     <>
       <span className={ton}>{cell.text}</span>
@@ -78,26 +80,18 @@ export default function JamforelseTabell({
   return (
     <div ref={ref} className={className}>
       <div className="overflow-x-auto rounded-xl border border-kant bg-panel">
-        <table className="w-full min-w-[760px] border-collapse tabular-nums">
-          <caption className="sr-only">
-            Vad som ingår i gratisnivån, CV-paketet, Träningspaketet och Hela paketet
-          </caption>
+        <table className="w-full min-w-[320px] border-collapse tabular-nums">
+          <caption className="sr-only">{JAMFORELSE_KOLUMNER.caption}</caption>
           <thead>
             <tr className="border-b border-kant">
               <th scope="col" className={`${FORSTA} bg-insunken text-[13px] font-semibold text-ink-1`}>
-                Funktion
+                {JAMFORELSE_KOLUMNER.funktion}
               </th>
-              <th scope="col" className={`${TH} w-[17%] bg-insunken text-ink-1`}>
-                Gratis
+              <th scope="col" className={`${TH} w-[32%] bg-insunken text-ink-1`}>
+                {JAMFORELSE_KOLUMNER.gratis}
               </th>
-              <th scope="col" className={`${TH} w-[17%] bg-insunken text-cv`}>
-                CV-paketet
-              </th>
-              <th scope="col" className={`${TH} w-[17%] bg-insunken text-test`}>
-                Träningspaketet
-              </th>
-              <th scope="col" className={`${TH} w-[17%] bg-ink-1 text-white`}>
-                Hela paketet
+              <th scope="col" className={`${TH} w-[32%] bg-ink-1 text-white`}>
+                {JAMFORELSE_KOLUMNER.premium}
               </th>
             </tr>
           </thead>
@@ -107,7 +101,7 @@ export default function JamforelseTabell({
               <tr className="border-b border-kant">
                 <th
                   scope="colgroup"
-                  colSpan={5}
+                  colSpan={3}
                   className="bg-mark px-3 py-2 text-left text-steg uppercase text-ink-3 sm:px-5"
                 >
                   {grupp.title}
@@ -125,13 +119,7 @@ export default function JamforelseTabell({
                     <Cell cell={rad.free} />
                   </td>
                   <td className={TD}>
-                    <Cell cell={rad.cv} />
-                  </td>
-                  <td className={TD}>
-                    <Cell cell={rad.test} />
-                  </td>
-                  <td className={TD}>
-                    <Cell cell={rad.allt} />
+                    <Cell cell={rad.premium} />
                   </td>
                 </tr>
               ))}

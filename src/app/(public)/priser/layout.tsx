@@ -1,34 +1,32 @@
 import { Metadata } from 'next'
+import { PRISER_META } from './components/priser-data'
 
 /**
  * Metadata för /priser (reference_onpage_seo_standard: title högst 60 tecken,
- * description mellan 110 och 158).
+ * description mellan 110 och 158). Strängarna och talen bor i
+ * priser-data.ts och läser PLANS, så ett prisbyte når titeln också.
  *
- * Title: 54 tecken. Description: 153 tecken.
+ * Title: 58 tecken. Description: 148 tecken (copy-premium avsnitt 3).
  */
 export const metadata: Metadata = {
-  title: 'Priser: en vecka som bär hela jobbsöket | Jobbcoach.ai',
-  description:
-    'CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Allt öppet direkt, ingen bindningstid, säg upp med ett klick. Gratisnivån ligger kvar.',
-  keywords:
-    'jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, veckoprenumeration jobbsökning',
+  title: PRISER_META.title,
+  description: PRISER_META.description,
+  keywords: PRISER_META.keywords,
   openGraph: {
-    title: 'En vecka som bär hela jobbsöket.',
-    description:
-      'CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Ingen bindningstid, uppsägning med ett klick, och gratisnivån ligger kvar.',
+    title: PRISER_META.ogTitle,
+    description: PRISER_META.description,
     type: 'website',
     locale: 'sv_SE',
-    url: 'https://www.jobbcoach.ai/priser',
+    url: PRISER_META.url,
     siteName: 'Jobbcoach.ai',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'En vecka som bär hela jobbsöket.',
-    description:
-      'CV-paketet och Träningspaketet 79 kr i veckan, Hela paketet 99 kr. Ingen bindningstid, uppsägning med ett klick.',
+    title: PRISER_META.ogTitle,
+    description: PRISER_META.description,
   },
   alternates: {
-    canonical: 'https://www.jobbcoach.ai/priser',
+    canonical: PRISER_META.url,
   },
   robots: {
     index: true,

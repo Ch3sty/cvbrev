@@ -149,7 +149,7 @@ function Chip({
       type="button"
       aria-pressed={selected}
       onClick={onClick}
-      className={`inline-flex min-h-11 items-center rounded-md border bg-panel text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+      className={`inline-flex min-h-11 items-center rounded-md border bg-papper text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
         small ? 'px-3' : 'px-3.5'
       } ${selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'}`}
     >
@@ -197,7 +197,7 @@ function SalaryInputs({
           autoComplete="off"
           onBlur={save}
           aria-label="Lägsta månadslön"
-          className="h-11 w-36 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+          className="h-11 w-36 rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
         <span className="text-sm text-ink-3" aria-hidden="true">
           till
@@ -213,7 +213,7 @@ function SalaryInputs({
           autoComplete="off"
           onBlur={save}
           aria-label="Högsta månadslön"
-          className="h-11 w-36 rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+          className="h-11 w-36 rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
       </div>
       <p className="mt-2 text-meta text-ink-3">

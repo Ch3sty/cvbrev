@@ -5,6 +5,7 @@ import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaService';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { paketKort } from '@/lib/plans/plans';
 
 // Konstanter för prenumerationsbegränsningar.
 // Dagskvotmodellen (docs/plan-kvotmodell.md): brev är 1 per dag med
@@ -817,7 +818,7 @@ export const useProfile = () => {
     if (calculateCvLimitReached(subscriptionTier, cvCount)) {
        const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
        const message = subscriptionTier === 'free'
-           ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium för obegränsade CV:n.`
+           ? `Som gratisanvändare kan du spara ${formatLimit(limit)} CV. Fler CV ingår i ${paketKort()}.`
            : `Du har nått maxgränsen på ${formatLimit(limit)} CV. Ta bort ett befintligt CV först.`;
        console.error('uploadCV Error: Limit reached.');
        throw new Error(message);
@@ -894,7 +895,7 @@ export const useProfile = () => {
         if (errorPayload.code === 'CV_LIMIT_REACHED') {
           const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
           throw new Error(subscriptionTier === 'free'
-            ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium.`
+            ? `Som gratisanvändare kan du spara ${formatLimit(limit)} CV. Fler CV ingår i ${paketKort()}.`
             : `Du har nått maxgränsen på ${formatLimit(limit)} CV.`);
         }
         throw new Error(errorPayload.message || errorPayload.error || 'Okänt serverfel vid uppladdning');

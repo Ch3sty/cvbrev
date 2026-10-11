@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useState, useMemo, useEffect, useCallback } from 'react';
 
 import CategorySegments, { type SelectCategory } from '../select/CategorySegments';
@@ -429,7 +430,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
           <button
             type="button"
             onClick={onAdvance}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken sm:w-auto sm:min-w-[200px]"
+            className={`${KNAPP_SEKUNDAR} sm:w-auto sm:min-w-[200px]`}
           >
             {advanceLabel}
           </button>

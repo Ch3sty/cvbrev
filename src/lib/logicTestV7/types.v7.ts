@@ -177,4 +177,9 @@ export type Question = {
   grid: (V7Cell | null)[][];
   options: V7Cell[];
   correctAnswer: number;
+  /** Mönsterfamilj, id ur familjer.json. */
+  family?: string;
+  /** Ett per alternativ på originalindex, tomt för facit. */
+  misstag?: string[];
+  misstagGranskas?: number[];
 };

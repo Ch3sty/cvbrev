@@ -4,19 +4,30 @@
  * Ett sparat brev (docs/design/overlamning-opus.md, avsnitt 4, "Lista" och
  * "Flödessteg").
  *
- * PageHeader är sidans enda h1 och bär primärhandlingen (Redigera). Övriga
- * handlingar är sekundära knappar i en panel. Brevet självt ligger på papper
- * (bg-white), vilket är specens enda tillåtna undantag från bg-panel.
+ * B1-skelettet (spec-rummen 16.3.2): väggen bär h1, metaraden och länken
+ * tillbaka. Brevet är det lyfta kortet, med Redigera som kopparknapp och
+ * Kopiera, PDF och Word som länkar under. Ta bort är en röd länk vid
+ * metaraden. Brevet självt ligger på vitt papper (dokumentytan, undantaget i
+ * spec 13.1).
  * Borttagning går genom ConfirmDialog, felet genom FlowError, laddningen
  * genom samma skelett som loading.tsx. Ingen rörelse, inga orange ytor.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, KNAPPRAD, LANK, LANK_FEL, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { BREVVY, BREV_RUM } from '@/lib/rum/copy';
+import Veckorad from '@/components/rum/Veckorad';
+import Rader, { Rad } from '@/components/rum/Rader';
+import { kravIAnnonsen, kravTraffar, KRAV_MIN_FOR_INSTRUMENT } from '@/lib/letters/kravIAnnonsen';
+import { capture } from '@/lib/analytics/events';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
@@ -28,20 +39,22 @@ import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { bytKontaktIBrev, kontaktIBrev, type ProfilKontakt } from '@/lib/profile/dokumentKontakt';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
-const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
-const DESTRUKTIV =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-fel-kant bg-panel px-4 text-sm font-medium text-fel transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+/** Brevets tre länkar under Redigera (spec 16.3.2, B1). */
+const BREVLANK = `${LANK} inline-flex min-h-11 items-center disabled:cursor-not-allowed disabled:opacity-40`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 
 export default function ViewLetterClient({
   id,
   initialLetter,
+  soktId: initialSoktId = null,
+  klart = false,
 }: {
   id: string;
+  /** Den sökta tjänst brevet redan ligger i, om någon (B1). */
+  soktId?: string | null;
+  /** Kom direkt från brevflödet: väggen säger "Brevet klart". */
+  klart?: boolean;
   /** Serverhämtat brev. Är det satt står hela brevet i första HTML och
       klienten gör ingen rundtur före första målningen. */
   initialLetter: Letter | null;
@@ -75,6 +88,11 @@ export default function ViewLetterClient({
   const [downloadGate, setDownloadGate] = useState(false);
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | null>(null);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  // B1: "Spara som sökt tjänst". Samma idempotenta POST /api/applications
+  // som brevflödets "Markera som sökt"; UI:t säger aldrig sparat på fel.
+  const [soktId, setSoktId] = useState<string | null>(initialSoktId);
+  const [sparar, setSparar] = useState(false);
+  const [sparaFel, setSparaFel] = useState(false);
 
   const initialLoadRef = useRef(false);
   /** Sant först när ett brev finns, eller när en hämtning har avslutats.
@@ -153,6 +171,32 @@ export default function ViewLetterClient({
     }
   };
 
+  const sparaSomSokt = async () => {
+    if (!currentLetter || sparar || soktId) return;
+    setSparar(true);
+    setSparaFel(false);
+    try {
+      const res = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: currentLetter.job_title || currentLetter.title || 'Okänd tjänst',
+          company: currentLetter.company || 'Okänd arbetsgivare',
+          application_channel: 'ad',
+          letter_id: currentLetter.id,
+        }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success || !json?.data?.id) throw new Error('fel');
+      setSoktId(json.data.id as string);
+      capture('korsreferens_klick', { fran: 'brev', till: 'jobb', variant: 'spara_sokt' });
+    } catch {
+      setSparaFel(true);
+    } finally {
+      setSparar(false);
+    }
+  };
+
   const isTemplateHTML = (content: string) =>
     content.includes('<div') || content.includes('<style');
 
@@ -177,28 +221,39 @@ export default function ViewLetterClient({
 
   /* Identiskt med loading.tsx, så bytet inte flyttar något. */
   if (!currentLetter && (!harForsokt || isLoading)) {
+    // Egen nyckel på golvet: när brevet landat byts golvet i stället för att
+    // flyttas, så väggens nya höjd inte räknas som ett layoutskifte.
     return (
-      <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-        <div className="h-8 w-48 rounded bg-insunken" />
-        <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
-        <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar brev" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+            <div className="h-11 w-full rounded-lg bg-papper-2 sm:w-64" />
+            <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
   if (error || (!isLoading && !currentLetter)) {
     return (
-      <div className="mx-auto max-w-lg">
-        <FlowError
-          title="Brevet kunde inte hittas"
-          message={error || 'Brevet finns inte eller har tagits bort.'}
-          secondaryAction={
-            <Link href="/dashboard/mina-brev" className={LINK}>
-              Tillbaka till mina brev
-            </Link>
-          }
-        />
-      </div>
+      <>
+        <RumHuvud title="Brevet kunde inte hittas" />
+        <Golv key="fel">
+          <div className="w-full max-w-lg">
+            <FlowError
+              title="Brevet kunde inte hittas"
+              message={error || 'Brevet finns inte eller har tagits bort.'}
+              secondaryAction={
+                <Link href="/dashboard/mina-brev" className={LINK}>
+                  Tillbaka till mina brev
+                </Link>
+              }
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -235,21 +290,154 @@ export default function ViewLetterClient({
 
   const html = isTemplateHTML(currentLetter.content || '');
 
+  // B1: kraven vi läste ut ur annonsen och vilka brevet nämner. Bara när
+  // annonsen finns och gav minst tre krav; annars visar väggen metaraden
+  // som förut och ingen veckorad (spec: degradera, aldrig gissa).
+  const krav = kravIAnnonsen(currentLetter.job_description);
+  const traff = kravTraffar(krav, currentLetter.content);
+  const medTraffar = krav.length >= KRAV_MIN_FOR_INSTRUMENT;
+  const traffRad = medTraffar
+    ? [BREV_RUM.traffar(traff.moter.length, krav.length), traff.saknas[0] ? BREV_RUM.saknas(traff.saknas[0]) : null]
+        .filter(Boolean)
+        .join(' ')
+    : null;
+  const kortEtikett = (k: string) => (k.length > 8 ? `${k.slice(0, 7)}…` : k);
+  const instrument = medTraffar ? (
+    <Veckorad
+      celler={krav.slice(0, 7).map((k) => ({ etikett: kortEtikett(k), status: traff.moter.includes(k) ? 'gjord' : 'kvar' }))}
+      label={BREV_RUM.traffarAria(traff.moter, traff.saknas)}
+      className="mt-0"
+    />
+  ) : null;
+  // Träffarna säger mer än metaraden (företag och tjänst står redan i
+  // rubriken); utan träffar står metaraden kvar som förut.
+  const vaggRad = traffRad ?? (klart ? undefined : beskrivning || undefined);
+
+  // Brevet klart (B1, 21.3 punkt 9): träffarna, brevet och raderna kommer
+  // in i tur och ordning, bara när hon kommer direkt från flödet. Rubriken
+  // står still (LCP). .motion .steg stängs av under prefers-reduced-motion.
+  const steg = (n: 1 | 2 | 3) => (klart ? `steg s${n}` : '');
+
   return (
-    <div className="mx-auto max-w-3xl space-y-4 pb-16">
-      <PageHeader
-        title={currentLetter.title || 'Ansökningsbrev'}
-        description={beskrivning || undefined}
-        action={
-          <Link href={`/dashboard/mina-brev/${id}/edit`} className={PRIMARY}>
-            Redigera
+    <div className={klart ? 'motion contents' : 'contents'}>
+      {/* Väggen säger var du är (spec 16.3.2, B1): rubriken, metaraden och
+          länken tillbaka. Brevet är det lyfta kortet. */}
+      <RumHuvud
+        eyebrow={klart ? BREV_RUM.ey : undefined}
+        eyebrowTon={klart ? 'koppar' : 'neutral'}
+        instrumentClassName={steg(1)}
+        title={klart ? BREV_RUM.titel(currentLetter.company || null) : currentLetter.title || 'Ansökningsbrev'}
+        description={vaggRad}
+        instrument={instrument}
+        tat={false}
+        handling={
+          <Link href="/dashboard/mina-brev" className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
+            {BREVVY.allaBrev}
           </Link>
         }
-      >
-        <Link href="/dashboard/mina-brev" className={`${LINK} mt-2`}>
-          Alla dina brev
-        </Link>
-      </PageHeader>
+      />
+    <Golv key="brev" lyft>
+      <LyftKort label="Brevet" className={`w-full max-w-3xl ${steg(2)}`}>
+        {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
+        <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
+          {html ? (
+            <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
+              <div
+                className={BREV_SCOPE}
+                dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
+              />
+            </div>
+          ) : (
+            <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
+              <div
+                className="mx-auto max-w-2xl text-ink-1"
+                style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+                dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
+              />
+            </div>
+          )}
+        </div>
+        <div className={KNAPPRAD}>
+          {/* Betalväggen under brevet bär kopparknappen när den syns. */}
+          <Link href={`/dashboard/mina-brev/${id}/edit`} className={downloadGate ? KNAPP_SEKUNDAR : KNAPP_PRIMAR}>
+            {BREVVY.redigera}
+          </Link>
+        </div>
+        <div className="mt-1.5 flex flex-wrap justify-center gap-x-5">
+          <button type="button" onClick={handleCopy} className={BREVLANK}>
+            {copied ? BREVVY.kopierad : BREVVY.kopiera}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDownload('pdf')}
+            disabled={downloading !== null}
+            className={BREVLANK}
+          >
+            {downloading === 'pdf' ? 'Skapar PDF' : BREVVY.pdf}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDownload('docx')}
+            disabled={downloading !== null}
+            className={BREVLANK}
+          >
+            {downloading === 'docx' ? 'Skapar Word' : BREVVY.word}
+          </button>
+        </div>
+      </LyftKort>
+    <div className="w-full max-w-3xl space-y-4">
+
+      {/* B1: nästa steg som rader. Den saknade kravet först, sedan brevet
+          som sökt tjänst i Jobbsöket. */}
+      <Rader label="Nästa" className={steg(3)}>
+        {traff.saknas[0] && medTraffar ? (
+          <Rad
+            titel={BREV_RUM.laggTill(traff.saknas[0])}
+            meta={BREV_RUM.laggTillMeta}
+            hoger={
+              <Link href={`/dashboard/mina-brev/${id}/edit`} className={`${LANK} inline-flex min-h-11 items-center`}>
+                {BREVVY.redigera}
+              </Link>
+            }
+          />
+        ) : null}
+        <Rad
+          titel={BREV_RUM.sparaSokt}
+          meta={
+            soktId ? (
+              BREV_RUM.redanSparad
+            ) : sparaFel ? (
+              <span className="text-fel" role="alert">
+                {BREV_RUM.sparaFel}
+              </span>
+            ) : (
+              BREV_RUM.sparaSoktMeta
+            )
+          }
+          hoger={
+            soktId ? (
+              <Link href={`/dashboard/sokta-tjanster/${soktId}`} className={`${LANK} inline-flex min-h-11 items-center`}>
+                {BREV_RUM.sparadLank}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={sparaSomSokt}
+                disabled={sparar}
+                className={`${LANK} inline-flex min-h-11 items-center disabled:opacity-40`}
+              >
+                {sparar ? BREV_RUM.sparar : BREV_RUM.sparaKnapp}
+              </button>
+            )
+          }
+        />
+      </Rader>
+
+      {summary?.paket && summary.paket.lettersLimit !== null && summary.paket.lettersUsed >= summary.paket.lettersLimit ? (
+        <StatusRow showDot wrap label={BREV_RUM.gratis}>
+          {BREV_RUM.gratis}
+        </StatusRow>
+      ) : null}
 
       {copied ? (
         <StatusRow tone="positive" showDot label="Texten är kopierad">
@@ -261,60 +449,9 @@ export default function ViewLetterClient({
         <FlowError message={downloadError} onRetry={() => setDownloadError(null)} retryLabel="Stäng" />
       ) : null}
 
-      {/* Handlingar. Primärhandlingen bor i sidhuvudet, de här är sekundära. */}
-      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-        <button type="button" onClick={handleCopy} className={SECONDARY}>
-          {copied ? 'Kopierat' : 'Kopiera text'}
-        </button>
-        <button
-          type="button"
-          onClick={() => handleDownload('pdf')}
-          disabled={downloading !== null}
-          className={SECONDARY}
-        >
-          {downloading === 'pdf' ? 'Skapar PDF' : 'Ladda ner PDF'}
-        </button>
-        <button
-          type="button"
-          onClick={() => handleDownload('docx')}
-          disabled={downloading !== null}
-          className={SECONDARY}
-        >
-          {downloading === 'docx' ? 'Skapar Word' : 'Ladda ner Word'}
-        </button>
-        <button
-          type="button"
-          onClick={() => setShowDeleteConfirm(true)}
-          disabled={isDeleting}
-          className={DESTRUKTIV}
-        >
-          {isDeleting ? 'Tar bort' : 'Ta bort'}
-        </button>
-      </div>
-
       {/* Adressen nedladdningen får. Sparade brev har adressen inbakad, så
           /api/letters/download byter den mot den aktuella. */}
       <KontaktuppgifterRad dokument="brev" />
-
-      {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
-      <div className="overflow-hidden rounded-xl border border-kant bg-white">
-        {html ? (
-          <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
-            <div
-              className={BREV_SCOPE}
-              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
-            />
-          </div>
-        ) : (
-          <div className="px-6 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16">
-            <div
-              className="mx-auto max-w-2xl text-ink-1"
-              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
-              dangerouslySetInnerHTML={{ __html: formatContent(visatInnehall(currentLetter.content || '')) }}
-            />
-          </div>
-        )}
-      </div>
 
       {/* A1: betalvägg under det fullt synliga brevet */}
       {downloadGate && (
@@ -328,13 +465,21 @@ export default function ViewLetterClient({
         />
       )}
 
-      {(skapad || uppdaterad) && (
+      <div className="flex items-center justify-between gap-4">
         <p className="text-meta text-ink-3">
           {skapad ? `Skapad ${skapad}` : null}
           {skapad && uppdaterad ? ' · ' : null}
           {uppdaterad ? `Uppdaterad ${uppdaterad}` : null}
         </p>
-      )}
+        <button
+          type="button"
+          onClick={() => setShowDeleteConfirm(true)}
+          disabled={isDeleting}
+          className={`${LANK_FEL} inline-flex min-h-11 shrink-0 items-center disabled:cursor-not-allowed disabled:opacity-40`}
+        >
+          {isDeleting ? 'Tar bort' : BREVVY.taBort}
+        </button>
+      </div>
 
       <ConfirmDialog
         open={showDeleteConfirm}
@@ -345,6 +490,8 @@ export default function ViewLetterClient({
         confirmLabel="Ta bort"
         destructive
       />
+    </div>
+    </Golv>
     </div>
   );
 }

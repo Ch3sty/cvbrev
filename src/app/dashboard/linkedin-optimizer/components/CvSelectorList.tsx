@@ -2,20 +2,30 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
-import { useCVStore } from '@/store/cv-store'
 import { formatCVDate } from '@/lib/utils/date-formatter'
 import ChoiceCard from '@/components/shell/ChoiceCard'
-import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import { IkonCv } from '@/components/illustrations/Ikoner'
 
+/** Det listan behöver av ett CV. */
+export interface CvRad {
+  id: string
+  file_name: string
+  created_at: string
+}
+
 interface Props {
+  /**
+   * CV-listan. Kommer från servern (getLinkedInData) via steg 1, så första
+   * HTML innehåller listan färdig och inget byts efter första målningen.
+   * Förut läste listan cv-storen och ritade ett skelett medan storen
+   * laddade; bytet mot listan mätte CLS 0,292 (Rummen våg 1a och 1b).
+   */
+  cvs: CvRad[]
   selectedCvId: string | null
   onSelect: (cvId: string) => void
   /**
-   * Id på CV som är låsta av CV-kvoten. Förut räknade listan ut det själv med
-   * useCvQuota, alltså ett auth.getUser() över nätet följt av två frågor, mitt
-   * i första vyn. Kvotregeln är oförändrad, den räknas nu på servern i
-   * getLinkedInData och skickas hit.
+   * Id på CV som är låsta av CV-kvoten. Kvotregeln är oförändrad, den räknas
+   * på servern i getLinkedInData och skickas hit.
    */
   lockedCvIds: Set<string>
 }
@@ -26,16 +36,11 @@ interface Props {
  * med orange. Låsta CV är spärrade och säger varför i metaraden.
  */
 export default function CvSelectorList({
+  cvs,
   selectedCvId,
   onSelect,
   lockedCvIds,
 }: Props) {
-  const { cvs, isLoading } = useCVStore()
-
-  if (isLoading) {
-    return <LoadingSkeleton variant="list" count={2} label="Laddar dina CV" />
-  }
-
   if (cvs.length === 0) {
     return null
   }

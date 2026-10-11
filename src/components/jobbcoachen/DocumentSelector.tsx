@@ -1,5 +1,6 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect } from 'react';
 import Sheet from '@/components/shell/Sheet';
 import Segment from '@/components/shell/Segment';
@@ -95,7 +96,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          className={KNAPP_PRIMAR}
         >
           {selectedDocs.length > 0 ? `Klart, ${selectedDocs.length} valda` : 'Stäng'}
         </button>
@@ -136,7 +137,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
                     role="option"
                     aria-selected={selected}
                     onClick={() => handleSelect(doc)}
-                    className={`w-full rounded-lg border bg-panel p-3 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+                    className={`w-full rounded-lg border bg-papper p-3 text-left transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                       selected ? 'border-ink-1 shadow-val' : 'border-kant'
                     }`}
                   >

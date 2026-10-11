@@ -1,0 +1,41 @@
+public_rate_limits ip_hash(qa-final-1791704362474) scope kontakt: 0 rader räknade; kvar efteråt: 0
+gratis letters: 1 rader räknade, raderade
+gratis cv_texts: 1 rader räknade, raderade
+gratis user_activities: 368 rader räknade, raderade
+gratis f35ed5b6-b827-4011-9935-61ba4543ca15: profiles 1 räknade, auth raderad
+premium premium_grants: 1 rader räknade, raderade
+premium user_activities: 68 rader räknade, raderade
+premium 7d89038b-8820-4756-aaca-b91cddf549d1: profiles 1 räknade, auth raderad
+mycket job_applications: 6 rader räknade, raderade
+mycket letters: 6 rader räknade, raderade
+mycket cv_texts: 4 rader räknade, raderade
+mycket logic_test_v4_sessions: 8 rader räknade, raderade
+mycket user_activities: 62 rader räknade, raderade
+mycket 078f0817-9b4b-450a-bf35-60e861a93ff0: profiles 1 räknade, auth raderad
+spar premium_grants: 1 rader räknade, raderade
+spar user_activities: 23 rader räknade, raderade
+spar 313af463-2eb7-424d-b782-c813919038ee: profiles 1 räknade, auth raderad
+ny user_activities: 24 rader räknade, raderade
+ny f8dc55fe-c799-4f81-8236-a89d949ab985: profiles 1 räknade, auth raderad
+Kontrollräkning efter radering: 0 rader kvar för 5 konton.
+public_rate_limits ip_hash(qa-final-1791705401577) scope kontakt: 1 rader räknade, raderade; kvar efteråt: 0
+public_rate_limits ip_hash(qa-final-direkt-1) scope kontakt: 1 rader räknade, raderade; kvar efteråt: 0
+gratis letters: 1 rader räknade, raderade
+gratis cv_texts: 1 rader räknade, raderade
+gratis user_activities: 288 rader räknade, raderade
+gratis fbc86b65-699a-459b-8d1a-047c8e6682e2: profiles 1 räknade, auth raderad
+premium premium_grants: 1 rader räknade, raderade
+premium user_activities: 61 rader räknade, raderade
+premium 4104849c-cf52-4677-91e6-788675d9ffb2: profiles 1 räknade, auth raderad
+mycket job_applications: 6 rader räknade, raderade
+mycket letters: 6 rader räknade, raderade
+mycket cv_texts: 4 rader räknade, raderade
+mycket logic_test_v4_sessions: 8 rader räknade, raderade
+mycket user_activities: 51 rader räknade, raderade
+mycket 2eab87db-3b7d-4d13-b63f-30da7baf7fd0: profiles 1 räknade, auth raderad
+spar premium_grants: 1 rader räknade, raderade
+spar user_activities: 13 rader räknade, raderade
+spar ca7159ad-c4a1-4c58-a931-998e41c51d5c: profiles 1 räknade, auth raderad
+ny user_activities: 6 rader räknade, raderade
+ny 33ea392d-f225-4c75-8289-4b1f3857a43b: profiles 1 räknade, auth raderad
+Kontrollräkning efter radering: 0 rader kvar för 5 konton.

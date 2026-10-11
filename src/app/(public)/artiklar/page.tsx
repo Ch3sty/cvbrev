@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { generateTagsData } from '@/components/artiklar/ModernCategoriesServer';
 // Listan i linjen (docs/design/analys-artiklar-2026-09-23.html, avsnitt 4):
 // serverkomponenter, gallerilayouten kvar med gratiskortet inblandat bland
-// artikelkorten och de tre paketen i bläck efter pagineringen.
+// artikelkorten och Premium i bläck efter pagineringen.
 import { ArtikelKort, FilterRad, ListHuvud, Paginering, TomLista } from '@/components/artiklar/lista/ArtikelLista';
 import { GratisKort, ListaSlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import ArtikelKlient from '@/components/artiklar/ArtikelKlient';

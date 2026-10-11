@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { antal } from '@/lib/rum/antal';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
@@ -219,7 +220,7 @@ export default function RoleBasedSuggestionSelector({
               Roll-baserade förbättringar
             </h3>
             <p className="text-sm text-gray-600">
-              {selectedRoleCount} av {totalRoles} roller valda
+              {`${selectedRoleCount} av ${antal(totalRoles, 'roll vald', 'roller valda')}`}
             </p>
           </div>
         </div>

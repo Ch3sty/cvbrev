@@ -57,7 +57,7 @@ const FONTS = [
   { id: 'georgia', name: 'Georgia', family: 'Georgia, Times, serif', category: 'Formella', tier: 'free' },
   { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'CV-paketet', tier: 'premium' }
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: PAKETRADER.bricka, tier: 'premium' }
 ]
 
 export default function InteractiveCVPreview({ exempelCV, initialHTML }: InteractiveCVPreviewProps) {
@@ -264,7 +264,7 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 max-h-[400px] overflow-y-auto"
                   >
-                    {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
+                    {['ATS-Säkra', 'Moderna', 'Formella', PAKETRADER.bricka].map((category) => {
                       const categoryFonts = FONTS.filter(f => f.category === category)
                       if (categoryFonts.length === 0) return null
 

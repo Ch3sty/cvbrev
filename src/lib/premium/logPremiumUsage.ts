@@ -1,9 +1,8 @@
 // Registrerar att en premium-gatad funktion faktiskt användes (punkt 12 i
 // docs/plan-inloggat-saljflode.md).
 //
-// Loggen driver copyn i UpgradeSheet på dag 4 till 5: har användaren laddat
-// ner tre brev ska nedladdningen stå först bland det hon förlorar. Utan
-// loggen får vi gissa, och gissningar säljer sämre än fakta.
+// Loggen visar vad hon faktiskt använt (premium/usage-summary sorterar på
+// den). Utan loggen får vi gissa.
 //
 // Fire-and-forget. En misslyckad loggning får aldrig fälla ett svar som
 // användaren väntar på.

@@ -3,9 +3,10 @@
  * och specens acceptanskriterier 14, 15 och 16).
  *
  * 14  onboarding_intent läses bara av landningen, Kom igång och hemskärmens
- *     ordning. Aldrig av Sidebar, src/lib/access/ eller någon API-route utom
+ *     ordning. Aldrig av sidomenyn eller navet (src/components/rum/),
+ *     src/lib/access/ eller någon API-route utom
  *     /api/onboarding/track. Testet läser filträdet, så att det faller i CI.
- * 15  Menyn är identisk oavsett val: sidomenyn och mobilnavet renderas för
+ * 15  Menyn är identisk oavsett val: sidomenyn och dörrnavet renderas för
  *     ett gratiskonto med valet cv, tester och jobb och jämförs som HTML.
  * 16  Kom igång per val för gratiskonton: rätt ordning, och cv_upp och profil
  *     står aldrig i en gratislista per val.
@@ -68,11 +69,12 @@ describe('kriterium 14: valet läses bara av landningen, Kom igång och hemskär
     expect(utanfor, `onboarding_intent utanför de tillåtna filerna:\n${utanfor.join('\n')}`).toEqual([])
   })
 
-  it('noll träffar i Sidebar, src/lib/access/ och API-routes utom onboarding/track', () => {
+  it('noll träffar i sidomenyn och navet, src/lib/access/ och API-routes utom onboarding/track', () => {
     const forbjudna = alla.filter((f) => {
       const r = rel(f)
       return (
-        r === 'components/dashboard/Sidebar.tsx' ||
+        r.startsWith('components/rum/') ||
+        r.startsWith('lib/rum/') ||
         r.startsWith('components/dashboard/sidebar/') ||
         r.startsWith('lib/access/') ||
         (r.startsWith('app/api/') && !r.startsWith('app/api/onboarding/track/'))
@@ -97,7 +99,7 @@ describe('kriterium 14: valet läses bara av landningen, Kom igång och hemskär
 
 /* ------------------------------------------------------------ 15 */
 
-// Sidomenyn och mobilnavet renderas med en summering som bara skiljer sig i
+// Sidomenyn och dörrnavet renderas med en summering som bara skiljer sig i
 // valet. Kontexterna mockas; komponenterna själva är de riktiga.
 let summering: any = null
 vi.mock('@/contexts/DashboardDataContext', () => ({
@@ -138,14 +140,14 @@ function summeringFor(intent: SignupIntent) {
 }
 
 describe('kriterium 15: menyn är identisk oavsett val', () => {
-  it('sidomenyn och mobilnavet ger samma HTML för cv, tester och jobb', async () => {
-    const { default: Sidebar } = await import('@/components/dashboard/Sidebar')
-    const { default: MobileBottomNav } = await import('@/components/dashboard/MobileBottomNav')
+  it('sidomenyn och dörrnavet ger samma HTML för cv, tester och jobb', async () => {
+    const { default: Sidomeny } = await import('@/components/rum/Sidomeny')
+    const { default: Dorrnav } = await import('@/components/rum/Dorrnav')
     const html: string[] = []
     for (const intent of ['cv', 'tester', 'jobb'] as const) {
       summering = summeringFor(intent)
-      const s = render(<Sidebar />)
-      const m = render(<MobileBottomNav cvCount={0} applicationCount={0} />)
+      const s = render(<Sidomeny />)
+      const m = render(<Dorrnav />)
       html.push(s.container.innerHTML + '|' + m.container.innerHTML)
       cleanup()
     }

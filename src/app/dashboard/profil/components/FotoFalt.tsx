@@ -17,6 +17,7 @@
  * släpp bara där det går att dra, alltså vid (pointer: fine).
  */
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { capture } from '@/lib/analytics/events'
@@ -39,7 +40,7 @@ export interface FotoFaltProps {
 type Fel = { rubrik: string; text: string }
 
 const KNAPP =
-  'inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60'
+  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`
 const LANK =
   'inline-flex min-h-11 items-center px-2 text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1 disabled:opacity-60'
 
@@ -169,7 +170,7 @@ export default function FotoFalt({ url, franGoogle, onUppladdad, onBorttagen, st
       <div className="mt-2 flex items-center gap-4" data-foto-falt>
         <div
           className={`relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-xl border sm:h-24 sm:w-24 ${
-            dra ? 'border-ink-1' : visad ? 'border-kant' : 'border-kant bg-insunken'
+            dra ? 'border-ink-1' : visad ? 'border-kant' : 'border-kant bg-papper-2'
           }`}
         >
           {visad ? (

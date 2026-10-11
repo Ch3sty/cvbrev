@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, AlertTriangle, Briefcase } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Briefcase } from '@/components/illustrations/RumIkoner';
 import {
   DIMENSION_META,
   DIMENSION_TEXTS,
@@ -29,7 +29,7 @@ export default function DimensionCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="bg-white rounded-3xl border border-slate-200 overflow-hidden"
+      className="bg-papper rounded-3xl border border-kant overflow-hidden"
       style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
     >
       <div className="p-5 sm:p-6">
@@ -38,7 +38,7 @@ export default function DimensionCard({
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
               {meta.name}
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+            <h3 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
               {text.headline}
             </h3>
           </div>
@@ -52,13 +52,13 @@ export default function DimensionCard({
             >
               {score}
             </div>
-            <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 mt-1">
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-3 mt-1">
               av 100
             </div>
           </div>
         </div>
 
-        <p className="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+        <p className="text-sm sm:text-base text-ink-2 leading-relaxed mb-4">
           {text.description}
         </p>
 
@@ -72,7 +72,7 @@ export default function DimensionCard({
             </div>
             <ul className="space-y-1">
               {text.strengths.map((s, i) => (
-                <li key={i} className="text-xs sm:text-sm text-slate-700 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-emerald-600 before:font-bold">
+                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-emerald-600 before:font-bold">
                   {s}
                 </li>
               ))}
@@ -88,7 +88,7 @@ export default function DimensionCard({
             </div>
             <ul className="space-y-1">
               {text.watchOuts.map((w, i) => (
-                <li key={i} className="text-xs sm:text-sm text-slate-700 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-amber-600 before:font-bold">
+                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-amber-600 before:font-bold">
                   {w}
                 </li>
               ))}
@@ -103,7 +103,7 @@ export default function DimensionCard({
               I arbetslivet
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <p className="text-xs sm:text-sm text-ink-2 leading-relaxed">
             {text.workContext}
           </p>
         </div>

@@ -19,11 +19,13 @@
 
 import { useEffect, useId, useRef, useState, type MutableRefObject } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Lock } from 'lucide-react'
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
+import { ArrowRight, Lock } from '@/components/illustrations/RumIkoner'
 import { capture } from '@/lib/analytics/events'
 import { storePendingIntervju } from '@/lib/letters/claim-draft-client'
 import { IlluBlurGate } from '@/components/illustrations/StartFlowIllustrations'
 import { useFriSikt } from '@/components/shared/useFriSikt'
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import FlowError from '@/components/shell/FlowError'
 import StatusRow from '@/components/shell/StatusRow'
@@ -76,7 +78,7 @@ interface Kvot {
   text: string
   /** Kontoknappen för besökare utan konto. */
   registerHref?: string
-  /** Textlänken till paketen för inloggade. */
+  /** Textlänken till prissidan för inloggade. */
   upgradeHref?: string
 }
 
@@ -103,6 +105,10 @@ export default function Intervjuprov({
 }: IntervjuprovProps) {
   const f = FRAGOR[fraga]
   const flode = laege === 'flode'
+  // I inloggat (flödesläget) står knappen i rummets koppar och klarar mörkt
+  // läge utan övergångsregeln (spec-rummen 16.4 (b) punkt 7). Artikeln
+  // behåller Trådens bläckknapp.
+  const knapp = flode ? KNAPP_PRIMAR_SMAL : KNAPP
   const rubrikId = useId()
   const hjalpId = useId()
 
@@ -121,6 +127,9 @@ export default function Intervjuprov({
   // Spärrkortet och kvotkortet: samtycket och mobilens knapprad får aldrig täcka kontoknappen.
   const sparrRef = useRef<HTMLElement>(null)
   useFriSikt(sparrRef, phase === 'resultat' || kvot !== null)
+  // Kvotspärren med köplänk är en betalvägg (spec-rummen 23.8): nämnaren för
+  // köp med plats=intervjuprov. Bara när länken till köpsteget ritas.
+  useBetalvaggVisad('intervjuprov', Boolean(kvot?.upgradeHref))
   const startadRef = useRef(false)
   const forstaTeckenRef = useRef<number | null>(null)
 
@@ -263,7 +272,7 @@ export default function Intervjuprov({
     </p>
   )
   const citat = (
-    <blockquote className="mt-4 border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
+    <blockquote className="mt-4 border-l-[3px] border-koppar py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
       {COPY.fraga(f.text)}
     </blockquote>
   )
@@ -274,7 +283,7 @@ export default function Intervjuprov({
     return (
       <Ram
         ref={sparrRef as React.RefObject<HTMLDivElement>}
-        className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+        className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6'}
         aria-labelledby={flode ? undefined : rubrikId}
       >
         {flode ? null : eyebrow}
@@ -301,7 +310,7 @@ export default function Intervjuprov({
               href={kvot.registerHref}
               data-cta="intervjuprov-gate"
               onClick={() => capture('signup_started', { cluster: 'interview', source_page: kallsida })}
-              className={`mt-4 ${KNAPP}`}
+              className={`mt-4 ${knapp}`}
             >
               {COPY.sparr.knapp}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -326,7 +335,7 @@ export default function Intervjuprov({
     return (
       <>
         <aside
-          className="not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6"
+          className="not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6"
           aria-labelledby={rubrikId}
           aria-live="polite"
         >
@@ -344,7 +353,7 @@ export default function Intervjuprov({
           </div>
           <div className="mt-2.5 grid grid-cols-5 gap-1" aria-hidden="true">
             {[1, 2, 3, 4, 5].map((n) => (
-              <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-insunken'}`} />
+              <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-papper-2'}`} />
             ))}
           </div>
           <p className="mt-2.5 text-varde text-ink-1">
@@ -383,7 +392,7 @@ export default function Intervjuprov({
           {inloggad ? null : <p className="sr-only">{COPY.last.sr}</p>}
         </aside>
 
-        <section ref={sparrRef} className="mt-6 mb-8 rounded-xl border border-kant-stark bg-panel p-4 not-prose sm:p-6">
+        <section ref={sparrRef} className="mt-6 mb-8 rounded-xl border border-kant-stark bg-papper p-4 not-prose sm:p-6">
           <div className="sm:flex sm:items-start sm:gap-5">
             <IlluBlurGate size={96} className="hidden shrink-0 text-ink-1 sm:block" />
             <div className="min-w-0 flex-1">
@@ -392,7 +401,7 @@ export default function Intervjuprov({
                 {inloggad ? COPY.inloggad.text : COPY.sparr.text(fraga)}
               </p>
               {inloggad ? (
-                <Link href={resultat.href!} data-cta="intervjuprov-konto" className={`mt-4 ${KNAPP}`}>
+                <Link href={resultat.href!} data-cta="intervjuprov-konto" className={`mt-4 ${knapp}`}>
                   {COPY.inloggad.knapp}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
@@ -401,7 +410,7 @@ export default function Intervjuprov({
                   href={registerHref}
                   data-cta="intervjuprov-gate"
                   onClick={() => capture('signup_started', { cluster: 'interview', source_page: kallsida })}
-                  className={`mt-4 ${KNAPP}`}
+                  className={`mt-4 ${knapp}`}
                 >
                   {COPY.sparr.knapp}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -435,7 +444,7 @@ export default function Intervjuprov({
   const Panel = flode ? 'div' : 'aside'
   return (
     <Panel
-      className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-panel p-4 sm:p-6'}
+      className={flode ? '' : 'not-prose my-8 rounded-xl border border-kant bg-papper p-4 sm:p-6'}
       aria-labelledby={flode ? undefined : rubrikId}
     >
       {flode ? null : eyebrow}
@@ -456,7 +465,7 @@ export default function Intervjuprov({
           placeholder={f.platshallare}
           aria-invalid={faltFel || undefined}
           aria-describedby={hjalpId}
-          className={`block min-h-[152px] w-full resize-y rounded-lg border bg-insunken p-3 text-base leading-6 shadow-insunken placeholder:text-ink-3 ${
+          className={`block min-h-[152px] w-full resize-y rounded-lg border bg-papper-2 p-3 text-base leading-6  placeholder:text-ink-3 ${
             faltFel ? 'border-fel' : 'border-kant focus:border-ink-1'
           } ${laddar ? 'text-ink-3' : 'text-ink-1'}`}
         />
@@ -485,7 +494,7 @@ export default function Intervjuprov({
             ? STAR_DELAR.map((del) => (
                 <span
                   key={del}
-                  className="inline-flex h-6 items-center rounded-md bg-insunken px-2 text-xs font-medium text-ink-2"
+                  className="inline-flex h-6 items-center rounded-md bg-papper-2 px-2 text-xs font-medium text-ink-2"
                 >
                   {del}
                 </span>
@@ -511,7 +520,7 @@ export default function Intervjuprov({
           />
         </div>
       ) : flode ? null : (
-        <button type="button" onClick={bedom} data-cta="intervjuprov-bedom" className={`mt-4 ${KNAPP}`}>
+        <button type="button" onClick={bedom} data-cta="intervjuprov-bedom" className={`mt-4 ${knapp}`}>
           {COPY.knapp.bedom}
         </button>
       )}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Check } from 'lucide-react';
+import { Check } from '@/components/illustrations/RumIkoner';
 
 export type SelectCategory = 'profile' | 'roles' | 'skills' | 'auto';
 
@@ -60,7 +60,7 @@ export default function CategorySegments({
               role="radio"
               aria-checked={on}
               onClick={() => onChange(cat.id)}
-              className={`inline-flex h-11 w-full items-center justify-center gap-1 rounded-lg border bg-panel px-2 sm:w-auto sm:flex-1 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+              className={`inline-flex h-11 w-full items-center justify-center gap-1 rounded-lg border bg-papper px-2 sm:w-auto sm:flex-1 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                 on ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >

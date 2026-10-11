@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { antal } from '@/lib/rum/antal';
 import {
   Target,
   Briefcase,
@@ -9,7 +10,7 @@ import {
   Info,
   ChevronDown,
   ChevronUp,
-} from 'lucide-react';
+} from '@/components/illustrations/RumIkoner';
 import {
   Tooltip,
   TooltipContent,
@@ -70,7 +71,7 @@ export default function AnalysisOverviewStep({
       title: 'Rollbaserade förbättringar',
       count: roleBasedCount,
       description: 'Vi förstärker varje arbetsbeskrivning med resultat och relevans.',
-      detail: `Vi går igenom ${roleBasedCount} roll${roleBasedCount === 1 ? '' : 'er'} och föreslår skarpare formuleringar med kvantifierad impact.`,
+      detail: `Vi går igenom ${antal(roleBasedCount, 'roll', 'roller')} och föreslår skarpare formuleringar med kvantifierad impact.`,
       priority: roleBasedCount > 5 ? 'high' : 'medium',
     },
     {
@@ -79,7 +80,7 @@ export default function AnalysisOverviewStep({
       title: 'Kompetenser och färdigheter',
       count: skillsCount,
       description: 'Nyckelord som rekryterare och urvalssystem letar efter.',
-      detail: `Vi lägger till ${skillsCount} efterfrågade kompetenser som matchar din målroll.`,
+      detail: `Vi lägger till ${antal(skillsCount, 'efterfrågad kompetens', 'efterfrågade kompetenser')} som matchar din målroll.`,
       priority: skillsCount > 7 ? 'high' : 'medium',
     },
     {
@@ -88,7 +89,7 @@ export default function AnalysisOverviewStep({
       title: 'Automatiska förbättringar',
       count: generalCount,
       description: 'Strukturella justeringar som lyfter helhetsintrycket.',
-      detail: `${generalCount} förbättringar för läsbarhet, formatering och flow.`,
+      detail: `${antal(generalCount, 'förbättring', 'förbättringar')} för läsbarhet, formatering och flöde.`,
       priority: 'medium',
     },
   ];
@@ -99,7 +100,7 @@ export default function AnalysisOverviewStep({
     <TooltipProvider>
       <div className="space-y-4">
         {/* Poängen */}
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <div className="mb-4 flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
@@ -143,7 +144,7 @@ export default function AnalysisOverviewStep({
         </section>
 
         {/* Resultat-summering */}
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <p className="text-steg uppercase text-ink-3">Resultat</p>
           <p className="mt-1.5 text-kort text-ink-1">
             Vi hittade {totalImprovements}{' '}
@@ -174,7 +175,7 @@ export default function AnalysisOverviewStep({
         </section>
 
         {/* Kategorierna som lista i panel */}
-        <section className="rounded-xl border border-kant bg-panel">
+        <section className="rounded-xl border border-kant bg-papper">
           <h3 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">
             Vad vi gick igenom
           </h3>
@@ -189,7 +190,7 @@ export default function AnalysisOverviewStep({
                     type="button"
                     onClick={() => setExpandedCategory(isExpanded ? null : category.id)}
                     aria-expanded={isExpanded}
-                    className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-insunken"
+                    className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-papper-2"
                   >
                     <category.icon
                       className="mt-0.5 h-6 w-6 flex-shrink-0 text-ink-2"
@@ -234,7 +235,7 @@ export default function AnalysisOverviewStep({
 
         {/* Poängfördelning */}
         {totalImpactBreakdown && (
-          <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+          <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
             <h3 className="text-kort text-ink-1">Så beräknar vi din potential</h3>
             <p className="mt-0.5 text-meta text-ink-3">
               Vi viktar dina fem starkaste roller för rättvis poängsättning.

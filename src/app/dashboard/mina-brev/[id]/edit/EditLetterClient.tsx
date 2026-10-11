@@ -3,7 +3,9 @@
 /**
  * Redigera ett sparat brev (docs/design/overlamning-opus.md).
  *
- * PageHeader är sidans enda h1 och bär Spara som primärhandling. Brevinfon
+ * Väggen (RumHuvud) bär sidans enda h1 och länken tillbaka. Ett formulär sparar
+ * i foten: Spara och Avbryt står i KNAPPRAD sist på golvet, inget lyft kort
+ * (spec 18.3 punkt 1; väggen bär aldrig kopparknappen). Brevinfon
  * är fält enligt avsnitt 2, med hjälptext under titeln. Texten redigeras i
  * en insunken textarea, annars visas brevet på papper (bg-white, specens
  * enda tillåtna undantag). Fel via FlowError. Ingen rörelse, inga orange
@@ -11,28 +13,31 @@
  * använde dem.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_LAG, KNAPP_SEKUNDAR_SMAL, KNAPPRAD, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import VaggLaddar from '@/components/rum/VaggLaddar';
 import FlowError from '@/components/shell/FlowError';
 import StatusRow from '@/components/shell/StatusRow';
 import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
-import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import type { Letter } from '@/store/letter-store';
 import { scopeLetterHtml, BREV_SCOPE } from '../../scopeLetterHtml';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-40';
+const PRIMARY = `${KNAPP_PRIMAR} disabled:cursor-not-allowed`;
 const SECONDARY =
-  'inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40';
+  `${KNAPP_SEKUNDAR_SMAL} disabled:cursor-not-allowed`;
+/** Två sekundära i rad: 40 px (spec 16.2 fråga 17). */
+const SECONDARY_LAG = `${KNAPP_SEKUNDAR_LAG} disabled:cursor-not-allowed`;
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
 const FALT =
-  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
+  'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
 export default function EditLetterClient({
   id,
@@ -186,56 +191,56 @@ export default function EditLetterClient({
 
   /* Identiskt med loading.tsx, så bytet inte flyttar något. */
   if (!currentLetter && (!harForsokt || isLoading)) {
+    // Egen nyckel på golvet: när brevet landat byts golvet i stället för att
+    // flyttas, så väggens nya höjd inte räknas som ett layoutskifte.
     return (
-      <div className="space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
-        <div className="h-8 w-48 rounded bg-insunken" />
-        <div className="loading-thread h-[520px] rounded-xl border border-kant bg-panel" />
-        <div className="h-11 w-full rounded-lg bg-insunken sm:w-64" />
-      </div>
+      <>
+        <VaggLaddar label="Laddar brev" />
+        <Golv key="laddar">
+          <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Laddar brev">
+            <div className="h-11 w-full rounded-lg bg-papper-2 sm:w-64" />
+            <div className="loading-thread h-[520px] rounded-xl border border-kant bg-papper" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
   if (error || !currentLetter) {
     return (
-      <div className="mx-auto max-w-lg">
-        <FlowError
-          title="Brevet kunde inte hittas"
-          message={error || 'Brevet finns inte eller har tagits bort.'}
-          secondaryAction={
-            <Link href="/dashboard/mina-brev" className={LINK}>
-              Tillbaka till mina brev
-            </Link>
-          }
-        />
-      </div>
+      <>
+        <RumHuvud title="Brevet kunde inte hittas" />
+        <Golv key="fel">
+          <div className="w-full max-w-lg">
+            <FlowError
+              title="Brevet kunde inte hittas"
+              message={error || 'Brevet finns inte eller har tagits bort.'}
+              secondaryAction={
+                <Link href="/dashboard/mina-brev" className={LINK}>
+                  Tillbaka till mina brev
+                </Link>
+              }
+            />
+          </div>
+        </Golv>
+      </>
     );
   }
-
-  const templateName =
-    currentLetter.template_id &&
-    DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES]
-      ? DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name
-      : null;
 
   const html = isTemplateHTML(formData.content);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-4 pb-16">
-      <PageHeader
+    <>
+      <RumHuvud
         title="Redigera brevet"
-        description={
-          templateName ? `Ändringarna sparas i mallen ${templateName}.` : 'Ändringarna sparas när du trycker Spara.'
+        handling={
+          <Link href={`/dashboard/mina-brev/${id}`} className={`${LANK_VAGG} inline-flex min-h-11 items-center`}>
+            Tillbaka till brevet
+          </Link>
         }
-        action={
-          <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
-            {isSaving ? 'Sparar' : 'Spara'}
-          </button>
-        }
-      >
-        <Link href={`/dashboard/mina-brev/${id}`} className={`${LINK} mt-2`}>
-          Tillbaka till brevet
-        </Link>
-      </PageHeader>
+      />
+    <Golv key="brev">
+    <div className="w-full max-w-3xl space-y-4">
 
       {saveError ? (
         <FlowError title="Brevet kunde inte sparas" message={saveError} onRetry={handleSave} />
@@ -248,7 +253,7 @@ export default function EditLetterClient({
       ) : null}
 
       {/* Brevinfo: fälten som följer med brevet till Sökta tjänster. */}
-      <section className="rounded-xl border border-kant bg-panel p-4">
+      <section className="rounded-xl border border-kant bg-papper p-4">
         <h2 className="text-kort text-ink-1">Brevinfo</h2>
         <div className="mt-3 space-y-4">
           <label className="block">
@@ -300,7 +305,7 @@ export default function EditLetterClient({
       </section>
 
       {isEditing ? (
-        <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+        <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <label htmlFor="letter-editor" className="text-kort text-ink-1">
             Redigera texten
           </label>
@@ -308,7 +313,7 @@ export default function EditLetterClient({
             id="letter-editor"
             value={editableText}
             onChange={(e) => setEditableText(e.target.value)}
-            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-insunken p-4 text-base leading-7 text-ink-1 shadow-insunken focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+            className="mt-3 h-[480px] w-full resize-none rounded-lg border border-kant bg-papper-2 p-4 text-base leading-7 text-ink-1  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
             style={{ fontFamily: 'Georgia, serif' }}
             placeholder="Skriv ditt brev här"
           />
@@ -321,22 +326,22 @@ export default function EditLetterClient({
             </button>
           </div>
           <p className="mt-3 text-meta text-ink-3">
-            Texten läggs tillbaka i mallen. Tryck Spara i sidhuvudet för att spara brevet.
+            Texten läggs tillbaka i mallen.
           </p>
         </section>
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-            <button type="button" onClick={handleStartEdit} className={SECONDARY}>
+            <button type="button" onClick={handleStartEdit} className={SECONDARY_LAG}>
               Redigera texten
             </button>
-            <button type="button" onClick={handleCopy} className={SECONDARY}>
+            <button type="button" onClick={handleCopy} className={SECONDARY_LAG}>
               {copied ? 'Kopierat' : 'Kopiera text'}
             </button>
           </div>
 
           {/* Brevet. Undantaget i specens avsnitt 3: dokumentet är papper. */}
-          <div className="overflow-hidden rounded-xl border border-kant bg-white">
+          <div className="dokument overflow-hidden rounded-xl border border-kant bg-white">
             {html ? (
               <div className="px-4 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12">
                 {/* Scopat: mallens egen `body`-regel får inte sätta padding
@@ -358,6 +363,18 @@ export default function EditLetterClient({
           </div>
         </>
       )}
+
+      {/* Ett formulär sparar i foten (spec 18.3 punkt 1). */}
+      <div className={KNAPPRAD}>
+        <button type="button" onClick={handleSave} disabled={isSaving} className={PRIMARY}>
+          {isSaving ? 'Sparar' : 'Spara'}
+        </button>
+        <Link href={`/dashboard/mina-brev/${id}`} className={`lank ${LANK}`}>
+          Avbryt
+        </Link>
+      </div>
     </div>
+    </Golv>
+    </>
   );
 }

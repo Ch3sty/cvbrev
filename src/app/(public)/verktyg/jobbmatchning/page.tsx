@@ -8,7 +8,7 @@ import JobbmatchningLiveDemo from './components/JobbmatchningLiveDemo'
 import { JOBBMATCHNING_FAQ_ITEMS } from './components/jobbmatchning-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenMatch } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 
 const DATAPUNKTER = [
@@ -167,15 +167,10 @@ export default function JobbmatchningSida() {
             rader: VAD_DU_FAR,
           },
         ]}
-        citat={{
-          text: 'Jag hade scrollat genom Arbetsförmedlingen i veckor och blev bara mer förvirrad. Aktiverade mitt CV här och fick fyra jobb med över 80 procents matchning på första sökningen. Det kändes som att någon faktiskt hade läst mitt CV.',
-          namn: 'Sofia, 29, Stockholm',
-          roll: 'frontend-utvecklare, nu på Spotify',
-        }}
         slut={{
-          eyebrow: 'Allt-paketet',
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Hitta ditt nästa jobb automatiskt.',
-          text: `Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i ${PLAN_BY_KEY.all_week.name}: ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden, utan bindningstid.`,
+          text: `Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i ${paketKort()}, utan bindningstid.`,
           knapp: { text: 'Hitta jobb gratis', href: '/register?borja=jobb' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

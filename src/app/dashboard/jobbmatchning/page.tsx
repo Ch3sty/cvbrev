@@ -21,6 +21,8 @@
  */
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { after } from 'next/server';
+import { markeraMatchningarSedda } from '@/lib/rum/matchningarSedda';
 import { createServerClient } from '@/lib/supabase/server';
 import {
   getJobbmatchningData,
@@ -54,6 +56,10 @@ export default async function JobbmatchningPage() {
     console.error('Jobbmatchning: kunde inte hämta sidans data', error);
     return EMPTY_JOBBMATCHNING_DATA;
   });
+
+  // "N nya" på Jobbsökets hem räknar från när sidan senast visades (spec
+  // 16.2 fråga 3). Efter svaret, så att sidan aldrig väntar på skrivningen.
+  after(() => markeraMatchningarSedda(supabase, user.id));
 
   // userId går vidare så klienten kan nyckla den lokalt sparade sökningen på
   // rätt konto. Två konton i samma webbläsare ska aldrig se varandras träffar.

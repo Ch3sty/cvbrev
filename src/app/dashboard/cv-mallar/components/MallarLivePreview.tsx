@@ -1,7 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Crown, ArrowRight, Eye } from 'lucide-react';
+import { ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
 
 import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
 import {
@@ -16,7 +17,7 @@ import MallGrid from './MallGrid';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
-import { paketMedPris } from '@/lib/plans/plans';
+import { paketKort } from '@/lib/plans/plans';
 import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 
 interface CV {
@@ -285,7 +286,7 @@ function PreviewContainer({
   fontId: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-kant bg-panel">
+    <div className="overflow-hidden rounded-xl border border-kant bg-papper">
       {/* Topp-rad: Live-preview-rubrik */}
       <div className="flex items-center justify-between gap-3 border-b border-kant px-4 py-3">
         <div className="flex items-center gap-2">
@@ -312,7 +313,7 @@ function PreviewContainer({
           förhandsvisningen kom, och allt under den flyttades: sidans hela
           CLS på 0,06. Alla fyra tillstånd bor nu i samma låda, som aldrig
           byter storlek, och innehållet scrollar inuti den. */}
-      <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-insunken shadow-insunken sm:h-[850px]">
+      <div className="relative h-[560px] overflow-y-auto overflow-x-hidden bg-papper-2  sm:h-[850px]">
         {/* Förhandsvisningen är aldrig tom (analysen 22 september, avsnitt 4):
             utan valt CV visas mallen med exempeltext, samma serverrenderade
             dokument som artiklarnas mallvisning. */}
@@ -323,7 +324,7 @@ function PreviewContainer({
               key={`${templateId}-${fontId}`}
               src={`/api/public/exempel/cv?mall=${encodeURIComponent(templateId)}&typsnitt=${encodeURIComponent(fontId)}`}
               title={`Exempel i mallen ${templateName ?? ''}`}
-              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-panel"
+              className="mx-auto block aspect-[794/1123] w-full max-w-[794px] bg-papper"
             />
           </div>
         )}
@@ -402,7 +403,7 @@ function ScaledPreview({ html }: { html: string }) {
             const h = doc?.documentElement?.scrollHeight ?? 0
             if (h > 0) setContentHeight(Math.max(h, A4_HEIGHT_PX))
           }}
-          className="block border-0 bg-panel"
+          className="block border-0 bg-papper"
           style={{
             width: A4_WIDTH_PX + "px",
             height: contentHeight + "px",
@@ -461,10 +462,9 @@ function GenerateButton({
       <button
         type="button"
         onClick={onUpgrade}
-        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+        className={KNAPP_PRIMAR}
       >
-        <Crown className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        {`Ladda ned med ${paketMedPris('cv_week')}`}
+        {`Ladda ner med ${paketKort()}`}
       </button>
     );
   }
@@ -474,13 +474,13 @@ function GenerateButton({
       type="button"
       onClick={onGenerate}
       disabled={!canGenerate}
-      className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
+      className={KNAPP_PRIMAR}
     >
       {isGenerating ? (
         <>
           <span
             aria-hidden="true"
-            className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+            className="h-4 w-4 animate-spin rounded-full border-2 border-koppar-text/30 border-t-koppar-text"
           />
           Skapar PDF
         </>

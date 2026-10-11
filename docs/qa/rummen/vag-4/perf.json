@@ -1,0 +1,475 @@
+{
+  "tid": "2026-10-11T03:06:33.933Z",
+  "bas": "http://localhost:5244",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "dashboard",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 3724,
+        "cls": 0.001,
+        "fcp": 3724,
+        "rundturer": 0,
+        "textLangd": 2200,
+        "forfragningar": 75
+      }
+    },
+    {
+      "namn": "profil",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 1372,
+        "cls": 0.001,
+        "fcp": 960,
+        "rundturer": 0,
+        "textLangd": 2693,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "profil/cv",
+      "budget": "lista",
+      "m": {
+        "lcp": 1132,
+        "cls": 0.001,
+        "fcp": 784,
+        "rundturer": 0,
+        "textLangd": 2056,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "prenumeration",
+      "budget": "lista",
+      "m": {
+        "lcp": 900,
+        "cls": 0.001,
+        "fcp": 504,
+        "rundturer": 0,
+        "textLangd": 2124,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "sokta-tjanster",
+      "budget": "lista",
+      "m": {
+        "lcp": 736,
+        "cls": 0.001,
+        "fcp": 660,
+        "rundturer": 0,
+        "textLangd": 2316,
+        "forfragningar": 61
+      }
+    },
+    {
+      "namn": "sokta-tjanster/[id]",
+      "budget": "lista",
+      "m": {
+        "lcp": 880,
+        "cls": 0.001,
+        "fcp": 516,
+        "rundturer": 0,
+        "textLangd": 475,
+        "forfragningar": 65
+      }
+    },
+    {
+      "namn": "mina-brev",
+      "budget": "lista",
+      "m": {
+        "lcp": 880,
+        "cls": 0.001,
+        "fcp": 476,
+        "rundturer": 0,
+        "textLangd": 1048,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "mina-brev/[id]",
+      "budget": "lista",
+      "m": {
+        "lcp": 880,
+        "cls": 0.001,
+        "fcp": 540,
+        "rundturer": 0,
+        "textLangd": 2319,
+        "forfragningar": 61
+      }
+    },
+    {
+      "namn": "mina-brev/[id]/edit",
+      "budget": "lista",
+      "m": {
+        "lcp": 560,
+        "cls": 0.001,
+        "fcp": 536,
+        "rundturer": 0,
+        "textLangd": 2172,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "cv-mallar",
+      "budget": "lista",
+      "m": {
+        "lcp": 724,
+        "cls": 0.001,
+        "fcp": 588,
+        "rundturer": 0,
+        "textLangd": 1049,
+        "forfragningar": 69
+      }
+    },
+    {
+      "namn": "cv-mallar (vald mall)",
+      "budget": "lista",
+      "m": {
+        "lcp": 664,
+        "cls": 0.001,
+        "fcp": 536,
+        "rundturer": 0,
+        "textLangd": 1049,
+        "forfragningar": 69
+      }
+    },
+    {
+      "namn": "tester",
+      "budget": "lista",
+      "m": {
+        "lcp": 904,
+        "cls": 0.001,
+        "fcp": 504,
+        "rundturer": 0,
+        "textLangd": 1980,
+        "forfragningar": 70
+      }
+    },
+    {
+      "namn": "tester/[slug]",
+      "budget": "lista",
+      "m": {
+        "lcp": 504,
+        "cls": 0.001,
+        "fcp": 504,
+        "rundturer": 0,
+        "textLangd": 1285,
+        "forfragningar": 69
+      }
+    },
+    {
+      "namn": "tester/personlighet",
+      "budget": "lista",
+      "m": {
+        "lcp": 508,
+        "cls": 0.001,
+        "fcp": 508,
+        "rundturer": 0,
+        "textLangd": 709,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "intervju",
+      "budget": "lista",
+      "m": {
+        "lcp": 556,
+        "cls": 0.001,
+        "fcp": 500,
+        "rundturer": 0,
+        "textLangd": 842,
+        "forfragningar": 67
+      }
+    },
+    {
+      "namn": "bli-upptackt",
+      "budget": "lista",
+      "m": {
+        "lcp": 1824,
+        "cls": 0.001,
+        "fcp": 1416,
+        "rundturer": 0,
+        "textLangd": 4014,
+        "forfragningar": 69
+      }
+    },
+    {
+      "namn": "meddelanden",
+      "budget": "lista",
+      "m": {
+        "lcp": 792,
+        "cls": 0.001,
+        "fcp": 468,
+        "rundturer": 0,
+        "textLangd": 428,
+        "forfragningar": 62
+      }
+    },
+    {
+      "namn": "kontakt",
+      "budget": "lista",
+      "m": {
+        "lcp": 624,
+        "cls": 0.001,
+        "fcp": 544,
+        "rundturer": 0,
+        "textLangd": 641,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "tester prov",
+      "budget": "flode",
+      "m": {
+        "lcp": 2024,
+        "cls": 0,
+        "fcp": 492,
+        "rundturer": 5,
+        "textLangd": 300,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "tester resultat",
+      "budget": "flode",
+      "m": {
+        "lcp": 852,
+        "cls": 0.001,
+        "fcp": 596,
+        "rundturer": 0,
+        "textLangd": 1870,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "skapa-brev",
+      "budget": "flode",
+      "m": {
+        "lcp": 804,
+        "cls": 0,
+        "fcp": 528,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 50
+      }
+    },
+    {
+      "namn": "skapa-brev steg 2",
+      "budget": "flode",
+      "m": {
+        "lcp": 900,
+        "cls": 0,
+        "fcp": 552,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "skapa-brev steg 3",
+      "budget": "flode",
+      "m": {
+        "lcp": 788,
+        "cls": 0,
+        "fcp": 432,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "skapa-brev steg 4",
+      "budget": "flode",
+      "m": {
+        "lcp": 928,
+        "cls": 0,
+        "fcp": 580,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "skapa-brev steg 5",
+      "budget": "flode",
+      "m": {
+        "lcp": 544,
+        "cls": 0,
+        "fcp": 508,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "skapa-brev steg 6",
+      "budget": "flode",
+      "m": {
+        "lcp": 836,
+        "cls": 0,
+        "fcp": 476,
+        "rundturer": 0,
+        "textLangd": 712,
+        "forfragningar": 47
+      }
+    },
+    {
+      "namn": "skapa-cv",
+      "budget": "flode",
+      "m": {
+        "lcp": 500,
+        "cls": 0,
+        "fcp": 500,
+        "rundturer": 0,
+        "textLangd": 470,
+        "forfragningar": 49
+      }
+    },
+    {
+      "namn": "skapa-cv steg 2",
+      "budget": "flode",
+      "m": {
+        "lcp": 1048,
+        "cls": 0,
+        "fcp": 512,
+        "rundturer": 2,
+        "textLangd": 481,
+        "forfragningar": 46
+      }
+    },
+    {
+      "namn": "skapa-cv steg 4",
+      "budget": "flode",
+      "m": {
+        "lcp": 1112,
+        "cls": 0,
+        "fcp": 528,
+        "rundturer": 2,
+        "textLangd": 361,
+        "forfragningar": 46
+      }
+    },
+    {
+      "namn": "skapa-cv steg 7",
+      "budget": "flode",
+      "m": {
+        "lcp": 1088,
+        "cls": 0,
+        "fcp": 472,
+        "rundturer": 1,
+        "textLangd": 1743,
+        "forfragningar": 56
+      }
+    },
+    {
+      "namn": "cv-analys",
+      "budget": "flode",
+      "m": {
+        "lcp": 784,
+        "cls": 0.001,
+        "fcp": 600,
+        "rundturer": 0,
+        "textLangd": 967,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "cv-analys steg 2",
+      "budget": "flode",
+      "m": {
+        "lcp": 632,
+        "cls": 0.001,
+        "fcp": 632,
+        "rundturer": 0,
+        "textLangd": 967,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "cv-analys steg 3",
+      "budget": "flode",
+      "m": {
+        "lcp": 860,
+        "cls": 0.001,
+        "fcp": 592,
+        "rundturer": 0,
+        "textLangd": 967,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "jobbmatchning",
+      "budget": "flode",
+      "m": {
+        "lcp": 1304,
+        "cls": 0.001,
+        "fcp": 1208,
+        "rundturer": 0,
+        "textLangd": 655,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "jobbcoachen",
+      "budget": "flode",
+      "m": {
+        "lcp": 1352,
+        "cls": 0.001,
+        "fcp": 1352,
+        "rundturer": 0,
+        "textLangd": 651,
+        "forfragningar": 65
+      }
+    },
+    {
+      "namn": "linkedin-optimizer",
+      "budget": "flode",
+      "m": {
+        "lcp": 872,
+        "cls": 0,
+        "fcp": 500,
+        "rundturer": 0,
+        "textLangd": 1095,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "linkedin steg 2",
+      "budget": "flode",
+      "m": {
+        "lcp": 692,
+        "cls": 0,
+        "fcp": 692,
+        "rundturer": 0,
+        "textLangd": 819,
+        "forfragningar": 45
+      }
+    },
+    {
+      "namn": "linkedin steg 3",
+      "budget": "flode",
+      "m": {
+        "lcp": 616,
+        "cls": 0,
+        "fcp": 564,
+        "rundturer": 0,
+        "textLangd": 111,
+        "forfragningar": 45
+      }
+    },
+    {
+      "namn": "arbetsstil",
+      "budget": "flode",
+      "m": {
+        "lcp": 584,
+        "cls": 0.001,
+        "fcp": 516,
+        "rundturer": 0,
+        "textLangd": 3888,
+        "forfragningar": 64
+      }
+    }
+  ]
+}

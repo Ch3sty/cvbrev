@@ -12,5 +12,5 @@ interface LetterFlowLayoutProps {
 }
 
 export default function LetterFlowLayout({ children }: LetterFlowLayoutProps) {
-  return <div className="mx-auto w-full max-w-3xl space-y-4 pb-16 sm:space-y-6">{children}</div>;
+  return <div className="mx-auto w-full max-w-3xl space-y-4 sm:space-y-6">{children}</div>;
 }

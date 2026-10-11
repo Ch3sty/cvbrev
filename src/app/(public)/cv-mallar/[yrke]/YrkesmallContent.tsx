@@ -265,7 +265,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Se ditt {data.namnBestamd}-CV i olika designer
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Förhandsgranska ditt CV i vår gratismall {data.freeMallNamn} eller premium-varianten {data.premiumMallNamn}. Byt mall och typsnitt och se skillnaderna direkt.
+            Förhandsgranska ditt CV i vår gratismall {data.freeMallNamn} eller i {data.premiumMallNamn}, som ingår i Premium. Byt mall och typsnitt och se skillnaderna direkt.
           </p>
         </div>
         <YrkesmallInteractivePreview
@@ -363,7 +363,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
           <SectionTitle
             eyebrow="Vår design"
             title={`Så har vi byggt mallarna för ${data.namnBestamd}`}
-            description={`Det här är våra designval och varför mallen ${data.freeMallNamn} och premium-varianten ${data.premiumMallNamn} fungerar för rollen.`}
+            description={`Det här är våra designval och varför mallen ${data.freeMallNamn} och ${data.premiumMallNamn}, som ingår i Premium, fungerar för rollen.`}
           />
           <VarforVarMallPassar punkter={data.varforVarMallPassar} yrkesNamn={data.namn} />
         </SectionWrapper>

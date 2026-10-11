@@ -23,6 +23,8 @@ import LinkedInOptimizerClient from './LinkedInOptimizerClient';
 import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature } from '@/lib/access/features';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 export default async function LinkedInOptimizerPage() {
@@ -49,15 +51,19 @@ export default async function LinkedInOptimizerPage() {
     getUserScope(supabase, user.id).catch(() => null),
   ]);
 
-  // LinkedIn-profilen ligger i CV-spåret och i Hela paketet. Menyn gråar valet, men
+  // LinkedIn-profilen ligger i CV-spåret och i Premium. Menyn gråar valet, men
   // adressen är nåbar, så sidan visar samma betalvägg som menyn i stället
   // för wizarden. Rutten /api/linkedin/optimize svarar 402 på samma feature.
   if (!scopeHasFeature(scope, 'linkedin')) {
     return (
-      <div className="mx-auto w-full max-w-lg px-4 py-6 sm:py-10">
-        <h1 className="mb-4 text-xl font-semibold text-ink-1">LinkedIn-profilen</h1>
-        <PaywallCard variant="linkedin" feature="linkedin" scope={scope} />
-      </div>
+      <>
+        <RumHuvud title="LinkedIn-profilen" />
+        <Golv>
+          <div className="w-full max-w-lg">
+            <PaywallCard variant="linkedin" feature="linkedin" scope={scope} />
+          </div>
+        </Golv>
+      </>
     );
   }
 

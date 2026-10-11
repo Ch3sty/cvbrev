@@ -1,17 +1,19 @@
 // src/lib/onboarding/paket-rader.ts
 //
 // Menyhuvudet och underraderna (docs/design/spec-onboarding-2026-09-22.html,
-// sektion 3 och 5). Menyn säger vilket paket man har, och varje val bär en
-// kort mening om vad som ingår ("3 mallar, en nedladdning") eller att det
-// inte ingår och i vilket paket det finns. Talen kommer ur scopet och
-// kvottjänsten, aldrig hårdkodade.
+// sektion 3 och 5, med ägarens beslut 2026-10-11: bara Jobbcoach Premium
+// säljs). Menyn säger vad man har, och varje val bär en kort mening om vad
+// som ingår ("3 mallar, en nedladdning") eller "Ingår i Premium". Inga spår
+// visas för gratiskonton. Befintliga kunder med
+// CV-paketet eller Träningspaketet ser sitt paket tills det löpt ut. Talen
+// kommer ur scopet och kvottjänsten, aldrig hårdkodade.
 //
 // Klientsäker: ren data och rena funktioner.
 
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
-import { PLAN_BY_KEY, paketNamn as planNamn, paketNamnForScope, prisPeriod, type PlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketNamn as planNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 
 /** Samma form som summary.paket i /api/dashboard/summary. */
@@ -37,9 +39,15 @@ function storForst(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-/** Namnet i menyn, ur PLANS via plans.ts. Utan paket: "gratisnivån". */
+/**
+ * Namnet i menyn, ur PLANS via plans.ts. Utan paket: "gratisnivån". Allt
+ * med scope allt (månad, vecka, kvartal och Dagspasset) heter Premium i
+ * appen (copy-premium avsnitt 1); Dagspasset visas aldrig. CV-paketet och
+ * Träningspaketet står kvar för befintliga kunder.
+ */
 export function paketNamn(planKey: PlanKey | null): string {
   if (!planKey) return 'gratisnivån'
+  if (PLAN_BY_KEY[planKey].scope === 'allt') return paketKort()
   return planNamn(planKey)
 }
 
@@ -71,15 +79,17 @@ export function menyHuvud(p: PaketLage): MenyHuvud {
   if (!p.scope || !p.planKey) {
     return {
       rubrik: 'Du är på gratisnivån',
-      under: `Tre paket, från ${PLAN_BY_KEY.all_day.amount} kr`,
+      under: `${paketKort()}, ${prisPeriod(SALD_PLAN)}`,
       lank: 'Vad ingår?',
       href,
     }
   }
+  // Befintlig Dagspass-kund: Dagspasset säljs inte och visas inte, men
+  // kontot har Premium till tiden går ut.
   if (p.dayPassOnly || p.planKey === 'all_day') {
     const tid = svenskTid(p.fornyasAt)
     return {
-      rubrik: `Du har ${PLAN_BY_KEY.all_day.name}`,
+      rubrik: `Du har ${paketKort()}`,
       under: tid ? `Gäller till ${tid}` : 'Gäller i 24 timmar',
       lank: 'Vad ingår?',
       href,
@@ -127,11 +137,13 @@ export interface MenyRad {
   variant?: PaywallVariant
 }
 
-/** "Ingår inte. Finns i CV-paketet och Hela paketet." */
-function ingarInte(paket: 'cv' | 'allt'): string {
-  return paket === 'cv'
-    ? `Ingår inte. Finns i ${paketNamnForScope('cv')} och ${paketNamnForScope('allt')}.`
-    : `Ingår inte. Finns i ${paketNamnForScope('allt')}.`
+/**
+ * Underraden för ett grått val: "Ingår i Premium". Rader som nämner
+ * LinkedIn skriver fulla namnet, eftersom LinkedIn har en egen Premium
+ * (copy-premium krock 2).
+ */
+function ingarI(val: 'linkedin' | 'annat'): string {
+  return val === 'linkedin' ? `LinkedIn-optimeringen ingår i ${planNamn(SALD_PLAN)}` : `Ingår i ${paketKort()}`
 }
 
 export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
@@ -140,7 +152,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'tester':
       return scopeHasFeature(s, 'tests_above_base')
         ? { text: 'Alla typer, alla nivåer, provläge mot klockan', ingar: true }
-        : { text: 'Grundnivån, en gång per typ och dygn', ingar: true }
+        : { text: 'Nivåmätning och ett första pass', ingar: true }
     case 'cv':
     case 'analys':
       return scopeHasFeature(s, 'cv_analysis_full')
@@ -172,53 +184,28 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'linkedin':
       return scopeHasFeature(s, 'linkedin')
         ? { text: 'Profil som rekryterare hittar', ingar: true }
-        : { text: ingarInte('cv'), ingar: false, feature: 'linkedin', variant: 'linkedin' }
+        : { text: ingarI('linkedin'), ingar: false, feature: 'linkedin', variant: 'linkedin' }
     case 'bli_upptackt':
       return scopeHasFeature(s, 'bli_upptackt')
         ? { text: 'Rekryterare hittar dig, anonymt', ingar: true }
-        : { text: ingarInte('allt'), ingar: false, feature: 'bli_upptackt', variant: 'bli-upptackt' }
+        : { text: ingarI('annat'), ingar: false, feature: 'bli_upptackt', variant: 'bli-upptackt' }
     case 'sokta':
       return { text: 'Alltid gratis', ingar: true }
   }
 }
 
-/** Mellanskillnaden i kronor mot Hela paketet (veckan) för ett spår, annars null. */
-export function mellanskillnadKr(planKey: PlanKey | null): number | null {
-  if (planKey !== 'cv_week' && planKey !== 'test_week') return null
-  return Math.max(0, PLAN_BY_KEY.all_week.amount - PLAN_BY_KEY[planKey].amount)
-}
-
-/** Menyns fotrad för en spårkund: "Vill du ha CV-delen också? ..." */
+/** Menyns fotrad för en befintlig spårkund: resten ingår i Premium. */
 export function menyFot(p: PaketLage): string | null {
-  const diff = mellanskillnadKr(p.planKey)
-  if (diff === null) return null
-  const del = p.scope === 'tester' ? 'CV-delen' : 'testerna'
-  return `Vill du ha ${del} också? ${paketNamnForScope('allt')} kostar ${diff} kr till i veckan och öppnar allt grått.`
+  if (p.planKey !== 'cv_week' && p.planKey !== 'test_week') return null
+  const del = p.scope === 'tester' ? 'CV, personliga brev' : 'Testerna'
+  return `${del} och allt grått ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`
 }
 
 /* ------------------------------------------ gråade vyer, sektion 3 */
 
-/**
- * "Träningspaketet, 79 kr i veckan, eller Hela paketet" på testsidan,
- * "Träningspaketet, 79 kr i veckan" för gratis.
- */
-export function graEtikettTest(scope: Scope | null): string {
-  const pris = `${planNamn('test_week')}, ${prisPeriod('test_week')}`
-  return scope ? `${pris}, eller ${paketNamnForScope('allt')}` : pris
-}
-
-/**
- * Fotknapparna: "Byt till Träningspaketet, 79 kr i veckan" och
- * "Eller Hela paketet för 20 kr till i veckan".
- * "Byt", inte "Lägg till": spårbytet går via Stripe-portalen och ersätter
- * prenumerationen. Kassan bär aldrig två paket samtidigt (saas-lead, D2 fråga 2).
- */
-export function laggTillKnapp(plan: 'cv_week' | 'test_week'): string {
-  return `Byt till ${planNamn(plan)}, ${prisPeriod(plan)}`
-}
-export function ellerAlltKnapp(fran: PlanKey | null): string | null {
-  const diff = mellanskillnadKr(fran)
-  return diff === null ? null : `Eller ${paketNamnForScope('allt')} för ${diff} kr till i veckan`
+/** Den gråa nivåns etikett i testhubben: "Ingår i Premium" (copy-premium avsnitt 3). */
+export function graEtikettTest(_scope?: Scope | null): string {
+  return `Ingår i ${paketKort()}`
 }
 
 /** Testsidans huvud per paket. */
@@ -226,7 +213,7 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
   if (scope === 'cv') {
     return {
       statusrad: `Du har ${planNamn('cv_week')}`,
-      rubrik: `Grundnivån ingår. Resten finns i ${planNamn('test_week')}, ${prisPeriod('test_week')}.`,
+      rubrik: `Grundnivån ingår. Resten ingår i ${paketKort()}.`,
       ingress: null,
     }
   }
@@ -234,7 +221,7 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
     return {
       statusrad: null,
       rubrik: null,
-      ingress: `Grundnivån i alla fyra typer ingår gratis, en gång per typ och dygn. Nivåerna över, provläget och det fördjupade personlighetstestet finns i ${planNamn('test_week')}, ${prisPeriod('test_week')}.`,
+      ingress: `En nivåmätning med genomgång och ett första träningspass ingår gratis. Att träna vidare, provläget och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
     }
   }
   return { statusrad: null, rubrik: null, ingress: null }
@@ -245,7 +232,7 @@ export function mallHuvud(scope: Scope | null): { statusrad: string; rubrik: str
   if (scopeHasFeature(scope, 'cv_templates_all')) return null
   return {
     statusrad: scope === 'tester' ? `Du har ${planNamn('test_week')}` : 'Du är på gratisnivån',
-    rubrik: `${FREE_TEMPLATE_COUNT} mallar ingår. Alla ${TEMPLATE_COUNT} finns i ${planNamn('cv_week')}, ${prisPeriod('cv_week')}.`,
-    not: 'Gråa mallar går att förhandsvisa i full storlek, inte ladda ned.',
+    rubrik: `${FREE_TEMPLATE_COUNT} mallar ingår. Alla ${TEMPLATE_COUNT} ingår i ${paketKort()}.`,
+    not: 'Gråa mallar går att förhandsvisa i full storlek, inte ladda ner.',
   }
 }

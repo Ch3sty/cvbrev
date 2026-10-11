@@ -99,7 +99,7 @@ const FONTS = [
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
 
   // Premium
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'CV-paketet', tier: 'premium' }
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: PAKETRADER.bricka, tier: 'premium' }
 ]
 
 export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLetterPreviewProps) {
@@ -374,7 +374,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
                   >
-                    {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
+                    {['ATS-Säkra', 'Moderna', 'Formella', PAKETRADER.bricka].map((category) => {
                       const categoryFonts = FONTS.filter(f => f.category === category)
                       if (categoryFonts.length === 0) return null
 
@@ -459,7 +459,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                         </div>
 
                         <div className="overflow-y-auto flex-1">
-                          {['ATS-Säkra', 'Moderna', 'Formella', 'CV-paketet'].map((category) => {
+                          {['ATS-Säkra', 'Moderna', 'Formella', PAKETRADER.bricka].map((category) => {
                             const categoryFonts = FONTS.filter(f => f.category === category)
                             if (categoryFonts.length === 0) return null
 

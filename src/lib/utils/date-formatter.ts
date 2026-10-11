@@ -19,7 +19,11 @@ export const formatCVDate = (dateString: string): string => {
     if (diffDays === 0) return 'Idag';
     if (diffDays === 1) return 'Igår';
     if (diffDays < 7) return `${diffDays} dagar sedan`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} veckor sedan`;
+    if (diffDays < 30) {
+      // "1 vecka sedan", annars "N veckor sedan" (art-director 21.3 punkt 8).
+      const veckor = Math.floor(diffDays / 7);
+      return veckor === 1 ? '1 vecka sedan' : `${veckor} veckor sedan`;
+    }
 
     return date.toLocaleDateString('sv-SE');
   } catch (error) {

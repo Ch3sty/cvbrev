@@ -8,10 +8,43 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Inget darkMode-nyckelord: mörkt läge sker helt via variablerna i
+      // globals.css. dark:-klasser används inte (spec-rummen 3.4, grep).
       colors: {
-        // Tråden, designsystem v2 (docs/designsystem.md). Värdena bor som
-        // CSS-variabler i globals.css; här får de sina Tailwind-namn:
-        // bg-mark, bg-panel, bg-insunken, border-kant, text-ink-2 ...
+        // Rummen, designsystem v3 (docs/designsystem.md, spec-rummen 3.4).
+        // bg-golv, bg-papper, bg-vagg, text-vagg-ink, bg-ton, text-ton-ink,
+        // bg-koppar, text-koppar-ljus ... Värdena byter per rum och läge.
+        golv: 'var(--golv)',
+        papper: {
+          DEFAULT: 'var(--papper)',
+          2: 'var(--papper-2)',
+        },
+        vagg: {
+          DEFAULT: 'var(--vagg)',
+          2: 'var(--vagg-2)',
+          3: 'var(--vagg-3)',
+          ink: 'var(--vagg-ink)',
+          mjuk: 'var(--vagg-mjuk)',
+          svag: 'var(--vagg-svag)',
+          kant: 'var(--vagg-kant)',
+        },
+        ljus: 'var(--ljus)',
+        ton: {
+          DEFAULT: 'var(--ton)',
+          ink: 'var(--ton-ink)',
+        },
+        rum: 'var(--rum)',
+        koppar: {
+          DEFAULT: 'var(--koppar)',
+          ink: 'var(--koppar-ink)',
+          djup: 'var(--koppar-djup)',
+          ljus: 'var(--koppar-ljus)',
+          text: 'var(--koppar-text)',
+          mjuk: 'var(--koppar-mjuk)',
+        },
+        // Tråden, designsystem v2. I inloggat är de här alias som pekar på
+        // Rummens tokens (mark = golv, panel = papper, accent = koppar) och
+        // tas bort i våg 4; på publika sidor är de Trådens egna värden.
         mark: 'var(--mark)',
         panel: 'var(--panel)',
         insunken: {
@@ -100,8 +133,25 @@ module.exports = {
         kort: ['16px', { lineHeight: '22px', letterSpacing: '-0.01em', fontWeight: '600' }],
         meta: ['13px', { lineHeight: '18px' }],
         steg: ['12px', { lineHeight: '16px', letterSpacing: '0.06em', fontWeight: '500' }],
+        // Rummen (spec 3.3 och 3.4). Familjen för tal-rad, tal-tre och
+        // kort-t (display) och versalerna i ey sätts i globals.css.
+        'tal-rad': ['22px', { lineHeight: '24px', fontWeight: '700' }],
+        'tal-tre': ['28px', { lineHeight: '30px', fontWeight: '700' }],
+        'kort-t': ['22px', { lineHeight: '27px', fontWeight: '700' }],
+        ey: ['12px', { lineHeight: '16px', letterSpacing: '.08em', fontWeight: '600' }],
+        ax: ['11px', '16px'],
+      },
+      borderRadius: {
+        lg: '8px',
+        xl: '12px',
+        '2xl': '16px',
+        vagg: '28px',
+        ark: '24px',
       },
       boxShadow: {
+        // Rummen: det lyfta kortet (LyftKort). insunken, val och svav tas
+        // bort i våg 4.
+        lyft: 'var(--lyft)',
         // Insunkna fält: 1 px mörkare inre överkant, ljuset kommer uppifrån.
         insunken: 'inset 0 1px 0 var(--insunken-topp)',
         // Valt alternativ: kant ink-1 (1 px) plus 1 px inset i samma ton.

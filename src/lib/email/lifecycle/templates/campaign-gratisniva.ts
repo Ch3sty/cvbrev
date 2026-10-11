@@ -5,7 +5,7 @@
 // /api/admin/email/campaign-gratisniva, som lägger in raderna i
 // email_schedule så runnern skickar dem i sin vanliga takt.
 
-import { paketMedPris } from '@/lib/plans/plans';
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { hasPremiumNow, swedishDate } from './helpers';
@@ -38,22 +38,22 @@ export const gratisnivaAndras: LifecycleEmail = {
           heading('Vi ändrar gratisnivån') +
           paragraph(`${name ? `Hej ${name},` : 'Hej,'} du har ett konto hos oss, så du ska höra det här från oss först.`) +
           paragraph(
-            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: du kan fortfarande prova varje verktyg, men uttaget, alltså den färdiga filen och djupet, ligger i paketen.`
+            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: du kan fortfarande prova varje verktyg, men uttaget, alltså den färdiga filen och djupet, ingår i ${paketKort()}.`
           ) +
           paragraph('Det här ändras:'),
         note:
           list([
             'CV-mallar: tre fria mallar, resten förhandsvisas i full storlek',
             'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
-            `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketMedPris('cv_week')}`,
-            'Rekryteringstester: grundnivån i varje testtyp, en gång per dygn',
+            `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketKort()}`,
+            'Rekryteringstester: en nivåmätning med genomgång och ett första träningspass',
             'Jobbcoachen: tio meddelanden per konto',
           ]) +
           '<p style="margin:12px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#9A3412;">Allt du redan skapat ligger kvar och går att läsa och kopiera som vanligt.</p>',
         ctaLabel: 'Se vad som gäller',
         ctaUrl: '/priser',
         footNote:
-          `Söker du jobb intensivt just nu väljer du paketet som passar: ${paketMedPris('cv_week')}, ${paketMedPris('test_week')} eller ${paketMedPris('all_week')}. Du säger upp i ditt konto.`,
+          `Söker du jobb intensivt just nu ingår allt i ${paketMedPris(SALD_PLAN)}. Du säger upp i ditt konto.`,
       }),
     };
   },

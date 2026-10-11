@@ -1,7 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from '@/components/illustrations/RumIkoner';
 import EmptyState from '@/components/shell/EmptyState';
 import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 import { initialFor, type CandidateInterest } from './hubTypes';
@@ -143,21 +144,21 @@ export default function ConversationThread({
     : null;
 
   return (
-    <div className="flex h-full flex-col bg-panel">
+    <div className="flex h-full flex-col bg-papper">
       {/* Vem samtalet gäller, plus vägarna att nå dem */}
       <div className="flex items-center gap-3 border-b border-kant px-4 py-3">
         {onBack && (
           <button
             type="button"
             onClick={onBack}
-            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken hover:text-ink-1 lg:hidden"
+            className="-ml-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:bg-papper-2 hover:text-ink-1 lg:hidden"
             aria-label="Tillbaka till listan"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
           </button>
         )}
         <span
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-kant bg-insunken text-sm font-semibold text-ink-2"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper-2 text-sm font-semibold text-ink-2"
           aria-hidden="true"
         >
           {initialFor(interest.companyName)}
@@ -228,7 +229,7 @@ export default function ConversationThread({
                 <div key={m.id}>
                   {showDay && (
                     <div className="my-3 flex justify-center">
-                      <span className="rounded-md border border-kant bg-panel px-3 py-1 text-meta text-ink-3">
+                      <span className="rounded-md border border-kant bg-papper px-3 py-1 text-meta text-ink-3">
                         {dayLabel(m.createdAt)}
                       </span>
                     </div>
@@ -245,7 +246,7 @@ export default function ConversationThread({
                       <span
                         className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-meta font-medium ${
                           startsSequence
-                            ? 'border border-kant bg-insunken text-ink-2'
+                            ? 'border border-kant bg-papper-2 text-ink-2'
                             : 'text-transparent'
                         }`}
                         aria-hidden="true"
@@ -257,8 +258,8 @@ export default function ConversationThread({
                       <div
                         className={`whitespace-pre-wrap break-words rounded-xl px-3.5 py-2 text-sm leading-[22px] ${
                           m.mine
-                            ? 'bg-ink-1 text-white'
-                            : 'border border-kant bg-insunken text-ink-2'
+                            ? 'bg-ink-1 text-papper'
+                            : 'border border-kant bg-papper-2 text-ink-2'
                         }`}
                       >
                         {m.body}
@@ -305,13 +306,13 @@ export default function ConversationThread({
           rows={1}
           enterKeyHint="send"
           placeholder="Skriv ett meddelande"
-          className="max-h-28 min-h-11 flex-1 resize-none rounded-lg border border-kant bg-insunken px-3 py-2.5 text-base leading-[22px] text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+          className="max-h-28 min-h-11 flex-1 resize-none rounded-lg border border-kant bg-papper-2 px-3 py-2.5 text-base leading-[22px] text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
         <button
           type="button"
           onClick={send}
           disabled={sending || !draft.trim()}
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover disabled:opacity-40"
+          className={`${KNAPP_PRIMAR_SMAL} shrink-0`}
         >
           Skicka
         </button>

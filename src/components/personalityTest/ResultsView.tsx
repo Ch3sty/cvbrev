@@ -3,9 +3,13 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Home, RotateCcw } from 'lucide-react';
+import { Home, RotateCcw } from '@/components/illustrations/RumIkoner';
 
-import ResultsHero from './ResultsHero';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar';
+import { NIVA_I_RAD, RUBRIK, resultatRad } from '@/lib/rum/copy';
+import { KIND_LABEL } from '@/app/dashboard/tester/testConfig';
 import BigFiveChart from './BigFiveChart';
 import DimensionCard from './DimensionCard';
 import InterviewTipsCard from './InterviewTipsCard';
@@ -69,31 +73,59 @@ export default function ResultsView({
       .finally(() => setIsLoading(false));
   }, [sessionId, testType]);
 
+  // Rubriken är "Ditt resultat" och raden testet, nivån och datumet, som på
+  // alla resultatsidor (spec 16.2 fråga 18). Samma vägg i alla tillstånd:
+  // innan datumet är känt hålls dess plats med osynlig text, så raden har
+  // samma höjd och golvet inte hoppar när sessionen landat.
+  const niva = testType === 'personlighet-grund' ? NIVA_I_RAD.grund : NIVA_I_RAD.avancerad
+  const datum = session?.completed_at
+    ? new Date(session.completed_at).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null
+  const vagg = (
+    <RumHuvud
+      title={RUBRIK.resultat}
+      description={
+        datum ? (
+          resultatRad(KIND_LABEL.personlighet, niva, datum)
+        ) : (
+          <>
+            {resultatRad(KIND_LABEL.personlighet, niva, null)}{' '}
+            <span className="invisible" aria-hidden="true">
+              Genomfört 30 september 2026.
+            </span>
+          </>
+        )
+      }
+    />
+  )
+
   if (isLoading) {
     return (
-      <div className="container mx-auto py-8 px-3 max-w-3xl">
-        <div className="space-y-4">
-          <div className="rounded-3xl bg-orange-50/40 h-48 animate-pulse" />
-          <div className="rounded-3xl bg-orange-50/40 h-64 animate-pulse" />
-        </div>
-      </div>
+      <>
+        {vagg}
+        <Golv>
+          <div className="w-full max-w-3xl space-y-4" role="status" aria-busy="true" aria-label="Resultatet laddas">
+            <div className="loading-thread h-48 rounded-2xl border border-kant bg-papper" />
+            <div className="h-64 rounded-2xl border border-kant bg-papper" />
+          </div>
+        </Golv>
+      </>
     );
   }
 
   if (error || !session || !session.scores || !session.completed_at) {
     return (
-      <div className="container mx-auto py-8 px-3 max-w-3xl">
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 text-center">
-          <p className="text-slate-700">{error ?? 'Resultatet är inte tillgängligt än.'}</p>
-          <Link
-            href={hubPath}
-            className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 rounded-xl border border-orange-200 bg-orange-50 text-orange-700 font-semibold text-sm"
-          >
-            <Home className="w-4 h-4" strokeWidth={2.5} />
-            Tillbaka
-          </Link>
-        </div>
-      </div>
+      <>
+        {vagg}
+        <Golv>
+          <div className="w-full max-w-3xl rounded-2xl border border-kant bg-papper p-6 text-center">
+            <p className="text-ink-2">{error ?? 'Resultatet är inte tillgängligt än.'}</p>
+            <Link href={hubPath} className={`mt-4 ${KNAPP_SEKUNDAR} sm:w-auto`}>
+              Tillbaka
+            </Link>
+          </div>
+        </Golv>
+      </>
     );
   }
 
@@ -101,14 +133,10 @@ export default function ResultsView({
   const facetScores = session.facet_scores;
 
   return (
-    <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-3xl">
-      <div className="space-y-5 sm:space-y-6">
-        <ResultsHero
-          testType={testType}
-          completedAt={session.completed_at}
-          timeSpent={session.time_spent}
-        />
-
+    <>
+      {vagg}
+      <Golv>
+      <div className="w-full max-w-3xl space-y-5 sm:space-y-6">
         <BigFiveChart scores={scores} />
 
         {ORDER.map((dim, i) => (
@@ -121,33 +149,24 @@ export default function ResultsView({
           <FacetsBreakdown facetScores={facetScores} />
         )}
 
-        {/* Footer-CTA */}
+        {/* Foten: vyns enda kopparknapp. */}
         <motion.section
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-3"
+          className="flex flex-col gap-3 sm:flex-row"
         >
-          <Link
-            href={hubPath}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-          >
-            <Home className="w-4 h-4" strokeWidth={2.5} />
+          <Link href={hubPath} className={`${KNAPP_SEKUNDAR} flex-1 gap-2`}>
+            <Home className="h-4 w-4" strokeWidth={2.5} />
             Till testhuben
           </Link>
-          <Link
-            href={hubPath}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
-            style={{
-              background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
-              boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-            }}
-          >
-            <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
+          <Link href={hubPath} className={`${KNAPP_PRIMAR} flex-1`}>
+            <RotateCcw className="h-4 w-4" strokeWidth={2.5} />
             Gör om testet
           </Link>
         </motion.section>
       </div>
-    </div>
+      </Golv>
+    </>
   );
 }

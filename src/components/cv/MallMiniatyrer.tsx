@@ -17,7 +17,7 @@ import {
   SIMPLE_TEMPLATES,
   TEMPLATE_COUNT,
 } from '@/lib/cv/simple-templates'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 export { MallMiniatyr, type MallMiniatyrProps } from './MallMiniatyr'
 import { MallMiniatyr } from './MallMiniatyr'
@@ -33,18 +33,18 @@ function artikelUrval() {
 export default function MallMiniatyrer() {
   const urval = artikelUrval()
   return (
-    <aside className="not-prose my-10 rounded-xl border border-kant bg-panel p-4 sm:p-6" aria-label="Mallar ur registret">
+    <aside className="not-prose my-10 rounded-xl border border-kant bg-papper p-4 sm:p-6" aria-label="Mallar ur registret">
       <p className="text-steg uppercase text-ink-3">
         {urval.length} av {TEMPLATE_COUNT} mallar
       </p>
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {urval.map((m) => (
-          <MallMiniatyr key={m.id} mall={m} under={m.tier === 'free' ? 'gratis' : PLAN_BY_KEY.cv_week.name} />
+          <MallMiniatyr key={m.id} mall={m} under={m.tier === 'free' ? 'gratis' : paketKort()} />
         ))}
       </div>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink-2">
-          {FREE_TEMPLATE_COUNT} gratis, alla {TEMPLATE_COUNT} i {PLAN_BY_KEY.cv_week.name} för {PLAN_BY_KEY.cv_week.amount} kr i veckan.
+          {`${FREE_TEMPLATE_COUNT} gratis, alla ${TEMPLATE_COUNT} i ${paketMedPris(SALD_PLAN)}.`}
         </p>
         <Link
           href="/verktyg/cv-mallar"

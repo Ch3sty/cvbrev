@@ -1,17 +1,24 @@
 /**
  * Paketen (docs/plan-paket-och-onboarding.md, ägarens beslut 2026-09-22,
- * och namnen ur docs/rapporter/beslut-paketnamn-2026-09-24.md).
+ * namnen ur docs/rapporter/beslut-paketnamn-2026-09-24.md och ägarens
+ * beslut 2026-10-11 i spec-rummen avsnitt 17.3 och 17.4).
  *
- * Sex nycklar, tre paket för besökaren och ett engångspass: CV-paketet,
- * Träningspaketet och Hela paketet, plus Dagspasset. CV-paketet och
- * Träningspaketet finns bara som vecka. Hela paketet är ett namn med tre
- * längder, och Dagspasset är det enda engångsköpet. Perioden är aldrig en
- * del av namnet, den står alltid bredvid ("CV-paketet, 79 kr i veckan").
+ * Sex nycklar, men bara en säljs: Jobbcoach Premium, 149 kr i månaden
+ * (all_month). CV-paketet, Träningspaketet, Dagspasset och Premium per vecka
+ * och kvartal har saljs: false. De står kvar så att webhooken, kvitton,
+ * admin och befintliga prenumeranter känner igen dem tills de löpt ut.
+ * Perioden är aldrig en del av namnet, den står alltid bredvid
+ * ("Jobbcoach Premium, 149 kr i månaden").
+ *
+ * Skrivregeln (docs/design/copy-premium-2026-10-11.md): fulla namnet
+ * "Jobbcoach Premium" där pengar byter ägare och en gång per yta, kortformen
+ * "Premium" (paketKort()) i knappar, låsta rader och brickor.
  *
  * Den här filen är enda källan till namnen. All annan kod läser dem via
- * paketNamn(), paketNamnForScope() och prisPeriod() nedan, aldrig som fasta
- * strängar. Testet i src/lib/plans/__tests__/paketnamn.test.ts faller om de
- * gamla namnen dyker upp igen.
+ * paketNamn(), paketKort(), paketNamnForScope() och prisPeriod() nedan,
+ * aldrig som fasta strängar. Testet i
+ * src/lib/plans/__tests__/paketnamn.test.ts faller om de gamla namnen dyker
+ * upp igen.
  *
  * Klientsäker: inga env-variabler här. Server-mappning till Stripe-priser
  * ligger i src/lib/stripe/planPrices.ts.
@@ -32,6 +39,12 @@ export type PlanMode = 'payment' | 'subscription'
 
 export interface Plan {
   key: PlanKey
+  /**
+   * Säljs paketet i dag? Bara all_month (spec-rummen 17.3). Ett osålt paket
+   * finns kvar för befintliga prenumeranter men visas aldrig som ett val,
+   * och create-plan-session avvisar det med 400.
+   */
+  saljs: boolean
   /**
    * Namnet i bestämd form, samma i Stripe, kvitton och mejl (beslut 6).
    * Hela paketets tre längder delar namn; längden står alltid bredvid.
@@ -61,20 +74,28 @@ export interface Plan {
 /** Namnen. Enda stället de står som fasta strängar. */
 const CV_PAKETET = 'CV-paketet'
 const TRANINGSPAKETET = 'Träningspaketet'
-const HELA_PAKETET = 'Hela paketet'
+const HELA_PAKETET = 'Jobbcoach Premium'
 const DAGSPASSET = 'Dagspasset'
 
-/** Hela paketets egna rader först, hänvisningen till de andra två sist (R3). */
+/**
+ * Kortformen (copy-premium avsnitt 1): knappar, låsta rader, brickor och
+ * brödtext efter att fulla namnet stått en gång på ytan.
+ */
+const PREMIUM_KORT = 'Premium'
+
+/** Det som ingår i Premium, i den ordning prissidan och betalväggen visar det. */
 const HELA_PAKETET_RADER = [
+  'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
+  'Alla rekryteringstester, provläget och personlighetstestet',
   'Jobbmatchning varje natt, alla träffar med skälen',
   'Jobbcoachen, fråga så mycket du vill',
   'Bli upptäckt av rekryterare, anonymt',
-  `Allt i ${CV_PAKETET} och ${TRANINGSPAKETET}, även fördjupade personlighetstestet`,
 ] as const
 
 export const PLANS: readonly Plan[] = [
   {
     key: 'cv_week',
+    saljs: false,
     name: CV_PAKETET,
     beskrivning: 'CV-mallar, CV-analys, personliga brev som PDF, LinkedIn',
     amount: 79,
@@ -84,7 +105,7 @@ export const PLANS: readonly Plan[] = [
     suffix: 'i veckan',
     audience: 'Du ska få ordning på CV och personliga brev',
     body: '79 kr i veckan. Alla mallar, full CV-analys och nedladdning av allt du skriver. Dras varje vecka tills du säger upp.',
-    ctaLabel: `Välj ${CV_PAKETET}, 79 kr i veckan`,
+    ctaLabel: `Köp ${CV_PAKETET}, 79 kr i veckan`,
     highlights: [
       `Alla ${TEMPLATE_COUNT} CV-mallar`,
       'Full CV-analys, obegränsat antal omkörningar',
@@ -94,6 +115,7 @@ export const PLANS: readonly Plan[] = [
   },
   {
     key: 'test_week',
+    saljs: false,
     name: TRANINGSPAKETET,
     beskrivning: 'Alla rekryteringstester, personlighetstestet, intervjuprovet',
     amount: 79,
@@ -103,7 +125,7 @@ export const PLANS: readonly Plan[] = [
     suffix: 'i veckan',
     audience: 'Du har ett rekryteringstest framför dig',
     body: '79 kr i veckan. Alla testnivåer, provläget, det fördjupade personlighetstestet och hela din resultathistorik. Dras varje vecka tills du säger upp.',
-    ctaLabel: `Välj ${TRANINGSPAKETET}, 79 kr i veckan`,
+    ctaLabel: `Köp ${TRANINGSPAKETET}, 79 kr i veckan`,
     highlights: [
       'Alla testnivåer, obegränsat antal försök',
       'Provläge med tidsgräns',
@@ -115,8 +137,9 @@ export const PLANS: readonly Plan[] = [
   },
   {
     key: 'all_day',
+    saljs: false,
     name: DAGSPASSET,
-    beskrivning: 'Hela paketet i 24 timmar. Engångsköp, förnyas inte.',
+    beskrivning: `${HELA_PAKETET} i 24 timmar. Engångsköp, förnyas inte.`,
     amount: 49,
     scope: 'allt',
     length: 'dag',
@@ -124,7 +147,7 @@ export const PLANS: readonly Plan[] = [
     grantDays: 1,
     suffix: 'engångs',
     audience: 'En ansökan som ska in ikväll',
-    body: '24 timmar med Hela paketet. Ett engångsköp, inget dras igen.',
+    body: `24 timmar med ${HELA_PAKETET}. Ett engångsköp, inget dras igen.`,
     ctaLabel: `Köp ${DAGSPASSET}, 49 kr`,
     highlights: [
       `Allt i ${HELA_PAKETET}`,
@@ -135,48 +158,48 @@ export const PLANS: readonly Plan[] = [
   },
   {
     key: 'all_week',
+    saljs: false,
     name: HELA_PAKETET,
-    beskrivning: 'Allt ingår: CV, tester, matchning, Jobbcoachen, Bli upptäckt',
+    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
     amount: 99,
     scope: 'allt',
     length: 'vecka',
     mode: 'subscription',
     suffix: 'i veckan',
     audience: 'Du söker brett och vill ha allt',
-    badge: 'Mest vald',
-    body: '99 kr i veckan. Jobbmatchningen, Jobbcoachen, Bli upptäckt och allt i de andra två paketen. Dras varje vecka tills du säger upp.',
-    ctaLabel: `Välj ${HELA_PAKETET}, 99 kr i veckan`,
+    body: '99 kr i veckan. Allt ingår. Dras varje vecka tills du säger upp.',
+    ctaLabel: `Köp ${PREMIUM_KORT}, 99 kr i veckan`,
     highlights: [...HELA_PAKETET_RADER, 'Säg upp när du vill'],
   },
   {
     key: 'all_month',
+    saljs: true,
     name: HELA_PAKETET,
-    beskrivning: 'Allt ingår: CV, tester, matchning, Jobbcoachen, Bli upptäckt',
+    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
     amount: 149,
     scope: 'allt',
     length: 'månad',
     mode: 'subscription',
     suffix: 'i månaden',
-    audience: 'Ett sök som pågår några månader',
-    body: '149 kr i månaden, alltså billigare än fyra veckor. Allt ingår. Dras varje månad tills du säger upp.',
-    ctaLabel: `Välj ${HELA_PAKETET}, 149 kr i månaden`,
-    highlights: [...HELA_PAKETET_RADER, 'Billigare än fyra veckor i rad', 'Säg upp när du vill'],
+    audience: 'Allt du behöver i jobbsöket, en månad i taget',
+    body: '149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.',
+    ctaLabel: `Köp ${PREMIUM_KORT}, 149 kr i månaden`,
+    highlights: [...HELA_PAKETET_RADER, 'Säg upp när du vill'],
   },
   {
     key: 'all_quarter',
+    saljs: false,
     name: HELA_PAKETET,
-    beskrivning: 'Allt ingår: CV, tester, matchning, Jobbcoachen, Bli upptäckt',
+    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
     amount: 299,
     scope: 'allt',
     length: 'kvartal',
     mode: 'subscription',
     suffix: 'för 3 månader',
     audience: 'Ett längre sök eller ett byte av bransch',
-    perMonth: '100 kr per månad',
-    badge: 'Bäst värde',
-    body: '299 kr för tre månader. Allt ingår, och du betalar drygt hundra kronor i månaden.',
-    ctaLabel: `Välj ${HELA_PAKETET}, 299 kr per kvartal`,
-    highlights: [...HELA_PAKETET_RADER, 'Drygt 100 kr per månad i stället för 149', 'Säg upp när du vill'],
+    body: '299 kr för tre månader. Allt ingår. Dras var tredje månad tills du säger upp.',
+    ctaLabel: `Köp ${PREMIUM_KORT}, 299 kr per kvartal`,
+    highlights: [...HELA_PAKETET_RADER, 'Säg upp när du vill'],
   },
 ] as const
 
@@ -190,27 +213,56 @@ export function isPlanKey(value: unknown): value is PlanKey {
   return typeof value === 'string' && PLAN_KEYS.includes(value)
 }
 
-/** De fyra prenumerationspaketen, i den ordning kassan visar längderna. */
+/**
+ * Alla prenumerationspaket, sålda och osålda, i den ordning kassan visade
+ * längderna. Webhooken och Stripes prislista behöver alla; gränssnittet
+ * läser SALJBARA_PLANER.
+ */
 export const SUBSCRIPTION_PLAN_KEYS: readonly PlanKey[] = PLANS.filter(
   (p) => p.mode === 'subscription'
 ).map((p) => p.key)
 
+/** Paketet som säljs (spec-rummen 17.3). Varje köpknapp leder hit. */
+export const SALD_PLAN: PlanKey = 'all_month'
+
+/** De paket som säljs i dag: en rad, all_month. */
+export const SALJBARA_PLANER: readonly Plan[] = PLANS.filter((p) => p.saljs)
+
+/** Säljs paketet? Falskt för okända nycklar. */
+export function saljs(plan: unknown): plan is PlanKey {
+  return isPlanKey(plan) && PLAN_BY_KEY[plan].saljs
+}
+
+/**
+ * Ett säljbart paket ur vad som helst: nyckeln om den säljs, annars
+ * SALD_PLAN. För köpknappar och köpsteget, så att en gammal länk med
+ * ?paket=cv_week landar på Premium och aldrig på ett osålt paket.
+ */
+export function saljbarPlan(plan: unknown): PlanKey {
+  return saljs(plan) ? plan : SALD_PLAN
+}
+
 /* ------------------------------------------------------------ namnen */
 
-/** Paketets namn: "CV-paketet", "Träningspaketet", "Hela paketet", "Dagspasset". */
+/** Paketets fulla namn: "Jobbcoach Premium", eller ett osålt pakets ("CV-paketet"). */
 export function paketNamn(plan: PlanKey): string {
   return PLAN_BY_KEY[plan].name
 }
 
+/** Kortformen "Premium" (copy-premium avsnitt 1). Hårdkoda aldrig ordet. */
+export function paketKort(): string {
+  return PREMIUM_KORT
+}
+
 /**
- * Namnet för en behörighet (profiles.premium_scope). Scope allt är Hela
- * paketet; Dagspasset går inte att skilja ut ur scopet och heter här
- * därför Hela paketet, vilket är vad det ger.
+ * Namnet för en behörighet (profiles.premium_scope). Scope allt är
+ * Jobbcoach Premium; Dagspasset går inte att skilja ut ur scopet och heter
+ * här därför Jobbcoach Premium, vilket är vad det ger.
  */
 export function paketNamnForScope(scope: PlanScope): string {
   if (scope === 'cv') return PLAN_BY_KEY.cv_week.name
   if (scope === 'tester') return PLAN_BY_KEY.test_week.name
-  return PLAN_BY_KEY.all_week.name
+  return PLAN_BY_KEY.all_month.name
 }
 
 /** Längden i ord, för kvitton och admin: "en vecka", "en månad". */
@@ -281,15 +333,24 @@ function laggTillManader(d: Date, antal: number): Date {
   return ut
 }
 
-/** Namnet med pris och period: "CV-paketet, 79 kr i veckan". */
+/** Namnet med pris och period: "Jobbcoach Premium, 149 kr i månaden". */
 export function paketMedPris(plan: PlanKey): string {
   return `${paketNamn(plan)}, ${prisPeriod(plan)}`
 }
 
 /**
- * Namnet med längd, där längden behövs för att skilja paketen åt (admin,
- * kvitton): "Hela paketet, en månad". Veckopaketen och Dagspasset står
- * ensamma, de finns bara i en längd.
+ * Köpknappen (copy-premium avsnitt 8): "Köp Premium, 149 kr i månaden".
+ * Kortformen, aldrig fulla namnet, så att knappen ryms på 360 px.
+ */
+export function kopKnapp(plan: PlanKey = SALD_PLAN): string {
+  return `Köp ${PREMIUM_KORT}, ${prisPeriod(plan)}`
+}
+
+/**
+ * Namnet med längd, där längden behövs (admin, kvitton): "Jobbcoach
+ * Premium, en månad", och för befintliga veckokunder "Jobbcoach Premium,
+ * en vecka". Veckopaketen och Dagspasset står ensamma, de finns bara i en
+ * längd.
  */
 export function paketMedLangd(plan: PlanKey): string {
   const p = PLAN_BY_KEY[plan]
@@ -300,12 +361,13 @@ export function paketMedLangd(plan: PlanKey): string {
 /* ------------------------------------------------- de gamla namnen */
 
 /**
- * Namnen före 2026-09-24. De finns kvar i data som skrevs innan bytet:
- * mejlmetadata (planName), Stripe-kvitton och gamla händelser. Enda stället
- * i src utanför migreringar och tester där de får stå, så att en ny läsare
- * alltid får det nya namnet.
+ * Namnen före 2026-09-24, och "Hela paketet" före 2026-10-11. De finns kvar
+ * i data som skrevs innan bytet: mejlmetadata (planName), Stripe-kvitton och
+ * gamla händelser. Enda stället i src utanför migreringar och tester där de
+ * får stå, så att en ny läsare alltid får det nya namnet.
  */
 const GAMLA_NAMN: Record<string, PlanKey> = {
+  'Hela paketet': 'all_month',
   'CV-veckan': 'cv_week',
   Testveckan: 'test_week',
   'Allt-dagen': 'all_day',

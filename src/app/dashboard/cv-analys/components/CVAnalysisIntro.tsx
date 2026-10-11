@@ -1,11 +1,14 @@
 'use client';
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ArrowRight, Target, FileSearch, Zap } from 'lucide-react';
+import { Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
 
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { RUBRIK } from '@/lib/rum/copy';
 import StatusRow from '@/components/shell/StatusRow';
-import MarginPlate from '@/components/shell/MarginPlate';
 import { IlluPlattaCvPoang } from '@/components/illustrations/TradenScener';
 
 interface CVAnalysisIntroProps {
@@ -57,28 +60,27 @@ export default function CVAnalysisIntro({
   const visaKvot = remainingAnalyses !== null && remainingAnalyses !== undefined;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
-      <PageHeader
-        title="Analysera ditt CV"
-        description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
-      />
-
-      {visaKvot && (
-        <StatusRow label="Analyser kvar">
-          {isPremium
-            ? PAKETRADER.analysUtanTak
-            : `${remainingAnalyses} ${
-                remainingAnalyses === 1 ? 'analys' : 'analyser'
-              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
-        </StatusRow>
-      )}
-
-      {/* Enda plattan i vyn, på det kort som bär handlingen. */}
-      <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <>
+    <RumHuvud
+      title={RUBRIK.analyseraCv}
+      description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
+      tat={false}
+    />
+    <Golv lyft>
+      {/* Det lyfta kortet bär handlingen (spec 16.3.2), statusraden står under. */}
+      <LyftKort
+        label="En komplett bild av ditt CV"
+        className="w-full max-w-3xl sm:p-5"
+        handling={
+          <button type="button" onClick={onStartAnalysis} className={KNAPP_PRIMAR}>
+            Analysera mitt CV
+          </button>
+        }
+      >
         <div className="flex items-start gap-4">
-          <MarginPlate>
+          <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
             <IlluPlattaCvPoang size={48} />
-          </MarginPlate>
+          </span>
           <div className="min-w-0 flex-1">
             <h2 className="text-kort text-ink-1">En komplett bild av ditt CV</h2>
             <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
@@ -95,18 +97,20 @@ export default function CVAnalysisIntro({
             </li>
           ))}
         </ul>
+      </LyftKort>
+    <div className="w-full max-w-3xl space-y-6">
 
-        <button
-          type="button"
-          onClick={onStartAnalysis}
-          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto"
-        >
-          Analysera mitt CV
-          <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        </button>
-      </section>
+      {visaKvot && (
+        <StatusRow label="Analyser kvar">
+          {isPremium
+            ? PAKETRADER.analysUtanTak
+            : `${remainingAnalyses} ${
+                remainingAnalyses === 1 ? 'analys' : 'analyser'
+              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
+        </StatusRow>
+      )}
 
-      <section className="rounded-xl border border-kant bg-panel">
+      <section className="rounded-xl border border-kant bg-papper">
         <h2 className="border-b border-kant px-4 py-3 text-sm font-medium text-ink-3">
           Så fungerar analysen
         </h2>
@@ -129,5 +133,7 @@ export default function CVAnalysisIntro({
         </ul>
       </section>
     </div>
+    </Golv>
+    </>
   );
 }

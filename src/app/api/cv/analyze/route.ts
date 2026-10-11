@@ -8,6 +8,7 @@ import { createBackgroundJob } from '@/lib/cv/background-jobs';
 import { checkCvAnalysisQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
+import { paketKort } from '@/lib/plans/plans';
 
 // Vercel maxDuration configuration
 export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
@@ -162,7 +163,7 @@ export async function POST(request: NextRequest) {
                 ...quotaExceededBody(
                     'cv_analysis',
                     quota,
-                    'Du har använt din analys. Att köra om den ingår i CV-paketet, 79 kr i veckan, och i Hela paketet.'
+                    `Du har använt din analys. Att köra om den ingår i ${paketKort()}.`
                 ),
                 feature: 'cv_analysis_full',
                 suggestedPlan: suggestPlan('cv_analysis_full', track),

@@ -13,10 +13,9 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { AlertTriangle, ArrowUp, Clock, PenLine } from 'lucide-react'
+import { AlertTriangle, ArrowUp, Clock, PenLine } from '@/components/illustrations/RumIkoner'
 import FlowShell from '@/components/shell/FlowShell'
 import ChoiceCard from '@/components/shell/ChoiceCard'
-import MarginPlate from '@/components/shell/MarginPlate'
 import { IkonIntervju, IkonKrona, IkonProfil } from '@/components/illustrations/Ikoner'
 import Intervjuprov from '@/components/artiklar/intervjuprov/Intervjuprov'
 import { FRAGA_ORDNING, FRAGOR, type FragaId } from '@/components/artiklar/intervjuprov/fragor'
@@ -138,9 +137,9 @@ export default function NyttProvFlow({
               eyebrow={rek ? NY.rekommenderas : undefined}
               leading={
                 rek ? (
-                  <MarginPlate>
+                  <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
                     <Ikon size={28} strokeWidth={1.75} />
-                  </MarginPlate>
+                  </span>
                 ) : (
                   <Ikon size={24} strokeWidth={1.75} />
                 )

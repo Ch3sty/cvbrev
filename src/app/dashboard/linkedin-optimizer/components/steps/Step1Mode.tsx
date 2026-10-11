@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import Segment from '@/components/shell/Segment'
-import MarginPlate from '@/components/shell/MarginPlate'
 import { IlluPlattaPresentation } from '@/components/illustrations/TradenScener'
 import {
   IkonCv,
@@ -11,7 +10,7 @@ import {
   IkonMatchning,
   IkonSynlig,
 } from '@/components/illustrations/Ikoner'
-import CvSelectorList from '../CvSelectorList'
+import CvSelectorList, { type CvRad } from '../CvSelectorList'
 
 export type OptimizationMode = 'stand_out' | 'target_role'
 export type Language = 'sv' | 'en'
@@ -24,6 +23,8 @@ interface Props {
   sourceMode: SourceMode
   selectedCvId: string | null
   hasCvs: boolean
+  /** CV-listan, serverns rader i första renderingen (ingen hämtning i steg 1). */
+  cvs: CvRad[]
   /** Låsta CV enligt CV-kvoten, uträknade på servern. Regeln är oförändrad. */
   lockedCvIds: Set<string>
   onModeChange: (mode: OptimizationMode) => void
@@ -44,6 +45,7 @@ export default function Step1Mode({
   sourceMode,
   selectedCvId,
   hasCvs,
+  cvs,
   lockedCvIds,
   onModeChange,
   onTargetRoleChange,
@@ -74,9 +76,9 @@ export default function Step1Mode({
              är kortet utgråat, och då faller etiketten bort helt. */
           eyebrow={hasCvs ? 'Rekommenderas' : undefined}
           leading={
-            <MarginPlate>
+            <span aria-hidden="true" className="inline-flex shrink-0 text-ton-ink [&>svg]:block">
               <IlluPlattaPresentation size={48} />
-            </MarginPlate>
+            </span>
           }
           title="Utgå från mitt CV"
           description="Vi fyller LinkedIn-fälten med det som redan står i ditt CV. Du redigerar fritt innan vi optimerar."
@@ -93,11 +95,12 @@ export default function Step1Mode({
       </div>
 
       {sourceMode === 'cv' && hasCvs && (
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <h3 className="mb-2 text-sm font-medium text-ink-3">
             Välj CV att utgå ifrån
           </h3>
           <CvSelectorList
+            cvs={cvs}
             selectedCvId={selectedCvId}
             onSelect={onCvSelect}
             lockedCvIds={lockedCvIds}
@@ -106,7 +109,7 @@ export default function Step1Mode({
       )}
 
       {sourceMode === 'cv' && !hasCvs && (
-        <section className="rounded-xl border border-kant bg-panel p-4">
+        <section className="rounded-xl border border-kant bg-papper p-4">
           <div className="flex items-start gap-3">
             <IkonCv className="mt-0.5 shrink-0 text-ink-2" />
             <div className="min-w-0">
@@ -161,7 +164,7 @@ export default function Step1Mode({
             autoComplete="organization-title"
             onChange={(e) => onTargetRoleChange(e.target.value)}
             placeholder="Senior Product Manager"
-            className={`h-11 w-full rounded-lg border bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 ${
+            className={`h-11 w-full rounded-lg border bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1 ${
               roleTooShort ? 'border-fel' : 'border-kant'
             }`}
           />

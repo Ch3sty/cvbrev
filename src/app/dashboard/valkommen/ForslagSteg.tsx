@@ -2,10 +2,12 @@
 
 /**
  * Steg 3, förslaget (docs/design/profil-registrering-2026-09-24.html, Del B
- * steg 3). Ett paketkort i spårvalets form, en ruta med vad gratis ger för
- * just valet och "Jämför alla tre paketen". Foten har två knappar i samma
- * storlek: "Köp {paket}, {pris}" i ink och "Börja gratis" med kant. Krysset
- * gör samma sak som Börja gratis.
+ * steg 3). Bara Jobbcoach Premium säljs (spec-rummen 17.3), så förslaget är
+ * alltid Premium per månad; valet styr bara kortets rubrik och rader. Ett
+ * kort i rummens material med kopparkant, en ruta med vad gratis ger för
+ * just valet och "Se vad som ingår". Foten har två knappar i samma
+ * storlek: "Köp Premium, 149 kr i månaden" och "Börja gratis" med kant.
+ * Krysset gör samma sak som Börja gratis.
  *
  * Båda sparar spåret (och valet) via /api/onboarding/track. Köp går till
  * köpsteget som finns, Börja gratis till landningen för valet.
@@ -14,6 +16,7 @@
  * Börja gratis och under 5 procent till kassan byter primärknapp, inget annat.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -40,9 +43,9 @@ const SCEN = {
   jobb: IlluScenAllt,
 } as const
 
-/** Köpstegets adress för valets paket. */
+/** Köpstegets adress för valets paket, med platsen registrering. */
 export function kopHref(intent: SignupIntent): string {
-  return kopstegHref(INTENTS[intent].plan)
+  return kopstegHref(INTENTS[intent].plan, 'registrering')
 }
 
 export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: ForslagStegProps) {
@@ -100,7 +103,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
           type="button"
           onClick={() => void valj('free')}
           disabled={busy !== null}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+          className={`${KNAPP_SEKUNDAR} disabled:cursor-not-allowed sm:w-auto sm:min-w-[200px]`}
         >
           {busy === 'gratis' ? STEG3.busy : STEG3.borjaGratis}
         </button>
@@ -116,7 +119,6 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
         <div className="mt-4">
           <SparKort
             Scen={SCEN[intent]}
-            ink={intent === 'jobb'}
             eyebrow={STEG3.eyebrow}
             eyebrowTon="dampad"
             rubrik={copy.kortRubrik}
@@ -127,7 +129,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
           />
         </div>
 
-        <section className="mt-3 rounded-xl border border-kant bg-panel px-4 py-3" aria-label={STEG3.gratisEtikett}>
+        <section className="mt-3 rounded-xl border border-kant bg-papper px-4 py-3" aria-label={STEG3.gratisEtikett}>
           <p className="text-steg uppercase text-ink-3">{STEG3.gratisEtikett}</p>
           <ul className="mt-1.5 grid gap-1 text-[13px] leading-[18px] text-ink-2">
             {copy.gratis.map((rad) => (

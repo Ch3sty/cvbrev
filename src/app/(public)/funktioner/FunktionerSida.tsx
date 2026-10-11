@@ -2,7 +2,7 @@
  * Funktioner i linjen (docs/design/analys-visuell-linje-2026-09-22.html,
  * avsnitt 5, "Övriga publika ytor"): hero som startsidan, sedan en sektion
  * per funktion i växlande form. Panel med scen till höger, rader direkt på
- * mark, och bläck för det som bara finns i Hela paketet. Åtta ikonkort och åtta
+ * mark, och bläck för det som bara finns i Jobbcoach Premium. Åtta ikonkort och åtta
  * piller är borta; ankarlänkarna till sektionerna står kvar som en textrad,
  * eftersom de är sidans egna länkar.
  *
@@ -23,7 +23,7 @@ import {
   IlluScenMatris,
 } from '@/components/illustrations/PriserScener'
 import { FUNKTIONER } from '@/components/pricing/paket-copy'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
 const KNAPP =
@@ -55,15 +55,15 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur ofta uppdateras jobbmatchningen?',
-    a: 'Vi hämtar annonserna från Arbetsförmedlingen och JobTech. Nya annonser kommer med inom timmar efter att de publicerats, och i Hela paketet får du de bästa träffarna varje natt.',
+    a: 'Vi hämtar annonserna från Arbetsförmedlingen och JobTech. Nya annonser kommer med inom timmar efter att de publicerats, och i ' + paketKort() + ' får du de bästa träffarna varje natt.',
   },
   {
-    q: 'Vad händer om jag säger upp mitt paket?',
-    a: 'Kontot går tillbaka till gratisnivån när perioden är slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser. Du kan börja om med ett paket när du vill.',
+    q: 'Vad händer om jag säger upp prenumerationen?',
+    a: 'Kontot går tillbaka till gratisnivån när perioden är slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser. Du kan köpa ' + paketKort() + ' igen när du vill.',
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, ett personligt brev och grundnivån i varje test. Vill du ha mer väljer du paket: CV-paketet eller Träningspaketet för ${PLAN_BY_KEY.cv_week.amount} kr i veckan, eller Hela paketet för ${PLAN_BY_KEY.all_week.amount} kr i veckan.`,
+    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, ett personligt brev och en nivåmätning och ett första träningspass i testerna. Vill du ha mer ingår allt i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
 ] as const
 
@@ -152,7 +152,7 @@ export default function FunktionerSida() {
               Skapa konto gratis
             </Link>
             <Link href="/priser" className={LANK}>
-              Se paketen
+              Se priset
             </Link>
           </div>
           <nav aria-label="Funktionerna på sidan" className="mt-6">
@@ -214,7 +214,7 @@ export default function FunktionerSida() {
                 { r: 'Bygg CV:t steg för steg', t: 'Personuppgifter, profil, erfarenhet, utbildning, kompetenser och språk, med exempel för varje del.' },
                 { r: `${TEMPLATE_COUNT} mallar, ${FREE_TEMPLATE_COUNT} gratis`, t: 'Ren struktur som rekryteringssystemen tolkar rätt. Byt mall med ett klick, innehållet följer med.' },
                 { r: 'Foto och LinkedIn där mallen stöder det', t: 'Välj själv om bilden och profillänken ska med. Standard i Sverige är utan bild.' },
-                { r: 'Ladda ner som PDF', t: 'Utan tak i CV-paketet och Hela paketet, en nedladdning på gratisnivån.' },
+                { r: 'Ladda ner som PDF', t: `Utan tak i ${paketKort()}, en nedladdning på gratisnivån.` },
               ].map((x) => (
                 <li key={x.r} className="border-t border-kant py-4">
                   <h3 className="text-base font-semibold text-ink-1">{x.r}</h3>
@@ -248,15 +248,15 @@ export default function FunktionerSida() {
         lankar={[{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }]}
       />
 
-      {/* Det som bara finns i Hela paketet: sidans enda bläckyta. */}
+      {/* Det som bara finns i Premium: sidans enda bläckyta. */}
       <div className={SEKTION}>
         <InkPanel
-          eyebrow={`Bara i Hela paketet, ${PLAN_BY_KEY.all_week.amount} kr i veckan`}
+          eyebrow={`Bara i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}`}
           title="Jobben hittar dig, och du går förberedd in i intervjun."
-          text={`Jobbmatchning, Jobbcoachen så mycket du vill och Bli upptäckt, plus allt i CV-paketet och Träningspaketet. ${PLAN_BY_KEY.all_week.amount} kr i veckan eller ${PLAN_BY_KEY.all_month.amount} kr i månaden.`}
+          text="Jobbmatchning, Jobbcoachen så mycket du vill och Bli upptäckt, plus alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester."
           action={
             <Link href="/priser" className={INK_KNAPP}>
-              Se paketen
+              Se vad som ingår
             </Link>
           }
           secondary={
@@ -290,7 +290,7 @@ export default function FunktionerSida() {
         id="linkedin"
         eyebrow="LinkedIn-profilen"
         rubrik="Bli hittad på LinkedIn"
-        sub={`Ingår i CV-paketet, ${PLAN_BY_KEY.cv_week.amount} kr i veckan, och i Hela paketet.`}
+        sub={`LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}.`}
         text="Rekryterare söker på kompetenser, inte på titlar. Vi skriver om rubrik och sammanfattning så att du hittas när de söker på det du kan, och visar vilka kompetenser som saknas i profilen."
         scen={<IlluScenLinkedin className="h-auto w-full" />}
         scenForst

@@ -1,0 +1,1680 @@
+{
+  "datum": "2026-10-11T04:06:53.004Z",
+  "bredd": 360,
+  "rutter": [
+    "tester",
+    "v4"
+  ],
+  "konton": {
+    "gratis": [
+      {
+        "namn": "hem-T1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-T1s",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1a",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1as",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1t",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "viewport": 360,
+        "knappar": [
+          "Starta siffertestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1b",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1c",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "viewport": 360,
+        "knappar": [
+          "Starta generalrepetitionen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1d",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1e",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-1f",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1g",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "viewport": 360,
+        "knappar": [
+          "Visa genomgången"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1h",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1i",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1p",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "viewport": 360,
+        "knappar": [
+          "Gör profilen, 10 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-X1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-L1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-W1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W2",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W3",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W4",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-F1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "E1",
+        "url": "/dashboard/tester/installningar?forsta=1",
+        "landade": "/dashboard/tester/installningar?forsta=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E1-steg1",
+        "url": "/dashboard/tester/installningar?steg=1",
+        "landade": "/dashboard/tester/installningar?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E2",
+        "url": "/dashboard/tester/installningar?steg=2",
+        "landade": "/dashboard/tester/installningar?steg=2",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E3",
+        "url": "/dashboard/tester/installningar?steg=3",
+        "landade": "/dashboard/tester/installningar?steg=3",
+        "viewport": 360,
+        "knappar": [
+          "Visa min plan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-P2",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "viewport": 360,
+        "knappar": [
+          "Nästa fråga"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P3",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "viewport": 360,
+        "knappar": [
+          "Visa resultatet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P4",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de två missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-S1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de fyra missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-betalande-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-grundgjort-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1-milstolpe-0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-K1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-uppvarmning",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "tester",
+        "url": "/dashboard/tester",
+        "landade": "/dashboard/tester",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "dashboard",
+        "url": "/dashboard",
+        "landade": "/dashboard/profil/cv",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "profil-cv",
+        "url": "/dashboard/profil/cv",
+        "landade": "/dashboard/profil/cv",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "cv-analys",
+        "url": "/dashboard/cv-analys",
+        "landade": "/dashboard/profil/cv?reason=cv-required",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "cv-mallar",
+        "url": "/dashboard/cv-mallar",
+        "landade": "/dashboard/cv-mallar",
+        "viewport": 360,
+        "knappar": [
+          "Skapa CV-PDF"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-cv",
+        "url": "/dashboard/skapa-cv",
+        "landade": "/dashboard/skapa-cv?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "linkedin-optimizer",
+        "url": "/dashboard/linkedin-optimizer",
+        "landade": "/dashboard/linkedin-optimizer",
+        "viewport": 360,
+        "knappar": [
+          "Köp CV-paketet, 79 kr i veckan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev",
+        "url": "/dashboard/mina-brev",
+        "landade": "/dashboard/mina-brev",
+        "viewport": 360,
+        "knappar": [
+          "Skapa nytt brev"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-brev",
+        "url": "/dashboard/skapa-brev",
+        "landade": "/dashboard/skapa-brev?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Ladda upp CV",
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "sokta-tjanster",
+        "url": "/dashboard/sokta-tjanster",
+        "landade": "/dashboard/sokta-tjanster",
+        "viewport": 360,
+        "knappar": [
+          "Logga din första sökta tjänst"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbmatchning",
+        "url": "/dashboard/jobbmatchning",
+        "landade": "/dashboard/jobbmatchning",
+        "viewport": 360,
+        "knappar": [
+          "Ladda upp ditt första CV"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbcoachen",
+        "url": "/dashboard/jobbcoachen",
+        "landade": "/dashboard/jobbcoachen",
+        "viewport": 360,
+        "knappar": [
+          "Skicka"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "bli-upptackt",
+        "url": "/dashboard/bli-upptackt",
+        "landade": "/dashboard/bli-upptackt",
+        "viewport": 360,
+        "knappar": [
+          "Kom igång"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "intervju",
+        "url": "/dashboard/intervju",
+        "landade": "/dashboard/intervju",
+        "viewport": 360,
+        "knappar": [
+          "Svara på frågan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "arbetsstil",
+        "url": "/dashboard/arbetsstil",
+        "landade": "/dashboard/arbetsstil",
+        "viewport": 360,
+        "knappar": [
+          "Starta grundtestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "profil",
+        "url": "/dashboard/profil",
+        "landade": "/dashboard/profil",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "prenumeration",
+        "url": "/dashboard/profil/prenumeration",
+        "landade": "/dashboard/profil/prenumeration",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      }
+    ],
+    "hela": [
+      {
+        "namn": "hem-T1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-T1s",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1a",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1as",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1t",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "viewport": 360,
+        "knappar": [
+          "Starta siffertestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1b",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1c",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "viewport": 360,
+        "knappar": [
+          "Starta generalrepetitionen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1d",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1e",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-1f",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1g",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "viewport": 360,
+        "knappar": [
+          "Visa genomgången"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1h",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1i",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1p",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "viewport": 360,
+        "knappar": [
+          "Gör profilen, 10 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-X1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-L1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-W1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W2",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W3",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W4",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-F1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "E1",
+        "url": "/dashboard/tester/installningar?forsta=1",
+        "landade": "/dashboard/tester/installningar?forsta=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E1-steg1",
+        "url": "/dashboard/tester/installningar?steg=1",
+        "landade": "/dashboard/tester/installningar?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E2",
+        "url": "/dashboard/tester/installningar?steg=2",
+        "landade": "/dashboard/tester/installningar?steg=2",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E3",
+        "url": "/dashboard/tester/installningar?steg=3",
+        "landade": "/dashboard/tester/installningar?steg=3",
+        "viewport": 360,
+        "knappar": [
+          "Visa min plan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-P2",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "viewport": 360,
+        "knappar": [
+          "Nästa fråga"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P3",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "viewport": 360,
+        "knappar": [
+          "Visa resultatet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P4",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de två missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-S1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de fyra missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-betalande-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-grundgjort-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1-milstolpe-0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-K1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-uppvarmning",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "tester",
+        "url": "/dashboard/tester",
+        "landade": "/dashboard/tester",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "dashboard",
+        "url": "/dashboard",
+        "landade": "/dashboard",
+        "viewport": 360,
+        "knappar": [
+          "Skapa ditt första brev"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "profil-cv",
+        "url": "/dashboard/profil/cv",
+        "landade": "/dashboard/profil/cv",
+        "viewport": 360,
+        "knappar": [
+          "Åtgärda i CV:t"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-analys",
+        "url": "/dashboard/cv-analys",
+        "landade": "/dashboard/cv-analys",
+        "viewport": 360,
+        "knappar": [
+          "Analysera mitt CV"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-analys-job",
+        "url": "/dashboard/cv-analys?job=2370ffcb-a125-4939-bd13-0a4c7eabb2ad",
+        "landade": "/dashboard/cv-analys?job=2370ffcb-a125-4939-bd13-0a4c7eabb2ad&steg=5",
+        "viewport": 360,
+        "knappar": [
+          "Nästa"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-mallar",
+        "url": "/dashboard/cv-mallar",
+        "landade": "/dashboard/cv-mallar",
+        "viewport": 360,
+        "knappar": [
+          "Skapa CV-PDF"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-cv",
+        "url": "/dashboard/skapa-cv",
+        "landade": "/dashboard/skapa-cv?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "linkedin-optimizer",
+        "url": "/dashboard/linkedin-optimizer",
+        "landade": "/dashboard/linkedin-optimizer?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev",
+        "url": "/dashboard/mina-brev",
+        "landade": "/dashboard/mina-brev",
+        "viewport": 360,
+        "knappar": [
+          "Skapa nytt brev"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-brev",
+        "url": "/dashboard/skapa-brev",
+        "landade": "/dashboard/skapa-brev?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "sokta-tjanster",
+        "url": "/dashboard/sokta-tjanster",
+        "landade": "/dashboard/sokta-tjanster",
+        "viewport": 360,
+        "knappar": [
+          "Logga din första sökta tjänst"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbmatchning",
+        "url": "/dashboard/jobbmatchning",
+        "landade": "/dashboard/jobbmatchning",
+        "viewport": 360,
+        "knappar": [
+          "Hitta jobb som passar"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbcoachen",
+        "url": "/dashboard/jobbcoachen",
+        "landade": "/dashboard/jobbcoachen",
+        "viewport": 360,
+        "knappar": [
+          "Skicka"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "bli-upptackt",
+        "url": "/dashboard/bli-upptackt",
+        "landade": "/dashboard/bli-upptackt",
+        "viewport": 360,
+        "knappar": [
+          "Kom igång"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "intervju",
+        "url": "/dashboard/intervju",
+        "landade": "/dashboard/intervju",
+        "viewport": 360,
+        "knappar": [
+          "Svara på frågan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "arbetsstil",
+        "url": "/dashboard/arbetsstil",
+        "landade": "/dashboard/arbetsstil",
+        "viewport": 360,
+        "knappar": [
+          "Starta grundtestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "profil",
+        "url": "/dashboard/profil",
+        "landade": "/dashboard/profil",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "prenumeration",
+        "url": "/dashboard/profil/prenumeration",
+        "landade": "/dashboard/profil/prenumeration",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      }
+    ],
+    "mycket": [
+      {
+        "namn": "hem-T1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-T1s",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=T1s",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1a",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1a",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1as",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1as",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 5 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1t",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1t",
+        "viewport": 360,
+        "knappar": [
+          "Starta siffertestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1b",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1c",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1c",
+        "viewport": 360,
+        "knappar": [
+          "Starta generalrepetitionen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1d",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1d",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1e",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1e",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-1f",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1f",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1g",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1g",
+        "viewport": 360,
+        "knappar": [
+          "Visa genomgången"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1h",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1h",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1i",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1i",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-1p",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1p",
+        "viewport": 360,
+        "knappar": [
+          "Gör profilen, 10 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-X1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=X1",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-L1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=L1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "hem-W1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W2",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W2",
+        "viewport": 360,
+        "knappar": [
+          "Mät min nivå, 8 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W3",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W3",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-W4",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=W4",
+        "viewport": 360,
+        "knappar": [
+          "Värm upp, 2 min"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "hem-F1",
+        "url": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "landade": "/dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "E1",
+        "url": "/dashboard/tester/installningar?forsta=1",
+        "landade": "/dashboard/tester/installningar?forsta=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E1-steg1",
+        "url": "/dashboard/tester/installningar?steg=1",
+        "landade": "/dashboard/tester/installningar?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E2",
+        "url": "/dashboard/tester/installningar?steg=2",
+        "landade": "/dashboard/tester/installningar?steg=2",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "E3",
+        "url": "/dashboard/tester/installningar?steg=3",
+        "landade": "/dashboard/tester/installningar?steg=3",
+        "viewport": 360,
+        "knappar": [
+          "Visa min plan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-P2",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P2",
+        "viewport": 360,
+        "knappar": [
+          "Nästa fråga"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P3",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P3",
+        "viewport": 360,
+        "knappar": [
+          "Visa resultatet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-P4",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=P4",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de två missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-S1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=S1",
+        "viewport": 360,
+        "knappar": [
+          "Gå igenom de fyra missarna"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M0",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-betalande-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&betalande=1",
+        "viewport": 360,
+        "knappar": [
+          "Starta dagens pass"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-M1-grundgjort-1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=M1&grundgjort=1",
+        "viewport": 360,
+        "knappar": [
+          "Köp Hela paketet, 149 kr i månaden"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-O1-milstolpe-0",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=O1&milstolpe=0",
+        "viewport": 360,
+        "knappar": [
+          "Tillbaka till Rekryteringstester"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "pass-K1",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=K1",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "pass-uppvarmning",
+        "url": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "landade": "/dashboard/tester/forhandsvisning-pass?ram=uppvarmning",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "tester",
+        "url": "/dashboard/tester",
+        "landade": "/dashboard/tester",
+        "viewport": 360,
+        "knappar": [
+          "Försök igen"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "dashboard",
+        "url": "/dashboard",
+        "landade": "/dashboard",
+        "viewport": 360,
+        "knappar": [
+          "Följ upp"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "profil-cv",
+        "url": "/dashboard/profil/cv",
+        "landade": "/dashboard/profil/cv",
+        "viewport": 360,
+        "knappar": [
+          "Åtgärda i CV:t"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-analys",
+        "url": "/dashboard/cv-analys",
+        "landade": "/dashboard/cv-analys",
+        "viewport": 360,
+        "knappar": [
+          "Analysera mitt CV"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-analys-job",
+        "url": "/dashboard/cv-analys?job=52533f31-f1aa-4f68-b420-0b97a297f669",
+        "landade": "/dashboard/cv-analys?job=52533f31-f1aa-4f68-b420-0b97a297f669&steg=5",
+        "viewport": 360,
+        "knappar": [
+          "Nästa"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "cv-mallar",
+        "url": "/dashboard/cv-mallar",
+        "landade": "/dashboard/cv-mallar",
+        "viewport": 360,
+        "knappar": [
+          "Skapa CV-PDF"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-cv",
+        "url": "/dashboard/skapa-cv",
+        "landade": "/dashboard/skapa-cv?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "linkedin-optimizer",
+        "url": "/dashboard/linkedin-optimizer",
+        "landade": "/dashboard/linkedin-optimizer?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev",
+        "url": "/dashboard/mina-brev",
+        "landade": "/dashboard/mina-brev",
+        "viewport": 360,
+        "knappar": [
+          "Skapa nytt brev"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev-id",
+        "url": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864",
+        "landade": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864",
+        "viewport": 360,
+        "knappar": [
+          "Redigera"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev-id-klart",
+        "url": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864?klart=1",
+        "landade": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864?klart=1",
+        "viewport": 360,
+        "knappar": [
+          "Redigera"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "mina-brev-id-edit",
+        "url": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864/edit",
+        "landade": "/dashboard/mina-brev/19150aa6-6286-4e6c-947c-2ca960608864/edit",
+        "viewport": 360,
+        "knappar": [
+          "Spara"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "skapa-brev",
+        "url": "/dashboard/skapa-brev",
+        "landade": "/dashboard/skapa-brev?steg=1",
+        "viewport": 360,
+        "knappar": [
+          "Fortsätt"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "sokta-tjanster",
+        "url": "/dashboard/sokta-tjanster",
+        "landade": "/dashboard/sokta-tjanster",
+        "viewport": 360,
+        "knappar": [
+          "Logga sökt tjänst"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "sokta-tjanster-id",
+        "url": "/dashboard/sokta-tjanster/5f431cf4-7bae-490b-acbd-dd3b13abb642",
+        "landade": "/dashboard/sokta-tjanster/5f431cf4-7bae-490b-acbd-dd3b13abb642",
+        "viewport": 360,
+        "knappar": [
+          "Lägg till händelse"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbmatchning",
+        "url": "/dashboard/jobbmatchning",
+        "landade": "/dashboard/jobbmatchning",
+        "viewport": 360,
+        "knappar": [
+          "Hitta jobb som passar"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "jobbcoachen",
+        "url": "/dashboard/jobbcoachen",
+        "landade": "/dashboard/jobbcoachen",
+        "viewport": 360,
+        "knappar": [
+          "Skicka"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "bli-upptackt",
+        "url": "/dashboard/bli-upptackt",
+        "landade": "/dashboard/bli-upptackt",
+        "viewport": 360,
+        "knappar": [
+          "Kom igång"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "intervju",
+        "url": "/dashboard/intervju",
+        "landade": "/dashboard/intervju",
+        "viewport": 360,
+        "knappar": [
+          "Svara på frågan"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "arbetsstil",
+        "url": "/dashboard/arbetsstil",
+        "landade": "/dashboard/arbetsstil",
+        "viewport": 360,
+        "knappar": [
+          "Starta grundtestet"
+        ],
+        "rott": []
+      },
+      {
+        "namn": "profil",
+        "url": "/dashboard/profil",
+        "landade": "/dashboard/profil",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      },
+      {
+        "namn": "prenumeration",
+        "url": "/dashboard/profil/prenumeration",
+        "landade": "/dashboard/profil/prenumeration",
+        "viewport": 360,
+        "knappar": [],
+        "rott": []
+      }
+    ]
+  },
+  "rott": [],
+  "langaTexter": [
+    {
+      "text": "Köp Hela paketet, 149 kr i månaden",
+      "tecken": 34,
+      "antal": 12
+    },
+    {
+      "text": "Tillbaka till Rekryteringstester",
+      "tecken": 32,
+      "antal": 6
+    }
+  ]
+}

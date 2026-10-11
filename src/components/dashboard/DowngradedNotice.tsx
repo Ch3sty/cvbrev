@@ -53,7 +53,6 @@ export default function DowngradedNotice({ className }: { className?: string }) 
     <PaywallCard
       variant="nedgraderad"
       onDismiss={dismiss}
-      planOrder="month-first"
       className={className}
     />
   )

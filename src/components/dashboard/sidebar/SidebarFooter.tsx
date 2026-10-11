@@ -10,7 +10,7 @@ interface SidebarFooterProps {
 }
 
 const ROW =
-  'flex min-h-[44px] items-center gap-2.5 rounded-lg px-3 text-sm font-medium text-ink-2 transition-colors hover:bg-insunken/60 hover:text-ink-1';
+  'flex min-h-[44px] items-center gap-2.5 rounded-lg px-3 text-sm font-medium text-ink-2 transition-colors hover:bg-papper-2/60 hover:text-ink-1';
 
 export default function SidebarFooter({
   isAdmin,
@@ -22,7 +22,7 @@ export default function SidebarFooter({
   };
 
   return (
-    <div className="mt-auto space-y-px border-t border-kant px-3 pb-3 pt-2">
+    <div className="space-y-px border-t border-kant pt-2">
       {/* Admin, bara om admin. En navigationsrad som alla andra. */}
       {isAdmin ? (
         <Link href="/admin" onClick={handleLink} className={ROW}>
@@ -40,7 +40,7 @@ export default function SidebarFooter({
       <Link
         href="/dashboard/bugg-feedback"
         onClick={handleLink}
-        className="flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-meta text-ink-3 transition-colors hover:bg-insunken/60 hover:text-ink-1"
+        className="flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-meta text-ink-3 transition-colors hover:bg-papper-2/60 hover:text-ink-1"
       >
         <IkonBugg size={16} className="shrink-0" />
         <span className="truncate">Rapportera ett fel</span>

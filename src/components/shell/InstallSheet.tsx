@@ -15,6 +15,7 @@
  * Sheet sköter fokus, Escape, body-lås och safe-area. Ingen egen modal.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import Sheet from './Sheet'
 
 interface InstallSheetProps {
@@ -76,7 +77,7 @@ function Nummer({ children }: { children: React.ReactNode }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-kant bg-insunken text-meta font-medium text-ink-2 shadow-insunken"
+      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-kant bg-papper-2 text-meta font-medium text-ink-2 "
     >
       {children}
     </span>
@@ -94,7 +95,7 @@ export default function InstallSheet({ open, onClose, onDone }: InstallSheetProp
         <button
           type="button"
           onClick={onDone}
-          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+          className={KNAPP_PRIMAR}
         >
           Klart
         </button>

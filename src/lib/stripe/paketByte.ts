@@ -3,15 +3,19 @@
  * (docs/qa/qa-kop-testlage-2026-09-24.md, "Kvar": sidledes byte).
  *
  * create-upgrade-session frågar den här funktionen innan den rör Stripe.
+ * Sedan 2026-10-11 avvisar rutten ett osålt mål med 400 innan den frågar
+ * (spec-rummen 17.3), så i praktiken når bara uppgraderingen till Premium
+ * per månad hit. Regeln står kvar oförändrad för befintliga prenumerationer.
  * Fyra utfall:
  *
- *   uppgradering  CV-paketet eller Träningspaketet till Hela paketet. Priset
- *                 byts direkt och mellanskillnaden faktureras (always_invoice).
+ *   uppgradering  CV-paketet eller Träningspaketet till Jobbcoach Premium. Priset
+ *                 byts direkt, den oanvända veckotiden dras av och månaden
+ *                 räknas från bytesdagen (always_invoice, intervallbyte).
  *   sidbyte       CV-paketet och Träningspaketet sinsemellan. Samma belopp och
  *                 samma längd, så priset byts direkt utan proration och utan
  *                 faktura. Nästa dragning står kvar på samma datum.
- *   vidFornyelse  Från Hela paketet till ett av spåren, eller en annan längd på
- *                 Hela paketet. Går inte direkt: kunden har betalat för
+ *   vidFornyelse  Från Jobbcoach Premium till ett av spåren, eller en annan längd på
+ *                 Jobbcoach Premium. Går inte direkt: kunden har betalat för
  *                 perioden hon är i. Det finns inget schemalagt byte i appen,
  *                 så svaret är ett besked och en länk till kundportalen.
  *   dubblett      Samma paket en gång till, eller ett pris vi inte känner
@@ -51,6 +55,6 @@ export function valjByte(nu: PlanKey | null, onskat: PlanKey | null): BytVal {
 
   if (!franSpar && tillSpar) return { typ: 'vidFornyelse', skal: 'nedgradering' }
 
-  // Hela paketet till Hela paketet i en annan längd.
+  // Jobbcoach Premium till Jobbcoach Premium i en annan längd.
   return { typ: 'vidFornyelse', skal: 'langd' }
 }

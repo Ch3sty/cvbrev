@@ -9,7 +9,12 @@
 
 import { FRAGOR, type FragaId } from '@/components/artiklar/intervjuprov/fragor'
 import { NIVA_ETIKETTER } from '@/components/artiklar/intervjuprov/intervjuprov-copy'
-import { paketMedPris, paketNamnForScope, type PlanScope } from '@/lib/plans/plans'
+import { paketKort, paketNamnForScope, type PlanScope } from '@/lib/plans/plans'
+
+/** Scope allt heter Premium i appen; CV-paketet och Träningspaketet står kvar för befintliga kunder. */
+function namnFor(scope: PlanScope): string {
+  return scope === 'allt' ? paketKort() : paketNamnForScope(scope)
+}
 import { saknadesFras } from '@/lib/intervju/nasta'
 
 const TAL = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
@@ -30,9 +35,9 @@ export const SIDA = {
   eyebrow: 'Träna',
   titel: 'Inför intervjun',
   beskrivning: 'Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil.',
-  /** Med interview_unlimited: "... Utan tak i Träningspaketet." */
+  /** Med interview_unlimited: "... Utan tak i Premium." */
   beskrivningUtanTak: (scope: PlanScope) =>
-    `Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Utan tak i ${paketNamnForScope(scope)}.`,
+    `Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Utan tak i ${namnFor(scope)}.`,
   knapp: 'Nytt intervjuprov',
 } as const
 
@@ -95,7 +100,8 @@ export const TOM = {
 export const KVOT = {
   kvar: 'Ett prov per dygn ingår. Dagens är kvar.',
   slut: 'Ett prov per dygn ingår. Dagens är gjort, nästa öppnar i morgon.',
-  lank: `Se ${paketMedPris('test_week')}`,
+  /** Länken till prissidan (copy-premium avsnitt 3). */
+  lank: 'Se vad som ingår',
 } as const
 
 export const PROFIL = {
@@ -111,7 +117,7 @@ export const PROFIL = {
   lankArbetsstil: 'Din arbetsstil',
   lankFordjupat: 'Fördjupade testet, 120 påståenden',
   /** Utan tests_above_base: metatext, ingen länk, ingen betalvägg. */
-  fordjupatIngar: `Fördjupade testet ingår i ${paketMedPris('test_week')}`,
+  fordjupatIngar: `Fördjupade testet ingår i ${paketKort()}`,
   tom: {
     rubrik: 'Ingen profil än',
     text: 'Femtio påståenden, tio minuter. Sedan ser du vad rekryteraren läser ut av dig.',
@@ -210,5 +216,7 @@ export const SAKNAS = {
   titel: 'Det här provet finns inte',
   text: 'Länken leder till ett prov som har tagits bort eller hör till ett annat konto.',
   lankHubb: 'Till Inför intervjun',
+  /** Det lyfta kortets titel: knappens mål (spec 16.3.2, sista raden). */
+  kortTitel: 'Inför intervjun',
   lankHem: 'Till hemskärmen',
 } as const

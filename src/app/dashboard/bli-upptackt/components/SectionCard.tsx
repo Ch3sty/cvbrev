@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from '@/components/illustrations/RumIkoner';
 import type { ReactNode } from 'react';
 
 /**
@@ -73,10 +73,10 @@ export default function SectionCard({
       <h2 className="mb-2 text-sm font-medium text-ink-3">{title}</h2>
 
       <section
-        className={`rounded-xl border border-kant bg-panel p-4 sm:p-5 ${active ? 'thread-head' : ''}`}
+        className={`rounded-xl border border-kant bg-papper p-4 sm:p-5`}
       >
         {hasHead && (
-          <div className={`flex items-start justify-between gap-3 ${active ? 'thread-head-block' : ''}`}>
+          <div className={`flex items-start justify-between gap-3`}>
             <div className="flex min-w-0 items-start gap-3">
               {plate}
               {showSummary ? (
@@ -101,7 +101,7 @@ export default function SectionCard({
                   aria-expanded={!isCollapsed}
                   aria-label={isCollapsed ? `Visa ${title}` : `Dölj ${title}`}
                   title={isCollapsed ? 'Visa' : 'Dölj'}
-                  className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+                  className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
                 >
                   <ChevronDown
                     className={`h-5 w-5 transition-transform duration-200 ${isCollapsed ? '' : 'rotate-180'}`}

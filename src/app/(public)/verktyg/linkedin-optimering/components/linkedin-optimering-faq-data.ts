@@ -5,16 +5,13 @@
  * Belopp ur PLAN_BY_KEY, aldrig som fasta tal.
  */
 
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketMedPris } from '@/lib/plans/plans'
 
 export interface FaqItem {
   q: string
   a: string
 }
 
-const CV_VECKA = PLAN_BY_KEY.cv_week
-const ALLT_VECKA = PLAN_BY_KEY.all_week
-const ALLT_MANAD = PLAN_BY_KEY.all_month
 
 export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   {
@@ -47,6 +44,6 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar LinkedIn-optimeringen?',
-    a: `Optimeringen ingår i ${CV_VECKA.name} för ${CV_VECKA.amount} kr i veckan, tillsammans med alla CV-mallar, hela CV-analysen och personliga brev utan tak. Den ingår också i ${ALLT_VECKA.name}, ${ALLT_VECKA.amount} kr i veckan eller ${ALLT_MANAD.amount} kr i månaden. Du säger upp när du vill. Utan paket kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
+    a: `LinkedIn-optimeringen ingår i ${paketMedPris(SALD_PLAN)}, tillsammans med alla CV-mallar, hela CV-analysen, personliga brev utan tak och rekryteringstesterna. Du säger upp när du vill. Utan prenumeration kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
   },
 ]

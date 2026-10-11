@@ -25,7 +25,10 @@ import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { useNotification } from '@/context/notificationcontext';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import { RUBRIK } from '@/lib/rum/copy';
+import Golv from '@/components/rum/Golv';
+import UtseendeSection from './components/UtseendeSection';
 import { capture } from '@/lib/analytics/events';
 import { menyHuvud } from '@/lib/onboarding/paket-rader';
 import { arGiltigEpost, dokumentEpost } from '@/lib/profile/dokumentEpost';
@@ -178,7 +181,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
   // överst på desktop. En gång vid mount, och bara om rubriken inte redan syns.
   useEffect(() => {
     const id = window.location.hash.slice(1);
-    if (!['cv', 'cv-epost', 'personliga-brev', 'jobbsok', 'konto'].includes(id)) return;
+    if (!['cv', 'cv-epost', 'personliga-brev', 'jobbsok', 'utseende', 'konto'].includes(id)) return;
     const raf = requestAnimationFrame(() => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -376,8 +379,10 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
     huvud && summary?.paket?.scope ? `${huvud.rubrik} · ${huvud.under}` : KONTO_SEKTION.gratis;
 
   return (
-    <div className="max-w-[768px] space-y-4 lg:space-y-6">
-      <PageHeader eyebrow={PROFIL.eyebrow} title={PROFIL.rubrik} description={PROFIL.under} />
+    <>
+    <RumHuvud title={RUBRIK.profil} description={PROFIL.under} />
+    <Golv>
+    <div className="w-full max-w-[768px] space-y-4 lg:space-y-6">
 
       <div className="space-y-4">
         <HoppaTill sektioner={SEKTIONER} />
@@ -438,6 +443,8 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
         stateFor={stateFor}
       />
 
+      <UtseendeSection />
+
       <KontoSection
         prenumerationRad={prenumerationRad}
         harPaket={harPaket}
@@ -449,5 +456,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
 
       {premiumGate && <PremiumGateModal feature={premiumGate} onClose={() => setPremiumGate(null)} />}
     </div>
+    </Golv>
+    </>
   );
 }

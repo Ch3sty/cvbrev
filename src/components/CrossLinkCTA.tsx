@@ -53,15 +53,15 @@ export default function CrossLinkCTA({ currentType, yrke, slug }: CrossLinkCTAPr
             Komplettera ansökan
           </div>
           <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
-            Hela paketet
+            CV och personligt brev som hör ihop
           </h3>
         </div>
       </div>
 
       <p className="text-sm text-slate-700 mb-4 leading-relaxed">
         {isCV
-          ? `Ett CV räcker inte. Komplettera med ett skräddarsytt personligt brev för ${yrke.toLowerCase()} och öka chansen till intervju.`
-          : `Komplettera brevet med ett ATS-optimerat CV för ${yrke.toLowerCase()} så blir ansökan komplett.`}
+          ? `Ett CV räcker inte. Skicka med ett skräddarsytt personligt brev för ${yrke.toLowerCase()} och öka chansen till intervju.`
+          : `Skicka med ett CV för ${yrke.toLowerCase()} som rekryteringssystemen läser rätt, så blir ansökan komplett.`}
       </p>
 
       <Link href={targetUrl}>
@@ -73,7 +73,7 @@ export default function CrossLinkCTA({ currentType, yrke, slug }: CrossLinkCTAPr
           }}
         >
           <TargetIcon className="w-4 h-4" strokeWidth={2.5} />
-          <span>Se {targetLabel}-exempel</span>
+          <span>Se exempel på {targetLabel}</span>
           <ArrowRight
             className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
             strokeWidth={2.5}

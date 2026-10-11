@@ -12,9 +12,10 @@
  *  - /dashboard/cv-analys (efter steg 3 klart - hamta belogning)
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
-import { Check } from 'lucide-react'
+import { IkonCheck } from '@/components/illustrations/RumSymboler'
 import { useOnboarding } from '@/contexts/OnboardingContext'
 
 interface OnboardingNextStepProps {
@@ -73,9 +74,9 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
   const config = NEXT_STEP_CONFIG[stepCompleted]
 
   return (
-    <section className="flex flex-col gap-3 rounded-xl border border-kant bg-panel p-4 sm:flex-row sm:items-center sm:gap-4">
+    <section className="flex flex-col gap-3 rounded-xl border border-kant bg-papper p-4 sm:flex-row sm:items-center sm:gap-4">
       <div className="flex min-w-0 flex-1 items-center gap-3">
-        <Check className="h-6 w-6 flex-shrink-0 text-positiv" strokeWidth={1.75} />
+        <IkonCheck className="flex-shrink-0 text-positiv" />
         <div className="min-w-0 flex-1">
           <p className="text-steg uppercase text-ink-3">{config.completedLabel}</p>
           <p className="text-kort text-ink-1">Nästa: {config.nextTitle}</p>
@@ -85,7 +86,7 @@ export default function OnboardingNextStep({ stepCompleted }: OnboardingNextStep
 
       <Link
         href={config.ctaHref}
-        className="inline-flex h-11 w-full flex-shrink-0 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover sm:w-auto"
+        className={`${KNAPP_PRIMAR} flex-shrink-0 sm:w-auto`}
       >
         {config.ctaLabel}
       </Link>

@@ -3,12 +3,13 @@
 /**
  * Mina brev, listvyn (docs/design/overlamning-opus.md, avsnitt 4, "Lista").
  *
- * PageHeader med primärhandlingen, kvotraden som StatusRow, sökfältet som
+ * Väggen (RumHuvud) med kvotraden, det lyfta kortet med Skapa nytt brev, sökfältet som
  * insunket fält och breven som kort utan skugga. Tomt läge via EmptyState,
  * borttagning via ConfirmDialog. Ingen rörelse, inga orange ytor, ingen egen
  * sidbakgrund: marken kommer från skalet.
  */
 
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR_SMAL, LANK_VAGG } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -22,11 +23,14 @@ import Link from 'next/link';
 import LetterCard from './components/LetterCard';
 import LetterCardCompact from './components/LetterCardCompact';
 import ViewToggle, { type ViewMode } from './components/ViewToggle';
-import PageHeader from '@/components/shell/PageHeader';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import LyftKort from '@/components/rum/LyftKort';
+import { LYFT, RUBRIK } from '@/lib/rum/copy';
 import EmptyState from '@/components/shell/EmptyState';
-import StatusRow from '@/components/shell/StatusRow';
 import { IlluTomBrev } from '@/components/illustrations/EmptyStateIllustrations';
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry';
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
 
 // Syns inte i första vyn. Bekräftelsedialogen öppnas först vid borttagning och
 // notisen bara när något gått fel, så ingen av dem behöver ligga i den JS som
@@ -40,10 +44,8 @@ const Notification = dynamic(() => import('@/components/ui/notification'), {
 
 const VIEW_MODE_STORAGE_KEY = 'minabrev_view_mode';
 
-const PRIMARY =
-  'inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover';
-const LINK =
-  'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1';
+// Lyftkortets Skapa nytt brev är vyns kopparknapp; tomma lägen har sekundär.
+const PRIMARY = KNAPP_SEKUNDAR_SMAL;
 
 export default function MinaBrevClient({
   initialLetters,
@@ -224,6 +226,12 @@ export default function MinaBrevClient({
     }
   };
 
+  // Ett låst brevkort länkar till köpsteget med platsen kvot, och en länk
+  // från en låst funktion till köpsteget är en vägg (spec-rummen 23.8).
+  // Mäts per lista, inte per kort: fem låsta brev är en skärm, en exponering.
+  const harLastKort = !!letters?.some((l) => l.isLocked);
+  useBetalvaggVisad('kvot', harLastKort);
+
   const totalCount = letters?.length || 0;
   const harLasta =
     effectiveMaxSavedLetters !== Infinity &&
@@ -231,36 +239,48 @@ export default function MinaBrevClient({
     totalCount > effectiveMaxSavedLetters;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-4 pb-16">
-      <PageHeader
-        title="Dina personliga brev"
-        description="Läs, redigera och ladda ned de brev du har sparat."
-        action={
-          <Link href="/dashboard/skapa-brev" className={PRIMARY}>
-            Skapa nytt brev
+    <>
+      {/* Väggen säger var du är (spec 16.3.2): kvotradens text står i
+          raden, med dess länk efter texten. Nytt brev bär det lyfta kortet. */}
+      <RumHuvud
+        title={RUBRIK.minaBrev}
+        description={
+          totalCount > 0 ? (
+            <>
+              {effectiveMaxSavedLetters === Infinity
+                ? `${stats.total} brev, ${stats.thisMonth} den här månaden.`
+                : `${Math.min(totalCount, effectiveMaxSavedLetters)} av ${effectiveMaxSavedLetters} aktiva${
+                    harLasta ? `, ${totalCount - effectiveMaxSavedLetters} låsta` : ''
+                  }.`}
+              {harLasta ? (
+                <>
+                  {' '}
+                  <Link href={PREMIUM_HREF} className={LANK_VAGG}>
+                    {PAKETRADER.jamfor}
+                  </Link>
+                </>
+              ) : null}
+            </>
+          ) : (
+            'Läs, redigera och ladda ner de brev du har sparat.'
+          )
+        }
+        tat={false}
+      />
+    <Golv lyft>
+      <LyftKort
+        label={LYFT.minaBrev.titel}
+        eyebrow={LYFT.minaBrev.eyebrow}
+        eyebrowTon="neutral"
+        titel={LYFT.minaBrev.titel}
+        text={LYFT.minaBrev.text}
+        handling={
+          <Link href="/dashboard/skapa-brev" className={KNAPP_PRIMAR}>
+            {LYFT.minaBrev.handling}
           </Link>
         }
       />
-
-      {/* Kvotraden: hur många brev som ryms på nivån. */}
-      {totalCount > 0 && (
-        <StatusRow
-          label="Dina brev"
-          action={
-            harLasta ? (
-              <Link href={PREMIUM_HREF} className={LINK}>
-                {PAKETRADER.jamfor}
-              </Link>
-            ) : undefined
-          }
-        >
-          {effectiveMaxSavedLetters === Infinity
-            ? `${stats.total} brev, ${stats.thisMonth} den här månaden.`
-            : `${Math.min(totalCount, effectiveMaxSavedLetters)} av ${effectiveMaxSavedLetters} aktiva${
-                harLasta ? `, ${totalCount - effectiveMaxSavedLetters} låsta` : ''
-              }.`}
-        </StatusRow>
-      )}
+    <div className="w-full max-w-5xl space-y-4">
 
       {/* Sökfält och vyväljare */}
       {totalCount > 0 && (
@@ -272,7 +292,7 @@ export default function MinaBrevClient({
               placeholder="Sök på företag eller tjänst"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-sm text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+              className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-sm text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
             />
           </label>
           <ViewToggle value={viewMode} onChange={handleViewModeChange} />
@@ -354,5 +374,7 @@ export default function MinaBrevClient({
         />
       )}
     </div>
+    </Golv>
+    </>
   );
 }

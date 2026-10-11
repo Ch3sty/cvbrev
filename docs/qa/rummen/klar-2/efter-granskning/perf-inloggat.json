@@ -1,0 +1,175 @@
+{
+  "tid": "2026-10-11T03:30:02.314Z",
+  "bas": "http://localhost:5241",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "tester",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 780,
+        "cls": 0.001,
+        "fcp": 500,
+        "rundturer": 0,
+        "textLangd": 446,
+        "forfragningar": 64
+      }
+    },
+    {
+      "namn": "tester hemvy 1b",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 824,
+        "cls": 0.001,
+        "fcp": 492,
+        "rundturer": 1,
+        "textLangd": 1284,
+        "forfragningar": 69
+      }
+    },
+    {
+      "namn": "tester/alla",
+      "budget": "lista",
+      "m": {
+        "lcp": 768,
+        "cls": 0.001,
+        "fcp": 460,
+        "rundturer": 1,
+        "textLangd": 1935,
+        "forfragningar": 72
+      }
+    },
+    {
+      "namn": "tester/kurvan",
+      "budget": "lista",
+      "m": {
+        "lcp": 748,
+        "cls": 0.001,
+        "fcp": 448,
+        "rundturer": 1,
+        "textLangd": 644,
+        "forfragningar": 67
+      }
+    },
+    {
+      "namn": "tester/installningar",
+      "budget": "flode",
+      "m": {
+        "lcp": 768,
+        "cls": 0,
+        "fcp": 428,
+        "rundturer": 1,
+        "textLangd": 690,
+        "forfragningar": 60
+      }
+    },
+    {
+      "namn": "tester/[slug]",
+      "budget": "lista",
+      "m": {
+        "lcp": 780,
+        "cls": 0.001,
+        "fcp": 656,
+        "rundturer": 0,
+        "textLangd": 1285,
+        "forfragningar": 70
+      }
+    },
+    {
+      "namn": "tester/personlighet",
+      "budget": "lista",
+      "m": {
+        "lcp": 540,
+        "cls": 0.001,
+        "fcp": 484,
+        "rundturer": 0,
+        "textLangd": 709,
+        "forfragningar": 64
+      }
+    },
+    {
+      "namn": "tester prov",
+      "budget": "flode",
+      "m": {
+        "lcp": 936,
+        "cls": 0,
+        "fcp": 484,
+        "rundturer": 1,
+        "textLangd": 300,
+        "forfragningar": 49
+      }
+    },
+    {
+      "namn": "tester resultat",
+      "budget": "flode",
+      "m": {
+        "lcp": 796,
+        "cls": 0.001,
+        "fcp": 544,
+        "rundturer": 0,
+        "textLangd": 1870,
+        "forfragningar": 67
+      }
+    },
+    {
+      "namn": "3b passets fråga",
+      "budget": "flode",
+      "m": {
+        "lcp": 748,
+        "cls": 0,
+        "fcp": 516,
+        "rundturer": 0,
+        "textLangd": 291,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "3b resultatet P4",
+      "budget": "flode",
+      "m": {
+        "lcp": 756,
+        "cls": 0,
+        "fcp": 528,
+        "rundturer": 0,
+        "textLangd": 923,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "3b mätningen M1",
+      "budget": "flode",
+      "m": {
+        "lcp": 700,
+        "cls": 0,
+        "fcp": 472,
+        "rundturer": 0,
+        "textLangd": 1555,
+        "forfragningar": 50
+      }
+    },
+    {
+      "namn": "3b ommätningen O1",
+      "budget": "flode",
+      "m": {
+        "lcp": 784,
+        "cls": 0,
+        "fcp": 596,
+        "rundturer": 0,
+        "textLangd": 590,
+        "forfragningar": 50
+      }
+    },
+    {
+      "namn": "3b uppvärmningen",
+      "budget": "flode",
+      "m": {
+        "lcp": 1180,
+        "cls": 0,
+        "fcp": 960,
+        "rundturer": 0,
+        "textLangd": 256,
+        "forfragningar": 48
+      }
+    }
+  ]
+}

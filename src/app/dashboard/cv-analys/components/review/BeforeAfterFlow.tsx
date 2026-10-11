@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from '@/components/illustrations/RumIkoner';
 import { HighlightedText } from '../select/ImprovementCard';
 
 interface BeforeAfterFlowProps {
@@ -24,7 +24,7 @@ export default function BeforeAfterFlow({
   const [showOriginal, setShowOriginal] = useState(false);
 
   return (
-    <div className="rounded-lg border border-kant bg-insunken p-3.5 shadow-insunken sm:p-4">
+    <div className="rounded-lg border border-kant bg-papper-2 p-3.5  sm:p-4">
       <div className="mb-2.5 flex items-center justify-between gap-2">
         <span className="text-steg uppercase text-ink-3">
           {showOriginal ? 'Nuvarande text' : 'Förbättrad version'}

@@ -1,5 +1,6 @@
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import { getTestConfig } from '../testConfig';
+import { TRANING_RUTT } from '@/lib/traning/rutter';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -64,6 +65,21 @@ export interface ProvDef {
   sessionEndpoint: string;
   totalQuestions: number;
   minutes: number;
+  /**
+   * Raden är generalrepetitionen i planens format (spec-rummen 19.6): texten
+   * byggs av provrad(PROVFORMAT[provformat]) och raden visar inget tal.
+   */
+  general?: true;
+}
+
+/**
+ * Sluggen vars requiresFeature låser raden. Generalrepetitionen har samma
+ * lås som det gamla logikprovet (test_exam_mode), och dess href är passets
+ * adress, inte en testsida, så sluggen går inte att läsa ur länken.
+ */
+export function provLasSlug(prov: Pick<ProvDef, 'href' | 'general'>): string {
+  if (prov.general) return 'matrislogik-prov';
+  return prov.href.split('/').pop() ?? '';
 }
 
 export interface TestGroup {
@@ -208,9 +224,13 @@ export const TEST_GROUPS: TestGroup[] = [
     cognitive: LOGIK_TESTS,
     personality: [],
     prov: {
-      href: '/dashboard/tester/matrislogik-prov',
+      // Generalrepetitionen i planens format (spec-rummen 19.6). Endpointen
+      // står kvar för att getHubData inte ska ändra sin typtabell; procenten
+      // används inte för den här raden.
+      href: TRANING_RUTT.general,
       sessionEndpoint: '/api/logicTestProv/session',
       ...provCounts('matrislogik-prov'),
+      general: true,
     },
   },
   {

@@ -58,6 +58,12 @@ interface RouteDef {
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
   dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult';
+  /**
+   * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
+   * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
+   * --forhandsvisning.
+   */
+  forhandsvisning?: boolean;
 }
 
 const ROUTES: RouteDef[] = [
@@ -75,7 +81,13 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/mina-brev/ID/edit', namn: 'mina-brev/[id]/edit', budget: 'lista', dynamisk: 'letter' },
   { path: '/dashboard/cv-mallar', namn: 'cv-mallar', budget: 'lista' },
   { path: '/dashboard/cv-mallar?mall=modern', namn: 'cv-mallar (vald mall)', budget: 'lista' },
-  { path: '/dashboard/tester', namn: 'tester', budget: 'lista' },
+  // Rekryteringstesters hemvy är en hemvy från våg 2 (spec 1.3: under 1,0 s).
+  { path: '/dashboard/tester', namn: 'tester', budget: 'kritisk' },
+  // Hemvyn med fixturdata (1b): bara mot en server med TRANING_FORHANDSVISNING=1.
+  { path: '/dashboard/tester/forhandsvisning?tillstand=1b', namn: 'tester hemvy 1b', budget: 'kritisk' },
+  { path: '/dashboard/tester/alla', namn: 'tester/alla', budget: 'lista' },
+  { path: '/dashboard/tester/kurvan', namn: 'tester/kurvan', budget: 'lista' },
+  { path: '/dashboard/tester/installningar', namn: 'tester/installningar', budget: 'flode' },
   { path: '/dashboard/tester/matrislogik-grund', namn: 'tester/[slug]', budget: 'lista' },
   { path: '/dashboard/tester/personlighet-grund', namn: 'tester/personlighet', budget: 'lista' },
   { path: '/dashboard/intervju', namn: 'intervju', budget: 'lista' },
@@ -107,6 +119,14 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/linkedin-optimizer?steg=2', namn: 'linkedin steg 2', budget: 'flode' },
   { path: '/dashboard/linkedin-optimizer?steg=3', namn: 'linkedin steg 3', budget: 'flode' },
   { path: '/dashboard/arbetsstil', namn: 'arbetsstil', budget: 'flode' },
+
+  // Våg 3b: passet och resultaten i förhandsvisningen. När testmotorns
+  // migreringar körts i prod mäts /dashboard/tester/pass/<id> på riktigt.
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=P1', namn: '3b passets fråga', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=P4', namn: '3b resultatet P4', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=M1', namn: '3b mätningen M1', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=O1', namn: '3b ommätningen O1', budget: 'flode', forhandsvisning: true },
+  { path: '/dashboard/tester/forhandsvisning-pass?ram=uppvarmning', namn: '3b uppvärmningen', budget: 'flode', forhandsvisning: true },
 ];
 
 function arg(namn: string, fallback?: string): string | undefined {
@@ -289,7 +309,9 @@ async function main() {
   async function mat(url: string): Promise<Matning> {
     const page = await nySida();
     try {
-      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+      // Referensen inne i appen: /dashboard landar annars i kontots senaste
+      // rum (spec-rummen våg 4) och mätningen hade gällt en annan vy.
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000, referer: `${bas}/dashboard/profil` });
       await new Promise((r) => setTimeout(r, 2000));
       return await page.evaluate(() => {
         const lcp = (window as any).__lcp || 0;
@@ -313,7 +335,8 @@ async function main() {
     }
   }
 
-  const valda = ROUTES.filter((r) => !filter || (filter.startsWith('=') ? r.namn === filter.slice(1) : r.namn.includes(filter) || r.path.includes(filter)));
+  const medForhandsvisning = process.argv.includes('--forhandsvisning');
+  const valda = ROUTES.filter((r) => (!r.forhandsvisning || medForhandsvisning) && (!filter || (filter.startsWith('=') ? r.namn === filter.slice(1) : r.namn.includes(filter) || r.path.includes(filter))));
   console.log(`Konto: ${epost}`);
   console.log(`Server: ${bas}   Körningar per route: ${korningar}   Routes: ${valda.length}`);
   console.log('Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens)\n');

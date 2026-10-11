@@ -13,7 +13,7 @@ interface Props {
  */
 export function QuestionGridV7({ grid }: Props) {
   return (
-    <div className="mx-auto max-w-md rounded-xl border border-kant bg-panel p-3 sm:p-5">
+    <div className="matrisyta mx-auto max-w-md rounded-xl border border-kant bg-panel p-3 sm:p-5">
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {grid.flat().map((cell, i) => (
           <div key={i}>

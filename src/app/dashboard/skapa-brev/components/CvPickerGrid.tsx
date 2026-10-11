@@ -7,8 +7,9 @@
  * den primära handlingen ligger i skalets fot.
  */
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from '@/components/illustrations/RumIkoner';
 import ChoiceCard from '@/components/shell/ChoiceCard';
 import EmptyState from '@/components/shell/EmptyState';
 import { IkonCv } from '@/components/illustrations/Ikoner';
@@ -46,7 +47,7 @@ export default function CvPickerGrid({
         action={
           <Link
             href="/dashboard/profil/cv"
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Ladda upp CV
           </Link>
@@ -83,7 +84,7 @@ export default function CvPickerGrid({
 
       <Link
         href="/dashboard/profil/cv"
-        className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-panel px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark"
+        className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark"
       >
         Ladda upp ett nytt CV
         <ChevronRight className="h-5 w-5 shrink-0 text-ink-3" strokeWidth={1.75} />

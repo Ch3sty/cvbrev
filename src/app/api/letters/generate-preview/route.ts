@@ -10,6 +10,7 @@ import { guardCvTextForModel } from '@/lib/privacy/guard';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
+import { paketKort } from '@/lib/plans/plans';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
@@ -94,7 +95,7 @@ export async function POST(request: Request) {
             limit: DAILY_LIMIT_LETTERS,
             nextResetAt: nextResetDate.toISOString(),
           },
-          'Du har använt dagens två brev. Ny kvot i morgon, eller uppgradera för obegränsat.'
+          `Du har använt dagens två brev. Ny kvot i morgon, eller köp ${paketKort()} för obegränsat.`
         ),
         { status: 429 }
       );

@@ -20,6 +20,7 @@ import type { Undantag } from '@/lib/admin/undantag';
 import { datumKort, tal } from '@/lib/admin/tomt';
 import { VeckoDiagram } from './TrattDiagram';
 import { PaketNamn, Panel, Valrad } from './delar';
+import { SALD_PLAN, paketNamn } from '@/lib/plans/plans';
 import { hamtaVeckoData, STEG_ETIKETT, VECKO_STEG, type VeckoRad } from './funnel-data';
 import {
   DIAGRAM_DAGAR,
@@ -313,7 +314,7 @@ async function PerPaket({ vecka, idag }: { vecka: VeckoRad; idag: string }) {
       <p className="mt-3 text-meta text-ink-3">
         Från spårvalet och framåt. Besökare och nya konton vet inte vilket paket som väljs och står
         bara i veckotabellen. Köp är köp ur Stripe den här veckan, förnyelser oräknade, Dagspasset
-        räknas till Hela paketet.
+        räknas till {paketNamn(SALD_PLAN)}.
       </p>
     </Panel>
   );

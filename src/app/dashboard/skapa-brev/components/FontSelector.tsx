@@ -12,7 +12,7 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
 
 export type FontId =
@@ -237,15 +237,15 @@ export default function FontSelector({
         aria-checked={isSelected}
         onClick={() => handleFontSelect(font.id)}
         disabled={isLocked}
-        className="flex min-h-[52px] w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-60"
+        className="flex min-h-[52px] w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <span
           aria-hidden="true"
           className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
-            isSelected ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-panel'
+            isSelected ? 'border-ink-1 bg-ink-1' : 'border-kant-stark bg-papper'
           }`}
         >
-          {isSelected ? <span className="h-2 w-2 rounded-full bg-panel" /> : null}
+          {isSelected ? <span className="h-2 w-2 rounded-full bg-papper" /> : null}
         </span>
         <span className="min-w-0 flex-1">
           <span className="block text-sm font-medium text-ink-1">
@@ -269,7 +269,7 @@ export default function FontSelector({
         if (fonts.length === 0) return null;
         return (
           <div key={category}>
-            <div className="border-b border-kant bg-insunken px-4 py-2">
+            <div className="border-b border-kant bg-papper-2 px-4 py-2">
               <p className="text-sm font-medium text-ink-3">{CATEGORY_LABELS[category]}</p>
               {category === 'modern' ? (
                 <p className="mt-0.5 text-meta text-ink-3">
@@ -290,7 +290,7 @@ export default function FontSelector({
       onClick={() => setIsOpen(!isOpen)}
       aria-haspopup="listbox"
       aria-expanded={isOpen}
-      className="inline-flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-kant bg-panel px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark sm:w-auto sm:min-w-[200px]"
+      className="inline-flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-kant bg-papper px-3 text-sm font-medium text-ink-1 transition-[border-color] duration-[120ms] hover:border-kant-stark sm:w-auto sm:min-w-[200px]"
       style={{ fontFamily: selectedFontData.fallback }}
     >
       {selectedFontData.name}
@@ -301,7 +301,7 @@ export default function FontSelector({
   return (
     <div
       ref={dropdownRef}
-      className="flex flex-col gap-3 rounded-xl border border-kant bg-panel p-4 sm:flex-row sm:items-center sm:justify-between"
+      className="flex flex-col gap-3 rounded-xl border border-kant bg-papper p-4 sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="min-w-0">
         <p className="text-sm font-medium text-ink-1">Typsnitt</p>
@@ -319,7 +319,7 @@ export default function FontSelector({
         <div className="relative">
           {trigger}
           {isOpen ? (
-            <div className="absolute right-0 top-full z-50 mt-2 max-h-[480px] w-[380px] overflow-y-auto rounded-xl border border-kant bg-panel shadow-svav">
+            <div className="absolute right-0 top-full z-50 mt-2 max-h-[480px] w-[380px] overflow-y-auto rounded-xl border border-kant bg-papper shadow-svav">
               {list}
             </div>
           ) : null}

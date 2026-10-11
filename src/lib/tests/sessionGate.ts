@@ -17,6 +17,7 @@ import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Feature, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
 import { TEST_CONFIGS, examLimitMs } from '@/app/dashboard/tester/testConfig';
+import { arTraningsTestTyp, featureForTraningsTyp } from '@/lib/traning/tillgang';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -48,6 +49,10 @@ const ALIAS: Record<string, string> = {
 
 /** Featuren testtypen kräver, eller null när nivån är fri. */
 export function featureForTestType(testType: string): Feature | null {
+  // Testmotorns typer (våg 3a): riktat pass och generalrepetition har en egen
+  // feature; mätning och pass avgörs av src/lib/traning/tillgang.ts med
+  // gratisnivån (src/lib/traning/gratisniva.ts).
+  if (arTraningsTestTyp(testType)) return featureForTraningsTyp(testType);
   const nyckel = ALIAS[testType] ?? testType;
   return FEATURE_BY_TEST_TYPE[nyckel] ?? null;
 }

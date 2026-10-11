@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { X } from 'lucide-react'
+import { X } from '@/components/illustrations/RumIkoner'
 import type { CVDraft } from '../CVCreatorWizard'
 import type { CVSkill } from '@/lib/cv/cv-metadata'
 import SkapaCvStepHeader from '../SkapaCvStepHeader'
@@ -42,11 +42,11 @@ function ChipsInput({ values, onChange }: ChipsInputProps) {
 
   return (
     <div>
-      <div className="flex min-h-11 flex-wrap items-center gap-1.5 rounded-lg border border-kant bg-insunken px-3 py-1.5 shadow-insunken transition-colors focus-within:border-kant-stark focus-within:bg-panel focus-within:ring-2 focus-within:ring-accent">
+      <div className="flex min-h-11 flex-wrap items-center gap-1.5 rounded-lg border border-kant bg-papper-2 px-3 py-1.5  transition-colors focus-within:border-kant-stark focus-within:bg-papper focus-within:ring-2 focus-within:ring-koppar-ink">
         {values.map((skill, i) => (
           <span
             key={`${skill}-${i}`}
-            className="inline-flex items-center gap-1 rounded-lg border border-kant bg-panel py-1 pl-2.5 pr-1.5 text-meta font-medium text-ink-1"
+            className="inline-flex items-center gap-1 rounded-lg border border-kant bg-papper py-1 pl-2.5 pr-1.5 text-meta font-medium text-ink-1"
           >
             {skill}
             <button
@@ -177,7 +177,7 @@ export default function Step5Kompetenser({ cvData, updateCVData }: Props) {
         isOptional
       />
 
-      <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+      <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
         <SkapaCvCardList
           items={items}
           emptyTitle="Inga kompetenser tillagda"

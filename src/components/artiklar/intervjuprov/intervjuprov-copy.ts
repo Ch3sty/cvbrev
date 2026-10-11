@@ -10,7 +10,7 @@
  * Svenska facktermer, vi-form, inga talstreck, inget "AI".
  */
 
-import { paketMedPris } from '@/lib/plans/plans'
+import { paketKort } from '@/lib/plans/plans'
 import { FRAGOR, type FragaId } from './fragor'
 
 /** STAR-frågorna har egna formuleringar i felraden, låset och spärren. */
@@ -109,8 +109,8 @@ export const COPY = {
     ip: 'Du har gjort dagens intervjuprov. Med ett gratiskonto tränar du vidare direkt, och vi sparar svaren.',
     budget:
       'Vi har bedömt dagens svar åt besökare utan konto. Skapa ett gratiskonto så kommer du igång direkt.',
-    inloggad: `Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med ${paketMedPris('test_week')}, övar du utan gräns.`,
-    inloggadLank: `Se ${paketMedPris('test_week')}`,
+    inloggad: `Du har gjort dagens intervjuprov. Nästa öppnar i morgon, och med ${paketKort()} övar du utan gräns.`,
+    inloggadLank: 'Se vad som ingår',
     /** Anonym begäran på en fråga som bara finns inloggad. */
     intePublik: 'Den här frågan finns i ditt konto. Skapa ett gratiskonto så övar du på alla sju.',
   },

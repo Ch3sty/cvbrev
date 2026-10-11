@@ -9,6 +9,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import { lasBlockeringar, foreslaPaket } from '../blockeringar'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
 
 /** Minsta möjliga stubbe: kedjan fram till gte().limit() och ett svar. */
 function klient(rader: { metadata: { feature: string } }[] | null, error?: unknown) {
@@ -90,39 +91,38 @@ describe('lasBlockeringar', () => {
   })
 })
 
-describe('foreslaPaket', () => {
+describe('foreslaPaket (D28)', () => {
   const tomt = { rader: [], totalt: 0, badaSparen: false }
 
-  it('följer blockeringarna före spåret', () => {
-    const plan = foreslaPaket(
-      { rader: [{ feature: 'tests_above_base', antal: 4 }], totalt: 4, badaSparen: false },
-      'cv'
-    )
-    expect(plan).toBe('test_week')
+  // Bara Jobbcoach Premium säljs (spec-rummen 17.3). Blockeringarna och
+  // spåret styr förslagets skäl, aldrig vilket paket som föreslås.
+  it('föreslår Premium per månad oavsett blockeringar', () => {
+    expect(
+      foreslaPaket({ rader: [{ feature: 'tests_above_base', antal: 4 }], totalt: 4, badaSparen: false }, 'cv')
+    ).toBe('all_month')
+    expect(
+      foreslaPaket(
+        {
+          rader: [
+            { feature: 'cv_analysis_full', antal: 2 },
+            { feature: 'tests_above_base', antal: 2 },
+          ],
+          totalt: 4,
+          badaSparen: true,
+        },
+        'cv'
+      )
+    ).toBe('all_month')
   })
 
-  it('föreslår Allt när blockeringarna spänner båda spåren', () => {
-    const plan = foreslaPaket(
-      {
-        rader: [
-          { feature: 'cv_analysis_full', antal: 2 },
-          { feature: 'tests_above_base', antal: 2 },
-        ],
-        totalt: 4,
-        badaSparen: true,
-      },
-      'cv'
-    )
-    expect(plan).toBe('all_week')
+  it('föreslår Premium per månad oavsett spår, och utan underlag', () => {
+    expect(foreslaPaket(tomt, 'cv')).toBe('all_month')
+    expect(foreslaPaket(tomt, 'tester')).toBe('all_month')
+    expect(foreslaPaket(tomt, 'allt')).toBe('all_month')
+    expect(foreslaPaket(tomt, null)).toBe('all_month')
   })
 
-  it('faller tillbaka på spåret när inget blockerat', () => {
-    expect(foreslaPaket(tomt, 'cv')).toBe('cv_week')
-    expect(foreslaPaket(tomt, 'tester')).toBe('test_week')
-    expect(foreslaPaket(tomt, 'allt')).toBe('all_week')
-  })
-
-  it('föreslår Hela paketet när vi varken har blockeringar eller spår', () => {
-    expect(foreslaPaket(tomt, null)).toBe('all_week')
+  it('föreslår aldrig ett osålt paket', () => {
+    expect(PLAN_BY_KEY[foreslaPaket(tomt, 'cv')].saljs).toBe(true)
   })
 })

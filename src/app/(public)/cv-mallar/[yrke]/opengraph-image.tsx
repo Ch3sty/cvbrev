@@ -21,7 +21,7 @@ export default async function Image({
       <OgFrame
         eyebrow="CV-mall för svenskt yrke"
         title={yrkesNamn}
-        subtitle="ATS-säker · gratis och premium · uppdaterad 2026"
+        subtitle="ATS-säker · gratis eller i Premium · uppdaterad 2026"
         illustration={<OgCvMockup />}
       />
     ),

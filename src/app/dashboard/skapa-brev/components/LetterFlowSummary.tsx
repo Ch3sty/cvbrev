@@ -9,6 +9,7 @@
  * och kvot.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 import {
@@ -99,7 +100,7 @@ export default function LetterFlowSummary({
   ];
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <ul className="divide-y divide-kant">
         {rows.map((row) => {
           const Icon = row.icon;
@@ -126,7 +127,7 @@ export default function LetterFlowSummary({
           type="button"
           onClick={onGenerate}
           disabled={!canGenerate || isGenerating}
-          className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60"
+          className={`${KNAPP_PRIMAR} mt-4 disabled:cursor-not-allowed`}
         >
           {isGenerating ? 'Skriver brevet' : 'Skapa mitt brev'}
         </button>

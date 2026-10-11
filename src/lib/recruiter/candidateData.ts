@@ -20,6 +20,7 @@ import {
   MIN_PERCENTILE_SAMPLE,
   STRENGTH_MAP,
 } from '@/lib/candidate/strengthConstants';
+import { begransaTillUnderlag, percentilUnderlag, type Underlag } from '@/lib/logicTestV7/percentilUnderlag';
 import {
   deriveWorkStyle,
   deriveCardWorkStyle,
@@ -243,14 +244,18 @@ export interface CandidateDetail extends CandidateCard {
 // Percentilkontext: cachar aggregatfrågor så poolens kortbygge inte gör om
 // samma count-frågor för varje kandidat. Samma beräkning som summary-routen:
 // andel sessioner med lägre score inom samma test_type, golv på underlaget.
+// Matrislogik jämförs bara med blandade sessioner i samma bankversion
+// (spec-rummen 12.4, 15, percentilUnderlag.ts); en oblandad session får
+// ingen percentil. `meta` är den jämförda sessionens meta.
 // ---------------------------------------------------------------------------
 
 export interface PercentileContext {
-  getPercentile(testType: string, score: number): Promise<number | null>;
+  getPercentile(testType: string, score: number, meta?: unknown): Promise<number | null>;
   /** Percentil + underlagets storlek, för "topp X % av N testade"-tolkningen. */
   getStats(
     testType: string,
-    score: number
+    score: number,
+    meta?: unknown
   ): Promise<{ percentile: number | null; sampleSize: number }>;
 }
 
@@ -258,29 +263,32 @@ export function createPercentileContext(admin: Admin): PercentileContext {
   const totalCache = new Map<string, Promise<number>>();
   const belowCache = new Map<string, Promise<number>>();
 
-  const totalFor = (testType: string): Promise<number> => {
-    let cached = totalCache.get(testType);
-    if (!cached) {
-      cached = (admin as any)
+  const bas = (testType: string, underlag: Underlag) =>
+    begransaTillUnderlag(
+      (admin as any)
         .from('logic_test_v4_sessions')
         .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
+        .eq('test_type', testType),
+      underlag
+    );
+
+  const totalFor = (testType: string, underlag: Underlag): Promise<number> => {
+    let cached = totalCache.get(underlag.nyckel);
+    if (!cached) {
+      cached = bas(testType, underlag)
         .not('completed_at', 'is', null)
         .not('score', 'is', null)
         .then((res: { count: number | null }) => res.count ?? 0);
-      totalCache.set(testType, cached!);
+      totalCache.set(underlag.nyckel, cached!);
     }
     return cached!;
   };
 
-  const belowFor = (testType: string, score: number): Promise<number> => {
-    const key = `${testType}:${score}`;
+  const belowFor = (testType: string, underlag: Underlag, score: number): Promise<number> => {
+    const key = `${underlag.nyckel}:${score}`;
     let cached = belowCache.get(key);
     if (!cached) {
-      cached = (admin as any)
-        .from('logic_test_v4_sessions')
-        .select('id', { count: 'exact', head: true })
-        .eq('test_type', testType)
+      cached = bas(testType, underlag)
         .not('completed_at', 'is', null)
         .lt('score', score)
         .then((res: { count: number | null }) => res.count ?? 0);
@@ -291,18 +299,21 @@ export function createPercentileContext(admin: Admin): PercentileContext {
 
   const getStats = async (
     testType: string,
-    score: number
+    score: number,
+    meta?: unknown
   ): Promise<{ percentile: number | null; sampleSize: number }> => {
-    const total = await totalFor(testType);
+    const underlag = percentilUnderlag(testType, meta);
+    if (!underlag) return { percentile: null, sampleSize: 0 };
+    const total = await totalFor(testType, underlag);
     if (total < MIN_PERCENTILE_SAMPLE) return { percentile: null, sampleSize: total };
-    const below = await belowFor(testType, score);
+    const below = await belowFor(testType, underlag, score);
     return { percentile: Math.round((100 * below) / total), sampleSize: total };
   };
 
   return {
     getStats,
-    async getPercentile(testType: string, score: number): Promise<number | null> {
-      return (await getStats(testType, score)).percentile;
+    async getPercentile(testType: string, score: number, meta?: unknown): Promise<number | null> {
+      return (await getStats(testType, score, meta)).percentile;
     },
   };
 }
@@ -315,6 +326,8 @@ interface SessionRow {
   test_type: string | null;
   score: number | null;
   completed_at: string | null;
+  /** alternativ_blandade och bank_version styr percentilens underlag. */
+  meta?: unknown;
 }
 
 const ALL_TEST_TYPES = Object.values(FAMILIES).flatMap((f) => f.types);
@@ -322,7 +335,7 @@ const ALL_TEST_TYPES = Object.values(FAMILIES).flatMap((f) => f.types);
 async function fetchSessions(admin: Admin, userId: string): Promise<SessionRow[]> {
   const { data, error } = await (admin as any)
     .from('logic_test_v4_sessions')
-    .select('test_type, score, completed_at')
+    .select('test_type, score, completed_at, meta')
     .eq('user_id', userId)
     .in('test_type', ALL_TEST_TYPES)
     .not('completed_at', 'is', null)
@@ -384,7 +397,7 @@ async function buildTestBadges(
       const level = LEVELS[levelIndex];
       const verified = firstCompleted(sessions.filter((s) => s.test_type === testType));
 
-      const { percentile, sampleSize } = await ctx.getStats(testType, verified.score ?? 0);
+      const { percentile, sampleSize } = await ctx.getStats(testType, verified.score ?? 0, verified.meta);
 
       const badge: TestBadge = {
         family,
@@ -949,7 +962,7 @@ async function buildAllTestResults(
       // Verifierat resultat = första slutförda försöket, aldrig best-of-N.
       const verified = firstCompleted(own);
       entries.push(
-        ctx.getStats(testType, verified.score ?? 0).then(({ percentile, sampleSize }) => ({
+        ctx.getStats(testType, verified.score ?? 0, verified.meta).then(({ percentile, sampleSize }) => ({
           family,
           level: LEVELS[levelIndex],
           bestScore: verified.score ?? 0,

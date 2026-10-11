@@ -97,9 +97,9 @@ export async function POST(request: Request) {
     }
 
     const jobs = incoming.slice(0, MAX_JOBS);
-    // Jobbmatchningen ligger bara i Hela paketet (avsnitt 3), alltså featuren
+    // Jobbmatchningen ligger bara i Premium (avsnitt 3), alltså featuren
     // job_matches_all. Ett spår räcker inte, och betalväggen föreslår därför
-    // Hela paketet oavsett vilket spår användaren valt.
+    // Premium oavsett vilket spår användaren valt.
     const isPremium = await userHasAccess(supabase, user.id, 'job_matches_all');
 
     // Allt ser allt. Ingen suddning, ingen betalvägg.

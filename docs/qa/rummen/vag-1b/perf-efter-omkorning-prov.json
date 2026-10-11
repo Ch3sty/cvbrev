@@ -1,0 +1,19 @@
+{
+  "tid": "2026-10-10T22:00:24.056Z",
+  "bas": "http://localhost:5232",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "tester prov",
+      "budget": "flode",
+      "m": {
+        "lcp": 1356,
+        "cls": 0,
+        "fcp": 648,
+        "rundturer": 1,
+        "textLangd": 300,
+        "forfragningar": 49
+      }
+    }
+  ]
+}

@@ -8,9 +8,11 @@
 'use client';
 
 import Link from 'next/link';
-import { Check } from 'lucide-react';
-import PageHeader from '@/components/shell/PageHeader';
-import { PLAN_BY_KEY } from '@/lib/plans/plans';
+import { Check } from '@/components/illustrations/RumIkoner';
+import RumHuvud from '@/components/rum/RumHuvud';
+import Golv from '@/components/rum/Golv';
+import { KNAPP_PRIMAR } from '@/components/shell/knappar';
+import { SALD_PLAN, paketKort, paketNamn } from '@/lib/plans/plans';
 import {
   IkonCv,
   IkonAnalys,
@@ -42,7 +44,7 @@ const features: Feature[] = [
       'Vi läser av arbetslivserfarenhet och roller',
       'Identifierar dina kompetenser och färdigheter',
       'Sparar kontaktuppgifter till dina brev',
-      'Med ett paket: obegränsat antal CV',
+      `Med ${paketKort()}: obegränsat antal CV`,
     ],
     href: '/dashboard/profil/cv',
     cta: 'Ladda upp CV',
@@ -87,7 +89,7 @@ const features: Feature[] = [
       'Formuleringar som sticker ut',
       'Rätt nyckelord för din bransch och roll',
       'Anpassat för LinkedIns sökning',
-      `Ingår i ${PLAN_BY_KEY.cv_week.name} och ${PLAN_BY_KEY.all_week.name}`,
+      `LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}`,
     ],
     href: '/dashboard/linkedin-optimizer',
     cta: 'Optimera LinkedIn',
@@ -116,7 +118,7 @@ const features: Feature[] = [
     benefits: [
       'Läsbara för rekryteringssystem',
       'Branschanpassade, rätt stil för din sektor',
-      'Mallarna i CV-paketet: Platinum Executive, Nordic Professional, Creative Edge',
+      `Mallar som ingår i ${paketKort()}: Platinum Executive, Nordic Professional, Creative Edge`,
       'Olika mallar för olika typer av roller',
     ],
     href: '/dashboard/cv-mallar',
@@ -129,12 +131,13 @@ const LINK =
 
 export default function IntroduktionPage() {
   return (
-    <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
-      <PageHeader
-        title="Så fungerar Jobbcoach"
-        description="Sex verktyg som hjälper dig skapa bättre ansökningar, snabbare. Börja med ditt CV, sedan tar vi det därifrån."
-      />
-
+    <>
+    <RumHuvud
+      title="Så fungerar Jobbcoach"
+      description="Sex verktyg som hjälper dig skapa bättre ansökningar, snabbare. Börja med ditt CV, sedan tar vi det därifrån."
+    />
+    <Golv>
+    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
       <section aria-label="Verktygen" className="space-y-4">
         <h2 className="text-sm font-medium text-ink-3">Verktygen</h2>
         {features.map((feature) => (
@@ -144,17 +147,14 @@ export default function IntroduktionPage() {
 
       <section
         aria-label="Kom igång"
-        className="rounded-xl border border-kant-stark bg-panel p-4 sm:p-5"
+        className="rounded-xl border border-kant-stark bg-papper p-4 sm:p-5"
       >
         <h2 className="text-kort text-ink-1">Redo att komma igång?</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
           Börja med att ladda upp ditt CV. Det tar en halv minut.
         </p>
         <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
-          <Link
-            href="/dashboard/profil/cv"
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto"
-          >
+          <Link href="/dashboard/profil/cv" className={`${KNAPP_PRIMAR} sm:w-auto`}>
             Ladda upp CV
           </Link>
           <Link href="/dashboard" className={LINK}>
@@ -163,6 +163,8 @@ export default function IntroduktionPage() {
         </div>
       </section>
     </div>
+    </Golv>
+    </>
   );
 }
 
@@ -170,7 +172,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
   const Icon = feature.icon;
 
   return (
-    <article className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <article className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <div className="flex items-start gap-3">
         <span className="mt-0.5 shrink-0 text-ink-2" aria-hidden="true">
           <Icon size={24} />

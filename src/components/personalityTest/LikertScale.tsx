@@ -37,7 +37,7 @@ export default function LikertScale({ value, onChange, disabled }: LikertScalePr
                 ${
                   isSelected
                     ? 'border-2 text-white'
-                    : 'border bg-white text-slate-700 hover:border-orange-300 hover:-translate-y-0.5'
+                    : 'border bg-papper text-ink-2 hover:border-orange-300 hover:-translate-y-0.5'
                 }
                 ${disabled ? 'opacity-60 cursor-not-allowed' : ''}
               `}
@@ -59,7 +59,7 @@ export default function LikertScale({ value, onChange, disabled }: LikertScalePr
                 className={`flex-shrink-0 w-9 h-9 sm:w-auto sm:h-auto rounded-full sm:rounded-none flex items-center justify-center text-lg sm:text-xl font-bold tabular-nums ${
                   isSelected
                     ? 'bg-white/20 text-white sm:bg-transparent'
-                    : 'bg-slate-100 text-slate-900 sm:bg-transparent'
+                    : 'bg-papper-2 text-ink-1 sm:bg-transparent'
                 }`}
               >
                 {option.value}
@@ -67,7 +67,7 @@ export default function LikertScale({ value, onChange, disabled }: LikertScalePr
               {/* Label */}
               <span
                 className={`text-sm sm:text-xs leading-tight text-left sm:text-center flex-1 sm:flex-initial ${
-                  isSelected ? 'text-white sm:text-white/90' : 'text-slate-600 sm:text-slate-500'
+                  isSelected ? 'text-white sm:text-white/90' : 'text-ink-2 sm:text-ink-3'
                 }`}
               >
                 {option.label}

@@ -3,17 +3,15 @@
 /**
  * CV-mallarnas klientdel.
  *
- * Paketets gräns syns här, där den är (spec-onboarding 2026-09-22, sektion
- * 3): utanför CV-paketet och Hela paketet är mall 4 till 41 gråa med lås, går att
- * förhandsvisa i full storlek men inte ladda ned, och trycket på
- * nedladdningen öppnar betalväggen för rätt paket med mellanskillnaden.
- * kunden med Träningspaketet får fotknapparna "Byt till CV-paketet" och "Eller Allt
- * för 20 kr till i veckan". Talen kommer ur mallregistret och prislistan.
+ * Gränsen syns här, där den är (spec-onboarding 2026-09-22, sektion 3, med
+ * ägarens beslut 2026-10-11): utan mallarna är mall 4 till 41 gråa med
+ * bricka, går att förhandsvisa i full storlek men inte ladda ned, och
+ * trycket på nedladdningen öppnar betalväggen för Premium. Ett köp, inga
+ * spår och inga sidbyten. Talen kommer ur mallregistret och prislistan.
  */
 
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
@@ -21,10 +19,7 @@ import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
 import type { Scope } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
-import { ellerAlltKnapp, laggTillKnapp, mallHuvud } from '@/lib/onboarding/paket-rader';
-import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient';
-import PaketBytesRad from '@/components/paywall/PaketBytesRad';
-import { PAKETBYTE } from '@/components/pricing/paket-copy';
+import { mallHuvud } from '@/lib/onboarding/paket-rader';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
@@ -48,10 +43,6 @@ const CvGenerationOverlay = dynamic(
   { ssr: false }
 );
 
-const KNAPP_PRIMAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40';
-const KNAPP_SEKUNDAR =
-  'inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-semibold text-ink-1 transition-colors hover:bg-insunken disabled:opacity-40';
 
 export default function CvMallarClient({
   initialCvs,
@@ -83,34 +74,14 @@ export default function CvMallarClient({
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [sparrOppen, setSparrOppen] = useState(false);
-  const [busy, setBusy] = useState<PlanKey | null>(null);
-  const [bytUtfall, setBytUtfall] = useState<BytUtfall | null>(null);
   const [bytCv, setBytCv] = useState(false);
-  const router = useRouter();
 
   const isPremium = initialIsPremium;
   const huvud = mallHuvud(scope);
-  const alltKnapp = ellerAlltKnapp(planKey);
 
-  // Betalväggen för rätt paket, med mellanskillnaden om hon har ett spår.
+  // Betalväggen för Premium. En befintlig spårkund får samma vägg; knappen
+  // går då till prenumerationssidan (spec-rummen 17.5).
   const handleUpgradeClick = () => setSparrOppen(true);
-
-  // Hela paketet och sidbytet till CV-paketet byter pris på prenumerationen
-  // direkt och svarar utan url. Utfallet syns som en rad, aldrig tystnad.
-  const uppgradera = async (plan: PlanKey) => {
-    if (busy) return;
-    setBusy(plan);
-    setBytUtfall(null);
-    const utfall = await bytPaket(plan, '/dashboard/cv-mallar');
-    if (utfall.typ === 'kassa') {
-      window.location.href = utfall.url;
-      return;
-    }
-    setBytUtfall(utfall);
-    setBusy(null);
-    // Servern har redan det nya paketet: hämta om sidan så mallarna låses upp.
-    if (utfall.typ === 'bytt') router.refresh();
-  };
 
   const handleGenerateCV = async (params: {
     templateId: string;
@@ -192,13 +163,14 @@ export default function CvMallarClient({
   };
 
   return (
+    <>
+    <CvMallarHero />
     <CvMallarLayout>
-      <CvMallarHero />
 
-      {/* Paketets gräns: vad som ingår, var resten finns, och att gråa
-          mallar går att förhandsvisa. Bara utanför CV-paketet och Allt. */}
+      {/* Gränsen: vad som ingår, att resten ingår i Premium, och att gråa
+          mallar går att förhandsvisa. Bara för den som saknar mallarna. */}
       {huvud ? (
-        <section className="space-y-2" aria-label="Ditt paket">
+        <section className="space-y-2" aria-label={huvud.statusrad}>
           <StatusRow tone="neutral" showDot>
             {huvud.statusrad}
           </StatusRow>
@@ -253,32 +225,6 @@ export default function CvMallarClient({
         />
       </section>
 
-      <PaketBytesRad utfall={bytUtfall} />
-
-      {/* Foten för kunden med Träningspaketet (sektion 3). */}
-      {scope === 'tester' && bytUtfall?.typ !== 'bytt' ? (
-        <div className="grid gap-2 rounded-xl border border-kant bg-panel p-4">
-          <button
-            type="button"
-            onClick={() => uppgradera('cv_week')}
-            disabled={busy !== null}
-            className={KNAPP_PRIMAR}
-          >
-            {busy === 'cv_week' ? PAKETBYTE.arbetar : laggTillKnapp('cv_week')}
-          </button>
-          {alltKnapp ? (
-            <button
-              type="button"
-              onClick={() => uppgradera('all_week')}
-              disabled={busy !== null}
-              className={KNAPP_SEKUNDAR}
-            >
-              {busy === 'all_week' ? PAKETBYTE.arbetar : alltKnapp}
-            </button>
-          ) : null}
-        </div>
-      ) : null}
-
       {sparrOppen ? (
         <GraValSheet
           open
@@ -289,6 +235,7 @@ export default function CvMallarClient({
           track={track}
           planKey={planKey}
           surface="/dashboard/cv-mallar"
+          plats="mall"
         />
       ) : null}
 
@@ -304,5 +251,6 @@ export default function CvMallarClient({
         />
       )}
     </CvMallarLayout>
+    </>
   );
 }

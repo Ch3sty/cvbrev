@@ -24,6 +24,12 @@ import {
   GRUND_POOL,
   AVANCERAD_POOL,
   EXPERT_POOL,
+  GRUND_3C,
+  AVANCERAD_3C,
+  EXPERT_3C,
+  BANK_VERSION_META,
+  bankVersion,
+  type BankVersion,
 } from './selectQuestions.v7';
 import { selectProvQuestionsForSession } from './selectProv.v7';
 import {
@@ -43,11 +49,13 @@ export type MatrisSlug =
   | 'matrislogik-expert'
   | 'matrislogik-prov';
 
-const URVAL: Record<MatrisSlug, (sessionId: string) => LayeredQuestion[]> = {
-  'matrislogik-grund': (id) => selectQuestionsForSession(id),
-  'matrislogik-avancerad': (id) => selectAvanceradQuestionsForSession(id),
-  'matrislogik-expert': (id) => selectExpertQuestionsForSession(id),
-  'matrislogik-prov': (id) => selectProvQuestionsForSession(id),
+// Urvalet per slug och bankversion (meta.bank_version, spec-rummen 15).
+// Version 1: de 28 frusna per nivå, som före våg 3c. Version 2: alla valbara.
+const URVAL: Record<MatrisSlug, (sessionId: string, version: BankVersion) => LayeredQuestion[]> = {
+  'matrislogik-grund': (id, v) => selectQuestionsForSession(id, undefined, v),
+  'matrislogik-avancerad': (id, v) => selectAvanceradQuestionsForSession(id, undefined, v),
+  'matrislogik-expert': (id, v) => selectExpertQuestionsForSession(id, undefined, v),
+  'matrislogik-prov': (id, v) => selectProvQuestionsForSession(id, v),
 };
 
 export function arMatrisSlug(slug: string): slug is MatrisSlug {
@@ -75,18 +83,20 @@ export function slugForTestType(testType: string | null | undefined): MatrisSlug
 export function visadeFragor(
   slug: MatrisSlug,
   sessionId: string,
-  blandade: boolean
+  blandade: boolean,
+  version: BankVersion = 1
 ): VisadFraga[] {
-  return URVAL[slug](sessionId).map((q) => visaFraga(q, sessionId, blandade));
+  return URVAL[slug](sessionId, version).map((q) => visaFraga(q, sessionId, blandade));
 }
 
 /** Genomgångens frågor. Anropas bara för avslutade sessioner. */
 export function genomgangsFragor(
   slug: MatrisSlug,
   sessionId: string,
-  blandade: boolean
+  blandade: boolean,
+  version: BankVersion = 1
 ): GenomgangsFraga[] {
-  return URVAL[slug](sessionId).map((q) => genomgaFraga(q, sessionId, blandade));
+  return URVAL[slug](sessionId, version).map((q) => genomgaFraga(q, sessionId, blandade));
 }
 
 /**
@@ -101,9 +111,11 @@ export function matrisInnehall(session: {
 }): { fragor: VisadFraga[]; genomgang: GenomgangsFraga[] | null } {
   const slug = slugForTestType(session.test_type);
   const blandade = arBlandad(session.meta);
+  // Test- och resultatsida läser bankversionen ur samma meta (spec 15).
+  const version = bankVersion(session.meta);
   return {
-    fragor: visadeFragor(slug, session.id, blandade),
-    genomgang: session.completed_at ? genomgangsFragor(slug, session.id, blandade) : null,
+    fragor: visadeFragor(slug, session.id, blandade, version),
+    genomgang: session.completed_at ? genomgangsFragor(slug, session.id, blandade, version) : null,
   };
 }
 
@@ -115,6 +127,11 @@ const V5 = questionBankV5 as unknown as BankFraga[];
 const G = GRUND_POOL as unknown as BankFraga[];
 const A = AVANCERAD_POOL as unknown as BankFraga[];
 const E = EXPERT_POOL as unknown as BankFraga[];
+// Våg 3c: nya frågor rättas i samma rutter som sin nivå, så att passen kan
+// dra dem utan att rättningen behöver byggas om.
+const G3 = GRUND_3C as unknown as BankFraga[];
+const A3 = AVANCERAD_3C as unknown as BankFraga[];
+const E3 = EXPERT_3C as unknown as BankFraga[];
 
 /**
  * Bankerna varje svar-rutt slår upp facit i. V5 ligger kvar för sessioner
@@ -122,11 +139,11 @@ const E = EXPERT_POOL as unknown as BankFraga[];
  */
 export const BANK_FOR_RUTT = {
   /** /api/logicTestV4/answer: grund och expert (plus V5). */
-  v4: [...V5, ...G, ...E],
+  v4: [...V5, ...G, ...E, ...G3, ...E3],
   /** /api/logicTestV6/answer: avancerad. */
-  v6: [...A],
+  v6: [...A, ...A3],
   /** /api/logicTestProv/answer: alla nivåer. */
-  prov: [...V5, ...G, ...A, ...E],
+  prov: [...V5, ...G, ...A, ...E, ...G3, ...A3, ...E3],
 } as const;
 
 export function hittaFraga(
@@ -181,6 +198,23 @@ export function rattaMatrisSvar(answers: readonly unknown[]): number {
   return ratt;
 }
 
+/* ------------------------------ Percentilen ------------------------------ */
+
+/**
+ * Begränsar en percentilfråga mot logic_test_v4_sessions till sessionens
+ * bankversion (spec-rummen 15): ett 15-frågorstest ur 90 frågor jämförs inte
+ * med ett ur 28. Version 2: meta.bank_version = 2. Version 1: fältet saknas.
+ * Regeln om minst 25 sessioner gäller per version, så percentilen börjar om
+ * på version 2.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function medBankversion<Q extends { eq: any; is: any }>(fraga: Q, version: BankVersion): Q {
+  return version === 2 ? fraga.eq('meta->>bank_version', '2') : fraga.is('meta->>bank_version', null);
+}
+
+export { bankVersion };
+export type { BankVersion };
+
 /* ---------------------------- Nya sessioner ---------------------------- */
 
 /** PostgREST/Postgres-koderna för en kolumn som inte finns. */
@@ -194,7 +228,9 @@ function saknarKolumn(error: { code?: string; message?: string } | null): boolea
 }
 
 /**
- * Skapar en rad med meta.alternativ_blandade satt. Finns inte kolumnen
+ * Skapar en rad med meta.alternativ_blandade och meta.bank_version: 2 satta
+ * (alla anropare är klassiska matrissessioner: grund, avancerad, expert,
+ * provet och smakprovet). Finns inte kolumnen
  * (migreringen 20261010200000_alternativ_blandade ännu inte körd) skapas raden
  * utan flaggan, och testet beter sig som före fixen i stället för att falla.
  */
@@ -207,7 +243,9 @@ export async function skapaMedBlandning<T = Record<string, unknown>>(
 ): Promise<{ data: T | null; error: { code?: string; message?: string } | null }> {
   const forsta = await client
     .from(table)
-    .insert({ ...row, meta: BLANDAD_META })
+    // Nya klassiska sessioner (grund, avancerad, expert, provet, smakprovet)
+    // får både blandningen och bankversion 2 (spec-rummen 15).
+    .insert({ ...row, meta: { ...BLANDAD_META, ...BANK_VERSION_META } })
     .select(select)
     .single();
   if (!forsta.error || !saknarKolumn(forsta.error)) {

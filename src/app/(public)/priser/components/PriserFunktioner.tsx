@@ -3,11 +3,13 @@
  * (docs/design/spec-prissida-2026-09-22.html, .fung).
  *
  * Fem kort: CV-analysen, personliga brev, rekryteringstesterna (brett kort
- * över båda kolumnerna), matchade jobb och jobbcoachen. Varje kort har
- * scenen som visar själva ögonblicket, en rad om vilka paket funktionen
- * ingår i och vad gratis ger, en förklaring, upp till fyra steg och
- * paketpiller. Serverkomponent.
+ * över båda kolumnerna), matchade jobb och Jobbcoachen. Varje kort har
+ * scenen som visar själva ögonblicket, raden "Ingår i Premium. Gratis: …",
+ * en förklaring och upp till fyra steg. Paketpillren är borta sedan bara
+ * Premium säljs: allt ingår i samma, och raden säger det. Serverkomponent.
  */
+
+import Link from 'next/link'
 
 import {
   IlluScenBrev,
@@ -16,7 +18,7 @@ import {
   IlluScenMatch,
   IlluScenMatris,
 } from '@/components/illustrations/PriserScener'
-import { FUNKTIONER, PAKET_KORT, type PaketId } from '@/components/pricing/paket-copy'
+import { FUNKTIONER } from '@/components/pricing/paket-copy'
 
 const SCEN = {
   cv: IlluScenCv,
@@ -25,12 +27,6 @@ const SCEN = {
   match: IlluScenMatch,
   coach: IlluScenCoach,
 } as const
-
-const PILL: Record<PaketId, string> = {
-  cv: 'bg-cv-mjuk text-cv',
-  test: 'bg-test-mjuk text-test',
-  allt: 'bg-ink-1 text-white',
-}
 
 export default function PriserFunktioner() {
   return (
@@ -76,16 +72,16 @@ export default function PriserFunktioner() {
                     ))}
                   </ol>
                 ) : null}
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {kort.ingar.map((p) => (
-                    <span
-                      key={p}
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${PILL[p]}`}
+                {'lank' in kort && kort.lank ? (
+                  <p className="mt-3 text-sm">
+                    <Link
+                      href={kort.lank.href}
+                      className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
                     >
-                      {PAKET_KORT[p].namn}
-                    </span>
-                  ))}
-                </div>
+                      {kort.lank.text}
+                    </Link>
+                  </p>
+                ) : null}
               </div>
             </article>
           )

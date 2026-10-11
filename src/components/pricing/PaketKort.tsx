@@ -1,43 +1,33 @@
 'use client'
 
 /**
- * PaketKort: ett kort per paket (docs/design/spec-prissida-2026-09-22.html,
- * sektion 1 och 2, .kort).
+ * PaketKort: Jobbcoach Premium som ett kort i rummen (spec-rummen våg 5,
+ * docs/design/copy-premium-2026-10-11.md).
  *
- * Färgetikett, illustration, namn, värdemening, "för dig som", pris, listan
- * "Så här fungerar det" med en ikon per rad, och knappen. Allt-kortet står i
- * ink-1 med vit text och bär längdvalet dag, vecka, månad, kvartal.
+ * Bara ett paket säljs, så kortet har en form: namnet, förklaringsraden,
+ * listan med vad som ingår, prisraden i kort form (namnet står i rubriken)
+ * och köpknappen. Rummens material: papper, kant, radie 16, KNAPP_PRIMAR.
+ * Ingen kopparkant: med ett paket finns inget att rekommendera framför
+ * något annat, och kopparn i ett köpkort är knappen (art-director 24.2
+ * fråga 3). Ingen statusplatta heller: en text i en ram med knappens mått
+ * läses som en knapp som inte gör något.
  *
- * På mobil (sektion 2, vänstra telefonen) numreras korten "Paket 1 av 3",
- * värdemeningen är kortare, "för dig som" faller bort på spåren, och bara de
- * rader som är märkta mobil visas. Båda varianterna står i HTML och växlas
- * med lg:, så kortet ser rätt ut utan JavaScript.
+ * `lyft` gör kortet till vyns LyftKort, först på golvet och över väggen
+ * (prenumerationssidan på gratisnivån och för en spårkund). Utan `lyft` är
+ * det ett vanligt kort med kant.
  *
- * Delas mellan publika prissidan och kontosidan. Anroparen bestämmer knappen
- * (text och handling), en status i stället för knapp, eller en egen prisrad
- * (mellanskillnaden för en spårkund). Kortet vet ingenting om inloggning.
+ * Används på kontosidan (/dashboard/profil/prenumeration). Den publika
+ * prissidan har Trådens utseende och ett eget kort (PriserPaket), eftersom
+ * koppar och KNAPP_PRIMAR bara finns i inloggat.
+ *
+ * Anroparen bestämmer knappen (text och handling), en egen text eller
+ * prisrad (bytet för en kund med ett osålt paket). Kortet vet ingenting om
+ * inloggning.
  */
 
-import { useState } from 'react'
-import { ArrowRight } from 'lucide-react'
-
-import {
-  IlluScenAllt,
-  IlluScenCv,
-  IlluScenMatris,
-  RadIkon,
-} from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY, type PlanKey, type PlanLength } from '@/lib/plans/plans'
-import LangdVal from './LangdVal'
-import {
-  DAG_RAD,
-  PAKET_KORT,
-  PAKET_PLAN,
-  VALJARE,
-  alltPrisSub,
-  planForLangd,
-  type PaketId,
-} from './paket-copy'
+import { Check } from '@/components/illustrations/RumIkoner'
+import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
+import { PAKET_KORT, type PaketId } from './paket-copy'
 
 export interface PaketKortKnapp {
   text: string
@@ -46,274 +36,96 @@ export interface PaketKortKnapp {
 }
 
 export interface PaketKortProps {
-  paket: PaketId
-  /** Mobilens "Paket 1 av 3". */
-  nummer?: number
-  /** Allt: vald längd. Utelämnad styr kortet längden själv, vecka förvald. */
-  langd?: PlanLength
-  onLangd?: (langd: PlanLength, plan: PlanKey) => void
-  /** Allt: visa längdvalet. Standard sant. */
-  visaLangd?: boolean
-  /** Längder som inte går att välja, till exempel dagen för en löpande kund. */
-  inaktivaLangder?: readonly PlanLength[]
-  /** Raden under längdvalet när ett läge är spärrat. */
-  langdNot?: string
-  /** Knappen. null döljer den. Utelämnad ger paketets standardknapp utan handling. */
+  paket?: PaketId
+  /** Ersätter namnet som rubrik. */
+  titel?: string
+  /** En mening under förklaringsraden, till exempel varför bytet lönar sig. */
+  text?: string
+  /** Ersätter prisraden ovanför knappen. */
+  prisrad?: string
+  /** Knappen. null döljer den och prisraden. Utelämnad ger köpknappen utan handling. */
   knapp?: PaketKortKnapp | null
   /** Ersätter raden under knappen. null tar bort den. */
   fotnot?: string | null
-  /** Status i stället för knapp: "Du har det här paketet". */
-  status?: string
-  /** Egen prisrad, till exempel mellanskillnaden. */
-  pris?: { belopp: string; sub: string }
-  /** Textlänk under knappen eller statusen. */
+  /** Textlänk bredvid knappen. */
   lank?: { text: string; onClick: () => void }
+  /** Kortet är vyns lyfta kort och överlappar väggen. */
+  lyft?: boolean
+  /** Visa listan med vad som ingår. Standard sant. */
+  visaLista?: boolean
   id?: string
   className?: string
 }
 
-const SCEN = {
-  cv: IlluScenCv,
-  test: IlluScenMatris,
-  allt: IlluScenAllt,
-} as const
-
-const SCEN_ALT: Record<PaketId, string> = {
-  cv: 'CV med analysmarkeringar och poäng 74',
-  test: 'Matrislogik med saknad ruta och en klocka',
-  allt: 'Tre papper på tråden: CV, tester och jobb',
-}
-
-const TAG: Record<PaketId, string> = {
-  cv: 'bg-cv-mjuk text-cv',
-  test: 'bg-test-mjuk text-test',
-  allt: 'bg-panel text-ink-1',
-}
-
 export default function PaketKort({
-  paket,
-  nummer,
-  langd: langdProp,
-  onLangd,
-  visaLangd = true,
-  inaktivaLangder,
-  langdNot,
+  paket = 'allt',
+  titel,
+  text,
+  prisrad,
   knapp,
   fotnot,
-  status,
-  pris,
   lank,
+  lyft = false,
+  visaLista = true,
   id,
   className,
 }: PaketKortProps) {
   const copy = PAKET_KORT[paket]
-  const allt = paket === 'allt'
-  const Scen = SCEN[paket]
-
-  const [egenLangd, setEgenLangd] = useState<PlanLength>('vecka')
-  const langd = langdProp ?? egenLangd
-  const plan: PlanKey = allt ? planForLangd(langd) : PAKET_PLAN[paket]
-  const belopp = PLAN_BY_KEY[plan].amount
-
-  function bytLangd(ny: PlanLength) {
-    if (langdProp === undefined) setEgenLangd(ny)
-    onLangd?.(ny, planForLangd(ny))
-  }
-
   const knappen: PaketKortKnapp | null =
     knapp === null ? null : knapp ?? { text: copy.knapp, onClick: () => {} }
   const fot = fotnot === undefined ? copy.fotnot : fotnot
+  const namn = titel ?? copy.namn
 
-  const yta = allt ? 'text-white' : 'text-ink-1'
-  const damp = allt ? 'text-ink-1-mjuk' : 'text-ink-2'
-  const meta = allt ? 'text-ink-1-mjuk' : 'text-ink-3'
-  const linje = allt ? 'border-ink-1-kant' : 'border-kant'
+  const ram = lyft
+    ? 'relative z-[2] -mt-[30px] border-[color:var(--lyft-kant)] shadow-lyft'
+    : 'border-kant'
 
   return (
     <section
       id={id}
-      aria-label={copy.namn}
-      className={`flex flex-col overflow-hidden rounded-xl border ${
-        allt ? 'border-ink-1 bg-ink-1' : 'border-kant bg-panel'
-      } ${yta} ${className ?? ''}`}
+      aria-label={namn}
+      className={`flex flex-col rounded-2xl border bg-papper p-4 text-ink-1 ${lyft ? '' : 'sm:p-5'} ${ram} ${className ?? ''}`}
     >
-      {/* Topp: nummer på mobil, färgetikett, Rekommenderas. */}
-      <div className="flex items-start justify-between gap-4 px-4 pt-4 sm:px-6 sm:pt-6">
-        {nummer ? (
-          <span className={`text-steg uppercase lg:hidden ${meta}`}>{VALJARE.nummer(nummer)}</span>
-        ) : null}
-        <span
-          className={`rounded-md px-2 py-1 text-steg font-semibold uppercase ${TAG[paket]} ${
-            allt && nummer ? 'hidden lg:inline-block' : ''
-          }`}
-        >
-          {copy.tag}
-        </span>
-        {allt ? (
-          <span className="ml-auto py-1 text-steg font-semibold uppercase text-ink-1-accent">
-            {VALJARE.rekommenderas}
-          </span>
-        ) : null}
-      </div>
+      <h2 className="text-kort-t text-ink-1">{namn}</h2>
+      <p className="mt-1 text-meta text-ink-3">{copy.beskrivning}</p>
+      {text ? <p className="mt-2 text-sm leading-[21px] text-ink-2">{text}</p> : null}
 
-      {/* Illustration, fäst i nederkant så namnen hamnar på samma höjd. */}
-      <div className="flex h-[110px] items-end px-4 pt-2 sm:px-6 lg:h-[150px]">
-        <Scen className="h-auto max-h-[100px] w-full lg:max-h-[140px]" title={SCEN_ALT[paket]} />
-      </div>
-
-      <div className="flex flex-1 flex-col px-4 pb-4 pt-2 sm:px-6 sm:pb-6">
-        <h3 className="font-display text-[26px] font-bold leading-[30px] tracking-[-0.025em] lg:text-[30px] lg:leading-[34px]">
-          {copy.namn}
-        </h3>
-        {/* Förklaringsraden under namnet (R2, beslut-paketnamn 2026-09-24). */}
-        <p className={`mt-1 text-meta ${meta}`}>{copy.beskrivning}</p>
-
-        {/* Värdemeningen, en per skärmstorlek. */}
-        <p className="mt-2 font-display text-[18px] font-semibold leading-6 tracking-[-0.01em] lg:hidden">
-          {copy.vardeMobil}
-        </p>
-        <p className="mt-2 hidden font-display text-[18px] font-semibold leading-6 tracking-[-0.01em] lg:block">
-          {copy.varde}
-        </p>
-
-        {/* För dig som: desktop på CV- och Träningspaketet, båda på Hela paketet. */}
-        {copy.fordigMobil ? (
-          <p className={`mt-2 text-sm leading-[22px] lg:hidden ${damp}`}>{copy.fordigMobil}</p>
-        ) : null}
-        <p className={`mt-2 hidden text-sm leading-[22px] lg:block lg:min-h-[46px] ${damp}`}>
-          {copy.fordig}
-        </p>
-
-        {/* Prisraden. */}
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="whitespace-nowrap font-display text-[40px] font-bold leading-[40px] tracking-[-0.03em] tabular-nums lg:text-[48px] lg:leading-[48px]">
-            {pris ? pris.belopp : `${belopp} kr`}
-          </span>
-          {pris ? (
-            <span className={`whitespace-pre-line text-meta ${meta}`}>{pris.sub}</span>
-          ) : allt ? (
-            <span className={`whitespace-pre-line text-meta ${meta}`}>{alltPrisSub(plan)}</span>
-          ) : (
-            <>
-              <span className={`whitespace-pre-line text-meta lg:hidden ${meta}`}>
-                {copy.prisSubMobil}
-              </span>
-              <span className={`hidden whitespace-pre-line text-meta lg:block ${meta}`}>
-                {copy.prisSub}
-              </span>
-            </>
-          )}
-        </div>
-
-        {allt && visaLangd ? (
-          <div className="mt-3">
-            <LangdVal
-              label={`Hur länge vill du ha ${copy.namn}`}
-              value={langd}
-              onChange={bytLangd}
-              yta="ink"
-              inaktiva={inaktivaLangder}
-              langaEtiketter
-            />
-            {langdNot ? (
-              <p className={`mt-2 text-meta ${meta}`}>{langdNot}</p>
-            ) : plan === 'all_day' ? (
-              <p className={`mt-2 text-meta ${meta}`}>{DAG_RAD}</p>
-            ) : null}
-          </div>
-        ) : null}
-
-        {/* Så här fungerar det. */}
-        <div className={`mt-6 border-t pt-4 ${linje}`}>
-          {/* Spårens etikett "Så här fungerar det" faller bort på mobil
-              (sektion 2), Allt behåller sin "Utöver allt i ...". */}
-          <p className={`mb-3 text-steg uppercase ${meta} ${allt ? '' : 'hidden lg:block'}`}>
-            {copy.listEtikett}
-          </p>
-          <ul className="grid gap-3">
-            {copy.rader.map((rad) => (
-              <li
-                key={rad.rubrik}
-                className={`grid grid-cols-[28px_1fr] items-start gap-3 text-sm leading-5 ${
-                  rad.mobil ? '' : 'hidden lg:grid'
-                }`}
-              >
-                <span
-                  className={`grid h-7 w-7 place-items-center rounded-lg ${
-                    allt ? 'bg-ink-hover text-white' : 'bg-insunken text-ink-1'
-                  }`}
-                  aria-hidden="true"
-                >
-                  <RadIkon namn={rad.ikon} />
-                </span>
-                <span>
-                  <span className="block font-semibold lg:hidden">{rad.rubrikMobil ?? rad.rubrik}</span>
-                  <span className="hidden font-semibold lg:block">{rad.rubrik}</span>
-                  <span className={`block text-[13px] leading-[18px] lg:hidden ${damp}`}>
-                    {rad.textMobil ?? rad.text}
-                  </span>
-                  <span className={`hidden text-[13px] leading-[18px] lg:block ${damp}`}>
-                    {rad.text}
-                    {rad.lank ? (
-                      <>
-                        {' '}
-                        <a href={rad.lank.href} className="underline decoration-kant-stark underline-offset-4">
-                          {rad.lank.text}
-                        </a>
-                      </>
-                    ) : null}
-                  </span>
-                </span>
+      {visaLista ? (
+        <div className="mt-4 border-t border-kant pt-3">
+          <p className="text-ey text-ink-3">{copy.listEtikett}</p>
+          <ul className="mt-2 grid gap-2">
+            {copy.ingar.map((rad) => (
+              <li key={rad} className="flex items-start gap-2.5 text-sm leading-5 text-ink-1">
+                <Check className="mt-px h-[18px] w-[18px] shrink-0 text-ton-ink" strokeWidth={2} aria-hidden="true" />
+                <span>{rad}</span>
               </li>
             ))}
           </ul>
         </div>
+      ) : null}
 
-        {/* Knappen sist i flödet men tryckt mot kortets fot. Höjden får växa
-            (h-auto, py-2): tre kort bredvid sidomenyn gav tre rader text i en
-            fast knapp som klipptes (profil-registrering 2026-09-24). Lägsta
-            höjden är kvar på 52 px, så prissidan ser ut som förut. */}
-        <div className="mt-auto pt-6">
-          {status ? (
-            <p
-              className={`flex h-[52px] items-center justify-center rounded-lg border text-base font-semibold ${
-                allt ? 'border-ink-1-kant' : 'border-kant-stark'
-              }`}
-              role="status"
-            >
-              {status}
-            </p>
-          ) : knappen ? (
+      {knappen ? (
+        <div className="mt-auto pt-4">
+          <p className="text-sm font-medium text-ink-1">{prisrad ?? copy.prisrad}</p>
+          <div className={KNAPPRAD}>
             <button
               type="button"
               onClick={knappen.onClick}
               disabled={knappen.disabled}
-              className={`flex h-auto min-h-[52px] w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-center text-base font-semibold leading-5 transition-colors disabled:opacity-40 ${
-                allt
-                  ? 'bg-panel text-ink-1 hover:bg-mark'
-                  : 'bg-ink-1 text-white hover:bg-ink-hover'
-              }`}
+              className={KNAPP_PRIMAR}
             >
               {knappen.text}
-              <ArrowRight className="h-5 w-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             </button>
-          ) : null}
-
-          {lank ? (
-            <button
-              type="button"
-              onClick={lank.onClick}
-              className={`mt-2 block w-full text-center text-sm font-medium underline underline-offset-4 ${
-                allt ? 'decoration-ink-1-kant text-white' : 'decoration-kant-stark text-ink-1'
-              }`}
-            >
-              {lank.text}
-            </button>
-          ) : null}
-
-          {fot ? <p className={`mt-2 text-center text-xs ${meta}`}>{fot}</p> : null}
+            {lank ? (
+              <button type="button" onClick={lank.onClick} className={LANK}>
+                {lank.text}
+              </button>
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
+
+      {fot ? <p className="mt-3.5 border-t border-kant pt-3 text-meta text-ink-3">{fot}</p> : null}
     </section>
   )
 }

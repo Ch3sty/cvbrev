@@ -14,6 +14,7 @@
  * ("Gör om testet") sitter redan i sidhuvudet.
  */
 
+import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import PaywallCard from '@/components/paywall/PaywallCard'
@@ -85,7 +86,7 @@ export default function TestResultBridge({
   // Variant 2b: gratisanvändare som kört tre omgångar möter taket i stället.
   if (variant === '2b') {
     return (
-      <PaywallCard variant="test-tak" quota={quota} planOrder="daypass-first" />
+      <PaywallCard variant="test-tak" quota={quota} />
     )
   }
 
@@ -132,7 +133,7 @@ export default function TestResultBridge({
             <Link
               href={copy.primaryHref}
               onClick={() => trackClick(copy.primaryHref)}
-              className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-kant bg-panel px-4 text-sm font-medium text-ink-1 hover:border-kant-stark sm:w-auto"
+              className={`${KNAPP_SEKUNDAR} sm:w-auto`}
             >
               {copy.primaryLabel}
             </Link>

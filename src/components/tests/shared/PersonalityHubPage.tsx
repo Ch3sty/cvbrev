@@ -12,10 +12,14 @@
  * så hon ser vad testet är innan hon möter betalväggen.
  */
 
-import { useCallback, useEffect, useState } from 'react'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import PageHeader from '@/components/shell/PageHeader'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { LYFT } from '@/lib/rum/copy'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
@@ -23,8 +27,7 @@ import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
 import PersonalityProfileCard from './PersonalityProfileCard'
-import { testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
-import TestLevelBadge from './TestLevelBadge'
+import { LEVEL_LABEL, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { BigFiveScores } from '@/lib/personalityTest/types'
 
 interface Session {
@@ -47,8 +50,8 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
   const isPremium = subscriptionTier === 'premium'
 
   // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
-  // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
-  // betalväggen; med fel spår ritar den FelSpar i stället.
+  // gång. PaywallCard ritar samma betalvägg med eller utan paket; med fel
+  // spår går knappen till prenumerationssidan (spec-rummen 17.5).
   const scope = summary?.paket?.scope ?? null
   const track = summary?.paket?.track ?? null
   const requiredFeature = config.requiresFeature ?? null
@@ -107,54 +110,51 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
 
   const latest = sessions[0] ?? null
 
+  // Det lyfta kortet bär nivån, antalet och tiden (spec 16.3.2). Texten är
+  // känd från konfigurationen, så kortet står redan medan profilen laddar,
+  // med knappens plats reserverad: golvet hoppar inte.
+  const kortTitel = LYFT.personlighet.titel(config.totalQuestions, config.minutes)
+  const kort = (handling: ReactNode) => (
+    <LyftKort
+      className="w-full max-w-3xl"
+      label={kortTitel}
+      eyebrow={LEVEL_LABEL[config.level]}
+      eyebrowTon="neutral"
+      titel={kortTitel}
+      text={LYFT.personlighet.text}
+      handling={handling}
+    />
+  )
+
   if (profileLoading) {
     return (
-      <div className="mx-auto max-w-3xl py-6">
-        <LoadingSkeleton variant="card" label="Testet laddas" />
-      </div>
+      <>
+        <RumHuvud title={config.title} description={config.description} tat={false} />
+        <Golv lyft>
+          {kort(<span aria-hidden="true" className="block h-12 w-full rounded-xl bg-insunken" />)}
+          <div className="w-full max-w-3xl">
+            <LoadingSkeleton variant="card" label="Testet laddas" />
+          </div>
+        </Golv>
+      </>
     )
   }
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
+    <>
+        <RumHuvud title={config.title} description={config.description} tat={false} />
+    <Golv lyft>
+      {kort(
+        // Låst: betalväggen nedan bär sin egen knapp (art-director 20.2
+        // fråga 1), så kortet har ingen handling.
+        isLocked ? undefined : (
+          <button type="button" onClick={handleStart} disabled={isStarting} className={KNAPP_PRIMAR}>
+            {isStarting ? 'Startar testet' : latest ? 'Gör om testet' : 'Starta testet'}
+          </button>
+        )
+      )}
+    <div className="w-full max-w-3xl">
       <div className="space-y-6">
-        <PageHeader
-          title={config.title}
-          description={config.description}
-          action={
-            isLocked ? (
-              <Link
-                href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-              >
-                Köp Träningspaketet, 79 kr i veckan
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={handleStart}
-                disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
-              >
-                {isStarting
-                  ? 'Startar testet'
-                  : latest
-                    ? 'Gör om testet'
-                    : 'Starta testet'}
-              </button>
-            )
-          }
-        >
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <TestLevelBadge kind="personlighet" level={config.level} />
-            <span className="text-xs tabular-nums text-ink-3">
-              {config.totalQuestions} påståenden
-            </span>
-            <span className="text-xs tabular-nums text-ink-3">
-              ca {config.minutes} min
-            </span>
-          </div>
-        </PageHeader>
 
         {startError ? (
           <p className="text-sm text-fel" role="alert">
@@ -182,6 +182,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
             feature={requiredFeature ?? undefined}
             scope={scope}
             track={track}
+            plats="testniva"
           />
             <p className="text-sm text-ink-2">
               Du kan börja med{' '}
@@ -204,5 +205,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
         ) : null}
       </div>
     </div>
+    </Golv>
+    </>
   )
 }

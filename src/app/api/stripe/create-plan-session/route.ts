@@ -16,10 +16,10 @@ import {
   alreadySubscribedResponse,
   blocksAsDuplicate,
 } from '@/lib/stripe/guard-existing-subscription'
-import { PLAN_BY_KEY, isPlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
-import { samtyckeVidKop } from '@/components/pricing/paket-copy'
+import { KOPSTEG, samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,6 +42,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Okänt produktval' }, { status: 400 })
     }
     const selected = PLAN_BY_KEY[plan]
+
+    // Bara Jobbcoach Premium säljs (spec-rummen 17.3). De osålda paketen
+    // står kvar i PLANS för befintliga prenumeranter, men nya köp avvisas.
+    if (!selected.saljs) {
+      return NextResponse.json(
+        {
+          error: `${PLAN_BY_KEY[SALD_PLAN].name} är det vi säljer i dag. Välj det i stället.`,
+          saljs: false,
+          plan: SALD_PLAN,
+        },
+        { status: 400 }
+      )
+    }
 
     // Ångerrättssamtycket, docs/plan-paket-och-onboarding.md avsnitt 8.
     // Undantaget från ångerrätten på fjorton dagar gäller bara om samtycket
@@ -101,14 +114,17 @@ export async function POST(request: NextRequest) {
       if (existing && blocksAsDuplicate(existing, selected.scope)) {
         return NextResponse.json(alreadySubscribedResponse(existing), { status: 409 })
       }
-      // Uppgradering från ett spår till Hela paketet byter pris på den befintliga
+      // Uppgradering från ett spår till Jobbcoach Premium byter pris på den befintliga
       // prenumerationen. En andra checkout skulle ge kunden två abonnemang.
+      // Texten namnger det hon faktiskt har, inte Premium: hon har ett spår.
       if (existing) {
+        const harNamn = existing.planKey ? PLAN_BY_KEY[existing.planKey].name : 'en prenumeration'
         return NextResponse.json(
           {
-            error: 'Du har redan ett paket. Byt paket i stället för att teckna ett till.',
+            error: KOPSTEG.harSpar(harNamn),
             upgradeAvailable: true,
             upgradeUrl: '/api/stripe/create-upgrade-session',
+            bytUrl: KOPSTEG.prenumerationHref,
             currentScope: existing.scope,
           },
           { status: 409 }

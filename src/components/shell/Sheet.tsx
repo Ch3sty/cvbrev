@@ -4,7 +4,8 @@
  * Sheet: bottenark på mobil, centrerad dialog på desktop
  * (docs/designsystem.md, "Komponenter").
  *
- * Ett svävande element, så skugga är tillåten här. Upp från botten på mobil,
+ * Ett svävande element, så skugga är tillåten här. I Rummen (spec 2.1):
+ * papper, radie 24 upptill, handtag i kant-stark och dimman i --dimma. Upp från botten på mobil,
  * tonar in på desktop, 240 ms, ren CSS.
  *
  * Regler som byggs in i stället för att upprepas per anropsplats:
@@ -137,7 +138,7 @@ export default function Sheet({
         type="button"
         aria-label="Stäng"
         onClick={onClose}
-        className="absolute inset-0 bg-ink-1/40 motion-safe:animate-[fadeInPlace_200ms_ease-out]"
+        className="absolute inset-0 bg-[color:var(--dimma,rgba(10,12,30,.55))] motion-safe:animate-[fadeInPlace_200ms_ease-out]"
       />
 
       <div
@@ -148,7 +149,7 @@ export default function Sheet({
         aria-label={labelledBy ? undefined : 'Dialog'}
         tabIndex={-1}
         style={dragY ? { transform: `translateY(${dragY}px)` } : undefined}
-        className={`relative flex max-h-[90dvh] w-full flex-col overflow-hidden rounded-t-xl border border-kant bg-panel shadow-svav outline-none motion-safe:animate-[sheetUp_240ms_ease-out] sm:rounded-xl sm:motion-safe:animate-[fadeInPlace_240ms_ease-out] ${SIZE[size]} ${className ?? ''}`}
+        className={`relative flex max-h-[90dvh] w-full flex-col overflow-hidden rounded-t-ark border border-kant bg-papper text-ink-1 shadow-svav outline-none motion-safe:animate-[sheetUp_240ms_ease-out] sm:rounded-ark sm:motion-safe:animate-[fadeInPlace_240ms_ease-out] ${SIZE[size]} ${className ?? ''}`}
       >
         {/* Draghandtag, bara mobil. Bär svepgesten. */}
         <div
@@ -211,7 +212,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="Stäng"
-      className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-insunken hover:text-ink-1"
+      className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
     >
       <svg
         viewBox="0 0 24 24"

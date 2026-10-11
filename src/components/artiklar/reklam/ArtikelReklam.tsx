@@ -3,9 +3,10 @@
  * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6).
  *
  * Tre platser på en artikel: efter andra stycket (verktyget, gratis först),
- * i sidokolumnen (paketet, kort) och efter texten (paketet, fullt i bläck).
- * Två platser i listan: gratiskortet bland artikelkorten och de tre paketen
- * i bläck efter pagineringen. Klustret väljer paketet (paketForKluster).
+ * i sidokolumnen (Premium, kort) och efter texten (Premium, fullt i bläck).
+ * Två platser i listan: gratiskortet bland artikelkorten och Premium i bläck
+ * efter pagineringen. Klustret väljer vinkeln (paketForKluster); alla kort
+ * säljer Jobbcoach Premium.
  *
  * Alla är serverkomponenter. Rubrikerna är p med display-stil, aldrig h2
  * eller h3, så att de inte hamnar i artikelns rubrikträd (SEO-spärrlistan
@@ -17,7 +18,6 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { ArtikelPaket, CtaCluster, InlineVerktyg } from '@/lib/cta/clusters'
 import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
-import { paketNamn } from '@/lib/plans/plans'
 import {
   IlluScenAllt,
   IlluScenBrev,
@@ -316,7 +316,7 @@ export function ListaSlutKort() {
         eyebrow={LISTA_SLUT.etikett}
         title={LISTA_SLUT.rubrik}
         titleAs="p"
-        label="Paketen"
+        label={LISTA_SLUT.etikett}
         text={LISTA_SLUT.text}
         action={
           <Link href={LISTA_SLUT.href} data-cta-klick={LISTA_SLUT.href} className={INK_KNAPP}>
@@ -329,19 +329,11 @@ export function ListaSlutKort() {
           </Link>
         }
       >
-        <ul className="grid gap-3 lg:grid-cols-3">
-          {[LISTA_SLUT.paket[2], LISTA_SLUT.paket[0], LISTA_SLUT.paket[1]].map((p) => (
-            <li
-              key={p.namn}
-              className={`rounded-lg border border-ink-1-kant p-4 ${p.namn === paketNamn('all_week') ? 'lg:order-last' : ''}`}
-            >
-              <p className="text-steg uppercase text-ink-1-accent">{p.etikett}</p>
-              <p className="mt-1 font-display text-[22px] font-bold leading-7 text-white">{p.namn}</p>
-              <p className="mt-1 text-sm leading-[22px] text-ink-1-mjuk">{p.text}</p>
-              <p className="mt-3 flex items-baseline gap-2">
-                <span className="font-display text-[24px] font-bold tabular-nums text-white">{p.pris}</span>
-                <span className="text-meta text-ink-1-mjuk">{p.under}</span>
-              </p>
+        <ul className="space-y-2 text-sm leading-[22px] text-white">
+          {LISTA_SLUT.rader.map((r) => (
+            <li key={r} className="flex gap-2">
+              <span aria-hidden="true" className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ink-1-accent" />
+              <span>{r}</span>
             </li>
           ))}
         </ul>

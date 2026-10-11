@@ -11,6 +11,8 @@
  * - "funkar cv-byggaren pa mobil"
  */
 
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+
 export interface FaqItem {
   q: string
   a: string
@@ -23,7 +25,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
-    a: 'Ja. Du kan skapa ditt CV och ladda ner det en gång utan att lämna kortuppgifter. Tre CV-mallar är fria, och de räcker långt för de flesta ansökningar. Vill du ha alla mallar och ladda ner utan tak ingår det i CV-paketet för 79 kr i veckan.',
+    a: 'Ja. Du kan skapa ditt CV och ladda ner det en gång utan att lämna kortuppgifter. Tre CV-mallar är fria, och de räcker långt för de flesta ansökningar. Vill du ha alla mallar och ladda ner utan tak ingår det i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '.',
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',

@@ -9,7 +9,7 @@ import SkapaCvLiveDemo from './components/SkapaCvLiveDemo'
 import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { IlluScenSkapaCv } from '@/components/illustrations/PriserScener'
-import { PLAN_BY_KEY } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { SIMPLE_TEMPLATES, TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 
 const FUNKTIONER = [
@@ -128,7 +128,6 @@ export default function SkapaCvSida() {
     })),
   }
 
-  const pris = PLAN_BY_KEY.cv_week.amount
 
   return (
     <>
@@ -208,15 +207,10 @@ export default function SkapaCvSida() {
             lank: { text: 'Skapa ditt CV gratis', href: '/register?borja=cv' },
           },
         ]}
-        citat={{
-          text: 'Jag hade kämpat med Word i flera veckor och fick aldrig till det. Bytte till er CV-byggare och hade ett snyggt CV på en kvart. Skickade in tre ansökningar samma dag.',
-          namn: 'Marcus, 32, Göteborg',
-          roll: 'systemutvecklare, från veckor i Word till en kvart',
-        }}
         slut={{
-          eyebrow: `${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan`,
+          eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Skapa ditt CV gratis på minuter.',
-          text: `Sju enkla steg, förhandsvisning och mallar som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, full CV-analys och nedladdning av allt du skriver ingår i ${PLAN_BY_KEY.cv_week.name}, ${pris} kr i veckan.`,
+          text: `Sju enkla steg, förhandsvisning och mallar som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, full CV-analys och nedladdning av allt du skriver ingår i ${paketKort()}.`,
           knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

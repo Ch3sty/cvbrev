@@ -1,5 +1,6 @@
 'use client'
 
+import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import LinkedInProfileMockup, {
@@ -135,7 +136,7 @@ export default function Step3Results({
       <button
         type="button"
         onClick={handleCopyAll}
-        className="inline-flex h-11 items-center justify-center rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 hover:bg-insunken"
+        className={KNAPP_SEKUNDAR_SMAL}
       >
         {copiedAll ? 'Alla sektioner kopierade' : 'Kopiera alla sektioner'}
       </button>
@@ -180,7 +181,7 @@ export default function Step3Results({
               role="radio"
               aria-checked={active}
               onClick={() => setActiveSection(s.key)}
-              className={`inline-flex h-11 items-center rounded-md border bg-panel px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken ${
+              className={`inline-flex h-11 items-center rounded-md border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
                 active ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >

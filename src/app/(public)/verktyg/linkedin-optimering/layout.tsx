@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import { SALD_PLAN, paketNamn } from '@/lib/plans/plans'
+
+const LINKEDIN_OG = `Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i ${paketNamn(SALD_PLAN)}, ingen LinkedIn-inloggning.`
 
 export const metadata: Metadata = {
   title:
@@ -23,7 +26,7 @@ export const metadata: Metadata = {
     title:
       'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
     description:
-      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i CV-paketet och Hela paketet, ingen LinkedIn-inloggning.',
+      LINKEDIN_OG,
     url: 'https://www.jobbcoach.ai/verktyg/linkedin-optimering',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -34,7 +37,7 @@ export const metadata: Metadata = {
     title:
       'LinkedIn-optimering: hamna i rekryterarnas sökresultat',
     description:
-      'Vi optimerar fem sektioner samtidigt och du klistrar tillbaka texten själv. Ingår i CV-paketet och Hela paketet.',
+      LINKEDIN_OG,
   },
   robots: {
     index: true,

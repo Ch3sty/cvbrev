@@ -61,8 +61,8 @@ export default function TestMascotNotifications() {
       description: 'slutförde onboarding'
     },
     {
-      title: 'Paketet är aktiverat',
-      message: 'Allt i paketet är upplåst nu.',
+      title: 'Du har Premium',
+      message: 'Allt i Premium är öppet nu.',
       mascot: '/images/maskot/success-premium-activated.svg',
       description: 'aktiverade premium'
     },
@@ -243,7 +243,7 @@ export default function TestMascotNotifications() {
           className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border-2 border-gray-200"
         >
           <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-2">
-            Funktioner i paketen
+            Det här ingår i Premium
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">

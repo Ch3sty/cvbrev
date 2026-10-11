@@ -10,6 +10,7 @@
  * "Börja om" är destruktivt och kräver bekräftelse, därför ConfirmDialog.
  */
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react'
 import ConfirmDialog from './ConfirmDialog'
 import { describeAge } from '@/lib/flow/draft'
@@ -37,7 +38,7 @@ export default function FlowResumeBanner({
     <>
       <section
         aria-label="Påbörjat utkast"
-        className="rounded-xl border border-kant-stark bg-panel p-4"
+        className="rounded-xl border border-kant-stark bg-papper p-4"
       >
         <h2 className="text-kort text-ink-1">Du har ett påbörjat utkast</h2>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">
@@ -49,7 +50,7 @@ export default function FlowResumeBanner({
           <button
             type="button"
             onClick={onResume}
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Fortsätt
           </button>

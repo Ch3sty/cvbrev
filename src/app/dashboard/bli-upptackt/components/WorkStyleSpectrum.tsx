@@ -46,7 +46,7 @@ export default function WorkStyleSpectrum({ spectrum }: { spectrum: SpectrumView
         <div className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-kant" />
         <div className="relative mx-1.5 h-full">
           <span
-            className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-panel bg-ink-1"
+            className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-papper bg-ink-1"
             style={{ left: BAND_POSITION[spectrum.band] }}
           />
         </div>

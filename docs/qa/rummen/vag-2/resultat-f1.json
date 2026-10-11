@@ -1,0 +1,136 @@
+{
+  "bas": "http://localhost:5232",
+  "tid": "2026-10-11T02:05:31.758Z",
+  "hem": [
+    {
+      "t": "F1",
+      "form": "pixel7",
+      "system": "light",
+      "tillstand": "kurvan",
+      "ram": "F1",
+      "h1": [
+        "Figurer och mönster"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": 11,
+      "svgTextMax": 13,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "F1-pixel7-ljust.png"
+    },
+    {
+      "t": "F1",
+      "form": "desktop",
+      "system": "light",
+      "tillstand": "kurvan",
+      "ram": "F1",
+      "h1": [
+        "Figurer och mönster"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": 11,
+      "svgTextMax": 13,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "light",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "F1-desktop-ljust.png"
+    },
+    {
+      "t": "F1",
+      "form": "pixel7",
+      "system": "dark",
+      "tillstand": "kurvan",
+      "ram": "F1",
+      "h1": [
+        "Figurer och mönster"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": true,
+      "sidomeny": null,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": 11,
+      "svgTextMax": 13,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "dark",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "F1-pixel7-morkt.png"
+    },
+    {
+      "t": "F1",
+      "form": "desktop",
+      "system": "dark",
+      "tillstand": "kurvan",
+      "ram": "F1",
+      "h1": [
+        "Figurer och mönster"
+      ],
+      "kopparknappar": 0,
+      "kopparTexter": [],
+      "kopparIBild": null,
+      "kopparPaVagg": 0,
+      "nav": null,
+      "sidomeny": true,
+      "topprad": true,
+      "streck": false,
+      "nollProcent": false,
+      "emDash": false,
+      "svgTextMin": 11,
+      "svgTextMax": 13,
+      "axHtml": [
+        11,
+        11
+      ],
+      "horisontellScroll": false,
+      "colorScheme": "dark",
+      "motion": false,
+      "konsol": [],
+      "http": [],
+      "fil": "F1-desktop-morkt.png"
+    }
+  ],
+  "ingang": [],
+  "natfel": []
+}

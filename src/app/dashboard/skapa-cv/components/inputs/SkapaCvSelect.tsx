@@ -1,7 +1,7 @@
 'use client'
 
 import { forwardRef, SelectHTMLAttributes } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown } from '@/components/illustrations/RumIkoner'
 import { FIELD, FIELD_OK, FIELD_ERR, LABEL } from './SkapaCvInput'
 
 interface Option {

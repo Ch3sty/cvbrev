@@ -3,7 +3,7 @@
 // kontostatus, och ignorerar därför opt-out. Undantaget är snävt, allt
 // säljande ligger i de vanliga mailen.
 
-import { paketMedPris } from '@/lib/plans/plans';
+import { SALD_PLAN, paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, firstName } from './layout';
 
@@ -62,7 +62,7 @@ export const cancelImmediate: LifecycleEmail = {
             'Dina personliga brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: tre CV-mallar, ett personligt brev i veckan och grundnivån i varje testtyp.'
           ) +
           paragraph(
-            `Skulle du behöva oss igen under en intensiv period väljer du paketet som passar: ${paketMedPris('cv_week')}, ${paketMedPris('test_week')} eller ${paketMedPris('all_week')}. Du säger upp i ditt konto.`
+            `Skulle du behöva oss igen under en intensiv period ingår allt i ${paketMedPris(SALD_PLAN)}. Du säger upp i ditt konto.`
           ),
         ctaLabel: 'Till min översikt',
         ctaUrl: '/dashboard',

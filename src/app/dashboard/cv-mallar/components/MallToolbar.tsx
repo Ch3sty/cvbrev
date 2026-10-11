@@ -2,9 +2,17 @@
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useState, useRef, useEffect } from 'react';
-import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from 'lucide-react';
+import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from '@/components/illustrations/RumIkoner';
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
+
+/**
+ * Typsnittsgruppens rubrik. preview-utils kallar premiumgruppen "Premium",
+ * samma ord som brickan (copy-premium avsnitt 3).
+ */
+function kategoriNamn(kategori: string): string {
+  return kategori === 'Premium' ? PAKETRADER.bricka : kategori;
+}
 
 /** Maste matcha langden pa ut-keyframsen i FONT_MENU_CSS. */
 const FONT_EXIT_MS = 220;
@@ -122,7 +130,7 @@ export default function MallToolbar({
   const supportsLinkedIn = !!template?.features?.supportsLinkedIn;
 
   return (
-    <div className="flex min-h-[72px] flex-wrap items-center gap-2 rounded-xl border border-kant bg-panel p-3 sm:min-h-[76px] sm:gap-3 sm:p-4">
+    <div className="flex min-h-[72px] flex-wrap items-center gap-2 rounded-xl border border-kant bg-papper p-3 sm:min-h-[76px] sm:gap-3 sm:p-4">
       {fontMounted && <style dangerouslySetInnerHTML={{ __html: FONT_MENU_CSS }} />}
       {/* Typsnitt-dropdown */}
       <div ref={fontDropdownRef} className="relative">
@@ -130,7 +138,7 @@ export default function MallToolbar({
           type="button"
           onClick={() => setIsFontOpen(!isFontOpen)}
           aria-expanded={isFontOpen}
-          className="inline-flex h-11 items-center gap-2 rounded-lg border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken sm:px-4"
+          className="inline-flex h-11 items-center gap-2 rounded-lg border border-kant-stark bg-papper px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2 sm:px-4"
         >
           <Type className="h-4 w-4 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
           <span className="hidden sm:inline">Typsnitt:</span>
@@ -145,14 +153,14 @@ export default function MallToolbar({
         {/* Desktop dropdown */}
         {fontMounted && (
           <div
-            className={`absolute left-0 top-full z-50 mt-2 hidden max-h-[420px] w-64 overflow-y-auto rounded-xl border border-kant bg-panel md:block ${
+            className={`absolute left-0 top-full z-50 mt-2 hidden max-h-[420px] w-64 overflow-y-auto rounded-xl border border-kant bg-papper md:block ${
               fontLeaving ? 'font-menu-leave' : 'font-menu-enter'
             }`}
           >
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2 first:pt-3 last:pb-3">
                     <div className="px-4 pb-1.5 text-steg uppercase text-ink-3">
-                      {category}
+                      {kategoriNamn(category)}
                     </div>
                     {fonts.map(font => (
                       <FontOptionRow
@@ -202,16 +210,16 @@ export default function MallToolbar({
               }`}
             />
             <div
-              className={`fixed bottom-0 left-0 right-0 z-50 max-h-[80vh] overflow-y-auto rounded-t-xl bg-panel md:hidden ${
+              className={`fixed bottom-0 left-0 right-0 z-50 max-h-[80vh] overflow-y-auto rounded-t-xl bg-papper md:hidden ${
                 fontLeaving ? 'font-sheet-leave' : 'font-sheet-enter'
               }`}
             >
-              <div className="sticky top-0 flex items-center justify-between border-b border-kant bg-panel px-4 py-3">
+              <div className="sticky top-0 flex items-center justify-between border-b border-kant bg-papper px-4 py-3">
                 <h3 className="text-kort text-ink-1">Välj typsnitt</h3>
                 <button
                   type="button"
                   onClick={() => setIsFontOpen(false)}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-2 hover:bg-insunken"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-2 hover:bg-papper-2"
                   aria-label="Stäng"
                 >
                   <X className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
@@ -221,7 +229,7 @@ export default function MallToolbar({
                 {Object.entries(fontGroups).map(([category, fonts]) => (
                   <div key={category} className="py-2">
                     <div className="px-5 pb-1.5 pt-2 text-steg uppercase text-ink-3">
-                      {category}
+                      {kategoriNamn(category)}
                     </div>
                     {fonts.map(font => (
                       <FontOptionRow
@@ -266,7 +274,7 @@ function FontOptionRow({
       onClick={onSelect}
       disabled={isLocked}
       type="button"
-      className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left transition-colors hover:bg-insunken ${
+      className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left transition-colors hover:bg-papper-2 ${
         isLocked ? 'cursor-not-allowed opacity-40' : ''
       }`}
     >
@@ -275,7 +283,7 @@ function FontOptionRow({
           {font.name}
         </span>
         {font.tier === 'premium' && (
-          <span className="flex-shrink-0 rounded-md border border-kant bg-insunken px-2 py-0.5 text-meta font-medium text-ink-3">
+          <span className="flex-shrink-0 rounded-md border border-kant bg-papper-2 px-2 py-0.5 text-meta font-medium text-ink-3">
             {PAKETRADER.bricka}
           </span>
         )}
@@ -306,7 +314,7 @@ function ToggleChip({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex h-11 items-center gap-2.5 rounded-lg border border-kant-stark bg-panel py-2 pl-3 pr-2.5 text-sm font-medium transition-colors hover:bg-insunken ${
+      className={`inline-flex h-11 items-center gap-2.5 rounded-lg border border-kant-stark bg-papper py-2 pl-3 pr-2.5 text-sm font-medium transition-colors hover:bg-papper-2 ${
         checked ? 'text-ink-1' : 'text-ink-3'
       }`}
       aria-pressed={checked}
@@ -322,7 +330,7 @@ function ToggleChip({
         }`}
       >
         <span
-          className="absolute top-[2px] h-3.5 w-3.5 rounded-full bg-panel transition-transform"
+          className="absolute top-[2px] h-3.5 w-3.5 rounded-full bg-papper transition-transform"
           style={{ transform: checked ? 'translateX(16px)' : 'translateX(2px)' }}
         />
       </span>

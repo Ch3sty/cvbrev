@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/illustrations/RumIkoner';
 import { IkonMeddelanden } from '@/components/illustrations/Ikoner';
 
 interface Props {
@@ -31,10 +31,10 @@ export default function MessagesShortcut({ pending, unread, total }: Props) {
   const line = parts.length > 0 ? parts.join(', ') : 'Öppna dina konversationer med rekryterare';
 
   return (
-    <div className="rounded-xl border border-kant bg-panel">
+    <div className="rounded-xl border border-kant bg-papper">
       <Link
         href="/dashboard/meddelanden"
-        className="flex min-h-14 items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-insunken"
+        className="flex min-h-14 items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-papper-2"
       >
         <span className="shrink-0 text-ink-2" aria-hidden="true">
           <IkonMeddelanden size={24} />

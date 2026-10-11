@@ -30,7 +30,7 @@ function datum(iso: string | null): string {
 }
 
 function Ram({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">{children}</div>
+  return <div className="rounded-xl border border-kant bg-papper p-4 sm:p-5">{children}</div>
 }
 
 function Lankar({ children }: { children: React.ReactNode }) {
@@ -106,7 +106,7 @@ export default function ProfilPanel({
               </div>
               <div className="mt-1.5 grid grid-cols-5 gap-1" role="img" aria-label={`${f.segment} av 5`}>
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <span key={i} className={`h-1.5 rounded-[3px] ${i <= f.segment ? 'bg-ink-1' : 'bg-insunken'}`} />
+                  <span key={i} className={`h-1.5 rounded-[3px] ${i <= f.segment ? 'bg-ink-1' : 'bg-papper-2'}`} />
                 ))}
               </div>
             </li>

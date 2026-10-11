@@ -22,6 +22,7 @@ import { getTestConfig } from './testConfig';
 import type { TestSlug } from '@/hooks/use-all-test-stats';
 import type { BigFiveScores, PersonalityTestType } from '@/lib/personalityTest/types';
 import type { Scope } from '@/lib/access/features';
+import { formatForPlan, type FormatNyckel } from '@/lib/traning/tempo';
 
 /**
  * Slug i UI mot test_type i logic_test_v4_sessions.
@@ -98,9 +99,15 @@ export interface TesterHubData {
   };
   /** Bästa provresultat i procent per provets session-endpoint. */
   provBestPercent: Record<string, number | null>;
+  /**
+   * Planens provformat ur test_planer (leverantör och variant), för
+   * logikgruppens generalrepetition (spec-rummen 19.6). 'eget' utan plan
+   * eller vid fel. Nyckeln skickas, klienten slår upp PROVFORMAT[nyckel].
+   */
+  provformat: FormatNyckel;
   isPremium: boolean;
   /**
-   * Sann när kontot har featuren test_history, alltså Träningspaketet eller Hela paketet.
+   * Sann när kontot har featuren test_history, alltså Träningspaketet eller Premium.
    *
    * Gratisnivån ser senaste sessionen, aldrig serien (avsnitt 4: "Senaste
    * sessionen fri, historik premium"). Utvecklingen över tid är
@@ -240,6 +247,7 @@ export function emptyHubData(
     },
     personality: { grund: EMPTY_PERSONALITY, avancerad: EMPTY_PERSONALITY },
     provBestPercent: {},
+    provformat: 'eget',
     isPremium,
     hasHistory,
     scope,
@@ -277,7 +285,7 @@ export async function getTesterHubData(
   const provTypes = Object.values(PROV_TEST_TYPE_BY_ENDPOINT);
   const allCognitiveTypes = [...Object.values(COGNITIVE_TEST_TYPE), ...provTypes];
 
-  const [cognitiveRes, personalityRes] = await Promise.all([
+  const [cognitiveRes, personalityRes, planRes] = await Promise.all([
     supabase
       .from('logic_test_v4_sessions')
       .select('id, test_type, score, time_spent, completed_at')
@@ -289,6 +297,11 @@ export async function getTesterHubData(
       .select('id, test_type, scores, time_spent, completed_at')
       .eq('user_id', userId)
       .order('created_at', { ascending: false }),
+    // Planen ger generalrepetitionens format. Ett fel här får aldrig fälla
+    // hubben: utan rad eller vid fel gäller vårt eget format.
+    Promise.resolve(
+      supabase.from('test_planer').select('leverantor, variant').eq('user_id', userId).maybeSingle()
+    ).catch((e: unknown) => ({ data: null, error: e })),
   ]);
 
   if (cognitiveRes.error) {
@@ -297,6 +310,17 @@ export async function getTesterHubData(
   if (personalityRes.error) {
     console.error('Testhubben: kunde inte läsa personlighetssessioner', personalityRes.error);
   }
+
+  const plan = (planRes?.error ? null : planRes?.data) as
+    | { leverantor: string | null; variant: string | null }
+    | null
+    | undefined;
+  if (planRes?.error) {
+    console.error('Testhubben: kunde inte läsa planen', planRes.error);
+  }
+  const provformat: FormatNyckel = plan
+    ? formatForPlan(plan.leverantor, plan.variant).nyckel
+    : 'eget';
 
   const rows = (cognitiveRes.data ?? []) as SessionRow[];
 
@@ -383,6 +407,7 @@ export async function getTesterHubData(
       avancerad: summarizePersonality(personalityRows, 'personlighet-avancerad'),
     },
     provBestPercent,
+    provformat,
     isPremium,
     hasHistory,
     scope,

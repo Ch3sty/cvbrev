@@ -9,8 +9,9 @@
  * väljer en låst mall möta betalväggen. Suddade förhandsvisningar säljer
  * ingenting, de får mallen att se sämre ut än den är.
  *
- * Har hon ett betalt paket som inte täcker mallarna, alltså Träningspaketet, är
- * det inte en spärr utan en uppgradering, och då ritar PaywallCard FelSpar.
+ * Har hon ett betalt paket som inte täcker mallarna, alltså Träningspaketet,
+ * får hon samma betalvägg, och knappen går till prenumerationssidan där
+ * priset byts på hennes prenumeration (spec-rummen 17.5).
  */
 
 import { useState } from 'react';
@@ -21,7 +22,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SIMPLE_TEMPLATES, type SimpleTemplate } from '@/lib/cv/simple-templates';
 import PaywallCard from '@/components/paywall/PaywallCard';
-import { GRATISRADER } from '@/components/paywall/paywall-copy';
+import { GRATISRADER, PAKETRADER } from '@/components/paywall/paywall-copy';
 import { scopeHasFeature, type Scope } from '@/lib/access/features';
 
 interface TemplateSelectorProps {
@@ -115,7 +116,7 @@ export default function TemplateSelector({
                       <div className="absolute left-2 top-2">
                         <Badge className="border-0 bg-gray-900/80 text-white">
                           <Lock className="mr-1 h-3 w-3" />
-                          CV-paketet
+                          {PAKETRADER.bricka}
                         </Badge>
                       </div>
                     )}

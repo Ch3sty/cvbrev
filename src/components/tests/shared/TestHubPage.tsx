@@ -13,10 +13,14 @@
  * gissar aldrig själv om kvoten är slut.
  */
 
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import RumHuvud from '@/components/rum/RumHuvud'
+import Golv from '@/components/rum/Golv'
+import LyftKort from '@/components/rum/LyftKort'
+import { LYFT } from '@/lib/rum/copy'
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import PageHeader from '@/components/shell/PageHeader'
 import StatusRow from '@/components/shell/StatusRow'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
@@ -29,7 +33,6 @@ import {
   testPaths,
   type TestConfig,
 } from '@/app/dashboard/tester/testConfig'
-import TestLevelBadge from './TestLevelBadge'
 import TestPreviousResults, { type TestSessionRow } from './TestPreviousResults'
 
 interface QuotaLock {
@@ -46,7 +49,7 @@ function nextMidnightISO(): string {
 
 export default function TestHubPage({ config }: { config: TestConfig }) {
   const router = useRouter()
-  const { subscriptionTier, loading: profileLoading } = useProfile()
+  const { loading: profileLoading } = useProfile()
   const { summary } = useDashboardData()
   const [sessions, setSessions] = useState<TestSessionRow[]>([])
   /**
@@ -60,11 +63,10 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
   const [quotaLock, setQuotaLock] = useState<QuotaLock | null>(null)
   const [startError, setStartError] = useState<string | null>(null)
 
-  const isPremium = subscriptionTier === 'premium'
 
   // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
-  // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
-  // betalväggen; med fel spår ritar den FelSpar i stället.
+  // gång. PaywallCard ritar samma betalvägg med eller utan paket; med fel
+  // spår går knappen till prenumerationssidan (spec-rummen 17.5).
   const scope = summary?.paket?.scope ?? null
   const track = summary?.paket?.track ?? null
   const requiredFeature = config.requiresFeature ?? null
@@ -157,51 +159,35 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
     : 0
 
   const levelName = LEVEL_LABEL[config.level]
+  const arProv = config.level === 'prov'
   const kindName = KIND_LABEL[config.kind]
 
   return (
-    <div className="mx-auto max-w-3xl py-6">
+    <>
+        {/* Väggen säger var du är, det lyfta kortet vad du gör (spec
+            16.3.2): nivån, antalet och tiden står i kortet, inte i en
+            metarad under väggen. */}
+        <RumHuvud title={config.title} description={config.description} tat={false} />
+    <Golv lyft>
+      <LyftKort
+        className="w-full max-w-3xl"
+        label={arProv ? LYFT.prov.titel(config.totalQuestions, config.minutes) : LYFT.test.titel(config.totalQuestions, config.minutes)}
+        eyebrow={levelName}
+        eyebrowTon="neutral"
+        titel={arProv ? LYFT.prov.titel(config.totalQuestions, config.minutes) : LYFT.test.titel(config.totalQuestions, config.minutes)}
+        text={arProv ? LYFT.prov.text : LYFT.test.text}
+        handling={
+          // Låst: betalväggen nedan bär sin egen knapp (art-director 20.2
+          // fråga 1), så kortet har ingen handling.
+          isLocked || quotaLock ? undefined : (
+            <button type="button" onClick={handleStart} disabled={isStarting} className={KNAPP_PRIMAR}>
+              {isStarting ? 'Startar testet' : sessions.length > 0 ? 'Gör om testet' : 'Starta testet'}
+            </button>
+          )
+        }
+      />
+    <div className="w-full max-w-3xl">
       <div className="space-y-6">
-        <PageHeader
-          title={config.title}
-          description={config.description}
-          action={
-            isLocked ? (
-              <Link
-                href={PREMIUM_HREF}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
-              >
-                Köp Träningspaketet, 79 kr i veckan
-              </Link>
-            ) : quotaLock ? undefined : (
-              <button
-                type="button"
-                onClick={handleStart}
-                disabled={isStarting}
-                className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-40"
-              >
-                {isStarting
-                  ? 'Startar testet'
-                  : sessions.length > 0
-                    ? 'Gör om testet'
-                    : 'Starta testet'}
-              </button>
-            )
-          }
-        >
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <TestLevelBadge kind={config.kind} level={config.level} />
-            <span className="text-xs tabular-nums text-ink-3">
-              {config.totalQuestions} frågor
-            </span>
-            <span className="text-xs tabular-nums text-ink-3">
-              ca {config.minutes} min
-            </span>
-            {!isPremium && !profileLoading ? (
-              <span className="text-xs text-ink-3">En omgång per dag</span>
-            ) : null}
-          </div>
-        </PageHeader>
 
         {sessionsLoading && !quotaLock ? (
           // Platshållare i exakt radens mått medan tidigare resultat hämtas.
@@ -274,6 +260,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
             feature={requiredFeature ?? undefined}
             scope={scope}
             track={track}
+            plats={arProv ? 'provlage' : 'testniva'}
           />
         ) : (
           <TestPreviousResults
@@ -285,5 +272,7 @@ export default function TestHubPage({ config }: { config: TestConfig }) {
         )}
       </div>
     </div>
+    </Golv>
+    </>
   )
 }

@@ -25,7 +25,7 @@ export default function CvFilenameInput({
   const otherSuggestions = suggestions.slice(0, 4);
 
   return (
-    <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <label className="block">
         <span className="mb-1 block text-sm font-medium text-ink-2">
           Ge ditt CV ett namn
@@ -38,7 +38,7 @@ export default function CvFilenameInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-ink-1 shadow-insunken placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
+          className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
         />
         <span className="mt-1 block text-meta text-ink-3">
           Hjälper dig hitta rätt CV senare. Roll och år brukar räcka.
@@ -64,7 +64,7 @@ export default function CvFilenameInput({
                   onChange(suggestion);
                   setShowSuggestions(false);
                 }}
-                className="inline-flex min-h-[44px] items-center rounded-md border border-kant-stark bg-panel px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken"
+                className="inline-flex min-h-[44px] items-center rounded-md border border-kant-stark bg-papper px-3 text-sm font-medium text-ink-1 transition-colors hover:bg-papper-2"
               >
                 {suggestion}
               </button>

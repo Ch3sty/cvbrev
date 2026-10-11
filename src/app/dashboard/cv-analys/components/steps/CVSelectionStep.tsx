@@ -1,8 +1,9 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
-import { Upload, Lock } from 'lucide-react';
+import { Upload, Lock } from '@/components/illustrations/RumIkoner';
 import { formatCVDate } from '@/lib/utils/date-formatter';
 
 import ChoiceCard from '@/components/shell/ChoiceCard';
@@ -45,7 +46,7 @@ export default function CVSelectionStep({
         action={
           <Link
             href="/dashboard/profil/cv"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Ladda upp CV
           </Link>
@@ -89,7 +90,7 @@ export default function CVSelectionStep({
       {/* Subtil länk till uppladdning */}
       <Link
         href="/dashboard/profil/cv"
-        className="flex items-center gap-3 rounded-xl border border-kant bg-panel px-4 py-3 transition-colors hover:border-kant-stark"
+        className="flex items-center gap-3 rounded-xl border border-kant bg-papper px-4 py-3 transition-colors hover:border-kant-stark"
       >
         <Upload className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
         <span className="min-w-0">

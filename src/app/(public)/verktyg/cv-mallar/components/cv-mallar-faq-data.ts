@@ -4,6 +4,8 @@
  * INGA hardcodade antal mallar - mallarna ar dynamiska.
  */
 
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+
 export interface FaqItem {
   q: string
   a: string
@@ -24,7 +26,7 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad är skillnaden på gratis och premium-mallarna?',
-    a: 'De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i CV-paketet för 79 kr i veckan.',
+    a: `De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Kan jag redigera CV:t senare?',

@@ -1,17 +1,22 @@
 /**
- * Paketnamnen (docs/rapporter/beslut-paketnamn-2026-09-24.md).
+ * Paketnamnen (docs/rapporter/beslut-paketnamn-2026-09-24.md) och namnet
+ * Jobbcoach Premium (ägarens beslut 2026-10-11, spec-rummen 17.3 och 17.4,
+ * skrivregeln i docs/design/copy-premium-2026-10-11.md).
  *
  * @gamla-paketnamn Den här filen nämner de gamla namnen med flit: den letar
  * efter dem. Markören ovan släpper igenom en testfil som uttryckligen testar
  * gamla data; ingen annan fil i src ska bära den.
  *
- * Tre saker ska aldrig gå sönder:
+ * Fyra saker ska aldrig gå sönder:
  *
  * 1. En sanning. De gamla namnen får inte stå någonstans i src utanför
  *    plans.ts (som översätter gammal data), migreringar och tester med
  *    markören. Ett namnbyte med sök och ersätt lämnar annars rester.
  * 2. Förklaringsraden är högst 60 tecken och finns för varje paket.
  * 3. Hjälparna ger namnen, perioden och ordningen som beslutet säger.
+ * 4. Skrivregeln: "Jobbcoach Premium" och "Premium" med stort P är de enda
+ *    formerna; "Hela paketet", pluralen "paketen", "Uppgradera till" och
+ *    sammansättningar som "Premium-paketet" står aldrig i en användarsträng.
  */
 
 import { describe, expect, it } from 'vitest'
@@ -20,7 +25,11 @@ import path from 'node:path'
 import {
   PLANS,
   PLAN_BY_KEY,
+  SALD_PLAN,
+  SALJBARA_PLANER,
+  kopKnapp,
   langdOrd,
+  paketKort,
   paketMedLangd,
   paketMedPris,
   paketNamn,
@@ -28,6 +37,8 @@ import {
   paketNamnUrMetadata,
   planKeyFranGammaltNamn,
   prisPeriod,
+  saljbarPlan,
+  saljs,
 } from '@/lib/plans/plans'
 
 const GAMLA = ['CV-veckan', 'Testveckan', 'Allt-veckan', 'Allt-dagen', 'Allt-månaden', 'Allt-kvartalet', 'Allt-manaden']
@@ -45,6 +56,40 @@ function filer(dir: string, ut: string[] = []): string[] {
     } else if (/\.(ts|tsx|js|jsx|mdx|md|json|sql)$/.test(namn)) {
       ut.push(full)
     }
+  }
+  return ut
+}
+
+/** Rader utan kommentarer. Grovt men räcker: blockkommentarer och //-rader faller bort. */
+function kodrader(text: string): Array<[number, string]> {
+  const ut: Array<[number, string]> = []
+  let iBlock = false
+  text.split(/\r?\n/).forEach((rad, i) => {
+    const t = rad.trim()
+    if (iBlock) {
+      if (t.includes('*/')) iBlock = false
+      return
+    }
+    if (t.startsWith('/*') && !t.includes('*/')) {
+      iBlock = true
+      return
+    }
+    if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*') || t.startsWith('{/*') || t.endsWith('*/}')) return
+    ut.push([i + 1, rad.replace(/\s\/\/.*$/, '').replace(/\{\/\*.*?\*\/\}/g, '')])
+  })
+  return ut
+}
+
+/** Källfiler med användarsträngar: ts och tsx utanför tester och markerade filer. */
+function kallfiler(): Array<{ rel: string; text: string }> {
+  const ut: Array<{ rel: string; text: string }> = []
+  for (const fil of filer(SRC)) {
+    if (!/\.(ts|tsx)$/.test(fil)) continue
+    const rel = path.relative(SRC, fil).split(path.sep).join('/')
+    if (rel.includes('__tests__/') || /\.test\.tsx?$/.test(rel)) continue
+    const text = fs.readFileSync(fil, 'utf8')
+    if (text.includes(MARKOR)) continue
+    ut.push({ rel, text })
   }
   return ut
 }
@@ -75,14 +120,14 @@ describe('de gamla paketnamnen', () => {
 })
 
 describe('namnen ur PLANS', () => {
-  it('fyra namn på sex nycklar, Hela paketet ett namn med tre längder', () => {
+  it('fyra namn på sex nycklar, Jobbcoach Premium ett namn med tre längder', () => {
     expect(PLANS.map((p) => [p.key, p.name])).toEqual([
       ['cv_week', 'CV-paketet'],
       ['test_week', 'Träningspaketet'],
       ['all_day', 'Dagspasset'],
-      ['all_week', 'Hela paketet'],
-      ['all_month', 'Hela paketet'],
-      ['all_quarter', 'Hela paketet'],
+      ['all_week', 'Jobbcoach Premium'],
+      ['all_month', 'Jobbcoach Premium'],
+      ['all_quarter', 'Jobbcoach Premium'],
     ])
   })
 
@@ -97,130 +142,192 @@ describe('namnen ur PLANS', () => {
     ])
   })
 
+  it('bara all_month säljs (17.3), de andra står kvar för befintliga kunder', () => {
+    expect(PLANS.filter((p) => p.saljs).map((p) => p.key)).toEqual(['all_month'])
+    expect(SALJBARA_PLANER.map((p) => p.key)).toEqual(['all_month'])
+    expect(SALD_PLAN).toBe('all_month')
+    for (const key of ['cv_week', 'test_week', 'all_day', 'all_week', 'all_quarter'] as const) {
+      expect(PLAN_BY_KEY[key].saljs, key).toBe(false)
+      expect(saljs(key), key).toBe(false)
+      expect(saljbarPlan(key), key).toBe('all_month')
+    }
+    expect(saljs('all_month')).toBe(true)
+    expect(saljbarPlan('all_month')).toBe('all_month')
+    expect(saljbarPlan('skräp')).toBe('all_month')
+    expect(saljbarPlan(undefined)).toBe('all_month')
+  })
+
   it('förklaringsraden finns och är högst 60 tecken', () => {
     for (const p of PLANS) {
       expect(p.beskrivning.length, p.key).toBeGreaterThan(0)
       expect(p.beskrivning.length, `${p.key}: ${p.beskrivning}`).toBeLessThanOrEqual(60)
       expect(p.beskrivning, p.key).not.toMatch(/—/)
     }
-    expect(PLAN_BY_KEY.cv_week.beskrivning).toBe('CV-mallar, CV-analys, personliga brev som PDF, LinkedIn')
-    expect(PLAN_BY_KEY.test_week.beskrivning).toBe('Alla rekryteringstester, personlighetstestet, intervjuprovet')
-    expect(PLAN_BY_KEY.all_week.beskrivning).toBe('Allt ingår: CV, tester, matchning, Jobbcoachen, Bli upptäckt')
-    expect(PLAN_BY_KEY.all_day.beskrivning).toBe('Hela paketet i 24 timmar. Engångsköp, förnyas inte.')
+    expect(PLAN_BY_KEY.all_month.beskrivning).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(PLAN_BY_KEY.all_day.beskrivning).toBe('Jobbcoach Premium i 24 timmar. Engångsköp, förnyas inte.')
+    expect(PLAN_BY_KEY.all_day.body).toBe('24 timmar med Jobbcoach Premium. Ett engångsköp, inget dras igen.')
   })
 
-  it('personlighetstestet syns i Träningspaketet och Hela paketet', () => {
-    expect(PLAN_BY_KEY.test_week.highlights.join(' ')).toMatch(/personlighetstestet/i)
-    for (const key of ['all_week', 'all_month', 'all_quarter'] as const) {
-      const h = PLAN_BY_KEY[key].highlights
-      // Egna rader först, hänvisningen till de andra två sist (R3).
-      expect(h[0]).toMatch(/Jobbmatchning/)
-      expect(h[1]).toMatch(/Jobbcoachen/)
-      expect(h[2]).toMatch(/Bli upptäckt/)
-      expect(h[3]).toMatch(/CV-paketet och Träningspaketet.*personlighetstestet/)
+  it('all_month enligt copy-premium avsnitt 3', () => {
+    const m = PLAN_BY_KEY.all_month
+    expect(m.body).toBe('149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.')
+    expect(m.ctaLabel).toBe('Köp Premium, 149 kr i månaden')
+    // Raden som hänvisade till de andra paketen är två egna rader (copy-premium 3).
+    expect(m.highlights).toContain('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
+    expect(m.highlights).toContain('Alla rekryteringstester, provläget och personlighetstestet')
+    expect(m.highlights.join(' ')).toMatch(/Jobbmatchning/)
+    expect(m.highlights.join(' ')).toMatch(/Jobbcoachen/)
+    expect(m.highlights.join(' ')).toMatch(/Bli upptäckt/)
+  })
+
+  it('ingen ctaLabel säger Välj eller fulla namnet i knappen (copy-premium 2 och 8)', () => {
+    for (const p of PLANS) {
+      expect(p.ctaLabel, p.key).toMatch(/^Köp /)
+      expect(p.ctaLabel, p.key).not.toMatch(/Köp Jobbcoach Premium/)
     }
   })
 
   it('hjälparna', () => {
-    expect(paketNamn('all_month')).toBe('Hela paketet')
+    expect(paketNamn('all_month')).toBe('Jobbcoach Premium')
+    expect(paketKort()).toBe('Premium')
+    expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
+    expect(kopKnapp('all_month').length).toBeLessThan(30)
+    expect(kopKnapp()).toBe(`Köp ${paketKort()}, ${prisPeriod('all_month')}`)
     expect(paketNamnForScope('cv')).toBe('CV-paketet')
     expect(paketNamnForScope('tester')).toBe('Träningspaketet')
-    expect(paketNamnForScope('allt')).toBe('Hela paketet')
+    expect(paketNamnForScope('allt')).toBe('Jobbcoach Premium')
     expect(prisPeriod('cv_week')).toBe('79 kr i veckan')
     expect(prisPeriod('all_month')).toBe('149 kr i månaden')
     expect(prisPeriod('all_quarter')).toBe('299 kr per kvartal')
     expect(prisPeriod('all_day')).toBe('49 kr, ett dygn')
-    expect(paketMedPris('cv_week')).toBe('CV-paketet, 79 kr i veckan')
-    expect(paketMedLangd('all_month')).toBe('Hela paketet, en månad')
+    expect(paketMedPris('all_month')).toBe('Jobbcoach Premium, 149 kr i månaden')
+    expect(paketMedLangd('all_month')).toBe('Jobbcoach Premium, en månad')
+    // Befintliga vecko- och kvartalskunder (krock 8).
+    expect(paketMedLangd('all_week')).toBe('Jobbcoach Premium, en vecka')
+    expect(paketMedLangd('all_quarter')).toBe('Jobbcoach Premium, ett kvartal')
     expect(paketMedLangd('all_day')).toBe('Dagspasset')
     expect(langdOrd('all_quarter')).toBe('ett kvartal')
   })
 
-  it('gammal data får det nya namnet', () => {
+  it('gammal data får det nya namnet, också Hela paketet (krock 7)', () => {
     expect(planKeyFranGammaltNamn('Allt-månaden')).toBe('all_month')
     expect(planKeyFranGammaltNamn('Testveckan')).toBe('test_week')
+    expect(planKeyFranGammaltNamn('Hela paketet')).toBe('all_month')
     expect(planKeyFranGammaltNamn('Något annat')).toBeNull()
     expect(paketNamnUrMetadata({ planName: 'CV-veckan' })).toBe('CV-paketet')
-    expect(paketNamnUrMetadata({ planName: 'Allt-kvartalet' })).toBe('Hela paketet, ett kvartal')
-    expect(paketNamnUrMetadata({ planKey: 'all_week', planName: 'Allt-veckan' })).toBe('Hela paketet, en vecka')
+    expect(paketNamnUrMetadata({ planName: 'Hela paketet' })).toBe('Jobbcoach Premium, en månad')
+    expect(paketNamnUrMetadata({ planName: 'Allt-kvartalet' })).toBe('Jobbcoach Premium, ett kvartal')
+    expect(paketNamnUrMetadata({ planKey: 'all_week', planName: 'Allt-veckan' })).toBe('Jobbcoach Premium, en vecka')
     expect(paketNamnUrMetadata(null)).toBe('CV-paketet')
   })
 })
 
 /**
- * Ordet Premium (docs/qa/qa-slutflode-2026-09-24.md, K2). Produkten heter
- * paket sedan 2026-09-24: en knapp säger Köp med paketnamn och pris, en
- * etikett "Ingår när du har ett paket". De tekniska namnen får stå kvar:
- * premium_*-kolumner och värdet 'premium' (gemener), identifierare som
- * isPremium och PremiumGate (ordet sitter ihop med annat), kommentarer och
- * testfiler med markören. I yrkesmallarnas branschtexter är premium ett
- * vanligt ord (Premium-restauranger, Premium-CAD); där fångas bara
- * produktnamnet.
+ * Skrivregeln för Jobbcoach Premium (copy-premium avsnitt 2, 4 och 7).
+ * Vänd 2026-10-11: ordet Premium är tillbaka med en enda betydelse, och det
+ * som förbjuds är de felaktiga formerna. Tekniska namn får stå: premium_*-
+ * kolumner, värdet 'premium' i en jämförelse, identifierare som isPremium
+ * och PremiumGate, kommentarer och testfiler med markören. I yrkesmallarnas
+ * branschtexter är premium ett vanligt adjektiv och lämnas.
  */
-describe('ordet Premium', () => {
-  const ORD = /(^|[^A-Za-z_])Premium(?![A-Z0-9_])/
-  const PRODUKT = /Premium[- ]?(mall|variant|konto|användare|prenumeration|funktion|tjänst|nivå)/
+describe('skrivregeln för Jobbcoach Premium', () => {
   const BRANSCHTEXT = new Set(['app/(public)/cv-mallar/yrkesmall-content.ts'])
+  /** Adminen och cron är interna ytor: där får premium och paketen stå som tekniska ord. */
+  const INTERNT = /^app\/(admin|api\/admin|api\/cron)\//
 
-  /** Rader utan kommentarer. Grovt men räcker: blockkommentarer och //-rader faller bort. */
-  function koddrader(text: string): Array<[number, string]> {
-    const ut: Array<[number, string]> = []
-    let iBlock = false
-    text.split(/\r?\n/).forEach((rad, i) => {
-      const t = rad.trim()
-      if (iBlock) {
-        if (t.includes('*/')) iBlock = false
-        return
-      }
-      if (t.startsWith('/*') && !t.includes('*/')) {
-        iBlock = true
-        return
-      }
-      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*') || t.startsWith('{/*')) return
-      ut.push([i + 1, rad.replace(/\s\/\/.*$/, '')])
-    })
-    return ut
-  }
+  /** Former som aldrig får stå i en användarsträng. */
+  const FORBJUDNA: Array<[string, RegExp]> = [
+    ['Hela paketet', /[Hh]ela paketet/],
+    ['Premium-paketet', /Premium-?paketet/i],
+    ['Premium- följt av ett ord', /(^|[^A-Za-z_])Premium-[a-zåäö]/],
+    ['Jobbcoachen Premium', /Jobbcoachen Premium/],
+    ['Jobbcoach.ai Premium', /Jobbcoach\.ai Premium/i],
+    ['Uppgradera till', /[Uu]ppgradera till/],
+    ['paketen', /(^|[^A-Za-zåäö_])paketen(?![A-Za-zåäö_])/],
+  ]
 
-  it('står inte i någon användarsträng i src', () => {
+  /** Gement premium som ord i en sträng (inte premium_, isPremium, 'premium' som värde). */
+  const GEMENT = /['"`>][^'"`<]*(^|[^A-Za-z_'"`-])premium[ .,][^'"`<]*/
+
+  it('ingen förbjuden form i någon användarsträng i src', () => {
     const traffar: string[] = []
-    for (const fil of filer(SRC)) {
-      if (!/\.(ts|tsx)$/.test(fil)) continue
-      const rel = path.relative(SRC, fil).split(path.sep).join('/')
-      if (rel.includes('__tests__/') || /\.test\.tsx?$/.test(rel)) continue
-      const text = fs.readFileSync(fil, 'utf8')
-      if (text.includes(MARKOR)) continue
-      const regel = BRANSCHTEXT.has(rel) ? PRODUKT : ORD
-      for (const [nr, rad] of koddrader(text)) {
-        if (regel.test(rad)) traffar.push(`${rel}:${nr}: ${rad.trim().slice(0, 120)}`)
+    for (const { rel, text } of kallfiler()) {
+      if (rel === 'lib/plans/plans.ts') continue
+      for (const [nr, rad] of kodrader(text)) {
+        if (/^\s*console\.(log|error|warn|info)\(/.test(rad)) continue
+        for (const [namn, re] of FORBJUDNA) {
+          if (BRANSCHTEXT.has(rel) && namn.startsWith('Premium-')) continue
+          if (INTERNT.test(rel) && (namn === 'paketen')) continue
+          if (re.test(rad)) traffar.push(`${rel}:${nr} [${namn}]: ${rad.trim().slice(0, 120)}`)
+        }
+        if (!BRANSCHTEXT.has(rel) && !INTERNT.test(rel) && GEMENT.test(rad)) {
+          traffar.push(`${rel}:${nr} [gement premium]: ${rad.trim().slice(0, 120)}`)
+        }
       }
     }
-    expect(traffar, `"Premium" i src:\n${traffar.join('\n')}`).toEqual([])
+    expect(traffar, `förbjudna former i src:\n${traffar.join('\n')}`).toEqual([])
   })
 
-  it('fångar ordet men inte de tekniska namnen', () => {
-    const fangar = (rad: string) => ORD.test(rad)
-    expect(fangar("label: 'Mallen kräver Premium'")).toBe(true)
-    expect(fangar('Se Premium')).toBe(true)
-    expect(fangar('Premium-mallar')).toBe(true)
-    expect(fangar('våra Premiumtjänster')).toBe(true)
-    expect(fangar("tier === 'premium'")).toBe(false)
-    expect(fangar('premium_until')).toBe(false)
-    expect(fangar('if (isPremium) return')).toBe(false)
-    expect(fangar('<PremiumGate>')).toBe(false)
-    expect(PRODUKT.test("title: 'Premium-mallen Disk Plus med foto'")).toBe(true)
-    expect(PRODUKT.test("kategori: 'Premium-restauranger'")).toBe(false)
+  it('mönstren fångar formerna men inte de tekniska namnen', () => {
+    const traff = (rad: string) => FORBJUDNA.some(([, re]) => re.test(rad))
+    expect(traff("title: 'Mallen ingår i Hela paketet'")).toBe(true)
+    expect(traff("'Premium-paketet'")).toBe(true)
+    expect(traff("'Premium-mallar'")).toBe(true)
+    expect(traff("'Uppgradera till Premium'")).toBe(true)
+    expect(traff("'Jämför paketen'")).toBe(true)
+    expect(traff("'Jobbcoachen Premium'")).toBe(true)
+    expect(traff("'Jobbcoach Premium, 149 kr i månaden'")).toBe(false)
+    expect(traff("'Ingår i Premium'")).toBe(false)
+    expect(traff('const paketenLista = []')).toBe(false)
+    expect(GEMENT.test("label: 'uppgradera till premium för fler'")).toBe(true)
+    expect(GEMENT.test("if (tier === 'premium') return")).toBe(false)
+    expect(GEMENT.test('premium_until')).toBe(false)
+    expect(GEMENT.test('if (isPremium) return')).toBe(false)
   })
 
-  it('ersättningarna följer paketnamnen', async () => {
+  it('en knappsträng överallt: skaffaKnapp, ctaLabel och kopKnapp ger samma (copy-premium 8)', async () => {
+    const { skaffaKnapp, getPaywallCopy, paywallPrisrad, paywallPrisradKort } = await import(
+      '@/components/paywall/paywall-copy'
+    )
+    expect(skaffaKnapp()).toBe(kopKnapp())
+    expect(skaffaKnapp('cv_week')).toBe(kopKnapp())
+    expect(PLAN_BY_KEY.all_month.ctaLabel).toBe(kopKnapp())
+    expect(getPaywallCopy('mall').primary).toBe(kopKnapp())
+    // Prisraden ovanför knappen bär fulla namnet; kort form där namnet står i rubriken.
+    expect(paywallPrisrad()).toBe('Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
+    expect(paywallPrisradKort()).toBe('149 kr i månaden, säg upp när du vill.')
+  })
+
+  it('PW4 har värdet i rubriken (copy-premium 9.1)', async () => {
+    const { getPaywallCopy } = await import('@/components/paywall/paywall-copy')
+    const c = getPaywallCopy('nedladdning')
+    expect(c.title).toBe('Ditt personliga brev är klart')
+    expect(c.body).toBe(
+      'Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i Premium, med alla mallar och hela CV-analysen.'
+    )
+    expect(c.secondary).toBe('Kopiera texten i stället')
+  })
+
+  it('PAKETRADER följer skrivregeln', async () => {
     const { PAKETRADER } = await import('@/components/paywall/paywall-copy')
-    expect(PAKETRADER.ingar).toBe('Ingår när du har ett paket')
-    expect(PAKETRADER.kopCv).toBe('Köp CV-paketet, 79 kr i veckan')
-    expect(PAKETRADER.bricka).toBe(paketNamn('cv_week'))
-    expect(PAKETRADER.mallSparr).toBe('Mallen ingår i CV-paketet, 79 kr i veckan. Välj en annan mall eller spara utan PDF.')
+    expect(PAKETRADER.ingar).toBe('Ingår i Premium')
+    expect(PAKETRADER.ingarUtanTak).toBe('Ingår i Premium, utan tak')
+    expect(PAKETRADER.lastCv).toBe('Låst. Ingår i Premium.')
+    expect(PAKETRADER.bricka).toBe('Premium')
+    expect(PAKETRADER.kopCv).toBe('Köp Premium, 149 kr i månaden')
+    expect(PAKETRADER.jamfor).toBe('Se vad som ingår')
+    expect(PAKETRADER.paketAktivt).toBe('Du har Premium')
+    expect(PAKETRADER.analysUtanTak).toBe('Du har Premium. Analysera så ofta du vill.')
+    expect(PAKETRADER.aktivitetKop).toBe('köpte Jobbcoach Premium')
+    expect(PAKETRADER.tackTitel(null)).toBe('Tack. Du har Jobbcoach Premium.')
+    expect(PAKETRADER.belonning(3)).toBe('Du har fått Jobbcoach Premium i 3 dagar.')
+    // LinkedIn-raden skriver fulla namnet (krock 2).
+    expect(PAKETRADER.linkedinKvot).toMatch(/Jobbcoach Premium/)
     for (const v of Object.values(PAKETRADER)) {
       const text = typeof v === 'function' ? (v as (x: never) => string)(3 as never) : v
-      expect(text).not.toMatch(/Premium|—/)
+      expect(text).not.toMatch(/Hela paketet|paketen|Uppgradera|—/)
+      // Knappen säger aldrig fulla namnet (copy-premium 8).
+      expect(text).not.toMatch(/^Köp Jobbcoach Premium/)
     }
   })
 })

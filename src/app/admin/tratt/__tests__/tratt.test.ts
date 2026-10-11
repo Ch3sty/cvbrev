@@ -139,7 +139,7 @@ describe('var det tar stopp', () => {
   it('skriver specens mening när datan är liten', () => {
     const text = stoppMening(byggBlockeringar(rader, 'feature_blocked'), [], 'i dag', MATSTART.kopvag);
     expect(text).toBe(
-      '1 spärr i dag: full CV-analys, 4 gånger av 1 person, paketet som säljs där är CV-paketet. Gråa val: 0 sedan 22 sep kl. 19.02.'
+      '1 spärr i dag: full CV-analys, 4 gånger av 1 person, paketet som säljs där är Jobbcoach Premium. Gråa val: 0 sedan 22 sep kl. 19.02.'
     );
   });
 
@@ -152,7 +152,7 @@ describe('var det tar stopp', () => {
 
 describe('köpen', () => {
   const alltDagen = kop({});
-  const fornyelse = kop({ id: 'ch_2', paket: 'all_month', paketNamn: 'Hela paketet, en månad', beloppOre: 14900, typ: 'lopande', ny: false, tid: '2026-09-20T08:00:00Z' });
+  const fornyelse = kop({ id: 'ch_2', paket: 'all_month', paketNamn: 'Jobbcoach Premium, en månad', beloppOre: 14900, typ: 'lopande', ny: false, tid: '2026-09-20T08:00:00Z' });
   const internt = kop({ id: 'ch_3', internt: true, tid: '2026-09-22T18:00:00Z' });
   const ater = kop({ id: 're_1', aterbetalning: true, beloppOre: -4900, ny: false, tid: '2026-09-22T19:00:00Z' });
   const cvVeckan = kop({ id: 'ch_4', paket: 'cv_week', paketNamn: 'CV-paketet', beloppOre: 7900, tid: '2026-09-23T09:00:00Z' });
@@ -187,7 +187,7 @@ describe('köpen', () => {
     expect(per['Dagspasset']).toMatchObject({ nya: 1, ore: 0, spar: 'allt' });
     expect(per['CV-paketet']).toMatchObject({ nya: 1, ore: 7900, spar: 'cv' });
     // Förnyelsen 20 sep ligger före fönstret.
-    expect(per['Hela paketet, en månad']).toBeUndefined();
+    expect(per['Jobbcoach Premium, en månad']).toBeUndefined();
     // Det som säljs står med även utan köp.
     expect(per['Träningspaketet']).toMatchObject({ nya: 0, fornyelser: 0, ore: 0 });
     expect(rader[0].namn).toBe('CV-paketet');

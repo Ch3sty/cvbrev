@@ -24,6 +24,7 @@ import FlowProgress from '@/components/shell/FlowProgress';
 import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
+import type { Aterupptagning } from '../aterupptagning';
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -41,6 +42,12 @@ interface CVAnalysisWizardProps {
   onAnalysisStart: (cvId: string) => Promise<string>;
   onPollJob: (jobId: string) => Promise<any>;
   onComplete?: () => void;
+  /**
+   * Sparad analys ur ?job=<id> (art-director 21.2 fråga 2): wizarden startar
+   * i granskningen med det sparade resultatet. Inget AI-anrop, ingen kvot,
+   * ingen ny rad i cv_analysis_jobs.
+   */
+  aterupptagning?: Aterupptagning | null;
 }
 
 const STEP_META: Record<
@@ -94,7 +101,9 @@ export default function CVAnalysisWizard({
   onAnalysisStart,
   onPollJob,
   onComplete,
+  aterupptagning = null,
 }: CVAnalysisWizardProps) {
+  const ater = aterupptagning;
   const router = useRouter();
   const supabase = createClient();
   const { successWithMascotAndActivity } = useNotification();
@@ -102,8 +111,10 @@ export default function CVAnalysisWizard({
   /* Steget ligger i URL:en (?steg=N, ettbaserat) i stället för i useState,
      så bakåtgesten backar ett steg i stället för att lämna hela analysen.
      Internt räknar wizarden fortfarande 0-baserat. */
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const flow = useFlowStep({ totalSteps: ANALYSIS_STEPS.length });
+  const [completedSteps, setCompletedSteps] = useState<number[]>(() =>
+    ater ? Array.from({ length: Math.max(0, ater.steg - 1) }, (_, i) => i) : []
+  );
+  const flow = useFlowStep({ totalSteps: ANALYSIS_STEPS.length, initialStep: ater?.steg ?? 1 });
   const currentStep = flow.step - 1;
   const setCurrentStep = useCallback(
     (updater: number | ((prev: number) => number)) => {
@@ -114,12 +125,19 @@ export default function CVAnalysisWizard({
     [flow]
   );
 
-  const [selectedCV, setSelectedCV] = useState<string | null>(null);
+  const [selectedCV, setSelectedCV] = useState<string | null>(ater?.cvId ?? null);
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
-  const [currentAnalysisId, setCurrentAnalysisId] = useState<string | null>(null);
+  const [progress, setProgress] = useState(ater ? 100 : 0);
+  const [analysisResult, setAnalysisResult] = useState<any>(ater?.resultat ?? null);
+  const [currentAnalysisId, setCurrentAnalysisId] = useState<string | null>(ater?.resultat.id ?? null);
+  /**
+   * Återupptagen analys: sann tills hon själv startar en ny från CV-valet.
+   * Så länge den är sann startar steg 1 aldrig en analys (bakåt från
+   * resultatet går till CV-valet), så ingen kvot dras av misstag.
+   */
+  const aterAktiv = useRef(Boolean(ater));
+  const nyAnalysBegard = useRef(false);
   const [estimatedTimeRemaining, setEstimatedTimeRemaining] = useState(50);
   /** Fel i flödet, visas i vyn i stället för som alert. */
   const [analysisError, setAnalysisError] = useState<string | null>(null);
@@ -128,14 +146,14 @@ export default function CVAnalysisWizard({
   /** Låter användaren avbryta ett pågående AI-anrop. */
   const analysisAbortRef = useRef<AbortController | null>(null);
 
-  const [selectedProfile, setSelectedProfile] = useState(false);
-  const [selectedRoles, setSelectedRoles] = useState<Set<number>>(new Set());
-  const [selectedSkills, setSelectedSkills] = useState<Set<number>>(new Set());
-  const [selectedGeneral, setSelectedGeneral] = useState<Set<number>>(new Set());
+  const [selectedProfile, setSelectedProfile] = useState(ater?.val.profil ?? false);
+  const [selectedRoles, setSelectedRoles] = useState<Set<number>>(() => new Set(ater?.val.roller ?? []));
+  const [selectedSkills, setSelectedSkills] = useState<Set<number>>(() => new Set(ater?.val.kompetenser ?? []));
+  const [selectedGeneral, setSelectedGeneral] = useState<Set<number>>(() => new Set(ater?.val.allmant ?? []));
   const [editedRoleTexts, setEditedRoleTexts] = useState<Map<number, string>>(new Map());
   const [editedProfileText, setEditedProfileText] = useState<string | null>(null);
 
-  const [structuredCV, setStructuredCV] = useState<any>(null);
+  const [structuredCV, setStructuredCV] = useState<any>(ater?.harStrukturerad ? ater.resultat.structuredCV : null);
   const [, setImprovedStructuredCV] = useState<any>(null);
 
   const [originalCV, setOriginalCV] = useState('');
@@ -338,6 +356,13 @@ export default function CVAnalysisWizard({
       return;
     }
     if (analysisStartedForVisit.current || isAnalyzing || !selectedCV) return;
+    // Återupptagen analys: steg 1 nås bara genom ett eget val i CV-valet.
+    // Kommer hon hit på annat sätt (bakåt i historiken) går hon till valet.
+    if (aterAktiv.current && !nyAnalysBegard.current) {
+      setCurrentStep(0);
+      return;
+    }
+    aterAktiv.current = false;
     analysisStartedForVisit.current = true;
     // Förra rundans resultat får inte ligga kvar och låtsas vara den här.
     setAnalysisResult(null);
@@ -611,7 +636,24 @@ export default function CVAnalysisWizard({
     }
   };
 
+  /* Återupptagen analys: före- och efterbilden ur det sparade resultatet med
+     de förvalda förbättringarna. Räknas om när profilen (namn och kontakt i
+     förhandsvisningen) har landat. */
+  useEffect(() => {
+    if (!aterAktiv.current || !analysisResult) return;
+    if (structuredCV) {
+      setOriginalCV(generatePreviewFromStructured(structuredCV));
+      generateImprovedCV();
+    } else if (analysisResult.formattedPreview) {
+      setOriginalCV(analysisResult.formattedPreview);
+      setImprovedCV(analysisResult.formattedPreview);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userProfile]);
+
   const handleNext = async () => {
+    // Ett eget val i CV-valet startar en ny analys, också efter en återupptagen.
+    if (currentStep === 0) nyAnalysBegard.current = true;
     // Steg 5: spara/ladda ned
     if (currentStep === 5) {
       if (!saveChoice || !selectedTemplate) {
@@ -980,6 +1022,12 @@ export default function CVAnalysisWizard({
         goToCategory(prev);
         return;
       }
+    }
+    // Återupptagen analys: bakåt från resultatet går till CV-valet, aldrig
+    // till steg 1, som hade startat en ny analys och dragit kvot.
+    if (aterAktiv.current && currentStep === 2) {
+      setCurrentStep(0);
+      return;
     }
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);

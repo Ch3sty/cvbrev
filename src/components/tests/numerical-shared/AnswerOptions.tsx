@@ -41,7 +41,7 @@ export default function AnswerOptions({
           >
             <span
               className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium ${
-                isSelected ? 'bg-ink-1 text-white' : 'border border-kant bg-panel text-ink-3'
+                isSelected ? 'bg-ink-1 text-papper' : 'border border-kant bg-panel text-ink-3'
               }`}
               aria-hidden="true"
             >

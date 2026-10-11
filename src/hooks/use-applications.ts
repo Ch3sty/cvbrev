@@ -49,7 +49,7 @@ export function useApplications() {
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte logga ansökan');
+      throw new Error(json.error || 'Kunde inte spara den sökta tjänsten');
     }
     const created = json.data as JobApplication;
     setApplications((prev) => {
@@ -67,7 +67,7 @@ export function useApplications() {
     });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte uppdatera ansökan');
+      throw new Error(json.error || 'Kunde inte uppdatera den sökta tjänsten');
     }
     const updated = json.data as JobApplication;
     setApplications((prev) => (prev ?? []).map((a) => (a.id === updated.id ? updated : a)));
@@ -78,7 +78,7 @@ export function useApplications() {
     const res = await fetch(`/api/applications/${id}`, { method: 'DELETE' });
     const json = await res.json();
     if (!res.ok || !json.success) {
-      throw new Error(json.error || 'Kunde inte ta bort ansökan');
+      throw new Error(json.error || 'Kunde inte ta bort den sökta tjänsten');
     }
     setApplications((prev) => (prev ?? []).filter((a) => a.id !== id));
   }, []);

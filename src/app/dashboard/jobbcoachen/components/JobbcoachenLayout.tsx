@@ -1,6 +1,9 @@
 'use client';
 
 import { ReactNode } from 'react';
+import Vagg from '@/components/rum/Vagg';
+import Topprad from '@/components/rum/Topprad';
+import Rubrik from '@/components/rum/Rubrik';
 
 interface JobbcoachenLayoutProps {
   /** Scrollbart innehåll (välkomst eller meddelanden) */
@@ -9,39 +12,45 @@ interface JobbcoachenLayoutProps {
   inputArea: ReactNode;
 }
 
+/**
+ * Chatten i Jobbsöket (Rummen våg 1b): väggen med toppraden och rubriken,
+ * sedan panelen på golvet. Chatten är ett läge som fyller resten av
+ * skärmen: en panel med scroll inuti, så inmatningen står i bild utan att
+ * sidan rullar.
+ *
+ * Höjden följer golvets kolumn (spec 16.2 fråga 16): sidan står i en
+ * kolumn med main:s höjd (globals.css, [data-jobbcoachen]) och panelen är
+ * flex-1 min-h-0, så den fyller det som blir kvar under väggen utan att
+ * väggen mäts. Under 360 px höjd rullar sidan i stället.
+ *
+ * Ingen animate-thread-enter här: LCP kan inte registreras på ett helt
+ * genomskinligt element. Sidbytet tonas redan in en gång i DashboardShell.
+ */
 export default function JobbcoachenLayout({
   children,
   inputArea,
 }: JobbcoachenLayoutProps) {
   return (
-    /* Chatten är ett läge som fyller main-ytan: en panel med scroll inuti.
-       100dvh, inte 100vh: på iOS Safari krymper inte 100vh när adressfältet
-       fälls in, så inmatningsfältet hamnade bakom browserchromet precis när
-       tangentbordet var uppe. Bottennavets höjd kommer från --bottom-nav-h
-       i stället för en gissad rem-siffra. Kvar att dra av: header 4rem plus
-       mainens vertikala padding 1.5rem.
+    <div data-jobbcoachen className="flex min-h-0 flex-1 flex-col">
+      <Vagg tat>
+        <Topprad />
+        <Rubrik titel="Jobbcoachen" />
+      </Vagg>
+      <div className="flex min-h-0 flex-1 flex-col px-4 pt-4 lg:px-10 lg:pt-6">
+        <div className="mx-auto flex min-h-[360px] w-full max-w-[1120px] flex-1 flex-col overflow-hidden rounded-2xl border border-kant bg-papper">
+          {/* Scrollbar mitt */}
+          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6">
+            <div className="mx-auto flex min-h-full max-w-3xl flex-col space-y-4 sm:space-y-6">
+              {children}
+            </div>
+          </div>
 
-       Ingen animate-thread-enter här: den börjar på opacity 0, och LCP kan
-       inte registreras på ett helt genomskinligt element, så hela chatten
-       mätte flera hundra millisekunder senare än den faktiskt målades.
-       Sidbytet tonas redan in en gång i DashboardShell. */
-    <div
-      className="flex flex-col overflow-hidden rounded-xl border border-kant bg-panel"
-      style={{
-        height: 'calc(100dvh - 4rem - 1.5rem - var(--bottom-nav-h))',
-      }}
-    >
-      {/* Scrollbar mitt */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex min-h-full max-w-3xl flex-col space-y-4 sm:space-y-6">
-          {children}
-        </div>
-      </div>
-
-      {/* Inmatning i botten */}
-      <div className="border-t border-kant bg-panel">
-        <div className="mx-auto max-w-3xl">
-          {inputArea}
+          {/* Inmatning i botten */}
+          <div className="border-t border-kant bg-papper">
+            <div className="mx-auto max-w-3xl">
+              {inputArea}
+            </div>
+          </div>
         </div>
       </div>
     </div>

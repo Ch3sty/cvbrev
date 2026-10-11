@@ -1,7 +1,8 @@
 'use client';
 
+import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import Link from 'next/link';
-import { Download } from 'lucide-react';
+import { Download } from '@/components/illustrations/RumIkoner';
 
 import Confirmation from '@/components/shell/Confirmation';
 import { IlluBrevBekraftat } from '@/components/illustrations/TradenScener';
@@ -14,7 +15,7 @@ interface CompletionStepProps {
 }
 
 const SEKUNDAR =
-  'inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-kant-stark bg-panel px-4 text-sm font-medium text-ink-1 transition-colors hover:bg-insunken';
+  KNAPP_SEKUNDAR_SMAL;
 
 /**
  * Sista steget i CV-analysen.
@@ -40,7 +41,7 @@ export default function CompletionStep({
         action={
           <Link
             href="/dashboard/skapa-brev"
-            className="inline-flex h-11 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-hover"
+            className={KNAPP_PRIMAR_SMAL}
           >
             Skriv ett matchande brev
           </Link>

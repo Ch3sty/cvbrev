@@ -1,0 +1,19 @@
+{
+  "tid": "2026-10-11T00:05:49.884Z",
+  "bas": "http://localhost:5233",
+  "korningar": 5,
+  "resultat": [
+    {
+      "namn": "dashboard",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 748,
+        "cls": 0.001,
+        "fcp": 648,
+        "rundturer": 0,
+        "textLangd": 1818,
+        "forfragningar": 75
+      }
+    }
+  ]
+}

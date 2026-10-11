@@ -11,7 +11,17 @@
 
 import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { paketNamn, paketNamnForScope } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketNamn, paketNamnForScope } from '@/lib/plans/plans'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
+
+/**
+ * Namnet i appen (copy-premium avsnitt 1): scope allt heter Premium, också
+ * för en befintlig Dagspass-kund (Dagspasset visas aldrig). CV-paketet och
+ * Träningspaketet står kvar för befintliga kunder tills de löpt ut.
+ */
+function namnI(paket: Exclude<Paket, null>): string {
+  return paket === 'allt' ? paketKort() : paketNamnForScope(paket)
+}
 import type { SignupIntent } from '@/components/registrering/intent'
 
 /** Brickornas nycklar. Speglar nycklarna i profiles.onboarding_steps. */
@@ -128,12 +138,12 @@ export function listaFor(paket: Paket, intent: SignupIntent | null = null): read
 }
 
 /**
- * Rubriken: "Kom igång med CV-paketet". Gratis får bara "Kom igång".
- * Dagspasset ger scopet allt men heter Dagspasset, inte Hela paketet.
+ * Rubriken: "Kom igång med Premium". Gratis får bara "Kom igång". En
+ * befintlig Dagspass-kund har scopet allt och får samma rubrik; Dagspasset
+ * visas inte (ägarens beslut 2026-10-11). Parametern står kvar för anroparna.
  */
-export function komIgangRubrik(paket: Paket, dagspass = false): string {
-  if (paket === 'allt' && dagspass) return `Kom igång med ${paketNamn('all_day')}`
-  if (paket) return `Kom igång med ${paketNamnForScope(paket)}`
+export function komIgangRubrik(paket: Paket, _dagspass = false): string {
+  if (paket) return `Kom igång med ${namnI(paket)}`
   return 'Kom igång'
 }
 
@@ -247,7 +257,7 @@ export function brickaText(
     case 'mall':
       return {
         key,
-        titel: 'Välj mall och ladda ned',
+        titel: 'Välj mall och ladda ner',
         text:
           paket === 'cv' || paket === 'allt'
             ? `${TEMPLATE_COUNT} mallar som rekryteringssystem läser`
@@ -304,7 +314,7 @@ export function brickaText(
         text:
           paket === 'tester'
             ? 'Cirka 20 minuter, förklaring efter varje fråga'
-            : 'Ingår gratis, en gång per dygn',
+            : 'Gratis att prova, förklaring efter varje fråga',
         klarText:
           typeof fakta.matrisRatt === 'number' && typeof fakta.matrisAv === 'number'
             ? `${fakta.matrisRatt} av ${fakta.matrisAv} rätt`
@@ -337,10 +347,11 @@ export function brickaText(
       return {
         key,
         titel: 'Provläge mot klockan',
-        text: '25 till 40 min, automatisk inlämning',
+        text: 'Provets format och tid, automatisk inlämning',
         klarText: 'Ett prov inlämnat',
         kort: 'provläget',
-        href: '/dashboard/tester/matrislogik-prov',
+        // Generalrepetitionen i planens format (spec-rummen 19.6).
+        href: TRANING_RUTT.general,
         knapp: 'Starta provet',
       }
     case 'personlighet':
@@ -378,7 +389,7 @@ export function brickaText(
 
 /** Gratisvarianterna ur designfilens slutcopy ("Kom igång, gratis"). */
 const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>> = {
-  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Ingår gratis, en gång per dygn' },
+  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Gratis att prova, förklaring efter varje fråga' },
   personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
   intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
   analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },
@@ -403,7 +414,7 @@ export interface KomIgangLage {
   antalProvade: number
   antalTotalt: number
   klar: boolean
-  /** Dagspasset: samma lista som Hela paketet, men ett dygn och eget namn. */
+  /** Befintlig Dagspass-kund: samma lista som Premium, i ett dygn. Namnet visas inte. */
   dagspass: boolean
   /** Valet i registreringen. Styr bara ordningen, och bara på gratisnivån. */
   intent: SignupIntent | null
@@ -456,7 +467,7 @@ export const KOM_IGANG = {
   dygnRad: 'Hela jobbsöket är öppet i ett dygn. Ta CV:t först, så har resten ett uppdaterat CV att arbeta med.',
   /** Arkets sista rad under den öppnade brickan (sektion 4, vänster). */
   ingarI: (paket: Paket) =>
-    paket ? `Ingår i ${paketNamnForScope(paket)}, utan tak` : 'Ingår i gratisnivån',
+    paket ? `Ingår i ${namnI(paket)}, utan tak` : 'Ingår i gratisnivån',
 } as const
 
 /* -------------------------------------------- välkomstskärmen, sektion 1 */
@@ -472,15 +483,16 @@ export interface Valkommen {
 }
 
 /**
- * Dagspasset ger scopet allt men är inte Hela paketet: skärmen säger
- * Dagspasset och att det gäller ett dygn (köptestet 2026-09-24, bugg 9).
+ * En befintlig Dagspass-kund har scopet allt i ett dygn: skärmen säger att
+ * det gäller ett dygn (köptestet 2026-09-24, bugg 9) men aldrig namnet
+ * Dagspasset, som inte säljs. Toppraden bär fulla namnet en gång, rubriken
+ * kortformen (copy-premium avsnitt 1).
  */
 export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkommen {
   if (paket === 'allt' && dagspass) {
-    const namn = paketNamn('all_day')
     return {
-      topp: namn,
-      rubrik: `Du har ${namn}. Hela jobbsöket är öppet i ett dygn.`,
+      topp: paketNamn(SALD_PLAN),
+      rubrik: `Du har ${paketKort()}. Hela jobbsöket är öppet i ett dygn.`,
       ingress:
         'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt, i 24 timmar. Vi föreslår att du börjar med CV:t och analysen, så hinner du använda resten på ett uppdaterat CV.',
       steg: [
@@ -511,8 +523,8 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
   }
   if (paket === 'allt') {
     return {
-      topp: paketNamnForScope('allt'),
-      rubrik: `Du har ${paketNamnForScope('allt')}. Hela jobbsöket är öppet.`,
+      topp: paketNamn(SALD_PLAN),
+      rubrik: `Du har ${paketKort()}. Hela jobbsöket är öppet.`,
       ingress:
         'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
       steg: [
@@ -550,7 +562,8 @@ export function valkommenMedCv(
 ): Pick<Valkommen, 'rubrik' | 'ingress' | 'primar' | 'primarHref' | 'sekundar'> & {
   cvRad: string
 } {
-  const namn = paket === 'allt' && dagspass ? paketNamn('all_day') : paketNamnForScope(paket)
+  void dagspass
+  const namn = namnI(paket)
   const delar = [
     uppladdat ? `Uppladdat ${uppladdat}.` : null,
     typeof poang === 'number' ? `Poäng ${poang} med gratisnivån.` : null,

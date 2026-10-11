@@ -523,26 +523,42 @@ const RingRenderer: React.FC<{ cell: RingCell }> = ({ cell }) => {
       ? [28, 18]
       : [28];
 
+  // Spec-rummen 15.10: varje ring är sitt eget fält. En ofylld ring fylls
+  // med vitt (inte genomskinligt), annars lyser en svart granne utanför
+  // igenom och [svart, ingen, svart] ser ut som en solid skiva. Mellan två
+  // ringar går alltid en vit linje (RING_GAP, cirka 2 px i Pixel 7-storlek)
+  // strax utanför den mörka konturen, så att [svart, svart, svart] blir en
+  // skiva med två tunna vita cirklar och [svart, ingen, svart] en svart
+  // ytterring, en vit mellanring och en svart mittpunkt.
   return (
     <>
       {cell.rings.map((fill, i) => {
         const r = radii[i];
-        const fillVal = fillFor(fill);
+        const fillVal = fill === 'none' ? RING_VIT : fillFor(fill);
         return (
-          <circle
-            key={i}
-            cx="50"
-            cy="50"
-            r={r}
-            fill={fillVal}
-            stroke={STROKE}
-            strokeWidth={SW_THIN}
-          />
+          <React.Fragment key={i}>
+            {i > 0 && (
+              <circle
+                cx="50"
+                cy="50"
+                r={r + SW_THIN / 2 + RING_GAP / 2}
+                fill="none"
+                stroke={RING_VIT}
+                strokeWidth={RING_GAP}
+              />
+            )}
+            <circle cx="50" cy="50" r={r} fill={fillVal} stroke={STROKE} strokeWidth={SW_THIN} />
+          </React.Fragment>
         );
       })}
     </>
   );
 };
+
+/** Ringarnas vita fält och skiljelinje (15.10). Cellerna är alltid vita. */
+const RING_VIT = '#FFFFFF';
+/** Bredden på den vita linjen mellan två ringar, i viewBox-enheter. */
+const RING_GAP = 2;
 
 // =============================================================================
 // 8. VECTOR — elegant pil (8 vinklar)
