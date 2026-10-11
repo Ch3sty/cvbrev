@@ -11,7 +11,7 @@
  * två lägen, ingen extra fil.
  *
  * Lucide används fortfarande för pil, kryss, chevron och meny. Aldrig
- * Sparkles. Aldrig emoji.
+ * gnistikonen. Aldrig emoji.
  *
  * Inga React-hooks, ingen 'use client': ikonerna renderas på servern.
  */

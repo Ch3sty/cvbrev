@@ -7,6 +7,9 @@
 //   node scripts/grep-rummen.mjs                 # skriv till stdout
 //   node scripts/grep-rummen.mjs --ut fil.txt    # och till fil
 //   node scripts/grep-rummen.mjs --noll          # exit 1 om något mönster har träffar
+//   node scripts/grep-rummen.mjs --vag 4 --noll  # våg 1b:s grindar plus grep-listan noll i inloggat
+//     utanför testrummets kataloger (våg 2/3b), alias, lucide, InkPanel/PageHeader/MarginPlate
+//     och CreateSheet (spec avsnitt 6, våg 4)
 //   node scripts/grep-rummen.mjs --vag 1b --noll # grindarna efter våg 1b (spec 13.1 och 13.9):
 //     text-gray-, bg-white, bg-gray-, border-gray- är noll i allt som renderas
 //     i inloggat (rummen-omfang.mjs), utom src/components/ui, dokumentytorna
@@ -76,7 +79,7 @@ rader.push('', `## lucide-react i ${LUCIDE_KATALOGER.join(', ')}: ${lucide.lengt
 const vagIdx = process.argv.indexOf('--vag')
 const vag = vagIdx >= 0 ? process.argv[vagIdx + 1] : null
 let grind1b = 0
-if (vag === '1b') {
+if (vag === '1b' || vag === '4') {
   // Dokumentytor: brevet och mallarnas förhandsvisning ska vara papper i
   // båda lägena (spec 13.1, undantag). Raderna står kvar med flit.
   const UNDANTAG = [
@@ -139,10 +142,87 @@ if (vag === '1b') {
   rader.push(`Undantag: ${UNDANTAG.map(String).join(', ')}, rader med klassen dokument (pappersytan, spec 13.1) och kommentarsrader.`)
 }
 
+
+// ------------------------------------------------------------ våg 4
+// Grindarna efter våg 4 (spec avsnitt 6, våg 4, och 1.7): grep-listan noll
+// i allt som renderas i inloggat, utanför undantagen. Testrummets filer
+// (src/app/dashboard/tester, src/components/tests, src/components/traning,
+// src/components/personalityTest) byggs om av våg 2 och 3b parallellt; de
+// räknas och listas för sig men stoppar inte våg 4.
+let grind4 = 0
+if (vag === '4') {
+  const UNDANTAG4 = [
+    /^src\/components\/ui\//,
+    /^src\/components\/cv-templates\//,
+    /^src\/components\/letter-templates\//,
+    /TemplatePreview/,
+    // OG-bilderna är bilder, inte gränssnitt (toningar och vikter hör till dem).
+    /^src\/app\/dashboard\/og-preview\//,
+    /^src\/components\/og-preview\//,
+    // Rekryterarens kort, visat som förhandsvisning i Bli upptäckt.
+    /^src\/components\/candidate\/CardWorkStyleStrip\.tsx$/,
+  ]
+  const VAG23 = [
+    /^src\/app\/dashboard\/tester\//,
+    /^src\/components\/tests\//,
+    /^src\/components\/traning\//,
+    /^src\/components\/personalityTest\//,
+    // Testbankernas renderare (testansvarig och våg 3a/3c).
+    /^src\/lib\/logicTestV7\//,
+  ]
+  const MONSTER4 = [
+    ['em-dash', /—/],
+    ['Sparkles', /Sparkles/],
+    ['bg-gradient', /bg-gradient/],
+    ['linear-gradient', /linear-gradient/],
+    ['animate-pulse', /animate-pulse/],
+    ['shadow-(sm|md|lg|xl)', /shadow-(sm|md|lg|xl)\b/],
+    ['rounded-3xl', /rounded-3xl/],
+    ['font-(bold|extrabold|black) utan font-display', /font-(bold|extrabold|black)/],
+    ['lucide-react', /from ['"]lucide-react['"]/],
+    ['Trådens alias (mark, panel, insunken, accent, ink-1-mjuk/-kant/-accent)', /\b(?:bg|text|border|ring|from|to|via|fill|stroke|decoration|outline|divide|shadow)-(?:mark|panel|insunken|accent|accent-ink|accent-mjuk|ink-1-mjuk|ink-1-kant|ink-1-accent)\b(?!-)|var\(--(?:mark|panel|insunken|insunken-topp|accent|accent-ink|accent-mjuk|ink-1-mjuk|ink-1-kant)\)/],
+    ['InkPanel, PageHeader, MarginPlate', /from ['"][^'"]*\/(InkPanel|PageHeader|MarginPlate)['"]|\b(INK_KNAPP|INK_LANK)\b/],
+  ]
+  const alla4 = inloggatFiler()
+    .filter((f) => f.endsWith('.tsx'))
+    .filter((f) => !UNDANTAG4.some((u) => u.test(f)))
+  const egna = alla4.filter((f) => !VAG23.some((u) => u.test(f)))
+  const andras = alla4.filter((f) => VAG23.some((u) => u.test(f)))
+  const rakna = (filer, re, namn) => {
+    const per = []
+    for (const f of filer) {
+      const n = fs
+        .readFileSync(f, 'utf8')
+        .split('\n')
+        .filter((r) => re.test(r) && !(namn.startsWith('font-') && r.includes('font-display'))).length
+      if (n) per.push([f, n])
+    }
+    return per
+  }
+  rader.push('', `## Våg 4: grep-listan i inloggat (${egna.length} egna filer, ${andras.length} i våg 2/3b:s kataloger)`)
+  for (const [namn, re] of MONSTER4) {
+    const per = rakna(egna, re, namn)
+    const tot = per.reduce((s, [, n]) => s + n, 0)
+    grind4 += tot
+    const per23 = rakna(andras, re, namn)
+    const tot23 = per23.reduce((s, [, n]) => s + n, 0)
+    rader.push(`   ${namn}: ${tot} träffar${tot23 ? ` (och ${tot23} i våg 2/3b:s filer)` : ''}`)
+    for (const [f, n] of per) rader.push(`${String(n).padStart(8)}  ${f}`)
+  }
+  // CreateSheet är borttagen (spec 2.1).
+  if (fs.existsSync('src/components/dashboard/CreateSheet.tsx')) {
+    grind4 += 1
+    rader.push('   CreateSheet.tsx finns kvar')
+  } else rader.push('   CreateSheet: borttagen')
+  rader.push(
+    `Undantag: ${UNDANTAG4.map(String).join(', ')}. Våg 2/3b:s kataloger räknas för sig: ${VAG23.map(String).join(', ')}.`
+  )
+}
+
 const text = rader.join('\n') + '\n'
 process.stdout.write(text)
 const i = process.argv.indexOf('--ut')
 if (i >= 0) fs.writeFileSync(process.argv[i + 1], text)
 if (process.argv.includes('--noll')) {
-  if (vag === '1b' ? grind1b > 0 : summa > 0 || lucide.length > 0) process.exit(1)
+  if (vag === '4' ? grind1b + grind4 > 0 : vag === '1b' ? grind1b > 0 : summa > 0 || lucide.length > 0) process.exit(1)
 }
