@@ -153,7 +153,6 @@ export default function Uppvarmning({ api = fetchUppvarmningApi, fragor: initial
     fot = (
       <button
         type="button"
-        autoFocus
         onClick={() => {
           if (sista) setFas({ typ: 'klar' })
           else {
@@ -177,6 +176,7 @@ export default function Uppvarmning({ api = fetchUppvarmningApi, fragor: initial
       tid={null}
       onAvsluta={tillbaka}
       fot={fot}
+      nyckel={q.id}
       banner={
         fas.typ === 'svarfel' ? (
           <p role="alert" className="rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
@@ -186,7 +186,7 @@ export default function Uppvarmning({ api = fetchUppvarmningApi, fragor: initial
       }
     >
       <PassFraga key={q.id} fraga={q} vald={vald} ratt={svar ? svar.rattVisat : null} last={fas.typ !== 'fraga'} onValj={(i) => void svara(i)} />
-      {svar ? <Regelpanel rad={svar.correct ? U.ratt : U.fel} regel={svar.regel} /> : null}
+      {svar ? <Regelpanel rad={svar.correct ? U.ratt : U.fel} regel={svar.regel} visaVidSvar /> : null}
     </PassShell>
   )
 }

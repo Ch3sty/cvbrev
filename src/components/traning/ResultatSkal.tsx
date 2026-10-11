@@ -93,7 +93,7 @@ export function TreTal({ tal }: { tal: { varde: string; etikett: string; koppar?
       {tal.map((t, i) => (
         <div key={i} className="flex flex-col-reverse">
           <dt className="mt-1 text-xs leading-4 text-vagg-mjuk">{t.etikett}</dt>
-          <dd className={`m-0 font-display text-tal-tre font-bold tabular-nums tracking-[-.02em] ${t.koppar ? 'text-koppar-ljus' : 'text-vagg-ink'}`}>
+          <dd className={`m-0 font-display text-tal-tre font-bold tracking-[-.02em] [font-variant-numeric:normal] ${t.koppar ? 'text-koppar-ljus' : 'text-vagg-ink'}`}>
             {t.varde}
           </dd>
         </div>

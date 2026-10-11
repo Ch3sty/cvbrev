@@ -44,6 +44,8 @@ export interface PassShellProps {
   /** Foten: kopparknappen eller länken "Vet inte, visa regeln". */
   fot?: ReactNode
   banner?: ReactNode
+  /** Byts nyckeln (ny fråga) rullas mitten till toppen. */
+  nyckel?: string
   children: ReactNode
 }
 
@@ -114,10 +116,15 @@ export default function PassShell({
   avslutaEtikett = PASS_COPY.topp.avsluta,
   fot,
   banner,
+  nyckel,
   children,
 }: PassShellProps) {
   const footerRef = useRef<HTMLElement | null>(null)
+  const mainRef = useRef<HTMLElement | null>(null)
   useFlodeLage(footerRef, Boolean(fot))
+  useEffect(() => {
+    if (mainRef.current) mainRef.current.scrollTop = 0
+  }, [nyckel])
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-pass-shell>
@@ -148,7 +155,7 @@ export default function PassShell({
         </div>
       ) : null}
 
-      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto flex w-full max-w-[560px] flex-col gap-3.5 px-4 pb-4 pt-3">
           {banner}
           {children}

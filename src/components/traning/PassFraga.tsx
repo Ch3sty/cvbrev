@@ -99,17 +99,18 @@ export default function PassFraga({ fraga, vald, ratt, last, onValj, visaText = 
               aria-label={`${PASS_COPY.fraga.alternativAria(bokstav)}${tillagg}`}
               disabled={last}
               onClick={() => onValj?.(i)}
-              className={`relative flex aspect-square touch-manipulation items-center justify-center rounded-xl border bg-papper transition-[border-color,opacity] duration-150 motion-reduce:transition-none ${kant} ${
+              className={`relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-papper transition-[border-color,opacity] duration-150 motion-reduce:transition-none ${kant} ${
                 dim ? 'opacity-[.38]' : ''
               } ${last ? 'cursor-default' : 'active:bg-papper-2'}`}
             >
-              <span className="absolute left-2 top-1.5 text-[11px] font-semibold text-ink-3" aria-hidden="true">
+              <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold text-ink-3" aria-hidden="true">
                 {bokstav}
               </span>
-              {arRatt ? <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-koppar" aria-hidden="true" /> : null}
-              <span className="flex h-[62%] w-[62%]">
+              {arRatt ? <span className="absolute right-2 top-2 z-10 h-2.5 w-2.5 rounded-full bg-koppar" aria-hidden="true" /> : null}
+              {/* Samma struktur som AnswerOptionsV7: en div i full storlek med svg:n, så att kvadraten bär höjden. */}
+              <div className="flex h-full w-full items-center justify-center p-[19%]">
                 <Figur cell={opt} />
-              </span>
+              </div>
             </button>
           )
         })}

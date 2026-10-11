@@ -115,7 +115,7 @@ function Ritning({ p, bredd, id }: { p: KurvaProps; bredd: keyof typeof MATT; id
           <line x1={xFor(p.prov)} x2={xFor(p.prov)} y1={6} y2={h - 6} stroke="var(--vagg-mjuk)" strokeWidth={1.5} />
         ) : null}
       </svg>
-      <div className="relative mt-1.5 h-4 text-[11px] font-medium leading-4 text-vagg-mjuk" aria-hidden="true">
+      <div className="relative mt-1.5 h-4 whitespace-nowrap text-[11px] font-medium leading-4 text-vagg-mjuk" aria-hidden="true">
         <span className="absolute left-0" style={{ left: `${(m.x0 / m.w) * 100}%` }}>
           {datumKort(p.start)}
         </span>

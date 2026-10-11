@@ -550,7 +550,7 @@ export default function PassFlode({
     )
   } else if (visaAterkoppling) {
     fot = (
-      <button type="button" onClick={nasta} className={KNAPP_PRIMAR} autoFocus>
+      <button type="button" onClick={nasta} className={KNAPP_PRIMAR}>
         {fas.klar ? PASS_COPY.knapp.visaResultat : PASS_COPY.knapp.nasta}
       </button>
     )
@@ -584,6 +584,7 @@ export default function PassFlode({
       tid={{ sekunder: tidVisas, budget: vy.budget_s }}
       onAvsluta={tillbaka}
       fot={fot}
+      nyckel={q?.id}
       banner={
         fas.typ === 'svarfel' ? (
           <p role="alert" className="rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
@@ -602,7 +603,7 @@ export default function PassFlode({
           onValj={(i) => void svara(i)}
         />
       ) : null}
-      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} /> : null}
+      {at ? <Regelpanel rad={regelRad} regel={at.regel} misstag={at.misstag} visaVidSvar /> : null}
       {fas.typ === 'sparar' ? (
         <p className="sr-only" role="status" aria-live="polite">
           {PASS_COPY.knapp.sparar}

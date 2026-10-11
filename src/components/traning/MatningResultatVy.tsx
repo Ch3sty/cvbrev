@@ -7,8 +7,8 @@
  * Resultatet visas helt för alla: nivån som stort heltal (spec 14.1:
  * decimalen bara på kurvan) på instrumentet, meningen i provets termer, tre
  * tal, var du tappar, och planen till datumet. Gratis: dagens grundpass står
- * först och är gratis, allt efter i dag står låst med paketets namn, och
- * betalväggens kort bär vyns enda kopparknapp (Köp, namn, pris). Det
+ * först och är gratis, allt efter i dag står låst med paketets namn, kortet
+ * säger vad som ingår och foten bär vyns enda kopparknapp (Köp, namn, pris). Det
  * sekundära är en textlänk. Betalande: ingen betalvägg, kopparknappen i
  * foten.
  *
@@ -19,7 +19,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { capture } from '@/lib/analytics/events'
 import { Rad } from '@/components/rum/Rader'
-import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { passHref } from '@/lib/traning/klient'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
@@ -109,24 +109,32 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
               <p className="text-ey text-koppar-ink">{vm.betalvagg.eyebrow}</p>
               <h2 className="mt-1 text-kort-t text-ink-1">{vm.betalvagg.rubrik}</h2>
               <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{vm.betalvagg.text}</p>
-              <div className={KNAPPRAD}>
-                <Link
-                  href={kopstegHref('all_month')}
-                  className={KNAPP_PRIMAR}
-                  onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'matning', cta: 'primary' })}
-                >
-                  {vm.betalvagg.knapp}
-                </Link>
-                <Link href={passHref('pass')} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
-                  {vm.betalvagg.lank}
-                </Link>
-              </div>
             </section>
           ) : null}
         </>
       }
       fot={
-        vm.betalvagg ? undefined : (
+        vm.betalvagg ? (
+          // Gratis: betalväggens knapp står i foten, så att vyns enda
+          // kopparknapp är inom viewport på Pixel 7 (spec 6 våg 3b acceptans
+          // 8). Kortet på golvet säger vad som ingår.
+          <>
+            <Link
+              href={kopstegHref('all_month')}
+              className={KNAPP_PRIMAR}
+              onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'matning', cta: 'primary' })}
+            >
+              {vm.betalvagg.knapp}
+            </Link>
+            <Link
+              href={passHref('pass')}
+              className={`${LANK} inline-flex min-h-9 items-center justify-center`}
+              onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary' })}
+            >
+              {vm.betalvagg.lank}
+            </Link>
+          </>
+        ) : (
           <>
             <Link href={passHref('pass')} className={KNAPP_PRIMAR}>
               {PASS_COPY.knapp.startaPass}

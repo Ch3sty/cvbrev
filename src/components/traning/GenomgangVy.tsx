@@ -63,6 +63,7 @@ export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat,
       tid={null}
       onAvsluta={onTillbakaResultat ?? onTillbaka}
       avslutaEtikett={onTillbakaResultat ? G.tillResultatet : PASS_COPY.knapp.tillbaka}
+      nyckel={q?.id}
       fot={
         <>
           {sista ? (
