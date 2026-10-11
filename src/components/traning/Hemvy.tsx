@@ -289,12 +289,7 @@ export default function Hemvy({ m }: { m: HemModell }) {
             <p className="mt-3.5 max-w-[40ch] text-[15px] leading-[22px] text-vagg-mjuk">{v.provdag.text}</p>
             {v.provdag.skala ? (
               <div className="mt-[22px] lg:col-span-2 lg:mt-6 lg:max-w-[840px]">
-                <div className="lg:hidden">
-                  <Nivaskala {...v.provdag.skala} bredd="mobil" />
-                </div>
-                <div className="hidden lg:block">
-                  <Nivaskala {...v.provdag.skala} bredd="dator" />
-                </div>
+                <Nivaskala {...v.provdag.skala} />
               </div>
             ) : null}
           </div>

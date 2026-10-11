@@ -148,7 +148,7 @@ export interface SkalaData {
   sikte: number | null;
   etikettNu: string;
   etikettFran: string | null;
-  ariaLabel: string;
+  aria: string;
 }
 
 export interface VaggModell {
@@ -984,7 +984,7 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
           sikte,
           etikettNu: HEM.provdag.skala.du(decimal(niva)),
           etikettFran: s.start ? HEM.provdag.skala.fran(String(heltal(s.start.niva))) : null,
-          ariaLabel: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Sikte: ${decimal(sikte)}.` : ''}`,
+          aria: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Sikte: ${decimal(sikte)}.` : ''}`,
         }
       : null;
   const matrigma = s.format.nyckel === 'matrigma_klassisk';

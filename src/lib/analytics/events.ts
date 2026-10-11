@@ -343,6 +343,20 @@ export interface AnalyticsEvents {
     tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'fel'
   }
   efter_provet_svar: { svar: 'vidare' | 'vet_inte' | 'inte_vidare' }
+  /* ---------------------------------------------- Rummen, våg 3b
+     spec-rummen-2026-10-10 avsnitt 7. Klientens del: starten av mätningen
+     och passet (slutet skjuts från servern i pass/complete), "Vet inte",
+     kvittot och betalväggen. betalvagg_visad skickas när M1:s betalvägg
+     visas (plats matning) och när ett pass spärras vid start (dag2, riktat,
+     provlage, ommatning). */
+  nivamatning_startad: { ommatning: boolean; smakprov: number }
+  pass_startat: { typ: 'pass' | 'riktat' | 'general'; variant: 'grund' | 'niva' }
+  vet_inte_tryckt: { fraga_index: number }
+  milstolpe_kvitto_visat: { nyckel: string }
+  betalvagg_visad: {
+    plats: 'matning' | 'dag2' | 'riktat' | 'provlage' | 'ommatning' | 'kurva' | 'infor_prov' | 'sidomeny'
+    dagar_kvar: number | null
+  }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

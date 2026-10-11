@@ -166,10 +166,49 @@ if (vag === '2') {
   rader.push('', `## Våg 2: koppar som text, tankstreck i copy och förhandsvisningens spärr: ${traffar.length} träffar`, ...traffar.map((t) => `       ${t}`))
 }
 
+// ------------------------------------------------------------ våg 3b
+// Passet och resultatskärmarna (spec 6 våg 3b, acceptans 3 och 4):
+//  - ren koppar som textfärg i src/components/traning: noll (på väggen är
+//    kopparfärgad text alltid text-koppar-ljus, på golvet text-koppar-ink);
+//  - --fel och fel-klasserna i passet: noll (aldrig rött på en missad fråga);
+//  - lucide-react i src/components/traning: noll;
+//  - KNAPP_PRIMAR innanför väggen: noll (samma regel som 1b);
+//  - inga användartexter i JSX: varje >Text< i src/components/traning ska
+//    komma ur copy (räknas, stoppar inte: falska träffar på kod går inte att
+//    skilja ut med regex).
+let grind3b = 0
+if (vag === '3b') {
+  const traning = filer('src/components/traning').map((p) => p.split(path.sep).join('/'))
+  const kommentar = (r) => /^\s*(\/\/|\*|\/\*|\{\/\*)/.test(r)
+  const rakna = (re) => {
+    const ut = []
+    for (const f of traning) {
+      fs.readFileSync(f, 'utf8')
+        .split('\n')
+        .forEach((r, i) => {
+          if (re.test(r) && !kommentar(r)) ut.push(`${f}:${i + 1}`)
+        })
+    }
+    return ut
+  }
+  const kopparText = rakna(/\btext-koppar(?![-\w])/)
+  const fel = rakna(/--fel\b|\b(text|bg|border|ring|fill|stroke)-fel\b/)
+  const lucideTraning = traning.filter((f) => /from ['"]lucide-react['"]/.test(fs.readFileSync(f, 'utf8')))
+  const vaggPrimar = rakna(/<div className="vagg[^"]*"[^>]*>.*KNAPP_PRIMAR/)
+  const jsxText = rakna(/>\s*[A-ZÅÄÖ][a-zåäö]+(\s+[a-zåäö]+){1,}\s*</)
+  grind3b = kopparText.length + fel.length + lucideTraning.length + vaggPrimar.length
+  rader.push('', `## Våg 3b (${traning.length} filer i src/components/traning)`)
+  rader.push(`text-koppar som ren koppar: ${kopparText.length}`, ...kopparText.map((t) => `       ${t}`))
+  rader.push(`--fel och fel-klasser i passet: ${fel.length}`, ...fel.map((t) => `       ${t}`))
+  rader.push(`lucide-react: ${lucideTraning.length}`, ...lucideTraning.map((t) => `       ${t}`))
+  rader.push(`KNAPP_PRIMAR på väggen: ${vaggPrimar.length}`, ...vaggPrimar.map((t) => `       ${t}`))
+  rader.push(`Text i JSX (räknas, stoppar inte): ${jsxText.length}`, ...jsxText.map((t) => `       ${t}`))
+}
+
 const text = rader.join('\n') + '\n'
 process.stdout.write(text)
 const i = process.argv.indexOf('--ut')
 if (i >= 0) fs.writeFileSync(process.argv[i + 1], text)
 if (process.argv.includes('--noll')) {
-  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
+  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : vag === '3b' ? grind3b > 0 : summa > 0 || lucide.length > 0) process.exit(1)
 }

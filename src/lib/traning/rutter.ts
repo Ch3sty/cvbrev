@@ -1,25 +1,53 @@
 // src/lib/traning/rutter.ts
-// Sidorna i Rekryteringstester, på ett ställe. Hemvyn (våg 2) länkar hit;
-// passflödet, mätningen och genomgången byggs i våg 3b, och om de hamnar
-// på andra adresser ändras de här och ingen annanstans.
+// Sidorna i Rekryteringstester, på ett ställe. Hemvyn (våg 2), passflödet,
+// resultaten och kvittot (våg 3b) länkar hit; klient.ts exporterar samma
+// funktioner vidare. Flyttar en sida ändras den här och ingen annanstans.
+//
+// Passets startsida läser typ, family och format (pass/page.tsx).
+
+type PassTyp = 'matning' | 'pass' | 'riktat' | 'general';
+
+/** Länken som startar ett pass, en mätning, ett riktat pass eller en generalrepetition. */
+export function passHref(typ: PassTyp, opt?: { family?: string | null; format?: string | null }): string {
+  const q = new URLSearchParams({ typ });
+  if (opt?.family) q.set('family', opt.family);
+  if (opt?.format) q.set('format', opt.format);
+  return `/dashboard/tester/pass?${q.toString()}`;
+}
+
+/** Sessionens egen adress: återupptagning, omladdning och genomgången (P4). */
+export function sessionHref(sessionId: string): string {
+  return `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`;
+}
+
+/** Uppvärmningen på provdagen, tre frågor som inte sparas. */
+export const UPPVARMNING_HREF = '/dashboard/tester/uppvarmning';
+
+/** Kvittot K1 för ett märke. */
+export function kvittoHref(nyckel: string): string {
+  return `/dashboard/tester/kvitto/${encodeURIComponent(nyckel)}`;
+}
+
+export const TRANING_HREF = '/dashboard/tester';
+export const KURVAN_HREF = '/dashboard/tester/kurvan';
 
 export const TRANING_RUTT = {
-  hem: '/dashboard/tester',
+  hem: TRANING_HREF,
   /** Ingången E1 till E3 och "Test och datum". steg=2 öppnar leverantören, steg=3 datumet. */
   installningar: '/dashboard/tester/installningar',
   installningarSteg: (steg: 1 | 2 | 3) => `/dashboard/tester/installningar?steg=${steg}`,
-  kurvan: '/dashboard/tester/kurvan',
+  kurvan: KURVAN_HREF,
   alla: '/dashboard/tester/alla',
   provlaget: '/dashboard/tester/matrislogik-prov',
   /** Passflödet (våg 3b): mätning, dagens pass, riktat pass och generalrepetition. */
-  matning: '/dashboard/tester/pass?typ=matning',
-  pass: '/dashboard/tester/pass?typ=pass',
-  riktat: (family: string) => `/dashboard/tester/pass?typ=riktat&familj=${encodeURIComponent(family)}`,
-  general: '/dashboard/tester/pass?typ=general',
-  /** Uppvärmningen på provdagen, tre frågor som inte sparas. */
-  uppvarmning: '/dashboard/tester/pass?typ=uppvarmning',
-  /** Genomgången av ett slutfört pass (våg 3b, P4). */
-  genomgang: (sessionId: string) => `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`,
+  matning: passHref('matning'),
+  pass: passHref('pass'),
+  riktat: (family: string) => passHref('riktat', { family }),
+  general: passHref('general'),
+  uppvarmning: UPPVARMNING_HREF,
+  /** Genomgången av ett slutfört pass (P4). */
+  genomgang: sessionHref,
+  kvitto: kvittoHref,
   personlighet: '/dashboard/tester/personlighet-grund',
   intervju: '/dashboard/intervju',
   brev: '/dashboard/mina-brev',
