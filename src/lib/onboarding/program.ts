@@ -7,12 +7,10 @@
 // Strängarna har sina T-id i kommentar, så att en ändring i planen går att
 // hitta i koden och tvärtom. Inga talstreck, inga engelska gränssnittsord.
 
-import { PLAN_BY_KEY, SALD_PLAN, kopKnapp, paketKort, paketMedPris, type PlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, paketKort, type PlanKey } from '@/lib/plans/plans'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
-/** Namnen ur PLANS (copy-premium avsnitt 1), aldrig som fasta strängar. */
-const CV_NAMN = PLAN_BY_KEY.cv_week.name
-const TRANING_NAMN = PLAN_BY_KEY.test_week.name
+/** Kortformen ur PLANS (copy-premium avsnitt 1), aldrig som fast sträng. */
 const PREMIUM = paketKort()
 
 /** Det som tidigare hette "allt i de andra paketen" (copy-premium avsnitt 3). */
@@ -154,82 +152,4 @@ export function fornyelserad(paket: PaketInfo, datum: string): string {
     return `Dygnet tar slut ${datum}. Inget dras igen och det finns inget att säga upp.`
   }
   return `Nästa dragning ${datum}. Säg upp när som helst i ditt konto, utan skäl.`
-}
-
-/* ------------------------------------ fel paket i taket, T73 till T87 */
-
-/**
- * För en befintlig kund med CV-paketet eller Träningspaketet som tar i taket.
- * Bytet går bara till Premium per månad (spec-rummen 17.3), och knappen är
- * samma köpknapp som överallt.
- */
-export const FEL_SPAR = {
-  rubrik: 'Du ville ladda ner den här mallen', // T79
-  /** T83: knappen, samma som överallt (copy-premium avsnitt 8). */
-  primar: kopKnapp(),
-  stang: 'Stäng', // T84
-  /** Prisraden ovanför knappen, med fulla namnet en gång på ytan. */
-  prisrad: `${paketMedPris(SALD_PLAN)}.`,
-  /** T82: vad som händer med veckan hon redan betalat. */
-  proration: 'Dagarna du redan betalat för räknas av, och månaden räknas från i dag.',
-  radLank: 'Så får du dem', // T75
-} as const
-
-/**
- * T79 per funktion. Rubriken sade alltid mallen, också när det var en
- * testnivå i taket (D2, de gråade valen). Nu följer den featuren.
- */
-export function felSparRubrik(feature: string | null | undefined): string {
-  switch (feature) {
-    case 'tests_above_base':
-      return 'Du ville köra den här nivån'
-    case 'test_exam_mode':
-      return 'Du ville köra provläget'
-    case 'test_history':
-      return 'Du ville se din utveckling'
-    case 'chat_unlimited':
-      return 'Du ville fråga Jobbcoachen'
-    case 'job_matches_all':
-      return 'Du ville se alla träffar'
-    case 'bli_upptackt':
-      return 'Du ville bli upptäckt'
-    case 'cv_export':
-      return 'Du ville ladda ner det här'
-    case 'letter_download':
-      return 'Du ville ladda ner brevet'
-    case 'cv_analysis_full':
-      return 'Du ville se hela analysen'
-    default:
-      return FEL_SPAR.rubrik
-  }
-}
-
-/** T74: radens text per betalt paket. Säger vad paketet ger, inte vad det saknar. */
-export function felSparRad(scope: Track): string {
-  if (scope === 'tester') {
-    return `Du har ${TRANING_NAMN}, som ger alla tester och nivåer. Mallarna ingår i ${PREMIUM}.`
-  }
-  if (scope === 'cv') {
-    return `Du har ${CV_NAMN}, som ger mallar, analys och personliga brev. Testerna ingår i ${PREMIUM}.`
-  }
-  return `Du har ${PREMIUM}.`
-}
-
-/** T80: kortets brödtext. */
-export function felSparText(scope: Track): string {
-  if (scope === 'tester') {
-    return `${TRANING_NAMN} ger testerna. Med ${PREMIUM} öppnas också mallarna, de personliga breven och analysen, och du behåller allt du har.`
-  }
-  if (scope === 'cv') {
-    return `${CV_NAMN} ger ansökan. Med ${PREMIUM} öppnas också alla nivåer, provläget och förklaringen till varje fråga, och du behåller allt du har.`
-  }
-  return `${PREMIUM} öppnar allt.`
-}
-
-/**
- * T83, knappen. Förr bar den mellanskillnaden per vecka; bytet går nu till
- * Premium per månad, så knappen är köpknappen och argumentet ignoreras.
- */
-export function felSparKnapp(_kr?: number | null): string {
-  return FEL_SPAR.primar
 }

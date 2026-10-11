@@ -4,7 +4,7 @@
 // sektion 3 och 5, med ägarens beslut 2026-10-11: bara Jobbcoach Premium
 // säljs). Menyn säger vad man har, och varje val bär en kort mening om vad
 // som ingår ("3 mallar, en nedladdning") eller "Ingår i Premium". Inga spår
-// och inga mellanskillnader visas för gratiskonton. Befintliga kunder med
+// visas för gratiskonton. Befintliga kunder med
 // CV-paketet eller Träningspaketet ser sitt paket tills det löpt ut. Talen
 // kommer ur scopet och kvottjänsten, aldrig hårdkodade.
 //
@@ -152,7 +152,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'tester':
       return scopeHasFeature(s, 'tests_above_base')
         ? { text: 'Alla typer, alla nivåer, provläge mot klockan', ingar: true }
-        : { text: 'Grundnivån, en gång per typ och dygn', ingar: true }
+        : { text: 'Nivåmätning och ett första pass', ingar: true }
     case 'cv':
     case 'analys':
       return scopeHasFeature(s, 'cv_analysis_full')
@@ -194,20 +194,10 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
   }
 }
 
-/**
- * Mellanskillnaden i kronor för en befintlig spårkund, till FelSpar. Bara
- * spårkunder (CV-paketet, Träningspaketet) får ett tal; gratiskonton och
- * Premium null. Visas aldrig i menyn.
- */
-export function mellanskillnadKr(planKey: PlanKey | null): number | null {
-  if (planKey !== 'cv_week' && planKey !== 'test_week') return null
-  return Math.max(0, PLAN_BY_KEY[SALD_PLAN].amount - PLAN_BY_KEY[planKey].amount)
-}
-
 /** Menyns fotrad för en befintlig spårkund: resten ingår i Premium. */
 export function menyFot(p: PaketLage): string | null {
   if (p.planKey !== 'cv_week' && p.planKey !== 'test_week') return null
-  const del = p.scope === 'tester' ? 'CV-delen' : 'Testerna'
+  const del = p.scope === 'tester' ? 'CV, personliga brev' : 'Testerna'
   return `${del} och allt grått ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`
 }
 
@@ -231,7 +221,7 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
     return {
       statusrad: null,
       rubrik: null,
-      ingress: `Grundnivån i alla fyra typer ingår gratis, en gång per typ och dygn. Nivåerna över, provläget och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
+      ingress: `En nivåmätning med genomgång och ett första träningspass ingår gratis. Att träna vidare, provläget och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
     }
   }
   return { statusrad: null, rubrik: null, ingress: null }

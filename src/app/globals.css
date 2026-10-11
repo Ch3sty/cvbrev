@@ -119,7 +119,7 @@
    Var det gäller: där sidan har ett rum. DashboardShell sätter data-rum på
    sin yttersta div redan i serverns HTML, och :root:has([data-rum]) lyfter
    tokens till <html> så att även ark som renderas i en portal under <body>
-   (Sheet, UpgradeSheet) står i rummet. Publika sidor, kassan och adminen har
+   (Sheet, GraValSheet) står i rummet. Publika sidor, kassan och adminen har
    inget rum och behåller Tråden ovan (beslut 1: publika sidor ingår inte).
 
    Specificitet: rot-blocket är (0,2,0), mörkt läge (0,3,0), och rummen står

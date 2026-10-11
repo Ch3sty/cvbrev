@@ -6,10 +6,13 @@
 // Sedan paketen infördes (docs/plan-paket-och-onboarding.md avsnitt 5) har
 // rutten två utgångar. Har kunden redan en levande prenumeration byter vi pris
 // på den i stället för att öppna en kassa (valjByte i src/lib/stripe/paketByte.ts):
-// spår till Hela paketet med proration, CV-paketet och Träningspaketet
-// sinsemellan utan, och svaret blir { upgraded: true }. Nedgradering och
-// längdbyte går inte direkt och får 409 med beskedet. Utan prenumeration blir
-// det en vanlig embedded checkout som förut.
+// spår till Jobbcoach Premium med proration, och svaret blir { upgraded: true }.
+// Nedgradering och längdbyte går inte direkt och får 409 med beskedet. Utan
+// prenumeration blir det en vanlig embedded checkout som förut.
+//
+// Sedan 2026-10-11 (spec-rummen 17.5) är det här enda vägen för en spårkund
+// till Premium: betalväggen skickar henne till prenumerationssidan, och den
+// anropar rutten. Ingen ny kassa öppnas för den som har en prenumeration.
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
@@ -146,8 +149,9 @@ export async function POST(request: NextRequest) {
 
     // Spärr: teckna aldrig ett andra abonnemang åt någon som redan har ett.
     // En levande prenumeration byter pris i stället, och valjByte avgör hur:
-    // uppgradering direkt med mellanskillnaden, sidbyte direkt utan proration,
-    // nedgradering och längdbyte först vid nästa förnyelse.
+    // uppgradering direkt med proration, nedgradering och längdbyte först vid
+    // nästa förnyelse. Sidbytet mellan spåren nås inte längre (osålt mål ger
+    // 400 ovanför) men regeln står kvar i valjByte.
     const existing = await findLiveSubscription(customerId)
     if (existing) {
       const val = valjByte(existing.planKey, requestedPlanKey)
@@ -160,8 +164,13 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: 'Kunde inte byta paket. Försök igen.' }, { status: 500 })
         }
 
-        // Uppgradering: always_invoice fakturerar mellanskillnaden direkt, så
-        // kunden får Hela paketet samma sekund och inte vid nästa dragning.
+        // Uppgradering: spåren är veckopris och Premium är månadspris. När
+        // intervallet byts flyttar Stripe dragningsdagen till bytesdagen
+        // (billing_cycle_anchor) och fakturerar direkt; prorationen drar av
+        // den oanvända veckotiden på den fakturan. always_invoice gör samma
+        // sak uttryckligen, så kunden får Premium samma sekund och månaden
+        // räknas från i dag (KONTO.bytPrisrad säger just det). Spec 17.5
+        // skriver create_prorations; vid intervallbyte ger båda samma faktura.
         // Sidbyte: samma belopp och längd, så ingen proration, ingen faktura
         // och inget kvitto. Dragningsdagen står kvar. En uppsägning står
         // också kvar: den som sagt upp och byter spår har inte ångrat sig.

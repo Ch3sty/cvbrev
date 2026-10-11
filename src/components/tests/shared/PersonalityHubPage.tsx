@@ -50,8 +50,8 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
   const isPremium = subscriptionTier === 'premium'
 
   // Paketet och spåret kommer ur hemskärmens data, som redan hämtats en
-  // gång. Utan paket är scope null, och då ritar PaywallCard den vanliga
-  // betalväggen; med fel spår ritar den FelSpar i stället.
+  // gång. PaywallCard ritar samma betalvägg med eller utan paket; med fel
+  // spår går knappen till prenumerationssidan (spec-rummen 17.5).
   const scope = summary?.paket?.scope ?? null
   const track = summary?.paket?.track ?? null
   const requiredFeature = config.requiresFeature ?? null

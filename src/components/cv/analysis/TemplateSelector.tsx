@@ -9,8 +9,9 @@
  * väljer en låst mall möta betalväggen. Suddade förhandsvisningar säljer
  * ingenting, de får mallen att se sämre ut än den är.
  *
- * Har hon ett betalt paket som inte täcker mallarna, alltså Träningspaketet, är
- * det inte en spärr utan en uppgradering, och då ritar PaywallCard FelSpar.
+ * Har hon ett betalt paket som inte täcker mallarna, alltså Träningspaketet,
+ * får hon samma betalvägg, och knappen går till prenumerationssidan där
+ * priset byts på hennes prenumeration (spec-rummen 17.5).
  */
 
 import { useState } from 'react';

@@ -3,14 +3,11 @@ import { describe, it, expect } from 'vitest'
 import {
   PAKET,
   PAKETSKARM,
-  FEL_SPAR,
   fornyelserad,
-  felSparKnapp,
-  felSparRad,
-  felSparText,
   isTrack,
 } from '../program'
-import { PLAN_BY_KEY, kopKnapp } from '@/lib/plans/plans'
+import * as program from '../program'
+import { PLAN_BY_KEY } from '@/lib/plans/plans'
 import { requiredStepsForTrack, isTrackOnboardingComplete } from '../steps'
 
 describe('paketen', () => {
@@ -63,27 +60,11 @@ describe('kassans lagkravsrader', () => {
 })
 
 describe('fel spår i taket, för befintliga spårkunder', () => {
-  it('raden säger vad paketet ger och var resten ingår', () => {
-    const rad = felSparRad('tester')
-    expect(rad).toContain('Du har Träningspaketet')
-    expect(rad).toContain('ingår i Premium')
-    expect(rad).not.toMatch(/ingår inte|saknas|låst|CV-paketet/i)
-    expect(felSparRad('cv')).not.toContain('Träningspaketet')
-  })
-
-  it('kortet pekar på Premium för båda spåren, aldrig i sidled', () => {
-    expect(felSparText('tester')).toContain('Premium')
-    expect(felSparText('cv')).toContain('Premium')
-    expect(felSparText('tester')).not.toContain('CV-paketet')
-    expect(felSparText('cv')).not.toContain('Träningspaketet')
-  })
-
-  it('knappen är köpknappen och prisraden bär fulla namnet med priset', () => {
-    expect(felSparKnapp()).toBe('Köp Premium, 149 kr i månaden')
-    expect(felSparKnapp(20)).toBe(kopKnapp())
-    expect(FEL_SPAR.prisrad).toBe('Jobbcoach Premium, 149 kr i månaden.')
-    expect(FEL_SPAR.proration).toContain('räknas av')
-    expect(FEL_SPAR.proration).not.toMatch(/Veckan fortsätter/)
+  it('har ingen egen copy sedan FelSpar togs bort (spec-rummen 17.5)', () => {
+    // Spårkunden får den vanliga Premium-väggen; bytet sker på
+    // prenumerationssidan med KONTO.bytPrisrad.
+    expect(program).not.toHaveProperty('FEL_SPAR')
+    expect(program).not.toHaveProperty('felSparKnapp')
   })
 })
 

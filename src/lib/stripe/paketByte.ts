@@ -9,7 +9,8 @@
  * Fyra utfall:
  *
  *   uppgradering  CV-paketet eller Träningspaketet till Jobbcoach Premium. Priset
- *                 byts direkt och mellanskillnaden faktureras (always_invoice).
+ *                 byts direkt, den oanvända veckotiden dras av och månaden
+ *                 räknas från bytesdagen (always_invoice, intervallbyte).
  *   sidbyte       CV-paketet och Träningspaketet sinsemellan. Samma belopp och
  *                 samma längd, så priset byts direkt utan proration och utan
  *                 faktura. Nästa dragning står kvar på samma datum.

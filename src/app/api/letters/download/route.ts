@@ -375,8 +375,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
     }
     
-    // Punkt 12: logga först när filen faktiskt finns. Premiumanvändning
-    // under trial driver copyn i UpgradeSheet på dag 4 till 5.
+    // Punkt 12: logga först när filen faktiskt finns, så att loggen bara
+    // räknar nedladdningar som blev av.
     logPremiumUsage(user.id, 'letter_download', { format });
 
     // Returnera filen som en nedladdningsbar blob

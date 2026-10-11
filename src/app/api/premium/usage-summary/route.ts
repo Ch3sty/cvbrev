@@ -3,9 +3,10 @@
 // Vad användaren faktiskt hunnit använda av Premium (punkt 11 i
 // docs/plan-inloggat-saljflode.md).
 //
-// UpgradeSheet läser detta på dag 4 till 5 och sorterar "det här förlorar du"
-// efter verklig användning. Har hon laddat ner tre brev står nedladdningen
-// först. Har hon inte laddat ner något står brevkvoten först.
+// Svaret sorterar användningen efter vad hon gjort mest: har hon laddat ner
+// tre brev står nedladdningen först, annars brevkvoten. Arket som läste det
+// (UpgradeSheet) togs bort 2026-10-11 (spec-rummen 17.5); ingen komponent
+// anropar rutten i dag.
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { NextResponse } from 'next/server'

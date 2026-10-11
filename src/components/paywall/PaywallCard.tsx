@@ -19,7 +19,9 @@
  * exponering.
  *
  * Har användaren ett betalt spår som inte räcker (befintlig kund med
- * CV-paketet eller Träningspaketet) renderas FelSpar i stället.
+ * CV-paketet eller Träningspaketet) är väggen densamma, men knappen öppnar
+ * ingen ny kassa. Den går till prenumerationssidan, där priset byts på
+ * samma prenumeration (spec-rummen 17.5).
  */
 
 import React, { useEffect, useRef, useState } from 'react'
@@ -30,8 +32,8 @@ import { getPaywallCopy, planForPaywall, PAKETRADER, VARIANT_FEATURE, type Paywa
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import { SALD_PLAN, saljbarPlan, type PlanKey } from '@/lib/plans/plans'
 import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
+import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
-import FelSpar from './FelSpar'
 
 export { PRISER_HREF }
 
@@ -89,11 +91,6 @@ export interface PaywallCardProps {
    */
   onSecondary?: () => void
   /**
-   * Mellanskillnaden i kronor för en befintlig spårkund. Skickas vidare till
-   * FelSpar; gratiskonton ser den aldrig.
-   */
-  priceDeltaKr?: number | null
-  /**
    * Utan panel: bara text och handling. För de vyer som redan har en egen
    * ram runt betalväggen.
    */
@@ -117,7 +114,6 @@ export default function PaywallCard({
   onCopy,
   onDismiss,
   onSecondary,
-  priceDeltaKr,
   bare,
   plats,
   dagarKvar = null,
@@ -133,16 +129,19 @@ export default function PaywallCard({
   const knappPlan: PlanKey = saljbarPlan(suggestedPlan ?? SALD_PLAN)
   const platsen: BetalvaggPlats = plats ?? PLATS_FOR_VARIANT[variant]
 
-  // Har hon ett betalt spår som inte täcker funktionen är det fel spår i
-  // taket. FelSpar äger den ytan och skjuter sina egna händelser.
-  const felSpar =
-    !isPremium && scope !== null && sparradFeature !== null && !scopeHasFeature(scope, sparradFeature)
+  // Har hon ett betalt spår (CV-paketet eller Träningspaketet) som inte
+  // täcker funktionen har hon en prenumeration att byta pris på. Väggen är
+  // densamma, knappen går till prenumerationssidan i stället för köpsteget.
+  const sparKund =
+    !isPremium &&
+    (scope === 'cv' || scope === 'tester') &&
+    (sparradFeature === null || !scopeHasFeature(scope, sparradFeature))
 
   // En gång per montering, aldrig per omritning. Refen överlever både
   // omritningar och StrictMode:s dubbelkörning i utvecklingsläge.
   const shownRef = useRef(false)
   useEffect(() => {
-    if (isPremium || felSpar || shownRef.current) return
+    if (isPremium || shownRef.current) return
     shownRef.current = true
     capture('paywall_shown', {
       variant,
@@ -156,7 +155,7 @@ export default function PaywallCard({
     if (sparradFeature) {
       capture('feature_blocked', { feature: sparradFeature, scope, surface })
     }
-  }, [isPremium, felSpar, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar])
+  }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar])
 
   const ctaClicked = (cta: 'primary' | 'secondary') =>
     capture('paywall_cta_clicked', { variant, surface, cta, plan: knappPlan, plats: platsen })
@@ -164,19 +163,6 @@ export default function PaywallCard({
   // Kontot har redan funktionen. Ingen betalvägg.
   if (isPremium) return null
 
-  if (felSpar && sparradFeature) {
-    return (
-      <FelSpar
-        feature={sparradFeature}
-        scope={scope as Exclude<Scope, never>}
-        priceDeltaKr={priceDeltaKr ?? null}
-        open
-        onClose={() => undefined}
-        returnPath={surface}
-        className={className}
-      />
-    )
-  }
 
   const copy = getPaywallCopy(variant, {
     findingsTotal,
@@ -201,10 +187,14 @@ export default function PaywallCard({
     }
   }
 
-  /** Knappen har namngett paket och pris, så den går direkt till köpsteget. */
+  /**
+   * Knappen har namngett paket och pris, så den går direkt till köpsteget.
+   * En spårkund har redan en prenumeration och får ingen ny kassa: bytet
+   * till Premium görs på prenumerationssidan (spec-rummen 17.5).
+   */
   const primarHandling = () => {
     ctaClicked('primary')
-    window.location.href = kopstegHref(copy.plan ?? knappPlan, platsen)
+    window.location.href = sparKund ? PREMIUM_HREF : kopstegHref(copy.plan ?? knappPlan, platsen)
   }
 
   const lank = `${LANK} inline-flex min-h-11 items-center justify-center self-center`
@@ -294,7 +284,7 @@ export default function PaywallCard({
 
   const innehall = (
     <>
-      <h3 className="text-kort text-ink-1">{copy.title}</h3>
+      <h3 className="text-kort-t text-ink-1">{copy.title}</h3>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
       {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{copy.prisrad}</p> : null}
       <div className={KNAPPRAD}>

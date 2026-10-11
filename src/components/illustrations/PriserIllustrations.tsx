@@ -2,7 +2,6 @@
 
 /**
  * Prissidans fyra produktillustrationer, viewBox 96, stroke 3, radie 8.
- * Används även i UpgradeSheet (renderade i 40 px).
  */
 
 import { ILLU, IlluSvg, IlluAccentGradient, useIlluId, type IlluProps } from './primitives'

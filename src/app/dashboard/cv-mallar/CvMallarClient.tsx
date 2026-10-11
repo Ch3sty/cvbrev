@@ -79,7 +79,8 @@ export default function CvMallarClient({
   const isPremium = initialIsPremium;
   const huvud = mallHuvud(scope);
 
-  // Betalväggen för Premium (befintlig spårkund: FelSpar i arket).
+  // Betalväggen för Premium. En befintlig spårkund får samma vägg; knappen
+  // går då till prenumerationssidan (spec-rummen 17.5).
   const handleUpgradeClick = () => setSparrOppen(true);
 
   const handleGenerateCV = async (params: {
