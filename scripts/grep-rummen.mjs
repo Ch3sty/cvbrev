@@ -285,6 +285,14 @@ if (vag === '4') {
   rader.push(
     `Undantag: ${UNDANTAG4.map(String).join(', ')}. Våg 2/3b:s kataloger räknas för sig: ${VAG23.map(String).join(', ')}.`
   )
+  // RumIkoner är ett övergångslager (art-director 21.2 fråga 5): nya vyer
+  // importerar Ikoner eller RumSymboler. Varnar, stoppar inte, för importer
+  // utanför de filer som hade dem 2026-10-11 (scripts/rumikoner-baslinje.json).
+  const baslinje = new Set(JSON.parse(fs.readFileSync('scripts/rumikoner-baslinje.json', 'utf8')).filer)
+  const nyaRumIkoner = filer('src')
+    .map((f) => f.split(path.sep).join('/'))
+    .filter((f) => /.(tsx?|jsx?)$/.test(f) && !baslinje.has(f) && /from ['"][^'"]*RumIkoner['"]/.test(fs.readFileSync(f, 'utf8')))
+  rader.push(`Varning (stoppar inte): nya importer av RumIkoner utanför baslinjen: ${nyaRumIkoner.length}`, ...nyaRumIkoner.map((f) => `       ${f}`))
 }
 
 const text = rader.join('\n') + '\n'

@@ -324,6 +324,12 @@ väggen, `bg-white/[.08]` med `border-vagg-kant`, alltid automatisk bredd),
 `LANK`, `LANK_VAGG`, `KNAPPRAD`. Exakt ett `KNAPP_PRIMAR` per vy, aldrig på
 väggen; det sekundära i en betalvägg är alltid `LANK`.
 
+**Ett lyft kort som pekar på sparad data öppnar den datan; en knapp som
+kostar kvot säger det i kortet** (art-director 21.2 fråga 2). "Åtgärda i
+CV:t" öppnar den sparade analysen (`/dashboard/cv-analys?job=<id>`) i
+granskningen, utan AI-anrop, utan kvot och utan ny rad i
+`cv_analysis_jobs`. Går datan inte att öppna lyfts inte kortet.
+
 **Rader i spalter på dator** (22.2 fråga 4): andra raden följer första. Står
 ett tvåspaltskort i första raden spänner andra radens första kort också två
 spalter, nästa står i tredje, och statusraderna går i en egen rad över hela
@@ -408,6 +414,14 @@ Våg 4: lucide är ute ur inloggat. `src/components/illustrations/RumIkoner.tsx`
 kontur 1,75, rundade ändar, ingen fyllning, ingen koppar) med namn som
 speglar de gamla så att bytet var en import. Nya vyer tar `RumSymboler` och
 `Ikoner` direkt.
+
+**`RumIkoner` är ett övergångslager för befintliga vyer** (art-director 21.2
+fråga 5). Ritningarna står kvar och namnen döps inte om: de är
+kodidentifierare, inte gränssnittsord. Nya vyer importerar `Ikoner` eller
+`RumSymboler`, och när en ikon får en svensk motsvarighet i `Ikoner.tsx`
+tas lucide-namnet bort ur `RumIkoner`. `grep-rummen --vag 4` varnar (stoppar
+inte) för importer av `RumIkoner` utanför filerna i
+`scripts/rumikoner-baslinje.json` (67 filer, 2026-10-11).
 
 Tomma tillstånd (`EmptyState` och de tomma lägena i Bli upptäckt och
 Matchade jobb) står i `.tomt-symbol`: konturen i rummets `ton-ink`, ytorna
@@ -623,6 +637,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**v3, Rummen, 2026-10-11 (4, granskning).** Första raden på dator, återupptagen analys, kopparlinjen och aktiviteten bort: Jobbsökets första rad på dator är bara lyfta kort med samma överkant (Nästa handling, Sökta tjänster med eyebrow och "Alla N" i foten, korsreferensens kort), statusraden i andra raden; "Åtgärda i CV:t" öppnar den sparade analysen; `.thread-chain` är borta ur `globals.css` och Jobbmatchningen; "Det här har du gjort" är borta från hemmet; Nästa handling namnger den tysta tjänsten; Mina CV utan CV har uppladdningen i lyftkortet; "Sparade CV"; `RumIkoner` är ett övergångslager. Våg 4 ärver `whitespace-nowrap` på `KNAPP_PRIMAR` och knappkontrollen på 360 px.
 
 **v3, Rummen, 2026-10-11 (våg 4).** CV-rummet med poängringen, fynden med analysens egna plustal och dokumentets väg (C1), brevvyn med träffarna mot annonsens krav och "Spara som sökt tjänst" (B1), Jobbsökets hem med spåret, korsreferensen och Mer i Jobbsöket (J1, J2). `/dashboard` landar i senaste rummet. Lucide ute ur inloggat (`RumIkoner`), Trådens alias ute utanför testrummet, `MarginPlate` och `CreateSheet` borta, tomma tillstånd i `.tomt-symbol`, flikar och filterchips i rummets ton, `LANK_FEL` för destruktiva länkar.
 
