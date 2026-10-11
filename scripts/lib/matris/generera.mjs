@@ -642,7 +642,7 @@ function felKandidater(grid, facit, dims) {
       for (const v of d.varden) for (const w of e.varden) if (v !== facit[d.falt] && w !== facit[e.falt]) tva.push({ ...facit, [d.falt]: v, [e.falt]: w });
     });
   });
-  return { ett: ett.filter((c) => !synliga.has(key(c))), tva: tva.filter((c) => !synliga.has(key(c))) };
+  return { ett: ett.filter((c) => !synliga.has(key(c))), tva: tva.filter((c) => !synliga.has(key(c))), kopior: ett.filter((c) => synliga.has(key(c))) };
 }
 
 /**
@@ -667,56 +667,66 @@ const ALLA_BASER = ['circle', 'square', 'triangle', 'diamond'];
 const ALLA_SYMBOLER = ['plus', 'minus', 'dot', 'cross', 'ring'];
 const utanforVarden = (alla, anvanda) => alla.filter((x) => !anvanda.includes(x));
 
-// P1 och P2.
+// P1' och P2.
 //
 // P2: grundform och symbol i var sin latinsk kvadrat (ortogonala, nio
 // kombinationer), fyllningen i schackmönster.
 //
-// P1: grundform i latinsk kvadrat, symbolen växlar i schackmönster,
-// fyllningen grå på diagonalen. Beställningen ville ha två latinska
-// kvadrater och fyllning på diagonalen, men två ortogonala latinska
-// kvadrater av ordning 3 har alltid en som är konstant på huvuddiagonalen
-// (skriv kvadraterna som a·rad + b·kolumn mod 3; ortogonala par har en med
-// a = b och en med a = -b, och den senare är konstant på diagonalen). Då är
-// fyllningen en omdöpning av den kvadraten och oberoendekravet fäller
-// frågan. Symbolen tar därför schackmönstret.
+// P1' (granskningen av parti 01, 2.1): grundform och fyllning (ofylld, grå,
+// svart) i var sin latinsk kvadrat, ortogonala, och symbolen växlar mellan
+// två i schackmönster. Samma styrka som P2 (3 + 3 + 2) med en annan visuell
+// signatur. Den första P1 (grå diagonal) bar en genväg: schackmönstret är
+// konstant på huvuddiagonalen, så de två synliga grå rutorna hade alltid
+// facits symbol och fyllning, och kvar var bara formen.
+//
+// p.forskjutning ('vanster' eller 'hoger') väljer formens kvadrat: höger när
+// rad 2 är rad 1 flyttad ett steg åt höger, vänster när den är flyttad åt
+// vänster. Ordning 3 har bara de två mönstren upp till omdöpning.
 //
 // Distraktorer: fel i en regel med värden ur rutnätet, sedan fel i en regel
 // med en form eller symbol som inte finns i rutnätet (de är aldrig kopior
 // av en synlig ruta), sedan fel i två regler.
+export const arHoger = (L) => [0, 1, 2].every((c) => L[1][c] === L[0][(c + 2) % 3]);
+const FYLL3 = ['none', 'gray', 'black'];
 export function latinTrippelStack(r, p) {
   const baser = p.baser;
-  const diag = p.fyll === 'diagonal';
-  const symboler = diag ? p.symboler.slice(0, 2) : p.symboler;
+  const p1 = p.fyll === 'latin';
+  const symboler = p1 ? p.symboler.slice(0, 2) : p.symboler;
   let A; let B;
-  if (diag) { A = valj(r, LATIN); if (!diagOlika(A)) return null; } else [A, B] = ortogonaltPar(r);
+  if (p1) {
+    A = valj(r, p.forskjutning ? LATIN.filter((L) => arHoger(L) === (p.forskjutning === 'hoger')) : LATIN);
+    B = blanda(r, LATIN.filter((L) => new Set([0, 1, 2].flatMap((rr) => [0, 1, 2].map((cc) => `${A[rr][cc]}${L[rr][cc]}`))).size === 9))[0];
+  } else [A, B] = ortogonaltPar(r);
   const PA = blanda(r, [0, 1, 2]); const PB = blanda(r, [0, 1, 2]);
   const s0 = valj(r, [0, 1]);
   const start = valj(r, ['none', 'gray']);
   const andra = start === 'none' ? 'gray' : 'none';
-  const sym = (rr, cc) => (diag ? symboler[SCHACK(rr, cc) ? s0 : 1 - s0] : symboler[PB[B[rr][cc]]]);
-  const fyll = (rr, cc) => (diag ? (DIAG(rr, cc) ? 'gray' : 'none') : (SCHACK(rr, cc) ? start : andra));
+  const sym = (rr, cc) => (p1 ? symboler[SCHACK(rr, cc) ? s0 : 1 - s0] : symboler[PB[B[rr][cc]]]);
+  const fyll = (rr, cc) => (p1 ? FYLL3[PB[B[rr][cc]]] : (SCHACK(rr, cc) ? start : andra));
   const { grid, facit } = rutnat((rr, cc) => stack(baser[PA[A[rr][cc]]], sym(rr, cc), fyll(rr, cc)));
-  const { ett, tva } = felKandidater(grid, facit, [
+  const { ett, tva, kopior } = felKandidater(grid, facit, [
     { falt: 'base', varden: baser },
     { falt: 'symbol', varden: symboler },
-    { falt: 'baseFill', varden: ['none', 'gray'] },
+    { falt: 'baseFill', varden: p1 ? FYLL3 : ['none', 'gray'] },
   ]);
+  // P1': ring på svart botten är för lik prick, så ringen används inte ens som distraktor
   const utanfor = [
     ...utanforVarden(ALLA_BASER, baser).map((v) => ({ ...facit, base: v })),
-    ...utanforVarden(ALLA_SYMBOLER, symboler).map((v) => ({ ...facit, symbol: v })),
+    ...utanforVarden(p1 ? ['plus', 'minus', 'dot', 'cross'] : ALLA_SYMBOLER, symboler).map((v) => ({ ...facit, symbol: v })),
   ];
   const b = baser.map((x) => `en ${BAS_NAMN[x]}`);
   let rule; let title;
-  if (diag) {
-    rule = `Varje rad och varje kolumn har exakt ${b[0]}, ${b[1]} och ${b[2]}. Symbolen växlar mellan ${SYM_NAMN[symboler[0]]} och ${SYM_NAMN[symboler[1]]} som ett schackmönster: varannan ruta i läsordning. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är grå, de andra ofyllda.`;
-    title = 'Form, symbol och en grå diagonal';
+  if (p1) {
+    rule = `Varje rad och varje kolumn har exakt ${b[0]}, ${b[1]} och ${b[2]}, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan ${SYM_NAMN[symboler[0]]} och ${SYM_NAMN[symboler[1]]} som ett schackmönster: varannan ruta i läsordning.`;
+    title = 'Form, fyllning och schackmönster';
   } else {
     const s = symboler.map((x) => `en med ${SYM_NAMN[x]}`);
     rule = `Varje rad och varje kolumn har exakt ${b[0]}, ${b[1]} och ${b[2]}, och exakt ${s[0]}, ${s[1]} och ${s[2]}. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster: varannan ruta i läsordning.`;
     title = 'Form, symbol och schackmönster';
   }
-  return { family: 'latin-flera', title, rule, grid, facit, kandidater: ordna(facit, ett, utanfor, tva, ['base', 'symbol', 'baseFill']) };
+  // Kopior av synliga rutor sist: bygg() tar högst en, och bara när en regel annars inte bryts.
+  const kand = ordna(facit, ett, utanfor, tva, ['base', 'symbol', 'baseFill']);
+  return { family: 'latin-flera', title, rule, grid, facit, kandidater: p1 ? [...kand, ...kopior] : kand };
 }
 
 // P3: pilens riktning i latinsk kvadrat, längden i schackmönster, spetsen på diagonalen.
@@ -763,6 +773,12 @@ export function overlagringVriden(r, p) {
     if (!ok) return null;
     trip.push([a, b, vrid(c0, k)]);
   }
+  // Facitlinjen (granskningen av parti 01, 2.4): a och b delar minst ett
+  // element, annars är xor samma sak som unionen och a minus b samma sak som
+  // a, och operationen testas inte i svaret. Facit har minst två element,
+  // annars blir frågan "vilken sektor" och inte "vilken regel". Försöket
+  // kastas i stället för att dras om, så att godkända frågor byggs likadant.
+  if (![...trip[2][0]].some((x) => trip[2][1].has(x)) || trip[2][2].size < 2) return null;
   const g = axel === 'kolumn' ? trip.map((t) => t.map(mk)) : [0, 1, 2].map((rr) => trip.map((t) => mk(t[rr])));
   const facit = g[2][2]; g[2][2] = null;
   const [A, B] = trip[2];
@@ -823,8 +839,13 @@ const BYGGARE = { pilVridning, stralVridning, tileRotation, sektorRotation, latt
  * synliga rutor bort före urvalet, och urvalet ska klara distraktorkraven
  * (distraktorer.mjs) innan kontrollen körs. Taket är 200 försök. `mjuka`
  * är en mängd mjuka dubblettnycklar (mjukNyckel) som inte får återkomma.
+ *
+ * `kandidatKrav` (standard): kraven för nya frågor i kontroll.mjs, facit
+ * inte rutan uppe till vänster och inga rena läsordningsrörelser på
+ * avancerad och expert. genereraNiva stänger av dem för id som redan finns i
+ * en fryst bank, så att de byggs likadant.
  */
-export function bygg(recept, upptagna = new Set(), { mjuka = null } = {}) {
+export function bygg(recept, upptagna = new Set(), { mjuka = null, kandidatKrav = true } = {}) {
   const fel = [];
   const plus = recept.band === 'plus';
   for (let forsok = 0; forsok < (plus ? 200 : 60); forsok++) {
@@ -860,8 +881,18 @@ export function bygg(recept, upptagna = new Set(), { mjuka = null } = {}) {
       // bara alternativ som stämmer på minst en regel och inte är en synlig ruta
       // i byggarens ordning, som har nära missar först
       const an = analysera(prov, t);
-      const rader = kand.map((c, i) => ({ c, m: m[i + 1], a: an.alternativ[i + 1] }))
-        .filter((x) => !x.a.tomt && !x.a.tomFigur && x.a.kopia === null);
+      const alla = kand.map((c, i) => ({ c, m: m[i + 1], a: an.alternativ[i + 1] }));
+      const rader = alla.filter((x) => !x.a.tomt && !x.a.tomFigur && x.a.kopia === null);
+      // En regel som ingen nära miss utan kopia kan bryta (P1' med formens
+      // kvadrat åt höger: varje annan fyllning ger en av diagonalens rutor)
+      // får en nära miss som är en kopia, högst en per fråga (distraktorkravet
+      // 2.2 punkt 4). Den läggs först så att urvalet tar den.
+      const brutna = new Set(rader.filter((x) => x.a.naraMiss).flatMap((x) => x.a.bryter));
+      const obrutna = an.R.filter((p) => !brutna.has(p));
+      if (obrutna.length === 1) {
+        const kopia = alla.find((x) => x.a.kopia !== null && x.a.naraMiss && !x.a.tomFigur && x.a.bryter[0] === obrutna[0]);
+        if (kopia) rader.unshift(kopia);
+      }
       kand.splice(0, kand.length, ...rader.map((x) => x.c));
       m = [m[0], ...rader.map((x) => x.m)];
     }
@@ -883,7 +914,7 @@ export function bygg(recept, upptagna = new Set(), { mjuka = null } = {}) {
       const df = plusFel(analysera(q));
       if (df.length) { fel.push(`försök ${forsok}: ${df.join('; ')}`); continue; }
     }
-    const kf = kontrollera(q, { strikt: true, familj: b.family });
+    const kf = kontrollera(q, { strikt: true, familj: b.family, kandidat: kandidatKrav });
     if (kf.length) { fel.push(`försök ${forsok}: ${kf.join('; ')}`); continue; }
     q.misstag = misstagFor(q);
     upptagna.add(sig);

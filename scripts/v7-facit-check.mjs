@@ -28,12 +28,19 @@
 // är en funktion av en annan) och plus-kraven (antal regler, en regel
 // kopplad över rutnätet) i den strikta kontrollen och är fel. För alla andra
 // frågor skrivs oberoendet som upplysning: bankerna är frysta (beslut 15.6).
+//
+// Kandidatfilerna får dessutom kraven för nya frågor (granskningen av parti
+// 01, 2.6 punkt 7): facit är inte identiskt med rutan uppe till vänster,
+// facit lika med en annan synlig ruta bara med minst två kopior bland
+// distraktorerna, och inga rena läsordningsrörelser på avancerad och expert.
+// För de sex bankerna skrivs antalet med facit lika med rutan uppe till
+// vänster per nivå som upplysning (kalibreringens flagga facit_ruta0).
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
 import { tolka, familjFor, POS } from './lib/matris/tolka.mjs';
 import { misstagFor } from './lib/matris/misstag.mjs';
-import { kontrollera, oberoende } from './lib/matris/kontroll.mjs';
+import { kontrollera, oberoende, facitRuta0, nivaFor } from './lib/matris/kontroll.mjs';
 import { stable, vKey } from './lib/matris/celler.mjs';
 
 const ALLA = [
@@ -52,10 +59,12 @@ const ids = new Map();
 const rutnat = new Map();
 let antal = 0;
 let antalPensionerade = 0;
+const ruta0 = {};
 
 for (const fil of filer) {
   const bank = JSON.parse(readFileSync(fil, 'utf8'));
-  const ny = /3c\.v7\.json$/.test(fil) || /[\\/]kandidater[\\/]/.test(fil);
+  const kandidat = /[\\/]kandidater[\\/]/.test(fil);
+  const ny = /3c\.v7\.json$/.test(fil) || kandidat;
   for (const q of bank) {
     antal++;
     const tag = `[${q.id}]`;
@@ -108,8 +117,14 @@ for (const fil of filer) {
       if (x !== m[i]) fel.push(`${tag} misstag ${i + 1} skiljer sig från generatorns: "${x}" mot "${m[i]}"`);
     });
 
-    const k = kontrollera(q, { strikt: true, familj: q.family });
+    const k = kontrollera(q, { strikt: true, familj: q.family, kandidat });
     if (pensionerad) continue;
+    if (!kandidat) {
+      const niva = /Grund/.test(fil) ? 'grund' : /Expert/.test(fil) ? 'expert' : /questionBank(Avancerad3c)?\.v7\.json$/.test(fil) ? 'avancerad' : nivaFor(q) ?? 'okänd';
+      const n = (ruta0[niva] ??= { valbara: 0, ruta0: 0 });
+      n.valbara++;
+      if (facitRuta0(q)) n.ruta0++;
+    }
     if (q.band !== 'plus') infoOberoende.push(...oberoende(q, t).map((x) => `[oberoende] ${x}`));
     if (ny || q.band === 'plus') fel.push(...k.map((x) => `[strikt] ${x}`));
     else {
@@ -132,6 +147,11 @@ if (infoOberoende.length) {
   console.log(`Upplysning om oberoende (${infoOberoende.length}), räknas inte som fel (bankerna är frysta, beslut 15.6):`);
   infoOberoende.forEach((x) => console.log('  · ' + x));
   console.log('');
+}
+if (Object.keys(ruta0).length) {
+  const tot = Object.values(ruta0).reduce((a, n) => ({ valbara: a.valbara + n.valbara, ruta0: a.ruta0 + n.ruta0 }), { valbara: 0, ruta0: 0 });
+  console.log(`Upplysning facit_ruta0 (facit identiskt med rutan uppe till vänster), räknas inte som fel: ${Object.entries(ruta0).map(([n, x]) => `${n} ${x.ruta0} av ${x.valbara}`).join(', ')}, totalt ${tot.ruta0} av ${tot.valbara}
+`);
 }
 if (fel.length === 0) {
   console.log('✓ Facit stämmer, inga tvetydiga frågor, alla latinska kvadrater håller, family och misstag i takt med generatorn.');

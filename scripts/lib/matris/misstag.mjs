@@ -278,6 +278,19 @@ function textOverlagringVriden(q, t, R, F, regel) {
   const opv = (o) => [...OPS[o](S(A), S(B))].map(Number).sort((x, y) => x - y);
   const rot = (v, j) => rotera(dim, v, j);
   const C = opv(op);
+  // Dubbel diagnos (granskningen av parti 01, 2.4): figuren är både rätt
+  // sammanslagning med fel vridning och fel sammanslagning med rätt vridning.
+  // Då nämner texten båda felen.
+  const jFel = [0, 1, 2, 3, 4, 5, 6, 7].find((j) => j !== mod(k, 8) && lika(F, rot(C, j)));
+  const oFel = Object.keys(OPS).find((o) => o !== op && !lika(opv(o), C) && lika(F, rot(opv(o), k)));
+  if (jFel !== undefined && oFel !== undefined) {
+    const vridDel = jFel === 0 ? 'mönstret är inte vridet alls'
+      : jFel === mod(-k, 8) ? 'mönstret är vridet åt fel håll'
+        : jFel === mod(k + 4, 8) ? 'mönstret är vridet ett halvt varv för långt'
+          : `mönstret är vridet ${VRID_TEXT(jFel)} i stället för ${VRID_TEXT(k)}`;
+    const x = textOverlagring(q, t, C, opv(oFel), { ...regel, regel: 'overlagring', info: { op, axel } });
+    return `Två fel ger samma figur här: antingen läggs rutorna ihop rätt men ${vridDel}, eller så stämmer vridningen men ${x ? liten(x) : 'rutorna läggs ihop på fel sätt.'}`;
+  }
   if (lika(F, C)) return `Lägger ihop rätt, men mönstret ska också vridas ${VRID_TEXT(k)}.`;
   if (lika(F, rot(C, -k))) return 'Vrider åt fel håll.';
   if (mod(k + 4, 8) !== k && lika(F, rot(C, k + 4))) return 'Vrider rätt håll men ett halvt varv för långt.';

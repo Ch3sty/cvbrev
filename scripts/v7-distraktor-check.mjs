@@ -51,7 +51,7 @@ for (const fil of lista) {
     if (!a.ok) { otolkade++; console.log(`  ${q.id}: ingen tolkning (${a.orsak})`); if (krav) fel.push(`${q.id}: ${a.orsak}`); continue; }
     fordelning[a.naraMiss]++;
     const bryter = a.alternativ.filter((x) => !x.facit && x.naraMiss).map((x) => x.bryter.join('+'));
-    console.log(`  ${q.id}: |R| ${a.R.length} (${a.R.join(', ') || 'ingen'}), nära miss ${a.naraMiss}${bryter.length ? ` (bryter ${bryter.join(', ')})` : ''}, tomma ${a.tomma}, kopior ${a.kopior}`);
+    console.log(`  ${q.id}: |R| ${a.R.length} (${a.R.join(', ') || 'ingen'}), nära miss ${a.naraMiss}${bryter.length ? ` (bryter ${bryter.join(', ')})` : ''}, tomma ${a.tomma}, kopior ${a.kopior}${a.dubbla ? `, dubbel diagnos (op eller vrid) ${a.dubbla}` : ''}`);
     if (krav === 'plus') fel.push(...plusFel(a));
   }
   console.log(`  Fördelning, antal nära miss per fråga: ${fordelning.map((n, i) => `${i}: ${n}`).join(', ')}${otolkade ? `, utan tolkning: ${otolkade}` : ''}`);

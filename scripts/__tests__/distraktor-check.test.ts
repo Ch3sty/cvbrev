@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { analysera, plusFel } from '../lib/matris/distraktorer.mjs'
+import { readFileSync } from 'node:fs'
+import { analysera, plusFel, radPerAlternativ } from '../lib/matris/distraktorer.mjs'
 import { godkandPlus, hjalp, PAR } from './fixtures-matris.mjs'
 
 const ray = (s: number[]) => ({ kind: 'ray', rays: s })
@@ -43,6 +44,16 @@ describe('distraktorkontrollen, bandet svår plus', () => {
     const q = godkandPlus()
     q.options[5] = q.options[4]
     expect(fel(q)).toContain('fixtur-godkand: alternativ E och F bryter samma regel på samma sätt')
+  })
+  it('dubbel diagnos: rätt op med fel vridning är också fel op med rätt vridning', () => {
+    const fil = JSON.parse(readFileSync('src/lib/logicTestV7/kandidater/expert-plus-parti-01.v7.json', 'utf8'))
+    const q = fil.find((x: { id: string }) => x.id === 'v7e-plus-over-15')
+    const an = analysera(q)
+    expect(an.dubbla).toBe(1)
+    expect(an.alternativ[2]).toMatchObject({ dubbel: true, traff: false })
+    expect(radPerAlternativ(an)[2]).toBe('C: dubbel diagnos, op eller vrid')
+    expect(q.misstag[2]).toMatch(/^Två fel ger samma figur här: antingen .+, eller så stämmer vridningen men /)
+    expect(plusFel(an)).toEqual([])
   })
   it('6: tom figur', () => {
     const q = godkandPlus()

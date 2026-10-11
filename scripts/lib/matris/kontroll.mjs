@@ -14,6 +14,8 @@
 //   - facit: tolkningen ur de synliga rutorna ger exakt ett alternativ, facit,
 //     och ingen annan enkel regel ger ett annat svar
 //   - misstag: varje fel alternativ har en förklaring, utan tankstreck
+//   - med `kandidat` (nya frågor): facit inte rutan uppe till vänster, och
+//     inga rena läsordningsrörelser på avancerad och expert (kandidatKrav)
 //
 // Returnerar en lista med fel (tom = godkänd). `strikt` lägger till regel 1
 // per form och regel 5 för mängder; de används på nya frågor och rapporteras
@@ -21,7 +23,7 @@
 // =============================================================================
 
 import { stable, tile } from './celler.mjs';
-import { tolka, familjFor, POS } from './tolka.mjs';
+import { tolka, familjFor, POS, LASORDNING } from './tolka.mjs';
 import { misstagFor } from './misstag.mjs';
 
 const norm = (c) => (c === null ? 'null' : stable(c));
@@ -61,7 +63,13 @@ function attribut(cell, strikt) {
 //
 // Dimensioner som tolkningen läser ur samma mängd i en andra vy (ringar som
 // mängd av svarta ringar, 2×2 som helt mönster) jämförs inte med varandra.
+//
+// Mönsterrotation (granskningen av parti 01, avsnitt 6, grupp A): när alla
+// rutor i ett 2×2-mönster vrider sig lika långt i läsordning är mönstret en
+// dimension, inte fyra. Två lat-dimensioner med samma vridning jämförs
+// därför inte. Två vandrare med olika steg (två rörelser) jämförs som förut.
 const SAMMA_MANGD = new Set(['ringantal', 'ringsvart', 'ringgra', 'lat-hel']);
+const sammaMonster = (rx, ry, X, Y) => X.startsWith('lat-') && Y.startsWith('lat-') && rx.regel === 'rot-steg' && ry.regel === 'rot-steg' && rx.info?.k === ry.info?.k;
 
 export function oberoende(q, t = tolka(q)) {
   if (!t || !t.ok) return [];
@@ -73,11 +81,91 @@ export function oberoende(q, t = tolka(q)) {
   for (let i = 0; i < aktiva.length; i++) for (let j = i + 1; j < aktiva.length; j++) {
     const X = aktiva[i]; const Y = aktiva[j];
     if (SAMMA_MANGD.has(X) && SAMMA_MANGD.has(Y)) continue;
+    if (sammaMonster(t.regel[X], t.regel[Y], X, Y)) continue;
     const vx = varden(X); const vy = varden(Y);
     const komb = new Set(vx.map((x, k) => `${x}|${vy[k]}`)).size;
     const nx = new Set(vx).size; const ny = new Set(vy).size;
     if (komb === nx) fel.push(`${q.id}: ${Y} är en funktion av ${X}`);
     else if (komb === ny) fel.push(`${q.id}: ${X} är en funktion av ${Y}`);
+  }
+  return fel;
+}
+
+// ---------------------------------------------------------------- facit och läsordning
+// Granskningen av parti 01 (1.2 och 2.6 punkt 7): i 159 av 252 valbara
+// frågor i de sex bankerna är facit identiskt med rutan uppe till vänster,
+// eftersom rörelser i läsordning går i steg om 45 grader eller i perioder
+// som delar 8 och sluter sig efter åtta steg. Det är en genväg som inte
+// kräver att man förstår regeln.
+
+/** Facit identiskt med rutan uppe till vänster (kalibreringens flagga facit_ruta0). */
+export function facitRuta0(q) {
+  if (!Array.isArray(q?.grid) || !Array.isArray(q?.options) || !q.grid[0]?.[0]) return false;
+  const f = q.options[q.correctAnswer];
+  return f !== undefined && norm(f) === norm(q.grid[0][0]);
+}
+
+/** Synliga rutor (1 till 8 i läsordning) som är identiska med facit. */
+export function facitKopior(q) {
+  const f = norm(q.options[q.correctAnswer]);
+  return POS.map(([r, c], i) => (norm(q.grid[r][c]) === f ? i + 1 : null)).filter((x) => x !== null);
+}
+
+/** Nivån ur id:t (v7g, v7a, v7e), annars null. */
+export function nivaFor(q) {
+  const m = /^v7([gae])-/.exec(q?.id ?? '');
+  return m ? { g: 'grund', a: 'avancerad', e: 'expert' }[m[1]] : null;
+}
+
+// Familjerna som bärs av rörelser i läsordning. Antal som ändras räknas bara
+// när regeln är en sekvens, inte en summa per rad.
+export const LASORDNINGSFAMILJER = new Set(['vridning', 'vandring', 'monsterrotation', 'rotation-med-byte', 'tva-rorelser', 'antal-andras']);
+
+/**
+ * Läsordningscykeln. `slutna`: dimensionerna med en regel i läsordning vars
+ * värde i ruta 9 är detsamma som i ruta 1 (rörelsen sluter sig efter åtta
+ * steg). `ren`: varje aktiv regel går i läsordning, eller familjen är en
+ * läsordningsfamilj utan summa (två rörelser på balanslinjen läses som
+ * latinska kvadrater men är vandringar i läsordning).
+ */
+export function lasordningsCykel(q, t = tolka(q)) {
+  if (!t || !t.ok) return { ren: false, slutna: [] };
+  const full = q.grid.map((r) => r.slice());
+  full[2][2] = q.options[q.correctAnswer];
+  const aktiva = Object.entries(t.regel).filter(([, r]) => r.regel !== 'konstant');
+  const v = (c, id) => stable(t.dimsVy(c).find((d) => d.id === id)?.varde ?? null);
+  const slutna = aktiva.filter(([id, r]) => LASORDNING.includes(r.regel) && v(full[2][2], id) === v(full[0][0], id)).map(([id]) => id);
+  const regler = aktiva.map(([, r]) => r.regel);
+  const fam = q.family ?? familjFor(q, t);
+  const ren = (regler.length > 0 && regler.every((r) => LASORDNING.includes(r))) || (LASORDNINGSFAMILJER.has(fam) && !regler.includes('summa'));
+  return { ren, slutna };
+}
+
+/**
+ * Kraven för nya kandidater (alla nivåer, inte bara plus), granskningen av
+ * parti 01, 2.6 punkt 7 och avsnitt 6 punkt 5:
+ *   - facit är inte identiskt med rutan uppe till vänster
+ *   - facit identiskt med någon annan synlig ruta bara när minst två
+ *     distraktorer också är kopior av synliga rutor
+ *   - på avancerad och expert inga rena rörelser i läsordning (de sluter sig
+ *     efter åtta steg); de genereras bara för grund
+ * De skarpa bankerna är frysta och får kraven som upplysning.
+ */
+export function kandidatKrav(q, t = tolka(q)) {
+  const fel = [];
+  if (facitRuta0(q)) fel.push(`${q.id}: facit är identiskt med rutan uppe till vänster`);
+  else {
+    const kopior = facitKopior(q);
+    if (kopior.length) {
+      const synliga = new Set(POS.map(([r, c]) => norm(q.grid[r][c])));
+      const dist = q.options.filter((o, i) => i !== q.correctAnswer && synliga.has(norm(o))).length;
+      if (dist < 2) fel.push(`${q.id}: facit är identiskt med ruta ${kopior.join(' och ')} men bara ${dist} distraktorer är kopior av synliga rutor (minst två krävs)`);
+    }
+  }
+  const niva = nivaFor(q);
+  if (niva && niva !== 'grund') {
+    const { ren, slutna } = lasordningsCykel(q, t);
+    if (ren) fel.push(`${q.id}: ren rörelse i läsordning${slutna.length ? ` som sluter sig efter åtta steg (${slutna.join(', ')})` : ''}, genereras bara för grund`);
   }
   return fel;
 }
@@ -107,7 +195,7 @@ export function plusKrav(q, t = tolka(q)) {
   return fel;
 }
 
-export function kontrollera(q, { strikt = true, familj = null } = {}) {
+export function kontrollera(q, { strikt = true, familj = null, kandidat = false } = {}) {
   const fel = [];
   const tag = q.id;
   if (!Array.isArray(q.grid) || q.grid.length !== 3 || q.grid.some((r) => r.length !== 3)) return [`${tag}: grid är inte 3×3`];
@@ -189,6 +277,7 @@ export function kontrollera(q, { strikt = true, familj = null } = {}) {
     }
   }
   if (strikt && q.band === 'plus' && t.ok) fel.push(...oberoende(q, t), ...plusKrav(q, t));
+  if (kandidat && t.ok) fel.push(...kandidatKrav(q, t));
   if (strikt) {
     const m = misstagFor(q, t);
     m.forEach((x, i) => {

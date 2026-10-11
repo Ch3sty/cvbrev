@@ -17,7 +17,7 @@
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { bygg, key, mjukNyckel } from './generera.mjs';
+import { bygg, key, mjukNyckel, strukturNyckel } from './generera.mjs';
 import { NIVAER } from './recept.mjs';
 
 const las = (p) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null);
@@ -34,7 +34,7 @@ export function genereraNiva(niva) {
   const fel = [];
   for (const rc of recept) {
     try {
-      const q = bygg(rc, upptagna);
+      const q = bygg(rc, upptagna, { kandidatKrav: !tidigare.has(rc.id) });
       const gammal = tidigare.get(q.id);
       if (gammal && key(gammal) !== key(q)) {
         fel.push(`${q.id}: innehållet skulle ändras. Ett incheckat id får inte byta fråga; lägg nya recept sist.`);
@@ -75,7 +75,23 @@ export function upptagnaRutnat(ut) {
   return upptagna;
 }
 
-export function genereraKandidater(recept, ut, { upptagna = upptagnaRutnat(ut) } = {}) {
+/**
+ * Strukturvariation (granskningen av parti 01, 2.6 punkt 4): inom en
+ * mekanism med fler än en fråga ska minst två olika strukturnycklar finnas
+ * (förskjutning, schackfas, spetsens läge), annars varieras bara startläget.
+ * `undantag` är mekanismer som godkänts med en enda struktur. Gäller de
+ * latinska mekanismerna; i överlagring varieras regeln i receptet
+ * (operation, axel, vridning).
+ */
+export function strukturFel(fragor, undantag = {}) {
+  const per = {};
+  for (const q of fragor) if (q.mekanism && q.family === 'latin-flera') (per[q.mekanism] ??= []).push(strukturNyckel(q));
+  return Object.entries(per)
+    .filter(([m, n]) => n.length > 1 && new Set(n).size < 2 && !undantag[m])
+    .map(([m, n]) => `${m}: alla ${n.length} frågor har samma struktur, minst två olika krävs`);
+}
+
+export function genereraKandidater(recept, ut, { upptagna = upptagnaRutnat(ut), undantag = {} } = {}) {
   const mjuka = new Set();
   const ny = [];
   const fel = [];
@@ -89,6 +105,7 @@ export function genereraKandidater(recept, ut, { upptagna = upptagnaRutnat(ut) }
       fel.push(e.message);
     }
   }
+  if (!fel.length) fel.push(...strukturFel(ny, undantag));
   if (fel.length) {
     console.error(`✗ kandidater: ${fel.length} problem\n` + fel.map((x) => '  - ' + x).join('\n'));
     process.exitCode = 1;

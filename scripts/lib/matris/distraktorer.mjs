@@ -12,6 +12,10 @@
 //   träff      uppfyller alla (bara facit ska göra det)
 //   tomt       uppfyller 0 poster när |R| >= 2
 //   kopia      identiskt med en synlig ruta
+//   dubbel     uppfyller op och vrid var för sig men med olika partner
+//              (rätt operation med fel vridning är också fel operation med
+//              rätt vridning). Ingen träff, utan dubbel diagnos: misstaget
+//              är "op eller vrid" (granskningen av parti 01, 2.4).
 //   tom figur  strålar utan streck, hjul utan sektor, orbital utan prick när
 //              rutnätet har prick, 3×3 eller 2×2 helt tomt (G11)
 //
@@ -108,7 +112,8 @@ export function analysera(q, t = tolka(q)) {
       uppfyllda,
       bryter,
       felVarden: res.filter((x) => !x.ok).map((x) => `${x.post}=${x.fel}`),
-      traff: uppfyllda.length === R.length,
+      traff: uppfyllda.length === R.length && !(i !== q.correctAnswer && R.some((p) => p.post === 'op')),
+      dubbel: i !== q.correctAnswer && uppfyllda.length === R.length && R.some((p) => p.post === 'op'),
       naraMiss: R.length >= 1 && uppfyllda.length === R.length - 1,
       tomt: R.length >= 2 && uppfyllda.length === 0,
       kopia: kopiaIdx >= 0 ? kopiaIdx + 1 : null,
@@ -125,6 +130,7 @@ export function analysera(q, t = tolka(q)) {
     naraMiss: dist.filter((a) => a.naraMiss).length,
     tomma: dist.filter((a) => a.tomt).length,
     kopior: dist.filter((a) => a.kopia !== null).length,
+    dubbla: dist.filter((a) => a.dubbel).length,
     brutna: [...brutna],
   };
 }
@@ -155,7 +161,8 @@ export function radPerAlternativ(a) {
   return a.alternativ.map((x) => {
     if (x.facit) return `${x.bokstav}: rätt svar`;
     const delar = [];
-    if (x.bryter.length) delar.push(`${x.bokstav} bryter: ${x.bryter.join(', ')}`);
+    if (x.dubbel) delar.push(`${x.bokstav}: dubbel diagnos, op eller vrid`);
+    else if (x.bryter.length) delar.push(`${x.bokstav} bryter: ${x.bryter.join(', ')}`);
     else delar.push(`${x.bokstav} bryter inget`);
     if (x.kopia) delar.push(`kopia av ruta ${x.kopia}`);
     if (x.tomFigur) delar.push('tom figur');

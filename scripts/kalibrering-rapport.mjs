@@ -23,6 +23,16 @@
 //   fel_niva    kalibrerad och p utanför filens band (grund p >= 0,56,
 //               avancerad 0,33 till 0,72, expert p <= 0,50, plus p <= 0,35)
 //
+// Strukturflaggor per fråga (granskningen av parti 01, avsnitt 6 punkt 2),
+// oberoende av svaren:
+//   facit_ruta0 facit identiskt med rutan uppe till vänster (läsordningen
+//               sluter sig efter åtta steg)
+//   oberoende   oberoendekontrollen flaggar frågan (en regel är en funktion
+//               av en annan), mönsterrotation undantagen
+// Sammanfattningen skriver median-p för flaggade mot oflaggade per nivå,
+// bland kalibrerade valbara frågor. Skiljer sig p inte åt är hypotesen om
+// genvägen fel.
+//
 // När en fråga flyttas (3.4): den gamla får pensionerad: true i sin fil, en
 // kopia läggs som {målprefix}-flytt-{gammalt id} i målnivåns kandidatfil och
 // börjar på noll. Rapporten visar det gamla id:ts p som p_arv på den nya
@@ -31,6 +41,7 @@
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
+import { facitRuta0, oberoende } from './lib/matris/kontroll.mjs';
 
 // Kopia av PRIOR_P i src/lib/traning/svarighet.ts (skripten importerar inte TS).
 export const PRIOR_P = { 1: 0.85, 2: 0.7, 3: 0.55, 4: 0.4 };
@@ -75,6 +86,35 @@ const tal = (x) => (x === null || x === undefined || x === '' ? null : Number(x)
 const median = (xs) => { if (!xs.length) return null; const s = [...xs].sort((a, b) => a - b); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 const avr = (x, d = 3) => (x === null ? null : Math.round(x * 10 ** d) / 10 ** d);
 
+/** Strukturflaggorna för en fråga. Frågor utan rutnät (prov, andra testtyper) får false. */
+export function strukturFlaggor(q) {
+  if (!Array.isArray(q?.grid)) return { facit_ruta0: false, oberoende: false };
+  let ob = false;
+  try { ob = oberoende(q).length > 0; } catch { ob = false; }
+  return { facit_ruta0: facitRuta0(q), oberoende: ob };
+}
+
+export const STRUKTURFLAGGOR = ['facit_ruta0', 'oberoende'];
+
+/** Median-p för flaggade mot oflaggade per nivå (band), bland kalibrerade valbara. */
+function jamforFlagga(rader, flagga) {
+  const ut = {};
+  for (const r of rader) {
+    const b = (ut[r.band] ??= { flaggade: 0, oflaggade: 0, kal_flaggade: [], kal_oflaggade: [] });
+    if (!r.valbar) continue;
+    if (r[flagga]) b.flaggade++; else b.oflaggade++;
+    if (r.kalibrerad) (r[flagga] ? b.kal_flaggade : b.kal_oflaggade).push(r.p);
+  }
+  for (const b of Object.values(ut)) {
+    b.kalibrerade_flaggade = b.kal_flaggade.length;
+    b.kalibrerade_oflaggade = b.kal_oflaggade.length;
+    b.median_p_flaggade = avr(median(b.kal_flaggade));
+    b.median_p_oflaggade = avr(median(b.kal_oflaggade));
+    delete b.kal_flaggade; delete b.kal_oflaggade;
+  }
+  return ut;
+}
+
 /**
  * Bygger rapporten ur vyns rader och bankernas frågor. Ren funktion, inga
  * sidoeffekter. Returnerar { fragor, sammanfattning }.
@@ -89,6 +129,7 @@ export function byggRapport(vyRader, bankFragor, { minSvar = 30, minKonton = 20 
     const pPrior = typeof q.p_prior === 'number' ? q.p_prior : PRIOR_P[q.difficulty] ?? PRIOR_P[3];
     const kalibrerad = svar >= minSvar && konton >= minKonton && p !== null;
     return {
+      ...strukturFlaggor(q),
       id: q.id, fil, band, family: q.family ?? null, difficulty: q.difficulty ?? null, p_prior_bank: pPrior,
       valbar: q.pensionerad !== true,
       svar, konton, ratt: tal(v.ratt) ?? 0, p, p_lugn: tal(v.p_lugn), tid_median_s: tal(v.tid_median_s), per_typ: v.per_typ ?? {},
@@ -123,6 +164,7 @@ export function byggRapport(vyRader, bankFragor, { minSvar = 30, minKonton = 20 
       prior_fel: kal.filter((r) => r.prior_fel).map((r) => r.id),
       fel_niva: kal.filter((r) => r.fel_niva).map((r) => r.id),
       plus_som_inte_holl: kal.filter((r) => r.band === 'plus' && r.p > 0.55).map((r) => r.id),
+      strukturflaggor: Object.fromEntries(STRUKTURFLAGGOR.map((f) => [f, jamforFlagga(rader, f)])),
       bank_kalibrerad_over_7_5: { antal: over.length, familjer: familjer.size, uppfyllt, text: uppfyllt ? 'uppfyllt' : `inte uppfyllt, ${over.length} av 20${over.length >= 20 ? ' (färre än två familjer)' : ''}` },
     },
   };
@@ -139,6 +181,12 @@ export function sammanfattningText(rapport) {
     ut.push(`Prior mer än 0,25 fel: ${s.prior_fel.length}`);
     ut.push(`Fel nivå: ${s.fel_niva.length}${s.fel_niva.length ? ` (${s.fel_niva.join(', ')})` : ''}`);
     if (s.plus_som_inte_holl.length) ut.push(`Plus som inte höll (p över 0,55): ${s.plus_som_inte_holl.join(', ')}`);
+  }
+  const komma = (x) => (x === null ? 'saknas' : String(x).replace('.', ','));
+  for (const f of STRUKTURFLAGGOR) {
+    const per = s.strukturflaggor?.[f] ?? {};
+    const delar = Object.entries(per).map(([band, b]) => `${band} ${b.flaggade} av ${b.flaggade + b.oflaggade} flaggade, median p ${komma(b.median_p_flaggade)} (${b.kalibrerade_flaggade} kalibrerade) mot ${komma(b.median_p_oflaggade)} (${b.kalibrerade_oflaggade})`);
+    if (delar.length) ut.push(`${f}: ${delar.join('; ')}`);
   }
   ut.push(`BANK_KALIBRERAD_OVER_7_5: ${s.bank_kalibrerad_over_7_5.text}`);
   return ut.join('\n');
