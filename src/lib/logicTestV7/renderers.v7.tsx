@@ -17,10 +17,15 @@ import type {
   BalanceLineCell,
   Quad,
 } from './types.v7';
+import { GEOMETRI } from './geometri';
 
 // =============================================================================
 // PREMIUM SVG-RENDERARE för matrislogik-avancerad
 // =============================================================================
+// Alla mått och färger kommer ur geometri.json (via geometri.ts), som
+// scripts/v7-geometri-check.mjs räknar G1 till G12 på. Ändra måtten där,
+// inte här, så att ritningen och kontrollen inte glider isär.
+//
 // Designspråk:
 // - viewBox 0..100, alla former i [16, 84] (68×68 inre yta)
 // - Tunn stroke (#020617 slate-950) — skarpare än V5
@@ -29,12 +34,13 @@ import type {
 // - Round-linjer för mjukhet
 // =============================================================================
 
-const STROKE = '#020617';
-const FILL_BLACK = '#020617';
-const FILL_GRAY = '#CBD5E1';
+const G = GEOMETRI;
+const STROKE = G.farger.stroke;
+const FILL_BLACK = G.farger.fillBlack;
+const FILL_GRAY = G.farger.fillGray;
 const FILL_NONE = 'transparent';
-const SW = 3;
-const SW_THIN = 2;
+const SW = G.kontur.sw;
+const SW_THIN = G.kontur.swThin;
 
 const fillFor = (f: Fill): string =>
   f === 'black' ? FILL_BLACK : f === 'gray' ? FILL_GRAY : FILL_NONE;
@@ -89,61 +95,32 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
   const stroke = STROKE;
   const sw = SW;
 
-  // Alla glyfer i [16, 84]-yta
-  const paths: Record<GlyphCell['glyph'], { d: string; closed: boolean }> = {
-    // Lambda (Λ): två ben från topp som spretar ut
-    lambda: {
-      d: 'M 50 18 L 30 82 L 42 82 L 50 50 L 58 82 L 70 82 L 50 18 Z',
-      closed: true,
-    },
-    // Sigma (Σ-aktig): två kilar som möts i mitten
-    sigma: {
-      d: 'M 78 22 L 22 22 L 50 50 L 22 78 L 78 78 L 78 68 L 38 68 L 58 50 L 38 32 L 78 32 Z',
-      closed: true,
-    },
-    // Omega (Ω): hästsko-form med fötter
-    omega: {
-      d: 'M 22 78 L 32 78 L 32 60 Q 32 28 50 28 Q 68 28 68 60 L 68 78 L 78 78 L 78 60 Q 78 18 50 18 Q 22 18 22 60 Z',
-      closed: true,
-    },
-    // Theta (θ): cirkel med horisontell linje genom mitten
-    theta: {
-      d: 'M 50 18 A 22 32 0 1 0 50 82 A 22 32 0 1 0 50 18 Z M 32 50 L 68 50',
-      closed: true,
-    },
-    // Phi (φ): cirkel med vertikal stam genom
-    phi: {
-      d: 'M 50 28 A 16 18 0 1 0 50 64 A 16 18 0 1 0 50 28 Z M 50 18 L 50 82',
-      closed: true,
-    },
-    // Pi (π): två vertikala stammar med horisontell topp
-    pi: {
-      d: 'M 22 26 L 78 26 L 78 36 L 70 36 L 70 82 L 60 82 L 60 36 L 40 36 L 40 82 L 30 82 L 30 36 L 22 36 Z',
-      closed: true,
-    },
-  };
+  // Alla glyfer i [16, 84]-yta. Lambda (två ben från toppen), sigma (två
+  // kilar som möts i mitten), omega (hästsko med fötter) och pi (två stammar
+  // med vågrät topp) är banor; theta (vågrätt streck) och phi (lodrät stam)
+  // är en ellips med ett streck.
+  const d = G.glyph;
 
-  const def = paths[cell.glyph];
-
-  // För theta använder vi delade paths (ej fyllbar som helhet)
+  // För theta använder vi delade element (ej fyllbar som helhet)
   if (cell.glyph === 'theta') {
+    const t = d.theta;
     return (
       <>
         <ellipse
-          cx="50"
-          cy="50"
-          rx="22"
-          ry="32"
+          cx={t.cx}
+          cy={t.cy}
+          rx={t.rx}
+          ry={t.ry}
           fill={fill}
           stroke={strokeFor(cell.fill)}
           strokeWidth={sw}
         />
         {/* Tvärstreck: vitt bara på svart fyllning, mörkt på grå/ofylld */}
         <line
-          x1="32"
-          y1="50"
-          x2="68"
-          y2="50"
+          x1={t.linje[0]}
+          y1={t.linje[1]}
+          x2={t.linje[2]}
+          y2={t.linje[3]}
           stroke={cell.fill === 'black' ? 'white' : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
@@ -153,23 +130,24 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
   }
 
   if (cell.glyph === 'phi') {
+    const f = d.phi;
     return (
       <>
         <ellipse
-          cx="50"
-          cy="46"
-          rx="16"
-          ry="18"
+          cx={f.cx}
+          cy={f.cy}
+          rx={f.rx}
+          ry={f.ry}
           fill={fill}
           stroke={strokeFor(cell.fill)}
           strokeWidth={sw}
         />
         {/* Stam: vit på svart fyllning så den inte försvinner, mörk annars */}
         <line
-          x1="50"
-          y1="18"
-          x2="50"
-          y2="82"
+          x1={f.linje[0]}
+          y1={f.linje[1]}
+          x2={f.linje[2]}
+          y2={f.linje[3]}
           stroke={cell.fill === 'black' ? 'white' : stroke}
           strokeWidth={sw}
           strokeLinecap="round"
@@ -180,7 +158,7 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
 
   return (
     <path
-      d={def.d}
+      d={d[cell.glyph]}
       fill={fill}
       stroke={strokeFor(cell.fill)}
       strokeWidth={sw}
@@ -195,9 +173,7 @@ const GlyphRenderer: React.FC<{ cell: GlyphCell }> = ({ cell }) => {
 // =============================================================================
 
 const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
-  // Centerpunkt
-  const centerR = 6;
-  const orbitR = 26;
+  const { mittR: centerR, banaR: orbitR, banaSw, banaStreck, satellitR } = G.orbital;
 
   // 8 positioner runt centrum, med 0 = klockan 12 (top), medurs
   const angleFor = (idx: number) => (idx * 45 - 90) * (Math.PI / 180);
@@ -206,15 +182,16 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
 
   return (
     <>
-      {/* Bas-cirkel (orbit-spår) */}
+      {/* Bas-cirkel (orbit-spår). Referensramen som gör vandringen läsbar,
+          minst 3:1 mot vitt (G10), därför slate-500 och inte slate-400. */}
       <circle
         cx="50"
         cy="50"
         r={orbitR}
         fill="none"
-        stroke="#94A3B8"
-        strokeWidth="2"
-        strokeDasharray="2 3"
+        stroke={G.farger.orbitalBana}
+        strokeWidth={banaSw}
+        strokeDasharray={banaStreck}
       />
       {/* Centerpunkt */}
       <circle
@@ -231,7 +208,7 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
         const cx = 50 + orbitR * Math.cos(a);
         const cy = 50 + orbitR * Math.sin(a);
         return (
-          <circle cx={cx} cy={cy} r="5" fill={FILL_BLACK} />
+          <circle cx={cx} cy={cy} r={satellitR} fill={FILL_BLACK} />
         );
       })()}
     </>
@@ -242,13 +219,20 @@ const OrbitalRenderer: React.FC<{ cell: OrbitalCell }> = ({ cell }) => {
 // 3. STACK — basform + symbol ovanpå
 // =============================================================================
 
+/** Sluten bana genom hörnen, som 'M 50 18 L 80 78 L 20 78 Z'. */
+const bana = (p: [number, number][]) => 'M ' + p.map(([x, y]) => `${x} ${y}`).join(' L ') + ' Z';
+
 const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
   const baseFill = fillFor(cell.baseFill);
   const baseStroke = strokeFor(cell.baseFill);
+  const S = G.stack;
 
   // Symbolerna ritas i kontrast: vitt bara på svart bas, mörkt på grå/ofylld
   const symbolColor = cell.baseFill === 'black' ? 'white' : STROKE;
   const symbolStrokeColor = cell.baseFill === 'black' ? 'white' : STROKE;
+
+  const linjer = (l: [number, number, number, number][]) =>
+    l.map(([x1, y1, x2, y2], i) => <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />);
 
   return (
     <>
@@ -257,7 +241,7 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
         <circle
           cx="50"
           cy="50"
-          r="28"
+          r={S.cirkelR}
           fill={baseFill}
           stroke={baseStroke}
           strokeWidth={SW}
@@ -265,11 +249,11 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
       )}
       {cell.base === 'square' && (
         <rect
-          x="22"
-          y="22"
-          width="56"
-          height="56"
-          rx="3"
+          x={S.kvadrat.x}
+          y={S.kvadrat.y}
+          width={S.kvadrat.bredd}
+          height={S.kvadrat.bredd}
+          rx={S.kvadrat.rx}
           fill={baseFill}
           stroke={baseStroke}
           strokeWidth={SW}
@@ -277,7 +261,7 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
       )}
       {cell.base === 'triangle' && (
         <path
-          d="M 50 18 L 80 78 L 20 78 Z"
+          d={bana(S.triangel)}
           fill={baseFill}
           stroke={baseStroke}
           strokeWidth={SW}
@@ -286,7 +270,7 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
       )}
       {cell.base === 'diamond' && (
         <path
-          d="M 50 18 L 82 50 L 50 82 L 18 50 Z"
+          d={bana(S.romb)}
           fill={baseFill}
           stroke={baseStroke}
           strokeWidth={SW}
@@ -302,29 +286,28 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
           strokeLinecap="round"
           fill="none"
         >
-          <line x1="42" y1="50" x2="58" y2="50" />
-          <line x1="50" y1="42" x2="50" y2="58" />
+          {linjer(S.plus)}
         </g>
       )}
       {cell.symbol === 'minus' && (
         <line
-          x1="42"
-          y1="50"
-          x2="58"
-          y2="50"
+          x1={S.minus[0][0]}
+          y1={S.minus[0][1]}
+          x2={S.minus[0][2]}
+          y2={S.minus[0][3]}
           stroke={symbolStrokeColor}
           strokeWidth={SW}
           strokeLinecap="round"
         />
       )}
       {cell.symbol === 'dot' && (
-        <circle cx="50" cy="50" r="4" fill={symbolColor} />
+        <circle cx="50" cy="50" r={S.prickR} fill={symbolColor} />
       )}
       {cell.symbol === 'ring' && (
         <circle
           cx="50"
           cy="50"
-          r="6"
+          r={S.ringR}
           fill="none"
           stroke={symbolStrokeColor}
           strokeWidth={SW_THIN}
@@ -337,8 +320,7 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
           strokeLinecap="round"
           fill="none"
         >
-          <line x1="43" y1="43" x2="57" y2="57" />
-          <line x1="43" y1="57" x2="57" y2="43" />
+          {linjer(S.kryss)}
         </g>
       )}
     </>
@@ -351,10 +333,9 @@ const StackRenderer: React.FC<{ cell: StackCell }> = ({ cell }) => {
 
 const LatticeRenderer: React.FC<{ cell: LatticeCell }> = ({ cell }) => {
   // 2×2 grid i [16, 84]-yta. Cell-storlek 30, gap 4
-  const cellSize = 30;
-  const gap = 4;
-  const startX = 18;
-  const startY = 18;
+  const { ruta: cellSize, gap, start } = G.lattice;
+  const startX = start;
+  const startY = start;
 
   const positions = [
     { x: startX, y: startY },                        // TL
@@ -379,6 +360,7 @@ const LatticeQuad: React.FC<{
 }> = ({ pos, size, quad }) => {
   const cx = pos.x + size / 2;
   const cy = pos.y + size / 2;
+  const ki = G.lattice.kryssInsats;
 
   // Bas-rektangel alltid synlig som tunn ram
   const baseRect = (
@@ -387,7 +369,7 @@ const LatticeQuad: React.FC<{
       y={pos.y}
       width={size}
       height={size}
-      rx="2"
+      rx={G.lattice.rx}
       fill={
         quad === 'fill_black'
           ? FILL_BLACK
@@ -403,7 +385,7 @@ const LatticeQuad: React.FC<{
   return (
     <>
       {baseRect}
-      {quad === 'dot' && <circle cx={cx} cy={cy} r="4" fill={FILL_BLACK} />}
+      {quad === 'dot' && <circle cx={cx} cy={cy} r={G.lattice.prickR} fill={FILL_BLACK} />}
       {quad === 'cross' && (
         <g
           stroke={STROKE}
@@ -411,8 +393,8 @@ const LatticeQuad: React.FC<{
           strokeLinecap="round"
           fill="none"
         >
-          <line x1={pos.x + 7} y1={pos.y + 7} x2={pos.x + size - 7} y2={pos.y + size - 7} />
-          <line x1={pos.x + 7} y1={pos.y + size - 7} x2={pos.x + size - 7} y2={pos.y + 7} />
+          <line x1={pos.x + ki} y1={pos.y + ki} x2={pos.x + size - ki} y2={pos.y + size - ki} />
+          <line x1={pos.x + ki} y1={pos.y + size - ki} x2={pos.x + size - ki} y2={pos.y + ki} />
         </g>
       )}
     </>
@@ -424,8 +406,7 @@ const LatticeQuad: React.FC<{
 // =============================================================================
 
 const RayRenderer: React.FC<{ cell: RayCell }> = ({ cell }) => {
-  const centerR = 4;
-  const rayLen = 28;
+  const { mittR: centerR, langd: rayLen } = G.ray;
 
   // 0 = N (klockan 12), medurs i 45°-steg
   const angleFor = (dir: number) => (dir * 45 - 90) * (Math.PI / 180);
@@ -464,8 +445,7 @@ const TallyRenderer: React.FC<{ cell: TallyCell }> = ({ cell }) => {
   const isVertical = cell.orientation === 'vertical';
   // Baslayouten ritar stående pinnar (vertikala linjer, staplade sida vid
   // sida) — det är vertical-orienteringen. Vid horizontal roteras gruppen 90°.
-  const lineLength = 44;
-  const gap = 7;
+  const { langd: lineLength, gap, diagonalUtstick: ut } = G.tally;
 
   // Vi placerar 4 pinnar och om count=5 ritar vi en 5:e som korsar diagonalt
   const visibleCount = Math.min(cell.count, 4);
@@ -494,10 +474,10 @@ const TallyRenderer: React.FC<{ cell: TallyCell }> = ({ cell }) => {
       {/* 5:e diagonal */}
       {cell.count === 5 && (
         <line
-          x1={startX - 4}
-          y1={yMid + lineLength / 2 - 4}
-          x2={startX + (visibleCount - 1) * gap + 4}
-          y2={yMid - lineLength / 2 + 4}
+          x1={startX - ut}
+          y1={yMid + lineLength / 2 - ut}
+          x2={startX + (visibleCount - 1) * gap + ut}
+          y2={yMid - lineLength / 2 + ut}
           stroke={STROKE}
           strokeWidth={SW}
           strokeLinecap="round"
@@ -518,10 +498,10 @@ const RingRenderer: React.FC<{ cell: RingCell }> = ({ cell }) => {
   // 1 ring: r = 28
   const radii =
     cell.rings.length === 3
-      ? [30, 22, 14]
+      ? G.ring.radier['3']
       : cell.rings.length === 2
-      ? [28, 18]
-      : [28];
+      ? G.ring.radier['2']
+      : G.ring.radier['1'];
 
   // Spec-rummen 15.10: varje ring är sitt eget fält. En ofylld ring fylls
   // med vitt (inte genomskinligt), annars lyser en svart granne utanför
@@ -556,9 +536,9 @@ const RingRenderer: React.FC<{ cell: RingCell }> = ({ cell }) => {
 };
 
 /** Ringarnas vita fält och skiljelinje (15.10). Cellerna är alltid vita. */
-const RING_VIT = '#FFFFFF';
+const RING_VIT = G.farger.vit;
 /** Bredden på den vita linjen mellan två ringar, i viewBox-enheter. */
-const RING_GAP = 2;
+const RING_GAP = G.ring.skiljelinje;
 
 // =============================================================================
 // 8. VECTOR — elegant pil (8 vinklar)
@@ -568,12 +548,12 @@ const VectorRenderer: React.FC<{ cell: VectorCell }> = ({ cell }) => {
   // Bas-vektor pekar uppåt (angle 0). Vi roterar via SVG-transform.
   // long = lång pil från (50, 78) till (50, 22)
   // short = kort pil från (50, 70) till (50, 30)
-  const isLong = cell.length === 'long';
-  const tipY = isLong ? 22 : 30;
-  const tailY = isLong ? 78 : 70;
+  const matt = cell.length === 'long' ? G.vector.lang : G.vector.kort;
+  const tipY = matt.spets;
+  const tailY = matt.svans;
 
   // Pilhuvud
-  const headSize = 9;
+  const headSize = G.vector.huvud;
 
   return (
     <g transform={`rotate(${cell.angle}, 50, 50)`}>
@@ -618,7 +598,7 @@ const VectorRenderer: React.FC<{ cell: VectorCell }> = ({ cell }) => {
 const PolyRenderer: React.FC<{ cell: PolyCell }> = ({ cell }) => {
   const fill = fillFor(cell.fill);
   const stroke = strokeFor(cell.fill);
-  const radius = 30;
+  const radius = G.poly.radie;
 
   // Bygg polygon-punkter
   const points: string[] = [];
@@ -648,10 +628,9 @@ const PolyRenderer: React.FC<{ cell: PolyCell }> = ({ cell }) => {
 
 const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
   // 3 tiles à 18 + 2 gap à 2 = 58 → start (100-58)/2 = 21 ger centrum (50,50)
-  const cellSize = 18;
-  const gap = 2;
-  const startX = 21;
-  const startY = 21;
+  const { ruta: cellSize, gap, start } = G.tile;
+  const startX = start;
+  const startY = start;
 
   return (
     <>
@@ -668,7 +647,7 @@ const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
             y={y}
             width={cellSize}
             height={cellSize}
-            rx="1.5"
+            rx={G.tile.rx}
             fill={isFilled ? FILL_BLACK : 'none'}
             stroke={STROKE}
             strokeWidth={SW_THIN}
@@ -686,7 +665,7 @@ const TileRenderer: React.FC<{ cell: TileCell }> = ({ cell }) => {
 const SectorWheelRenderer: React.FC<{ cell: SectorWheelCell }> = ({ cell }) => {
   const cx = 50;
   const cy = 50;
-  const r = 32;
+  const r = G.sectorwheel.radie;
 
   // Sektor i: börjar vid vinkel (i*45 - 90)° (sektor 0 överst), spänner 45°.
   // Punkt på cirkeln för en given grad.
@@ -743,8 +722,7 @@ const SectorWheelRenderer: React.FC<{ cell: SectorWheelCell }> = ({ cell }) => {
 const DotsOrbitRenderer: React.FC<{ cell: DotsOrbitCell }> = ({ cell }) => {
   const cx = 50;
   const cy = 50;
-  const orbitR = 30;
-  const dotR = 6;
+  const { banaR: orbitR, prickR: dotR } = G.dotsorbit;
 
   // Position 0 = överst (12), medurs i 45°-steg.
   const pos = (i: number) => {
@@ -767,11 +745,15 @@ const DotsOrbitRenderer: React.FC<{ cell: DotsOrbitCell }> = ({ cell }) => {
 // =============================================================================
 
 const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
-  const lineY = 50;
-  const xs = [28, 50, 72];        // vänster, mitt, höger
-  const aboveY = 33;
-  const belowY = 67;
-  const s = 11;                    // form-storlek (halv-bredd)
+  // Granskningen 2026-10-11 (G1): halvbredd 8 i stället för 11 och formerna
+  // på y 31 och 69. Med platserna 27, 50 och 73 får två grannformer 4
+  // enheters fritt mellan konturerna och smälter inte ihop på 360 px.
+  const B = G.balanceline;
+  const lineY = B.linjeY;
+  const xs = B.xs;                 // vänster, mitt, höger
+  const aboveY = B.ovanY;
+  const belowY = B.underY;
+  const s = B.halvbredd;           // form-storlek (halv-bredd)
 
   const drawShape = (it: BalanceLineCell['items'][number], i: number) => {
     const cx = xs[it.posX];
@@ -788,22 +770,23 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
     );
   };
 
-  // Avdelare mellan de tre platserna (x=28/50/72): korta lodräta streck som
-  // korsar linjen, så att de tre facken på vardera sida syns tydligt.
-  const dividerXs = [39, 61];
+  // Avdelare mitt emellan de tre platserna: korta lodräta streck som korsar
+  // linjen, så att de tre facken på vardera sida syns tydligt. De går bara
+  // y 47 till 53 och når därför aldrig formernas kanter.
+  const dividerXs = B.avdelareX;
 
   return (
     <>
       {/* Vågrät baslinje */}
-      <line x1={12} y1={lineY} x2={88} y2={lineY} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" />
+      <line x1={B.linjeX[0]} y1={lineY} x2={B.linjeX[1]} y2={lineY} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" />
       {/* Lodräta avdelare (3 fack per sida) */}
       {dividerXs.map((dx, i) => (
         <line
           key={`d${i}`}
           x1={dx}
-          y1={lineY - 5}
+          y1={B.avdelareY[0]}
           x2={dx}
-          y2={lineY + 5}
+          y2={B.avdelareY[1]}
           stroke={STROKE}
           strokeWidth={SW_THIN}
           strokeLinecap="round"
