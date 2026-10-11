@@ -186,12 +186,14 @@ export default function TestKategori({
       aria-labelledby={rubrikId}
       data-testkort={group.key}
     >
-      <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-start lg:gap-6">
-        <div className="mx-auto w-full max-w-[200px] lg:order-2 lg:mx-0 lg:max-w-none">
+      {/* Mobil: bild, faktarad, text. Dator: text och faktarad till vänster,
+          bilden 160 × 120 till höger, så att faktaraden får hela bredden. */}
+      <div className="grid grid-cols-1 gap-x-6 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-start">
+        <div className="mx-auto w-full max-w-[200px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:max-w-none">
           <Bild className="block h-24 w-full lg:h-[120px]" />
-          <Fakta poster={fakta} className="lg:justify-start lg:gap-x-4" />
         </div>
-        <div className="min-w-0">
+        <Fakta poster={fakta} className="mb-3 lg:col-start-1 lg:row-start-2 lg:mb-0 lg:justify-start" />
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           <p className="flex items-center gap-2 text-ey uppercase text-ink-3">
             <span id={rubrikId}>{group.heading}</span>
             {hjalpId ? <HjalpKnapp id={hjalpId} etikett={ETIKETT_KNAPP[group.key]} /> : null}
