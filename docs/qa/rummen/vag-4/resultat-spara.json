@@ -1,0 +1,33 @@
+{
+  "bas": "http://localhost:5244",
+  "tid": "2026-10-11T02:54:02.391Z",
+  "vyer": [],
+  "ssr": [],
+  "dorrar": [],
+  "sidomeny": [],
+  "fokus": [],
+  "floden": [],
+  "natfel": [],
+  "tema": [],
+  "landning": [],
+  "spara": [
+    {
+      "form": "pixel7",
+      "fall": "natfel",
+      "ok": true
+    },
+    {
+      "form": "desktop",
+      "fall": "natfel",
+      "ok": true
+    },
+    {
+      "form": "pixel7",
+      "fall": "sparad",
+      "ok": true,
+      "rader": 1,
+      "konsol": [],
+      "http": []
+    }
+  ]
+}
