@@ -109,7 +109,11 @@ describe('tillstånden med konceptets exempeltal', () => {
     const w = modell('W3')
     const wp = w.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
     expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Generalrepetitionen' })
-    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter. I planen \d+ \S+ och dagen före provet.$/)
+    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter.* I planen \d+ \S+ och dagen före provet\.$/)
+    // Betalande får samma mening: öppen eller låst säger högersidan (22.4 fråga 2).
+    const c = modell('1c')
+    const cp = c.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
+    if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ I planen \d+ \S+ och dagen före provet\.$/)
   })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
