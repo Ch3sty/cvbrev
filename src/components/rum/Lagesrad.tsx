@@ -6,8 +6,10 @@
  * som två textlägen direkt under Toppraden. Samma rad på hemvyn, Alla tester
  * och Din utveckling, så den står stilla när man växlar.
  *
- * 15/600 display. Aktivt läge i vagg-ink med en 2 px kopparlinje under
- * texten, inaktivt i vagg-mjuk. 44 px träffyta, 24 px mellan lägena.
+ * Fylld segmentkontroll (tillägget "anonym", 2026-10-11): ett spår i
+ * bg-white/10 med två piller och ikon. Aktivt läge fyllt i papper med ink-1,
+ * inaktivt i vagg-ink utan fyllning. Dator 48 px hög (segment 42, minst
+ * 172 px brett), mobil 44 px i Toppraden (segment 38, två lika breda).
  * `aktiv` sätts av sidan som ritar raden, aldrig ur sökvägen.
  *
  * Klient bara för mätningen: ett tryck markerar ytan 'lagesrad' så att
@@ -18,6 +20,7 @@ import Link from 'next/link'
 import { LAGESRAD } from '@/lib/rum/copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { markeraRumYta } from './rumMatning'
+import { DorrTran, IkonKalender } from '@/components/illustrations/RumSymboler'
 
 export type Lage = 'plan' | 'alla'
 
@@ -27,15 +30,18 @@ export type Lage = 'plan' | 'alla'
  * på väggen bara från lg.
  */
 export default function Lagesrad({ aktiv, plats = 'vagg' }: { aktiv: Lage; plats?: 'vagg' | 'topprad' }) {
-  const lagen: { id: Lage; text: string; href: string }[] = [
-    { id: 'plan', text: LAGESRAD.plan, href: TRANING_RUTT.hem },
-    { id: 'alla', text: LAGESRAD.alla, href: TRANING_RUTT.alla },
+  const lagen = [
+    { id: 'plan' as Lage, text: LAGESRAD.plan, href: TRANING_RUTT.hem, Ikon: IkonKalender },
+    { id: 'alla' as Lage, text: LAGESRAD.alla, href: TRANING_RUTT.alla, Ikon: DorrTran },
   ]
+  const topp = plats === 'topprad'
   return (
     <nav
       aria-label={LAGESRAD.etikett}
       data-lagesrad={aktiv}
-      className={plats === 'topprad' ? 'flex h-11 items-stretch gap-6 lg:hidden' : 'mb-2 hidden h-11 items-stretch gap-6 lg:flex'}
+      className={`items-stretch gap-0 rounded-full border border-vagg-kant bg-white/10 p-[3px] ${
+        topp ? 'flex h-11 w-full max-w-[280px] lg:hidden' : 'mb-5 mt-2 hidden h-12 w-fit lg:flex'
+      }`}
     >
       {lagen.map((l) => {
         const ar = l.id === aktiv
@@ -47,11 +53,12 @@ export default function Lagesrad({ aktiv, plats = 'vagg' }: { aktiv: Lage; plats
             // Sidan man står på förhämtas aldrig (tillägget 2026-10-11, hemvyns LCP).
             prefetch={ar ? false : undefined}
             onClick={ar ? undefined : () => markeraRumYta('lagesrad')}
-            className={`inline-flex items-center font-display text-[15px] font-semibold tracking-[-.01em] ${
-              ar ? 'text-vagg-ink' : 'text-vagg-mjuk'
-            }`}
+            className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-display text-[15px] font-semibold tracking-[-.01em] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-koppar-ljus ${
+              topp ? 'flex-1 px-3' : 'min-w-[172px] px-5'
+            } ${ar ? 'bg-papper text-ink-1' : 'text-vagg-ink hover:bg-white/[.12]'}`}
           >
-            <span className={`border-b-2 pb-0.5 ${ar ? 'border-koppar' : 'border-transparent'}`}>{l.text}</span>
+            <l.Ikon size={20} />
+            {l.text}
           </Link>
         )
       })}

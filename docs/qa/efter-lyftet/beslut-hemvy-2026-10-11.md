@@ -79,3 +79,21 @@ Mätt efter bygget (fönster 684 px, dörrraden från 628 px): knappens nederkan
 7. **Det lyfta kortet:** titel högst två rader, text högst två rader på mobil (copy). Det ger kortet 202 px från ovankant till knappens nederkant.
 
 Uppskattat resultat på 360: före mätningen cirka 587, efter mätningen cirka 614, tre punkter cirka 594, Alla tester cirka 601. Alla under 620. QA mäter knappens `getBoundingClientRect().bottom` i de fyra lägena på 360 x 684 och skriver talen i `resultat.json`. Står något läge fortfarande över 620 är nästa snitt, i den ordningen: Alla testers ingress till två rader (copy, cirka 40 px), och därefter rubriken på hemvyn i `text-h1-liten` på mobil (cirka 10 px). Kurvan flyttas inte under kortet; kurvan på golvet vore en annan komponent och väggen ska fortsatt säga var du är.
+
+## Tillägg 2026-10-11, sent: lägesraden ska synas
+
+Ägaren efter live på dator: lägesraden är anonym, inte ens den som visste att den fanns hittade den på tre minuter. Rätt diagnos: 15 px text med en tunn kopparlinje på en mörk vägg läses som en etikett, inte som ett val. Beslut: **lägesraden blir en fylld segmentkontroll (två piller med ikon) på samma plats, på både dator och mobil.** Inget extra kort på dator; en primär handling per vy gäller, och sidomenyn har redan Alla tester som undersida. Planen förblir landningen: dörren leder till hemvyn och vänstra segmentet är aktivt där.
+
+### Form
+
+- **Komponent:** `Lagesrad.tsx` byggs om till ett spår med två segment, `role="tablist"`-fri (det är två länkar, `aria-current="page"` på det aktiva). Spåret: `rounded-full`, bakgrund `bg-white/10`, kant 1 px `border-vagg-kant`, inre padding 3 px. Aktivt segment: `rounded-full`, fyllt `bg-papper`, text `text-ink-1`, ikon i `text-ink-1`. Inaktivt: ingen fyllning, text och ikon i `text-vagg-ink`, hover `bg-white/12`. Fokus: 2 px ring i koppar-ljus utanför spåret. Ingen kopparlinje längre; koppar är bara knappen i kortet.
+- **Ikoner:** 20 px, currentColor, vänster om ordet med 8 px mellanrum. Plan: `IkonKalender` (finns). Alla tester: `DorrTran` i storlek 20 (dörrens rutnät, så ikonen är samma som i dörrraden och sidomenyn). Inga nya ikoner.
+- **Typografi:** 15/600 display på båda, samma som nu, versalgemener.
+- **Dator (lg och upp):** spåret under Toppraden, vänsterkant i linje med rubriken, `mt-2 mb-5`. Höjd 48 (segment 42), varje segment `min-w-[172px]`, padding 0 20 px, totalt cirka 350 px brett. Rubriken flyttar ned cirka 8 px, vilket är utan betydelse på 1280.
+- **Mobil (under lg):** spåret står kvar i Toppraden i rumsnamnets ställe, fyller vänstra sidan (`flex-1`, `max-w-[280px]`), två lika breda segment, höjd 44 (segment 38), padding 0 12 px. Toppraden är fortsatt 60 px, så **inget läge på 360 ändras: 511, 568, 587 och 609 står kvar**, alla under 620. Avataren står kvar till höger med 12 px mellanrum.
+- **Alla tester:** samma kontroll med högra segmentet fyllt, på samma plats, så spåret står stilla vid växling (`view-transition`-fritt, bara samma mått).
+- **Ingången (`installningar?forsta=1`) och övriga flöden:** ingen kontroll; länken till Alla tester i ingångens fot kvarstår.
+
+### Varför det räcker
+
+Ett fyllt vitt piller på mörk vägg är den ljusaste ytan ovanför rubriken och läses som ett val innan man läst ordet; ikonen gör det andra segmentet begripligt även för den som inte vet vad "Alla tester" är. Kontrasten är AA åt båda hållen (ink-1 på papper, vagg-ink på väggen). Testansvarig: planen är fortfarande det aktiva, fyllda segmentet när man kommer in, och den fria träningen får en synlig dörr utan att konkurrera med kopparknappen. QA: skärmdump på 360 och 1280 i båda lägena, och mätningen av knappens nederkant körs om för säkerhets skull.
