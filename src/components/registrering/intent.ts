@@ -9,7 +9,7 @@
  * /dashboard/valkommen, Kom igång och hemskärmens ordning.
  */
 
-import { isPlanKey, type PlanKey } from '@/lib/plans/plans'
+import { SALD_PLAN, isPlanKey, saljbarPlan, type PlanKey } from '@/lib/plans/plans'
 
 export type SignupIntent = 'cv' | 'brev' | 'tester' | 'intervju' | 'jobb'
 
@@ -23,17 +23,22 @@ export const INTENTS: Record<
   SignupIntent,
   {
     track: 'cv' | 'tester' | 'allt'
-    plan: 'cv_week' | 'test_week' | 'all_week'
+    /**
+     * Paketet förslaget i steg 3 säljer. Bara Jobbcoach Premium säljs
+     * (spec-rummen 17.3), så det är all_month för alla val; valet styr
+     * spåret, landningen och förslagets text, aldrig priset.
+     */
+    plan: PlanKey
     /** Dit Börja gratis (och krysset) i steg 3 leder. */
     landning: string
     ikon: IkonNamn
   }
 > = {
-  cv: { track: 'cv', plan: 'cv_week', landning: '/dashboard/skapa-cv', ikon: 'cv' },
-  brev: { track: 'cv', plan: 'cv_week', landning: '/dashboard/skapa-brev', ikon: 'brev' },
-  tester: { track: 'tester', plan: 'test_week', landning: '/dashboard/tester', ikon: 'test' },
-  intervju: { track: 'tester', plan: 'test_week', landning: '/dashboard/intervju', ikon: 'intervju' },
-  jobb: { track: 'allt', plan: 'all_week', landning: '/dashboard/jobbmatchning', ikon: 'jobb' },
+  cv: { track: 'cv', plan: SALD_PLAN, landning: '/dashboard/skapa-cv', ikon: 'cv' },
+  brev: { track: 'cv', plan: SALD_PLAN, landning: '/dashboard/skapa-brev', ikon: 'brev' },
+  tester: { track: 'tester', plan: SALD_PLAN, landning: '/dashboard/tester', ikon: 'test' },
+  intervju: { track: 'tester', plan: SALD_PLAN, landning: '/dashboard/intervju', ikon: 'intervju' },
+  jobb: { track: 'allt', plan: SALD_PLAN, landning: '/dashboard/jobbmatchning', ikon: 'jobb' },
 }
 
 export function lasIntent(v: unknown): SignupIntent | null {
@@ -240,7 +245,16 @@ export type Landningsgren =
  */
 export function landningsgren(c: SignupCookie | null, sparvalPath: string): Landningsgren {
   if (c?.redirect) return { via: 'redirect', destination: c.redirect }
-  if (c?.paket) return { via: 'paket', destination: `${sparvalPath}?paket=${c.paket}&steg=kop` }
+  if (c?.paket) {
+    // Ett osålt paket i en gammal länk leder till det som säljs. Platsen
+    // följer med till kassan: prissidan om hon kom därifrån, annars
+    // registreringen.
+    const plats = c.entry === 'pris' ? 'priser' : 'registrering'
+    return {
+      via: 'paket',
+      destination: `${sparvalPath}?paket=${saljbarPlan(c.paket)}&steg=kop&plats=${plats}`,
+    }
+  }
   if (c?.intent) return { via: 'forslag', intent: c.intent }
   // Hoppade hon över "Vad vill du börja med?" i steg 1 ställs frågan inte
   // igen: Börja gratis i spårvalet går då direkt till hemskärmen

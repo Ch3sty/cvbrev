@@ -2,10 +2,12 @@
 
 /**
  * Steg 3, förslaget (docs/design/profil-registrering-2026-09-24.html, Del B
- * steg 3). Ett paketkort i spårvalets form, en ruta med vad gratis ger för
- * just valet och "Jämför alla tre paketen". Foten har två knappar i samma
- * storlek: "Köp {paket}, {pris}" i ink och "Börja gratis" med kant. Krysset
- * gör samma sak som Börja gratis.
+ * steg 3). Bara Jobbcoach Premium säljs (spec-rummen 17.3), så förslaget är
+ * alltid Premium per månad; valet styr bara kortets rubrik och rader. Ett
+ * kort i rummens material med kopparkant, en ruta med vad gratis ger för
+ * just valet och "Se vad som ingår". Foten har två knappar i samma
+ * storlek: "Köp Premium, 149 kr i månaden" och "Börja gratis" med kant.
+ * Krysset gör samma sak som Börja gratis.
  *
  * Båda sparar spåret (och valet) via /api/onboarding/track. Köp går till
  * köpsteget som finns, Börja gratis till landningen för valet.
@@ -41,9 +43,9 @@ const SCEN = {
   jobb: IlluScenAllt,
 } as const
 
-/** Köpstegets adress för valets paket. */
+/** Köpstegets adress för valets paket, med platsen registrering. */
 export function kopHref(intent: SignupIntent): string {
-  return kopstegHref(INTENTS[intent].plan)
+  return kopstegHref(INTENTS[intent].plan, 'registrering')
 }
 
 export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: ForslagStegProps) {
@@ -117,7 +119,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
         <div className="mt-4">
           <SparKort
             Scen={SCEN[intent]}
-            ink={intent === 'jobb'}
+            markerad
             eyebrow={STEG3.eyebrow}
             eyebrowTon="dampad"
             rubrik={copy.kortRubrik}

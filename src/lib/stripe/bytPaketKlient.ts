@@ -1,15 +1,16 @@
 /**
- * Klientens anrop till create-upgrade-session, för betalväggens och
- * fotens bytesknappar (docs/qa/qa-kop-testlage-2026-09-24.md, bugg 3).
+ * Klientens anrop till create-upgrade-session, för bytesknapparna hos en
+ * befintlig kund med CV-paketet eller Träningspaketet
+ * (docs/qa/qa-kop-testlage-2026-09-24.md, bugg 3; spec-rummen 17.3).
  *
- * Rutten har tre svar som knapparna måste skilja på:
+ * Bara Jobbcoach Premium säljs, så bytet går alltid till all_month. Rutten
+ * har fem svar som knapparna måste skilja på:
  *
- *   200 { upgraded: true }  priset är bytt på prenumerationen, ingen kassa
- *                           (uppgradering till Hela paketet, eller sidbyte
- *                           mellan CV-paketet och Träningspaketet)
- *   200 { url }             en kassa att skicka vidare till (äldre väg)
- *   409 { vidFornyelse }    nedgradering eller längdbyte, sker vid förnyelsen
- *   409                     samma paket en gång till
+ *   200 { upgraded: true }      priset är bytt på prenumerationen, ingen kassa
+ *   200 { url }                 en kassa att skicka vidare till (äldre väg)
+ *   400 { saljs: false }        målet säljs inte längre (gammal knapp)
+ *   409 { vidFornyelse }        nedgradering eller längdbyte, sker vid förnyelsen
+ *   409                         samma paket en gång till
  *
  * Förut väntade knapparna bara på url, så ett lyckat byte och ett nej såg
  * likadana ut: ingenting hände.
@@ -21,6 +22,7 @@ export type BytUtfall =
   | { typ: 'kassa'; url: string }
   | { typ: 'vidFornyelse'; skal: 'nedgradering' | 'langd' }
   | { typ: 'redan' }
+  | { typ: 'saljsInte' }
   | { typ: 'fel' }
 
 export async function bytPaket(planKey: PlanKey, returnPath?: string): Promise<BytUtfall> {
@@ -36,7 +38,9 @@ export async function bytPaket(planKey: PlanKey, returnPath?: string): Promise<B
       planKey?: PlanKey
       vidFornyelse?: boolean
       skal?: string
+      saljs?: boolean
     }
+    if (res.status === 400 && json.saljs === false) return { typ: 'saljsInte' }
     if (res.status === 409 && json.vidFornyelse) {
       return { typ: 'vidFornyelse', skal: json.skal === 'langd' ? 'langd' : 'nedgradering' }
     }

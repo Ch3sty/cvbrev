@@ -23,6 +23,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { ALLA_FEATURES, FEATURES, type Feature, type Scope } from '@/lib/access/features'
+import { SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
 
 /** Kvotrutternas strängar till featurenamn. */
 const GAMLA_NAMN: Record<string, Feature> = {
@@ -51,7 +52,7 @@ export interface Blockeringar {
   rader: Blockering[]
   /** Summan av listan. Panelens tal, aldrig en egen räkning. */
   totalt: number
-  /** Spänner blockeringarna båda spåren? Avgör om Hela paketet föreslås. */
+  /** Spänner blockeringarna båda spåren? Styr förslagets skäl (forslagSkal). */
   badaSparen: boolean
 }
 
@@ -114,30 +115,17 @@ export async function lasBlockeringar(
 }
 
 /**
- * Paketet sidan föreslår, i ordningen ur Fas 2D.
+ * Paketet sidan föreslår (D28). Bara Jobbcoach Premium säljs (spec-rummen
+ * 17.3), så förslaget är alltid all_month. Blockeringarna och spåret styr
+ * inte längre vilket paket som föreslås, bara vad förslagets skäl säger
+ * (forslagSkal i paket-copy.ts: "Du har stoppats både på CV-sidan och i
+ * testerna. Premium öppnar båda.").
  *
- * 1. Finns blockeringar i ett spår, föreslå det spåret. Spänner de båda
- *    spåren blir det Hela paketet.
- * 2. Finns inga blockeringar men ett spår i onboarding_track, föreslå det.
- * 3. Finns varken eller, föreslå Hela paketet och säg i D28 att vi inte vet.
- *
- * Ren funktion, testbar utan databas.
+ * Signaturen står kvar så att anroparna inte behöver ändras. Ren funktion.
  */
 export function foreslaPaket(
-  blockeringar: Blockeringar,
-  track: Scope | null
-): 'cv_week' | 'test_week' | 'all_week' {
-  if (blockeringar.rader.length > 0) {
-    if (blockeringar.badaSparen) return 'all_week'
-
-    const forsta = blockeringar.rader[0].feature
-    const scopes = FEATURES[forsta]
-    if (scopes.includes('cv')) return 'cv_week'
-    if (scopes.includes('tester')) return 'test_week'
-    return 'all_week'
-  }
-
-  if (track === 'cv') return 'cv_week'
-  if (track === 'tester') return 'test_week'
-  return 'all_week'
+  _blockeringar?: Blockeringar,
+  _track?: Scope | null
+): PlanKey {
+  return SALD_PLAN
 }

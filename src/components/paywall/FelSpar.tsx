@@ -7,6 +7,10 @@
  * samma betalvägg som en gratisanvändare, för hon betalar redan. Skillnaden
  * måste synas.
  *
+ * Sedan 2026-10-11 säljs bara Jobbcoach Premium (spec-rummen 17.3), så
+ * komponenten finns kvar bara för befintliga kunder med CV-paketet eller
+ * Träningspaketet. Bytet går till Premium per månad, aldrig i sidled.
+ *
  * Principen är värdet först, spärren efter, uppgraderingen som en rad och
  * inte som ett kort. Därför två ytor, och de exporteras var för sig så att
  * mall- och testvyerna kan sätta raden ovanför listan och kortet först när
@@ -18,8 +22,9 @@
  * Raden är neutral, aldrig warm: warm är reserverat för tidspress, och en
  * betalande som ser en varm rad tror att något är fel med prenumerationen.
  *
- * Priset i kortet är MELLANSKILLNADEN, aldrig hela paketpriset. Visar vi
- * 99 kr för någon som redan betalar 79 läser det som en dubbeldebitering.
+ * Kortet säger vad som dras: Jobbcoach Premium, 149 kr i månaden, och att
+ * dagarna hon redan betalat räknas av. Knappen är samma köpknapp som
+ * överallt, "Köp Premium, 149 kr i månaden" (copy-premium avsnitt 8).
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -34,7 +39,6 @@ import {
   felSparRubrik,
   felSparKnapp,
   felSparText,
-  mellanskillnad,
   type Track,
 } from '@/lib/onboarding/program'
 import type { Feature } from '@/lib/access/features'
@@ -42,6 +46,7 @@ import { bytPaket, type BytUtfall } from '@/lib/stripe/bytPaketKlient'
 import PaketBytesRad from './PaketBytesRad'
 import { PAKETBYTE } from '@/components/pricing/paket-copy'
 import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import { SALD_PLAN } from '@/lib/plans/plans'
 
 const LANK_TYST =
   'text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1'
@@ -52,9 +57,9 @@ export interface FelSparProps {
   /** Hennes betalda spår. Null hör inte hit: då är det en vanlig betalvägg. */
   scope: Track | null
   /**
-   * Mellanskillnaden i kronor, till exempel 20 för 79 mot 99. Går beloppet
-   * inte att räkna fram före Stripe-sidan skickas null, och raden blir
-   * "Bara mellanskillnaden" i stället.
+   * Förr mellanskillnaden per vecka. Bytet går nu till Premium per månad och
+   * kortet visar priset ur PLANS, så värdet används inte. Står kvar för
+   * anroparna.
    */
   priceDeltaKr?: number | null
   /** Arket är öppet. Föräldern äger tillståndet, så scrollpositionen består. */
@@ -120,7 +125,6 @@ export function FelSparRad({
 export default function FelSpar({
   feature,
   scope,
-  priceDeltaKr = 20,
   open,
   onClose,
   returnPath,
@@ -148,13 +152,14 @@ export default function FelSpar({
     capture('paywall_cta_clicked', {
       variant: 'fel-spar',
       surface: typeof window === 'undefined' ? '' : window.location.pathname,
+      plan: SALD_PLAN,
       cta: 'primary',
     })
     // Rutten byter pris på prenumerationen och svarar { upgraded: true }
     // utan url. Förut väntade knappen bara på url, så ett lyckat byte såg ut
     // som ingenting (köptestet 2026-09-24, bugg 3).
     setUtfall(null)
-    const svar = await bytPaket('all_week', returnPath)
+    const svar = await bytPaket(SALD_PLAN, returnPath)
     if (svar.typ === 'kassa') {
       window.location.href = svar.url
       return
@@ -186,7 +191,7 @@ export default function FelSpar({
           </div>
         </div>
 
-        <p className="mt-4 text-meta text-ink-3">{mellanskillnad(priceDeltaKr ?? null)}</p>
+        <p className="mt-4 text-sm leading-[21px] text-ink-2">{FEL_SPAR.prisrad}</p>
         <p className="mt-1 text-meta text-ink-3">{FEL_SPAR.proration}</p>
 
         <PaketBytesRad utfall={utfall} className="mt-4" />
@@ -194,7 +199,7 @@ export default function FelSpar({
         {utfall?.typ !== 'bytt' ? (
           <div className="mt-4">
             <button type="button" onClick={uppgradera} disabled={busy} className={KNAPP_PRIMAR}>
-              {busy ? PAKETBYTE.arbetar : felSparKnapp(priceDeltaKr ?? null)}
+              {busy ? PAKETBYTE.arbetar : felSparKnapp()}
             </button>
           </div>
         ) : null}

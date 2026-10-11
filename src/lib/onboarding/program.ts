@@ -1,18 +1,22 @@
 // src/lib/onboarding/program.ts
 //
-// Paketens och spårvalets texter, en enda sanningskälla
-// (docs/plan-paket-och-onboarding.md, Fas 2B och Fas 2C).
+// Onboardingens och köpvägens texter, en enda sanningskälla
+// (docs/plan-paket-och-onboarding.md, Fas 2B och Fas 2C, ägarens beslut
+// 2026-10-11 i spec-rummen 17.3: bara Jobbcoach Premium säljs).
 //
 // Strängarna har sina T-id i kommentar, så att en ändring i planen går att
 // hitta i koden och tvärtom. Inga talstreck, inga engelska gränssnittsord.
 
-import { PLAN_BY_KEY, paketMedPris, paketNamn, type PlanKey } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, kopKnapp, paketKort, paketMedPris, type PlanKey } from '@/lib/plans/plans'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
-/** Namnen ur PLANS (beslut-paketnamn 2026-09-24), aldrig som fasta strängar. */
-const CV_NAMN = paketNamn('cv_week')
-const TRANING_NAMN = paketNamn('test_week')
-const HELA_NAMN = paketNamn('all_week')
+/** Namnen ur PLANS (copy-premium avsnitt 1), aldrig som fasta strängar. */
+const CV_NAMN = PLAN_BY_KEY.cv_week.name
+const TRANING_NAMN = PLAN_BY_KEY.test_week.name
+const PREMIUM = paketKort()
+
+/** Det som tidigare hette "allt i de andra paketen" (copy-premium avsnitt 3). */
+const ALLT_I_PREMIUM = 'Alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester'
 
 /**
  * Paketnycklarna ägs av plans.ts. Aliaset finns för att onboardingens
@@ -32,7 +36,7 @@ export function isTrack(value: unknown): value is Track {
 
 export interface PaketInfo {
   key: PlanKeyPaket
-  /** Bestämd form, ägarens beslut 6. Ur PLANS. */
+  /** Bestämd form, ur PLANS. */
   namn: string
   /** Ur PLANS. */
   belopp: number
@@ -53,6 +57,11 @@ function paket(key: PlanKeyPaket, rest: Omit<PaketInfo, 'key' | 'namn' | 'belopp
   return { key, namn: p.name, belopp: p.amount, knapp: `Betala ${p.amount} kr`, ...rest }
 }
 
+/**
+ * Alla nycklar, sålda och osålda. Bara all_month säljs; de andra står kvar
+ * så att kvitton och kontosidan beskriver en befintlig prenumeration rätt
+ * tills den löpt ut.
+ */
 export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
   cv_week: paket('cv_week', {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
@@ -62,7 +71,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
       'Personliga brev, skrivna och nedladdade',
       'CV-export utan tak, PDF och Word',
     ],
-    ingarInte: 'Ingår inte: testnivåer över grundnivån, Jobbcoachen, Bli upptäckt.',
+    ingarInte: `Ingår i ${PREMIUM}: testnivåer över grundnivån, Jobbcoachen, Bli upptäckt.`,
   }),
   test_week: paket('test_week', {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
@@ -72,7 +81,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
       'Fördjupade personlighetstestet, 120 påståenden',
       'Hela din historik, inte bara senaste',
     ],
-    ingarInte: 'Ingår inte: CV-mallar utöver de tre fria, full analys, personliga brev.',
+    ingarInte: `Ingår i ${PREMIUM}: CV-mallar utöver de tre fria, full analys, personliga brev.`,
   }),
   all_day: paket('all_day', {
     // Avsnitt 8: engångsköpet har ingen förnyelse, så raden blir en sluttidsrad.
@@ -80,7 +89,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     ingar: [
       'Alla 25 jobbträffar med skälen',
       'Jobbcoachen, så mycket du vill',
-      `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
+      ALLT_I_PREMIUM,
       'Ett dygn, ingen prenumeration',
     ],
     engangs: true,
@@ -91,15 +100,15 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
       'Alla 25 jobbträffar med skälen',
       'Jobbcoachen, så mycket du vill',
       'Bli upptäckt och LinkedIn-optimering',
-      `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
+      ALLT_I_PREMIUM,
     ],
   }),
   all_month: paket('all_month', {
     intervall: 'Dras varje månad på samma datum tills du säger upp',
     ingar: [
-      'Jobbmatchning, Jobbcoachen och Bli upptäckt, en månad i taget',
-      'Billigare än fyra veckor i rad',
-      `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
+      'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
+      'Alla rekryteringstester, provläget och personlighetstestet',
+      'Jobbmatchning, Jobbcoachen och Bli upptäckt',
       'Säg upp när som helst, ett klick',
     ],
   }),
@@ -107,52 +116,12 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     intervall: 'Dras var tredje månad på samma datum tills du säger upp',
     ingar: [
       'Jobbmatchning, Jobbcoachen och Bli upptäckt, i tre månader',
-      'Lägsta priset per vecka',
-      `Allt i ${CV_NAMN} och ${TRANING_NAMN}`,
+      'Alla 25 jobbträffar med skälen',
+      ALLT_I_PREMIUM,
       'Säg upp när som helst, ett klick',
     ],
   }),
 }
-
-/** Hela paketets längder, i segmentets ordning. Veckan är förvald. */
-export const ALLT_LANGDER: readonly PlanKeyPaket[] = ['all_day', 'all_week', 'all_month', 'all_quarter']
-
-/** Paketet ett spår leder till på steg 2. Hela paketet får sitt via längdvalet. */
-export function paketForTrack(track: Track, langd: PlanKeyPaket = 'all_week'): PaketInfo {
-  if (track === 'cv') return PAKET.cv_week
-  if (track === 'tester') return PAKET.test_week
-  return PAKET[langd]
-}
-
-/* --------------------------------------------------- spårvalet, T1 till T13 */
-
-export const SPARVAL = {
-  fraga: 'Vad ska du få gjort den här veckan?', // T1
-  ingress: 'Valet styr vad vi visar först. Du kan ändra det när du vill i din profil.', // T2
-  hoppaOver: 'Jag vet inte än', // T12
-  primar: 'Se vad det kostar', // T13
-  /** Fas 2D, D1 och D2: Börja gratis som fullvärdigt val i foten. */
-  gratisKnapp: 'Börja gratis', // D1
-  gratisNot: 'Gratisnivån ger tre mallar, grundnivån i testerna och ett personligt brev i veckan.', // D2
-  kort: {
-    cv: {
-      titel: 'Få ansökan klar', // T3
-      text: 'CV, full analys, mallar och det personliga brevet. En ansökan du kan skicka i kväll.', // T4
-      meta: paketMedPris('cv_week'), // T5
-    },
-    tester: {
-      titel: 'Klara urvalstestet', // T6
-      text: 'Alla nivåer, tidsatt provläge och förklaring till varje fråga du missar.', // T7
-      meta: paketMedPris('test_week'), // T8
-    },
-    allt: {
-      titel: 'Både och', // T9
-      text: 'Du slipper välja. Har du både ansökan och ett test framför dig, ta den här.', // T10
-      // Ägarens beslut 4: fyra längder, så kortet får inte säga 99.
-      meta: `${HELA_NAMN}, från ${PLAN_BY_KEY.all_day.amount} kr`, // T11
-    },
-  },
-} as const
 
 /* ------------------------------ gratisanvändarens spårfråga, Fas 2D skärm 1.1b */
 
@@ -171,19 +140,12 @@ export const SPARVAL_GRATIS = {
 /* --------------------------------------------- paketskärmen, T14 till T26 */
 
 export const PAKETSKARM = {
-  fraga: 'Så här ser veckan ut', // T14
-  bytPaket: 'Byt paket', // T24
   kvitto: 'Kvittot skickas till din e-post direkt efter betalningen.', // T26
   // T23, kortad mot K1. Lagkravsstyrd, ändras bara mot avsnitt 8.
   samtycke:
     'Starta direkt. Jag förstår att ångerrätten på fjorton dagar inte gäller när innehållet påbörjats.',
   samtyckeHjalp: 'Kryssar du inte i får du tillgång först efter fjorton dagar.', // K2
   samtyckeSpärr: 'Kryssa i rutan ovanför för att fortsätta.',
-  langdLabel: `Längd på ${HELA_NAMN}`,
-  // D48b, dirigentens beslut 2026-09-22: dygnet är ett engångsköp och går
-  // inte att lägga ovanpå en löpande prenumeration. Raden säger varför i
-  // stället för att lämna en spärrad knapp oförklarad.
-  dagSpärrad: 'Dagen är ett engångsköp och går inte att kombinera med din prenumeration.',
 } as const
 
 /** T22, förnyelseraden. Engångsköpet får sluttidsraden i stället. */
@@ -196,11 +158,20 @@ export function fornyelserad(paket: PaketInfo, datum: string): string {
 
 /* ------------------------------------ fel paket i taket, T73 till T87 */
 
+/**
+ * För en befintlig kund med CV-paketet eller Träningspaketet som tar i taket.
+ * Bytet går bara till Premium per månad (spec-rummen 17.3), och knappen är
+ * samma köpknapp som överallt.
+ */
 export const FEL_SPAR = {
   rubrik: 'Du ville ladda ner den här mallen', // T79
-  primar: `Byt till ${HELA_NAMN}`, // T83, utan belopp: se felSparKnapp
+  /** T83: knappen, samma som överallt (copy-premium avsnitt 8). */
+  primar: kopKnapp(),
   stang: 'Stäng', // T84
-  proration: 'Dagarna du redan betalat för räknas av. Veckan fortsätter som förut.', // T82
+  /** Prisraden ovanför knappen, med fulla namnet en gång på ytan. */
+  prisrad: `${paketMedPris(SALD_PLAN)}.`,
+  /** T82: vad som händer med veckan hon redan betalat. */
+  proration: 'Dagarna du redan betalat för räknas av, och månaden räknas från i dag.',
   radLank: 'Så får du dem', // T75
 } as const
 
@@ -217,7 +188,7 @@ export function felSparRubrik(feature: string | null | undefined): string {
     case 'test_history':
       return 'Du ville se din utveckling'
     case 'chat_unlimited':
-      return 'Du ville fråga jobbcoachen'
+      return 'Du ville fråga Jobbcoachen'
     case 'job_matches_all':
       return 'Du ville se alla träffar'
     case 'bli_upptackt':
@@ -236,44 +207,29 @@ export function felSparRubrik(feature: string | null | undefined): string {
 /** T74: radens text per betalt paket. Säger vad paketet ger, inte vad det saknar. */
 export function felSparRad(scope: Track): string {
   if (scope === 'tester') {
-    return `Du har ${TRANING_NAMN}, som ger alla tester och nivåer. Mallarna ligger i ${CV_NAMN}.`
+    return `Du har ${TRANING_NAMN}, som ger alla tester och nivåer. Mallarna ingår i ${PREMIUM}.`
   }
   if (scope === 'cv') {
-    return `Du har ${CV_NAMN}, som ger mallar, analys och personliga brev. Testerna ligger i ${TRANING_NAMN}.`
+    return `Du har ${CV_NAMN}, som ger mallar, analys och personliga brev. Testerna ingår i ${PREMIUM}.`
   }
-  return `${HELA_NAMN} ger allt.`
+  return `Du har ${PREMIUM}.`
 }
 
-/** T80: kortets brödtext. FS1 alt B och FS2 alt A ur Fas 2B. */
+/** T80: kortets brödtext. */
 export function felSparText(scope: Track): string {
   if (scope === 'tester') {
-    return `${TRANING_NAMN} är rätt paket för testerna. Byter du till ${HELA_NAMN} öppnas mallarna, de personliga breven och analysen.`
+    return `${TRANING_NAMN} ger testerna. Med ${PREMIUM} öppnas också mallarna, de personliga breven och analysen, och du behåller allt du har.`
   }
   if (scope === 'cv') {
-    return `${CV_NAMN} är rätt paket för ansökan. Byter du till ${HELA_NAMN} öppnas alla nivåer, provläget och förklaringen till varje fråga.`
+    return `${CV_NAMN} ger ansökan. Med ${PREMIUM} öppnas också alla nivåer, provläget och förklaringen till varje fråga, och du behåller allt du har.`
   }
-  return `${HELA_NAMN} öppnar allt.`
+  return `${PREMIUM} öppnar allt.`
 }
 
 /**
- * T83 med belopp (R1): knappen bär mellanskillnaden, som är det som dras,
- * aldrig hela veckopriset.
+ * T83, knappen. Förr bar den mellanskillnaden per vecka; bytet går nu till
+ * Premium per månad, så knappen är köpknappen och argumentet ignoreras.
  */
-export function felSparKnapp(kr: number | null): string {
-  return kr === null ? FEL_SPAR.primar : `${FEL_SPAR.primar}, ${kr} kr till i veckan`
-}
-
-/** T81: bara mellanskillnaden, aldrig hela priset. */
-export function mellanskillnad(kr: number | null): string {
-  return kr === null ? 'Bara mellanskillnaden' : `Mellanskillnad, ${kr} kr`
-}
-
-export const EFTER_UPPGRADERING = {
-  rubrik: `Du har ${HELA_NAMN} nu`, // T85
-  primar: 'Ladda ner mallen', // T87
-} as const
-
-/** T86 */
-export function efterUppgraderingText(datum: string): string {
-  return `${PLAN_BY_KEY.all_week.amount} kr dras var sjunde dag från ${datum}. Veckan fortsätter på samma dag som förut.`
+export function felSparKnapp(_kr?: number | null): string {
+  return FEL_SPAR.primar
 }

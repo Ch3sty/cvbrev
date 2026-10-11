@@ -2,11 +2,14 @@
 
 /**
  * Svaret på en bytesknapp, som en rad (docs/qa/qa-kop-testlage-2026-09-24.md,
- * bugg 3). Lyckat byte, uppgradering eller sidbyte: positiv rad "Du har nu
- * Träningspaketet". Nedgradering eller längdbyte: neutral rad om att det sker
- * vid nästa förnyelse, med länk till kundportalen. Samma paket igen (409):
- * neutral rad med länk till prenumerationssidan. Fel: neutral rad, knappen
- * blir tryckbar igen.
+ * bugg 3). Kvar bara för befintliga kunder med CV-paketet eller
+ * Träningspaketet, vars byte går till Jobbcoach Premium (spec-rummen 17.3).
+ *
+ * Lyckat byte: positiv rad "Du har nu Jobbcoach Premium". Längdbyte eller
+ * nedgradering: neutral rad om att det sker vid nästa förnyelse, med länk
+ * till kundportalen. Redan Premium (409): neutral rad med länk till
+ * prenumerationssidan. Osålt mål (400) och fel: neutral rad, knappen blir
+ * tryckbar igen. Aldrig ett tyst "klart".
  */
 import Link from 'next/link'
 import StatusRow from '@/components/shell/StatusRow'
@@ -76,7 +79,7 @@ export default function PaketBytesRad({
   return (
     <div role="alert" className={className}>
       <StatusRow tone="neutral" showDot wrap>
-        {PAKETBYTE.fel}
+        {utfall.typ === 'saljsInte' ? PAKETBYTE.saljsInte : PAKETBYTE.fel}
       </StatusRow>
     </div>
   )

@@ -7,7 +7,7 @@
  * brev" och aldrig "spår" publikt.
  */
 
-import { PLAN_BY_KEY, paketMedPris, paketNamn } from '@/lib/plans/plans'
+import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import type { SignupIntent, SmakprovTyp } from './intent'
 
@@ -189,17 +189,21 @@ const CV_RADER = [
   { fet: 'Personliga brev', text: ' på annonsen, som PDF.' },
 ] as const
 
-const FORNYAS = 'Förnyas var sjunde dag, säg upp när du vill'
+/** Raden bredvid priset på förslagskortet. Priset står i kortets egen rad. */
+const FORNYAS = 'Säg upp när du vill'
+/** "Premium", kortformen; fulla namnet står på kortet (paketNamn). */
+const PREMIUM = paketKort()
 
 export const STEG3 = {
   topp: 'Kom igång',
   steg: 'Steg 3 av 3',
   eyebrow: 'Förslag utifrån ditt val',
   gratisEtikett: 'Gratis, utan kort',
-  jamfor: 'Jämför alla tre paketen',
+  jamfor: 'Se vad som ingår',
   borjaGratis: 'Börja gratis',
   busy: 'Sparar',
-  kop: (plan: 'cv_week' | 'test_week' | 'all_week') => `Köp ${paketMedPris(plan)}`,
+  /** Köpknappen, samma som överallt (copy-premium avsnitt 8). */
+  kop: (_plan?: PlanKey) => kopKnapp(),
   forslag: {
     cv: {
       rubrik: (f) => klart(f, 'Så får du CV:t genom urvalet'),
@@ -219,7 +223,7 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Grundnivån är öppen redan nu. Resten av nivåerna och provläget finns i ${paketNamn('test_week')}.`,
+      under: `Grundnivån är öppen redan nu. Resten av nivåerna och provläget ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
@@ -231,7 +235,7 @@ export const STEG3 = {
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
-      under: `Ett intervjuprov per dygn ingår gratis. Vill du öva utan tak finns ${paketNamn('test_week')}.`,
+      under: `Ett intervjuprov per dygn ingår gratis. Att öva utan tak ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Intervjuprov utan tak', text: ', med återkoppling på varje svar.' },
@@ -250,15 +254,15 @@ export const STEG3 = {
         { fet: 'Bli upptäckt:', text: ' rekryterare hittar dig, anonymt tills du svarar.' },
         {
           fet: 'Jobbcoachen',
-          text: `, och allt i ${paketNamn('cv_week')} och ${paketNamn('test_week')}.`,
+          text: ', alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.',
         },
       ],
-      prisText: `Eller ${paketNamn('all_day')} ${PLAN_BY_KEY.all_day.amount} kr, månad ${PLAN_BY_KEY.all_month.amount} kr, kvartal ${PLAN_BY_KEY.all_quarter.amount} kr`,
+      prisText: FORNYAS,
       gratis: ['Tre matchade jobb', 'Tio frågor till Jobbcoachen'],
     },
   } satisfies Record<SignupIntent, ForslagCopy>,
-  /** "79 kr / vecka" i kortets prisrad. */
-  pris: (plan: 'cv_week' | 'test_week' | 'all_week') => `${PLAN_BY_KEY[plan].amount} kr / vecka`,
+  /** "149 kr i månaden" i kortets prisrad, ur PLANS. */
+  pris: (_plan?: PlanKey) => prisPeriod(SALD_PLAN),
 } as const
 
 /* ------------------------------------------------------------ bredden, hemskärmen */
