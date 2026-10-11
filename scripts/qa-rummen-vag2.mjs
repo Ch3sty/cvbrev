@@ -171,8 +171,8 @@ function spara() {
   fs.writeFileSync(RESULTATFIL, JSON.stringify(resultat, null, 2))
 }
 
-const MOBIL = ['T1', '1a', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
-const DATORLISTA = ['W1', 'W2', 'W3', 'W4', 'T1', '1c', '1e', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
+const MOBIL = ['T1', 'T1s', '1a', '1as', '1t', '1b', '1c', '1d', '1e', '1f', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
+const DATORLISTA = ['W1', 'W2', 'W3', 'W4', 'T1', 'T1s', '1t', '1c', '1e', '1g', '1h', '1i', '1p', 'X1', 'L1', 'F1']
 const FILTER = arg('tillstand') ? arg('tillstand').split(',') : null
 const SYSTEM = arg('system') ? arg('system').split(',') : ['light', 'dark']
 const FORMER = arg('former') ? arg('former').split(',') : ['pixel7', 'desktop']

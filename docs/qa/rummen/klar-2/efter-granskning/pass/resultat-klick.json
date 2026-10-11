@@ -1,0 +1,324 @@
+{
+  "datum": "2026-10-11T03:09:13.675Z",
+  "bas": "http://localhost:5241",
+  "ramar": [],
+  "klick": [
+    {
+      "flode": "pass",
+      "system": "light",
+      "steg": [
+        {
+          "namn": "p1-fraga-3",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-01-p1-fraga-3.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p2-regeln",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-02-p2-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "dim": 4,
+          "alla": 6,
+          "rad": "Inte den här · 38 s",
+          "regelLuft": 12
+        },
+        {
+          "namn": "fraga-4",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-03-fraga-4.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "vet-inte-regeln",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-04-vet-inte-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "rad": "Vet inte · 0 s"
+        },
+        {
+          "namn": "p3-sista-fragan",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-05-p3-sista-fragan.png",
+          "primar": [
+            {
+              "text": "Visa resultatet",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-06-p4-resultatet.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet-botten",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-07-p4-resultatet-botten.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "genomgangen",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-08-genomgangen.png",
+          "primar": [
+            {
+              "text": "Nästa",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "knapp": "Gå igenom de sju missarna",
+          "raknare": "1 / 7"
+        },
+        {
+          "namn": "genomgangen-sista-missen",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-09-genomgangen-sista-missen.png",
+          "primar": [
+            {
+              "text": "Tillbaka till resultatet",
+              "inomViewport": true,
+              "bottom": 803
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "fortsatt": "Fortsätt med de två rätta"
+        }
+      ],
+      "navigeringar": 0,
+      "konsol": [],
+      "http": []
+    },
+    {
+      "flode": "pass",
+      "system": "dark",
+      "steg": [
+        {
+          "namn": "p1-fraga-3",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-01-p1-fraga-3.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p2-regeln",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-02-p2-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "dim": 4,
+          "alla": 6,
+          "rad": "Inte den här · 38 s",
+          "regelLuft": 12
+        },
+        {
+          "namn": "fraga-4",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-03-fraga-4.png",
+          "primar": [],
+          "antalPrimar": 0,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "vet-inte-regeln",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-04-vet-inte-regeln.png",
+          "primar": [
+            {
+              "text": "Nästa fråga",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false,
+          "rad": "Vet inte · 0 s"
+        },
+        {
+          "namn": "p3-sista-fragan",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-05-p3-sista-fragan.png",
+          "primar": [
+            {
+              "text": "Visa resultatet",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": "rgb(224, 122, 47)",
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-06-p4-resultatet.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "p4-resultatet-botten",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-07-p4-resultatet-botten.png",
+          "primar": [
+            {
+              "text": "Gå igenom de sju missarna",
+              "inomViewport": true,
+              "bottom": 807
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": 11,
+          "tidsradFarg": null,
+          "horisontellScroll": false
+        },
+        {
+          "namn": "genomgangen",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-08-genomgangen.png",
+          "primar": [
+            {
+              "text": "Nästa",
+              "inomViewport": true,
+              "bottom": 847
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "knapp": "Gå igenom de sju missarna",
+          "raknare": "1 / 7"
+        },
+        {
+          "namn": "genomgangen-sista-missen",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-09-genomgangen-sista-missen.png",
+          "primar": [
+            {
+              "text": "Tillbaka till resultatet",
+              "inomViewport": true,
+              "bottom": 803
+            }
+          ],
+          "antalPrimar": 1,
+          "rott": 0,
+          "kopparTextPaVagg": 0,
+          "minstaText": null,
+          "tidsradFarg": null,
+          "horisontellScroll": false,
+          "fortsatt": "Fortsätt med de två rätta"
+        }
+      ],
+      "navigeringar": 0,
+      "konsol": [],
+      "http": []
+    }
+  ],
+  "fel": []
+}

@@ -1,0 +1,40 @@
+{
+  "bas": "http://localhost:5241",
+  "tid": "2026-10-11T03:11:15.705Z",
+  "korningar": [
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "steg": [
+        {
+          "namn": "fraga-1",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/gamla-testflodet/pixel7-morkt-fraga-1.png",
+          "fragan": {
+            "hittad": true,
+            "farg": "rgb(243, 242, 247)",
+            "ink": "#f3f2f7",
+            "iMatrisyta": true
+          },
+          "alternativen": {
+            "hittad": true,
+            "farg": "rgb(243, 242, 247)",
+            "ink": "#f3f2f7",
+            "iMatrisyta": true
+          }
+        },
+        {
+          "namn": "genomgangen",
+          "fil": "docs/qa/rummen/klar-2/efter-granskning/gamla-testflodet/pixel7-morkt-genomgangen.png",
+          "genomgangen": {
+            "hittad": true,
+            "farg": "rgb(243, 242, 247)",
+            "ink": "#f3f2f7",
+            "iMatrisyta": true
+          }
+        }
+      ],
+      "konsol": []
+    }
+  ],
+  "fel": []
+}

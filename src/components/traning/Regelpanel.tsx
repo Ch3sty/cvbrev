@@ -39,16 +39,23 @@ export default function Regelpanel({ rad, regel, misstag, rad2, visaVidSvar }: R
   useEffect(() => {
     const el = ref.current
     if (!visaVidSvar || !el) return
-    const main = el.closest('main')
-    if (!main) return
-    const lugn = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    const fot = main.parentElement?.querySelector('footer') ?? null
-    const panel = el.getBoundingClientRect()
-    const mainRect = main.getBoundingClientRect()
-    // Fotens överkant, eller mains nederkant om foten saknas (de ligger kant i kant).
-    const grans = Math.min(mainRect.bottom, fot ? fot.getBoundingClientRect().top : mainRect.bottom)
-    const delta = panel.bottom - (grans - LUFT_OVER_FOTEN)
-    if (delta > 0 && typeof main.scrollBy === 'function') main.scrollBy({ top: delta, behavior: lugn ? 'auto' : 'smooth' })
+    const rulla = () => {
+      const main = el.closest('main')
+      if (!main) return
+      const lugn = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+      const fot = main.parentElement?.querySelector('footer') ?? null
+      const panel = el.getBoundingClientRect()
+      const mainRect = main.getBoundingClientRect()
+      // Fotens överkant, eller mains nederkant om foten saknas (de ligger kant i kant).
+      const grans = Math.min(mainRect.bottom, fot ? fot.getBoundingClientRect().top : mainRect.bottom)
+      const delta = panel.bottom - (grans - LUFT_OVER_FOTEN)
+      if (delta > 0 && typeof main.scrollBy === 'function') main.scrollBy({ top: delta, behavior: lugn ? 'auto' : 'smooth' })
+    }
+    // En bildruta senare: skalets egen effekt (rulla till toppen vid ny
+    // fråga) körs efter barnets, och foten mäts först efter layout.
+    if (typeof requestAnimationFrame !== 'function') return rulla()
+    const id = requestAnimationFrame(rulla)
+    return () => cancelAnimationFrame(id)
   }, [visaVidSvar])
 
   return (

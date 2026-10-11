@@ -267,7 +267,7 @@ async function skarmdump(page, namn) {
 const resultat = { datum: new Date().toISOString(), bas: BAS, ramar: [], klick: [], fel: [] }
 
 async function delRamar(browser, k) {
-  const ALLA = ['P1', 'P2', 'P3', 'P4', 'S1', 'M0', 'M1', 'M1&betalande=1', 'O1', 'K1', 'uppvarmning']
+  const ALLA = ['P1', 'P2', 'P3', 'P4', 'S1', 'M0', 'M1', 'M1&betalande=1', 'M1&grundgjort=1', 'O1', 'O1&milstolpe=0', 'K1', 'uppvarmning']
   const RAMAR = arg('ramar') ? ALLA.filter((r) => arg('ramar').split(',').includes(r.split('&')[0])) : ALLA
   const FORMER = arg('former') ? arg('former').split(',') : ['pixel7', 'desktop']
   const SYSTEM = arg('system') ? arg('system').split(',') : ['light', 'dark']
@@ -276,9 +276,18 @@ async function delRamar(browser, k) {
       const { page, logg } = await nySida(browser, { form, system, email: k.email })
       for (const ram of RAMAR) {
         const [namn, extra] = ram.split('&')
+        const tillagg = extra ? '-' + extra.replace(/=.*$/, '').replace('milstolpe', 'utan-milstolpe') : ''
         await oppna(page, namn, extra ? '&' + extra : '')
         const kon = await kontroll(page, form)
-        const fil = await skarmdump(page, `ram-${namn}${extra ? '-betalande' : ''}-${form}-${system === 'dark' ? 'morkt' : 'ljust'}`)
+        // Dator: P1 och M0 ska ha alla sex alternativ och "Vet inte" i bild (20.3 punkt 2).
+        if (form === 'desktop' && (namn === 'P1' || namn === 'M0')) {
+          kon.passKolumn = await page.evaluate(() => {
+            const alt = [...document.querySelectorAll('[role=radiogroup] button')].map((b) => b.getBoundingClientRect())
+            const m = document.querySelector('[data-matris]')?.getBoundingClientRect()
+            return { matrisBredd: m ? Math.round(m.width) : null, allaIBild: alt.length === 6 && alt.every((r) => r.bottom <= innerHeight), sistaAlt: Math.round(Math.max(...alt.map((r) => r.bottom))) }
+          })
+        }
+        const fil = await skarmdump(page, `ram-${namn}${tillagg}-${form}-${system === 'dark' ? 'morkt' : 'ljust'}`)
         // Resultatskärmarna: en dump till längst ner.
         let filBotten = null
         if (['P4', 'S1', 'M1', 'O1'].includes(namn)) {
@@ -287,7 +296,15 @@ async function delRamar(browser, k) {
             if (m) m.scrollTop = m.scrollHeight
           })
           await vanta(400)
-          filBotten = await skarmdump(page, `ram-${namn}${extra ? '-betalande' : ''}-${form}-${system === 'dark' ? 'morkt' : 'ljust'}-botten`)
+          filBotten = await skarmdump(page, `ram-${namn}${tillagg}-${form}-${system === 'dark' ? 'morkt' : 'ljust'}-botten`)
+          // M1 gratis: kopparknappen i paketkortet, sist på sidan, inom en rullning (20.2 fråga 1).
+          if (namn === 'M1' && !extra?.startsWith('betalande')) {
+            kon.m1Botten = await page.evaluate(() => {
+              const k = document.querySelector('[data-resultat] .knapp-primar')
+              const r = k?.getBoundingClientRect()
+              return { iBild: !!r && r.top >= 0 && r.bottom <= innerHeight, fot: !!document.querySelector('[data-resultat] footer'), iKortet: !!k?.closest('section') }
+            })
+          }
         }
         const rad = { ram: ram.replace('&', ' '), form, system, fil, filBotten, ...kon, konsol: [...logg.konsol], http: [...logg.http] }
         logg.konsol.length = 0
@@ -295,7 +312,10 @@ async function delRamar(browser, k) {
         resultat.ramar.push(rad)
         const problem = []
         if (kon.antalPrimar > 1) problem.push(`${kon.antalPrimar} kopparknappar`)
-        if (kon.primar.some((p) => !p.inomViewport)) problem.push('kopparknappen utanför viewport')
+        const m1Gratis = namn === 'M1' && !extra?.startsWith('betalande')
+        if (!m1Gratis && kon.primar.some((p) => !p.inomViewport)) problem.push('kopparknappen utanför viewport')
+        if (m1Gratis && kon.m1Botten && (!kon.m1Botten.iBild || kon.m1Botten.fot || !kon.m1Botten.iKortet)) problem.push(`M1: ${JSON.stringify(kon.m1Botten)}`)
+        if (kon.passKolumn && !kon.passKolumn.allaIBild) problem.push(`dator: alternativen under vecket ${JSON.stringify(kon.passKolumn)}`)
         if (kon.rott) problem.push(`rött på ${kon.rott} element`)
         if (kon.kopparTextPaVagg) problem.push(`ren koppar som text på väggen (${kon.kopparTextPaVagg})`)
         if (kon.minstaText != null && kon.minstaText < 11) problem.push(`text ${kon.minstaText} px`)
@@ -358,6 +378,13 @@ async function delKlick(browser, k) {
       alla: document.querySelectorAll('[role=radiogroup] button').length,
       rad: document.querySelector('.regelpanel p')?.textContent ?? '',
     }))
+    // Regeln rullas fram: panelens nederkant 12 px ovanför foten (20.3 punkt 3).
+    efterSvar.regelLuft = await page.evaluate(() => {
+      const p = document.querySelector('.regelpanel')?.getBoundingClientRect()
+      const f = document.querySelector('[data-pass-shell] footer')?.getBoundingClientRect()
+      return p && f ? Math.round(f.top - p.bottom) : null
+    })
+    if (efterSvar.regelLuft == null || efterSvar.regelLuft < 0) resultat.fel.push(`klick ${system}: regeln bakom foten (${efterSvar.regelLuft})`)
     await dump('p2-regeln', efterSvar)
     await tryckText(page, 'Nästa fråga')
     await page.waitForSelector('[role=radiogroup] button:not([disabled])', { timeout: 15000 })
@@ -399,7 +426,19 @@ async function delKlick(browser, k) {
     await tumtryck(page, '.knapp-primar')
     await page.waitForSelector('[data-pass-shell] .regelpanel', { timeout: 15000 })
     await vanta(400)
-    await dump('genomgangen', { knapp: genomga })
+    const raknare = await page.evaluate(() => [...document.querySelectorAll('[data-pass-shell] header span')].map((s) => s.textContent.trim()).find((t) => / \/ /.test(t)) ?? null)
+    await dump('genomgangen', { knapp: genomga, raknare })
+    // Knapp och räknare säger samma sak (20.3 punkt 9): "Gå igenom de N missarna" ger "1 / N".
+    const n = { två: 2, tre: 3, fyra: 4, fem: 5, sex: 6, sju: 7, åtta: 8 }[(genomga.match(/de (\S+) missarna/) ?? [])[1]]
+    if (n && raknare !== `1 / ${n}`) resultat.fel.push(`klick ${system}: genomgångens räknare ${raknare} efter "${genomga}"`)
+    // Sista missen: "Fortsätt med de sju rätta".
+    for (let i = 1; n && i < n; i++) {
+      await tryckText(page, 'Nästa')
+      await vanta(300)
+    }
+    const fortsatt = await page.evaluate(() => [...document.querySelectorAll('button')].map((b) => b.textContent.trim()).find((t) => t.startsWith('Fortsätt med')) ?? null)
+    await dump('genomgangen-sista-missen', { fortsatt })
+    if (n && !fortsatt) resultat.fel.push(`klick ${system}: ingen Fortsätt med de rätta efter sista missen`)
     await tryckText(page, 'Tillbaka till resultatet').catch(() => {})
     const navigeringar = logg.navigeringar - navStart
     resultat.klick.push({ flode: 'pass', system, steg, navigeringar, konsol: [...logg.konsol], http: [...logg.http] })
