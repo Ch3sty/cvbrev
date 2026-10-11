@@ -3,7 +3,6 @@
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useCVStore } from '@/store/cv-store'
 import Step1Mode, {
@@ -90,7 +89,6 @@ export default function LinkedInOptimizer({
 }: {
   initialData: LinkedInPageData
 }) {
-  const router = useRouter()
 
   // Före första render, inte i en effekt: listan ska finnas när steg 1 målas.
   // Bara i webbläsaren: på servern är storen en modul som delas mellan
@@ -103,7 +101,12 @@ export default function LinkedInOptimizer({
 
   /* Steget i URL:en (?steg=N, ettbaserat). Internt räknas 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
-  const flow = useFlowStep({ totalSteps: LINKEDIN_TOTAL_STEPS })
+  // Resultatet (sista steget) är ett klart flöde: stegen tas ur historiken.
+  const [optimeringKlar, setOptimeringKlar] = useState(false)
+  const flow = useFlowStep({ totalSteps: LINKEDIN_TOTAL_STEPS, klart: optimeringKlar })
+  useEffect(() => {
+    if (flow.step === LINKEDIN_TOTAL_STEPS) setOptimeringKlar(true)
+  }, [flow.step])
   const currentStep = flow.step - 1
   const setCurrentStep = useCallback(
     (target: number) => flow.goToStep(target + 1),
@@ -377,7 +380,7 @@ export default function LinkedInOptimizer({
         title="LinkedIn-profil"
         step={pendingDraft.step}
         totalSteps={LINKEDIN_TOTAL_STEPS}
-        onExit={() => router.push('/dashboard')}
+        onExit={flow.leave}
         exitLabel="Tillbaka till översikten"
       >
         <FlowResumeBanner
@@ -442,7 +445,7 @@ export default function LinkedInOptimizer({
           ? () => setCurrentStep(currentStep - 1)
           : undefined
       }
-      onExit={() => router.push('/dashboard')}
+      onExit={flow.leave}
       exitLabel="Tillbaka till översikten"
       banner={
         error ? (

@@ -39,6 +39,7 @@ import { RumKontextProvider } from '@/components/rum/RumKontext';
 import { tagRumYta } from '@/components/rum/rumMatning';
 import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
 import { capture } from '@/lib/analytics/events';
+import { minnsRum } from '@/lib/flow/flodeshistorik';
 
 /** Rutter som körs i FlowShell och därför äger hela skärmen själva. */
 const FLOW_ROUTES = [
@@ -65,6 +66,9 @@ const InstallPrompt = dynamic(
   () => import('@/components/shell/InstallPrompt'),
   { ssr: false }
 );
+
+/** Flöden i FlowShell utanför FLOW_ROUTES: de är inget rum att gå tillbaka till. */
+const FLODE_UTAN_NAV = /^\/dashboard\/(?:valkommen|valj-spar)(?:\/|$)/;
 
 /** Testflödena: pass, prov, uppvärmning och de klassiska testen med resultat. */
 const TESTFLODE = /^\/dashboard\/tester\/(?:pass|prov|uppvarmning)(?:\/|$)|^\/dashboard\/tester\/[^/]+\/test(?:\/|$)/;
@@ -186,6 +190,13 @@ export default function DashboardShell({
       router.refresh();
     }
   }, [pathname, router]);
+
+  // Rummet man står i, så att ett flöde som startas härifrån vet vart
+  // krysset och Lämna ska gå (flodeshistorik.ts). Flödena själva är inget rum.
+  useEffect(() => {
+    if (!pathname || isFlowRoute || TESTFLODE.test(pathname) || FLODE_UTAN_NAV.test(pathname)) return;
+    minnsRum(pathname);
+  }, [pathname, isFlowRoute]);
 
   // Mätpunkterna (spec avsnitt 7): rum_oppnat när rummet byts eller vid
   // landningen, sokta_tjanster_oppnad varje gång listan öppnas.

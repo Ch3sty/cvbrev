@@ -7,7 +7,9 @@
  *   steg 1  ?steg=fraga  sju ChoiceCards, det rekommenderade med marginalplatta
  *   steg 2  ?steg=svar   intervjuprovets panel i flödesläge, FlowShells fot bedömer
  *
- * Resultatet landar på /dashboard/intervju/{token}. Kvoten (429) ritas som i
+ * Resultatet landar på /dashboard/intervju/{token} och ersätter flödets
+ * steg i historiken, så bakåt från resultatet går till rummet. Krysset går
+ * till rummet flödet startades från (flodeshistorik.ts). Kvoten (429) ritas som i
  * artikeln, med statusraden och länken till Träningspaketet, och foten döljs.
  */
 
@@ -20,7 +22,8 @@ import { IkonIntervju, IkonKrona, IkonProfil } from '@/components/illustrations/
 import Intervjuprov from '@/components/artiklar/intervjuprov/Intervjuprov'
 import { FRAGA_ORDNING, FRAGOR, type FragaId } from '@/components/artiklar/intervjuprov/fragor'
 import { capture } from '@/lib/analytics/events'
-import { INFOR_INTERVJUN_HREF } from '@/lib/intervju/lankar'
+import { avslutaFlodet, lamnaFlodet } from '@/lib/flow/flodeshistorik'
+import { useFlodeshistorik } from '@/lib/flow/useFlodeshistorik'
 import { NY } from '../infor-intervjun-copy'
 
 type Ikon = React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>
@@ -49,7 +52,12 @@ export default function NyttProvFlow({
 }) {
   const router = useRouter()
   const params = useSearchParams()
-  const steg = params.get('steg') === 'svar' ? 2 : 1
+  const urlSteg = params.get('steg') === 'svar' ? 2 : 1
+  // Medan resultatet ersätter stegen i historiken står flödet still.
+  const stillaSteg = useRef(urlSteg)
+  const { fore, stilla } = useFlodeshistorik(params.toString(), () => true)
+  if (!stilla) stillaSteg.current = urlSteg
+  const steg = stilla ? stillaSteg.current : urlSteg
 
   const [vald, setVald] = useState<FragaId | null>(forvald ?? rekommenderad)
   const [laddar, setLaddar] = useState(false)
@@ -61,9 +69,10 @@ export default function NyttProvFlow({
       const q = new URLSearchParams(params.toString())
       q.set('steg', s)
       if (vald) q.set('fraga', vald)
+      fore('push')
       router.push(`/dashboard/intervju/ny?${q.toString()}`)
     },
-    [params, router, vald]
+    [params, router, vald, fore]
   )
 
   const fragaISteg2 = (params.get('fraga') as FragaId | null) ?? vald ?? rekommenderad
@@ -76,7 +85,7 @@ export default function NyttProvFlow({
   const onResultat = useCallback(
     (href: string, level: number) => {
       capture('interview_practice_completed', { question: fraga, level, surface: 'dashboard' })
-      router.push(href)
+      avslutaFlodet(router, href)
     },
     [fraga, router]
   )
@@ -90,7 +99,7 @@ export default function NyttProvFlow({
         step={2}
         totalSteps={2}
         onBack={() => gaTill('fraga')}
-        onExit={() => router.push(INFOR_INTERVJUN_HREF)}
+        onExit={() => lamnaFlodet(router)}
         primaryLabel={kvot ? undefined : NY.bedom}
         onPrimary={kvot ? undefined : () => bedomRef.current?.()}
         primaryBusy={laddar}
@@ -116,7 +125,7 @@ export default function NyttProvFlow({
       title={NY.titel}
       step={1}
       totalSteps={2}
-      onExit={() => router.push(INFOR_INTERVJUN_HREF)}
+      onExit={() => lamnaFlodet(router)}
       primaryLabel={NY.fortsatt}
       onPrimary={() => vald && gaTill('svar')}
       primaryDisabled={!vald}

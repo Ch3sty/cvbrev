@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
 import { ChevronDown } from '@/components/illustrations/RumIkoner';
-import { useRouter } from 'next/navigation';
 import { useNotification } from '@/context/notificationcontext';
 import { useProfile } from '@/hooks/use-profile';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
@@ -152,7 +151,6 @@ export default function CVCreatorWizard({
   /** Mallen ur ?mall=, vald på mallsidan eller i /cv-mallar/start. Validerad på servern. */
   initialTemplate?: string;
 }) {
-  const router = useRouter();
   const { successWithMascotAndActivity } = useNotification();
   const { profile } = useProfile();
 
@@ -161,10 +159,14 @@ export default function CVCreatorWizard({
      backa ett steg, och en omladdning började om på steg 1 trots att
      utkastet fanns kvar. Internt räknar wizarden fortfarande 0-baserat. */
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  // CV:t sparat eller nedladdat: flödet är klart och stegen tas ur
+  // historiken, så nästa bakåtgest går till rummet.
+  const [cvKlart, setCvKlart] = useState(false);
 
   const flow = useFlowStep({
     totalSteps: SKAPA_CV_STEPS.length,
     maxReachableStep: SKAPA_CV_STEPS.length,
+    klart: cvKlart,
   });
   const currentStep = flow.step - 1;
   const setCurrentStep = useCallback(
@@ -492,6 +494,7 @@ export default function CVCreatorWizard({
           window.URL.revokeObjectURL(url);
           a.remove();
         }
+        setCvKlart(true);
       } catch (error) {
         console.error('Error completing wizard:', error);
         throw error;
@@ -552,7 +555,7 @@ export default function CVCreatorWizard({
         title="Bygg ditt CV"
         step={1}
         totalSteps={SKAPA_CV_STEPS.length}
-        onExit={() => router.push('/dashboard')}
+        onExit={flow.leave}
         exitLabel="Tillbaka till översikten"
       >
         <FlowResumeBanner
@@ -598,7 +601,7 @@ export default function CVCreatorWizard({
       step={currentStep + 1}
       totalSteps={SKAPA_CV_STEPS.length}
       onBack={currentStep > 0 ? goToPreviousStep : undefined}
-      onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
+      onExit={flow.leave}
       exitLabel="Tillbaka till översikten"
       primaryLabel={primaryLabel}
       onPrimary={onPrimary}

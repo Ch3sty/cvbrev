@@ -260,9 +260,12 @@ export default function CreateLetterClient({
   // Spärr mot handskrivna ?steg=5: man når bara så långt datan räcker.
   const maxReachableStep = !cvDone ? 1 : !jobDone ? 2 : generatedLetter ? 6 : 5;
 
-  const { step, goToStep, next, back } = useFlowStep({
+  // Sparat brev är ett klart flöde: stegen tas ur historiken, så nästa
+  // bakåtgest går till rummet i stället för baklänges genom stegen.
+  const { step, goToStep, next, back, leave, finish } = useFlowStep({
     totalSteps: LETTER_FLOW_TOTAL_STEPS,
     maxReachableStep,
+    klart: isLetterSaved && !!generatedLetter,
   });
 
   /* Utkast. Flödet tappade tidigare allt vid minsta avbrott eftersom hela
@@ -853,7 +856,7 @@ export default function CreateLetterClient({
           // Brevet klart (spec-rummen våg 4, B1): brevvyn med bekräftelsen
           // och träffarna på väggen. Utan id, som förut, listan.
           onClick: () =>
-            router.push(letterData?.id ? `/dashboard/mina-brev/${letterData.id}?klart=1` : '/dashboard/mina-brev'),
+            finish(letterData?.id ? `/dashboard/mina-brev/${letterData.id}?klart=1` : '/dashboard/mina-brev'),
           disabled: false,
         };
       }
@@ -872,13 +875,14 @@ export default function CreateLetterClient({
 
   const primary = primaryFor();
 
-  // X i toppraden. Är brevet skrivet men inte sparat frågar vi först.
+  // X i toppraden, till rummet man kom från. Är brevet skrivet men inte
+  // sparat frågar vi först.
   const handleFlowExit = () => {
     if (step === 6 && generatedLetter && !isLetterSaved) {
       setShowExitWarning(true);
       return;
     }
-    router.push('/dashboard');
+    leave();
   };
 
   // Återkomstvalet tar över hela steget: det är ett vägval, inte en banner
@@ -889,7 +893,7 @@ export default function CreateLetterClient({
         title="Personligt brev"
         step={pendingDraft.step}
         totalSteps={LETTER_FLOW_TOTAL_STEPS}
-        onExit={() => router.push('/dashboard')}
+        onExit={leave}
         exitLabel="Tillbaka till översikten"
       >
         <FlowResumeBanner
@@ -911,6 +915,7 @@ export default function CreateLetterClient({
       onBack={step > 1 && !isSubmitting && !isGenerating ? back : undefined}
       onExit={handleFlowExit}
       exitLabel="Tillbaka till översikten"
+      visaDorrar={step === 6 && !!generatedLetter}
       primaryLabel={primary?.label}
       onPrimary={primary?.onClick}
       primaryDisabled={primary?.disabled}
@@ -1066,7 +1071,7 @@ export default function CreateLetterClient({
           onCancel={() => setShowExitWarning(false)}
           onConfirm={() => {
             setShowExitWarning(false);
-            router.push('/dashboard');
+            leave();
           }}
           title="Lämna utan att spara?"
           description="Brevet är skrivet men inte sparat. Lämnar du nu finns det inte kvar under Mina brev."

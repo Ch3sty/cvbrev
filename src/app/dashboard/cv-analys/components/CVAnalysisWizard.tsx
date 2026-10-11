@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
-import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useNotification } from '@/context/notificationcontext';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
@@ -104,7 +103,6 @@ export default function CVAnalysisWizard({
   aterupptagning = null,
 }: CVAnalysisWizardProps) {
   const ater = aterupptagning;
-  const router = useRouter();
   const supabase = createClient();
   const { successWithMascotAndActivity } = useNotification();
 
@@ -114,7 +112,17 @@ export default function CVAnalysisWizard({
   const [completedSteps, setCompletedSteps] = useState<number[]>(() =>
     ater ? Array.from({ length: Math.max(0, ater.steg - 1) }, (_, i) => i) : []
   );
-  const flow = useFlowStep({ totalSteps: ANALYSIS_STEPS.length, initialStep: ater?.steg ?? 1 });
+  // Sista steget (Klar) är ett klart flöde: stegen tas ur historiken, så
+  // nästa bakåtgest går till rummet i stället för baklänges genom analysen.
+  const [analysKlar, setAnalysKlar] = useState(false);
+  const flow = useFlowStep({
+    totalSteps: ANALYSIS_STEPS.length,
+    initialStep: ater?.steg ?? 1,
+    klart: analysKlar,
+  });
+  useEffect(() => {
+    if (flow.step === ANALYSIS_STEPS.length) setAnalysKlar(true);
+  }, [flow.step]);
   const currentStep = flow.step - 1;
   const setCurrentStep = useCallback(
     (updater: number | ((prev: number) => number)) => {
@@ -1414,7 +1422,7 @@ export default function CVAnalysisWizard({
       step={currentStep + 1}
       totalSteps={ANALYSIS_STEPS.length}
       onBack={currentStep > 0 && !isSaving && !isAnalyzing ? handlePrevious : undefined}
-      onExit={currentStep === 0 ? () => router.push('/dashboard') : undefined}
+      onExit={flow.leave}
       exitLabel="Tillbaka till översikten"
       primaryLabel={
         hideFooter

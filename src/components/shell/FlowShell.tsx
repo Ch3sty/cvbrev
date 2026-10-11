@@ -34,6 +34,7 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffec
 import { useRouter } from 'next/navigation'
 import { IkonTillbaka, IkonX } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR } from './knappar'
+import { lamnaFlodet } from '@/lib/flow/flodeshistorik'
 
 export interface FlowShellProps {
   /** Flödets namn i toppraden, till exempel "Personligt brev". */
@@ -46,7 +47,8 @@ export interface FlowShellProps {
   /**
    * Lämnar flödet helt. Körs av X längst till höger i toppraden, och av
    * chevronen på första steget när onBack saknas. Saknas onExit går X till
-   * /dashboard: ett flöde får aldrig vara en återvändsgränd.
+   * rummet flödet startades från (reserv /dashboard) och tar flödets steg
+   * ur historiken: ett flöde får aldrig vara en återvändsgränd.
    */
   onExit?: () => void
   /** Etikett för lämna-knappen när onBack saknas. */
@@ -58,6 +60,11 @@ export interface FlowShellProps {
   utanTillbaka?: boolean
   /** Innehåll och fot i en kolumn på 560 px i stället för 768 (en fråga, inte en prislista). */
   smal?: boolean
+  /**
+   * Dörrarna i botten syns, och skalet slutar ovanför dem. För det klara
+   * läget: man ser att man är hemma. Foten står kvar ovanför dörrarna.
+   */
+  visaDorrar?: boolean
 
   /** Primärknappens text. Foten döljs helt om den utelämnas. */
   primaryLabel?: string
@@ -95,6 +102,7 @@ export default function FlowShell({
   exitLabel = 'Avsluta',
   utanTillbaka = false,
   smal = false,
+  visaDorrar = false,
   primaryLabel,
   onPrimary,
   primaryDisabled,
@@ -116,17 +124,25 @@ export default function FlowShell({
   // e-postbannern och dashboardheadern fortfarande fanns, och nästa bild var
   // 57 px kortare. Det gav ett CLS på 0,106 på varje flödessteg, alltså ett
   // synligt hopp precis när användaren börjar läsa frågan.
+  //
+  // Med visaDorrar står navet kvar (globals.css släpper det på
+  // data-flow-dorrar) och variabeln behåller sin höjd, så skalet slutar
+  // ovanför dörrarna.
   useIsomorphicLayoutEffect(() => {
     const root = document.documentElement
     const previous = root.style.getPropertyValue('--bottom-nav-h')
-    root.style.setProperty('--bottom-nav-h', '0px')
+    if (!visaDorrar) root.style.setProperty('--bottom-nav-h', '0px')
     root.setAttribute('data-flow-active', 'true')
+    if (visaDorrar) root.setAttribute('data-flow-dorrar', 'true')
     return () => {
-      if (previous) root.style.setProperty('--bottom-nav-h', previous)
-      else root.style.removeProperty('--bottom-nav-h')
+      if (!visaDorrar) {
+        if (previous) root.style.setProperty('--bottom-nav-h', previous)
+        else root.style.removeProperty('--bottom-nav-h')
+      }
       root.removeAttribute('data-flow-active')
+      root.removeAttribute('data-flow-dorrar')
     }
-  }, [])
+  }, [visaDorrar])
 
   const pct = Math.round((Math.min(step, totalSteps) / totalSteps) * 100)
   const showFooter = Boolean(primaryLabel && onPrimary)
@@ -164,11 +180,14 @@ export default function FlowShell({
   // ingen väg alls. X står alltid längst till höger i toppraden.
   const exit = () => {
     if (onExit) onExit()
-    else router.push('/dashboard')
+    else lamnaFlodet(router)
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
+    <div
+      className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]"
+      style={visaDorrar ? { bottom: 'var(--bottom-nav-h)' } : undefined}
+    >
       {/* Topp: tillbaka, titel, räknare, tråden. */}
       <header className="flex-shrink-0 border-b border-kant bg-papper">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
@@ -233,7 +252,7 @@ export default function FlowShell({
         <footer
           ref={footerRef}
           className="flex-shrink-0 border-t border-kant bg-papper"
-          style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+          style={{ paddingBottom: visaDorrar ? 0 : 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className={`mx-auto w-full ${smal ? 'max-w-[560px]' : 'max-w-3xl'} px-4 py-3`}>
             {primaryBlockedReason && primaryDisabled && !primaryBusy ? (

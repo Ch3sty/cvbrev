@@ -552,8 +552,15 @@
    exakt Fortsätt-knappen, så användaren kunde välja CV men inte gå vidare.
    Elementet måste alltså bort, inte bara dess höjd. */
 html[data-flow-active='true'] nav[aria-label='Huvudnavigation'],
-html[data-flow-active='true'] nav[aria-label='Huvudmeny'] {
+html[data-flow-active='true']:not([data-flow-dorrar='true']) nav[aria-label='Huvudmeny'] {
   display: none !important;
+}
+
+/* Undantaget: det klara läget i ett flöde (FlowShell visaDorrar) visar
+   dörrarna, så man ser att man är hemma. Skalet slutar ovanför dem, och
+   cookie-bannern ställer sig ovanför både fot och dörrar. */
+html[data-flow-dorrar='true'] .cookie-banner-container {
+  bottom: calc(var(--flow-footer-h, 76px) + var(--bottom-nav-h)) !important;
 }
 
 /* Dashboardens header hör inte till ett flöde eller ett prov. Skalet målar
