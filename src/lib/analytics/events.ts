@@ -316,9 +316,33 @@ export interface AnalyticsEvents {
      vid landningen), sokta_tjanster_oppnad varje gång listan öppnas, så
      öppningarna kan jämföras före och efter navbytet. tema_bytt när
      Utseende ändras på profilen. */
-  rum_oppnat: { rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'; surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
+  rum_oppnat: {
+    rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
+    surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning'
+    /**
+     * Registreringens val (copywriterns önskemål 2026-10-11): vilka som
+     * trycker på Tester utan att ha valt tester, och om de lämnar rummet.
+     * Bara mätning, styr aldrig menyn (kriterium 14).
+     */
+    intent?: SignupIntent | null
+  }
   sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'djuplank' | 'landning' }
   tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
+  /* ---------------------------------------------- Rummen, våg 2
+     spec-rummen avsnitt 7. Ingången (E1 till E3), provdatumet och hemvyn i
+     Rekryteringstester. */
+  ingang_steg: { steg: 1 | 2 | 3; val: string; forsta: boolean }
+  provdatum_satt: {
+    dagar_kvar: number
+    leverantor: string | null
+    typer: string[]
+    surface: 'ingang' | 'installningar'
+  }
+  provdatum_hoppat_over: { steg: 2 | 3 }
+  traning_hem_visad: {
+    tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'fel'
+  }
+  efter_provet_svar: { svar: 'vidare' | 'vet_inte' | 'inte_vidare' }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

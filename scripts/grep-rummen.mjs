@@ -76,7 +76,8 @@ rader.push('', `## lucide-react i ${LUCIDE_KATALOGER.join(', ')}: ${lucide.lengt
 const vagIdx = process.argv.indexOf('--vag')
 const vag = vagIdx >= 0 ? process.argv[vagIdx + 1] : null
 let grind1b = 0
-if (vag === '1b') {
+// Våg 2 kör 1b:s grindar plus sina egna (nedan).
+if (vag === '1b' || vag === '2') {
   // Dokumentytor: brevet och mallarnas förhandsvisning ska vara papper i
   // båda lägena (spec 13.1, undantag). Raderna står kvar med flit.
   const UNDANTAG = [
@@ -139,10 +140,36 @@ if (vag === '1b') {
   rader.push(`Undantag: ${UNDANTAG.map(String).join(', ')}, rader med klassen dokument (pappersytan, spec 13.1) och kommentarsrader.`)
 }
 
+// ------------------------------------------------------------ våg 2
+// Rekryteringstesters hemvy, ingång och kurva (spec-rummen 0 beslut 1 och
+// 3b.3): koppar som text på väggen är alltid koppar-ljus, ren koppar bara
+// linje, punkt och knapp; i src/components/traning får text-koppar bara stå
+// som -ljus, -ink eller -text. Strängarna bor i copy-filerna (avsnitt 8)
+// och har inga tankstreck. Förhandsvisningen har sin spärr.
+let grind2 = 0
+if (vag === '2') {
+  const traffar = []
+  for (const f of filer('src/components/traning').map((p) => p.split(path.sep).join('/'))) {
+    fs.readFileSync(f, 'utf8').split('\n').forEach((r, i) => {
+      if (/text-koppar(?![-\w])/.test(r)) traffar.push(`${f}:${i + 1} text-koppar`)
+    })
+  }
+  for (const f of ['src/lib/traning/hem-copy.ts', 'src/lib/traning/kurvan-copy.ts', 'src/lib/traning/rubrik.ts', 'src/lib/traning/copy.ts']) {
+    if (!fs.existsSync(f)) continue
+    fs.readFileSync(f, 'utf8').split('\n').forEach((r, i) => {
+      if (/[—–]/.test(r)) traffar.push(`${f}:${i + 1} tankstreck`)
+    })
+  }
+  const fh = 'src/app/dashboard/tester/forhandsvisning/page.tsx'
+  if (fs.existsSync(fh) && !fs.readFileSync(fh, 'utf8').includes("TRANING_FORHANDSVISNING === '1'")) traffar.push(`${fh}: saknar spärren`)
+  grind2 = traffar.length
+  rader.push('', `## Våg 2: koppar som text, tankstreck i copy och förhandsvisningens spärr: ${traffar.length} träffar`, ...traffar.map((t) => `       ${t}`))
+}
+
 const text = rader.join('\n') + '\n'
 process.stdout.write(text)
 const i = process.argv.indexOf('--ut')
 if (i >= 0) fs.writeFileSync(process.argv[i + 1], text)
 if (process.argv.includes('--noll')) {
-  if (vag === '1b' ? grind1b > 0 : summa > 0 || lucide.length > 0) process.exit(1)
+  if (vag === '1b' ? grind1b > 0 : vag === '2' ? grind1b + grind2 > 0 : summa > 0 || lucide.length > 0) process.exit(1)
 }

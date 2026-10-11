@@ -75,7 +75,13 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/mina-brev/ID/edit', namn: 'mina-brev/[id]/edit', budget: 'lista', dynamisk: 'letter' },
   { path: '/dashboard/cv-mallar', namn: 'cv-mallar', budget: 'lista' },
   { path: '/dashboard/cv-mallar?mall=modern', namn: 'cv-mallar (vald mall)', budget: 'lista' },
-  { path: '/dashboard/tester', namn: 'tester', budget: 'lista' },
+  // Rekryteringstesters hemvy är en hemvy från våg 2 (spec 1.3: under 1,0 s).
+  { path: '/dashboard/tester', namn: 'tester', budget: 'kritisk' },
+  // Hemvyn med fixturdata (1b): bara mot en server med TRANING_FORHANDSVISNING=1.
+  { path: '/dashboard/tester/forhandsvisning?tillstand=1b', namn: 'tester hemvy 1b', budget: 'kritisk' },
+  { path: '/dashboard/tester/alla', namn: 'tester/alla', budget: 'lista' },
+  { path: '/dashboard/tester/kurvan', namn: 'tester/kurvan', budget: 'lista' },
+  { path: '/dashboard/tester/installningar', namn: 'tester/installningar', budget: 'flode' },
   { path: '/dashboard/tester/matrislogik-grund', namn: 'tester/[slug]', budget: 'lista' },
   { path: '/dashboard/tester/personlighet-grund', namn: 'tester/personlighet', budget: 'lista' },
   { path: '/dashboard/intervju', namn: 'intervju', budget: 'lista' },

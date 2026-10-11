@@ -364,6 +364,36 @@
 .kurva-yta {
   fill: url(#g-yta);
 }
+/* Kurvans och nivåskalans text (konceptets .kurva .ax/.lbl och .skala).
+   Fyllnaden sätts här och inte som attribut: klassen vinner över attributet. */
+.kurva .ax,
+.skala .ax {
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--vagg-mjuk);
+}
+.kurva .lbl,
+.skala .lbl {
+  font-family: var(--font-display), Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--vagg-ink);
+}
+.kurva .lbl.k,
+.skala .lbl.k {
+  fill: var(--koppar-ljus);
+}
+.kurva .lbl.soft,
+.skala .lbl.soft {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--vagg-mjuk);
+}
+.kurva .lbl.sikte,
+.skala .lbl.sikte {
+  fill: var(--ljus);
+}
 .skelett-vagg {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
@@ -410,7 +440,7 @@
 .motion .kurva .linje { stroke-dasharray: 700; stroke-dashoffset: 700; animation: rita 700ms ease-out 200ms forwards; }
 .motion .kurva .yta { opacity: 0; animation: tona 500ms ease-out 500ms forwards; }
 .motion .kurva .punkt.ny { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: tand 240ms ease-out 900ms forwards; }
-.motion .ring .fyll { stroke-dasharray: 151; stroke-dashoffset: 151; animation: fyll 500ms ease-out 300ms forwards; }
+.motion .dagsring .fyll { stroke-dasharray: 151; stroke-dashoffset: 151; animation: fyll 500ms ease-out 300ms forwards; }
 .motion .steg { opacity: 0; transform: translateY(8px); animation: upp 260ms ease-out forwards; }
 .motion .steg.s1 { animation-delay: 120ms; }
 .motion .steg.s2 { animation-delay: 420ms; }
@@ -428,7 +458,7 @@
   .motion .kurva .linje,
   .motion .kurva .yta,
   .motion .kurva .punkt.ny,
-  .motion .ring .fyll,
+  .motion .dagsring .fyll,
   .motion .steg,
   .motion .marke {
     animation: none;
