@@ -1,0 +1,102 @@
+{
+  "tid": "2026-10-11T17:59:06.987Z",
+  "konton": [
+    {
+      "nyckel": "m360-ljust-ny-1791741357867",
+      "email": "qa-hemvy-1791741357867@jobbcoach-qa.test",
+      "id": "a366f411-9181-4a44-bc60-b78e5bd7bc98",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-tre-1791741397030",
+      "email": "qa-hemvy-1791741397030@jobbcoach-qa.test",
+      "id": "db08259c-0fe9-40da-9b85-29a8d7c3fdde",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "test_nivapunkter": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-utan-plan-1791741403119",
+      "email": "qa-hemvy-1791741403119@jobbcoach-qa.test",
+      "id": "8da0afa4-b43b-42fb-9c56-dc2f249d1d37",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-ny-1791741410730",
+      "email": "qa-hemvy-1791741410730@jobbcoach-qa.test",
+      "id": "df3e6694-9f3f-456d-b9ed-b3bae898cc75",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "user_activities": 10,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-tre-1791741453074",
+      "email": "qa-hemvy-1791741453074@jobbcoach-qa.test",
+      "id": "513fbc15-2bd5-49fc-b80f-fe8fdf069dc5",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "test_nivapunkter": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-utan-plan-1791741460179",
+      "email": "qa-hemvy-1791741460179@jobbcoach-qa.test",
+      "id": "8f72ac43-980b-4b60-9433-3bdee308edf7",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-tre-1791741467785",
+      "email": "qa-hemvy-1791741467785@jobbcoach-qa.test",
+      "id": "89f9d341-b90c-47bb-a239-8b82f4ac09d8",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 2,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "test_nivapunkter": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}

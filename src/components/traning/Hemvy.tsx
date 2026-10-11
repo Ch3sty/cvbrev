@@ -85,7 +85,7 @@ function HogerFor({ h }: { h: Hoger }) {
 function RadFor({ r, smal }: { r: RadModell; smal?: boolean }) {
   return (
     <Rad
-      hogerUnder={smal}
+      hogerUnder={smal && r.hoger?.typ !== 'chev'}
       symbol={r.symbol ? <SymbolFor s={r.symbol} /> : undefined}
       svag={r.svag}
       titel={r.titel}

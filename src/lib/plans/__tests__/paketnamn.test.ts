@@ -174,7 +174,7 @@ describe('namnen ur PLANS', () => {
     expect(m.ctaLabel).toBe('Köp Premium, 149 kr i månaden')
     // Raden som hänvisade till de andra paketen är två egna rader (copy-premium 3).
     expect(m.highlights).toContain('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
-    expect(m.highlights).toContain('Alla rekryteringstester, provläget och personlighetstestet')
+    expect(m.highlights).toContain('Alla rekryteringstester, övningsprov och personlighetstestet')
     expect(m.highlights.join(' ')).toMatch(/Jobbmatchning/)
     expect(m.highlights.join(' ')).toMatch(/Jobbcoachen/)
     expect(m.highlights.join(' ')).toMatch(/Bli upptäckt/)

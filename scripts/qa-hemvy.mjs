@@ -78,7 +78,7 @@ async function skapaKonto(nyckel) {
   await vanta(600)
   const { error: pErr } = await sb
     .from('profiles')
-    .upsert({ id: k.userId, email, full_name: 'Anna Andersson', email_verified_at: new Date().toISOString(), onboarding_track: 'tester' })
+    .upsert({ id: k.userId, email, full_name: 'Anna Andersson', email_verified_at: new Date().toISOString(), onboarding_track: 'tester', onboarding_intent: 'tester' })
   if (pErr) throw new Error('profil: ' + pErr.message)
   console.log('skapade', nyckel, email, k.userId)
   return k
@@ -95,6 +95,10 @@ async function sattTrePunkter(k) {
   ].map((p) => ({ ...p, user_id: k.userId, test_kind: 'matris' }))
   const { error } = await sb.from('test_nivapunkter').insert(punkter)
   if (error) throw new Error('punkter: ' + error.message)
+  // Kurvans historik ingår i Premium: gratis ser bara senaste punkten.
+  const om7 = new Date(Date.now() + 7 * 86400000).toISOString()
+  const { error: gErr } = await sb.from('premium_grants').insert({ user_id: k.userId, days: 7, source: 'qa-hemvy', scope: 'allt', premium_until_after: om7 })
+  if (gErr) throw new Error('grant: ' + gErr.message)
 }
 
 async function tabellerMedUserId() {
@@ -205,7 +209,7 @@ async function vy(page, namn, { kopparKravs = true } = {}) {
     const text = document.body.innerText
     const koppar = [...document.querySelectorAll('a, button')].filter((e) => {
       const r = e.getBoundingClientRect()
-      return r.width > 0 && r.height > 0 && /\bbg-koppar\b/.test(e.className) && getComputedStyle(e).visibility !== 'hidden'
+      return r.width > 0 && r.height > 0 && /\bknapp-primar\b/.test(e.className) && getComputedStyle(e).visibility !== 'hidden'
     })
     const forsta = koppar[0]
     let kopparSynlig = null
@@ -213,12 +217,15 @@ async function vy(page, namn, { kopparKravs = true } = {}) {
       const r = forsta.getBoundingClientRect()
       const mitt = document.elementFromPoint(r.left + r.width / 2, Math.min(r.bottom - 4, innerHeight - 1))
       kopparSynlig = r.top >= 0 && r.bottom <= innerHeight && (mitt === forsta || forsta.contains(mitt))
+      var kopparBotten = Math.round(r.bottom)
     }
     return {
       url: location.pathname + location.search,
       horisontell: document.documentElement.scrollWidth > innerWidth + 1,
       kopparKnapp: forsta ? forsta.textContent.trim().slice(0, 60) : null,
       kopparSynlig,
+      kopparBotten: typeof kopparBotten === 'number' ? kopparBotten : null,
+      fonsterHojd: innerHeight,
       general: /generalrepetition/i.test(text),
       mittpunktTal: (text.match(/\d\s*·|·\s*\d/g) ?? []).slice(0, 5),
       kommaNoll: (text.match(/(^|[^\d,])\d+,0(?![\d])/gm) ?? []).slice(0, 5),
@@ -229,7 +236,7 @@ async function vy(page, namn, { kopparKravs = true } = {}) {
   resultat.vyer.push(rad)
   const fel = []
   if (k.horisontell) fel.push('horisontell scroll')
-  if (kopparKravs && k.kopparKnapp && !k.kopparSynlig) fel.push(`kopparknappen "${k.kopparKnapp}" kräver scroll`)
+  if (kopparKravs && k.kopparKnapp && !k.kopparSynlig) fel.push(`kopparknappen "${k.kopparKnapp}" kräver scroll (nederkant ${k.kopparBotten} px, fönstret ${k.fonsterHojd} px)`)
   if (k.general) fel.push('"generalrepetition" i vyn')
   if (k.mittpunktTal.length) fel.push(`tal med mittpunkt: ${k.mittpunktTal.join(' | ')}`)
   if (k.kommaNoll.length) fel.push(`"N,0": ${k.kommaNoll.join(' | ')}`)
@@ -248,7 +255,7 @@ async function tryck(page, el, form) {
     }
     if (!el) throw new Error(`hittade inte "${text}"`)
   }
-  await el.evaluate((e) => e.scrollIntoView({ block: 'nearest' }))
+  await el.evaluate((e) => e.scrollIntoView({ block: 'center' }))
   await vanta(150)
   const box = await el.boundingBox()
   if (!box) throw new Error('ingen ruta att trycka på')
@@ -335,8 +342,11 @@ async function kor(browser, form, system) {
     await tillAdress(page, '/dashboard/tester')
     await vy(page, `${pre}-04-hemvy-fore-matningen`)
     await gorMatningen(page, form)
-    await vy(page, `${pre}-05-matningens-resultat`)
-    await tryck(page, 'Tillbaka till Rekryteringstester', form)
+    // Resultatvyn (M1) hör inte till hemvyn: kopparknappens läge där mäts inte här.
+    await vy(page, `${pre}-05-matningens-resultat`, { kopparKravs: false })
+    // Gratis: betalväggen i foten, vägen tillbaka är krysset i toppraden.
+    const tillbaka = await element(page, 'Tillbaka till Rekryteringstester').catch(() => null)
+    await tryck(page, tillbaka ?? (await valjare(page, '[data-resultat] [aria-label="Stäng"], [aria-label="Stäng"]')), form)
     await tillAdress(page, '/dashboard/tester')
     const hem = await vy(page, `${pre}-06-hemvyn-efter-matningen`)
     if (hem.lagesrad !== 'plan') resultat.fel.push(`${pre}: lägesraden på hemvyn är ${hem.lagesrad}`)

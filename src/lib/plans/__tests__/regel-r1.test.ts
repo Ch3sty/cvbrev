@@ -85,7 +85,7 @@ describe('R1 i reklamkorten', () => {
     // Allt-kortets egna rader före CV-raden och testraden.
     const r = SLUT.allt.rader
     expect(r[r.length - 2]).toBe('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
-    expect(r[r.length - 1]).toBe('Alla rekryteringstester, provläget och personlighetstestet')
+    expect(r[r.length - 1]).toBe('Alla rekryteringstester, övningsprov och personlighetstestet')
     // Test- och CV-kortet säger att resten också ingår, med Dessutom (copy-vag5 avsnitt 1).
     expect(SLUT.test.rader.some((rad) => rad.startsWith('Dessutom'))).toBe(true)
     expect(SLUT.cv.rader.some((rad) => rad.startsWith('Dessutom'))).toBe(true)

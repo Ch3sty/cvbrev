@@ -1,0 +1,19 @@
+{
+  "tid": "2026-10-11T17:58:27.677Z",
+  "bas": "http://localhost:5392",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "tester",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 1104,
+        "cls": 0.001,
+        "fcp": 688,
+        "rundturer": 0,
+        "textLangd": 1041,
+        "forfragningar": 78
+      }
+    }
+  ]
+}
