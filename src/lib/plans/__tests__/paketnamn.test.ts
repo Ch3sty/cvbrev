@@ -192,6 +192,7 @@ describe('namnen ur PLANS', () => {
     expect(paketKort()).toBe('Premium')
     expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
     expect(kopKnapp('all_month').length).toBeLessThan(30)
+    expect(kopKnapp()).toBe(`Köp ${paketKort()}, ${prisPeriod('all_month')}`)
     expect(paketNamnForScope('cv')).toBe('CV-paketet')
     expect(paketNamnForScope('tester')).toBe('Träningspaketet')
     expect(paketNamnForScope('allt')).toBe('Jobbcoach Premium')
@@ -282,6 +283,29 @@ describe('skrivregeln för Jobbcoach Premium', () => {
     expect(GEMENT.test("if (tier === 'premium') return")).toBe(false)
     expect(GEMENT.test('premium_until')).toBe(false)
     expect(GEMENT.test('if (isPremium) return')).toBe(false)
+  })
+
+  it('en knappsträng överallt: skaffaKnapp, ctaLabel och kopKnapp ger samma (copy-premium 8)', async () => {
+    const { skaffaKnapp, getPaywallCopy, paywallPrisrad, paywallPrisradKort } = await import(
+      '@/components/paywall/paywall-copy'
+    )
+    expect(skaffaKnapp()).toBe(kopKnapp())
+    expect(skaffaKnapp('cv_week')).toBe(kopKnapp())
+    expect(PLAN_BY_KEY.all_month.ctaLabel).toBe(kopKnapp())
+    expect(getPaywallCopy('mall').primary).toBe(kopKnapp())
+    // Prisraden ovanför knappen bär fulla namnet; kort form där namnet står i rubriken.
+    expect(paywallPrisrad()).toBe('Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
+    expect(paywallPrisradKort()).toBe('149 kr i månaden, säg upp när du vill.')
+  })
+
+  it('PW4 har värdet i rubriken (copy-premium 9.1)', async () => {
+    const { getPaywallCopy } = await import('@/components/paywall/paywall-copy')
+    const c = getPaywallCopy('nedladdning')
+    expect(c.title).toBe('Ditt personliga brev är klart')
+    expect(c.body).toBe(
+      'Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i Premium, med alla mallar och hela CV-analysen.'
+    )
+    expect(c.secondary).toBe('Kopiera texten i stället')
   })
 
   it('PAKETRADER följer skrivregeln', async () => {

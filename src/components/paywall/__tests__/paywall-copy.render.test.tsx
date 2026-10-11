@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { getPaywallCopy, GRATISRADER, planForPaywall } from '@/components/paywall/paywall-copy'
 
@@ -28,6 +28,38 @@ describe('betalväggarnas copy per spärr', () => {
     expect(screen.getByRole('button', { name: KNAPP })).toBeTruthy()
   })
 
+  it('arket från testrummets låsta rader namnger det låsta, sekundären är Se vad som ingår (24.3 punkt 5)', () => {
+    expect(getPaywallCopy('testniva', { plats: 'riktat' }).title).toBe('Riktade pass ingår i Premium')
+    expect(getPaywallCopy('testniva', { plats: 'generalrepetition' }).title).toBe('Generalrepetitionen ingår i Premium')
+    expect(getPaywallCopy('testniva', { plats: 'ommatning' }).title).toBe('Ommätningen ingår i Premium')
+    for (const plats of ['riktat', 'generalrepetition', 'ommatning', 'kurva'] as const) {
+      const c = getPaywallCopy('testniva', { plats })
+      expect(c.secondary).toBe('Se vad som ingår')
+      expect(c.title).not.toMatch(/Avancerad nivå/)
+    }
+    // Testhubbens egna väggar behåller variantens rubrik.
+    expect(getPaywallCopy('testniva', { plats: 'testniva' }).title).toBe('Avancerad nivå ingår i Premium')
+
+    render(<PaywallCard variant="testniva" plats="riktat" onSecondary={() => {}} />)
+    expect(screen.getByText('Riktade pass ingår i Premium')).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
+    expect(screen.queryByText('Kör grundnivån igen')).toBeNull()
+  })
+
+  it('en spårkund får samma vägg, och knappen går till prenumerationssidan (17.5)', () => {
+    const ursprung = window.location
+    Object.defineProperty(window, 'location', { configurable: true, writable: true, value: { href: '' } })
+    try {
+      render(<PaywallCard variant="mall" scope="tester" />)
+      expect(screen.getByText('Mallen ingår i Premium')).toBeTruthy()
+      expect(screen.getByText(PRISRAD)).toBeTruthy()
+      fireEvent.click(screen.getByRole('button', { name: KNAPP }))
+      expect(window.location.href).toBe('/dashboard/profil/prenumeration')
+    } finally {
+      Object.defineProperty(window, 'location', { configurable: true, writable: true, value: ursprung })
+    }
+  })
+
   it('LinkedIn: fulla namnet i rubriken och kort prisrad (krock 2)', () => {
     render(<PaywallCard variant="linkedin" />)
     expect(screen.getByText('LinkedIn-optimeringen ingår i Jobbcoach Premium')).toBeTruthy()
@@ -45,8 +77,9 @@ describe('betalväggarnas copy per spärr', () => {
 
   it('PW4, brevnedladdning: värdet först, spärren sedan', () => {
     render(<PaywallCard variant="nedladdning" />)
-    expect(screen.getByText('Nedladdningen ingår i Premium')).toBeTruthy()
-    expect(screen.getByText(/Ditt personliga brev är klart. Läs och kopiera det fritt/)).toBeTruthy()
+    // copy-premium 9.1: har kunden fått något på ytan står det i rubriken.
+    expect(screen.getByText('Ditt personliga brev är klart')).toBeTruthy()
+    expect(screen.getByText(/Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i Premium/)).toBeTruthy()
     expect(screen.getByText('Kopiera texten i stället')).toBeTruthy()
     expect(document.body.textContent).not.toMatch(/Lås upp/)
   })
@@ -131,6 +164,8 @@ describe('gratisnivåns rader, GR1 till GR7', () => {
       expect(rad, `${nyckel} slutar med utropstecken`).not.toMatch(/!$/)
       expect(rad, `${nyckel} innehåller ordet bara`).not.toMatch(/\bbara\b/)
       expect(rad, `${nyckel} lovar gratis för alltid`).not.toMatch(/gratis för alltid/)
+      // Spec-rummen 23.3: gratisnivån beskrivs utan dygn tills gaterna är ett.
+      expect(rad, `${nyckel} nämner dygn`).not.toMatch(/dygn/)
     }
   })
 

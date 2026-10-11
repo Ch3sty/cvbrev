@@ -170,6 +170,7 @@ export default function PaywallCard({
     quotaFeature: quota?.feature,
     track,
     plan: knappPlan,
+    plats: platsen,
   })
 
   const remind = async () => {
@@ -200,8 +201,8 @@ export default function PaywallCard({
   const lank = `${LANK} inline-flex min-h-11 items-center justify-center self-center`
 
   // Länken till prissidan: "Se priset" där copyn säger det, annars "Se vad
-  // som ingår". En variants egen sekundära text ("Inte nu", "Kör
-  // grundnivån igen") hör till en knapp med onSecondary, aldrig till länken.
+  // som ingår". En variants egen sekundära text ("Inte nu", "Välj bland de
+  // 3 fria") hör till en knapp med onSecondary, aldrig till länken.
   const prisLank = (
     <Link href={PRISER_HREF} className={lank} onClick={() => ctaClicked('secondary')}>
       {copy.secondary === 'Se priset' ? copy.secondary : PAKETRADER.jamfor}

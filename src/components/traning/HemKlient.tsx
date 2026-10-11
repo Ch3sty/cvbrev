@@ -3,7 +3,10 @@
 /**
  * Hemvyns interaktiva öar (våg 2). Allt annat i hemvyn är serverrenderat.
  *
- *   Betalvagg       ett gemensamt ark (GraValSheet) för vyns låsta rader
+ *   Betalvagg       ett gemensamt ark (GraValSheet) för vyns låsta rader;
+ *                   rubriken namnger det låsta efter platsen ("Riktade pass
+ *                   ingår i Premium") och det sekundära är länken "Se vad
+ *                   som ingår" (paywall-copy testrumRubrik, 24.3 punkt 5)
  *   KopKnapp        kopparknappen i det lyfta kortet på gratisnivån (17.2):
  *                   kortet är betalväggen (1f, W3), knappen går direkt till
  *                   köpsteget för Premium och betalvagg_visad skjuts en gång

@@ -14,6 +14,8 @@
  */
 
 import { suggestPlan, type Feature, type Scope } from '@/lib/access/features'
+import type { BetalvaggPlats } from '@/lib/analytics/events'
+import { PASS_COPY } from '@/lib/traning/pass-copy'
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import {
   PLAN_BY_KEY,
@@ -72,6 +74,11 @@ export interface PaywallCopyOpts {
   track?: Scope | null
   /** Paketet knappen ska föreslå. Ett osålt paket blir det som säljs. */
   plan?: PlanKey | null
+  /**
+   * Platsen väggen visas på. Arket från testrummets låsta rader (1f, W3)
+   * namnger det låsta efter platsen (art-director 24.2 fråga 1).
+   */
+  plats?: BetalvaggPlats
 }
 
 /** Kortformen, en gång här så att ingen rad hårdkodar ordet. */
@@ -85,8 +92,8 @@ const PREMIUM = paketKort()
 export const GRATISRADER = {
   /** GR1, mallgalleriet, över listan. */
   mallar: `${FREE_TEMPLATE_COUNT} mallar ingår i gratisnivån`,
-  /** GR2, testhubben, per testtyp. */
-  tester: 'Grundnivån är fri, en gång per dygn',
+  /** GR2, testhubben. Sant i båda gaterna (spec-rummen 23.3). */
+  tester: 'Nivåmätningen och ett första pass ingår',
   /** GR3, CV-analysen, under poängen. */
   analys: 'Poängen och det tyngsta fyndet ingår',
   /** GR4, brevflödet. */
@@ -164,6 +171,31 @@ export function kvotCopy(quotaFeature: string | undefined, plan?: PlanKey | null
   }
 }
 
+/**
+ * Rubriken i arket från testrummets låsta rader, efter platsen: "Riktade
+ * pass ingår i Premium", "Generalrepetitionen ingår i Premium",
+ * "Ommätningen ingår i Premium" (strängarna i PASS_COPY.betalvagg). Kurvans
+ * lås följer samma mönster, "{Det låsta} ingår i Premium" (copy-premium
+ * avsnitt 3). Null utanför testrummets platser (provläget i testhubben
+ * behåller variantens rubrik): då gäller variantens egen rubrik.
+ */
+export function testrumRubrik(plats: BetalvaggPlats | undefined): string | null {
+  switch (plats) {
+    case 'riktat':
+      return `${PASS_COPY.betalvagg.riktat} ${PREMIUM}`
+    case 'generalrepetition':
+      return `${PASS_COPY.betalvagg.general} ${PREMIUM}`
+    case 'ommatning':
+      return `${PASS_COPY.betalvagg.ommatning} ${PREMIUM}`
+    case 'dag2':
+      return `${PASS_COPY.betalvagg.pass} ${PREMIUM}`
+    case 'kurva':
+      return `Hela kurvan ingår i ${PREMIUM}`
+    default:
+      return null
+  }
+}
+
 /** Featuren varje variant spärrar på. Driver mätningen av feature_blocked. */
 export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   mall: 'cv_templates_all',
@@ -203,7 +235,12 @@ export function getPaywallCopy(
   opts?: PaywallCopyOpts
 ): PaywallCopy {
   const plan = planForVariant(variant, opts)
-  const copy = byggCopy(variant, plan, opts)
+  const bygg = byggCopy(variant, plan, opts)
+  // Arket från testrummets låsta rader namnger det hon tryckte på, och det
+  // sekundära är länken "Se vad som ingår", aldrig "Kör grundnivån igen"
+  // (art-director 24.2 fråga 1, 24.3 punkt 5).
+  const testrum = variant === 'testniva' ? testrumRubrik(opts?.plats) : null
+  const copy = testrum ? { ...bygg, title: testrum, secondary: PAKETRADER.jamfor } : bygg
   // LinkedIn-väggen bär fulla namnet i rubriken, så prisraden tar den korta
   // formen och namnet står en gång på kortet (copy-premium 3 och 8).
   const prisrad = variant === 'linkedin' ? paywallPrisradKort(plan) : paywallPrisrad(plan)
@@ -245,12 +282,12 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
         secondary: 'Se vad som ingår',
       }
 
-    // PW4, alternativ A. Brödtexten säger att värdet är levererat innan
+    // PW4, alternativ A. Rubriken säger att värdet är levererat innan
     // spärren nämns.
     case 'nedladdning':
       return {
-        title: `Nedladdningen ingår i ${PREMIUM}`,
-        body: `Ditt personliga brev är klart. Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i ${PREMIUM}, med alla mallar och hela CV-analysen.`,
+        title: 'Ditt personliga brev är klart',
+        body: `Läs och kopiera det fritt. Nedladdning som PDF och Word ingår i ${PREMIUM}, med alla mallar och hela CV-analysen.`,
         primary: knapp,
         secondary: 'Kopiera texten i stället',
       }
@@ -321,7 +358,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'test-tak':
       return {
         title: 'Dagens omgång är gjord',
-        body: `Grundnivån är fri en gång per dygn. ${PREMIUM} ger alla nivåer, provläget och obegränsat antal försök.`,
+        body: `${PREMIUM} ger alla nivåer, provläget och obegränsat antal försök.`,
         primary: knapp,
         secondary: 'Kom tillbaka i morgon',
       }
