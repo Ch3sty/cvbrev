@@ -89,6 +89,8 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/kurvan', namn: 'tester/kurvan', budget: 'lista' },
   { path: '/dashboard/tester/installningar', namn: 'tester/installningar', budget: 'flode' },
   { path: '/dashboard/tester/matrislogik-grund', namn: 'tester/[slug]', budget: 'lista' },
+  { path: '/dashboard/tester/verbal-resonemang', namn: 'tester/[slug] verbalt', budget: 'lista' },
+  { path: '/dashboard/tester/numeriskt-test', namn: 'tester/[slug] numeriskt', budget: 'lista' },
   { path: '/dashboard/tester/personlighet-grund', namn: 'tester/personlighet', budget: 'lista' },
   { path: '/dashboard/intervju', namn: 'intervju', budget: 'lista' },
   { path: '/dashboard/bli-upptackt', namn: 'bli-upptackt', budget: 'lista' },

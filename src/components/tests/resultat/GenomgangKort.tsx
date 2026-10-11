@@ -73,20 +73,20 @@ export default function GenomgangKort(p: GenomgangKortProps) {
                 <button
                   type="button"
                   onClick={() => p.onGaIgenom(f.nr)}
-                  className="block h-full w-full rounded-xl border border-kant bg-papper p-2.5 text-left hover:border-kant-stark"
+                  className="block h-full w-full rounded-xl border border-kant bg-papper p-2 text-left hover:border-kant-stark sm:p-2.5"
                 >
                   {fraga ? (
                     <MatrisMiniatyr fraga={fraga} />
                   ) : (
                     <span className="block aspect-square overflow-hidden rounded-md border border-kant bg-papper-2 p-1.5">
-                      <span className="line-clamp-5 text-[11px] leading-[15px] text-ink-1">
+                      <span lang="sv" className="line-clamp-5 hyphens-auto text-[11px] leading-[15px] text-ink-1 [overflow-wrap:anywhere]">
                         <mark className="rounded-sm bg-ton px-0.5 text-ink-1 [box-decoration-break:clone]">{f.text}</mark>
                       </span>
                     </span>
                   )}
-                  <b className="mt-2 block text-[13px] font-semibold leading-[17px] text-ink-1">{RESULTAT.genomgang.nr(f.nr, p.sak)}</b>
+                  <b className="mt-2 block truncate text-xs font-semibold leading-4 text-ink-1 sm:text-[13px] sm:leading-[17px]">{RESULTAT.genomgang.nr(f.nr, p.sak)}</b>
                   {f.grupp || f.kalla ? (
-                    <span className="block truncate text-meta text-ink-3">{f.grupp ?? f.kalla}</span>
+                    <span className="line-clamp-2 block text-xs leading-4 text-ink-3">{f.grupp ?? f.kalla}</span>
                   ) : null}
                 </button>
               </li>

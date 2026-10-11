@@ -128,11 +128,14 @@ export const RESULTAT = {
   tempo: {
     rub: 'Tempo mot provets tid',
     titel: (over: number, av: number, budget: number) =>
-      over === 0 ? 'Allt inom provets tid' : `${versal(ordTal(over))} av ${ordTal(av)} över ${budget} sekunder`,
+      over === 0
+        ? 'Allt inom provets tid'
+        : av > 20
+          ? `${over} av ${av} över ${budget} sekunder`
+          : `${versal(ordTal(over))} av ${ordTal(av)} över ${budget} sekunder`,
     snitt: 'Snitt',
-    snittEfter: 'per fråga.',
     langsam: (nr: number, tid: string, s: { en: string }) =>
-      `${versal(s.en)} ${nr} tog ${tid} och blev rätt. På provet hade den tiden saknats till en annan fråga.`,
+      `${versal(s.en)} ${nr} tog ${tid} och blev rätt. På provet hade den tiden saknats till ${s.en === 'påstående' ? 'ett annat påstående' : 'en annan fråga'}.`,
     budget: (b: number) => `provets tid, ${b} s`,
     budgetKort: (b: number) => `${b} s`,
     axelForsta: (s: { en: string }) => `${s.en} 1`,

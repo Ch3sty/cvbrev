@@ -46,20 +46,15 @@ export default function TempoKort({ tempo, fragor, sak, className }: TempoKortPr
       </p>
 
       <div
-        className={`relative mt-6 flex h-[72px] items-end ${gap}`}
+        className={`relative mt-4 flex h-[72px] items-end ${gap}`}
         role="img"
         aria-label={RESULTAT.tempo.aria(tempo.over, tempo.matta, tempo.budget)}
       >
         <span
-          className="pointer-events-none absolute inset-x-0 border-t-[1.5px] border-dashed border-kant-stark"
+          className="pointer-events-none absolute inset-x-0 z-[1] border-t-[1.5px] border-dashed border-ink-3"
           style={{ bottom: `${budgetPct}%` }}
           aria-hidden="true"
-        >
-          <em className="absolute -top-[18px] right-0 text-ax not-italic text-ink-3">
-            <span className="lg:hidden">{RESULTAT.tempo.budgetKort(tempo.budget)}</span>
-            <span className="hidden lg:inline">{RESULTAT.tempo.budget(tempo.budget)}</span>
-          </em>
-        </span>
+        />
         {fragor.map((f) => {
           const tid = f.tid ?? 0
           const over = tid > tempo.budget
@@ -98,6 +93,12 @@ export default function TempoKort({ tempo, fragor, sak, className }: TempoKortPr
         <span className="inline-flex items-center gap-1.5">
           <Ruta typ="over" />
           {RESULTAT.tempo.legend.over}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true">
+            <path d="M1 7h12" stroke="var(--ink-3)" strokeWidth="1.5" strokeDasharray="3 2" />
+          </svg>
+          {RESULTAT.tempo.budget(tempo.budget)}
         </span>
       </div>
     </section>
