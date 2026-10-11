@@ -1,6 +1,6 @@
 # Byggspec: Rummen
 
-Datum 2026-10-10. Författare: art-director (Fable). Mottagare: Opus 5.5-byggagenter, testansvarig (godkänner specen före bygge), svensk-ux-copywriter (strängarna i avsnitt 9), saas-lead (vågordning och mätning). Status: **godkänd av testansvarig 2026-10-10 för våg 1a och 1b** (avsnitt 12), med krav på våg 2, 3a och blandningsfixen. **Våg 1a byggd och granskad 2026-10-10 sent; art-directors beslut efter granskningen står i avsnitt 13 och är inarbetade i avsnitt 1, 2, 3 och 6.** **Våg 1b byggd och granskad 2026-10-11; art-directors beslut och ändringslistan före merge står i avsnitt 16 (rättelserna i 2.1, 4.2 och 4.4 görs av 1b-agenten i samma PR).**
+Datum 2026-10-10. Författare: art-director (Fable). Mottagare: Opus 5.5-byggagenter, testansvarig (godkänner specen före bygge), svensk-ux-copywriter (strängarna i avsnitt 9), saas-lead (vågordning och mätning). Status: **godkänd av testansvarig 2026-10-10 för våg 1a och 1b** (avsnitt 12), med krav på våg 2, 3a och blandningsfixen. **Våg 1a byggd och granskad 2026-10-10 sent; art-directors beslut efter granskningen står i avsnitt 13 och är inarbetade i avsnitt 1, 2, 3 och 6.** **Våg 1b byggd och granskad 2026-10-11; art-directors beslut och ändringslistan före merge står i avsnitt 16 (rättelserna i 2.1, 4.2 och 4.4 görs av 1b-agenten i samma PR).** **Våg 2 och 3b byggda och granskade 2026-10-11 kväll; art-directors beslut, ändringslistorna (a)/(b) och merge-ordningen står i avsnitt 20.**
 
 Underlag: konceptet `docs/design/koncept-testvy-2026-10-10.html` (runda 2, rättat 2026-10-10 kväll, ramarna refereras med sina koder: E1, 1a, P2, W3 och så vidare), testansvarigs granskningar `granskning-formkurvan-2026-10-10.md` och `granskning-rummen-2026-10-10.md`, briefen `brief-testvy-2026-10-10.md` (funktionskraven och avsnitt 8), designsystemet `docs/designsystem.md` (Tråden v2.1, som den här specen ersätter för inloggat), och koden som den såg ut 2026-10-10 kväll (kartlagd i avsnitt 2).
 
@@ -57,13 +57,13 @@ Kartlagt 2026-10-10 kväll. Absoluta sökvägar under `C:\Users\chris\cvbrev\`.
 | `src/components/shell/FlowShell.tsx` | `fixed inset-0 z-50 bg-mark lg:left-64`, h-14-huvud, 2 px progress i `bg-accent`, fot med `h-11 bg-ink-1`-knapp, publicerar `--flow-footer-h`, sätter `data-flow-active`. | Behålls som bas. Ändringar i våg 1b: knappen `h-12` koppar (`KNAPP_PRIMAR`), progress 3 px, bakgrund `bg-golv`, rubrik i `font-display` 15/600, lucide-ikoner byts mot `IkonX` och `IkonTillbaka`. `lg:left-64` blir `lg:left-[248px]`. Ny variant `PassShell` (våg 3b) lägger till tidsraden under huvudet. |
 | `src/components/shell/InkPanel.tsx` (`INK_KNAPP`, `INK_LANK`) | Den enda fyllda ink-1-ytan per vy med scen till höger. | Tas bort ur rummen. Rollen "vyns viktigaste handling" tas av `LyftKort` (det lyfta kortet med kopparknappen). Scenerna (`PriserScener`, `TradenScener`) används inte i inloggat efter våg 4; instrumenten är bilden. InkPanel får ligga kvar i koden för publika sidor tills deras omgång. |
 | `src/components/shell/PageHeader.tsx` | h1 `.text-h1`, beskrivning, scen 240 px på dator. | Ersätts i inloggat av `Vagg` + `Rubrik` (avsnitt 4.2). Kvar för publika sidor. |
-| `src/components/shell/StatusRow.tsx` | Rad med punkt, ton neutral/warm/positive. | Behålls, restylad: `bg-papper border-kant rounded-xl` (radie 12, som konceptet; rättat efter 1b, fråga 11), punkt `bg-ink-3`, `tone="warm"` ger `bg-koppar`. På vägg: `bg-white/5 border-vagg-kant text-vagg-ink`. |
+| `src/components/shell/StatusRow.tsx` | Rad med punkt, ton neutral/warm/positive. | Behålls, restylad: `bg-papper border-kant rounded-2xl`, punkt `bg-ink-3`, `tone="warm"` ger `bg-koppar`. På vägg: `bg-white/5 border-vagg-kant text-vagg-ink`. |
 | `src/components/shell/Fordelning.tsx` | Stort tal + segmentstapel + legend. | Behålls för Jobbsöket (våg 4) på golvet. Segmentton `accent` renderar koppar. |
 | `src/components/shell/LoadingSkeleton.tsx` | Skelett-varianter på papper. | Får varianten `vagg` (vit 8 procent, L1). `.loading-thread` behålls. |
 | `src/components/shell/Sheet.tsx` | Bottenark mobil, centrerat dator, `z-50`. | Behålls. Radie 24 upptill, bakgrund `bg-papper`, handtag `bg-kant-stark`, dimma `rgba(10,12,30,.55)`. |
 | `src/components/paywall/GraValSheet.tsx`, `PaywallCard.tsx`, `paywall-copy.ts`, `UpgradeSheet`, `FelSpar`, `PaketBytesRad` | Betalväggens ark och kort, text ur `paywall-copy.ts`, priser ur `PLANS`. Händelser `gray_option_tapped`, `paywall_shown`, `feature_blocked`, `paywall_cta_clicked`. | Våg 1b: bara utseende (papper, kopparknapp, kopparkant på rekommenderat paket, sekundär som textlänk). Våg 5: nytt innehåll enligt A1/A2 och paketbytet. `FelSpar` och `PaketBytesRad` (byte mellan spår) försvinner i våg 5 eftersom spåren försvinner. |
 | `src/components/illustrations/primitives.tsx` | `ILLU` (stroke 1,75/2/3/6, radius per storlek 24/48/96/240), `useIlluId`, `IlluSvg`, `IlluAccentGradient`. `--illu-*`-tokens. | Behålls. Tillägg: storlek 120 (`stroke: 3, radius: 10`) för märkena. `ILLU.accent` pekar på `--illu-accent` som blir koppar. Nya symboler i `RumSymboler.tsx` byggs på `IlluSvg` (avsnitt 4.5). |
-| `src/components/illustrations/Ikoner.tsx` | Egna 24 px-ikoner (IkonHem, IkonAnsokningar, IkonSkapa, IkonProfil …). | Behålls för rader. Dörrarna är nya (`DorrTran`, `DorrCv`, `DorrBrev`, `DorrJobb`) för att de är nya former, inte för att de har koppar: de ritas i `currentColor`, regeln om exakt en kopparyta gäller 48-symbolerna och märkena, inte 24-ikonerna (rättat efter 1b, fråga 5); `IkonHem`, `IkonAnsokningar`, `IkonSkapa` används inte längre i navet. |
+| `src/components/illustrations/Ikoner.tsx` | Egna 24 px-ikoner (IkonHem, IkonAnsokningar, IkonSkapa, IkonProfil …). | Behålls för rader. Dörrarna är nya (`DorrTran`, `DorrCv`, `DorrBrev`, `DorrJobb`) eftersom de har en kopparyta; `IkonHem`, `IkonAnsokningar`, `IkonSkapa` används inte längre i navet. |
 | `src/app/globals.css`, `tailwind.config.js` | Tokens på `:root` (ljust enbart), Tailwind v3 med `var(--x)`-mappning, inga `darkMode`. | Avsnitt 3. |
 | `src/app/layout.tsx` | `Inter` på body, `Schibsted_Grotesk` som `--font-display`, `themeColor #EDE8DF`, body `bg-white text-gray-900`. | Body behåller sina klasser (den delas med publika sidor); `:root:has([data-rum]) body` ger `bg-golv text-ink-1` i inloggat (våg 1a). `themeColor` i dashboard-layouten: våg 1a satte indigo `#1B2246`/`#0E1120` statiskt; **våg 1b byter till `generateViewport` som läser `x-pathname`, räknar `rumForPath` och returnerar rummets `--vagg` som enda värde, utan media-villkor** (väggen är densamma i ljust och mörkt läge, så statusfältet ska stå i väggens färg i båda; avsnitt 13, beslut 6). Inline-skript i `<head>` före hydrering: läser `localStorage.tema` (`'ljust'|'morkt'|'system'`) och sätter `document.documentElement.dataset.theme` (`light`/`dark`) eller tar bort attributet. |
 
@@ -295,10 +295,6 @@ interface ToppradProps { brand: string /* rummets namn */; kontext?: ReactNode /
 ```ts
 // Rubrik.tsx (server): h1 på väggen
 interface RubrikProps { titel: ReactNode; rad?: ReactNode /* small-raden, text-vagg-mjuk 14/21 */; liten?: boolean /* .text-h1-liten */; as?: 'h1'|'p' }
-// RumHuvud.tsx (server): Vagg + Topprad + Rubrik (rättat efter 1b, avsnitt 16.3.1)
-interface RumHuvudProps { title: ReactNode /* undersidans namn, RUBRIK i copy.ts */; description?: ReactNode; eyebrow?: ReactNode /* bara data: datumraden, aldrig kategori */; handling?: ReactNode /* LANK_VAGG eller KNAPP_GLAS, aldrig KNAPP_PRIMAR */; children?: ReactNode; liten?: boolean; tat?: boolean; topprad?: ToppradProps }
-// Handlingsraden: mt-5 flex flex-wrap items-center gap-x-4 gap-y-2.5. Väggen bär aldrig KNAPP_PRIMAR; vyns
-// primära handling står i ett LyftKort först på golvet (Golv lyft, RumHuvud tat={false}).
 ```
 
 ### 4.3 Navet
@@ -331,15 +327,14 @@ Undersidor per rum (våg 1b, befintliga routes; våg 3b lägger till Träningens
 // Knappar: src/components/shell/knappar.ts (ersätter INK_KNAPP/INK_LANK)
 export const KNAPP_PRIMAR   = 'knapp-primar inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl px-[18px] text-[15px] font-semibold tracking-[-.005em] disabled:opacity-50';
 export const KNAPP_SEKUNDAR = 'inline-flex h-12 w-full items-center justify-center rounded-xl border border-kant-stark bg-papper px-[18px] text-[15px] font-semibold text-ink-1';
-export const KNAPP_GLAS     = 'inline-flex h-12 w-auto self-start items-center justify-center gap-2 rounded-xl border border-vagg-kant bg-white/[.08] px-[18px] text-[15px] font-semibold text-vagg-ink'; // automatisk bredd (16.3.1); full bredd bara i Kvitto och ark
-export const KNAPP_SEKUNDAR_LAG = KNAPP_SEKUNDAR_SMAL med h-10 och text-sm; // två eller fler sekundära i rad (fråga 17)
+export const KNAPP_GLAS     = 'inline-flex h-12 w-full items-center justify-center rounded-xl border border-vagg-kant bg-white/[.08] px-[18px] text-[15px] font-semibold text-vagg-ink';
 export const LANK           = 'text-sm font-medium text-ink-1 underline underline-offset-4 decoration-kant-stark';
 export const LANK_VAGG      = 'text-sm font-medium text-vagg-ink underline underline-offset-4 decoration-vagg-svag';
 export const KNAPPRAD       = 'mt-3.5 flex flex-col items-stretch gap-2.5 [&>a.lank]:min-h-9 [&>a.lank]:inline-flex [&>a.lank]:items-center [&>a.lank]:justify-center';
-// Regel: exakt ett element med KNAPP_PRIMAR per vy, aldrig på väggen. Det sekundära i en betalvägg är alltid LANK.
+// Regel: exakt ett element med KNAPP_PRIMAR per vy. Det sekundära i en betalvägg är alltid LANK.
 
 // LyftKort.tsx (server): det lyfta kortet, överlappar väggen 30 px
-interface LyftKortProps { eyebrow?: string; eyebrowTon?: 'koppar'|'neutral'; titel?: ReactNode /* utelämnas när kortet är innehållet, brevet i B1 */; text?: ReactNode; handling?: ReactNode /* KNAPP_PRIMAR */; sekundar?: ReactNode /* LANK */; fot?: ReactNode /* meta-rad under linje */; children?: ReactNode; label: string /* aria-label */ }
+interface LyftKortProps { eyebrow?: string; eyebrowTon?: 'koppar'|'neutral'; titel: ReactNode; text?: ReactNode; handling?: ReactNode /* KNAPP_PRIMAR */; sekundar?: ReactNode /* LANK */; fot?: ReactNode /* meta-rad under linje */; children?: ReactNode; label: string /* aria-label */ }
 // class: bg-papper border border-transparent rounded-2xl p-4 shadow-lyft -mt-[30px] relative z-[2]; i mörkt läge border-kant
 
 // Kort.tsx (server): vanligt kort. Rader.tsx (server): lista i kort, rader 56 px, 12 px gap, border-t border-kant mellan
@@ -350,7 +345,7 @@ interface RadProps { symbol?: ReactNode /* 40 px, text-ton-ink; svag: text-ink-3
 
 // Dagsrad.tsx (server)
 interface DagsradProps { ring: ReactNode; tal: [{varde: string; etikett: string}, {varde: string; etikett: string}, {varde: string; etikett: string}] }
-// Dagsring.tsx (server, SVG 56): status 'kvar' (streckad kopparring + liten ring i mitten), 'gjord' (fylld ring + bock), 'general' (kvadrat i mitten, bara de två dagarna före provet). DagsringStatus = 'kvar'|'gjord'|'general' (uppvarmning borttagen efter 1b, fråga 4: på provdagen renderas varken Dagsrad eller Dagsring). Prop fyllAnimering sätter klassen .fyll.
+// Dagsring.tsx (server, SVG 56): status 'kvar' (streckad kopparring + liten ring i mitten), 'gjord' (fylld ring + bock), 'general' (kvadrat i mitten), 'uppvarmning' (tre prickar). Prop fyllAnimering sätter klassen .fyll.
 // Veckorad.tsx (server): 7 celler (eller n via prop), cell 22 px, status 'gjord'|'nu'|'vila'|'tom'|'kvar'|'om'; etiketter mån..sön; även för CV-rummets dokumentväg och brevets träffar (prop celler: {etikett; status}[])
 // Formord.tsx: "form: stigande|stabil|vilar" med kopparpunkt
 ```
@@ -1054,12 +1049,6 @@ Efter (a) kan 1a + 1b gå till `main` i den gemensamma PR:en (avsnitt 13.1). Jag
 9. Brevvyn får B1 fullt ut (bekräftelsen i fyra steg, träffarna som veckorad, "Spara som sökt tjänst"); 16.3.2 ger den bara rätt skelett.
 10. Mina CV-korten (två 48-knappar per kort, papperskorg) blir `Rader` med chevron enligt C1:s "Mina CV".
 11. Ordet "ansökan/ansökningar" i Sökta tjänster (flik, chip "Sökt", statusrad) ses över med copywritern när modulen får J1:s rader; "Sökta tjänster" är namnet.
-12. `arbetsstil` (från 18.4): h1 är undersidans namn ("Din arbetsstil"), inte "Din rapport i ord, byggd på dig"; kortet "Gör dagens test" lyfts (det är vyns enda handling); knapptexten ses över av testansvarig mot gratisnivån i avsnitt 17.
-13. `meddelanden` (från 18.4): h1 "Meddelanden", det tomma tillståndet ("Inga meddelanden än", de tre stegen, kopparknappen) står på golvet som lyft kort, inte som h1 på väggen.
-14. `sokta-tjanster/[id]` (från 18.4): ikonerna i glasknappen "Redigera" och länken "Sökta tjänster" bort, "Ta bort" blir länk i `text-fel` vid metaraden som i brevvyn, "Lägg till händelse" utan plustecken, kortet lyfts.
-15. `cv-analys` (från 18.4): pilen i kopparknappen bort (ingen annan kopparknapp har ikon).
-
-**Våg 5 (paketen, från 18.4):** Kom igång-radens "med Hela paketet", sidomenyns "Från 49 kr", hubbens rad "Träningspaketet och Hela paketet", `GraValSheet`-texten och PaketKorten följer `paketNamn()` och avsnitt 17; inget av det rörs i 1b.
 
 ## 17. Ägarens beslut 2026-10-11 (efter saas-leads rekommendation)
 
@@ -1111,3 +1100,149 @@ Efter punkt 1 till 4 går 1a + 1b till `main` utan ny granskning från mig; bygg
 4. `cv-analys`: pilen i kopparknappen bort (ingen annan kopparknapp har ikon).
 
 **Våg 5 (paketen):** Kom igång-radens "med Hela paketet", sidomenyns "Från 49 kr", hubbens rad "Träningspaketet och Hela paketet", `GraValSheet`-texten och PaketKorten följer `paketNamn()` och avsnitt 17; inget av det rörs i 1b.
+
+---
+
+## 19. Testansvarig om våg 3b och våg 2
+
+Datum 2026-10-11. Granskat utan kodändring: `docs/qa/rummen/vag-3b/README.md` och skärmdumparna (P1 till P4, S1, M0, M1, M1-betalande, O1, K1, uppvärmningen, klickflödena, Pixel 7 och 1280, ljust och mörkt) på `design/rummen-3b`, `src/lib/traning/pass-copy.ts` och `resultat.ts`, `Regelpanel.tsx`, `klient.ts`, `passgenerator.ts`, `familjer.json`; `docs/qa/rummen/vag-2/README.md` med `hem/`, `ingang/`, `natfel/` på `design/rummen-2`, `hem-copy.ts` och `hemvy.ts`. Mot briefen (3.3 till 3.6, 5), avsnitt 14, 15 och 17 och konceptets ramar. Ägaren är borta; besluten nedan är mina inom det ägaren beslutat i 17. Allt är byggärenden för 3b:s och 2:s rättningsomgång; strängar står exakt, kod står som ändringar i namngivna filer.
+
+### 19.1 Omdömet
+
+Passet är det jag bad om: regeln ur banken efter varje svar, misstaget som egen mening, det valda i bläck och det rätta i koppar, alla sex alternativ kvar, tidsraden som inte räknar ner, "Vet inte" bara i pass, mätningen utan regel under tiden. Resultaten avslöjas lugnt, nivån sjunker utan rött, kvittot står stilla. M1 med heltalet stort, familjerna och planen med låsen enligt 17.2 är rätt läst. Våg 2:s hemvy följer rubriktabellen och gratisnivån, kurvan har axeltext i rätt storlek och ingången har Hoppa över synligt. Det som ska rättas nedan är innehåll och några tal som inte stämmer med varandra, inte struktur.
+
+### 19.2 Byggagentens nio frågor om 3b
+
+**1. Raden efter rätt svar: ja, motorn levererar bandet, texten bor i pass-copy.** Konceptets rad ("Det här var sträckuppgiften över din nivå. Du tog den under provets tid.") är den enda belöningen i passet som har med förmågan att göra, och den gör sträckuppgifterna begripliga också när de går fel. Ändringar:
+- `passgenerator.ts`: `Urval` får `band: Record<string, 'under' | 'nara' | 'over'>` (q_id till fack, ur `fack(k)` i `valjPass`; `valjRiktat` sätter `nara` på alla). `historik.ts` `TraningsMeta` får `band: Record<string, 'under' | 'nara' | 'over'> | null` (null i mätning, ommätning, general). `motor.server.ts` `aterkopplingFor` sätter `Aterkoppling.band: 'under' | 'nara' | 'over' | null` ur meta.
+- `pass-copy.ts` `PASS_COPY.regel` får fyra rader: `strackRatt: 'Sträckuppgift över din nivå, klarad inom provets tid.'`, `strackRattOverTid: 'Sträckuppgift över din nivå. Rätt, men över provets tid.'`, `rattOverTid: 'Rätt, men över provets tid. Tempot räknas i resultatet.'`, `strackFel: 'Sträckuppgift över din nivå.'`.
+- `Regelpanel` får prop `rad2?: string | null`, renderad som en egen `p` i `text-ink-2` efter misstaget (eller i dess ställe). `PassFlode` väljer: rätt och `band === 'over'` ger `strackRatt` om `tid_s <= budget_s`, annars `strackRattOverTid`; rätt, annat band och `tid_s > budget_s` ger `rattOverTid`; rätt i övrigt ger ingen rad (regeln räcker); fel eller Vet inte med `band === 'over'` ger `strackFel` efter misstaget; annars ingen. Bara i pass och riktat pass, aldrig i uppvärmningen.
+- Vitest: en rätt sträckuppgift på 40 s mot budget 60 ger `strackRatt`; rätt nära nivån på 70 s ger `rattOverTid`; fel på en sträckuppgift ger misstaget följt av `strackFel`.
+
+**2. Heltalet avrundat nedåt: bekräftat, med decimalen under pricken.** 5,9 visas som "5 av 10". Nivån är ett band, inte ett mått (14.1: standardfel 0,6), och märket Nivån upp räknas som `floor(mätningen) + 1`, så heltalet ska bytas först när bandet byts. Rättelse: axeltexten under pricken på M1:s skala visar `nivaText(niva)` ("5,9"), inte heltalet, så att precisionen står på instrumentet som 14.1 säger. Samma regel i hemvyns rubrikrad (19.3 fråga 5).
+
+**3. Nivåmeningarna: omskrivna.** Utkasten blandar ihop vad hon klarar med tempot (nivån räknas på rätt och fel, tempot är ett eget tal) och gör 8, 9 och 10 identiska. Nya `NIVAMENING` i `pass-copy.ts`, kalibrerade mot priorerna (klass 1 till 4 ger nivå 2,35, 3,7, 5,05 och 6,4 där chansen är hälften):
+
+| Nivå | Mening |
+|---|---|
+| 1 | Du står längst ner på skalan. Uppgifter med en regel i taget är inom räckhåll, och det är där passen börjar. |
+| 2 | Du klarar en del av de enklaste uppgifterna, de med en regel i taget. Passen börjar där. |
+| 3 | Du klarar de flesta uppgifter med en regel i taget. Två regler samtidigt går oftast fel än. |
+| 4 | Du klarar uppgifter med en regel i taget. Två regler samtidigt, som rotation med byte, går oftast fel än. |
+| 5 | Du klarar de flesta uppgifter på grundnivå. Två regler samtidigt, som rotation med byte, går ungefär varannan gång. |
+| 6 | Du klarar grundnivån, och oftare rätt än fel när två regler ska följas samtidigt. De svåraste uppgifterna går ungefär varannan gång. |
+| 7 | Du klarar de flesta uppgifter, också de med två regler samtidigt. De svåraste, med tre saker att följa, går oftare rätt än fel. |
+| 8 | Du klarar nästan allt, också de svåraste uppgifterna. Det som skiljer nu är tempot. |
+| 9 | Du klarar nästan alla uppgifter, också de svåraste. Det som finns kvar att träna är tempot under provets tid. |
+| 10 | Du klarar hela skalan. Det som finns kvar att träna är tempot under provets tid. |
+
+Raden efter meningen byts: `familjerFel: (n) => n === 1 ? 'En familj drar ner mest, den står under Var du tappar.' : 'Två familjer drar ner mest, de står under Var du tappar.'` ("väljer du oftare fel svar" är bara sant under hälften rätt, och svagaste är de två lägsta oavsett andel). 8 till 10 nås inte före `BANK_KALIBRERAD_OVER_7_5` men ska finnas.
+
+**4. Jämförelsen i P4: ja, men med förra gången i familjen, inte bara mätningen.** Mätningen har tolv frågor över elva familjer, så "mot en av tre i mätningen" finns sällan. Det som finns oftare är förra passet i samma familj (riktade pass och "samma familj, ett steg svårare" ger det). `Avslut.familjer` får `forra: (Familjestatistik & { typ: 'matning' | 'pass' | 'riktat' | 'ommatning' | 'general' }) | null`: temafamiljens utfall i den senaste tidigare slutförda sessionen där familjen hade minst två frågor (ur samma underlag som `familjeunderlag`, per session). `resultat.ts` `passResultat`: meningen blir `${Familj}: ${talord(ratt)} av ${talord(antal)} rätt i dag` + (forra ? `, mot ${talord(forra.ratt)} av ${talord(forra.antal)} ${forra.typ === 'matning' ? 'i mätningen' : 'förra gången'}` : '') + `. ` + andra meningen. `familjIdag` i pass-copy skrivs om till den formen; "Fem av sex i rotation med byte rätt i dag" (skärmdumpen) är inte svenska och försvinner.
+
+**5. S1:s "Vad som hände": familjens beskrivning får stå, men meningen efter och fallet utan dominerande familj rättas.** Beskrivningen säger vad familjen är, vilket är rätt lärdom när tre missar ligger där. Text: `${info.namn}: ${kort med gemen}` följt av `' Familjen går att öva med riktade pass.'` ("Den går att öva bort" har inget subjekt). När ingen familj har minst två av missarna: titel `${Versal(talord(fel, 'en'))} missar, ingen familj sticker ut` (en miss: `En miss`), text `'Gå igenom dem, regeln och misstaget står på varje.'`; aldrig tempomeningen där (det är dagens fel i `resultat.ts` rad 265). Meningen på väggen (`R.sjonk`) blir villkorad på bandet från fråga 1: n missar med `band === 'over'`, n ≥ 2: `${Versal(talord(n))} av missarna var sträckuppgifter över din nivå. De räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.`; n = 1: `En av missarna var en sträckuppgift över din nivå. Den räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.`; n = 0: `En dag säger lite. Nivån rör sig högst 0,5 per pass, och genomgången säger mer än talet.`
+
+**6. "Gör dagens grundpass gratis": okej, med ett tillstånd till.** Stämmer med 17.2 (ett grundpass dag 0). När grundpasset redan är gjort (`status.dagensPassGjort`) blir länken `PASS_COPY.knapp.tillbaka` och planraden "I dag: ett grundpass" får chippen `Klart` (ton) i stället för `Gratis`.
+
+**7. Tempokortet och talet: nej, de ska räkna samma frågor.** Hon läser staplarna och genomgången; ett tal som räknar något annat än det hon ser, med en förklaringsmening efter, är precis den sortens gränssnitt vi tar bort. Beslut: på alla resultatskärmar betyder "över provets tid" alla besvarade frågor med `tid_s > budget_s` (tiden ute räknas, smakprovets svar med tid 0 räknas inte). `Avslut` får `over_budget: number` ur `slutforTraning`; `passResultat`, `matningResultat` och `ommatningResultat` visar `over_budget` i tredje talet, och `R.tempo.naraNivan` tas bort ur kortet (strängen kan stå kvar oanvänd tills copywritern städar). Motorns `tempo.over_tid` (nära nivån) står kvar som mått för kurvans form och mäts inte på skärmen. Hemvyns tempokort "över provets tid i går" (våg 2, `hem-copy.ts` `tempo.over`) läser samma `over_budget` ur `senastePass`, så P4 och hemvyn säger samma siffra; `tempo.meta` i hem-copy tas bort och `metaEget` kortas till `'Tiden per uppgift följer vårt provläge tills du anger leverantör.'`
+
+**8. Generalrepetitionen i P4:s layout: ja, med tre rader som skiljer den.** Eyebrow `Generalrepetitionen klar` och topprad `Generalrepetition · sparad` står. Rubriken får vara nivåformen (punkten är riktig, 14.1 punkt 1). Meningen under talen blir `${f.namn ? `Samma format som ${f.namn}` : 'Vårt provläge'}, ${formatText(format)}. Punkten väger som en ommätning på kurvan.` i stället för familjemeningen. Primär handling som P4 (genomgången). "Vet inte" finns inte där, så genomgångens rader är bara `fel` och `tiden tog slut`.
+
+**9. "Vet inte · N s": godkänd. Uppvärmningens avslut: omskriven.** Raden är rätt ("Vet inte" är ett utfall, tiden är tiden fram till trycket). `uppvarmning.klarText` blir `'Inget sparades, och inget mer behövs i dag. Stäng det här och öppna länken från rekryteraren när du är redo.'` ("Stäng mejlen och mobilen" sägs till någon som står med mobilen i handen och ska öppna ett mejl).
+
+### 19.3 Våg 2:s fem frågor
+
+**1. "Senast gjort 8 okt." för verbalt och numeriskt: rätt.** De har ingen nivå förrän passformen finns (3c, efter 3b), och ett tal som inte är jämförbart med matrisnivån ska inte stå i samma rad. Strängarna står; "Ej mätt" är reserverat för figurer och mönster och används aldrig för de andra två.
+
+**2. Bara siffror eller bara text valt: hemvyn erbjuder det valda testet, aldrig matrismätningen som primär handling.** Nytt tillstånd `1t` i `hemvy.ts` när `testtyper` saknar `matris` (och inte är bara personlighet): väggen med rubriken ur rubriktabellen ("14 dagar till siffertestet"), raden `'Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får pass senare.'`, ingen kurva och ingen plan. Lyft kort: eyebrow `Första passet`, titel `Gör siffertestet` eller `Gör texttestet`, text `'Resultat och genomgång direkt. Vi säger till när passen finns.'`, knapp `Starta siffertestet` eller `Starta texttestet` till befintligt test (dagskvoten som i dag). Båda valda: siffror först. Fler tester: figurer och mönster som rad `Ej mätt. Mät din nivå, 8 minuter.` med länk till mätningen, som i dag. Numeriska testets slutförandefel (1 av 9, `fix/kontaktepost-numeriskt`) rättas före 1t släpps; till dess står texttestet först även om båda är valda.
+
+**3. Smakprovsraden: ja, motorn exponerar den.** `Traningsstatus.smakprov: { dag: Dag; antal: number } | null`, ur samma `lasSmakprov` som 14.5, bara när ingen mätning är gjord. 1a (och T1 med smakprov) visar under lyftkortets text raden `${Versal(talord(n))} frågor från smakprovet räknas in, så du svarar på ${talord(12 - n)} nya.`, och knappen `Mät min nivå, ${m} min` med `m = max(3, round((12 − n) × 40 / 60))`; titeln `Mät din nivå. Cirka ${m} minuter.` Utan smakprov som i dag.
+
+**4. Råden på provdagen: generiska räcker, och Matrigma-raden tas bort.** "Klassisk Matrigma får inte pausas" är ett påstående om leverantörens produkt som vi inte har belägg för (14.4 verifierar formaten senare). `tystRumMatrigma` tas bort; alla format får `tystRumMeta`. `lattForstMeta` och `lattForstPerUppgift` står (de följer `tidsform`, som redan står med "cirka"). Formatspecifika råd skrivs först när 14.4 punkt 5 är gjord.
+
+**5. "Nivå 5." med heltal avrundat nedåt: rätt**, samma regel som M1 (19.2 fråga 2). Dagsraden och kurvan har decimalen.
+
+### 19.4 Annat jag såg
+
+1. Betalväggskortet i M1: `betalvagg.text` tar formatnamnet: `..., hela kurvan och generalrepetitionen i samma format som ${namn}. Plus ...` när `status.format.namn` finns, annars `... i vårt provläge. Plus ...` (konceptet säger "i Matrigmas format"; regeln är "samma format som").
+2. Dagsraden i 1b och 1g renderar "5 , 4" och "0 , 9" med luft runt kommatecknet (tabular-nums på kommat). Art-directors sak, men det ska bort före merge: kommat får inte vara tabulärt.
+3. Hemvyns "Riktat pass"- och "Tempopass"-länkar syns i `1b` på det betalande kontot; på gratis ska de vara grå val med lås (17.2), kontrolleras i 1f/W3-skärmdumpen vid rättningen.
+4. 15.9 gäller 3b:s genomgång: familjens namn, aldrig "svårighet N av 3". Inte kontrollerat i genomgångsvyn (`GenomgangVy`), tas med i rättningens skärmdump.
+5. Mätpunkter: `pass_klart` får `band_ratt: {under, nara, over}` (antal rätt per band) så vi ser om 60/20/20 ger väntat 4 till 5 av 9 på egen nivå.
+
+Efter 19.2 till 19.4 går 3b och 2 till `design/rummen` utan ny granskning från mig; skärmdump per ändrad vy i `docs/qa/rummen/vag-3b/efter-granskning/` och `vag-2/efter-granskning/`. Punkt 4 i 3a:s acceptans (fem personer under tio minuter) kvarstår som min innan `main`.
+
+## 20. Art-director om våg 3b och våg 2
+
+Datum 2026-10-11, kväll. Art-director efter `docs/qa/rummen/vag-3b/README.md` och skärmdumparna på `design/rummen-3b` (worktree `.claude/worktrees/rummen-vag3b`: P1 till P4, S1, M0, M1, M1 betalande, O1, K1, uppvärmningen, klickserierna) och `docs/qa/rummen/vag-2/README.md` med `hem/`, `ingang/` och `natfel/` på `design/rummen-2` (worktree `.claude/worktrees/rummen-vag2`). Pixel 7 och 1280, ljust och mörkt. Jämfört mot konceptets ramar och avsnitt 6, 13, 16, 17 och 18. Ingen kod är ändrad av mig. Ägaren har lämnat designbesluten till mig; det som rör testupplevelsen följer besluten i avsnitt 12, 14 och 15 och ändrar inget av testansvarigs villkor.
+
+### 20.1 Helhetsomdömet
+
+**Våg 3b håller konceptets premiumkänsla.** Passet är lugnt: toppraden med tema och "Dagens pass · nivå 5", tidsraden som fylls utan att räkna ner, matrisen på papper med lyft, sex alternativ med bokstav, det valda i bläck, det rätta i koppar med punkt, de fyra andra nedtonade och aldrig rött. Resultaten har väggens toning, ringen, rubriken i display, nivåskalan med "Nu 5,6", "från 5,4" och siktet, de tre talen, meningen, tempokortet lyft ur väggen, genomgången som rader, statusraden och foten. M1 har det stora heltalet, planen med punkter och chips, och paketkortet med kopparkant. K1 är exakt konceptet: märket på 132, eyebrow, h1, mening, glasknappen. Mörkt läge byter papper och golv, figurerna inverteras, kortet får sin kant. Det här är ritat av någon som läst konceptet.
+
+Fyra saker drar ner och tas före merge: (1) betalväggen på M1 ligger i en fast fot ovanpå resultatet i stället för i paketkortet; (2) passets kolumn på 1280 är så bred att matrisen trycker alternativen under vecket; (3) regeln efter svaret hamnar bakom foten utan att rullas fram; (4) felstaplarna i tempokortet blir bruna i mörkt läge. Resten är småsaker.
+
+**Våg 2 håller också.** 1b är konceptets 1b: datumrubriken, dagsraden i glas, veckoraden, kurvan med lyster, sikteband, planrad och axel, det lyfta Dagens pass-kortet, tempokortet, Var du tappar, Provdagen, Fler tester, Jobbsök-raden. 1c, 1d, 1e, 1g, 1p, T1, X1, L1 och F1 följer sina ramar, W1 är konceptets W1 med tre lyfta kort i första raden, ingången E1 till E3-P har valrutorna, chipsen med bläckkant, datumfältet och Hoppa över. Gratisnivån enligt 17.2 är inritad i 1a, 1f och W3 utan att något blev en tom graf. Två saker tas före merge: väggens h1 utan datum upprepar toppradens "Rekryteringstester", och kopparknappen i W3 bryts på två rader.
+
+### 20.2 Byggagentens åtta frågor (våg 3b)
+
+| # | Fråga | Beslut |
+|---|---|---|
+| 1 | Köpknappen på M1 (gratis) i den fasta foten | **Nej. Knappen bor i paketkortet, M1 har ingen fot för gratis.** Regel: **en betalvägg bär alltid sin egen knapp, och en fast fot ligger aldrig ovanpå en betalvägg.** M1 är ögonblicket båda köparna köpte i, och det fungerar för att hela resultatet läses före priset; en kopparknapp "Köp …" som står på skärmen från första bildrutan gör att "Din nivå 5" läses som en betalvägg, och med 17.2 blir det viktigare, inte mindre, att resultatet upplevs som en gåva innan priset kommer. Acceptans 3b.8 läses för M1 som "primär handling sist på sidan, inom en rullning". Paketkortet får `KNAPPRAD` med `KNAPP_PRIMAR` "Köp {paketNamn}, 149 kr i månaden" och `LANK` "Gör dagens grundpass gratis" (17.2:s text, copywritern har sista ordet). M1 betalande behåller foten ("Starta dagens pass" + länken), som P4 och O1. |
+| 2 | Dator: passet 560 px, resultaten 640 px | **Resultaten 640: ja. Passet: nej, 400 px.** Med 560 blir matrisen 528 px hög och på 1280 × 900 syns bara A till C (`ram-P1-desktop-ljust.png`); mobilens krav "uppgiften i bild utan rullning" ska gälla datorn också. Kolumnen för matris, fråga och alternativ är `max-w-[400px]` på `lg` (matrisen cirka 400 inklusive 14 px padding, alternativen tre kolumner om cirka 120 px, det räcker för 3×3-brickor), toppraden, tidsraden och foten behåller 560 så X, räknare och knapp inte flyttar mellan fråga och resultat. Regelpanelen följer 400-kolumnen. |
+| 3 | Nivåskalans etiketter som HTML över SVG:n | **Ja, och det är regeln för alla instrument:** SVG:n håller geometri, all text är HTML positionerad i procent (W1-kravet "aldrig skalad text"). Det löser också `KurvaTillfallig`s y-axel på 8 px; den byts ändå mot våg 2:s `Kurva` (README punkt 3). |
+| 4 | Mörkt läge: figurerna inverteras | **Ja.** Konceptets `.mcell{stroke:var(--ink-2)}` och `.mfill{fill:var(--ink-1)}` säger samma sak: figurerna är bläck på papper, och bläcket följer läget. Vitt papper i ett mörkt rum vore ett ljusbord. **Och ja, det rättas överallt i inloggat före merge** (20.3 punkt 6): det gamla flödet med svarta figurer på mörkt papper är oläsligt, och 1b:s acceptans ("ingen osynlig text i mörkt läge") gick till `main` med det. |
+| 5 | Regeln under alternativen, rullas in | **Ja, aldrig krympa matrisen.** En matris som krymper när svaret kommer är en layoutförskjutning mitt i förklaringen, och matrisen med det rätta svaret ifyllt är en del av regeln. Men rullningen ska vara ritad, inte bara finnas: när regelpanelen renderas rullas `main` så att panelens nederkant står 12 px ovanför foten (så mycket av alternativen som möjligt står kvar ovanför), 300 ms ease-out, `prefers-reduced-motion` hoppar. Flödeskroppen får `padding-bottom` lika med fotens höjd (`--flow-footer-h`) så att hela panelen går att rulla fram; i `ram-P2-pixel7-ljust.png` ligger regeln bakom foten. |
+| 6 | Tabellsiffror av för de tre talen | **Ja, för de tre talen.** De står på egna rader och ska inte linjera lodrätt; glappet i "+0,2" väger tyngre. `tabular-nums` står kvar där siffror byter plats under läsning: tidsraden "0:38", räknaren "3 / 9", talen i dagsraden och planens datum. |
+| 7 | "Tillbaka till Rekryteringstester" på K1 | **Behålls.** Rummet heter så (17.1), och "Tillbaka till testerna" vore ett tredje namn. 15 px i 600 ryms på en rad ned till 360 px. Samma sträng i O1:s fot och som länk i M1 betalande. |
+| 8 | O1 utan milstolpe: statusraden blir lyftkortet | **Nej. En statusrad lyfts aldrig.** Utan milstolpe är det lyfta kortet "Var du tappar" ur ommätningen (samma komponent som i M1, eyebrow "Var du tappar nu", raderna med "mot 6 okt" där familjen fanns i mätningen), och statusraden står kvar som rad. En ommätning ger samma data som en mätning; det är det som ska lyftas. |
+
+**Byggagentens egna val som fastslås:** uppvärmningen utan tidsrad och med raden "Ingen tid, ingen nivå, inget sparas"; M0:s underrad "Fem räknas från smakprovet" och räknaren "1 / 7"; "Vet inte · 0 s" i fixturen (i drift är det tiden fram till trycket, 12.1); P4:s "Måndag: samma familj, ett steg svårare" (14.7); S1:s mening; sidomenyn synlig i passet på dator (FlowShell-regeln från 1b); "Dagens pass · sparat" som topprad i resultaten.
+
+### 20.3 (a) Våg 3b före merge
+
+Allt är utseende, strängar och en CSS-klass; ingen funktion, kvot eller route ändras. Grindar som 1b: `tsc`, `vitest`, `grep-rummen --vag 3b`, kontrast, perf på P1/P4/M1/O1 (O1 ligger på 1 960 ms och får inte gå över 2 000 när kurvan byts), skärmdump per ändrad vy i `docs/qa/rummen/vag-3b/efter-granskning/`, Pixel 7 och 1280, ljust och mörkt.
+
+1. **M1 gratis** (`MatningResultatVy.tsx`): ingen fot. Paketkortet får `KNAPPRAD` med `KNAPP_PRIMAR` "Köp {paketNamn()}, 149 kr i månaden" och `LANK` "Gör dagens grundpass gratis". Kortet är sista elementet på golvet. M1 betalande oförändrad.
+2. **Passets kolumn på dator** (`PassShell.tsx`, `PassFraga.tsx`): innehållskolumnen (matris, frågetext, alternativ, regelpanel) `lg:max-w-[400px]`; topprad, tidsrad och fot kvar på 560. Kontroll: på 1280 × 900 står alla sex alternativ och "Vet inte, visa regeln" i bild utan rullning i P1 och M0.
+3. **Regeln rullas fram** (`PassFlode.tsx`): när `Regelpanel` monteras, rulla `main` så att panelens nederkant står 12 px ovanför foten, `behavior: 'smooth'`, `prefers-reduced-motion` ger `auto`. Flödeskroppen får `pb-[var(--flow-footer-h)]`. Kontroll: `klick-pass-*-02` visar hela regeln och misstagsraden ovanför knappen.
+4. **Staplar** (`Staplar.tsx`): fel svar ritas **ihåligt** (1,5 px kant i stapelns färg, ingen fyllning), inte med opacitet. Över tiden = fylld koppar, fel och över tiden = ihålig med kopparkant, rätt inom tiden = fylld `ton-ink` 0,75. Axeltexten "ljusa staplar: fel svar" blir "ihåliga staplar: fel svar" (S1); "streckad linje: provets tid" står kvar (P4). Skälet: koppar på 0,35 är persika i ljust och brunt i mörkt läge (`ram-S1-desktop-morkt.png`), och "ljusa" är fel ord i mörkt läge. Ihåligt är redan kurvans språk för "inte gjord".
+5. **Tabellsiffror** (`ResultatSkal.tsx`, de tre talen): `tabular-nums` bort från talen, kvar på räknaren, tidsraden och planens datum.
+6. **`.matrisyta` överallt i inloggat**: klassen sätts på matrisytan i `MatrixTestSession`/`QuestionGridV7`/`AnswerOptionsV7`, `MatrixQuestionReview`, provläget och resultatsidorna för grund/avancerad/expert, så att figurerna följer bläck och papper i mörkt läge. Smakprovet på publika sidor rörs inte (Tråden, inget mörkt läge). Skärmdump av `tester/[slug]/test`, `results` och provläget i mörkt läge.
+7. **O1 utan milstolpe** (`OmmatningResultatVy.tsx`): lyftkortet är "Var du tappar" (komponenten ur M1) när `milstolpe` saknas; statusraden lyfts aldrig. Fixturen får en O1-variant utan milstolpe och skärmdumpas.
+8. **Etiketter på instrumenten**: `Nivaskala` får regeln för krock: när |nu − sikte| < 1,2 nivåer skrivs siktet in i nu-etiketten ("Du 6,4 · sikte 6,5") och sikttexten ovanför tas bort, triangeln står kvar. Gäller 1d i våg 2 (`hem/1d-pixel7-ljust.png`: "Du 6,4▾ Sikte 6,5" går ihop).
+9. **Genomgångens räknare**: efter "Gå igenom de två missarna" visar `GenomgangVy` "1 / 7" (`klick-pass-ljust-08`). Räknaren ska vara "1 / 2" över missarna och därefter "Fortsätt med de sju rätta" som sekundär länk, eller så heter knappen "Gå igenom passet" och räknaren "1 / 9". Byggagenten väljer, men knapp och räknare ska säga samma sak.
+10. **`KurvaTillfallig` byts mot våg 2:s `Kurva`** i O1 (README punkt 3), i samma PR; merge-ordningen i 20.6 gör det möjligt.
+
+### 20.4 (b) Våg 3b senare
+
+1. Provläget (`MatrisProvSession`) i rummets utseende med nedräkning (16.4 våg 2 punkt 5) när provläget byggs om.
+2. Misstagsraden under regeln (15.7) visas så snart `misstag` finns i banken; Regelpanel är redan byggd för det.
+3. `pass_klart` och `vet_inte_tryckt` avläses fyra veckor efter släppet (avsnitt 7); om "Vet inte" trycks på över 30 procent av frågorna flyttar länken från foten till under alternativen med mindre vikt.
+4. Paketnamnet "Hela paketet" i M1, 1f, W3 och låschipen följer `paketNamn()` i våg 5 (17.4); inget rörs här.
+
+### 20.5 Våg 2: de fyra frågorna, två krockar och ändringslistan
+
+| # | Fråga | Beslut |
+|---|---|---|
+| 1 | Siktets etikett flyttar under linjen vid krock med senaste punktens tal; "i dag" utelämnas på axeln nära slutdatumet | **Etiketten: ja.** Punktens tal vinner, siktet lägger sig under den streckade linjen, högerställt (`hem/1c-pixel7-ljust.png` är rätt). **Axeln: nej, "i dag" vinner alltid.** Det är axelns enda ord i koppar-ljus och kurvans ankare; datumet finns redan i toppraden och i h1. Prioritet när etiketter krockar: i dag, start, slut, mittpunkt. I 1c faller "24 okt" bort, inte "i dag". (Konceptets 1c hade samma krock inritad; det är konceptet som var fel.) |
+| 2 | Dator: tempokortet och Var du tappar lyfts bredvid det lyfta kortet, rubriken flyttar in i kortet | **Ja, det är W1** (konceptrad 1497 till 1506). Regel för alla hemvyns tillstånd på dator: **första raden på golvet består bara av lyfta kort, en till tre, och sektionsrubriken blir kortets eyebrow (`eyebrowTon="neutral"`). Statusrader lyfts aldrig; de står i andra raden.** Ett kort vars knapptext inte ryms på en rad spänner två kolumner (konceptets 1a på dator, rad 1565). Rättas i 1c (Repetera svagheten och Fler tester lyfts med eyebrow, statusraden ned), T1 (statusraden "Inget datum än" ned under kortet) och F1 (Fler kurvor lyfts med eyebrow). |
+| 3 | Väggens h1 utan datum = "Rekryteringstester" | **Nej.** I 1h, T1 och X1 står ordet två gånger på 60 px (toppradens brand och h1), samma fel som eyebrowen i 16.3.3. **Regel: h1 upprepar aldrig toppradens brand.** Utan datum: T1 h1 "Träna inför ditt rekryteringstest" (ägarens rad i 17.1, ordagrant) med raden "Börja med att mäta var du står. Sätt ett datum när du vet det, så räknar vi bakåt."; 1h h1 "Ett pass om dagen" med raden "Nivå 5. Fyra dagar i rad. Dagens pass är kvar."; X1 h1 "Träna inför ditt rekryteringstest" utan rad. 1i och 1p oförändrade (rubriktabellen). Strängarna i `rubrik.ts`; copywritern har sista ordet på orden, inte på regeln. |
+| 4 | 1a gratis: grå passdagar med meningen "Grå platser ingår i paketet…" | **Rätt lösning.** Det är sanningen enligt 17.2 och det ägaren vill mäta (mätning till vägg). Två rättelser: meningen får inte säga "Ihåliga märken är planerade dagar" när märkena är grå och fyllda; för gratis lyder den "Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i {paketNamn()}: passen från dag två, ommätningen och generalrepetitionen." och för betalande konceptets mening. Paketnamnet kommer ur `paketNamn()` redan nu, så "Jobbcoach Premium" följer med i våg 5 utan omritning. |
+
+**Krockarna.** `Nivaskala.tsx`: **3b:s fil gäller** (3b äger den), med krockregeln i 20.3 punkt 8; 1d skärmdumpas om efter merge och ska se ut som nu. `Dagsring.tsx` (ring-klassen döpt till `dagsring` i båda): **våg 2:s fil gäller**, eftersom ringen är fotograferad i 1b, 1c, 1g och 1h och stämmer med 16.2 fråga 4; 3b:s `PassResultatVy` använder den som den är. Skiljer sig filerna bara i klassnamnet spelar valet ingen roll, men det är 2:s som mergas.
+
+**(a) Våg 2 före merge**, samma grindar som 1b, skärmdumpar i `docs/qa/rummen/vag-2/efter-granskning/`:
+
+1. **h1 utan datum** enligt fråga 3 (`rubrik.ts`, `hem-copy.ts`). Skärmdump T1, 1h, X1.
+2. **W3 på dator** (`Hemvy.tsx`): kopparknappen "Köp Hela paketet, 149 kr i månaden" bryts på två rader i tredjedelskolumnen (`hem/W3-desktop-ljust.png`). Kortet spänner två kolumner (`lg:col-span-2`), Var du tappar i tredje, Provdagen-raden i andra raden. Regel i `knappar.ts`: `KNAPP_PRIMAR` får `whitespace-nowrap`; ryms inte texten är det layouten som ändras, aldrig knappen som bryts. Okulär kontroll i W1 till W4.
+3. **Första raden på dator** enligt fråga 2 i 1c, T1 och F1 (`Hemvy.tsx`, `Helkurva.tsx`).
+4. **Axelns prioritet** enligt fråga 1 i `Kurva.tsx` ("i dag" står alltid). Skärmdump 1c och 1e på båda bredderna.
+5. **1a-meningen** enligt fråga 4 i `hem-copy.ts`, med `paketNamn()`.
+6. **Nivåskalans krock** (20.3 punkt 8) verifieras i 1d efter merge av 3b:s fil.
+
+**(b) Våg 2 senare:** tempokortets etiketter på mobil ("över provets tid i går" bryts på två rader i 1b) ses över av copywritern till kortare ord ("över tiden i går"); "Grå platser"-meningarna och låschipen byter paketnamn i våg 5 genom `paketNamn()`; `Resultatvy` för de klassiska testerna (16.4 våg 2 punkt 3) ligger kvar som egen omgång eftersom den inte ingick i uppdraget.
+
+### 20.6 Merge-ordning
+
+`design/rummen-2` mergas in i `design/rummen` först (3b:s adresser i `rutter.ts` är 2:s), därefter `design/rummen-3b` ovanpå med 2:s `Dagsring.tsx` och 3b:s `Nivaskala.tsx`, och `KurvaTillfallig` bort i samma commit. En gemensam PR mot `main` för 2 + 3b efter att ägaren kört migreringarna `20261011100000_test_planer.sql` och `20261011101000_testmotorn.sql` och E2E-skripten (`qa-rummen-vag2-prod.mjs`, `qa-rummen-vag3b-prod.mjs`) gått mot riktig data. Jag granskar `efter-granskning/` för båda vågorna i en omgång; det tar en timme.
