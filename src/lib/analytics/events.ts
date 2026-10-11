@@ -354,7 +354,8 @@ export interface AnalyticsEvents {
     band_ratt: { under: number; nara: number; over: number } | null
   }
   ommatning_klar: { niva: number; delta: number }
-  generalrepetition_klar: { format: string; ratt: number; antal: number }
+  generalrepetition_klar: { format: string; ratt: number; antal: number; test_kind?: string; obesvarade?: number; fran?: string | null }
+  kalibreringsfraga_svarad: { fraga_id: string; typ: string; correct: boolean }
   milstolpe_nadd: { nyckel: string }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b
