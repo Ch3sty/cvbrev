@@ -14,6 +14,7 @@ import { resolveLifecycleEmail, WEEKLY_DIGEST_TYPE, KOMIGANG_TYPE, PAKET_FORNYAS
 import { harPaket } from '@/lib/plans/harPaket';
 import { PLAN_BY_KEY, foregaendeDragning } from '@/lib/plans/plans';
 import { scheduleEmail, sendAfterStockholm, isoWeekKey } from './schedule';
+import { valjTraningsmejl } from './traningsmejl';
 
 /** Avsändaren som redan är verifierad för domänen i Resend. */
 export const LIFECYCLE_FROM = 'Jobbcoach.ai <noreply@jobbcoach.ai>';
@@ -60,6 +61,18 @@ async function failRow(
     .from('email_schedule')
     .update({ attempts: row.attempts + 1, last_error: message.slice(0, 500) })
     .eq('id', row.id);
+}
+
+/**
+ * Mejlets tidpunkt på dagen (RenderedEmail.skickaVid) som Resends
+ * scheduledAt. En tidpunkt som redan passerat, eller ligger inom en minut,
+ * ger undefined: då går mejlet direkt.
+ */
+export function schemalaggTill(skickaVid: string | undefined, now: Date = new Date()): string | undefined {
+  if (!skickaVid) return undefined;
+  const t = new Date(skickaVid).getTime();
+  if (!Number.isFinite(t) || t <= now.getTime() + 60_000) return undefined;
+  return new Date(t).toISOString();
 }
 
 /**
@@ -115,12 +128,14 @@ async function processRow(
     return 'failed';
   }
 
+  const scheduledAt = schemalaggTill(rendered.skickaVid);
   const { data, error } = await resend.emails.send({
     from: LIFECYCLE_FROM,
     to: [profile.email],
     subject: rendered.subject,
     html: rendered.html,
     tags: lifecycleTags(row.email_type),
+    ...(scheduledAt ? { scheduledAt } : {}),
   });
 
   if (error) {
@@ -387,10 +402,13 @@ export async function scheduleWeeklyDigests(
  */
 export async function scheduleKomIgangMejl(
   adminClient?: AnySupabase,
-  now: Date = new Date()
+  now: Date = new Date(),
+  /** Får ett träningsmejl i dag (scheduleTraningsmejl): ingen komigang samma dag. */
+  hoppaOver: Iterable<string> = []
 ): Promise<{ komigang: number; fornyas: number; skipped: number }> {
   const admin = (adminClient ?? getSupabaseAdmin()) as AnySupabase;
   const result = { komigang: 0, fornyas: 0, skipped: 0 };
+  const traningIdag = new Set(hoppaOver);
 
   const datum = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(now);
 
@@ -434,10 +452,54 @@ export async function scheduleKomIgangMejl(
       if (now.getTime() - start < 20 * 3600000) { result.skipped += 1; continue; }
     }
 
+    // Ett mejl om dagen: träningsmejlet går före hjälpredans bricka.
+    if (traningIdag.has(profile.id)) { result.skipped += 1; continue; }
+
     await scheduleEmail(admin, profile.id, `${KOMIGANG_TYPE}_${datum}`, now, { scope, planKey });
     result.komigang += 1;
   }
 
   console.log(`[komigang] schemalagt: komigang=${result.komigang} fornyas=${result.fornyas} skipped=${result.skipped}`);
+  return result;
+}
+
+/**
+ * Träningsmejlen (riktlinjer tester v2, "Ägarbeslut 2026-10-11 kväll").
+ *
+ * Körs i morgonslotten FÖRE scheduleKomIgangMejl och schemalägger till samma
+ * körning (send_after = now). Tidpunkten på dagen (07:00, 11:30 eller 18:00
+ * för passet, 08:00 dagen före provet) sätter mallen som skickaVid, och
+ * runnern lämnar den till Resend som scheduledAt. Urvalet (valjTraningsmejl i
+ * traningsmejl.ts) ger högst ett träningsmejl per användare och dag och
+ * aldrig fler än två totalt.
+ *
+ * anvandare är de som fick en rad i dag: skicka dem som hoppaOver till
+ * scheduleKomIgangMejl, så att ingen får två mejl samma morgon. Paketets
+ * förnyelsemejl (transaktionellt) påverkas inte.
+ */
+export async function scheduleTraningsmejl(
+  adminClient?: AnySupabase,
+  now: Date = new Date()
+): Promise<{ pass_dag2: number; dagen_fore_provet: number; vecka_utan_datum: number; anvandare: string[] }> {
+  const admin = (adminClient ?? getSupabaseAdmin()) as AnySupabase;
+  const result = { pass_dag2: 0, dagen_fore_provet: 0, vecka_utan_datum: 0, anvandare: [] as string[] };
+
+  let urval: Awaited<ReturnType<typeof valjTraningsmejl>>;
+  try {
+    urval = await valjTraningsmejl(admin, now);
+  } catch (error: any) {
+    console.error('[traningsmejl] urvalet misslyckades:', error?.message ?? error);
+    return result;
+  }
+
+  for (const u of urval) {
+    await scheduleEmail(admin, u.userId, u.emailType, now, u.metadata);
+    result[u.typ] += 1;
+    result.anvandare.push(u.userId);
+  }
+
+  console.log(
+    `[traningsmejl] schemalagt: pass_dag2=${result.pass_dag2} dagen_fore_provet=${result.dagen_fore_provet} vecka_utan_datum=${result.vecka_utan_datum}`
+  );
   return result;
 }

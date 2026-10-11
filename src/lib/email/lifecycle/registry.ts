@@ -15,10 +15,15 @@ import { gratisnivaAndras, GRATISNIVA_EMAIL_TYPE } from './templates/campaign-gr
 import { weeklyDigest, WEEKLY_DIGEST_TYPE } from './templates/weekly-digest';
 import { uppsagtGallerUt, kvittoMejl } from './templates/vecka';
 import { komIgangMejl, paketFornyasMejl, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE } from './templates/komigang';
+import { passDag2Mejl, dagenForeProvetMejl, veckaUtanDatumMejl } from './templates/traning';
 
 const ALL: LifecycleEmail[] = [
   komIgangMejl,
   paketFornyasMejl,
+  // Träningsmejlen (ägarbeslut 2026-10-11 kväll), datumsuffix som komigang.
+  passDag2Mejl,
+  dagenForeProvetMejl,
+  veckaUtanDatumMejl,
   uppsagtGallerUt,
   kvittoMejl,
   winback14,
