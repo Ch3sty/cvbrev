@@ -62,8 +62,8 @@ export default function Dagsring({ status, label, fyllAnimering, andel, storlek 
             strokeWidth="5"
             strokeLinecap="round"
             strokeDasharray="151"
-            strokeDashoffset="0"
-            style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+            strokeDashoffset={mal}
+            style={{ transform: 'rotate(-90deg)', transformOrigin: 'center', ['--fyll-mal' as string]: mal }}
           />
           <path
             d="M19 28.5l6 6 12-13"

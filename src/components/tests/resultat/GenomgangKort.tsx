@@ -72,7 +72,7 @@ export default function GenomgangKort(p: GenomgangKortProps) {
 
       {p.lage === 'missar' && visade.length > 0 ? (
         <ul
-          className={`mt-3 grid max-w-[420px] grid-cols-3 gap-2.5 ${fler ? 'lg:max-w-none lg:grid-cols-[repeat(6,104px)]' : ''}`}
+          className={`mt-3 grid max-w-[420px] grid-cols-3 gap-2.5 ${fler ? 'lg:max-w-[600px] lg:grid-cols-6 lg:gap-2' : ''}`}
           data-missar
         >
           {visade.map((f, i) => {
@@ -82,7 +82,7 @@ export default function GenomgangKort(p: GenomgangKortProps) {
                 <button
                   type="button"
                   onClick={() => p.onGaIgenom(f.nr)}
-                  className="block h-full w-full rounded-xl border border-kant bg-papper p-2 text-left hover:border-kant-stark sm:p-2.5"
+                  className={`block h-full w-full rounded-xl border border-kant bg-papper p-2 text-left hover:border-kant-stark sm:p-2.5 ${fler ? 'lg:p-1.5' : ''}`}
                 >
                   {fraga ? (
                     <MatrisMiniatyr fraga={fraga} />
@@ -93,7 +93,7 @@ export default function GenomgangKort(p: GenomgangKortProps) {
                       </span>
                     </span>
                   )}
-                  <b className="mt-2 block truncate text-xs font-semibold leading-4 text-ink-1 sm:text-[13px] sm:leading-[17px]">{RESULTAT.genomgang.nr(f.nr, p.sak)}</b>
+                  <b className={`mt-2 block truncate text-xs font-semibold leading-4 text-ink-1 sm:text-[13px] sm:leading-[17px] ${fler ? 'lg:text-xs lg:leading-4' : ''}`}>{RESULTAT.genomgang.nr(f.nr, p.sak)}</b>
                   {f.grupp || f.kalla ? (
                     <span className="line-clamp-2 block text-xs leading-4 text-ink-3">{f.grupp ?? f.kalla}</span>
                   ) : null}
