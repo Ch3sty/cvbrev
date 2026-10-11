@@ -35,7 +35,7 @@ import { PASS_COPY, mmss } from '@/lib/traning/pass-copy'
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 export interface PassShellProps {
-  /** Passets tema, till exempel "Rotation med byte". */
+  /** Passets tema, till exempel "Vrider sig och byter utseende". */
   titel: string
   /** "Dagens pass · nivå 5". */
   undertitel: string

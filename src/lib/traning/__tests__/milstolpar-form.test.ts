@@ -131,7 +131,7 @@ describe('formordet', () => {
 describe('I morgon', () => {
   it('lördagsexemplet: "Söndag är vilodag. Måndag: samma familj, ett steg svårare."', () => {
     const r = imorgonRad({ idag: '2026-10-10', start: '2026-10-06', prov: PROV, ratt: 7, antal: 9 })
-    expect(r.text).toBe('Söndag är vilodag. Måndag: samma familj, ett steg svårare.')
+    expect(r.text).toBe('Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
     expect(r.dag).toBe('2026-10-12')
   })
 
@@ -142,10 +142,10 @@ describe('I morgon', () => {
 
   it('vanlig dag, generalrepetition, provet, grundpass', () => {
     expect(imorgonRad({ idag: '2026-10-07', start: '2026-10-06', prov: PROV, ratt: 7, antal: 9 }).text).toBe(
-      'I morgon: samma familj, ett steg svårare'
+      'I morgon: samma mönster, ett steg svårare'
     )
     expect(imorgonRad({ idag: '2026-10-07', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
-      'I morgon: ny familj'
+      'I morgon: nytt mönster'
     )
     expect(imorgonRad({ idag: '2026-10-21', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
       'I morgon: generalrepetition'

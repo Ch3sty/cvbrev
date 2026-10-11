@@ -16,7 +16,8 @@ import { kurvansLabel } from '@/lib/traning/hemvy'
 import { KURVAN } from '@/lib/traning/kurvan-copy'
 import type { Dag } from '@/lib/traning/datum'
 import { markePunkt } from './berakna'
-import { UTV, decimal } from './copy'
+import { UTV } from './copy'
+import { nivaKort } from '@/lib/traning/pass-copy'
 import type { UtvecklingKurva } from './typer'
 
 /** Decimalkommat med egen bredd i tabulära tal (.tal-komma i globals.css). */
@@ -118,9 +119,9 @@ function LegendVagg({ marke, general }: { marke: boolean; general: boolean }) {
 export default function Nivavagg({ k, idag }: { k: UtvecklingKurva; idag: Dag }) {
   const senast = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0)).pop()
   const tal = [
-    senast ? `${UTV.stat.idag} ${decimal(senast.niva)}` : null,
-    `${UTV.stat.matning} ${decimal(k.start.niva)}`,
-    k.sikte != null && k.prov ? `${UTV.stat.sikte} ${decimal(k.sikte)}` : null,
+    senast ? `${UTV.stat.idag} ${nivaKort(senast.niva)}` : null,
+    `${UTV.stat.matning} ${nivaKort(k.start.niva)}`,
+    k.sikte != null && k.prov ? `${UTV.stat.sikte} ${nivaKort(k.sikte)}` : null,
   ].filter(Boolean)
   const label = `${kurvansLabel(
     { punkter: k.punkter, plan: k.plan, idag, start: k.start.dag, prov: k.prov, sikte: k.sikte, nyPunkt: false },
@@ -133,7 +134,7 @@ export default function Nivavagg({ k, idag }: { k: UtvecklingKurva; idag: Dag })
       <div className="lg:mt-5 lg:flex lg:items-start lg:gap-8">
         {senast ? (
           <div className="mt-5 shrink-0 lg:mt-0 lg:w-[120px]">
-            <VaggTal varde={decimal(senast.niva)} etikett={UTV.stat.idag} koppar />
+            <VaggTal varde={nivaKort(senast.niva)} etikett={UTV.stat.idag} koppar />
           </div>
         ) : null}
         <div className="mt-4 lg:hidden">

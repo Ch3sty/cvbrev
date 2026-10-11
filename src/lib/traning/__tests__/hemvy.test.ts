@@ -75,8 +75,8 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(m.vagg.rubrik).toBe('14 dagar till Matrigma')
     expect(m.vagg.rad).toBe('Nivå 5. Fyra dagar i rad. Dagens pass är kvar.')
     expect(m.vagg.dagsrad!.tal.map((t) => `${t.varde} ${t.etikett}`)).toEqual([
-      '5,4 nivå, från 5,0',
-      '1,1 kvar till siktet 6,5',
+      '5,4 nivå, från 5',
+      '1,1 kvar till målet 6,5',
       '4 dagar i rad',
     ])
     expect(m.vagg.vecka!.status).toEqual(['tom', 'gjord', 'gjord', 'gjord', 'gjord', 'nu', 'vila'])
@@ -90,7 +90,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(m.lyft.tre!.map((t) => t.varde)).toEqual(['7 av 9', '+0,2', '2 av 9'])
     expect(m.vagg.rad).toBe('Nivå 5. Fem dagar i rad. Dagens pass är gjort.')
     const imorgon = m.sektioner.find((s) => s.typ === 'status' && s.nyckel === 'imorgon')
-    expect(imorgon && imorgon.typ === 'status' ? imorgon.text : null).toBe('Söndag är vilodag. Måndag: samma familj, ett steg svårare.')
+    expect(imorgon && imorgon.typ === 'status' ? imorgon.text : null).toBe('Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
     expect(m.nyPunkt).toBe(true)
   })
   it('1h och 1i', () => {
@@ -277,12 +277,11 @@ describe('ingången och raderna', () => {
 })
 
 describe('instrumenten (art-director 20.3 punkt 8 och 20.5 fråga 1)', async () => {
-  const { siktetKrockar } = await import('@/components/traning/Nivaskala')
+  const Nivaskala = await import('@/components/traning/Nivaskala')
   const { axelEtiketter, kurvansGeometri: geo } = await import('@/components/traning/Kurva')
-  it('nivåskalan: siktet skrivs in i din etikett när de står närmare än 1,2', () => {
-    expect(siktetKrockar(6.4, 6.5)).toBe(true)
-    expect(siktetKrockar(5.0, 6.5)).toBe(false)
-    expect(siktetKrockar(5.4, null)).toBe(false)
+  it('nivåskalan: målet står aldrig på skalan, krockregeln är borta', () => {
+    expect('siktetKrockar' in Nivaskala).toBe(false)
+    expect('SIKTE_KROCK_NIVAER' in Nivaskala).toBe(false)
   })
   it('axeln: "i dag" står alltid, slutdatumet faller bort i 1c på mobil', () => {
     const s = fixtur('1c').status!

@@ -15,7 +15,7 @@
 
 import StatusRow from '@/components/shell/StatusRow'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
-import { PASS_COPY } from '@/lib/traning/pass-copy'
+import { nivaKort, PASS_COPY } from '@/lib/traning/pass-copy'
 import type { OmmatningResultat } from '@/lib/traning/resultat'
 import type { Traningsstatus } from '@/lib/traning/klient'
 import Kurva from './Kurva'
@@ -56,11 +56,13 @@ export default function OmmatningResultatVy({ vm, status, antal, onTillbaka, mot
               nu={vm.skala.nu}
               fran={vm.skala.fran}
               sikte={vm.skala.sikte}
-              etikettNu={`Nu ${vm.niva.toFixed(1).replace('.', ',')}`}
+              etikettNu={`Nu ${nivaKort(vm.niva)}`}
               etikettFranOvan={vm.skala.franEtikett}
               aria={vm.skala.aria}
             />
             <TreTal tal={vm.tal} />
+            {/* Målet på egen rad, aldrig på skalan (copy-efter-lyftet avsnitt 4). */}
+            {vm.malRad ? <p className="mt-3 text-sm font-medium text-vagg-ink">{vm.malRad}</p> : null}
           </div>
           {status && start && status.punkter.length > 1 ? (
             <div className="steg s3">

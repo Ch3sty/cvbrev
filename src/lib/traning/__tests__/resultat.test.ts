@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
 
 const { byggForhandsdata } = await import('@/app/dashboard/tester/forhandsvisning-pass/fixturer.server')
 import { fixturApi } from '../fixturApi'
-import { datumLista, deltaText, fragorText, mmss, nivaHeltal, nivaText, PASS_COPY, serieText } from '../pass-copy'
+import { datumLista, deltaText, fragorText, mmss, nivaHeltal, nivaKort, nivaText, PASS_COPY, serieText } from '../pass-copy'
 import { andraRegelrad, kvitto, matningResultat, ommatningResultat, passResultat } from '../resultat'
 import { kopKnapp } from '@/lib/plans/plans'
 
@@ -23,6 +23,11 @@ describe('formen på talen och datumen', () => {
   it('nivå, förflyttning, tid och listor', () => {
     expect(nivaText(5.6)).toBe('5,6')
     expect(nivaText(5)).toBe('5,0')
+    expect(nivaKort(4)).toBe('4')
+    expect(nivaKort(6.5)).toBe('6,5')
+    expect(nivaKort(5.04)).toBe('5')
+    expect(PASS_COPY.matning.malRad(4, false)).toBe('Mål om en vecka: nivå 4')
+    expect(PASS_COPY.matning.malRad(6.5, true)).toBe('Mål till provet: nivå 6,5')
     expect(nivaHeltal(5.9)).toBe(5)
     expect(nivaHeltal(6.0)).toBe(6)
     expect(deltaText(0.2)).toBe('+0,2')
@@ -98,10 +103,10 @@ describe('P4: passet klart, 10 oktober', () => {
   })
 
   it('"I morgon" byts mot veckodagen före vilan (lördagsexemplet)', () => {
-    expect(r.status).toBe('Fem dagar i rad. Söndag är vilodag. Måndag: samma familj, ett steg svårare.')
+    expect(r.status).toBe('Fem dagar i rad. Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
     expect(r.mening).toContain('ommätningen på tisdag mer')
-    // 19.2 fråga 4: jämförelsen med förra gången i familjen.
-    expect(r.mening).toMatch(/^Rotation med byte: fem av sex rätt i dag, mot två av tre förra gången. /)
+    // 19.2 fråga 4: jämförelsen med förra gången i mönstret.
+    expect(r.mening).toMatch(/^Vrider sig och byter utseende: fem av sex rätt i dag, mot två av tre förra gången. /)
   })
 
   it('talet och kortet räknar samma frågor (19.2 fråga 7)', () => {
@@ -118,24 +123,24 @@ describe('S1: nivån sjönk, 8 oktober', () => {
     expect(r.rubrik).toBe('5 av 9 rätt. Nivån 5,1, ner en tiondel.')
     expect(r.riktning).toBe('ner')
     expect(r.tal[1]).toEqual({ varde: '5,1', etikett: 'nivå, från 5,2' })
-    // 19.2 fråga 5: två av missarna var sträckuppgifter över nivån.
-    expect(r.mening).toBe('Två av missarna var sträckuppgifter över din nivå. De räknas lätt mot dig och tungt för dig, och nivån rör sig högst 0,5 per pass.')
-    expect(r.kort.text).toMatch(/Familjen går att öva med riktade pass.$/)
+    // 19.2 fråga 5: två av missarna var uppgifter över nivån.
+    expect(r.mening).toBe('Två av missarna var uppgifter över din nivå. De väger lätt när de blir fel och tungt när de blir rätt. Nivån rör sig högst ett halvt steg per pass.')
+    expect(r.kort.text).toMatch(/Mönstret går att öva i ett riktat pass.$/)
     expect(r.kort.axelMitt).toBe('ihåliga staplar: fel svar')
     expect(r.kort.eyebrow).toBe('Vad som hände')
-    expect(r.kort.titel).toBe('Fyra missar, tre i samma familj')
-    expect(r.status).toBe('Tre dagar i rad. I morgon: ny familj.')
+    expect(r.kort.titel).toBe('Fyra missar, tre på samma mönster')
+    expect(r.status).toBe('Tre dagar i rad. I morgon: nytt mönster.')
     expect(r.primar.etikett).toBe('Gå igenom de fyra missarna')
   })
 })
 
 describe('riktat pass', () => {
-  it('räknas i familjen, inte i nivån', () => {
+  it('räknas på mönstret, inte på nivån', () => {
     const { avslut, vy, status } = resultatdata('P4')
     const r = passResultat({ ...avslut, typ: 'riktat', niva_efter: null }, { ...vy, typ: 'riktat' }, status)
     expect(r.rubrik).toBe('7 av 9 rätt.')
     expect(r.skala).toBeNull()
-    expect(r.mening).toBe('Riktade pass räknas i familjen, inte i nivån.')
+    expect(r.mening).toBe('Ett riktat pass räknas på mönstret du övar, inte på din nivå.')
     expect(r.eyebrow).toBe('Riktat pass klart')
   })
 })
@@ -146,11 +151,14 @@ describe('M1: nivåmätningen med betalväggen', () => {
     const r = matningResultat(avslut, status, false)
     expect(r.heltal).toBe(5)
     expect(r.mening).toBe(
-      'Du klarar de flesta uppgifter på grundnivå. Två regler samtidigt, som rotation med byte, går ungefär varannan gång. Två familjer drar ner mest, de står under Var du tappar.'
+      'Du klarar det mesta på grundnivå. När två saker ändras samtidigt, som en figur som både vrider sig och byter fyllning, blir det rätt ungefär varannan gång. Mest tappar du på två mönster. De står under Var du tappar.'
     )
     expect(r.tal.map((t) => t.varde)).toEqual(['9 av 12', '3 av 12', '52 s'])
     expect(r.tal[2].etikett).toBe('snitt, provet ger 68')
-    expect(r.siktetMening).toContain('18 dagars träning')
+    expect(r.siktetMening).toContain('18 dagars pass')
+    // Målet på egen rad, aldrig på skalan (copy-efter-lyftet avsnitt 4).
+    expect(r.malRad).toMatch(/^Mål till provet: nivå \d(,\d)?$/)
+    expect(r.skala.aria).not.toMatch(/[Ss]ikte/)
     expect(r.planRubrik).toBe('Planen till 24 oktober · 18 dagar')
     expect(r.plan.map((p) => p.titel)).toEqual([
       'I dag: mätningen',
@@ -174,7 +182,7 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.betalvagg!.lank).toBe('Gör dagens grundpass gratis')
     expect(r.betalvagg!.lankTill).toBe('grundpass')
     expect(r.plan[1].chip).toMatchObject({ text: 'Gratis' })
-    expect(r.familjer.map((f) => f.titel)).toEqual(['Rotation med byte', 'Antal i rad och kolumn', 'Rätt men långsamma: speglingar'])
+    expect(r.familjer.map((f) => f.titel)).toEqual(['Vrider sig och byter utseende', 'Varje antal en gång per rad', 'Rätt men långsamt: Figuren speglas'])
   })
 
   it('nämnaren i över provets tid är frågorna med tid (19.5 fråga 3)', () => {
@@ -198,7 +206,7 @@ describe('O1: veckans ommätning', () => {
     const { avslut, status } = resultatdata('O1')
     const r = ommatningResultat(avslut, status)
     expect(r.rubrik).toBe('5,8. Passen hade räknat dig till 5,7.')
-    expect(r.skala).toMatchObject({ nu: 5.8, fran: 5.0, franEtikett: '6 okt 5,0' })
+    expect(r.skala).toMatchObject({ nu: 5.8, fran: 5.0, franEtikett: '6 okt 5' })
     expect(r.tal.map((t) => t.varde)).toEqual(['10 av 12', '+0,8', '1 av 12'])
     expect(r.tal[1].etikett).toBe('på en vecka')
     expect(r.status.startsWith('Nästa ommätning tisdag 20 oktober.')).toBe(true)
@@ -210,12 +218,12 @@ describe('O1: veckans ommätning', () => {
     const r = ommatningResultat(d.resultat.avslut, d.resultat.status)
     expect(r.milstolpe).toBeNull()
     expect(r.familjer.map((f) => `${f.titel}: ${f.meta}`)).toEqual([
-      'Antal i rad och kolumn: 1 av 2 rätt, mot 2 av 4 den 6 okt.',
-      'Rotation med byte: 2 av 3 rätt, mot 1 av 3 den 6 okt.',
+      'Varje antal en gång per rad: 1 av 2 rätt, mot 2 av 4 den 6 okt.',
+      'Vrider sig och byter utseende: 2 av 3 rätt, mot 1 av 3 den 6 okt.',
     ])
     expect(r.familjerEyebrow).toBe('Var du tappar nu')
   })
-  it('trösklarna (19.5 fråga 5): en fråga i familjen visas inte, jämförelsen kräver två i mätningen, annars det ackumulerade', () => {
+  it('trösklarna (19.5 fråga 5): en fråga i mönstret visas inte, jämförelsen kräver två i mätningen, annars det ackumulerade', () => {
     const d = byggForhandsdata('O1', { utanMilstolpe: true })
     if (!('resultat' in d)) throw new Error('ingen resultatram')
     const { avslut, status } = d.resultat
@@ -244,12 +252,12 @@ describe('O1: veckans ommätning', () => {
 })
 
 describe('raden efter regeln (19.2 fråga 1)', () => {
-  it('rätt sträckuppgift inom tiden, rätt nära nivån över tiden, fel på en sträckuppgift', () => {
-    expect(andraRegelrad({ correct: true, band: 'over', tid_s: 40 }, 60)).toBe('Sträckuppgift över din nivå, klarad inom provets tid.')
-    expect(andraRegelrad({ correct: true, band: 'over', tid_s: 70 }, 60)).toBe('Sträckuppgift över din nivå. Rätt, men över provets tid.')
-    expect(andraRegelrad({ correct: true, band: 'nara', tid_s: 70 }, 60)).toBe('Rätt, men över provets tid. Tempot räknas i resultatet.')
+  it('rätt över nivån inom tiden, rätt nära nivån över tiden, fel över nivån', () => {
+    expect(andraRegelrad({ correct: true, band: 'over', tid_s: 40 }, 60)).toBe('Svårare än din nivå, och du klarade den inom provets tid.')
+    expect(andraRegelrad({ correct: true, band: 'over', tid_s: 70 }, 60)).toBe('Svårare än din nivå. Rätt, men över provets tid.')
+    expect(andraRegelrad({ correct: true, band: 'nara', tid_s: 70 }, 60)).toBe('Rätt, men över provets tid. Tempot räknas med i resultatet.')
     expect(andraRegelrad({ correct: true, band: 'nara', tid_s: 40 }, 60)).toBeNull()
-    expect(andraRegelrad({ correct: false, band: 'over', tid_s: 50 }, 60)).toBe('Sträckuppgift över din nivå.')
+    expect(andraRegelrad({ correct: false, band: 'over', tid_s: 50 }, 60)).toBe('Den här var svårare än din nivå.')
     expect(andraRegelrad({ correct: false, band: 'under', tid_s: 50 }, 60)).toBeNull()
     expect(andraRegelrad({ correct: true, band: null, tid_s: 40 }, 60)).toBeNull()
   })
@@ -281,13 +289,13 @@ describe('K1: kvittot', () => {
     expect(d.kvitto.namn).toBe('Första veckan')
     expect(d.kvitto.eyebrow).toBe('Milstolpe · tisdag 13 oktober')
     expect(d.kvitto.mening).toBe(
-      'Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag. Nivån gick från 5,0 till 5,8. Nästa märke: Nivån upp, vid 6,0.'
+      'Sju dagar sedan mätningen, fem pass och en ommätning, ingen missad dag. Nivån gick från 5 till 5,8. Nästa märke: Nivån upp, vid 6.'
     )
   })
 
   it('Första mätningen och Nivån upp', () => {
     const { status } = resultatdata('O1')
-    expect(kvitto('forsta_matningen', status, { betalande: true }).mening).toMatch(/^Din första punkt på kurvan, nivå 5,0\./)
+    expect(kvitto('forsta_matningen', status, { betalande: true }).mening).toMatch(/^Din första punkt på kurvan, nivå 5\. /)
   })
 })
 

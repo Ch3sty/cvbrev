@@ -6,19 +6,21 @@ Våg 3c i Rummen (`docs/design/spec-rummen-2026-10-10.md`, avsnitt 6). Taxonomin
 
 | id | Namn i gränssnittet | Vad det går ut på | Regler som ingår | Format |
 |---|---|---|---|---|
-| `vridning` | Vridning | En figur vrider sig lika långt för varje ruta, läst som en lång rad. | Vektor-rotation 45, 90, 135 grader, medurs och moturs. Strålar som vrids. Femhörningen som vrids (v7g-q25). | Pil, streck från mitten, månghörning |
-| `monsterrotation` | Mönster som roterar | Ett mönster av flera delar vrider sig som en helhet. | Tile-rotation (3×3-block, fyra olika lägen), sektorhjul 45 till 135 grader, 2×2-mönster med två eller tre fyllningar. | 3×3-block, sektorhjul, 2×2-rutor |
-| `vandring` | Vandring runt en ram | En markering flyttar mellan fasta platser i en synlig ram. | Ruta i 2×2 medurs eller moturs, prick runt cirkeln (orbital) 45 till 135 grader. | Ruta i 2×2, prick runt en cirkel |
-| `rotation-med-byte` | Rotation med byte | Figuren vrider sig och byter samtidigt fyllning, längd eller spets. | Pil som vrids och växlar längd eller spets, prick som vandrar medan mittpunkten växlar fyllning. | Pil, prick runt en cirkel |
-| `tva-rorelser` | Två rörelser samtidigt | Två saker flyttar sig var för sig, och båda måste följas. | Balanslinjen (kvadrat och cirkel med fack och sida), svart ruta och prick som går åt olika håll i 2×2. | Former kring en linje, ruta och prick i 2×2 |
-| `latin-antal` | Antal i rad och kolumn | Varje antal finns en gång i varje rad och kolumn. | Latinsk kvadrat på antal: streck (stående eller liggande), streck från mitten, ringar, sektorer. | Streck, strålar, ringar, sektorer |
-| `latin-form` | Form och fyllning i rad och kolumn | Varje form, fyllning, symbol eller läge finns en gång i varje rad och kolumn. | Latinsk kvadrat på en egenskap: antal hörn, fyllning, grundform, symbol, innerring, prickens läge, rutans läge. | Månghörning, grundform med symbol, ringar, orbital, 2×2 |
-| `latin-flera` | Flera egenskaper i rad och kolumn | Två eller tre egenskaper följer var sin ordning. | Två eller tre oberoende latinska kvadrater (form och fyllning, form och symbol, form, symbol och fyllning). | Månghörning, grundform med symbol, ringar |
-| `overlagring` | Överlagring | Den tredje rutan bildas av de två första: allt, bara det som skiljer eller bara det gemensamma. | Union (sammanslagning), XOR, snitt och differens, per rad eller per kolumn. | 3×3-block, 2×2-rutor, strålar, ringar, sektorhjul |
-| `spegling` | Speglingar | Rutorna speglas i en linje, två gånger i rad. | Tile-spegling i lodrät, vågrät och diagonal linje, samma i 2×2 och i sektorhjul, per rad eller per kolumn. | 3×3-block, 2×2-rutor, sektorhjul |
-| `antal-andras` | Antal som ändras | Antalet växer, minskar eller läggs ihop från ruta till ruta. | Antal som ökar eller minskar med ett och börjar om, med eller utan växlande riktning. Summa av två rutor. Streck och sektorer som läggs till ett i taget. | Streck, strålar, sektorer |
+| `vridning` | Figuren vrider sig | En figur vrider sig lika långt för varje ruta, läst som en lång rad. | Vektor-rotation 45, 90, 135 grader, medurs och moturs. Strålar som vrids. Femhörningen som vrids (v7g-q25). | Pil, streck från mitten, månghörning |
+| `monsterrotation` | Hela mönstret vrider sig | Ett mönster av flera delar vrider sig som en helhet. | Tile-rotation (3×3-block, fyra olika lägen), sektorhjul 45 till 135 grader, 2×2-mönster med två eller tre fyllningar. | 3×3-block, sektorhjul, 2×2-rutor |
+| `vandring` | Figuren flyttar sig runt kanten | En markering flyttar mellan fasta platser i en synlig ram. | Ruta i 2×2 medurs eller moturs, prick runt cirkeln (orbital) 45 till 135 grader. | Ruta i 2×2, prick runt en cirkel |
+| `rotation-med-byte` | Vrider sig och byter utseende | Figuren vrider sig och byter samtidigt fyllning, längd eller spets. | Pil som vrids och växlar längd eller spets, prick som vandrar medan mittpunkten växlar fyllning. | Pil, prick runt en cirkel |
+| `tva-rorelser` | Två saker rör sig samtidigt | Två saker flyttar sig var för sig, och båda måste följas. | Balanslinjen (kvadrat och cirkel med fack och sida), svart ruta och prick som går åt olika håll i 2×2. | Former kring en linje, ruta och prick i 2×2 |
+| `latin-antal` | Varje antal en gång per rad | Varje antal finns en gång i varje rad och kolumn. | Latinsk kvadrat på antal: streck (stående eller liggande), streck från mitten, ringar, sektorer. | Streck, strålar, ringar, sektorer |
+| `latin-form` | Varje form en gång per rad | Varje form, fyllning, symbol eller läge finns en gång i varje rad och kolumn. | Latinsk kvadrat på en egenskap: antal hörn, fyllning, grundform, symbol, innerring, prickens läge, rutans läge. | Månghörning, grundform med symbol, ringar, orbital, 2×2 |
+| `latin-flera` | Form och antal, en gång var per rad | Två eller tre egenskaper följer var sin ordning. | Två eller tre oberoende latinska kvadrater (form och fyllning, form och symbol, form, symbol och fyllning). | Månghörning, grundform med symbol, ringar |
+| `overlagring` | Två rutor läggs ihop | Den tredje rutan bildas av de två första: allt, bara det som skiljer eller bara det gemensamma. | Union (sammanslagning), XOR, snitt och differens, per rad eller per kolumn. | 3×3-block, 2×2-rutor, strålar, ringar, sektorhjul |
+| `spegling` | Figuren speglas | Rutorna speglas i en linje, två gånger i rad. | Tile-spegling i lodrät, vågrät och diagonal linje, samma i 2×2 och i sektorhjul, per rad eller per kolumn. | 3×3-block, 2×2-rutor, sektorhjul |
+| `antal-andras` | Antalet ökar eller minskar | Antalet växer, minskar eller läggs ihop från ruta till ruta. | Antal som ökar eller minskar med ett och börjar om, med eller utan växlande riktning. Summa av två rutor. Streck och sektorer som läggs till ett i taget. | Streck, strålar, sektorer |
 
 Spec-exemplet "Rotation med fyllningsbyte" är familjen `rotation-med-byte`; namnet blev bredare eftersom bytet också kan vara längd eller spets.
+
+I gränssnittet heter familjerna "mönster" och namnen är korta meningar om vad som händer i rutnätet (copy-efter-lyftet 2026-10-11, `docs/qa/tester-lyft/copy-efter-lyftet.md` avsnitt 3). Namnen skrivs alltid med versal, som rubrik eller efter kolon, och gemenas aldrig mitt i en mening. Ordet "familj" och fältet `family` lever kvar i koden och i den här dokumentationen.
 
 ## Hur familjen sätts
 
@@ -44,17 +46,17 @@ Frusna (de 28 per nivå som de klassiska testerna drar ur) + nya i 3c.
 
 | Familj | Grund | Avancerad | Expert | Summa |
 |---|---|---|---|---|
-| Vridning | 5 + 7 | 5 + 5 | 0 + 4 | 26 |
-| Mönster som roterar | 1 + 6 | 5 + 7 | 22 + 6 | 47 |
-| Vandring runt en ram | 6 + 6 | 0 + 5 | 0 + 4 | 21 |
-| Rotation med byte | 1 + 5 | 0 + 7 | 0 + 7 | 20 |
-| Två rörelser samtidigt | 0 + 4 | 0 + 6 | 6 + 8 | 24 |
-| Antal i rad och kolumn | 3 + 7 | 1 + 4 | 0 + 3 | 18 |
-| Form och fyllning i rad och kolumn | 7 + 8 | 11 + 4 | 0 + 2 | 32 |
-| Flera egenskaper i rad och kolumn | 3 + 5 | 2 + 6 | 0 + 8 | 24 |
-| Överlagring | 1 + 6 | 3 + 8 | 0 + 8 | 26 |
-| Speglingar | 0 + 4 | 1 + 6 | 0 + 7 | 18 |
-| Antal som ändras | 1 + 4 | 0 + 4 | 0 + 5 | 14 |
+| Figuren vrider sig | 5 + 7 | 5 + 5 | 0 + 4 | 26 |
+| Hela mönstret vrider sig | 1 + 6 | 5 + 7 | 22 + 6 | 47 |
+| Figuren flyttar sig runt kanten | 6 + 6 | 0 + 5 | 0 + 4 | 21 |
+| Vrider sig och byter utseende | 1 + 5 | 0 + 7 | 0 + 7 | 20 |
+| Två saker rör sig samtidigt | 0 + 4 | 0 + 6 | 6 + 8 | 24 |
+| Varje antal en gång per rad | 3 + 7 | 1 + 4 | 0 + 3 | 18 |
+| Varje form en gång per rad | 7 + 8 | 11 + 4 | 0 + 2 | 32 |
+| Form och antal, en gång var per rad | 3 + 5 | 2 + 6 | 0 + 8 | 24 |
+| Två rutor läggs ihop | 1 + 6 | 3 + 8 | 0 + 8 | 26 |
+| Figuren speglas | 0 + 4 | 1 + 6 | 0 + 7 | 18 |
+| Antalet ökar eller minskar | 1 + 4 | 0 + 4 | 0 + 5 | 14 |
 | **Summa** | **28 + 62 = 90** | **28 + 62 = 90** | **28 + 62 = 90** | **270** |
 
 Svårighetsprior (`difficulty`, 1 till 4): grund 3c 26/28/8/0, avancerad 3c 0/16/43/3, expert 3c 0/0/22/40 (antal med prior 1/2/3/4). De frusna behåller sina handsatta värden.

@@ -25,7 +25,7 @@ export type MatrisFamilj =
 
 export interface FamiljInfo {
   id: MatrisFamilj;
-  /** Namnet i gränssnittet, till exempel "Rotation med byte". */
+  /** Namnet i gränssnittet, till exempel "Vrider sig och byter utseende". */
   namn: string;
   /** En mening om vad familjen går ut på. */
   kort: string;

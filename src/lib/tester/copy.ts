@@ -129,7 +129,7 @@ export const RESULTAT = {
       prov: 'Facit står vid varje fråga.',
     },
     sammaFamilj: (n: number, av: number, namn: string, matris: boolean) =>
-      `${versal(ordTal(n))} av ${ordTal(av)} är samma ${matris ? 'familj' : 'typ'}: ${namn.toLowerCase()}.`,
+      `${versal(ordTal(n))} av ${ordTal(av)} är samma ${matris ? `mönster: ${namn}` : `typ: ${namn.toLowerCase()}`}.`,
     knapp: (n: number, s: Sakord) =>
       n === 1 ? `Gå igenom ${s.neutrum ? 'påståendet' : 'frågan'}` : `Gå igenom de ${ordTal(n)} ${s.bestamd}`,
     visaAlla: (n: number) => `Visa alla ${ordTal(n)}`,
@@ -146,9 +146,9 @@ export const RESULTAT = {
     rub: 'Var du tappade i det här testet',
     rubKort: 'Var du tappade här',
     titel: (namn: string, r: number, t: number) => `${namn}, ${r} av ${t}`,
-    allaSatt: (matris: boolean) => (matris ? 'Alla familjer satt' : 'Inga tapp i någon typ'),
+    allaSatt: (matris: boolean) => (matris ? 'Alla mönster satt' : 'Inga tapp i någon typ'),
     fot: (term: string, flera: string) => `${versal(term)} med minst två ${flera} i testet. Hela bilden finns i Din utveckling.`,
-    term: { matris: 'familjer', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
+    term: { matris: 'mönster', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
   },
   tempo: {
     rub: 'Tempo mot provets tid',

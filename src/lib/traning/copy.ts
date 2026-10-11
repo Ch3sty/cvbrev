@@ -8,8 +8,8 @@ import type { MilstolpeNyckel } from './milstolpar';
 
 export const TRANING_COPY = {
   imorgon: {
-    familjUpp: 'samma familj, ett steg svårare',
-    nyFamilj: 'ny familj',
+    familjUpp: 'samma mönster, ett steg svårare',
+    nyFamilj: 'nytt mönster',
     pass: 'nästa pass',
     grundpass: 'nästa grundpass',
     ommatning: 'ommätning, 8 minuter',
@@ -52,7 +52,7 @@ export const TRANING_COPY = {
   fel: {
     passHamtas: 'Passet gick inte att hämta.',
     forsokIgen: 'Försök igen. Din nivå och dina pass är sparade, ingenting försvann.',
-    familjSaknas: 'Den familjen har inte tillräckligt många uppgifter än.',
+    familjSaknas: 'Det mönstret har för få uppgifter än så länge.',
     redanBesvarad: 'Frågan är redan besvarad.',
   },
 } as const;

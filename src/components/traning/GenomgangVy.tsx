@@ -59,7 +59,7 @@ export default function GenomgangVy({ vy, lista, pos, onPos, onTillbakaResultat,
   return (
     <PassShell
       titel={G.titel}
-      undertitel={familj ? `${G.rad(i + 1, vy.fragor.length)} · ${familj}` : G.rad(i + 1, vy.fragor.length)}
+      undertitel={familj ? `${G.rad(i + 1, vy.fragor.length)}, ${familj}` : G.rad(i + 1, vy.fragor.length)}
       fraga={pos + 1}
       antal={lista.length}
       tid={null}

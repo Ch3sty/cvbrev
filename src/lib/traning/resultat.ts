@@ -16,7 +16,7 @@ import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/pla
 import { TRANING_COPY, versal } from './copy';
 import { dagarMellan, veckodagNamn, type Dag } from './datum';
 import { MILSTOLPAR, type MilstolpeNyckel, type Nivapunkt } from './milstolpar';
-import { datumKort, datumLista, deltaText, fragorText, nivaHeltal, nivaText, PASS_COPY, serieText } from './pass-copy';
+import { datumKort, datumLista, deltaText, fragorText, nivaHeltal, nivaKort, PASS_COPY, serieText } from './pass-copy';
 import type { PlanDag } from './plan';
 import { formatText, PROVFORMAT, type FormatNyckel, type Provformat } from './tempo';
 import type { Aterkoppling, Avslut, Sessionsvy, Traningsstatus } from './klient';
@@ -58,6 +58,11 @@ export interface GenomgangsRad {
 function familjText(id: string | null | undefined): string | null {
   if (!id) return null;
   return familjNamn(id) ?? null;
+}
+
+/** Målraden säger "till provet" när ett provdatum är satt, annars "om en vecka". */
+function harProvdatum(status: Traningsstatus | null): boolean {
+  return status?.plan?.provdatum != null;
 }
 
 /** Svaret per fråga i sessionens ordning: rätt, tid, och hur det slutade. */
@@ -172,6 +177,8 @@ export interface PassResultat {
     aria: string;
   } | null;
   tal: [Tal, Tal, Tal];
+  /** Målet på egen rad under de tre talen, aldrig på skalan. */
+  malRad: string | null;
   mening: string | null;
   kort: {
     eyebrow: string;
@@ -235,16 +242,17 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
           nu: efter,
           fran: fore,
           sikte,
-          etikettNu: `Nu ${nivaText(efter)}`,
-          etikettFran: fore != null ? `från ${nivaText(fore)}` : null,
-          aria: `Nivåskala 1 till 10.${fore != null ? ` Före passet ${nivaText(fore)},` : ''} nu ${nivaText(efter)}.${sikte != null ? ` Sikte ${nivaText(sikte)}.` : ''}`,
+          etikettNu: `Nu ${nivaKort(efter)}`,
+          etikettFran: fore != null ? `från ${nivaKort(fore)}` : null,
+          aria: `Nivåskala 1 till 10.${fore != null ? ` Före passet ${nivaKort(fore)},` : ''} nu ${nivaKort(efter)}.${sikte != null ? ` Mål ${nivaKort(sikte)}.` : ''}`,
         }
       : null;
+  const malRad = skala && sikte != null ? PASS_COPY.matning.malRad(sikte, harProvdatum(status)) : null;
 
   const andra: Tal =
     !riktat && efter != null && fore != null
       ? riktning === 'ner'
-        ? { varde: nivaText(efter), etikett: R.tal.nivaFran(fore) }
+        ? { varde: nivaKort(efter), etikett: R.tal.nivaFran(fore) }
         : { varde: deltaText(efter - fore), etikett: R.tal.nivaFran(fore), koppar: riktning === 'upp' }
       : avslut.snitt_s != null
         ? { varde: R.tal.sekunder(avslut.snitt_s), etikett: R.tal.snitt(avslut.budget_s) }
@@ -267,7 +275,7 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
   let mening: string | null;
   if (riktat) mening = R.riktatRad;
   else if (riktning === 'ner') {
-    // Missar som var sträckuppgifter över nivån (bandet ur urvalet, 19.2 fråga 5).
+    // Missar som var uppgifter över nivån (bandet ur urvalet, 19.2 fråga 5).
     const overMissar = genomgang.missar.filter((i) => vy.aterkoppling?.[vy.fragor[i]?.id]?.band === 'over').length;
     mening = R.sjonk(overMissar);
   } else if (avslut.typ === 'general') {
@@ -329,6 +337,7 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
     riktning,
     skala,
     tal,
+    malRad,
     mening,
     kort,
     genomgang,
@@ -357,6 +366,8 @@ export interface MatningResultat {
   mening: string;
   skala: { nu: number; sikte: number | null; aria: string };
   tal: [Tal, Tal, Tal];
+  /** "Mål om en vecka: nivå 4", på egen rad under de tre talen. */
+  malRad: string | null;
   siktetMening: string | null;
   familjer: { titel: string; meta: string; andel: number | null; ton: 'koppar' | 'ton' | null }[];
   planRubrik: string;
@@ -452,7 +463,8 @@ export function matningResultat(avslut: Avslut, status: Traningsstatus | null, b
         ? { varde: R.tal.sekunder(avslut.snitt_s), etikett: R.tal.snitt(avslut.budget_s) }
         : { varde: R.tal.sekunder(Math.round(avslut.tid_s / Math.max(1, avslut.antal))), etikett: R.tal.snitt(avslut.budget_s) },
     ],
-    siktetMening: sikte != null ? PASS_COPY.matning.siktetMening(dagarKvar) : null,
+    malRad: sikte != null ? PASS_COPY.matning.malRad(sikte, harProvdatum(status)) : null,
+    siktetMening: sikte != null ? PASS_COPY.matning.siktetMening(dagarKvar, sikte) : null,
     familjer,
     planRubrik: PASS_COPY.matning.plan.rubrik(status?.plan?.provdatum ?? null, dagarKvar),
     plan,
@@ -481,6 +493,8 @@ export interface OmmatningResultat {
   rubrik: string;
   skala: { nu: number; fran: number | null; sikte: number | null; franEtikett: string | null; aria: string };
   tal: [Tal, Tal, Tal];
+  /** Målet på egen rad under de tre talen, aldrig på skalan. */
+  malRad: string | null;
   forsta: Nivapunkt | null;
   status: string;
   milstolpe: MilstolpeKort | null;
@@ -533,9 +547,10 @@ export function ommatningResultat(avslut: Avslut, status: Traningsstatus | null)
             etikett: dagar === 7 ? PASS_COPY.ommatning.deltaVecka : PASS_COPY.ommatning.delta,
             koppar: niva - deltaFran > 0.05,
           }
-        : { varde: nivaText(niva), etikett: 'nivå' },
+        : { varde: nivaKort(niva), etikett: 'nivå' },
       { varde: R.tal.av(overBudget(avslut, null), avslut.antal), etikett: R.tal.overTid },
     ],
+    malRad: sikte != null ? PASS_COPY.matning.malRad(sikte, harProvdatum(status)) : null,
     forsta,
     status: statusText,
     milstolpe: milstolpeKort(avslut.milstolpe),

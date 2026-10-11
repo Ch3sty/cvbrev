@@ -13,8 +13,9 @@
  * fot ligger aldrig ovanpå en betalvägg). Betalande: ingen betalvägg,
  * kopparknappen i foten.
  *
- * Decimalen står under pricken på skalan (testansvarig 19.2 fråga 2), heltalet
- * stort ovanför.
+ * Det stora heltalet bär värdet; skalan har ingen etikett vid punkten och
+ * ingen decimal under den. Målet står aldrig på skalan (bara triangeln), utan
+ * på en egen rad under de tre talen (copy-efter-lyftet avsnitt 4).
  *
  * betalvagg_visad (plats matning) skickas en gång per montering när kortet
  * visas. Köpknappen bär platsen till köpsteget.
@@ -28,7 +29,7 @@ import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { passHref } from '@/lib/traning/klient'
-import { nivaText, PASS_COPY } from '@/lib/traning/pass-copy'
+import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { MatningResultat } from '@/lib/traning/resultat'
 import Nivaskala from './Nivaskala'
 import Plan from './Plan'
@@ -40,8 +41,6 @@ export interface MatningResultatVyProps {
   vm: MatningResultat
   antal: number
   onTillbaka: () => void
-  /** Siktets ändra-länk (inställningarna, våg 2). */
-  sikteHref?: string
   motion?: boolean
 }
 
@@ -77,7 +76,7 @@ export function VarDuTapparKort({
   )
 }
 
-export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '/dashboard/tester/installningar#sikte', motion = true }: MatningResultatVyProps) {
+export default function MatningResultatVy({ vm, antal, onTillbaka, motion = true }: MatningResultatVyProps) {
   const visad = useRef(false)
   const harVagg = vm.betalvagg != null
   useEffect(() => {
@@ -108,12 +107,13 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
               className="mt-[18px]"
               nu={vm.skala.nu}
               sikte={vm.skala.sikte}
-              etikettNu="Du"
-              etikettUnder={nivaText(vm.skala.nu)}
-              siktLank={vm.skala.sikte != null ? { href: sikteHref, etikett: `Sikte ${nivaText(vm.skala.sikte)}`, verb: 'ändra' } : null}
               aria={vm.skala.aria}
             />
             <TreTal tal={vm.tal} />
+            {/* Målet på egen rad. Länken M.malAndra visas inte än: inställningarna
+                saknar avsnittet för målet (ankaret #sikte finns inte), så länken
+                kommer när inställningen "Ditt mål" är byggd. */}
+            {vm.malRad ? <p className="mt-3 text-sm font-medium text-vagg-ink">{vm.malRad}</p> : null}
             {vm.siktetMening ? <p className="mt-3 text-meta text-vagg-mjuk">{vm.siktetMening}</p> : null}
           </div>
         </>

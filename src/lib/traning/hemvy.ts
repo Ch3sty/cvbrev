@@ -28,7 +28,8 @@
 
 import { dagarMellan, laggTill, arSondag, veckodag, type Dag } from './datum';
 import { GRATISNIVA } from './gratisniva';
-import { talord as talordTio, versal } from './copy';
+import { talord as talordTio, TRANING_COPY, versal } from './copy';
+import { nivaKort } from './pass-copy';
 import { HEM, ingarIPaketet, kopKnapp, jobbsokRad, lastAria, prisrad } from './hem-copy';
 import { paketKort } from '@/lib/plans/plans';
 import type { BetalvaggPlats } from '@/lib/analytics/events';
@@ -279,7 +280,7 @@ function veckoLabel(status: readonly string[]): string {
   return `Veckan: ${status.map((s, i) => `${namn[i]} ${ord[s]}`).join(', ')}.`;
 }
 
-/** Kurvans tillgängliga namn: läser ut talen, datumen, siktet och provet. */
+/** Kurvans tillgängliga namn: läser ut talen, datumen, målet och provet. */
 export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean): string {
   const delar: string[] = [];
   const pk = [...k.punkter].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0));
@@ -287,7 +288,7 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
     delar.push(`Nivå per dag från mätningen ${datumText(k.start)}: ${pk.map((p) => decimal(p.niva)).join(', ')}.`);
   }
   delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', passet kvar' : ''}.`);
-  if (k.sikte != null && k.prov) delar.push(`Sikte ${decimal(k.sikte)}.`);
+  if (k.sikte != null && k.prov) delar.push(`Mål ${nivaKort(k.sikte)}.`);
   const om = k.plan.filter((p) => p.typ === 'ommatning' && p.dag > k.idag).map((p) => datumText(p.dag));
   if (om.length) delar.push(`${om.length === 1 ? 'Ommätning' : 'Ommätningar'} ${om.join(' och ')}.`);
   const vila = k.plan.filter((p) => p.typ === 'vila').map((p) => datumText(p.dag));
@@ -456,20 +457,20 @@ function tempoSektion(s: Traningsstatus): Sektion | null {
 function dagsradTal(s: Traningsstatus, niva: number, tredje: 'serie' | 'dagar_kvar'): [Tal, Tal, Tal] {
   const start = s.start;
   const forsta: Tal = {
-    varde: decimal(niva),
+    varde: nivaKort(niva),
     etikett:
       start && start.dag === s.idag
         ? HEM.dagsrad.nivaMattIdag
         : start && start.dag === laggTill(s.idag, -1) && s.punkter.length <= 1
           ? HEM.dagsrad.nivaMattIgar
-          : HEM.dagsrad.nivaFran(decimal(start?.niva ?? niva)),
+          : HEM.dagsrad.nivaFran(nivaKort(start?.niva ?? niva)),
   };
   const sikte = s.plan?.sikte ?? null;
   const harDatum = s.dagarKvar != null && s.dagarKvar >= 0;
   let andra: Tal;
   if (sikte != null && harDatum) {
     const kvar = Math.round((sikte - niva) * 10) / 10;
-    andra = kvar > 0 ? { varde: decimal(kvar), etikett: HEM.dagsrad.kvarSikte(decimal(sikte)) } : { varde: decimal(sikte), etikett: HEM.dagsrad.siktetNatt };
+    andra = kvar > 0 ? { varde: nivaKort(kvar), etikett: HEM.dagsrad.kvarSikte(nivaKort(sikte)) } : { varde: nivaKort(sikte), etikett: HEM.dagsrad.siktetNatt };
   } else if (s.aktivitet.pass > 0) {
     andra = { varde: String(s.aktivitet.pass), etikett: HEM.dagsrad.passGjorda };
   } else {
@@ -487,7 +488,7 @@ function dagsradTal(s: Traningsstatus, niva: number, tredje: 'serie' | 'dagar_kv
   } else {
     // Ingen serie än och inget datum: mätningen är det enda som är gjort.
     tredjeTal = andra.etikett === HEM.dagsrad.mattningGjord
-      ? { varde: decimal(s.start?.niva ?? niva), etikett: 'mätningens nivå' }
+      ? { varde: nivaKort(s.start?.niva ?? niva), etikett: 'mätningens nivå' }
       : { varde: String(Math.max(1, s.aktivitet.matningar)), etikett: HEM.dagsrad.mattningGjord };
   }
   return [forsta, andra, tredjeTal];
@@ -948,19 +949,19 @@ function klartLyft(s: Traningsstatus, betalande: boolean, general: boolean): Lyf
   const ratt = p.ratt ?? 0;
   let titel: string;
   if (p.typ === 'riktat' || p.niva_efter == null) titel = HEM.klart.utanNiva(ratt, p.antal);
-  else if (p.niva_fore == null || p.niva_efter > p.niva_fore + 1e-9) titel = HEM.klart.upp(ratt, p.antal, decimal(p.niva_efter));
-  else if (Math.abs(p.niva_efter - p.niva_fore) < 1e-9) titel = HEM.klart.samma(ratt, p.antal, decimal(p.niva_efter));
-  else if (Math.round((p.niva_fore - p.niva_efter) * 10) === 1) titel = HEM.klart.ner(ratt, p.antal, decimal(p.niva_efter));
-  else titel = HEM.klart.nerMer(ratt, p.antal, decimal(p.niva_efter));
+  else if (p.niva_fore == null || p.niva_efter > p.niva_fore + 1e-9) titel = HEM.klart.upp(ratt, p.antal, nivaKort(p.niva_efter));
+  else if (Math.abs(p.niva_efter - p.niva_fore) < 1e-9) titel = HEM.klart.samma(ratt, p.antal, nivaKort(p.niva_efter));
+  else if (Math.round((p.niva_fore - p.niva_efter) * 10) === 1) titel = HEM.klart.ner(ratt, p.antal, nivaKort(p.niva_efter));
+  else titel = HEM.klart.nerMer(ratt, p.antal, nivaKort(p.niva_efter));
 
   const delta = p.niva_efter != null && p.niva_fore != null ? Math.round((p.niva_efter - p.niva_fore) * 10) / 10 : null;
   const tre: [Tal, Tal, Tal] = [
     { varde: `${ratt} av ${p.antal}`, etikett: HEM.klart.talRatt },
     p.typ === 'riktat' || delta == null
-      ? { varde: p.niva_efter != null ? decimal(p.niva_efter) : decimal(s.niva ?? 0), etikett: 'nivå, oförändrad' }
+      ? { varde: p.niva_efter != null ? nivaKort(p.niva_efter) : nivaKort(s.niva ?? 0), etikett: 'nivå, oförändrad' }
       : {
           varde: delta === 0 ? '±0' : `${delta > 0 ? '+' : '−'}${decimal(Math.abs(delta))}`,
-          etikett: HEM.klart.talNiva(decimal(p.niva_fore!)),
+          etikett: HEM.klart.talNiva(nivaKort(p.niva_fore!)),
           koppar: delta > 0,
         },
     { varde: `${p.over_tid ?? 0} av ${p.antal}`, etikett: HEM.klart.talOver },
@@ -986,8 +987,8 @@ function imorgonText(s: Traningsstatus): string | null {
   const veckodagar = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
   const vd = (d: Dag) => versal(veckodagar[veckodag(d)]);
   const passText = s.senastePass && s.senastePass.ratt != null && s.senastePass.antal > 0 && s.senastePass.ratt / s.senastePass.antal >= 2 / 3
-    ? 'samma familj, ett steg svårare'
-    : 'ny familj';
+    ? TRANING_COPY.imorgon.familjUpp
+    : TRANING_COPY.imorgon.nyFamilj;
   if (typ === 'vila') {
     let dag = laggTill(imorgon, 1);
     let t = s.plandagar.find((d) => d.dag === dag)?.typ ?? 'pass';
@@ -1025,9 +1026,9 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
           nu: niva,
           fran: s.start?.niva ?? null,
           sikte,
-          etikettNu: HEM.provdag.skala.du(decimal(niva)),
+          etikettNu: HEM.provdag.skala.du(nivaKort(niva)),
           etikettFran: s.start ? HEM.provdag.skala.fran(String(heltal(s.start.niva))) : null,
-          aria: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Sikte: ${decimal(sikte)}.` : ''}`,
+          aria: `Nivåskala 1 till 10. Du: ${decimal(niva)}.${s.start ? ` Mätningen ${datumText(s.start.dag)}: ${decimal(s.start.niva)}.` : ''}${sikte != null ? ` Mål: ${nivaKort(sikte)}.` : ''}`,
         }
       : null;
   const perUppgift = s.format.tidsform === 'per_uppgift';

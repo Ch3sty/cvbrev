@@ -12,9 +12,9 @@ export const UTV = {
   rad: 'Passen flyttar punkten lite, ommätningen mycket.',
   radUtanKurva: 'Resultaten från de klassiska testerna, nivå för nivå.',
   kurvaHjalp: 'Vad är nivån?',
-  stat: { idag: 'nivå i dag', matning: 'mätningen', sikte: 'sikte' },
+  stat: { idag: 'nivå i dag', matning: 'mätningen', sikte: 'mål' },
   nivanUpp: 'Nivån upp',
-  legend: { pass: 'pass', matning: 'mätning och ommätning', general: 'generalrepetition', sikte: 'sikte', marke: 'märke' },
+  legend: { pass: 'pass', matning: 'mätning och ommätning', general: 'generalrepetition', sikte: 'mål', marke: 'märke' },
   utanKurva: {
     titel: 'Nivåkurvan börjar med mätningen.',
     text: 'Tolv uppgifter i logiktestet som anpassar sig efter dina svar. Sedan en punkt per pass.',
@@ -60,14 +60,14 @@ export const UTV = {
 
   tappar: {
     rubrik: 'Var du tappar',
-    bara: 'Gäller logiktestet. Verbalt och numeriskt har inga mönsterfamiljer än.',
-    tomt: 'Familjerna räknas när du gjort mätningen eller ett pass i logiktestet.',
-    tomtTitel: 'Inga familjer än',
+    bara: 'Gäller logiktestet. För text och siffror räknar vi inte mönster än.',
+    tomt: 'Mönstren räknas när du gjort mätningen eller ett pass i logiktestet.',
+    tomtTitel: 'Inga mönster än',
     inget: 'Inget tapp än',
-    ingetText: 'Alla familjer med minst två frågor har gått rätt hittills.',
+    ingetText: 'Alla mönster med minst två frågor har gått rätt hittills.',
     rattAv: (r: number, a: number) => `${r} av ${a}`,
     langsam: 'rätt men långsamt',
-    riktat: (namn: string) => `Riktat pass: ${namn.toLowerCase()}`,
+    riktat: (namn: string) => `Riktat pass: ${namn}`,
     legend: { ratt: 'rätt i tid', langsam: 'rätt men långsamt', svag: 'svagast' },
     aria: (namn: string, r: number, a: number, l: number) =>
       `${namn}: ${r} rätt av ${a}${l ? `, varav ${l} rätt men långsamt` : ''}`,

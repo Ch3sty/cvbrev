@@ -73,7 +73,7 @@ describe('matrisbanken efter våg 3c', () => {
       const fam = new Set(niva.map((q) => q.family))
       for (const f of FAMILJER) expect(fam.has(f.id), f.id).toBe(true)
     }
-    expect(familjNamn('rotation-med-byte')).toBe('Rotation med byte')
+    expect(familjNamn('rotation-med-byte')).toBe('Vrider sig och byter utseende')
     expect(familjNamn('okand')).toBeNull()
   })
 

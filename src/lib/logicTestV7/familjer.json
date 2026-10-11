@@ -1,67 +1,67 @@
 [
   {
     "id": "vridning",
-    "namn": "Vridning",
-    "kort": "En figur vrider sig lika långt för varje ruta.",
+    "namn": "Figuren vrider sig",
+    "kort": "Figuren vrider sig lika mycket för varje ruta.",
     "format": ["pil", "streck från mitten", "månghörning"]
   },
   {
     "id": "monsterrotation",
-    "namn": "Mönster som roterar",
+    "namn": "Hela mönstret vrider sig",
     "kort": "Ett mönster av flera delar vrider sig som en helhet.",
     "format": ["3×3-block", "sektorhjul", "2×2-rutor"]
   },
   {
     "id": "vandring",
-    "namn": "Vandring runt en ram",
-    "kort": "En markering flyttar mellan fasta platser i en ram.",
+    "namn": "Figuren flyttar sig runt kanten",
+    "kort": "En markering flyttar sig steg för steg mellan fasta platser.",
     "format": ["ruta i 2×2", "prick runt en cirkel", "ruta längs kanten i 3×3"]
   },
   {
     "id": "rotation-med-byte",
-    "namn": "Rotation med byte",
+    "namn": "Vrider sig och byter utseende",
     "kort": "Figuren vrider sig och byter samtidigt fyllning, längd eller spets.",
     "format": ["pil", "prick runt en cirkel", "månghörning", "2×2-rutor"]
   },
   {
     "id": "tva-rorelser",
-    "namn": "Två rörelser samtidigt",
-    "kort": "Två saker flyttar sig var för sig, och båda måste följas.",
+    "namn": "Två saker rör sig samtidigt",
+    "kort": "Två delar flyttar sig var för sig, och du måste följa båda.",
     "format": ["former kring en linje", "ruta och prick i 2×2"]
   },
   {
     "id": "latin-antal",
-    "namn": "Antal i rad och kolumn",
-    "kort": "Varje antal finns en gång i varje rad och kolumn.",
+    "namn": "Varje antal en gång per rad",
+    "kort": "Varje antal finns en gång i varje rad och en gång i varje kolumn.",
     "format": ["streck", "streck från mitten", "ringar", "sektorer"]
   },
   {
     "id": "latin-form",
-    "namn": "Form och fyllning i rad och kolumn",
+    "namn": "Varje form en gång per rad",
     "kort": "Varje form, fyllning eller symbol finns en gång i varje rad och kolumn.",
     "format": ["månghörning", "grundform med symbol", "ringar", "prick runt en cirkel", "2×2-rutor"]
   },
   {
     "id": "latin-flera",
-    "namn": "Flera egenskaper i rad och kolumn",
-    "kort": "Två eller tre egenskaper följer var sin ordning i raderna och kolumnerna.",
+    "namn": "Form och antal, en gång var per rad",
+    "kort": "Två eller tre saker, som form och antal, varieras var för sig i raderna och kolumnerna.",
     "format": ["månghörning", "grundform med symbol", "ringar"]
   },
   {
     "id": "overlagring",
-    "namn": "Överlagring",
-    "kort": "Den tredje rutan bildas av de två första: allt, bara det som skiljer eller bara det gemensamma.",
+    "namn": "Två rutor läggs ihop",
+    "kort": "Den tredje rutan bildas av de två första: allt, bara det gemensamma eller bara det som skiljer.",
     "format": ["3×3-block", "2×2-rutor", "streck från mitten", "ringar", "sektorhjul"]
   },
   {
     "id": "spegling",
-    "namn": "Speglingar",
-    "kort": "Rutorna speglas i en linje, ibland två gånger i rad.",
+    "namn": "Figuren speglas",
+    "kort": "Rutan speglas i en linje, ibland två gånger i rad.",
     "format": ["3×3-block", "2×2-rutor", "sektorhjul"]
   },
   {
     "id": "antal-andras",
-    "namn": "Antal som ändras",
+    "namn": "Antalet ökar eller minskar",
     "kort": "Antalet växer, minskar eller läggs ihop från ruta till ruta.",
     "format": ["streck", "streck från mitten", "sektorer"]
   }

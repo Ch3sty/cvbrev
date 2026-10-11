@@ -1,6 +1,6 @@
 /**
  * Hela kurvan (konceptets F1, /dashboard/tester/kurvan): nivån per dag i
- * full höjd med siktet, planraden och provet, legenden i fyra rader och
+ * full höjd med målet, planraden och provet, legenden i fyra rader och
  * små multiplar per testtyp. Personlighetstestet har ingen kurva.
  *
  * Bara matrisnivån har punkter i dag (motorn mäter figurer och mönster);
@@ -20,7 +20,8 @@ import SektRubrik from '@/components/rum/SektRubrik'
 import { SymOrd, SymSiffror, SymPlan } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import type { Traningsstatus } from '@/lib/traning/motor.server'
-import { decimal, kurvansLabel, type FlerTesterIn } from '@/lib/traning/hemvy'
+import { kurvansLabel, type FlerTesterIn } from '@/lib/traning/hemvy'
+import { nivaKort } from '@/lib/traning/pass-copy'
 import { datumText, kortDatum } from '@/lib/traning/rubrik'
 import { dagarMellan } from '@/lib/traning/datum'
 import { HEM, ingarIPaketet, lastAria } from '@/lib/traning/hem-copy'
@@ -84,8 +85,8 @@ export default function Helkurva({ s, fler }: { s: Traningsstatus | null; fler: 
   const sikte = s.plan?.sikte ?? null
   const dagar = dagarMellan(s.start.dag, s.idag)
   const rad = [
-    `${decimal(s.start.niva)} till ${decimal(s.niva)} på ${talord(Math.max(1, dagar), 'en')} ${dagar === 1 ? 'dag' : 'dagar'}.`,
-    sikte != null && prov ? `Sikte ${decimal(sikte)} den ${datumText(prov)}.` : null,
+    `${nivaKort(s.start.niva)} till ${nivaKort(s.niva)} på ${talord(Math.max(1, dagar), 'en')} ${dagar === 1 ? 'dag' : 'dagar'}.`,
+    sikte != null && prov ? `Mål ${nivaKort(sikte)} den ${datumText(prov)}.` : null,
     KURVAN.passFlyttar,
   ]
     .filter(Boolean)

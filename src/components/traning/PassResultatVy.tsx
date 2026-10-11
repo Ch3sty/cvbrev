@@ -91,6 +91,8 @@ export default function PassResultatVy({ vm, onGenomga, onTillbaka, motion = tru
               />
             ) : null}
             <TreTal tal={vm.tal} />
+            {/* Målet på egen rad, aldrig på skalan (copy-efter-lyftet avsnitt 4). */}
+            {vm.malRad ? <p className="mt-3 text-sm font-medium text-vagg-ink">{vm.malRad}</p> : null}
           </div>
           {vm.mening ? <p className="steg s3 mt-3.5 text-meta text-vagg-mjuk">{vm.mening}</p> : null}
         </>
