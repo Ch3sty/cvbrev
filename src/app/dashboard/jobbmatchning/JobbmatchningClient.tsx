@@ -12,8 +12,9 @@
  *   3. Annonser vi läst, med antal och färskhet
  *   4. Träffarna, var och en med matchgrad och två till tre skäl
  *
- * Panelerna binds ihop av tråden (.thread-chain) så att de läses som ett
- * förlopp, inte som fem fristående kort.
+ * Panelerna står i en kolumn med 16 px mellanrum som i alla andra rum.
+ * Trådens kopparlinje (.thread-chain) är borta (art-director 21.2 fråga 6):
+ * koppar är aldrig dekor.
  *
  * Matchningens motor är oförändrad. Jobben hämtas fortfarande av
  * edge-funktionen match-jobs, och vad gratisnivån får se avgörs fortfarande
@@ -995,7 +996,7 @@ export default function JobbmatchningClient({
     <Golv>
     <div className="w-full max-w-[720px]">
       {/* Kedjan: panelerna hänger ihop med tråden och läses som ett förlopp. */}
-      <div className="thread-chain space-y-4 sm:space-y-6">
+      <div className="space-y-4">
         {/* 1. Ditt CV ------------------------------------------------------ */}
         <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <div className="flex items-start gap-3">

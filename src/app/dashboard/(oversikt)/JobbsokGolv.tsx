@@ -37,14 +37,33 @@ export interface JobbsokGolvProps {
 
 const chev = <IkonChev size={20} className="text-ink-3" />
 
-export function SoktaTjansterRader({ tjanster, antal }: { tjanster: SoktTjanst[]; antal: number }) {
+/**
+ * Första raden på dator (art-director 21.2 fråga 3, regeln från 20.5 fråga
+ * 2): bara lyfta kort, en till tre, med samma överkant som Nästa handling.
+ * Sektionsrubriken blir kortets eyebrow i neutral ton. Mobilen ändras inte.
+ */
+export const LYFT_DATOR =
+  'lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:shadow-lyft lg:[&>section]:border-[color:var(--lyft-kant)]'
+
+export function SoktaTjansterRader({
+  tjanster,
+  antal,
+  lyftDator = false,
+}: {
+  tjanster: SoktTjanst[]
+  antal: number
+  /** Lyft kort i första raden på dator, rubriken som eyebrow och "Alla N" i foten. */
+  lyftDator?: boolean
+}) {
   if (tjanster.length === 0) return null
+  const alla = { href: '/dashboard/sokta-tjanster', text: JOBBSOK_HEM.soktaAlla(antal) }
   return (
-    <div className="flex flex-col gap-4">
-      <SektRubrik lank={{ href: '/dashboard/sokta-tjanster', text: JOBBSOK_HEM.soktaAlla(antal) }}>
-        {JOBBSOK_HEM.soktaRubrik}
-      </SektRubrik>
+    <div className={`flex flex-col gap-4 ${lyftDator ? LYFT_DATOR : ''}`}>
+      <div className={lyftDator ? 'lg:hidden' : undefined}>
+        <SektRubrik lank={alla}>{JOBBSOK_HEM.soktaRubrik}</SektRubrik>
+      </div>
       <Rader label={JOBBSOK_HEM.soktaRubrik}>
+        {lyftDator ? <p className="hidden px-4 pb-0 pt-3.5 text-ey text-ink-3 lg:block">{JOBBSOK_HEM.soktaRubrik}</p> : null}
         {tjanster.slice(0, 3).map((t) => (
           <Rad
             key={t.id}
@@ -62,12 +81,24 @@ export function SoktaTjansterRader({ tjanster, antal }: { tjanster: SoktTjanst[]
             }
           />
         ))}
+        {lyftDator ? (
+          <div className="hidden px-4 py-3 lg:block">
+            <Link href={alla.href} className={`${LANK} inline-flex min-h-11 items-center`}>
+              {alla.text}
+            </Link>
+          </div>
+        ) : null}
       </Rader>
     </div>
   )
 }
 
-export function Korsreferens({ traning, idag }: { traning: TraningKors | null; idag: string }) {
+/** Korsreferensen är en statusrad när en nivå finns, annars ett kort. */
+export function korsreferensArStatusrad(traning: TraningKors | null, idag: string): boolean {
+  return korsreferens(traning, idag).variant === 'niva'
+}
+
+export function Korsreferens({ traning, idag, lyftDator = false }: { traning: TraningKors | null; idag: string; lyftDator?: boolean }) {
   const k = korsreferens(traning, idag)
   const klick = () => capture('korsreferens_klick', { fran: 'jobb', till: 'tran', variant: k.variant })
   if (k.variant === 'niva') {
@@ -87,7 +118,10 @@ export function Korsreferens({ traning, idag }: { traning: TraningKors | null; i
       </StatusRow>
     )
   }
+  // Kortet lyfts på dator (21.2 fråga 3 och 7), utan kopparkant: kopparkanten
+  // är betalväggens märke.
   return (
+    <div className={lyftDator ? LYFT_DATOR : undefined}>
     <Kort label={KORS.aldrigMattFraga}>
       <div className="flex items-center gap-3">
         <SymMatris size={40} className="shrink-0 text-ton-ink" />
@@ -101,6 +135,7 @@ export function Korsreferens({ traning, idag }: { traning: TraningKors | null; i
         {KORS.lank}
       </Link>
     </Kort>
+    </div>
   )
 }
 

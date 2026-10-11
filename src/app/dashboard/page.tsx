@@ -14,16 +14,15 @@
  * körd) läses den som tom.
  *
  * Serverdelen: den klientrenderade hemskärmen (DashboardHem) får sin
- * initiala data ur layoutens summering, och aktiviteten strömmas in som en
- * serverkomponent i en Suspense-gräns, så den aldrig väntar på eller
- * fördröjer första målningen.
+ * initiala data ur layoutens summering. Aktiviteten "Det här har du gjort"
+ * är borta från hemmet (art-director 21.2 fråga 8): hemmet visar läget och
+ * nästa handling, rummen sin egen historia. src/lib/dashboard/aktivitet.ts
+ * ligger kvar tills saas-lead bestämt var historiken ska bo.
  */
 
-import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import DashboardHem from './(oversikt)/DashboardHem'
-import HemAktivitet from './(oversikt)/HemAktivitet'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaSummaryForRequest } from '@/lib/dashboard/summaryForRequest'
 import { arLandning, landningsrum, LANDNING_HREF } from '@/lib/rum/jobbsok'
@@ -55,13 +54,5 @@ export default async function DashboardPage({
   const mal = await landningsmal(await searchParams)
   if (mal) redirect(mal)
 
-  return (
-    <DashboardHem
-      aktivitet={
-        <Suspense fallback={null}>
-          <HemAktivitet />
-        </Suspense>
-      }
-    />
-  )
+  return <DashboardHem />
 }

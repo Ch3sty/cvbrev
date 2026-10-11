@@ -13,8 +13,7 @@
  *
  * Träningsfokus (ägarens beslut 2026-09-24): med Träningspaketet (scope
  * tester) och inget CV ersätts A av hälsningen, Nästa handling ur
- * traningsHandling som enda bläckyta, CV:t som textlänk under och
- * aktiviteten. ?cv=1 (textlänken) visar A som vanligt.
+ * traningsHandling som enda bläckyta och CV:t som textlänk under. ?cv=1 (textlänken) visar A som vanligt.
  *
  * Bredden (profil-registrering 2026-09-24): träningsfokus gäller också ett
  * gratiskonto som valde testerna eller intervjun vid registreringen. Valet
@@ -47,7 +46,7 @@ import DashboardHero, { deriveDashboardState } from './DashboardHero';
 import SnabbAtgarder from './SnabbAtgarder';
 import NastaHandling from './NastaHandling';
 import { dagensDatum, halsning } from './HemHuvud';
-import { SoktaTjansterRader, Korsreferens, MerIJobbsoket } from './JobbsokGolv';
+import { SoktaTjansterRader, Korsreferens, MerIJobbsoket, korsreferensArStatusrad } from './JobbsokGolv';
 import Spar from '@/components/rum/Spar';
 import { sparRader, type SoktTjanst } from '@/lib/rum/jobbsok';
 import ProvaOcksa from './ProvaOcksa';
@@ -85,7 +84,7 @@ interface DashboardStats {
   userId?: string;
 }
 
-export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
+export default function DashboardHem() {
   const searchParams = useSearchParams();
   const { successWithMascotAndActivity } = useNotification();
   const { completedSteps, rewardClaimed } = useOnboarding();
@@ -350,6 +349,9 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
   // konceptets lyfta kort (J1). I A är uppladdningen det lyfta kortet (spec
   // 18.3 punkt 2), i B brevet.
   const forstaLyft = traningsFokus || state === 'A' || state === 'B' || (state === 'C' && Boolean(nextAction));
+  // Dator: korten bredvid Nästa handling lyfts med den (21.3 punkt 1).
+  const forstaRadLyft = state === 'C' && Boolean(nextAction) && purchasedPlan === null;
+  const korsStatus = korsreferensArStatusrad(jobbsok?.traning ?? null, idag);
 
   return (
     // Ingen entré-animation här. Sidbytet tonas redan in en gång i
@@ -389,7 +391,6 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
               </Link>
             }
           />
-          {aktivitet}
         </>
       ) : (
         <DashboardHero
@@ -429,10 +430,11 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
       {state === 'C' && (
         <>
           {/* J1 och J2 (våg 4): Nästa handling som lyft kort, sedan de
-              sökta tjänsterna som rader och korsreferensen till
-              Rekryteringstester. På dator tre spalter; bara Nästa handling
-              överlappar väggen, så att rubrikerna i de andra spalterna
-              aldrig hamnar på väggen. */}
+              sökta tjänsterna och korsreferensen till Rekryteringstester.
+              På dator (21.2 fråga 3): första raden består bara av lyfta
+              kort med samma överkant; rubriken flyttar in i kortet som
+              eyebrow. Är korsreferensen en statusrad står den i andra raden
+              över hela bredden. Mobilen ändras inte. */}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start lg:gap-6">
             {nextAction ? (
               <NastaHandling
@@ -442,9 +444,14 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
                 utanOverlapp={purchasedPlan !== null}
               />
             ) : null}
-            <SoktaTjansterRader tjanster={tjanster} antal={summary?.sidomeny?.ansokningar ?? appSummary.total} />
-            <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} />
+            <SoktaTjansterRader
+              tjanster={tjanster}
+              antal={summary?.sidomeny?.ansokningar ?? appSummary.total}
+              lyftDator={forstaRadLyft}
+            />
+            {korsStatus ? null : <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} lyftDator={forstaRadLyft} />}
           </div>
+          {korsStatus ? <Korsreferens traning={jobbsok?.traning ?? null} idag={idag} /> : null}
 
           {/* Kvoterna som en rad. Premium får null. */}
           <QuotaNudgeRow isPremium={isPremium} />
@@ -453,8 +460,6 @@ export default function DashboardHem({ aktivitet }: { aktivitet?: ReactNode }) {
             matchningarNya={jobbsok?.matchningarNya ?? null}
             bliUpptacktSynlig={jobbsok?.bliUpptacktSynlig ?? false}
           />
-
-          {aktivitet}
 
           {/* Utanför de fem: visas bara när kontaktuppgifter faktiskt saknas. */}
           <ProfilKomplettering />
