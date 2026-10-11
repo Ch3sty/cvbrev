@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
               <strong className="font-semibold text-white">Viktigt om CV-innehåll och Personuppgifter:</strong> Vi har **ingen avsikt** att samla in eller behandla känsliga personuppgifter (såsom personnummer, fullständig adress, etc.) som finns i ditt CV. **Innan du laddar upp ditt CV måste du intyga att du har tagit bort sådana personuppgifter.** Även om du tekniskt kan redigera bort uppgifter i textversionen senare, uppmanar vi dig starkt att göra detta *innan* uppladdning. Se avsnitt 3 för mer information om varför detta är viktigt.
             </li>
             <li>
-              <strong className="font-semibold text-white">Användningsdata (Exempel):</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. [Specificera om ni använder analysverktyg som Vercel Analytics/Google Analytics].
+              <strong className="font-semibold text-white">Användningsdata (Exempel):</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. Användningsstatistiken samlas in med PostHog (EU). Själva tjänsten drivs hos Vercel.
             </li>
             <li>
               <strong className="font-semibold text-white">Kommunikation:</strong> Om du kontaktar oss (t.ex. via e-post) kan vi spara korrespondensen för att kunna hjälpa dig.
@@ -78,10 +78,10 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc list-inside space-y-3 mb-4 text-gray-300 pl-4">
             <li>
-              <strong className="font-semibold text-white">För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi **textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att generera personliga brev via OpenAI:s API.**
+              <strong className="font-semibold text-white">För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi **textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att skapa personliga brev, analysera CV:t och matcha jobb via Google (Gemini API).**
             </li>
             <li>
-              <strong className="font-semibold text-white">Viktig Information om OpenAI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till OpenAI:s tjänst via deras API. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det **avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.** Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till OpenAI för generering.
+              <strong className="font-semibold text-white">Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). Innan texten skickas byter vi ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. Laddar du upp en inskannad PDF utan textlager läser samma tjänst av sidorna innan texten går att maska. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det **avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.** Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
             </li>
             <li>För att hantera ditt konto och din eventuella prenumeration (baserat på information från Stripe).</li>
             <li>För att förbättra och optimera Tjänsten (genom analys av t.ex. användningsdata).</li>
@@ -108,7 +108,7 @@ export default function PrivacyPolicyPage() {
                     <strong className="font-semibold">Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för {PREMIUM}. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
                   </li>
                   <li>
-                    <strong className="font-semibold">OpenAI:</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till OpenAI:s API för att möjliggöra genereringen av det personliga brevet.
+                    <strong className="font-semibold">Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen, med namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer utbytta mot platshållare, skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen.
                   </li>
               </ul>
                <p className="mt-2 text-sm text-gray-400">Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är kontraktsmässigt bundna att skydda din information och inte använda den för andra ändamål.</p>
@@ -133,7 +133,7 @@ export default function PrivacyPolicyPage() {
           </p>
            <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
                <li><strong className="font-semibold text-white">Nödvändiga cookies:</strong> Krävs för grundläggande funktioner som inloggning och sessionshantering.</li>
-               <li><strong className="font-semibold text-white">Prestanda/Analys cookies (om tillämpligt):</strong> Hjälper oss förstå hur Tjänsten används så vi kan förbättra den (t.ex. via [Namnge verktyg om ni använder]).</li>
+               <li><strong className="font-semibold text-white">Prestanda/Analys cookies (om tillämpligt):</strong> Hjälper oss förstå hur Tjänsten används så vi kan förbättra den (PostHog, med lagring inom EU).</li>
            </ul>
            <p className="text-gray-300 leading-relaxed">
             Du kan hantera dina cookie-inställningar via din webbläsare.

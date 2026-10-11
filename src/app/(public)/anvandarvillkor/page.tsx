@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link'; // Kan behövas för länkar i texten
-import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans';
+import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans';
 
 const PREMIUM = paketNamn(SALD_PLAN);
+const KORT = paketKort();
 const PRIS = prisPeriod(SALD_PLAN);
 
 export const metadata: Metadata = {
@@ -75,10 +76,10 @@ export default function TermsOfServicePage() {
             Du är ensam ansvarig för all information, text (inklusive CV-innehåll och jobbannonser) och filer som du laddar upp, klistrar in, genererar, sparar eller på annat sätt gör tillgänglig via Tjänsten ("Användarinnehåll").
           </p>
            <p className="text-gray-300 leading-relaxed mb-4">
-            <strong className="font-semibold text-white">Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy, använder Tjänsten OpenAI:s API för att generera brev. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till OpenAI. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, **kräver vi att du, innan du laddar upp ditt CV, noggrant granskar och tar bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Du måste intyga att du har gjort detta vid uppladdning.** Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till OpenAI. Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
+            <strong className="font-semibold text-white">Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy använder Tjänsten Google (Gemini API) för att skapa personliga brev, analysera CV:n och matcha jobb. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till Google (Gemini API), efter att vi bytt ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, **kräver vi att du, innan du laddar upp ditt CV, noggrant granskar och tar bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Du måste intyga att du har gjort detta vid uppladdning.** Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till Google (Gemini API). Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
           </p>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Genom att tillhandahålla Användarinnehåll ger du oss en begränsad, global, icke-exklusiv, royaltyfri licens att använda, lagra, reproducera och bearbeta ditt Användarinnehåll (inklusive att skicka det till AI-tjänster som OpenAI) **uteslutande i syfte att tillhandahålla och förbättra Tjänsten åt dig.** Du behåller äganderätten till ditt ursprungliga CV och de brev som genereras baserat på din input.
+            Genom att tillhandahålla Användarinnehåll ger du oss en begränsad, global, icke-exklusiv, royaltyfri licens att använda, lagra, reproducera och bearbeta ditt Användarinnehåll (inklusive att skicka det till AI-tjänster som Googles Gemini API) **uteslutande i syfte att tillhandahålla och förbättra Tjänsten åt dig.** Du behåller äganderätten till ditt ursprungliga CV och de brev som genereras baserat på din input.
           </p>
            <p className="text-gray-300 leading-relaxed">
             Du garanterar att ditt Användarinnehåll inte bryter mot lag, upphovsrätt, sekretess eller andra rättigheter tillhörande tredje part.
@@ -116,7 +117,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">7. Prenumeration och betalning</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Det vi säljer är {PREMIUM}, en löpande prenumeration som kostar {PRIS}. Priset står också i kassan innan du betalar, och det är det priset du godkänner när du köper.
+            Det vi säljer är {PREMIUM}, en löpande prenumeration som kostar {PRIS}. Priset står i kassan innan du betalar, och det är det pris du godkänner när du köper.
           </p>
           <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
             <li>
@@ -126,16 +127,16 @@ export default function TermsOfServicePage() {
               <strong className="font-semibold text-white">Period och förnyelse:</strong> {PREMIUM} betalas i förskott för en månad i taget. Prenumerationen förnyas automatiskt på samma datum varje månad tills du säger upp den.
             </li>
             <li>
-              <strong className="font-semibold text-white">Uppsägning:</strong> Du kan säga upp prenumerationen när som helst i ditt konto under Prenumeration, eller genom att kontakta oss. Uppsägningen gäller från slutet av den period du redan har betalat, och fram till dess har du tillgång till allt som ingår.
+              <strong className="font-semibold text-white">Uppsägning:</strong> Du kan säga upp prenumerationen när som helst i ditt konto under Prenumeration, eller genom att kontakta oss. Uppsägningen börjar gälla när den period du redan har betalat tar slut. Fram till dess har du tillgång till allt som ingår, och inget mer dras.
             </li>
             <li>
-              <strong className="font-semibold text-white">Ångerrätt och återbetalning:</strong> När du köper väljer du att starta direkt, och då gäller inte ångerrätten på fjorton dagar eftersom innehållet börjar levereras med en gång. Betalda perioder återbetalas inte, utom där lagen kräver det. Säger du upp dras inget mer.
+              <strong className="font-semibold text-white">Ångerrätt och återbetalning:</strong> I kassan samtycker du till att {KORT} startar direkt och bekräftar att ångerrätten på fjorton dagar därmed inte gäller, eftersom innehållet börjar levereras med en gång. Betalda perioder återbetalas inte, utom där lagen kräver det.
             </li>
             <li>
               <strong className="font-semibold text-white">Tidigare köp:</strong> Har du köpt något av de paket vi sålde tidigare, till exempel en veckoprenumeration eller ett engångsköp på ett dygn, löper det ut som vanligt enligt villkoren som gällde när du köpte det.
             </li>
             <li>
-              <strong className="font-semibold text-white">Prisändringar:</strong> Vi förbehåller oss rätten att ändra priset för {PREMIUM}. En prisändring gäller från nästa period efter att vi har meddelat dig via e-post och i webbappen.
+              <strong className="font-semibold text-white">Prisändringar:</strong> Vi kan ändra priset på {PREMIUM}. En prisändring gäller tidigast från nästa period efter att vi har meddelat dig via e-post och i webbappen, och du kan alltid säga upp innan den börjar gälla.
             </li>
           </ul>
         </section>
@@ -162,7 +163,7 @@ export default function TermsOfServicePage() {
           </p>
            <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
                <li>Din åtkomst till eller användning av, eller oförmåga att få åtkomst till eller använda Tjänsten.</li>
-               <li>Något uppförande eller innehåll från tredje part på Tjänsten (inklusive AI-svar från OpenAI).</li>
+               <li>Något uppförande eller innehåll från tredje part på Tjänsten (inklusive AI-svar från Googles Gemini API).</li>
                <li>Något innehåll som erhållits från Tjänsten.</li>
                <li>Obehörig åtkomst, användning eller ändring av dina överföringar eller ditt innehåll.</li>
            </ul>
