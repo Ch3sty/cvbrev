@@ -16,12 +16,12 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/server'
 import { isTrack, type Track } from '@/lib/onboarding/program'
-import { saljbarPlan } from '@/lib/plans/plans'
+import { SALD_PLAN, paketNamn, saljbarPlan } from '@/lib/plans/plans'
 import ValjSparClient from './ValjSparClient'
 import { HOPPAT_PARAM } from '@/components/registrering/intent'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 
-export const metadata = { title: 'Prenumeration' }
+export const metadata = { title: paketNamn(SALD_PLAN) }
 
 /** Platsen ur adressen, bara gemener, siffror, understreck och bindestreck. */
 function lasPlats(v: unknown): string | null {
