@@ -336,7 +336,8 @@ export default function PreviewStep({
 
           <FontSelector selectedFont={selectedFont} onFontChange={onFontChange} isPremium={isPremium} />
 
-          <div className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
+          {/* Brevet är vitt papper i båda lägena (.dokument, spec 13.1), som i Mina brev. */}
+          <div className="dokument rounded-xl border border-kant bg-white p-4 sm:p-6">
             {isRegeneratingTemplate ? (
               <LoadingSkeleton
                 variant="writing"
