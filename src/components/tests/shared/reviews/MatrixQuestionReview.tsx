@@ -45,7 +45,13 @@ const AVANCERAD_CATEGORIES: Record<string, string> = {
   'v7-q15-tile-xor': 'Set-operationer',
 }
 
-function categoryFor(slug: string, id: string): string {
+/**
+ * Mönstertypen: familjens namn ur banken (spec-rummen avsnitt 2, våg 3a).
+ * Regexen på id:t står kvar som fallback för V5-frågor utan familj.
+ */
+function categoryFor(slug: string, id: string, family?: string | null): string {
+  const namn = familjNamn(family)
+  if (namn) return namn
   if (slug === 'matrislogik-avancerad') {
     return AVANCERAD_CATEGORIES[id] ?? 'Övrigt'
   }
@@ -122,7 +128,7 @@ export default function MatrixQuestionReview({
   /* Styrkor och svagheter per kategori. */
   const byCategory: Record<string, { correct: number; total: number }> = {}
   questions.forEach((q) => {
-    const cat = categoryFor(slug, q.id)
+    const cat = categoryFor(slug, q.id, q.family)
     byCategory[cat] ??= { correct: 0, total: 0 }
     byCategory[cat].total += 1
     if (answers.find((a) => a.q_id === q.id)?.correct) byCategory[cat].correct += 1
