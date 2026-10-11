@@ -89,7 +89,7 @@ export default function DashboardHero({ state, userId, onCvUploaded, utanOverlap
           Träna på tester
         </Link>
         <Link href="/dashboard/sokta-tjanster" className={LINK}>
-          Följ dina ansökningar
+          Dina sökta tjänster
         </Link>
       </div>
     </section>

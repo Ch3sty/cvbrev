@@ -70,7 +70,7 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
         Svar per CV
       </h3>
       <p className="mt-1 text-sm text-ink-2">
-        Så många av ansökningarna med varje CV som fått svar. Använd det som
+        Så många av de sökta tjänsterna med varje CV som fått svar. Använd det som
         fungerar bäst på de jobb du vill ha mest.
       </p>
 
@@ -100,7 +100,7 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
 
             <p className="mt-1 text-meta tabular-nums text-ink-3">
               {row.replies} svar på {row.applications}{' '}
-              {row.applications === 1 ? 'ansökan' : 'ansökningar'}
+              {row.applications === 1 ? 'sökt tjänst' : 'sökta tjänster'}
             </p>
           </li>
         ))}
@@ -109,8 +109,8 @@ export default function CvComparisonCard({ applications, isLoading }: CvComparis
       {comparison.unknownCvCount > 0 ? (
         <p className="mt-4 border-t border-kant pt-3 text-meta text-ink-3">
           {comparison.unknownCvCount === 1
-            ? '1 ansökan saknar valt CV och räknas inte här.'
-            : `${comparison.unknownCvCount} ansökningar saknar valt CV och räknas inte här.`}{' '}
+            ? '1 sökt tjänst saknar valt CV och räknas inte här.'
+            : `${comparison.unknownCvCount} sökta tjänster saknar valt CV och räknas inte här.`}{' '}
           Välj CV när du loggar, så blir jämförelsen mer träffsäker.
         </p>
       ) : null}

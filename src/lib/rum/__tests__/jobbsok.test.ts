@@ -53,8 +53,29 @@ describe('väggens rad', () => {
   it('säger bara det som finns', () => {
     expect(JOBBSOK_HEM.rad({ oppna: 0, svarIGar: 0, intervju: null, tysta: 0, tystastDagar: null })).toBeNull()
     expect(JOBBSOK_HEM.rad({ oppna: 3, svarIGar: 0, intervju: { company: 'Klarna' }, tysta: 1, tystastDagar: 16 })).toBe(
-      '3 sökta tjänster pågår. Intervju på Klarna. En har varit tyst i 16 dagar.'
+      'Tre sökta tjänster pågår. Intervju på Klarna. En har varit tyst i 16 dagar.'
     )
+    // Talen med bokstäver till och med tolv, siffror därefter (copywriterns våg 4).
+    expect(JOBBSOK_HEM.rad({ oppna: 5, svarIGar: 3, intervju: null, tysta: 2, tystastDagar: 20 })).toBe(
+      'Fem sökta tjänster pågår. Tre nya svar sedan i går. Två har varit tysta i över tolv dagar.'
+    )
+    expect(JOBBSOK_HEM.rad({ oppna: 14, svarIGar: 0, intervju: null, tysta: 0, tystastDagar: null })).toBe('14 sökta tjänster pågår.')
+  })
+})
+
+describe('copywriterns våg 4-texter', () => {
+  it('drar ner, träffarna, spåret och Nästa handling', async () => {
+    const { CV_RUM, BREV_RUM, SPAR, NASTA_FOLJ_UPP, talord } = await import('../copy')
+    expect(CV_RUM.drarNer(4)).toBe('Fyra saker drar ner. Alla går att åtgärda på en kväll.')
+    expect(CV_RUM.drarNer(13)).toBe('13 saker drar ner. Alla går att åtgärda på en kväll.')
+    expect(BREV_RUM.traffar(4, 6)).toBe('Brevet täcker 4 av de 6 krav vi hittade i annonsen.')
+    expect(BREV_RUM.saknas('backend')).toBe('Backend saknas.')
+    expect(SPAR.sokt('15 okt')).toBe('15 okt')
+    expect(SPAR.erbjudande('12 okt')).toBe('12 okt')
+    expect(SPAR.intervjuGjord).toBe('genomförd')
+    expect(NASTA_FOLJ_UPP.titel(3)).toBe('Följ upp tre sökta tjänster')
+    expect(NASTA_FOLJ_UPP.namnTitel('Region Västra Götaland')).toBe('Följ upp Region Västra Götaland')
+    expect(talord(1, true)).toBe('ett')
   })
 })
 

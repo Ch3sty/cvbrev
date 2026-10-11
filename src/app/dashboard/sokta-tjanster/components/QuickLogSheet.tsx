@@ -115,7 +115,7 @@ export default function QuickLogSheet({ open, onClose, onSubmit, initial }: Quic
     'h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1';
 
   return (
-    <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera ansökan' : JOBBSOK.loggaSoktJobb}>
+    <SheetShell open={open} onClose={onClose} title={isEdit ? 'Redigera sökt tjänst' : JOBBSOK.loggaSoktJobb}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="ql-title" className="mb-1 block text-sm font-medium text-ink-2">

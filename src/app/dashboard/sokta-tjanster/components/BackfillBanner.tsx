@@ -102,8 +102,8 @@ export default function BackfillBanner({
 
   const label =
     candidates.length === 1
-      ? 'Lägg in brevet som ansökan'
-      : `Lägg in ${candidates.length} brev som ansökningar`;
+      ? 'Lägg in brevet som sökt tjänst'
+      : `Lägg in ${candidates.length} brev som sökta tjänster`;
 
   // Primär handling i tomt tillstånd: bara knappen, ingen ram, ingen snooze.
   if (variant === 'inline') {
@@ -128,8 +128,8 @@ export default function BackfillBanner({
         <div className="min-w-0">
           <p className="text-kort text-ink-1">
             {candidates.length === 1
-              ? 'Ett av dina brev är inte loggat som ansökan'
-              : `${candidates.length} av dina brev är inte loggade som ansökningar`}
+              ? 'Ett av dina brev är inte loggat som sökt tjänst'
+              : `${candidates.length} av dina brev är inte loggade som sökta tjänster`}
           </p>
           <p className="mt-0.5 text-sm text-ink-2">
             Lägg in dem så är din historik komplett från start.

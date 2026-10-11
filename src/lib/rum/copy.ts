@@ -225,12 +225,17 @@ export const LYFT = {
   },
 } as const
 
-/** Din arbetsstil (spec 18.4 punkt 1). Knapptexten ses över av testansvarig mot gratisnivån. */
+/**
+ * Din arbetsstil (spec 18.4 punkt 1, copywriterns våg 4 punkt 7). Kortet
+ * säger före klicket att grundtestet är gratis och att hela rapporten bygger
+ * på det fördjupade testet. Talen läses ur TEST_CONFIGS, aldrig fasta.
+ */
 export const ARBETSSTIL = {
   rad: 'Hur du arbetar, samarbetar och drivs. Alltid i ord, aldrig i siffror, och den privata delen är bara din.',
-  forstTitel: 'Gör personlighetstestet först',
-  forstText: 'Din arbetsstilsrapport byggs på ditt personlighetstest. Det tar ungefär tio minuter, och det finns inga rätta svar.',
-  forstKnapp: 'Gör personlighetstestet',
+  forstTitel: 'Börja med personlighetstestet',
+  forstText: (grund: { antal: number; minuter: number }, fordjupatAntal: number) =>
+    `Grundtestet är gratis: ${grund.antal} påståenden, cirka ${talord(grund.minuter)} minuter, inga rätta svar. Det ger dina styrkor. Hela rapporten om hur du arbetar bygger på det fördjupade testet med ${fordjupatAntal} påståenden.`,
+  forstKnapp: 'Starta grundtestet',
 } as const
 
 /** Brevvyn, B1-skelettet (spec 16.3.2). */
@@ -295,11 +300,13 @@ export const JOBBSOK_HEM = {
     tystastDagar: number | null
   }): string | null => {
     const delar: string[] = []
-    if (a.oppna > 0) delar.push(a.oppna === 1 ? 'En sökt tjänst pågår.' : `${a.oppna} sökta tjänster pågår.`)
-    if (a.svarIGar > 0) delar.push(a.svarIGar === 1 ? 'Ett nytt svar sedan i går.' : `${a.svarIGar} nya svar sedan i går.`)
+    // Väggens rad är en mening: talen med bokstäver till och med tolv
+    // (copywriterns våg 4 punkt 4). Dagarna är ett mått och står som siffror.
+    if (a.oppna > 0) delar.push(a.oppna === 1 ? 'En sökt tjänst pågår.' : `${Talord(a.oppna)} sökta tjänster pågår.`)
+    if (a.svarIGar > 0) delar.push(a.svarIGar === 1 ? 'Ett nytt svar sedan i går.' : `${Talord(a.svarIGar)} nya svar sedan i går.`)
     if (a.intervju) delar.push(`Intervju på ${a.intervju.company}.`)
     if (a.tysta === 1 && a.tystastDagar !== null) delar.push(`En har varit tyst i ${a.tystastDagar} dagar.`)
-    else if (a.tysta > 1) delar.push(`${a.tysta} har varit tysta i över ${NO_RESPONSE_DAGAR} dagar.`)
+    else if (a.tysta > 1) delar.push(`${Talord(a.tysta)} har varit tysta i över ${talord(NO_RESPONSE_DAGAR)} dagar.`)
     return delar.length ? delar.join(' ') : null
   },
   soktaRubrik: 'Sökta tjänster',
@@ -318,21 +325,25 @@ export const SOKT_META = {
   sokt: (dagar: number) => (dagar === 0 ? 'Sökt i dag. Svar brukar dröja en till två veckor.' : `Sökt för ${dagar} dagar sedan. Väntar svar.`),
   svar: (datum: string) => `Svar ${datum}. Väntar på nästa steg.`,
   kallad: (datum: string) => `Kallad till intervju ${datum}.`,
-  intervjuGjord: (datum: string) => `Intervju gjord ${datum}. Väntar besked.`,
-  provjobbat: (datum: string) => `Provjobbat ${datum}. Väntar besked.`,
+  intervjuGjord: (datum: string) => `Intervju genomförd ${datum}. Väntar på besked.`,
+  provjobbat: (datum: string) => `Provjobbat ${datum}. Väntar på besked.`,
   erbjudande: (datum: string) => `Erbjudande ${datum}.`,
 } as const
 
-/** Spårets etiketter (Spar.tsx). Stationerna står i konceptets ordning. */
+/**
+ * Spårets etiketter (Spar.tsx). Stationerna står i konceptets ordning.
+ * Regel (copywriterns våg 4 punkt 5): etiketten under en station upprepar
+ * aldrig stationens namn; den lägger till det som skiljer, oftast datumet.
+ */
 export const SPAR = {
   stationer: ['Sökt', 'Svar', 'Intervju', 'Erbjudande'] as const,
   tyst: (dagar: number) => `tyst ${dagar} dagar`,
-  sokt: (datum: string) => `sökt ${datum}`,
-  svar: (datum: string) => `svar ${datum}`,
+  sokt: (datum: string) => datum,
+  svar: (datum: string) => datum,
   kallad: (datum: string) => `kallad ${datum}`,
-  intervjuGjord: 'intervju gjord',
+  intervjuGjord: 'genomförd',
   provjobbat: 'provjobbat',
-  erbjudande: 'erbjudande',
+  erbjudande: (datum: string) => datum,
   /** aria-label per rad: "Klarna på intervju" */
   laget: ['sökt', 'har fått svar', 'på intervju', 'har fått erbjudande'] as const,
   aria: (rader: string[]) => `Spåret: ${rader.join(', ')}.`,
@@ -361,8 +372,8 @@ export const KORS = {
 export const MER = {
   matchade: {
     titel: UNDERSIDA.matchadeJobb,
-    meta: 'Jobb som passar ditt CV, med skäl per träff.',
-    metaNya: (n: number) => (n === 1 ? 'En ny träff sedan du tittade senast.' : `${n} nya träffar sedan du tittade senast.`),
+    meta: 'Jobb som passar ditt CV, och varför de passar.',
+    metaNya: (n: number) => (n === 1 ? 'En ny träff sedan sist.' : `${Talord(n)} nya träffar sedan sist.`),
   },
   jobbcoachen: {
     titel: UNDERSIDA.jobbcoachen,
@@ -370,7 +381,7 @@ export const MER = {
   },
   bliUpptackt: {
     titel: UNDERSIDA.bliUpptackt,
-    metaAv: 'Anonym profil mot rekryterare. Du godkänner varje kontakt.',
+    metaAv: 'Rekryterare kan hitta dig, anonymt. Du godkänner varje kontakt.',
     metaPa: 'Profilen är anonym och visas för rekryterare.',
   },
   intervju: {
@@ -383,12 +394,13 @@ export const MER = {
 export const CV_RUM = {
   ringAria: (poang: number) => `Läsbarhetspoäng ${poang} av 100`,
   avHundra: 'av 100',
+  // "På en kväll" är ett mått på arbetet, inte en tid (copywriterns våg 4 punkt 1).
   drarNer: (n: number) =>
     n === 0
       ? 'Inget drar ner just nu.'
       : n === 1
-        ? 'En sak drar ner. Den går att åtgärda i kväll.'
-        : `${n === 2 ? 'Två' : n === 3 ? 'Tre' : n} saker drar ner. Alla går att åtgärda i kväll.`,
+        ? 'En sak drar ner. Den går att åtgärda på en kväll.'
+        : `${Talord(n)} saker drar ner. Alla går att åtgärda på en kväll.`,
   senaste: (namn: string, datum: string) => `Senaste analysen: ${namn}, ${datum}.`,
   vagen: ['utkast', 'analyserat', 'åtgärdat', 'nedladdat'] as const,
   vagenAria: (klara: string[], nasta: string | null) =>
@@ -402,12 +414,13 @@ export const CV_RUM = {
   /** Fyndens namn. */
   fynd: {
     sammanfattning: 'Sammanfattningen',
-    sammanfattningMeta: 'Inledningen säger inte tydligt vem du är som yrkesperson.',
+    // Säg bara det vi vet (copywriterns våg 4 punkt 2): att analysen har ett förslag.
+    sammanfattningMeta: 'Det första rekryteraren läser. Vårt förslag säger tydligare vilken roll du har och vad du kan.',
     roll: (titel: string, foretag: string) => (foretag ? `${titel}, ${foretag}` : titel),
-    rollMeta: 'Beskriver ansvar mer än resultat. Förslaget lägger till utfall och nyckelord.',
+    rollMeta: 'Vårt förslag beskriver rollen med resultat och nyckelord, inte bara ansvar.',
     kompetenser: 'Kompetenser mot kravprofilen',
     kompetenserMeta: (namn: string[]) =>
-      namn.length ? `Saknas i CV:t: ${namn.slice(0, 3).join(', ')}${namn.length > 3 ? ' med flera' : ''}.` : 'Efterfrågade kompetenser saknas i CV:t.',
+      namn.length ? `Saknas i CV:t: ${namn.slice(0, 3).join(', ')}${namn.length > 3 ? ' med flera' : ''}.` : 'Kompetenser ur kravprofilen som inte står i CV:t.',
   },
   minaCvRubrik: UNDERSIDA.minaCv,
   /** Listan på Mina CV (21.2 fråga 1): samma ord som väggens "4 sparade CV". */
@@ -423,11 +436,13 @@ export const CV_RUM = {
 export const BREV_RUM = {
   ey: 'Brevet klart',
   titel: (foretag: string | null) => (foretag ? `Ditt brev till ${foretag}` : 'Ditt personliga brev'),
+  // Ett brev täcker krav (copywriterns våg 4 punkt 3). Talen är ett instrument och står som siffror.
   traffar: (n: number, av: number) =>
-    n === av ? `Det möter alla ${av} krav vi hittade i annonsen.` : `Det möter ${n} av ${av} krav vi hittade i annonsen.`,
-  saknas: (ord: string) => `"${ord}" nämner du inte alls.`,
+    n === av ? `Brevet täcker alla ${av} krav vi hittade i annonsen.` : `Brevet täcker ${n} av de ${av} krav vi hittade i annonsen.`,
+  /** Kravet i den form det står i annonsen, med versal först: "Azure saknas.", "Backend saknas." */
+  saknas: (ord: string) => `${ord.charAt(0).toUpperCase()}${ord.slice(1)} saknas.`,
   traffarAria: (moter: string[], saknas: string[]) =>
-    `Krav i annonsen som brevet möter: ${moter.join(', ') || 'inga'}.${saknas.length ? ` Saknas: ${saknas.join(', ')}.` : ''}`,
+    `Krav i annonsen som brevet täcker: ${moter.join(', ') || 'inga'}.${saknas.length ? ` Saknas: ${saknas.join(', ')}.` : ''}`,
   sparaSokt: 'Spara som sökt tjänst',
   sparaSoktMeta: 'Brevet, annonsen och datumet hamnar i Jobbsöket, så du kan följa upp.',
   sparaKnapp: 'Spara',
@@ -437,6 +452,6 @@ export const BREV_RUM = {
   redanSparad: 'Brevet ligger redan i Sökta tjänster.',
   sparar: 'Sparar',
   laggTill: (krav: string) => `Lägg till ${krav}`,
-  laggTillMeta: 'Kravet står i annonsen men inte i brevet. Nämn det med ett exempel ur ditt CV.',
+  laggTillMeta: 'Står i annonsen men inte i brevet. En mening med ett exempel ur ditt CV räcker.',
   gratis: 'Ett personligt brev om dagen ingår gratis. Nästa i morgon.',
 } as const

@@ -5,6 +5,11 @@ import RumHuvud from '@/components/rum/RumHuvud'
 import Golv from '@/components/rum/Golv'
 import LyftKort from '@/components/rum/LyftKort'
 import { ARBETSSTIL, RUBRIK } from '@/lib/rum/copy'
+import { getTestConfig } from '@/app/dashboard/tester/testConfig'
+
+// Talen i kortet ur TEST_CONFIGS (copywriterns våg 4 punkt 7), aldrig fasta.
+const GRUND = getTestConfig('personlighet-grund')
+const FORDJUPAT = getTestConfig('personlighet-avancerad')
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -49,7 +54,10 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
       <LyftKort
         label={ARBETSSTIL.forstTitel}
         titel={ARBETSSTIL.forstTitel}
-        text={ARBETSSTIL.forstText}
+        text={ARBETSSTIL.forstText(
+          { antal: GRUND?.totalQuestions ?? 50, minuter: GRUND?.minutes ?? 10 },
+          FORDJUPAT?.totalQuestions ?? 120
+        )}
         className="w-full max-w-3xl"
         handling={
           <Link href="/dashboard/tester/personlighet-grund" className={`${KNAPP_PRIMAR} sm:w-auto`}>

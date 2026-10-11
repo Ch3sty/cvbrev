@@ -124,7 +124,7 @@ type TabId = 'ansokningar' | 'statistik' | 'rapport';
 type FilterId = 'alla' | 'vantar' | 'intervju' | 'erbjudande' | 'avslutade';
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: 'ansokningar', label: 'Ansökningar' },
+  { id: 'ansokningar', label: 'Lista' },
   { id: 'statistik', label: 'Statistik' },
   { id: 'rapport', label: 'Rapport' },
 ];
@@ -291,7 +291,7 @@ export default function SoktaTjansterClient({
   const handleCreate = async (input: CreateApplicationInput) => {
     const created = await createApplication(input);
     successWithActivity(
-      'Ansökan loggad.',
+      'Sparad i Sökta tjänster.',
       'application_logged',
       `Loggade ansökan: ${created.job_title} hos ${created.company}`,
       { applicationId: created.id, channel: created.application_channel },
@@ -391,7 +391,7 @@ export default function SoktaTjansterClient({
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   autoComplete="off"
-                  aria-label="Sök bland dina ansökningar"
+                  aria-label="Sök på företag eller tjänst"
                   className="h-11 w-full rounded-lg border border-kant bg-papper pl-9 pr-4 text-base text-ink-1 placeholder:text-ink-3 transition-colors  focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                 />
               </div>
@@ -426,7 +426,7 @@ export default function SoktaTjansterClient({
             />
           ) : filteredApplications.length === 0 ? (
             <EmptyState
-              title="Inga ansökningar matchar filtret"
+              title="Inga sökta tjänster matchar filtret"
               description="Prova ett annat filter eller rensa sökningen."
               action={
                 <button
@@ -509,7 +509,7 @@ function EmptyApplications({
             ? 'Vi hittade 1 brev du kan lägga in'
             : `Vi hittade ${candidates.length} brev du kan lägga in`
         }
-        description="Du har redan skrivit dem här. Lägg in dem som ansökningar, så har du en komplett historik från start och slipper skriva in allt på nytt."
+        description="Du har redan skrivit dem här. Lägg in dem som sökta tjänster, så har du hela historiken från start."
         action={
           <BackfillBanner variant="inline" candidates={candidates} onImported={onImported} />
         }
@@ -519,7 +519,7 @@ function EmptyApplications({
             onClick={onLog}
             className="text-sm font-medium text-ink-2 underline-offset-4 transition-colors hover:text-ink-1 hover:underline"
           >
-            Logga en ansökan manuellt
+            Logga en sökt tjänst själv
           </button>
         }
       />
@@ -529,7 +529,7 @@ function EmptyApplications({
   return (
     <EmptyState
       illustration={IlluIngaAnsokningar}
-      title="Inga ansökningar än"
+      title="Inga sökta tjänster än"
       description="Logga den första så håller vi koll på svaren, räknar din statistik och sammanställer månaden åt Arbetsförmedlingen."
       action={
         <button
@@ -537,7 +537,7 @@ function EmptyApplications({
           onClick={onLog}
           className={`${KNAPP_PRIMAR} sm:w-auto`}
         >
-          Logga din första ansökan
+          Logga din första sökta tjänst
         </button>
       }
     />

@@ -181,7 +181,7 @@ export default function ApplicationDetailClient({
       throw new Error(json.error || 'Kunde inte uppdatera ansökan');
     }
     await load();
-    success('Ansökan uppdaterad.', 2500);
+    success('Sparat.', 2500);
   };
 
   const handleDeleteApplication = async () => {
@@ -197,10 +197,10 @@ export default function ApplicationDetailClient({
     // ansökan landat (väggens höjd ändras då).
     return (
       <>
-        <VaggLaddar label="Läser in ansökan" />
+        <VaggLaddar label="Läser in tjänsten" />
         <Golv key="laddar">
           <div className="w-full max-w-3xl space-y-4">
-            <LoadingSkeleton variant="card" label="Läser in ansökan" />
+            <LoadingSkeleton variant="card" label="Läser in tjänsten" />
             <LoadingSkeleton variant="list" count={3} label="Läser in händelser" />
           </div>
         </Golv>
@@ -428,7 +428,7 @@ export default function ApplicationDetailClient({
         onCancel={() => setEventToDelete(null)}
         onConfirm={() => (eventToDelete ? handleDeleteEvent(eventToDelete) : undefined)}
         title="Ta bort händelsen?"
-        description="Statusen räknas om från de händelser som är kvar. Själva ansökan ligger kvar."
+        description="Statusen räknas om från de händelser som är kvar. Tjänsten ligger kvar."
         confirmLabel="Ta bort händelsen"
         destructive
       />
@@ -437,9 +437,9 @@ export default function ApplicationDetailClient({
         open={confirmDeleteApplication}
         onCancel={() => setConfirmDeleteApplication(false)}
         onConfirm={handleDeleteApplication}
-        title="Ta bort hela ansökan?"
-        description="Ansökan och hela dess historik försvinner, och den räknas inte längre med i din statistik eller i aktivitetsrapporten. Det går inte att ångra."
-        confirmLabel="Ta bort ansökan"
+        title="Ta bort tjänsten ur Sökta tjänster?"
+        description="Tjänsten och hela dess historik försvinner, och den räknas inte längre med i statistiken eller i aktivitetsrapporten. Det går inte att ångra."
+        confirmLabel="Ta bort"
         destructive
       />
     </div>

@@ -54,7 +54,7 @@ export function sparRad(t: SoktTjanst): SparRad {
   else if (t.status === 'interview_invited') etikett = datum ? SPAR.kallad(datum) : null
   else if (t.status === 'interview_completed') etikett = SPAR.intervjuGjord
   else if (t.status === 'trial_work_completed') etikett = SPAR.provjobbat
-  else if (station === 3) etikett = SPAR.erbjudande
+  else if (station === 3) etikett = datum ? SPAR.erbjudande(datum) : null
   else if (station === 1) etikett = datum ? SPAR.svar(datum) : null
   else etikett = datum ? SPAR.sokt(datum) : null
   const laget = tyst ? `sökt och tyst i ${t.days} dagar` : SPAR.laget[station]
