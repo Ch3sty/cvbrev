@@ -66,7 +66,6 @@ export default function HjalpRad({
 
   const arOppen = oppen ?? lage === 'oppen'
   const fraga = rubrik ?? rutor[0].rubrik
-  const forstaUtanRubrik = rubrik === undefined || rubrik === rutor[0].rubrik
   const panel = variant === 'panel'
 
   return (
@@ -85,7 +84,7 @@ export default function HjalpRad({
         <IkonChev size={20} className="shrink-0 text-ink-3 transition-transform duration-150 group-open:rotate-90 motion-reduce:transition-none" />
       </summary>
       <div className="px-3.5 pb-3.5 text-sm leading-[21px] text-ink-2">
-        <HjalpText rutor={rutor} forstaUtanRubrik={forstaUtanRubrik} />
+        <HjalpText rutor={rutor} />
         {doljLank ? (
           <div className="mt-3 flex justify-end border-t border-kant pt-1">
             <button

@@ -16,9 +16,10 @@
  * för väggen (.vagg, .illu-vagg). Samma SVG på alla underlag.
  *
  * Storlek: `size` är bredden i px, höjden följer viewBox (160 × 120 eller
- * 240 × 180). Utan `size` fyller bilden sin ruta (width 100 %, höjden via
- * aspect ratio), så att mobilens "höjd 96, max-bredd 200" kan sättas med
- * klasser.
+ * 240 × 180). Utan `size` och `className` fyller bilden sin rutas bredd
+ * (block h-auto w-full). Med `className` styr klasserna helt, till exempel
+ * mobilens "höjd 96, max-bredd 200": className="h-24 w-full max-w-[200px]";
+ * viewBox centrerar bilden i rutan.
  */
 
 import type { ReactNode } from 'react'
@@ -52,8 +53,7 @@ export function IlluRam({
       viewBox={`0 0 ${w} ${h}`}
       width={size ?? undefined}
       height={size ? Math.round((size * h) / w) : undefined}
-      style={size ? undefined : { width: '100%', height: 'auto', aspectRatio: `${w} / ${h}` }}
-      className={className}
+      className={size ? className : (className ?? 'block h-auto w-full')}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       strokeLinecap="round"

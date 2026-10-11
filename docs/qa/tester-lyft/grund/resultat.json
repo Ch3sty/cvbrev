@@ -1,0 +1,394 @@
+[
+  {
+    "vy": "pixel7-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-gangen",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 1,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "02-popover",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 1,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 346,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "03-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Vad mäter logiktest?"
+      },
+      {
+        "steg": "04-vana",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 0,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "05-dold",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "06-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "07-visa-igen",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 0,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "pixel7-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-gangen",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 1,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "02-popover",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 1,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 346,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "03-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Vad mäter logiktest?"
+      },
+      {
+        "steg": "04-vana",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 0,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "05-dold",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "06-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "07-visa-igen",
+        "horisontellScroll": false,
+        "rader": 2,
+        "oppna": 0,
+        "summaryHojd": [
+          48,
+          48
+        ],
+        "panel": 0,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "desktop-ljust",
+    "steg": [
+      {
+        "steg": "01-forsta-gangen",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 1,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "02-popover",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 1,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 320,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "03-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Vad mäter logiktest?"
+      },
+      {
+        "steg": "04-vana",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 0,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "05-dold",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "06-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      },
+      {
+        "steg": "07-visa-igen",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 0,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#65656e",
+        "illuMjuk": "#dfe3f6"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "vy": "desktop-morkt",
+    "steg": [
+      {
+        "steg": "01-forsta-gangen",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 1,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "02-popover",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 1,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 320,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "03-esc",
+        "popoverStangd": true,
+        "fokusTillbaka": "Vad mäter logiktest?"
+      },
+      {
+        "steg": "04-vana",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 0,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "05-dold",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "06-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "rader": 0,
+        "oppna": 0,
+        "summaryHojd": [],
+        "panel": 0,
+        "iKnapp": 0,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      },
+      {
+        "steg": "07-visa-igen",
+        "horisontellScroll": false,
+        "rader": 3,
+        "oppna": 0,
+        "summaryHojd": [
+          68,
+          68,
+          56
+        ],
+        "panel": 320,
+        "iKnapp": 28,
+        "popover": 0,
+        "illuDim": "#9391a1",
+        "illuMjuk": "#232b55"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  }
+]
