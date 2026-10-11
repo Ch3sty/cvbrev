@@ -236,7 +236,9 @@ async function vy(page, namn, { kopparKravs = true } = {}) {
   resultat.vyer.push(rad)
   const fel = []
   if (k.horisontell) fel.push('horisontell scroll')
-  if (kopparKravs && k.kopparKnapp && !k.kopparSynlig) fel.push(`kopparknappen "${k.kopparKnapp}" kräver scroll (nederkant ${k.kopparBotten} px, fönstret ${k.fonsterHojd} px)`)
+  // Tillägget 2026-10-11: på mobil står knappens nederkant ovanför 620 px.
+  if (kopparKravs && k.kopparKnapp && k.fonsterHojd < 800 && !k.url.includes("installningar") && k.kopparBotten > 620) fel.push(`kopparknappen "${k.kopparKnapp}" nederkant ${k.kopparBotten} px, kravet är under 620`)
+  else if (kopparKravs && k.kopparKnapp && !k.kopparSynlig) fel.push(`kopparknappen "${k.kopparKnapp}" kräver scroll (nederkant ${k.kopparBotten} px, fönstret ${k.fonsterHojd} px)`)
   if (k.general) fel.push('"generalrepetition" i vyn')
   if (k.mittpunktTal.length) fel.push(`tal med mittpunkt: ${k.mittpunktTal.join(' | ')}`)
   if (k.kommaNoll.length) fel.push(`"N,0": ${k.kommaNoll.join(' | ')}`)
@@ -391,13 +393,14 @@ async function kor(browser, form, system) {
     const r = await vy(page, `${pre}-12-hemvy-tre-matpunkter`)
     const k = await page.evaluate(() => ({
       kurva: !!document.querySelector('main svg.kurva[aria-label^="Nivå per dag"]'),
-      form: document.querySelector('[data-form]')?.textContent.trim() ?? null,
+      // Dator: formraden under kurvans rubrik. Mobil: formordet i dagsradens etikett.
+      form: [...document.querySelectorAll('[data-form], [data-dagsrad-mobil]')].find((e) => e.getBoundingClientRect().width > 0)?.textContent.trim() ?? null,
       dagsrad: document.querySelector('main dl dd')?.textContent.trim() ?? null,
     }))
     r.tre = k
     if (!k.kurva) resultat.fel.push(`${pre}: tre punkter men ingen kurva`)
     if (!k.form) resultat.fel.push(`${pre}: tre punkter men ingen formmarkör`)
-    const kurvan = await page.$('[data-form]')
+    const kurvan = await page.$('main svg.kurva')
     if (kurvan) {
       await kurvan.evaluate((e) => e.scrollIntoView({ block: 'center' }))
       await vanta(300)

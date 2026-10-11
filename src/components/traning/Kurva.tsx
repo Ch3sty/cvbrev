@@ -47,8 +47,12 @@ export interface KurvaProps {
   bredd: 'mobil' | 'dator'
   /** Rita kurvan en gång (linjen, ytan, den nya punkten). */
   nyPunkt?: boolean
-  /** 150 (hemvyn) eller 200 (hela kurvan) på mobil. */
-  hojd?: 'hem' | 'full'
+  /**
+   * 150 (hemvyn) eller 200 (hela kurvan) på mobil. 'kompakt' är hemvyn på
+   * mobil, 126: etiketterna "Mål" och "Prov" på en rad ovanför översta
+   * rutlinjen (beslut-hemvy, tillägget 2026-10-11 punkt 5). Bara mobil.
+   */
+  hojd?: 'hem' | 'full' | 'kompakt'
   ariaLabel: string
   /** Utan planraden längst ner. */
   utanPlan?: boolean
@@ -77,8 +81,9 @@ interface Matt {
   r: { pass: number; om: number; senast: number; lyster: number; plan: number; planOm: number; nu: number }
 }
 
-const MATT: Record<'mobil' | 'dator', Record<'hem' | 'full', Matt>> = {
+const MATT: Record<'mobil' | 'dator', Record<'hem' | 'full', Matt> & { kompakt?: Matt }> = {
   mobil: {
+    kompakt: { W: 380, H: 126, x0: 30, xW: 336, yBas: 66, span: 44, planY: 108, ytaBotten: 94, yTopp: 6, r: { pass: 3.5, om: 5.5, senast: 4.5, lyster: 14, plan: 3, planOm: 4.5, nu: 4.5 } },
     hem: { W: 380, H: 150, x0: 30, xW: 336, yBas: 90, span: 44, planY: 132, ytaBotten: 118, yTopp: 14, r: { pass: 3.5, om: 5.5, senast: 4.5, lyster: 14, plan: 3, planOm: 4.5, nu: 4.5 } },
     full: { W: 380, H: 200, x0: 30, xW: 336, yBas: 150, span: 120, planY: 176, ytaBotten: 162, yTopp: 14, r: { pass: 4, om: 6, senast: 5, lyster: 16, plan: 3, planOm: 4.5, nu: 5 } },
   },
@@ -102,7 +107,7 @@ export interface Geometri {
 
 /** Räknar skalorna. Exporterad för testerna. */
 export function kurvansGeometri(p: Pick<KurvaProps, 'punkter' | 'plan' | 'idag' | 'start' | 'prov' | 'sikte' | 'bredd' | 'hojd'>): Geometri {
-  const matt = MATT[p.bredd][p.hojd ?? 'hem']
+  const matt = (p.hojd === 'kompakt' ? MATT[p.bredd].kompakt : undefined) ?? MATT[p.bredd][p.hojd === 'full' ? 'full' : 'hem']
   const forsta = p.start
   const planSista = p.plan.length ? p.plan[p.plan.length - 1].dag : null
   const kandidater = [p.prov ?? null, planSista, p.idag, ...p.punkter.map((q) => q.dag)].filter(Boolean) as Dag[]
@@ -116,7 +121,7 @@ export function kurvansGeometri(p: Pick<KurvaProps, 'punkter' | 'plan' | 'idag' 
   let lo: number
   let hi: number
   let etiketter: number[]
-  if ((p.hojd ?? 'hem') === 'hem') {
+  if ((p.hojd ?? 'hem') !== 'full') {
     lo = Math.max(1, Math.floor(min + 1e-9))
     hi = Math.max(lo + 2, Math.ceil((p.sikte ?? 0) - 1e-9), Math.ceil(max - 1e-9))
     if (hi > 10) {
@@ -217,6 +222,7 @@ export default function Kurva(props: KurvaProps) {
   const g = kurvansGeometri(props)
   const { matt, x, y } = g
   const dator = bredd === 'dator'
+  const kompakt = !dator && props.hojd === 'kompakt'
   const id = `${props.idPrefix ?? 'kurva'}-${bredd}-${props.hojd ?? 'hem'}`
   const dagar = perDag(props.punkter)
   const segs = segment(dagar)
@@ -343,7 +349,19 @@ export default function Kurva(props: KurvaProps) {
               {v}
             </Lapp>
           ))}
-          {sikte != null && (prov || provPasserat) && !provPasserat ? (
+          {kompakt ? (
+            // Ett etikettband: målet och provet på samma rad ovanför översta rutlinjen.
+            prov && !provPasserat ? (
+              <Lapp x={x(prov) - 4} y={matt.yBas - matt.span - 4} W={W} H={H} ankX="slut" ankY="over" className="flex items-baseline gap-3">
+                {sikte != null ? <span className={TXT.sikte}>{K.sikte(fmt(sikte))}</span> : null}
+                <span className={TXT.soft}>{K.prov}</span>
+              </Lapp>
+            ) : !prov && !provPasserat ? (
+              <Lapp x={xSlut} y={matt.yBas - matt.span - 4} W={W} H={H} ankX="slut" ankY="over" className={TXT.soft}>
+                {K.siktetSatts}
+              </Lapp>
+            ) : null
+          ) : sikte != null && (prov || provPasserat) && !provPasserat ? (
             <Lapp x={xSlut - 6} y={sikteKrock ? y(sikte) + 4 : y(sikte) - 3} W={W} H={H} ankX="slut" ankY={sikteKrock ? 'under' : 'over'} className={TXT.sikte}>
               {dator ? K.sikteDator(fmt(sikte)) : K.sikte(fmt(sikte))}
             </Lapp>
@@ -362,7 +380,7 @@ export default function Kurva(props: KurvaProps) {
               {dator && !utanPunktTal ? K.matningDator(fmt(dagar[0].niva)) : K.matning}
             </Lapp>
           ) : null}
-          {prov && !provPasserat ? (
+          {prov && !provPasserat && !kompakt ? (
             <Lapp x={x(prov) - 4} y={matt.yTopp + 1} W={W} H={H} ankX="slut" ankY="over" className={TXT.soft}>
               {K.prov}
             </Lapp>

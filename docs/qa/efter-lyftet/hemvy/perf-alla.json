@@ -1,5 +1,5 @@
 {
-  "tid": "2026-10-11T17:58:49.636Z",
+  "tid": "2026-10-11T18:22:59.083Z",
   "bas": "http://localhost:5392",
   "korningar": 3,
   "resultat": [
@@ -7,12 +7,12 @@
       "namn": "tester/alla",
       "budget": "lista",
       "m": {
-        "lcp": 1128,
+        "lcp": 912,
         "cls": 0.001,
-        "fcp": 720,
+        "fcp": 552,
         "rundturer": 0,
-        "textLangd": 1767,
-        "forfragningar": 69
+        "textLangd": 1748,
+        "forfragningar": 66
       }
     }
   ]

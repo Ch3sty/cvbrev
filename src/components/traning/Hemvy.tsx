@@ -202,14 +202,16 @@ function SektionFor({ s, forstaRad, spann }: { s: Sektion; forstaRad: boolean; s
     <div className={`flex flex-col gap-4 ${lyftDator}`}>
       {s.rubrik ? (
         <div className={forstaRad ? 'lg:hidden' : undefined}>
-          <SektRubrik lank={s.lank}>{s.rubrik}</SektRubrik>
+          <SektRubrik lank={s.lank} lankKlass={s.lankBaraMobil ? 'lg:hidden' : undefined}>
+            {s.rubrik}
+          </SektRubrik>
         </div>
       ) : null}
       <Rader label={s.rubrik}>
         {s.rubrik && forstaRad ? (
           <div className="hidden items-baseline justify-between gap-3 px-4 pb-0 pt-3.5 lg:flex">
             <p className="text-ey text-ink-3">{s.rubrik}</p>
-            {s.lank ? (
+            {s.lank && !s.lankBaraMobil ? (
               <Link href={s.lank.href} className={`${LANK} text-[13px]`}>
                 {s.lank.text}
               </Link>
@@ -232,12 +234,13 @@ function KurvaPaVaggen({ m }: { m: HemModell }) {
     <>
       {v.kurvaRubrik ? (
         <>
-          <div className="mt-[22px] flex items-baseline justify-between gap-3">
+          {/* Mobil: rubrikraden 36 px hög, länken behåller 44 px träffyta (tillägget punkt 4). */}
+          <div className="mt-3 flex h-9 items-center justify-between gap-3 lg:mt-[22px] lg:h-auto lg:items-baseline">
             <p className="min-w-0 truncate text-ey text-vagg-mjuk">{v.kurvaRubrik.text}</p>
             {v.kurvaRubrik.lank ? (
               <Link
                 href={v.kurvaRubrik.lank.href}
-                className={`${LANK_VAGG} inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px]`}
+                className={`${LANK_VAGG} -my-1 inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px] lg:my-0`}
               >
                 {v.kurvaRubrik.lank.text}
               </Link>
@@ -245,7 +248,8 @@ function KurvaPaVaggen({ m }: { m: HemModell }) {
           </div>
           {/* Formen på egen rad, först från tre punkter (punkt 2). */}
           {v.kurvaRubrik.form ? (
-            <p className="-mt-2 flex items-center gap-1.5 text-xs font-medium text-vagg-mjuk" data-form>
+            // På mobil står formen i dagsradens etikett i stället (tillägget punkt 4).
+            <p className="-mt-2 hidden items-center gap-1.5 text-xs font-medium text-vagg-mjuk lg:flex" data-form>
               <i aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-koppar shadow-[0_0_0_3px_rgba(224,122,47,.22)]" />
               {v.kurvaRubrik.form}
             </p>
@@ -255,7 +259,7 @@ function KurvaPaVaggen({ m }: { m: HemModell }) {
       {v.kurva ? (
         <>
           <div className="lg:hidden">
-            <Kurva {...v.kurva} bredd="mobil" utanPunktTal />
+            <Kurva {...v.kurva} bredd="mobil" hojd="kompakt" utanPunktTal />
           </div>
           <div className="hidden max-w-[840px] lg:block">
             <Kurva {...v.kurva} bredd="dator" utanPunktTal />
@@ -309,7 +313,7 @@ export default function Hemvy({ m }: { m: HemModell }) {
     <div data-tillstand={m.tillstand} data-ram={m.ram} className="flex flex-1 flex-col">
       <HemMatning tillstand={matningsvarde(m.tillstand)} />
       <Vagg tat={false} className={v.provdag ? '!pb-9' : undefined}>
-        <Topprad kontext={kontext} />
+        <Topprad kontext={kontext} lagen={<Lagesrad aktiv="plan" plats="topprad" />} />
         <Lagesrad aktiv="plan" />
         {v.provdag ? (
           <div className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-8">
@@ -330,15 +334,20 @@ export default function Hemvy({ m }: { m: HemModell }) {
         ) : (
           <>
             <div className={v.dagsrad ? 'lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-8' : undefined}>
-              <Rubrik titel={v.rubrik} rad={v.rad} liten={v.rubrikLiten} className={v.dagsrad ? 'lg:mt-0' : undefined} />
+              <Rubrik titel={v.rubrik} rad={v.rad} liten={v.rubrikLiten} litenMobil className={v.dagsrad ? 'lg:mt-0' : undefined} />
               {v.dagsrad ? (
                 <div>
                   <Dagsrad
                     className="lg:mt-0"
-                    ring={<Dagsring status={v.dagsrad.ring} label={v.dagsrad.ringLabel} fyllAnimering={m.nyPunkt && v.dagsrad.ring === 'gjord'} />}
+                    ring={<Dagsring status={v.dagsrad.ring} label={v.dagsrad.ringLabel} fyllAnimering={m.nyPunkt && v.dagsrad.ring === 'gjord'} className="h-10 w-10 lg:h-14 lg:w-14" />}
                     tal={v.dagsrad.tal}
                   />
-                  {v.vecka ? <Veckorad status={v.vecka.status} label={v.vecka.label} /> : null}
+                  {/* Veckoraden bara på dator: punktraden under kurvan visar samma dagar (tillägget punkt 2). */}
+                  {v.vecka ? (
+                    <div className="hidden lg:block">
+                      <Veckorad status={v.vecka.status} label={v.vecka.label} />
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
             </div>

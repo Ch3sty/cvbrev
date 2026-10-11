@@ -108,12 +108,22 @@ export interface RadModell {
 export type Sektion =
   /** Tempokortet: ett tal (copy-plan 3.2). */
   | { typ: 'tempo'; tal: Tal; meta?: string; eyebrow?: string }
-  | { typ: 'rader'; nyckel: string; rubrik?: string; lank?: { text: string; href: string }; rader: RadModell[] }
+  | {
+      typ: 'rader';
+      nyckel: string;
+      rubrik?: string;
+      lank?: { text: string; href: string };
+      /** Länken bara under lg: kontextlänken i toppraden på dator (tillägget 2026-10-11 punkt 1). */
+      lankBaraMobil?: boolean;
+      rader: RadModell[];
+    }
   | { typ: 'status'; nyckel: string; text: string; ton: 'neutral' | 'koppar'; lank?: { text: string; href: string } };
 
 export interface Tal {
   varde: string;
   etikett: string;
+  /** Under lg, när etiketten skiljer sig (dagsradens formord, tillägget punkt 4). */
+  etikettMobil?: string;
   koppar?: boolean;
 }
 
@@ -444,6 +454,9 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
     typ: 'rader',
     nyckel: 'provdagen',
     rubrik: HEM.provdagen.rubrik,
+    // På mobil lämnar kontexten ("Alva Logic, 25 okt") toppraden och blir den här länken.
+    lank: prov ? { text: HEM.provdagen.andraDatum, href: TRANING_RUTT.installningarSteg(3) } : undefined,
+    lankBaraMobil: prov ? true : undefined,
     rader: [
       {
         titel: HEM.provdagen.radTitel,
@@ -490,7 +503,9 @@ function dagsradTal(s: Traningsstatus, niva: number): Tal {
   else if (!start || start.dag === s.idag) etikett = HEM.dagsrad.nivaMattIdag;
   else if (start.dag === laggTill(s.idag, -1)) etikett = HEM.dagsrad.nivaMattIgar;
   else etikett = HEM.dagsrad.nivaFran(nivaKort(start.niva));
-  return { varde: nivaKort(niva), etikett };
+  // Från tre punkter bär etiketten formen på mobil; formraden under kurvans rubrik står bara på dator.
+  const etikettMobil = s.form && s.punkter.length >= 3 ? HEM.kurva.form[s.form.form] ?? undefined : undefined;
+  return etikettMobil ? { varde: nivaKort(niva), etikett, etikettMobil } : { varde: nivaKort(niva), etikett };
 }
 
 /** Raden under rubriken. Nivån står i dagsraden, så raden säger den inte (punkt 2). */

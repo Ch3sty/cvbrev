@@ -75,7 +75,9 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(m.vagg.rubrik).toBe('14 dagar till Matrigma')
     // Sifferregeln (beslut-hemvy 2026-10-11 punkt 2): nivån bara i dagsraden, ett tal.
     expect(m.vagg.rad).toBe('Fyra dagar i rad. Dagens pass är kvar.')
-    expect(m.vagg.dagsrad!.tal).toEqual({ varde: '5,4', etikett: 'din nivå, började på 5' })
+    expect(m.vagg.dagsrad!.tal).toMatchObject({ varde: '5,4', etikett: 'din nivå, började på 5' })
+    // Tillägget 2026-10-11 punkt 4: från tre punkter bär etiketten formen på mobil.
+    expect(m.vagg.dagsrad!.tal.etikettMobil).toBeTruthy()
     expect(m.vagg.vecka!.status).toEqual(['tom', 'gjord', 'gjord', 'gjord', 'gjord', 'nu', 'vila'])
     // copy-plan 3.8: nivån är huvudtalet på väggen, eyebrowen säger den inte.
     expect(m.lyft.eyebrow).toBe('Dagens pass')
@@ -158,7 +160,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
     expect(t.lyft.titel).toBe('Mät din nivå. Cirka 5 minuter.')
-    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.')
+    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Efteråt vet du din nivå.')
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
     const a = modell('1as')
     expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
@@ -180,7 +182,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
     expect(modell('1a').vagg.kurvaMeta).toBe(
-      'Din första punkt på kurvan kommer när du mätt din nivå. De grå dagarna ingår i Premium: passen från dag två, nivåmätningarna och övningsprovet.'
+      'De grå dagarna ingår i Premium.'
     )
   })
   it('provdagen: samma råd för alla format, Matrigma-raden borta (19.3 fråga 4)', () => {

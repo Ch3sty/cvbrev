@@ -53,7 +53,7 @@ export default function AllaTesterVagg({
 }) {
   return (
     <Vagg tat={tat}>
-      <Topprad />
+      <Topprad lagen={<Lagesrad aktiv="alla" plats="topprad" />} />
       <Lagesrad aktiv="alla" />
       <div className={steg ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end lg:gap-8' : undefined}>
         <div className="min-w-0">

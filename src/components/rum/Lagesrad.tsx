@@ -21,13 +21,22 @@ import { markeraRumYta } from './rumMatning'
 
 export type Lage = 'plan' | 'alla'
 
-export default function Lagesrad({ aktiv }: { aktiv: Lage }) {
+/**
+ * På mobil står raden i Toppraden i stället för rummets namn (tillägget
+ * 2026-10-11 punkt 1): `plats="topprad"` ritas bara under lg, den egna raden
+ * på väggen bara från lg.
+ */
+export default function Lagesrad({ aktiv, plats = 'vagg' }: { aktiv: Lage; plats?: 'vagg' | 'topprad' }) {
   const lagen: { id: Lage; text: string; href: string }[] = [
     { id: 'plan', text: LAGESRAD.plan, href: TRANING_RUTT.hem },
     { id: 'alla', text: LAGESRAD.alla, href: TRANING_RUTT.alla },
   ]
   return (
-    <nav aria-label={LAGESRAD.etikett} data-lagesrad={aktiv} className="mb-2 flex h-11 items-stretch gap-6">
+    <nav
+      aria-label={LAGESRAD.etikett}
+      data-lagesrad={aktiv}
+      className={plats === 'topprad' ? 'flex h-11 items-stretch gap-6 lg:hidden' : 'mb-2 hidden h-11 items-stretch gap-6 lg:flex'}
+    >
       {lagen.map((l) => {
         const ar = l.id === aktiv
         return (
@@ -35,6 +44,8 @@ export default function Lagesrad({ aktiv }: { aktiv: Lage }) {
             key={l.id}
             href={l.href}
             aria-current={ar ? 'page' : undefined}
+            // Sidan man står på förhämtas aldrig (tillägget 2026-10-11, hemvyns LCP).
+            prefetch={ar ? false : undefined}
             onClick={ar ? undefined : () => markeraRumYta('lagesrad')}
             className={`inline-flex items-center font-display text-[15px] font-semibold tracking-[-.01em] ${
               ar ? 'text-vagg-ink' : 'text-vagg-mjuk'

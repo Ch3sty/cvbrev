@@ -35,6 +35,11 @@ export interface ToppradProps {
   stang?: { href?: string; onClick?: () => void; etikett: string }
   /** Väggen (standard) eller golvet. */
   pa?: 'vagg' | 'golv'
+  /**
+   * Rummets lägen (Lagesrad) i stället för namnet på mobil; kontexten lämnar
+   * toppraden under lg (beslut-hemvy, tillägget 2026-10-11 punkt 1).
+   */
+  lagen?: ReactNode
 }
 
 /** Triggerns gamla platshållare räknas som saknat namn. */
@@ -44,7 +49,7 @@ function saknasNamn(value: string | null | undefined): boolean {
   return t === '' || t.toLowerCase() === 'ej angivet'
 }
 
-export default function Topprad({ brand, kontext, stang, pa = 'vagg' }: ToppradProps) {
+export default function Topprad({ brand, kontext, stang, pa = 'vagg', lagen }: ToppradProps) {
   const pathname = usePathname() ?? '/dashboard'
   const { user } = useRum()
   const { summary } = useDashboardData()
@@ -91,16 +96,19 @@ export default function Topprad({ brand, kontext, stang, pa = 'vagg' }: ToppradP
           </button>
         )
       ) : (
+        <>
+        {lagen ? <span className="min-w-0 flex-1 lg:hidden">{lagen}</span> : null}
         <span
-          className={`min-w-0 flex-1 truncate font-display text-[15px] font-bold tracking-[-.01em] ${
+          className={`min-w-0 flex-1 truncate font-display text-[15px] font-bold tracking-[-.01em] ${lagen ? 'hidden lg:block ' : ''}${
             pavagg ? 'text-vagg-mjuk' : 'text-ink-3'
           }`}
         >
           <b className={`font-display font-bold ${pavagg ? 'text-vagg-ink' : 'text-ink-1'}`}>{namnText}</b>
         </span>
+        </>
       )}
       {stang ? <span className="flex-1" /> : null}
-      {kontext ? <span className="shrink-0">{kontext}</span> : null}
+      {kontext ? <span className={lagen ? 'hidden shrink-0 lg:inline' : 'shrink-0'}>{kontext}</span> : null}
       <div className="flex shrink-0 items-center">
         <MessagesHeaderButton pa={pa} />
         <NotificationBell pa={pa} />

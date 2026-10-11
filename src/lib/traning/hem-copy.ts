@@ -55,17 +55,19 @@ export const HEM = {
     status: 'Inget datum än. Går att sätta när som helst.',
   },
   ny: {
-    rad: 'Vi börjar med att mäta var du står. Sedan ett pass om dagen fram till provdagen.',
+    /* Radbudget på mobil (beslut-hemvy, tillägget 2026-10-11 punkt 6): raden under rubriken och kurvmetan högst en rad. */
+    rad: 'Först mäter vi var du står.',
     planRubrik: 'Planen',
     /** 1a gratis (20.5 fråga 4): märkena är grå och fyllda, inte ihåliga. */
     planMetaGratis: () =>
-      `Din första punkt på kurvan kommer när du mätt din nivå. De grå dagarna ingår i ${paketKort()}: passen från dag två, nivåmätningarna och övningsprovet.`,
-    planMeta: 'Din första punkt på kurvan kommer när du mätt din nivå. Ihåliga märken är kommande dagar, luckorna är söndagar.',
+      `De grå dagarna ingår i ${paketKort()}.`,
+    planMeta: 'Ihåliga märken är dagarna som kommer.',
   },
   matning: {
     eyebrow: 'Första passet',
     titel: 'Mät din nivå. Cirka 8 minuter.',
-    text: 'Tolv figuruppgifter, från lätta till svåra. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.',
+    /* Det lyfta kortets text högst två rader på mobil (tillägget punkt 7). */
+    text: 'Tolv figuruppgifter, från lätta till svåra. Efteråt vet du din nivå.',
     knapp: 'Mät min nivå, 8 min',
     gratis: `Mätningen är gratis, med eller utan ${paketKort()}.`,
     /**
@@ -77,7 +79,7 @@ export const HEM = {
     smakprovKnapp: (m: number) => `Mät min nivå, ${m} min`,
     /** 1as/T1s (testansvarig 19.5 fråga 2): en text, inte två. Ersätter `text` när smakprov finns. */
     smakprovText: (n: number) =>
-      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet. Ingen förklaring under tiden. Efteråt vet du din nivå och vilka mönster du tappar på.`,
+      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet. Efteråt vet du din nivå.`,
   },
   /**
    * 1t (19.3 fråga 2): bara siffror eller bara text valt. Passen finns i dag
@@ -95,7 +97,7 @@ export const HEM = {
   ommatning: {
     eyebrow: 'Veckans nivåmätning',
     titel: 'Mät din nivå igen. Cirka 8 minuter.',
-    text: 'Tolv uppgifter, som första gången. Den visar om passen har flyttat dig och ger en tyngre punkt på kurvan än ett vanligt pass.',
+    text: 'Tolv uppgifter, som första gången. Den visar om passen har flyttat dig.',
     knapp: 'Mät igen, 8 min',
     lastText: () => `Nivåmätningarna efter den första ingår i ${paketKort()}.`,
   },
@@ -104,15 +106,15 @@ export const HEM = {
     eyebrow: 'Dagens pass',
     eyebrowGrund: 'Dagens pass på grundnivå',
     temaSaknas: 'Blandade mönster',
-    text: 'Nio uppgifter, ungefär tio minuter. De flesta ligger på din nivå. Vi förklarar varje svar.',
-    textGrund: 'Nio uppgifter på grundnivå, ungefär tio minuter. Vi förklarar varje svar. Dagens grundpass är gratis.',
+    text: 'Nio uppgifter på din nivå, ungefär tio minuter. Vi förklarar varje svar.',
+    textGrund: 'Nio uppgifter, ungefär tio minuter. Dagens grundpass är gratis.',
     knapp: 'Starta dagens pass',
     knappGrund: 'Starta grundpasset',
     /** 17.2: från dag två ingår passen i Premium. */
     lastText: (svagaste: string | null) =>
       svagaste
-        ? `Nio uppgifter på din nivå, med extra övning på det du tappar mest: ${svagaste}. Från dag två ingår passen i ${paketKort()}.`
-        : `Nio uppgifter på din nivå, ungefär tio minuter. Från dag två ingår passen i ${paketKort()}.`,
+        ? `Nio uppgifter, med extra övning på ${svagaste}. Från dag två ingår passen i ${paketKort()}.`
+        : `Nio uppgifter på din nivå. Från dag två ingår passen i ${paketKort()}.`,
     lastFot: `Nivåmätningen, resultatet och genomgången är dina, med eller utan ${paketKort()}.`,
   },
   vila: {
@@ -181,7 +183,7 @@ export const HEM = {
     planOm: 'mät igen',
     planGen: 'övningsprov',
     planGenKort: 'övningsprov',
-    gratisMeta: () => `De grå dagarna ingår i ${paketKort()}: nivåmätningarna efter den första, övningsprovet och kurvans historik.`,
+    gratisMeta: () => `De grå dagarna ingår i ${paketKort()}.`,
   },
   utanDatum: {
     box: 'Sätt ett datum, så lägger vi upp planen fram till provet: pass, övningsprov och vila.',
@@ -211,6 +213,8 @@ export const HEM = {
     /** Metans tredje mening, samma för gratis och betalande (22.4 fråga 2). */
     iPlanen: (datum: string) => `Ligger i planen ${datum} och dagen före provet.`,
     gorEnNu: 'Gör ett nu',
+    /** Sektionens rubriklänk på mobil, i stället för toppradens kontext. */
+    andraDatum: 'Ändra datum',
     angeLeverantor: 'Vem gör testet?',
   },
   infor: {

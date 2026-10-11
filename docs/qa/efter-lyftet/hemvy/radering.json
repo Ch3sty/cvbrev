@@ -1,10 +1,10 @@
 {
-  "tid": "2026-10-11T17:59:06.987Z",
+  "tid": "2026-10-11T18:26:44.349Z",
   "konton": [
     {
-      "nyckel": "m360-ljust-ny-1791741357867",
-      "email": "qa-hemvy-1791741357867@jobbcoach-qa.test",
-      "id": "a366f411-9181-4a44-bc60-b78e5bd7bc98",
+      "nyckel": "m360-ljust-ny-1791743068602",
+      "email": "qa-hemvy-1791743068602@jobbcoach-qa.test",
+      "id": "2b1a25ac-0cfc-4cb7-889d-9e52b21124f0",
       "rader": {
         "test_planer": 1,
         "test_milstolpar": 1,
@@ -17,9 +17,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "m360-ljust-tre-1791741397030",
-      "email": "qa-hemvy-1791741397030@jobbcoach-qa.test",
-      "id": "db08259c-0fe9-40da-9b85-29a8d7c3fdde",
+      "nyckel": "m360-ljust-tre-1791743106014",
+      "email": "qa-hemvy-1791743106014@jobbcoach-qa.test",
+      "id": "027c0592-3a34-457e-8028-2969d8ff0989",
       "rader": {
         "test_planer": 1,
         "test_milstolpar": 1,
@@ -32,9 +32,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "m360-ljust-utan-plan-1791741403119",
-      "email": "qa-hemvy-1791741403119@jobbcoach-qa.test",
-      "id": "8da0afa4-b43b-42fb-9c56-dc2f249d1d37",
+      "nyckel": "m360-ljust-utan-plan-1791743116614",
+      "email": "qa-hemvy-1791743116614@jobbcoach-qa.test",
+      "id": "1e58d9a6-43eb-407b-8606-e8c7e8a339b7",
       "rader": {
         "user_activities": 5,
         "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
@@ -43,9 +43,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "desktop-ljust-ny-1791741410730",
-      "email": "qa-hemvy-1791741410730@jobbcoach-qa.test",
-      "id": "df3e6694-9f3f-456d-b9ed-b3bae898cc75",
+      "nyckel": "desktop-ljust-ny-1791743124402",
+      "email": "qa-hemvy-1791743124402@jobbcoach-qa.test",
+      "id": "29e43e32-0ca0-492a-9194-d9e3b072651f",
       "rader": {
         "test_planer": 1,
         "test_milstolpar": 1,
@@ -58,9 +58,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "desktop-ljust-tre-1791741453074",
-      "email": "qa-hemvy-1791741453074@jobbcoach-qa.test",
-      "id": "513fbc15-2bd5-49fc-b80f-fe8fdf069dc5",
+      "nyckel": "desktop-ljust-tre-1791743162358",
+      "email": "qa-hemvy-1791743162358@jobbcoach-qa.test",
+      "id": "89fc84b0-6b6a-44cf-9d6c-a70723deedf9",
       "rader": {
         "test_planer": 1,
         "test_milstolpar": 1,
@@ -73,9 +73,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "desktop-ljust-utan-plan-1791741460179",
-      "email": "qa-hemvy-1791741460179@jobbcoach-qa.test",
-      "id": "8f72ac43-980b-4b60-9433-3bdee308edf7",
+      "nyckel": "desktop-ljust-utan-plan-1791743170734",
+      "email": "qa-hemvy-1791743170734@jobbcoach-qa.test",
+      "id": "bb01eda8-251c-427a-8127-bde86675d396",
       "rader": {
         "user_activities": 5,
         "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
@@ -84,9 +84,9 @@
       "auth": "raderad"
     },
     {
-      "nyckel": "m360-morkt-tre-1791741467785",
-      "email": "qa-hemvy-1791741467785@jobbcoach-qa.test",
-      "id": "89f9d341-b90c-47bb-a239-8b82f4ac09d8",
+      "nyckel": "m360-morkt-tre-1791743178392",
+      "email": "qa-hemvy-1791743178392@jobbcoach-qa.test",
+      "id": "f577d7d4-e1da-4814-a384-56f963300b1d",
       "rader": {
         "test_planer": 1,
         "test_milstolpar": 1,

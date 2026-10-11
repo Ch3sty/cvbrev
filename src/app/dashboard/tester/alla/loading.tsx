@@ -7,7 +7,7 @@ import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 export default function Loading() {
   return (
     <Vagg tat>
-      <Topprad />
+      <Topprad lagen={<Lagesrad aktiv="alla" plats="topprad" />} />
       <Lagesrad aktiv="alla" />
       <LoadingSkeleton variant="vagg" label="Laddar" />
     </Vagg>

@@ -18,7 +18,7 @@ export default function Loading() {
   return (
     <div className="flex flex-1 flex-col" aria-busy="true">
       <Vagg tat={false}>
-        <Topprad />
+        <Topprad lagen={<Lagesrad aktiv="plan" plats="topprad" />} />
         <Lagesrad aktiv="plan" />
         <div role="status" aria-label="Laddar" className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-8">
           <div className="mt-2">

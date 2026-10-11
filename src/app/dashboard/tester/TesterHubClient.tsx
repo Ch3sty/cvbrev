@@ -59,7 +59,7 @@ function UtvecklingFlik({ las, flikar }: { las: Promise<DinUtvecklingData>; flik
       data={data}
       topprad={
         <>
-          <Topprad />
+          <Topprad lagen={<Lagesrad aktiv="alla" plats="topprad" />} />
           <Lagesrad aktiv="alla" />
         </>
       }
@@ -73,7 +73,7 @@ function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
   return (
     <div className="flex flex-1 flex-col" aria-busy="true">
       <Vagg>
-        <Topprad />
+        <Topprad lagen={<Lagesrad aktiv="alla" plats="topprad" />} />
         <Lagesrad aktiv="alla" />
         <LoadingSkeleton variant="vagg" label="Laddar din utveckling" />
       </Vagg>
