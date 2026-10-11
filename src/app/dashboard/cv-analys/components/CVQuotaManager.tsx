@@ -4,6 +4,8 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { SALD_PLAN } from '@/lib/plans/plans'
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad'
 import { useState, useEffect } from 'react';
 import { Trash2 } from '@/components/illustrations/RumIkoner';
 import { createClient } from '@/lib/supabase/client';
@@ -36,6 +38,9 @@ export default function CVQuotaManager({
   useEffect(() => {
     fetchCVs();
   }, []);
+
+  // Kortet är en betalvägg för gratiskontot: mätningen en gång per montering.
+  useBetalvaggVisad('cv_antal', cvCount >= maxCvs && subscriptionTier === 'free');
 
   const fetchCVs = async () => {
     try {
@@ -104,7 +109,7 @@ export default function CVQuotaManager({
 
       {subscriptionTier === 'free' && (
         <a
-          href={kopstegHref('cv_week')}
+          href={kopstegHref(SALD_PLAN, 'cv_antal')}
           className={`${KNAPP_PRIMAR_SMAL} mt-3`}
         >
           {PAKETRADER.kopCv}

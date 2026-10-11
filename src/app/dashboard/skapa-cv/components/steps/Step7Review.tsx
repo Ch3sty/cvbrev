@@ -3,6 +3,8 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
+import { SALD_PLAN } from '@/lib/plans/plans';
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
@@ -211,6 +213,8 @@ export default function Step7Review({
 
   const selectedTemplateData = getTemplateById(selectedTemplate);
   const isTemplateLocked = selectedTemplateData?.tier === 'premium' && !isPremium;
+  // Den låsta raden med köplänken är en betalvägg (spec-rummen 7).
+  useBetalvaggVisad('mall', isTemplateLocked);
 
   const handleTemplateSelect = (templateId: string) => {
     // Låsta mallar får väljas för förhandsvisning; nedladdningen spärras.
@@ -412,7 +416,7 @@ export default function Step7Review({
             wrap
             label={PAKETRADER.mallIngar}
             action={
-              <Link href={kopstegHref('cv_week')} className="inline-flex min-h-11 items-center text-sm font-medium text-koppar-ink underline decoration-kant-stark underline-offset-4">
+              <Link href={kopstegHref(SALD_PLAN, 'mall')} className="inline-flex min-h-11 items-center text-sm font-medium text-koppar-ink underline decoration-kant-stark underline-offset-4">
                 {PAKETRADER.kopCv}
               </Link>
             }

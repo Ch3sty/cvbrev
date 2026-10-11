@@ -6,6 +6,7 @@
  */
 
 import { kopstegHref } from '@/lib/onboarding/steps'
+import { SALD_PLAN } from '@/lib/plans/plans'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link';
 import { LetterPaperThumbnail } from './illustrations/LetterIcons';
@@ -76,7 +77,7 @@ export default function LetterCardCompact({
           ) : null}
           {isLocked ? (
             <Link
-              href={kopstegHref('cv_week')}
+              href={kopstegHref(SALD_PLAN, 'kvot')}
               onClick={(e) => e.stopPropagation()}
               className="relative z-20 inline-flex min-h-11 items-center text-meta font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
