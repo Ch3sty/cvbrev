@@ -96,6 +96,26 @@ describe('reklamkortens texter', () => {
     expect(INLINE.mallar.text.startsWith('Tre mallar')).toBe(true)
   })
 
+  it('listraderna och gratiskortets länk enligt copy-vag5 avsnitt 1', () => {
+    expect(GRATIS_KORT.sekundar.text).toBe('Se vad som ingår i Premium')
+    expect(SLUT.test.rader.some((r) => r.startsWith('Dessutom'))).toBe(true)
+    expect(SLUT.cv.rader.some((r) => r.startsWith('Dessutom'))).toBe(true)
+    expect(SLUT.cv.rader).toContain('LinkedIn-profilen omskriven')
+    expect(SLUT.test.rader[3]).toBe('Dessutom CV-analysen, alla mallar, personliga brev, jobbmatchning och Jobbcoachen')
+    expect(SLUT.cv.rader).toHaveLength(5)
+    // Ingen listrad börjar med "Och".
+    for (const k of ['cv', 'test', 'allt'] as const) {
+      for (const r of SLUT[k].rader) expect(r, r).not.toMatch(/^Och /)
+    }
+  })
+
+  it('testernas gratisnivå nämner aldrig dygn eller varje dag (spec-rummen 23.3)', () => {
+    for (const t of TEXTER) {
+      expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/)
+    }
+    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Mätning och första passet gratis med konto. Resten ingår i Premium.')
+  })
+
   it('gratisbrevet är ett per brevfönster, aldrig ett om dagen', () => {
     expect(LETTER_WINDOW_DAYS).toBe(7)
     for (const t of [INLINE.brev.text, SIDO.cv.gratisrad ?? '', ...GRATIS_KORT.rader]) {

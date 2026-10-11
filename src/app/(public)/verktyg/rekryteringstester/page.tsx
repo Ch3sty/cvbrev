@@ -12,7 +12,7 @@ import { IlluScenMatris } from '@/components/illustrations/PriserScener'
 import { SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 const STEG = [
-  { rubrik: 'Välj test', text: 'Plocka ett av de tre gratistesterna. Grundnivån går att köra en gång per dygn och testtyp, och frågorna byts ut varje gång.' },
+  { rubrik: 'Välj test', text: 'Plocka matrislogik, verbalt eller numeriskt. Med ett gratiskonto gör du en nivåmätning med genomgång och ett första träningspass.' },
   { rubrik: 'Lös frågorna i din takt', text: 'Timern räknar uppåt så att du ser tempot, men ingenting bryter mitt i en fråga. Markera ditt svar och gå vidare.' },
   { rubrik: 'Se resultat och tid direkt', text: 'När du svarat klart ser du andel rätt, antal korrekta svar, total tid och snittid per fråga. Du väntar inte på något.' },
   { rubrik: 'Se vad du missade', text: 'Fråga för fråga jämför du ditt svar med facit. Du ser vilka mönster du missade och vet vad du ska träna mer på.' },
@@ -42,7 +42,7 @@ const BIG_FIVE = [
 ]
 
 const INGAR = [
-  { rubrik: 'Grundnivån är gratis', text: 'En gång per dygn och testtyp. Ingen kortuppgift, du börjar direkt.' },
+  { rubrik: 'Gratis att prova', text: 'Fem frågor med facit här, utan konto. Med kontot en nivåmätning och ett första träningspass. Ingen kortuppgift.' },
   { rubrik: 'Rapport efter varje pass', text: 'Resultat, tid och en genomgång fråga för fråga med rätt svar.' },
   { rubrik: `${paketKort()} tar bort taket`, text: `Alla nivåer, tidsatt provläge och hela din resultathistorik, ${prisPeriod(SALD_PLAN)}.` },
 ]
@@ -100,7 +100,7 @@ export default function RekryteringstesterSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Alla grundnivåtester gratis, en gång per dag, utan kortuppgift',
+      description: 'Fem frågor utan konto, en nivåmätning och ett första träningspass med gratiskonto, utan kortuppgift',
     },
     featureList:
       'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med ' + paketNamn(SALD_PLAN),
@@ -124,7 +124,7 @@ export default function RekryteringstesterSida() {
         position: 1,
         name: 'Välj test',
         text:
-          'Plocka ett av tre gratistester: matrislogik, verbalt resonemang eller numeriskt resonemang.',
+          'Plocka matrislogik, verbalt resonemang eller numeriskt resonemang. Fem frågor provar du utan konto.',
       },
       {
         '@type': 'HowToStep',
@@ -191,11 +191,11 @@ export default function RekryteringstesterSida() {
         eyebrow="Rekryteringstester · kom förberedd till provet"
         h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
         ingress="Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder."
-        fet="Tre tester gratis, ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
+        fet="Fem frågor gratis här och en nivåmätning gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
         primar={{ text: 'Starta gratis test', href: '/register?borja=tester' }}
         sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
         loften={[
-          { tal: '3 tester', text: 'gratis på grundnivå' },
+          { tal: '1 mätning', text: 'och första passet gratis med konto' },
           { tal: '20 min', text: 'per pass' },
           { tal: '5 frågor', text: 'att prova utan konto' },
         ]}
@@ -220,7 +220,7 @@ export default function RekryteringstesterSida() {
             id: 'testtyper',
             eyebrow: 'Kognitiva tester',
             rubrik: 'Tre testtyper, alla gratis att börja',
-            ingress: `Grundnivån är alltid gratis, en gång per dygn och testtyp. Vill du köra utan tak, gå vidare till avancerad nivå och expertnivå och öva i tidsatt provläge ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+            ingress: `Med ett gratiskonto gör du en nivåmätning med full genomgång och ett första träningspass samma dag, och resultatet är ditt. Att träna vidare, med avancerad nivå, expertnivå och tidsatt provläge, ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`,
             rader: TESTTYPER,
             lank: { text: 'Starta gratis test', href: '/register?borja=tester' },
           },
@@ -251,15 +251,10 @@ export default function RekryteringstesterSida() {
             rader: GUIDER,
           },
         ]}
-        citat={{
-          text: 'Jag hade aldrig gjort ett rekryteringstest före Klarnas urvalsprocess och fick total panik första gången jag provade. Jag tränade två veckor med matrislogiken och det numeriska testet här, klarade det skarpa testet och fick tjänsten.',
-          namn: 'Linus, 28, Stockholm',
-          roll: 'Junior Data Analyst på Klarna, klarade urvalstestet efter två veckor',
-        }}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Träna nu. Kom förberedd sen.',
-          text: `Tre tester gratis på grundnivå, ingen kortuppgift, och en rapport efter varje pass. Alla nivåer, provläget och din historik ingår i ${paketKort()}.`,
+          text: `Fem frågor gratis här. Mätning och första passet gratis med konto. Alla nivåer, provläget och din historik ingår i ${paketKort()}.`,
           knapp: { text: 'Starta gratis test', href: '/register?borja=tester' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

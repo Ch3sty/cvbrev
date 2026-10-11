@@ -223,7 +223,7 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Grundnivån är öppen redan nu. Resten av nivåerna och provläget ingår i ${PREMIUM}.`,
+      under: `Mätningen och första passet är gratis med kontot. Resten ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
@@ -231,11 +231,11 @@ export const STEG3 = {
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,
-      gratis: ['Grundnivån i alla fyra testtyperna, en gång per typ och dygn', 'Personlighetstestet med 50 påståenden'],
+      gratis: ['En nivåmätning i testerna med genomgång, och ett första träningspass', 'Personlighetstestet med 50 påståenden'],
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
-      under: `Ett intervjuprov per dygn ingår gratis. Att öva utan tak ingår i ${PREMIUM}.`,
+      under: `Ett intervjuprov om dagen ingår gratis. Att öva utan tak ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Intervjuprov utan tak', text: ', med återkoppling på varje svar.' },
@@ -243,7 +243,7 @@ export const STEG3 = {
         { fet: 'Alla nivåer', text: ' i rekryteringstesterna.' },
       ],
       prisText: FORNYAS,
-      gratis: ['Ett intervjuprov per dygn med återkoppling', 'Personlighetstestet med 50 påståenden'],
+      gratis: ['Ett intervjuprov om dagen med återkoppling', 'Personlighetstestet med 50 påståenden'],
     },
     jobb: {
       rubrik: (f) => klart(f, 'Så hittar jobben dig'),

@@ -3,7 +3,11 @@
  * (docs/design/analys-artiklar-2026-09-23.html, avsnitt 6, "Texterna, kort
  * för kort"), med ägarens justering 2026-09-23: "Gör provet innan
  * rekryteraren gör det" utgår och ersätts. Slutgranskade av copywritern
- * 2026-09-23: brevet är ett per rullande sju dygn, aldrig "ett om dagen".
+ * 2026-09-23: brevet är ett per rullande sju dagar, aldrig "ett om dagen".
+ *
+ * Gratisnivån i testerna (spec-rummen 23.3): fem frågor i artikeln utan
+ * konto, mätningen och första passet med konto, resten i Premium. Testerna
+ * beskrivs aldrig med en daglig gratisgräns.
  *
  * Vi-form, verbet först, gratis före pris, priset som tal, aldrig
  * "obegränsat" (vi säger "utan tak"), aldrig "AI-driven". Knapptexten säger
@@ -62,7 +66,7 @@ export interface InlineCopy {
 export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, InlineCopy> = {
   test: {
     rubrik: 'Öva på frågorna innan de räknas',
-    text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Grundnivån är gratis, en gång per dygn och testtyp.',
+    text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Fem frågor gratis här. Mätning och första passet gratis med konto.',
     knapp: 'Gör ett övningstest',
     href: '/verktyg/rekryteringstester',
     paketrad: `Alla nivåer, provläge mot klockan och fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
@@ -134,7 +138,7 @@ export const SIDO: Record<'cv' | 'test' | 'allt', SidoCopy> = {
     text: PLAN.beskrivning,
     belopp: `${PLAN.amount} kr`,
     under: `${PLAN.suffix}, ingen bindningstid`,
-    gratisrad: 'Grundnivån är gratis, en gång per dygn.',
+    gratisrad: `Fem frågor gratis här. Mätning och första passet gratis med konto. Resten ingår i ${KORT}.`,
   },
   cv: {
     etikett: NAMN,
@@ -177,7 +181,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
       'Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar',
       'Provläge med 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren',
       'Fördjupade personlighetstestet, 120 påståenden',
-      'Och CV:t, personliga brev, jobbmatchning och Jobbcoachen',
+      'Dessutom CV-analysen, alla mallar, personliga brev, jobbmatchning och Jobbcoachen',
     ],
     prisrad: PRISRAD,
     knapp: kopKnapp(),
@@ -191,7 +195,8 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
       'Hela CV-analysen med varje fynd och åtgärd',
       `Alla ${TEMPLATE_COUNT} mallar, nedladdning utan tak`,
       'Personliga brev utan tak, som PDF',
-      'Och rekryteringstesterna, jobbmatchning och Jobbcoachen',
+      'LinkedIn-profilen omskriven',
+      'Dessutom alla rekryteringstester, jobbmatchning och Jobbcoachen',
     ],
     prisrad: PRISRAD,
     knapp: kopKnapp(),
@@ -224,11 +229,11 @@ export const GRATIS_KORT = {
     'En CV-analys med poäng och tyngsta fyndet',
     `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
     `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till Jobbcoachen`,
-    'Testernas grundnivå, en gång per dygn',
+    'En nivåmätning i testerna med genomgång, och ett första träningspass',
   ],
   knapp: 'Skapa konto gratis',
   href: '/register',
-  sekundar: { text: 'Se vad som ingår', href: '/priser' },
+  sekundar: { text: 'Se vad som ingår i Premium', href: '/priser' },
 } as const
 
 /** Listans slutkort i bläck: Premium och det som ingår. */
