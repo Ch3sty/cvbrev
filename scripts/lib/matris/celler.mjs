@@ -97,6 +97,8 @@ const SYMBOL = {
   none: { en: 'ingen symbol', pl: 'utan symbol' },
 };
 const LAGE8 = ['uppe', 'uppe till höger', 'till höger', 'nere till höger', 'nere', 'nere till vänster', 'till vänster', 'uppe till vänster'];
+// Pilens riktning i 45-gradessteg från uppåt, medurs.
+const PIL8 = ['uppåt', 'snett uppåt höger', 'åt höger', 'snett nedåt höger', 'nedåt', 'snett nedåt vänster', 'åt vänster', 'snett uppåt vänster'];
 const LAGE4 = ['uppe till vänster', 'uppe till höger', 'nere till höger', 'nere till vänster']; // medurs ordning
 
 const ETT_ORD = new Set(['streck', 'kryss']);
@@ -255,6 +257,7 @@ export function vardeNamn(cell, dimId) {
     case 'sektorer': return { en: `en med ${medAntal(v.length, 'svart sektor', 'svarta sektorer')}`, pl: medAntal(v.length, 'svart sektor', 'svarta sektorer') };
     case 'satellit': return v === null ? { en: 'en utan prick', pl: 'utan prick' } : { en: `en med pricken ${LAGE8[v]}`, pl: `med pricken ${LAGE8[v]}` };
     case 'polyrot': return v === 0 ? { en: 'en ovriden', pl: 'ovridna' } : { en: `en vriden ${v} grader`, pl: `vridna ${v} grader` };
+    case 'vinkel': return { en: `en pil som pekar ${PIL8[v]}`, pl: `pilar som pekar ${PIL8[v]}` };
     default:
       if (dimId.startsWith('lat-')) {
         if (v.length === 1) return { en: `en med ${LAT_NAMN[d.lat].element[0]} ${LAGE4[v[0]]}`, pl: `med ${LAT_NAMN[d.lat].element[0]} ${LAGE4[v[0]]}` };

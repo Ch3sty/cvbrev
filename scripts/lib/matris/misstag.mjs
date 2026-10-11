@@ -154,7 +154,7 @@ function textPeriodisk(q, t, R, F, regel) {
     if (lika(F, seq[6])) return `${stor(dim.namn)} har ändrats åt fel håll.`;
     return null;
   }
-  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.' };
+  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.', basfyll: 'Fyllningen har inte växlat mellan ofylld och grå.' };
   if (lika(F, seq[7])) return regel.info.p === 2 ? (VAXLAR[dim.id] ?? `${stor(dim.namn)} har inte bytt.`) : `${stor(dim.namn)} har inte ändrats sista steget.`;
   if (!seq.some((v) => lika(v, F))) {
     const n = vardeNamn(cellMed(q, t, dim.id, F), dim.id);
@@ -216,6 +216,11 @@ function textRadKolumn(q, t, R, F, regel) {
   if (regel.regel === 'rad') return allaText('tredje raden', cell, dim.id);
   if (regel.regel === 'kolumn') return allaText('tredje kolumnen', cell, dim.id);
   if (regel.regel === 'diagonal') {
+    // Fyllning, spets och längd (bandet "svår plus") sägs som egenskap.
+    const D = 'på diagonalen från övre vänstra hörnet till nedre högra';
+    if (dim.id === 'basfyll') return R === 'gray' ? `Figurerna ${D} är grå.` : R === 'black' ? `Figurerna ${D} är svarta.` : `Figurerna ${D} är ofyllda.`;
+    if (dim.id === 'spets') return `Pilarna ${D} har ${R === 'open' ? 'öppen' : 'fylld'} spets.`;
+    if (dim.id === 'langd') return `Pilarna ${D} är ${R === 'long' ? 'långa' : 'korta'}.`;
     const n = vardeNamn(cell, dim.id);
     return n ? `Rutorna på diagonalen från övre vänstra hörnet har ${n.en}.` : null;
   }

@@ -36,3 +36,15 @@ export function latinFraga(L1, L2, fyll) {
   const options = [facit, { ...facit, base: 'diamond' }, { ...facit, symbol: 'cross' }, { ...facit, baseFill: 'black' }, { ...facit, base: 'diamond', symbol: 'cross' }, { ...facit, symbol: 'ring' }];
   return { id: 'test-latin', title: 't', rule: 'Varje rad och varje kolumn.', grid: g, options, correctAnswer: 0 };
 }
+
+/** Plus-fråga (xor, k = 1, per rad) med fem nära miss som klarar distraktorkraven. */
+export function godkandPlus() {
+  const q = vridenFraga('xor', 1, 'kolumn');
+  const [a, b] = PAR[2];
+  const ray = (s) => ({ kind: 'ray', rays: s });
+  const C = opv('xor', a, b);
+  q.options = [q.pred, ray(C), ray(rot(C, -1)), ray(rot(C, 5)), ray(rot(opv('union', a, b), 1)), ray(rot(opv('snitt', a, b), 1))];
+  q.id = 'fixtur-godkand';
+  return q;
+}
+export const hjalp = { rot, opv };
