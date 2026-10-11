@@ -269,7 +269,7 @@ function StatementResult({
               <dt className="text-ink-3">Ditt svar</dt>
               <dd
                 className={`font-medium ${
-                  isCorrect ? 'text-positiv' : wasAnswered ? 'text-fel' : 'text-ink-3'
+                  isCorrect ? 'text-positiv' : wasAnswered ? 'text-ink-1' : 'text-ink-3'
                 }`}
               >
                 {labelFor(userAnswer)}

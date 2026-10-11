@@ -74,6 +74,8 @@ export default function MatrixQuestionReview({
   fragor,
   utanTid = false,
   allaOppna = false,
+  oppnaFran,
+  utanKategorier = false,
 }: {
   slug: string
   answers: MatrixSavedAnswer[]
@@ -87,9 +89,13 @@ export default function MatrixQuestionReview({
   utanTid?: boolean
   /** Alla förklaringar öppna från start, för en kort genomgång. */
   allaOppna?: boolean
+  /** Index (nollbaserade) som står öppna från start: missarna från resultatsidan. */
+  oppnaFran?: readonly number[]
+  /** Utan "Så gick det per mönstertyp": resultatsidan visar det i Var du tappade. */
+  utanKategorier?: boolean
 }) {
   const [oppna, setOppna] = useState<ReadonlySet<number>>(() =>
-    allaOppna ? new Set(fragor.map((_, i) => i)) : new Set()
+    allaOppna ? new Set(fragor.map((_, i) => i)) : new Set(oppnaFran ?? [])
   )
   const vaxla = (i: number) =>
     setOppna((fore) => {
@@ -139,7 +145,7 @@ export default function MatrixQuestionReview({
 
   return (
     <>
-      {categories.length > 0 ? (
+      {categories.length > 0 && !utanKategorier ? (
         <section aria-label="Så gick det per mönstertyp">
           <h2 className="mb-2 text-sm font-medium text-ink-3">Så gick det per mönstertyp</h2>
           <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
@@ -202,7 +208,7 @@ export default function MatrixQuestionReview({
                         ? 'text-ink-3'
                         : answer.correct
                           ? 'text-positiv'
-                          : 'text-fel'
+                          : 'text-ink-1'
                     }`}
                   >
                     {!answer ? 'Hoppad' : answer.correct ? 'Rätt' : 'Fel'}
@@ -256,7 +262,7 @@ function ReviewCell({
 }) {
   return (
     <div className="rounded-lg border border-kant bg-insunken p-3">
-      <p className={`text-meta font-medium ${wrong ? 'text-fel' : 'text-positiv'}`}>
+      <p className={`text-meta font-medium ${wrong ? 'text-ink-2' : 'text-positiv'}`}>
         {label}
       </p>
       <div className="matrisyta mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">

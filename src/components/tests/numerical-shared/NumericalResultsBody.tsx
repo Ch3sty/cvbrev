@@ -193,7 +193,7 @@ function AnswerKeyRow({
 
         <span
           className={`shrink-0 text-meta font-medium ${
-            !answer ? 'text-ink-3' : isCorrect ? 'text-positiv' : 'text-fel'
+            !answer ? 'text-ink-3' : isCorrect ? 'text-positiv' : 'text-ink-1'
           }`}
         >
           {!answer ? 'Hoppad' : isCorrect ? 'Rätt' : 'Fel'}
@@ -215,7 +215,7 @@ function AnswerKeyRow({
               <p className="mb-1 text-meta text-ink-3">Ditt svar</p>
               <p
                 className={`rounded-lg border border-kant bg-insunken px-3 py-2 text-sm ${
-                  isCorrect ? 'text-ink-1' : 'text-fel'
+                  isCorrect ? 'text-ink-1' : 'text-ink-2'
                 }`}
               >
                 {selectedOption.text}
