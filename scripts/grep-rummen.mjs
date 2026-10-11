@@ -311,6 +311,8 @@ if (vag === '5') {
     /^src\/lib\/admin\//,
     /^src\/components\/admin\//,
     /^src\/lib\/ai\/analytics\/smart-alerts\.ts$/,
+    // GAMLA_NAMN översätter gammal mejlmetadata: namnet står där med flit.
+    /^src\/lib\/plans\/plans\.ts$/,
     /^src\/app\/\(public\)\/cv-exempel\//,
     /^src\/app\/\(public\)\/personligt-brev-exempel\//,
     /^src\/app\/\(public\)\/cv-mallar\/yrkesmall-content\.ts$/,
