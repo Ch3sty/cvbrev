@@ -30,7 +30,11 @@ const NAMES = [
   'cv-veckan',
   'testveckan',
   'allt-veckan',
+  'jobbcoach-premium',
 ] as const
+
+// Bilder i Rummen-identiteten bär ordmärket som paths i SVG:n; inget canvas-typsnitt.
+const WORDMARK_IN_SVG = new Set<string>(['jobbcoach-premium'])
 
 async function render(name: string) {
   const svgPath = path.join(DIR, `${name}.svg`)
@@ -46,11 +50,13 @@ async function render(name: string) {
   ctx.drawImage(img, 0, 0, SIZE, SIZE)
 
   // Ordmärke, centrerat på samma baslinje som tidigare (y 966).
-  ctx.font = `600 44px ${FONT_FAMILY}`
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'alphabetic'
-  ctx.fillStyle = 'rgba(27, 25, 21, 0.6)'
-  ctx.fillText('jobbcoach.ai', SIZE / 2, 966)
+  if (!WORDMARK_IN_SVG.has(name)) {
+    ctx.font = `600 44px ${FONT_FAMILY}`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'alphabetic'
+    ctx.fillStyle = 'rgba(27, 25, 21, 0.6)'
+    ctx.fillText('jobbcoach.ai', SIZE / 2, 966)
+  }
 
   const png = canvas.toBuffer('image/png')
   await writeFile(pngPath, png)
@@ -68,10 +74,13 @@ async function render(name: string) {
 }
 
 async function main() {
-  for (const name of NAMES) {
+  // Valfria namn som argument renderar bara dem: npx tsx scripts/render-stripe-images.ts jobbcoach-premium
+  const wanted = process.argv.slice(2)
+  const names = wanted.length ? NAMES.filter((n) => wanted.includes(n)) : [...NAMES]
+  for (const name of names) {
     await render(name)
   }
-  console.log('\nKlart. 4 PNG skrivna till public/stripe.')
+  console.log(`\nKlart. ${names.length} PNG skrivna till public/stripe.`)
 }
 
 main().catch((err) => {
