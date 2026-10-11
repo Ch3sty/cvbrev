@@ -387,7 +387,9 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
   let meta = `${r.titel}. ${r.format}`;
   if (r.anmarkning) meta += ` ${r.anmarkning}`;
   if (prov) {
-    meta += harProvlage ? ` ${HEM.provdagen.oppnar(datumText(laggTill(prov, -2)))}` : ` ${HEM.provdagen.dagenFore}`;
+    // Samma mening för gratis och betalande: om raden är öppen eller låst
+    // säger högersidan, aldrig metan (22.4 fråga 2).
+    meta += ` ${HEM.provdagen.iPlanen(datumText(laggTill(prov, -2)))}`;
   } else {
     meta += ` ${HEM.utanDatum.provradMeta}`;
   }

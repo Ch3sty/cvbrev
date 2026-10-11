@@ -200,8 +200,8 @@ export const HEM = {
     rubrik: 'Provdagen',
     /** Radens namn (art-director 22.2 fråga 4); formatet står i metan. */
     radTitel: 'Generalrepetitionen',
-    oppnar: (datum: string) => `Öppnar ${datum}.`,
-    dagenFore: 'Dagen före provet.',
+    /** Metans tredje mening, samma för gratis och betalande (22.4 fråga 2). */
+    iPlanen: (datum: string) => `I planen ${datum} och dagen före provet.`,
     gorEnNu: 'Gör en nu',
     angeLeverantor: 'Ange leverantör',
   },

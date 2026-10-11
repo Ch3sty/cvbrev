@@ -105,11 +105,11 @@ describe('tillstånden med konceptets exempeltal', () => {
     const prov = i.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
     expect(prov && prov.typ === 'rader' ? prov.rader[0].titel : null).toBe('Generalrepetitionen')
     expect(prov && prov.typ === 'rader' ? prov.rader[0].meta : null).toMatch(/^Vårt provläge. /)
-    // W3 (gratis, 22.2 fråga 4): "Samma format som Matrigma. … Dagen före provet."
+    // W3 (gratis, 22.4 fråga 2): "Samma format som Matrigma. … I planen {prov-2} och dagen före provet."
     const w = modell('W3')
     const wp = w.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
     expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Generalrepetitionen' })
-    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter.*Dagen före provet.$/)
+    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter. I planen \d+ \S+ och dagen före provet.$/)
   })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
