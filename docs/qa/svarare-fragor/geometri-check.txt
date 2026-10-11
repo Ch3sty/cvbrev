@@ -1,0 +1,1 @@
+Geometri ej kontrollerad: scripts/v7-geometri-check.mjs finns inte på main ännu (omgång 1 i worktreen efter-lyftet). Körs på kandidatfilen när skriptet är inne.
