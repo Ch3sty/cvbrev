@@ -1,5 +1,6 @@
 'use client';
 
+import { formatSkalsteg, formatTal, medEnhet } from './format';
 
 export interface LinePoint {
   x: string | number;
@@ -12,6 +13,8 @@ interface LineChartProps {
   xAxisLabel?: string;
   yAxisLabel?: string;
   unit?: string;
+  /** Värdet skrivs ovanför varje punkt (standard). Frågorna kräver exakta värden. */
+  showValues?: boolean;
 }
 
 /**
@@ -26,6 +29,7 @@ export default function LineChart({
   xAxisLabel,
   yAxisLabel,
   unit = '',
+  showValues = true,
 }: LineChartProps) {
   const padding = { top: 32, right: 32, bottom: 56, left: 56 };
   const width = 600;
@@ -75,7 +79,7 @@ export default function LineChart({
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
-          aria-label={`Linjediagram: ${data.map((d) => `${d.x}: ${d.y}${unit}`).join(', ')}`}
+          aria-label={`Linjediagram: ${data.map((d) => `${d.x}: ${medEnhet(d.y, unit)}`).join(', ')}`}
         >
           <defs>
             <linearGradient id="line-area-fill" x1="0" y1="0" x2="0" y2="1">
@@ -106,7 +110,7 @@ export default function LineChart({
           {/* Grid lines + Y-labels */}
           {Array.from({ length: gridSteps + 1 }).map((_, i) => {
             const y = padding.top + chartHeight - (i / gridSteps) * chartHeight;
-            const value = (niceMin + i * stepValue).toFixed(stepValue >= 10 ? 0 : 1);
+            const value = formatSkalsteg(niceMin + i * stepValue, stepValue >= 10 ? 0 : 1);
             return (
               <g key={i}>
                 <line
@@ -186,6 +190,25 @@ export default function LineChart({
               <circle cx={p.x} cy={p.y} r="2" fill="#DC2626" />
             </g>
           ))}
+
+          {/* Värdet ovanför varje punkt. Korta enheter (%) skrivs med, längre står i axelns rubrik. */}
+          {showValues &&
+            points.map((p, i) => (
+              <text
+                key={`v-${i}`}
+                x={p.x}
+                y={p.y - 12}
+                fontSize="12"
+                fontWeight="700"
+                fill="#1E293B"
+                textAnchor="middle"
+                stroke="white"
+                strokeWidth="3"
+                paintOrder="stroke"
+              >
+                {unit.trim().length <= 2 ? medEnhet(p.value, unit) : formatTal(p.value)}
+              </text>
+            ))}
         </svg>
       </div>
     </figure>

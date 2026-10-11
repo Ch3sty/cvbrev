@@ -11,6 +11,7 @@ export type ChartConfig =
       data: BarSeries[];
       unit?: string;
       yAxisLabel?: string;
+      showValues?: boolean;
     }
   | {
       chartType: 'pie';
@@ -26,6 +27,7 @@ export type ChartConfig =
       unit?: string;
       xAxisLabel?: string;
       yAxisLabel?: string;
+      showValues?: boolean;
     };
 
 interface NumericalChartProps {
@@ -44,6 +46,7 @@ export default function NumericalChart({ config }: NumericalChartProps) {
         data={config.data}
         unit={config.unit}
         yAxisLabel={config.yAxisLabel}
+        showValues={config.showValues}
       />
     );
   }
@@ -66,6 +69,7 @@ export default function NumericalChart({ config }: NumericalChartProps) {
       unit={config.unit}
       xAxisLabel={config.xAxisLabel}
       yAxisLabel={config.yAxisLabel}
+      showValues={config.showValues}
     />
   );
 }

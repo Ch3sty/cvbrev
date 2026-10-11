@@ -1,5 +1,6 @@
 'use client';
 
+import { formatSkalsteg, medEnhet } from './format';
 
 export interface BarSeries {
   label: string;
@@ -59,7 +60,7 @@ export default function BarChart({
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
-          aria-label={`Stapeldiagram: ${data.map((d) => `${d.label} ${d.value}${unit}`).join(', ')}`}
+          aria-label={`Stapeldiagram: ${data.map((d) => `${d.label} ${medEnhet(d.value, unit)}`).join(', ')}`}
         >
           <defs>
             <linearGradient id="bar-fill-orange" x1="0" y1="1" x2="0" y2="0">
@@ -94,7 +95,7 @@ export default function BarChart({
           {/* Grid lines + Y-axis labels */}
           {Array.from({ length: gridSteps + 1 }).map((_, i) => {
             const y = padding.top + chartHeight - (i / gridSteps) * chartHeight;
-            const value = (i * stepValue).toFixed(stepValue >= 10 ? 0 : 1);
+            const value = formatSkalsteg(i * stepValue, stepValue >= 10 ? 0 : 1);
             return (
               <g key={i}>
                 <line
@@ -141,8 +142,7 @@ export default function BarChart({
                     fill="#1E293B"
                     textAnchor="middle"
                   >
-                    {d.value}
-                    {unit}
+                    {medEnhet(d.value, unit)}
                   </text>
                 )}
                 {/* Label under */}

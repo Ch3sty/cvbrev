@@ -43,6 +43,8 @@ export type ChartData =
       data: { label: string; value: number }[];
       unit?: string;
       yAxisLabel?: string;
+      /** Värdet ovanför stapeln, standard true. */
+      showValues?: boolean;
     }
   | {
       chartType: 'pie';
@@ -58,6 +60,8 @@ export type ChartData =
       unit?: string;
       xAxisLabel?: string;
       yAxisLabel?: string;
+      /** Värdet ovanför varje punkt, standard true. */
+      showValues?: boolean;
     };
 
 export type Passage = {

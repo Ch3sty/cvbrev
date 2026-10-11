@@ -32,9 +32,11 @@
           "data": { "type": "array" },
           "unit": { "type": "string" },
           "xAxisLabel": { "type": "string" },
-          "yAxisLabel": { "type": "string" }
+          "yAxisLabel": { "type": "string" },
+          "showValues": { "type": "boolean", "description": "värdet skrivs vid stapeln eller punkten; standard true" }
         }
       },
+      "p_prior": { "type": "number", "minimum": 0.05, "maximum": 0.95 },
       "ovanvant": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^(rad|kolumn|stapel|punkt) .+$" } },
       "enhetsbyte": { "type": "string", "pattern": "^.+ till .+$" },
       "questions": {

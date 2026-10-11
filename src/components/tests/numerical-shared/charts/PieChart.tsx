@@ -1,5 +1,6 @@
 'use client';
 
+import { medEnhet } from './format';
 
 export interface PieSlice {
   label: string;
@@ -86,7 +87,7 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto"
-          aria-label={`Cirkeldiagram: ${data.map((d) => `${d.label} ${d.value}${unit}`).join(', ')}`}
+          aria-label={`Cirkeldiagram: ${data.map((d) => `${d.label} ${medEnhet(d.value, unit)}`).join(', ')}`}
         >
           {/* Segments */}
           {segments.map((seg, i) => (
@@ -110,7 +111,7 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
               textAnchor="middle"
               style={{ pointerEvents: 'none' }}
             >
-              {seg.percentage}%
+              {medEnhet(seg.percentage, '%')}
             </text>
           ))}
 
@@ -132,8 +133,7 @@ export default function PieChart({ title, data, unit = '%', centerLabel }: PieCh
                   {seg.label}
                 </text>
                 <text x={legendX + 22} y={legendY + 14} fontSize="11" fill="#64748B">
-                  {seg.value}
-                  {unit}
+                  {medEnhet(seg.value, unit)}
                 </text>
               </g>
             );

@@ -58,6 +58,7 @@
       "kolumn Antal anställda"
     ],
     "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-01-q01",
@@ -378,6 +379,7 @@
       "rad Verktygslåda"
     ],
     "enhetsbyte": "procent till antal",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-02-q01",
@@ -688,6 +690,7 @@
       "stapel IT"
     ],
     "enhetsbyte": "procent till antal",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-03-q01",
@@ -1001,6 +1004,7 @@
       "punkt K2 2024"
     ],
     "enhetsbyte": "kvartal till år",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-04-q01",
@@ -1315,6 +1319,7 @@
       "kolumn Turer per vardag"
     ],
     "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-05-q01",
@@ -1619,6 +1624,7 @@
       "rad Projektledning"
     ],
     "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-06-q01",
@@ -1923,6 +1929,7 @@
       "stapel Trä"
     ],
     "enhetsbyte": "ton till kg",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-07-q01",
@@ -2244,6 +2251,7 @@
       "kolumn Sjuklönekostnad (tkr)"
     ],
     "enhetsbyte": "procent till dagar",
+    "p_prior": 0.55,
     "questions": [
       {
         "id": "na-08-q01",
