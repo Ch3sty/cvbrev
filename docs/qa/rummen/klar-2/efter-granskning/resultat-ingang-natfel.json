@@ -1,0 +1,189 @@
+{
+  "bas": "http://localhost:5241",
+  "tid": "2026-10-11T03:24:17.858Z",
+  "hem": [],
+  "ingang": [
+    {
+      "form": "pixel7",
+      "system": "light",
+      "steg": [
+        {
+          "steg": "landning",
+          "url": "/dashboard/tester",
+          "tillstand": "X1"
+        },
+        {
+          "steg": "E1",
+          "kopparIBild": true,
+          "utgang": true
+        },
+        {
+          "steg": "E2",
+          "kopparIBild": true,
+          "hoppaOver": true
+        },
+        {
+          "steg": "E3",
+          "kopparIBild": true,
+          "hoppaOver": true,
+          "plan": "14 dagar. Mätning i dag, tio pass, en ommätning, generalrepetition två dagar före och vila på provdagen. Går att ändra när som helst från huvudet."
+        },
+        {
+          "steg": "spara",
+          "url": "/dashboard/tester/installningar",
+          "felVisas": true,
+          "sparatText": false
+        },
+        {
+          "steg": "E3-P",
+          "text": "Rekryteringstester\n2 / 2\n\nSTEG 2 AV 2\n. PERSONLIGHET\n\nNär är testet?\n\nInga rätta svar och inget att öva in. Vi visar hur profilen tolkas, så du känner igen frågorna och vet vad som händer med svaren.\n\nTestdagen\n\nInga rätta svar, men det hjälper att veta hur det tolkas. Inga pass, ingen nivå, ingen serie.\n\nHoppa över, jag vet inte än\nVisa hur det tolkas"
+        }
+      ],
+      "konsol": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "http": [
+        "500 PUT /api/traning/plan"
+      ]
+    },
+    {
+      "form": "desktop",
+      "system": "light",
+      "steg": [
+        {
+          "steg": "landning",
+          "url": "/dashboard/tester",
+          "tillstand": "X1"
+        },
+        {
+          "steg": "E1",
+          "kopparIBild": true,
+          "utgang": true
+        },
+        {
+          "steg": "E2",
+          "kopparIBild": true,
+          "hoppaOver": true
+        },
+        {
+          "steg": "E3",
+          "kopparIBild": true,
+          "hoppaOver": true,
+          "plan": "14 dagar. Mätning i dag, tio pass, en ommätning, generalrepetition två dagar före och vila på provdagen. Går att ändra när som helst från huvudet."
+        },
+        {
+          "steg": "spara",
+          "url": "/dashboard/tester/installningar",
+          "felVisas": true,
+          "sparatText": false
+        },
+        {
+          "steg": "E3-P",
+          "text": "Jobbcoach.ai\nRekryteringstester\nCV\nPersonliga brev\nJobbsöket\n\nREKRYTERINGSTESTER\n\nDagens pass\nKurvan\nAlla tester\n4\nProvläget\nVårt provläge. 18 uppgifter, 25 minuter.\nTest och datum\nKom igång\n0 av 6 provade\n0/6\nQG\nQA Vag2 gratis\nGratisnivån\nHjälp och kontakt\nRapportera ett fel\nRekryteringstester\n2 / 2\n\nSTEG 2 AV 2\n. PERSONLIGHET\n\nNär är testet?\n\nInga rätta svar och inget att öva in. Vi visar hur profilen tolkas, så du känner igen frågorna och vet vad som händer med svaren.\n\nTestdagen\n\nInga rätta "
+        }
+      ],
+      "konsol": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "http": [
+        "500 PUT /api/traning/plan"
+      ]
+    },
+    {
+      "form": "pixel7",
+      "system": "dark",
+      "steg": [
+        {
+          "steg": "landning",
+          "url": "/dashboard/tester",
+          "tillstand": "X1"
+        },
+        {
+          "steg": "E1",
+          "kopparIBild": true,
+          "utgang": true
+        },
+        {
+          "steg": "E2",
+          "kopparIBild": true,
+          "hoppaOver": true
+        },
+        {
+          "steg": "E3",
+          "kopparIBild": true,
+          "hoppaOver": true,
+          "plan": "14 dagar. Mätning i dag, tio pass, en ommätning, generalrepetition två dagar före och vila på provdagen. Går att ändra när som helst från huvudet."
+        },
+        {
+          "steg": "spara",
+          "url": "/dashboard/tester/installningar",
+          "felVisas": true,
+          "sparatText": false
+        },
+        {
+          "steg": "E3-P",
+          "text": "Rekryteringstester\n2 / 2\n\nSTEG 2 AV 2\n. PERSONLIGHET\n\nNär är testet?\n\nInga rätta svar och inget att öva in. Vi visar hur profilen tolkas, så du känner igen frågorna och vet vad som händer med svaren.\n\nTestdagen\n\nInga rätta svar, men det hjälper att veta hur det tolkas. Inga pass, ingen nivå, ingen serie.\n\nHoppa över, jag vet inte än\nVisa hur det tolkas"
+        }
+      ],
+      "konsol": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "http": [
+        "500 PUT /api/traning/plan"
+      ]
+    },
+    {
+      "form": "desktop",
+      "system": "dark",
+      "steg": [
+        {
+          "steg": "landning",
+          "url": "/dashboard/tester",
+          "tillstand": "X1"
+        },
+        {
+          "steg": "E1",
+          "kopparIBild": true,
+          "utgang": true
+        },
+        {
+          "steg": "E2",
+          "kopparIBild": true,
+          "hoppaOver": true
+        },
+        {
+          "steg": "E3",
+          "kopparIBild": true,
+          "hoppaOver": true,
+          "plan": "14 dagar. Mätning i dag, tio pass, en ommätning, generalrepetition två dagar före och vila på provdagen. Går att ändra när som helst från huvudet."
+        },
+        {
+          "steg": "spara",
+          "url": "/dashboard/tester/installningar",
+          "felVisas": true,
+          "sparatText": false
+        },
+        {
+          "steg": "E3-P",
+          "text": "Jobbcoach.ai\nRekryteringstester\nCV\nPersonliga brev\nJobbsöket\n\nREKRYTERINGSTESTER\n\nDagens pass\nKurvan\nAlla tester\n4\nProvläget\nVårt provläge. 18 uppgifter, 25 minuter.\nTest och datum\nKom igång\n0 av 6 provade\n0/6\nQG\nQA Vag2 gratis\nGratisnivån\nHjälp och kontakt\nRapportera ett fel\nRekryteringstester\n2 / 2\n\nSTEG 2 AV 2\n. PERSONLIGHET\n\nNär är testet?\n\nInga rätta svar och inget att öva in. Vi visar hur profilen tolkas, så du känner igen frågorna och vet vad som händer med svaren.\n\nTestdagen\n\nInga rätta "
+        }
+      ],
+      "konsol": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "http": [
+        "500 PUT /api/traning/plan"
+      ]
+    }
+  ],
+  "natfel": [
+    {
+      "felVisas": true,
+      "sparat": false,
+      "kvarPaSidan": "/dashboard/tester/installningar",
+      "konsol": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    }
+  ]
+}

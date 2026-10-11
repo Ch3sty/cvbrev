@@ -1,5 +1,5 @@
 {
-  "datum": "2026-10-11T03:04:12.350Z",
+  "datum": "2026-10-11T03:18:12.809Z",
   "bas": "http://localhost:5241",
   "ramar": [
     {
@@ -1252,9 +1252,9 @@
           "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-ljust-09-genomgangen-sista-missen.png",
           "primar": [
             {
-              "text": "Nästa",
+              "text": "Tillbaka till resultatet",
               "inomViewport": true,
-              "bottom": 847
+              "bottom": 803
             }
           ],
           "antalPrimar": 1,
@@ -1263,7 +1263,7 @@
           "minstaText": null,
           "tidsradFarg": null,
           "horisontellScroll": false,
-          "fortsatt": null
+          "fortsatt": "Fortsätt med de två rätta"
         }
       ],
       "navigeringar": 0,
@@ -1410,9 +1410,9 @@
           "fil": "docs/qa/rummen/klar-2/efter-granskning/pass/klick-pass-morkt-09-genomgangen-sista-missen.png",
           "primar": [
             {
-              "text": "Nästa",
+              "text": "Tillbaka till resultatet",
               "inomViewport": true,
-              "bottom": 847
+              "bottom": 803
             }
           ],
           "antalPrimar": 1,
@@ -1421,7 +1421,7 @@
           "minstaText": null,
           "tidsradFarg": null,
           "horisontellScroll": false,
-          "fortsatt": null
+          "fortsatt": "Fortsätt med de två rätta"
         }
       ],
       "navigeringar": 0,
