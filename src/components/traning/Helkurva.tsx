@@ -23,7 +23,7 @@ import type { Traningsstatus } from '@/lib/traning/motor.server'
 import { decimal, kurvansLabel, type FlerTesterIn } from '@/lib/traning/hemvy'
 import { datumText, kortDatum } from '@/lib/traning/rubrik'
 import { dagarMellan } from '@/lib/traning/datum'
-import { HEM, ingarIPaketet } from '@/lib/traning/hem-copy'
+import { HEM, ingarIPaketet, lastAria } from '@/lib/traning/hem-copy'
 import { KURVAN } from '@/lib/traning/kurvan-copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { talord } from '@/lib/traning/copy'
@@ -128,7 +128,7 @@ export default function Helkurva({ s, fler }: { s: Traningsstatus | null; fler: 
         {s.historikLast ? (
           <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1 lg:order-2 lg:col-span-2">
             <span>{KURVAN.historikLast}</span>
-            <LasChip feature="tests_above_base" text={ingarIPaketet()} label={`${KURVAN.historikLast} Låst, ${ingarIPaketet().toLowerCase()}.`} />
+            <LasChip feature="tests_above_base" plats="kurva" text={ingarIPaketet()} label={`${KURVAN.historikLast} ${lastAria()}`} />
           </div>
         ) : null}
         <div className="flex flex-col gap-4 lg:relative lg:z-[2] lg:-mt-[30px] lg:[&>section]:border-[color:var(--lyft-kant)] lg:[&>section]:shadow-lyft">

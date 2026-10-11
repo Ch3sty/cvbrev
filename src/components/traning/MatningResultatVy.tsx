@@ -7,24 +7,26 @@
  * Resultatet visas helt för alla: nivån som stort heltal (spec 14.1:
  * decimalen bara på kurvan) på instrumentet, meningen i provets termer, tre
  * tal, var du tappar, och planen till datumet. Gratis: dagens grundpass står
- * först och är gratis, allt efter i dag står låst med paketets namn, och
- * paketkortet sist på golvet bär vyns enda kopparknapp (Köp, namn, pris) med
- * en textlänk under. Ingen fot för gratis (art-director 20.2 fråga 1: en fast
+ * först och är gratis, allt efter i dag står låst med "Ingår i Premium", och
+ * betalväggen sist på golvet bär vyns enda kopparknapp ("Köp Premium, 149 kr
+ * i månaden") under prisraden med fulla namnet, och en textlänk under. Ingen fot för gratis (art-director 20.2 fråga 1: en fast
  * fot ligger aldrig ovanpå en betalvägg). Betalande: ingen betalvägg,
  * kopparknappen i foten.
  *
  * Decimalen står under pricken på skalan (testansvarig 19.2 fråga 2), heltalet
  * stort ovanför.
  *
- * betalvagg_visad (plats matning) skickas när kortet visas.
+ * betalvagg_visad (plats matning) skickas en gång per montering när kortet
+ * visas. Köpknappen bär platsen till köpsteget.
  */
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { capture } from '@/lib/analytics/events'
 import { Rad } from '@/components/rum/Rader'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
+import { SALD_PLAN } from '@/lib/plans/plans'
 import { passHref } from '@/lib/traning/klient'
 import { nivaText, PASS_COPY } from '@/lib/traning/pass-copy'
 import type { MatningResultat } from '@/lib/traning/resultat'
@@ -76,9 +78,13 @@ export function VarDuTapparKort({
 }
 
 export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '/dashboard/tester/installningar#sikte', motion = true }: MatningResultatVyProps) {
+  const visad = useRef(false)
+  const harVagg = vm.betalvagg != null
   useEffect(() => {
-    if (vm.betalvagg) capture('betalvagg_visad', { plats: 'matning', dagar_kvar: vm.dagarKvar })
-  }, [vm.betalvagg, vm.dagarKvar])
+    if (!harVagg || visad.current) return
+    visad.current = true
+    capture('betalvagg_visad', { plats: 'matning', dagar_kvar: vm.dagarKvar })
+  }, [harVagg, vm.dagarKvar])
 
   return (
     <ResultatSkal
@@ -125,16 +131,17 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
             // hela resultatet läses före priset.
             <section
               aria-label={vm.betalvagg.eyebrow}
-              className="steg s4 rounded-2xl border border-koppar bg-papper p-4 shadow-[inset_0_0_0_1px_var(--koppar)]"
+              className="steg s4 rounded-2xl border border-kant bg-papper p-4"
             >
               <p className="text-ey text-koppar-ink">{vm.betalvagg.eyebrow}</p>
               <h2 className="mt-1 text-kort-t text-ink-1">{vm.betalvagg.rubrik}</h2>
               <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{vm.betalvagg.text}</p>
+              <p className="mt-2 text-sm font-medium text-ink-1">{vm.betalvagg.prisrad}</p>
               <div className={KNAPPRAD}>
                 <Link
-                  href={kopstegHref('all_month')}
+                  href={kopstegHref(SALD_PLAN, 'matning')}
                   className={KNAPP_PRIMAR}
-                  onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'matning', cta: 'primary' })}
+                  onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'matning', cta: 'primary', plats: 'matning' })}
                 >
                   {vm.betalvagg.knapp}
                 </Link>
@@ -142,7 +149,7 @@ export default function MatningResultatVy({ vm, antal, onTillbaka, sikteHref = '
                   <Link
                     href={passHref('pass')}
                     className={`${LANK} inline-flex min-h-9 items-center justify-center`}
-                    onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary' })}
+                    onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', surface: 'matning', cta: 'secondary', plats: 'matning' })}
                   >
                     {vm.betalvagg.lank}
                   </Link>

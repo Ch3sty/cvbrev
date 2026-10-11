@@ -6,23 +6,36 @@
 // F1) med ägarens beslut i 17.1 och 17.2 inarbetade, och gäller tills
 // svensk-ux-copywriter ersatt dem (avsnitt 9). Regler: vi-form, svenska
 // facktermer, inga tankstreck, "samma format som", aldrig "samma test",
-// paketnamn och pris ur PLANS (paketNamn), Personlighetstestet alltid med
-// "Inga rätta svar".
+// paketnamn och pris ur PLANS (paketKort, kopKnapp, paketNamn i prisraden),
+// Personlighetstestet alltid med "Inga rätta svar". Skrivregeln för
+// Jobbcoach Premium (copy-premium-2026-10-11): kortformen Premium i låsta
+// rader och brödtext, fulla namnet en gång per yta i prisraden.
 // =============================================================================
 
-import { paketNamn, prisPeriod } from '@/lib/plans/plans';
+import { SALD_PLAN, kopKnapp as planKopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans';
 import { talord, versal } from './copy';
 
-/** Paketet som säljs i Rekryteringstester (17.3). Namnbytet till Jobbcoach Premium sker i PLANS i våg 5. */
-export const SALJS = 'all_month' as const;
+/** Paketet som säljs (spec-rummen 17.3): Jobbcoach Premium, all_month. */
+export const SALJS = SALD_PLAN;
 
+/** Låst rad och låschip: "Ingår i Premium" (copy-premium avsnitt 3). */
 export function ingarIPaketet(): string {
-  return `Ingår i ${paketNamn(SALJS)}`;
+  return `Ingår i ${paketKort()}`;
 }
 
-/** "Köp Hela paketet, 149 kr i månaden" (verbet Köp, pris efter namnet). */
+/** Skärmläsarens slut på en låst rad: "Låst, ingår i Premium." (copy-premium avsnitt 5). */
+export function lastAria(): string {
+  return `Låst, ingår i ${paketKort()}.`;
+}
+
+/** "Köp Premium, 149 kr i månaden" (copy-premium avsnitt 8, ryms på 360 px). */
 export function kopKnapp(): string {
-  return `Köp ${paketNamn(SALJS)}, ${prisPeriod(SALJS)}`;
+  return planKopKnapp(SALJS);
+}
+
+/** Prisraden ovanför köpknappen, fulla namnet: "Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill." */
+export function prisrad(): string {
+  return `${paketNamn(SALJS)}, ${prisPeriod(SALJS)}. Säg upp när du vill.`;
 }
 
 export const HEM = {
@@ -46,7 +59,7 @@ export const HEM = {
     planRubrik: 'Planen',
     /** 1a gratis (20.5 fråga 4): märkena är grå och fyllda, inte ihåliga. */
     planMetaGratis: () =>
-      `Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i ${paketNamn(SALJS)}: passen från dag två, ommätningen och generalrepetitionen.`,
+      `Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i ${paketKort()}: passen från dag två, ommätningen och generalrepetitionen.`,
     planMeta: 'Din första punkt på kurvan kommer efter mätningen. Ihåliga märken är planerade dagar, luckorna är söndagar.',
   },
   matning: {
@@ -54,7 +67,7 @@ export const HEM = {
     titel: 'Mät din nivå. Cirka 8 minuter.',
     text: 'Tolv figuruppgifter över hela svårighetsspannet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar.',
     knapp: 'Mät min nivå, 8 min',
-    gratis: 'Mätningen är gratis, med eller utan paket.',
+    gratis: `Mätningen är gratis, med eller utan ${paketKort()}.`,
     /**
      * Med smakprov (testansvarig 19.3 fråga 3): n frågor räknas in, minuterna
      * räknas på de nya (40 s per fråga, minst 3).
@@ -84,7 +97,7 @@ export const HEM = {
     titel: 'Mät din nivå igen. Cirka 8 minuter.',
     text: 'Tolv uppgifter som i mätningen. Ommätningen väger tyngre än ett pass och visar om passen har flyttat dig.',
     knapp: 'Mät igen, 8 min',
-    lastText: () => `Ommätningarna ingår i ${paketNamn(SALJS)}.`,
+    lastText: () => `Ommätningarna ingår i ${paketKort()}.`,
   },
   pass: {
     eyebrowNiva: (niva: number) => `Dagens pass · nivå ${niva}`,
@@ -94,12 +107,12 @@ export const HEM = {
     textGrund: 'Nio uppgifter på grundnivå, tio minuter. Regeln efter varje fråga. Grundpasset i dag är gratis.',
     knapp: 'Starta dagens pass',
     knappGrund: 'Starta grundpasset',
-    /** 17.2: från dag två ingår passen i paketet. */
+    /** 17.2: från dag två ingår passen i Premium. */
     lastText: (svagaste: string | null) =>
       svagaste
-        ? `Nio uppgifter, tio minuter, nära din nivå och riktat mot ${svagaste.toLowerCase()}. Från andra dagen ingår passen i ${paketNamn(SALJS)}.`
-        : `Nio uppgifter, tio minuter, nära din nivå. Från andra dagen ingår passen i ${paketNamn(SALJS)}.`,
-    lastFot: 'Mätningen, resultatet och genomgången är dina, med eller utan paket.',
+        ? `Nio uppgifter, tio minuter, nära din nivå och riktat mot ${svagaste.toLowerCase()}. Från andra dagen ingår passen i ${paketKort()}.`
+        : `Nio uppgifter, tio minuter, nära din nivå. Från andra dagen ingår passen i ${paketKort()}.`,
+    lastFot: `Mätningen, resultatet och genomgången är dina, med eller utan ${paketKort()}.`,
   },
   vila: {
     eyebrow: 'Vilodag',
@@ -175,7 +188,7 @@ export const HEM = {
     planOm: 'ommätning',
     planGen: 'generalrepetition',
     planGenKort: 'generalrep.',
-    gratisMeta: () => `Grå platser: ommätningarna och generalrepetitionen ingår i ${paketNamn(SALJS)}. Kurvans historik också.`,
+    gratisMeta: () => `Grå platser: ommätningarna och generalrepetitionen ingår i ${paketKort()}. Kurvans historik också.`,
   },
   utanDatum: {
     box: 'Sätt ett datum så räknar vi bakåt: ommätningar, generalrepetition och vila.',
@@ -212,7 +225,7 @@ export const HEM = {
     text1: 'Fast ordning, ingen förklaring förrän efteråt. Sitt som på provet: tyst rum, dator, ingen paus. Sista repetitionen före provet.',
     knapp: 'Starta generalrepetitionen',
     status: 'Dagen före: generalrepetition. Provdagen: tre uppvärmningsfrågor, inget mer.',
-    lastText: () => `Generalrepetitionen i leverantörens format ingår i ${paketNamn(SALJS)}. Resultat och genomgång av det du redan gjort är alltid dina.`,
+    lastText: () => `Generalrepetitionen i leverantörens format ingår i ${paketKort()}. Resultat och genomgång av det du redan gjort är alltid dina.`,
   },
   provdag: {
     eyebrow: (mal: string) => `I dag: ${mal}`,

@@ -11,7 +11,7 @@ const { byggForhandsdata } = await import('@/app/dashboard/tester/forhandsvisnin
 import { fixturApi } from '../fixturApi'
 import { datumLista, deltaText, fragorText, mmss, nivaHeltal, nivaText, PASS_COPY, serieText } from '../pass-copy'
 import { andraRegelrad, kvitto, matningResultat, ommatningResultat, passResultat } from '../resultat'
-import { paketMedPris, paketNamn } from '@/lib/plans/plans'
+import { kopKnapp } from '@/lib/plans/plans'
 
 function resultatdata(ram: 'P4' | 'S1' | 'M1' | 'O1', opt: { betalande?: boolean } = {}) {
   const d = byggForhandsdata(ram, opt)
@@ -162,9 +162,12 @@ describe('M1: nivåmätningen med betalväggen', () => {
     ])
     expect(r.plan.filter((p) => p.last).length).toBe(3)
     expect(r.plan.find((p) => p.titel.includes('generalrepetition'))!.meta).toBe('Samma format som Matrigma, cirka 35 uppgifter, 40 minuter.')
-    expect(r.plan[2].chip).toMatchObject({ text: paketNamn('all_month'), las: true })
-    expect(r.betalvagg!.knapp).toBe(`Köp ${paketMedPris('all_month')}`)
-    expect(r.betalvagg!.knapp).toContain('149 kr i månaden')
+    expect(r.plan[2].chip).toMatchObject({ text: 'Ingår i Premium', las: true })
+    // copy-premium avsnitt 8: kortformen i knappen, fulla namnet i prisraden.
+    expect(r.betalvagg!.knapp).toBe(kopKnapp())
+    expect(r.betalvagg!.knapp).toBe('Köp Premium, 149 kr i månaden')
+    expect(r.betalvagg!.prisrad).toBe('Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
+    expect(r.betalvagg!.eyebrow).toBe('Premium')
     expect(r.betalvagg!.rubrik).toBe('18 dagar kvar. Månaden täcker hela vägen.')
     // 19.4 punkt 1: "samma format som" när leverantören är känd.
     expect(r.betalvagg!.text).toContain('generalrepetitionen i samma format som Matrigma. Plus')

@@ -33,7 +33,8 @@ import { capture } from '@/lib/analytics/events'
 import { familjNamn } from '@/lib/logicTestV7/familjer'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import { paketMedPris, paketNamn } from '@/lib/plans/plans'
+import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import type { BetalvaggPlats } from '@/lib/analytics/events'
 import {
   fetchPassApi,
   passHref,
@@ -126,8 +127,8 @@ function huvud(vy: Sessionsvy): { titel: string; undertitel: string } {
   }
 }
 
-function betalvaggPlats(typ: Begard): 'dag2' | 'riktat' | 'provlage' | 'ommatning' {
-  return typ === 'pass' ? 'dag2' : typ === 'riktat' ? 'riktat' : typ === 'general' ? 'provlage' : 'ommatning'
+function betalvaggPlats(typ: Begard): BetalvaggPlats {
+  return typ === 'pass' ? 'dag2' : typ === 'riktat' ? 'riktat' : typ === 'general' ? 'generalrepetition' : 'ommatning'
 }
 
 function Laddar({ text }: { text: string }) {
@@ -435,17 +436,21 @@ export default function PassFlode({
         const B = PASS_COPY.betalvagg
         const vad = t === 'pass' ? B.pass : t === 'riktat' ? B.riktat : t === 'general' ? B.general : B.ommatning
         innehall = (
-          <section className="rounded-2xl border border-koppar bg-papper p-4 shadow-[inset_0_0_0_1px_var(--koppar)]">
-            <p className="text-ey text-koppar-ink">{paketNamn('all_month')}</p>
-            <h2 className="mt-1 text-kort-t text-ink-1">{`${vad} ${paketNamn('all_month')}.`}</h2>
+          // Betalväggen bär sin egen knapp (art-director 20.2 fråga 1): rubriken
+          // säger Premium, prisraden fulla namnet, knappen kortformen.
+          <section aria-label={`${vad} ${paketKort()}`} className="rounded-2xl border border-kant bg-papper p-4">
+            <h2 className="text-kort-t text-ink-1">{`${vad} ${paketKort()}.`}</h2>
             <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{B.text}</p>
+            <p className="mt-2 text-sm font-medium text-ink-1">{`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`}</p>
             <div className={KNAPPRAD}>
               <Link
-                href={kopstegHref('all_month')}
+                href={kopstegHref(SALD_PLAN, betalvaggPlats(t))}
                 className={KNAPP_PRIMAR}
-                onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: 'all_month', surface: 'pass', cta: 'primary' })}
+                onClick={() =>
+                  capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'pass', cta: 'primary', plats: betalvaggPlats(t) })
+                }
               >
-                {`Köp ${paketMedPris('all_month')}`}
+                {kopKnapp(SALD_PLAN)}
               </Link>
               <Link href={TRANING_HREF} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
                 {PASS_COPY.knapp.tillbaka}

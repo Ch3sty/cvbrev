@@ -154,7 +154,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(t.lyft.handling).toMatchObject({ text: 'Mät min nivå, 5 min' })
     const a = modell('1as')
     expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
-    expect(a.lyft.fot).toBe('Mätningen är gratis, med eller utan paket.')
+    expect(a.lyft.fot).toBe('Mätningen är gratis, med eller utan Premium.')
     expect(modell('T1').lyft.text).toMatch(/^Tolv figuruppgifter/)
   })
   it('1t: bara siffror valt erbjuder siffertestet, aldrig matrismätningen (19.3 fråga 2)', () => {
@@ -172,7 +172,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
     expect(modell('1a').vagg.kurvaMeta).toBe(
-      'Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i Hela paketet: passen från dag två, ommätningen och generalrepetitionen.'
+      'Din första punkt på kurvan kommer efter mätningen. Grå platser ingår i Premium: passen från dag två, ommätningen och generalrepetitionen.'
     )
   })
   it('provdagen: samma råd för alla format, Matrigma-raden borta (19.3 fråga 4)', () => {
@@ -200,8 +200,11 @@ describe('gratisnivån (17.2)', () => {
   it('dag 2 utan paket: passet visas med tema och nivå, knappen köper paketet', () => {
     const m = modell('1f')
     expect(m.lyft.eyebrow).toBe('Dagens pass · nivå 5')
-    expect(m.lyft.handling).toEqual({ typ: 'kop', text: kopKnapp(), feature: 'tests_above_base' })
-    expect(kopKnapp()).toMatch(/^Köp .+, \d+ kr i månaden$/)
+    expect(m.lyft.handling).toMatchObject({ typ: 'kop', text: kopKnapp(), feature: 'tests_above_base', plats: 'dag2' })
+    expect(m.lyft.handling).toHaveProperty('prisrad', 'Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
+    // copy-premium avsnitt 8: kortformen i knappen, ryms på 360 px.
+    expect(kopKnapp()).toBe('Köp Premium, 149 kr i månaden')
+    expect(kopKnapp().length).toBeLessThan(30)
     expect(m.vagg.dagsrad!.tal[0].etikett).toBe('nivå, mätt i går')
     expect(m.vagg.dagsrad!.tal[2]).toMatchObject({ varde: '17', etikett: 'dagar till provet' })
     const tappar = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'tappar')

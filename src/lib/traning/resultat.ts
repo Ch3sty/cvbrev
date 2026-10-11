@@ -12,7 +12,7 @@
 
 import { familjInfo, familjNamn } from '@/lib/logicTestV7/familjer';
 import { svagasteFamiljer } from './familjer';
-import { paketMedPris, paketNamn } from '@/lib/plans/plans';
+import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans';
 import { TRANING_COPY, versal } from './copy';
 import { dagarMellan, veckodagNamn, type Dag } from './datum';
 import { MILSTOLPAR, type MilstolpeNyckel, type Nivapunkt } from './milstolpar';
@@ -361,7 +361,7 @@ export interface MatningResultat {
   familjer: { titel: string; meta: string; andel: number | null; ton: 'koppar' | 'ton' | null }[];
   planRubrik: string;
   plan: PlanRad[];
-  betalvagg: { eyebrow: string; rubrik: string; text: string; knapp: string; lank: string; lankTill: 'grundpass' | 'tillbaka' } | null;
+  betalvagg: { eyebrow: string; rubrik: string; text: string; prisrad: string; knapp: string; lank: string; lankTill: 'grundpass' | 'tillbaka' } | null;
   dagarKvar: number | null;
 }
 
@@ -372,7 +372,7 @@ export function planRader(
 ): PlanRad[] {
   const M = PASS_COPY.matning.plan;
   const idag = status.idag;
-  const las = { text: paketNamn('all_month'), las: true };
+  const las = { text: `Ingår i ${paketKort()}`, las: true };
   const rader: PlanRad[] = [{ punkt: 'gjord', titel: M.idag, meta: M.idagMeta, chip: { text: M.klart, ton: true }, last: false }];
   if (!opt.betalande) {
     // Grundpasset gjort (19.2 fråga 6): chippen säger Klart i stället för Gratis.
@@ -459,10 +459,13 @@ export function matningResultat(avslut: Avslut, status: Traningsstatus | null, b
     betalvagg: betalande
       ? null
       : {
-          eyebrow: paketNamn('all_month'),
+          // Kortformen i eyebrow och knapp, fulla namnet en gång i prisraden
+          // (copy-premium avsnitt 1 och 8).
+          eyebrow: paketKort(),
           rubrik: PASS_COPY.matning.betalvagg.rubrik(dagarKvar),
           text: PASS_COPY.matning.betalvagg.text(status?.format.namn ?? null),
-          knapp: `Köp ${paketMedPris('all_month')}`,
+          prisrad: `${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`,
+          knapp: kopKnapp(SALD_PLAN),
           // Grundpasset redan gjort: länken går tillbaka till rummet (19.2 fråga 6).
           lank: status?.dagensPassGjort ? PASS_COPY.knapp.tillbaka : PASS_COPY.matning.betalvagg.grundpassLank,
           lankTill: status?.dagensPassGjort ? 'tillbaka' : 'grundpass',

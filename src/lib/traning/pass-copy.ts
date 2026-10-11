@@ -13,6 +13,7 @@
 // bytet till Premium sker i våg 5.
 // =============================================================================
 
+import { paketKort } from '@/lib/plans/plans';
 import { talord, versal } from './copy';
 
 /** Nivån med en decimal och komma: 5,6. */
@@ -379,7 +380,7 @@ export const PASS_COPY = {
     riktat: 'Riktade pass ingår i',
     general: 'Generalrepetitionen ingår i',
     ommatning: 'Ommätningen ingår i',
-    text: 'Resultat och genomgång av det du redan gjort är alltid dina, med eller utan paket.',
+    text: `Resultat och genomgång av det du redan gjort är alltid dina, med eller utan ${paketKort()}.`,
   },
 } as const;
 

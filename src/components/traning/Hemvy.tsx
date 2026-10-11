@@ -42,6 +42,10 @@ import { matningsvarde } from '@/lib/traning/hemvy'
 import Kurva, { Planbild } from './Kurva'
 import Nivaskala from './Nivaskala'
 import { EfterProvet, ForsokIgen, HemMatning, KopKnapp, LasChip, TaBortSvar } from './HemKlient'
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
+
+/** Prissidan, betalväggens sekundära länk "Se vad som ingår". */
+const PRISER_HREF = '/priser'
 
 function SymbolFor({ s }: { s: Symbol }) {
   switch (s) {
@@ -70,7 +74,7 @@ function SymbolFor({ s }: { s: Symbol }) {
 
 function HogerFor({ h }: { h: Hoger }) {
   if (h.typ === 'chev') return <IkonChev size={20} className="text-ink-3" />
-  if (h.typ === 'las') return <LasChip feature={h.feature} text={h.text} />
+  if (h.typ === 'las') return <LasChip feature={h.feature} text={h.text} plats={h.plats} />
   return (
     <Link href={h.href} className={`${LANK} inline-flex min-h-11 items-center whitespace-nowrap text-[13px]`}>
       {h.text}
@@ -129,7 +133,7 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
       {h.text}
     </Link>
   ) : h.typ === 'kop' ? (
-    <KopKnapp feature={h.feature} text={h.text} />
+    <KopKnapp text={h.text} plats={h.plats} dagarKvar={h.dagarKvar} />
   ) : (
     <ForsokIgen text={h.text} />
   )
@@ -147,10 +151,16 @@ function Lyft({ l, bred }: { l: LyftModell; bred?: boolean }) {
             <Link href={l.sekundar.href} className={`lank ${LANK}`}>
               {l.sekundar.text}
             </Link>
+          ) : h?.typ === 'kop' ? (
+            // Betalväggens sekundära är alltid en länk (knappar.ts).
+            <Link href={PRISER_HREF} className={`lank ${LANK}`}>
+              {PAKETRADER.jamfor}
+            </Link>
           ) : undefined
         }
         fot={l.fot}
       >
+        {h?.typ === 'kop' ? <p className="mt-2 text-sm font-medium text-ink-1">{h.prisrad}</p> : null}
         {l.tre ? (
           <div className="mt-3">
             <TreTal tal={l.tre} pa="golv" />

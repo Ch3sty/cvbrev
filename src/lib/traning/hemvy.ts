@@ -22,13 +22,16 @@
 // Regler som gäller alla: inga streck, aldrig "0" eller "0 %", ingen tom
 // graf. Exakt en primär handling (det lyfta kortet), väggen bär aldrig
 // kopparknappen. Gratisnivån enligt ägarens beslut 17.2: grundpasset bara
-// mätningens dag, därefter lås med paketets namn och pris.
+// mätningens dag, därefter lås med "Ingår i Premium" och köpknappen med
+// prisraden (copy-premium-2026-10-11).
 // =============================================================================
 
 import { dagarMellan, laggTill, arSondag, veckodag, type Dag } from './datum';
 import { GRATISNIVA } from './gratisniva';
 import { talord as talordTio, versal } from './copy';
-import { HEM, ingarIPaketet, kopKnapp, jobbsokRad } from './hem-copy';
+import { HEM, ingarIPaketet, kopKnapp, jobbsokRad, lastAria, prisrad } from './hem-copy';
+import { paketKort } from '@/lib/plans/plans';
+import type { BetalvaggPlats } from '@/lib/analytics/events';
 import { byggPlan, type PlanDag } from './plan';
 import { TRANING_RUTT } from './rutter';
 import {
@@ -73,12 +76,16 @@ export type Betalvagg = 'tests_above_base' | 'test_exam_mode';
 
 export type Handling =
   | { typ: 'lank'; text: string; href: string }
-  | { typ: 'kop'; text: string; feature: Betalvagg }
+  /**
+   * Köpknappen i det lyfta kortet (1f, W3): en betalvägg med egen knapp.
+   * plats och dagarKvar går till betalvagg_visad och köpsteget.
+   */
+  | { typ: 'kop'; text: string; feature: Betalvagg; plats: BetalvaggPlats; prisrad: string; dagarKvar: number | null }
   | { typ: 'forsok'; text: string };
 
 export type Hoger =
   | { typ: 'lank'; text: string; href: string }
-  | { typ: 'las'; text: string; feature: Betalvagg }
+  | { typ: 'las'; text: string; feature: Betalvagg; plats: BetalvaggPlats }
   | { typ: 'chev' };
 
 export type Symbol = 'matris' | 'siffror' | 'ord' | 'person' | 'jobb' | 'brev';
@@ -213,6 +220,11 @@ export function decimal(n: number): string {
   return (Math.round(n * 10) / 10).toFixed(1).replace('.', ',');
 }
 
+/** Köpknappen i det lyfta kortet, med prisraden och mätningens plats. */
+function kop(s: Traningsstatus, feature: Betalvagg, plats: BetalvaggPlats): Handling {
+  return { typ: 'kop', text: kopKnapp(), feature, plats, prisrad: prisrad(), dagarKvar: s.dagarKvar ?? null };
+}
+
 function heltal(n: number): number {
   return Math.floor(n + 1e-9);
 }
@@ -281,7 +293,7 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   const vila = k.plan.filter((p) => p.typ === 'vila').map((p) => datumText(p.dag));
   if (vila.length) delar.push(`${vila.length === 1 ? 'Vilodag' : 'Vilodagar'} ${vila.join(' och ')}.`);
   const last = k.plan.filter((p) => p.status === 'last');
-  if (last.length) delar.push(`${last.length} planerade dagar ingår i paketet.`);
+  if (last.length) delar.push(`${last.length} planerade dagar ingår i ${paketKort()}.`);
   if (k.prov) delar.push(`Prov ${datumText(k.prov)}${k.provPasserat ? ', passerat' : ''}.`);
   return delar.join(' ');
 }
@@ -355,13 +367,13 @@ function varDuTappar(s: Traningsstatus, betalande: boolean, iMatningen: boolean)
   const riktatHoger = (family: string): Hoger =>
     betalande || GRATISNIVA.riktadePassGratis
       ? { typ: 'lank', text: HEM.tappar.riktat, href: TRANING_RUTT.riktat(family) }
-      : { typ: 'las', text: HEM.tappar.riktat, feature: 'tests_above_base' };
+      : { typ: 'las', text: HEM.tappar.riktat, feature: 'tests_above_base', plats: 'riktat' };
   const rader: RadModell[] = svaga.map((f, i) => ({
     titel: namnFamilj(f.family) ?? f.family,
     meta: iMatningen ? HEM.tappar.rattAvMatning(f.ratt, f.antal) : HEM.tappar.rattAv(f.ratt, f.antal),
     stapel: { andel: f.andel, ton: i === 0 ? 'koppar' : 'ton' },
     hoger: riktatHoger(f.family),
-    label: betalande ? undefined : `${namnFamilj(f.family) ?? f.family}. ${f.ratt} av ${f.antal} rätt. Riktat pass, låst, ${ingarIPaketet().toLowerCase()}.`,
+    label: betalande ? undefined : `${namnFamilj(f.family) ?? f.family}. ${f.ratt} av ${f.antal} rätt. Riktat pass. ${lastAria()}`,
   }));
   if (langsam && betalande) {
     const namn = namnFamilj(langsam.family) ?? langsam.family;
@@ -397,7 +409,7 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
   if (r.utanLeverantor) hoger = { typ: 'lank', text: HEM.provdagen.angeLeverantor, href: TRANING_RUTT.installningarSteg(2) };
   else if (!prov) hoger = { typ: 'lank', text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) };
   else if (harProvlage || GRATISNIVA.provlageGratis) hoger = { typ: 'lank', text: HEM.provdagen.gorEnNu, href: TRANING_RUTT.general };
-  else hoger = { typ: 'las', text: ingarIPaketet(), feature: 'test_exam_mode' };
+  else hoger = { typ: 'las', text: ingarIPaketet(), feature: 'test_exam_mode', plats: 'generalrepetition' };
   return {
     typ: 'rader',
     nyckel: 'provdagen',
@@ -407,7 +419,7 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
         titel: HEM.provdagen.radTitel,
         meta,
         hoger,
-        label: hoger.typ === 'las' ? `${HEM.provdagen.radTitel}. ${meta} Låst, ${ingarIPaketet().toLowerCase()}.` : undefined,
+        label: hoger.typ === 'las' ? `${HEM.provdagen.radTitel}. ${meta} ${lastAria()}` : undefined,
       },
     ],
   };
@@ -733,7 +745,7 @@ export function byggHemvy(inp: HemIn): HemModell {
             hoger:
               betalande || GRATISNIVA.riktadePassGratis
                 ? { typ: 'lank', text: HEM.tappar.starta, href: TRANING_RUTT.riktat(svag.family) }
-                : { typ: 'las', text: HEM.tappar.riktat, feature: 'tests_above_base' },
+                : { typ: 'las', text: HEM.tappar.riktat, feature: 'tests_above_base', plats: 'riktat' },
           },
         ],
       });
@@ -765,7 +777,7 @@ export function byggHemvy(inp: HemIn): HemModell {
             text: harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText(),
             handling: harProv
               ? { typ: 'lank', text: HEM.infor.knapp, href: TRANING_RUTT.general }
-              : { typ: 'kop', text: kopKnapp(), feature: 'test_exam_mode' },
+              : kop(s, 'test_exam_mode', 'generalrepetition'),
           },
       sektioner,
     };
@@ -790,7 +802,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       text: tillats ? HEM.ommatning.text : `${HEM.ommatning.text} ${HEM.ommatning.lastText()}`,
       handling: tillats
         ? { typ: 'lank', text: HEM.ommatning.knapp, href: TRANING_RUTT.matning }
-        : { typ: 'kop', text: kopKnapp(), feature: 'tests_above_base' },
+        : kop(s, 'tests_above_base', 'ommatning'),
       fot: tillats ? undefined : HEM.pass.lastFot,
     };
   } else if (dagLage === 'vila' && !s.dagensPassGjort) {
@@ -801,7 +813,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       titel: HEM.vila.titel,
       text: HEM.vila.text,
       handling: passLast
-        ? { typ: 'kop', text: kopKnapp(), feature: 'tests_above_base' }
+        ? kop(s, 'tests_above_base', 'dag2')
         : { typ: 'lank', text: HEM.vila.knapp, href: TRANING_RUTT.pass },
     };
   } else if (passLast) {
@@ -812,7 +824,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       eyebrowTon: 'koppar',
       titel: tema,
       text: HEM.pass.lastText(svagaste),
-      handling: { typ: 'kop', text: kopKnapp(), feature: 'tests_above_base' },
+      handling: kop(s, 'tests_above_base', 'dag2'),
       fot: HEM.pass.lastFot,
     };
   } else if (gratisForsta) {
