@@ -148,10 +148,12 @@ export default function Sidomeny() {
   const antalChip = (n: number | null) => (typeof n === 'number' && n > 0 ? <Chip liten>{n}</Chip> : undefined)
 
   const undersidor: Record<Rum, Undersida[]> = {
-    // Våg 1b: Träningens befintliga routes. Hubben är i dag katalogen över
-    // alla tester; Dagens pass, Kurvan och Test och datum kommer i våg 2 och 3b.
+    // Våg 2: hemvyn (Dagens pass), Kurvan, katalogen på Alla tester,
+    // Provläget och Test och datum (spec 4.3).
     tran: [
-      { href: '/dashboard/tester', etikett: UNDERSIDA.allaTester, chip: <Chip liten>{TEST_GROUPS.length}</Chip> },
+      { href: '/dashboard/tester', etikett: UNDERSIDA.dagensPass, exact: true },
+      { href: '/dashboard/tester/kurvan', etikett: UNDERSIDA.kurvan },
+      { href: '/dashboard/tester/alla', etikett: UNDERSIDA.allaTester, chip: <Chip liten>{TEST_GROUPS.length}</Chip> },
       {
         href: '/dashboard/tester/matrislogik-prov',
         etikett: UNDERSIDA.provlaget,
@@ -159,6 +161,7 @@ export default function Sidomeny() {
           ? undefined
           : { feature: 'test_exam_mode', variant: 'testniva', text: CHIP.lastEtikett, format: PROV_FORMAT },
       },
+      { href: '/dashboard/tester/installningar', etikett: UNDERSIDA.testOchDatum },
     ],
     cv: [
       { href: '/dashboard/profil/cv', etikett: UNDERSIDA.minaCv, chip: antalChip(cvAntal) },

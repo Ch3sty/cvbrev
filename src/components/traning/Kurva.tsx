@@ -169,6 +169,8 @@ export default function Kurva(props: KurvaProps) {
   const idagPlan = props.plan.find((d) => d.dag === idag)
   const xSlut = x(g.sista)
   const passIdagKvar = idagPlan && idagPlan.status === 'idag'
+  // Siktets etikett flyttar under linjen när senaste punktens tal står i vägen.
+  const sikteKrock = !!senast && sikte != null && xSlut - x(senast.dag) < (dator ? 150 : 80) && Math.abs(y(senast.niva) - y(sikte)) < 20
 
   return (
     <div className={`${nyPunkt ? 'motion' : ''} ${className ?? ''}`}>
@@ -208,7 +210,7 @@ export default function Kurva(props: KurvaProps) {
             ) : null}
             <line x1={x(g.forsta)} x2={xSlut} y1={r1(y(sikte))} y2={r1(y(sikte))} stroke="var(--ljus)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
             {!provPasserat ? (
-              <text className="lbl soft sikte" x={xSlut - 6} y={r1(y(sikte)) - 6} textAnchor="end">
+              <text className="lbl soft sikte" x={xSlut - 6} y={r1(y(sikte)) + (sikteKrock ? 15 : -6)} textAnchor="end">
                 {dator ? `Sikte ${fmt(sikte)} före provet` : `Sikte ${fmt(sikte)}`}
               </text>
             ) : null}
@@ -393,7 +395,7 @@ function Axel({
     { text: kortDatum(g.forsta), left: pct(g.forsta), justering: 'v' },
   ]
   const harIdag = idag > g.forsta && idag < g.sista
-  if (harIdag && g.x(idag) - g.x(g.forsta) > narhet / 1.4) etiketter.push({ text: 'i dag', left: pct(idag), justering: 'm', koppar: true })
+  if (harIdag && g.x(idag) - g.x(g.forsta) > narhet / 1.4 && g.x(g.sista) - g.x(idag) > narhet) etiketter.push({ text: 'i dag', left: pct(idag), justering: 'm', koppar: true })
   const kommande = plan.filter((d) => d.typ === 'ommatning' && d.dag > idag)
   const mittDagar = dator ? kommande : kommande.slice(0, 1)
   for (const m of mittDagar) {

@@ -1,5 +1,5 @@
 /**
- * Dagsringen (spec-rummen 4.4, konceptets .ring), SVG 56 på väggen.
+ * Dagsringen (spec-rummen 4.4, konceptets .ring; klassen heter dagsring eftersom Tailwinds ring ritar en blå kant), SVG 56 på väggen.
  *
  *   kvar         streckad kopparring och en liten ring i mitten
  *   gjord        fylld kopparring och en bock
@@ -11,7 +11,7 @@
  * är det lyfta kortet. Rendera inte Dagsring eller Dagsrad den dagen.
  *
  * fyllAnimering sätter klassen .fyll på den fyllda ringen, så att
- * .motion .ring .fyll i globals.css ritar den en gång (bara när en ny punkt
+ * .motion .dagsring .fyll i globals.css ritar den en gång (bara när en ny punkt
  * kommit, nyPunkt).
  *
  * Server component.
@@ -38,7 +38,7 @@ export default function Dagsring({ status, label, fyllAnimering, storlek = 56, c
       height={storlek}
       role="img"
       aria-label={label}
-      className={`ring shrink-0 ${className ?? ''}`}
+      className={`dagsring shrink-0 ${className ?? ''}`}
     >
       <circle cx="28" cy="28" r="24" fill="none" stroke="var(--vagg-kant)" strokeWidth="5" />
       {status === 'gjord' ? (

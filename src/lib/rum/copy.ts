@@ -53,6 +53,9 @@ export const TRAN_RAD = 'Träna inför ditt rekryteringstest.'
 
 /** Undersidornas etiketter (spec 4.3). */
 export const UNDERSIDA = {
+  dagensPass: 'Dagens pass',
+  kurvan: 'Kurvan',
+  testOchDatum: 'Test och datum',
   allaTester: 'Alla tester',
   provlaget: 'Provläget',
   minaCv: 'Mina CV',

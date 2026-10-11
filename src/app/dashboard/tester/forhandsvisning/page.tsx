@@ -5,6 +5,7 @@
  * TRANING_FORHANDSVISNING=1 är satt, vilket det aldrig är i produktion.
  *
  *   /dashboard/tester/forhandsvisning?tillstand=1b
+ *   /dashboard/tester/forhandsvisning?tillstand=1b&sida=kurvan   (F1, hela kurvan)
  *
  * Tillstånden: T1, 1a till 1i, 1p, X1, L1 och datorns W1 till W4 (samma
  * data som 1b, 1a, 1f och 1d). Knapparna leder till de riktiga sidorna.
@@ -15,6 +16,7 @@ import { byggHemvy } from '@/lib/traning/hemvy';
 import Hemvy from '@/components/traning/Hemvy';
 import { Betalvagg } from '@/components/traning/HemKlient';
 import Laddar from '../loading';
+import Helkurva from '@/components/traning/Helkurva';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +35,13 @@ export default async function Forhandsvisning({
   if (!(TILLSTAND as readonly string[]).includes(t)) notFound();
   const inp = fixtur(t as Fixtur);
   if (inp.laddar) return <Laddar />;
+  if (sp.sida === 'kurvan') {
+    return (
+      <Betalvagg scope={null} track={null} planKey={null}>
+        <Helkurva s={inp.status} fler={inp.flerTester} />
+      </Betalvagg>
+    );
+  }
   const m = byggHemvy(inp);
   return (
     <Betalvagg scope={null} track={null} planKey={null}>

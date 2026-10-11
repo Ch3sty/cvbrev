@@ -26,7 +26,7 @@
 
 import { dagarMellan, laggTill, arSondag, veckodag, type Dag } from './datum';
 import { GRATISNIVA } from './gratisniva';
-import { talord, versal } from './copy';
+import { talord as talordTio, versal } from './copy';
 import { HEM, ingarIPaketet, kopKnapp, jobbsokRad } from './hem-copy';
 import { byggPlan, type PlanDag } from './plan';
 import { TRANING_RUTT } from './rutter';
@@ -224,6 +224,13 @@ function dagIso(iso: string | null): Dag | null {
 
 function namnFamilj(id: string | null | undefined): string | null {
   return familjNamn(id) ?? null;
+}
+
+const TALORD_UPP = ['elva', 'tolv', 'tretton', 'fjorton', 'femton', 'sexton', 'sjutton', 'arton', 'nitton', 'tjugo'];
+
+/** Tal som ord upp till tjugo ("elva pass"), annars siffror. */
+function talord(n: number, ett: 'en' | 'ett' = 'ett'): string {
+  return n >= 11 && n <= 20 ? TALORD_UPP[n - 11] : talordTio(n, ett);
 }
 
 /** "elva pass", "ett pass" */
@@ -503,7 +510,7 @@ function kurvaFor(s: Traningsstatus, provPasserat = false): KurvaData | undefine
 
 function kontext(s: Traningsstatus): { text: string; href: string } | null {
   const t = kontextText({ ...rubrikIn(s), provdatum: s.plan?.provdatum ?? null });
-  return t ? { text: t, href: TRANING_RUTT.installningar } : null;
+  return t ? { text: t, href: TRANING_RUTT.installningarSteg(3) } : null;
 }
 
 /* ------------------------------------------------------------ modellen */
@@ -636,7 +643,7 @@ export function byggHemvy(inp: HemIn): HemModell {
             prov: aktuelltProv,
             ariaLabel: planbildLabel(plan, s.idag, aktuelltProv),
           },
-          kurvaMeta: HEM.ny.planMeta,
+          kurvaMeta: plan.some((d) => d.status === 'last') ? `${HEM.ny.planMeta} ${HEM.ny.planMetaGratis}` : HEM.ny.planMeta,
         },
         lyft: mat,
         sektioner: [fler, jobb],

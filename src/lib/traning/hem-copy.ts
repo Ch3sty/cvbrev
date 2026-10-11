@@ -36,6 +36,7 @@ export const HEM = {
   ny: {
     rad: 'Vi börjar med att mäta var du står. Sedan ett pass om dagen fram till provdagen.',
     planRubrik: 'Planen',
+    planMetaGratis: 'Grå platser ingår i paketet: passen från dag två, ommätningen och generalrepetitionen.',
     planMeta: 'Din första punkt på kurvan kommer efter mätningen. Ihåliga märken är planerade dagar, luckorna är söndagar.',
   },
   matning: {
