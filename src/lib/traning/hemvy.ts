@@ -401,7 +401,8 @@ function provdagenSektion(s: Traningsstatus, harProvlage: boolean): Sektion {
   if (prov) {
     // Samma mening för gratis och betalande: om raden är öppen eller låst
     // säger högersidan, aldrig metan (22.4 fråga 2).
-    meta += ` ${HEM.provdagen.iPlanen(datumText(laggTill(prov, -2)))}`;
+    // Kort form: metan är en rad-meta (copy-premium 9.2, regeln vid kortDatum).
+    meta += ` ${HEM.provdagen.iPlanen(kortDatum(laggTill(prov, -2)))}`;
   } else {
     meta += ` ${HEM.utanDatum.provradMeta}`;
   }

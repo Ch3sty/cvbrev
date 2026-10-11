@@ -65,13 +65,22 @@ function delar(dag: Dag): { d: number; m: number; y: number } {
   return { d, m, y };
 }
 
-/** "24 okt" */
+/*
+ * Datumregeln i hemvyn (copy-premium-2026-10-11 avsnitt 9.2): formen följer
+ * platsen, inte sektionen.
+ *   kortDatum ("22 okt"): rader och rad-metor (Fler tester, Generalrepetitionen),
+ *     etiketter (tempo), toppradens kontextrad och kurvans axlar.
+ *   datumText ("22 oktober"): rubriker, lyftkortets löptext och aria.
+ * Kort form där ögat skummar, lång form där meningen läses eller läses upp.
+ */
+
+/** "24 okt". Rader, etiketter, kontextrad och axlar. */
 export function kortDatum(dag: Dag): string {
   const { d, m } = delar(dag);
   return `${d} ${MANADER_KORT[m - 1]}`;
 }
 
-/** "24 oktober" */
+/** "24 oktober". Rubriker, lyftkortets löptext och aria (regeln ovan). */
 export function datumText(dag: Dag): string {
   const { d, m } = delar(dag);
   return `${d} ${MANADER[m - 1]}`;

@@ -109,11 +109,20 @@ describe('tillstånden med konceptets exempeltal', () => {
     const w = modell('W3')
     const wp = w.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
     expect(wp && wp.typ === 'rader' ? wp.rader[0] : null).toMatchObject({ titel: 'Generalrepetitionen' })
-    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toMatch(/^Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter.* I planen \d+ \S+ och dagen före provet\.$/)
+    // Datumet i kort form, rad-meta (copy-premium 9.2): provet 24 okt, planen 22 okt.
+    expect(wp && wp.typ === 'rader' ? wp.rader[0].meta : '').toBe(
+      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. I planen 22 okt och dagen före provet.'
+    )
     // Betalande får samma mening: öppen eller låst säger högersidan (22.4 fråga 2).
+    // 1c ligger två dagar före provet och har ingen Provdagen-rad, så 1b får visa det.
+    const b = modell('1b')
+    const bp = b.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
+    expect(bp && bp.typ === 'rader' ? bp.rader[0].meta : '').toBe(
+      'Samma format som Matrigma. Cirka 35 uppgifter, 40 minuter, fast ordning. I planen 22 okt och dagen före provet.'
+    )
     const c = modell('1c')
     const cp = c.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
-    if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ I planen \d+ \S+ och dagen före provet\.$/)
+    if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ I planen \d+ [a-zåäö]+ och dagen före provet\.$/)
   })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
