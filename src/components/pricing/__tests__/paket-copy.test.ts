@@ -309,6 +309,13 @@ describe('bytet från betalväggen', () => {
     expect(PAKETBYTE.klart('all_month')).toBe('Du har nu Jobbcoach Premium')
     expect(PAKETBYTE.redanPaket).toBe('Du har redan Jobbcoach Premium.')
   })
+
+  it('spårkunden i köpsteget får sitt eget paket namngivet, inte Premium', () => {
+    expect(KOPSTEG.harSpar('Träningspaketet')).toBe(
+      'Du har Träningspaketet. Byt till Premium på prenumerationssidan.'
+    )
+    expect(KOPSTEG.prenumerationHref).toBe('/dashboard/profil/prenumeration')
+  })
 })
 
 describe('förslagets skäl (D28)', () => {
@@ -376,6 +383,8 @@ describe('skrivregeln (copy-premium avsnitt 2 och 7)', () => {
     KOPSTEG.farEtikett,
     KOPSTEG.saljsInte,
     KOPSTEG.redan,
+    KOPSTEG.harSpar('CV-paketet'),
+    KOPSTEG.tillPrenumeration,
     ...ALLA_NYCKLAR.map((k) => KOPSTEG.samtycke(k)),
     KONTO.paketRubrik,
     KONTO.dittPaket,

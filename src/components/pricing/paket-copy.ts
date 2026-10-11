@@ -413,6 +413,14 @@ export const KOPSTEG = {
   saljsInte: `Paketet du valde säljs inte längre. Det vi säljer är ${paketMedPris(SALD_PLAN)}. Ladda om sidan och försök igen.`,
   /** 409: kontot har redan en löpande prenumeration. */
   redan: `Du har redan ${HELA_NAMN}.`,
+  /**
+   * 409 med upgradeAvailable: en spårkund (CV-paketet, Träningspaketet) som
+   * försöker köpa Premium. Bytet görs på samma prenumeration, på
+   * prenumerationssidan, aldrig i en ny kassa (spec-rummen 17.5).
+   */
+  harSpar: (namn: string) => `Du har ${namn}. Byt till ${PREMIUM} på prenumerationssidan.`,
+  tillPrenumeration: 'Till prenumerationssidan',
+  prenumerationHref: '/dashboard/profil/prenumeration',
   felKassa: 'Kassan kunde inte öppnas just nu. Försök igen.',
   /** Flödets namn i toppraden. */
   topp: 'Kom igång',

@@ -81,6 +81,9 @@ export default function ValjSparClient({
   const [samtycke, setSamtycke] = useState(false)
   const [busy, setBusy] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
+  // Spårkunden (409 med upgradeAvailable) byter på prenumerationssidan, inte i
+  // en ny kassa. Då leder felraden dit i stället för "Försök igen".
+  const [tillByte, setTillByte] = useState<string | null>(null)
   const engangs = PLAN_BY_KEY[plan].mode === 'payment'
 
   // pricing_viewed, paywall_shown och purchase_step_viewed en gång per
@@ -162,6 +165,7 @@ export default function ValjSparClient({
     if (!samtycke || busy) return
     setBusy(true)
     setFel(null)
+    setTillByte(null)
     capture('paywall_cta_clicked', {
       variant: 'onboarding_paket',
       surface: '/dashboard/valj-spar',
@@ -191,6 +195,12 @@ export default function ValjSparClient({
       // 400 med saljs: false betyder att paketet inte säljs. Det är ett fel
       // med en förklaring, aldrig ett tyst "klart".
       if (res.status === 400 && json?.saljs === false) throw new Error(KOPSTEG.saljsInte)
+      if (res.status === 409 && json?.upgradeAvailable) {
+        setBusy(false)
+        setTillByte(typeof json?.bytUrl === 'string' ? json.bytUrl : KOPSTEG.prenumerationHref)
+        setFel(json?.error || KOPSTEG.redan)
+        return
+      }
       if (res.status === 409) throw new Error(json?.error || KOPSTEG.redan)
       if (!res.ok || !json?.url) throw new Error(json?.error || KOPSTEG.felKassa)
       // Omdirigeringen till Stripe är trattens femte steg. Skjuts precis
@@ -204,7 +214,15 @@ export default function ValjSparClient({
   }, [samtycke, busy, plan, plats, initialTrack, sparaSpar])
 
   const felBanner = fel ? (
-    <FlowError message={fel} onRetry={() => setFel(null)} retryLabel={KOPSTEG.forsokIgen} />
+    tillByte ? (
+      <FlowError
+        message={fel}
+        onRetry={() => router.push(tillByte)}
+        retryLabel={KOPSTEG.tillPrenumeration}
+      />
+    ) : (
+      <FlowError message={fel} onRetry={() => setFel(null)} retryLabel={KOPSTEG.forsokIgen} />
+    )
   ) : undefined
 
   /* ============================================================ gratisval */

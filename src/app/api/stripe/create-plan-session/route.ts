@@ -19,7 +19,7 @@ import {
 import { PLAN_BY_KEY, SALD_PLAN, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
-import { samtyckeVidKop } from '@/components/pricing/paket-copy'
+import { KOPSTEG, samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 export async function POST(request: NextRequest) {
   try {
@@ -116,12 +116,15 @@ export async function POST(request: NextRequest) {
       }
       // Uppgradering från ett spår till Jobbcoach Premium byter pris på den befintliga
       // prenumerationen. En andra checkout skulle ge kunden två abonnemang.
+      // Texten namnger det hon faktiskt har, inte Premium: hon har ett spår.
       if (existing) {
+        const harNamn = existing.planKey ? PLAN_BY_KEY[existing.planKey].name : 'en prenumeration'
         return NextResponse.json(
           {
-            error: `Du har redan ${PLAN_BY_KEY[SALD_PLAN].name}.`,
+            error: KOPSTEG.harSpar(harNamn),
             upgradeAvailable: true,
             upgradeUrl: '/api/stripe/create-upgrade-session',
+            bytUrl: KOPSTEG.prenumerationHref,
             currentScope: existing.scope,
           },
           { status: 409 }
