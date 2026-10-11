@@ -1,0 +1,77 @@
+{
+  "tid": "2026-10-11T14:05:29.229Z",
+  "konton": [
+    {
+      "nyckel": "ny-m360",
+      "email": "qa-lyft-helhet-ny-m360-1791726878324@jobbcoach-qa.test",
+      "id": "4cea962c-cf17-42ec-aa40-4234b8499e48",
+      "rader": {
+        "user_activities": 6,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "ny-pixel7",
+      "email": "qa-lyft-helhet-ny-pixel7-1791727002052@jobbcoach-qa.test",
+      "id": "6acfad5f-63e5-4bba-8c51-6754826adcff",
+      "rader": {
+        "user_activities": 6,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "ny-desktop",
+      "email": "qa-lyft-helhet-ny-desktop-1791727117104@jobbcoach-qa.test",
+      "id": "923fe9e2-4d47-4c47-8959-b1e9b7fc0fc5",
+      "rader": {
+        "user_activities": 6,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-m360",
+      "email": "qa-lyft-helhet-nagra-m360-1791727230693@jobbcoach-qa.test",
+      "id": "74f872b0-f477-4a73-ae1f-24aad0b5043a",
+      "rader": {
+        "user_activities": 6,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-pixel7",
+      "email": "qa-lyft-helhet-nagra-pixel7-1791727347458@jobbcoach-qa.test",
+      "id": "0cc5a636-0d09-47d1-a661-d1a1faf1379e",
+      "rader": {
+        "user_activities": 6,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-desktop",
+      "email": "qa-lyft-helhet-nagra-desktop-1791727474557@jobbcoach-qa.test",
+      "id": "9a946115-7a4f-4d37-9fb0-e49472de812a",
+      "rader": {
+        "user_activities": 5,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
-  "email": "qa-lyft-res-a-1791722187850@jobbcoach-qa.test",
-  "id": "48a925e9-b070-4a50-939b-203915762a09",
+  "email": "qa-lyft-res-a-1791728715730@jobbcoach-qa.test",
+  "id": "50f8dcd6-0c73-45cc-ba32-f7ea3b05821c",
   "rader": {
     "logic_test_v4_sessions": 4,
-    "user_activities": 139
+    "user_activities": 84
   },
   "profiler": 1
 }

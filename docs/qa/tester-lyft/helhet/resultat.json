@@ -1,0 +1,850 @@
+[
+  {
+    "konto": "ny-m360",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta första testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "ny,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": "Mät din nivå i logik",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "utvLage": "tomt"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tretton frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Antal i rad och kolumn, 0 av 3 Antal i rad och kolumn 0 av 3 Mönster som roterar 0 av 2 Överlagring 0 av 2 Vridning 1 av 3 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "2 av 15 rätt, 13 procent",
+          "offset": "130.9px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tretton frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tretton frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta första testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "ny,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": "Mät din nivå i logik",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "utvLage": "tomt"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tolv frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Form och fyllning i rad och kolumn, 0 av 2 Form och fyllning i rad och kolumn 0 av 2 Vridning 0 av 2 Vandring runt en ram 1 av 5 Flera egenskaper i rad och kolumn 2 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "3 av 15 rätt, 20 procent",
+          "offset": "120.8px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tolv frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tolv frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "ny-desktop",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta första testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "ny,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": "Mät din nivå i logik",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "utvLage": "tomt"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tretton frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE HÄR Antal i rad och kolumn, 0 av 3 Antal i rad och kolumn 0 av 3 Vridning 0 av 3 Överlagring 0 av 2 Vandring runt en ram 1 av 4 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "2 av 15 rätt, 13 procent",
+          "offset": "130.9px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tretton frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tretton frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      },
+      {
+        "steg": "09-hjalpen-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "doljKlickad": true,
+        "sparStatus": 204,
+        "dbHjalpDold": true,
+        "efterOmladdning": {
+          "panel": false,
+          "doljKnapp": false,
+          "ls": "1"
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "nagra-m360",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tio frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Form och fyllning i rad och kolumn, 0 av 4 Form och fyllning i rad och kolumn 0 av 4 Vandring runt en ram 1 av 3 Antal i rad och kolumn 1 av 2 Flera egenskaper i rad och kolumn 1 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "5 av 15 rätt, 33 procent",
+          "offset": "100.7px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tio frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tio frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de elva frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Antal i rad och kolumn, 0 av 3 Antal i rad och kolumn 0 av 3 Form och fyllning i rad och kolumn 0 av 2 Speglingar 0 av 2 Vridning 0 av 2 Överlagring 1 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "4 av 15 rätt, 27 procent",
+          "offset": "110.7px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de elva frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de elva frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,last,last"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tio frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE HÄR Vandring runt en ram, 0 av 2 Vandring runt en ram 0 av 2 Mönster som roterar 1 av 3 Antal i rad och kolumn 1 av 2 Form och fyllning i rad och kolumn 1 av 2 Speglingar 1 av 2 Vridning 1 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "5 av 15 rätt, 33 procent",
+          "offset": "100.7px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tio frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tio frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,last,last",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "08b-testsida-kvot-anvand",
+        "horisontellScroll": false,
+        "koppar": "Köp Premium, 149 kr i månaden",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "kvot": {
+          "startknapp": false,
+          "betalvagg": true
+        }
+      },
+      {
+        "steg": "09-hjalpen-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "doljKlickad": true,
+        "sparStatus": 204,
+        "dbHjalpDold": true,
+        "efterOmladdning": {
+          "panel": false,
+          "doljKnapp": false,
+          "ls": "1"
+        }
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "premium-m360",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,gjord,ny"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de elva frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Vridning, 1 av 3 Vridning 1 av 3 Form och fyllning i rad och kolumn 2 av 4 Vandring runt en ram 1 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "4 av 15 rätt, 27 procent",
+          "offset": "110.7px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de elva frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de elva frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,gjord,ny",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,gjord,ny"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tolv frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE I DET HÄR TESTET Vridning, 0 av 5 Vridning 0 av 5 Form och fyllning i rad och kolumn 0 av 2 Mönster som roterar 1 av 4 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "3 av 15 rätt, 20 procent",
+          "offset": "120.8px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de tolv frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de tolv frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,gjord,ny",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      }
+    ],
+    "konsol": [],
+    "http": []
+  },
+  {
+    "konto": "premium-desktop",
+    "steg": [
+      {
+        "steg": "01-alla-tester",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentFore": "gjord,gjord,ny"
+      },
+      {
+        "steg": "02-din-utveckling",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska"
+      },
+      {
+        "steg": "02b-flik-direkt",
+        "ok": true
+      },
+      {
+        "steg": "03-testsida",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "viaLank": true
+      },
+      {
+        "steg": "04-testet",
+        "horisontellScroll": false,
+        "koppar": "Nästa",
+        "kopparIBild": true,
+        "mittpunktsrader": []
+      },
+      {
+        "steg": "05-resultat",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de fjorton frågorna",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "VAR DU TAPPADE HÄR Form och fyllning i rad och kolumn, 0 av 5 Form och fyllning i rad och kolumn 0 av 5 Antal i rad och kolumn 0 av 2 Mönster som roterar 0 av 2 Vridning 0 av 2 Överlagring 1 av 2 Familjer med minst två frågor i testet. Hela bilden finns i Din utveckling.",
+        "ring": {
+          "aria": "1 av 15 rätt, 7 procent",
+          "offset": "140.9px"
+        }
+      },
+      {
+        "steg": "06-genomgang",
+        "horisontellScroll": false,
+        "koppar": "Gå igenom de fjorton frågorna",
+        "kopparIBild": false,
+        "mittpunktsrader": [],
+        "genomgangKnapp": "Gå igenom de fjorton frågorna",
+        "genomgangRader": 15
+      },
+      {
+        "steg": "07-alla-efter",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "segmentEfter": "gjord,gjord,ny",
+        "logikGjord": true
+      },
+      {
+        "steg": "08-utveckling-efter",
+        "horisontellScroll": false,
+        "koppar": null,
+        "kopparIBild": null,
+        "mittpunktsrader": [],
+        "utvLage": "klassiska",
+        "logikSyns": true
+      },
+      {
+        "steg": "09-hjalpen-dold-efter-omladdning",
+        "horisontellScroll": false,
+        "koppar": "Starta testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "doljKlickad": true,
+        "sparStatus": 204,
+        "dbHjalpDold": true,
+        "efterOmladdning": {
+          "panel": false,
+          "doljKnapp": false,
+          "ls": "1"
+        }
+      },
+      {
+        "steg": "10-premium-14-av-15",
+        "horisontellScroll": false,
+        "koppar": "Gör om testet",
+        "kopparIBild": true,
+        "mittpunktsrader": [],
+        "statusrad": "Resultatet syns i Din utveckling. Nästa nivå väntar i Alla tester. Nästa steg i jobbsöket är CV:t. Ladda upp ditt CV"
+      }
+    ],
+    "konsol": [],
+    "http": []
+  }
+]

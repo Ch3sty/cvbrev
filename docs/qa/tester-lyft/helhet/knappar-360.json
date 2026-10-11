@@ -1,0 +1,713 @@
+[
+  {
+    "konto": "ny-m360",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-m360",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "ny-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-m360",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/7ced6273-7938-4bc6-b98c-a5a4d1586b3d/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tretton frågorna",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/8eef91ff-3f15-4563-b4be-040a449e191a/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tolv frågorna",
+        "tecken": 26,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-desktop",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-desktop",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "ny-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-desktop",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "ny-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/a0512a31-ec19-410f-91d5-4c7329073c94/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tretton frågorna",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-m360",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-m360",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "nagra-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-m360",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/ba712e33-1617-4fb2-91ac-1a92dcc66e5d/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tio frågorna",
+        "tecken": 25,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/bc26ac19-a518-4d9e-8bbd-a907ae6292af/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de elva frågorna",
+        "tecken": 26,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Köp Premium, 149 kr i månaden",
+        "tecken": 29,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "nagra-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/1cdd62c6-1c14-4af6-9bf8-06dd20824ab2/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tio frågorna",
+        "tecken": 25,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-m360",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-m360",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "premium-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-m360",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-m360",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/cfec4f2f-1d99-4b98-928f-4dfddab18b29/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de elva frågorna",
+        "tecken": 26,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-pixel7",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/53b7edc1-cf30-486b-947f-c4809e4bb20a/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gå igenom de tolv frågorna",
+        "tecken": 26,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-desktop",
+    "rutt": "/dashboard/tester/alla",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-desktop",
+    "rutt": "/dashboard/tester/alla?flik=utveckling",
+    "viewport": 360,
+    "knappar": [],
+    "rott": []
+  },
+  {
+    "konto": "premium-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-desktop",
+    "rutt": "/dashboard/tester/verbal-resonemang",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Starta testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  },
+  {
+    "konto": "premium-desktop",
+    "rutt": "/dashboard/tester/matrislogik-grund/test/cee061b5-95c9-427b-bcaf-5e3f71ec083a/results",
+    "viewport": 360,
+    "knappar": [
+      {
+        "text": "Gör om testet",
+        "tecken": 13,
+        "scrollWidth": 294,
+        "clientWidth": 294,
+        "vanster": 33,
+        "hoger": 327,
+        "over": false,
+        "utanfor": false
+      }
+    ],
+    "rott": []
+  }
+]

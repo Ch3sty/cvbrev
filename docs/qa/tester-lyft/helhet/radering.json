@@ -1,0 +1,116 @@
+{
+  "tid": "2026-10-11T14:22:45.882Z",
+  "konton": [
+    {
+      "nyckel": "ny-m360",
+      "email": "qa-lyft-helhet-ny-m360-1791727633197@jobbcoach-qa.test",
+      "id": "778b5a6b-7e9b-486c-a9fd-8679ce34de0f",
+      "rader": {
+        "user_activities": 15,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "ny-pixel7",
+      "email": "qa-lyft-helhet-ny-pixel7-1791727712653@jobbcoach-qa.test",
+      "id": "366959ec-053c-4a15-8c65-7f5e66f94e9c",
+      "rader": {
+        "user_activities": 15,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "ny-desktop",
+      "email": "qa-lyft-helhet-ny-desktop-1791727788851@jobbcoach-qa.test",
+      "id": "16c88252-137d-4b3f-a6d4-b2065f2d7acf",
+      "rader": {
+        "user_activities": 17,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-m360",
+      "email": "qa-lyft-helhet-nagra-m360-1791727879463@jobbcoach-qa.test",
+      "id": "49ae2d8f-2c5f-4296-8edc-eabd01cff3c5",
+      "rader": {
+        "user_activities": 15,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-pixel7",
+      "email": "qa-lyft-helhet-nagra-pixel7-1791727969221@jobbcoach-qa.test",
+      "id": "a6995ba3-947d-4045-9f10-088f427dbe8d",
+      "rader": {
+        "user_activities": 15,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "nagra-desktop",
+      "email": "qa-lyft-helhet-nagra-desktop-1791728043995@jobbcoach-qa.test",
+      "id": "74d5fec5-27ec-42c8-a2b6-98216be8fe47",
+      "rader": {
+        "user_activities": 17,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "premium-m360",
+      "email": "qa-lyft-helhet-premium-m360-1791728137031@jobbcoach-qa.test",
+      "id": "e551b50d-4806-446f-831c-036d30d3cfd1",
+      "rader": {
+        "premium_grants": 1,
+        "user_activities": 14,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 4
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "premium-pixel7",
+      "email": "qa-lyft-helhet-premium-pixel7-1791728205868@jobbcoach-qa.test",
+      "id": "f55d3e2f-e3c8-4586-b1ca-8cbb17de1a20",
+      "rader": {
+        "premium_grants": 1,
+        "user_activities": 14,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 4
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "premium-desktop",
+      "email": "qa-lyft-helhet-premium-desktop-1791728274855@jobbcoach-qa.test",
+      "id": "ae5146f1-6595-4dc2-a807-f49430eb5207",
+      "rader": {
+        "premium_grants": 1,
+        "user_activities": 18,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 5
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}

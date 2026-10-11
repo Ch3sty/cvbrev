@@ -1,0 +1,17 @@
+{
+  "tid": "2026-10-11T13:51:20.237Z",
+  "konton": [
+    {
+      "nyckel": "nagra-desktop",
+      "email": "qa-lyft-helhet-nagra-desktop-1791726465972@jobbcoach-qa.test",
+      "id": "235c721d-3081-43cc-8e1f-d9f49ad0a506",
+      "rader": {
+        "user_activities": 12,
+        "user_dashboard_rewards": "FEL cannot delete from view \"user_dashboard_rewards\" (1)",
+        "logic_test_v4_sessions": 3
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}
