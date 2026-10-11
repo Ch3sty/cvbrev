@@ -1050,6 +1050,24 @@ Efter (a) kan 1a + 1b gå till `main` i den gemensamma PR:en (avsnitt 13.1). Jag
 10. Mina CV-korten (två 48-knappar per kort, papperskorg) blir `Rader` med chevron enligt C1:s "Mina CV".
 11. Ordet "ansökan/ansökningar" i Sökta tjänster (flik, chip "Sökt", statusrad) ses över med copywritern när modulen får J1:s rader; "Sökta tjänster" är namnet.
 
+**Från 19 och 20 (b), samlade 2026-10-11 i `design/rummen-klar` (inget av det är gjort):**
+
+*Våg 3b senare (20.4):*
+1. Provläget (`MatrisProvSession`) i rummets utseende med nedräkning (16.4 våg 2 punkt 5) när provläget byggs om. `.matrisyta` sitter redan på dess matris och alternativ (via `QuestionGridV7` och `AnswerOptionsV7`).
+2. Misstagsraden under regeln (15.7) visas så snart `misstag` finns i banken; `Regelpanel` är byggd för det och har nu också `rad2` för sträckuppgiften.
+3. `pass_klart` och `vet_inte_tryckt` avläses fyra veckor efter släppet (avsnitt 7); över 30 procent "Vet inte" flyttar länken från foten till under alternativen. `pass_klart.band_ratt` avläses samtidigt (19.4 punkt 5).
+4. Paketnamnet "Hela paketet" i M1, 1f, W3 och låschipen följer `paketNamn()` i våg 5 (17.4); allt i rummet läser redan `paketNamn()`.
+
+*Våg 2 senare (20.5 b):*
+5. Tempokortets etiketter på mobil ("över provets tid i går" bryts på två rader i 1b) ses över av copywritern till kortare ord ("över tiden i går").
+6. "Grå platser"-meningarna och låschipen byter paketnamn i våg 5 genom `paketNamn()` (redan kopplade).
+7. `Resultatvy` för de klassiska testerna (16.4 våg 2 punkt 3) som egen omgång.
+
+*Testansvarig (19), kvar efter rättningen:*
+8. Formatspecifika råd på provdagen skrivs först när 14.4 punkt 5 är gjord (19.3 fråga 4); till dess samma råd för alla format.
+9. Punkt 4 i 3a:s acceptans (fem personer under tio minuter) kvarstår som testansvarigs innan `main` (19.4 sista stycket).
+10. `R.tempo.naraNivan` och `HEM.tempo.meta` är borta ur skärmarna (19.2 fråga 7); strängen `naraNivan` står kvar oanvänd i `pass-copy.ts` tills copywritern städar.
+
 ## 17. Ägarens beslut 2026-10-11 (efter saas-leads rekommendation)
 
 Underlag: saas-leads bedömning på siffrorna i docs/rapporter/analys-utveckling-2026-10-10.md (inga nyare data). Besluten ersätter motsvarande delar av avsnitt 0, 6, 14 och 16.
