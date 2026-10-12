@@ -91,7 +91,7 @@ export default function CVMallarGalleri({ mallar, paket }: CVMallarGalleriProps)
               >
                 <MallMiniatyr
                   mall={tpl}
-                  under={`${CATEGORY_LABEL[tpl.category]} · ${tpl.tier === 'premium' ? paket : 'gratis'}`}
+                  under={`${CATEGORY_LABEL[tpl.category]}, ${tpl.tier === 'premium' ? paket : 'gratis'}`}
                   className="transition-opacity group-hover:opacity-90"
                 />
                 <p className="mt-1 line-clamp-2 text-sm leading-[22px] text-ink-2">{tpl.description}</p>

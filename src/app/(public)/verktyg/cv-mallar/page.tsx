@@ -22,12 +22,12 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
 }
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmMallar from '@/components/publikt/telefon/skarmar/SkarmMallar'
 import CVMallarLiveDemo from './components/CVMallarLiveDemo'
 import CVMallarGalleri from './components/CVMallarGalleri'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenMallar } from '@/components/illustrations/PriserScener'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { isValidTemplateId } from '@/lib/cv/templates'
 import { FONTS } from '@/lib/cv/preview-utils'
@@ -184,13 +184,15 @@ export default function CVMallarSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="cv"
+        telefon={<SkarmMallar />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
           { name: 'CV-mallar', href: '/verktyg/cv-mallar' },
         ]}
-        eyebrow="CV-mallar · välj, fyll i, ladda ner"
+        eyebrow="CV-mallar, välj, fyll i, ladda ner"
         h1="Professionella CV-mallar för svenska arbetsgivare"
         ingress="Välj mellan modern, traditionell och kreativ stil. Alla mallar läses rätt av rekryteringssystemen och är redo att fyllas i."
         fet="Du behöver inte börja från ett tomt papper."
@@ -202,7 +204,6 @@ export default function CVMallarSida() {
           { tal: `${FREE_TEMPLATE_COUNT}`, text: 'helt gratis' },
           { tal: 'PDF + Word', text: 'redo att skicka' },
         ]}
-        scen={<IlluScenMallar className="h-auto w-full" />}
         handling={
           <CVMallarLiveDemo
             mallar={DEMO_MALLAR}
