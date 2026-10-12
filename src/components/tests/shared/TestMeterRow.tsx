@@ -16,7 +16,7 @@ export interface TestMeterRowProps {
   critical?: boolean
   /** Snart slut: klockan blir varning. */
   low?: boolean
-  /** Etikett för räknaren i mitten, "Fråga" eller "Passage". */
+  /** Etikett för räknaren i mitten, "Fråga", "Uppgift" eller "Passage". */
   counterLabel?: string
   /** Ettbaserat nummer. */
   current: number
@@ -59,7 +59,7 @@ export default function TestMeterRow({
         {time}
       </span>
 
-      <p className="tabular-nums text-ink-3">
+      <p className="tabular-nums text-ink-3" aria-label={`${counterLabel} ${current} av ${total}`}>
         <span className="text-meta">{counterLabel} </span>
         <span className="font-medium text-ink-1">{current}</span>
         <span> / {total}</span>

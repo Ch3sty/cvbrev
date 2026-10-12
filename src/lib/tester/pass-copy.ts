@@ -72,7 +72,7 @@ export const VN_PASS_COPY = {
     tappadeRubrik: 'Var du tappade',
     tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
     upprepad: 'Du har haft det här underlaget förut. Det räknas inte i statistiken.',
-    expertRad: 'Expertnivån: gör nivåtestet.',
+    expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
     imorgon: (kind: VnKind) => `I morgon: ett nytt ${kind === 'verbal' ? 'textpass' : 'sifferpass'}.`,
   },
   fel: {
@@ -126,7 +126,7 @@ export const FIGUR_PASS_COPY = {
     genomga: 'Gå igenom passet',
     tillResultatet: 'Till resultatet',
     foregaende: 'Föregående',
-    ovaFamiljen: 'Öva den här familjen',
+    ovaFamiljen: 'Öva den här typen',
     tillbaka: 'Tillbaka till Rekryteringstester',
     forsokIgen: 'Försök igen',
   },
@@ -155,8 +155,8 @@ export const FIGUR_PASS_COPY = {
     tappadeRubrik: 'Var du tappade',
     tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
     upprepad: 'Du har sett den här raden förut. Den räknas inte i statistiken.',
-    expertRad: 'Expertnivån: gör nivåtestet.',
+    expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
     imorgon: 'I morgon: ett nytt figurpass.',
-    ingenNiva: 'Figurpasset påverkar inte nivån på skalan. Den mäts i Nivåkollen.',
+    ingenNiva: 'Figurpasset ändrar inte din nivå. Den sätts i Nivåkollen.',
   },
 } as const;

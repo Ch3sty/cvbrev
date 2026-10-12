@@ -57,9 +57,12 @@ export const TRANING_COPY = {
   },
 } as const;
 
-const TALORD = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio'];
+const TALORD = [
+  'noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio',
+  'elva', 'tolv', 'tretton', 'fjorton', 'femton', 'sexton', 'sjutton', 'arton', 'nitton', 'tjugo',
+];
 
-/** Tal som ord upp till tio, annars siffror. Ettan efter genus ("en ommätning", "ett pass"). */
+/** Tal som ord upp till tjugo, annars siffror. Ettan efter genus ("en ommätning", "ett pass"). */
 export function talord(n: number, ett: 'en' | 'ett' = 'ett'): string {
   if (n === 1) return ett;
   return Number.isInteger(n) && n >= 0 && n < TALORD.length ? TALORD[n] : String(n);

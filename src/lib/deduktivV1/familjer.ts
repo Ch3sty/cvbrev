@@ -9,7 +9,7 @@ import type { DeduktivFamilj } from './types';
 export const DEDUKTIV_FAMILJ_NAMN: Record<DeduktivFamilj, string> = {
   premiss: 'Alla, inga och några',
   plats: 'Fast plats',
-  inte_plats: 'Uteslutna platser',
+  inte_plats: 'Utesluten plats',
   granne: 'Bredvid varandra',
   inte_granne: 'Inte bredvid varandra',
   vanster_om: 'Till vänster om',

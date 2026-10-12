@@ -72,10 +72,10 @@ export default function FigurserieReview({
                 <span className="w-6 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-medium text-ink-1">{serieFamiljNamn(q.family) ?? q.title}</span>
-                  <span className="mt-0.5 block text-meta tabular-nums text-ink-3">{svar ? tid(svar.time_spent ?? 0) : 'Inte besvarad'}</span>
+                  {svar ? <span className="mt-0.5 block text-meta tabular-nums text-ink-3">{tid(svar.time_spent ?? 0)}</span> : null}
                 </span>
                 <span className={`shrink-0 text-meta font-medium ${!svar ? 'text-ink-3' : svar.correct ? 'text-positiv' : 'text-ink-1'}`}>
-                  {!svar ? 'Hoppad' : svar.correct ? 'Rätt' : 'Fel'}
+                  {!svar ? 'Inget svar' : svar.correct ? 'Rätt' : 'Fel'}
                 </span>
                 <ChevronDown aria-hidden="true" strokeWidth={1.75} className={`h-5 w-5 shrink-0 text-ink-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -85,7 +85,7 @@ export default function FigurserieReview({
                     <FigurserieRad rad={q.rad} facit={q.options[q.rattVisat]} />
                     <FigurserieAlternativ options={q.options} valt={valt} ratt={q.rattVisat} disabled />
                     <Regelpanel
-                      rad={!svar ? 'Inte besvarad' : svar.correct ? `Rätt · ${tid(svar.time_spent ?? 0)}` : `Inte den här · ${tid(svar.time_spent ?? 0)}`}
+                      rad={!svar ? 'Inte besvarad' : svar.correct ? `Rätt, ${tid(svar.time_spent ?? 0)}` : `Inte den här, ${tid(svar.time_spent ?? 0)}`}
                       regel={q.rule}
                       misstag={fel && valt !== null ? q.misstag[valt] || null : null}
                       rapport={{ qId: q.id, sessionId: sessionId ?? null, testKind: 'figurserie', bankVersion: null }}

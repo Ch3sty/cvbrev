@@ -21,6 +21,7 @@ import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigatio
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { talord } from '@/lib/traning/copy';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
@@ -335,7 +336,7 @@ export function FigurserieTestSession({ sessionId, level, answerEndpoint, comple
       title={TITLE_BY_LEVEL[level]}
       onExit={oppnaAvsluta}
       progressPercent={(answeredQuestions.size / questions.length) * 100}
-      meter={<TestMeterRow time={elapsed} current={currentQuestion + 1} total={questions.length} answered={answeredQuestions.size} />}
+      meter={<TestMeterRow time={elapsed} counterLabel="Uppgift" current={currentQuestion + 1} total={questions.length} answered={answeredQuestions.size} />}
       footer={
         <div className="flex items-center gap-2 sm:gap-3">
           <button
@@ -362,10 +363,8 @@ export function FigurserieTestSession({ sessionId, level, answerEndpoint, comple
       <div className="serie-kolumn mx-auto w-full max-w-[640px] space-y-5 sm:space-y-6" data-figurserie>
         {/* Frågan tonar in på plats med ren opacity: ingenting flyttar sig (CLS 0). */}
         <div key={currentQuestion} className="space-y-3.5 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none">
-          <p className="flex items-baseline justify-between gap-3 text-[13px] leading-[18px] text-ink-3">
-            <span className="whitespace-nowrap">Uppgift {currentQuestion + 1}</span>
-            <b className="text-right text-sm font-semibold text-ink-1">{SERIE_FRAGA}</b>
-          </p>
+          {/* Numret står i mätraden (copy-avrundning 5); frågan står ensam. */}
+          <p className="text-sm font-semibold leading-[18px] text-ink-1">{SERIE_FRAGA}</p>
           <FigurserieRad rad={question.rad} />
           <FigurserieAlternativ options={question.options} valt={answers[currentQuestion]} onValj={handleSelectAnswer} disabled={isSaving || isNavigating} />
           {/* Varningen om osparade svar står under alternativen i en ruta med
@@ -381,13 +380,13 @@ export function FigurserieTestSession({ sessionId, level, answerEndpoint, comple
         open={showFinishConfirm}
         onCancel={() => setShowFinishConfirm(false)}
         onConfirm={handleFinishTest}
-        title="Avsluta testet?"
+        title="Lämna in testet?"
         description={
           finishError
             ? finishError
-            : `Du har besvarat ${answeredQuestions.size} av ${questions.length} uppgifter. När du avslutar rättas testet och du får din genomgång direkt. Svaren kan inte ändras efteråt.`
+            : `Du har svarat på ${talord(answeredQuestions.size)} av ${talord(questions.length)} uppgifter. När du lämnar in rättas testet och du får genomgången direkt. Svaren går inte att ändra efteråt.`
         }
-        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Lämna in och se resultatet'}
         cancelLabel="Tillbaka"
       />
     </TestFlowShell>

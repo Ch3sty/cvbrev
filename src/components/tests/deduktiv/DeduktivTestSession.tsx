@@ -21,6 +21,7 @@ import { QuestionNavigation } from '@/components/tests/logicV4/QuestionNavigatio
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
+import { talord } from '@/lib/traning/copy';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
@@ -342,7 +343,7 @@ export function DeduktivTestSession({ sessionId, level, answerEndpoint, complete
       title={TITLE_BY_LEVEL[level]}
       onExit={oppnaAvsluta}
       progressPercent={(answeredQuestions.size / questions.length) * 100}
-      meter={<TestMeterRow time={elapsed} current={currentQuestion + 1} total={questions.length} answered={answeredQuestions.size} />}
+      meter={<TestMeterRow time={elapsed} counterLabel="Uppgift" current={currentQuestion + 1} total={questions.length} answered={answeredQuestions.size} />}
       footer={
         <div className="mx-auto flex w-full items-center gap-2 sm:gap-3 lg:max-w-[480px]">
           <button
@@ -375,7 +376,7 @@ export function DeduktivTestSession({ sessionId, level, answerEndpoint, complete
           villkor={<Villkorskort intro={question.intro} villkor={question.villkor} premisser={question.intro == null} />}
           hoger={
             <>
-              <Fragerad nr={currentQuestion + 1} antal={questions.length} fraga={question.fraga} forsta={currentQuestion === 0} />
+              <Fragerad nr={currentQuestion + 1} antal={questions.length} fraga={question.fraga} forsta={currentQuestion === 0} nummer="ingen" />
               <DeduktivAlternativ options={question.options} valt={valt} onValj={setMarkerat} disabled={isNavigating} />
               <div aria-live="polite" className="min-h-[44px]">
                 {failedCount > 0 && <UnsavedAnswerBanner className="mx-auto max-w-md sm:max-w-lg" />}
@@ -390,13 +391,13 @@ export function DeduktivTestSession({ sessionId, level, answerEndpoint, complete
         open={showFinishConfirm}
         onCancel={() => setShowFinishConfirm(false)}
         onConfirm={handleFinishTest}
-        title="Avsluta testet?"
+        title="Lämna in testet?"
         description={
           finishError
             ? finishError
-            : `Du har besvarat ${answeredQuestions.size + (markerat !== null && answers[currentQuestion] === null ? 1 : 0)} av ${questions.length} uppgifter. När du avslutar rättas testet och du får lösningsgången direkt. Svaren kan inte ändras efteråt.`
+            : `Du har svarat på ${talord(answeredQuestions.size + (markerat !== null && answers[currentQuestion] === null ? 1 : 0))} av ${talord(questions.length)} uppgifter. När du lämnar in rättas testet och du får lösningsgången direkt. Svaren går inte att ändra efteråt.`
         }
-        confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
+        confirmLabel={isFinishing ? 'Avslutar…' : 'Lämna in och se resultatet'}
         cancelLabel="Tillbaka"
       />
     </TestFlowShell>

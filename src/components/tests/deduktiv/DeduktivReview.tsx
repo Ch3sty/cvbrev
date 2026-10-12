@@ -29,10 +29,10 @@ export interface DeduktivSvar {
 
 const tid = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
-/** Utfallet i panelens överrad: "Rätt · 0:48", "Inte den här · 0:52" eller "Inte besvarad". */
+/** Utfallet i panelens överrad: "Rätt, 0:48", "Inte den här, 0:52" eller "Inte besvarad". */
 export function utfallRad(svar: DeduktivSvar | undefined): string {
   if (!svar) return 'Inte besvarad'
-  return svar.correct ? `Rätt · ${tid(svar.time_spent ?? 0)}` : `Inte den här · ${tid(svar.time_spent ?? 0)}`
+  return svar.correct ? `Rätt, ${tid(svar.time_spent ?? 0)}` : `Inte den här, ${tid(svar.time_spent ?? 0)}`
 }
 
 /** En uppgift i genomgångsläge: villkor, fråga, alternativ och lösningen. */
@@ -111,10 +111,10 @@ export default function DeduktivReview({
                 <span className="w-6 shrink-0 text-meta tabular-nums text-ink-3">{i + 1}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-medium text-ink-1">{deduktivFamiljNamn(q.family) ?? q.fraga}</span>
-                  <span className="mt-0.5 block text-meta tabular-nums text-ink-3">{svar ? tid(svar.time_spent ?? 0) : 'Inte besvarad'}</span>
+                  {svar ? <span className="mt-0.5 block text-meta tabular-nums text-ink-3">{tid(svar.time_spent ?? 0)}</span> : null}
                 </span>
                 <span className={`shrink-0 text-meta font-medium ${!svar ? 'text-ink-3' : svar.correct ? 'text-positiv' : 'text-ink-1'}`}>
-                  {!svar ? 'Hoppad' : svar.correct ? 'Rätt' : 'Fel'}
+                  {!svar ? 'Inget svar' : svar.correct ? 'Rätt' : 'Fel'}
                 </span>
                 <ChevronDown aria-hidden="true" strokeWidth={1.75} className={`h-5 w-5 shrink-0 text-ink-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
               </button>

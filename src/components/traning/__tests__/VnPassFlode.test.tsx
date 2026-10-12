@@ -98,7 +98,7 @@ describe('VnPassFlode', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('3 av 4 rätt.')
     expect(rubrik()).toBe('Textpass')
     expect(screen.getByText('Öva den här typen')).toBeInTheDocument()
-    expect(screen.getByText('Expertnivån: gör nivåtestet.')).toBeInTheDocument()
+    expect(screen.getByText('Du är på expertnivå. Gör nivåtestet i stället.')).toBeInTheDocument()
     expect(document.body.textContent).not.toMatch(/[—–]/)
     expect(document.body.textContent).not.toMatch(/\d+\s?%/)
     expect(document.body.innerHTML).not.toMatch(/\b(text|bg|border)-fel\b/)

@@ -120,11 +120,28 @@ export function DeduktivLayout({ villkor, hoger, fast = false }: { villkor: Reac
   )
 }
 
-export function Fragerad({ nr, antal, fraga, forsta }: { nr: number; antal: number; fraga: string; forsta?: boolean }) {
+/**
+ * Frågeraden. Under testet bär mätraden numret (nummer="ingen"); i
+ * genomgången har listraden numret, så raden står bara för skärmläsare
+ * (copy-avrundning 4).
+ */
+export function Fragerad({
+  nr,
+  antal,
+  fraga,
+  forsta,
+  nummer = 'sr',
+}: {
+  nr: number
+  antal: number
+  fraga: string
+  forsta?: boolean
+  nummer?: 'sr' | 'ingen'
+}) {
   return (
     <div>
       {forsta ? <p className="mb-2 text-[13px] leading-[18px] text-ink-3">{DEDUKTIV_FORSTA_RAD}</p> : null}
-      <p className="text-ey uppercase text-ink-3">{`Uppgift ${nr} av ${antal}`}</p>
+      {nummer === 'sr' ? <p className="sr-only">{`Uppgift ${nr} av ${antal}`}</p> : null}
       <h2 className="mt-1 font-display text-[19px] font-bold leading-[26px] tracking-[-.01em] text-ink-1">{fraga}</h2>
     </div>
   )

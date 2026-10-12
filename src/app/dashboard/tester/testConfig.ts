@@ -244,7 +244,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     title: 'Deduktiv slutledning, avancerad nivå',
     description: 'Villkor i text och en fråga om vad som måste gälla. Nivån med fem villkor.',
     levelBlurb:
-      'Fem personer eller saker och fyra till fem villkor. Inget villkor räcker ensamt; du behöver hålla flera i huvudet samtidigt.',
+      'Fem personer eller saker och fyra till fem villkor. Inget villkor räcker ensamt, du behöver hålla flera i huvudet samtidigt.',
     api: '/api/deduktiv',
     startBody: { test_type: 'deduktiv-avancerad' },
     sessionQuery: 'test_type=deduktiv-avancerad',

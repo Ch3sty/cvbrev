@@ -154,7 +154,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('T1, 1a, 1p och X1', () => {
     const t = modell('T1')
     expect(t.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
-    expect(t.vagg.rad).toBe('Börja med att mäta var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.')
+    expect(t.vagg.rad).toBe('Börja med Nivåkollen. Vet du när provet är, så lägger vi upp planen fram till dagen.')
     expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 8 min' })
     const a = modell('1a')
     expect(a.vagg.planbild).toBeTruthy()
@@ -170,7 +170,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   })
   it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
-    expect(t.lyft.titel).toBe('Kolla din nivå. Cirka 5 minuter.')
+    expect(t.lyft.titel).toBe('Kolla din nivå. Cirka fem minuter.')
     expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Efteråt vet du din nivå.')
     expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 5 min' })
     const a = modell('1as')
@@ -185,15 +185,15 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(m.vagg.rad).toBe('Nivå och kurva följer figurer och mönster. För siffror och text finns ett kort pass varje dag.')
     expect(m.vagg.kurva).toBeUndefined()
     expect(m.vagg.planbild).toBeUndefined()
-    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Testet säger också om passen börjar på grund eller avancerad.' })
+    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Testet avgör också om passen börjar på grundnivå eller avancerad nivå.' })
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
     const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
     const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null
-    expect(figurer).toMatchObject({ meta: 'Inte gjort än. Kolla din nivå på 8 minuter.', href: '/dashboard/tester/pass?typ=matning' })
+    expect(figurer).toMatchObject({ meta: 'Inte gjort än. Kolla din nivå på åtta minuter.', href: '/dashboard/tester/pass?typ=matning' })
   })
   it('1a gratis: meningen om grå platser med paketets namn (20.5 fråga 4)', () => {
     expect(modell('1a').vagg.kurvaMeta).toBe(
-      'De grå dagarna ingår i Premium.'
+      'Grå dagar ingår i Premium.'
     )
   })
   it('provdagen: samma råd för alla format, Matrigma-raden borta (19.3 fråga 4)', () => {

@@ -220,7 +220,7 @@ export const PASS_COPY = {
     rubrikUtanNiva: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
     riktatRad: 'Ett extrapass övar ett mönster. Det ändrar inte din nivå.',
     /** Sträckregeln (tillägget om variation 1.3); copywriter putsar. */
-    strackRad: 'Två pass i rad med nästan allt rätt. Det här var ett steg svårare.',
+    strackRad: 'Två pass i rad med nästan allt rätt, så det här var ett steg svårare.',
     tal: {
       ratt: 'rätt',
       nivaFran: (fore: number) => `nivå, från ${nivaKort(fore)}`,
@@ -327,7 +327,7 @@ export const PASS_COPY = {
       passNivaMeta: (familj: string | null, heltal: number) =>
         familj ? `Nio uppgifter nära nivå ${heltal}. Extra övning på mönstret du tappar mest på.` : `Nio uppgifter nära nivå ${heltal}.`,
       ommatning: (dagar: string) => `${dagar}: ny nivåkoll`,
-      ommatningMeta: 'Åtta minuter. Visar om passen har flyttat dig.',
+      ommatningMeta: 'Cirka åtta minuter. Du ser om passen har flyttat dig.',
       general: (dagar: string) => `${dagar}: övningsprov`,
       generalMeta: (format: string) => format,
       prov: (dag: string) => `${dag}: provdagen`,

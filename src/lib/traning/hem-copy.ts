@@ -49,25 +49,25 @@ export const HEM = {
   rubrikUtanDatum: 'Träna inför ditt rekryteringstest',
   rubrikUtanDatumPass: 'Ett pass om dagen',
   tomt: {
-    rad: 'Börja med att mäta var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.',
+    rad: 'Börja med Nivåkollen. Vet du när provet är, så lägger vi upp planen fram till dagen.',
     boxTitel: 'Din första punkt på kurvan kommer med Nivåkollen.',
     boxText: 'Sedan ett pass om dagen, och var sjunde dag en ny nivåkoll.',
     status: 'Inget datum än. Går att sätta när som helst.',
   },
   ny: {
     /* Radbudget på mobil (beslut-hemvy, tillägget 2026-10-11 punkt 6): raden under rubriken och kurvmetan högst en rad. */
-    rad: 'Först kollar vi var du står.',
+    rad: 'Nivåkollen visar var du står.',
     planRubrik: 'Planen',
     /** 1a gratis (20.5 fråga 4): märkena är grå och fyllda, inte ihåliga. */
     planMetaGratis: () =>
-      `De grå dagarna ingår i ${paketKort()}.`,
-    planMeta: 'Ihåliga märken är dagarna som kommer.',
+      `Grå dagar ingår i ${paketKort()}.`,
+    planMeta: 'Ihåliga märken är kommande dagar.',
   },
   matning: {
     eyebrow: 'Nivåkollen',
-    titel: 'Kolla din nivå. Cirka 8 minuter.',
+    titel: 'Kolla din nivå. Cirka åtta minuter.',
     /* Det lyfta kortets text högst två rader på mobil (tillägget punkt 7). */
-    text: 'Tolv figuruppgifter som följer dina svar. Efteråt vet du din nivå.',
+    text: 'Tolv figuruppgifter som anpassar sig efter dina svar. Efteråt vet du din nivå.',
     knapp: 'Kolla min nivå, 8 min',
     gratis: `Nivåkollen är gratis, med eller utan ${paketKort()}.`,
     /**
@@ -75,7 +75,7 @@ export const HEM = {
      * räknas på de nya (40 s per fråga, minst 3).
      */
     smakprovMinuter: (n: number) => Math.max(3, Math.round(((12 - n) * 40) / 60)),
-    smakprovTitel: (m: number) => `Kolla din nivå. Cirka ${m} minuter.`,
+    smakprovTitel: (m: number) => `Kolla din nivå. Cirka ${talord(m)} minuter.`,
     smakprovKnapp: (m: number) => `Kolla min nivå, ${m} min`,
     /** 1as/T1s (testansvarig 19.5 fråga 2): en text, inte två. Ersätter `text` när smakprov finns. */
     smakprovText: (n: number) =>
@@ -91,30 +91,30 @@ export const HEM = {
     eyebrow: 'Första passet',
     titelSiffror: 'Gör siffertestet',
     titelText: 'Gör texttestet',
-    text: 'Resultat och genomgång direkt. Testet säger också om passen börjar på grund eller avancerad.',
+    text: 'Resultat och genomgång direkt. Testet avgör också om passen börjar på grundnivå eller avancerad nivå.',
     knappSiffror: 'Starta siffertestet',
     knappText: 'Starta texttestet',
   },
   ommatning: {
     eyebrow: 'Ny nivåkoll',
-    titel: 'Kolla din nivå igen. Cirka 8 minuter.',
-    text: 'Tolv uppgifter, som första gången. Den visar om passen har flyttat dig.',
+    titel: 'Kolla nivån igen. Cirka åtta minuter.',
+    text: 'Tolv uppgifter, som första gången. Du ser om passen har flyttat dig.',
     knapp: 'Kolla igen, 8 min',
-    lastText: () => `Nya nivåkoller efter den första ingår i ${paketKort()}.`,
+    lastText: () => `Första nivåkollen är gratis. Nästa ingår i ${paketKort()}.`,
   },
   pass: {
     /** Nivån är huvudtalet på väggen (copy-plan 3.8), så eyebrowen säger den inte. */
     eyebrow: 'Dagens pass',
     eyebrowGrund: 'Dagens pass på grundnivå',
     temaSaknas: 'Blandade mönster',
-    text: 'Nio uppgifter på din nivå, ungefär tio minuter. Vi förklarar varje svar.',
-    textGrund: 'Nio uppgifter, ungefär tio minuter. Dagens grundpass är gratis.',
+    text: 'Nio uppgifter på din nivå, cirka tio minuter. Vi förklarar varje svar.',
+    textGrund: 'Nio uppgifter på grundnivå, cirka tio minuter. Gratis i dag.',
     knapp: 'Starta dagens pass',
     knappGrund: 'Starta grundpasset',
     /** 17.2: från dag två ingår passen i Premium. */
     lastText: (svagaste: string | null) =>
       svagaste
-        ? `Nio uppgifter, med extra övning på ${svagaste}. Från dag två ingår passen i ${paketKort()}.`
+        ? `Nio uppgifter med extra övning på ${svagaste}. Från dag två ingår passen i ${paketKort()}.`
         : `Nio uppgifter på din nivå. Från dag två ingår passen i ${paketKort()}.`,
     lastFot: `Nivåkollen, resultatet och genomgången är dina, med eller utan ${paketKort()}.`,
   },
@@ -184,7 +184,7 @@ export const HEM = {
     planOm: 'ny nivåkoll',
     planGen: 'övningsprov',
     planGenKort: 'övningsprov',
-    gratisMeta: () => `De grå dagarna ingår i ${paketKort()}.`,
+    gratisMeta: () => `Grå dagar ingår i ${paketKort()}.`,
   },
   utanDatum: {
     box: 'Sätt ett datum, så lägger vi upp planen fram till provet: pass, övningsprov och vila.',
@@ -204,7 +204,7 @@ export const HEM = {
     tempopass: 'Öva tempot',
     repetera: 'Repetera det du tappar på',
     kortPass: (namn: string) => `Kort pass på ${namn}`,
-    kortPassMeta: 'Fem uppgifter, ungefär fem minuter.',
+    kortPassMeta: 'Fem uppgifter, cirka fem minuter.',
     starta: 'Starta',
   },
   provdagen: {
@@ -233,7 +233,7 @@ export const HEM = {
     textUtanPass: 'Kurvan vilar i dag. Lycka till.',
     uppvarmning: {
       eyebrow: 'Uppvärmning',
-      titel: 'Tre frågor du redan kan, 2 minuter',
+      titel: 'Tre frågor du redan kan, två minuter',
       text: 'Ingen tid, ingen nivå, inget sparas. Bara för att få igång blicken innan du öppnar länken från rekryteraren.',
       knapp: 'Värm upp, 2 min',
     },
@@ -318,7 +318,7 @@ export const HEM = {
     ord: 'Ord och text',
     personlighet: 'Personlighetstest',
     gjort: (datum: string) => `Senast gjort ${datum}.`,
-    figurerEj: 'Inte gjort än. Kolla din nivå på 8 minuter.',
+    figurerEj: 'Inte gjort än. Kolla din nivå på åtta minuter.',
     siffrorEj: 'Inte gjort än. Läsa av tabeller, procent, andelar.',
     ordEj: 'Inte gjort än. Korta texter med frågor om vad som stämmer.',
     personlighetKlar: (datum: string) => `Profil klar ${datum}. Inga rätta svar, ingen nivå.`,
@@ -333,7 +333,7 @@ export const HEM = {
     figurpass: 'Figurpass',
     figurMeta: 'Tre rader att fortsätta och en som bryter mönstret. Cirka tre minuter.',
     /** Ersätter metan när hon sitter på avancerad. */
-    expertRad: 'Expertnivån: gör nivåtestet.',
+    expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
     textMeta: 'En text, fyra påståenden. Cirka tre minuter.',
     sifferMeta: 'Ett underlag, fyra frågor. Cirka fem minuter.',
     gjortMeta: 'Gjort i dag.',

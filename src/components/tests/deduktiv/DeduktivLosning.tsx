@@ -16,7 +16,7 @@ import FragaRapport, { type FragaRapportProps } from '@/components/traning/Fraga
 
 export interface DeduktivLosningProps {
   losning: Losning
-  /** "Rätt · 48 s", "Inte den här · 52 s" eller "Inte besvarad". */
+  /** "Rätt, 0:48", "Inte den här, 0:52" eller "Inte besvarad". */
   utfall: string
   /** Det valda alternativets misstag, med bokstaven. Null vid rätt svar. */
   misstag?: { bokstav: string; text: string } | null
