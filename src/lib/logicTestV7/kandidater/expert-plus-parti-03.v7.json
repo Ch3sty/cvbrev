@@ -110,9 +110,9 @@
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
       "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat.",
       "",
-      "Tredje raden och tredje kolumnen har redan en triangel. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart."
+      "Tredje raden och tredje kolumnen har redan en triangel och en svart. Symbolen har inte växlat."
     ]
   },
   {
@@ -226,8 +226,8 @@
       "Grundformen stämmer, men symbolen har inte växlat.",
       "Tredje raden och tredje kolumnen har redan en romb och en ofylld.",
       "Tredje raden och tredje kolumnen har redan en romb och en grå.",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en ofylld.",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en grå. Symbolen har inte växlat.",
       ""
     ]
   },
@@ -342,9 +342,9 @@
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
       "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
-      "Tredje raden och tredje kolumnen har redan en triangel. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en triangel och en svart. Symbolen har inte växlat.",
       "",
-      "Tredje raden och tredje kolumnen har redan en romb. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart."
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
     ]
   },
   {
@@ -458,9 +458,9 @@
       "Grundformen stämmer, men symbolen har inte växlat.",
       "Tredje raden och tredje kolumnen har redan en triangel och en ofylld.",
       "Tredje raden och tredje kolumnen har redan en triangel och en svart.",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld. Symbolen har inte växlat.",
       "",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart."
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat."
     ]
   },
   {
@@ -575,8 +575,8 @@
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en cirkel.",
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
       "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå.",
-      "Tredje raden och tredje kolumnen har redan en cirkel. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå.",
-      "Tredje raden och tredje kolumnen har redan en romb. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå."
+      "Tredje raden och tredje kolumnen har redan en cirkel och en grå. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en romb och en grå. Symbolen har inte växlat."
     ]
   },
   {
@@ -691,8 +691,8 @@
       "",
       "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld.",
       "Tredje raden och tredje kolumnen har redan en kvadrat och en grå.",
-      "Tredje raden och tredje kolumnen har redan en cirkel. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en ofylld.",
-      "Tredje raden och tredje kolumnen har redan en cirkel. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå."
+      "Tredje raden och tredje kolumnen har redan en cirkel och en ofylld. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en grå. Symbolen har inte växlat."
     ]
   },
   {
@@ -806,9 +806,9 @@
       "Grundformen stämmer, men symbolen har inte växlat.",
       "Tredje raden och tredje kolumnen har redan en cirkel och en ofylld.",
       "Tredje raden och tredje kolumnen har redan en cirkel och en svart.",
-      "Tredje raden och tredje kolumnen har redan en romb. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en romb och en ofylld. Symbolen har inte växlat.",
       "",
-      "Tredje raden och tredje kolumnen har redan en romb. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart."
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
     ]
   },
   {
@@ -923,8 +923,8 @@
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
       "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
       "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
-      "Tredje raden och tredje kolumnen har redan en kvadrat. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
-      "Tredje raden och tredje kolumnen har redan en romb. Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart."
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
     ]
   },
   {

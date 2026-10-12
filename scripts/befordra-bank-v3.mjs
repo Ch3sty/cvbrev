@@ -7,7 +7,7 @@
 //   grund-v3-parti-01       -> questionBankGrundV3.v7.json
 //   avancerad-v3-parti-01   -> questionBankAvanceradV3.v7.json
 //   expert-v3-parti-01      -> questionBankExpertV3.v7.json (utan band)
-//   plus (alla kandidatfiler, band "plus") -> questionBankExpertPlus.v7.json
+//   plus (parti 01 P4 och P5, parti 03; band "plus") -> questionBankExpertPlus.v7.json
 //
 // Plus-frågor ur parti 01 får fran_version 3, recept = mekanism och p_prior
 // ur mallen (tillägget om variation 1.1: P4 och P5 0,35). Ordningen i en
@@ -40,7 +40,7 @@ const kandidater = [
   ...las(`${K}/avancerad-v3-parti-01.v7.json`),
   ...las(`${K}/expert-v3-parti-01.v7.json`),
   ...las(`${K}/expert-plus-parti-01.v7.json`),
-  ...las(`${K}/expert-plus-parti-02.v7.json`),
+  ...las(`${K}/expert-plus-parti-03.v7.json`),
 ].filter((q) => godkanda.has(q.id));
 
 const saknas = [...godkanda].filter((id) => !kandidater.some((q) => q.id === id));

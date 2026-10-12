@@ -504,7 +504,12 @@ function misstagMaskinellt(q, t) {
     // Bank_version 3 (granskningen av omgång 1): en distraktor som bryter tre
     // regler behövs för att facit inte ska bli majoritet (S11). Den får tre
     // meningar; i de frysta bankerna finns inga sådana.
-    if (!texter.some((x) => !x) && unika.length === 3 && (q.band === 'plus' || q.fran_version >= 3)) return `${slaIhop(unika[0], unika[1])} ${unika[2]}`;
+    if (!texter.some((x) => !x) && unika.length === 3 && (q.band === 'plus' || q.fran_version >= 3)) {
+      // De två meningarna om rad och kolumn slås ihop till en.
+      const lat = /^Tredje (raden|kolumnen)/;
+      const [x, y, z] = [...unika].sort((m, n) => Number(!lat.test(m)) - Number(!lat.test(n)));
+      return `${slaIhop(x, y)} ${z}`;
+    }
     if (texter.some((x) => !x) || unika.length > 2) {
       // Hela rutan kopierad från en grannruta
       if (lika(opt, q.grid[2][1])) return t.kind === 'balanceline' ? 'Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.' : 'Samma som rutan till vänster.';
