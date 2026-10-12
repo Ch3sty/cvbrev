@@ -10,7 +10,7 @@
 export const ANTAL = 20
 
 export const COPY = {
-  eyebrow: 'Personlighetsprovet',
+  eyebrow: 'Personlighetstestet',
   rubrik: 'Se vad rekryteraren läser ut av dig',
   ingress:
     'Tjugo påståenden, ungefär två minuter. Du får en profil på de fem faktorerna och en rad per faktor om hur en rekryterare läser den.',

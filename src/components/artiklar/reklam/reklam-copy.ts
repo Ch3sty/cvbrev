@@ -101,6 +101,19 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
   },
 }
 
+/**
+ * Provkortet i testklustret (spec-publikt-v2 del B 3.1, rad 2b): expertfrågan
+ * i bild och fem frågor utan konto. Rubriken är frågan själv, aldrig h2/h3.
+ */
+export const INLINE_PROVA = {
+  etikett: 'Prova på riktigt',
+  rubrik: 'Vilken figur hör hemma i den tomma rutan?',
+  text: 'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Nivåkollen och första passet gratis med konto.',
+  knapp: 'Prova fem frågor',
+  href: '/verktyg/rekryteringstester/prova',
+  paketrad: INLINE.test.paketrad,
+} as const
+
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */
 export const INLINE_RAKNARE = {
   rubrik: 'Räkna på det själv, fråga sedan',
@@ -229,7 +242,7 @@ export const GRATIS_KORT = {
     'En CV-analys med poäng och tyngsta fyndet',
     `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
     `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till Jobbcoachen`,
-    'En nivåkoll i testerna med genomgång, och ett första träningspass',
+    'Nivåkollen i testerna med genomgång, och ett första träningspass',
   ],
   knapp: 'Skapa konto gratis',
   href: '/register',

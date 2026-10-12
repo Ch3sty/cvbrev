@@ -64,7 +64,10 @@ async function steg(p: Page, e: Enhet, lage: string, namn: string, kontroll: () 
   } catch (err) {
     problem = String(err).slice(0, 200)
   }
-  await p.screenshot({ path: path.join(UT, fil) as `${string}.jpeg`, fullPage: helsida, type: 'jpeg', quality: 70 })
+  // Del B (ägarbeslut 2026-10-12): skärmdump bara vid fel och för helsidorna.
+  if (DEL !== 'b' || helsida || problem) {
+    await p.screenshot({ path: path.join(UT, fil) as `${string}.jpeg`, fullPage: helsida, type: 'jpeg', quality: 70 })
+  }
   if (problem) fel++
   rader.push(`| ${nr} | ${e.namn} | ${lage} | ${namn} | ${problem ? 'FEL: ' + problem : 'ok'} | ${fil} |`)
   console.log(`${problem ? 'FEL' : 'ok '} ${fil}${problem ? ' ' + problem : ''}`)

@@ -58,8 +58,10 @@ import CVExample from '@/components/mdx/CVExample';
 // Artikelramen i linjen (docs/design/analys-artiklar-2026-09-23.html).
 // Serverrenderad; enda klientkoden är ArtikelKlient (mätning och
 // innehållsförteckningens tråd), mallväljaren och mobilens klistrade knapp.
-import ArtikelRam, { type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
-import { InlineKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
+import { GratisKort, InlineKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import Signatur from '@/components/publikt/innehall/Signatur';
+import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
 import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA';
@@ -180,7 +182,9 @@ function generateEnhancedArticleSchema(post: Post, slug: string, headings: any[]
             "description": post.frontmatter.description || undefined,
             "image": imageUrl ? { "@type": "ImageObject", "url": imageUrl, "width": 1536, "height": 1024 } : undefined,
             "datePublished": new Date(post.frontmatter.date).toISOString(),
-            "dateModified": new Date().toISOString(),
+            // Ärligt ändringsdatum (ägarbeslut 3, del B): updated om artikeln
+            // ändrats, annars publiceringsdagen. Aldrig byggdagen.
+            "dateModified": new Date(post.frontmatter.updated ?? post.frontmatter.date).toISOString(),
             "author": authorSchema,
             "publisher": publisher,
             "url": canonicalUrl,
@@ -282,6 +286,32 @@ function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
     return paragraphs.join('\n\n');
 }
 
+/**
+ * Tar bort den första CustomImage ur texten om den står först och har samma
+ * src som frontmatter.image (60 artiklar). Bilden ritas i hjälten med samma
+ * src och alt. Annars är texten orörd.
+ */
+function lyftForstaBild(
+    content: string,
+    image: string | undefined
+): { innehall: string; bild: { src: string; alt: string } | null } {
+    if (!image) return { innehall: content, bild: null };
+    const m = content.match(/^\s*(<CustomImage\b[^>]*?\/>)/);
+    if (!m) return { innehall: content, bild: null };
+    const tagg = m[1];
+    const src = tagg.match(/\bsrc="([^"]+)"/)?.[1];
+    const alt = tagg.match(/\balt="([^"]*)"/)?.[1];
+    if (!src || src !== image || alt === undefined) return { innehall: content, bild: null };
+    return { innehall: content.slice(m[0].length), bild: { src, alt } };
+}
+
+/** Signaturen före FAQ-blocket, en gång. Saknas FAQ hamnar den sist. */
+function injectSignatur(content: string): string {
+    const i = content.indexOf('<FAQContainer');
+    if (i < 0) return `${content}\n\n<ArtikelSignatur />\n`;
+    return `${content.slice(0, i)}<ArtikelSignatur />\n\n${content.slice(i)}`;
+}
+
 // CV-relaterade taggar som triggar template-showcase
 const CV_RELATED_TAGS = ['cv', 'cv-mall', 'cv mall', 'cv mallar', 'cv-mallar', 'cv-bild', 'cv bild', 'cv-tips', 'cv-skapande'];
 
@@ -353,8 +383,9 @@ function relateradeArtiklar(alla: PostMeta[], slug: string, taggar: string[]): R
     }
     return urval.map((p) => ({
         slug: p.slug,
-        title: p.title,
-        date: p.date,
+        titel: p.title,
+        kategori: KLUSTER_ETIKETT[getCtaVariantForTags(p.tags)],
+        bild: p.image,
         lasminuter: Math.max(1, Math.ceil((p.wordCount ?? 1000) / 200)),
     }));
 }
@@ -381,7 +412,20 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     // Injicera båda komponenter i innehållet - UTAN att modifiera headings.
     // CV-showcasen bara för cv-klustret, inte för alla cv-taggade artiklar.
-    const contentWithBanner = injectClusterCta(post.content, verktyg);
+    // Artikelbilden flyttar till hjälten när den står först i texten med samma
+    // src som frontmatter.image (del B 3.1): samma src och alt, inget annat.
+    // Provkortet injiceras först, så att det hamnar på samma ställe i texten
+    // som i dag. Signaturen före FAQ (del B 3.1, rad 2e).
+    const { innehall: utanForstaBild, bild: forstaBild } = lyftForstaBild(
+        // CRLF till LF: på Windows checkas MDX ut med CRLF och styckesdelningen
+        // på tomrad hittade då inget stycke (kortet hamnade sist lokalt).
+        injectClusterCta(post.content.replace(/\r\n/g, '\n'), verktyg),
+        post.frontmatter.image
+    );
+    const hjalteBild =
+        forstaBild ??
+        (post.frontmatter.image ? { src: post.frontmatter.image, alt: post.frontmatter.imageAlt || post.frontmatter.title } : null);
+    const contentWithBanner = injectSignatur(utanForstaBild);
     const contentWithBannerAndCV =
         cluster === 'cv'
             ? injectCVTemplateShowcase(contentWithBanner, post.frontmatter.tags)
@@ -398,6 +442,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         FAQItem: FAQItem,
         CustomImage: CustomImage,
         Link: Link,
+        ArtikelSignatur: () => (
+            <Signatur
+                forfattare={author}
+                publicerad={post.frontmatter.date}
+                publiceradText={datumText(post.frontmatter.date)}
+                uppdaterad={post.frontmatter.updated}
+                uppdateradText={post.frontmatter.updated ? datumText(post.frontmatter.updated) : undefined}
+            />
+        ),
         UppsagningstidRaknare: UppsagningstidRaknare,
         LoneforhandlingsKalkylator: LoneforhandlingsKalkylator,
         // Intervjuprovet (docs/design/intervjuprov-spec-2026-09-23.md). Slugen
@@ -540,12 +593,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 cluster={cluster}
                 paket={paket}
                 relaterade={relaterade}
+                primar={hjalteKnapp(cluster, verktyg)}
+                bild={hjalteBild}
+                slut={paket && paket !== 'gratis' ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
                 sticky={<StickyMobileCTA cluster={cluster} slug={slug} />}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* Slutkortet: Premium med klustrets vinkel, i bläck. */}
-                {paket ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
+                {/* Artiklar utan produkt: gratiskortet sist i texten. */}
+                {paket === 'gratis' ? <GratisKort cluster={cluster} slug={slug} position="final" /> : null}
             </ArtikelRam>
 
             {/* Schema markup */}

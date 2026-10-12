@@ -35,7 +35,6 @@ export const KLUSTER_ETIKETT: Record<CtaCluster, string> = {
 export function hjalteKnapp(cluster: CtaCluster, verktyg: InlineVerktyg): { text: string; href: string } | null {
   if (cluster === 'test') return { text: 'Prova fem frågor gratis', href: PROVA_HREF }
   if (verktyg === 'raknare' || verktyg === 'lankrad') return null
-  if (cluster === 'generic') return null
   const c = INLINE[verktyg]
   return { text: c.knapp, href: c.href }
 }

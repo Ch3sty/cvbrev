@@ -19,7 +19,7 @@ import { capture } from '@/lib/analytics/events'
 /** Label och mål per kluster. Career saknas med flit. */
 const CLUSTER_CTA: Record<Exclude<CtaCluster, 'career'>, { label: string; href: string }> = {
   interview: { label: 'Träna intervjufrågor', href: '/verktyg/jobbcoachen' },
-  test: { label: 'Gör ett övningstest', href: '/verktyg/rekryteringstester' },
+  test: { label: 'Prova fem frågor gratis', href: '/verktyg/rekryteringstester/prova' },
   letter: { label: 'Skapa mitt brev', href: '/skapa-brev/start' },
   cv: { label: 'Välj en mall', href: '/verktyg/cv-mallar' },
   generic: { label: 'Välj en mall', href: '/verktyg/cv-mallar' },
@@ -125,7 +125,7 @@ export default function StickyMobileCTA({
       data-sticky-mobil
       className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-kant bg-panel"
       style={{
-        height: 64,
+        height: 72,
         paddingBottom: 'env(safe-area-inset-bottom)',
         transform: visible ? 'translateY(0)' : 'translateY(100%)',
         transition: reducedMotion ? 'none' : 'transform 200ms ease-out',
@@ -133,7 +133,7 @@ export default function StickyMobileCTA({
       }}
       aria-hidden={!visible}
     >
-      <div className="flex h-16 items-center gap-3 px-4">
+      <div className="flex h-[72px] items-center gap-3 px-4">
         <Link
           href={ctaHref}
           data-cta={`sticky-${cluster}`}
@@ -146,7 +146,8 @@ export default function StickyMobileCTA({
               target: ctaHref,
             })
           }
-          className="flex h-11 flex-1 items-center justify-center rounded-lg bg-ink-1 px-4 text-sm font-semibold text-white hover:bg-ink-hover"
+          className="flex h-12 flex-1 items-center justify-center rounded-full px-4 text-[15px] font-bold"
+          style={{ background: 'linear-gradient(180deg, var(--koppar), var(--koppar-djup))', color: 'var(--koppar-text)' }}
         >
           {ctaLabel}
         </Link>
@@ -155,7 +156,7 @@ export default function StickyMobileCTA({
           onClick={handleDismiss}
           tabIndex={visible ? undefined : -1}
           aria-label="Dölj"
-          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-3 hover:bg-insunken"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-ink-3 hover:bg-insunken"
         >
           <X className="h-5 w-5" aria-hidden="true" />
         </button>

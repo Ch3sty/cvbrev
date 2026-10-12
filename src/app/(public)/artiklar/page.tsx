@@ -5,7 +5,9 @@ import { generateTagsData } from '@/components/artiklar/ModernCategoriesServer';
 // Listan i linjen (docs/design/analys-artiklar-2026-09-23.html, avsnitt 4):
 // serverkomponenter, gallerilayouten kvar med gratiskortet inblandat bland
 // artikelkorten och Premium i bläck efter pagineringen.
-import { ArtikelKort, FilterRad, ListHuvud, Paginering, TomLista } from '@/components/artiklar/lista/ArtikelLista';
+import { TomLista } from '@/components/artiklar/lista/ArtikelLista';
+import { ArkivHjalte, ArkivKort, ArkivSidor } from '@/components/artiklar/lista/Arkiv';
+import PubliktSida from '@/components/publikt/PubliktSida';
 import { GratisKort, ListaSlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import ArtikelKlient from '@/components/artiklar/ArtikelKlient';
 
@@ -125,10 +127,10 @@ export default async function ArticlesIndexPage({
   const featuredPost = showFeatured ? paginatedPosts[0] : null;
   const regularPosts = showFeatured ? paginatedPosts.slice(1) : paginatedPosts;
 
-  // Gratiskortet en gång i rutnätet, på plats 7 räknat med det stora kortet
-  // (efter det femte vanliga kortet), bara i den ofiltrerade listan.
+  // Gratiskortet en gång i rutnätet, efter fjärde kortet räknat med det stora,
+  // bara i den ofiltrerade listan.
   const showInlineCTA = !tagFilter && regularPosts.length >= 6;
-  const inlineCTAIndex = 5;
+  const inlineCTAIndex = 3;
 
   // === SEO: SCHEMA MARKUP ===
   const breadcrumbSchema = {
@@ -183,8 +185,14 @@ export default async function ArticlesIndexPage({
     },
   };
 
+  // Tre artikelbilder i hjältens solfjäder: de tre senaste med bild.
+  const bunt = allPosts
+    .map((p) => p.image)
+    .filter((s): s is string => Boolean(s))
+    .slice(0, 3);
+
   return (
-    <div className="min-h-screen bg-mark">
+    <PubliktSida>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -194,29 +202,30 @@ export default async function ArticlesIndexPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
 
-      <div className="mx-auto max-w-[1200px] px-4 pb-12 pt-6 sm:px-6 lg:px-12 lg:pb-[72px] lg:pt-12">
-        <ListHuvud antal={allPosts.length} />
-        <FilterRad kategorier={tagsData} aktiv={tagFilter} totalt={allPosts.length} />
+      <ArkivHjalte antal={allPosts.length} kategorier={tagsData} aktiv={tagFilter} bunt={bunt} />
 
-        <div className="mt-8 space-y-10 sm:space-y-12">
+      <section className="pub-sek pub-yta-mark ib-arkiv-lista">
+        <div className="pub-wrap">
           {filteredPosts.length === 0 ? (
             <TomLista tag={tagFilter} populara={tagsData.slice(0, 4).map((t) => t.tag)} />
           ) : (
             <>
-              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {featuredPost ? <ArtikelKort post={featuredPost} stor prioritet /> : null}
+              <ul className="ib-rel">
+                {featuredPost ? <ArkivKort post={featuredPost} stor prioritet /> : null}
                 {regularPosts.map((post, idx) => (
                   <Fragment key={post.slug}>
                     {showInlineCTA && idx === inlineCTAIndex ? (
-                      <GratisKort cluster="lista" position="inline" />
+                      <li className="ib-arkiv-gratis">
+                        <GratisKort cluster="lista" position="inline" />
+                      </li>
                     ) : null}
-                    <ArtikelKort post={post} prioritet={!featuredPost && idx === 0} />
+                    <ArkivKort post={post} prioritet={!featuredPost && idx === 0} />
                   </Fragment>
                 ))}
-              </div>
+              </ul>
 
               {totalPages > 1 ? (
-                <Paginering
+                <ArkivSidor
                   sida={validCurrentPage}
                   sidor={totalPages}
                   totalt={totalPosts}
@@ -224,13 +233,13 @@ export default async function ArticlesIndexPage({
                   tag={tagFilter}
                 />
               ) : null}
-
-              <ListaSlutKort />
             </>
           )}
         </div>
-      </div>
+      </section>
+
+      {filteredPosts.length > 0 ? <ListaSlutKort /> : null}
       <ArtikelKlient />
-    </div>
+    </PubliktSida>
   );
 }

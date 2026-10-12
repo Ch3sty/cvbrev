@@ -31,6 +31,9 @@ export type Frontmatter = {
   author?: string;
   tags?: string[];
   image?: string;
+  imageAlt?: string; // Alt för artikelbilden i hjälten när den inte står först i texten
+  /** Senaste innehållsändringen (ägarbeslut 3, del B). dateModified läser updated ?? date. Sätts bara när texten ändrats. */
+  updated?: string;
   faq?: FaqItemData[]; // <-- FAQ-fältet är nu inkluderat
   howto?: HowToData; // <-- HowTo-schema för artiklar med stegguider
 };
