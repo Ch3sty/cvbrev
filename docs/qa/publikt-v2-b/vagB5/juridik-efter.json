@@ -1,0 +1,247 @@
+[
+  {
+    "path": "/integritetspolicy",
+    "status": 200,
+    "h1": [
+      "Integritetspolicy för jobbcoach.ai"
+    ],
+    "title": "Integritetspolicy | jobbcoach.ai",
+    "description": "Läs vår integritetspolicy för att förstå hur jobbcoach.ai samlar in, använder och skyddar dina personuppgifter när du använder vår tjänst.",
+    "canonical": "https://www.jobbcoach.ai/integritetspolicy",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "introduktion",
+        "text": "1. Introduktion"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-personuppgifter-samlar-vi-in",
+        "text": "2. Vilka personuppgifter samlar vi in?"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-anvander-vi-dina-personuppgifter",
+        "text": "3. Hur använder vi dina personuppgifter?"
+      },
+      {
+        "tag": "h2",
+        "id": "delning-av-personuppgifter",
+        "text": "4. Delning av personuppgifter"
+      },
+      {
+        "tag": "h2",
+        "id": "cookies",
+        "text": "5. Cookies och liknande tekniker"
+      },
+      {
+        "tag": "h2",
+        "id": "datasakerhet",
+        "text": "6. Datasäkerhet"
+      },
+      {
+        "tag": "h2",
+        "id": "datalagring",
+        "text": "7. Datalagring"
+      },
+      {
+        "tag": "h2",
+        "id": "dina-rattigheter",
+        "text": "8. Dina rättigheter"
+      },
+      {
+        "tag": "h2",
+        "id": "andringar-i-denna-integritetspolicy",
+        "text": "9. Ändringar i denna integritetspolicy"
+      },
+      {
+        "tag": "h2",
+        "id": "kontakta-oss",
+        "text": "10. Kontakta oss"
+      }
+    ],
+    "lankar": [
+      "#andringar-i-denna-integritetspolicy",
+      "#cookies",
+      "#datalagring",
+      "#datasakerhet",
+      "#delning-av-personuppgifter",
+      "#dina-rattigheter",
+      "#hur-anvander-vi-dina-personuppgifter",
+      "#introduktion",
+      "#kontakta-oss",
+      "#vilka-personuppgifter-samlar-vi-in",
+      "/",
+      "/integritetspolicy#cookies"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [],
+    "forstaBild": null,
+    "faq": [],
+    "ord": 1193
+  },
+  {
+    "path": "/anvandarvillkor",
+    "status": 200,
+    "h1": [
+      "Användarvillkor för jobbcoach.ai"
+    ],
+    "title": "Användarvillkor | jobbcoach.ai",
+    "description": "Läs användarvillkoren för jobbcoach.ai innan du använder vår tjänst för att skapa personliga brev och CV:n med AI.",
+    "canonical": "https://www.jobbcoach.ai/anvandarvillkor",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "godkannande-av-villkoren",
+        "text": "1. Godkännande av Villkoren"
+      },
+      {
+        "tag": "h2",
+        "id": "beskrivning-av-tjansten",
+        "text": "2. Beskrivning av Tjänsten"
+      },
+      {
+        "tag": "h2",
+        "id": "anvandarkonton",
+        "text": "3. Användarkonton"
+      },
+      {
+        "tag": "h2",
+        "id": "anvandarinnehall-och-ansvar",
+        "text": "4. Användarinnehåll och Ansvar"
+      },
+      {
+        "tag": "h2",
+        "id": "tillaten-anvandning",
+        "text": "5. Tillåten Användning"
+      },
+      {
+        "tag": "h2",
+        "id": "immateriella-rattigheter",
+        "text": "6. Immateriella Rättigheter"
+      },
+      {
+        "tag": "h2",
+        "id": "prenumeration-och-betalning",
+        "text": "7. Prenumeration och betalning"
+      },
+      {
+        "tag": "h2",
+        "id": "friskrivningar-disclaimers",
+        "text": "8. Friskrivningar (Disclaimers)"
+      },
+      {
+        "tag": "h2",
+        "id": "ansvarsbegransning",
+        "text": "9. Ansvarsbegränsning"
+      },
+      {
+        "tag": "h2",
+        "id": "skadesloshallande",
+        "text": "10. Skadeslöshållande"
+      },
+      {
+        "tag": "h2",
+        "id": "uppsagning",
+        "text": "11. Uppsägning"
+      },
+      {
+        "tag": "h2",
+        "id": "tillamplig-lag-och-tvistlosning",
+        "text": "12. Tillämplig Lag och Tvistlösning"
+      },
+      {
+        "tag": "h2",
+        "id": "andringar-av-villkoren",
+        "text": "13. Ändringar av Villkoren"
+      },
+      {
+        "tag": "h2",
+        "id": "kontakta-oss",
+        "text": "14. Kontakta oss"
+      }
+    ],
+    "lankar": [
+      "#andringar-av-villkoren",
+      "#ansvarsbegransning",
+      "#anvandarinnehall-och-ansvar",
+      "#anvandarkonton",
+      "#beskrivning-av-tjansten",
+      "#friskrivningar-disclaimers",
+      "#godkannande-av-villkoren",
+      "#immateriella-rattigheter",
+      "#kontakta-oss",
+      "#prenumeration-och-betalning",
+      "#skadesloshallande",
+      "#tillamplig-lag-och-tvistlosning",
+      "#tillaten-anvandning",
+      "#uppsagning",
+      "/",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [],
+    "forstaBild": null,
+    "faq": [],
+    "ord": 1604
+  }
+]
