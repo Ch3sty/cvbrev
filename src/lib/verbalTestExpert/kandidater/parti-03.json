@@ -77,33 +77,33 @@
         "id": "verbexp-p13-q03",
         "passageId": "verbexp-p13",
         "questionNumber": 3,
-        "questionText": "Vilken uppgift behöver försäljningschefen främst ta fram för att pröva sitt förslag?",
+        "questionText": "Vilken roll spelar uppgiften om medarbetarsamtalen i försäljningschefens argument?",
         "difficulty": 3,
-        "typ": "metod",
+        "typ": "struktur",
         "options": [
           {
             "id": "a",
-            "text": "Hur nöjda toppsäljarna är med sin utbildning",
+            "text": "Den är det huvudsakliga beviset för att examen ger resultat",
             "isCorrect": false
           },
           {
             "id": "b",
-            "text": "Hur länge de sexton har haft sin ekonomexamen",
-            "isCorrect": false
+            "text": "Den stöder förslaget utan att kunna bära det",
+            "isCorrect": true
           },
           {
             "id": "c",
-            "text": "Vilka kurser som ingår i de två ekonomprogrammen",
+            "text": "Den talar emot förslaget",
             "isCorrect": false
           },
           {
             "id": "d",
-            "text": "Andelen med ekonomexamen bland övriga säljare",
-            "isCorrect": true
+            "text": "Den visar att toppsäljarna kommer att stanna",
+            "isCorrect": false
           }
         ],
-        "correctAnswerId": "d",
-        "explanation": "Meningen om att analysen saknar uppgifter om säljarna utanför toppgruppen pekar ut luckan. Först när andelen bland de övriga är känd går det att säga om 80 procent är högt eller helt väntat. Svar a kan verka relevant, men nöjdhet med en utbildning säger ingenting om vad den gör för försäljningen."
+        "correctAnswerId": "b",
+        "explanation": "Uppgiften om medarbetarsamtalen är ett stödjande inslag. Att de sexton själva lyfter fram sin utbildning säger inget om hur säljare utan examen presterar, så det huvudsakliga beviset är fortfarande jämförelsen med övriga säljare, och den saknas i analysen. Alternativ a lockar eftersom samtalen är det enda i texten som låter som ett belägg från verkligheten."
       },
       {
         "id": "verbexp-p13-q04",
@@ -825,7 +825,7 @@
           },
           {
             "id": "c",
-            "text": "Att enheten har flest överklagade beslut",
+            "text": "Att enheten har högst andel överklagade beslut",
             "isCorrect": true
           },
           {

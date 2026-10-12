@@ -628,7 +628,7 @@
     "type": "table",
     "topic": "Utbildning",
     "difficulty": 2,
-    "contextText": "Tabellen visar fyra yrkesutbildningar inom kommunens vuxenutbildning under ett läsår. Andelen godkända avser de som påbörjade utbildningen. Kostnaden anges i tkr per utbildningsplats för hela läsåret, och 1 mkr är 1 000 tkr.",
+    "contextText": "Tabellen visar fyra yrkesutbildningar inom kommunens vuxenutbildning under ett läsår. Andelen godkända avser de som påbörjade utbildningen. Kostnaden anges i tkr per utbildningsplats för hela läsåret. Kommunen betalar för alla platser, även de som inte fylls. 1 mkr är 1 000 tkr.",
     "dataTable": {
       "headers": [
         "Utbildning",
@@ -2116,17 +2116,17 @@
         "id": "na-23-q04",
         "passageId": "na-23-skadearenden",
         "questionNumber": 4,
-        "questionText": "Hur många handläggare på heltid behövdes för alla skadeärenden under 2025?",
+        "questionText": "Hur många heltidstjänster som handläggare krävdes för alla skadeärenden under 2025?",
         "difficulty": 2,
         "options": [
           {
             "id": "a",
-            "text": "9,4 handläggare",
+            "text": "9,4 heltidstjänster",
             "isCorrect": true
           },
           {
             "id": "b",
-            "text": "7,5 handläggare",
+            "text": "7,5 heltidstjänster",
             "isCorrect": false,
             "misstag": {
               "typ": "fel_rad",
@@ -2136,7 +2136,7 @@
           },
           {
             "id": "c",
-            "text": "8,3 handläggare",
+            "text": "8,3 heltidstjänster",
             "isCorrect": false,
             "misstag": {
               "typ": "fel_rad",
@@ -2146,7 +2146,7 @@
           },
           {
             "id": "d",
-            "text": "10,7 handläggare",
+            "text": "10,7 heltidstjänster",
             "isCorrect": false,
             "misstag": {
               "typ": "fel_kolumn",
@@ -2164,15 +2164,15 @@
               "varde": 1510
             },
             {
-              "text": "Handläggare på heltid",
+              "text": "Heltidstjänster",
               "uttryck": "1510 / 160",
               "varde": 9.4375
             }
           ],
-          "visning": "9,4 handläggare",
+          "visning": "9,4 heltidstjänster",
           "precision": 1
         },
-        "explanation": "Ärenden 2025: 910 + 310 + 110 + 180 = 1 510. Handläggare på heltid: 1 510 / 160 = 9,438. Svaret blir 9,4 handläggare."
+        "explanation": "Ärenden 2025: 910 + 310 + 110 + 180 = 1 510. Heltidstjänster: 1 510 / 160 = 9,438. Svaret blir 9,4 heltidstjänster."
       }
     ]
   },

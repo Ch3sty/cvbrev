@@ -10839,5 +10839,205 @@
       "Pricken har flyttat åt fel håll.",
       "Pricken hamnar 90 grader för långt."
     ]
+  },
+  {
+    "id": "v7g-v3-vand-15",
+    "title": "Pricken vandrar radvis",
+    "rule": "Pricken flyttar 45 grader medurs för varje steg åt höger i raden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Mittpunkten är fylld hela vägen.",
+    "difficulty": 1,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 2
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 3
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 3
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.8,
+    "recept": "M1-orbital-linjar",
+    "fran_version": 4,
+    "misstag": [
+      "Pricken har flyttat ett steg för långt.",
+      "Pricken har inte flyttat sista steget.",
+      "Pricken hamnar ett halvt varv fel.",
+      "Pricken har flyttat åt fel håll.",
+      "",
+      "Pricken hamnar 90 grader för långt."
+    ]
+  },
+  {
+    "id": "v7g-v3-vand-16",
+    "title": "Pricken vandrar radvis",
+    "rule": "Pricken flyttar 135 grader medurs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Mittpunkten är ofylld hela vägen.",
+    "difficulty": 2,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 1
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 3
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 4
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 1
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.72,
+    "recept": "M1-orbital-fri",
+    "fran_version": 4,
+    "misstag": [
+      "Pricken hamnar 45 grader för långt.",
+      "Pricken hamnar 45 grader för kort.",
+      "Pricken hamnar ett halvt varv fel.",
+      "",
+      "Pricken har flyttat ett steg för långt.",
+      "Pricken har inte flyttat sista steget."
+    ]
   }
 ]

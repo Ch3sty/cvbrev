@@ -1839,10 +1839,10 @@
     ]
   },
   {
-    "id": "v7g-v3-antal-06",
+    "id": "v7a-v3-antal-05",
     "title": "Raderna räknar åt var sitt håll",
     "rule": "Antalet streck ökar med ett för varje steg åt höger i den första och den tredje raden, och minskar med ett i mittraden. Strecken är stående på diagonalen från övre vänstra hörnet till nedre högra, annars liggande.",
-    "difficulty": 2,
+    "difficulty": 3,
     "family": "antal-andras",
     "grid": [
       [
@@ -1926,7 +1926,7 @@
       }
     ],
     "correctAnswer": 2,
-    "p_prior": 0.65,
+    "p_prior": 0.5,
     "recept": "antal-egen-riktning",
     "fran_version": 4,
     "misstag": [

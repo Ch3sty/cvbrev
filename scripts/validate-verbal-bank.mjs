@@ -156,7 +156,8 @@ export function validera(texter, { niva = null, andraIds = new Set(), befintliga
 //   5  typ ur listan; minst tre olika frågetyper per underlag (metod och
 //      struktur räknas som en). Utan typ gissas den ur frågetexten.
 //   6  alternativen olika inom frågan; inget alternativ mer än dubbelt så långt
-//      som det kortaste
+//      som det rätta (beställningen: "den kortaste rätta"; ett kort fel
+//      alternativ är ingen genväg, ett långt är det)
 //   7  längsta alternativet är facit i högst hälften av frågorna i filen
 //   8  inga tankstreck, inga engelska ord
 //   9  rätt bokstav jämnt fördelad över filen (varning)
@@ -254,8 +255,9 @@ export function valideraExpert(underlag, { andraIds = new Set(), befintliga = ne
       if (new Set(texter).size !== texter.length) r.f(6, id, `${nr}: två alternativ har samma text`);
       if (opts.length) {
         const l = opts.map((o) => langd(o.text));
-        const kort = Math.min(...l); const lang = Math.max(...l);
-        if (lang > 2 * kort) r.f(6, id, `${nr}: längsta alternativet har ${lang} tecken, mer än dubbelt det kortaste (${kort})`);
+        const lang = Math.max(...l);
+        const kort = ratta.length ? Math.min(...ratta.map((o) => langd(o.text))) : Math.min(...l);
+        if (lang > 2 * kort) r.f(6, id, `${nr}: längsta alternativet har ${lang} tecken, mer än dubbelt det rätta (${kort})`);
         // 7 och 9 räknas över filen
         if (ratta.length === 1) {
           antalQ++;

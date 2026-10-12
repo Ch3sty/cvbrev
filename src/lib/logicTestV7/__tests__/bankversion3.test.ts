@@ -18,6 +18,7 @@ import {
   ALLA_AVANCERAD,
   ALLA_EXPERT,
   BANK_VERSION,
+  TRANINGSVERSION,
   VALBARA_GRUND,
   VALBARA_AVANCERAD,
   VALBARA_EXPERT,
@@ -91,7 +92,8 @@ describe('versionsfälten', () => {
   it('157 frågor bär pensionerad_fran 3, och ingen ny fråga saknar fran_version', () => {
     const alla = [...ALLA_GRUND, ...ALLA_AVANCERAD, ...ALLA_EXPERT] as unknown as Q[]
     expect(alla.filter((q) => q.pensionerad_fran === 3)).toHaveLength(157)
-    for (const q of alla) if (q.fran_version !== undefined) expect(q.fran_version, q.id).toBe(3)
+    // Version 3 och bank 3.1 (fran_version 4, beställning omgång 2 C1).
+    for (const q of alla) if (q.fran_version !== undefined) expect([3, 4], q.id).toContain(q.fran_version)
   })
 })
 
@@ -121,9 +123,9 @@ describe('version 3', () => {
     expect(pool3.expert.filter((q) => (q as unknown as { band?: string }).band === 'plus').length).toBeGreaterThanOrEqual(38)
   })
 
-  it('TRANINGSBANK är bankversionens valbara frågor, och gamla id hittas fortfarande', () => {
+  it('TRANINGSBANK är träningsversionens valbara frågor, och gamla id hittas fortfarande', () => {
     const bank = TRANINGSBANK as unknown as Q[]
-    expect(bank.every((q) => valbarI(q, BANK_VERSION))).toBe(true)
+    expect(bank.every((q) => valbarI(q, TRANINGSVERSION))).toBe(true)
     const pensionerad = ([...ALLA_GRUND] as unknown as Q[]).find((q) => q.pensionerad_fran === 3)!
     expect(hittaTraningsfraga(pensionerad.id)?.id).toBe(pensionerad.id)
     if (BANK_VERSION === 3) expect(bank.some((q) => q.pensionerad_fran === 3)).toBe(false)

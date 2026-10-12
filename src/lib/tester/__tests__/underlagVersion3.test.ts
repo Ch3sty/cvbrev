@@ -59,19 +59,22 @@ describe('underlagsversion 3', () => {
     }
   })
 
-  it('version 3 har parti 01: verbalt avancerad 40, numeriskt avancerad 28, grund som version 2', () => {
+  it('version 3 har parti 01 och 03: verbalt 36 / 40 / 20, numeriskt 36 / 36', () => {
     expect(VA3.length).toBe(40)
-    expect(naAlla(3).length).toBe(28)
+    expect(naAlla(3).length).toBe(36)
     expect(VG3.length).toBe(VG2.length)
-    expect(ngAlla(3).length).toBe(ngAlla(2).length)
-    expect(veAlla(3).length).toBeGreaterThanOrEqual(12)
+    expect(ngAlla(3).length).toBe(36)
+    expect(VG3.length).toBe(36)
+    expect(veAlla(3).length).toBe(20)
+    expect(veAlla(1).length).toBe(12)
     expect(VA3.some((p) => p.id === 'va-07-foreningsstod')).toBe(true)
     expect(naId('na-04-elforbrukning')?.id).toBe('na-04-elforbrukning')
   })
 
-  it('provet och övningsprovet läser version 3 ur parti 01', () => {
+  it('provet och övningsprovet läser version 3', () => {
     expect(vPool('avancerad', 3).length).toBe(40)
-    expect(nPool('avancerad', 3).length).toBe(28)
+    expect(nPool('avancerad', 3).length).toBe(36)
+    expect(nPool('grund', 3).length).toBe(36)
     expect(vPool('avancerad', 1).length).toBe(24)
     const nyaVp = S.flatMap((s) => vp(s, 3)).filter((p) => /^va-0[1-8]-/.test(p.id))
     const nyaNp = S.flatMap((s) => np(s, 3)).filter((p) => /^na-0[1-8]-/.test(p.id))

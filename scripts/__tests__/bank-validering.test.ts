@@ -163,7 +163,7 @@ describe('verbal validering, expert (argumentationsanalys)', () => {
     [5, (d) => { q(d, 0, 0).typ = 'gissning' }, 'fel'],
     [5, (d) => { q(d, 0, 2).typ = 'felslut'; q(d, 0, 3).typ = 'antagande' }, 'fel'],
     [6, (d) => { q(d, 0, 1).options[2].text = 'Att fallet liknar de andra.' }, 'fel'],
-    [6, (d) => { q(d, 0, 2).options[1].text = 'Ett namn' }, 'fel'],
+    [6, (d) => { const qq = q(d, 0, 2); const fel = qq.options.findIndex((o: { isCorrect?: boolean }) => !o.isCorrect); qq.options[fel].text = 'Ett mycket långt felaktigt alternativ som fortsätter långt förbi det rätta svarets längd och mer därtill för att bli tydligt' }, 'fel'],
     [7, (d) => { for (const p of d) for (const x of p.questions) x.options.find((o: any) => o.isCorrect).text += ' och det gäller i alla lägen här' }, 'fel'],
     [8, (d) => { d[0].title = 'Fixtur — ett' }, 'fel'],
     [8, (d) => { q(d, 1, 3).options[0].text = 'Varje statement i texten är sant' }, 'fel'],

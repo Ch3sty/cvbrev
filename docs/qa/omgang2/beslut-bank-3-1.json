@@ -1,0 +1,26 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "godkanda": [
+    "v7a-v3-byte-18",
+    "v7a-v3-byte-19",
+    "v7a-v3-byte-20",
+    "v7a-v3-byte-21",
+    "v7a-v3-byte-22",
+    "v7a-v3-byte-23",
+    "v7a-v3-tva-07",
+    "v7a-v3-tva-08",
+    "v7e-v3-over-16",
+    "v7e-v3-over-17",
+    "v7e-plus-over-21",
+    "v7e-plus-over-22",
+    "v7g-v3-vand-15",
+    "v7g-v3-vand-16"
+  ],
+  "strukna": [
+    {
+      "id": "v7g-v3-antal-06",
+      "skal": "Två oberoende regler (antal per rad och riktning på diagonalen), samma recept som v7a-v3-antal-02 och -03 som ligger på avancerad med svårighet 3 och p_prior 0,5. Frågan håller, men inte som grund. Byggs om som v7a-v3-antal-04 på avancerad (samma rutnät, svårighet 3, p_prior 0,5, fran_version 4). Grund får ingen ersättare: mallen med konstant riktning är uttömd på grund (åtta rutnät, alla delar rader med antal-03 och -04), och 109 valbara i träningsversionen räcker."
+    }
+  ]
+}

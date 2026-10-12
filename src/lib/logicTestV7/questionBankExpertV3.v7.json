@@ -3326,5 +3326,177 @@
       "Vrider i stället för att spegla.",
       "En svart sektor saknas."
     ]
+  },
+  {
+    "id": "v7e-v3-over-16",
+    "title": "Bara det gemensamma",
+    "rule": "Den tredje rutan i varje rad visar bara det som finns i både den första och den andra.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 275
+        },
+        {
+          "kind": "tile",
+          "pattern": 80
+        },
+        {
+          "kind": "tile",
+          "pattern": 16
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 19
+        },
+        {
+          "kind": "tile",
+          "pattern": 18
+        },
+        {
+          "kind": "tile",
+          "pattern": 18
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 70
+        },
+        {
+          "kind": "tile",
+          "pattern": 208
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 214
+      },
+      {
+        "kind": "tile",
+        "pattern": 150
+      },
+      {
+        "kind": "tile",
+        "pattern": 70
+      },
+      {
+        "kind": "tile",
+        "pattern": 208
+      },
+      {
+        "kind": "tile",
+        "pattern": 64
+      },
+      {
+        "kind": "tile",
+        "pattern": 2
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 4,
+    "misstag": [
+      "Tar med allt. Bara det som finns i båda ska med.",
+      "Visar det som skiljer. Bara det som finns i båda ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "",
+      "Fel ruta är vald: rutan uppe i mitten är fylld i stället för rutan nere till vänster."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-17",
+    "title": "Det som blir kvar",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i den översta men inte i den mittersta.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 70
+        },
+        {
+          "kind": "tile",
+          "pattern": 401
+        },
+        {
+          "kind": "tile",
+          "pattern": 273
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 48
+        },
+        {
+          "kind": "tile",
+          "pattern": 37
+        },
+        {
+          "kind": "tile",
+          "pattern": 336
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 70
+        },
+        {
+          "kind": "tile",
+          "pattern": 400
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 337
+      },
+      {
+        "kind": "tile",
+        "pattern": 1
+      },
+      {
+        "kind": "tile",
+        "pattern": 65
+      },
+      {
+        "kind": "tile",
+        "pattern": 272
+      },
+      {
+        "kind": "tile",
+        "pattern": 64
+      },
+      {
+        "kind": "tile",
+        "pattern": 336
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 4,
+    "misstag": [
+      "Tar med allt. Det som finns i den mittersta rutan i kolumnen ska bort.",
+      "",
+      "Tar med det som bara finns i den mittersta rutan i kolumnen. Det ska bort.",
+      "Visar det gemensamma. Det är just det som ska bort.",
+      "Drar bort åt fel håll.",
+      "Kopierar den mittersta rutan i kolumnen."
+    ]
   }
 ]

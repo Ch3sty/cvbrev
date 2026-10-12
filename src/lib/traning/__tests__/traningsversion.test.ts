@@ -22,6 +22,7 @@ describe('träningsversionen', () => {
       expect(bank.has(q.id)).toBe(true)
       expect(v3.has(q.id)).toBe(false)
     }
+    expect(nya.map((q) => q.id).sort()).toHaveLength(15)
     expect(bank.size).toBe(v3.size + nya.length)
   })
 })
