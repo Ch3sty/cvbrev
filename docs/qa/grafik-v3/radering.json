@@ -1,0 +1,376 @@
+{
+  "tid": "2026-10-11T23:52:28.882Z",
+  "konton": [
+    {
+      "nyckel": "m360-ljust-1791759767626",
+      "email": "qa-grafik-1791759767626@jobbcoach-qa.test",
+      "id": "7196e413-0604-4515-ba91-c2ffb2b304d8",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791759945621",
+      "email": "qa-grafik-1791759945621@jobbcoach-qa.test",
+      "id": "b8dbe44d-084e-46bb-83b5-10f43a722f4d",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791760121965",
+      "email": "qa-grafik-1791760121965@jobbcoach-qa.test",
+      "id": "b1d7c1b5-dcd7-4e34-9155-cfbe1df4dbe8",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791760301926",
+      "email": "qa-grafik-1791760301926@jobbcoach-qa.test",
+      "id": "2efb9ad8-ae97-46cf-a6c5-52b5d755af49",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-1791761223007",
+      "email": "qa-grafik-1791761223007@jobbcoach-qa.test",
+      "id": "7fe0f448-fe73-460e-881e-e0dc7a361f7b",
+      "rader": {
+        "test_planer": 1,
+        "premium_grants": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791761287799",
+      "email": "qa-grafik-1791761287799@jobbcoach-qa.test",
+      "id": "9a851cb9-8b21-44e0-b492-39df9507fcf9",
+      "rader": {
+        "test_planer": 1,
+        "premium_grants": 1,
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791761353714",
+      "email": "qa-grafik-1791761353714@jobbcoach-qa.test",
+      "id": "ceb99797-0582-4a9b-bd27-735a3862c313",
+      "rader": {
+        "test_planer": 1,
+        "premium_grants": 1,
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791761418728",
+      "email": "qa-grafik-1791761418728@jobbcoach-qa.test",
+      "id": "8f3b182d-27a1-4aff-8096-6c51e0706d03",
+      "rader": {
+        "test_planer": 1,
+        "premium_grants": 1,
+        "user_activities": 1,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller"
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-1791761522860",
+      "email": "qa-grafik-1791761522860@jobbcoach-qa.test",
+      "id": "d1057885-a71b-4c4f-a732-db989614a7e3",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791761588631",
+      "email": "qa-grafik-1791761588631@jobbcoach-qa.test",
+      "id": "3d3c7c7f-6a0d-47c1-8bee-8b6836de85d2",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791761651162",
+      "email": "qa-grafik-1791761651162@jobbcoach-qa.test",
+      "id": "961d44a2-bb83-4b0b-abe4-ab94aa0fd6d1",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791761713453",
+      "email": "qa-grafik-1791761713453@jobbcoach-qa.test",
+      "id": "e31955eb-2b2d-4154-9cc6-fcf3388778de",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-1791761817693",
+      "email": "qa-grafik-1791761817693@jobbcoach-qa.test",
+      "id": "ceb2f76e-704f-4f7f-83ef-ae2f27a95974",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791761893944",
+      "email": "qa-grafik-1791761893944@jobbcoach-qa.test",
+      "id": "3cf378f6-dd13-4f0d-93f1-c83872f154a9",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791761955313",
+      "email": "qa-grafik-1791761955313@jobbcoach-qa.test",
+      "id": "ce53b9e6-c169-487a-912b-3a0159c768d4",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791762022015",
+      "email": "qa-grafik-1791762022015@jobbcoach-qa.test",
+      "id": "f055e4ba-ad99-430a-aa38-67f8387a9dbc",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-1791762110453",
+      "email": "qa-grafik-1791762110453@jobbcoach-qa.test",
+      "id": "3dbe6aa7-2d5e-41c6-8b8d-58d52fdfa399",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791762170395",
+      "email": "qa-grafik-1791762170395@jobbcoach-qa.test",
+      "id": "4e806db2-6387-4442-951c-952855c22d7d",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791762230313",
+      "email": "qa-grafik-1791762230313@jobbcoach-qa.test",
+      "id": "1b094ef0-976f-4218-8391-a41617a3e2f0",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791762317908",
+      "email": "qa-grafik-1791762317908@jobbcoach-qa.test",
+      "id": "63d55f9c-d075-4820-93c6-18e94c651276",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-ljust-1791762402611",
+      "email": "qa-grafik-1791762402611@jobbcoach-qa.test",
+      "id": "458bc065-f86d-4418-9e8a-d35990bec583",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "m360-morkt-1791762466115",
+      "email": "qa-grafik-1791762466115@jobbcoach-qa.test",
+      "id": "79d1d931-4787-4d66-9fa6-d2aa3be025b3",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-ljust-1791762528068",
+      "email": "qa-grafik-1791762528068@jobbcoach-qa.test",
+      "id": "915befab-bb2a-4b1d-9b62-08407bb97e88",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    },
+    {
+      "nyckel": "desktop-morkt-1791762592397",
+      "email": "qa-grafik-1791762592397@jobbcoach-qa.test",
+      "id": "d4c20c2f-4906-466c-bf7b-95a95604cecb",
+      "rader": {
+        "test_planer": 1,
+        "test_milstolpar": 1,
+        "premium_grants": 1,
+        "user_activities": 8,
+        "user_dashboard_rewards": "vy, 1 rader via sina tabeller",
+        "logic_test_v4_sessions": 3,
+        "test_nivapunkter": 1
+      },
+      "profiler": 1,
+      "auth": "raderad"
+    }
+  ]
+}

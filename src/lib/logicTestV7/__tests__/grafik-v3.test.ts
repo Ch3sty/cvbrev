@@ -122,7 +122,7 @@ describe('V9: en skala i matris och svar', () => {
 
   it('figuren ritas med 10 procent luft per sida, 80 procent av rutan', () => {
     const svg = renderToStaticMarkup(React.createElement(FigurV7, { cell: { kind: 'ray', rays: [0] } }))
-    expect(svg).toContain('p-[10%]')
+    expect(svg).toContain('padding:10%')
   })
 })
 

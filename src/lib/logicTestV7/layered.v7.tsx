@@ -70,11 +70,16 @@ export const isStack = (cell: LayeredCell): cell is V7Cell[] => Array.isArray(ce
  * matrisen och alternativen. Samma svg-i-full-storlek-mekanism för figurer
  * och lucka ger samma höjd (höjdfällan i reference_matrix_test_system).
  * Ska stå inne i .matrisyta, som mappar de fasta färgerna till tokens.
+ * Luften står som inline-stil: src/lib ligger utanför Tailwinds content, så
+ * en klass här skulle falla bort ur bygget.
  */
+const FIGUR_LUFT: React.CSSProperties = { padding: '10%' };
+
 export const FigurV7: React.FC<{ cell: LayeredCell; className?: string }> = ({ cell, className }) => (
   <svg
     viewBox="0 0 100 100"
-    className={`block h-full w-full p-[10%] ${className ?? ''}`}
+    className={`block h-full w-full ${className ?? ''}`}
+    style={FIGUR_LUFT}
     shapeRendering="geometricPrecision"
     aria-hidden="true"
     focusable="false"

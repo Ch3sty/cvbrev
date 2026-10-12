@@ -1,0 +1,855 @@
+{
+  "datum": "2026-10-11T23:46:40.980Z",
+  "bas": "http://localhost:5462",
+  "vyer": [
+    {
+      "namn": "m360-ljust-01-nivakollen-fraga",
+      "url": "/dashboard/tester/pass/c4611c6e-a945-480d-88b5-f2ece2364cb8",
+      "fil": "docs/qa/grafik-v3/m360-ljust-01-nivakollen-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-02-nivakollen-efter-val",
+      "url": "/dashboard/tester/pass/c4611c6e-a945-480d-88b5-f2ece2364cb8",
+      "fil": "docs/qa/grafik-v3/m360-ljust-02-nivakollen-efter-val.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-03-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/c4611c6e-a945-480d-88b5-f2ece2364cb8",
+      "fil": "docs/qa/grafik-v3/m360-ljust-03-nivakollen-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-ljust-04-pass-fore-svar",
+      "url": "/dashboard/tester/pass/fdad1935-8da8-4b22-a822-241d9ec17955",
+      "fil": "docs/qa/grafik-v3/m360-ljust-04-pass-fore-svar.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-05-pass-regelpanel",
+      "url": "/dashboard/tester/pass/fdad1935-8da8-4b22-a822-241d9ec17955",
+      "fil": "docs/qa/grafik-v3/m360-ljust-05-pass-regelpanel.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": true,
+        "luckaBakgrund": "rgb(255, 255, 255)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A, rätt svar",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-05-luckans-farg",
+      "lucka": "rgb(168, 73, 26) rgb(168, 73, 26)"
+    },
+    {
+      "namn": "m360-ljust-07-klassiskt-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/a9f2aae0-c95e-4eb5-b57b-c5e24a743d73",
+      "fil": "docs/qa/grafik-v3/m360-ljust-07-klassiskt-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-08-klassiskt-valt",
+      "url": "/dashboard/tester/matrislogik-grund/test/a9f2aae0-c95e-4eb5-b57b-c5e24a743d73",
+      "fil": "docs/qa/grafik-v3/m360-ljust-08-klassiskt-valt.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-ljust-09-klassiskt-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/a9f2aae0-c95e-4eb5-b57b-c5e24a743d73/results",
+      "fil": "docs/qa/grafik-v3/m360-ljust-09-klassiskt-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-ljust-10-klassiskt-genomgang-kort",
+      "url": "/dashboard/tester/matrislogik-grund/test/a9f2aae0-c95e-4eb5-b57b-c5e24a743d73/results",
+      "fil": "docs/qa/grafik-v3/m360-ljust-10-klassiskt-genomgang-kort.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-ljust-11-klassiskt-genomgang-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/a9f2aae0-c95e-4eb5-b57b-c5e24a743d73/results",
+      "fil": "docs/qa/grafik-v3/m360-ljust-11-klassiskt-genomgang-fraga.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-morkt-01-nivakollen-fraga",
+      "url": "/dashboard/tester/pass/1d1d62b4-0d6f-4a6b-b81c-99f9b34cdd56",
+      "fil": "docs/qa/grafik-v3/m360-morkt-01-nivakollen-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-02-nivakollen-efter-val",
+      "url": "/dashboard/tester/pass/1d1d62b4-0d6f-4a6b-b81c-99f9b34cdd56",
+      "fil": "docs/qa/grafik-v3/m360-morkt-02-nivakollen-efter-val.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-03-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/1d1d62b4-0d6f-4a6b-b81c-99f9b34cdd56",
+      "fil": "docs/qa/grafik-v3/m360-morkt-03-nivakollen-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-morkt-04-pass-fore-svar",
+      "url": "/dashboard/tester/pass/9b18eb7a-ada9-44ae-829f-a5770f35fa9f",
+      "fil": "docs/qa/grafik-v3/m360-morkt-04-pass-fore-svar.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-05-pass-regelpanel",
+      "url": "/dashboard/tester/pass/9b18eb7a-ada9-44ae-829f-a5770f35fa9f",
+      "fil": "docs/qa/grafik-v3/m360-morkt-05-pass-regelpanel.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": true,
+        "luckaBakgrund": "rgb(23, 27, 46)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-05-luckans-farg",
+      "lucka": "rgb(242, 163, 104) rgb(0, 0, 0)"
+    },
+    {
+      "namn": "m360-morkt-07-klassiskt-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/da72b631-cabc-4954-a66d-c9211257a6e9",
+      "fil": "docs/qa/grafik-v3/m360-morkt-07-klassiskt-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-08-klassiskt-valt",
+      "url": "/dashboard/tester/matrislogik-grund/test/da72b631-cabc-4954-a66d-c9211257a6e9",
+      "fil": "docs/qa/grafik-v3/m360-morkt-08-klassiskt-valt.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 306,
+        "ruta": 101.3,
+        "figur": 81.1,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 102.7,
+        "figur": 80.5,
+        "andel": 78.4,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "m360-morkt-09-klassiskt-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/da72b631-cabc-4954-a66d-c9211257a6e9/results",
+      "fil": "docs/qa/grafik-v3/m360-morkt-09-klassiskt-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-morkt-10-klassiskt-genomgang-kort",
+      "url": "/dashboard/tester/matrislogik-grund/test/da72b631-cabc-4954-a66d-c9211257a6e9/results",
+      "fil": "docs/qa/grafik-v3/m360-morkt-10-klassiskt-genomgang-kort.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "m360-morkt-11-klassiskt-genomgang-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/da72b631-cabc-4954-a66d-c9211257a6e9/results",
+      "fil": "docs/qa/grafik-v3/m360-morkt-11-klassiskt-genomgang-fraga.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-ljust-01-nivakollen-fraga",
+      "url": "/dashboard/tester/pass/18c967de-01ba-4116-9783-8314564aaad4",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-01-nivakollen-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-02-nivakollen-efter-val",
+      "url": "/dashboard/tester/pass/18c967de-01ba-4116-9783-8314564aaad4",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-02-nivakollen-efter-val.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-03-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/18c967de-01ba-4116-9783-8314564aaad4",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-03-nivakollen-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-ljust-04-pass-fore-svar",
+      "url": "/dashboard/tester/pass/560e04c2-9014-4551-857a-f148f4050e57",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-04-pass-fore-svar.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-05-pass-regelpanel",
+      "url": "/dashboard/tester/pass/560e04c2-9014-4551-857a-f148f4050e57",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-05-pass-regelpanel.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": true,
+        "luckaBakgrund": "rgb(255, 255, 255)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B, rätt svar"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-05-luckans-farg",
+      "lucka": "rgb(168, 73, 26) rgb(0, 0, 0)"
+    },
+    {
+      "namn": "desktop-ljust-07-klassiskt-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/b59d39e5-2a54-424a-b25f-3c7ba219b98e",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-07-klassiskt-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 398,
+        "ruta": 132,
+        "figur": 105.6,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 133.3,
+        "figur": 105.1,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-08-klassiskt-valt",
+      "url": "/dashboard/tester/matrislogik-grund/test/b59d39e5-2a54-424a-b25f-3c7ba219b98e",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-08-klassiskt-valt.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 398,
+        "ruta": 132,
+        "figur": 105.6,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(244, 243, 240)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 133.3,
+        "figur": 105.1,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-ljust-09-klassiskt-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/b59d39e5-2a54-424a-b25f-3c7ba219b98e/results",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-09-klassiskt-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-ljust-10-klassiskt-genomgang-kort",
+      "url": "/dashboard/tester/matrislogik-grund/test/b59d39e5-2a54-424a-b25f-3c7ba219b98e/results",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-10-klassiskt-genomgang-kort.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-ljust-11-klassiskt-genomgang-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/b59d39e5-2a54-424a-b25f-3c7ba219b98e/results",
+      "fil": "docs/qa/grafik-v3/desktop-ljust-11-klassiskt-genomgang-fraga.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-morkt-01-nivakollen-fraga",
+      "url": "/dashboard/tester/pass/b7d61135-9592-4302-abe3-590fa4acd53a",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-01-nivakollen-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-02-nivakollen-efter-val",
+      "url": "/dashboard/tester/pass/b7d61135-9592-4302-abe3-590fa4acd53a",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-02-nivakollen-efter-val.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-03-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/b7d61135-9592-4302-abe3-590fa4acd53a",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-03-nivakollen-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-morkt-04-pass-fore-svar",
+      "url": "/dashboard/tester/pass/dafa8f09-a840-4951-85db-4480b905f980",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-04-pass-fore-svar.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-05-pass-regelpanel",
+      "url": "/dashboard/tester/pass/dafa8f09-a840-4951-85db-4480b905f980",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-05-pass-regelpanel.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 378,
+        "ruta": 125.3,
+        "figur": 100.3,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": true,
+        "luckaBakgrund": "rgb(23, 27, 46)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 126.7,
+        "figur": 99.8,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-05-luckans-farg",
+      "lucka": "none rgb(242, 163, 104)"
+    },
+    {
+      "namn": "desktop-morkt-07-klassiskt-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/ee929924-cf73-47e1-8685-aae513dc14f5",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-07-klassiskt-fraga.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 398,
+        "ruta": 132,
+        "figur": 105.6,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 133.3,
+        "figur": 105.1,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-08-klassiskt-valt",
+      "url": "/dashboard/tester/matrislogik-grund/test/ee929924-cf73-47e1-8685-aae513dc14f5",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-08-klassiskt-valt.png",
+      "horisontell": false,
+      "talstreck": false,
+      "matris": {
+        "bredd": 398,
+        "ruta": 132,
+        "figur": 105.6,
+        "andel": 80,
+        "luckaText": 0,
+        "luckaKoppar": false,
+        "luckaFylld": false,
+        "luckaBakgrund": "rgb(29, 34, 56)"
+      },
+      "alternativ": {
+        "antal": 6,
+        "iBredd": 3,
+        "kort": 133.3,
+        "figur": 105.1,
+        "andel": 78.8,
+        "bokstaver": "ABCDEF",
+        "bock": false,
+        "aria": [
+          "Svarsalternativ A",
+          "Svarsalternativ B"
+        ]
+      }
+    },
+    {
+      "namn": "desktop-morkt-09-klassiskt-resultat",
+      "url": "/dashboard/tester/matrislogik-grund/test/ee929924-cf73-47e1-8685-aae513dc14f5/results",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-09-klassiskt-resultat.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-morkt-10-klassiskt-genomgang-kort",
+      "url": "/dashboard/tester/matrislogik-grund/test/ee929924-cf73-47e1-8685-aae513dc14f5/results",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-10-klassiskt-genomgang-kort.png",
+      "horisontell": false,
+      "talstreck": false
+    },
+    {
+      "namn": "desktop-morkt-11-klassiskt-genomgang-fraga",
+      "url": "/dashboard/tester/matrislogik-grund/test/ee929924-cf73-47e1-8685-aae513dc14f5/results",
+      "fil": "docs/qa/grafik-v3/desktop-morkt-11-klassiskt-genomgang-fraga.png",
+      "horisontell": false,
+      "talstreck": false
+    }
+  ],
+  "fel": []
+}
