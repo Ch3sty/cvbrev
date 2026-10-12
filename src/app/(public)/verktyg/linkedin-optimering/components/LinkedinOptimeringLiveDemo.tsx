@@ -76,7 +76,7 @@ export default function LinkedinOptimeringLiveDemo() {
         </div>
         <div className="min-w-0 flex-1">
           <div className="truncate text-sm font-semibold text-ink-1">Anna Lindberg</div>
-          <div className="truncate text-meta text-ink-3">Stockholm · Marknadsförare</div>
+          <div className="truncate text-meta text-ink-3">Stockholm, marknadsförare</div>
         </div>
       </div>
 

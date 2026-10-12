@@ -3,11 +3,11 @@
  * avsnitt 5). h1, title, description och schemat (WebApplication, HowTo,
  * FAQPage) är oförändrade; bara ramen och sektionernas form är nya.
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmLinkedin from '@/components/publikt/telefon/skarmar/SkarmLinkedin'
 import LinkedinOptimeringLiveDemo from './components/LinkedinOptimeringLiveDemo'
 import { LINKEDIN_OPTIMERING_FAQ_ITEMS } from './components/linkedin-optimering-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenLinkedin } from '@/components/illustrations/PriserScener'
 import { PLAN_BY_KEY, SALD_PLAN, paketMedPris, paketNamn } from '@/lib/plans/plans'
 
 /** Stegtexterna på sidan. Schemats HowTo-text ligger kvar oförändrad nedan. */
@@ -148,7 +148,9 @@ export default function LinkedinOptimeringSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="cv"
+        telefon={<SkarmLinkedin />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
@@ -157,7 +159,7 @@ export default function LinkedinOptimeringSida() {
             href: '/verktyg/linkedin-optimering',
           },
         ]}
-        eyebrow="LinkedIn-optimering · syns när rekryteraren söker"
+        eyebrow="LinkedIn-optimering, syns när rekryteraren söker"
         h1="Hamna i rekryterarnas sökresultat på LinkedIn"
         ingress="Du klistrar in din profiltext, vi optimerar fem sektioner samtidigt och ger dig en bättre version att klistra tillbaka."
         fet="Vi loggar aldrig in på din LinkedIn, du behåller full kontroll."
@@ -168,7 +170,6 @@ export default function LinkedinOptimeringSida() {
           { tal: '5', text: 'sektioner samtidigt' },
           { tal: '5 min', text: 'tills profilen är uppdaterad' },
         ]}
-        scen={<IlluScenLinkedin className="h-auto w-full" />}
         handling={<LinkedinOptimeringLiveDemo />}
         handlingId="exempel"
         steg={{
