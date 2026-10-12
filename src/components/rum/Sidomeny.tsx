@@ -23,7 +23,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { scheduleIdle } from '@/lib/scheduleIdle'
 import { scopeHasFeature, type Feature } from '@/lib/access/features'
 import { menyFot, menyRad, paketNamn, type PaketLage } from '@/lib/onboarding/paket-rader'
-import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, paketKort } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import GraValSheet from '@/components/paywall/GraValSheet'
 import KomIgangRad from '@/components/dashboard/KomIgangRad'
@@ -75,8 +75,10 @@ export interface Undersida {
 
 /**
  * Kort status bredvid Prenumeration (copy-premium avsnitt 3): "Premium" för
- * den som betalar, "5 dagar kvar" för en tidsbegränsad period och priset med
- * period (prisPeriod) på gratisnivån. En befintlig spårkund ser sitt paket.
+ * den som betalar, "5 dagar kvar" för en tidsbegränsad period och priset i
+ * kortform ("149 kr/mån") på gratisnivån. En befintlig spårkund ser sitt
+ * paket. Chipet är kort så att "Prenumeration" alltid står helt i 248 px
+ * (ägarens rättelse 2026-10-13); hela prisraden står på Prenumeration.
  */
 function prenumerationsEtikett(profil: Record<string, unknown> | null, paket: PaketLage): string | null {
   if (!profil) return null
@@ -87,14 +89,14 @@ function prenumerationsEtikett(profil: Record<string, unknown> | null, paket: Pa
   const harUntil = Boolean(until) && new Date(until as string) > new Date()
   const liveSub =
     !!subId && !String(subId).startsWith('sub_test') && ['active', 'trialing', 'past_due', 'unpaid'].includes(status)
-  const namn = paket.planKey ? paketNamn(paket.planKey) : paketKort()
+  const namn = paket.planKey && paket.planKey !== SALD_PLAN ? paketNamn(paket.planKey) : paketKort()
   if (liveSub) return namn
   if (tier === 'premium' && harUntil) {
     const dagar = Math.max(1, Math.ceil((new Date(until as string).getTime() - Date.now()) / 86400000))
     return `${dagar} ${dagar === 1 ? 'dag' : 'dagar'} kvar`
   }
   if (tier === 'premium') return namn
-  return prisPeriod(SALD_PLAN)
+  return `${PLAN_BY_KEY[SALD_PLAN].amount} kr/mån`
 }
 
 export default function Sidomeny() {
@@ -302,8 +304,9 @@ export default function Sidomeny() {
                   : 'rounded-[10px] text-ink-2 hover:bg-papper-2 hover:text-ink-1'
               }`}
             >
-              <span className="truncate">{u.etikett}</span>
-              {u.chip ?? null}
+              {/* Etiketten står alltid hel; chipet får ge vika. */}
+              <span className={u.chip ? 'shrink-0' : 'truncate'}>{u.etikett}</span>
+              {u.chip ? <span className="flex min-w-0 justify-end overflow-hidden">{u.chip}</span> : null}
             </Link>
           )
         })}
