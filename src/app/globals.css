@@ -1972,6 +1972,7 @@ html {
 :root:has(.pub-sida) .bg-ink-1.text-white {
   background: linear-gradient(180deg, var(--koppar), var(--koppar-djup));
   color: var(--koppar-text);
+  white-space: nowrap;
 }
 
 /* Publika rum: sätter bara variabler lokalt, inget lyfts till roten.
@@ -1993,3 +1994,6 @@ html {
 :root[data-theme="dark"] .pub-rum-brev { --rum-ton: #2A1224; --rum-ink: #D6AFC8; }
 :root[data-theme="dark"] .pub-rum-jobb { --rum-ton: #14261B; --rum-ink: #A9C9B1; }
 :root[data-theme="dark"] .pub-rum-neu  { --rum-ton: #222127; --rum-ink: #B9B8C2; }
+/* Logotypens ord följer läget på de ombyggda publika sidorna (mörkt läge). */
+:root:has(.pub-sida) .logo-ord { fill: var(--ink-1); }
+:root:has(.pub-sida) .logo-ai { fill: var(--ink-3); }

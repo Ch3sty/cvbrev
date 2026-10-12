@@ -314,7 +314,10 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
   const faq: string[] = [];
   doc.querySelectorAll('summary').forEach((sm) => {
     if (iRam(sm)) return;
-    const t = text(sm);
+    // Ikoner (+ och −) bredvid frågan räknas inte: bara frågans text.
+    const kopia = sm.cloneNode(true) as Element;
+    kopia.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
+    const t = text(kopia).replace(/[\s+−×]+$/u, '');
     if (t) faq.push(t);
   });
   doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => {
@@ -392,6 +395,7 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
     ...a,
     lankar: a.lankar.filter((l) => normHref(l) !== null),
     ramLankar: a.ramLankar.filter((l) => normHref(l) !== null),
+    faq: a.faq?.map((q) => q.replace(/[\s+−×]+$/u, '')),
   });
   const fore = foreRa.map(rensa);
   const efter = efterRa.map(rensa);
@@ -412,7 +416,7 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       if (f.status !== e.status) brott(`status ${f.status} → ${e.status}`);
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {
         // OG-bildens frågesträng är byggets hash och byts vid varje bygge.
-        const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0] : v);
+        const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0].replace(/^https?:\/\/[^/]+/, '') : v);
         if (norm(f[falt]) !== norm(e[falt])) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
       const h1f = f.h1.filter((h) => !TILLATNA_H1.includes(h));

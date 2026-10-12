@@ -47,8 +47,12 @@ async function ny(b: Browser, e: Enhet, lage: (typeof LAGEN)[number], reducerad 
   return p
 }
 
+/** --steg <del av namn>: kör bara de stegen (omkörning), resultatet i resultat-omkorning.md. */
+const FILTER = arg('steg')
+
 async function steg(p: Page, e: Enhet, lage: string, namn: string, kontroll: () => Promise<string | null>, helsida = false) {
   nr++
+  if (FILTER && !namn.includes(FILTER)) return
   const fil = `${String(nr).padStart(2, '0')}-${e.namn}-${lage}-${namn}.jpg`
   let problem: string | null = null
   try {
@@ -65,16 +69,18 @@ async function steg(p: Page, e: Enhet, lage: string, namn: string, kontroll: () 
 }
 
 async function ga(p: Page, url: string) {
-  const r = await p.goto(BAS + url, { waitUntil: 'networkidle0', timeout: 90000 })
-  await new Promise((res) => setTimeout(res, 800))
-  return r?.status() ?? 0
+  const r = await p.goto(BAS + url, { waitUntil: 'load', timeout: 90000 })
+  await new Promise((res) => setTimeout(res, 1200))
+  const s = r?.status() ?? 0
+  // 304 är samma svar ur webbläsarens cache.
+  return s === 304 ? 200 : s
 }
 
 /** Klicka på första länken som matchar och vänta på navigationen. Returnerar ny sökväg. */
 async function klicka(p: Page, selektor: string): Promise<string> {
   await p.waitForSelector(selektor, { timeout: 10000 })
   await p.$eval(selektor, (el) => (el as HTMLElement).scrollIntoView({ block: 'center' }))
-  await Promise.all([p.waitForNavigation({ waitUntil: 'networkidle0', timeout: 60000 }).catch(() => null), p.click(selektor)])
+  await Promise.all([p.waitForNavigation({ waitUntil: 'load', timeout: 60000 }).catch(() => null), p.click(selektor)])
   await new Promise((res) => setTimeout(res, 600))
   const u = new URL(p.url())
   return u.pathname + u.search
@@ -128,7 +134,7 @@ async function main() {
     await b.close()
   }
   const md = `# Klicktest publikt v2, våg ${VAG}\n\nKört ${new Date().toISOString()} mot ${BAS} (lokalt produktionsbygge), Chrome via puppeteer-core.\n\n| # | Enhet | Läge | Steg | Utfall | Skärmdump |\n|---|---|---|---|---|---|\n${rader.join('\n')}\n\nFel: ${fel}\n`
-  fs.writeFileSync(path.join(UT, 'resultat.md'), md)
+  fs.writeFileSync(path.join(UT, FILTER ? 'resultat-omkorning.md' : 'resultat.md'), md)
   console.log(`\nFel: ${fel}`)
   process.exit(fel ? 1 : 0)
 }

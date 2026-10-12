@@ -1,23 +1,13 @@
 /**
- * Startsidan (docs/design/analys-visuell-linje-2026-09-22.html, avsnitt 5).
+ * Startsidan, publikt v2 (docs/design/spec-publikt-v2-del-a-2026-10-12.md
+ * avsnitt 5.1). Sektionerna bor i src/components/publikt/start/Startsidan.tsx.
  *
- * Sektionsföljden i designsystemets §12: hero med IlluScenSallet, panel med
- * produktscen, mediebevisen i bläck, tre verktygskort, en lista, paketen
- * (samma PriserPaket som prissidan) och frågorna på mark. LiveAIShowcase,
- * ToolsConstellation, DynamicCounters och RichFinalCTA är borta.
- *
- * h1, title och description är oförändrade (SEO-spärren).
+ * h1, title och description är oförändrade (SEO-spärren). Antalet konton
+ * visas i hjältens talrad (ägarens beslut 9).
  */
 import AuthRedirect from '@/components/landing/AuthRedirect';
-import PriserPaket from '@/app/(public)/priser/components/PriserPaket';
-import {
-  StartFaq,
-  StartHero,
-  StartLista,
-  StartMatchning,
-  StartMedia,
-  StartVerktyg,
-} from '@/components/landing/start/StartSida';
+import PubliktSida from '@/components/publikt/PubliktSida';
+import Startsidan from '@/components/publikt/start/Startsidan';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export const revalidate = 86400;
@@ -35,19 +25,9 @@ async function antalKonton(): Promise<number | null> {
 export default async function HomePage() {
   const konton = await antalKonton();
   return (
-    <div className="min-h-screen bg-mark">
+    <PubliktSida>
       <AuthRedirect />
-      <main className="mx-auto max-w-[1200px] px-4 pb-12 pt-6 sm:px-6 lg:px-12 lg:pb-[72px] lg:pt-16">
-        <StartHero konton={konton} />
-        <StartMatchning />
-        <StartMedia />
-        <StartVerktyg />
-        <StartLista />
-        <div className="mt-8 lg:mt-4">
-          <PriserPaket />
-        </div>
-        <StartFaq />
-      </main>
-    </div>
+      <Startsidan konton={konton} />
+    </PubliktSida>
   );
 }

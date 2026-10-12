@@ -5,6 +5,11 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { TESTTAL } from '@/components/publikt/testtal'
+
+// Talen läses ur testConfig (spec-publikt-v2 del A avsnitt 6, ägarens beslut 1
+// 2026-10-12): träningspassens antal, övningsprovet nämnt separat.
+const T = TESTTAL
 
 export interface FaqItem {
   q: string
@@ -18,15 +23,15 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur fungerar ett matrislogik-test?',
-    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på 15 frågor per pass i samma format som SHL och Cut-e använder.',
+    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på ' + T.matrisGrund.fragor + ' frågor per pass i samma format som SHL och Cut-e använder.',
   },
   {
     q: 'Vad är verbalt resonemang och hur tränar man på det?',
-    a: 'Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. Vårt verbala test innehåller 12 textpassager med fyra påståenden per passage, totalt 48 bedömningar.',
+    a: 'Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. I våra träningspass bedömer du ' + T.verbalGrund.fragor + ' påståenden per pass, och övningsprovet har ' + T.verbalProv.fragor + '.',
   },
   {
     q: 'Vad är numeriskt resonemang?',
-    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på 24 frågor per pass.',
+    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på ' + T.numeriskGrund.fragor + ' frågor per pass, och övningsprovet har ' + T.numeriskProv.fragor + '.',
   },
   {
     q: 'Hur tränar jag bäst inför ett rekryteringstest?',
@@ -46,11 +51,11 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur lång tid tar varje test?',
-    a: 'Våra grundtester tar runt 20 minuter och de avancerade versionerna runt 25 minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.',
+    a: 'Våra grundtester tar runt ' + T.matrisGrund.minuter + ' minuter och de avancerade versionerna runt ' + T.matrisAvancerad.minuter + ' minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.',
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du en nivåkoll med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du en nivåkoll med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

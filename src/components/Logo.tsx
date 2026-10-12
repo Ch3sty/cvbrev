@@ -102,10 +102,11 @@ function LogoSvg({
           fontSize="22"
           fontWeight="900"
           fill={wordColor}
+          className={isOnDark || isMonoWhite ? undefined : 'logo-ord'}
           letterSpacing="-0.5"
         >
           Jobbcoach
-          <tspan fill={aiColor}>.ai</tspan>
+          <tspan fill={aiColor} className={isOnDark || isMonoWhite ? undefined : 'logo-ai'}>.ai</tspan>
         </text>
         <text
           x="62"
@@ -155,10 +156,11 @@ function LogoSvg({
         fontSize="26"
         fontWeight="900"
         fill={wordColor}
+        className={isOnDark || isMonoWhite ? undefined : 'logo-ord'}
         letterSpacing="-0.5"
       >
         Jobbcoach
-        <tspan fill={aiColor}>.ai</tspan>
+        <tspan fill={aiColor} className={isOnDark || isMonoWhite ? undefined : 'logo-ai'}>.ai</tspan>
       </text>
     </svg>
   )
